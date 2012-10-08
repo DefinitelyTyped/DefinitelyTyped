@@ -1,0 +1,10 @@
+*.dll
+*.exe
+*.pdb
+*.suo
+*.js
+*.user
+*.cache
+*.cs
+*.sln
+*.csproj
