@@ -1,8 +1,8 @@
 // Type definitions for Backbone 0.9
 // https://github.com/borisyankov/DefinitelyTyped
 
-
 declare module Backbone {
+
     export class Events {
         on(events: string, callback: (event) => any, context?: any): any;
         off(events?: string, callback?: (event) => any, context?: any): any;
@@ -10,14 +10,18 @@ declare module Backbone {
     }
 
     export class Model {
-        extend(properties, classProperties? );
-        constructor (attributes: any);
 
-        get(attribute);
-        set(attributes, options? );
+        static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScrip's extend functionality
+
+        constructor (attributes?: any, options?: any);
+
+        get(attributeName: string): any;
+        set(attributeName: string, value: any): void;
+        set(obj: any): void;
+
         escape(attribute);
         has(attribute);
-        unset(attribute, options?);
+        unset(attribute, options? );
         clear(options? );
 
         id: any;
@@ -26,11 +30,13 @@ declare module Backbone {
         attributes;
         changed;
 
-        defaults();
-        toJSON();
+        bind(ev: string, f: Function, ctx?: any): void;  /// ????
+
+        // defaults; defaults();
+        toJSON(): string;
         fetch(options? );
-        save(attributes? , options? );
-        destroy(options? );
+        save(attributes? , options? ): void;
+        destroy(options? ): void;
         validate(attributes);
         isValid();
         url();
@@ -46,22 +52,47 @@ declare module Backbone {
     }
 
     export class Collection {
-        extend(properties, classProperties? );
+
+        static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScrip's extend functionality
+
         model;
+
         constructor (models? , options? );
+
         models;
-        toJSON();
-        // Add 28 UNDERSCORE bindings
-        add(models, options?);
+        toJSON(): any;
+
+        ///// start UNDERSCORE 28:
+        bind(ev: string, f: Function, ctx?: any): void;
+        collection: Model;
+        create(attrs, opts? ): Collection;
+        each(f: (elem: any) => void ): void;
+        fetch(opts?: any): void;
+        last(): any;
+        last(n: number): any[];
+        filter(f: (elem: any) => any): Collection;
+        without(...values: any[]): Collection;
+
+        /////  'reduce', 'reduceRight', 'find',
+    'detect', 'filter', 'select', 'reject', 'every', 'all', 'some', 'any',
+    'include', 'contains', 'invoke', 'max', 'min', 'sortBy', 'sortedIndex',
+    'toArray', 'size', 'first', 'initial', 'rest', 'last', 'without', 'indexOf',
+    'shuffle', 'lastIndexOf', 'isEmpty', 'groupBy'        
+
+        each(object: any, iterator: (value, key, list?): void, context?: any): any[];
+        forEach(object: any, iterator: (value, key, list?): void, context?: any): any[];
+        map(object: any, iterator: ObjectIterator, context?: any): any[];
+
+        add(models, options? );
         remove(models, options? );
         get(id);
         getByCid(cid);
-        at(index);
-        push(model, options?);
+        at(index: number);
+        push(model, options? );
         pop(options? );
         unshift(model, options? );
         shift(options? );
-        length;
+        length: number;
         comparator;
         sort(options? );
         pluck(attribute);
@@ -70,11 +101,13 @@ declare module Backbone {
         parse(response);
         fetch(options? );
         reset(models, options? );
-        create(attributes, options?);
+        create(attributes, options? );
     }
 
     export class Router {
-        extend(properties, classProperties? );
+
+        static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScrip's extend functionality
+
         routes;
         constructor (options? );
         route(route, name, callback? );
@@ -92,17 +125,28 @@ declare module Backbone {
     }
 
     export class View {
-        extend(properties, classProperties? );
+
+        static extend(properties: any, classProperties?: any ): any;  // do not use, prefer TypeScrip's extend functionality
+
         constructor (options?: any);
-        el;
+
+        $(selector: string): any;   
+        model: Model;        
+        make(tagName: string, attrs? , opts? ): View;
+        setElement(element: HTMLElement, delegate?: bool): void;
+        tagName: string;
+        events: any;
+
+        el: HTMLElement;
         $el;
         setElement(element);
         attributes;
         $(selector);
         render();
-        remove();
-        make(tagName, attributes?, content?);
-        delegateEvents(events? );
+        remove(): void;;
+        make(tagName, attributes? , content? );
+        //delegateEvents: any;
+        delegateEvents(events?: any): any;
         undelegateEvents();
     }
 
@@ -111,4 +155,3 @@ declare module Backbone {
         setDomLibrary(jQueryNew);
     }
 }
-
