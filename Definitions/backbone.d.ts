@@ -73,15 +73,11 @@ declare module Backbone {
         filter(f: (elem: any) => any): Collection;
         without(...values: any[]): Collection;
 
-        /////  'reduce', 'reduceRight', 'find',
-    'detect', 'filter', 'select', 'reject', 'every', 'all', 'some', 'any',
-    'include', 'contains', 'invoke', 'max', 'min', 'sortBy', 'sortedIndex',
-    'toArray', 'size', 'first', 'initial', 'rest', 'last', 'without', 'indexOf',
-    'shuffle', 'lastIndexOf', 'isEmpty', 'groupBy'        
+        /////  'reduce', 'reduceRight', 'find', 'detect', 'filter', 'select', 'reject', 'every', 'all', 'some', 'any', 'include', 'contains', 'invoke', 'max', 'min', 'sortBy', 'sortedIndex', 'toArray', 'size', 'first', 'initial', 'rest', 'last', 'without', 'indexOf', 'shuffle', 'lastIndexOf', 'isEmpty', 'groupBy'        
 
-        each(object: any, iterator: (value, key, list?): void, context?: any): any[];
-        forEach(object: any, iterator: (value, key, list?): void, context?: any): any[];
-        map(object: any, iterator: ObjectIterator, context?: any): any[];
+        each(object: any, iterator: (value, key, list?) => void, context?: any): any[];
+        forEach(object: any, iterator: (value, key, list?) => void, context?: any): any[];
+        map(object: any, iterator: (value, key, list?) => void, context?: any): any[];
 
         add(models, options? );
         remove(models, options? );
@@ -93,7 +89,7 @@ declare module Backbone {
         unshift(model, options? );
         shift(options? );
         length: number;
-        comparator;
+        //comparator;
         sort(options? );
         pluck(attribute);
         where(attributes);
