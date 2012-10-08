@@ -34,7 +34,7 @@ interface UnderscoreStatic {
     collect(list: any[], iterator: ListIterator, context?: any): any[];
     collect(object: any, iterator: ObjectIterator, context?: any): any[];
 
-    reduce(list: any[], iterator: any, memo: any, context?: any): any[]; // TODO iterator
+    reduce(list: any[], iterator: any, memo: any, context?: any): any[];
     inject(list: any[], iterator: any, memo: any, context?: any): any[];
     foldl(list: any[], iterator: any, memo: any, context?: any): any[];
 

@@ -67,17 +67,49 @@ declare module Backbone {
         collection: Model;
         create(attrs, opts? ): Collection;
         each(f: (elem: any) => void ): void;
-        fetch(opts?: any): void;
         last(): any;
         last(n: number): any[];
         filter(f: (elem: any) => any): Collection;
         without(...values: any[]): Collection;
 
-        /////  'reduce', 'reduceRight', 'find', 'detect', 'filter', 'select', 'reject', 'every', 'all', 'some', 'any', 'include', 'contains', 'invoke', 'max', 'min', 'sortBy', 'sortedIndex', 'toArray', 'size', 'first', 'initial', 'rest', 'last', 'without', 'indexOf', 'shuffle', 'lastIndexOf', 'isEmpty', 'groupBy'        
+        // Underscore bindings
 
-        each(object: any, iterator: (value, key, list?) => void, context?: any): any[];
-        forEach(object: any, iterator: (value, key, list?) => void, context?: any): any[];
-        map(object: any, iterator: (value, key, list?) => void, context?: any): any[];
+        each(object: any, iterator: (value, key, list? ) => void , context?: any): any[];
+        forEach(object: any, iterator: (value, key, list? ) => void , context?: any): any[];
+        map(object: any, iterator: (value, key, list? ) => void , context?: any): any[];
+        reduce(list: any[], iterator: any, memo: (memo: any, element: any, index: number, list: any[]) => any, context?: any): any[];
+        reduceRight(list: any[], iterator: (memo: any, element: any, index: number, list: any[]) => any, memo: any, context?: any): any[];
+        find(list: any[], iterator: any, context?: any): any; // ???
+        detect(list: any[], iterator: any, context?: any): any; // ???
+        filter(list: any[], iterator: any, context?: any): any[];
+        select(list: any[], iterator: any, context?: any): any[];
+        reject(list: any[], iterator: any, context?: any): any[];
+        every(list: any[], iterator: any, context?: any): bool;
+        all(list: any[], iterator: any, context?: any): bool;
+        any(list: any[], iterator?: any, context?: any): bool;
+        some(list: any[], iterator?: any, context?: any): bool;
+        contains(list: any, value: any): bool;
+        contains(list: any[], value: any): bool;
+        include(list: any, value: any): bool;
+        include(list: any[], value: any): bool;
+        invoke(list: any[], methodName: string, arguments: any[]): any;
+        invoke(object: any, methodName: string, ...arguments: any[]): any;
+        max(list: any[], iterator?: any, context?: any): any;
+        min(list: any[], iterator?: any, context?: any): any;
+        sortBy(list: any[], iterator?: any, context?: any): any;
+        sortedIndex(list: any[], valueL: any, iterator?: any): number;
+        toArray(list: any): any[];
+        size(list: any): number;
+        first(array: any[], n?: number): any;
+        initial(array: any[], n?: number): any[];
+        rest(array: any[], n?: number): any[];
+        last(array: any[], n?: number): any;
+        without(array: any[], ...values: any[]): any[];
+        indexOf(array: any[], value: any, isSorted?: bool): number;
+        shuffle(list: any[]): any[];
+        lastIndexOf(array: any[], value: any, fromIndex?: number): number;
+        isEmpty(object: any): bool;
+        groupBy(list: any[], iterator: any): any;
 
         add(models, options? );
         remove(models, options? );
@@ -95,7 +127,7 @@ declare module Backbone {
         where(attributes);
         url();
         parse(response);
-        fetch(options? );
+        fetch(options?: any): void;
         reset(models, options? );
         create(attributes, options? );
     }
@@ -122,12 +154,12 @@ declare module Backbone {
 
     export class View {
 
-        static extend(properties: any, classProperties?: any ): any;  // do not use, prefer TypeScrip's extend functionality
+        static extend(properties: any, classProperties?: any): any;  // do not use, prefer TypeScrip's extend functionality
 
         constructor (options?: any);
 
-        $(selector: string): any;   
-        model: Model;        
+        $(selector: string): any;
+        model: Model;
         make(tagName: string, attrs? , opts? ): View;
         setElement(element: HTMLElement, delegate?: bool): void;
         tagName: string;
