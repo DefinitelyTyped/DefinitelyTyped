@@ -7,22 +7,22 @@ The project aims to provide *high quality* definitions for the most popular libr
 
 Complete
 --------
-Modernizr
-Underscore.js
-jQuery (from TypeScript samples)
-Node.js (from TypeScript samples)
-Express (from TypeScript samples)
+* Backbone.js
+* Bootstrap
+* Express (from TypeScript samples)
+* jQuery (from TypeScript samples)
+* Modernizr
+* Node.js (from TypeScript samples)
+* Underscore.js
 
 In Progress
 -----------
-Backbone.js
-Knockout.js
-jQuery UI
-Bootstrap
+* Knockout.js
+* jQuery UI
+* jQuery Mobile
 
-Soon
+Next
 ----
-Angular.js
-jQuery.Validate
-jQuery Mobile
-Globalize
+* Angular.js
+* jQuery.Validate
+* Globalize
