@@ -13,6 +13,7 @@ Complete
 * jQuery.Globalize
 * jQuery (from TypeScript samples)
 * Modernizr
+* Mustache.js
 * Node.js (from TypeScript samples)
 * Underscore.js
 
@@ -26,3 +27,10 @@ Next
 ----
 * Angular.js
 * jQuery.Validate
+* QUnit
+* PhoneGap
+* Isotope
+* History.js
+* Reveal.js
+* Jasmine
+* ember.js
