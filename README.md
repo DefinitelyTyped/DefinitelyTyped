@@ -10,6 +10,7 @@ Complete
 * Backbone.js
 * Bootstrap
 * Express (from TypeScript samples)
+* jQuery.Globalize
 * jQuery (from TypeScript samples)
 * Modernizr
 * Node.js (from TypeScript samples)
@@ -25,4 +26,3 @@ Next
 ----
 * Angular.js
 * jQuery.Validate
-* Globalize
