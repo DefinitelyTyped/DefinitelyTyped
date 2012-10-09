@@ -11,7 +11,7 @@ declare module Backbone {
 
     export class Model {
 
-        static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScrip's extend functionality
+        static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
         constructor (attributes?: any, options?: any);
 
@@ -53,7 +53,7 @@ declare module Backbone {
 
     export class Collection {
 
-        static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScrip's extend functionality
+        static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
         model;
 
@@ -134,7 +134,7 @@ declare module Backbone {
 
     export class Router {
 
-        static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScrip's extend functionality
+        static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
         routes;
         constructor (options? );
@@ -154,7 +154,7 @@ declare module Backbone {
 
     export class View {
 
-        static extend(properties: any, classProperties?: any): any;  // do not use, prefer TypeScrip's extend functionality
+        static extend(properties: any, classProperties?: any): any;  // do not use, prefer TypeScript's extend functionality
 
         constructor (options?: any);
 
