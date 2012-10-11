@@ -78,6 +78,29 @@ interface Droppable {
     drop?: DroppableEvent;
 }
 
+interface JQueryDatePickerDefaults {
+    closeText: string;
+    prevText: string;
+    nextText: string;
+    currentText: string;
+    monthNames: string[];
+    monthNamesShort: string[];
+    dayNames: string[];
+    dayNamesShort: string[];
+    dayNamesMin: string[];
+    weekHeader: string;
+    dateFormat: string;
+    firstDay: number;
+    isRTL: bool;
+    showMonthAfterYear: bool;
+    yearSuffix: string;
+}
+
+interface JQueryDatePicker {
+    regional: any;
+    setDefaults(JQueryDatePickerDefaults);
+}
+
 interface JQuery {
     draggable(options: Draggable): JQuery;
     draggable(optionLiteral: string, options: Draggable): JQuery;
@@ -89,4 +112,11 @@ interface JQuery {
     droppable(optionLiteral: string, optionName: string, optionValue: any): JQuery;
     droppable(optionLiteral: string, optionName: string): any;
     droppable(methodName: string): any;
+
+    autocomplete(any): void;
+    datepicker(any): void;
+}
+
+interface JQueryStatic {
+    datepicker: JQueryDatePicker;
 }
