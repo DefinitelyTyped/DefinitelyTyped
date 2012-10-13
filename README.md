@@ -10,6 +10,7 @@ Complete
 * Backbone.js
 * Bootstrap
 * Express (from TypeScript samples)
+* History.js
 * jQuery.Globalize
 * jQuery (from TypeScript samples)
 * Modernizr
@@ -30,7 +31,6 @@ Next
 * QUnit
 * PhoneGap
 * Isotope
-* History.js
 * Reveal.js
 * Jasmine
 * ember.js
