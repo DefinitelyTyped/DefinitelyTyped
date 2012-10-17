@@ -1,9 +1,8 @@
-/// <reference path="jquery-1.8.d.ts"/>
-
 // Type definitions for jQueryUI 1.9
 // Project: http://jqueryui.com/
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="jquery-1.8.d.ts"/>
 
 // Widget //////////////////////////////////////////////////
 
@@ -40,16 +39,7 @@ interface Accordion extends Widget {
     icons?: any;
 
     // Methods
-    destroy();
-    disable();
-    enable();
-    option(optionName: string): any;
-    option(): any;
-    option(optionName: string, value: any): void;
-    option(options: any): void;
-    refresh();
-    widget(): JQuery;
-
+    
     // Events
     activate(event: Event, ui): void;
     beforeActivate(event: Event, ui): void;
@@ -59,7 +49,7 @@ interface Accordion extends Widget {
 
 // Autocomplete //////////////////////////////////////////////////
 
-interface Autocomplete {
+interface Autocomplete extends Widget {
 
     // Options
     appendTo?: any; //Selector;
@@ -71,16 +61,8 @@ interface Autocomplete {
     source?: any; // [], string or ()
 
     // Methods
-    close();
-    destroy();
-    disable();
-    enable();
-    option(optionName: string): any;
-    option(): any;
-    option(optionName: string, value: any): void;
-    option(options: any): void;
+    close();    
     search(value?: string);
-    widget(): JQuery;
 
     // Events
     change(event: Event, ui): void;
@@ -96,7 +78,7 @@ interface Autocomplete {
 
 // Button //////////////////////////////////////////////////
 
-interface Button {
+interface Button extends Widget  {
 
     // Options
     disabled?: bool;
@@ -104,16 +86,8 @@ interface Button {
     label?: string;
     text?: bool;
 
-    // Methods
-    destroy();
-    disable();
-    enable();
-    option(optionName: string): any;
-    option(): any;
-    option(optionName: string, value: any): void;
-    option(options: any): void;
+    // Methods    
     refresh();
-    widget(): JQuery;
 
     // Events
     create(event: Event, ui): void;
@@ -122,7 +96,7 @@ interface Button {
 
 // Datepicker //////////////////////////////////////////////////
 
-interface Datepicker {
+interface Datepicker extends Widget {
 
     // Options
     altFieldType?: any; // Selecotr, jQuery or Element
@@ -178,7 +152,7 @@ interface Datepicker {
 
     // Methods
     destroy();
-    dialog(date: any, onSelect?: (), settings?: any, pos?: any);
+    dialog(date: any, onSelect?: () => void, settings?: any, pos?: any);
     getDate(): Date;
     hide(): void;
     isDisabled(): bool;
@@ -192,7 +166,7 @@ interface Datepicker {
 
 // Dialog //////////////////////////////////////////////////
 
-interface Dialog {
+interface Dialog extends Widget {
 
     // Options
     autoOpen?: bool;
@@ -356,7 +330,7 @@ interface JQueryDatePicker {
 
 // Menu //////////////////////////////////////////////////
 
-interface Menu {
+interface Menu extends Widget {
 
     // Options
     disabled?: bool;
@@ -369,24 +343,15 @@ interface Menu {
     blur(event?: Event): void;
     collapse(event?: Event): void;
     blurAll(event?: Event, all?: bool): void;
-    destroy();
-    disable();
-    enable();
     expand(event?: Event): void;
     focus(event?: Event, item?: JQuery): void;
     isFirstItem(): bool;
     isLastItem(): bool;
     next(event?: Event): void;
     nextPage(event?: Event): void;
-    option(optionName: string): any;
-    option(): any;
-    option(optionName: string, value: any): void;
-    option(options: any): void;
     previous(event?: Event): void;
     previousPage(event?: Event): void;
-    refresh(): void;
     select(event?: Event): void;
-    widget(): JQuery;
 
     // Events
     blur(event: Event, ui): void;
@@ -398,11 +363,11 @@ interface Menu {
 
 // Progressbar //////////////////////////////////////////////////
 
-interface Progressbar {
+interface Progressbar extends Widget {
 
     // Options
     disabled?: bool;
-    value?: number;
+    //value?: number;
 
     // Methods    
     destroy();
@@ -423,6 +388,64 @@ interface Progressbar {
 }
 
 
+// Resizable //////////////////////////////////////////////////
+
+interface Resizable extends Widget {
+
+    // Options
+    alsoResize?: any; // Selector, JQuery or Element
+    animate?: bool;
+    animateDuration?: any; // number or string
+    animateEasing?: string;
+    aspectRatio?: any; // bool or number
+    autoHide?: bool;
+    cancel?: any; // TODO Selector
+    containment?: any; // Selector, Element or string
+    delay?: number;
+    disabled?: bool;
+    distance?: number;
+    ghost?: bool;
+    grid?: number[];
+    handles?: any; // string or object
+    helper?: string;
+    maxHeight?: number;
+    maxWidth?: number;
+    minHeight?: number;
+    minWidth?: number;
+
+    // Methods
+    
+    // Events
+    resize(event: Event, ui): void;
+    start(event: Event, ui): void;
+    stop(event: Event, ui): void;
+}
+
+
+// Resizable //////////////////////////////////////////////////
+
+interface Selectable extends Widget {
+
+    // Options
+    autoRefresh?: bool;
+    cancel?: any; // TODO Selector
+    delay?: number;
+    disabled?: bool;
+    distance?: number;
+    filter?: any; // TODO Selector
+    tolerance?: string;
+
+    // Methods
+    
+    // Events
+    selected(event: Event, ui): void;
+    selecting(event: Event, ui): void;
+    start(event: Event, ui): void;
+    stop(event: Event, ui): void;
+    unselected(event: Event, ui): void;
+    unselecting(event: Event, ui): void;
+}
+
 // Slider //////////////////////////////////////////////////
 
 interface Slider extends Widget {
@@ -435,8 +458,8 @@ interface Slider extends Widget {
     orientation?: string;
     range?: any; // bool or string
     step?: number;
-    value?: number;
-    values?: number[];
+    // value?: number;
+    // values?: number[];
 
     // Methods    
     value(): number;
@@ -444,7 +467,7 @@ interface Slider extends Widget {
     values(): number[];
     values(index: number): number;
     values(index: number, newValue: number): void;
-    values(newValues: numbers[]): void;
+    values(newValues: number[]): void;
 
     // Events
     change(event: Event, ui): void;
@@ -455,9 +478,62 @@ interface Slider extends Widget {
 }
 
 
+// Sortable //////////////////////////////////////////////////
+
+interface Sortable extends Widget {
+
+    // Options
+    appendTo?: any; // jQuery, Element, Selector or string
+    axis?: string;
+    // cancel?: any; // TODO Selector
+    connectWith?: any; // TODO Selector
+    containment?: any; // Element, Selector or string
+    cursor?: string;
+    cursorAt?: any;
+    delay?: number;
+    disabled?: bool;
+    distance?: number;
+    dropOnEmpty?: bool;
+    forceHelperSize?: bool;
+    forcePlaceholderSize?: bool;
+    grid?: number[];
+    handle?: any; // Selector or Element
+    items?: any; // Selector
+    opacity?: number;
+    placeholder?: string;
+    revert?: any; // bool or number
+    scroll?: bool;
+    scrollSensitivity?: number;
+    scrollSpeed?: number;
+    tolerance?: string;
+    zIndex?: number;
+
+    // Methods
+    cancel(): void;
+    refreshPositions(): void;
+    serialize(options: any): void; // TODO
+    toArray(): string[];
+
+    // Events
+    activate(event: Event, ui): void;
+    beforeStop(event: Event, ui): void;
+    change(event: Event, ui): void;
+    deactivate(event: Event, ui): void;
+    out(event: Event, ui): void;
+    over(event: Event, ui): void;
+    receive(event: Event, ui): void;
+    remove(event: Event, ui): void;
+    sort(event: Event, ui): void;
+    start(event: Event, ui): void;
+    stop(event: Event, ui): void;
+    update(event: Event, ui): void;
+}
+
+
+
 // Spinner //////////////////////////////////////////////////
 
-interface Spinner {
+interface Spinner extends Widget {
 
     // Options
     culture?: string;
@@ -487,7 +563,7 @@ interface Spinner {
 
 // Tabs //////////////////////////////////////////////////
 
-interface Tabs {
+interface Tabs extends Widget {
 
     // Options
     active?: any; // bool or number
@@ -513,7 +589,7 @@ interface Tabs {
 
 // Tooltip //////////////////////////////////////////////////
 
-interface Tooltip {
+interface Tooltip extends Widget {
 
     // Options
     content?: any; // () or string
@@ -538,19 +614,48 @@ interface Tooltip {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 interface JQuery {
-    draggable(options: Draggable): JQuery;
+
+    accordion(options?: Accordion): void;
+
+    autocomplete(options?: Autocomplete): void;
+
+    button(options?: Button): void;
+    buttonset(options?: Button): void;
+
+    datepicker(options?: Datepicker): void;
+
+    dialog(options?: Dialog): void;
+    dialog(optionLiteral: string): void;
+
+    draggable(options?: Draggable): JQuery;
     draggable(optionLiteral: string, options: Draggable): JQuery;
     draggable(optionLiteral: string, optionName: string, optionValue: any): JQuery;
     draggable(optionLiteral: string, optionName: string): any;
     // draggable(methodName: string): any;
+
     droppable(options: Droppable): JQuery;
     droppable(optionLiteral: string, options: Draggable): JQuery;
     droppable(optionLiteral: string, optionName: string, optionValue: any): JQuery;
     droppable(optionLiteral: string, optionName: string): any;
     droppable(methodName: string): any;
 
-    autocomplete(any): void;
-    datepicker(any): void;
+    menu(options?: Menu): void;
+
+    progressbar(options?: Progressbar): void;
+
+    resizable(options?: Resizable): void;
+
+    selectable(options?: Selectable): void;
+
+    slider(options?: Slider): void;
+
+    sortable(options?: Sortable): void;
+
+    spinner(options?: Spinner): void;
+
+    tabs(options?: Tabs): void;
+
+    tooltip(options?: Tooltip): void;
 }
 
 interface JQueryStatic {
