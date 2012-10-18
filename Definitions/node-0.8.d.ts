@@ -772,10 +772,10 @@ declare module "fs" {
     export function writeSync(fd: string, buffer: NodeBuffer, offset: number, length: number, position: number): void;
     export function read(fd: string, buffer: NodeBuffer, offset: number, length: number, position: number, callback?: (err: Error, bytesRead: number, buffer: NodeBuffer) => void): void;
     export function readSync(fd: string, buffer: NodeBuffer, offset: number, length: number, position: number): any[];
-    export function readFile(filename: string, encoding: string, callback: (err: Error, data: NodeBuffer) => void ): void;
+    export function readFile(filename: string, encoding: string, callback: (err: Error, data: string) => void ): void;
     export function readFile(filename: string, callback: (err: Error, data: NodeBuffer) => void ): void;
     export function readFileSync(filename: string): NodeBuffer;
-    export function readFileSync(filename: string, encoding: string): String;
+    export function readFileSync(filename: string, encoding: string): string;
     export function writeFile(filename: string, data: any, encoding?: string, callback?: Function): void;
     export function writeFileSync(filename: string, data: any, encoding?: string): void;
     export function appendFile(filename: string, data: any, encoding?: string, callback?: Function): void;
@@ -922,10 +922,10 @@ declare module "crypto" {
     export interface Credentials { context?: any; }
     export function createCredentials(details: CredentialDetails): Credentials;
     export function createHash(algorithm: string): Hash;
+    export function createHmac(algorithm: string, key: string): Hmac;
     interface Hash {
         update(data: any, input_encoding?: string): void;
-        digest(encoding?: string): void;
-        createHmac(algorithm: string, key: string): Hmac;
+        digest(encoding?: string): string;
     }
     interface Hmac {
         update(data: any): void;
