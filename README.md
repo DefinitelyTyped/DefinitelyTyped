@@ -13,6 +13,7 @@ Complete
 * [Fancybox](http://fancybox.net/)
 * [History.js](https://github.com/balupton/History.js/)
 * [Humane.js](http://wavded.github.com/humane-js/) (from [jmvrbanac](https://github.com/jmvrbanac))
+* [Jasmine](http://pivotal.github.com/jasmine/)
 * [jQuery.Globalize](https://github.com/jquery/globalize)
 * [jQuery](http://jquery.com/) (from TypeScript samples)
 * [Knockout.js](http://knockoutjs.com/)
@@ -20,13 +21,13 @@ Complete
 * [Mustache.js](https://github.com/janl/mustache.js)
 * [Node.js](http://nodejs.org/) (from TypeScript samples)
 * [QUnit](http://qunitjs.com/)
+* [Raphael](http://raphaeljs.com/)
 * [Underscore.js](http://underscorejs.org/)
 
 In Progress
 -----------
 * jQuery UI
 * jQuery Mobile
-* Jasmine
 
 Next
 ----
