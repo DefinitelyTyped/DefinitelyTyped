@@ -35,5 +35,4 @@ Next
 * jQuery.Validate
 * PhoneGap
 * Isotope
-* Reveal.js
 * ember.js
