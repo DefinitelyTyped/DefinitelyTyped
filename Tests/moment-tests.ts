@@ -40,8 +40,8 @@ a.hours();
 moment("2011-10-10", "YYYY-MM-DD").isValid(); 
 moment("2011-10-50", "YYYY-MM-DD").isValid(); 
 moment("2011-10-10T10:20:90").isValid();
-moment([2011, 0 1]).isValid();
-moment([2011, 0 50]).isValid();
+moment([2011, 0, 1]).isValid();
+moment([2011, 0, 50]).isValid();
 moment("not a date").isValid();
 
 moment().add('days', 7).subtract('months', 1).year(2009).hours(0).minutes(0).seconds(0);
@@ -56,18 +56,13 @@ moment([2010, 0, 31]).add('months', 1);
 var m = moment(new Date(2011, 2, 12, 5, 0, 0));
 m.hours(); 
 m.add('days', 1).hours();
-var m = moment(new Date(2011, 2, 12, 5, 0, 0)); 
-m.hours();
-m.add('hours', 24).hours(); 
-var duration = moment.duration({'days', 1});
+var m2 = moment(new Date(2011, 2, 12, 5, 0, 0)); 
+m2.hours();
+m2.add('hours', 24).hours(); 
+var duration = moment.duration({'days': 1});
 moment([2012, 0, 31]).add(duration);
 
 moment().subtract('days', 7);
-
-moment().milliseconds(30) === new Date().setMilliseconds(30);
-moment().milliseconds()   === new Date().getMilliseconds();
-moment.utc().milliseconds(30) === new Date().setUTCMilliseconds(30);
-moment.utc().milliseconds()   === new Date().getUTCMilliseconds();
 
 moment().seconds(30);
 moment().minutes(30);
@@ -86,37 +81,32 @@ moment().sod();
 moment().hours(0).minutes(0).seconds(0).milliseconds(0);
 moment().eod();
 
-var a = moment.utc([2011, 0, 1, 8]);
-a.hours();
-a.local();
-a.hours();
+var a3 = moment([2011, 0, 1, 8]);
+a3.hours();
+a3.utc();
+a3.hours();
 
-var a = moment([2011, 0, 1, 8]);
-a.hours();
-a.utc();
-a.hours();
-
-var a = moment([2010, 1, 14, 15, 25, 50, 125]);
-a.format("dddd, MMMM Do YYYY, h:mm:ss a"); 
-a.format("ddd, hA");
+var a4 = moment([2010, 1, 14, 15, 25, 50, 125]);
+a4.format("dddd, MMMM Do YYYY, h:mm:ss a"); 
+a4.format("ddd, hA");
 
 moment().format('\\L');
 moment().format('[today] DDDD'); 
 
-var a = moment([2007, 0, 29]);
-var b = moment([2007, 0, 28]);
-a.from(b) ;
+var a5 = moment([2007, 0, 29]);
+var b5 = moment([2007, 0, 28]);
+a5.from(b5);
 
-var a = moment([2007, 0, 29]);
-var b = moment([2007, 0, 28]);
-a.from(b);                     
-a.from([2007, 0, 28]);         
-a.from(new Date(2007, 0, 28)); 
-a.from("1-28-2007");
+var a6 = moment([2007, 0, 29]);
+var b6 = moment([2007, 0, 28]);
+a6.from(b6);
+a6.from([2007, 0, 28]);         
+a6.from(new Date(2007, 0, 28)); 
+a6.from("1-28-2007");
 
-var a = moment();\n
-var b = moment("10-10-1900", "MM-DD-YYYY");
-a.from(b);
+var a7 = moment();\n
+var b7 = moment("10-10-1900", "MM-DD-YYYY");
+a7.from(b7);
 
 var start = moment([2007, 0, 5]);\n
 var end = moment([2007, 0, 10]);

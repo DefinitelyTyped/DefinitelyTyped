@@ -19,6 +19,7 @@ Complete
 * [jQuery UI](http://jqueryui.com/)
 * [Knockout.js](http://knockoutjs.com/)
 * [Modernizr](http://modernizr.com/)
+* [Moment.js](https://github.com/timrwood/moment) (by [Michael Lakerveld](https://github.com/Lakerfield))
 * [Mustache.js](https://github.com/janl/mustache.js)
 * [Node.js](http://nodejs.org/) (from TypeScript samples)
 * [QUnit](http://qunitjs.com/) (by [Diullei Gomes](https://github.com/Diullei))
@@ -28,8 +29,10 @@ Complete
 Next
 ----
 * Angular.js
+* google.visualization
 * jQuery Mobile
 * jQuery.Validate
+* Knockout.Mapping
 * PhoneGap
 * Isotope
 * ember.js
