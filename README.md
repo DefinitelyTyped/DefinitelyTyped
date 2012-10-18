@@ -10,17 +10,19 @@ Complete
 * Backbone.js
 * Bootstrap
 * Express (from TypeScript samples)
+* Fancybox
 * History.js
 * jQuery.Globalize
 * jQuery (from TypeScript samples)
+* Knockout.js
 * Modernizr
 * Mustache.js
 * Node.js (from TypeScript samples)
+* QUnit
 * Underscore.js
 
 In Progress
 -----------
-* Knockout.js
 * jQuery UI
 * jQuery Mobile
 
@@ -28,7 +30,6 @@ Next
 ----
 * Angular.js
 * jQuery.Validate
-* QUnit
 * PhoneGap
 * Isotope
 * Reveal.js
