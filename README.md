@@ -26,6 +26,7 @@ In Progress
 -----------
 * jQuery UI
 * jQuery Mobile
+* Jasmine
 
 Next
 ----
@@ -34,5 +35,4 @@ Next
 * PhoneGap
 * Isotope
 * Reveal.js
-* Jasmine
 * ember.js
