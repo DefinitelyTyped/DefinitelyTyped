@@ -7,19 +7,20 @@ The project aims to provide *high quality* definitions for the most popular libr
 
 Complete
 --------
-* Backbone.js
-* Bootstrap
-* Express (from TypeScript samples)
-* Fancybox
-* History.js
-* jQuery.Globalize
-* jQuery (from TypeScript samples)
-* Knockout.js
-* Modernizr
-* Mustache.js
-* Node.js (from TypeScript samples)
-* QUnit
-* Underscore.js
+* [Backbone.js](http://backbonejs.org/)
+* [Bootstrap](http://twitter.github.com/bootstrap/)
+* [Express](http://expressjs.com/) (from TypeScript samples)
+* [Fancybox](http://fancybox.net/)
+* [History.js](https://github.com/balupton/History.js/)
+* [Humane.js](http://wavded.github.com/humane-js/) (from [jmvrbanac](https://github.com/jmvrbanac))
+* [jQuery.Globalize](https://github.com/jquery/globalize)
+* [jQuery](http://jquery.com/) (from TypeScript samples)
+* [Knockout.js](http://knockoutjs.com/)
+* [Modernizr](http://modernizr.com/)
+* [Mustache.js](https://github.com/janl/mustache.js)
+* [Node.js](http://nodejs.org/) (from TypeScript samples)
+* [QUnit](http://qunitjs.com/)
+* [Underscore.js](http://underscorejs.org/)
 
 In Progress
 -----------
