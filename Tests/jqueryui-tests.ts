@@ -32,7 +32,7 @@ $("#draggable2").draggable({ snap: ".ui-widget-header" });
 $("#draggable3").draggable({ snap: ".ui-widget-header", snapMode: "outer" });
 $("#draggable4").draggable({ grid: [20, 20] });
 $("#draggable5").draggable({ grid: [80, 80] });
-$("#sortable").sortable({ revert: true});
+$("#sortable").sortable({ revert: true });
 $("#draggable").draggable({
     connectToSortable: "#sortable",
     helper: "clone",
@@ -259,7 +259,7 @@ $("#droppable2").droppable({
 
 // Accordion //////////////////////////////////////////////////
 
-$("#accordion").accordion({ collapsible: true });
+$("#accordion").accordion(<Accordion>{ collapsible: true });
 var icons = {
     header: "ui-icon-circle-arrow-e",
     activeHeader: "ui-icon-circle-arrow-s"
