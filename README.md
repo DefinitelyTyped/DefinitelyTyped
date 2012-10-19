@@ -13,6 +13,7 @@ Complete
 * [Fancybox](http://fancybox.net/) 
 * [History.js](https://github.com/balupton/History.js/)
 * [Humane.js](http://wavded.github.com/humane-js/) (by [jmvrbanac](https://github.com/jmvrbanac))
+* [Impress.js](https://github.com/bartaz/impress.js)
 * [Jasmine](http://pivotal.github.com/jasmine/)
 * [jQuery.Globalize](https://github.com/jquery/globalize)
 * [jQuery](http://jquery.com/) (from TypeScript samples)
