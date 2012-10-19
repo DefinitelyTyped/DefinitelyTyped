@@ -25,6 +25,7 @@ Complete
 * [Node.js](http://nodejs.org/) (from TypeScript samples)
 * [QUnit](http://qunitjs.com/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Raphael](http://raphaeljs.com/) (by [CheCoxshall](https://github.com/CheCoxshall))
+* [Spin](http://fgnass.github.com/spin.js/)
 * [Underscore.js](http://underscorejs.org/)
 
 Next
@@ -34,9 +35,11 @@ Next
 * jQuery Mobile
 * jQuery.Validate
 * Knockout.Mapping
+* Meteor
 * PhoneGap
 * Isotope
 * ember.js
+* Zepto
 
 Node Modules Definitions
 ------------------------
