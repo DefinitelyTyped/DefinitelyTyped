@@ -142,6 +142,8 @@ declare module Backbone {
         navigate(fragment, options? );
     }
 
+    export var history: History;
+
     export class History {
         start(options? );
     }
