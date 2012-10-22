@@ -7,6 +7,7 @@ The project aims to provide *high quality* definitions for the most popular libr
 
 Complete
 --------
+* [async](https://github.com/caolan/async)
 * [Backbone.js](http://backbonejs.org/)
 * [Bootstrap](http://twitter.github.com/bootstrap/)
 * [Express](http://expressjs.com/) (from TypeScript samples)
@@ -30,6 +31,7 @@ Complete
 
 Next
 ----
+* ember.js
 * Angular.js
 * google.visualization
 * jQuery Mobile
@@ -38,9 +40,4 @@ Next
 * Meteor
 * PhoneGap
 * Isotope
-* ember.js
 * Zepto
-
-Node Modules Definitions
-------------------------
-https://github.com/soywiz/typescript-node-definitions

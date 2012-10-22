@@ -2,7 +2,7 @@
 
 var fs, path;
 
-//import "async";
+function callback() {}
 
 async.map(['file1', 'file2', 'file3'], fs.stat, function (err, results) { });
 
@@ -18,18 +18,24 @@ async.series([
     function () { }
 ]);
 
+var data;
+function asyncProcess() { }
 async.map(data, asyncProcess, function (err, results) {
     alert(results);
 });
 
+var openFiles = ['file1', 'file2'];
+var saveFile = function () { }
 async.forEach(openFiles, saveFile, function (err) { });
 
+var documents, requestApi;
 async.forEachLimit(documents, 20, requestApi, function (err) { });
 
 async.map(['file1', 'file2', 'file3'], fs.stat, function (err, results) { });
 
 async.filter(['file1', 'file2', 'file3'], path.exists, function (results) { });
 
+var process;
 async.reduce([1, 2, 3], 0, function (memo, item, callback) {
     process.nextTick(function () {
         callback(null, memo + item)
@@ -59,8 +65,6 @@ async.series([
     },
 ],
 function (err, results) { });
-
-
 
 async.series({
     one: function (callback) {
@@ -169,13 +173,12 @@ async.parallel([
 ],
 function (results) {
     async.series([
-        function (callback) {
-        },
+        function (callback) { },
         email_link: function(callback) { }
     ]);
 });
 
-
+var sys;
 var iterator = async.iterator([
     function () { sys.p('one'); },
     function () { sys.p('two'); },
@@ -200,29 +203,11 @@ async.parallel([
 var call_order = [];
 async.nextTick(function () {
     call_order.push('two');
-    // call_order now equals ['one','two]
 });
 call_order.push('one');
 
-
 var slow_fn = function (name, callback) {
-    callback(null, result);
+    callback(null, 123);
 };
 var fn = async.memoize(slow_fn);
-
-// fn can now be used as if it were slow_fn
-fn('some name', function () {
-    // callback
-});
-
-var hello = function (name, callback) {
-    setTimeout(function () {
-        callback(null, 'hello ' + name);
-    }, 1000);
-};
-
-var hello = function (name, callback) {
-    setTimeout(function () {
-        callback(null, { hello: name });
-    }, 1000);
-};
+fn('some name', function () {});

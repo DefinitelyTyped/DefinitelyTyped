@@ -3,46 +3,71 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-declare module async {
+interface AsyncCallback { (err: string, results: any): any; }
+interface AsyncIterator { (item, callback: AsyncCallback): void; }
+interface AsyncMemoIterator { (memo: any, item: any, callback: AsyncCallback): void; }
+interface AsyncWorker { (task: any, callback: Function): void; }
 
-    export interface Errback { (err: string): any; }
+interface AsyncQueue {
+    length(): number;
+    concurrency: number;
+    push(task: any, callback: AsyncCallback): void;
+    saturated: AsyncCallback;
+    empty: AsyncCallback;
+    drain: AsyncCallback;
+}
+
+interface Async {
 
     // Collections
-    export function forEach(arr: any[], iterator: (item, callback: Function) => void, callback: Errback): void;
-    export function forEachSeries(arr: any[], iterator: (item, callback: Function) => void , callback: Errback): void;
-    export function forEachLimit(arr, limit, iterator, callback);
-    export function map(arr, iterator, callback);
-    export function mapSeries(arr, iterator, callback);
-    export function filter(arr, iterator, callback);
-    export function filterSeries(arr, iterator, callback);
-    export function reject(arr, iterator, callback);
-    export function rejectSeries(arr, iterator, callback);
-    export function reduce(arr, memo, iterator, callback);
-    export function reduceRight(arr, memo, iterator, callback);
-    export function detect(arr, iterator, callback);
-    export function detectSeries(arr, iterator, callback);
-    export function sortBy(arr, iterator, callback);
-    export function some(arr, iterator, callback);
-    export function every(arr, iterator, callback);
-    export function concat(arr, iterator, callback);
-    export function concatSeries(arr, iterator, callback);
+    forEach(arr: any[], iterator: AsyncIterator, callback: AsyncCallback): void;
+    forEachSeries(arr: any[], iterator: AsyncIterator, callback: AsyncCallback): void;
+    forEachLimit(arr: any[], limit: number, iterator: AsyncIterator, callback: AsyncCallback): void;
+    map(arr: any[], iterator: AsyncIterator, callback: AsyncCallback);
+    mapSeries(arr: any[], iterator: AsyncIterator, callback: AsyncCallback);
+    filter(arr: any[], iterator: AsyncIterator, callback: AsyncCallback);
+    select(arr: any[], iterator: AsyncIterator, callback: AsyncCallback);
+    filterSeries(arr: any[], iterator: AsyncIterator, callback: AsyncCallback);
+    selectSeries(arr: any[], iterator: AsyncIterator, callback: AsyncCallback);
+    reject(arr: any[], iterator: AsyncIterator, callback: AsyncCallback);
+    rejectSeries(arr: any[], iterator: AsyncIterator, callback: AsyncCallback);
+    reduce(arr: any[], memo: any, iterator: AsyncMemoIterator, callback: AsyncCallback);
+    inject(arr: any[], memo: any, iterator: AsyncMemoIterator, callback: AsyncCallback);
+    foldl(arr: any[], memo: any, iterator: AsyncMemoIterator, callback: AsyncCallback);
+    reduceRight(arr: any[], memo: any, iterator: AsyncMemoIterator, callback: AsyncCallback);
+    foldr(arr: any[], memo: any, iterator: AsyncMemoIterator, callback: AsyncCallback);
+    detect(arr: any[], iterator: AsyncIterator, callback: AsyncCallback);
+    detectSeries(arr: any[], iterator: AsyncIterator, callback: AsyncCallback);
+    sortBy(arr: any[], iterator: AsyncIterator, callback: AsyncCallback);
+    some(arr: any[], iterator: AsyncIterator, callback: AsyncCallback);
+    any(arr: any[], iterator: AsyncIterator, callback: AsyncCallback);
+    every(arr: any[], iterator: AsyncIterator, callback: AsyncCallback);
+    all(arr: any[], iterator: AsyncIterator, callback: AsyncCallback);
+    concat(arr: any[], iterator: AsyncIterator, callback: AsyncCallback);
+    concatSeries(arr: any[], iterator: AsyncIterator, callback: AsyncCallback);
 
     // Control Flow
-    export function series(tasks, callback? );
-    export function parallel(tasks, callback? );
-    export function whilst(test, fn, callback);
-    export function until(test, fn, callback);
-    export function waterfall(tasks, callback? );
-    export function queue(worker, concurrency);
-    export function auto(tasks, callback? );
-    export function iterator(tasks);
-    export function apply(fn, ...arguments: any[]);
-    export function nextTick(callback);
+    series(tasks: any[], callback?: AsyncCallback): void;
+    series(tasks: any, callback?: AsyncCallback): void;
+    parallel(tasks: any[], callback?: AsyncCallback): void;
+    parallel(tasks: any, callback?: AsyncCallback): void;
+    whilst(test: Function, fn: Function, callback: AsyncCallback): void;
+    until(test: Function, fn: Function, callback: AsyncCallback): void;
+    waterfall(tasks: any[], callback?: AsyncCallback): void;
+    waterfall(tasks: any, callback?: AsyncCallback): void;
+    queue(worker: AsyncWorker, concurrency: number): AsyncQueue;
+    //auto(tasks: any[], callback?: AsyncCallback): void;
+    auto(tasks: any, callback?: AsyncCallback): void;
+    iterator(tasks): Function;
+    apply(fn: Function, ...arguments: any[]): void;
+    nextTick(callback: AsyncCallback): void;
 
     // Utils
-    export function memoize(fn, hasher? );
-    export function unmemoize(fn);
-    export function log(fn, ...arguments: any[]);
-    export function dir(fn, ...arguments: any[]);
-    export function noConflict();
+    memoize(fn: Function, hasher?: Function): Function;
+    unmemoize(fn: Function): Function;
+    log(fn: Function, ...arguments: any[]): void;
+    dir(fn: Function, ...arguments: any[]): void;
+    noConflict(): Async;
 }
+
+declare var async: Async;
