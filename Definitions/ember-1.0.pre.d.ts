@@ -23,7 +23,7 @@ declare module Ember {
 		
 		// Methods
 		addEnumerableObserver(target, opts);
-		compact():Array;
+		compact():any[];
 		contains(obj:Object):Boolean;
 		enumerableContentDidChange(removing:number, adding:number):Object;
 		enumerableContentDidChange(removing:Ember.Enumerable, adding:Ember.Enumerable):Object;
@@ -36,9 +36,9 @@ declare module Ember {
 		enumerableContentWillChange(start:Number, removing:Ember.Enumerable, adding:Ember.Enumerable):Ember.Enumerable;
 		
 		every(callback:Function, target?:Object):Boolean;
-		everyProperty(key:String, value?:String):Array;
-		filter(callback:Function, target?:Object):Array;
-		filterProperty(key:String, value?:String):Array;
+		everyProperty(key:String, value?:String):any[];
+		filter(callback:Function, target?:Object):any[];
+		filterProperty(key:String, value?:String):any[];
 		find(callback:Function, target?:Object):Object;
 		findProperty(key:String, value?:String):Object;
 		/*forEach
@@ -58,6 +58,9 @@ declare module Ember {
 	
 	export interface NativeArray extends Array {
 		activate();
+	}
+	export class Object extends Ember.CoreObject {
+		
 	}
 	
 	export class Application extends Ember.Object {
@@ -110,7 +113,7 @@ declare module Ember {
 		get(key:String):Object;
 		getPath(path:String):Object;
 		getProperties(...list:String[]):any;
-		getProperties(list:Array):any;
+		getProperties(list:any[]):any;
 		getWithDefault(keyName:String, defaultValue:Object):Object;
 		hasObserverFor(key:String):Boolean;
 		incrementProperty(keyName:String, increment:Object):Object;
@@ -129,10 +132,6 @@ declare module Ember {
 		toggleProperty(keyName:String):Object;
 		unknownProperty(key:String):Object;
 	}
-	
-	export class Object extends Ember.CoreObject {
-		
-	}
 }
 
 
@@ -150,7 +149,7 @@ interface EmberStatic {
 	VIEW_PRESERVES_CONTEXT:Boolean;
 	
 	// API Doc Members
-	A(arr:Array):Ember.NativeArray;
+	A(arr:any[]):Ember.NativeArray;
 	addBeforeObserver(obj:Object, path:String, target:Object, method:Function);
 	addListener(obj:Object, eventName:String, target:Object, method:Function);
 	addObserver(obj:Object, path:String, target:Object, method:Function);
@@ -183,9 +182,9 @@ interface EmberStatic {
 	isEqual(a:Object, b:Object):Boolean;
 	isGlobalPath(path:String):Boolean;
 	isWatching(obj:Object, key):Boolean;
-	keys(obj:Object):Array;
-	listenersFor(obj:Object, eventName:String):Array;
-	makeArray(obj:Object):Array;
+	keys(obj:Object):any[];
+	listenersFor(obj:Object, eventName:String):any[];
+	makeArray(obj:Object):any[];
 	
 	Map();
 	MapWithDefault(options);
@@ -210,7 +209,7 @@ interface EmberStatic {
 	setMeta(obj:Object, property, value);
 	setProperties(self, hash);
 	toString():String;
-	tryInvoke(obj:Object, methodName:String, args:Array):Boolean;
+	tryInvoke(obj:Object, methodName:String, args:any[]):Boolean;
 	trySet(root, path, value);
 	typeOf(item):String;
 	warn(message:String, test:Boolean);
@@ -238,4 +237,3 @@ interface EmberStatic {
 	wrap(func, superFunc);
 }
 declare var Ember:EmberStatic; 
-
