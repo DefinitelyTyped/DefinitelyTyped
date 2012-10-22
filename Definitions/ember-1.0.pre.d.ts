@@ -1,3 +1,7 @@
+// Type definitions for Ember.js 1.0.pre
+// Project: http://emberjs.com/
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 declare module Ember {
 	export class CoreObject {
 		isDestroyed:Boolean;
@@ -12,6 +16,10 @@ declare module Ember {
 	export class Mixin {
 		create(obj:Object):Object;
 		extend(first:Object, second:Object):Object;
+	}
+	
+	export class View {
+		
 	}
 	
 	export class Enumerable extends Ember.Mixin {
@@ -68,7 +76,9 @@ declare module Ember {
 		eventDispatcher;
 		ready;
 		rootElement;
+		MyView:Ember.View;
 		
+		create():Ember.Application;
 		initialize(router);
 		registerInjection(options);
 	}
@@ -148,6 +158,8 @@ interface EmberStatic {
 	VERSION:String;
 	VIEW_PRESERVES_CONTEXT:Boolean;
 	
+	$; // jQuery
+
 	// API Doc Members
 	A(arr:any[]):Ember.NativeArray;
 	addBeforeObserver(obj:Object, path:String, target:Object, method:Function);
@@ -215,25 +227,26 @@ interface EmberStatic {
 	warn(message:String, test:Boolean);
 	watchedEvents(obj:Object);
 	
-	// Other members not listed in API Doc
+	// Other public members not listed in API Doc
 	meta(obj, writable);
 	metaPath(obj, path, writable);
 	normalizeTuple(target, path);
-	notifyBeforeObservers(obj, keyName);
-	notifyObservers(obj, keyName);
-	observersFor(obj, path);
-	rewatch(obj);
+	notifyBeforeObservers(obj:Object, keyName:String);
+	notifyObservers(obj:Object, keyName:String);
+	observersFor(obj:Object, path:String);
+	rewatch(obj:Object);
 	run(target, method);
-	defineProperty(obj, keyName, desc, data, meta);
+	defineProperty(obj:Object, keyName:String, desc, data, meta);
 	beforeObserversFor(obj:Object, path:String);
-	generateGuid(obj, prefix);
+	generateGuid(obj:Object, prefix);
 	getPath();
-	guidFor(obj);
+	guidFor(obj:Object);
 	identifyNamespaces();	
 	setPath();	
 	trySetPath();
-	unwatch(obj, keyName);	
-	watch(obj, keyName);	
-	wrap(func, superFunc);
+	unwatch(obj:Object, keyName:String);	
+	watch(obj:Object, keyName:String);	
+	wrap(func:Function, superFunc:Function);
 }
+declare var Em: EmberStatic;
 declare var Ember:EmberStatic; 
