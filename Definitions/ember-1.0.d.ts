@@ -2,42 +2,49 @@
 // Project: http://emberjs.com/
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-module Em {
 
-    // $;
-    export function A(arr?: any[]): NativeArray;
-    export function addListener(obj: any, eventName: string, targetOrMethod: any, method: any): void;
-    export function alias(methodName: Descriptor): Alias;
-    export function assert(desc: string, test: bool): void;
-    export function beforeObserver(func: Function, propertyNames: string): Function;
-    export function bind(obj: any, to: string, from: string): Binding;
-    export function cacheFor(obj: any, key: string): void;
-
-
-    export interface Alias {
-    }
-
-    class Application {
-        static create(): Application;
-        MyView: View;
-    }
-
-    export interface ArrayController {
-    }
-
-    export interface Binding {
-    }
-
-    export interface Descriptor {
-    }
-
-    export interface NativeArray {
-        activate(): void;
-    }
-
-    export interface Object {
-    }
-
-    export class View {
-    }
+interface EmberApplication {
+    create(): EmberApplication;
+    MyView: EmberView;
 }
+
+interface EmberAlias {
+}
+
+interface EmberArrayController {
+}
+
+interface EmberBinding {
+}
+
+interface EmberDescriptor {
+}
+
+interface EmberNativeArray {
+    activate(): void;
+}
+
+interface EmberObject {
+}
+
+interface EmberView {
+}
+
+interface EmberStatic {
+
+    $; // jQuery
+    A(arr?: any[]): EmberNativeArray;
+    addListener(obj: any, eventName: string, targetOrMethod: any, method: any): void;
+    alias(methodName: EmberDescriptor): EmberAlias;
+    assert(desc: string, test: bool): void;
+    beforeObserver(func: Function, propertyNames: string): Function;
+    bind(obj: any, to: string, from: string): EmberBinding;
+    cacheFor(obj: any, key: string): void;
+
+    Application: EmberApplication;
+    Object: EmberObject;
+    View: EmberView;
+}
+
+declare var Em: EmberStatic;
+declare var Ember: EmberStatic;

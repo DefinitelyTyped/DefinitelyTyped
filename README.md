@@ -32,11 +32,12 @@ Complete
 Next
 ----
 * ember.js
-* Angular.js
-* google.visualization
-* jQuery Mobile
-* jQuery.Validate
+* Facebook SDK
 * Knockout.Mapping
+* jQuery.Validate
+* jQuery Mobile
+* google.visualization
+* Angular.js
 * Meteor
 * PhoneGap
 * Isotope
