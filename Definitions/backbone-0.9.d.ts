@@ -32,7 +32,7 @@ declare module Backbone {
 
         bind(ev: string, f: Function, ctx?: any): void;  /// ????
 
-        // defaults; defaults();
+        defaults; // or defaults();
         toJSON(): string;
         fetch(options? );
         save(attributes? , options? ): void;
@@ -40,7 +40,7 @@ declare module Backbone {
         validate(attributes);
         isValid();
         url();
-        urlRoot();
+        urlRoot; // or urlRoot()
         parse(response);
         clone();
         isNew();
@@ -125,7 +125,7 @@ declare module Backbone {
         sort(options? );
         pluck(attribute);
         where(attributes);
-        url();
+        url; // or url()
         parse(response);
         fetch(options?: any): void;
         reset(models, options? );
