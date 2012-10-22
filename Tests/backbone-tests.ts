@@ -68,3 +68,22 @@ note.get("title")
 note.set({title: "March 20", content: "In his eyes she eclipses..."});
 
 note.set("title", "A Scandal in Bohemia");
+
+//////////
+
+class Employee extends Backbone.Model {
+    reports: EmployeeCollection;
+
+    constructor (options? ) {
+        super(options);
+        this.reports = new EmployeeCollection();
+        this.reports.url = '../api/employees/' + this.id + '/reports';
+    }
+}
+
+class EmployeeCollection extends Backbone.Collection {
+
+    url: string = "../api/employees";
+    model = Employee;
+    findByName(key) {}
+}
