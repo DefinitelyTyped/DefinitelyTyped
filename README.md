@@ -10,8 +10,10 @@ Complete
 * [async](https://github.com/caolan/async)
 * [Backbone.js](http://backbonejs.org/)
 * [Bootstrap](http://twitter.github.com/bootstrap/)
+* [ember.js](http://emberjs.com/)
 * [Express](http://expressjs.com/) (from TypeScript samples)
 * [Fancybox](http://fancybox.net/) 
+* [Handlebars](http://handlebarsjs.com/)
 * [History.js](https://github.com/balupton/History.js/)
 * [Humane.js](http://wavded.github.com/humane-js/) (by [jmvrbanac](https://github.com/jmvrbanac))
 * [Impress.js](https://github.com/bartaz/impress.js)
@@ -31,13 +33,12 @@ Complete
 
 Next
 ----
-* ember.js
-* Facebook SDK
 * Knockout.Mapping
+* Angular.js
+* Facebook SDK
 * jQuery.Validate
 * jQuery Mobile
 * google.visualization
-* Angular.js
 * Meteor
 * PhoneGap
 * Isotope
