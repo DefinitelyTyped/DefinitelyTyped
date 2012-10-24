@@ -2,23 +2,24 @@
 // Project: https://github.com/mranney/node_redis
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+
 declare module 'redis' {
     export var debug_mode: bool;
     export function createClient(): RedisClient;
-    export function createClient(port: string, host: string, options: RedisOptions): RedisClient;
+    export function createClient(port: number, host: string, options?: RedisOptions): RedisClient;
     export function print(err: string, reply?: string);
 
     interface RedisOptions {
-        parser: string;
-        return_buffers: bool;
-        detect_buffers: bool;
-        socket_nodelay: bool;
-        no_ready_check: bool;
-        enable_offline_queue: bool;
+        parser?: string;
+        return_buffers?: bool;
+        detect_buffers?: bool;
+        socket_nodelay?: bool;
+        no_ready_check?: bool;
+        enable_offline_queue?: bool;
     }
 
     interface Command {
-        (...args: any[], callback?: Function): Commands;
+        (...args: any[]): Commands;
     }
     
     interface Commands {
@@ -156,6 +157,8 @@ declare module 'redis' {
         eval: Command;
         evalsha: Command;
 
+        quit: Command;
+
         /////////////////
 
         GET: Command;
@@ -291,18 +294,10 @@ declare module 'redis' {
         EVAL: Command;
         EVALSHA: Command;
 
-
-        hgetall(hash);
-        hmset(hash, obj, callback?: Function);
-        hmset(hash, key1, val1, ... keyn, valn, [callback])
-
-        hmset(args, callback: Function);
-        HMGET (args, callback: Function);
+        QUIT: Command;
     }
 
     interface Multi extends Commands {
-        exec(callback: Function, ...commands: any[]): void;
-        EXEC(callback: Function, ...commands: any[]): void;
     }
 
     interface RedisClient extends Commands {
@@ -322,10 +317,13 @@ declare module 'redis' {
         return_error(err): void;
         return_reply(reply): void;
         send_command(command: string, args: any[], callback?: Function);
-        send_command(command: string, ...args: any[], callback?: Function);
+        send_command(command: string, ...args: any[]);
         pub_sub_command(command: { command: string; args: any[]; });
 
-        eval(): void;
+        port: number;
+        host: string;
+        reply_parser;
+        stream;
 
         server_info;
         connected: bool;
@@ -339,11 +337,11 @@ declare module 'redis' {
 
         end(): RedisClient;
 
-        on("subscribe", (channel, count) => void); // +emit
+        on(eventName: string, callback: Function): void; 
+        once(eventName: string, callback: Function): void;
+        removeListener(eventName: string, callback: Function): void;
 
-        send_command(command_name, args, callback)
-
-        multi(...commands: any[]): Multi;
-        MULTI(...commands: any[]): Multi;
+        multi(): Multi;
+        MULTI(): Multi;
     }
 }
