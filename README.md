@@ -26,6 +26,7 @@ Complete
 * [Moment.js](https://github.com/timrwood/moment) (by [Michael Lakerveld](https://github.com/Lakerfield))
 * [Mustache.js](https://github.com/janl/mustache.js)
 * [Node.js](http://nodejs.org/) (from TypeScript samples)
+* [node_redis](https://github.com/mranney/node_redis)
 * [QUnit](http://qunitjs.com/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Raphael](http://raphaeljs.com/) (by [CheCoxshall](https://github.com/CheCoxshall))
 * [Spin](http://fgnass.github.com/spin.js/)
