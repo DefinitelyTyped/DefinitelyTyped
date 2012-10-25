@@ -25,6 +25,7 @@ Complete
 * [jQuery Mobile](http://jquerymobile.com)
 * [jQuery UI](http://jqueryui.com/)
 * [Knockout.js](http://knockoutjs.com/)
+* [Knockout.Mapping](https://github.com/SteveSanderson/knockout.mapping)
 * [Modernizr](http://modernizr.com/)
 * [Moment.js](https://github.com/timrwood/moment) (by [Michael Lakerveld](https://github.com/Lakerfield))
 * [Mustache.js](https://github.com/janl/mustache.js)
@@ -37,7 +38,6 @@ Complete
 
 Next
 ----
-* Knockout.Mapping
 * Chosen
 * Facebook SDK
 * jQuery.Validate
