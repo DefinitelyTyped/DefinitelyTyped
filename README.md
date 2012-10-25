@@ -7,7 +7,7 @@ The project aims to provide *high quality* definitions for the most popular libr
 
 Complete
 --------
-* [AngularJS](http://angularjs.org) (by [Diego Vilar](https://github.com/diegovilar)) ([wiki](wiki/AngularJS-Definitions-Usage-Notes))
+* [AngularJS](http://angularjs.org) (by [Diego Vilar](https://github.com/diegovilar)) ([wiki](https://github.com/borisyankov/DefinitelyTyped/wiki/AngularJS-Definitions-Usage-Notes))
 * [async](https://github.com/caolan/async)
 * [Backbone.js](http://backbonejs.org/)
 * [Bootstrap](http://twitter.github.com/bootstrap/)
