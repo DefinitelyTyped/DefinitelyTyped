@@ -20,6 +20,7 @@ Complete
 * [Jasmine](http://pivotal.github.com/jasmine/)
 * [jQuery.Globalize](https://github.com/jquery/globalize)
 * [jQuery](http://jquery.com/) (from TypeScript samples)
+* [jQuery Mobile](http://jquerymobile.com)
 * [jQuery UI](http://jqueryui.com/)
 * [Knockout.js](http://knockoutjs.com/)
 * [Modernizr](http://modernizr.com/)
@@ -35,10 +36,10 @@ Complete
 Next
 ----
 * Knockout.Mapping
+* Chosen
 * Angular.js
 * Facebook SDK
 * jQuery.Validate
-* jQuery Mobile
 * google.visualization
 * Meteor
 * PhoneGap
