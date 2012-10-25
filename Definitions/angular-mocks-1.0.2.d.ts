@@ -14,11 +14,11 @@ module ng {
     // AngularStatic
     // We reopen it to add the MockStatic definition
     ///////////////////////////////////////////////////////////////////////////
-    export interface AngularStatic {
-        mock: MockStatic;
+    interface IAngularStatic {
+        mock: IMockStatic;
     }
 
-    interface MockStatic {
+    interface IMockStatic {
         // see http://docs.angularjs.org/api/angular.mock.debug
         debug(obj: any): string;
                 
@@ -38,7 +38,7 @@ module ng {
     // see http://docs.angularjs.org/api/ngMock.$exceptionHandler
     // see http://docs.angularjs.org/api/ngMock.$exceptionHandlerProvider
     ///////////////////////////////////////////////////////////////////////////
-    export interface ExceptionHandlerProvider extends ServiceProvider {
+    interface IExceptionHandlerProvider extends IServiceProvider {
         mode(mode: string): void;
     }
 
@@ -47,7 +47,7 @@ module ng {
     // see http://docs.angularjs.org/api/ngMock.$timeout
     // Augments the original service
     ///////////////////////////////////////////////////////////////////////////
-    export interface TimeoutService {
+    interface ITimeoutService {
         flush(): void;
     }
 
@@ -56,7 +56,7 @@ module ng {
     // see http://docs.angularjs.org/api/ngMock.$log
     // Augments the original service
     ///////////////////////////////////////////////////////////////////////////
-    export interface LogService {
+    interface ILogService {
         assertEmpty(): void;
         reset(): void;
     }
@@ -69,77 +69,77 @@ module ng {
     // HttpBackendService
     // see http://docs.angularjs.org/api/ngMock.$httpBackend
     ///////////////////////////////////////////////////////////////////////////
-    export interface HttpBackendService {
+    interface IHttpBackendService {
         flush(count: number): void;
         resetExpectations(): void;
         verifyNoOutstandingExpectation(): void;
         verifyNoOutstandingRequest(): void;
 
-        expect(method: string, url: string, data?: string, headers?: any): mock.RequestHandler;
-        expect(method: string, url: RegExp, data?: string, headers?: any): mock.RequestHandler;
-        expect(method: string, url: string, data?: RegExp, headers?: any): mock.RequestHandler;
-        expect(method: string, url: RegExp, data?: RegExp, headers?: any): mock.RequestHandler;
-        expect(method: RegExp, url: string, data?: string, headers?: any): mock.RequestHandler;
-        expect(method: RegExp, url: RegExp, data?: string, headers?: any): mock.RequestHandler;
-        expect(method: RegExp, url: string, data?: RegExp, headers?: any): mock.RequestHandler;
-        expect(method: RegExp, url: RegExp, data?: RegExp, headers?: any): mock.RequestHandler;        
+        expect(method: string, url: string, data?: string, headers?: any): mock.IRequestHandler;
+        expect(method: string, url: RegExp, data?: string, headers?: any): mock.IRequestHandler;
+        expect(method: string, url: string, data?: RegExp, headers?: any): mock.IRequestHandler;
+        expect(method: string, url: RegExp, data?: RegExp, headers?: any): mock.IRequestHandler;
+        expect(method: RegExp, url: string, data?: string, headers?: any): mock.IRequestHandler;
+        expect(method: RegExp, url: RegExp, data?: string, headers?: any): mock.IRequestHandler;
+        expect(method: RegExp, url: string, data?: RegExp, headers?: any): mock.IRequestHandler;
+        expect(method: RegExp, url: RegExp, data?: RegExp, headers?: any): mock.IRequestHandler;        
         
-        when(method: string, url: string, data?: string, headers?: any): mock.RequestHandler;
-        when(method: string, url: RegExp, data?: string, headers?: any): mock.RequestHandler;
-        when(method: string, url: string, data?: RegExp, headers?: any): mock.RequestHandler;
-        when(method: string, url: RegExp, data?: RegExp, headers?: any): mock.RequestHandler;
-        when(method: RegExp, url: string, data?: string, headers?: any): mock.RequestHandler;
-        when(method: RegExp, url: RegExp, data?: string, headers?: any): mock.RequestHandler;
-        when(method: RegExp, url: string, data?: RegExp, headers?: any): mock.RequestHandler;
-        when(method: RegExp, url: RegExp, data?: RegExp, headers?: any): mock.RequestHandler;        
+        when(method: string, url: string, data?: string, headers?: any): mock.IRequestHandler;
+        when(method: string, url: RegExp, data?: string, headers?: any): mock.IRequestHandler;
+        when(method: string, url: string, data?: RegExp, headers?: any): mock.IRequestHandler;
+        when(method: string, url: RegExp, data?: RegExp, headers?: any): mock.IRequestHandler;
+        when(method: RegExp, url: string, data?: string, headers?: any): mock.IRequestHandler;
+        when(method: RegExp, url: RegExp, data?: string, headers?: any): mock.IRequestHandler;
+        when(method: RegExp, url: string, data?: RegExp, headers?: any): mock.IRequestHandler;
+        when(method: RegExp, url: RegExp, data?: RegExp, headers?: any): mock.IRequestHandler;        
                 
-        expectDELETE(url: string, headers?: any): mock.RequestHandler;
-        expectDELETE(url: RegExp, headers?: any): mock.RequestHandler;
-        expectGET(url: string, headers?: any): mock.RequestHandler;
-        expectGET(url: RegExp, headers?: any): mock.RequestHandler;
-        expectHEAD(url: string, headers?: any): mock.RequestHandler;
-        expectHEAD(url: RegExp, headers?: any): mock.RequestHandler;
-        expectJSONP(url: string): mock.RequestHandler;
-        expectJSONP(url: RegExp): mock.RequestHandler;
-        expectPATCH(url: string, data?: string, headers?: any): mock.RequestHandler;
-        expectPATCH(url: RegExp, data?: string, headers?: any): mock.RequestHandler;
-        expectPATCH(url: string, data?: RegExp, headers?: any): mock.RequestHandler;
-        expectPATCH(url: RegExp, data?: RegExp, headers?: any): mock.RequestHandler;
-        expectPOST(url: string, data?: string, headers?: any): mock.RequestHandler;
-        expectPOST(url: RegExp, data?: string, headers?: any): mock.RequestHandler;
-        expectPOST(url: string, data?: RegExp, headers?: any): mock.RequestHandler;
-        expectPOST(url: RegExp, data?: RegExp, headers?: any): mock.RequestHandler;
-        expectPUT(url: string, data?: string, headers?: any): mock.RequestHandler;
-        expectPUT(url: RegExp, data?: string, headers?: any): mock.RequestHandler;
-        expectPUT(url: string, data?: RegExp, headers?: any): mock.RequestHandler;
-        expectPUT(url: RegExp, data?: RegExp, headers?: any): mock.RequestHandler;
+        expectDELETE(url: string, headers?: any): mock.IRequestHandler;
+        expectDELETE(url: RegExp, headers?: any): mock.IRequestHandler;
+        expectGET(url: string, headers?: any): mock.IRequestHandler;
+        expectGET(url: RegExp, headers?: any): mock.IRequestHandler;
+        expectHEAD(url: string, headers?: any): mock.IRequestHandler;
+        expectHEAD(url: RegExp, headers?: any): mock.IRequestHandler;
+        expectJSONP(url: string): mock.IRequestHandler;
+        expectJSONP(url: RegExp): mock.IRequestHandler;
+        expectPATCH(url: string, data?: string, headers?: any): mock.IRequestHandler;
+        expectPATCH(url: RegExp, data?: string, headers?: any): mock.IRequestHandler;
+        expectPATCH(url: string, data?: RegExp, headers?: any): mock.IRequestHandler;
+        expectPATCH(url: RegExp, data?: RegExp, headers?: any): mock.IRequestHandler;
+        expectPOST(url: string, data?: string, headers?: any): mock.IRequestHandler;
+        expectPOST(url: RegExp, data?: string, headers?: any): mock.IRequestHandler;
+        expectPOST(url: string, data?: RegExp, headers?: any): mock.IRequestHandler;
+        expectPOST(url: RegExp, data?: RegExp, headers?: any): mock.IRequestHandler;
+        expectPUT(url: string, data?: string, headers?: any): mock.IRequestHandler;
+        expectPUT(url: RegExp, data?: string, headers?: any): mock.IRequestHandler;
+        expectPUT(url: string, data?: RegExp, headers?: any): mock.IRequestHandler;
+        expectPUT(url: RegExp, data?: RegExp, headers?: any): mock.IRequestHandler;
 
-        whenDELETE(url: string, headers?: any): mock.RequestHandler;
-        whenDELETE(url: RegExp, headers?: any): mock.RequestHandler;
-        whenGET(url: string, headers?: any): mock.RequestHandler;
-        whenGET(url: RegExp, headers?: any): mock.RequestHandler;
-        whenHEAD(url: string, headers?: any): mock.RequestHandler;
-        whenHEAD(url: RegExp, headers?: any): mock.RequestHandler;
-        whenJSONP(url: string): mock.RequestHandler;
-        whenJSONP(url: RegExp): mock.RequestHandler;
-        whenPATCH(url: string, data?: string, headers?: any): mock.RequestHandler;
-        whenPATCH(url: RegExp, data?: string, headers?: any): mock.RequestHandler;
-        whenPATCH(url: string, data?: RegExp, headers?: any): mock.RequestHandler;
-        whenPATCH(url: RegExp, data?: RegExp, headers?: any): mock.RequestHandler;
-        whenPOST(url: string, data?: string, headers?: any): mock.RequestHandler;
-        whenPOST(url: RegExp, data?: string, headers?: any): mock.RequestHandler;
-        whenPOST(url: string, data?: RegExp, headers?: any): mock.RequestHandler;
-        whenPOST(url: RegExp, data?: RegExp, headers?: any): mock.RequestHandler;
-        whenPUT(url: string, data?: string, headers?: any): mock.RequestHandler;
-        whenPUT(url: RegExp, data?: string, headers?: any): mock.RequestHandler;
-        whenPUT(url: string, data?: RegExp, headers?: any): mock.RequestHandler;
-        whenPUT(url: RegExp, data?: RegExp, headers?: any): mock.RequestHandler;
+        whenDELETE(url: string, headers?: any): mock.IRequestHandler;
+        whenDELETE(url: RegExp, headers?: any): mock.IRequestHandler;
+        whenGET(url: string, headers?: any): mock.IRequestHandler;
+        whenGET(url: RegExp, headers?: any): mock.IRequestHandler;
+        whenHEAD(url: string, headers?: any): mock.IRequestHandler;
+        whenHEAD(url: RegExp, headers?: any): mock.IRequestHandler;
+        whenJSONP(url: string): mock.IRequestHandler;
+        whenJSONP(url: RegExp): mock.IRequestHandler;
+        whenPATCH(url: string, data?: string, headers?: any): mock.IRequestHandler;
+        whenPATCH(url: RegExp, data?: string, headers?: any): mock.IRequestHandler;
+        whenPATCH(url: string, data?: RegExp, headers?: any): mock.IRequestHandler;
+        whenPATCH(url: RegExp, data?: RegExp, headers?: any): mock.IRequestHandler;
+        whenPOST(url: string, data?: string, headers?: any): mock.IRequestHandler;
+        whenPOST(url: RegExp, data?: string, headers?: any): mock.IRequestHandler;
+        whenPOST(url: string, data?: RegExp, headers?: any): mock.IRequestHandler;
+        whenPOST(url: RegExp, data?: RegExp, headers?: any): mock.IRequestHandler;
+        whenPUT(url: string, data?: string, headers?: any): mock.IRequestHandler;
+        whenPUT(url: RegExp, data?: string, headers?: any): mock.IRequestHandler;
+        whenPUT(url: string, data?: RegExp, headers?: any): mock.IRequestHandler;
+        whenPUT(url: RegExp, data?: RegExp, headers?: any): mock.IRequestHandler;
     }    
 
     export module mock {
         
         // returned interface by the the mocked HttpBackendService expect/when methods
-        export interface RequestHandler {
+        interface IRequestHandler {
             respond(func: Function): void;        
             respond(status: number, data?: any, headers?: any): void;
             respond(data: any, headers?: any): void;

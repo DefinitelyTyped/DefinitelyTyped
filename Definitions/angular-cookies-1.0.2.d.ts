@@ -14,13 +14,13 @@ module ng.cookies {
     // CookieService
     // see http://docs.angularjs.org/api/ngCookies.$cookies
     ///////////////////////////////////////////////////////////////////////////
-    export interface CookiesService {}
+    interface ICookiesService {}
 
     ///////////////////////////////////////////////////////////////////////////
     // CookieStoreService
     // see http://docs.angularjs.org/api/ngCookies.$cookieStore
     ///////////////////////////////////////////////////////////////////////////
-    export interface CookieStoreService {
+    interface ICookieStoreService {
         get(key: string): any;
         put(key: string, value: any): void;
         remove(key: string): void;

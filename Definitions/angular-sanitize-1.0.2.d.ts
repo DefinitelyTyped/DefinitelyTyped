@@ -14,7 +14,7 @@ module ng.sanitize {
     // SanitizeService
     // see http://docs.angularjs.org/api/ngSanitize.$sanitize
     ///////////////////////////////////////////////////////////////////////////
-    export interface SanitizeService {
+    interface ISanitizeService {
         (html: string): string;
     }
 

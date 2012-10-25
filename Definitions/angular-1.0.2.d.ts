@@ -5,7 +5,7 @@
 
 /// <reference path="jquery-1.8.d.ts" />
 
-declare var angular: ng.AngularStatic;
+declare var angular: ng.IAngularStatic;
 
 ///////////////////////////////////////////////////////////////////////////////
 // ng module (angular.js)
@@ -13,10 +13,10 @@ declare var angular: ng.AngularStatic;
 module ng {
 
     // For the sake of simplicity, let's assume jQuery is always preferred
-    interface JQLiteOrBetter extends JQuery { }
+    interface IJQLiteOrBetter extends JQuery { }
 
     // All service providers extend this interface
-    export interface ServiceProvider {
+    interface IServiceProvider {
         $get(): any;
     }
 
@@ -24,17 +24,19 @@ module ng {
     // AngularStatic
     // see http://docs.angularjs.org/api
     ///////////////////////////////////////////////////////////////////////////
-    export interface AngularStatic {
+    interface IAngularStatic {
         bind(context: any, fn: Function, ...args: any[]): Function;
-        bootstrap(element: Element, modules?: any[]): auto.InjectorService;
+        bootstrap(element: string, modules?: any[]): auto.IInjectorService;
+        bootstrap(element: IJQLiteOrBetter, modules?: any[]): auto.IInjectorService;
+        bootstrap(element: Element, modules?: any[]): auto.IInjectorService;
         copy(source: any, destination?: any): any;
-        element: JQLiteOrBetter;
+        element: IJQLiteOrBetter;
         equals(value1: any, value2: any): bool;
         extend(destination: any, ...sources: any[]): any;
         forEach(obj: any, iterator: (value, key) => any, context?: any): any;
         fromJson(json: string): any;
         identity(arg?: any): any;
-        injector(modules?: any[]): auto.InjectorService;
+        injector(modules?: any[]): auto.IInjectorService;
         isArray(value: any): bool;
         isDate(value: any): bool;
         isDefined(value: any): bool;
@@ -45,7 +47,7 @@ module ng {
         isString(value: any): bool;
         isUndefined(value: any): bool;
         lowercase(str: string): string;        
-        module(name: string, requires?: string[], configFunction?: Function): Module;
+        module(name: string, requires?: string[], configFunction?: Function): IModule;
         noop(...args: any[]): void;
         toJson(obj: any, pretty?: bool): string;
         uppercase(str: string): string;
@@ -62,18 +64,18 @@ module ng {
     // Module
     // see http://docs.angularjs.org/api/angular.Module
     ///////////////////////////////////////////////////////////////////////////
-    export interface Module {
-        config(configFn: Function): Module;
-        constant(name: string, value: any): Module;
-        controller(name: string, controllerConstructor: Function): Module;
-        controller(name: string, inlineAnnotadedConstructor: any[]): Module;
-        directive(name: string, directiveFactory: Function): Module;
-        factory(name: string, serviceFactoryFunction: Function): Module;
-        filter(name: string, filterFactoryFunction: Function): Module;
-        provider(name: string, serviceProviderConstructor: Function): Module;
-        run(initializationFunction: Function): Module;
-        service(name: string, serviceConstructor: Function): Module;
-        value(name: string, value: any): Module;
+    interface IModule {
+        config(configFn: Function): IModule;
+        constant(name: string, value: any): IModule;
+        controller(name: string, controllerConstructor: Function): IModule;
+        controller(name: string, inlineAnnotadedConstructor: any[]): IModule;
+        directive(name: string, directiveFactory: Function): IModule;
+        factory(name: string, serviceFactoryFunction: Function): IModule;
+        filter(name: string, filterFactoryFunction: Function): IModule;
+        provider(name: string, serviceProviderConstructor: Function): IModule;
+        run(initializationFunction: Function): IModule;
+        service(name: string, serviceConstructor: Function): IModule;
+        value(name: string, value: any): IModule;
 
         // Properties
         name: string;
@@ -84,7 +86,7 @@ module ng {
     // Attributes
     // see http://docs.angularjs.org/api/ng.$compile.directive.Attributes
     ///////////////////////////////////////////////////////////////////////////
-    export interface Attributes {
+    interface IAttributes {
         $set(name: string, value: any): void;
         $attr: any;
     }
@@ -93,7 +95,7 @@ module ng {
     // FormController
     // see http://docs.angularjs.org/api/ng.directive:form.FormController
     ///////////////////////////////////////////////////////////////////////////
-    export interface FormController {
+    interface IFormController {
         $pristine: bool;
         $dirty: bool;
         $valid: bool;
@@ -105,7 +107,7 @@ module ng {
     // NgModelController
     // see http://docs.angularjs.org/api/ng.directive:ngModel.NgModelController
     ///////////////////////////////////////////////////////////////////////////
-    export interface NgModelController {
+    interface INgModelController {
         $render(): void;
         $setValidity(validationErrorKey: string, isValid: bool): void;
         $setViewValue(value: string): void;
@@ -118,8 +120,8 @@ module ng {
         // XXX Same as avove
         $modelValue: any;
         
-        $parsers: ModelParser[];
-        $formatters: ModelFormatter[];
+        $parsers: IModelParser[];
+        $formatters: IModelFormatter[];
         $error: any;
         $pristine: bool;
         $dirty: bool;
@@ -127,11 +129,11 @@ module ng {
         $invalid: bool;        
     }
 
-    export interface ModelParser {
+    interface IModelParser {
         (value: any): any;
     }
 
-    export interface ModelFormatter {
+    interface IModelFormatter {
         (value: any): any;
     }
 
@@ -139,40 +141,40 @@ module ng {
     // Scope
     // see http://docs.angularjs.org/api/ng.$rootScope.Scope
     ///////////////////////////////////////////////////////////////////////////
-    export interface Scope {
+    interface IScope {
         // Documentation says exp is optional, but actual implementaton counts on it
         $apply(exp: string): any;
-        $apply(exp: (scope: Scope) => any): any;
+        $apply(exp: (scope: IScope) => any): any;
         
-        $broadcast(name: string, ...args: any[]): AngularEvent;
+        $broadcast(name: string, ...args: any[]): IAngularEvent;
         $destroy(): void;
         $digest(): void;
-        $emit(name: string, ...args: any[]): AngularEvent;
+        $emit(name: string, ...args: any[]): IAngularEvent;
         
         // Documentation says exp is optional, but actual implementaton counts on it
         $eval(expression: string): any;
-        $eval(expression: (scope: Scope) => any): any;
+        $eval(expression: (scope: IScope) => any): any;
 
         // Documentation says exp is optional, but actual implementaton counts on it
         $evalAsync(expression: string): void;
-        $evalAsync(expression: (scope: Scope) => any): void;
+        $evalAsync(expression: (scope: IScope) => any): void;
 
         // Defaults to false by the implementation checking strategy
-        $new(isolate?: bool): Scope;
+        $new(isolate?: bool): IScope;
 
-        $on(name: string, listener: (event: AngularEvent, ...args: any[]) => any): Function;
+        $on(name: string, listener: (event: IAngularEvent, ...args: any[]) => any): Function;
         
         $watch(watchExpression: string, listener?: string, objectEquality?: bool): Function;
-        $watch(watchExpression: string, listener?: (newValue: any, oldValue: any, scope: Scope) => any, objectEquality?: bool): Function;
-        $watch(watchExpression: (scope: Scope) => any, listener?: string, objectEquality?: bool): Function;
-        $watch(watchExpression: (scope: Scope) => any, listener?: (newValue: any, oldValue: any, scope: Scope) => any, objectEquality?: bool): Function;
+        $watch(watchExpression: string, listener?: (newValue: any, oldValue: any, scope: IScope) => any, objectEquality?: bool): Function;
+        $watch(watchExpression: (scope: IScope) => any, listener?: string, objectEquality?: bool): Function;
+        $watch(watchExpression: (scope: IScope) => any, listener?: (newValue: any, oldValue: any, scope: IScope) => any, objectEquality?: bool): Function;
         
         $id: number;
     }
 
-    export interface AngularEvent {
-        targetScope: Scope;
-        currentScope: Scope;
+    interface IAngularEvent {
+        targetScope: IScope;
+        currentScope: IScope;
         name: string;        
         preventDefault: Function;
         defaultPrevented: bool;
@@ -185,21 +187,21 @@ module ng {
     // WindowService
     // see http://docs.angularjs.org/api/ng.$window
     ///////////////////////////////////////////////////////////////////////////
-    export interface WindowService extends Window {}
+    interface IWindowService extends Window {}
 
     ///////////////////////////////////////////////////////////////////////////
     // BrowserService
     // TODO undocumented, so we need to get it from the source code
     ///////////////////////////////////////////////////////////////////////////
-    export interface BrowserService {}
+    interface IBrowserService {}
 
     ///////////////////////////////////////////////////////////////////////////
     // TimeoutService
     // see http://docs.angularjs.org/api/ng.$timeout
     ///////////////////////////////////////////////////////////////////////////
-    export interface TimeoutService {
-        (func: Function, delay?: number, invokeApply?: bool): Promise;
-        cancel(promise: Promise): bool;
+    interface ITimeoutService {
+        (func: Function, delay?: number, invokeApply?: bool): IPromise;
+        cancel(promise: IPromise): bool;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -207,36 +209,36 @@ module ng {
     // see http://docs.angularjs.org/api/ng.$filter
     // see http://docs.angularjs.org/api/ng.$filterProvider
     ///////////////////////////////////////////////////////////////////////////
-    export interface FilterService {
+    interface IFilterService {
         (name: string): Function;
     }
 
-    export interface FilterProvider extends ServiceProvider {
-        register(name: string, filterFactory: Function): ServiceProvider;
+    interface IFilterProvider extends IServiceProvider {
+        register(name: string, filterFactory: Function): IServiceProvider;
     }
 
     ///////////////////////////////////////////////////////////////////////////
     // LocaleService
     // see http://docs.angularjs.org/api/ng.$locale
     ///////////////////////////////////////////////////////////////////////////
-    export interface LocaleService {
+    interface ILocaleService {
         id: string;
 
         // These are not documented
         // Check angular's i18n files for exemples
-        NUMBER_FORMATS: LocaleNumberFormatDescriptor;
+        NUMBER_FORMATS: ILocaleNumberFormatDescriptor;
         DATETIME_FORMATS: any;
         pluralCat: (num: any) => string;
     }
 
-    export interface LocaleNumberFormatDescriptor {
+    interface ILocaleNumberFormatDescriptor {
         DECIMAL_SEP: string;
         GROUP_SEP: string;
-        PATTERNS: LocaleNumberPatternDescriptor[];
+        PATTERNS: ILocaleNumberPatternDescriptor[];
         CURRENCY_SYM: string;
     }
 
-    export interface LocaleNumberPatternDescriptor {
+    interface ILocaleNumberPatternDescriptor {
         minInt: number;
         minFrac: number;
         maxFrac: number;
@@ -248,7 +250,7 @@ module ng {
         lgSize: number;
     }
 
-    export interface LacaleDateTimeFormatDescriptor {
+    interface ILacaleDateTimeFormatDescriptor {
         MONTH: string[];
         SHORTMONTH: string[];
         DAY: string[];
@@ -268,16 +270,16 @@ module ng {
     // LogService
     // see http://docs.angularjs.org/api/ng.$log
     ///////////////////////////////////////////////////////////////////////////
-    export interface LogService {
-        error: LogCall;
-        info: LogCall;
-        log: LogCall;
-        warn: LogCall;
+    interface ILogService {
+        error: ILogCall;
+        info: ILogCall;
+        log: ILogCall;
+        warn: ILogCall;
     }
 
     // We define this as separete interface so we can reopen it later for
     // the ngMock module.
-    interface LogCall {
+    interface ILogCall {
         (...args: any[]): void;
     }
 
@@ -285,11 +287,11 @@ module ng {
     // ParseService
     // see http://docs.angularjs.org/api/ng.$parse
     ///////////////////////////////////////////////////////////////////////////
-    export interface ParseService {
-        (expression: string): CompiledExpression;
+    interface IParseService {
+        (expression: string): ICompiledExpression;
     }
 
-    export interface CompiledExpression {
+    interface ICompiledExpression {
         (context: any, locals?: any): any;
 
         // If value is not provided, undefined is gonna be used since the implementation
@@ -304,45 +306,45 @@ module ng {
     // see http://docs.angularjs.org/api/ng.$locationProvider
     // see http://docs.angularjs.org/guide/dev_guide.services.$location
     ///////////////////////////////////////////////////////////////////////////
-    export interface LocationService {
+    interface ILocationService {
         absUrl(): string;
         hash(): string;
-        hash(newHash: string): LocationService;
+        hash(newHash: string): ILocationService;
         host(): string;
         path(): string;
-        path(newPath: string): LocationService;
+        path(newPath: string): ILocationService;
         port(): number;
         protocol(): string;
-        replace(): LocationService;
+        replace(): ILocationService;
         search(): string;
-        search(parametersMap: any): LocationService;
-        search(parameter: string, parameterValue: any): LocationService;
+        search(parametersMap: any): ILocationService;
+        search(parameter: string, parameterValue: any): ILocationService;
         url(): string;
-        url(url: string): LocationService;
+        url(url: string): ILocationService;
     }
 
-    export interface LocationProvider extends ServiceProvider {
+    interface ILocationProvider extends IServiceProvider {
         hashPrefix(): string;
-        hashPrefix(prefix: string): LocationProvider;
+        hashPrefix(prefix: string): ILocationProvider;
         html5Mode(): bool;
 
         // Documentation states that parameter is string, but
         // implementation tests it as boolean, which makes more sense
         // since this is a toggler
-        html5Mode(active: bool): LocationProvider;
+        html5Mode(active: bool): ILocationProvider;
     }
 
     ///////////////////////////////////////////////////////////////////////////
     // DocumentService
     // see http://docs.angularjs.org/api/ng.$document
     ///////////////////////////////////////////////////////////////////////////
-    export interface DocumentService extends Document {}
+    interface IDocumentService extends Document {}
 
     ///////////////////////////////////////////////////////////////////////////
     // ExceptionHandlerService
     // see http://docs.angularjs.org/api/ng.$exceptionHandler
     ///////////////////////////////////////////////////////////////////////////
-    export interface ExceptionHandlerService {
+    interface IExceptionHandlerService {
         (exception: Error, cause?: string): void;
     }
 
@@ -350,24 +352,24 @@ module ng {
     // RootElementService
     // see http://docs.angularjs.org/api/ng.$rootElement
     ///////////////////////////////////////////////////////////////////////////
-    export interface RootElementService extends JQLiteOrBetter {}
+    interface IRootElementService extends IJQLiteOrBetter {}
 
     ///////////////////////////////////////////////////////////////////////////
     // QService
     // see http://docs.angularjs.org/api/ng.$q
     ///////////////////////////////////////////////////////////////////////////
-    export interface QService {
-        all(promises: Promise[]): Promise;
-        defer(): Deferred;
-        reject(reason?: any): Promise;
-        when(value: any): Promise;
+    interface IQService {
+        all(promises: IPromise[]): IPromise;
+        defer(): IDeferred;
+        reject(reason?: any): IPromise;
+        when(value: any): IPromise;
     }
 
-    export interface Promise {
-        then(successCallback: Function, errorCallback?: Function): Promise;
+    interface IPromise {
+        then(successCallback: Function, errorCallback?: Function): IPromise;
     }
 
-    export interface Deferred {
+    interface IDeferred {
         resolve(value?: any): void;
         reject(reason?: string): void;
     }
@@ -376,11 +378,11 @@ module ng {
     // AnchorScrollService
     // see http://docs.angularjs.org/api/ng.$anchorScroll
     ///////////////////////////////////////////////////////////////////////////
-    export interface AnchorScrollService {
+    interface IAnchorScrollService {
         (): void;
     }
 
-    export interface AnchorScrollProvider extends ServiceProvider {
+    interface IAnchorScrollProvider extends IServiceProvider {
         disableAutoScrolling(): void;
     }
 
@@ -388,19 +390,19 @@ module ng {
     // CacheFactoryService
     // see http://docs.angularjs.org/api/ng.$cacheFactory
     ///////////////////////////////////////////////////////////////////////////
-    export interface CacheFactoryService {
+    interface ICacheFactoryService {
         // Lets not foce the optionsMap to have the capacity member. Even though
         // it's the ONLY option considered by the implementation today, a consumer
         // might find it useful to associate some other options to the cache object.
         //(cacheId: string, optionsMap?: { capacity: number; }): CacheObject;
-        (cacheId: string, optionsMap?: { capacity: number; }): CacheObject;
+        (cacheId: string, optionsMap?: { capacity: number; }): ICacheObject;
 
         // Methods bellow are not documented
         info(): any;
-        get(cacheId: string): CacheObject;
+        get(cacheId: string): ICacheObject;
     }
 
-    export interface CacheObject {
+    interface ICacheObject {
         info(): {
             id: string;
             size: number;
@@ -420,22 +422,22 @@ module ng {
     // see http://docs.angularjs.org/api/ng.$compile
     // see http://docs.angularjs.org/api/ng.$compileProvider
     ///////////////////////////////////////////////////////////////////////////
-    export interface CompileService {
-        (element: string, transclude?: TemplateLinkingFunction, maxPriority?: number): TemplateLinkingFunction;
-        (element: Element, transclude?: TemplateLinkingFunction, maxPriority?: number): TemplateLinkingFunction;
-        (element: JQLiteOrBetter, transclude?: TemplateLinkingFunction, maxPriority?: number): TemplateLinkingFunction;
+    interface ICompileService {
+        (element: string, transclude?: ITemplateLinkingFunction, maxPriority?: number): ITemplateLinkingFunction;
+        (element: Element, transclude?: ITemplateLinkingFunction, maxPriority?: number): ITemplateLinkingFunction;
+        (element: IJQLiteOrBetter, transclude?: ITemplateLinkingFunction, maxPriority?: number): ITemplateLinkingFunction;
     }
 
-    export interface CompileProvider extends ServiceProvider {
-        directive(name: string, directiveFactory: Function): CompileProvider;
+    interface ICompileProvider extends IServiceProvider {
+        directive(name: string, directiveFactory: Function): ICompileProvider;
 
         // Undocumented, but it is there...
-        directive(directivesMap: any): CompileProvider;
+        directive(directivesMap: any): ICompileProvider;
     }
 
-    export interface TemplateLinkingFunction {
+    interface ITemplateLinkingFunction {
         // Let's hint but not force cloneAttachFn's signature
-        (scope: Scope, cloneAttachFn?: (clonedElement?: JQLiteOrBetter, scope?: Scope) => any): JQLiteOrBetter;
+        (scope: IScope, cloneAttachFn?: (clonedElement?: IJQLiteOrBetter, scope?: IScope) => any): IJQLiteOrBetter;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -443,13 +445,13 @@ module ng {
     // see http://docs.angularjs.org/api/ng.$controller
     // see http://docs.angularjs.org/api/ng.$controllerProvider
     ///////////////////////////////////////////////////////////////////////////
-    export interface ControllerService {
+    interface IControllerService {
         // Although the documentation doesn't state this, locals are optional
         (controllerConstructor: Function, locals?: any): any;
         (controllerName: string, locals?: any): any;
     }
 
-    export interface ControlerPovider extends ServiceProvider {
+    interface IControlerPovider extends IServiceProvider {
         register(name: string, controllerConstructor: Function): void;
         register(name: string, dependencyAnnotadedConstructor: any[]): void;
     }
@@ -458,16 +460,16 @@ module ng {
     // HttpService
     // see http://docs.angularjs.org/api/ng.$http
     ///////////////////////////////////////////////////////////////////////////
-    export interface HttpService {
+    interface IHttpService {
         // At least moethod and url must be provided...
-        (config: RequestConfig): HttpPromise;
-        get(url: string, RequestConfig?: any): HttpPromise;
-        delete(url: string, RequestConfig?: any): HttpPromise;
-        head(url: string, RequestConfig?: any): HttpPromise;
-        jsonp(url: string, RequestConfig?: any): HttpPromise;
-        post(url: string, data: any, RequestConfig?: any): HttpPromise;
-        put(url: string, data: any, RequestConfig?: any): HttpPromise;
-        defaults: RequestConfig;
+        (config: IRequestConfig): IHttpPromise;
+        get(url: string, RequestConfig?: any): IHttpPromise;
+        delete(url: string, RequestConfig?: any): IHttpPromise;
+        head(url: string, RequestConfig?: any): IHttpPromise;
+        jsonp(url: string, RequestConfig?: any): IHttpPromise;
+        post(url: string, data: any, RequestConfig?: any): IHttpPromise;
+        put(url: string, data: any, RequestConfig?: any): IHttpPromise;
+        defaults: IRequestConfig;
 
         // For debugging, BUT it is documented as public, so...
         pendingRequests: any[];
@@ -476,7 +478,7 @@ module ng {
     // This is just for hinting.    
     // Some opetions might not be available depending on the request. 
     // see http://docs.angularjs.org/api/ng.$http#Usage for options explanations
-    export interface RequestConfig {
+    interface IRequestConfig {
         method: string;
         url: string;
         params?: any;
@@ -494,20 +496,20 @@ module ng {
         transformResponse?: any;
     }
 
-    export interface HttpPromise extends Promise {
-        success(callback: (response: DestructuredResponse) => any): HttpPromise;
-        error(callback: (response: DestructuredResponse) => any): HttpPromise;
+    interface IHttpPromise extends IPromise {
+        success(callback: (response: IDestructuredResponse) => any): IHttpPromise;
+        error(callback: (response: IDestructuredResponse) => any): IHttpPromise;
     }
 
-    export interface DestructuredResponse {
+    interface IDestructuredResponse {
         data: any;
         status: number;
         headers: (headerName: string) => string;
-        config: RequestConfig;
+        config: IRequestConfig;
     }
 
-    export interface HttpProvider extends ServiceProvider {        
-        defaults: RequestConfig;
+    interface IHttpProvider extends IServiceProvider {        
+        defaults: IRequestConfig;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -515,7 +517,7 @@ module ng {
     // see http://docs.angularjs.org/api/ng.$httpBackend
     // You should never need to use this service directly.
     ///////////////////////////////////////////////////////////////////////////
-    export interface HttpBackendService {
+    interface IHttpBackendService {
         // XXX Perhaps define callback signature in the future
         (method: string, url: string, post?: any, callback?: Function, headers?: any, timeout?: number, withCredentials?: bool); void;
     }
@@ -525,57 +527,57 @@ module ng {
     // see http://docs.angularjs.org/api/ng.$interpolate
     // see http://docs.angularjs.org/api/ng.$interpolateProvider
     ///////////////////////////////////////////////////////////////////////////
-    export interface InterpolateService {
-        (text: string, mustHaveExpression?: bool): InterpolationFunction;
+    interface IInterpolateService {
+        (text: string, mustHaveExpression?: bool): IInterpolationFunction;
         endSymbol(): string;
         startSymbol(): string;
     }
 
-    export interface InterpolationFunction {
+    interface IInterpolationFunction {
         (context: any): string;
     }
 
-    export interface InterpolateProvider extends ServiceProvider {
+    interface IInterpolateProvider extends IServiceProvider {
         startSymbol(): string;
-        startSymbol(value: string): InterpolateProvider;
+        startSymbol(value: string): IInterpolateProvider;
         endSymbol(): string;
-        endSymbol(value: string): InterpolateProvider;
+        endSymbol(value: string): IInterpolateProvider;
     }
 
     ///////////////////////////////////////////////////////////////////////////
     // RouteParamsService
     // see http://docs.angularjs.org/api/ng.$routeParams
     ///////////////////////////////////////////////////////////////////////////
-    export interface RouteParamsService {}
+    interface IRouteParamsService {}
 
     ///////////////////////////////////////////////////////////////////////////
     // TemplateCacheService
     // see http://docs.angularjs.org/api/ng.$templateCache
     ///////////////////////////////////////////////////////////////////////////
-    export interface TemplateCacheService extends CacheObject {}
+    interface ITemplateCacheService extends ICacheObject {}
 
     ///////////////////////////////////////////////////////////////////////////
     // RootScopeService
     // see http://docs.angularjs.org/api/ng.$rootScope
     ///////////////////////////////////////////////////////////////////////////
-    export interface RootScopeService extends Scope {}
+    interface IRootScopeService extends IScope {}
 
     ///////////////////////////////////////////////////////////////////////////
     // RouteService
     // see http://docs.angularjs.org/api/ng.$route
     // see http://docs.angularjs.org/api/ng.$routeProvider
     ///////////////////////////////////////////////////////////////////////////
-    export interface RouteService {
+    interface IRouteService {
         reload(): void;
         routes: any;
 
         // May not always be available. For instance, current will not be available
         // to a controller that was not initialized as a result of a route maching.
-        current?: CurrentRoute;
+        current?: ICurrentRoute;
     }    
 
     // see http://docs.angularjs.org/api/ng.$routeProvider#when for options explanations
-    export interface Route {
+    interface IRoute {
         controller?: any;
         template?: string;
         templateUrl?: string;
@@ -585,28 +587,28 @@ module ng {
     }
 
     // see http://docs.angularjs.org/api/ng.$route#current
-    export interface CurrentRoute extends Route {
+    interface ICurrentRoute extends IRoute {
         locals: {
-            $scope: Scope;
+            $scope: IScope;
             $template: string;
         };
     }
 
-    export interface RouteProviderProvider extends ServiceProvider {
-        otherwise(params: any): RouteProviderProvider;
-        when(path: string, route: Route): RouteProviderProvider;
+    interface IRouteProviderProvider extends IServiceProvider {
+        otherwise(params: any): IRouteProviderProvider;
+        when(path: string, route: IRoute): IRouteProviderProvider;
     }
 
     ///////////////////////////////////////////////////////////////////////////
     // AUTO module (angular.js)
     ///////////////////////////////////////////////////////////////////////////
-    module auto {
+    export module auto {
 
         ///////////////////////////////////////////////////////////////////////
         // InjectorService
         // see http://docs.angularjs.org/api/AUTO.$injector
         ///////////////////////////////////////////////////////////////////////
-        export interface InjectorService {
+        interface IInjectorService {
             annotate(fn: Function): string[];
             annotate(inlineAnnotadedFunction: any[]): string[];
             get(name: string): any;
@@ -618,18 +620,18 @@ module ng {
         // ProvideService
         // see http://docs.angularjs.org/api/AUTO.$provide
         ///////////////////////////////////////////////////////////////////////
-        export interface ProvideService {
+        interface IProvideService {
             // Documentation says it returns the registered instance, but actual
             // implementation does not return anything.
             // constant(name: string, value: any): any;
             constant(name: string, value: any): void;
 
             decorator(name: string, decorator: Function): void;
-            factory(name: string, serviceFactoryFunction: Function): ng.ServiceProvider;
-            provider(name: string, provider: ng.ServiceProvider): ng.ServiceProvider;
-            provider(name: string, serviceProviderConstructor: Function): ng.ServiceProvider;
-            service(name: string, constructor: Function): ng.ServiceProvider;
-            value(name: string, value: any): ng.ServiceProvider;
+            factory(name: string, serviceFactoryFunction: Function): ng.IServiceProvider;
+            provider(name: string, provider: ng.IServiceProvider): ng.IServiceProvider;
+            provider(name: string, serviceProviderConstructor: Function): ng.IServiceProvider;
+            service(name: string, constructor: Function): ng.IServiceProvider;
+            value(name: string, value: any): ng.IServiceProvider;
         }
 
     }

@@ -17,12 +17,12 @@ module ng.resource {
     // actual implementation, since the documentation doesn't seem to cover
     // that deeply.
     ///////////////////////////////////////////////////////////////////////////
-    export interface ResourceService {
-        (url: string, paramDefaults?: any, actionDescriptors?: any): ResourceClass;
+    interface IResourceService {
+        (url: string, paramDefaults?: any, actionDescriptors?: any): IResourceClass;
     }
 
     // Just a reference to facilitate describing new actions
-    export interface ActionDescriptor {        
+    interface IActionDescriptor {        
         method: string;
         isArray?: bool;
         params?: any;        
@@ -32,34 +32,34 @@ module ng.resource {
     // Baseclass for everyresource with default actions.
     // If you define your new actions for the resource, you will need
     // to extend this interface and typecast the ResourceClass to it.
-    export interface ResourceClass {
-        get: ActionCall;
-        save: ActionCall;
-        query: ActionCall;
-        remove: ActionCall;
-        delete: ActionCall;
+    interface IResourceClass {
+        get: IActionCall;
+        save: IActionCall;
+        query: IActionCall;
+        remove: IActionCall;
+        delete: IActionCall;
     }
 
     // In case of passing the first argument as anything but a function,
     // it's gonna be considered data if the action method is POST, PUT or
     // PATCH (in other words, methods with body). Otherwise, it's going
     // to be considered as parameters to the request.
-    export interface ActionCall {
-        (): Resource;
-        (dataOrParams: any): Resource;
-        (dataOrParams: any, success: Function): Resource;
-        (success: Function, error?: Function): Resource;
-        (params: any, data: any, success?: Function, error?: Function): Resource;
+    interface IActionCall {
+        (): IResource;
+        (dataOrParams: any): IResource;
+        (dataOrParams: any, success: Function): IResource;
+        (success: Function, error?: Function): IResource;
+        (params: any, data: any, success?: Function, error?: Function): IResource;
     }
 
-    export interface Resource {        
-        $save: ActionCall;
-        $remove: ActionCall;
-        $delete: ActionCall;
+    interface IResource {        
+        $save: IActionCall;
+        $remove: IActionCall;
+        $delete: IActionCall;
 
         // No documented, but they are there, just as any custom action will be
-        $query: ActionCall;
-        $get: ActionCall;
+        $query: IActionCall;
+        $get: IActionCall;
     }
 
 }
