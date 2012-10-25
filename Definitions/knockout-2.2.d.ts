@@ -21,6 +21,8 @@ interface KnockoutObservableArrayFunctions {
     sort(): void;
     sort(compareFunction): void;
 
+    subscribe(callback: (newValue: any[]) => void ): KnockoutSubscription;
+
     // Ko specific
     remove(item): any[];
     removeAll(items: any[]): any[];
