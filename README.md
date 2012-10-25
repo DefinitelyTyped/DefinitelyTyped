@@ -7,6 +7,7 @@ The project aims to provide *high quality* definitions for the most popular libr
 
 Complete
 --------
+* [AngularJS](http://angularjs.org) (by [Diego Vilar](https://github.com/diegovilar))
 * [async](https://github.com/caolan/async)
 * [Backbone.js](http://backbonejs.org/)
 * [Bootstrap](http://twitter.github.com/bootstrap/)
@@ -35,7 +36,6 @@ Complete
 Next
 ----
 * Knockout.Mapping
-* Angular.js
 * Facebook SDK
 * jQuery.Validate
 * jQuery Mobile
