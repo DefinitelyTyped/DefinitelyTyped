@@ -16,7 +16,7 @@ Complete
 * [Fancybox](http://fancybox.net/) 
 * [Handlebars](http://handlebarsjs.com/)
 * [History.js](https://github.com/balupton/History.js/)
-* [Humane.js](http://wavded.github.com/humane-js/) (by [jmvrbanac](https://github.com/jmvrbanac))
+* [Humane.js](http://wavded.github.com/humane-js/) (by [John Vrbanac](https://github.com/jmvrbanac))
 * [Impress.js](https://github.com/bartaz/impress.js)
 * [Jasmine](http://pivotal.github.com/jasmine/)
 * [jQuery.Globalize](https://github.com/jquery/globalize)
