@@ -1,7 +1,7 @@
 // Type definitions for Backbone 0.9
 // https://github.com/borisyankov/DefinitelyTyped
 
-declare module Backbone {
+declare module "Backbone" {
 
     export class Events {
         on(events: string, callback: (event) => any, context?: any): any;

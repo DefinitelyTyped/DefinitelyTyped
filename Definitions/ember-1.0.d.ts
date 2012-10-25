@@ -2,7 +2,7 @@
 // Project: http://emberjs.com/
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Ember {
+declare module "Ember" {
 
     export class CoreObject {
         isDestroyed: bool;
