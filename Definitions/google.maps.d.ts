@@ -33,11 +33,12 @@ declare module google.maps {
         notify(key: string): void;
         set(key: string, value: any): void;
         setValues(values: any): void;
+        setValues(values: undefined);
         unbind(key: string): void;
         unbindAll(): void;
     }
 
-    export class MVCArray {
+    export class MVCArray extends MVCObject {
         constructor (array?: any[]);
         clear(): void;
         forEach(callback: (elem: any, index: number) => void ): void;
@@ -1271,6 +1272,240 @@ declare module google.maps {
             infoWindowHtml: string;
             latLng: LatLng;
             pixelOffset: Size;
+        }
+    }
+
+    export module places {
+
+        export class Autocomplete extends MVCObject {
+            constructor (inputField: HTMLInputElement, opts?: AutocompleteOptions);
+            getBounds(): LatLngBounds;
+            getPlace(): PlaceResult;
+            setBounds(bounds: LatLngBounds): void;
+            setComponentRestrictions(restrictions: ComponentRestrictions): void;
+            setTypes(types: string[]): void;
+        }
+
+        export interface AutocompleteOptions {
+            bounds: LatLngBounds;
+            componentRestrictions: ComponentRestrictions;
+            types: string[];
+        }
+
+        export interface ComponentRestrictions {
+            country: string;
+        }
+
+        export interface PlaceDetailsRequest {
+            reference: string;
+        }
+
+        export interface PlaceGeometry {
+            location: LatLng;
+            viewport: LatLngBounds;
+        }
+
+        export interface PlaceResult {
+            address_components: GeocoderAddressComponent[];
+            formatted_address: string;
+            formatted_phone_number: string;
+            geometry: PlaceGeometry;
+            html_attributions: string[];
+            icon: string;
+            id: string;
+            international_phone_number: string;
+            name: string;
+            rating: number;
+            reference: string;
+            types: string[];
+            url: string;
+            vicinity: string;
+            website: string;
+        }
+
+        export interface PlaceSearchRequest {
+            bounds: LatLngBounds;
+            keyword: string;
+            location: LatLng;
+            name: string;
+            radius: number;
+            rankBy: RankBy;
+            types: string[];
+        }
+
+        export interface PlaceSearchPagination {
+            nextPage(): void;
+            hasNextPage: bool;
+        }
+
+        export class PlacesService {
+            constructor (attrContainer: HTMLDivElement);
+            constructor (attrContainer: Map);
+            getDetails(request: PlaceDetailsRequest, callback: (result: PlaceResult, status: PlacesServiceStatus) => void ): void;
+            nearbySearch(request: PlaceSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus, pagination: PlaceSearchPagination) => void ): void;
+            textSearch(request: TextSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus) => void ): void;
+        }
+
+        export enum PlacesServiceStatus {
+            INVALID_REQUEST,
+            OK,
+            OVER_QUERY_LIMIT,
+            REQUEST_DENIED,
+            UNKNOWN_ERROR,
+            ZERO_RESULTS
+        }
+
+        export enum RankBy {
+            DISTANCE,
+            PROMINENCE
+        }
+
+        export interface TextSearchRequest {
+            bounds: LatLngBounds;
+            location: LatLng;
+            query: string;
+            radius: number;
+        }
+    }
+
+    export module drawing {
+        export class DrawingManager extends MVCObject {
+            constructor (options?: DrawingManagerOptions);
+            getDrawingMode(): OverlayType;
+            getMap(): Map;
+            setDrawingMode(drawingMode: OverlayType): void;
+            setMap(map: Map): void;
+            setOptions(options: DrawingManagerOptions): void;
+        }
+
+        export interface  DrawingManagerOptions {
+            circleOptions: CircleOptions;
+            drawingControl: bool;
+            drawingControlOptions: DrawingControlOptions;
+            drawingMode: OverlayType;
+            map: Map;
+            markerOptions: MarkerOptions;
+            polygonOptions: PolygonOptions;
+            polylineOptions: PolylineOptions;
+            rectangleOptions: RectangleOptions;
+        }
+
+        export interface DrawingControlOptions {
+            drawingModes: OverlayType[];
+            position: ControlPosition;
+        }
+
+        export interface OverlayCompleteEvent {
+            overlay: MVCObject;
+            type: OverlayType;
+        }
+
+        export enum  OverlayType {
+            CIRCLE,
+            MARKER,
+            POLYGON,
+            POLYLINE,
+            RECTANGLE
+        }
+    }
+
+    export module weather {
+        export class CloudLayer extends MVCObject {
+            constructor ();
+            getMap(): Map;
+            setMap(map: Map): void;
+        }
+        export class WeatherLayer extends MVCObject {
+            constructor (opts?: WeatherLayerOptions);
+            getMap(): Map;
+            setMap(map: Map): void;
+            setOptions(options: WeatherLayerOptions): void;
+        }
+
+        export interface WeatherLayerOptions {
+            clickable: bool;
+            labelColor: LabelColor;
+            map: Map;
+            suppressInfoWindows: bool;
+            temperatureUnits: TemperatureUnit;
+            windSpeedUnits: WindSpeedUnit;
+        }
+
+        export enum TemperatureUnit {
+            CELSIUS,
+            FAHRENHEIT
+        }
+
+        export enum WindSpeedUnit {
+            KILOMETERS_PER_HOUR,
+            METERS_PER_SECOND,
+            MILES_PER_HOUR
+        }
+
+        export enum LabelColor {
+            BLACK,
+            WHITE
+        }
+
+        export interface WeatherMouseEvent {
+            featureDetails: WeatherFeature;
+            infoWindowHtml: string;
+            latLng: LatLng;
+            pixelOffset: Size;
+        }
+
+        export interface WeatherFeature {
+            current: WeatherConditions;
+            forecast: WeatherForecast[];
+            location: string;
+            temperatureUnit: TemperatureUnit;
+            windSpeedUnit: WindSpeedUnit;
+        }
+
+        export interface WeatherConditions {
+            day: string;
+            description: string;
+            high: number;
+            humidity: number;
+            low: number;
+            shortDay: string;
+            temperature: number;
+            windDirection: string;
+            windSpeed: number;
+        }
+
+        export interface WeatherForecast {
+            day: string;
+            description: string;
+            high: number;
+            low: number;
+            shortDay: string;
+        }
+    }
+    export module visualization {
+        export class HeatmapLayer extends MVCObject {
+            constructor (opts?: HeatmapLayerOptions);
+            getData(): MVCArray;
+            getMap(): Map;
+            setData(data: MVCArray): void;
+            setData(data: LatLng[]): void;
+            setData(data: WeightedLocation[]): void;
+            setMap(map: Map): void;
+        }
+
+        export interface HeatmapLayerOptions {
+            data: LatLng[];
+            dissipating: bool;
+            gradient: string[];
+            map: Map;
+            maxIntensity: number;
+            opacity: number;
+            radius: number;
+        }
+
+        export interface WeightedLocation {
+            location: LatLng;
+            weight: number;
         }
     }
 }
