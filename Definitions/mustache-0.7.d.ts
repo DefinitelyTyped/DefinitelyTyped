@@ -43,7 +43,7 @@ interface MustacheStatic {
     compile(template: string, tags): MustacheWriter;
     compilePartial(name: string, template: string, tags): MustacheWriter;
     compileTokens(tokens, template: string): MustacheWriter;
-    render(template: string, view: any, partials?: any): MustacheWriter;
+    render(template: string, view: any, partials?: any): string;
     to_html(template: string, view: any, partials?: any, send?): string;
 }
 
