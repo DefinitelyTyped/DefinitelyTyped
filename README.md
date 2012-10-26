@@ -7,11 +7,12 @@ The project aims to provide *high quality* definitions for the most popular libr
 
 Complete
 --------
-* [AngularJS](http://angularjs.org) (by [Diego Vilar](https://github.com/diegovilar))
+* [AngularJS](http://angularjs.org) (by [Diego Vilar](https://github.com/diegovilar)) ([wiki](https://github.com/borisyankov/DefinitelyTyped/wiki/AngularJS-Definitions-Usage-Notes))
 * [async](https://github.com/caolan/async)
 * [Backbone.js](http://backbonejs.org/)
 * [Bootstrap](http://twitter.github.com/bootstrap/)
 * [CodeMirror](http://codemirror.net) (by [François de Campredon](https://github.com/fdecampredon))
+* [dynatree](http://code.google.com/p/dynatree/) (by [François de Campredon](https://github.com/fdecampredon))
 * [ember.js](http://emberjs.com/)
 * [Express](http://expressjs.com/) (from TypeScript samples)
 * [Fancybox](http://fancybox.net/) 

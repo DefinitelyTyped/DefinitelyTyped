@@ -372,6 +372,7 @@ module ng {
     interface IDeferred {
         resolve(value?: any): void;
         reject(reason?: string): void;
+        promise: IPromise;
     }
 
     ///////////////////////////////////////////////////////////////////////////
