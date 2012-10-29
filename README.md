@@ -35,6 +35,7 @@ Complete
 * [node_redis](https://github.com/mranney/node_redis)
 * [QUnit](http://qunitjs.com/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Raphael](http://raphaeljs.com/) (by [CheCoxshall](https://github.com/CheCoxshall))
+* [Sammy.js](http://sammyjs.org/)
 * [Spin](http://fgnass.github.com/spin.js/)
 * [Underscore.js](http://underscorejs.org/)
 
@@ -48,3 +49,5 @@ Next
 * PhoneGap
 * Isotope
 * Zepto
+* Socket.IO
+* MongoDB 
