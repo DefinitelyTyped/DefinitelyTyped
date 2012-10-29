@@ -9,7 +9,7 @@ declare module Backbone {
         trigger(events: string, ...args: any[]): any;
     }
 
-    export class Model {
+    export class Model extends Events {
 
         static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
@@ -146,6 +146,7 @@ declare module Backbone {
 
     export class History {
         start(options? );
+        navigate(fragment: string, options: any);
     }
 
     export class Sync {
