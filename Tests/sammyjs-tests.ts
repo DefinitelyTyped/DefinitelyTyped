@@ -113,9 +113,9 @@ function test_app() {
     var app = $.sammy(function () {
         var _this: Sammy.Application;
         _this.mapRoutes([
-            ['get', '#/', function () { _this.log('index'); }],
+            ['get', '#/', function () { }],
             ['post', '#/create', 'addUser'],
-            [/dowhatever/, function () { _this.log(_this.verb, _this.path) }];
+            [/dowhatever/, function () { }]
         ]);
     });
 
@@ -156,7 +156,6 @@ function test_app() {
         var _this: Sammy.Application;
         _this.use(MyPlugin, '_this is my plugin');
         _this.get('#/', function () {
-            _this.myhelper('and dont you forget it!');
         });
     });
 
@@ -172,6 +171,7 @@ function test_misc() {
         var _this: Sammy.Application;
         _this.setLocationProxy(new Sammy.DataLocationProxy(_this, 'location', 'rel'));
         _this.get('about', function () {
+            var _this: Sammy.EventContext;
             _this.partial('about.html');
         });
     });
@@ -488,7 +488,7 @@ function test_events() {
 
 function test_plugins() {
     var MyPlugin = function (app) {
-         var _this: Sammy.Application;
+        var _this: Sammy.Application;
         _this.helpers({
             alert: function (message) {
                 _this.log("ALERT! " + message);
@@ -496,15 +496,15 @@ function test_plugins() {
         });
     };
     var app = $.sammy(function () {
-         var _this: Sammy.Application;
+        var _this: Sammy.Application;
         _this.use(MyPlugin);
         _this.get('#/', function () {
-             var _this: Sammy.EventContext;
+            var _this: Sammy.EventContext;
             _this.alert("I'm home");
         });
     });
     var MyAdvancedPlugin = function (app, prefix, suffix) {
-         var _this: Sammy.Application;
+        var _this: Sammy.Application;
         _this.helpers({
             alert: function (message) {
                 _this.log(prefix, message, suffix);
@@ -513,7 +513,7 @@ function test_plugins() {
     };
 
     var app = $.sammy(function () {
-         var _this: Sammy.Application;
+        var _this: Sammy.Application;
         _this.use(MyAdvancedPlugin, 'BEFORE!', 'AFTER!');
         _this.get('#/', function () {
             _this.alert("I'm home");
@@ -521,7 +521,7 @@ function test_plugins() {
     });
 
     var dbLoadAndDisplay = function (app) {
-         var _this: Sammy.Application;
+        var _this: Sammy.Application;
         _this.get('#/', function () {
             _this.record = _this.app.db[_this.app.element_selector];
             _this.app.swap(_this.record.toHTML());

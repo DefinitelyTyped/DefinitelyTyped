@@ -130,7 +130,7 @@ module Sammy {
         load(location: any, options?: any, callback?: Function): any;
         loadPartials(partials);
         notFound(): any;
-        partial(location, data, callback, partials);
+        partial(location: string, data: any, callback: Function, partials): RenderContext;
         redirect(...params: any[]): void;
         render(location: string, data: any, callback: Function, partials): RenderContext;
         renderEach(location: any, name?: string, data?: any, callback?: Function): RenderContext;
@@ -142,17 +142,21 @@ module Sammy {
 
     export interface FormBuilder {
         constructor (name, object);
-        checkbox(keypath, value, attributes);
-        close();
-        hidden(keypath, attributes);
-        label(keypath, content, attributes);
-        open(attributes);
-        password(keypath, attributes);
-        radio(keypath, value, attributes);
-        select(keypath, options, attributes);
-        submit(attributes);
-        text(keypath, attributes);
-        textarea(keypath, attributes);
+        checkbox(keypath: string, value: any, ...attributes: any[]): string;
+        close(): string;
+        hidden(keypath: string, ...attributes: any[]): string;
+        label(keypath: string, content: any, ...attributes: any[]): string;
+        open(...attributes: any[]);
+        password(keypath: string, ...attributes: any[]): string;
+        radio(keypath: string, value: any, ...attributes: any[]): string;
+        select(keypath: string, options: any, ...attributes: any[]): string;
+        submit(...attributes: any[]): string;
+        text(keypath: string, ...attributes: any[]): string;
+        textarea(keypath: string, ...attributes: any[]): string;
+    }
+
+    export interface Form {
+        formFor(name: string, object: any, content_callback: Function): FormBuilder;
     }
 
     export interface GoogleAnalytics {
@@ -199,20 +203,23 @@ module Sammy {
     }
 
     export interface Store {
+
+        stores: any;
+
         constructor (options);
 
-        clear(key);
-        clearAll();
-        each(callback);
-        exists(key);
-        fetch(key, callback);
-        filter(callback);
-        first(callback);
-        get(key);
-        isAvailable();
-        keys();
-        load(key, path, callback);
-        set(key, value);
+        clear(key: string): any;
+        clearAll(): void;
+        each(callback: Function): bool;
+        exists(key: string): bool;
+        fetch(key: string, callback: Function): any;
+        filter(callback: Function): bool;
+        first(callback: Function): bool;
+        get(key: string): any;
+        isAvailable(): bool;
+        keys(): string[];
+        load(key: string, path: string, callback: Function): void;
+        set(key: string, value: any): any;
 
         Cookie(name, element, options);
         Data(name, element);
@@ -222,7 +229,6 @@ module Sammy {
         isAvailable(type);
         Template(app, method_alias);
     }
-
 }
 interface JQueryStatic {
     sammy: Sammy;
