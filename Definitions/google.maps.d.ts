@@ -1138,9 +1138,13 @@ declare module google.maps {
 
     export class event {
         static addDomListener(instance: any, eventName: string, handler: (event?: any, ...args: any[]) => void , capture?: bool): MapsEventListener;
+        static addDomListener(instance: any, eventName: string, handler: Function, capture?: bool): MapsEventListener;
         static addDomListenerOnce(instance: any, eventName: string, handler: (event?: any, ...args: any[]) => void , capture?: bool): MapsEventListener;
-        static addListener(instance: any, eventName: string, handler: (event?: any, ...args: any[]) => void ): MapsEventListener;
-        static addListenerOnce(instance: any, eventName: string, handler: (event?: any, ...args: any[]) => void ): MapsEventListener;
+        static addDomListenerOnce(instance: any, eventName: string, handler: Function, capture?: bool): MapsEventListener;
+        static addListener(instance: any, eventName: string, handler: (event?: any, ...args: any[]) => void): MapsEventListener;
+        static addListener(instance: any, eventName: string, handler: Function): MapsEventListener;
+        static addListenerOnce(instance: any, eventName: string, handler: (event?: any, ...args: any[]) => void): MapsEventListener;
+        static addListenerOnce(instance: any, eventName: string, handler: Function): MapsEventListener;
         static clearInstanceListeners(instance: any): void;
         static clearListeners(instance: any, eventName: string): void;
         static removeListener(listener: MapsEventListener): void;
