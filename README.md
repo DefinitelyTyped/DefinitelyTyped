@@ -28,6 +28,7 @@ Complete
 * [jQuery UI](http://jqueryui.com/)
 * [Knockout.js](http://knockoutjs.com/)
 * [Knockout.Mapping](https://github.com/SteveSanderson/knockout.mapping)
+* [linq.js](http://linqjs.codeplex.com/) (by Marcin Najder (https://github.com/marcinnajder))
 * [Modernizr](http://modernizr.com/)
 * [Moment.js](https://github.com/timrwood/moment) (by [Michael Lakerveld](https://github.com/Lakerfield))
 * [Mustache.js](https://github.com/janl/mustache.js)
@@ -35,6 +36,7 @@ Complete
 * [node_redis](https://github.com/mranney/node_redis)
 * [QUnit](http://qunitjs.com/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Raphael](http://raphaeljs.com/) (by [CheCoxshall](https://github.com/CheCoxshall))
+* [Sammy.js](http://sammyjs.org/)
 * [Spin](http://fgnass.github.com/spin.js/)
 * [Underscore.js](http://underscorejs.org/)
 
@@ -48,3 +50,5 @@ Next
 * PhoneGap
 * Isotope
 * Zepto
+* Socket.IO
+* MongoDB 

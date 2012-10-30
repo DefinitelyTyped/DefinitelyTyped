@@ -27,8 +27,7 @@ declare module Backbone {
         wait: bool;
     }
     
-    export class ModelBase {
-        bind(eventName: string, handler: Function, ctx?: any);
+    export class ModelBase extends Events {
         fetch(options? : ICallbackOptions);
         url: string; // or url(): string;
         parse(response);
@@ -189,6 +188,7 @@ declare module Backbone {
     export var history: History;
     export class History {
         start(options? : IHistoryOptions );
+        navigate(fragment: string, options: any);
         pushSate();
     }
 
