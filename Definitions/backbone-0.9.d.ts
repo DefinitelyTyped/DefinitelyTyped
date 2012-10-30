@@ -34,9 +34,10 @@ declare module Backbone {
     }
 
     export class Events {
-        on(eventName: string, callback: (event, a, b) => void, context?: any) : any;
-        bind(eventName: string, callback: (event, a, b) => void, context?: any) : any;
-        off(eventName?: string, callback?: (event, a, b) => void, context?: any): any;
+        on(eventName: string, callback: (event) => void, context?: any) : any;
+        bind(eventName: string, callback: (event) => void, context?: any) : any;
+        off(eventName?: string, callback?: (event) => void, context?: any): any;
+        unbind(eventName?: string, callback?: (event) => void, context?: any): any;
         trigger(eventName: string, ...args: any[]): any;
     }
 
