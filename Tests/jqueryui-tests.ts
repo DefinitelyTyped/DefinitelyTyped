@@ -267,7 +267,7 @@ function tests_sortable() {
 
 function tests_accordion() {
 
-    $("#accordion").accordion(<Accordion>{ collapsible: true });
+    $("#accordion").accordion({ collapsible: true });
     var icons = {
         header: "ui-icon-circle-arrow-e",
         activeHeader: "ui-icon-circle-arrow-s"
