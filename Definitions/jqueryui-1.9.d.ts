@@ -20,7 +20,7 @@ interface Widget {
     widget(): JQuery;
 
     // Events
-    create(event: Event, ui): void;
+    create?(event: Event, ui): void;
 }
 
 
@@ -41,9 +41,9 @@ interface Accordion extends Widget {
     // Methods
 
     // Events
-    activate(event: Event, ui): void;
-    beforeActivate(event: Event, ui): void;
-    create(event: Event, ui): void;
+    activate?(event: Event, ui): void;
+    beforeActivate?(event: Event, ui): void;
+    create?(event: Event, ui): void;
 }
 
 
@@ -66,14 +66,14 @@ interface Autocomplete extends Widget {
     search(value?: string);
 
     // Events
-    change(event: Event, ui): void;
-    close(event: Event, ui): void;
-    create(event: Event, ui): void;
-    focus(event: Event, ui): void;
-    open(event: Event, ui): void;
-    response(event: Event, ui): void;
-    search(event: Event, ui): void;
-    select(event: Event, ui): void;
+    change?(event: Event, ui): void;
+    close?(event: Event, ui): void;
+    create?(event: Event, ui): void;
+    focus?(event: Event, ui): void;
+    open?(event: Event, ui): void;
+    response?(event: Event, ui): void;
+    search?(event: Event, ui): void;
+    select?(event: Event, ui): void;
 }
 
 
@@ -92,7 +92,7 @@ interface Button extends Widget {
     refresh();
 
     // Events
-    create(event: Event, ui): void;
+    create?(event: Event, ui): void;
 }
 
 
@@ -209,17 +209,17 @@ interface Dialog extends Widget {
     widget(): JQuery;
 
     // Events
-    beforeClose(event: Event, ui): void;
-    close(event: Event, ui): void;
-    create(event: Event, ui): void;
-    drag(event: Event, ui): void;
-    dragStart(event: Event, ui): void;
-    dragStop(event: Event, ui): void;
-    focus(event: Event, ui): void;
-    open(event: Event, ui): void;
-    resize(event: Event, ui): void;
-    resizeStart(event: Event, ui): void;
-    resizeStop(event: Event, ui): void;
+    beforeClose?(event: Event, ui): void;
+    close?(event: Event, ui): void;
+    create?(event: Event, ui): void;
+    drag?(event: Event, ui): void;
+    dragStart?(event: Event, ui): void;
+    dragStop?(event: Event, ui): void;
+    focus?(event: Event, ui): void;
+    open?(event: Event, ui): void;
+    resize?(event: Event, ui): void;
+    resizeStart?(event: Event, ui): void;
+    resizeStop?(event: Event, ui): void;
 }
 
 
