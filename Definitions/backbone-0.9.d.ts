@@ -1,5 +1,7 @@
 // Type definitions for Backbone 0.9
-// https://github.com/borisyankov/DefinitelyTyped
+// Project: http://backbonejs.org/
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 
 declare module Backbone {
 

@@ -41,18 +41,42 @@ interface KnockoutObservableArray extends KnockoutObservableArrayFunctions {
     (value: any[]): KnockoutObservableArray;
 }
 
-interface KnockoutObservable {
+interface KnockoutObservableBase {
 
     fn;
-
-    (): any;
-    (value): void;
 
     extend(source);
     subscribe(func: Function): KnockoutSubscription;
 }
 
-interface KnockoutComputed extends KnockoutObservable {
+interface KnockoutObservableAny extends KnockoutObservableBase {
+
+    (): any;
+    (value): void;
+}
+
+interface KnockoutObservableString extends KnockoutObservableBase {
+    (): string;
+    (value: string): void;
+}
+
+
+interface KnockoutObservableNumber extends KnockoutObservableBase {
+    (): number;
+    (value: number): void;
+}
+
+interface KnockoutObservableBool extends KnockoutObservableBase {
+    (): bool;
+    (value: bool): void;
+}
+
+interface KnockoutObservableDate extends KnockoutObservableBase {
+    (): Date;
+    (value: Date): void;
+}
+
+interface KnockoutComputed extends KnockoutObservableBase {
     (): KnockoutComputed;
     (func: Function, context?: any): KnockoutComputed;
     (def: KnockoutComputedDefine): KnockoutComputed;
@@ -80,11 +104,11 @@ interface KnockoutBindingContext {
 interface KnockoutBindingHandler {
     // TODO: Work out how to define bindingHandlers when not using all the args
     // adding element?: any, etc doesnt work...
-    //init(element: any, valueAccessor: any, allBindingsAccessor: any, viewModel: any, bindingContext: KnockoutBindingContext) : void;
-    //update(element: any, valueAccessor: any, allBindingsAccessor: any, viewModel: any, bindingContext: KnockoutBindingContext) : void;
-    init: any;
-    update: any;
-    options: any;
+    init(element: any, valueAccessor: () => any, allBindingsAccessor: () => any, viewModel: any, bindingContext: KnockoutBindingContext): void;
+    update(element: any, valueAccessor: () => any, allBindingsAccessor: () => any, viewModel: any, bindingContext: KnockoutBindingContext): void;
+    //init: any;
+    //update: any;
+    options?: any;
 }
 
 interface KnockoutBindingHandlers {
@@ -172,7 +196,13 @@ interface KnockoutStatic {
 
     applyBindings(viewModel: any, rootNode?: any): void;
     applyBindingsToDescendants(viewModel: any, rootNode: any): void;
-    observable(intial? ): KnockoutObservable;
+
+    observable(value: string): KnockoutObservableString;
+    observable(value: Date): KnockoutObservableDate;
+    observable(value: number): KnockoutObservableNumber;
+    observable(value: bool): KnockoutObservableBool;
+    observable(value?: any): KnockoutObservableAny;
+
     contextFor(node: any): any;
     isSubscribable(instance: any): bool;
     subscribable(): void;

@@ -38,6 +38,7 @@ Complete
 * [Raphael](http://raphaeljs.com/) (by [CheCoxshall](https://github.com/CheCoxshall))
 * [Sammy.js](http://sammyjs.org/)
 * [Spin](http://fgnass.github.com/spin.js/)
+* [Teechart](http://www.steema.com) (by [Steema])(http://www.steema.com)
 * [Underscore.js](http://underscorejs.org/)
 
 Next
