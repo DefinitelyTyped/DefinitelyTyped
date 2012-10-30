@@ -1133,6 +1133,25 @@ declare module google.maps {
         ZERO_RESULTS
     }
 
+    /***** Event *****/
+    export interface MapsEventListener { }
+
+    export class event {
+        static addDomListener(instance: any, eventName: string, handler: (event?: any, ...args: any[]) => void , capture?: bool): MapsEventListener;
+        static addDomListenerOnce(instance: any, eventName: string, handler: (event?: any, ...args: any[]) => void , capture?: bool): MapsEventListener;
+        static addListener(instance: any, eventName: string, handler: (event?: any, ...args: any[]) => void ): MapsEventListener;
+        static addListenerOnce(instance: any, eventName: string, handler: (event?: any, ...args: any[]) => void ): MapsEventListener;
+        static clearInstanceListeners(instance: any): void;
+        static clearListeners(instance: any, eventName: string): void;
+        static removeListener(listener: MapsEventListener): void;
+        static trigger(instance: any, eventName: string, ...args: any[]): void;
+    }
+
+    export interface MouseEvent {
+        stop(): void;
+        latLng: LatLng;
+    }
+
     /***** Base *****/
     export class LatLng {
         constructor (lat: number, lng: number, noWrap?: bool);
