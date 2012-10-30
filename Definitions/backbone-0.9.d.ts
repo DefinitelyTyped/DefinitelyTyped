@@ -1,160 +1,196 @@
 // Type definitions for Backbone 0.9
-// Project: http://backbonejs.org/
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-
+// https://github.com/borisyankov/DefinitelyTyped
 
 declare module Backbone {
 
-    export class Events {
-        on(events: string, callback: (event) => any, context?: any): any;
-        off(events?: string, callback?: (event) => any, context?: any): any;
-        trigger(events: string, ...args: any[]): any;
+    export interface AddOptions extends Silenceable {
+        at: number;
+    }
+    
+    export interface CreateOptions extends Silenceable {
+        wait: bool;
+    }
+    
+    export interface Destroyable {
+        success(model: any, resonse: any);
+        error(model: any, resonse: any);
     }
 
-    export class Model extends Events {
+    export interface HistoryOptions extends Silenceable {
+        pushState: bool;
+        root: string;
+    }
+
+    export interface NavigateOptions {
+        trigger: bool;
+    }
+
+    export interface RouterOptions {
+        routes: any;
+    }
+
+    export interface Silenceable {
+        silent: bool;
+    }
+
+    export class Events {
+        on(eventName: string, callback: (event) => void, context?: any) : any;
+        bind(eventName: string, callback: (event) => void, context?: any) : any;
+        off(eventName?: string, callback?: (event) => void, context?: any): any;
+        unbind(eventName?: string, callback?: (event) => void, context?: any): any;
+        trigger(eventName: string, ...args: any[]): any;
+    }
+
+    export class ModelBase extends Events {
+        fetch(options? : Destroyable);
+        url: string; // or url(): string;
+        parse(response);
+        toJSON(): string;
+    }
+
+    export class Model extends ModelBase {
 
         static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
+
+        attributes: any;
+        changed: any[];
+        cid: string;
+        defaults : any; // or defaults();
+        id: any;
+        idAttribute: string;
+        urlRoot : string; // or urlRoot()
 
         constructor (attributes?: any, options?: any);
+        initialize(attributes?: any);
 
         get(attributeName: string): any;
-        set(attributeName: string, value: any): void;
-        set(obj: any): void;
+        set(attributeName: string, value: any);
+        set(obj: any);
 
-        escape(attribute);
-        has(attribute);
-        unset(attribute, options? );
-        clear(options? );
-
-        id: any;
-        idAttribute: any;
-        cid;
-        attributes;
-        changed;
-
-        bind(ev: string, f: Function, ctx?: any): void;  /// ????
-
-        defaults; // or defaults();
-        toJSON(): string;
-        fetch(options? );
-        save(attributes? , options? ): void;
-        destroy(options? ): void;
-        validate(attributes);
-        isValid();
-        url();
-        urlRoot; // or urlRoot()
-        parse(response);
-        clone();
-        isNew();
         change();
-        hasChanged(attribute? );
-        changedAttributes(attributes? );
-        previous(attribute);
-        previousAttributes();
+        changedAttributes(attributes? : any) : any[];
+        clear(options? : Silenceable );
+        clone() : Model;
+        destroy(options? : Destroyable );
+        escape(attribute : string);
+        has(attribute : string) : bool;
+        hasChanged(attribute? : string ) : bool;
+        isNew() : bool;
+        isValid() : string;
+        previous(attribute : string) : any;
+        previousAttributes(): any[];
+        save(attributes? : any, options? : Destroyable );
+        unset(attribute: string, options? : Silenceable );
+        validate(attributes : any) : any;
     }
 
-    export class Collection {
+    export class Collection extends ModelBase {
 
         static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
-        model;
-
-        constructor (models? , options? );
-
-        models;
-        toJSON(): any;
-
-        ///// start UNDERSCORE 28:
-        bind(ev: string, f: Function, ctx?: any): void;
+        model: Model;
+        models : any;
         collection: Model;
-        create(attrs, opts? ): Collection;
-        each(f: (elem: any) => void ): void;
-        last(): any;
-        last(n: number): any[];
-        filter(f: (elem: any) => any): Collection;
-        without(...values: any[]): Collection;
-
-        // Underscore bindings
-
-        each(object: any, iterator: (value, key, list? ) => void , context?: any): any[];
-        forEach(object: any, iterator: (value, key, list? ) => void , context?: any): any[];
-        map(object: any, iterator: (value, key, list? ) => void , context?: any): any[];
-        reduce(list: any[], iterator: any, memo: (memo: any, element: any, index: number, list: any[]) => any, context?: any): any[];
-        reduceRight(list: any[], iterator: (memo: any, element: any, index: number, list: any[]) => any, memo: any, context?: any): any[];
-        find(list: any[], iterator: any, context?: any): any; // ???
-        detect(list: any[], iterator: any, context?: any): any; // ???
-        filter(list: any[], iterator: any, context?: any): any[];
-        select(list: any[], iterator: any, context?: any): any[];
-        reject(list: any[], iterator: any, context?: any): any[];
-        every(list: any[], iterator: any, context?: any): bool;
-        all(list: any[], iterator: any, context?: any): bool;
-        any(list: any[], iterator?: any, context?: any): bool;
-        some(list: any[], iterator?: any, context?: any): bool;
-        contains(list: any, value: any): bool;
-        contains(list: any[], value: any): bool;
-        include(list: any, value: any): bool;
-        include(list: any[], value: any): bool;
-        invoke(list: any[], methodName: string, arguments: any[]): any;
-        invoke(object: any, methodName: string, ...arguments: any[]): any;
-        max(list: any[], iterator?: any, context?: any): any;
-        min(list: any[], iterator?: any, context?: any): any;
-        sortBy(list: any[], iterator?: any, context?: any): any;
-        sortedIndex(list: any[], valueL: any, iterator?: any): number;
-        toArray(list: any): any[];
-        size(list: any): number;
-        first(array: any[], n?: number): any;
-        initial(array: any[], n?: number): any[];
-        rest(array: any[], n?: number): any[];
-        last(array: any[], n?: number): any;
-        without(array: any[], ...values: any[]): any[];
-        indexOf(array: any[], value: any, isSorted?: bool): number;
-        shuffle(list: any[]): any[];
-        lastIndexOf(array: any[], value: any, fromIndex?: number): number;
-        isEmpty(object: any): bool;
-        groupBy(list: any[], iterator: any): any;
-
-        add(models, options? );
-        remove(models, options? );
-        get(id);
-        getByCid(cid);
-        at(index: number);
-        push(model, options? );
-        pop(options? );
-        unshift(model, options? );
-        shift(options? );
         length: number;
-        //comparator;
-        sort(options? );
-        pluck(attribute);
-        where(attributes);
-        url; // or url()
-        parse(response);
-        fetch(options?: any): void;
-        reset(models, options? );
-        create(attributes, options? );
+
+        constructor (models? :any , options? );
+
+        add(model: Model, options? : AddOptions);
+        add(models: Model[], options? : AddOptions);
+        at(index: number) : Model;
+        comparator(attribute: string): number;
+        comparator(compare: Model, to:Model): number;
+        get(id : any) : Model;
+        getByCid(cid) : Model;
+        create(attributes: any, options? : CreateOptions ): Collection;
+        pluck(attribute:string) : any[];
+        push(model: Model, options? : AddOptions);
+        pop(options? : Silenceable);
+        remove(model: Model, options? : Silenceable);
+        remove(models: Model[], options? : Silenceable);
+        reset(models : Model[], options? );
+        shift(options? : Silenceable);
+        sort(options? : Silenceable);
+        unshift(model: Model, options?: AddOptions);
+        where(properies: any): Model[];
+
+        all(iterator: (element: Model, index:number) => bool, context?: any): bool;
+        any(iterator:(element: Model, index:number) => bool, context?: any): bool;
+        collect(iterator: (element: Model, index:number, context? : any ) => any[] , context?: any): any[];
+        compact(): Model[];
+        contains(value: any): bool;
+        countBy(iterator: (element:Model, index:number) => any) : any[];
+        countBy(attribute: string) : any[];
+        detect(iterator: (item: any) => bool, context?: any): any; // ???
+        difference(...model: Model[]) : Model[];
+        drop(): Model;
+        drop(n: number): Model[];
+        each(iterator: (element: Model, index:number, list? ) => void , context?: any);
+        every(iterator: (element: Model, index:number) => bool, context?: any): bool;
+        filter(iterator: (elemebt:Model, index:number) => bool, context?: any): Model[];
+        find(iterator: (element:Model, index:number) => bool, context?: any): Model;
+        first(): Model;
+        first(n: number): Model[];
+        flatten(shallow?: bool): Model[];
+        foldl(iterator: (memo: any, element: Model, index:number) => any, initialMemo: any, context?: any): any;
+        forEach(iterator: (element: Model, index:number, list? ) => void , context?: any);
+        groupBy(iterator: (element:Model, index:number) => any) : any[];
+        groupBy(attribute: string) : any[];
+        include(value: any): bool;
+        indexOf(element: Model, isSorted?: bool): number;
+        initial(): Model;
+        initial(n: number): Model[];
+        inject(iterator: (memo: any, element: Model, index:number) => any, initialMemo: any, context?: any): any;
+        intersection(...model: Model[]) : Model[];
+        isEmpty(object: any): bool;
+        invoke(methodName: string, arguments?: any[]);
+        last(): Model;
+        last(n: number): Model[];
+        lastIndexOf(element: Model, fromIndex?: number): number;
+        map(iterator: (element: Model, index:number, context? : any ) => any[] , context?: any): any[];
+        max(iterator?: (element:Model, index:number) => any, context?: any): Model;
+        min(iterator?: (element:Model, index:number) => any, context?: any): Model;
+        object(...values: any[]): any[];
+        reduce(iterator: (memo: any, element: Model, index:number) => any, initialMemo: any, context?: any): any;
+        select(iterator: any, context?: any): any[];
+        size(): number;
+        shuffle(): any[];
+        some(iterator:(element: Model, index:number) => bool, context?: any): bool;
+        sortBy(iterator: (element:Model, index:number) => number, context?: any): Model[];
+        sortBy(attribute:string, context?: any): Model[];
+        sortedIndex(element: Model, iterator?: (element:Model, index:number) => number): number;
+        range(stop: number, step?:number);
+        range(start: number, stop: number, step?:number);
+        reduceRight(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any[];
+        reject(iterator: (element:Model, index:number) => bool, context?: any): Model[];
+        rest(): Model;
+        rest(n: number): Model[];
+        tail(): Model;
+        tail(n: number): Model[];
+        toArray(): any[];
+        union(...model: Model[]) : Model[];
+        uniq(isSorted? : bool, iterator?: (element:Model, index:number) => bool) : Model[];
+        without(...values: any[]): Model[];
+        zip(...model: Model[]): Model[];
     }
 
     export class Router {
 
         static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
-        routes;
-        constructor (options? );
-        route(route, name, callback? );
-        navigate(fragment, options? );
+        routes : any;
+
+        constructor (options? : RouterOptions);
+        initialize (options? : RouterOptions);
+        route(route: string, name: string, callback?: (...parameter:any[]) => void );
+        navigate(fragment : string, options? : NavigateOptions);
     }
 
     export var history: History;
-
     export class History {
-        start(options? );
+        start(options? : HistoryOptions );
         navigate(fragment: string, options: any);
-    }
-
-    export class Sync {
-        sync(method, model, options? );
-        emulateHTTP: bool;
-        emulateJSONBackbone: bool;
+        pushSate();
     }
 
     export class View {
@@ -166,7 +202,7 @@ declare module Backbone {
         $(selector: string): any;
         model: Model;
         make(tagName: string, attrs? , opts? ): View;
-        setElement(element: HTMLElement, delegate?: bool): void;
+        setElement(element: HTMLElement, delegate?: bool);
         tagName: string;
         events: any;
 
@@ -176,15 +212,19 @@ declare module Backbone {
         attributes;
         $(selector);
         render();
-        remove(): void;;
+        remove();
         make(tagName, attributes? , content? );
         //delegateEvents: any;
         delegateEvents(events?: any): any;
         undelegateEvents();
     }
 
-    export class Utility {
-        noConflict(): any;
-        setDomLibrary(jQueryNew);
-    }
+    // SYNC
+    function sync(method, model, options? : Destroyable);
+    var  emulateHTTP: bool;
+    var  emulateJSONBackbone: bool;
+
+    // Utility
+    function noConflict(): Backbone;
+    function setDomLibrary(jQueryNew);
 }
