@@ -1,9 +1,37 @@
 // Type definitions for Backbone 0.9
-// Project: http://backbonejs.org/
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-
+// https://github.com/borisyankov/DefinitelyTyped
 
 declare module Backbone {
+
+    export interface AddOptions extends Silenceable {
+        at: number;
+    }
+    
+    export interface CreateOptions extends Silenceable {
+        wait: bool;
+    }
+    
+    export interface Destroyable {
+        success(model: any, resonse: any);
+        error(model: any, resonse: any);
+    }
+
+    export interface HistoryOptions extends Silenceable {
+        pushState: bool;
+        root: string;
+    }
+
+    export interface NavigateOptions {
+        trigger: bool;
+    }
+
+    export interface RouterOptions {
+        routes: any;
+    }
+
+    export interface Silenceable {
+        silent: bool;
+    }
 
     export class Events {
         on(eventName: string, callback: (event, a, b) => void, context?: any) : any;
@@ -12,25 +40,8 @@ declare module Backbone {
         trigger(eventName: string, ...args: any[]): any;
     }
 
-    export interface ICallbackOptions {
-        success(model: any, resonse: any);
-        error(model: any, resonse: any);
-    }
-
-    export interface ISilenceable {
-        silent: bool;
-    }
-
-    export interface IAddOptions extends ISilenceable {
-        at: number;
-    }
-    
-    export interface ICreateOptions extends ISilenceable {
-        wait: bool;
-    }
-    
     export class ModelBase extends Events {
-        fetch(options? : ICallbackOptions);
+        fetch(options? : Destroyable);
         url: string; // or url(): string;
         parse(response);
         toJSON(): string;
@@ -57,9 +68,9 @@ declare module Backbone {
 
         change();
         changedAttributes(attributes? : any) : any[];
-        clear(options? : ISilenceable );
+        clear(options? : Silenceable );
         clone() : Model;
-        destroy(options? : ICallbackOptions );
+        destroy(options? : Destroyable );
         escape(attribute : string);
         has(attribute : string) : bool;
         hasChanged(attribute? : string ) : bool;
@@ -67,8 +78,8 @@ declare module Backbone {
         isValid() : string;
         previous(attribute : string) : any;
         previousAttributes(): any[];
-        save(attributes? : any, options? : ICallbackOptions );
-        unset(attribute: string, options? : ISilenceable );
+        save(attributes? : any, options? : Destroyable );
+        unset(attribute: string, options? : Silenceable );
         validate(attributes : any) : any;
     }
 
@@ -83,23 +94,23 @@ declare module Backbone {
 
         constructor (models? :any , options? );
 
-        add(model: Model, options? : IAddOptions);
-        add(models: Model[], options? : IAddOptions);
+        add(model: Model, options? : AddOptions);
+        add(models: Model[], options? : AddOptions);
         at(index: number) : Model;
         comparator(attribute: string): number;
         comparator(compare: Model, to:Model): number;
         get(id : any) : Model;
         getByCid(cid) : Model;
-        create(attributes: any, options? : ICreateOptions ): Collection;
+        create(attributes: any, options? : CreateOptions ): Collection;
         pluck(attribute:string) : any[];
-        push(model: Model, options? : IAddOptions);
-        pop(options? : ISilenceable);
-        remove(model: Model, options? : ISilenceable);
-        remove(models: Model[], options? : ISilenceable);
+        push(model: Model, options? : AddOptions);
+        pop(options? : Silenceable);
+        remove(model: Model, options? : Silenceable);
+        remove(models: Model[], options? : Silenceable);
         reset(models : Model[], options? );
-        shift(options? : ISilenceable);
-        sort(options? : ISilenceable);
-        unshift(model: Model, options?: IAddOptions);
+        shift(options? : Silenceable);
+        sort(options? : Silenceable);
+        unshift(model: Model, options?: AddOptions);
         where(properies: any): Model[];
 
         all(iterator: (element: Model, index:number) => bool, context?: any): bool;
@@ -162,34 +173,21 @@ declare module Backbone {
         zip(...model: Model[]): Model[];
     }
 
-    export interface IRouterOptions {
-        routes: any;
-    }
-
-    export interface INavigateOptions {
-        trigger: bool;
-    }
-
     export class Router {
 
         static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
         routes : any;
 
-        constructor (options? : IRouterOptions);
-        initialize (options? : IRouterOptions);
+        constructor (options? : RouterOptions);
+        initialize (options? : RouterOptions);
         route(route: string, name: string, callback?: (...parameter:any[]) => void );
-        navigate(fragment : string, options? : INavigateOptions);
-    }
-
-    export interface IHistoryOptions extends ISilenceable {
-        pushState: bool;
-        root: string;
+        navigate(fragment : string, options? : NavigateOptions);
     }
 
     export var history: History;
     export class History {
-        start(options? : IHistoryOptions );
+        start(options? : HistoryOptions );
         navigate(fragment: string, options: any);
         pushSate();
     }
@@ -221,12 +219,11 @@ declare module Backbone {
     }
 
     // SYNC
-    function sync(method, model, options? : ICallbackOptions);
+    function sync(method, model, options? : Destroyable);
     var  emulateHTTP: bool;
     var  emulateJSONBackbone: bool;
 
     // Utility
     function noConflict(): Backbone;
     function setDomLibrary(jQueryNew);
-
 }
