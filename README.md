@@ -12,6 +12,7 @@ Complete
 * [Backbone.js](http://backbonejs.org/)
 * [Bootstrap](http://twitter.github.com/bootstrap/)
 * [CodeMirror](http://codemirror.net) (by [François de Campredon](https://github.com/fdecampredon))
+* [Chosen](http://harvesthq.github.com/chosen/)
 * [dynatree](http://code.google.com/p/dynatree/) (by [François de Campredon](https://github.com/fdecampredon))
 * [ember.js](http://emberjs.com/)
 * [Express](http://expressjs.com/)
@@ -43,7 +44,6 @@ Complete
 
 Next
 ----
-* Chosen
 * Facebook SDK
 * jQuery.Validate
 * google.visualization
