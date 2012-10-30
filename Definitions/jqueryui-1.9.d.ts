@@ -39,7 +39,7 @@ interface Accordion extends Widget {
     icons?: any;
 
     // Methods
-    
+
     // Events
     activate(event: Event, ui): void;
     beforeActivate(event: Event, ui): void;
@@ -61,7 +61,7 @@ interface Autocomplete extends Widget {
     source?: any; // [], string or ()
 
     // Methods
-    close();    
+    close();
     search(value?: string);
 
     // Events
@@ -78,7 +78,7 @@ interface Autocomplete extends Widget {
 
 // Button //////////////////////////////////////////////////
 
-interface Button extends Widget  {
+interface Button extends Widget {
 
     // Options
     disabled?: bool;
@@ -152,7 +152,7 @@ interface Datepicker extends Widget {
 
     // Methods
     destroy();
-    dialog(date: any, onSelect?: () => void, settings?: any, pos?: any);
+    dialog(date: any, onSelect?: () => void , settings?: any, pos?: any);
     getDate(): Date;
     hide(): void;
     isDisabled(): bool;
@@ -357,7 +357,7 @@ interface Menu extends Widget {
     blur(event: Event, ui): void;
     create(event: Event, ui): void;
     focus(event: Event, ui): void;
-    select(event: Event, ui): void;    
+    select(event: Event, ui): void;
 }
 
 
@@ -372,7 +372,7 @@ interface Progressbar extends Widget {
     // Methods    
     destroy();
     disable();
-    enable();    
+    enable();
     option(optionName: string): any;
     option(): any;
     option(optionName: string, value: any): void;
@@ -414,7 +414,7 @@ interface Resizable extends Widget {
     minWidth?: number;
 
     // Methods
-    
+
     // Events
     resize(event: Event, ui): void;
     start(event: Event, ui): void;
@@ -436,7 +436,7 @@ interface Selectable extends Widget {
     tolerance?: string;
 
     // Methods
-    
+
     // Events
     selected(event: Event, ui): void;
     selecting(event: Event, ui): void;
@@ -452,7 +452,7 @@ interface Slider extends Widget {
 
     // Options
     animate?: any; // bool, string or number
-    disabled?: bool; 
+    disabled?: bool;
     max?: number;
     min?: number;
     orientation?: string;
@@ -471,8 +471,8 @@ interface Slider extends Widget {
 
     // Events
     change(event: Event, ui): void;
-    create(event: Event, ui): void;   
-    slide(event: Event, ui): void;   
+    create(event: Event, ui): void;
+    slide(event: Event, ui): void;
     start(event: Event, ui): void;
     stop(event: Event, ui): void;
 }
@@ -615,47 +615,124 @@ interface Tooltip extends Widget {
 
 interface JQuery {
 
-    accordion(options?: Accordion): void;
+    accordion(): JQuery;
+    accordion(methodName: string): JQuery;
+    accordion(options: Dialog): JQuery;
+    accordion(optionLiteral: string, options: Dialog): JQuery;
+    accordion(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+    accordion(optionLiteral: string, optionName: string): JQuery;
 
-    autocomplete(options?: Autocomplete): void;
+    autocomplete(): JQuery;
+    autocomplete(methodName: string): JQuery;
+    autocomplete(options: Autocomplete): JQuery;
+    autocomplete(optionLiteral: string, options: Autocomplete): JQuery;
+    autocomplete(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+    autocomplete(optionLiteral: string, optionName: string): JQuery;
 
-    button(options?: Button): void;
-    buttonset(options?: Button): void;
+    button(): JQuery;
+    button(methodName: string): JQuery;
+    button(options: Button): JQuery;
+    button(optionLiteral: string, options: Button): JQuery;
+    button(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+    button(optionLiteral: string, optionName: string): JQuery;
 
-    datepicker(options?: Datepicker): void;
+    buttonset(): JQuery;
+    buttonset(methodName: string): JQuery;
+    buttonset(options: Button): JQuery;
+    buttonset(optionLiteral: string, options: Button): JQuery;
+    buttonset(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+    buttonset(optionLiteral: string, optionName: string): JQuery;
 
-    dialog(options?: Dialog): void;
-    dialog(optionLiteral: string): void;
+    datepicker(): JQuery;
+    datepicker(methodName: string): JQuery;
+    datepicker(options: Datepicker): JQuery;
+    datepicker(optionLiteral: string, options: Datepicker): JQuery;
+    datepicker(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+    datepicker(optionLiteral: string, optionName: string): JQuery;
 
-    draggable(options?: Draggable): JQuery;
+    dialog(): JQuery;
+    dialog(methodName: string): JQuery;
+    dialog(options: Dialog): JQuery;
+    dialog(optionLiteral: string, options: Dialog): JQuery;
+    dialog(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+    dialog(optionLiteral: string, optionName: string): JQuery;
+
+    draggable(): JQuery;
+    draggable(methodName: string): JQuery;
+    draggable(options: Draggable): JQuery;
     draggable(optionLiteral: string, options: Draggable): JQuery;
     draggable(optionLiteral: string, optionName: string, optionValue: any): JQuery;
-    draggable(optionLiteral: string, optionName: string): any;
-    // draggable(methodName: string): any;
+    draggable(optionLiteral: string, optionName: string): JQuery;
 
+    droppable(): JQuery;
+    droppable(methodName: string): JQuery;
     droppable(options: Droppable): JQuery;
     droppable(optionLiteral: string, options: Draggable): JQuery;
     droppable(optionLiteral: string, optionName: string, optionValue: any): JQuery;
-    droppable(optionLiteral: string, optionName: string): any;
-    droppable(methodName: string): any;
+    droppable(optionLiteral: string, optionName: string): JQuery;
 
-    menu(options?: Menu): void;
+    menu(): JQuery;
+    menu(methodName: string): JQuery;
+    menu(options: Menu): JQuery;
+    menu(optionLiteral: string, options: Menu): JQuery;
+    menu(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+    menu(optionLiteral: string, optionName: string): JQuery;
 
-    progressbar(options?: Progressbar): void;
+    progressbar(): JQuery;
+    progressbar(methodName: string): JQuery;
+    progressbar(options: Progressbar): JQuery;
+    progressbar(optionLiteral: string, options: Progressbar): JQuery;
+    progressbar(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+    progressbar(optionLiteral: string, optionName: string): JQuery;
 
-    resizable(options?: Resizable): void;
+    resizable(): JQuery;
+    resizable(methodName: string): JQuery;
+    resizable(options: Resizable): JQuery;
+    resizable(optionLiteral: string, options: Resizable): JQuery;
+    resizable(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+    resizable(optionLiteral: string, optionName: string): JQuery;
 
-    selectable(options?: Selectable): void;
+    selectable(): JQuery;
+    selectable(methodName: string): JQuery;
+    selectable(options: Selectable): JQuery;
+    selectable(optionLiteral: string, options: Selectable): JQuery;
+    selectable(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+    selectable(optionLiteral: string, optionName: string): JQuery;
 
-    slider(options?: Slider): void;
+    slider(): JQuery;
+    slider(methodName: string): JQuery;
+    slider(options: Slider): JQuery;
+    slider(optionLiteral: string, options: Slider): JQuery;
+    slider(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+    slider(optionLiteral: string, optionName: string): JQuery;
 
-    sortable(options?: Sortable): void;
+    sortable(): JQuery;
+    sortable(methodName: string): JQuery;
+    sortable(options: Sortable): JQuery;
+    sortable(optionLiteral: string, options: Sortable): JQuery;
+    sortable(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+    sortable(optionLiteral: string, optionName: string): JQuery;
 
-    spinner(options?: Spinner): void;
+    spinner(): JQuery;
+    spinner(methodName: string): JQuery;
+    spinner(options: Spinner): JQuery;
+    spinner(optionLiteral: string, options: Spinner): JQuery;
+    spinner(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+    spinner(optionLiteral: string, optionName: string): JQuery;
 
-    tabs(options?: Tabs): void;
+    tabs(): JQuery;
+    tabs(methodName: string): JQuery;
+    tabs(options: Tabs): JQuery;
+    tabs(optionLiteral: string, options: Tabs): JQuery;
+    tabs(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+    tabs(optionLiteral: string, optionName: string): JQuery;
 
-    tooltip(options?: Tooltip): void;
+    tooltip(): JQuery;
+    tooltip(methodName: string): JQuery;
+    tooltip(options: Tooltip): JQuery;
+    tooltip(optionLiteral: string, options: Tooltip): JQuery;
+    tooltip(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+    tooltip(optionLiteral: string, optionName: string): JQuery;
 }
 
 interface JQueryStatic {
