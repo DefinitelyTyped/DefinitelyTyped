@@ -1,9 +1,10 @@
 // Type definitions for jQuery Mobile 1.2
 // Project: http://jquerymobile.com/
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="jquery-1.8.d.ts"/>
 
+/// <reference path="jquery-1.8.d.ts"/>
 
 interface JQueryMobileEvent { (event: Event, ui): void; }
 

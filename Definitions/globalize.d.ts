@@ -1,5 +1,8 @@
 // Type definitions for Globalize
-// https://github.com/borisyankov/DefinitelyTyped
+// Project: https://github.com/jquery/globalize
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 
 interface GlobalizePercent {
     pattern: string[];

@@ -1,5 +1,6 @@
 // Type definitions for Async 0.1
 // Project: https://github.com/caolan/async
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 

@@ -3,6 +3,7 @@
 // Definitions by: https://github.com/jmvrbanac 
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
 
+
 interface HumaneOptions {
     queue?: string[];
     baseCls?: string;

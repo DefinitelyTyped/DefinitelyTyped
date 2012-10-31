@@ -1,6 +1,8 @@
 // Type definitions for Handlebars 1.0
 // Project: http://handlebarsjs.com/
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 
 interface HandlebarsStatic {
     registerHelper(name: string, fn: Function, inverse?: bool): void;

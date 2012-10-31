@@ -1,5 +1,6 @@
 // Type definitions for Express 3.0
 // Project: http://expressjs.com
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 

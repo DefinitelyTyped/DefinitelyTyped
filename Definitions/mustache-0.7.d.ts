@@ -1,6 +1,8 @@
 // Type definitions for Mustache 0.7
 // Project: https://github.com/janl/mustache.js
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 
 interface MustacheScanner {
     string: string;

@@ -1,6 +1,8 @@
 ﻿// Type definitions for Jasmine 1.2
 // Project: http://pivotal.github.com/jasmine/
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+
 
 declare function describe(description: string, specDefinitions: Function): JasmineEnv;
 declare function xdescribe(description: string, specDefinitions: Function): JasmineEnv;

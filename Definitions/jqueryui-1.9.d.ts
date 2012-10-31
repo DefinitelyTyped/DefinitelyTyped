@@ -1,8 +1,11 @@
 // Type definitions for jQueryUI 1.9
 // Project: http://jqueryui.com/
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+
 /// <reference path="jquery-1.8.d.ts"/>
+
 
 // Widget //////////////////////////////////////////////////
 

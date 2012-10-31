@@ -1,7 +1,8 @@
-// Type definitions for Angular JS 1.0.2
+// Type definitions for Angular JS 1.0
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 
 /// <reference path="jquery-1.8.d.ts" />
 

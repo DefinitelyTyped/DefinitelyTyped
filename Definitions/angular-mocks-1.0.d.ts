@@ -1,9 +1,10 @@
-// Type definitions for Angular JS 1.0.2 (ngMock, ngMockE2E module)
+// Type definitions for Angular JS 1.0 (ngMock, ngMockE2E module)
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="angular-1.0.2.d.ts" />
+
+/// <reference path="angular-1.0.d.ts" />
 
 ///////////////////////////////////////////////////////////////////////////////
 // ngMock module (angular-mocks.js)

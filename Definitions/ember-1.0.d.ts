@@ -1,6 +1,8 @@
 // Type definitions for Ember.js 1.0.pre
 // Project: http://emberjs.com/
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 
 declare module "Ember" {
 

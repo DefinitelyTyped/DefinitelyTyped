@@ -1,6 +1,7 @@
 // Type definitions for Knockout 2.2
 // Project: http://knockoutjs.com
-// https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
 interface KnockoutSubscription {

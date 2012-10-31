@@ -1,5 +1,8 @@
 // Type definitions for Underscore 1.4.1
-// https://github.com/borisyankov/DefinitelyTyped
+// Project: http://underscorejs.org/
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 
 interface UnderscoreWrappedObject {
     value () : any;

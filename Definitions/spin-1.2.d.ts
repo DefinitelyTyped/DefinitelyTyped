@@ -1,6 +1,8 @@
 // Type definitions for Spin.js 1.2
 // Project: http://fgnass.github.com/spin.js/
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 
 interface SpinnerOptions {
     lines?: number; // The number of lines to draw

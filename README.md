@@ -27,6 +27,7 @@ Complete
 * [jQuery](http://jquery.com/) (from TypeScript samples)
 * [jQuery Mobile](http://jquerymobile.com)
 * [jQuery UI](http://jqueryui.com/)
+* [Knockback](http://kmalakoff.github.com/knockback/) (by [Marcel Binot](https://github.com/docgit)
 * [Knockout.js](http://knockoutjs.com/)
 * [Knockout.Mapping](https://github.com/SteveSanderson/knockout.mapping)
 * [linq.js](http://linqjs.codeplex.com/) (by Marcin Najder (https://github.com/marcinnajder))

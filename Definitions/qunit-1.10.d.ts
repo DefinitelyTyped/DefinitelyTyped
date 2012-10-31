@@ -3,6 +3,7 @@
 // Definitions by: Diullei Gomes <https://github.com/diullei>
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
 
+
 interface DoneCallbackObject {
 	failed: number;
 	passed: number;

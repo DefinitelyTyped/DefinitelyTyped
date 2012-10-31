@@ -1,5 +1,11 @@
-﻿/// <reference path="backbone-0.9.d.ts" />
+﻿// Type definitions for knockback.js 0.16
+// Project: http://backbonejs.org/
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+
+/// <reference path="backbone-0.9.d.ts" />
 /// <reference path="knockout-2.2.d.ts" />
+
 declare module Knockback {
     export interface EventWatcherOptions {
         emitter : (newEmitter) => void;

@@ -1,5 +1,6 @@
 // Type definitions for Sammy.js
 // Project: http://sammyjs.org/
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
