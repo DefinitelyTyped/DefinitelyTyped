@@ -13,7 +13,7 @@ function test_creatingVMs() {
 
     myViewModel.personName();
     myViewModel.personName('Mary');
-    myViewModel.personName('Mary').personAge(50);
+    myViewModel.personAge(50);
 
     myViewModel.personName.subscribe(function (newValue) {
         alert("The person's new name is " + newValue);
@@ -111,15 +111,26 @@ function test_observableArrays() {
     myObservableArray.sort(function (left, right) { return left.lastName == right.lastName ? 0 : (left.lastName < right.lastName ? -1 : 1) });
     myObservableArray.splice(1, 3);
 
-    var someItem: KnockoutObservableArray;
-    myObservableArray.remove(someItem);
+    myObservableArray.remove('Blah');
     myObservableArray.remove(function (item) { return item.age < 18 });
     myObservableArray.removeAll(['Chad', 132, undefined]);
     myObservableArray.removeAll();
-    myObservableArray.destroy(someItem);
+    myObservableArray.destroy('Blah');
     myObservableArray.destroy(function (someItem) { return someItem.age < 18 });
     myObservableArray.destroyAll(['Chad', 132, undefined]);
     myObservableArray.destroyAll();
+
+    ko.utils.arrayForEach(myObservableArray(), function (item) { });
+}
+
+// You have to extend knockout for your own handlers
+interface KnockoutBindingHandlers {
+    yourBindingName: KnockoutBindingHandler;
+    slideVisible: KnockoutBindingHandler;
+    hasFocus: KnockoutBindingHandler;
+    allowBindings: KnockoutBindingHandler;
+    withProperties: KnockoutBindingHandler;
+    randomOrder: KnockoutBindingHandler;
 }
 
 function test_bindings() {
@@ -226,13 +237,26 @@ function test_bindings() {
     ko.virtualElements.setDomNodeChildren(containerElem, arrayOfNodes);
 }
 
+// Have to define your own extenders
+interface KnockoutExtenders {
+    logChange(target, option);
+    numeric(target, precision);
+    required(target, overrideMessage);
+}
+
+interface KnockoutObservableArrayFunctions {
+    filterByProperty(propName, matchValue): KnockoutComputed;
+}
+
+declare var validate;
+
 function test_more() {
     var viewModel = {
         firstName: ko.observable("Bert"),
         lastName: ko.observable("Smith"),
         pets: ko.observableArray(["Cat", "Dog", "Fish"]),
         type: "Customer",
-        hasALotOfPets: any
+        hasALotOfPets: <any>null
     };
     viewModel.hasALotOfPets = ko.computed(function () {
         return this.pets().length > 2
@@ -252,7 +276,7 @@ function test_more() {
             write: function (newValue) {
                 var current = target(),
                     roundingMultiplier = Math.pow(10, precision),
-                    newValueAsNum = isNaN(newValue) ? 0 : parseFloat(+newValue),
+                    newValueAsNum = isNaN(newValue) ? 0 : parseFloat(newValue),
                     valueToWrite = Math.round(newValueAsNum * roundingMultiplier) / roundingMultiplier;
 
                 if (valueToWrite !== current) {
@@ -305,7 +329,7 @@ function test_more() {
     this.firstName = ko.observable(first).extend({ required: "Please enter a first name", logChange: "first name" });
 
     var upperCaseName = ko.computed(function () {
-        return name().toUpperCase();
+        return name.toUpperCase();
     }).extend({ throttle: 500 });
 
     function AppViewModel() {
@@ -341,10 +365,10 @@ function test_more() {
     }, this).extend({ throttle: 1 });
 
     $(".remove").click(function () {
-        viewModel.items.remove(ko.dataFor(this));
+        viewModel.pets.remove(ko.dataFor(this));
     });
     $(".remove").live("click", function () {
-        viewModel.items.remove(ko.dataFor(this));
+        viewModel.pets.remove(ko.dataFor(this));
     });
 
     $("#people").delegate(".remove", "click", function () {
@@ -453,7 +477,24 @@ function test_mappingplugin() {
     var newItem = result.mappedCreate({ id: 3 });
 }
 
+// Define your own functions
+interface KnockoutSubscribableFunctions {
+    publishOn(topic: string): any;
+    subscribeTo(topic: string): any;
+}
+
+interface KnockoutBindingHandlers {
+    isolatedOptions: KnockoutBindingHandler;
+}
+
 function test_misc() {
+    // define dummy vars
+    var callback: any;
+    var target: any;
+    var topic: any;
+    var vm: any;
+    var value: any;
+
     var postbox = new ko.subscribable();
     postbox.subscribe(callback, target, topic);
 
@@ -470,7 +511,7 @@ function test_misc() {
         return this;
     };
 
-    this.myObservable = ko.observable("myValue").publishOn("myTopic");
+    this.myObservable = <KnockoutObservableString>ko.observable("myValue").publishOn("myTopic");
 
     ko.subscribable.fn.subscribeTo = function (topic) {
         postbox.subscribe(this, null, topic);
@@ -478,7 +519,7 @@ function test_misc() {
         return this;
     };
 
-    this.observableFromAnotherVM = ko.observable().subscribeTo("myTopic");
+    this.observableFromAnotherVM = <KnockoutObservableAny>ko.observable().subscribeTo("myTopic");
 
     postbox.subscribe(function (newValue) {
         this(newValue);
