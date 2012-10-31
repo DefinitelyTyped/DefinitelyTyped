@@ -3,12 +3,22 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-
-interface KnockoutSubscription {
+interface KnockoutSubscribableFunctions {
+    extend(source);
+    subscribe(callback: (newValue: any[]) => void, target?:any, topic?: string): KnockoutSubscription;
+    notifySubscribers(valueToWrite, topic?: string);
     dispose(): void;
 }
 
-interface KnockoutObservableArrayFunctions {
+interface KnockoutComputedFunctions extends KnockoutSubscribableFunctions {
+    getDependenciesCount(): number;
+    hasWriteFunction(): bool;
+}
+
+interface KnockoutObservableFunctions extends KnockoutSubscribableFunctions {
+}
+
+interface KnockoutObservableArrayFunctions extends KnockoutObservableFunctions {
     // General Array functions
     indexOf(searchElement, fromIndex?: number): number;
     slice(start: number, end?: number): any[];
@@ -22,8 +32,6 @@ interface KnockoutObservableArrayFunctions {
     sort(): void;
     sort(compareFunction): void;
 
-    subscribe(callback: (newValue: any[]) => void ): KnockoutSubscription;
-
     // Ko specific
     remove(item): any[];
     removeAll(items: any[]): any[];
@@ -34,7 +42,30 @@ interface KnockoutObservableArrayFunctions {
     destroyAll(): void;
 }
 
-interface KnockoutObservableArray extends KnockoutObservableArrayFunctions {
+interface KnockoutSubscribableStatic {
+    fn: KnockoutSubscribableFunctions;
+
+    new (): KnockoutSubscription;
+}
+
+interface KnockoutSubscription extends KnockoutSubscribableFunctions {
+}
+
+interface KnockoutComputedStatic {
+    fn: KnockoutComputedFunctions;
+
+    (): KnockoutComputed;
+    (func: Function, context?: any): KnockoutComputed;
+    (def: KnockoutComputedDefine): KnockoutComputed;
+    (options?: any): KnockoutComputed;
+}
+
+interface KnockoutComputed extends KnockoutComputedFunctions {
+    (): any;
+    (value: any): void;
+}
+
+interface KnockoutObservableArrayStatic {
 
     fn: KnockoutObservableArrayFunctions;
 
@@ -42,12 +73,22 @@ interface KnockoutObservableArray extends KnockoutObservableArrayFunctions {
     (value: any[]): KnockoutObservableArray;
 }
 
-interface KnockoutObservableBase {
+interface KnockoutObservableArray extends KnockoutObservableArrayFunctions {
+    (): any[];
+    (value: any[]): void;
+}
 
-    fn;
+interface KnockoutObservableStatic {
+    fn: KnockoutObservableFunctions;
 
-    extend(source);
-    subscribe(func: Function): KnockoutSubscription;
+    (value: string): KnockoutObservableString;
+    (value: Date): KnockoutObservableDate;
+    (value: number): KnockoutObservableNumber;
+    (value: bool): KnockoutObservableBool;
+    (value?: any): KnockoutObservableAny;
+}
+
+interface KnockoutObservableBase extends KnockoutObservableFunctions {
 }
 
 interface KnockoutObservableAny extends KnockoutObservableBase {
@@ -77,17 +118,6 @@ interface KnockoutObservableDate extends KnockoutObservableBase {
     (value: Date): void;
 }
 
-interface KnockoutComputed extends KnockoutObservableBase {
-    (): KnockoutComputed;
-    (func: Function, context?: any): KnockoutComputed;
-    (def: KnockoutComputedDefine): KnockoutComputed;
-    (options?: any): KnockoutComputed;
-
-    subscribe(callback: (newValue: number) => void ): KnockoutSubscription;
-    getDependenciesCount(): number;
-    hasWriteFunction(): bool;
-}
-
 interface KnockoutComputedDefine {
     read(): any;
     write(any);
@@ -100,20 +130,47 @@ interface KnockoutBindingContext {
     $data: any;
     $index?: number;
     $parentContext?: KnockoutBindingContext;
+
+    extend(any): any;
+    createChildContext(any): any;
 }
 
 interface KnockoutBindingHandler {
-    // TODO: Work out how to define bindingHandlers when not using all the args
-    // adding element?: any, etc doesnt work...
-    init(element: any, valueAccessor: () => any, allBindingsAccessor: () => any, viewModel: any, bindingContext: KnockoutBindingContext): void;
-    update(element: any, valueAccessor: () => any, allBindingsAccessor: () => any, viewModel: any, bindingContext: KnockoutBindingContext): void;
-    //init: any;
-    //update: any;
+    init?(element: any, valueAccessor: () => any, allBindingsAccessor: () => any, viewModel: any, bindingContext: KnockoutBindingContext): void;
+    update?(element: any, valueAccessor: () => any, allBindingsAccessor: () => any, viewModel: any, bindingContext: KnockoutBindingContext): void;
     options?: any;
 }
 
 interface KnockoutBindingHandlers {
+    // Controlling text and appearance
+    visible: KnockoutBindingHandler;
+    text: KnockoutBindingHandler;
+    html: KnockoutBindingHandler;
+    css: KnockoutBindingHandler;
+    style: KnockoutBindingHandler;
+    attr: KnockoutBindingHandler;
+
+    // Control Flow
+    foreach: KnockoutBindingHandler;
+    if: KnockoutBindingHandler;
+    ifnot: KnockoutBindingHandler;
+    with: KnockoutBindingHandler;
+
+    // Working with form fields
+    click: KnockoutBindingHandler;
+    event: KnockoutBindingHandler;
+    submit: KnockoutBindingHandler;
+    enable: KnockoutBindingHandler;
+    disable: KnockoutBindingHandler;
     value: KnockoutBindingHandler;
+    hasfocus: KnockoutBindingHandler;
+    checked: KnockoutBindingHandler;
+    options: KnockoutBindingHandler;
+    selectedOptions: KnockoutBindingHandler;
+    uniqueName: KnockoutBindingHandler;
+
+    // Rendering templates
+    template: KnockoutBindingHandler;
 }
 
 interface KnockoutMemoization {
@@ -189,24 +246,19 @@ interface KnockoutStatic {
     utils: KnockoutUtils;
     memoization: KnockoutMemoization;
     bindingHandlers: KnockoutBindingHandlers;
-
-    computed: KnockoutComputed;
-    observableArray: KnockoutObservableArray;
     virtualElements: KnockoutVirtualElements;
     extenders: KnockoutExtenders;
 
     applyBindings(viewModel: any, rootNode?: any): void;
     applyBindingsToDescendants(viewModel: any, rootNode: any): void;
 
-    observable(value: string): KnockoutObservableString;
-    observable(value: Date): KnockoutObservableDate;
-    observable(value: number): KnockoutObservableNumber;
-    observable(value: bool): KnockoutObservableBool;
-    observable(value?: any): KnockoutObservableAny;
+    subscribable: KnockoutSubscribableStatic;
+    observable: KnockoutObservableStatic;
+    computed: KnockoutComputedStatic;
+    observableArray: KnockoutObservableArrayStatic;
 
     contextFor(node: any): any;
     isSubscribable(instance: any): bool;
-    subscribable(): void;
     toJSON(viewModel: any, replacer?: Function, space?: any): string;
     toJS(viewModel: any): any;
     isObservable(instance: any): bool;
