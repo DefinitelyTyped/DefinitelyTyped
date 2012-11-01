@@ -8,6 +8,9 @@ interface KnockoutSubscribableFunctions {
     subscribe(callback: (newValue: any[]) => void, target?:any, topic?: string): KnockoutSubscription;
     notifySubscribers(valueToWrite, topic?: string);
     dispose(): void;
+    valueHasMutated(): void;
+
+    valueWillMutate(): void;
 }
 
 interface KnockoutComputedFunctions extends KnockoutSubscribableFunctions {
