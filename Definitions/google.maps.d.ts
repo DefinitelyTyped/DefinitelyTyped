@@ -1537,17 +1537,6 @@ declare module google.maps {
 
         export class MapsEventListener {
 
-        }
-
-        export module event {
-            export function addDomListener(instance: Object, eventName: string, handler: Function, capture?: bool): MapsEventListener;
-            export function addDomListenerOnce(instance: Object, eventName: string, handler: Function, capture?: bool): MapsEventListener;
-            export function addListener(instance: Object, eventName: string, handler: Function): MapsEventListener;
-            export function addListenerOnce(instance: Object, eventName: string, handler: Function): MapsEventListener;
-            export function clearInstanceListeners(instance: Object): void;
-            export function clearListeners(instance: Object, eventName: string): void;
-            export function removeListener(listener: MapsEventListener): void;
-            export function trigger(instance: Object, eventName: string, var_args?: any): void;
-        }
+        }        
     }
 }
