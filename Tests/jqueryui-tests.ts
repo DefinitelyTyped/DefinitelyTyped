@@ -1,6 +1,5 @@
+/// <reference path="../Definitions/jquery-1.8.d.ts" />
 /// <reference path="../Definitions/jqueryui-1.9.d.ts" />
-
-declare var $: any;
 
 function tests_draggable() {
 
@@ -72,8 +71,8 @@ function tests_droppable() {
         }
     });
 
-var $gallery = $("#gallery"),
-    $trash = $("#trash");
+    var $gallery = $("#gallery"),
+        $trash = $("#trash");
     $("li", $gallery).draggable({
         cancel: "a.ui-icon",
         revert: "invalid",
@@ -251,21 +250,291 @@ var $gallery = $("#gallery"),
 
 
 function tests_resizable() {
-
+    $("#resizable").resizable();
+    $("#resizable").resizable({
+        animate: true
+    });
+    $("#resizable").resizable({
+        containment: "#container"
+    });
+    $("#resizable").resizable({
+        delay: 1000
+    });
+    $("#resizable2").resizable({
+        distance: 40
+    });
+    $("#resizable").resizable({
+        helper: "ui-resizable-helper"
+    });
+    $("#resizable").resizable({
+        maxHeight: 250,
+        maxWidth: 350,
+        minHeight: 150,
+        minWidth: 200
+    });
+    $("#resizable").resizable({
+        aspectRatio: 16 / 9
+    });
+    $("#resizable").resizable({
+        grid: 50
+    });
+    $("#resizable").resizable({
+        alsoResize: "#also"
+    });
+    $("#also").resizable();
+    $("#resizable").resizable({
+        handles: "se"
+    });
+    $("#resizable").resizable({
+        ghost: true
+    });
+    $(".selector").resizable({ alsoResize: "#mirror" });
+    var alsoResize = $(".selector").resizable("option", "alsoResize");
+    $(".selector").resizable("option", "alsoResize", "#mirror");
+    $(".selector").resizable({ animate: true });
+    var animate = $(".selector").resizable("option", "animate");
+    $(".selector").resizable("option", "animate", true);
+    $(".selector").resizable({ animateDuration: "fast" });
+    var animateDuration = $(".selector").resizable("option", "animateDuration");
+    $(".selector").resizable("option", "animateDuration", "fast");
+    $(".selector").resizable({ animateEasing: "easeOutBounce" });
+    var animateEasing = $(".selector").resizable("option", "animateEasing");
+    $(".selector").resizable("option", "animateEasing", "easeOutBounce");
+    $(".selector").resizable({ aspectRatio: true });
+    var aspectRatio = $(".selector").resizable("option", "aspectRatio");
+    $(".selector").resizable("option", "aspectRatio", true);
+    $(".selector").resizable({ autoHide: true });
+    var autoHide = $(".selector").resizable("option", "autoHide");
+    $(".selector").resizable("option", "autoHide", true);
+    $(".selector").resizable({ cancel: ".cancel" });
+    var cancel = $(".selector").resizable("option", "cancel");
+    $(".selector").resizable("option", "cancel", ".cancel");
+    $(".selector").resizable({ containment: "parent" });
+    var containment = $(".selector").resizable("option", "containment");
+    $(".selector").resizable("option", "containment", "parent");
+    $(".selector").resizable({ delay: 150 });
+    var delay = $(".selector").resizable("option", "delay");
+    $(".selector").resizable("option", "delay", 150);
+    $(".selector").resizable({ disabled: true });
+    var disabled = $(".selector").resizable("option", "disabled");
+    $(".selector").resizable("option", "disabled", true);
+    $(".selector").resizable({ distance: 30 });
+    var distance = $(".selector").resizable("option", "distance");
+    $(".selector").resizable("option", "distance", 30);
+    $(".selector").resizable({ ghost: true });
+    var ghost = $(".selector").resizable("option", "ghost");
+    $(".selector").resizable("option", "ghost", true);
+    $(".selector").resizable({ grid: [20, 10] });
+    var grid = $(".selector").resizable("option", "grid");
+    $(".selector").resizable("option", "grid", [20, 10]);
+    $(".selector").resizable({ handles: "n, e, s, w" });
+    var handles = $(".selector").resizable("option", "handles");
+    $(".selector").resizable("option", "handles", "n, e, s, w");
+    $(".selector").resizable({ helper: "resizable-helper" });
+    var helper = $(".selector").resizable("option", "helper");
+    $(".selector").resizable("option", "helper", "resizable-helper");
+    $(".selector").resizable({ maxHeight: 300 });
+    var maxHeight = $(".selector").resizable("option", "maxHeight");
+    $(".selector").resizable("option", "maxHeight", 300);
+    $(".selector").resizable({ maxWidth: 300 });
+    var maxWidth = $(".selector").resizable("option", "maxWidth");
+    $(".selector").resizable("option", "maxWidth", 300);
+    $(".selector").resizable({ minHeight: 150 });
+    var minHeight = $(".selector").resizable("option", "minHeight");
+    $(".selector").resizable("option", "minHeight", 150);
+    $(".selector").resizable({ minWidth: 150 });
+    var minWidth = $(".selector").resizable("option", "minWidth");
+    $(".selector").resizable("option", "minWidth", 150);
+    $(".selector").resizable("option", "disabled", true);
+    $(".selector").resizable("option", { disabled: true });
+    var widget = $(".selector").resizable("widget");
 }
 
 
 function tests_selectable() {
-
+    $("#selectable").selectable();
+    $("#selectable").selectable({
+        stop: function () {
+            var result = $("#select-result").empty();
+            $(".ui-selected", this).each(function () {
+                var index = $("#selectable li").index(this);
+                result.append(" #" + (index + 1));
+            });
+        }
+    });
+    $(".selector").selectable({ autoRefresh: false });
+    var autoRefresh = $(".selector").selectable("option", "autoRefresh");
+    $(".selector").selectable("option", "autoRefresh", false);
+    $(".selector").selectable({ cancel: "input,textarea,button,select,option" });
+    var cancel = $(".selector").selectable("option", "cancel");
+    $(".selector").selectable("option", "cancel", "input,textarea,button,select,option");
+    $(".selector").selectable({ delay: 150 });
+    var delay = $(".selector").selectable("option", "delay");
+    $(".selector").selectable("option", "delay", 150);
+    $(".selector").selectable({ disabled: true });
+    var disabled = $(".selector").selectable("option", "disabled");
+    $(".selector").selectable("option", "disabled", true);
+    $(".selector").selectable({ distance: 30 });
+    var distance = $(".selector").selectable("option", "distance");
+    $(".selector").selectable("option", "distance", 30);
+    $(".selector").selectable({ filter: "li" });
+    var filter = $(".selector").selectable("option", "filter");
+    $(".selector").selectable("option", "filter", "li");
+    $(".selector").selectable({ tolerance: "fit" });
+    var tolerance = $(".selector").selectable("option", "tolerance");
+    $(".selector").selectable("option", "tolerance", "fit");
+    $(".selector").selectable("destroy");
+    var isDisabled = $(".selector").selectable("option", "disabled");
+    var options = $(".selector").selectable("option");
+    $(".selector").selectable("option", "disabled", true);
+    $(".selector").selectable("option", { disabled: true });
+    $(".selector").selectable("option", { disabled: true });
+    $(".selector").selectable("refresh");
+    var widget = $(".selector").selectable("widget");
 }
 
 
 function tests_sortable() {
-
+    $("#sortable").sortable();
+    $("#sortable").disableSelection();
+    $("#sortable1, #sortable2").sortable({
+        connectWith: ".connectedSortable"
+    }).disableSelection();
+    $("#sortable1, #sortable2").sortable().disableSelection();
+    var $tabs = $("#tabs").tabs();
+    var $tab_items = $("ul:first li", $tabs).droppable({
+        accept: ".connectedSortable li",
+        hoverClass: "ui-state-hover",
+        drop: function (event, ui) {
+            var $item = $(this);
+            var $list = $($item.find("a").attr("href"))
+                .find(".connectedSortable");
+            ui.draggable.hide("slow", function () {
+                $tabs.tabs("select", $tab_items.index($item));
+                $(this).appendTo($list).show("slow");
+            });
+        }
+    });
+    $("#sortable1").sortable({
+        delay: 300
+    });
+    $("#sortable2").sortable({
+        distance: 15
+    });
+    $("li").disableSelection();
+    $("#sortable").sortable({
+        placeholder: "ui-state-highlight"
+    });
+    $("ul.droptrue").sortable({
+        connectWith: "ul"
+    });
+    $("ul.dropfalse").sortable({
+        connectWith: "ul",
+        dropOnEmpty: false
+    });
+    $("#sortable1").sortable({
+        items: "li:not(.ui-state-disabled)"
+    });
+    $("#sortable2").sortable({
+        cancel: ".ui-state-disabled"
+    });
+    $(".column").sortable({
+        connectWith: ".column"
+    });
+    $(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
+        .find(".portlet-header")
+            .addClass("ui-widget-header ui-corner-all")
+            .prepend("<span class='ui-icon ui-icon-minusthick'></span>")
+            .end()
+        .find(".portlet-content");
+    $(".portlet-header .ui-icon").click(function () {
+        $(this).toggleClass("ui-icon-minusthick").toggleClass("ui-icon-plusthick");
+        $(this).parents(".portlet:first").find(".portlet-content").toggle();
+    });
+    $(".selector").sortable({ appendTo: document.body });
+    var appendTo = $(".selector").sortable("option", "appendTo");
+    $(".selector").sortable("option", "appendTo", document.body);
+    $(".selector").sortable({ axis: "x" });
+    var axis = $(".selector").sortable("option", "axis");
+    $(".selector").sortable("option", "axis", "x");
+    $(".selector").sortable({ cancel: "a,button" });
+    var cancel = $(".selector").sortable("option", "cancel");
+    $(".selector").sortable("option", "cancel", "a,button");
+    $(".selector").sortable({ connectWith: "#shopping-cart" });
+    var connectWith = $(".selector").sortable("option", "connectWith");
+    $(".selector").sortable("option", "connectWith", "#shopping-cart");
+    $(".selector").sortable({ containment: "parent" });
+    var containment = $(".selector").sortable("option", "containment");
+    $(".selector").sortable("option", "containment", "parent");
+    $(".selector").sortable({ cursor: "move" });
+    var cursor = $(".selector").sortable("option", "cursor");
+    $(".selector").sortable("option", "cursor", "move");
+    $(".selector").sortable({ cursorAt: { left: 5 } });
+    var cursorAt = $(".selector").sortable("option", "cursorAt");
+    $(".selector").sortable("option", "cursorAt", { left: 5 });
+    $(".selector").sortable({ delay: 150 });
+    var delay = $(".selector").sortable("option", "delay");
+    $(".selector").sortable("option", "delay", 150);
+    $(".selector").sortable({ disabled: true });
+    var disabled = $(".selector").sortable("option", "disabled");
+    $(".selector").sortable("option", "disabled", true);
+    $(".selector").sortable({ distance: 5 });
+    var distance = $(".selector").sortable("option", "distance");
+    $(".selector").sortable("option", "distance", 5);
+    $(".selector").sortable({ dropOnEmpty: false });
+    var dropOnEmpty = $(".selector").sortable("option", "dropOnEmpty");
+    $(".selector").sortable("option", "dropOnEmpty", false);
+    $(".selector").sortable({ forceHelperSize: true });
+    var forceHelperSize = $(".selector").sortable("option", "forceHelperSize");
+    $(".selector").sortable("option", "forceHelperSize", true);
+    $(".selector").sortable({ forcePlaceholderSize: true });
+    var forcePlaceholderSize = $(".selector").sortable("option", "forcePlaceholderSize");
+    $(".selector").sortable("option", "forcePlaceholderSize", true);
+    $(".selector").sortable({ grid: [20, 10] });
+    var grid = $(".selector").sortable("option", "grid");
+    $(".selector").sortable("option", "grid", [20, 10]);
+    $(".selector").sortable({ handle: ".handle" });
+    var handle = $(".selector").sortable("option", "handle");
+    $(".selector").sortable("option", "handle", ".handle");
+    $(".selector").sortable({ helper: "clone" });
+    var helper = $(".selector").sortable("option", "helper");
+    $(".selector").sortable("option", "helper", "clone");
+    $(".selector").sortable({ items: "> li" });
+    var items = $(".selector").sortable("option", "items");
+    $(".selector").sortable("option", "items", "> li");
+    $(".selector").sortable({ opacity: 0.5 });
+    var opacity = $(".selector").sortable("option", "opacity");
+    $(".selector").sortable("option", "opacity", 0.5);
+    $(".selector").sortable({ placeholder: "sortable-placeholder" });
+    var placeholder = $(".selector").sortable("option", "placeholder");
+    $(".selector").sortable("option", "placeholder", "sortable-placeholder");
+    $(".selector").sortable({ revert: true });
+    var revert = $(".selector").sortable("option", "revert");
+    $(".selector").sortable("option", "revert", true);
+    $(".selector").sortable({ scroll: false });
+    var scroll = $(".selector").sortable("option", "scroll");
+    $(".selector").sortable("option", "scroll", false);
+    $(".selector").sortable({ scrollSensitivity: 10 });
+    var scrollSensitivity = $(".selector").sortable("option", "scrollSensitivity");
+    $(".selector").sortable("option", "scrollSensitivity", 10);
+    $(".selector").sortable({ scrollSpeed: 40 });
+    var scrollSpeed = $(".selector").sortable("option", "scrollSpeed");
+    $(".selector").sortable("option", "scrollSpeed", 40);
+    $(".selector").sortable({ tolerance: "pointer" });
+    var tolerance = $(".selector").sortable("option", "tolerance");
+    $(".selector").sortable("option", "tolerance", "pointer");
+    $(".selector").sortable({ zIndex: 9999 });
+    var zIndex = $(".selector").sortable("option", "zIndex");
+    $(".selector").sortable("option", "zIndex", 9999);
+    var sorted = $(".selector").sortable("serialize", { key: "sort" });
+    var sortedIDs = $(".selector").sortable("toArray");
+    var widget = $(".selector").sortable("widget");
 }
 
 
 function tests_accordion() {
+
+    $("#accordion").accordion();
 
     $("#accordion").accordion({ collapsible: true });
     var icons = {
@@ -302,7 +571,32 @@ function tests_accordion() {
                 ui.item.children("h3").triggerHandler("focusout");
             }
         });
-
+    $(".selector").accordion({ active: 2 });
+    var active = $(".selector").accordion("option", "active");
+    $(".selector").accordion("option", "active", 2);
+    $(".selector").accordion({ animate: "bounceslide" });
+    var animate = $(".selector").accordion("option", "animate");
+    $(".selector").accordion("option", "animate", "bounceslide");
+    $(".selector").accordion({ collapsible: true });
+    var collapsible = $(".selector").accordion("option", "collapsible");
+    $(".selector").accordion("option", "collapsible", true);
+    $(".selector").accordion({ disabled: true });
+    var disabled = $(".selector").accordion("option", "disabled");
+    $(".selector").accordion("option", "disabled", true);
+    $(".selector").accordion({ event: "mouseover" });
+    var event = $(".selector").accordion("option", "event");
+    $(".selector").accordion("option", "event", "mouseover");
+    $(".selector").accordion({ header: "h3" });
+    var header = $(".selector").accordion("option", "header");
+    $(".selector").accordion("option", "header", "h3");
+    $(".selector").accordion({ heightStyle: "fill" });
+    var heightStyle = $(".selector").accordion("option", "heightStyle");
+    $(".selector").accordion("option", "heightStyle", "fill");
+    $(".selector").accordion({ icons: { "header": "ui-icon-plus", "headerSelected": "ui-icon-minus" } });
+    var icons = $(".selector").accordion("option", "icons");
+    $(".selector").accordion("option", "icons", { "header": "ui-icon-plus", "headerSelected": "ui-icon-minus" });
+    var isDisabled = $(".selector").accordion("option", "disabled");
+    $(".selector").accordion("option", { disabled: true });
 }
 
 function tests_autocomplete() {
@@ -529,12 +823,12 @@ function tests_autocomplete() {
         .autocomplete({
             source: (request, response) => {
                 $.getJSON("search.php", {
-                    term: extractLast(request.term)
+                    term: null
                 }, response);
             },
             search: () => {
                 // custom minLength
-                var term = extractLast(this.value);
+                var term = null
                 if (term.length < 2) {
                     return false;
                 }
@@ -555,10 +849,7 @@ function tests_autocomplete() {
         })
         .autocomplete({
             minLength: 0,
-            source: (request, response) => {
-                response($.ui.autocomplete.filter(
-                    availableTags, extractLast(request.term)));
-            },
+            source: (request, response) => { },
             focus: () => {
                 return false;
             },
