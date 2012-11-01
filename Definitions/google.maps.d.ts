@@ -1133,6 +1133,29 @@ declare module google.maps {
         ZERO_RESULTS
     }
 
+    /***** Event *****/
+    export interface MapsEventListener { }
+
+    export class event {
+        static addDomListener(instance: any, eventName: string, handler: (event?: any, ...args: any[]) => void , capture?: bool): MapsEventListener;
+        static addDomListener(instance: any, eventName: string, handler: Function, capture?: bool): MapsEventListener;
+        static addDomListenerOnce(instance: any, eventName: string, handler: (event?: any, ...args: any[]) => void , capture?: bool): MapsEventListener;
+        static addDomListenerOnce(instance: any, eventName: string, handler: Function, capture?: bool): MapsEventListener;
+        static addListener(instance: any, eventName: string, handler: (event?: any, ...args: any[]) => void ): MapsEventListener;
+        static addListener(instance: any, eventName: string, handler: Function): MapsEventListener;
+        static addListenerOnce(instance: any, eventName: string, handler: (event?: any, ...args: any[]) => void ): MapsEventListener;
+        static addListenerOnce(instance: any, eventName: string, handler: Function): MapsEventListener;
+        static clearInstanceListeners(instance: any): void;
+        static clearListeners(instance: any, eventName: string): void;
+        static removeListener(listener: MapsEventListener): void;
+        static trigger(instance: any, eventName: string, ...args: any[]): void;
+    }
+
+    export interface MouseEvent {
+        stop(): void;
+        latLng: LatLng;
+    }
+
     /***** Base *****/
     export class LatLng {
         constructor (lat: number, lng: number, noWrap?: bool);
@@ -1507,25 +1530,24 @@ declare module google.maps {
             location: LatLng;
             weight: number;
         }
-    }
 
-    export class MouseEvent {
-        stop(): void;
-    }
+        export class MouseEvent {
+            stop(): void;
+        }
 
-    export class MapsEventListener {
+        export class MapsEventListener {
 
-    }
+        }
 
-    export module event {
-        export function addDomListener(instance: Object, eventName: string, handler: Function, capture?: bool): MapsEventListener;
-        export function addDomListenerOnce(instance: Object, eventName:string, handler:Function, capture?: bool): MapsEventListener;
-        export function addListener(instance: Object, eventName: string, handler: Function): MapsEventListener;
-        export function addListenerOnce(instance:Object, eventName: string, handler: Function): MapsEventListener;
-        export function clearInstanceListeners(instance: Object): void;
-        export function clearListeners(instance: Object, eventName: string): void ;
-        export function removeListener(listener: MapsEventListener): void;
-        export function trigger(instance:Object, eventName:string, var_args?:any): void;
+        export module event {
+            export function addDomListener(instance: Object, eventName: string, handler: Function, capture?: bool): MapsEventListener;
+            export function addDomListenerOnce(instance: Object, eventName: string, handler: Function, capture?: bool): MapsEventListener;
+            export function addListener(instance: Object, eventName: string, handler: Function): MapsEventListener;
+            export function addListenerOnce(instance: Object, eventName: string, handler: Function): MapsEventListener;
+            export function clearInstanceListeners(instance: Object): void;
+            export function clearListeners(instance: Object, eventName: string): void;
+            export function removeListener(listener: MapsEventListener): void;
+            export function trigger(instance: Object, eventName: string, var_args?: any): void;
+        }
     }
 }
-
