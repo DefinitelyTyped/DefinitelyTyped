@@ -4,19 +4,16 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
+/// <reference path="jquery-1.8.d.ts" />
+
 declare module Backbone {
 
     export interface AddOptions extends Silenceable {
         at: number;
     }
-    
+
     export interface CreateOptions extends Silenceable {
         wait: bool;
-    }
-    
-    export interface Destroyable {
-        success(model: any, resonse: any);
-        error(model: any, resonse: any);
     }
 
     export interface HistoryOptions extends Silenceable {
@@ -36,16 +33,20 @@ declare module Backbone {
         silent: bool;
     }
 
+    interface EventCallback {
+        (event): void;
+    }
+
     export class Events {
-        on(eventName: string, callback: (event) => void, context?: any) : any;
-        bind(eventName: string, callback: (event) => void, context?: any) : any;
-        off(eventName?: string, callback?: (event) => void, context?: any): any;
-        unbind(eventName?: string, callback?: (event) => void, context?: any): any;
+        on(eventName: string, callback: EventCallback, context?: any): any;
+        bind(eventName: string, callback: EventCallback, context?: any): any;
+        off(eventName?: string, callback?: EventCallback, context?: any): any;
+        unbind(eventName?: string, callback?: EventCallback, context?: any): any;
         trigger(eventName: string, ...args: any[]): any;
     }
 
     export class ModelBase extends Events {
-        fetch(options? : Destroyable);
+        fetch(options?: JQueryAjaxSettings);
         url: string; // or url(): string;
         parse(response);
         toJSON(): string;
@@ -58,10 +59,10 @@ declare module Backbone {
         attributes: any;
         changed: any[];
         cid: string;
-        defaults : any; // or defaults();
+        defaults: any; // or defaults();
         id: any;
         idAttribute: string;
-        urlRoot : string; // or urlRoot()
+        urlRoot: string; // or urlRoot()
 
         constructor (attributes?: any, options?: any);
         initialize(attributes?: any);
@@ -71,20 +72,20 @@ declare module Backbone {
         set(obj: any);
 
         change();
-        changedAttributes(attributes? : any) : any[];
-        clear(options? : Silenceable );
-        clone() : Model;
-        destroy(options? : Destroyable );
-        escape(attribute : string);
-        has(attribute : string) : bool;
-        hasChanged(attribute? : string ) : bool;
-        isNew() : bool;
-        isValid() : string;
-        previous(attribute : string) : any;
+        changedAttributes(attributes?: any): any[];
+        clear(options?: Silenceable);
+        clone(): Model;
+        destroy(options?: JQueryAjaxSettings): any; // jqXHR or false
+        escape(attribute: string);
+        has(attribute: string): bool;
+        hasChanged(attribute?: string): bool;
+        isNew(): bool;
+        isValid(): string;
+        previous(attribute: string): any;
         previousAttributes(): any[];
-        save(attributes? : any, options? : Destroyable );
-        unset(attribute: string, options? : Silenceable );
-        validate(attributes : any) : any;
+        save(attributes?: any, options?: JQueryAjaxSettings): any; // JQueryXHR or false
+        unset(attribute: string, options?: Silenceable): any;
+        validate(attributes: any): any;
     }
 
     export class Collection extends ModelBase {
@@ -92,87 +93,87 @@ declare module Backbone {
         static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
         model: Model;
-        models : any;
+        models: any;
         collection: Model;
         length: number;
 
-        constructor (models? :any , options? );
+        constructor (models?: any, options? );
 
-        add(model: Model, options? : AddOptions);
-        add(models: Model[], options? : AddOptions);
-        at(index: number) : Model;
+        add(model: Model, options?: AddOptions);
+        add(models: Model[], options?: AddOptions);
+        at(index: number): Model;
         comparator(attribute: string): number;
-        comparator(compare: Model, to:Model): number;
-        get(id : any) : Model;
-        getByCid(cid) : Model;
-        create(attributes: any, options? : CreateOptions ): Collection;
-        pluck(attribute:string) : any[];
-        push(model: Model, options? : AddOptions);
-        pop(options? : Silenceable);
-        remove(model: Model, options? : Silenceable);
-        remove(models: Model[], options? : Silenceable);
-        reset(models : Model[], options? );
-        shift(options? : Silenceable);
-        sort(options? : Silenceable);
+        comparator(compare: Model, to: Model): number;
+        get(id: any): Model;
+        getByCid(cid): Model;
+        create(attributes: any, options?: CreateOptions): Collection;
+        pluck(attribute: string): any[];
+        push(model: Model, options?: AddOptions): Model;
+        pop(options?: Silenceable);
+        remove(model: Model, options?: Silenceable);
+        remove(models: Model[], options?: Silenceable);
+        reset(models?: Model[], options? );
+        shift(options?: Silenceable);
+        sort(options?: Silenceable);
         unshift(model: Model, options?: AddOptions);
         where(properies: any): Model[];
 
-        all(iterator: (element: Model, index:number) => bool, context?: any): bool;
-        any(iterator:(element: Model, index:number) => bool, context?: any): bool;
-        collect(iterator: (element: Model, index:number, context? : any ) => any[] , context?: any): any[];
+        all(iterator: (element: Model, index: number) => bool, context?: any): bool;
+        any(iterator: (element: Model, index: number) => bool, context?: any): bool;
+        collect(iterator: (element: Model, index: number, context?: any) => any[], context?: any): any[];
         compact(): Model[];
         contains(value: any): bool;
-        countBy(iterator: (element:Model, index:number) => any) : any[];
-        countBy(attribute: string) : any[];
+        countBy(iterator: (element: Model, index: number) => any): any[];
+        countBy(attribute: string): any[];
         detect(iterator: (item: any) => bool, context?: any): any; // ???
-        difference(...model: Model[]) : Model[];
+        difference(...model: Model[]): Model[];
         drop(): Model;
         drop(n: number): Model[];
-        each(iterator: (element: Model, index:number, list? ) => void , context?: any);
-        every(iterator: (element: Model, index:number) => bool, context?: any): bool;
-        filter(iterator: (elemebt:Model, index:number) => bool, context?: any): Model[];
-        find(iterator: (element:Model, index:number) => bool, context?: any): Model;
+        each(iterator: (element: Model, index: number, list? ) => void , context?: any);
+        every(iterator: (element: Model, index: number) => bool, context?: any): bool;
+        filter(iterator: (elemebt: Model, index: number) => bool, context?: any): Model[];
+        find(iterator: (element: Model, index: number) => bool, context?: any): Model;
         first(): Model;
         first(n: number): Model[];
         flatten(shallow?: bool): Model[];
-        foldl(iterator: (memo: any, element: Model, index:number) => any, initialMemo: any, context?: any): any;
-        forEach(iterator: (element: Model, index:number, list? ) => void , context?: any);
-        groupBy(iterator: (element:Model, index:number) => any) : any[];
-        groupBy(attribute: string) : any[];
+        foldl(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any;
+        forEach(iterator: (element: Model, index: number, list? ) => void , context?: any);
+        groupBy(iterator: (element: Model, index: number) => any): any[];
+        groupBy(attribute: string): any[];
         include(value: any): bool;
         indexOf(element: Model, isSorted?: bool): number;
         initial(): Model;
         initial(n: number): Model[];
-        inject(iterator: (memo: any, element: Model, index:number) => any, initialMemo: any, context?: any): any;
-        intersection(...model: Model[]) : Model[];
+        inject(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any;
+        intersection(...model: Model[]): Model[];
         isEmpty(object: any): bool;
         invoke(methodName: string, arguments?: any[]);
         last(): Model;
         last(n: number): Model[];
         lastIndexOf(element: Model, fromIndex?: number): number;
-        map(iterator: (element: Model, index:number, context? : any ) => any[] , context?: any): any[];
-        max(iterator?: (element:Model, index:number) => any, context?: any): Model;
-        min(iterator?: (element:Model, index:number) => any, context?: any): Model;
+        map(iterator: (element: Model, index: number, context?: any) => any[], context?: any): any[];
+        max(iterator?: (element: Model, index: number) => any, context?: any): Model;
+        min(iterator?: (element: Model, index: number) => any, context?: any): Model;
         object(...values: any[]): any[];
-        reduce(iterator: (memo: any, element: Model, index:number) => any, initialMemo: any, context?: any): any;
+        reduce(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any;
         select(iterator: any, context?: any): any[];
         size(): number;
         shuffle(): any[];
-        some(iterator:(element: Model, index:number) => bool, context?: any): bool;
-        sortBy(iterator: (element:Model, index:number) => number, context?: any): Model[];
-        sortBy(attribute:string, context?: any): Model[];
-        sortedIndex(element: Model, iterator?: (element:Model, index:number) => number): number;
-        range(stop: number, step?:number);
-        range(start: number, stop: number, step?:number);
+        some(iterator: (element: Model, index: number) => bool, context?: any): bool;
+        sortBy(iterator: (element: Model, index: number) => number, context?: any): Model[];
+        sortBy(attribute: string, context?: any): Model[];
+        sortedIndex(element: Model, iterator?: (element: Model, index: number) => number): number;
+        range(stop: number, step?: number);
+        range(start: number, stop: number, step?: number);
         reduceRight(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any[];
-        reject(iterator: (element:Model, index:number) => bool, context?: any): Model[];
+        reject(iterator: (element: Model, index: number) => bool, context?: any): Model[];
         rest(): Model;
         rest(n: number): Model[];
         tail(): Model;
         tail(n: number): Model[];
         toArray(): any[];
-        union(...model: Model[]) : Model[];
-        uniq(isSorted? : bool, iterator?: (element:Model, index:number) => bool) : Model[];
+        union(...model: Model[]): Model[];
+        uniq(isSorted?: bool, iterator?: (element: Model, index: number) => bool): Model[];
         without(...values: any[]): Model[];
         zip(...model: Model[]): Model[];
     }
@@ -181,17 +182,17 @@ declare module Backbone {
 
         static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
-        routes : any;
+        routes: any;
 
-        constructor (options? : RouterOptions);
-        initialize (options? : RouterOptions);
-        route(route: string, name: string, callback?: (...parameter:any[]) => void );
-        navigate(fragment : string, options? : NavigateOptions);
+        constructor (options?: RouterOptions);
+        initialize(options?: RouterOptions);
+        route(route: string, name: string, callback?: (...parameter: any[]) => void );
+        navigate(fragment: string, options?: NavigateOptions);
     }
 
     export var history: History;
     export class History {
-        start(options? : HistoryOptions );
+        start(options?: HistoryOptions);
         navigate(fragment: string, options: any);
         pushSate();
     }
@@ -223,9 +224,9 @@ declare module Backbone {
     }
 
     // SYNC
-    function sync(method, model, options? : Destroyable);
-    var  emulateHTTP: bool;
-    var  emulateJSONBackbone: bool;
+    function sync(method, model, options?: JQueryAjaxSettings);
+    var emulateHTTP: bool;
+    var emulateJSONBackbone: bool;
 
     // Utility
     function noConflict(): Backbone;
