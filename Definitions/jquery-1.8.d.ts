@@ -57,7 +57,7 @@ interface JQueryAjaxSettings {
 /*
     Interface for the jqXHR object
 */
-interface JQueryXHR extends XMLHttpRequest {
+interface JQueryXHR extends XMLHttpRequest, JQueryPromise {
     overrideMimeType();
 }
 
@@ -167,8 +167,8 @@ interface JQueryStatic {
     /****
      AJAX
     *****/
-    ajax(settings: JQueryAjaxSettings);
-    ajax(url: string, settings: JQueryAjaxSettings);
+    ajax(settings: JQueryAjaxSettings): JQueryXHR;
+    ajax(url: string, settings?: JQueryAjaxSettings): JQueryXHR;
 
     ajaxPrefilter(dataTypes: string, handler: (opts: any, originalOpts: any, jqXHR: JQueryXHR) => any): any;
     ajaxPrefilter(handler: (opts: any, originalOpts: any, jqXHR: JQueryXHR) => any): any;
