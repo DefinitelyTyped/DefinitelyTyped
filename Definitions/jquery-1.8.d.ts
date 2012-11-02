@@ -200,6 +200,7 @@ interface JQueryStatic {
     (elementArray: Element[]): JQuery;
     (object: JQuery): JQuery;
     (func: Function): JQuery;
+    (array: any[]): JQuery;
     (): JQuery;
 
     noConflict(removeAll?: bool): Object;
@@ -326,7 +327,7 @@ interface JQuery {
      ATTRIBUTES
     ***********/
     addClass(classNames: string): JQuery;
-    addClass(func: (index: any, currentClass: any) => JQuery);
+    addClass(func: (index: any, currentClass?: any) => string): JQuery;
 
     attr(attributeName: string): string;
     attr(attributeName: string, value: any): JQuery;
