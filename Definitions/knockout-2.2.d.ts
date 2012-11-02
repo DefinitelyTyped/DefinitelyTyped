@@ -1,4 +1,4 @@
-// Type definitions for Knockout 2.2
+﻿// Type definitions for Knockout 2.2
 // Project: http://knockoutjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -267,6 +267,7 @@ interface KnockoutStatic {
     toJS(viewModel: any): any;
     isObservable(instance: any): bool;
     dataFor(node: any): any;
+    removeNode(node: Element);
 }
 
 declare var ko: KnockoutStatic;
