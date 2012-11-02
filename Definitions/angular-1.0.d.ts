@@ -67,15 +67,22 @@ module ng {
     ///////////////////////////////////////////////////////////////////////////
     interface IModule {
         config(configFn: Function): IModule;
+        config(inlineAnnotadedFunction: any[]): IModule;
         constant(name: string, value: any): IModule;
         controller(name: string, controllerConstructor: Function): IModule;
         controller(name: string, inlineAnnotadedConstructor: any[]): IModule;
         directive(name: string, directiveFactory: Function): IModule;
+        directive(name: string, inlineAnnotadedFunction: any[]): IModule;        
         factory(name: string, serviceFactoryFunction: Function): IModule;
+        factory(name: string, inlineAnnotadedFunction: any[]): IModule;        
         filter(name: string, filterFactoryFunction: Function): IModule;
+        filter(name: string, inlineAnnotadedFunction: any[]): IModule;        
         provider(name: string, serviceProviderConstructor: Function): IModule;
+        provider(name: string, inlineAnnotadedConstructor: any[]): IModule;
         run(initializationFunction: Function): IModule;
+        run(inlineAnnotadedFunction: any[]): IModule;        
         service(name: string, serviceConstructor: Function): IModule;
+        service(name: string, inlineAnnotadedConstructor: any[]): IModule;        
         value(name: string, value: any): IModule;
 
         // Properties
