@@ -228,7 +228,7 @@ module ng {
         // These are not documented
         // Check angular's i18n files for exemples
         NUMBER_FORMATS: ILocaleNumberFormatDescriptor;
-        DATETIME_FORMATS: any;
+        DATETIME_FORMATS: ILacaleDateTimeFormatDescriptor;
         pluralCat: (num: any) => string;
     }
 
