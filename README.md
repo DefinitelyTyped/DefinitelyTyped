@@ -14,7 +14,7 @@ Complete
 * [CodeMirror](http://codemirror.net) (by [François de Campredon](https://github.com/fdecampredon))
 * [Chosen](http://harvesthq.github.com/chosen/)
 * [dynatree](http://code.google.com/p/dynatree/) (by [François de Campredon](https://github.com/fdecampredon))
-* [EaselJS](http://www.createjs.com/#!/EaselJS)
+* [EaselJS](http://www.createjs.com/#!/EaselJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [ember.js](http://emberjs.com/)
 * [Express](http://expressjs.com/)
 * [Fancybox](http://fancybox.net/)
@@ -38,11 +38,14 @@ Complete
 * [Node.js](http://nodejs.org/) (from TypeScript samples)
 * [node_redis](https://github.com/mranney/node_redis)
 * [node-sqlserver](https://github.com/WindowsAzure/node-sqlserver)
+* [PreloadJS](http://www.createjs.com/#!/PreloadJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [QUnit](http://qunitjs.com/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Raphael](http://raphaeljs.com/) (by [CheCoxshall](https://github.com/CheCoxshall))
 * [Sammy.js](http://sammyjs.org/)
+* [SoundJS](http://www.createjs.com/#!/SoundJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [Spin](http://fgnass.github.com/spin.js/)
 * [Teechart](http://www.steema.com) (by [Steema])(http://www.steema.com)
+* [TweenJS](http://www.createjs.com/#!/TweenJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [Underscore.js](http://underscorejs.org/)
 
 Next
