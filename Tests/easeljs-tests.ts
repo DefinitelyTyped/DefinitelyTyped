@@ -35,3 +35,19 @@ function test_animation() {
     Ticker.addListener(stage);
     stage.addChild(bitmapAnimation);
 }
+
+function test_graphics() {
+    var g = new Graphics();
+    g.setStrokeStyle(1);
+    g.beginStroke(Graphics.getRGB(0, 0, 0));
+    g.beginFill(Graphics.getRGB(255, 0, 0));
+    g.drawCircle(0, 0, 3);
+    var s = new Shape(g);
+    s.x = 100;
+    s.y = 100;
+    stage.addChild(s);
+    stage.update();
+
+    var myGraphics: Graphics;
+    myGraphics.beginStroke("#F00").beginFill("#00F").drawRect(20, 20, 100, 50).draw(myContext2D);
+}
