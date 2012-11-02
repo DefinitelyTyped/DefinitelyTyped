@@ -51,8 +51,8 @@ module createjs {
         // methods
         cache(x: number, y: number, width: number, height: number, scale?: number): void;
         clone(): DisplayObject;
-        draw(ctx: CanvasRenderingContext2D, ignoreCache: bool): void;
-        getCacheDataURL(): void;
+        draw(ctx: CanvasRenderingContext2D, ignoreCache?: bool): void;
+        getCacheDataURL(): string;
         getConcatenatedMatrix(mtx: Matrix2D): Matrix2D;
         getMatrix(matrix: Matrix2D): Matrix2D;
         getStage(): Stage;
@@ -78,6 +78,7 @@ module createjs {
 
 
     export class Filter {
+        constructor ();
         applyFilter(ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, targetCtx?: CanvasRenderingContext2D, targetX?: number, targetY?: number): bool;
         clone(): Filter;
         getBounds(): Rectangle;
@@ -88,57 +89,45 @@ module createjs {
     // :: The rest :: //
 
     export class AlphaMapFilter extends Filter {
-        constructor (alphaMap: Image);    //HERE doesn't recognize Image type
-        constructor (alphaMap: HTMLCanvasElement);
-
         // properties
         alphaMap: any;    //Image or HTMLCanvasElement
 
         // methods
-        applyFilter(ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, targetCtx?: CanvasRenderingContext2D, targetX?: number, targetY?: number): bool;
+        constructor (alphaMap: Image);    //HERE doesn't recognize Image type
+        constructor (alphaMap: HTMLCanvasElement);
         clone(): AlphaMapFilter;
-        toString(): string;
     }
 
 
     export class AlphaMaskFilter extends Filter {
-        constructor (mask: Image);
-        constructor (mask: HTMLCanvasElement);
-
         // properties
         mask: Image;    //HERE or HTMLCanvasElement
 
         // methods
-        applyFilter(ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, targetCtx?: CanvasRenderingContext2D, targetX?: number, targetY?: number): bool;
+        constructor (mask: Image);
+        constructor (mask: HTMLCanvasElement);
         clone(): AlphaMaskFilter;
-        toString(): string;
     }
 
 
     export class Bitmap extends DisplayObject {
+        // properties
+        image: any;  //HERE how to tell the various type possibilities?
+        snapToPixel: bool;
+        sourceRect: Rectangle;
+
+        // methods
         constructor (imageOrUrl: Image);
         constructor (imageOrUrl: HTMLCanvasElement);
         constructor (imageOrUrl: HTMLVideoElement);
         constructor (imageOrUrl: string);
 
-        // properties
-        image;  //HERE how to tell the various type possibilities?
-        snapToPixel: bool;
-        sourceRect: Rectangle;
-
-        // methods
         clone(): Bitmap;
-        draw(ctx: CanvasRenderingContext2D, ignoreCache: bool): void;
-        isVisible(): bool;
-        toString(): string;
-        uncache(): void;
         updateCache(): void;
     }
 
 
     export class BitmapAnimation extends DisplayObject {
-        constructor (spriteSheet: SpriteSheet);
-
         // properties
         currentAnimation: string;
         currentAnimationFrame: number;
@@ -149,17 +138,14 @@ module createjs {
         spriteSheet: SpriteSheet;
 
         // methods
+        constructor (spriteSheet: SpriteSheet);
         advance(): void;
         cache(): void;
         clone(): BitmapAnimation;
-        draw(ctx: CanvasRenderingContext2D, ignoreCache: bool): void;
         gotoAndPlay(frameOrAnimation: string): void;
         gotoAndPlay(frameOrAnimation: number): void;
-        isVisible(): bool;
         play(): void;
         stop(): void;
-        toString(): string;
-        uncache(): void;
         updateCache(): void;
 
         // events
@@ -168,24 +154,18 @@ module createjs {
 
 
     export class BoxBlurFilter extends Filter {
-        constructor (blurX: number, blurY: number, quality: number);
-
         // properties
         blurX: number;
         blurY: number;
         quality: number;
 
         // methods
-        applyFilter(ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, targetCtx?: CanvasRenderingContext2D, targetX?: number, targetY?: number): bool;
+        constructor (blurX: number, blurY: number, quality: number);
         clone(): BoxBlurFilter;
-        getBounds(): Rectangle;
-        toString(): string;
     }
 
 
     export class ColorFilter extends Filter {
-        constructor (redMultiplier?: number, greenMultiplier?: number, blueMultiplier?: number, alphaMultiplier?: number, redOffset?: number, greenOffset?: number, blueOffset?: number, alphaOffset?: number);
-
         // properties
         alphaOffset: number;
         blueMultiplier: number;
@@ -196,21 +176,19 @@ module createjs {
         redOffset: number;
 
         // methods
-        applyFilter(ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, targetCtx?: CanvasRenderingContext2D, targetX?: number, targetY?: number): bool;
+        constructor (redMultiplier?: number, greenMultiplier?: number, blueMultiplier?: number, alphaMultiplier?: number, redOffset?: number, greenOffset?: number, blueOffset?: number, alphaOffset?: number);
         clone(): ColorFilter;
-        toString(): string;
     }
 
 
     export class ColorMatrix {
-        constructor (brightness: number, contrast: number, saturation: number, hue: number);
-
         // properties
         DELTA_INDEX: number[];
         IDENTITY_MATRIX: number[];
         LENGTH: number;
 
         // methods
+        constructor (brightness: number, contrast: number, saturation: number, hue: number);
         adjustBrightness(value: number): ColorMatrix;
         adjustColor(brightness: number, contrast: number, saturation: number, hue: number): ColorMatrix;
         adjustContrast(value: number): ColorMatrix;
@@ -225,21 +203,17 @@ module createjs {
 
 
     export class ColorMatrixFilter extends Filter {
-        constructor (matrix: number[]);
-
         // methods
-        applyFilter(ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, targetCtx?: CanvasRenderingContext2D, targetX?: number, targetY?: number): bool;
+        constructor (matrix: number[]);
         clone(): ColorMatrixFilter;
-        toString(): string;
     }
 
 
-    export class Command    //HERE is this supposed to be used? (or just internal of the lib)
+    export class Command
     {
-        constructor (f, params, path);
-
         // methods
-        exec(scope): void;
+        constructor (f, params, path);
+        exec(scope: any): void;
     }
 
 
@@ -252,14 +226,12 @@ module createjs {
         addChildAt(...child: DisplayObject[], index: number): DisplayObject;  //HERE typescript doesnt like having an argument after the variable length argument
         clone(recursive?: bool): Container;
         contains(child: DisplayObject): bool;
-        draw(ctx: CanvasRenderingContext2D, ignoreCache: bool): void;
         getChildAt(index: number): DisplayObject;
         getChildIndex(child: DisplayObject): number;
         getNumChildren(): number;
         getObjectsUnderPoint(x, number, y: number): DisplayObject[];
         getObjectUnderPoint(x: number, y: number): DisplayObject;
         hitTest(x: number, y: number): bool;
-        isVisible(): bool;
         removeAllChildren(): void;
         removeChild(...child: DisplayObject[]): bool;
         removeChildAt(...index: number[]): bool;
@@ -267,27 +239,16 @@ module createjs {
         sortChildren(sortFunction: (a: DisplayObject, b: DisplayObject) => number): void;
         swapChildren(child1: DisplayObject, child2: DisplayObject): void;
         swapChildrenAt(index1: number, index2: number): void;
-        toString(): string;
     }
 
 
     export class DOMElement extends DisplayObject {
-        constructor (htmlElement: HTMLElement);
-
         // properties
         htmlElement: HTMLElement;
 
         // methods
-        cache(): void;
+        constructor (htmlElement: HTMLElement);
         clone(): DOMElement;
-        draw(ctx: CanvasRenderingContext2D, ignoreCache: bool): void;
-        globalToLocal(): void;
-        isVisible(): bool;
-        localToGlobal(): void;
-        localToLocal(): void;
-        toString(): string;
-        uncache(): void;
-        updateCache(): void;
     }
 
 
@@ -339,8 +300,6 @@ module createjs {
 
 
     export class Matrix2D {
-        constructor (a: number, b: number, c: number, d: number, tx: number, ty: number);
-
         // properties
         a: number;
         alpha: number;
@@ -355,6 +314,7 @@ module createjs {
         ty: number;
 
         // methods
+        constructor (a: number, b: number, c: number, d: number, tx: number, ty: number);
         append(a: number, b: number, c: number, d: number, tx: number, ty: number): Matrix2D;
         appendMatrix(matrix: Matrix2D): Matrix2D;
         appendProperties(a: number, b: number, c: number, d: number, tx: number, ty: number, alpha: number, shadow: Shadow, compositeOperation: string): Matrix2D;
@@ -377,7 +337,6 @@ module createjs {
 
 
     export class MouseEvent {
-        constructor (type: string, stageX: number, stageY: number, target: DisplayObject, nativeEvent: NativeMouseEvent, pointerID: number, primary: bool, rawX: number, rawY: number);
 
         // properties
         nativeEvent: NativeMouseEvent;
@@ -391,6 +350,7 @@ module createjs {
         type: string;
 
         // methods
+        constructor (type: string, stageX: number, stageY: number, target: DisplayObject, nativeEvent: NativeMouseEvent, pointerID: number, primary: bool, rawX: number, rawY: number);
         clone(): MouseEvent;
         toString(): string;
 
@@ -401,8 +361,6 @@ module createjs {
 
 
     export class MovieClip extends Container {
-        constructor (mode: string, startPosition: number, loop: bool, labels: Object);
-
         // properties
         actionsEnabled: bool;
         static INDEPENDENT: string;
@@ -415,35 +373,30 @@ module createjs {
         timeline: Timeline; //HERE requires tweenJS
 
         // methods
-        clone(): void;
-        draw(ctx: CanvasRenderingContext2D, ignoreCache: bool): void;
+        constructor (mode: string, startPosition: number, loop: bool, labels: Object);
+        clone(recursive?: bool): MovieClip;
         gotoAndPlay(positionOrLabel: string): void;
         gotoAndPlay(positionOrLabel: number): void;
         gotoAndStop(positionOrLabel: string): void;
         gotoAndStop(positionOrLabel: number): void;
-        isVisible(): bool;
         play(): void;
         stop(): void;
-        toString(): string;
     }
 
 
     export class Point {
-        constructor (x: number, y: number);
-
         // properties
         x: number;
         y: number;
 
         // methods
+        constructor (x: number, y: number);
         clone(): Point;
         toString(): string;
     }
 
 
     export class Rectangle {
-        constructor (x: number, y: number, width: number, height: number);
-
         // properties
         x: number;
         y: number;
@@ -451,14 +404,13 @@ module createjs {
         height: number;
 
         // methods
+        constructor (x: number, y: number, width: number, height: number);
         clone(): Rectangle;
         toString(): string;
     }
 
 
     export class Shadow {
-        constructor (color: string, offsetX: number, offsetY: number, blur: number);
-
         // properties
         blur: number;
         color: string;
@@ -467,22 +419,19 @@ module createjs {
         offsetY: number;
 
         // methods
+        constructor (color: string, offsetX: number, offsetY: number, blur: number);
         clone(): Shadow;
         toString(): string;
     }
 
 
     export class Shape extends DisplayObject {
-        constructor (graphics?: Graphics);
-
         // properties
         graphics: Graphics;
 
         // methods
-        clone(recursive: bool): Shape;
-        draw(ctx, CanvasRenderingContext2D, ignoreCache: bool): void;
-        isVisible(): bool;
-        toString(): string;
+        constructor (graphics?: Graphics);
+        clone(recursive?: bool): Shape;
     }
 
 
@@ -495,12 +444,11 @@ module createjs {
     }
 
     export class SpriteSheet {
-        constructor (data: Object);
-
         // properties
         complete: bool;
 
         // methods
+        constructor (data: Object);
         clone(): SpriteSheet;
         getAnimation(name: string): SpriteSheetAnimation;
         getAnimations(): string[];
@@ -541,8 +489,6 @@ module createjs {
 
 
     export class Stage extends Container {
-        constructor (canvas: HTMLCanvasElement);
-
         // properties
         autoClear: bool;
         canvas: HTMLCanvasElement;
@@ -553,12 +499,10 @@ module createjs {
         tickOnUpdate: bool;
 
         // methods
-        clear(): void;
+        constructor (canvas: HTMLCanvasElement);
         clone(): Stage;
         enableMouseOver(frequency: number): void;
         toDataURL(backgroundColor: string, mimeType: string): string;
-        toString(): string;
-        update(): void;
 
         // events
         onMouseDown: (event: MouseEvent) => any;
@@ -568,8 +512,6 @@ module createjs {
 
 
     export class Text extends DisplayObject {
-        constructor (text?: string, font?: string, color?: string);
-
         // properties
         color: string;
         font: string;
@@ -582,13 +524,11 @@ module createjs {
         textBaseline: string;
 
         // methods
+        constructor (text?: string, font?: string, color?: string);
         clone(): Text;
-        draw(ctx: CanvasRenderingContext2D, ignoreCache: bool): void;
         getMeasuredHeight(): number;
         getMeasuredLineHeight(): number;
         getMeasuredWidth(): number;
-        isVisible(): bool;
-        toString(): string;
     }
 
 
