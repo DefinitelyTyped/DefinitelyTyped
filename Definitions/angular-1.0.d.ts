@@ -460,7 +460,7 @@ module ng {
         (controllerName: string, locals?: any): any;
     }
 
-    interface IControlerPovider extends IServiceProvider {
+    interface IControlerProvider extends IServiceProvider {
         register(name: string, controllerConstructor: Function): void;
         register(name: string, dependencyAnnotadedConstructor: any[]): void;
     }
