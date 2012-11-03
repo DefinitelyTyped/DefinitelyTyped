@@ -45,7 +45,7 @@ module createjs {
         paused: bool;
         playState: string;
         src: string;
-        uniqueId: string;   //HERE string or number
+        uniqueId: any;   //HERE string or number
 
         // methods
         getDuration(): number;
@@ -89,7 +89,7 @@ module createjs {
         // methods
         static checkPlugin(initializeDefault: bool): bool;
         static getCapabilities(): Object;
-        static getCapability(key: string);    //HERE can return string | number | bool
+        static getCapability(key: string): any;    //HERE can return string | number | bool
         static getInstanceById(uniqueId: string): SoundInstance;
         static getMasterVolume(): number;
         static getSrcFromId(value: string): string;
