@@ -93,7 +93,7 @@ module createjs {
         alphaMap: any;    //Image or HTMLCanvasElement
 
         // methods
-        constructor (alphaMap: Image);    //HERE doesn't recognize Image type
+        constructor (alphaMap: HTMLImageElement);
         constructor (alphaMap: HTMLCanvasElement);
         clone(): AlphaMapFilter;
     }
@@ -101,10 +101,10 @@ module createjs {
 
     export class AlphaMaskFilter extends Filter {
         // properties
-        mask: Image;    //HERE or HTMLCanvasElement
+        mask: any;    //HERE or HTMLCanvasElement
 
         // methods
-        constructor (mask: Image);
+        constructor (mask: HTMLImageElement);
         constructor (mask: HTMLCanvasElement);
         clone(): AlphaMaskFilter;
     }
@@ -117,7 +117,7 @@ module createjs {
         sourceRect: Rectangle;
 
         // methods
-        constructor (imageOrUrl: Image);
+        constructor (imageOrUrl: HTMLImageElement);
         constructor (imageOrUrl: HTMLCanvasElement);
         constructor (imageOrUrl: HTMLVideoElement);
         constructor (imageOrUrl: string);
@@ -223,7 +223,8 @@ module createjs {
 
         // methods
         addChild(...child: DisplayObject[]): DisplayObject;
-        addChildAt(...child: DisplayObject[], index: number): DisplayObject;  //HERE typescript doesnt like having an argument after the variable length argument
+        //addChildAt(...child: DisplayObject[], index: number): DisplayObject;  //HERE typescript doesnt like having an argument after the variable length argument
+        addChildAt(...child: any[]): DisplayObject;
         clone(recursive?: bool): Container;
         contains(child: DisplayObject): bool;
         getChildAt(index: number): DisplayObject;
@@ -482,9 +483,9 @@ module createjs {
 
     export class SpriteSheetUtils {
         static addFlippedFrames(spriteSheet: SpriteSheet, horizontal?: bool, vertical?: bool, both?: bool): void;
-        static extractFrame(spriteSheet: Image, frame: number): Image;   //HERE
-        static flip(spriteSheet: Image, flipData: Object): void;
-        static mergeAlpha(rgbImage: Image, alphaImage: Image, canvas?: HTMLCanvasElement): HTMLCanvasElement;
+        static extractFrame(spriteSheet: HTMLImageElement, frame: number): HTMLImageElement;
+        static flip(spriteSheet: HTMLImageElement, flipData: Object): void;
+        static mergeAlpha(rgbImage: HTMLImageElement, alphaImage: HTMLImageElement, canvas?: HTMLCanvasElement): HTMLCanvasElement;
     }
 
 
