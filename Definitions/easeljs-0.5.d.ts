@@ -101,7 +101,7 @@ module createjs {
 
     export class AlphaMaskFilter extends Filter {
         // properties
-        mask: any;    //HERE or HTMLCanvasElement
+        mask: any;    // HTMLImageElement or HTMLCanvasElement
 
         // methods
         constructor (mask: HTMLImageElement);
@@ -112,7 +112,7 @@ module createjs {
 
     export class Bitmap extends DisplayObject {
         // properties
-        image: any;  //HERE how to tell the various type possibilities?
+        image: any;  // HTMLImageElement or HTMLCanvasElement or HTMLVideoElement
         snapToPixel: bool;
         sourceRect: Rectangle;
 
@@ -471,7 +471,7 @@ module createjs {
         spriteSheet: SpriteSheet;
 
         // methods
-        addFrame(source: DisplayObject, sourceRect?: Rectangle, scale?: number, setupFunction?: () => any, setupParams?: any[], setupScope?: Object): number; //HERE returns number or null
+        addFrame(source: DisplayObject, sourceRect?: Rectangle, scale?: number, setupFunction?: () => any, setupParams?: any[], setupScope?: Object): any; //HERE returns number or null
         addMovieClip(source: MovieClip, sourceRect?: Rectangle, scale?: number): void;
         build(): void;
         buildAsync(callback?: (reference: SpriteSheetBuilder) => any, timeSlice?: number): void;
