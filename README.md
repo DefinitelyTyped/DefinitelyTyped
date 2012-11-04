@@ -38,6 +38,7 @@ Complete
 * [Node.js](http://nodejs.org/) (from TypeScript samples)
 * [node_redis](https://github.com/mranney/node_redis)
 * [node-sqlserver](https://github.com/WindowsAzure/node-sqlserver)
+* [PhoneGap](http://phonegap.com)
 * [PreloadJS](http://www.createjs.com/#!/PreloadJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [QUnit](http://qunitjs.com/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Raphael](http://raphaeljs.com/) (by [CheCoxshall](https://github.com/CheCoxshall))
@@ -54,7 +55,6 @@ Next
 * jQuery.Validate
 * google.visualization
 * Meteor
-* PhoneGap
 * Isotope
 * Zepto
 * Socket.IO
