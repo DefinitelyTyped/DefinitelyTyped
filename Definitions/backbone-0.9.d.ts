@@ -51,7 +51,7 @@ declare module Backbone {
         fetch(options?: JQueryAjaxSettings);
         url: string; // or url(): string;
         parse(response);
-        toJSON(): string;
+        toJSON(): any;
     }
 
     export class Model extends ModelBase {
