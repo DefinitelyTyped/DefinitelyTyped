@@ -597,9 +597,10 @@ interface JQuery {
 
     replaceWith(func: any): JQuery;
     
-    text(textString: string): JQuery;
     text(): string;
-
+    text(textString: string): JQuery;
+    text(textString: (index: number, text: string) => string): JQuery;
+    
     toArray(): any[];
 
     unwrap(): JQuery;

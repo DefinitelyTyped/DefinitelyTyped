@@ -645,6 +645,58 @@ function test_callbacks() {
     dfd.resolve("its been published!");
 }
 
+function test_callbacksFunctions() {
+    var foo = function (value) {
+        console.log('foo:' + value);
+    }
+    var bar = function (value) {
+        console.log('bar:' + value);
+    }
+    var callbacks = $.Callbacks();
+    callbacks.add(foo);
+    callbacks.fire('hello');
+    callbacks.add(bar);
+    callbacks.fire('world');
+    callbacks.disable();
+    callbacks.empty();
+    callbacks.fire('hello');
+    console.log(callbacks.fired());
+    callbacks.fireWith(window, ['foo', 'bar']);
+    var foo2 = function (value1, value2) {
+        console.log('Received:' + value1 + ',' + value2);
+    };
+    console.log(callbacks.has(foo2));
+    callbacks.lock();
+    console.log(callbacks.locked());
+    callbacks.remove(foo);
+}
+
+function test_change() {
+    $('.target').change(function () {
+        alert('Handler for .change() called.');
+    });
+    $('#other').click(function () {
+        $('.target').change();
+    });
+    $("input[type='text']").change(function () { });
+}
+
+function test_children() {
+    $('ul.level-2').children().css('background-color', 'red');
+    $("#container").click(function (e) {
+        $("*").removeClass("hilite");
+        var $kids = $(e.target).children();
+        var len = $kids.addClass("hilite").length;
+
+        $("#results span:first").text(len.toString());
+        $("#results span:last").text(e.target.tagName);
+
+        e.preventDefault();
+        return false;
+    });
+    $("div").children(".selected").css("color", "blue");
+}
+
 function test_each() {
     $('li').each(function (index) {
         alert(index + ': ' + $(this).text());
@@ -673,4 +725,13 @@ function test_each() {
             }
         });
     });
+}
+
+function test_text() {
+    var str = $("p:first").text();
+    $("p:last").html(str);
+    $('ul li').text(function (index) {
+        return 'item number ' + (index + 1);
+    });
+    $("p").text("<b>Some</b> new text.");
 }
