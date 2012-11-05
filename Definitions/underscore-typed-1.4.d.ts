@@ -4,30 +4,6 @@
 //     For all details and documentation:
 //     https://github.com/jbaldwin/underscore.d.ts
 
-/**
-* Notes:
-* 2012.10.24 -- Generics would be very useful, until typescript supports them I will be adding bindings
-*               for basic types, otherwise the Object or any type and casting will have to be done to
-*               allow a user to use custom classes.
-*               example now:
-*                   each(
-*                       list: string[], 
-*                       fn: (element: string, index?: number, list: string[]) => any,
-*                       context?: any): void;
-*               example with how generics could work:
-*                   T => The type of the elements in the Array
-*                   C => The type of the context object, would be optional ?? (might need 2 definitions)
-*                   each<T, C>(
-*                       list: T[],
-*                       fn: (el: T, index?: number, list: T[]) => T,
-*                       context?: C): void;
-*
-* 2012.10.29 -- How to implement the OOP wrapper?
-*               Each function is going to require its own set of definitions minus the first arg.
-*
-* 2012.11.02 -- Implementing OOP wrapper through individual interfaces, one per object type.
-**/
-
 interface Underscore {
 
 	/**************
@@ -53,7 +29,7 @@ interface Underscore {
 		iterator: (element: any, index?: number, list?: any[]) => any,
 		context?: any): void;
 	each(
-		list: Object,
+		obj: Object,
 		iterator: (value: any, key?: string, object?: Object) => any,
 		context?: any): void;
 
@@ -73,7 +49,7 @@ interface Underscore {
 		iterator: (element: any, index?: number, list?: any[]) => any,
 		context?: any): void;
 	forEach(
-		list: Object,
+		obj: Object,
 		iterator: (value: any, key?: string, object?: Object) => any,
 		context?: any): void;
 
@@ -95,9 +71,9 @@ interface Underscore {
 		iterator: (element: any, index?: number, list?: any[]) => any,
 		context?: any): any[];
 	map(
-		list: Object,
+		obj: Object,
 		iterator: (value: any, key?: string, object?: Object) => any,
-		context?: any): any[];
+		context?: any): void;
 
 	/**
 	* Alias for 'map'.
@@ -115,9 +91,9 @@ interface Underscore {
 		iterator: (element: any, index?: number, list?: any[]) => any,
 		context?: any): any[];
 	collect(
-		list: Object,
+		obj: Object,
 		iterator: (value: any, key?: string, object?: Object) => any,
-		context?: any): any[];
+		context?: any): void;
 
 	/**
 	* Also known as inject and foldl, reduce boils down a list of values into a single value.
@@ -127,17 +103,17 @@ interface Underscore {
 	**/
 	reduce(
 		list: string[],
-		iterator: (element: string, index?: number, list?: string[]) => string,
+		iterator: (memo: string, element: string, index?: number, list?: string[]) => string,
 		memo: string,
 		context?: any): string;
 	reduce(
 		list: number[],
-		iterator: (element: number, index?: number, list?: number[]) => number,
+		iterator: (memo: number, element: number, index?: number, list?: number[]) => number,
 		memo: number,
 		context?: any): number;
 	reduce(
 		list: any[],
-		iterator: (element: any, index?: number, list?: any[]) => any,
+		iterator: (memo: any, element: any, index?: number, list?: any[]) => any,
 		memo: any,
 		context?: any): any;
 
@@ -146,17 +122,17 @@ interface Underscore {
 	**/
 	inject(
 		list: string[],
-		iterator: (element: string, index?: number, list?: string[]) => string,
+		iterator: (memo: string, element: string, index?: number, list?: string[]) => string,
 		memo: string,
 		context?: any): string;
 	inject(
 		list: number[],
-		iterator: (element: number, index?: number, list?: number[]) => number,
+		iterator: (memo: number, element: number, index?: number, list?: number[]) => number,
 		memo: number,
 		context?: any): number;
 	inject(
 		list: any[],
-		iterator: (element: any, index?: number, list?: any[]) => any,
+		iterator: (memo: any, element: any, index?: number, list?: any[]) => any,
 		memo: any,
 		context?: any): any;
 
@@ -165,17 +141,17 @@ interface Underscore {
 	**/
 	foldl(
 		list: string[],
-		iterator: (element: string, index?: number, list?: string[]) => string,
+		iterator: (memo: string, element: string, index?: number, list?: string[]) => string,
 		memo: string,
 		context?: any): string;
 	foldl(
 		list: number[],
-		iterator: (element: number, index?: number, list?: number[]) => number,
+		iterator: (memo: number, element: number, index?: number, list?: number[]) => number,
 		memo: number,
 		context?: any): number;
 	foldl(
 		list: any[],
-		iterator: (element: any, index?: number, list?: any[]) => any,
+		iterator: (memo: any, element: any, index?: number, list?: any[]) => any,
 		memo: any,
 		context?: any): any;
 
@@ -186,17 +162,17 @@ interface Underscore {
 	**/
 	reduceRight(
 		list: string[],
-		iterator: (element: string, index?: number, list?: string[]) => string,
+		iterator: (memo: string, element: string, index?: number, list?: string[]) => string,
 		memo: string,
 		context?: any): string;
 	reduceRight(
 		list: number[],
-		iterator: (element: number, index?: number, list?: number[]) => number,
+		iterator: (memo: number, element: number, index?: number, list?: number[]) => number,
 		memo: number,
 		context?: any): number;
 	reduceRight(
 		list: any[],
-		iterator: (element: any, index?: number, list?: any[]) => any,
+		iterator: (memo: any, element: any, index?: number, list?: any[]) => any,
 		memo: any,
 		context?: any): any;
 
@@ -205,17 +181,17 @@ interface Underscore {
 	**/
 	foldr(
 		list: string[],
-		iterator: (element: string, index?: number, list?: string[]) => string,
+		iterator: (memo: string, element: string, index?: number, list?: string[]) => string,
 		memo: string,
 		context?: any): string;
 	foldr(
 		list: number[],
-		iterator: (element: number, index?: number, list?: number[]) => number,
+		iterator: (memo: number, element: number, index?: number, list?: number[]) => number,
 		memo: number,
 		context?: any): number;
 	foldr(
 		list: any[],
-		iterator: (element: any, index?: number, list?: any[]) => any,
+		iterator: (memo: any, element: any, index?: number, list?: any[]) => any,
 		memo: any,
 		context?: any): any;
 
@@ -291,7 +267,7 @@ interface Underscore {
 	* Looks through each value in the list, returning an array of all the values that contain all
 	* of the key-value pairs listed in properties.
 	**/
-	where(list: Object[], properties: Object): Object[];
+	where(list: any[], properties: any): any[];
 
 	/**
 	* Returns the values in list without the elements that the truth test (iterator) passes.
@@ -349,15 +325,15 @@ interface Underscore {
 	**/
 	any(
 		list: string[],
-		iterator: (element: string, index?: number, list?: string[]) => bool,
+		iterator?: (element: string, index?: number, list?: string[]) => bool,
 		context?: any): bool;
 	any(
 		list: number[],
-		iterator: (element: number, index?: number, list?: string[]) => bool,
+		iterator?: (element: number, index?: number, list?: string[]) => bool,
 		context?: any): bool;
 	any(
 		list: any[],
-		iterator: (element: any, index?: number, list?: any[]) => bool,
+		iterator?: (element: any, index?: number, list?: any[]) => bool,
 		context?: any): bool;
 
 	/**
@@ -403,7 +379,7 @@ interface Underscore {
 	* A convenient version of what is perhaps the most common use-case for map: extracting a list of
 	* property values.
 	**/
-	pluck(list: Object[], propertyName: string): any[];
+	pluck(list: any[], propertyName: string): any[];
 
 	/**
 	* Returns the maximum value in list. If iterator is passed, it will be used on each value to generate
@@ -411,9 +387,9 @@ interface Underscore {
 	**/
 	max(list: number[]): number;
 	max(
-		list: Object[],
-		iterator: (element: Object, index?: number, list?: Object[]) => number,
-		context?: any): Object;
+		list: any[],
+		iterator: (element: any, index?: number, list?: any[]) => number,
+		context?: any): any;
 
 	/**
 	* Returns the minimum value in list. If iterator is passed, it will be used on each value to generate
@@ -421,9 +397,9 @@ interface Underscore {
 	**/
 	min(list: number[]): number;
 	min(
-		list: Object[],
-		iterator: (obj: Object, index?: number, list?: Object[]) => number,
-		context?: any): Object;
+		list: any[],
+		iterator: (obj: any, index?: number, list?: any[]) => number,
+		context?: any): any;
 
 	/**
 	* Returns a sorted copy of list, ranked in ascending order by the results of running each value
@@ -620,8 +596,11 @@ interface Underscore {
 	* only be flattened a single level.
 	**/
 	flatten(array: string[], shallow?: bool): string[];
+	flatten(array: string[][], shallow?: bool): string[];
 	flatten(array: number[], shallow?: bool): number[];
+	flatten(array: number[][], shallow?: bool): number[];
 	flatten(array: any[], shallow?: bool): any[];
+	flatten(array: any[][], shallow?: bool): any[];
 
 	/**
 	* Returns a copy of the array with all instances of the values removed.
@@ -682,8 +661,8 @@ interface Underscore {
 	* Converts arrays into objects. Pass either a single list of [key, value] pairs, or a
 	* list of keys, and a list of values.
 	**/
-	object(keys: string[], values: any[]): Object;
-	object(...keyValuePairs: any[][]): Object;
+	object(keys: string[], values: any[]): any;
+	object(...keyValuePairs: any[][]): any;
 
 	/**
 	* Returns the index at which value can be found in the array, or -1 if value is not present in the array.
@@ -699,9 +678,9 @@ interface Underscore {
 	* Returns the index of the last occurrence of value in the array, or -1 if value is not present. Uses the
 	* native lastIndexOf function if possible. Pass fromIndex to start your search at a given index.
 	**/
-	lastIndexOf(array: string[], value: string, isSorted?: bool): number;
-	lastIndexOf(array: number[], value: number, isSorted?: bool): number;
-	lastIndexOf(array: any[], value: any, isSorted?: bool): number;
+	lastIndexOf(array: string[], value: string, from?: number): number;
+	lastIndexOf(array: number[], value: number, from?: number): number;
+	lastIndexOf(array: any[], value: any, from?: number): number;
 
 	/**
 	* Uses a binary search to determine the index at which the value should be inserted into the list in order
@@ -815,82 +794,86 @@ interface Underscore {
 	/**
 	* Retrieve all the names of the object's properties.
 	**/
-	keys(object: Object): string[];
+	keys(object: any): string[];
 
 	/**
 	* Return all of the values of the object's properties.
 	**/
-	values(object: Object): any[];
+	values(object: any): any[];
 
 	/**
 	* Convert an object into a list of [key, value] pairs.
 	**/
-	pairs(object: Object): any[][];
+	pairs(object: any): any[][];
 
 	/**
 	* Returns a copy of the object where the keys have become the values and the values the keys.
 	* For this to work, all of your object's values should be unique and string serializable.
 	**/
-	invert(object: Object): Object;
+	invert(object: any): any;
 
 	/**
 	* Returns a sorted list of the names of every method in an object — that is to say,
 	* the name of every function property of the object.
 	**/
-	functions(object: Object): string[];
+	functions(object: any): string[];
 
 	/**
 	* Copy all of the properties in the source objects over to the destination object, and return
 	* the destination object. It's in-order, so the last source will override properties of the
 	* same name in previous arguments.
 	**/
-	extend(destination: Object, ...sources: Object[]): Object;
+	extend(destination: any, ...sources: any[]): any;
 
 	/**
 	* Return a copy of the object, filtered to only have values for the whitelisted keys
 	* (or array of valid keys).
 	**/
-	pick(object: Object, ...keys: string[]): Object;
+	pick(object: any, ...keys: string[]): any;
 
 	/**
 	* Return a copy of the object, filtered to omit the blacklisted keys (or array of keys).
 	**/
-	omit(object: Object, ...keys: string[]): Object;
+	omit(object: any, ...keys: string[]): any;
 
 	/**
 	* Fill in null and undefined properties in object with values from the defaults objects,
 	* and return the object. As soon as the property is filled, further defaults will have no effect.
 	**/
-	defaults(object: Object, ...defaults: Object[]): Object;
+	defaults(object: any, ...defaults: any[]): any;
 
 	/**
 	* Create a shallow-copied clone of the object.
 	* Any nested objects or arrays will be copied by reference, not duplicated.
 	**/
-	clone(object: Object): Object;
+	clone(object: any): any;
+	clone(list: string[]): string[];
+	clone(list: number[]): number[];
+	clone(list: any[]): any[];
 
 	/**
 	* Invokes interceptor with the object, and then returns object. The primary purpose of this method
 	* is to "tap into" a method chain, in order to perform operations on intermediate results within the chain.
 	**/
-	tap(object: Object, intercepter: Function): Object;
+	tap(object: any, intercepter: Function): any;
 
 	/**
 	* Does the object contain the given key? Identical to object.hasOwnProperty(key), but uses a safe
 	* reference to the hasOwnProperty function, in case it's been overridden accidentally.
 	**/
-	has(object: Object, key: string): bool;
+	has(object: any, key: string): bool;
 
 	/**
 	* Performs an optimized deep comparison between the two objects,
 	* to determine if they should be considered equal.
 	**/
-	isEqual(object: Object, other: Object): bool;
+	isEqual(object: any, other: any): bool;
 
 	/**
 	* Returns true if object contains no values.
 	**/
-	isEmpty(object: Object): bool;
+	isEmpty(object: any): bool;
+	isEmpty(list: any[]): bool;
 
 	/**
 	* Returns true if object is a DOM element.
@@ -903,7 +886,7 @@ interface Underscore {
 	isArray(object: any): bool;
 
 	/**
-	* Returns true if value is an Object. Note that JavaScript arrays and functions are objects,
+	* Returns true if value is an any. Note that JavaScript arrays and functions are objects,
 	* while (normal) strings and numbers are not.
 	**/
 	isObject(object: any): bool;
@@ -1018,7 +1001,7 @@ interface Underscore {
 	* => "Fabio"
 	*
 	**/
-	mixin(object: Object): void;
+	mixin(object: any): void;
 
 	/**
 	* Generate a globally-unique id for client-side models or DOM elements that need one.
@@ -1035,7 +1018,7 @@ interface Underscore {
 	/**
 	* If the value of the named property is a function then invoke it; otherwise, return it.
 	**/
-	result(object: Object, property: string): any;
+	result(object: any, property: string): any;
 
 	/**
 	* Compiles JavaScript templates into functions that can be evaluated for rendering. Useful
@@ -1048,7 +1031,7 @@ interface Underscore {
 	* function. The settings argument should be a hash containing any _.templateSettings that should
 	* be overridden.
 	**/
-	template(templateString: string, data?: Object, settings?: UnderscoreTemplateSettings): any;
+	template(templateString: string, data?: any, settings?: UnderscoreTemplateSettings): any;
 
 	// By default, Underscore uses ERB-style template delimiters, change the
 	// following template settings to use alternative delimiters.
@@ -1062,7 +1045,7 @@ interface Underscore {
 	* Returns a wrapped object. Calling methods on this object will continue to return wrapped objects
 	* until value is used.
 	**/
-	chain(obj: Object): Object;
+	chain(obj: any): any;
 
 	/**
 	* Extracts the value of a wrapped object.
@@ -1071,8 +1054,8 @@ interface Underscore {
 	value(n: number): number;
 	value(s: string[]): string[];
 	value(n: number[]): number[];
-	value(obj: Object): Object;
-	value(obj: Object[]): Object[];
+	value(obj: any): any;
+	value(obj: any[]): any[];
 
 	/**************
 	* OOP Wrapper *
@@ -1081,8 +1064,8 @@ interface Underscore {
 	(list: string[]): UnderscoreStringArrayOOPWrapper;
 	(n: number): UnderscoreNumberOOPWrapper;
 	(list: number[]): UnderscoreNumberArrayOOPWrapper;
-	(obj: Object): UnderscoreObjectOOPWrapper;
-	(list: Object[]): UnderscoreObjectArrayOOPWrapper;
+	(obj: any): UnderscoreObjectOOPWrapper;
+	(list: any[]): UnderscoreObjectArrayOOPWrapper;
 }
 
 /**
@@ -1090,9 +1073,9 @@ interface Underscore {
 * to 'template()' to overide defaults.
 **/
 interface UnderscoreTemplateSettings {
-	evaluate: RegExp;
-	interpolate: RegExp;
-	escape: RegExp;
+	evaluate?: RegExp;
+	interpolate?: RegExp;
+	escape?: RegExp;
 }
 
 /**
@@ -1138,7 +1121,7 @@ interface UnderscoreStringOOPWrapper {
 	isArray(): bool;
 
 	/**
-	* Returns true if value is an Object. Note that JavaScript arrays and functions are objects,
+	* Returns true if value is an any. Note that JavaScript arrays and functions are objects,
 	* while (normal) strings and numbers are not.
 	**/
 	isObject(): bool;
@@ -1233,7 +1216,7 @@ interface UnderscoreStringOOPWrapper {
 	* function. The settings argument should be a hash containing any _.templateSettings that should
 	* be overridden.
 	**/
-	template(data?: Object, settings?: UnderscoreTemplateSettings): any;
+	template(data?: any, settings?: UnderscoreTemplateSettings): any;
 
 	/***********
 	* Chaining *
@@ -1299,7 +1282,7 @@ interface UnderscoreStringArrayOOPWrapper {
 	* and index (or key) of the iteration, and finally a reference to the entire list.
 	**/
 	reduce(
-		iterator: (element: string, index?: number, list?: string[]) => string,
+		iterator: (memo: string, element: string, index?: number, list?: string[]) => string,
 		memo: string,
 		context?: any): string;
 
@@ -1307,7 +1290,7 @@ interface UnderscoreStringArrayOOPWrapper {
 	* Alias for 'reduce'.
 	**/
 	inject(
-		iterator: (element: string, index?: number, list?: string[]) => string,
+		iterator: (memo: string, element: string, index?: number, list?: string[]) => string,
 		memo: string,
 		context?: any): string;
 
@@ -1315,7 +1298,7 @@ interface UnderscoreStringArrayOOPWrapper {
 	* Alias for 'reduce'.
 	**/
 	foldl(
-		iterator: (element: string, index?: number, list?: string[]) => string,
+		iterator: (memo: string, element: string, index?: number, list?: string[]) => string,
 		memo: string,
 		context?: any): string;
 
@@ -1325,7 +1308,7 @@ interface UnderscoreStringArrayOOPWrapper {
 	* language with lazy evaluation.
 	**/
 	reduceRight(
-		iterator: (element: string, index?: number, list?: string[]) => string,
+		iterator: (memo: string, element: string, index?: number, list?: string[]) => string,
 		memo: string,
 		context?: any): string;
 
@@ -1333,7 +1316,7 @@ interface UnderscoreStringArrayOOPWrapper {
 	* Alias for 'reduceRight'.
 	**/
 	foldr(
-		iterator: (element: string, index?: number, list?: string[]) => string,
+		iterator: (memo: string, element: string, index?: number, list?: string[]) => string,
 		memo: string,
 		context?: any): string;
 
@@ -1398,7 +1381,7 @@ interface UnderscoreStringArrayOOPWrapper {
 	* stops traversing the list if a true element is found. Delegates to the native method some, if present.
 	**/
 	any(
-		iterator: (element: string, index?: number, list?: string[]) => bool,
+		iterator?: (element: string, index?: number, list?: string[]) => bool,
 		context?: any): bool;
 
 	/**
@@ -1578,7 +1561,7 @@ interface UnderscoreStringArrayOOPWrapper {
 	* Converts arrays into objects. Pass either a single list of [key, value] pairs, or a
 	* list of keys, and a list of values.
 	**/
-	object(values: any[]): Object;
+	object(values: any[]): any;
 
 	/**
 	* Returns the index at which value can be found in the array, or -1 if value is not present in the array.
@@ -1592,7 +1575,7 @@ interface UnderscoreStringArrayOOPWrapper {
 	* Returns the index of the last occurrence of value in the array, or -1 if value is not present. Uses the
 	* native lastIndexOf function if possible. Pass fromIndex to start your search at a given index.
 	**/
-	lastIndexOf(value: string, isSorted?: bool): number;
+	lastIndexOf(value: string, from?: number): number;
 
 	/**
 	* Uses a binary search to determine the index at which the value should be inserted into the list in order
@@ -1610,6 +1593,17 @@ interface UnderscoreStringArrayOOPWrapper {
 	/**********
 	* Objects *
 	***********/
+	
+	/**
+	* Create a shallow-copied clone of the object.
+	* Any nested objects or arrays will be copied by reference, not duplicated.
+	**/
+	clone(): string[];
+
+	/**
+	* Returns true if object contains no values.
+	**/
+	isEmpty(): bool;
 
 	/**
 	* Returns true if object is a DOM element.
@@ -1622,7 +1616,7 @@ interface UnderscoreStringArrayOOPWrapper {
 	isArray(): bool;
 
 	/**
-	* Returns true if value is an Object. Note that JavaScript arrays and functions are objects,
+	* Returns true if value is an any. Note that JavaScript arrays and functions are objects,
 	* while (normal) strings and numbers are not.
 	**/
 	isObject(): bool;
@@ -1758,7 +1752,7 @@ interface UnderscoreNumberOOPWrapper {
 	isArray(): bool;
 
 	/**
-	* Returns true if value is an Object. Note that JavaScript arrays and functions are objects,
+	* Returns true if value is an any. Note that JavaScript arrays and functions are objects,
 	* while (normal) strings and numbers are not.
 	**/
 	isObject(): bool;
@@ -1911,7 +1905,7 @@ interface UnderscoreNumberArrayOOPWrapper {
 	* and index (or key) of the iteration, and finally a reference to the entire list.
 	**/
 	reduce(
-		iterator: (element: number, index?: number, list?: number[]) => number,
+		iterator: (memo: number, element: number, index?: number, list?: number[]) => number,
 		memo: number,
 		context?: any): number;
 
@@ -1919,7 +1913,7 @@ interface UnderscoreNumberArrayOOPWrapper {
 	* Alias for 'reduce'.
 	**/
 	inject(
-		iterator: (element: number, index?: number, list?: number[]) => number,
+		iterator: (memo: number, element: number, index?: number, list?: number[]) => number,
 		memo: number,
 		context?: any): number;
 
@@ -1927,7 +1921,7 @@ interface UnderscoreNumberArrayOOPWrapper {
 	* Alias for 'reduce'.
 	**/
 	foldl(
-		iterator: (element: number, index?: number, list?: number[]) => number,
+		iterator: (memo: number, element: number, index?: number, list?: number[]) => number,
 		memo: number,
 		context?: any): number;
 
@@ -1937,7 +1931,7 @@ interface UnderscoreNumberArrayOOPWrapper {
 	* language with lazy evaluation.
 	**/
 	reduceRight(
-		iterator: (element: number, index?: number, list?: number[]) => number,
+		iterator: (memo: number, element: number, index?: number, list?: number[]) => number,
 		memo: number,
 		context?: any): number;
 
@@ -1945,7 +1939,7 @@ interface UnderscoreNumberArrayOOPWrapper {
 	* Alias for 'reduceRight'.
 	**/
 	foldr(
-		iterator: (element: number, index?: number, list?: number[]) => number,
+		iterator: (memo: number, element: number, index?: number, list?: number[]) => number,
 		memo: number,
 		context?: any): number;
 
@@ -2009,7 +2003,7 @@ interface UnderscoreNumberArrayOOPWrapper {
 	* stops traversing the list if a true element is found. Delegates to the native method some, if present.
 	**/
 	any(
-		iterator: (element: number, index?: number, list?: string[]) => bool,
+		iterator?: (element: number, index?: number, list?: string[]) => bool,
 		context?: any): bool;
 
 	/**
@@ -2208,7 +2202,7 @@ interface UnderscoreNumberArrayOOPWrapper {
 	* Returns the index of the last occurrence of value in the array, or -1 if value is not present. Uses the
 	* native lastIndexOf function if possible. Pass fromIndex to start your search at a given index.
 	**/
-	lastIndexOf(value: number, isSorted?: bool): number;
+	lastIndexOf(value: number, from?: number): number;
 
 	/**
 	* Uses a binary search to determine the index at which the value should be inserted into the list in order
@@ -2226,6 +2220,17 @@ interface UnderscoreNumberArrayOOPWrapper {
 	/**********
 	* Objects *
 	***********/
+	
+	/**
+	* Create a shallow-copied clone of the object.
+	* Any nested objects or arrays will be copied by reference, not duplicated.
+	**/
+	clone(): number[];
+
+	/**
+	* Returns true if object contains no values.
+	**/
+	isEmpty(): bool;
 
 	/**
 	* Returns true if object is a DOM element.
@@ -2238,7 +2243,7 @@ interface UnderscoreNumberArrayOOPWrapper {
 	isArray(): bool;
 
 	/**
-	* Returns true if value is an Object. Note that JavaScript arrays and functions are objects,
+	* Returns true if value is an any. Note that JavaScript arrays and functions are objects,
 	* while (normal) strings and numbers are not.
 	**/
 	isObject(): bool;
@@ -2339,14 +2344,14 @@ interface UnderscoreObjectOOPWrapper {
 	* (value, key, list). Delegates to the native forEach function if it exists.
 	**/	
 	each(
-		iterator: (value: any, key?: string, object?: Object) => any,
+		iterator: (value: any, key?: string, object?: any) => any,
 		context?: any): void;
 
 	/**
 	* Alias for 'each'.
 	**/
 	forEach(
-		iterator: (value: any, key?: string, object?: Object) => any,
+		iterator: (value: any, key?: string, object?: any) => any,
 		context?: any): void;
 
 	/**
@@ -2355,21 +2360,21 @@ interface UnderscoreObjectOOPWrapper {
 	* object, iterator's arguments will be (value, key, list).
 	**/
 	map(
-		iterator: (value: any, key?: string, object?: Object) => any,
+		iterator: (value: any, key?: string, object?: any) => any,
 		context?: any): any[];
 
 	/**
 	* Alias for 'map'.
 	**/
 	collect(
-		iterator: (value: any, key?: string, object?: Object) => any,
+		iterator: (value: any, key?: string, object?: any) => any,
 		context?: any): any[];
 
 	/*********
 	* Arrays *
 	**********/
 
-	// There are no Array OOP Wrappers for Object
+	// There are no Array OOP Wrappers for any
 
 	/************
 	* Functions *
@@ -2406,7 +2411,7 @@ interface UnderscoreObjectOOPWrapper {
 	* Returns a copy of the object where the keys have become the values and the values the keys.
 	* For this to work, all of your object's values should be unique and string serializable.
 	**/
-	invert(): Object;
+	invert(): any;
 
 	/**
 	* Returns a sorted list of the names of every method in an object — that is to say,
@@ -2419,36 +2424,36 @@ interface UnderscoreObjectOOPWrapper {
 	* the destination object. It's in-order, so the last source will override properties of the
 	* same name in previous arguments.
 	**/
-	extend(...sources: Object[]): Object;
+	extend(...sources: any[]): any;
 
 	/**
 	* Return a copy of the object, filtered to only have values for the whitelisted keys
 	* (or array of valid keys).
 	**/
-	pick(...keys: string[]): Object;
+	pick(...keys: string[]): any;
 
 	/**
 	* Return a copy of the object, filtered to omit the blacklisted keys (or array of keys).
 	**/
-	omit(...keys: string[]): Object;
+	omit(...keys: string[]): any;
 
 	/**
 	* Fill in null and undefined properties in object with values from the defaults objects,
 	* and return the object. As soon as the property is filled, further defaults will have no effect.
 	**/
-	defaults(...defaults: Object[]): Object;
+	defaults(...defaults: any[]): any;
 
 	/**
 	* Create a shallow-copied clone of the object.
 	* Any nested objects or arrays will be copied by reference, not duplicated.
 	**/
-	clone(): Object;
+	clone(): any;
 
 	/**
 	* Invokes interceptor with the object, and then returns object. The primary purpose of this method
 	* is to "tap into" a method chain, in order to perform operations on intermediate results within the chain.
 	**/
-	tap(intercepter: Function): Object;
+	tap(intercepter: Function): any;
 
 	/**
 	* Does the object contain the given key? Identical to object.hasOwnProperty(key), but uses a safe
@@ -2460,7 +2465,7 @@ interface UnderscoreObjectOOPWrapper {
 	* Performs an optimized deep comparison between the two objects,
 	* to determine if they should be considered equal.
 	**/
-	isEqual(other: Object): bool;
+	isEqual(other: any): bool;
 
 	/**
 	* Returns true if object contains no values.
@@ -2478,7 +2483,7 @@ interface UnderscoreObjectOOPWrapper {
 	isArray(): bool;
 
 	/**
-	* Returns true if value is an Object. Note that JavaScript arrays and functions are objects,
+	* Returns true if value is an any. Note that JavaScript arrays and functions are objects,
 	* while (normal) strings and numbers are not.
 	**/
 	isObject(): bool;
@@ -2548,7 +2553,7 @@ interface UnderscoreObjectOOPWrapper {
 	* Returns the same value that is used as the argument. In math: f(x) = x
 	* This function looks useless, but is used throughout Underscore as a default iterator.
 	**/
-	identity(value: Object): Object;
+	identity(value: any): any;
 
 	/**
 	* Allows you to extend Underscore with your own utility functions. Pass a hash of
@@ -2580,18 +2585,18 @@ interface UnderscoreObjectOOPWrapper {
 	* Returns a wrapped object. Calling methods on this object will continue to return wrapped objects
 	* until value is used.
 	**/
-	chain(): Object;
+	chain(): any;
 
 	/**
 	* Extracts the value of a wrapped object.
 	**/
-	value(): Object;
+	value(): any;
 
 	/**************
 	* OOP Wrapper *
 	**************/
 
-	// There are no base OOP Wrappers for Object
+	// There are no base OOP Wrappers for any
 }
 
 interface UnderscoreObjectArrayOOPWrapper {
@@ -2607,14 +2612,14 @@ interface UnderscoreObjectArrayOOPWrapper {
 	* (value, key, list). Delegates to the native forEach function if it exists.
 	**/	
 	each(
-		iterator: (element: Object, index?: number, list?: Object[]) => any,
+		iterator: (element: any, index?: number, list?: any[]) => any,
 		context?: any): void;
 
 	/**
 	* Alias for 'each'.
 	**/
 	forEach(
-		iterator: (element: Object, index?: number, list?: Object[]) => any,
+		iterator: (element: any, index?: number, list?: any[]) => any,
 		context?: any): void;
 
 	/**
@@ -2623,14 +2628,14 @@ interface UnderscoreObjectArrayOOPWrapper {
 	* object, iterator's arguments will be (value, key, list).
 	**/
 	map(
-		iterator: (element: Object, index?: number, list?: Object[]) => any,
+		iterator: (element: any, index?: number, list?: any[]) => any,
 		context?: any): any[];
 
 	/**
 	* Alias for 'map'.
 	**/
 	collect(
-		iterator: (element: Object, index?: number, list?: Object[]) => any,
+		iterator: (element: any, index?: number, list?: any[]) => any,
 		context?: any): any[];
 
 	/**
@@ -2640,7 +2645,7 @@ interface UnderscoreObjectArrayOOPWrapper {
 	* and index (or key) of the iteration, and finally a reference to the entire list.
 	**/
 	reduce(
-		iterator: (element: Object, index?: number, list?: Object[]) => any,
+		iterator: (memo: any, element: any, index?: number, list?: any[]) => any,
 		memo: any,
 		context?: any): any;
 
@@ -2648,7 +2653,7 @@ interface UnderscoreObjectArrayOOPWrapper {
 	* Alias for 'reduce'.
 	**/
 	inject(
-		iterator: (element: Object, index?: number, list?: Object[]) => any,
+		iterator: (memo: any, element: any, index?: number, list?: any[]) => any,
 		memo: any,
 		context?: any): any;
 
@@ -2656,7 +2661,7 @@ interface UnderscoreObjectArrayOOPWrapper {
 	* Alias for 'reduce'.
 	**/
 	foldl(
-		iterator: (element: Object, index?: number, list?: Object[]) => any,
+		iterator: (memo: any, element: any, index?: number, list?: any[]) => any,
 		memo: any,
 		context?: any): any;
 
@@ -2666,7 +2671,7 @@ interface UnderscoreObjectArrayOOPWrapper {
 	* language with lazy evaluation.
 	**/
 	reduceRight(
-		iterator: (element: Object, index?: number, list?: Object[]) => any,
+		iterator: (memo: any, element: any, index?: number, list?: any[]) => any,
 		memo: any,
 		context?: any): any;
 
@@ -2674,7 +2679,7 @@ interface UnderscoreObjectArrayOOPWrapper {
 	* Alias for 'reduceRight'.
 	**/
 	foldr(
-		iterator: (element: Object, index?: number, list?: Object[]) => any,
+		iterator: (memo: any, element: any, index?: number, list?: any[]) => any,
 		memo: any,
 		context?: any): any;
 
@@ -2684,14 +2689,14 @@ interface UnderscoreObjectArrayOOPWrapper {
 	* and doesn't traverse the entire list.
 	**/
 	find(
-		iterator: (element: Object, index?: number, list?: Object[]) => bool,
+		iterator: (element: any, index?: number, list?: any[]) => bool,
 		context?: any): any;
 
 	/**
 	* Alias for 'find'.
 	**/
 	detect(
-		iterator: (element: Object, index?: number, list?: Object[]) => bool,
+		iterator: (element: any, index?: number, list?: any[]) => bool,
 		context?: any): any;
 
 
@@ -2700,43 +2705,43 @@ interface UnderscoreObjectArrayOOPWrapper {
 	* test (iterator). Delegates to the native filter method, if it exists.
 	**/
 	filter(
-		iterator: (element: Object, index?: number, list?: Object[]) => bool,
-		context?: any): Object[];
+		iterator: (element: any, index?: number, list?: any[]) => bool,
+		context?: any): any[];
 
 	/**
 	* Alias for 'filter'.
 	**/
 	select(
-		iterator: (element: Object, index?: number, list?: Object[]) => bool,
-		context?: any): Object[];
+		iterator: (element: any, index?: number, list?: any[]) => bool,
+		context?: any): any[];
 
 	/**
 	* Looks through each value in the list, returning an array of all the values that contain all
 	* of the key-value pairs listed in properties.
 	**/
-	where(properties: Object): Object[];
+	where(properties: any): any[];
 
 	/**
 	* Returns the values in list without the elements that the truth test (iterator) passes.
 	* The opposite of filter.
 	**/
 	reject(
-		iterator: (element: Object, index?: number, list?: Object[]) => bool,
-		context?: any): Object[];
+		iterator: (element: any, index?: number, list?: any[]) => bool,
+		context?: any): any[];
 
 	/**
 	* Returns true if all of the values in the list pass the iterator truth test. Delegates to the
 	* native method every, if present.
 	**/
 	all(
-		iterator: (element: Object, index?: number, list?: Object[]) => bool,
+		iterator: (element: any, index?: number, list?: any[]) => bool,
 		context?: any): bool;
 
 	/**
 	* Alias for 'all'.
 	**/
 	every(
-		iterator: (element: Object, index?: number, list?: Object[]) => bool,
+		iterator: (element: any, index?: number, list?: any[]) => bool,
 		context?: any): bool;
 
 	/**
@@ -2744,26 +2749,26 @@ interface UnderscoreObjectArrayOOPWrapper {
 	* stops traversing the list if a true element is found. Delegates to the native method some, if present.
 	**/
 	any(
-		iterator: (element: Object, index?: number, list?: Object[]) => bool,
+		iterator?: (element: any, index?: number, list?: any[]) => bool,
 		context?: any): bool;
 
 	/**
 	* Alias for 'any'.
 	**/
 	some(
-		iterator: (element: Object, index?: number, list?: Object[]) => bool,
+		iterator: (element: any, index?: number, list?: any[]) => bool,
 		context?: any): bool;
 
 	/**
 	* Returns true if the value is present in the list. Uses indexOf internally,
 	* if list is an Array.
 	**/
-	contains(value: Object): bool;
+	contains(value: any): bool;
 
 	/**
 	* Alias for 'contains'.
 	**/
-	include(value: Object): bool;
+	include(value: any): bool;
 
 	/**
 	* Calls the method named by methodName on each value in the list. Any extra arguments passed to
@@ -2782,25 +2787,25 @@ interface UnderscoreObjectArrayOOPWrapper {
 	* the criterion by which the value is ranked.
 	**/
 	max(
-		iterator: (element: Object, index?: number, list?: Object[]) => number,
-		context?: any): Object;
+		iterator: (element: any, index?: number, list?: any[]) => number,
+		context?: any): any;
 
 	/**
 	* Returns the minimum value in list. If iterator is passed, it will be used on each value to generate
 	* the criterion by which the value is ranked.
 	**/
 	min(
-		iterator: (obj: Object, index?: number, list?: Object[]) => number,
-		context?: any): Object;
+		iterator: (obj: any, index?: number, list?: any[]) => number,
+		context?: any): any;
 
 	/**
 	* Returns a sorted copy of list, ranked in ascending order by the results of running each value
 	* through iterator. Iterator may also be the string name of the property to sort by (eg. length).
 	**/
 	sortBy(
-		iterator: (element: Object, index?: number, list?: Object[]) => number,
-		context?: any): Object[];
-	sortBy(iterator: string, context?: any): Object[];
+		iterator: (element: any, index?: number, list?: any[]) => number,
+		context?: any): any[];
+	sortBy(iterator: string, context?: any): any[];
 
 	/**
 	* Splits a collection into sets, grouped by the result of running each value through iterator.
@@ -2808,9 +2813,9 @@ interface UnderscoreObjectArrayOOPWrapper {
 	* each of the values.
 	**/
 	groupBy(
-		iterator: (element: Object, index?: number, list?: Object[]) => string,
-		context?: any): { [key: string]: Object[]; };
-	groupBy(iterator: string, context?: any): { [key: string]: Object[]; };
+		iterator: (element: any, index?: number, list?: any[]) => string,
+		context?: any): { [key: string]: any[]; };
+	groupBy(iterator: string, context?: any): { [key: string]: any[]; };
 
 	/**
 	* Sorts a list into groups and returns a count for the number of objects in each group. Similar
@@ -2818,20 +2823,20 @@ interface UnderscoreObjectArrayOOPWrapper {
 	* in that group.
 	**/
 	countBy(
-		iterator: (element: Object, index?: number, list?: Object[]) => string,
+		iterator: (element: any, index?: number, list?: any[]) => string,
 		context?: any): { [key: string]: number; };
 	countBy(iterator: string, context?: any): { [key: string]: number; };
 
 	/**
 	* Returns a shuffled copy of the list, using a version of the Fisher-Yates shuffle.
 	**/
-	shuffle(): Object[];
+	shuffle(): any[];
 
 	/**
 	* Converts the list (anything that can be iterated over), into a real Array. Useful for transmuting
 	* the arguments object.
 	**/
-	toArray(): Object[];
+	toArray(): any[];
 
 	/**
 	* Return the number of values in the list.
@@ -2845,101 +2850,101 @@ interface UnderscoreObjectArrayOOPWrapper {
 	/**
 	* Returns the first element of an array. Passing n will return the first n elements of the array.
 	**/
-	first(): Object;
-	first(n: number): Object[];
+	first(): any;
+	first(n: number): any[];
 
 	/**
 	* Alias for 'first'.
 	**/
-	head(): Object;
-	head(n: number): Object[];
+	head(): any;
+	head(n: number): any[];
 
 	/**
 	* Alias for 'first'.
 	**/
-	take(): Object;
-	take(n: number): Object[];
+	take(): any;
+	take(n: number): any[];
 
 	/**
 	* Returns everything but the last entry of the array. Especially useful on the arguments object.
 	* Pass n to exclude the last n elements from the result.
 	**/
-	initial(n?: number): Object[];
+	initial(n?: number): any[];
 
 	/**
 	* Returns the last element of an array. Passing n will return the last n elements of the array.
 	**/
-	last(): Object;
-	last(n: number): Object[];
+	last(): any;
+	last(n: number): any[];
 
 	/**
 	* Returns the rest of the elements in an array. Pass an index to return the values of the array
 	* from that index onward.
 	**/
-	rest(index?: number): Object[];
+	rest(index?: number): any[];
 
 	/**
 	* Alias for 'rest'.
 	**/
-	tail(index?: number): Object[];
+	tail(index?: number): any[];
 
 	/**
 	* Alias for 'rest'.
 	**/
-	drop(index?: number): Object[];
+	drop(index?: number): any[];
 
 	/**
 	* Returns a copy of the array with all falsy values removed. In JavaScript, false, null, 0, "",
 	* undefined and NaN are all falsy.
 	**/
-	compact(): Object[];
+	compact(): any[];
 
 	/**
 	* Flattens a nested array (the nesting can be to any depth). If you pass shallow, the array will
 	* only be flattened a single level.
 	**/
-	flatten(shallow?: bool): Object[];
+	flatten(shallow?: bool): any[];
 
 	/**
 	* Returns a copy of the array with all instances of the values removed.
 	**/
-	without(...values: Object[]): Object[];
+	without(...values: any[]): any[];
 
 	/**
 	* Computes the union of the passed-in arrays: the list of unique items, in order, that are
 	* present in one or more of the arrays.
 	**/
-	union(...arrays: Object[][]): Object[];
+	union(...arrays: any[][]): any[];
 
 	/**
 	* Computes the list of values that are the intersection of all the arrays. Each value in the result
 	* is present in each of the arrays.
 	**/
-	intersection(...arrays: Object[][]): Object[];
+	intersection(...arrays: any[][]): any[];
 
 	/**
 	* Similar to without, but returns the values from array that are not present in the other arrays.
 	**/
-	difference(...others: Object[]): Object[];
+	difference(...others: any[]): any[];
 
 	/**
 	* Produces a duplicate-free version of the array, using === to test object equality. If you know in
 	* advance that the array is sorted, passing true for isSorted will run a much faster algorithm. If
 	* you want to compute unique items based on a transformation, pass an iterator function.
 	**/
-	uniq(isSorted?: bool, iterator?: (element: Object, index?: number, list?: Object[]) => any): Object[];
+	uniq(isSorted?: bool, iterator?: (element: any, index?: number, list?: any[]) => any): any[];
 
 	/**
 	* Alias for 'uniq'.
 	**/
-	unique(isSorted?: bool, iterator?: (element: Object, index?: number, list?: Object[]) => any): Object[];
+	unique(isSorted?: bool, iterator?: (element: any, index?: number, list?: any[]) => any): any[];
 
 	/**
 	* Merges together the values of each of the arrays with the values at the corresponding position.
 	* Useful when you have separate data sources that are coordinated through matching array indexes.
 	* If you're working with a matrix of nested arrays, zip.apply can transpose the matrix in a similar fashion.
 	**/
-	zip(...arrays: Object[][]): Object[][];
+	zip(...arrays: any[][]): any[][];
 
 	/**
 	* Returns the index at which value can be found in the array, or -1 if value is not present in the array.
@@ -2947,30 +2952,41 @@ interface UnderscoreObjectArrayOOPWrapper {
 	* that the array is already sorted, pass true for isSorted to use a faster binary search ... or, pass a number
 	* as the third argument in order to look for the first matching value in the array after the given index.
 	**/
-	indexOf(value: Object, isSorted?: bool): number;
+	indexOf(value: any, isSorted?: bool): number;
 
 	/**
 	* Returns the index of the last occurrence of value in the array, or -1 if value is not present. Uses the
 	* native lastIndexOf function if possible. Pass fromIndex to start your search at a given index.
 	**/
-	lastIndexOf(value: Object, isSorted?: bool): number;
+	lastIndexOf(value: any, from?: number): number;
 
 	/**
 	* Uses a binary search to determine the index at which the value should be inserted into the list in order
 	* to maintain the list's sorted order. If an iterator is passed, it will be used to compute the sort ranking
 	* of each value, including the value you pass.
 	**/
-	sortedIndex(value: Object, iterator?: (element: any) => number): number;
+	sortedIndex(value: any, iterator?: (element: any) => number): number;
 
 	/************
 	* Functions *
 	*************/
 
-	// There are no Function OOP Wrappers for Object[]
+	// There are no Function OOP Wrappers for any[]
 
 	/**********
 	* Objects *
 	***********/
+	
+	/**
+	* Create a shallow-copied clone of the object.
+	* Any nested objects or arrays will be copied by reference, not duplicated.
+	**/
+	clone(list: any[]): any[];
+
+	/**
+	* Returns true if object contains no values.
+	**/
+	isEmpty(): bool;
 
 	/**
 	* Returns true if object is a DOM element.
@@ -2983,7 +2999,7 @@ interface UnderscoreObjectArrayOOPWrapper {
 	isArray(): bool;
 
 	/**
-	* Returns true if value is an Object. Note that JavaScript arrays and functions are objects,
+	* Returns true if value is an any. Note that JavaScript arrays and functions are objects,
 	* while (normal) strings and numbers are not.
 	**/
 	isObject(): bool;
@@ -3053,22 +3069,28 @@ interface UnderscoreObjectArrayOOPWrapper {
 	* Returns the same value that is used as the argument. In math: f(x) = x
 	* This function looks useless, but is used throughout Underscore as a default iterator.
 	**/
-	identity(): Object[];
+	identity(): any[];
 
 	/***********
 	* Chaining *
 	************/
 
 	/**
+	* Returns a wrapped object. Calling methods on this object will continue to return wrapped objects
+	* until value is used.
+	**/
+	chain(): any;
+
+	/**
 	* Extracts the value of a wrapped object.
 	**/
-	value(): Object[];
+	value(): any[];
 
 	/**************
 	* OOP Wrapper *
 	**************/
 
-	// There are no base OOP Wrappers for Object[]
+	// There are no base OOP Wrappers for any[]
 }
 
 
