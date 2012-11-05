@@ -22,11 +22,11 @@ interface Accelerometer {
 }
 
 interface CameraPopoverOptions {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-    arrowDir: number;
+    x?: number;
+    y?: number;
+    width?: number;
+    height?: number;
+    arrowDir?: number;
 }
 
 interface CameraOptions {
@@ -49,9 +49,9 @@ interface Camera {
 }
 
 interface CaptureAudioOptions {
-    limit: number;
-    duration: number;
-    mode: number;
+    limit?: number;
+    duration?: number;
+    mode?: number;
 }
 
 interface MediaFile {
@@ -62,6 +62,11 @@ interface MediaFile {
     size: number;
 
     getFormatData(successCallback: Function, errorCallback?: Function): void;
+}
+
+interface CaptureError {
+    code: number;
+    message: string;
 }
 
 interface Capture {
@@ -168,12 +173,147 @@ interface Device {
 }
 
 interface File {
+    name: string;
+    fullPath: string;
+    type: string;
+    lastModifiedDate: Date;
+    size: number;
+}
+
+interface FileReader {
+    readyState: One of the three states the reader can be in EMPTY, LOADING or DONE.
+    result: string;
+    error: FileError;
+
+    onloadstart: Function;
+    onprogress: Function;
+    onload: Function;
+    onabort: Function;
+    onerror: Function;
+    onloadend: Function;
+
+    abort(): void;
+    readAsDataURL();
+    readAsText();
+}
+
+interface FileWriter {
+    readyState: One of the three states the reader can be in INIT, WRITING or DONE.
+    fileName: string;
+    length: number;
+    position: number;
+    error: FileError;
+
+    onwritestart: Function;
+    onprogress: Function;
+    onwrite: Function;
+    onabort: Function;
+    onerror: Function;
+    onwriteend: Function;
+
+    abort();
+    seek();
+    truncate();
+    write();
+}
+
+interface FileSystem {
+    name: string;
+    root: DirectoryEntry;
+}
+
+interface FileEntry {
+    isFile: bool;
+    isDirectory: bool;
+    name: string;
+    fullPath: string;
+    //filesystem: FileSystem
+
+    getMetadata();
+    setMetadata();
+    moveTo();
+    copyTo();
+    toURL();
+    remove();
+    getParent();
+    createWriter();
+    file();
+}
+
+interface DirectoryEntry {
+    isFile: bool;
+    isDirectory: bool;
+    name: string;
+    fullPath: string;
+
+    filesystem: FileSystem;
+
+    getMetadata();
+    setMetadata();
+    moveTo();
+    copyTo();
+    toURL();
+    remove();
+    getParent();
+    createReader();
+    getDirectory();
+    getFile();
+    removeRecursively();
+}
+
+interface DirectoryReader {
+    readEntries(successCallback: (entries: FileDirectoryEntry) => void , errorCallback: (error: FileError) => void );
+}
+
+interface FileTransfer {
+    onprogress: Function;
+
+    upload(filePath: string; server: string; successCallback: (metadata: Metadata) =>void; errorCallback: (error: FileError) =>void; options: SomeOptions): void;
+    download(source: string; target: string; successCallback (fileEntry: FileEntry) => void; errorCallback: (error: FileError) => void ): void;
+    abort(): void;
+}
+
+interface FileUploadOptions {
+    fileKey?: string;
+    fileName?: string;
+    mimeType?: string;
+    params?: any;
+    chunkedMode?: bool;
+    headers?: any;
+}
+
+interface FileUploadResult {
+    bytesSent: number;
+    responseCode: number;
+    response: string;
+}
+
+// TODO Flags
+
+interface LocalFileSystem {
+    requestFileSystem: Function;
+    resolveLocalFileSystemURI: Function;
+}
+
+interface Metadata {
+    modificationTime: Date;
+}
+
+interface FileError {
+    code: number;
+}
+
+interface FileTransferError {
+    code: number;
+    source: string;
+    target: string;
+    http_status: number;
 }
 
 interface GeolocationOptions {
-    enableHighAccuracy: bool;
-    timeout: number;
-    maximumAge: number;
+    enableHighAccuracy?: bool;
+    timeout?: number;
+    maximumAge?: number;
 }
 
 interface Geolocation {

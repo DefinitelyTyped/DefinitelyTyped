@@ -412,4 +412,324 @@ function test_file() {
     function fail(evt) {
         console.log(evt.target.error.code);
     }
+
+    var onSetMetadataWin = function () {
+        console.log("success setting metadata")
+    }
+    var onSetMetadataFail = function () {
+        console.log("error setting metadata")
+    }
+    var onGetFileWin = function (parent) {
+        var data = {};
+        data[metadataKey] = metadataValue;
+        parent.setMetadata(onSetMetadataWin, onSetMetadataFail, data);
+    }
+    var onGetFileFail = function () {
+        console.log("error getting file")
+    }
+    var onFSWin = function (fileSystem) {
+        fileSystem.root.getFile(filePath, { create: true, exclusive: false }, onGetFileWin, onGetFileFail);
+    }
+    var onFSFail = function (evt) {
+        console.log(evt.target.error.code);
+    }
+    window.requestFileSystem(localFileSystem, 0, onFSWin, onFSFail);
+
+    var entry: FileEntry;
+    var parent = document.getElementById('parent').value,
+        parentName = parent.substring(parent.lastIndexOf('/') + 1),
+        parentEntry = new DirectoryEntry(parentName, parent);
+    entry.moveTo(parentEntry, "newFile.txt", success, fail);
+    entry.remove(success, fail);
+    entry.getParent(success, fail);
+    entry.createWriter(success, fail);
+    entry.file(success, fail);
+    entry.getMetadata(success, fail);
+    entry.setMetadata(success, fail, { "com.apple.MobileBackup": 1 });
+
+    function win(r) {
+        console.log("Code = " + r.responseCode);
+        console.log("Response = " + r.response);
+        console.log("Sent = " + r.bytesSent);
+    }
+    function fail(error) {
+        alert("An error has occurred: Code = " + error.code);
+        console.log("upload error source " + error.source);
+        console.log("upload error target " + error.target);
+    }
+    var uri = encodeURI("http://some.server.com/upload.php");
+    var options = new FileUploadOptions();
+    options.fileKey = "file";
+    options.fileName = fileURI.substr(fileURI.lastIndexOf('/') + 1);
+    options.mimeType = "text/plain";
+    var params = {};
+    params.headers = { 'headerParam': 'headerValue' };
+    options.params = params;
+    var ft = new FileTransfer();
+    ft.upload(fileURI, uri, win, fail, options);
+}
+
+function test_geolocation() {
+    var onSuccess = function (position) {
+        alert('Latitude: ' + position.coords.latitude + '\n' +
+              'Longitude: ' + position.coords.longitude + '\n' +
+              'Altitude: ' + position.coords.altitude + '\n' +
+              'Accuracy: ' + position.coords.accuracy + '\n' +
+              'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
+              'Heading: ' + position.coords.heading + '\n' +
+              'Speed: ' + position.coords.speed + '\n' +
+              'Timestamp: ' + position.timestamp + '\n');
+    };
+    function onError(error: GeolocationError) {
+        alert('code: ' + error.code + '\n' +
+              'message: ' + error.message + '\n');
+    }
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+
+    function onSuccess(position) {
+        var element = document.getElementById('geolocation');
+        element.innerHTML = 'Latitude: ' + position.coords.latitude + '<br />' +
+                            'Longitude: ' + position.coords.longitude + '<br />' +
+                            '<hr />' + element.innerHTML;
+    }
+    function onError(error) {
+        alert('code: ' + error.code + '\n' +
+              'message: ' + error.message + '\n');
+    }
+    var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 30000 });
+
+    var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { enableHighAccuracy: true });
+    navigator.geolocation.clearWatch(watchID);
+}
+
+function test_globalization() {
+    navigator.globalization.getPreferredLanguage(
+        function (language) { alert('language: ' + language.value + '\n'); },
+        function () { alert('Error getting language\n'); }
+    );
+    navigator.globalization.getLocaleName(
+         function (locale) { alert('locale: ' + locale.value + '\n'); },
+         function () { alert('Error getting locale\n'); }
+    );
+    navigator.globalization.dateToString(
+        new Date(),
+        function (date) { alert('date:' + date.value + '\n'); },
+        function () { alert('Error getting dateString\n'); },
+        { formatLength: 'short', selector: 'date and time' }
+    );
+    navigator.globalization.stringToDate(
+        '9/25/2012',
+        function (date) {
+            alert('month:' + date.month +
+                ' day:' + date.day +
+                ' year:' + date.year + '\n');
+        },
+        function () { alert('Error getting date\n'); },
+        { selector: 'date' }
+    );
+    navigator.globalization.getDatePattern(
+        function (date) { alert('pattern: ' + date.pattern + '\n'); },
+        function () { alert('Error getting pattern\n'); },
+        { formatLength: 'short', selector: 'date and time' }
+    );
+    navigator.globalization.getDateNames(
+        function (names) {
+            for (var i = 0; i < names.value.length; i++) {
+                alert('month: ' + names.value[i] + '\n');
+            }
+        },
+        function () { alert('Error getting names\n'); },
+        { type: 'wide', item: 'months' }
+    );
+    navigator.globalization.isDayLightSavingsTime(
+        new Date(),
+        function (date) { alert('dst: ' + date.dst + '\n'); },
+        function () { alert('Error getting names\n'); }
+    );
+    navigator.globalization.getFirstDayOfWeek(
+        function (day) { alert('day: ' + day.value + '\n'); },
+        function () { alert('Error getting day\n'); }
+    );
+    navigator.globalization.numberToString(
+        3.1415926,
+        function (number) { alert('number: ' + number.value + '\n'); },
+        function () { alert('Error getting number\n'); },
+        { type: 'decimal' }
+    );
+    navigator.globalization.stringToNumber(
+        '1234.56',
+        function (number) { alert('number: ' + number.value + '\n'); },
+        function () { alert('Error getting number\n'); },
+        { type: 'decimal' }
+    );
+    navigator.globalization.getNumberPattern(
+        function (pattern) {
+            alert('pattern: ' + pattern.pattern + '\n' +
+                'symbol: ' + pattern.symbol + '\n' +
+                'fraction: ' + pattern.fraction + '\n' +
+                'rounding: ' + pattern.rounding + '\n' +
+                'positive: ' + pattern.positive + '\n' +
+                'negative: ' + pattern.negative + '\n' +
+                'decimal: ' + pattern.decimal + '\n' +
+                'grouping: ' + pattern.grouping);
+        },
+        function () { alert('Error getting pattern\n'); },
+        { type: 'decimal' }
+    );
+    navigator.globalization.getCurrencyPattern(
+        'USD',
+        function (pattern) {
+            alert('pattern: ' + pattern.pattern + '\n' +
+                'code: ' + pattern.code + '\n' +
+                'fraction: ' + pattern.fraction + '\n' +
+                'rounding: ' + pattern.rounding + '\n' +
+                'decimal: ' + pattern.decimal + '\n' +
+                'grouping: ' + pattern.grouping);
+        },
+        function () { alert('Error getting pattern\n'); }
+    );
+}
+
+function test_media() {
+    var my_media = new Media(src, onSuccess, onError);
+    var mediaTimer = setInterval(function () {
+        my_media.getCurrentPosition(
+            function (position) {
+                if (position > -1) {
+                    console.log((position) + " sec");
+                }
+            },
+            function (e) {
+                console.log("Error getting pos=" + e);
+            }
+        );
+    }, 1000);
+
+    var counter = 0;
+    var timerDur = setInterval(function () {
+        counter = counter + 100;
+        if (counter > 2000) {
+            clearInterval(timerDur);
+        }
+        var dur = my_media.getDuration();
+        if (dur > 0) {
+            clearInterval(timerDur);
+            document.getElementById('audio_duration').innerHTML = (dur) + " sec";
+        }
+    }, 100);
+
+    function playAudio(url) {
+        var my_media = new Media(url,
+            function () {
+                console.log("playAudio():Audio Success");
+            },
+            function (err) {
+                console.log("playAudio():Audio Error: " + err);
+            });
+        my_media.play();
+        setTimeout(function () {
+            media.pause();
+        }, 10000);
+    }
+
+    function playAudio(url) {
+        var my_media = new Media(url,
+            function () {
+                console.log("playAudio():Audio Success");
+            },
+            function (err) {
+                console.log("playAudio():Audio Error: " + err);
+            });
+        my_media.play();
+    }
+
+    var my_media = new Media(src, onSuccess, onError);
+    my_media.play();
+    my_media.stop();
+    my_media.release();
+    setTimeout(function () {
+        my_media.seekTo(10000);
+    }, 5000);
+    media.stopRecord();
+
+    var src = "myrecording.mp3";
+    var mediaRec = new Media(src,
+        function () {
+            console.log("recordAudio():Audio Success");
+        },
+        function (err) {
+            console.log("recordAudio():Audio Error: " + err.code);
+        }
+    );
+    mediaRec.startRecord();
+}
+
+function test_notification() {
+    function alertDismissed() { }
+    navigator.notification.alert(
+        'You are the winner!',
+        alertDismissed,
+        'Game Over',
+        'Done'
+    );
+    navigator.notification.confirm(
+        'You are the winner!',
+        onConfirm,
+        'Game Over',
+        'Restart,Exit'
+    );
+    navigator.notification.beep(2);
+    navigator.notification.vibrate(2500);
+}
+
+function test_splashscreen() {
+    navigator.splashscreen.show();
+    navigator.splashscreen.hide();
+}
+
+function test_storage() {
+    var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+    db.transaction(populateDB, errorCB, successCB);
+    function populateDB(tx: SQLTransaction) {
+        tx.executeSql('DROP TABLE IF EXISTS DEMO');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id unique, data)');
+        tx.executeSql('INSERT INTO DEMO (id, data) VALUES (1, "First row")');
+        tx.executeSql('INSERT INTO DEMO (id, data) VALUES (2, "Second row")');
+    }
+    function errorCB(err) {
+        alert("Error processing SQL: " + err);
+    }
+    function successCB() {
+        alert("success!");
+    }
+    db.changeVersion("1.0", "1.1");
+
+    function queryDB(tx) {
+        tx.executeSql('SELECT * FROM DEMO', [], querySuccess, errorCB);
+    }
+    function querySuccess(tx, results) {
+        console.log("Returned rows = " + results.rows.length);
+        if (!resultSet.rowsAffected) {
+            console.log('No rows affected!');
+            return false;
+        }
+        console.log("Last inserted row ID = " + results.insertId);
+    }
+    var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+    db.transaction(queryDB, errorCB);
+
+    function querySuccessSet(tx, results) {
+        var len = results.rows.length;
+        console.log("DEMO table: " + len + " rows found.");
+        for (var i = 0; i < len; i++) {
+            console.log("Row = " + i + " ID = " + results.rows.item(i).id + " Data =  " + results.rows.item(i).data);
+        }
+    }
+
+    var storage = window.localStorage;
+    var keyName = window.localStorage.key(0);
+    window.localStorage.setItem("key", "value");
+    var value = window.localStorage.getItem("key");
+    window.localStorage.removeItem("key");
+    window.localStorage.clear();
 }
