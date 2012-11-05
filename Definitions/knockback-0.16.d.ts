@@ -124,7 +124,9 @@ declare module Knockback {
         collection(): Backbone.Collection;
         destroy();
         shareOptions():  CollectionOptions;
-        filters(filter: any);
+        filters(id: any) : Backbone.Model;
+        filters(ids: any[]): CollectionObservable;
+        filters(iterator: (element: Backbone.Model) => bool): CollectionObservable;
         comparator(comparatorFunction: any);
         sortAttribute(attr: string);
         viewModelByModel(model: Backbone.Model): ViewModel;
