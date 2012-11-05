@@ -45,11 +45,11 @@ Complete
 * [Sammy.js](http://sammyjs.org/)
 * [SoundJS](http://www.createjs.com/#!/SoundJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [Spin](http://fgnass.github.com/spin.js/)
-* [Sugar](http://sugarjs.com/) (by Josh Baldwin(https://github.com/jbaldwin/))
+* [Sugar](http://sugarjs.com/) (by Josh Baldwin)(https://github.com/jbaldwin/)
 * [Teechart](http://www.steema.com) (by [Steema]) (http://www.steema.com)
 * [TweenJS](http://www.createjs.com/#!/TweenJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [Underscore.js](http://underscorejs.org/)
-* [Underscore.js (Typed)](http://underscorejs.org/) (by Josh Baldwin(https://github.com/jbaldwin/))
+* [Underscore.js (Typed)](http://underscorejs.org/) (by Josh Baldwin)(https://github.com/jbaldwin/)
 
 Next
 ----
