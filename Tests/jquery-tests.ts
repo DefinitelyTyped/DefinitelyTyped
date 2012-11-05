@@ -466,3 +466,33 @@ function test_attributeSelectors() {
     $('input[name!="newsletter"]').next().append('<b>; not newsletter</b>');
     $('input[name^="news"]').val('news here!');
 }
+
+function test_each() {
+    $('li').each(function (index) {
+        alert(index + ': ' + $(this).text());
+    });
+    $(document.body).click(function () {
+        $("div").each(function (i) {
+            if (this.style.color != "blue") {
+                this.style.color = "blue";
+            } else {
+                this.style.color = "";
+            }
+        });
+    });
+    $("span").click(function () {
+        $("li").each(function () {
+            $(this).toggleClass("example");
+        });
+    });
+    $("button").click(function () {
+        $("div").each(function (index, domEle) {
+            // domEle == this
+            $(domEle).css("backgroundColor", "yellow");
+            if ($(this).is("#stop")) {
+                $("span").text("Stopped at div index #" + index);
+                return false;
+            }
+        });
+    });
+}
