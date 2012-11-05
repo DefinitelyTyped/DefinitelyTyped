@@ -174,6 +174,8 @@ interface JQueryStatic {
     ajaxPrefilter(dataTypes: string, handler: (opts: any, originalOpts: any, jqXHR: JQueryXHR) => any): any;
     ajaxPrefilter(handler: (opts: any, originalOpts: any, jqXHR: JQueryXHR) => any): any;
 
+    ajaxSettings: JQueryAjaxSettings;
+
     ajaxSetup(options: any);
 
     get(url: string, data?: any, success?: any, dataType?: any): JQueryXHR;
@@ -214,6 +216,7 @@ interface JQueryStatic {
     css(e: any, propertyName: string, value?: any);
     css(e: any, propertyName: any, value?: any);
     cssHooks: { [key: string]: any; };
+    cssNumber: any;
 
     /****
      DATA
@@ -328,7 +331,7 @@ interface JQuery {
      ATTRIBUTES
     ***********/
     addClass(classNames: string): JQuery;
-    addClass(func: (index: any, currentClass?: any) => string): JQuery;
+    addClass(func: (index: any, currentClass: any) => string): JQuery;
 
     attr(attributeName: string): string;
     attr(attributeName: string, value: any): JQuery;

@@ -30,7 +30,7 @@ function test_addClass() {
     $("p:last").addClass("selected");
     $("p:last").addClass("selected highlight");
     $("div").addClass(function (index, currentClass) {
-        var addedClass;
+        var addedClass: string;
         if (currentClass === "red") {
             addedClass = "green";
             $("p").text("There is one green div");
@@ -695,6 +695,181 @@ function test_children() {
         return false;
     });
     $("div").children(".selected").css("color", "blue");
+}
+
+function test_clearQueue() {
+    $("#start").click(function () {
+        var myDiv = $("div");
+        myDiv.show("slow");
+        myDiv.animate({ left: '+=200' }, 5000);
+        myDiv.queue(function () {
+            var _this = $(this);
+            _this.addClass("newcolor");
+            _this.dequeue();
+        });
+        myDiv.animate({ left: '-=200' }, 1500);
+        myDiv.queue(function () {
+            var _this = $(this);
+            _this.removeClass("newcolor");
+            _this.dequeue();
+        });
+        myDiv.slideUp();
+
+    });
+    $("#stop").click(function () {
+        var myDiv = $("div");
+        myDiv.clearQueue();
+        myDiv.stop();
+    });
+}
+
+function test_click() {
+    $("#target").click(function () {
+        alert("Handler for .click() called.");
+    });
+    $("#other").click(function () {
+        $("#target").click();
+    });
+    $("p").click(function () {
+        $(this).slideUp();
+    });
+    $("p").click();
+}
+
+function test_clone() {
+    $('.hello').clone().appendTo('.goodbye');
+    var $elem = $('#elem').data({ "arr": [1] }),
+        $clone = $elem.clone(true)
+        .data("arr", $.extend([], $elem.data("arr")));
+    $("b").clone().prependTo("p");
+    $('#copy').append($('#orig .elem')
+          .clone()
+          .children('a')
+          .prepend('foo - ')
+          .parent()
+          .clone());
+}
+
+function test_closest() {
+    $('li.item-a').closest('ul')
+        .css('background-color', 'red');
+    $('li.item-a').closest('li')
+        .css('background-color', 'red');
+    var listItemII = document.getElementById('ii');
+    $('li.item-a').closest('ul', listItemII)
+        .css('background-color', 'red');
+    $('li.item-a').closest('#one', listItemII)
+        .css('background-color', 'green');
+    $(document).bind("click", function (e) {
+        $(e.target).closest("li").toggleClass("hilight");
+    });
+    var $listElements = $("li").css("color", "blue");
+    $(document).bind("click", function (e) {
+        $(e.target).closest($listElements).toggleClass("hilight");
+    });
+}
+
+function test_contains() {
+    jQuery.contains(document.documentElement, document.body);
+    jQuery.contains(document.body, document.documentElement);
+}
+
+function test_contents() {
+    $('.container').contents().filter(function () {
+        return this.nodeType == 3;
+    })
+    .wrap('<p></p>')
+    .end()
+    .filter('br')
+    .remove();
+    $("#frameDemo").contents().find("a").css("background-color", "#BADA55");
+}
+
+function test_context() {
+    $("ul")
+        .append("<li>" + $("ul").context + "</li>")
+        .append("<li>" + $("ul", document.body).context.nodeName + "</li>");
+}
+
+function test_css() {
+    $("div").click(function () {
+        var color = $(this).css("background-color");
+        $("#result").html("That div is <span style='color:" + color + ";'>" + color + "</span>.");
+    });
+    $('div.example').css('width', function (index) {
+        return index * 50;
+    });
+    $("p").mouseover(function () {
+        $(this).css("color", "red");
+    });
+    $("#box").one("click", function () {
+        $(this).css("width", "+=200");
+    });
+    var words = $("p:first").text().split(" ");
+    var text = words.join("</span> <span>");
+    $("p:first").html("<span>" + text + "</span>");
+    $("span").click(function () {
+        $(this).css("background-color", "yellow");
+    });
+    $("p").hover(function () {
+        $(this).css({ 'background-color': 'yellow', 'font-weight': 'bolder' });
+    }, function () {
+        var cssObj = {
+            'background-color': '#ddd',
+            'font-weight': '',
+            'color': 'rgb(0,40,244)'
+        }
+        $(this).css(cssObj);
+    });
+    $("div").click(function () {
+        $(this).css({
+            width: function (index, value) {
+                return parseFloat(value) * 1.2;
+            },
+            height: function (index, value) {
+                return parseFloat(value) * 1.2;
+            }
+
+        });
+    });
+}
+
+function test_cssHooks() {
+    if (!$.cssHooks) {
+        throw ("jQuery 1.4.3 or above is required for this plugin to work");
+        return;
+    }
+    $.cssHooks["someCSSProp"] = {
+        get: function (elem, computed, extra) { },
+        set: function (elem, value) { }
+    };
+    function styleSupport(prop) {
+        var vendorProp, supportedProp,
+            capProp = prop.charAt(0).toUpperCase() + prop.slice(1),
+            prefixes = ["Moz", "Webkit", "O", "ms"],
+            div = document.createElement("div");
+
+        if (prop in div.style) {
+            supportedProp = prop;
+        } else {
+            for (var i = 0; i < prefixes.length; i++) {
+                vendorProp = prefixes[i] + capProp;
+                if (vendorProp in div.style) {
+                    supportedProp = vendorProp;
+                    break;
+                }
+            }
+        }
+        div = null;
+        $.support[prop] = supportedProp;
+        return supportedProp;
+    }
+    styleSupport("borderRadius");
+
+    $.cssNumber["someCSSProp"] = true;
+    $.fx.step["someCSSProp"] = function (fx) {
+        $.cssHooks["someCSSProp"].set(fx.elem, fx.now + fx.unit);
+    };
 }
 
 function test_each() {
