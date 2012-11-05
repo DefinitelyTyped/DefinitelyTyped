@@ -467,6 +467,184 @@ function test_attributeSelectors() {
     $('input[name^="news"]').val('news here!');
 }
 
+function test_before() {
+    $('.inner').before('<p>Test</p>');
+    $('.container').before($('h2'));
+    $("<div/>").before("<p></p>");
+    var $newdiv1 = $('<div id="object1"/>'),
+        newdiv2 = document.createElement('div'),
+        existingdiv1 = document.getElementById('foo');
+    $('p').first().before($newdiv1, [newdiv2, existingdiv1]);
+}
+
+function test_bind() {
+    $('#foo').bind('click', function () {
+        alert('User clicked on "foo."');
+    });
+    $('#foo').bind('mouseenter mouseleave', function () {
+        $(this).toggleClass('entered');
+    });
+    $('#foo').bind({
+        click: function () { },
+        mouseenter: function () { }
+    });
+    $('#foo').bind('click', function () {
+        alert($(this).text());
+    });
+    $(document).ready(function () {
+        $('#foo').bind('click', function (event) {
+            alert('The mouse cursor is at ('
+              + event.pageX + ', ' + event.pageY + ')');
+        });
+    });
+    var message = 'Spoon!';
+    $('#foo').bind('click', function () {
+        alert(message);
+    });
+    message = 'Not in the face!';
+    $('#bar').bind('click', function () {
+        alert(message);
+    });
+    var message = 'Spoon!';
+    $('#foo').bind('click', { msg: message }, function (event) {
+        alert(event.data.msg);
+    });
+    message = 'Not in the face!';
+    $('#bar').bind('click', { msg: message }, function (event) {
+        alert(event.data.msg);
+    });
+    $("p").bind("click", function (event) {
+        var str = "( " + event.pageX + ", " + event.pageY + " )";
+        $("span").text("Click happened! " + str);
+    });
+    $("p").bind("dblclick", function () {
+        $("span").text("Double-click happened in " + this.nodeName);
+    });
+    $("p").bind("mouseenter mouseleave", function (event) {
+        $(this).toggleClass("over");
+    });
+    $("p").bind("click", function () {
+        alert($(this).text());
+    });
+    function handler(event) {
+        alert(event.data.foo);
+    }
+    $("p").bind("click", { foo: "bar" }, handler)
+    $("form").bind("submit", function () { return false; })
+    $("form").bind("submit", function (event) {
+        event.preventDefault();
+    });
+    $("form").bind("submit", function (event) {
+        event.stopPropagation();
+    });
+    $("p").bind("myCustomEvent", function (e, myName, myValue) {
+        $(this).text(myName + ", hi there!");
+        $("span").stop().css("opacity", 1)
+        .text("myName = " + myName)
+        .fadeIn(30).fadeOut(1000);
+    });
+    $("button").click(function () {
+        $("p").trigger("myCustomEvent", ["John"]);
+    });
+    $("div.test").bind({
+        click: function () {
+            $(this).addClass("active");
+        },
+        mouseenter: function () {
+            $(this).addClass("inside");
+        },
+        mouseleave: function () {
+            $(this).removeClass("inside");
+        }
+    });
+}
+
+function test_blur() {
+    $('#target').blur(function () {
+        alert('Handler for .blur() called.');
+    });
+    $('#other').click(function () {
+        $('#target').blur();
+
+    });
+    $("p").blur();
+}
+
+function test_browser() {
+    jQuery.each(jQuery.browser, function (i, val) {
+        $("<div>" + i + " : <span>" + val + "</span>").appendTo(document.body);
+    });
+    $.browser.msie;
+    if ($.browser.webkit) {
+        alert("this is webkit!");
+    }
+    var ua = $.browser;
+    if (ua.mozilla && ua.version.slice(0, 3) == "1.9") {
+        alert("Do stuff for firefox 3");
+    }
+    if ($.browser.msie) {
+        $("#div ul li").css("display", "inline");
+    } else {
+        $("#div ul li").css("display", "inline-table");
+    }
+    $("p").html("The version number of the rendering engine your browser uses is: <span>" + $.browser.version + "</span>");
+    if ($.browser.msie) {
+        alert($.browser.version);
+    }
+    if ($.browser.msie) {
+        parseInt($.browser.version, 10);
+    }
+}
+
+interface JQueryStatic { Topic; }
+function test_callbacks() {
+    function fn1(value) {
+        console.log(value);
+    }
+    function fn2(value) {
+        fn1("fn2 says:" + value);
+        return false;
+    }
+    var callbacks = $.Callbacks();
+    var callbacks2 = $.Callbacks("once");
+    callbacks.add(fn1);
+    callbacks.fire("foo!");
+    callbacks.add(fn2);
+    callbacks.fire("bar!");
+    callbacks.remove(fn2);
+    callbacks.fire("foobar");
+    var topics = {};
+
+    jQuery.Topic = function (id) {
+        var callbacks,
+            method,
+            topic = id && topics[id];
+        if (!topic) {
+            callbacks = jQuery.Callbacks();
+            topic = {
+                publish: callbacks.fire,
+                subscribe: callbacks.add,
+                unsubscribe: callbacks.remove
+            };
+            if (id) {
+                topics[id] = topic;
+            }
+        }
+        return topic;
+    };
+    $.Topic("mailArrived").subscribe(fn1);
+    $.Topic("mailArrived").subscribe(fn2);
+    $.Topic("mailSent").subscribe(fn1);
+    $.Topic("mailArrived").publish("hello world!");
+    $.Topic("mailSent").publish("woo! mail!");
+    $.Topic("mailArrived").subscribe(fn1);
+
+    var dfd = $.Deferred();
+    var topic = $.Topic("mailArrived");
+    dfd.done(topic.publish);
+    dfd.resolve("its been published!");
+}
+
 function test_each() {
     $('li').each(function (index) {
         alert(index + ': ' + $(this).text());

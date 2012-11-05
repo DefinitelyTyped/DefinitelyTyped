@@ -74,7 +74,7 @@ interface JQueryCallback {
     has(callback: any): bool;
     lock(): any;
     locked(): bool;
-    removed(...callbacks: any[]): any;
+    remove(...callbacks: any[]): any;
 }
 
 /*
@@ -134,6 +134,7 @@ interface JQueryBrowserInfo {
     opera:bool;
     msie:bool;
     mozilla:bool;
+    webkit:bool;
     version:string;
 }
 
@@ -187,7 +188,7 @@ interface JQueryStatic {
     /*********
      CALLBACKS
     **********/
-    Callbacks(flags: any): JQueryCallback;
+    Callbacks(flags?: string): JQueryCallback;
 
     /****
      CORE
