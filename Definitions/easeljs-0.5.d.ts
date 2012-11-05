@@ -223,8 +223,7 @@ module createjs {
 
         // methods
         addChild(...child: DisplayObject[]): DisplayObject;
-        //addChildAt(...child: DisplayObject[], index: number): DisplayObject;  //HERE typescript doesnt like having an argument after the variable length argument
-        addChildAt(...child: any[]): DisplayObject;
+        addChildAt(...childOrIndex: any[]): DisplayObject; // actually (...child: DisplayObject[], index: number)
         clone(recursive?: bool): Container;
         contains(child: DisplayObject): bool;
         getChildAt(index: number): DisplayObject;
