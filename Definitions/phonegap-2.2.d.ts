@@ -172,33 +172,16 @@ interface Device {
     version: string;
 }
 
+/* Defined in lib.d.ts
 interface File {
-    name: string;
     fullPath: string;
     type: string;
-    lastModifiedDate: Date;
     size: number;
 }
-
-interface FileReader {
-    readyState: One of the three states the reader can be in EMPTY, LOADING or DONE.
-    result: string;
-    error: FileError;
-
-    onloadstart: Function;
-    onprogress: Function;
-    onload: Function;
-    onabort: Function;
-    onerror: Function;
-    onloadend: Function;
-
-    abort(): void;
-    readAsDataURL();
-    readAsText();
-}
+*/
 
 interface FileWriter {
-    readyState: One of the three states the reader can be in INIT, WRITING or DONE.
+    readyState: any;
     fileName: string;
     length: number;
     position: number;
@@ -222,39 +205,28 @@ interface FileSystem {
     root: DirectoryEntry;
 }
 
-interface FileEntry {
+interface FileSystemEntry {
     isFile: bool;
     isDirectory: bool;
     name: string;
     fullPath: string;
-    //filesystem: FileSystem
-
-    getMetadata();
-    setMetadata();
-    moveTo();
-    copyTo();
-    toURL();
-    remove();
-    getParent();
-    createWriter();
-    file();
-}
-
-interface DirectoryEntry {
-    isFile: bool;
-    isDirectory: bool;
-    name: string;
-    fullPath: string;
-
     filesystem: FileSystem;
 
     getMetadata();
     setMetadata();
-    moveTo();
-    copyTo();
     toURL();
     remove();
     getParent();
+}
+
+interface FileEntry extends FileSystemEntry {
+    moveTo();
+    copyTo();
+    createWriter();
+    file();
+}
+
+interface DirectoryEntry extends FileSystemEntry {
     createReader();
     getDirectory();
     getFile();
@@ -262,14 +234,14 @@ interface DirectoryEntry {
 }
 
 interface DirectoryReader {
-    readEntries(successCallback: (entries: FileDirectoryEntry) => void , errorCallback: (error: FileError) => void );
+    readEntries(successCallback: (entries: FileSystemEntry) => void , errorCallback: (error: FileError) => void );
 }
 
 interface FileTransfer {
     onprogress: Function;
 
-    upload(filePath: string; server: string; successCallback: (metadata: Metadata) =>void; errorCallback: (error: FileError) =>void; options: SomeOptions): void;
-    download(source: string; target: string; successCallback (fileEntry: FileEntry) => void; errorCallback: (error: FileError) => void ): void;
+    upload(filePath: string, server: string, successCallback: (metadata: Metadata) => void , errorCallback: (error: FileError) => void , options: any): void;
+    download(source: string, target: string, successCallback: (fileEntry: FileEntry) => void , errorCallback: (error: FileError) => void ): void;
     abort(): void;
 }
 
@@ -392,6 +364,8 @@ interface SQLTransaction {
     executeSql(sql: string): SQLResultSet;
 }
 
+/* Defined in lib.d.ts
+
 interface LocalStorage {
     key;
     getItem;
@@ -399,8 +373,9 @@ interface LocalStorage {
     removeItem;
     clear;
 }
+*/
 
-interface NavigatorPhonegap {
+interface Navigator {
     accelerometer: Accelerometer;
     camera: Camera;
     capture: Capture;
@@ -414,7 +389,6 @@ interface NavigatorPhonegap {
     splashscreen: Splashscreen;
 }
 
-interface WindowPhonegap {
+interface Window {
     openDatabase(database_name: string, database_version: string, database_displayname: string, database_size: number): Database;
-    localStorage: LocalStorage;
 }
