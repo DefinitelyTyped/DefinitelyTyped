@@ -61,7 +61,6 @@ declare module Backbone {
         attributes: any;
         changed: any[];
         cid: string;
-        defaults: any; // or defaults();
         id: any;
         idAttribute: string;
         urlRoot: string; // or urlRoot()
@@ -77,6 +76,7 @@ declare module Backbone {
         changedAttributes(attributes?: any): any[];
         clear(options?: Silenceable);
         clone(): Model;
+        defaults(): any;
         destroy(options?: JQueryAjaxSettings);
         escape(attribute: string);
         has(attribute: string): bool;
@@ -101,14 +101,16 @@ declare module Backbone {
 
         constructor (models?: any, options?: any);
 
+        comparator(element: Model): number;
+        comparator(element: Model): string;
+        comparator(compare: Model, to?: Model): number;
+
         add(model: Model, options?: AddOptions);
         add(models: Model[], options?: AddOptions);
         at(index: number): Model;
-        comparator(attribute: string): number;
-        comparator(compare: Model, to: Model): number;
         get(id: any): Model;
         getByCid(cid): Model;
-        create(attributes: any, options?: CreateOptions): Collection;
+        create(attributes: any, options?: CreateOptions): Model;
         pluck(attribute: string): any[];
         push(model: Model, options?: AddOptions);
         pop(options?: Silenceable);
