@@ -436,7 +436,7 @@ describe("Asynchronous specs", () => {
     var currentWindowOnload = window.onload;
     window.onload = () => {
         if (currentWindowOnload) {
-            currentWindowOnload();
+            currentWindowOnload(null);
         }
 
         document.querySelector('.version').innerHTML = jasmineEnv.versionString();
