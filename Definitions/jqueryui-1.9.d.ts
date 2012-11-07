@@ -215,8 +215,6 @@ interface DialogEvents {
 }
 
 interface Dialog extends Widget, DialogOptions, DialogEvents {
-
-
 }
 
 
@@ -366,7 +364,7 @@ interface Menu extends Widget, MenuOptions, MenuEvents {
 
 interface ProgressbarOptions {
     disabled?: bool;
-    //value?: number;
+    value?: number;
 }
 
 interface ProgressbarUIParams {
@@ -642,6 +640,85 @@ interface Tooltip extends Widget, TooltipOptions, TooltipEvents {
 }
 
 
+// Effects //////////////////////////////////////////////////
+
+interface EffectOptions {
+    effect: string;
+    easing?: string;
+    duration: any;
+    complete: Function;
+}
+
+interface BlindEffect {
+    direction?: string;
+}
+
+interface BounceEffect {
+    distance?: number;
+    times?: number;
+}
+
+interface ClipEffect {
+    direction?: number;
+}
+
+interface DropEffect {
+    direction?: number;
+}
+
+interface ExplodeEffect {
+    pieces?: number;
+}
+
+interface FadeEffect { }
+
+interface FoldEffect {
+    size?: any;
+    horizFirst?: bool;
+}
+
+interface HighlightEffect {
+    color?: string;
+}
+
+interface PuffEffect {
+    percent?: number;
+}
+
+interface PulsateEffect {
+    times?: number;
+}
+
+interface ScaleEffect {
+    direction?: string;
+    origin?: string[];
+    percent?: number;
+    scale?: string;
+}
+
+interface ShakeEffect {
+    direction?: string;
+    distance?: number;
+    times?: number;
+}
+
+interface SizeEffect {
+    to?: any;
+    origin?: string[];
+    scale?: string;
+}
+
+interface SlideEffect {
+    direction?: string;
+    distance?: number;
+}
+
+interface TransferEffect {
+    className?: string;
+    to?: string;
+}
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 interface JQuery {
@@ -652,7 +729,6 @@ interface JQuery {
     accordion(optionLiteral: string, optionName: string): any;
     accordion(optionLiteral: string, options: AccordionOptions): any;
     accordion(optionLiteral: string, optionName: string, optionValue: any): JQuery;
-
 
     autocomplete(): JQuery;
     autocomplete(methodName: string): JQuery;
@@ -712,9 +788,9 @@ interface JQuery {
 
     progressbar(): JQuery;
     progressbar(methodName: string): JQuery;
-    progressbar(options: Progressbar): JQuery;
+    progressbar(options: ProgressbarOptions): JQuery;
     progressbar(optionLiteral: string, optionName: string): any;
-    progressbar(optionLiteral: string, options: Progressbar): any;
+    progressbar(optionLiteral: string, options: ProgressbarOptions): any;
     progressbar(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     resizable(): JQuery;
@@ -767,6 +843,42 @@ interface JQuery {
     tooltip(optionLiteral: string, optionName: string): any;
     tooltip(optionLiteral: string, options: TooltipOptions): any;
     tooltip(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+
+    addClass(classNames: string, speed?: number, callback?: Function): JQuery;
+    addClass(classNames: string, speed?: string, callback?: Function): JQuery;
+    addClass(classNames: string, speed?: number, easing?: string, callback?: Function): JQuery;
+    addClass(classNames: string, speed?: string, easing?: string, callback?: Function): JQuery;
+
+    removeClass(classNames: string, speed?: number, callback?: Function): JQuery;
+    removeClass(classNames: string, speed?: string, callback?: Function): JQuery;
+    removeClass(classNames: string, speed?: number, easing?: string, callback?: Function): JQuery;
+    removeClass(classNames: string, speed?: string, easing?: string, callback?: Function): JQuery;
+
+    switchClass(removeClassName: string, addClassName: string, duration?: number, easing?: string, complete?: Function): JQuery;
+    switchClass(removeClassName: string, addClassName: string, duration?: string, easing?: string, complete?: Function): JQuery;
+
+    toggleClass(className: string, duration?: number, easing?: string, complete?: Function): JQuery;
+    toggleClass(className: string, duration?: string, easing?: string, complete?: Function): JQuery;
+    toggleClass(className: string, aswitch?: bool, duration?: number, easing?: string, complete?: Function): JQuery;
+    toggleClass(className: string, aswitch?: bool, duration?: string, easing?: string, complete?: Function): JQuery;
+
+    effect(options: any): JQuery;
+    effect(effect: string, options?: any, duration?: number, complete?: Function): JQuery;
+    effect(effect: string, options?: any, duration?: string, complete?: Function): JQuery;
+
+    hide(options: any): JQuery;
+    hide(effect: string, options?: any, duration?: number, complete?: Function): JQuery;
+    hide(effect: string, options?: any, duration?: string, complete?: Function): JQuery;
+
+    show(options: any): JQuery;
+    show(effect: string, options?: any, duration?: number, complete?: Function): JQuery;
+    show(effect: string, options?: any, duration?: string, complete?: Function): JQuery;
+
+    toggle(options: any): JQuery;
+    toggle(effect: string, options?: any, duration?: number, complete?: Function): JQuery;
+    toggle(effect: string, options?: any, duration?: string, complete?: Function): JQuery;
+
 }
 
 interface JQueryStatic {

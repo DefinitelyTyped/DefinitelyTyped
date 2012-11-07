@@ -1,7 +1,7 @@
 /// <reference path="../Definitions/jquery-1.8.d.ts" />
 /// <reference path="../Definitions/jqueryui-1.9.d.ts" />
 
-function tests_draggable() {
+function test_draggable() {
 
     $("#draggable").draggable({ axis: "y" });
     $("#draggable2").draggable({ axis: "x" });
@@ -47,7 +47,7 @@ function tests_draggable() {
 
 }
 
-function tests_droppable() {
+function test_droppable() {
 
     $("#draggable, #draggable-nonvalid").draggable();
     $("#droppable").droppable({
@@ -249,7 +249,7 @@ function tests_droppable() {
 }
 
 
-function tests_resizable() {
+function test_resizable() {
     $("#resizable").resizable();
     $("#resizable").resizable({
         animate: true
@@ -351,7 +351,7 @@ function tests_resizable() {
 }
 
 
-function tests_selectable() {
+function test_selectable() {
     $("#selectable").selectable();
     $("#selectable").selectable({
         stop: function () {
@@ -394,7 +394,7 @@ function tests_selectable() {
 }
 
 
-function tests_sortable() {
+function test_sortable() {
     $("#sortable").sortable();
     $("#sortable").disableSelection();
     $("#sortable1, #sortable2").sortable({
@@ -532,7 +532,7 @@ function tests_sortable() {
 }
 
 
-function tests_accordion() {
+function test_accordion() {
 
     $("#accordion").accordion();
 
@@ -599,7 +599,8 @@ function tests_accordion() {
     $(".selector").accordion("option", { disabled: true });
 }
 
-function tests_autocomplete() {
+
+function test_autocomplete() {
 
     $.widget("custom.catcomplete", $.ui.autocomplete, {
         _renderMenu: (ul, items) => {
@@ -627,7 +628,7 @@ function tests_autocomplete() {
                 { label: "andreas johnson", category: "People" }
     ];
 
-    $("#search").catcomplete({
+    $("#search").autocomplete({
         delay: 0,
         source: data
     });
@@ -781,10 +782,6 @@ function tests_autocomplete() {
     $("#developer").autocomplete({
         source: (request, response) => {
             var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
-            response($.grep(names, (value) => {
-                value = value.label || value.value || value;
-                return matcher.test(value) || matcher.test(normalize(value));
-            }));
         }
     });
 
@@ -933,12 +930,583 @@ function tests_autocomplete() {
 }
 
 
-function tests_button() {
+function test_button() {
 
     $("#check").button();
     $("#format").buttonset();
     $("input[type=submit], a, button")
         .button()
         .click((event) => { event.preventDefault(); });
+    $("button:first").button({
+        icons: {
+            primary: "ui-icon-locked"
+        },
+        text: false
+    }).next().button({
+        icons: {
+            primary: "ui-icon-locked"
+        }
+    }).next().button({
+        icons: {
+            primary: "ui-icon-gear",
+            secondary: "ui-icon-triangle-1-s"
+        }
+    }).next().button({
+        icons: {
+            primary: "ui-icon-gear",
+            secondary: "ui-icon-triangle-1-s"
+        },
+        text: false
+    });
+    $("#rerun")
+            .button()
+            .click(function () {
+                alert("Running the last action");
+            })
+            .next()
+                .button({
+                    text: false,
+                    icons: {
+                        primary: "ui-icon-triangle-1-s"
+                    }
+                })
+                .click(function () {
+                    var menu = $(this).parent().next().show().position({
+                        my: "left top",
+                        at: "left bottom",
+                        of: this
+                    });
+                    $(document).one("click", function () {
+                        menu.hide();
+                    });
+                    return false;
+                })
+                .parent()
+                    .buttonset()
+                    .next()
+                        .hide()
+                        .menu();
+    $("#beginning").button({
+        text: false,
+        icons: {
+            primary: "ui-icon-seek-start"
+        }
+    });
+    $("#rewind").button({
+        text: false,
+        icons: {
+            primary: "ui-icon-seek-prev"
+        }
+    });
+    $("#play").button({
+        text: false,
+        icons: {
+            primary: "ui-icon-play"
+        }
+    })
+    .click(function () {
+        var options;
+        if ($(this).text() === "play") {
+            options = {
+                label: "pause",
+                icons: {
+                    primary: "ui-icon-pause"
+                }
+            };
+        } else {
+            options = {
+                label: "play",
+                icons: {
+                    primary: "ui-icon-play"
+                }
+            };
+        }
+        $(this).button("option", options);
+    });
+    $("#stop").button({
+        text: false,
+        icons: {
+            primary: "ui-icon-stop"
+        }
+    })
+    .click(function () {
+        $("#play").button("option", {
+            label: "play",
+            icons: {
+                primary: "ui-icon-play"
+            }
+        });
+    });
+    $("#forward").button({
+        text: false,
+        icons: {
+            primary: "ui-icon-seek-next"
+        }
+    });
+    $("#end").button({
+        text: false,
+        icons: {
+            primary: "ui-icon-seek-end"
+        }
+    });
+    $(".selector").button({ disabled: true });
+    var disabled = $(".selector").button("option", "disabled");
+    $(".selector").button("option", "disabled", true);
+    $(".selector").button({ icons: { primary: "ui-icon-gear", secondary: "ui-icon-triangle-1-s" } });
+    $(".selector").button({ label: "custom label" });
+    $(".selector").button({ text: false });
+    $(".selector").button("destroy");
+}
 
+
+function test_datepicker() {
+    $("#datepicker").datepicker();
+    $("#datepicker").datepicker("option", "showAnim", $(this).val());
+    $("#datepicker").datepicker({
+        showOtherMonths: true,
+        selectOtherMonths: true
+    });
+    $("#datepicker").datepicker({
+        showButtonPanel: true
+    });
+    $("#datepicker").datepicker({
+        changeMonth: true,
+        changeYear: true
+    });
+    $("#datepicker").datepicker({
+        numberOfMonths: 3,
+        showButtonPanel: true
+    });
+    $("#datepicker").datepicker({
+        showOn: "button",
+        buttonImage: "images/calendar.gif",
+        buttonImageOnly: true
+    });
+    $.datepicker.setDefaults($.datepicker.regional[""]);
+    $("#datepicker").datepicker($.datepicker.regional["fr"]);
+    $("#locale").change(function () {
+        $("#datepicker").datepicker("option",
+            $.datepicker.regional[$(this).val()]);
+    });
+    $("#datepicker").datepicker({
+        altField: "#alternate",
+        altFormat: "DD, d MM, yy"
+    });
+    $("#datepicker").datepicker({ minDate: -20, maxDate: "+1M +10D" });
+    $("#from").datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 3,
+        onClose: function (selectedDate) {
+            $("#to").datepicker("option", "minDate", selectedDate);
+        }
+    });
+    $("#to").datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 3,
+        onClose: function (selectedDate) {
+            $("#from").datepicker("option", "maxDate", selectedDate);
+        }
+    });
+    $("#datepicker").datepicker({
+        showWeek: true,
+        firstDay: 1
+    });
+    $(".selector").datepicker({ altField: "#actualDate" });
+    $(".selector").datepicker({ altFormat: "yy-mm-dd" });
+    $(".selector").datepicker({ appendText: "(yyyy-mm-dd)" });
+    $(".selector").datepicker({ autoSize: true });
+    $(".selector").datepicker({ buttonImage: "/images/datepicker.gif" });
+    $(".selector").datepicker({ buttonImageOnly: true });
+    $(".selector").datepicker({ buttonText: "Choose" });
+    $(".selector").datepicker({ calculateWeek: null });
+    $(".selector").datepicker({ changeMonth: true });
+    $(".selector").datepicker({ changeYear: true });
+    $(".selector").datepicker({ closeText: "Close" });
+    $(".selector").datepicker({ constrainInput: false });
+    $(".selector").datepicker({ currentText: "Now" });
+    $(".selector").datepicker({ dateFormat: "yy-mm-dd" });
+    $(".selector").datepicker({ dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"] });
+    $(".selector").datepicker({ dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"] });
+}
+
+
+function test_dialog() {
+    $("#dialog").dialog();
+    $("#dialog").dialog({
+        autoOpen: false,
+        show: "blind",
+        hide: "explode"
+    });
+    $("#opener").click(function () {
+        $("#dialog").dialog("open");
+        return false;
+    });
+    $("#dialog-modal").dialog({
+        height: 140,
+        modal: true
+    });
+    $("#dialog-confirm").dialog({
+        resizable: false,
+        height: 140,
+        modal: true,
+        buttons: {
+            "Delete all items": function () {
+                $(this).dialog("close");
+            },
+            Cancel: function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+    $("#dialog-form").dialog({
+        autoOpen: false,
+        height: 300,
+        width: 350,
+        modal: true,
+        buttons: {},
+        Cancel: function () {
+            $(this).dialog("close");
+        },
+        close: function () {
+        }
+    });
+    $("#dialog-message").dialog({
+        modal: true,
+        buttons: {
+            Ok: function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+    $(".selector").dialog({ autoOpen: false });
+    $(".selector").dialog({ buttons: { Ok: function () { $(this).dialog("close"); } } });
+    $(".selector").dialog({ closeOnEscape: false });
+    $(".selector").dialog({ closeText: "hide" });
+    $(".selector").dialog({ dialogClass: "alert" });
+    $(".selector").dialog({ disabled: true });
+    $(".selector").dialog({ draggable: false });
+    $(".selector").dialog({ height: 400 });
+    $(".selector").dialog({ hide: "explode" });
+    $(".selector").dialog({ maxHeight: 600 });
+    $(".selector").dialog({ maxWidth: 600 });
+    $(".selector").dialog({ minHeight: 200 });
+    $(".selector").dialog({ minWidth: 200 });
+    $(".selector").dialog({ modal: true });
+    $(".selector").dialog({ position: { my: "left top", at: "left bottom", of: null } });
+    $(".selector").dialog({ resizable: false });
+    $(".selector").dialog({ show: "slow" });
+    $(".selector").dialog({ stack: false });
+    $(".selector").dialog({ title: "Dialog Title" });
+    $(".selector").dialog({ width: 500 });
+    $(".selector").dialog({ zIndex: 20 });
+}
+
+
+function test_menu() {
+    $("#menu").menu();
+    $(".selector").menu({ disabled: true });
+    $(".selector").menu({ icons: { submenu: "ui-icon-circle-triangle-e" } });
+    $(".selector").menu({ menus: "div" });
+    $(".selector").menu({ position: { my: "left top", at: "right-5 top+5" } });
+    $(".selector").menu({ role: null });
+    $(".selector").menu("option", { disabled: true });
+}
+
+
+function test_progressbar() {
+    $("#progressbar").progressbar({
+        value: 37
+    });
+    $(".selector").progressbar({ disabled: true });
+}
+
+
+function test_slider() {
+    $("#slider").slider();
+    $("#red").slider("value", 255);
+    $(this).empty().slider({
+        value: 123,
+        range: "min",
+        animate: true,
+        orientation: "vertical"
+    });
+    $("#slider-range").slider({
+        range: true,
+        min: 0,
+        max: 500,
+        values: [75, 300],
+        slide: function (event, ui) {
+            $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+        }
+    });
+    $("#amount").val("$" + $("#slider-range").slider("values", 0) +
+        " - $" + $("#slider-range").slider("values", 1));
+    var scrollPane = $(".scroll-pane"),
+        scrollContent = $(".scroll-content");
+    var scrollbar = $(".scroll-bar").slider({
+        slide: function (event, ui) {
+            if (scrollContent.width() > scrollPane.width()) {
+                scrollContent.css("margin-left", Math.round(
+                    ui.value / 100 * (scrollPane.width() - scrollContent.width())
+                ) + "px");
+            } else {
+                scrollContent.css("margin-left", 0);
+            }
+        }
+    });
+
+    var handleHelper = scrollbar.find(".ui-slider-handle")
+        .mousedown(function () {
+            scrollbar.width(handleHelper.width());
+        })
+        .mouseup(function () {
+            scrollbar.width("100%");
+        })
+        .append("<span class='ui-icon ui-icon-grip-dotted-vertical'></span>")
+        .wrap("<div class='ui-handle-helper-parent'></div>").parent();
+    $("#slider").slider({
+        value: 100,
+        min: 0,
+        max: 500,
+        step: 50,
+        slide: function (event, ui) {
+            $("#amount").val("$" + ui.value);
+        }
+    });
+    $("#amount").val("$" + $("#slider").slider("value"));
+    $(".selector").slider({ animate: "fast" });
+    $(".selector").slider({ disabled: true });
+    $(".selector").slider({ max: 50 });
+    $(".selector").slider({ min: 10 });
+    $(".selector").slider({ orientation: "vertical" });
+    $(".selector").slider({ range: true });
+    $(".selector").slider({ step: 5 });
+    $(".selector").slider({ value: 10 });
+    $(".selector").slider({ values: [10, 25] });
+}
+
+
+function test_spinner() {
+    var spinner = $("#spinner").spinner();
+
+    $("#disable").click(function () {
+        if (spinner.spinner("option", "disabled")) {
+            spinner.spinner("enable");
+        } else {
+            spinner.spinner("disable");
+        }
+    });
+    $("#destroy").click(function () {
+        if (spinner.data("ui-spinner")) {
+            spinner.spinner("destroy");
+        } else {
+            spinner.spinner();
+        }
+    });
+    $("#getvalue").click(function () { });
+    $("#setvalue").click(function () {
+        spinner.spinner("value", 5);
+    });
+    $("button").button();
+    $("#currency").change(function () {
+        $("#spinner").spinner("option", "culture", $(this).val());
+    });
+
+    $("#spinner").spinner({
+        min: 5,
+        max: 2500,
+        step: 25,
+        start: 1000,
+        numberFormat: "C"
+    });
+    $("#spinner").spinner({
+        step: 0.01,
+        numberFormat: "n"
+    });
+
+    $("#culture").change(function () {
+        var current = $("#spinner").spinner("value");
+        $("#spinner").spinner("value", current);
+    });
+    $("#lat, #lng").spinner({
+        step: .001,
+        change: 123,
+        stop: 321
+    });
+    $("#spinner").spinner({
+        spin: function (event, ui) {
+            if (ui.value > 10) {
+                $(this).spinner("value", -10);
+                return false;
+            } else if (ui.value < -10) {
+                $(this).spinner("value", 10);
+                return false;
+            }
+        }
+    });
+    $.widget("ui.timespinner", $.ui.spinner, {
+        options: {
+            // seconds
+            step: 60 * 1000,
+            // hours
+            page: 60
+        },
+        _parse: function (value) {
+            if (typeof value === "string") {
+                if (Number(value) == value) {
+                    return Number(value);
+                }
+                return 123;
+            }
+            return value;
+        },
+        _format: function (value) {
+        }
+    });
+    $(".selector").spinner({ culture: "fr" });
+    $(".selector").spinner({ disabled: true });
+    $(".selector").spinner({ icons: { down: "custom-down-icon", up: "custom-up-icon" } });
+    $(".selector").spinner({ incremental: false });
+    $(".selector").spinner({ max: 50 });
+    $(".selector").spinner({ min: 0 });
+    $(".selector").spinner({ numberFormat: "n" });
+    $(".selector").spinner({ page: 5 });
+    $(".selector").spinner({ step: 2 });
+}
+
+
+function test_tabs() {
+    $("#tabs").tabs();
+    $("#tabs").tabs({
+        collapsible: true
+    });
+    $("#tabs").tabs({
+        beforeLoad: function (event, ui) {
+            ui.jqXHR.error(function () {
+                ui.panel.html(
+                    "Couldn't load this tab. We'll try to fix this as soon as possible. " +
+                    "If this wouldn't be a demo.");
+            });
+        }
+    });
+    $("#tabs").tabs({
+        event: "mouseover"
+    });
+    var tabs = $("#tabs").tabs();
+    tabs.find(".ui-tabs-nav").sortable({
+        axis: "x",
+        stop: function () {
+            tabs.tabs("refresh");
+        }
+    });
+    $("#tabs").tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
+    $("#tabs li").removeClass("ui-corner-top").addClass("ui-corner-left");
+    $(".selector").tabs({ active: 1 });
+    $(".selector").tabs({ collapsible: true });
+    $(".selector").tabs({ disabled: [0, 2] });
+    $(".selector").tabs({ event: "mouseover" });
+    $(".selector").tabs({ heightStyle: "fill" });
+    $(".selector").tabs({ hide: { effect: "explode", duration: 1000 } });
+    $(".selector").tabs({ show: { effect: "blind", duration: 800 } });
+}
+
+
+function test_tooltip() {
+    $(document).tooltip();
+    $(document).tooltip({
+        position: {
+            my: "center bottom-20",
+            at: "center top",
+            using: function (position, feedback) {
+                $(this).css(position);
+                $("<div>")
+                    .addClass("arrow")
+                    .addClass(feedback.vertical)
+                    .addClass(feedback.horizontal)
+                    .appendTo(this);
+            }
+        }
+    });
+    $("#show-option").tooltip({
+        show: {
+            effect: "slideDown",
+            delay: 250
+        }
+    });
+    $(document).tooltip({
+        items: "img, [data-geo], [title]",
+        content: function () {
+            var element = $(this);
+            if (element.is("[data-geo]")) {
+                var text = element.text();
+                return "<img class='map' alt='" + text +
+                    "' src='http://maps.google.com/maps/api/staticmap?" +
+                    "zoom=11&size=350x350&maptype=terrain&sensor=false&center=" +
+                    text + "'>";
+            }
+            if (element.is("[title]")) {
+                return element.attr("title");
+            }
+            if (element.is("img")) {
+                return element.attr("alt");
+            }
+        }
+    });
+    var tooltips = $("[title]").tooltip();
+    $("<button>")
+        .text("Show help")
+        .button()
+        .click(function () {
+            tooltips.tooltip("open");
+        })
+        .insertAfter("form");
+    $(".selector").tooltip({ content: "Awesome title!" });
+    $(".selector").tooltip({ disabled: true });
+    $(".selector").tooltip({ hide: { effect: "explode", duration: 1000 } });
+    $(".selector").tooltip({ items: "img[alt]" });
+    $(".selector").tooltip({ position: { my: "left+15 center", at: "right center" } });
+    $(".selector").tooltip({ show: { effect: "blind", duration: 800 } });
+    $(".selector").tooltip({ tooltipClass: "custom-tooltip-styling" });
+    $(".selector").tooltip({ track: true });
+}
+
+function test_effects() {
+    $("#effect").addClass("newClass", 1000, callback);
+    function callback() { }
+    $("#effect").animate({
+        backgroundColor: "#aa0000",
+        color: "#fff",
+        width: 500
+    }, 1000);
+    $("div").effect("bounce", "slow");
+    var selectedEffect = $("#effectTypes").val();
+    var options: any;
+    if (selectedEffect === "scale") {
+        options = { percent: 0 };
+    } else if (selectedEffect === "transfer") {
+        options = { to: "#button", className: "ui-effects-transfer" };
+    } else if (selectedEffect === "size") {
+        options = { to: { width: 200, height: 60 } };
+    }
+    $("#effect").effect(selectedEffect, options, 500, callback);
+    $("#effect").removeAttr("style").hide().fadeIn();
+    $("#effect").removeClass("newClass", 1000, callback);
+    $("#effect").show(selectedEffect, options, 500, callback);
+    $(".anotherNewClass").switchClass("anotherNewClass", "newClass", 1000);
+    $("#effect").toggle(selectedEffect, options, 500);
+    $("#effect").toggleClass("newClass", 1000);
+    $(".positionable").position({
+        of: $("#parent"),
+        my: $("#my_horizontal").val() + " " + $("#my_vertical").val(),
+        at: $("#at_horizontal").val() + " " + $("#at_vertical").val(),
+        offset: $("#offset").val(),
+        collision: $("#collision_horizontal").val() + " " + $("#collision_vertical").val()
+    });
+    $("#toggle").toggle({ effect: "scale", direction: "horizontal" });
+    $(this).effect("transfer", { to: $("div").eq(i) }, 1000);
+    $( "div" ).hide( "drop", { direction: "down" }, "slow" );
+    $( this ).switchClass( "big", "blue", 1000, "easeInOutQuad" );
+    $( this ).toggleClass( "big-blue", 1000, "easeOutSine" );
 }
