@@ -506,15 +506,8 @@ module ng {
     }
 
     interface IHttpPromise extends IPromise {
-        success(callback: (response: IDestructuredResponse) => any): IHttpPromise;
-        error(callback: (response: IDestructuredResponse) => any): IHttpPromise;
-    }
-
-    interface IDestructuredResponse {
-        data: any;
-        status: number;
-        headers: (headerName: string) => string;
-        config: IRequestConfig;
+        success(callback: (data: any, status: number, headers: (headerName: string) => string, config: IRequestConfig) => any): IHttpPromise;
+        error(callback: (data: any, status: number, headers: (headerName: string) => string, config: IRequestConfig) => any): IHttpPromise;
     }
 
     interface IHttpProvider extends IServiceProvider {        
