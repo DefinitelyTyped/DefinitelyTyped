@@ -171,15 +171,15 @@ Person = Ember.Object.extend({
     name: null,
     isHappy: false
 });
-var people = [
+var people2 = [
     Person.create({ name: 'Yehuda', isHappy: true }),
     Person.create({ name: 'Majd', isHappy: false })
 ];
-people.every((person, index, self) => {
+people2.every((person, index, self) => {
     if (person.get('isHappy')) { return true; }
 });
-people.some((person, index, self) => {
+people2.some((person, index, self) => {
     if (person.get('isHappy')) { return true; }
 });
-people.everyProperty('isHappy', true);
-people.someProperty('isHappy', true);
+people2.everyProperty('isHappy', true);
+people2.someProperty('isHappy', true);

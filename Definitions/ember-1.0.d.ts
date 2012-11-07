@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-declare module "Ember" {
+declare module Ember {
 
     export class CoreObject {
         isDestroyed: bool;
@@ -46,13 +46,16 @@ declare module "Ember" {
     }
 
     export interface Mixin {
+        apply(obj: Object): Object;
         create(obj: Object): Object;
+        detect(obj: Object): bool;
         extend(first: Object, second: Object): Object;
+        reopen(...arguments: any[]): Mixin;
     }
 
     export class View extends Object {
         append(): View;
-        static create(...arguments: any[]): Application;
+        static create(...arguments: any[]): View;
     }
 
     export interface Enumerable extends Mixin {
