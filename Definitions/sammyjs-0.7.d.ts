@@ -45,7 +45,7 @@ module Sammy {
 
     export interface Object {
 
-        constructor (obj: any);
+        new (obj: any);
 
         escapeHTML(s: string): string;
         h(s: string): string;
@@ -113,7 +113,9 @@ module Sammy {
     }
 
     export interface DataLocationProxy {
-        constructor (app, run_interval_every): DataLocationProxy;
+
+        new (app, run_interval_every): DataLocationProxy;
+
         fullPath(location_obj): string;
         bind(): void;
         unbind(): void;
@@ -122,7 +124,9 @@ module Sammy {
     }
 
     export interface EventContext extends Object {
-        constructor (app, verb, path, params, target);
+
+        new (app, verb, path, params, target);
+
         $element(): JQuery;
         engineFor(engine: any): any;
         eventNamespace(): string;
@@ -142,7 +146,9 @@ module Sammy {
     }
 
     export interface FormBuilder {
-        constructor (name, object);
+
+        new (name, object);
+
         checkbox(keypath: string, value: any, ...attributes: any[]): string;
         close(): string;
         hidden(keypath: string, ...attributes: any[]): string;
@@ -161,13 +167,17 @@ module Sammy {
     }
 
     export interface GoogleAnalytics {
-        constructor (app, tracker);
+
+        new (app, tracker);
+
         noTrack();
         track(path);
     }
 
     export interface RenderContext extends Object {
-        constructor (event_context);
+
+        new (event_context);
+
         appendTo(selector: string): RenderContext;
         collect(array: any[], callback: Function, now?: bool): RenderContext;
         interpolate(data: any, engine?: any, retain?: bool): RenderContext;
@@ -207,7 +217,7 @@ module Sammy {
 
         stores: any;
 
-        constructor (options);
+        new (options);
 
         clear(key: string): any;
         clearAll(): void;
