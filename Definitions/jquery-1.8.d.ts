@@ -372,6 +372,7 @@ interface JQuery {
     
     height(): number;
     height(value: number): JQuery;
+    height(value: string): JQuery;
     height(func: (index: any, height: any) => any): JQuery;
 
     innerHeight(): number;
@@ -394,6 +395,7 @@ interface JQuery {
 
     width(): number;
     width(value: number): JQuery;
+    width(value: string): JQuery;
     width(func: (index: any, height: any) => any): JQuery;
 
     /****
