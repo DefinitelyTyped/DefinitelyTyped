@@ -44,7 +44,15 @@ function test_draggable() {
         helper: (event) => { return $("<div class='ui-widget-header'>I'm a custom helper</div>"); }
     });
     $("#set div").draggable({ stack: "#set div" });
-
+    $.datepicker.formatDate('yy-mm-dd', new Date(2007, 1 - 1, 26));
+    $.datepicker.formatDate('DD, MM d, yy', new Date(2007, 7 - 1, 14), {
+        dayNamesShort: $.datepicker.regional['fr'].dayNamesShort, 
+        dayNames: $.datepicker.regional['fr'].dayNames, 
+        monthNamesShort: $.datepicker.regional['fr'].monthNamesShort, 
+        monthNames: $.datepicker.regional['fr'].monthNames
+    });
+    $("#datepicker").datepicker({ beforeShowDay: $.datepicker.noWeekends });
+    $("selector").datepicker($.datepicker.regional['fr']);
 }
 
 function test_droppable() {
@@ -1128,6 +1136,9 @@ function test_datepicker() {
     $(".selector").datepicker({ dateFormat: "yy-mm-dd" });
     $(".selector").datepicker({ dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"] });
     $(".selector").datepicker({ dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"] });
+
+    $.datepicker.setDefaults($.datepicker.regional[""]);
+    $(selector).datepicker($.datepicker.regional["fr"]);
 }
 
 

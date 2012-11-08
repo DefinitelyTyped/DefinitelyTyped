@@ -144,7 +144,20 @@ interface DatepickerOptions {
     yearSuffix?: string;
 }
 
+interface DatepickerFormatDateOptions {
+    dayNamesShort?: string[];
+    dayNames?: string[];
+    monthNamesShort?: string[];
+    monthNames?: string[];
+}
+
 interface Datepicker extends Widget, DatepickerOptions {
+    regional: { [languageCod3: string]: any; };
+    setDefaults(defaults: DatepickerOptions);
+    formatDate(format: string, date: Date, settings?: DatepickerFormatDateOptions): void;
+    parseDate(format: string, date: Date, settings?: DatepickerFormatDateOptions): void;
+    iso8601Week(date: Date): void;
+    noWeekends(): void;
 }
 
 
@@ -286,31 +299,6 @@ interface DroppableEvents {
 
 interface Droppable extends Widget, DroppableOptions, DroppableEvents {
 }
-
-// TODO ?
-interface JQueryDatePickerDefaults {
-    closeText: string;
-    prevText: string;
-    nextText: string;
-    currentText: string;
-    monthNames: string[];
-    monthNamesShort: string[];
-    dayNames: string[];
-    dayNamesShort: string[];
-    dayNamesMin: string[];
-    weekHeader: string;
-    dateFormat: string;
-    firstDay: number;
-    isRTL: bool;
-    showMonthAfterYear: bool;
-    yearSuffix: string;
-}
-
-interface JQueryDatePicker {
-    regional: any;
-    setDefaults(JQueryDatePickerDefaults);
-}
-
 
 // Menu //////////////////////////////////////////////////
 
@@ -931,7 +919,7 @@ interface JQuery {
 
 interface JQueryStatic {
     ui: UI;
-    datepicker: JQueryDatePicker;
+    datepicker: Datepicker;
     widget: Widget;
     Widget: Widget;
 }
