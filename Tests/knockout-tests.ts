@@ -89,6 +89,24 @@ function test_computed() {
     ko.applyBindings(new MyViewModel());
 }
 
+class GetterViewModel {
+    private _selectedRange: KnockoutObservableAny;
+
+    constructor() {
+        this._selectedRange = ko.observable();
+    }
+
+    public get range() : KnockoutObservableAny {
+        return this._selectedRange;
+    }
+}
+
+function testGetter() {
+    var model = new GetterViewModel();
+
+    model.range.subscribe((range: number) => {
+    });
+}
 
 function test_observableArrays() {
     var myObservableArray = ko.observableArray();
