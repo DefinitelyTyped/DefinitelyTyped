@@ -783,7 +783,8 @@ interface String {
 	*   '   wasabi   '.trimRight() -> '   wasabi'
 	*
 	***/
-	trim(): string;
+	// Duplicate from lib.d.ts
+	// trim(): string;
 	trimLeft(): string;
 	trimRight(): string;
 
@@ -1745,7 +1746,8 @@ interface Array {
 	exclude(...f: string[]): string[];
 	exclude(...f: RegExp[]): string[];
 	exclude(...f: Object[]): Object[];
-	exclude(...f: (el: any, i?: number, array?: any[]) => bool): any[];
+    // TODO fixme
+	//exclude(...f: (el: any, i?: number, array?: any[]) => bool): any[];
 
 	/***
 	* @short Returns any elements in the array that match <f>.
@@ -1838,7 +1840,8 @@ interface Array {
 	***/
 	findIndex(f: number, startIndex?: number, loop?: bool): number;
 	findIndex(f: string, startIndex?: number, loop?: bool): number;
-	findIndex(f: RegExp, startIndex?: number, loop?: bool): number;
+  // TODO duplicate
+	//findIndex(f: RegExp, startIndex?: number, loop?: bool): number;
 	findIndex(f: Object, startIndex?: number, loop?: bool): number;
 	findIndex(f: RegExp, startIndex?: number, loop?: bool): number;
 	findIndex(f: (el: any, i?: number, array?: any[]) => bool, startIndex?: number, loop?: bool): number;
@@ -3360,8 +3363,10 @@ interface Date {
 	***/
 	getWeekday(): number;
 	getUTCWeekday(): number;
-	getDay(): number;
-	getUTCDay(): number;
+	// Duplicate from lib.d.ts
+	// getDay(): number;
+	// Duplicate from lib.d.ts
+	// getUTCDay(): number;
 
 	/***
 	* @short Returns true if the date is <d>.
@@ -3434,7 +3439,7 @@ interface Date {
 	*   new Date().isBetween('last year', '2 years ago') -> false
 	*
 	***/
-	isBefore(start: string,, end: string, margin?: number): bool;
+	isBefore(start: string, end: string, margin?: number): bool;
 	isBefore(start: number, end: string, margin?: number): bool;
 	isBefore(start: Date, end: Date, margin?: number): bool;
 
@@ -3616,7 +3621,8 @@ interface Date {
 	*
 	***/
 	iso(): string;
-	toISOString(): string;
+	// Duplicate from lib.d.ts
+	// toISOString(): string;
 
 	/***
 	* @short Returns a relative date string offset to the current time.
