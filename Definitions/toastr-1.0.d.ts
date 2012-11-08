@@ -27,10 +27,11 @@ interface ToastOptions {
 interface Toastr {
     options: ToastOptions;
 
-    info(message: string, title?: string);
-    warning(message: string, title?: string);
-    success(message: string, title?: string);
-    error(message: string, title?: string);
+    clear(): void;
+    info(message: string, title?: string): void;
+    warning(message: string, title?: string): void;
+    success(message: string, title?: string): void;
+    error(message: string, title?: string): void;
 }
 
 declare var toastr: Toastr;
