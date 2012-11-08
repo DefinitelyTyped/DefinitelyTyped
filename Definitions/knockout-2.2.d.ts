@@ -5,8 +5,6 @@
 
 interface KnockoutSubscribableFunctions {
     extend(source);
-    subscribe(callback: (newValue: any[]) => void, target?:any, topic?: string): KnockoutSubscription;
-    notifySubscribers(valueToWrite, topic?: string);
     dispose(): void;
     peek(): any;
     valueHasMutated(): void;
@@ -53,6 +51,8 @@ interface KnockoutSubscribableStatic {
 }
 
 interface KnockoutSubscription extends KnockoutSubscribableFunctions {
+    subscribe(callback: (newValue: any) => void, target?:any, topic?: string): KnockoutSubscription;
+    notifySubscribers(valueToWrite, topic?: string);
 }
 
 interface KnockoutComputedStatic {
@@ -67,6 +67,9 @@ interface KnockoutComputedStatic {
 interface KnockoutComputed extends KnockoutComputedFunctions {
     (): any;
     (value: any): void;
+
+    subscribe(callback: (newValue: any) => void, target?:any, topic?: string): KnockoutSubscription;
+    notifySubscribers(valueToWrite, topic?: string);
 }
 
 interface KnockoutObservableArrayStatic {
@@ -80,6 +83,9 @@ interface KnockoutObservableArrayStatic {
 interface KnockoutObservableArray extends KnockoutObservableArrayFunctions {
     (): any[];
     (value: any[]): void;
+
+    subscribe(callback: (newValue: any[]) => void, target?:any, topic?: string): KnockoutSubscription;
+    notifySubscribers(valueToWrite: any[], topic?: string);
 }
 
 interface KnockoutObservableStatic {
@@ -99,27 +105,42 @@ interface KnockoutObservableAny extends KnockoutObservableBase {
 
     (): any;
     (value): void;
+
+    subscribe(callback: (newValue: any) => void, target?:any, topic?: string): KnockoutSubscription;
+    notifySubscribers(valueToWrite, topic?: string);
 }
 
 interface KnockoutObservableString extends KnockoutObservableBase {
     (): string;
     (value: string): void;
+
+    subscribe(callback: (newValue: string) => void, target?:any, topic?: string): KnockoutSubscription;
+    notifySubscribers(valueToWrite: string, topic?: string);
 }
 
 
 interface KnockoutObservableNumber extends KnockoutObservableBase {
     (): number;
     (value: number): void;
+
+    subscribe(callback: (newValue: number) => void, target?:any, topic?: string): KnockoutSubscription;
+    notifySubscribers(valueToWrite: number, topic?: string);
 }
 
 interface KnockoutObservableBool extends KnockoutObservableBase {
     (): bool;
     (value: bool): void;
+
+    subscribe(callback: (newValue: bool) => void, target?:any, topic?: string): KnockoutSubscription;
+    notifySubscribers(valueToWrite: bool, topic?: string);
 }
 
 interface KnockoutObservableDate extends KnockoutObservableBase {
     (): Date;
     (value: Date): void;
+
+    subscribe(callback: (newValue: Date) => void, target?:any, topic?: string): KnockoutSubscription;
+    notifySubscribers(valueToWrite: Date, topic?: string);
 }
 
 interface KnockoutComputedDefine {
