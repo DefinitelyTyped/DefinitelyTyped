@@ -5,6 +5,15 @@ function test_basic() {
     toastr.warning('My name is Inigo Montoya. You Killed my father, prepare to die!');
     toastr.success('Have fun storming the castle!', 'Miracle Max Says');
     toastr.error('I do not think that word means what you tink it means.', 'Inconceivable!');
+    toastr.clear();
+
+    var msg = 'Do you think Rodents of Unusual Size really exist?';
+    var title = 'Fireswamp Legends';
+    var overrides = { timeOut: 250 };
+    toastr.warning(msg, title, overrides);
+
+    toastr.options.onclick = function () {
+    }
 }
 
 declare var $;

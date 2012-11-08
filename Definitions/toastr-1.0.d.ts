@@ -3,7 +3,8 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-interface ToastOptions {
+
+interface ToastrOptions {
     tapToDismiss?: bool;
     toastClass?: string;
     containerId?: string;
@@ -22,16 +23,24 @@ interface ToastOptions {
     timeOut?: number;
     titleClass?: string;
     messageClass?: string;
+
+    onclick?: () => void;
+}
+
+interface ToastrDisplayMethod {
+    (message: string): void;
+    (message: string, title: string): void;
+    (message: string, title: string, overrides: ToastrOptions): void;
 }
 
 interface Toastr {
-    options: ToastOptions;
+    options: ToastrOptions;
 
     clear(): void;
-    info(message: string, title?: string): void;
-    warning(message: string, title?: string): void;
-    success(message: string, title?: string): void;
-    error(message: string, title?: string): void;
+    info: ToastrDisplayMethod;
+    warning: ToastrDisplayMethod;
+    success: ToastrDisplayMethod;
+    error: ToastrDisplayMethod;
 }
 
 declare var toastr: Toastr;
