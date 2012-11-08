@@ -7,26 +7,6 @@
 /// <reference path="jquery-1.8.d.ts"/>
 
 
-// Widget //////////////////////////////////////////////////
-
-interface Widget {
-
-    // Methods
-    destroy();
-    disable();
-    enable();
-    option(optionName: string): any;
-    option(): any;
-    option(optionName: string, value: any): void;
-    option(options: any): void;
-    refresh(): void;
-    widget(): JQuery;
-
-    // Events
-    create?: (event: Event, ui) => void;
-}
-
-
 // Accordion //////////////////////////////////////////////////
 
 interface AccordionOptions {
@@ -718,6 +698,64 @@ interface TransferEffect {
     to?: string;
 }
 
+interface JQueryPositionOptions {
+    my?: string;
+    at?: string;
+    of?: any;
+    collision?: string;
+    using?: Function;
+    within?: any;
+}
+
+
+// UI //////////////////////////////////////////////////
+
+interface MouseOptions {
+    cancel?: string;
+    delay?: number;
+    distance?: number;
+}
+
+interface UI {
+    mouse(method: string): JQuery;
+    mouse(options: MouseOptions): JQuery;
+    mouse(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+    mouse(optionLiteral: string, optionValue: any): any;
+
+    accordion: Accordion;
+    autocomplete: Autocomplete;
+    button: Button;
+    buttonset: Button;
+    datepicker: Datepicker;
+    dialog: Dialog;
+    menu: Menu;
+    progressbar: Progressbar;
+    slider: Slider;
+    spinner: Spinner;
+    tabs: Tabs;
+    tooltip: Tooltip;
+}
+
+
+// Widget //////////////////////////////////////////////////
+
+interface WidgetOptions {
+    disabled?: bool;
+    hide?: any;
+    show?: any;
+}
+
+interface Widget {
+    (methodName: string): JQuery;
+    (options: WidgetOptions): JQuery;
+    (options: AccordionOptions): JQuery;
+    (optionLiteral: string, optionName: string): any;
+    (optionLiteral: string, options: WidgetOptions): any;
+    (optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    (name: string, prototype: any): JQuery;
+    (name: string, base: Function, prototype: any): JQuery;
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -821,8 +859,6 @@ interface JQuery {
     sortable(optionLiteral: string, options: SortableOptions): any;
     sortable(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
-    disableSelection();
-
     spinner(): JQuery;
     spinner(methodName: string): JQuery;
     spinner(options: SpinnerOptions): JQuery;
@@ -879,8 +915,23 @@ interface JQuery {
     toggle(effect: string, options?: any, duration?: number, complete?: Function): JQuery;
     toggle(effect: string, options?: any, duration?: string, complete?: Function): JQuery;
 
+    enableSelection(): JQuery;
+    disableSelection(): JQuery;
+    focus(delay: number, callback?: Function): JQuery;
+    removeUniqueId(): JQuery;
+    scrollParent(): JQuery;
+    zIndex(): JQuery;
+    zIndex(zIndex: number): JQuery;
+    position(options: JQueryPositionOptions): JQuery;
+
+    widget: Widget;
+
+    jQuery: JQueryStatic;
 }
 
 interface JQueryStatic {
+    ui: UI;
     datepicker: JQueryDatePicker;
+    widget: Widget;
+    Widget: Widget;
 }

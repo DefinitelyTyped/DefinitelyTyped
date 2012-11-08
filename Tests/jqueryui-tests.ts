@@ -755,7 +755,6 @@ function test_autocomplete() {
             $.Widget.prototype.destroy.call(this);
         }
     });
-    $("#combobox").combobox();
     $("#toggle").click(() => { $("#combobox").toggle(); });
     $("#project").autocomplete({
         minLength: 0,
@@ -1505,8 +1504,55 @@ function test_effects() {
         collision: $("#collision_horizontal").val() + " " + $("#collision_vertical").val()
     });
     $("#toggle").toggle({ effect: "scale", direction: "horizontal" });
-    $(this).effect("transfer", { to: $("div").eq(i) }, 1000);
-    $( "div" ).hide( "drop", { direction: "down" }, "slow" );
-    $( this ).switchClass( "big", "blue", 1000, "easeInOutQuad" );
-    $( this ).toggleClass( "big-blue", 1000, "easeOutSine" );
+    $(this).effect("transfer", { to: $("div").eq(5) }, 1000);
+    $("div").hide("drop", { direction: "down" }, "slow");
+    $(this).switchClass("big", "blue", 1000, "easeInOutQuad");
+    $(this).toggleClass("big-blue", 1000, "easeOutSine");
+}
+
+function test_methods() {
+    $('.selector').disableSelection();
+    $("#position1").position({
+        my: "center",
+        at: "center",
+        of: "#targetElement"
+    });
+    $("#position2").position({
+        my: "left top",
+        at: "left top",
+        of: "#targetElement"
+    });
+    $("#position3").position({
+        my: "right center",
+        at: "right bottom",
+        of: "#targetElement"
+    });
+    $(document).mousemove(function (event) {
+        $("#position4").position({
+            my: "left+3 bottom-3",
+            of: event,
+            collision: "fit"
+        });
+    });
+}
+
+function test_ui() {
+    $(".selector").jQuery.ui.mouse({ cancel: ".title" });
+    var cancel = $(".selector").jQuery.ui.mouse("option", "cancel");
+    $(".selector").jQuery.ui.mouse("option", "cancel", ".title");
+    $(".selector").jQuery.ui.mouse({ delay: 300 });
+    $(".selector").jQuery.ui.mouse({ distance: 10 });
+    $(".selector").jQuery.ui.mouse("_mouseCapture");
+}
+
+function test_widget() {
+    $(".selector").jQuery.Widget({ disabled: true });
+    var disabled = $(".selector").jQuery.Widget("option", "disabled");
+    $(".selector").jQuery.Widget("option", "disabled", true);
+    $(".selector").jQuery.Widget({ hide: { effect: "explode", duration: 1000 } });
+    $(".selector").jQuery.Widget({ show: { effect: "blind", duration: 800 } });
+    var options = $(".selector").jQuery.Widget("option");
+    var isDisabled = $(".selector").jQuery.Widget("option", "disabled");
+    $(".selector").jQuery.Widget("option", "disabled", true);
+    $(".selector").jQuery.Widget("option", { disabled: true });
 }
