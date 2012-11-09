@@ -4,6 +4,8 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
+/// <reference path="jquery-1.8.d.ts" />
+
 interface ToastrOptions {
     tapToDismiss?: bool;
     toastClass?: string;
@@ -28,9 +30,9 @@ interface ToastrOptions {
 }
 
 interface ToastrDisplayMethod {
-    (message: string): void;
-    (message: string, title: string): void;
-    (message: string, title: string, overrides: ToastrOptions): void;
+    (message: string): JQuery;
+    (message: string, title: string): JQuery;
+    (message: string, title: string, overrides: ToastrOptions): JQuery;
 }
 
 interface Toastr {

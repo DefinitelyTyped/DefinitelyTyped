@@ -12,8 +12,7 @@ function test_basic() {
     var overrides = { timeOut: 250 };
     toastr.warning(msg, title, overrides);
 
-    toastr.options.onclick = function () {
-    }
+    toastr.options.onclick = function () { }
 }
 
 declare var $;
