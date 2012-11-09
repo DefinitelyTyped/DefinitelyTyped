@@ -344,7 +344,7 @@ interface JQuery {
     html(htmlString: string): JQuery;
     html(): string;
 
-    prop(propertyName: string): string;
+    prop(propertyName: string): bool;
     prop(propertyName: string, value: any): JQuery;
     prop(map: any): JQuery;
     prop(propertyName: string, func: (index: any, oldPropertyValue: any) => any): JQuery;

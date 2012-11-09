@@ -689,7 +689,7 @@ function test_children() {
         var len = $kids.addClass("hilite").length;
 
         $("#results span:first").text(len.toString());
-        $("#results span:last").text(e.target.tagName);
+        //$("#results span:last").text(e.target.tagName);
 
         e.preventDefault();
         return false;
@@ -765,7 +765,7 @@ function test_closest() {
     });
     var $listElements = $("li").css("color", "blue");
     $(document).bind("click", function (e) {
-        $(e.target).closest($listElements).toggleClass("hilight");
+        //$(e.target).closest($listElements).toggleClass("hilight");
     });
 }
 
@@ -899,6 +899,22 @@ function test_each() {
                 return false;
             }
         });
+    });
+}
+
+function test_prop() {
+    var $input = $(this);
+    $("p").html(".attr('checked'): <b>" + $input.attr('checked') + "</b><br>"
+                + ".prop('checked'): <b>" + $input.prop('checked') + "</b><br>"
+                + ".is(':checked'): <b>" + $input.is(':checked')) + "</b>";
+    $("input").prop("disabled", false);
+    $("input").prop("checked", true);
+    $("input").val("someValue");
+    $("input[type='checkbox']").prop("checked", function (i, val) {
+        return !val;
+    });
+    $("input[type='checkbox']").prop({
+        disabled: true
     });
 }
 
