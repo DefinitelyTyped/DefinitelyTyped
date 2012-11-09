@@ -241,6 +241,7 @@ interface JQueryStatic {
      EVENTS
     *******/
     proxy(context: any, name: any): any;
+    Deferred(): JQueryDeferred;
 
     /*********
      INTERNALS
