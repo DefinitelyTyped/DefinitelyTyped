@@ -367,8 +367,8 @@ interface JQuery {
     /***
      CSS
     ****/
-    css(propertyName: string, value?: any);
-    css(propertyName: any, value?: any);
+    css(propertyName: string, value?: any): any;
+    css(propertyName: any, value?: any): any;
     
     height(): number;
     height(value: number): JQuery;
