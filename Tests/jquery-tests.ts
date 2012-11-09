@@ -872,6 +872,223 @@ function test_cssHooks() {
     };
 }
 
+function test_data() {
+    $('body').data('foo', 52);
+    $('body').data('bar', { myType: 'test', count: 40 });
+    $('body').data('foo');
+    $('body').data();
+    $("div").data("test", { first: 16, last: "pizza!" });
+    $("span:first").text($("div").data("test").first);
+    $("span:last").text($("div").data("test").last);
+    alert($('body').data('foo'));
+    alert($('body').data());
+    alert($("body").data("foo"));
+    $("body").data("bar", "foobar");
+    alert($("body").data("bar"));
+    $("div").data("role") === "page";
+    $("div").data("lastValue") === 43;
+    $("div").data("hidden") === true;
+    $("div").data("options").name === "John";
+    var value;
+    switch ($("button").index(this)) {
+        case 0:
+            value = $("div").data("blah");
+            break;
+        case 1:
+            $("div").data("blah", "hello");
+            value = "Stored!";
+            break;
+        case 2:
+            $("div").data("blah", 86);
+            value = "Stored!";
+            break;
+        case 3:
+            $("div").removeData("blah");
+            value = "Removed!";
+            break;
+    }
+    $("span").text("" + value);
+    jQuery.data(document.body, 'foo', 52);
+    jQuery.data(document.body, 'bar', 'test');
+    var div = $("div")[0];
+    jQuery.data(div, "test", { first: 16, last: "pizza!" });
+    $("span:first").text(jQuery.data(div, "test").first);
+    $("span:last").text(jQuery.data(div, "test").last);
+}
+
+function test_dblclick() {
+    $('#target').dblclick(function () {
+        alert('Handler for .dblclick() called.');
+    });
+    $('#other').click(function () {
+        $('#target').dblclick();
+    });
+    $("p").dblclick(function () { alert("Hello World!"); });
+    var divdbl = $("div:first");
+    divdbl.dblclick(function () {
+        divdbl.toggleClass('dbl');
+    });
+}
+
+function test_deferred() {
+    $.get("test.php").always(function () {
+        alert("$.get completed with success or error callback arguments");
+    });
+    $.get("test.php").done(function () {
+        alert("$.get succeeded");
+    });
+    function fn1() {
+        $("p").append(" 1 ");
+    }
+    function fn2() {
+        $("p").append(" 2 ");
+    }
+    function fn3(n) {
+        $("p").append(n + " 3 " + n);
+    }
+    var dfd = $.Deferred();
+    dfd
+        .done([fn1, fn2], fn3, [fn2, fn1])
+        .done(function (n) {
+            $("p").append(n + " we're done.");
+        });
+    $("button").bind("click", function () {
+        dfd.resolve("and");
+    });
+    $.get("test.php")
+        .done(function () { alert("$.get succeeded"); })
+        .fail(function () { alert("$.get failed!"); });
+    dfd.state();
+    var defer = $.Deferred(),
+    filtered = defer.pipe(function (value) {
+        return value * 2;
+    });
+    defer.resolve(5);
+    filtered.done(function (value) {
+        alert("Value is ( 2*5 = ) 10: " + value);
+    });
+    filtered.fail(function (value) {
+        alert("Value is ( 3*6 = ) 18: " + value);
+    });
+    filtered.done(function (data) { });
+
+    function asyncEvent() {
+        var newDeferred = new jQuery.Deferred();
+        var dfd: JQueryDeferred;
+        setTimeout(function () {
+            dfd.resolve("hurray");
+        }, Math.floor(400 + Math.random() * 2000));
+        setTimeout(function () {
+            dfd.reject("sorry");
+        }, Math.floor(400 + Math.random() * 2000));
+        setTimeout(function working() {
+            if (dfd.state() === "pending") {
+                dfd.notify("working... ");
+                setTimeout(null, 500);
+            }
+        }, 1);
+        return dfd.promise();
+    }
+    var obj = {
+        hello: function (name) {
+            alert("Hello " + name);
+        }
+    },
+    defer = $.Deferred();
+    defer.promise(obj);
+    defer.resolve("John");
+    $.get("test.php").then(
+        function () { alert("$.get succeeded"); },
+        function () { alert("$.get failed!"); }
+    );
+}
+
+function test_delay() {
+    $('#foo').slideUp(300).delay(800).fadeIn(400);
+    $("button").click(function () {
+        $("div.first").slideUp(300).delay(800).fadeIn(400);
+        $("div.second").slideUp(300).fadeIn(400);
+    });
+}
+
+/* Not existing, but not recommended either
+function test_delegate() {
+    $("table").delegate("td", "click", function () {
+        $(this).toggleClass("chosen");
+    });
+    $("table").on("click", "td", function () {
+        $(this).toggleClass("chosen");
+    });
+    $("body").delegate("p", "click", function () {
+        $(this).after("<p>Another paragraph!</p>");
+    });
+    $("body").delegate("p", "click", function () {
+        alert($(this).text());
+    });
+    $("body").delegate("a", "click", function () { return false; });
+    $("body").delegate("a", "click", function (event) {
+        event.preventDefault();
+    });
+    $("body").delegate("p", "myCustomEvent", function (e, myName, myValue) {
+        $(this).text("Hi there!");
+        $("span").stop().css("opacity", 1)
+                 .text("myName = " + myName)
+                 .fadeIn(30).fadeOut(1000);
+    });
+    $("button").click(function () {
+        $("p").trigger("myCustomEvent");
+    });
+}
+*/
+
+function test_dequeue() {
+    $("button").click(function () {
+        $("div").animate({ left: '+=200px' }, 2000);
+        $("div").animate({ top: '0px' }, 600);
+        $("div").queue(function () {
+            $(this).toggleClass("red");
+            $(this).dequeue();
+        });
+        $("div").animate({ left: '10px', top: '30px' }, 700);
+    });
+}
+
+function test_detach() {
+    $("p").click(function () {
+        $(this).toggleClass("off");
+    });
+    var p;
+    $("button").click(function () {
+        if (p) {
+            p.appendTo("body");
+            p = null;
+        } else {
+            p = $("p").detach();
+        }
+    });
+}
+
+/* Not existing, but not recommended either
+function test_die() {
+    function aClick() {
+        $("div").show().fadeOut("slow");
+    }
+    $("#bind").click(function () {
+        $("#theone").live("click", aClick)
+                    .text("Can Click!");
+    });
+    $("#unbind").click(function () {
+        $("#theone").die("click", aClick)
+                    .text("Does nothing...");
+    });
+    $("p").die();
+    $("p").die("click");
+    var foo = function () { };
+    $("p").live("click", foo);
+    $("p").die("click", foo);
+}
+*/
+
 function test_each() {
     $('li').each(function (index) {
         alert(index + ': ' + $(this).text());

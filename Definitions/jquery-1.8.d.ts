@@ -97,6 +97,7 @@ interface JQueryDeferred extends JQueryPromise {
 
     pipe(doneFilter?: any, failFilter?: any, progressFilter?: any): JQueryPromise;
     progress(...progressCallbacks: any[]): JQueryDeferred;
+    promise(target? ): JQueryDeferred;
     reject(...args: any[]): JQueryDeferred;
     rejectWith(context:any, ...args: any[]): JQueryDeferred;
     resolve(...args: any[]): JQueryDeferred;
@@ -221,7 +222,9 @@ interface JQueryStatic {
     /****
      DATA
     *****/
-    data(element: Element, key: string, value: any): Object;
+    data(element: Element, key: string, value: any): any;
+    data(element: Element, key: string): any;
+    data(element: Element): any;
 
     dequeue(element: Element, queueName?: string): any;
 
