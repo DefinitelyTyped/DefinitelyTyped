@@ -10,3 +10,5 @@
 *.csproj
 *.txt
 *.map
+
+_Resharper.DefinitelyTyped

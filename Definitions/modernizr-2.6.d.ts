@@ -1,5 +1,7 @@
 // Type definitions for Modernizr 2.6.2
-// https://github.com/borisyankov/DefinitelyTyped
+// Project: http://modernizr.com/
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface AudioBool {
     ogg: bool;

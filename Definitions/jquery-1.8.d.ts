@@ -57,8 +57,8 @@ interface JQueryAjaxSettings {
 /*
     Interface for the jqXHR object
 */
-interface JQueryXHR extends XMLHttpRequest {
-    overrideMimeType();
+interface JQueryXHR extends XMLHttpRequest, JQueryPromise {
+    overrideMimeType(mimeType: string);
 }
 
 /*
@@ -74,7 +74,7 @@ interface JQueryCallback {
     has(callback: any): bool;
     lock(): any;
     locked(): bool;
-    removed(...callbacks: any[]): any;
+    remove(...callbacks: any[]): any;
 }
 
 /*
@@ -97,6 +97,7 @@ interface JQueryDeferred extends JQueryPromise {
 
     pipe(doneFilter?: any, failFilter?: any, progressFilter?: any): JQueryPromise;
     progress(...progressCallbacks: any[]): JQueryDeferred;
+    promise(target? ): JQueryDeferred;
     reject(...args: any[]): JQueryDeferred;
     rejectWith(context:any, ...args: any[]): JQueryDeferred;
     resolve(...args: any[]): JQueryDeferred;
@@ -134,6 +135,7 @@ interface JQueryBrowserInfo {
     opera:bool;
     msie:bool;
     mozilla:bool;
+    webkit:bool;
     version:string;
 }
 
@@ -167,11 +169,13 @@ interface JQueryStatic {
     /****
      AJAX
     *****/
-    ajax(settings: JQueryAjaxSettings);
-    ajax(url: string, settings: JQueryAjaxSettings);
+    ajax(settings: JQueryAjaxSettings): JQueryXHR;
+    ajax(url: string, settings?: JQueryAjaxSettings): JQueryXHR;
 
     ajaxPrefilter(dataTypes: string, handler: (opts: any, originalOpts: any, jqXHR: JQueryXHR) => any): any;
     ajaxPrefilter(handler: (opts: any, originalOpts: any, jqXHR: JQueryXHR) => any): any;
+
+    ajaxSettings: JQueryAjaxSettings;
 
     ajaxSetup(options: any);
 
@@ -187,7 +191,7 @@ interface JQueryStatic {
     /*********
      CALLBACKS
     **********/
-    Callbacks(flags: any): JQueryCallback;
+    Callbacks(flags?: string): JQueryCallback;
 
     /****
      CORE
@@ -200,6 +204,7 @@ interface JQueryStatic {
     (elementArray: Element[]): JQuery;
     (object: JQuery): JQuery;
     (func: Function): JQuery;
+    (array: any[]): JQuery;
     (): JQuery;
 
     noConflict(removeAll?: bool): Object;
@@ -212,11 +217,14 @@ interface JQueryStatic {
     css(e: any, propertyName: string, value?: any);
     css(e: any, propertyName: any, value?: any);
     cssHooks: { [key: string]: any; };
+    cssNumber: any;
 
     /****
      DATA
     *****/
-    data(element: Element, key: string, value: any): Object;
+    data(element: Element, key: string, value: any): any;
+    data(element: Element, key: string): any;
+    data(element: Element): any;
 
     dequeue(element: Element, queueName?: string): any;
 
@@ -236,6 +244,7 @@ interface JQueryStatic {
      EVENTS
     *******/
     proxy(context: any, name: any): any;
+    Deferred(): JQueryDeferred;
 
     /*********
      INTERNALS
@@ -311,11 +320,11 @@ interface JQuery {
      AJAX
     *****/
     ajaxComplete(handler: any): JQuery;
-    ajaxError(handler: (evt: any, xhr: any, opts: any) => any): JQuery;
-    ajaxSend(handler: (evt: any, xhr: any, opts: any) => any): JQuery;
+    ajaxError(handler: (event: any, jqXHR: any, settings: any, exception: any) => any): JQuery;
+    ajaxSend(handler: (event: any, jqXHR: any, settings: any, exception: any) => any): JQuery;
     ajaxStart(handler: () => any): JQuery;
     ajaxStop(handler: () => any): JQuery;
-    ajaxSuccess(handler: (evt: any, xml: any, opts: any) => any): JQuery;
+    ajaxSuccess(handler: (event: any, jqXHR: any, settings: any, exception: any) => any): JQuery;
 
     load(url: string, data?: any, complete?: any): JQuery;
 
@@ -326,7 +335,7 @@ interface JQuery {
      ATTRIBUTES
     ***********/
     addClass(classNames: string): JQuery;
-    addClass(func: (index: any, currentClass: any) => JQuery);
+    addClass(func: (index: any, currentClass: any) => string): JQuery;
 
     attr(attributeName: string): string;
     attr(attributeName: string, value: any): JQuery;
@@ -338,7 +347,7 @@ interface JQuery {
     html(htmlString: string): JQuery;
     html(): string;
 
-    prop(propertyName: string): string;
+    prop(propertyName: string): bool;
     prop(propertyName: string, value: any): JQuery;
     prop(map: any): JQuery;
     prop(propertyName: string, func: (index: any, oldPropertyValue: any) => any): JQuery;
@@ -362,11 +371,12 @@ interface JQuery {
     /***
      CSS
     ****/
-    css(propertyName: string, value?: any);
-    css(propertyName: any, value?: any);
+    css(propertyName: string, value?: any): any;
+    css(propertyName: any, value?: any): any;
     
     height(): number;
     height(value: number): JQuery;
+    height(value: string): JQuery;
     height(func: (index: any, height: any) => any): JQuery;
 
     innerHeight(): number;
@@ -389,6 +399,7 @@ interface JQuery {
 
     width(): number;
     width(value: number): JQuery;
+    width(value: string): JQuery;
     width(func: (index: any, height: any) => any): JQuery;
 
     /****
@@ -412,6 +423,7 @@ interface JQuery {
     /*******
      EFFECTS
     ********/
+    animate(properties: any, duration?: any, complete?: Function): JQuery;
     animate(properties: any, duration?: any, easing?: string, complete?: Function): JQuery;
     animate(properties: any, options: { duration?: any; easing?: string; complete?: Function; step?: Function; queue?: bool; specialEasing?: any; });
 
@@ -595,9 +607,10 @@ interface JQuery {
 
     replaceWith(func: any): JQuery;
     
-    text(textString: string): JQuery;
     text(): string;
-
+    text(textString: string): JQuery;
+    text(textString: (index: number, text: string) => string): JQuery;
+    
     toArray(): any[];
 
     unwrap(): JQuery;
@@ -613,7 +626,7 @@ interface JQuery {
     /*************
      MISCELLANEOUS
     **************/
-    each(func: (index: any, elem: Element) => JQuery);
+    each(func: (index: any, elem: Element) => any);
     
     get(index?: number): any;
     

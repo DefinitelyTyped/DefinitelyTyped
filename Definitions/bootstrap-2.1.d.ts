@@ -1,7 +1,9 @@
 // Type definitions for Bootstrap 2.1
-// https://github.com/borisyankov/DefinitelyTyped
+// Project: http://twitter.github.com/bootstrap/
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="jquery.d.ts"/>
+/// <reference path="jquery-1.8.d.ts"/>
 
 interface ModalOptions {
     backdrop?: bool;

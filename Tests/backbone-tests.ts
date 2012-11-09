@@ -2,74 +2,70 @@
 
 declare var _, $;
 
-// Events
-///////////////////////////////////////////////////////
+function test_events() {
 
-var object = new Backbone.Events();
-object.on("alert", (msg) => alert("Triggered " + msg));
+    var object = new Backbone.Events();
+    object.on("alert", (msg) => alert("Triggered " + msg));
 
-object.trigger("alert", "an event");
+    object.trigger("alert", "an event");
 
+    var onChange = () => alert('whatever');
+    var context: any;
 
-var onChange = () => alert('whatever');
-var context: any;
+    object.off("change", onChange);
+    object.off("change");
+    object.off(null, onChange);
+    object.off(null, null, context);
+    object.off();
+}
 
-object.off("change", onChange);
-object.off("change");
-object.off(null, onChange);
-object.off(null, null, context);
-object.off();
+function test_models() {
 
-// Models
-//////////////////////////////////////////////////////
+    var Sidebar = Backbone.Model.extend({
+        promptColor: function () {
+            var cssColor = prompt("Please enter a CSS color:");
+            this.set({ color: cssColor });
+        }
+    });
 
-var Sidebar = Backbone.Model.extend({
-    promptColor: function () {
-        var cssColor = prompt("Please enter a CSS color:");
-        this.set({ color: cssColor });
-    }
-});
+    var sidebar = new Sidebar();
+    sidebar.on('change:color', (model, color) => $('#sidebar').css({ background: color }));
+    sidebar.set({ color: 'white' });
+    sidebar.promptColor();
 
-var sidebar = new Sidebar();
-sidebar.on('change:color', (model, color) => $('#sidebar').css({ background: color }));
-sidebar.set({ color: 'white' });
-sidebar.promptColor();
+    ////////
 
-////////
+    var Note = Backbone.Model.extend({
+        initialize: () => { },
+        author: () => { },
+        coordinates: () => { },
+        allowedToEdit: (account) => {
+            return true;
+        }
+    });
 
-var Note = Backbone.Model.extend({
-    initialize: () => { },
-    author: () => { },
-    coordinates: () => { },
-    allowedToEdit: (account) => {
-        return true;
-    }
-});
+    var PrivateNote = Note.extend({
 
-var PrivateNote = Note.extend({
+        allowedToEdit: function (account) {
+            return account.owns(this);
+        }
 
-    allowedToEdit: function (account) {
-        return account.owns(this);
-    }
+    });
 
-});
+    //////////
 
+    var note = Backbone.Model.extend({
+        set: function (attributes, options) {
+            Backbone.Model.prototype.set.call(this, attributes, options);
+        }
+    });
 
-//////////
+    note.get("title")
 
-var note = Backbone.Model.extend({
-    set: function (attributes, options) {
-        Backbone.Model.prototype.set.call(this, attributes, options);
-    }
-});
+    note.set({ title: "March 20", content: "In his eyes she eclipses..." });
 
-note.get("title")
-
-note.set({ title: "March 20", content: "In his eyes she eclipses..." });
-
-note.set("title", "A Scandal in Bohemia");
-
-//////////
+    note.set("title", "A Scandal in Bohemia");
+}
 
 class Employee extends Backbone.Model {
     reports: EmployeeCollection;
@@ -79,13 +75,37 @@ class Employee extends Backbone.Model {
         this.reports = new EmployeeCollection();
         this.reports.url = '../api/employees/' + this.id + '/reports';
     }
+
+    more() {
+        this.reports.reset();
+    }
 }
 
 class EmployeeCollection extends Backbone.Collection {
-
     url: string = "../api/employees";
-    model = Employee;
     findByName(key) { }
+}
+function test_collection() {
+    var Book: Backbone.Model;
+    var Library = Backbone.Collection.extend({
+        model: Book
+    });
+
+    var Books: Backbone.Collection;
+
+    Books.each(function (book) {
+    });
+
+    var titles = Books.map(function (book) {
+        return book.get("title");
+    });
+
+    var publishedBooks = Books.filter(function (book) {
+        return book.get("published") === true;
+    });
+
+    var alphabetical = Books.sortBy(function (book) {
+    });
 }
 
 //////////
