@@ -58,7 +58,7 @@ interface JQueryAjaxSettings {
     Interface for the jqXHR object
 */
 interface JQueryXHR extends XMLHttpRequest, JQueryPromise {
-    overrideMimeType();
+    overrideMimeType(mimeType: string);
 }
 
 /*
