@@ -316,11 +316,11 @@ interface JQuery {
      AJAX
     *****/
     ajaxComplete(handler: any): JQuery;
-    ajaxError(handler: (evt: any, xhr: any, opts: any) => any): JQuery;
-    ajaxSend(handler: (evt: any, xhr: any, opts: any) => any): JQuery;
+    ajaxError(handler: (event: any, jqXHR: any, settings: any, exception: any) => any): JQuery;
+    ajaxSend(handler: (event: any, jqXHR: any, settings: any, exception: any) => any): JQuery;
     ajaxStart(handler: () => any): JQuery;
     ajaxStop(handler: () => any): JQuery;
-    ajaxSuccess(handler: (evt: any, xml: any, opts: any) => any): JQuery;
+    ajaxSuccess(handler: (event: any, jqXHR: any, settings: any, exception: any) => any): JQuery;
 
     load(url: string, data?: any, complete?: any): JQuery;
 
