@@ -13,9 +13,6 @@ declare var angular: ng.IAngularStatic;
 ///////////////////////////////////////////////////////////////////////////////
 module ng {
 
-    // For the sake of simplicity, let's assume jQuery is always preferred
-    interface IJQLiteOrBetter extends JQuery { }
-
     // All service providers extend this interface
     interface IServiceProvider {
         $get(): any;
@@ -28,10 +25,10 @@ module ng {
     interface IAngularStatic {
         bind(context: any, fn: Function, ...args: any[]): Function;
         bootstrap(element: string, modules?: any[]): auto.IInjectorService;
-        bootstrap(element: IJQLiteOrBetter, modules?: any[]): auto.IInjectorService;
+        bootstrap(element: JQuery, modules?: any[]): auto.IInjectorService;
         bootstrap(element: Element, modules?: any[]): auto.IInjectorService;
         copy(source: any, destination?: any): any;
-        element: IJQLiteOrBetter;
+        element: JQueryStatic;
         equals(value1: any, value2: any): bool;
         extend(destination: any, ...sources: any[]): any;
         forEach(obj: any, iterator: (value, key) => any, context?: any): any;
@@ -360,7 +357,7 @@ module ng {
     // RootElementService
     // see http://docs.angularjs.org/api/ng.$rootElement
     ///////////////////////////////////////////////////////////////////////////
-    interface IRootElementService extends IJQLiteOrBetter {}
+    interface IRootElementService extends JQuery {}
 
     ///////////////////////////////////////////////////////////////////////////
     // QService
@@ -434,7 +431,7 @@ module ng {
     interface ICompileService {
         (element: string, transclude?: ITemplateLinkingFunction, maxPriority?: number): ITemplateLinkingFunction;
         (element: Element, transclude?: ITemplateLinkingFunction, maxPriority?: number): ITemplateLinkingFunction;
-        (element: IJQLiteOrBetter, transclude?: ITemplateLinkingFunction, maxPriority?: number): ITemplateLinkingFunction;
+        (element: JQuery, transclude?: ITemplateLinkingFunction, maxPriority?: number): ITemplateLinkingFunction;
     }
 
     interface ICompileProvider extends IServiceProvider {
@@ -446,7 +443,7 @@ module ng {
 
     interface ITemplateLinkingFunction {
         // Let's hint but not force cloneAttachFn's signature
-        (scope: IScope, cloneAttachFn?: (clonedElement?: IJQLiteOrBetter, scope?: IScope) => any): IJQLiteOrBetter;
+        (scope: IScope, cloneAttachFn?: (clonedElement?: JQuery, scope?: IScope) => any): JQuery;
     }
 
     ///////////////////////////////////////////////////////////////////////////
