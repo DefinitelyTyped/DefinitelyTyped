@@ -44,6 +44,7 @@ Complete
 * [QUnit](http://qunitjs.com/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Raphael](http://raphaeljs.com/) (by [CheCoxshall](https://github.com/CheCoxshall))
 * [Sammy.js](http://sammyjs.org/) (by [Boris Yankov](https://github.com/borisyankov))
+* [SignalR](http://www.asp.net/signalr) (by [Boris Yankov](https://github.com/borisyankov))
 * [SoundJS](http://www.createjs.com/#!/SoundJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [Spin](http://fgnass.github.com/spin.js/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Sugar](http://sugarjs.com/) (by [Josh Baldwin](https://github.com/jbaldwin/))
