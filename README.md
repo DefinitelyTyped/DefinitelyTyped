@@ -51,5 +51,6 @@ Complete
 * [Teechart](http://www.steema.com) (by [Steema](http://www.steema.com))
 * [Toastr](https://github.com/CodeSeven/toastr) (by [Boris Yankov](https://github.com/borisyankov))
 * [TweenJS](http://www.createjs.com/#!/TweenJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
+* [Ubuntu Unity Web API](https://launchpad.net/libunity-webapps) (by [John Vrbanac](https://github.com/jmvrbanac))
 * [Underscore.js](http://underscorejs.org/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Underscore.js (Typed)](http://underscorejs.org/) (by [Josh Baldwin](https://github.com/jbaldwin/))
