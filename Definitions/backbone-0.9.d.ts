@@ -6,7 +6,7 @@
 
 /// <reference path="jquery-1.8.d.ts" />
 
-declare module Backbone {
+declare module "Backbone" {
 
     export interface AddOptions extends Silenceable {
         at: number;
