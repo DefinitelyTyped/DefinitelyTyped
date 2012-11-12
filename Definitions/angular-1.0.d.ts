@@ -14,7 +14,7 @@ declare var angular: ng.IAngularStatic;
 module ng {
 
     // For the sake of simplicity, let's assume jQuery is always preferred
-    interface IJQLiteOrBetter extends JQuery { }
+    interface IJQLiteOrBetter extends JQueryStatic { }
 
     // All service providers extend this interface
     interface IServiceProvider {
