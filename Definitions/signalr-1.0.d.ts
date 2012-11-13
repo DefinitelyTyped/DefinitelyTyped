@@ -23,13 +23,13 @@ interface SignalREvents {
 
 interface SignalR {
     events: SignalREvents;
-    connectionState: any; // ???
+    connectionState: any;
     transports: any;
 
     hub: HubConnection;
-    id: string; // ???
+    id: string;
     logging: bool;
-    messageId: string; // ???
+    messageId: string;
     url: string;
 
     (url: string, queryString?: any, logging?: bool): SignalR;
@@ -40,12 +40,12 @@ interface SignalR {
     changeState(connection: SignalR, expectedState: number, newState: number): bool;
     isDisconnecting(connection: SignalR): bool;
 
-    createHubProxy(hubName: string): SignalR;
+   // createHubProxy(hubName: string): SignalR;
 
-    start(): SignalR;
-    start(callback: () => void ): SignalR;
-    start(settings: ConnectionSettings): SignalR;
-    start(settings: ConnectionSettings, callback: () => void ): SignalR;
+    start(): JQueryPromise;
+    start(callback: () => void ): JQueryPromise;
+    start(settings: ConnectionSettings): JQueryPromise;
+    start(settings: ConnectionSettings, callback: () => void ): JQueryPromise;
 
 
     send(data: string): void;
@@ -59,9 +59,6 @@ interface SignalR {
     connectionSlow(handler: () => void ): SignalR;
     sending(handler: () => void ): SignalR;
     reconnected(handler: () => void ): SignalR;
-
-    done(handler: () => void ): SignalR;
-    fail(handler: () => void ): SignalR;
 }
 
 interface HubProxy {

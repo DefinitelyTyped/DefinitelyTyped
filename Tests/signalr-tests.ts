@@ -50,6 +50,16 @@ function test_connection() {
     });
 }
 
+interface MyHubConnection extends HubConnection {
+    someState: string;
+    SomeFunction: Function;
+}
+
+interface SignalR {
+    chat: HubConnection;
+    myHub: MyHubConnection;
+}
+
 function test_hubs() {
     var chat = $.connection.chat;
     chat.client.addMessage = function (message) {
@@ -69,7 +79,7 @@ function test_hubs() {
     function connectionReady() {
         alert("Done calling first hub serverside-function");
     };
-    myHub.SomeClientFunction = function () {
+    myHub.SomeFunction = function () {
         alert("serverside called 'Clients.SomeClientFunction()'");
     };
     $.connection.hub.error(function () {
@@ -77,7 +87,7 @@ function test_hubs() {
     });
     $.connection.hub.start()
         .done(function () {
-            myHub.SomeFunction(SomeParam)
+            myHub.SomeFunction("whatever")
                     .done(connectionReady);
         })
         .fail(function () {
