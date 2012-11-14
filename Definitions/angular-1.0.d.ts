@@ -232,7 +232,7 @@ module ng {
         // These are not documented
         // Check angular's i18n files for exemples
         NUMBER_FORMATS: ILocaleNumberFormatDescriptor;
-        DATETIME_FORMATS: ILacaleDateTimeFormatDescriptor;
+        DATETIME_FORMATS: ILocaleDateTimeFormatDescriptor;
         pluralCat: (num: any) => string;
     }
 
@@ -255,7 +255,7 @@ module ng {
         lgSize: number;
     }
 
-    interface ILacaleDateTimeFormatDescriptor {
+    interface ILocaleDateTimeFormatDescriptor {
         MONTH: string[];
         SHORTMONTH: string[];
         DAY: string[];
