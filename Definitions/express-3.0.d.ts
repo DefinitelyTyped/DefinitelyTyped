@@ -93,13 +93,21 @@ declare module _express {
       listen(handle: any, listeningListener?: Function): void;
 
       get(name: string): any;
-      get(path: string, handler: (req: ServerRequest, res: ServerResponse) => void ): void;
-      get(path: RegExp, handler: (req: ServerRequest, res: ServerResponse) => void ): void;
-      get(path: string, callbacks: any, callback: () => void ): void;
+      get(path: string, handler: Handler ): void;
+      get(path: RegExp, handler: Handler ): void;
+      get(path: string, ...callbacks: Handler[]): void;
 
-      post(path: string, handler: (req: ServerRequest, res: ServerResponse) => void ): void;
-      post(path: RegExp, handler: (req: ServerRequest, res: ServerResponse) => void ): void;
-      post(path: string, callbacks: any, callback: () => void ): void;
+      post(path: string, handler: Handler ): void;
+      post(path: RegExp, handler: Handler ): void;
+      post(path: string, ...callbacks: Handler[]): void;
+
+      put(path: string, handler: Handler ): void;
+      put(path: RegExp, handler: Handler ): void;
+      put(path: string, ...callbacks: Handler[]): void;
+
+      del(path: string, handler: Handler ): void;
+      del(path: RegExp, handler: Handler ): void;
+      del(path: string, ...callbacks: Handler[]): void;
   }
 
   export interface ServerRequest extends http.ServerRequest {
@@ -197,11 +205,6 @@ declare module _express {
 }
 
 declare module "express" {
-    export interface ServerApplication extends _express.ServerApplication {}
-    export interface ServerRequest extends _express.ServerRequest {}
-    export interface ServerResponse extends _express.ServerResponse {}
-    export interface Handler extends _express.Handler {}
-
     export function (): _express.ServerApplication;
     export function createServer(): ServerApplication;
     export function static(path: string): any;
@@ -211,4 +214,9 @@ declare module "express" {
     export function bodyParser(options?: any): Handler;
     export function errorHandler(opts?: any): Handler;
     export function methodOverride(): Handler;
+
+    export interface ServerApplication extends _express.ServerApplication {}
+    export interface ServerRequest extends _express.ServerRequest {}
+    export interface ServerResponse extends _express.ServerResponse {}
+    export interface Handler extends _express.Handler {}
 }
