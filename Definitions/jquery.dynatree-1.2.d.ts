@@ -4,6 +4,8 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
+/// <reference path="jquery-1.8.d.ts"/>
+
 interface JQuery {
     dynatree(options?: DynatreeOptions): DynaTree;
     dynatree(option?: string, ...rest: any[]): any;
