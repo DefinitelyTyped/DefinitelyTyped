@@ -704,6 +704,31 @@ interface MouseOptions {
     distance?: number;
 }
 
+interface keyCode {
+    BACKSPACE: number;
+    COMMA: number;
+    DELETE: number;
+    DOWN: number;
+    END: number;
+    ENTER: number;
+    ESCAPE: number;
+    HOME: number;
+    LEFT: number;
+    NUMPAD_ADD: number;
+    NUMPAD_DECIMAL: number;
+    NUMPAD_DIVIDE: number;
+    NUMPAD_ENTER: number;
+    NUMPAD_MULTIPLY: number;
+    NUMPAD_SUBTRACT: number;
+    PAGE_DOWN: number;
+    PAGE_UP: number;
+    PERIOD: number;
+    RIGHT: number;
+    SPACE: number;
+    TAB: number;
+    UP: number;
+}
+
 interface UI {
     mouse(method: string): JQuery;
     mouse(options: MouseOptions): JQuery;
@@ -716,12 +741,14 @@ interface UI {
     buttonset: Button;
     datepicker: Datepicker;
     dialog: Dialog;
+    keyCode: number;
     menu: Menu;
     progressbar: Progressbar;
     slider: Slider;
     spinner: Spinner;
     tabs: Tabs;
     tooltip: Tooltip;
+    version: string;
 }
 
 
