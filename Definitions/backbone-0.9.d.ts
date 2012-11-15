@@ -49,7 +49,7 @@ declare module Backbone {
 
     export class ModelBase extends Events {
         fetch(options?: JQueryAjaxSettings);
-        url: string; // or url(): string;
+        url(): string;
         parse(response);
         toJSON(): any;
     }
@@ -63,7 +63,7 @@ declare module Backbone {
         cid: string;
         id: any;
         idAttribute: string;
-        urlRoot: string; // or urlRoot()
+        urlRoot() : string;
 
         constructor (attributes?: any, options?: any);
         initialize(attributes?: any);
@@ -142,8 +142,6 @@ declare module Backbone {
         flatten(shallow?: bool): Model[];
         foldl(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any;
         forEach(iterator: (element: Model, index: number, list?: any) => void, context?: any);
-        groupBy(iterator: (element: Model, index: number) => any): any[];
-        groupBy(attribute: string): any[];
         include(value: any): bool;
         indexOf(element: Model, isSorted?: bool): number;
         initial(): Model;
