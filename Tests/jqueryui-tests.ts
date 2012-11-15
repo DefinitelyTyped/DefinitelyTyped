@@ -46,9 +46,9 @@ function test_draggable() {
     $("#set div").draggable({ stack: "#set div" });
     $.datepicker.formatDate('yy-mm-dd', new Date(2007, 1 - 1, 26));
     $.datepicker.formatDate('DD, MM d, yy', new Date(2007, 7 - 1, 14), {
-        dayNamesShort: $.datepicker.regional['fr'].dayNamesShort, 
-        dayNames: $.datepicker.regional['fr'].dayNames, 
-        monthNamesShort: $.datepicker.regional['fr'].monthNamesShort, 
+        dayNamesShort: $.datepicker.regional['fr'].dayNamesShort,
+        dayNames: $.datepicker.regional['fr'].dayNames,
+        monthNamesShort: $.datepicker.regional['fr'].monthNamesShort,
         monthNames: $.datepicker.regional['fr'].monthNames
     });
     $("#datepicker").datepicker({ beforeShowDay: $.datepicker.noWeekends });
@@ -1554,6 +1554,9 @@ function test_ui() {
     $(".selector").jQuery.ui.mouse({ delay: 300 });
     $(".selector").jQuery.ui.mouse({ distance: 10 });
     $(".selector").jQuery.ui.mouse("_mouseCapture");
+    $("aDialog").keypress(function (e) {
+        return (e.keyCode == $.ui.keyCode.ENTER);
+    });
 }
 
 function test_widget() {
