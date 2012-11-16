@@ -1,4 +1,4 @@
-// Type definitions for jquery.bbq 1.2.1
+// Type definitions for jquery.bbq 1.2
 // Project: http://benalman.com/projects/jquery-bbq-plugin/
 // Definitions by: https://github.com/sunetos
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
