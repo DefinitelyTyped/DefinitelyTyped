@@ -503,6 +503,8 @@ module createjs {
         clone(): Stage;
         enableMouseOver(frequency: number): void;
         toDataURL(backgroundColor: string, mimeType: string): string;
+        update(): void;
+        clear(): void;
 
         // events
         onMouseDown: (event: MouseEvent) => any;
