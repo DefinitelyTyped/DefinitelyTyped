@@ -45,6 +45,7 @@ Complete
 * [PreloadJS](http://www.createjs.com/#!/PreloadJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [QUnit](http://qunitjs.com/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Raphael](http://raphaeljs.com/) (by [CheCoxshall](https://github.com/CheCoxshall))
+* [require.js](http://requirejs.org/) (by [Josh Baldwin](https://github.com/jbaldwin/))
 * [Sammy.js](http://sammyjs.org/) (by [Boris Yankov](https://github.com/borisyankov))
 * [SignalR](http://www.asp.net/signalr) (by [Boris Yankov](https://github.com/borisyankov))
 * [SoundJS](http://www.createjs.com/#!/SoundJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
