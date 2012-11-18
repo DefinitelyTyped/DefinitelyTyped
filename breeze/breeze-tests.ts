@@ -1,4 +1,4 @@
-/// <reference path="../Definitions/breeze-0.65.d.ts" />
+/// <reference path="breeze-0.65.d.ts" />
 
 function test_dataProperty() {
     var lastNameProp = new DataProperty({

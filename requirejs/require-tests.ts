@@ -1,4 +1,4 @@
-/// <reference path="../Definitions/require-2.1.d.ts" />
+/// <reference path="require-2.1.d.ts" />
 
 // this test does not actually reference amd module 'main.ts', create one yourself.
 

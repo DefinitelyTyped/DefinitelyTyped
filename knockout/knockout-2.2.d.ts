@@ -3,6 +3,7 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+
 interface KnockoutSubscribableFunctions {
     extend(source);
     dispose(): void;

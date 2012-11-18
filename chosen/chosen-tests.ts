@@ -1,4 +1,4 @@
-/// <reference path="../Definitions/chosen-0.9.d.ts" />
+/// <reference path="chosen-0.9.d.ts" />
 
 $(".chzn-select").chosen({ no_results_text: "No results matched" });
 $("#form_field").chosen().change();

@@ -1,4 +1,4 @@
-/// <reference path="../Definitions/qunit-1.10.d.ts" />
+/// <reference path="qunit-1.10.d.ts" />
 
 QUnit.test("deepEqual test", function () {
     var obj = { foo: "bar" };

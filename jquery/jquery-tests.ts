@@ -1,4 +1,4 @@
-/// <reference path="../Definitions/jquery-1.8.d.ts" />
+/// <reference path="jquery-1.8.d.ts" />
 
 function test_add() {
     $("p").add("div").addClass("widget");

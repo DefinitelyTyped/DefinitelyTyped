@@ -11,7 +11,7 @@
 */
 
 
-/// <reference path="tweenjs-0.3.d.ts" />
+/// <reference path="../tweenjs/tweenjs-0.3.d.ts" />
 
 // rename the native MouseEvent, to avoid conflit with createjs's MouseEvent
 interface NativeMouseEvent extends MouseEvent {

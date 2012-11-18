@@ -1,4 +1,4 @@
-/// <reference path="../Definitions/globalize.d.ts" />
+/// <reference path="globalize.d.ts" />
 
 Globalize.culture("fr");
 console.log(Globalize.culture().name);

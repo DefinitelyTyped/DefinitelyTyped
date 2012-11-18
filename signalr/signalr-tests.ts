@@ -1,4 +1,4 @@
-/// <reference path="../Definitions/signalr-1.0.d.ts" />
+/// <reference path="signalr-1.0.d.ts" />
 
 function test_client() {
     var connection = $.connection('/echo');

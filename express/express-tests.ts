@@ -1,4 +1,4 @@
-/// <reference path="../Definitions/express-3.0.d.ts" />
+/// <reference path="express-3.0.d.ts" />
 
 declare var _, $;
 

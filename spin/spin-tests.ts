@@ -1,4 +1,4 @@
-/// <reference path="../Definitions/spin-1.2.d.ts" />
+/// <reference path="spin-1.2.d.ts" />
 
 var spinner = new Spinner().spin();
 target.appendChild(spinner.el);

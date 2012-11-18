@@ -1,4 +1,4 @@
-/// <reference path="../Definitions/toastr-1.0.d.ts" />
+/// <reference path="toastr-1.0.d.ts" />
 
 function test_basic() {
     toastr.info('Are you the 6 fingered man?');

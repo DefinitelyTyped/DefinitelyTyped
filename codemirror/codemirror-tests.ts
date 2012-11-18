@@ -1,4 +1,4 @@
-/// <reference path="../Definitions/codemirror-3.0.d.ts" />
+/// <reference path="codemirror-3.0.d.ts" />
 
 var myCodeMirror = CodeMirror(document.body);
 

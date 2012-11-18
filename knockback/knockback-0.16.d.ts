@@ -1,5 +1,6 @@
-﻿/// <reference path="backbone-0.9.d.ts" />
-/// <reference path="knockout-2.2.d.ts" />
+﻿/// <reference path="../backbone/backbone-0.9.d.ts" />
+/// <reference path="../knockout/knockout-2.2.d.ts" />
+
 declare module Knockback {
     export interface EventWatcherOptions {
         emitter: (newEmitter) => void;

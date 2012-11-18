@@ -1,5 +1,5 @@
-/// <reference path="../Definitions/jquery-1.8.d.ts" />
-/// <reference path="../Definitions/jqueryui-1.9.d.ts" />
+/// <reference path="jquery-1.8.d.ts" />
+/// <reference path="jqueryui-1.9.d.ts" />
 
 function test_draggable() {
 

@@ -1,5 +1,5 @@
-/// <reference path="../Definitions/ember-1.0.d.ts" />
-/// <reference path="../Definitions/handlebars-1.0.d.ts" />
+/// <reference path="ember-1.0.d.ts" />
+/// <reference path="handlebars-1.0.d.ts" />
 
 var App;
 

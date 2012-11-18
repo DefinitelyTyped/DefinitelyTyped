@@ -18,8 +18,6 @@
  */
 
 
-/// <reference path="lib.d.ts" />
-
 module Tee {
 
   interface IPoint {

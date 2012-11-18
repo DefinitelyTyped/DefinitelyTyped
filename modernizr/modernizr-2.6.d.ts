@@ -3,6 +3,7 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+
 interface AudioBool {
     ogg: bool;
     mp3: bool;

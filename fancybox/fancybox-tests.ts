@@ -1,5 +1,5 @@
-/// <reference path="../Definitions/jquery-1.8.d.ts" />
-/// <reference path="../Definitions/fancybox-2.1.d.ts" />
+/// <reference path="jquery-1.8.d.ts" />
+/// <reference path="fancybox-2.1.d.ts" />
 
 $('.fancybox').fancybox();
 $('.fancybox').fancybox({
