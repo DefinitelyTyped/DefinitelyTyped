@@ -1133,6 +1133,7 @@ function test_prop() {
     $("input[type='checkbox']").prop({
         disabled: true
     });
+    var title: string = $('option:selected', this).prop('title');
 }
 
 function test_text() {
