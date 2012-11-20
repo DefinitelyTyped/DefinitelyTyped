@@ -1090,6 +1090,31 @@ function test_die() {
 */
 
 function test_each() {
+    $.each([52, 97], function (index, value) {
+        alert(index + ': ' + value);
+    });
+    var map = {
+        'flammable': 'inflammable',
+        'duh': 'no duh'
+    };
+    $.each(map, function (key, value) {
+        alert(key + ': ' + value);
+    });
+    var arr = ["one", "two", "three", "four", "five"];
+    var obj = { one: 1, two: 2, three: 3, four: 4, five: 5 };
+    jQuery.each(arr, function () {
+        $("#" + this).text("Mine is " + this + ".");
+        return (this != "three");
+    });
+    jQuery.each(obj, function (i, val) {
+        $("#" + i).append(document.createTextNode(" - " + val));
+    });
+    $.each(['a', 'b', 'c'], function (i, l) {
+        alert("Index #" + i + ": " + l);
+    });
+    $.each({ name: "John", lang: "JS" }, function (k, v) {
+        alert("Key: " + k + ", Value: " + v);
+    });
     $('li').each(function (index) {
         alert(index + ': ' + $(this).text());
     });
@@ -1117,6 +1142,41 @@ function test_each() {
             }
         });
     });
+}
+
+function test_empty() {
+    $('.hello').empty();
+}
+
+function test_end() {
+    $('ul.first').find('.foo').css('background-color', 'red')
+        .end().find('.bar').css('background-color', 'green');
+    $('ul.first').find('.foo')
+        .css('background-color', 'red')
+        .end().find('.bar')
+        .css('background-color', 'green')
+        .end();
+}
+
+function test_eq() {
+    $('li').eq(2).css('background-color', 'red');
+    $('li').eq(-2).css('background-color', 'red');
+    $('li').eq(5).css('background-color', 'red');
+    $("body").find("div").eq(2).addClass("blue");
+}
+
+function test_error() {
+    $('#book')
+        .error(function () {
+            alert('Handler for .error() called.')
+        })
+        .attr("src", "missing.png");
+    $("img")
+        .error(function () {
+            $(this).hide();
+        })
+        .attr("src", "missing.png");
+    jQuery.error = console.error;
 }
 
 function test_mouseEvents() {

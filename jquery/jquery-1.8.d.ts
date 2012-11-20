@@ -575,6 +575,10 @@ interface JQuery {
     
     context: Element;
     jquery: string;
+
+    error(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    error(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
+
     pushStack(elements: any[]): JQuery;
     pushStack(elements: any[], name: any, arguments: any): JQuery;
 
