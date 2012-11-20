@@ -278,7 +278,7 @@ interface JQueryStatic {
 
     globalEval(code: string): any;
 
-    grep(array: any[], func: any, invert: bool): any[];
+    grep(array: any[], func: any, invert?: bool): any[];
 
     inArray(value: any, array: any[], fromIndex?: number): number;
 
@@ -440,6 +440,7 @@ interface JQuery {
     fadeTo(duration: any, opacity: number, callback?: any): JQuery;
     fadeTo(duration: any, opacity: number, easing?: string, callback?: any): JQuery;
 
+    fadeToggle(duration?: any, callback?: any): JQuery;
     fadeToggle(duration?: any, easing?: string, callback?: any): JQuery;
 
     hide(duration?: any, callback?: any): JQuery;

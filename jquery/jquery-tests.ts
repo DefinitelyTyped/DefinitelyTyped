@@ -1179,6 +1179,437 @@ function test_error() {
     jQuery.error = console.error;
 }
 
+function test_eventParams() {
+    $("p").click(function (event) {
+        event.currentTarget === this;
+    });
+    $(".box").on("click", "button", function (event) {
+        $(event.delegateTarget).css("background-color", "red");
+    });
+    $("a").click(function (event) {
+        event.isDefaultPrevented();
+        event.preventDefault();
+        event.isDefaultPrevented();
+    });
+    function immediatePropStopped(e) {
+        var msg = "";
+        if (e.isImmediatePropagationStopped()) {
+            msg = "called"
+        } else {
+            msg = "not called";
+        }
+        $("#stop-log").append("<div>" + msg + "</div>");
+    }
+    $("button").click(function (event) {
+        immediatePropStopped(event);
+        event.stopImmediatePropagation();
+        immediatePropStopped(event);
+    });
+    function propStopped(e) {
+        var msg = "";
+        if (e.isPropagationStopped()) {
+            msg = "called"
+        } else {
+            msg = "not called";
+        }
+        $("#stop-log").append("<div>" + msg + "</div>");
+    }
+    $("button").click(function (event) {
+        propStopped(event);
+        event.stopPropagation();
+        propStopped(event);
+    });
+    $("p").bind("test.something", function (event) {
+        alert(event.namespace);
+    });
+    $("button").click(function (event) {
+        $("p").trigger("test.something");
+    });
+    $(document).bind('mousemove', function (e) {
+        $("#log").text("e.pageX: " + e.pageX + ", e.pageY: " + e.pageY);
+    });
+    $("a").click(function (event) {
+        event.preventDefault();
+        $('<div/>')
+            .append('default ' + event.type + ' prevented')
+            .appendTo('#log');
+    });
+    $("a").mouseout(function (event) {
+        alert(event.relatedTarget.nodeName);
+    });
+    $("button").click(function (event) {
+        return "hey";
+    });
+    $("button").click(function (event) {
+        $("p").html(event.result);
+    });
+    $("p").click(function (event) {
+        event.stopImmediatePropagation();
+    });
+    $("p").click(function (event) {
+        $(this).css("background-color", "#f00");
+    });
+    $("div").click(function (event) {
+        $(this).css("background-color", "#f00");
+    });
+    $("p").click(function (event) {
+        event.stopPropagation();
+    });
+    $("body").click(function (event) {
+        $("#log").html("clicked: " + event.target.nodeName);
+    });
+    $('#whichkey').bind('keydown', function (e) {
+        $('#log').html(e.type + ': ' + e.which);
+    });
+    $('#whichkey').bind('mousedown', function (e) {
+        $('#log').html(e.type + ': ' + e.which);
+    });
+}
+
+function test_extend() {
+    var object1 = {
+        apple: 0,
+        banana: { weight: 52, price: 100 },
+        cherry: 97
+    };
+    var object2 = {
+        banana: { price: 200 },
+        durian: 100
+    };
+    $.extend(object1, object2);
+    var printObj = typeof JSON != "undefined" ? JSON.stringify : function (obj) {
+        var arr = [];
+        $.each(obj, function (key, val) {
+            var next = key + ": ";
+            next += $.isPlainObject(val) ? printObj(val) : val;
+            arr.push(next);
+        });
+        return "{ " + arr.join(", ") + " }";
+    };
+    $("#log").append(printObj(object1));
+
+    var defaults = { validate: false, limit: 5, name: "foo" };
+    var options = { validate: true, name: "bar" };
+    var settings = $.extend({}, defaults, options);
+}
+
+function test_fadeIn() {
+    $('#clickme').click(function () {
+        $('#book').fadeIn('slow', function () { });
+    });
+    $(document.body).click(function () {
+        $("div:hidden:first").fadeIn("slow");
+    });
+    $("a").click(function () {
+        $("div").fadeIn(3000, function () {
+            $("span").fadeIn(100);
+        });
+        return false;
+    });
+}
+
+function test_fadeOut() {
+    $('#clickme').click(function () {
+        $('#book').fadeOut('slow', function () { });
+    });
+    $("p").click(function () {
+        $("p").fadeOut("slow");
+    });
+    $("span").click(function () {
+        $(this).fadeOut(1000, function () {
+            $("div").text("'" + $(this).text() + "' has faded!");
+            $(this).remove();
+        });
+    });
+    $("span").hover(function () {
+        $(this).addClass("hilite");
+    }, function () {
+        $(this).removeClass("hilite");
+    });
+    $("#btn1").click(function () {
+        function complete() {
+            $("<div/>").text(this.id).appendTo("#log");
+        }
+        $("#box1").fadeOut(1600, "linear", complete);
+        $("#box2").fadeOut(1600, complete);
+    });
+    $("#btn2").click(function () {
+        $("div").show();
+        $("#log").empty();
+    });
+}
+
+function test_fadeTo() {
+    $('#clickme').click(function () {
+        $('#book').fadeTo('slow', 0.5, function () { });
+    });
+    $("p:first").click(function () {
+        $(this).fadeTo("slow", 0.33);
+    });
+    $("div").click(function () {
+        $(this).fadeTo("fast", Math.random());
+    });
+    var getPos = function (n) {
+        return (Math.floor(n) * 90) + "px";
+    };
+    $("p").each(function (n) {
+        var r = Math.floor(Math.random() * 3);
+        var tmp = $(this).text();
+        $(this).text($("p:eq(" + r + ")").text());
+        $("p:eq(" + r + ")").text(tmp);
+        $(this).css("left", getPos(n));
+    });
+    $("div").each(function (n) {
+        $(this).css("left", getPos(n));
+    })
+    .css("cursor", "pointer")
+    .click(function () {
+        $(this).fadeTo(250, 0.25, function () {
+            $(this).css("cursor", "")
+                   .prev().css({
+                       "font-weight": "bolder",
+                       "font-style": "italic"
+                   });
+        });
+    });
+}
+
+function test_fadeToggle() {
+    $("button:first").click(function () {
+        $("p:first").fadeToggle("slow", "linear");
+    });
+    $("button:last").click(function () {
+        $("p:last").fadeToggle("fast", function () {
+            $("#log").append("<div>finished</div>");
+        });
+    });
+}
+
+function test_filter() {
+    $('li').filter(':even').css('background-color', 'red');
+    $('li').filter(function (index) {
+        return index % 3 == 2;
+    }).css('background-color', 'red');
+    $("div").css("background", "#b4b0da")
+        .filter(function (index) {
+            return index == 1 || $(this).attr("id") == "fourth";
+        })
+        .css("border", "3px double red");
+    $("div").filter(document.getElementById("unique"));
+    $("div").filter($("#unique"));
+}
+
+function test_find() {
+    $('li.item-ii').find('li').css('background-color', 'red');
+    var item1 = $('li.item-1')[0];
+    $('li.item-ii').find(item1).css('background-color', 'red');
+    var $spans = $('span');
+    $("p").find($spans).css('color', 'red');
+    var newText = $("p").text().split(" ").join("</span> <span>");
+    newText = "<span>" + newText + "</span>";
+    $("p").html(newText)
+        .find('span')
+        .hover(function () {
+            $(this).addClass("hilite");
+        },
+        function () {
+            $(this).removeClass("hilite");
+        })
+    .end()
+        .find(":contains('t')")
+        .css({ "font-style": "italic", "font-weight": "bolder" });
+}
+
+function test_first() {
+    $('li').first().css('background-color', 'red');
+}
+
+function test_focus() {
+    $('#target').focus(function () {
+        alert('Handler for .focus() called.');
+    });
+    $('#other').click(function () {
+        $('#target').focus();
+    });
+    $("input").focus(function () {
+        $(this).next("span").css('display', 'inline').fadeOut(1000);
+    });
+    $("input[type=text]").focus(function () {
+        $(this).blur();
+    });
+    $(document).ready(function () {
+        $("#login").focus();
+    });
+}
+
+function test_focusin() {
+    $("p").focusin(function () {
+        $(this).find("span").css('display', 'inline').fadeOut(1000);
+    });
+}
+
+function test_focusout() {
+    var fo = 0, b = 0;
+    $("p").focusout(function () {
+        fo++;
+        $("#fo")
+            .text("focusout fired: " + fo + "x");
+    }).blur(function () {
+        b++;
+        $("#b")
+            .text("blur fired: " + b + "x");
+    });
+}
+
+function test_fx() {
+    jQuery.fx.interval = 100;
+    $("input").click(function () {
+        $("div").toggle(3000);
+    });
+    var toggleFx = function () {
+        $.fx.off = !$.fx.off;
+    };
+    toggleFx();
+    $("button").click(toggleFx)
+    $("input").click(function () {
+        $("div").toggle("slow");
+    });
+}
+
+function test_get() {
+    $.get('ajax/test.html', function (data) {
+        $('.result').html(data);
+        alert('Load was performed.');
+    });
+    var jqxhr = $.get("example.php", function () {
+        alert("success");
+    })
+    .success(function () { alert("second success"); })
+    .error(function () { alert("error"); })
+    .complete(function () { alert("complete"); });
+    jqxhr.complete(function () { alert("second complete"); });
+
+    $.get("test.php");
+    $.get("test.php", { name: "John", time: "2pm" });
+    $.get("test.php", { 'choices[]': ["Jon", "Susan"] });
+    $.get("test.php", function (data) {
+        alert("Data Loaded: " + data);
+    });
+    $.get("test.cgi", { name: "John", time: "2pm" },
+        function (data) {
+            alert("Data Loaded: " + data);
+        });
+    $.get("test.php",
+       function (data) {
+           $('body').append("Name: " + data.name)
+                    .append("Time: " + data.time);
+       }, "json");
+    alert($('li').get());
+    $('li').get(0);
+    $('li')[0];
+    alert($('li').get(-1));
+    function disp(divs) {
+        var a = [];
+        for (var i = 0; i < divs.length; i++) {
+            a.push(divs[i].innerHTML);
+        }
+        $("span").text(a.join(" "));
+    }
+    disp($("div").get().reverse());
+    $("*", document.body).click(function (e) {
+        e.stopPropagation();
+        var domEl = $(this).get(0);
+        $("span:first").text("Clicked on - " + domEl.tagName);
+    });
+}
+
+function test_getJSON() {
+    $.getJSON('ajax/test.json', function (data) {
+        var items = [];
+        $.each(data, function (key, val) {
+            items.push('<li id="' + key + '">' + val + '</li>');
+        });
+        $('<ul/>', {
+            'class': 'my-new-list',
+            html: items.join('')
+        }).appendTo('body');
+    });
+    var jqxhr = $.getJSON("example.json", function () {
+        alert("success");
+    })
+    .success(function () { alert("second success"); })
+    .error(function () { alert("error"); })
+    .complete(function () { alert("complete"); });
+    jqxhr.complete(function () { alert("second complete"); });
+    $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
+    {
+        tags: "mount rainier",
+        tagmode: "any",
+        format: "json"
+    },
+    function (data) {
+        $.each(data.items, function (i, item) {
+            $("<img/>").attr("src", item.media.m).appendTo("#images");
+            if (i == 3) return false;
+        });
+    });
+    $.getJSON("test.js", function (json) {
+        alert("JSON Data: " + json.users[3].name);
+    });
+    $.getJSON("test.js", { name: "John", time: "2pm" }, function (json) {
+        alert("JSON Data: " + json.users[3].name);
+    });
+}
+
+function test_getScript() {
+    $.getScript("ajax/test.js", function (data, textStatus, jqxhr) {
+        console.log(data);
+        console.log(textStatus);
+        console.log(jqxhr.status);
+        console.log('Load was performed.');
+    });
+    $.getScript("ajax/test.js")
+        .done(function (script, textStatus) {
+            console.log(textStatus);
+        })
+        .fail(function (jqxhr, settings, exception) {
+            $("div.log").text("Triggered ajaxError handler.");
+        });
+    $("div.log").ajaxError(function (e, jqxhr, settings, exception) {
+        if (settings.dataType == 'script') {
+            $(this).text("Triggered ajaxError handler.");
+        }
+    });
+    $.ajaxSetup({
+        cache: true
+    });
+    $.getScript("/scripts/jquery.color.js", function () {
+        $("#go").click(function () {
+            $(".block").animate({ backgroundColor: "pink" }, 1000)
+              .delay(500)
+              .animate({ backgroundColor: "blue" }, 1000);
+        });
+    });
+}
+
+function test_globalEval() {
+    jQuery.globalEval("var newVar = true;");
+}
+
+function test_grep() {
+    var arr = [1, 9, 3, 8, 6, 1, 5, 9, 4, 7, 3, 8, 6, 9, 1];
+    $("div").text(arr.join(", "));
+    arr = jQuery.grep(arr, function (n, i) {
+        return (n != 5 && i > 4);
+    });
+    $("p").text(arr.join(", "));
+    arr = jQuery.grep(arr, function (a) { return a != 9; });
+    $("span").text(arr.join(", "));
+    $.grep([0, 1, 2], function (n, i) {
+        return n > 0;
+    }, true);
+}
+
 function test_mouseEvents() {
     var i = 0;
     $("div.overout").mouseover(function () {
