@@ -1119,6 +1119,24 @@ function test_each() {
     });
 }
 
+function test_mouseEvents() {
+    var i = 0;
+    $("div.overout").mouseover(function () {
+        $("p:first", this).text("mouse over");
+        $("p:last", this).text(++i);
+    }).mouseout(function () {
+        $("p:first", this).text("mouse out");
+    });
+
+    var n = 0;
+    $("div.enterleave").mouseenter(function () {
+        $("p:first", this).text("mouse enter");
+        $("p:last", this).text(++n);
+    }).mouseleave(function () {
+        $("p:first", this).text("mouse leave");
+    });
+}
+
 function test_prop() {
     var $input = $(this);
     $("p").html(".attr('checked'): <b>" + $input.attr('checked') + "</b><br>"
