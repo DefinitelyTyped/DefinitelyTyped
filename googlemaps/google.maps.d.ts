@@ -185,6 +185,7 @@ declare module google.maps {
 
     /***** Overlays *****/
     export class Marker extends MVCObject {
+        static MAX_ZINDEX: number;
         constructor (opts?: MarkerOptions);
         getAnimation(): Animation;
         getClickable(): bool;
