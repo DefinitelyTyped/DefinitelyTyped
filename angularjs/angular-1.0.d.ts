@@ -518,7 +518,7 @@ module ng {
     ///////////////////////////////////////////////////////////////////////////
     interface IHttpBackendService {
         // XXX Perhaps define callback signature in the future
-        (method: string, url: string, post?: any, callback?: Function, headers?: any, timeout?: number, withCredentials?: bool); void;
+        (method: string, url: string, post?: any, callback?: Function, headers?: any, timeout?: number, withCredentials?: bool): void;
     }
 
     ///////////////////////////////////////////////////////////////////////////
