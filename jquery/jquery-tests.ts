@@ -1484,10 +1484,8 @@ function test_get() {
     var jqxhr = $.get("example.php", function () {
         alert("success");
     })
-    .success(function () { alert("second success"); })
-    .error(function () { alert("error"); })
-    .complete(function () { alert("complete"); });
-    jqxhr.complete(function () { alert("second complete"); });
+    .done(function () { alert("second success"); })
+    .fail(function () { alert("error"); });
 
     $.get("test.php");
     $.get("test.php", { name: "John", time: "2pm" });
@@ -1537,10 +1535,8 @@ function test_getJSON() {
     var jqxhr = $.getJSON("example.json", function () {
         alert("success");
     })
-    .success(function () { alert("second success"); })
-    .error(function () { alert("error"); })
-    .complete(function () { alert("complete"); });
-    jqxhr.complete(function () { alert("second complete"); });
+    .done(function () { alert("second success"); })
+    .fail(function () { alert("error"); });
     $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
     {
         tags: "mount rainier",
@@ -1608,6 +1604,130 @@ function test_grep() {
     $.grep([0, 1, 2], function (n, i) {
         return n > 0;
     }, true);
+}
+
+function test_has() {
+    $('li').has('ul').css('background-color', 'red');
+    $("ul").append("<li>" + ($("ul").has("li").length ? "Yes" : "No") + "</li>");
+    $("ul").has("li").addClass("full");
+}
+
+function test_hasClass() {
+    $('#mydiv').hasClass('foo');
+    $("div#result1").append($("p:first").hasClass("selected").toString());
+    $("div#result2").append($("p:last").hasClass("selected").toString());
+    $("div#result3").append($("p").hasClass("selected").toString());
+}
+
+function test_hasData() {
+    var $p = jQuery("p"), p = $p[0];
+    $p.append(jQuery.hasData(p) + " ");
+    $.data(p, "testing", 123);
+    $p.append(jQuery.hasData(p) + " ");
+    $.removeData(p, "testing");
+    $p.append(jQuery.hasData(p) + " ");
+    $p.on('click', function () { });
+    $p.append(jQuery.hasData(p) + " ");
+    $p.off('click');
+    $p.append(jQuery.hasData(p) + " ");
+}
+
+function test_height() {
+    $(window).height();
+    $(document).height();
+    function showHeight(ele, h) {
+        $("div").text("The height for the " + ele + " is " + h + "px.");
+    }
+    $("#getp").click(function () {
+        showHeight("paragraph", $("p").height());
+    });
+    $("#getd").click(function () {
+        showHeight("document", $(document).height());
+    });
+    $("#getw").click(function () {
+        showHeight("window", $(window).height());
+    });
+    $("div").one('click', function () {
+        $(this).height(30)
+               .css({ cursor: "auto", backgroundColor: "green" });
+    });
+}
+
+function test_hide() {
+    $('.target').hide();
+    $('#clickme').click(function () {
+        $('#book').hide('slow', function () {
+            alert('Animation complete.');
+        });
+    });
+    $("p").hide();
+    $("a").click(function (event) {
+        event.preventDefault();
+        $(this).hide();
+    });
+    $("button").click(function () {
+        $("p").hide("slow");
+    });
+    $("#hidr").click(function () {
+        $("span:last-child").hide("fast", function () {
+            $(this).prev().hide("fast", arguments.callee);
+        });
+    });
+    $("#showr").click(function () {
+        $("span").show(2000);
+    });
+    $("div").click(function () {
+        $(this).hide(2000, function () {
+            $(this).remove();
+        });
+    });
+}
+
+function test_holdReady() {
+    $.holdReady(true);
+    $.getScript("myplugin.js", function () {
+        $.holdReady(false);
+    });
+}
+
+function test_hover() {
+    $("li").hover(
+        function () {
+            $(this).append($("<span> ***</span>"));
+        },
+        function () {
+            $(this).find("span:last").remove();
+        }
+    );
+    $("li.fade").hover(function () { $(this).fadeOut(100); $(this).fadeIn(500); });
+    $("li")
+    .filter(":odd")
+    .hide()
+    .end()
+    .filter(":even")
+    .hover(
+        function () {
+            $(this).toggleClass("active")
+            .next().stop(true, true).slideToggle();
+        }
+    );
+}
+
+function test_html() {
+    $('div.demo-container').html();
+    $("p").click(function () {
+        var htmlStr = $(this).html();
+        $(this).text(htmlStr);
+    });
+    $('div.demo-container')
+        .html('<p>All new content. <em>You bet!</em></p>');
+    $('div.demo-container').html(function () {
+        var emph = '<em>' + $('p').length + ' paragraphs!</em>';
+        return '<p>All new content for ' + emph + '</p>';
+    });
+    $("div").html("<b>Wow!</b> Such excitement...");
+    $("div b").append(document.createTextNode("!!!"))
+              .css("color", "red");
 }
 
 function test_mouseEvents() {
