@@ -688,10 +688,10 @@ interface JQuery {
     has(selector: string): JQuery;
     has(contained: Element): JQuery;
 
-    is(selector: string): JQuery;
-    is(func: (index: any) =>any): JQuery;
-    is(element: any): JQuery;
-    is(obj: JQuery): JQuery;
+    is(selector: string): bool;
+    is(func: (index: any) =>any): bool;
+    is(element: any): bool;
+    is(obj: JQuery): bool;
 
     last(): JQuery;
 
