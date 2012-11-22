@@ -610,7 +610,7 @@ declare module chrome.devtools.panels {
     }
 
     interface ExtensionPanel {
-        createStatusButton(iconPath: string, tooltipText: string, disabled: bool): void;
+        createStatusButton(iconPath: string, tooltipText: string, disabled: bool): Button;
         onShown: PanelShownEvent;
         onHidden: PanelHiddenEvent;
         onSearch: PanelSearchEvent;
