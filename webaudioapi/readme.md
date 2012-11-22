@@ -12,3 +12,5 @@ The WebKit nightly builds try to keep up with the editors draft version of the s
 ### Adding the reference to your project
 
     /// <reference path="waa.d.ts" />
+or
+    /// <reference path="waa-nightly.d.ts" />
