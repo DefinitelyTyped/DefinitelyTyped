@@ -1730,6 +1730,34 @@ function test_html() {
               .css("color", "red");
 }
 
+function test_load() {
+    $('#result').load('ajax/test.html');
+    $('#result').load('ajax/test.html', function () {
+        alert('Load was performed.');
+    });
+    $('#result').load('ajax/test.html #container');
+    $('#b').load('article.html #target');
+    $("#success").load("/not-here.php", function (response, status, xhr) {
+        if (status == "error") {
+            var msg = "Sorry but there was an error: ";
+            $("#error").html(msg + xhr.status + " " + xhr.statusText);
+        }
+    });
+    $("#objectID").load("test.php", { 'choices[]': ["Jon", "Susan"] });
+    $("#feeds").load("feeds.php", { limit: 25 }, function () {
+        alert("The last 25 entries in the feed have been loaded");
+    });
+}
+
+function test_loadEvent() {
+    $('#book').load(function () { });
+    $('img.userIcon').load(function () {
+        if ($(this).height() > 100) {
+            $(this).addClass('bigImg');
+        }
+    });
+}
+
 function test_mouseEvents() {
     var i = 0;
     $("div.overout").mouseover(function () {

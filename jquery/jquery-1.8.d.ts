@@ -488,7 +488,6 @@ interface JQuery {
 
     delegate(selector: any, eventType: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
-
     focus(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     focus(handler: (eventObject: JQueryEventObject) => any): JQuery;
 
@@ -509,6 +508,9 @@ interface JQuery {
 
     keyup(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     keyup(handler: (eventObject: JQueryEventObject) => any): JQuery;
+
+    load(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    load(handler: (eventObject: JQueryEventObject) => any): JQuery;
 
     mousedown(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
     mousedown(handler: (eventObject: JQueryEventObject) => any): JQuery;
