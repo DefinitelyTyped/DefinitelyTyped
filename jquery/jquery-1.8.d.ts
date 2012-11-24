@@ -643,7 +643,9 @@ interface JQuery {
     
     get(index?: number): any;
     
-    index(selectorOrElement?: any): number;
+    index(): number;
+    index(selector: string): number;
+    index(element: any): number;
 
     /**********
      PROPERTIES

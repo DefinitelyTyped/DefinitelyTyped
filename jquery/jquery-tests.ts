@@ -1730,6 +1730,32 @@ function test_html() {
               .css("color", "red");
 }
 
+function test_inArray() {
+    var arr: any[] = [4, "Pete", 8, "John"];
+    var $spans = $("span");
+    $spans.eq(0).text(jQuery.inArray("John", arr));
+    $spans.eq(1).text(jQuery.inArray(4, arr));
+    $spans.eq(2).text(jQuery.inArray("Karl", arr));
+    $spans.eq(3).text(jQuery.inArray("Pete", arr, 2));
+}
+
+function test_index() {
+    var listItem = document.getElementById('bar');
+    alert('Index: ' + $('li').index(listItem));
+    var listItems = $('li:gt(0)');
+    alert('Index: ' + $('li').index(listItems));
+    alert('Index: ' + $('#bar').index());
+    $("div").click(function () {
+        var index = $("div").index(this);
+        $("span").text("That was div index #" + index);
+    });
+    var listItems = $('li:gt(0)');
+    $('div').html('Index: ' + $('li').index(listItems));
+    $('div').html('Index: ' + $('#bar').index('li'));
+    var foobar = $("li").index($('#foobar'));
+    $('div').html('Index: ' + foobar);
+}
+
 function test_load() {
     $('#result').load('ajax/test.html');
     $('#result').load('ajax/test.html', function () {
