@@ -1756,6 +1756,82 @@ function test_index() {
     $('div').html('Index: ' + foobar);
 }
 
+function test_innedHeight() {
+    var p = $("p:first");
+    $("p:last").text("innerHeight:" + p.innerHeight());
+}
+
+function test_innerWidth() {
+    var p = $("p:first");
+    $("p:last").text("innerWidth:" + p.innerWidth());
+}
+
+function test_insertAfter() {
+    $('<p>Test</p>').insertAfter('.inner');
+    $('h2').insertAfter($('.container'));
+    $("p").insertAfter("#foo");
+}
+
+function test_insertBefore() {
+    $('<p>Test</p>').insertBefore('.inner');
+    $('h2').insertBefore($('.container'));
+    $("p").insertBefore("#foo");
+}
+
+function test_is() {
+    $("ul").click(function (event) {
+        var $target = $(event.target);
+        if ($target.is("li")) {
+            $target.css("background-color", "red");
+        }
+    });
+    $("li").click(function () {
+    var $li = $(this),
+        isWithTwo = $li.is(function () {
+            return $('strong', this).length === 2;
+        });
+        if (isWithTwo) {
+            $li.css("background-color", "green");
+        } else {
+            $li.css("background-color", "red");
+        }
+    });
+    $("div").one('click', function () {
+        if ($(this).is(":first-child")) {
+            $("p").text("It's the first div.");
+        } else if ($(this).is(".blue,.red")) {
+            $("p").text("It's a blue or red div.");
+        } else if ($(this).is(":contains('Peter')")) {
+            $("p").text("It's Peter!");
+        } else {
+            $("p").html("It's nothing <em>special</em>.");
+        }
+        $("p").hide().slideDown("slow");
+        $(this).css({ "border-style": "inset", cursor: "default" });
+    });
+    var isFormParent = $("input[type='checkbox']").parent().is("form");
+    $("div").text("isFormParent = " + isFormParent);
+    var isFormParent = $("input[type='checkbox']").parent().is("form");
+    $("div").text("isFormParent = " + isFormParent);
+    var $alt = $("#browsers li:nth-child(2n)").css("background", "#00FFFF");
+    $('li').click(function () {
+        var $li = $(this);
+        if ($li.is($alt)) {
+            $li.slideUp();
+        } else {
+            $li.css("background", "red");
+        }
+    });
+    var $alt = $("#browsers li:nth-child(2n)").css("background", "#00FFFF");
+    $('li').click(function () {
+        if ($alt.is(this)) {
+            $(this).slideUp();
+        } else {
+            $(this).css("background", "red");
+        }
+    });
+}
+
 function test_load() {
     $('#result').load('ajax/test.html');
     $('#result').load('ajax/test.html', function () {
