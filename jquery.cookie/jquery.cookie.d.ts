@@ -5,8 +5,9 @@
 
 ///<reference path="../jquery/jquery-1.8.d.ts" />
 
+
 interface JQueryCookieOptions {
-    expires?: number;
+    expires?: any;
     path?: string;
     domain?: string;
     secure?: bool;
