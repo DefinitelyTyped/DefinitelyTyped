@@ -633,7 +633,7 @@ declare module "net" {
         destroy(): void;
         pause(): void;
         resume(): void;
-        setTimeout(timeout: number, callback?: Function); void;
+        setTimeout(timeout: number, callback?: Function): void;
         setNoDelay(noDelay?: bool): void;
         setKeepAlive(enable?: bool, initialDelay?: number): void;
         address(): { port: number; family: string; address: string; };
