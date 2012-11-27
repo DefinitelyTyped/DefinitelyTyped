@@ -24,7 +24,7 @@ Complete
 * [Foundation](http://foundation.zurb.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [GoogleMaps](https://developers.google.com/maps/) (by [Esben Nepper](https://github.com/eNepper))
 * [Handlebars](http://handlebarsjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
-* [Highcharts]http://www.highcharts.com/) (by [damianog](https://github.com/damianog))
+* [Highcharts](http://www.highcharts.com/) (by [damianog](https://github.com/damianog))
 * [History.js](https://github.com/balupton/History.js/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Humane.js](http://wavded.github.com/humane-js/) (by [John Vrbanac](https://github.com/jmvrbanac))
 * [Impress.js](https://github.com/bartaz/impress.js) (by [Boris Yankov](https://github.com/borisyankov))
