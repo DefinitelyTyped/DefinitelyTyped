@@ -512,6 +512,7 @@ interface JQuery {
     load(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     load(handler: (eventObject: JQueryEventObject) => any): JQuery;
 
+    mousedown(): JQuery;
     mousedown(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
     mousedown(handler: (eventObject: JQueryEventObject) => any): JQuery;
 
