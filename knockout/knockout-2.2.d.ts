@@ -290,6 +290,7 @@ interface KnockoutStatic {
     isObservable(instance: any): bool;
     dataFor(node: any): any;
     removeNode(node: Element);
+    cleanNode(node: Element);
 }
 
 declare var ko: KnockoutStatic;
