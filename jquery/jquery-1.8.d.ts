@@ -519,21 +519,27 @@ interface JQuery {
     mouseevent(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
     mouseevent(handler: (eventObject: JQueryEventObject) => any): JQuery;
 
+    mouseenter(): JQuery;
     mouseenter(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
     mouseenter(handler: (eventObject: JQueryEventObject) => any): JQuery;
 
+    mouseleave(): JQuery;
     mouseleave(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
     mouseleave(handler: (eventObject: JQueryEventObject) => any): JQuery;
 
+    mousemove(): JQuery;
     mousemove(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
     mousemove(handler: (eventObject: JQueryEventObject) => any): JQuery;
 
+    mouseout(): JQuery;
     mouseout(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
     mouseout(handler: (eventObject: JQueryEventObject) => any): JQuery;
 
+    mouseover(): JQuery;
     mouseover(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
     mouseover(handler: (eventObject: JQueryEventObject) => any): JQuery;
 
+    mouseup(): JQuery;
     mouseup(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
     mouseup(handler: (eventObject: JQueryEventObject) => any): JQuery;
 

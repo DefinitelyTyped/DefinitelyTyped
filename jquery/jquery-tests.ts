@@ -1832,6 +1832,195 @@ function test_is() {
     });
 }
 
+function test_isArray() {
+    $("b").append("" + $.isArray([]));
+}
+
+function test_isEmptyObject() {
+    jQuery.isEmptyObject({});
+    jQuery.isEmptyObject({ foo: "bar" });
+}
+
+function test_isFuction() {
+    function stub() { };
+    var objs: any[] = [
+          function () { },
+          { x: 15, y: 20 },
+          null,
+          stub,
+          "function"
+    ];
+    jQuery.each(objs, function (i) {
+        var isFunc = jQuery.isFunction(objs[i]);
+        $("span").eq(i).text(isFunc);
+    });
+    $.isFunction(function () { });
+}
+
+function test_isNumeric() {
+    $.isNumeric("-10");
+    $.isNumeric(16);
+    $.isNumeric(0xFF);
+    $.isNumeric("0xFF");
+    $.isNumeric("8e5");
+    $.isNumeric(3.1415);
+    $.isNumeric(+10);
+    $.isNumeric(0144);
+    $.isNumeric("");
+    $.isNumeric({});
+    $.isNumeric(NaN);
+    $.isNumeric(null);
+    $.isNumeric(true);
+    $.isNumeric(Infinity);
+    $.isNumeric(undefined);
+}
+
+function test_isPlainObject() {
+    $.isPlainObject(document.location);
+    jQuery.isPlainObject({});
+    jQuery.isPlainObject("test");
+}
+
+function test_isWindow() {
+    $("b").append("" + $.isWindow(window));
+}
+
+function test_isXMLDoc() {
+    jQuery.isXMLDoc(document);
+    jQuery.isXMLDoc(document.body);
+}
+
+function test_jQuery() {
+    $('div.foo');
+    $('div.foo').click(function () {
+        $('span', this).addClass('bar');
+    });
+    $('div.foo').click(function () {
+        $(this).slideUp();
+    });
+    $.post('url.xml', function (data) {
+        var $child = $(data).find('child');
+    });
+    var foo = { foo: 'bar', hello: 'world' };
+    var $foo = $(foo);
+    var test1 = $foo.prop('foo');
+    $foo.prop('foo', 'foobar');
+    var test2 = $foo.prop('foo');
+    $foo.data('keyName', 'someValue');
+    console.log($foo);
+    $foo.bind('eventName', function () {
+        console.log('eventName was called');
+    });
+    $foo.trigger('eventName');
+    $foo.triggerHandler('eventName');
+    $("div > p").css("border", "1px solid gray");
+    $("input:radio", document.forms[0]);
+    $("div", xml.responseXML);
+    $(document.body).css("background", "black");
+    $(myForm.elements).hide();
+    $('<p id="test">My <em>new</em> text</p>').appendTo('body');
+    $('<img />');
+    $('<input>');
+    var el = $('1<br/>2<br/>3');
+    el = $('1<br/>2<br/>3 >');
+    $('<input />', {
+        type: 'text',
+        name: 'test'
+    }).appendTo("body");
+    $('<input type="text" />').attr({
+        name: 'test'
+    }).appendTo("body");
+    $("<div><p>Hello</p></div>").appendTo("body");
+    $("<div/>", {
+        "class": "test",
+        text: "Click me!",
+        click: function () {
+            $(this).toggleClass("test");
+        }
+    }).appendTo("body");
+    jQuery(function ($) {
+    });
+}
+
+function test_jquery() {
+    var a = { what: "A regular JS object" },
+    b = $('body');
+    if (a.jquery) {
+        alert(' a is a jQuery object! ');
+    }
+    if (b.jquery) {
+        alert(' b is a jQuery object! ');
+    }
+    alert('You are running jQuery version: ' + $.fn.jquery);
+}
+
+function test_keydown() {
+    $('#target').keydown(function () {
+        alert('Handler for .keydown() called.');
+    });
+    $('#other').click(function () {
+        $('#target').keydown();
+    });
+    var xTriggered = 0;
+    $('#target').keydown(function (event) {
+        if (event.which == 13) {
+            event.preventDefault();
+        }
+        xTriggered++;
+        var msg = 'Handler for .keydown() called ' + xTriggered + ' time(s).';
+    });
+    $('#other').click(function () {
+        $('#target').keydown();
+    });
+}
+
+function test_keypress() {
+    $("#target").keypress(function () {
+        alert("Handler for .keypress() called.");
+    });
+    $('#other').click(function () {
+        $("#target").keypress();
+    });
+    $("#other").click(function () {
+        $("#target").keypress();
+    });
+}
+
+function test_keyup() {
+    $('#target').keyup(function () {
+        alert('Handler for .keyup() called.');
+    });
+    $('#other').click(function () {
+        $('#target').keyup();
+    });
+    $('#other').click(function () {
+        $('#target').keyup();
+    });
+}
+
+function test_last() {
+    $('li').last().css('background-color', 'red');
+    $("p span").last().addClass('highlight');
+}
+
+function test_length() {
+    $(document.body).click(function () {
+        $(document.body).append($("<div>"));
+        var n = $("div").length;
+        $("span").text("There are " + n + " divs." + "Click to add more.");
+    }).trigger('click');
+}
+
+/* deprecated
+function test_live() {
+    $(selector).live(events, data, handler);
+    $(document).delegate(selector, events, data, handler);
+    $(document).on(events, selector, data, handler);
+    $("a.offsite").live("click", function () { alert("Goodbye!"); });
+    $(document).delegate("a.offsite", "click", function () { alert("Goodbye!"); });
+    $(document).on("click", "a.offsite", function () { alert("Goodbye!"); });
+} */
+
 function test_load() {
     $('#result').load('ajax/test.html');
     $('#result').load('ajax/test.html', function () {
@@ -1860,15 +2049,22 @@ function test_loadEvent() {
     });
 }
 
-function test_mouseEvents() {
-    var i = 0;
-    $("div.overout").mouseover(function () {
-        $("p:first", this).text("mouse over");
-        $("p:last", this).text(++i);
-    }).mouseout(function () {
-        $("p:first", this).text("mouse out");
+function test_mousedown() {
+    $('#target').mousedown(function () {
+        alert('Handler for .mousedown() called.');
     });
+    $('#other').click(function () {
+        $('#target').mousedown();
+    });
+}
 
+function test_mouseenter() {
+    $('#outer').mouseenter(function () {
+        $('#log').append('<div>Handler for .mouseenter() called.</div>');
+    });
+    $('#other').click(function () {
+        $('#outer').mouseenter();
+    });
     var n = 0;
     $("div.enterleave").mouseenter(function () {
         $("p:first", this).text("mouse enter");
@@ -1876,6 +2072,193 @@ function test_mouseEvents() {
     }).mouseleave(function () {
         $("p:first", this).text("mouse leave");
     });
+}
+
+function test_mouseleave() {
+    $('#outer').mouseleave(function () {
+        $('#log').append('<div>Handler for .mouseleave() called.</div>');
+    });
+    $('#other').click(function () {
+        $('#outer').mouseleave();
+    });
+    var i = 0;
+    $("div.overout").mouseover(function () {
+        $("p:first", this).text("mouse over");
+    }).mouseout(function () {
+        $("p:first", this).text("mouse out");
+        $("p:last", this).text(++i);
+    });
+    var n = 0;
+    $("div.enterleave").mouseenter(function () {
+        $("p:first", this).text("mouse enter");
+    }).mouseleave(function () {
+        $("p:first", this).text("mouse leave");
+        $("p:last", this).text(++n);
+    });
+}
+
+function test_mousemove() {
+    $("#target").mousemove(function (event) {
+        var msg = "Handler for .mousemove() called at ";
+        msg += event.pageX + ", " + event.pageY;
+        $("#log").append("<div>" + msg + "</div>");
+    });
+    $("#other").click(function () {
+        $("#target").mousemove();
+    });
+    $("div").mousemove(function (e) {
+        var pageCoords = "( " + e.pageX + ", " + e.pageY + " )";
+        var clientCoords = "( " + e.clientX + ", " + e.clientY + " )";
+        $("span:first").text("( e.pageX, e.pageY ) : " + pageCoords);
+        $("span:last").text("( e.clientX, e.clientY ) : " + clientCoords);
+    });
+}
+
+function test_mouseout() {
+    $('#outer').mouseout(function () {
+        $('#log').append('Handler for .mouseout() called.');
+    });
+    $('#other').click(function () {
+        $('#outer').mouseout();
+    });
+    var i = 0;
+    $("div.overout").mouseout(function () {
+        $("p:first", this).text("mouse out");
+        $("p:last", this).text(++i);
+    }).mouseover(function () {
+        $("p:first", this).text("mouse over");
+    });
+    var n = 0;
+    $("div.enterleave").bind("mouseenter", function () {
+        $("p:first", this).text("mouse enter");
+    }).bind("mouseleave", function () {
+        $("p:first", this).text("mouse leave");
+        $("p:last", this).text(++n);
+    });
+}
+
+function test_mouseup() {
+    $("p").mouseup(function () {
+        $(this).append('<span style="color:#F00;">Mouse up.</span>');
+    }).mousedown(function () {
+        $(this).append('<span style="color:#00F;">Mouse down.</span>');
+    });
+    $('#target').mouseup(function () {
+        alert('Handler for .mouseup() called.');
+    });
+    $('#other').click(function () {
+        $('#target').mouseup();
+    });
+    $("p").mouseup(function () {
+        $(this).append('<span style="color:#F00;">Mouse up.</span>');
+    }).mousedown(function () {
+        $(this).append('<span style="color:#00F;">Mouse down.</span>');
+    });
+}
+
+function test_mouseover() {
+    $('#outer').mouseover(function () {
+        $('#log').append('<div>Handler for .mouseover() called.</div>');
+    });
+    $('#other').click(function () {
+        $('#outer').mouseover();
+    });
+    var i = 0;
+    $("div.overout").mouseover(function () {
+        $("p:first", this).text("mouse over");
+        $("p:last", this).text(++i);
+    }).mouseout(function () {
+        $("p:first", this).text("mouse out");
+    });
+    var n = 0;
+    $("div.enterleave").mouseenter(function () {
+        n += 1;
+        $(this).find("span").text("mouse enter x " + n);
+    }).mouseleave(function () {
+        $(this).find("span").text("mouse leave");
+    });
+}
+
+function test_makeArray() {
+    var elems = document.getElementsByTagName("div");
+    var arr = jQuery.makeArray(elems);
+    arr.reverse();
+    $(arr).appendTo(document.body);
+    var obj = $('li');
+    var arr = $.makeArray(obj);
+    jQuery.isArray(arr) === true;
+}
+
+function test_map() {
+    $(':checkbox').map(function () {
+        return this.id;
+    }).get().join(',');
+    $("p").append($("input").map(function () {
+        return $(this).val();
+    }).get().join(", "));
+    var mappedItems = $("li").map(function (index) {
+        var replacement = $("<li>").text($(this).text()).get(0);
+        if (index == 0) {
+            $(replacement).text($(replacement).text().toUpperCase());
+        } else if (index == 1 || index == 3) {
+            replacement = null;
+        } else if (index == 2) {
+            replacement = [replacement, $("<li>").get(0)];
+            $(replacement[0]).append("<b> - A</b>");
+            $(replacement[1]).append("Extra <b> - B</b>");
+        }
+        return replacement;
+    });
+    $("#results").append(mappedItems);
+    var fakeArray = { "length": 1, 0: "Addy", 1: "Subtracty" };
+    var realArray = $.makeArray(fakeArray)
+    $.map(realArray, function (val, i) { });
+    var arr = ["a", "b", "c", "d", "e"];
+    $("div").text(arr.join(", "));
+    arr = jQuery.map(arr, function (n, i) {
+        return (n.toUpperCase() + i);
+    });
+    $("p").text(arr.join(", "));
+    arr = jQuery.map(arr, function (a) {
+        return a + a;
+    });
+    $("span").text(arr.join(", "));
+    $.map([0, 1, 2], function (n) {
+        return n + 4;
+    });
+    $.map([0, 1, 2], function (n) {
+        return n > 0 ? n + 1 : null;
+    });
+    $.map([0, 1, 2], function (n) {
+        return [n, n + 1];
+    });
+    var dimensions = { width: 10, height: 15, length: 20 };
+    dimensions = $.map(dimensions, function (value, index) {
+        return value * 2;
+    });
+    var dimensions = { width: 10, height: 15, length: 20 },
+    keys = $.map(dimensions, function (value, index) {
+        return index;
+    });
+    $.map([0, 1, 2, 3], function (a) {
+        return a * a;
+    });
+    $.map([0, 1, 52, 97], function (a) {
+        return (a > 50 ? a - 45 : null);
+    });
+    var array = [0, 1, 52, 97];
+    array = $.map(array, function (a, index) {
+        return [a - 45, index];
+    });
+}
+
+function test_merge() {
+    var oldArray: any[];
+    var newArray = $.merge([], oldArray);
+    $.merge([0, 1, 2], [2, 3, 4]);
+    var first = ['a', 'b', 'c'];
+    var second = ['d', 'e', 'f'];
+    $.merge($.merge([], first), second);
 }
 
 function test_prop() {
