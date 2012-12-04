@@ -1,5 +1,6 @@
-//GreenSock Animation Platform (GSAP) - http://www.greensock.com/get-started-js/
-//JavaScript Docs http://api.greensock.com/js/
+// GreenSock Animation Platform (GSAP) - http://www.greensock.com/get-started-js/
+// JavaScript Docs http://api.greensock.com/js/
+// Version 1.0
 
 //com.greensock.core
 interface Animation {
