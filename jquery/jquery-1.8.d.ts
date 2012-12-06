@@ -369,6 +369,7 @@ interface JQuery {
     val(): any;
     val(value: string[]): JQuery;
     val(value: string): JQuery;
+    val(value: number): JQuery;
     val(func: (index: any, value: any) => any): JQuery;
 
     /***
