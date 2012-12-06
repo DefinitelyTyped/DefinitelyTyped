@@ -1,14 +1,14 @@
 /* *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved. 
+Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
 this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0  
- 
+License at http://www.apache.org/licenses/LICENSE-2.0
+
 THIS CODE IS PROVIDED *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
 KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE, 
-MERCHANTABLITY OR NON-INFRINGEMENT. 
- 
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
 See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
@@ -16,7 +16,7 @@ and limitations under the License.
 // Typing for the jQuery library, version 1.7.x
 
 /*
-    Interface for the AJAX setting that will configure the AJAX request 
+    Interface for the AJAX setting that will configure the AJAX request
 */
 interface JQueryAjaxSettings {
     accepts?: any;
@@ -252,7 +252,7 @@ interface JQueryStatic {
      INTERNALS
     **********/
     error(message: any);
-    
+
     /*************
      MISCELLANEOUS
     **************/
@@ -293,7 +293,7 @@ interface JQueryStatic {
     makeArray(obj: any): any[];
 
     map(array: any[], callback: (elementOfArray: any, indexInArray: any) =>any): JQuery;
-    
+
     merge(first: any[], second: any[]): any[];
 
     noop(): any;
@@ -369,6 +369,7 @@ interface JQuery {
     val(): any;
     val(value: string[]): JQuery;
     val(value: string): JQuery;
+    val(value: number): JQuery;
     val(func: (index: any, value: any) => any): JQuery;
 
     /***
@@ -376,7 +377,7 @@ interface JQuery {
     ****/
     css(propertyName: string, value?: any): any;
     css(propertyName: any, value?: any): any;
-    
+
     height(): number;
     height(value: number): JQuery;
     height(value: string): JQuery;
@@ -583,7 +584,7 @@ interface JQuery {
     /*********
      INTERNALS
     **********/
-    
+
     context: Element;
     jquery: string;
 
@@ -626,11 +627,11 @@ interface JQuery {
     replaceAll(target: any): JQuery;
 
     replaceWith(func: any): JQuery;
-    
+
     text(): string;
     text(textString: any): JQuery;
     text(textString: (index: number, text: string) => string): JQuery;
-    
+
     toArray(): any[];
 
     unwrap(): JQuery;
@@ -647,9 +648,9 @@ interface JQuery {
      MISCELLANEOUS
     **************/
     each(func: (index: any, elem: Element) => any);
-    
+
     get(index?: number): any;
-    
+
     index(): number;
     index(selector: string): number;
     index(element: any): number;
@@ -709,7 +710,7 @@ interface JQuery {
     map(callback: (index: any, domElement: Element) =>any): JQuery;
 
     next(selector?: string): JQuery;
-    
+
     nextAll(selector?: string): JQuery;
 
     nextUntil(selector?: string, filter?: string): JQuery;
@@ -743,7 +744,7 @@ interface JQuery {
     /*********
      UTILITIES
     **********/
-    
+
     queue(queueName?: string): any[];
     queue(queueName: string, newQueueOrCallback: any): JQuery;
     queue(newQueueOrCallback: any): JQuery;
