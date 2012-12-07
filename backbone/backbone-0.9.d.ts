@@ -180,7 +180,7 @@ declare module Backbone {
         zip(...model: Model[]): Model[];
     }
 
-    export class Router {
+    export class Router extends Events {
 
         static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
