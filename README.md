@@ -36,6 +36,7 @@ Complete
 * [jQuery.BBQ](http://benalman.com/projects/jquery-bbq-plugin/) (by [Adam R. Smith](https://github.com/sunetos))
 * [jQuery.Cookie](https://github.com/carhartl/jquery-cookie) (by [Roy Goode](https://github.com/RoyGoode))
 * [jQuery.Globalize](https://github.com/jquery/globalize) (by [Boris Yankov](https://github.com/borisyankov))
+* [jQuery.Transit](http://ricostacruz.com/jquery.transit/) (by [MrBigDog2U](https://github.com/MrBigDog2U))
 * [jQuery.Validation](http://bassistance.de/jquery-plugins/jquery-plugin-validation/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Knockback](http://kmalakoff.github.com/knockback/) (by [Marcel Binot](https://github.com/docgit))
 * [Knockout.js](http://knockoutjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
