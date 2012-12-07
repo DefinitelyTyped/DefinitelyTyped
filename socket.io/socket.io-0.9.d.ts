@@ -1,10 +1,4 @@
-// Type definitions for Chrome extension development.
-// Project: http://developer.chrome.com/extensions/
-// Definitions by: William Orr <https://github.com/worr>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-
-
-///<reference path='../node/node-0.8.d.ts' />
+///<reference path='node.d.ts' />
 
 declare module "socket.io" {
 	import http = module('http');
