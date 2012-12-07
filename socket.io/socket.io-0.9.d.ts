@@ -1,4 +1,10 @@
-///<reference path='node.d.ts' />
+// Type definitions for socket.io
+// Project: http://socket.io/
+// Definitions by: William Orr <https://github.com/worr>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+
+///<reference path='../node/node-0.8.d.ts' />
 
 declare module "socket.io" {
 	import http = module('http');
