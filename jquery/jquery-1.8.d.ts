@@ -581,6 +581,9 @@ interface JQuery {
     undelegate(selector: any, events: any): JQuery;
     undelegate(namespace: string): JQuery;
 
+    unload(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    unload(handler: (eventObject: JQueryEventObject) => any): JQuery;
+
     /*********
      INTERNALS
     **********/
