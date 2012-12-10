@@ -277,6 +277,7 @@ interface KnockoutStatic {
 
     applyBindings(viewModel: any, rootNode?: any): void;
     applyBindingsToDescendants(viewModel: any, rootNode: any): void;
+    applyBindingsToNode(node: Element, options: any, viewModel: any): void;
 
     subscribable: KnockoutSubscribableStatic;
     observable: KnockoutObservableStatic;
