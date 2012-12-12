@@ -1,3 +1,8 @@
+// Type definitions for SockJS 0.3.x
+// Project: https://github.com/sockjs/sockjs-client
+// Definitions by: Emil Ivanov <https://github.com/vladev>
+// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+
 interface SockJSSimpleEvent {
     type: string;
     toString(): string;
