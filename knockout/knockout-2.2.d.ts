@@ -264,6 +264,10 @@ interface KnockoutUtils {
     stringifyJson(data: any, replacer: Function, space: string): string;
     postJson(urlOrForm: any, data: any, options: any): void;
 
+    ieVersion: number;
+    isIe6: bool;
+    isIe7: bool;
+
     domNodeDisposal;
 }
 
