@@ -9,21 +9,40 @@ module Google.YT {
     interface Event {
         (event: any): void;
     }
-    interface Events {
+    export interface Events {
         onReady?: Event;
         onPlayback?: Event;
         onStateChange?: Event;
     }
-    interface PlayerVars {
+	export enum ListType {
+		search,
+		user_uploads,
+		playlist,
+	}
+    export interface PlayerVars {
         autohide?: number;
         autoplay?: number;
         cc_load_policy?: any;
-        color?: any;
+        color?: string;
+		controls?: number;
+		disablekb?: number;
+		enablejsapi?: number;
+		end?: number;
+		fs?: number;
+		iv_load_policy?: number;
+		list?: string;
+		listType?: ListType;
+		loop?;
+		modestbranding?: number;
+		origin?;
         playerpiid?: string;
+		playlist?;
+		rel?: number;
         showinfo?: number;
-        theme?: any;
+		start?: number;
+        theme?: string;
     }
-    interface PlayerOptions {
+    export interface PlayerOptions {
         width: number;
         height: number;
         videoId: string;
@@ -36,7 +55,8 @@ module Google.YT {
         endSeconds: number;
         suggestedQuality: string;
     }
-    interface Player {
+    export interface Player {
+		
         // Constructor
         new (string, playerOptions:PlayerOptions): any;
 
