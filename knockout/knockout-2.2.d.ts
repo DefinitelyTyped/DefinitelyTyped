@@ -36,6 +36,8 @@ interface KnockoutObservableArrayFunctions extends KnockoutObservableFunctions {
     sort(compareFunction): void;
 
     // Ko specific
+    replace(oldItem: any, newItem: any): void;
+
     remove(item): any[];
     removeAll(items: any[]): any[];
     removeAll(): any[];
