@@ -23,7 +23,7 @@ interface SpinnerOptions {
 }
 
 
-class Spinner {
+declare class Spinner {
     constructor (options?: SpinnerOptions);
     spin(target?: any);
     stop();
