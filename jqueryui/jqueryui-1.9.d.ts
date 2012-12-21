@@ -182,7 +182,7 @@ interface DialogOptions {
     show?: any; // number, string or object
     stack?: bool;
     title?: string;
-    width?: number;
+    width?: any; // number or string
     zIndex?: number;
 }
 
