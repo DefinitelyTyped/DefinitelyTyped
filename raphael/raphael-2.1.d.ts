@@ -23,12 +23,12 @@ interface RaphaelFont {
 }
 
 interface RaphaelElement {
-    animate(params: { [key: any]: any; }, ms: number, easing?: string, callback?: Function): RaphaelElement;
+    animate(params: { [key: string]: any; }, ms: number, easing?: string, callback?: Function): RaphaelElement;
     animate(animation: RaphaelAnimation): RaphaelElement;
     animateWith(el: RaphaelElement, anim: RaphaelAnimation, params: any, ms: number, easing?: string, callback?: Function): RaphaelElement;
     animateWith(el: RaphaelElement, anim: RaphaelAnimation, animation: RaphaelAnimation): RaphaelElement;
     attr(attrName: string, value: any): RaphaelElement;
-    attr(params: { [key: any]: any; }): RaphaelElement;
+    attr(params: { [key: string]: any; }): RaphaelElement;
     attr(attrName: string): any;
     attr(attrNames: string[]): any[];
     click(handler: Function): RaphaelElement;
@@ -110,12 +110,12 @@ interface RraphaelSet {
     length: number;
 
     [key: number]: RaphaelElement;
-    animate(params: { [key: any]: any; }, ms: number, easing?: string, callback?: Function): RaphaelElement;
+    animate(params: { [key: string]: any; }, ms: number, easing?: string, callback?: Function): RaphaelElement;
     animate(animation: RaphaelAnimation): RaphaelElement;
     animateWith(el: RaphaelElement, anim: RaphaelAnimation, params: any, ms: number, easing?: string, callback?: Function): RaphaelElement;
     animateWith(el: RaphaelElement, anim: RaphaelAnimation, animation: RaphaelAnimation): RaphaelElement;
     attr(attrName: string, value: any): RaphaelElement;
-    attr(params: { [key: any]: any; }): RaphaelElement;
+    attr(params: { [key: string]: any; }): RaphaelElement;
     attr(attrName: string): any;
     attr(attrNames: string[]): any[];
     click(handler: Function): RaphaelElement;
