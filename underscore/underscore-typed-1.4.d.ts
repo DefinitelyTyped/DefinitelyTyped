@@ -73,7 +73,7 @@ interface Underscore {
 	map(
 		obj: Object,
 		iterator: (value: any, key?: string, object?: Object) => any,
-		context?: any): void;
+		context?: any): any[];
 
 	/**
 	* Alias for 'map'.
@@ -93,7 +93,7 @@ interface Underscore {
 	collect(
 		obj: Object,
 		iterator: (value: any, key?: string, object?: Object) => any,
-		context?: any): void;
+		context?: any): any[];
 
 	/**
 	* Also known as inject and foldl, reduce boils down a list of values into a single value.
