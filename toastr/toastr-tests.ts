@@ -1,17 +1,18 @@
-/// <reference path="toastr-1.0.d.ts" />
+/// <reference path="toastr-1.2.d.ts" />
 
 function test_basic() {
-    toastr.info('Are you the 6 fingered man?');
-    toastr.warning('My name is Inigo Montoya. You Killed my father, prepare to die!');
-    toastr.success('Have fun storming the castle!', 'Miracle Max Says');
-    toastr.error('I do not think that word means what you tink it means.', 'Inconceivable!');
-    toastr.clear();
+	var t = [];
+    t.push(toastr.info('Are you the 6 fingered man?'));
+    t.push(toastr.warning('My name is Inigo Montoya. You Killed my father, prepare to die!'));
+    t.push(toastr.success('Have fun storming the castle!', 'Miracle Max Says'));
+    t.push(toastr.error('I do not think that word means what you think it means.', 'Inconceivable!'));
+    toastr.clear(t[0]); // clear 1
+	toastr.clear(); // clear all
 
     var msg = 'Do you think Rodents of Unusual Size really exist?';
     var title = 'Fireswamp Legends';
     var overrides = { timeOut: 250 };
     toastr.warning(msg, title, overrides);
-
     toastr.options.onclick = function () { }
 }
 
@@ -55,6 +56,11 @@ function test_fromdemo() {
                 alert('Surprise! you clicked me. i was toast #' + toastIndex + '. You could perform an action here.')
             })
         }
-
-    });
+   });
+	$('#clearlasttoast').click(function() {
+		toastr.clear($toastlast);
+	});
+	$('#cleartoasts').click(function () {
+		toastr.clear();
+	});  
 }
