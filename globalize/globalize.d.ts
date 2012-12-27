@@ -49,6 +49,11 @@ interface GlobalizeDays {
     namesShort: string[];
 }
 
+interface GlobalizeMonths {
+    names: string[];
+    namesAbbr: string[];
+}
+
 interface GlobalizePatterns {
     d: string;
     D: string;
@@ -67,7 +72,7 @@ interface GlobalizeCalendar {
     // ":": string,
     firstDay: number;
     days: GlobalizeDays;
-    months: any[];
+    months: GlobalizeMonths;
     AM: string[];
     PM: string[];
     eras: GlobalizeEra[];
