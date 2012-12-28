@@ -1,6 +1,7 @@
 interface KnockoutPostBox {
     subscribe: (topic: string, handler: (value) => void, target?: any) => KnockoutObservableAny;
     publish: (topic: string, value?: any) => KnockoutObservableAny;
+    defaultComparer: (newValue: any, oldValue: any) => bool;
 }
 
 interface KnockoutObservableString {
