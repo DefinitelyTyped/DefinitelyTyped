@@ -10,5 +10,7 @@
 *.csproj
 *.txt
 *.map
+*.swp
+.DS_Store
 
 _Resharper.DefinitelyTyped
