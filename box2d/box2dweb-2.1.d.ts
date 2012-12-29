@@ -3129,10 +3129,10 @@ module Box2D.Dynamics {
 
 		/**
 		* Get the HTML Canvas Element for drawing.
-		* @note box2dflash uses Sprite object, box2dweb uses HTMLCanvasElement, that is why this function is called GetSprite().
+		* @note box2dflash uses Sprite object, box2dweb uses CanvasRenderingContext2D, that is why this function is called GetSprite().
 		* @return The HTML Canvas Element used for debug drawing.
 		**/
-		public GetSprite(): HTMLCanvasElement;
+		public GetSprite(): CanvasRenderingContext2D;
 
 		/**
 		* Get the scale used for drawing XForms.
@@ -3172,10 +3172,10 @@ module Box2D.Dynamics {
 
 		/**
 		* Set the HTML Canvas Element for drawing.
-		* @note box2dflash uses Sprite object, box2dweb uses HTMLCanvasElement, that is why this function is called SetSprite().
+		* @note box2dflash uses Sprite object, box2dweb uses CanvasRenderingContext2D, that is why this function is called SetSprite().
 		* @canvas HTML Canvas Element to draw debug information to.
 		**/
-		public SetSprite(canvas: HTMLCanvasElement): void;
+		public SetSprite(canvas: CanvasRenderingContext2D): void;
 
 		/**
 		* Set the scale used for drawing XForms.
