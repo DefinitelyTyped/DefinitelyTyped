@@ -6,7 +6,6 @@
 USAGE
 ///<reference path="fabricjs.d.ts"/>
 */
-
 declare module fabric {
 
     function createCanvasForNode(width: number, height: number): ICanvas;
@@ -72,6 +71,8 @@ declare module fabric {
         lockUniScaling?: bool;
         lockRotation?: bool;
         opacity?: number;
+        originX?: string;
+        originY?: string;
         overlayFill?: string;
         padding?: number;
         perPixelTargetFind?: bool;
@@ -233,6 +234,9 @@ declare module fabric {
         getCurrentWidth(): number;
         getCurrentHeight(): number;
 
+        originX: string;
+        originY: string;
+
         angle: number;
         getAngle(): number;
         setAngle(value: number): IObject;
@@ -371,7 +375,7 @@ declare module fabric {
         transform(ctx: CanvasRenderingContext2D);
     }
 
-    export interface IGroup {
+    export interface IGroup extends IObject {
         type: string;
 
         activateAllObjects(): IGroup;
@@ -538,8 +542,8 @@ declare module fabric {
         setHeight(height: number): ICanvas;
         setOverlayImage(url: string, callback: () => any, options): ICanvas;
         setWidth(width: number): ICanvas;
-        toDatalessJSON(propertiesToInclude: any[]): string;
-        toDatalessObject(propertiesToInclude: any[]): string;
+        toDatalessJSON(propertiesToInclude?: any[]): string;
+        toDatalessObject(propertiesToInclude?: any[]): string;
         toDataURL(format: string, quality?: number): string;
         toDataURLWithMultiplier(propertiesToInclude: any[]): string;
         toGrayscale(propertiesToInclude: any[]): string;
@@ -554,6 +558,8 @@ declare module fabric {
         // constructors
         (element: HTMLCanvasElement): ICanvas;
         (element: string): ICanvas;
+
+        _objects: IObject[];
 
         // fields
         containerClass: string;
@@ -587,6 +593,9 @@ declare module fabric {
         getSelectionElement(): HTMLCanvasElement;
         setActiveGroup(group: IGroup): ICanvas;
         setActiveObject(object: IObject, e?): ICanvas;
+
+        loadFromJSON(json, callback: () => void): void;
+        loadFromDatalessJSON(json, callback: () => void): void;
     }
 
     export interface IBrightnessFilter {
@@ -670,12 +679,25 @@ declare module fabric {
         prototype: any;
     }
 
+    declare var StaticCanvas: {
+        new (element: HTMLCanvasElement, options?: ICanvasOptions): ICanvas;
+        new (element: string, options?: ICanvasOptions): ICanvas;
+
+        EMPTY_JSON: string;
+        supports(methodName: string): bool;
+        prototype: any;
+    }
+
     declare var Circle: {
         ATTRIBUTE_NAMES: string[];
         fromElement(element: SVGElement, options: ICircleOptions): ICircle;
         fromObject(object): ICircle;
         new (options?: ICircleOptions): ICircle;
         prototype: any;
+    }
+
+    declare var Group: {
+        new (items?: any[], options?: IObjectOptions): IGroup;
     }
 
     declare var Line: {
@@ -823,3 +845,4 @@ declare module fabric {
         wrapElement(element: HTMLElement, wrapper, attributes);
     }
 };
+
