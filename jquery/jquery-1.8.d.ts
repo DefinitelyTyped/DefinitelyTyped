@@ -179,7 +179,7 @@ interface JQueryStatic {
 
     ajaxSettings: JQueryAjaxSettings;
 
-    ajaxSetup(options: any);
+    ajaxSetup(options?: any);
 
     get(url: string, data?: any, success?: any, dataType?: any): JQueryXHR;
     getJSON(url: string, data?: any, success?: any): JQueryXHR;
