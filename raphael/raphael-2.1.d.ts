@@ -38,7 +38,7 @@ interface RaphaelElement {
     dblclick(handler: Function): RaphaelElement;
     drag(onmove: (dx: number, dy: number, x: number, y: number, event: DragEvent) =>{ }, onstart: (x: number, y: number, event: DragEvent) =>{ }, onend: (DragEvent) =>{ }, mcontext?: any, scontext?: any, econtext?: any): RaphaelElement;
     getBBox(isWithoutTransform?: bool): BoundingBox;
-    glow(glow?: { width?: number; fill?: bool; opacity?: number; offsetx?: number; offsety?: number; color?: string; }): RraphaelSet;
+    glow(glow?: { width?: number; fill?: bool; opacity?: number; offsetx?: number; offsety?: number; color?: string; }): RaphaelSet;
     hide(): RaphaelElement;
     hover(f_in: Function, f_out: Function, icontext?: any, ocontext?: any): RaphaelElement;
     id: string;
@@ -99,14 +99,14 @@ interface RaphaelPath extends RaphaelElement {
     getTotalLength(): number;
 }
 
-interface RraphaelSet {
+interface RaphaelSet {
     clear();
     exclude(element: RaphaelElement): bool;
-    forEach(callback: Function, thisArg?: any): RraphaelSet;
+    forEach(callback: Function, thisArg?: any): RaphaelSet;
     pop(): RaphaelElement;
     push(...RaphaelElement: any[]): RaphaelElement;
-    splice(index: number, count: number): RraphaelSet;
-    splice(index: number, count: number, ...insertion: RaphaelElement[]): RraphaelSet;
+    splice(index: number, count: number): RaphaelSet;
+    splice(index: number, count: number, ...insertion: RaphaelElement[]): RaphaelSet;
     length: number;
 
     [key: number]: RaphaelElement;
@@ -125,7 +125,7 @@ interface RraphaelSet {
     dblclick(handler: Function): RaphaelElement;
     drag(onmove: (dx: number, dy: number, x: number, y: number, event: DragEvent) =>{ }, onstart: (x: number, y: number, event: DragEvent) =>{ }, onend: (DragEvent) =>{ }, mcontext?: any, scontext?: any, econtext?: any): RaphaelElement;
     getBBox(isWithoutTransform?: bool): BoundingBox;
-    glow(glow?: { width?: number; fill?: bool; opacity?: number; offsetx?: number; offsety?: number; color?: string; }): RraphaelSet;
+    glow(glow?: { width?: number; fill?: bool; opacity?: number; offsetx?: number; offsety?: number; color?: string; }): RaphaelSet;
     hide(): RaphaelElement;
     hover(f_in: Function, f_out: Function, icontext?: any, ocontext?: any): RaphaelElement;
     id: string;
@@ -193,7 +193,7 @@ interface RaphaelMatrix {
 }
 
 interface RaphaelPaper {
-    add(JSON): RraphaelSet;
+    add(JSON): RaphaelSet;
     bottom: RaphaelElement;
     canvas: Element;
     circle(x: number, y: number, r: number): RaphaelElement;
@@ -203,7 +203,7 @@ interface RaphaelPaper {
     forEach(callback: number, thisArg: any): RaphaelStatic;
     getById(id: number): RaphaelElement;
     getElementByPoint(x: number, y: number): RaphaelElement;
-    getElementsByPoint(x: number, y: number): RraphaelSet;
+    getElementsByPoint(x: number, y: number): RaphaelSet;
     getFont(family: string, weight?: string, style?: string, stretch?: string): RaphaelFont;
     getFont(family: string, weight?: number, style?: string, stretch?: string): RaphaelFont;
     height: number;
@@ -214,7 +214,7 @@ interface RaphaelPaper {
     remove();
     renderfix();
     safari();
-    set(elements?: RaphaelElement[]): RraphaelSet;
+    set(elements?: RaphaelElement[]): RaphaelSet;
     setFinish();
     setSize(width: number, height: number);
     setStart();
