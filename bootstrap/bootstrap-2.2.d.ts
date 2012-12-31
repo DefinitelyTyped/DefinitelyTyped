@@ -1,4 +1,4 @@
-// Type definitions for Bootstrap 2.1
+// Type definitions for Bootstrap 2.2
 // Project: http://twitter.github.com/bootstrap/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -66,6 +66,7 @@ interface JQuery {
     modal(command: string): JQuery;
 
     dropdown(): JQuery;
+    dropdown(command: string): JQuery;
 
     scrollspy(command: string): JQuery;
     scrollspy(options?: ScrollSpyOptions): JQuery;
