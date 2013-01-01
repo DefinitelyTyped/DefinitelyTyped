@@ -5,11 +5,11 @@
 
 
 interface KnockoutMappingOptions {
-    ignore;
-    include;
-    copy;
-    mappedProperties;
-    deferEvaluation;
+    ignore? : string[];
+    include? : string[];
+    copy? : string[];
+    mappedProperties? : string[];
+    deferEvaluation? :  bool;
 }
 
 interface KnockoutMapping {
