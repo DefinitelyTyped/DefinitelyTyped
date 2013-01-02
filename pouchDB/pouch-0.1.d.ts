@@ -1,9 +1,7 @@
-// Type definitions for pouch.js
-
-interface PouchOptions {
-	name?: string;
-	adapter?: string;
-}
+// Type definitions for Pouch 0.1
+// Project: http://pouchdb.com
+// Definitions by: Bill Sears <https://github.com/MrBigDog2U/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface PouchError {
 	status: number;
@@ -197,6 +195,11 @@ interface PouchApi {
 	revsDiff(req: any, opts: PouchRevsDiffOptions, callback: (missing: any) => void): void;
 	revsDiff(req: any, callback: (missing: any) => void): void;
 	replicate: PouchReplicate;
+}
+
+interface PouchOptions {
+	name?: string;
+	adapter?: string;
 }
 
 interface Pouch extends PouchApi {
