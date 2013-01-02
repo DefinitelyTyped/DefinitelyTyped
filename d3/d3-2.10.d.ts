@@ -3,7 +3,25 @@ interface ID3Selectors {
     selectAll: (selector: string) => ID3Selection;
 }
 
+interface ID3behavior
+{
+ drag: () => any;
+ zoom: () => any;
+}
+
+interface ID3event 
+{
+    dx: number;
+    clientX: number;
+    translate:number;
+    scale: number;
+    sourceEvent: ID3event;
+}
+
 interface ID3Base extends ID3Selectors {
+    // behavior
+    behavior: ID3behavior;
+    event: ID3event;
     // Array Helpers
     ascending: (a: number, b: number) => number;
     descending: (a: number, b: number) => number;
