@@ -12,7 +12,9 @@ interface ID3behavior
 interface ID3event 
 {
     dx: number;
+    dy: number;
     clientX: number;
+    clientY: number;
     translate:number;
     scale: number;
     sourceEvent: ID3event;
@@ -261,7 +263,16 @@ interface ID3StackLayout {
     offset(offset: string): ID3StackLayout;
 }
 
+
+
+interface ID3SVGSymbol
+{
+    type: (string) => ID3SVGSymbol;
+    size: (number) => ID3SVGSymbol;
+}
+
 interface ID3Svg {
+    symbol: ()=> ID3SVGSymbol;
     axis(): ID3SvgAxis;
 }
 
