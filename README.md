@@ -52,6 +52,7 @@ Complete
 * [node-sqlserver](https://github.com/WindowsAzure/node-sqlserver) (by [Boris Yankov](https://github.com/borisyankov))
 * [PhoneGap](http://phonegap.com) (by [Boris Yankov](https://github.com/borisyankov))
 * [Platform](https://github.com/bestiejs/platform.js) (by [Jake Hickman](https://github.com/JakeH))
+* [PouchDB](http://pouchdb.com) (by [Bill Sears](https://github.com/MrBigDog2U/))
 * [PreloadJS](http://www.createjs.com/#!/PreloadJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [QUnit](http://qunitjs.com/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Raphael](http://raphaeljs.com/) (by [CheCoxshall](https://github.com/CheCoxshall))
