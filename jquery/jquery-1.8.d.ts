@@ -549,6 +549,7 @@ interface JQuery {
     off(eventsMap: { [key: string]: any; }, selector?: any): JQuery;
 
     on(events: string, selector?: any, data?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    on(events: string, selector?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     on(eventsMap: { [key: string]: any; }, selector?: any, data?: any): JQuery;
 
     one(events: string, selector?: any, data?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
