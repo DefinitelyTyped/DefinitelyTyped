@@ -933,6 +933,7 @@ interface JQuery {
     enableSelection(): JQuery;
     disableSelection(): JQuery;
     focus(delay: number, callback?: Function): JQuery;
+    uniqueId(): JQuery;
     removeUniqueId(): JQuery;
     scrollParent(): JQuery;
     zIndex(): JQuery;
