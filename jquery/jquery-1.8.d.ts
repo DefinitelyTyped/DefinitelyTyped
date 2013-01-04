@@ -248,6 +248,7 @@ interface JQueryStatic {
     *******/
     proxy(context: any, name: any): any;
     Deferred(): JQueryDeferred;
+    Event(name:string, eventProperties?:any): JQueryEventObject;
 
     /*********
      INTERNALS
