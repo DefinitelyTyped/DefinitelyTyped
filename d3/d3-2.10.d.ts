@@ -15,7 +15,7 @@ interface ID3event
     dy: number;
     clientX: number;
     clientY: number;
-    translate:number;
+    translate:number[];
     scale: number;
     sourceEvent: ID3event;
 }
