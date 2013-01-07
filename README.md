@@ -31,6 +31,7 @@ Complete
 * [History.js](https://github.com/balupton/History.js/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Humane.js](http://wavded.github.com/humane-js/) (by [John Vrbanac](https://github.com/jmvrbanac))
 * [Impress.js](https://github.com/bartaz/impress.js) (by [Boris Yankov](https://github.com/borisyankov))
+* [iScroll](http://cubiq.org/iscroll-4) (by [Boris Yankov](https://github.com/borisyankov))
 * [Jasmine](http://pivotal.github.com/jasmine/) (by [Boris Yankov](https://github.com/borisyankov))
 * [jQuery](http://jquery.com/) (from TypeScript samples)
 * [jQuery Mobile](http://jquerymobile.com) (by [Boris Yankov](https://github.com/borisyankov))
