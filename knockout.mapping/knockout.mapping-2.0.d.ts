@@ -3,6 +3,10 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions https://github.com/borisyankov/DefinitelyTyped
 
+interface KnockoutMappingCreateOptions {
+    data: any;
+    parent: any;
+}
 
 interface KnockoutMappingOptions {
     ignore? : string[];
@@ -10,6 +14,7 @@ interface KnockoutMappingOptions {
     copy? : string[];
     mappedProperties? : string[];
     deferEvaluation? :  bool;
+    create?: (options: KnockoutMappingCreateOptions) => void;
 }
 
 interface KnockoutMapping {
