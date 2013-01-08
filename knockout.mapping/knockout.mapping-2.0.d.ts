@@ -8,6 +8,12 @@ interface KnockoutMappingCreateOptions {
     parent: any;
 }
 
+interface KnockoutMappingUpdateOptions {
+    data: any;
+    parent: any;
+    observable: KnockoutObservableAny;
+}
+
 interface KnockoutMappingOptions {
     ignore? : string[];
     include? : string[];
@@ -15,6 +21,7 @@ interface KnockoutMappingOptions {
     mappedProperties? : string[];
     deferEvaluation? :  bool;
     create?: (options: KnockoutMappingCreateOptions) => void;
+    update?: (options: KnockoutMappingUpdateOptions) => void;
 }
 
 interface KnockoutMapping {
