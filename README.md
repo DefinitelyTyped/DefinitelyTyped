@@ -23,6 +23,7 @@ Complete
 * [ember.js](http://emberjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Express](http://expressjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Fancybox](http://fancybox.net/) (by [Boris Yankov](https://github.com/borisyankov))
+* [Finite State Machine](https://github.com/jakesgordon/javascript-state-machine) (by [Boris Yankov](https://github.com/borisyankov))
 * [Foundation](http://foundation.zurb.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [GoogleMaps](https://developers.google.com/maps/) (by [Esben Nepper](https://github.com/eNepper))
 * [Handlebars](http://handlebarsjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
