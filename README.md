@@ -66,6 +66,7 @@ Complete
 * [SoundJS](http://www.createjs.com/#!/SoundJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [Spin](http://fgnass.github.com/spin.js/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Sugar](http://sugarjs.com/) (by [Josh Baldwin](https://github.com/jbaldwin/))
+* [SwipeView](http://cubiq.org/swipeview) (by [Boris Yankov](https://github.com/borisyankov))
 * [Teechart](http://www.steema.com) (by [Steema](http://www.steema.com))
 * [Toastr](https://github.com/CodeSeven/toastr) (by [Boris Yankov](https://github.com/borisyankov))
 * [TweenJS](http://www.createjs.com/#!/TweenJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
