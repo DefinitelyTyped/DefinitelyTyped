@@ -39,6 +39,7 @@ Complete
 * [jQuery.BBQ](http://benalman.com/projects/jquery-bbq-plugin/) (by [Adam R. Smith](https://github.com/sunetos))
 * [jQuery.Cookie](https://github.com/carhartl/jquery-cookie) (by [Roy Goode](https://github.com/RoyGoode))
 * [jQuery.Globalize](https://github.com/jquery/globalize) (by [Boris Yankov](https://github.com/borisyankov))
+* [jQuery.Timepicker](http://fgelinas.com/code/timepicker/) (by [Anwar Javed](https://github.com/anwarjaved))
 * [jQuery.Transit](http://ricostacruz.com/jquery.transit/) (by [MrBigDog2U](https://github.com/MrBigDog2U))
 * [jQuery.Validation](http://bassistance.de/jquery-plugins/jquery-plugin-validation/) (by [Boris Yankov](https://github.com/borisyankov))
 * [jQuery.Watermark](http://jquery-watermark.googlecode.com) (by [Anwar Javed](https://github.com/anwarjaved))
