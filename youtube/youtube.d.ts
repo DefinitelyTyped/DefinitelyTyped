@@ -1,24 +1,31 @@
 // Type definitions for YouTube [No version numbering]
 // Project: https://developers.google.com/youtube/
 // Definitions by: Daz Wilkin <https://github.com/DazWilkin/>
+// Updated by: Ian Obermiller <http://ianobermiller.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-// I'm a TypeScript noob so please be gentle!
+module YT {
+    interface EventArgs {
+        target: Player;
+        data: any;
+    }
 
-module Google.YT {
-    interface Event {
-        (event: any): void;
+    interface EventHandler {
+        (event: EventArgs): void;
     }
+
     export interface Events {
-        onReady?: Event;
-        onPlayback?: Event;
-        onStateChange?: Event;
+        onReady?: EventHandler;
+        onPlayback?: EventHandler;
+        onStateChange?: EventHandler;
     }
+
 	export enum ListType {
 		search,
 		user_uploads,
 		playlist,
 	}
+
     export interface PlayerVars {
         autohide?: number;
         autoplay?: number;
@@ -42,91 +49,104 @@ module Google.YT {
 		start?: number;
         theme?: string;
     }
+
     export interface PlayerOptions {
-        width: number;
-        height: number;
-        videoId: string;
-        playerVars: PlayerVars;
-        events: Events;
+        width?: number;
+        height?: number;
+        videoId?: string;
+        playerVars?: PlayerVars;
+        events?: Events;
     }
-    interface LoadVideoByTestId {
+
+    interface VideoByIdParams {
         videoId: string;
-        startSeconds: number;
-        endSeconds: number;
-        suggestedQuality: string;
+        startSeconds?: number;
+        endSeconds?: number;
+        suggestedQuality?: string;
     }
-    export interface Player {
-		
+
+    interface VideoByUrlParams {
+        mediaContentUrl: string;
+        startSeconds?: number;
+        endSeconds?: number;
+        suggestedQuality?: string;
+    }
+
+    export class Player {
         // Constructor
-        new (string, playerOptions:PlayerOptions): any;
+        constructor(id: string, playerOptions: PlayerOptions);
 
         // Queueing functions
-        //loadVideoById:(videoId: string, startSeconds: number, suggestedQuality: string)=> void;
-        loadVideoById:(LoadVideoByTestId)=> void;
+        loadVideoById(videoId: string, startSeconds?: number, suggestedQuality?: string): void;
+        loadVideoById(VideoByIdParams): void;
+        cueVideoById(videoId: string, startSeconds?: number, suggestedQuality?: string): void;
+        cueVideoById(VideoByIdParams): void;
+
+        loadVideoByUrl(mediaContentUrl: string, startSeconds?: number, suggestedQuality?: string): void;
+        loadVideoByUrl(VideoByUrlParams): void;
+        cueVideoByUrl(mediaContentUrl: string, startSeconds?: number, suggestedQuality?: string): void;
+        cueVideoByUrl(VideoByUrlParams): void;
 
         // Properties
         size;
         
         // Playing
-        playVideo: () =>void;
-        pauseVideo: () =>void;
-        stopVideo: () =>void;
-        seekTo: (seconds:number, allowSeekAhead:bool) =>void;
-        clearVideo: () =>void;
+        playVideo(): void;
+        pauseVideo(): void;
+        stopVideo(): void;
+        seekTo(seconds:number, allowSeekAhead:bool): void;
+        clearVideo(): void;
 
         // Playlist
-        nextVideo: () =>void;
-        previousVideo: () =>void;
-        playVideoAt:(index: number) =>void;
+        nextVideo(): void;
+        previousVideo(): void;
+        playVideoAt(index: number): void;
 
         // Volume
-        mute: () =>void;
-        unMute: () =>void;
-        isMuted: () =>bool;
-        setVolume: (volume: number) =>void;
-        getVolume: () =>number;
+        mute(): void;
+        unMute(): void;
+        isMuted(): bool;
+        setVolume(volume: number): void;
+        getVolume(): number;
 
         // Sizing
-        setSize: (width: number, height: number) =>any;
+        setSize(width: number, height: number): any;
 
         // Playback
-        getPlaybackRate: () =>number;
-        setPlaybackRate: (suggestedRate:number) =>void;
+        getPlaybackRate(): number;
+        setPlaybackRate(suggestedRate:number): void;
         getAvailablePlaybackRates(): number[];
         
         // Behavior
-        setLoop: (loopPlaylists: bool) =>void;
-        setShuffle: (shufflePlaylist: bool) =>void;
+        setLoop(loopPlaylists: bool): void;
+        setShuffle(shufflePlaylist: bool): void;
 
         // Status
-        getVideoLoadedFraction: () =>number;
-        getPlayerState: () =>number;
-        getCurrentTime:()=> number;
-        getVideoStartBytes:()=>number;
-        getVideoBytesLoaded: () =>number;
-        getVideoBytesTotal: () =>number;
+        getVideoLoadedFraction(): number;
+        getPlayerState(): number;
+        getCurrentTime(): number;
+        getVideoStartBytes(): number;
+        getVideoBytesLoaded(): number;
+        getVideoBytesTotal(): number;
 
         // Information
-        getDuration: () =>number;
-        getVideoUrl: () =>string;
-        getVideoEmbedCode: () =>string;
+        getDuration(): number;
+        getVideoUrl(): string;
+        getVideoEmbedCode(): string;
 
         // Playlist
-        getPlaylist: () =>any[];
-        getPlaylistIndex:()=>number;
+        getPlaylist(): any[];
+        getPlaylistIndex(): number;
         
         // Event Listener
-        addEventListener: (event: string, listener: string) =>void;
-
+        addEventListener(event: string, listener: string): void;
     }
-}
-interface YT {
-    Player: Google.YT.Player;
-    PlayerState: {
-        BUFFERING: number;
-        CUED: number;
-        ENDED: number;
-        PAUSED: number;
-        PLAYING: number;
+
+    export enum PlayerState {
+        BUFFERING,
+        CUED,
+        ENDED,
+        PAUSED,
+        PLAYING
     };
 }
