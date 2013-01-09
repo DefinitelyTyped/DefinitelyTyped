@@ -39,7 +39,7 @@ interface iScrollOptions {
     wheelAction?: string;
 
     // Snap
-    snap?: bool;
+    snap?: any;
     snapThreshold?: number;
 
     // Events
