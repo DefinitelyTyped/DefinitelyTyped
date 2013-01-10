@@ -25,9 +25,9 @@ interface TimePickerOptions {
     showOptions?: any;                // Options for enhanced animations
     appendText?: string;               // Display text following the input box, e.g. showing the format
 
-    beforeShow: () => any;               // Define a callback function executed before the timepicker is shown
-    onSelect: () => any;               // Define a callback function when a hour / minutes is selected
-    onClose: () => any;                 // Define a callback function when the timepicker is closed
+    beforeShow?: () => any;               // Define a callback function executed before the timepicker is shown
+    onSelect?: () => any;               // Define a callback function when a hour / minutes is selected
+    onClose?: () => any;                 // Define a callback function when the timepicker is closed
 
     timeSeparator?: string;               // The character to use to separate hours and minutes.
     periodSeparator?: string;           // The character to use to separate the time from the time period.
@@ -43,8 +43,8 @@ interface TimePickerOptions {
     atPosition?: string;       // Position of the input element to match
     // Note : if the position utility is not loaded, the timepicker will attach left top to left bottom
     //NEW: 2011-02-03
-    onHourShow: () => any;   		    // callback for enabling / disabling on selectable hours  ex : function(hour) { return true; }
-    onMinuteShow: () => any;                // callback for enabling / disabling on time selection  ex : function(hour,minute) { return true; }
+    onHourShow?: () => any;   		    // callback for enabling / disabling on selectable hours  ex : function(hour) { return true; }
+    onMinuteShow?: () => any;                // callback for enabling / disabling on time selection  ex : function(hour,minute) { return true; }
 
     hours?: TimePickerHour;
     minutes?: TimePickerMinutes;
