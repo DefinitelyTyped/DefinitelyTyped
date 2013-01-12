@@ -1,4 +1,4 @@
-// Type definitions for jQuery UI Timepicker 0.3.1
+// Type definitions for jQuery UI Timepicker 0.3
 // Project: http://fgelinas.com/code/timepicker/
 // Definitions by: https://github.com/anwarjaved
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

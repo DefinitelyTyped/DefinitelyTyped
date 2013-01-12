@@ -10,7 +10,9 @@ interface PouchError {
 }
 
 interface PouchApi {
+	type(): string;
 	id(): string;
+	close(callback: () => void): void;
 }
 
 interface PouchInfoResponse {
@@ -49,6 +51,7 @@ interface PouchAllDocsItem {
 	id: string;
 	key: string;
 	value: any;
+	doc: any;
 }
 
 interface PouchAllDocsResponse {
@@ -66,8 +69,12 @@ interface PouchApi {
 	allDocs(callback: (err: PouchError, res: PouchAllDocsResponse) => void): void;
 }
 
+interface PouchBulkDocsRequest {
+	docs: any[];
+}
+
 interface PouchUpdateOptions {
-	new_edits: bool;
+	new_edits?: bool;
 }
 
 interface PouchUpdateResponse {
@@ -77,8 +84,8 @@ interface PouchUpdateResponse {
 }
 
 interface PouchApi {
-	bulkDocs(req, opts: PouchUpdateOptions, callback: (err: PouchError, res: PouchUpdateResponse[]) => void): void;
-	bulkDocs(req, callback: (err: PouchError, res: PouchUpdateResponse[]) => void): void;
+	bulkDocs(req: PouchBulkDocsRequest, opts: PouchUpdateOptions, callback: (err: PouchError, res: PouchUpdateResponse[]) => void): void;
+	bulkDocs(req: PouchBulkDocsRequest, callback: (err: PouchError, res: PouchUpdateResponse[]) => void): void;
 	//
 	// post == insert (doc does not contain an _id)
 	//
@@ -87,13 +94,13 @@ interface PouchApi {
 	//
 	// put == update (doc DOES contain an _id)
 	//
-	put(doc, opts: PouchUpdateOptions, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
-	put(doc, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
+	put(doc: any, opts: PouchUpdateOptions, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
+	put(doc: any, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
 	//
 	// remove == delete
 	//
-	remove(doc, opts: PouchUpdateOptions, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
-	remove(doc, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
+	remove(doc: any, opts: PouchUpdateOptions, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
+	remove(doc: any, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
 }
 
 interface PouchFilter {
