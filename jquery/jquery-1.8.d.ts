@@ -179,7 +179,8 @@ interface JQueryStatic {
 
     ajaxSettings: JQueryAjaxSettings;
 
-    ajaxSetup(options: any);
+    ajaxSetup();
+    ajaxSetup(options: JQueryAjaxSettings);
 
     get(url: string, data?: any, success?: any, dataType?: any): JQueryXHR;
     getJSON(url: string, data?: any, success?: any): JQueryXHR;
@@ -247,6 +248,7 @@ interface JQueryStatic {
     *******/
     proxy(context: any, name: any): any;
     Deferred(): JQueryDeferred;
+    Event(name:string, eventProperties?:any): JQueryEventObject;
 
     /*********
      INTERNALS
@@ -548,6 +550,7 @@ interface JQuery {
     off(eventsMap: { [key: string]: any; }, selector?: any): JQuery;
 
     on(events: string, selector?: any, data?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    on(events: string, selector?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     on(eventsMap: { [key: string]: any; }, selector?: any, data?: any): JQuery;
 
     one(events: string, selector?: any, data?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;

@@ -93,19 +93,15 @@ declare module _express {
       listen(handle: any, listeningListener?: Function): void;
 
       get(name: string): any;
-      get(path: string, handler: Handler ): void;
-      get(path: RegExp, handler: Handler ): void;
+      get(path: RegExp, handler: Handler): void;
       get(path: string, ...callbacks: Handler[]): void;
 
-      post(path: string, handler: Handler ): void;
       post(path: RegExp, handler: Handler ): void;
       post(path: string, ...callbacks: Handler[]): void;
 
-      put(path: string, handler: Handler ): void;
       put(path: RegExp, handler: Handler ): void;
       put(path: string, ...callbacks: Handler[]): void;
 
-      del(path: string, handler: Handler ): void;
       del(path: RegExp, handler: Handler ): void;
       del(path: string, ...callbacks: Handler[]): void;
   }

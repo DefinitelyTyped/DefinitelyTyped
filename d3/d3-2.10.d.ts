@@ -3,7 +3,27 @@ interface ID3Selectors {
     selectAll: (selector: string) => ID3Selection;
 }
 
+interface ID3behavior
+{
+ drag: () => any;
+ zoom: () => any;
+}
+
+interface ID3event 
+{
+    dx: number;
+    dy: number;
+    clientX: number;
+    clientY: number;
+    translate:number[];
+    scale: number;
+    sourceEvent: ID3event;
+}
+
 interface ID3Base extends ID3Selectors {
+    // behavior
+    behavior: ID3behavior;
+    event: ID3event;
     // Array Helpers
     ascending: (a: number, b: number) => number;
     descending: (a: number, b: number) => number;
@@ -243,7 +263,16 @@ interface ID3StackLayout {
     offset(offset: string): ID3StackLayout;
 }
 
+
+
+interface ID3SVGSymbol
+{
+    type: (string) => ID3SVGSymbol;
+    size: (number) => ID3SVGSymbol;
+}
+
 interface ID3Svg {
+    symbol: ()=> ID3SVGSymbol;
     axis(): ID3SvgAxis;
 }
 

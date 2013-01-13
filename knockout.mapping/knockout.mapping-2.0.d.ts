@@ -3,13 +3,27 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../knockout/knockout-2.2.d.ts" />
+
+interface KnockoutMappingCreateOptions {
+    data: any;
+    parent: any;
+}
+
+interface KnockoutMappingUpdateOptions {
+    data: any;
+    parent: any;
+    observable: KnockoutObservableAny;
+}
 
 interface KnockoutMappingOptions {
-    ignore;
-    include;
-    copy;
-    mappedProperties;
-    deferEvaluation;
+    ignore? : string[];
+    include? : string[];
+    copy? : string[];
+    mappedProperties? : string[];
+    deferEvaluation? :  bool;
+    create?: (options: KnockoutMappingCreateOptions) => void;
+    update?: (options: KnockoutMappingUpdateOptions) => void;
 }
 
 interface KnockoutMapping {

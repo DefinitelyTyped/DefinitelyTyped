@@ -132,8 +132,8 @@ interface Require {
 	// Start the main app logic.
 	// Callback is optional.
 	// Can alternatively use deps and callback.
-	(modules: string[]): void;
-	(modules: string[], ready: (...modules: any[]) => void): void;
+	(module: string): any;
+	(modules: string[], ready?: (...modules: any[]) => void, errorCallback?: (err : RequireError) => void): void;
 
 	// Generate URLs from require module
 	toUrl(module: string): string;
@@ -146,6 +146,15 @@ interface Require {
 
 	// Semi-private function, overload in special instance of undef()
 	onResourceLoad(context: Object, map: RequireMap, depArray: RequireMap[]): void;
+}
+
+interface RequireError
+{
+	requireType: string;
+	requireModules: string[];
+	originalError?: string;
+	contextName? : string;
+	requireMap?: any;
 }
 
 interface RequireDefine {
