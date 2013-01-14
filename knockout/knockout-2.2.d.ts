@@ -63,6 +63,7 @@ interface KnockoutComputedStatic {
 
     (): KnockoutComputed;
     (func: Function, context?: any): KnockoutComputed;
+    (func: Function, context?: any, options?: any): KnockoutComputed;
     (def: KnockoutComputedDefine): KnockoutComputed;
     (options?: any): KnockoutComputed;
 }
