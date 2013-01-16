@@ -31,6 +31,7 @@ Complete
 * [Highcharts](http://www.highcharts.com/) (by [damianog](https://github.com/damianog))
 * [History.js](https://github.com/balupton/History.js/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Humane.js](http://wavded.github.com/humane-js/) (by [John Vrbanac](https://github.com/jmvrbanac))
+* [i18next](http://i18next.com/) (by [Maarten Docter](https://github.com/mdocter))
 * [Impress.js](https://github.com/bartaz/impress.js) (by [Boris Yankov](https://github.com/borisyankov))
 * [iScroll](http://cubiq.org/iscroll-4) (by [Boris Yankov](https://github.com/borisyankov))
 * [Jasmine](http://pivotal.github.com/jasmine/) (by [Boris Yankov](https://github.com/borisyankov))
