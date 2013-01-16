@@ -59,7 +59,6 @@ interface JQueryAjaxSettings {
 */
 interface JQueryXHR extends XMLHttpRequest, JQueryPromise {
     overrideMimeType(mimeType: string);
-    abort(statusText: string): void;
 }
 
 /*
@@ -87,7 +86,7 @@ interface JQueryPromise {
     fail(...failCallbacks: any[]): JQueryDeferred;
     progress(...progressCallbacks: any[]): JQueryDeferred;
     state(): string;
-    pipe(doneFilter?: (x: any) => any, failFilter?: (x: any) => any, progressFilter?: (x: any) => any): JQueryPromise;
+    pipe(doneFilter?: (...args: any[]) => any, failFilter?: (...args: any[]) => any, progressFilter?: (...args: any[]) => any): JQueryPromise;
     then(doneCallbacks: any, failCallbacks: any, progressCallbacks?: any): JQueryDeferred;
 }
 
@@ -180,8 +179,7 @@ interface JQueryStatic {
 
     ajaxSettings: JQueryAjaxSettings;
 
-    ajaxSetup();
-    ajaxSetup(options: JQueryAjaxSettings);
+    ajaxSetup(options: any);
 
     get(url: string, data?: any, success?: any, dataType?: any): JQueryXHR;
     getJSON(url: string, data?: any, success?: any): JQueryXHR;
@@ -247,9 +245,9 @@ interface JQueryStatic {
     /******
      EVENTS
     *******/
-    proxy(context: any, name: any, ...args: any[]): any;
+    proxy(fn: Function, context: any): any;
+    proxy(context: any, name: any): any;
     Deferred(): JQueryDeferred;
-    Event(name:string, eventProperties?:any): JQueryEventObject;
 
     /*********
      INTERNALS
@@ -551,7 +549,6 @@ interface JQuery {
     off(eventsMap: { [key: string]: any; }, selector?: any): JQuery;
 
     on(events: string, selector?: any, data?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
-    on(events: string, selector?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     on(eventsMap: { [key: string]: any; }, selector?: any, data?: any): JQuery;
 
     one(events: string, selector?: any, data?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
