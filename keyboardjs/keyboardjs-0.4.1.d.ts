@@ -32,7 +32,7 @@ interface KeyboardJSLocale {
 interface KeyboardJSStatic {
 	enable(): void;
 	disable(): void;
-	activeKeys() string[];
+	activeKeys(): string[];
 	on(keyCombo:string, onDownCallback?: (keyEvent: Event, keysPressed: string[], keyCombo: string) => {}, onUpCallback?: (keyEvent: Event, keysPressed: string[], keyCombo: string) => {}): KeyboardJSBinding;
 	clear(keyCombo: string): void;
 	clear.key(keyName: string): void;
