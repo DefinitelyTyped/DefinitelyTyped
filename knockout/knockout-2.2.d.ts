@@ -1,4 +1,4 @@
-﻿// Type definitions for Knockout 2.2
+// Type definitions for Knockout 2.2
 // Project: http://knockoutjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -62,7 +62,7 @@ interface KnockoutComputedStatic {
     fn: KnockoutComputedFunctions;
 
     (): KnockoutComputed;
-    (func: Function, context?: any): KnockoutComputed;
+    (func: Function, context?: any, options?: any): KnockoutComputed;
     (def: KnockoutComputedDefine): KnockoutComputed;
     (options?: any): KnockoutComputed;
 }
