@@ -29,7 +29,7 @@ interface KeyboardJSLocale {
 	macros: any[];
 }
 
-interface KeyboardJS {
+interface KeyboardJSStatic {
 	enable(): void;
 	disable(): void;
 	activeKeys() string[];
@@ -43,3 +43,5 @@ interface KeyboardJS {
 	key: KeyboardJSKey;
 	combo: KeyboardJSCombo;	
 }
+
+declare var KeyboardJS:  KeyboardJSStatic;
