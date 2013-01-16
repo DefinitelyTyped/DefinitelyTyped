@@ -509,6 +509,7 @@ module ng {
 
     interface IHttpProvider extends IServiceProvider {        
         defaults: IRequestConfig;
+        responseInterceptors: any[];
     }
 
     ///////////////////////////////////////////////////////////////////////////
