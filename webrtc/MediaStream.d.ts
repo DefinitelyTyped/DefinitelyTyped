@@ -35,8 +35,8 @@ declare var MediaTrackConstraint: {
 }
 
 interface Navigator {
-    getUserMedia(constraints: MediaStreamConstraints, successCallback: (stream: any) => void , errorCallback: (error: Error) => void );
-    webkitGetUserMedia(constraints: MediaStreamConstraints, successCallback: (stream: any) => void , errorCallback: (error: Error) => void );
+    getUserMedia(constraints: MediaStreamConstraints, successCallback: (stream: LocalMediaStream) => void , errorCallback: (error: Error) => void );
+    webkitGetUserMedia(constraints: MediaStreamConstraints, successCallback: (stream: LocalMediaStream) => void , errorCallback: (error: Error) => void );
 }
 
 interface EventHandler { (event: Event): void; }
