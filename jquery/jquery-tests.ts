@@ -1035,27 +1035,6 @@ function test_detach() {
     });
 }
 
-/* Not existing, but not recommended either
-function test_die() {
-    function aClick() {
-        $("div").show().fadeOut("slow");
-    }
-    $("#bind").click(function () {
-        $("#theone").live("click", aClick)
-                    .text("Can Click!");
-    });
-    $("#unbind").click(function () {
-        $("#theone").die("click", aClick)
-                    .text("Does nothing...");
-    });
-    $("p").die();
-    $("p").die("click");
-    var foo = function () { };
-    $("p").live("click", foo);
-    $("p").die("click", foo);
-}
-*/
-
 function test_each() {
     $.each([52, 97], function (index, value) {
         alert(index + ': ' + value);
@@ -1977,16 +1956,6 @@ function test_length() {
         $("span").text("There are " + n + " divs." + "Click to add more.");
     }).trigger('click');
 }
-
-/* deprecated
-function test_live() {
-    $(selector).live(events, data, handler);
-    $(document).delegate(selector, events, data, handler);
-    $(document).on(events, selector, data, handler);
-    $("a.offsite").live("click", function () { alert("Goodbye!"); });
-    $(document).delegate("a.offsite", "click", function () { alert("Goodbye!"); });
-    $(document).on("click", "a.offsite", function () { alert("Goodbye!"); });
-} */
 
 function test_load() {
     $('#result').load('ajax/test.html');
