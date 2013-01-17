@@ -1,4 +1,4 @@
-/// <reference path="../jquery/jquery-1.8.d.ts" />
+/// <reference path="../jquery/jquery-1.9.d.ts" />
 /// <reference path="bootstrap-2.1.d.ts" />
 
 $('body').off('.data-api');
