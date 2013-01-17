@@ -1,4 +1,4 @@
-/// <reference path="backbone-0.9.d.ts" />
+/// <reference path="backbone.d.ts" />
 
 declare var _, $;
 

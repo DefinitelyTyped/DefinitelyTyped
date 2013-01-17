@@ -3,7 +3,7 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-// Updated Jan 14 2011 - Jay Traband ( www.ideablade.com).
+// Updated Jan 14 2011 - Jay Traband (www.ideablade.com)
 
 
 declare module BreezeCore {

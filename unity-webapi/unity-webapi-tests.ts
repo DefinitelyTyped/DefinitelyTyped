@@ -1,4 +1,4 @@
-/// <reference path="unity-webapi-1.0.d.ts" />
+/// <reference path="unity-webapi.d.ts" />
 
 var Unity = external.getUnityObject(1.0);
 var settings = new UnitySettings();

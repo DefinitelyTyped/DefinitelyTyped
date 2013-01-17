@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery-1.9.d.ts" />
-/// <reference path="bootstrap-2.1.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="bootstrap.d.ts" />
 
 $('body').off('.data-api');
 $('body').off('.alert.data-api');

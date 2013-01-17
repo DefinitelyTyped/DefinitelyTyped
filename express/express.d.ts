@@ -19,7 +19,7 @@ connect.session({})
 
 */
 
-///<reference path='../node/node-0.8.d.ts' />
+///<reference path='../node/node.d.ts' />
 
 // do not reference this. use module('express') instead
 declare module _express {

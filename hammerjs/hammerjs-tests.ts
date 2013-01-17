@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery-1.9.d.ts"/>
-/// <reference path="hammerjs-0.6.d.ts" />
+/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="hammerjs.d.ts" />
 
 var hammer = new Hammer(document.getElementById("container"));
 hammer.ondragstart = function (ev) { };

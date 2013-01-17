@@ -4,6 +4,8 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
+/// <reference path="../jquery/jquery.d.ts" />
+
 interface FancyboxOptions {
     padding?: any; // number or []
     margin?: any; // number or []
@@ -87,7 +89,7 @@ interface FancyboxMethods {
     showLoading();
     hideLoading();
 
-    (options?: FancyboxOptions): void;
+    (options: FancyboxOptions): void;
     (selector: string, options?: FancyboxOptions): void;
     (selector: JQuery, options?: FancyboxOptions): void;
     (group?: any[], options?: FancyboxOptions): void;

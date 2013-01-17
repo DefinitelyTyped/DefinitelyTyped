@@ -1,4 +1,4 @@
-/// <reference path="raphael-2.1.d.ts" />
+/// <reference path="raphael.d.ts" />
 
 var paper = Raphael(10, 50, 320, 200);
 var circle = paper.circle(50, 40, 10);

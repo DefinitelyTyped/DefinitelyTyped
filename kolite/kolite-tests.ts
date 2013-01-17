@@ -1,6 +1,6 @@
-/// <reference path="../jquery/jquery-1.9.d.ts" />
-/// <reference path="../knockout/knockout-2.2.d.ts" />
-/// <reference path="kolite-1.1.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="../knockout/knockout.d.ts" />
+/// <reference path="kolite.d.ts" />
 
 function test_asyncCommand() {
     var saveCmd = ko.asyncCommand({

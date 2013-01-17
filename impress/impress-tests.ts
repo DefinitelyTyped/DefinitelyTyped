@@ -1,4 +1,4 @@
-/// <reference path="impress-0.5.d.ts" />
+/// <reference path="impress.d.ts" />
 
 impress().init();
 

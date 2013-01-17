@@ -1,4 +1,4 @@
-/// <reference path="async-0.1.d.ts" />
+/// <reference path="async.d.ts" />
 
 var fs, path;
 

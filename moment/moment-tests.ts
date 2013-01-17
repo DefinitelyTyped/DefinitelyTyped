@@ -1,4 +1,4 @@
-/// <reference path="moment-1.7.d.ts" />
+/// <reference path="moment.d.ts" />
 
 moment().add('hours', 1).fromNow();
 
