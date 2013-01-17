@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-/// <reference path="../jquery/jquery-1.8.d.ts"/>
+/// <reference path="../jquery/jquery-1.9.d.ts"/>
 
 interface WatermarkOptions {
     className?: string; // Default class name for all watermarks

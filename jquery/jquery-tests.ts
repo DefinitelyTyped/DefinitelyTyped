@@ -1,4 +1,4 @@
-/// <reference path="jquery-1.8.d.ts" />
+/// <reference path="jquery-1.9.d.ts" />
 
 function test_add() {
     $("p").add("div").addClass("widget");
@@ -292,13 +292,6 @@ function test_allSelector() {
     $("body").prepend("<h3>" + elementCount2 + " elements found</h3>");
 }
 
-function test_andSelf() {
-    $('li.third-item').nextAll().andSelf()
-        .css('background-color', 'red');
-    $("div").find("p").andSelf().addClass("border");
-    $("div").find("p").addClass("background");
-}
-
 function test_animate() {
     $('#clickme').click(function () {
         $('#book').animate({
@@ -570,32 +563,6 @@ function test_blur() {
     $("p").blur();
 }
 
-function test_browser() {
-    jQuery.each(jQuery.browser, function (i, val) {
-        $("<div>" + i + " : <span>" + val + "</span>").appendTo(document.body);
-    });
-    $.browser.msie;
-    if ($.browser.webkit) {
-        alert("this is webkit!");
-    }
-    var ua = $.browser;
-    if (ua.mozilla && ua.version.slice(0, 3) == "1.9") {
-        alert("Do stuff for firefox 3");
-    }
-    if ($.browser.msie) {
-        $("#div ul li").css("display", "inline");
-    } else {
-        $("#div ul li").css("display", "inline-table");
-    }
-    $("p").html("The version number of the rendering engine your browser uses is: <span>" + $.browser.version + "</span>");
-    if ($.browser.msie) {
-        alert($.browser.version);
-    }
-    if ($.browser.msie) {
-        parseInt($.browser.version, 10);
-    }
-}
-
 interface JQueryStatic { Topic; }
 function test_callbacks() {
     function fn1(value) {
@@ -829,9 +796,9 @@ function test_css() {
             height: function (index, value) {
                 return parseFloat(value) * 1.2;
             }
-
         });
     });
+    var dims = $("#box").css([ "width", "height", "backgroundColor" ]);
 }
 
 function test_cssHooks() {
@@ -1067,27 +1034,6 @@ function test_detach() {
         }
     });
 }
-
-/* Not existing, but not recommended either
-function test_die() {
-    function aClick() {
-        $("div").show().fadeOut("slow");
-    }
-    $("#bind").click(function () {
-        $("#theone").live("click", aClick)
-                    .text("Can Click!");
-    });
-    $("#unbind").click(function () {
-        $("#theone").die("click", aClick)
-                    .text("Does nothing...");
-    });
-    $("p").die();
-    $("p").die("click");
-    var foo = function () { };
-    $("p").live("click", foo);
-    $("p").die("click", foo);
-}
-*/
 
 function test_each() {
     $.each([52, 97], function (index, value) {
@@ -1418,6 +1364,10 @@ function test_find() {
     .end()
         .find(":contains('t')")
         .css({ "font-style": "italic", "font-weight": "bolder" });
+}
+
+function test_finish() {
+    $(".box").finish();
 }
 
 function test_first() {
@@ -2010,16 +1960,6 @@ function test_length() {
         $("span").text("There are " + n + " divs." + "Click to add more.");
     }).trigger('click');
 }
-
-/* deprecated
-function test_live() {
-    $(selector).live(events, data, handler);
-    $(document).delegate(selector, events, data, handler);
-    $(document).on(events, selector, data, handler);
-    $("a.offsite").live("click", function () { alert("Goodbye!"); });
-    $(document).delegate("a.offsite", "click", function () { alert("Goodbye!"); });
-    $(document).on("click", "a.offsite", function () { alert("Goodbye!"); });
-} */
 
 function test_load() {
     $('#result').load('ajax/test.html');
