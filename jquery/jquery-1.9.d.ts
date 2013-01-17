@@ -133,14 +133,6 @@ interface JQueryEventObject extends Event {
 /*
     Collection of properties of the current browser
 */
-interface JQueryBrowserInfo {
-    safari:bool;
-    opera:bool;
-    msie:bool;
-    mozilla:bool;
-    webkit:bool;
-    version:string;
-}
 
 interface JQuerySupport {
     ajax?: bool;
@@ -266,7 +258,6 @@ interface JQueryStatic {
     /**********
      PROPERTIES
     ***********/
-    browser: JQueryBrowserInfo;
     support: JQuerySupport;
 
     /*********

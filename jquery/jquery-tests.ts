@@ -570,32 +570,6 @@ function test_blur() {
     $("p").blur();
 }
 
-function test_browser() {
-    jQuery.each(jQuery.browser, function (i, val) {
-        $("<div>" + i + " : <span>" + val + "</span>").appendTo(document.body);
-    });
-    $.browser.msie;
-    if ($.browser.webkit) {
-        alert("this is webkit!");
-    }
-    var ua = $.browser;
-    if (ua.mozilla && ua.version.slice(0, 3) == "1.9") {
-        alert("Do stuff for firefox 3");
-    }
-    if ($.browser.msie) {
-        $("#div ul li").css("display", "inline");
-    } else {
-        $("#div ul li").css("display", "inline-table");
-    }
-    $("p").html("The version number of the rendering engine your browser uses is: <span>" + $.browser.version + "</span>");
-    if ($.browser.msie) {
-        alert($.browser.version);
-    }
-    if ($.browser.msie) {
-        parseInt($.browser.version, 10);
-    }
-}
-
 interface JQueryStatic { Topic; }
 function test_callbacks() {
     function fn1(value) {
