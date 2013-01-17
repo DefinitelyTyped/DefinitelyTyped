@@ -3,7 +3,7 @@
 // Definitions by: Natan Vivo <https://github.com/nvivo/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../jquery/jquery-1.9.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 interface SimplePaginationOptions {
     items?: number;
