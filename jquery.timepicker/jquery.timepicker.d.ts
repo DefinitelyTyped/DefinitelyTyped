@@ -3,7 +3,7 @@
 // Definitions by: https://github.com/anwarjaved
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../jquery/jquery-1.8.d.ts"/>
+/// <reference path="../jquery/jquery-1.9.d.ts"/>
 /// <reference path="../jqueryui/jqueryui-1.9.d.ts"/>
 
 interface TimePickerHour {
