@@ -1,4 +1,4 @@
-/// <reference path="platform-1.0.d.ts" />
+/// <reference path="platform.d.ts" />
 
 declare interface ITestContainer {
     [name: string]: PlatformStatic;

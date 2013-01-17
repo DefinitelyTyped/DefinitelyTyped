@@ -3,7 +3,7 @@
 // Definitions by: Diego Vilar <http://github.com/diegovilar>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="angular-1.0.d.ts" />
+/// <reference path="angular.d.ts" />
 
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -1,4 +1,4 @@
-/// <reference path="pouch-0.1.d.ts" />
+/// <reference path="pouch.d.ts" />
 
 declare var $: any;
 

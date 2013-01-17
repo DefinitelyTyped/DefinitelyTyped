@@ -1,4 +1,4 @@
-/// <reference path="state-machine-2.2.d.ts" />
+/// <reference path="state-machine.d.ts" />
 
 var fsm = StateMachine.create({
     initial: 'green',

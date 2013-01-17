@@ -1,5 +1,5 @@
-/// <reference path="jquery-1.8.d.ts"/>
-/// <reference path="jquery.validation-1.10.d.ts" />
+/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="jquery.validation.d.ts" />
 
 function test_validate() {
     $("#commentForm").validate();

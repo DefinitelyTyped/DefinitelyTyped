@@ -1,4 +1,4 @@
-/// <reference path="toastr-1.2.d.ts" />
+/// <reference path="toastr.d.ts" />
 
 function test_basic() {
 	var t = [];

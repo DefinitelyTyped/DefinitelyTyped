@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-///<reference path='../node/node-0.8.d.ts' />
+///<reference path='../node/node.d.ts' />
 
 declare module "socket.io" {
 	import http = module('http');
