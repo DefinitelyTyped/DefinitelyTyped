@@ -1,8 +1,10 @@
-/// <reference path="jquery.d.ts" />
 // Type definitions for Toastr 1.0
 // Project: https://github.com/CodeSeven/toastr
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+
+/// <reference path="../jquery/jquery.d.ts" />
 
 interface ToastrOptions {
     tapToDismiss?: bool;

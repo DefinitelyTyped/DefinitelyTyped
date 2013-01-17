@@ -1,4 +1,4 @@
-﻿/// <reference path="knockout-2.2.d.ts" />
+﻿/// <reference path="../knockout/knockout.d.ts" />
 
 // build: ko.editables 0.9
 // http://romanych.github.com/ko.editables/

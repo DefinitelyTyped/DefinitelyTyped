@@ -1,4 +1,4 @@
-/// <reference path="msnodesql-0.2.d.ts" />
+/// <reference path="msnodesql.d.ts" />
 
 import sql = module('msnodesql');
 

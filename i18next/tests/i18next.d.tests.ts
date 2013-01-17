@@ -1,6 +1,6 @@
 /// <reference path="../lib/sinon.d.ts" />
 /// <reference path="../lib/mocha.d.ts" />
-/// <reference path="../lib/jquery.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="../i18next.d.ts" />
 
 // declarations for expect.js

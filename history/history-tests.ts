@@ -1,4 +1,4 @@
-/// <reference path="history-1.7.d.ts" />
+/// <reference path="history.d.ts" />
 
 if (!History.enabled) {
     return false;

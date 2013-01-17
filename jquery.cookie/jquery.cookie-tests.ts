@@ -1,4 +1,4 @@
-///<reference path="../jquery/jquery-1.9.d.ts" />
+///<reference path="../jquery/jquery.d.ts" />
 ///<reference path="jquery.cookie.d.ts" />
 
 class TestObject {

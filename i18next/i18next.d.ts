@@ -1,4 +1,4 @@
-/// <reference path="lib/jquery.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 // Type definitions for i18next (v1.5.10 incl. jQuery)
 // Project: http://i18next.com

@@ -4,8 +4,8 @@
 // Definitions https://github.com/borisyankov/DefinitelyTyped
 
 
-/// <reference path="../jquery/jquery-1.9.d.ts" />
-/// <reference path="../knockout/knockout-2.2.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="../knockout/knockout.d.ts" />
 
 
 // Activity /////////////////////////////////////////////

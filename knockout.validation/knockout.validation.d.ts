@@ -1,4 +1,4 @@
-/// <reference path="knockout-2.2.d.ts" />
+/// <reference path="../knockouot/knockout.d.ts" />
 
 interface KnockoutValidationGroupingOptions {
     deep?: bool;

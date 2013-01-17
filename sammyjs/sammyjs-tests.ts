@@ -1,4 +1,4 @@
-/// <reference path="sammyjs-0.7.d.ts" />
+/// <reference path="sammyjs.d.ts" />
 
 function test_general() {
     var app = Sammy('#main', function () {
