@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-/// <reference path="../jquery/jquery-1.9.d.ts"/>
+/// <reference path="../jquery/jquery.d.ts"/>
 
 module Sammy {
     export function (): Sammy.Application;
@@ -101,7 +101,7 @@ module Sammy {
         route(verb: string, path: string, callback: Function): Application;
         route(verb: string, path: RegExp, callback: Function): Application;
         run(start_url?: string): Application;
-        runRoute(verb: string, path: string, params: any, target: any): any;
+        runRoute(verb: string, path?: string, params?: any, target?: any): any;
         setLocation(new_location: string): string;
         setLocationProxy(new_proxy: DataLocationProxy): void;
         swap(content: any, callback: Function): string;
@@ -136,6 +136,7 @@ module Sammy {
         loadPartials(partials);
         notFound(): any;
         partial(location: string, data: any, callback: Function, partials): RenderContext;
+        params: Object;
         redirect(...params: any[]): void;
         render(location: string, data: any, callback: Function, partials): RenderContext;
         renderEach(location: any, name?: string, data?: any, callback?: Function): RenderContext;
