@@ -20,6 +20,12 @@ They are not runnable, in the TDD way.
 They contain code that should compile with no errors, usually taken from the documentation.samples of the library.
 It is very desirable each new contribution to contain tests too.
 
+Other means to get the definitions
+----------------------------------
+[TypeScript definition package manager](https://github.com/Diullei/tsd)
+
+NuGet package(s) coming soon
+
 List of Libraries
 -----------------
 * [AngularJS](http://angularjs.org) (by [Diego Vilar](https://github.com/diegovilar)) ([wiki](https://github.com/borisyankov/DefinitelyTyped/wiki/AngularJS-Definitions-Usage-Notes))
