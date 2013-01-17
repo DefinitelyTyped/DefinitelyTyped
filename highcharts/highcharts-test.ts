@@ -1,5 +1,4 @@
-﻿/// <reference path="highcharts-2.3.d.ts" />
-
+﻿/// <reference path="highcharts.d.ts" />
 
 
 var animate: HighchartsBoolOrAnimation;

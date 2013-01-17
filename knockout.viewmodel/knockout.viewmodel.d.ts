@@ -1,4 +1,4 @@
-﻿/// <reference path="knockout-2.2.d.ts" />
+﻿/// <reference path="../knockout/knockout.d.ts" />
 
 // build: knockout.viewmodel 1.1.3
 // http://coderenaissance.github.com/knockout.viewmodel/

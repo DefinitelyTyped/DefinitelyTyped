@@ -1,5 +1,5 @@
-/// <reference path='../jasmine/jasmine-1.2.d.ts'/>
-/// <reference path='linq-2.2.d.ts'/>
+/// <reference path='../jasmine/jasmine.d.ts'/>
+/// <reference path='linq.d.ts'/>
 // <reference path="c:/linq.js" /> tests were run from VisualStudio + Resharper7
 
 describe("Linq.js tests", function () {

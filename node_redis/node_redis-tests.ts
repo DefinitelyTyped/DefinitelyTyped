@@ -1,4 +1,4 @@
-/// <reference path="node_redis-0.8.d.ts" />
+/// <reference path="node_redis.d.ts" />
 
 import redis = module('redis');
 
