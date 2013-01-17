@@ -13,7 +13,7 @@ See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
 
-// Typing for the jQuery library, version 1.7.x
+// Typing for the jQuery library, version 1.9.x
 
 /*
     Interface for the AJAX setting that will configure the AJAX request
@@ -378,8 +378,11 @@ interface JQuery {
     /***
      CSS
     ****/
-    css(propertyName: string, value?: any): any;
-    css(propertyName: any, value?: any): any;
+    css(propertyName: string): any;
+    css(propertyNames: string[]): any;
+    css(properties: any): any;
+    css(propertyName: string, value: any): any;    
+    css(propertyName: any, value: any): any;
 
     height(): number;
     height(value: number): JQuery;
