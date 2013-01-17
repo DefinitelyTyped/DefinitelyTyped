@@ -13,7 +13,7 @@ See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
 
-// Typing for the jQuery library, version 1.7.x
+// Typing for the jQuery library, version 1.9.x
 
 /*
     Interface for the AJAX setting that will configure the AJAX request
@@ -133,14 +133,6 @@ interface JQueryEventObject extends Event {
 /*
     Collection of properties of the current browser
 */
-interface JQueryBrowserInfo {
-    safari:bool;
-    opera:bool;
-    msie:bool;
-    mozilla:bool;
-    webkit:bool;
-    version:string;
-}
 
 interface JQuerySupport {
     ajax?: bool;
@@ -247,7 +239,8 @@ interface JQueryStatic {
     /******
      EVENTS
     *******/
-    proxy(context: any, name: any, ...args: any[]): any;
+    proxy(fn : (...args: any[]) => any, context: any, ...args: any[]): any;
+    proxy(context: any, name: string, ...args: any[]): any;
     Deferred(): JQueryDeferred;
     Event(name:string, eventProperties?:any): JQueryEventObject;
 
@@ -266,7 +259,6 @@ interface JQueryStatic {
     /**********
      PROPERTIES
     ***********/
-    browser: JQueryBrowserInfo;
     support: JQuerySupport;
 
     /*********
@@ -378,8 +370,11 @@ interface JQuery {
     /***
      CSS
     ****/
-    css(propertyName: string, value?: any): any;
-    css(propertyName: any, value?: any): any;
+    css(propertyName: string): any;
+    css(propertyNames: string[]): any;
+    css(properties: any): any;
+    css(propertyName: string, value: any): any;    
+    css(propertyName: any, value: any): any;
 
     height(): number;
     height(value: number): JQuery;
@@ -447,6 +442,8 @@ interface JQuery {
 
     fadeToggle(duration?: any, callback?: any): JQuery;
     fadeToggle(duration?: any, easing?: string, callback?: any): JQuery;
+
+    finish(): JQuery;
 
     hide(duration?: any, callback?: any): JQuery;
     hide(duration?: any, easing?: string, callback?: any): JQuery;
@@ -676,8 +673,6 @@ interface JQuery {
     add(...elements: any[]): JQuery;
     add(html: string): JQuery;
     add(obj: JQuery): JQuery;
-
-    andSelf(): JQuery;
 
     children(selector?: any): JQuery;
 
