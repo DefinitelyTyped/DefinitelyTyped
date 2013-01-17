@@ -442,6 +442,8 @@ interface JQuery {
     fadeToggle(duration?: any, callback?: any): JQuery;
     fadeToggle(duration?: any, easing?: string, callback?: any): JQuery;
 
+    finish(): JQuery;
+
     hide(duration?: any, callback?: any): JQuery;
     hide(duration?: any, easing?: string, callback?: any): JQuery;
 
