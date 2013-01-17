@@ -292,13 +292,6 @@ function test_allSelector() {
     $("body").prepend("<h3>" + elementCount2 + " elements found</h3>");
 }
 
-function test_andSelf() {
-    $('li.third-item').nextAll().andSelf()
-        .css('background-color', 'red');
-    $("div").find("p").andSelf().addClass("border");
-    $("div").find("p").addClass("background");
-}
-
 function test_animate() {
     $('#clickme').click(function () {
         $('#book').animate({

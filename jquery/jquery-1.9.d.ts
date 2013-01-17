@@ -671,8 +671,6 @@ interface JQuery {
     add(html: string): JQuery;
     add(obj: JQuery): JQuery;
 
-    andSelf(): JQuery;
-
     children(selector?: any): JQuery;
 
     closest(selector: string): JQuery;
