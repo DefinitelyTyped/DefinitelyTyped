@@ -1366,6 +1366,10 @@ function test_find() {
         .css({ "font-style": "italic", "font-weight": "bolder" });
 }
 
+function test_finish() {
+    $(".box").finish();
+}
+
 function test_first() {
     $('li').first().css('background-color', 'red');
 }
