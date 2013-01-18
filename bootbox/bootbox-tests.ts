@@ -1,78 +1,74 @@
 // QUnit Tests for Bootbox 3.0
 /// <reference path="bootbox.d.ts" />
-/// <reference path="../qunit/qunit.d.ts" />
 
-test("Bootbox alert with message", function () {
-	ok(bootbox.alert("Are we ok?"), "Passed!");
+bootbox.alert("Are we ok?");
+bootbox.alert("Are we ok with Test button?", "Test");
+bootbox.alert("Are we ok with callback?", function() {		
+	console.log("Callback called!");
+});
+bootbox.alert("Are we ok with callback and custom button?", "Test", function() {		
+	console.log("Callback called!");
 });
 
-test("Bootbox alert with message and custom text in button", function () {
-	ok(bootbox.alert("Are we ok with Test button?", "Test"), "Passed!");
+bootbox.confirm("Click ok to pass test", function(result) {		
+	console.log(result);
 });
 
-asyncTest("Bootbox alert with message and callback", function() {
-	bootbox.alert("Are we ok with callback?", function() {		
-		ok(true, "Callback called!");
-		start();
-	});
+bootbox.confirm("Click cancel to pass test", function(result) {		
+	console.log(!result);
 });
 
-asyncTest("Bootbox alert with message and callback and custom text", function() {
-	bootbox.alert("Are we ok with callback and custom button?", "Test", function() {		
-		ok(true, "Callback called!");
-		start();
-	});
+bootbox.confirm("Click confirm to pass test", "Cancel?", "Confirm?", function(result) {		
+	console.log(result);
 });
 
-asyncTest("Bootbox confirm (ok) with message and callback", function() {
-	bootbox.confirm("Click ok to pass test", function(result) {		
-		ok(result, "Callback called!");
-		start();
-	});
+bootbox.confirm("Click cancel to pass test", "Cancel?", "Confirm?", function(result) {
+	console.log(!result);
 });
 
-asyncTest("Bootbox confirm (cancel) with message and callback", function() {
-	bootbox.confirm("Click cancel to pass test", function(result) {		
-		ok(!result, "Callback called!");
-		start();
-	});
+bootbox.prompt("Are we ok?");
+
+bootbox.prompt("Enter 'ok' to pass test", function(result) {		
+	console.log(result);
 });
 
-asyncTest("Bootbox confirm (confirm?) with message and callback and custom text", function() {
-	bootbox.confirm("Click confirm to pass test", "Cancel?", "Confirm?", function(result) {		
-		ok(result, "Callback called!");
-		start();
-	});
+bootbox.prompt("Enter 'ok' to pass test", "Cancel?", "Confirm?", function(result) {		
+	console.log(result);
 });
 
-asyncTest("Bootbox confirm (cancel?) with message and callback and custom text", function() {
-	bootbox.confirm("Click cancel to pass test", "Cancel?", "Confirm?", function(result) {
-		ok(!result, "Callback called!");
-		start();
-	});
-});
+bootbox.prompt("Keep default value and click ok", "Cancel?", "Confirm?", function(result) {		
+	console.log(result);
+}, "Test Value");
 
-test("Bootbox prompt with message", function () {
-	ok(bootbox.prompt("Are we ok?"), "Passed!");
-});
+bootbox.dialog("Test Dialog");
+var handler = {
+	label: "OK",
+	class: "MyClass",
+	callback: function () {
+		console.log("Test Dialog");
+	}
+};
 
-asyncTest("Bootbox prompt with message and callback", function() {
-	bootbox.prompt("Enter 'ok' to pass test", function(result) {		
-		equal(result.toLowerCase(), "ok", "Callback called!");
-		start();
-	});
-});
+var option = {
+	header: "header",
+	headerCloseButton: true
+};
 
-asyncTest("Bootbox prompt with message and callback and custom text", function() {
-	bootbox.prompt("Enter 'ok' to pass test", "Cancel?", "Confirm?", function(result) {		
-		equal(result.toLowerCase(), "ok", "Callback called!");
-		start();
-	});
-});
+bootbox.dialog("Test Dialog", handler);
+bootbox.dialog("Test Dialog", [handler], option);
 
-asyncTest("Bootbox prompt with message and callback and custom text and default value", function() {
-	bootbox.prompt("Keep default value and click ok", "Cancel?", "Confirm?", function(result) {		
-		equal(result, "Test Value", "Callback called!");
-		start();
-	}, "Test Value");
-});
+bootbox.hideAll();
+bootbox.animate(false);
+bootbox.backdrop("backdrop");
+bootbox.classes("myClass");
+
+var icons: BootboxIcons = {
+	OK: "OK Icon",
+	CANCEL: "Cancel Icon",
+	CONFIRM: "Confirm Icon"
+};
+bootbox.setIcons(icons);
+
+bootbox.setLocale("en");
+
+bootbox.addLocale("klingon", { OK: "luq", CANCEL: "qIl", CONFIRM: "Confirm" });
