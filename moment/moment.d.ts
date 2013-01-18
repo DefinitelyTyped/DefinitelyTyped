@@ -57,7 +57,7 @@ interface Moment {
     format(format: string): string;
     format(): string;
 
-    fromNow(): string;
+    fromNow(withoutSuffix?: bool): string;
 
     startOf(soort: string): Moment;
     endOf(soort: string): Moment;
@@ -78,14 +78,22 @@ interface Moment {
 
     isValid(): bool;
 
-    year(y?: number): Moment;
-    month(M?: number): Moment;
-    day(d?: number): Moment;
-    date(d?: number): Moment;
-    hours(h?: number): Moment;
-    minutes(m?: number): Moment;
-    seconds(s?: number): Moment;
-    milliseconds(ms?: number): Moment;
+    year(y: number): Moment;
+    year(): number;
+    month(M: number): Moment;
+    month(): number;
+    day(d: number): Moment;
+    day(): number;
+    date(d: number): Moment;
+    date(): number;
+    hours(h: number): Moment;
+    hours(): number;
+    minutes(m: number): Moment;
+    minutes(): number;
+    seconds(s: number): Moment;
+    seconds(): number;
+    milliseconds(ms: number): Moment;
+    milliseconds(): number;
 
     sod(): Moment; // Start of Day
     eod(): Moment; // End of Day
@@ -135,15 +143,26 @@ interface MomentStatic {
     utc(String: string): Moment; // parse string into UTC mode
     utc(String1: string, String2: string): Moment; // parse a string and format into UTC mode
 
+    isMoment(): bool;
     isMoment(m: any): bool;
     lang(language: string);
     lang(language: string, definition: any); // TODO definition
-
+    months: string[];
+    monthsShort: string[];
+    weekdays: string[];
+    weekdaysShort: string[];
+    weekdaysMin: string[];
+    longDateFormat: any;
+    relativeTime: any;
+    meridiem: (hour, minute, isLower) => string;
+    calendar: any;
+    ordinal: (num: number) => string;
 
     duration(milliseconds: Number): Duration;
     duration(num: Number, soort: string): Duration;
     duration(input: MomentInput): Duration;
     duration(object: any): Duration;
+    duration(): Duration;
 }
 
 declare var moment: MomentStatic;
