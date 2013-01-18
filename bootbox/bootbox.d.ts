@@ -3,9 +3,6 @@
 // Definitions by: Vincent Bortone <https://github.com/vbortone/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="../bootstrap/bootstrap.d.ts"/>
-
 interface BootboxLocale {
 	OK: string;
 	CANCEL: string;
@@ -21,9 +18,7 @@ interface BootboxIcons {
 interface BootboxHandler {
 	label: string;
 	class: string;
-	callback: () => void;
-	callback: (result: bool) => void;
-	callback: (result: string) => void;
+	callback: (result?: any) => void;
 }
 
 interface BootboxOption {
@@ -32,8 +27,11 @@ interface BootboxOption {
 }
 
 interface BootboxStatic {
+	alert(message: string, callback: () => void): void;
 	alert(message: string, customButtonText?: string, callback?: () => void): void;
+	confirm(message: string, callback: (result: bool) => void): void;
 	confirm(message: string, cancelButtonText?: string, confirmButtonText?: string, callback?: (result: bool) => void): void;
+	prompt(message: string, callback: (result: string) => void, defaultValue?: string): void;
 	prompt(message: string, cancelButtonText?: string, confirmButtonText?: string, callback?: (result: string) => void, defaultValue?: string): void;
 	dialog(message: string, handlers?: BootboxHandler[], options?: any): void;
 	dialog(message: string, handler?: BootboxHandler): void;
