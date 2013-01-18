@@ -33,8 +33,9 @@ interface BootboxStatic {
 	confirm(message: string, cancelButtonText?: string, confirmButtonText?: string, callback?: (result: bool) => void): void;
 	prompt(message: string, callback: (result: string) => void, defaultValue?: string): void;
 	prompt(message: string, cancelButtonText?: string, confirmButtonText?: string, callback?: (result: string) => void, defaultValue?: string): void;
-	dialog(message: string, handlers?: BootboxHandler[], options?: any): void;
-	dialog(message: string, handler?: BootboxHandler): void;
+	dialog(message: string, handlers: BootboxHandler[], options?: any): void;
+	dialog(message: string, handler: BootboxHandler): void;
+	dialog(message: string): void;
 	hideAll(): void;
 	animate(shouldAnimate: bool): void;
 	backdrop(backdropValue: string): void;
