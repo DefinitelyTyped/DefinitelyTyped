@@ -1557,6 +1557,66 @@ declare module chrome.storage {
 }
 
 ////////////////////
+// Socket
+////////////////////
+declare module chrome.socket {
+    interface CreateInfo {
+        socketId: number;
+    }
+
+    interface AcceptInfo {
+        resultCode: number;
+        socketId?: number;
+    }
+
+    interface ReadInfo {
+        resultCode: number;
+        data: ArrayBuffer;
+    }
+
+    interface WriteInfo {
+        bytesWritten: number;
+    }
+
+    interface RecvFromInfo {
+        resultCode: number;
+        data: ArrayBuffer;
+        port: number;
+        address: string;
+    }
+
+    interface SocketInfo {
+        socketType: string;
+        localPort?: number;
+        peerAddress?: string;
+        peerPort?: number;
+        localAddress?: string;
+        connected: bool;
+    }
+
+    interface NetworkInterface {
+        name: string;
+        address: string;
+    }
+
+    export function create(type: string, options?: Object, callback?: (createInfo: CreateInfo) => void): void;
+    export function destroy(socketId: number): void;
+    export function connect(socketId: number, hostname: string, port: number, callback: (result: number) => void): void;
+    export function bind(socketId: number, address: string, port: number, callback: (result: number) => void): void;
+    export function disconnect(socketId: number): void;
+    export function read(socketId: number, bufferSize?: number, callback?: (readInfo: ReadInfo) => void): void;
+    export function write(socketId: number, data: ArrayBuffer, callback?: (writeInfo: WriteInfo) => void): void;
+    export function recvFrom(socketId: number, bufferSize?: number, callback?: (recvFromInfo: RecvFromInfo) => void): void;
+    export function sendTo(socketId: number, data: ArrayBuffer, address: string, port: number, callback?: (writeInfo: WriteInfo) => void): void;
+    export function listen(socketId: number, address: string, port: number, backlog?: number, callback?: (result: number) => void): void;
+    export function accept(socketId: number, callback?: (acceptInfo: AcceptInfo) => void): void;
+    export function setKeepAlive(socketId: number, enable: bool, delay?: number, callback?: (result: bool) => void): void;
+    export function setNoDelay(socketId: number, noDelay: bool, callback?: (result: bool) => void): void;
+    export function getInfo(socketId: number, callback: (result: SocketInfo) => void): void;
+    export function getNetworkList(callback: (result: NetworkInterface[]) => void): void;
+}
+
+////////////////////
 // Tabs
 ////////////////////
 declare module chrome.tabs {
