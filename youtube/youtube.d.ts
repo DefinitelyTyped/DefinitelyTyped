@@ -1,4 +1,4 @@
-// Type definitions for YouTube [No version numbering]
+// Type definitions for YouTube
 // Project: https://developers.google.com/youtube/
 // Definitions by: Daz Wilkin <https://github.com/DazWilkin/>
 // Updated by: Ian Obermiller <http://ianobermiller.com>
