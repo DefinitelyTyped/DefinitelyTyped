@@ -17,13 +17,14 @@ interface KnockoutMappingUpdateOptions {
 }
 
 interface KnockoutMappingOptions {
-    ignore? : string[];
-    include? : string[];
-    copy? : string[];
-    mappedProperties? : string[];
-    deferEvaluation? :  bool;
+    ignore?: string[];
+    include?: string[];
+    copy?: string[];
+    mappedProperties?: string[];
+    deferEvaluation?: bool;
     create?: (options: KnockoutMappingCreateOptions) => void;
     update?: (options: KnockoutMappingUpdateOptions) => void;
+    key?: (data: any) => any;
 }
 
 interface KnockoutMapping {
@@ -37,7 +38,7 @@ interface KnockoutMapping {
     defaultOptions(): KnockoutMappingOptions;
     resetDefaultOptions(): void;
     getType(x: any): any;
-    visitModel(rootObject: any, callback: Function, options?: { visitedObjects?; parentName?; ignore?; copy?; include?; } ): any;
+    visitModel(rootObject: any, callback: Function, options?: { visitedObjects?; parentName?; ignore?; copy?; include?; }): any;
 }
 
 interface KnockoutStatic {
