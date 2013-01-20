@@ -32,28 +32,28 @@ interface JQRangeSliderDateSteps {
 }
 
 interface JQRangeSliderOptions {
-    wheelMode?: string;
-    wheelSpeed?: number;
-    arrows?: bool;
-    valueLabels?: string;
-    durationIn?: number;
-    durationOut?: number;
-    delayOut?: number;
-    range?: JQRangeSliderRangeLength;
+    wheelMode?: string; // function of the wheel, "zoom", "scroll" or null
+    wheelSpeed?: number; // speed of the wheel scrolling
+    arrows?: bool; // hide the arrows or not
+    valueLabels?: string; // when to show value labels: "show" (always), "hide" (never) and "change" (only if slider changed)
+    durationIn?: number; // fade in length when displaying value labels (only when valueLabels = "change")
+    durationOut?: number; // fade out length when displaying value labels (only when valueLabels = "change")
+    delayOut?: number; // duration labels are shown after the user changed its values (only when valueLabels = "change")
+    range?: JQRangeSliderRangeLength; // lets you specify minimum and/or maximum range length
 }
 
 interface JQNumericRangeSliderOptions extends JQRangeSliderOptions {
-    bounds?: JQRangeSliderNumericRange;
-    defaultValues?: JQRangeSliderNumericRange;
-    formatter?: (integer) => string;
-    step?: number;
+    bounds?: JQRangeSliderNumericRange; // min and max values of the slider
+    defaultValues?: JQRangeSliderNumericRange; // values selected by default on construction
+    formatter?: (integer) => string; // customize displayed label text
+    step?: number; // allows to customize values rounding, and graphically render this rounding
 }
 
 interface JQDateRangeSliderOptions extends JQRangeSliderOptions {
-    bounds?: JQRangeSliderDateRange;
-    defaultValues?: JQRangeSliderDateRange;
-    formatter?: (Date) => string;
-    step?: JQRangeSliderDateSteps;
+    bounds?: JQRangeSliderDateRange; // min and max values of the slider
+    defaultValues?: JQRangeSliderDateRange; // values selected by default on construction
+    formatter?: (Date) => string; // customize displayed label text
+    step?: JQRangeSliderDateSteps; // allows to customize values rounding, and graphically render this rounding
 }
 
 interface JQuery {
