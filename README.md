@@ -26,8 +26,8 @@ Other means to get the definitions
 
 NuGet package(s) coming soon
 
-List of Libraries
------------------
+List of Definitions
+-------------------
 * [AngularJS](http://angularjs.org) (by [Diego Vilar](https://github.com/diegovilar)) ([wiki](https://github.com/borisyankov/DefinitelyTyped/wiki/AngularJS-Definitions-Usage-Notes))
 * [async](https://github.com/caolan/async) (by [Boris Yankov](https://github.com/borisyankov))
 * [Backbone.js](http://backbonejs.org/) (by [Boris Yankov](https://github.com/borisyankov))
@@ -117,3 +117,17 @@ List of Libraries
 * [Vimeo](http://developer.vimeo.com/player/js-api) (by [Daz Wilkin](https://github.com/DazWilkin/))
 * [WebRTC](http://dev.w3.org/2011/webrtc/editor/webrtc.html) (by [Ken Smith](https://github.com/smithkl42))
 * [YouTube](https://developers.google.com/youtube/) (by [Daz Wilkin](https://github.com/DazWilkin/))
+
+Requested Definitions
+---------------------
+* [Crossfilter](https://github.com/square/crossfilter)
+* [dc.js](https://github.com/NickQiZhu/dc.js)
+* [store.js](https://github.com/marcuswestin/store.js)
+* [google.visualizations](https://developers.google.com/chart/)
+* [Tags Manager](http://welldonethings.com/tags/manager)
+* [jsoneditoronline](https://github.com/wjosdejong/jsoneditoronline)
+* [Tags Manager](http://welldonethings.com/tags/manager)
+* [Rickshaw](https://github.com/shutterstock/rickshaw)
+* [Prelude.ls](http://gkz.github.com/prelude-ls/)
+* [MooTools](http://mootools.net/)
+* [Lo-Dash](http://lodash.com/)
