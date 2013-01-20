@@ -8,7 +8,7 @@ interface ExtendedKeyboardEvent extends KeyboardEvent {
 }
 
 interface MousetrapStatic {
-    stopCallback: (e: KeyboardEvent, element: Element, combo: string) => bool;
+    stopCallback: (e: ExtendedKeyboardEvent, element: Element, combo: string) => bool;
 
     bind(keys: string, callback: (e: ExtendedKeyboardEvent, combo: string) => any, action?: string): void;
     bind(keyArray: string[], callback: (e: ExtendedKeyboardEvent, combo: string) => any, action?: string): void;
