@@ -252,3 +252,7 @@ function test_listview() {
     $('#mylist').listview();
     $('#mylist').listview('refresh');
 }
+
+function test_misc() {
+    $.mobile.initializePage();
+}
