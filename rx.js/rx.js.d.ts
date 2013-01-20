@@ -1,5 +1,8 @@
-﻿//rx.js.d.ts
-//this file is TypeScript difinition for RxJS(http://rx.codeplex.com/)
+﻿// Type definitions for RxJS
+// Project: http://rx.codeplex.com/
+// Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 
 declare module Rx {
     export module Internals {
