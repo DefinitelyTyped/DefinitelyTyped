@@ -8,7 +8,9 @@ declare module "marked" {
 
 interface Options {
 	gfm?: bool;
+	tables?: bool;
+	breaks?: bool;
 	pedantic?: bool;
 	sanitize?: bool;
-	highlight?: bool;
+	highlight?: any;
 }
