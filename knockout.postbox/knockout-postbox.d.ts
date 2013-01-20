@@ -1,3 +1,9 @@
+// Type definitions for knockout-postbox
+// Project: https://github.com/rniemeyer/knockout-postbox
+// Definitions by: Judah Gabriel <https://github.com/JudahGabriel>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+
 interface KnockoutPostBox {
     subscribe: (topic: string, handler: (value) => void, target?: any) => KnockoutObservableAny;
     publish: (topic: string, value?: any) => KnockoutObservableAny;

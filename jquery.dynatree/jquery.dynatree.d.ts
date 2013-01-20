@@ -1,4 +1,4 @@
-// Type definitions for jquery.dynagrid 1.2
+// Type definitions for jquery.dynatree 1.2
 // Project: http://code.google.com/p/dynatree/
 // Definitions by: https://github.com/fdecampredon
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
