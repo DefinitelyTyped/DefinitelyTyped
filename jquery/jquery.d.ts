@@ -82,13 +82,13 @@ interface JQueryCallback {
     Interface for the JQuery promise, part of callbacks
 */
 interface JQueryPromise {
-    always(...alwaysCallbacks: any[]): JQueryDeferred;
-    done(...doneCallbacks: any[]): JQueryDeferred;
-    fail(...failCallbacks: any[]): JQueryDeferred;
-    progress(...progressCallbacks: any[]): JQueryDeferred;
+    always(...alwaysCallbacks: any[]): JQueryPromise;
+    done(...doneCallbacks: any[]): JQueryPromise;
+    fail(...failCallbacks: any[]): JQueryPromise;
+    progress(...progressCallbacks: any[]): JQueryPromise;
     state(): string;
     pipe(doneFilter?: (x: any) => any, failFilter?: (x: any) => any, progressFilter?: (x: any) => any): JQueryPromise;
-    then(doneCallbacks: any, failCallbacks: any, progressCallbacks?: any): JQueryDeferred;
+    then(doneCallbacks: any, failCallbacks: any, progressCallbacks?: any): JQueryPromise;
 }
 
 /*
@@ -98,15 +98,11 @@ interface JQueryDeferred extends JQueryPromise {
     notify(...args: any[]): JQueryDeferred;
     notifyWith(context: any, ...args: any[]): JQueryDeferred;
 
-    pipe(doneFilter?: any, failFilter?: any, progressFilter?: any): JQueryPromise;
-    progress(...progressCallbacks: any[]): JQueryDeferred;
-    promise(target? ): JQueryDeferred;
+    promise(target? ): JQueryPromise;
     reject(...args: any[]): JQueryDeferred;
     rejectWith(context:any, ...args: any[]): JQueryDeferred;
     resolve(...args: any[]): JQueryDeferred;
     resolveWith(context:any, ...args: any[]): JQueryDeferred;
-    state(): string;
-    then(doneCallbacks: any, failCallbacks: any, progressCallbacks?: any): JQueryDeferred;
 }
 
 /*
