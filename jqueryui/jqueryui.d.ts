@@ -154,8 +154,8 @@ interface DatepickerFormatDateOptions {
 interface Datepicker extends Widget, DatepickerOptions {
     regional: { [languageCod3: string]: any; };
     setDefaults(defaults: DatepickerOptions);
-    formatDate(format: string, date: Date, settings?: DatepickerFormatDateOptions): void;
-    parseDate(format: string, date: Date, settings?: DatepickerFormatDateOptions): void;
+    formatDate(format: string, date: Date, settings?: DatepickerFormatDateOptions): string;
+    parseDate(format: string, date: string, settings?: DatepickerFormatDateOptions): Date;
     iso8601Week(date: Date): void;
     noWeekends(): void;
 }
