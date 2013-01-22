@@ -88,7 +88,7 @@ interface JQueryPromise {
     progress(...progressCallbacks: any[]): JQueryPromise;
     state(): string;
     pipe(doneFilter?: (x: any) => any, failFilter?: (x: any) => any, progressFilter?: (x: any) => any): JQueryPromise;
-    then(doneCallbacks: any, failCallbacks: any, progressCallbacks?: any): JQueryPromise;
+    then(doneCallbacks: any, failCallbacks?: any, progressCallbacks?: any): JQueryPromise;
 }
 
 /*
