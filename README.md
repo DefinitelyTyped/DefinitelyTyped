@@ -40,6 +40,7 @@ List of Definitions
 * [Chrome](http://developer.chrome.com/extensions/) (by [Matthew Kimber](https://github.com/matthewkimber))
 * [CodeMirror](http://codemirror.net) (by [François de Campredon](https://github.com/fdecampredon))
 * [d3.js](http://d3js.org/) (from TypeScript samples)
+* [domo](http://domo-js.com/) (by [Steve Fenton](https://github.com/Steve-Fenton))
 * [EaselJS](http://www.createjs.com/#!/EaselJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [ember.js](http://emberjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Express](http://expressjs.com/) (by [Boris Yankov](https://github.com/borisyankov))

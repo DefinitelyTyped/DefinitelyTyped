@@ -1,4 +1,4 @@
-// Type definitions for Domo 0.5.7
+// Type definitions for Domo 0.5
 // Project: http://domo-js.com/
 // Definitions by: Steve Fenton <https://github.com/Steve-Fenton>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
