@@ -115,6 +115,7 @@ List of Definitions
 * [Toastr](https://github.com/CodeSeven/toastr) (by [Boris Yankov](https://github.com/borisyankov))
 * [TweenJS](http://www.createjs.com/#!/TweenJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [tween.js](https://github.com/sole/tween.js/) (by [Adam R. Smith](https://github.com/sunetos))
+* [twitter-bootstrap-wizard](https://github.com/VinceG/twitter-bootstrap-wizard) (by [Blake Niemyjski](https://github.com/niemyjski))
 * [Ubuntu Unity Web API](https://launchpad.net/libunity-webapps) (by [John Vrbanac](https://github.com/jmvrbanac))
 * [Underscore.js](http://underscorejs.org/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Underscore.js (Typed)](http://underscorejs.org/) (by [Josh Baldwin](https://github.com/jbaldwin/))
@@ -123,9 +124,12 @@ List of Definitions
 * [WebRTC](http://dev.w3.org/2011/webrtc/editor/webrtc.html) (by [Ken Smith](https://github.com/smithkl42))
 * [YouTube](https://developers.google.com/youtube/) (by [Daz Wilkin](https://github.com/DazWilkin/))
 * [Zynga Scroller](https://github.com/zynga/scroller) (by [Boris Yankov](https://github.com/borisyankov))
+* [ZeroClipboard] (https://github.com/jonrohan/ZeroClipboard) (by [Eric J. Smith] (https://github.com/ejsmith))
 
 Requested Definitions
 ---------------------
+* [Numeral-js](https://github.com/adamwdraper/Numeral-js)
+* [Rickshaw](https://github.com/shutterstock/rickshaw)
 * [Crossfilter](https://github.com/square/crossfilter)
 * [dc.js](https://github.com/NickQiZhu/dc.js)
 * [store.js](https://github.com/marcuswestin/store.js)
@@ -133,7 +137,6 @@ Requested Definitions
 * [Tags Manager](http://welldonethings.com/tags/manager)
 * [jsoneditoronline](https://github.com/wjosdejong/jsoneditoronline)
 * [Tags Manager](http://welldonethings.com/tags/manager)
-* [Rickshaw](https://github.com/shutterstock/rickshaw)
 * [Prelude.ls](http://gkz.github.com/prelude-ls/)
 * [MooTools](http://mootools.net/)
 * [Lo-Dash](http://lodash.com/)
