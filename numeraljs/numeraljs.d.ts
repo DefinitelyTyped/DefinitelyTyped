@@ -3,10 +3,6 @@
 // Definitions by: Vincent Bortone <https://github.com/vbortone/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-interface NumeralJSStatic {
-	(value?: any): Numeral;
-}
-
 interface NumeralJSLanguage {
 	delimiters: {
 		thousands: string;
