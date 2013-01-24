@@ -40,6 +40,7 @@ List of Definitions
 * [Chrome](http://developer.chrome.com/extensions/) (by [Matthew Kimber](https://github.com/matthewkimber))
 * [CodeMirror](http://codemirror.net) (by [François de Campredon](https://github.com/fdecampredon))
 * [d3.js](http://d3js.org/) (from TypeScript samples)
+* [domo](http://domo-js.com/) (by [Steve Fenton](https://github.com/Steve-Fenton))
 * [EaselJS](http://www.createjs.com/#!/EaselJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [ember.js](http://emberjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Express](http://expressjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
@@ -93,6 +94,7 @@ List of Definitions
 * [Node.js](http://nodejs.org/) (from TypeScript samples)
 * [node_redis](https://github.com/mranney/node_redis) (by [Boris Yankov](https://github.com/borisyankov))
 * [node-sqlserver](https://github.com/WindowsAzure/node-sqlserver) (by [Boris Yankov](https://github.com/borisyankov))
+* [Numeral.js](https://github.com/adamwdraper/Numeral-js) (by [Vincent Bortone](https://github.com/vbortone/))
 * [PhoneGap](http://phonegap.com) (by [Boris Yankov](https://github.com/borisyankov))
 * [Platform](https://github.com/bestiejs/platform.js) (by [Jake Hickman](https://github.com/JakeH))
 * [PouchDB](http://pouchdb.com) (by [Bill Sears](https://github.com/MrBigDog2U/))
@@ -114,6 +116,7 @@ List of Definitions
 * [Toastr](https://github.com/CodeSeven/toastr) (by [Boris Yankov](https://github.com/borisyankov))
 * [TweenJS](http://www.createjs.com/#!/TweenJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [tween.js](https://github.com/sole/tween.js/) (by [Adam R. Smith](https://github.com/sunetos))
+* [twitter-bootstrap-wizard](https://github.com/VinceG/twitter-bootstrap-wizard) (by [Blake Niemyjski](https://github.com/niemyjski))
 * [Ubuntu Unity Web API](https://launchpad.net/libunity-webapps) (by [John Vrbanac](https://github.com/jmvrbanac))
 * [Underscore.js](http://underscorejs.org/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Underscore.js (Typed)](http://underscorejs.org/) (by [Josh Baldwin](https://github.com/jbaldwin/))
@@ -122,9 +125,11 @@ List of Definitions
 * [WebRTC](http://dev.w3.org/2011/webrtc/editor/webrtc.html) (by [Ken Smith](https://github.com/smithkl42))
 * [YouTube](https://developers.google.com/youtube/) (by [Daz Wilkin](https://github.com/DazWilkin/))
 * [Zynga Scroller](https://github.com/zynga/scroller) (by [Boris Yankov](https://github.com/borisyankov))
+* [ZeroClipboard] (https://github.com/jonrohan/ZeroClipboard) (by [Eric J. Smith] (https://github.com/ejsmith))
 
 Requested Definitions
 ---------------------
+* [Rickshaw](https://github.com/shutterstock/rickshaw)
 * [Crossfilter](https://github.com/square/crossfilter)
 * [dc.js](https://github.com/NickQiZhu/dc.js)
 * [store.js](https://github.com/marcuswestin/store.js)
@@ -132,7 +137,6 @@ Requested Definitions
 * [Tags Manager](http://welldonethings.com/tags/manager)
 * [jsoneditoronline](https://github.com/wjosdejong/jsoneditoronline)
 * [Tags Manager](http://welldonethings.com/tags/manager)
-* [Rickshaw](https://github.com/shutterstock/rickshaw)
 * [Prelude.ls](http://gkz.github.com/prelude-ls/)
 * [MooTools](http://mootools.net/)
 * [Lo-Dash](http://lodash.com/)
