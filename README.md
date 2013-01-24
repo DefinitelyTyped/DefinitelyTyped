@@ -94,6 +94,7 @@ List of Definitions
 * [Node.js](http://nodejs.org/) (from TypeScript samples)
 * [node_redis](https://github.com/mranney/node_redis) (by [Boris Yankov](https://github.com/borisyankov))
 * [node-sqlserver](https://github.com/WindowsAzure/node-sqlserver) (by [Boris Yankov](https://github.com/borisyankov))
+* [Numeral.js](https://github.com/adamwdraper/Numeral-js) (by [Vincent Bortone](https://github.com/vbortone/))
 * [PhoneGap](http://phonegap.com) (by [Boris Yankov](https://github.com/borisyankov))
 * [Platform](https://github.com/bestiejs/platform.js) (by [Jake Hickman](https://github.com/JakeH))
 * [PouchDB](http://pouchdb.com) (by [Bill Sears](https://github.com/MrBigDog2U/))
@@ -128,7 +129,6 @@ List of Definitions
 
 Requested Definitions
 ---------------------
-* [Numeral-js](https://github.com/adamwdraper/Numeral-js)
 * [Rickshaw](https://github.com/shutterstock/rickshaw)
 * [Crossfilter](https://github.com/square/crossfilter)
 * [dc.js](https://github.com/NickQiZhu/dc.js)
