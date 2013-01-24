@@ -126,6 +126,35 @@ interface JQueryEventObject extends Event {
     metaKey: any;
 }
 
+interface JQueryInputEventObject extends JQueryEventObject
+{
+    altKey: bool;
+    ctrlKey: bool;
+    metaKey: bool;
+    shiftKey: bool;
+}
+
+interface JQueryMouseEventObject extends JQueryInputEventObject
+{
+    button: number;
+    clientX: number;
+    clientY: number;
+    offsetX: number;
+    offsetY: number;
+    pageX: number;
+    pageY: number;
+    screenX: number;
+    screenY: number;
+}
+
+interface JQueryKeyEventObject extends JQueryInputEventObject
+{
+    char: any;
+    charCode: number;
+    key: any;
+    keyCode: number;
+}
+
 /*
     Collection of properties of the current browser
 */
@@ -497,48 +526,48 @@ interface JQuery {
     hover(handlerIn: (eventObject: JQueryEventObject) => any, handlerOut: (eventObject: JQueryEventObject) => any): JQuery;
     hover(handlerInOut: (eventObject: JQueryEventObject) => any): JQuery;
 
-    keydown(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
-    keydown(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    keydown(eventData?: any, handler?: (eventObject: JQueryKeyEventObject) => any): JQuery;
+    keydown(handler: (eventObject: JQueryKeyEventObject) => any): JQuery;
 
-    keypress(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
-    keypress(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    keypress(eventData?: any, handler?: (eventObject: JQueryKeyEventObject) => any): JQuery;
+    keypress(handler: (eventObject: JQueryKeyEventObject) => any): JQuery;
 
-    keyup(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
-    keyup(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    keyup(eventData?: any, handler?: (eventObject: JQueryKeyEventObject) => any): JQuery;
+    keyup(handler: (eventObject: JQueryKeyEventObject) => any): JQuery;
 
     load(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     load(handler: (eventObject: JQueryEventObject) => any): JQuery;
 
     mousedown(): JQuery;
-    mousedown(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
-    mousedown(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    mousedown(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mousedown(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
-    mouseevent(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
-    mouseevent(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    mouseevent(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseevent(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
     mouseenter(): JQuery;
-    mouseenter(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
-    mouseenter(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    mouseenter(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseenter(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
     mouseleave(): JQuery;
-    mouseleave(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
-    mouseleave(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    mouseleave(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseleave(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
     mousemove(): JQuery;
-    mousemove(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
-    mousemove(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    mousemove(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mousemove(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
     mouseout(): JQuery;
-    mouseout(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
-    mouseout(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    mouseout(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseout(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
     mouseover(): JQuery;
-    mouseover(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
-    mouseover(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    mouseover(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseover(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
     mouseup(): JQuery;
-    mouseup(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
-    mouseup(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    mouseup(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseup(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
     off(events?: string, selector?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     off(eventsMap: { [key: string]: any; }, selector?: any): JQuery;
