@@ -1,3 +1,9 @@
+// Type definitions for Cheerio
+// Project: https://github.com/MatthewMueller/cheerio
+// Definitions by: Bret Little <https://github.com/blittle>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+
 declare interface Cheerio {
     
     addClass(classNames: string): Cheerio;
