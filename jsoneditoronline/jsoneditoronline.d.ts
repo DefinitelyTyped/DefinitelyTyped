@@ -29,4 +29,9 @@ interface JSONFormatterOptions {
 
 interface JSONFormatter {
 	(container:HTMLElement, options?: JSONFormatterOptions, json?: JSON): JSONEditor;
+	(container:HTMLElement, options?: JSONFormatterOptions, json?: string): JSONEditor;
+	set(json: JSON);
+	get(): JSON;
+	setText(jsonString: string);
+	getText(): string;
 }
