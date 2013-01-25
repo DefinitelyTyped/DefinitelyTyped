@@ -36,6 +36,7 @@ List of Definitions
 * [bootstrap.datepicker](https://github.com/eternicode/bootstrap-datepicker) (by [Boris Yankov](https://github.com/borisyankov))
 * [Box2DWeb](http://code.google.com/p/box2dweb/) (by [Josh Baldwin](https://github.com/jbaldwin/))
 * [Breeze](http://www.breezejs.com/) (by [Boris Yankov](https://github.com/borisyankov))
+* [Cheerio](https://github.com/MatthewMueller/cheerio) (by [Bret Little](https://github.com/blittle))
 * [Chosen](http://harvesthq.github.com/chosen/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Chrome](http://developer.chrome.com/extensions/) (by [Matthew Kimber](https://github.com/matthewkimber))
 * [CodeMirror](http://codemirror.net) (by [François de Campredon](https://github.com/fdecampredon))
