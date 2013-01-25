@@ -110,7 +110,7 @@ class GlobalizeStatic {
     addCultureInfo(cultureName, baseCultureName, info? );
     findClosestCulture(cultureSelector: string);
     format(value, format, cultureSelector? );
-    localize(key, cultureSelector);
+    localize(key, cultureSelector?);
 
     parseDate(value: string, formats? , cultureSelector?: string): Date;
     parseInt(value: string, radix? , cultureSelector?: string): number;
