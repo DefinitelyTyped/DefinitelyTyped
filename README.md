@@ -111,6 +111,7 @@ List of Definitions
 * [SockJS](https://github.com/sockjs/sockjs-client) (by [Emil Ivanov](https://github.com/vladev))
 * [SoundJS](http://www.createjs.com/#!/SoundJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [Spin](http://fgnass.github.com/spin.js/) (by [Boris Yankov](https://github.com/borisyankov))
+* [Store.js](https://github.com/marcuswestin/store.js/) (by [Vincent Bortone](https://github.com/vbortone/))
 * [Sugar](http://sugarjs.com/) (by [Josh Baldwin](https://github.com/jbaldwin/))
 * [SwipeView](http://cubiq.org/swipeview) (by [Boris Yankov](https://github.com/borisyankov))
 * [Teechart](http://www.steema.com) (by [Steema](http://www.steema.com))
