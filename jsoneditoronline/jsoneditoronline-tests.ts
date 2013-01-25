@@ -1,11 +1,13 @@
 // Tests for JSONEditorOnline type definitions
 ///<reference path="jsoneditoronline.d.ts" />
 
+var container: HTMLElement;
+
 var options:JSONEditorOptions = {
     "search": true
 };
 var editor:JSONEditor = new JSONEditor(container, options);
-var json:JSON = {
+var json = {
     "Array": [1, 2, 3],
     "Boolean": true, 
     "Null": null, 
@@ -16,13 +18,13 @@ var json:JSON = {
 editor.set(json);
 editor.expandAll();
 
-var jsonResult:JSON = editor.get(json);
+var jsonResult:JSON = editor.get();
 
-var options2: JSONformatterOptions = {
+var options2: JSONFormatterOptions = {
     "indentation": 2
 };
-var formatter:JSONFormatter = new JSONFormatter(container, options);
-var json2:JSON = {
+var formatter: JSONFormatter = new JSONFormatter(container, options);
+var json2 = {
     "Array": [1, 2, 3],
     "Boolean": true, 
     "Null": null, 

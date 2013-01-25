@@ -9,17 +9,66 @@ interface JSONEditorOptions {
 	history?: bool;
 	mode?: string;
 	name?: string;
-	search?: bool;
+	search?: bool;	
 }
 
-interface JSONEditor {
-	(container:HTMLElement, options?: JSONEditorOptions, json?: JSON): JSONEditor;
-	set(json: JSON, name?: string): void;
+class JSONEditorHistory {	
+	constructor(editor: JSONEditor);	
+	onChange(): void;
+	add(action: string, params: Object);
+	clear(): void;
+	canUndo(): bool;
+	canRedo(): bool;
+	undo(): void;
+	redo(): void;
+}
+
+class JSONEditorNode {
+	constructor(editor: JSONEditor, params: Object);
+	setParent(parent: JSONEditorNode): void;
+	getParent(): JSONEditorNode;
+	setField(field: string, fieldEditable: bool): void;
+	getField(): string;
+	setValue(value: any): void;
+	getValue(): any;
+	getLevel(): number;
+	clone(): JSONEditorNode;
+	expand(recurse: bool): void;
+	collapse(recurse: bool): void;
+	showChilds(): void;
+	hide(): void;
+	hideChilds(): void;
+	appendChild(node: JSONEditorNode): void;
+	moveBefore(node: JSONEditorNode, beforeNode: JSONEditorNode): void;
+	moveTo(node: JSONEditorNode, index: number): void;
+	insertBefore(node: JSONEditorNode, beforeNode: JSONEditorNode): void;
+	search(text: string): JSONEditorNode[];
+	scrollTo(): void;
+	focus(): void;
+	blur(): void;
+	containsNode(node: JSONEditorNode): bool;
+	removeChild(node: JSONEditorNode): JSONEditorNode;
+	changeType(newType: string): void;
+	clearDom(): void;
+	getDom(): HTMLElement;
+	setHighlight(highlight: bool): void;
+	updateValue(value: any): void;
+}
+
+class JSONEditor {
+	constructor(container: HTMLElement, options?: JSONEditorOptions, json?: Object);
+	set(json: Object, name?: string): void;
 	setName(name?: string): void;
-	get(): JSON;
+	get(): Object;
 	getName(): string;
+	clear(): void;
+	search(text: string): any[];
 	expandAll(): void;
 	collapseAll(): void;
+	onAction(action: string, params: Object);
+	focus(): void;
+	scrollTo(top: number): void;
+	History: JSONEditorHistory;
 }
 
 interface JSONFormatterOptions {
@@ -27,9 +76,9 @@ interface JSONFormatterOptions {
 	indentation?: number;
 }
 
-interface JSONFormatter {
-	(container:HTMLElement, options?: JSONFormatterOptions, json?: JSON): JSONEditor;
-	(container:HTMLElement, options?: JSONFormatterOptions, json?: string): JSONEditor;
+class JSONFormatter {
+	constructor(container: HTMLElement, options?: JSONFormatterOptions, json?: Object);
+	constructor(container: HTMLElement, options?: JSONFormatterOptions, json?: string);
 	set(json: JSON);
 	get(): JSON;
 	setText(jsonString: string);
