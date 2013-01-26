@@ -67,6 +67,7 @@ List of Definitions
 * [jQuery UI](http://jqueryui.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [jQuery.BBQ](http://benalman.com/projects/jquery-bbq-plugin/) (by [Adam R. Smith](https://github.com/sunetos))
 * [jQuery.contextMenu](http://medialize.github.com/jQuery-contextMenu/) (by [Natan Vivo](https://github.com/nvivo/))
+* [jQuery.clientSideLogging](https://github.com/remybach/jQuery.clientSideLogging/) (by [Diullei Gomes](https://github.com/diullei/))
 * [jQuery.Cookie](https://github.com/carhartl/jquery-cookie) (by [Roy Goode](https://github.com/RoyGoode))
 * [jQuery.dynatree](http://code.google.com/p/dynatree/) (by [François de Campredon](https://github.com/fdecampredon))
 * [jQuery.Flot](http://www.flotcharts.org/) (by [Matt Burland](https://github.com/burlandm))
