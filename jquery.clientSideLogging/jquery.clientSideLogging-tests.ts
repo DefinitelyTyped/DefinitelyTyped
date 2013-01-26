@@ -1,12 +1,5 @@
 ///<reference path="jquery.clientSideLogging.d.ts" />
 
-interface JQueryStatic {
-    info: (what?: any) => any;
-    error: (what?: any) => any;
-    log: (what?: any) => any;
-    clientSideLogging: (options: ClientSideLoggingObject) => any;
-}
-
 $.clientSideLogging({
 	log_level: 3,
 	client_info: {

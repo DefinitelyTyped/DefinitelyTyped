@@ -22,3 +22,10 @@ interface ClientSideLoggingObject {
     query_var?: string;		// The variable to send the log message through as.
     client_info?: ClientSideLoggingClientInfoObject;	// Configuration for what info about the client's browser is logged.
 }
+
+interface JQueryStatic {
+    info: (what?: any) => any;
+    error: (what?: any) => any;
+    log: (what?: any) => any;
+    clientSideLogging: (options: ClientSideLoggingObject) => any;
+}
