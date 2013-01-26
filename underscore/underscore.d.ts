@@ -22,58 +22,64 @@ interface ObjectIterator {
     (element, index, list?): void;
 }
 
+// Used as common interface between Arrays and jQuery objects
+interface IList {
+    [index: number]: any;
+    length: number;
+}
+
 interface UnderscoreStatic {
 
     /****
      Collections
     *****/
-    each(list: any[], iterator: ListIterator, context?: any): any[];
+    each(list: IList, iterator: ListIterator, context?: any): any[];
     each(object: any, iterator: ObjectIterator, context?: any): any[];
-    forEach(list: any[], iterator: ObjectIterator, context?: any): any[];
+    forEach(list: IList, iterator: ObjectIterator, context?: any): any[];
     forEach(object: any, iterator: ListIterator, context?: any): any[];
 
-    map(list: any[], iterator: ListIterator, context?: any): any[];
+    map(list: IList, iterator: ListIterator, context?: any): any[];
     map(object: any, iterator: ObjectIterator, context?: any): any[];
-    collect(list: any[], iterator: ListIterator, context?: any): any[];
+    collect(list: IList, iterator: ListIterator, context?: any): any[];
     collect(object: any, iterator: ObjectIterator, context?: any): any[];
 
-    reduce(list: any[], iterator: any, memo: any, context?: any): any[];
-    inject(list: any[], iterator: any, memo: any, context?: any): any[];
-    foldl(list: any[], iterator: any, memo: any, context?: any): any[];
+    reduce(list: IList, iterator: any, memo: any, context?: any): any[];
+    inject(list: IList, iterator: any, memo: any, context?: any): any[];
+    foldl(list: IList, iterator: any, memo: any, context?: any): any[];
 
-    reduceRight(list: any[], iterator: any, memo: any, context?: any): any[];
-    foldr(list: any[], iterator: any, memo: any, context?: any): any[];
+    reduceRight(list: IList, iterator: any, memo: any, context?: any): any[];
+    foldr(list: IList, iterator: any, memo: any, context?: any): any[];
 
-    find(list: any[], iterator: any, context?: any): any;
-    detect(list: any[], iterator: any, context?: any): any;
+    find(list: IList, iterator: any, context?: any): any;
+    detect(list: IList, iterator: any, context?: any): any;
 
-    filter(list: any[], iterator: any, context?: any): any[];
-    select(list: any[], iterator: any, context?: any): any[];
+    filter(list: IList, iterator: any, context?: any): any[];
+    select(list: IList, iterator: any, context?: any): any[];
 
-    where(list: any[], properties: any): any[];
+    where(list: IList, properties: any): any[];
 
-    reject(list: any[], iterator: any, context?: any): any[];
+    reject(list: IList, iterator: any, context?: any): any[];
 
-    all(list: any[], iterator: any, context?: any): bool;
-    every(list: any[], iterator: any, context?: any): bool;
+    all(list: IList, iterator: any, context?: any): bool;
+    every(list: IList, iterator: any, context?: any): bool;
 
-    any(list: any[], iterator?: any, context?: any): bool;
-    some(list: any[], iterator?: any, context?: any): bool;
+    any(list: IList, iterator?: any, context?: any): bool;
+    some(list: IList, iterator?: any, context?: any): bool;
 
     contains(list: any, value: any): bool;
-    contains(list: any[], value: any): bool;
+    contains(list: IList, value: any): bool;
     include(list: any, value: any): bool;
-    include(list: any[], value: any): bool;
+    include(list: IList, value: any): bool;
 
-    invoke(list: any[], methodName: string, arguments: any[]): any;
+    invoke(list: IList, methodName: string, arguments: any[]): any;
     invoke(object: any, methodName: string, ...arguments: any[]): any;
 
-    pluck(list: any[], propertyName: string): string[];
-    max(list: any[], iterator?: any, context?: any): any;
-    min(list: any[], iterator?: any, context?: any): any;
-    sortBy(list: any[], iterator?: any, context?: any): any;
-    groupBy(list: any[], iterator: any): any;
-    countBy(list: any[], iterator: any): any;
+    pluck(list: IList, propertyName: string): string[];
+    max(list: IList, iterator?: any, context?: any): any;
+    min(list: IList, iterator?: any, context?: any): any;
+    sortBy(list: IList, iterator?: any, context?: any): any;
+    groupBy(list: IList, iterator: any): any;
+    countBy(list: IList, iterator: any): any;
     shuffle(list: any[]): any[];
     toArray(list: any): any[];
     size(list: any): number;
@@ -81,33 +87,33 @@ interface UnderscoreStatic {
     /****
      Arrays
     *****/
-    first(array: any[], n?: number): any;
-    head(array: any[], n?: number): any;
-    take(array: any[], n?: number): any;
+    first(array: IList, n?: number): any;
+    head(array: IList, n?: number): any;
+    take(array: IList, n?: number): any;
 
-    initial(array: any[], n?: number): any[];
+    initial(array: IList, n?: number): any[];
 
-    last(array: any[], n?: number): any;
+    last(array: IList, n?: number): any;
 
-    rest(array: any[], n?: number): any[];
-    tail(array: any[], n?: number): any[];
-    drop(array: any[], n?: number): any[];
+    rest(array: IList, n?: number): any[];
+    tail(array: IList, n?: number): any[];
+    drop(array: IList, n?: number): any[];
 
     compact(array: any[]): any[];
-    flatten(array: any[], shallow?: bool): any[];
-    without(array: any[], ...values: any[]): any[];
+    flatten(array: IList, shallow?: bool): any[];
+    without(array: IList, ...values: any[]): any[];
     union(...arrays: any[][]): any[];
     intersection(...arrays: any[][]): any[];
-    difference(array: any[], ...others: any[][]): any[];
+    difference(array: IList, ...others: any[][]): any[];
 
-    uniq(array: any[], isSorted?: bool, iterator?: any): any[];
-    unique(array: any[], isSorted?: bool, iterator?: any): any[];
+    uniq(array: IList, isSorted?: bool, iterator?: any): any[];
+    unique(array: IList, isSorted?: bool, iterator?: any): any[];
 
     zip(...arrays: any[]): any[];
-    object(list: any[], values: any[]): any;
-    indexOf(array: any[], value: any, isSorted?: bool): number;
-    lastIndexOf(array: any[], value: any, fromIndex?: number): number;
-    sortedIndex(list: any[], valueL: any, iterator?: any): number;
+    object(list: IList, values: any[]): any;
+    indexOf(array: IList, value: any, isSorted?: bool): number;
+    lastIndexOf(array: IList, value: any, fromIndex?: number): number;
+    sortedIndex(list: IList, valueL: any, iterator?: any): number;
     range(stop: number): any[];
     range(start: number, stop: number, step?: number): any[];
 
