@@ -53,7 +53,7 @@ interface ID3Base extends ID3Selectors {
     };
     html: (url: string, callback: (response: DocumentFragment) => void) => void;
     csv: {
-        (url: string, callback: (response: any[]) => void);
+        (url: string, callback: (error: any, response: any[]) => void);
         parse(string: string): any[];
         parseRows(string: string, accessor: (row: any[], index: number) => any): any;
         format(rows: any[]): string;
@@ -62,6 +62,11 @@ interface ID3Base extends ID3Selectors {
     time: ID3Time;
     scale: {
         linear(): ID3LinearScale;
+        ordinal(): ID3OrdinalScale;
+        category10(): ID3OrdinalScale;
+        category20(): ID3OrdinalScale;
+        category20b(): ID3OrdinalScale;
+        category20c(): ID3OrdinalScale;
     };
     interpolate: ID3BaseInterpolate;
     interpolateNumber: ID3BaseInterpolate;
@@ -75,6 +80,7 @@ interface ID3Base extends ID3Selectors {
     layout: ID3Layout;
     svg: ID3Svg;
     random: ID3Random;
+    keys(map: Object): any[];
 }
 
 interface ID3Selection extends ID3Selectors {
@@ -220,6 +226,21 @@ interface ID3LinearScale {
     copy: ID3LinearScale;
 }
 
+interface ID3OrdinalScale {
+    (value: any): any;
+    domain(values: any[]): ID3OrdinalScale;
+    range: {
+        (values: any[]): ID3OrdinalScale;
+        (): any[];
+    };
+    rangePoints(interval: any[], padding?: number): ID3OrdinalScale;
+    rangeBands(interval: any[], padding?: number, outerPadding?: number): ID3OrdinalScale;
+    rangeRoundBands(interval: any[], padding?: number, outerPadding?: number): ID3OrdinalScale;
+    rangeBand(): any[];
+    rangeExtent(): any[];
+    copy: ID3OrdinalScale;
+}
+
 interface ID3TimeScale {
     (value: Date): number;
     invert(value: number): Date;
@@ -255,6 +276,7 @@ interface ID3Interpolate {
 
 interface ID3Layout {
     stack(): ID3StackLayout;
+    pie(): ID3PieLayout;
 }
 
 interface ID3StackLayout {
@@ -263,7 +285,34 @@ interface ID3StackLayout {
     offset(offset: string): ID3StackLayout;
 }
 
+interface ID3PieLayout {
+    (values: any[], index?: number): ID3ArcDescriptor[];
+    value: {
+        (): (d: any, index: number) => number;
+        (accessor: (d: any, index: number) => number): ID3PieLayout;
+    };
+    sort: {
+        (): (d1: any, d2: any) => number;
+        (comparator: (d1: any, d2: any) => number): ID3PieLayout;
+    };
+    startAngle: {
+        (): number;
+        (angle: number): ID3SvgArc;
+        (angle: () => number): ID3SvgArc;
+    };
+    endAngle: {
+        (): number;
+        (angle: number): ID3SvgArc;
+        (angle: () => number): ID3SvgArc;
+    };
+}
 
+interface ID3ArcDescriptor {
+    value: any;
+    data: any;
+    startAngle: number;
+    endAngle: number;
+}
 
 interface ID3SVGSymbol
 {
@@ -274,6 +323,7 @@ interface ID3SVGSymbol
 interface ID3Svg {
     symbol: ()=> ID3SVGSymbol;
     axis(): ID3SvgAxis;
+    arc(): ID3SvgArc;
 }
 
 interface ID3SvgAxis {
@@ -296,6 +346,38 @@ interface ID3SvgAxis {
     tickSubdivide(count: number): ID3SvgAxis;
     tickSize(major?: number, minor?: number, end?: number): ID3SvgAxis;
     tickFormat(formatter: (value: any) => string): ID3SvgAxis;
+}
+
+interface ID3SvgArc {
+    (options?: ID3SvgArcOptions): string;
+    innerRadius: {
+        (): number;
+        (radius: number): ID3SvgArc;
+        (radius: () => number): ID3SvgArc;
+    };
+    outerRadius: {
+        (): number;
+        (radius: number): ID3SvgArc;
+        (radius: () => number): ID3SvgArc;
+    };
+    startAngle: {
+        (): number;
+        (angle: number): ID3SvgArc;
+        (angle: () => number): ID3SvgArc;
+    };
+    endAngle: {
+        (): number;
+        (angle: number): ID3SvgArc;
+        (angle: () => number): ID3SvgArc;
+    };
+    centroid(options?: ID3SvgArcOptions): number[];
+}
+
+interface ID3SvgArcOptions {
+    innerRadius?: number;
+    outerRadius?: number;
+    startAngle?: number;
+    endAngle?: number;
 }
 
 interface ID3Random {
