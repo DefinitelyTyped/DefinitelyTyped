@@ -18,7 +18,7 @@ var json = {
 editor.set(json);
 editor.expandAll();
 
-var jsonResult:JSON = editor.get();
+var jsonResult:any = editor.get();
 
 var options2: JSONFormatterOptions = {
     "indentation": 2
@@ -34,4 +34,4 @@ var json2 = {
 };
 formatter.set(json2);
 
-var jsonResult2:JSON = formatter.get(json2);
+var jsonResult2:any = formatter.get(json2);
