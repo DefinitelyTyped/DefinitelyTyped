@@ -34,8 +34,14 @@ interface JSONEditorNodeType {
 	title: string;
 }
 
+interface JSONEditorConstructorParams {
+	field?: string;
+	fieldEditable?: bool;
+	value?: any;
+}
+
 class JSONEditorNode {
-	constructor(editor: JSONEditor, params: Object);
+	constructor(editor: JSONEditor, params: JSONEditorConstructorParams);
 	setParent(parent: JSONEditorNode): void;
 	getParent(): JSONEditorNode;
 	setField(field: string, fieldEditable: bool): void;
@@ -89,7 +95,7 @@ interface JSONEditorShowDropDownListParams {
 class JSONEditorSearchBox {
 	constructor(editor: JSONEditor, container: HTMLElement);
 	next(): void;
-	previous: void;
+	previous(): void;
 	setActiveResult(index: number): void;
 	focusActiveResult(): void;
 	clearDelay(): void;
@@ -97,7 +103,27 @@ class JSONEditorSearchBox {
 	onSearch(event: Event, forcedSearch: bool): void;
 	onKeyDown(event: Event): void;
 	onKeyUp(event: Event): void;
+}
 
+interface JSONEditorBuffer {
+	text: string;
+	flush(): string;
+	set(text: string): void;
+}
+
+interface JSONEditorActionParams {
+	node?: JSONEditorNode;
+	oldValue?: string;
+	newValue?: string;
+	startParent?: JSONEditorNode;
+	endParent?: JSONEditorNode;
+	startIndex?: number;
+	endIndex?: number;
+	clone?: JSONEditorNode;
+	parent?: JSONEditorNode;
+	index?: number;
+	oldType?: JSONEditorNodeType;
+	newType?: JSONEditorNodeType;
 }
 
 class JSONEditor {
@@ -110,18 +136,33 @@ class JSONEditor {
 	search(text: string): any[];
 	expandAll(): void;
 	collapseAll(): void;
-	onAction(action: string, params: Object);
+	onAction(action: string, params: JSONEditorActionParams);
 	focus(): void;
 	scrollTo(top: number): void;
 	History: JSONEditorHistory;
 	Node: JSONEditorNode;
 	SearchBox: JSONEditorSearchBox;
-	showDropDownList(): void;
-	getNodeFromTarget(target: HTMLElement): JSONEditorNode;
+	static focusNode: JSONEditorNode;
+	static freezeHighlight: bool;
+	static showDropDownList(params): void;
+	static getNodeFromTarget(target: HTMLElement): JSONEditorNode;
+	static getAbsoluteLeft(elem: HTMLElement): number;
+	static getAbsoluteTop(elem: HTMLElement); number;
+	static addClassName(elem: HTMLElement, className: string): void;
+	static removeClassName(elem: HTMLElement, className: string): void;
+	static stripFormatting(divElement: HTMLElement): void;
+	static setEndOfContentEditable(contentEditableElement: HTMLElement): void;
+	static getInnerText(element: HTMLElement, buffer: JSONEditorBuffer): string;	
+	static getInternetExplorerVersion(): number;
 	Events: {
-		addEventListener(element: HTMLElement, action: string, )
-	};
+		addEventListener(element: HTMLElement, action: string, listener:(event?: Event) => void, useCapture:bool): (event?: Event) => void;
+		removeEventListener(element: HTMLElement, action: string, listener:(event?: Event) => void, useCapture:bool): void;
+		stopPropagation(event: Event): void;
+		preventDefault(event:Event): void;
 
+	};
+	static parse(jsonString: string): Object;
+	static validate(jsonString: string): string;
 }
 
 interface JSONFormatterOptions {
