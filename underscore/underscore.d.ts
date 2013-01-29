@@ -6,6 +6,7 @@
 
 interface UnderscoreWrappedObject {
     value () : any;
+	filter(arg?) : any;
 }
 
 interface TemplateSettings {
@@ -29,6 +30,7 @@ interface List {
 }
 
 interface UnderscoreStatic {
+	(arg?:any) : any;
 
     /****
      Collections
@@ -44,27 +46,42 @@ interface UnderscoreStatic {
     collect(object: any, iterator: ObjectIterator, context?: any): any[];
 
     reduce(list: List, iterator: any, memo: any, context?: any): any[];
+    reduce(list: any[], iterator: any, memo: any, context?: any): any[];
     inject(list: List, iterator: any, memo: any, context?: any): any[];
+    inject(list: any[], iterator: any, memo: any, context?: any): any[];
     foldl(list: List, iterator: any, memo: any, context?: any): any[];
+    foldl(list: any[], iterator: any, memo: any, context?: any): any[];
 
     reduceRight(list: List, iterator: any, memo: any, context?: any): any[];
+    reduceRight(list: any[], iterator: any, memo: any, context?: any): any[];
     foldr(list: List, iterator: any, memo: any, context?: any): any[];
+    foldr(list: any[], iterator: any, memo: any, context?: any): any[];
 
     find(list: List, iterator: any, context?: any): any;
+    find(list: any[], iterator: any, context?: any): any;
     detect(list: List, iterator: any, context?: any): any;
+    detect(list: any[], iterator: any, context?: any): any;
 
     filter(list: List, iterator: any, context?: any): any[];
+    filter(list: any[], iterator: any, context?: any): any[];
     select(list: List, iterator: any, context?: any): any[];
+    select(list: any[], iterator: any, context?: any): any[];
 
     where(list: List, properties: any): any[];
+    where(list: any[], properties: any): any[];
 
     reject(list: List, iterator: any, context?: any): any[];
+    reject(list: any[], iterator: any, context?: any): any[];
 
     all(list: List, iterator: any, context?: any): bool;
+    all(list: any[], iterator: any, context?: any): bool;
     every(list: List, iterator: any, context?: any): bool;
+    every(list: any[], iterator: any, context?: any): bool;
 
     any(list: List, iterator?: any, context?: any): bool;
+    any(list: any[], iterator?: any, context?: any): bool;
     some(list: List, iterator?: any, context?: any): bool;
+    some(list: any[], iterator?: any, context?: any): bool;
 
     contains(list: any, value: any): bool;
     contains(list: List, value: any): bool;
@@ -75,11 +92,17 @@ interface UnderscoreStatic {
     invoke(object: any, methodName: string, ...arguments: any[]): any;
 
     pluck(list: List, propertyName: string): string[];
+    pluck(list: any[], propertyName: string): string[];
     max(list: List, iterator?: any, context?: any): any;
+    max(list: any[], iterator?: any, context?: any): any;
     min(list: List, iterator?: any, context?: any): any;
+    min(list: any[], iterator?: any, context?: any): any;
     sortBy(list: List, iterator?: any, context?: any): any;
+    sortBy(list: any[], iterator?: any, context?: any): any;
     groupBy(list: List, iterator: any): any;
+    groupBy(list: any[], iterator: any): any;
     countBy(list: List, iterator: any): any;
+    countBy(list: any[], iterator: any): any;
     shuffle(list: any[]): any[];
     toArray(list: any): any[];
     size(list: any): number;
@@ -88,32 +111,49 @@ interface UnderscoreStatic {
      Arrays
     *****/
     first(array: List, n?: number): any;
+    first(array: any[], n?: number): any;
     head(array: List, n?: number): any;
+    head(array: any[], n?: number): any;
     take(array: List, n?: number): any;
+    take(array: any[], n?: number): any;
 
     initial(array: List, n?: number): any[];
+    initial(array: any[], n?: number): any[];
 
     last(array: List, n?: number): any;
+    last(array: any[], n?: number): any;
 
     rest(array: List, n?: number): any[];
+    rest(array: any[], n?: number): any[];
     tail(array: List, n?: number): any[];
+    tail(array: any[], n?: number): any[];
     drop(array: List, n?: number): any[];
+    drop(array: any[], n?: number): any[];
 
     compact(array: any[]): any[];
     flatten(array: List, shallow?: bool): any[];
+    flatten(array: any[], shallow?: bool): any[];
     without(array: List, ...values: any[]): any[];
+    without(array: any[], ...values: any[]): any[];
     union(...arrays: any[][]): any[];
     intersection(...arrays: any[][]): any[];
     difference(array: List, ...others: any[][]): any[];
+    difference(array: any[], ...others: any[][]): any[];
 
     uniq(array: List, isSorted?: bool, iterator?: any): any[];
+    uniq(array: any[], isSorted?: bool, iterator?: any): any[];
     unique(array: List, isSorted?: bool, iterator?: any): any[];
+    unique(array: any[], isSorted?: bool, iterator?: any): any[];
 
     zip(...arrays: any[]): any[];
-    object(list: List, values: any[]): any;
+    object(list: List, values?: any[]): any;
+    object(list: any[], values?: any[]): any;
     indexOf(array: List, value: any, isSorted?: bool): number;
+    indexOf(array: any[], value: any, isSorted?: bool): number;
     lastIndexOf(array: List, value: any, fromIndex?: number): number;
+    lastIndexOf(array: any[], value: any, fromIndex?: number): number;
     sortedIndex(list: List, valueL: any, iterator?: any): number;
+    sortedIndex(list: any[], valueL: any, iterator?: any): number;
     range(stop: number): any[];
     range(start: number, stop: number, step?: number): any[];
 
