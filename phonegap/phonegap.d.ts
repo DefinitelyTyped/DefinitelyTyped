@@ -289,12 +289,6 @@ interface GeolocationOptions {
     maximumAge?: number;
 }
 
-interface Geolocation {
-    getCurrentPosition(geolocationSuccess: (position: Position) => void , geolocationError?: PositionErrorCallback, geolocationOptions?: GeolocationOptions): void;
-    watchPosition(geolocationSuccess: (position: Position) => void , geolocationError?: PositionErrorCallback, geolocationOptions?: GeolocationOptions): void;
-    clearWatch(watchID: number): void;
-}
-
 interface GlobalizationError {
     code: number;
     message: string;
@@ -385,7 +379,7 @@ interface LocalStorage {
 }
 */
 
-interface Navigator extends Navigator {
+interface PhoneGapNavigator extends Navigator {
     accelerometer: Accelerometer;
     camera: Camera;
     capture: Capture;
@@ -404,3 +398,4 @@ interface Window {
 }
 
 declare var device: Device;
+declare var phoneGapNavigator: PhoneGapNavigator;
