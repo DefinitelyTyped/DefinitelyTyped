@@ -111,7 +111,7 @@ function test_capture() {
     var options = { limit: 3, duration: 10 };
     navigator.device.capture.captureAudio(captureSuccess, captureError, options);
     var captureSuccess = function (mediaFiles) {
-    var i, path, len;
+        var i, path, len;
         for (i = 0, len = mediaFiles.length; i < len; i += 1) {
             path = mediaFiles[i].fullPath;
         }
@@ -150,7 +150,7 @@ function test_capture() {
             { fileName: name });
     }
     function captureSuccess(mediaFiles) {
-            var i, len;
+        var i, len;
         for (i = 0, len = mediaFiles.length; i < len; i += 1) {
             uploadFile(mediaFiles[i]);
         }
@@ -333,11 +333,13 @@ function test_contacts() {
 }
 
 function test_device() {
+    var element = document.getElementById('deviceProperties');
     element.innerHTML = 'Device Name: ' + device.name + '<br />' +
                         'Device Cordova: ' + device.cordova + '<br />' +
                         'Device Platform: ' + device.platform + '<br />' +
                         'Device UUID: ' + device.uuid + '<br />' +
-                        'Device Version: ' + device.version + '<br />';
+                            'Device Model: ' + device.model + '<br />' +
+                            'Device Version: ' + device.version + '<br />';
 }
 
 function test_file() {
@@ -588,6 +590,13 @@ function test_globalization() {
         },
         function () { alert('Error getting pattern\n'); }
     );
+}
+
+function test_inAppBrowser() {
+    var ref = window.open('http://apache.org', '_blank', 'location=yes');
+    ref.addEventListener('loadstart', function () { alert(event.url); });
+    ref.removeEventListener('loadstart', null);
+    ref.close();
 }
 
 function test_media() {
