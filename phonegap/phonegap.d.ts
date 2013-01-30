@@ -1,4 +1,4 @@
-// Type definitions for PhoneGap 2.2
+// Type definitions for PhoneGap 2.3
 // Project: http://phonegap.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -170,6 +170,7 @@ interface Device {
     platform: string;
     uuid: string;
     version: string;
+    model: string;
 }
 
 /* Defined in lib.d.ts
@@ -314,6 +315,15 @@ interface Globalization {
     getCurrencyPattern(currencyCode, successCB, errorCB): void;
 }
 
+/*
+interface InAppBrowser {
+    addEventListener(eventname: string, callback): void;
+    removeEventListener(eventname: string, callback): void;
+    open(url?: string, target?: string, features?: string, replace?: bool): Window;
+    close(): void;
+}
+*/
+
 interface Media {
     new (src: string, mediaSuccess: Function, mediaError?: MediaError, mediaStatus?: Function);
     getCurrentPosition(mediaSuccess: Function, mediaError?: MediaError): void;
@@ -375,7 +385,7 @@ interface LocalStorage {
 }
 */
 
-interface Navigator {
+interface Navigator extends Navigator {
     accelerometer: Accelerometer;
     camera: Camera;
     capture: Capture;
@@ -392,3 +402,5 @@ interface Navigator {
 interface Window {
     openDatabase(database_name: string, database_version: string, database_displayname: string, database_size: number): Database;
 }
+
+declare var device: Device;
