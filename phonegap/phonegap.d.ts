@@ -288,12 +288,6 @@ interface GeolocationOptions {
     maximumAge?: number;
 }
 
-interface Geolocation {
-    getCurrentPosition(geolocationSuccess: (position: Position) => void , geolocationError?: PositionErrorCallback, geolocationOptions?: GeolocationOptions): void;
-    watchPosition(geolocationSuccess: (position: Position) => void , geolocationError?: PositionErrorCallback, geolocationOptions?: GeolocationOptions): void;
-    clearWatch(watchID: number): void;
-}
-
 interface GlobalizationError {
     code: number;
     message: string;
