@@ -114,43 +114,44 @@ interface QUnitStatic extends QUnitAssert{
 }
 
 /* ASSERT */
-declare var deepEqual: (actual: any, expected: any, message?: string) => any;
-declare var equal: (actual: any, expected: any, message?: string) => any;
-declare var notDeepEqual: (actual: any, expected: any, message?: string) => any;
-declare var notEqual: (actual: any, expected: any, message?: string) => any;
-declare var notStrictEqual: (actual: any, expected: any, message?: string) => any;
-declare var ok: (state: any, message?: string) => any;
-declare var strictEqual: (actual: any, expected: any, message?: string) => any;
-// ** I Can't make overload here! :(s
-//declare var throws: (block: () => void, expected: Object,  message: string) => any;
-declare var throws: (block: () => void, expected?: any, message?: string) => any;
+declare function deepEqual(actual: any, expected: any, message?: string);
+declare function equal(actual: any, expected: any, message?: string);
+declare function notDeepEqual(actual: any, expected: any, message?: string);
+declare function notEqual(actual: any, expected: any, message?: string);
+declare function notStrictEqual(actual: any, expected: any, message?: string);
+declare function ok(state: any, message?: string);
+declare function strictEqual(actual: any, expected: any, message?: string);
+declare function throws(block: () => any, expected: any, message?: string);
+declare function throws(block: () => any, message?: string);
 
 /* ASYNC CONTROL */
-declare var start: (decrement?: number) => any;
-declare var stop: (increment? : number) => any;
+declare function start(decrement?: number);
+declare function stop(increment? : number);
 	
 /* CALLBACKS */
-declare var begin: (callback: () => any) => any;
-declare var done: (callback: (details: DoneCallbackObject) => any) => any;
-declare var log: (callback: (details: LogCallbackObject) => any) => any;
-declare var moduleDone: (callback: (details: ModuleDoneCallbackObject) => any) => any;
-declare var moduleStart: (callback: (name: string) => any) => any;
-declare var testDone: (callback: (details: TestDoneCallbackObject) => any) => any;
-declare var testStart: (callback: (details: TestStartCallbackObject) => any) => any;
+declare function begin(callback: () => any);
+declare function done(callback: (details: DoneCallbackObject) => any);
+declare function log(callback: (details: LogCallbackObject) => any);
+declare function moduleDone(callback: (details: ModuleDoneCallbackObject) => any);
+declare function moduleStart(callback: (name: string) => any);
+declare function testDone(callback: (details: TestDoneCallbackObject) => any);
+declare function testStart(callback: (details: TestStartCallbackObject) => any);
 	
 /* TEST */
-declare var asyncTest: (name: string, expected?: any, test?: () => any) => any;
-declare var expect: (amount: number) => any;
+declare function asyncTest(name: string, expected?: any, test?: () => any);
+declare function expect(amount: number);
+
 // ** conflict with TypeScript module keyword. Must be used on QUnit namespace
 //declare var module: (name: string, lifecycle?: LifecycleObject) => any;
-// ** I can't make an overload here! :(
-//declare var test: (title: string, expected?: any, test?: (assert?: any) => any) => any;
-declare var test: (title: string, test: (assert?: QUnitAssert) => any) => any;
-declare var notPropEqual: (actual: any, expected: any, message?: string) => any;
-declare var propEqual: (actual: any, expected: any, message?: string) => any;
+
+declare function test(title: string, expected: number, test: (assert?: QUnitAssert) => any);
+declare function test(title: string, test: (assert?: QUnitAssert) => any);
+
+declare function notPropEqual(actual: any, expected: any, message?: string);
+declare function propEqual(actual: any, expected: any, message?: string);
 
 // https://github.com/jquery/qunit/blob/master/qunit/qunit.js#L1568
-declare var equiv: (a: any, b: any) => any;
+declare function equiv(a: any, b: any);
 
 // https://github.com/jquery/qunit/blob/master/qunit/qunit.js#L661
 declare var raises: any;
