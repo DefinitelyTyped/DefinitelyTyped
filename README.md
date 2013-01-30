@@ -49,6 +49,7 @@ List of Definitions
 * [Fabric.js](http://fabricjs.com/) (by [Oliver Klemencic](https://github.com/oklemencic/))
 * [Fancybox](http://fancybox.net/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Finite State Machine](https://github.com/jakesgordon/javascript-state-machine) (by [Boris Yankov](https://github.com/borisyankov))
+* [FlexSlider](http://www.woothemes.com/flexslider/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Foundation](http://foundation.zurb.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [glDatePicker](http://glad.github.com/glDatePicker/) (by [Dániel Tar](https://github.com/qcz))
 * [GreenSock Animation Platform (GSAP)](http://www.greensock.com/get-started-js/) (by [Robert S.](https://github.com/codeBelt))
