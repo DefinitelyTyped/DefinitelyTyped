@@ -3,7 +3,7 @@
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
 
-interface SinonSpyCall {
+interface SinonSpyCallApi {
 	// Properties
 	thisValue: any;
 	args: any[];
@@ -12,20 +12,36 @@ interface SinonSpyCall {
 
 	// Methods
 	calledOn(obj: any): bool;
-	calledWith(...args: any[]);
+	calledWith(...args: any[]): bool;
 	calledWithExactly(...args: any[]): bool;
-	calledWithMatch(...args: any[]): bool;
-	notCalledWith(...args: any[]);
-	notCalledWithMatch(...args: any[]): bool;
+	calledWithMatch(...args: SinonMatcher[]): bool;
+	notCalledWith(...args: any[]): bool;
+	notCalledWithMatch(...args: SinonMatcher[]): bool;
+	returned(value: any): bool;
 	threw(): bool;
-	threw(type: string);
-	threw(obj: any);
+	threw(type: string): bool;
+	threw(obj: any): bool;
+	callArg(pos: number): void;
+	// Future API - callArgOn(pos: number, obj: any, ...args: any[]): void;
+	callArgWith(pos: number, ...args: any[]): void;
+	// Future API - callArgOnWith(pos: number, obj: any, ...args: any[]): void;
+	yield(...args: any[]): void;
+	// Future API - yieldOn(obj: any, ...args: any[]): void;
+	yieldTo(property: string, ...args: any[]): void;
+	// Future API - yieldToOn(property: string, obj: any, ...args: any[]): void;
 }
 
-interface SinonSpyApi {
+interface SinonSpyCall extends SinonSpyCallApi {
+	calledBefore(call: SinonSpyCall): bool;
+	calledAfter(call: SinonSpyCall): bool;
+	calledWithNew(call: SinonSpyCall): bool;
+}
+
+interface SinonSpy extends SinonSpyCallApi {
 	// Properties
 	callCount: number;
 	called: bool;
+	notCalled: bool;
 	calledOnce: bool;
 	calledTwice: bool;
 	calledThrice: bool;
@@ -38,79 +54,73 @@ interface SinonSpyApi {
 	exceptions: any[];
 	returnValues: any[];
 
-	//Methods
-	withArgs(...args: any[]): void;
+	// Methods
 	calledBefore(anotherSpy: SinonSpy): bool;
 	calledAfter(anotherSpy: SinonSpy): bool;
-	calledOn(obj: any);
+	calledWithNew(spy: SinonSpy): bool;
+	withArgs(...args: any[]): void;
 	alwaysCalledOn(obj: any);
-	calledWith(...args: any[]);
 	alwaysCalledWith(...args: any[]);
-	calledWithExactly(...args: any[]);
 	alwaysCalledWithExactly(...args: any[]);
-	calledWithMatch(...args: any[]);
-	alwaysCalledWithMatch(...args: any[]);
-	calledWithNew(): bool;
-	notCalledWith(...args: any[]);
+	alwaysCalledWithMatch(...args: SinonMatcher[]);
 	neverCalledWith(...args: any[]);
-	notCalledWithMatch(...args: any[]);
-	neverCalledWithMatch(...args: any[]);
-	threw(): bool;
-	threw(type: string);
-	threw(obj: any);
+	neverCalledWithMatch(...args: SinonMatcher[]);
 	alwaysThrew(): bool;
 	alwaysThrew(type: string);
 	alwaysThrew(obj: any);
-	returned(): bool;
 	alwaysReturned(): bool;
-	yield(...args: any[]): void;
 	invokeCallback(...args: any[]): void;
-	yieldTo(property: string, ...args: any[]): void;
-	callArg(index: number): void;
-	callArgWith(index: number, ...args: any[]): void;
 	getCall(n: number): SinonSpyCall;
 	reset(): void;
 	printf(format: string, ...args: any[]);
 	restore(): void;
 }
 
-interface SinonSpy {
-	(): SinonSpyApi;
-	(func: any): SinonSpyApi;
-	(obj: any, method: string): SinonSpyApi;
+interface SinonSpyStatic {
+	(): SinonSpy;
+	(func: any): SinonSpy;
+	(obj: any, method: string): SinonSpy;
 }
 
-interface SinonApi {
-	spy: SinonSpy;
+interface SinonStatic {
+	spy: SinonSpyStatic;
 }
 
-interface SinonStubApi extends SinonSpyApi {
-	returns(obj: any): SinonStubApi;
-	returnsArg(index: number): SinonStubApi;
-	throws(type?: string): SinonStubApi;
-	throws(obj: any): SinonStubApi;
-	callsArg(index: number): SinonStubApi;
-	callsArgOn(index: number, context: any): SinonStubApi;
-	callsArgWith(index: number, ...args: any[]): SinonStubApi;
-	callsArgOnWith(index: number, context: any, ...args: any[]): SinonStubApi;
-	yields(...args: any[]): SinonStubApi;
-	yieldsOn(context: any, ...args: any[]): SinonStubApi;
-	yieldsTo(property: string, ...args: any[]): SinonStubApi;
-	yieldsToOn(property: string, context: any, ...args: any[]): SinonStubApi;
+interface SinonStub extends SinonSpy {
+	returns(obj: any): SinonStub;
+	returnsArg(index: number): SinonStub;
+	throws(type?: string): SinonStub;
+	throws(obj: any): SinonStub;
+	callsArg(index: number): SinonStub;
+	callsArgOn(index: number, context: any): SinonStub;
+	callsArgWith(index: number, ...args: any[]): SinonStub;
+	callsArgOnWith(index: number, context: any, ...args: any[]): SinonStub;
+	callsArgAsync(index: number): SinonStub;
+	callsArgOnAsync(index: number, context: any): SinonStub;
+	callsArgWithAsync(index: number, ...args: any[]): SinonStub;
+	callsArgOnWithAsync(index: number, context: any, ...args: any[]): SinonStub;
+	yields(...args: any[]): SinonStub;
+	yieldsOn(context: any, ...args: any[]): SinonStub;
+	yieldsTo(property: string, ...args: any[]): SinonStub;
+	yieldsToOn(property: string, context: any, ...args: any[]): SinonStub;
+	yieldsAsync(...args: any[]): SinonStub;
+	yieldsOnAsync(context: any, ...args: any[]): SinonStub;
+	yieldsToAsync(property: string, ...args: any[]): SinonStub;
+	yieldsToOnAsync(property: string, context: any, ...args: any[]): SinonStub;
 }
 
-interface SinonStub {
-	(): SinonStubApi;
-	(obj: any): SinonStubApi;
-	(obj: any, method: string): SinonStubApi;
-	(obj: any, method: string, func: any): SinonStubApi;
+interface SinonStubStatic {
+	(): SinonStub;
+	(obj: any): SinonStub;
+	(obj: any, method: string): SinonStub;
+	(obj: any, method: string, func: any): SinonStub;
 }
 
-interface SinonApi {
-	stub: SinonStub;
+interface SinonStatic {
+	stub: SinonStubStatic;
 }
 
-interface SinonExpectationApi {
+interface SinonExpectation {
 	atLeast(n: number): SinonExpectation;
 	atMost(n: number): SinonExpectation;
 	never(): SinonExpectation;
@@ -125,27 +135,27 @@ interface SinonExpectationApi {
 	restore(): void;
 }
 
-interface SinonExpectation {
-	create(methodName?: string): SinonExpectationApi;
+interface SinonExpectationStatic {
+	create(methodName?: string): SinonExpectation;
 }
 
-interface SinonMockApi {
-	expects(method: string): SinonExpectationApi;
+interface SinonMock {
+	expects(method: string): SinonExpectationStatic;
 	restore(): void;
 	verify(): void;
 }
 
-interface SinonMock {
-	(): SinonExpectationApi;
-	(obj: any): SinonMockApi;
+interface SinonMockStatic {
+	(): SinonExpectation;
+	(obj: any): SinonMock;
 }
 
-interface SinonApi {
-	expectation: SinonExpectation;
-	mock: SinonMock;
+interface SinonStatic {
+	expectation: SinonExpectationStatic;
+	mock: SinonMockStatic;
 }
 
-interface SinonFakeTimersApi {
+interface SinonFakeTimers {
 	now: number;
 	create(now: number): SinonFakeTimers;
 	setTimeout(callback: (...args: any[]) => void , timeout: number, ...args: any[]): number;
@@ -165,18 +175,18 @@ interface SinonFakeTimersApi {
 	restore(): void;
 }
 
-interface SinonFakeTimers {
-	(): SinonFakeTimersApi;
-	(...timers: string[]): SinonFakeTimersApi;
-	(now: number, ...timers: string[]): SinonFakeTimersApi;
+interface SinonFakeTimersStatic {
+	(): SinonFakeTimers;
+	(...timers: string[]): SinonFakeTimers;
+	(now: number, ...timers: string[]): SinonFakeTimers;
 }
 
-interface SinonApi {
-	useFakeTimers: SinonFakeTimers;
+interface SinonStatic {
+	useFakeTimers: SinonFakeTimersStatic;
 	clock: SinonFakeTimers;
 }
 
-interface SinonFakeXMLHttpRequestApi {
+interface SinonFakeXMLHttpRequest {
 	// Properties
 	onCreate: (xhr: SinonFakeXMLHttpRequest) => void;
 	url: string;
@@ -202,16 +212,16 @@ interface SinonFakeXMLHttpRequestApi {
 	autoRespond(ms: number): void;
 }
 
-interface SinonFakeXMLHttpRequest {
-	(): SinonFakeXMLHttpRequestApi;
+interface SinonFakeXMLHttpRequestStatic {
+	(): SinonFakeXMLHttpRequest;
 }
 
-interface SinonApi {
-	useFakeXMLHttpRequest: SinonFakeXMLHttpRequest;
-	FakeXMLHttpRequest: SinonFakeXMLHttpRequestApi;
+interface SinonStatic {
+	useFakeXMLHttpRequest: SinonFakeXMLHttpRequestStatic;
+	FakeXMLHttpRequest: SinonFakeXMLHttpRequest;
 }
 
-interface SinonFakeServerApi {
+interface SinonFakeServer {
 	// Properties
 	autoRespond: bool;
 	autoRespondAfter: number;
@@ -238,13 +248,13 @@ interface SinonFakeServerApi {
 	restore(): void;
 }
 
-interface SinonFakeServer {
-	create(): SinonFakeServerApi;
+interface SinonFakeServerStatic {
+	create(): SinonFakeServer;
 }
 
-interface SinonApi {
-	fakeServer: SinonFakeServer;
-	fakeServerWithClock: SinonFakeServer;
+interface SinonStatic {
+	fakeServer: SinonFakeServerStatic;
+	fakeServerWithClock: SinonFakeServerStatic;
 }
 
 interface SinonExposeOptions {
@@ -252,7 +262,7 @@ interface SinonExposeOptions {
 	includeFail?: bool;
 }
 
-interface SinonAssertApi {
+interface SinonAssert {
 	// Properties
 	failException: string;
 	fail: (message?: string) => void;		// Overridable
@@ -273,9 +283,9 @@ interface SinonAssertApi {
 	neverCalledWith(spy: SinonSpy, ...args: any[]): void;
 	calledWithExactly(spy: SinonSpy, ...args: any[]): void;
 	alwaysCalledWithExactly(spy: SinonSpy, ...args: any[]): void;
-	calledWithMatch(spy: SinonSpy, ...args: any[]): void;
-	alwaysCalledWithMatch(spy: SinonSpy, ...args: any[]): void;
-	neverCalledWithMatch(spy: SinonSpy, ...args: any[]): void;
+	calledWithMatch(spy: SinonSpy, ...args: SinonMatcher[]): void;
+	alwaysCalledWithMatch(spy: SinonSpy, ...args: SinonMatcher[]): void;
+	neverCalledWithMatch(spy: SinonSpy, ...args: SinonMatcher[]): void;
 	threw(spy: SinonSpy): void;
 	threw(spy: SinonSpy, exception: string): void;
 	threw(spy: SinonSpy, exception: any): void;
@@ -285,45 +295,42 @@ interface SinonAssertApi {
 	expose(obj: any, options?: SinonExposeOptions): void;
 }
 
-interface SinonApi {
-	assert: SinonAssertApi;
-}
-
-interface SinonMatcherTerm {
-	and(expr: SinonMatcherTerm): SinonMatcherTerm;
-	or(expr: SinonMatcherTerm): SinonMatcherTerm;
-}
-
-interface SinonMatcherApi {
-	any: SinonMatcherTerm;
-	defined: SinonMatcherTerm;
-	truthy: SinonMatcherTerm;
-	falsy: SinonMatcherTerm;
-	bool: SinonMatcherTerm;
-	number: SinonMatcherTerm;
-	string: SinonMatcherTerm;
-	object: SinonMatcherTerm;
-	func: SinonMatcherTerm;
-	array: SinonMatcherTerm;
-	regexp: SinonMatcherTerm;
-	date: SinonMatcherTerm;
-	same(obj: any): SinonMatcherTerm;
-	typeOf(type: string): SinonMatcherTerm;
-	instanceOf(type: any): SinonMatcherTerm;
-	has(property: string, expect?: any): SinonMatcherTerm;
-	hasOwn(property: string, expect?: any): SinonMatcherTerm;
+interface SinonStatic {
+	assert: SinonAssert;
 }
 
 interface SinonMatcher {
-	(value: number): SinonMatcherApi;
-	(value: string): SinonMatcherApi;
-	(expr: RegExp): SinonMatcherApi;
-	(obj: any): SinonMatcherApi;
-	(callback: (value: any) => bool): SinonMatcherApi;
+	and(expr: SinonMatch): SinonMatcher;
+	or(expr: SinonMatch): SinonMatcher;
 }
 
-interface SinonApi {
-	match: SinonMatcher;
+interface SinonMatch {
+	(value: number): SinonMatcher;
+	(value: string): SinonMatcher;
+	(expr: RegExp): SinonMatcher;
+	(obj: any): SinonMatcher;
+	(callback: (value: any) => bool): SinonMatcher;
+	any: SinonMatcher;
+	defined: SinonMatcher;
+	truthy: SinonMatcher;
+	falsy: SinonMatcher;
+	bool: SinonMatcher;
+	number: SinonMatcher;
+	string: SinonMatcher;
+	object: SinonMatcher;
+	func: SinonMatcher;
+	array: SinonMatcher;
+	regexp: SinonMatcher;
+	date: SinonMatcher;
+	same(obj: any): SinonMatcher;
+	typeOf(type: string): SinonMatcher;
+	instanceOf(type: any): SinonMatcher;
+	has(property: string, expect?: any): SinonMatcher;
+	hasOwn(property: string, expect?: any): SinonMatcher;
+}
+
+interface SinonStatic {
+	match: SinonMatch;
 }
 
 interface SinonSandboxConfig {
@@ -333,25 +340,25 @@ interface SinonSandboxConfig {
 	useFakeServer?: any;
 }
 
-interface SinonSandboxApi {
+interface SinonSandbox {
 	clock: SinonFakeTimers;
 	requests: SinonFakeXMLHttpRequest;
 	server: SinonFakeServer;
-	spy(): SinonSpyApi;
-	stub(): SinonStubApi;
-	mock(): SinonMockApi;
+	spy(): SinonSpy;
+	stub(): SinonStub;
+	mock(): SinonMock;
 	useFakeTimers: SinonFakeTimers;
 	useFakeXMLHttpRequest: SinonFakeXMLHttpRequest;
 	restore(): void;
 }
 
-interface SinonSandbox {
-	create(): SinonSandboxApi;
-	create(config: SinonSandboxConfig): SinonSandboxApi;
+interface SinonSandboxStatic {
+	create(): SinonSandbox;
+	create(config: SinonSandboxConfig): SinonSandbox;
 }
 
-interface SinonApi {
-	sandbox: SinonSandbox;
+interface SinonStatic {
+	sandbox: SinonSandboxStatic;
 }
 
 interface SinonTestConfig {
@@ -362,20 +369,20 @@ interface SinonTestConfig {
 	useFakeServer?: bool;
 }
 
-interface SinonTestWrapper extends SinonSandboxApi{
+interface SinonTestWrapper extends SinonSandbox {
 	(...args: any[]): any;
 }
 
-interface SinonApi {
+interface SinonStatic {
 	config: SinonTestConfig;
 	test(fn: (...args: any[]) => any): SinonTestWrapper;
 	testCase(tests: any): any;
 }
 
 // Utility overridables
-interface SinonApi {
+interface SinonStatic {
 	format: (obj: any) => string;
 	log: (message: string) => void;
 }
 
-var sinon: SinonApi;
+var sinon: SinonStatic;
