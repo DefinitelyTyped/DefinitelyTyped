@@ -266,7 +266,7 @@ interface JQueryStatic {
     *******/
     proxy(fn : (...args: any[]) => any, context: any, ...args: any[]): any;
     proxy(context: any, name: string, ...args: any[]): any;
-    Deferred(): JQueryDeferred;
+    Deferred(fn? : (d: JQueryDeferred) => any): JQueryDeferred;
     Event(name:string, eventProperties?:any): JQueryEventObject;
 
     /*********
