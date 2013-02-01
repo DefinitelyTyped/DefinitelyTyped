@@ -71,6 +71,7 @@ List of Definitions
 * [jQuery.contextMenu](http://medialize.github.com/jQuery-contextMenu/) (by [Natan Vivo](https://github.com/nvivo/))
 * [jQuery.clientSideLogging](https://github.com/remybach/jQuery.clientSideLogging/) (by [Diullei Gomes](https://github.com/diullei/))
 * [jQuery.Cookie](https://github.com/carhartl/jquery-cookie) (by [Roy Goode](https://github.com/RoyGoode))
+* [jQuery.Cycle](http://jquery.malsup.com/cycle/) (by [François Guillot](http://fguillot.developpez.com/))
 * [jQuery.dynatree](http://code.google.com/p/dynatree/) (by [François de Campredon](https://github.com/fdecampredon))
 * [jQuery.Flot](http://www.flotcharts.org/) (by [Matt Burland](https://github.com/burlandm))
 * [jQuery.Globalize](https://github.com/jquery/globalize) (by [Boris Yankov](https://github.com/borisyankov))
