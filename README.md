@@ -90,6 +90,7 @@ List of Definitions
 * [Knockout.Viewmodel](http://romanych.github.com/ko.editables/) (by [Oisin Grehan](https://github.com/oising))
 * [ko.editables](http://romanych.github.com/ko.editables/) (by [Oisin Grehan](https://github.com/oising))
 * [KoLite](https://github.com/CodeSeven/kolite) (by [Boris Yankov](https://github.com/borisyankov))
+* [Leaflet](https://github.com/Leaflet/Leaflet) (by [Vladimir](https://github.com/rgripper))
 * [linq.js](http://linqjs.codeplex.com/) (by [Marcin Najder](https://github.com/marcinnajder))
 * [Marked](https://github.com/chjj/marked) (by [William Orr](https://github.com/worr))
 * [Modernizr](http://modernizr.com/) (by [Boris Yankov](https://github.com/borisyankov))
