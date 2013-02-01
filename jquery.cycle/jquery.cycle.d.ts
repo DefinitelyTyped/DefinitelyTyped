@@ -70,7 +70,7 @@ interface CycleOptions {
 
 interface Cycle {
     (fx?: string): JQuery;
-    (options?: CycleOptions);
+    (options?: CycleOptions): JQuery;
     ver: () => string;
     debug: bool;
     defaults: CycleOptions;
