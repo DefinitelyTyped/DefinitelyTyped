@@ -13,33 +13,121 @@ interface MongooseInstance {
     version() : string;
 }
 
-interface Query {
-
+interface QueryOptions {
+    tailable?: any;
+    sort?: any;
+    limit?: any;
+    skip?: any;
+    maxscan?: any;
+    batchSize?: any;
+    comment?: any;
+    snapshot?: any;
+    hint?: any;
+    slaveOk?: any;
+    lean?: any;
+    safe?: any;
 }
 
+interface Query {
+    new(criteria: Object, options?: Object): Query;
+    setOptions(options: QueryOptions): Query;
+    exec(operation?: String, callback?: Function): Promise;
+    exec(operation?: Function, callback?: Function): Promise;
+    find(criteria?: Object, callback?: Function): Query;
+    cast(model: Model, obj?: Object): Object;
+    $where(js: string): Query;
+    $where(js: Function): Query;
+    where(path?: string, val?: Object): Query;
+    equals(val: Object): Query;
+    or(array: Array): Query;
+    nor(array: Array): Query;
+    and(array: Array): Query;
+    gt(path: string, val: number): Query;
+    gte(path: string, val: number): Query;
+    lt(path: string, val: number): Query;
+    lte(path: string, val: number): Query;
+    ne(path: string, val: number): Query;
+    in(path: string, val: number): Query;
+    nin(path: string, val: number): Query;
+    all(path: string, val: number): Query;
+    size(path: string, val: number): Query;
+    regex(path: string, val: number): Query;
+    maxDistance(path: string, val: number): Query;
+    near(path: string, val: number): Query;
+    nearSphere(path: string, val: Object): Query;
+    mod(path: string, val: number): Query;
+    exists(path: string, val: number): Query;
+    elemMatch(path: any, val: any): Query;
+    box(path: string, val: Object): Query;
+    center(path: string, val: Object, opts?: Object): Query;
+    centerSphere(path: string, val: Object): Query;
+    polygon(path: string, val: Array): Query;
+    polygon(path: string, val: Object): Query;
+    select(arg: Object): Query;
+    select(arg: string): Query;
+    slice(path: string, val: number): Query;
+    sort(arg: Object): Query;
+    sort(arg: String): Query;
+    limit(val: number): Query;
+    skip(val: number): Query;
+    maxscan(val: number): Query;
+    batchSize(val: number): Query;
+    comment(val: number): Query;
+    snapShot(): Query;
+    hint(val: Object): Query;
+    slaveOk(v: bool): Query;
+    read(pref: string, tags?: Array): Query;
+    lean(v: bool): Query;
+    tailable(v: bool): Query;
+    findOne(callback: Function): Query;
+    count(callback: Function): Query;
+    distinct( field: string, callback: Function): Query;
+    update(doc: Object, callback: Function): Query;
+    remove(callback: Function): Query;
+    findOneAndUpdate(query?: Object, doc?: Object, options?: findAndUpdateOptions, callback?: Function): Query;
+    findOneAndRemove(conditions?: Object, options?: findAndModifyOptions, callback?: Function): Query;
+    populate(path: string, fields?: Object, model?: Model, conditions?: Object, options?: Object): Query;
+    populate(path: string, fields?: string, model?: Model, conditions?: Object, options?: Object): Query;
+    stream(): QueryStream;
+    within: Query;  
+}
+
+
+interface QueryStream {
+    new(query: Query): QueryStream;
+    pause();
+    resume();
+    destroy(err: any);
+    pipe();
+    paused: bool;
+    readable: bool;
+}
+
+
 interface findAndModifyOptions {
-    sort: bool;
-    select: bool;
+    sort?: bool;
+    select?: bool;
 }
 
 interface findAndUpdateOptions extends findAndModifyOptions {
-    new: bool;
-    upsert: bool;
+    new?: bool;
+    upsert?: bool;
 }
 
 interface updateOptions {
-    safe: bool;
-    upsert: bool;
-    multi: bool;
+    safe?: bool;
+    upsert?: bool;
+    multi?: bool;
 }
 
 interface Model {
     new(doc: any): Model;
-    save(fn?: Function): void;
+    save(fn?: Function);
     increment(): Model;
-    remove(fn?: Function): Document;
+    remove(fn?: Function): Model;
     model(name: string) : Model;
-    $where(argument: any): Query;
+    $where(argument: string): Query;
+    $where(argument: Function): Query;
     ensureIndexes(cb?: Function): void;
     remove(conditions: Object, callback?: Function): Query;
     find(conditions: Object, fields?: Object, options?: Object, callback?: Function): Query;
@@ -52,7 +140,8 @@ interface Model {
     findByIdAndUpdate(id: any, update?: Object, options?: findAndUpdateOptions, callback?: Function): Query; 
     findOneAndRemove(conditions: Object, options?: findAndModifyOptions, callback?: Function): Query;
     findByIdAndRemove(id: any, options?: findAndModifyOptions, callback?: Function): Query;
-    create(doc: any, callback: Function);
+    create(doc: Array, callback: Function);
+    create(...args: any[]);
     update(conditions: Object, update: Object, options?: updateOptions, callback?: Function): Query;
     mapReduce(o: Object, callback: Function);
     aggregate(array: Array, options?: Object, callback?: Function);
