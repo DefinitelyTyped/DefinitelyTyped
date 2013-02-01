@@ -18,6 +18,10 @@ interface LogCallbackObject {
 	message: string;
 }
 
+interface ModuleStartCallbackObject {
+	name: string;
+}
+
 interface ModuleDoneCallbackObject {
 	name: string;
 	failed: number;
@@ -75,23 +79,23 @@ interface QUnitAssert {
 	throws(block: () => any, message?: string);
 }
 
-interface QUnitStatic extends QUnitAssert{	
+interface QUnitStatic extends QUnitAssert {
 	/* ASYNC CONTROL */
 	start(decrement?: number);
-	stop(increment? : number);
-	
+	stop(increment?: number);
+
 	/* CALLBACKS */
 	begin(callback: () => any);
 	done(callback: (details: DoneCallbackObject) => any);
 	log(callback: (details: LogCallbackObject) => any);
 	moduleDone(callback: (details: ModuleDoneCallbackObject) => any);
-	moduleStart(callback: (name: string) => any);
+	moduleStart(callback: (details: ModuleStartCallbackObject) => any);
 	testDone(callback: (details: TestDoneCallbackObject) => any);
 	testStart(callback: (details: TestStartCallbackObject) => any);
-	
+
 	/* CONFIGURATION */
 	config: Config;
-	
+
 	/* TEST */
 	asyncTest(name: string, expected: number, test: () => any);
 	asyncTest(name: string, test: () => any);
@@ -123,21 +127,21 @@ declare var ok: (state: any, message?: string) => any;
 declare var strictEqual: (actual: any, expected: any, message?: string) => any;
 // ** I Can't make overload here! :(s
 //declare var throws: (block: () => void, expected: Object,  message: string) => any;
-declare var throws: (block: () => void, expected?: any, message?: string) => any;
+declare var throws: (block: () => void , expected?: any, message?: string) => any;
 
 /* ASYNC CONTROL */
 declare var start: (decrement?: number) => any;
-declare var stop: (increment? : number) => any;
-	
+declare var stop: (increment?: number) => any;
+
 /* CALLBACKS */
 declare var begin: (callback: () => any) => any;
 declare var done: (callback: (details: DoneCallbackObject) => any) => any;
 declare var log: (callback: (details: LogCallbackObject) => any) => any;
 declare var moduleDone: (callback: (details: ModuleDoneCallbackObject) => any) => any;
-declare var moduleStart: (callback: (name: string) => any) => any;
+declare var moduleStart: (callback: (details: ModuleStartCallbackObject) => any) => any;
 declare var testDone: (callback: (details: TestDoneCallbackObject) => any) => any;
 declare var testStart: (callback: (details: TestStartCallbackObject) => any) => any;
-	
+
 /* TEST */
 declare var asyncTest: (name: string, expected?: any, test?: () => any) => any;
 declare var expect: (amount: number) => any;
