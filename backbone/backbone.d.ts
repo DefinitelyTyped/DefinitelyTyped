@@ -1,4 +1,4 @@
-// Type definitions for Backbone 0.9
+// Type definitions for Backbone 0.9.10
 // Project: http://backbonejs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -109,7 +109,6 @@ declare module Backbone {
         add(models: Model[], options?: AddOptions);
         at(index: number): Model;
         get(id: any): Model;
-        getByCid(cid): Model;
         create(attributes: any, options?: CreateOptions): Model;
         pluck(attribute: string): any[];
         push(model: Model, options?: AddOptions);
