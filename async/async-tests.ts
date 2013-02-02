@@ -156,14 +156,16 @@ q.push([{ name: 'baz' }, { name: 'bay' }, { name: 'bax' }], function (err) {
     console.log('finished processing bar');
 });
 
-
+var filename = '';
 async.auto({
     get_data: function (callback) { },
     make_folder: function (callback) { },
-    write_file: ['get_data', 'make_folder', function (callback) {
+    //arrays with different types are not accepted by TypeScript.
+    write_file: ['get_data', 'make_folder', <any>function (callback) {
         callback(null, filename);
     }],
-    email_link: ['write_file', function (callback, results) { }]
+    //arrays with different types are not accepted by TypeScript.
+    email_link: ['write_file', <any>function (callback, results) { }]
 });
 
 
@@ -174,7 +176,7 @@ async.parallel([
 function (results) {
     async.series([
         function (callback) { },
-        email_link: function(callback) { }
+        function email_link(callback) { }
     ]);
 });
 
