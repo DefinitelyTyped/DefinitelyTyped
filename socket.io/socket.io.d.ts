@@ -29,7 +29,8 @@ interface Socket {
 	del(key: string, fn: Function): Socket;
 	disconnect(): Socket;
 	send(data: any, fn: Function): Socket;
-	emit(ev: any): Socket;
+	emit(ev: any, ...data:any[]): Socket;
+	on(ns: string, fn: Function): Socket;
 }
 
 interface SocketNamespace {
@@ -43,7 +44,7 @@ interface SocketNamespace {
 	to(room: string): SocketNamespace;
 	except(id: any): SocketNamespace;
 	send(data: any): any;
-	emit(data: any): any;
+	emit(ev: any, ...data:any[]): Socket;
 	socket(sid: any, readable: bool): Socket;
 	authorization(fn: Function);
 }
