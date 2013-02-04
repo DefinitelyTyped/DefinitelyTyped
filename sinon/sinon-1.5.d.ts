@@ -87,6 +87,7 @@ interface SinonStatic {
 }
 
 interface SinonStub extends SinonSpy {
+	resetBehavior(): void;
 	returns(obj: any): SinonStub;
 	returnsArg(index: number): SinonStub;
 	throws(type?: string): SinonStub;
