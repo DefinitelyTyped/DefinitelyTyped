@@ -18,6 +18,10 @@ interface LogCallbackObject {
 	message: string;
 }
 
+interface ModuleStartCallbackObject {
+	name: string;
+}
+
 interface ModuleDoneCallbackObject {
 	name: string;
 	failed: number;
@@ -85,7 +89,7 @@ interface QUnitStatic extends QUnitAssert{
 	done(callback: (details: DoneCallbackObject) => any);
 	log(callback: (details: LogCallbackObject) => any);
 	moduleDone(callback: (details: ModuleDoneCallbackObject) => any);
-	moduleStart(callback: (name: string) => any);
+	moduleStart(callback: (details: ModuleStartCallbackObject) => any);
 	testDone(callback: (details: TestDoneCallbackObject) => any);
 	testStart(callback: (details: TestStartCallbackObject) => any);
 	
