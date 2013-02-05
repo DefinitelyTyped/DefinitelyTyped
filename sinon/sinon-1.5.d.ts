@@ -22,13 +22,13 @@ interface SinonSpyCallApi {
 	threw(type: string): bool;
 	threw(obj: any): bool;
 	callArg(pos: number): void;
-	// Future API - callArgOn(pos: number, obj: any, ...args: any[]): void;
+	callArgOn(pos: number, obj: any, ...args: any[]): void;
 	callArgWith(pos: number, ...args: any[]): void;
-	// Future API - callArgOnWith(pos: number, obj: any, ...args: any[]): void;
+	callArgOnWith(pos: number, obj: any, ...args: any[]): void;
 	yield(...args: any[]): void;
-	// Future API - yieldOn(obj: any, ...args: any[]): void;
+	yieldOn(obj: any, ...args: any[]): void;
 	yieldTo(property: string, ...args: any[]): void;
-	// Future API - yieldToOn(property: string, obj: any, ...args: any[]): void;
+	yieldToOn(property: string, obj: any, ...args: any[]): void;
 }
 
 interface SinonSpyCall extends SinonSpyCallApi {
@@ -55,6 +55,7 @@ interface SinonSpy extends SinonSpyCallApi {
 	returnValues: any[];
 
 	// Methods
+	(...args: any[]): any;
 	calledBefore(anotherSpy: SinonSpy): bool;
 	calledAfter(anotherSpy: SinonSpy): bool;
 	calledWithNew(spy: SinonSpy): bool;
@@ -87,6 +88,7 @@ interface SinonStatic {
 }
 
 interface SinonStub extends SinonSpy {
+	resetBehavior(): void;
 	returns(obj: any): SinonStub;
 	returnsArg(index: number): SinonStub;
 	throws(type?: string): SinonStub;
