@@ -33,6 +33,7 @@ List of Definitions
 * [Backbone.js](http://backbonejs.org/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Bootbox](https://github.com/makeusabrew/bootbox) (by [Vincent Bortone](https://github.com/vbortone/))
 * [Bootstrap](http://twitter.github.com/bootstrap/) (by [Boris Yankov](https://github.com/borisyankov))
+* [bootstrap-notify](https://github.com/Nijikokun/bootstrap-notify) (by [Blake Niemyjski](https://github.com/niemyjski))
 * [bootstrap.datepicker](https://github.com/eternicode/bootstrap-datepicker) (by [Boris Yankov](https://github.com/borisyankov))
 * [Box2DWeb](http://code.google.com/p/box2dweb/) (by [Josh Baldwin](https://github.com/jbaldwin/))
 * [Breeze](http://www.breezejs.com/) (by [Boris Yankov](https://github.com/borisyankov))
