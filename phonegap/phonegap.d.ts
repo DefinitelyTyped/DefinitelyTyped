@@ -3,12 +3,23 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+interface EventTarget {
+    result: any;
+}
+
+interface GeolocationError {
+    code: number;
+    message: string;
+}
 
 interface Acceleration {
     x: number;
     y: number;
     z: number;
     timestamp: number; //DOMTimeStamp;
+}
+declare var Acceleration: {
+    new(): Acceleration;
 }
 
 interface AccelerometerOptions {
@@ -28,6 +39,9 @@ interface CameraPopoverOptions {
     height?: number;
     arrowDir?: number;
 }
+declare var CameraPopoverOptions: {
+    new(x: number, y: number, width: number, height: number, arrowDir: number): CameraPopoverOptions;
+}
 
 interface CameraOptions {
     quality?: number;
@@ -43,7 +57,43 @@ interface CameraOptions {
     popoverOptions?: number;
 }
 
+interface CameraPictureSourceTypeObject {
+    CAMERA: number;
+    PHOTOLIBRARY: number;
+    SAVEDPHOTOALBUM: number;
+}
+
+interface CameraDestinationTypeObject {
+    FILE_URI: number;
+    DATA_URL: number;
+}
+
+interface CameraEncodingTypeObject {
+    JPEG: number;
+    PNG: number;
+}
+
+interface CameraMediaTypeObject {
+    PICTURE: number;
+    VIDEO: number;
+    ALLMEDIA: number;
+}
+
+interface CameraPopoverArrowDirectionObject {
+    ARROW_UP: number;
+    ARROW_DOWN: number;
+    ARROW_LEFT: number;
+    ARROW_RIGHT: number;
+    ARROW_ANY: number;
+}
+
 interface Camera {
+    sourceType: any;
+    PictureSourceType: CameraPictureSourceTypeObject;
+    DestinationType: CameraDestinationTypeObject;
+    EncodingType: CameraEncodingTypeObject;
+    MediaType: CameraMediaTypeObject;
+    PopoverArrowDirection: CameraPopoverArrowDirectionObject;
     getPicture(cameraSuccess: (imageData: string) => void , cameraError: (message: string) => void , cameraOptions?: CameraOptions): void;
     cleanup(cameraSuccess: (imageData: string) => void , cameraError: (message: string) => void ): void;
 }
@@ -51,6 +101,11 @@ interface Camera {
 interface CaptureAudioOptions {
     limit?: number;
     duration?: number;
+    mode?: number;
+}
+
+interface CaptureImageOptions {
+    limit?: number;
     mode?: number;
 }
 
@@ -71,7 +126,20 @@ interface CaptureError {
 
 interface Capture {
     captureAudio(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureAudioOptions);
+    captureImage(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureImageOptions);
+    captureVideo(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureImageOptions);
 }
+
+interface Connection {
+    UNKNOWN: number;
+    ETHERNET: number;
+    WIFI: number;
+    CELL_2G: number;
+    CELL_3G: number;
+    CELL_4G: number;
+    NONE: number;
+}
+declare var Connection: Connection;
 
 interface CompassOptions {
     frequency?: number;
@@ -115,6 +183,9 @@ interface ContactField {
     value: string;
     pref: bool;
 }
+declare var ContactField: {
+    new(type: string, calue: string, perf: bool): ContactField;
+}
 
 interface Contact {
     id: string;
@@ -131,11 +202,18 @@ interface Contact {
     photos: ContactField[];
     categories: ContactField[];
     urls: ContactField[];
+
+    save(onSuccess?: (contacts: Contacts) => any, onError?: (contactError: ContactError) => any);
+    remove(onSuccess?: (contacts: Contacts) => any, onError?: (contactError: ContactError) => any);
+    clone(): Contact; 
 }
 
 interface ContactFindOptions {
     filter?: string;
     multiple?: bool;
+}
+declare var ContactFindOptions : {
+    new(): ContactFindOptions;
 }
 
 interface ContactName {
@@ -145,6 +223,9 @@ interface ContactName {
     middleName: string;
     honorificPrefix: string;
     honorificSuffix: string;
+}
+declare var ContactName: {
+    new(): ContactName;
 }
 
 interface ContactOrganization {
@@ -160,7 +241,7 @@ interface ContactError {
 }
 
 interface Contacts {
-    create(properties: any): void;
+    create(properties?: any): Contact;
     find(contactFields: string[], contactSuccess: (contacts: Contact[]) => void , contactError: (error: ContactError) => void , contactFindOptions?: ContactFindOptions): void;
 }
 
@@ -171,6 +252,7 @@ interface Device {
     uuid: string;
     version: string;
     model: string;
+    capture: Capture;
 }
 
 /* Defined in lib.d.ts
@@ -205,6 +287,9 @@ interface FileSystem {
     name: string;
     root: DirectoryEntry;
 }
+declare var DirectoryEntry: {
+    new(name: string, root: DirectoryEntry): DirectoryEntry;
+}
 
 interface FileSystemEntry {
     isFile: bool;
@@ -213,18 +298,18 @@ interface FileSystemEntry {
     fullPath: string;
     filesystem: FileSystem;
 
-    getMetadata();
-    setMetadata();
+    getMetadata(onSuccess?: (arg) => any, onError?: (arg) => any);
+    setMetadata(onSuccess?: (arg) => any, onError?: (arg) => any, options?);
     toURL();
-    remove();
-    getParent();
+    remove(onSuccess?: (arg) => any, onError?: (arg) => any);
+    getParent(onSuccess?: (arg) => any, onError?: (arg) => any);
 }
 
 interface FileEntry extends FileSystemEntry {
-    moveTo();
-    copyTo();
-    createWriter();
-    file();
+    moveTo(parentEntry: DirectoryEntry, file: string, onSuccess: (arg) => any, onError: (arg) => any);
+    copyTo(parentEntry: DirectoryEntry, file: string, onSuccess: (arg) => any, onError: (arg) => any);
+    createWriter(onSuccess?: (arg) => any, onError?: (arg) => any);
+    file(onSuccess?: (arg) => any, onError?: (arg) => any);
 }
 
 interface DirectoryEntry extends FileSystemEntry {
@@ -241,9 +326,13 @@ interface DirectoryReader {
 interface FileTransfer {
     onprogress: Function;
 
-    upload(filePath: string, server: string, successCallback: (metadata: Metadata) => void , errorCallback: (error: FileError) => void , options: any): void;
-    download(source: string, target: string, successCallback: (fileEntry: FileEntry) => void , errorCallback: (error: FileError) => void ): void;
+    //upload(filePath: string, server: string, successCallback: (metadata: Metadata) => void , errorCallback: (error: FileError) => void , options?: any): void;
+    upload(filePath: string, server: string, successCallback: (result: FileUploadResult) => void , errorCallback: (error: FileError) => void , options?: any): void;
+    download(source: string, target: string, successCallback: (fileEntry: FileEntry) => void , errorCallback: (error: FileError) => void, options?: any): void;
     abort(): void;
+}
+declare var FileTransfer: {
+    new(): FileTransfer;
 }
 
 interface FileUploadOptions {
@@ -254,6 +343,9 @@ interface FileUploadOptions {
     chunkedMode?: bool;
     headers?: any;
 }
+declare var FileUploadOptions: {
+    new(): FileUploadOptions;
+}
 
 interface FileUploadResult {
     bytesSent: number;
@@ -263,10 +355,16 @@ interface FileUploadResult {
 
 // TODO Flags
 
+/*
 interface LocalFileSystem {
     requestFileSystem: Function;
     resolveLocalFileSystemURI: Function;
+}*/
+
+interface LocalFileSystem {
+    PERSISTENT: number;
 }
+declare var LocalFileSystem: LocalFileSystem;
 
 interface Metadata {
     modificationTime: Date;
@@ -319,9 +417,9 @@ interface InAppBrowser {
 */
 
 interface Media {
-    new (src: string, mediaSuccess: Function, mediaError?: MediaError, mediaStatus?: Function);
-    getCurrentPosition(mediaSuccess: Function, mediaError?: MediaError): void;
-    getDuration(): void;
+    new (src: string, mediaSuccess: Function, mediaError?: (mediaError: MediaError) => any, mediaStatus?: Function);
+    getCurrentPosition(mediaSuccess: Function, mediaError?: (mediaError: MediaError) => any): void;
+    getDuration(): any;
     play(): void;
     pause(): void;
     release(): void;
@@ -329,6 +427,9 @@ interface Media {
     startRecord(): void;
     stopRecord(): void;
     stop(): void;
+}
+declare var Media: {
+    new(src: string, onSuccess: (arg) => any, onError: (arg) => any): Media;
 }
 
 interface Notification {
@@ -344,8 +445,8 @@ interface Splashscreen {
 }
 
 interface Database {
-    transaction();
-    changeVersion();
+    transaction(populateDB?: (tx: SQLTransaction) => any, errorCB?: (err) => any, successCB?: () => any);
+    changeVersion(var1: string, var2: string);
 }
 
 interface SQLResultSetRowList {
@@ -379,7 +480,7 @@ interface LocalStorage {
 }
 */
 
-interface PhoneGapNavigator extends Navigator {
+interface /*PhoneGapNavigator extends*/ Navigator {
     accelerometer: Accelerometer;
     camera: Camera;
     capture: Capture;
@@ -387,15 +488,15 @@ interface PhoneGapNavigator extends Navigator {
     connection: Connection;
     contacts: Contacts;
     device: Device;
-    geolocation: Geolocation;
     globalization: Globalization;
     notification: Notification;
     splashscreen: Splashscreen;
 }
 
 interface Window {
+    requestFileSystem: any;
     openDatabase(database_name: string, database_version: string, database_displayname: string, database_size: number): Database;
 }
 
 declare var device: Device;
-declare var phoneGapNavigator: PhoneGapNavigator;
+declare var phoneGapNavigator: Navigator /*PhoneGapNavigator*/;

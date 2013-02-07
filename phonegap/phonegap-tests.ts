@@ -64,12 +64,12 @@ function test_camera() {
     }
 
     var popover = new CameraPopoverOptions(300, 300, 100, 100, 1);
-    var options = { quality: 50, destinationType: 1, sourceType: 1, popoverOptions: popover };
+    var options = <CameraOptions>{ quality: 50, destinationType: 1, sourceType: 1, popoverOptions: popover };
 
     navigator.camera.getPicture(onSuccess, onFail, options);
 
     function onSuccess(imageData) {
-        var image = document.getElementById('myImage');
+        var image = <HTMLImageElement>document.getElementById('myImage');
         image.src = "data:image/jpeg;base64," + imageData;
     }
 
@@ -256,8 +256,7 @@ function test_contacts() {
     function onDeviceReady() {
         var options = new ContactFindOptions();
         options.filter = "Bob";
-        var fields = ["displayName", "name"];
-        navigator.contacts.find(fields, onSuccess, onError, options);
+        navigator.contacts.find(["displayName", "name"], onSuccess, onError, options);
     }
     function onSuccess(contacts) {
         for (var i = 0; i < contacts.length; i++) {
@@ -303,6 +302,7 @@ function test_contacts() {
     options.filter = "";
     var filter = ["displayName", "addresses"];
     navigator.contacts.find(filter, onSuccess, onError, options);
+    var contacts: Contact[] = [];
 
     for (var i = 0; i < contacts.length; i++) {
         for (var j = 0; j < contacts[i].addresses.length; j++) {
@@ -423,6 +423,8 @@ function test_file() {
     }
     var onGetFileWin = function (parent) {
         var data = {};
+        var metadataKey: any;
+        var metadataValue: any;
         data[metadataKey] = metadataValue;
         parent.setMetadata(onSetMetadataWin, onSetMetadataFail, data);
     }
@@ -430,15 +432,18 @@ function test_file() {
         console.log("error getting file")
     }
     var onFSWin = function (fileSystem) {
+        var filePath = '';
         fileSystem.root.getFile(filePath, { create: true, exclusive: false }, onGetFileWin, onGetFileFail);
     }
     var onFSFail = function (evt) {
         console.log(evt.target.error.code);
     }
+    var localFileSystem:any;
     window.requestFileSystem(localFileSystem, 0, onFSWin, onFSFail);
 
+    var success: any;
     var entry: FileEntry;
-    var parent = document.getElementById('parent').value,
+    var parent = (<any>document.getElementById('parent')).value,
         parentName = parent.substring(parent.lastIndexOf('/') + 1),
         parentEntry = new DirectoryEntry(parentName, parent);
     entry.moveTo(parentEntry, "newFile.txt", success, fail);
@@ -460,11 +465,12 @@ function test_file() {
         console.log("upload error target " + error.target);
     }
     var uri = encodeURI("http://some.server.com/upload.php");
+    var fileURI = "";
     var options = new FileUploadOptions();
     options.fileKey = "file";
     options.fileName = fileURI.substr(fileURI.lastIndexOf('/') + 1);
     options.mimeType = "text/plain";
-    var params = {};
+    var params:any = {};
     params.headers = { 'headerParam': 'headerValue' };
     options.params = params;
     var ft = new FileTransfer();
@@ -600,7 +606,7 @@ function test_inAppBrowser() {
 }
 
 function test_media() {
-    var my_media = new Media(src, onSuccess, onError);
+    var my_media = new Media(src, ()=>{}, ()=>{});
     var mediaTimer = setInterval(function () {
         my_media.getCurrentPosition(
             function (position) {
@@ -637,7 +643,7 @@ function test_media() {
             });
         my_media.play();
         setTimeout(function () {
-            media.pause();
+            my_media.pause();
         }, 10000);
     }
 
@@ -652,6 +658,9 @@ function test_media() {
         my_media.play();
     }
 
+    var onSuccess: any;
+    var onError: any;
+
     var my_media = new Media(src, onSuccess, onError);
     my_media.play();
     my_media.stop();
@@ -659,7 +668,7 @@ function test_media() {
     setTimeout(function () {
         my_media.seekTo(10000);
     }, 5000);
-    media.stopRecord();
+    my_media.stopRecord();
 
     var src = "myrecording.mp3";
     var mediaRec = new Media(src,
@@ -672,6 +681,8 @@ function test_media() {
     );
     mediaRec.startRecord();
 }
+
+var onConfirm: any;
 
 function test_notification() {
     function alertDismissed() { }
@@ -716,13 +727,13 @@ function test_storage() {
     function queryDB(tx) {
         tx.executeSql('SELECT * FROM DEMO', [], querySuccess, errorCB);
     }
-    function querySuccess(tx, results) {
-        console.log("Returned rows = " + results.rows.length);
+    function querySuccess(tx, resultSet) {
+        console.log("Returned rows = " + resultSet.rows.length);
         if (!resultSet.rowsAffected) {
             console.log('No rows affected!');
             return false;
         }
-        console.log("Last inserted row ID = " + results.insertId);
+        console.log("Last inserted row ID = " + resultSet.insertId);
     }
     var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
     db.transaction(queryDB, errorCB);
