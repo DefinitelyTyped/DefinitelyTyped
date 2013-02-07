@@ -265,6 +265,8 @@ interface KnockoutUtils {
     parseJson(jsonString: string): any;
     stringifyJson(data: any, replacer: Function, space: string): string;
     postJson(urlOrForm: any, data: any, options: any): void;
+    setHtml(node: Element, html: string): void;
+    setHtml(node: Element, html: () => string): void;
 
     ieVersion: number;
     isIe6: bool;
