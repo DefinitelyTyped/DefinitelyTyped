@@ -108,7 +108,8 @@ interface JQueryDeferred extends JQueryPromise {
 /*
     Interface of the JQuery extension of the W3C event object
 */
-interface JQueryEventObject extends Event {
+
+interface BaseJQueryEventObject extends Event {
     data: any;
     delegateTarget: Element;
     isDefaultPrevented(): bool;
@@ -126,7 +127,7 @@ interface JQueryEventObject extends Event {
     metaKey: any;
 }
 
-interface JQueryInputEventObject extends JQueryEventObject
+interface JQueryInputEventObject extends BaseJQueryEventObject
 {
     altKey: bool;
     ctrlKey: bool;
@@ -153,6 +154,9 @@ interface JQueryKeyEventObject extends JQueryInputEventObject
     charCode: number;
     key: any;
     keyCode: number;
+}
+
+interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject {
 }
 
 /*
@@ -313,6 +317,7 @@ interface JQueryStatic {
     makeArray(obj: any): any[];
 
     map(array: any[], callback: (elementOfArray: any, indexInArray: any) =>any): any[];
+	map(array: any, callback: (elementOfArray: any, indexInArray: any) =>any): any;
 
     merge(first: any[], second: any[]): any[];
 
@@ -775,6 +780,10 @@ interface JQuery {
     queue(queueName?: string): any[];
     queue(queueName: string, newQueueOrCallback: any): JQuery;
     queue(newQueueOrCallback: any): JQuery;
+}
+
+interface EventTarget {
+	nodeName: string;
 }
 
 declare var jQuery: JQueryStatic;
