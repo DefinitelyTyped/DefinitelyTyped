@@ -1865,8 +1865,10 @@ function test_jQuery() {
     $foo.triggerHandler('eventName');
     $("div > p").css("border", "1px solid gray");
     $("input:radio", document.forms[0]);
+	var xml: any;
     $("div", xml.responseXML);
     $(document.body).css("background", "black");
+	var myForm: any;
     $(myForm.elements).hide();
     $('<p id="test">My <em>new</em> text</p>').appendTo('body');
     $('<img />');
@@ -1893,7 +1895,7 @@ function test_jQuery() {
 }
 
 function test_jquery() {
-    var a = { what: "A regular JS object" },
+    var a = <any>{ what: "A regular JS object" },
     b = $('body');
     if (a.jquery) {
         alert(' a is a jQuery object! ');
@@ -2226,3 +2228,8 @@ function test_text() {
     });
     $("p").text("<b>Some</b> new text.");
 }
+
+$('#item').click(function(e) {
+	if (e.ctrlKey) { console.log('control pressed'); }
+	if (e.altKey) { console.log('alt pressed'); }
+});
