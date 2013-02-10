@@ -1,5 +1,5 @@
-/// <reference path="knockout-2.2.d.ts" />
-/// <reference path="../knockout.mapping/knockout.mapping-2.0.d.ts" />
+/// <reference path="knockout.d.ts" />
+/// <reference path="../knockout.mapping/knockout.mapping.d.ts" />
 
 declare var $;
 

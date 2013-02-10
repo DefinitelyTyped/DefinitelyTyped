@@ -1,4 +1,4 @@
-/// <reference path="handlebars-1.0.d.ts" />
+/// <reference path="handlebars.d.ts" />
 
 var context = {
     author: { firstName: "Alan", lastName: "Johnson" },

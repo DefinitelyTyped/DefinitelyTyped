@@ -1,4 +1,4 @@
-/// <reference path="moment-1.7.d.ts" />
+/// <reference path="moment.d.ts" />
 
 moment().add('hours', 1).fromNow();
 
@@ -77,6 +77,15 @@ moment().month(0).date(1).hours(0).minutes(0).seconds(0).milliseconds(0);
 moment().startOf('hour');
 moment().minutes(0).seconds(0).milliseconds(0);
 
+var getMilliseconds: number = moment().milliseconds(); 
+var getSeconds: number = moment().seconds(); 
+var getMinutes: number = moment().minutes(); 
+var getHours: number = moment().hours(); 
+var getDate: number = moment().date();
+var getDay: number = moment().day();
+var getMonth: number = moment().month();
+var getYear: number = moment().year();
+
 moment().sod();
 moment().hours(0).minutes(0).seconds(0).milliseconds(0);
 moment().eod();
@@ -104,11 +113,11 @@ a6.from([2007, 0, 28]);
 a6.from(new Date(2007, 0, 28)); 
 a6.from("1-28-2007");
 
-var a7 = moment();\n
+var a7 = moment();
 var b7 = moment("10-10-1900", "MM-DD-YYYY");
 a7.from(b7);
 
-var start = moment([2007, 0, 5]);\n
+var start = moment([2007, 0, 5]);
 var end = moment([2007, 0, 10]);
 start.from(end);   
 start.from(end, true);
@@ -124,12 +133,12 @@ moment.humanizeDuration(1, "minutes", true);
 moment.humanizeDuration(-60000, true);     
 moment.humanizeDuration(-1, "minutes", true);
 
-var a = moment([2007, 0, 29]);
-var b = moment([2007, 0, 28]);
-a.diff(b) ;
-a.diff(b, 'days');
-a.diff(b, 'years')      
-a.diff(b, 'years', true);
+var a8 = moment([2007, 0, 29]);
+var b8 = moment([2007, 0, 28]);
+a8.diff(b8) ;
+a8.diff(b8, 'days');
+a8.diff(b8, 'years')      
+a8.diff(b8, 'years', true);
 
 moment([2007, 0, 29]).toDate();
 moment(1318874398806).valueOf(); 

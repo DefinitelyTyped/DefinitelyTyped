@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery-1.8.d.ts" />
-/// <reference path="foundation-3.2.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="foundation.d.ts" />
 
 function test_orbit() {
     $("#featured").orbit();

@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery-1.8.d.ts"/>
-/// <reference path="jquery.watermark-3.1.d.ts"/>
+/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="jquery.watermark.d.ts"/>
 
 
 $('#inputId').watermark('Required information');

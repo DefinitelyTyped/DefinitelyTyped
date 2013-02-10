@@ -1,4 +1,4 @@
-/// <reference path="easeljs-0.5.d.ts" />
+/// <reference path="easeljs.d.ts" />
 
 function test_simple() {
     var canvas = document.getElementById('canvas');

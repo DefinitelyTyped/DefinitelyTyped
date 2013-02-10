@@ -1,4 +1,10 @@
-/// <reference path="jquery.d.ts" />
+// Type definitions for Flot
+// Project: http://www.flotcharts.org/
+// Definitions by: Matt Burland <https://github.com/burlandm>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+
+/// <reference path="../jquery/jquery.d.ts" />
 
 module jquery.flot {
     interface plotOptions {

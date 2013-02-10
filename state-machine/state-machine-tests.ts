@@ -1,6 +1,13 @@
-/// <reference path="state-machine-2.2.d.ts" />
+/// <reference path="state-machine.d.ts" />
 
-var fsm = StateMachine.create({
+interface StateMachineTest extends StateMachine {
+	warn?: StateMachineEvent;
+	panic?: StateMachineEvent;
+	calm?: StateMachineEvent;
+	clear?: StateMachineEvent;
+}
+
+var fsm: StateMachineTest = StateMachine.create({
     initial: 'green',
     events: [
       { name: 'warn', from: 'green', to: 'yellow' },
@@ -16,3 +23,8 @@ var fsm = StateMachine.create({
         onred: function (event, from, to) { document.body.className = 'red'; },
     }
 });
+
+//fsm.warn();					// transition from green to yellow
+//fsm.panic("ERROR ALERT");	// transition from yellow to red
+//fsm.calm();					// transition from red to yellow
+//fsm.clear("All clear");		// transition from yellow to green
