@@ -1,6 +1,7 @@
 // Tests for Video.js API
 /// <reference path="videojs.d.ts" />
 
+<<<<<<< HEAD
 _V_("example_video_1").ready(function(){
 
 	var myPlayer:VideoJSPlayer = this;
@@ -72,3 +73,6 @@ _V_("example_video_1").ready(function(){
 	myPlayer.removeEvent("volumechange", myFunc);
 
 });
+=======
+var myPlayer:VideoJSPlayer = _V_("example_video_1");
+>>>>>>> f8b142ba4c1a906b03601cd1f0d53484250f11b3
