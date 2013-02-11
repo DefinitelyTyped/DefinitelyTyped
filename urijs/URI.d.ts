@@ -16,6 +16,7 @@ interface URIOptions {
 
 declare class URI {
     constructor();
+    constructor(uri: string);
     constructor(options: URIOptions);
     clone(): URI;
     href(): string;
