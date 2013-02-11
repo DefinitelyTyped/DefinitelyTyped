@@ -288,6 +288,8 @@ interface JQueryMobile extends JQueryMobileOptions {
     options: JQueryMobileOptions;
 
     transitionFallbacks;
+    showPageLoadingMsg();
+    hidePageLoadingMsg();
     loader;
     loading;
     loadPage;
