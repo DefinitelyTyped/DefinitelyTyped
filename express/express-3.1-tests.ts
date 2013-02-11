@@ -1,6 +1,10 @@
 /// <reference path="express-3.1.d.ts" />
 
+<<<<<<< HEAD
 import express = module('express');
+=======
+var express = <Express>require('express');
+>>>>>>> 283e996bd224b71b3c52e4ee44a25df5b53bc3c6
 var app = express();
 
 //////////////////////////
