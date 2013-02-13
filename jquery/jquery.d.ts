@@ -296,6 +296,9 @@ interface JQueryStatic {
     contains(container: Element, contained: Element): bool;
 
     each(collection: any, callback: (indexInArray: any, valueOfElement: any) => any): any;
+    each(collection: JQuery, callback: (indexInArray: number, valueOfElement: HTMLElement) => any): any;
+    each(collection: string[], callback: (indexInArray: number, valueOfElement: string) => any): any;
+    each(collection: number[], callback: (indexInArray: number, valueOfElement: number) => any): any;
 
     extend(target: any, ...objs: any[]): Object;
     extend(deep: bool, target: any, ...objs: any[]): Object;
