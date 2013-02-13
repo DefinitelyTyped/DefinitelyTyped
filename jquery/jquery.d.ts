@@ -378,7 +378,7 @@ interface JQuery {
     html(htmlString: string): JQuery;
     html(htmlContent: (index: number, oldhtml: string) => string): JQuery;
 
-    prop(propertyName: string): any;
+    prop(propertyName: string): string;
     prop(propertyName: string, value: any): JQuery;
     prop(map: any): JQuery;
     prop(propertyName: string, func: (index: any, oldPropertyValue: any) => any): JQuery;
@@ -403,11 +403,11 @@ interface JQuery {
     /***
      CSS
     ****/
-    css(propertyName: string): any;
-    css(propertyNames: string[]): any;
-    css(properties: any): any;
-    css(propertyName: string, value: any): any;    
-    css(propertyName: any, value: any): any;
+    css(propertyName: string): string;
+    css(propertyNames: string[]): string;
+    css(properties: any): JQuery;
+    css(propertyName: string, value: any): JQuery;
+    css(propertyName: any, value: any): JQuery;
 
     height(): number;
     height(value: number): JQuery;
