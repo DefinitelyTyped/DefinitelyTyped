@@ -1,6 +1,12 @@
 interface ID3Selectors {
-    select: (selector: string) => ID3Selection;
-    selectAll: (selector: string) => ID3Selection;
+    select: {
+        (selector: string): ID3Selection;
+        (element: Element): ID3Selection;
+    };
+    selectAll: {
+        (selector: string): ID3Selection;
+        (elements: Element[]): ID3Selection;
+    };
 }
 
 interface ID3behavior
@@ -35,7 +41,8 @@ interface ID3Base extends ID3Selectors {
     bisect: (arr: any[], x: any, low?: number, high?: number) => number;
     bisectRight: (arr: any[], x: any, low?: number, high?: number) => number;
     first: (arr: any[], comparator: (a: any, b: any) => any ) => any;
-    last: (arr: any[], comparator: (a: any, b:any) => any ) => any;
+    last: (arr: any[], comparator: (a: any, b: any) => any) => any;
+    range:(start: number, stop?: number, step?: number) => number[];
     
     // Loading resources
     xhr: {
@@ -58,11 +65,18 @@ interface ID3Base extends ID3Selectors {
         parseRows(string: string, accessor: (row: any[], index: number) => any): any;
         format(rows: any[]): string;
     };
+    tsv: {
+        (url: string, callback: (error: any, response: any[]) => void );
+        parse(string: string): any[];
+        parseRows(string: string, accessor: (row: any[], index: number) => any): any;
+        format(rows: any[]): string;
+    };
     
     time: ID3Time;
     scale: {
         linear(): ID3LinearScale;
         ordinal(): ID3OrdinalScale;
+        quantize(): ID3QuantizeScale;
         category10(): ID3OrdinalScale;
         category20(): ID3OrdinalScale;
         category20b(): ID3OrdinalScale;
@@ -81,6 +95,10 @@ interface ID3Base extends ID3Selectors {
     svg: ID3Svg;
     random: ID3Random;
     keys(map: Object): any[];
+
+    format(specifier: string): (value: number) => string;
+
+    nest(): ID3Nest;
 }
 
 interface ID3Selection extends ID3Selectors {
@@ -125,11 +143,28 @@ interface ID3Selection extends ID3Selectors {
     remove: () => ID3Selection;
     
     data: {
-        (values: (data: any, index: number) => any) : any;
+        (values: (data: any, index: number) => any): ID3UpdateSelection;
         (values: any[], key?: (data: any, index: number) => any): ID3UpdateSelection;
     };
+
+    datum: {
+        (values: (data: any, index: number) => any): ID3UpdateSelection;
+        (values: any): ID3UpdateSelection;
+    };
+
+    filter: {
+        (filter: (data: any, index: number) => bool): ID3UpdateSelection;
+        (filter: string): ID3UpdateSelection;
+    };
     
-    call(callback: (selection: ID3Selection) => void): ID3Selection;   
+    call(callback: (selection: ID3Selection) => void ): ID3Selection;
+    each(eachFunction: (data: any, index: number) => any): ID3Selection;
+    on: {
+        (type: string): (data: any, index: number) => any;
+        (type: string, listener: (data: any, index: number) => any, capture?: bool): ID3Selection;
+    };
+
+    transition: () => ID3Transition;
 }
 
 interface ID3EnterSelection {
@@ -144,6 +179,32 @@ interface ID3UpdateSelection extends ID3Selection {
     enter: () => ID3EnterSelection;
     update: () => ID3Selection;
     exit: () => ID3Selection;
+}
+
+interface ID3Transition {
+    duration: {
+        (duration: number): ID3Transition;
+        (duration: (data: any, index: number) => any): ID3Transition;
+    };
+    delay: {
+        (delay: number): ID3Transition;
+        (delay: (data: any, index: number) => any): ID3Transition;
+    };
+    attr: {
+        (name: string): string;
+        (name: string, value: any): ID3Transition;
+        (name: string, valueFunction: (data: any, index: number) => any): ID3Transition;
+    };
+    call(callback: (selection: ID3Selection) => void ): ID3Transition;
+
+    select: (selector: string) => ID3Transition;
+    selectAll: (selector: string) => ID3Transition;
+}
+
+interface ID3Nest {
+    key(keyFunction: (data: any, index: number) => any): ID3Nest;
+    rollup(rollupFunction: (data: any, index: number) => any): ID3Nest;
+    map(values: any[]): ID3Nest;
 }
 
 interface ID3Time {
@@ -228,7 +289,10 @@ interface ID3LinearScale {
 
 interface ID3OrdinalScale {
     (value: any): any;
-    domain(values: any[]): ID3OrdinalScale;
+    domain: {
+        (values: any[]): ID3OrdinalScale;
+        (): any[];
+    };
     range: {
         (values: any[]): ID3OrdinalScale;
         (): any[];
@@ -236,9 +300,22 @@ interface ID3OrdinalScale {
     rangePoints(interval: any[], padding?: number): ID3OrdinalScale;
     rangeBands(interval: any[], padding?: number, outerPadding?: number): ID3OrdinalScale;
     rangeRoundBands(interval: any[], padding?: number, outerPadding?: number): ID3OrdinalScale;
-    rangeBand(): any[];
+    rangeBand(): number;
     rangeExtent(): any[];
     copy: ID3OrdinalScale;
+}
+
+interface ID3QuantizeScale {
+    (value: any): any;
+    domain: {
+        (values: number[]): ID3QuantizeScale;
+        (): any[];
+    };
+    range: {
+        (values: any[]): ID3QuantizeScale;
+        (): any[];
+    };
+    copy: ID3QuantizeScale;
 }
 
 interface ID3TimeScale {
