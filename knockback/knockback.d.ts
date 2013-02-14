@@ -158,19 +158,59 @@ declare module Knockback {
     }
 
     export interface Static extends Utils {
-        collectionObservable(model?: Backbone.Collection, options?: CollectionOptions): CollectionObservable;
-        observable(model?: Backbone.Model, options?: any): KnockoutObservableAny;
+    	collectionObservable(model?: Backbone.Collection, options?: CollectionOptions): CollectionObservable;
+    	/** Base class for observing model attributes. */
+    	observable(
+			/** the model to observe (can be null) */
+			model: Backbone.Model,
+			/** the create options. String is a single attribute name, Array is an array of attribute names. */
+				options: IObservableOptions,
+			/** the viewModel */
+			vm?: ViewModel): KnockoutObservableAny;
+        observable(
+			/** the model to observe (can be null) */
+        	model: Backbone.Model,
+    		/** the create options. String is a single attribute name, Array is an array of attribute names. */
+        	options_attributeName: string,
+			/** the viewModel */
+			vm?: ViewModel): KnockoutObservableAny;
         viewModel(model?: Backbone.Model, options?: any): KnockoutObservableAny;
         defaultObservable(targetObservable: KnockoutObservableAny, defaultValue: any): KnockoutObservableAny;
         formattedObservable(format: string, args: any[]): KnockoutObservableAny;
         formattedObservable(format: KnockoutObservableAny, args: any[]): KnockoutObservableAny;
         localizedObservable(data: any, options: any): KnockoutObservableAny;
-        release(object: any, pre_release?: () => void);
+        release(object: any, pre_release?: () => void );
         releaseKeys(object: any);
         releaseOnNodeRemove(viewmodel: ViewModel, node: Element);
         renderTemplate(template: string, viewModel: ViewModel, options: any);
         renderAutoReleasedTemplate(template: string, viewModel: ViewModel, options: any);
         applyBindings(viewModel: ViewModel, node?: Element);
+    }
+
+	/** parameter of ko.observable constructor
+	Options Hash: (option):
+	key (String) — the name of the attribute.
+	read (Function) — a function used to provide transform the attribute value before passing it to the caller. Signature: read()
+	write (Function) — a function used to provide transform the value before passing it to the model set function. Signature: write(value)
+	args (Array) — arguments to pass to the read and write functions (they can be ko.observables). Can be useful for passing arguments to a locale manager.
+	localizer (Constructor) — a concrete kb.LocalizedObservable constructor for localization.
+	default (Data|ko.observable) — the default value. Can be a value, string or ko.observable.
+	path (String) — the path to the value (used to create related observables from the factory).
+	store (kb.Store) — a store used to cache and share view models.
+	factory (kb.Factory) — a factory used to create view models.
+	options (Object) — a set of options merge into these options using _.defaults. Useful for extending options when deriving classes rather than merging them by hand.
+	*/
+    interface IObservableOptions {
+    	key: string;
+    	read?: () => any;
+    	write?: (value: any) => void;
+    	args?: KnockoutObservableAny[];
+    	localizer?: LocalizedObservable;
+    	default?: any;
+    	path?: string;
+    	store?: any;
+    	factory?: any;
+    	options?: any;
     }
 
 };
