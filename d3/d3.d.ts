@@ -398,9 +398,26 @@ interface ID3SVGSymbol
 }
 
 interface ID3Svg {
-    symbol: ()=> ID3SVGSymbol;
+    /**
+    * Create a new symbol generator
+    */
+    symbol: () => ID3SVGSymbol;
+    /**
+    * Create a new axis generator
+    */
     axis(): ID3SvgAxis;
+    /**
+    * Create a new arc generator
+    */
     arc(): ID3SvgArc;
+    /**
+    * Create a new line generator
+    */
+    line(): ID3SvgLine;
+    /**
+    * Create a new area generator
+    */
+    area(): ID3SvgArea;
 }
 
 interface ID3SvgAxis {
@@ -457,8 +474,254 @@ interface ID3SvgArcOptions {
     endAngle?: number;
 }
 
+interface ID3SvgLine {
+    /**
+    * Returns the path data string
+    * 
+    * @param data Array of data elements
+    * @param index Optional index
+    */
+    (data: any[], index?: number): string;
+    /**
+    * Get or set the x-coordinate accessor.
+    */
+    x: {
+        /**
+        * Get the x-coordinate accessor.
+        */
+        (): (data: any) => any;
+        /**
+        * Set the x-coordinate accessor.
+        *
+        * @param accessor The new accessor function
+        */
+        (accessor: (data: any) => any): ID3SvgLine;
+    };
+    /**
+    * Get or set the y-coordinate accessor.
+    */
+    y: {
+        /**
+        * Get the y-coordinate accessor.
+        */
+        (): (data: any) => any;
+        /**
+        * Set the y-coordinate accessor.
+        *
+        * @param accessor The new accessor function
+        */
+        (accessor: (data: any) => any): ID3SvgLine;
+    };
+    /**
+    * Get or set the interpolation mode.
+    */
+    interpolate: {
+        /**
+        * Get the interpolation accessor.
+        */
+        (): string;
+        /**
+        * Set the interpolation accessor.
+        *
+        * @param interpolate The interpolation mode
+        */
+        (interpolate: string): ID3SvgLine;
+    };
+    /**
+    * Get or set the cardinal spline tension.
+    */
+    tension: {
+        /**
+        * Get the cardinal spline accessor.
+        */
+        (): number;
+        /**
+        * Set the cardinal spline accessor.
+        *
+        * @param tension The Cardinal spline interpolation tension
+        */
+        (tension: number): ID3SvgLine;
+    };
+    /**
+    * Control whether the line is defined at a given point.
+    */
+    defined: {
+        /**
+        * Get the accessor function that controls where the line is defined.
+        */
+        (): (data: any) => any;
+        /**
+        * Set the accessor function that controls where the area is defined.
+        *
+        * @param defined The new accessor function
+        */
+        (defined: (data: any) => any): ID3SvgLine;
+    };
+}
+
+interface ID3SvgArea {
+    /**
+    * Generate a piecewise linear area, as in an area chart.
+    */
+    (data: any[], index?: number): string;
+    /**
+    * Get or set the x-coordinate accessor.
+    */
+    x: {
+        /**
+        * Get the x-coordinate accessor.
+        */
+        (): (data: any) => any;
+        /**
+        * Set the x-coordinate accessor.
+        *
+        * @param accessor The new accessor function
+        */
+        (accessor: (data: any) => any): ID3SvgArea;
+    };
+    /**
+    * Get or set the x0-coordinate (baseline) accessor.
+    */
+    x0: {
+        /**
+        * Get the  x0-coordinate (baseline) accessor.
+        */
+        (): (data: any) => any;
+        /**
+        * Set the  x0-coordinate (baseline) accessor.
+        *
+        * @param accessor The new accessor function
+        */
+        (accessor: (data: any) => any): ID3SvgArea;
+    };
+    /**
+    * Get or set the x1-coordinate (topline) accessor.
+    */
+    x1: {
+        /**
+        * Get the  x1-coordinate (topline) accessor.
+        */
+        (): (data: any) => any;
+        /**
+        * Set the  x1-coordinate (topline) accessor.
+        *
+        * @param accessor The new accessor function
+        */
+        (accessor: (data: any) => any): ID3SvgArea;
+    };
+    /**
+    * Get or set the y-coordinate accessor.
+    */
+    y: {
+        /**
+        * Get the y-coordinate accessor.
+        */
+        (): (data: any) => any;
+        /**
+        * Set the y-coordinate accessor.
+        *
+        * @param accessor The new accessor function
+        */
+        (accessor: (data: any) => any): ID3SvgArea;
+    };
+    /**
+    * Get or set the y0-coordinate (baseline) accessor.
+    */
+    y0: {
+        /**
+        * Get the y0-coordinate (baseline) accessor.
+        */
+        (): (data: any) => any;
+        /**
+        * Set the y0-coordinate (baseline) accessor.
+        *
+        * @param accessor The new accessor function
+        */
+        (accessor: (data: any) => any): ID3SvgArea;
+    };
+    /**
+    * Get or set the y1-coordinate (topline) accessor.
+    */
+    y1: {
+        /**
+        * Get the y1-coordinate (topline) accessor.
+        */
+        (): (data: any) => any;
+        /**
+        * Set the y1-coordinate (topline) accessor.
+        *
+        * @param accessor The new accessor function
+        */
+        (accessor: (data: any) => any): ID3SvgArea;
+    };
+    /**
+    * Get or set the interpolation mode.
+    */
+    interpolate: {
+        /**
+        * Get the interpolation accessor.
+        */
+        (): string;
+        /**
+        * Set the interpolation accessor.
+        *
+        * @param interpolate The interpolation mode
+        */
+        (interpolate: string): ID3SvgArea;
+    };
+    /**
+    * Get or set the cardinal spline tension.
+    */
+    tension: {
+        /**
+        * Get the cardinal spline accessor.
+        */
+        (): number;
+        /**
+        * Set the cardinal spline accessor.
+        *
+        * @param tension The Cardinal spline interpolation tension
+        */
+        (tension: number): ID3SvgArea;
+    };
+    /**
+    * Control whether the area is defined at a given point.
+    */
+    defined: {
+        /**
+        * Get the accessor function that controls where the area is defined.
+        */
+        (): (data: any) => any;
+        /**
+        * Set the accessor function that controls where the area is defined.
+        *
+        * @param defined The new accessor function
+        */
+        (defined: (data: any) => any): ID3SvgArea;
+    };
+}
+
 interface ID3Random {
+    /**
+    * Returns a function for generating random numbers with a normal distribution
+    *
+    * @param mean The expected value of the generated pseudorandom numbers
+    * @param deviation The given standard deviation
+    */
     normal(mean?: number, deviation?: number): () => number;
+    /**
+    * Returns a function for generating random numbers with a log-normal distribution
+    *
+    * @param mean The expected value of the generated pseudorandom numbers
+    * @param deviation The given standard deviation
+    */
+    logNormal(mean?: number, deviation?: number): () => number;
+    /**
+    * Returns a function for generating random numbers with an Irwin-Hall distribution
+    *
+    * @param count The number of independent variables
+    */
+    irwinHall(count: number): () => number;
 }
 
 declare var d3: ID3Base;
