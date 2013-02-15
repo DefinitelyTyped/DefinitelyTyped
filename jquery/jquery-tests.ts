@@ -2220,6 +2220,13 @@ function test_prop() {
     var title: string = $('option:selected', this).prop('title');
 }
 
+
+function test_selector() {
+  var $main = $('#main');
+  var $mainDivs = $('div', $main);
+  return $mainDivs.selector == '#main div';
+}
+
 function test_text() {
     var str = $("p:first").text();
     $("p:last").html(str);
