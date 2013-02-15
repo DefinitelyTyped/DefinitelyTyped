@@ -101,9 +101,13 @@ interface KnockoutObservableStatic {
     (value?: any): KnockoutObservableAny;
 }
 
+/** use as method to get/set the value */
 interface KnockoutObservableBase extends KnockoutObservableFunctions {
 }
 
+/** use as method to get/set the value 
+can cast to a more appropriate (typed) interface such as KnockoutObservableString  or KnockoutObservableNumber
+*/
 interface KnockoutObservableAny extends KnockoutObservableBase {
 
     (): any;

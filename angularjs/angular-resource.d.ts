@@ -19,17 +19,20 @@ module ng.resource {
     // that deeply.
     ///////////////////////////////////////////////////////////////////////////
     interface IResourceService {
-        (url: string, paramDefaults?: any, actionDescriptors?: any): IResourceClass;
+    	(url: string, paramDefaults?: any,
+			/** example:  {update: { method: 'PUT' }, delete: deleteDescriptor } 
+			where deleteDescriptor : IActionDescriptor */
+			actionDescriptors?: any): IResourceClass;
     }
 
     // Just a reference to facilitate describing new actions
-    interface IActionDescriptor {        
+    interface IActionDescriptor {
         method: string;
         isArray?: bool;
-        params?: any;        
+        params?: any;
         headers?: any;
     }
-    
+
     // Baseclass for everyresource with default actions.
     // If you define your new actions for the resource, you will need
     // to extend this interface and typecast the ResourceClass to it.
@@ -53,7 +56,7 @@ module ng.resource {
         (params: any, data: any, success?: Function, error?: Function): IResource;
     }
 
-    interface IResource {        
+    interface IResource {
         $save: IActionCall;
         $remove: IActionCall;
         $delete: IActionCall;
@@ -63,4 +66,17 @@ module ng.resource {
         $get: IActionCall;
     }
 
+    /** when creating a resource factory via IModule.factory */
+    interface IResourceServiceFactoryFunction {
+        ($resource: ng.resource.IResourceService): ng.resource.IResourceClass;
+    }
+}
+
+/** extensions to base ng based on using angular-resource */
+module ng {
+
+    interface IModule {
+        /** creating a resource service factory */
+        factory(name: string, resourceServiceFactoryFunction: ng.resource.IResourceServiceFactoryFunction): IModule;
+    }
 }
