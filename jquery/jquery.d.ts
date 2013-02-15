@@ -790,7 +790,7 @@ interface JQuery {
 }
 
 interface EventTarget {
-	nodeName: string;
+	//nodeName: string;  //bugfix, duplicate identifier.  see: http://stackoverflow.com/questions/14824143/duplicate-identifier-nodename-in-jquery-d-ts
 }
 
 declare var jQuery: JQueryStatic;
