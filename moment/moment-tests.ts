@@ -126,13 +126,6 @@ moment([2007, 0, 29]).fromNow();
 moment([2007, 0, 29]).fromNow();     
 moment([2007, 0, 29]).fromNow(true); 
 
-moment.humanizeDuration(1000 * 60);
-moment.humanizeDuration(1, "seconds");
-moment.humanizeDuration(60000, true);       
-moment.humanizeDuration(1, "minutes", true);
-moment.humanizeDuration(-60000, true);     
-moment.humanizeDuration(-1, "minutes", true);
-
 var a8 = moment([2007, 0, 29]);
 var b8 = moment([2007, 0, 28]);
 a8.diff(b8) ;
@@ -236,3 +229,153 @@ moment.duration(500).seconds();
 moment.duration(500).asSeconds();
 moment.duration().minutes();
 moment.duration().asMinutes();
+
+moment.lang('en', {
+    months : [
+        "January", "February", "March", "April", "May", "June", "July",
+        "August", "September", "October", "November", "December"
+    ]
+});
+
+moment.lang('en', {
+    months : function (momentToFormat, format) {
+        // momentToFormat is the moment currently being formatted
+        // format is the formatting string
+        if (/^MMMM/.test(format)) { // if the format starts with 'MMMM'
+            return this.nominative[momentToFormat.month()];
+        } else {
+            return this.subjective[momentToFormat.month()];
+        }
+    }
+});
+
+moment.lang('en', {
+    monthsShort : [
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ]
+});
+
+moment.lang('en', {
+    monthsShort : function (momentToFormat, format) {
+        if (/^MMMM/.test(format)) {
+            return this.nominative[momentToFormat.month()];
+        } else {
+            return this.subjective[momentToFormat.month()];
+        }
+    }
+});
+
+moment.lang('en', {
+    weekdays : [
+        "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+    ]
+});
+
+moment.lang('en', {
+    weekdays : function (momentToFormat, format) {
+        return this.weekdays[momentToFormat.day()];
+    }
+});
+
+moment.lang('en', {
+    weekdaysShort : ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+});
+
+moment.lang('en', {
+    weekdaysShort : function (momentToFormat, format) {
+        return this.weekdaysShort[momentToFormat.day()];
+    }
+});
+
+moment.lang('en', {
+    weekdaysMin : ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
+});
+
+moment.lang('en', {
+    weekdaysMin : function (momentToFormat, format) {
+        return this.weekdaysMin[momentToFormat.day()];
+    }
+});
+
+moment.lang('en', {
+    longDateFormat : {
+        LT: "h:mm A",
+        L: "MM/DD/YYYY",
+        l: "M/D/YYYY",
+        LL: "MMMM Do YYYY",
+        ll: "MMM D YYYY",
+        LLL: "MMMM Do YYYY LT",
+        lll: "MMM D YYYY LT",
+        LLLL: "dddd, MMMM Do YYYY LT",
+        llll: "ddd, MMM D YYYY LT"
+    }
+});
+
+moment.lang('en', {
+    longDateFormat : {
+        LT: "h:mm A",
+        L: "MM/DD/YYYY",
+        LL: "MMMM Do YYYY",
+        LLL: "MMMM Do YYYY LT",
+        LLLL: "dddd, MMMM Do YYYY LT"
+    }
+});
+
+moment.lang('en', {
+    relativeTime : {
+        future: "in %s",
+        past:   "%s ago",
+        s:  "seconds",
+        m:  "a minute",
+        mm: "%d minutes",
+        h:  "an hour",
+        hh: "%d hours",
+        d:  "a day",
+        dd: "%d days",
+        M:  "a month",
+        MM: "%d months",
+        y:  "a year",
+        yy: "%d years"
+    }
+});
+
+moment.lang('en', {
+    meridiem : function (hour, minute, isLowercase) {
+        if (hour < 9) {
+            return "早上";
+        } else if (hour < 11 && minute < 30) {
+            return "上午";
+        } else if (hour < 13 && minute < 30) {
+            return "中午";
+        } else if (hour < 18) {
+            return "下午";
+        } else {
+            return "晚上";
+        }
+    }
+});
+
+moment.lang('en', {
+    calendar : {
+        lastDay : '[Yesterday at] LT',
+        sameDay : '[Today at] LT',
+        nextDay : function () {
+          return '[hoy a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
+        },
+        lastWeek : '[last] dddd [at] LT',
+        nextWeek : 'dddd [at] LT',
+        sameElse : 'L'
+    }
+});
+
+moment.lang('en', {
+    ordinal : function (number) {
+        var b = number % 10;
+        var output = (~~ (number % 100 / 10) === 1) ? 'th' :
+            (b === 1) ? 'st' :
+            (b === 2) ? 'nd' :
+            (b === 3) ? 'rd' : 'th';
+        return number + output;
+    }
+});
