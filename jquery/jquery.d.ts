@@ -185,6 +185,11 @@ interface JQuerySupport {
     tbody?: bool;
 }
 
+interface JQueryParam {
+  (obj: any): string;
+  (obj: any, traditional: bool): string;
+}
+
 /*
     Static members of jQuery (those on $ and jQuery themselves)
 */
@@ -208,8 +213,7 @@ interface JQueryStatic {
     getJSON(url: string, data?: any, success?: any): JQueryXHR;
     getScript(url: string, success?: any): JQueryXHR;
 
-    param(obj: any): string;
-    param(obj: any, traditional: bool): string;
+    param: JQueryParam;
 
     post(url: string, data?: any, success?: any, dataType?: any): JQueryXHR;
 
@@ -296,6 +300,9 @@ interface JQueryStatic {
     contains(container: Element, contained: Element): bool;
 
     each(collection: any, callback: (indexInArray: any, valueOfElement: any) => any): any;
+    each(collection: JQuery, callback: (indexInArray: number, valueOfElement: HTMLElement) => any): any;
+    each(collection: string[], callback: (indexInArray: number, valueOfElement: string) => any): any;
+    each(collection: number[], callback: (indexInArray: number, valueOfElement: number) => any): any;
 
     extend(target: any, ...objs: any[]): Object;
     extend(deep: bool, target: any, ...objs: any[]): Object;
@@ -375,7 +382,7 @@ interface JQuery {
     html(htmlString: string): JQuery;
     html(htmlContent: (index: number, oldhtml: string) => string): JQuery;
 
-    prop(propertyName: string): any;
+    prop(propertyName: string): string;
     prop(propertyName: string, value: any): JQuery;
     prop(map: any): JQuery;
     prop(propertyName: string, func: (index: any, oldPropertyValue: any) => any): JQuery;
@@ -400,11 +407,11 @@ interface JQuery {
     /***
      CSS
     ****/
-    css(propertyName: string): any;
-    css(propertyNames: string[]): any;
-    css(properties: any): any;
-    css(propertyName: string, value: any): any;    
-    css(propertyName: any, value: any): any;
+    css(propertyName: string): string;
+    css(propertyNames: string[]): string;
+    css(properties: any): JQuery;
+    css(propertyName: string, value: any): JQuery;
+    css(propertyName: any, value: any): JQuery;
 
     height(): number;
     height(value: number): JQuery;
