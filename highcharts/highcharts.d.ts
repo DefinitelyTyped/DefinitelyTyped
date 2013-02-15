@@ -961,7 +961,7 @@ interface HighchartsOptions {
     title?: HighchartsTitleOptions;
     tooltip?: HighchartsTooltipOptions;
     xAxis?: HighchartsAxisOptions;
-    yAxis?: HighchartsAxisOptions[];
+    yAxis?: HighchartsAxisOptions;
 }
 
 
