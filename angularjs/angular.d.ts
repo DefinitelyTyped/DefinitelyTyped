@@ -44,8 +44,17 @@ module ng {
         isObject(value: any): bool;
         isString(value: any): bool;
         isUndefined(value: any): bool;
-        lowercase(str: string): string;        
-        module(name: string, requires?: string[], configFunction?: Function): IModule;
+        lowercase(str: string): string;
+    	/** construct your angular application
+		official docs: Interface for configuring angular modules.
+		see: http://docs.angularjs.org/api/angular.Module
+		*/
+        module(
+			/** name of your module you want to create */
+        	name: string,
+			/** name of modules yours depends on */
+			requires?: string[],
+			configFunction?: Function): IModule;
         noop(...args: any[]): void;
         toJson(obj: any, pretty?: bool): string;
         uppercase(str: string): string;
@@ -63,7 +72,13 @@ module ng {
     // see http://docs.angularjs.org/api/angular.Module
     ///////////////////////////////////////////////////////////////////////////
     interface IModule {
-        config(configFn: Function): IModule;
+    	/** configure existing services.  
+		Use this method to register work which needs to be performed on module loading
+		 */
+    	config(configFn: Function): IModule;
+		/** configure existing services.  
+		Use this method to register work which needs to be performed on module loading
+		 */
         config(inlineAnnotadedFunction: any[]): IModule;
         constant(name: string, value: any): IModule;
         controller(name: string, controllerConstructor: Function): IModule;
