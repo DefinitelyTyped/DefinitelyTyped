@@ -185,6 +185,11 @@ interface JQuerySupport {
     tbody?: bool;
 }
 
+interface JQueryParam {
+  (obj: any): string;
+  (obj: any, traditional: bool): string;
+}
+
 /*
     Static members of jQuery (those on $ and jQuery themselves)
 */
@@ -208,8 +213,7 @@ interface JQueryStatic {
     getJSON(url: string, data?: any, success?: any): JQueryXHR;
     getScript(url: string, success?: any): JQueryXHR;
 
-    param(obj: any): string;
-    param(obj: any, traditional: bool): string;
+    param: JQueryParam;
 
     post(url: string, data?: any, success?: any, dataType?: any): JQueryXHR;
 
