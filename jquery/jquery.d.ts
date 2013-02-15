@@ -700,6 +700,7 @@ interface JQuery {
      PROPERTIES
     ***********/
     length: number;
+    selector: string;
     [x: string]: HTMLElement;
     [x: number]: HTMLElement;
 
