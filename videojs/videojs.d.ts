@@ -26,10 +26,7 @@ interface VideoJSPlayer {
 	src(newSource: VideoJSSource): VideoJSPlayer;
 	src(newSource: VideoJSSource[]): VideoJSPlayer;
 	currentTime(seconds: number): VideoJSPlayer;
-<<<<<<< HEAD
 	currentTime(): number;
-=======
->>>>>>> f8b142ba4c1a906b03601cd1f0d53484250f11b3
 	duration(): number;
 	buffered(): TimeRanges;
 	bufferedPercent(): number;	
