@@ -51,7 +51,6 @@ interface Duration {
 
 }
 
-
 interface Moment {
 
     format(format: string): string;
@@ -122,6 +121,64 @@ interface Moment {
 
 }
 
+interface MomentCalendar {
+
+  lastDay: any;
+  sameDay: any;
+  nextDay: any;
+  lastWeek: any;
+  nextWeek: any;
+  sameElse: any;
+
+}
+
+interface MomentLanguage {
+
+  months?: any;
+  monthsShort?: any;
+  weekdays?: any;
+  weekdaysShort?: any;
+  weekdaysMin?: any;
+  longDateFormat?: MomentLongDateFormat;
+  relativeTime?: MomentRelativeTime;
+  meridiem?: (hour: number, minute: number, isLowercase: bool) => string;
+  calendar?: MomentCalendar;
+  ordinal?: (num: number) => string;
+
+}
+
+interface MomentLongDateFormat {
+
+  L: string;
+  LL: string;
+  LLL: string;
+  LLLL: string;
+  LT: string;
+  l?: string;
+  ll?: string;
+  lll?: string;
+  llll?: string;
+  lt?: string;
+
+}
+
+interface MomentRelativeTime {
+  
+  future: any;
+  past: any;
+  s: any;
+  m: any;
+  mm: any;
+  h: any;
+  hh: any;
+  d: any;
+  dd: any;
+  M: any;
+  MM: any;
+  y: any;
+  yy: any;
+
+}
 
 interface MomentStatic {
 
@@ -146,7 +203,7 @@ interface MomentStatic {
     isMoment(): bool;
     isMoment(m: any): bool;
     lang(language: string);
-    lang(language: string, definition: any); // TODO definition
+    lang(language: string, definition: MomentLanguage);
     months: string[];
     monthsShort: string[];
     weekdays: string[];
@@ -154,7 +211,7 @@ interface MomentStatic {
     weekdaysMin: string[];
     longDateFormat: any;
     relativeTime: any;
-    meridiem: (hour, minute, isLower) => string;
+    meridiem: (hour: number, minute: number, isLowercase: bool) => string;
     calendar: any;
     ordinal: (num: number) => string;
 
