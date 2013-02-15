@@ -126,13 +126,6 @@ moment([2007, 0, 29]).fromNow();
 moment([2007, 0, 29]).fromNow();     
 moment([2007, 0, 29]).fromNow(true); 
 
-moment.humanizeDuration(1000 * 60);
-moment.humanizeDuration(1, "seconds");
-moment.humanizeDuration(60000, true);       
-moment.humanizeDuration(1, "minutes", true);
-moment.humanizeDuration(-60000, true);     
-moment.humanizeDuration(-1, "minutes", true);
-
 var a8 = moment([2007, 0, 29]);
 var b8 = moment([2007, 0, 28]);
 a8.diff(b8) ;
