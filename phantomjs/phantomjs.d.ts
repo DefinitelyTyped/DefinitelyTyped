@@ -1,10 +1,11 @@
-/************************************************
-*                                               *
-*             PlantomJS v1.8.0 API              *
-*                                               *
-************************************************/
+/**********************************************************
+*                                                         *
+*                 PlantomJS v1.8.0 API                    *
+*  https://github.com/ariya/phantomjs/wiki/API-Reference  *
+*                                                         *
+**********************************************************/
 
-interface PhantomJSStatic {
+interface Phantom {
 
 	// Properties
 	args: string[];  // DEPRECATED
@@ -23,4 +24,8 @@ interface PhantomJSStatic {
 
 	// Callbacks
 	onError: Function;
+}
+
+interface WebPage {
+	
 }
