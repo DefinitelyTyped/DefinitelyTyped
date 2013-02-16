@@ -30,7 +30,7 @@ interface Casper {
 	debugPage();
 	die(message: string, status?: number);
 	download(url: string, target?: string, method?: string, data?: any);
-	each(array: Array, fn: Function);
+	each(array: Array, fn: (self, link) => void);
 	echo(message: string, style?: string);
 	evaluate(fn: Function, ...args: any[]);
 	evaluateOrDie(fn: Function, message?: string);
@@ -40,32 +40,32 @@ interface Casper {
 	forward();
 	log(message: string, level?: string, space?: string);
 	fill(selector: string, values: any, submit?: bool);
-	getCurrentUrl();
-	getElementAttribute(selector: string, attribute: string);
-	getElementBounds(selector: string);
-	getElementsBounds(selector: string);
-	getElementInfo(selector: string);
-	getFormValues(selector: string);
-	getGlobal(name: string);
-	getHTML(selector?: string, outer?: bool);
-	getPageContent();
-	getTitle();
+	getCurrentUrl(): string;
+	getElementAttribute(selector: string, attribute: string): string;
+	getElementBounds(selector: string): ElementBounds;
+	getElementsBounds(selector: string): ElementBounds[];
+	getElementInfo(selector: string): ElementInfo;
+	getFormValues(selector: string): any;
+	getGlobal(name: string): any;
+	getHTML(selector?: string, outer?: bool): string;
+	getPageContent(): string;
+	getTitle(): string;
 	mouseEvent(type: string, selector: string);
-	open(location: string, settings: any);
-	reload(then?: Function);
+	open(location: string, settings: OpenSettings): Casper;
+	reload(then?: (response: HttpResponse) => void);
 	repeat(times: number, then: Function);
 	resourceExists(test: Function);
 	resourceExists(test: string);
 	run(onComplete: Function, time?: number);
 	sendKeys(selector: string, keys: string, options?: any);
 	setHttpAuth(username: string, password: string);
-	start(url: string, then?: Function);
-	status(asString: bool);
-	then(fn: Function);
+	start(url: string, then?: (response: HttpResponse) => void): Casper;
+	status(asString: bool): any;
+	then(fn: (self?: Casper) => void);
 	thenClick(selector: string);
 	thenEvaluate(fn: Function, ...args: any[]);
-	thenOpen(location: string, then?: Function);
-	thenOpen(location: string, options?: any, then?: Function);
+	thenOpen(location: string, then?: (response: HttpResponse) => void);
+	thenOpen(location: string, options?: OpenSettings, then?: (response: HttpResponse) => void);
 	thenOpenAndEvaluate(location: string, then?: Function, ...args: any[]);
 	toString();
 	userAgent(agent: string);
@@ -88,6 +88,44 @@ interface Casper {
 	withPopup(popupInfo: string, step: Function);
 	withPopup(popupInfo: RegExp, step: Function);
 	zoom(factor: number);
+}
+
+interface HttpResponse {
+	contentType: string;
+	headers: any[];
+	id: number;
+	redirectURL: string;
+	stage: string;
+	status: number;
+	statusText: string;
+	time: string;
+	url: string;
+}
+
+interface OpenSettings {
+	method: string;
+	data: any;
+	headers: any;
+}
+
+interface ElementBounds {
+	top: number;
+	left: number;
+	width: number;
+	height: number;
+}
+
+interface ElementInfo {
+	nodeName: string;
+	attributes: any;
+	tag: string;
+	html: string;
+	text: string;
+	x: number;
+	y: number;
+	width: number;
+	height: number;
+	visible: bool;
 }
 
 interface CasperOptions {
@@ -176,11 +214,29 @@ interface Tester {
 	error(message: string);
 	fail(message: string);
 	formatMessage(message: string, style: string);
-	getFailures();
-	getPasses();
+	getFailures(): Cases;
+	getPasses(): Cases;
 	info(message: string);
 	pass(message: string);
 	renderResults(exit: bool, status: number, save: string);
+}
+
+interface Cases {
+	length: number;
+	cases: Case[];
+}
+
+interface Case {
+	success: bool;
+	type: string;
+	standard: string;
+	file: string;
+	values: CaseValues;
+}
+
+interface CaseValues {
+	subject: bool;
+	expected: bool;
 }
 
 interface Utils {
