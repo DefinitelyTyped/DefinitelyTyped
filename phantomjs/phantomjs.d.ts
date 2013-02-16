@@ -1,9 +1,7 @@
-/**********************************************************
-*                                                         *
-*                 PlantomJS v1.8.0 API                    *
-*  https://github.com/ariya/phantomjs/wiki/API-Reference  *
-*                                                         *
-**********************************************************/
+// Type definitions for PlantomJS v1.8.0 API
+// Project: https://github.com/ariya/phantomjs/wiki/API-Reference
+// Definitions by: Jed Hunsaker <https://github.com/jedhunsaker>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface Phantom {
 
