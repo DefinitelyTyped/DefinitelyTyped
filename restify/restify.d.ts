@@ -1,3 +1,8 @@
+// Type definitions for node.js REST framework 2.0
+// Project: https://github.com/mcavage/node-restify
+// Definitions by: Bret Little <https://github.com/blittle>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 interface addressInterface {
     port: number;
     family: string;

@@ -1,9 +1,7 @@
-/************************************************
-*                                               *
-*              CasperJS v1.0.0 API              *
-*          http://casperjs.org/api.html         *
-*                                               *
-************************************************/
+// Type definitions for CasperJS v1.0.0 API
+// Project: http://casperjs.org/
+// Definitions by: Jed Hunsaker <https://github.com/jedhunsaker>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../phantomjs/phantomjs.d.ts" />
 
