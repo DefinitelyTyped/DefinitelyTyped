@@ -165,7 +165,7 @@ interface NodeProcess extends EventEmitter {
 interface NodeBuffer {
     [index: number]: number;
     write(string: string, offset?: number, length?: number, encoding?: string): number;
-    toString(encoding: string, start: number, end: number): string;
+    toString(encoding?: string, start?: number, end?: number): string;
     length: number;
     copy(targetBuffer: NodeBuffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): void;
     slice(start?: number, end?: number): NodeBuffer;
