@@ -138,13 +138,6 @@ interface ClientUtils {
 	visible(selector: string);
 }
 
-interface ClipRect {
-	top: number;
-	left: number;
-	width: number;
-	height: number;
-}
-
 interface Colorizer {
 	colorize(text: string, styleName: string);
 	format(text: string, style: any);
