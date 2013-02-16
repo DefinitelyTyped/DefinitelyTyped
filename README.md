@@ -105,6 +105,7 @@ List of Definitions
 * [node_redis](https://github.com/mranney/node_redis) (by [Boris Yankov](https://github.com/borisyankov))
 * [node-sqlserver](https://github.com/WindowsAzure/node-sqlserver) (by [Boris Yankov](https://github.com/borisyankov))
 * [Numeral.js](https://github.com/adamwdraper/Numeral-js) (by [Vincent Bortone](https://github.com/vbortone/))
+* [PhantomJS](http://phantomjs.org) (by [Jed Hunsaker](https://github.com/jedhunsaker))
 * [PhoneGap](http://phonegap.com) (by [Boris Yankov](https://github.com/borisyankov))
 * [Platform](https://github.com/bestiejs/platform.js) (by [Jake Hickman](https://github.com/JakeH))
 * [PouchDB](http://pouchdb.com) (by [Bill Sears](https://github.com/MrBigDog2U/))
@@ -138,13 +139,13 @@ List of Definitions
 * [WebRTC](http://dev.w3.org/2011/webrtc/editor/webrtc.html) (by [Ken Smith](https://github.com/smithkl42))
 * [YouTube](https://developers.google.com/youtube/) (by [Daz Wilkin](https://github.com/DazWilkin/))
 * [Zynga Scroller](https://github.com/zynga/scroller) (by [Boris Yankov](https://github.com/borisyankov))
-* [ZeroClipboard] (https://github.com/jonrohan/ZeroClipboard) (by [Eric J. Smith] (https://github.com/ejsmith))
+* [ZeroClipboard](https://github.com/jonrohan/ZeroClipboard) (by [Eric J. Smith](https://github.com/ejsmith))
 
 Requested Definitions
 ---------------------
 * [Rickshaw](https://github.com/shutterstock/rickshaw)
-* [Livestamp.js] (https://github.com/mattbradley/livestampjs)
-* [jQuery ScrollTo] (https://github.com/balupton/jquery-scrollto)
+* [Livestamp.js](https://github.com/mattbradley/livestampjs)
+* [jQuery ScrollTo](https://github.com/balupton/jquery-scrollto)
 * [Crossfilter](https://github.com/square/crossfilter)
 * [dc.js](https://github.com/NickQiZhu/dc.js)
 * [google.visualizations](https://developers.google.com/chart/)
