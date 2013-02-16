@@ -92,7 +92,7 @@ List of Definitions
 * [Knockout.Mapping](https://github.com/SteveSanderson/knockout.mapping) (by [Boris Yankov](https://github.com/borisyankov))
 * [Knockout.Postbox](https://github.com/rniemeyer/knockout-postbox) (by [Judah Gabriel](https://github.com/JudahGabriel))
 * [Knockout.Validation](https://github.com/ericmbarnard/Knockout-Validation) (by [Dan Ludwig](https://github.com/danludwig))
-* [Knockout.Viewmodel](http://romanych.github.com/ko.editables/) (by [Oisin Grehan](https://github.com/oising))
+* [Knockout.Viewmodel](http://coderenaissance.github.com/knockout.viewmodel/) (by [Oisin Grehan](https://github.com/oising))
 * [ko.editables](http://romanych.github.com/ko.editables/) (by [Oisin Grehan](https://github.com/oising))
 * [KoLite](https://github.com/CodeSeven/kolite) (by [Boris Yankov](https://github.com/borisyankov))
 * [Leaflet](https://github.com/Leaflet/Leaflet) (by [Vladimir](https://github.com/rgripper))
