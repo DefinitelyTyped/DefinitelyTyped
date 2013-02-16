@@ -1,3 +1,8 @@
+// Type definitions for d3JS
+// Project: http://d3js.org/
+// Definitions by: TypeScript samples
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 interface ID3Selectors {
     select: {
         (selector: string): ID3Selection;
