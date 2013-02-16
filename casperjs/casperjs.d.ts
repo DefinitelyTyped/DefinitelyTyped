@@ -59,7 +59,7 @@ interface Casper {
 	run(onComplete: Function, time?: number);
 	sendKeys(selector: string, keys: string, options?: any);
 	setHttpAuth(username: string, password: string);
-	start(url: string, then?: (response: HttpResponse) => void): Casper;
+	start(url?: string, then?: (response: HttpResponse) => void): Casper;
 	status(asString: bool): any;
 	then(fn: (self?: Casper) => void);
 	thenClick(selector: string);
