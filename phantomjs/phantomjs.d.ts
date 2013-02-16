@@ -15,7 +15,7 @@ interface Phantom {
 	scriptName: string;  // DEPRECATED
 	version: any;
 
-	// Methods
+	// Functions
 	addCookie(cookie: Cookie): bool;
 	clearCookies();
 	deleteCookie(cookieName: string): bool;
@@ -65,7 +65,7 @@ interface WebPage {
 	ownsPages: bool;
 	pages;
 	pagesWindowName: string;
-	paperSize: any;
+	paperSize: PaperSize;
 	plainText: string;
 	scrollPosition: TopLeft;
 	settings: WebPageSettings;
@@ -75,7 +75,7 @@ interface WebPage {
 	windowName: string;
 	zoomFactor: number;
 
-	// Methods
+	// Functions
 	addCookie(cookie: Cookie): bool;
 	childFramesCount(): number;  // DEPRECATED
 	childFramesName(): string;  // DEPRECATED
@@ -92,7 +92,7 @@ interface WebPage {
 	goForward();
 	includeJs(url: string, callback: Function);
 	injectJs(filename: string): bool;
-	open(url: string, callback: Function);
+	open(url: string, callback: (status: string) => void);
 	openUrl(url: string, httpConf: any, settings: any);
 	release();  // DEPRECATED
 	reload();
@@ -143,6 +143,14 @@ interface WebPage {
 	urlChanged(url: string);
 }
 
+interface PaperSize {
+	width: string;
+	height: string;
+	border: string;
+	format: string;
+	orientation: string;
+}
+
 interface WebPageSettings {
 	javascriptEnabled: bool;
 	loadImages: bool;
@@ -151,6 +159,83 @@ interface WebPageSettings {
 	password: string;
 	XSSAuditingEnabled: bool;
 	webSecurityEnabled: bool;
+}
+
+interface FileSystem {
+	
+	// Properties
+	separator: string;
+	workingDirectory: string;
+	
+	// Functions
+	
+	// Query Functions
+	list(path: string): string[];
+	absolute(path: string): string;
+	exists(path: string): bool;
+	isDirectory(path: string): bool;
+	isFile(path: string): bool;
+	isAbsolute(path: string): bool;
+	isExecutable(path: string): bool;
+	isReadable(path: string): bool;
+	isWritable(path: string): bool;
+	isLink(path: string): bool;
+	readLink(path: string): string;
+
+	// Directory Functions
+	changeWorkingDirectory(path: string);
+	makeDirectory(path: string);
+	makeTree(path: string);
+	removeDirectory(path: string);
+	removeTree(path: string);
+	copyTree(source: string, destination: string);
+
+	// File Functions
+	open(path: string, mode: string): Stream;
+	read(path: string): string;
+	write(path: string, content: string, mode: string);
+	size(path: string): number;
+	remove(path: string);
+	copy(source: string, destination: string);
+	move(source: string, destination: string);
+	touch(path: string);
+}
+
+interface Stream {
+	read(): string;
+	readLine(): string;
+	write(data: string);
+	writeLine(data: string);
+	flush();
+	close();
+}
+
+interface WebServer {
+	port: number;
+	listen(port: number, cb?:(request, response) => void): bool;
+	listen(ipAddressPort: string, cb?:(request, response) => void): bool;
+	close();
+}
+
+interface Request {
+	method: string;
+	url: string;
+	httpVersion: number;
+	headers: any;
+	post: string;
+	postRaw: string;
+}
+
+interface Response {
+	headers: any;
+	setHeader(name: string, value: string);
+	header(name: string): string;
+	statusCode: number;
+	setEncoding(encoding: string);
+	write(data: string);
+	writeHead(statusCode: number, headers?: any);
+	close();
+	closeGracefully();
 }
 
 interface TopLeft {
@@ -168,11 +253,7 @@ interface ClipRect extends TopLeft, Size {
 	height: number;
 }
 
-interface NameValuePair {
+interface Cookie {
 	name: string;
-	value: any;
-}
-
-interface Cookie extends NameValuePair {
 	value: string;
 }
