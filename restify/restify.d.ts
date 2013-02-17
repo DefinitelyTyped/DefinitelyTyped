@@ -16,10 +16,10 @@ interface Request {
     getLogger: (component: string) => any;
     contentLength: number;
     contentType: string;
-    href: string;
+    href: () => string;
     log: Object;
     id: string;
-    path: string;
+    path: () => string;
     query: string;
     secure: bool;
     time: number;

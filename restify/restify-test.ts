@@ -49,9 +49,9 @@ function send(req, res, next) {
 
     req.contentLength === 50;
     req.contentType === 'test';
-    req.href === 'test';
+    req.href() === 'test';
     req.id === 'test';
-    req.path === 'test';
+    req.path() === 'test';
     req.query === 'test';
     req.secure === true;
     req.time === 50;
