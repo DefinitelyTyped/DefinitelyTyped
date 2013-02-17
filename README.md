@@ -22,12 +22,15 @@ It is very desirable each new contribution to contain tests too.
 
 Other means to get the definitions
 ----------------------------------
-[TypeScript definition package manager](https://github.com/Diullei/tsd)
+* [TypeScript definition package manager](https://github.com/Diullei/tsd)
 
-NuGet package(s) coming soon
+* [tsdpm](http://www.tsdpm.com/) - Online search
+
+> NuGet package(s) coming soon
 
 List of Definitions
 -------------------
+* [Ace Cloud9 Editor](http://ace.ajax.org/) (by [Diullei Gomes](https://github.com/Diullei))
 * [AngularJS](http://angularjs.org) (by [Diego Vilar](https://github.com/diegovilar)) ([wiki](https://github.com/borisyankov/DefinitelyTyped/wiki/AngularJS-Definitions-Usage-Notes))
 * [async](https://github.com/caolan/async) (by [Boris Yankov](https://github.com/borisyankov))
 * [Backbone.js](http://backbonejs.org/) (by [Boris Yankov](https://github.com/borisyankov))
