@@ -12,12 +12,12 @@ module AceAjax {
     interface TextMode {
         getTokenizer(): any;
         toggleCommentLines(state, doc, startRow, endRow);
-        getNextLineIndent (state, line, tab): any;
-        checkOutdent(state, line, input);
+        getNextLineIndent (state, line, tab): string;
+        checkOutdent(state, line, input): bool;
         autoOutdent(state, doc, row);
-        createWorker(session);
+        createWorker(session): any;
         createModeDelegates (mapping);
-        transformAction(state, action, editor, session, param);
+        transformAction(state, action, editor, session, param): any;
     }
 
     ////////////////
@@ -160,13 +160,13 @@ module AceAjax {
          * Gives list of tokens of the row. (tokens are cached)
          * @param row The row to get tokens at
         **/
-        getTokens(row: number);
+        getTokens(row: number): any;
 
         /**
          * [Returns the state of tokenization at the end of a row.]{: #BackgroundTokenizer.getState}
          * @param row The row to get state at
         **/
-        getState(row: number);
+        getState(row: number): string;
     }
     declare var BackgroundTokenizer: {
         /**
@@ -196,7 +196,7 @@ module AceAjax {
         /**
          * Returns all the lines in the document as a single string, split by the new line character.
         **/
-        getValue();
+        getValue(): string;
 
         /**
          * Creates a new `Anchor` to define a floating point in the document.
@@ -225,36 +225,36 @@ module AceAjax {
          * Returns `true` if `text` is a newline character (either `\r\n`, `\r`, or `\n`).
          * @param text The text to check
         **/
-        isNewLine(text: string);
+        isNewLine(text: string): bool;
 
         /**
          * Returns a verbatim copy of the given line as it is in the document
          * @param row The row index to retrieve
         **/
-        getLine(row: number);
+        getLine(row: number): string;
 
         /**
          * Returns an array of strings of the rows between `firstRow` and `lastRow`. This function is inclusive of `lastRow`.
          * @param firstRow The first row index to retrieve
          * @param lastRow The final row index to retrieve
         **/
-        getLines(firstRow: number, lastRow: number);
+        getLines(firstRow: number, lastRow: number): string[];
 
         /**
          * Returns all lines in the document as string array. Warning: The caller should not modify this array!
         **/
-        getAllLines();
+        getAllLines(): string[];
 
         /**
          * Returns the number of rows in the document.
         **/
-        getLength();
+        getLength(): number;
 
         /**
          * [Given a range within the document, this function returns all the text within that range as a single string.]{: #Document.getTextRange.desc}
          * @param range The range to work with
         **/
-        getTextRange(range: Range);
+        getTextRange(range: Range): string;
 
         /**
          * Inserts a block of `text` and the indicated `position`.
@@ -389,7 +389,7 @@ module AceAjax {
         /**
          * Returns the `Document` associated with this session.
         **/
-        getDocument();
+        getDocument(): Document;
 
         /**
          * undefined
@@ -419,20 +419,20 @@ module AceAjax {
          * {:BackgroundTokenizer.getState}
          * @param row The row to start at
         **/
-        getState(row: number);
+        getState(row: number): string;
 
         /**
          * Starts tokenizing at the row indicated. Returns a list of objects of the tokenized rows.
          * @param row The row to start at
         **/
-        getTokens(row: number);
+        getTokens(row: number): any[];
 
         /**
          * Returns an object indicating the token at the current row. The object has two properties: `index` and `start`.
          * @param row The row number to retrieve from
          * @param column The column number to retrieve from
         **/
-        getTokenAt(row: number, column: number);
+        getTokenAt(row: number, column: number): any;
 
         /**
          * Sets the undo manager.
@@ -443,12 +443,12 @@ module AceAjax {
         /**
          * Returns the current undo manager.
         **/
-        getUndoManager();
+        getUndoManager(): UndoManager;
 
         /**
          * Returns the current value for tabs. If the user is using soft tabs, this will be a series of spaces (defined by [[EditSession.getTabSize `getTabSize()`]]); otherwise it's simply `'\t'`.
         **/
-        getTabString();
+        getTabString(): string;
 
         /**
          * Pass `true` to enable the use of soft tabs. Soft tabs means you're using spaces instead of the tab character (`'\t'`).
@@ -470,13 +470,13 @@ module AceAjax {
         /**
          * Returns the current tab size.
         **/
-        getTabSize();
+        getTabSize(): string;
 
         /**
          * Returns `true` if the character at the position is a soft tab.
          * @param position The position to check
         **/
-        isTabStop(position: any);
+        isTabStop(position: any): bool;
 
         /**
          * Pass in `true` to enable overwrites in your session, or `false` to disable.
@@ -488,7 +488,7 @@ module AceAjax {
         /**
          * Returns `true` if overwrites are enabled; `false` otherwise.
         **/
-        getOverwrite();
+        getOverwrite(): bool;
 
         /**
          * Sets the value of overwrite to the opposite of whatever it currently is.
@@ -609,7 +609,7 @@ module AceAjax {
          * @param row The row number to start from
          * @param column The column number to start from
         **/
-        getAWordRange(row: number, column: number);
+        getAWordRange(row: number, column: number): any;
 
         /**
          * {:Document.setNewLineMode.desc}
@@ -631,7 +631,7 @@ module AceAjax {
         /**
          * Returns `true` if workers are being used.
         **/
-        getUseWorker();
+        getUseWorker(): bool;
 
         /**
          * Reloads all the tokens on the current session. This function calls [[BackgroundTokenizer.start `BackgroundTokenizer.start ()`]] to all the rows; it also emits the `'tokenizerUpdate'` event.
@@ -852,14 +852,14 @@ module AceAjax {
          * @param docRow
          * @param docColumn
         **/
-        getDocumentLastRowColumn(docRow: number, docColumn: number);
+        getDocumentLastRowColumn(docRow: number, docColumn: number): number;
 
         /**
          * For the given document row and column, this returns the document position of the last row.
          * @param docRow
          * @param docColumn
         **/
-        getDocumentLastRowColumnPosition(docRow: number, docColumn: number);
+        getDocumentLastRowColumnPosition(docRow: number, docColumn: number): number;
 
         /**
          * For the given row, this returns the split data.
