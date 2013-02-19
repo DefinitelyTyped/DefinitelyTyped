@@ -14,3 +14,6 @@
 .DS_Store
 
 _Resharper.DefinitelyTyped
+bin
+obj
+Properties

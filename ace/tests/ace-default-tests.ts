@@ -1,6 +1,4 @@
-/// <reference path="ace.d.ts" />
-
-var assert: any;
+/// <reference path="../ace.d.ts" />
 
 var editor = ace.edit("editor");
 editor.setTheme("ace/theme/monokai");
@@ -450,4 +448,3 @@ editor.moveCursorTo(1, 0);
 editor.toLowerCase()
 assert.equal(session.getValue(), ["AJAX", "dot", "ORG"].join("\n"));
 assert.position(editor.getCursorPosition(), 1, 0);
-
