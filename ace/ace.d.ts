@@ -5,18 +5,96 @@
 
 module AceAjax {
 
-    interface CommandManager {
-        addCommand(command);
+    export interface Delta {
+        action: string;
+        range: Range;
+        text: string;
+        lines: string[];
     }
 
-    interface TextMode {
+    export interface EditorCommand {
+
+        name:string;
+
+        bindKey:any;
+
+        exec:Function;
+    }
+
+    export interface CommandManager {
+
+        byName;
+
+        commands;
+
+        platform: string;
+
+        addCommands(commands:EditorCommand[]);
+
+        addCommand(command:EditorCommand);
+
+        exec(name: string, editor: Editor, args: any);
+    }
+
+    export interface Annotation {
+
+         row: number;
+
+         column: number;
+
+         text: string;
+
+         type: string;
+    }
+
+    export interface TokenInfo {
+
+        value: string;
+    }    
+
+    export interface Position {
+
+        row: number;
+
+        column: number;
+    }
+
+    export interface KeyBinding {
+
+        setDefaultHandler(kb);
+
+        setKeyboardHandler(kb);
+
+        addKeyboardHandler(kb, pos);
+
+        removeKeyboardHandler(kb): bool;
+
+        getKeyboardHandler(): any;
+
+        onCommandKey(e, hashId, keyCode);
+
+        onTextInput(text);
+    }
+    declare var KeyBinding: {
+        new(editor: Editor): KeyBinding;
+    }
+
+    export interface TextMode {
+
         getTokenizer(): any;
+
         toggleCommentLines(state, doc, startRow, endRow);
+
         getNextLineIndent (state, line, tab): string;
+
         checkOutdent(state, line, input): bool;
+
         autoOutdent(state, doc, row);
+
         createWorker(session): any;
+
         createModeDelegates (mapping);
+
         transformAction(state, action, editor, session, param): any;
     }
 
@@ -27,7 +105,7 @@ module AceAjax {
     /**
      * The main class required to set up an Ace instance in the browser.
     **/
-    interface Ace {
+    export interface Ace {
 
         /**
          * Provides access to require in packed noconflict mode
@@ -52,14 +130,14 @@ module AceAjax {
          * @param text {:textParam}
          * @param mode {:modeParam}
         **/
-        createEditSession(text: Document, mode: TextMode): EditSession;
+        createEditSession(text: Document, mode: TextMode): IEditSession;
 
         /**
          * Creates a new [[EditSession]], and returns the associated [[Document]].
          * @param text {:textParam}
          * @param mode {:modeParam}
         **/
-        createEditSession(text: string, mode: TextMode): EditSession;
+        createEditSession(text: string, mode: TextMode): IEditSession;
     }
 
     ////////////////
@@ -69,14 +147,14 @@ module AceAjax {
     /**
      * Defines the floating pointer in the document. Whenever text is inserted or deleted before the cursor, the position of the cursor is updated.
     **/
-    interface Anchor {
+    export interface Anchor {
 
         on(event: string, fn: (e) => any);
 
         /**
          * Returns an object identifying the `row` and `column` position of the current anchor.
         **/
-        getPosition(): any;
+        getPosition(): Position;
 
         /**
          * Returns the current document.
@@ -124,7 +202,9 @@ module AceAjax {
      * Tokenizes the current [[Document `Document`]] in the background, and caches the tokenized rows for future use.
      * If a certain row is changed, everything below that row is re-tokenized.
     **/
-    interface BackgroundTokenizer {
+    export interface BackgroundTokenizer {
+
+        states: any[];
 
         /**
          * Sets a new tokenizer for this object.
@@ -160,7 +240,7 @@ module AceAjax {
          * Gives list of tokens of the row. (tokens are cached)
          * @param row The row to get tokens at
         **/
-        getTokens(row: number): any;
+        getTokens(row: number): TokenInfo[];
 
         /**
          * [Returns the state of tokenization at the end of a row.]{: #BackgroundTokenizer.getState}
@@ -185,7 +265,9 @@ module AceAjax {
      * Contains the text of the document. Document can be attached to several [[EditSession `EditSession`]]s.
      * At its core, `Document`s are just an array of strings, with each row in the document matching up to the array index.
     **/
-    interface Document {
+    export interface Document {
+
+        on(event: string, fn: (e) => any);
 
         /**
          * Replaces all the lines in the current `Document` with the value of `text`.
@@ -261,20 +343,20 @@ module AceAjax {
          * @param position The position to start inserting at
          * @param text A chunk of text to insert
         **/
-        insert(position: any, text: string): any;
+        insert(position: Position, text: string): any;
 
         /**
          * Inserts the elements in `lines` into the document, starting at the row index given by `row`. This method also triggers the `'change'` event.
          * @param row The index of the row to insert at
          * @param lines An array of strings
         **/
-        insertLines(row: number, lines: Array): any;
+        insertLines(row: number, lines: string[]): any;
 
         /**
          * Inserts a new line into the document at the current row's `position`. This method also triggers the `'change'` event.
          * @param position The position to insert at
         **/
-        insertNewLine(position: any): any;
+        insertNewLine(position: Position): any;
 
         /**
          * Inserts `text` into the `position` at the current row. This method also triggers the `'change'` event.
@@ -320,12 +402,12 @@ module AceAjax {
         /**
          * Applies all the changes previously accumulated. These can be either `'includeText'`, `'insertLines'`, `'removeText'`, and `'removeLines'`.
         **/
-        applyDeltas();
+        applyDeltas(deltas: Delta[]);
 
         /**
          * Reverts any changes previously applied. These can be either `'includeText'`, `'insertLines'`, `'removeText'`, and `'removeLines'`.
         **/
-        revertDeltas();
+        revertDeltas(deltas: Delta[]);
 
         /**
          * Converts an index position in a document to a `{row, column}` object.
@@ -338,7 +420,7 @@ module AceAjax {
          * @param index An index to convert
          * @param startRow=0 The row from which to start the conversion
         **/
-        indexToPosition(index: number, startRow: number): any;
+        indexToPosition(index: number, startRow: number): Position;
 
         /**
          * Converts the `{row, column}` position in a document to the character's index.
@@ -351,7 +433,7 @@ module AceAjax {
          * @param pos The `{row, column}` to convert
          * @param startRow=0 The row from which to start the conversion
         **/
-        positionToIndex(pos: any, startRow: number): number;
+        positionToIndex(pos: Position, startRow: number): number;
     }
     declare var Document: {
         /**
@@ -374,11 +456,35 @@ module AceAjax {
      * Stores all the data about [[Editor `Editor`]] state providing easy way to change editors state.
      * `EditSession` can be attached to only one [[Document `Document`]]. Same `Document` can be attached to several `EditSession`s.
     **/
-    interface EditSession {
+    export interface IEditSession {
+
+        selection: Selection;
+
+        bgTokenizer: BackgroundTokenizer;
+
+        doc: Document;
 
         on(event: string, fn: (e) => any);
 
-        selection: Selection;
+        findMatchingBracket(position: Position);
+
+        addFold(text: string, range: Range);
+
+        getFoldAt(row: number, column: number): any;
+
+        removeFold(arg: any);
+
+        expandFold(arg: any);
+
+        unfold(arg1: any, arg2: bool);
+
+        screenToDocumentColumn(row: number, column: number);
+
+        getFoldDisplayLine(foldLine: any, docRow: number, docColumn: number): any;
+
+        getFoldsInRange(range: Range): any;
+
+        highlight(text: string);
 
         /**
          * Sets the `EditSession` to point to a new `Document`. If a `BackgroundTokenizer` exists, it also points to `doc`.
@@ -425,14 +531,14 @@ module AceAjax {
          * Starts tokenizing at the row indicated. Returns a list of objects of the tokenized rows.
          * @param row The row to start at
         **/
-        getTokens(row: number): any[];
+        getTokens(row: number): TokenInfo[];
 
         /**
          * Returns an object indicating the token at the current row. The object has two properties: `index` and `start`.
          * @param row The row number to retrieve from
          * @param column The column number to retrieve from
         **/
-        getTokenAt(row: number, column: number): any;
+        getTokenAt(row: number, column: number): TokenInfo;
 
         /**
          * Sets the undo manager.
@@ -579,7 +685,7 @@ module AceAjax {
          * Sets annotations for the `EditSession`. This functions emits the `'changeAnnotation'` event.
          * @param annotations A list of annotations
         **/
-        setAnnotations(annotations: Array);
+        setAnnotations(annotations: Annotation[]);
 
         /**
          * Returns the annotations for the `EditSession`.
@@ -704,7 +810,7 @@ module AceAjax {
          * @param position The position {row, column} to start inserting at
          * @param text A chunk of text to insert
         **/
-        insert(position: any, text: string): any;
+        insert(position: Position, text: string): any;
 
         /**
          * Removes the `range` from the document.
@@ -911,9 +1017,11 @@ module AceAjax {
          * @param text [If `text` is a `Document`, it associates the `EditSession` with it. Otherwise, a new `Document` is created, with the initial text]{: #textParam}
          * @param mode [The inital language mode to use for the document]{: #modeParam}
         **/
-        new(text: string, mode?: TextMode): EditSession;
+        new(text: string, mode?: TextMode): IEditSession;
 
-        new(text: string[]): EditSession;
+        new(content: string, mode?: string): IEditSession;
+
+        new (text: string[], mode?: string): IEditSession;
     }
         
     ////////////////////////////////
@@ -925,7 +1033,11 @@ module AceAjax {
      * The `Editor` manages the [[EditSession]] (which manages [[Document]]s), as well as the [[VirtualRenderer]], which draws everything to the screen.
      * Event sessions dealing with the mouse and keyboard are bubbled up from `Document` to the `Editor`, which decides what to do with them.
     **/
-    interface Editor {
+    export interface Editor {
+
+        inMultiSelectMode: bool;
+
+        selectMoreLines(n: number);
 
         onTextInput(text: string);
         
@@ -933,9 +1045,21 @@ module AceAjax {
 
         commands: CommandManager;
 
-        session: EditSession;
+        session: IEditSession;
 
         selection: Selection;
+
+        renderer: VirtualRenderer;
+
+        keyBinding: KeyBinding;
+
+        container: HTMLElement;
+
+        onSelectionChange(e);
+
+        onChangeMode(e?);
+
+        execCommand(command:string, args?: any);
 
         /**
          * Sets a new key handler, such as "vim" or "windows".
@@ -952,12 +1076,12 @@ module AceAjax {
          * Sets a new editsession to use. This method also emits the `'changeSession'` event.
          * @param session The new session to use
         **/
-        setSession(session: EditSession);
+        setSession(session: IEditSession);
 
         /**
          * Returns the current session being used.
         **/
-        getSession(): EditSession;
+        getSession(): IEditSession;
 
         /**
          * Sets the current document to `val`.
@@ -1411,7 +1535,7 @@ module AceAjax {
         /**
          * Gets the current position of the cursor.
         **/
-        getCursorPosition(): any;
+        getCursorPosition(): Position;
 
         /**
          * Returns the screen position of the cursor.
@@ -1438,13 +1562,13 @@ module AceAjax {
          * @param row The new row number
          * @param column The new column number
         **/
-        moveCursorTo(row: number, column: number);
+        moveCursorTo(row: number, column?: number, animate?:bool);
 
         /**
          * Moves the cursor to the position indicated by `pos.row` and `pos.column`.
-         * @param pos An object with two properties, row and column
+         * @param position An object with two properties, row and column
         **/
-        moveCursorToPosition(pos: any);
+        moveCursorToPosition(position: Position);
 
         /**
          * Moves the cursor's row and column to the next matching bracket.
@@ -1470,19 +1594,19 @@ module AceAjax {
          * Moves the cursor up in the document the specified number of times. Note that this does de-select the current selection.
          * @param times The number of times to change navigation
         **/
-        navigateUp(times: number);
+        navigateUp(times?: number);
 
         /**
          * Moves the cursor down in the document the specified number of times. Note that this does de-select the current selection.
          * @param times The number of times to change navigation
         **/
-        navigateDown(times: number);
+        navigateDown(times?: number);
 
         /**
          * Moves the cursor left in the document the specified number of times. Note that this does de-select the current selection.
          * @param times The number of times to change navigation
         **/
-        navigateLeft(times: number);
+        navigateLeft(times?: number);
 
         /**
          * Moves the cursor right in the document the specified number of times. Note that this does de-select the current selection.
@@ -1584,14 +1708,16 @@ module AceAjax {
          * @param renderer Associated `VirtualRenderer` that draws everything
          * @param session The `EditSession` to refer to
         **/
-        new(renderer: VirtualRenderer, session: EditSession): Editor;
+        new(renderer: VirtualRenderer, session?: IEditSession): Editor;
     }
 
     ////////////////////////////////
     /// PlaceHolder
     ////////////////////////////////
 
-    interface PlaceHolder {
+    export interface PlaceHolder {
+
+        on(event: string, fn: (e) => any);
 
         /**
          * PlaceHolder.setup()
@@ -1637,15 +1763,38 @@ module AceAjax {
     }
     declare var PlaceHolder: {
         /**
-         * - session (Document): The document to associate with the anchor
-         * - length (Number): The starting row position
-         * - pos (Number): The starting column position
-         * - others (String):
-         * - mainClass (String):
-         * - othersClass (String):
+         * - @param session (Document): The document to associate with the anchor
+         * - @param length (Number): The starting row position
+         * - @param pos (Number): The starting column position
+         * - @param others (String):
+         * - @param mainClass (String):
+         * - @param othersClass (String):
         **/
-        new(): PlaceHolder;
+        new (session: Document, length: number, pos: number, others: string, mainClass: string, othersClass: string): PlaceHolder;
+
+        new (session: IEditSession, length: number, pos: Position, positions: Position[]): PlaceHolder;
     }    
+
+    ////////////////
+    /// RangeList
+    ////////////////
+
+    export interface IRangeList {
+        ranges: Range[];
+
+        pointIndex(pos: Position, startIndex?: number);
+
+        addList(ranges: Range[]);
+
+        add(ranges: Range);
+
+        merge(): Range[];
+
+        substractPoint(pos: Position);
+    }
+    export var RangeList: {
+        new (): IRangeList;
+    }
 
     ////////////////
     /// Range
@@ -1654,11 +1803,21 @@ module AceAjax {
     /**
      * This object is used in various places to indicate a region within the editor. To better visualize how this works, imagine a rectangle. Each quadrant of the rectangle is analogus to a range, as ranges contain a starting row and starting column, and an ending row, and ending column.
     **/
-    interface Range {
+    export interface Range {
 
-        start: number;
+        startRow:number;
 
-        end: number;
+        startColumn:number;
+
+        endRow:number;
+
+        endColumn:number;
+
+        start: Position;
+
+        end: Position;
+
+        isEmpty(): bool;
 
         /**
          * Returns `true` if and only if the starting row and column, and ending row and column, are equivalent to those given by `range`.
@@ -1819,7 +1978,7 @@ module AceAjax {
          * Given the current `Range`, this function converts those starting and ending points into screen positions, and then returns a new `Range` object.
          * @param session The `EditSession` to retrieve coordinates from
         **/
-        toScreenRange(session: EditSession): Range;
+        toScreenRange(session: IEditSession): Range;
 
         /**
          * Creates and returns a new `Range` based on the row and column of the given parameters.
@@ -1837,6 +1996,7 @@ module AceAjax {
      * @param endColumn The ending column
     **/
     declare var Range: {
+        fromPoints(pos1: Position, pos2: Position): Range;
         new(startRow: number, startColumn: number, endRow: number, endColumn: number): Range;
     }    
 
@@ -1844,7 +2004,7 @@ module AceAjax {
     /// RenderLoop
     ////////////////
 
-    interface RenderLoop { }
+    export interface RenderLoop { }
     declare var RenderLoop: {
         new(): RenderLoop;
     }
@@ -1856,7 +2016,7 @@ module AceAjax {
     /**
      * A set of methods for setting and retrieving the editor's scrollbar.
     **/
-    interface ScrollBar {
+    export interface ScrollBar {
 
         /**
          * Emitted when the scroll bar, well, scrolls.
@@ -1902,7 +2062,7 @@ module AceAjax {
     /**
      * A class designed to handle all sorts of text searches within a [[Document `Document`]].
     **/
-    interface Search {
+    export interface Search {
 
         /**
          * Sets the search options via the `options` parameter.
@@ -1925,13 +2085,13 @@ module AceAjax {
          * Searches for `options.needle`. If found, this method returns the [[Range `Range`]] where the text first occurs. If `options.backwards` is `true`, the search goes backwards in the session.
          * @param session The session to search with
         **/
-        find(session: EditSession): Range;
+        find(session: IEditSession): Range;
 
         /**
          * Searches for all occurances `options.needle`. If found, this method returns an array of [[Range `Range`s]] where the text first occurs. If `options.backwards` is `true`, the search goes backwards in the session.
          * @param session The session to search with
         **/
-        findAll(session: EditSession): Range[];
+        findAll(session: IEditSession): Range[];
 
         /**
          * Searches for `options.needle` in `input`, and, if found, replaces it with `replacement`.
@@ -1966,9 +2126,23 @@ module AceAjax {
      * Contains the cursor position and the text selection of an edit session.
      * The row/columns used in the selection are in document coordinates representing ths coordinates as thez appear in the document before applying soft wrap and folding.
     **/
-    interface Selection {
+    export interface Selection {
+
+        addEventListener(ev: string, callback: Function);
+
+        moveCursorWordLeft();
+
+        moveCursorWordRight();
+
+        fromOrientedRange(range: Range);
+
+        setSelectionRange(match);
+
+        getAllRanges(): Range[];
 
         on(event: string, fn: (e) => any);
+
+        addRange(range: Range);
 
         /**
          * Returns `true` if the selection is empty.
@@ -2187,7 +2361,7 @@ module AceAjax {
          * @param column The column to move to
          * @param keepDesiredColumn [If `true`, the cursor move does not respect the previous column]{: #preventUpdateBool}
         **/
-        moveCursorTo(row: number, column: number, keepDesiredColumn: bool);
+        moveCursorTo(row: number, column: number, keepDesiredColumn?: bool);
 
         /**
          * Moves the cursor to the screen position indicated by row and column. {:preventUpdateBoolDesc}
@@ -2202,14 +2376,14 @@ module AceAjax {
          * Creates a new `Selection` object.
          * @param session The session to use
         **/
-        new(session: EditSession): Selection;
+        new(session: IEditSession): Selection;
     }    
 
     ////////////////
     /// Split
     ////////////////
 
-    interface Split {
+    export interface Split {
 
         /**
          * Returns the number of splits.
@@ -2267,7 +2441,7 @@ module AceAjax {
          * @param session The new edit session
          * @param idx The editor's index you're interested in
         **/
-        setSession(session: EditSession, idx: number);
+        setSession(session: IEditSession, idx: number);
 
         /**
          * Returns the orientation.
@@ -2296,7 +2470,7 @@ module AceAjax {
     /**
      * This class provides an essay way to treat the document as a stream of tokens, and provides methods to iterate over these tokens.
     **/
-    interface TokenIterator {
+    export interface TokenIterator {
 
         /**
          * Tokenizes all the items from the current point to the row prior in the document.
@@ -2311,7 +2485,7 @@ module AceAjax {
         /**
          * Returns the current tokenized string.
         **/
-        getCurrentToken(): string;
+        getCurrentToken(): TokenInfo;
 
         /**
          * Returns the current row.
@@ -2330,7 +2504,7 @@ module AceAjax {
          * @param initialRow The row to start the tokenizing at
          * @param initialColumn The column to start the tokenizing at
         **/
-        new(session: EditSession, initialRow: number, initialColumn: number): TokenIterator;
+        new(session: IEditSession, initialRow: number, initialColumn: number): TokenIterator;
     }
 
     //////////////////
@@ -2341,7 +2515,7 @@ module AceAjax {
     /**
      * This class takes a set of highlighting rules, and creates a tokenizer out of them. For more information, see [the wiki on extending highlighters](https://github.com/ajaxorg/ace/wiki/Creating-or-Extending-an-Edit-Mode#wiki-extendingTheHighlighter).
     **/
-    interface Tokenizer {
+    export interface Tokenizer {
 
         /**
          * Returns an object containing two properties: `tokens`, which contains all the tokens; and `state`, the current state.
@@ -2364,7 +2538,7 @@ module AceAjax {
     /**
      * This object maintains the undo stack for an [[EditSession `EditSession`]].
     **/
-    interface UndoManager {
+    export interface UndoManager {
 
         /**
          * Provides a means for implementing your own undo manager. `options` has one property, `args`, an [[Array `Array`]], with two elements:
@@ -2416,12 +2590,20 @@ module AceAjax {
     /**
      * The class that is responsible for drawing everything you see on the screen!
     **/
-    interface VirtualRenderer {
+    export interface VirtualRenderer {
+
+        scroller: any;
+
+        characterWidth: number;
+
+        lineHeight: number;
+
+        screenToTextCoordinates(left: number, top: number);
 
         /**
          * Associates the renderer with an [[EditSession `EditSession`]].
         **/
-        setSession();
+        setSession(session: IEditSession);
 
         /**
          * Triggers a partial update of the text, from the range given by the two parameters.
@@ -2748,7 +2930,7 @@ module AceAjax {
          * @param container The root element of the editor
          * @param theme The starting theme
         **/
-        new(container: HTMLElement, theme: string): VirtualRenderer;
+        new(container: HTMLElement, theme?: string): VirtualRenderer;
     }
 }
 
