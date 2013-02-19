@@ -240,7 +240,7 @@ module AceAjax {
          * Gives list of tokens of the row. (tokens are cached)
          * @param row The row to get tokens at
         **/
-        getTokens(row: number): any;
+        getTokens(row: number): TokenInfo[];
 
         /**
          * [Returns the state of tokenization at the end of a row.]{: #BackgroundTokenizer.getState}
@@ -531,7 +531,7 @@ module AceAjax {
          * Starts tokenizing at the row indicated. Returns a list of objects of the tokenized rows.
          * @param row The row to start at
         **/
-        getTokens(row: number): any[];
+        getTokens(row: number): TokenInfo[];
 
         /**
          * Returns an object indicating the token at the current row. The object has two properties: `index` and `start`.
@@ -1817,6 +1817,8 @@ module AceAjax {
 
         end: Position;
 
+        isEmpty(): bool;
+
         /**
          * Returns `true` if and only if the starting row and column, and ending row and column, are equivalent to those given by `range`.
          * @param range A range to check against
@@ -1994,6 +1996,7 @@ module AceAjax {
      * @param endColumn The ending column
     **/
     declare var Range: {
+        fromPoints(pos1: Position, pos2: Position): Range;
         new(startRow: number, startColumn: number, endRow: number, endColumn: number): Range;
     }    
 
@@ -2124,6 +2127,12 @@ module AceAjax {
      * The row/columns used in the selection are in document coordinates representing ths coordinates as thez appear in the document before applying soft wrap and folding.
     **/
     export interface Selection {
+
+        addEventListener(ev: string, callback: Function);
+
+        moveCursorWordLeft();
+
+        moveCursorWordRight();
 
         fromOrientedRange(range: Range);
 
@@ -2476,7 +2485,7 @@ module AceAjax {
         /**
          * Returns the current tokenized string.
         **/
-        getCurrentToken(): string;
+        getCurrentToken(): TokenInfo;
 
         /**
          * Returns the current row.
@@ -2583,10 +2592,18 @@ module AceAjax {
     **/
     export interface VirtualRenderer {
 
+        scroller: any;
+
+        characterWidth: number;
+
+        lineHeight: number;
+
+        screenToTextCoordinates(left: number, top: number);
+
         /**
          * Associates the renderer with an [[EditSession `EditSession`]].
         **/
-        setSession();
+        setSession(session: IEditSession);
 
         /**
          * Triggers a partial update of the text, from the range given by the two parameters.
@@ -2913,7 +2930,7 @@ module AceAjax {
          * @param container The root element of the editor
          * @param theme The starting theme
         **/
-        new(container: HTMLElement, theme: string): VirtualRenderer;
+        new(container: HTMLElement, theme?: string): VirtualRenderer;
     }
 }
 

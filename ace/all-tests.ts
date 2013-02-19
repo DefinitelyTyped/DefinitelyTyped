@@ -16,6 +16,11 @@ var JavaScriptMode = null;
 /// <reference path="tests/ace-multi_select-tests.ts" />
 /// <reference path="tests/ace-placeholder-tests.ts" />
 /// <reference path="tests/ace-range_list-tests.ts" />
+/// <reference path="tests/ace-range-tests.ts" />
+/// <reference path="tests/ace-search-tests.ts" />
+/// <reference path="tests/ace-selection-tests.ts" />
+/// <reference path="tests/ace-token_iterator-tests.ts" />
+/// <reference path="tests/ace-virtual_renderer-tests.ts" />
 
 
 
