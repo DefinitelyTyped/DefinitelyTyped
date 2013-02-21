@@ -59,7 +59,7 @@ interface JQueryAjaxSettings {
 */
 interface JQueryXHR extends XMLHttpRequest, JQueryPromise {
     overrideMimeType(mimeType: string);
-    abort(statusText: string): void;
+    abort(statusText?: string): void;
 }
 
 /*
