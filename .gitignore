@@ -17,3 +17,6 @@ _Resharper.DefinitelyTyped
 bin
 obj
 Properties
+
+# VIM backup files
+*~
