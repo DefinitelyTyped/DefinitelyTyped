@@ -11,14 +11,8 @@ Use a definition file like this:
 
 Contributor Guidelines
 ----------------------
-Definition files should be called 'library.d.ts'.
-In case there are multiple versions supported, the latest one will be without a version number in the file name.
-Older versions will be in the form of 'library-1.0.d.ts'.
 
-Test files called 'library-tests.ts'.
-They are not runnable, in the TDD way.
-They contain code that should compile with no errors, usually taken from the documentation.samples of the library.
-It is very desirable each new contribution to contain tests too.
+See the section: [How to contribute](https://github.com/borisyankov/DefinitelyTyped/wiki/How-to-contribute)
 
 Other means to get the definitions
 ----------------------------------
