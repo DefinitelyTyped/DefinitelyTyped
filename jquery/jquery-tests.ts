@@ -2240,3 +2240,15 @@ $('#item').click(function(e) {
 	if (e.ctrlKey) { console.log('control pressed'); }
 	if (e.altKey) { console.log('alt pressed'); }
 });
+
+function test_addBack() {
+    $('li.third-item').nextAll().addBack().css('background-color', 'red');
+
+    $("div.left, div.right").find("div, div > p").addClass("border");
+
+    // First Example
+    $("div.before-addback").find("p").addClass("background");
+
+    // Second Example
+    $("div.after-addback").find("p").addBack().addClass("background");
+}

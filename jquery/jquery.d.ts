@@ -274,7 +274,10 @@ interface JQueryStatic {
     *******/
     proxy(fn : (...args: any[]) => any, context: any, ...args: any[]): any;
     proxy(context: any, name: string, ...args: any[]): any;
-    Deferred(fn? : (d: JQueryDeferred) => any): JQueryDeferred;
+    Deferred: {
+        (fn?: (d: JQueryDeferred) => any): JQueryDeferred;
+        new(fn?: (d: JQueryDeferred) => any): JQueryDeferred;
+    };
     Event(name:string, eventProperties?:any): JQueryEventObject;
 
     /*********
@@ -370,6 +373,10 @@ interface JQuery {
     ***********/
     addClass(classNames: string): JQuery;
     addClass(func: (index: any, currentClass: any) => string): JQuery;
+
+    // http://api.jquery.com/addBack/
+    addBack(selector?: string): JQuery;
+
 
     attr(attributeName: string): string;
     attr(attributeName: string, value: any): JQuery;
