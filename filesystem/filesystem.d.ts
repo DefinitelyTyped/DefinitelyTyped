@@ -1,6 +1,9 @@
 // Type Definitions for File API: Directories and System (File System API)
-// Specification: http://www.w3.org/TR/file-system-api/
+// Project: http://www.w3.org/TR/file-system-api/
 // Definitions by: Kon <http://phyzkit.net/> 
+// Definitions: https://github.com/borisyankov/DefinitelyTyped 
+
+/// <reference path="filewriter.d.ts" />
 
 interface LocalFileSystem {
     
@@ -8,7 +11,7 @@ interface LocalFileSystem {
      * Used for storage with no guarantee of persistence.
      */
     TEMPORARY:number;
-    
+
     /**
      * Used for storage that should not be removed by the user agent without application or user permission.
      */
@@ -32,7 +35,7 @@ interface LocalFileSystem {
     resolveLocalFileSystemURL(url:string, successCallback:EntryCallback, errorCallback?:ErrorCallback):void;
 
     /**
-     * see resolveLocalFileSystemURL.
+     * see requestFileSystem.
      */
     webkitRequestFileSystem(type:number, size:number, successCallback:FileSystemCallback, errorCallback?:ErrorCallback):void;
 }
