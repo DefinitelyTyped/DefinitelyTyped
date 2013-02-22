@@ -48,6 +48,8 @@ List of Definitions
 * [Express](http://expressjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Fabric.js](http://fabricjs.com/) (by [Oliver Klemencic](https://github.com/oklemencic/))
 * [Fancybox](http://fancybox.net/) (by [Boris Yankov](https://github.com/borisyankov))
+* [File API: Directories and System](http://www.w3.org/TR/file-system-api/) (by [Kon](http://phyzkit.net/))
+* [File API: Writer](http://www.w3.org/TR/file-writer-api/) (by [Kon](http://phyzkit.net/))
 * [Finite State Machine](https://github.com/jakesgordon/javascript-state-machine) (by [Boris Yankov](https://github.com/borisyankov))
 * [FlexSlider](http://www.woothemes.com/flexslider/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Foundation](http://foundation.zurb.com/) (by [Boris Yankov](https://github.com/borisyankov))
