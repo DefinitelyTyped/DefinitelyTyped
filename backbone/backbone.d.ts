@@ -196,6 +196,8 @@ declare module Backbone {
         start(options?: HistoryOptions);
         navigate(fragment: string, options: any);
         pushSate();
+        getFragment(fragment?: string, forcePushState?: bool): string;
+        getHash(window?: Window): string;
     }
 
     export interface ViewOptions {
