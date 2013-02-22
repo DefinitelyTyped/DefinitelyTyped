@@ -60,7 +60,7 @@ describe("Included matchers:", () => {
             foo: 'foo'
         };
         expect(a.foo).toBeDefined();
-        expect(a.bar).not.toBeDefined();
+        expect((<any>a).bar).not.toBeDefined();
     });
 
     it("The `toBeUndefined` matcher compares against `undefined`", () => {
@@ -68,7 +68,7 @@ describe("Included matchers:", () => {
             foo: 'foo'
         };
         expect(a.foo).not.toBeUndefined();
-        expect(a.bar).toBeUndefined();
+        expect((<any>a).bar).toBeUndefined();
     });
 
     it("The 'toBeNull' matcher compares against null", () => {
@@ -120,7 +120,7 @@ describe("Included matchers:", () => {
             return 1 + 2;
         };
         var bar = () => {
-            return a + 1;
+            //return a + 1;
         };
         expect(foo).not.toThrow();
         expect(bar).toThrow();
@@ -439,7 +439,7 @@ describe("Asynchronous specs", () => {
             currentWindowOnload(null);
         }
 
-        document.querySelector('.version').innerHTML = jasmineEnv.versionString();
+        (<HTMLElement>document.querySelector('.version')).innerHTML = jasmineEnv.versionString();
         execJasmine();
     };
 
