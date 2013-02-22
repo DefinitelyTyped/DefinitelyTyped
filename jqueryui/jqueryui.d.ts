@@ -73,6 +73,7 @@ interface AutocompleteEvents {
 }
 
 interface Autocomplete extends Widget, AutocompleteOptions, AutocompleteEvents {
+    escapeRegex: (string) => string;
 }
 
 
