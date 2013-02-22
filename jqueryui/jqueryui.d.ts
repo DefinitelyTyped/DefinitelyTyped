@@ -73,6 +73,7 @@ interface AutocompleteEvents {
 }
 
 interface Autocomplete extends Widget, AutocompleteOptions, AutocompleteEvents {
+    escapeRegex: (string) => string;
 }
 
 
@@ -741,7 +742,7 @@ interface UI {
     buttonset: Button;
     datepicker: Datepicker;
     dialog: Dialog;
-    keyCode: number;
+    keyCode: keyCode    ;
     menu: Menu;
     progressbar: Progressbar;
     slider: Slider;
