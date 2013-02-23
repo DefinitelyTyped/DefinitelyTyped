@@ -561,7 +561,7 @@ function runTests(testFiles) {
         } else {
             total_failure++;
         }
-        console.log('  [\033[35m' + lib + '\033[0m] ' + testFiles[testIndex].substr(cfg.root.length) + ' - ' + (testFile.errors.length == 0 ? '\033[32msuccess\033[0m' : '\033[31mfailure\033[0m'));
+        console.log('  [\033[36m' + lib + '\033[0m] ' + testFiles[testIndex].substr(cfg.root.length) + ' - ' + (testFile.errors.length == 0 ? '\033[32msuccess\033[0m' : '\033[31mfailure\033[0m'));
         var test = new Test(lib);
         test.files.push(testFile);
         tests.tests.push(test);
@@ -585,12 +585,12 @@ function runTests(testFiles) {
             for(var attr in withoutTests) {
                 var test = new Test(attr);
                 tests.tests.push(test);
-                console.log('  [\033[35m' + attr + '\033[0m] without tests');
+                console.log('  [\033[36m' + attr + '\033[0m] without tests');
                 withoutTestsCount++;
             }
-            console.log('\n> ' + (total_failure + total_success + withoutTestsCount) + ' tests. ' + '\033[32m' + total_success + ' tests success\033[0m, ' + '\033[31m' + total_failure + ' tests failed\033[0m and ' + '\033[35m' + withoutTestsCount + ' definitions without tests\033[0m.\n');
+            console.log('\n> ' + (total_failure + total_success + withoutTestsCount) + ' tests. ' + '\033[32m' + total_success + ' tests success\033[0m, ' + '\033[31m' + total_failure + ' tests failed\033[0m and ' + withoutTestsCount + ' definitions without tests.\n');
             if(total_failure > 0) {
-                process.exit(0);
+                process.exit(1);
             }
         }
     });
