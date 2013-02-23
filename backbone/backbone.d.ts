@@ -69,8 +69,8 @@ declare module Backbone {
         initialize(attributes?: any);
 
         get(attributeName: string): any;
-        set(attributeName: string, value: any);
-        set(obj: any);
+        set(attributeName: string, value: any, options?: Silenceable);
+        set(obj: any, options?: Silenceable);
 
         change();
         changedAttributes(attributes?: any): any[];
