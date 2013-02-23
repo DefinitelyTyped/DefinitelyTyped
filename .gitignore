@@ -22,8 +22,8 @@ Properties
 *~
 
 # test folder
-!_tests/*
-!_tests/*.js
-!_tests/*/*.js
-!_tests/*/*/*.js
-!_tests/*/*/*/*.js
+!_infrastructure/tests/*
+!_infrastructure/tests/*.js
+!_infrastructure/tests/*/*.js
+!_infrastructure/tests/*/*/*.js
+!_infrastructure/tests/*/*/*/*.js
