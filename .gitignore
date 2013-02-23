@@ -20,3 +20,6 @@ Properties
 
 # VIM backup files
 *~
+
+# test folder
+!_tests/*
