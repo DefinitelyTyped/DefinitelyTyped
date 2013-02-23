@@ -1,0 +1,7 @@
+{
+	"name": "DefinitelyTyped",
+	"version": "0.0.0",
+    "scripts": {
+        "test": "node ./_infrastructure/tests/testRunner.js"
+    }
+}
