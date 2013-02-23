@@ -75,8 +75,6 @@ function runTests(testFiles) {
         cfg.tsc,
 		[testFiles[testIndex]],
         (ExecResult) => {
-            console.log(ExecResult.stderr);
-
             var lib = getLibDirectory(testFiles[testIndex]);
 
             cache_visited_libs[lib] = true;

@@ -23,3 +23,7 @@ Properties
 
 # test folder
 !_tests/*
+!_tests/*.js
+!_tests/*/*.js
+!_tests/*/*/*.js
+!_tests/*/*/*/*.js
