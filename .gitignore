@@ -20,3 +20,10 @@ Properties
 
 # VIM backup files
 *~
+
+# test folder
+!_infrastructure/tests/*
+!_infrastructure/tests/*.js
+!_infrastructure/tests/*/*.js
+!_infrastructure/tests/*/*/*.js
+!_infrastructure/tests/*/*/*/*.js
