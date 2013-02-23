@@ -1,4 +1,4 @@
-DefinitelyTyped
+DefinitelyTyped [![Build Status](https://travis-ci.org/borisyankov/DefinitelyTyped.png?branch=master)](https://travis-ci.org/borisyankov/DefinitelyTyped)
 ===============
 
 The repository for *high quality* TypeScript type definitions.
@@ -16,11 +16,12 @@ See the section: [How to contribute](https://github.com/borisyankov/DefinitelyTy
 
 Other means to get the definitions
 ----------------------------------
+
+* [NuGet packages](http://nuget.org/packages?q=Definitelytyped)
+
 * [TypeScript definition package manager](https://github.com/Diullei/tsd)
 
 * [tsdpm](http://www.tsdpm.com/) - Online search
-
-> NuGet package(s) coming soon
 
 List of Definitions
 -------------------
