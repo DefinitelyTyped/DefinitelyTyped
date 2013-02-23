@@ -321,7 +321,7 @@ var IO = (function () {
                         return;
                     } else {
                         mkdirRecursiveSync(_path.dirname(path));
-                        _fs.mkdirSync(path, 509);
+                        _fs.mkdirSync(path, 775);
                     }
                 }
                 mkdirRecursiveSync(_path.dirname(path));
@@ -551,6 +551,7 @@ function runTests(testFiles) {
     Exec.exec(cfg.tsc, [
         testFiles[testIndex]
     ], function (ExecResult) {
+        console.log(ExecResult.stderr);
         var lib = getLibDirectory(testFiles[testIndex]);
         cache_visited_libs[lib] = true;
         var testFile = new TestFile();
