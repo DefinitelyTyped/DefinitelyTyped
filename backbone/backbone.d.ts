@@ -49,7 +49,7 @@ declare module Backbone {
 
     export class ModelBase extends Events {
         fetch(options?: JQueryAjaxSettings);
-        url(): string;
+        url: any;
         parse(response);
         toJSON(): any;
     }
