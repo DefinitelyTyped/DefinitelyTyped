@@ -303,6 +303,7 @@ interface JQueryStatic {
     contains(container: Element, contained: Element): bool;
 
     each(collection: any, callback: (indexInArray: any, valueOfElement: any) => any): any;
+    each(collection: any[], callback: (indexInArray: any, valueOfElement: any) => any): any;
     each(collection: JQuery, callback: (indexInArray: number, valueOfElement: HTMLElement) => any): any;
     each(collection: string[], callback: (indexInArray: number, valueOfElement: string) => any): any;
     each(collection: number[], callback: (indexInArray: number, valueOfElement: number) => any): any;
@@ -389,7 +390,7 @@ interface JQuery {
     html(htmlString: string): JQuery;
     html(htmlContent: (index: number, oldhtml: string) => string): JQuery;
 
-    prop(propertyName: string): string;
+    prop(propertyName: string): any;
     prop(propertyName: string, value: any): JQuery;
     prop(map: any): JQuery;
     prop(propertyName: string, func: (index: any, oldPropertyValue: any) => any): JQuery;

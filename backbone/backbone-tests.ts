@@ -105,6 +105,7 @@ function test_collection() {
     });
 
     var alphabetical = Books.sortBy(function (book) {
+        return null;
     });
 }
 
