@@ -9,7 +9,7 @@ var cfg = {
         '.git': true,
         '.gitignore': true,
         'package.json': true,
-        '_tests': true,
+        '_infrastructure': true,
         '.travis.yml': true,
         'LICENSE': true,
         'README.md': true,

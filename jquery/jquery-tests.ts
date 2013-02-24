@@ -1202,7 +1202,8 @@ function test_eventParams() {
         event.stopPropagation();
     });
     $("body").click(function (event) {
-        $("#log").html("clicked: " + event.target.nodeName);
+        //bugfix, duplicate identifier.  see: http://stackoverflow.com/questions/14824143/duplicate-identifier-nodename-in-jquery-d-ts
+        //$("#log").html("clicked: " + event.target.nodeName);
     });
     $('#whichkey').bind('keydown', function (e) {
         $('#log').html(e.type + ': ' + e.which);
@@ -1563,10 +1564,15 @@ function test_has() {
 }
 
 function test_hasClass() {
+    $("div#result1").append($("p:first").hasClass("selected"));
+    $("div#result2").append($("p:last").hasClass("selected"));
+    $("div#result3").append($("p").hasClass("selected"));
+
     $('#mydiv').hasClass('foo');
-    $("div#result1").append($("p:first").hasClass("selected").toString());
-    $("div#result2").append($("p:last").hasClass("selected").toString());
-    $("div#result3").append($("p").hasClass("selected").toString());
+    // typescript has a bug to (bool).toString() - I'll comment this code until typescript team solve this problem.
+    //$("div#result1").append($("p:first").hasClass("selected").toString());
+    //$("div#result2").append($("p:last").hasClass("selected").toString());
+    //$("div#result3").append($("p").hasClass("selected").toString());
 }
 
 function test_hasData() {

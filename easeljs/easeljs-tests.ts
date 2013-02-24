@@ -1,16 +1,19 @@
 /// <reference path="easeljs.d.ts" />
 
+var stage: any;
+var myContext2D: any;
+
 function test_simple() {
-    var canvas = document.getElementById('canvas');
-    var stage = new Stage(canvas);
-    var shape = new Shape();
+    var canvas = <HTMLCanvasElement>document.getElementById('canvas');
+    var stage = new createjs.Stage(canvas);
+    var shape = new createjs.Shape();
     shape.graphics.beginFill('rgba(255,0,0,1)').drawRoundRect(0, 0, 120, 120, 10);
     stage.addChild(shape);
     stage.update();
 }
 
 function test_animation() {
-    var ss = new SpriteSheet({
+    var ss = new createjs.SpriteSheet({
         "frames": {
             "width": 200,
             "numFrames": 64,
@@ -26,28 +29,28 @@ function test_animation() {
     ss.getAnimation("run").next = "jump";
     ss.getAnimation("jump").next = "run";
 
-    var bitmapAnimation = new BitmapAnimation(ss);
+    var bitmapAnimation = new createjs.BitmapAnimation(ss);
     bitmapAnimation.scaleY = bitmapAnimation.scaleX = .4;
 
     bitmapAnimation.gotoAndPlay("run");
 
-    Ticker.setFPS(60);
-    Ticker.addListener(stage);
+    createjs.Ticker.setFPS(60);
+    createjs.Ticker.addListener(stage);
     stage.addChild(bitmapAnimation);
 }
 
 function test_graphics() {
-    var g = new Graphics();
+    var g = new createjs.Graphics();
     g.setStrokeStyle(1);
-    g.beginStroke(Graphics.getRGB(0, 0, 0));
-    g.beginFill(Graphics.getRGB(255, 0, 0));
+    g.beginStroke(createjs.Graphics.getRGB(0, 0, 0));
+    g.beginFill(createjs.Graphics.getRGB(255, 0, 0));
     g.drawCircle(0, 0, 3);
-    var s = new Shape(g);
+    var s = new createjs.Shape(g);
     s.x = 100;
     s.y = 100;
     stage.addChild(s);
     stage.update();
 
-    var myGraphics: Graphics;
+    var myGraphics: createjs.Graphics;
     myGraphics.beginStroke("#F00").beginFill("#00F").drawRect(20, 20, 100, 50).draw(myContext2D);
 }
