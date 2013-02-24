@@ -43,4 +43,5 @@ class SwipeView {
     onMoveIn: SwipeViewEvent;
     onTouchStart: SwipeViewEvent;
 
+    wrapperHeight: number;
 }
