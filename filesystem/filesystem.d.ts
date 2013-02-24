@@ -3,7 +3,7 @@
 // Definitions by: Kon <http://phyzkit.net/> 
 // Definitions: https://github.com/borisyankov/DefinitelyTyped 
 
-/// <reference path="filewriter.d.ts" />
+/// <reference path="../filewriter/filewriter.d.ts" />
 
 interface LocalFileSystem {
     
