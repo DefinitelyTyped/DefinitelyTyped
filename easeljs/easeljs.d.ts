@@ -498,6 +498,9 @@ module createjs {
         snapToPixelEnabled: bool;
         tickOnUpdate: bool;
 
+        new (): Stage;
+        new (canvas: HTMLElement): Stage;
+
         // methods
         constructor (canvas: HTMLCanvasElement);
         clone(): Stage;
