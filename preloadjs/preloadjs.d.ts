@@ -1,4 +1,4 @@
-// Type definitions for PreloadJS 0.2
+// Type definitions for PreloadJS 0.3
 // Project: http://www.createjs.com/#!/PreloadJS
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -18,39 +18,57 @@ module createjs {
         progress: number;
 
         // methods
-        cancel(): void;
-        getItem(): Object;
+        close(): void;
+        getItem(value: string): Object;
         load(): void;
+		toString(): string;
 
         // events
-        onComplete: () => any;
-        onError: () => any;
-        onFileLoad: () => any;
-        onFileProgress: () => any;
-        onLoadStart: () => any;
-        onProgress: () => any;
+		complete: (event: Object) => any;
+		error: (event: Object) => any;
+		fileload: (event: Object) => any;
+		fileprogress: (event: Object) => any;
+		loadStart: (event: Object) => any;
+
+		// EventDispatcher mixins
+		addEventListener(type: string, listener: (eventObj: Object) => bool): Function;
+		addEventListener(type: string, listener: (eventObj: Object) => bool): Object;
+		removeEventListener(type: string, listener: (eventObj: Function) => bool): void;
+		removeEventListener(type: string, listener: (eventObj: Object) => bool): void;
+		removeAllEventListeners(type: string): void;
+		dispatchEvent(eventObj: string, target: Object): bool;
+		dispatchEvent(eventObj: Object, target: Object): bool;
+		hasEventListener(type: string): bool;
     }
 
+	export class PreloadJS {
+		version: string;
+		buildDate: string;
+	}
 
-    export class PreloadJS extends AbstractLoader {
-        constructor (useXHR2?: bool);
+    export class LoadQueue extends AbstractLoader {
+        constructor (useXHR?: bool);
 
         // properties
+		static BINARY: string;
         static CSS: string;
         static IMAGE: string;
         static JAVASCRIPT: string;
         static JSON: string;
-        maintainScriptOrder: bool;
-        next: PreloadJS;
         static SOUND: string;
-        stopOnError: bool;
+		static SVG: string;
         static TEXT: string;
-        static TIMEOUT_TIME: number;
-        useXHR: bool;
+        static LOAD_TIMEOUT: number;
         static XML: string;
+
+        maintainScriptOrder: bool;
+        next: LoadQueue;
+        stopOnError: bool;
+        useXHR: bool;
 
         // methods
         BrowserDetect(): Object;
+		init(useXHR?: bool): void;
         close(): void;
         getResult(value: string): Object;
         initialize(useXHR: bool): void;
@@ -60,7 +78,14 @@ module createjs {
         loadFile(file: string, loadNow: bool): void;
         loadManifest(manifest: Object[], loadNow: bool): void;
         loadManifest(manifest: string[], loadNow: bool): void;
+		getItem(value: string): Object;
+		getResult(value: string, rawResult?: bool): Object;
+		removeAll(): void;
+		remove(idsOrUrls: string): void;
+		remove(idsOrUrls: Array): void;
+		reset(): void;
         setMaxConnections(value: number): void;
+		setUseXHR(value: bool): void;
         setPaused(value: bool): void;
     }
 
@@ -68,10 +93,13 @@ module createjs {
     export class TagLoader extends AbstractLoader {
         constructor (item: Object, srcAttr: string, useXHR: bool);
         constructor (item: string, srcAttr: string, useXHR: bool);
+		getResult(): HTMLImageElement;
+		getResult(): HTMLAudioElement;
     }
 
 
     export class XHRLoader extends AbstractLoader {
         constructor (file: Object);
+		getResult(rawResult?: bool);
     }
 }
