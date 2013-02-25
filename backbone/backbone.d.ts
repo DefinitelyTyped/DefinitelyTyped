@@ -11,14 +11,14 @@ declare module Backbone {
     export interface AddOptions extends Silenceable {
         at: number;
     }
-    
+
     export interface CreateOptions extends Silenceable {
         wait: bool;
     }
-    
+
     export interface HistoryOptions extends Silenceable {
-        pushState: bool;
-        root: string;
+        pushState?: bool;
+        root?: string;
     }
 
     export interface NavigateOptions {
@@ -30,7 +30,7 @@ declare module Backbone {
     }
 
     export interface Silenceable {
-        silent: bool;
+        silent?: bool;
     }
 
     interface on { (eventName: string, callback: (...args: any[]) => void, context?: any): any; }
