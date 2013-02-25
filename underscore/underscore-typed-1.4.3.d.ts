@@ -1,5 +1,5 @@
 /* 
-underscore-1.4.4.d.ts may be freely distributed under the MIT license.
+underscore-1.4.3.d.ts may be freely distributed under the MIT license.
 
 Copyright (c) 2013 Josh Baldwin https://github.com/jbaldwin/underscore.d.ts
 
@@ -237,14 +237,6 @@ interface Underscore {
 	where(list: any[], properties: any): any[];
 
 	/**
-	* Looks through the list and returns the first value that matches all of the key-value pairs listed in properties.
-	* @param list Search through this list's elements for the first object with all `properties`.
-	* @param properties Properties to look for on the elements within `list`.
-	* @return The first element in `list` that has all `properties`.
-	**/
-	findWhere(list: any[], properties: any): any;
-
-	/**
 	* Returns the values in list without the elements that the truth test (iterator) passes.
 	* The opposite of filter.
 	* Return all the elements for which a truth test fails.
@@ -383,7 +375,7 @@ interface Underscore {
 	**/
 	sortBy(
 		list: any[],
-		iterator: (element: any, index?: number, list?: any[]) => any,
+		iterator: (element: any, index?: number, list?: any[]) => number,
 		context?: any): any[];
 	/**
 	* Returns a sorted copy of list, ranked in ascending order by the results of running each value
@@ -747,15 +739,6 @@ interface Underscore {
 	*                    methods are bound.
 	**/
 	bindAll(object: any, ...methodNames: string[]): void;
-
-	/**
-	* Partially apply a function by filling in any number of its arguments, without changing its dynamic this value.
-	* A close cousin of bind.
-	* @param fn Function to partially fill in arguments.
-	* @param arguments The partial arguments.
-	* @return `fn` with partially filled in arguments.
-	**/
-	partial(fn: Function, ...arguments: any[]): Function;
 
 	/**
 	* Memoizes a given function by caching the computed result. Useful for speeding up slow-running computations.
@@ -1391,12 +1374,6 @@ interface UnderscoreOOPWrapper {
 
 	/**
 	* Wrapped type `any[]`.
-	* @see _.findWhere
-	**/
-	findWhere(properties: any): any;
-
-	/**
-	* Wrapped type `any[]`.
 	* @see _.reject
 	**/
 	reject(
@@ -1493,7 +1470,7 @@ interface UnderscoreOOPWrapper {
 	* @see _.sortBy
 	**/
 	sortBy(
-		iterator: (element: any, index?: number, list?: any[]) => any,
+		iterator: (element: any, index?: number, list?: any[]) => number,
 		context?: any): any[];
 	/**
 	* Wrapped type `any[]`.
@@ -1740,12 +1717,6 @@ interface UnderscoreOOPWrapper {
 	* @see _.bindAll
 	**/
 	bindAll(...methodNames: string[]): void;
-
-	/**
-	* Wrapped type `Function`.
-	* @see _.partial
-	**/
-	partial(...arguments: any[]): Function;
 
 	/**
 	* Wrapped type `Function`.
