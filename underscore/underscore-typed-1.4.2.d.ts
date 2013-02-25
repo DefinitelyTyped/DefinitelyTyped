@@ -1,7 +1,7 @@
 /* 
-underscore-1.4.4.d.ts may be freely distributed under the MIT license.
+underscore-1.4.2.d.ts may be freely distributed under the MIT license.
 
-Copyright (c) 2013 Josh Baldwin https://github.com/jbaldwin/underscore.d.ts
+Copyright (c) 2012 Josh Baldwin https://github.com/jbaldwin/underscore.d.ts
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation 
@@ -237,14 +237,6 @@ interface Underscore {
 	where(list: any[], properties: any): any[];
 
 	/**
-	* Looks through the list and returns the first value that matches all of the key-value pairs listed in properties.
-	* @param list Search through this list's elements for the first object with all `properties`.
-	* @param properties Properties to look for on the elements within `list`.
-	* @return The first element in `list` that has all `properties`.
-	**/
-	findWhere(list: any[], properties: any): any;
-
-	/**
 	* Returns the values in list without the elements that the truth test (iterator) passes.
 	* The opposite of filter.
 	* Return all the elements for which a truth test fails.
@@ -383,7 +375,7 @@ interface Underscore {
 	**/
 	sortBy(
 		list: any[],
-		iterator: (element: any, index?: number, list?: any[]) => any,
+		iterator: (element: any, index?: number, list?: any[]) => number,
 		context?: any): any[];
 	/**
 	* Returns a sorted copy of list, ranked in ascending order by the results of running each value
@@ -614,27 +606,12 @@ interface Underscore {
 	* @param array Array to remove duplicates from.
 	* @param isSorted True if `array` is already sorted, optiona, default = false.
 	* @param iterator Transform the elements of `array` before comparisons for uniqueness.
-	* @param context 'this' object in `iterator`, optional.
 	* @return Copy of `array` where all elements are unique.
 	**/
 	uniq(
 		array: any[],
 		isSorted?: bool,
-		iterator?: (element: any, index?: number, list?: any[]) => any,
-		context?: any): any[];
-	/**
-	* Produces a duplicate-free version of the array, using === to test object equality. If you know in
-	* advance that the array is sorted, passing true for isSorted will run a much faster algorithm. If
-	* you want to compute unique items based on a transformation, pass an iterator function.
-	* @param array Array to remove duplicates from.
-	* @param iterator Transform the elements of `array` before comparisons for uniqueness.
-	* @param context 'this' object in `iterator`, optional.
-	* @return Copy of `array` where all elements are unique.
-	**/
-	uniq(
-		array: any[],
-		iterator?: (element: any, index?: number, list?: any[]) => any,
-		context?: any): any[];
+		iterator?: (element: any, index?: number, list?: any[]) => any): any[];
 
 	/**
 	* Alias for 'uniq'.
@@ -747,15 +724,6 @@ interface Underscore {
 	*                    methods are bound.
 	**/
 	bindAll(object: any, ...methodNames: string[]): void;
-
-	/**
-	* Partially apply a function by filling in any number of its arguments, without changing its dynamic this value.
-	* A close cousin of bind.
-	* @param fn Function to partially fill in arguments.
-	* @param arguments The partial arguments.
-	* @return `fn` with partially filled in arguments.
-	**/
-	partial(fn: Function, ...arguments: any[]): Function;
 
 	/**
 	* Memoizes a given function by caching the computed result. Useful for speeding up slow-running computations.
@@ -1109,7 +1077,7 @@ interface Underscore {
 	* @param iterator Function iterator to invoke `n` times.
 	* @param context `this` object in `iterator`, optional.
 	**/
-	times(n: number, iterator: (n: number) => any , context?: any): any[];
+	times(n: number, iterator: (n: number) => void , context?: any): void;
 
 	/**
 	* Returns a random integer between min and max, inclusive. If you only pass one argument,
@@ -1197,7 +1165,7 @@ interface Underscore {
 	* @param obj Object to chain.
 	* @return Wrapped `obj`.
 	**/
-	chain(obj: any): UnderscoreOOPWrapper;
+	chain(obj: any): any;
 
 	/**
 	* Extracts the value of a wrapped object.
@@ -1391,12 +1359,6 @@ interface UnderscoreOOPWrapper {
 
 	/**
 	* Wrapped type `any[]`.
-	* @see _.findWhere
-	**/
-	findWhere(properties: any): any;
-
-	/**
-	* Wrapped type `any[]`.
 	* @see _.reject
 	**/
 	reject(
@@ -1493,7 +1455,7 @@ interface UnderscoreOOPWrapper {
 	* @see _.sortBy
 	**/
 	sortBy(
-		iterator: (element: any, index?: number, list?: any[]) => any,
+		iterator: (element: any, index?: number, list?: any[]) => number,
 		context?: any): any[];
 	/**
 	* Wrapped type `any[]`.
@@ -1665,15 +1627,7 @@ interface UnderscoreOOPWrapper {
 	**/
 	uniq(
 		isSorted?: bool,
-		iterator?: (element: any, index?: number, list?: any[]) => any,
-		context?: any): any[];
-	/**
-	* Wrapped type `any[]`.
-	* @see _.uniq
-	**/
-	uniq(
-		iterator?: (element: any, index?: number, list?: any[]) => any,
-		context?: any): any[];
+		iterator?: (element: any, index?: number, list?: any[]) => any): any[];
 
 	/**
 	* Alias for 'uniq'.
@@ -1740,12 +1694,6 @@ interface UnderscoreOOPWrapper {
 	* @see _.bindAll
 	**/
 	bindAll(...methodNames: string[]): void;
-
-	/**
-	* Wrapped type `Function`.
-	* @see _.partial
-	**/
-	partial(...arguments: any[]): Function;
 
 	/**
 	* Wrapped type `Function`.
@@ -1997,7 +1945,7 @@ interface UnderscoreOOPWrapper {
 	* Wrapped type `number`.
 	* @see _.times
 	**/
-	times(iterator: (n: number) => any, context?: any): any[];
+	times(iterator: (n: number) => void , context?: any): void;
 
 	/**
 	* Wrapped type `number`.
