@@ -1202,7 +1202,8 @@ function test_eventParams() {
         event.stopPropagation();
     });
     $("body").click(function (event) {
-        $("#log").html("clicked: " + event.target.nodeName);
+        //bugfix, duplicate identifier.  see: http://stackoverflow.com/questions/14824143/duplicate-identifier-nodename-in-jquery-d-ts
+        //$("#log").html("clicked: " + event.target.nodeName);
     });
     $('#whichkey').bind('keydown', function (e) {
         $('#log').html(e.type + ': ' + e.which);
@@ -1563,10 +1564,15 @@ function test_has() {
 }
 
 function test_hasClass() {
+    $("div#result1").append($("p:first").hasClass("selected"));
+    $("div#result2").append($("p:last").hasClass("selected"));
+    $("div#result3").append($("p").hasClass("selected"));
+
     $('#mydiv').hasClass('foo');
-    $("div#result1").append($("p:first").hasClass("selected").toString());
-    $("div#result2").append($("p:last").hasClass("selected").toString());
-    $("div#result3").append($("p").hasClass("selected").toString());
+    // typescript has a bug to (bool).toString() - I'll comment this code until typescript team solve this problem.
+    //$("div#result1").append($("p:first").hasClass("selected").toString());
+    //$("div#result2").append($("p:last").hasClass("selected").toString());
+    //$("div#result3").append($("p").hasClass("selected").toString());
 }
 
 function test_hasData() {
@@ -2220,6 +2226,13 @@ function test_prop() {
     var title: string = $('option:selected', this).prop('title');
 }
 
+
+function test_selector() {
+  var $main = $('#main');
+  var $mainDivs = $('div', $main);
+  return $mainDivs.selector == '#main div';
+}
+
 function test_text() {
     var str = $("p:first").text();
     $("p:last").html(str);
@@ -2233,3 +2246,15 @@ $('#item').click(function(e) {
 	if (e.ctrlKey) { console.log('control pressed'); }
 	if (e.altKey) { console.log('alt pressed'); }
 });
+
+function test_addBack() {
+    $('li.third-item').nextAll().addBack().css('background-color', 'red');
+
+    $("div.left, div.right").find("div, div > p").addClass("border");
+
+    // First Example
+    $("div.before-addback").find("p").addClass("background");
+
+    // Second Example
+    $("div.after-addback").find("p").addBack().addClass("background");
+}

@@ -1,4 +1,4 @@
-DefinitelyTyped
+DefinitelyTyped [![Build Status](https://travis-ci.org/borisyankov/DefinitelyTyped.png?branch=master)](https://travis-ci.org/borisyankov/DefinitelyTyped)
 ===============
 
 The repository for *high quality* TypeScript type definitions.
@@ -11,23 +11,22 @@ Use a definition file like this:
 
 Contributor Guidelines
 ----------------------
-Definition files should be called 'library.d.ts'.
-In case there are multiple versions supported, the latest one will be without a version number in the file name.
-Older versions will be in the form of 'library-1.0.d.ts'.
 
-Test files called 'library-tests.ts'.
-They are not runnable, in the TDD way.
-They contain code that should compile with no errors, usually taken from the documentation.samples of the library.
-It is very desirable each new contribution to contain tests too.
+See the section: [How to contribute](https://github.com/borisyankov/DefinitelyTyped/wiki/How-to-contribute)
 
 Other means to get the definitions
 ----------------------------------
-[TypeScript definition package manager](https://github.com/Diullei/tsd)
 
-NuGet package(s) coming soon
+* [NuGet packages](http://nuget.org/packages?q=Definitelytyped)
+
+* [TypeScript definition package manager](https://github.com/Diullei/tsd)
+
+* [tsdpm](http://www.tsdpm.com/) - Online search
 
 List of Definitions
 -------------------
+* [Ace Cloud9 Editor](http://ace.ajax.org/) (by [Diullei Gomes](https://github.com/Diullei))
+* [AmCharts](http://www.amcharts.com/) (by [Covobonomo](https://github.com/covobonomo/))
 * [AngularJS](http://angularjs.org) (by [Diego Vilar](https://github.com/diegovilar)) ([wiki](https://github.com/borisyankov/DefinitelyTyped/wiki/AngularJS-Definitions-Usage-Notes))
 * [async](https://github.com/caolan/async) (by [Boris Yankov](https://github.com/borisyankov))
 * [Backbone.js](http://backbonejs.org/) (by [Boris Yankov](https://github.com/borisyankov))
@@ -37,6 +36,7 @@ List of Definitions
 * [bootstrap.datepicker](https://github.com/eternicode/bootstrap-datepicker) (by [Boris Yankov](https://github.com/borisyankov))
 * [Box2DWeb](http://code.google.com/p/box2dweb/) (by [Josh Baldwin](https://github.com/jbaldwin/))
 * [Breeze](http://www.breezejs.com/) (by [Boris Yankov](https://github.com/borisyankov))
+* [CasperJS](http://casperjs.org) (by [Jed Hunsaker](https://github.com/jedhunsaker))
 * [Cheerio](https://github.com/MatthewMueller/cheerio) (by [Bret Little](https://github.com/blittle))
 * [Chosen](http://harvesthq.github.com/chosen/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Chrome](http://developer.chrome.com/extensions/) (by [Matthew Kimber](https://github.com/matthewkimber))
@@ -49,6 +49,8 @@ List of Definitions
 * [Express](http://expressjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Fabric.js](http://fabricjs.com/) (by [Oliver Klemencic](https://github.com/oklemencic/))
 * [Fancybox](http://fancybox.net/) (by [Boris Yankov](https://github.com/borisyankov))
+* [File API: Directories and System](http://www.w3.org/TR/file-system-api/) (by [Kon](http://phyzkit.net/))
+* [File API: Writer](http://www.w3.org/TR/file-writer-api/) (by [Kon](http://phyzkit.net/))
 * [Finite State Machine](https://github.com/jakesgordon/javascript-state-machine) (by [Boris Yankov](https://github.com/borisyankov))
 * [FlexSlider](http://www.woothemes.com/flexslider/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Foundation](http://foundation.zurb.com/) (by [Boris Yankov](https://github.com/borisyankov))
@@ -91,10 +93,11 @@ List of Definitions
 * [Knockout.Mapping](https://github.com/SteveSanderson/knockout.mapping) (by [Boris Yankov](https://github.com/borisyankov))
 * [Knockout.Postbox](https://github.com/rniemeyer/knockout-postbox) (by [Judah Gabriel](https://github.com/JudahGabriel))
 * [Knockout.Validation](https://github.com/ericmbarnard/Knockout-Validation) (by [Dan Ludwig](https://github.com/danludwig))
-* [Knockout.Viewmodel](http://romanych.github.com/ko.editables/) (by [Oisin Grehan](https://github.com/oising))
+* [Knockout.Viewmodel](http://coderenaissance.github.com/knockout.viewmodel/) (by [Oisin Grehan](https://github.com/oising))
 * [ko.editables](http://romanych.github.com/ko.editables/) (by [Oisin Grehan](https://github.com/oising))
 * [KoLite](https://github.com/CodeSeven/kolite) (by [Boris Yankov](https://github.com/borisyankov))
 * [Leaflet](https://github.com/Leaflet/Leaflet) (by [Vladimir](https://github.com/rgripper))
+* [Libxmljs](https://github.com/polotek/libxmljs) (by [François de Campredon](https://github.com/fdecampredon))
 * [linq.js](http://linqjs.codeplex.com/) (by [Marcin Najder](https://github.com/marcinnajder))
 * [Marked](https://github.com/chjj/marked) (by [William Orr](https://github.com/worr))
 * [Modernizr](http://modernizr.com/) (by [Boris Yankov](https://github.com/borisyankov))
@@ -105,11 +108,13 @@ List of Definitions
 * [node_redis](https://github.com/mranney/node_redis) (by [Boris Yankov](https://github.com/borisyankov))
 * [node-sqlserver](https://github.com/WindowsAzure/node-sqlserver) (by [Boris Yankov](https://github.com/borisyankov))
 * [Numeral.js](https://github.com/adamwdraper/Numeral-js) (by [Vincent Bortone](https://github.com/vbortone/))
+* [PhantomJS](http://phantomjs.org) (by [Jed Hunsaker](https://github.com/jedhunsaker))
 * [PhoneGap](http://phonegap.com) (by [Boris Yankov](https://github.com/borisyankov))
 * [Platform](https://github.com/bestiejs/platform.js) (by [Jake Hickman](https://github.com/JakeH))
 * [PouchDB](http://pouchdb.com) (by [Bill Sears](https://github.com/MrBigDog2U/))
 * [PreloadJS](http://www.createjs.com/#!/PreloadJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [QUnit](http://qunitjs.com/) (by [Diullei Gomes](https://github.com/Diullei))
+* [Restify](https://github.com/mcavage/node-restify) (by [Bret Little](https://github.com/blittle))
 * [Rx.js](http://rx.codeplex.com/) (by [gsino](http://www.codeplex.com/site/users/view/gsino))
 * [Raphael](http://raphaeljs.com/) (by [CheCoxshall](https://github.com/CheCoxshall))
 * [require.js](http://requirejs.org/) (by [Josh Baldwin](https://github.com/jbaldwin/))
@@ -138,13 +143,13 @@ List of Definitions
 * [WebRTC](http://dev.w3.org/2011/webrtc/editor/webrtc.html) (by [Ken Smith](https://github.com/smithkl42))
 * [YouTube](https://developers.google.com/youtube/) (by [Daz Wilkin](https://github.com/DazWilkin/))
 * [Zynga Scroller](https://github.com/zynga/scroller) (by [Boris Yankov](https://github.com/borisyankov))
-* [ZeroClipboard] (https://github.com/jonrohan/ZeroClipboard) (by [Eric J. Smith] (https://github.com/ejsmith))
+* [ZeroClipboard](https://github.com/jonrohan/ZeroClipboard) (by [Eric J. Smith](https://github.com/ejsmith))
 
 Requested Definitions
 ---------------------
 * [Rickshaw](https://github.com/shutterstock/rickshaw)
-* [Livestamp.js] (https://github.com/mattbradley/livestampjs)
-* [jQuery ScrollTo] (https://github.com/balupton/jquery-scrollto)
+* [Livestamp.js](https://github.com/mattbradley/livestampjs)
+* [jQuery ScrollTo](https://github.com/balupton/jquery-scrollto)
 * [Crossfilter](https://github.com/square/crossfilter)
 * [dc.js](https://github.com/NickQiZhu/dc.js)
 * [google.visualizations](https://developers.google.com/chart/)

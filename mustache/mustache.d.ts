@@ -24,6 +24,7 @@ interface MustacheContext {
 }
 
 interface MustacheWriter {
+    (view: any): string;
     clearCache();
     compile(template: string, tags);
     compilePartial(name, template, tags);
@@ -42,6 +43,7 @@ interface MustacheStatic {
 
     parse(template: string, tags);
     clearCache(): MustacheWriter;
+    compile(template: string): MustacheWriter;
     compile(template: string, tags): MustacheWriter;
     compilePartial(name: string, template: string, tags): MustacheWriter;
     compileTokens(tokens, template: string): MustacheWriter;

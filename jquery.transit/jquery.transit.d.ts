@@ -1,4 +1,7 @@
-// Type definitions for jQuery.transit.js
+// Type definitions for jQuery.transit.js 0.9.9
+// Project: http://ricostacruz.com/jquery.transit/
+// Definitions by: MrBigDog2U <https://github.com/MrBigDog2U>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 

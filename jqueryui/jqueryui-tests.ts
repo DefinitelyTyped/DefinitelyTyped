@@ -1138,7 +1138,7 @@ function test_datepicker() {
     $(".selector").datepicker({ dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"] });
 
     $.datepicker.setDefaults($.datepicker.regional[""]);
-    $(selector).datepicker($.datepicker.regional["fr"]);
+    $(".selector").datepicker($.datepicker.regional["fr"]);
 }
 
 

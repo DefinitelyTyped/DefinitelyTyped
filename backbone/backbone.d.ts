@@ -49,7 +49,7 @@ declare module Backbone {
 
     export class ModelBase extends Events {
         fetch(options?: JQueryAjaxSettings);
-        url(): string;
+        url: any;
         parse(response);
         toJSON(): any;
     }
@@ -69,8 +69,8 @@ declare module Backbone {
         initialize(attributes?: any);
 
         get(attributeName: string): any;
-        set(attributeName: string, value: any);
-        set(obj: any);
+        set(attributeName: string, value: any, options?: Silenceable);
+        set(obj: any, options?: Silenceable);
 
         change();
         changedAttributes(attributes?: any): any[];
@@ -196,6 +196,8 @@ declare module Backbone {
         start(options?: HistoryOptions);
         navigate(fragment: string, options: any);
         pushSate();
+        getFragment(fragment?: string, forcePushState?: bool): string;
+        getHash(window?: Window): string;
     }
 
     export interface ViewOptions {

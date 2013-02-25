@@ -132,7 +132,7 @@ function demo3() {
         req.onreadystatechange = function () {
             if (req.readyState != 4) return;
 
-            paginate(req.status != 200 && req.status != 304 ? false : req.responseText);
+            paginate(req.status != 200 && (req.status != 304 ? false : <any>req.responseText));
 
             req = null;
         }
@@ -150,7 +150,7 @@ function demo3() {
                 progressCurrent = 0,
                 progressMaxWidth = document.getElementById('progressbar').clientWidth,
                 progressToBookRatio = 0,
-                progressBar = document.querySelector('#progressbar > span'),
+                progressBar = <HTMLElement>document.querySelector('#progressbar > span'),
                 size;
 
             if (!book) return;

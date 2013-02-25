@@ -59,7 +59,7 @@ interface JQueryAjaxSettings {
 */
 interface JQueryXHR extends XMLHttpRequest, JQueryPromise {
     overrideMimeType(mimeType: string);
-    abort(statusText: string): void;
+    abort(statusText?: string): void;
 }
 
 /*
@@ -185,6 +185,11 @@ interface JQuerySupport {
     tbody?: bool;
 }
 
+interface JQueryParam {
+  (obj: any): string;
+  (obj: any, traditional: bool): string;
+}
+
 /*
     Static members of jQuery (those on $ and jQuery themselves)
 */
@@ -208,8 +213,7 @@ interface JQueryStatic {
     getJSON(url: string, data?: any, success?: any): JQueryXHR;
     getScript(url: string, success?: any): JQueryXHR;
 
-    param(obj: any): string;
-    param(obj: any, traditional: bool): string;
+    param: JQueryParam;
 
     post(url: string, data?: any, success?: any, dataType?: any): JQueryXHR;
 
@@ -270,7 +274,10 @@ interface JQueryStatic {
     *******/
     proxy(fn : (...args: any[]) => any, context: any, ...args: any[]): any;
     proxy(context: any, name: string, ...args: any[]): any;
-    Deferred(fn? : (d: JQueryDeferred) => any): JQueryDeferred;
+    Deferred: {
+        (fn?: (d: JQueryDeferred) => any): JQueryDeferred;
+        new(fn?: (d: JQueryDeferred) => any): JQueryDeferred;
+    };
     Event(name:string, eventProperties?:any): JQueryEventObject;
 
     /*********
@@ -296,6 +303,10 @@ interface JQueryStatic {
     contains(container: Element, contained: Element): bool;
 
     each(collection: any, callback: (indexInArray: any, valueOfElement: any) => any): any;
+    each(collection: any[], callback: (indexInArray: any, valueOfElement: any) => any): any;
+    each(collection: JQuery, callback: (indexInArray: number, valueOfElement: HTMLElement) => any): any;
+    each(collection: string[], callback: (indexInArray: number, valueOfElement: string) => any): any;
+    each(collection: number[], callback: (indexInArray: number, valueOfElement: number) => any): any;
 
     extend(target: any, ...objs: any[]): Object;
     extend(deep: bool, target: any, ...objs: any[]): Object;
@@ -364,6 +375,10 @@ interface JQuery {
     addClass(classNames: string): JQuery;
     addClass(func: (index: any, currentClass: any) => string): JQuery;
 
+    // http://api.jquery.com/addBack/
+    addBack(selector?: string): JQuery;
+
+
     attr(attributeName: string): string;
     attr(attributeName: string, value: any): JQuery;
     attr(map: { [key: string]: any; }): JQuery;
@@ -400,11 +415,11 @@ interface JQuery {
     /***
      CSS
     ****/
-    css(propertyName: string): any;
-    css(propertyNames: string[]): any;
-    css(properties: any): any;
-    css(propertyName: string, value: any): any;    
-    css(propertyName: any, value: any): any;
+    css(propertyName: string): string;
+    css(propertyNames: string[]): string;
+    css(properties: any): JQuery;
+    css(propertyName: string, value: any): JQuery;
+    css(propertyName: any, value: any): JQuery;
 
     height(): number;
     height(value: number): JQuery;
@@ -693,6 +708,7 @@ interface JQuery {
      PROPERTIES
     ***********/
     length: number;
+    selector: string;
     [x: string]: HTMLElement;
     [x: number]: HTMLElement;
 
@@ -783,7 +799,7 @@ interface JQuery {
 }
 
 interface EventTarget {
-	nodeName: string;
+	//nodeName: string;  //bugfix, duplicate identifier.  see: http://stackoverflow.com/questions/14824143/duplicate-identifier-nodename-in-jquery-d-ts
 }
 
 declare var jQuery: JQueryStatic;
