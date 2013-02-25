@@ -1,13 +1,13 @@
 /// <reference path="toastr.d.ts" />
 
 function test_basic() {
-	var t = [];
+    var t = [];
     t.push(toastr.info('Are you the 6 fingered man?'));
     t.push(toastr.warning('My name is Inigo Montoya. You Killed my father, prepare to die!'));
     t.push(toastr.success('Have fun storming the castle!', 'Miracle Max Says'));
     t.push(toastr.error('I do not think that word means what you think it means.', 'Inconceivable!'));
     toastr.clear(t[0]); // clear 1
-	toastr.clear(); // clear all
+    toastr.clear(); // clear all
 
     var msg = 'Do you think Rodents of Unusual Size really exist?';
     var title = 'Fireswamp Legends';
@@ -18,6 +18,24 @@ function test_basic() {
 
 declare var $;
 function test_fromdemo() {
+    var i = -1,
+        toastCount = 0,
+        $toastlast,
+        getMessage = function () {
+            var msgs = ['My name is Inigo Montoya. You killed my father. Prepare to die!',
+                '<div><input class="input-small" value="textbox"/>&nbsp;<a href="http://johnpapa.net" target="_blank">This is a hyperlink</a></div><div><button type="button" id="okBtn" class="btn btn-primary">Close me</button><button type="button" id="surpriseBtn" class="btn" style="margin: 0 8px 0 8px">Surprise me</button></div>',
+                'Are you the six fingered man?',
+                'Inconceivable!',
+                'I do not think that means what you think it means.',
+                'Have fun storming the castle!'
+            ];
+            i++;
+            if (i === msgs.length) {
+                i = 0;
+            }
+
+            return msgs[i];
+        };
     $('#showtoast').click(function () {
         var shortCutFunction = $("#toastTypeGroup input:radio:checked").val(),
             msg = $('#message').val(),
@@ -56,11 +74,11 @@ function test_fromdemo() {
                 alert('Surprise! you clicked me. i was toast #' + toastIndex + '. You could perform an action here.')
             })
         }
-   });
-	$('#clearlasttoast').click(function() {
-		toastr.clear($toastlast);
-	});
-	$('#cleartoasts').click(function () {
-		toastr.clear();
-	});  
+    });
+    $('#clearlasttoast').click(function () {
+        toastr.clear($toastlast);
+    });
+    $('#cleartoasts').click(function () {
+        toastr.clear();
+    });
 }
