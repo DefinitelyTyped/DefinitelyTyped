@@ -156,7 +156,12 @@ interface JQueryKeyEventObject extends JQueryInputEventObject
     keyCode: number;
 }
 
-interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject {
+interface JQueryPopStateEventObject extends BaseJQueryEventObject
+{
+    originalEvent: PopStateEvent;
+}
+
+interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject, JQueryPopStateEventObject {
 }
 
 /*
