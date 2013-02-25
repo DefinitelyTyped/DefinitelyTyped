@@ -337,7 +337,7 @@ interface KnockoutUtils {
 
     toggleDomNodeCssClass(node: any, className: string, shouldHaveClass: bool): void;
 
-    setTextContent(element: any, textContent: string): void;
+    //setTextContent(element: any, textContent: string): void; // NOT PART OF THE MINIFIED API SURFACE (ONLY IN knockout-{version}.debug.js) https://github.com/SteveSanderson/knockout/issues/670
 
     setElementName(element: any, name: string): void;
 
