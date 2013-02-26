@@ -692,9 +692,9 @@ interface String {
 	reverse(): string;
 
 	/**
-	* Shifts each character in the string <n> places in the character map.
+	* Shifts each character in the string <num> places in the character map.
 	* @param num Number of characters to shift in the character map.
-	* @returns String with characters shifted <n>.
+	* @returns String with characters shifted <num>.
 	* @example
 	*   'a'.shift(1)  -> 'b'
 	*   '?'.shift(1) -> '?'
@@ -752,165 +752,159 @@ interface String {
 	**/
 	startsWith(find: RegExp, case_?: bool): bool;
 
-	/***
+	/**
 	* Strips all HTML tags from the string.
-	* @method stripTags([tag1], [tag2], ...)
-	* @returns String
-	* @extra Tags to strip may be enumerated in the parameters,
-	*        otherwise will strip all.
+	
+	* @returns Returns the string with all HTML removed.
+	* @extra Tags to strip may be enumerated in the parameters, otherwise will strip all.
 	* @example
-	*
 	*   '<p>just <b>some</b> text</p>'.stripTags()    -> 'just some text'
 	*   '<p>just <b>some</b> text</p>'.stripTags('p') -> 'just <b>some</b> text'
-	*
-	***/
+	**/
 	stripTags(): string;
+
+	/**
+	* @see stripTags
+	* @param tags HTML tag to strip from the string.
+	**/
 	stripTags(tag: string): string;
+
+	/**
+	* @see stripTags
+	* @param tags HTML tags to strip from the string.
+	**/
 	stripTags(...tags: string[]): string;
 
-	/***
+	/**
 	* Creates a title version of the string.
-	* @method titleize()
-	* @returns String
+	* @returns Returns a titlized version of the string.
 	* @extra Capitalizes all the words and replaces some characters
 	*        in the string to create a nicer looking title.
 	*        String#titleize is meant for creating pretty output.
 	* @example
-	*
 	*   'man from the boondocks'.titleize() -> 'Man from the Boondocks'
 	*   'x-men: the last stand'.titleize() -> 'X Men: The Last Stand'
 	*   'TheManWithoutAPast'.titleize() -> 'The Man Without a Past'
 	*   'raiders_of_the_lost_ark'.titleize() -> 'Raiders of the Lost Ark'
-	*
-	***/
+	**/
 	titleize(): string;
 
-	/***
+	/**
 	* Returns a section of the string ending at [index].
-	* @method to([index] = end)
-	* @returns String
+	* @param index Ending position in the substring, default = string.length.
+	* @returns Substring ending at [index].
 	* @example
-	*
 	*   'lucky charms'.to()   -> 'lucky charms'
 	*   'lucky charms'.to(7)  -> 'lucky ch'
-	*
-	***/
+	**/
 	to(index?: number): string;
 
-	/***
-	* Converts the string into a number.
-	* @method toNumber([base] = 10)
-	* @returns Number
+	/**
+	* Converts the string into a number in base [base].
+	* @param base The base to parse the number in, default = 10.
+	* @returns Parsed number.
 	* @extra Any value with a "." fill be converted to a floating point value,
 	*        otherwise an integer.
 	* @example
-	*
 	*   '153'.toNumber()    -> 153
 	*   '12,000'.toNumber() -> 12000
 	*   '10px'.toNumber()   -> 10
 	*   'ff'.toNumber(16)   -> 255
-	*
-	***/
+	**/
 	toNumber(base?: number): number;
 
-	/***
+	/**
 	* Removes leading and/or trailing whitespace from the string.
-	* @method trim[Side]()
-	* @returns String
+	* @returns Returns a string with leading and trailing whitespace removed.
 	* @extra Whitespace is defined as line breaks, tabs, and any character
 	*        in the "Space, Separator" Unicode category, conforming to the
 	*        the ES5 spec. The standard %trim% method is only added when
 	*        not fully supported natively.
-	*
-	* @set
-	*   trim
-	*   trimLeft
-	*   trimRight
-	*
 	* @example
-	*
 	*   '   wasabi   '.trim()      -> 'wasabi'
 	*   '   wasabi   '.trimLeft()  -> 'wasabi   '
 	*   '   wasabi   '.trimRight() -> '   wasabi'
-	*
-	***/
+	**/
 	trim(): string;
+
+	/**
+	* Removes leading whitespace from the string.
+	* @see trim
+	* @return Returns a string with leading whitespace removed.
+	**/
 	trimLeft(): string;
+
+	/**
+	* Removes trailing whitespace from the string.
+	* @see trim
+	* @return Returns a string with trailing whitespace removed.
+	**/
 	trimRight(): string;
 
-	/***
+	/**
 	* Truncates a string.
-	* @method truncate(<length>, [split] = true, [from] = 'right', [ellipsis] = '...')
-	* @returns Object
+	* @param length The length to keep in the string before truncating.
+	* @param split True to split words, false keeps them intact but may truncate earlier.
+	* @param from Where to truncate the string from, default = 'right'.
+	* @param ellipsis Character to use as ellipsis.
+	* @returns Truncated string.
 	* @extra If [split] is %false%, will not split words up, and instead
 	*        discard the word where the truncation occurred. [from] can
 	*        also be %"middle"% or %"left"%.
 	* @example
-	*
 	*   'just sittin on the dock of the bay'.truncate(20)                 -> 'just sittin on the do...'
 	*   'just sittin on the dock of the bay'.truncate(20, false)          -> 'just sittin on the...'
 	*   'just sittin on the dock of the bay'.truncate(20, true, 'middle') -> 'just sitt...of the bay'
 	*   'just sittin on the dock of the bay'.truncate(20, true, 'left')   -> '...the dock of the bay'
-	*
-	***/
+	**/
 	truncate(length: number, split?: bool, from?: string, ellipsis?: string): string;
 
-	/***
+	/**
 	* Converts hyphens and camel casing to underscores.
-	* @method underscore()
-	* @returns String
+	* @returns Returns a converted string.
 	* @example
-	*
 	*   'a-farewell-to-arms'.underscore() -> 'a_farewell_to_arms'
 	*   'capsLock'.underscore()           -> 'caps_lock'
-	*
-	***/
+	* @note Not to be confused with the populate underscore.js library.
+	**/
 	underscore(): string;
 
-	/***
+	/**
 	* Restores escaped HTML characters.
-	* @method unescapeHTML([partial] = false)
-	* @returns String
+	* @returns Returns unescaped HTML string.
 	* @example
-	*
 	*   '&lt;p&gt;some text&lt;/p&gt;'.unescapeHTML() -> '<p>some text</p>'
 	*   'one &amp; two'.unescapeHTML()                -> 'one & two'
-	*
-	***/
-	unescapeHTML(partial?: bool): string;
+	**/
+	unescapeHTML(): string;
 
-	/***
+	/**
 	* Restores escaped characters in a URL escaped string.
-	* @method unescapeURL([partial] = false)
+	* @param partial If true only escape non-valid URL characters, default = false.
 	* @returns String
 	* @extra If [partial] is true, it will only unescape non-valid URL characters. [partial] is included here for completeness, but should very rarely be needed.
 	* @example
-	*
 	*   'http%3A%2F%2Ffoo.com%2Fthe%20bar'.unescapeURL()     -> 'http://foo.com/the bar'
 	*   'http%3A%2F%2Ffoo.com%2Fthe%20bar'.unescapeURL(true) -> 'http%3A%2F%2Ffoo.com%2Fthe bar'
-	*
-	***/
+	**/
 	unescapeURL(partial?: bool): string;
 
-	/***
+	/**
 	* Runs callback [fn] against each word in the string.
-	*        Returns an array of words.
-	* @method words([fn])
-	* @returns String[]
+	* @param fn Callback to run against each word in the string.
+	* @returns Returns an string[] with each element containing a word.
 	* @extra A "word" here is defined as any sequence of non-whitespace characters.
 	* @example
-	*
 	*   'broken wear'.words() -> ['broken','wear']
 	*   'broken wear'.words(function(w) {
 	*     // Called twice: "broken", "wear"
 	*   });
-	*
-	***/
-	words(fn?: Function): string[];
+	**/
+	words(fn?: (word: string) => void): string[];
 
-	/***
+	/**
 	* Converts half-width characters (hankaku) to full-width (zenkaku).
-	* @method zenkaku([mode] = 'all')
+	* @param modes Types of characters to convert, default = 'all'.
 	* @returns String
 	* @extra [mode] accepts any combination of
 	*        "a" (alphabet),
@@ -920,7 +914,6 @@ interface String {
 	*        "p" (punctuation),
 	*        or "all".
 	* @example
-	*
 	*   '??? YAMADA??!'.zenkaku()                         -> '??? YAMADA??!'
 	*   '??? YAMADA??!'.zenkaku('a')                      -> '??? YAMADA??!'
 	*   '??? YAMADA??!'.zenkaku('alphabet')               -> '??? YAMADA??!'
@@ -928,272 +921,273 @@ interface String {
 	*   '?????! 25???!'.zenkaku('k', 'n')              -> '?????! 25???!'
 	*   '?????! 25???!'.zenkaku('kn')                  -> '?????! 25???!'
 	*   '?????! 25???!'.zenkaku('sp')                  -> '?????! 25???!'
-	*
-	***/
-	zenkaku(mode?: string): string;
+	**/
+	zenkaku(...modes: string[]): string;
+}
+
+interface NumberStatic {
+
+	/**
+	* Returns a random integer between [n1] and [n2].
+	* @param n1 Lower bound, default = 0.
+	* @param n2 Uppder bound, default = 1.
+	* @returns Random number between [n1] and [n2].
+	* @extra If only 1 number is passed, the other will be 0. If none are passed, the number will be either 0 or 1.
+	* @example
+	*   Number.random(50, 100) -> ex. 85
+	*   Number.random(50)      -> ex. 27
+	*   Number.random()        -> ex. 0
+	**/
+	random(n1?: number, n2?: number): number;
 }
 
 interface Number {
 
-	/***
-	* Returns a random integer between [n1] and [n2].
-	* @method Number.random([n1], [n2])
-	* @returns Number
-	* @extra If only 1 number is passed, the other will be 0. If none are passed, the number will be either 0 or 1.
-	* @example
-	*
-	*   Number.random(50, 100) -> ex. 85
-	*   Number.random(50)      -> ex. 27
-	*   Number.random()        -> ex. 0
-	*
-	***/
-	random(n1?: number, n2?: number): number;
-
-	/***
+	/**
 	* Returns an abbreviated form of the number.
-	* @method abbr([precision] = 0)
-	* @returns String
+	* @param precision Rounding precision, default = 0.
+	* @returns Abbreviated string representation of the number.
 	* @extra [precision] will round to the given precision.
 	* @example
-	*
 	*   (1000).abbr()    -> "1k"
 	*   (1000000).abbr() -> "1m"
 	*   (1280).abbr(1)   -> "1.3k"
-	*
-	***/
+	**/
 	abbr(precision?: number): string;
 
-	/***
+	/**
 	* Returns an abbreviated form of the number, considered to be "Bytes".
-	* @method bytes([precision] = 0, [limit] = 4)
-	* @returns String
+	* @param precision Rounding precision, default = 0.
+	* @param limit Upper limit for the units, default = 4 which is terabytes.
+	* @returns Abbreviated string representation of the number in bytes.
 	* @extra [precision] will round to the given precision.
 	*        [limit] is the upper limit for the units.
 	*        The default is %4%, which is "terabytes" (TB).
 	*        If [limit] is %false%, the upper limit will be "exa".
 	* @example
-	*
 	*   (1000).bytes()                 -> "1kB"
 	*   (1000).bytes(2)                -> "0.98kB"
 	*   ((10).pow(20)).bytes()         -> "90,949,470TB"
 	*   ((10).pow(20)).bytes(0, false) -> "87EB"
-	*
-	***/
+	**/
 	bytes(precision?: number, limit?: number): string;
+
+	/*
+	* @see bytes
+	* @limit If false upper limit for units is 'exa'.
+	**/
 	bytes(precision?: number, limit?: bool): string;
 
-	/***
+	/**
 	* Shortcut for %Math.ceil% that also allows a <precision>.
-	* @method ceil(<precision> = 0)
-	* @returns Number
-	*
+	* @param precision Rounding precision, default = 0.
+	* @returns Ceiling rounded number.
 	* @example
-	*
 	*   (3.241).ceil()  -> 4
 	*   (-3.241).ceil() -> -3
 	*   (3.241).ceil(2) -> 3.25
 	*   (3748).ceil(-2) -> 3800
-	*
-	***/
+	**/
 	ceil(precision?: number): number;
 
-	/***
+	/**
 	* Returns a string at the code point of the number.
-	* @method chr()
-	* @returns String
+	* @returns String from character code.
 	* @example
-	*
 	*   (65).chr() -> "A"
 	*   (75).chr() -> "K"
-	*
-	***/
+	**/
 	chr(): string;
 
-	/***
+	/**
 	* Returns an array containing numbers from the number down to <num>.
-	* @method downto(<num>, [fn], [step] = 1)
-	* @returns Array
+	* @param num Number to count down to.
+	* @param fn Callback function to call for each number.
+	* @param step Number to subtract each iteration, default = 1.
+	* @returns number[] containing numbers from number down to <num>.
 	* @extra Optionally calls [fn] callback for each number in that array.
 	*        [step] allows multiples greater than 1.
 	* @example
-	*
 	*   (8).downto(3) -> [8, 7, 6, 5, 4, 3]
 	*   (8).downto(3, function(n) {
 	*     // This function is called 6 times receiving n as the value.
 	*   });
 	*   (8).downto(2, null, 2) -> [8, 6, 4, 2]
-	*
-	***/
-	downto(num: number, fn?: Function, step?: number): number[];
+	**/
+	downto(num: number, fn?: (n: number) => void, step?: number): number[];
 
-	/***
-	* Takes the number as milliseconds and returns a unit-
-	*        adjusted localized string.
-	* @method duration([locale] = currentLocale)
-	* @returns String
+	/**
+	* Takes the number as milliseconds and returns a unit-adjusted localized string.
+	* @param locale Locale to convert the ms to, default = currentLocale.
+	* @returns String representation of the duration in [locale].
 	* @extra This method is the same as %Date#relative% without 
 	*        the localized equivalent of "from now" or "ago".
 	*        [locale] can be passed as the first (and only) parameter.
 	*        Note that this method is only available when the dates
 	*        package is included.
 	* @example
-	*
 	*   (500).duration() -> '500 milliseconds'
 	*   (1200).duration() -> '1 second'
 	*   (75).minutes().duration() -> '1 hour'
 	*   (75).minutes().duration('es') -> '1 hora'
-	*
-	***/
+	**/
 	duration(locale?: string): string;
 
-	/***
+	/**
 	* Shortcut for %Math.floor% that also allows a <precision>.
-	* @method floor(<precision> = 0)
-	* @returns Number
+	* @param precision Rounding precision, default = 0.
+	* @returns Floor rounded number.
 	* @example
-	*
 	*   (3.241).floor()  -> 3
 	*   (-3.841).floor() -> -4
 	*   (3.241).floor(2) -> 3.24
 	*   (3748).floor(-2) -> 3700
-	*
-	***/
+	**/
 	floor(precision?: number): number;
 
-	/***
+	/**
 	* Formats the number to a readable string.
 	* @method format([place] = 0, [thousands] = ',', [decimal] = '.')
+	* @param place default = 0.
+	* @param thousands Thousands character, default = ','.
+	* @param decimal Decimal character, default = '.'.
 	* @returns String
 	* @extra If [place] is %undefined%, will automatically determine the place.
 	*        [thousands] is the character used for the thousands separator.
 	*        [decimal] is the character used for the decimal point.
 	* @example
-	*
 	*   (56782).format()           -> '56,782'
 	*   (56782).format(2)          -> '56,782.00'
 	*   (4388.43).format(2, ' ')      -> '4 388.43'
 	*   (4388.43).format(2, '.', ',') -> '4.388,43'
-	*
-	***/
+	**/
 	format(place?: number, thousands?: string, decimal?: string): string;
 
-	/***
+	/**
 	* Converts the number to hexidecimal.
 	* @method hex([pad] = 1)
-	* @returns String
+	* @param pad Number of characters to pad.
+	* @returns Hexidecimal number.
 	* @extra [pad] will pad the resulting string to that many places.
 	* @example
-	*
 	*   (255).hex()   -> 'ff';
 	*   (255).hex(4)  -> '00ff';
 	*   (23654).hex() -> '5c66';
-	*
-	***/
+	**/
 	hex(pad?: number): string;
 
-	/***
+	/**
 	* Returns true if the number is even.
-	* @method isEven()
-	* @returns Boolean
+	* @returns True if the number is even, otherwise false.
 	* @example
-	*
 	*   (6).isEven()  -> true
 	*   (17).isEven() -> false
-	*
-	***/
+	**/
 	isEven(): bool;
 
-	/***
+	/**
 	* Returns true if the number has no trailing decimal.
-	* @method isInteger()
-	* @returns Boolean
+	* @returns True if the number is an integer, otherwise false.
 	* @example
-	*
 	*   (420).isInteger() -> true
 	*   (4.5).isInteger() -> false
-	*
-	***/
+	**/
 	isInteger(): bool;
 
-	/***
+	/**
 	* Returns true if the number is a multiple of <num>.
-	* @method isMultipleOf(<num>)
-	* @returns Boolean
+	* @returns True if the number is a multiple of <num>.
 	* @example
-	*
 	*   (6).isMultipleOf(2)  -> true
 	*   (17).isMultipleOf(2) -> false
 	*   (32).isMultipleOf(4) -> true
 	*   (34).isMultipleOf(4) -> false
-	*
-	***/
+	**/
 	isMultipleOf(num: number): bool;
 
-	/***
+	/**
 	* Returns true if the number is odd.
-	* @method isOdd()
-	* @returns Boolean
+	* @returns True if the number is odd, otherwise false.
 	* @example
-	*
 	*   (3).isOdd()  -> true
 	*   (18).isOdd() -> false
-	*
-	***/
+	**/
 	isOdd(): bool;
 
-	/***
+	/**
 	* Returns the logarithm of the number with base <base>,
-	*        or natural logarithm of the number if <base> is undefined.
-	* @method log(<base> = Math.E)
-	* @returns Number
+	* or natural logarithm of the number if <base> is undefined.
+	* @param base default = Math.E.
+	* @returns Logarithm of the number with base <base>.
 	* @example
-	*
 	*   (64).log(2) -> 6
 	*   (9).log(3)  -> 2
 	*   (5).log()   -> 1.6094379124341003
-	*
-	***/
+	**/
 	log(base?: number): number;
 
-	/***
-	* Math related functions are mapped as shortcuts to numbers and are identical. Note that %Number#log% provides some special defaults.
-	* @method [math]()
-	* @returns Number
-	*
-	* @set
-	*   abs
-	*   sin
-	*   asin
-	*   cos
-	*   acos
-	*   tan
-	*   atan
-	*   sqrt
-	*   exp
-	*   pow
-	*
+	/**
+	* Determines the absolute value of the number.
+	* @returns Absolute value of the number.
 	* @example
-	*
-	*   (3).pow(3) -> 27
 	*   (-3).abs() -> 3
-	*   (1024).sqrt() -> 32
-	*
-	***/
+	**/
 	abs(): number;
+
+	/**
+	* sine
+	**/
 	sin(): number;
+
+	/**
+	* arcsine
+	**/
 	asin(): number;
+
+	/**
+	* cosine
+	**/
 	cos(): number;
+
+	/**
+	* arccosine
+	**/
 	acos(): number;
+
+	/**
+	* tangent
+	**/
 	tan(): number;
+
+	/**
+	* arctangent
+	**/
 	atan(): number;
+
+	/**
+	* @example
+	*   (1024).sqrt() -> 32
+	**/
 	sqrt(): number;
+
+	/**
+	* E^X
+	**/
 	exp(): number;
+
+	/**
+	* n^m
+	* @example
+	*   (3).pow(3) -> 27
+	**/
 	pow(num: number): number;
 
 	/***
 	* Returns the number as a string in metric notation.
 	* @method metric([precision] = 0, [limit] = 1)
-	* @returns String
+	* @param precision Rounding precision, default = 0.
+	* @param limit Upper limit for the metric units, default = 1 which is kilo.
+	* @returns Metric string notation for the number.
 	* @extra [precision] will round to the given precision.
 	*        Both very large numbers and very small numbers are supported.
 	*        [limit] is the upper limit for the units.
@@ -1201,86 +1195,78 @@ interface Number {
 	*        If [limit] is %false%, the upper limit will be "exa".
 	*        The lower limit is "nano", and cannot be changed.
 	* @example
-	*
 	*   (1000).metric()            -> "1k"
 	*   (1000000).metric()         -> "1,000k"
 	*   (1000000).metric(0, false) -> "1M"
 	*   (1249).metric(2) + 'g'     -> "1.25kg"
 	*   (0.025).metric() + 'm'     -> "25mm"
-	*
-	***/
+	**/
 	metric(precision?: number, limit?: number): string;
+
+	/**
+	* @see metric
+	* @limit If false the upper limit for the metric units will be 'exa'.
+	**/
 	metric(precision?: number, limit?: bool): string;
 
-	/***
+	/**
 	* Returns an ordinalized (English) string, i.e. "1st", "2nd", etc.
-	* @method ordinalize()
-	* @returns String
+	* @returns Ordinalized string number equivalent.
 	* @example
-	*
 	*   (1).ordinalize() -> '1st';
 	*   (2).ordinalize() -> '2nd';
 	*   (8).ordinalize() -> '8th';
-	*
-	***/
+	**/
 	ordinalize(): string;
 
-	/***
+	/**
 	* Pads a number with "0" to <place>.
 	* @method pad(<place> = 0, [sign] = false, [base] = 10)
-	* @returns String
+	* @param place Pad up to this many characters, default = 0.
+	* @param sign True to force the sign (+/-), default = false.
+	* @param base The base of the new number, default = 10.
+	* @returns Padded number.
 	* @extra [sign] allows you to force the sign as well (+05, etc). [base] can change the base for numeral conversion.
 	* @example
-	*
 	*   (5).pad(2)        -> '05'
 	*   (-5).pad(4)       -> '-0005'
 	*   (82).pad(3, true) -> '+082'
-	*
-	***/
+	**/
 	pad(place?: number, sign?: bool, base?: number): string;
 
-	/***
-	* Shortcut for %Math.round% that also allows a <precision>.
-	* @method round(<precision> = 0)
-	* @returns Number
-	*
+	/**
+	* Shortcut for %Math.round% that also allows a [precision].
+	* @param precision Rounding precision, default = 0.
+	* @returns Rounded number to [precision].
 	* @example
-	*
 	*   (3.241).round()  -> 3
 	*   (-3.841).round() -> -4
 	*   (3.241).round(2) -> 3.24
 	*   (3748).round(-2) -> 3800
-	*
-	***/
+	**/
 	round(precision?: number): number;
 
 	/***
 	* Calls <fn> a number of times equivalent to the number.
-	* @method times(<fn>)
-	* @returns Number
+	* @param fn Callback function to call n times.
+	* @returns The original number.
 	* @example
-	*
 	*   (8).times(function(i) {
 	*     // This function is called 8 times.
 	*   });
-	*
 	***/
-	times(fn: Function): number;
+	times(fn: (i: number) => void): number;
 
 	/***
 	* Returns a number. This is mostly for compatibility reasons.
-	* @method toNumber()
-	* @returns Number
+	* @returns The original number.
 	* @example
-	*
 	*   (420).toNumber() -> 420
-	*
 	***/
 	toNumber(): number;
 
-	/***
-	* Takes the number as a corresponding unit of time and
-	*        converts to milliseconds.
+	/**
+	* Takes the number as a corresponding unit of time and converts to [unit].
 	* @method [unit]()
 	* @returns Number
 	* @extra Method names can be both singular and plural.
@@ -1288,7 +1274,6 @@ interface Number {
 	*        %months% will be equivalent to 30.4375 days, the average
 	*        number in a month. Be careful using %months% if you need
 	*        exact precision.
-	*
 	* @set
 	*   millisecond
 	*   milliseconds
@@ -1306,42 +1291,100 @@ interface Number {
 	*   months
 	*   year
 	*   years
-	*
 	* @example
-	*
 	*   (5).milliseconds() -> 5
 	*   (10).hours()       -> 36000000
 	*   (1).day()          -> 86400000
-	*
-	***/
+	**/
 	millisecond(): number;
+
+	/**
+	* @see millisecond
+	**/
 	milliseconds(): number;
+
+	/**
+	* @see millisecond
+	**/
 	second(): number;
+
+	/**
+	* @see millisecond
+	**/
 	seconds(): number;
+
+	/**
+	* @see millisecond
+	**/
 	minute(): number;
+
+	/**
+	* @see millisecond
+	**/
 	minutes(): number;
+
+	/**
+	* @see millisecond
+	**/
 	hour(): number;
+
+	/**
+	* @see millisecond
+	**/
 	hours(): number;
+
+	/**
+	* @see millisecond
+	**/
 	day(): number;
+
+	/**
+	* @see millisecond
+	**/
 	days(): number;
+
+	/**
+	* @see millisecond
+	**/
 	week(): number;
+
+	/**
+	* @see millisecond
+	**/
 	weeks(): number;
+
+	/**
+	* @see millisecond
+	**/
 	month(): number;
+
+	/**
+	* @see millisecond
+	**/
 	months(): number;
+
+	/**
+	* @see millisecond
+	**/
 	year(): number;
+
+	/**
+	* @see millisecond
+	**/
 	years(): number;
 
-	/***
-	* Returns a date <n> units after [d], where <n> is the number.
+	/**
+	* Returns a date <n> units after <d>, where <n> is the number.
 	* @method [unit]After([d], [locale] = currentLocale)
-	* @returns Date
+	* @param d Date to start from.
+	* @param locale Locale for return Date, default = currentLocale.
+	* @returns Date <n> units after <d>.
 	* @extra [d] will accept a date object, timestamp, or text format.
 	*        Note that "months" is ambiguous as a unit of time. If the
 	*        target date falls on a day that does not exist
 	*        (ie. August 31 -> February 31), the date will be shifted
 	*        to the last day of the month. Be careful using %monthsAfter%
 	*        if you need exact precision. See @date_format for more.
-	*
 	* @set
 	*   millisecondAfter
 	*   millisecondsAfter
@@ -1359,46 +1402,163 @@ interface Number {
 	*   monthsAfter
 	*   yearAfter
 	*   yearsAfter
-	*
 	* @example
-	*
 	*   (5).daysAfter('tuesday')          -> 5 days after tuesday of this week
 	*   (1).yearAfter('January 23, 1997') -> January 23, 1998
-	*
-	***/
+	**/
 	millisecondAfter(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	millisecondAfter(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	millisecondsAfter(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	millisecondsAfter(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	secondAfter(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	secondAfter(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	secondsAfter(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	secondsAfter(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	minuteAfter(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	minuteAfter(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	minutesAfter(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	minutesAfter(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	hourAfter(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	hourAfter(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	hoursAfter(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	hoursAfter(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	dayAfter(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	dayAfter(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	daysAfter(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	daysAfter(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	weekAfter(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	weekAfter(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	weeksAfter(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	weeksAfter(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	monthAfter(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	monthAfter(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	monthsAfter(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	yearAfter(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	yearAfter(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	yearsAfter(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondAfter
+	**/
 	yearsAfter(d: Date, locale?: string): Date;
 
-	/***
+	/**
 	* Returns a date that is <n> units ago.
 	* @method [unit]Ago()
 	* @returns Date
@@ -1407,7 +1567,6 @@ interface Number {
 	*        (ie. August 31 -> February 31), the date will be shifted
 	*        to the last day of the month. Be careful using %monthsAgo% 
 	*        if you need exact precision.
-	*
 	* @set
 	*   millisecondAgo
 	*   millisecondsAgo
@@ -1425,41 +1584,99 @@ interface Number {
 	*   monthsAgo
 	*   yearAgo
 	*   yearsAgo
-	*
 	* @example
-	*
 	*   (5).weeksAgo() -> 5 weeks ago
 	*   (1).yearAgo()  -> January 23, 1996
-	*
-	***/
+	**/
 	millisecondAgo(): Date;
+
+	/**
+	* @see millisecondAgo
+	**/
 	millisecondsAgo(): Date;
+
+	/**
+	* @see millisecondAgo
+	**/
 	secondAgo(): Date;
+
+	/**
+	* @see millisecondAgo
+	**/
 	secondsAgo(): Date;
+
+	/**
+	* @see millisecondAgo
+	**/
 	minuteAgo(): Date;
+
+	/**
+	* @see millisecondAgo
+	**/
 	minutesAgo(): Date;
+
+	/**
+	* @see millisecondAgo
+	**/
 	hourAgo(): Date;
+
+	/**
+	* @see millisecondAgo
+	**/
 	hoursAgo(): Date;
+
+	/**
+	* @see millisecondAgo
+	**/
 	dayAgo(): Date;
+
+	/**
+	* @see millisecondAgo
+	**/
 	daysAgo(): Date;
+
+	/**
+	* @see millisecondAgo
+	**/
 	weekAgo(): Date;
+
+	/**
+	* @see millisecondAgo
+	**/
 	weeksAgo(): Date;
+
+	/**
+	* @see millisecondAgo
+	**/
 	monthAgo(): Date;
+
+	/**
+	* @see millisecondAgo
+	**/
 	monthsAgo(): Date;
+
+	/**
+	* @see millisecondAgo
+	**/
 	yearAgo(): Date;
+
+	/**
+	* @see millisecondAgo
+	**/
 	yearsAgo(): Date;
 
-	/***
-	* Returns a date that is <n> units before [d], where <n> is the number.
+	/**
+	* Returns a date that is <n> units before <d>, where <n> is the number.
 	* @method [unit]Before([d], [locale] = currentLocale)
-	* @returns Date
+	* @param d Date to start from.
+	* @param locale Locale for return Date, default = currentLocale.
+	* @returns Date <n> units before <d>.
 	* @extra [d] will accept a date object, timestamp, or text format.
 	*        Note that "months" is ambiguous as a unit of time. If the
 	*        target date falls on a day that does not exist
 	*        (ie. August 31 -> February 31), the date will be shifted to
 	*        the last day of the month. Be careful using %monthsBefore%
 	*        if you need exact precision. See @date_format for more.
-	*
 	* @set
 	*   millisecondBefore
 	*   millisecondsBefore
@@ -1477,47 +1694,168 @@ interface Number {
 	*   monthsBefore
 	*   yearBefore
 	*   yearsBefore
-	*
 	* @example
-	*
 	*   (5).daysBefore('tuesday')          -> 5 days before tuesday of this week
 	*   (1).yearBefore('January 23, 1997') -> January 23, 1996
-	*
-	***/
+	**/
 	millisecondBefore(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	millisecondBefore(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	millisecondsBefore(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	millisecondsBefore(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	secondBefore(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	secondBefore(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	secondsBefore(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	secondsBefore(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	minuteBefore(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	minuteBefore(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	minutesBefore(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	minutesBefore(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	hourBefore(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	hourBefore(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	hoursBefore(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	hoursBefore(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	dayBefore(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	dayBefore(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	daysBefore(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	daysBefore(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	weekBefore(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	weekBefore(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	weeksBefore(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	weeksBefore(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	monthBefore(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	monthBefore(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	monthsBefore(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	monthsBefore(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	yearBefore(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	yearBefore(d: Date, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	yearsBefore(d: string, locale?: string): Date;
+
+	/**
+	* @see millisecondBefore
+	**/
 	yearsBefore(d: Date, locale?: string): Date;
 
-	/***
+	/**
 	* Returns a date <n> units from now.
 	* @method [unit]FromNow()
 	* @returns Date
@@ -1526,7 +1864,6 @@ interface Number {
 	*        (ie. August 31 -> February 31), the date will be shifted
 	*        to the last day of the month. Be careful using %monthsFromNow%
 	*        if you need exact precision.
-	*
 	* @set
 	*   millisecondFromNow
 	*   millisecondsFromNow
@@ -1544,45 +1881,102 @@ interface Number {
 	*   monthsFromNow
 	*   yearFromNow
 	*   yearsFromNow
-	*
 	* @example
-	*
 	*   (5).weeksFromNow() -> 5 weeks ago
 	*   (1).yearFromNow()  -> January 23, 1998
-	*
-	***/
+	**/
 	millisecondFromNow(): Date;
+
+	/**
+	* @see millisecondFromNow
+	**/
 	millisecondsFromNow(): Date;
+
+	/**
+	* @see millisecondFromNow
+	**/
 	secondFromNow(): Date;
+
+	/**
+	* @see millisecondFromNow
+	**/
 	secondsFromNow(): Date;
+
+	/**
+	* @see millisecondFromNow
+	**/
 	minuteFromNow(): Date;
+
+	/**
+	* @see millisecondFromNow
+	**/
 	minutesFromNow(): Date;
+
+	/**
+	* @see millisecondFromNow
+	**/
 	hourFromNow(): Date;
+
+	/**
+	* @see millisecondFromNow
+	**/
 	hoursFromNow(): Date;
+
+	/**
+	* @see millisecondFromNow
+	**/
 	dayFromNow(): Date;
+
+	/**
+	* @see millisecondFromNow
+	**/
 	daysFromNow(): Date;
+
+	/**
+	* @see millisecondFromNow
+	**/
 	weekFromNow(): Date;
+
+	/**
+	* @see millisecondFromNow
+	**/
 	weeksFromNow(): Date;
+
+	/**
+	* @see millisecondFromNow
+	**/
 	monthFromNow(): Date;
+
+	/**
+	* @see millisecondFromNow
+	**/
 	monthsFromNow(): Date;
+
+	/**
+	* @see millisecondFromNow
+	**/
 	yearFromNow(): Date;
+
+	/**
+	* @see millisecondFromNow
+	**/
 	yearsFromNow(): Date;
 
-	/***
+	/**
 	* Returns an array containing numbers from the number up to <num>.
-	* @method upto(<num>, [fn], [step] = 1)
-	* @returns Array
+	* @param num Number to count down to.
+	* @param fn Callback function to call for each number.
+	* @param step Number to add each iteration, default = 1.
+	* @returns number[] containing numbers from number up to <num>.
 	* @extra Optionally calls [fn] callback for each number in that array.
 	*       [step] allows multiples greater than 1.
 	* @example
-	*
 	*   (2).upto(6) -> [2, 3, 4, 5, 6]
 	*   (2).upto(6, function(n) {
 	*     // This function is called 5 times receiving n as the value.
 	*   });
 	*   (2).upto(8, null, 2) -> [2, 4, 6, 8]
-	*
-	***/
+	**/
 	upto(num: number, fn?: Function, step?: number): number[];
 }
 
