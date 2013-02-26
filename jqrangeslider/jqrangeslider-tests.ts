@@ -94,7 +94,10 @@ $("#formatterExample").dateRangeSlider({
     formatter: (val: Date) => {
         var days = val.getDay(),
         month = val.getMonth() + 1,
-        year = val.getYear();
+        // https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Date/getYear#Description
+        // getYear is no longer used and has been replaced by the getFullYear method.
+        // year = val.getYear();
+        year = val.getFullYear();
         return days + "/" + month + "/" + year;
     }
 });
