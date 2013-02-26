@@ -91,7 +91,7 @@ function test_swipey() {
             }
             context.strokeStyle = "rgba(" + color[0] + "," + color[1] + "," + color[2] + "," + opacity + ")";
             context.lineJoin = "round";
-            context.lineWidth = (window.devicePixelRatio || 1) * 5;
+            context.lineWidth = ((<any>window).devicePixelRatio || 1) * 5;
             for (var i = 0; i < clickX.length; i++) {
                 context.beginPath();
                 if (clickDrag[i] && i) {
@@ -161,7 +161,7 @@ function test_swipey() {
 
         window.setInterval(function () {
             context.clearRect(0, 0, width, height);
-            var counter = 0, ratio = window.devicePixelRatio || 1;
+            var counter = 0, ratio = (<any>window).devicePixelRatio || 1;
             for (var identifier in pointers) {
                 pointers[identifier].redraw();
                 counter++;
