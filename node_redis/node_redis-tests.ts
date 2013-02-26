@@ -142,7 +142,7 @@ function test7() {
   var client = redis.createClient(), multi;
 
     client.multi([
-        ["mget", "multifoo", "multibar", redis.print],
+        ["mget", "multifoo", "multibar", <any>redis.print],
         ["incr", "multifoo"],
         ["incr", "multibar"]
     ]).exec(function (err, replies) {
@@ -180,7 +180,7 @@ function test9() {
         });
 
         var max = 3, min = 1, offset = 1, count = 2;
-        var args2 = ['myzset', max, min, 'WITHSCORES', 'LIMIT', offset, count];
+        var args2 = ['myzset', <any>max, <any>min, 'WITHSCORES', 'LIMIT', <any>offset, <any>count];
         client.zrevrangebyscore(args2, function (err, response) {
             if (err) throw err;
             console.log('example2', response);
@@ -322,14 +322,14 @@ tests.MULTI_2 = function () {
 
     // test nested multi-bulk replies
     client.multi([
-        ["mget", "multifoo", "multibar", function (err, res) {
+        ["mget", "multifoo", "multibar", <any>function (err, res) {
             assert.strictEqual(2, res.length, name);
             assert.strictEqual("12", res[0].toString(), name);
             assert.strictEqual("22", res[1].toString(), name);
         }],
-        ["set", "foo2", require_error(name)],
-        ["incr", "multifoo", require_number(13, name)],
-        ["incr", "multibar", require_number(23, name)]
+        ["set", "foo2", <any>require_error(name)],
+        ["incr", "multifoo", <any>require_number(13, name)],
+        ["incr", "multibar", <any>require_number(23, name)]
     ]).exec(function (err, replies) {
         assert.strictEqual(2, replies[0].length, name);
         assert.strictEqual("12", replies[0][0].toString(), name);
@@ -393,7 +393,7 @@ tests.MULTI_5 = function () {
 
     // test nested multi-bulk replies with nulls.
     client.multi([
-        ["mget", ["multifoo", "some", "random value", "keys"]],
+        ["mget", <any>["multifoo", "some", "random value", "keys"]],
         ["incr", "multifoo"]
     ])
     .exec(function (err, replies) {
@@ -947,7 +947,7 @@ tests.TYPE = function () {
     client.rpush(["list key", "should be a list"], require_number_pos(name));
     client.sadd(["set key", "should be a set"], require_number_any(name));
     client.zadd(["zset key", "10.0", "should be a zset"], require_number_any(name));
-    client.hset(["hash key", "hashtest", "should be a hash"], require_number_any(0, name));
+    client.hset(["hash key", "hashtest", "should be a hash"], require_number_any(name));
 
     client.TYPE(["string key"], require_string("string", name));
     client.TYPE(["list key"], require_string("list", name));
@@ -1685,7 +1685,7 @@ tests.TTL = function () {
     client.set(["ttl key", "ttl val"], require_string("OK", name));
     client.expire(["ttl key", "100"], require_number_pos(name));
     setTimeout(function () {
-        client.TTL(["ttl key"], last(name, require_number_pos(0, name)));
+        client.TTL(["ttl key"], last(name, require_number_pos(name)));
     }, 500);
 };
 

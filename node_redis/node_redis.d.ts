@@ -342,7 +342,7 @@ declare module 'redis' {
         once(eventName: string, callback: Function): void;
         removeListener(eventName: string, callback: Function): void;
 
-        multi(): Multi;
+        multi(commands?: any[]): Multi;
         MULTI(): Multi;
     }
 }
