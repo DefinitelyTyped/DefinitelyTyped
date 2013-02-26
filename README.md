@@ -65,6 +65,7 @@ List of Definitions
 * [i18next](http://i18next.com/) (by [Maarten Docter](https://github.com/mdocter))
 * [Impress.js](https://github.com/bartaz/impress.js) (by [Boris Yankov](https://github.com/borisyankov))
 * [iScroll](http://cubiq.org/iscroll-4) (by [Boris Yankov](https://github.com/borisyankov))
+* [jake](https://github.com/mde/jake) (by [Kon](http://phyzkit.net/))
 * [Jasmine](http://pivotal.github.com/jasmine/) (by [Boris Yankov](https://github.com/borisyankov))
 * [jQRangeSlider](http://ghusse.github.com/jQRangeSlider) (by [D�niel Tar](https://github.com/qcz))
 * [jQuery](http://jquery.com/) (from TypeScript samples)
