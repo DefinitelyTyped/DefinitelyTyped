@@ -24,3 +24,5 @@ interface VimeoPlayer {
     removeCallback(eventName: string, target_id: string);
     getDomainFromUrl(url: string): string;
 }
+
+declare var $f: VimeoPlayerAPI;
