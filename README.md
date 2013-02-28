@@ -159,3 +159,4 @@ Requested Definitions
 * [Prelude.ls](http://gkz.github.com/prelude-ls/)
 * [MooTools](http://mootools.net/)
 * [Lo-Dash](http://lodash.com/)
+* [Google geolocation](https://code.google.com/p/geo-location-javascript/)
