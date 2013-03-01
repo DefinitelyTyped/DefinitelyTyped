@@ -24,6 +24,10 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 */
 
+interface SuggarExcludeFunction {
+	(el: any, i?: number, array?: any[]): bool;	
+}
+
 interface String {
 
 	/**
@@ -825,7 +829,7 @@ interface String {
 	*   '   wasabi   '.trimLeft()  -> 'wasabi   '
 	*   '   wasabi   '.trimRight() -> '   wasabi'
 	**/
-	trim(): string;
+	//trim(): string;
 
 	/**
 	* Removes leading whitespace from the string.
@@ -2190,7 +2194,7 @@ interface Array {
 	exclude(...f: string[]): string[];
 	exclude(...f: RegExp[]): string[];
 	exclude(...f: Object[]): Object[];
-	exclude(...f: (el: any, i?: number, array?: any[]) => bool): any[];
+	exclude(...f: SuggarExcludeFunction[]): any[];
 
 	/***
 	* Returns any elements in the array that match <f>.
@@ -2282,9 +2286,7 @@ interface Array {
 	*
 	***/
 	findIndex(f: number, startIndex?: number, loop?: bool): number;
-	findIndex(f: string, startIndex?: number, loop?: bool): number;
-	findIndex(f: RegExp, startIndex?: number, loop?: bool): number;
-	findIndex(f: Object, startIndex?: number, loop?: bool): number;
+	findIndex(f: any, startIndex?: number, loop?: bool): number;
 	findIndex(f: RegExp, startIndex?: number, loop?: bool): number;
 	findIndex(f: (el: any, i?: number, array?: any[]) => bool, startIndex?: number, loop?: bool): number;
 
@@ -3157,7 +3159,7 @@ interface Object {
 	* @param find The property (string), properties (object) or RegExp to remove from `obj`.
 	* @return Modified `obj` with `find` properties removed.
 	**/
-	reject(obj: any, ...find: any): any;
+	reject(obj: any, ...find: any[]): any;
 
 	/**
 	* Builds a new object containing the values specified in find. When find is a string,
@@ -3840,8 +3842,8 @@ interface Date {
 	***/
 	getWeekday(): number;
 	getUTCWeekday(): number;
-	getDay(): number;
-	getUTCDay(): number;
+	//getDay(): number;
+	//getUTCDay(): number;
 
 	/***
 	* Returns true if the date is <d>.
@@ -4096,7 +4098,7 @@ interface Date {
 	*
 	***/
 	iso(): string;
-	toISOString(): string;
+	//toISOString(): string;
 
 	/***
 	* Returns a relative date string offset to the current time.
