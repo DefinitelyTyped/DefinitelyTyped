@@ -31,10 +31,33 @@ interface RevealOptions {
     animationSpeed?: number;
     closeOnBackgroundClick?: bool;
     dismissModalClass?: string;
+    /**
+    * The class of the modals background.
+    */
+    bgClass?: string;
     open?: () => void;
     opened?: () => void;
     close?: () => void;
     closed?: () => void;
+    /**
+    * The modals background object.
+    */
+    bg: JQuery;
+    /**
+    * The css property for when the modal is opened and closed.
+    */
+    css: {
+        open: {
+            opacity?: number;
+            visibility?: string;
+            display: string;
+        };
+        close: {
+            opacity: number;
+            visibility: string;
+            display: string;
+        };
+    };
 }
 
 interface JoyrideOptions {
