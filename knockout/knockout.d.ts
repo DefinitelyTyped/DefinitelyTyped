@@ -67,12 +67,7 @@ interface KnockoutComputedStatic {
     (options?: any): KnockoutComputed;
 }
 
-interface KnockoutComputed extends KnockoutComputedFunctions {
-    (): any;
-    (value: any): void;
-
-    subscribe(callback: (newValue: any) => void, target?:any, topic?: string): KnockoutSubscription;
-    notifySubscribers(valueToWrite, topic?: string);
+interface KnockoutComputed extends KnockoutObservableAny, KnockoutComputedFunctions {
 }
 
 interface KnockoutObservableArrayStatic {
