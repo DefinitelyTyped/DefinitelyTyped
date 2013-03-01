@@ -43,6 +43,7 @@ List of Definitions
 * [CodeMirror](http://codemirror.net) (by [Fran�ois de Campredon](https://github.com/fdecampredon))
 * [d3.js](http://d3js.org/) (from TypeScript samples)
 * [domo](http://domo-js.com/) (by [Steve Fenton](https://github.com/Steve-Fenton))
+* [dust](http://linkedin.github.com/dustjs) (by [Marcelo Dezem](https://github.com/mdezem)
 * [EaselJS](http://www.createjs.com/#!/EaselJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [ember.js](http://emberjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [EpicEditor](http://epiceditor.com/) (by [Boris Yankov](https://github.com/borisyankov))
