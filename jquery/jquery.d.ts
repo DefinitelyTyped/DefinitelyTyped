@@ -89,6 +89,7 @@ interface JQueryPromise {
     state(): string;
     pipe(doneFilter?: (x: any) => any, failFilter?: (x: any) => any, progressFilter?: (x: any) => any): JQueryPromise;
     then(doneCallbacks: any, failCallbacks?: any, progressCallbacks?: any): JQueryPromise;
+    promise(target?): JQueryPromise;
 }
 
 /*
@@ -98,7 +99,6 @@ interface JQueryDeferred extends JQueryPromise {
     notify(...args: any[]): JQueryDeferred;
     notifyWith(context: any, ...args: any[]): JQueryDeferred;
 
-    promise(target? ): JQueryPromise;
     reject(...args: any[]): JQueryDeferred;
     rejectWith(context:any, ...args: any[]): JQueryDeferred;
     resolve(...args: any[]): JQueryDeferred;
