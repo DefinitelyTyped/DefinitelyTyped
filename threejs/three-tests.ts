@@ -1,13 +1,7 @@
 /// <reference path="three.d.ts" />
 /// <reference path="../qunit/qunit.d.ts" />
 
-/**
- * @author bhouston / http://exocortex.com
- */
-
- /**
- * @author bhouston / http://exocortex.com
- */
+// https://github.com/mrdoob/three.js/tree/master/test/unit/math
 
 var x = 2;
 var y = 3;
