@@ -1,11 +1,7 @@
-/**
- * three.d.ts (https://github.com/kontan/three.d.ts)
- *
- * Type definitions for three.js r56 (http://mrdoob.github.com/three.js/)
- * 
- * Copyright (c) 2012- Kon (http://phyzkit.net/)
- * 
- */
+// Type definitions for three.js
+// Project: http://mrdoob.github.com/three.js/
+// Definitions by: Kon <http://phyzkit.net/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped  
 
 interface WebGLRenderingContext {}
 
@@ -604,10 +600,55 @@ module THREE {
         yellowgreen: number;
     };
 
+    /**
+     * JavaScript events for custom objects
+     *
+     * # Example
+     *     var Car = function () {
+     *     
+     *         EventDispatcher.call( this );
+     *         this.start = function () {
+     *     
+     *             this.dispatchEvent( { type: 'start', message: 'vroom vroom!' } );
+     *     
+     *         };
+     *     
+     *     };
+     *     
+     *     var car = new Car();
+     *     car.addEventListener( 'start', function ( event ) {
+     *     
+     *         alert( event.message );
+     *     
+     *     } );
+     *     car.start();
+     *
+     * @source src/core/EventDispatcher.js
+     */
     export class EventDispatcher {
+        /**
+         * Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
+         */
         constructor();
+
+        /**
+         * Adds a listener to an event type.
+         * @param type The type of the listener that gets removed.
+         * @param listener The listener function that gets removed.
+         */
         addEventListener(type: string, listener: (event: any) => void ): void;
+
+        /**
+         * Fire an event type.
+         * @param type The type of event that gets fired.
+         */
         dispatchEvent(event: { type:string; target: any; }): void;
+
+        /**
+         * Removes a listener from an event type.
+         * @param type The type of the listener that gets removed.
+         * @param listener The listener function that gets removed.
+         */
         removeEventListener(type: string, listener: (event: any) => void ): void;
     }
 
@@ -653,12 +694,12 @@ module THREE {
     /**
      * Triangle face.
      *
-     * @example 
-     * var normal = new THREE.Vector3( 0, 1, 0 ); 
-     * var color = new THREE.Color( 0xffaa00 ); 
-     * var face = new THREE.Face3( 0, 1, 2, normal, color, 0 );
+     * # Example
+     *     var normal = new THREE.Vector3( 0, 1, 0 ); 
+     *     var color = new THREE.Color( 0xffaa00 ); 
+     *     var face = new THREE.Face3( 0, 1, 2, normal, color, 0 );
      *
-     * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/Face3.js">src/core/Face3.js</a>
+     * @source https://github.com/mrdoob/three.js/blob/master/src/core/Face3.js
      */
     export class Face3 implements Face {
         /**
@@ -732,12 +773,12 @@ module THREE {
     /**
      * Quad face.
      * 
-     * @example 
-     * var normal = new THREE.Vector3( 0, 1, 0 ); 
-     * var color = new THREE.Color( 0xffaa00 ); 
-     * var face = new THREE.Face4( 0, 1, 2, 3, normal, color, 0 );
+     * # example 
+     *     var normal = new THREE.Vector3( 0, 1, 0 ); 
+     *     var color = new THREE.Color( 0xffaa00 ); 
+     *     var face = new THREE.Face4( 0, 1, 2, 3, normal, color, 0 );
      *
-     * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/Face4.js">src/core/Face4.js</a>
+     * @source https://github.com/mrdoob/three.js/blob/master/src/core/Face4.js
      */
     export class Face4 implements Face {
         /**
@@ -923,42 +964,162 @@ module THREE {
     /**
      * Base class for geometries
      * 
-     * @example
-     * var geometry = new THREE.Geometry();
-     * geometry.vertices.push( new THREE.Vector3( -10, 10, 0 ) ); 
-     * geometry.vertices.push( new THREE.Vector3( -10, -10, 0 ) ); 
-     * geometry.vertices.push( new THREE.Vector3( 10, -10, 0 ) );  
-     * geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );  
-     * geometry.computeBoundingSphere();
+     * # Example
+     *     var geometry = new THREE.Geometry();
+     *     geometry.vertices.push( new THREE.Vector3( -10, 10, 0 ) ); 
+     *     geometry.vertices.push( new THREE.Vector3( -10, -10, 0 ) ); 
+     *     geometry.vertices.push( new THREE.Vector3( 10, -10, 0 ) );  
+     *     geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );  
+     *     geometry.computeBoundingSphere();
      *
-     * @see <a link="https://github.com/mrdoob/three.js/blob/master/src/core/Geometry.js">src/core/Geometry.js</a>
+     * @see https://github.com/mrdoob/three.js/blob/master/src/core/Geometry.js
      */
     export class Geometry {
         constructor();
+
+        /**
+         * Unique number of this geometry instance
+         */
         id: number;
+
+        /**
+         * Name for this geometry. Default is an empty string.
+         */
         name: string;
+
+        /**
+         * The array of vertices hold every position of points of the model.
+         * To signal an update in this array, Geometry.verticesNeedUpdate needs to be set to true.
+         */
         vertices: Vector3[];
+
+        /**
+         * Array of vertex colors, matching number and order of vertices.
+         * Used in ParticleSystem, Line and Ribbon.
+         * Meshes use per-face-use-of-vertex colors embedded directly in faces.
+         * To signal an update in this array, Geometry.colorsNeedUpdate needs to be set to true.
+         */
         colors: Color[];
-        materials: Material[];
+
+        /**
+         * Array of vertex normals, matching number and order of vertices.
+         * Normal vectors are nessecary for lighting 
+         * To signal an update in this array, Geometry.normalsNeedUpdate needs to be set to true.
+         */
+        normals: Vector3[];
+
+        /**
+         * Array of triangles or/and quads.
+         * The array of faces describe how each vertex in the model is connected with each other.
+         * To signal an update in this array, Geometry.elementsNeedUpdate needs to be set to true.
+         */
         faces: Face[];
+
+        /**
+         * Array of face UV layers.
+         * Each UV layer is an array of UV matching order and number of faces.
+         * To signal an update in this array, Geometry.uvsNeedUpdate needs to be set to true.
+         */
         faceUvs: Vector2[];
+
+        /**
+         * Array of face UV layers.
+         * Each UV layer is an array of UV matching order and number of vertices in faces.
+         * To signal an update in this array, Geometry.uvsNeedUpdate needs to be set to true.
+         */
         faceVertexUvs: Vector2[][];
+
+        /**
+         * Array of morph targets. Each morph target is a Javascript object:
+         *
+         *     { name: "targetName", vertices: [ new THREE.Vector3(), ... ] }
+         *
+         * Morph vertices match number and order of primary vertices.
+         */
         morphTargets: MorphTarget[];
+
+        /**
+         * Array of morph colors. Morph colors have similar structure as morph targets, each color set is a Javascript object:
+         *
+         *     morphNormal = { name: "NormalName", normals: [ new THREE.Vector3(), ... ] }
+         */
         morphColors: MorphColor[];
+
+        /**
+         * Array of skinning weights, matching number and order of vertices.
+         */
         skinWeights: number[];
+
+        /**
+         * Array of skinning indices, matching number and order of vertices.
+         */
         skinIndices: number[];
+
+        /**
+         * Bounding box.
+         */
         boundingBox: BoundingBox3D;
+
+        /**
+         * Bounding sphere.
+         */
         boundingSphere: BoundingSphere;
+
+        /**
+         * True if geometry has tangents. Set in Geometry.computeTangents.
+         */
         hasTangents: bool;
+
+        /**
+         * Set to true if attribute buffers will need to change in runtime (using "dirty" flags).
+         * Unless set to true internal typed arrays corresponding to buffers will be deleted once sent to GPU.
+         * Defaults to true.
+         */
         dynamic: bool;
+
+        /**
+         * Set to true if the vertices array has been updated.
+         */
         verticesNeedUpdate: bool;
+
+        /**
+         * Set to true if the faces array has been updated.
+         */
         elementsNeedUpdate: bool;
+
+        /**
+         * Set to true if the uvs array has been updated.
+         */
         uvsNeedUpdate: bool;
+
+        /**
+         * Set to true if the normals array has been updated.
+         */
         normalsNeedUpdate: bool;
+
+        /**
+         * Set to true if the tangents in the faces has been updated.
+         */
         tangentsNeedUpdate: bool;
+
+        /**
+         * Set to true if the colors array has been updated.
+         */
         colorsNeedUpdate: bool;
+
+        /**
+         * Set to true if the linedistances array has been updated.
+         */
         lineDistancesNeedUpdate: bool;
+
+        /**
+         * Set to true if an array has changed in length.
+         */
         buffersNeedUpdate: bool;
+
+        /**
+         *
+         */
         animation: AnimationData;
 
         /**
@@ -982,6 +1143,9 @@ module THREE {
          */
         computeVertexNormals(areaWeighted?: bool): void;
 
+        /**
+         * Computes morph normals.
+         */
         computeMorphNormals(): void;
 
         /**
@@ -1010,8 +1174,15 @@ module THREE {
          */
         mergeVertices(): number;
 
+        /**
+         * Creates a new clone of the Geometry.
+         */
         clone(): Geometry;
 
+        /**
+         * Removes The object from memory. 
+         * Don't forget to call this method when you remove an geometry because it can cuase meomory leaks.
+         */
         dispose(): void;
     }
 
@@ -1132,7 +1303,15 @@ module THREE {
      * ( class Matrix3 implements Matrix&lt;Matrix3&gt; )
      */
     export class Matrix3 implements Matrix {
-        constructor(n11?: number, n12?: number, n13?: number, n21?: number, n22?: number, n23?: number, n31?: number, n32?: number, n33?: number);
+        /**
+         * Creates an identity matrix.
+         */ 
+        constructor();
+
+        /**
+         * Initialises the matrix with the supplied n11..n33 values.
+         */
+        constructor(n11: number, n12: number, n13: number, n21: number, n22: number, n23: number, n31: number, n32: number, n33: number);
 
         /**
          * Float32Array with matrix values.
@@ -1183,9 +1362,15 @@ module THREE {
     export class Matrix4 implements Matrix {
 
         /**
-         * Initialises the matrix with the supplied n11..n44 values, or just creates an identity matrix if no values are passed.
+         * Creates an identity matrix.
          */
-        constructor(n11?: number, n12?: number, n13?: number, n14?: number, n21?: number, n22?: number, n23?: number, n24?: number, n31?: number, n32?: number, n33?: number, n34?: number, n41?: number, n42?: number, n43?: number, n44?: number);
+        constructor();
+
+
+        /**
+         * Initialises the matrix with the supplied n11..n44 values.
+         */
+        constructor(n11: number, n12: number, n13: number, n14: number, n21: number, n22: number, n23: number, n24: number, n31: number, n32: number, n33: number, n34: number, n41: number, n42: number, n43: number, n44: number);
 
         /**
          * Float32Array with matrix values.
@@ -1525,17 +1710,72 @@ module THREE {
          */
         receiveShadow: bool;
 
+        /**
+         * When this is set, it checks every frame if the object is in the frustum of the camera. Otherwise the object gets drawn every frame even if it isn't visible.
+         */
         frustumCulled: bool;
+
+        /**
+         * When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also recalculates the matrixWorld property.
+         */
         matrixAutoUpdate: bool;
+
+        /**
+         * When this is set, it calculates the matrixWorld in that frame and resets this property to false.
+         */
         matrixWorldNeedsUpdate: bool;
+
+        /**
+         * When this is set, then the rotationMatrix gets calculated every frame.
+         */
         rotationAutoUpdate: bool;
+
+        /**
+         * This updates the position, rotation and scale with the matrix.
+         */
         applyMatrix(matrix: Matrix4): void;
+
+        /**
+         * Translates object along arbitrary axis by distance.
+         * @param distance Distance.
+         * @param axis Translation direction.
+         */
         translate(distance: number, axis: Vector3): void;
+
+        /**
+         * Translates object along x axis by distance.
+         * @param distance Distance.
+         */
         translateX(distance: number): void;
+
+        /**
+         * Translates object along y axis by distance.
+         * @param distance Distance.
+         */
         translateY(distance: number): void;
+
+        /**
+         * Translates object along z axis by distance.
+         * @param distance Distance.
+         */
         translateZ(distance: number): void;
+
+        /**
+         * Updates the vector from local space to world space.
+         * @param vector A local vector.
+         */
         localToWorld(vector: Vector3): Vector3;
+
+        /**
+         * Updates the vector from world space to local space.
+         * @param vector A world vector.
+         */
         worldToLocal(vector: Vector3): Vector3;
+
+        /**
+         * Rotates object to face point in space.
+         * @param vector A world vector to look at.
+         */
         lookAt(vector: Vector3): void;
 
         /**
@@ -1577,8 +1817,11 @@ module THREE {
          * Updates global transform of the object and its children.
          */
         updateMatrixWorld(force: bool): void;
+
+        /**
+         * Creates a new clone of this object and all descendants.
+         */
         clone(object?: Object3D): Object3D;
-        deallocate(): void;
 
         static defaultEulerOrder: string;
         // static defaultEulerOrder:EulerOrder;
@@ -2480,20 +2723,91 @@ module THREE {
     /**
      * Camera with perspective projection.
      *
-     * @example
-     * var camera = new THREE.PerspectiveCamera( 45, width / height, 1, 1000 );
-     * scene.add( camera );
+     * # example
+     *     var camera = new THREE.PerspectiveCamera( 45, width / height, 1, 1000 );
+     *     scene.add( camera );
      *
-     * @see <a  href="https://github.com/mrdoob/three.js/blob/master/src/cameras/PerspectiveCamera.js">src/cameras/PerspectiveCamera.js</a>
+     * @source https://github.com/mrdoob/three.js/blob/master/src/cameras/PerspectiveCamera.js
      */
     export class PerspectiveCamera extends Camera {
+        /**
+         * @param fov Camera frustum vertical field of view. Default value is 50.
+         * @param aspect Camera frustum aspect ratio. Default value is 1.
+         * @param near Camera frustum near plane. Default value is 0.1.
+         * @param far Camera frustum far plane. Default value is 2000.
+         */
         constructor(fov?: number, aspect?: number, near?: number, far?: number);
+
+        /**
+         * Camera frustum vertical field of view, from bottom to top of view, in degrees.
+         */
         fov: number;
+
+        /**
+         * Camera frustum aspect ratio, window width divided by window height.
+         */
         aspect: number;
+
+        /**
+         * Camera frustum near plane.
+         */
         near: number;
+
+        /**
+         * Camera frustum far plane.
+         */
         far: number;
+
+        /**
+         * Uses focal length (in mm) to estimate and set FOV 35mm (fullframe) camera is used if frame size is not specified.
+         * Formula based on http://www.bobatkins.com/photography/technical/field_of_view.html
+         * @param focalLength focal length
+         * @param frameHeight frame size. Default value is 24.
+         */
         setLens(focalLength: number, frameHeight?: number): void;
+
+        /**
+         * Sets an offset in a larger frustum. This is useful for multi-window or multi-monitor/multi-machine setups.
+         * For example, if you have 3x2 monitors and each monitor is 1920x1080 and the monitors are in grid like this:
+         *          
+         *     +---+---+---+
+         *     | A | B | C |
+         *     +---+---+---+
+         *     | D | E | F |
+         *     +---+---+---+
+         * 
+         * then for each monitor you would call it like this:
+         *          
+         *     var w = 1920;
+         *     var h = 1080;
+         *     var fullWidth = w * 3;
+         *     var fullHeight = h * 2;
+         *     
+         *     // A
+         *     camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 0, w, h );
+         *     // B
+         *     camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 0, w, h );
+         *     // C
+         *     camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 0, w, h );
+         *     // D
+         *     camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 1, w, h );
+         *     // E
+         *     camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 1, w, h );
+         *     // F
+         *     camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 1, w, h ); Note there is no reason monitors have to be the same size or in a grid.
+         *     
+         * @param fullWidth full width of multiview setup
+         * @param fullHeight full height of multiview setup
+         * @param x horizontal offset of subcamera
+         * @param y vertical offset of subcamera
+         * @param width width of subcamera
+         * @param height height of subcamera         
+         */
         setViewOffset(fullWidth: number, fullHeight: number, x: number, y: number, width: number, height: number): void;
+        
+        /**
+         * Updates the camera projection matrix. Must be called after change of parameters.
+         */
         updateProjectionMatrix(): void;
     }
 
@@ -2510,17 +2824,30 @@ module THREE {
     /**
      * This light's color gets applied to all the objects in the scene globally.
      * 
-     * @example
-     * var light = new THREE.AmbientLight( 0x404040 ); // soft white light 
-     * scene.add( light );
+     * # example
+     *     var light = new THREE.AmbientLight( 0x404040 ); // soft white light 
+     *     scene.add( light );
      *
-     * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/lights/AmbientLight.js">src/lights/AmbientLight.js</a>
+     * @source https://github.com/mrdoob/three.js/blob/master/src/lights/AmbientLight.js
      */
     export class AmbientLight extends Light {
+        /**
+         * This creates a Ambientlight with a color.
+         * @param hex Numeric value of the RGB component of the color.
+         */
         constructor(hex?: number);
     }
 
-    export class RenderTarget {
+    export class AreaLight{
+        constructor(hex: number, intensity?: number);
+        normal: Vector3;
+        right: Vector3;
+        intensity: number;
+        width: number;
+        height: number;
+        constantAttenuation: number;
+        linearAttenuation: number;
+        quadraticAttenuation: number;
     }
 
     /**
@@ -4168,6 +4495,9 @@ module THREE {
         setRenderTarget(renderTarget: RenderTarget): void;
     }
 
+    export interface RenderTarget {
+    }
+
     export interface WebGLRenderTargetOptions {
         wrapS?: Wrapping;
         wrapT?: Wrapping;
@@ -4180,7 +4510,7 @@ module THREE {
         stencilBuffer?: bool; // true;
     }
 
-    export class WebGLRenderTarget extends RenderTarget {
+    export class WebGLRenderTarget implements RenderTarget {
         constructor(width: number, height: number, options?: WebGLRenderTargetOptions);
         width: number;
         height: number;
@@ -4288,6 +4618,10 @@ module THREE {
     export class Fog implements IFog {
         constructor(hex: number, near?: number, far?: number);
         name:string;
+
+        /**
+         * Fog color.
+         */
         color: Color;
 
         /**
