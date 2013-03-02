@@ -1,11 +1,7 @@
-/**
- * three.d.ts (https://github.com/kontan/three.d.ts)
- *
- * Type definitions for three.js r56 (http://mrdoob.github.com/three.js/)
- * 
- * Copyright (c) 2012- Kon (http://phyzkit.net/)
- * 
- */
+// Type definitions for three.js
+// Project: http://mrdoob.github.com/three.js/
+// Definitions by: Kon <http://phyzkit.net/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped  
 
 interface WebGLRenderingContext {}
 
