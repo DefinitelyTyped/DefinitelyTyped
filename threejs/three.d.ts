@@ -861,7 +861,7 @@ module THREE {
      * Frustums are used to determine what is inside the camera's field of view. They help speed up the rendering process.
      */
     export class Frustum {
-        constructor(p0?: number, p1?: number, p2?: number, p3?: number, p4?: number, p5?: number);
+        constructor(p0?: Plane, p1?: Plane, p2?: Plane, p3?: Plane, p4?: Plane, p5?: Plane);
 
         /**
          * Array of 6 vectors.
@@ -884,13 +884,15 @@ module THREE {
 
     export class Line3{
         constructor(start?:Vector3, end?:Vector3);
+        start: Vector3;
+        end: Vector3;
         set(start?:Vector3, end?:Vector3):Line3;
         copy(line:Line3):Line3;
         center(optionalTarget?:Vector3):Vector3;
         delta(optionalTarget?:Vector3):Vector3;
         distanceSq():number;
         distance():number;
-        at(t:number, optionalTarget:Vector3):Vector3;
+        at(t:number, optionalTarget?: Vector3):Vector3;
         closestPointToPointParameter(point:Vector3, clampToLine?:bool):number;
         closestPointToPoint(point:Vector3, clampToLine?:bool, optionalTarget?:Vector3):Vector3;
         applyMatrix4(matrix:Matrix4):Line3;
@@ -913,9 +915,10 @@ module THREE {
         distanceToSphere(sphere: Sphere): number;
         projectPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
         orthoPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
-        isIntersectionLine(startPoint: Vector3, endPoint: Vector3): bool;
+        isIntersectionLine(line: Line3): bool;
+        intersectLine(line: Line3, optionalTarget?: Vector3): Vector3;
         coplanarPoint(optionalTarget?: bool): Vector3;
-        applyMatrix4(matrix: Matrix3, optionalNormalMatrix?: Matrix3): Plane;
+        applyMatrix4(matrix: Matrix4, optionalNormalMatrix?: Matrix3): Plane;
         translate(offset: Vector3): Plane;
         equals(plane: Plane): bool;
         clone(): Plane;
@@ -932,8 +935,8 @@ module THREE {
         containsPoint(point: Vector3): bool;
         distanceToPoint(point: Vector3): number;
         intersectsSphere(sphere: Sphere): bool;
-        clampPoint(point: Vector3, optionalTarget?: Vector3): Sphere;
-        getBoundingBox(optionalTarget: Box3): Box3;
+        clampPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
+        getBoundingBox(optionalTarget?: Box3): Box3;
         applyMatrix4(matrix: Matrix): Sphere;
         translate(offset: Vector3): Sphere;
         equals(sphere: Sphere): bool;
@@ -1325,6 +1328,7 @@ module THREE {
         multiplyScalar(s: number): Matrix3;
         determinant(): number;
         getInverse(matrix: Matrix3, throwOnInvertible?: bool): Matrix3;
+        getInverse(matrix: Matrix4, throwOnInvertible?: bool): Matrix3;
 
         /**
          * Transposes this matrix in place.
@@ -1593,7 +1597,7 @@ module THREE {
         set (origin: Vector3, direction: Vector3): Ray;
         copy(ray: Ray): Ray;
         at(t: number, optionalTarget?: Vector3): Vector3;
-        recastSelf(t: number): Ray;
+        recast(t: number): Ray;
         closestPointToPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
         distanceToPoint(point: Vector3): number;
         isIntersectionSphere(sphere: Sphere): bool;
@@ -2029,6 +2033,29 @@ module THREE {
         reparametrizeByArcLength(samplingCoef: number): void;
     }
 
+    class Triangle{
+        constructor(a?: Vector3, b?: Vector3, c?: Vector3 );
+        a: Vector3;
+        b: Vector3;
+        c: Vector3;
+        set(a: Vector3, b: Vector3, c: Vector3): Triangle;
+        setFromPointsAndIndices( points: Vector3[], i0: number, i1: number, i2: number ): Triangle;
+        copy(triangle: Triangle): Triangle;
+        area(): number;
+        midpoint(optionalTarget?: Vector3): Vector3;
+        normal(optionalTarget?: Vector3): Vector3;
+        plane(optionalTarget?: Vector3): Plane;
+        barycoordFromPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
+        containsPoint(point: Vector3): bool;
+        equals(triangle: Triangle): bool;
+        clone(): Triangle;
+        static normal(a: Vector3, b: Vector3, c: Vector3, optionalTarget?: Vector3): Vector3;
+        // static/instance method to calculate barycoordinates
+        // based on: http://www.blackpawn.com/texts/pointinpoly/default.html
+        static barycoordFromPoint(point: Vector3, a: Vector3, b: Vector3, c: Vector3, optionalTarget: Vector3 ): Vector3;
+        static containsPoint(point: Vector3, a: Vector3, b: Vector3, c: Vector3): bool;
+    }
+
 
     /**
      * ( interface Vector&lt;T&gt; )
@@ -2042,6 +2069,10 @@ module THREE {
      * v.addVectors(new THREE.Vector2(0, 1), new THREE.Vector2(2, 3));    // invalid but compiled successfully
      */
     export interface Vector {
+        setComponent(index: number, value: number): void;
+
+        getComponent(index: number): number;
+
         /**
          * copy(v:T):T;
          */
@@ -2156,6 +2187,26 @@ module THREE {
         set (x: number, y: number): Vector2;
 
         /**
+         * Sets X component of this vector.
+         */
+        setX (x: number): Vector2;
+
+        /**
+         * Sets Y component of this vector.
+         */
+        setY(y: number): Vector2;
+
+        /**
+         * Sets a component of this vector.
+         */
+        setComponent(index: number, value: number): void; 
+
+        /**
+         * Gets a component of this vector.
+         */
+        getComponent(index: number): number; 
+
+        /**
          * Copies value of v to this vector.
          */
         copy(v: Vector2): Vector2;
@@ -2190,6 +2241,12 @@ module THREE {
          * Set vector to ( 0, 0 ) if s == 0.
          */
         divideScalar(s: number): Vector2;
+
+        min(v: Vector2): Vector2;
+
+        max(v: Vector2): Vector2;    
+
+        clamp(min: Vector2, max: Vector2): Vector2;    
 
         /** 
          * Inverts this vector.
@@ -2462,6 +2519,30 @@ module THREE {
         set (x: number, y: number, z: number, w: number): Vector4;
 
         /**
+         * Sets X component of this vector.
+         */
+        setX (x: number): Vector2;
+
+        /**
+         * Sets Y component of this vector.
+         */
+        setY(y: number): Vector2;
+
+        /**
+         * Sets Z component of this vector.
+         */
+        setZ(z: number): Vector2;
+
+        /**
+         * Sets w component of this vector.
+         */
+        setW(w: number): Vector2;
+
+        setComponent(index: number, value: number): void;
+
+        getComponent(index: number): number;
+
+        /**
          * Copies value of v to this vector.
          */
         copy(v: Vector4): Vector4;
@@ -2497,6 +2578,12 @@ module THREE {
          */
         divideScalar(s: number): Vector4;
 
+        min(v: Vector4): Vector4;
+
+        max(v: Vector4): Vector4;    
+
+        clamp(min: Vector4, max: Vector4): Vector4;            
+
         /**
          * Inverts this vector.
          */
@@ -2511,11 +2598,6 @@ module THREE {
          * Computes squared length of this vector.
          */
         lengthSq(): number;
-
-        /**
-         * Computes dot product of this vector and v.
-         */
-        dot(v: Vector4): Vector4;
 
         /**
          * Computes length of this vector.
@@ -2579,6 +2661,8 @@ module THREE {
 
     export class Box2 {
         constructor(min?: Vector2, max?: Vector2);
+        min: Vector2;
+        max: Vector2;
         set (min: Vector2, max: Vector2): Box2;
         setFromPoints(points: Vector2[]): Box2;
         setFromCenterAndSize(center: Vector2, size: number): Box2;
@@ -2595,7 +2679,7 @@ module THREE {
         getParameter(point: Vector2): Vector2;
         isIntersectionBox(box: Box2): bool;
         clampPoint(point: Vector2, optionalTarget?: Vector2): Vector2;
-        distanceToPoint(point: Vector2): Vector2;
+        distanceToPoint(point: Vector2): number;
         intersect(box: Box2): Box2;
         union(box: Box2): Box2;
         translate(offset: Vector2): Box2;
@@ -2605,6 +2689,8 @@ module THREE {
 
     export class Box3 {
         constructor(min?: Vector3, max?: Vector3);
+        min: Vector3;
+        max: Vector3;        
         set (min: Vector3, max: Vector3): Box3;
         setFromPoints(points: Vector3[]): Box3;
         setFromCenterAndSize(center: Vector3, size: number): Box3;
@@ -2621,7 +2707,8 @@ module THREE {
         getParameter(point: Vector3): Vector3;
         isIntersectionBox(box: Box3): bool;
         clampPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
-        distanceToPoint(point: Vector3): Vector3;
+        distanceToPoint(point: Vector3): number;
+        getBoundingSphere(): Sphere;
         intersect(box: Box3): Box3;
         union(box: Box3): Box3;
         applyMatrix4(matrix: Matrix4): Box3;
