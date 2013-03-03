@@ -1197,7 +1197,7 @@ interface Underscore {
 	* @param obj Object to chain.
 	* @return Wrapped `obj`.
 	**/
-	chain(obj: any): UnderscoreOOPWrapper;
+	chain(obj: any): UnderscoreChain;
 
 	/**
 	* Extracts the value of a wrapped object.
@@ -2048,7 +2048,825 @@ interface UnderscoreOOPWrapper {
 	* Wrapped type `any`.
 	* @see _.chain
 	**/
-	chain(): any;
+	chain(): UnderscoreChain;
+
+	/**
+	* Wrapped type `any`.
+	* @see _.value
+	**/
+	value(): any;
+}
+
+interface UnderscoreChain {
+
+	/**************
+	* Collections *
+	**************/
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.each
+	**/
+	each(
+		iterator: (element: any, index?: number, list?: any[]) => any,
+		context?: any): UnderscoreChain;
+	/**
+	* Wrapped type `object`.
+	* @see _.each
+	**/
+	each(
+		iterator: (value: any, key?: string, object?: Object) => any,
+		context?: any): UnderscoreChain;
+
+	/**
+	* Alias for 'each'.
+	* @see each
+	**/
+	forEach(
+		iterator: (element: any, index?: number, list?: any[]) => any,
+		context?: any): UnderscoreChain;
+	/**
+	* Alias for 'each'.
+	* @see each
+	**/
+	forEach(
+		iterator: (value: any, key?: string, object?: Object) => any,
+		context?: any): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.map
+	**/
+	map(
+		iterator: (element: any, index?: number, list?: any[]) => any,
+		context?: any): UnderscoreChain;
+	/**
+	* Wrapped type `object`.
+	* @see _.map
+	**/
+	map(
+		iterator: (value: any, key?: string, object?: Object) => any,
+		context?: any): UnderscoreChain;
+
+	/**
+	* Alias for 'map'.
+	* @see map
+	**/
+	collect(
+		iterator: (element: any, index?: number, list?: any[]) => any,
+		context?: any): UnderscoreChain;
+	/**
+	* Alias for 'map'.
+	* @see map
+	**/
+	collect(
+		iterator: (value: any, key?: string, object?: Object) => any,
+		context?: any): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.reduce
+	**/
+	reduce(
+		iterator: (memo: any, element: any, index?: number, list?: any[]) => any,
+		memo: any,
+		context?: any): UnderscoreChain;
+
+	/**
+	* Alias for 'reduce'.
+	* @see reduce
+	**/
+	inject(
+		iterator: (memo: any, element: any, index?: number, list?: any[]) => any,
+		memo: any,
+		context?: any): UnderscoreChain;
+
+	/**
+	* Alias for 'reduce'.
+	* @see reduce
+	**/
+	foldl(
+		iterator: (memo: any, element: any, index?: number, list?: any[]) => any,
+		memo: any,
+		context?: any): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.reduceRight
+	**/
+	reduceRight(
+		iterator: (memo: any, element: any, index?: number, list?: any[]) => any,
+		memo: any,
+		context?: any): UnderscoreChain;
+
+	/**
+	* Alias for 'reduceRight'.
+	* @see reduceRight
+	**/
+	foldr(
+		iterator: (memo: any, element: any, index?: number, list?: any[]) => any,
+		memo: any,
+		context?: any): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.find
+	**/
+	find(
+		iterator: (element: any, index?: number, list?: any[]) => bool,
+		context?: any): UnderscoreChain;
+
+	/**
+	* Alias for 'find'.
+	* @see find
+	**/
+	detect(
+		iterator: (element: any, index?: number, list?: any[]) => bool,
+		context?: any): UnderscoreChain;
+
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.filter
+	**/
+	filter(
+		iterator: (element: any, index?: number, list?: any[]) => bool,
+		context?: any): UnderscoreChain;
+
+	/**
+	* Alias for 'filter'.
+	* @see filter
+	**/
+	select(
+		iterator: (element: any, index?: number, list?: any[]) => bool,
+		context?: any): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.where
+	**/
+	where(list: any[], properties: any): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.findWhere
+	**/
+	findWhere(properties: any): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.reject
+	**/
+	reject(
+		list: any[],
+		iterator: (element: any, index?: number, list?: any[]) => bool,
+		context?: any): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.all
+	**/
+	all(
+		iterator: (element: any, index?: number, list?: any[]) => bool,
+		context?: any): UnderscoreChain;
+
+	/**
+	* Alias for 'all'.
+	* @see all
+	**/
+	every(
+		iterator: (element: any, index?: number, list?: any[]) => bool,
+		context?: any): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.any
+	**/
+	any(
+		list: any[],
+		iterator?: (element: any, index?: number, list?: any[]) => bool,
+		context?: any): UnderscoreChain;
+
+	/**
+	* Alias for 'any'.
+	* @see any
+	**/
+	some(
+		list: any[],
+		iterator: (element: any, index?: number, list?: any[]) => bool,
+		context?: any): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.contains
+	**/
+	contains(value: any): UnderscoreChain;
+
+	/**
+	* Alias for 'contains'.
+	* @see contains
+	**/
+	include(value: any): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.invoke
+	**/
+	invoke(methodName: string, ...arguments: any[]): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.pluck
+	**/
+	pluck(propertyName: string): UnderscoreChain;
+
+	/**
+	* Wrapped type `number[]`.
+	* @see _.max
+	**/
+	max(): UnderscoreChain;
+	/**
+	* Wrapped type `any[]`.
+	* @see _.max
+	**/
+	max(
+		iterator: (element: any, index?: number, list?: any[]) => number,
+		context?: any): UnderscoreChain;
+
+	/**
+	* Wrapped type `number[]`.
+	* @see _.min
+	**/
+	min(): UnderscoreChain;
+	/**
+	* Wrapped type `any[]`.
+	* @see _.min
+	**/
+	min(
+		iterator: (obj: any, index?: number, list?: any[]) => number,
+		context?: any): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.sortBy
+	**/
+	sortBy(
+		iterator: (element: any, index?: number, list?: any[]) => any,
+		context?: any): UnderscoreChain;
+	/**
+	* Wrapped type `any[]`.
+	* @see _.sortBy
+	**/
+	sortBy(
+		iterator: string,
+		context?: any): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.groupBy
+	**/
+	groupBy(
+		iterator: (element: any, index?: number, list?: any[]) => string,
+		context?: any): UnderscoreChain;
+	/**
+	* Wrapped type `any[]`.
+	* @see _.groupBy
+	**/
+	groupBy(
+		iterator: string,
+		context?: any): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.countBy
+	**/
+	countBy(
+		iterator: (element: any, index?: number, list?: any[]) => string,
+		context?: any): UnderscoreChain;
+	/**
+	* Wrapped type `any[]`.
+	* @see _.countBy
+	**/
+	countBy(
+		iterator: string,
+		context?: any): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.shuffle
+	**/
+	shuffle(): UnderscoreChain;
+
+	/**
+	* Wrapped type `any`.
+	* @see _.toArray
+	**/
+	toArray(): UnderscoreChain;
+
+	/**
+	* Wrapped type `any`.
+	* @see _.size
+	**/
+	size(): UnderscoreChain;
+
+	/*********
+	* Arrays *
+	**********/
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.first
+	**/
+	first(): UnderscoreChain;
+	/**
+	* Wrapped type `any[]`.
+	* @see _.first
+	**/
+	first(n: number): UnderscoreChain;
+
+	/**
+	* Alias for 'first'.
+	* @see first
+	**/
+	head(): UnderscoreChain;
+	/**
+	* Alias for 'first'.
+	* @see first
+	**/
+	head(n: number): UnderscoreChain;
+
+	/**
+	* Alias for 'first'.
+	* @see first
+	**/
+	take(): UnderscoreChain;
+	/**
+	* Alias for 'first'.
+	* @see first
+	**/
+	take(n: number): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.initial
+	**/
+	initial(n?: number): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.last
+	**/
+	last(): UnderscoreChain;
+	/**
+	* Wrapped type `any[]`.
+	* @see _.last
+	**/
+	last(n: number): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.rest
+	**/
+	rest(index?: number): UnderscoreChain;
+
+	/**
+	* Alias for 'rest'.
+	* @see rest
+	**/
+	tail(index?: number): UnderscoreChain;
+
+	/**
+	* Alias for 'rest'.
+	* @see rest
+	**/
+	drop(index?: number): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.compact
+	**/
+	compact(): UnderscoreChain;
+
+	/**
+	* Wrapped type `any`.
+	* @see _.flatten
+	**/
+	flatten(shallow?: bool): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.without
+	**/
+	without(...values: any[]): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[][]`.
+	* @see _.union
+	**/
+	union(...arrays: any[][]): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[][]`.
+	* @see _.intersection
+	**/
+	intersection(...arrays: any[][]): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.difference
+	**/
+	difference(...others: any[]): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.uniq
+	**/
+	uniq(
+		isSorted?: bool,
+		iterator?: (element: any, index?: number, list?: any[]) => any,
+		context?: any): UnderscoreChain;
+	/**
+	* Wrapped type `any[]`.
+	* @see _.uniq
+	**/
+	uniq(
+		iterator?: (element: any, index?: number, list?: any[]) => any,
+		context?: any): UnderscoreChain;
+
+	/**
+	* Alias for 'uniq'.
+	* @see uniq
+	**/
+	unique(
+		isSorted?: bool,
+		iterator?: (element: any, index?: number, list?: any[]) => any): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[][]`.
+	* @see _.zip
+	**/
+	zip(...arrays: any[][]): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[][]`.
+	* @see _.object
+	**/
+	object(...keyValuePairs: any[][]): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.indexOf
+	**/
+	indexOf(value: any, isSorted?: bool): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.lastIndexOf
+	**/
+	lastIndexOf(value: any, from?: number): UnderscoreChain;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.sortedIndex
+	**/
+	sortedIndex(value: any, iterator?: (element: any) => number): UnderscoreChain;
+
+	/**
+	* Wrapped type `number`.
+	* @see _.range
+	**/
+	range(stop: number, step?: number): UnderscoreChain;
+	/**
+	* Wrapped type `number`.
+	* @see _.range
+	**/
+	range(): UnderscoreChain;
+
+	/************
+	* Functions *
+	*************/
+
+	/**
+	* Wrapped type `Function`.
+	* @see _.bind
+	**/
+	bind(object: any, ...arguments: any[]): UnderscoreChain;
+
+
+	/**
+	* Wrapped type `object`.
+	* @see _.bindAll
+	**/
+	bindAll(...methodNames: string[]): UnderscoreChain;
+
+	/**
+	* Wrapped type `Function`.
+	* @see _.partial
+	**/
+	partial(...arguments: any[]): UnderscoreChain;
+
+	/**
+	* Wrapped type `Function`.
+	* @see _.memoize
+	**/
+	memoize(hashFn?: (n: any) => string): UnderscoreChain;
+
+	/**
+	* Wrapped type `Function`.
+	* @see _.delay
+	**/
+	delay(waitMS: number, ...arguments: any[]): UnderscoreChain;
+
+	/**
+	* Wrapped type `Function`.
+	* @see _.defer
+	**/
+	defer(...arguments: any[]): UnderscoreChain;
+
+	/**
+	* Wrapped type `Function`.
+	* @see _.throttle
+	**/
+	throttle(waitMS: number): UnderscoreChain;
+
+	/**
+	* Wrapped type `Function`.
+	* @see _.debounce
+	**/
+	debounce(waitMS: number, immediate?: bool): UnderscoreChain;
+
+	/**
+	* Wrapped type `Function`.
+	* @see _.once
+	**/
+	once(): UnderscoreChain;
+
+	/**
+	* Wrapped type `number`.
+	* @see _.after
+	**/
+	after(fn: Function): UnderscoreChain;
+
+	/**
+	* Wrapped type `Function`.
+	* @see _.wrap
+	**/
+	wrap(wrapper: (fn: Function, ...args: any[]) => any): UnderscoreChain;
+
+	/**
+	* Wrapped type `Function[]`.
+	* @see _.compose
+	**/
+	compose(...functions: Function[]): UnderscoreChain;
+
+	/**********
+	* Objects *
+	***********/
+
+	/**
+	* Wrapped type `object`.
+	* @see _.keys
+	**/
+	keys(): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.values
+	**/
+	values(): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.pairs
+	**/
+	pairs(): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.invert
+	**/
+	invert(): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.functions
+	**/
+	functions(): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.extend
+	**/
+	extend(...sources: any[]): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.pick
+	**/
+	pick(...keys: string[]): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.omit
+	**/
+	omit(...keys: string[]): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.defaults
+	**/
+	defaults(...defaults: any[]): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.clone
+	**/
+	clone(object: any): UnderscoreChain;
+	/**
+	* Wrapped type `any[]`.
+	* @see _.clone
+	**/
+	clone(list: any[]): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.tap
+	**/
+	tap(intercepter: Function): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.has
+	**/
+	has(key: string): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.isEqual
+	**/
+	isEqual(other: any): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.isEmpty
+	**/
+	isEmpty(object: any): UnderscoreChain;
+	/**
+	* Wrapped type `any[]`.
+	* @see _.isEmpty
+	**/
+	isEmpty(list: any[]): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.isElement
+	**/
+	isElement(): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.isArray
+	**/
+	isArray(): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.isObject
+	**/
+	isObject(): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.isArguments
+	**/
+	isArguments(): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.isFunction
+	**/
+	isFunction(): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.isString
+	**/
+	isString(): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.isNumber
+	**/
+	isNumber(): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.isFinite
+	**/
+	isFinite(): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.isBoolean
+	**/
+	isBoolean(): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.isDate
+	**/
+	isDate(): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.isRegExp
+	**/
+	isRegExp(): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.isNaN
+	**/
+	isNaN(): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.isNull
+	**/
+	isNull(): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.isUndefined
+	**/
+	isUndefined(): UnderscoreChain;
+
+	/**********
+	* Utility *
+	***********/
+
+	/**
+	* Wrapped type `any`.
+	* @see _.identity
+	**/
+	identity(): UnderscoreChain;
+
+	/**
+	* Wrapped type `number`.
+	* @see _.times
+	**/
+	times(iterator: (n: number) => any, context?: any): UnderscoreChain;
+
+	/**
+	* Wrapped type `number`.
+	* @see _.random
+	**/
+	random(): UnderscoreChain;
+	/**
+	* Wrapped type `number`.
+	* @see _.random
+	**/
+	random(max: number): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.mixin
+	**/
+	mixin(): UnderscoreChain;
+
+	/**
+	* Wrapped type `string`.
+	* @see _.uniqueId
+	**/
+	uniqueId(): UnderscoreChain;
+
+	/**
+	* Wrapped type `string`.
+	* @see _.escape
+	**/
+	escape(): UnderscoreChain;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.result
+	**/
+	result(property: string): UnderscoreChain;
+
+	/**
+	* Wrapped type `string`.
+	* @see _.template
+	**/
+	template(data?: any, settings?: UnderscoreTemplateSettings): UnderscoreChain;
+
+	/***********
+	* Chaining *
+	************/
+
+	/**
+	* Wrapped type `any`.
+	* @see _.chain
+	**/
+	chain(): UnderscoreChain;
 
 	/**
 	* Wrapped type `any`.
