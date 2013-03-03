@@ -88,7 +88,9 @@ module THREE {
     export var AddOperation: Combine;
 
     // Mapping modes
-    export enum Mapping { }
+    export interface Mapping { 
+        new(): Mapping;
+    }
     export var UVMapping: Mapping;
     export var CubeReflectionMapping: Mapping;
     export var CubeRefractionMapping: Mapping;
@@ -1250,6 +1252,10 @@ module THREE {
          * Returns -1 if x is less than 0, 1 if x is greater than 0, and 0 if x is zero.
          */
         sign(x: number): number;
+
+        degToRad(degrees: number): number;
+
+        radToDeg(radians: number): number;
     };
 
     /**
@@ -1402,7 +1408,7 @@ module THREE {
          *
          * @param v Rotation vector. order — The order of rotations. Eg. "XYZ".
          */
-        setRotationFromEuler(v: Vector3, order: string): Matrix4;
+        setRotationFromEuler(v: Vector3, order?: string): Matrix4;
 
         /**
          * Sets the rotation submatrix of this matrix to the rotation specified by q.
@@ -3868,7 +3874,7 @@ module THREE {
 
 
     export interface Uniforms {
-        [name: string]: { type: string; value: Object; };
+        [name: string]: { type: string; value: any; };
         //[name:string]:{type:UniformType;value:Object;};
     }
 
@@ -3924,9 +3930,13 @@ module THREE {
         constructor(geometry?: Geometry, material?: ShaderMaterial, type?: number);
         geometry: Geometry;
         material: Material;
-        type: number;
+        type: LineType;
         clone(object?: Line): Line;
     }
+
+    enum LineType{}
+    var LineStrip: LineType;
+    var LinePieces: LineType;
 
     export class LOD extends Object3D {
         constructor();
@@ -4779,6 +4789,17 @@ module THREE {
             type?: TextureDataType,
             anisotropy?: number
         );
+        constructor(
+            image: HTMLCanvasElement,
+            mapping?: Mapping,
+            wrapS?: Wrapping,
+            wrapT?: Wrapping,
+            magFilter?: TextureFilter,
+            minFilter?: TextureFilter,
+            format?: PixelFormat,
+            type?: TextureDataType,
+            anisotropy?: number
+        );
         id: number;
         name: string;
         image: Object; // HTMLImageElement or ImageData ;
@@ -5378,8 +5399,8 @@ module THREE {
      * Defines a 2d shape plane using paths.
      */
     export class Shape extends Path {
-        constructor();
-        holes: Vector2[][];
+        constructor(points?: Vector2[]);
+        holes: Path[];
         extrude(options?: any): ExtrudeGeometry;
         makeGeometry(options?: any): ShapeGeometry;
         getPointsHoles(divisions: number): Vector2[][];
@@ -5502,8 +5523,8 @@ module THREE {
     }
 
     export class ShapeGeometry extends Geometry {
-        constructor(shape: Shape, options: any);
-        constructor(shapes: Shape[], options: any);
+        constructor(shape: Shape, options?: any);
+        constructor(shapes: Shape[], options?: any);
         shapebb: BoundingBox;
         addShapeList(shapes: Shape[], options: any): ShapeGeometry;
         addShape(shape: Shape, options?: any): void;
@@ -5766,7 +5787,7 @@ module THREE {
     export var UniformsUtils: {
         merge(uniforms: Object[]): Uniforms;
         merge(uniforms: Uniforms[]): Uniforms;
-        clone(uniforms_src: Object[][]): Object[][];
+        clone(uniforms_src: Uniforms): Uniforms;
     };
 
     export var UniformsLib: {
