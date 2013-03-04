@@ -89,11 +89,14 @@ module THREE {
 
     // Mapping modes
     export enum Mapping { }
-    export var UVMapping: Mapping;
-    export var CubeReflectionMapping: Mapping;
-    export var CubeRefractionMapping: Mapping;
-    export var SphericalReflectionMapping: Mapping;
-    export var SphericalRefractionMapping: Mapping;
+    export interface MappingConstructor { 
+        new(): Mapping;
+    }
+    export var UVMapping: MappingConstructor;
+    export var CubeReflectionMapping: MappingConstructor;
+    export var CubeRefractionMapping: MappingConstructor;
+    export var SphericalReflectionMapping: MappingConstructor;
+    export var SphericalRefractionMapping: MappingConstructor;
 
     // Wrapping modes
     export enum Wrapping { }
@@ -183,6 +186,24 @@ module THREE {
 
     // Core ///////////////////////////////////////////////////////////////////////////////////////////////
 
+    interface BufferGeometryAttributeArray extends ArrayBufferView{
+        length: number;
+    }    
+
+    interface BufferGeometryAttribute{
+        itemSize: number;
+        array: BufferGeometryAttributeArray;
+        numItems: number;
+    }
+
+    interface BufferGeometryAttributes{ 
+        [name: string]: BufferGeometryAttribute; 
+        index?: BufferGeometryAttribute;
+        position?: BufferGeometryAttribute;
+        normal?: BufferGeometryAttribute;
+        color?: BufferGeometryAttribute;
+    }
+
     /**
      * This is a superefficent class for geometries because it saves all data in buffers. 
      * It reduces memory costs and cpu cycles. But it is not as easy to work with because of all the nessecary buffer calculations.
@@ -204,7 +225,7 @@ module THREE {
         /**
          * This hashmap has as id the name of the attribute to be set and as value the buffer to set it to.
          */
-        attributes: { [name: string]: any; };
+        attributes: BufferGeometryAttributes;
 
         /**
          * When set, it holds certain buffers in memory to have faster updates for this object. When unset, it deletes those buffers and saves memory.
@@ -223,6 +244,8 @@ module THREE {
 
         hasTangents: bool;
         morphTargets: any[];
+
+        offsets: { start: number; count: number; index: number; }[];
 
         /**
          * Bakes matrix transform directly into vertex coordinates.
@@ -1250,6 +1273,10 @@ module THREE {
          * Returns -1 if x is less than 0, 1 if x is greater than 0, and 0 if x is zero.
          */
         sign(x: number): number;
+
+        degToRad(degrees: number): number;
+
+        radToDeg(radians: number): number;
     };
 
     /**
@@ -1402,7 +1429,7 @@ module THREE {
          *
          * @param v Rotation vector. order — The order of rotations. Eg. "XYZ".
          */
-        setRotationFromEuler(v: Vector3, order: string): Matrix4;
+        setRotationFromEuler(v: Vector3, order?: string): Matrix4;
 
         /**
          * Sets the rotation submatrix of this matrix to the rotation specified by q.
@@ -3373,6 +3400,27 @@ module THREE {
         add(loader: Loader): void;
     }
 
+    interface SceneLoaderResult{
+        scene: Scene;
+        geometries: {[id:string]:Geometry;};
+        face_materials: {[id:string]:Material;};
+        materials: {[id:string]:Material;};
+        textures: {[id:string]:Texture;};
+        objects: {[id:string]:Object3D;};
+        cameras: {[id:string]:Camera;};
+        lights: {[id:string]:Light;};
+        fogs: {[id:string]:IFog;};
+        empties: {[id:string]:any;};
+        groups: {[id:string]:any;};
+    }
+
+    interface SceneLoaderProgress{
+        totalModels: number;
+        totalTextures: number;
+        loadedModels: number;
+        loadedTextures: number;
+    }
+
     /**
      * A loader for loading a complete scene out of a JSON file.
      */
@@ -3401,19 +3449,29 @@ module THREE {
          * Will be called when load completes.
          * The default is a function with empty body.
          */
-        callbackSync: () => void;
+        callbackSync: (result: SceneLoaderResult) => void;
 
         /**
          * Will be called as load progresses.
          * The default is a function with empty body.
          */
-        callbackProgress: () => void;
+        callbackProgress: (progress: SceneLoaderProgress, result: SceneLoaderResult) => void;
+
+        geometryHandlerMap: any;
+        hierarchyHandlerMap: any;
+
 
         /**
          * @param url
          * @param callbackFinished This function will be called with the loaded model as an instance of scene when the load is completed.
          */
         load(url: string, callbackFinished: (scene: Scene) => void ): void;
+
+        addGeometryHandler(typeID: string, loaderClass: Object): void;
+
+        addHierarchyHandler(typeID: string, loaderClass: Object): void;
+
+        static parse(json: any, callbackFinished:(result: SceneLoaderResult)=>void, url: string): void;
     }
 
     /**
@@ -3549,7 +3607,7 @@ module THREE {
         linewidth?: number;
         linecap?: string;
         linejoin?: string;
-        vertexColors?: bool;
+        vertexColors?: Colors;
         fog?: bool;
     }
 
@@ -3868,8 +3926,9 @@ module THREE {
 
 
     export interface Uniforms {
-        [name: string]: { type: string; value: Object; };
+        [name: string]: { type: string; value: any; };
         //[name:string]:{type:UniformType;value:Object;};
+        color?: { type: string; value: THREE.Color; };
     }
 
     export interface ShaderMaterialParameters {
@@ -3922,11 +3981,18 @@ module THREE {
         constructor(geometry?: Geometry, material?: LineDashedMaterial, type?: number);
         constructor(geometry?: Geometry, material?: LineBasicMaterial, type?: number);
         constructor(geometry?: Geometry, material?: ShaderMaterial, type?: number);
+        constructor(geometry?: BufferGeometry, material?: LineDashedMaterial, type?: number);
+        constructor(geometry?: BufferGeometry, material?: LineBasicMaterial, type?: number);
+        constructor(geometry?: BufferGeometry, material?: ShaderMaterial, type?: number);
         geometry: Geometry;
         material: Material;
-        type: number;
+        type: LineType;
         clone(object?: Line): Line;
     }
+
+    enum LineType{}
+    var LineStrip: LineType;
+    var LinePieces: LineType;
 
     export class LOD extends Object3D {
         constructor();
@@ -3944,6 +4010,15 @@ module THREE {
         constructor(geometry?: Geometry, material?: MeshNormalMaterial);
         constructor(geometry?: Geometry, material?: MeshPhongMaterial);
         constructor(geometry?: Geometry, material?: ShaderMaterial);
+
+        constructor(geometry?: BufferGeometry , material?: MeshBasicMaterial);
+        constructor(geometry?: BufferGeometry , material?: MeshDepthMaterial);
+        constructor(geometry?: BufferGeometry , material?: MeshFaceMaterial);
+        constructor(geometry?: BufferGeometry , material?: MeshLambertMaterial);
+        constructor(geometry?: BufferGeometry , material?: MeshNormalMaterial);
+        constructor(geometry?: BufferGeometry , material?: MeshPhongMaterial);
+        constructor(geometry?: BufferGeometry , material?: ShaderMaterial);
+
         geometry: Geometry;
         material: Material;
         morphTargetBase: number;
@@ -4000,6 +4075,10 @@ module THREE {
         constructor(geometry: Geometry, material?: ParticleCanvasMaterial);
         constructor(geometry: Geometry, material?: ParticleDOMMaterial);
         constructor(geometry: Geometry, material?: ShaderMaterial);
+        constructor(geometry: BufferGeometry, material?: ParticleBasicMaterial);
+        constructor(geometry: BufferGeometry, material?: ParticleCanvasMaterial);
+        constructor(geometry: BufferGeometry, material?: ParticleDOMMaterial);
+        constructor(geometry: BufferGeometry, material?: ShaderMaterial);        
 
         /**
          * An instance of Geometry, where each vertex designates the position of a particle in the system.
@@ -4027,13 +4106,13 @@ module THREE {
     }
 
     export class SkinnedMesh extends Mesh {
-        constructor(geometry?: Geometry, material?: MeshBasicMaterial);
-        constructor(geometry?: Geometry, material?: MeshDepthMaterial);
-        constructor(geometry?: Geometry, material?: MeshFaceMaterial);
-        constructor(geometry?: Geometry, material?: MeshLambertMaterial);
-        constructor(geometry?: Geometry, material?: MeshNormalMaterial);
-        constructor(geometry?: Geometry, material?: MeshPhongMaterial);
-        constructor(geometry?: Geometry, material?: ShaderMaterial);
+        constructor(geometry?: Geometry, material?: MeshBasicMaterial, useVertexTexture?: bool);
+        constructor(geometry?: Geometry, material?: MeshDepthMaterial, useVertexTexture?: bool);
+        constructor(geometry?: Geometry, material?: MeshFaceMaterial, useVertexTexture?: bool);
+        constructor(geometry?: Geometry, material?: MeshLambertMaterial, useVertexTexture?: bool);
+        constructor(geometry?: Geometry, material?: MeshNormalMaterial, useVertexTexture?: bool);
+        constructor(geometry?: Geometry, material?: MeshPhongMaterial, useVertexTexture?: bool);
+        constructor(geometry?: Geometry, material?: ShaderMaterial, useVertexTexture?: bool);
         useVertexTexture: bool;
         identityMatrix: Matrix4;
         bones: Bone[];
@@ -4779,6 +4858,17 @@ module THREE {
             type?: TextureDataType,
             anisotropy?: number
         );
+        constructor(
+            image: HTMLCanvasElement,
+            mapping?: Mapping,
+            wrapS?: Wrapping,
+            wrapT?: Wrapping,
+            magFilter?: TextureFilter,
+            minFilter?: TextureFilter,
+            format?: PixelFormat,
+            type?: TextureDataType,
+            anisotropy?: number
+        );
         id: number;
         name: string;
         image: Object; // HTMLImageElement or ImageData ;
@@ -4918,6 +5008,8 @@ module THREE {
 
         getNextKeyWith(type: string, h: number, key: number): KeyFrame;    // ????
         getPrevKeyWith(type: string, h: number, key: number): KeyFrame;
+
+        JITCompile: bool; // https://github.com/mrdoob/three.js/blob/master/examples/webgl_animation_skinning_morph.html#L251
     }
 
     export class AnimationInterpolation { }
@@ -5378,8 +5470,8 @@ module THREE {
      * Defines a 2d shape plane using paths.
      */
     export class Shape extends Path {
-        constructor();
-        holes: Vector2[][];
+        constructor(points?: Vector2[]);
+        holes: Path[];
         extrude(options?: any): ExtrudeGeometry;
         makeGeometry(options?: any): ShapeGeometry;
         getPointsHoles(divisions: number): Vector2[][];
@@ -5428,7 +5520,7 @@ module THREE {
     }
 
     export class ConvexGeometry extends Geometry {
-        constructor(vertices: Vector3);
+        constructor(vertices: Vector3[]);
     }
 
     /**
@@ -5502,8 +5594,8 @@ module THREE {
     }
 
     export class ShapeGeometry extends Geometry {
-        constructor(shape: Shape, options: any);
-        constructor(shapes: Shape[], options: any);
+        constructor(shape: Shape, options?: any);
+        constructor(shapes: Shape[], options?: any);
         shapebb: BoundingBox;
         addShapeList(shapes: Shape[], options: any): ShapeGeometry;
         addShape(shape: Shape, options?: any): void;
@@ -5576,7 +5668,12 @@ module THREE {
     }
 
     export class TubeGeometry extends Geometry {
-        constructor(path: Path, segments?: number, radius?: number, radiusSegments?: number, closed?: bool, debug?: ArrowHelper[]);
+        constructor(path: Path, segments?: number, radius?: number, radiusSegments?: number, closed?: bool, debug?: Object3D);
+
+        // https://github.com/mrdoob/three.js/blob/master/examples/webgl_geometry_extrude_shapes.html#L208
+        // Hmmm?
+        constructor(path: SplineCurve3, segments?: number, radius?: number, radiusSegments?: number, closed?: bool, debug?: bool);
+
         path: Path;
         segments: number;
         radius: number;
@@ -5678,11 +5775,11 @@ module THREE {
     }
 
     export class LensFlare extends Object3D {
-        constructor(texture?: Texture, size?: number, distance?: number, blending?: Blending, color?: number);
+        constructor(texture?: Texture, size?: number, distance?: number, blending?: Blending, color?: Color);
         lensFlares: LensFlareProperty[];
         positionScreen: Vector3;
-        customUpdateCallback: () => void;
-        add(texture?: Texture, size?: number, distance?: number, blending?: Blending, color?: number, opacity?: number): void;
+        customUpdateCallback: (object:LensFlare) => void;
+        add(texture?: Texture, size?: number, distance?: number, blending?: Blending, color?: Color, opacity?: number): void;
         updateLensFlares(): void;
     }
 
@@ -5766,7 +5863,7 @@ module THREE {
     export var UniformsUtils: {
         merge(uniforms: Object[]): Uniforms;
         merge(uniforms: Uniforms[]): Uniforms;
-        clone(uniforms_src: Object[][]): Object[][];
+        clone(uniforms_src: Uniforms): Uniforms;
     };
 
     export var UniformsLib: {
