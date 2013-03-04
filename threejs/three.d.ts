@@ -3400,6 +3400,27 @@ module THREE {
         add(loader: Loader): void;
     }
 
+    interface SceneLoaderResult{
+        scene: Scene;
+        geometries: {[id:string]:Geometry;};
+        face_materials: {[id:string]:Material;};
+        materials: {[id:string]:Material;};
+        textures: {[id:string]:Texture;};
+        objects: {[id:string]:Object3D;};
+        cameras: {[id:string]:Camera;};
+        lights: {[id:string]:Light;};
+        fogs: {[id:string]:IFog;};
+        empties: {[id:string]:any;};
+        groups: {[id:string]:any;};
+    }
+
+    interface SceneLoaderProgress{
+        totalModels: number;
+        totalTextures: number;
+        loadedModels: number;
+        loadedTextures: number;
+    }
+
     /**
      * A loader for loading a complete scene out of a JSON file.
      */
@@ -3428,19 +3449,29 @@ module THREE {
          * Will be called when load completes.
          * The default is a function with empty body.
          */
-        callbackSync: () => void;
+        callbackSync: (result: SceneLoaderResult) => void;
 
         /**
          * Will be called as load progresses.
          * The default is a function with empty body.
          */
-        callbackProgress: () => void;
+        callbackProgress: (progress: SceneLoaderProgress, result: SceneLoaderResult) => void;
+
+        geometryHandlerMap: any;
+        hierarchyHandlerMap: any;
+
 
         /**
          * @param url
          * @param callbackFinished This function will be called with the loaded model as an instance of scene when the load is completed.
          */
         load(url: string, callbackFinished: (scene: Scene) => void ): void;
+
+        addGeometryHandler(typeID: string, loaderClass: Object): void;
+
+        addHierarchyHandler(typeID: string, loaderClass: Object): void;
+
+        static parse(json: any, callbackFinished:(result: SceneLoaderResult)=>void, url: string): void;
     }
 
     /**
@@ -3576,7 +3607,7 @@ module THREE {
         linewidth?: number;
         linecap?: string;
         linejoin?: string;
-        vertexColors?: bool;
+        vertexColors?: Colors;
         fog?: bool;
     }
 
@@ -5744,11 +5775,11 @@ module THREE {
     }
 
     export class LensFlare extends Object3D {
-        constructor(texture?: Texture, size?: number, distance?: number, blending?: Blending, color?: number);
+        constructor(texture?: Texture, size?: number, distance?: number, blending?: Blending, color?: Color);
         lensFlares: LensFlareProperty[];
         positionScreen: Vector3;
-        customUpdateCallback: () => void;
-        add(texture?: Texture, size?: number, distance?: number, blending?: Blending, color?: number, opacity?: number): void;
+        customUpdateCallback: (object:LensFlare) => void;
+        add(texture?: Texture, size?: number, distance?: number, blending?: Blending, color?: Color, opacity?: number): void;
         updateLensFlares(): void;
     }
 
