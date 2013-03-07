@@ -24,7 +24,7 @@ module ng {
         debug(obj: any): string;
                 
         // see http://docs.angularjs.org/api/angular.mock.inject
-        inject(...fns: Function[]): void;
+        inject(...fns: Function[]): any;
         
         // see http://docs.angularjs.org/api/angular.mock.module
         module(...modules: any[]): any;
