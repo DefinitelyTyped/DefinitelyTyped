@@ -78,15 +78,19 @@ module createjs {
         mousedown: (event: MouseEvent) => any;
         tick: () => any;
 
-		// EventDispatcher mixins
-		addEventListener(type: string, listener: (eventObj: Object) => bool): Function;
-		addEventListener(type: string, listener: (eventObj: Object) => bool): Object;
-		removeEventListener(type: string, listener: (eventObj: Function) => bool): void;
-		removeEventListener(type: string, listener: (eventObj: Object) => bool): void;
-		removeAllEventListeners(type: string): void;
-		dispatchEvent(eventObj: string, target: Object): bool;
-		dispatchEvent(eventObj: Object, target: Object): bool;
-		hasEventListener(type: string): bool;
+        // EventDispatcher mixins
+        addEventListener(type: string, listener: (eventObj: Object) => bool): Function;
+        addEventListener(type: string, listener: (eventObj: Object) => void): Function;
+        addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => bool; }): Object;
+        addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }): Object;
+        removeEventListener(type: string, listener: (eventObj: Object) => bool): void;
+        removeEventListener(type: string, listener: (eventObj: Object) => void): void;
+        removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => bool; }): void;
+        removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }): void;
+        removeAllEventListeners(type: string): void;
+        dispatchEvent(eventObj: string, target: Object): bool;
+        dispatchEvent(eventObj: Object, target: Object): bool;
+        hasEventListener(type: string): bool;
     }
 
 
@@ -166,20 +170,20 @@ module createjs {
         onAnimationEnd: (event: Object) => any;
     }
 
-	export class ButtonHelper {
-		// properties
-		target: Object;
-		overLabel: string;
-		outLabel: string;
-		downLabel: string;
-		play: bool;
+    export class ButtonHelper {
+        // properties
+        target: Object;
+        overLabel: string;
+        outLabel: string;
+        downLabel: string;
+        play: bool;
 
-		// methods
-		constructor(target: MovieClip, outLabel: string, overLabel: string, downLabel: string, play: bool, hitArea: DisplayObject, hitLabel: string);
-		constructor(target: BitmapAnimation, outLabel: string, overLabel: string, downLabel: string, play: bool, hitArea: DisplayObject, hitLabel: string);
-		setEnabled(value: bool);
-		toString(): string;
-	}
+        // methods
+        constructor(target: MovieClip, outLabel: string, overLabel: string, downLabel: string, play: bool, hitArea: DisplayObject, hitLabel: string);
+        constructor(target: BitmapAnimation, outLabel: string, overLabel: string, downLabel: string, play: bool, hitArea: DisplayObject, hitLabel: string);
+        setEnabled(value: bool);
+        toString(): string;
+    }
 
     export class BoxBlurFilter extends Filter {
         // properties
@@ -280,27 +284,31 @@ module createjs {
 
 
     export class EaselJS {
-    	// properties
-    	version: string;
-    	buildDate: string;
+        // properties
+        version: string;
+        buildDate: string;
     }
 
 
     export class EventDispatcher {
-    	// properties
+        // properties
 
-    	// methods
-    	static initialize(target: Object): void;
+        // methods
+        static initialize(target: Object): void;
 
-    	addEventListener(type: string, listener: (eventObj: Object) => bool): Function;
-    	addEventListener(type: string, listener: (eventObj: Object) => bool): Object;
-    	removeEventListener(type: string, listener: (eventObj: Function) => bool): void;
-		removeEventListener(type: string, listener: (eventObj: Object) => bool): void;
-		removeAllEventListeners(type: string): void;
-		dispatchEvent(eventObj: string, target: Object): bool;
-		dispatchEvent(eventObj: Object, target: Object): bool;
-		hasEventListener(type: string): bool;
-		toString(): string;
+        addEventListener(type: string, listener: (eventObj: Object) => bool): Function;
+        addEventListener(type: string, listener: (eventObj: Object) => void): Function;
+        addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => bool; }): Object;
+        addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }): Object;
+        removeEventListener(type: string, listener: (eventObj: Object) => bool): void;
+        removeEventListener(type: string, listener: (eventObj: Object) => void): void;
+        removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => bool; }): void;
+        removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }): void;
+        removeAllEventListeners(type: string): void;
+        dispatchEvent(eventObj: string, target: Object): bool;
+        dispatchEvent(eventObj: Object, target: Object): bool;
+        hasEventListener(type: string): bool;
+        toString(): string;
     }
 
 
@@ -352,20 +360,20 @@ module createjs {
     }
 
 
-	export class Log {
-		// properties
-		static NONE: number;
-		static ERROR: number;
-		static WARNING: number;
-		static TRACE: number;
-		static ALL: number;
-		static level: number;
+    export class Log {
+        // properties
+        static NONE: number;
+        static ERROR: number;
+        static WARNING: number;
+        static TRACE: number;
+        static ALL: number;
+        static level: number;
 
-		// methods
-		static out(message: string, details: string, level: number);
-		static addKeys(keys: Object);
-		static log(message: string, details: string, level: number);
-	}
+        // methods
+        static out(message: string, details: string, level: number);
+        static addKeys(keys: Object);
+        static log(message: string, details: string, level: number);
+    }
 
     export class Matrix2D {
         // properties
@@ -552,8 +560,8 @@ module createjs {
         toString(): string;
 
         // events
-		complete: (event: Object) => any;
-		onProgress: (event: Object) => any;
+        complete: (event: Object) => any;
+        onProgress: (event: Object) => any;
     }
 
 
@@ -582,11 +590,11 @@ module createjs {
         constructor (canvas: HTMLCanvasElement);
         clone(): Stage;
         enableMouseOver(frequency: number): void;
-		enableDOMEvents(enable: bool): void;
+        enableDOMEvents(enable: bool): void;
         toDataURL(backgroundColor: string, mimeType: string): string;
         update(): void;
         clear(): void;
-		handleEvent(evt: Object): void;
+        handleEvent(evt: Object): void;
 
         // events
         stagemousemove: (event: MouseEvent) => any;
@@ -633,6 +641,16 @@ module createjs {
         static setFPS(value: number): void;
         static setInterval(interval: number): void;
         static setPaused(value: bool): void;
+
+        // EventDispatcher mixins
+        static addEventListener(type: string, listener: (eventObj: Object) => bool): Function;
+        static addEventListener(type: string, listener: (eventObj: Object) => void): Function;
+        static addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => bool; }): Object;
+        static addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }): Object;
+        static removeEventListener(type: string, listener: (eventObj: Object) => bool): void;
+        static removeEventListener(type: string, listener: (eventObj: Object) => void): void;
+        static removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => bool; }): void;
+        static removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }): void;
 
         // events
         tick: (timeElapsed: number) => any;
