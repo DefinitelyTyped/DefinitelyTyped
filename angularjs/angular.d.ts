@@ -616,9 +616,9 @@ module ng {
         };
     }
 
-    interface IRouteProviderProvider extends IServiceProvider {
-        otherwise(params: any): IRouteProviderProvider;
-        when(path: string, route: IRoute): IRouteProviderProvider;
+    interface IRouteProvider extends IServiceProvider {
+        otherwise(params: any): IRouteProvider;
+        when(path: string, route: IRoute): IRouteProvider;
     }
 
     ///////////////////////////////////////////////////////////////////////////
