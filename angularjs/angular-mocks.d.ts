@@ -71,7 +71,7 @@ module ng {
     // see http://docs.angularjs.org/api/ngMock.$httpBackend
     ///////////////////////////////////////////////////////////////////////////
     interface IHttpBackendService {
-        flush(count: number): void;
+        flush(count?: number): void;
         resetExpectations(): void;
         verifyNoOutstandingExpectation(): void;
         verifyNoOutstandingRequest(): void;
