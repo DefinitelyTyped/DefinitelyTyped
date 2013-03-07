@@ -56,6 +56,7 @@ List of Definitions
 * [Finite State Machine](https://github.com/jakesgordon/javascript-state-machine) (by [Boris Yankov](https://github.com/borisyankov))
 * [FlexSlider](http://www.woothemes.com/flexslider/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Foundation](http://foundation.zurb.com/) (by [Boris Yankov](https://github.com/borisyankov))
+* [Gamepad](http://www.w3.org/TR/gamepad/) (by [Kon](http://phyzkit.net/))
 * [glDatePicker](http://glad.github.com/glDatePicker/) (by [D�niel Tar](https://github.com/qcz))
 * [GreenSock Animation Platform (GSAP)](http://www.greensock.com/get-started-js/) (by [Robert S.](https://github.com/codeBelt))
 * [GoogleMaps](https://developers.google.com/maps/) (by [Esben Nepper](https://github.com/eNepper))
