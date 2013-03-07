@@ -642,6 +642,16 @@ module createjs {
         static setInterval(interval: number): void;
         static setPaused(value: bool): void;
 
+        // EventDispatcher mixins
+        static addEventListener(type: string, listener: (eventObj: Object) => bool): Function;
+        static addEventListener(type: string, listener: (eventObj: Object) => void): Function;
+        static addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => bool; }): Object;
+        static addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }): Object;
+        static removeEventListener(type: string, listener: (eventObj: Object) => bool): void;
+        static removeEventListener(type: string, listener: (eventObj: Object) => void): void;
+        static removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => bool; }): void;
+        static removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }): void;
+
         // events
         tick: (timeElapsed: number) => any;
     }
