@@ -80,9 +80,13 @@ module createjs {
 
 		// EventDispatcher mixins
 		addEventListener(type: string, listener: (eventObj: Object) => bool): Function;
-		addEventListener(type: string, listener: (eventObj: Object) => bool): Object;
-		removeEventListener(type: string, listener: (eventObj: Function) => bool): void;
+        addEventListener(type: string, listener: (eventObj: Object) => void): Function;
+		addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => bool; }): Object;
+        addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }): Object;
 		removeEventListener(type: string, listener: (eventObj: Object) => bool): void;
+        removeEventListener(type: string, listener: (eventObj: Object) => void): void;
+        removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => bool; }): void;
+		removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }): void;
 		removeAllEventListeners(type: string): void;
 		dispatchEvent(eventObj: string, target: Object): bool;
 		dispatchEvent(eventObj: Object, target: Object): bool;
@@ -293,9 +297,13 @@ module createjs {
     	static initialize(target: Object): void;
 
     	addEventListener(type: string, listener: (eventObj: Object) => bool): Function;
-    	addEventListener(type: string, listener: (eventObj: Object) => bool): Object;
-    	removeEventListener(type: string, listener: (eventObj: Function) => bool): void;
-		removeEventListener(type: string, listener: (eventObj: Object) => bool): void;
+        addEventListener(type: string, listener: (eventObj: Object) => void): Function;
+    	addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => bool; }): Object;
+        addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }): Object;
+        removeEventListener(type: string, listener: (eventObj: Object) => bool): void;
+		removeEventListener(type: string, listener: (eventObj: Object) => void): void;
+        removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => bool; }): void;
+        removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }): void;
 		removeAllEventListeners(type: string): void;
 		dispatchEvent(eventObj: string, target: Object): bool;
 		dispatchEvent(eventObj: Object, target: Object): bool;
