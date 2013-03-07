@@ -39,7 +39,7 @@
     }, false);
 
     var requestAnimationFrame = window.requestAnimationFrame || window["mozRequestAnimationFrame"];
-    var getGamepads = navigator.getGamepads || navigator.webkitGetGamepads || navigator.mozGetGamepads;
+    var getGamepads = navigator.getGamepads || navigator.webkitGetGamepads;
     if(getGamepads){
         function runAnimation()
         {
