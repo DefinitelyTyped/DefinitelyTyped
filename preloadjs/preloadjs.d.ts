@@ -70,7 +70,6 @@ module createjs {
         BrowserDetect(): Object;
         init(useXHR?: bool): void;
         close(): void;
-        getResult(value: string): Object;
         initialize(useXHR: bool): void;
         installPlugin(plugin: () => any): void;
         load(): void;
