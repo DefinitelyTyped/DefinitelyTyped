@@ -12,10 +12,10 @@
 
 module createjs {
 
-	export class TweenJS {
-    	// properties
-    	version: string;
-    	buildDate: string;
+    export class TweenJS {
+        // properties
+        version: string;
+        buildDate: string;
     }
 
 
@@ -137,24 +137,23 @@ module createjs {
         // events
         change: (event) => any;
 
-		// EventDispatcher mixins
-		addEventListener(type: string, listener: (eventObj: Object) => bool): Function;
-		addEventListener(type: string, listener: (eventObj: Object) => bool): Object;
-		removeEventListener(type: string, listener: (eventObj: Function) => bool): void;
-		removeEventListener(type: string, listener: (eventObj: Object) => bool): void;
-		removeAllEventListeners(type: string): void;
-		dispatchEvent(eventObj: string, target: Object): bool;
-		dispatchEvent(eventObj: Object, target: Object): bool;
-		hasEventListener(type: string): bool;
+        // EventDispatcher mixins
+        addEventListener(type: string, listener: (eventObj: Object) => bool): Function;
+        addEventListener(type: string, listener: (eventObj: Object) => bool): Object;
+        removeEventListener(type: string, listener: (eventObj: Function) => bool): void;
+        removeEventListener(type: string, listener: (eventObj: Object) => bool): void;
+        removeAllEventListeners(type: string): void;
+        dispatchEvent(eventObj: string, target: Object): bool;
+        dispatchEvent(eventObj: Object, target: Object): bool;
+        hasEventListener(type: string): bool;
     }
 
 
-	export class MotionGuidePlugin {
-		// properties
-		static priority: number;
+    export class MotionGuidePlugin {
+        // properties
+        static priority: number;
 
-		//methods
-		static install(): Object;
-
-	}
+        //methods
+        static install(): Object;
+    }
 }
