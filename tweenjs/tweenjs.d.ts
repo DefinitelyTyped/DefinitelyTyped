@@ -120,7 +120,7 @@ module createjs {
         // methods
         call(callback: (tweenObject: Tween) => any, params?: any[], scope?: Object);    // when 'params' isn't given, the callback receives a tweenObject
         call(callback: (...params: any[]) => any, params?: any[], scope?: Object); // otherwise, it receives the params only
-        static get(target, props: Object): Tween;
+        static get(target, props?: Object, pluginData?: Object, override?: bool): Tween;
         static hasActiveTweens(target? ): void;
         static installPlugin(plugin: Object, properties: Object): void;
         pause(tween: Tween): void;
