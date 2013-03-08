@@ -74,10 +74,10 @@ module createjs {
         initialize(useXHR: bool): void;
         installPlugin(plugin: () => any): void;
         load(): void;
-        loadFile(file: Object, loadNow: bool): void;
-        loadFile(file: string, loadNow: bool): void;
-        loadManifest(manifest: Object[], loadNow: bool): void;
-        loadManifest(manifest: string[], loadNow: bool): void;
+        loadFile(file: Object, loadNow?: bool): void;
+        loadFile(file: string, loadNow?: bool): void;
+        loadManifest(manifest: Object[], loadNow?: bool): void;
+        loadManifest(manifest: string[], loadNow?: bool): void;
         getItem(value: string): Object;
         getResult(value: string, rawResult?: bool): Object;
         removeAll(): void;
