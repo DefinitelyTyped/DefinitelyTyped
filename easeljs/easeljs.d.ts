@@ -567,7 +567,8 @@ module createjs {
 
     export class SpriteSheetUtils {
         static addFlippedFrames(spriteSheet: SpriteSheet, horizontal?: bool, vertical?: bool, both?: bool): void;
-        static extractFrame(spriteSheet: HTMLImageElement, frame: number): HTMLImageElement;
+        static extractFrame(spriteSheet: SpriteSheet, frame: number): HTMLImageElement;
+        static extractFrame(spriteSheet: SpriteSheet, animationName: string): HTMLImageElement;
         static flip(spriteSheet: HTMLImageElement, flipData: Object): void;
         static mergeAlpha(rgbImage: HTMLImageElement, alphaImage: HTMLImageElement, canvas?: HTMLCanvasElement): HTMLCanvasElement;
     }
