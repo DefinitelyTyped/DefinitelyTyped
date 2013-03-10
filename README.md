@@ -164,3 +164,4 @@ Requested Definitions
 * [Prelude.ls](http://gkz.github.com/prelude-ls/)
 * [MooTools](http://mootools.net/)
 * [Lo-Dash](http://lodash.com/)
+* [java](https://github.com/nearinfinity/node-java)
