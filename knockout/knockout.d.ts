@@ -242,7 +242,7 @@ interface KnockoutVirtualElements {
 interface KnockoutExtenders {
     throttle(target: any, timeout: number): KnockoutComputed;
     notify(target: any, notifyWhen: string): any;
-    logChange: (target: KnockoutObservableAny, option: string) => KnockoutObservableAny;
+    logChange(target: KnockoutObservableAny, option: string): KnockoutObservableAny;
 }
 
 interface KnockoutUtils {
