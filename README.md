@@ -147,6 +147,7 @@ List of Definitions
 * [Ubuntu Unity Web API](https://launchpad.net/libunity-webapps) (by [John Vrbanac](https://github.com/jmvrbanac))
 * [Underscore.js](http://underscorejs.org/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Underscore.js (Typed)](http://underscorejs.org/) (by [Josh Baldwin](https://github.com/jbaldwin/))
+* [Underscore-ko.js](https://github.com/kamranayub/UnderscoreKO) (by [Maurits Elbers](https://github.com/MagicMau))
 * [Viewporter](https://github.com/zynga/viewporter) (by [Boris Yankov](https://github.com/borisyankov))
 * [Vimeo](http://developer.vimeo.com/player/js-api) (by [Daz Wilkin](https://github.com/DazWilkin/))
 * [WebRTC](http://dev.w3.org/2011/webrtc/editor/webrtc.html) (by [Ken Smith](https://github.com/smithkl42))
