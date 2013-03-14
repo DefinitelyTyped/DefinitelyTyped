@@ -280,7 +280,7 @@ declare module Breeze {
         validationOptions: ValidationOptions;
 
         entityChanged: EntityChangedEvent;
-        // hasChanges: BreezeCore.Event;
+        hasChangesChanged: BreezeCore.Event;
 
         constructor (config?: EntityManagerOptions);
         constructor (config?: string);
