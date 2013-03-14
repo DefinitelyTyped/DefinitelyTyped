@@ -279,10 +279,10 @@ function test_entityManager() {
         var entity = changeArgs.entity;
     });
     var em = new breeze.EntityManager({ serviceName: "api/NorthwindIBModel" });
-    //em.hasChanges.subscribe(function (args) {
-    //    var hasChanges = args.hasChanges;
-    //    var entityManager = args.entityManager;
-    //});
+    em.hasChangesChanged.subscribe(function (args) {
+        var hasChangesChanged = args.hasChanges;
+        var entityManager = args.entityManager;
+    });
 }
 
 function test_entityQuery() {
