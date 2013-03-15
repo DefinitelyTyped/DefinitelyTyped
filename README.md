@@ -141,6 +141,7 @@ List of Definitions
 * [Teechart](http://www.steema.com) (by [Steema](http://www.steema.com))
 * [three.js](http://mrdoob.github.com/three.js/) (by [Kon](http://phyzkit.net/))
 * [Toastr](https://github.com/CodeSeven/toastr) (by [Boris Yankov](https://github.com/borisyankov))
+* [trunk8](https://github.com/rviscomi/trunk8) (by [Blake Niemyjski](https://github.com/niemyjski))
 * [TweenJS](http://www.createjs.com/#!/TweenJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [tween.js](https://github.com/sole/tween.js/) (by [Adam R. Smith](https://github.com/sunetos))
 * [twitter-bootstrap-wizard](https://github.com/VinceG/twitter-bootstrap-wizard) (by [Blake Niemyjski](https://github.com/niemyjski))
