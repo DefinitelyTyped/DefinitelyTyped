@@ -37,7 +37,8 @@ interface JQuery {
     /**
     Creates a trunk8 instance and calls a method.
     @constructor
-    @param {Trunk8Options} options
+    @param {string} method
+    @param {string} value
     */
     trunk8(method: string, value?: string): any;
 
