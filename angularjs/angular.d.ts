@@ -385,15 +385,8 @@ module ng {
         when(value: any): IPromise;
     }
 
-    interface PromiseCallbackArg {
-        data?: any;
-        status?: number;
-        headers?: (headerName: string) => string;
-        config?: IRequestConfig;
-    }
-
     interface IPromise {
-        then(successCallback: (response: PromiseCallbackArg) => any, errorCallback?: (response: PromiseCallbackArg) => any): IPromise;
+        then(successCallback: (promiseValue: any) => any, errorCallback?: (reason: any) => any): IPromise;
     }
 
     interface IDeferred {
@@ -524,9 +517,17 @@ module ng {
         transformResponse?: any;
     }
 
+    interface IHttpPromiseCallbackArg {
+        data?: any;
+        status?: number;
+        headers?: (headerName: string) => string;
+        config?: IRequestConfig;
+    }
+
     interface IHttpPromise extends IPromise {
         success(callback: (data: any, status: number, headers: (headerName: string) => string, config: IRequestConfig) => any): IHttpPromise;
         error(callback: (data: any, status: number, headers: (headerName: string) => string, config: IRequestConfig) => any): IHttpPromise;
+        then(successCallback: (response: IHttpPromiseCallbackArg) => any, errorCallback?: (response: IHttpPromiseCallbackArg) => any): IPromise;
     }
 
     interface IHttpProvider extends IServiceProvider {
