@@ -64,7 +64,7 @@ declare module "durandal/app" {
       * @param transition If you have a splash screen, you may want to specify an optional transition to animate from the splash to your main shell. 
       * @param applicationHost parameter is optional. If provided it should be an element id for the node into which the UI should be composed. If it is not provided the default is to look for an element with an id of "applicationHost".
       */
-    export var setRoot: (root: any, transition: string, applicationHost: string) => void;
+    export var setRoot: (root: any, transition: string, applicationHost?: string) => void;
     /**
       * If you intend to run on mobile, you should also call app.adaptToDevice() before setting the root.
       */
@@ -369,6 +369,10 @@ declare module "durandal/plugins/router" {
       */
     export var activeItem: IDurandalViewModelActiveItem;
     /**
+      * An observable whose value is the currently active route.
+      */
+    export var activeRoute: KnockoutObservableAny;
+    /**
       * called after an a new module is composed
       */
     export var afterCompose: () => void;
@@ -376,6 +380,10 @@ declare module "durandal/plugins/router" {
       * Causes the router to move backwards in page history.
       */
     export var navigateBack: () => void;
+    /**
+      * Use router default convention.
+      */
+    export var useConvention: () => void;
     /**
       * Causes the router to navigate to a specific url.
       */
@@ -401,6 +409,10 @@ declare module "durandal/plugins/router" {
       */
     export var prepareRouteInfo: (info: routeInfo) => void;
     /**
+      * This should not normally be overwritten. But advanced users can override this to completely transform the developer's routeInfo input into the final version used to configure the router.
+      */
+    export var handleInvalidRoute: (route: routeInfo, parameters: any) => void;
+    /**
       * Once the router is required, you can call router.mapAuto(). This is the most basic configuration option. When you call this function (with no parameters) it tells the router to directly correlate route parameters to module names in the viewmodels folder.
       */
     export var mapAuto: (path?: string) => void;
@@ -411,7 +423,7 @@ declare module "durandal/plugins/router" {
     /**
       * You can pass a single routeInfo to this function, or you can pass the basic configuration parameters. url is your url pattern, moduleId is the module path this pattern will map to, name is used as the document title and visible determines whether or not to include it in the router's visibleRoutes array for easy navigation UI binding.
       */
-    export var mapRoute: (url: string, moduleId: string, name: string, visible: bool) => routeInfo;
+    export var mapRoute: (urlOrRouteInfo: any, moduleId?: string, name?: string, visible?: bool) => routeInfo;
     /**
       * This function takes an array of routeInfo objects or a single routeInfo object and uses it to configure the router. The finalized routeInfo (or array of infos) is returned.
       */
