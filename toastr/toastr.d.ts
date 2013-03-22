@@ -62,6 +62,10 @@ interface ToastrOptions {
     */
     positionClass?: string;
     /**
+    * Where toast should be displayed - background
+    */
+    backgroundpositionClass?: string;
+    /**
     * Time in milliseconds that the toast should be displayed
     */
     timeOut?: number;
