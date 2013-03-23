@@ -1,4 +1,4 @@
-// Type definitions for Q that can be imported in node.js
+// Type definitions for q that meet the CommonJS module format.
 // Project: https://github.com/kriskowal/q
 // Definitions by: Barrie Nemetchek and Andrew Gaspar
 // Definitions: https://github.com/AndrewGaspar/DefinitelyTyped  
