@@ -8,7 +8,7 @@ interface Qdeferred {
     resolve(value: any): any;
     reject(reason: any);
     notify(value: any);
-    makeNodeResolver();
+    makeNodeResolver(): Function;
 }
 
 interface Qpromise {
