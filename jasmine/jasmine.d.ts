@@ -7,7 +7,8 @@
 declare function describe(description: string, specDefinitions: Function): void;
 declare function xdescribe(description: string, specDefinitions: Function): void;
 
-declare function it(expectation: string, assertion: Function): void;
+declare function it(expectation: string, assertion: () => void ): void;
+declare function it(expectation: string, assertion: (done: (err?) => void) => void ): void;
 declare function xit(expectation: string, assertion: Function): void;
 
 declare function beforeEach(action: Function): void;
