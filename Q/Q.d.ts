@@ -15,9 +15,10 @@ interface Qpromise {
     fail(errorCallback: Function): Qpromise;
     fin(finallyCallback: Function): Qpromise;
     then(onFulfilled: Function, onRejected?: Function, onProgress?: Function): Qpromise;
+    spread(onFulfilled: Function, onRejected?: Function): Qpromise;
     catch(onRejected: Function): Qpromise;
     progress(onProgress: Function): Qpromise;
-    done(onFulfilled: Function, onRejected?: Function, onProgress?: Function): Qpromise;
+    done(onFulfilled?: Function, onRejected?: Function, onProgress?: Function): Qpromise;
     get (propertyName: String): Qpromise;
     set (propertyName: String, value: any): Qpromise;
     delete (propertyName: String): Qpromise;
@@ -35,6 +36,7 @@ interface Qpromise {
 }
 
 interface QStatic {
+    when(value: any, onFulfilled: Function, onRejected?: Function): Qpromise;
     try(method: Function, ...args: any[]): Qpromise;
     fbind(method: Function, ...args: any[]): Qpromise;
     fcall(method: Function, ...args: any[]): Qpromise;
