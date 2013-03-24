@@ -1,30 +1,4 @@
-/// <reference path="q.module.d.ts" />
-/// <reference path="../jasmine/jasmine.d.ts" />
-
-import Q = module("q");
-
-describe("q", function () {
-    it("should return", function (done) {
-        Q({ myValue: true }).then(function (obj) {
-
-            if (obj.myValue) done();
-            else done("didn't work =(");
-        },
-        (err) => done(err));
-    });
-
-    it("should process all", function (done: (err?) => void ) {
-        Q.all([Q(1), Q(2), Q(3)]).then(function (arr: number[]) {
-            var sum = arr.reduce(function (memo, cur) {
-                return memo + cur;
-            }, 0);
-
-            if (sum === 6) done();
-            else done({ actual: sum });
-        },
-        (err) => done(err));
-    });
-});
+/// <reference path="Q.d.ts" />
 
 var delay = function (delay) {
     var d = Q.defer();
