@@ -135,6 +135,13 @@ interface KnockoutObservableString extends KnockoutObservableBase {
     notifySubscribers(valueToWrite: string, topic?: string);
 }
 
+interface KnockoutObservableObject extends KnockoutObservableBase {
+    (): {};
+    (value: {}): void;
+
+    subscribe(callback: (newValue: {}) => void , target?: any, topic?: string): KnockoutSubscription;
+    notifySubscribers(valueToWrite: {}, topic?: string);
+}
 
 interface KnockoutObservableNumber extends KnockoutObservableBase {
     (): number;
