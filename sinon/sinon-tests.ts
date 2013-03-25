@@ -69,9 +69,17 @@ function testSix() {
 	stub.restore();
 }
 
+function testSeven() {
+	var obj = { functionToTest : function () { } };
+	var mockObj = sinon.mock(obj);
+	obj.functionToTest();
+	mockObj.expects('functionToTest').once();
+}
+
 testOne();
 testTwo();
 testThree();
 testFour();
 testFive();
 testSix();
+testSeven();
