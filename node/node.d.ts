@@ -776,7 +776,8 @@ declare module "fs" {
     export function readFile(filename: string, callback: (err: Error, data: NodeBuffer) => void ): void;
     export function readFileSync(filename: string): NodeBuffer;
     export function readFileSync(filename: string, encoding: string): string;
-    export function writeFile(filename: string, data: any, encoding?: string, callback?: Function): void;
+    export function writeFile(filename: string, data: any, callback?: (err) => void): void;
+    export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: Function): void;
     export function writeFileSync(filename: string, data: any, encoding?: string): void;
     export function appendFile(filename: string, data: any, encoding?: string, callback?: Function): void;
     export function appendFileSync(filename: string, data: any, encoding?: string): void;
@@ -1014,6 +1015,7 @@ declare module "util" {
 }
 
 declare module "assert" {
+    export function (booleanValue: bool, message?: string);
     export function fail(actual: any, expected: any, message: string, operator: string): void;
     export function assert(value: any, message: string): void;
     export function ok(value: any, message?: string): void;
