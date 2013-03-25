@@ -142,7 +142,7 @@ interface SinonExpectationStatic {
 }
 
 interface SinonMock {
-	expects(method: string): SinonExpectationStatic;
+	expects(method: string): SinonExpectation;
 	restore(): void;
 	verify(): void;
 }
