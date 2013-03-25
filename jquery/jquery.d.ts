@@ -714,7 +714,7 @@ interface JQuery {
     ***********/
     length: number;
     selector: string;
-    [x: string]: HTMLElement;
+    [x: string]: any;
     [x: number]: HTMLElement;
 
     /**********

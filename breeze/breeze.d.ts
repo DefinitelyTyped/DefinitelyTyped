@@ -280,7 +280,7 @@ declare module Breeze {
         validationOptions: ValidationOptions;
 
         entityChanged: EntityChangedEvent;
-        // hasChanges: BreezeCore.Event;
+        hasChangesChanged: BreezeCore.Event;
 
         constructor (config?: EntityManagerOptions);
         constructor (config?: string);
@@ -290,6 +290,7 @@ declare module Breeze {
         clear(): void;
         createEmptyCopy(): EntityManager;
         detachEntity(entity: Entity): bool;
+        createEntity(entityTypeName: string, propertyInitializer: {}): Entity;
 
         executeQuery(query: string, callback?: ExecuteQuerySuccessCallback, errorCallback?: ExecuteQueryErrorCallback): Promise;
         executeQuery(query: EntityQuery, callback?: ExecuteQuerySuccessCallback, errorCallback?: ExecuteQueryErrorCallback): Promise;
