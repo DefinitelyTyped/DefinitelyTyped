@@ -1,6 +1,6 @@
 /************************************************
 *                                               *
-*               Node.js v0.8.8 API              *
+*               Node.js v0.10.1 API              *
 *                                               *
 ************************************************/
 
@@ -768,19 +768,20 @@ declare module "fs" {
     export function futimesSync(fd: string, atime: number, mtime: number): void;
     export function fsync(fd: string, callback?: Function): void;
     export function fsyncSync(fd: string): void;
-    export function write(fd: string, buffer: NodeBuffer, offset: number, length: number, position: number, callback?: (err: Error, written: number, buffer: NodeBuffer) =>any): void;
+    export function write(fd: string, buffer: NodeBuffer, offset: number, length: number, position: number, callback?: (err, written: number, buffer: NodeBuffer) =>any): void;
     export function writeSync(fd: string, buffer: NodeBuffer, offset: number, length: number, position: number): void;
-    export function read(fd: string, buffer: NodeBuffer, offset: number, length: number, position: number, callback?: (err: Error, bytesRead: number, buffer: NodeBuffer) => void): void;
+    export function read(fd: string, buffer: NodeBuffer, offset: number, length: number, position: number, callback?: (err, bytesRead: number, buffer: NodeBuffer) => void): void;
     export function readSync(fd: string, buffer: NodeBuffer, offset: number, length: number, position: number): any[];
-    export function readFile(filename: string, encoding: string, callback: (err: Error, data: string) => void ): void;
-    export function readFile(filename: string, callback: (err: Error, data: NodeBuffer) => void ): void;
+    export function readFile(filename: string, options: { encoding?: string; flag?: string; }, callback: (err, data: any) => void ): void;
+    export function readFile(filename: string, callback: (err, data: NodeBuffer) => void ): void;
     export function readFileSync(filename: string): NodeBuffer;
-    export function readFileSync(filename: string, encoding: string): string;
+    export function readFileSync(filename: string, options: { encoding?: string; flag?: string; }): any;
     export function writeFile(filename: string, data: any, callback?: (err) => void): void;
-    export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: Function): void;
-    export function writeFileSync(filename: string, data: any, encoding?: string): void;
-    export function appendFile(filename: string, data: any, encoding?: string, callback?: Function): void;
-    export function appendFileSync(filename: string, data: any, encoding?: string): void;
+    export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err) => void): void;
+    export function writeFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
+    export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err) => void): void;
+    export function appendFile(filename: string, data: any, callback?: (err) => void): void;
+    export function appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
     export function watchFile(filename: string, listener: { curr: Stats; prev: Stats; }): void;
     export function watchFile(filename: string, options: { persistent?: bool; interval?: number; }, listener: { curr: Stats; prev: Stats; }): void;
     export function unwatchFile(filename: string, listener?: Stats): void;
