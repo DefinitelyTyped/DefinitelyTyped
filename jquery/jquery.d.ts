@@ -353,6 +353,15 @@ interface JQueryStatic {
     type(obj: any): string;
 
     unique(arr: any[]): any[];
+	
+	/** 
+	* Parses a string into an array of DOM nodes.
+	*
+	* @param data HTML string to be parsed
+	* @param context DOM element to serve as the context in which the HTML fragment will be created
+	* @param keepScripts A Boolean indicating whether to include scripts passed in the HTML string
+	*/
+	parseHTML(data: string, context?: HTMLElement, keepScripts?: bool): any[];
 }
 
 /*
