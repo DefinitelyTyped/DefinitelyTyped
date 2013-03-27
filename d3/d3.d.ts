@@ -811,6 +811,10 @@ module D3 {
 
         select: (selector: string) => Transition;
         selectAll: (selector: string) => Transition;
+
+        each: (type?: string, eachFunction?: (data: any, index: number) => any) => Transition;
+        transition: () => Transition;
+        ease: (value: string, ...arrs: any[]) => Transition;
     }
 
     interface Nest {
