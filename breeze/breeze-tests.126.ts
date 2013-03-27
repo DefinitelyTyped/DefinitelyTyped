@@ -1,3 +1,8 @@
+// Type definitions for Breeze 1.2.6
+// Project: http://www.breezejs.com/
+// Definitions by: IdeaBlade <https://github.com/IdeaBlade/Breeze/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped  
+
 /// <reference path="breeze.d.ts" />
 
 import breeze = module(Breeze);
