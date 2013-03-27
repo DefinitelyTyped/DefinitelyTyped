@@ -699,3 +699,33 @@ function panAndZoom {
         svg.select(".y.axis").call(yAxis);
     }
 }
+
+//Example from http://bl.ocks.org/mbostock/1125997
+function chainedTransitions() {
+    var w = 960,
+    h = 500,
+    y = d3.scale.ordinal().domain(d3.range(50)).rangePoints([20, h - 20]),
+    t = Date.now();
+
+    var svg = d3.select("body").append("svg:svg")
+        .attr("width", w)
+        .attr("height", h);
+
+    var circle = svg.selectAll("circle")
+        .data(y.domain())
+      .enter().append("svg:circle")
+        .attr("r", 16)
+        .attr("cx", 20)
+        .attr("cy", y)
+        .each(slide(20, w - 20));
+
+    function slide(x0, x1) {
+      t += 50;
+      return function() {
+        d3.select(this).transition()
+            .duration(t - Date.now())
+            .attr("cx", x1)
+            .each("end", slide(x1, x0));
+      };
+    }
+}
