@@ -430,6 +430,20 @@ module createjs {
         clone(): MouseEvent;
         toString(): string;
 
+        // EventDispatcher mixins
+        addEventListener(type: string, listener: (eventObj: Object) => bool): Function;
+        addEventListener(type: string, listener: (eventObj: Object) => void ): Function;
+        addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => bool; }): Object;
+        addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }): Object;
+        removeEventListener(type: string, listener: (eventObj: Object) => bool): void;
+        removeEventListener(type: string, listener: (eventObj: Object) => void ): void;
+        removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => bool; }): void;
+        removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }): void;
+        removeAllEventListeners(type: string): void;
+        dispatchEvent(eventObj: string, target: Object): bool;
+        dispatchEvent(eventObj: Object, target: Object): bool;
+        hasEventListener(type: string): bool;
+
         // events
         onMouseMove: (event: MouseEvent) => any;
         onMouseUp: (event: MouseEvent) => any;
