@@ -1,7 +1,8 @@
 /// <reference path="breeze.d.ts" />
 
-import breeze = module(Breeze);
-import core = module(BreezeCore);
+import breeze = module(breeze);
+import core = module(breezeCore);
+
 
 function test_dataType() {
     var typ = breeze.DataType.DateTime;
@@ -9,9 +10,10 @@ function test_dataType() {
     var isNumber = typ.isNumeric;
     var dv = typ.defaultValue;
     var symbs = breeze.DataType.getSymbols();
-    var x = typ.parentEnum === <BreezeCore.IEnum> breeze.DataType;
+    var x = typ.parentEnum === <breezeCore.IEnum> breeze.DataType;
     var isFalse = breeze.DataType.contains(breeze.DataType.Double);
     var dt = breeze.DataType.fromName("Decimal");
+    
 }
 
 function test_dataProperty() {
@@ -22,7 +24,7 @@ function test_dataProperty() {
         maxLength: 20
     });
     var personEntityType: breeze.EntityType;
-    personEntityType.addProperty(lastNameProp);   
+    personEntityType.addProperty(lastNameProp);
 }
 
 function test_dataService() {
@@ -33,6 +35,7 @@ function test_dataService() {
     var em = new breeze.EntityManager({
         dataService: ds
     });
+    
 }
 
 function test_entityAspect() {
@@ -125,12 +128,13 @@ function test_metadataStore() {
 
 function test_entityManager() {
     var entityManager = new breeze.EntityManager("api/NorthwindIBModel");
-    var entityManager = new breeze.EntityManager({ serviceName: "api/NorthwindIBModel" });
+    var em1 = new breeze.EntityManager({ serviceName: "api/NorthwindIBModel" });
     var metadataStore = new breeze.MetadataStore();
     var entityManager = new breeze.EntityManager({
         serviceName: "api/NorthwindIBModel",
         metadataStore: metadataStore
     });
+    
     return new breeze.QueryOptions({
         mergeStrategy: null,
         fetchStrategy: this.fetchStrategy
@@ -152,6 +156,10 @@ function test_entityManager() {
     var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
     var cust1 = custType.createEntity();
     em1.addEntity(cust1);
+
+    var cust2 = em1.createEntity("Customer", { companyName: "foo" });
+    var cust3 = em1.createEntity("foo", { xxx: 3 }, breeze.EntityState.Added);
+    
     em1.attachEntity(cust1, breeze.EntityState.Added);
     em1.clear();
     var em2 = em1.createEmptyCopy();
@@ -239,7 +247,8 @@ function test_entityManager() {
     if (em1.hasChanges(custType)) { }
     var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
     var orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
-    if (em1.hasChanges([custType, orderType])) { }
+    if (em1.hasChanges([custType, orderType])) { };
+    
     var bundle = em1.exportEntities();
     window.localStorage.setItem("myEntityManager", bundle);
     var bundleFromStorage = window.localStorage.getItem("myEntityManager");
@@ -280,7 +289,7 @@ function test_entityManager() {
     });
     var em = new breeze.EntityManager({ serviceName: "api/NorthwindIBModel" });
     em.hasChangesChanged.subscribe(function (args) {
-        var hasChangesChanged = args.hasChanges;
+        var hasChanges = args.hasChanges;
         var entityManager = args.entityManager;
     });
 }
@@ -377,6 +386,8 @@ function test_entityQuery() {
     var em = new breeze.EntityManager(serviceName);
     var query = new breeze.EntityQuery("Orders")
         .using(breeze.FetchStrategy.FromLocalCache);
+    var adapter = new breeze.JsonResultsAdapter({ name: "foo", visitNode: function (x) { return x; } });
+    var q2 = query.using(adapter);
     var query = new breeze.EntityQuery("Customers")
         .where("CompanyName", "startsWith", "C");
     var query = new breeze.EntityQuery("Customers")
@@ -393,6 +404,7 @@ function test_entityQuery() {
         .where("toLower(CompanyName)", "startsWith", "c");
     var query = new breeze.EntityQuery("Customers")
         .where("toUpper(substring(CompanyName, 1, 2))", breeze.FilterQueryOp.Equals, "OM");
+    var q2 = query.toType("foo").orderBy("foo2");
 }
 
 function test_entityState() {
@@ -471,50 +483,50 @@ function test_entityType() {
 }
 
 //function test_enum() {
-//    var prototype = {
-//        nextDay: function () {
-//            var nextIndex = (this.dayIndex + 1) % 7;
-//            return DayOfWeek.getSymbols()[nextIndex];
-//        }
-//    };
-//    var DayOfWeek = new core.Enum("DayOfWeek", prototype);
-//    DayOfWeek.Monday = DayOfWeek.addSymbol({ dayIndex: 0 });
-//    var symbol = DayOfWeek.Friday;
-//    if (DayOfWeek.contains(symbol)) { }
-//    var dayOfWeek = DayOfWeek.from("Thursday");
-//    var symbols = DayOfWeek.getNames();
-//    var symbols = DayOfWeek.getSymbols();
-//    if (core.Enum.isSymbol(DayOfWeek.Wednesday)) { };
-//    DayOfWeek.seal();
-//    var name = DayOfWeek.Monday.getName();
-//    var name = DayOfWeek.Monday.toString();
+// var prototype = {
+// nextDay: function () {
+// var nextIndex = (this.dayIndex + 1) % 7;
+// return DayOfWeek.getSymbols()[nextIndex];
+// }
+// };
+// var DayOfWeek = new core.Enum("DayOfWeek", prototype);
+// DayOfWeek.Monday = DayOfWeek.addSymbol({ dayIndex: 0 });
+// var symbol = DayOfWeek.Friday;
+// if (DayOfWeek.contains(symbol)) { }
+// var dayOfWeek = DayOfWeek.from("Thursday");
+// var symbols = DayOfWeek.getNames();
+// var symbols = DayOfWeek.getSymbols();
+// if (core.Enum.isSymbol(DayOfWeek.Wednesday)) { };
+// DayOfWeek.seal();
+// var name = DayOfWeek.Monday.getName();
+// var name = DayOfWeek.Monday.toString();
 
 
-//    var prototype = {
-//        nextDay: function () {
-//            var nextIndex = (this.dayIndex + 1) % 7;
-//            return DayOfWeek.getSymbols()[nextIndex];
-//        }
-//    };
-//    var DayOfWeek = new core.Enum("DayOfWeek", prototype);
-//    DayOfWeek.Monday = DayOfWeek.addSymbol({ dayIndex: 0 });
-//    DayOfWeek.Tuesday = DayOfWeek.addSymbol({ dayIndex: 1 });
-//    DayOfWeek.Wednesday = DayOfWeek.addSymbol({ dayIndex: 2 });
-//    DayOfWeek.Thursday = DayOfWeek.addSymbol({ dayIndex: 3 });
-//    DayOfWeek.Friday = DayOfWeek.addSymbol({ dayIndex: 4 });
-//    DayOfWeek.Saturday = DayOfWeek.addSymbol({ dayIndex: 5, isWeekend: true });
-//    DayOfWeek.Sunday = DayOfWeek.addSymbol({ dayIndex: 6, isWeekend: true });
-//    DayOfWeek.seal();
-//    DayOfWeek.Monday.nextDay() === DayOfWeek.Tuesday;
-//    DayOfWeek.Sunday.nextDay() === DayOfWeek.Monday;
-//    DayOfWeek.Tuesday.isWeekend === undefined;
-//    DayOfWeek.Saturday.isWeekend == true;
-//    DayOfWeek instanceof core.Enum;
-//    core.Enum.isSymbol(DayOfWeek.Wednesday);
-//    DayOfWeek.contains(DayOfWeek.Thursday);
-//    DayOfWeek.Tuesday.parentEnum == DayOfWeek;
-//    DayOfWeek.getSymbols().length === 7;
-//    DayOfWeek.Friday.toString() === "Friday";
+// var prototype = {
+// nextDay: function () {
+// var nextIndex = (this.dayIndex + 1) % 7;
+// return DayOfWeek.getSymbols()[nextIndex];
+// }
+// };
+// var DayOfWeek = new core.Enum("DayOfWeek", prototype);
+// DayOfWeek.Monday = DayOfWeek.addSymbol({ dayIndex: 0 });
+// DayOfWeek.Tuesday = DayOfWeek.addSymbol({ dayIndex: 1 });
+// DayOfWeek.Wednesday = DayOfWeek.addSymbol({ dayIndex: 2 });
+// DayOfWeek.Thursday = DayOfWeek.addSymbol({ dayIndex: 3 });
+// DayOfWeek.Friday = DayOfWeek.addSymbol({ dayIndex: 4 });
+// DayOfWeek.Saturday = DayOfWeek.addSymbol({ dayIndex: 5, isWeekend: true });
+// DayOfWeek.Sunday = DayOfWeek.addSymbol({ dayIndex: 6, isWeekend: true });
+// DayOfWeek.seal();
+// DayOfWeek.Monday.nextDay() === DayOfWeek.Tuesday;
+// DayOfWeek.Sunday.nextDay() === DayOfWeek.Monday;
+// DayOfWeek.Tuesday.isWeekend === undefined;
+// DayOfWeek.Saturday.isWeekend == true;
+// DayOfWeek instanceof core.Enum;
+// core.Enum.isSymbol(DayOfWeek.Wednesday);
+// DayOfWeek.contains(DayOfWeek.Thursday);
+// DayOfWeek.Tuesday.parentEnum == DayOfWeek;
+// DayOfWeek.getSymbols().length === 7;
+// DayOfWeek.Friday.toString() === "Friday";
 //}
 
 function test_event() {
@@ -770,7 +782,7 @@ function test_validator() {
     var sameValidator = result.validator;
     var valFn = function (v) {
         if (v == null) return true;
-        return (v.substr(0,2) ===  "US");
+        return (v.substr(0,2) === "US");
     };
     var countryValidator = new breeze.Validator("countryIsUS", valFn, { displayName: "Country" });
     breeze.Validator.messageTemplates["countryIsUS"] = "'%displayName%' must start with 'US'";
