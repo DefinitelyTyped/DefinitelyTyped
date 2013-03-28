@@ -1,7 +1,12 @@
+// Type definitions for Breeze 1.2.7
+// Project: http://www.breezejs.com/
+// Definitions by: IdeaBlade <https://github.com/IdeaBlade/Breeze/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped 
 /// <reference path="breeze.d.ts" />
 
-import breeze = module(Breeze);
-import core = module(BreezeCore);
+import breeze = module(breeze);
+import core = module(breezeCore);
+
 
 function test_dataType() {
     var typ = breeze.DataType.DateTime;
@@ -9,9 +14,10 @@ function test_dataType() {
     var isNumber = typ.isNumeric;
     var dv = typ.defaultValue;
     var symbs = breeze.DataType.getSymbols();
-    var x = typ.parentEnum === <BreezeCore.IEnum> breeze.DataType;
+    var x = typ.parentEnum === <breezeCore.IEnum> breeze.DataType;
     var isFalse = breeze.DataType.contains(breeze.DataType.Double);
     var dt = breeze.DataType.fromName("Decimal");
+    
 }
 
 function test_dataProperty() {
@@ -33,6 +39,7 @@ function test_dataService() {
     var em = new breeze.EntityManager({
         dataService: ds
     });
+    
 }
 
 function test_entityAspect() {
@@ -125,12 +132,13 @@ function test_metadataStore() {
 
 function test_entityManager() {
     var entityManager = new breeze.EntityManager("api/NorthwindIBModel");
-    var entityManager = new breeze.EntityManager({ serviceName: "api/NorthwindIBModel" });
+    var em1 = new breeze.EntityManager({ serviceName: "api/NorthwindIBModel" });
     var metadataStore = new breeze.MetadataStore();
     var entityManager = new breeze.EntityManager({
         serviceName: "api/NorthwindIBModel",
         metadataStore: metadataStore
     });
+    
     return new breeze.QueryOptions({
         mergeStrategy: null,
         fetchStrategy: this.fetchStrategy
@@ -152,6 +160,10 @@ function test_entityManager() {
     var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
     var cust1 = custType.createEntity();
     em1.addEntity(cust1);
+
+    var cust2 = em1.createEntity("Customer", { companyName: "foo" });
+    var cust3 = em1.createEntity("foo", { xxx: 3 }, breeze.EntityState.Added);
+    
     em1.attachEntity(cust1, breeze.EntityState.Added);
     em1.clear();
     var em2 = em1.createEmptyCopy();
@@ -239,7 +251,8 @@ function test_entityManager() {
     if (em1.hasChanges(custType)) { }
     var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
     var orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
-    if (em1.hasChanges([custType, orderType])) { }
+    if (em1.hasChanges([custType, orderType])) { };
+    
     var bundle = em1.exportEntities();
     window.localStorage.setItem("myEntityManager", bundle);
     var bundleFromStorage = window.localStorage.getItem("myEntityManager");
@@ -280,7 +293,7 @@ function test_entityManager() {
     });
     var em = new breeze.EntityManager({ serviceName: "api/NorthwindIBModel" });
     em.hasChangesChanged.subscribe(function (args) {
-        var hasChangesChanged = args.hasChanges;
+        var hasChanges = args.hasChanges;
         var entityManager = args.entityManager;
     });
 }
@@ -377,6 +390,8 @@ function test_entityQuery() {
     var em = new breeze.EntityManager(serviceName);
     var query = new breeze.EntityQuery("Orders")
         .using(breeze.FetchStrategy.FromLocalCache);
+    var adapter = new breeze.JsonResultsAdapter({ name: "foo", visitNode: function (x) { return x; } });
+    var q2 = query.using(adapter);
     var query = new breeze.EntityQuery("Customers")
         .where("CompanyName", "startsWith", "C");
     var query = new breeze.EntityQuery("Customers")
@@ -393,6 +408,7 @@ function test_entityQuery() {
         .where("toLower(CompanyName)", "startsWith", "c");
     var query = new breeze.EntityQuery("Customers")
         .where("toUpper(substring(CompanyName, 1, 2))", breeze.FilterQueryOp.Equals, "OM");
+    var q2 = query.toType("foo").orderBy("foo2");
 }
 
 function test_entityState() {
