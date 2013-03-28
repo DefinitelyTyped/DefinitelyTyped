@@ -106,6 +106,19 @@ interface JQueryDeferred extends JQueryPromise {
 }
 
 /*
+    Interface of the JQuery browser object
+*/
+interface JQueryBrowserInfo
+{
+	safari: bool;
+	opera: bool;
+	msie: bool;
+	mozilla: bool;
+	webkit: bool;
+	version: string;
+}
+
+/*
     Interface of the JQuery extension of the W3C event object
 */
 interface JQueryEventObject extends Event {
@@ -284,6 +297,7 @@ interface JQueryStatic {
     /**********
      PROPERTIES
     ***********/
+    browser: JQueryBrowserInfo;
     support: JQuerySupport;
 
     /*********
