@@ -53,7 +53,7 @@ declare module BreezeCore {
     }
 }
 
-declare module Breeze {
+declare module breeze {
 
     interface Entity {
         entityAspect: EntityAspect;
