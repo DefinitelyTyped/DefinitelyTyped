@@ -440,6 +440,13 @@ declare module "durandal/plugins/router" {
 
 interface IEventSubscription
 {
-    then(thenCallback: any):void;
-    off(): void;
-}
+    /**
+      * This function adding callback to event subscription
+      */
+    then(thenCallback: any): void;
+
+    /**
+      * This function removing current subscription from event handlers
+      */
+     off(): void;
+ }
