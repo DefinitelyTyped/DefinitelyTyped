@@ -72,7 +72,7 @@ declare module "durandal/app" {
     /**
       * The events parameter is a space delimited string containing one or more event identifiers. When one of these events is triggered, the callback is called and passed the event data provided by the trigger. The special events value of "all" binds all events on the object to the callback. If a context is provided, it will be bound to this for the callback. If the callback is omitted, then a promise-like object is returned from on. This object represents a subscription and has a then function used to register callbacks.
       */
-    export var on: (events: string, callback: Function, context?) => any;
+    export var on: (events: string, callback: Function, context?) => IEventSubscription;
     /**
       * Unwires callbacks from events. If no context is specified, all callbacks with different contexts will be removed. If no callback is specified, all callbacks for the event will be removed. If no event is specified, all event callbacks on the object will be removed.
       */
@@ -419,7 +419,7 @@ declare module "durandal/plugins/router" {
     /**
       * Works the same as mapRoute except that routes are automatically added to the visibleRoutes array.
       */
-    export var mapNav: (url: string, moduleId?: string, name?: string) => routeInfo;
+    export var mapNav: (url: string, moduleId: string, name: string) => routeInfo;
     /**
       * You can pass a single routeInfo to this function, or you can pass the basic configuration parameters. url is your url pattern, moduleId is the module path this pattern will map to, name is used as the document title and visible determines whether or not to include it in the router's visibleRoutes array for easy navigation UI binding.
       */
@@ -435,4 +435,11 @@ declare module "durandal/plugins/router" {
       * After you've configured the router, you need to activate it. This is usually done in your shell. The activate function of the router returns a promise that resolves when the router is ready to start. To use the router, you should add an activate function to your shell and return the result from that. The application startup infrastructure of Durandal will detect your shell's activate function and call it at the appropriate time, waiting for it's promise to resolve. This allows Durandal to properly orchestrate the timing of composition and databinding along with animations and splash screen display.
       */
     export var activate: (defaultRoute: string) => JQueryPromise;
+}
+
+
+interface IEventSubscription
+{
+    then(thenCallback: any):void;
+    off(): void;
 }
