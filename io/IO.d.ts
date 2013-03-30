@@ -1,3 +1,8 @@
+// Type definitions for tsc.exe IO
+// Project: http://typescript.codeplex.com/
+// Definitions by: Jonas Eriksson <http://joeriks.com>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 interface IResolvedFile {
     content: string;
     path: string;
