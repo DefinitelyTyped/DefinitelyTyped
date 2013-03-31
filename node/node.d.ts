@@ -225,7 +225,16 @@ declare module "events" {
         emit(event: string, arg1?: any, arg2?: any): void;
     }
 
-    export var EventEmitter: NodeEventEmitter;
+    export class EventEmitter implements NodeEventEmitter {
+        addListener(event: string, listener: Function);
+        on(event: string, listener: Function): any;
+        once(event: string, listener: Function): void;
+        removeListener(event: string, listener: Function): void;
+        removeAllListener(event: string): void;
+        setMaxListeners(n: number): void;
+        listeners(event: string): { Function; }[];
+        emit(event: string, arg1?: any, arg2?: any): void;
+    }
 }
 
 declare module "http" {

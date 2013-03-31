@@ -3,12 +3,16 @@
 // Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../node/node.d.ts" />
+
+import events = module("events");
+
 /**
 * TODO
 */
 declare module "azure" {
     //#region Services
-    export class TableService extends ServiceClient {
+    export class TableService extends BatchServiceClient {
         static incorrectTableNameErr: string;
         static incorrectCallbackErr: string;
         static incorrectTableQuery: string;
@@ -99,13 +103,39 @@ declare module "azure" {
 
     }
 
-    //#region Helpers
+    //#region Export of internal classes
     export class WebResource {
 
     }
 
-    export class ServiceClient {
+    export class ServiceClient extends events.EventEmitter {
+        static EnvironmentVariables;
+        static DEVSTORE_STORAGE_ACCOUNT: string;
+        static DEVSTORE_STORAGE_ACCESS_KEY: string;
+        static DEVSTORE_BLOB_HOST: string;
+        static DEVSTORE_QUEUE_HOST: string;
+        static DEVSTORE_TABLE_HOST: string;
+        static CLOUD_BLOB_HOST: string;
+        static CLOUD_QUEUE_HOST: string;
+        static CLOUD_TABLE_HOST: string;
+        static CLOUD_SERVICEBUS_HOST: string;
+        static CLOUD_ACCESS_CONTROL_HOST: string;
+        static CLOUD_SERVICE_MANAGEMENT_HOST: string;
+        static CLOUD_DATABASE_HOST: string;
+        static DEFAULT_SERVICEBUS_ISSUER: string;
+        static DEFAULT_WRAP_NAMESPACE_SUFFIX: string;
+        static DEFAULT_PROTOCOL: string;
 
+        constructor(host: string, authenticationProvider);
+
+        setHost(host: string): void;
+        performRequest(webResource: WebResource, outputData: string, options, callback: Function): void;
+        performRequestOutputStream(webResource: WebResource, outputStream, options, callback: Function): void;
+        performRequestInputStream(webResource: WebResource, outputData: string, inputStream, options, callback: Function): void;
+        withFilter(newFilter: { handle: (requestOptions, next: Function) => void; }): ServiceClient;
+        parseMetadataHeaders(headers): any;
+        isEmulated(): bool;
+        setProxy(proxyUrl: string, proxyPort: number): void;
     }
 
     export class ServiceManagementClient {
@@ -116,8 +146,19 @@ declare module "azure" {
 
     }
 
-    export class BatchServiceClient {
+    export class BatchServiceClient extends StorageServiceClient {
+        operations: any[];
 
+        constructor(storageAccount: string, storageAccessKey: string, host: string, usePathstyleUri: bool, authenticationProvider);
+        beginBatch(): void;
+        isInBatch(): bool;
+        rollback(): void;
+        hasOperations(): bool;
+        addOperation(webResource: WebResource, outputData): void;
+        commitBatch(callback: (error, operationResponses: any[], response) => void ): void;
+        commitBatch(options, callback: (error, operationResponses: any[], response) => void ): void;
+        processResponse(responseObject, requestOperations: any[]): any[];
+        processOperation(webResource: WebResource, rawResponse: string): any;
     }
 
     export module Constants {
@@ -186,6 +227,25 @@ declare module "azure" {
 
     export module date {
 
+    }
+    //#endregion
+
+    //#region Un-exported internal classes
+    class StorageServiceClient extends ServiceClient {
+        static incorrectStorageAccountErr: string;
+        static incorrectStorageAccessKeyErr: string;
+        static getStorageSettings(connectionString: string);
+        static getStorageSettings(storageAccount?: string, storageAccessKey?: string, host?: string): StorageServiceSettings;
+        private static _getStorageSettingsExplicitOrEnvironment(storageAccount?: string, storageAccessKey?: string, host?: string): StorageServiceSettings;
+
+        apiVersion: string;
+        usePathStyleUri: string;
+
+        constructor(storageAccount: string, storageAccessKey: string, host: string, usePathStyleUri: bool, authenticationProvider);
+
+        private _buildRequestOptions(webResource: WebResource, options, callback: (error, requestOptions) => void );
+        private _getPath(path: string): string;
+        private _setAccountCredentials(storageAccount: string, storageAccessKey: string): void;
     }
     //#endregion
 
