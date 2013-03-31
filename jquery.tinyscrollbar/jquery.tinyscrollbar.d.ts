@@ -5,28 +5,18 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-interface JQueryTinyScrollbar extends JQuery {
-    tinyscrollbar(): JQuery;
-    tinyscrollbar_update(): JQuery;
+module JQueryTinyScrollbar {
+    export interface JQueryTinyScrollbarOptions {
+        invertscroll?: bool;
+        axis?: string;
+        wheel?: number;
+        scroll?: bool;
+        lockscroll?: bool;
+        size?: any; //string or number
+        sizethumb?: any; //string or number 
+    }
 }
-
-
-interface JQueryTinyScrollbarOptions {
-    invertscroll?: bool;
-    axis?: string;
-	wheel?: number;
-	scroll?: bool;
-	lockscroll?: bool;
-	size?: any; //string or number
-	sizethumb?: any; //string or number	
-}
-
-interface JQueryTinyScrollbarStatic {   
-
-    tinyscrollbar(options: JQueryTinyScrollbarOptions): JQueryTinyScrollbar;
-    tinyscrollbar_update(options:any): JQueryTinyScrollbar;
-}
-
-interface JQuery extends JQueryTinyScrollbarStatic {
-    
+interface JQuery {
+    tinyscrollbar(options?: JQueryTinyScrollbar.JQueryTinyScrollbarOptions): JQuery;
+    tinyscrollbar_update(options?: any): JQuery;
 }
