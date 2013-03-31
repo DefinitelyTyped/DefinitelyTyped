@@ -2,6 +2,7 @@
 
 import assert = module("assert");
 import fs = module("fs");
+import events = module("events");
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -28,3 +29,11 @@ fs.writeFile("Harry Potter",
                 encoding: "ascii"
             },
             assert.ifError);
+
+class Networker extends events.EventEmitter {
+    constructor() {
+        super();
+
+        this.emit("mingling");
+    }
+}
