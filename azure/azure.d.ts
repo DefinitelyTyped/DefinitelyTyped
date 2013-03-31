@@ -5,12 +5,12 @@
 
 /// <reference path="../node/node.d.ts" />
 
-import events = module("events");
-
 /**
 * TODO
 */
 declare module "azure" {
+    import events = module("events");
+
     //#region Services
     export class TableService extends BatchServiceClient {
         static incorrectTableNameErr: string;
@@ -48,8 +48,49 @@ declare module "azure" {
         */
         constructor(storageAccount: string, storageAccessKey: string, host?: string, authenticationProvider?: string);
 
-        public getServiceProperties(callback: (error, servicePropertiesResult, response) => void ): void;
-        public getServiceProperties(options, callback: (error, servicePropertiesResult, response) => void ): void;
+        getServiceProperties(callback?: (error, servicePropertiesResult, response) => void ): void;
+        getServiceProperties(options: TimeoutIntervalOptions, callback?: (error, servicePropertiesResult, response) => void ): void;
+
+        setServiceProperties(serviceProperties: any, options: TimeoutIntervalOptions, callback?: Function): void;
+
+        getTable(table: string, callback?: TableRequestCallback ): void;
+        getTable(table: string, options: TimeoutIntervalOptions, callback?: TableRequestCallback ): void;
+
+        createTable(table: string, callback?: TableRequestCallback ): void;
+        createTable(table: string, options: TimeoutIntervalOptions, callback?: TableRequestCallback ): void;
+
+        createTableIfNotExists(table: string, callback?: CreateTableIfNotExistsCallback ): void;
+        createTableIfNotExists(table: string, options: TimeoutIntervalOptions, callback?: CreateTableIfNotExistsCallback): void;
+
+        deleteTable(table: string, callback?: DeleteTableCallback ): void;
+        deleteTable(table: string, options: TimeoutIntervalOptions, callback?: DeleteTableCallback ): void;
+
+        queryTables(callback?: QueryTablesCallback ): void;
+        queryTables(options: QueryTablesOptions, callback?: QueryTablesCallback ): void;
+
+        queryEntity(table: string, partitionKey: string, rowKey: string, callback?: QueryEntityCallback ): void;
+        queryEntity(table: string, partitionKey: string, rowKey: string, options: TimeoutIntervalOptions, callback?: QueryEntityCallback ): void;
+        
+        queryEntities(tableQuery: TableQuery, callback?: QueryEntitiesCallback): void;
+        queryEntities(tableQuery: TableQuery, options: TimeoutIntervalOptions, callback?: QueryEntitiesCallback): void;
+
+        insertEntity(tableName: string, entityDescriptor: Entity, callback?: ModifyEntityCallback): void;
+        insertEntity(tableName: string, entityDescriptor: Entity, options: TimeoutIntervalOptions, callback?: ModifyEntityCallback): void;
+
+        insertOrReplaceEntity(tableName: string, entityDescriptor: Entity, callback?: ModifyEntityCallback): void;
+        insertOrReplaceEntity(tableName: string, entityDescriptor: Entity, options: TimeoutIntervalOptions, callback?: ModifyEntityCallback): void;
+
+        updateEntity(tableName: string, entityDescriptor: Entity, callback?: ModifyEntityCallback): void;
+        updateEntity(tableName: string, entityDescriptor: Entity, options: UpdateEntityOptions, callback?: ModifyEntityCallback): void;
+
+        mergeEntity(tableName: string, entityDescriptor: Entity, callback?: ModifyEntityCallback): void;
+        mergeEntity(tableName: string, entityDescriptor: Entity, options: UpdateEntityOptions, callback?: ModifyEntityCallback): void;
+
+        insertOrMergeEntity(tableName: string, entityDescriptor: Entity, callback?: ModifyEntityCallback): void;
+        insertOrMergeEntity(tableName: string, entityDescriptor: Entity, options: UpdateEntityOptions, callback?: ModifyEntityCallback): void;
+
+        deleteEntity(tableName: string, entityDescriptor: Entity, callback?: DeleteEntityCallback): void;
+        deleteEntity(tableName: string, entityDescriptor: Entity, options: UpdateEntityOptions, callback?: DeleteEntityCallback): void;
     }
 
     export class BlobService {
@@ -230,22 +271,92 @@ declare module "azure" {
     }
     //#endregion
 
+    //#region Non-explicit, undeclared interfaces
+    export interface WebResponse {
+        isSuccessful: bool;
+        statusCode: number;
+        body: { entry: { id: string; title; updated: string; author: { name; }; link; category; content; }; };
+        headers;
+        md5;
+    }
+
+    export interface TimeoutIntervalOptions {
+        timeoutIntervalInMs?: number;
+    }
+
+    ///#region TableService Callbacks
+    export interface TableRequestCallback {
+        (error: Error, tableResult: { TableName: string; }, response: WebResponse): void;
+    }
+
+    export interface CreateTableIfNotExistsCallback {
+        (error: Error, created: bool, response: WebResponse): void;
+    }
+
+    export interface DeleteTableCallback {
+        (error: Error, successful: bool, response: WebResponse): void;
+    }
+
+    export interface QueryTablesCallback {
+        (error: Error, queryTablesResult: TableResult[], resultsContinuation: QueryResultContinuation, response: WebResponse): void;
+    }
+
+    export interface QueryResultContinuation {
+        tableService: TableService;
+    }
+
+    export interface QueryTablesOptions extends TimeoutIntervalOptions {
+        nextTableName?: string;
+    }
+
+    export interface TableResult {
+        TableName: string;
+    }
+
+    export interface QueryEntityCallback {
+        (error: Error, entity: Entity, response: WebResponse): void;
+    }
+
+    export interface QueryEntitiesCallback {
+        (error: Error, entities: Entity[], resultContinuation: QueryEntitiesResultContinuation, response: WebResponse): void;
+    }
+
+    export interface QueryEntitiesResultContinuation extends QueryResultContinuation {
+        tableQuery: TableQuery;
+    }
+
+    export interface ModifyEntityCallback {
+        (error: Error, entity: Entity, response: WebResponse): void;
+    }
+
+    export interface DeleteEntityCallback {
+        (error: Error, successful: bool, response: WebResponse): void;
+    }
+
+    export interface UpdateEntityOptions extends TimeoutIntervalOptions {
+        checkEtag?: bool;
+    }
+
+    export interface Entity {
+        PartitionKey: string;
+        RowKey: string;
+        Timestamp?: Date;
+        etag?: string;
+    }
+    //#endregion
+    //#endregion
+
     //#region Un-exported internal classes
     class StorageServiceClient extends ServiceClient {
         static incorrectStorageAccountErr: string;
         static incorrectStorageAccessKeyErr: string;
         static getStorageSettings(connectionString: string);
         static getStorageSettings(storageAccount?: string, storageAccessKey?: string, host?: string): StorageServiceSettings;
-        private static _getStorageSettingsExplicitOrEnvironment(storageAccount?: string, storageAccessKey?: string, host?: string): StorageServiceSettings;
 
         apiVersion: string;
         usePathStyleUri: string;
 
         constructor(storageAccount: string, storageAccessKey: string, host: string, usePathStyleUri: bool, authenticationProvider);
-
-        private _buildRequestOptions(webResource: WebResource, options, callback: (error, requestOptions) => void );
-        private _getPath(path: string): string;
-        private _setAccountCredentials(storageAccount: string, storageAccessKey: string): void;
     }
     //#endregion
 
