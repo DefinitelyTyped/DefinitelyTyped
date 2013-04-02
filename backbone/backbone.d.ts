@@ -1,4 +1,4 @@
-// Type definitions for Backbone 0.9
+// Type definitions for Backbone 0.9.10
 // Project: http://backbonejs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -11,14 +11,14 @@ declare module Backbone {
     export interface AddOptions extends Silenceable {
         at: number;
     }
-    
+
     export interface CreateOptions extends Silenceable {
         wait: bool;
     }
-    
+
     export interface HistoryOptions extends Silenceable {
-        pushState: bool;
-        root: string;
+        pushState?: bool;
+        root?: string;
     }
 
     export interface NavigateOptions {
@@ -30,7 +30,7 @@ declare module Backbone {
     }
 
     export interface Silenceable {
-        silent: bool;
+        silent?: bool;
     }
 
     interface on { (eventName: string, callback: (...args: any[]) => void, context?: any): any; }
@@ -49,7 +49,7 @@ declare module Backbone {
 
     export class ModelBase extends Events {
         fetch(options?: JQueryAjaxSettings);
-        url(): string;
+        url: any;
         parse(response);
         toJSON(): any;
     }
@@ -69,8 +69,8 @@ declare module Backbone {
         initialize(attributes?: any);
 
         get(attributeName: string): any;
-        set(attributeName: string, value: any);
-        set(obj: any);
+        set(attributeName: string, value: any, options?: Silenceable);
+        set(obj: any, options?: Silenceable);
 
         change();
         changedAttributes(attributes?: any): any[];
@@ -109,7 +109,6 @@ declare module Backbone {
         add(models: Model[], options?: AddOptions);
         at(index: number): Model;
         get(id: any): Model;
-        getByCid(cid): Model;
         create(attributes: any, options?: CreateOptions): Model;
         pluck(attribute: string): any[];
         push(model: Model, options?: AddOptions);
@@ -197,6 +196,8 @@ declare module Backbone {
         start(options?: HistoryOptions);
         navigate(fragment: string, options: any);
         pushSate();
+        getFragment(fragment?: string, forcePushState?: bool): string;
+        getHash(window?: Window): string;
     }
 
     export interface ViewOptions {

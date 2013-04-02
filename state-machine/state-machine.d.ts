@@ -3,26 +3,30 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // Updated: 2013/01/22 by Maarten Docter <https://github.com/mdocter>
+// Updated: 2013/01/25 by William Sears <https://github.com/MrBigDog2U>
 
-
-interface ErrorCallback {
+interface StateMachineErrorCallback {
     (eventName?: string, from?: string, to?: string, args?: any[], errorCode?: number, errorMessage?: string, ex?: Error): void; // NB. errorCode? See: StateMachine.Error
 }
 
-interface StateMachineEvent {
+interface StateMachineEventDef {
     name: string;
     from: string;
     to: string;
 }
 
+interface StateMachineEvent {
+	(...args: any[]): void;
+}
+
 interface StateMachineConfig {
     initial?: any; // string or { state: 'foo', event: 'setup', defer: true|false }
-    events?: StateMachineEvent[];
+    events?: StateMachineEventDef[];
     callbacks?: {
         [s: string]: (event?: string, from?: string, to?: string, ...args: any[]) => any;
     };
-    target?: any;
-    error?: ErrorCallback;
+    target?: StateMachine;
+    error?: StateMachineErrorCallback;
 }
 
 interface StateMachineStatic {
@@ -44,24 +48,34 @@ interface StateMachineStatic {
         INVALID_CALLBACK: number;	// = 300, caller provided callback function threw an exception
     };
 
-    create(config: StateMachineConfig, target?: any): StateMachine;
+    create(config: StateMachineConfig, target?: StateMachine): StateMachine;
+}
+
+interface StateMachineTransition {
+	(): void;
+	cancel(): void;
+}
+
+interface StateMachineIs {
+	(state: string): bool;
+}
+
+interface StateMachineCan {
+	(evt: string): bool;
 }
 
 interface StateMachine {
     current: string;
-    is(state: string): bool;
-    can(event: StateMachineEvent): bool;
-    cannot(event: StateMachineEvent): bool;
-    error: ErrorCallback;
+    is: StateMachineIs;
+    can: StateMachineCan;
+    cannot: StateMachineCan;
+    error: StateMachineErrorCallback;
 
     /*  transition - only available when performing async state transitions; otherwise null. Can be a: 
-        [1] function without arguments (see: https://github.com/jakesgordon/javascript-state-machine#asynchronous-state-transitions) 
-        [2] property with a cancel function to cancel the ASYNC event. Example usages:
-    
-        [1] fsm.transition(); // called form async callback
+        [1] fsm.transition(); // called from async callback
         [2] fsm.transition.cancel(); 
     */
-    transition?: any;
+    transition: StateMachineTransition;
 }
 
 declare var StateMachine: StateMachineStatic;

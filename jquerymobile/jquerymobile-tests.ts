@@ -25,6 +25,9 @@ function test_api() {
     var isAbs = $.mobile.path.isAbsoluteUrl("//foo.com/a/file.html");
     var dirName = $.mobile.path.get("http://foo.com/a");
     $.mobile.silentScroll(100);
+    
+    $.mobile.showPageLoadingMsg();
+    $.mobile.hidePageLoadingMsg();
 }
 
 function test_pagesDialogs() {

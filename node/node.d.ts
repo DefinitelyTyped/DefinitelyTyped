@@ -1,6 +1,6 @@
 /************************************************
 *                                               *
-*               Node.js v0.8.8 API              *
+*               Node.js v0.10.1 API              *
 *                                               *
 ************************************************/
 
@@ -165,7 +165,7 @@ interface NodeProcess extends EventEmitter {
 interface NodeBuffer {
     [index: number]: number;
     write(string: string, offset?: number, length?: number, encoding?: string): number;
-    toString(encoding: string, start: number, end: number): string;
+    toString(encoding?: string, start?: number, end?: number): string;
     length: number;
     copy(targetBuffer: NodeBuffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): void;
     slice(start?: number, end?: number): NodeBuffer;
@@ -225,7 +225,16 @@ declare module "events" {
         emit(event: string, arg1?: any, arg2?: any): void;
     }
 
-    export var EventEmitter: NodeEventEmitter;
+    export class EventEmitter implements NodeEventEmitter {
+        addListener(event: string, listener: Function);
+        on(event: string, listener: Function): any;
+        once(event: string, listener: Function): void;
+        removeListener(event: string, listener: Function): void;
+        removeAllListener(event: string): void;
+        setMaxListeners(n: number): void;
+        listeners(event: string): { Function; }[];
+        emit(event: string, arg1?: any, arg2?: any): void;
+    }
 }
 
 declare module "http" {
@@ -768,18 +777,20 @@ declare module "fs" {
     export function futimesSync(fd: string, atime: number, mtime: number): void;
     export function fsync(fd: string, callback?: Function): void;
     export function fsyncSync(fd: string): void;
-    export function write(fd: string, buffer: NodeBuffer, offset: number, length: number, position: number, callback?: (err: Error, written: number, buffer: NodeBuffer) =>any): void;
+    export function write(fd: string, buffer: NodeBuffer, offset: number, length: number, position: number, callback?: (err, written: number, buffer: NodeBuffer) =>any): void;
     export function writeSync(fd: string, buffer: NodeBuffer, offset: number, length: number, position: number): void;
-    export function read(fd: string, buffer: NodeBuffer, offset: number, length: number, position: number, callback?: (err: Error, bytesRead: number, buffer: NodeBuffer) => void): void;
+    export function read(fd: string, buffer: NodeBuffer, offset: number, length: number, position: number, callback?: (err, bytesRead: number, buffer: NodeBuffer) => void): void;
     export function readSync(fd: string, buffer: NodeBuffer, offset: number, length: number, position: number): any[];
-    export function readFile(filename: string, encoding: string, callback: (err: Error, data: string) => void ): void;
-    export function readFile(filename: string, callback: (err: Error, data: NodeBuffer) => void ): void;
+    export function readFile(filename: string, options: { encoding?: string; flag?: string; }, callback: (err, data: any) => void ): void;
+    export function readFile(filename: string, callback: (err, data: NodeBuffer) => void ): void;
     export function readFileSync(filename: string): NodeBuffer;
-    export function readFileSync(filename: string, encoding: string): string;
-    export function writeFile(filename: string, data: any, encoding?: string, callback?: Function): void;
-    export function writeFileSync(filename: string, data: any, encoding?: string): void;
-    export function appendFile(filename: string, data: any, encoding?: string, callback?: Function): void;
-    export function appendFileSync(filename: string, data: any, encoding?: string): void;
+    export function readFileSync(filename: string, options: { encoding?: string; flag?: string; }): any;
+    export function writeFile(filename: string, data: any, callback?: (err) => void): void;
+    export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err) => void): void;
+    export function writeFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
+    export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err) => void): void;
+    export function appendFile(filename: string, data: any, callback?: (err) => void): void;
+    export function appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
     export function watchFile(filename: string, listener: { curr: Stats; prev: Stats; }): void;
     export function watchFile(filename: string, options: { persistent?: bool; interval?: number; }, listener: { curr: Stats; prev: Stats; }): void;
     export function unwatchFile(filename: string, listener?: Stats): void;
@@ -1014,6 +1025,7 @@ declare module "util" {
 }
 
 declare module "assert" {
+    export function (booleanValue: bool, message?: string);
     export function fail(actual: any, expected: any, message: string, operator: string): void;
     export function assert(value: any, message: string): void;
     export function ok(value: any, message?: string): void;
