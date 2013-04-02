@@ -758,6 +758,7 @@ declare module fabric {
         fromURL(url: string): IImage;
         fromURL(url: string, callback: (image: IImage) => any): IImage;
         fromURL(url: string, callback: (image: IImage) => any, objObjects: IObjectOptions): IImage;
+        new (element: HTMLImageElement, objObjects: IObjectOptions): IImage;
         prototype: any;
 
         filters: 

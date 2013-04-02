@@ -960,8 +960,8 @@ interface HighchartsOptions {
     subtitle?: HighchartsSubtitleOptions;
     title?: HighchartsTitleOptions;
     tooltip?: HighchartsTooltipOptions;
-    xAxis?: HighchartsAxisOptions[];
-    yAxis?: HighchartsAxisOptions[];
+    xAxis?: HighchartsAxisOptions;
+    yAxis?: HighchartsAxisOptions;
 }
 
 

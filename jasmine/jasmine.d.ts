@@ -7,7 +7,8 @@
 declare function describe(description: string, specDefinitions: Function): void;
 declare function xdescribe(description: string, specDefinitions: Function): void;
 
-declare function it(expectation: string, assertion: Function): void;
+declare function it(expectation: string, assertion: () => void ): void;
+declare function it(expectation: string, assertion: (done: (err?) => void) => void ): void;
 declare function xit(expectation: string, assertion: Function): void;
 
 declare function beforeEach(action: Function): void;
@@ -22,7 +23,6 @@ declare function spyOn(object: any, method: string): jasmine.Spy;
 declare function runs(asyncMethod: Function): void;
 declare function waitsFor(latchMethod: () => bool, failureMessage: string, timeout?: number): void;
 declare function waits(timeout?: number): void;
-
 
 declare module jasmine {
 
@@ -165,6 +165,8 @@ declare module jasmine {
         toBeLessThan(expected): bool;
         toBeGreaterThan(expected): bool;
         toBeCloseTo(expected, precision): bool;
+        toContainHtml(expected: string): bool;
+        toContainText(expected: string): bool;
         toThrow(expected? ): bool;
         not: Matchers;
 
@@ -291,4 +293,6 @@ declare module jasmine {
         Clock: Clock;
         util: Util;
     }
+
+    export var HtmlReporter: any;
 }

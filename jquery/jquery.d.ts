@@ -59,7 +59,7 @@ interface JQueryAjaxSettings {
 */
 interface JQueryXHR extends XMLHttpRequest, JQueryPromise {
     overrideMimeType(mimeType: string);
-    abort(statusText: string): void;
+    abort(statusText?: string): void;
 }
 
 /*
@@ -89,6 +89,7 @@ interface JQueryPromise {
     state(): string;
     pipe(doneFilter?: (x: any) => any, failFilter?: (x: any) => any, progressFilter?: (x: any) => any): JQueryPromise;
     then(doneCallbacks: any, failCallbacks?: any, progressCallbacks?: any): JQueryPromise;
+    promise(target?): JQueryPromise;
 }
 
 /*
@@ -97,8 +98,6 @@ interface JQueryPromise {
 interface JQueryDeferred extends JQueryPromise {
     notify(...args: any[]): JQueryDeferred;
     notifyWith(context: any, ...args: any[]): JQueryDeferred;
-
-    promise(target? ): JQueryPromise;
     reject(...args: any[]): JQueryDeferred;
     rejectWith(context:any, ...args: any[]): JQueryDeferred;
     resolve(...args: any[]): JQueryDeferred;
@@ -108,12 +107,13 @@ interface JQueryDeferred extends JQueryPromise {
 /*
     Interface of the JQuery extension of the W3C event object
 */
-interface JQueryEventObject extends Event {
+
+interface BaseJQueryEventObject extends Event {
     data: any;
     delegateTarget: Element;
     isDefaultPrevented(): bool;
     isImmediatePropogationStopped(): bool;
-    isPropogationStopped(): bool;
+    isPropagationStopped(): bool;
     namespace: string;
     preventDefault(): any;
     relatedTarget: Element;
@@ -126,7 +126,7 @@ interface JQueryEventObject extends Event {
     metaKey: any;
 }
 
-interface JQueryInputEventObject extends JQueryEventObject
+interface JQueryInputEventObject extends BaseJQueryEventObject
 {
     altKey: bool;
     ctrlKey: bool;
@@ -155,6 +155,14 @@ interface JQueryKeyEventObject extends JQueryInputEventObject
     keyCode: number;
 }
 
+interface JQueryPopStateEventObject extends BaseJQueryEventObject
+{
+    originalEvent: PopStateEvent;
+}
+
+interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject, JQueryPopStateEventObject {
+}
+
 /*
     Collection of properties of the current browser
 */
@@ -181,6 +189,11 @@ interface JQuerySupport {
     tbody?: bool;
 }
 
+interface JQueryParam {
+  (obj: any): string;
+  (obj: any, traditional: bool): string;
+}
+
 /*
     Static members of jQuery (those on $ and jQuery themselves)
 */
@@ -204,8 +217,7 @@ interface JQueryStatic {
     getJSON(url: string, data?: any, success?: any): JQueryXHR;
     getScript(url: string, success?: any): JQueryXHR;
 
-    param(obj: any): string;
-    param(obj: any, traditional: bool): string;
+    param: JQueryParam;
 
     post(url: string, data?: any, success?: any, dataType?: any): JQueryXHR;
 
@@ -266,7 +278,10 @@ interface JQueryStatic {
     *******/
     proxy(fn : (...args: any[]) => any, context: any, ...args: any[]): any;
     proxy(context: any, name: string, ...args: any[]): any;
-    Deferred(): JQueryDeferred;
+    Deferred: {
+        (fn?: (d: JQueryDeferred) => any): JQueryDeferred;
+        new(fn?: (d: JQueryDeferred) => any): JQueryDeferred;
+    };
     Event(name:string, eventProperties?:any): JQueryEventObject;
 
     /*********
@@ -292,6 +307,10 @@ interface JQueryStatic {
     contains(container: Element, contained: Element): bool;
 
     each(collection: any, callback: (indexInArray: any, valueOfElement: any) => any): any;
+    each(collection: any[], callback: (indexInArray: any, valueOfElement: any) => any): any;
+    each(collection: JQuery, callback: (indexInArray: number, valueOfElement: HTMLElement) => any): any;
+    each(collection: string[], callback: (indexInArray: number, valueOfElement: string) => any): any;
+    each(collection: number[], callback: (indexInArray: number, valueOfElement: number) => any): any;
 
     extend(target: any, ...objs: any[]): Object;
     extend(deep: bool, target: any, ...objs: any[]): Object;
@@ -313,6 +332,7 @@ interface JQueryStatic {
     makeArray(obj: any): any[];
 
     map(array: any[], callback: (elementOfArray: any, indexInArray: any) =>any): any[];
+	map(array: any, callback: (elementOfArray: any, indexInArray: any) =>any): any;
 
     merge(first: any[], second: any[]): any[];
 
@@ -332,6 +352,15 @@ interface JQueryStatic {
     type(obj: any): string;
 
     unique(arr: any[]): any[];
+	
+	/** 
+	* Parses a string into an array of DOM nodes.
+	*
+	* @param data HTML string to be parsed
+	* @param context DOM element to serve as the context in which the HTML fragment will be created
+	* @param keepScripts A Boolean indicating whether to include scripts passed in the HTML string
+	*/
+	parseHTML(data: string, context?: HTMLElement, keepScripts?: bool): any[];
 }
 
 /*
@@ -358,6 +387,10 @@ interface JQuery {
     ***********/
     addClass(classNames: string): JQuery;
     addClass(func: (index: any, currentClass: any) => string): JQuery;
+
+    // http://api.jquery.com/addBack/
+    addBack(selector?: string): JQuery;
+
 
     attr(attributeName: string): string;
     attr(attributeName: string, value: any): JQuery;
@@ -395,11 +428,11 @@ interface JQuery {
     /***
      CSS
     ****/
-    css(propertyName: string): any;
-    css(propertyNames: string[]): any;
-    css(properties: any): any;
-    css(propertyName: string, value: any): any;    
-    css(propertyName: any, value: any): any;
+    css(propertyName: string): string;
+    css(propertyNames: string[]): string;
+    css(properties: any): JQuery;
+    css(propertyName: string, value: any): JQuery;
+    css(propertyName: any, value: any): JQuery;
 
     height(): number;
     height(value: number): JQuery;
@@ -676,7 +709,7 @@ interface JQuery {
     /*************
      MISCELLANEOUS
     **************/
-    each(func: (index: any, elem: Element) => any);
+    each(func: (index: any, elem: Element) => any): JQuery;
 
     get(index?: number): any;
 
@@ -688,7 +721,8 @@ interface JQuery {
      PROPERTIES
     ***********/
     length: number;
-    [x: string]: HTMLElement;
+    selector: string;
+    [x: string]: any;
     [x: number]: HTMLElement;
 
     /**********
@@ -775,6 +809,10 @@ interface JQuery {
     queue(queueName?: string): any[];
     queue(queueName: string, newQueueOrCallback: any): JQuery;
     queue(newQueueOrCallback: any): JQuery;
+}
+
+interface EventTarget {
+	//nodeName: string;  //bugfix, duplicate identifier.  see: http://stackoverflow.com/questions/14824143/duplicate-identifier-nodename-in-jquery-d-ts
 }
 
 declare var jQuery: JQueryStatic;

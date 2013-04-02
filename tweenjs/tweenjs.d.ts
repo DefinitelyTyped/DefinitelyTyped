@@ -1,4 +1,4 @@
-// Type definitions for TweenJS 0.3
+// Type definitions for TweenJS 0.4
 // Project: http://www.createjs.com/#!/TweenJS
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -11,6 +11,13 @@
 */
 
 module createjs {
+
+    export class TweenJS {
+        // properties
+        version: string;
+        buildDate: string;
+    }
+
 
     export class CSSPlugin {
         // properties
@@ -113,7 +120,7 @@ module createjs {
         // methods
         call(callback: (tweenObject: Tween) => any, params?: any[], scope?: Object);    // when 'params' isn't given, the callback receives a tweenObject
         call(callback: (...params: any[]) => any, params?: any[], scope?: Object); // otherwise, it receives the params only
-        static get(target, props: Object): Tween;
+        static get(target, props?: Object, pluginData?: Object, override?: bool): Tween;
         static hasActiveTweens(target? ): void;
         static installPlugin(plugin: Object, properties: Object): void;
         pause(tween: Tween): void;
@@ -128,6 +135,25 @@ module createjs {
         wait(duration: number): void;
 
         // events
-        onChange: (instance: Tween) => any;
+        change: (event) => any;
+
+        // EventDispatcher mixins
+        addEventListener(type: string, listener: (eventObj: Object) => bool): Function;
+        addEventListener(type: string, listener: (eventObj: Object) => bool): Object;
+        removeEventListener(type: string, listener: (eventObj: Function) => bool): void;
+        removeEventListener(type: string, listener: (eventObj: Object) => bool): void;
+        removeAllEventListeners(type: string): void;
+        dispatchEvent(eventObj: string, target: Object): bool;
+        dispatchEvent(eventObj: Object, target: Object): bool;
+        hasEventListener(type: string): bool;
+    }
+
+
+    export class MotionGuidePlugin {
+        // properties
+        static priority: number;
+
+        //methods
+        static install(): Object;
     }
 }

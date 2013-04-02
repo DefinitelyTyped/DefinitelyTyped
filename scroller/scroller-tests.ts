@@ -1,5 +1,11 @@
 /// <reference path="scroller.d.ts"/>
 
+var clientWidth: any;
+var clientHeight: any;
+var render: any;
+
+var Tiling: any;
+
 function test_basic() {
     var scrollerObj = new Scroller(function (left, top, zoom) {
     }, {
@@ -35,7 +41,7 @@ function test_canvas() {
 function test_domlist() {
     var container = document.getElementById("container");
     var content = document.getElementById("content");
-    var refreshElem = content.getElementsByTagName("div")[0];
+    var refreshElem = <HTMLCanvasElement>content.getElementsByTagName("div")[0];
     var scroller = new Scroller(render, {
         scrollingX: false
     });
@@ -61,7 +67,7 @@ function test_domlist() {
             var row = document.createElement("div");
             row.className = "row";
             row.style.backgroundColor = i % 2 > 0 ? "#ddd" : "";
-            row.innerHTML = Math.random();
+            row.innerHTML = <any>Math.random();
             if (content.firstChild == content.lastChild) {
                 content.appendChild(row);
             } else {
@@ -74,14 +80,14 @@ function test_domlist() {
     if ('ontouchstart' in window) {
         container.addEventListener("touchstart", function (e) {
             // Don't react if initial down happens on a form element
-            if (e.target.tagName.match(/input|textarea|select/i)) {
+            if ((<any>e.target).tagName.match(/input|textarea|select/i)) {
                 return;
             }
-            scroller.doTouchStart(e.touches, e.timeStamp);
+            scroller.doTouchStart((<any>e).touches, e.timeStamp);
             e.preventDefault();
         }, false);
         document.addEventListener("touchmove", function (e) {
-            scroller.doTouchMove(e.touches, e.timeStamp);
+            scroller.doTouchMove((<any>e).touches, e.timeStamp);
         }, false);
         document.addEventListener("touchend", function (e) {
             scroller.doTouchEnd(e.timeStamp);
@@ -89,12 +95,12 @@ function test_domlist() {
     } else {
         var mousedown = false;
         container.addEventListener("mousedown", function (e) {
-            if (e.target.tagName.match(/input|textarea|select/i)) {
+            if ((<any>e.target).tagName.match(/input|textarea|select/i)) {
                 return;
             }
             scroller.doTouchStart([{
-                pageX: e.pageX,
-                pageY: e.pageY
+                pageX: (<any>e).pageX,
+                pageY: (<any>e).pageY
             }], e.timeStamp);
             mousedown = true;
         }, false);
@@ -103,8 +109,8 @@ function test_domlist() {
                 return;
             }
             scroller.doTouchMove([{
-                pageX: e.pageX,
-                pageY: e.pageY
+                pageX: (<any>e).pageX,
+                pageY: (<any>e).pageY
             }], e.timeStamp);
             mousedown = true;
         }, false);
@@ -124,10 +130,10 @@ function test_dompaging() {
     var size = 400;
     var frag = document.createDocumentFragment();
     for (var cell = 0, cl = content.clientWidth / size; cell < cl; cell++) {
-        elem = document.createElement("div");
+        var elem = document.createElement("div");
         elem.className = "cell";
         elem.style.backgroundColor = cell % 2 > 0 ? "#ddd" : "";
-        elem.innerHTML = cell;
+        elem.innerHTML = <any>cell;
         frag.appendChild(elem);
     }
     content.appendChild(frag);
@@ -140,14 +146,14 @@ function test_dompaging() {
     scroller.setDimensions(container.clientWidth, container.clientHeight, content.offsetWidth, content.offsetHeight);
     if ('ontouchstart' in window) {
         container.addEventListener("touchstart", function (e) {
-            if (e.target.tagName.match(/input|textarea|select/i)) {
+            if ((<any>e.target).tagName.match(/input|textarea|select/i)) {
                 return;
             }
-            scroller.doTouchStart(e.touches, e.timeStamp);
+            scroller.doTouchStart((<any>e).touches, e.timeStamp);
             e.preventDefault();
         }, false);
         document.addEventListener("touchmove", function (e) {
-            scroller.doTouchMove(e.touches, e.timeStamp);
+            scroller.doTouchMove((<any>e).touches, e.timeStamp);
         }, false);
         document.addEventListener("touchend", function (e) {
             scroller.doTouchEnd(e.timeStamp);
@@ -155,12 +161,12 @@ function test_dompaging() {
     } else {
         var mousedown = false;
         container.addEventListener("mousedown", function (e) {
-            if (e.target.tagName.match(/input|textarea|select/i)) {
+            if ((<any>e.target).tagName.match(/input|textarea|select/i)) {
                 return;
             }
             scroller.doTouchStart([{
-                pageX: e.pageX,
-                pageY: e.pageY
+                pageX: (<any>e).pageX,
+                pageY: (<any>e).pageY
             }], e.timeStamp);
             mousedown = true;
         }, false);
@@ -169,8 +175,8 @@ function test_dompaging() {
                 return;
             }
             scroller.doTouchMove([{
-                pageX: e.pageX,
-                pageY: e.pageY
+                pageX: (<any>e).pageX,
+                pageY: (<any>e).pageY
             }], e.timeStamp);
             mousedown = true;
         }, false);
@@ -192,7 +198,7 @@ function test_domsnapping() {
     var frag = document.createDocumentFragment();
     for (var row = 0, rl = content.clientHeight / size; row < rl; row++) {
         for (var cell = 0, cl = content.clientWidth / size; cell < cl; cell++) {
-            elem = document.createElement("div");
+            var elem = document.createElement("div");
             elem.className = "cell";
             elem.style.backgroundColor = row % 2 + cell % 2 > 0 ? "#ddd" : "";
             elem.innerHTML = row + "," + cell;
@@ -209,14 +215,14 @@ function test_domsnapping() {
     scroller.setSnapSize(100, 100);
     if ('ontouchstart' in window) {
         container.addEventListener("touchstart", function (e) {
-            if (e.target.tagName.match(/input|textarea|select/i)) {
+            if ((<any>e.target).tagName.match(/input|textarea|select/i)) {
                 return;
             }
-            scroller.doTouchStart(e.touches, e.timeStamp);
+            scroller.doTouchStart((<any>e).touches, e.timeStamp);
             e.preventDefault();
         }, false);
         document.addEventListener("touchmove", function (e) {
-            scroller.doTouchMove(e.touches, e.timeStamp);
+            scroller.doTouchMove((<any>e).touches, e.timeStamp);
         }, false);
         document.addEventListener("touchend", function (e) {
             scroller.doTouchEnd(e.timeStamp);
@@ -224,12 +230,12 @@ function test_domsnapping() {
     } else {
         var mousedown = false;
         container.addEventListener("mousedown", function (e) {
-            if (e.target.tagName.match(/input|textarea|select/i)) {
+            if ((<any>e.target).tagName.match(/input|textarea|select/i)) {
                 return;
             }
             scroller.doTouchStart([{
-                pageX: e.pageX,
-                pageY: e.pageY
+                pageX: (<any>e).pageX,
+                pageY: (<any>e).pageY
             }], e.timeStamp);
             mousedown = true;
         }, false);
@@ -238,8 +244,8 @@ function test_domsnapping() {
                 return;
             }
             scroller.doTouchMove([{
-                pageX: e.pageX,
-                pageY: e.pageY
+                pageX: (<any>e).pageX,
+                pageY: (<any>e).pageY
             }], e.timeStamp);
             mousedown = true;
         }, false);

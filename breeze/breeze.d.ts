@@ -1,12 +1,13 @@
-// Type definitions for Breeze 1.0
+// Type definitions for Breeze 1.2.7
 // Project: http://www.breezejs.com/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, 
+//				   IdeaBlade <https://github.com/IdeaBlade/Breeze/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped 
 
-// Updated Jan 14 2011 - Jay Traband (www.ideablade.com)
+// Updated March 27 2013 - John Lantz (www.ideablade.com)
 
 
-declare module BreezeCore {
+declare module breezeCore {
 
     interface ErrorCallback {
         (error: Error): void;
@@ -53,7 +54,7 @@ declare module BreezeCore {
     }
 }
 
-declare module Breeze {
+declare module breeze {
 
     interface Entity {
         entityAspect: EntityAspect;
@@ -151,6 +152,7 @@ declare module Breeze {
         adapterName: string;
         hasServerMetadata: bool;
         serviceName: string;
+        jsonResultsAdapter: JsonResultsAdapter;
         constructor(config: DataServiceOptions);
     }
 
@@ -158,13 +160,38 @@ declare module Breeze {
         adapterName?: string;
         hasServerMetadata?: bool;
         serviceName?: string;
+        jsonResultsAdapter?: JsonResultsAdapter;
     }
 
-    class DataTypeSymbol extends BreezeCore.EnumSymbol {
+    class JsonResultsAdapter {
+        name: string;
+        extractResults: (data: {}) => {};
+        visitNode: (node: {}, queryContext: QueryContext, nodeContext: NodeContext) => { entityType?: EntityType; nodeId?: any; nodeRefId?: any; ignore?: bool; };
+        constructor(config: {
+            name: string;
+            extractResults?: (data: {}) => {};
+            visitNode: (node: {}, queryContext: QueryContext, nodeContext: NodeContext) => { entityType?: EntityType; nodeId?: any; nodeRefId?: any; ignore?: bool; };
+        });
+    }
+
+    interface QueryContext {
+        query: any; // how to also say it could be an EntityQuery or a string
+        entityManager: EntityManager;
+        jsonResultsAdapter: JsonResultsAdapter; 
+        mergeStrategy: MergeStrategy;
+    }
+
+    interface NodeContext {
+        nodeType: string;
+    }
+
+
+
+    class DataTypeSymbol extends breezeCore.EnumSymbol {
          defaultValue: any;
          isNumeric: bool;
     }
-    interface DataType extends BreezeCore.IEnum {
+    interface DataType extends breezeCore.IEnum {
         Binary: DataTypeSymbol;
         Boolean: DataTypeSymbol;
         Byte: DataTypeSymbol;
@@ -185,9 +212,9 @@ declare module Breeze {
     }
     declare var DataType: DataType; 
 
-    class EntityActionSymbol extends BreezeCore.EnumSymbol {
+    class EntityActionSymbol extends breezeCore.EnumSymbol {
     }
-    interface EntityAction extends BreezeCore.IEnum {
+    interface EntityAction extends breezeCore.IEnum {
         AcceptChanges: EntityActionSymbol;
         Attach: EntityActionSymbol;
         AttachOnImport: EntityActionSymbol;
@@ -248,7 +275,7 @@ declare module Breeze {
         newValue: any;
     }
 
-    class PropertyChangedEvent extends BreezeCore.Event {
+    class PropertyChangedEvent extends breezeCore.Event {
         subscribe(callback?: (data: PropertyChangedEventArgs) => void ): number;
     }
 
@@ -258,7 +285,7 @@ declare module Breeze {
         removed: ValidationError[]; 
     }
 
-    class ValidationErrorsChangedEvent extends BreezeCore.Event {
+    class ValidationErrorsChangedEvent extends breezeCore.Event {
         subscribe(callback?: (data: ValidationErrorsChangedEventArgs) => void ): number;
     }
 
@@ -280,7 +307,7 @@ declare module Breeze {
         validationOptions: ValidationOptions;
 
         entityChanged: EntityChangedEvent;
-        // hasChanges: BreezeCore.Event;
+        hasChangesChanged: HasChangesChangedEvent;
 
         constructor (config?: EntityManagerOptions);
         constructor (config?: string);
@@ -289,17 +316,17 @@ declare module Breeze {
         attachEntity(entity: Entity, entityState?: EntityStateSymbol): Entity;
         clear(): void;
         createEmptyCopy(): EntityManager;
+        createEntity(typeName: string, config?: {}, entityState?: EntityStateSymbol) : Entity;
         detachEntity(entity: Entity): bool;
-
         executeQuery(query: string, callback?: ExecuteQuerySuccessCallback, errorCallback?: ExecuteQueryErrorCallback): Promise;
         executeQuery(query: EntityQuery, callback?: ExecuteQuerySuccessCallback, errorCallback?: ExecuteQueryErrorCallback): Promise;
 
         executeQueryLocally(query: EntityQuery): Entity[];
         exportEntities(entities?: Entity[]): string;
-        fetchEntityByKey(typeName: string, keyValue: any, checkLocalCacheFirst?: bool): Entity;
-        fetchEntityByKey(typeName: string, keyValues: any[], checkLocalCacheFirst?: bool): Entity;
-        fetchEntityByKey(entityKey: EntityKey): Entity;
-        fetchMetadata(callback?: (schema: any) => void , errorCallback?: BreezeCore.ErrorCallback): Promise;
+        fetchEntityByKey(typeName: string, keyValue: any, checkLocalCacheFirst?: bool): Promise;
+        fetchEntityByKey(typeName: string, keyValues: any[], checkLocalCacheFirst?: bool): Promise;
+        fetchEntityByKey(entityKey: EntityKey): Promise;
+        fetchMetadata(callback?: (schema: any) => void , errorCallback?: breezeCore.ErrorCallback): Promise;
         generateTempKeyValue(entity: Entity): any;
         getChanges(): Entity[];
         getChanges(entityTypeName: string): Entity[];
@@ -376,8 +403,17 @@ declare module Breeze {
         args: Object;
     }
 
-    class EntityChangedEvent extends BreezeCore.Event {
+    class EntityChangedEvent extends breezeCore.Event {
         subscribe(callback?: (data: EntityChangedEventArgs) => void ): number;
+    }
+
+    class HasChangesChangedEventArgs {
+        entityManager: EntityManager;
+        hasChanges: bool;
+    }
+
+    class HasChangesChangedEvent extends breezeCore.Event {
+        subscribe(callback?: (data: HasChangesChangedEventArgs) => void ): number;
     }
 
     class EntityQuery {
@@ -412,10 +448,13 @@ declare module Breeze {
         skip(count: number): EntityQuery;
         take(count: number): EntityQuery;
         top(count: number): EntityQuery;
+        toType(typeName: string): EntityQuery;
+        toType(type: EntityType): EntityQuery;
 
         using(obj: EntityManager): EntityQuery;
         using(obj: MergeStrategySymbol): EntityQuery;
-        using(obj: FetchStrategySymbol): EntityQuery; 
+        using(obj: FetchStrategySymbol): EntityQuery;
+        using(obj: JsonResultsAdapter): EntityQuery;
 
         where(predicate: Predicate): EntityQuery;
         where(property: string, operator: string, value: any): EntityQuery;
@@ -427,7 +466,7 @@ declare module Breeze {
     interface OrderByClause {
     }
 
-    class EntityStateSymbol extends BreezeCore.EnumSymbol {
+    class EntityStateSymbol extends breezeCore.EnumSymbol {
         isAdded(): bool;
         isAddedModifiedOrDeleted(): bool;
         isDeleted(): bool;
@@ -436,7 +475,7 @@ declare module Breeze {
         isUnchanged(): bool;
         isUnchangedOrModified(): bool;
     }
-    interface EntityState extends BreezeCore.IEnum {
+    interface EntityState extends breezeCore.IEnum {
         Added: EntityStateSymbol;
         Deleted: EntityStateSymbol;
         Detached: EntityStateSymbol;
@@ -489,17 +528,17 @@ declare module Breeze {
         defaultResourceName?: string;
     }
 
-    class FetchStrategySymbol extends BreezeCore.EnumSymbol {
+    class FetchStrategySymbol extends breezeCore.EnumSymbol {
     }
-    interface FetchStrategy extends BreezeCore.IEnum {
+    interface FetchStrategy extends breezeCore.IEnum {
         FromLocalCache: FetchStrategySymbol;
         FromServer: FetchStrategySymbol;
     }
     var FetchStrategy: FetchStrategy;
 
-    class FilterQueryOpSymbol extends BreezeCore.EnumSymbol {
+    class FilterQueryOpSymbol extends breezeCore.EnumSymbol {
     }
-    interface FilterQueryOp extends BreezeCore.IEnum {
+    interface FilterQueryOp extends breezeCore.IEnum {
         Contains: FilterQueryOpSymbol;
         EndsWith: FilterQueryOpSymbol;
         Equals: FilterQueryOpSymbol;
@@ -521,9 +560,9 @@ declare module Breeze {
         setAsDefault(): void;
     }
 
-    class MergeStrategySymbol extends BreezeCore.EnumSymbol {
+    class MergeStrategySymbol extends breezeCore.EnumSymbol {
     }
-    interface MergeStrategy extends BreezeCore.IEnum {
+    interface MergeStrategy extends breezeCore.IEnum {
         OverwriteChanges: MergeStrategySymbol;
         PreserveChanges: MergeStrategySymbol;
     }
@@ -536,8 +575,8 @@ declare module Breeze {
         addDataService(dataService: DataService): void;
         addEntityType(structuralType: IStructuralType): void;
         exportMetadata(): string;
-        fetchMetadata(dataService: string, callback?: (data) => void , errorCallback?: BreezeCore.ErrorCallback): Promise;
-        fetchMetadata(dataService: DataService, callback?: (data) => void , errorCallback?: BreezeCore.ErrorCallback): Promise;
+        fetchMetadata(dataService: string, callback?: (data) => void , errorCallback?: breezeCore.ErrorCallback): Promise;
+        fetchMetadata(dataService: DataService, callback?: (data) => void , errorCallback?: breezeCore.ErrorCallback): Promise;
         getDataService(serviceName: string): DataService;
         getEntityType(entityTypeName: string, okIfNotFound?: bool): IStructuralType;
         getEntityTypes(): IStructuralType[];
