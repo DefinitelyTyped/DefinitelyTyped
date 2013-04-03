@@ -138,3 +138,36 @@ module HttpAndRegularPromiseTests {
     });
   }
 }
+
+// Test for AngularJS Syntac
+
+module My.Namespace {
+
+}
+
+// IModule Registering Test
+var mod = angular.module('tests',[]);
+mod.controller('name', function($scope : ng.IScope) {})
+mod.controller('name', ['$scope', <any>function($scope : ng.IScope) {}])
+mod.controller(My.Namespace);
+mod.directive('name', function($scope : ng.IScope) {})
+mod.directive('name', ['$scope', <any>function($scope : ng.IScope) {}])
+mod.directive(My.Namespace);
+mod.factory('name', function($scope : ng.IScope) {})
+mod.factory('name', ['$scope', <any>function($scope : ng.IScope) {}])
+mod.factory(My.Namespace);
+mod.filter('name', function($scope : ng.IScope) {})
+mod.filter('name', ['$scope', <any>function($scope : ng.IScope) {}])
+mod.filter(My.Namespace);
+mod.provider('name', function($scope : ng.IScope) {})
+mod.provider('name', ['$scope', <any>function($scope : ng.IScope) {}])
+mod.provider(My.Namespace);
+mod.service('name', function($scope : ng.IScope) {})
+mod.service('name', ['$scope', <any>function($scope : ng.IScope) {}])
+mod.service(My.Namespace);
+mod.constant('name', 23);
+mod.constant('name', "23");
+mod.constant(My.Namespace);
+mod.value('name', 23);
+mod.value('name', "23");
+mod.value(My.Namespace);

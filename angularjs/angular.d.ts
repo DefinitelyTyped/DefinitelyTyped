@@ -81,21 +81,29 @@ module ng {
 		 */
         config(inlineAnnotadedFunction: any[]): IModule;
         constant(name: string, value: any): IModule;
+        constant(object: Object): IModule;
         controller(name: string, controllerConstructor: Function): IModule;
         controller(name: string, inlineAnnotadedConstructor: any[]): IModule;
+        controller(object : Object): IModule;
         directive(name: string, directiveFactory: Function): IModule;
         directive(name: string, inlineAnnotadedFunction: any[]): IModule;
+        directive(object: Object): IModule;
         factory(name: string, serviceFactoryFunction: Function): IModule;
         factory(name: string, inlineAnnotadedFunction: any[]): IModule;
+        factory(object: Object): IModule;
         filter(name: string, filterFactoryFunction: Function): IModule;
         filter(name: string, inlineAnnotadedFunction: any[]): IModule;
+        filter(object: Object): IModule;
         provider(name: string, serviceProviderConstructor: Function): IModule;
         provider(name: string, inlineAnnotadedConstructor: any[]): IModule;
+        provider(object: Object): IModule;
         run(initializationFunction: Function): IModule;
         run(inlineAnnotadedFunction: any[]): IModule;
         service(name: string, serviceConstructor: Function): IModule;
         service(name: string, inlineAnnotadedConstructor: any[]): IModule;
+        service(object: Object): IModule;
         value(name: string, value: any): IModule;
+        value(object: Object): IModule;
 
         // Properties
         name: string;
