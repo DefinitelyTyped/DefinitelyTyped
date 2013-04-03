@@ -28,7 +28,7 @@ interface ITagsManagerOptions {
     tagsContainer?: HTMLElement;
     tagCloseIcon?: string;
     tagClass?: string;
-    validator: Function;
+    validator?: Function;
 }
 
 interface ITypeaheadOverrides {
