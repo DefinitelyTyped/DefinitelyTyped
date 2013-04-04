@@ -377,6 +377,10 @@ declare module "durandal/plugins/router" {
       */
     export var afterCompose: () => void;
     /**
+      * Returns the activatable instance from the supplied module.
+      */
+    export var getActivatableInstance: (routeInfo: routeInfo, params: any, module: any) => any;
+    /**
       * Causes the router to move backwards in page history.
       */
     export var navigateBack: () => void;
