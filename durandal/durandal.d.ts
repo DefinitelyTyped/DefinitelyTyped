@@ -441,6 +441,32 @@ declare module "durandal/plugins/router" {
     export var activate: (defaultRoute: string) => JQueryPromise;
 }
 
+declare module "durandal/widget" {
+    /**
+      * Use this function to create a widget through code. The element should reference a dom element that the widget will be created on. The settings can be either a string or an object. If it's a string, it should specify the widget kind. If it's an object, it represents settings that will be passed along to the widget. This object should have a kind property used to identify the widget kind to create. Optionally, you can specify a bindingContext of which you want the widget's binding context to be created as a child.
+      */
+    export function create(element: any, settings: any, bindingContext?: any);
+    /**
+      * By default, you can create widgets in html by using the widget binding extension. Calling registerKind allows you to easily create a custom binding handler for your widget kind. Without calling registerKind you might declare a widget binding for an expander control with
+      */
+    export function registerKind(kind: string);
+    /**
+      * Use this to re-map a widget kind identifier to a new viewId or moduleId representing the 'skin' and 'behavior' respectively.
+      */
+    export function mapKind(kind: string, viewId?: string, moduleId?: string);
+    /**
+      * Developers implementing widgets may wish to use this function to acquire the resolved template parts for a widget. Pass a single dom element or an array of elements and get back an object keyed by part name whose values are the dom elements corresponding to each part in that scope.
+      */
+    export function getParts(elements: any): any;
+    /**
+      * (overrridable) Replace this to re-interpret the kind id as a module path. By default it does a lookup for any custom maps added through mapKind and then falls back to the path "durandal/widgets/{kind}/controller".
+      */
+    export function convertKindToModuleId(kind): string;
+    /**
+      * (overridable) Replace this to re-interpret the kind id as a view id. The default does a lookup for any custom maps added through mapKind and then falls back to the path "durandal/widgets/{kind}/view".
+      */
+    export function convertKindToViewId(kind): string;
+}
 
 interface IEventSubscription
 {
