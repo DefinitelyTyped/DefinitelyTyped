@@ -423,7 +423,7 @@ declare module "durandal/plugins/router" {
     /**
       * Works the same as mapRoute except that routes are automatically added to the visibleRoutes array.
       */
-    export var mapNav: (url: string, moduleId: string, name: string) => routeInfo;
+    export var mapNav: (url: string, moduleId?: string, name?: string) => routeInfo;
     /**
       * You can pass a single routeInfo to this function, or you can pass the basic configuration parameters. url is your url pattern, moduleId is the module path this pattern will map to, name is used as the document title and visible determines whether or not to include it in the router's visibleRoutes array for easy navigation UI binding.
       */
