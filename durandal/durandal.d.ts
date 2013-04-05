@@ -341,13 +341,51 @@ interface IDurandalViewModelActiveItem {
     forItems(items): IDurandalViewModelActiveItem;
 };
 
+/**
+  * A router plugin, currently based on SammyJS. The router abstracts away the core configuration of Sammy and re-interprets it in terms of durandal's composition and activation mechanism. To use the router, you must require it, configure it and bind it in the UI.
+  * Documentation at http://durandaljs.com/documentation/Router/
+  */
 declare module "durandal/plugins/router" {
-    interface routeInfo {
+    /**
+      * Parameters to the map function. or information on route url patterns, see the SammyJS documentation. But 
+      * basically, you can have simple routes my/route/, parameterized routes customers/:id or Regex routes. If you 
+      * have a parameter in your route, then the activation data passed to your module's activate function will have a 
+      * property for every parameter in the route (rather than the splat array, which is only present for automapped 
+      * routes).
+      */
+    interface IRouteInfo {
         url: string;
         moduleId: string;
         name: string;
+        /** used to set the document title */
+        caption: string;
+        /** determines whether or not to include it in the router's visibleRoutes array for easy navigation UI binding */
         visible: bool;
+        settings: Object;
+        hash: string;
+        /** only present on visible routes to track if they are active in the nav */
+        isActive?: KnockoutComputed;
     };
+    /**
+      * Parameters to the map function. e only required parameter is url the rest can be derived. The derivation 
+      * happens by stripping parameters from the url and casing where appropriate. You can always explicitly provide 
+      * url, name, moduleId, caption, settings, hash and visible. In 99% of situations, you should not need to provide 
+      * hash; it's just there to simplify databinding for you. Most of the time you may want to teach the router how 
+      * to properly derive the moduleId and name based on a url. If you want to do that, overwrite.
+      */
+    interface IRouteInfoParameters {
+        /** your url pattern. The only required parameter */
+        url: string;
+        /** if not supplied, router.convertRouteToName derives it */
+        moduleId?: string;
+        /** if not supplied, router.convertRouteToModuleId derives it */
+        name?: string;
+        /** used to set the document title */
+        caption?: string;
+        /** determines whether or not to include it in the router's visibleRoutes array for easy navigation UI binding */
+        visible?: bool;
+        settings?: Object;
+    }
     /**
       * observable that is called when the router is ready
       */
@@ -379,7 +417,7 @@ declare module "durandal/plugins/router" {
     /**
       * Returns the activatable instance from the supplied module.
       */
-    export var getActivatableInstance: (routeInfo: routeInfo, params: any, module: any) => any;
+    export var getActivatableInstance: (routeInfo: IRouteInfo, params: any, module: any) => any;
     /**
       * Causes the router to move backwards in page history.
       */
@@ -411,11 +449,11 @@ declare module "durandal/plugins/router" {
     /**
       * This should not normally be overwritten. But advanced users can override this to completely transform the developer's routeInfo input into the final version used to configure the router.
       */
-    export var prepareRouteInfo: (info: routeInfo) => void;
+    export var prepareRouteInfo: (info: IRouteInfo) => void;
     /**
       * This should not normally be overwritten. But advanced users can override this to completely transform the developer's routeInfo input into the final version used to configure the router.
       */
-    export var handleInvalidRoute: (route: routeInfo, parameters: any) => void;
+    export var handleInvalidRoute: (route: IRouteInfo, parameters: any) => void;
     /**
       * Once the router is required, you can call router.mapAuto(). This is the most basic configuration option. When you call this function (with no parameters) it tells the router to directly correlate route parameters to module names in the viewmodels folder.
       */
@@ -423,17 +461,20 @@ declare module "durandal/plugins/router" {
     /**
       * Works the same as mapRoute except that routes are automatically added to the visibleRoutes array.
       */
-    export var mapNav: (url: string, moduleId?: string, name?: string) => routeInfo;
+    export var mapNav: (url: string, moduleId?: string, name?: string) => IRouteInfo;
     /**
       * You can pass a single routeInfo to this function, or you can pass the basic configuration parameters. url is your url pattern, moduleId is the module path this pattern will map to, name is used as the document title and visible determines whether or not to include it in the router's visibleRoutes array for easy navigation UI binding.
       */
-    export var mapRoute: (urlOrRouteInfo: any, moduleId?: string, name?: string, visible?: bool) => routeInfo;
+    export var mapRoute: {
+        (route: IRouteInfoParameters): IRouteInfo;
+        (url: string, moduleId?: string, name?: string, visible?: bool): IRouteInfo;
+    }
     /**
       * This function takes an array of routeInfo objects or a single routeInfo object and uses it to configure the router. The finalized routeInfo (or array of infos) is returned.
       */
     export var map: {
-        (routeOrRouteArray: string): void;
-        (routeOrRouteArray: string[]): void;
+        (routeOrRouteArray: IRouteInfoParameters): IRouteInfo;
+        (routeOrRouteArray: IRouteInfoParameters[]): IRouteInfo[];
     };
     /**
       * After you've configured the router, you need to activate it. This is usually done in your shell. The activate function of the router returns a promise that resolves when the router is ready to start. To use the router, you should add an activate function to your shell and return the result from that. The application startup infrastructure of Durandal will detect your shell's activate function and call it at the appropriate time, waiting for it's promise to resolve. This allows Durandal to properly orchestrate the timing of composition and databinding along with animations and splash screen display.
