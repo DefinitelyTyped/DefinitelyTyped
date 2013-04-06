@@ -15,6 +15,14 @@ declare var it: {
     timeout(ms: number);
 };
 
+declare function before(action: () => void): void;
+
+declare function before(action: (done: () => void) => void): void;
+
+declare function aftet(action: () => void): void;
+
+declare function after(action: (done: () => void) => void): void;
+
 declare function beforeEach(action: () => void): void;
 
 declare function beforeEach(action: (done: () => void) => void): void;
@@ -22,3 +30,4 @@ declare function beforeEach(action: (done: () => void) => void): void;
 declare function afterEach(action: () => void): void;
 
 declare function afterEach(action: (done: () => void) => void): void;
+
