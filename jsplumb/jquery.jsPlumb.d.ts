@@ -25,6 +25,7 @@ interface jsPlumb {
 	repaintEverything(): void;
 	detachEveryConnection(): void;
 	detachAllConnections(el: string): void;
+	removeAllEndpoints(el: any): void;
 	select(params: SelectParams): Connections;
 }
 
