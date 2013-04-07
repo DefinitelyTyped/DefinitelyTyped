@@ -13,6 +13,13 @@ interface ModalOptions {
     remote?: string;
 }
 
+interface ModalOptionsBackdropString {
+    backdrop?: string; // for "static"
+    keyboard?: bool;
+    show?: bool;
+    remote?: string;
+}
+
 interface ScrollSpyOptions {
     offset?: number;
 }
@@ -63,6 +70,7 @@ interface AffixOptions {
 
 interface JQuery {
     modal(options?: ModalOptions): JQuery;
+    modal(options?: ModalOptionsBackdropString): JQuery;
     modal(command: string): JQuery;
 
     dropdown(): JQuery;
