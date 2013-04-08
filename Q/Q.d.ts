@@ -42,6 +42,7 @@ interface QStatic {
     fcall(method: Function, ...args: any[]): Qpromise;
     all(promises: Qpromise[]): Qpromise;
     allResolved(promises: Qpromise[]): Qpromise;
+    resolve(object?:Qpromise);
     spread(onFulfilled: Function, onRejected: Function): Qpromise;
     timeout(ms: number): Qpromise;
     delay(ms: number): Qpromise;
