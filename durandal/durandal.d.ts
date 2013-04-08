@@ -64,7 +64,7 @@ declare module "durandal/app" {
       * @param transition If you have a splash screen, you may want to specify an optional transition to animate from the splash to your main shell. 
       * @param applicationHost parameter is optional. If provided it should be an element id for the node into which the UI should be composed. If it is not provided the default is to look for an element with an id of "applicationHost".
       */
-    export var setRoot: (root: any, transition: string, applicationHost?: string) => void;
+    export var setRoot: (root: any, transition?: string, applicationHost?: string) => void;
     /**
       * If you intend to run on mobile, you should also call app.adaptToDevice() before setting the root.
       */
