@@ -47,3 +47,10 @@ Q.allResolved([])
         }
     })
 });
+
+var initialVal: any;
+var funcs = ['foo', 'bar', 'baz', 'qux'];
+var result = Q.resolve(initialVal);
+funcs.forEach(function (f) {
+    result = result.then(f);
+});
