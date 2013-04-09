@@ -24,4 +24,5 @@ module "q" {
     export function nextTick(callback: Function);
     export var oneerror: any;
     export var longStackJumpLimit: number;
+	export function resolve(object?:Qpromise);
 }
