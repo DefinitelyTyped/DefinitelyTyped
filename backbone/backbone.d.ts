@@ -198,6 +198,7 @@ declare module Backbone {
         pushSate();
         getFragment(fragment?: string, forcePushState?: bool): string;
         getHash(window?: Window): string;
+        started: bool;
     }
 
     export interface ViewOptions {
