@@ -119,8 +119,10 @@ interface NodeProcess extends EventEmitter {
     exit(code?: number): void;
     getgid(): number;
     setgid(id: number): void;
+    setgid(id: string): void;
     getuid(): number;
     setuid(id: number): void;
+    setuid(id: string): void;
     version: string;
     versions: { http_parser: string; node: string; v8: string; ares: string; uv: string; zlib: string; openssl: string; };
     config: {
