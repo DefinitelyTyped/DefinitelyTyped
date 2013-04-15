@@ -90,6 +90,7 @@ List of Definitions
 * [jQuery.simplePagination](https://github.com/flaviusmatis/simplePagination.js) (by [Natan Vivo](https://github.com/nvivo/))
 * [jQuery.timeago](http://timeago.yarp.com/) (by [Fran�ois Guillot](http://fguillot.developpez.com/))
 * [jQuery.Timepicker](http://fgelinas.com/code/timepicker/) (by [Anwar Javed](https://github.com/anwarjaved))
+* [jQuery.TinyScrollbar](http://baijs.nl/tinyscrollbar/) (by [Christiaan Rakowski](https://github.com/csrakowski))
 * [jQuery.Transit](http://ricostacruz.com/jquery.transit/) (by [MrBigDog2U](https://github.com/MrBigDog2U))
 * [jQuery.Validation](http://bassistance.de/jquery-plugins/jquery-plugin-validation/) (by [Boris Yankov](https://github.com/borisyankov))
 * [jQuery.Watermark](http://jquery-watermark.googlecode.com) (by [Anwar Javed](https://github.com/anwarjaved))
