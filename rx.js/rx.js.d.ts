@@ -355,7 +355,7 @@ declare module Rx {
         materialize(): IObservable;
         repeat(repeatCount?: number): IObservable;
         retry(retryCount?: number): IObservable;
-        scan(seed: number, accumulator: (acc: any, value: any) =>any): IObservable;
+        scan(seed: any, accumulator: (acc: any, value: any) =>any): IObservable;
         scan(accumulator: (acc: any, value: any) =>any): IObservable;
         skipLast(count: number): IObservable;
         startWith(...values: any[]): IObservable;
