@@ -402,6 +402,7 @@ interface JQuery {
     html(): string;
     html(htmlString: string): JQuery;
     html(htmlContent: (index: number, oldhtml: string) => string): JQuery;
+    html(JQuery): JQuery;
 
     prop(propertyName: string): any;
     prop(propertyName: string, value: any): JQuery;
