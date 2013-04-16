@@ -7,16 +7,47 @@
 
 module JQueryTinyScrollbar {
     export interface JQueryTinyScrollbarOptions {
+        /**
+        * Enable mobile invert style scrolling. (default: false)
+        */
         invertscroll?: bool;
+        /**
+        * Vertical or horizontal scroller? 'x' or 'y'. (default: 'x')
+        */
         axis?: string;
+        /**
+        * How many pixels must the mouswheel scrolls at a time. (default: 40)
+        */
         wheel?: number;
+        /**
+        * Enable or disable the mousewheel. (default: true)
+        */
         scroll?: bool;
+        /**
+        * Return scrollwheel event to browser if there is no more content. (default: true)
+        */
         lockscroll?: bool;
-        size?: any; //string or number
-        sizethumb?: any; //string or number 
+        /**
+        * Set the size of the scrollbar to auto or a fixed number. (default: 'auto')
+        */
+        size?: any;
+        /**
+        * Set the size of the thumb to auto or a fixed number. (default: 'auto')
+        */
+        sizethumb?: any; 
     }
 }
 interface JQuery {
+    /**
+    * Creates a new tinyscrollbar with the specified, or default, options.
+    *
+    * @param options The options
+    */
     tinyscrollbar(options?: JQueryTinyScrollbar.JQueryTinyScrollbarOptions): JQuery;
+    /**
+    * Updates an existing tinyscrollbar with the specified, or default, options.
+    *
+    * @param options The options
+    */
     tinyscrollbar_update(options?: any): JQuery;
 }
