@@ -1046,14 +1046,14 @@ module THREE {
          * Each UV layer is an array of UV matching order and number of faces.
          * To signal an update in this array, Geometry.uvsNeedUpdate needs to be set to true.
          */
-        faceUvs: Vector2[];
+        faceUvs: Vector2[][];
 
         /**
          * Array of face UV layers.
          * Each UV layer is an array of UV matching order and number of vertices in faces.
          * To signal an update in this array, Geometry.uvsNeedUpdate needs to be set to true.
          */
-        faceVertexUvs: Vector2[][];
+        faceVertexUvs: Vector2[][][];
 
         /**
          * Array of morph targets. Each morph target is a Javascript object:
@@ -1997,8 +1997,7 @@ module THREE {
 
     export class Raycaster {
         constructor(origin?: Vector3, direction?: Vector3, near?: number, far?: number);
-        origin: Vector3;
-        direction: Vector3;
+        ray: Ray;
         near: number;
         far: number;
         precision: number;
@@ -5896,6 +5895,3 @@ module THREE {
         depthRGBA: Shader;
     };
 }
-
-
-
