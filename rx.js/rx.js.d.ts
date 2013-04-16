@@ -298,7 +298,7 @@ declare module Rx {
             observer: IObserver;
             isAcquired: bool;
             hasFaulted: bool;
-            queue: { (value: any): void; (exception: any): void; (): void; }[];
+            //queue: { (value: any): void; (exception: any): void; (): void; }[];
             disposable: ISerialDisposable;
 
             ensureActive(): void;
@@ -374,7 +374,17 @@ declare module Rx {
         skipWhile(predicate: (value: any, index?: number) =>bool): IObservable;
         take(count: number, scheduler?: IScheduler): IObservable;
         takeWhile(predicate: (value: any, index?: number) =>bool): IObservable;
-        where(predicate: (value: any, index?: number) =>bool): IObservable;
+        where(predicate: (value: any, index?: number) => bool): IObservable;
+
+		// time
+        delay(dueTime: number, scheduler?: IScheduler): IObservable;
+        throttle(dueTime: number, scheduler?: IScheduler): IObservable;
+        windowWithTime(dueTime: number, timeShiftOrScheduler?: any, scheduler?: IScheduler): IObservable;
+        timeInterval(scheduler: IScheduler): IObservable;
+        sample(interval: number, scheduler?: IScheduler): IObservable;
+        sample(sampler: IObservable, scheduler?: IScheduler): IObservable;
+        timeout(dueTime: number, other?: IObservable, scheduler?: IScheduler): IObservable;
+        delaySubscription(dueTime: number, scheduler?: IScheduler): IObservable;
     }
     export module Observable {
         function new (subscribe: (observer: IObserver) =>_IDisposable): IObservable;
