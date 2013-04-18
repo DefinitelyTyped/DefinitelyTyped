@@ -597,6 +597,7 @@ declare module breeze {
         static camelCase: NamingConvention;
         static defaultInstance: NamingConvention;
         static none: NamingConvention;
+        name: string;
 
         constructor (config: NamingConventionOptions);
 
