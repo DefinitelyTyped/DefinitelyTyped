@@ -302,8 +302,8 @@ interface SinonStatic {
 }
 
 interface SinonMatcher {
-	and(expr: SinonMatch): SinonMatcher;
-	or(expr: SinonMatch): SinonMatcher;
+	and(expr: SinonMatcher): SinonMatcher;
+	or(expr: SinonMatcher): SinonMatcher;
 }
 
 interface SinonMatch {
