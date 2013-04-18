@@ -76,6 +76,10 @@ function testSeven() {
 	mockObj.expects('functionToTest').once();
 }
 
+function testEight() {
+    var combinedMatcher = sinon.match.typeOf("object").and(sinon.match.has("pages"));
+}
+
 testOne();
 testTwo();
 testThree();
@@ -83,3 +87,4 @@ testFour();
 testFive();
 testSix();
 testSeven();
+testEight();
