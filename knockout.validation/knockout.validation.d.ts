@@ -107,7 +107,7 @@ interface KnockoutValidationStatic {
     configure(options: KnockoutValidationConfiguration): void;
     reset(): void;
 
-    group(obj: any, options?: any): () => string[];
+    group(obj: any, options?: any): KnockoutValidationErrors;
 
     formatMessage(message: string, params: string): string;
 
