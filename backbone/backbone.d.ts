@@ -45,7 +45,7 @@ declare module Backbone {
         url?: string;
         beforeSend?: (jqxhr: JQueryXHR) => void;
         success?: (modelOrCollection?: any, response?: any, options?: any) => void;
-        error?: (modelOrCollection: any, jqxhr: JQueryXHR, options?: any) => void;
+        error?: (modelOrCollection?: any, jqxhr?: JQueryXHR, options?: any) => void;
     }
 
     export interface ModelSetOptions extends Silenceable extends Validable {
