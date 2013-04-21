@@ -233,19 +233,19 @@ interface SinonFakeServer {
 	// Methods
 	respondWith(body: string): void;
 	respondWith(response: any[]): void;
-	respondWith(fn: (SinonFakeXMLHttpRequest) => void ): void;
+	respondWith(fn: (xhr: SinonFakeXMLHttpRequest) => void ): void;
 	respondWith(url: string, body: string): void;
 	respondWith(url: string, response: any[]): void;
-	respondWith(url: string, fn: (SinonFakeXMLHttpRequest) => void ): void;
+	respondWith(url: string, fn: (xhr: SinonFakeXMLHttpRequest) => void ): void;
 	respondWith(method: string, url: string, body: string): void;
 	respondWith(method: string, url: string, response: any[]): void;
-	respondWith(method: string, url: string, fn: (SinonFakeXMLHttpRequest) => void ): void;
+	respondWith(method: string, url: string, fn: (xhr: SinonFakeXMLHttpRequest) => void ): void;
 	respondWith(url: RegExp, body: string): void;
 	respondWith(url: RegExp, response: any[]): void;
-	respondWith(url: RegExp, fn: (SinonFakeXMLHttpRequest) => void ): void;
+	respondWith(url: RegExp, fn: (xhr: SinonFakeXMLHttpRequest) => void ): void;
 	respondWith(method: string, url: RegExp, body: string): void;
 	respondWith(method: string, url: RegExp, response: any[]): void;
-	respondWith(method: string, url: RegExp, fn: (SinonFakeXMLHttpRequest) => void ): void;
+	respondWith(method: string, url: RegExp, fn: (xhr: SinonFakeXMLHttpRequest) => void ): void;
 	respond(): void;
 	restore(): void;
 }
