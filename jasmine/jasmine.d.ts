@@ -29,7 +29,7 @@ declare module jasmine {
     var Clock: Clock;
 
     function any(aclass: any);
-    function createSpy(name: string): any;
+    function createSpy(name: string): Spy;
     function createSpyObj(baseName: string, methodNames: any[]): any;
 
     function getEnv(): Env;
@@ -239,9 +239,9 @@ declare module jasmine {
         wasCalled: bool;
         callCount: number;
 
-        andReturn(value): void;
-        andCallThrough(): void;
-        andCallFake(fakeFunc: Function): void;
+        andReturn(value): Spy;
+        andCallThrough(): Spy;
+        andCallFake(fakeFunc: Function): Spy;
     }
 
     interface Suite {
