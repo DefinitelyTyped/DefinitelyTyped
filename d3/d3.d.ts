@@ -3,7 +3,7 @@
 // Definitions by: TypeScript samples
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-module D3 {
+declare module D3 {
     interface Selectors {
         /**
         * Select an element from the current document
@@ -893,13 +893,16 @@ module D3 {
             (values: any[]): Scale;
             (): any[];
         };
-        copy: Scale;
+        copy(): Scale;
     }
 
     interface LinearScale extends Scale {
         (value: number): number;
         invert(value: number): number;
-        domain(numbers: any[]): LinearScale;
+        domain: {
+            (values: any[]): LinearScale;
+            (): any[];
+        };
         range: {
             (values: any[]): LinearScale;
             (): any[];
@@ -913,7 +916,7 @@ module D3 {
         nice(): LinearScale;
         ticks(count: number): any[];
         tickFormat(count: number): (n: number) => string;
-        copy: LinearScale;
+        copy(): LinearScale;
     }
 
     interface OrdinalScale extends Scale {
@@ -931,7 +934,7 @@ module D3 {
         rangeRoundBands(interval: any[], padding?: number, outerPadding?: number): OrdinalScale;
         rangeBand(): number;
         rangeExtent(): any[];
-        copy: OrdinalScale;
+        copy(): OrdinalScale;
     }
 
     interface QuantizeScale extends Scale {
@@ -944,13 +947,16 @@ module D3 {
             (values: any[]): QuantizeScale;
             (): any[];
         };
-        copy: QuantizeScale;
+        copy(): QuantizeScale;
     }
 
     interface TimeScale extends Scale {
         (value: Date): number;
         invert(value: number): Date;
-        domain(numbers: any[]): TimeScale;
+        domain: {
+            (values: any[]): TimeScale;
+            (): any[];
+        };
         range: {
             (values: any[]): TimeScale;
             (): any[];
