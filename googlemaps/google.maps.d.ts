@@ -27,6 +27,7 @@ declare module google.maps {
     /***** MVC *****/
     export class MVCObject {
         constructor ();
+        addListener(eventName: string, handler: (...args: any[]) => void): MapsEventListener;
         bindTo(key: string, target: MVCObject, targetKey?: string, noNotify?: bool): void;
         changed(key: string): void;
         get(key: string): any;
@@ -304,20 +305,23 @@ declare module google.maps {
 
     export class Polyline extends MVCObject {
         constructor (opts?: PolylineOptions);
+        getDraggable(): bool;
         getEditable(): bool;
         getMap(): Map;
-        getPath(): MVCArray[];
+        getPath(): MVCArray;
         getVisible(): bool;
+        setDraggable(draggable: bool): void;
         setEditable(editable: bool): void;
         setMap(map: Map): void;
         setOptions(options: PolylineOptions): void;
-        setPath(path: MVCArray[]): void;
+        setPath(path: MVCArray): void;
         setPath(path: LatLng[]): void;
         setVisible(visible: bool): void;
     }
 
     export interface PolylineOptions {
         clickable?: bool;
+        draggable: bool;
         editable?: bool;
         geodesic?: bool;
         icons?: IconSequence[];
@@ -331,6 +335,7 @@ declare module google.maps {
     }
 
     export interface IconSequence {
+        fixedRotation?: bool;
         icon?: Symbol;
         offset?: string;
         repeat?: string;
@@ -338,18 +343,20 @@ declare module google.maps {
 
     export class Polygon extends MVCObject {
         constructor (opts?: PolygonOptions);
+        getDraggable(): bool;
         getEditable(): bool;
         getMap(): Map;
-        getPath(): MVCArray[];
-        getPaths(): MVCArray[][];
+        getPath(): MVCArray;
+        getPaths(): MVCArray[];
         getVisible(): bool;
+        setDraggable(draggable: bool): void;
         setEditable(editable: bool): void;
         setMap(map: Map): void;
         setOptions(options: PolygonOptions): void;
-        setPath(path: MVCArray[]): void;
+        setPath(path: MVCArray): void;
         setPath(path: LatLng[]): void;
+        setPaths(paths: MVCArray): void;
         setPaths(paths: MVCArray[]): void;
-        setPaths(paths: MVCArray[][]): void;
         setPaths(path: LatLng[]): void;
         setPaths(path: LatLng[][]): void;
         setVisible(visible: bool): void;
@@ -357,6 +364,7 @@ declare module google.maps {
 
     export interface  PolygonOptions {
         clickable?: bool;
+        draggable?: bool;
         editable?: bool;
         fillColor?: string;
         fillOpacity?: number;
@@ -365,6 +373,7 @@ declare module google.maps {
         paths?: any[];
         strokeColor?: string;
         strokeOpacity?: number;
+        strokePosition?: StrokePosition;
         strokeWeight?: number;
         visible?: bool;
         zIndex?: number;
@@ -379,10 +388,12 @@ declare module google.maps {
     export class Rectangle extends MVCObject {
         constructor (opts?: RectangleOptions);
         getBounds(): LatLngBounds;
+        getDraggable(): bool;
         getEditable(): bool;
         getMap(): Map;
         getVisible(): bool;
         setBounds(bounds: LatLngBounds): void;
+        setDraggable(draggable: bool): void;
         setEditable(editable: bool): void;
         setMap(map: Map): void;
         setOptions(options: RectangleOptions): void;
@@ -392,12 +403,14 @@ declare module google.maps {
     export interface RectangleOptions {
         bounds?: LatLngBounds;
         clickable?: bool;
+        draggable?: bool;
         editable?: bool;
         fillColor?: string;
         fillOpacity?: number;
         map?: Map;
         strokeColor?: string;
         strokeOpacity?: number;
+        strokePosition?: StrokePosition;
         strokeWeight?: number;
         visible?: bool;
         zIndex?: number;
@@ -407,11 +420,13 @@ declare module google.maps {
         constructor (opts?: CircleOptions);
         getBounds(): LatLngBounds;
         getCenter(): LatLng;
+        getDraggable(): bool;
         getEditable(): bool;
         getMap(): Map;
         getRadius(): number;
         getVisible(): bool;
         setCenter(center: LatLng): void;
+        setDraggable(draggable: bool): void;
         setEditable(editable: bool): void;
         setMap(map: Map): void;
         setOptions(options: CircleOptions): void;
@@ -422,6 +437,7 @@ declare module google.maps {
     export interface CircleOptions {
         center?: LatLng;
         clickable?: bool;
+        draggable?: bool;
         editable?: bool;
         fillColor?: string;
         fillOpacity?: number;
@@ -429,9 +445,16 @@ declare module google.maps {
         radius?: number;
         strokeColor?: string;
         strokeOpacity?: number;
+        strokePosition?: StrokePosition;
         strokeWeight?: number;
         visible?: bool;
         zIndex?: number;
+    }
+    
+    export enum StrokePosition {
+        CENTER,
+        INSIDE,
+        OUTSIDE
     }
 
     export class GroundOverlay extends MVCObject {
@@ -486,7 +509,7 @@ declare module google.maps {
     }
 
     export interface GeocoderRequest {
-        address: string;
+        address?: string;
         bounds?: LatLngBounds;
         location?: LatLng;
         region?: string;
@@ -1099,7 +1122,7 @@ declare module google.maps {
 
     export interface StreetViewPov {
         heading?: number;
-        picth?: number;
+        pitch?: number;
         zoom?: number;
     }
 
@@ -1403,20 +1426,20 @@ declare module google.maps {
         }
 
         export interface  DrawingManagerOptions {
-            circleOptions: CircleOptions;
-            drawingControl: bool;
-            drawingControlOptions: DrawingControlOptions;
-            drawingMode: OverlayType;
-            map: Map;
-            markerOptions: MarkerOptions;
-            polygonOptions: PolygonOptions;
-            polylineOptions: PolylineOptions;
-            rectangleOptions: RectangleOptions;
+            circleOptions?: CircleOptions;
+            drawingControl?: bool;
+            drawingControlOptions?: DrawingControlOptions;
+            drawingMode?: OverlayType;
+            map?: Map;
+            markerOptions?: MarkerOptions;
+            polygonOptions?: PolygonOptions;
+            polylineOptions?: PolylineOptions;
+            rectangleOptions?: RectangleOptions;
         }
 
         export interface DrawingControlOptions {
-            drawingModes: OverlayType[];
-            position: ControlPosition;
+            drawingModes?: OverlayType[];
+            position?: ControlPosition;
         }
 
         export interface OverlayCompleteEvent {
@@ -1424,7 +1447,7 @@ declare module google.maps {
             type: OverlayType;
         }
 
-        export enum  OverlayType {
+        export enum OverlayType {
             CIRCLE,
             MARKER,
             POLYGON,
