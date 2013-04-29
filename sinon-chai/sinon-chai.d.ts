@@ -1,4 +1,4 @@
-// Type definitions for sinon-chai expect 2.4.0
+// Type definitions for sinon-chai 2.4.0
 // Project: https://github.com/domenic/sinon-chai
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid/>
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
