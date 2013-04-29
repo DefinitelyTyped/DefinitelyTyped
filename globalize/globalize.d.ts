@@ -98,7 +98,7 @@ interface GlobalizeCultures {
     [index: number]: GlobalizeCulture;
 }
 
-class GlobalizeStatic {
+interface GlobalizeStatic {
     cultures: GlobalizeCultures;
     init(cultureSelector: string);
     cultureSelector: string;
