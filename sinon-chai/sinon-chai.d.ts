@@ -3,7 +3,7 @@
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid/>
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../chai/chai.expect.d.ts" />
+/// <reference path="../chai/chai.d.ts" />
 
 declare module chai {
     interface Been {
