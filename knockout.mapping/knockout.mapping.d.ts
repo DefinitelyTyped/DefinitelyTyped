@@ -33,6 +33,8 @@ interface KnockoutMapping {
     fromJS(jsObject: any, targetOrOptions: any): any;
     fromJS(jsObject: any, inputOptions: any, target: any): any;
     fromJSON(jsonString: string): any;
+    fromJSON(jsonString: string, targetOrOptions: any): any;
+    fromJSON(jsonString: string, inputOptions: any, target: any): any;
     toJS(rootObject: any, options?: KnockoutMappingOptions): any;
     toJSON(rootObject: any, options?: KnockoutMappingOptions): any;
     defaultOptions(): KnockoutMappingOptions;
