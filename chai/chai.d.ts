@@ -1,4 +1,9 @@
-﻿declare module chai {
+﻿// Type definitions for chai 1.5.0
+// Project: http://chaijs.com/
+// Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid/>
+// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+
+declare module chai {
     interface Equality {
         (expected: any, message?: string): bool;
     }
