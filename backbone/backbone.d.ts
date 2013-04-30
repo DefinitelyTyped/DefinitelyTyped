@@ -123,7 +123,7 @@ declare module Backbone {
         has(attribute: string): bool;
         hasChanged(attribute?: string): bool;
         isNew(): bool;
-        isValid(): string;
+        isValid(): bool;
         previous(attribute: string): any;
         previousAttributes(): any[];
         save(attributes?: any, options?: ModelSaveOptions);
