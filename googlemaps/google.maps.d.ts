@@ -321,7 +321,7 @@ declare module google.maps {
 
     export interface PolylineOptions {
         clickable?: bool;
-        draggable: bool;
+        draggable?: bool;
         editable?: bool;
         geodesic?: bool;
         icons?: IconSequence[];
