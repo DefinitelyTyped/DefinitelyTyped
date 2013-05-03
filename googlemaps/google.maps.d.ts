@@ -91,6 +91,8 @@ declare module google.maps {
         mapMaker?: bool;
         mapTypeControl?: bool;
         mapTypeControlOptions?: MapTypeControlOptions;
+        navigationControl?: bool;
+        navigationControlOptions?: NavigationControlOptions;
         mapTypeId?: MapTypeId;
         maxZoom?: number;
         minZoom?: number;
@@ -182,6 +184,18 @@ declare module google.maps {
         TOP_CENTER,
         TOP_LEFT,
         TOP_RIGHT
+    }
+
+    export interface NavigationControlOptions {
+        position?: ControlPosition;
+        style?: NavigationControlStyle;
+    }
+
+    export enum NavigationControlStyle {
+        DEFAULT,
+        SMALL,
+        ANDROID,
+        ZOOM_PAN
     }
 
     /***** Overlays *****/
