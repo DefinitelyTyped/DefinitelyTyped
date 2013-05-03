@@ -81,7 +81,7 @@ declare module Backbone {
         once(events: string, callback: (...args: any[]) => void , context?: any): any;
         listenTo(object: any, events: string, callback: (...args: any[]) => void ): any;
         listenToOnce(object: any, events: string, callback: (...args: any[]) => void ): any;
-        stopListening(object: any, events?: string, callback?: (...args: any[]) => void ): any;
+        stopListening(object?: any, events?: string, callback?: (...args: any[]) => void ): any;
     }
 
     export class ModelBase extends Events {
