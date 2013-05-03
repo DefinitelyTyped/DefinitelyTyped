@@ -57,6 +57,7 @@ List of Definitions
 * [Firebase](https://www.firebase.com/docs/javascript/firebase) (by [Vincent Bortone](https://github.com/vbortone))
 * [FlexSlider](http://www.woothemes.com/flexslider/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Foundation](http://foundation.zurb.com/) (by [Boris Yankov](https://github.com/borisyankov))
+* [FPSMeter](http://darsa.in/fpsmeter/) (by [Aaron Lampros](https://github.com/alampros))
 * [Gamepad](http://www.w3.org/TR/gamepad/) (by [Kon](http://phyzkit.net/))
 * [glDatePicker](http://glad.github.com/glDatePicker/) (by [D�niel Tar](https://github.com/qcz))
 * [GreenSock Animation Platform (GSAP)](http://www.greensock.com/get-started-js/) (by [Robert S.](https://github.com/codeBelt))
