@@ -2280,3 +2280,11 @@ function test_parseHTML() {
 	  .append( nodeNames.join( "" ) )
 	  .appendTo( $log );
 }
+
+function test_EventIsNewable() {
+    var ev = new jQuery.Event('click');
+}
+
+function test_EventIsCallable() {
+    var ev = jQuery.Event('click');
+}
