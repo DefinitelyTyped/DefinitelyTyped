@@ -282,7 +282,10 @@ interface JQueryStatic {
         (fn?: (d: JQueryDeferred) => any): JQueryDeferred;
         new(fn?: (d: JQueryDeferred) => any): JQueryDeferred;
     };
-    Event(name:string, eventProperties?:any): JQueryEventObject;
+    Event: {
+        (name:string, eventProperties?:any): JQueryEventObject;
+        new(name:string, eventProperties?:any): JQueryEventObject;
+    };
 
     /*********
      INTERNALS
