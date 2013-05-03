@@ -989,6 +989,7 @@ declare module D3 {
     interface Layout {
         stack(): StackLayout;
         pie(): PieLayout;
+        force(): ForceLayout;
     }
 
     interface StackLayout {
