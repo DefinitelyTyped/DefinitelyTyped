@@ -1,6 +1,6 @@
 // Type definitions for Modernizr 2.6.2
 // Project: http://modernizr.com/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/> and Theodore Brown <https://github.com/theodorejb>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -15,6 +15,35 @@ interface VideoBool {
     ogg: bool;
     h264: bool;
     webm: bool;
+}
+
+interface InputBool {
+    autocomplete: bool;
+    autofocus: bool;
+    list: bool;
+    placeholder: bool;
+    max: bool;
+    min: bool;
+    multiple: bool;
+    pattern: bool;
+    required: bool;
+    step: bool;
+}
+
+interface InputTypesBool {
+    search: bool;
+    tel: bool;
+    url: bool;
+    email: bool;
+    datetime: bool;
+    date: bool;
+    month: bool;
+    week: bool;
+    time: bool;
+    datetimelocal: bool;
+    number: bool;
+    range: bool;
+    color: bool;
 }
 
 interface ModernizrStatic {
@@ -46,6 +75,8 @@ interface ModernizrStatic {
     audio: AudioBool;
     video: VideoBool;
     indexeddb: bool;
+    input: InputBool;
+    inputtypes: InputTypesBool;
     localstorage: bool;
     postmessage: bool;
     sessionstorage: bool;
