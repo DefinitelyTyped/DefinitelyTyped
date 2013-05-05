@@ -81,3 +81,25 @@ transport.sendMail(message, function (error) {
     }
     console.log('Message sent successfully!');
 });
+
+
+// From the SMTP section of https://npmjs.org/package/nodemailer README
+
+var smptTransport1: Transport = nodemailer.createTransport("SMTP", {
+    service: "Gmail", // sets automatically host, port and connection security settings
+    auth: {
+        user: "gmail.user@gmail.com",
+        pass: "userpass"
+    }
+});
+
+var smtpTransport2: Transport = nodemailer.createTransport("SMTP", {
+    host: "smtp.gmail.com", // hostname
+    secureConnection: true, // use SSL
+    port: 465, // port for secure SMTP
+    auth: {
+        user: "gmail.user@gmail.com",
+        pass: "userpass"
+    }
+});
+

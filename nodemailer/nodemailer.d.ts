@@ -69,21 +69,37 @@ interface XOAuth2Options {
 
 interface NodemailerTransportOptions {
 	service?: string;
-	auth?: {
-		user?: string;
-		pass?: string;
-		XOAuthToken?: XOAuthGenerator;
-		XOAuth2?: XOAuth2Options;
-	};
+	auth?: NodemailerAuthInterface;
 	debug?: bool;
 	AWSAccessKeyID?: string;
 	AWSSecretKey: string;
 	ServiceUrl: string;
 }
 
+interface NodemailerAuthInterface {
+	user?: string;
+	pass?: string;
+	XOAuthToken?: XOAuthGenerator;
+	XOAuth2?: XOAuth2Options;
+}
+
+interface NodemailerSMTPTransportOptions {
+	service?:          string;
+	host?:             string;
+	port?:             number;
+	secureConnection?: bool;
+	name?:             string;
+	auth:              NodemailerAuthInterface;
+	ignoreTLS?:        bool;
+	debug?:            bool;
+	maxConnections?:   number;
+}
+
+
 interface Nodemailer {
 	createTransport(type: string): Transport;
 	createTransport(type: string, options: NodemailerTransportOptions): Transport;
+	createTransport(type: string, options: NodemailerSMTPTransportOptions): Transport;
 	createTransport(type: string, path: string): Transport;
 	createXOAuthGenerator(options: XOAuthGeneratorOptions): XOAuthGenerator;
 }
