@@ -57,19 +57,19 @@ interface AutocompleteUIParams {
 
 }
 
-interface AutocompleteEvent {
+interface AuotcompleteEvent {
     (event: Event, ui: AutocompleteUIParams): void;
 }
 
 interface AutocompleteEvents {
-    change?: AutocompleteEvent;
-    close?: AutocompleteEvent;
-    create?: AutocompleteEvent;
-    focus?: AutocompleteEvent;
-    open?: AutocompleteEvent;
-    response?: AutocompleteEvent;
-    search?: AutocompleteEvent;
-    select?: AutocompleteEvent;
+    change?: AuotcompleteEvent;
+    close?: AuotcompleteEvent;
+    create?: AuotcompleteEvent;
+    focus?: AuotcompleteEvent;
+    open?: AuotcompleteEvent;
+    response?: AuotcompleteEvent;
+    search?: AuotcompleteEvent;
+    select?: AuotcompleteEvent;
 }
 
 interface Autocomplete extends Widget, AutocompleteOptions, AutocompleteEvents {
