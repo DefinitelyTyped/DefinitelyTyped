@@ -91,6 +91,10 @@ interface ModernizrStatic {
     touch: bool;
     webgl: bool;
 
+    load(resources: Array);
+    load(resourceObject: any);
+    load(resourceString: string);
+
     prefixed(): bool;
     prefixed(property: string): bool;
     prefixed(property: string, obj: any, element?: any): bool;
