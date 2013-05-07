@@ -89,6 +89,7 @@ List of Definitions
 * [jQuery.form](http://malsup.com/jquery/form/) (by [Fran�ois Guillot](http://fguillot.developpez.com/))
 * [jQuery.Globalize](https://github.com/jquery/globalize) (by [Boris Yankov](https://github.com/borisyankov))
 * [jQuery.jNotify](http://jnotify.codeplex.com) (by [James Curran](https://github.com/jamescurran/))
+* [jQuery.noty](http://needim.github.io/noty/) (by [Aaron King](https://github.com/kingdango/))
 * [jQuery.scrollTo](https://github.com/flesler/jquery.scrollTo) (by [Neil Stalker](https://github.com/nestalk/))
 * [jQuery.simplePagination](https://github.com/flaviusmatis/simplePagination.js) (by [Natan Vivo](https://github.com/nvivo/))
 * [jQuery.timeago](http://timeago.yarp.com/) (by [Fran�ois Guillot](http://fguillot.developpez.com/))
