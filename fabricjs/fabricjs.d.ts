@@ -526,6 +526,7 @@ declare module fabric {
         getContext(): CanvasRenderingContext2D;
         getElement(): HTMLCanvasElement;
         getHeight(): number;
+        getObjects(): IObject[];
         getWidth(): number;
         insertAt(object: IObject, index: number, nonSplicing: bool): ICanvas;
         isEmpty(): bool;
