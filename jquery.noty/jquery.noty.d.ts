@@ -13,7 +13,7 @@ interface NotyOptions {
 	dismissQueue?: bool;
 	template?: string;
 	animation?: NotyAnimationOptions;
-	timeout?: bool;
+	timeout?: number;
 	force?: bool;
 	modal?: bool;
 	closeWith?: Array;
@@ -37,7 +37,7 @@ interface NotyCallbackOptions {
 
 interface NotyStatic {
 
-	(NotyOptions?);
+	(notyOptions: NotyOptions);
 
 	get(id: any);
 	close(id: any);
@@ -54,7 +54,7 @@ interface JQueryStatic {
 
 declare var noty: {
 
-	(NotyOptions?);
+	(notyOptions: NotyOptions);
 
 	show();
 	close();
