@@ -40,8 +40,8 @@ interface VideoJSPlayer {
 	requestFullScreen(): VideoJSPlayer;
 	cancelFullScreen(): VideoJSPlayer;
 	ready(callback: () => void ): void;
-	addEvent(eventName: string, callback: () => void ): void;
-	removeEvent(eventName: string, callback: () => void ): void;
+	on(eventName: string, callback: () => void ): void;
+	off(eventName: string, callback: () => void ): void;
 }
 
 interface VideoJSStatic {
