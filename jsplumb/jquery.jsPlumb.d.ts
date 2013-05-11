@@ -12,7 +12,8 @@ interface jsPlumb {
 	bind(event: string, callback: (e) => void ): void;
 	unbind(event?: string): void;
 	ready(callback: () => void): void;
-	importDefaults(defaults: Defaults): void;//
+	importDefaults(defaults: Defaults): void;
+	Defaults: Defaults;
 	restoreDefaults(): void;
 	addClass(el: any, clazz: string): void;
 	addEndpoint(ep: string): any;
@@ -27,10 +28,12 @@ interface jsPlumb {
 	detachAllConnections(el: string): void;
 	removeAllEndpoints(el: any): void;
 	select(params: SelectParams): Connections;
+	getConnections(options?: any, flat?: any): any[];
 }
 
 interface Defaults {
 	Endpoint?: any[];
+	PaintStyle?: PaintStyle;
 	HoverPaintStyle?: PaintStyle;
 	ConnectionsDetachable?: bool;
 	ReattachConnections?: bool;

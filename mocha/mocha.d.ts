@@ -1,3 +1,8 @@
+// Type definitions for mocha 1.9.0
+// Project: http://visionmedia.github.io/mocha/
+// Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid/>
+// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+
 declare var describe : {
     (description: string, spec: () => void): void;
     only(description: string, spec: () => void): void;
