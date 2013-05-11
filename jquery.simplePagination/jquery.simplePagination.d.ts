@@ -20,7 +20,7 @@ interface SimplePaginationOptions {
     selectOnClick?: bool;
     onPageClick?: (interger) => void;
     onInit?: () => void;
-};
+}
 
 interface JQuery {
     pagination(options?: SimplePaginationOptions): JQuery;
