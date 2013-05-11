@@ -1,4 +1,5 @@
 /// <reference path="backbone.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 declare var _, $;
 
@@ -82,7 +83,6 @@ class Employee extends Backbone.Model {
 }
 
 class EmployeeCollection extends Backbone.Collection {
-    url: string = "../api/employees";
     findByName(key) { }
 }
 function test_collection() {
@@ -112,3 +112,158 @@ function test_collection() {
 //////////
 
 Backbone.history.start();
+
+module v1Changes {
+    module events {
+        function test_once() {
+            var model = new Employee;
+            model.once('invalid', () => { }, this);
+            model.once('invalid', () => { });
+        }
+
+        function test_listenTo() {
+            var model = new Employee;
+            var view = new Backbone.View;
+            view.listenTo(model, 'invalid', () => { });
+        }
+
+        function test_listenToOnce() {
+            var model = new Employee;
+            var view = new Backbone.View;
+            view.listenToOnce(model, 'invalid', () => { });
+        }
+
+        function test_stopListening() {
+            var model = new Employee;
+            var view = new Backbone.View;
+            view.stopListening(model, 'invalid', () => { });
+            view.stopListening(model, 'invalid');
+            view.stopListening(model);
+        }
+    }
+
+    module modelandcollection {
+        function test_url() {
+            Employee.prototype.url = () => '/employees';
+            EmployeeCollection.prototype.url = () => '/employees';
+        }
+
+        function test_parse() {
+            var model = new Employee();
+            model.parse('{}', {});
+            var collection = new EmployeeCollection;
+            collection.parse('{}', {});
+        }
+
+        function test_toJSON() {
+            var model = new Employee();
+            model.toJSON({});
+            var collection = new EmployeeCollection;
+            collection.toJSON({});
+        }
+
+        function test_sync() {
+            var model = new Employee();
+            model.sync();
+            var collection = new EmployeeCollection;
+            collection.sync();
+        }
+    }
+
+    module model {
+        function test_validationError() {
+            var model = new Employee;
+            if (model.validationError) {
+                console.log('has validation errors');
+            }
+        }
+
+        function test_fetch() {
+            var model = new Employee({ id: 1 });
+            model.fetch({
+                success: () => { },
+                error: () => { }
+            });
+        }
+
+        function test_set() {
+            var model = new Employee;
+            model.set({ name: 'JoeDoe', age: 21 }, { validate: false });
+            model.set('name', 'JoeDoes', { validate: false });
+        }
+
+        function test_destroy() {
+            var model = new Employee;
+            model.destroy({
+                wait: true,
+                success: (m?, response?, options?) => { },
+                error: (m?, jqxhr?: JQueryXHR, options?) => { }
+            });
+
+            model.destroy({
+                success: (m?, response?, options?) => { },
+                error: (m?, jqxhr?: JQueryXHR) => { }
+            });
+
+            model.destroy({
+                success: () => { },
+                error: (m?, jqxhr?: JQueryXHR) => { }
+            });
+        }
+
+        function test_save() {
+            var model = new Employee;
+
+            model.save({
+                    name: 'Joe Doe',
+                    age: 21
+                },
+                {
+                    wait: true,
+                    validate: false,
+                    success: (m?, response?, options?) => { },
+                    error: (m?, jqxhr?: JQueryXHR, options?) => { }
+                });
+
+            model.save({
+                    name: 'Joe Doe',
+                    age: 21
+                },
+                {
+                    success: () => { },
+                    error: (m?, jqxhr?: JQueryXHR) => { }
+                });
+        }
+
+        function test_validate() {
+            var model = new Employee;
+
+            model.validate({ name: 'JoeDoe', age: 21 }, { validateAge: false })
+        }
+    }
+
+    module collection {
+        function test_fetch() {
+            var collection = new EmployeeCollection;
+            collection.fetch({ reset: true });
+        }
+
+        function test_create() {
+            var collection = new EmployeeCollection;
+            var model = new Employee;
+
+            collection.create(model, {
+                validate: false
+            });
+        }
+    }
+
+    module router {
+        function test_navigate() {
+            var router = new Backbone.Router;
+
+            router.navigate('/employees', { trigger: true });
+            router.navigate('/employees', true);
+        }
+    }
+}

@@ -989,6 +989,7 @@ declare module D3 {
     interface Layout {
         stack(): StackLayout;
         pie(): PieLayout;
+        force(): ForceLayout;
     }
 
     interface StackLayout {
@@ -1357,6 +1358,105 @@ declare module D3 {
         */
         irwinHall(count: number): () => number;
     }
+    
+    // force layout definitions
+    export interface twoDGraphPoint {
+        id: number;
+        index: number;
+        name: string;
+        px: number;
+        py: number;
+        size: number;
+        weight: number;
+        x: number;
+        y: number;
+    }
+
+    export interface graphNode extends twoDGraphPoint {
+        fixed: bool;
+        children: graphNode[];
+        _children: graphNode[];
+    }
+
+    export interface graphLink {
+        source: graphNode;
+        target: graphNode;
+    }
+
+
+    export interface ForceLayout {
+        (): ForceLayout;
+        size: {
+            (): number;
+            (mysize: number[]): ForceLayout;
+            (accessor: (d: any, index: number) => {}): ForceLayout;
+
+        };
+
+        linkDistance: {
+            (): number;
+            (number): ForceLayout;
+            (accessor: (d: any, index: number) => number): ForceLayout;
+        };
+
+        linkStrength:
+            {
+                (): number;
+                (number): ForceLayout;
+                (accessor: (d: any, index: number) => number): ForceLayout;
+            };
+
+        friction:
+        {
+            (): number;
+            (number): ForceLayout;
+            (accessor: (d: any, index: number) => number): ForceLayout;
+        };
+
+
+        alpha: {
+            (): number;
+            (number): ForceLayout;
+            (accessor: (d: any, index: number) => number): ForceLayout;
+        };
+        charge: {
+            (): number;
+            (number): ForceLayout;
+            (accessor: (d: any, index: number) => number): ForceLayout;
+        };
+
+        theta: {
+            (): number;
+            (number): ForceLayout;
+            (accessor: (d: any, index: number) => number): ForceLayout;
+        };
+
+        gravity: {
+            (): number;
+            (number): ForceLayout;
+            (accessor: (d: any, index: number) => number): ForceLayout;
+        };
+
+        links: {
+            (): graphLink[];
+            (arLinks: graphLink[]): ForceLayout;
+
+        };
+        nodes:
+        {
+            (): graphNode[];
+            (arNodes: graphNode[]): ForceLayout;
+
+        };
+        start(): ForceLayout;
+        resume(): ForceLayout;
+        stop(): ForceLayout;
+        tick(): ForceLayout;
+        on(type: string, listener: () => void ): ForceLayout;
+        drag(): ForceLayout;
+    }
+
+
 }
 
 declare var d3: D3.Base;

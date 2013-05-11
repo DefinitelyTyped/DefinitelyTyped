@@ -17,6 +17,35 @@ interface VideoBool {
     webm: bool;
 }
 
+interface InputBool {
+    autocomplete: bool;
+    autofocus: bool;
+    list: bool;
+    placeholder: bool;
+    max: bool;
+    min: bool;
+    multiple: bool;
+    pattern: bool;
+    required: bool;
+    step: bool;
+}
+
+interface InputTypesBool {
+    search: bool;
+    tel: bool;
+    url: bool;
+    email: bool;
+    datetime: bool;
+    date: bool;
+    month: bool;
+    week: bool;
+    time: bool;
+    datetimelocal: bool;
+    number: bool;
+    range: bool;
+    color: bool;
+}
+
 interface ModernizrStatic {
     fontface: bool;
     backgroundsize: bool;
@@ -46,6 +75,8 @@ interface ModernizrStatic {
     audio: AudioBool;
     video: VideoBool;
     indexeddb: bool;
+    input: InputBool;
+    inputtypes: InputTypesBool;
     localstorage: bool;
     postmessage: bool;
     sessionstorage: bool;
@@ -59,6 +90,10 @@ interface ModernizrStatic {
     svgclippaths: bool;
     touch: bool;
     webgl: bool;
+
+    load(resources: Array);
+    load(resourceObject: any);
+    load(resourceString: string);
 
     prefixed(): bool;
     prefixed(property: string): bool;
