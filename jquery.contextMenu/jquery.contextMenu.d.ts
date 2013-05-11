@@ -26,7 +26,7 @@ interface JQueryContextMenuOptions {
     };
     callback?: (...args: any[]) => any;
     items: any;
-};
+}
 
 interface JQueryStatic {
     contextMenu(options?: JQueryContextMenuOptions): JQuery;
