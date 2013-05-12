@@ -76,6 +76,9 @@ declare module google.maps {
         setStreetView(panorama: StreetViewPanorama): void;
         setTilt(tilt: number): void;
         setZoom(zoom: number): void;
+        controls: MVCArray[]; //Array.<MVCArray.<Node >>
+        mapTypes: MapTypeRegistry;
+        overlayMapTypes: MVCArray; // MVCArray.<MapType>
     }
 
     export interface MapOptions {
@@ -856,10 +859,12 @@ declare module google.maps {
         fromPointToLatLng(pixel: Point, noWrap?: bool): LatLng;
     }
 
-    export class ImageMapType {
+    export class ImageMapType extends MVCObject implements MapType {
         constructor (opts: ImageMapTypeOptions);
         getOpacity(): number;
         setOpacity(opacity: number): void;
+        getTile(tileCoord: Point, zoom: number, ownerDocument: Document): Element;
+        releaseTile(tile: Element): void;
     }
 
     export interface ImageMapTypeOptions {
