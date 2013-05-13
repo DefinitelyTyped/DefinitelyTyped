@@ -59,6 +59,7 @@ List of Definitions
 * [Gamepad](http://www.w3.org/TR/gamepad/) (by [Kon](http://phyzkit.net/))
 * [glDatePicker](http://glad.github.com/glDatePicker/) (by [D�niel Tar](https://github.com/qcz))
 * [GreenSock Animation Platform (GSAP)](http://www.greensock.com/get-started-js/) (by [Robert S.](https://github.com/codeBelt))
+* [Grunt JS](http://gruntjs.com/) (by [Basarat Ali Syed](https://github.com/basarat))
 * [Google App Engine Channel API](https://developers.google.com/appengine/docs/java/channel/javascript) (by [vvakame](https://github.com/vvakame))
 * [GoogleMaps](https://developers.google.com/maps/) (by [Esben Nepper](https://github.com/eNepper))
 * [Google Geolocation](https://code.google.com/p/geo-location-javascript/) (by [Vincent Bortone](https://github.com/vbortone))
