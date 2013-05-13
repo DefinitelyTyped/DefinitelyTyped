@@ -85,9 +85,9 @@ declare module ng {
         controller(name: string, controllerConstructor: Function): IModule;
         controller(name: string, inlineAnnotadedConstructor: any[]): IModule;
         controller(object : Object): IModule;
-        directive(name: string, directiveFactory: Function): IModule;
+        directive(name: string, directiveFactory: (...params)=> IDirective): IModule;
         directive(name: string, inlineAnnotadedFunction: any[]): IModule;
-        directive(object: Object): IModule;
+        directive(object: Object): IModule;        
         factory(name: string, serviceFactoryFunction: Function): IModule;
         factory(name: string, inlineAnnotadedFunction: any[]): IModule;
         factory(object: Object): IModule;
@@ -629,6 +629,25 @@ declare module ng {
         otherwise(params: any): IRouteProvider;
         when(path: string, route: IRoute): IRouteProvider;
     }
+    
+    ///////////////////////////////////////////////////////////////////////////
+    // Directive
+    // see http://docs.angularjs.org/api/ng.$compileProvider#directive
+    // and http://docs.angularjs.org/guide/directive
+    ///////////////////////////////////////////////////////////////////////////
+
+    interface IDirective{
+        priority?: number;
+        template?: string;
+        templateUrl?: string;
+        replace?: bool;
+        transclude?: bool;
+        restrict?: string;
+        scope?: bool;
+        link?: Function;
+        compile?: Function;
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // AUTO module (angular.js)
