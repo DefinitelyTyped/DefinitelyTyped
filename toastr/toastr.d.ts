@@ -1,4 +1,4 @@
-// Type definitions for Toastr 1.0
+// Type definitions for Toastr 1.3.0
 // Project: https://github.com/CodeSeven/toastr
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -28,9 +28,17 @@ interface ToastrOptions {
     */
     fadeIn?: number;
     /**
+    * OnFadeIn function callback
+    **/
+    onFadeIn?: () => void;
+    /**
     * Time in milliseconds the toast should take to fade out
     */
     fadeOut?: number;
+    /**
+    * OnFadeOut function callback
+    **/
+    onFadeOut?: () => void;
     /**
     * Time in milliseconds the toast should be displayed after mouse over
     */
@@ -77,6 +85,10 @@ interface ToastrOptions {
     * CSS class the message element will be given
     */
     messageClass?: string;
+    /**
+    * Set newest toast to appear on top
+    **/
+    newestOnTop?: bool;
 
     /**
     * Function to execute on toast click
