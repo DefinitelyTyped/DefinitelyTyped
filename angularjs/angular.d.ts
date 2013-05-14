@@ -85,7 +85,7 @@ declare module ng {
         controller(name: string, controllerConstructor: Function): IModule;
         controller(name: string, inlineAnnotadedConstructor: any[]): IModule;
         controller(object : Object): IModule;
-        directive(name: string, directiveFactory: (...params)=> IDirective): IModule;
+        directive(name: string, directiveFactory: (...params:any[])=> IDirective): IModule;
         directive(name: string, inlineAnnotadedFunction: any[]): IModule;
         directive(object: Object): IModule;        
         factory(name: string, serviceFactoryFunction: Function): IModule;
