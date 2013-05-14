@@ -8,7 +8,7 @@
 /// To add plugins update the IGruntConfig using open ended interface syntax
 ////////////////
 interface IGruntConfig{
-    pkg: any;
+    pkg?: any;
 }
 
 ////////////////
