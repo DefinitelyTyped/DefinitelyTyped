@@ -1349,13 +1349,16 @@ declare module google.maps {
         }
 
         export interface PlaceSearchRequest {
-            bounds: LatLngBounds;
-            keyword: string;
-            location: LatLng;
-            name: string;
-            radius: number;
-            rankBy: RankBy;
-            types: string[];
+            bounds?: LatLngBounds;
+            keyword?: string;
+            location?: LatLng;
+            maxPriceLevel?: number;
+            minPriceLevel?: number;
+            name?: string;
+            openNow?: bool;
+            radius?: number;
+            rankBy?: RankBy;
+            types?: string[];
         }
 
         export interface PlaceSearchPagination {
