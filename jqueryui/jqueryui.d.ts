@@ -494,6 +494,7 @@ interface SortableUIParams {
     position: any;
     originalPosition: any;
     sender: JQuery;
+	placeholder: JQuery;
 }
 
 interface SortableEvent {
