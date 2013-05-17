@@ -71,7 +71,7 @@ module createjs {
         init(useXHR?: bool): void;
         close(): void;
         initialize(useXHR: bool): void;
-        installPlugin(plugin: () => any): void;
+        installPlugin(plugin: any): void;
         load(): void;
         loadFile(file: Object, loadNow?: bool): void;
         loadFile(file: string, loadNow?: bool): void;
