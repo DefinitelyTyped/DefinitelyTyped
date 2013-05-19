@@ -203,9 +203,12 @@ declare module Rx {
         toObservable(scheduler?: IScheduler): IObservable;
         hasValue: bool;
         equals(other: INotification): bool;
+        kind: string;
+        value?: any;
+        exception?: any;
     }
     export module Notification {
-        //absctract
+        //abstract
         //function new (): INotification;
 
         function createOnNext(value: any): INotification;//ON
