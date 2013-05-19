@@ -884,7 +884,7 @@ interface Underscore {
 	invert(object: any): any;
 
 	/**
-	* Returns a sorted list of the names of every method in an object — that is to say,
+	* Returns a sorted list of the names of every method in an object ï¿½ that is to say,
 	* the name of every function property of the object.
 	* @param object Object to pluck all function property names from.
 	* @return List of all the function names on `object`.
@@ -1167,8 +1167,8 @@ interface Underscore {
 	/**
 	* Compiles JavaScript templates into functions that can be evaluated for rendering. Useful
 	* for rendering complicated bits of HTML from JSON data sources. Template functions can both
-	* interpolate variables, using <%= … %>, as well as execute arbitrary JavaScript code, with
-	* <% … %>. If you wish to interpolate a value, and have it be HTML-escaped, use <%- … %> When
+	* interpolate variables, using <%= ï¿½ %>, as well as execute arbitrary JavaScript code, with
+	* <% ï¿½ %>. If you wish to interpolate a value, and have it be HTML-escaped, use <%- ï¿½ %> When
 	* you evaluate a template function, pass in a data object that has properties corresponding to
 	* the template's free variables. If you're writing a one-off, you can pass the data object as
 	* the second parameter to template in order to render immediately instead of returning a template
@@ -2205,7 +2205,7 @@ interface UnderscoreChain {
 	* Wrapped type `any[]`.
 	* @see _.where
 	**/
-	where(list: any[], properties: any): UnderscoreChain;
+	where(properties: any): UnderscoreChain;
 
 	/**
 	* Wrapped type `any[]`.
@@ -2218,7 +2218,6 @@ interface UnderscoreChain {
 	* @see _.reject
 	**/
 	reject(
-		list: any[],
 		iterator: (element: any, index?: number, list?: any[]) => bool,
 		context?: any): UnderscoreChain;
 
@@ -2243,7 +2242,6 @@ interface UnderscoreChain {
 	* @see _.any
 	**/
 	any(
-		list: any[],
 		iterator?: (element: any, index?: number, list?: any[]) => bool,
 		context?: any): UnderscoreChain;
 
@@ -2252,7 +2250,6 @@ interface UnderscoreChain {
 	* @see any
 	**/
 	some(
-		list: any[],
 		iterator: (element: any, index?: number, list?: any[]) => bool,
 		context?: any): UnderscoreChain;
 
@@ -2715,7 +2712,7 @@ interface UnderscoreChain {
 	* Wrapped type `any[]`.
 	* @see _.isEmpty
 	**/
-	isEmpty(list: any[]): UnderscoreChain;
+	isEmpty(): UnderscoreChain;
 
 	/**
 	* Wrapped type `object`.
