@@ -224,14 +224,16 @@ interface KnockoutMemoization {
     parseMemoText(memoText);
 }
 
+interface KnockoutVirtualElement {}
+
 interface KnockoutVirtualElements {
-    allowedBindings;
-    emptyNode;
-    firstChild;
-    insertAfter;
-    nextSibling;
-    prepend;
-    setDomNodeChildren;
+	allowedBindings: { [bindingName: string]: bool; };
+	emptyNode( e: KnockoutVirtualElement );
+	firstChild( e: KnockoutVirtualElement );
+	insertAfter( container: KnockoutVirtualElement, nodeToInsert: HTMLElement, insertAfter: HTMLElement );
+	nextSibling( e: KnockoutVirtualElement );
+	prepend( e: KnockoutVirtualElement, toInsert: HTMLElement );
+	setDomNodeChildren( e: KnockoutVirtualElement, newChildren: { length: number;[index: number]: HTMLElement; } );
 }
 
 interface KnockoutExtenders {
