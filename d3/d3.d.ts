@@ -232,7 +232,9 @@ declare module D3 {
         * @param arr Array to search
         * @param map Accsessor function
         */
-        max: (arr: number[], map?: (v: any) => any) => number;
+        max: (arr: any[], map?: (v: any) => number) => number;
+        
+        
         /**
         * Find the minimum and maximum value in an array
         *
@@ -1542,7 +1544,7 @@ declare module D3 {
         sort:
             {
                 (): () => Comparator;
-                (Comparator): () => Comparator;
+                (Comparator): (comp) => Comparator;
             };
 
 
@@ -1557,17 +1559,7 @@ declare module D3 {
             (CalculateSeparation): () => number;
 
         };
-
-        value:
-            {
-
-
-            };
-
-
-
     }
-
 
 }
 
