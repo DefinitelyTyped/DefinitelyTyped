@@ -1,3 +1,5 @@
+// Type definitions for PubSubJS  1.3.5
+
 module PubSubJS {
     interface Base extends Publish, Subscribe, Unsubscribe {
         version: string;
