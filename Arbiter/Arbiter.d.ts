@@ -5,7 +5,7 @@
 // May 22 2013
 
 
-declare module ArbiterCore {
+declare module ArbiterDef {
     export interface SubscribeHandler {
         (data?: any, message?: string, subscriber_context?: any): void;
     }
@@ -130,4 +130,4 @@ declare module ArbiterCore {
     }
 }
 
-declare var Arbiter: ArbiterCore.ArbiterStatic;
+declare var Arbiter: ArbiterDef.ArbiterStatic;
