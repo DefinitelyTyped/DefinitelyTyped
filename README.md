@@ -28,6 +28,7 @@ List of Definitions
 * [Ace Cloud9 Editor](http://ace.ajax.org/) (by [Diullei Gomes](https://github.com/Diullei))
 * [AmCharts](http://www.amcharts.com/) (by [Covobonomo](https://github.com/covobonomo/))
 * [AngularJS](http://angularjs.org) (by [Diego Vilar](https://github.com/diegovilar)) ([wiki](https://github.com/borisyankov/DefinitelyTyped/wiki/AngularJS-Definitions-Usage-Notes))
+* [Arbiter](http://arbiterjs.com/) (by [Arash Shakery](https://github.com/arash16))
 * [async](https://github.com/caolan/async) (by [Boris Yankov](https://github.com/borisyankov))
 * [Backbone.js](http://backbonejs.org/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Bootbox](https://github.com/makeusabrew/bootbox) (by [Vincent Bortone](https://github.com/vbortone/))
