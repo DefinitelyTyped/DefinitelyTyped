@@ -7,7 +7,7 @@
 
 declare module ArbiterDef {
     export interface SubscribeHandler {
-        (data?: any, message?: string, subscriber_context?: any): void;
+        (data: any, message: string, subscriber_context: any): void;
     }
 
     export interface SubscribeOptions {
