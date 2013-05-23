@@ -11,7 +11,7 @@ class House extends Backbone.RelationalModel {
             type: Backbone.HasMany, // Use the type, or the string 'HasOne' or 'HasMany'.
             key: 'occupants',
             relatedModel: 'Person',
-            includeInJSON: Backbone.Model.prototype.idAttribute,
+            includeInJSON: true,
             collectionType: 'PersonCollection',
             reverseRelation: {
                 key: 'livesIn'
