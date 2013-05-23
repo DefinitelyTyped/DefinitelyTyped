@@ -30,6 +30,7 @@ List of Definitions
 * [AngularJS](http://angularjs.org) (by [Diego Vilar](https://github.com/diegovilar)) ([wiki](https://github.com/borisyankov/DefinitelyTyped/wiki/AngularJS-Definitions-Usage-Notes))
 * [async](https://github.com/caolan/async) (by [Boris Yankov](https://github.com/borisyankov))
 * [Backbone.js](http://backbonejs.org/) (by [Boris Yankov](https://github.com/borisyankov))
+* [Backbone Relational](http://backbonerelational.org/) (by [Eirik Hoem](https://github.com/eirikhm))
 * [Bootbox](https://github.com/makeusabrew/bootbox) (by [Vincent Bortone](https://github.com/vbortone/))
 * [Bootstrap](http://twitter.github.com/bootstrap/) (by [Boris Yankov](https://github.com/borisyankov))
 * [bootstrap-notify](https://github.com/Nijikokun/bootstrap-notify) (by [Blake Niemyjski](https://github.com/niemyjski))
