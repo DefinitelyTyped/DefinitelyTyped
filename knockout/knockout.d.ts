@@ -234,6 +234,7 @@ interface KnockoutVirtualElements {
 	nextSibling( e: KnockoutVirtualElement );
 	prepend( e: KnockoutVirtualElement, toInsert: HTMLElement );
 	setDomNodeChildren( e: KnockoutVirtualElement, newChildren: { length: number;[index: number]: HTMLElement; } );
+	childNodes( e: KnockoutVirtualElement ): HTMLElement[];
 }
 
 interface KnockoutExtenders {
