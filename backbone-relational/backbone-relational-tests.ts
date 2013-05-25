@@ -41,15 +41,6 @@ class Person extends Backbone.RelationalModel {
     }
 }
 
-class PersonCollection extends Backbone.Collection {
-    url(models)
-    {
-        // Logic to create a url for the whole collection, or a set of models.
-        // See the tests, or Backbone-tastypie, for an example.
-        return '/person/' + ( models ? 'set/' + _.pluck(models, 'id').join(';') + '/' : '' );
-    }
-}
-
 class User extends Backbone.RelationalModel {
 
 }
