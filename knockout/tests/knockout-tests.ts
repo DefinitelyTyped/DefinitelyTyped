@@ -244,7 +244,6 @@ function test_bindings() {
     };
 
     var node, containerElem, nodeToInsert, insertAfter, nodeToPrepend, arrayOfNodes;
-    ko.virtualElements.allowedBindings.mySuperBinding = true;
     ko.virtualElements.emptyNode(containerElem);
     ko.virtualElements.firstChild(containerElem);
     ko.virtualElements.insertAfter(containerElem, nodeToInsert, insertAfter);
