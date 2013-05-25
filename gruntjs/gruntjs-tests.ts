@@ -3,7 +3,8 @@
 // Official code sample from 
 // http://gruntjs.com/getting-started#an-example-gruntfile
 
-module.exports = function (grunt) {
+// exports should work same as module.exports 
+exports = function (grunt) {
 
     // Project configuration.
     grunt.initConfig({
