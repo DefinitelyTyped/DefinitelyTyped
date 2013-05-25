@@ -190,6 +190,7 @@ declare module D3 {
         sourceEvent: Event;
         x: number;
         y: number;
+        altKey: any;
     }
 
     interface Base extends Selectors {
@@ -231,7 +232,9 @@ declare module D3 {
         * @param arr Array to search
         * @param map Accsessor function
         */
-        max: (arr: number[], map?: (v: any) => any) => number;
+        max: (arr: any[], map?: (v: any) => number) => number;
+        
+        
         /**
         * Find the minimum and maximum value in an array
         *
@@ -807,6 +810,13 @@ declare module D3 {
             (name: string, value: any): Transition;
             (name: string, valueFunction: (data: any, index: number) => any): Transition;
         };
+
+        style: {
+            (name: string): string;
+            (name: string, value: any, priority?: string): Transition;
+            (name: string, valueFunction: (data: any, index: number) => any, priority?: string): Transition;
+        };
+
         call(callback: (selection: Selection) => void ): Transition;
 
         select: (selector: string) => Transition;
@@ -815,6 +825,7 @@ declare module D3 {
         each: (type?: string, eachFunction?: (data: any, index: number) => any) => Transition;
         transition: () => Transition;
         ease: (value: string, ...arrs: any[]) => Transition;
+        remove: () => Transition;
     }
 
     interface Nest {
@@ -990,6 +1001,7 @@ declare module D3 {
         stack(): StackLayout;
         pie(): PieLayout;
         force(): ForceLayout;
+        tree(): TreeLayout;
     }
 
     interface StackLayout {
@@ -1032,6 +1044,31 @@ declare module D3 {
         size: (number) => Symbol;
     }
 
+
+
+    interface ProjectionPoint
+    {
+        x: number;
+        y: number;
+    }
+
+    interface Projector
+    {
+        (d: ProjectionPoint): ProjectionPoint;
+    }
+
+    interface Diagonal
+    {
+        (): () => Diagonal;
+        (projectionPoint):  Diagonal;
+        projection:
+        {
+            (projector): Diagonal;
+            (): Projector;
+        };
+
+    }
+
     interface Svg {
         /**
         * Create a new symbol generator
@@ -1053,6 +1090,11 @@ declare module D3 {
         * Create a new area generator
         */
         area(): Area;
+        /**
+        * Constructs a new diagonal generator with the default accessor functions
+        */
+        diagonal(): Diagonal;
+
     }
 
     interface Axis {
@@ -1360,7 +1402,7 @@ declare module D3 {
     }
     
     // force layout definitions
-    export interface twoDGraphPoint {
+    export interface TwoDGraphPoint {
         id: number;
         index: number;
         name: string;
@@ -1370,17 +1412,21 @@ declare module D3 {
         weight: number;
         x: number;
         y: number;
+        x0: number;
+        y0: number;
     }
 
-    export interface graphNode extends twoDGraphPoint {
+    export interface LayoutNode extends TwoDGraphPoint {
         fixed: bool;
-        children: graphNode[];
-        _children: graphNode[];
+        parent: LayoutNode;
+        depth: number;
+        children: LayoutNode[];
+        _children: LayoutNode[];
     }
 
-    export interface graphLink {
-        source: graphNode;
-        target: graphNode;
+    export interface LayoutLink {
+        source: LayoutNode;
+        target: LayoutNode;
     }
 
 
@@ -1438,14 +1484,14 @@ declare module D3 {
         };
 
         links: {
-            (): graphLink[];
-            (arLinks: graphLink[]): ForceLayout;
+            (): LayoutLink[];
+            (arLinks: LayoutLink[]): ForceLayout;
 
         };
         nodes:
         {
-            (): graphNode[];
-            (arNodes: graphNode[]): ForceLayout;
+            (): LayoutNode[];
+            (arNodes: LayoutNode[]): ForceLayout;
 
         };
         start(): ForceLayout;
@@ -1456,6 +1502,64 @@ declare module D3 {
         drag(): ForceLayout;
     }
 
+ // tree layout
+    
+
+    interface Comparator
+    {
+        (a: LayoutNode, b: LayoutNode): () => any;
+
+    }
+
+    interface ObjectWithChildrenArray
+    {
+        children: ObjectWithChildrenArray[];
+    }
+
+    interface ChildrenAccessorFunction
+    {
+        (d: ObjectWithChildrenArray): ()=> any;
+    }
+
+    interface CalculateSeparation
+    {
+        (a: any, b: any): () => number;
+
+    }
+
+
+    export interface TreeLayout
+    {
+        (): TreeLayout;
+        size: {
+            (): number;
+            (mysize: number[]): TreeLayout;
+            (accessor: (d: any, index: number) => {}): TreeLayout;
+
+        };
+        nodes: (LayoutNode) => LayoutNode[];
+        links: (nodes: LayoutNode[]) => LayoutLink[];
+
+
+        sort:
+            {
+                (): () => Comparator;
+                (Comparator): (comp) => Comparator;
+            };
+
+
+        children:
+            {
+                (): () => ChildrenAccessorFunction;
+                (ObjectWithChildrenArray): () => ObjectWithChildrenArray;
+            };
+        separation:
+        {
+            (): CalculateSeparation;
+            (CalculateSeparation): () => number;
+
+        };
+    }
 
 }
 
