@@ -920,22 +920,18 @@ interface JQuery {
     effect(effect: string, options?: any, duration?: number, complete?: Function): JQuery;
     effect(effect: string, options?: any, duration?: string, complete?: Function): JQuery;
 
-    hide(duration?: any, callback?: any): JQuery;
     hide(options: any): JQuery;
     hide(effect: string, options?: any, duration?: number, complete?: Function): JQuery;
     hide(effect: string, options?: any, duration?: string, complete?: Function): JQuery;
 
-    show(duration?: any, callback?: any): JQuery;
     show(options: any): JQuery;
     show(effect: string, options?: any, duration?: number, complete?: Function): JQuery;
     show(effect: string, options?: any, duration?: string, complete?: Function): JQuery;
 
-    toggle(duration?: any, callback?: any): JQuery;
     toggle(options: any): JQuery;
     toggle(effect: string, options?: any, duration?: number, complete?: Function): JQuery;
     toggle(effect: string, options?: any, duration?: string, complete?: Function): JQuery;
 
-    position(): { top: number; left: number; };
     position(options: JQueryPositionOptions): JQuery;
 
     enableSelection(): JQuery;
