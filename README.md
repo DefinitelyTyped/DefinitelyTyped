@@ -90,6 +90,7 @@ List of Definitions
 * [jQuery.Colorbox](http://www.jacklmoore.com/colorbox/) (by [Gidon Junge](https://github.com/gjunge))
 * [jQuery.Cookie](https://github.com/carhartl/jquery-cookie) (by [Roy Goode](https://github.com/RoyGoode))
 * [jQuery.Cycle](http://jquery.malsup.com/cycle/) (by [Fran�ois Guillot](http://fguillot.developpez.com/))
+* [jQuery.dataTables](http://www.datatables.net) (by [Armin Sander](https://github.com/pragmatrix))
 * [jQuery.dynatree](http://code.google.com/p/dynatree/) (by [Fran�ois de Campredon](https://github.com/fdecampredon))
 * [jQuery.Flot](http://www.flotcharts.org/) (by [Matt Burland](https://github.com/burlandm))
 * [jQuery.form](http://malsup.com/jquery/form/) (by [Fran�ois Guillot](http://fguillot.developpez.com/))
