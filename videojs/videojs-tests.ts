@@ -68,7 +68,6 @@ _V_("example_video_1").ready(function(){
 		var myPlayer: VideoJSPlayer = this;
 		// Do something when the event is fired
 	};
-	myPlayer.addEvent("volumechange", myFunc);
-	myPlayer.removeEvent("volumechange", myFunc);
-
+	//myPlayer.addEvent("volumechange", myFunc);
+	//myPlayer.removeEvent("volumechange", myFunc);
 });

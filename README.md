@@ -3,11 +3,15 @@ DefinitelyTyped [![Build Status](https://travis-ci.org/borisyankov/DefinitelyTyp
 
 The repository for *high quality* TypeScript type definitions.
 
-Use a definition file like this:
+Usage
+-----
+Include a line like this:
 
 ```
 /// <reference path="jquery.d.ts" />
 ```
+
+[TypeScript Directory: tools, libraries, projects and learning resources](https://github.com/DefinitelyTyped/typescript-directory)
 
 Contributor Guidelines
 ----------------------
@@ -16,11 +20,8 @@ See the section: [How to contribute](https://github.com/borisyankov/DefinitelyTy
 
 Other means to get the definitions
 ----------------------------------
-
 * [NuGet packages](http://nuget.org/packages?q=Definitelytyped)
-
 * [TypeScript definition package manager](https://github.com/Diullei/tsd)
-
 * [tsdpm](http://www.tsdpm.com/) - Online search
 
 List of Definitions
