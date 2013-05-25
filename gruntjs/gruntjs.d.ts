@@ -7,7 +7,7 @@
 ////////////////
 /// To add plugins update the IGruntConfig using open ended interface syntax
 ////////////////
-interface IGruntConfig{
+interface IGruntConfig {
     pkg?: any;
 }
 
@@ -15,7 +15,7 @@ interface IGruntConfig{
 /// Sample grunt plugin definition: 
 /// uglify : https://github.com/gruntjs/grunt-contrib-uglify
 ////////////////
-interface IGruntUglifyConfig{
+interface IGruntUglifyConfig {
     mangle?: bool;
     compress?: bool;
     beautify?: bool;
@@ -30,22 +30,25 @@ interface IGruntUglifyConfig{
     preserveComments?: any; // bool / string / function 
     banner?: string;
 }
-interface IGruntConfig{
+interface IGruntConfig {
     uglify?: {
         options?: IGruntUglifyConfig;
         build?: {
             src: string;
             dest: string;
-        }
-    }
+        };
+
+    };
 }
+
+
 
 
 ////////////////
 // Main Grunt object 
 // http://gruntjs.com/api/grunt
 ////////////////
-interface IGrunt{
+interface IGrunt {
     // Config
     config: IGruntConfigObject;
     initConfig(config?: IGruntConfig);
@@ -90,7 +93,7 @@ interface IGrunt{
 /// Grunt Config object
 /// http://gruntjs.com/api/grunt.config#accessing-config-data
 ////////////////
-interface IGruntConfigObject{
+interface IGruntConfigObject {
     (...param: any[]): any;
     init: (config?: IGruntConfig) => void;
     get: Function;
@@ -105,14 +108,14 @@ interface IGruntConfigObject{
 // Grunt File object
 // http://gruntjs.com/api/grunt.file
 ////////////////
-interface IGruntFileObjectOptionsSimple{
+interface IGruntFileObjectOptionsSimple {
     encoding?: string;
 }
-interface IGruntFileObjectOptions extends IGruntFileObjectOptionsSimple{
+interface IGruntFileObjectOptions extends IGruntFileObjectOptionsSimple {
     process?: Function;
     noProcess?: any;
 }
-interface IGruntFileObject{
+interface IGruntFileObject {
 
     // Character encoding
     defaultEncoding: string;
@@ -123,7 +126,7 @@ interface IGruntFileObject{
     readYAML(filepath, options?: IGruntFileObjectOptionsSimple);
     write(filepath, contents, options?: IGruntFileObjectOptionsSimple);
     copy(srcpath, destpath, options?: IGruntFileObjectOptions);
-    delete(filepath, options?: { force?: bool; });
+    delete (filepath, options?: { force?: bool; });
 
     // Directories
     mkdir(dirpath, mode?);
@@ -160,6 +163,5 @@ interface IGruntFileObject{
 ////////////////
 /// Globally called export function module.exports
 ////////////////
-declare var module : {
-    exports: {(grunt: IGrunt): void;};
-}
+
+declare var exports: (grunt: IGrunt) => void;
