@@ -5,7 +5,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface JWPlayer {
-  addButton(icon: string, label: string, handler: () => void, id: string): void;
+	addButton(icon: string, label: string, handler: () => void, id: string): void;
 	getBuffer(): number;
 	getCaptionsList(): any[];
 	getControls(): bool;
@@ -24,7 +24,7 @@ interface JWPlayer {
 	getState(): string;
 	getVolume(): number;
 	getWidth(): number;
-	load(playlist: any[]): void;
+	load(playlist: any): void;
 	load(playlist: string): void;
 	onBeforePlay(callback: () => void): void;
 	onBuffer(callback: () => void): void;
@@ -62,6 +62,7 @@ interface JWPlayer {
 	setMute(state: bool): void;
 	setup(options: any): JWPlayer;
 	setVolume(volume: number): void;
+	stop(): void;
 }
 
 interface JWPlayerStatic {
