@@ -25,9 +25,9 @@ interface TimePickerOptions {
     showOptions?: any;                // Options for enhanced animations
     appendText?: string;               // Display text following the input box, e.g. showing the format
 
-    beforeShow?: () => any;               // Define a callback function executed before the timepicker is shown
-    onSelect?: () => any;               // Define a callback function when a hour / minutes is selected
-    onClose?: () => any;                 // Define a callback function when the timepicker is closed
+    beforeShow?: () => any;                          // Define a callback function executed before the timepicker is shown
+    onSelect?: (timeText: string, inst: any) => any; // Define a callback function when a hour / minutes is selected
+    onClose?: (timeText: string, inst: any) => any;  // Define a callback function when the timepicker is closed
 
     timeSeparator?: string;               // The character to use to separate hours and minutes.
     periodSeparator?: string;           // The character to use to separate the time from the time period.
@@ -62,5 +62,9 @@ interface TimePickerOptions {
 
 
 interface JQuery {
-    timepicker(options?: TimePickerOptions): JQuery;
+    timepicker(): JQuery;
+    timepicker(options: TimePickerOptions): JQuery;
+    timepicker(methodName: string): JQuery;
+    timepicker(methodName: string, methodParameter: any): any;
+    timepicker(optionLiteral: string, optionName: string): any;
 }
