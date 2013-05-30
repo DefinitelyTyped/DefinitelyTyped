@@ -106,7 +106,7 @@ declare module Marionette {
 
     function getOption(target, optionName): any;
     function triggerMethod(name, ...args: any[]): any;
-    function MonitorDOMRefresh(view: View): void;
+    function MonitorDOMRefresh(view: Backbone.View): void;
     function bindEntityEvents(target, entity, bindings);
     function unbindEntityEvents(target, entity, bindings);
 
@@ -126,11 +126,11 @@ declare module Marionette {
 
         el: any;
 
-        show(view: View): void;
+        show(view: Backbone.View): void;
         ensureEl(): void;
-        open(view: View): void;
+        open(view: Backbone.View): void;
         close(): void;
-        attachView(view: View);
+        attachView(view: Backbone.View);
         reset();
     }
 
@@ -214,7 +214,7 @@ declare module Marionette {
         ui: any;
 
         serializeData(): any;
-        render(): View;
+        render(): ItemView;
         close();
     }
 
@@ -229,7 +229,7 @@ declare module Marionette {
 
         triggerBeforeRender();
         triggerRendered();
-        render(): View;
+        render(): CollectionView;
 
         getItemView(item: any): ItemView;
         addItemView(item: any, ItemView: ItemView, index: Number);
@@ -254,6 +254,7 @@ declare module Marionette {
         itemView: any;
         itemViewContainer: string;
 
+		render(): CompositeView;
         appendHtml(cv: any, iv: any);
         renderModel(): any;
     }
@@ -264,6 +265,7 @@ declare module Marionette {
 
         addRegion(name: string, definition: any): Region;
         addRegions(regions: any): any;
+		render(): Layout;
         removeRegion(name: string);
     }
 
