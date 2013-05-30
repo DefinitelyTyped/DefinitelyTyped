@@ -135,7 +135,7 @@ declare module Backbone {
 
         static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
-        model: Model;
+        model: any;
         models: any;
         collection: Model;
         length: number;
@@ -265,7 +265,7 @@ declare module Backbone {
         $(selector: string): JQuery;
         model: Model;
         collection: Collection;
-        template: (data: any) => string;
+        template: (data?: any) => string;
         make(tagName: string, attrs?, opts?): View;
         setElement(element: HTMLElement, delegate?: bool);
         id: string;
