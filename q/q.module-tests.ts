@@ -1,30 +1,9 @@
 /// <reference path="q.module.d.ts" />
 /// <reference path="../jasmine/jasmine.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
 import Q = module("q");
-
-describe("q", function () {
-    it("should return", function (done) {
-        Q({ myValue: true }).then(function (obj) {
-
-            if (obj.myValue) done();
-            else done("didn't work =(");
-        },
-        (err) => done(err));
-    });
-
-    it("should process all", function (done: (err?) => void ) {
-        Q.all([Q(1), Q(2), Q(3)]).then(function (arr: number[]) {
-            var sum = arr.reduce(function (memo, cur) {
-                return memo + cur;
-            }, 0);
-
-            if (sum === 6) done();
-            else done({ actual: sum });
-        },
-        (err) => done(err));
-    });
-});
+import fs = module("fs");
 
 var delay = function (delay) {
     var d = Q.defer();
@@ -80,3 +59,16 @@ var result = Q.resolve(initialVal);
 funcs.forEach(function (f) {
     result = result.then(f);
 });
+
+var replaceText = (text: string) => text.replace("a", "b");
+
+Q.nfcall(fs.readFile, "foo.txt", "utf-8").then(replaceText);
+
+Q.ninvoke(fs, "readFile", "foo.txt", "utf-8").then(replaceText);
+
+var deferred = Q.defer();
+fs.readFile("foo.txt", "utf-8", deferred.makeNodeResolver());
+deferred.promise.then(replaceText);
+
+var readFile = Q.nfbind(fs.readFile);
+readFile("foo.txt", "utf-8").then(replaceText);
