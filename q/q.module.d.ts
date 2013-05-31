@@ -1,6 +1,6 @@
 /// <reference path="Q.d.ts" />
 
-module "q" {
+declare module "q" {
     export function when(value: any, onFulfilled: Function, onRejected?: Function): Qpromise;
     export function try(method: Function, ...args: any[]): Qpromise;
     export function fbind(method: Function, ...args: any[]): Qpromise;
