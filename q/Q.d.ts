@@ -8,13 +8,13 @@ interface Qdeferred {
     resolve(value: any): any;
     reject(reason: any);
     notify(value: any);
-    makeNodeResolver(): Function;
+    makeNodeResolver(): () => void;
 }
 
 interface Qpromise {
     fail(errorCallback: Function): Qpromise;
     fin(finallyCallback: Function): Qpromise;
-    then(onFulfilled: Function, onRejected?: Function, onProgress?: Function): Qpromise;
+    then(onFulfilled?: Function, onRejected?: Function, onProgress?: Function): Qpromise;
     spread(onFulfilled: Function, onRejected?: Function): Qpromise;
     catch(onRejected: Function): Qpromise;
     progress(onProgress: Function): Qpromise;
