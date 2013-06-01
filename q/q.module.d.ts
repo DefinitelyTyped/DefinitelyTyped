@@ -1,10 +1,13 @@
 /// <reference path="Q.d.ts" />
 
-module "q" {
+declare module "q" {
     export function when(value: any, onFulfilled: Function, onRejected?: Function): Qpromise;
     export function try(method: Function, ...args: any[]): Qpromise;
     export function fbind(method: Function, ...args: any[]): Qpromise;
     export function fcall(method: Function, ...args: any[]): Qpromise;
+    export function nfbind(nodeFunction: Function): (...args: any[]) => Qpromise;
+    export function nfcall(nodeFunction: Function, ...args: any[]): Qpromise;
+    export function ninvoke(nodeModule: any, functionName: string, ...args: any[]): Qpromise;
     export function all(promises: Qpromise[]): Qpromise;
     export function allResolved(promises: Qpromise[]): Qpromise;
     export function spread(onFulfilled: Function, onRejected: Function): Qpromise;
