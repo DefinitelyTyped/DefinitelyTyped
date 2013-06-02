@@ -24,7 +24,7 @@ declare function before(action: () => void): void;
 
 declare function before(action: (done: () => void) => void): void;
 
-declare function aftet(action: () => void): void;
+declare function after(action: () => void): void;
 
 declare function after(action: (done: () => void) => void): void;
 
