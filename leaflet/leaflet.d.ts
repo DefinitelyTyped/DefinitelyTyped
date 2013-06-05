@@ -1932,7 +1932,7 @@ declare module L {
     
     }
 
-    export class DivIcon {
+    export class DivIcon extends Icon{
         /**
           * Creates a div icon instance with the given options.
           */
