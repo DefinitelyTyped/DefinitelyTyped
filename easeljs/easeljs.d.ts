@@ -670,6 +670,17 @@ module createjs {
         // events
         tick: (timeElapsed: number) => any;
     }
+    
+     export class TickerEvent {
+
+        // properties
+        target: Object;
+        type: string;
+        paused: bool;
+        delta: number;
+        time: number;
+        runTime : number;
+    }
 
 
     export class Touch {
