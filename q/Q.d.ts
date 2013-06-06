@@ -36,7 +36,7 @@ interface Qpromise {
 }
 
 interface QStatic {
-    when(value: any, onFulfilled: Function, onRejected?: Function): Qpromise;
+    when(value: any, onFulfilled?: Function, onRejected?: Function): Qpromise;
     try(method: Function, ...args: any[]): Qpromise;
     fbind(method: Function, ...args: any[]): Qpromise;
     fcall(method: Function, ...args: any[]): Qpromise;
