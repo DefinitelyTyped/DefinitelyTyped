@@ -30,6 +30,8 @@ declare function setTimeout(callback: () => void , ms: number): any;
 declare function clearTimeout(timeoutId: any);
 declare function setInterval(callback: () => void , ms: number): any;
 declare function clearInterval(intervalId: any);
+declare function setImmediate(callback: () => void ): any;
+declare function clearImmediate(immediateId: any);
 
 declare var require: {
     (id: string): any;
