@@ -12,17 +12,6 @@
 declare var process: NodeProcess;
 declare var global: any;
 
-declare var console: {
-    log(...data: any[]): void;
-    info(...data: any[]): void;
-    error(...data: any[]): void;
-    warn(...data: any[]): void;
-    dir(obj: any): void;
-    timeEnd(label: string): void;
-    trace(label: string): void;
-    assert(expression: any, ...message: string[]): void;
-}
-
 declare var __filename: string;
 declare var __dirname: string;
 
