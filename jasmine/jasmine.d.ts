@@ -61,7 +61,7 @@ declare module jasmine {
         assertInstalled(): void;
         isInstalled(): bool;
         installed: any;
-    };
+    }
 
     interface Env {
         setTimeout;
