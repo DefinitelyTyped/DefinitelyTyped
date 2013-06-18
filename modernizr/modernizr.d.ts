@@ -105,7 +105,7 @@ interface ModernizrStatic {
     addTest(feature: string, test: boolean);
     addTest(feature: any);
 
-    testStyles(rule: string, callback: (element, rule) => boolean, nodes?: number, testnames?: string[]): boolean;
+    testStyles(rule: string, callback: (element, rule) => void, nodes?: number, testnames?: string[]): boolean;
     testProp(property: string): boolean;
     testAllProps(property: string, prefix?: string): boolean;
     testAllProps(property: string, obj: any, element: any): boolean;
