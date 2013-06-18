@@ -11,14 +11,14 @@
 */
 
 
-/// <reference path="../tweenjs/tweenjs.d.ts" />
+/// <reference path="tweenjs.d.ts" />
 
 // rename the native MouseEvent, to avoid conflit with createjs's MouseEvent
 interface NativeMouseEvent extends MouseEvent {
 
 }
 
-module createjs {
+declare module createjs {
     // :: base classes :: //
 
     export class DisplayObject {
@@ -155,13 +155,15 @@ module createjs {
         spriteSheet: SpriteSheet;
 
         // methods
-        constructor (spriteSheet: SpriteSheet);
+        constructor(spriteSheet: SpriteSheet);
         advance(): void;
         cache(): void;
         clone(): BitmapAnimation;
         getBounds(): Rectangle;
         gotoAndPlay(frameOrAnimation: string): void;
         gotoAndPlay(frameOrAnimation: number): void;
+        gotoAndStop(frameOrAnimation: string): void;
+        gotoAndStop (frameOrAnimation: number): void;
         play(): void;
         stop(): void;
         updateCache(): void;
@@ -669,6 +671,17 @@ module createjs {
 
         // events
         tick: (timeElapsed: number) => any;
+    }
+    
+     export class TickerEvent {
+
+        // properties
+        target: Object;
+        type: string;
+        paused: bool;
+        delta: number;
+        time: number;
+        runTime : number;
     }
 
 

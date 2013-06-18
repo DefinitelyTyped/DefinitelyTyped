@@ -146,6 +146,7 @@ List of Definitions
 * [require.js](http://requirejs.org/) (by [Josh Baldwin](https://github.com/jbaldwin/))
 * [Sammy.js](http://sammyjs.org/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Select2](http://ivaynberg.github.com/select2/) (by [Boris Yankov](https://github.com/borisyankov))
+* [Sencha Touch](http://www.sencha.com/products/touch/) (by [Brian Kotek](https://github.com/brian428))
 * [SignalR](http://www.asp.net/signalr) (by [Boris Yankov](https://github.com/borisyankov))
 * [Sinon](http://sinonjs.org/) (by [William Sears](https://github.com/mrbigdog2u))
 * [socket.io](http://socket.io) (by [William Orr](https://github.com/worr))

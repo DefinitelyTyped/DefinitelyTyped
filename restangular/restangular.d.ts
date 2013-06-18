@@ -1,4 +1,4 @@
-// Type definitions for Restangular 0.6.9
+// Type definitions for Restangular v0.8.0 - 2013-06-03
 // Project: https://github.com/mgonto/restangular
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -10,6 +10,7 @@ interface Restangular extends RestangularCustom {
     one(route: string, id?: number): RestangularElement;
     all(route: string): RestangularCollection;
     copy(fromElement: any): RestangularElement;
+    withConfig(configurer: any): RestangularElement;
 }
 
 interface RestangularElement extends Restangular {
