@@ -25,11 +25,11 @@ interface IFileWatcher {
 interface IIO {
     readFile(path: string): string;
     writeFile(path: string, contents: string): void;
-    createFile(path: string, useUTF8?: bool): ITextWriter;
+    createFile(path: string, useUTF8?: boolean): ITextWriter;
     deleteFile(path: string): void;
-    dir(path: string, re?: RegExp, options?: { recursive?: bool; deep?: number; }): string[];
-    fileExists(path: string): bool;
-    directoryExists(path: string): bool;
+    dir(path: string, re?: RegExp, options?: { recursive?: boolean; }): string[];
+    fileExists(path: string): boolean;
+    directoryExists(path: string): boolean;
     createDirectory(path: string): void;
     resolvePath(path: string): string;
     dirName(path: string): string;
@@ -60,7 +60,7 @@ module IOUtils {
     }
 
     // Creates a file including its directory structure if not already present
-    export function createFileAndFolderStructure(ioHost: IIO, fileName: string, useUTF8?: bool) {
+    export function createFileAndFolderStructure(ioHost: IIO, fileName: string, useUTF8?: boolean) {
         var path = ioHost.resolvePath(fileName);
         var dirName = ioHost.dirName(path);
         createDirectoryStructure(ioHost, dirName);
@@ -78,7 +78,7 @@ module IOUtils {
 
 // Declare dependencies needed for all supported hosts
 declare class Enumerator {
-    public atEnd(): bool;
+    public atEnd(): boolean;
     public moveNext();
     public item(): any;
     constructor (o: any);
@@ -160,7 +160,7 @@ var IO = (function() {
                 file.Close();
             },
 
-            fileExists: function(path: string): bool {
+            fileExists: function(path: string): boolean {
                 return fso.FileExists(path);
             },
 
@@ -236,7 +236,7 @@ var IO = (function() {
             },
 
             directoryExists: function(path) {
-                return <bool>fso.FolderExists(path);
+                return <boolean>fso.FolderExists(path);
             },
 
             createDirectory: function(path) {
@@ -250,7 +250,7 @@ var IO = (function() {
             },
 
             dir: function(path, spec?, options?) {
-                options = options || <{ recursive?: bool; deep?: number; }>{};
+                options = options || <{ recursive?: boolean; }>{};
                 function filesInFolder(folder, root): string[]{
                     var paths = [];
                     var fc: Enumerator;
@@ -302,7 +302,7 @@ var IO = (function() {
             getExecutingFilePath: function () {
                 return WScript.ScriptFullName;
             },
-            quit: function (exitCode? : number = 0) {
+            quit: function (exitCode : number = 0) {
                 try {
                     WScript.Quit(exitCode);
                 } catch (e) {
@@ -365,7 +365,7 @@ var IO = (function() {
                     IOUtils.throwIOError("Couldn't delete file '" + path + "'.", e);
                 }
             },
-            fileExists: function(path): bool {
+            fileExists: function(path): boolean {
                 return _fs.existsSync(path);
             },
             createFile: function(path, useUTF8?) {
@@ -395,18 +395,16 @@ var IO = (function() {
                 };
             },
             dir: function dir(path, spec?, options?) {
-                options = options || <{ recursive?: bool; deep?: number; }>{};
+                options = options || <{ recursive?: boolean; }>{};
 
-                function filesInFolder(folder: string, deep?: number): string[]{
+                function filesInFolder(folder: string): string[]{
                     var paths = [];
 
                     var files = _fs.readdirSync(folder);
                     for (var i = 0; i < files.length; i++) {
                         var stat = _fs.statSync(folder + "/" + files[i]);
                         if (options.recursive && stat.isDirectory()) {
-                            if (deep < (options.deep || 100)) {
-                                paths = paths.concat(filesInFolder(folder + "/" + files[i], 1));
-                            }
+                            paths = paths.concat(filesInFolder(folder + "/" + files[i]));
                         } else if (stat.isFile() && (!spec || files[i].match(spec))) {
                             paths.push(folder + "/" + files[i]);
                         }
@@ -415,7 +413,7 @@ var IO = (function() {
                     return paths;
                 }
 
-                return filesInFolder(path, 0);
+                return filesInFolder(path);
             },
             createDirectory: function(path: string): void {
                 try {
@@ -427,7 +425,7 @@ var IO = (function() {
                 }
             },
 
-            directoryExists: function(path: string): bool {
+            directoryExists: function(path: string): boolean {
                 return _fs.existsSync(path) && _fs.lstatSync(path).isDirectory();
             },
             resolvePath: function(path: string): string {

@@ -485,7 +485,7 @@ var IO = (function () {
 var cfg = {
     root: '.',
     pattern: /.\-tests\.ts/g,
-    tsc: 'node ./_infrastructure/tests/typescript_0.8.3/tsc.js ',
+    tsc: 'node ./_infrastructure/tests/typescript/tsc.js ',
     exclude: {
         '.git': true,
         '.gitignore': true,
