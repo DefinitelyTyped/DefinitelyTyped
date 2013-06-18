@@ -49,7 +49,7 @@ module linq {
         SelectMany(collectionSelector: ($, i: number) => any[], resultSelector?: ($, item) => any): Enumerable;
         SelectMany(collectionSelector: ($, i: number) => Enumerable, resultSelector?: ($, item) => any): Enumerable;
         SelectMany(collectionSelector: string, resultSelector?: string): Enumerable;
-        Where(predicate: ($, i: number) => bool): Enumerable;
+        Where(predicate: ($, i: number) => boolean): Enumerable;
         Where(predicate: string): Enumerable;
         OfType(type: Function): Enumerable;
         Zip(second: any[], selector: (v1, v2, i: number) => any): Enumerable;
@@ -66,17 +66,17 @@ module linq {
         GroupJoin(inner: Enumerable, outerKeySelector: (v1) => any, innerKeySelector: (v1) => any, resultSelector: (v1, v2: Enumerable) => any, compareSelector?: (v) => any): Enumerable;
         GroupJoin(inner: Enumerable, outerKeySelector: string, innerKeySelector: string, resultSelector: string, compareSelector?: string): Enumerable;
         //Set Methods
-        All(predicate: ($) => bool): bool;
-        All(predicate: string): bool;
-        Any(predicate?: ($) => bool): bool;
-        Any(predicate?: string): bool;
+        All(predicate: ($) => boolean): boolean;
+        All(predicate: string): boolean;
+        Any(predicate?: ($) => boolean): boolean;
+        Any(predicate?: string): boolean;
         Concat(second: any[]): Enumerable;
         Concat(second: Enumerable): Enumerable;
         Insert(index: number, second: any[]): Enumerable;
         Insert(index: number, second: Enumerable): Enumerable;
         Alternate(value): Enumerable;
-        Contains(value, compareSelector?: ($) => any): bool;
-        Contains(value, compareSelector?: string): bool;
+        Contains(value, compareSelector?: ($) => any): boolean;
+        Contains(value, compareSelector?: string): boolean;
         DefaultIfEmpty(defaultValue): Enumerable;
         Distinct(compareSelector?: ($) => any): Enumerable;
         Distinct(compareSelector?: string): Enumerable;
@@ -88,10 +88,10 @@ module linq {
         Intersect(second: any[], compareSelector?: string): Enumerable;
         Intersect(second: Enumerable, compareSelector?: ($) => any): Enumerable;
         Intersect(second: Enumerable, compareSelector?: string): Enumerable;
-        SequenceEqual(second: any[], compareSelector?: ($) => any): bool;
-        SequenceEqual(second: any[], compareSelector?: string): bool;
-        SequenceEqual(second: Enumerable, compareSelector?: ($) => any): bool;
-        SequenceEqual(second: Enumerable, compareSelector?: string): bool;
+        SequenceEqual(second: any[], compareSelector?: ($) => any): boolean;
+        SequenceEqual(second: any[], compareSelector?: string): boolean;
+        SequenceEqual(second: Enumerable, compareSelector?: ($) => any): boolean;
+        SequenceEqual(second: Enumerable, compareSelector?: string): boolean;
         Union(second: any[], compareSelector?: ($) => any): Enumerable;
         Union(second: any[], compareSelector?: string): Enumerable;
         Union(second: Enumerable, compareSelector?: ($) => any): Enumerable;
@@ -116,7 +116,7 @@ module linq {
         Aggregate(seed, func: string, resultSelector?: string);
         Average(selector?: ($) => number): number;
         Average(selector?: string): number;
-        Count(predicate?: ($) => bool): number;
+        Count(predicate?: ($) => boolean): number;
         Count(predicate?: string): number;
         Max(selector?: ($) => number): number;
         Max(selector?: string): number;
@@ -131,23 +131,23 @@ module linq {
         //Paging Methods
         ElementAt(index: number): any;
         ElementAtOrDefault(index: number, defaultValue): any;
-        First(predicate?: ($) => bool): any;
+        First(predicate?: ($) => boolean): any;
         First(predicate?: string): any;
-        FirstOrDefault(defaultValue, predicate?: ($) => bool): any;
+        FirstOrDefault(defaultValue, predicate?: ($) => boolean): any;
         FirstOrDefault(defaultValue, predicate?: string): any;
-        Last(predicate?: ($) => bool): any;
+        Last(predicate?: ($) => boolean): any;
         Last(predicate?: string): any;
-        LastOrDefault(defaultValue, predicate?: ($) => bool): any;
+        LastOrDefault(defaultValue, predicate?: ($) => boolean): any;
         LastOrDefault(defaultValue, predicate?: string): any;
-        Single(predicate?: ($) => bool): any;
+        Single(predicate?: ($) => boolean): any;
         Single(predicate?: string): any;
-        SingleOrDefault(defaultValue, predicate?: ($) => bool): any;
+        SingleOrDefault(defaultValue, predicate?: ($) => boolean): any;
         SingleOrDefault(defaultValue, predicate?: string): any;
         Skip(count: number): Enumerable;
-        SkipWhile(predicate: ($, i: number) => bool): Enumerable;
+        SkipWhile(predicate: ($, i: number) => boolean): Enumerable;
         SkipWhile(predicate: string): Enumerable;
         Take(count: number): Enumerable;
-        TakeWhile(predicate: ($, i: number) => bool): Enumerable;
+        TakeWhile(predicate: ($, i: number) => boolean): Enumerable;
         TakeWhile(predicate: string): Enumerable;
         TakeExceptLast(count?: number): Enumerable;
         TakeFromLast(count: number): Enumerable;
@@ -169,7 +169,7 @@ module linq {
         Do(action: ($, i: number) => void ): Enumerable;
         Do(action: string): Enumerable;
         ForEach(action: ($, i: number) => void ): void;
-        ForEach(func: ($, i: number) => bool): void;
+        ForEach(func: ($, i: number) => boolean): void;
         ForEach(action_func: string): void;
         Write(separator?: string, selector?: ($) =>any): void;
         Write(separator?: string, selector?: string): void;
@@ -203,15 +203,15 @@ module linq {
     interface Lookup {
         Count(): number;
         Get(key): Enumerable;
-        Contains(key): bool;
+        Contains(key): boolean;
         ToEnumerable(): Enumerable;
     }
 
     interface Dictionary {
         Add(key, value): void;
         Get(key): any;
-        Set(key, value): bool;
-        Contains(key): bool;
+        Set(key, value): boolean;
+        Contains(key): boolean;
         Clear(): void;
         Remove(key): void;
         Count(): number;
