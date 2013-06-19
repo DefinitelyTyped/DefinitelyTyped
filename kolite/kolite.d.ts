@@ -34,7 +34,7 @@ interface KnockoutBindingHandlers {
 
 interface JQuery {
     activity: KoLiteActivity;
-    activityEx(isLoading: bool): JQuery;
+    activityEx(isLoading: boolean): JQuery;
 }
 
 
@@ -42,7 +42,7 @@ interface JQuery {
 
 interface DirtyFlag {
     isDirty: KnockoutComputed;
-    new (objectToTrack: any, isInitiallyDirty?: bool, hashFunction?: () => any);
+    new (objectToTrack: any, isInitiallyDirty?: boolean, hashFunction?: () => any);
     reset(): void;
 }
 
@@ -60,7 +60,7 @@ interface KoliteCommand {
 
 interface KoLiteCommandOptions {
     execute?: any;
-    canExecute?: (isExecuting: bool) => any;
+    canExecute?: (isExecuting: boolean) => any;
 }
 
 interface KnockoutStatic {

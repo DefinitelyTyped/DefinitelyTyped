@@ -21,14 +21,14 @@ interface KnockoutMappingOptions {
     include?: string[];
     copy?: string[];
     mappedProperties?: string[];
-    deferEvaluation?: bool;
+    deferEvaluation?: boolean;
     create?: (options: KnockoutMappingCreateOptions) => void;
     update?: (options: KnockoutMappingUpdateOptions) => void;
     key?: (data: any) => any;
 }
 
 interface KnockoutMapping {
-    isMapped(viewModel: any): bool;
+    isMapped(viewModel: any): boolean;
     fromJS(jsObject: any): any;
     fromJS(jsObject: any, targetOrOptions: any): any;
     fromJS(jsObject: any, inputOptions: any, target: any): any;

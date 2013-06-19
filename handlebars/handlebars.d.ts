@@ -5,7 +5,7 @@
 
 
 interface HandlebarsStatic {
-    registerHelper(name: string, fn: Function, inverse?: bool): void;
+    registerHelper(name: string, fn: Function, inverse?: boolean): void;
     registerPartial(name: string, str): void;
     K();
     createFrame(object);

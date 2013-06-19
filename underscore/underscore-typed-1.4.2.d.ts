@@ -192,7 +192,7 @@ interface Underscore {
 	**/
 	find(
 		list: any[],
-		iterator: (element: any, index?: number, list?: any[]) => bool,
+		iterator: (element: any, index?: number, list?: any[]) => boolean,
 		context?: any): any;
 
 	/**
@@ -201,7 +201,7 @@ interface Underscore {
 	**/
 	detect(
 		list: any[],
-		iterator: (element: any, index?: number, list?: any[]) => bool,
+		iterator: (element: any, index?: number, list?: any[]) => boolean,
 		context?: any): any;
 
 
@@ -215,7 +215,7 @@ interface Underscore {
 	**/
 	filter(
 		list: any[],
-		iterator: (element: any, index?: number, list?: any[]) => bool,
+		iterator: (element: any, index?: number, list?: any[]) => boolean,
 		context?: any): any[];
 
 	/**
@@ -224,7 +224,7 @@ interface Underscore {
 	**/
 	select(
 		list: any[],
-		iterator: (element: any, index?: number, list?: any[]) => bool,
+		iterator: (element: any, index?: number, list?: any[]) => boolean,
 		context?: any): any[];
 
 	/**
@@ -247,7 +247,7 @@ interface Underscore {
 	**/
 	reject(
 		list: any[],
-		iterator: (element: any, index?: number, list?: any[]) => bool,
+		iterator: (element: any, index?: number, list?: any[]) => boolean,
 		context?: any): any[];
 
 	/**
@@ -260,8 +260,8 @@ interface Underscore {
 	**/
 	all(
 		list: any[],
-		iterator: (element: any, index?: number, list?: any[]) => bool,
-		context?: any): bool;
+		iterator: (element: any, index?: number, list?: any[]) => boolean,
+		context?: any): boolean;
 
 	/**
 	* Alias for 'all'.
@@ -269,8 +269,8 @@ interface Underscore {
 	**/
 	every(
 		list: any[],
-		iterator: (element: any, index?: number, list?: any[]) => bool,
-		context?: any): bool;
+		iterator: (element: any, index?: number, list?: any[]) => boolean,
+		context?: any): boolean;
 
 	/**
 	* Returns true if any of the values in the list pass the iterator truth test. Short-circuits and
@@ -282,8 +282,8 @@ interface Underscore {
 	**/
 	any(
 		list: any[],
-		iterator?: (element: any, index?: number, list?: any[]) => bool,
-		context?: any): bool;
+		iterator?: (element: any, index?: number, list?: any[]) => boolean,
+		context?: any): boolean;
 
 	/**
 	* Alias for 'any'.
@@ -291,8 +291,8 @@ interface Underscore {
 	**/
 	some(
 		list: any[],
-		iterator: (element: any, index?: number, list?: any[]) => bool,
-		context?: any): bool;
+		iterator: (element: any, index?: number, list?: any[]) => boolean,
+		context?: any): boolean;
 
 	/**
 	* Returns true if the value is present in the list. Uses indexOf internally,
@@ -301,13 +301,13 @@ interface Underscore {
 	* @param value The value to check for within `list`.
 	* @return True if `value` is present in `list`, otherwise false.
 	**/
-	contains(list: any[], value: any): bool;
+	contains(list: any[], value: any): boolean;
 
 	/**
 	* Alias for 'contains'.
 	* @see contains
 	**/
-	include(list: any[], value: any): bool;
+	include(list: any[], value: any): boolean;
 
 	/**
 	* Calls the method named by methodName on each value in the list. Any extra arguments passed to
@@ -565,7 +565,7 @@ interface Underscore {
 	* @param shallow If true then only flatten one level, optional, default = false.
 	* @return `array` flattened.
 	**/
-	flatten(array: any, shallow?: bool): any;
+	flatten(array: any, shallow?: boolean): any;
 
 	/**
 	* Returns a copy of the array with all instances of the values removed.
@@ -610,7 +610,7 @@ interface Underscore {
 	**/
 	uniq(
 		array: any[],
-		isSorted?: bool,
+		isSorted?: boolean,
 		iterator?: (element: any, index?: number, list?: any[]) => any): any[];
 
 	/**
@@ -618,7 +618,7 @@ interface Underscore {
 	* @see uniq
 	**/
 	unique(array: any[],
-		isSorted?: bool,
+		isSorted?: boolean,
 		iterator?: (element: any, index?: number, list?: any[]) => any): any[];
 
 	/**
@@ -656,7 +656,7 @@ interface Underscore {
 	* @param isSorted True if the array is already sorted, optional, default = false.
 	* @return The index of `value` within `array`.
 	**/
-	indexOf(array: any[], value: any, isSorted?: bool): number;
+	indexOf(array: any[], value: any, isSorted?: boolean): number;
 
 	/**
 	* Returns the index of the last occurrence of value in the array, or -1 if value is not present. Uses the
@@ -779,7 +779,7 @@ interface Underscore {
 	* @param immediate True if `fn` should be invoked on the leading edge of `waitMS` instead of the trailing edge.
 	* @return Debounced version of `fn` that waits `waitMS` ms when invoked.
 	**/
-	debounce(fn: Function, waitMS: number, immediate?: bool): Function;
+	debounce(fn: Function, waitMS: number, immediate?: boolean): Function;
 
 	/**
 	* Creates a version of the function that can only be called one time. Repeated calls to the modified
@@ -926,7 +926,7 @@ interface Underscore {
 	* @param key The key to check for on `object`.
 	* @return True if `key` is a property on `object`, otherwise false.
 	**/
-	has(object: any, key: string): bool;
+	has(object: any, key: string): boolean;
 
 	/**
 	* Performs an optimized deep comparison between the two objects,
@@ -935,34 +935,34 @@ interface Underscore {
 	* @param other Compare to `object`.
 	* @return True if `object` is equal to `other`.
 	**/
-	isEqual(object: any, other: any): bool;
+	isEqual(object: any, other: any): boolean;
 
 	/**
 	* Returns true if object contains no values.
 	* @param object Check if this object has no properties or values.
 	* @return True if `object` is empty.
 	**/
-	isEmpty(object: any): bool;
+	isEmpty(object: any): boolean;
 	/**
 	* Returns true if the list contains no values.
 	* @param object Check if this list has no elements.
 	* @return True if `list` is empty.
 	**/
-	isEmpty(list: any[]): bool;
+	isEmpty(list: any[]): boolean;
 
 	/**
 	* Returns true if object is a DOM element.
 	* @param object Check if this object is a DOM element.
 	* @return True if `object` is a DOM element, otherwise false.
 	**/
-	isElement(object: any): bool;
+	isElement(object: any): boolean;
 
 	/**
 	* Returns true if object is an Array.
 	* @param object Check if this object is an Array.
 	* @return True if `object` is an Array, otherwise false.
 	**/
-	isArray(object: any): bool;
+	isArray(object: any): boolean;
 
 	/**
 	* Returns true if value is an Object. Note that JavaScript arrays and functions are objects,
@@ -970,63 +970,63 @@ interface Underscore {
 	* @param object Check if this object is an Object.
 	* @return True of `object` is an Object, otherwise false.
 	**/
-	isObject(object: any): bool;
+	isObject(object: any): boolean;
 
 	/**
 	* Returns true if object is an Arguments object.
 	* @param object Check if this object is an Arguments object.
 	* @return True if `object` is an Arguments object, otherwise false.
 	**/
-	isArguments(object: any): bool;
+	isArguments(object: any): boolean;
 
 	/**
 	* Returns true if object is a Function.
 	* @param object Check if this object is a Function.
 	* @return True if `object` is a Function, otherwise false.
 	**/
-	isFunction(object: any): bool;
+	isFunction(object: any): boolean;
 
 	/**
 	* Returns true if object is a String.
 	* @param object Check if this object is a String.
 	* @return True if `object` is a String, otherwise false.
 	**/
-	isString(object: any): bool;
+	isString(object: any): boolean;
 
 	/**
 	* Returns true if object is a Number (including NaN).
 	* @param object Check if this object is a Number.
 	* @return True if `object` is a Number, otherwise false.
 	**/
-	isNumber(object: any): bool;
+	isNumber(object: any): boolean;
 
 	/**
 	* Returns true if object is a finite Number.
 	* @param object Check if this object is a finite Number.
 	* @return True if `object` is a finite Number.
 	**/
-	isFinite(object: any): bool;
+	isFinite(object: any): boolean;
 
 	/**
 	* Returns true if object is either true or false.
-	* @param object Check if this object is a bool.
-	* @return True if `object` is a bool, otherwise false.
+	* @param object Check if this object is a boolean.
+	* @return True if `object` is a boolean, otherwise false.
 	**/
-	isBoolean(object: any): bool;
+	isBoolean(object: any): boolean;
 
 	/**
 	* Returns true if object is a Date.
 	* @param object Check if this object is a Date.
 	* @return True if `object` is a Date, otherwise false.
 	**/
-	isDate(object: any): bool;
+	isDate(object: any): boolean;
 
 	/**
 	* Returns true if object is a RegExp.
 	* @param object Check if this object is a RegExp.
 	* @return True if `object` is a RegExp, otherwise false.
 	**/
-	isRegExp(object: any): bool;
+	isRegExp(object: any): boolean;
 
 	/**
 	* Returns true if object is NaN.
@@ -1035,21 +1035,21 @@ interface Underscore {
 	* @param object Check if this object is NaN.
 	* @return True if `object` is NaN, otherwise false.
 	**/
-	isNaN(object: any): bool;
+	isNaN(object: any): boolean;
 
 	/**
 	* Returns true if the value of object is null.
 	* @param object Check if this object is null.
 	* @return True if `object` is null, otherwise false.
 	**/
-	isNull(object: any): bool;
+	isNull(object: any): boolean;
 
 	/**
 	* Returns true if value is undefined.
 	* @param object Check if this object is undefined.
 	* @return True if `object` is undefined, otherwise false.
 	**/
-	isUndefined(object: any): bool;
+	isUndefined(object: any): boolean;
 
 	/**********
 	* Utility *
@@ -1323,7 +1323,7 @@ interface UnderscoreOOPWrapper {
 	* @see _.find
 	**/
 	find(
-		iterator: (element: any, index?: number, list?: any[]) => bool,
+		iterator: (element: any, index?: number, list?: any[]) => boolean,
 		context?: any): any;
 
 	/**
@@ -1331,7 +1331,7 @@ interface UnderscoreOOPWrapper {
 	* @see find
 	**/
 	detect(
-		iterator: (element: any, index?: number, list?: any[]) => bool,
+		iterator: (element: any, index?: number, list?: any[]) => boolean,
 		context?: any): any;
 
 
@@ -1340,7 +1340,7 @@ interface UnderscoreOOPWrapper {
 	* @see _.filter
 	**/
 	filter(
-		iterator: (element: any, index?: number, list?: any[]) => bool,
+		iterator: (element: any, index?: number, list?: any[]) => boolean,
 		context?: any): any[];
 
 	/**
@@ -1348,7 +1348,7 @@ interface UnderscoreOOPWrapper {
 	* @see filter
 	**/
 	select(
-		iterator: (element: any, index?: number, list?: any[]) => bool,
+		iterator: (element: any, index?: number, list?: any[]) => boolean,
 		context?: any): any[];
 
 	/**
@@ -1363,7 +1363,7 @@ interface UnderscoreOOPWrapper {
 	**/
 	reject(
 		list: any[],
-		iterator: (element: any, index?: number, list?: any[]) => bool,
+		iterator: (element: any, index?: number, list?: any[]) => boolean,
 		context?: any): any[];
 
 	/**
@@ -1371,16 +1371,16 @@ interface UnderscoreOOPWrapper {
 	* @see _.all
 	**/
 	all(
-		iterator: (element: any, index?: number, list?: any[]) => bool,
-		context?: any): bool;
+		iterator: (element: any, index?: number, list?: any[]) => boolean,
+		context?: any): boolean;
 
 	/**
 	* Alias for 'all'.
 	* @see all
 	**/
 	every(
-		iterator: (element: any, index?: number, list?: any[]) => bool,
-		context?: any): bool;
+		iterator: (element: any, index?: number, list?: any[]) => boolean,
+		context?: any): boolean;
 
 	/**
 	* Wrapped type `any[]`.
@@ -1388,8 +1388,8 @@ interface UnderscoreOOPWrapper {
 	**/
 	any(
 		list: any[],
-		iterator?: (element: any, index?: number, list?: any[]) => bool,
-		context?: any): bool;
+		iterator?: (element: any, index?: number, list?: any[]) => boolean,
+		context?: any): boolean;
 
 	/**
 	* Alias for 'any'.
@@ -1397,20 +1397,20 @@ interface UnderscoreOOPWrapper {
 	**/
 	some(
 		list: any[],
-		iterator: (element: any, index?: number, list?: any[]) => bool,
-		context?: any): bool;
+		iterator: (element: any, index?: number, list?: any[]) => boolean,
+		context?: any): boolean;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.contains
 	**/
-	contains(value: any): bool;
+	contains(value: any): boolean;
 
 	/**
 	* Alias for 'contains'.
 	* @see contains
 	**/
-	include(value: any): bool;
+	include(value: any): boolean;
 
 	/**
 	* Wrapped type `any[]`.
@@ -1595,7 +1595,7 @@ interface UnderscoreOOPWrapper {
 	* Wrapped type `any`.
 	* @see _.flatten
 	**/
-	flatten(shallow?: bool): any;
+	flatten(shallow?: boolean): any;
 
 	/**
 	* Wrapped type `any[]`.
@@ -1626,7 +1626,7 @@ interface UnderscoreOOPWrapper {
 	* @see _.uniq
 	**/
 	uniq(
-		isSorted?: bool,
+		isSorted?: boolean,
 		iterator?: (element: any, index?: number, list?: any[]) => any): any[];
 
 	/**
@@ -1634,7 +1634,7 @@ interface UnderscoreOOPWrapper {
 	* @see uniq
 	**/
 	unique(
-		isSorted?: bool,
+		isSorted?: boolean,
 		iterator?: (element: any, index?: number, list?: any[]) => any): any[];
 
 	/**
@@ -1653,7 +1653,7 @@ interface UnderscoreOOPWrapper {
 	* Wrapped type `any[]`.
 	* @see _.indexOf
 	**/
-	indexOf(value: any, isSorted?: bool): number;
+	indexOf(value: any, isSorted?: boolean): number;
 
 	/**
 	* Wrapped type `any[]`.
@@ -1723,7 +1723,7 @@ interface UnderscoreOOPWrapper {
 	* Wrapped type `Function`.
 	* @see _.debounce
 	**/
-	debounce(waitMS: number, immediate?: bool): Function;
+	debounce(waitMS: number, immediate?: boolean): Function;
 
 	/**
 	* Wrapped type `Function`.
@@ -1828,108 +1828,108 @@ interface UnderscoreOOPWrapper {
 	* Wrapped type `object`.
 	* @see _.has
 	**/
-	has(key: string): bool;
+	has(key: string): boolean;
 
 	/**
 	* Wrapped type `object`.
 	* @see _.isEqual
 	**/
-	isEqual(other: any): bool;
+	isEqual(other: any): boolean;
 
 	/**
 	* Wrapped type `object`.
 	* @see _.isEmpty
 	**/
-	isEmpty(object: any): bool;
+	isEmpty(object: any): boolean;
 	/**
 	* Wrapped type `any[]`.
 	* @see _.isEmpty
 	**/
-	isEmpty(list: any[]): bool;
+	isEmpty(list: any[]): boolean;
 
 	/**
 	* Wrapped type `object`.
 	* @see _.isElement
 	**/
-	isElement(): bool;
+	isElement(): boolean;
 
 	/**
 	* Wrapped type `object`.
 	* @see _.isArray
 	**/
-	isArray(): bool;
+	isArray(): boolean;
 
 	/**
 	* Wrapped type `object`.
 	* @see _.isObject
 	**/
-	isObject(): bool;
+	isObject(): boolean;
 
 	/**
 	* Wrapped type `object`.
 	* @see _.isArguments
 	**/
-	isArguments(): bool;
+	isArguments(): boolean;
 
 	/**
 	* Wrapped type `object`.
 	* @see _.isFunction
 	**/
-	isFunction(): bool;
+	isFunction(): boolean;
 
 	/**
 	* Wrapped type `object`.
 	* @see _.isString
 	**/
-	isString(): bool;
+	isString(): boolean;
 
 	/**
 	* Wrapped type `object`.
 	* @see _.isNumber
 	**/
-	isNumber(): bool;
+	isNumber(): boolean;
 
 	/**
 	* Wrapped type `object`.
 	* @see _.isFinite
 	**/
-	isFinite(): bool;
+	isFinite(): boolean;
 
 	/**
 	* Wrapped type `object`.
 	* @see _.isBoolean
 	**/
-	isBoolean(): bool;
+	isBoolean(): boolean;
 
 	/**
 	* Wrapped type `object`.
 	* @see _.isDate
 	**/
-	isDate(): bool;
+	isDate(): boolean;
 
 	/**
 	* Wrapped type `object`.
 	* @see _.isRegExp
 	**/
-	isRegExp(): bool;
+	isRegExp(): boolean;
 
 	/**
 	* Wrapped type `object`.
 	* @see _.isNaN
 	**/
-	isNaN(): bool;
+	isNaN(): boolean;
 
 	/**
 	* Wrapped type `object`.
 	* @see _.isNull
 	**/
-	isNull(): bool;
+	isNull(): boolean;
 
 	/**
 	* Wrapped type `object`.
 	* @see _.isUndefined
 	**/
-	isUndefined(): bool;
+	isUndefined(): boolean;
 
 	/**********
 	* Utility *

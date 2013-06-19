@@ -15,8 +15,8 @@ interface SpinnerOptions {
     color?: string; // #rgb or #rrggbb
     speed?: number; // Rounds per second
     trail?: number; // Afterglow percentage
-    shadow?: bool; // Whether to render a shadow
-    hwaccel?: bool; // Whether to use hardware acceleration
+    shadow?: boolean; // Whether to render a shadow
+    hwaccel?: boolean; // Whether to use hardware acceleration
     className?: string; // The CSS class to assign to the spinner
     zIndex?: number; // The z-index (defaults to 2000000000)
     top?: string; // Top position relative to parent in px

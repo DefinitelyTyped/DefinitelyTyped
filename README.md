@@ -99,8 +99,10 @@ List of Definitions
 * [jQuery.Globalize](https://github.com/jquery/globalize) (by [Boris Yankov](https://github.com/borisyankov))
 * [jQuery.jNotify](http://jnotify.codeplex.com) (by [James Curran](https://github.com/jamescurran/))
 * [jQuery.noty](http://needim.github.io/noty/) (by [Aaron King](https://github.com/kingdango/))
+* [jQuery.payment](http://needim.github.io/noty/) (by [Eric J. Smith](https://github.com/ejsmith/))
 * [jQuery.scrollTo](https://github.com/flesler/jquery.scrollTo) (by [Neil Stalker](https://github.com/nestalk/))
 * [jQuery.simplePagination](https://github.com/flaviusmatis/simplePagination.js) (by [Natan Vivo](https://github.com/nvivo/))
+* [jquery.superLink](http://james.padolsey.com/demos/plugins/jQuery/superLink/superlink.jquery.js) (by [Blake Niemyjski](https://github.com/niemyjski))
 * [jQuery.timeago](http://timeago.yarp.com/) (by [François Guillot](http://fguillot.developpez.com/))
 * [jQuery.Timepicker](http://fgelinas.com/code/timepicker/) (by [Anwar Javed](https://github.com/anwarjaved))
 * [jQuery.TinyScrollbar](http://baijs.nl/tinyscrollbar/) (by [Christiaan Rakowski](https://github.com/csrakowski))
@@ -113,6 +115,7 @@ List of Definitions
 * [KeyboardJS](https://github.com/RobertWHurst/KeyboardJS) (by [Vincent Bortone](https://github.com/vbortone/))
 * [Knockback](http://kmalakoff.github.com/knockback/) (by [Marcel Binot](https://github.com/docgit))
 * [Knockout.js](http://knockoutjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
+* [knockout.es5](https://github.com/SteveSanderson/knockout-es5/) (by [Blake Niemyjski](https://github.com/niemyjski))
 * [Knockout.Mapping](https://github.com/SteveSanderson/knockout.mapping) (by [Boris Yankov](https://github.com/borisyankov))
 * [Knockout.Postbox](https://github.com/rniemeyer/knockout-postbox) (by [Judah Gabriel](https://github.com/JudahGabriel))
 * [Knockout.Validation](https://github.com/ericmbarnard/Knockout-Validation) (by [Dan Ludwig](https://github.com/danludwig))
@@ -139,6 +142,7 @@ List of Definitions
 * [PouchDB](http://pouchdb.com) (by [Bill Sears](https://github.com/MrBigDog2U/))
 * [PreloadJS](http://www.createjs.com/#!/PreloadJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [QUnit](http://qunitjs.com/) (by [Diullei Gomes](https://github.com/Diullei))
+* [Rickshaw](http://code.shutterstock.com/rickshaw/) (by [Blake Niemyjski](https://github.com/niemyjski))
 * [Restify](https://github.com/mcavage/node-restify) (by [Bret Little](https://github.com/blittle))
 * [Rx.js](http://rx.codeplex.com/) (by [gsino](http://www.codeplex.com/site/users/view/gsino))
 * [Raphael](http://raphaeljs.com/) (by [CheCoxshall](https://github.com/CheCoxshall))
@@ -153,6 +157,7 @@ List of Definitions
 * [SockJS](https://github.com/sockjs/sockjs-client) (by [Emil Ivanov](https://github.com/vladev))
 * [SoundJS](http://www.createjs.com/#!/SoundJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [Spin](http://fgnass.github.com/spin.js/) (by [Boris Yankov](https://github.com/borisyankov))
+* [stripe](https://stripe.com/) (by [Eric J. Smith](https://github.com/ejsmith/))
 * [Store.js](https://github.com/marcuswestin/store.js/) (by [Vincent Bortone](https://github.com/vbortone))
 * [Sugar](http://sugarjs.com/) (by [Josh Baldwin](https://github.com/jbaldwin/))
 * [SwipeView](http://cubiq.org/swipeview) (by [Boris Yankov](https://github.com/borisyankov))
@@ -178,7 +183,6 @@ List of Definitions
 
 Requested Definitions
 ---------------------
-* [Rickshaw](https://github.com/shutterstock/rickshaw)
 * [jQuery ScrollTo](https://github.com/balupton/jquery-scrollto)
 * [Crossfilter](https://github.com/square/crossfilter)
 * [dc.js](https://github.com/NickQiZhu/dc.js)

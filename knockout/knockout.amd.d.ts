@@ -18,11 +18,11 @@ declare module 'knockout' {
     export var computed: KnockoutComputedStatic;
     export var observableArray: KnockoutObservableArrayStatic;
     export function contextFor(node: any): any;
-    export function isSubscribable(instance: any): bool;
+    export function isSubscribable(instance: any): boolean;
     export function toJSON(viewModel: any, replacer?: Function, space?: any): string;
     export function toJS(viewModel: any): any;
-    export function isObservable(instance: any): bool;
-    export function isComputed(instance: any): bool;
+    export function isObservable(instance: any): boolean;
+    export function isComputed(instance: any): boolean;
     export function dataFor(node: any): any;
     export function removeNode(node: Element);
     export function cleanNode(node: Element);
