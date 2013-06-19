@@ -291,19 +291,17 @@ interface JQueryStatic {
     contains(container: Element, contained: Element): boolean;
 
     each(collection: any, callback: (indexInArray: any, valueOfElement: any) => any): any;
-    each(collection: any[], callback: (indexInArray: any, valueOfElement: any) => any): any;
     each(collection: JQuery, callback: (indexInArray: number, valueOfElement: HTMLElement) => any): any;
-    each(collection: string[], callback: (indexInArray: number, valueOfElement: string) => any): any;
-    each(collection: number[], callback: (indexInArray: number, valueOfElement: number) => any): any;
+    each<T>(collection: T[], callback: (indexInArray: number, valueOfElement: T) => any): any;
 
     extend(target: any, ...objs: any[]): Object;
     extend(deep: bool, target: any, ...objs: any[]): Object;
 
     globalEval(code: string): any;
 
-    grep(array: any[], func: any, invert?: bool): any[];
+    grep<T>(array: T[], func: (elementOfArray: T, indexInArray: number) => boolean, invert?: bool): T[];
 
-    inArray(value: any, array: any[], fromIndex?: number): number;
+    inArray<T>(value: T, array: T[], fromIndex?: number): number;
 
     isArray(obj: any): boolean;
     isEmptyObject(obj: any): boolean;
@@ -315,10 +313,11 @@ interface JQueryStatic {
 
     makeArray(obj: any): any[];
 
-    map(array: any[], callback: (elementOfArray: any, indexInArray: any) => any): any[];
+    map<T, U>(array: T[], callback: (elementOfArray: T, indexInArray: number) => U): U[];
     map(array: any, callback: (elementOfArray: any, indexInArray: any) => any): any;
 
-    merge(first: any[], second: any[]): any[];
+    merge<T>(first: T[], second: T[]): T[];
+    merge<T,U>(first: T[], second: U[]): any[];
 
     noop(): any;
 
