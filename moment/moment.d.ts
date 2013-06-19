@@ -56,7 +56,7 @@ interface Moment {
     format(format: string): string;
     format(): string;
 
-    fromNow(withoutSuffix?: bool): string;
+    fromNow(withoutSuffix?: boolean): string;
 
     startOf(soort: string): Moment;
     endOf(soort: string): Moment;
@@ -75,7 +75,7 @@ interface Moment {
 
     utc(): Moment; // current date/time in UTC mode
 
-    isValid(): bool;
+    isValid(): boolean;
 
     year(y: number): Moment;
     year(): number;
@@ -98,25 +98,25 @@ interface Moment {
     eod(): Moment; // End of Day
 
     from(f: Moment): string;
-    from(f: Moment, suffix: bool): string;
+    from(f: Moment, suffix: boolean): string;
     from(d: Date): string;
     from(s: string): string;
     from(date: number[]): string;
 
     diff(b: Moment): number;
     diff(b: Moment, soort: string): number;
-    diff(b: Moment, soort: string, round: bool): number;
+    diff(b: Moment, soort: string, round: boolean): number;
 
     toDate(): Date;
     unix(): number;
 
-    isLeapYear(): bool;
+    isLeapYear(): boolean;
     zone(): number;
     daysInMonth(): number;
-    isDST(): bool;
+    isDST(): boolean;
 
     lang(language: string);
-    lang(reset: bool);
+    lang(reset: boolean);
     lang(): string;
 
 }
@@ -141,7 +141,7 @@ interface MomentLanguage {
   weekdaysMin?: any;
   longDateFormat?: MomentLongDateFormat;
   relativeTime?: MomentRelativeTime;
-  meridiem?: (hour: number, minute: number, isLowercase: bool) => string;
+  meridiem?: (hour: number, minute: number, isLowercase: boolean) => string;
   calendar?: MomentCalendar;
   ordinal?: (num: number) => string;
 
@@ -200,8 +200,8 @@ interface MomentStatic {
     utc(String: string): Moment; // parse string into UTC mode
     utc(String1: string, String2: string): Moment; // parse a string and format into UTC mode
 
-    isMoment(): bool;
-    isMoment(m: any): bool;
+    isMoment(): boolean;
+    isMoment(m: any): boolean;
     lang(language: string);
     lang(language: string, definition: MomentLanguage);
     months: string[];
@@ -211,7 +211,7 @@ interface MomentStatic {
     weekdaysMin: string[];
     longDateFormat: any;
     relativeTime: any;
-    meridiem: (hour: number, minute: number, isLowercase: bool) => string;
+    meridiem: (hour: number, minute: number, isLowercase: boolean) => string;
     calendar: any;
     ordinal: (num: number) => string;
 

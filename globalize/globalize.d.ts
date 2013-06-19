@@ -88,7 +88,7 @@ interface GlobalizeCulture {
     name: string;
     englishName: string;
     nativeName: string;
-    isRTL: bool;
+    isRTL: boolean;
     language: string;
     numberFormat: GlobalizeNumberFormat;
     calendars: GlobalizeCalendars;
