@@ -104,6 +104,7 @@ interface JQueryDeferred extends JQueryPromise {
     resolveWith(context: any, ...args: any[]): JQueryDeferred;
     state(): string;
     then(doneCallbacks: any, failCallbacks?: any, progressCallbacks?: any): JQueryDeferred;
+    promise(target?: any): JQueryPromise;
 }
 
 /*
