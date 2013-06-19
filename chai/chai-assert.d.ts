@@ -107,7 +107,7 @@ declare module chai
 		ifError(val:any, msg?:string);
 	}
 	//node module
-	declare var assert:Assert;
+	var assert:Assert;
 }
 //browser global
 declare var assert:chai.Assert;
