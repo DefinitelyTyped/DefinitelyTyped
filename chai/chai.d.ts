@@ -35,7 +35,7 @@ declare module chai {
 
     interface TypeComparison { 
         (type: string, message?: string): bool;
-         instanceof(type: Object, ): bool;
+         instanceof(type: Object): bool;
     }
 
     interface NumericComparison {
