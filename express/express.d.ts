@@ -25,7 +25,7 @@ interface Route {
     * Check if this route matches `path`, if so
     * populate `.params`.
     */
-    match(path: string): bool;
+    match(path: string): boolean;
 }
 declare var Route: {
     /**
@@ -51,12 +51,12 @@ interface Handler {
 
 interface CookieOptions {
     maxAge?: number;
-    signed?: bool;
+    signed?: boolean;
     expires?: Date;
-    httpOnly?: bool;
+    httpOnly?: boolean;
     path?: string;
     domain?: string;
-    secure?: bool;
+    secure?: boolean;
 }
 
 interface Errback { (err: Error): void; }
@@ -193,7 +193,7 @@ interface ExpressServerRequest {
      *
      * @param charset
      */
-    acceptsCharset(charset: string): bool;
+    acceptsCharset(charset: string): boolean;
 
     /**
      * Check if the given `lang` is acceptable,
@@ -201,7 +201,7 @@ interface ExpressServerRequest {
      *
      * @param lang
      */
-    acceptsLanguage(lang: string): bool;
+    acceptsLanguage(lang: string): boolean;
 
     /**
      * Parse Range header field,
@@ -300,7 +300,7 @@ interface ExpressServerRequest {
      *
      * @param type
      */
-    is(type: string): bool;
+    is(type: string): boolean;
 
     /**
      * Return the protocol string "http" or "https"
@@ -317,7 +317,7 @@ interface ExpressServerRequest {
      *
      *    req.protocol == 'https'
      */
-    secure: bool;
+    secure: boolean;
 
     /**
      * Return the remote address, or when
@@ -375,24 +375,24 @@ interface ExpressServerRequest {
      * Last-Modified and/or the ETag
      * still match.
      */
-    fresh: bool;
+    fresh: boolean;
 
     /**
      * Check if the request is stale, aka
      * "Last-Modified" and / or the "ETag" for the
      * resource has changed.
      */
-    stale: bool;
+    stale: boolean;
 
     /**
      * Check if the request was an _XMLHttpRequest_.
      */
-    xhr: bool;
+    xhr: boolean;
 
-    //body: { username: string; password: string; remember: bool; title: string; };
+    //body: { username: string; password: string; remember: boolean; title: string; };
     body: any;
 
-    //cookies: { string; remember: bool; };
+    //cookies: { string; remember: boolean; };
     cookies: any;
 
     method: string;
@@ -906,7 +906,7 @@ interface ExpressApplication {
      *    app.enabled('foo')
      *    // => true
      */
-    enabled(setting: string): bool;
+    enabled(setting: string): boolean;
 
     /**
      * Check if `setting` is disabled.
@@ -920,7 +920,7 @@ interface ExpressApplication {
      *
      * @param setting
      */
-    disabled(setting: string): bool;
+    disabled(setting: string): boolean;
 
     /**
      * Enable `setting`.

@@ -180,9 +180,9 @@ declare module chrome.browserAction {
 ////////////////////
 declare module chrome.browsingData {
     interface OriginTypes {
-        protectedWeb?: bool;
-        extension?: bool;
-        unprotectedWeb?: bool;
+        protectedWeb?: boolean;
+        extension?: boolean;
+        unprotectedWeb?: boolean;
     }
 
     interface RemovalOptions {
@@ -191,19 +191,19 @@ declare module chrome.browsingData {
     }
 
     interface DataToRemove {
-        webSQL?: bool;
-        indexedDB?: bool;
-        cookies?: bool;
-        passwords?: bool;
-        serverBoundCertificates?: bool;
-        downloads?: bool;
-        cache?: bool;
-        appcache?: bool;
-        fileSystems?: bool;
-        pluginData?: bool;
-        localStorage?: bool;
-        formData?: bool;
-        history?: bool;
+        webSQL?: boolean;
+        indexedDB?: boolean;
+        cookies?: boolean;
+        passwords?: boolean;
+        serverBoundCertificates?: boolean;
+        downloads?: boolean;
+        cache?: boolean;
+        appcache?: boolean;
+        fileSystems?: boolean;
+        pluginData?: boolean;
+        localStorage?: boolean;
+        formData?: boolean;
+        history?: boolean;
     }
 
     export function removePluginData(options: RemovalOptions, callback?: Function);
@@ -251,7 +251,7 @@ declare module chrome.contentSettings {
     interface GetDetails {
         secondaryUrl?: string;
         resourceIdentifier?: ResourceIdentifier;
-        incognito?: bool;
+        incognito?: boolean;
         primaryUrl: string;
     }
 
@@ -285,12 +285,12 @@ declare module chrome.contentSettings {
 declare module chrome.contextMenus {
     interface OnClickData {
         selectionText?: string;
-        checked?: bool;
+        checked?: boolean;
         menuItemId: any;
         frameUrl?: string;
-        editable: bool;
+        editable: boolean;
         mediaType?: string;
-        wasChecked?: bool;
+        wasChecked?: boolean;
         pageUrl: string;
         linkUrl?: string;
         parentMenuItemId?: any;
@@ -298,10 +298,10 @@ declare module chrome.contextMenus {
 
     interface CreateProperties {
         documentUrlPatterns?: string[];
-        checked?: bool;
+        checked?: boolean;
         title?: string;
         contexts?: string[];
-        enabled?: bool;
+        enabled?: boolean;
         targetUrlPatterns?: string[];
         onclick?: (info: OnClickData, tab: chrome.tabs.Tab) => void;
         parentId?: any;
@@ -311,10 +311,10 @@ declare module chrome.contextMenus {
 
     interface UpdateProperties {
         documentUrlPatterns?: string[];
-        checked?: bool;
+        checked?: boolean;
         title?: string;
         contexts?: string[];
-        enabled?: bool;
+        enabled?: boolean;
         targetUrlPatterns?: string[];
         onclick?: Function;
         parentId?: any;
@@ -342,12 +342,12 @@ declare module chrome.cookies {
         name: string;
         storeId: string;
         value: string;
-        session: bool;
-        hostOnly: bool;
+        session: boolean;
+        hostOnly: boolean;
         expirationDate?: number;
         path: string;
-        httpOnly: bool;
-        secure: bool;
+        httpOnly: boolean;
+        secure: boolean;
     }
 
     interface CookieStore {
@@ -360,9 +360,9 @@ declare module chrome.cookies {
         name?: string;
         url?: string;
         storeId?: string;
-        session?: bool;
+        session?: boolean;
         path?: string;
-        secure?: bool;
+        secure?: boolean;
     }
 
     interface SetDetails {
@@ -373,8 +373,8 @@ declare module chrome.cookies {
         value?: string;
         expirationDate?: number;
         path?: string;
-        httpOnly?: bool;
-        secure?: bool;
+        httpOnly?: boolean;
+        secure?: boolean;
     }
 
     interface Details {
@@ -385,7 +385,7 @@ declare module chrome.cookies {
 
     interface CookieChangeInfo {
         cookie: Cookie;
-        removed: bool;
+        removed: boolean;
         cause: string;
     }
 
@@ -544,13 +544,13 @@ declare module chrome.devtools.inspectedWindow {
     interface Resource {
         url: string;
         getContent(callback: (content: string, encoding: string) => void): void;
-        setContent(content: string, commit: bool, callback?: (error: Object) => void): void;
+        setContent(content: string, commit: boolean, callback?: (error: Object) => void): void;
     }
 
     interface ReloadOptions {
         userAgent?: string;
-        ignoreCache?: bool;
-        injectedScript?: bool;
+        ignoreCache?: boolean;
+        injectedScript?: boolean;
     }
 
     interface ResourceAddedEvent extends chrome.events.Event {
@@ -564,7 +564,7 @@ declare module chrome.devtools.inspectedWindow {
     declare var tabId: number;
 
     export function reload(reloadOptions: ReloadOptions): void;
-    export function eval(expression: string, callback?: (result: Object, isException: bool) => void): void;
+    export function eval(expression: string, callback?: (result: Object, isException: boolean) => void): void;
     export function getResources(callback: (resources: Resource[]) => void): void;
 
     declare var onResourceAdded: ResourceAddedEvent;
@@ -610,7 +610,7 @@ declare module chrome.devtools.panels {
     }
 
     interface ExtensionPanel {
-        createStatusButton(iconPath: string, tooltipText: string, disabled: bool): Button;
+        createStatusButton(iconPath: string, tooltipText: string, disabled: boolean): Button;
         onShown: PanelShownEvent;
         onHidden: PanelHiddenEvent;
         onSearch: PanelSearchEvent;
@@ -621,7 +621,7 @@ declare module chrome.devtools.panels {
     }
 
     interface Button {
-        update(iconPath?: string, tooltipText?: string, disabled?: bool);
+        update(iconPath?: string, tooltipText?: string, disabled?: boolean);
         onClicked: ButtonClickedEvent;
     }
 
@@ -668,7 +668,7 @@ declare module chrome.downloads {
 
     interface DownloadOptions {
         body?: string;
-        saveAs?: bool;
+        saveAs?: boolean;
         url: string;
         filename?: string;
         headers?: HeaderNameValuePair[];
@@ -692,8 +692,8 @@ declare module chrome.downloads {
     }
 
     interface DownloadBooleanDiff {
-        current?: bool;
-        previous?: bool;
+        current?: boolean;
+        previous?: boolean;
     }
 
     interface DownloadLongDiff {
@@ -711,9 +711,9 @@ declare module chrome.downloads {
         danger: string;
         url: string;
         totalBytes: number;
-        dangerAccepted?: bool;
+        dangerAccepted?: boolean;
         filename: string;
-        paused: bool;
+        paused: boolean;
         state: string;
         mime: string;
         fileSize: number;
@@ -721,7 +721,7 @@ declare module chrome.downloads {
         error?: number;
         endTime?: number;
         id: number;
-        incognito: bool;
+        incognito: boolean;
     }
 
     interface GetFileIconOptions {
@@ -735,7 +735,7 @@ declare module chrome.downloads {
         totalBytesGreater?: number;
         danger?: string;
         totalBytes?: number;
-        paused?: bool;
+        paused?: boolean;
         filenameRegex?: string;
         query?: string;
         totalBytesLess?: number;
@@ -745,7 +745,7 @@ declare module chrome.downloads {
         filename?: string;
         state?: string;
         startedAfter?: number;
-        dangerAccepted?: bool;
+        dangerAccepted?: boolean;
         mime?: string;
         fileSize?: number;
         startTime?: number;
@@ -815,7 +815,7 @@ declare module chrome.events {
         removeRules(ruleIdentifiers?: string[], callback?: Function): void;
         addRules(rules: Rule[], callback?: (rules: Rule[]) => void): void;
         removeListener(callback: Function): void;
-        hasListeners(): bool;
+        hasListeners(): boolean;
     }
 
     interface Rule {
@@ -868,14 +868,14 @@ declare module chrome.extension {
         addListener(callback: (port: Port) => void): void;
     }
 
-    declare var inIncognitoContext: bool;
+    declare var inIncognitoContext: boolean;
     declare var lastError: Object;
 
     export function getBackgroundPage(): Window;
     export function getURL(path: string): string;
     export function setUpdateUrlData(data: string): void;
     export function getViews(fetchProperties?: FetchProperties): Window[];
-    export function isAllowedFileSchemeAccess(callback: (isAllowedAccess: bool) => void): void;
+    export function isAllowedFileSchemeAccess(callback: (isAllowedAccess: boolean) => void): void;
     export function sendMessage(message: any, responseCallback?: (response: any) => void): void;
     export function sendMessage(extensionId: string, message: any, responseCallback?: (response: any) => void): void;
     export function connect(extensionId?: string, connectInfo?: ConnectInfo): Port;
@@ -898,7 +898,7 @@ declare module chrome.fileBrowserHandler {
 
     interface SelectionResult {
         entry?: Object;
-        success: bool;
+        success: boolean;
     }
 
     interface FileHandlerExecuteEventDetails {
@@ -1033,7 +1033,7 @@ declare module chrome.history {
     }
 
     interface RemovedResult {
-        allHistory: bool;
+        allHistory: boolean;
         urls?: string[];
     }
 
@@ -1082,11 +1082,11 @@ declare module chrome.idle {
 ////////////////////
 declare module chrome.input.ime {
     interface KeyboardEvent {
-        shiftKey?: bool;
-        altKey?: bool;
+        shiftKey?: boolean;
+        altKey?: boolean;
         requestId: string;
         key: string;
-        ctrlKey?: bool;
+        ctrlKey?: boolean;
         type: string;
     }
 
@@ -1125,12 +1125,12 @@ declare module chrome.input.ime {
     }
 
     interface CandidateWindowPropertiesParameters {
-        cursorVisible?: bool;
-        vertical?: bool;
+        cursorVisible?: boolean;
+        vertical?: boolean;
         pageSize?: number;
-        auxiliaryTextVisible?: bool;
+        auxiliaryTextVisible?: boolean;
         auxiliaryText?: string;
-        visible?: bool;
+        visible?: boolean;
     }
 
     interface ClearCompositionParameters {
@@ -1175,13 +1175,13 @@ declare module chrome.input.ime {
     }
 
     export function setMenuItems(parameters: ImeParameters, callback?: Function): void;
-    export function commitText(parameters: CommitTextParameters, callback?: (success: bool) => void): void;
-    export function setCandidates(parameters: CandidatesParameters, callback?: (success: bool) => void): void;
-    export function setComposition(parameters: CompositionParameters, callback?: (success: bool) => void): void;
+    export function commitText(parameters: CommitTextParameters, callback?: (success: boolean) => void): void;
+    export function setCandidates(parameters: CandidatesParameters, callback?: (success: boolean) => void): void;
+    export function setComposition(parameters: CompositionParameters, callback?: (success: boolean) => void): void;
     export function updateMenuItems(parameters: MenuItemParameters, callback?: Function): void;
-    export function setCandidateWindowProperties(parameters: CandidateWindowPropertiesParameters, callback?: (success: bool) => void): void;
-    export function clearComposition(parameters: ClearCompositionParameters, callback?: (success: bool) => void): void;
-    export function setCursorPosition(parameters: CursorPositionParameters, callback?: (success: bool) => void): void;
+    export function setCandidateWindowProperties(parameters: CandidateWindowPropertiesParameters, callback?: (success: boolean) => void): void;
+    export function clearComposition(parameters: ClearCompositionParameters, callback?: (success: boolean) => void): void;
+    export function setCursorPosition(parameters: CursorPositionParameters, callback?: (success: boolean) => void): void;
 
     declare var onBlur: BlurEvent;
     declare var onCandidateClicked: CandidateClickedEvent;
@@ -1204,13 +1204,13 @@ declare module chrome.management {
         permissions: string[];
         icons?: IconInfo[];
         hostPermissions: string[];
-        enabled: bool;
+        enabled: boolean;
         homepageUrl?: string;
-        mayDisable: bool;
+        mayDisable: boolean;
         installType: string;
         version: string;
         id: string;
-        offlineEnabled: bool;
+        offlineEnabled: boolean;
         updateUrl?: string;
         type: string;
         optionsUrl: string;
@@ -1223,7 +1223,7 @@ declare module chrome.management {
     }
 
     interface UninstallOptions {
-        showConfirmDialog?: bool;
+        showConfirmDialog?: boolean;
     }
 
     interface ManagementDisabledEvent extends chrome.events.Event {
@@ -1242,7 +1242,7 @@ declare module chrome.management {
         addListener(callback: (info: ExtensionInfo) => void): void;
     }
 
-    export function setEnabled(id: string, enabled: bool, callback?: Function): void;
+    export function setEnabled(id: string, enabled: boolean, callback?: Function): void;
     export function getPermissionWarningsById(id: string, callback?: (permissionWarnings: string[]) => void): void;
     export function get(id: string, callback?: (result: ExtensionInfo) => void): void;
     export function getAll(callback?: (result: ExtensionInfo[]) => void): void;
@@ -1361,10 +1361,10 @@ declare module chrome.permissions {
         addListener(callback: (permissions: Permissions) => void): void;
     }
 
-    export function contains(permissions: Permissions, callback: (result: bool) => void): void;
+    export function contains(permissions: Permissions, callback: (result: boolean) => void): void;
     export function getAll(callback: (permissions: Permissions) => void): void;
-    export function request(permissions: Permissions, callback?: (granted: bool) => void): void;
-    export function remove(permissions: Permissions, callback?: (removed: bool) => void): void;
+    export function request(permissions: Permissions, callback?: (granted: boolean) => void): void;
+    export function remove(permissions: Permissions, callback?: (removed: boolean) => void): void;
 
     declare var onRemoved: PermissionsRemovedEvent;
     declare var onAdded: PermissionsAddedEvent;
@@ -1406,7 +1406,7 @@ declare module chrome.privacy {
 declare module chrome.proxy {
     interface PacScript {
         url?: string;
-        mandatory?: bool;
+        mandatory?: boolean;
         data?: string;
     }
 
@@ -1434,7 +1434,7 @@ declare module chrome.proxy {
     interface ErrorDetails {
         details: string;
         error: string;
-        fatal: bool;
+        fatal: boolean;
     }
 
     interface ProxyErrorEvent extends chrome.events.Event {
@@ -1591,7 +1591,7 @@ declare module chrome.socket {
         peerAddress?: string;
         peerPort?: number;
         localAddress?: string;
-        connected: bool;
+        connected: boolean;
     }
 
     interface NetworkInterface {
@@ -1610,8 +1610,8 @@ declare module chrome.socket {
     export function sendTo(socketId: number, data: ArrayBuffer, address: string, port: number, callback?: (writeInfo: WriteInfo) => void): void;
     export function listen(socketId: number, address: string, port: number, backlog?: number, callback?: (result: number) => void): void;
     export function accept(socketId: number, callback?: (acceptInfo: AcceptInfo) => void): void;
-    export function setKeepAlive(socketId: number, enable: bool, delay?: number, callback?: (result: bool) => void): void;
-    export function setNoDelay(socketId: number, noDelay: bool, callback?: (result: bool) => void): void;
+    export function setKeepAlive(socketId: number, enable: boolean, delay?: number, callback?: (result: boolean) => void): void;
+    export function setNoDelay(socketId: number, noDelay: boolean, callback?: (result: boolean) => void): void;
     export function getInfo(socketId: number, callback: (result: SocketInfo) => void): void;
     export function getNetworkList(callback: (result: NetworkInterface[]) => void): void;
 }
@@ -1626,17 +1626,17 @@ declare module chrome.tabs {
         openerTabId?: number;
         title?: string;
         url?: string;
-        pinned: bool;
-        highlighted: bool;
+        pinned: boolean;
+        highlighted: boolean;
         windowId: number;
-        active: bool;
+        active: boolean;
         favIconUrl?: string;
         id: number;
-        incognito: bool;
+        incognito: boolean;
     }
 
     interface InjectDetails {
-        allFrames?: bool;
+        allFrames?: boolean;
         code?: string;
         runAt?: string;
         file?: string;
@@ -1646,9 +1646,9 @@ declare module chrome.tabs {
         index?: number;
         openerTabId?: number;
         url?: string;
-        pinned?: bool;
+        pinned?: boolean;
         windowId?: number;
-        active?: bool;
+        active?: boolean;
     }
 
     interface MoveProperties {
@@ -1657,11 +1657,11 @@ declare module chrome.tabs {
     }
 
     interface UpdateProperties {
-        pinned?: bool;
+        pinned?: boolean;
         openerTabId?: number;
         url?: string;
-        highlighted?: bool;
-        active?: bool;
+        highlighted?: boolean;
+        active?: boolean;
     }
 
     interface CaptureVisibleTabOptions {
@@ -1670,7 +1670,7 @@ declare module chrome.tabs {
     }
 
     interface ReloadProperties {
-        bypassCache?: bool;
+        bypassCache?: boolean;
     }
 
     interface ConnectInfo {
@@ -1684,16 +1684,16 @@ declare module chrome.tabs {
 
     interface QueryInfo {
         status?: string;
-        lastFocusedWindow?: bool;
+        lastFocusedWindow?: boolean;
         windowId?: number;
         windowType?: string;
-        active?: bool;
+        active?: boolean;
         index?: number;
         title?: string;
         url?: string;
-        currentWindow?: bool;
-        highlighted?: bool;
-        pinned?: bool;
+        currentWindow?: boolean;
+        highlighted?: boolean;
+        pinned?: boolean;
     }
 
     interface TabHighlightInfo {
@@ -1702,7 +1702,7 @@ declare module chrome.tabs {
     }
 
     interface TabRemoveInfo {
-        isWindowClosing: bool;
+        isWindowClosing: boolean;
     }
 
     interface TabAttachInfo {
@@ -1712,7 +1712,7 @@ declare module chrome.tabs {
 
     interface TabChangeInfo {
         status?: string;
-        pinned?: bool;
+        pinned?: boolean;
         url?: string;
     }
 
@@ -1830,7 +1830,7 @@ declare module chrome.tts {
 
     interface SpeakOptions {
         volume?: number;
-        enqueue?: bool;
+        enqueue?: boolean;
         rate?: number;
         onEvent?: (event: TtsEvent) => void;
         pitch?: number;
@@ -1842,7 +1842,7 @@ declare module chrome.tts {
         desiredEventTypes?: string[];
     }
 
-    export function isSpeaking(callback?: (speaking: bool) => void): void;
+    export function isSpeaking(callback?: (speaking: boolean) => void): void;
     export function stop(): void;
     export function getVoices(callback?: (voices: TtsVoice[]) => void): void;
     export function speak(utterance: string, options?: SpeakOptions, callback?: Function): void;
@@ -1883,13 +1883,13 @@ declare module chrome.types {
     }
 
     interface ChromeSettingGetDetails {
-        incognito?: bool;
+        incognito?: boolean;
     }
 
     interface ChromeSettingGetResultDetails {
         levelOfControl: string;
         value: any;
-        incognitoSpecific?: bool;
+        incognitoSpecific?: boolean;
     }
 
     interface ChromeSettingChangedEvent extends chrome.events.Event {
@@ -1919,7 +1919,7 @@ declare module chrome.webNavigation {
 
     interface GetFrameResultDetails {
         url: string;
-        errorOccurred: bool;
+        errorOccurred: boolean;
     }
 
     interface GetAllFrameDetails {
@@ -2064,7 +2064,7 @@ declare module chrome.webRequest {
     }
 
     interface BlockingResponse {
-        cancel?: bool;
+        cancel?: boolean;
         redirectUrl?: string;
         responseHeaders?: Object;
         authCredentials?: AuthCredentials;
@@ -2090,7 +2090,7 @@ declare module chrome.webRequest {
         frameId: number;
         responseHeaders?: Object;
         parentFrameId: number;
-        fromCache: bool;
+        fromCache: boolean;
         url: string;
         timeStamp: number;
         requestId: string;
@@ -2119,7 +2119,7 @@ declare module chrome.webRequest {
         frameId: number;
         responseHeaders?: Object;
         parentFrameId: number;
-        fromCache: bool;
+        fromCache: boolean;
         url: string;
         timeStamp: number;
         requestId: string;
@@ -2140,7 +2140,7 @@ declare module chrome.webRequest {
         frameId: number;
         challenger: Challenger;
         responseHeaders: Object;
-        isProxy: bool;
+        isProxy: boolean;
         realm?: string;
         parentFrameId: number;
         url: string;
@@ -2168,7 +2168,7 @@ declare module chrome.webRequest {
         ip?: string;
         frameId: number;
         parentFrameId: number;
-        fromCache: bool;
+        fromCache: boolean;
         url: string;
         timeStamp: number;
         requestId: string;
@@ -2184,7 +2184,7 @@ declare module chrome.webRequest {
         frameId: number;
         responseHeaders?: Object;
         parentFrameId: number;
-        fromCache: bool;
+        fromCache: boolean;
         url: string;
         timeStamp: number;
         requestId: string;
@@ -2288,16 +2288,16 @@ declare module chrome.windows {
         height: number;
         width: number;
         state: string;
-        focused: bool;
-        alwaysOnTop: bool;
-        incognito: bool;
+        focused: boolean;
+        alwaysOnTop: boolean;
+        incognito: boolean;
         type: string;
         id: number;
         left: number;
     }
 
     interface GetInfo {
-        populate?: bool;
+        populate?: boolean;
     }
 
     interface CreateData {
@@ -2306,19 +2306,19 @@ declare module chrome.windows {
         top?: number;
         height?: number;
         width?: number;
-        focused?: bool;
-        incognito?: bool;
+        focused?: boolean;
+        incognito?: boolean;
         type?: string;
         left?: number;
     }
 
     interface UpdateInfo {
         top?: number;
-        drawAttention?: bool;
+        drawAttention?: boolean;
         height?: number;
         width?: number;
         state?: string;
-        focused?: bool;
+        focused?: boolean;
         left?: number;
     }
 

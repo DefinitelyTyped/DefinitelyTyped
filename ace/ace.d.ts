@@ -67,7 +67,7 @@ module AceAjax {
 
         addKeyboardHandler(kb, pos);
 
-        removeKeyboardHandler(kb): bool;
+        removeKeyboardHandler(kb): boolean;
 
         getKeyboardHandler(): any;
 
@@ -87,7 +87,7 @@ module AceAjax {
 
         getNextLineIndent (state, line, tab): string;
 
-        checkOutdent(state, line, input): bool;
+        checkOutdent(state, line, input): boolean;
 
         autoOutdent(state, doc, row);
 
@@ -177,7 +177,7 @@ module AceAjax {
          * @param column The column index to move the anchor to
          * @param noClip Identifies if you want the position to be clipped
         **/
-        setPosition(row: number, column: number, noClip: bool);
+        setPosition(row: number, column: number, noClip: boolean);
 
         /**
          * When called, the `'change'` event listener is removed.
@@ -307,7 +307,7 @@ module AceAjax {
          * Returns `true` if `text` is a newline character (either `\r\n`, `\r`, or `\n`).
          * @param text The text to check
         **/
-        isNewLine(text: string): bool;
+        isNewLine(text: string): boolean;
 
         /**
          * Returns a verbatim copy of the given line as it is in the document
@@ -476,7 +476,7 @@ module AceAjax {
 
         expandFold(arg: any);
 
-        unfold(arg1: any, arg2: bool);
+        unfold(arg1: any, arg2: boolean);
 
         screenToDocumentColumn(row: number, column: number);
 
@@ -560,12 +560,12 @@ module AceAjax {
          * Pass `true` to enable the use of soft tabs. Soft tabs means you're using spaces instead of the tab character (`'\t'`).
          * @param useSoftTabs Value indicating whether or not to use soft tabs
         **/
-        setUseSoftTabs(useSoftTabs: bool);
+        setUseSoftTabs(useSoftTabs: boolean);
 
         /**
          * Returns `true` if soft tabs are being used, `false` otherwise.
         **/
-        getUseSoftTabs(): bool;
+        getUseSoftTabs(): boolean;
 
         /**
          * Set the number of spaces that define a soft tab; for example, passing in `4` transforms the soft tabs to be equivalent to four spaces. This function also emits the `changeTabSize` event.
@@ -582,19 +582,19 @@ module AceAjax {
          * Returns `true` if the character at the position is a soft tab.
          * @param position The position to check
         **/
-        isTabStop(position: any): bool;
+        isTabStop(position: any): boolean;
 
         /**
          * Pass in `true` to enable overwrites in your session, or `false` to disable.
          * If overwrites is enabled, any text you enter will type over any text after it. If the value of `overwrite` changes, this function also emites the `changeOverwrite` event.
          * @param overwrite Defines wheter or not to set overwrites
         **/
-        setOverwrite(overwrite: bool);
+        setOverwrite(overwrite: boolean);
 
         /**
          * Returns `true` if overwrites are enabled; `false` otherwise.
         **/
-        getOverwrite(): bool;
+        getOverwrite(): boolean;
 
         /**
          * Sets the value of overwrite to the opposite of whatever it currently is.
@@ -651,7 +651,7 @@ module AceAjax {
          * @param type Identify the type of the marker
          * @param inFront Set to `true` to establish a front marker
         **/
-        addMarker(range: Range, clazz: string, type: Function, inFront: bool);
+        addMarker(range: Range, clazz: string, type: Function, inFront: boolean);
 
         /**
          * Adds a new marker to the given `Range`. If `inFront` is `true`, a front marker is defined, and the `'changeFrontMarker'` event fires; otherwise, the `'changeBackMarker'` event fires.
@@ -660,14 +660,14 @@ module AceAjax {
          * @param type Identify the type of the marker
          * @param inFront Set to `true` to establish a front marker
         **/
-        addMarker(range: Range, clazz: string, type: string, inFront: bool);
+        addMarker(range: Range, clazz: string, type: string, inFront: boolean);
 
         /**
          * Adds a dynamic marker to the session.
          * @param marker object with update method
          * @param inFront Set to `true` to establish a front marker
         **/
-        addDynamicMarker(marker: any, inFront: bool);
+        addDynamicMarker(marker: any, inFront: boolean);
 
         /**
          * Removes the marker with the specified ID. If this marker was in front, the `'changeFrontMarker'` event is emitted. If the marker was in the back, the `'changeBackMarker'` event is emitted.
@@ -679,7 +679,7 @@ module AceAjax {
          * Returns an array containing the IDs of all the markers, either front or back.
          * @param inFront If `true`, indicates you only want front markers; `false` indicates only back markers
         **/
-        getMarkers(inFront: bool): Array;
+        getMarkers(inFront: boolean): Array;
 
         /**
          * Sets annotations for the `EditSession`. This functions emits the `'changeAnnotation'` event.
@@ -732,12 +732,12 @@ module AceAjax {
          * Identifies if you want to use a worker for the `EditSession`.
          * @param useWorker Set to `true` to use a worker
         **/
-        setUseWorker(useWorker: bool);
+        setUseWorker(useWorker: boolean);
 
         /**
          * Returns `true` if workers are being used.
         **/
-        getUseWorker(): bool;
+        getUseWorker(): boolean;
 
         /**
          * Reloads all the tokens on the current session. This function calls [[BackgroundTokenizer.start `BackgroundTokenizer.start ()`]] to all the rows; it also emits the `'tokenizerUpdate'` event.
@@ -823,20 +823,20 @@ module AceAjax {
          * @param deltas An array of previous changes
          * @param dontSelect [If `true`, doesn't select the range of where the change occured]{: #dontSelect}
         **/
-        undoChanges(deltas: Array, dontSelect: bool): Range;
+        undoChanges(deltas: Array, dontSelect: boolean): Range;
 
         /**
          * Re-implements a previously undone change to your document.
          * @param deltas An array of previous changes
          * @param dontSelect {:dontSelect}
         **/
-        redoChanges(deltas: Array, dontSelect: bool): Range;
+        redoChanges(deltas: Array, dontSelect: boolean): Range;
 
         /**
          * Enables or disables highlighting of the range where an undo occured.
          * @param enable If `true`, selects the range of the reinserted change
         **/
-        setUndoSelect(enable: bool);
+        setUndoSelect(enable: boolean);
 
         /**
          * Replaces a range in the document with the new `text`.
@@ -895,12 +895,12 @@ module AceAjax {
          * Sets whether or not line wrapping is enabled. If `useWrapMode` is different than the current value, the `'changeWrapMode'` event is emitted.
          * @param useWrapMode Enable (or disable) wrap mode
         **/
-        setUseWrapMode(useWrapMode: bool);
+        setUseWrapMode(useWrapMode: boolean);
 
         /**
          * Returns `true` if wrap mode is being used; `false` otherwise.
         **/
-        getUseWrapMode(): bool;
+        getUseWrapMode(): boolean;
 
         /**
          * Sets the boundaries of wrap. Either value can be `null` to have an unconstrained wrap, or, they can be the same number to pin the limit. If the wrap limits for `min` or `max` are different, this method also emits the `'changeWrapMode'` event.
@@ -913,7 +913,7 @@ module AceAjax {
          * This should generally only be called by the renderer when a resize is detected.
          * @param desiredLimit The new wrap limit
         **/
-        adjustWrapLimit(desiredLimit: number): bool;
+        adjustWrapLimit(desiredLimit: number): boolean;
 
         /**
          * Returns the value of wrap limit.
@@ -1035,7 +1035,7 @@ module AceAjax {
     **/
     export interface Editor {
 
-        inMultiSelectMode: bool;
+        inMultiSelectMode: boolean;
 
         selectMoreLines(n: number);
 
@@ -1104,7 +1104,7 @@ module AceAjax {
          * {:VirtualRenderer.onResize}
          * @param force If `true`, recomputes the size, even if the height and width haven't changed
         **/
-        resize(force?: bool);
+        resize(force?: boolean);
 
         /**
          * {:VirtualRenderer.setTheme}
@@ -1201,12 +1201,12 @@ module AceAjax {
          * Pass in `true` to enable overwrites in your session, or `false` to disable. If overwrites is enabled, any text you enter will type over any text after it. If the value of `overwrite` changes, this function also emites the `changeOverwrite` event.
          * @param overwrite Defines wheter or not to set overwrites
         **/
-        setOverwrite(overwrite: bool);
+        setOverwrite(overwrite: boolean);
 
         /**
          * Returns `true` if overwrites are enabled; `false` otherwise.
         **/
-        getOverwrite(): bool;
+        getOverwrite(): boolean;
 
         /**
          * Sets the value of overwrite to the opposite of whatever it currently is.
@@ -1253,7 +1253,7 @@ module AceAjax {
          * Determines whether or not the current line should be highlighted.
          * @param shouldHighlight Set to `true` to highlight the current line
         **/
-        setHighlightActiveLine(shouldHighlight: bool);
+        setHighlightActiveLine(shouldHighlight: boolean);
 
         /**
          * Returns `true` if current lines are always highlighted.
@@ -1264,34 +1264,34 @@ module AceAjax {
          * Determines if the currently selected word should be highlighted.
          * @param shouldHighlight Set to `true` to highlight the currently selected word
         **/
-        setHighlightSelectedWord(shouldHighlight: bool);
+        setHighlightSelectedWord(shouldHighlight: boolean);
 
         /**
          * Returns `true` if currently highlighted words are to be highlighted.
         **/
-        getHighlightSelectedWord(): bool;
+        getHighlightSelectedWord(): boolean;
 
         /**
          * If `showInvisibiles` is set to `true`, invisible characters&mdash;like spaces or new lines&mdash;are show in the editor.
          * @param showInvisibles Specifies whether or not to show invisible characters
         **/
-        setShowInvisibles(showInvisibles: bool);
+        setShowInvisibles(showInvisibles: boolean);
 
         /**
          * Returns `true` if invisible characters are being shown.
         **/
-        getShowInvisibles(): bool;
+        getShowInvisibles(): boolean;
 
         /**
          * If `showPrintMargin` is set to `true`, the print margin is shown in the editor.
          * @param showPrintMargin Specifies whether or not to show the print margin
         **/
-        setShowPrintMargin(showPrintMargin: bool);
+        setShowPrintMargin(showPrintMargin: boolean);
 
         /**
          * Returns `true` if the print margin is being shown.
         **/
-        getShowPrintMargin(): bool;
+        getShowPrintMargin(): boolean;
 
         /**
          * Sets the column defining where the print margin should be.
@@ -1308,30 +1308,30 @@ module AceAjax {
          * If `readOnly` is true, then the editor is set to read-only mode, and none of the content can change.
          * @param readOnly Specifies whether the editor can be modified or not
         **/
-        setReadOnly(readOnly: bool);
+        setReadOnly(readOnly: boolean);
 
         /**
          * Returns `true` if the editor is set to read-only mode.
         **/
-        getReadOnly(): bool;
+        getReadOnly(): boolean;
 
         /**
          * Specifies whether to use behaviors or not. ["Behaviors" in this case is the auto-pairing of special characters, like quotation marks, parenthesis, or brackets.]{: #BehaviorsDef}
          * @param enabled Enables or disables behaviors
         **/
-        setBehavioursEnabled(enabled: bool);
+        setBehavioursEnabled(enabled: boolean);
 
         /**
          * Returns `true` if the behaviors are currently enabled. {:BehaviorsDef}
         **/
-        getBehavioursEnabled(): bool;
+        getBehavioursEnabled(): boolean;
 
         /**
          * Specifies whether to use wrapping behaviors or not, i.e. automatically wrapping the selection with characters such as brackets
          * when such a character is typed in.
          * @param enabled Enables or disables wrapping behaviors
         **/
-        setWrapBehavioursEnabled(enabled: bool);
+        setWrapBehavioursEnabled(enabled: boolean);
 
         /**
          * Returns `true` if the wrapping behaviors are currently enabled.
@@ -1342,7 +1342,7 @@ module AceAjax {
          * Indicates whether the fold widgets are shown or not.
          * @param show Specifies whether the fold widgets are shown
         **/
-        setShowFoldWidgets(show: bool);
+        setShowFoldWidgets(show: boolean);
 
         /**
          * Returns `true` if the fold widgets are shown.
@@ -1475,13 +1475,13 @@ module AceAjax {
          * Indicates if the row is currently visible on the screen.
          * @param row The row to check
         **/
-        isRowVisible(row: number): bool;
+        isRowVisible(row: number): boolean;
 
         /**
          * Indicates if the entire row is currently visible on the screen.
          * @param row The row to check
         **/
-        isRowFullyVisible(row: number): bool;
+        isRowFullyVisible(row: number): boolean;
 
         /**
          * Selects the text from the current position of the document until where a "page down" finishes.
@@ -1525,7 +1525,7 @@ module AceAjax {
          * @param animate If `true` animates scrolling
          * @param callback Function to be called when the animation has finished
         **/
-        scrollToLine(line: number, center: bool, animate: bool, callback: Function);
+        scrollToLine(line: number, center: boolean, animate: boolean, callback: Function);
 
         /**
          * Attempts to center the current selection on the screen.
@@ -1562,7 +1562,7 @@ module AceAjax {
          * @param row The new row number
          * @param column The new column number
         **/
-        moveCursorTo(row: number, column?: number, animate?:bool);
+        moveCursorTo(row: number, column?: number, animate?:boolean);
 
         /**
          * Moves the cursor to the position indicated by `pos.row` and `pos.column`.
@@ -1581,7 +1581,7 @@ module AceAjax {
          * @param column A column number to go to
          * @param animate If `true` animates scolling
         **/
-        gotoLine(lineNumber: number, column?: number, animate?: bool);
+        gotoLine(lineNumber: number, column?: number, animate?: boolean);
 
         /**
          * Moves the cursor to the specified row and column. Note that this does de-select the current selection.
@@ -1669,21 +1669,21 @@ module AceAjax {
          * @param options An object defining various search properties
          * @param animate If `true` animate scrolling
         **/
-        find(needle: string, options?: any, animate?: bool);
+        find(needle: string, options?: any, animate?: boolean);
 
         /**
          * Performs another search for `needle` in the document. For more information on `options`, see [[Search `Search`]].
          * @param options search options
          * @param animate If `true` animate scrolling
         **/
-        findNext(options?: any, animate?: bool);
+        findNext(options?: any, animate?: boolean);
 
         /**
          * Performs a search for `needle` backwards. For more information on `options`, see [[Search `Search`]].
          * @param options search options
          * @param animate If `true` animate scrolling
         **/
-        findPrevious(options?: any, animate?: bool);
+        findPrevious(options?: any, animate?: boolean);
 
         /**
          * {:UndoManager.undo}
@@ -1817,7 +1817,7 @@ module AceAjax {
 
         end: Position;
 
-        isEmpty(): bool;
+        isEmpty(): boolean;
 
         /**
          * Returns `true` if and only if the starting row and column, and ending row and column, are equivalent to those given by `range`.
@@ -1842,7 +1842,7 @@ module AceAjax {
          * @param row A row to check for
          * @param column A column to check for
         **/
-        contains(row: number, column: number): bool;
+        contains(row: number, column: number): boolean;
 
         /**
          * Compares `this` range (A) with another range (B).
@@ -1860,27 +1860,27 @@ module AceAjax {
          * Checks the start and end points of `range` and compares them to the calling range. Returns `true` if the `range` is contained within the caller's range.
          * @param range A range to compare with
         **/
-        containsRange(range: Range): bool;
+        containsRange(range: Range): boolean;
 
         /**
          * Returns `true` if passed in `range` intersects with the one calling this method.
          * @param range A range to compare with
         **/
-        intersects(range: Range): bool;
+        intersects(range: Range): boolean;
 
         /**
          * Returns `true` if the caller's ending row point is the same as `row`, and if the caller's ending column is the same as `column`.
          * @param row A row point to compare with
          * @param column A column point to compare with
         **/
-        isEnd(row: number, column: number): bool;
+        isEnd(row: number, column: number): boolean;
 
         /**
          * Returns `true` if the caller's starting row point is the same as `row`, and if the caller's starting column is the same as `column`.
          * @param row A row point to compare with
          * @param column A column point to compare with
         **/
-        isStart(row: number, column: number): bool;
+        isStart(row: number, column: number): boolean;
 
         /**
          * Sets the starting row and column for the range.
@@ -1901,21 +1901,21 @@ module AceAjax {
          * @param row A row point to compare with
          * @param column A column point to compare with
         **/
-        inside(row: number, column: number): bool;
+        inside(row: number, column: number): boolean;
 
         /**
          * Returns `true` if the `row` and `column` are within the given range's starting points.
          * @param row A row point to compare with
          * @param column A column point to compare with
         **/
-        insideStart(row: number, column: number): bool;
+        insideStart(row: number, column: number): boolean;
 
         /**
          * Returns `true` if the `row` and `column` are within the given range's ending points.
          * @param row A row point to compare with
          * @param column A column point to compare with
         **/
-        insideEnd(row: number, column: number): bool;
+        insideEnd(row: number, column: number): boolean;
 
         /**
          * Checks the row and column points with the row and column points of the calling range.
@@ -1962,7 +1962,7 @@ module AceAjax {
         /**
          * Returns `true` if the range spans across multiple lines.
         **/
-        isMultiLine(): bool;
+        isMultiLine(): boolean;
 
         /**
          * Returns a duplicate of the calling range.
@@ -2147,12 +2147,12 @@ module AceAjax {
         /**
          * Returns `true` if the selection is empty.
         **/
-        isEmpty(): bool;
+        isEmpty(): boolean;
 
         /**
          * Returns `true` if the selection is a multi-line.
         **/
-        isMultiLine(): bool;
+        isMultiLine(): boolean;
 
         /**
          * Gets the current position of the cursor.
@@ -2185,7 +2185,7 @@ module AceAjax {
         /**
          * Returns `true` if the selection is going backwards in the document.
         **/
-        isBackwards(): bool;
+        isBackwards(): boolean;
 
         /**
          * [Returns the [[Range]] for the selected text.]{: #Selection.getRange}
@@ -2207,7 +2207,7 @@ module AceAjax {
          * @param range The range of text to select
          * @param reverse Indicates if the range should go backwards (`true`) or not
         **/
-        setRange(range: Range, reverse: bool);
+        setRange(range: Range, reverse: boolean);
 
         /**
          * Moves the selection cursor to the indicated row and column.
@@ -2361,7 +2361,7 @@ module AceAjax {
          * @param column The column to move to
          * @param keepDesiredColumn [If `true`, the cursor move does not respect the previous column]{: #preventUpdateBool}
         **/
-        moveCursorTo(row: number, column: number, keepDesiredColumn?: bool);
+        moveCursorTo(row: number, column: number, keepDesiredColumn?: boolean);
 
         /**
          * Moves the cursor to the screen position indicated by row and column. {:preventUpdateBoolDesc}
@@ -2369,7 +2369,7 @@ module AceAjax {
          * @param column The column to move to
          * @param keepDesiredColumn {:preventUpdateBool}
         **/
-        moveCursorToScreen(row: number, column: number, keepDesiredColumn: bool);
+        moveCursorToScreen(row: number, column: number, keepDesiredColumn: boolean);
     }
     declare var Selection: {
         /**
@@ -2552,13 +2552,13 @@ module AceAjax {
          * [Perform an undo operation on the document, reverting the last change.]{: #UndoManager.undo}
          * @param dontSelect {:dontSelect}
         **/
-        undo(dontSelect?: bool): Range;
+        undo(dontSelect?: boolean): Range;
 
         /**
          * [Perform a redo operation on the document, reimplementing the last change.]{: #UndoManager.redo}
          * @param dontSelect {:dontSelect}
         **/
-        redo(dontSelect: bool);
+        redo(dontSelect: boolean);
 
         /**
          * Destroys the stack of undo and redo redo operations.
@@ -2568,12 +2568,12 @@ module AceAjax {
         /**
          * Returns `true` if there are undo operations left to perform.
         **/
-        hasUndo(): bool;
+        hasUndo(): boolean;
 
         /**
          * Returns `true` if there are redo operations left to perform.
         **/
-        hasRedo(): bool;
+        hasRedo(): boolean;
 
     }
     declare var UndoManager: {
@@ -2621,7 +2621,7 @@ module AceAjax {
          * Triggers a full update of all the layers, for all the rows.
          * @param force If `true`, forces the changes through
         **/
-        updateFull(force: bool);
+        updateFull(force: boolean);
 
         /**
          * Updates the font size.
@@ -2635,7 +2635,7 @@ module AceAjax {
          * @param width The width of the editor in pixels
          * @param height The hiehgt of the editor, in pixels
         **/
-        onResize(force: bool, gutterWidth: number, width: number, height: number);
+        onResize(force: boolean, gutterWidth: number, width: number, height: number);
 
         /**
          * Adjusts the wrap limit, which is the number of characters that can fit within the width of the edit area on screen.
@@ -2646,56 +2646,56 @@ module AceAjax {
          * Identifies whether you want to have an animated scroll or not.
          * @param shouldAnimate Set to `true` to show animated scrolls
         **/
-        setAnimatedScroll(shouldAnimate: bool);
+        setAnimatedScroll(shouldAnimate: boolean);
 
         /**
          * Returns whether an animated scroll happens or not.
         **/
-        getAnimatedScroll(): bool;
+        getAnimatedScroll(): boolean;
 
         /**
          * Identifies whether you want to show invisible characters or not.
          * @param showInvisibles Set to `true` to show invisibles
         **/
-        setShowInvisibles(showInvisibles: bool);
+        setShowInvisibles(showInvisibles: boolean);
 
         /**
          * Returns whether invisible characters are being shown or not.
         **/
-        getShowInvisibles(): bool;
+        getShowInvisibles(): boolean;
 
         /**
          * Identifies whether you want to show the print margin or not.
          * @param showPrintMargin Set to `true` to show the print margin
         **/
-        setShowPrintMargin(showPrintMargin: bool);
+        setShowPrintMargin(showPrintMargin: boolean);
 
         /**
          * Returns whether the print margin is being shown or not.
         **/
-        getShowPrintMargin(): bool;
+        getShowPrintMargin(): boolean;
 
         /**
          * Identifies whether you want to show the print margin column or not.
          * @param showPrintMargin Set to `true` to show the print margin column
         **/
-        setPrintMarginColumn(showPrintMargin: bool);
+        setPrintMarginColumn(showPrintMargin: boolean);
 
         /**
          * Returns whether the print margin column is being shown or not.
         **/
-        getPrintMarginColumn(): bool;
+        getPrintMarginColumn(): boolean;
 
         /**
          * Returns `true` if the gutter is being shown.
         **/
-        getShowGutter(): bool;
+        getShowGutter(): boolean;
 
         /**
          * Identifies whether you want to show the gutter or not.
          * @param show Set to `true` to show the gutter
         **/
-        setShowGutter(show: bool);
+        setShowGutter(show: boolean);
 
         /**
          * Returns the root element containing this renderer.
@@ -2741,13 +2741,13 @@ module AceAjax {
         /**
          * Returns whether the horizontal scrollbar is set to be always visible.
         **/
-        getHScrollBarAlwaysVisible(): bool;
+        getHScrollBarAlwaysVisible(): boolean;
 
         /**
          * Identifies whether you want to show the horizontal scrollbar or not.
          * @param alwaysVisible Set to `true` to make the horizontal scroll bar visible
         **/
-        setHScrollBarAlwaysVisible(alwaysVisible: bool);
+        setHScrollBarAlwaysVisible(alwaysVisible: boolean);
 
         /**
          * Schedules an update to all the front markers in the document.
@@ -2833,7 +2833,7 @@ module AceAjax {
          * @param animate If `true` animates scrolling
          * @param callback Function to be called after the animation has finished
         **/
-        scrollToLine(line: number, center: bool, animate: bool, callback: Function);
+        scrollToLine(line: number, center: boolean, animate: boolean, callback: Function);
 
         /**
          * Scrolls the editor to the y pixel indicated.
@@ -2859,7 +2859,7 @@ module AceAjax {
          * @param deltaX The x value to scroll by
          * @param deltaY The y value to scroll by
         **/
-        isScrollableBy(deltaX: number, deltaY: number): bool;
+        isScrollableBy(deltaX: number, deltaY: number): boolean;
 
         /**
          * Returns an object containing the `pageX` and `pageY` coordinates of the document position.
