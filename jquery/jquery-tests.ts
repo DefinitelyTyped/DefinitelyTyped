@@ -1061,6 +1061,9 @@ function test_each() {
     $.each({ name: "John", lang: "JS" }, function (k, v) {
         alert("Key: " + k + ", Value: " + v);
     });
+    $.each([{a: 1}, {a: 2}, {a: 3}], function (i, o) {
+        alert("Index #" + i + ": " + o.a);
+    });
     $('li').each(function (index) {
         alert(index + ': ' + $(this).text());
     });
@@ -1550,11 +1553,12 @@ function test_grep() {
         return (n != 5 && i > 4);
     });
     $("p").text(arr.join(", "));
-    arr = jQuery.grep(arr, function (a) { return a != 9; });
+    var arr2 = jQuery.grep(arr, function (a) { return a != 9; });
     $("span").text(arr.join(", "));
     $.grep([0, 1, 2], function (n, i) {
         return n > 0;
     }, true);
+    var arr3 = $.grep(["a", "b", "c"], function (n, i) { return n !== "b"; });
 }
 
 function test_has() {
@@ -1693,6 +1697,9 @@ function test_inArray() {
     $spans.eq(1).text(jQuery.inArray(4, arr));
     $spans.eq(2).text(jQuery.inArray("Karl", arr));
     $spans.eq(3).text(jQuery.inArray("Pete", arr, 2));
+
+    var arr2: number[] = [1, 2, 3, 4];
+    $spans.eq(1).text(jQuery.inArray(4, arr2));
 }
 
 function test_index() {
@@ -2195,7 +2202,7 @@ function test_map() {
         return (a > 50 ? a - 45 : null);
     });
     var array = [0, 1, 52, 97];
-    array = $.map(array, function (a, index) {
+    var array2 = $.map(array, function (a, index) {
         return [a - 45, index];
     });
 }
@@ -2207,6 +2214,7 @@ function test_merge() {
     var first = ['a', 'b', 'c'];
     var second = ['d', 'e', 'f'];
     $.merge($.merge([], first), second);
+    var z = $.merge([0, 1, 2], ['a', 'b', 'c']);
 }
 
 function test_prop() {
