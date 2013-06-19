@@ -73,20 +73,20 @@ interface UnderscoreStatic {
     reject(list: List, iterator: any, context?: any): any[];
     reject(list: any[], iterator: any, context?: any): any[];
 
-    all(list: List, iterator: any, context?: any): bool;
-    all(list: any[], iterator: any, context?: any): bool;
-    every(list: List, iterator: any, context?: any): bool;
-    every(list: any[], iterator: any, context?: any): bool;
+    all(list: List, iterator: any, context?: any): boolean;
+    all(list: any[], iterator: any, context?: any): boolean;
+    every(list: List, iterator: any, context?: any): boolean;
+    every(list: any[], iterator: any, context?: any): boolean;
 
-    any(list: List, iterator?: any, context?: any): bool;
-    any(list: any[], iterator?: any, context?: any): bool;
-    some(list: List, iterator?: any, context?: any): bool;
-    some(list: any[], iterator?: any, context?: any): bool;
+    any(list: List, iterator?: any, context?: any): boolean;
+    any(list: any[], iterator?: any, context?: any): boolean;
+    some(list: List, iterator?: any, context?: any): boolean;
+    some(list: any[], iterator?: any, context?: any): boolean;
 
-    contains(list: any, value: any): bool;
-    contains(list: List, value: any): bool;
-    include(list: any, value: any): bool;
-    include(list: List, value: any): bool;
+    contains(list: any, value: any): boolean;
+    contains(list: List, value: any): boolean;
+    include(list: any, value: any): boolean;
+    include(list: List, value: any): boolean;
 
     invoke(list: List, methodName: string, arguments: any[]): any;
     invoke(object: any, methodName: string, ...arguments: any[]): any;
@@ -131,8 +131,8 @@ interface UnderscoreStatic {
     drop(array: any[], n?: number): any[];
 
     compact(array: any[]): any[];
-    flatten(array: List, shallow?: bool): any[];
-    flatten(array: any[], shallow?: bool): any[];
+    flatten(array: List, shallow?: boolean): any[];
+    flatten(array: any[], shallow?: boolean): any[];
     without(array: List, ...values: any[]): any[];
     without(array: any[], ...values: any[]): any[];
     union(...arrays: any[][]): any[];
@@ -140,16 +140,16 @@ interface UnderscoreStatic {
     difference(array: List, ...others: any[][]): any[];
     difference(array: any[], ...others: any[][]): any[];
 
-    uniq(array: List, isSorted?: bool, iterator?: any): any[];
-    uniq(array: any[], isSorted?: bool, iterator?: any): any[];
-    unique(array: List, isSorted?: bool, iterator?: any): any[];
-    unique(array: any[], isSorted?: bool, iterator?: any): any[];
+    uniq(array: List, isSorted?: boolean, iterator?: any): any[];
+    uniq(array: any[], isSorted?: boolean, iterator?: any): any[];
+    unique(array: List, isSorted?: boolean, iterator?: any): any[];
+    unique(array: any[], isSorted?: boolean, iterator?: any): any[];
 
     zip(...arrays: any[]): any[];
     object(list: List, values?: any[]): any;
     object(list: any[], values?: any[]): any;
-    indexOf(array: List, value: any, isSorted?: bool): number;
-    indexOf(array: any[], value: any, isSorted?: bool): number;
+    indexOf(array: List, value: any, isSorted?: boolean): number;
+    indexOf(array: any[], value: any, isSorted?: boolean): number;
     lastIndexOf(array: List, value: any, fromIndex?: number): number;
     lastIndexOf(array: any[], value: any, fromIndex?: number): number;
     sortedIndex(list: List, valueL: any, iterator?: any): number;
@@ -167,7 +167,7 @@ interface UnderscoreStatic {
     delay(func: any, wait: number, ...arguments: any[]): any;
     delay(func: any, ...arguments: any[]): any;
     throttle(func: any, wait: number): any;
-    debounce(func: any, wait: number, immediate?: bool): any;
+    debounce(func: any, wait: number, immediate?: boolean): any;
     once(func: any): any;
     after(count: number, func: any): any;
     wrap(func: (...as : any[]) => any, wrapper: any): () => any;
@@ -190,23 +190,23 @@ interface UnderscoreStatic {
     defaults(object: any, ...defaults: any[]): any;
     clone(object: any): any;
     tap(object: any, interceptor: (...as : any[]) => any): any;
-    has(object: any, key: string): bool;
-    isEqual(object: any, other: any): bool;
-    isEmpty(object: any): bool;
-    isElement(object: any): bool;
-    isArray(object: any): bool;
-    isObject(value: any): bool;
-    isArguments(object: any): bool;
-    isFunction(object: any): bool;
-    isString(object: any): bool;
-    isNumber(object: any): bool;
-    isFinite(object: any): bool;
-    isBoolean(object: any): bool;
-    isDate(object: any): bool;
-    isRegExp(object: any): bool;
-    isNaN(object: any): bool;
-    isNull(object: any): bool;
-    isUndefined(value: any): bool;
+    has(object: any, key: string): boolean;
+    isEqual(object: any, other: any): boolean;
+    isEmpty(object: any): boolean;
+    isElement(object: any): boolean;
+    isArray(object: any): boolean;
+    isObject(value: any): boolean;
+    isArguments(object: any): boolean;
+    isFunction(object: any): boolean;
+    isString(object: any): boolean;
+    isNumber(object: any): boolean;
+    isFinite(object: any): boolean;
+    isBoolean(object: any): boolean;
+    isDate(object: any): boolean;
+    isRegExp(object: any): boolean;
+    isNaN(object: any): boolean;
+    isNull(object: any): boolean;
+    isUndefined(value: any): boolean;
 
     /****
      Utility
