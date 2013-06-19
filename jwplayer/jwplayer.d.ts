@@ -53,6 +53,7 @@ interface JWPlayer {
 	pause(): void;
 	play(): void;
 	playlistItem(index: number): void;
+	remove(): void;
 	removeButton(id: string): void;
 	resize(width: number, height: number): void;
 	seek(position: number): void;
