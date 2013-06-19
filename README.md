@@ -111,6 +111,7 @@ List of Definitions
 * [jScrollPane](http://jscrollpane.kelvinluck.com) (by [Dániel Tar](https://github.com/qcz))
 * [JSDeferred](http://cho45.stfuawsc.com/jsdeferred/) (by [Daisuke Mino](https://github.com/minodisk))
 * [JSONEditorOnline](https://github.com/josdejong/jsoneditoronline) (by [Vincent Bortone](https://github.com/vbortone/))
+* [JWPlayer](http://developer.longtailvideo.com/trac/) (by [Martin Duparc](https://github.com/martinduparc/))
 * [KeyboardJS](https://github.com/RobertWHurst/KeyboardJS) (by [Vincent Bortone](https://github.com/vbortone/))
 * [Knockback](http://kmalakoff.github.com/knockback/) (by [Marcel Binot](https://github.com/docgit))
 * [Knockout.js](http://knockoutjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
