@@ -34,7 +34,6 @@ declare module google.maps {
         notify(key: string): void;
         set(key: string, value: any): void;
         setValues(values: any): void;
-        setValues(values: undefined);
         unbind(key: string): void;
         unbindAll(): void;
     }
