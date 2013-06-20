@@ -284,7 +284,7 @@ interface IViewModelDefaults {
       * called after deactivating a module
       */
     afterDeactivate(): any;
-};
+}
 
 interface IDurandalViewModelActiveItem {
     /**
@@ -339,7 +339,7 @@ interface IDurandalViewModelActiveItem {
       * Sets up a collection representing a pool of objects which the activator will activate. See below for details. Activators without an item bool always close their values on deactivate. Activators with an items pool only deactivate, but do not close them.
       */
     forItems(items): IDurandalViewModelActiveItem;
-};
+}
 
 /**
   * A router plugin, currently based on SammyJS. The router abstracts away the core configuration of Sammy and re-interprets it in terms of durandal's composition and activation mechanism. To use the router, you must require it, configure it and bind it in the UI.
@@ -365,7 +365,7 @@ declare module "durandal/plugins/router" {
         hash: string;
         /** only present on visible routes to track if they are active in the nav */
         isActive?: KnockoutComputed;
-    };
+    }
     /**
       * Parameters to the map function. e only required parameter is url the rest can be derived. The derivation 
       * happens by stripping parameters from the url and casing where appropriate. You can always explicitly provide 
