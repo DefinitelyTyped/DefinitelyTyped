@@ -5,7 +5,7 @@
 import q = module("q");
 import fs = module("fs");
 
-q(8).then(x => console.log(x));
+q<number>(8).then(x => console.log(x.toExponential()));
 
 var delay = function (delay) {
     var d = q.defer();
@@ -44,7 +44,7 @@ q.fcall(function () { })
     // Handle any error from step1 through step4
 }).done();
 
-q.allResolved([]).then(function (promises) {
+q.allResolved([]).then(function (promises: Q.Promise<any>[]) {
     promises.forEach(function (promise) {
         if (promise.isFulfilled()) {
             var value = promise.valueOf();
