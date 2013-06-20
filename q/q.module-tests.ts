@@ -44,8 +44,7 @@ q.fcall(function () { })
     // Handle any error from step1 through step4
 }).done();
 
-q.allResolved([])
-.then(function (promises: Qpromise[]) {
+q.allResolved([]).then(function (promises) {
     promises.forEach(function (promise) {
         if (promise.isFulfilled()) {
             var value = promise.valueOf();

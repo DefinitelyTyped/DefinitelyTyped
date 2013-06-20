@@ -40,7 +40,7 @@ Q.fcall(function () { })
 }).done();
 
 Q.allResolved([])
-.then(function (promises: Qpromise[]) {
+.then(function (promises: Q.Promise[]) {
     promises.forEach(function (promise) {
         if (promise.isFulfilled()) {
             var value = promise.valueOf();
