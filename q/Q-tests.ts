@@ -2,7 +2,7 @@
 
 Q(8).then(x => console.log(x.toExponential()));
 
-var delay = function (delay) {
+var delay = function (delay: number) {
     var d = Q.defer();
     setTimeout(d.resolve, delay);
     return d.promise;

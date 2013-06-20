@@ -8,10 +8,10 @@ declare function Q<T>(value: T): Q.Promise<T>;
 declare module Q {
     interface Deferred<T> {
         promise: Promise<T>;
-        resolve(value: any): any;
+        resolve(value: T): any;
         reject(reason: any);
         notify(value: any);
-        makeNodeResolver(): () => void;
+        makeNodeResolver(): (reason, value: T) => void;
     }
 
     interface Promise<T> {
@@ -55,7 +55,7 @@ declare module Q {
     export function isRejected(): bool;
     export function isPending(): bool;
     export function valueOf(): any;
-    export function defer(): Deferred;
+    export function defer<T>(): Deferred<T>;
     export function reject(): Promise<any>;
     export function promise(factory: { resolve: Function; reject: Function; notify: Function; }): Promise<any>;
     export function isPromise(value: any): bool;

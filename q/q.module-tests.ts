@@ -67,7 +67,7 @@ q.nfcall(fs.readFile, "foo.txt", "utf-8").then(replaceText);
 
 q.ninvoke(fs, "readFile", "foo.txt", "utf-8").then(replaceText);
 
-var deferred = q.defer();
+var deferred = q.defer<string>();
 fs.readFile("foo.txt", "utf-8", deferred.makeNodeResolver());
 deferred.promise.then(replaceText);
 
