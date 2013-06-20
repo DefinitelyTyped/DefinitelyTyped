@@ -1018,20 +1018,24 @@ declare module "util" {
     export function inherits(constructor: any, superConstructor: any): void;
 }
 
-declare function assert(booleanValue: boolean, message?: string);
-declare module  "assert" {
-    export function fail(actual: any, expected: any, message: string, operator: string): void;
-    export function assert(value: any, message: string): void;
-    export function ok(value: any, message?: string): void;
-    export function equal(actual: any, expected: any, message?: string): void;
-    export function notEqual(actual: any, expected: any, message?: string): void;
-    export function deepEqual(actual: any, expected: any, message?: string): void;
-    export function notDeepEqual(acutal: any, expected: any, message?: string): void;
-    export function strictEqual(actual: any, expected: any, message?: string): void;
-    export function notStrictEqual(actual: any, expected: any, message?: string): void;
-    export function throws(block: any, error?: any, messsage?: string): void;
-    export function doesNotThrow(block: any, error?: any, messsage?: string): void;
-    export function ifError(value: any): void;
+declare module "assert" {
+    function internal (booleanValue: boolean, message?: string): void;
+    module internal {
+        export function fail(actual: any, expected: any, message: string, operator: string): void;
+        export function assert(value: any, message: string): void;
+        export function ok(value: any, message?: string): void;
+        export function equal(actual: any, expected: any, message?: string): void;
+        export function notEqual(actual: any, expected: any, message?: string): void;
+        export function deepEqual(actual: any, expected: any, message?: string): void;
+        export function notDeepEqual(acutal: any, expected: any, message?: string): void;
+        export function strictEqual(actual: any, expected: any, message?: string): void;
+        export function notStrictEqual(actual: any, expected: any, message?: string): void;
+        export function throws(block: any, error?: any, messsage?: string): void;
+        export function doesNotThrow(block: any, error?: any, messsage?: string): void;
+        export function ifError(value: any): void;
+    }
+
+    export = internal;
 }
 
 declare module "tty" {
