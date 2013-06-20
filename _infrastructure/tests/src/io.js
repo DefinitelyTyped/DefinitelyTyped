@@ -307,14 +307,16 @@ var IO = (function () {
             dir: function dir(path, spec, options) {
                 options = options || {};
 
-                function filesInFolder(folder) {
+                function filesInFolder(folder, deep) {
                     var paths = [];
 
                     var files = _fs.readdirSync(folder);
                     for (var i = 0; i < files.length; i++) {
                         var stat = _fs.statSync(folder + "/" + files[i]);
                         if (options.recursive && stat.isDirectory()) {
-                            paths = paths.concat(filesInFolder(folder + "/" + files[i]));
+                            if (deep < (options.deep || 100)) {
+                                paths = paths.concat(filesInFolder(folder + "/" + files[i], 1));
+                            }
                         } else if (stat.isFile() && (!spec || files[i].match(spec))) {
                             paths.push(folder + "/" + files[i]);
                         }
@@ -323,7 +325,7 @@ var IO = (function () {
                     return paths;
                 }
 
-                return filesInFolder(path);
+                return filesInFolder(path, 0);
             },
             createDirectory: function (path) {
                 try  {
