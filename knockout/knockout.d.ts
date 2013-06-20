@@ -94,7 +94,7 @@ interface KnockoutObservableArray<T> extends KnockoutObservableArrayFunctions<T>
 interface KnockoutObservableStatic {
     fn: KnockoutObservableFunctions;
 
-    <T>(value: T): KnockoutObservable<T>;
+    <T>(value?: T): KnockoutObservable<T>;
 }
 
 /** use as method to get/set the value */
