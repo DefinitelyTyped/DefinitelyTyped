@@ -312,7 +312,7 @@ declare module "cluster" {
     }
     export interface Worker {
         id: string;
-        process: child_process;
+        process: child_process.ChildProcess;
         suicide: boolean;
         send(message: any, sendHandle?: any): void;
         destroy(): void;
@@ -1018,8 +1018,8 @@ declare module "util" {
     export function inherits(constructor: any, superConstructor: any): void;
 }
 
-declare module "assert" {
-    export function (booleanValue: boolean, message?: string);
+declare function assert(booleanValue: boolean, message?: string);
+declare module  "assert" {
     export function fail(actual: any, expected: any, message: string, operator: string): void;
     export function assert(value: any, message: string): void;
     export function ok(value: any, message?: string): void;
