@@ -1,6 +1,6 @@
 /// <reference path="Q.d.ts" />
 
-Q(8).then(x => console.log(x));
+Q(8).then(x => console.log(x.toExponential()));
 
 var delay = function (delay) {
     var d = Q.defer();
@@ -24,10 +24,10 @@ Q.when(x, function (x) {
 Q.all([
     eventually(10),
     eventually(20)
-])
-.spread(function (x, y) {
+]).spread(function (x, y) {
     console.log(x, y);
 });
+
 
 Q.fcall(function () { })
 .then(function () { })
@@ -40,7 +40,7 @@ Q.fcall(function () { })
 }).done();
 
 Q.allResolved([])
-.then(function (promises: Q.Promise[]) {
+.then(function (promises: Q.Promise<any>[]) {
     promises.forEach(function (promise) {
         if (promise.isFulfilled()) {
             var value = promise.valueOf();
