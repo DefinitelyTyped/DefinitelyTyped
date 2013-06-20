@@ -35,30 +35,36 @@ interface Qpromise {
     valueOf(): any;
 }
 
-interface QStatic {
-    when(value: any, onFulfilled?: Function, onRejected?: Function): Qpromise;
-    try(method: Function, ...args: any[]): Qpromise;
-    fbind(method: Function, ...args: any[]): Qpromise;
-    fcall(method: Function, ...args: any[]): Qpromise;
-    all(promises: Qpromise[]): Qpromise;
-    allResolved(promises: Qpromise[]): Qpromise;
-    resolve(object:any):Qpromise;
-    spread(onFulfilled: Function, onRejected: Function): Qpromise;
-    timeout(ms: number): Qpromise;
-    delay(ms: number): Qpromise;
-    delay(value: any, ms: number): Qpromise;
-    isFulfilled(): bool;
-    isRejected(): bool;
-    isPending(): bool;
-    valueOf(): any;
-    defer(): Qdeferred;
-    (value: any): Qpromise;
-    reject(): Qpromise;
-    promise(factory: { resolve: Function; reject: Function; notify: Function; }): Qpromise;
-    isPromise(value: any): bool;
-    async(generatorFunction: any): Qdeferred;
-    nextTick(callback: Function);
-    oneerror: any;
-    longStackJumpLimit: number;
+declare function Q(value: any): Qpromise;
+declare module Q {
+    export function when(value: any, onFulfilled: Function, onRejected?: Function): Qpromise;
+    //export function try(method: Function, ...args: any[]): Qpromise; <- This is broken currently - not sure how to fix.
+    export function fbind(method: Function, ...args: any[]): Qpromise;
+    export function fcall(method: Function, ...args: any[]): Qpromise;
+    export function nfbind(nodeFunction: Function): (...args: any[]) => Qpromise;
+    export function nfcall(nodeFunction: Function, ...args: any[]): Qpromise;
+    export function ninvoke(nodeModule: any, functionName: string, ...args: any[]): Qpromise;
+    export function all(promises: Qpromise[]): Qpromise;
+    export function allResolved(promises: Qpromise[]): Qpromise;
+    export function spread(onFulfilled: Function, onRejected: Function): Qpromise;
+    export function timeout(ms: number): Qpromise;
+    export function delay(ms: number): Qpromise;
+    export function delay(value: any, ms: number): Qpromise;
+    export function isFulfilled(): bool;
+    export function isRejected(): bool;
+    export function isPending(): bool;
+    export function valueOf(): any;
+    export function defer(): Qdeferred;
+    export function reject(): Qpromise;
+    export function promise(factory: { resolve: Function; reject: Function; notify: Function; }): Qpromise;
+    export function isPromise(value: any): bool;
+    export function async(generatorFunction: any): Qdeferred;
+    export function nextTick(callback: Function);
+    export var oneerror: any;
+    export var longStackJumpLimit: number;
+    export function resolve(object?: Qpromise);
 }
-declare var Q: QStatic;
+
+declare module "q" {
+    export = Q;
+}
