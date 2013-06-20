@@ -1,5 +1,7 @@
 /// <reference path="Q.d.ts" />
 
+Q(8).then(x => console.log(x));
+
 var delay = function (delay) {
     var d = Q.defer();
     setTimeout(d.resolve, delay);
