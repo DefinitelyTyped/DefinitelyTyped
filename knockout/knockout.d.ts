@@ -95,6 +95,7 @@ interface KnockoutObservableStatic {
     fn: KnockoutObservableFunctions;
 
     <T>(value: T): KnockoutObservable<T>;
+    <T>(): KnockoutObservable<T>;
 }
 
 /** use as method to get/set the value */
