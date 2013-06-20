@@ -2,6 +2,6 @@
 	"name": "DefinitelyTyped",
 	"version": "0.0.0",
     "scripts": {
-        "test": "node ./_infrastructure/runner.js"
+        "test": "node ./_infrastructure/tests/runner.js"
     }
 }
