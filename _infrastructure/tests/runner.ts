@@ -28,7 +28,7 @@ module DefinitelyTyped {
 
 		class Tsc {
 			public static run(tsfile: string, callback: Function) {
-				Exec.exec('node ./_infrastructure/typescript/tsc.js ', [tsfile], (ExecResult) => {
+				Exec.exec('node ./_infrastructure/tests/typescript/tsc.js ', [tsfile], (ExecResult) => {
 				    callback(ExecResult);
 				});
 			}
@@ -551,7 +551,7 @@ module DefinitelyTyped {
 
 declare var __dirname: any;
 
-var dtPath = __dirname + '/..';
+var dtPath = __dirname + '/../..';
 
 var runner = new DefinitelyTyped.TestManager.TestRunner(dtPath);
 runner.run();
