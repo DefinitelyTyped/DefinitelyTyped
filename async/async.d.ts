@@ -5,6 +5,7 @@
 
 interface AsyncMultipleResultsCallback<T> { (err: string, results: T[]): any; }
 interface AsyncSingleResultCallback<T> { (err: string, result: T): any; }
+interface AsyncTimesCallback<T> { (n: number, callback: AsyncMultipleResultsCallback<T>): void; }
 interface AsyncIterator<T> { (item: T, callback: AsyncMultipleResultsCallback<T>): void; }
 interface AsyncMemoIterator<T> { (memo: T, item: T, callback: AsyncSingleResultCallback<T>): void; }
 interface AsyncWorker<T> { (task: T, callback: Function): void; }
@@ -57,11 +58,14 @@ interface Async {
     waterfall<T>(tasks: T[], callback?: AsyncMultipleResultsCallback<T>): void;
     waterfall<T>(tasks: T, callback?: AsyncMultipleResultsCallback<T>): void;
     queue<T>(worker: AsyncWorker<T>, concurrency: number): AsyncQueue<T>;
-    //auto(tasks: any[], callback?: AsyncMultipleResultsCallback<T>): void;
-    auto<T>(tasks: T, callback?: AsyncMultipleResultsCallback<T>): void;
-    iterator(tasks): Function;
+    // auto(tasks: any[], callback?: AsyncMultipleResultsCallback<T>): void;
+    auto(tasks: any, callback?: AsyncMultipleResultsCallback<any>): void;
+    iterator(tasks: Function[]): Function;
     apply(fn: Function, ...arguments: any[]): void;
-    nextTick<T>(callback: AsyncMultipleResultsCallback<T>): void;
+    nextTick<T>(callback: Function): void;
+
+    times<T> (n: number, callback: AsyncTimesCallback<T>): void;
+    timesSeries<T> (n: number, callback: AsyncTimesCallback<T>): void;
 
     // Utils
     memoize(fn: Function, hasher?: Function): Function;
