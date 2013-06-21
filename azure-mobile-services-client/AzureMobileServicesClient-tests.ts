@@ -32,8 +32,8 @@ tableTodoItems.read()
 
 
 //define simple handler used in callback calls for insert/update and delete 
-function handlerInsUpd(e, i) => { if (!e) data.push(<TodoItem> i); };
-function handlerDelErr(e) => { if (e) alert("ERROR: " + e); }
+function handlerInsUpd(e, i) { if (!e) data.push(<TodoItem> i); };
+function handlerDelErr(e) { if (e) alert("ERROR: " + e); }
 
 
 //insert one data passing info in POST + custom data in QueryString + simple callback handler
