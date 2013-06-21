@@ -1312,643 +1312,648 @@ interface Express extends ExpressApplication {
     response: ExpressServerResponse;
 }
 
+
 declare module "express" {
-    export function (): Express;
+    function express(): Express;
 
-    /**
-     * Body parser:
-     * 
-     *   Parse request bodies, supports _application/json_,
-     *   _application/x-www-form-urlencoded_, and _multipart/form-data_.
-     *
-     *   This is equivalent to: 
-     *
-     *     app.use(connect.json());
-     *     app.use(connect.urlencoded());
-     *     app.use(connect.multipart());
-     *
-     * Examples:
-     *
-     *      connect()
-     *        .use(connect.bodyParser())
-     *        .use(function(req, res) {
-     *          res.end('viewing user ' + req.body.user.name);
-     *        });
-     *
-     *      $ curl -d 'user[name]=tj' http://local/
-     *      $ curl -d '{"user":{"name":"tj"}}' -H "Content-Type: application/json" http://local/
-     *
-     *  View [json](json.html), [urlencoded](urlencoded.html), and [multipart](multipart.html) for more info.
-     *
-     * @param options
-     */
-    export function bodyParser(options?: any): Handler;
+    module express {
+        /**
+         * Body parser:
+         * 
+         *   Parse request bodies, supports _application/json_,
+         *   _application/x-www-form-urlencoded_, and _multipart/form-data_.
+         *
+         *   This is equivalent to: 
+         *
+         *     app.use(connect.json());
+         *     app.use(connect.urlencoded());
+         *     app.use(connect.multipart());
+         *
+         * Examples:
+         *
+         *      connect()
+         *        .use(connect.bodyParser())
+         *        .use(function(req, res) {
+         *          res.end('viewing user ' + req.body.user.name);
+         *        });
+         *
+         *      $ curl -d 'user[name]=tj' http://local/
+         *      $ curl -d '{"user":{"name":"tj"}}' -H "Content-Type: application/json" http://local/
+         *
+         *  View [json](json.html), [urlencoded](urlencoded.html), and [multipart](multipart.html) for more info.
+         *
+         * @param options
+         */
+        export function bodyParser(options?: any): Handler;
 
-    /**
-     * Error handler:
-     *
-     * Development error handler, providing stack traces
-     * and error message responses for requests accepting text, html,
-     * or json.
-     *
-     * Text:
-     *
-     *   By default, and when _text/plain_ is accepted a simple stack trace
-     *   or error message will be returned.
-     *
-     * JSON:
-     *
-     *   When _application/json_ is accepted, connect will respond with
-     *   an object in the form of `{ "error": error }`.
-     *
-     * HTML:
-     *
-     *   When accepted connect will output a nice html stack trace.
-     */
-    export function errorHandler(opts?: any): Handler;
+        /**
+         * Error handler:
+         *
+         * Development error handler, providing stack traces
+         * and error message responses for requests accepting text, html,
+         * or json.
+         *
+         * Text:
+         *
+         *   By default, and when _text/plain_ is accepted a simple stack trace
+         *   or error message will be returned.
+         *
+         * JSON:
+         *
+         *   When _application/json_ is accepted, connect will respond with
+         *   an object in the form of `{ "error": error }`.
+         *
+         * HTML:
+         *
+         *   When accepted connect will output a nice html stack trace.
+         */
+        export function errorHandler(opts?: any): Handler;
 
-    /**
-     * Method Override:
-     * 
-     * Provides faux HTTP method support.
-     * 
-     * Pass an optional `key` to use when checking for
-     * a method override, othewise defaults to _\_method_.
-     * The original method is available via `req.originalMethod`.
-     *
-     * @param key
-     */
-    export function methodOverride(key?: string): Handler;
+        /**
+         * Method Override:
+         * 
+         * Provides faux HTTP method support.
+         * 
+         * Pass an optional `key` to use when checking for
+         * a method override, othewise defaults to _\_method_.
+         * The original method is available via `req.originalMethod`.
+         *
+         * @param key
+         */
+        export function methodOverride(key?: string): Handler;
 
-    /**
-     * Cookie parser:
-     *
-     * Parse _Cookie_ header and populate `req.cookies`
-     * with an object keyed by the cookie names. Optionally
-     * you may enabled signed cookie support by passing
-     * a `secret` string, which assigns `req.secret` so
-     * it may be used by other middleware.
-     *
-     * Examples:
-     *
-     *     connect()
-     *       .use(connect.cookieParser('optional secret string'))
-     *       .use(function(req, res, next){
-     *         res.end(JSON.stringify(req.cookies));
-     *       })
-     *
-     * @param secret
-     */
-    export function cookieParser(secret?: string): Handler;
+        /**
+         * Cookie parser:
+         *
+         * Parse _Cookie_ header and populate `req.cookies`
+         * with an object keyed by the cookie names. Optionally
+         * you may enabled signed cookie support by passing
+         * a `secret` string, which assigns `req.secret` so
+         * it may be used by other middleware.
+         *
+         * Examples:
+         *
+         *     connect()
+         *       .use(connect.cookieParser('optional secret string'))
+         *       .use(function(req, res, next){
+         *         res.end(JSON.stringify(req.cookies));
+         *       })
+         *
+         * @param secret
+         */
+        export function cookieParser(secret?: string): Handler;
 
-    /**
-     * Session:
-     * 
-     *   Setup session store with the given `options`.
-     *
-     *   Session data is _not_ saved in the cookie itself, however
-     *   cookies are used, so we must use the [cookieParser()](cookieParser.html)
-     *   middleware _before_ `session()`.
-     *
-     * Examples:
-     *
-     *     connect()
-     *       .use(connect.cookieParser())
-     *       .use(connect.session({ secret: 'keyboard cat', key: 'sid', cookie: { secure: true }}))
-     *
-     * Options:
-     *
-     *   - `key` cookie name defaulting to `connect.sid`
-     *   - `store` session store instance
-     *   - `secret` session cookie is signed with this secret to prevent tampering
-     *   - `cookie` session cookie settings, defaulting to `{ path: '/', httpOnly: true, maxAge: null }`
-     *   - `proxy` trust the reverse proxy when setting secure cookies (via "x-forwarded-proto")
-     *
-     * Cookie option:
-     *
-     *  By default `cookie.maxAge` is `null`, meaning no "expires" parameter is set
-     *  so the cookie becomes a browser-session cookie. When the user closes the 
-     *  browser the cookie (and session) will be removed.
-     *
-     * ## req.session
-     *
-     *  To store or access session data, simply use the request property `req.session`,
-     *  which is (generally) serialized as JSON by the store, so nested objects 
-     *  are typically fine. For example below is a user-specific view counter:
-     *
-     *       connect()
-     *         .use(connect.favicon())
-     *         .use(connect.cookieParser())
-     *         .use(connect.session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}))
-     *         .use(function(req, res, next){
-     *           var sess = req.session;
-     *           if (sess.views) {
-     *             res.setHeader('Content-Type', 'text/html');
-     *             res.write('<p>views: ' + sess.views + '</p>');
-     *             res.write('<p>expires in: ' + (sess.cookie.maxAge / 1000) + 's</p>');
-     *             res.end();
-     *             sess.views++;
-     *           } else {
-     *             sess.views = 1;
-     *             res.end('welcome to the session demo. refresh!');
-     *           }
-     *         }
-     *       )).listen(3000);
-     *
-     * ## Session#regenerate()
-     *
-     *  To regenerate the session simply invoke the method, once complete
-     *  a new SID and `Session` instance will be initialized at `req.session`.
-     *
-     *      req.session.regenerate(function(err){
-     *        // will have a new session here
-     *      });
-     *
-     * ## Session#destroy()
-     *
-     *  Destroys the session, removing `req.session`, will be re-generated next request.
-     *
-     *      req.session.destroy(function(err){
-     *        // cannot access session here
-     *      });
-     * 
-     * ## Session#reload()
-     *
-     *  Reloads the session data.
-     *
-     *      req.session.reload(function(err){
-     *        // session updated
-     *      });
-     *
-     * ## Session#save()
-     *
-     *  Save the session.
-     *
-     *      req.session.save(function(err){
-     *        // session saved
-     *      });
-     *
-     * ## Session#touch()
-     *
-     *   Updates the `.maxAge` property. Typically this is
-     *   not necessary to call, as the session middleware does this for you.
-     *
-     * ## Session#cookie
-     *
-     *  Each session has a unique cookie object accompany it. This allows
-     *  you to alter the session cookie per visitor. For example we can
-     *  set `req.session.cookie.expires` to `false` to enable the cookie
-     *  to remain for only the duration of the user-agent.
-     *
-     * ## Session#maxAge
-     *
-     *  Alternatively `req.session.cookie.maxAge` will return the time
-     *  remaining in milliseconds, which we may also re-assign a new value
-     *  to adjust the `.expires` property appropriately. The following
-     *  are essentially equivalent
-     *
-     *     var hour = 3600000;
-     *     req.session.cookie.expires = new Date(Date.now() + hour);
-     *     req.session.cookie.maxAge = hour;
-     *
-     * For example when `maxAge` is set to `60000` (one minute), and 30 seconds
-     * has elapsed it will return `30000` until the current request has completed,
-     * at which time `req.session.touch()` is called to reset `req.session.maxAge`
-     * to its original value.
-     *
-     *     req.session.cookie.maxAge;
-     *     // => 30000
-     *
-     * Session Store Implementation:
-     *
-     * Every session store _must_ implement the following methods
-     *
-     *    - `.get(sid, callback)`
-     *    - `.set(sid, session, callback)`
-     *    - `.destroy(sid, callback)`
-     *
-     * Recommended methods include, but are not limited to:
-     *
-     *    - `.length(callback)`
-     *    - `.clear(callback)`
-     *
-     * For an example implementation view the [connect-redis](http://github.com/visionmedia/connect-redis) repo.
-     *
-     * @param options
-     */
-    export function session(options?: any): Handler;
+        /**
+         * Session:
+         * 
+         *   Setup session store with the given `options`.
+         *
+         *   Session data is _not_ saved in the cookie itself, however
+         *   cookies are used, so we must use the [cookieParser()](cookieParser.html)
+         *   middleware _before_ `session()`.
+         *
+         * Examples:
+         *
+         *     connect()
+         *       .use(connect.cookieParser())
+         *       .use(connect.session({ secret: 'keyboard cat', key: 'sid', cookie: { secure: true }}))
+         *
+         * Options:
+         *
+         *   - `key` cookie name defaulting to `connect.sid`
+         *   - `store` session store instance
+         *   - `secret` session cookie is signed with this secret to prevent tampering
+         *   - `cookie` session cookie settings, defaulting to `{ path: '/', httpOnly: true, maxAge: null }`
+         *   - `proxy` trust the reverse proxy when setting secure cookies (via "x-forwarded-proto")
+         *
+         * Cookie option:
+         *
+         *  By default `cookie.maxAge` is `null`, meaning no "expires" parameter is set
+         *  so the cookie becomes a browser-session cookie. When the user closes the 
+         *  browser the cookie (and session) will be removed.
+         *
+         * ## req.session
+         *
+         *  To store or access session data, simply use the request property `req.session`,
+         *  which is (generally) serialized as JSON by the store, so nested objects 
+         *  are typically fine. For example below is a user-specific view counter:
+         *
+         *       connect()
+         *         .use(connect.favicon())
+         *         .use(connect.cookieParser())
+         *         .use(connect.session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}))
+         *         .use(function(req, res, next){
+         *           var sess = req.session;
+         *           if (sess.views) {
+         *             res.setHeader('Content-Type', 'text/html');
+         *             res.write('<p>views: ' + sess.views + '</p>');
+         *             res.write('<p>expires in: ' + (sess.cookie.maxAge / 1000) + 's</p>');
+         *             res.end();
+         *             sess.views++;
+         *           } else {
+         *             sess.views = 1;
+         *             res.end('welcome to the session demo. refresh!');
+         *           }
+         *         }
+         *       )).listen(3000);
+         *
+         * ## Session#regenerate()
+         *
+         *  To regenerate the session simply invoke the method, once complete
+         *  a new SID and `Session` instance will be initialized at `req.session`.
+         *
+         *      req.session.regenerate(function(err){
+         *        // will have a new session here
+         *      });
+         *
+         * ## Session#destroy()
+         *
+         *  Destroys the session, removing `req.session`, will be re-generated next request.
+         *
+         *      req.session.destroy(function(err){
+         *        // cannot access session here
+         *      });
+         * 
+         * ## Session#reload()
+         *
+         *  Reloads the session data.
+         *
+         *      req.session.reload(function(err){
+         *        // session updated
+         *      });
+         *
+         * ## Session#save()
+         *
+         *  Save the session.
+         *
+         *      req.session.save(function(err){
+         *        // session saved
+         *      });
+         *
+         * ## Session#touch()
+         *
+         *   Updates the `.maxAge` property. Typically this is
+         *   not necessary to call, as the session middleware does this for you.
+         *
+         * ## Session#cookie
+         *
+         *  Each session has a unique cookie object accompany it. This allows
+         *  you to alter the session cookie per visitor. For example we can
+         *  set `req.session.cookie.expires` to `false` to enable the cookie
+         *  to remain for only the duration of the user-agent.
+         *
+         * ## Session#maxAge
+         *
+         *  Alternatively `req.session.cookie.maxAge` will return the time
+         *  remaining in milliseconds, which we may also re-assign a new value
+         *  to adjust the `.expires` property appropriately. The following
+         *  are essentially equivalent
+         *
+         *     var hour = 3600000;
+         *     req.session.cookie.expires = new Date(Date.now() + hour);
+         *     req.session.cookie.maxAge = hour;
+         *
+         * For example when `maxAge` is set to `60000` (one minute), and 30 seconds
+         * has elapsed it will return `30000` until the current request has completed,
+         * at which time `req.session.touch()` is called to reset `req.session.maxAge`
+         * to its original value.
+         *
+         *     req.session.cookie.maxAge;
+         *     // => 30000
+         *
+         * Session Store Implementation:
+         *
+         * Every session store _must_ implement the following methods
+         *
+         *    - `.get(sid, callback)`
+         *    - `.set(sid, session, callback)`
+         *    - `.destroy(sid, callback)`
+         *
+         * Recommended methods include, but are not limited to:
+         *
+         *    - `.length(callback)`
+         *    - `.clear(callback)`
+         *
+         * For an example implementation view the [connect-redis](http://github.com/visionmedia/connect-redis) repo.
+         *
+         * @param options
+         */
+        export function session(options?: any): Handler;
 
-    /**
-     * Hash the given `sess` object omitting changes
-     * to `.cookie`.
-     *
-     * @param sess
-     */
-    export function hash(sess: string): string;
+        /**
+         * Hash the given `sess` object omitting changes
+         * to `.cookie`.
+         *
+         * @param sess
+         */
+        export function hash(sess: string): string;
 
-    /**
-     * Static:
-     *
-     *   Static file server with the given `root` path.
-     *
-     * Examples:
-     *
-     *     var oneDay = 86400000;
-     *
-     *     connect()
-     *       .use(connect.static(__dirname + '/public'))
-     *
-     *     connect()
-     *       .use(connect.static(__dirname + '/public', { maxAge: oneDay }))
-     *
-     * Options:
-     *
-     *    - `maxAge`     Browser cache maxAge in milliseconds. defaults to 0
-     *    - `hidden`     Allow transfer of hidden files. defaults to false
-     *    - `redirect`   Redirect to trailing "/" when the pathname is a dir. defaults to true
-     *
-     * @param root
-     * @param options
-     */
-    export function static (root: string, options?: any): Handler;
+        /**
+         * Static:
+         *
+         *   Static file server with the given `root` path.
+         *
+         * Examples:
+         *
+         *     var oneDay = 86400000;
+         *
+         *     connect()
+         *       .use(connect.static(__dirname + '/public'))
+         *
+         *     connect()
+         *       .use(connect.static(__dirname + '/public', { maxAge: oneDay }))
+         *
+         * Options:
+         *
+         *    - `maxAge`     Browser cache maxAge in milliseconds. defaults to 0
+         *    - `hidden`     Allow transfer of hidden files. defaults to false
+         *    - `redirect`   Redirect to trailing "/" when the pathname is a dir. defaults to true
+         *
+         * @param root
+         * @param options
+         */
+        export function static(root: string, options?: any): Handler;
 
-    /**
-     * Basic Auth:
-     *
-     * Enfore basic authentication by providing a `callback(user, pass)`,
-     * which must return `true` in order to gain access. Alternatively an async
-     * method is provided as well, invoking `callback(user, pass, callback)`. Populates
-     * `req.user`. The final alternative is simply passing username / password
-     * strings.
-     *
-     *  Simple username and password
-     *
-     *     connect(connect.basicAuth('username', 'password'));
-     *
-     *  Callback verification
-     *
-     *     connect()
-     *       .use(connect.basicAuth(function(user, pass){
-     *         return 'tj' == user & 'wahoo' == pass;
-     *       }))
-     *
-     *  Async callback verification, accepting `fn(err, user)`.
-     *
-     *     connect()
-     *       .use(connect.basicAuth(function(user, pass, fn){
-     *         User.authenticate({ user: user, pass: pass }, fn);
-     *       }))
-     *
-     * @param callback or username
-     * @param realm
-     */
-    export function basicAuth(callback: Function, realm: string);
+        /**
+         * Basic Auth:
+         *
+         * Enfore basic authentication by providing a `callback(user, pass)`,
+         * which must return `true` in order to gain access. Alternatively an async
+         * method is provided as well, invoking `callback(user, pass, callback)`. Populates
+         * `req.user`. The final alternative is simply passing username / password
+         * strings.
+         *
+         *  Simple username and password
+         *
+         *     connect(connect.basicAuth('username', 'password'));
+         *
+         *  Callback verification
+         *
+         *     connect()
+         *       .use(connect.basicAuth(function(user, pass){
+         *         return 'tj' == user & 'wahoo' == pass;
+         *       }))
+         *
+         *  Async callback verification, accepting `fn(err, user)`.
+         *
+         *     connect()
+         *       .use(connect.basicAuth(function(user, pass, fn){
+         *         User.authenticate({ user: user, pass: pass }, fn);
+         *       }))
+         *
+         * @param callback or username
+         * @param realm
+         */
+        export function basicAuth(callback: Function, realm: string);
 
-    export function basicAuth(callback: string, realm: string);
+        export function basicAuth(callback: string, realm: string);
 
-    export function basicAuth(callback: Function);
+        export function basicAuth(callback: Function);
 
-    /**
-     * Compress:
-     *
-     * Compress response data with gzip/deflate.
-     *
-     * Filter:
-     *
-     *  A `filter` callback function may be passed to
-     *  replace the default logic of:
-     *
-     *     exports.filter = function(req, res){
-     *       return /json|text|javascript/.test(res.getHeader('Content-Type'));
-     *     };
-     *
-     * Options:
-     *
-     *  All remaining options are passed to the gzip/deflate
-     *  creation functions. Consult node's docs for additional details.
-     *
-     *   - `chunkSize` (default: 16*1024)
-     *   - `windowBits`
-     *   - `level`: 0-9 where 0 is no compression, and 9 is slow but best compression
-     *   - `memLevel`: 1-9 low is slower but uses less memory, high is fast but uses more
-     *   - `strategy`: compression strategy
-     *
-     * @param options
-     */
-    export function compress(options?: any): Handler;
+        /**
+         * Compress:
+         *
+         * Compress response data with gzip/deflate.
+         *
+         * Filter:
+         *
+         *  A `filter` callback function may be passed to
+         *  replace the default logic of:
+         *
+         *     exports.filter = function(req, res){
+         *       return /json|text|javascript/.test(res.getHeader('Content-Type'));
+         *     };
+         *
+         * Options:
+         *
+         *  All remaining options are passed to the gzip/deflate
+         *  creation functions. Consult node's docs for additional details.
+         *
+         *   - `chunkSize` (default: 16*1024)
+         *   - `windowBits`
+         *   - `level`: 0-9 where 0 is no compression, and 9 is slow but best compression
+         *   - `memLevel`: 1-9 low is slower but uses less memory, high is fast but uses more
+         *   - `strategy`: compression strategy
+         *
+         * @param options
+         */
+        export function compress(options?: any): Handler;
 
-    /**
-     * Cookie Session:
-     *
-     *   Cookie session middleware.
-     *
-     *      var app = connect();
-     *      app.use(connect.cookieParser());
-     *      app.use(connect.cookieSession({ secret: 'tobo!', cookie: { maxAge: 60 * 60 * 1000 }}));
-     *
-     * Options:
-     *
-     *   - `key` cookie name defaulting to `connect.sess`
-     *   - `secret` prevents cookie tampering
-     *   - `cookie` session cookie settings, defaulting to `{ path: '/', httpOnly: true, maxAge: null }`
-     *   - `proxy` trust the reverse proxy when setting secure cookies (via "x-forwarded-proto")
-     *
-     * Clearing sessions:
-     *
-     *  To clear the session simply set its value to `null`,
-     *  `cookieSession()` will then respond with a 1970 Set-Cookie.
-     *
-     *     req.session = null;
-     *
-     * @param options
-     */
-    export function cookieSession(options?: any): Handler;
+        /**
+         * Cookie Session:
+         *
+         *   Cookie session middleware.
+         *
+         *      var app = connect();
+         *      app.use(connect.cookieParser());
+         *      app.use(connect.cookieSession({ secret: 'tobo!', cookie: { maxAge: 60 * 60 * 1000 }}));
+         *
+         * Options:
+         *
+         *   - `key` cookie name defaulting to `connect.sess`
+         *   - `secret` prevents cookie tampering
+         *   - `cookie` session cookie settings, defaulting to `{ path: '/', httpOnly: true, maxAge: null }`
+         *   - `proxy` trust the reverse proxy when setting secure cookies (via "x-forwarded-proto")
+         *
+         * Clearing sessions:
+         *
+         *  To clear the session simply set its value to `null`,
+         *  `cookieSession()` will then respond with a 1970 Set-Cookie.
+         *
+         *     req.session = null;
+         *
+         * @param options
+         */
+        export function cookieSession(options?: any): Handler;
 
-    /**
-     * Anti CSRF:
-     *
-     * CRSF protection middleware.
-     *
-     * By default this middleware generates a token named "_csrf"
-     * which should be added to requests which mutate
-     * state, within a hidden form field, query-string etc. This
-     * token is validated against the visitor's `req.session._csrf`
-     * property.
-     *
-     * The default `value` function checks `req.body` generated
-     * by the `bodyParser()` middleware, `req.query` generated
-     * by `query()`, and the "X-CSRF-Token" header field.
-     *
-     * This middleware requires session support, thus should be added
-     * somewhere _below_ `session()` and `cookieParser()`.
-     *
-     * Options:
-     *
-     *    - `value` a function accepting the request, returning the token 
-     *
-     * @param options
-     */
-    export function csrf(options: any);
+        /**
+         * Anti CSRF:
+         *
+         * CRSF protection middleware.
+         *
+         * By default this middleware generates a token named "_csrf"
+         * which should be added to requests which mutate
+         * state, within a hidden form field, query-string etc. This
+         * token is validated against the visitor's `req.session._csrf`
+         * property.
+         *
+         * The default `value` function checks `req.body` generated
+         * by the `bodyParser()` middleware, `req.query` generated
+         * by `query()`, and the "X-CSRF-Token" header field.
+         *
+         * This middleware requires session support, thus should be added
+         * somewhere _below_ `session()` and `cookieParser()`.
+         *
+         * Options:
+         *
+         *    - `value` a function accepting the request, returning the token 
+         *
+         * @param options
+         */
+        export function csrf(options: any);
 
-    /**
-     * Directory:
-     *
-     * Serve directory listings with the given `root` path.
-     *
-     * Options:
-     *
-     *  - `hidden` display hidden (dot) files. Defaults to false.
-     *  - `icons`  display icons. Defaults to false.
-     *  - `filter` Apply this filter function to files. Defaults to false.
-     *
-     * @param root
-     * @param options
-     */
-    export function directory(root: string, options?: any): Handler;
+        /**
+         * Directory:
+         *
+         * Serve directory listings with the given `root` path.
+         *
+         * Options:
+         *
+         *  - `hidden` display hidden (dot) files. Defaults to false.
+         *  - `icons`  display icons. Defaults to false.
+         *  - `filter` Apply this filter function to files. Defaults to false.
+         *
+         * @param root
+         * @param options
+         */
+        export function directory(root: string, options?: any): Handler;
 
-    /**
-     * Favicon:
-     *
-     * By default serves the connect favicon, or the favicon
-     * located by the given `path`.
-     *
-     * Options:
-     *
-     *   - `maxAge`  cache-control max-age directive, defaulting to 1 day
-     *
-     * Examples:
-     *
-     *   Serve default favicon:
-     *
-     *     connect()
-     *       .use(connect.favicon())
-     *
-     *   Serve favicon before logging for brevity:
-     *
-     *     connect()
-     *       .use(connect.favicon())
-     *       .use(connect.logger('dev'))
-     *
-     *   Serve custom favicon:
-     *
-     *     connect()
-     *       .use(connect.favicon('public/favicon.ico))
-     *
-     * @param path
-     * @param options
-     */
-    export function favicon(path?: string, options?: any);
+        /**
+         * Favicon:
+         *
+         * By default serves the connect favicon, or the favicon
+         * located by the given `path`.
+         *
+         * Options:
+         *
+         *   - `maxAge`  cache-control max-age directive, defaulting to 1 day
+         *
+         * Examples:
+         *
+         *   Serve default favicon:
+         *
+         *     connect()
+         *       .use(connect.favicon())
+         *
+         *   Serve favicon before logging for brevity:
+         *
+         *     connect()
+         *       .use(connect.favicon())
+         *       .use(connect.logger('dev'))
+         *
+         *   Serve custom favicon:
+         *
+         *     connect()
+         *       .use(connect.favicon('public/favicon.ico))
+         *
+         * @param path
+         * @param options
+         */
+        export function favicon(path?: string, options?: any);
 
-    /**
-     * JSON:
-     *
-     * Parse JSON request bodies, providing the
-     * parsed object as `req.body`.
-     *
-     * Options:
-     *
-     *   - `strict`  when `false` anything `JSON.parse()` accepts will be parsed
-     *   - `reviver`  used as the second "reviver" argument for JSON.parse
-     *   - `limit`  byte limit disabled by default
-     *
-     * @param options
-     */
-    export function json(options?: any): Handler;
+        /**
+         * JSON:
+         *
+         * Parse JSON request bodies, providing the
+         * parsed object as `req.body`.
+         *
+         * Options:
+         *
+         *   - `strict`  when `false` anything `JSON.parse()` accepts will be parsed
+         *   - `reviver`  used as the second "reviver" argument for JSON.parse
+         *   - `limit`  byte limit disabled by default
+         *
+         * @param options
+         */
+        export function json(options?: any): Handler;
 
-    /**
-     * Limit:
-     *
-     *   Limit request bodies to the given size in `bytes`.
-     *
-     *   A string representation of the bytesize may also be passed,
-     *   for example "5mb", "200kb", "1gb", etc.
-     *
-     *     connect()
-     *       .use(connect.limit('5.5mb'))
-     *       .use(handleImageUpload)
-     */
-    export function limit(bytes: number): Handler;
+        /**
+         * Limit:
+         *
+         *   Limit request bodies to the given size in `bytes`.
+         *
+         *   A string representation of the bytesize may also be passed,
+         *   for example "5mb", "200kb", "1gb", etc.
+         *
+         *     connect()
+         *       .use(connect.limit('5.5mb'))
+         *       .use(handleImageUpload)
+         */
+        export function limit(bytes: number): Handler;
 
-    export function limit(bytes: string): Handler;
+        export function limit(bytes: string): Handler;
 
-    /**
-     * Logger:
-     *
-     * Log requests with the given `options` or a `format` string.
-     *
-     * Options:
-     *
-     *   - `format`  Format string, see below for tokens
-     *   - `stream`  Output stream, defaults to _stdout_
-     *   - `buffer`  Buffer duration, defaults to 1000ms when _true_
-     *   - `immediate`  Write log line on request instead of response (for response times)
-     *
-     * Tokens:
-     *
-     *   - `:req[header]` ex: `:req[Accept]`
-     *   - `:res[header]` ex: `:res[Content-Length]`
-     *   - `:http-version`
-     *   - `:response-time`
-     *   - `:remote-addr`
-     *   - `:date`
-     *   - `:method`
-     *   - `:url`
-     *   - `:referrer`
-     *   - `:user-agent`
-     *   - `:status`
-     *
-     * Formats:
-     *
-     *   Pre-defined formats that ship with connect:
-     *
-     *    - `default` ':remote-addr - - [:date] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"'
-     *    - `short` ':remote-addr - :method :url HTTP/:http-version :status :res[content-length] - :response-time ms'
-     *    - `tiny`  ':method :url :status :res[content-length] - :response-time ms'
-     *    - `dev` concise output colored by response status for development use
-     *
-     * Examples:
-     *
-     *      connect.logger() // default
-     *      connect.logger('short')
-     *      connect.logger('tiny')
-     *      connect.logger({ immediate: true, format: 'dev' })
-     *      connect.logger(':method :url - :referrer')
-     *      connect.logger(':req[content-type] -> :res[content-type]')
-     *      connect.logger(function(tokens, req, res){ return 'some format string' })
-     *
-     * Defining Tokens:
-     *
-     *   To define a token, simply invoke `connect.logger.token()` with the
-     *   name and a callback function. The value returned is then available
-     *   as ":type" in this case.
-     *
-     *      connect.logger.token('type', function(req, res){ return req.headers['content-type']; })
-     *
-     * Defining Formats:
-     *
-     *   All default formats are defined this way, however it's public API as well:
-     *
-     *       connect.logger.format('name', 'string or function')
-     */
-    export function logger(options: string): Handler;
+        /**
+         * Logger:
+         *
+         * Log requests with the given `options` or a `format` string.
+         *
+         * Options:
+         *
+         *   - `format`  Format string, see below for tokens
+         *   - `stream`  Output stream, defaults to _stdout_
+         *   - `buffer`  Buffer duration, defaults to 1000ms when _true_
+         *   - `immediate`  Write log line on request instead of response (for response times)
+         *
+         * Tokens:
+         *
+         *   - `:req[header]` ex: `:req[Accept]`
+         *   - `:res[header]` ex: `:res[Content-Length]`
+         *   - `:http-version`
+         *   - `:response-time`
+         *   - `:remote-addr`
+         *   - `:date`
+         *   - `:method`
+         *   - `:url`
+         *   - `:referrer`
+         *   - `:user-agent`
+         *   - `:status`
+         *
+         * Formats:
+         *
+         *   Pre-defined formats that ship with connect:
+         *
+         *    - `default` ':remote-addr - - [:date] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"'
+         *    - `short` ':remote-addr - :method :url HTTP/:http-version :status :res[content-length] - :response-time ms'
+         *    - `tiny`  ':method :url :status :res[content-length] - :response-time ms'
+         *    - `dev` concise output colored by response status for development use
+         *
+         * Examples:
+         *
+         *      connect.logger() // default
+         *      connect.logger('short')
+         *      connect.logger('tiny')
+         *      connect.logger({ immediate: true, format: 'dev' })
+         *      connect.logger(':method :url - :referrer')
+         *      connect.logger(':req[content-type] -> :res[content-type]')
+         *      connect.logger(function(tokens, req, res){ return 'some format string' })
+         *
+         * Defining Tokens:
+         *
+         *   To define a token, simply invoke `connect.logger.token()` with the
+         *   name and a callback function. The value returned is then available
+         *   as ":type" in this case.
+         *
+         *      connect.logger.token('type', function(req, res){ return req.headers['content-type']; })
+         *
+         * Defining Formats:
+         *
+         *   All default formats are defined this way, however it's public API as well:
+         *
+         *       connect.logger.format('name', 'string or function')
+         */
+        export function logger(options: string): Handler;
 
-    export function logger(options: Function): Handler;
+        export function logger(options: Function): Handler;
 
-    export function logger(options?: any): Handler;
+        export function logger(options?: any): Handler;
 
-    /**
-     * Compile `fmt` into a function.
-     *
-     * @param fmt
-     */
-    export function compile(fmt: string): Handler;
+        /**
+         * Compile `fmt` into a function.
+         *
+         * @param fmt
+         */
+        export function compile(fmt: string): Handler;
 
-    /**
-     * Define a token function with the given `name`,
-     * and callback `fn(req, res)`.
-     *
-     * @param name
-     * @param fn
-     */
-    export function token(name: string, fn: Function): any;
+        /**
+         * Define a token function with the given `name`,
+         * and callback `fn(req, res)`.
+         *
+         * @param name
+         * @param fn
+         */
+        export function token(name: string, fn: Function): any;
 
-    /**
-     * Define a `fmt` with the given `name`.
-     */
-    export function format(name: string, str: string): any;
+        /**
+         * Define a `fmt` with the given `name`.
+         */
+        export function format(name: string, str: string): any;
 
-    export function format(name: string, str: Function): any;
+        export function format(name: string, str: Function): any;
 
-    /**
-     * Query:
-     *
-     * Automatically parse the query-string when available,
-     * populating the `req.query` object.
-     *
-     * Examples:
-     *
-     *     connect()
-     *       .use(connect.query())
-     *       .use(function(req, res){
-     *         res.end(JSON.stringify(req.query));
-     *       });
-     *
-     *  The `options` passed are provided to qs.parse function.
-     */
-    export function query(options: any): Handler;
+        /**
+         * Query:
+         *
+         * Automatically parse the query-string when available,
+         * populating the `req.query` object.
+         *
+         * Examples:
+         *
+         *     connect()
+         *       .use(connect.query())
+         *       .use(function(req, res){
+         *         res.end(JSON.stringify(req.query));
+         *       });
+         *
+         *  The `options` passed are provided to qs.parse function.
+         */
+        export function query(options: any): Handler;
 
-    /**
-     * Reponse time:
-     *
-     * Adds the `X-Response-Time` header displaying the response
-     * duration in milliseconds.
-     */
-    export function responseTime(): Handler;
+        /**
+         * Reponse time:
+         *
+         * Adds the `X-Response-Time` header displaying the response
+         * duration in milliseconds.
+         */
+        export function responseTime(): Handler;
 
-    /**
-     * Static cache:
-     *
-     * Enables a memory cache layer on top of
-     * the `static()` middleware, serving popular
-     * static files.
-     *
-     * By default a maximum of 128 objects are
-     * held in cache, with a max of 256k each,
-     * totalling ~32mb.
-     *
-     * A Least-Recently-Used (LRU) cache algo
-     * is implemented through the `Cache` object,
-     * simply rotating cache objects as they are
-     * hit. This means that increasingly popular
-     * objects maintain their positions while
-     * others get shoved out of the stack and
-     * garbage collected.
-     *
-     * Benchmarks:
-     *
-     *     static(): 2700 rps
-     *     node-static: 5300 rps
-     *     static() + staticCache(): 7500 rps
-     *
-     * Options:
-     *
-     *   - `maxObjects`  max cache objects [128]
-     *   - `maxLength`  max cache object length 256kb
-     */
-    export function staticCache(options: any): Handler;
+        /**
+         * Static cache:
+         *
+         * Enables a memory cache layer on top of
+         * the `static()` middleware, serving popular
+         * static files.
+         *
+         * By default a maximum of 128 objects are
+         * held in cache, with a max of 256k each,
+         * totalling ~32mb.
+         *
+         * A Least-Recently-Used (LRU) cache algo
+         * is implemented through the `Cache` object,
+         * simply rotating cache objects as they are
+         * hit. This means that increasingly popular
+         * objects maintain their positions while
+         * others get shoved out of the stack and
+         * garbage collected.
+         *
+         * Benchmarks:
+         *
+         *     static(): 2700 rps
+         *     node-static: 5300 rps
+         *     static() + staticCache(): 7500 rps
+         *
+         * Options:
+         *
+         *   - `maxObjects`  max cache objects [128]
+         *   - `maxLength`  max cache object length 256kb
+         */
+        export function staticCache(options: any): Handler;
 
-    /**
-     * Timeout:
-     *
-     * Times out the request in `ms`, defaulting to `5000`. The
-     * method `req.clearTimeout()` is added to revert this behaviour
-     * programmatically within your application's middleware, routes, etc.
-     *
-     * The timeout error is passed to `next()` so that you may customize
-     * the response behaviour. This error has the `.timeout` property as
-     * well as `.status == 408`.
-     */
-    export function timeout(ms: number): Handler;
+        /**
+         * Timeout:
+         *
+         * Times out the request in `ms`, defaulting to `5000`. The
+         * method `req.clearTimeout()` is added to revert this behaviour
+         * programmatically within your application's middleware, routes, etc.
+         *
+         * The timeout error is passed to `next()` so that you may customize
+         * the response behaviour. This error has the `.timeout` property as
+         * well as `.status == 408`.
+         */
+        export function timeout(ms: number): Handler;
 
-    /**
-     * Vhost:
-     * 
-     *   Setup vhost for the given `hostname` and `server`.
-     *
-     *     connect()
-     *       .use(connect.vhost('foo.com', fooApp))
-     *       .use(connect.vhost('bar.com', barApp))
-     *       .use(connect.vhost('*.com', mainApp))
-     *
-     *  The `server` may be a Connect server or
-     *  a regular Node `http.Server`. 
-     *
-     * @param hostname
-     * @param server
-     */
-    export function vhost(hostname: string, server: any): Handler;
+        /**
+         * Vhost:
+         * 
+         *   Setup vhost for the given `hostname` and `server`.
+         *
+         *     connect()
+         *       .use(connect.vhost('foo.com', fooApp))
+         *       .use(connect.vhost('bar.com', barApp))
+         *       .use(connect.vhost('*.com', mainApp))
+         *
+         *  The `server` may be a Connect server or
+         *  a regular Node `http.Server`. 
+         *
+         * @param hostname
+         * @param server
+         */
+        export function vhost(hostname: string, server: any): Handler;
 
-    export function urlencoded(): any;
+        export function urlencoded(): any;
 
-    export function multipart(): any;
+        export function multipart(): any;
+    }
+
+    export = express;
 }
