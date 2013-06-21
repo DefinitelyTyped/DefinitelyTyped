@@ -1,5 +1,5 @@
-/// <reference path="../chai/chai.d.ts" />
-/// <reference path="chai-jquery.d.ts" />
+/// <reference path="../chai/chai.d.ts" />
+/// <reference path="chai-jquery.d.ts" />
 
 declare var $;
 var expect = chai.expect;
