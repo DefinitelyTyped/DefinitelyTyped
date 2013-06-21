@@ -122,7 +122,7 @@ test("a test", function () {
 QUnit.config.autostart = false;
 QUnit.start();
 
-QUnit.config.urlConfig.push({
+QUnit.config.urlConfig.push(<any>{
     id: "min",
     label: "Minified source",
     tooltip: "Load minified source files instead of the regular unminified ones."
@@ -729,13 +729,7 @@ test("just a test", function() {
 // ************** BUG ? ******************
 // TODO disable reordering for this suite!
 
-var begin = 0,
-    moduleStart = 0,
-    moduleDone = 0,
-    testStart = 0,
-    testDone = 0,
-    log = 0,
-    moduleContext,
+var moduleContext,
     moduleDoneContext,
     testContext,
     testDoneContext,
