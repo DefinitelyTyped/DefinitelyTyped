@@ -1,5 +1,7 @@
 /// <reference path="Q.d.ts" />
 
+import q = module('q');
+
 Q(8).then(x => console.log(x.toExponential()));
 
 var delay = function (delay: number) {
@@ -11,6 +13,14 @@ var delay = function (delay: number) {
 Q.when(delay(1000), function () {
     console.log('Hello, World!');
 });
+
+Q.delay(Q(8), 1000).then(x => x.toExponential());
+Q.delay(8, 1000).then(x => x.toExponential());
+Q.delay(Q("asdf"), 1000).then(x => x.length);
+Q.delay("asdf", 1000).then(x => x.length);
+
+var eventualAdd = Q.promised((a: number, b: number) => a + b);
+eventualAdd(Q(1), Q(2)).then(x => x.toExponential());
 
 var eventually = function (eventually) {
     return Q.delay(eventually, 1000);
@@ -48,11 +58,4 @@ Q.allResolved([])
             var exception = promise.valueOf().exception;
         }
     })
-});
-
-var initialVal: any;
-var funcs = ['foo', 'bar', 'baz', 'qux'];
-var result = Q.resolve(initialVal);
-funcs.forEach(function (f) {
-    result = result.then(f);
 });
