@@ -193,7 +193,7 @@ declare module breeze {
     }
     interface DataType extends breezeCore.IEnum {
         Binary: DataTypeSymbol;
-        booleanean: DataTypeSymbol;
+        Boolean: DataTypeSymbol;
         Byte: DataTypeSymbol;
         DateTime: DataTypeSymbol;
         Decimal: DataTypeSymbol;
