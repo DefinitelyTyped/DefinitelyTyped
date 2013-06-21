@@ -116,10 +116,6 @@ declare module chai {
         to: To;
     }
 
+    function expect(target: any): chai.ExpectMatchers;
 }
 
-interface chai {
-    expect: {
-        (target: any): chai.ExpectMatchers;
-    }
-}

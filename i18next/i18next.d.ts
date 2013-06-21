@@ -13,7 +13,7 @@ interface IResourceStoreLanguage {
     [namespace: string]: IResourceStoreKey;
 }
 interface IResourceStoreKey {
-    [key: string];
+    [key: string]: any;
 }
 
 interface I18nextOptions {

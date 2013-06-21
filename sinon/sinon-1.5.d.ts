@@ -387,4 +387,4 @@ interface SinonStatic {
 	log: (message: string) => void;
 }
 
-var sinon: SinonStatic;
+declare var sinon: SinonStatic;
