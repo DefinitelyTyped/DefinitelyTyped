@@ -33,9 +33,9 @@ declare module Q {
         fcall(method: Function, ...args: any[]): Promise<any>;
         timeout(ms: number, message?): Promise<T>;
         delay(ms: number): Promise<T>;
-        isFulfilled(): bool;
-        isRejected(): bool;
-        isPending(): bool;
+        isFulfilled(): boolean;
+        isRejected(): boolean;
+        isPending(): boolean;
         valueOf(): any;
     }
 
@@ -52,21 +52,21 @@ declare module Q {
     export function timeout<T>(promise: Promise<T>, ms: number, message?): Promise<T>;
     export function delay<T>(promise: Promise<T>, ms: number): Promise<T>;
     export function delay<T>(value: T, ms: number): Promise<T>;
-    export function isFulfilled(promise: Promise<any>): bool;
-    export function isRejected(promise: Promise<any>): bool;
-    export function isPending(promise: Promise<any>): bool;
+    export function isFulfilled(promise: Promise<any>): boolean;
+    export function isRejected(promise: Promise<any>): boolean;
+    export function isPending(promise: Promise<any>): boolean;
     export function valueOf<T>(promise: Promise<T>): T;
     export function defer<T>(): Deferred<T>;
     export function reject(reason?): Promise<any>;
     export function promise<T>(factory: { resolve: Function; reject: Function; notify: Function; }): Promise<T>;
     export function promised<T>(callback: (...any) => T): (...any) => Promise<T>;
-    export function isPromise(object): bool;
-    export function isPromiseAlike(object): bool;
-    export function isPending(object): bool;
+    export function isPromise(object): boolean;
+    export function isPromiseAlike(object): boolean;
+    export function isPending(object): boolean;
     export function async<T>(generatorFunction: any): (...args) => Promise<T>;
     export function nextTick(callback: Function): void;
     export var oneerror: () => void;
-    export var longStackSupport: bool;
+    export var longStackSupport: boolean;
     export function resolve<T>(object): Promise<T>;
 }
 
