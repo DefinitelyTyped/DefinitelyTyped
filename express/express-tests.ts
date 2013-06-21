@@ -1277,7 +1277,7 @@ function test_general() {
 
     app.enabled('trust proxy');
 
-    app.configure(function () => {
+    app.configure(() => {
         app.set('title', 'My Application');
     });
 
