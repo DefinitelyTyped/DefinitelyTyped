@@ -149,7 +149,7 @@ test( 'jQuery.param.sorted', function() {
   
   expect( tests.length * 2 + 6 );
   
-  $.each( tests, function(i,test){
+  $.each( tests, function(i,test: any){
     var unsorted = $.param( test.obj, test.traditional ),
       sorted = $.param.sorted( test.obj, test.traditional );
     
