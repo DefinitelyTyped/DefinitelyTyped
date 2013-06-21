@@ -3,8 +3,8 @@
 // Definitions by: Barrie Nemetchek, Andrew Gaspar
 // Definitions: https://github.com/borisyankov/DefinitelyTyped  
 
-declare function Q<T>(value: T): Q.Promise<T>;
-//declare function Q<T>(value: Q.Promise<T>): Q.Promise<T>
+declare function Q<T>(value): Q.Promise<T>;
+
 declare module Q {
     interface Deferred<T> {
         promise: Promise<T>;
