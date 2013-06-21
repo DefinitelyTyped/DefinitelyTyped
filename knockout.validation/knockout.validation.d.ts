@@ -50,12 +50,16 @@ interface KnockoutValidationAsyncCallback {
     (result: KnockoutValidationAsyncCallbackArgs): void;
 }
 
-interface KnockoutValidationRuleDefinition {
+interface KnockoutValidationRuleBase
+{
     message: string;
+}
+
+interface KnockoutValidationRuleDefinition extends KnockoutValidationRuleBase {
     validator(value: any, params: any): boolean;
 }
 
-interface KnockoutValidationAsyncRuleDefinition extends KnockoutValidationRuleDefinition {
+interface KnockoutValidationAsyncRuleDefinition extends KnockoutValidationRuleBase {
     async: boolean;
     validator(value: any, params: any, callback: KnockoutValidationAsyncCallback): void;
 }
@@ -135,8 +139,8 @@ interface KnockoutStatic {
 }
 
 interface KnockoutSubscribableFunctions {
-    isValid: KnockoutComputed;
+    isValid: KnockoutComputed<boolean>;
     isValidating: KnockoutObservable<boolean>;
-    rules: KnockoutObservableArray;
+    rules: KnockoutObservableArray<KnockoutValidationRule>;
 }
 
