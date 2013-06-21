@@ -1,6 +1,5 @@
 /// <reference path="chai.d.ts" />
 
-var chai: chai;
 var expect = chai.expect;
 
 function test_be() {
