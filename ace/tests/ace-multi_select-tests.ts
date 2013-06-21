@@ -1,5 +1,8 @@
 /// <reference path="../ace.d.ts" />
 
+var assert: any;
+var editor: any;
+var renderer: any;
 var exec = function (name?, times?, args?) {
     do {
         editor.commands.exec(name, editor, args);
@@ -9,7 +12,7 @@ var testRanges = function (str) {
     assert.equal(editor.selection.getAllRanges() + "", str + "");
 }
 
-exports = {
+var exports = {
 
         name: "ACE multi_select.js",
 
@@ -19,7 +22,7 @@ exports = {
                 "    wtt.w",
                 "    wtt.w"
             ]);
-            editor = new AceAjax.Editor(new MockRenderer(), doc);
+            editor = new AceAjax.Editor(renderer, doc);
 
             editor.navigateFileEnd();
             exec("selectMoreBefore", 3);
@@ -45,7 +48,7 @@ exports = {
             "    wtt.w",
             "    wtt.we"
         ]);
-        editor = new AceAjax.Editor(new MockRenderer(), doc);
+        editor = new AceAjax.Editor(renderer, doc);
 
         editor.selectMoreLines(1);
         testRanges("Range: [0/0] -> [0/0],Range: [1/0] -> [1/0]");
@@ -67,7 +70,7 @@ exports = {
             "    wtt.w",
             "    wtt.w"
         ]);
-        editor = new AceAjax.Editor(new MockRenderer(), doc);
+        editor = new AceAjax.Editor(renderer, doc);
 
         editor.selectMoreLines(1)
         testRanges("Range: [0/0] -> [0/0],Range: [1/0] -> [1/0]");
@@ -87,7 +90,7 @@ exports = {
             "    wtt.w",
             "    wtt.w"
         ]);
-        editor = new AceAjax.Editor(new MockRenderer(), doc);
+        editor = new AceAjax.Editor(renderer, doc);
 
         var selection = editor.selection;
 

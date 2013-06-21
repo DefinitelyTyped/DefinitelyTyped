@@ -3,7 +3,7 @@
 // Definitions by: Diullei Gomes <https://github.com/Diullei>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-module AceAjax {
+declare module AceAjax {
 
     export interface Delta {
         action: string;
@@ -75,7 +75,7 @@ module AceAjax {
 
         onTextInput(text);
     }
-    declare var KeyBinding: {
+    var KeyBinding: {
         new(editor: Editor): KeyBinding;
     }
 
@@ -184,7 +184,7 @@ module AceAjax {
         **/
         detach();
     }
-    declare var Anchor: {
+    var Anchor: {
         /**
          * Creates a new `Anchor` and associates it with a document.
          * @param doc The document to associate with the anchor
@@ -248,7 +248,7 @@ module AceAjax {
         **/
         getState(row: number): string;
     }
-    declare var BackgroundTokenizer: {
+    var BackgroundTokenizer: {
         /**
          * Creates a new `BackgroundTokenizer` object.
          * @param tokenizer The tokenizer to use
@@ -435,7 +435,7 @@ module AceAjax {
         **/
         positionToIndex(pos: Position, startRow: number): number;
     }
-    declare var Document: {
+    var Document: {
         /**
          * Creates a new `Document`. If `text` is included, the `Document` contains those strings; otherwise, it's empty.
          * @param text The starting text
@@ -1011,7 +1011,7 @@ module AceAjax {
         **/
         getScreenLength(): number;
     }
-    declare var EditSession: {
+    var EditSession: {
         /**
          * Sets up a new `EditSession` and associates it with the given `Document` and `TextMode`.
          * @param text [If `text` is a `Document`, it associates the `EditSession` with it. Otherwise, a new `Document` is created, with the initial text]{: #textParam}
@@ -1702,7 +1702,7 @@ module AceAjax {
 
     }
 
-    declare var Editor: {    
+    var Editor: {    
         /**
          * Creates a new `Editor` object.
          * @param renderer Associated `VirtualRenderer` that draws everything
@@ -1761,7 +1761,7 @@ module AceAjax {
         **/
         cancel();
     }
-    declare var PlaceHolder: {
+    var PlaceHolder: {
         /**
          * - @param session (Document): The document to associate with the anchor
          * - @param length (Number): The starting row position
@@ -1995,7 +1995,7 @@ module AceAjax {
      * @param endRow The ending row
      * @param endColumn The ending column
     **/
-    declare var Range: {
+    var Range: {
         fromPoints(pos1: Position, pos2: Position): Range;
         new(startRow: number, startColumn: number, endRow: number, endColumn: number): Range;
     }    
@@ -2005,7 +2005,7 @@ module AceAjax {
     ////////////////
 
     export interface RenderLoop { }
-    declare var RenderLoop: {
+    var RenderLoop: {
         new(): RenderLoop;
     }
 
@@ -2047,7 +2047,7 @@ module AceAjax {
         **/
         setScrollTop(scrollTop: number);
     }
-    declare var ScrollBar: {
+    var ScrollBar: {
         /**
          * Creates a new `ScrollBar`. `parent` is the owner of the scroll bar.
          * @param parent A DOM element
@@ -2102,7 +2102,7 @@ module AceAjax {
         **/
         replace(input: string, replacement: string): string;
     }
-    declare var Search: {
+    var Search: {
         /**
          * Creates a new `Search` object. The following search options are avaliable:
          * - `needle`: The string or regular expression you're looking for
@@ -2371,7 +2371,7 @@ module AceAjax {
         **/
         moveCursorToScreen(row: number, column: number, keepDesiredColumn: boolean);
     }
-    declare var Selection: {
+    var Selection: {
         /**
          * Creates a new `Selection` object.
          * @param session The session to use
@@ -2459,7 +2459,7 @@ module AceAjax {
         **/
         resize();
     }
-    declare var Split: {
+    var Split: {
         new(): Split;
     }
 
@@ -2497,7 +2497,7 @@ module AceAjax {
         **/
         getCurrentTokenColumn(): number;
     }
-    declare var TokenIterator: {
+    var TokenIterator: {
         /**
          * Creates a new token iterator object. The inital token index is set to the provided row and column coordinates.
          * @param session The session to associate with
@@ -2522,7 +2522,7 @@ module AceAjax {
         **/
         getLineTokens(): any;
     }
-    declare var Tokenizer: {
+    var Tokenizer: {
         /**
          * Constructs a new tokenizer based on the given rules and flags.
          * @param rules The highlighting rules
@@ -2576,7 +2576,7 @@ module AceAjax {
         hasRedo(): boolean;
 
     }
-    declare var UndoManager: {
+    var UndoManager: {
         /**
          * Resets the current undo state and creates a new `UndoManager`.
         **/
@@ -2924,7 +2924,7 @@ module AceAjax {
         destroy();
 
     }
-    declare var VirtualRenderer: {
+    var VirtualRenderer: {
         /**
          * Constructs a new `VirtualRenderer` within the `container` specified, applying the given `theme`.
          * @param container The root element of the editor
