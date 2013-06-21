@@ -601,7 +601,7 @@ function test_accordion() {
     var heightStyle = $(".selector").accordion("option", "heightStyle");
     $(".selector").accordion("option", "heightStyle", "fill");
     $(".selector").accordion({ icons: { "header": "ui-icon-plus", "headerSelected": "ui-icon-minus" } });
-    var icons = $(".selector").accordion("option", "icons");
+    icons = $(".selector").accordion("option", "icons");
     $(".selector").accordion("option", "icons", { "header": "ui-icon-plus", "headerSelected": "ui-icon-minus" });
     var isDisabled = $(".selector").accordion("option", "disabled");
     $(".selector").accordion("option", { disabled: true });
