@@ -392,7 +392,7 @@ $('.datepicker').pickadate({
 });
 
 picker.on('open', function () {
-    console.log('Didn't open.. yet here I am!');
+    console.log('Didn\'t open.. yet here I am!');
 })
 picker.trigger('open');
 
