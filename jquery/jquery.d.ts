@@ -86,7 +86,7 @@ interface JQueryPromise {
     done(...doneCallbacks: any[]): JQueryDeferred;
     fail(...failCallbacks: any[]): JQueryDeferred;
     pipe(doneFilter?: (x: any) => any, failFilter?: (x: any) => any, progressFilter?: (x: any) => any): JQueryPromise;
-    then(doneCallbacks: any, failCallbacks: any, progressCallbacks?: any): JQueryDeferred;
+    then(doneCallbacks: any, failCallbacks?: any, progressCallbacks?: any): JQueryDeferred;
 }
 
 /*
