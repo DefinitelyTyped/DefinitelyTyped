@@ -1,15 +1,12 @@
-/// <reference path="../lib/sinon.d.ts" />
-/// <reference path="../lib/mocha.d.ts" />
+/// <reference path="../sinon/sinon-1.5.d.ts" />
+/// <reference path="../mocha/mocha.d.ts" />
+/// <reference path="../expect.js/expect.js.d.ts" />
+/// <reference path="../js-fixtures/fixtures.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../i18next.d.ts" />
+/// <reference path="i18next.d.ts" />
 
-// declarations for expect.js
-declare var expect: (actual: string) => any;
-declare var expect: (actual: number) => any;
-
-// declarations for jsfixtures.js
-declare var setFixtures: (html) => void;
-
+declare function done(): void;
+ 
 describe('i18next', function () {
 
     var i18n = $.i18n
@@ -1221,9 +1218,7 @@ describe('i18next', function () {
                 };
 
                 beforeEach(function (done) {
-                    setFixtures('
-
-');
+                    fixtures.set('');
 
                     i18n.init($.extend(opts, { resStore: resStore }),
                       function (t) { done(); });
@@ -1250,9 +1245,7 @@ describe('i18next', function () {
                 };
 
                 beforeEach(function (done) {
-                    setFixtures('
-
-');
+                    fixtures.set('');
 
                     i18n.init($.extend(opts, { resStore: resStore }),
                       function (t) { done(); });
@@ -1279,9 +1272,7 @@ describe('i18next', function () {
                 };
 
                 beforeEach(function (done) {
-                    setFixtures('
-
-');
+                    fixtures.set('');
 
                     i18n.init($.extend(opts, { resStore: resStore }),
                       function (t) { done(); });
@@ -1299,14 +1290,11 @@ describe('i18next', function () {
                 var resStore = {
                     dev: { translation: {} },
                     en: { translation: {} },
-                    'en-US': { translation: { 'simpleTest': '
-test
-' } }
+                    'en-US': { translation: { 'simpleTest': 'test' } }
                 };
 
                 beforeEach(function (done) {
-                    setFixtures('
-');
+                    fixtures.set('');
 
                     i18n.init($.extend(opts, { resStore: resStore }),
                       function (t) { done(); });
@@ -1329,9 +1317,7 @@ test
                 };
 
                 beforeEach(function (done) {
-                    setFixtures('
-
-');
+                    fixtures.set('');
 
                     i18n.init($.extend(opts, {
                         resStore: resStore,
