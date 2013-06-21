@@ -262,10 +262,10 @@ interface DatePickerObject extends PickerObject {
     /** Returns the item object that sets the current view. */
     get(thing: 'view'): DatePickerItemObject;
 
-    /** Returns the item object that limits the picker�s lower range. */
+    /** Returns the item object that limits the picker's lower range. */
     get(thing: 'min'): DatePickerItemObject;
 
-    /** Returns the item object that limits the picker�s upper range. */
+    /** Returns the item object that limits the picker's upper range. */
     get(thing: 'max'): DatePickerItemObject;
 
     /** Returns a boolean value of whether the picker is open or not. */
@@ -310,13 +310,13 @@ interface TimePickerObject extends PickerObject {
     /** Refresh the picker after adding something to the holder. */
     render(): TimePickerObject;
 
-    /** Clear the value in the picker�s input element. */
+    /** Clear the value in the picker's input element. */
     clear(): TimePickerObject;
 
     /** Get the properties, objects, and states that make up the current state of the picker. */
     get(thing: string): any;
 
-    /** Returns the string value of the picker�s input element. */
+    /** Returns the string value of the picker's input element. */
     get(thing?: 'value'): string;
 
     /** Returns the item object that is visually selected. */
@@ -328,10 +328,10 @@ interface TimePickerObject extends PickerObject {
     /** Returns the item object that sets the current view. */
     get(thing: 'view'): TimePickerItemObject;
 
-    /** Returns the item object that limits the picker�s lower range. */
+    /** Returns the item object that limits the picker's lower range. */
     get(thing: 'min'): TimePickerItemObject;
 
-    /** Returns the item object that limits the picker�s upper range. */
+    /** Returns the item object that limits the picker's upper range. */
     get(thing: 'max'): TimePickerItemObject;
 
     /** Returns a boolean value of whether the picker is open or not. */
