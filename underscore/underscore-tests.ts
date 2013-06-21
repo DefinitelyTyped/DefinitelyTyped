@@ -1,6 +1,7 @@
-/// <reference path="underscore.d.ts" />
+import _ = require("underscore")
 
 declare var $;
+declare function alert(any);
 
 _.each([1, 2, 3], (num) => alert(num));
 _.each({ one: 1, two: 2, three: 3 }, (num, key) => alert(num));
@@ -205,7 +206,7 @@ var moe2 = { name: 'moe' };
 moe2 === _.identity(moe);
 
 var genie;
-_(3).times(function(n){ genie.grantWishNumber(n); });
+_(3).times(function (n) { genie.grantWishNumber(n); });
 
 _.random(0, 100);
 
@@ -240,10 +241,8 @@ var template2 = _.template("Hello {{ name }}!");
 template2({ name: "Mustache" });
 _.template("Using 'with': <%= data.answer %>", { answer: 'no' }, { variable: 'data' });
 
-// fix: http://stackoverflow.com/questions/14585324/how-to-use-underscore-lib-from-definitelytyped-with-typescript
-// fix: https://github.com/borisyankov/DefinitelyTyped/issues/225
-declare var _: UnderscoreStatic;
 
-_.countBy([1,2,3], function(item) {
-    return item%2;
+
+_.countBy([1, 2, 3], function (item) {
+    return item % 2;
 });
