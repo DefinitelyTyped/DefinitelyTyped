@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-module JQueryBbq {
+declare module JQueryBbq {
 
     interface JQuery {
         /**
