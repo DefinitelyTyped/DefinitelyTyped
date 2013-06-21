@@ -16,7 +16,6 @@ function test_basic() {
     toastr.options.onclick = function () { }
 }
 
-declare var $;
 function test_fromdemo() {
     var i = -1,
         toastCount = 0,
