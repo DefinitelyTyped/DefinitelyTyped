@@ -123,6 +123,19 @@ declare module Backbone {
         save(attributes?: any, options?: ModelSaveOptions);
         unset(attribute: string, options?: Silenceable);
         validate(attributes: any, options?: any): any;
+
+        _validate(attrs: any, options: any): boolean;
+
+        // mixins from underscore
+
+        keys(): string[];
+        values(): any[];
+        pairs(): any[];
+        invert(): any;
+        pick(keys: string[]): any;
+        pick(...keys: string[]): any;
+        omit(keys: string[]): any;
+        omit(...keys: string[]): any;
     }
 
     class Collection extends ModelBase {
@@ -157,6 +170,12 @@ declare module Backbone {
         sort(options?: Silenceable);
         unshift(model: Model, options?: AddOptions);
         where(properies: any): Model[];
+
+        _prepareModel(attrs?: any, options?: any): any;
+        _removeReference(model: Model): void;
+        _onModelEvent(event: string, model: Model, collection: Collection, options: any): void;
+
+        // mixins from underscore
 
         all(iterator: (element: Model, index: number) => boolean, context?: any): boolean;
         any(iterator: (element: Model, index: number) => boolean, context?: any): boolean;
