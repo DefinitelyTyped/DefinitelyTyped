@@ -86,7 +86,6 @@ declare module Backbone {
         sync(...arg: any[]): JQueryXHR;
     }
 
-
     class Model extends ModelBase {
 
         static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
@@ -97,7 +96,7 @@ declare module Backbone {
         id: any;
         idAttribute: string;
         validationError: any;
-        urlRoot(): string;
+        urlRoot: any;
 
         constructor (attributes?: any, options?: any);
         initialize(attributes?: any);
@@ -229,16 +228,31 @@ declare module Backbone {
         route(route: string, name: string, callback?: (...parameter: any[]) => void);
         navigate(fragment: string, options?: NavigateOptions);
         navigate(fragment: string, trigger?: boolean);
+
+        _bindRoutes(): void;
+        _routeToRegExp(route: string): RegExp;
+        _extractParameters(route: RegExp, fragment: string): string[];
     }
 
     var history: History;
-    class History {
+
+    class History extends Events {
+
+        handlers: any[];
+        interval: number;
+
         start(options?: HistoryOptions);
-        navigate(fragment: string, options: any);
-        pushSate();
-        getFragment(fragment?: string, forcePushState?: boolean): string;
+
         getHash(window?: Window): string;
+        getFragment(fragment?: string, forcePushState?: boolean): string;
+        stop(): void;
+        route(route: string, callback: (...args: any[]) => void );
+        checkUrl(e?: any): void;
+        loadUrl(fragmentOverride: string): boolean;
+        navigate(fragment: string, options?: any);
         started: boolean;
+
+        _updateHash(location: Location, fragment: string, replace: bool);
     }
 
     interface ViewOptions {
@@ -294,3 +308,4 @@ declare module Backbone {
 
     function setDomLibrary(jQueryNew);
 }
+
