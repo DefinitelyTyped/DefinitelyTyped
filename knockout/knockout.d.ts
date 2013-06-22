@@ -62,7 +62,7 @@ interface KnockoutComputedStatic {
     fn: KnockoutComputedFunctions;
 
     <T>(): KnockoutComputed<T>;
-    <T>(func: () => T, context?: any): KnockoutComputed<T>;
+    <T>(func: () => T, context?: any, options?: any): KnockoutComputed<T>;
     <T>(def: KnockoutComputedDefine<T>): KnockoutComputed<T>;
     (options?: any): KnockoutComputed<any>;
 }
