@@ -66,12 +66,6 @@ declare module Backbone {
         reset?: boolean;
     }
 
-    interface on { (eventName: string, callback: (...args: any[]) => void, context?: any): any; }
-    interface off { (eventName?: string, callback?: (...args: any[]) => void, context?: any): any; }
-    interface trigger { (eventName: string, ...args: any[]): any; }
-    interface bind { (eventName: string, callback: (...args: any[]) => void, context?: any): any; }
-    interface unbind { (eventName?: string, callback?: (...args: any[]) => void, context?: any): any; }
-    
     class Events {
         on(eventName: string, callback: (...args:any[]) => void, context?: any): any;
         off(eventName?: string, callback?: (...args:any[]) => void, context?: any): any;
@@ -281,7 +275,6 @@ declare module Backbone {
         render(): View;
         remove(): View;
         make(tagName, attributes?, content?);
-        //delegateEvents: any;
         delegateEvents(events?: any): any;
         undelegateEvents();
     }
