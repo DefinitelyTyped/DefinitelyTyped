@@ -18,11 +18,11 @@ declare module "durandal/system" {
     /**
       * Call this function to enable or disable Durandal's debug mode. Calling it with no parameters will return true if the framework is currently in debug mode, false otherwise.
       */
-    export var debug: (debug?: bool) => bool;
+    export var debug: (debug?: boolean) => boolean;
     /**
       * Checks if the obj is an array
       */
-    export var isArray: (obj: any) => bool;
+    export var isArray: (obj: any) => boolean;
     /**
       * Logs data to the console. Pass any number of parameters to be logged. Log output is not processed if the framework is not running in debug mode.
       */
@@ -91,7 +91,7 @@ declare module "durandal/composition" {
     /**
       * sets activate: true on every compose binding
       */
-    export var activateDuringComposition: bool;
+    export var activateDuringComposition: boolean;
     /**
       * changes the convention for finding where transitions are located
       */
@@ -161,7 +161,7 @@ declare module "durandal/modalDialog" {
     /**
       * This is a helper function which will tell you if any modals are currently open.
       */
-    export var isModalOpen: () => bool;
+    export var isModalOpen: () => boolean;
     /**
       * You may wish to customize modal displays or add additional contexts in order to display modals in different ways. To alter the default context, you would acquire it by calling getContext() and then alter it's pipeline. If you don't provide a value for name it returns the default context.
       */
@@ -192,7 +192,7 @@ declare module "durandal/viewEngine" {
     /**
       * Returns true if the potential string is a url for a view, according to the view engine.
       */
-    export var isViewUrl: (url: string) => bool;
+    export var isViewUrl: (url: string) => boolean;
     /**
       * Converts a view url into a view id.
       */
@@ -267,15 +267,15 @@ interface IViewModelDefaults {
     /**
       * When the activator attempts to activate an item as described below, it will only activate the new item, by default, if it is a different instance than the current. Overwrite this function to change that behavior.
       */
-    areSameItem(currentItem, newItem, activationData): bool;
+    areSameItem(currentItem, newItem, activationData): boolean;
     /**
       * default is true
       */
-    closeOnDeactivate: bool;
+    closeOnDeactivate: boolean;
     /**
       * Interprets values returned from guard methods like canActivate and canDeactivate by transforming them into bools. The default implementation translates string values "Yes" and "Ok" as true...and all other string values as false. Non string values evaluate according to the truthy/falsey values of JavaScript. Replace this function with your own to expand or set up different values. This transformation is used by the activator internally and allows it to work smoothly in the common scenario where a deactivated item needs to show a message box to prompt the user before closing. Since the message box returns a promise that resolves to the button option the user selected, it can be automatically processed as part of the activator's guard check.
       */
-    interpretResponse(value: any): bool;
+    interpretResponse(value: any): boolean;
     /**
       * called before activating a module
       */
@@ -298,7 +298,7 @@ interface IDurandalViewModelActiveItem {
     /**
       * This observable is set internally by the activator during the activation process. It can be used to determine if an activation is currently happening.
       */
-    isActivating(val?: bool): bool;
+    isActivating(val?: boolean): boolean;
     /**
       * Pass a specific item as well as an indication of whether it should be closed, and this function will tell you the answer.
       */
@@ -360,11 +360,11 @@ declare module "durandal/plugins/router" {
         /** used to set the document title */
         caption: string;
         /** determines whether or not to include it in the router's visibleRoutes array for easy navigation UI binding */
-        visible: bool;
+        visible: boolean;
         settings: Object;
         hash: string;
         /** only present on visible routes to track if they are active in the nav */
-        isActive?: KnockoutComputed;
+        isActive?: KnockoutComputed<boolean>;
     }
     /**
       * Parameters to the map function. e only required parameter is url the rest can be derived. The derivation 
@@ -383,25 +383,25 @@ declare module "durandal/plugins/router" {
         /** used to set the document title */
         caption?: string;
         /** determines whether or not to include it in the router's visibleRoutes array for easy navigation UI binding */
-        visible?: bool;
+        visible?: boolean;
         settings?: Object;
     }
     /**
       * observable that is called when the router is ready
       */
-    export var ready: KnockoutObservableBool;
+    export var ready: KnockoutObservable<boolean>;
     /**
       * An observable array containing all route info objects.
       */
-    export var allRoutes: KnockoutObservableArray;
+    export var allRoutes: KnockoutObservableArray<IRouteInfo>;
     /**
       * An observable array containing route info objects configured with visible:true (or by calling the mapNav function).
       */
-    export var visibleRoutes: KnockoutObservableArray;
+    export var visibleRoutes: KnockoutObservableArray<IRouteInfo>;
     /**
       * An observable boolean which is true while navigation is in process; false otherwise.
       */
-    export var isNavigating: KnockoutObservableBool;
+    export var isNavigating: KnockoutObservable<boolean>;
     /**
       * An observable whose value is the currently active item/module/page.
       */
@@ -409,7 +409,7 @@ declare module "durandal/plugins/router" {
     /**
       * An observable whose value is the currently active route.
       */
-    export var activeRoute: KnockoutObservableAny;
+    export var activeRoute: KnockoutObservable<IRouteInfo>;
     /**
       * called after an a new module is composed
       */
@@ -467,7 +467,7 @@ declare module "durandal/plugins/router" {
       */
     export var mapRoute: {
         (route: IRouteInfoParameters): IRouteInfo;
-        (url: string, moduleId?: string, name?: string, visible?: bool): IRouteInfo;
+        (url: string, moduleId?: string, name?: string, visible?: boolean): IRouteInfo;
     }
     /**
       * This function takes an array of routeInfo objects or a single routeInfo object and uses it to configure the router. The finalized routeInfo (or array of infos) is returned.
