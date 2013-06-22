@@ -310,6 +310,8 @@ declare module Backbone {
         make(tagName, attributes?, content?);
         delegateEvents(events?: any): any;
         undelegateEvents();
+
+        _ensureElement() : void;
     }
 
     // SYNC
