@@ -67,11 +67,11 @@ declare module Backbone {
     }
 
     class Events {
-        on(eventName: string, callback: (...args:any[]) => void, context?: any): any;
-        off(eventName?: string, callback?: (...args:any[]) => void, context?: any): any;
+        on(eventName: string, callback: (...args: any[]) => void , context?: any): any;
+        off(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
         trigger(eventName: string, ...args: any[]): any;
-        bind(eventName: string, callback: (...args:any[]) => void, context?: any): any;
-        unbind(eventName?: string, callback?: (...args:any[]) => void, context?: any): any;
+        bind(eventName: string, callback: (...args: any[]) => void , context?: any): any;
+        unbind(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
 
         once(events: string, callback: (...args: any[]) => void , context?: any): any;
         listenTo(object: any, events: string, callback: (...args: any[]) => void ): any;
@@ -98,7 +98,7 @@ declare module Backbone {
         validationError: any;
         urlRoot: any;
 
-        constructor (attributes?: any, options?: any);
+        constructor(attributes?: any, options?: any);
         initialize(attributes?: any);
 
         fetch(options?: ModelFetchOptions): JQueryXHR;
@@ -147,7 +147,7 @@ declare module Backbone {
         collection: Model;
         length: number;
 
-        constructor (models?: any, options?: any);
+        constructor(models?: any, options?: any);
 
         fetch(options?: CollectionFetchOptions): JQueryXHR;
 
@@ -189,7 +189,7 @@ declare module Backbone {
         difference(...model: Model[]): Model[];
         drop(): Model;
         drop(n: number): Model[];
-        each(iterator: (element: Model, index: number, list?: any) => void, context?: any);
+        each(iterator: (element: Model, index: number, list?: any) => void , context?: any);
         every(iterator: (element: Model, index: number) => boolean, context?: any): boolean;
         filter(iterator: (element: Model, index: number) => boolean, context?: any): Model[];
         find(iterator: (element: Model, index: number) => boolean, context?: any): Model;
@@ -197,7 +197,7 @@ declare module Backbone {
         first(n: number): Model[];
         flatten(shallow?: boolean): Model[];
         foldl(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any;
-        forEach(iterator: (element: Model, index: number, list?: any) => void, context?: any);
+        forEach(iterator: (element: Model, index: number, list?: any) => void , context?: any);
         include(value: any): boolean;
         indexOf(element: Model, isSorted?: boolean): number;
         initial(): Model;
@@ -242,9 +242,9 @@ declare module Backbone {
 
         routes: any;
 
-        constructor (options?: RouterOptions);
-        initialize (options?: RouterOptions);
-        route(route: string, name: string, callback?: (...parameter: any[]) => void);
+        constructor(options?: RouterOptions);
+        initialize(options?: RouterOptions);
+        route(route: string, name: string, callback?: (...parameter: any[]) => void );
         navigate(fragment: string, options?: NavigateOptions);
         navigate(fragment: string, trigger?: boolean);
 
@@ -288,7 +288,7 @@ declare module Backbone {
 
         static extend(properties: any, classProperties?: any): any;  // do not use, prefer TypeScript's extend functionality
 
-        constructor (options?: ViewOptions);
+        constructor(options?: ViewOptions);
 
         $(selector: string): JQuery;
         model: Model;
@@ -296,7 +296,7 @@ declare module Backbone {
         make(tagName: string, attrs?, opts?): View;
         setElement(element: HTMLElement, delegate?: boolean);
         id: string;
-		cid: string;
+        cid: string;
         className: string;
         tagName: string;
         events: any;
@@ -312,19 +312,19 @@ declare module Backbone {
         delegateEvents(events?: any): any;
         undelegateEvents();
 
-        _ensureElement() : void;
+        _ensureElement(): void;
     }
 
     // SYNC
     function sync(method, model, options?: JQueryAjaxSettings);
-    var  emulateHTTP: boolean;
-    var  emulateJSONBackbone: boolean;
+    var emulateHTTP: boolean;
+    var emulateJSONBackbone: boolean;
 
     // Utility
 
     // 0.9 cannot return modules anymore, and "typeof <Module>" is not compiling for some reason
     // returning "any" until this is fixed
-    
+
     //function noConflict(): typeof Backbone;
     function noConflict(): any;
 
