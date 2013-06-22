@@ -296,6 +296,7 @@ declare module Backbone {
         make(tagName: string, attrs?, opts?): View;
         setElement(element: HTMLElement, delegate?: boolean);
         id: string;
+		cid: string;
         className: string;
         tagName: string;
         events: any;
