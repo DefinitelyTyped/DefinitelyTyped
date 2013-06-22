@@ -266,7 +266,6 @@ declare module Backbone {
         $(selector: string): JQuery;
         model: Model;
         collection: Collection;
-        template: (data?: any) => string;
         make(tagName: string, attrs?, opts?): View;
         setElement(element: HTMLElement, delegate?: boolean);
         id: string;
