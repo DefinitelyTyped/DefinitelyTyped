@@ -1,6 +1,7 @@
-// Type definitions for Backbone 0.9.10
+// Type definitions for Backbone 1.0.0
 // Project: http://backbonejs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Natan Vivo <https://github.com/nvivo/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -8,61 +9,61 @@
 
 declare module Backbone {
 
-    export interface AddOptions extends Silenceable {
+    interface AddOptions extends Silenceable {
         at: number;
     }
 
-    export interface HistoryOptions extends Silenceable {
-        pushState?: bool;
+    interface HistoryOptions extends Silenceable {
+        pushState?: boolean;
         root?: string;
     }
 
-    export interface NavigateOptions {
-        trigger: bool;
+    interface NavigateOptions {
+        trigger: boolean;
     }
 
-    export interface RouterOptions {
+    interface RouterOptions {
         routes: any;
     }
 
-    export interface Silenceable {
-        silent?: bool;
+    interface Silenceable {
+        silent?: boolean;
     }
 
     interface Validable {
-        validate?: bool;
+        validate?: boolean;
     }
 
     interface Waitable {
-        wait?: bool;
+        wait?: boolean;
     }
 
     interface Parseable {
         parse?: any;
     }
 
-    export interface PersistenceOptions {
+    interface PersistenceOptions {
         url?: string;
         beforeSend?: (jqxhr: JQueryXHR) => void;
         success?: (modelOrCollection?: any, response?: any, options?: any) => void;
         error?: (modelOrCollection?: any, jqxhr?: JQueryXHR, options?: any) => void;
     }
 
-    export interface ModelSetOptions extends Silenceable extends Validable {
+    interface ModelSetOptions extends Silenceable, Validable {
     }
 
-    export interface ModelFetchOptions extends PersistenceOptions extends ModelSetOptions extends Parseable {
+    interface ModelFetchOptions extends PersistenceOptions, ModelSetOptions, Parseable {
     }
 
-    export interface ModelSaveOptions extends Silenceable extends Waitable extends Validable extends Parseable extends PersistenceOptions {
-        patch?: bool;
+    interface ModelSaveOptions extends Silenceable, Waitable, Validable, Parseable, PersistenceOptions {
+        patch?: boolean;
     }
 
-    export interface ModelDestroyOptions extends Waitable extends PersistenceOptions {
+    interface ModelDestroyOptions extends Waitable, PersistenceOptions {
     }
 
-    export interface CollectionFetchOptions extends PersistenceOptions extends Parseable {
-        reset?: bool;
+    interface CollectionFetchOptions extends PersistenceOptions, Parseable {
+        reset?: boolean;
     }
 
     interface on { (eventName: string, callback: (...args: any[]) => void, context?: any): any; }
@@ -71,7 +72,7 @@ declare module Backbone {
     interface bind { (eventName: string, callback: (...args: any[]) => void, context?: any): any; }
     interface unbind { (eventName?: string, callback?: (...args: any[]) => void, context?: any): any; }
     
-    declare class Events {
+    class Events {
         on(eventName: string, callback: (...args:any[]) => void, context?: any): any;
         off(eventName?: string, callback?: (...args:any[]) => void, context?: any): any;
         trigger(eventName: string, ...args: any[]): any;
@@ -84,7 +85,7 @@ declare module Backbone {
         stopListening(object?: any, events?: string, callback?: (...args: any[]) => void ): any;
     }
 
-    export class ModelBase extends Events {
+    class ModelBase extends Events {
         url: any;
         parse(response, options?: any);
         toJSON(options?: any): any;
@@ -92,7 +93,7 @@ declare module Backbone {
     }
 
 
-    export class Model extends ModelBase {
+    class Model extends ModelBase {
 
         static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
@@ -120,10 +121,10 @@ declare module Backbone {
         defaults(): any;
         destroy(options?: ModelDestroyOptions);
         escape(attribute: string);
-        has(attribute: string): bool;
-        hasChanged(attribute?: string): bool;
-        isNew(): bool;
-        isValid(): bool;
+        has(attribute: string): boolean;
+        hasChanged(attribute?: string): boolean;
+        isNew(): boolean;
+        isValid(): boolean;
         previous(attribute: string): any;
         previousAttributes(): any[];
         save(attributes?: any, options?: ModelSaveOptions);
@@ -131,7 +132,7 @@ declare module Backbone {
         validate(attributes: any, options?: any): any;
     }
 
-    export class Collection extends ModelBase {
+    class Collection extends ModelBase {
 
         static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
@@ -164,34 +165,34 @@ declare module Backbone {
         unshift(model: Model, options?: AddOptions);
         where(properies: any): Model[];
 
-        all(iterator: (element: Model, index: number) => bool, context?: any): bool;
-        any(iterator: (element: Model, index: number) => bool, context?: any): bool;
+        all(iterator: (element: Model, index: number) => boolean, context?: any): boolean;
+        any(iterator: (element: Model, index: number) => boolean, context?: any): boolean;
         collect(iterator: (element: Model, index: number, context?: any) => any[], context?: any): any[];
         chain(): any;
         compact(): Model[];
-        contains(value: any): bool;
+        contains(value: any): boolean;
         countBy(iterator: (element: Model, index: number) => any): any[];
         countBy(attribute: string): any[];
-        detect(iterator: (item: any) => bool, context?: any): any; // ???
+        detect(iterator: (item: any) => boolean, context?: any): any; // ???
         difference(...model: Model[]): Model[];
         drop(): Model;
         drop(n: number): Model[];
         each(iterator: (element: Model, index: number, list?: any) => void, context?: any);
-        every(iterator: (element: Model, index: number) => bool, context?: any): bool;
-        filter(iterator: (element: Model, index: number) => bool, context?: any): Model[];
-        find(iterator: (element: Model, index: number) => bool, context?: any): Model;
+        every(iterator: (element: Model, index: number) => boolean, context?: any): boolean;
+        filter(iterator: (element: Model, index: number) => boolean, context?: any): Model[];
+        find(iterator: (element: Model, index: number) => boolean, context?: any): Model;
         first(): Model;
         first(n: number): Model[];
-        flatten(shallow?: bool): Model[];
+        flatten(shallow?: boolean): Model[];
         foldl(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any;
         forEach(iterator: (element: Model, index: number, list?: any) => void, context?: any);
-        include(value: any): bool;
-        indexOf(element: Model, isSorted?: bool): number;
+        include(value: any): boolean;
+        indexOf(element: Model, isSorted?: boolean): number;
         initial(): Model;
         initial(n: number): Model[];
         inject(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any;
         intersection(...model: Model[]): Model[];
-        isEmpty(object: any): bool;
+        isEmpty(object: any): boolean;
         invoke(methodName: string, arguments?: any[]);
         last(): Model;
         last(n: number): Model[];
@@ -204,26 +205,26 @@ declare module Backbone {
         select(iterator: any, context?: any): any[];
         size(): number;
         shuffle(): any[];
-        some(iterator: (element: Model, index: number) => bool, context?: any): bool;
+        some(iterator: (element: Model, index: number) => boolean, context?: any): boolean;
         sortBy(iterator: (element: Model, index: number) => number, context?: any): Model[];
         sortBy(attribute: string, context?: any): Model[];
         sortedIndex(element: Model, iterator?: (element: Model, index: number) => number): number;
         range(stop: number, step?: number);
         range(start: number, stop: number, step?: number);
         reduceRight(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any[];
-        reject(iterator: (element: Model, index: number) => bool, context?: any): Model[];
+        reject(iterator: (element: Model, index: number) => boolean, context?: any): Model[];
         rest(): Model;
         rest(n: number): Model[];
         tail(): Model;
         tail(n: number): Model[];
         toArray(): any[];
         union(...model: Model[]): Model[];
-        uniq(isSorted?: bool, iterator?: (element: Model, index: number) => bool): Model[];
+        uniq(isSorted?: boolean, iterator?: (element: Model, index: number) => boolean): Model[];
         without(...values: any[]): Model[];
         zip(...model: Model[]): Model[];
     }
 
-    export class Router extends Events {
+    class Router extends Events {
 
         static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
@@ -233,20 +234,20 @@ declare module Backbone {
         initialize (options?: RouterOptions);
         route(route: string, name: string, callback?: (...parameter: any[]) => void);
         navigate(fragment: string, options?: NavigateOptions);
-        navigate(fragment: string, trigger?: bool);
+        navigate(fragment: string, trigger?: boolean);
     }
 
-    export var history: History;
-    export class History {
+    var history: History;
+    class History {
         start(options?: HistoryOptions);
         navigate(fragment: string, options: any);
         pushSate();
-        getFragment(fragment?: string, forcePushState?: bool): string;
+        getFragment(fragment?: string, forcePushState?: boolean): string;
         getHash(window?: Window): string;
-        started: bool;
+        started: boolean;
     }
 
-    export interface ViewOptions {
+    interface ViewOptions {
         model?: Backbone.Model;
         collection?: Backbone.Collection;
         el?: any;
@@ -256,7 +257,7 @@ declare module Backbone {
         attributes?: any[];
     }
 
-    export class View extends Events {
+    class View extends Events {
 
         static extend(properties: any, classProperties?: any): any;  // do not use, prefer TypeScript's extend functionality
 
@@ -267,7 +268,7 @@ declare module Backbone {
         collection: Collection;
         template: (data?: any) => string;
         make(tagName: string, attrs?, opts?): View;
-        setElement(element: HTMLElement, delegate?: bool);
+        setElement(element: HTMLElement, delegate?: boolean);
         id: string;
         className: string;
         tagName: string;
@@ -288,10 +289,16 @@ declare module Backbone {
 
     // SYNC
     function sync(method, model, options?: JQueryAjaxSettings);
-    var  emulateHTTP: bool;
-    var  emulateJSONBackbone: bool;
+    var  emulateHTTP: boolean;
+    var  emulateJSONBackbone: boolean;
 
     // Utility
-    function noConflict(): Backbone;
+
+    // 0.9 cannot return modules anymore, and "typeof <Module>" is not compiling for some reason
+    // returning "any" until this is fixed
+    
+    //function noConflict(): typeof Backbone;
+    function noConflict(): any;
+
     function setDomLibrary(jQueryNew);
 }
