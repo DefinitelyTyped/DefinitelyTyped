@@ -1,64 +1,75 @@
 // Type definitions for Q
 // Project: https://github.com/kriskowal/q
-// Definitions by: Barrie Nemetchek
+// Definitions by: Barrie Nemetchek, Andrew Gaspar
 // Definitions: https://github.com/borisyankov/DefinitelyTyped  
 
-interface Qdeferred {
-    promise: Qpromise;
-    resolve(value: any): any;
-    reject(reason: any);
-    notify(value: any);
-    makeNodeResolver(): () => void;
+declare function Q<T>(value): Q.Promise<T>;
+
+declare module Q {
+    interface Deferred<T> {
+        promise: Promise<T>;
+        resolve(value: T): any;
+        reject(reason: any);
+        notify(value: any);
+        makeNodeResolver(): (reason, value: T) => void;
+    }
+
+    interface Promise<T> {
+        fail(errorCallback: Function): Promise<any>;
+        fin(finallyCallback: Function): Promise<T>;
+        finally(finallyCallback: Function): Promise<T>;
+        then(onFulfilled?: (value: T) => any, onRejected?: (reason) => any, onProgress?: Function): Promise<any>;
+        spread(onFulfilled: Function, onRejected?: Function): Promise<any>;
+        catch(onRejected: Function): Promise<any>;
+        progress(onProgress: Function): Promise<any>;
+        done(onFulfilled?: Function, onRejected?: Function, onProgress?: Function): void;
+        get(propertyName: String): Promise<any>;
+        set(propertyName: String, value: any): Promise<any>;
+        delete(propertyName: String): Promise<any>;
+        post(methodName: String, args: any[]): Promise<any>;
+        invoke(methodName: String, ...args: any[]): Promise<any>;
+        keys(): Promise<string[]>;
+        fapply(args: any[]): Promise<any>;
+        fcall(method: Function, ...args: any[]): Promise<any>;
+        timeout(ms: number, message?): Promise<T>;
+        delay(ms: number): Promise<T>;
+        isFulfilled(): boolean;
+        isRejected(): boolean;
+        isPending(): boolean;
+        valueOf(): any;
+    }
+
+    export function when(value: any, onFulfilled: Function, onRejected?: Function): Promise<any>;
+    //export function try(method: Function, ...args: any[]): Promise<any>; // <- This is broken currently - not sure how to fix.
+    export function fbind(method: Function, ...args: any[]): Promise<any>;
+    export function fcall(method: Function, ...args: any[]): Promise<any>;
+    export function nfbind(nodeFunction: Function): (...args: any[]) => Promise<any>;
+    export function nfcall(nodeFunction: Function, ...args: any[]): Promise<any>;
+    export function ninvoke(nodeModule: any, functionName: string, ...args: any[]): Promise<any>;
+    export function all(promises: Promise<any>[]): Promise<any>;
+    export function allResolved(promises: Promise<any>[]): Promise<any>;
+    export function spread(onFulfilled: Function, onRejected: Function): Promise<any>;
+    export function timeout<T>(promise: Promise<T>, ms: number, message?): Promise<T>;
+    export function delay<T>(promise: Promise<T>, ms: number): Promise<T>;
+    export function delay<T>(value: T, ms: number): Promise<T>;
+    export function isFulfilled(promise: Promise<any>): boolean;
+    export function isRejected(promise: Promise<any>): boolean;
+    export function isPending(promise: Promise<any>): boolean;
+    export function valueOf<T>(promise: Promise<T>): T;
+    export function defer<T>(): Deferred<T>;
+    export function reject(reason?): Promise<any>;
+    export function promise<T>(factory: { resolve: Function; reject: Function; notify: Function; }): Promise<T>;
+    export function promised<T>(callback: (...any) => T): (...any) => Promise<T>;
+    export function isPromise(object): boolean;
+    export function isPromiseAlike(object): boolean;
+    export function isPending(object): boolean;
+    export function async<T>(generatorFunction: any): (...args) => Promise<T>;
+    export function nextTick(callback: Function): void;
+    export var oneerror: () => void;
+    export var longStackSupport: boolean;
+    export function resolve<T>(object): Promise<T>;
 }
 
-interface Qpromise {
-    fail(errorCallback: Function): Qpromise;
-    fin(finallyCallback: Function): Qpromise;
-    then(onFulfilled?: Function, onRejected?: Function, onProgress?: Function): Qpromise;
-    spread(onFulfilled: Function, onRejected?: Function): Qpromise;
-    catch(onRejected: Function): Qpromise;
-    progress(onProgress: Function): Qpromise;
-    done(onFulfilled?: Function, onRejected?: Function, onProgress?: Function): Qpromise;
-    get (propertyName: String): Qpromise;
-    set (propertyName: String, value: any): Qpromise;
-    delete (propertyName: String): Qpromise;
-    post(methodName: String, args: any[]): Qpromise;
-    invoke(methodName: String, ...args: any[]): Qpromise;
-    keys(): Qpromise;
-    fapply(args: any[]): Qpromise;
-    fcall(method: Function, ...args: any[]): Qpromise;
-    timeout(ms: number): Qpromise;
-    delay(ms: number): Qpromise;
-    isFulfilled(): bool;
-    isRejected(): bool;
-    isPending(): bool;
-    valueOf(): any;
+declare module "q" {
+    export = Q;
 }
-
-interface QStatic {
-    when(value: any, onFulfilled?: Function, onRejected?: Function): Qpromise;
-    try(method: Function, ...args: any[]): Qpromise;
-    fbind(method: Function, ...args: any[]): Qpromise;
-    fcall(method: Function, ...args: any[]): Qpromise;
-    all(promises: Qpromise[]): Qpromise;
-    allResolved(promises: Qpromise[]): Qpromise;
-    resolve(object:any):Qpromise;
-    spread(onFulfilled: Function, onRejected: Function): Qpromise;
-    timeout(ms: number): Qpromise;
-    delay(ms: number): Qpromise;
-    delay(value: any, ms: number): Qpromise;
-    isFulfilled(): bool;
-    isRejected(): bool;
-    isPending(): bool;
-    valueOf(): any;
-    defer(): Qdeferred;
-    (value: any): Qpromise;
-    reject(): Qpromise;
-    promise(factory: { resolve: Function; reject: Function; notify: Function; }): Qpromise;
-    isPromise(value: any): bool;
-    async(generatorFunction: any): Qdeferred;
-    nextTick(callback: Function);
-    oneerror: any;
-    longStackJumpLimit: number;
-}
-declare var Q: QStatic;

@@ -6,7 +6,7 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-module jquery.flot {
+declare module jquery.flot {
     interface plotOptions {
         colors?: any[];
         series?: seriesOptions;

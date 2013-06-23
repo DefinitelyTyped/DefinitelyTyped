@@ -13,7 +13,7 @@ interface KnockoutMappingCreateOptions {
 interface KnockoutMappingUpdateOptions {
     data: any;
     parent: any;
-    observable: KnockoutObservableAny;
+    observable: KnockoutObservable<any>;
 }
 
 interface KnockoutMappingOptions {

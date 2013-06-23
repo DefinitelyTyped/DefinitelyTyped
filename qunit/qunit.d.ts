@@ -134,6 +134,7 @@ interface Config {
 	current: Object;
 	reorder: bool;
 	requireExpects: bool;
+    testTimeout: number;
 	urlConfig: Array;
 	done: any;
 }

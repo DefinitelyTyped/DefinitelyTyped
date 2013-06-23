@@ -330,7 +330,7 @@ suite('assert', function () {
 
 	test('isArray', function () {
 		assert.isArray([]);
-		assert.isArray(new Array);
+		assert.isArray(new Array<any>());
 
 		err(function () {
 			assert.isArray({});
@@ -345,7 +345,7 @@ suite('assert', function () {
 		}, "expected [] not to be an array");
 
 		err(function () {
-			assert.isNotArray(new Array);
+			assert.isNotArray(new Array<any>());
 		}, "expected [] not to be an array");
 	});
 
