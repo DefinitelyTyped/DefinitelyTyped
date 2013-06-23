@@ -142,7 +142,7 @@ module HttpAndRegularPromiseTests {
 // Test for AngularJS Syntac
 
 module My.Namespace {
-
+    export var x; // need to export something for module to kick in    
 }
 
 // IModule Registering Test
@@ -150,7 +150,7 @@ var mod = angular.module('tests',[]);
 mod.controller('name', function($scope : ng.IScope) {})
 mod.controller('name', ['$scope', <any>function($scope : ng.IScope) {}])
 mod.controller(My.Namespace);
-mod.directive('name', function($scope : ng.IScope) {})
+mod.directive('name', <any>function ($scope: ng.IScope) {})
 mod.directive('name', ['$scope', <any>function($scope : ng.IScope) {}])
 mod.directive(My.Namespace);
 mod.factory('name', function($scope : ng.IScope) {})

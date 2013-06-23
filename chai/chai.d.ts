@@ -33,9 +33,9 @@ declare module chai {
         (expected: RegExp, message?: string);
     }
 
-    interface TypeComparison { 
+    interface TypeComparison {
         (type: string, message?: string): bool;
-         instanceof(type: Object, ): bool;
+        instanceof(type: Object): bool;
     }
 
     interface NumericComparison {
@@ -116,7 +116,6 @@ declare module chai {
         to: To;
     }
 
-    var expect : {
-        (target: any): ExpectMatchers;
-    }
+    function expect(target: any): chai.ExpectMatchers;
 }
+

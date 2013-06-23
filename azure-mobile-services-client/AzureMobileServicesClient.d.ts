@@ -3,7 +3,7 @@
 // Definitions by: Morosinotto Daniele <https://github.com/dmorosinotto/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-module Microsoft.WindowsAzure {
+declare module Microsoft.WindowsAzure {
     
     // MobileServiceClient object based on Microsoft Azure documentation: http://msdn.microsoft.com/en-us/library/windowsazure/jj554219.aspx
     interface MobileServiceClient {

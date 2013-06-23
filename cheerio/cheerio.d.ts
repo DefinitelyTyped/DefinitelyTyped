@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-declare interface Cheerio {
+interface Cheerio {
     
     addClass(classNames: string): Cheerio;
     hasClass(className: string): bool;
@@ -65,13 +65,13 @@ declare interface Cheerio {
 
 }
 
-declare interface CheerioOptionsInterface {
+interface CheerioOptionsInterface {
     ignoreWhitespace?: bool;
     xmlMode?: bool;
     lowerCaseTags?: bool;
 }
 
-declare interface CheerioStatic {
+interface CheerioStatic {
     (...selectors: any[]): Cheerio;
     (): Cheerio;
 }
