@@ -261,6 +261,7 @@ declare module breeze {
         setDeleted(): void;
         setModified(): void;
         setUnchanged(): void;
+        setDetached(): boolean;
         validateEntity(): boolean;
 
         validateProperty(property: string, context?: any): boolean;
@@ -355,7 +356,7 @@ declare module breeze {
         hasChanges(entityTypes: EntityType[]): boolean;
 
         static importEntities(exportedString: string, config?: { mergeStrategy?: MergeStrategySymbol; }): EntityManager;
-        importEntities(exportedString: string, config?: { mergeStrategy?: MergeStrategySymbol; }): EntityManager;
+        importEntities(exportedString: any, config?: { mergeStrategy?: MergeStrategySymbol; }): EntityManager;
 
         rejectChanges(): Entity[];
         saveChanges(entities?: Entity[], saveOptions?: SaveOptions, callback?: SaveChangesSuccessCallback, errorCallback?: SaveChangesErrorCallback): Promise;
