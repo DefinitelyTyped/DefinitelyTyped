@@ -28,7 +28,7 @@ interface ScrollValuesWithZoom extends ScrollValues {
     zoom: number;
 }
 
-class Scroller {
+declare class Scroller {
     constructor (callback: (left: number, top: number, zoom: number) => void , options: ScrollerOptions);
 
     setDimensions(clientWidth: number, clientHeight: number, contentWidth: number, contentHeight: number): void;
