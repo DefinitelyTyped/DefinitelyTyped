@@ -93,7 +93,7 @@ interface DelayNode extends AudioNode {
 
     delayTime: AudioParam;
 
-};
+}
 
 interface AudioBuffer {
 
