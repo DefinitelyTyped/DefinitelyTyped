@@ -57,7 +57,7 @@ interface iScrollOptions {
     onZoomEnd?: iScrollEvent;
 }
 
-class iScroll {
+declare class iScroll {
 
     constructor (element: string);
     constructor (element: string, options: iScrollOptions);
