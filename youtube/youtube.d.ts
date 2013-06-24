@@ -4,7 +4,7 @@
 // Updated by: Ian Obermiller <http://ianobermiller.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-module YT {
+declare module YT {
     interface EventArgs {
         target: Player;
         data: any;
@@ -148,5 +148,5 @@ module YT {
         ENDED,
         PAUSED,
         PLAYING
-    };
+    }
 }
