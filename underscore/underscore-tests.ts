@@ -215,7 +215,6 @@ _.mixin({
         return string.charAt(0).toUpperCase() + string.substring(1).toLowerCase();
     }
 });
-_("fabio").capitalize();
 
 _.uniqueId('contact_');
 
