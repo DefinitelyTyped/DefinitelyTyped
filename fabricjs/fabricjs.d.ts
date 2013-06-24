@@ -149,6 +149,7 @@ declare module fabric {
         ry: number;
 
         complexity(): number;
+        initialize(options: any);
         initialize(points: number[], options: any): IRect;
         toObject(propertiesToInclude: any[]): any;
         toSVG(): string;
@@ -172,6 +173,7 @@ declare module fabric {
         type: string;
         useNative: Boolean;
 
+        initialize(options: any);
         initialize(text: string, options: any): IText;
         toString(): string;
         render(ctx: CanvasRenderingContext2D, noTransform: bool);
@@ -387,15 +389,16 @@ declare module fabric {
         destroy(): IGroup;
         getObjects(): IObject[];
         hasMoved(): bool;
+        initialize(options: any);
         initialize(objects, options): any;
         item(index): IObject;
-        remove(object): IGroup;
+        remove(object?): IGroup;
         removeWithUpdate(object): IGroup;
         render(ctx, noTransform): void;
         saveCoords(): IGroup;
         setObjectsCoords(): IGroup;
         size(): number;
-        toGrayscale(): void;
+        toGrayscale(): IGroup;
         toObject(propertiesToInclude: any[]): any;
         tostring(): string;
         toSVG(): string;
@@ -409,6 +412,7 @@ declare module fabric {
         y2: number;
 
         complexity(): number;
+        initialize(options: any);
         initialize(points: number[], options: any): ILine;
         toObject(propertiesToInclude: any[]): any;
         toSVG(): string;
@@ -424,11 +428,13 @@ declare module fabric {
         filters: any;
 
         applyFilters(callback);
+        clone(callback?, propertiesToInclude?): IObject;
         clone(propertiesToInclude, callback);
         complexity(): number;
         getElement(): HTMLImageElement;
         getOriginalSize(): { width: number; height: number; };
         getSrc(): string;
+        initialize(options: any);
         initialize(element: string, options: any);
         initialize(element: HTMLImageElement, options: any);
         render(ctx: CanvasRenderingContext2D, noTransform: bool);
@@ -453,6 +459,7 @@ declare module fabric {
 
     export interface IPath extends IObject {
         complexity(): number;
+        initialize(options: any);
         initialize(path, options);
         render(ctx: CanvasRenderingContext2D, noTransform: bool);
         toDatalessObject(propertiesToInclude): any;
@@ -463,6 +470,7 @@ declare module fabric {
 
     export interface IPolygon extends IObject {
         complexity(): number;
+        initialize(options: any);
         initialize(points, options);
         toObject(propertiesToInclude): any;
         toSVG(): string;
@@ -470,6 +478,7 @@ declare module fabric {
 
     export interface IPolyline extends IObject {
         complexity(): number;
+        initialize(options: any);
         initialize(points, options);
         toObject(propertiesToInclude): any;
         toSVG(): string;
@@ -477,11 +486,12 @@ declare module fabric {
 
     export interface IPathGroup extends IObject {
         complexity(): number;
+        initialize(options: any);
         initialize(paths, options);
         isSameColor(): bool;
         render(ctx: CanvasRenderingContext2D);
         toDatalessObject(propertiesToInclude): any;
-        toGrayscale();
+        toGrayscale(): IPathGroup;
         toObject(propertiesToInclude): any;
         tostring(): string;
         toSVG(): string;
@@ -660,18 +670,18 @@ declare module fabric {
     export interface ITriangleOptions extends IObjectOptions {
     }
 
-    declare var Rect: {
+    var Rect: {
         fromElement(element: SVGElement, options: IRectOptions): IRect;
         fromObject(object): IRect;
         new (options?: IRectOptions): IRect;
         prototype: any;
     }
 
-    declare var Triangle: {
+    var Triangle: {
         new (options?: ITriangleOptions): ITriangle;
     }
 
-    declare var Canvas: {
+    var Canvas: {
         new (element: HTMLCanvasElement, options?: ICanvasOptions): ICanvas;
         new (element: string, options?: ICanvasOptions): ICanvas;
 
@@ -680,7 +690,7 @@ declare module fabric {
         prototype: any;
     }
 
-    declare var StaticCanvas: {
+    var StaticCanvas: {
         new (element: HTMLCanvasElement, options?: ICanvasOptions): ICanvas;
         new (element: string, options?: ICanvasOptions): ICanvas;
 
@@ -689,7 +699,7 @@ declare module fabric {
         prototype: any;
     }
 
-    declare var Circle: {
+    var Circle: {
         ATTRIBUTE_NAMES: string[];
         fromElement(element: SVGElement, options: ICircleOptions): ICircle;
         fromObject(object): ICircle;
@@ -697,11 +707,11 @@ declare module fabric {
         prototype: any;
     }
 
-    declare var Group: {
+    var Group: {
         new (items?: any[], options?: IObjectOptions): IGroup;
     }
 
-    declare var Line: {
+    var Line: {
         ATTRIBUTE_NAMES: string[];
         fromElement(element: SVGElement, options): ILine;
         fromObject(object): ILine;
@@ -709,53 +719,53 @@ declare module fabric {
         new (points: number[], objObjects?: IObjectOptions): ILine;
     }
 
-    declare var Intersection: {
+    var Intersection: {
         intersectLineLine(a1, a2, b1, b2);
         intersectLinePolygon(a1, a2, points);
         intersectPolygonPolygon(points1, points2);
         intersectPolygonRectangle(points, r1, r2);
     }
 
-    declare var Path: {
+    var Path: {
         fromElement(element: SVGElement, options): IPath;
         fromObject(object): IPath;
         new (): IPath;
     }
 
-    declare var PathGroup: {
+    var PathGroup: {
         fromObject(object): IPathGroup;
         new (): IPathGroup;
         prototype: any;
     }
 
-    declare var Point: {
+    var Point: {
         new (x, y): IPoint;
         prototype: any;
     }
 
-    declare var Object: {
+    var Object: {
         prototype: any;
     }
 
-    declare var Polygon: {
+    var Polygon: {
         fromObject(object): IPolygon;
         fromElement(element: SVGElement, options): IPolygon;
         new (): IPolygon;
         prototype: any;
     }
 
-    declare var Polyline: {
+    var Polyline: {
         fromObject(object): IPolyline;
         fromElement(element: SVGElement, options): IPolyline;
         new (): IPolyline;
         prototype: any;
     }
 
-    declare var Text: {
+    var Text: {
         new (text: string, options?: ITextOptions): IText;
     }
 
-    declare var Image: {
+    var Image: {
         fromURL(url: string): IImage;
         fromURL(url: string, callback: (image: IImage) => any): IImage;
         fromURL(url: string, callback: (image: IImage) => any, objObjects: IObjectOptions): IImage;
@@ -809,7 +819,7 @@ declare module fabric {
 
     }
 
-    declare var util: {
+    var util: {
         addClass(element: HTMLElement, className: string);
         addListener(element, eventName: string, handler);
         animate(options: {
@@ -846,5 +856,4 @@ declare module fabric {
         toFixed(number, fractionDigits);
         wrapElement(element: HTMLElement, wrapper, attributes);
     }
-};
-
+}

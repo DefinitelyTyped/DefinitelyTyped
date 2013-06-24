@@ -1,4 +1,4 @@
-﻿///<reference path="..\fabricjs.d.ts" />
+﻿///<reference path="fabricjs.d.ts" />
 
 module fabric {
     export interface ImageWithInfo extends IImage {
@@ -41,7 +41,7 @@ function updateComplexity() {
     }, 100);
 }
 
-document.getElementById('commands').onclick = function (ev) {
+document.getElementById('commands').onclick = function (ev: any) {
     var ev: any = ev || window.event;
 
     if (ev.preventDefault) {
@@ -450,8 +450,8 @@ if (supportsColorpicker()) {
   }, 100);
 
   if (document.location.search.indexOf('guidelines') > -1) {
-    initCenteringGuidelines(canvas);
-    initAligningGuidelines(canvas);
+    //initCenteringGuidelines(canvas);
+    //initAligningGuidelines(canvas);
   }
 
   gradientifyBtn.onclick = function() {
@@ -475,7 +475,7 @@ if (supportsColorpicker()) {
       var activeObject = canvas.getActiveObject();
 
       if (activeObject && activeObject.type === 'text') {
-        this.value = (<fabric.Text>activeObject).text;
+        this.value = (<fabric.IText>activeObject).text;
       }
     };
     textEl.onkeyup = function(e) {
@@ -485,7 +485,7 @@ if (supportsColorpicker()) {
           canvas.discardActiveObject();
         }
         else {
-          (<fabric.Text>activeObject).text = this.value;
+          (<fabric.IText>activeObject).text = this.value;
         }
         canvas.renderAll();
       }
@@ -497,7 +497,7 @@ if (supportsColorpicker()) {
     activeObjectButtons.push(cmdUnderlineBtn);
     cmdUnderlineBtn.disabled = true;
     cmdUnderlineBtn.onclick = function() {
-      var activeObject = <fabric.Text>canvas.getActiveObject();
+      var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.textDecoration = (activeObject.textDecoration == 'underline' ? '' : 'underline');
         this.className = activeObject.textDecoration ? 'selected' : '';
@@ -511,7 +511,7 @@ if (supportsColorpicker()) {
     activeObjectButtons.push(cmdLinethroughBtn);
     cmdLinethroughBtn.disabled = true;
     cmdLinethroughBtn.onclick = function() {
-      var activeObject = <fabric.Text>canvas.getActiveObject();
+      var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.textDecoration = (activeObject.textDecoration == 'line-through' ? '' : 'line-through');
         this.className = activeObject.textDecoration ? 'selected' : '';
@@ -525,7 +525,7 @@ if (supportsColorpicker()) {
     activeObjectButtons.push(cmdOverlineBtn);
     cmdOverlineBtn.disabled = true;
     cmdOverlineBtn.onclick = function() {
-      var activeObject = <fabric.Text>canvas.getActiveObject();
+      var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.textDecoration = (activeObject.textDecoration == 'overline' ? '' : 'overline');
         this.className = activeObject.textDecoration ? 'selected' : '';
@@ -539,7 +539,7 @@ if (supportsColorpicker()) {
     activeObjectButtons.push(cmdBoldBtn);
     cmdBoldBtn.disabled = true;
     cmdBoldBtn.onclick = function() {
-      var activeObject = <fabric.Text>canvas.getActiveObject();
+      var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.fontWeight = (activeObject.fontWeight == 'bold' ? '' : 'bold');
         this.className = activeObject.fontWeight ? 'selected' : '';
@@ -553,7 +553,7 @@ if (supportsColorpicker()) {
     activeObjectButtons.push(cmdItalicBtn);
     cmdItalicBtn.disabled = true;
     cmdItalicBtn.onclick = function() {
-      var activeObject = <fabric.Text>canvas.getActiveObject();
+      var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.fontStyle = (activeObject.fontStyle == 'italic' ? '' : 'italic');
         this.className = activeObject.fontStyle ? 'selected' : '';
@@ -567,7 +567,7 @@ if (supportsColorpicker()) {
     activeObjectButtons.push(cmdShadowBtn);
     cmdShadowBtn.disabled = true;
     cmdShadowBtn.onclick = function() {
-      var activeObject = <fabric.Text>canvas.getActiveObject();
+      var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.textShadow = !activeObject.textShadow ? 'rgba(0,0,0,0.2) 2px 2px 10px' : '';
         this.className = activeObject.textShadow ? 'selected' : '';
@@ -581,7 +581,7 @@ if (supportsColorpicker()) {
     activeObjectButtons.push(textAlignSwitch);
     textAlignSwitch.disabled = true;
     textAlignSwitch.onchange = function() {
-      var activeObject = <fabric.Text>canvas.getActiveObject();
+      var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.textAlign = this.value.toLowerCase();
         canvas.renderAll();
@@ -594,7 +594,7 @@ if (supportsColorpicker()) {
     activeObjectButtons.push(fontFamilySwitch);
     fontFamilySwitch.disabled = true;
     fontFamilySwitch.onchange = function() {
-      var activeObject = <fabric.Text>canvas.getActiveObject();
+      var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
             activeObject.fontFamily = this.value;
             canvas.renderAll();
@@ -605,7 +605,7 @@ if (supportsColorpicker()) {
   var bgColorField = document.getElementById('text-bg-color');
   if (bgColorField) {
     bgColorField.onchange = function() {
-      var activeObject = <fabric.Text>canvas.getActiveObject();
+      var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.backgroundColor = this.value;
         canvas.renderAll();
@@ -616,7 +616,7 @@ if (supportsColorpicker()) {
   var strokeColorField = document.getElementById('text-stroke-color');
   if (strokeColorField) {
     strokeColorField.onchange = function() {
-      var activeObject = <fabric.Text>canvas.getActiveObject();
+      var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.strokeStyle = this.value;
         canvas.renderAll();
@@ -639,7 +639,7 @@ if (supportsColorpicker()) {
       label.appendChild(slider);
       slider.title = "Line height";
       slider.onchange = function(){
-        var activeObject = <fabric.Text>canvas.getActiveObject();
+        var activeObject = <fabric.IText>canvas.getActiveObject();
         if (activeObject && activeObject.type === 'text') {
           activeObject.lineHeight = this.value;
           canvas.renderAll();
@@ -661,7 +661,7 @@ if (supportsColorpicker()) {
     });
   };
 
-  if (typeof Cufon !== 'undefined') {
-    Cufon.fonts.delicious.offsetLeft = 75;
-    Cufon.fonts.delicious.offsetTop = 25;
-  }
+  //if (typeof Cufon !== 'undefined') {
+  //  Cufon.fonts.delicious.offsetLeft = 75;
+  //  Cufon.fonts.delicious.offsetTop = 25;
+  //}
