@@ -480,6 +480,10 @@ declare module "durandal/plugins/router" {
       * After you've configured the router, you need to activate it. This is usually done in your shell. The activate function of the router returns a promise that resolves when the router is ready to start. To use the router, you should add an activate function to your shell and return the result from that. The application startup infrastructure of Durandal will detect your shell's activate function and call it at the appropriate time, waiting for it's promise to resolve. This allows Durandal to properly orchestrate the timing of composition and databinding along with animations and splash screen display.
       */
     export var activate: (defaultRoute: string) => JQueryPromise;
+    /**
+      * Before any route is activated, the guardRoute funtion is called. You can plug into this function to add custom logic to allow, deny or redirect based on the requested route. To allow, return true. To deny, return false. To redirect, return a string with the hash or url. You may also return a promise for any of these values.
+      */
+    export var guardRoute: (routeInfo: IRouteInfo, params: any, instance: any) => any
 }
 
 declare module "durandal/widget" {
