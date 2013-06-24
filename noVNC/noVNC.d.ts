@@ -87,7 +87,7 @@ interface NvRFBDefaults {
 	onFBResize?: (rfb: RFB, width: number, height: number) => void;
 }
 
-class RFB {
+declare class RFB {
 	constructor(defaults);
 	set_local_cursor(cursor): void;
 	get_display(): Display;
