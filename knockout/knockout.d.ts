@@ -79,8 +79,7 @@ interface KnockoutObservableArrayStatic {
 
     fn: KnockoutObservableArrayFunctions<any>;
 
-    <T>(): KnockoutObservableArray<T>;
-    <T>(value: T[]): KnockoutObservableArray<T>;
+    <T>(value?: T[]): KnockoutObservableArray<T>;
 }
 
 interface KnockoutObservableArray<T> extends KnockoutObservableArrayFunctions<T> {
@@ -95,7 +94,6 @@ interface KnockoutObservableStatic {
     fn: KnockoutObservableFunctions;
 
     <T>(value?: T): KnockoutObservable<T>;
-    <T>(): KnockoutObservable<T>;
 }
 
 /** use as method to get/set the value */
