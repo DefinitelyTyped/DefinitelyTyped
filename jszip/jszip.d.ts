@@ -3,7 +3,7 @@
 // Definitions by: mzeiher <https://github.com/mzeiher>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-module jszip {
+declare module jszip {
     export interface JSZip {
         /**
          * Get a file from the archive
