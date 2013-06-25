@@ -3,7 +3,7 @@
 // Definitions by: Dániel Tar https://github.com/qcz
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare interface ICheckOptions {
+interface ICheckOptions {
 	/**
 	* 'checkbox' or 'radio' to style only checkboxes or radio buttons, both by default
 	*/
@@ -106,7 +106,7 @@ declare interface ICheckOptions {
 	insert?: string;
 }
 
-declare interface JQuery {
+interface JQuery {
 	iCheck(options?: ICheckOptions): JQuery;
-	iCheck(command: string): void;
+	iCheck(command: string, callback?: () => void): void;
 }
