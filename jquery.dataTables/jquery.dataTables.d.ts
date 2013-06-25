@@ -27,30 +27,30 @@ declare module DataTables
 		_(selector:JQuery, opts?:RowParams): any[];
 
 		/// Add a single new row or multiple rows of data to the table.
-		fnAddData(data:any, redraw?:bool) : number[];
+		fnAddData(data:any, redraw?:boolean) : number[];
 
 		/// This function will make DataTables recalculate the column sizes.
-		fnAdjustColumnSizing(redraw? : bool) : void;
+		fnAdjustColumnSizing(redraw? : boolean) : void;
 
 		/// Quickly and simply clear a table
-		fnClearTable(redraw? : bool) : void;
+		fnClearTable(redraw? : boolean) : void;
 
 		/// The exact opposite of 'opening' a row, this function will close any rows which are currently 'open'.
 		fnClose(node: Node) : number;
 
 		///	Remove a row for the table
-		fnDeleteRow(index: number, callback?: () => void, redraw?: bool) : any[];
-		fnDeleteRow(tr: Node, callback?: () => void, redraw?: bool) : any[];
+		fnDeleteRow(index: number, callback?: () => void, redraw?: boolean) : any[];
+		fnDeleteRow(tr: Node, callback?: () => void, redraw?: boolean) : any[];
 
 		/// Restore the table to it's original state in the DOM by removing all of DataTables enhancements,
 		/// alterations to the DOM structure of the table and event listeners.
-		fnDestroy(remove?: bool) : void;
+		fnDestroy(remove?: boolean) : void;
 
 		/// Redraw the table
-		fnDraw(complete? : bool) : void;
+		fnDraw(complete? : boolean) : void;
 
 		/// Filter the input based on data
-		fnFilter(input: string, column? : number, regex?: bool, smart? : bool, showGlobal?: bool, caseInsensitive? : bool) : void;
+		fnFilter(input: string, column? : number, regex?: boolean, smart? : boolean, showGlobal?: boolean, caseInsensitive? : boolean) : void;
 
 		/// Get the data for the whole table, an individual row or an individual cell based on the provided parameters.
 		fnGetData(row?: Node, col? : number) : any;
@@ -63,7 +63,7 @@ declare module DataTables
 		fnGetPosition(node: Node) : any; // number | number[]
 
 		/// Check to see if a row is 'open' or not.
-		fnIsOpen(tr: Node) : bool;
+		fnIsOpen(tr: Node) : boolean;
 
 		/// This function will place a new row directly after a row which is currently on display on the page,
 		/// with the HTML contents that is passed into the function.
@@ -72,11 +72,11 @@ declare module DataTables
 		fnOpen(node: Node, html: JQuery, clazz: string) : Node;
 
 		/// Change the pagination - provides the internal logic for pagination in a simple API function.
-		fnPageChange(action: string, redraw?: bool) : void;
-		fnPageChange(page: number, redraw?: bool) : void;
+		fnPageChange(action: string, redraw?: boolean) : void;
+		fnPageChange(page: number, redraw?: boolean) : void;
 
 		/// Show a particular column
-		fnSetColumnVis(column: number, show: bool, redraw?: bool) : void;
+		fnSetColumnVis(column: number, show: boolean, redraw?: boolean) : void;
 
 		/// Get the settings for a particular table for external manipulation
 		fnSettings() : Settings;
@@ -90,25 +90,25 @@ declare module DataTables
 
 		/// Update a table cell or row - this method will accept either a single value to update the cell with,
 		/// an array of values with one element for each column or an object in the same format as the original data source.
-		fnUpdate(data: any, row: Node, column?:number, redraw?: bool, action? : bool) : number;
-		fnUpdate(data: any, dataIndex: number, column?:number, redraw?: bool, action? : bool) : number;
+		fnUpdate(data: any, row: Node, column?:number, redraw?: boolean, action? : boolean) : number;
+		fnUpdate(data: any, dataIndex: number, column?:number, redraw?: boolean, action? : boolean) : number;
 
 		/// Provide a common method for plug-ins to check the version of DataTables being used,
 		/// in order to ensure compatibility.
-		fnVersionCheck(version: string) : bool;
+		fnVersionCheck(version: string) : boolean;
 	}
 
 	export interface Static
 	{
 		/// Provide a common method for plug-ins to check the version of DataTables being used,
 		/// in order to ensure compatibility.
-		fnVersionCheck(version: string) : bool;
+		fnVersionCheck(version: string) : boolean;
 
 		/// Check if a TABLE node is a DataTable table already or not.
-		fnIsDataTable(table: Node) : bool;
+		fnIsDataTable(table: Node) : boolean;
 
 		/// Get all DataTable tables that have been initialised.
-		fnTables(visible? : bool) : Node[];
+		fnTables(visible? : boolean) : Node[];
 	}
 
 	export interface RowParams
@@ -138,24 +138,24 @@ declare module DataTables
 		aoColumnDefs?: ColumnDef[];
 		aoSearchCols?: any[];
 		asStripClasses?: string[];
-		bAutoWidth?: bool;
-		bDeferRender?: bool;
-		bDestroy?: bool;
-		bFilter?: bool;
-		bInfo?: bool;
-		bJQueryUI?: bool;
-		bLengthChange?: bool;
-		bPaginate?: bool;
-		bProcessing?: bool;
-		bRetrieve?: bool;
-		bScrollAutoCss?: bool;
-		bScrollCollapse?: bool;
-		bScrollInfinite?: bool;
-		bServerSide?: bool;
-		bSort?: bool;
-		bSortCellsTop?: bool;
-		bSortClasses?: bool;
-		bStateSave?: bool;
+		bAutoWidth?: boolean;
+		bDeferRender?: boolean;
+		bDestroy?: boolean;
+		bFilter?: boolean;
+		bInfo?: boolean;
+		bJQueryUI?: boolean;
+		bLengthChange?: boolean;
+		bPaginate?: boolean;
+		bProcessing?: boolean;
+		bRetrieve?: boolean;
+		bScrollAutoCss?: boolean;
+		bScrollCollapse?: boolean;
+		bScrollInfinite?: boolean;
+		bServerSide?: boolean;
+		bSort?: boolean;
+		bSortCellsTop?: boolean;
+		bSortClasses?: boolean;
+		bStateSave?: boolean;
 		fnCookieCallback?: CookieCallback;
 		fnCreatedRow?: RowCreatedCallback;
 		fnDrawCallback?: DrawCallback;
@@ -227,10 +227,10 @@ declare module DataTables
 	{
 		aDataSort?: number[];
 		asSorting?: string[];
-		bSearchable? : bool;
-		bSortable? : bool;
-		bVisible? : bool;
-		_bAutoType? : bool;
+		bSearchable? : boolean;
+		bSortable? : boolean;
+		bVisible? : boolean;
+		_bAutoType? : boolean;
 		fnCreatedCell?: CreatedCell;
 		iDataSort?: number;
 		mData?: any;
@@ -257,7 +257,7 @@ declare module DataTables
 		oFeatures : Features;
 		oScroll: ScrollingSettings;
 		oLanguage : { fnInfoCallback : InfoCallback; };
-		oBrowser : { bScrollOversize : bool; };
+		oBrowser : { bScrollOversize : boolean; };
 		aanFeatures: Node[][];
 		aoData: Row[];
 		aiDisplay: number[];
@@ -289,8 +289,8 @@ declare module DataTables
 		nTFoot: Node;
 		nTBody: Node;
 		nTableWrapper: Node;
-		bDeferLoading: bool;
-		bInitialized: bool;
+		bDeferLoading: boolean;
+		bInitialized: boolean;
 		aoOpenRows: any[];
 		sDom: string;
 		sPaginationType: string;
@@ -302,7 +302,7 @@ declare module DataTables
 		oLoadedState: any;
 		sAjaxSource: string;
 		sAjaxDataProp: string;
-		bAjaxDataGet: bool;
+		bAjaxDataGet: boolean;
 		jqXHR: any;
 		fnServerData: any;
 		aoServerParams: any[];
@@ -310,18 +310,18 @@ declare module DataTables
 		fnFormatNumber: FormatNumber;
 		aLengthMenu: any[];
 		iDraw: number;
-		bDrawing: bool;
+		bDrawing: boolean;
 		iDrawError: number;
 		_iDisplayLength: number;
 		_iDisplayStart: number;
 		_iDisplayEnd: number;
 		_iRecordsTotal: number;
 		_iRecordsDisplay: number;
-		bJUI: bool;
+		bJUI: boolean;
 		oClasses: any;
-		bFiltered: bool;
-		bSorted: bool;
-		bSortCellsTop: bool;
+		bFiltered: boolean;
+		bSorted: boolean;
+		bSortCellsTop: boolean;
 		oInit: any;
 		aoDestroyCallback: any[];
 		fnRecordsTotal: () => number;
@@ -336,24 +336,24 @@ declare module DataTables
 
 	export interface Features
 	{
-		bAutoWidth: bool;
-		bDeferRender: bool;
-		bFilter: bool;
-		bInfo: bool;
-		bLengthChange: bool;
-		bPaginate: bool;
-		bProcessing: bool;
-		bServerSize: bool;
-		bSort: bool;
-		bSortClasses: bool;
-		bStateSave: bool;
+		bAutoWidth: boolean;
+		bDeferRender: boolean;
+		bFilter: boolean;
+		bInfo: boolean;
+		bLengthChange: boolean;
+		bPaginate: boolean;
+		bProcessing: boolean;
+		bServerSize: boolean;
+		bSort: boolean;
+		bSortClasses: boolean;
+		bStateSave: boolean;
 	}
 
 	export interface ScrollingSettings
 	{
-		bAutoCss : bool;
-		bCollapse: bool;
-		bInfinite: bool;
+		bAutoCss : boolean;
+		bCollapse: boolean;
+		bInfinite: boolean;
 		iBarWidth: number;
 		iLoadGap: number;
 		sX: string;
@@ -373,10 +373,10 @@ declare module DataTables
 	{
 		aDataSort: any;
 		asSorting: string[];
-		bSearchable : bool;
-		bSortable : bool;
-		bVisible : bool;
-		_bAutoType : bool;
+		bSearchable : boolean;
+		bSortable : boolean;
+		bVisible : boolean;
+		_bAutoType : boolean;
 		fnCreatedCell: CreatedCell;
 		fnGetData: (data: any, specific: string) => any;
 		fnSetData: (data: any, value: any) => void;
@@ -439,7 +439,7 @@ declare module DataTables
 
 	export interface PreDrawCallback
 	{
-		(settings: Settings) : bool;
+		(settings: Settings) : boolean;
 	}
 
 	export interface RowCallback
