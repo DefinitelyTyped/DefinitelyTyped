@@ -1,4 +1,4 @@
-﻿///<reference path="..\fabricjs.d.ts" />
+﻿///<reference path="fabricjs.d.ts" />
 
 module fabric {
     export interface CircleWithLineInfos extends ICircle {

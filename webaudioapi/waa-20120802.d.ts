@@ -71,7 +71,7 @@ interface AudioNode {
     numberOfInputs: number;
     numberOfOutputs: number;
 
-};
+}
 
 interface AudioSourceNode extends AudioNode {
 

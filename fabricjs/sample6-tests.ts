@@ -1,4 +1,4 @@
-﻿///<reference path="..\fabricjs.d.ts" />
+﻿///<reference path="fabricjs.d.ts" />
 
 var canvas = new fabric.Canvas('c');
 fabric.loadSVGFromURL('../assets/135.svg', function (objects) {
