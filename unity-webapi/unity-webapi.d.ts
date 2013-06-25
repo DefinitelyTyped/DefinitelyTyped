@@ -9,7 +9,7 @@ declare class UnitySettings {
    public onInit:Function;
 }
 
-enum UnityPlaybackState {
+declare enum UnityPlaybackState {
    Playing,
    Paused
 }
