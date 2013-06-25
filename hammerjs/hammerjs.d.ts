@@ -52,7 +52,7 @@ interface HammerDirectionEvent extends HammerEvent {
     distanceY: number;
 }
 
-class Hammer {
+declare class Hammer {
     constructor (element: any, options?: HammerOptions);
 
     ondragstart: (event: HammerDirectionEvent) => void;

@@ -1,4 +1,4 @@
-///<reference path="..\fabricjs.d.ts" />
+///<reference path="fabricjs.d.ts" />
 
 var $ = function(id){return document.getElementById(id)};
 
@@ -28,7 +28,7 @@ canvas.on({
 
     for (var i = 0; i < filters.length; i++) {
         var checkBox = <HTMLInputElement>$(filters[i]);
-        var image = <fabric.Image>canvas.getActiveObject();
+        var image = <fabric.IImage>canvas.getActiveObject();
         checkBox.checked = !!image.filters[i];
     }
   },

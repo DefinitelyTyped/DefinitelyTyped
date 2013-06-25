@@ -158,11 +158,11 @@ declare module "dustjs-linkedin" {
     export function escapeHtml(html: string): string;
     export function escapeJs(js: string): string;
 
-    declare var helpers: {
+    var helpers: {
         [key: string]: (chk: Chunk, ctx: Context, bodies?: any, params?: any) => any;
     };
 
-    declare var filters: {
+    var filters: {
         [key: string]: (value: string) => string;
     };
 }

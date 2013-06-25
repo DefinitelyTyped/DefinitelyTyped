@@ -3235,7 +3235,7 @@ interface HTMLElement{
 
         // Cubes
 
-        var geometry = new THREE.CubeGeometry( 50, 50, 50 );
+        geometry = new THREE.CubeGeometry( 50, 50, 50 );
         var materialCube = new THREE.MeshLambertMaterial( { color: 0xffffff, shading: THREE.FlatShading, overdraw: true } );
 
         for ( var i = 0; i < 100; i ++ ) {
@@ -4085,7 +4085,7 @@ var container, stats;
 
             // line
 
-            var geometry = shape.createPointsGeometry();
+            geometry = shape.createPointsGeometry();
             var materialLine = new THREE.LineBasicMaterial( { linewidth: 10, color: 0x333333, transparent: true } );
 
             var line = new THREE.Line( geometry, materialLine );
@@ -4783,7 +4783,7 @@ var container, stats;
 
         // Cubes
 
-        var geometry = new THREE.CubeGeometry( 50, 50, 50 );
+        geometry = new THREE.CubeGeometry( 50, 50, 50 );
         var cubeMaterial = new THREE.MeshLambertMaterial( { color: 0xffffff, shading: THREE.FlatShading, overdraw: true } );
 
         for ( var i = 0; i < 100; i ++ ) {
@@ -5725,7 +5725,7 @@ var container, stats;
 
         // Spheres
 
-        var geometry = new THREE.SphereGeometry( 100, 14, 7 );
+        geometry = new THREE.SphereGeometry( 100, 14, 7 );
 
         var materials:THREE.Material[] = [
 
@@ -6708,7 +6708,7 @@ var container, stats;
 
 // https://github.com/mrdoob/three.js/blob/master/examples/canvas_particles_sprites.html
 
-()=>{
+() => {
     var container, stats;
     var camera, scene, renderer, particle;
     var mouseX = 0, mouseY = 0;
@@ -6721,43 +6721,43 @@ var container, stats;
 
     function init() {
 
-        container = document.createElement( 'div' );
-        document.body.appendChild( container );
+        container = document.createElement('div');
+        document.body.appendChild(container);
 
-        camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 5000 );
+        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 5000);
         camera.position.z = 1000;
 
         scene = new THREE.Scene();
 
-        var material = new THREE.ParticleBasicMaterial( { map: new THREE.Texture( generateSprite() ), blending: THREE.AdditiveBlending } );
+        var material = new THREE.ParticleBasicMaterial({ map: new THREE.Texture(generateSprite()), blending: THREE.AdditiveBlending });
 
-        for ( var i = 0; i < 1000; i++ ) {
+        for (var i = 0; i < 1000; i++) {
 
-            particle = new THREE.Particle( material );
+            particle = new THREE.Particle(material);
 
-            initParticle( particle, i * 10 );
+            initParticle(particle, i * 10);
 
-            scene.add( particle );
+            scene.add(particle);
         }
 
         renderer = new THREE.CanvasRenderer();
-        renderer.setSize( window.innerWidth, window.innerHeight );
+        renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.sortElements = false;
-        renderer.setClearColorHex( 0x0000ff, 0.25 );
-        container.appendChild( renderer.domElement );
+        renderer.setClearColorHex(0x0000ff, 0.25);
+        container.appendChild(renderer.domElement);
 
         stats = new Stats();
         stats.domElement.style.position = 'absolute';
         stats.domElement.style.top = '0px';
-        container.appendChild( stats.domElement );
+        container.appendChild(stats.domElement);
 
-        document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-        document.addEventListener( 'touchstart', onDocumentTouchStart, false );
-        document.addEventListener( 'touchmove', onDocumentTouchMove, false );
+        document.addEventListener('mousemove', onDocumentMouseMove, false);
+        document.addEventListener('touchstart', onDocumentTouchStart, false);
+        document.addEventListener('touchmove', onDocumentTouchMove, false);
 
         //
 
-        window.addEventListener( 'resize', onWindowResize, false );
+        window.addEventListener('resize', onWindowResize, false);
 
     }
 
@@ -6769,31 +6769,31 @@ var container, stats;
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
 
-        renderer.setSize( window.innerWidth, window.innerHeight );
+        renderer.setSize(window.innerWidth, window.innerHeight);
 
     }
 
     function generateSprite() {
 
-        var canvas = document.createElement( 'canvas' );
+        var canvas = document.createElement('canvas');
         canvas.width = 16;
         canvas.height = 16;
 
-        var context = canvas.getContext( '2d' );
-        var gradient = context.createRadialGradient( canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width / 2 );
-        gradient.addColorStop( 0, 'rgba(255,255,255,1)' );
-        gradient.addColorStop( 0.2, 'rgba(0,255,255,1)' );
-        gradient.addColorStop( 0.4, 'rgba(0,0,64,1)' );
-        gradient.addColorStop( 1, 'rgba(0,0,0,1)' );
+        var context = canvas.getContext('2d');
+        var gradient = context.createRadialGradient(canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width / 2);
+        gradient.addColorStop(0, 'rgba(255,255,255,1)');
+        gradient.addColorStop(0.2, 'rgba(0,255,255,1)');
+        gradient.addColorStop(0.4, 'rgba(0,0,64,1)');
+        gradient.addColorStop(1, 'rgba(0,0,0,1)');
 
         context.fillStyle = gradient;
-        context.fillRect( 0, 0, canvas.width, canvas.height );
+        context.fillRect(0, 0, canvas.width, canvas.height);
 
         return canvas;
 
     }
 
-    function initParticle( particle, delay ) {
+    function initParticle(particle, delay) {
 
         var particle = this instanceof THREE.Particle ? this : particle;
         var delay = delay !== undefined ? delay : 0;
@@ -6803,53 +6803,53 @@ var container, stats;
         particle.position.z = 0;
         particle.scale.x = particle.scale.y = Math.random() * 3 + 1;
 
-        new TWEEN.Tween( particle )
-            .delay( delay )
-            .to( {}, 10000 )
-            .onComplete( initParticle )
+        new TWEEN.Tween(particle)
+            .delay(delay)
+            .to({}, 10000)
+            .onComplete(initParticle)
             .start();
 
-        new TWEEN.Tween( particle.position )
-            .delay( delay )
-            .to( { x: Math.random() * 4000 - 2000, y: Math.random() * 1000 - 500, z: Math.random() * 4000 - 2000 }, 10000 )
+        new TWEEN.Tween(particle.position)
+            .delay(delay)
+            .to({ x: Math.random() * 4000 - 2000, y: Math.random() * 1000 - 500, z: Math.random() * 4000 - 2000 }, 10000)
             .start();
 
-        new TWEEN.Tween( particle.scale )
-            .delay( delay )
-            .to( { x: 0, y: 0 }, 10000 )
+        new TWEEN.Tween(particle.scale)
+            .delay(delay)
+            .to({ x: 0, y: 0 }, 10000)
             .start();
 
     }
 
     //
 
-    function onDocumentMouseMove( event ) {
+    function onDocumentMouseMove(event) {
 
         mouseX = event.clientX - windowHalfX;
         mouseY = event.clientY - windowHalfY;
     }
 
-    function onDocumentTouchStart( event ) {
+    function onDocumentTouchStart(event) {
 
-        if ( event.touches.length == 1 ) {
+        if (event.touches.length == 1) {
 
             event.preventDefault();
 
-            mouseX = event.touches[ 0 ].pageX - windowHalfX;
-            mouseY = event.touches[ 0 ].pageY - windowHalfY;
+            mouseX = event.touches[0].pageX - windowHalfX;
+            mouseY = event.touches[0].pageY - windowHalfY;
 
         }
 
     }
 
-    function onDocumentTouchMove( event ) {
+    function onDocumentTouchMove(event) {
 
-        if ( event.touches.length == 1 ) {
+        if (event.touches.length == 1) {
 
             event.preventDefault();
 
-            mouseX = event.touches[ 0 ].pageX - windowHalfX;
-            mouseY = event.touches[ 0 ].pageY - windowHalfY;
+            mouseX = event.touches[0].pageX - windowHalfX;
+            mouseY = event.touches[0].pageY - windowHalfY;
 
         }
 
@@ -6859,7 +6859,7 @@ var container, stats;
 
     function animate() {
 
-        requestAnimationFrame( animate );
+        requestAnimationFrame(animate);
 
         render();
         stats.update();
@@ -6870,14 +6870,16 @@ var container, stats;
 
         TWEEN.update();
 
-        camera.position.x += ( mouseX - camera.position.x ) * 0.05;
-        camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
-        camera.lookAt( scene.position );
+        camera.position.x += (mouseX - camera.position.x) * 0.05;
+        camera.position.y += (- mouseY - camera.position.y) * 0.05;
+        camera.lookAt(scene.position);
 
-        renderer.render( scene, camera );
+        renderer.render(scene, camera);
 
     }
-var container, stats;
+};
+() => {
+    var container, stats;
     var camera, scene, renderer, particle;
     var mouseX = 0, mouseY = 0;
 
@@ -16400,7 +16402,7 @@ function render() {
 
                 F.prototype = klass.prototype;
 
-                return new F( klass, args );
+                return F( klass, args );
 
             };
 
@@ -17263,7 +17265,7 @@ function render() {
 
                 F.prototype = klass.prototype;
 
-                return new F( klass, args );
+                return F( klass, args );
 
             };
 
@@ -20869,7 +20871,7 @@ function render() {
 
                 objects = [];
 
-                var sphere, geometry, material;
+                var sphere, material;
 
                 for ( var i = 0, l = materials.length; i < l; i ++ ) {
 
@@ -21374,7 +21376,8 @@ function render() {
 
                     object: null,
                     buttons: null,
-                    materials: null
+                    materials: null,
+                    mmap: null
 
                 },
 
@@ -21390,7 +21393,8 @@ function render() {
 
                     object: null,
                     buttons: null,
-                    materials: null
+                    materials: null,
+                    mmap: null
 
                 },
 
@@ -21406,7 +21410,8 @@ function render() {
 
                     object: null,
                     buttons: null,
-                    materials: null
+                    materials: null,
+                    mmap: null
 
                 },
 
@@ -21422,7 +21427,8 @@ function render() {
 
                     object: null,
                     buttons: null,
-                    materials: null
+                    materials: null,
+                    mmap: null
 
                 }
 

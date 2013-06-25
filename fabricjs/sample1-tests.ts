@@ -1,4 +1,4 @@
-///<reference path="..\fabricjs.d.ts" />
+///<reference path="fabricjs.d.ts" />
 
 var canvas = new fabric.Canvas('c', {
   hoverCursor: 'pointer',
