@@ -1,4 +1,4 @@
-// Type definitions for chai v1.6.0 assert style
+// Type definitions for chai v1.7.0 assert style
 // Project: http://chaijs.com/
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -10,7 +10,9 @@ declare module chai
 		(express:any, msg?:string);
 
 		fail(actual?:any, expected?:any, msg?:string, operator?:string);
+
 		ok(val:any, msg?:string);
+		notOk(val:any, msg?:string);
 
 		equal(act:any, exp:any, msg?:string);
 		notEqual(act:any, exp:any, msg?:string);
@@ -70,7 +72,6 @@ declare module chai
 
 		propertyVal(obj:Object, prop:string, val:any, msg?:string);
 		propertyNotVal(obj:Object, prop:string, val:any, msg?:string);
-
 
 		deepPropertyVal(obj:Object, prop:string, val:any, msg?:string);
 		deepPropertyNotVal(obj:Object, prop:string, val:any, msg?:string);
