@@ -55,7 +55,7 @@ module DefinitelyTyped {
 			public typings: Typing[] = [];
 
 			constructor(public path: string, pattern: any) {
-				this.files = IO.dir(path, pattern, { recursive: true });
+				this.files = IO.dir(path, pattern, { recursive: true }).sort();
 			}
 
 			public allTS(): string[] {
@@ -209,7 +209,7 @@ module DefinitelyTyped {
 			}
 
 			public printSyntaxErrorCount(current: number, total: number) {
-				this.out(' \33[36m\33[1mSyntaxe error   :\33[0m \33[31m\33[1m' + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
+				this.out(' \33[36m\33[1mSyntax error    :\33[0m \33[31m\33[1m' + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
 			}
 
 			public printTestErrorCount(current: number, total: number) {
