@@ -31,7 +31,7 @@ declare module chrome.alarms {
     export function get(callback: (alarm: Alarm) => void): void;
     export function get(name: string, callback: (alarm: Alarm) => void): void;
     
-    declare var onAlarm: AlarmEvent;
+    var onAlarm: AlarmEvent;
 }
 
 ////////////////////
@@ -98,8 +98,8 @@ declare module chrome.bookmarks {
         addListener(callback: (id: string, reorderInfo: BookmarkReorderInfo) => void);
     }
 
-    declare var MAX_WRITE_OPERATIONS_PER_HOUR: number;
-    declare var MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number;
+    var MAX_WRITE_OPERATIONS_PER_HOUR: number;
+    var MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number;
 
     export function search(query: string, callback: (results: BookmarkTreeNode[]) => void): void;
     export function getTree(callback: (results: BookmarkTreeNode[]) => void): void;
@@ -114,12 +114,12 @@ declare module chrome.bookmarks {
     export function getSubTree(id: string, callback: (results: BookmarkTreeNode[]) => void): void;
     export function removeTree(id: string, callback?: Function): void;
 
-    declare var onRemoved: chrome.alarms.AlarmEvent;
-    declare var onImportEnded: BookmarkImportEndedEvent;
-    declare var onImportBegan: BookmarkImportBeganEvent;
-    declare var onChanged: BookmarkChangedEvent;
-    declare var onCreated: BookmarkCreatedEvent;
-    declare var onChildrenReordered: BookmarkChildrenReordered;
+    var onRemoved: chrome.alarms.AlarmEvent;
+    var onImportEnded: BookmarkImportEndedEvent;
+    var onImportBegan: BookmarkImportBeganEvent;
+    var onChanged: BookmarkChangedEvent;
+    var onCreated: BookmarkCreatedEvent;
+    var onChildrenReordered: BookmarkChildrenReordered;
 }
 
 ////////////////////
@@ -172,7 +172,7 @@ declare module chrome.browserAction {
     export function getPopup(details: TabDetails, callback: (result: string) => void): void;
     export function setIcon(details: TabIconDetails, callback?: Function): void;
 
-    declare var onClicked: BrowserClickedEvent;
+    var onClicked: BrowserClickedEvent;
 }
 
 ////////////////////
@@ -229,7 +229,7 @@ declare module chrome.commands {
         addListener(callback: (command: string) => void);
     }
         
-    declare var onCommand: CommandEvent;
+    var onCommand: CommandEvent;
 }
 
 ////////////////////
@@ -271,12 +271,12 @@ declare module chrome.contentSettings {
         description?: string;
     }
 
-    declare var cookies: ContentSetting;
-    declare var popups: ContentSetting;
-    declare var javascript: ContentSetting;
-    declare var notifications: ContentSetting;
-    declare var plugins: ContentSetting;
-    declare var images: ContentSetting;
+    var cookies: ContentSetting;
+    var popups: ContentSetting;
+    var javascript: ContentSetting;
+    var notifications: ContentSetting;
+    var plugins: ContentSetting;
+    var images: ContentSetting;
 }
 
 ////////////////////
@@ -330,7 +330,7 @@ declare module chrome.contextMenus {
     export function update(id: any, updateProperties: UpdateProperties, callback?: Function): void;
     export function remove(menuItemId: any, callback?: Function): void;
 
-    declare var onClicked: MenuClickedEvent;
+    var onClicked: MenuClickedEvent;
 }
 
 ////////////////////
@@ -399,7 +399,7 @@ declare module chrome.cookies {
     export function remove(details: Details, callback?: (details: Details) => void): void;
     export function get(details: Details, callback: (cookie?: Cookie) => void): void;
 
-    declare var onChanged: CookieChangedEvent;
+    var onChanged: CookieChangedEvent;
 }
 
 ////////////////////
@@ -422,8 +422,8 @@ declare module "chrome.debugger" {
     export function detach(target: Debuggee, callback?: Function): void;
     export function sendCommand(target: Debuggee, method: string, commandParams?: Object, callback?: (result: Object) => void): void;
 
-    declare var onDetach: DebuggerDetachedEvent;
-    declare var onEvent: DebuggerEventEvent;
+    var onDetach: DebuggerDetachedEvent;
+    var onEvent: DebuggerEventEvent;
 }
 
 ////////////////////
@@ -534,7 +534,7 @@ declare module chrome.declarativeWebRequest {
         addListener(callback: Function): void;
     }    
 
-    declare var onRequest: RequestedEvent;
+    var onRequest: RequestedEvent;
 }
 
 ////////////////////
@@ -561,14 +561,14 @@ declare module chrome.devtools.inspectedWindow {
         addListener(callback: (resource: Resource, content: string) => void): void;
     }
 
-    declare var tabId: number;
+    var tabId: number;
 
     export function reload(reloadOptions: ReloadOptions): void;
     export function eval(expression: string, callback?: (result: Object, isException: boolean) => void): void;
     export function getResources(callback: (resources: Resource[]) => void): void;
 
-    declare var onResourceAdded: ResourceAddedEvent;
-    declare var onResourceContentCommitted: ResourceContentCommittedEvent;
+    var onResourceAdded: ResourceAddedEvent;
+    var onResourceContentCommitted: ResourceContentCommittedEvent;
 }
 
 ////////////////////
@@ -589,8 +589,8 @@ declare module chrome.devtools.network {
 
     export function getHAR(callback: (harLog: Object) => void): void;
 
-    declare var onRequestFinished: RequestFinishedEvent;
-    declare var onNavigated: NavigatedEvent;
+    var onRequestFinished: RequestFinishedEvent;
+    var onNavigated: NavigatedEvent;
 }
 
 ////////////////////
@@ -651,7 +651,7 @@ declare module chrome.devtools.panels {
         onHidden: ExtensionSidebarPaneHiddenEvent;
     }
 
-    declare var elements: ElementsPanel;
+    var elements: ElementsPanel;
 
     export function create(title: string, iconPath: string, pagePath: string, callback?: (panel: ExtensionPanel) => void): void;
     export function setOpenResourceHandler(callback: (resource: chrome.devtools.inspectedWindow.Resource) => void): void;
@@ -776,9 +776,9 @@ declare module chrome.downloads {
     export function cancel(downloadId: number, callback?: Function): void;
     export function download(options: DownloadOptions, callback?: (downloadId: number) => void): void;
 
-    declare var onChanged: DownloadChangedEvent;
-    declare var onCreated: DownloadCreatedEvent;
-    declare var onErased: DownloadErasedEvent;
+    var onChanged: DownloadChangedEvent;
+    var onCreated: DownloadCreatedEvent;
+    var onErased: DownloadErasedEvent;
 }
 
 ////////////////////
@@ -868,8 +868,8 @@ declare module chrome.extension {
         addListener(callback: (port: Port) => void): void;
     }
 
-    declare var inIncognitoContext: boolean;
-    declare var lastError: Object;
+    var inIncognitoContext: boolean;
+    var lastError: Object;
 
     export function getBackgroundPage(): Window;
     export function getURL(path: string): string;
@@ -881,10 +881,10 @@ declare module chrome.extension {
     export function connect(extensionId?: string, connectInfo?: ConnectInfo): Port;
     export function isAllowedIncognitoAccess(callback: (isAllowedAccess) => void): void;
 
-    declare var onMessage: ExtensionMessageEvent;
-    declare var onMessageExternal: ExtensionMessageExternalEvent;
-    declare var onConnect: ExtensionConnectEvent;
-    declare var onConnectExternal: ExtensionConnectExternalEvent;
+    var onMessage: ExtensionMessageEvent;
+    var onMessageExternal: ExtensionMessageExternalEvent;
+    var onConnect: ExtensionConnectEvent;
+    var onConnectExternal: ExtensionConnectExternalEvent;
 }
 
 ////////////////////
@@ -911,7 +911,7 @@ declare module chrome.fileBrowserHandler {
         addListener(callback: (id: string, details: FileHandlerExecuteEventDetails) => void): void;
     }
 
-    declare var onExecute: FileBrowserHandlerExecuteEvent;
+    var onExecute: FileBrowserHandlerExecuteEvent;
 }
 
 ////////////////////
@@ -989,10 +989,10 @@ declare module chrome.fontSettings {
     export function getFontList(callback: (results: FontName[]) => void): void;
     export function clearDefaultFixedFontSize(details: Object, callback?: Function): void;
 
-    declare var onDefaultFixedFontSizeChanged: DefaultFixedFontSizeChangedEvent;
-    declare var onDefaultFontSizeChanged: DefaultFontSizeChangedEvent;
-    declare var onMinimumFontSizeChanged: MinimumFontSizeChangedEvent;
-    declare var onFontChanged: FontChangedEvent;
+    var onDefaultFixedFontSizeChanged: DefaultFixedFontSizeChangedEvent;
+    var onDefaultFontSizeChanged: DefaultFontSizeChangedEvent;
+    var onMinimumFontSizeChanged: MinimumFontSizeChangedEvent;
+    var onFontChanged: FontChangedEvent;
 }
 
 ////////////////////
@@ -1052,8 +1052,8 @@ declare module chrome.history {
     export function getVisits(details: Url, callback: (results: VisitItem[]) => void): void;
     export function deleteUrl(details: Url, callback?: Function): void;
 
-    declare var onVisited: HistoryVisitedEvent;
-    declare var onVisitRemoved: HistoryVisitRemovedEvent;
+    var onVisited: HistoryVisitedEvent;
+    var onVisitRemoved: HistoryVisitRemovedEvent;
 }
 
 ////////////////////
@@ -1074,7 +1074,7 @@ declare module chrome.idle {
 
     export function queryState(thresholdSeconds: number, callback: (newState: string) => void): void;
 
-    declare var onStateChanged: IdleStateChangedEvent;
+    var onStateChanged: IdleStateChangedEvent;
 }
 
 ////////////////////
@@ -1183,14 +1183,14 @@ declare module chrome.input.ime {
     export function clearComposition(parameters: ClearCompositionParameters, callback?: (success: boolean) => void): void;
     export function setCursorPosition(parameters: CursorPositionParameters, callback?: (success: boolean) => void): void;
 
-    declare var onBlur: BlurEvent;
-    declare var onCandidateClicked: CandidateClickedEvent;
-    declare var onKeyEvent: KeyEventEvent;
-    declare var onDeactivated: DeactivatedEvent;
-    declare var onInputContextUpdate: InputContextUpdateEvent;
-    declare var onActivate: ActivateEvent;
-    declare var onFocus: FocusEvent;
-    declare var onMenuItemActivated: MenuItemActivatedEvent;
+    var onBlur: BlurEvent;
+    var onCandidateClicked: CandidateClickedEvent;
+    var onKeyEvent: KeyEventEvent;
+    var onDeactivated: DeactivatedEvent;
+    var onInputContextUpdate: InputContextUpdateEvent;
+    var onActivate: ActivateEvent;
+    var onFocus: FocusEvent;
+    var onMenuItemActivated: MenuItemActivatedEvent;
 }
 
 ////////////////////
@@ -1250,10 +1250,10 @@ declare module chrome.management {
     export function launchApp(id: string, callback?: Function): void;
     export function uninstall(id: string, options: UninstallOptions, callback?: Function): void;
 
-    declare var onDisabled: ManagementDisabledEvent;
-    declare var onUninstalled: ManagementUninstalledEvent;
-    declare var onInstalled: ManagementInstalledEvent;
-    declare var onEnabled: ManagementEnabledEvent;
+    var onDisabled: ManagementDisabledEvent;
+    var onUninstalled: ManagementUninstalledEvent;
+    var onInstalled: ManagementInstalledEvent;
+    var onEnabled: ManagementEnabledEvent;
 }
 
 ////////////////////
@@ -1287,10 +1287,10 @@ declare module chrome.omnibox {
 
     export function setDefaultSuggestion(suggestion: Suggestion): void;
 
-    declare var onInputEntered: OmniboxInputEnteredEvent;
-    declare var onInputChanged: OmniboxInputChangedEvent;
-    declare var onInputStarted: OmniboxInputStartedEvent;
-    declare var onInputCancelled: OmniboxInputCancelledEvent;
+    var onInputEntered: OmniboxInputEnteredEvent;
+    var onInputChanged: OmniboxInputChangedEvent;
+    var onInputStarted: OmniboxInputStartedEvent;
+    var onInputCancelled: OmniboxInputCancelledEvent;
 }
 
 ////////////////////
@@ -1330,7 +1330,7 @@ declare module chrome.pageAction {
     export function getPopup(details: GetDetails, callback: (result: string) => void): void;
     export function setIcon(details: IconDetails, callback?: Function): void;
 
-    declare var onClicked: PageActionClickedEvent;
+    var onClicked: PageActionClickedEvent;
 }
 
 ////////////////////
@@ -1366,8 +1366,8 @@ declare module chrome.permissions {
     export function request(permissions: Permissions, callback?: (granted: boolean) => void): void;
     export function remove(permissions: Permissions, callback?: (removed: boolean) => void): void;
 
-    declare var onRemoved: PermissionsRemovedEvent;
-    declare var onAdded: PermissionsAddedEvent;
+    var onRemoved: PermissionsRemovedEvent;
+    var onAdded: PermissionsAddedEvent;
 }
 
 ////////////////////
@@ -1395,9 +1395,9 @@ declare module chrome.privacy {
         protectedContentEnabled: chrome.types.ChromeSetting;
     }
 
-    declare var services: Services;
-    declare var network: Network;
-    declare var websites: Websites;
+    var services: Services;
+    var network: Network;
+    var websites: Websites;
 }
 
 ////////////////////
@@ -1441,16 +1441,16 @@ declare module chrome.proxy {
         addListener(callback: (details: ErrorDetails) => void): void;
     }
 
-    declare var settings: chrome.types.ChromeSetting;
-    declare var onProxyError: ProxyErrorEvent;
+    var settings: chrome.types.ChromeSetting;
+    var onProxyError: ProxyErrorEvent;
 }
 
 ////////////////////
 // Runtime
 ////////////////////
 declare module chrome.runtime {
-    declare var lastError: Object;
-    declare var id: string;
+    var lastError: Object;
+    var id: string;
 
     interface InstalledDetails {
         reason: string;
@@ -1477,10 +1477,10 @@ declare module chrome.runtime {
     export function getManifest(): Object;
     export function getURL(path: string): string;
     
-    declare var onSuspend: RuntimeSuspendEvent;
-    declare var onStartup: RuntimeStartupEvent;
-    declare var onInstalled: RuntimeInstalledEvent;
-    declare var onSuspendCanceled: RuntimeSuspendCanceledEvent;
+    var onSuspend: RuntimeSuspendEvent;
+    var onStartup: RuntimeStartupEvent;
+    var onInstalled: RuntimeInstalledEvent;
+    var onSuspendCanceled: RuntimeSuspendCanceledEvent;
 }
 
 ////////////////////
@@ -1508,7 +1508,7 @@ declare module chrome.scriptBadge {
     export function getAttention(details: AttentionDetails): void;
     export function setPopup(details: SetPopupDetails): void;
 
-    declare var onClicked: ScriptBadgeClickedEvent;
+    var onClicked: ScriptBadgeClickedEvent;
 }
 
 ////////////////////
@@ -1550,10 +1550,10 @@ declare module chrome.storage {
         addListener(callback: (changes: Object, areaName: string) => void): void;
     }
 
-    declare var local: Local;
-    declare var sync: Sync;
+    var local: Local;
+    var sync: Sync;
 
-    declare var onChanged: StorageChangedEvent;
+    var onChanged: StorageChangedEvent;
 }
 
 ////////////////////
@@ -1788,14 +1788,14 @@ declare module chrome.tabs {
     export function detectLanguage(callback: (language: string) => void): void;
     export function detectLanguage(tabId: number, callback: (language: string) => void): void;
 
-    declare var onHighlighted: TabHighlightedEvent;
-    declare var onRemoved: TabRemovedEvent;
-    declare var onUpdated: TabUpdatedEvent;
-    declare var onAttached: TabAttachedEvent;
-    declare var onMoved: TabMovedEvent;
-    declare var onDetached: TabDetachedEvent;
-    declare var onCreated: TabCreatedEvent;
-    declare var onActivated: TabActivatedEvent;
+    var onHighlighted: TabHighlightedEvent;
+    var onRemoved: TabRemovedEvent;
+    var onUpdated: TabUpdatedEvent;
+    var onAttached: TabAttachedEvent;
+    var onMoved: TabMovedEvent;
+    var onDetached: TabDetachedEvent;
+    var onCreated: TabCreatedEvent;
+    var onActivated: TabActivatedEvent;
 }
 
 ////////////////////
@@ -1869,8 +1869,8 @@ declare module chrome.ttsEngine {
         addListener(callback: Function): void;
     }
 
-    declare var onSpeak: TtsEngineSpeakEvent;
-    declare var onStop: TtsEngineStopEvent;
+    var onSpeak: TtsEngineSpeakEvent;
+    var onStop: TtsEngineStopEvent;
 }
 
 ////////////////////
@@ -2043,15 +2043,15 @@ declare module chrome.webNavigation {
     export function getFrame(details: GetFrameDetails, callback: (details?: GetFrameResultDetails) => void): void;
     export function getAllFrames(details: GetAllFrameDetails, callback: (details?: Object[]) => void): void;
     
-    declare var onReferenceFragmentUpdated: WebNavigationReferenceFragmentUpdatedEvent;
-    declare var onCompleted: WebNavigationCompletedEvent;
-    declare var onHistoryStateUpdated: WebNavigationHistoryStateUpdatedEvent;
-    declare var onCreatedNavigationTarget: WebNavigationCreatedNavigationTargetEvent;
-    declare var onTabReplaced: WebNavigationTabReplacedEvent;
-    declare var onBeforeNavigate: WebNavigationBeforeNavigateEvent;
-    declare var onCommitted: WebNavigationCommittedEvent;
-    declare var onDOMContentLoaded: WebNavigationDomContentLoadedEvent;
-    declare var onErrorOccurred: WebNavigationErrorOccurredEvent;
+    var onReferenceFragmentUpdated: WebNavigationReferenceFragmentUpdatedEvent;
+    var onCompleted: WebNavigationCompletedEvent;
+    var onHistoryStateUpdated: WebNavigationHistoryStateUpdatedEvent;
+    var onCreatedNavigationTarget: WebNavigationCreatedNavigationTargetEvent;
+    var onTabReplaced: WebNavigationTabReplacedEvent;
+    var onBeforeNavigate: WebNavigationBeforeNavigateEvent;
+    var onCommitted: WebNavigationCommittedEvent;
+    var onDOMContentLoaded: WebNavigationDomContentLoadedEvent;
+    var onErrorOccurred: WebNavigationErrorOccurredEvent;
 }
 
 ////////////////////
@@ -2256,19 +2256,19 @@ declare module chrome.webRequest {
         addListener(callback: (details: OnBeforeRequestDetails) => void): void;
     }
 
-    declare var MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES: number;
+    var MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES: number;
 
     export function handlerBehaviorChanged(callback?: Function): void;
     
-    declare var onCompleted: WebRequestCompletedEvent;
-    declare var onHeadersReceived: WebRequestHeadersReceivedEvent;
-    declare var onBeforeRedirect: WebRequestBeforeRedirectEvent;
-    declare var onAuthRequired: WebRequestAuthRequiredEvent;
-    declare var onBeforeSendHeaders: WebRequestBeforeSendHeadersEvent;
-    declare var onErrorOccurred: WebRequestErrorOccurredEvent;
-    declare var onResponseStarted: WebRequestResponseStartedEvent;
-    declare var onSendHeaders: WebRequestSendHeadersEvent;
-    declare var onBeforeRequest: WebRequestBeforeRequestEvent;
+    var onCompleted: WebRequestCompletedEvent;
+    var onHeadersReceived: WebRequestHeadersReceivedEvent;
+    var onBeforeRedirect: WebRequestBeforeRedirectEvent;
+    var onAuthRequired: WebRequestAuthRequiredEvent;
+    var onBeforeSendHeaders: WebRequestBeforeSendHeadersEvent;
+    var onErrorOccurred: WebRequestErrorOccurredEvent;
+    var onResponseStarted: WebRequestResponseStartedEvent;
+    var onSendHeaders: WebRequestSendHeadersEvent;
+    var onBeforeRequest: WebRequestBeforeRequestEvent;
 }
 
 ////////////////////
@@ -2334,8 +2334,8 @@ declare module chrome.windows {
         addListener(callback: (windowId: number) => void): void;
     }
 
-    declare var WINDOW_ID_CURRENT: number;
-    declare var WINDOW_ID_NONE: number;
+    var WINDOW_ID_CURRENT: number;
+    var WINDOW_ID_NONE: number;
 
     export function get(windowId: number, callback: (window: chrome.windows.Window) => void): void;
     export function get(windowId: number, getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
@@ -2349,7 +2349,7 @@ declare module chrome.windows {
     export function getLastFocused(callback: (window: chrome.windows.Window) => void): void;
     export function getLastFocused(getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
 
-    declare var onRemoved: WindowRemovedEvent;
-    declare var onCreated: WindowCreatedEvent;
-    declare var onFocusChanged: WindowFocusChangedEvent;
+    var onRemoved: WindowRemovedEvent;
+    var onCreated: WindowCreatedEvent;
+    var onFocusChanged: WindowFocusChangedEvent;
 }
