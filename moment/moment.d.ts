@@ -115,6 +115,39 @@ interface Moment {
     daysInMonth(): number;
     isDST(): bool;
 
+    isBefore(b: Moment): bool;
+    isBefore(b: string): bool;
+    isBefore(b: Number): bool;
+    isBefore(b: Date): bool;
+    isBefore(b: Array): bool;
+    isBefore(b: Moment, granularity: string): bool;
+    isBefore(b: String, granularity: string): bool;
+    isBefore(b: Number, granularity: string): bool;
+    isBefore(b: Date, granularity: string): bool;
+    isBefore(b: Array, granularity: string): bool;
+
+    isAfter(b: Moment): bool;
+    isAfter(b: string): bool;
+    isAfter(b: Number): bool;
+    isAfter(b: Date): bool;
+    isAfter(b: Array): bool;
+    isAfter(b: Moment, granularity: string): bool;
+    isAfter(b: String, granularity: string): bool;
+    isAfter(b: Number, granularity: string): bool;
+    isAfter(b: Date, granularity: string): bool;
+    isAfter(b: Array, granularity: string): bool;
+
+    isSame(b: Moment): bool;
+    isSame(b: string): bool;
+    isSame(b: Number): bool;
+    isSame(b: Date): bool;
+    isSame(b: Array): bool;
+    isSame(b: Moment, granularity: string): bool;
+    isSame(b: String, granularity: string): bool;
+    isSame(b: Number, granularity: string): bool;
+    isSame(b: Date, granularity: string): bool;
+    isSame(b: Array, granularity: string): bool;
+
     lang(language: string);
     lang(reset: bool);
     lang(): string;
@@ -220,6 +253,39 @@ interface MomentStatic {
     duration(input: MomentInput): Duration;
     duration(object: any): Duration;
     duration(): Duration;
+
+    isBefore(b: Moment): bool;
+    isBefore(b: string): bool;
+    isBefore(b: Number): bool;
+    isBefore(b: Date): bool;
+    isBefore(b: Array): bool;
+    isBefore(b: Moment, granularity: string): bool;
+    isBefore(b: String, granularity: string): bool;
+    isBefore(b: Number, granularity: string): bool;
+    isBefore(b: Date, granularity: string): bool;
+    isBefore(b: Array, granularity: string): bool;
+
+    isAfter(b: Moment): bool;
+    isAfter(b: string): bool;
+    isAfter(b: Number): bool;
+    isAfter(b: Date): bool;
+    isAfter(b: Array): bool;
+    isAfter(b: Moment, granularity: string): bool;
+    isAfter(b: String, granularity: string): bool;
+    isAfter(b: Number, granularity: string): bool;
+    isAfter(b: Date, granularity: string): bool;
+    isAfter(b: Array, granularity: string): bool;
+
+    isSame(b: Moment): bool;
+    isSame(b: string): bool;
+    isSame(b: Number): bool;
+    isSame(b: Date): bool;
+    isSame(b: Array): bool;
+    isSame(b: Moment, granularity: string): bool;
+    isSame(b: String, granularity: string): bool;
+    isSame(b: Number, granularity: string): bool;
+    isSame(b: Date, granularity: string): bool;
+    isSame(b: Array, granularity: string): bool;
 }
 
 declare var moment: MomentStatic;
