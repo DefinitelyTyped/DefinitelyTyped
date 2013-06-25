@@ -20,7 +20,7 @@ angular.module('http-auth-interceptor', [])
        * Required by HTTP interceptor.
        * Function is attached to provider to be invisible for regular users of this service.
        */
-      this.pushToBuffer = function (config: ng.IRequestConfig, deferred: ng.IDeferred) {
+      this.pushToBuffer = function (config: ng.IRequestConfig, deferred: ng.IDeferred<any>) {
           buffer.push({
               config: config,
               deferred: deferred
@@ -29,7 +29,7 @@ angular.module('http-auth-interceptor', [])
 
       this.$get = ['$rootScope', '$injector', <any>function ($rootScope: ng.IScope, $injector: ng.auto.IInjectorService) {
           var $http: ng.IHttpService; //initialized later because of circular dependency problem
-          function retry(config: ng.IRequestConfig, deferred: ng.IDeferred) {
+          function retry(config: ng.IRequestConfig, deferred: ng.IDeferred<any>) {
               $http = $http || $injector.get('$http');
               $http(config).then(function (response) {
                   deferred.resolve(response);
@@ -58,11 +58,11 @@ angular.module('http-auth-interceptor', [])
   .config(['$httpProvider', 'authServiceProvider', <any>function ($httpProvider: ng.IHttpProvider, authServiceProvider) {
 
       var interceptor = ['$rootScope', '$q', <any>function ($rootScope: ng.IScope, $q: ng.IQService) {
-          function success(response: ng.IHttpPromiseCallbackArg) {
+          function success(response: ng.IHttpPromiseCallbackArg<any>) {
               return response;
           }
 
-          function error(response: ng.IHttpPromiseCallbackArg) {
+          function error(response: ng.IHttpPromiseCallbackArg<any>) {
               if (response.status === 401) {
                   var deferred = $q.defer();
                   authServiceProvider.pushToBuffer(response.config, deferred);
@@ -73,7 +73,7 @@ angular.module('http-auth-interceptor', [])
               return $q.reject(response);
           }
 
-          return function (promise: ng.IHttpPromise) {
+          return function (promise: ng.IHttpPromise<any>) {
               return promise.then(success, error);
           }
 
@@ -96,10 +96,6 @@ module HttpAndRegularPromiseTests {
     letters:   string[];
   }
 
-  interface OurApiPromiseCallbackArg extends ng.IHttpPromiseCallbackArg {
-    data?: ExpectedResponse;
-  }
-
   var someController: Function = ($scope: SomeControllerScope, $http: ng.IHttpService, $q: ng.IQService) => {
     $http.get("http://somewhere/some/resource")
     .success((data: ExpectedResponse) => {
@@ -107,32 +103,21 @@ module HttpAndRegularPromiseTests {
     });
 
     $http.get("http://somewhere/some/resource")
-    .then((response: ng.IHttpPromiseCallbackArg) => {
-      // typing lost, so something like
-      // var i: number = response.data
-      // would type check
+    .then((response: ng.IHttpPromiseCallbackArg<ExpectedResponse>) => {
       $scope.person = response.data;
     });
 
-    $http.get("http://somewhere/some/resource")
-    .then((response: OurApiPromiseCallbackArg) => {
-      // typing lost, so something like
-      // var i: number = response.data
-      // would NOT type check
-      $scope.person = response.data;
-    });
-
-    var aPromise: ng.IPromise = $q.when({firstName: "Jack", lastName: "Sparrow"});
+    var aPromise: ng.IPromise<Person> = $q.when({firstName: "Jack", lastName: "Sparrow"});
     aPromise.then((person: Person) => {
       $scope.person = person;
     });
 
-    var bPromise: ng.IPromise = $q.when(42);
+    var bPromise: ng.IPromise<number> = $q.when(42);
     bPromise.then((answer: number) => {
       $scope.theAnswer = answer;
     });
 
-    var cPromise: ng.IPromise = $q.when(["a", "b", "c"]);
+    var cPromise: ng.IPromise<string[]> = $q.when(["a", "b", "c"]);
     cPromise.then((letters: string[]) => {
       $scope.letters = letters;
     });
