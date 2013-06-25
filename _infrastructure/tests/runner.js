@@ -567,7 +567,7 @@ var DefinitelyTyped;
                 this.path = path;
                 this.files = [];
                 this.typings = [];
-                this.files = IO.dir(path, pattern, { recursive: true });
+                this.files = IO.dir(path, pattern, { recursive: true }).sort();
             }
             FileHandler.prototype.allTS = function () {
                 return this.files;
@@ -716,7 +716,7 @@ var DefinitelyTyped;
             };
 
             Print.prototype.printSyntaxErrorCount = function (current, total) {
-                this.out(' \33[36m\33[1mSyntaxe error   :\33[0m \33[31m\33[1m' + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
+                this.out(' \33[36m\33[1mSyntax error    :\33[0m \33[31m\33[1m' + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
             };
 
             Print.prototype.printTestErrorCount = function (current, total) {
