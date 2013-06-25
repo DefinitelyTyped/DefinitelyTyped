@@ -35,7 +35,7 @@ interface EpicEditorOptions {
     };
 }
 
-class EpicEditor {
+declare class EpicEditor {
     constructor();
     constructor(options: EpicEditorOptions);
 

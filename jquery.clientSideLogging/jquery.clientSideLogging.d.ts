@@ -25,7 +25,6 @@ interface ClientSideLoggingObject {
 
 interface JQueryStatic {
     info: (what?: any) => any;
-    error: (what?: any) => any;
     log: (what?: any) => any;
     clientSideLogging: (options: ClientSideLoggingObject) => any;
 }
