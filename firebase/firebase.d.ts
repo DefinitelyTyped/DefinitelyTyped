@@ -43,7 +43,7 @@ interface IFirebaseQuery {
 	ref(): Firebase;
 }
 
-class Firebase implements IFirebaseQuery {
+declare class Firebase implements IFirebaseQuery {
 	constructor(firebaseURL: string);
 	auth(authToken: string, onComplete?: (error: string, result: IFirebaseAuthResult) => void, onCancel?:(error: string) => void): void;
 	unauth(): void;
