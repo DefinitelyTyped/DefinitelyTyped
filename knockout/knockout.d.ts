@@ -133,6 +133,8 @@ interface KnockoutBindingHandler {
 }
 
 interface KnockoutBindingHandlers {
+    [bindingHandler: string]: KnockoutBindingHandler;
+
     // Controlling text and appearance
     visible: KnockoutBindingHandler;
     text: KnockoutBindingHandler;
