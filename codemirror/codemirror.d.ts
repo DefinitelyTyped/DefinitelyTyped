@@ -679,7 +679,7 @@ declare module CodeMirror {
         /** Can be used to make CodeMirror focus itself on initialization. Defaults to off.
         When fromTextArea is used, and no explicit value is given for this option, it will be set to true when either the source textarea is focused,
         or it has an autofocus attribute and no other element is focused. */
-        autofocus?: number;
+        autofocus?: boolean;
 
         /** Controls whether drag-and - drop is enabled. On by default. */
         dragDrop?: boolean;
