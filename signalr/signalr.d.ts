@@ -65,7 +65,7 @@ interface HubProxy {
     (connection: HubConnection, hubName: string): HubProxy;
     init(connection: HubConnection, hubName: string): void;
     hasSubscriptions(): bool;
-    on(eventName: string, callback: (msg) => void ): HubProxy;
+    on(eventName: string, callback: (...msg) => void ): HubProxy;
     off(eventName: string, callback: (msg) => void ): HubProxy;
     invoke(methodName: string, ...args: any[]): JQueryDeferred;
 }
@@ -79,7 +79,7 @@ interface HubConnectionSettings {
 interface HubConnection extends SignalR {
     //(url?: string, queryString?: any, logging?: bool): HubConnection;
     proxies;
-    received(callback: (data: { Id; Method; Hub; State; Args; }) => void ): void;
+    received(callback: (data: { Id; Method; Hub; State; Args; }) => void ): HubConnection;
     createHubProxy(hubName: string): HubProxy;
 }
 
