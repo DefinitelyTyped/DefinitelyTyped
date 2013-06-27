@@ -1,4 +1,4 @@
-///<reference path="..\fabricjs.d.ts" />
+///<reference path="fabricjs.d.ts" />
 
 var dot, i,
     t1, t2,
