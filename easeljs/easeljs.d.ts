@@ -484,7 +484,7 @@ declare module createjs {
         y: number;
 
         // methods
-        constructor (x: number, y: number);
+        constructor (x?: number, y?: number);
         clone(): Point;
         toString(): string;
     }
@@ -498,7 +498,7 @@ declare module createjs {
         height: number;
 
         // methods
-        constructor (x: number, y: number, width: number, height: number);
+        constructor (x?: number, y?: number, width?: number, height?: number);
         clone(): Rectangle;
         toString(): string;
     }
