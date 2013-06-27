@@ -5,7 +5,7 @@
 
 interface WebGLRenderingContext {}
 
-module THREE {
+declare module THREE {
     export var REVISION: string;
 
     // GL STATE CONSTANTS
@@ -1277,7 +1277,7 @@ module THREE {
         degToRad(degrees: number): number;
 
         radToDeg(radians: number): number;
-    };
+    }
 
     /**
      *
@@ -5777,7 +5777,8 @@ module THREE {
         constructor(texture?: Texture, size?: number, distance?: number, blending?: Blending, color?: Color);
         lensFlares: LensFlareProperty[];
         positionScreen: Vector3;
-        customUpdateCallback: (object:LensFlare) => void;
+        customUpdateCallback: (object: LensFlare) => void;
+        add(object: Object3D): void;
         add(texture?: Texture, size?: number, distance?: number, blending?: Blending, color?: Color, opacity?: number): void;
         updateLensFlares(): void;
     }

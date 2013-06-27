@@ -3,9 +3,9 @@
 // Definitions by: Dániel Tar <https://github.com/qcz/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="jquery.d.ts"/>
+/// <reference path="../jquery/jquery.d.ts"/>
 
-declare interface JScrollPaneSettings {
+interface JScrollPaneSettings {
 	/**
 	 * Whether arrows should be shown on the generated scroll pane. When set to false only the scrollbar
 	 * track and drag will be shown, if set to true then arrows buttons will also be shown.
@@ -141,7 +141,7 @@ declare interface JScrollPaneSettings {
 	trackClickRepeatFreq?: number;
 }
 
-declare interface JScrollPaneApi {
+interface JScrollPaneApi {
 	/**
 	 * Reinitialises the scroll pane (if it's internal dimensions have changed since the last time it was initialised).
 	 * The settings object which is passed in will override any settings from the previous time it was initialised -
@@ -308,7 +308,7 @@ declare interface JScrollPaneApi {
 	destroy(): void;
 }
 
-declare interface JQuery {
+interface JQuery {
 	/**
 	 * Initialises the jScrollPane on the JQuery object.
 	*/

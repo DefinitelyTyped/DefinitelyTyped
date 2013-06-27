@@ -1,7 +1,6 @@
 /// <reference path='zmq.d.ts' />
 
-import zeromq = module('zmq');
-var zmq: zeromq;
+import zmq = module('zmq');
 
 function test1() {
     var sock = zmq.socket('push');

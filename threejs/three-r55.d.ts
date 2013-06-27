@@ -7,9 +7,9 @@
  * 
  */
 
-interface WebGLRenderingContext {};
+interface WebGLRenderingContext {}
 
-module THREE {
+declare module THREE {
     export var REVISION: string;
 
     // GL STATE CONSTANTS
@@ -5259,6 +5259,7 @@ module THREE {
         lensFlares: LensFlareProperty[];
         positionScreen: Vector3;
         customUpdateCallback: () => void;
+        add(object: Object3D): void;
         add(texture?: Texture, size?: number, distance?: number, blending?: Blending, color?: number, opacity?: number): void;
         updateLensFlares(): void;
     }

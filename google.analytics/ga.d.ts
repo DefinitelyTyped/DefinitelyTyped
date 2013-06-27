@@ -3,7 +3,7 @@
 // Definitions by: Ronnie Haakon Hegelund <http://ronniehegelund.blogspot.dk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-class Tracker {
+declare class Tracker {
     _trackPageview(): void;
     _getName(): string;
     _getAccount(): string;

@@ -18,4 +18,4 @@ interface MousetrapStatic {
     reset(): void;
 }
 
-var Mousetrap: MousetrapStatic;
+declare var Mousetrap: MousetrapStatic;
