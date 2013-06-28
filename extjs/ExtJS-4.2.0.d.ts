@@ -164,9 +164,9 @@ declare module Ext {
 		* @param oldHeight Number The old height, or undefined if this was the initial layout. 
 		*/
 		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:undefined ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:undefined ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:number ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:any ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:any ): void;
 		/** [Method] Allows addition of behavior after rendering is complete  */
 		afterRender?(): void;
 		/** [Method] Template method called after a Component has been positioned  
@@ -2063,9 +2063,9 @@ declare module Ext.chart {
 		* @param oldHeight Number The old height, or undefined if this was the initial layout. 
 		*/
 		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:undefined ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:undefined ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:number ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:any ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:any ): void;
 		/** [Method] set the store after rendering the chart  */
 		afterRender?(): void;
 		/** [Method] Binds a store to this instance  
@@ -3419,9 +3419,9 @@ declare module Ext {
 		* @param oldHeight Number The old height, or undefined if this was the initial layout. 
 		*/
 		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:undefined ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:undefined ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:number ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:any ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:any ): void;
 		/** [Method] Invoked after the Component has been hidden  
 		* @param callback Function 
 		* @param scope Object 
@@ -3482,7 +3482,7 @@ declare module Ext {
 		focus?( selectText?:bool, delay?:bool ): Ext.IComponent;
 		focus?( selectText?:bool, delay?:number ): Ext.IComponent;
 		/** [Method] Implements an upward event bubbling policy  */
-		getBubbleTarget?(): void;
+		getBubbleTarget? (): Ext.IContainer;
 		/** [Method] Retrieves the top level element representing this component  */
 		getEl?(): Ext.dom.IElement;
 		/** [Method] Retrieves the id of this component  */
@@ -3710,9 +3710,9 @@ declare module Ext.container {
 		* @param oldHeight Number The old height, or undefined if this was the initial layout. 
 		*/
 		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:undefined ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:undefined ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:number ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:any ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:any ): void;
 		/** [Method] Invoked after the Container has laid out and rendered if necessary its child Components  
 		* @param layout Ext.layout.container.IContainer 
 		*/
@@ -14114,7 +14114,7 @@ declare module Ext.form.field {
 		/** [Method] Returns the name attribute of the field  */
 		getName?(): string;
 		/** [Method] Returns the raw value of the field without performing any normalization conversion or validation  */
-		getRawValue?(): string;
+		getRawValue?(): any;
 		/** [Method] Creates and returns the data object to be used when rendering the fieldSubTpl  */
 		getSubTplData?(): any;
 		/** [Method] Gets the markup to be inserted into the outer template s bodyEl  */
@@ -16469,7 +16469,7 @@ declare module Ext.form.field {
 		/** [Method] Returns the value s that should be saved to the Ext data Model instance for this field when Ext form Basic updateRe  */
 		getModelData?(): any;
 		/** [Method] Returns the submit value for the checkbox which can be used when submitting forms  */
-		getSubmitValue?(): any;
+		getSubmitValue?(): string;
 		/** [Method] Method to manage awareness of when components are removed from their respective Container firing a removed event  
 		* @param destroying Boolean Will be passed as true if the Container performing the remove operation will delete this Component upon remove. 
 		*/
@@ -16495,7 +16495,7 @@ declare module Ext.form {
 		/** [Method] Returns the value s that should be saved to the Ext data Model instance for this field when Ext form Basic updateRe  */
 		getModelData?(): any;
 		/** [Method] Returns the submit value for the checkbox which can be used when submitting forms  */
-		getSubmitValue?(): any;
+		getSubmitValue?(): string;
 		/** [Method] Method to manage awareness of when components are removed from their respective Container firing a removed event  
 		* @param destroying Boolean Will be passed as true if the Container performing the remove operation will delete this Component upon remove. 
 		*/
@@ -16655,9 +16655,9 @@ declare module Ext.form.field {
 		* @param oldHeight Number The old height, or undefined if this was the initial layout. 
 		*/
 		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:undefined ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:undefined ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:number ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:any ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:any ): void;
 		/** [Method] Allows addition of behavior after rendering is complete  */
 		afterRender?(): void;
 		/** [Method] Applies the state to the object  
@@ -16774,9 +16774,9 @@ declare module Ext.form {
 		* @param oldHeight Number The old height, or undefined if this was the initial layout. 
 		*/
 		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:undefined ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:undefined ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:number ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:any ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:any ): void;
 		/** [Method] Allows addition of behavior after rendering is complete  */
 		afterRender?(): void;
 		/** [Method] Applies the state to the object  
@@ -16893,9 +16893,9 @@ declare module Ext.form {
 		* @param oldHeight Number The old height, or undefined if this was the initial layout. 
 		*/
 		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:undefined ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:undefined ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:number ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:any ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:any ): void;
 		/** [Method] Allows addition of behavior after rendering is complete  */
 		afterRender?(): void;
 		/** [Method] Applies the state to the object  
@@ -18825,9 +18825,9 @@ declare module Ext.grid.column {
 		* @param oldHeight Number The old height, or undefined if this was the initial layout. 
 		*/
 		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:undefined ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:undefined ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:number ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:any ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:any ): void;
 		/** [Method] Allows addition of behavior after rendering is complete  */
 		afterRender?(): void;
 		/** [Method] Sizes this Column to fit the max content width  
@@ -18968,9 +18968,9 @@ declare module Ext.grid {
 		* @param oldHeight Number The old height, or undefined if this was the initial layout. 
 		*/
 		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:undefined ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:undefined ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:number ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:any ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:any ): void;
 		/** [Method] Allows addition of behavior after rendering is complete  */
 		afterRender?(): void;
 		/** [Method] Sizes this Column to fit the max content width  
@@ -20200,9 +20200,9 @@ declare module Ext.grid {
 		* @param oldHeight Number The old height, or undefined if this was the initial layout. 
 		*/
 		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:undefined ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:undefined ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:number ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:any ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:any ): void;
 	}
 }
 declare module Ext.grid {
@@ -20751,8 +20751,8 @@ declare module Ext {
 		* @param version any The version, for example: '1.2.3alpha', '2.4.0-dev' 
 		*/
 		export function setVersion( packageName?:any, version?:any ): any;
-		export function setVersion( packageName?:string, version?:string ): Ext;
-		export function setVersion( packageName?:string, version?:Ext.IVersion ): Ext;
+		export function setVersion( packageName?:string, version?:string ): any;
+		export function setVersion( packageName?:string, version?:Ext.IVersion ): any;
 		/** [Method]  */
 		export function suspendLayouts(): void;
 		/** [Method] Synchronously loads all classes by the given names and all their direct dependencies optionally executes the given c  
@@ -25432,7 +25432,7 @@ declare module Ext.slider {
 		/** [Method] private override Creates and returns the data object to be used when rendering the fieldSubTpl  */
 		getSubTplData?(): any;
 		/** [Method] Returns the value that would be included in a standard form submit for this field  */
-		getSubmitValue?(): any;
+		getSubmitValue?(): string;
 		/** [Method] Returns the current value of the slider 
 		* @param index Number The index of the thumb to return a value for 
 		*/
@@ -25523,7 +25523,7 @@ declare module Ext.slider {
 		/** [Method] private override Creates and returns the data object to be used when rendering the fieldSubTpl  */
 		getSubTplData?(): any;
 		/** [Method] Returns the value that would be included in a standard form submit for this field  */
-		getSubmitValue?(): any;
+		getSubmitValue?(): string;
 		/** [Method] Returns the current value of the slider 
 		* @param index Number The index of the thumb to return a value for 
 		*/
@@ -26130,9 +26130,9 @@ declare module Ext.tab {
 		* @param oldHeight Number The old height, or undefined if this was the initial layout. 
 		*/
 		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:undefined ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:undefined ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:number ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:any ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:any ): void;
 		/** [Method] Invoked after the Container has laid out and rendered if necessary its child Components  
 		* @param layout Ext.layout.container.IContainer 
 		*/
@@ -26427,7 +26427,10 @@ declare module Ext.tip {
 		cancelShow?( el?:HTMLElement ): void;
 		cancelShow?( el?:Ext.IElement ): void;
 		/** [Method] Hides this tooltip if visible  */
-		hide?(): void;
+		hide? (animateTarget?: any, callback?: any, scope?: any): any;
+		hide? (animateTarget?: string, callback?: any, scope?: any): Ext.IComponent;
+		hide? (animateTarget?: Ext.IElement, callback?: any, scope?: any): Ext.IComponent;
+		hide? (animateTarget?: Ext.IComponent, callback?: any, scope?: any): Ext.IComponent;
 		/** [Method] The initComponent template method is an important initialization step for a Component  */
 		initComponent?(): void;
 		/** [Method] Configures a new quick tip instance and assigns it to a target element  
@@ -26435,7 +26438,9 @@ declare module Ext.tip {
 		*/
 		register?( config?:any ): void;
 		/** [Method] Shows this tooltip at the current event target XY position  */
-		show?(): void;
+		show? (animateTarget?: any, callback?: any, scope?: any): any;
+		show? (animateTarget?: string, callback?: any, scope?: any): Ext.IComponent;
+		show? (animateTarget?: Ext.IElement, callback?: any, scope?: any): Ext.IComponent;
 		/** [Method] Removes this quick tip from its element and destroys it  
 		* @param el String The element from which the quick tip is to be removed or ID of the element. 
 		*/
@@ -26459,7 +26464,10 @@ declare module Ext {
 		cancelShow?( el?:HTMLElement ): void;
 		cancelShow?( el?:Ext.IElement ): void;
 		/** [Method] Hides this tooltip if visible  */
-		hide?(): void;
+		hide? (animateTarget?: any, callback?: any, scope?: any): any;
+		hide? (animateTarget?: string, callback?: any, scope?: any): Ext.IComponent;
+		hide? (animateTarget?: Ext.IElement, callback?: any, scope?: any): Ext.IComponent;
+		hide? (animateTarget?: Ext.IComponent, callback?: any, scope?: any): Ext.IComponent;
 		/** [Method] The initComponent template method is an important initialization step for a Component  */
 		initComponent?(): void;
 		/** [Method] Configures a new quick tip instance and assigns it to a target element  
@@ -26467,7 +26475,9 @@ declare module Ext {
 		*/
 		register?( config?:any ): void;
 		/** [Method] Shows this tooltip at the current event target XY position  */
-		show?(): void;
+		show? (animateTarget?: any, callback?: any, scope?: any): any;
+		show? (animateTarget?: string, callback?: any, scope?: any): Ext.IComponent;
+		show? (animateTarget?: Ext.IElement, callback?: any, scope?: any): Ext.IComponent;
 		/** [Method] Removes this quick tip from its element and destroys it  
 		* @param el String The element from which the quick tip is to be removed or ID of the element. 
 		*/
@@ -26608,7 +26618,10 @@ declare module Ext.tip {
 		/** [Method] Invoked before the Component is destroyed  */
 		beforeDestroy?(): void;
 		/** [Method] Hides this tooltip if visible  */
-		hide?(): void;
+		hide? (animateTarget?: any, callback?: any, scope?: any): any;
+		hide? (animateTarget?: string, callback?: any, scope?: any): Ext.IComponent;
+		hide? (animateTarget?: Ext.IElement, callback?: any, scope?: any): Ext.IComponent;
+		hide? (animateTarget?: Ext.IComponent, callback?: any, scope?: any): Ext.IComponent;
 		/** [Method] The initComponent template method is an important initialization step for a Component  */
 		initComponent?(): void;
 		/** [Method] Allows addition of behavior to the destroy operation  */
@@ -26642,7 +26655,9 @@ declare module Ext.tip {
 		setTarget?( t?:HTMLElement ): void;
 		setTarget?( t?:Ext.IElement ): void;
 		/** [Method] Shows this tooltip at the current event target XY position  */
-		show?(): void;
+		show? (animateTarget?: any, callback?: any, scope?: any): any;
+		show? (animateTarget?: string, callback?: any, scope?: any): Ext.IComponent;
+		show? (animateTarget?: Ext.IElement, callback?: any, scope?: any): Ext.IComponent;
 	}
 }
 declare module Ext {
@@ -26674,7 +26689,10 @@ declare module Ext {
 		/** [Method] Invoked before the Component is destroyed  */
 		beforeDestroy?(): void;
 		/** [Method] Hides this tooltip if visible  */
-		hide?(): void;
+		hide? (animateTarget?: any, callback?: any, scope?: any): any;
+		hide? (animateTarget?: string, callback?: any, scope?: any): Ext.IComponent;
+		hide? (animateTarget?: Ext.IElement, callback?: any, scope?: any): Ext.IComponent;
+		hide? (animateTarget?: Ext.IComponent, callback?: any, scope?: any): Ext.IComponent;
 		/** [Method] The initComponent template method is an important initialization step for a Component  */
 		initComponent?(): void;
 		/** [Method] Allows addition of behavior to the destroy operation  */
@@ -26708,7 +26726,9 @@ declare module Ext {
 		setTarget?( t?:HTMLElement ): void;
 		setTarget?( t?:Ext.IElement ): void;
 		/** [Method] Shows this tooltip at the current event target XY position  */
-		show?(): void;
+		show? (animateTarget?: any, callback?: any, scope?: any): any;
+		show? (animateTarget?: string, callback?: any, scope?: any): Ext.IComponent;
+		show? (animateTarget?: Ext.IElement, callback?: any, scope?: any): Ext.IComponent;
 	}
 }
 declare module Ext.toolbar {
@@ -27359,9 +27379,9 @@ declare module Ext.tree {
 		* @param oldHeight Number The old height, or undefined if this was the initial layout. 
 		*/
 		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:undefined ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:undefined ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:number ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:any ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:any ): void;
 		/** [Method] Allows addition of behavior after rendering is complete  */
 		afterRender?(): void;
 		/** [Method] Collapses a record that is loaded in the view  

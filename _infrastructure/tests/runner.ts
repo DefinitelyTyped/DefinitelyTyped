@@ -291,8 +291,8 @@ module DefinitelyTyped {
 				}
 			}
 
-			private run(it, file, len, maxLen, callback: Function) {
-				if (!endsWith(file, '-tests.ts')) {
+            private run(it, file, len, maxLen, callback: Function) {
+                if (!endsWith(file.toUpperCase(), '-TESTS.TS') && file.indexOf('../_infrastructure') < 0) {
 					new Test(file).run((o) => {
 						var failed = false;
 
@@ -408,7 +408,7 @@ module DefinitelyTyped {
 			}
 
 			private run(it, file, len, maxLen, callback: Function) {
-				if (endsWith(file, '-tests.ts')) {
+                if (endsWith(file.toUpperCase(), '-TESTS.TS')) {
 					new Test(file).run((o) => {
 						var failed = false;
 
