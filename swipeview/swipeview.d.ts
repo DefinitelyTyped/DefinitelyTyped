@@ -20,7 +20,7 @@ interface PageHTMLElement extends HTMLElement {
     dataset: any;
 }
 
-class SwipeView {
+declare class SwipeView {
 
     masterPages: PageHTMLElement[];
     currentMasterPage: number;

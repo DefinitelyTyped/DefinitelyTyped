@@ -12,17 +12,6 @@
 declare var process: NodeProcess;
 declare var global: any;
 
-declare var console: {
-    log(...data: any[]): void;
-    info(...data: any[]): void;
-    error(...data: any[]): void;
-    warn(...data: any[]): void;
-    dir(obj: any): void;
-    timeEnd(label: string): void;
-    trace(label: string): void;
-    assert(expression: any, ...message: string[]): void;
-}
-
 declare var __filename: string;
 declare var __dirname: string;
 
@@ -309,7 +298,7 @@ declare module "cluster" {
     }
     export interface Worker {
         id: string;
-        process: child_process;
+        process: child_process.ChildProcess;
         suicide: bool;
         send(message: any, sendHandle?: any): void;
         destroy(): void;
@@ -1015,19 +1004,23 @@ declare module "util" {
 }
 
 declare module "assert" {
-    export function (booleanValue: bool, message?: string);
-    export function fail(actual: any, expected: any, message: string, operator: string): void;
-    export function assert(value: any, message: string): void;
-    export function ok(value: any, message?: string): void;
-    export function equal(actual: any, expected: any, message?: string): void;
-    export function notEqual(actual: any, expected: any, message?: string): void;
-    export function deepEqual(actual: any, expected: any, message?: string): void;
-    export function notDeepEqual(acutal: any, expected: any, message?: string): void;
-    export function strictEqual(actual: any, expected: any, message?: string): void;
-    export function notStrictEqual(actual: any, expected: any, message?: string): void;
-    export function throws(block: any, error?: any, messsage?: string): void;
-    export function doesNotThrow(block: any, error?: any, messsage?: string): void;
-    export function ifError(value: any): void;
+    function internal(booleanValue: boolean, message?: string): void;
+    module internal {
+        export function fail(actual: any, expected: any, message: string, operator: string): void;
+        export function assert(value: any, message: string): void;
+        export function ok(value: any, message?: string): void;
+        export function equal(actual: any, expected: any, message?: string): void;
+        export function notEqual(actual: any, expected: any, message?: string): void;
+        export function deepEqual(actual: any, expected: any, message?: string): void;
+        export function notDeepEqual(acutal: any, expected: any, message?: string): void;
+        export function strictEqual(actual: any, expected: any, message?: string): void;
+        export function notStrictEqual(actual: any, expected: any, message?: string): void;
+        export function throws(block: any, error?: any, messsage?: string): void;
+        export function doesNotThrow(block: any, error?: any, messsage?: string): void;
+        export function ifError(value: any): void;
+    }
+
+    export = internal;
 }
 
 declare module "tty" {
