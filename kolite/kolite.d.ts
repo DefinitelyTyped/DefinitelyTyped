@@ -41,7 +41,7 @@ interface JQuery {
 // DirtyFlag /////////////////////////////////////////////
 
 interface DirtyFlag {
-    isDirty: KnockoutComputed;
+    isDirty: KnockoutComputed<boolean>;
     new (objectToTrack: any, isInitiallyDirty?: bool, hashFunction?: () => any);
     reset(): void;
 }
@@ -54,7 +54,7 @@ interface KnockoutStatic {
 // Command /////////////////////////////////////////////
 
 interface KoliteCommand {
-    canExecute: KnockoutComputed;
+    canExecute: KnockoutComputed<boolean>;
     execute(...args: any[]): any;
 }
 
