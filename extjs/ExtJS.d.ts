@@ -173,9 +173,9 @@ declare module Ext {
 		*/
 		afterComponentLayout?( width?:any, height?:any, oldWidth?:any, oldHeight?:any ): any;
 		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:number ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:undefined ): void;
-		afterComponentLayout?( width?:number, height?:number, oldWidth?:undefined, oldHeight?:undefined ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:number ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:number, oldHeight?:any ): void;
+		afterComponentLayout?( width?:number, height?:number, oldWidth?:any, oldHeight?:any ): void;
 		/** [Method] Allows addition of behavior after rendering is complete  */
 		afterRender?(): void;
 		/** [Method] Template method called after a Component has been positioned  
@@ -3996,7 +3996,7 @@ declare module Ext {
 		focus?( selectText?:bool, delay?:bool, callback?:any, scope?:any ): Ext.IComponent;
 		focus?( selectText?:bool, delay?:number, callback?:any, scope?:any ): Ext.IComponent;
 		/** [Method] Implements an upward event bubbling policy  */
-		getBubbleTarget?(): void;
+		getBubbleTarget? (): Ext.container.IContainer;
 		/** [Method] Retrieves the top level element representing this component  */
 		getEl?(): Ext.dom.IElement;
 		/** [Method] Retrieves the id of this component  */
@@ -18229,7 +18229,7 @@ declare module Ext.form.field {
 		/** [Method] Returns the name attribute of the field  */
 		getName?(): string;
 		/** [Method] Returns the raw value of the field without performing any normalization conversion or validation  */
-		getRawValue?(): string;
+		getRawValue?(): any;
 		/** [Method] Creates and returns the data object to be used when rendering the fieldSubTpl  */
 		getSubTplData?(): any;
 		/** [Method] Gets the markup to be inserted into the outer template s bodyEl  */
@@ -19611,7 +19611,7 @@ declare module Ext.form.field {
 		/** [Method] Returns the value s that should be saved to the Ext data Model instance for this field when Ext form Basic updateRe  */
 		getModelData?(): any;
 		/** [Method] Returns the name attribute of the field  */
-		getName?(): any;
+		getName?(): string;
 		/** [Method] Returns the parameter s that would be included in a standard form submit for this field  */
 		getSubmitData?(): any;
 		/** [Method] Returns the current data value of the field  */
@@ -20480,7 +20480,7 @@ declare module Ext.form.field {
 		/** [Method] Returns the value s that should be saved to the Ext data Model instance for this field when Ext form Basic updateRe  */
 		getModelData?(): any;
 		/** [Method] Returns the submit value for the checkbox which can be used when submitting forms  */
-		getSubmitValue?(): any;
+		getSubmitValue?(): string;
 		/** [Method] Method to manage awareness of when components are removed from their respective Container firing a removed event  */
 		onRemoved?(): void;
 		/** [Method] Sets either the checked unchecked status of this Radio or if a string value is passed checks a sibling Radio of th  
@@ -20504,7 +20504,7 @@ declare module Ext.form {
 		/** [Method] Returns the value s that should be saved to the Ext data Model instance for this field when Ext form Basic updateRe  */
 		getModelData?(): any;
 		/** [Method] Returns the submit value for the checkbox which can be used when submitting forms  */
-		getSubmitValue?(): any;
+		getSubmitValue?(): string;
 		/** [Method] Method to manage awareness of when components are removed from their respective Container firing a removed event  */
 		onRemoved?(): void;
 		/** [Method] Sets either the checked unchecked status of this Radio or if a string value is passed checks a sibling Radio of th  
@@ -25343,8 +25343,8 @@ declare module Ext {
 		* @param version String/Ext.Version The version, for example: '1.2.3alpha', '2.4.0-dev' 
 		*/
 		export function setVersion( packageName?:any, version?:any ): any;
-		export function setVersion( packageName?:string, version?:string ): Ext;
-		export function setVersion( packageName?:string, version?:Ext.IVersion ): Ext;
+		export function setVersion( packageName?:string, version?:string ): any;
+		export function setVersion( packageName?:string, version?:Ext.IVersion ): any;
 		/** [Method] Old alias to Ext Array sum 
 		* @param array Array The Array to calculate the sum value of. 
 		*/
@@ -32643,7 +32643,7 @@ declare module Ext.slider {
 		/** [Method] private override */
 		getSubTplData?(): any;
 		/** [Method] Returns the value that would be included in a standard form submit for this field  */
-		getSubmitValue?(): any;
+		getSubmitValue?(): string;
 		/** [Method] Returns the current value of the slider 
 		* @param index Number The index of the thumb to return a value for 
 		*/
@@ -32731,7 +32731,7 @@ declare module Ext.slider {
 		/** [Method] private override */
 		getSubTplData?(): any;
 		/** [Method] Returns the value that would be included in a standard form submit for this field  */
-		getSubmitValue?(): any;
+		getSubmitValue?(): string;
 		/** [Method] Returns the current value of the slider 
 		* @param index Number The index of the thumb to return a value for 
 		*/
@@ -33971,7 +33971,10 @@ declare module Ext.tip {
 		/** [Property] (HTMLElement) */
 		triggerElement?: HTMLElement;
 		/** [Method] Hides this tooltip if visible  */
-		hide?(): void;
+		hide? (animateTarget?: any, callback?: any, scope?: any): any;
+		hide? (animateTarget?: string, callback?: any, scope?: any): Ext.IComponent;
+		hide? (animateTarget?: Ext.IElement, callback?: any, scope?: any): Ext.IComponent;
+		hide? (animateTarget?: Ext.IComponent, callback?: any, scope?: any): Ext.IComponent;
 		/** [Method] Binds this ToolTip to the specified element  
 		* @param t String/HTMLElement/Ext.Element The Element, HtmlElement, or ID of an element to bind to 
 		*/
@@ -33980,7 +33983,9 @@ declare module Ext.tip {
 		setTarget?( t?:HTMLElement ): void;
 		setTarget?( t?:Ext.IElement ): void;
 		/** [Method] Shows this tooltip at the current event target XY position  */
-		show?(): void;
+		show? (animateTarget?: any, callback?: any, scope?: any): any;
+		show? (animateTarget?: string, callback?: any, scope?: any): Ext.IComponent;
+		show? (animateTarget?: Ext.IElement, callback?: any, scope?: any): Ext.IComponent;
 	}
 }
 declare module Ext {
@@ -34010,7 +34015,10 @@ declare module Ext {
 		/** [Property] (HTMLElement) */
 		triggerElement?: HTMLElement;
 		/** [Method] Hides this tooltip if visible  */
-		hide?(): void;
+		hide? (animateTarget?: any, callback?: any, scope?: any): any;
+		hide? (animateTarget?: string, callback?: any, scope?: any): Ext.IComponent;
+		hide? (animateTarget?: Ext.IElement, callback?: any, scope?: any): Ext.IComponent;
+		hide? (animateTarget?: Ext.IComponent, callback?: any, scope?: any): Ext.IComponent;
 		/** [Method] Binds this ToolTip to the specified element  
 		* @param t String/HTMLElement/Ext.Element The Element, HtmlElement, or ID of an element to bind to 
 		*/
@@ -34019,7 +34027,9 @@ declare module Ext {
 		setTarget?( t?:HTMLElement ): void;
 		setTarget?( t?:Ext.IElement ): void;
 		/** [Method] Shows this tooltip at the current event target XY position  */
-		show?(): void;
+		show? (animateTarget?: any, callback?: any, scope?: any): any;
+		show? (animateTarget?: string, callback?: any, scope?: any): Ext.IComponent;
+		show? (animateTarget?: Ext.IElement, callback?: any, scope?: any): Ext.IComponent;
 	}
 }
 declare module Ext.toolbar {

@@ -3,7 +3,7 @@
 // Definitions by: https://github.com/sunetos
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-module TWEEN {
+declare module TWEEN {
   export var REVISION: string;
   export function getAll(): Tween[];
   export function removeAll(): void;
@@ -24,7 +24,7 @@ module TWEEN {
     onUpdate(callback:Function): Tween;
     onComplete(callback:Function): Tween;
     update(time:number): bool;
-  };
+  }
   export var Easing: TweenEasing;
   export var Interpolation: TweenInterpolation;
 }
