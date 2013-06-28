@@ -291,11 +291,8 @@ interface JQueryMobile extends JQueryMobileOptions {
     showPageLoadingMsg();
     hidePageLoadingMsg();
     loader;
-    loading;
-    loadPage;
     page;
 
-    silentScroll;
     touchOverflow;
     showCategory;
     path;

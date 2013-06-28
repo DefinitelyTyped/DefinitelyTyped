@@ -215,7 +215,7 @@ interface Pouch extends PouchApi {
 	destroy(name: string, callback: (err: PouchError) => void): void;
 }
 
-var Pouch: Pouch;
+declare var Pouch: Pouch;
 //
 // emit is the function that the PouchFilter.map function should call in order to add a particular item to
 // a filter view.
