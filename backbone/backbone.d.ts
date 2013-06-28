@@ -295,6 +295,7 @@ declare module Backbone {
         collection: Collection;
         make(tagName: string, attrs?, opts?): View;
         setElement(element: HTMLElement, delegate?: boolean);
+        setElement(element: JQuery, delegate?: boolean);
         id: string;
         cid: string;
         className: string;
