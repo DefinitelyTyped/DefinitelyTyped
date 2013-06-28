@@ -5,11 +5,15 @@
 
 
 declare module "marked" {
-	export function (src: string, opt?: Options): string;
-	export function lexer(src: string, opt?: Options): any[];
-	export function parser(src: any[], opt?: Options): string;
-	export function parse(src: string, opt?: Options): string;
-	export function setOptions(opt: Options): void;
+	function marked(src: string, opt?: Options): string;
+	module marked {
+		export function lexer(src: string, opt?: Options): any[];
+		export function parser(src: any[], opt?: Options): string;
+		export function parse(src: string, opt?: Options): string;
+		export function setOptions(opt: Options): void;
+	}
+
+	export = marked;
 }
 
 interface Options {
