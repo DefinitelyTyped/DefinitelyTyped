@@ -56,7 +56,7 @@ interface Moment {
     format(format: string): string;
     format(): string;
 
-    fromNow(withoutSuffix?: bool): string;
+    fromNow(withoutSuffix?: boolean): string;
 
     startOf(soort: string): Moment;
     endOf(soort: string): Moment;
@@ -75,7 +75,7 @@ interface Moment {
 
     utc(): Moment; // current date/time in UTC mode
 
-    isValid(): bool;
+    isValid(): boolean;
 
     year(y: number): Moment;
     year(): number;
@@ -98,58 +98,58 @@ interface Moment {
     eod(): Moment; // End of Day
 
     from(f: Moment): string;
-    from(f: Moment, suffix: bool): string;
+    from(f: Moment, suffix: boolean): string;
     from(d: Date): string;
     from(s: string): string;
     from(date: number[]): string;
 
     diff(b: Moment): number;
     diff(b: Moment, soort: string): number;
-    diff(b: Moment, soort: string, round: bool): number;
+    diff(b: Moment, soort: string, round: boolean): number;
 
     toDate(): Date;
     unix(): number;
 
-    isLeapYear(): bool;
+    isLeapYear(): boolean;
     zone(): number;
     daysInMonth(): number;
-    isDST(): bool;
+    isDST(): boolean;
 
-    isBefore(b: Moment): bool;
-    isBefore(b: string): bool;
-    isBefore(b: Number): bool;
-    isBefore(b: Date): bool;
-    isBefore(b: Array): bool;
-    isBefore(b: Moment, granularity: string): bool;
-    isBefore(b: String, granularity: string): bool;
-    isBefore(b: Number, granularity: string): bool;
-    isBefore(b: Date, granularity: string): bool;
-    isBefore(b: Array, granularity: string): bool;
+    isBefore(b: Moment): boolean;
+    isBefore(b: string): boolean;
+    isBefore(b: Number): boolean;
+    isBefore(b: Date): boolean;
+    isBefore(b: Array): boolean;
+    isBefore(b: Moment, granularity: string): boolean;
+    isBefore(b: String, granularity: string): boolean;
+    isBefore(b: Number, granularity: string): boolean;
+    isBefore(b: Date, granularity: string): boolean;
+    isBefore(b: Array, granularity: string): boolean;
 
-    isAfter(b: Moment): bool;
-    isAfter(b: string): bool;
-    isAfter(b: Number): bool;
-    isAfter(b: Date): bool;
-    isAfter(b: Array): bool;
-    isAfter(b: Moment, granularity: string): bool;
-    isAfter(b: String, granularity: string): bool;
-    isAfter(b: Number, granularity: string): bool;
-    isAfter(b: Date, granularity: string): bool;
-    isAfter(b: Array, granularity: string): bool;
+    isAfter(b: Moment): boolean;
+    isAfter(b: string): boolean;
+    isAfter(b: Number): boolean;
+    isAfter(b: Date): boolean;
+    isAfter(b: Array): boolean;
+    isAfter(b: Moment, granularity: string): boolean;
+    isAfter(b: String, granularity: string): boolean;
+    isAfter(b: Number, granularity: string): boolean;
+    isAfter(b: Date, granularity: string): boolean;
+    isAfter(b: Array, granularity: string): boolean;
 
-    isSame(b: Moment): bool;
-    isSame(b: string): bool;
-    isSame(b: Number): bool;
-    isSame(b: Date): bool;
-    isSame(b: Array): bool;
-    isSame(b: Moment, granularity: string): bool;
-    isSame(b: String, granularity: string): bool;
-    isSame(b: Number, granularity: string): bool;
-    isSame(b: Date, granularity: string): bool;
-    isSame(b: Array, granularity: string): bool;
+    isSame(b: Moment): boolean;
+    isSame(b: string): boolean;
+    isSame(b: Number): boolean;
+    isSame(b: Date): boolean;
+    isSame(b: Array): boolean;
+    isSame(b: Moment, granularity: string): boolean;
+    isSame(b: String, granularity: string): boolean;
+    isSame(b: Number, granularity: string): boolean;
+    isSame(b: Date, granularity: string): boolean;
+    isSame(b: Array, granularity: string): boolean;
 
     lang(language: string);
-    lang(reset: bool);
+    lang(reset: boolean);
     lang(): string;
 
 }
@@ -174,7 +174,7 @@ interface MomentLanguage {
   weekdaysMin?: any;
   longDateFormat?: MomentLongDateFormat;
   relativeTime?: MomentRelativeTime;
-  meridiem?: (hour: number, minute: number, isLowercase: bool) => string;
+  meridiem?: (hour: number, minute: number, isLowercase: boolean) => string;
   calendar?: MomentCalendar;
   ordinal?: (num: number) => string;
 
@@ -196,7 +196,7 @@ interface MomentLongDateFormat {
 }
 
 interface MomentRelativeTime {
-  
+
   future: any;
   past: any;
   s: any;
@@ -233,8 +233,8 @@ interface MomentStatic {
     utc(String: string): Moment; // parse string into UTC mode
     utc(String1: string, String2: string): Moment; // parse a string and format into UTC mode
 
-    isMoment(): bool;
-    isMoment(m: any): bool;
+    isMoment(): boolean;
+    isMoment(m: any): boolean;
     lang(language: string);
     lang(language: string, definition: MomentLanguage);
     months: string[];
@@ -244,7 +244,7 @@ interface MomentStatic {
     weekdaysMin: string[];
     longDateFormat: any;
     relativeTime: any;
-    meridiem: (hour: number, minute: number, isLowercase: bool) => string;
+    meridiem: (hour: number, minute: number, isLowercase: boolean) => string;
     calendar: any;
     ordinal: (num: number) => string;
 
@@ -254,38 +254,38 @@ interface MomentStatic {
     duration(object: any): Duration;
     duration(): Duration;
 
-    isBefore(b: Moment): bool;
-    isBefore(b: string): bool;
-    isBefore(b: Number): bool;
-    isBefore(b: Date): bool;
-    isBefore(b: Array): bool;
-    isBefore(b: Moment, granularity: string): bool;
-    isBefore(b: String, granularity: string): bool;
-    isBefore(b: Number, granularity: string): bool;
-    isBefore(b: Date, granularity: string): bool;
-    isBefore(b: Array, granularity: string): bool;
+    isBefore(b: Moment): boolean;
+    isBefore(b: string): boolean;
+    isBefore(b: Number): boolean;
+    isBefore(b: Date): boolean;
+    isBefore(b: Array): boolean;
+    isBefore(b: Moment, granularity: string): boolean;
+    isBefore(b: String, granularity: string): boolean;
+    isBefore(b: Number, granularity: string): boolean;
+    isBefore(b: Date, granularity: string): boolean;
+    isBefore(b: Array, granularity: string): boolean;
 
-    isAfter(b: Moment): bool;
-    isAfter(b: string): bool;
-    isAfter(b: Number): bool;
-    isAfter(b: Date): bool;
-    isAfter(b: Array): bool;
-    isAfter(b: Moment, granularity: string): bool;
-    isAfter(b: String, granularity: string): bool;
-    isAfter(b: Number, granularity: string): bool;
-    isAfter(b: Date, granularity: string): bool;
-    isAfter(b: Array, granularity: string): bool;
+    isAfter(b: Moment): boolean;
+    isAfter(b: string): boolean;
+    isAfter(b: Number): boolean;
+    isAfter(b: Date): boolean;
+    isAfter(b: Array): boolean;
+    isAfter(b: Moment, granularity: string): boolean;
+    isAfter(b: String, granularity: string): boolean;
+    isAfter(b: Number, granularity: string): boolean;
+    isAfter(b: Date, granularity: string): boolean;
+    isAfter(b: Array, granularity: string): boolean;
 
-    isSame(b: Moment): bool;
-    isSame(b: string): bool;
-    isSame(b: Number): bool;
-    isSame(b: Date): bool;
-    isSame(b: Array): bool;
-    isSame(b: Moment, granularity: string): bool;
-    isSame(b: String, granularity: string): bool;
-    isSame(b: Number, granularity: string): bool;
-    isSame(b: Date, granularity: string): bool;
-    isSame(b: Array, granularity: string): bool;
+    isSame(b: Moment): boolean;
+    isSame(b: string): boolean;
+    isSame(b: Number): boolean;
+    isSame(b: Date): boolean;
+    isSame(b: Array): boolean;
+    isSame(b: Moment, granularity: string): boolean;
+    isSame(b: String, granularity: string): boolean;
+    isSame(b: Number, granularity: string): boolean;
+    isSame(b: Date, granularity: string): boolean;
+    isSame(b: Array, granularity: string): boolean;
 }
 
 declare var moment: MomentStatic;
