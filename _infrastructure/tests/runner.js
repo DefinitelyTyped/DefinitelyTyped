@@ -800,7 +800,7 @@ var DefinitelyTyped;
 
             SyntaxCheking.prototype.run = function (it, file, len, maxLen, callback) {
                 var _this = this;
-                if (!endsWith(file, '-tests.ts')) {
+                if (!endsWith(file.toUpperCase(), '-TESTS.TS') && file.indexOf('../_infrastructure') < 0) {
                     new Test(file).run(function (o) {
                         var failed = false;
 
@@ -915,7 +915,7 @@ var DefinitelyTyped;
 
             TestEval.prototype.run = function (it, file, len, maxLen, callback) {
                 var _this = this;
-                if (endsWith(file, '-tests.ts')) {
+                if (endsWith(file.toUpperCase(), '-TESTS.TS')) {
                     new Test(file).run(function (o) {
                         var failed = false;
 

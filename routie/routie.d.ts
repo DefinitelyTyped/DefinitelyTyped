@@ -12,4 +12,4 @@ interface Route {
     toURL(params: any): string;
 }
 
-function routie(path: string, fn: Function): void;
+declare function routie(path: string, fn: Function): void;
