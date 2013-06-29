@@ -3,7 +3,7 @@
 declare var $;
 
 _.each([1, 2, 3], (num) => alert(num.toString()));
-_.each({ one: 1, two: 2, three: 3 }, (value: number, key?: string) => alert(value.toString()));
+_.each({ one: 1, two: 2, three: 3 }, (value) => alert(value.toString()));
 
 _.map([1, 2, 3], (num) => num * 3);
 _.map({ one: 1, two: 2, three: 3 }, (value: number, key?: string) => value * 3);
@@ -41,16 +41,15 @@ _.min(numbers);
 _.sortBy([1, 2, 3, 4, 5, 6], (num) => Math.sin(num));
 
 
-// not sure how this is typechecking at all.. Math.floor(e) is number not string..?
-_([1.3, 2.1, 2.4]).groupBy((e: number, i?: number, list?: number[]) => Math.floor(e));
-_.groupBy([1.3, 2.1, 2.4], (num: number) => Math.floor(num));
+_([1.3, 2.1, 2.4]).groupBy((e, i?: number, list?: any[]) => Math.floor(e));
+_.groupBy([1.3, 2.1, 2.4], (num: number) => Math.floor(num).toString());
 _.groupBy(['one', 'two', 'three'], 'length');
 
 _.countBy([1, 2, 3, 4, 5], (num) => num % 2 == 0 ? 'even' : 'odd');
 
 _.shuffle([1, 2, 3, 4, 5, 6]);
 
-// (function(){ return _.toArray(arguments).slice(1); })(1, 2, 3, 4);
+(function(a, b, c, d){ return _.toArray(arguments).slice(1); })(1, 2, 3, 4);
 
 _.size({ one: 1, two: 2, three: 3 });
 
@@ -74,7 +73,7 @@ _.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1]);
 _.difference([1, 2, 3, 4, 5], [5, 2, 10]);
 _.uniq([1, 2, 1, 3, 1, 4]);
 _.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]);
-_.object(['moe', 'larry', 'curly'], [30, 40, 50]);
+var r = _.object<{ [key: string]: number }>(['moe', 'larry', 'curly'], [30, 40, 50]);
 _.object([[<any>'moe', 30], [<any>'larry', 40], [<any>'curly', 50]]);
 _.indexOf([1, 2, 3], 2);
 _.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
@@ -154,10 +153,20 @@ _.defaults(iceCream, { flavor: "vanilla", sprinkles: "lots" });
 
 _.clone({ name: 'moe' });
 
+_([1, 2, 3, 4])
+	.chain()
+	.filter((num: number) => {
+		return num % 2 == 0;
+	}).tap(alert)
+	.map((num: number) => {
+		return num * num;
+	})
+	.value();
+
 _.chain([1, 2, 3, 200])
-	.filter(function (num) { return num % 2 == 0; })
+	.filter(function (num: number) { return num % 2 == 0; })
 	.tap(alert)
-	.map(function (num) { return num * num })
+	.map(function (num: number) { return num * num })
 	.value();
 
 _.has({ a: 1, b: 2, c: 3 }, "b");
@@ -215,6 +224,7 @@ var moe2 = { name: 'moe' };
 moe2 === _.identity(moe);
 
 var genie;
+var r2 = _.times<number>(3, (n) => { return n * n });
 _(3).times(function (n) { genie.grantWishNumber(n); });
 
 _.random(0, 100);

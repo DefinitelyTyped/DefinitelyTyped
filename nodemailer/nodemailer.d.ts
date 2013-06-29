@@ -4,7 +4,7 @@
 // Definitions by: Vincent Bortone <https://github.com/vbortone/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-class Transport {
+declare class Transport {
 	static transports: {
 		SMTP: Transport;
 		SES: Transport;
@@ -47,7 +47,7 @@ interface DKIMOptions{
 	privateKey: any;
 }
 
-class XOAuthGenerator {
+declare class XOAuthGenerator {
 	constructor(options: XOAuthGeneratorOptions);
 	generate(callback: () => any): string;
 }
