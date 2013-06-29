@@ -1,6 +1,6 @@
 /// <reference path="platform.d.ts" />
 
-declare interface ITestContainer {
+interface ITestContainer {
     [name: string]: PlatformStatic;
 }
 
@@ -54,7 +54,7 @@ function runTests() {
 
 
         onFalse = (name: string) => {
-            return function () => {
+            return () => {
                 console.log('\tfailed on prop "' + name + '" for "' + n + '"');
             }
         }
