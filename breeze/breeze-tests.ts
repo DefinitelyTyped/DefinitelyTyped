@@ -1,6 +1,6 @@
 /// <reference path="breeze.d.ts" />
 
-import core = module(breezeCore);
+import core = breezeCore;
 
 function test_dataType() {
     var typ = breeze.DataType.DateTime;
