@@ -21,15 +21,6 @@
 * 3. This notice may not be removed or altered from any source distribution.
 **/
 
-import b2Common = Box2D.Common;
-import b2Math = Box2D.Common.Math;
-import b2Collision = Box2D.Collision;
-import b2Shapes = Box2D.Collision.Shapes;
-import b2Dynamics = Box2D.Dynamics;
-import b2Contacts = Box2D.Dynamics.Contacts;
-import b2Controllers = Box2D.Dynamics.Controllers;
-import b2Joints = Box2D.Dynamics.Joints;
-
 declare module Box2D.Common {
 
 	/**
@@ -1053,12 +1044,12 @@ declare module Box2D.Collision {
 		/**
 		* Lower bound.
 		**/
-		public lowerBound: b2Math.b2Vec2;
+		public lowerBound: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Upper bound.
 		**/
-		public upperBound: b2Math.b2Vec2;
+		public upperBound: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Combines two AABBs into one with max values for upper bound and min values for lower bound.
@@ -1086,13 +1077,13 @@ declare module Box2D.Collision {
 		* Gets the center of the AABB.
 		* @return Center of this AABB.
 		**/
-		public GetCenter(): b2Math.b2Vec2;
+		public GetCenter(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Gets the extents of the AABB (half-widths).
 		* @return Extents of this AABB.
 		**/
-		public GetExtents(): b2Math.b2Vec2;
+		public GetExtents(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Verify that the bounds are sorted.
@@ -1173,12 +1164,12 @@ declare module Box2D.Collision {
 		/**
 		* Points from shape1 to shape2.
 		**/
-		public normal: b2Math.b2Vec2;
+		public normal: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Position in world coordinates.
 		**/
-		public position: b2Math.b2Vec2;
+		public position: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The combined restitution coefficient.
@@ -1203,7 +1194,7 @@ declare module Box2D.Collision {
 		/**
 		* Velocity of point on body2 relative to point on body1 (pre-solver).
 		**/
-		public velocity: b2Math.b2Vec2;
+		public velocity: Box2D.Common.Math.b2Vec2;
 	}
 }
 
@@ -1227,12 +1218,12 @@ declare module Box2D.Collision {
 		/**
 		* Transform A
 		**/
-		public transformA: b2Math.b2Transform;
+		public transformA: Box2D.Common.Math.b2Transform;
 
 		/**
 		* Transform B
 		**/
-		public transformB: b2Math.b2Transform;
+		public transformB: Box2D.Common.Math.b2Transform;
 
 		/**
 		* Use shape radii in computation?
@@ -1261,12 +1252,12 @@ declare module Box2D.Collision {
 		/**
 		* Closest point on shape A.
 		**/
-		public pointA: b2Math.b2Vec2;
+		public pointA: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Closest point on shape B.
 		**/
-		public pointB: b2Math.b2Vec2;
+		public pointB: Box2D.Common.Math.b2Vec2;
 	}
 }
 
@@ -1290,28 +1281,28 @@ declare module Box2D.Collision {
 		/**
 		* Verticies
 		**/
-		public m_vertices: b2Math.b2Vec2[];
+		public m_vertices: Box2D.Common.Math.b2Vec2[];
 
 		/**
 		* Get the supporting vertex index in the given direction.
 		* @param d Direction to look for the supporting vertex.
 		* @return Supporting vertex index.
 		**/
-		public GetSupport(d: b2Math.b2Vec2): number;
+		public GetSupport(d: Box2D.Common.Math.b2Vec2): number;
 
 		/**
 		* Get the supporting vertex in the given direction.
 		* @param d Direction to look for the supporting vertex.
 		* @return Supporting vertex.
 		**/
-		public GetSupportVertex(d: b2Math.b2Vec2): b2Math.b2Vec2;
+		public GetSupportVertex(d: Box2D.Common.Math.b2Vec2): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get a vertex by index.  Used by b2Distance.
 		* @param index Vetex's index.
 		* @return Vertex at the given index.
 		**/
-		public GetVertex(index: number): b2Math.b2Vec2;
+		public GetVertex(index: number): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the vertex count.
@@ -1374,7 +1365,7 @@ declare module Box2D.Collision {
 		* @param aabb Swept AABB.
 		* @param displacement Extra AABB displacement.
 		**/
-		public MoveProxy(proxy: b2DynamicTreeNode, aabb: b2AABB, displacement: b2Math.b2Vec2): bool;
+		public MoveProxy(proxy: b2DynamicTreeNode, aabb: b2AABB, displacement: Box2D.Common.Math.b2Vec2): bool;
 
 		/**
 		* Query an AABB for overlapping proxies. The callback is called for each proxy that overlaps the supplied AABB. The callback should match function signature fuction callback(proxy:b2DynamicTreeNode):Boolean and should return false to trigger premature termination.
@@ -1442,7 +1433,7 @@ declare module Box2D.Collision {
 		/**
 		* @see IBroadPhase.MoveProxy
 		**/
-		public MoveProxy(proxy: b2DynamicTreeNode, aabb: b2AABB, displacement: b2Math.b2Vec2): void;
+		public MoveProxy(proxy: b2DynamicTreeNode, aabb: b2AABB, displacement: Box2D.Common.Math.b2Vec2): void;
 
 		/**
 		* @see IBroadPhase.Query
@@ -1519,12 +1510,12 @@ declare module Box2D.Collision {
 		/**
 		* Not used for Type e_points
 		**/
-		public m_localPlaneNormal: b2Math.b2Vec2;
+		public m_localPlaneNormal: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Usage depends on manifold type
 		**/
-		public m_localPoint: b2Math.b2Vec2;
+		public m_localPoint: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The number of manifold points
@@ -1580,7 +1571,7 @@ declare module Box2D.Collision {
 		/**
 		* Local contact point.
 		**/
-		public m_localpoint: b2Math.b2Vec2;
+		public m_localpoint: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Normal impluse for this contact point.
@@ -1620,17 +1611,17 @@ declare module Box2D.Collision {
 		/**
 		* The local centroid.
 		**/
-		public center: b2Math.b2Vec2;
+		public center: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The half-widths.
 		**/
-		public extents: b2Math.b2Vec2;
+		public extents: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The rotation matrix.
 		**/
-		public R: b2Math.b2Mat22;
+		public R: Box2D.Common.Math.b2Mat22;
 	}
 }
 
@@ -1649,12 +1640,12 @@ declare module Box2D.Collision {
 		/**
 		* The start point of the ray.
 		**/
-		public p1: b2Math.b2Vec2;
+		public p1: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The end point of the ray.
 		**/
-		public p2: b2Math.b2Vec2;
+		public p2: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Creates a new ray cast input.
@@ -1662,7 +1653,7 @@ declare module Box2D.Collision {
 		* @param p2 End point of the ray, default = null.
 		* @param maxFraction Truncate the ray to reach up to this fraction from p1 to p2.
 		**/
-		constructor(p1?: b2Math.b2Vec2, p2?: b2Math.b2Vec2, maxFraction?: number);
+		constructor(p1?: Box2D.Common.Math.b2Vec2, p2?: Box2D.Common.Math.b2Vec2, maxFraction?: number);
 	}
 }
 
@@ -1681,7 +1672,7 @@ declare module Box2D.Collision {
 		/**
 		* The normal at the point of collision.
 		**/
-		public normal: b2Math.b2Vec2;
+		public normal: Box2D.Common.Math.b2Vec2;
 	}
 }
 
@@ -1695,12 +1686,12 @@ declare module Box2D.Collision {
 		/**
 		* The starting point.
 		**/
-		public p1: b2Math.b2Vec2;
+		public p1: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The ending point.
 		**/
-		public p2: b2Math.b2Vec2;
+		public p2: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Extends or clips the segment so that it's ends lie on the boundary of the AABB.
@@ -1729,7 +1720,7 @@ declare module Box2D.Collision {
 		**/
 		public TestSegment(
 			lambda: number[],
-			normal: b2Math.b2Vec2,
+			normal: Box2D.Common.Math.b2Vec2,
 			segment: b2Segment,
 			maxLambda: number): bool;
 	}
@@ -1784,12 +1775,12 @@ declare module Box2D.Collision {
 		/**
 		* Sweep A
 		**/
-		public sweepA: b2Math.b2Sweep;
+		public sweepA: Box2D.Common.Math.b2Sweep;
 
 		/**
 		* Sweep B
 		**/
-		public sweepB: b2Math.b2Sweep;
+		public sweepB: Box2D.Common.Math.b2Sweep;
 
 		/**
 		* Tolerance
@@ -1808,12 +1799,12 @@ declare module Box2D.Collision {
 		/**
 		* World vector pointing from A to B.
 		**/
-		public m_normal: b2Math.b2Vec2;
+		public m_normal: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* World contact point (point of intersection).
 		**/
-		public m_points: b2Math.b2Vec2[];
+		public m_points: Box2D.Common.Math.b2Vec2[];
 
 		/**
 		* Creates a new b2WorldManifold.
@@ -1830,9 +1821,9 @@ declare module Box2D.Collision {
 		**/
 		public Initialize(
 			manifold: b2Manifold,
-			xfA: b2Math.b2Transform,
+			xfA: Box2D.Common.Math.b2Transform,
 			radiusA: number,
-			xfB: b2Math.b2Transform,
+			xfB: Box2D.Common.Math.b2Transform,
 			radiusB: number): void;
 	}
 }
@@ -1912,7 +1903,7 @@ declare module Box2D.Collision {
 		* @param aabb Swept AABB.
 		* @param displacement Extra AABB displacement.
 		**/
-		MoveProxy(proxy: b2DynamicTreeNode, aabb: b2AABB, displacement: b2Math.b2Vec2): void;
+		MoveProxy(proxy: b2DynamicTreeNode, aabb: b2AABB, displacement: Box2D.Common.Math.b2Vec2): void;
 
 		/**
 		* Query an AABB for overlapping proxies. The callback is called for each proxy that overlaps the supplied AABB. The callback should match function signature fuction callback(proxy:b2DynamicTreeNode):Boolean and should return false to trigger premature termination.
@@ -1958,7 +1949,7 @@ declare module Box2D.Collision.Shapes {
 		* @param aabb Calculated AABB, this argument is `out`.
 		* @param xf Transform to calculate the AABB.
 		**/
-		public ComputeAABB(aabb: b2AABB, xf: b2Math.b2Transform): void;
+		public ComputeAABB(aabb: b2AABB, xf: Box2D.Common.Math.b2Transform): void;
 
 		/**
 		* Compute the mass properties of this shape using its dimensions and density. The inertia tensor is computed about the local origin, not the centroid.
@@ -1975,10 +1966,10 @@ declare module Box2D.Collision.Shapes {
 		* @param c The centroid, this argument is `out`.
 		**/
 		public ComputeSubmergedArea(
-			normal: b2Math.b2Vec2,
+			normal: Box2D.Common.Math.b2Vec2,
 			offset: number,
-			xf: b2Math.b2Transform,
-			c: b2Math.b2Vec2): number;
+			xf: Box2D.Common.Math.b2Transform,
+			c: Box2D.Common.Math.b2Vec2): number;
 
 		/**
 		* Copies the circle shape.
@@ -1990,7 +1981,7 @@ declare module Box2D.Collision.Shapes {
 		* Get the local position of this circle in its parent body.
 		* @return This circle's local position.
 		**/
-		public GetLocalPosition(): b2Math.b2Vec2;
+		public GetLocalPosition(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the radius of the circle.
@@ -2008,7 +1999,7 @@ declare module Box2D.Collision.Shapes {
 		public RayCast(
 			output: b2RayCastOutput,
 			input: b2RayCastInput,
-			transform: b2Math.b2Transform): bool;
+			transform: Box2D.Common.Math.b2Transform): bool;
 
 		/**
 		* Set the circle shape values from another shape.
@@ -2020,7 +2011,7 @@ declare module Box2D.Collision.Shapes {
 		* Set the local position of this circle in its parent body.
 		* @param position The new local position of this circle.
 		**/
-		public SetLocalPosition(position: b2Math.b2Vec2): void;
+		public SetLocalPosition(position: Box2D.Common.Math.b2Vec2): void;
 
 		/**
 		* Set the radius of the circle.
@@ -2034,7 +2025,7 @@ declare module Box2D.Collision.Shapes {
 		* @param p Point to test against, in world coordinates.
 		* @return True if the point is in this shape, otherwise false.
 		**/
-		public TestPoint(xf: b2Math.b2Transform, p: b2Math.b2Vec2): bool;
+		public TestPoint(xf: Box2D.Common.Math.b2Transform, p: Box2D.Common.Math.b2Vec2): bool;
 	}
 }
 
@@ -2058,7 +2049,7 @@ declare module Box2D.Collision.Shapes {
 		/**
 		* The vertices in local coordinates.
 		**/
-		public vertices: b2Math.b2Vec2;
+		public vertices: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Creates a new edge chain def.
@@ -2079,14 +2070,14 @@ declare module Box2D.Collision.Shapes {
 		* @param v1 First vertex
 		* @param v2 Second vertex
 		**/
-		constructor(v1: b2Math.b2Vec2, v2: b2Math.b2Vec2);
+		constructor(v1: Box2D.Common.Math.b2Vec2, v2: Box2D.Common.Math.b2Vec2);
 
 		/**
 		* Given a transform, compute the associated axis aligned bounding box for this shape.
 		* @param aabb Calculated AABB, this argument is `out`.
 		* @param xf Transform to calculate the AABB.
 		**/
-		public ComputeAABB(aabb: b2AABB, xf: b2Math.b2Transform): void;
+		public ComputeAABB(aabb: b2AABB, xf: Box2D.Common.Math.b2Transform): void;
 
 		/**
 		* Compute the mass properties of this shape using its dimensions and density. The inertia tensor is computed about the local origin, not the centroid.
@@ -2102,10 +2093,10 @@ declare module Box2D.Collision.Shapes {
 		* @param c The centroid, this argument is `out`.
 		**/
 		public ComputeSubmergedArea(
-			normal: b2Math.b2Vec2,
+			normal: Box2D.Common.Math.b2Vec2,
 			offset: number,
-			xf: b2Math.b2Transform,
-			c: b2Math.b2Vec2): number;
+			xf: Box2D.Common.Math.b2Transform,
+			c: Box2D.Common.Math.b2Vec2): number;
 
 		/**
 		* Get the distance from vertex1 to vertex2.
@@ -2117,49 +2108,49 @@ declare module Box2D.Collision.Shapes {
 		* Get the local position of vertex1 in the parent body.
 		* @return Local position of vertex1 in the parent body.
 		**/
-		public GetVertex1(): b2Math.b2Vec2;
+		public GetVertex1(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the local position of vertex2 in the parent body.
 		* @return Local position of vertex2 in the parent body.
 		**/
-		public GetVertex2(): b2Math.b2Vec2;
+		public GetVertex2(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get a core vertex 1 in local coordinates.  These vertices represent a smaller edge that is used for time of impact.
 		* @return core vertex 1 in local coordinates.
 		**/
-		public GetCoreVertex1(): b2Math.b2Vec2;
+		public GetCoreVertex1(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get a core vertex 2 in local coordinates.  These vertices represent a smaller edge that is used for time of impact.
 		* @return core vertex 2 in local coordinates.
 		**/
-		public GetCoreVertex2(): b2Math.b2Vec2;
+		public GetCoreVertex2(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get a perpendicular unit vector, pointing from the solid side to the empty side.
 		* @return Normal vector.
 		**/
-		public GetNormalVector(): b2Math.b2Vec2;
+		public GetNormalVector(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get a parallel unit vector, pointing from vertex 1 to vertex 2.
 		* @return Vertex 1 to vertex 2 directional vector.
 		**/
-		public GetDirectionVector(): b2Math.b2Vec2;
+		public GetDirectionVector(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Returns a unit vector halfway between direction and previous direction.
 		* @return Halfway unit vector between direction and previous direction.
 		**/
-		public GetCorner1Vector(): b2Math.b2Vec2;
+		public GetCorner1Vector(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Returns a unit vector halfway between direction and previous direction.
 		* @return Halfway unit vector between direction and previous direction.
 		**/
-		public GetCorner2Vector(): b2Math.b2Vec2;
+		public GetCorner2Vector(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Determines if the first corner of this edge bends towards the solid side.
@@ -2178,7 +2169,7 @@ declare module Box2D.Collision.Shapes {
 		* @param xf Transform to apply.
 		* @return First vertex with xf transform applied.
 		**/
-		public GetFirstVertex(xf: b2Math.b2Transform): b2Math.b2Vec2;
+		public GetFirstVertex(xf: Box2D.Common.Math.b2Transform): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the next edge in the chain.
@@ -2199,7 +2190,7 @@ declare module Box2D.Collision.Shapes {
 		* @param dY Y world direction.
 		* @return Support point.
 		**/
-		public Support(xf: b2Math.b2Transform, dX: number, dY: number): b2Math.b2Vec2;
+		public Support(xf: Box2D.Common.Math.b2Transform, dX: number, dY: number): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Cast a ray against this shape.
@@ -2211,7 +2202,7 @@ declare module Box2D.Collision.Shapes {
 		public RayCast(
 			output: b2RayCastOutput,
 			input: b2RayCastInput,
-			transform: b2Math.b2Transform): bool;
+			transform: Box2D.Common.Math.b2Transform): bool;
 
 		/**
 		* Test a point for containment in this shape. This only works for convex shapes.
@@ -2219,7 +2210,7 @@ declare module Box2D.Collision.Shapes {
 		* @param p Point to test against, in world coordinates.
 		* @return True if the point is in this shape, otherwise false.
 		**/
-		public TestPoint(xf: b2Math.b2Transform, p: b2Math.b2Vec2): bool;
+		public TestPoint(xf: Box2D.Common.Math.b2Transform, p: Box2D.Common.Math.b2Vec2): bool;
 	}
 }
 
@@ -2233,7 +2224,7 @@ declare module Box2D.Collision.Shapes {
 		/**
 		* The position of the shape's centroid relative to the shape's origin.
 		**/
-		public center: b2Math.b2Vec2;
+		public center: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The rotational inertia of the shape. This may be about the center or local origin, depending on usage.
@@ -2260,7 +2251,7 @@ declare module Box2D.Collision.Shapes {
 		* @param vertexCount Number of vertices in the shape, default value is 0 and in the box2dweb.js code it is ignored.
 		* @return Convex polygon shape.
 		**/
-		public static AsArray(vertices: b2Math.b2Vec2[], vertexCount?: number): b2PolygonShape;
+		public static AsArray(vertices: Box2D.Common.Math.b2Vec2[], vertexCount?: number): b2PolygonShape;
 
 		/**
 		* Build vertices to represent an axis-aligned box.
@@ -2276,7 +2267,7 @@ declare module Box2D.Collision.Shapes {
 		* @param v2 Second vertex.
 		* @return Edge polygon shape.
 		**/
-		public static AsEdge(v1: b2Math.b2Vec2, b2: b2Math.b2Vec2): b2PolygonShape;
+		public static AsEdge(v1: Box2D.Common.Math.b2Vec2, b2: Box2D.Common.Math.b2Vec2): b2PolygonShape;
 
 		/**
 		* Build vertices to represent an oriented box.
@@ -2286,7 +2277,7 @@ declare module Box2D.Collision.Shapes {
 		* @param angle The rotation of the box in local coordinates, default is 0.0.
 		* @return Oriented box shape.
 		**/
-		public static AsOrientedBox(hx: number, hy: number, center?: b2Math.b2Vec2, angle?: number): b2PolygonShape;
+		public static AsOrientedBox(hx: number, hy: number, center?: Box2D.Common.Math.b2Vec2, angle?: number): b2PolygonShape;
 
 		/**
 		* This assumes the vertices define a convex polygon.  It is assumed that the exterior is the the right of each edge.
@@ -2294,14 +2285,14 @@ declare module Box2D.Collision.Shapes {
 		* @param vertexCount The number of vertices, default is 0 and in the box2dweb.js code it is ignored.
 		* @return Convex polygon shape.
 		**/
-		public static AsVector(vertices: b2Math.b2Vec2[], vertexCount?: number): b2PolygonShape;
+		public static AsVector(vertices: Box2D.Common.Math.b2Vec2[], vertexCount?: number): b2PolygonShape;
 
 		/**
 		* Given a transform, compute the associated axis aligned bounding box for this shape.
 		* @param aabb Calculated AABB, this argument is `out`.
 		* @param xf Transform to calculate the AABB.
 		**/
-		public ComputeAABB(aabb: b2AABB, xf: b2Math.b2Transform): void;
+		public ComputeAABB(aabb: b2AABB, xf: Box2D.Common.Math.b2Transform): void;
 
 		/**
 		* Compute the mass properties of this shape using its dimensions and density. The inertia tensor is computed about the local origin, not the centroid.
@@ -2317,10 +2308,10 @@ declare module Box2D.Collision.Shapes {
 		* @param c The centroid, this argument is `out`.
 		**/
 		public ComputeSubmergedArea(
-			normal: b2Math.b2Vec2,
+			normal: Box2D.Common.Math.b2Vec2,
 			offset: number,
-			xf: b2Math.b2Transform,
-			c: b2Math.b2Vec2): number;
+			xf: Box2D.Common.Math.b2Transform,
+			c: Box2D.Common.Math.b2Vec2): number;
 
 		/**
 		* Clone the shape.
@@ -2331,21 +2322,21 @@ declare module Box2D.Collision.Shapes {
 		* Get the edge normal vectors. There is one for each vertex.
 		* @return List of edge normal vectors for each vertex.
 		**/
-		public GetNormals(): b2Math.b2Vec2[];
+		public GetNormals(): Box2D.Common.Math.b2Vec2[];
 
 		/**
 		* Get the supporting vertex index in the given direction.
 		* @param d Direction to look.
 		* @return Vertex index supporting the direction.
 		**/
-		public GetSupport(d: b2Math.b2Vec2): number;
+		public GetSupport(d: Box2D.Common.Math.b2Vec2): number;
 
 		/**
 		* Get the supporting vertex in the given direction.
 		* @param d Direciton to look.
 		* @return Vertex supporting the direction.
 		**/
-		public GetSupportVertex(d: b2Math.b2Vec2): b2Math.b2Vec2;
+		public GetSupportVertex(d: Box2D.Common.Math.b2Vec2): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the vertex count.
@@ -2357,7 +2348,7 @@ declare module Box2D.Collision.Shapes {
 		* Get the vertices in local coordinates.
 		* @return List of the vertices in local coordinates.
 		**/
-		public GetVertices(): b2Math.b2Vec2[];
+		public GetVertices(): Box2D.Common.Math.b2Vec2[];
 
 		/**
 		* Cast a ray against this shape.
@@ -2369,7 +2360,7 @@ declare module Box2D.Collision.Shapes {
 		public RayCast(
 			output: b2RayCastOutput,
 			input: b2RayCastInput,
-			transform: b2Math.b2Transform): bool;
+			transform: Box2D.Common.Math.b2Transform): bool;
 
 		/**
 		* Set the shape values from another shape.
@@ -2383,7 +2374,7 @@ declare module Box2D.Collision.Shapes {
 		* @param vertexCount Number of vertices in the shape, default value is 0 and in the box2dweb.js code it is ignored.
 		* @return Convex polygon shape.
 		**/
-		public SetAsArray(vertices: b2Math.b2Vec2[], vertexCount?: number): void;
+		public SetAsArray(vertices: Box2D.Common.Math.b2Vec2[], vertexCount?: number): void;
 
 		/**
 		* Build vertices to represent an axis-aligned box.
@@ -2399,7 +2390,7 @@ declare module Box2D.Collision.Shapes {
 		* @param v2 Second vertex.
 		* @return Edge polygon shape.
 		**/
-		public SetAsEdge(v1: b2Math.b2Vec2, b2: b2Math.b2Vec2): void;
+		public SetAsEdge(v1: Box2D.Common.Math.b2Vec2, b2: Box2D.Common.Math.b2Vec2): void;
 
 		/**
 		* Build vertices to represent an oriented box.
@@ -2409,7 +2400,7 @@ declare module Box2D.Collision.Shapes {
 		* @param angle The rotation of the box in local coordinates, default is 0.0.
 		* @return Oriented box shape.
 		**/
-		public SetAsOrientedBox(hx: number, hy: number, center?: b2Math.b2Vec2, angle?: number): void;
+		public SetAsOrientedBox(hx: number, hy: number, center?: Box2D.Common.Math.b2Vec2, angle?: number): void;
 
 		/**
 		* This assumes the vertices define a convex polygon.  It is assumed that the exterior is the the right of each edge.
@@ -2425,7 +2416,7 @@ declare module Box2D.Collision.Shapes {
 		* @param p Point to test against, in world coordinates.
 		* @return True if the point is in this shape, otherwise false.
 		**/
-		public TestPoint(xf: b2Math.b2Transform, p: b2Math.b2Vec2): bool;
+		public TestPoint(xf: Box2D.Common.Math.b2Transform, p: Box2D.Common.Math.b2Vec2): bool;
 	}
 }
 
@@ -2469,7 +2460,7 @@ declare module Box2D.Collision.Shapes {
 		* @param aabb Calculated AABB, this argument is `out`.
 		* @param xf Transform to calculate the AABB.
 		**/
-		public ComputeAABB(aabb: b2AABB, xf: b2Math.b2Transform): void;
+		public ComputeAABB(aabb: b2AABB, xf: Box2D.Common.Math.b2Transform): void;
 
 		/**
 		* Compute the mass properties of this shape using its dimensions and density. The inertia tensor is computed about the local origin, not the centroid.
@@ -2486,10 +2477,10 @@ declare module Box2D.Collision.Shapes {
 		* @param c The centroid, this argument is `out`.
 		**/
 		public ComputeSubmergedArea(
-			normal: b2Math.b2Vec2,
+			normal: Box2D.Common.Math.b2Vec2,
 			offset: number,
-			xf: b2Math.b2Transform,
-			c: b2Math.b2Vec2): number;
+			xf: Box2D.Common.Math.b2Transform,
+			c: Box2D.Common.Math.b2Vec2): number;
 
 		/**
 		* Clone the shape.
@@ -2511,7 +2502,7 @@ declare module Box2D.Collision.Shapes {
 		public RayCast(
 			output: b2RayCastOutput,
 			input: b2RayCastInput,
-			transform: b2Math.b2Transform): bool;
+			transform: Box2D.Common.Math.b2Transform): bool;
 
 		/**
 		* Set the shape values from another shape.
@@ -2529,9 +2520,9 @@ declare module Box2D.Collision.Shapes {
 		**/
 		public static TestOverlap(
 			shape1: b2Shape,
-			transform1: b2Math.b2Transform,
+			transform1: Box2D.Common.Math.b2Transform,
 			shape2: b2Shape,
-			transform2: b2Math.b2Transform): bool;
+			transform2: Box2D.Common.Math.b2Transform): bool;
 
 		/**
 		* Test a point for containment in this shape. This only works for convex shapes.
@@ -2539,7 +2530,7 @@ declare module Box2D.Collision.Shapes {
 		* @param p Point to test against, in world coordinates.
 		* @return True if the point is in this shape, otherwise false.
 		**/
-		public TestPoint(xf: b2Math.b2Transform, p: b2Math.b2Vec2): bool;
+		public TestPoint(xf: Box2D.Common.Math.b2Transform, p: Box2D.Common.Math.b2Vec2): bool;
 	}
 }
 
@@ -2570,14 +2561,14 @@ declare module Box2D.Dynamics {
 		* @param force The world force vector, usually in Newtons (N).
 		* @param point The world position of the point of application.
 		**/
-		public ApplyForce(force: b2Math.b2Vec2, point: b2Math.b2Vec2): void;
+		public ApplyForce(force: Box2D.Common.Math.b2Vec2, point: Box2D.Common.Math.b2Vec2): void;
 
 		/**
 		* Apply an impulse at a point. This immediately modifies the velocity. It also modifies the angular velocity if the point of application is not at the center of mass. This wakes up the body.
 		* @param impules The world impulse vector, usually in N-seconds or kg-m/s.
 		* @param point The world position of the point of application.
 		**/
-		public ApplyImpulse(impulse: b2Math.b2Vec2, point: b2Math.b2Vec2): void;
+		public ApplyImpulse(impulse: Box2D.Common.Math.b2Vec2, point: Box2D.Common.Math.b2Vec2): void;
 
 		/**
 		* Apply a torque. This affects the angular velocity without affecting the linear velocity of the center of mass. This wakes up the body.
@@ -2600,7 +2591,7 @@ declare module Box2D.Dynamics {
 		* @param density The shape density, default is 0.0, set to zero for static bodies.
 		* @return The created fixture.
 		**/
-		public CreateFixture2(shape: b2Shapes.b2Shape, density?: number): b2Fixture;
+		public CreateFixture2(shape: Box2D.Collision.Shapes.b2Shape, density?: number): b2Fixture;
 
 		/**
 		* Destroy a fixture. This removes the fixture from the broad-phase and destroys all contacts associated with this fixture. This will automatically adjust the mass of the body if the body is dynamic and the fixture has positive density. All fixtures attached to a body are implicitly destroyed when the body is destroyed.
@@ -2674,41 +2665,41 @@ declare module Box2D.Dynamics {
 		* Get the linear velocity of the center of mass.
 		* @return The linear velocity of the center of mass.
 		**/
-		public GetLinearVelocity(): b2Math.b2Vec2;
+		public GetLinearVelocity(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the world velocity of a local point.
 		* @param localPoint Point in local coordinates.
 		* @return The world velocity of the point.
 		**/
-		public GetLinearVelocityFromLocalPoint(localPoint: b2Math.b2Vec2): b2Math.b2Vec2;
+		public GetLinearVelocityFromLocalPoint(localPoint: Box2D.Common.Math.b2Vec2): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the world linear velocity of a world point attached to this body.
 		* @param worldPoint Point in world coordinates.
 		* @return The world velocity of the point.
 		**/
-		public GetLinearVelocityFromWorldPoint(worldPoint: b2Math.b2Vec2): b2Math.b2Vec2;
+		public GetLinearVelocityFromWorldPoint(worldPoint: Box2D.Common.Math.b2Vec2): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the local position of the center of mass.
 		* @return Local position of the center of mass.
 		**/
-		public GetLocalCenter(): b2Math.b2Vec2;
+		public GetLocalCenter(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Gets a local point relative to the body's origin given a world point.
 		* @param worldPoint Pointin world coordinates.
 		* @return The corresponding local point relative to the body's origin.
 		**/
-		public GetLocalPoint(worldPoint: b2Math.b2Vec2): b2Math.b2Vec2;
+		public GetLocalPoint(worldPoint: Box2D.Common.Math.b2Vec2): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Gets a local vector given a world vector.
 		* @param worldVector World vector.
 		* @return The corresponding local vector.
 		**/
-		public GetLocalVector(worldVector: b2Math.b2Vec2): b2Math.b2Vec2;
+		public GetLocalVector(worldVector: Box2D.Common.Math.b2Vec2): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the total mass of the body.
@@ -2720,7 +2711,7 @@ declare module Box2D.Dynamics {
 		* Get the mass data of the body. The rotational inertial is relative to the center of mass.
 		* @param data Body's mass data, this argument is `out`.
 		**/
-		public GetMassData(data: b2Shapes.b2MassData): void;
+		public GetMassData(data: Box2D.Collision.Shapes.b2MassData): void;
 
 		/**
 		* Get the next body in the world's body list.
@@ -2732,13 +2723,13 @@ declare module Box2D.Dynamics {
 		* Get the world body origin position.
 		* @return World position of the body's origin.
 		**/
-		public GetPosition(): b2Math.b2Vec2;
+		public GetPosition(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the body transform for the body's origin.
 		* @return World transform of the body's origin.
 		**/
-		public GetTransform(): b2Math.b2Transform;
+		public GetTransform(): Box2D.Common.Math.b2Transform;
 
 		/**
 		* Get the type of this body.
@@ -2762,21 +2753,21 @@ declare module Box2D.Dynamics {
 		* Get the world position of the center of mass.
 		* @return World position of the center of mass.
 		**/
-		public GetWorldCenter(): b2Math.b2Vec2;
+		public GetWorldCenter(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the world coordinates of a point given the local coordinates.
 		* @param localPoint Point on the body measured relative to the body's origin.
 		* @return localPoint expressed in world coordinates.
 		**/
-		public GetWorldPoint(localPoint: b2Math.b2Vec2): b2Math.b2Vec2;
+		public GetWorldPoint(localPoint: Box2D.Common.Math.b2Vec2): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the world coordinates of a vector given the local coordinates.
 		* @param localVector Vector fixed in the body.
 		* @return localVector expressed in world coordinates.
 		**/
-		public GetWorldVector(localVector: b2Math.b2Vec2): b2Math.b2Vec2;
+		public GetWorldVector(localVector: Box2D.Common.Math.b2Vec2): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the active state of the body.
@@ -2871,27 +2862,27 @@ declare module Box2D.Dynamics {
 		* Set the linear velocity of the center of mass.
 		* @param v New linear velocity of the center of mass.
 		**/
-		public SetLinearVelocity(v: b2Math.b2Vec2): void;
+		public SetLinearVelocity(v: Box2D.Common.Math.b2Vec2): void;
 
 		/**
 		* Set the mass properties to override the mass properties of the fixtures Note that this changes the center of mass position. Note that creating or destroying fixtures can also alter the mass. This function has no effect if the body isn't dynamic.
 		* @warning The supplied rotational inertia should be relative to the center of mass.
 		* @param massData New mass data properties.
 		**/
-		public SetMassData(massData: b2Shapes.b2MassData): void;
+		public SetMassData(massData: Box2D.Collision.Shapes.b2MassData): void;
 
 		/**
 		* Set the world body origin position.
 		* @param position New world body origin position.
 		**/
-		public SetPosition(position: b2Math.b2Vec2): void;
+		public SetPosition(position: Box2D.Common.Math.b2Vec2): void;
 
 		/**
 		* Set the position of the body's origin and rotation (radians). This breaks any contacts and wakes the other bodies.
 		* @param position New world body origin position.
 		* @param angle New world rotation angle of the body in radians.
 		**/
-		public SetPositionAndAngle(position: b2Math.b2Vec2, angle: number): void;
+		public SetPositionAndAngle(position: Box2D.Common.Math.b2Vec2, angle: number): void;
 
 		/**
 		* Is this body allowed to sleep
@@ -2903,7 +2894,7 @@ declare module Box2D.Dynamics {
 		* Set the position of the body's origin and rotation (radians). This breaks any contacts and wakes the other bodies. Note this is less efficient than the other overload - you should use that if the angle is available.
 		* @param xf Body's origin and rotation (radians).
 		**/
-		public SetTransform(xf: b2Math.b2Transform): void;
+		public SetTransform(xf: Box2D.Common.Math.b2Transform): void;
 
 		/**
 		* Set the type of this body. This may alter the mass and velocity
@@ -2989,12 +2980,12 @@ declare module Box2D.Dynamics {
 		/**
 		* The linear velocity of the body's origin in world co-ordinates.
 		**/
-		public linearVelocity: b2Math.b2Vec2;
+		public linearVelocity: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The world position of the body. Avoid creating bodies at the origin since this can lead to many overlapping shapes.
 		**/
-		public position: b2Math.b2Vec2;
+		public position: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The body type: static, kinematic, or dynamic. A member of the b2BodyType class .
@@ -3047,12 +3038,12 @@ declare module Box2D.Dynamics {
 		/**
 		* Normal impulses.
 		**/
-		public normalImpulses: b2Math.b2Vec2;
+		public normalImpulses: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Tangent impulses.
 		**/
-		public tangentImpulses: b2Math.b2Vec2;
+		public tangentImpulses: Box2D.Common.Math.b2Vec2;
 	}
 }
 
@@ -3088,7 +3079,7 @@ declare module Box2D.Dynamics {
 		* @param contact Contact point.
 		* @param oldManifold Old manifold.
 		**/
-		public PreSolve(contact: Contacts.b2Contact, oldManifold: b2Collision.b2Manifold): void;
+		public PreSolve(contact: Contacts.b2Contact, oldManifold: Box2D.Collision.b2Manifold): void;
 	}
 }
 
@@ -3156,7 +3147,7 @@ declare module Box2D.Dynamics {
 		* @param radius Circle radius.
 		* @param color Circle draw color.
 		**/
-		public DrawCircle(center: b2Math.b2Vec2, radius: number, color: b2Common.b2Color): void;
+		public DrawCircle(center: Box2D.Common.Math.b2Vec2, radius: number, color: Box2D.Common.b2Color): void;
 
 		/**
 		* Draw a closed polygon provided in CCW order.
@@ -3164,7 +3155,7 @@ declare module Box2D.Dynamics {
 		* @param vertexCount Number of vertices in the polygon, usually vertices.length.
 		* @param color Polygon draw color.
 		**/
-		public DrawPolygon(vertices: b2Math.b2Vec2[], vertexCount: number, color: b2Common.b2Color): void;
+		public DrawPolygon(vertices: Box2D.Common.Math.b2Vec2[], vertexCount: number, color: Box2D.Common.b2Color): void;
 
 		/**
 		* Draw a line segment.
@@ -3172,7 +3163,7 @@ declare module Box2D.Dynamics {
 		* @param p2 Line endpoint.
 		* @param color Line color.
 		**/
-		public DrawSegment(p1: b2Math.b2Vec2, p2: b2Math.b2Vec2, color: b2Common.b2Color): void;
+		public DrawSegment(p1: Box2D.Common.Math.b2Vec2, p2: Box2D.Common.Math.b2Vec2, color: Box2D.Common.b2Color): void;
 
 		/**
 		* Draw a solid circle.
@@ -3181,7 +3172,7 @@ declare module Box2D.Dynamics {
 		* @param axis Circle axis.
 		* @param color Circle color.
 		**/
-		public DrawSolidCircle(center: b2Math.b2Vec2, radius: number, axis: b2Math.b2Vec2, color: b2Common.b2Color): void;
+		public DrawSolidCircle(center: Box2D.Common.Math.b2Vec2, radius: number, axis: Box2D.Common.Math.b2Vec2, color: Box2D.Common.b2Color): void;
 
 		/**
 		* Draw a solid closed polygon provided in CCW order.
@@ -3189,13 +3180,13 @@ declare module Box2D.Dynamics {
 		* @param vertexCount Number of vertices in the polygon, usually vertices.length.
 		* @param color Polygon draw color.
 		**/
-		public DrawSolidPolygon(vertices: b2Math.b2Vec2[], vertexCount: number, color: b2Common.b2Color): void;
+		public DrawSolidPolygon(vertices: Box2D.Common.Math.b2Vec2[], vertexCount: number, color: Box2D.Common.b2Color): void;
 
 		/**
 		* Draw a transform. Choose your own length scale.
 		* @param xf Transform to draw.
 		**/
-		public DrawTransform(xf: b2Math.b2Transform): void;
+		public DrawTransform(xf: Box2D.Common.Math.b2Transform): void;
 
 		/**
 		* Get the alpha value used for lines.
@@ -3348,7 +3339,7 @@ declare module Box2D.Dynamics {
 		* Get the fixture's AABB. This AABB may be enlarge and/or stale. If you need a more accurate AABB, compute it using the shape and the body transform.
 		* @return Fiture's AABB.
 		**/
-		public GetAABB(): b2Collision.b2AABB;
+		public GetAABB(): Box2D.Collision.b2AABB;
 
 		/**
 		* Get the parent body of this fixture. This is NULL if the fixture is not attached.
@@ -3379,7 +3370,7 @@ declare module Box2D.Dynamics {
 		* @param massData This is a reference to a valid b2MassData, if it is null a new b2MassData is allocated and then returned.  Default = null.
 		* @return Mass data.
 		**/
-		public GetMassData(massData?: b2Shapes.b2MassData): b2Shapes.b2MassData;
+		public GetMassData(massData?: Box2D.Collision.Shapes.b2MassData): Box2D.Collision.Shapes.b2MassData;
 
 		/**
 		* Get the next fixture in the parent body's fixture list.
@@ -3397,7 +3388,7 @@ declare module Box2D.Dynamics {
 		* Get the child shape. You can modify the child shape, however you should not change the number of vertices because this will crash some collision caching mechanisms.
 		* @return Fixture shape.
 		**/
-		public GetShape(): b2Shapes.b2Shape;
+		public GetShape(): Box2D.Collision.Shapes.b2Shape;
 
 		/**
 		* Get the type of the child shape. You can use this to down cast to the concrete shape.
@@ -3423,7 +3414,7 @@ declare module Box2D.Dynamics {
 		* @param input Ray cast input parameters.
 		* @return True if the ray hits the shape, otherwise false.
 		**/
-		public RayCast(output: b2Collision.b2RayCastOutput, input: b2Collision.b2RayCastInput): bool;
+		public RayCast(output: Box2D.Collision.b2RayCastOutput, input: Box2D.Collision.b2RayCastInput): bool;
 
 		/**
 		* Set the density of this fixture. This will _not_ automatically adjust the mass of the body. You must call b2Body::ResetMassData to update the body's mass.
@@ -3466,7 +3457,7 @@ declare module Box2D.Dynamics {
 		* @param p Point to test against, in world coordinates.
 		* @return True if the point is in this shape, otherwise false.
 		**/
-		public TestPoint(p: b2Math.b2Vec2): bool;
+		public TestPoint(p: Box2D.Common.Math.b2Vec2): bool;
 	}
 }
 
@@ -3505,7 +3496,7 @@ declare module Box2D.Dynamics {
 		/**
 		* The shape, this must be set. The shape will be cloned, so you can create the shape on the stack.
 		**/
-		public shape: b2Shapes.b2Shape;
+		public shape: Box2D.Collision.Shapes.b2Shape;
 
 		/**
 		* Use this to store application specific fixture data.
@@ -3541,7 +3532,7 @@ declare module Box2D.Dynamics {
 		* @param gravity The world gravity vector.
 		* @param doSleep Improvie performance by not simulating inactive bodies.
 		**/
-		constructor(gravity: b2Math.b2Vec2, doSleep: bool);
+		constructor(gravity: Box2D.Common.Math.b2Vec2, doSleep: bool);
 
 		/**
 		* Add a controller to the world list.
@@ -3630,7 +3621,7 @@ declare module Box2D.Dynamics {
 		* Get the global gravity vector.
 		* @return Global gravity vector.
 		**/
-		public GetGravity(): b2Math.b2Vec2;
+		public GetGravity(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The world provides a single static ground body with no collision shapes. You can use this to simplify the creation of joints and static shapes.
@@ -3667,7 +3658,7 @@ declare module Box2D.Dynamics {
 		* @param callback  A user implemented callback class. It should match signature function Callback(fixture:b2Fixture):Boolean.  Return true to continue to the next fixture.
 		* @param aabb The query bounding box.
 		**/
-		public QueryAABB(callback: (fixutre: b2Fixture) => bool, aabb: b2Collision.b2AABB): void;
+		public QueryAABB(callback: (fixutre: b2Fixture) => bool, aabb: Box2D.Collision.b2AABB): void;
 
 		/**
 		* Query the world for all fixtures that contain a point.
@@ -3675,7 +3666,7 @@ declare module Box2D.Dynamics {
 		* @param callback A user implemented callback class.  It should match signature function Callback(fixture:b2Fixture):Boolean.  Return true to continue to the next fixture.
 		* @param p The query point.
 		**/
-		public QueryPoint(callback: (fixture: b2Fixture) => bool, p: b2Math.b2Vec2): void;
+		public QueryPoint(callback: (fixture: b2Fixture) => bool, p: Box2D.Common.Math.b2Vec2): void;
 
 		/**
 		* Query the world for all fixtures that precisely overlap the provided transformed shape.
@@ -3684,7 +3675,7 @@ declare module Box2D.Dynamics {
 		* @param shape The query shape.
 		* @param transform Optional transform, default = null.
 		**/
-		public QueryShape(callback: (fixture: b2Fixture) => bool, shape: b2Shapes.b2Shape, transform?: b2Math.b2Transform): void;
+		public QueryShape(callback: (fixture: b2Fixture) => bool, shape: Box2D.Collision.Shapes.b2Shape, transform?: Box2D.Common.Math.b2Transform): void;
 
 		/**
 		* Ray-cast the world for all fixtures in the path of the ray. Your callback Controls whether you get the closest point, any point, or n-points The ray-cast ignores shapes that contain the starting point.
@@ -3699,7 +3690,7 @@ declare module Box2D.Dynamics {
 		* @param point1 The ray starting point.
 		* @param point2 The ray ending point.
 		**/
-		public RayCast(callback: (fixture: b2Fixture, point: b2Math.b2Vec2, normal: b2Math.b2Vec2, fraction: number) => number, point1: b2Math.b2Vec2, point2: b2Math.b2Vec2): void;
+		public RayCast(callback: (fixture: b2Fixture, point: Box2D.Common.Math.b2Vec2, normal: Box2D.Common.Math.b2Vec2, fraction: number) => number, point1: Box2D.Common.Math.b2Vec2, point2: Box2D.Common.Math.b2Vec2): void;
 
 		/**
 		* Ray-cast the world for all fixture in the path of the ray.
@@ -3707,7 +3698,7 @@ declare module Box2D.Dynamics {
 		* @param point2 The ray ending point.
 		* @return Array of all the fixtures intersected by the ray.
 		**/
-		public RayCastAll(point1: b2Math.b2Vec2, point2: b2Math.b2Vec2): b2Fixture[];
+		public RayCastAll(point1: Box2D.Common.Math.b2Vec2, point2: Box2D.Common.Math.b2Vec2): b2Fixture[];
 
 		/**
 		* Ray-cast the world for the first fixture in the path of the ray.
@@ -3715,7 +3706,7 @@ declare module Box2D.Dynamics {
 		* @param point2 The ray ending point.
 		* @return First fixture intersected by the ray.
 		**/
-		public RayCastOne(point1: b2Math.b2Vec2, point2: b2Math.b2Vec2): b2Fixture;
+		public RayCastOne(point1: Box2D.Common.Math.b2Vec2, point2: Box2D.Common.Math.b2Vec2): b2Fixture;
 
 		/**
 		* Removes the controller from the world.
@@ -3728,7 +3719,7 @@ declare module Box2D.Dynamics {
 		* @warning This function is locked during callbacks.
 		* @param broadphase: Broad phase implementation.
 		**/
-		public SetBroadPhase(broadPhase: b2Collision.IBroadPhase): void;
+		public SetBroadPhase(broadPhase: Box2D.Collision.IBroadPhase): void;
 
 		/**
 		* Register a contact filter to provide specific control over collision. Otherwise the default filter is used (b2_defaultFilter).
@@ -3764,7 +3755,7 @@ declare module Box2D.Dynamics {
 		* Change the global gravity vector.
 		* @param gravity New global gravity vector.
 		**/
-		public SetGravity(gravity: b2Math.b2Vec2): void;
+		public SetGravity(gravity: Box2D.Common.Math.b2Vec2): void;
 
 		/**
 		* Enable/disable warm starting. For testing.
@@ -3820,7 +3811,7 @@ declare module Box2D.Dynamics.Contacts {
 		* Get the contact manifold. Do not modify the manifold unless you understand the internals of Box2D.
 		* @return Contact manifold.
 		**/
-		public GetManifold(): b2Collision.b2Manifold;
+		public GetManifold(): Box2D.Collision.b2Manifold;
 
 		/**
 		* Get the next contact in the world's contact list.
@@ -3833,7 +3824,7 @@ declare module Box2D.Dynamics.Contacts {
 		* @param worldManifold World manifold out.
 		* @return World manifold.
 		**/
-		public GetWorldManifold(worldManifold: b2Collision.b2WorldManifold): void;
+		public GetWorldManifold(worldManifold: Box2D.Collision.b2WorldManifold): void;
 
 		/**
 		* Does this contact generate TOI events for continuous simulation.
@@ -3912,12 +3903,12 @@ declare module Box2D.Dynamics.Contacts {
 		/**
 		* The contact id identifies the features in contact.
 		**/
-		public id: b2Collision.b2ContactID;
+		public id: Box2D.Collision.b2ContactID;
 
 		/**
 		* Points from shape1 to shape2.
 		**/
-		public normal: b2Math.b2Vec2;
+		public normal: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The normal impulse applied to body2.
@@ -3927,17 +3918,17 @@ declare module Box2D.Dynamics.Contacts {
 		/**
 		* Position in world coordinates.
 		**/
-		public position: b2Math.b2Vec2;
+		public position: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The first shape.
 		**/
-		public shape1: b2Shapes.b2Shape;
+		public shape1: Box2D.Collision.Shapes.b2Shape;
 
 		/**
 		* The second shape.
 		**/
-		public shape2: b2Shapes.b2Shape;
+		public shape2: Box2D.Collision.Shapes.b2Shape;
 
 		/**
 		* The tangent impulse applied to body2.
@@ -4074,7 +4065,7 @@ declare module Box2D.Dynamics.Controllers {
 		* Gravity vector, if the world's gravity is not used.
 		* @default = null
 		**/
-		public gravity: b2Math.b2Vec2;
+		public gravity: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Linear drag co-efficient.
@@ -4085,7 +4076,7 @@ declare module Box2D.Dynamics.Controllers {
 		/**
 		* The outer surface normal.
 		**/
-		public normal: b2Math.b2Vec2;
+		public normal: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The height of the fluid surface along the normal.
@@ -4108,7 +4099,7 @@ declare module Box2D.Dynamics.Controllers {
 		/**
 		* Fluid velocity, for drag calculations.
 		**/
-		public velocity: b2Math.b2Vec2;
+		public velocity: Box2D.Common.Math.b2Vec2;
 	}
 }
 
@@ -4122,7 +4113,7 @@ declare module Box2D.Dynamics.Controllers {
 		/**
 		* The acceleration to apply.
 		**/
-		public A: b2Math.b2Vec2;
+		public A: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* @see b2Controller.Step
@@ -4141,7 +4132,7 @@ declare module Box2D.Dynamics.Controllers {
 		/**
 		* The acceleration to apply.
 		**/
-		public A: b2Math.b2Vec2;
+		public A: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* @see b2Controller.Step
@@ -4191,7 +4182,7 @@ declare module Box2D.Dynamics.Controllers {
 		/**
 		* Tensor to use in damping model.
 		**/
-		public T: b2Math.b2Mat22;
+		public T: Box2D.Common.Math.b2Mat22;
 
 		/**
 		* Helper function to set T in a common case.
@@ -4218,13 +4209,13 @@ declare module Box2D.Dynamics.Joints {
 		* Get the anchor point on bodyA in world coordinates.
 		* @return Anchor A point.
 		**/
-		public GetAnchorA(): b2Math.b2Vec2;
+		public GetAnchorA(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the anchor point on bodyB in world coordinates.
 		* @return Anchor B point.
 		**/
-		public GetAnchorB(): b2Math.b2Vec2;
+		public GetAnchorB(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the first body attached to this joint.
@@ -4249,7 +4240,7 @@ declare module Box2D.Dynamics.Joints {
 		* @param inv_dt 
 		* @return Reaction force (N)
 		**/
-		public GetReactionForce(inv_dt: number): b2Math.b2Vec2;
+		public GetReactionForce(inv_dt: number): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the reaction torque on body2 in N.
@@ -4363,13 +4354,13 @@ declare module Box2D.Dynamics.Joints {
 		* Get the anchor point on bodyA in world coordinates.
 		* @return Body A anchor.
 		**/
-		public GetAnchorA(): b2Math.b2Vec2;
+		public GetAnchorA(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the anchor point on bodyB in world coordinates.
 		* @return Body B anchor.
 		**/
-		public GetAnchorB(): b2Math.b2Vec2;
+		public GetAnchorB(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Gets the damping ratio.
@@ -4394,7 +4385,7 @@ declare module Box2D.Dynamics.Joints {
 		* @param inv_dt
 		* @return Reaction force in N.
 		**/
-		public GetReactionForce(inv_dt: number): b2Math.b2Vec2;
+		public GetReactionForce(inv_dt: number): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the reaction torque on body 2 in N.
@@ -4449,12 +4440,12 @@ declare module Box2D.Dynamics.Joints {
 		/**
 		* The local anchor point relative to body1's origin.
 		**/
-		public localAnchorA: b2Math.b2Vec2;
+		public localAnchorA: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The local anchor point relative to body2's origin.
 		**/
-		public localAnchorB: b2Math.b2Vec2;
+		public localAnchorB: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Constructor.
@@ -4468,7 +4459,7 @@ declare module Box2D.Dynamics.Joints {
 		* @param anchorA Anchor A.
 		* @param anchorB Anchor B.
 		**/
-		public Initialize(bA: b2Body, bB: b2Body, anchorA: b2Math.b2Vec2, anchorB: b2Math.b2Vec2): void;
+		public Initialize(bA: b2Body, bB: b2Body, anchorA: Box2D.Common.Math.b2Vec2, anchorB: Box2D.Common.Math.b2Vec2): void;
 	}
 }
 
@@ -4487,19 +4478,19 @@ declare module Box2D.Dynamics.Joints {
 		/**
 		* Linear mass.
 		**/
-		public m_linearMass: b2Math.b2Mat22;
+		public m_linearMass: Box2D.Common.Math.b2Mat22;
 
 		/**
 		* Get the anchor point on bodyA in world coordinates.
 		* @return Body A anchor.
 		**/
-		public GetAnchorA(): b2Math.b2Vec2;
+		public GetAnchorA(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the anchor point on bodyB in world coordinates.
 		* @return Body B anchor.
 		**/
-		public GetAnchorB(): b2Math.b2Vec2;
+		public GetAnchorB(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Gets the max force.
@@ -4518,7 +4509,7 @@ declare module Box2D.Dynamics.Joints {
 		* @param inv_dt
 		* @return Reaction force in N.
 		**/
-		public GetReactionForce(inv_dt: number): b2Math.b2Vec2;
+		public GetReactionForce(inv_dt: number): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the reaction torque on body 2 in N.
@@ -4550,12 +4541,12 @@ declare module Box2D.Dynamics.Joints {
 		/**
 		* The local anchor point relative to body1's origin.
 		**/
-		public localAnchorA: b2Math.b2Vec2;
+		public localAnchorA: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The local anchor point relative to body2's origin.
 		**/
-		public localAnchorB: b2Math.b2Vec2;
+		public localAnchorB: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The maximum force in N.
@@ -4578,7 +4569,7 @@ declare module Box2D.Dynamics.Joints {
 		* @param bB Body B.
 		* @param anchor World anchor.
 		**/
-		public Initialize(bA: b2Body, bB: b2Body, anchor: b2Math.b2Vec2): void;
+		public Initialize(bA: b2Body, bB: b2Body, anchor: Box2D.Common.Math.b2Vec2): void;
 	}
 }
 
@@ -4594,13 +4585,13 @@ declare module Box2D.Dynamics.Joints {
 		* Get the anchor point on bodyA in world coordinates.
 		* @return Body A anchor.
 		**/
-		public GetAnchorA(): b2Math.b2Vec2;
+		public GetAnchorA(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the anchor point on bodyB in world coordinates.
 		* @return Body B anchor.
 		**/
-		public GetAnchorB(): b2Math.b2Vec2;
+		public GetAnchorB(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the gear ratio.
@@ -4613,7 +4604,7 @@ declare module Box2D.Dynamics.Joints {
 		* @param inv_dt
 		* @return Reaction force in N.
 		**/
-		public GetReactionForce(inv_dt: number): b2Math.b2Vec2;
+		public GetReactionForce(inv_dt: number): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the reaction torque on body 2 in N.
@@ -4682,13 +4673,13 @@ declare module Box2D.Dynamics.Joints {
 		* Get the anchor point on bodyA in world coordinates.
 		* @return Body A anchor.
 		**/
-		public GetAnchorA(): b2Math.b2Vec2;
+		public GetAnchorA(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the anchor point on bodyB in world coordinates.
 		* @return Body B anchor.
 		**/
-		public GetAnchorB(): b2Math.b2Vec2;
+		public GetAnchorB(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the current joint translation speed, usually in meters per second.
@@ -4731,7 +4722,7 @@ declare module Box2D.Dynamics.Joints {
 		* @param inv_dt
 		* @return Reaction force in N.
 		**/
-		public GetReactionForce(inv_dt: number): b2Math.b2Vec2;
+		public GetReactionForce(inv_dt: number): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the reaction torque on body 2 in N.
@@ -4799,17 +4790,17 @@ declare module Box2D.Dynamics.Joints {
 		/**
 		* The local anchor point relative to body1's origin.
 		**/
-		public localAnchorA: b2Math.b2Vec2;
+		public localAnchorA: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The local anchor point relative to body2's origin.
 		**/
-		public localAnchorB: b2Math.b2Vec2;
+		public localAnchorB: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The local translation axis in bodyA.
 		**/
-		public localAxisA: b2Math.b2Vec2;
+		public localAxisA: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The lower translation limit, usually in meters.
@@ -4843,7 +4834,7 @@ declare module Box2D.Dynamics.Joints {
 		* @param anchor Anchor.
 		* @param axis Axis.
 		**/
-		public Initialize(bA: b2Body, bB: b2Body, anchor: b2Math.b2Vec2, axis: b2Math.b2Vec2): void;
+		public Initialize(bA: b2Body, bB: b2Body, anchor: Box2D.Common.Math.b2Vec2, axis: Box2D.Common.Math.b2Vec2): void;
 	}
 }
 
@@ -4858,13 +4849,13 @@ declare module Box2D.Dynamics.Joints {
 		* Get the anchor point on bodyA in world coordinates.
 		* @return Body A anchor.
 		**/
-		public GetAnchorA(): b2Math.b2Vec2;
+		public GetAnchorA(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the anchor point on bodyB in world coordinates.
 		* @return Body B anchor.
 		**/
-		public GetAnchorB(): b2Math.b2Vec2;
+		public GetAnchorB(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Gets the damping ratio.
@@ -4889,7 +4880,7 @@ declare module Box2D.Dynamics.Joints {
 		* @param inv_dt
 		* @return Reaction force in N.
 		**/
-		public GetReactionForce(inv_dt: number): b2Math.b2Vec2;
+		public GetReactionForce(inv_dt: number): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the reaction torque on body 2 in N.
@@ -4902,7 +4893,7 @@ declare module Box2D.Dynamics.Joints {
 		* Gets the target.
 		* @return Target.
 		**/
-		public GetTarget(): b2Math.b2Vec2;
+		public GetTarget(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Sets the damping ratio.
@@ -4926,7 +4917,7 @@ declare module Box2D.Dynamics.Joints {
 		* Use this to update the target point.
 		* @param target New target.
 		**/
-		public SetTarget(target: b2Math.b2Vec2): void;
+		public SetTarget(target: Box2D.Common.Math.b2Vec2): void;
 	}
 }
 
@@ -4982,13 +4973,13 @@ declare module Box2D.Dynamics.Joints {
 		* Get the anchor point on bodyA in world coordinates.
 		* @return Body A anchor.
 		**/
-		public GetAnchorA(): b2Math.b2Vec2;
+		public GetAnchorA(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the anchor point on bodyB in world coordinates.
 		* @return Body B anchor.
 		**/
-		public GetAnchorB(): b2Math.b2Vec2;
+		public GetAnchorB(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the current joint translation speed, usually in meters per second.
@@ -5025,7 +5016,7 @@ declare module Box2D.Dynamics.Joints {
 		* @param inv_dt
 		* @return Reaction force in N.
 		**/
-		public GetReactionForce(inv_dt: number): b2Math.b2Vec2;
+		public GetReactionForce(inv_dt: number): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the reaction torque on body 2 in N.
@@ -5093,17 +5084,17 @@ declare module Box2D.Dynamics.Joints {
 		/**
 		* The local anchor point relative to body1's origin.
 		**/
-		public localAnchorA: b2Math.b2Vec2;
+		public localAnchorA: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The local anchor point relative to body2's origin.
 		**/
-		public localAnchorB: b2Math.b2Vec2;
+		public localAnchorB: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The local translation axis in body1.
 		**/
-		public localAxisA: b2Math.b2Vec2;
+		public localAxisA: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The lower translation limit, usually in meters.
@@ -5142,7 +5133,7 @@ declare module Box2D.Dynamics.Joints {
 		* @param anchor Anchor.
 		* @param axis Axis.
 		**/
-		public Initialize(bA: b2Body, bB: b2Body, anchor: b2Math.b2Vec2, axis: b2Math.b2Vec2): void;
+		public Initialize(bA: b2Body, bB: b2Body, anchor: Box2D.Common.Math.b2Vec2, axis: Box2D.Common.Math.b2Vec2): void;
 	}
 }
 
@@ -5157,23 +5148,23 @@ declare module Box2D.Dynamics.Joints {
 		* Get the anchor point on bodyA in world coordinates.
 		* @return Body A anchor.
 		**/
-		public GetAnchorA(): b2Math.b2Vec2;
+		public GetAnchorA(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the anchor point on bodyB in world coordinates.
 		* @return Body B anchor.
 		**/
-		public GetAnchorB(): b2Math.b2Vec2;
+		public GetAnchorB(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the first ground anchor.
 		**/
-		public GetGroundAnchorA(): b2Math.b2Vec2;
+		public GetGroundAnchorA(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the second ground anchor.
 		**/
-		public GetGroundAnchorB(): b2Math.b2Vec2;
+		public GetGroundAnchorB(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the current length of the segment attached to body1.
@@ -5195,7 +5186,7 @@ declare module Box2D.Dynamics.Joints {
 		* @param inv_dt
 		* @return Reaction force in N.
 		**/
-		public GetReactionForce(inv_dt: number): b2Math.b2Vec2;
+		public GetReactionForce(inv_dt: number): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the reaction torque on body 2 in N.
@@ -5216,12 +5207,12 @@ declare module Box2D.Dynamics.Joints {
 		/**
 		* The first ground anchor in world coordinates. This point never moves.
 		**/
-		public groundAnchorA: b2Math.b2Vec2;
+		public groundAnchorA: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The second ground anchor in world coordinates. This point never moves.
 		**/
-		public groundAnchorB: b2Math.b2Vec2;
+		public groundAnchorB: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The a reference length for the segment attached to bodyA.
@@ -5236,12 +5227,12 @@ declare module Box2D.Dynamics.Joints {
 		/**
 		* The local anchor point relative to body1's origin.
 		**/
-		public localAnchorA: b2Math.b2Vec2;
+		public localAnchorA: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The local anchor point relative to body2's origin.
 		**/
-		public localAnchorB: b2Math.b2Vec2;
+		public localAnchorB: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The maximum length of the segment attached to bodyA.
@@ -5272,7 +5263,7 @@ declare module Box2D.Dynamics.Joints {
 		* @param anchorA Anchor A.
 		* @param anchorB Anchor B.
 		**/
-		public Initialize(bA: b2Body, bB: b2Body, gaA: b2Math.b2Vec2, gaB: b2Math.b2Vec2, anchorA: b2Math.b2Vec2, anchorB: b2Math.b2Vec2): void;
+		public Initialize(bA: b2Body, bB: b2Body, gaA: Box2D.Common.Math.b2Vec2, gaB: Box2D.Common.Math.b2Vec2, anchorA: Box2D.Common.Math.b2Vec2, anchorB: Box2D.Common.Math.b2Vec2): void;
 	}
 }
 
@@ -5299,13 +5290,13 @@ declare module Box2D.Dynamics.Joints {
 		* Get the anchor point on bodyA in world coordinates.
 		* @return Body A anchor.
 		**/
-		public GetAnchorA(): b2Math.b2Vec2;
+		public GetAnchorA(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the anchor point on bodyB in world coordinates.
 		* @return Body B anchor.
 		**/
-		public GetAnchorB(): b2Math.b2Vec2;
+		public GetAnchorB(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the current joint angle in radians.
@@ -5342,7 +5333,7 @@ declare module Box2D.Dynamics.Joints {
 		* @param inv_dt
 		* @return Reaction force in N.
 		**/
-		public GetReactionForce(inv_dt: number): b2Math.b2Vec2;
+		public GetReactionForce(inv_dt: number): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the reaction torque on body 2 in N.
@@ -5410,12 +5401,12 @@ declare module Box2D.Dynamics.Joints {
 		/**
 		* The local anchor point relative to body1's origin.
 		**/
-		public localAnchorA: b2Math.b2Vec2;
+		public localAnchorA: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The local anchor point relative to body2's origin.
 		**/
-		public localAnchorB: b2Math.b2Vec2;
+		public localAnchorB: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The lower angle for the joint limit (radians).
@@ -5453,7 +5444,7 @@ declare module Box2D.Dynamics.Joints {
 		* @param bB Body B.
 		* @param anchor Anchor.
 		**/
-		public Initialize(bA: b2Body, bB: b2Body, anchor: b2Math.b2Vec2): void;
+		public Initialize(bA: b2Body, bB: b2Body, anchor: Box2D.Common.Math.b2Vec2): void;
 	}
 }
 
@@ -5468,20 +5459,20 @@ declare module Box2D.Dynamics.Joints {
 		* Get the anchor point on bodyA in world coordinates.
 		* @return Body A anchor.
 		**/
-		public GetAnchorA(): b2Math.b2Vec2;
+		public GetAnchorA(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the anchor point on bodyB in world coordinates.
 		* @return Body B anchor.
 		**/
-		public GetAnchorB(): b2Math.b2Vec2;
+		public GetAnchorB(): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the reaction force on body2 at the joint anchor in N.
 		* @param inv_dt
 		* @return Reaction force in N.
 		**/
-		public GetReactionForce(inv_dt: number): b2Math.b2Vec2;
+		public GetReactionForce(inv_dt: number): Box2D.Common.Math.b2Vec2;
 
 		/**
 		* Get the reaction torque on body 2 in N.
@@ -5502,12 +5493,12 @@ declare module Box2D.Dynamics.Joints {
 		/**
 		* The local anchor point relative to body1's origin.
 		**/
-		public localAnchorA: b2Math.b2Vec2;
+		public localAnchorA: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The local anchor point relative to body2's origin.
 		**/
-		public localAnchorB: b2Math.b2Vec2;
+		public localAnchorB: Box2D.Common.Math.b2Vec2;
 
 		/**
 		* The body2 angle minus body1 angle in the reference state (radians).
@@ -5525,8 +5516,6 @@ declare module Box2D.Dynamics.Joints {
 		* @param bB Body B.
 		* @param anchor Anchor.
 		**/
-		public Initialize(bA: b2Body, bB: b2Body, anchor: b2Math.b2Vec2): void;
+		public Initialize(bA: b2Body, bB: b2Body, anchor: Box2D.Common.Math.b2Vec2): void;
 	}
 }
-
-
