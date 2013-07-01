@@ -231,8 +231,8 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$timeout
     ///////////////////////////////////////////////////////////////////////////
     interface ITimeoutService {
-        (func: Function, delay?: number, invokeApply?: bool): IPromise;
-        cancel(promise: IPromise): bool;
+        (func: Function, delay?: number, invokeApply?: bool): IPromise<any>;
+        cancel(promise: IPromise<any>): bool;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -390,20 +390,20 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$q
     ///////////////////////////////////////////////////////////////////////////
     interface IQService {
-        all(promises: IPromise[]): IPromise;
-        defer(): IDeferred;
-        reject(reason?: any): IPromise;
-        when(value: any): IPromise;
+        all(promises: Array<IPromise<any>>): IPromise<any>;
+        defer<T>(): IDeferred<T>;
+        reject(reason?: any): IPromise<void>;
+        when<T>(value: T): IPromise<T>;
     }
 
-    interface IPromise {
-        then(successCallback: (promiseValue: any) => any, errorCallback?: (reason: any) => any): IPromise;
+    interface IPromise<T> {
+        then(successCallback: (promiseValue: T) => any, errorCallback?: (reason: any) => any): IPromise<any>;
     }
 
-    interface IDeferred {
-        resolve(value?: any): void;
+    interface IDeferred<T> {
+        resolve(value?: T): void;
         reject(reason?: any): void;
-        promise: IPromise;
+        promise: IPromise<T>;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -495,12 +495,12 @@ declare module ng {
     interface IHttpService {
         // At least moethod and url must be provided...
         (config: IRequestConfig): IHttpPromise;
-        get (url: string, RequestConfig?: any): IHttpPromise;
+        get<T>(url: string, RequestConfig?: any): IHttpPromise<T>;
         delete (url: string, RequestConfig?: any): IHttpPromise;
         head(url: string, RequestConfig?: any): IHttpPromise;
         jsonp(url: string, RequestConfig?: any): IHttpPromise;
-        post(url: string, data: any, RequestConfig?: any): IHttpPromise;
-        put(url: string, data: any, RequestConfig?: any): IHttpPromise;
+        post<T>(url: string, data: any, RequestConfig?: any): IHttpPromise<T>;
+        put<T>(url: string, data: any, RequestConfig?: any): IHttpPromise<T>;
         defaults: IRequestConfig;
 
         // For debugging, BUT it is documented as public, so...
@@ -528,17 +528,17 @@ declare module ng {
         transformResponse?: any;
     }
 
-    interface IHttpPromiseCallbackArg {
-        data?: any;
+    interface IHttpPromiseCallbackArg<T> {
+        data?: T;
         status?: number;
         headers?: (headerName: string) => string;
         config?: IRequestConfig;
     }
 
-    interface IHttpPromise extends IPromise {
-        success(callback: (data: any, status: number, headers: (headerName: string) => string, config: IRequestConfig) => any): IHttpPromise;
-        error(callback: (data: any, status: number, headers: (headerName: string) => string, config: IRequestConfig) => any): IHttpPromise;
-        then(successCallback: (response: IHttpPromiseCallbackArg) => any, errorCallback?: (response: IHttpPromiseCallbackArg) => any): IPromise;
+    interface IHttpPromise<T> extends IPromise<T> {
+        success(callback: (data: T, status: number, headers: (headerName: string) => string, config: IRequestConfig) => any): IHttpPromise;
+        error(callback: (data: T, status: number, headers: (headerName: string) => string, config: IRequestConfig) => any): IHttpPromise;
+        then(successCallback: (response: IHttpPromiseCallbackArg<T>) => any, errorCallback?: (response: IHttpPromiseCallbackArg<T>) => any): IPromise<any>;
     }
 
     interface IHttpProvider extends IServiceProvider {
