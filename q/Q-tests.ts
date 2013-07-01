@@ -1,3 +1,4 @@
+/// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="Q.d.ts" />
 
 import q = module('q');
@@ -40,14 +41,14 @@ Q.all([
 
 
 Q.fcall(function () { })
-.then(function () { })
-.then(function () { })
-.then(function () { })
-.then(function (value4) {
-    // Do something with value4
-}, function (error) {
-    // Handle any error from step1 through step4
-}).done();
+    .then(function () { })
+    .then(function () { })
+    .then(function () { })
+    .then(function (value4) {
+        // Do something with value4
+    }, function (error) {
+        // Handle any error from step1 through step4
+    }).done();
 
 Q.allResolved([])
 .then(function (promises: Q.Promise<any>[]) {
@@ -59,3 +60,17 @@ Q.allResolved([])
         }
     })
 });
+
+declare var arrayPromise: Q.IPromise<number[]>;
+declare var stringPromise: Q.IPromise<string>;
+declare function returnsNumPromise(text: string): Q.Promise<number>;
+
+Q<number[]>(arrayPromise) // type specification required
+    .then(arr => arr.join(','))
+    .then<number>(returnsNumPromise) // requires specification
+    .then(num => num.toFixed());
+
+declare var jPromise: JQueryPromise;
+
+// if jQuery promises definition supported generics, this could be more interesting example
+Q<any>(jPromise).then((val) => val.toExponential());
