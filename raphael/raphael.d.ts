@@ -244,7 +244,10 @@ interface RaphaelStatic {
     fn: any;
     format(token: string, ...parameters: any[]): string;
     fullfill(token: string, json: JSON): string;
-    getColor(value?: number): string;
+    getColor {
+        (value?: number): string;
+        reset();
+    };
     getPointAtLength(path: string, length: number): { x: number; y: number; alpha: number; };
     getRGB(colour: string): { r: number; g: number; b: number; hex: string; error: bool; };
     getSubpath(path: string, from: number, to: number): string;
