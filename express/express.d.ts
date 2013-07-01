@@ -780,6 +780,10 @@ interface ExpressServerResponse {
     charset: string;
 }
 
+interface ExpressRequestFunction {
+    (req: ExpressServerRequest, res: ExpressServerResponse, next: Function): any;
+}
+
 interface ExpressApplication {
     /**
      * Initialize the server.
@@ -1020,228 +1024,17 @@ interface ExpressApplication {
 
     render(name: string, fn: Function);
 
-    get (name: string): any;
+    get(name: string, ...handlers: ExpressRequestFunction[]): any;
+    get(name: RegExp, ...handlers: ExpressRequestFunction[]): any;
 
-    get (name: string, handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
+    post(name: string, ...handlers: ExpressRequestFunction[]): any;
+    post(name: RegExp, ...handlers: ExpressRequestFunction[]): any;
 
-    get (name: string,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
+    put(name: string, ...handlers: ExpressRequestFunction[]): any;
+    put(name: RegExp, ...handlers: ExpressRequestFunction[]): any;
 
-    get (name: string,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    get (name: string,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler4: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    get (name: string,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler4: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler5: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    get (name: string,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler4: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler5: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        ...handlers: any[]): any;
-
-    get (name: RegExp): any;
-
-    get (name: RegExp, handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    get (name: RegExp,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    get (name: RegExp,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    get (name: RegExp,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler4: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    get (name: RegExp,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler4: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler5: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        ...handlers: any[]): any;
-
-    post(name: string): any;
-
-    post(name: string, handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    post(name: string,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    post(name: string,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    post(name: string,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler4: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    post(name: string,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler4: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler5: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        ...handlers: any[]): any;
-
-    post(name: RegExp): any;
-
-    post(name: RegExp, handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    post(name: RegExp,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    post(name: RegExp,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    post(name: RegExp,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler4: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    post(name: RegExp,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler4: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler5: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        ...handlers: any[]): any;
-
-    put(name: string): any;
-
-    put(name: string, handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    put(name: string,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    put(name: string,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    put(name: string,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler4: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    put(name: string,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler4: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler5: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        ...handlers: any[]): any;
-
-    put(name: RegExp): any;
-
-    put(name: RegExp, handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    put(name: RegExp,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    put(name: RegExp,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    put(name: RegExp,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler4: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    put(name: RegExp,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler4: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler5: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        ...handlers: any[]): any;
-
-    del(name: string): any;
-
-    del(name: string, handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    del(name: string,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    del(name: string,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    del(name: string,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler4: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    del(name: string,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler4: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler5: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        ...handlers: any[]): any;
-
-    del(name: RegExp): any;
-
-    del(name: RegExp, handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    del(name: RegExp,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    del(name: RegExp,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    del(name: RegExp,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler4: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any): any;
-
-    del(name: RegExp,
-        handler: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler2: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler3: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler4: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        handler5: (req: ExpressServerRequest, res: ExpressServerResponse, next: Function) => any,
-        ...handlers: any[]): any;
+    del(name: string, ...handlers: ExpressRequestFunction[]): any;
+    del(name: RegExp, ...handlers: ExpressRequestFunction[]): any;
 
     /**
      * Listen for connections.
