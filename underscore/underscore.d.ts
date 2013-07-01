@@ -34,6 +34,10 @@ declare module _ {
         [index: string]: T;
     }
 
+    interface NumberedDictionary<T> extends Collection<T> {
+        [index: number]: T;
+    }
+
     /****
         Collections
     *****/
@@ -47,11 +51,13 @@ declare module _ {
     export function collect<T, TResult>(list: List<T>, iterator: ListIterator<T, TResult>, context?: any): TResult[];
     export function collect<T, TResult>(object: Dictionary<T>, iterator: ObjectIterator<T, TResult>, context?: any): TResult[];
 
-    export function reduce<T, TResult>(list: Collection<T>, iterator: (prev: TResult, curr: T) => TResult, memo: TResult, context?: any): TResult;
-    export function inject<T, TResult>(list: Collection<T>, iterator: (prev: TResult, curr: T) => TResult, memo: TResult, context?: any): TResult;
+    export function reduce<T, TResult>(list: List<T>, iterator: (prev: TResult, curr: T, index?: number, list?: List<T>) => TResult, memo: TResult, context?: any): TResult;
+    export function reduce<T, TResult>(dict: Dictionary<T>, iterator: (prev: TResult, curr: T, index?: string, dict?: Dictionary<T>) => TResult, memo: TResult, context?: any): TResult;
+    export function reduce<T, TResult>(dict: NumberedDictionary<T>, iterator: (prev: TResult, curr: T, index?: number, dict?: NumberedDictionary<T>) => TResult, memo: TResult, context?: any): TResult;
+    export function inject<T, TResult>(list: Collection<T>, iterator: (prev: TResult, curr: T, index?: number, list?: Collection<T>) => TResult, memo: TResult, context?: any): TResult;
 
-    export function reduceRight<T, TResult>(list: Collection<T>, iterator: (prev: TResult, curr: T) => TResult, memo: TResult, context?: any): TResult;
-    export function foldr<T, TResult>(list: Collection<T>, iterator: (prev: TResult, curr: T) => TResult, memo: TResult, context?: any): TResult;
+    export function reduceRight<T, TResult>(list: Collection<T>, iterator: (prev: TResult, curr: T, index?: number, list?: Collection<T>) => TResult, memo: TResult, context?: any): TResult;
+    export function foldr<T, TResult>(list: Collection<T>, iterator: (prev: TResult, curr: T, index?: number, list?: Collection<T>) => TResult, memo: TResult, context?: any): TResult;
 
     export function find<T>(list: Collection<T>, iterator: (x: T) => boolean, context?: any): T;
     export function detect<T>(list: Collection<T>, iterator: (x: T) => boolean, context?: any): T;
