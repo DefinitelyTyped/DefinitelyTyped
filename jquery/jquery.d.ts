@@ -190,7 +190,7 @@ interface JQuerySupport {
 
 interface JQueryParam {
     (obj: any): string;
-    (obj: any, traditional: bool): string;
+    (obj: any, traditional: boolean): string;
 }
 
 /*
@@ -224,7 +224,7 @@ interface JQueryStatic {
     Callbacks(flags?: string): JQueryCallback;
 
     // Core
-    holdReady(hold: bool): any;
+    holdReady(hold: boolean): any;
 
     (selector: string, context?: any): JQuery;
     (element: Element): JQuery;
@@ -235,7 +235,7 @@ interface JQueryStatic {
     (array: any[]): JQuery;
     (): JQuery;
 
-    noConflict(removeAll?: bool): Object;
+    noConflict(removeAll?: boolean): Object;
 
     when(...deferreds: any[]): JQueryPromise;
 
@@ -296,11 +296,11 @@ interface JQueryStatic {
     each<T>(collection: T[], callback: (indexInArray: number, valueOfElement: T) => any): any;
 
     extend(target: any, ...objs: any[]): Object;
-    extend(deep: bool, target: any, ...objs: any[]): Object;
+    extend(deep: boolean, target: any, ...objs: any[]): Object;
 
     globalEval(code: string): any;
 
-    grep<T>(array: T[], func: (elementOfArray: T, indexInArray: number) => boolean, invert?: bool): T[];
+    grep<T>(array: T[], func: (elementOfArray: T, indexInArray: number) => boolean, invert?: boolean): T[];
 
     inArray<T>(value: T, array: T[], fromIndex?: number): number;
 
@@ -336,15 +336,15 @@ interface JQueryStatic {
     type(obj: any): string;
 
     unique(arr: any[]): any[];
-    
-    /** 
+
+    /**
     * Parses a string into an array of DOM nodes.
     *
     * @param data HTML string to be parsed
     * @param context DOM element to serve as the context in which the HTML fragment will be created
     * @param keepScripts A Boolean indicating whether to include scripts passed in the HTML string
     */
-    parseHTML(data: string, context?: HTMLElement, keepScripts?: bool): any[];
+    parseHTML(data: string, context?: HTMLElement, keepScripts?: boolean): any[];
 }
 
 /*
@@ -396,8 +396,8 @@ interface JQuery {
 
     removeProp(propertyName: any): JQuery;
 
-    toggleClass(className: any, swtch?: bool): JQuery;
-    toggleClass(swtch?: bool): JQuery;
+    toggleClass(className: any, swtch?: boolean): JQuery;
+    toggleClass(swtch?: boolean): JQuery;
     toggleClass(func: (index: any, cls: any, swtch: any) => any): JQuery;
 
     val(): any;
@@ -425,8 +425,8 @@ interface JQuery {
     offset(coordinates: any): JQuery;
     offset(func: (index: any, coords: any) => any): JQuery;
 
-    outerHeight(includeMargin?: bool): number;
-    outerWidth(includeMargin?: bool): number;
+    outerHeight(includeMargin?: boolean): number;
+    outerWidth(includeMargin?: boolean): number;
 
     position(): { top: number; left: number; };
 
@@ -491,17 +491,17 @@ interface JQuery {
     slideUp(duration?: any, callback?: any): JQuery;
     slideUp(duration?: any, easing?: string, callback?: any): JQuery;
 
-    stop(clearQueue?: bool, jumpToEnd?: bool): JQuery;
-    stop(queue?: any, clearQueue?: bool, jumpToEnd?: bool): JQuery;
+    stop(clearQueue?: boolean, jumpToEnd?: boolean): JQuery;
+    stop(queue?: any, clearQueue?: boolean, jumpToEnd?: boolean): JQuery;
 
     toggle(duration?: any, callback?: any): JQuery;
     toggle(duration?: any, easing?: string, callback?: any): JQuery;
-    toggle(showOrHide: bool): JQuery;
+    toggle(showOrHide: boolean): JQuery;
 
     // Events
     bind(eventType: string, eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
-    bind(eventType: string, eventData: any, preventBubble: bool): JQuery;
-    bind(eventType: string, preventBubble: bool): JQuery;
+    bind(eventType: string, eventData: any, preventBubble: boolean): JQuery;
+    bind(eventType: string, preventBubble: boolean): JQuery;
     bind(...events: any[]);
 
     blur(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
@@ -603,7 +603,7 @@ interface JQuery {
     triggerHandler(eventType: string, ...extraParameters: any[]): Object;
 
     unbind(eventType?: string, handler?: (eventObject: JQueryEventObject) => any): JQuery;
-    unbind(eventType: string, fls: bool): JQuery;
+    unbind(eventType: string, fls: boolean): JQuery;
     unbind(evt: any): JQuery;
 
     undelegate(): JQuery;
@@ -636,7 +636,7 @@ interface JQuery {
     before(...content: any[]): JQuery;
     before(func: (index: any) => any);
 
-    clone(withDataAndEvents?: bool, deepWithDataAndEvents?: bool): JQuery;
+    clone(withDataAndEvents?: boolean, deepWithDataAndEvents?: boolean): JQuery;
 
     detach(selector?: any): JQuery;
 
