@@ -6,11 +6,11 @@
 ///<reference path="rx.js.d.ts" />
 
 declare module Rx {
-	export module Observable {
-		function all(predicate?: (any) => bool): IObservable;
-		function min(predicate?: (any) => bool): IObservable;
-		function max(predicate?: (any) => bool): IObservable;
-		function count(predicate?: (any) => bool): IObservable;
-		function sum(keySelector?: (any) => any): IObservable;
+	interface Observable {
+		all(predicate?: (any) => bool): IObservable;
+		min(predicate?: (any) => bool): IObservable;
+		max(predicate?: (any) => bool): IObservable;
+		count(predicate?: (any) => bool): IObservable;
+		sum(keySelector?: (any) => any): IObservable;
 	}
 }
