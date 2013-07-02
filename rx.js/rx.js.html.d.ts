@@ -1,8 +1,8 @@
-///<reference path="rx.js.d.ts"/>
+﻿///<reference path="rx.js.d.ts"/>
 
 declare module Rx {
 	interface Observable {
-		fromEvent(element: HTMLElement, eventName: string) : IObservable;
-		fromEvent(document: HTMLDocument, eventName: string): IObservable;
+		fromEvent<TEvent>(element: HTMLElement, eventName: string): IObservable<TEvent>;
+		fromEvent<TEvent>(document: HTMLDocument, eventName: string): IObservable<TEvent>;
 	}
 }
