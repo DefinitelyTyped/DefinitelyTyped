@@ -271,7 +271,7 @@ declare module Backbone {
         navigate(fragment: string, options?: any);
         started: boolean;
 
-        _updateHash(location: Location, fragment: string, replace: bool);
+        _updateHash(location: Location, fragment: string, replace: boolean);
     }
 
     interface ViewOptions {
