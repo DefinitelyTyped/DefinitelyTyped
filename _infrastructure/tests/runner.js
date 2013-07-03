@@ -567,7 +567,7 @@ var DefinitelyTyped;
                 this.path = path;
                 this.files = [];
                 this.typings = [];
-                this.files = IO.dir(path, pattern, { recursive: true });
+                this.files = IO.dir(path, pattern, { recursive: true }).sort();
             }
             FileHandler.prototype.allTS = function () {
                 return this.files;
@@ -716,7 +716,7 @@ var DefinitelyTyped;
             };
 
             Print.prototype.printSyntaxErrorCount = function (current, total) {
-                this.out(' \33[36m\33[1mSyntaxe error   :\33[0m \33[31m\33[1m' + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
+                this.out(' \33[36m\33[1mSyntax error    :\33[0m \33[31m\33[1m' + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
             };
 
             Print.prototype.printTestErrorCount = function (current, total) {
@@ -800,7 +800,7 @@ var DefinitelyTyped;
 
             SyntaxCheking.prototype.run = function (it, file, len, maxLen, callback) {
                 var _this = this;
-                if (!endsWith(file, '-tests.ts')) {
+                if (!endsWith(file.toUpperCase(), '-TESTS.TS') && file.indexOf('../_infrastructure') < 0) {
                     new Test(file).run(function (o) {
                         var failed = false;
 
@@ -915,7 +915,7 @@ var DefinitelyTyped;
 
             TestEval.prototype.run = function (it, file, len, maxLen, callback) {
                 var _this = this;
-                if (endsWith(file, '-tests.ts')) {
+                if (endsWith(file.toUpperCase(), '-TESTS.TS')) {
                     new Test(file).run(function (o) {
                         var failed = false;
 

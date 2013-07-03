@@ -12,7 +12,7 @@ interface JSONEditorOptions {
 	search?: bool;	
 }
 
-class JSONEditorHistory {	
+declare class JSONEditorHistory {	
 	constructor(editor: JSONEditor);	
 	onChange(): void;
 	add(action: string, params: Object);
@@ -40,7 +40,7 @@ interface JSONEditorConstructorParams {
 	value?: any;
 }
 
-class JSONEditorNode {
+declare class JSONEditorNode {
 	constructor(editor: JSONEditor, params: JSONEditorConstructorParams);
 	setParent(parent: JSONEditorNode): void;
 	getParent(): JSONEditorNode;
@@ -77,7 +77,7 @@ class JSONEditorNode {
 	getAppend(): HTMLElement;
 }
 
-class JSONEditorAppendNode extends JSONEditorNode {
+declare class JSONEditorAppendNode extends JSONEditorNode {
 	constructor(editor: JSONEditor);
 }
 
@@ -92,7 +92,7 @@ interface JSONEditorShowDropDownListParams {
 	callback: (value: any) => void;
 }
 
-class JSONEditorSearchBox {
+declare class JSONEditorSearchBox {
 	constructor(editor: JSONEditor, container: HTMLElement);
 	next(): void;
 	previous(): void;
@@ -126,7 +126,7 @@ interface JSONEditorActionParams {
 	newType?: JSONEditorNodeType;
 }
 
-class JSONEditor {
+declare class JSONEditor {
 	constructor(container: HTMLElement, options?: JSONEditorOptions, json?: any);
 	set(json: Object, name?: string): void;
 	setName(name?: string): void;
@@ -170,7 +170,7 @@ interface JSONFormatterOptions {
 	indentation?: number;
 }
 
-class JSONFormatter {
+declare class JSONFormatter {
 	constructor(container: HTMLElement, options?: JSONFormatterOptions, json?: any);
 	set(json: Object);
 	get(): Object;

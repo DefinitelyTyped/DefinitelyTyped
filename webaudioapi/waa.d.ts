@@ -597,7 +597,7 @@ interface AudioProcessingEvent extends Event {
     outputBuffer: AudioBuffer; 
 }
 
-enum PanningModelType {
+declare enum PanningModelType {
     /**
      * A simple and efficient spatialization algorithm using equal-power panning.
      */
@@ -614,7 +614,7 @@ enum PanningModelType {
     soundfield
 }
 
-enum DistanceModelType {
+declare enum DistanceModelType {
     /**
      * A linear distance model which calculates distanceGain according to:
      *     1 - rolloffFactor * (distance - refDistance) / (maxDistance - refDistance)
@@ -895,7 +895,7 @@ interface DynamicsCompressorNode extends AudioNode {
 
 }
 
-enum BiquadFilterType {
+declare enum BiquadFilterType {
     /**
      * A lowpass filter allows frequencies below the cutoff frequency to pass through and attenuates frequencies above the cutoff. It implements a standard second-order resonant lowpass filter with 12dB/octave rolloff.
      *
@@ -1043,7 +1043,7 @@ interface WaveShaperNode extends AudioNode {
     curve: Float32Array;
 }
 
-enum OscillatorType {
+declare enum OscillatorType {
   sine,
   square,
   sawtooth,

@@ -271,7 +271,7 @@ declare module Backbone {
         navigate(fragment: string, options?: any);
         started: boolean;
 
-        _updateHash(location: Location, fragment: string, replace: bool);
+        _updateHash(location: Location, fragment: string, replace: boolean);
     }
 
     interface ViewOptions {
@@ -295,6 +295,7 @@ declare module Backbone {
         collection: Collection;
         make(tagName: string, attrs?, opts?): View;
         setElement(element: HTMLElement, delegate?: boolean);
+        setElement(element: JQuery, delegate?: boolean);
         id: string;
         cid: string;
         className: string;

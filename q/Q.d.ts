@@ -3,9 +3,17 @@
 // Definitions by: Barrie Nemetchek, Andrew Gaspar
 // Definitions: https://github.com/borisyankov/DefinitelyTyped  
 
-declare function Q<T>(value): Q.Promise<T>;
+declare function Q<T>(value: T): Q.Promise<T>;
+declare function Q<T>(promise: Q.IPromise<T>): Q.Promise<T>;
 
 declare module Q {
+    interface IPromise<T> {
+        then<U>(onFulfill: (value: T) => U, onReject?: (reason) => U): IPromise<U>;
+        then<U>(onFulfill: (value: T) => IPromise<U>, onReject?: (reason) => U): IPromise<U>;
+        then<U>(onFulfill: (value: T) => U, onReject?: (reason) => IPromise<U>): IPromise<U>;
+        then<U>(onFulfill: (value: T) => IPromise<U>, onReject?: (reason) => IPromise<U>): IPromise<U>;
+    }
+
     interface Deferred<T> {
         promise: Promise<T>;
         resolve(value: T): any;
@@ -18,7 +26,12 @@ declare module Q {
         fail(errorCallback: Function): Promise<any>;
         fin(finallyCallback: Function): Promise<T>;
         finally(finallyCallback: Function): Promise<T>;
-        then(onFulfilled?: (value: T) => any, onRejected?: (reason) => any, onProgress?: Function): Promise<any>;
+
+        then<U>(onFulfill: (value: T) => U, onReject?: (reason) => U, onProgress?: Function): Promise<U>;
+        then<U>(onFulfill: (value: T) => IPromise<U>, onReject?: (reason) => U, onProgress?: Function): Promise<U>;
+        then<U>(onFulfill: (value: T) => U, onReject?: (reason) => IPromise<U>, onProgress?: Function): Promise<U>;
+        then<U>(onFulfill: (value: T) => IPromise<U>, onReject?: (reason) => IPromise<U>, onProgress?: Function): Promise<U>;
+
         spread(onFulfilled: Function, onRejected?: Function): Promise<any>;
         catch(onRejected: Function): Promise<any>;
         progress(onProgress: Function): Promise<any>;

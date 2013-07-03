@@ -180,7 +180,33 @@ declare module FullCalendar {
 
 interface JQuery {
     fullCalendar(options: FullCalendar.Options): JQuery;
-    fullCalendar(method: string, ...args: Array<any>): JQuery;
+    fullCalendar(method: string, arg1: any, arg2: any, arg3: any): void;
+    fullCalendar(method: 'option', option: string, value?: any): void;
+    fullCalendar(method: 'render'): void;
+    fullCalendar(method: 'destroy'): void;
+    fullCalendar(method: 'prev'): void;
+    fullCalendar(method: 'next'): void;
+    fullCalendar(method: 'prevYear'): void;
+    fullCalendar(method: 'nextYear'): void;
+    fullCalendar(method: 'today'): void;
+    fullCalendar(method: 'getView'): FullCalendar.View;
+    fullCalendar(method: 'changeView', viewName: string): void;
+    fullCalendar(method: 'gotoDate', year: number, month?: number, date?: number): void;
+    fullCalendar(method: 'gotoDate', date: Date): void;
+    fullCalendar(method: 'incrementDate', year: number, month?: number, date?: number): void;
+    fullCalendar(method: 'getDate'): Date;
+    fullCalendar(method: 'select', startDate: Date, endDate: Date, allDay: boolean): void;
+    fullCalendar(method: 'unselect'): void;
+    fullCalendar(method: 'updateEvent', event: FullCalendar.EventObject): void;
+    fullCalendar(method: 'clientEvents', idOrfilter?: any): Array<FullCalendar.EventObject>;
+    fullCalendar(method: 'clientEvents', idOrfilter?: (e: FullCalendar.EventObject) => boolean): Array<FullCalendar.EventObject>;
+    fullCalendar(method: 'removeEvents', idOrfilter?: any): void;
+    fullCalendar(method: 'removeEvents', idOrfilter?: (e: FullCalendar.EventObject) => boolean): void;
+    fullCalendar(method: 'refreshEvents'): void;
+    fullCalendar(method: 'addEventSource', source: any): void;
+    fullCalendar(method: 'removeEventSource', source: any): void;
+    fullCalendar(method: 'renderEvent', event: FullCalendar.EventObject, stick?: boolean): void;
+    fullCalendar(method: 'rerenderEvents'): void;
 }
 
 interface JQueryStatic {

@@ -7,24 +7,24 @@
 /// <reference path="../jquery/jquery.d.ts"/>
 
 interface HammerOptions {
-    prevent_default?: bool;
-    css_hacks?: bool;
-    swipe?: bool;
+    prevent_default?: boolean;
+    css_hacks?: boolean;
+    swipe?: boolean;
     swipe_time?: number;
     swipe_min_distance?: number;
-    drag?: bool;
-    drag_vertical?: bool;
-    drag_horizontal?: bool;
+    drag?: boolean;
+    drag_vertical?: boolean;
+    drag_horizontal?: boolean;
     drag_min_distance?: number;
-    transform?: bool;
+    transform?: boolean;
     scale_treshold?: number;
     rotation_treshold?: number;
-    tap?: bool;
-    tap_double?: bool;
+    tap?: boolean;
+    tap_double?: boolean;
     tap_max_interval?: number;
     tap_max_distance?: number;
     tap_double_distance?: number;
-    hold?: bool;
+    hold?: boolean;
     hold_timeout?: number;
 }
 
@@ -52,7 +52,7 @@ interface HammerDirectionEvent extends HammerEvent {
     distanceY: number;
 }
 
-class Hammer {
+declare class Hammer {
     constructor (element: any, options?: HammerOptions);
 
     ondragstart: (event: HammerDirectionEvent) => void;

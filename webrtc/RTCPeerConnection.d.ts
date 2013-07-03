@@ -9,7 +9,7 @@
 interface RTCConfiguration {
 	iceServers: RTCIceServer[];
 }
-var RTCConfiguration: {
+declare var RTCConfiguration: {
 	prototype: RTCConfiguration;
 	new (): RTCConfiguration;
 }
@@ -18,21 +18,21 @@ interface RTCIceServer {
 	url: string;
 	credential?: string;
 }
-var RTCIceServer: {
+declare var RTCIceServer: {
 	prototype: RTCIceServer;
 	new (): RTCIceServer;
 }
 
 interface webkitRTCPeerConnection extends RTCPeerConnection {
 }
-var webkitRTCPeerConnection: {
+declare var webkitRTCPeerConnection: {
 	prototype: webkitRTCPeerConnection;
 	new (settings: RTCPeerConnectionConfig, constraints?:MediaConstraints): webkitRTCPeerConnection;
 }
 
 interface IceState {
 }
-var IceState: {
+declare var IceState: {
 	prototype: IceState;
 	new (): IceState;
 }
@@ -51,7 +51,7 @@ interface RTCSessionDescription {
 	type?: RTCSdpType;
 	sdp?: string;
 }
-var RTCSessionDescription: {
+declare var RTCSessionDescription: {
 	prototype: RTCSessionDescription;
 	new (descriptionInitDict?: RTCSessionDescriptionInit): RTCSessionDescription;
 }
@@ -60,7 +60,7 @@ interface RTCSessionDescriptionInit {
 	type: RTCSdpType;
 	sdp: string;
 }
-var RTCSessionDescriptionInit: {
+declare var RTCSessionDescriptionInit: {
 	prototype: RTCSessionDescriptionInit;
 	new (): RTCSessionDescriptionInit;
 }
@@ -75,13 +75,13 @@ interface RTCDataChannelInit {
 	reliable: bool;
 }
 
-enum RTCSdpType {
+declare enum RTCSdpType {
 	offer,
 	pranswer,
 	answer
 }
 
-enum RTCDataChannelState {
+declare enum RTCDataChannelState {
 	connecting,
 	open,
 	closing,
@@ -112,7 +112,7 @@ interface RTCDataChannelEvent extends Event {
 	constructor (eventInitDict: RTCDataChannelEventInit);
 	channel: RTCDataChannel;
 }
-var RTCDataChannelEvent: {
+declare var RTCDataChannelEvent: {
 	prototype: RTCDataChannelEvent;
 	new (eventInitDict: RTCDataChannelEventInit);
 }
@@ -186,7 +186,7 @@ interface RTCPeerConnection {
 	onicecandidate: (event: RTCIceCandidateEvent)=> void;
 	onidentityresult: (event: Event)=> void;
 }
-var RTCPeerConnection: {
+declare var RTCPeerConnection: {
 	prototype: RTCPeerConnection;
 	new (configuration: RTCConfiguration, constraints?: MediaConstraints): RTCPeerConnection;
 }
@@ -196,7 +196,7 @@ interface RTCIceCandidate {
 	sdpMid?: string;
 	sdpMLineIndex?: number;
 }
-var RTCIceCandidate: {
+declare var RTCIceCandidate: {
 	prototype: RTCIceCandidate;
 	new (candidateInitDict?: RTCIceCandidate);
 }
@@ -206,7 +206,7 @@ interface RTCIceCandidateInit {
 	sdpMid: string;
 	sdpMLineIndex: number;
 }
-var RTCIceCandidateInit:{
+declare var RTCIceCandidateInit:{
 	prototype: RTCIceCandidateInit;
 	new (): RTCIceCandidateInit;
 }
@@ -215,7 +215,7 @@ interface PeerConnectionIceEvent {
 	peer: RTCPeerConnection;
 	candidate: RTCIceCandidate;
 }
-var PeerConnectionIceEvent: {
+declare var PeerConnectionIceEvent: {
 	prototype: PeerConnectionIceEvent;
 	new (): PeerConnectionIceEvent;
 }
@@ -223,7 +223,7 @@ var PeerConnectionIceEvent: {
 interface RTCPeerConnectionConfig {
 	iceServers: RTCIceServer[];
 }
-var RTCPeerConnectionConfig: {
+declare var RTCPeerConnectionConfig: {
 	prototype: RTCPeerConnectionConfig;
 	new (): RTCPeerConnectionConfig;
 }

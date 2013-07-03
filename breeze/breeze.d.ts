@@ -768,7 +768,7 @@ declare module breeze {
 
         constructor (name: string, validatorFn: ValidatorFunction, context?: any);
 
-        static boolean(): Validator;
+        static bool(): Validator;
         static byte(): Validator;
         static date(): Validator;
         static duration(): Validator;
