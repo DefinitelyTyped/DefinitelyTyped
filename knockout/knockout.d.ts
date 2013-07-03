@@ -176,14 +176,14 @@ interface KnockoutMemoization {
 interface KnockoutVirtualElement {}
 
 interface KnockoutVirtualElements {
-	allowedBindings: { [bindingName: string]: boolean; };
-	emptyNode( e: KnockoutVirtualElement );
-	firstChild( e: KnockoutVirtualElement );
-	insertAfter( container: KnockoutVirtualElement, nodeToInsert: HTMLElement, insertAfter: HTMLElement );
-	nextSibling( e: KnockoutVirtualElement );
-	prepend( e: KnockoutVirtualElement, toInsert: HTMLElement );
-	setDomNodeChildren( e: KnockoutVirtualElement, newChildren: { length: number;[index: number]: HTMLElement; } );
-	childNodes( e: KnockoutVirtualElement ): HTMLElement[];
+    allowedBindings: { [bindingName: string]: boolean; };
+    emptyNode( e: KnockoutVirtualElement );
+    firstChild( e: KnockoutVirtualElement );
+    insertAfter( container: KnockoutVirtualElement, nodeToInsert: HTMLElement, insertAfter: HTMLElement );
+    nextSibling( e: KnockoutVirtualElement );
+    prepend( e: KnockoutVirtualElement, toInsert: HTMLElement );
+    setDomNodeChildren( e: KnockoutVirtualElement, newChildren: { length: number;[index: number]: HTMLElement; } );
+    childNodes( e: KnockoutVirtualElement ): HTMLElement[];
 }
 
 interface KnockoutExtenders {
