@@ -2,15 +2,20 @@
 // Project: http://sammyjs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Updated by Poul Kjeldager Sørensen <https://s-innovations.net>
 
 
 /// <reference path="../jquery/jquery.d.ts"/>
+    declare function Sammy(): Sammy.Application;
+    declare function Sammy(selector: string): Sammy.Application;
+    declare function Sammy(handler: Function): Sammy.Application;
+    declare function Sammy(selector: string, handler: Function): Sammy.Application; 
 
-module Sammy {
-    export function (): Sammy.Application;
-    export function (selector: string): Sammy.Application;
-    export function (handler: Function): Sammy.Application;
-    export function (selector: string, handler: Function): Sammy.Application;
+    declare module Sammy {
+    //export function (): Sammy.Application;
+    //export function (selector: string): Sammy.Application;
+    //export function (handler: Function): Sammy.Application;
+    //export function (selector: string, handler: Function): Sammy.Application;
 
     export function Cache(app, options);
     export function DataCacheProxy(initial, $element);
@@ -242,6 +247,13 @@ module Sammy {
         Template(app, method_alias);
     }
 }
+declare module "Sammy"
+{
+    export = Sammy;
+}
 interface JQueryStatic {
-    sammy: Sammy;
+    sammy(): Sammy.Application;
+    sammy (selector: string): Sammy.Application;
+    sammy(handler: Function): Sammy.Application;
+    sammy (selector: string, handler: Function): Sammy.Application;
 }
