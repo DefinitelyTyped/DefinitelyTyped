@@ -6,11 +6,6 @@
 
 interface KnockoutSubscribableFunctions {
     extend(source);
-    dispose(): void;
-    peek(): any;
-    valueHasMutated(): void;
-
-    valueWillMutate(): void;
 }
 
 interface KnockoutComputedFunctions extends KnockoutSubscribableFunctions {
