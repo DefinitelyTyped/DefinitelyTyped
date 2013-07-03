@@ -1,46 +1,90 @@
-///<reference path="../jquery/jquery.d.ts"/>
+﻿///<reference path="../jquery/jquery.d.ts"/>
 ///<reference path="rx.js.d.ts"/>
 
+declare module JQueryResults {
+
+	export interface eventBase{
+		bubbles: bool;
+		cancelable: bool;
+		type: string;
+		preventDefault(): void;
+		isDefaultPrevented(): bool;
+		stopPropagation(): void;
+		isPropagationStopped(): bool;
+		data: any;
+		originalEvent: any;
+		eventPhase: number;
+	}
+
+	export interface keyEvent extends eventBase {
+		key: number;
+		keyCode: number;
+		altKey: bool;
+		ctrlKey: bool;
+		shiftKey: bool;
+		char: string;
+		metaKey: bool;
+	}
+
+	export interface uiEvent extends eventBase{
+		target: any;
+		currentTarget: any;
+	}
+
+	export interface mouseEvent extends keyEvent{
+		clientX: number;
+		clientY: number;
+		screenX: number;
+		screenY: number;
+		offsetX: number;
+		offsetY: number;
+		pageX: number;
+		pageY: number;
+		which: number;
+	}
+}
+
+
 interface JQueryStatic {
-	ajaxAsObservable(settings: JQueryAjaxSettings): Rx.IObservable;
-	getAsObservable(url: string, data: any, dataType: string): Rx.IObservable;
-	getJSONAsObservable(url: string, data: any): Rx.IObservable;
-	getScriptAsObservable(url: string, data: any): Rx.IObservable;
-	postAsObservable(url: string, data: any, dataType: string): Rx.IObservable;
+	ajaxAsObservable<T>(settings: JQueryAjaxSettings): Rx.IObservable<T>;
+	getAsObservable<T>(url: string, data: any, dataType: string): Rx.IObservable<T>;
+	getJSONAsObservable<T>(url: string, data: any): Rx.IObservable<T>;
+	getScriptAsObservable<T>(url: string, data: any): Rx.IObservable<T>;
+	postAsObservable<T>(url: string, data: any, dataType: string): Rx.IObservable<T>;
 }
 
 interface JQuery {
-	changeAsObservable(eventData?: any): Rx.IObservable;
-	clickAsObservable(eventData?: any): Rx.IObservable;
-	dblclickAsObservable(eventData?: any): Rx.IObservable;
-	focusAsObservable(eventData?: any): Rx.IObservable;
-	focusinAsObservable(eventData?: any): Rx.IObservable;
-	focusoutAsObservable(eventData?: any): Rx.IObservable;
-	keydownAsObservable(eventData?: any): Rx.IObservable;
-	keyupAsObservable(eventData?: any): Rx.IObservable;
-	loadAsObservable(eventData?: any): Rx.IObservable;
-	mousedownAsObservable(eventData?: any): Rx.IObservable;
-	mouseenterAsObservable(eventData?: any): Rx.IObservable;
-	mouseleaveAsObservable(eventData?: any): Rx.IObservable;
-	mousemoveAsObservable(eventData?: any): Rx.IObservable;
-	mouseoutAsObservable(eventData?: any): Rx.IObservable;
-	mouseoverAsObservable(eventData?: any): Rx.IObservable;
-	mouseupAsObservable(eventData?: any): Rx.IObservable;
-	resizeAsObservable(eventData?: any): Rx.IObservable;
-	scrollAsObservable(eventData?: any): Rx.IObservable;
-	selectAsObservable(eventData?: any): Rx.IObservable;
-	submitAsObservable(eventData?: any): Rx.IObservable;
-	unloadAsObservable(eventData?: any): Rx.IObservable;
-	readyAsObservable(): Rx.IObservable;
-	hideAsObservable(duration: number): Rx.IObservable;
-	showAsObservable(duration: number): Rx.IObservable;
-	animateAsObservable(properties: any, duration: number, easing?: string): Rx.IObservable;
-	fadeInAsObservable(duration: number, easing?: string): Rx.IObservable;
-	fadeToAsObservable(duration: number, opacity: number, easing?: string): Rx.IObservable;
-	fadeOutAsObservable(duration: number, easing?: string): Rx.IObservable;
-	fadeToggleAsObservable(duration: number, easing?: string): Rx.IObservable;
-	slideDownAsObservable(duration: number): Rx.IObservable;
-	slideUpAsObservable(duration: number): Rx.IObservable;
-	slideToggleAsObservable(duration: number): Rx.IObservable;
-	toggleAsObservable(duration: number): Rx.IObservable;
+	changeAsObservable(eventData?: any): Rx.IObservable<JQueryResults.eventBase>;
+	clickAsObservable(eventData?: any): Rx.IObservable<JQueryResults.mouseEvent>;
+	dblclickAsObservable(eventData?: any): Rx.IObservable<JQueryResults.mouseEvent>;
+	focusAsObservable(eventData?: any): Rx.IObservable<JQueryResults.eventBase>;
+	focusinAsObservable(eventData?: any): Rx.IObservable<JQueryResults.eventBase>;
+	focusoutAsObservable(eventData?: any): Rx.IObservable<JQueryResults.eventBase>;
+	keydownAsObservable(eventData?: any): Rx.IObservable<JQueryResults.keyEvent>;
+	keyupAsObservable(eventData?: any): Rx.IObservable<JQueryResults.keyEvent>;
+	loadAsObservable(eventData?: any): Rx.IObservable<JQueryResults.uiEvent>;
+	mousedownAsObservable(eventData?: any): Rx.IObservable<JQueryResults.mouseEvent>;
+	mouseenterAsObservable(eventData?: any): Rx.IObservable<JQueryResults.mouseEvent>;
+	mouseleaveAsObservable(eventData?: any): Rx.IObservable<JQueryResults.mouseEvent>;
+	mousemoveAsObservable(eventData?: any): Rx.IObservable<JQueryResults.mouseEvent>;
+	mouseoutAsObservable(eventData?: any): Rx.IObservable<JQueryResults.mouseEvent>;
+	mouseoverAsObservable(eventData?: any): Rx.IObservable<JQueryResults.mouseEvent>;
+	mouseupAsObservable(eventData?: any): Rx.IObservable<JQueryResults.mouseEvent>;
+	resizeAsObservable(eventData?: any): Rx.IObservable<JQueryResults.eventBase>;
+	scrollAsObservable(eventData?: any): Rx.IObservable<JQueryResults.eventBase>;
+	selectAsObservable(eventData?: any): Rx.IObservable<JQueryResults.eventBase>;
+	submitAsObservable(eventData?: any): Rx.IObservable<JQueryResults.eventBase>;
+	unloadAsObservable(eventData?: any): Rx.IObservable<JQueryResults.eventBase>;
+	hideAsObservable(duration: number): Rx.IObservable<JQueryResults.eventBase>;
+	showAsObservable(duration: number): Rx.IObservable<JQueryResults.eventBase>;
+	readyAsObservable(): Rx.IObservable<any>;
+	animateAsObservable(properties: any, duration: number, easing?: string): Rx.IObservable<any>;
+	fadeInAsObservable(duration: number, easing?: string): Rx.IObservable<any>;
+	fadeToAsObservable(duration: number, opacity: number, easing?: string): Rx.IObservable<any>;
+	fadeOutAsObservable(duration: number, easing?: string): Rx.IObservable<any>;
+	fadeToggleAsObservable(duration: number, easing?: string): Rx.IObservable<any>;
+	slideDownAsObservable(duration: number): Rx.IObservable<any>;
+	slideUpAsObservable(duration: number): Rx.IObservable<any>;
+	slideToggleAsObservable(duration: number): Rx.IObservable<any>;
+	toggleAsObservable(duration: number): Rx.IObservable<any>;
 }
