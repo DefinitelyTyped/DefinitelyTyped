@@ -940,8 +940,7 @@ function test_deferred() {
     filtered.done(function (data) { });
 
     function asyncEvent() {
-        var newDeferred = new jQuery.Deferred();
-        var dfd: JQueryDeferred;
+        var dfd: JQueryDeferred<string> = $.Deferred<string>();
         setTimeout(function () {
             dfd.resolve("hurray");
         }, Math.floor(400 + Math.random() * 2000));
