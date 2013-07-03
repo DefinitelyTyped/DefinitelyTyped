@@ -87,3 +87,6 @@ Q.all(promiseArray).then(nums => nums.map(num => num.toPrecision(2)).join(','));
 Q.all<number>(myNums).then(nums => nums.map(Math.round));
 
 Q.fbind((dateString) => new Date(dateString), "11/11/1991")().then(d => d.toLocaleDateString());
+
+Q.when(8, num => num + "!");
+Q.when(Q(8), num => num + "!").then(str => str.split(','));
