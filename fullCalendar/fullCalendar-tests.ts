@@ -87,7 +87,7 @@ $('#calendar').fullCalendar({
     }
 });
 
-var view: FullCalendar.View = <any>$('#calendar').fullCalendar('getView');
+var view = $('#calendar').fullCalendar('getView');
 alert("The view's title is " + view.title);
 
 $(document).ready(function () {
@@ -407,7 +407,7 @@ $('#my-today-button').click(function () {
 $('#calendar').fullCalendar('gotoDate', 1, 0, 1);
 
 $('#my-button').click(function () {
-    var d: Date = <any>$('#calendar').fullCalendar('getDate');
+    var d = $('#calendar').fullCalendar('getDate');
     alert("The current date of the calendar is " + d);
 });
 

@@ -1,10 +1,13 @@
 ///<reference path="rx.js.d.ts" />
 
 declare module Rx {
-	export module Observable {
-		function ifThen(condition: () => bool, thenSource: IObservable): IObservable;
-		function ifThen(condition: () => bool, thenSource: IObservable, elseSource: IObservable): IObservable;
-		function ifThen(condition: () => bool, thenSource: IObservable, scheduler: IScheduler): IObservable;
-		function interval(period: number, scheduler?: IScheduler): IObservable;
+	interface IObservable<T> {
+		ifThen(condition: () => bool, thenSource: IObservable<T>): IObservable<T>;
+		ifThen(condition: () => bool, thenSource: IObservable<T>, elseSource: IObservable<T>): IObservable<T>;
+		ifThen(condition: () => bool, thenSource: IObservable<T>, scheduler: IScheduler): IObservable<T>;
+	}
+	interface Observable {
+		interval(period: number, scheduler?: IScheduler): IObservable<number>;
+		interval(dutTime: number, period: number, scheduler?: IScheduler): IObservable<number>;
 	}
 }
