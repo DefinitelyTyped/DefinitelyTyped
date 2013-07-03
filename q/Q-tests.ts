@@ -73,7 +73,7 @@ Q<number[]>(arrayPromise) // type specification required
     .then<number>(returnsNumPromise) // requires specification
     .then(num => num.toFixed());
 
-declare var jPromise: JQueryPromise;
+declare var jPromise: JQueryPromise<string>;
 
 // if jQuery promises definition supported generics, this could be more interesting example
 Q<any>(jPromise).then((val) => val.toExponential());
