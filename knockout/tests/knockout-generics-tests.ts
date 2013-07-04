@@ -33,7 +33,7 @@ function test_KnockoutObservable() {
     //all the members are present
     obs.valueWillMutate();
     obs.valueHasMutated();
-    obs.peek();
+    result = obs.peek();
     obs.notifySubscribers(myData);
 
     //inherits properly
@@ -61,6 +61,13 @@ function test_KnockoutObservableArray() {
 
 function test_KnockoutComputed() {
 
+    //constructor options
+    var c = ko.computed({
+        read: () => myData,
+        write: (newVal: MyType) => {},
+        deferEvaluation: true,
+    });
+
     //type inference works
     var computed: KnockoutComputed<MyType> = ko.computed(() => myData);
     computed(myData);
@@ -71,7 +78,7 @@ function test_KnockoutComputed() {
     var active: boolean = computed.isActive();
     computed.valueWillMutate();
     computed.valueHasMutated();
-    computed.peek();
+    var result: MyType = computed.peek();
     computed.notifySubscribers(myData);
 
     //inherits properly

@@ -79,15 +79,16 @@ interface KnockoutComputed<T> extends KnockoutObservable<T>, KnockoutComputedFun
 }
 interface KnockoutComputedStatic {
     fn: KnockoutComputedFunctions<any>;
-
-    <T>(): KnockoutComputed<T>;
-    <T>(func: () => T, context?: any, options?: any): KnockoutComputed<T>;
+    <T>(evaluator: () => T, context?: any, options?: KnockoutComputedDefine<T>): KnockoutComputed<T>;
     <T>(def: KnockoutComputedDefine<T>): KnockoutComputed<T>;
-    (options?: any): KnockoutComputed<any>;
 }
 interface KnockoutComputedDefine<T> {
-    read(): T;
-    write(T);
+    read: () => T;
+    write?: (value: T) => void;
+    deferEvaluation?: boolean;
+    disposeWhenNodeIsRemoved?;
+    disposeWhen?: () => boolean;
+    owner?: any;
 }
 
 
