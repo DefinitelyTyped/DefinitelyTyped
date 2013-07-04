@@ -7,40 +7,35 @@
 interface KnockoutSubscription {
     dispose(): void;
 }
-interface KnockoutSubscribableFunctions {
+interface KnockoutSubscribableFunctions<T> {
     extend(source);
-    notifySubscribers<T>(valueToNotify:T, event: string): void;
+    notifySubscribers<T>(valueToNotify:T, event?: string): void;
 }
-interface KnockoutSubscribable<T> extends KnockoutSubscribableFunctions {
+interface KnockoutSubscribable<T> extends KnockoutSubscribableFunctions<T> {
     subscribe(callback: (newValue: T) => void , callbackTarget?: any, event?: string): KnockoutSubscription;
-    notifySubscribers(valueToNotify: T, event?: string): void;
     getSubscriptionsCount(): number;
     extend(requestedExtenders): any;
 }
 interface KnockoutSubscribableStatic {
-    fn: KnockoutSubscribableFunctions;
+    fn: KnockoutSubscribableFunctions<any>;
     new <T>(): KnockoutSubscribable<T>;
 }
 
 
 
 
-interface KnockoutObservableFunctions extends KnockoutSubscribableFunctions {
+interface KnockoutObservableFunctions<T> extends KnockoutSubscribableFunctions<T> {
+    equalityComparer(a:T, b:T): boolean;
 }
-/** use as method to get/set the value */
-interface KnockoutObservableBase extends KnockoutObservableFunctions {
-    getSubscriptionsCount(): number;
-}
-interface KnockoutObservable<T> extends KnockoutObservableBase {
+interface KnockoutObservable<T> extends KnockoutSubscribable<T>, KnockoutObservableFunctions<T> {
     (): T;
     (value: T): void;
-
-    subscribe(callback: (newValue: T) => void , target?: any, topic?: string): KnockoutSubscription;
-    notifySubscribers(valueToWrite: T, topic?: string);
+    peek(): T;
+    valueHasMutated(): void;
+    valueWillMutate(): void;
 }
 interface KnockoutObservableStatic {
-    fn: KnockoutObservableFunctions;
-
+    fn: KnockoutObservableFunctions<any>;
     <T>(value?: T): KnockoutObservable<T>;
 }
 

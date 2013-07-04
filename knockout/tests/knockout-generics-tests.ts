@@ -11,10 +11,11 @@ function test_KnockoutSubscribable() {
     var subscribable: KnockoutSubscribable<MyType> = new ko.subscribable<MyType>();
     
     var subscription: KnockoutSubscription = subscribable.subscribe((val: MyType) => { });
-    
-    subscribable.notifySubscribers(myData);
-    subscribable.notifySubscribers(myData, 'someevent');
 
+    //all the members are present
+    subscribable.notifySubscribers(myData);
+    subscribable.notifySubscribers(myData, 'topic');
+    var count: number = subscribable.getSubscriptionsCount();
     subscription.dispose();
     
 }
@@ -27,11 +28,17 @@ function test_KnockoutObservable() {
     //type inference works
     var obs: KnockoutObservable<MyType> = ko.observable(myData);
 
+    //all the members are present
+    obs(myData);
+    obs.valueWillMutate();
+    obs.valueHasMutated();
+    obs.peek();
+
     //inherits properly
     var sub: KnockoutSubscribable<MyType> = obs;
 
     //returns correct type
-    var result:MyType = obs();
+    var result: MyType = obs();
 
 }
 
