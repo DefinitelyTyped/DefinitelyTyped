@@ -24,7 +24,7 @@ interface KnockoutSubscribableStatic {
 
 
 
-interface KnockoutObservableFunctions<T> extends KnockoutSubscribableFunctions<T> {
+interface KnockoutObservableFunctions<T> {
     equalityComparer(a:T, b:T): boolean;
 }
 interface KnockoutObservable<T> extends KnockoutSubscribable<T>, KnockoutObservableFunctions<T> {
@@ -43,12 +43,12 @@ interface KnockoutObservableStatic {
 
 
 
-interface KnockoutObservableArrayFunctions<T> extends KnockoutObservableFunctions {
+interface KnockoutObservableArrayFunctions<T> {
     destroy(predicate: (value: T) => boolean);
     destroyAll(values: Array<T>);
     indexOf(searchElement: T, fromIndex?: number): number;
     pop():T;
-    push(...items: T[]): void;
+    push(...values: T[]): void;
     remove(value: T);
     remove(predicate: (value: T) => boolean);
     removeAll(values?: T[]): T[];
@@ -57,15 +57,10 @@ interface KnockoutObservableArrayFunctions<T> extends KnockoutObservableFunction
     shift():T;
     slice(start: number, end?: number): T[];
     sort(compareFunction?: (a: T, b: T) => number): T[];
-    splice(start: number, deleteCount?: number, ...items: T[]): T[];
-    unshift(...items: T[]): number;
+    splice(start: number, deleteCount?: number, ...values: T[]): T[];
+    unshift(...values: T[]): number;
 }
-interface KnockoutObservableArray<T> extends KnockoutObservableArrayFunctions<T> {
-    (): T[];
-    (value: T[]): void;
-
-    subscribe(callback: (newValue: T[]) => void, target?:any, topic?: string): KnockoutSubscription;
-    notifySubscribers(valueToWrite: T[], topic?: string);
+interface KnockoutObservableArray<T> extends KnockoutObservable<Array<T>>, KnockoutObservableArrayFunctions<T> {
 }
 interface KnockoutObservableArrayStatic {
     fn: KnockoutObservableArrayFunctions<any>;

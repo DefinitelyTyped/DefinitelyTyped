@@ -33,6 +33,7 @@ function test_KnockoutObservable() {
     obs.valueWillMutate();
     obs.valueHasMutated();
     obs.peek();
+    obs.notifySubscribers(myData);
 
     //inherits properly
     var sub: KnockoutSubscribable<MyType> = obs;
@@ -49,6 +50,10 @@ function test_KnockoutObservableArray() {
 
     //type inference works
     var obsArray: KnockoutObservableArray<MyType> = ko.observableArray([myData]);
+    
+    //all the members are present
+    obsArray([myData]);
+    
 
     //inherits properly
     var obs: KnockoutObservable<MyType[]> = obsArray;
