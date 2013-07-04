@@ -4,9 +4,24 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-interface KnockoutSubscribableFunctions {
-    extend(source);
+interface KnockoutSubscription {
+    dispose(): void;
 }
+interface KnockoutSubscribableFn {
+    extend(source);
+    notifySubscribers<T>(valueToNotify:T, event: string): void;
+}
+interface KnockoutSubscribable<T> extends KnockoutSubscribableFn{
+    subscribe(callback: (newValue: T) => void , callbackTarget?: any, event?: string): KnockoutSubscription;
+    notifySubscribers(valueToNotify: T, event: string): void;
+    getSubscriptionsCount(): number;
+    extend(requestedExtenders): any;
+}
+interface KnockoutSubscribableStatic {
+    fn: KnockoutSubscribableFunctions;
+    new <T>(): KnockoutSubscribable<T>;
+}
+
 
 interface KnockoutComputedFunctions extends KnockoutSubscribableFunctions {
     getDependenciesCount(): number;
@@ -42,16 +57,7 @@ interface KnockoutObservableArrayFunctions<T> extends KnockoutObservableFunction
     destroyAll(): void;
 }
 
-interface KnockoutSubscribableStatic {
-    fn: KnockoutSubscribableFunctions;
 
-    new (): KnockoutSubscription;
-}
-
-interface KnockoutSubscription extends KnockoutSubscribableFunctions {
-    subscribe(callback: (newValue: any) => void, target?:any, topic?: string): KnockoutSubscription;
-    notifySubscribers(valueToWrite, topic?: string);
-}
 
 interface KnockoutComputedStatic {
     fn: KnockoutComputedFunctions;
