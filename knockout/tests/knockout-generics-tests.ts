@@ -27,9 +27,10 @@ function test_KnockoutObservable() {
 
     //type inference works
     var obs: KnockoutObservable<MyType> = ko.observable(myData);
+    obs(myData);
+    var result: MyType = obs();
 
     //all the members are present
-    obs(myData);
     obs.valueWillMutate();
     obs.valueHasMutated();
     obs.peek();
@@ -37,9 +38,6 @@ function test_KnockoutObservable() {
 
     //inherits properly
     var sub: KnockoutSubscribable<MyType> = obs;
-
-    //returns correct type
-    var result: MyType = obs();
 
 }
 
@@ -67,13 +65,20 @@ function test_KnockoutObservableArray() {
 function test_KnockoutComputed() {
 
     //type inference works
-    var computed: KnockoutComputed<MyType> = ko.computed(()=>myData);
+    var computed: KnockoutComputed<MyType> = ko.computed(() => myData);
+    computed(myData);
+    var result: MyType = computed();
+
+    //all the members are present
+    var count: number = computed.getDependenciesCount();
+    var active: boolean = computed.isActive();
+    computed.valueWillMutate();
+    computed.valueHasMutated();
+    computed.peek();
+    computed.notifySubscribers(myData);
 
     //inherits properly
     var obs: KnockoutObservable<MyType> = computed;
     var sub: KnockoutSubscribable<MyType> = computed;
-
-    //returns correct type
-    var result: MyType = computed();
 
 }

@@ -70,29 +70,24 @@ interface KnockoutObservableArrayStatic {
 
 
 
-interface KnockoutComputedDefine<T> {
-    read(): T;
-    write(T);
-}
 
-interface KnockoutComputedFunctions extends KnockoutSubscribableFunctions {
+interface KnockoutComputedFunctions<T> {
+}
+interface KnockoutComputed<T> extends KnockoutObservable<T>, KnockoutComputedFunctions<T> {
     getDependenciesCount(): number;
-    hasWriteFunction(): boolean;
-}
-interface KnockoutComputed<T> extends KnockoutComputedFunctions {
-    (): T;
-    (value: T): void;
-
-    subscribe(callback: (newValue: T) => void, target?:any, topic?: string): KnockoutSubscription;
-    notifySubscribers(valueToWrite: T, topic?: string);
+    isActive(): boolean;
 }
 interface KnockoutComputedStatic {
-    fn: KnockoutComputedFunctions;
+    fn: KnockoutComputedFunctions<any>;
 
     <T>(): KnockoutComputed<T>;
     <T>(func: () => T, context?: any, options?: any): KnockoutComputed<T>;
     <T>(def: KnockoutComputedDefine<T>): KnockoutComputed<T>;
     (options?: any): KnockoutComputed<any>;
+}
+interface KnockoutComputedDefine<T> {
+    read(): T;
+    write(T);
 }
 
 
