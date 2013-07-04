@@ -1,4 +1,4 @@
-// Generic Type definitions for Knockout 2.2.1
+// Type definitions for Knockout 2.2.1
 // Project: http://knockoutjs.com
 // Definitions by: Thomas Butler <https://github.com/butlersoftware/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
