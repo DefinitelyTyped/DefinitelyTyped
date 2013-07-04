@@ -44,29 +44,21 @@ interface KnockoutObservableStatic {
 
 
 interface KnockoutObservableArrayFunctions<T> extends KnockoutObservableFunctions {
-    // General Array functions
+    destroy(predicate: (value: T) => boolean);
+    destroyAll(values: Array<T>);
     indexOf(searchElement: T, fromIndex?: number): number;
-    slice(start: number, end?: number): T[];
-    splice(start: number): T[];
-    splice(start: number, deleteCount: number, ...items: T[]): T[];
-    pop();
+    pop():T;
     push(...items: T[]): void;
-    shift();
-    unshift(...items: T[]): number;
-    reverse(): T[];
-    sort(): void;
-    sort(compareFunction): void;
-
-    // Ko specific
+    remove(value: T);
+    remove(predicate: (value: T) => boolean);
+    removeAll(values?: T[]): T[];
     replace(oldItem: T, newItem: T): void;
-
-    remove(item): T[];
-    removeAll(items: T[]): T[];
-    removeAll(): T[];
-
-    destroy(item: T): void;
-    destroyAll(items: T[]): void;
-    destroyAll(): void;
+    reverse(): T[];
+    shift():T;
+    slice(start: number, end?: number): T[];
+    sort(compareFunction?: (a: T, b: T) => number): T[];
+    splice(start: number, deleteCount?: number, ...items: T[]): T[];
+    unshift(...items: T[]): number;
 }
 interface KnockoutObservableArray<T> extends KnockoutObservableArrayFunctions<T> {
     (): T[];
