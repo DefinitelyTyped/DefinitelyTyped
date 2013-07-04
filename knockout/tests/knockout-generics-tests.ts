@@ -48,17 +48,14 @@ function test_KnockoutObservableArray() {
 
     //type inference works
     var obsArray: KnockoutObservableArray<MyType> = ko.observableArray([myData]);
-    
-    //all the members are present
     obsArray([myData]);
+    var result: MyType[] = obsArray();
     
 
     //inherits properly
     var obs: KnockoutObservable<MyType[]> = obsArray;
     var sub: KnockoutSubscribable<MyType[]> = obsArray;
 
-    //returns correct type
-    var result:MyType[] = obsArray();
 
 }
 
