@@ -1,6 +1,6 @@
-// Type definitions for Knockout 2.2
+// Generic Type definitions for Knockout 2.2.1
 // Project: http://knockoutjs.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Thomas Butler <https://github.com/butlersoftware/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -61,10 +61,10 @@ interface KnockoutObservableArrayFunctions<T> {
     unshift(...values: T[]): number;
 }
 interface KnockoutObservableArray<T> extends KnockoutObservable<Array<T>>, KnockoutObservableArrayFunctions<T> {
-    //#region I SHOULDN'T HAVE TO DO THIS -- LINGERING BUG IN TYPESCRIPT?
+    //#region I SHOULDN'T HAVE TO DO THIS -- POSSIBLE BUG IN TYPESCRIPT v0.9.1?
 
-    /*****************************************************************************/
-    /**************************    HACK    ***************************************/
+    /****************************************************************************/
+    /******************************    REDUNDANT   ******************************/
     //these members should be inheriting from KnockoutObservableArrayFunctions
     destroy(predicate: (value: T) => boolean);
     destroy(value: T);
@@ -82,8 +82,8 @@ interface KnockoutObservableArray<T> extends KnockoutObservable<Array<T>>, Knock
     sort(compareFunction?: (a: T, b: T) => number): T[];
     splice(start: number, deleteCount?: number, ...values: T[]): T[];
     unshift(...values: T[]): number;
-    /*******************************************************************************/
-    /*******************************************************************************/
+    /****************************************************************************/
+    /****************************************************************************/
 
     //#endregion
 }
@@ -175,22 +175,19 @@ interface KnockoutUtils {
     //////////////////////////////////
 
     fieldsIncludedWithJsonPost: any[];
-
-    arrayForEach(array: any[], action: (any) => void ): void;
-
-    arrayIndexOf(array: any[], item: any): number;
-
-    arrayFirst(array: any[], predicate: (item) => boolean, predicateOwner?: any): any;
-
-    arrayRemoveItem(array: any[], itemToRemove: any): void;
-
-    arrayGetDistinctValues(array: any[]): any[];
-
-    arrayMap(array: any[], mapping: (item) => any): any[];
-
-    arrayFilter(array: any[], predicate: (item) => boolean): any[];
-
-    arrayPushAll(array: any[], valuesToPush: any[]): any[];
+    
+    arrayForEach<T>(array: Array<T>, action: (item: T) => void ): void;
+    arrayIndexOf<T>(array: Array<T>, item: T): number;
+    arrayFirst<T>(array: Array<T>, predicate: (item: T) => bool, predicateOwner?: any): T;
+    arrayRemoveItem<T>(array: Array<T>, itemToRemove: T): void;
+    arrayGetDistinctValues<T>(array: Array<T>): Array<T>;
+    arrayMap<T>(array: Array<T>, mapping: (item: T) => any): any[];
+    arrayFilter<T>(array: Array<T>, predicate: (item: T) => bool): Array<T>;
+    arrayPushAll<T>(array: Array<T>, valuesToPush: Array<T>): Array<T>;
+    cloneNodes<T>(nodesArray: Array<T>, shouldCleanNodes: bool): Array<T>;
+    unwrapObservable<T>(value: KnockoutObservable<T>): T;
+    unwrapObservable<T>(value: T): T;
+    makeArray<T>(arrayLikeObject: any): Array<T>;
 
     extend(target, source);
 
@@ -198,7 +195,6 @@ interface KnockoutUtils {
 
     moveCleanedNodesToContainerElement(nodes: any[]): HTMLElement;
 
-    cloneNodes(nodesArray: any[], shouldCleanNodes: boolean): any[];
 
     setDomNodeChildren(domNode: any, childNodes: any[]): void;
 
@@ -222,7 +218,6 @@ interface KnockoutUtils {
 
     triggerEvent(element: any, eventType: any): void;
 
-    unwrapObservable(value: any): any;
 
     toggleDomNodeCssClass(node: any, className: string, shouldHaveClass: boolean): void;
 
@@ -236,13 +231,12 @@ interface KnockoutUtils {
 
     ensureSelectElementIsRenderedCorrectly(selectElement: any): void;
 
-    range(min: any, max: any): any;
+    range(min: number, max: number): number[];
 
-    makeArray(arrayLikeObject: any): any[];
 
     getFormFields(form: any, fieldName: string): any[];
 
-    parseJson(jsonString: string): any;
+    parseJson<T>(jsonString: string): T;
 
     stringifyJson(data: any, replacer: Function, space: string): string;
 
@@ -269,43 +263,46 @@ interface KnockoutBindingContext {
     extend(any): any;
     createChildContext(any): any;
 }
-interface KnockoutBindingHandler {
-    init?(element: any, valueAccessor: () => any, allBindingsAccessor: () => any, viewModel: any, bindingContext: KnockoutBindingContext): void;
-    update?(element: any, valueAccessor: () => any, allBindingsAccessor: () => any, viewModel: any, bindingContext: KnockoutBindingContext): void;
+interface KnockoutTypedBindingHandler<T> {
+    init?(element: HTMLElement, valueAccessor: () => T, allBindingsAccessor: () => any, viewModel: any, bindingContext: KnockoutBindingContext): void;
+    update? (element: HTMLElement, valueAccessor: () => T, allBindingsAccessor: () => any, viewModel: any, bindingContext: KnockoutBindingContext): void;
     options?: any;
+}
+interface KnockoutBindingHandler extends KnockoutTypedBindingHandler<any> {
+    
 }
 interface KnockoutBindingHandlers {
     [bindingHandler: string]: KnockoutBindingHandler;
 
     // Controlling text and appearance
-    visible: KnockoutBindingHandler;
-    text: KnockoutBindingHandler;
-    html: KnockoutBindingHandler;
-    css: KnockoutBindingHandler;
-    style: KnockoutBindingHandler;
-    attr: KnockoutBindingHandler;
+    visible: KnockoutTypedBindingHandler<any>;
+    text: KnockoutTypedBindingHandler<any>;
+    html: KnockoutTypedBindingHandler<any>;
+    css: KnockoutTypedBindingHandler<any>;
+    style: KnockoutTypedBindingHandler<any>;
+    attr: KnockoutTypedBindingHandler<any>;
 
     // Control Flow
-    foreach: KnockoutBindingHandler;
-    if: KnockoutBindingHandler;
-    ifnot: KnockoutBindingHandler;
-    with: KnockoutBindingHandler;
+    foreach: KnockoutTypedBindingHandler<any>;
+    if: KnockoutTypedBindingHandler<any>;
+    ifnot: KnockoutTypedBindingHandler<any>;
+    with: KnockoutTypedBindingHandler<any>;
 
     // Working with form fields
-    click: KnockoutBindingHandler;
-    event: KnockoutBindingHandler;
-    submit: KnockoutBindingHandler;
-    enable: KnockoutBindingHandler;
-    disable: KnockoutBindingHandler;
-    value: KnockoutBindingHandler;
-    hasfocus: KnockoutBindingHandler;
-    checked: KnockoutBindingHandler;
-    options: KnockoutBindingHandler;
-    selectedOptions: KnockoutBindingHandler;
-    uniqueName: KnockoutBindingHandler;
+    click: KnockoutTypedBindingHandler<any>;
+    event: KnockoutTypedBindingHandler<any>;
+    submit: KnockoutTypedBindingHandler<any>;
+    enable: KnockoutTypedBindingHandler<any>;
+    disable: KnockoutTypedBindingHandler<any>;
+    value: KnockoutTypedBindingHandler<any>;
+    hasfocus: KnockoutTypedBindingHandler<any>;
+    checked: KnockoutTypedBindingHandler<any>;
+    options: KnockoutTypedBindingHandler<any>;
+    selectedOptions: KnockoutTypedBindingHandler<any>;
+    uniqueName: KnockoutTypedBindingHandler<any>;
 
     // Rendering templates
-    template: KnockoutBindingHandler;
+    template: KnockoutTypedBindingHandler<any>;
 }
 
 interface KnockoutMemoization {
