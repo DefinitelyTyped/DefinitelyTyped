@@ -61,6 +61,31 @@ interface KnockoutObservableArrayFunctions<T> {
     unshift(...values: T[]): number;
 }
 interface KnockoutObservableArray<T> extends KnockoutObservable<Array<T>>, KnockoutObservableArrayFunctions<T> {
+    //#region I SHOULDN'T HAVE TO DO THIS -- LINGERING BUG IN TYPESCRIPT?
+
+    /*****************************************************************************/
+    /**************************    HACK    ***************************************/
+    //these members should be inheriting from KnockoutObservableArrayFunctions
+    destroy(predicate: (value: T) => boolean);
+    destroy(value: T);
+    destroyAll(values?: Array<T>);
+    indexOf(searchElement: T, fromIndex?: number): number;
+    pop(): T;
+    push(...values: T[]): void;
+    remove(value: T);
+    remove(predicate: (value: T) => boolean);
+    removeAll(values?: T[]): T[];
+    replace(oldItem: T, newItem: T): void;
+    reverse(): T[];
+    shift(): T;
+    slice(start: number, end?: number): T[];
+    sort(compareFunction?: (a: T, b: T) => number): T[];
+    splice(start: number, deleteCount?: number, ...values: T[]): T[];
+    unshift(...values: T[]): number;
+    /*******************************************************************************/
+    /*******************************************************************************/
+
+    //#endregion
 }
 interface KnockoutObservableArrayStatic {
     fn: KnockoutObservableArrayFunctions<any>;
