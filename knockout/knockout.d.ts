@@ -7,11 +7,11 @@
 interface KnockoutSubscription {
     dispose(): void;
 }
-interface KnockoutSubscribableFn {
+interface KnockoutSubscribableFunctions {
     extend(source);
     notifySubscribers<T>(valueToNotify:T, event: string): void;
 }
-interface KnockoutSubscribable<T> extends KnockoutSubscribableFn{
+interface KnockoutSubscribable<T> extends KnockoutSubscribableFunctions {
     subscribe(callback: (newValue: T) => void , callbackTarget?: any, event?: string): KnockoutSubscription;
     notifySubscribers(valueToNotify: T, event: string): void;
     getSubscriptionsCount(): number;
@@ -23,13 +23,30 @@ interface KnockoutSubscribableStatic {
 }
 
 
-interface KnockoutComputedFunctions extends KnockoutSubscribableFunctions {
-    getDependenciesCount(): number;
-    hasWriteFunction(): boolean;
-}
+
 
 interface KnockoutObservableFunctions extends KnockoutSubscribableFunctions {
 }
+/** use as method to get/set the value */
+interface KnockoutObservableBase extends KnockoutObservableFunctions {
+    getSubscriptionsCount(): number;
+}
+interface KnockoutObservable<T> extends KnockoutObservableBase {
+    (): T;
+    (value: T): void;
+
+    subscribe(callback: (newValue: T) => void , target?: any, topic?: string): KnockoutSubscription;
+    notifySubscribers(valueToWrite: T, topic?: string);
+}
+interface KnockoutObservableStatic {
+    fn: KnockoutObservableFunctions;
+
+    <T>(value?: T): KnockoutObservable<T>;
+}
+
+
+
+
 
 interface KnockoutObservableArrayFunctions<T> extends KnockoutObservableFunctions {
     // General Array functions
@@ -56,9 +73,37 @@ interface KnockoutObservableArrayFunctions<T> extends KnockoutObservableFunction
     destroyAll(items: T[]): void;
     destroyAll(): void;
 }
+interface KnockoutObservableArray<T> extends KnockoutObservableArrayFunctions<T> {
+    (): T[];
+    (value: T[]): void;
+
+    subscribe(callback: (newValue: T[]) => void, target?:any, topic?: string): KnockoutSubscription;
+    notifySubscribers(valueToWrite: T[], topic?: string);
+}
+interface KnockoutObservableArrayStatic {
+    fn: KnockoutObservableArrayFunctions<any>;
+    <T>(value?: T[]): KnockoutObservableArray<T>;
+}
 
 
 
+
+interface KnockoutComputedDefine<T> {
+    read(): T;
+    write(T);
+}
+
+interface KnockoutComputedFunctions extends KnockoutSubscribableFunctions {
+    getDependenciesCount(): number;
+    hasWriteFunction(): boolean;
+}
+interface KnockoutComputed<T> extends KnockoutComputedFunctions {
+    (): T;
+    (value: T): void;
+
+    subscribe(callback: (newValue: T) => void, target?:any, topic?: string): KnockoutSubscription;
+    notifySubscribers(valueToWrite: T, topic?: string);
+}
 interface KnockoutComputedStatic {
     fn: KnockoutComputedFunctions;
 
@@ -68,129 +113,15 @@ interface KnockoutComputedStatic {
     (options?: any): KnockoutComputed<any>;
 }
 
-interface KnockoutComputed<T> extends KnockoutComputedFunctions {
-    (): T;
-    (value: T): void;
 
-    subscribe(callback: (newValue: T) => void, target?:any, topic?: string): KnockoutSubscription;
-    notifySubscribers(valueToWrite: T, topic?: string);
-}
 
-interface KnockoutObservableArrayStatic {
-
-    fn: KnockoutObservableArrayFunctions<any>;
-
-    <T>(value?: T[]): KnockoutObservableArray<T>;
-}
-
-interface KnockoutObservableArray<T> extends KnockoutObservableArrayFunctions<T> {
-    (): T[];
-    (value: T[]): void;
-
-    subscribe(callback: (newValue: T[]) => void, target?:any, topic?: string): KnockoutSubscription;
-    notifySubscribers(valueToWrite: T[], topic?: string);
-}
-
-interface KnockoutObservableStatic {
-    fn: KnockoutObservableFunctions;
-
-    <T>(value?: T): KnockoutObservable<T>;
-}
-
-/** use as method to get/set the value */
-interface KnockoutObservableBase extends KnockoutObservableFunctions {
-    getSubscriptionsCount(): number;
-}
-
-interface KnockoutObservable<T> extends KnockoutObservableBase {
-    (): T;
-    (value: T): void;
-
-    subscribe(callback: (newValue: T) => void, target?:any, topic?: string): KnockoutSubscription;
-    notifySubscribers(valueToWrite: T, topic?: string);
-}
-
-interface KnockoutComputedDefine<T> {
-    read(): T;
-    write(T);
-}
-
-interface KnockoutBindingContext {
-    $parent: any;
-    $parents: any[];
-    $root: any;
-    $data: any;
-    $index?: number;
-    $parentContext?: KnockoutBindingContext;
-
-    extend(any): any;
-    createChildContext(any): any;
-}
-
-interface KnockoutBindingHandler {
-    init?(element: any, valueAccessor: () => any, allBindingsAccessor: () => any, viewModel: any, bindingContext: KnockoutBindingContext): void;
-    update?(element: any, valueAccessor: () => any, allBindingsAccessor: () => any, viewModel: any, bindingContext: KnockoutBindingContext): void;
-    options?: any;
-}
-
-interface KnockoutBindingHandlers {
-    [bindingHandler: string]: KnockoutBindingHandler;
-
-    // Controlling text and appearance
-    visible: KnockoutBindingHandler;
-    text: KnockoutBindingHandler;
-    html: KnockoutBindingHandler;
-    css: KnockoutBindingHandler;
-    style: KnockoutBindingHandler;
-    attr: KnockoutBindingHandler;
-
-    // Control Flow
-    foreach: KnockoutBindingHandler;
-    if: KnockoutBindingHandler;
-    ifnot: KnockoutBindingHandler;
-    with: KnockoutBindingHandler;
-
-    // Working with form fields
-    click: KnockoutBindingHandler;
-    event: KnockoutBindingHandler;
-    submit: KnockoutBindingHandler;
-    enable: KnockoutBindingHandler;
-    disable: KnockoutBindingHandler;
-    value: KnockoutBindingHandler;
-    hasfocus: KnockoutBindingHandler;
-    checked: KnockoutBindingHandler;
-    options: KnockoutBindingHandler;
-    selectedOptions: KnockoutBindingHandler;
-    uniqueName: KnockoutBindingHandler;
-
-    // Rendering templates
-    template: KnockoutBindingHandler;
-}
-
-interface KnockoutMemoization {
-    memoize(callback);
-    unmemoize(memoId, callbackParams);
-    unmemoizeDomNodeAndDescendants(domNode, extraCallbackParamsArray);
-    parseMemoText(memoText);
-}
-
-interface KnockoutVirtualElement {}
-
-interface KnockoutVirtualElements {
-    allowedBindings: { [bindingName: string]: boolean; };
-    emptyNode( e: KnockoutVirtualElement );
-    firstChild( e: KnockoutVirtualElement );
-    insertAfter( container: KnockoutVirtualElement, nodeToInsert: HTMLElement, insertAfter: HTMLElement );
-    nextSibling( e: KnockoutVirtualElement );
-    prepend( e: KnockoutVirtualElement, toInsert: HTMLElement );
-    setDomNodeChildren( e: KnockoutVirtualElement, newChildren: { length: number;[index: number]: HTMLElement; } );
-    childNodes( e: KnockoutVirtualElement ): HTMLElement[];
-}
 
 interface KnockoutExtenders {
     throttle(target: any, timeout: number): KnockoutComputed;
     notify(target: any, notifyWhen: string): any;
 }
+
+
 
 interface KnockoutUtils {
 
@@ -213,9 +144,9 @@ interface KnockoutUtils {
     //////////////////////////////////
 
     domData: {
-        get (node: Element, key: string);
+        get(node: Element, key: string);
 
-        set (node: Element, key: string, value: any);
+        set(node: Element, key: string, value: any);
 
         getAll(node: Element, createIfNotFound: boolean);
 
@@ -320,6 +251,80 @@ interface KnockoutUtils {
 
     isIe7: boolean;
 }
+
+
+
+
+interface KnockoutBindingContext {
+    $parent: any;
+    $parents: any[];
+    $root: any;
+    $data: any;
+    $index?: number;
+    $parentContext?: KnockoutBindingContext;
+
+    extend(any): any;
+    createChildContext(any): any;
+}
+interface KnockoutBindingHandler {
+    init?(element: any, valueAccessor: () => any, allBindingsAccessor: () => any, viewModel: any, bindingContext: KnockoutBindingContext): void;
+    update?(element: any, valueAccessor: () => any, allBindingsAccessor: () => any, viewModel: any, bindingContext: KnockoutBindingContext): void;
+    options?: any;
+}
+interface KnockoutBindingHandlers {
+    [bindingHandler: string]: KnockoutBindingHandler;
+
+    // Controlling text and appearance
+    visible: KnockoutBindingHandler;
+    text: KnockoutBindingHandler;
+    html: KnockoutBindingHandler;
+    css: KnockoutBindingHandler;
+    style: KnockoutBindingHandler;
+    attr: KnockoutBindingHandler;
+
+    // Control Flow
+    foreach: KnockoutBindingHandler;
+    if: KnockoutBindingHandler;
+    ifnot: KnockoutBindingHandler;
+    with: KnockoutBindingHandler;
+
+    // Working with form fields
+    click: KnockoutBindingHandler;
+    event: KnockoutBindingHandler;
+    submit: KnockoutBindingHandler;
+    enable: KnockoutBindingHandler;
+    disable: KnockoutBindingHandler;
+    value: KnockoutBindingHandler;
+    hasfocus: KnockoutBindingHandler;
+    checked: KnockoutBindingHandler;
+    options: KnockoutBindingHandler;
+    selectedOptions: KnockoutBindingHandler;
+    uniqueName: KnockoutBindingHandler;
+
+    // Rendering templates
+    template: KnockoutBindingHandler;
+}
+
+interface KnockoutMemoization {
+    memoize(callback);
+    unmemoize(memoId, callbackParams);
+    unmemoizeDomNodeAndDescendants(domNode, extraCallbackParamsArray);
+    parseMemoText(memoText);
+}
+
+interface KnockoutVirtualElement {}
+
+interface KnockoutVirtualElements {
+    allowedBindings: { [bindingName: string]: boolean; };
+    emptyNode( e: KnockoutVirtualElement );
+    firstChild( e: KnockoutVirtualElement );
+    insertAfter( container: KnockoutVirtualElement, nodeToInsert: HTMLElement, insertAfter: HTMLElement );
+    nextSibling( e: KnockoutVirtualElement );
+    prepend( e: KnockoutVirtualElement, toInsert: HTMLElement );
+    setDomNodeChildren( e: KnockoutVirtualElement, newChildren: { length: number;[index: number]: HTMLElement; } );
+    childNodes( e: KnockoutVirtualElement ): HTMLElement[];
+}
+
 
 //////////////////////////////////
 // templateSources.js
