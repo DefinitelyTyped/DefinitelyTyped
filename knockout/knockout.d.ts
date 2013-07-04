@@ -13,7 +13,7 @@ interface KnockoutSubscribableFunctions {
 }
 interface KnockoutSubscribable<T> extends KnockoutSubscribableFunctions {
     subscribe(callback: (newValue: T) => void , callbackTarget?: any, event?: string): KnockoutSubscription;
-    notifySubscribers(valueToNotify: T, event: string): void;
+    notifySubscribers(valueToNotify: T, event?: string): void;
     getSubscriptionsCount(): number;
     extend(requestedExtenders): any;
 }
