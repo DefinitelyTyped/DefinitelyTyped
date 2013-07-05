@@ -1,6 +1,15 @@
 ﻿///<reference path="../jquery/jquery.d.ts"/>
 ///<reference path="rx.js.d.ts"/>
 
+// Those are the definitions for bridging Rx with jQuery.
+//
+// Using the https://github.com/Reactive-Extensions/rxjs-jquery project
+//
+// Dependencies:
+// -> rx.js
+// -> rx.jquery.js
+// -> jquery.js
+
 declare module JQueryResults {
 
 	export interface eventBase{
@@ -8,9 +17,9 @@ declare module JQueryResults {
 		cancelable: bool;
 		type: string;
 		preventDefault(): void;
-		isDefaultPrevented(): bool;
+		isDefaultPrevented(): boolean;
 		stopPropagation(): void;
-		isPropagationStopped(): bool;
+		isPropagationStopped(): boolean;
 		data: any;
 		originalEvent: any;
 		eventPhase: number;
@@ -19,11 +28,11 @@ declare module JQueryResults {
 	export interface keyEvent extends eventBase {
 		key: number;
 		keyCode: number;
-		altKey: bool;
-		ctrlKey: bool;
-		shiftKey: bool;
+		altKey: boolean;
+		ctrlKey: boolean;
+		shiftKey: boolean;
 		char: string;
-		metaKey: bool;
+		metaKey: boolean;
 	}
 
 	export interface uiEvent extends eventBase{
