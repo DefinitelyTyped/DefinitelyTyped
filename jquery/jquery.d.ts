@@ -98,7 +98,7 @@ interface JQueryPromise<T> {
     progress(...progressCallbacks: any[]): JQueryPromise<T>;
 
     // Deprecated - given no typings
-    pipe(doneFilter?: (x: any) => any, failFilter?: (x: any) => any, progressFilter?: (x: any) => any): JQueryPromise;
+    pipe(doneFilter?: (x: any) => any, failFilter?: (x: any) => any, progressFilter?: (x: any) => any): JQueryPromise<any>;
 
     then<U>(onFulfill: (value: T) => U, onReject?: (...reasons) => U, onProgress?: (...progression) => any): JQueryPromise<U>;
     then<U>(onFulfill: (value: T) => JQueryGenericPromise<U>, onReject?: (...reasons) => U, onProgress?: (...progression) => any): JQueryPromise<U>;
