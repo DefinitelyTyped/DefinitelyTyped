@@ -644,7 +644,7 @@ declare module ng {
         template?: string;
         templateUrl?: string;
         replace?: bool;
-        transclude?: bool;
+        transclude?: any;
         restrict?: string;
         scope?: any;
         link?: Function;
