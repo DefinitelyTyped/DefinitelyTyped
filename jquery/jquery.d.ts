@@ -57,7 +57,7 @@ interface JQueryAjaxSettings {
 /*
     Interface for the jqXHR object
 */
-interface JQueryXHR extends XMLHttpRequest, JQueryPromise {
+interface JQueryXHR extends XMLHttpRequest, JQueryPromise<any> {
     overrideMimeType(mimeType: string);
     abort(statusText?: string): void;
 }
@@ -79,32 +79,60 @@ interface JQueryCallback {
 }
 
 /*
+    Allows jQuery Promises to interop with non-jQuery promises
+*/
+interface JQueryGenericPromise<T> {
+    then<U>(onFulfill: (value: T) => U, onReject?: (reason) => U): JQueryGenericPromise<U>;
+    then<U>(onFulfill: (value: T) => JQueryGenericPromise<U>, onReject?: (reason) => U): JQueryGenericPromise<U>;
+    then<U>(onFulfill: (value: T) => U, onReject?: (reason) => JQueryGenericPromise<U>): JQueryGenericPromise<U>;
+    then<U>(onFulfill: (value: T) => JQueryGenericPromise<U>, onReject?: (reason) => JQueryGenericPromise<U>): JQueryGenericPromise<U>;
+}
+
+/*
     Interface for the JQuery promise, part of callbacks
 */
-interface JQueryPromise {
-    always(...alwaysCallbacks: any[]): JQueryDeferred;
-    done(...doneCallbacks: any[]): JQueryDeferred;
-    fail(...failCallbacks: any[]): JQueryDeferred;
-    pipe(doneFilter?: (x: any) => any, failFilter?: (x: any) => any, progressFilter?: (x: any) => any): JQueryPromise;
-    then(doneCallbacks: any, failCallbacks?: any, progressCallbacks?: any): JQueryDeferred;
+interface JQueryPromise<T> {
+    always(...alwaysCallbacks: any[]): JQueryPromise<T>;
+    done(...doneCallbacks: any[]): JQueryPromise<T>;
+    fail(...failCallbacks: any[]): JQueryPromise<T>;
+    progress(...progressCallbacks: any[]): JQueryPromise<T>;
+
+    // Deprecated - given no typings
+    pipe(doneFilter?: (x: any) => any, failFilter?: (x: any) => any, progressFilter?: (x: any) => any): JQueryPromise<any>;
+
+    then<U>(onFulfill: (value: T) => U, onReject?: (...reasons) => U, onProgress?: (...progression) => any): JQueryPromise<U>;
+    then<U>(onFulfill: (value: T) => JQueryGenericPromise<U>, onReject?: (...reasons) => U, onProgress?: (...progression) => any): JQueryPromise<U>;
+    then<U>(onFulfill: (value: T) => U, onReject?: (...reasons) => JQueryGenericPromise<U>, onProgress?: (...progression) => any): JQueryPromise<U>;
+    then<U>(onFulfill: (value: T) => JQueryGenericPromise<U>, onReject?: (...reasons) => JQueryGenericPromise<U>, onProgress?: (...progression) => any): JQueryPromise<U>;
+
+    /* Because JQuery Promises Suck */
+    then<U>(onFulfill: (...args) => U, onReject?: (...reasons) => U, onProgress?: (...progression) => any): JQueryPromise<U>;
+    then<U>(onFulfill: (...args) => JQueryGenericPromise<U>, onReject?: (...reasons) => U, onProgress?: (...progression) => any): JQueryPromise<U>;
+    then<U>(onFulfill: (...args) => U, onReject?: (...reasons) => JQueryGenericPromise<U>, onProgress?: (...progression) => any): JQueryPromise<U>;
+    then<U>(onFulfill: (...args) => JQueryGenericPromise<U>, onReject?: (...reasons) => JQueryGenericPromise<U>, onProgress?: (...progression) => any): JQueryPromise<U>;
 }
 
 /*
     Interface for the JQuery deferred, part of callbacks
 */
-interface JQueryDeferred extends JQueryPromise {
-    notify(...args: any[]): JQueryDeferred;
-    notifyWith(context: any, ...args: any[]): JQueryDeferred;
+interface JQueryDeferred<T> extends JQueryPromise<T> {
+    always(...alwaysCallbacks: any[]): JQueryDeferred<T>;
+    done(...doneCallbacks: any[]): JQueryDeferred<T>;
+    fail(...failCallbacks: any[]): JQueryDeferred<T>;
+    progress(...progressCallbacks: any[]): JQueryDeferred<T>;
 
-    pipe(doneFilter?: any, failFilter?: any, progressFilter?: any): JQueryPromise;
-    progress(...progressCallbacks: any[]): JQueryDeferred;
-    reject(...args: any[]): JQueryDeferred;
-    rejectWith(context: any, ...args: any[]): JQueryDeferred;
-    resolve(...args: any[]): JQueryDeferred;
-    resolveWith(context: any, ...args: any[]): JQueryDeferred;
+    notify(...args: any[]): JQueryDeferred<T>;
+    notifyWith(context: any, ...args: any[]): JQueryDeferred<T>;
+
+    reject(...args: any[]): JQueryDeferred<T>;
+    rejectWith(context: any, ...args: any[]): JQueryDeferred<T>;
+
+    resolve(val: T): JQueryDeferred<T>;
+    resolve(...args: any[]): JQueryDeferred<T>;
+    resolveWith(context: any, ...args: any[]): JQueryDeferred<T>;
     state(): string;
-    then(doneCallbacks: any, failCallbacks?: any, progressCallbacks?: any): JQueryDeferred;
-    promise(target?: any): JQueryPromise;
+
+    promise(target?: any): JQueryPromise<T>;
 }
 
 /*
@@ -260,10 +288,7 @@ interface JQueryStatic {
     removeData(element: Element, name?: string): JQuery;
 
     // Deferred
-    Deferred: {
-        (beforeStart?: (deferred: JQueryDeferred) => any): JQueryDeferred;
-        new (beforeStart?: (deferred: JQueryDeferred) => any): JQueryDeferred;
-    };
+    Deferred<T>(beforeStart?: (deferred: JQueryDeferred<T>) => any): JQueryDeferred<T>;
 
     // Effects
     fx: { tick: () => void; interval: number; stop: () => void; speeds: { slow: number; fast: number; }; off: boolean; step: any; };
