@@ -10,7 +10,7 @@ interface ToastrOptions {
     /**
     * Should clicking on toast dismiss it?
     */
-    tapToDismiss?: bool;
+    tapToDismiss?: boolean;
     /**
     * CSS class the toast element will be given
     */
@@ -22,7 +22,7 @@ interface ToastrOptions {
     /**
     * Should debug details be outputted to the console
     */
-    debug?: bool;
+    debug?: boolean;
     /**
     * Time in milliseconds the toast should take to fade in
     */
@@ -88,7 +88,7 @@ interface ToastrOptions {
     /**
     * Set newest toast to appear on top
     **/
-    newestOnTop?: bool;
+    newestOnTop?: boolean;
 
     /**
     * Function to execute on toast click
