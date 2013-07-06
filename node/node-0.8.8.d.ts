@@ -1004,8 +1004,8 @@ declare module "util" {
 }
 
 declare module "assert" {
-    function internal(booleanValue: boolean, message?: string): void;
-    module internal {
+    export function internal(booleanValue: boolean, message?: string): void;
+    export module internal {
         export function fail(actual: any, expected: any, message: string, operator: string): void;
         export function assert(value: any, message: string): void;
         export function ok(value: any, message?: string): void;
@@ -1019,8 +1019,6 @@ declare module "assert" {
         export function doesNotThrow(block: any, error?: any, messsage?: string): void;
         export function ifError(value: any): void;
     }
-
-    export = internal;
 }
 
 declare module "tty" {
