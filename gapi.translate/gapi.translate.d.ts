@@ -1,9 +1,9 @@
-﻿
-///<reference path="../gapi/gapi.d.ts" />
+﻿// Type definitions for Google Translate API
+// Project: https://developers.google.com/translate/
+// Definitions by: Frank M <https://github.com/sgtfrankieboy>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-			/**
-			 * 
-			 */
+/// <reference path="../gapi/gapi.d.ts" />
 
 declare module gapi.client.language {
 
@@ -16,7 +16,7 @@ declare module gapi.client.language {
 			/**
 			 * The text to detect 
 			 */
-			q: string;
+			q: string[];
 			/**
 			 * Selector specifying which fields to include in a partial response.
 			 */
@@ -52,7 +52,7 @@ declare module gapi.client.language {
 			/**
 			 *  The text to translate 
 			 */
-			q: string;
+			q: string[];
 			/**
 			 * The target language into which the text should be translated 
 			 */
@@ -60,7 +60,7 @@ declare module gapi.client.language {
 			/**
 			 * The customization id for translate 
 			 */
-			cid?: string;
+			cid?: string[];
 			/**
 			 * This optional parameter allows you to indicate that the text to be translated is either plain-text or HTML. A value of html indicates HTML and a value of text indicates plain-text
 			 */
