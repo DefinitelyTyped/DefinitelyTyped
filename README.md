@@ -72,6 +72,7 @@ List of Definitions
 * [Google App Engine Channel API](https://developers.google.com/appengine/docs/java/channel/javascript) (by [vvakame](https://github.com/vvakame))
 * [GoogleMaps](https://developers.google.com/maps/) (by [Esben Nepper](https://github.com/eNepper))
 * [Google Geolocation](https://code.google.com/p/geo-location-javascript/) (by [Vincent Bortone](https://github.com/vbortone))
+* [Google Translate API](https://developers.google.com/translate/) (by [Frank M](https://github.com/sgtfrankieboy))
 * [Google Url Shortener](https://developers.google.com/url-shortener/) (by [Frank M](https://github.com/sgtfrankieboy))
 * [Hammer.js](http://eightmedia.github.com/hammer.js/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Handlebars](http://handlebarsjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
