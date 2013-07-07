@@ -2295,3 +2295,7 @@ function test_EventIsNewable() {
 function test_EventIsCallable() {
     var ev = jQuery.Event('click');
 }
+
+var f1: JQueryPromise<string> = $.when("fetch");
+var f2: JQueryPromise<string[]> = f1.then(s => [s, s]);
+var f3: JQueryPromise<number> = f2.then(v => 3);
