@@ -54,7 +54,7 @@ declare module ng {
             name: string,
             /** name of modules yours depends on */
             requires?: string[],
-            configFunction?: Function): IModule;
+            configFunction?: any): IModule;
         noop(...args: any[]): void;
         toJson(obj: any, pretty?: bool): string;
         uppercase(str: string): string;
