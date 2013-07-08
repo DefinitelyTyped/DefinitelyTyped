@@ -2296,6 +2296,8 @@ function test_EventIsCallable() {
     var ev = jQuery.Event('click');
 }
 
-var f1: JQueryPromise<string> = $.when("fetch");
+$.when(3, "asdf").then(x => x.asdf, x => x.length); // is type JQueryPromise<any>
+
+var f1 = $.when("fetch"); // Is type JQueryPromise<string>
 var f2: JQueryPromise<string[]> = f1.then(s => [s, s]);
 var f3: JQueryPromise<number> = f2.then(v => 3);
