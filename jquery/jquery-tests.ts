@@ -2295,3 +2295,10 @@ function test_EventIsNewable() {
 function test_EventIsCallable() {
     var ev = jQuery.Event('click');
 }
+
+$.when($.ajax("/my/page.json")).then((a,b,c) => a.asdf); // is type JQueryPromise<any>
+$.when("asdf", "jkl;").done(x => x.length, x=> x.length);
+
+var f1 = $.when("fetch"); // Is type JQueryPromise<string>
+var f2: JQueryPromise<string[]> = f1.then(s => [s, s]);
+var f3: JQueryPromise<number> = f2.then(v => 3);
