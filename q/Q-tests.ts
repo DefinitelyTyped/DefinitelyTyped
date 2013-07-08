@@ -73,10 +73,11 @@ Q<number[]>(arrayPromise) // type specification required
     .then<number>(returnsNumPromise) // requires specification
     .then(num => num.toFixed());
 
-declare var jPromise: JQueryPromise;
+declare var jPromise: JQueryPromise<string>;
 
 // if jQuery promises definition supported generics, this could be more interesting example
-Q<any>(jPromise).then((val) => val.toExponential());
+Q<string>(jPromise).then(str => str.split(','));
+jPromise.then<number>(returnsNumPromise);
 
 declare var promiseArray: Q.IPromise<number>[];
 var qPromiseArray = promiseArray.map(p => Q<number>(p));
