@@ -18,7 +18,7 @@
  */
 
 
-module Tee {
+declare module Tee {
 
   interface IPoint {
     x: number;
@@ -565,12 +565,12 @@ module Tee {
     refresh(series: ISeries, index: number): void;
   }
 
-  declare class Point implements IPoint {
+  class Point implements IPoint {
     public x:number;
     public y:number;
   }
 
-  declare class Chart implements IChart {
+  class Chart implements IChart {
     //public aspect: IAspect;
 
     public axes: IAxes;
@@ -600,79 +600,79 @@ module Tee {
 
   // SERIES
 
-  declare var Line: {
+  var Line: {
     prototype: ILine;
     new(values?:number[]): ILine;
   }
 
-  declare var PointXY: {
+  var PointXY: {
     prototype: ICustomSeries;
     new(values?:number[]): ICustomSeries;
   }
 
-  declare var Area: {
+  var Area: {
     prototype: IArea;
     new(values?:number[]): IArea;
   }
 
-  declare var HorizArea: {
+  var HorizArea: {
     prototype: IArea;
     new(values?:number[]): IArea;
   }
 
-  declare var Bar: {
+  var Bar: {
     prototype: ICustomBar;
     new(values?:number[]): ICustomBar;
   }
 
-  declare var HorizBar: {
+  var HorizBar: {
     prototype: ICustomBar;
     new(values?:number[]): ICustomBar;
   }
 
-  declare var Pie: {
+  var Pie: {
     prototype: IPie;
     new(values?:number[]): IPie;
   }
 
-  declare var Donut: {
+  var Donut: {
     prototype: IPie;
     new(values?:number[]): IPie;
   }
 
-  declare var Bubble: {
+  var Bubble: {
     prototype: IBubble;
     new(values?:number[]): IBubble;
   }
 
-  declare var Gantt: {
+  var Gantt: {
     prototype: IGantt;
     new(values?:number[]): IGantt;
   }
 
-  declare var Volume: {
+  var Volume: {
     prototype: ICustomBar;
     new(values?:number[]): ICustomBar;
   }
 
-  declare var Candle: {
+  var Candle: {
     prototype: ICandle;
     new(values?:number[]): ICandle;
   }
 
   // TOOLS
 
-  declare var CursorTool: {
+  var CursorTool: {
     prototype: ICursorTool;
     new(chart?: Chart): ICursorTool;
   }
 
-  declare var DragTool: {
+  var DragTool: {
     prototype: IDragTool;
     new(chart?: Chart): IDragTool;
   }
 
-  declare var ToolTip: {
+  var ToolTip: {
     prototype: IToolTip;
     new(chart?: Chart): IToolTip;
   }

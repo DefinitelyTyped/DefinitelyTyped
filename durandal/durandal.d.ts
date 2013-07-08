@@ -249,7 +249,7 @@ declare module "durandal/viewModel" {
     export var activator: {
         (): IDurandalViewModelActiveItem;
         (initialActiveItem: any, settings?: IViewModelDefaults): IDurandalViewModelActiveItem;
-    }
+    };
 }
 
 declare module "durandal/viewModelBinder" {
@@ -483,7 +483,7 @@ declare module "durandal/plugins/router" {
     /**
       * Before any route is activated, the guardRoute funtion is called. You can plug into this function to add custom logic to allow, deny or redirect based on the requested route. To allow, return true. To deny, return false. To redirect, return a string with the hash or url. You may also return a promise for any of these values.
       */
-    export var guardRoute: (routeInfo: IRouteInfo, params: any, instance: any) => any
+    export var guardRoute: (routeInfo: IRouteInfo, params: any, instance: any) => any;
 }
 
 declare module "durandal/widget" {
