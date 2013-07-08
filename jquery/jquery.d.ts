@@ -265,8 +265,9 @@ interface JQueryStatic {
 
     noConflict(removeAll?: boolean): Object;
 
+	when<T>(...deferreds: JQueryGenericPromise<T>[]): JQueryPromise<T>;
 	when<T>(...deferreds: T[]): JQueryPromise<T>;
-	when(...deferreds: any[]): JQueryPromise<any>;
+	when<T>(...deferreds: any[]): JQueryPromise<T>;
 
     // CSS
     css(e: any, propertyName: string, value?: any);
