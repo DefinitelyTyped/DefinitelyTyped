@@ -427,9 +427,11 @@ declare module Rx {
 	}
 
 	export interface Subject {
-		(): ISubject<any>;
-
 		create<T>(observer?: IObserver<T>, observable?: IObservable<T>): ISubject<T>;
+	}
+
+	var Subject: {
+		new<T> (): ISubject<T>;
 	}
 
 	interface IAsyncSubject<T> extends IObservable<T>, IObserver<T> {
