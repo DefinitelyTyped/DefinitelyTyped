@@ -6,14 +6,17 @@ import q = module('q');
 Q(8).then(x => console.log(x.toExponential()));
 
 var delay = function (delay: number) {
-    var d = Q.defer();
+    var d = Q.defer<void>();
     setTimeout(d.resolve, delay);
     return d.promise;
 };
 
-Q.when(delay(1000), function () {
+Q.when(delay(1000), function (val: void) {
     console.log('Hello, World!');
+    return;
 });
+
+Q.timeout(Q(new Date()), 1000, "My dates never arrived. :(").then(d => d.toJSON());
 
 Q.delay(Q(8), 1000).then(x => x.toExponential());
 Q.delay(8, 1000).then(x => x.toExponential());
@@ -70,7 +73,21 @@ Q<number[]>(arrayPromise) // type specification required
     .then<number>(returnsNumPromise) // requires specification
     .then(num => num.toFixed());
 
-declare var jPromise: JQueryPromise;
+declare var jPromise: JQueryPromise<string>;
 
 // if jQuery promises definition supported generics, this could be more interesting example
-Q<any>(jPromise).then((val) => val.toExponential());
+Q<string>(jPromise).then(str => str.split(','));
+jPromise.then<number>(returnsNumPromise);
+
+declare var promiseArray: Q.IPromise<number>[];
+var qPromiseArray = promiseArray.map(p => Q<number>(p));
+var myNums: any[] = [2, 3, Q(4), 5, Q(6), Q(7)];
+
+Q.all(promiseArray).then(nums => nums.map(num => num.toPrecision(2)).join(','));
+
+Q.all<number>(myNums).then(nums => nums.map(Math.round));
+
+Q.fbind((dateString) => new Date(dateString), "11/11/1991")().then(d => d.toLocaleDateString());
+
+Q.when(8, num => num + "!");
+Q.when(Q(8), num => num + "!").then(str => str.split(','));

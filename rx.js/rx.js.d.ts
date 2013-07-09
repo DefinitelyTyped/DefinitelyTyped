@@ -314,6 +314,7 @@ declare module Rx {
 
 		observeOn(scheduler: IScheduler): IObservable<T>;
 		subscribeOn(scheduler: IScheduler): IObservable<T>;
+
 		amb(rightSource: IObservable<T>): IObservable<T>;
 		catchException(handler: (exception: any) =>IObservable<T>): IObservable<T>;
 		catchException(second: IObservable<T>): IObservable<T>;
@@ -369,16 +370,6 @@ declare module Rx {
 		take(count: number, scheduler?: IScheduler): IObservable<T>;
 		takeWhile(predicate: (value: T, index?: number) =>bool): IObservable<T>;
 		where(predicate: (value: T, index?: number) => bool): IObservable<T>;
-
-		// time
-		delay(dueTime: number, scheduler?: IScheduler): IObservable<T>;
-		throttle(dueTime: number, scheduler?: IScheduler): IObservable<T>;
-		windowWithTime(dueTime: number, timeShiftOrScheduler?: any, scheduler?: IScheduler): IObservable<T>;
-		timeInterval(scheduler: IScheduler): IObservable<T>;
-		sample(interval: number, scheduler?: IScheduler): IObservable<T>;
-		sample<TSample>(sampler: IObservable<TSample>, scheduler?: IScheduler): IObservable<T>;
-		timeout(dueTime: number, other?: IObservable<T>, scheduler?: IScheduler): IObservable<T>;
-		delaySubscription(dueTime: number, scheduler?: IScheduler): IObservable<T>;
 	}
 
 	interface Observable {
@@ -387,9 +378,9 @@ declare module Rx {
 		start<T>(func: () =>T, scheduler?: IScheduler, context?: any): IObservable<T>;
 		toAsync<T>(func: Function, scheduler?: IScheduler, context?: any): (...arguments: any[]) => IObservable<T>;
 		create<T>(subscribe: (observer: IObserver<T>) => void ): IObservable<T>;
-		create<T>(subscribe: (observer: IObserver<T>) => () => void ): IObservable<T>;
+		//create<T>(subscribe: (observer: IObserver<T>) => () => void ): IObservable<T>;
 		createWithDisposable<T>(subscribe: (observer: IObserver<T>) =>_IDisposable): IObservable<T>;
-		defer<T>(observableFactory: () =>IObservable<T>): IObservable<T>;
+		defer<T>(observableFactory: () => IObservable<T>): IObservable<T>;
 		empty<T>(scheduler?: IScheduler): IObservable<T>;
 		fromArray<T>(array: T[], scheduler?: IScheduler): IObservable<T>;
 		fromArray<T>(array: { length: number;[index: number]: T; }, scheduler?: IScheduler): IObservable<T>;
@@ -436,9 +427,11 @@ declare module Rx {
 	}
 
 	export interface Subject {
-		(): ISubject<any>;
-
 		create<T>(observer?: IObserver<T>, observable?: IObservable<T>): ISubject<T>;
+	}
+
+	var Subject: {
+		new<T> (): ISubject<T>;
 	}
 
 	interface IAsyncSubject<T> extends IObservable<T>, IObserver<T> {

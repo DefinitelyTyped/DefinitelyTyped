@@ -251,7 +251,7 @@ interface DatePickerObject extends PickerObject {
     get(thing: string): any;
 
     /** Returns the string value of the picker's input element. */
-    get(thing?: 'value'): string;
+    get(thing: 'value'): string;
 
     /** Returns the item object that is visually selected. */
     get(thing: 'select'): DatePickerItemObject;
@@ -317,7 +317,7 @@ interface TimePickerObject extends PickerObject {
     get(thing: string): any;
 
     /** Returns the string value of the picker's input element. */
-    get(thing?: 'value'): string;
+    get(thing: 'value'): string;
 
     /** Returns the item object that is visually selected. */
     get(thing: 'select'): TimePickerItemObject;
