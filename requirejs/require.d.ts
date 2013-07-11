@@ -126,8 +126,8 @@ interface RequireMap {
 
 interface Require {	
 
-	// Configure require.js
-	config(config: RequireConfig): void;
+    // Configure require.js
+    config(config: RequireConfig): Require;
 
 	// Start the main app logic.
 	// Callback is optional.
