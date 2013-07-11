@@ -27,9 +27,9 @@ interface KnockoutObservableArrayFunctions<T> extends KnockoutObservableFunction
     slice(start: number, end?: number): T[];
     splice(start: number): T[];
     splice(start: number, deleteCount: number, ...items: T[]): T[];
-    pop();
+    pop(): T;
     push(...items: T[]): void;
-    shift();
+    shift(): T;
     unshift(...items: T[]): number;
     reverse(): T[];
     sort(): void;
