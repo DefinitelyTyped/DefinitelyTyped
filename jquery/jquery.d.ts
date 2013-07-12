@@ -25,7 +25,9 @@ interface JQueryAjaxSettings {
     cache?: boolean;
     complete? (jqXHR: JQueryXHR, textStatus: string);
     contents?: { [key: string]: any; };
-    contentType?: string;
+    //According to jQuery.ajax source code, ajax's option actually allows contentType to set to "false"
+    // https://github.com/borisyankov/DefinitelyTyped/issues/742
+    contentType?: any;
     context?: any;
     converters?: { [key: string]: any; };
     crossDomain?: boolean;
