@@ -788,7 +788,7 @@ function populationPyramid() {
         // Produce a map from year and birthyear to [male, female].
         data = d3.nest()
             .key(function (d) { return d.year; } )
-            .key(function (d) { return d.year - d.age; } )
+            .key(function (d) { return '' + (d.year - d.age); } )
             .rollup(function (v) { return v.map(function (d) { return d.people; } ); } )
             .map(data);
 
