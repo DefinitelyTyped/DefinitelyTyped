@@ -740,7 +740,7 @@ declare module D3 {
         insert: (name: string, before: string) => Selection;
         select: (selector: string) => Selection;
         empty: () => boolean;
-        node: () => HTMLElementSVGLocatable;
+        node: () => SVGLocatable;
     }
 
     export interface UpdateSelection extends Selection {
