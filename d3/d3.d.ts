@@ -755,7 +755,7 @@ declare module D3 {
     }
 
     export interface Nest {
-        key(keyFunction: (data: any, index: number) => any): Nest;
+        key(keyFunction: (data: any, index: number) => string): Nest;
         sortKeys(comparator: (d1: any, d2: any) => number): Nest;
         sortValues(comparator: (d1: any, d2: any) => number): Nest;
         rollup(rollupFunction: (data: any, index: number) => any): Nest;
