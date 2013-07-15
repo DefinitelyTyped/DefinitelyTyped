@@ -69,8 +69,7 @@ declare module Ext {
 		/** [Method] Returns the value of baseCls  */
 		getBaseCls?(): string;
 		/** [Method] Returns the value of bottom  */
-		getBottom? (): any;
-		getBottom? (): number;
+		getBottom?(): number;
 		/** [Method] Returns the value of defaultType  */
 		getDefaultType?(): string;
 		/** [Method] Returns the value of height  */
@@ -1895,7 +1894,7 @@ declare module Ext {
 		*/
 		createAlias?( alias?:any, origin?:any ): void;
 		/** [Method] Get the current class name in string format  */
-		getName?(): string;
+		getName?(): any;
 		/** [Method] Override members of this class  
 		* @param members Object The properties to add to this class. This should be specified as an object literal containing one or more properties. 
 		*/
@@ -2135,7 +2134,7 @@ declare module Ext.carousel {
 		/** [Method] Returns the value of directionLock  */
 		getDirectionLock?(): bool;
 		/** [Method] Returns the value of indicator  */
-		getIndicator?(): bool;
+		getIndicator?(): any;
 		/** [Method] Returns the value of itemConfig  */
 		getItemConfig?(): any;
 		/** [Method] Returns the value of itemLength  */
@@ -2215,7 +2214,7 @@ declare module Ext {
 		/** [Method] Returns the value of directionLock  */
 		getDirectionLock?(): bool;
 		/** [Method] Returns the value of indicator  */
-		getIndicator?(): bool;
+		getIndicator?(): any;
 		/** [Method] Returns the value of itemConfig  */
 		getItemConfig?(): any;
 		/** [Method] Returns the value of itemLength  */
@@ -2295,7 +2294,7 @@ declare module Ext.carousel {
 		/** [Config Option] (Boolean) */
 		indicator?: bool;
 		/** [Method] Returns the value of indicator  */
-		getIndicator?(): boolean;
+		getIndicator?(): any;
 		/** [Method] Returns the value of innerItemConfig  */
 		getInnerItemConfig?(): any;
 		/** [Method] Returns the value of maxItemIndex  */
@@ -4331,9 +4330,6 @@ declare module Ext.chart.series {
 		getDonut?(): bool;
 		/** [Method] Returns the value of donut  */
 		getDonut?(): number;
-		/** [Method] Returns the value of hidden  */
-		getHidden? (): boolean;
-		getHidden? (): any[];
 		/** [Method] For a given x y point relative to the main region find a corresponding item from this series if any  
 		* @param x Object 
 		* @param y Object 
@@ -5254,9 +5250,6 @@ declare module Ext.chart.series {
 		hidden?: any[];
 		/** [Config Option] (Boolean) */
 		stacked?: bool;
-		/** [Method] Returns the value of hidden  */
-		getHidden? (): boolean;
-		getHidden?(): any[];
 		/** [Method] For a given x y point relative to the main region find a corresponding item from this series if any  
 		* @param x Object 
 		* @param y Object 
@@ -5514,15 +5507,11 @@ declare module Ext {
 		/** [Method] Returns the value of border  */
 		getBorder?(): string;
 		/** [Method] Returns the value of bottom  */
-		getBottom?(): number;
-		/** [Method] Returns the value of bottom  */
-		getBottom?(): string;
+		getBottom?(): any;
 		/** [Method] Returns the value of centered  */
 		getCentered?(): bool;
 		/** [Method] Returns the value of cls  */
-		getCls?(): string;
-		/** [Method] Returns the value of cls  */
-		getCls?(): string[];
+		getCls?(): any;
 		/** [Method] Returns the value of contentEl  */
 		getContentEl?(): Ext.IElement;
 		/** [Method] Returns the value of contentEl  */
@@ -6049,15 +6038,11 @@ declare module Ext.lib {
 		/** [Method] Returns the value of border  */
 		getBorder?(): string;
 		/** [Method] Returns the value of bottom  */
-		getBottom?(): number;
-		/** [Method] Returns the value of bottom  */
-		getBottom?(): string;
+		getBottom?(): any;
 		/** [Method] Returns the value of centered  */
 		getCentered?(): bool;
 		/** [Method] Returns the value of cls  */
-		getCls?(): string;
-		/** [Method] Returns the value of cls  */
-		getCls?(): string[];
+		getCls?(): any;
 		/** [Method] Returns the value of contentEl  */
 		getContentEl?(): Ext.IElement;
 		/** [Method] Returns the value of contentEl  */
@@ -7027,7 +7012,7 @@ declare module Ext.data.association {
 		/** [Method] Returns the value of associationKey  */
 		getAssociationKey?(): string;
 		/** [Method] Returns the value of name  */
-		getName?(): string;
+		getName?(): any;
 		/** [Method] Returns the value of ownerModel  */
 		getOwnerModel?(): Ext.data.IModel;
 		/** [Method] Returns the value of ownerModel  */
@@ -7103,7 +7088,7 @@ declare module Ext.data {
 		/** [Method] Returns the value of associationKey  */
 		getAssociationKey?(): string;
 		/** [Method] Returns the value of name  */
-		getName?(): string;
+		getName?(): any;
 		/** [Method] Returns the value of ownerModel  */
 		getOwnerModel?(): Ext.data.IModel;
 		/** [Method] Returns the value of ownerModel  */
@@ -8657,8 +8642,10 @@ declare module Ext.data {
 		setData?( rawData?:any ): Ext.data.IModel;
 		/** [Method] Marks this Record as dirty  */
 		setDirty?(): void;
-		/** [Method] Updates the collection of Fields that all instances of this Model use  */
-		setFields? (fields?: any[]): void;
+		/** [Method] Updates the collection of Fields that all instances of this Model use  
+		* @param fields Array 
+		*/
+		setFields?( fields?:any[] ): any;
 		/** [Method] Sets the value of hasMany  
 		* @param hasMany String/Object/String[]/Object[] 
 		*/
@@ -9052,8 +9039,10 @@ declare module Ext.data {
 		setData?( rawData?:any ): Ext.data.IModel;
 		/** [Method] Marks this Record as dirty  */
 		setDirty?(): void;
-		/** [Method] Updates the collection of Fields that all instances of this Model use  */
-		setFields?(): any[];
+		/** [Method] Updates the collection of Fields that all instances of this Model use  
+		* @param fields Array 
+		*/
+		setFields?( fields?:any[] ): any;
 		/** [Method] Sets the value of hasMany  
 		* @param hasMany String/Object/String[]/Object[] 
 		*/
@@ -11313,9 +11302,9 @@ declare module Ext.data.reader {
 		/** [Config Option] (String) */
 		totalProperty?: string;
 		/** [Method] Returns the value of successProperty  */
-		getSuccessProperty?(): string;
+		getSuccessProperty?(): any;
 		/** [Method] Returns the value of totalProperty  */
-		getTotalProperty?(): string;
+		getTotalProperty?(): any;
 		/** [Method] Sets the value of successProperty  
 		* @param successProperty Object 
 		*/
@@ -11333,9 +11322,9 @@ declare module Ext.data {
 		/** [Config Option] (String) */
 		totalProperty?: string;
 		/** [Method] Returns the value of successProperty  */
-		getSuccessProperty?(): string;
+		getSuccessProperty?(): any;
 		/** [Method] Returns the value of totalProperty  */
-		getTotalProperty?(): string;
+		getTotalProperty?(): any;
 		/** [Method] Sets the value of successProperty  
 		* @param successProperty Object 
 		*/
@@ -11501,9 +11490,9 @@ declare module Ext.data.reader {
 		/** [Method] Returns the value of rootProperty  */
 		getRootProperty?(): string;
 		/** [Method] Returns the value of successProperty  */
-		getSuccessProperty?(): string;
+		getSuccessProperty?(): any;
 		/** [Method] Returns the value of totalProperty  */
-		getTotalProperty?(): string;
+		getTotalProperty?(): any;
 		/** [Method] Checks to see if this object has any listeners for a specified event 
 		* @param eventName String The name of the event to check for 
 		*/
@@ -11784,9 +11773,9 @@ declare module Ext.data {
 		/** [Method] Returns the value of rootProperty  */
 		getRootProperty?(): string;
 		/** [Method] Returns the value of successProperty  */
-		getSuccessProperty?(): string;
+		getSuccessProperty?(): any;
 		/** [Method] Returns the value of totalProperty  */
-		getTotalProperty?(): string;
+		getTotalProperty?(): any;
 		/** [Method] Checks to see if this object has any listeners for a specified event 
 		* @param eventName String The name of the event to check for 
 		*/
@@ -12067,9 +12056,9 @@ declare module Ext.data {
 		/** [Method] Returns the value of rootProperty  */
 		getRootProperty?(): string;
 		/** [Method] Returns the value of successProperty  */
-		getSuccessProperty?(): string;
+		getSuccessProperty?(): any;
 		/** [Method] Returns the value of totalProperty  */
-		getTotalProperty?(): string;
+		getTotalProperty?(): any;
 		/** [Method] Checks to see if this object has any listeners for a specified event 
 		* @param eventName String The name of the event to check for 
 		*/
@@ -14607,9 +14596,6 @@ declare module Ext.dataview.component {
 		getItems?(): any[];
 		/** [Method] Returns the value of record  */
 		getRecord?(): Ext.data.IModel;
-		/** [Method] Returns the value of width  */
-		getWidth? (): number;
-		getWidth?(): string;
 		/** [Method] Sets the value of baseCls  
 		* @param baseCls String 
 		*/
@@ -14662,16 +14648,6 @@ declare module Ext.dataview.component {
 		getDisclosure?(): any;
 		/** [Method] Returns the value of header  */
 		getHeader?(): any;
-		/** [Method] Returns the value of items  */
-		getItems? (): any[];
-		/** [Method] Returns the value of tpl  */
-		getTpl? (): string;
-		/** [Method] Returns the value of tpl  */
-		getTpl? (): string[];
-		/** [Method] Returns the value of tpl  */
-		getTpl? (): Ext.ITemplate[];
-		/** [Method] Returns the value of tpl  */
-		getTpl? (): Ext.IXTemplate[];
 		/** [Method] Sets the value of baseCls  
 		* @param baseCls String 
 		*/
@@ -15618,8 +15594,6 @@ declare module Ext.dataview {
 		getRefreshHeightOnUpdate?(): bool;
 		/** [Method] Returns all the items that are docked in the scroller in this list  */
 		getScrollDockedItems?(): any[];
-		/** [Method] Returns the value of scrollable  */
-		getScrollable?(): boolean;
 		/** [Method] Returns the value of striped  */
 		getStriped?(): bool;
 		/** [Method] Returns the value of ui  */
@@ -15776,8 +15750,6 @@ declare module Ext {
 		getRefreshHeightOnUpdate?(): bool;
 		/** [Method] Returns all the items that are docked in the scroller in this list  */
 		getScrollDockedItems?(): any[];
-		/** [Method] Returns the value of scrollable  */
-		getScrollable?(): boolean;
 		/** [Method] Returns the value of striped  */
 		getStriped?(): bool;
 		/** [Method] Returns the value of ui  */
@@ -15974,8 +15946,6 @@ declare module Ext.dataview {
 		getTitleTextTpl?( node?:Ext.data.IRecord ): string;
 		/** [Method] Returns the value of toolbar  */
 		getToolbar?(): any;
-		/** [Method] Returns the value of ui  */
-		getUi?(): string;
 		/** [Method] Returns the value of updateTitleText  */
 		getUpdateTitleText?(): bool;
 		/** [Method] Returns the value of useSimpleItems  */
@@ -16185,8 +16155,6 @@ declare module Ext {
 		getTitleTextTpl?( node?:Ext.data.IRecord ): string;
 		/** [Method] Returns the value of toolbar  */
 		getToolbar?(): any;
-		/** [Method] Returns the value of ui  */
-		getUi?(): string;
 		/** [Method] Returns the value of updateTitleText  */
 		getUpdateTitleText?(): bool;
 		/** [Method] Returns the value of useSimpleItems  */
@@ -20221,7 +20189,7 @@ declare module Ext.direct {
 		/** [Method] Returns the value of len  */
 		getLen?(): any;
 		/** [Method] Returns the value of name  */
-		getName?(): string;
+		getName?(): any;
 		/** [Method] Returns the value of ordered  */
 		getOrdered?(): bool;
 		/** [Method] Returns the value of params  */
@@ -20521,21 +20489,6 @@ declare module Ext.dom {
 		findParentNode?( simpleSelector?:string, maxDepth?:string, returnEl?:bool ): any;
 		findParentNode?( simpleSelector?:string, maxDepth?:HTMLElement, returnEl?:bool ): any;
 		findParentNode?( simpleSelector?:string, maxDepth?:Ext.IElement, returnEl?:bool ): any;
-		/** [Method] Gets the first child skipping text nodes  
-		* @param selector String Find the next sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		first? (selector?: string, returnDom?: bool): Ext.dom.IElement;
-		/** [Method] Gets the first child skipping text nodes  
-		* @param selector String Find the next sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		first? (selector?: string, returnDom?: bool): HTMLElement;
-		/** [Method] Gets the first child skipping text nodes  
-		* @param selector String Find the next sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		first? (selector?: string, returnDom?: bool): any;
 		/** [Method] Gets the x y coordinates to align this element with another element  
 		* @param element Mixed The element to align to. 
 		* @param position String The position to align to. 
@@ -20705,22 +20658,7 @@ declare module Ext.dom {
 		/** [Method] Returns a flyweight Element of the dom element object at the specified index  
 		* @param index Number 
 		*/
-		item? (index?: number): Ext.dom.IElement;
-		/** [Method] Gets the last child skipping text nodes  
-		* @param selector String Find the previous sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		last? (selector?: string, returnDom?: bool): Ext.dom.IElement;
-		/** [Method] Gets the last child skipping text nodes  
-		* @param selector String Find the previous sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		last? (selector?: string, returnDom?: bool): HTMLElement;
-		/** [Method] Gets the last child skipping text nodes  
-		* @param selector String Find the previous sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		last? (selector?: string, returnDom?: bool): any;
+		item?( index?:number ): Ext.dom.IElement;
 		/** [Method] Puts a mask over this element to disable user interaction  */
 		mask?(): void;
 		/** [Method] Gets the next sibling skipping text nodes  
@@ -21139,22 +21077,7 @@ declare module Ext {
 		findParentNode?( simpleSelector?:string, maxDepth?:number, returnEl?:bool ): any;
 		findParentNode?( simpleSelector?:string, maxDepth?:string, returnEl?:bool ): any;
 		findParentNode?( simpleSelector?:string, maxDepth?:HTMLElement, returnEl?:bool ): any;
-		findParentNode? (simpleSelector?: string, maxDepth?: Ext.IElement, returnEl?: bool): any;
-		/** [Method] Gets the first child skipping text nodes  
-		* @param selector String Find the next sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		first? (selector?: string, returnDom?: bool): Ext.dom.IElement;
-		/** [Method] Gets the first child skipping text nodes  
-		* @param selector String Find the next sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		first? (selector?: string, returnDom?: bool): HTMLElement;
-		/** [Method] Gets the first child skipping text nodes  
-		* @param selector String Find the next sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		first? (selector?: string, returnDom?: bool): any;
+		findParentNode?( simpleSelector?:string, maxDepth?:Ext.IElement, returnEl?:bool ): any;
 		/** [Method] Gets the x y coordinates to align this element with another element  
 		* @param element Mixed The element to align to. 
 		* @param position String The position to align to. 
@@ -21324,22 +21247,7 @@ declare module Ext {
 		/** [Method] Returns a flyweight Element of the dom element object at the specified index  
 		* @param index Number 
 		*/
-		item? (index?: number): Ext.dom.IElement;
-		/** [Method] Gets the last child skipping text nodes  
-		* @param selector String Find the previous sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		last? (selector?: string, returnDom?: bool): Ext.dom.IElement;
-		/** [Method] Gets the last child skipping text nodes  
-		* @param selector String Find the previous sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		last? (selector?: string, returnDom?: bool): HTMLElement;
-		/** [Method] Gets the last child skipping text nodes  
-		* @param selector String Find the previous sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		last? (selector?: string, returnDom?: bool): any;
+		item?( index?:number ): Ext.dom.IElement;
 		/** [Method] Puts a mask over this element to disable user interaction  */
 		mask?(): void;
 		/** [Method] Gets the next sibling skipping text nodes  
@@ -21758,22 +21666,7 @@ declare module Ext {
 		findParentNode?( simpleSelector?:string, maxDepth?:number, returnEl?:bool ): any;
 		findParentNode?( simpleSelector?:string, maxDepth?:string, returnEl?:bool ): any;
 		findParentNode?( simpleSelector?:string, maxDepth?:HTMLElement, returnEl?:bool ): any;
-		findParentNode? (simpleSelector?: string, maxDepth?: Ext.IElement, returnEl?: bool): any;
-		/** [Method] Gets the first child skipping text nodes  
-		* @param selector String Find the next sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		first? (selector?: string, returnDom?: bool): Ext.dom.IElement;
-		/** [Method] Gets the first child skipping text nodes  
-		* @param selector String Find the next sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		first? (selector?: string, returnDom?: bool): HTMLElement;
-		/** [Method] Gets the first child skipping text nodes  
-		* @param selector String Find the next sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		first? (selector?: string, returnDom?: bool): any;
+		findParentNode?( simpleSelector?:string, maxDepth?:Ext.IElement, returnEl?:bool ): any;
 		/** [Method] Gets the x y coordinates to align this element with another element  
 		* @param element Mixed The element to align to. 
 		* @param position String The position to align to. 
@@ -21943,22 +21836,7 @@ declare module Ext {
 		/** [Method] Returns a flyweight Element of the dom element object at the specified index  
 		* @param index Number 
 		*/
-		item? (index?: number): Ext.dom.IElement;
-		/** [Method] Gets the last child skipping text nodes  
-		* @param selector String Find the previous sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		last? (selector?: string, returnDom?: bool): Ext.dom.IElement;
-		/** [Method] Gets the last child skipping text nodes  
-		* @param selector String Find the previous sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		last? (selector?: string, returnDom?: bool): HTMLElement;
-		/** [Method] Gets the last child skipping text nodes  
-		* @param selector String Find the previous sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		last? (selector?: string, returnDom?: bool): any;
+		item?( index?:number ): Ext.dom.IElement;
 		/** [Method] Puts a mask over this element to disable user interaction  */
 		mask?(): void;
 		/** [Method] Gets the next sibling skipping text nodes  
@@ -24436,8 +24314,7 @@ declare module Ext.draw {
 		/** [Method] Returns the value of background  */
 		getBackground?(): any;
 		/** [Method] Returns the value of cls  */
-		getCls? (): string;
-		getCls? (): string[];
+		getCls?(): string;
 		/** [Method] Returns the value of fitSurface  */
 		getFitSurface?(): bool;
 		/** [Method] Returns the value of resizeHandler  */
@@ -28284,8 +28161,7 @@ declare module Ext.field {
 		/** [Method] Returns the checked value of this field */
 		getChecked?(): any;
 		/** [Method] Returns the value of cls  */
-		getCls? (): string;
-		getCls? (): string[];
+		getCls?(): string;
 		/** [Method] Returns the value of disabled  */
 		getDisabled?(): bool;
 		/** [Method] Returns the value of focusCls  */
@@ -28916,8 +28792,7 @@ declare module Ext.field {
 		/** [Config Option] (Number/Number[]) */
 		values?: any;
 		/** [Method] Returns the value of cls  */
-		getCls? (): string;
-		getCls? (): string[];
+		getCls?(): string;
 		/** [Method] Returns the value of increment  */
 		getIncrement?(): number;
 		/** [Method] Returns the value of maxValue  */
@@ -28926,8 +28801,6 @@ declare module Ext.field {
 		getMinValue?(): number;
 		/** [Method] Returns the value of readOnly  */
 		getReadOnly?(): bool;
-		/** [Method] Returns the value of tabIndex  */
-		getTabIndex?(): number;
 		/** [Method] Returns the value of value  */
 		getValue?(): number;
 		/** [Method] Returns the value of value  */
@@ -28993,8 +28866,7 @@ declare module Ext.form {
 		/** [Config Option] (Number/Number[]) */
 		values?: any;
 		/** [Method] Returns the value of cls  */
-		getCls? (): string;
-		getCls? (): string[];
+		getCls?(): string;
 		/** [Method] Returns the value of increment  */
 		getIncrement?(): number;
 		/** [Method] Returns the value of maxValue  */
@@ -29003,8 +28875,6 @@ declare module Ext.form {
 		getMinValue?(): number;
 		/** [Method] Returns the value of readOnly  */
 		getReadOnly?(): bool;
-		/** [Method] Returns the value of tabIndex  */
-		getTabIndex? (): number;
 		/** [Method] Returns the value of value  */
 		getValue?(): number;
 		/** [Method] Returns the value of value  */
@@ -29078,8 +28948,7 @@ declare module Ext.field {
 		/** [Method] Returns the value of accelerateOnTapHold  */
 		getAccelerateOnTapHold?(): bool;
 		/** [Method] Returns the value of cls  */
-		getCls? (): string;
-		getCls? (): string[];
+		getCls?(): string;
 		/** [Method] Returns the value of component  */
 		getComponent?(): any;
 		/** [Method] Returns the value of cycle  */
@@ -29165,8 +29034,7 @@ declare module Ext.form {
 		/** [Method] Returns the value of accelerateOnTapHold  */
 		getAccelerateOnTapHold?(): bool;
 		/** [Method] Returns the value of cls  */
-		getCls? (): string;
-		getCls? (): string[];
+		getCls?(): string;
 		/** [Method] Returns the value of component  */
 		getComponent?(): any;
 		/** [Method] Returns the value of cycle  */
@@ -29259,9 +29127,6 @@ declare module Ext.field {
 		getAutoComplete?(): bool;
 		/** [Method] Returns the value of autoCorrect  */
 		getAutoCorrect?(): bool;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents? (): string;
-		getBubbleEvents?(): string[];
 		/** [Method] Returns the value of clearIcon  */
 		getClearIcon?(): bool;
 		/** [Method] Returns the value of component  */
@@ -29360,9 +29225,6 @@ declare module Ext.form {
 		getAutoComplete?(): bool;
 		/** [Method] Returns the value of autoCorrect  */
 		getAutoCorrect?(): bool;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents? (): string;
-		getBubbleEvents? (): string[];
 		/** [Method] Returns the value of clearIcon  */
 		getClearIcon?(): bool;
 		/** [Method] Returns the value of component  */
@@ -29518,8 +29380,7 @@ declare module Ext.field {
 		/** [Property] (String) */
 		toggleOnLabel?: string;
 		/** [Method] Returns the value of cls  */
-		getCls? (): string;
-		getCls? (): string[];
+		getCls?(): string;
 		/** [Method] Returns the value of labelAlign  */
 		getLabelAlign?(): string;
 		/** [Method] Returns the value of maxValueCls  */
@@ -29569,8 +29430,7 @@ declare module Ext.form {
 		/** [Property] (String) */
 		toggleOnLabel?: string;
 		/** [Method] Returns the value of cls  */
-		getCls? (): string;
-		getCls? (): string[];
+		getCls?(): string;
 		/** [Method] Returns the value of labelAlign  */
 		getLabelAlign?(): string;
 		/** [Method] Returns the value of maxValueCls  */
@@ -32279,14 +32139,10 @@ declare module Ext {
 		getButtons?(): any;
 		/** [Method] Returns the value of defaultTextHeight  */
 		getDefaultTextHeight?(): number;
-		/** [Method] Returns the value of hideAnimation  */
-		getHideAnimation?(): any;
 		/** [Method] Returns the value of layout  */
 		getLayout?(): any;
 		/** [Method] Returns the value of prompt  */
 		getPrompt?(): any;
-		/** [Method] Returns the value of showAnimation  */
-		getShowAnimation?(): any;
 		/** [Method] Returns the value of title  */
 		getTitle?(): string;
 		/** [Method] Returns the value of ui  */
@@ -34614,8 +34470,7 @@ declare module Ext.picker {
 		/** [Method] Returns the value of baseCls  */
 		getBaseCls?(): string;
 		/** [Method] Returns the value of bottom  */
-		getBottom? (): number;
-		getBottom? (): string;
+		getBottom?(): number;
 		/** [Method] Returns the value of cancelButton  */
 		getCancelButton?(): string;
 		/** [Method] Returns the value of cancelButton  */
@@ -34626,17 +34481,8 @@ declare module Ext.picker {
 		getDoneButton?(): string;
 		/** [Method] Returns the value of doneButton  */
 		getDoneButton?(): any;
-		/** [Method] Returns the value of height  */
-		getHeight? (): number;
-		getHeight? (): string;
 		/** [Method] Returns the value of layout  */
 		getLayout?(): any;
-		/** [Method] Returns the value of left  */
-		getLeft? (): number;
-		getLeft? (): string;
-		/** [Method] Returns the value of right  */
-		getRight? (): number;
-		getRight? (): string;
 		/** [Method] Returns the value of slots  */
 		getSlots?(): any[];
 		/** [Method] Returns the value of toolbar  */
@@ -34757,8 +34603,7 @@ declare module Ext {
 		/** [Method] Returns the value of baseCls  */
 		getBaseCls?(): string;
 		/** [Method] Returns the value of bottom  */
-		getBottom? (): number;
-		getBottom? (): string;
+		getBottom?(): number;
 		/** [Method] Returns the value of cancelButton  */
 		getCancelButton?(): string;
 		/** [Method] Returns the value of cancelButton  */
@@ -34769,17 +34614,8 @@ declare module Ext {
 		getDoneButton?(): string;
 		/** [Method] Returns the value of doneButton  */
 		getDoneButton?(): any;
-		/** [Method] Returns the value of height  */
-		getHeight? (): number;
-		getHeight? (): string;
 		/** [Method] Returns the value of layout  */
 		getLayout?(): any;
-		/** [Method] Returns the value of left  */
-		getLeft? (): number;
-		getLeft? (): string;
-		/** [Method] Returns the value of right  */
-		getRight? (): number;
-		getRight? (): string;
 		/** [Method] Returns the value of slots  */
 		getSlots?(): any[];
 		/** [Method] Returns the value of toolbar  */
@@ -34886,13 +34722,7 @@ declare module Ext.picker {
 		/** [Method] Returns the value of align  */
 		getAlign?(): string;
 		/** [Method] Returns the value of displayField  */
-		getDisplayField? (): string;
-		/** [Method] Returns the value of itemTpl  */
-		getItemTpl? (): string;
-		/** [Method] Returns the value of itemTpl  */
-		getItemTpl? (): string[];
-		/** [Method] Returns the value of itemTpl  */
-		getItemTpl? (): Ext.IXTemplate;
+		getDisplayField?(): string;
 		/** [Method] Returns the value of name  */
 		getName?(): string;
 		/** [Method] Returns the value of title  */
@@ -35150,8 +34980,7 @@ declare module Ext.scroll.indicator {
 		/** [Config Option] (String/String[]) */
 		cls?: any;
 		/** [Method] Returns the value of cls  */
-		getCls? (): string;
-		getCls? (): string[];
+		getCls?(): string;
 		/** [Method] Sets the value of cls  
 		* @param cls String 
 		*/
@@ -35171,8 +35000,7 @@ declare module Ext.scroll.indicator {
 		/** [Config Option] (String/String[]) */
 		cls?: any;
 		/** [Method] Returns the value of cls  */
-		getCls? (): string;
-		getCls? (): string[];
+		getCls?(): string;
 		/** [Method] Sets the value of cls  
 		* @param cls String 
 		*/
@@ -35184,8 +35012,7 @@ declare module Ext.scroll.indicator {
 		/** [Config Option] (String/String[]) */
 		cls?: any;
 		/** [Method] Returns the value of cls  */
-		getCls? (): string;
-		getCls? (): string[];
+		getCls?(): string;
 		/** [Method] Sets the value of cls  
 		* @param cls String 
 		*/
@@ -35489,14 +35316,8 @@ declare module Ext {
 		getEnter?(): string;
 		/** [Method] Returns the value of exit  */
 		getExit?(): string;
-		/** [Method] Returns the value of hideAnimation  */
-		getHideAnimation? (): string;
-		getHideAnimation?(): any;
 		/** [Method] Returns the value of modal  */
 		getModal?(): bool;
-		/** [Method] Returns the value of showAnimation  */
-		getShowAnimation? (): any;
-		getShowAnimation? (): string;
 		/** [Method] Returns the value of stretchX  */
 		getStretchX?(): bool;
 		/** [Method] Returns the value of stretchY  */
@@ -35709,9 +35530,6 @@ declare module Ext {
 		width?: number;
 		/** [Method] Returns the value of flex  */
 		getFlex?(): number;
-		/** [Method] Returns the value of width  */
-		getWidth? (): number;
-		getWidth? (): string;
 		/** [Method] Sets the value of flex  
 		* @param flex Number 
 		*/
@@ -35878,8 +35696,7 @@ declare module Ext.tab {
 		*/
 		doTabChange?( tabBar?:any, newTab?:any ): bool;
 		/** [Method] Returns the value of cls  */
-		getCls? (): string;
-		getCls? (): string[];
+		getCls?(): string;
 		/** [Method] Returns the value of layout  */
 		getLayout?(): any;
 		/** [Method] Returns the value of tabBar  */
@@ -35937,8 +35754,7 @@ declare module Ext {
 		*/
 		doTabChange?( tabBar?:any, newTab?:any ): bool;
 		/** [Method] Returns the value of cls  */
-		getCls? (): string;
-		getCls? (): string[];
+		getCls?(): string;
 		/** [Method] Returns the value of layout  */
 		getLayout?(): any;
 		/** [Method] Returns the value of tabBar  */
@@ -36279,15 +36095,11 @@ declare module Ext {
 		/** [Method] Returns the value of baseCls  */
 		getBaseCls?(): string;
 		/** [Method] Returns the value of cls  */
-		getCls? (): string;
-		getCls? (): string[];
+		getCls?(): string;
 		/** [Method] Returns the value of defaultType  */
 		getDefaultType?(): string;
 		/** [Method] Returns the value of items  */
 		getItems?(): any;
-		/** [Method] Returns the value of minHeight  */
-		getMinHeight? (): string;
-		getMinHeight? (): number;
 		/** [Method] Returns the value of title  */
 		getTitle?(): string;
 		/** [Method] Returns the value of ui  */
@@ -36350,9 +36162,6 @@ declare module Ext {
 		getDocked?(): string;
 		/** [Method] Returns the value of layout  */
 		getLayout?(): any;
-		/** [Method] Returns the value of minHeight  */
-		getMinHeight? (): string;
-		getMinHeight? (): number;
 		/** [Method] Returns an Ext Title component  */
 		getTitle?(): Ext.ITitle;
 		/** [Method] Returns the value of ui  */
@@ -38974,8 +38783,7 @@ declare module Ext {
 		/** [Method] Returns the value of url  */
 		getUrl?(): string;
 		/** [Method] Returns the value of url  */
-		getUrl? (): any[];
-		getCls? (): string[];
+		getUrl?(): any[];
 		/** [Method] Allows addition of behavior to the rendering phase  */
 		initialize?(): void;
 		/** [Method] Sets the value of cls  
@@ -39932,8 +39740,6 @@ declare module Ext {
 		* @param parent Object 
 		*/
 		applyOut?( values?:any, out?:any[], parent?:any ): any[];
-		/** [Method] Does nothing  */
-		compile?(): Ext.IXTemplate;
 		/** [Method] Gets an XTemplate from an object an instance of an Ext define d class 
 		* @param instance Object The object from which to get the XTemplate (must be an instance of an Ext.define'd class). 
 		* @param name String The name of the property by which to get the XTemplate. 
