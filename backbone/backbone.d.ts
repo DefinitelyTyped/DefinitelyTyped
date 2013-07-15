@@ -93,6 +93,7 @@ declare module Backbone {
         attributes: any;
         changed: any[];
         cid: string;
+        defaults: any;
         id: any;
         idAttribute: string;
         validationError: any;
@@ -111,7 +112,6 @@ declare module Backbone {
         changedAttributes(attributes?: any): any[];
         clear(options?: Silenceable);
         clone(): Model;
-        defaults(): any;
         destroy(options?: ModelDestroyOptions);
         escape(attribute: string);
         has(attribute: string): boolean;
