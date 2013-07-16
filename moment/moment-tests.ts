@@ -86,9 +86,7 @@ var getDay: number = moment().day();
 var getMonth: number = moment().month();
 var getYear: number = moment().year();
 
-moment().sod();
 moment().hours(0).minutes(0).seconds(0).milliseconds(0);
-moment().eod();
 
 var a3 = moment([2011, 0, 1, 8]);
 a3.hours();
