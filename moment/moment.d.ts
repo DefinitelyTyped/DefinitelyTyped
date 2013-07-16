@@ -95,6 +95,14 @@ interface Moment {
     seconds(): number;
     milliseconds(ms: number): Moment;
     milliseconds(): number;
+    weekday(): Moment;
+    weekday(d: number): Moment;
+    isoWeekday(): Moment;
+    isoWeekday(d: number): Moment;
+    weekYear(): Moment;
+    weekYear(d: number): Moment;
+    isoWeekYear(): Moment;
+    isoWeekYear(d: number): Moment;
 
     from(f: Moment): string;
     from(f: Moment, suffix: boolean): string;
