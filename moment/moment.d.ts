@@ -105,6 +105,7 @@ interface Moment {
     diff(b: Moment, soort: string, round: boolean): number;
 
     toDate(): Date;
+    toISOString(): string;
     unix(): number;
 
     isLeapYear(): boolean;
