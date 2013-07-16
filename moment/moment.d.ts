@@ -80,8 +80,10 @@ interface Moment {
     year(y: number): Moment;
     year(): number;
     month(M: number): Moment;
+    month(M: string): Moment;
     month(): number;
     day(d: number): Moment;
+    day(d: string): Moment;
     day(): number;
     date(d: number): Moment;
     date(): number;
