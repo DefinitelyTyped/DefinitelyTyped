@@ -78,6 +78,14 @@ moment().startOf('year');
 moment().month(0).date(1).hours(0).minutes(0).seconds(0).milliseconds(0);
 moment().startOf('hour');
 moment().minutes(0).seconds(0).milliseconds(0);
+moment().weekday();
+moment().weekday(0);
+moment().isoWeekday(1);
+moment().isoWeekday();
+moment().weekYear(2);
+moment().weekYear();
+moment().isoWeekYear(3);
+moment().isoWeekYear();
 
 var getMilliseconds: number = moment().milliseconds(); 
 var getSeconds: number = moment().seconds(); 
