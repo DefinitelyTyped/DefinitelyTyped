@@ -788,7 +788,7 @@ function populationPyramid() {
         // Produce a map from year and birthyear to [male, female].
         data = d3.nest()
             .key(function (d) { return d.year; } )
-            .key(function (d) { return d.year - d.age; } )
+            .key(function (d) { return '' + (d.year - d.age); } )
             .rollup(function (v) { return v.map(function (d) { return d.people; } ); } )
             .map(data);
 
@@ -2056,4 +2056,371 @@ function healthAndWealth() {
             return a[1];
         }
     } );
+}
+
+// Test for d3.functor
+function functorTest () {
+    var f = d3.functor(10);
+    var g = d3.functor(function (v) { return v; });
+
+    return f(10) === g(10);
+}
+
+// Test for d3.Nest
+// Most test adopted from: https://github.com/mbostock/d3/blob/master/test/arrays/nest-test.js
+function nestTest () {
+    var data = [
+        {
+            a: 10,
+            b: [ 1, 2 ]
+        },
+        {
+            a: 20,
+            b: [ 2, 3 ]
+        },
+        {
+            a: 30,
+            b: [ 1, 2 ]
+        }
+    ];
+
+    var n1 = d3.nest()
+                .key(function (d) { return d.a; })
+                .sortKeys(d3.descending)
+                .rollup(function (vals) {
+                    return d3.sum(vals);
+                });
+    n1.map(data);
+    n1.entries(data);
+
+    var n2 = d3.nest()
+                .key(function (d) { return d.a; })
+                .sortValues(function (x1, x2) {
+                        return x1[0] < x1[1] ? -1 : (x1[0] > x1[0] ? 1 : 0); });
+    n2.map(data);
+    n2.entries(data);
+
+    // Tests adopted from d3's tests.
+    var keys = d3.nest()
+      .key(function(d) { return d.foo; })
+      .entries([{foo: 1}, {foo: 1}, {foo: 2}])
+      .map(function(d) { return d.key; })
+      .sort(d3.ascending);
+
+    var entries = d3.nest()
+      .key(function(d) { return d.foo; })
+      .entries([{foo: 1, bar: 0}, {foo: 2}, {foo: 1, bar: 1}]);
+
+    keys = d3.nest()
+        .key(function(d) { return d.foo; }).sortKeys(d3.descending)
+        .entries([{foo: 1}, {foo: 1}, {foo: 2}])
+        .map(function(d) { return d.key; });
+
+    entries = d3.nest()
+        .key(function(d) { return d.foo; })
+        .sortValues(function(a, b) { return a.bar - b.bar; })
+        .entries([{foo: 1, bar: 2}, {foo: 1, bar: 0}, {foo: 1, bar: 1}, {foo: 2}]);
+
+    entries = d3.nest()
+        .key(function(d) { return d.foo; })
+        .rollup(function(values) { return d3.sum(values, function(d) { return d.bar; }); })
+        .entries([{foo: 1, bar: 2}, {foo: 1, bar: 0}, {foo: 1, bar: 1}, {foo: 2}]);
+
+    entries = d3.nest()
+        .key(function(d) { return d[0]; }).sortKeys(d3.ascending)
+        .key(function(d) { return d[1]; }).sortKeys(d3.ascending)
+        .entries([[0, 1], [0, 2], [1, 1], [1, 2], [0, 2]]);
+
+    entries = d3.nest()
+        .key(function(d) { return d[0]; }).sortKeys(d3.ascending)
+        .key(function(d) { return d[1]; }).sortKeys(d3.ascending)
+        .rollup(function(values) { return values.length; })
+        .entries([[0, 1], [0, 2], [1, 1], [1, 2], [0, 2]]);
+
+    entries = d3.nest()
+        .key(function(d) { return d[0]; }).sortKeys(d3.ascending)
+        .key(function(d) { return d[1]; }).sortKeys(d3.ascending)
+        .sortValues(function(a, b) { return a[2] - b[2]; })
+        .entries([[0, 1], [0, 2, 1], [1, 1], [1, 2], [0, 2, 0]]);
+
+    var map = d3.nest()
+        .key(function(d) { return d[0]; }).sortKeys(d3.ascending)
+        .key(function(d) { return d[1]; }).sortKeys(d3.ascending)
+        .sortValues(function(a, b) { return a[2] - b[2]; })
+        .map([[0, 1], [0, 2, 1], [1, 1], [1, 2], [0, 2, 0]]);
+}
+
+// Test for setting attributes as an object
+// From https://github.com/mbostock/d3/blob/master/test/selection/attr-test.js
+function attrObjTest () {
+    d3.select('body')
+        .data(["orange"])
+        .attr({"xlink:href": function(d, i) { return d + "-" + i + ".png"; }});
+}
+
+// Test for brushes
+// This triggers a bug (shown below) in the 0.9.0 compiler, but works with
+// 0.9.1 compiler.
+
+// Stack trace:
+// /usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:38215
+//      return (type === this.semanticInfoChain.anyTypeSymbol) || type.isError();
+//                                                                     ^
+// TypeError: Cannot call method 'isError' of null
+//     at PullTypeResolver.isAnyOrEquivalent (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:38215:76)
+//     at PullTypeResolver.resolveNameExpression (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:39953:39)
+//     at PullTypeResolver.resolveAST (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:39758:37)
+//     at PullTypeResolver.computeIndexExpressionSymbol (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:40933:37)
+//     at PullTypeResolver.resolveIndexExpression (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:40925:45)
+//     at PullTypeResolver.resolveAST (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:39870:33)
+//     at PullTypeResolver.resolveOverloads (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:42917:43)
+//     at PullTypeResolver.computeCallExpressionSymbol (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:41373:34)
+//     at PullTypeResolver.resolveCallExpression (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:41175:29)
+//     at PullTypeChecker.typeCheckCallExpression (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:45111:58)
+//     at PullTypeChecker.typeCheckAST (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:43786:33)
+
+// function brushTest() {
+//     var xScale = d3.scale.linear(),
+//         yScale = d3.scale.linear();
+//
+//     var xMin = 0, xMax = 1,
+//         yMin = 0, yMax = 1;
+//
+//     // Setting only x scale.
+//     var brush1 = d3.svg.brush()
+//                     .x(xScale)
+//                     .on('brush', function () {
+//                         var extent = brush1.extent();
+//                         xMin = Math.max(extent[0], 0);
+//                         xMax = Math.min(extent[1], 1);
+//                         brush1.extent([xMin, xMax]);
+//                     });
+//
+//     // Setting both the x and y scale
+//     var brush2 = d3.svg.brush()
+//                     .x(xScale)
+//                     .y(yScale)
+//                     .on('brush', function () {
+//                         var extent = brush2.extent();
+//                         var xExtent = extent[0],
+//                             yExtent = extent[1];
+//
+//                         xMin = Math.max(xExtent[0], 0);
+//                         xMax = Math.min(xExtent[1], 1);
+//
+//                         yMin = Math.max(yExtent[0], 0);
+//                         yMax = Math.min(yExtent[1], 1);
+//
+//                         brush1.extent([[xMin, xMax], [yMin, yMax]]);
+//                     });
+// }
+
+
+// Tests for area
+// Adopted from: https://github.com/mbostock/d3/blob/master/test/svg/area-test.js
+function svgAreaTest () {
+    var a = d3.svg.area();
+
+    a.x()([0, 1]);
+    a.x()([0, 1], 1);
+    a.x(0);
+    a.x(function (d) { return d.x * 10; });
+    a.x(function (d, i) { return i * 10; });
+
+    a.x0()([0, 1]);
+    a.x0()([0, 1], 1);
+    a.x0(0);
+    a.x0(function (d) { return d.x * 10; });
+    a.x0(function (d, i) { return i * 10; });
+
+    a.x1()([0, 1]);
+    a.x1()([0, 1], 1);
+    a.x1(0);
+    a.x1(function (d) { return d.x * 10; });
+    a.x1(function (d, i) { return i * 10; });
+
+    a.y()([0, 1]);
+    a.y()([0, 1], 1);
+    a.y(0);
+    a.y(function (d) { return d.x * 10; });
+    a.y(function (d, i) { return i * 10; });
+
+    a.y0()([0, 1]);
+    a.y0()([0, 1], 1);
+    a.y0(0);
+    a.y0(function (d) { return d.x * 10; });
+    a.y0(function (d, i) { return i * 10; });
+
+    a.y1()([0, 1]);
+    a.y1()([0, 1], 1);
+    a.y1(0);
+    a.y1(function (d) { return d.x * 10; });
+    a.y1(function (d, i) { return i * 10; });
+}
+
+// Tests for areaRadial
+// Adopted from: https://github.com/mbostock/d3/blob/master/test/svg/area-radial-test.js
+function svgAreaRadialTest () {
+    var a = d3.svg.area.radial();
+
+    a.x()([0, 1]);
+    a.x()([0, 1], 1);
+    a.x(0);
+    a.x(function (d) { return d.x * 10; });
+    a.x(function (d, i) { return i * 10; });
+
+    a.x0()([0, 1]);
+    a.x0()([0, 1], 1);
+    a.x0(0);
+    a.x0(function (d) { return d.x * 10; });
+    a.x0(function (d, i) { return i * 10; });
+
+    a.x1()([0, 1]);
+    a.x1()([0, 1], 1);
+    a.x1(0);
+    a.x1(function (d) { return d.x * 10; });
+    a.x1(function (d, i) { return i * 10; });
+
+    a.y()([0, 1]);
+    a.y()([0, 1], 1);
+    a.y(0);
+    a.y(function (d) { return d.x * 10; });
+    a.y(function (d, i) { return i * 10; });
+
+    a.y0()([0, 1]);
+    a.y0()([0, 1], 1);
+    a.y0(0);
+    a.y0(function (d) { return d.x * 10; });
+    a.y0(function (d, i) { return i * 10; });
+
+    a.y1()([0, 1]);
+    a.y1()([0, 1], 1);
+    a.y1(0);
+    a.y1(function (d) { return d.x * 10; });
+    a.y1(function (d, i) { return i * 10; });
+
+    a.radius(function () { return 10; });
+    a.radius(function (d) { return d.x * 10; });
+    a.radius(function (d, i) { return i * 10; });
+
+    a.innerRadius(function () { return 10; });
+    a.innerRadius(function (d) { return d.x * 10; });
+    a.innerRadius(function (d, i) { return i * 10; });
+
+    a.outerRadius(function () { return 10; });
+    a.outerRadius(function (d) { return d.x * 10; });
+    a.outerRadius(function (d, i) { return i * 10; });
+
+    a.angle(function () { return 10; });
+    a.angle(function (d) { return d.x * 10; });
+    a.angle(function (d, i) { return i * 10; });
+
+    a.startAngle(function () { return 10; });
+    a.startAngle(function (d) { return d.x * 10; });
+    a.startAngle(function (d, i) { return i * 10; });
+
+    a.endAngle(function () { return 10; });
+    a.endAngle(function (d) { return d.x * 10; });
+    a.endAngle(function (d, i) { return i * 10; });
+}
+
+// Tests for d3.svg.line
+// Adopted from: https://github.com/mbostock/d3/blob/master/test/svg/line-test.js
+function svgLineTest () {
+    var l = d3.svg.line();
+
+    l.x()([0, 1]);
+    l.x()([0, 1], 0);
+    l.x(0);
+    l.x(function (d) { return d.x; });
+    l.x(function (d, i) { return i; });
+
+    l.y()([0, 1]);
+    l.y()([0, 1], 0);
+    l.y(0);
+    l.y(function (d) { return d.y; });
+    l.y(function (d, i) { return i; });
+}
+
+// Tests for d3.svg.line.radial
+// Adopted from: https://github.com/mbostock/d3/blob/master/test/svg/line-radial-test.js
+function svgLineRadialTest () {
+    var l = d3.svg.line.radial();
+
+    l.x()([0, 1]);
+    l.x()([0, 1], 0);
+    l.x(0);
+    l.x(function (d) { return d.x; });
+    l.x(function (d, i) { return i; });
+
+    l.y()([0, 1]);
+    l.y()([0, 1], 0);
+    l.y(0);
+    l.y(function (d) { return d.y; });
+    l.y(function (d, i) { return i; });
+
+    l.radius()([0, 1]);
+    l.radius()([0, 1], 0);
+    l.radius(0);
+    l.radius(function (d) { return d.x; });
+    l.radius(function (d, i) { return i; });
+
+    l.angle()([0, 1]);
+    l.angle()([0, 1], 0);
+    l.angle(0);
+    l.angle(function (d) { return d.y; });
+    l.angle(function (d, i) { return i; });
+}
+
+// Tests for d3.svg.arc
+// Adopted from: https://github.com/mbostock/d3/blob/master/test/svg/arc-test.js
+function svgArcTest () {
+    var l = d3.svg.arc();
+
+    l.innerRadius()([0, 1]);
+    l.innerRadius()([0, 1], 0);
+    l.innerRadius(0);
+    l.innerRadius(function (d) { return d.x; });
+    l.innerRadius(function (d, i) { return i; });
+
+    l.outerRadius()([0, 1]);
+    l.outerRadius()([0, 1], 0);
+    l.outerRadius(0);
+    l.outerRadius(function (d) { return d.x; });
+    l.outerRadius(function (d, i) { return i; });
+
+    l.startAngle()([0, 1]);
+    l.startAngle()([0, 1], 0);
+    l.startAngle(0);
+    l.startAngle(function (d) { return d.x; });
+    l.startAngle(function (d, i) { return i; });
+
+    l.endAngle()([0, 1]);
+    l.endAngle()([0, 1], 0);
+    l.endAngle(0);
+    l.endAngle(function (d) { return d.x; });
+    l.endAngle(function (d, i) { return i; });
+}
+
+// Tests for d3.svg.diagonal
+// Adopted from: https://github.com/mbostock/d3/blob/master/test/svg/diagonal-test.js
+function svgDiagonalTest () {
+    var d = d3.svg.diagonal();
+
+    d.projection()({ x: 0, y: 1});
+    d.projection()({ x: 0, y: 1}, 0);
+    d.projection(function (d) { return [d.x, d.y]; });
+    d.projection(function (d, i) { return [i, i + 1]; });
+
+    d.source()({x: 0, y: 1});
+    d.source()({x: 0, y: 1}, 0);
+    d.source({x: 0, y: 1});
+    d.source(function (d) { return {x: d.x, y: d.y}; });
+    d.source(function (d, i) { return {x: d.x * i, y: d.y * i}; });
+
+    d.target()({x: 0, y: 1});
+    d.target()({x: 0, y: 1}, 0);
+    d.target({x: 0, y: 1});
+    d.target(function (d) { return {x: d.x, y: d.y}; });
+    d.target(function (d, i) { return {x: d.x * i, y: d.y * i}; });
 }
