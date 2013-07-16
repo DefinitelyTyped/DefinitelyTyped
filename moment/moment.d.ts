@@ -94,9 +94,6 @@ interface Moment {
     milliseconds(ms: number): Moment;
     milliseconds(): number;
 
-    sod(): Moment; // Start of Day
-    eod(): Moment; // End of Day
-
     from(f: Moment): string;
     from(f: Moment, suffix: boolean): string;
     from(d: Date): string;
