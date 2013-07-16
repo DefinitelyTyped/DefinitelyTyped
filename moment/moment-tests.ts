@@ -70,12 +70,22 @@ moment().minutes(30);
 moment().hours(12); 
 moment().date(5);
 moment().day(5);
+moment().day("Sunday");
 moment().month(5);
+moment().month("January");
 moment().year(1984);
 moment().startOf('year'); 
 moment().month(0).date(1).hours(0).minutes(0).seconds(0).milliseconds(0);
 moment().startOf('hour');
 moment().minutes(0).seconds(0).milliseconds(0);
+moment().weekday();
+moment().weekday(0);
+moment().isoWeekday(1);
+moment().isoWeekday();
+moment().weekYear(2);
+moment().weekYear();
+moment().isoWeekYear(3);
+moment().isoWeekYear();
 
 var getMilliseconds: number = moment().milliseconds(); 
 var getSeconds: number = moment().seconds(); 
@@ -86,9 +96,7 @@ var getDay: number = moment().day();
 var getMonth: number = moment().month();
 var getYear: number = moment().year();
 
-moment().sod();
 moment().hours(0).minutes(0).seconds(0).milliseconds(0);
-moment().eod();
 
 var a3 = moment([2011, 0, 1, 8]);
 a3.hours();
@@ -134,6 +142,7 @@ a8.diff(b8, 'years')
 a8.diff(b8, 'years', true);
 
 moment([2007, 0, 29]).toDate();
+moment([2007, 1, 23]).toISOString();
 moment(1318874398806).valueOf(); 
 moment(1318874398806).unix();
 moment([2000]).isLeapYear();
