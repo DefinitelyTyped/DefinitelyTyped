@@ -448,14 +448,20 @@ interface JQuery {
     height(func: (index: any, height: any) => any): JQuery;
 
     innerHeight(): number;
+    innerHeight(value: number): JQuery;
+
     innerWidth(): number;
+    innerWidth(value: number): JQuery;
 
     offset(): { left: number; top: number; };
     offset(coordinates: any): JQuery;
     offset(func: (index: any, coords: any) => any): JQuery;
 
     outerHeight(includeMargin?: boolean): number;
+    outerHeight(value: number, includeMargin?: boolean): JQuery;
+
     outerWidth(includeMargin?: boolean): number;
+    outerWidth(value: number, includeMargin?: boolean): JQuery;
 
     position(): { top: number; left: number; };
 

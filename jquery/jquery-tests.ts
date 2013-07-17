@@ -1718,14 +1718,30 @@ function test_index() {
     $('div').html('Index: ' + foobar);
 }
 
-function test_innedHeight() {
+function test_innerHeight() {
     var p = $("p:first");
     $("p:last").text("innerHeight:" + p.innerHeight());
+    p.innerHeight(p.innerHeight() * 2).innerHeight();
 }
 
 function test_innerWidth() {
     var p = $("p:first");
     $("p:last").text("innerWidth:" + p.innerWidth());
+    p.innerWidth(p.innerWidth() * 2).innerWidth();
+}
+
+function test_outerHeight() {
+    var p = $("p:first");
+    $("p:last").text("outerHeight:" + p.outerHeight(true));
+    p.outerHeight(p.outerHeight() * 2).outerHeight();
+    p.outerHeight(p.outerHeight() * 2, true).outerHeight();
+}
+
+function test_outerWidth() {
+    var p = $("p:first");
+    $("p:last").text("outerWidth:" + p.outerWidth(true));
+    p.outerWidth(p.outerWidth() * 2).outerWidth();
+    p.outerWidth(p.outerWidth() * 2, true).outerWidth();
 }
 
 function test_insertAfter() {
@@ -2272,15 +2288,15 @@ function test_parseHTML() {
 		str = "hello, <b>my name is</b> jQuery.",
 		html = $.parseHTML( str ),
 		nodeNames = [];
-	 
+
 	// Append the parsed HTML
 	$log.append( html );
-	 
+
 	// Gather the parsed HTML's node names
 	$.each( html, function( i, el ) {
 		nodeNames[i] = "<li>" + el.nodeName + "</li>";
 	});
-	 
+
 	// Insert the node names
 	$log.append( "<h3>Node Names:</h3>" );
 	$( "<ol></ol>" )
