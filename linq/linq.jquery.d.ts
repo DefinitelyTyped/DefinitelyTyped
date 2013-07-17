@@ -14,3 +14,7 @@ declare module linqjs {
 interface JQuery {
     toEnumerable(): linqjs.Enumerable;
 }
+
+interface JQueryStatic {
+    Enumerable: linqjs.EnumerableStatic;
+}

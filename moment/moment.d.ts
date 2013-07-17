@@ -1,4 +1,4 @@
-// Type definitions for Moment.js 2.0.0
+// Type definitions for Moment.js 2.1.0
 // Project: https://github.com/timrwood/moment
 // Definitions by: Michael Lakerveld <https://github.com/Lakerfield>
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
@@ -80,8 +80,10 @@ interface Moment {
     year(y: number): Moment;
     year(): number;
     month(M: number): Moment;
+    month(M: string): Moment;
     month(): number;
     day(d: number): Moment;
+    day(d: string): Moment;
     day(): number;
     date(d: number): Moment;
     date(): number;
@@ -93,9 +95,14 @@ interface Moment {
     seconds(): number;
     milliseconds(ms: number): Moment;
     milliseconds(): number;
-
-    sod(): Moment; // Start of Day
-    eod(): Moment; // End of Day
+    weekday(): Moment;
+    weekday(d: number): Moment;
+    isoWeekday(): Moment;
+    isoWeekday(d: number): Moment;
+    weekYear(): Moment;
+    weekYear(d: number): Moment;
+    isoWeekYear(): Moment;
+    isoWeekYear(d: number): Moment;
 
     from(f: Moment): string;
     from(f: Moment, suffix: boolean): string;
@@ -108,6 +115,7 @@ interface Moment {
     diff(b: Moment, soort: string, round: boolean): number;
 
     toDate(): Date;
+    toISOString(): string;
     unix(): number;
 
     isLeapYear(): boolean;
