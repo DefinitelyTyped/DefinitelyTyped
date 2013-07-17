@@ -256,6 +256,8 @@ interface KnockoutUtils {
     arrayFilter(array: any[], predicate: (item) => boolean): any[];
 
     arrayPushAll(array: any[], valuesToPush: any[]): any[];
+    
+    arrayPushAll(array: KnockoutObservableArray<any>, valuesToPush: any[]): any[];
 
     extend(target, source);
 
