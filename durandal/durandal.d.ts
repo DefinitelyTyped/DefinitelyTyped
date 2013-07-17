@@ -375,7 +375,7 @@ declare module "durandal/plugins/router" {
       */
     interface IRouteInfoParameters {
         /** your url pattern. The only required parameter */
-        url: string;
+        url: any;
         /** if not supplied, router.convertRouteToName derives it */
         moduleId?: string;
         /** if not supplied, router.convertRouteToModuleId derives it */
