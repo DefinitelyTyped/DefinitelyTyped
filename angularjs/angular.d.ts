@@ -199,6 +199,8 @@ declare module ng {
         $watch(watchExpression: string, listener?: (newValue: any, oldValue: any, scope: IScope) => any, objectEquality?: bool): Function;
         $watch(watchExpression: (scope: IScope) => any, listener?: string, objectEquality?: bool): Function;
         $watch(watchExpression: (scope: IScope) => any, listener?: (newValue: any, oldValue: any, scope: IScope) => any, objectEquality?: bool): Function;
+        
+        $parent: IScope;
 
         $id: number;
     }
