@@ -41,3 +41,28 @@ jQuery(document).ready(function ($) {
         }
     });
 });
+
+
+jQuery(document).ready(function ($) {
+    $(".royalSlider").royalSlider({
+        // general options go gere
+        autoScaleSlider: true,
+        autoPlay: {
+            // autoplay options go gere
+            enabled: true,
+            pauseOnHover: true
+        }
+    });
+});
+
+jQuery(document).ready(function ($) {
+    $(".royalSlider").royalSlider({
+        // general options go gere
+        autoScaleSlider: true,
+        video: {
+            // video options go gere
+            autoHideBlocks: true,
+            autoHideArrows: false
+        }
+    });
+});
