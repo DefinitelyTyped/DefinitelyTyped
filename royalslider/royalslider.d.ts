@@ -1,4 +1,4 @@
-// Type definitions for jQuery royal-slider
+// Type definitions for jQuery royal-slider v9.4.0
 // Project: http://dimsemenov.com/plugins/royal-slider/documentation/
 // Definitions by: Christiaan Rakowski <https://github.com/csrakowski/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -137,7 +137,59 @@ declare module RoyalSlider {
         vimeoCode?: string;
     }
 
+    export interface RoyalSliderBlockOptions {
+        /**
+         * true or false  (default: true)
+         */
+        fadeEffect?: boolean;
+        /**
+         * Move effect direction.Can be 'left', 'right', 'top', 'bottom' or 'none'. (default: 'top')
+         */
+        moveEffect?: string;
+        /**
+         * Distance for move effect in pixels. (default: 20)
+         */
+        moveOffset?: number;
+        /**
+         * Transition speed of block, in ms. (default: 400)
+         */
+        speed?: number;
+        /**
+         * Easing function of block animation.Read more in easing section of docs. (default: 'easeOutSine' )
+         */
+        easing?: string;
+        /**
+         * Delay between each block show up, in ms. (default: 200)
+         */
+        delay?: number;
+    }
 
+    export interface RoyalSliderVisibleOptions {
+        /**
+         * Enable visible-nearby. (default: true)
+         */
+        enabled?: boolean;
+        /**
+         * Ratio that determines area of center image.For example for 0.6 - 60 % of slider area will get center image and 20% for two images on sides. (default: 0.6)
+         */
+        centerArea?: number;
+        /**
+         * Alignment of center image, if you set it to false center image will be aligned to left. (default: true)
+         */
+        center?: boolean;
+        /**
+         * Disables navigation to next slide by clicking on current slide (if navigateByClick is true). (default: true)
+         */
+        navigateByCenterClick?: boolean;
+        /**
+         * Used for responsive design. Changes centerArea value to breakpointCenterArea when width of slider is less then value in this option. Set to 0 to disable. (default: 0)
+         */
+        breakpoint?: number;
+        /**
+         * Same as centerArea option, just for breakpoint. Can be changed dynamically via `sliderInstance.st.breakpointCenterArea`. (default: 0.8)
+         */
+        breakpointCenterArea?: number;
+    }
 
     export interface RoyalSliderOptions {
         /**
@@ -304,6 +356,133 @@ declare module RoyalSlider {
          * To add video to slide, you need to add data-rsVideo="" attribute to image. It can contain link to YouTube or Vimeo video.
          */
         video?: RoyalSliderVideoOptions;
+        /**
+         * All elements inside slide that have class rsABlock will be treated by slider as animated blocks (tag name doesn't matter). Blocks can not be nested, but you can put multiple instances of them into one slide, or make slide itself animated block.
+         */
+        block?: RoyalSliderBlockOptions;
+        /**
+         * Module "reveals" next and previous slides, like in this template.
+         */
+        visibleNearby?: RoyalSliderVisibleOptions;
+    }
+
+    export interface RoyalSlider { //TODO: extends/implements JQuery? (giving problems due to next(), prev(), width and height and 'selector'.
+        /**
+         * go to slide with id
+         */
+        goTo(id: number): void;
+        /**
+         * next slide
+         */
+        next(): void;
+        /**
+         * prev slide
+         */
+        prev(): void;
+        /**
+         * removes all events and clears all slider data (use on ajax sites to avoid memory leaks)
+         */
+        destroy(): void;
+        /**
+         * Dynamic slides adding/removing
+         */
+        appendSlide(element: JQuery, index?: number): void;
+        /**
+         * Remove slide
+         */
+        removeSlide(index?: number): void;
+        /**
+         * updates size of slider.  Use after you resize slider with js.
+         */
+        updateSliderSize(forceResize?: boolean): void;
+        /**
+         * changes orientation of thumbnails
+         */
+        setThumbsOrientation(orientation: string): void;
+        /**
+         * updates size of thumbnails
+         */
+        updateThumbsSize(): void;
+        /**
+         * Enter Fullscreen mode
+         */
+        enterFullscreen(): void;
+        /**
+         * Exit Fullscreen mode
+         */
+        exitFullscreen(): void;
+        /**
+         * Start autoplay
+         */
+        startAutoPlay(): void;
+        /**
+         * Stop autoplay
+         */
+        stopAutoPlay(): void;
+        /**
+         * Toggle autoplay between start and stop
+         */
+        toggleAutoPlay(): void;
+        /**
+         * Toggle video between start and stop
+         */
+        toggleVideo(): void;
+        /**
+         * Play video
+         */
+        playVideo(): void;
+        /**
+         * Stop video
+         */
+        stopVideo(): void;
+        /**
+         * current slide index
+         */
+        currSlideId: number;
+        /**
+         * current slide object
+         */
+        currSlide: JQuery;
+        /**
+         * total number of slides
+         */
+        numSlides: number;
+        /**
+         * indicates if slider is in fullscreen mode
+         */
+        isFullscreen: boolean;
+        /**
+         * indicates if browser supports native fullscreen
+         */
+        nativeFS: boolean;
+        /**
+         * width of slider
+         */
+        width: number;
+        /**
+         * height of slider
+         */
+        height: number;
+        /**
+         * Boolean, changes on mouseup, indicates if slide was dragged. Used to check if event is drag or click.
+         */
+        dragSuccess: boolean;
+        /**
+         * contains all data about each slide
+         */
+        slides: any[]; //TODO: what type?
+        /**
+         * Contains list of HTML slides that are added to slider
+         */
+        slidesJQ: JQuery[]; //TODO: what type?
+        /**
+         * Object with slider settings
+         */
+        st: RoyalSliderOptions;
+        /**
+         * jQuery object with slider events
+         */
+        ev: JQuery;
     }
 }
 
@@ -313,5 +492,5 @@ interface JQuery {
     *
     * @param options The options
     */
-    royalSlider(options?: RoyalSlider.RoyalSliderOptions): JQuery;
+    royalSlider(options?: RoyalSlider.RoyalSliderOptions): RoyalSlider.RoyalSlider;
 }
