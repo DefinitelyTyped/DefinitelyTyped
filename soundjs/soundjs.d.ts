@@ -168,7 +168,7 @@ declare module createjs {
         static getCapabilities(): Object;
         static getCapability(key: string): any;    //HERE can return string | number | bool
         static getInstanceById(uniqueId: string): SoundInstance;
-		static getMute(): number;
+		static getMute(): bool;
         static getMasterVolume(): number;
         static getSrcFromId(value: string): string;
 		static getVolume(): number;
@@ -181,7 +181,7 @@ declare module createjs {
 		static registerManifest(manifest: Array);
         static resume(id: string): void;
         static setMasterVolume(value: number): bool;
-        static setMute(isMuted: bool, id: string): bool;
+        static setMute(isMuted: bool): bool;
         static setVolume(value: number, id?: string): bool;
         static stop(): bool;
 
