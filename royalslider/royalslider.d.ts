@@ -95,6 +95,50 @@ declare module RoyalSlider {
         prefix?: string;
     }
 
+    export interface RoyalSliderAutoplayOptions {
+        /**
+         * Enable autoplay or not. (default: false)
+         */
+        enabled?: boolean;
+        /**
+         * Stop autoplay at first user action. (default: true)
+         */
+        stopAtAction?: boolean;
+        /**
+         * Pause autoplay on hover. (default: true)
+         */
+        pauseOnHover?: boolean;
+        /**
+         * Delay between items in ms. (default: 300)
+         */
+        delay?: number;
+    }
+
+    export interface RoyalSliderVideoOptions {
+        /**
+         * Auto hide arrows when video is playing  (default: true)
+         */
+        autoHideArrows?: boolean;
+        /**
+         * Auto hide navigation when video is playing. (default: false)
+         */
+        autoHideControlNav?: boolean;
+        /**
+         * Auto hide animated blocks when video is playing. (default: false)
+         */
+        autoHideBlocks?: boolean;
+        /**
+         * Youtube embed code. %id% is replaced by video id. (default: '<iframe src="http://www.youtube.com/embed/%id%?rel=1&autoplay=1&showinfo=0" frameborder="no"></iframe>')
+         */
+        youTubeCode?: string;
+        /**
+         * Vimeo embed code. %id% is replaced by video id. (default: '<iframe src="http://player.vimeo.com/video/%id%?byline=0&amp;portrait=0&amp;autoplay=1" frameborder="no" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>')
+         */
+        vimeoCode?: string;
+    }
+
+
+
     export interface RoyalSliderOptions {
         /**
          * Automatically updates slider height based on base width. (default: false)
@@ -251,7 +295,15 @@ declare module RoyalSlider {
         /**
          * Deep linking module makes URL automatically change when you switch slides and you can easily link to specific slide (aka permalink).
          */
-        deeplinking?: RoyalSliderDeeplinkingOptions
+        deeplinking?: RoyalSliderDeeplinkingOptions;
+        /**
+         * Autoplay slideshow can be enabled via slider options. Delay between items can be set globally via delay option, or specifically for each item by adding data-rsDelay="1000" to root element of the slide (1000 = 1sec).
+         */
+        autoplay?: RoyalSliderAutoplayOptions;
+        /**
+         * To add video to slide, you need to add data-rsVideo="" attribute to image. It can contain link to YouTube or Vimeo video.
+         */
+        video?: RoyalSliderVideoOptions;
     }
 }
 
