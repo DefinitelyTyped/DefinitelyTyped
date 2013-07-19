@@ -83,6 +83,7 @@ List of Definitions
 * [i18next](http://i18next.com/) (by [Maarten Docter](https://github.com/mdocter))
 * [iCheck](http://damirfoy.com/iCheck/) (by [Dániel Tar](https://github.com/qcz))
 * [Impress.js](https://github.com/bartaz/impress.js) (by [Boris Yankov](https://github.com/borisyankov))
+* [Intl](http://www.ecma-international.org/ecma-402/1.0/) (by [Jeffery Grajkowski](http://github.com/pushplay))
 * [iScroll](http://cubiq.org/iscroll-4) (by [Boris Yankov](https://github.com/borisyankov))
 * [jake](https://github.com/mde/jake) (by [Kon](http://phyzkit.net/))
 * [Jasmine](http://pivotal.github.com/jasmine/) (by [Boris Yankov](https://github.com/borisyankov))
