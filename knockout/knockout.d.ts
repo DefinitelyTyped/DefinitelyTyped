@@ -289,7 +289,7 @@ interface KnockoutUtils {
 
     triggerEvent(element: any, eventType: any): void;
 
-    unwrapObservable(value: any): any;
+    unwrapObservable<T>(value: KnockoutObservable<T>): T;
 
     toggleDomNodeCssClass(node: any, className: string, shouldHaveClass: boolean): void;
 
