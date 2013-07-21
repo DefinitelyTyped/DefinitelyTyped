@@ -58,9 +58,9 @@ declare module D3 {
 
     export interface Base extends Selectors {
         /**
-        * Create a behaviour
+        * Create a behavior
         */
-        behavior: Behaviour.Behavior;
+        behavior: Behavior.Behavior;
         /**
         * Access the current user event for interaction
         */
@@ -167,7 +167,7 @@ declare module D3 {
         /**
         * Randomize the order of an array.
         *
-        * @param arr Array to randomise
+        * @param arr Array to randomize
         */
         shuffle<T>(arr: T[]): T[];
         /**
@@ -344,15 +344,15 @@ declare module D3 {
         */
         interpolateString: Transition.BaseInterpolate;
         /*
-        * Interpolate two RGB colours
+        * Interpolate two RGB colors
         */
         interpolateRgb: Transition.BaseInterpolate;
         /*
-        * Interpolate two HSL colours
+        * Interpolate two HSL colors
         */
         interpolateHsl: Transition.BaseInterpolate;
         /*
-        * Interpolate two HCL colours
+        * Interpolate two HCL colors
         */
         interpolateHcl: Transition.BaseInterpolate;
         /*
@@ -1366,7 +1366,7 @@ declare module D3 {
         }
     }
 
-    // Colour
+    // Color
     export module Color {
         export interface Color {
             /**
