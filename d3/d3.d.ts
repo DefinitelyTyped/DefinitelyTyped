@@ -2585,7 +2585,7 @@ declare module D3 {
     }
 
     // Behaviour
-    export module Behaviour {
+    export module Behavior {
         export interface Behavior{
             /**
             * Constructs a new drag behaviour
