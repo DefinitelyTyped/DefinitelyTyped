@@ -15,7 +15,7 @@ class CookieOptions implements JQueryCookieOptions {
     expires: number;
     path: string;
     domain: string;
-    secure: bool;
+    secure: boolean;
 }
 
 $.cookie("the_cookie", "the_value");
