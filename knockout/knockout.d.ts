@@ -15,6 +15,7 @@ interface KnockoutSubscribableFunctions {
 
 interface KnockoutComputedFunctions extends KnockoutSubscribableFunctions {
     getDependenciesCount(): number;
+    getSubscriptionsCount(): number;
     hasWriteFunction(): boolean;
 }
 
