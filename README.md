@@ -60,6 +60,7 @@ List of Definitions
 * [File API: Writer](http://www.w3.org/TR/file-writer-api/) (by [Kon](http://phyzkit.net/))
 * [Finite State Machine](https://github.com/jakesgordon/javascript-state-machine) (by [Boris Yankov](https://github.com/borisyankov))
 * [Firebase](https://www.firebase.com/docs/javascript/firebase) (by [Vincent Bortone](https://github.com/vbortone))
+* [Firefox](https://developer.mozilla.org/en-US/docs/Web/API) (by [vvakame](https://github.com/vvakame))
 * [FlexSlider](http://www.woothemes.com/flexslider/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Foundation](http://foundation.zurb.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [FPSMeter](http://darsa.in/fpsmeter/) (by [Aaron Lampros](https://github.com/alampros))
