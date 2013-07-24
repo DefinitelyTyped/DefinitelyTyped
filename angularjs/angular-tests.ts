@@ -137,6 +137,20 @@ module HttpAndRegularPromiseTests {
       $scope.letters = letters;
     });
   }
+
+  // Test that we can pass around a type-checked success/error Promise Callback
+  var anotherController: Function = ($scope: SomeControllerScope, $http:
+      ng.IHttpService, $q: ng.IQService) => {
+
+    var buildFooData: Function = () => 42;
+
+    var doFoo: Function = (callback: ng.IHttpPromiseCallback) => {
+      $http.get('/foo', buildFooData())
+        .success(callback);
+    }
+
+    doFoo((data) => console.log(data));
+  }
 }
 
 // Test for AngularJS Syntac
