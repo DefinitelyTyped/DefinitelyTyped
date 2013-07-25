@@ -1449,7 +1449,7 @@ declare module L {
 
     }
 
-    export class FeatureGroup implements ILayer, IEventPowered {
+    export class FeatureGroup extends LayerGroup implements ILayer, IEventPowered {
         /**
           * Create a layer group, optionally given an initial set of layers.
           */
