@@ -24,6 +24,9 @@ THE SOFTWARE.
 
 declare module google.maps {
 
+    // RH - new attribute from Google controlling display of new visual styles
+    export var visualRefresh: bool;
+
     /***** MVC *****/
     export class MVCObject {
         constructor ();
