@@ -8,14 +8,16 @@ $(".royalSlider").royalSlider({
     keyboardNavEnabled: true
 });
 
-$(".royalSlider").royalSlider({
-    // general options go gere
-    autoScaleSlider: true,
-    thumbs: {
-        // thumbnails options go gere
-        spacing: 10,
-        arrowsAutoHide: true
-    }
+jQuery(document).ready(function ($) {
+    $(".royalSlider").royalSlider({
+        // general options go gere
+        autoScaleSlider: true,
+        thumbs: {
+            // thumbnails options go gere
+            spacing: 10,
+            arrowsAutoHide: true
+        }
+    });
 });
 
 jQuery(document).ready(function ($) {
@@ -186,7 +188,7 @@ slider.ev.on('rsDragRelease', function () {
 slider.ev.on('rsBeforeDestroy', function () {
     // triggers before slider in destroyed
 });
-slider.ev.on('rsOnCreateVideoElement', function (e, url)) {
+slider.ev.on('rsOnCreateVideoElement', function (e, url) {
     // triggers before video element is created, after click on play button. 
     // Read more in Tips&Tricks section
 });
