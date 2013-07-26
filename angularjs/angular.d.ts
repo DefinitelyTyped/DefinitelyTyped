@@ -14,7 +14,7 @@ declare var angular: ng.IAngularStatic;
 declare module ng {
 
     // All service providers extend this interface
-    interface IServiceProvider {
+    export interface IServiceProvider {
         $get(): any;
     }
 
@@ -22,7 +22,7 @@ declare module ng {
     // AngularStatic
     // see http://docs.angularjs.org/api
     ///////////////////////////////////////////////////////////////////////////
-    interface IAngularStatic {
+    export interface IAngularStatic {
         bind(context: any, fn: Function, ...args: any[]): Function;
         bootstrap(element: string, modules?: any[]): auto.IInjectorService;
         bootstrap(element: JQuery, modules?: any[]): auto.IInjectorService;
@@ -661,7 +661,7 @@ declare module ng {
         // InjectorService
         // see http://docs.angularjs.org/api/AUTO.$injector
         ///////////////////////////////////////////////////////////////////////
-        interface IInjectorService {
+        export interface IInjectorService {
             annotate(fn: Function): string[];
             annotate(inlineAnnotadedFunction: any[]): string[];
             get (name: string): any;
@@ -673,7 +673,7 @@ declare module ng {
         // ProvideService
         // see http://docs.angularjs.org/api/AUTO.$provide
         ///////////////////////////////////////////////////////////////////////
-        interface IProvideService {
+        export interface IProvideService {
             // Documentation says it returns the registered instance, but actual
             // implementation does not return anything.
             // constant(name: string, value: any): any;
