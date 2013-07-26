@@ -244,7 +244,7 @@ interface RaphaelStatic {
     fn: any;
     format(token: string, ...parameters: any[]): string;
     fullfill(token: string, json: JSON): string;
-    getColor {
+    getColor:{
         (value?: number): string;
         reset();
     };
