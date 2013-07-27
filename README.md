@@ -152,6 +152,7 @@ List of Definitions
 * [PreloadJS](http://www.createjs.com/#!/PreloadJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [QUnit](http://qunitjs.com/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Restify](https://github.com/mcavage/node-restify) (by [Bret Little](https://github.com/blittle))
+* [Royalslider](http://dimsemenov.com/plugins/royal-slider/) (by [Christiaan Rakowski](https://github.com/csrakowski))
 * [Rx.js](http://rx.codeplex.com/) (by [gsino](http://www.codeplex.com/site/users/view/gsino))
 * [Raphael](http://raphaeljs.com/) (by [CheCoxshall](https://github.com/CheCoxshall))
 * [Restangular](https://github.com/mgonto/restangular/) (by [Boris Yankov](https://github.com/borisyankov))
