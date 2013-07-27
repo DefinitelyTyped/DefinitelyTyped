@@ -1,5 +1,5 @@
 ﻿/// AmCharts object (it's not a class) is create automatically when amcharts.js or amstock.js file is included in a web page.
-declare module AmChartsStatic {
+declare module AmCharts {
 
     /** Set it to true if you have base href set for your page. This will fix rendering problems in Firefox caused by base href. */
     var baseHref: bool;
@@ -31,7 +31,7 @@ declare module AmChartsStatic {
             chart.dataProvider = chartData;
             chart.write("chartdiv");
     */
-    declare class AmPieChart {
+    class AmPieChart {
         /** Name of the field in chart's dataProvider which holds slice's alpha. */
         alphaField: string;
         /** Pie lean angle (for 3D effect). Valid range is 0 - 90. */
@@ -232,7 +232,7 @@ declare module AmChartsStatic {
       chart.write("chartdiv");
     }
     */
-    declare class AmRadarChart extends AmCoordinateChart {
+    class AmRadarChart extends AmCoordinateChart {
         /** Bottom margin of the chart. */
         marginBottom: number;
         /** Left margin of the chart. */
@@ -290,7 +290,7 @@ declare module AmChartsStatic {
                               
             chart.write("chartdiv);
     */
-    declare class AmXYChart extends AmRectangularChart {
+    class AmXYChart extends AmRectangularChart {
         /** Specifies if Scrollbar of X axis (horizontal) should be hidden. */
         hideXScrollbar: bool;
         /** Specifies if Scrollbar of Y axis (vertical) should be hidden. */
@@ -305,7 +305,7 @@ declare module AmChartsStatic {
     /** Guides are straight vertical or horizontal lines or areas supported by AmSerialChart, AmXYChart and AmRadarChart. You can have guides both on value and category axes. To add/remove a guide to an axis, use axis.addGuide(guide)/axis.removeGuide(guide) methods.
 
 If you do not set properties such as dashLength, lineAlpha, lineColor, etc - values of the axis are used.*/
-    declare class Guide {
+    class Guide {
         /** Radar chart only. Specifies angle at which guide should start. Affects only fills, not lines. */
         angle: number;
         /** Baloon fill color. */
@@ -348,7 +348,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         value: number;
     }
     /** ImagesSettings is a class which holds common settings of all MapImage objects. */
-    declare class ImagesSettings {
+    class ImagesSettings {
         /** Opacity of the image. 
             @default 1
         */
@@ -402,7 +402,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** AreasSettings is a class which holds common settings of all MapArea objects. */
-    declare class AreasSettings {
+    class AreasSettings {
         /** Opacity of areas.
             @default 1
         */
@@ -454,7 +454,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** Slice is an item of AmPieChart's chartData Array and holds all the information about the slice. When working with a pie chart, you do not create slices or change it's properties directly, instead you set array of data using dataProvider property. Consider properties of a Slice read-only - change values in chart's data provider if you need to. */
-    declare class Slice {
+    class Slice {
         /** Opacity of a slice. */
         alpha: number;
         /** Color of a slice. */
@@ -481,7 +481,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
 
     /** AmStockChart is a main class Stock chart. */
-    declare class AmStockChart {
+    class AmStockChart {
         /** Specifies if animation was already played. Animation is only played once, when chart is rendered for the first time. If you want the animation to be repeated, set this property to false. */
         animationPlayed: bool;
         /** Balloon object. */
@@ -613,7 +613,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** ValueAxesSettings settings set 's settings for all ValueAxes. If you change a property after the chart is initialized, you should call stockChart.validateNow() method in order for it to work. If there is no default value specified, default value of ValueAxis class will be used. */
-    declare class ValueAxesSettings {
+    class ValueAxesSettings {
         /** Specifies whether number for gridCount is specified automatically, according to the axis size.
             @default true
         */
@@ -684,7 +684,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             var legend = new AmCharts.AmLegend();
             chart.addLegend(legend);
     */
-    declare class AmLegend {
+    class AmLegend {
 
         /** Alignment of legend entries. Possible values are: "left", "center", "right". left */
         align: string;
@@ -822,7 +822,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
     /** StockLegend is a legend of StockPanel. */
 
-    declare class StockLegend extends AmLegend {
+    class StockLegend extends AmLegend {
         /** The text which will be displayed in the value portion of the legend when graph is comparable and at least one dataSet is selected for comparing. You can use tags like [[value]], [[open]], [[high]], [[low]], [[close]], [[percents.value/open/close/low/high]], [[description]]. [[percents.value]]% */
 
         valueTextComparing: string;
@@ -833,7 +833,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
     /** StockPanel class creates stock panels (charts). AmStockChart can have multiple Stock panels. */
 
-    declare class StockPanel extends AmSerialChart {
+    class StockPanel extends AmSerialChart {
         /** Specifies whether x button will be displayed near the panel. This button allows turning panel off. */
         allowTurningOff: bool;
         /** If true, drawing icons will be displayed in top-right corner. */
@@ -879,7 +879,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** AmChart is a base class of all charts. It can not be instantiated explicitly. AmCoordinateChart, AmPieChart and AmMap extend AmChart class. */
-    declare class AmChart {
+    class AmChart {
         /** Background color. You should set backgroundAlpha to >0 value in order background to be visible. We recommend setting background color directly on a chart's DIV instead of using this property. #FFFFFF */
         backgroundColor: string;
         /** The chart creates AmBalloon class itself. If you want to customize balloon, get balloon instance using this property, and then change balloon's properties.  AmBalloon */
@@ -988,7 +988,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
     /** AmCoordinateChart is a base class of AmRectangularChart. It can not be instantiated explicitly. */
 
-    declare class AmCoordinateChart extends AmChart {
+    class AmCoordinateChart extends AmChart {
         /** Specifies the colors of the graphs if the lineColor of a graph is not set.
             It there are more graphs then colors in this array, the chart picks random color.
             @default ['#FF6600', '#FCD202', '#B0DE09', '#0D8ECF', '#2A0CD0', '#CD0D74', '#CC0000', '#00CC00', '#0000CC', '#DDDDDD', '#999999', '#333333', '#990000'] */
@@ -1098,7 +1098,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** GraphDataItem holds all the information about the graph's data item. When working with a chart, you do not create GraphDataItem objects or change it's properties directly. GraphDataItem is passed to you by events when user interacts with data item on the chart. The list of properties below will help you to extract data item's value/coordinate/etc. */
-    declare class GraphDataItem {
+    class GraphDataItem {
         /** Opacity of the data item. */
         alpha: number;
         /** Bullet type. */
@@ -1132,7 +1132,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** SerialDataItem holds all the information about each series. When working with a chart, you do not create SerialDataItem objects or change it's properties directly. Consider properties of a SerialDataItem read-only - change values in chart's data provider if you need to. When serial chart parses dataProvider, it generates "chartData" array. Objects of this array are SerialDataItem objects. */
-    declare class SerialDataItem {
+    class SerialDataItem {
         
         /** You can access each GraphDataItem using this object. The data structure is: graphDataItem = serialDataItem.axes[axisId].graphs[graphId]. */
         axes: Object;
@@ -1147,7 +1147,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         x: number;
     }
 
-    declare class CategoryAxis extends AxisBase {
+    class CategoryAxis extends AxisBase {
         
         /** When parse dates is on for the category axis, the chart will try to highlight the beginning of the periods, like month, in bold. Set this to false to disable the functionality.
             @default true
@@ -1197,7 +1197,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             var chartScrollbar = new AmCharts.ChartScrollbar();
             chart.addChartScrollbar(chartScrollbar);
     */
-    declare class ChartScrollbar {
+    class ChartScrollbar {
         /** Specifies whether number of gridCount is specified automatically, acoarding to the axis size. */
         autoGridCount: bool;
         /** Background opacity.
@@ -1261,7 +1261,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** AmRectangularChart is a base class of AmSerialChart and AmXYChart. It can not be instantiated explicitly.*/
-    declare class AmRectangularChart extends AmCoordinateChart {
+    class AmRectangularChart extends AmCoordinateChart {
         /** The angle of the 3D part of plot area. This creates a 3D effect (if the "depth3D" is > 0). */
         angle: number;
         /** Space left from axis labels/title to the chart's outside border, if autoMargins set to true.
@@ -1324,7 +1324,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             trendLine.lineColor = "#CC0000";
             chart.addTrendLine(trendLine);
     */
-    declare class TrendLine {
+    class TrendLine {
 
     }
 
@@ -1334,7 +1334,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             var chartCursor = new AmCharts.ChartCursor();
             chart.addChartCursor(chartCursor);
     */
-    declare class ChartCursor {
+    class ChartCursor {
         /** Specifies if bullet for each graph will follow the cursor. */
         bulletsEnabled: bool;
         /** Size of bullets, following the cursor.
@@ -1431,7 +1431,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 			
             chart.write("chartdiv");
     */
-    declare class AmSerialChart extends AmRectangularChart {
+    class AmSerialChart extends AmRectangularChart {
         /** Read-only. Chart creates category axis itself. If you want to change some properties, you should get this axis from the chart and set properties to this object. */
         categoryAxis: CategoryAxis;
         /** Category field name tells the chart the name of the field in your dataProvider object which will be used for category axis values. */
@@ -1479,7 +1479,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         zoomToIndexes(start, end);
     }
 
-    declare class PeriodSelector {
+    class PeriodSelector {
         /** Date format of date input fields. Check [[http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/mx/formatters/DateFormatter.html DD-MM-YYYY */
         dateFormat: string;
         /** Text displayed next to "from" date input field. From: */
@@ -1531,7 +1531,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
     /** PanelsSettings settings set's settings for all StockPanels. If you change a property after the chart is initialized, you should call stockChart.validateNow() method in order for it to work. If there is no default value specified, default value of StockPanel class will be used. */
 
-    declare class PanelsSettings {
+    class PanelsSettings {
         /** The angle of the 3D part of plot area. This creates a 3D effect (if the "depth3D" is > 0). */
         angle: number;
         /** Opacity of panel background. Possible values are 1 and 0. Values like 0.5 will not make it half-transparent. */
@@ -1590,7 +1590,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
     /** DataSet is objects which holds all information about data. */
 
-    declare class DataSet {
+    class DataSet {
         /** Category field name in your dataProvider. */
         categoryField: string;
         /** Color of the data set. One of colors from AmStockChart.colors array will be used if not set. */
@@ -1615,7 +1615,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         title: string;
     }
 
-    declare class StockGraph extends AmGraph {
+    class StockGraph extends AmGraph {
         /** Specifies whether this graph will be compared if some data set is selected for comparing. */
         comparable: bool;
         /** Specifies a field to be used to generate comparing graph. Note, this field is not the one used in your dataProvider, but toField from FieldMapping object. */
@@ -1655,7 +1655,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** StockEvent is object which holds information about event(bullet).Values from StockEventsSettings will be used if not set.Stock event bullet's size depends on it's graphs fontSize.When user rolls - over, clicks or rolls - out of the event bullet, AmStockChart dispatches events.*/
-    declare class StockEvent {
+    class StockEvent {
         /** Opacity of bullet background.
             @default 1
         */
@@ -1689,7 +1689,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** Common settings of legends. If you change a property after the chart is initialized, you should call stockChart.validateNow() method in order for it to work. If there is no default value specified, default value of StockLegend class will be used. */
-    declare class LegendSettings {
+    class LegendSettings {
         /** Alignment of legend entries. Possible values are: "left", "right" and "center". */
         align: string;
         /** Specifies if each legend entry should take the same space as the longest legend entry. */
@@ -1744,7 +1744,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** DataSetSelector is a tool for selecting data set's as main and for comparing with main data set. */
-    declare class DataSetSelector {
+    class DataSetSelector {
         /** Text displayed in the "compare to" combobox (when position is "top" or "bottom"). Select... */
         comboBoxSelectText: string;
         /** Text displayed near "compare to" list. Compare to: */
@@ -1774,7 +1774,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             balloon.cornerRadius = 5;
             balloon.fillColor = "#FFFFFF";
     */
-    declare class AmBalloon {
+    class AmBalloon {
         /** If this is set to true, border color instead of background color will be changed when user rolls-over the slice, graph, etc. */
         adjustBorderColor: bool;
         /** Balloon border opacity. Value range is 0 - 1.
@@ -1830,7 +1830,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** CategoryAxesSettings settings set's settings common for all CategoryAxes of StockPanels. If you change a property after the chart is initialized, you should call stockChart.validateNow() method in order for it to work. If there is no default value specified, default value of CategoryAxis class will be used. */
-    declare class CategoryAxesSettings {
+    class CategoryAxesSettings {
         /** Specifies whether number of gridCount is specified automatically, according to the axis size.
             @default true
         */
@@ -1890,7 +1890,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** ChartCursorSettings settings set's settings for chart cursor. If you change a property after the chart is initialized, you should call stockChart.validateNow() method in order for it to work. If there is no default value specified, default value of ChartCursor class will be used. */
-    declare class ChartCursorSettings {
+    class ChartCursorSettings {
         /** Specifies if bullet for each graph will follow the cursor. */
         bulletsEnabled: bool;
         /** Size of bullets, following the cursor. */
@@ -1922,7 +1922,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /* ChartScrollbarSettings settings set's settings for chart scrollbar. If you change a property after the chart is initialized, you should call stockChart.validateNow() method in order for it to work. If there is no default value specified, default value of ChartScrollbar class will be used.*/
-    declare class ChartScrollbarSettings {
+    class ChartScrollbarSettings {
         /** Specifies whether number of gridCount is specified automatically, according to the axis size.
             @default true
         */
@@ -1992,7 +1992,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             graph.fillAlphas = 1;
             chart.addGraph(graph);
     */
-    declare class AmGraph {
+    class AmGraph {
         /** Name of the alpha field in your dataProvider. */
         alphaField: string;
         /** Value balloon color. Will use graph or data item color if not set. */
@@ -2162,7 +2162,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** AxisBase is the base class for ValueAxis and CategoryAxis. It can not be instantiated explicitly. */
-    declare class AxisBase {
+    class AxisBase {
         /** Specifies whether number of gridCount is specified automatically, acoarding to the axis size.
             @default true
         */
@@ -2249,7 +2249,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** ValueAxis is the class which displays value axis for the chart. The chart can have any number of value axes. For Serial chart one value axis is created automatically. For XY Chart two value axes (horizontal and vertical) are created automatically. */
-    declare class ValueAxis extends AxisBase {
+    class ValueAxis extends AxisBase {
         /** Radar chart only. Specifies distance from axis to the axis title (category)  10 */
         axisTitleOffset: number;
         /** Read-only. Coordinate of the base value. */
@@ -2341,6 +2341,3 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         removeListener(chart: AmChart, type: string, handler: any);
     }
 }
-
-/** AmCharts object (it's not a class) is create automatically when amcharts.js or amstock.js file is included in a web page. */
-var AmCharts: AmChartsStatic;
