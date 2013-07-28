@@ -655,8 +655,8 @@ var DefinitelyTyped;
                 this.out(' \33[36m\33[1mTypeScript files  :\33[0m ' + this.tsFiles + '\n');
             };
 
-            Print.prototype.printSyntaxCheking = function () {
-                this.out('============================ \33[34m\33[1mSyntax cheking\33[0m =================================\n');
+            Print.prototype.printSyntaxChecking = function () {
+                this.out('============================ \33[34m\33[1mSyntax checking\33[0m ================================\n');
             };
 
             Print.prototype.printTypingTests = function () {
@@ -745,14 +745,14 @@ var DefinitelyTyped;
             return File;
         })();
 
-        var SyntaxCheking = (function () {
-            function SyntaxCheking(fielHandler, out) {
-                this.fielHandler = fielHandler;
+        var SyntaxChecking = (function () {
+            function SyntaxChecking(fileHandler, out) {
+                this.fileHandler = fileHandler;
                 this.out = out;
                 this.files = [];
                 this.timer = new Timer();
             }
-            SyntaxCheking.prototype.getFailedFiles = function () {
+            SyntaxChecking.prototype.getFailedFiles = function () {
                 var list = [];
 
                 for (var i = 0; i < this.files.length; i++) {
@@ -764,7 +764,7 @@ var DefinitelyTyped;
                 return list;
             };
 
-            SyntaxCheking.prototype.getSuccessFiles = function () {
+            SyntaxChecking.prototype.getSuccessFiles = function () {
                 var list = [];
 
                 for (var i = 0; i < this.files.length; i++) {
@@ -776,14 +776,14 @@ var DefinitelyTyped;
                 return list;
             };
 
-            SyntaxCheking.prototype.printStats = function () {
+            SyntaxChecking.prototype.printStats = function () {
                 this.out.printDiv();
                 this.out.printElapsedTime(this.timer.asString, this.timer.time);
                 this.out.printSuccessCount(this.getSuccessFiles().length, this.files.length);
                 this.out.printFailedCount(this.getFailedFiles().length, this.files.length);
             };
 
-            SyntaxCheking.prototype.printFailedFiles = function () {
+            SyntaxChecking.prototype.printFailedFiles = function () {
                 if (this.getFailedFiles().length > 0) {
                     this.out.printDiv();
 
@@ -793,12 +793,12 @@ var DefinitelyTyped;
 
                     for (var i = 0; i < this.getFailedFiles().length; i++) {
                         var errorFile = this.getFailedFiles()[i];
-                        this.out.printErrorFile(errorFile.formatName(this.fielHandler.path));
+                        this.out.printErrorFile(errorFile.formatName(this.fileHandler.path));
                     }
                 }
             };
 
-            SyntaxCheking.prototype.run = function (it, file, len, maxLen, callback) {
+            SyntaxChecking.prototype.run = function (it, file, len, maxLen, callback) {
                 var _this = this;
                 if (!endsWith(file.toUpperCase(), '-TESTS.TS') && file.indexOf('../_infrastructure') < 0) {
                     new Test(file).run(function (o) {
@@ -843,10 +843,10 @@ var DefinitelyTyped;
                 }
             };
 
-            SyntaxCheking.prototype.start = function (callback) {
+            SyntaxChecking.prototype.start = function (callback) {
                 this.timer.start();
 
-                var tsFiles = this.fielHandler.allTS();
+                var tsFiles = this.fileHandler.allTS();
 
                 var it = new Iterator(tsFiles);
 
@@ -857,12 +857,12 @@ var DefinitelyTyped;
                     this.run(it, it.next(), len, maxLen, callback);
                 }
             };
-            return SyntaxCheking;
+            return SyntaxChecking;
         })();
 
         var TestEval = (function () {
-            function TestEval(fielHandler, out) {
-                this.fielHandler = fielHandler;
+            function TestEval(fileHandler, out) {
+                this.fileHandler = fileHandler;
                 this.out = out;
                 this.files = [];
                 this.timer = new Timer();
@@ -908,7 +908,7 @@ var DefinitelyTyped;
 
                     for (var i = 0; i < this.getFailedFiles().length; i++) {
                         var errorFile = this.getFailedFiles()[i];
-                        this.out.printErrorFile(errorFile.formatName(this.fielHandler.path));
+                        this.out.printErrorFile(errorFile.formatName(this.fileHandler.path));
                     }
                 }
             };
@@ -961,7 +961,7 @@ var DefinitelyTyped;
             TestEval.prototype.start = function (callback) {
                 this.timer.start();
 
-                var tsFiles = this.fielHandler.allTS();
+                var tsFiles = this.fileHandler.allTS();
 
                 var it = new Iterator(tsFiles);
 
@@ -981,7 +981,7 @@ var DefinitelyTyped;
                 this.typings = [];
                 this.fh = new FileHandler(dtPath, /.\.ts/g);
                 this.out = new Print('0.9.0.0', this.fh.allTypings().length, this.fh.allTS().length);
-                this.sc = new SyntaxCheking(this.fh, this.out);
+                this.sc = new SyntaxChecking(this.fh, this.out);
                 this.te = new TestEval(this.fh, this.out);
 
                 var tpgs = this.fh.allTypings();
@@ -1019,7 +1019,7 @@ var DefinitelyTyped;
                 timer.start();
 
                 this.out.printHeader();
-                this.out.printSyntaxCheking();
+                this.out.printSyntaxChecking();
 
                 this.sc.start(function (syntaxFailedCount, syntaxTotal) {
                     _this.out.printTypingTests();
