@@ -225,7 +225,7 @@ declare module D3 {
         * @param arr Array to search
         * @param map Accsessor function
         */
-        min: (arr: number[], map?: (v: any) => any) => number;
+        min: (arr: any[], map?: (v: any) => number) => number;
         /**
         * Find the maximum value in an array
         *
