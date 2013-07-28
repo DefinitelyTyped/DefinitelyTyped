@@ -70,10 +70,10 @@ interface IELangDBDelegates {
 }
 
 interface IELangDBEvents {
-    select: JQueryDeferred;
-    insert: JQueryDeferred;
-    modify: JQueryDeferred;
-    remove: JQueryDeferred;
+    select: JQueryDeferred<any>;
+    insert: JQueryDeferred<any>;
+    modify: JQueryDeferred<any>;
+    remove: JQueryDeferred<any>;
 }
 
 interface IELangDB {
@@ -176,7 +176,7 @@ interface IELangSearchDelegates {
 }
 
 interface IELangSearchEvents {
-    select: JQueryDeferred;
+    select: JQueryDeferred<any>;
 }
 
 interface IELangSearch extends IELangBase {
@@ -212,10 +212,10 @@ interface IELangEditDelegates {
 }
 
 interface IELangEditEvents {
-    insert: JQueryDeferred;
-    modify: JQueryDeferred;
-    remove: JQueryDeferred;
-    select: JQueryDeferred;
+    insert: JQueryDeferred<any>;
+    modify: JQueryDeferred<any>;
+    remove: JQueryDeferred<any>;
+    select: JQueryDeferred<any>;
 }
 
 interface IELangEditDefaults extends IELangBaseDefaults {
