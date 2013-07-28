@@ -292,5 +292,4 @@ interface EmberStatic {
     wrap(func: Function, superFunc: Function);
 }
 
-declare var Em: Ember;
-//declare var Ember: EmberStatic;
+declare var Em: EmberStatic;
