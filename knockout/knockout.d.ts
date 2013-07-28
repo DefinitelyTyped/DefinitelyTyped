@@ -402,6 +402,7 @@ interface KnockoutStatic {
     cleanNode(node: Element);
     renderTemplate(template: Function, viewModel: any, options?: any, target?: any, renderMode?: any);
     renderTemplate(template: string, viewModel: any, options?: any, target?: any, renderMode?: any);
+    unwrap(value: any): any;
 
     //////////////////////////////////
     // templateSources.js
