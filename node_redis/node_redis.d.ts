@@ -20,7 +20,7 @@ declare module 'redis' {
     }
 
     interface Command {
-        (...args: any[]): Commands;
+        (...args: any[]): any;
     }
     
     interface Commands {

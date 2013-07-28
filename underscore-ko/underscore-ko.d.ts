@@ -8,18 +8,18 @@
 
 interface KnockoutObservableArrayFunctions {
 
-    /****
-     Collections
-    *****/
-    each(iterator: ListIterator, context?: any): any[];
-    each(iterator: ObjectIterator, context?: any): any[];
-    forEach(iterator: ObjectIterator, context?: any): any[];
-    forEach(iterator: ListIterator, context?: any): any[];
+  /****
+   Collections
+  *****/
+    each(iterator: _.ListIterator<any, any>, context?: any): any[];
+    each(iterator: _.ObjectIterator<any, any>, context?: any): any[];
+    forEach(iterator: _.ObjectIterator<any, any>, context?: any): any[];
+    forEach(iterator: _.ListIterator<any, any>, context?: any): any[];
 
-    map(iterator: ListIterator, context?: any): any[];
-    map(iterator: ObjectIterator, context?: any): any[];
-    collect(iterator: ListIterator, context?: any): any[];
-    collect(iterator: ObjectIterator, context?: any): any[];
+    map(iterator: _.ListIterator<any, any>, context?: any): any[];
+    map(iterator: _.ObjectIterator<any, any>, context?: any): any[];
+    collect(iterator: _.ListIterator<any, any>, context?: any): any[];
+    collect(iterator: _.ObjectIterator<any, any>, context?: any): any[];
 
     reduce(iterator: any, memo: any, context?: any): any;
     inject(iterator: any, memo: any, context?: any): any;
@@ -97,5 +97,5 @@ interface KnockoutObservableArrayFunctions {
     /****
      Chaining
     *****/
-    chain(object: any): UnderscoreWrappedObject;
+    chain(object: any): any;
 }

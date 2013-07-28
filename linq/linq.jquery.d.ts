@@ -3,6 +3,7 @@
 // Definitions by: neuecc (http://www.codeplex.com/site/users/view/neuecc)
 
 /// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="linq.d.ts"/>
 
 declare module linqjs {
     interface Enumerable {
@@ -16,5 +17,5 @@ interface JQuery {
 }
 
 interface JQueryStatic {
-    Enumerable: linqjs.EnumerableStatic;
+    Enumerable: linq.EnumerableStatic;
 }
