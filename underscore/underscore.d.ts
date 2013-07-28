@@ -14,11 +14,11 @@ declare module _ {
         escape?: RegExp;
     }
 
-    interface ListIterator<T, TResult> {
+    export interface ListIterator<T, TResult> {
         (value: T, index: number, list?: List<T>): TResult;
     }
 
-    interface ObjectIterator<T, TResult> {
+    export interface ObjectIterator<T, TResult> {
         (element: T, key: string, list?: any): TResult;
     }
 

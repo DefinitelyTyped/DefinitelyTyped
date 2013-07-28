@@ -177,7 +177,7 @@ declare module Tee {
     cursor: string;
   }
 
-  interface ISeries {
+  interface ISeriesNoBounds {
     data: ISeriesData;
     marks: IMarks;
 
@@ -210,8 +210,6 @@ declare module Tee {
 
     associatedToAxis(axis: IAxis): bool;
 
-    bounds(rectangle: IRectangle): void;
-
     calc(index: number, position: IPoint): void;
 
     clicked(position: IPoint): number;
@@ -225,8 +223,10 @@ declare module Tee {
     count(): number;
 
     addRandom(count: number, range?: number, x?: bool): ISeries;
+  }
 
-
+  interface ISeries extends ISeriesNoBounds {
+    bounds(rectangle: IRectangle): void;
   }
 
   interface IAxisLabels {
@@ -504,7 +504,7 @@ declare module Tee {
     end: number[];
   }
 
-  interface IGantt extends ISeries {
+  interface IGantt extends ISeriesNoBounds {
     data: IGanttData;
     dateFormat: string;
     colorEach: string;

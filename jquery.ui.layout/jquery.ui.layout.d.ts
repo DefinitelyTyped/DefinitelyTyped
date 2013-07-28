@@ -3,8 +3,8 @@
 // Definitions by: Steve Fenton <https://github.com/Steve-Fenton>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="./jquery/jquery.d.ts"/>
-/// <reference path="./jquery/jquery.ui.d.ts"/>
+/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="../jqueryui/jqueryui.d.ts"/>
 
 interface JQueryLayoutOptions {
     north: any;
