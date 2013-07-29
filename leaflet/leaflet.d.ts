@@ -1538,7 +1538,7 @@ declare module L {
         /**
           * Function that will be used to decide whether to show a feature or not.
           */
-        filter?: (featureData: any, layer: ILayer) => bool;
+        filter?: (featureData: any, layer: ILayer) => boolean;
 
     }
 
@@ -2440,7 +2440,7 @@ declare module L {
         /**
           * Returns a function which always returns false.
           */
-        static falseFn(): () => bool;
+        static falseFn(): () => boolean;
 
         /**
           * Returns the number num rounded to digits decimals.
