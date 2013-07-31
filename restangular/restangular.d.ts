@@ -10,7 +10,7 @@ interface Restangular extends RestangularCustom {
     one(route: string, id?: number): RestangularElement;
     all(route: string): RestangularCollection;
     copy(fromElement: any): RestangularElement;
-    withConfig(configurer: any): RestangularElement;
+    withConfig(configurer: any): Restangular;
 }
 
 interface RestangularElement extends Restangular {
