@@ -8,6 +8,7 @@
 
 interface Restangular extends RestangularCustom {
     one(route: string, id?: number): RestangularElement;
+    one(route: string, id?: string): RestangularElement;
     all(route: string): RestangularCollection;
     copy(fromElement: any): RestangularElement;
     withConfig(configurer: any): Restangular;
