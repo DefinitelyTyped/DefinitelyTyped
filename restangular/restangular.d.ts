@@ -31,6 +31,7 @@ interface RestangularElement extends Restangular {
     trace(queryParams?, headers?): ng.IPromise;
     options(queryParams?, headers?): ng.IPromise;
     patch(queryParams?, headers?): ng.IPromise;
+    getRestangularUrl(): string;
 }
 
 interface RestangularCollection extends Restangular {
@@ -41,6 +42,7 @@ interface RestangularCollection extends Restangular {
     options(queryParams?, headers?): ng.IPromise;
     patch(queryParams?, headers?): ng.IPromise;
     putElement(idx, params, headers): ng.IPromise;
+    getRestangularUrl(): string;
 }
 
 interface RestangularCustom {
