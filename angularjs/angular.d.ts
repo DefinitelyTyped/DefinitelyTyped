@@ -622,7 +622,7 @@ declare module ng {
     interface IRoute {
         controller?: any;
         template?: string;
-        templateUrl?: string;
+        templateUrl?: any;
         resolve?: any;
         redirectTo?: any;
         reloadOnSearch?: boolean;
