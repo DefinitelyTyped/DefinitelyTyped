@@ -24,10 +24,6 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 */
 
-interface SuggarExcludeFunction {
-	(el: any, i?: number, array?: any[]): bool;	
-}
-
 interface String {
 
 	/**
@@ -1984,7 +1980,7 @@ interface Number {
 	upto(num: number, fn?: Function, step?: number): number[];
 }
 
-interface Array {
+interface Array<T> {
 
 	/***
 	* Alternate array constructor.
@@ -2039,10 +2035,10 @@ interface Array {
 	*   [1,2,3,4].insert(8, 1) -> [1,8,2,3,4]
 	*
 	***/
-	add(el: any, index?: number): any[];
-	add(el: any[], index?: number): any[];
-	insert(el: any, index?: number): any[];
-	insert(el: any[], index?: number): any[];
+	add(el: T, index?: number): T[];
+	add(el: T[], index?: number): T[];
+	insert(el: any, index?: number): T[];
+	insert(el: any[], index?: number): T[];
 
 	/***
 	* Gets the element(s) at a given index.
@@ -2059,8 +2055,8 @@ interface Array {
 	*   [1,2,3].at(0,1)      -> [1,2]
 	*
 	***/
-	at(index: number, loop?: bool): any;
-	at(start: number, stop: number): any[];
+	at(index: number, loop?: bool): T;
+	at(start: number, stop: number): T[];
 
 	/***
 	* Averages all values in the array.
@@ -2077,7 +2073,8 @@ interface Array {
 	*   [{age:35},{age:11},{age:11}].average('age') -> 19
 	*
 	***/
-	average(map?: (n: number) => number): number;
+	average(map?: (n: T) => number): number;
+	average(mapShortcut: string): number;
 
 	/***
 	* Clones the array.
@@ -2088,7 +2085,7 @@ interface Array {
 	*   [1,2,3].clone() -> [1,2,3]
 	*
 	***/
-	clone(): any[];
+	clone(): T[];
 
 	/***
 	* Removes all instances of %undefined%, %null%, and %NaN% from the array.
@@ -2102,7 +2099,7 @@ interface Array {
 	*   [1,'',2,false,3].compact(true)   -> [1,2,3]
 	*
 	***/
-	compact(all?: bool): any[];
+	compact(all?: bool): T[];
 
 	/***
 	* Counts all elements in the array that match <f>.
@@ -2122,7 +2119,7 @@ interface Array {
 	count(f: string): number;
 	count(f: any[]): number;
 	count(f: Object): number;
-	count(f: (n: any) => any): number;
+	count(f: (n: T) => boolean): number;
 	count(f: RegExp): number;
 
 	/***
@@ -2148,9 +2145,9 @@ interface Array {
 	*   }, 2, true);
 	*
 	***/
-	each(fn: (el: any, i?: number, array?: any[]) => bool,
+	each(fn: (el: T, i?: number, array?: T[]) => any,
 		index?: number,
-		loop?: bool): any[];
+		loop?: bool): T[];
 
 	/***
 	* Returns true if all elements in the array match <f>.
@@ -2170,11 +2167,11 @@ interface Array {
 	every(f: number, scope?: any): bool;
 	every(f: string, scope?: any): bool;
 	every(f: Object, scope?: any): bool;
-	every(f: (el: any, i?: number, array?: any[]) => bool, scope?: any): bool;
+	every(f: (el: T, i?: number, array?: T[]) => bool, scope?: any): bool;
 	all(f: number, scope?: any): bool;
 	all(f: string, scope?: any): bool;
 	all(f: Object, scope?: any): bool;
-	all(f: (el: any, i?: number, array?: any[]) => bool, scope?: any): bool;
+	all(f: (el: T, i?: number, array?: T[]) => bool, scope?: any): bool;
 
 	/***
 	* Removes any element in the array that matches [f1], [f2], etc.
@@ -2190,11 +2187,11 @@ interface Array {
 	*   });                       -> [{b:2}]
 	*
 	***/
-	exclude(...f: number[]): number[];
-	exclude(...f: string[]): string[];
-	exclude(...f: RegExp[]): string[];
-	exclude(...f: Object[]): Object[];
-	exclude(...f: SuggarExcludeFunction[]): any[];
+	exclude(...f: number[]): T[];
+	exclude(...f: string[]): T[];
+	exclude(...f: RegExp[]): T[];
+	exclude(...f: Object[]): T[];
+	exclude(fn: (n: T) => bool): T[];
 
 	/***
 	* Returns any elements in the array that match <f>.
@@ -2211,11 +2208,11 @@ interface Array {
 	*   [1,2,2,4].filter(2) -> 2
 	*
 	***/
-	filter(f: number, scope?: any): number[];
-	filter(f: string, scope?: any): string[];
-	filter(f: RegExp, scope?: any): String[];
-	filter(f: Object, scope?: any): Object[];
-	filter(f: (el: any, i?: number, array?: any[]) => bool, scope?: any): any[];
+	filter(f: number, scope?: any): T[];
+	filter(f: string, scope?: any): T[];
+	filter(f: RegExp, scope?: any): T[];
+	filter(f: Object, scope?: any): T[];
+	filter(f: (el: T, i?: number, array?: T[]) => bool, scope?: any): T[];
 
 	/***
 	* Returns the first element that matches <f>.
@@ -2233,11 +2230,11 @@ interface Array {
 	*   ['cuba','japan','canada'].find(/^c/, 2) -> 'canada'
 	*
 	***/
-	find(f: number, index?: number, loop?: bool): number;
-	find(f: string, index?: number, loop?: bool): string;
-	find(f: RegExp, index?: number, loop?: bool): string;
-	find(f: Object, index?: number, loop?: bool): Object;
-	find(f: (el: any, i?: number, array?: any[]) => bool, index?: number, loop?: bool): any;
+	find(f: number, index?: number, loop?: bool): T;
+	find(f: string, index?: number, loop?: bool): T;
+	find(f: RegExp, index?: number, loop?: bool): T;
+	find(f: Object, index?: number, loop?: bool): T;
+	find(f: (el: T, i?: number, array?: T[]) => bool, index?: number, loop?: bool): T;
 
 	/***
 	* Returns all elements that match <f>.
@@ -2256,11 +2253,11 @@ interface Array {
 	*   ['cuba','japan','canada'].findAll(/^c/, 2) -> 'canada'
 	*
 	***/
-	findAll(f: number, index?: number, loop?: bool): number[];
-	findAll(f: string, index?: number, loop?: bool): string[];
-	findAll(f: RegExp, index?: number, loop?: bool): string[];
-	findAll(f: Object, index?: number, loop?: bool): Object[];
-	findAll(f: (el: any, i?: number, array?: any[]) => bool, index?: number, loop?: bool): any[];
+	findAll(f: number, index?: number, loop?: bool): T[];
+	findAll(f: string, index?: number, loop?: bool): T[];
+	findAll(f: RegExp, index?: number, loop?: bool): T[];
+	findAll(f: Object, index?: number, loop?: bool): T[];
+	findAll(f: (el: T, i?: number, array?: T[]) => bool, index?: number, loop?: bool): T[];
 
 	/***
 	* Returns the index of the first element that matches <f>
@@ -2288,7 +2285,7 @@ interface Array {
 	findIndex(f: number, startIndex?: number, loop?: bool): number;
 	findIndex(f: any, startIndex?: number, loop?: bool): number;
 	findIndex(f: RegExp, startIndex?: number, loop?: bool): number;
-	findIndex(f: (el: any, i?: number, array?: any[]) => bool, startIndex?: number, loop?: bool): number;
+	findIndex(f: (el: T, i?: number, array?: T[]) => bool, startIndex?: number, loop?: bool): number;
 
 	/***
 	* Returns the first element(s) in the array.
@@ -2301,7 +2298,7 @@ interface Array {
 	*   [1,2,3].first(2)       -> [1,2]
 	*
 	***/
-	first(num?: number): any[];
+	first(num?: number): T[];
 
 	/***
 	* Returns a flattened, one-dimensional copy of the array.
@@ -2315,7 +2312,7 @@ interface Array {
 	*   [['a'],[],'b','c'].flatten() -> ['a','b','c']
 	*
 	***/
-	flatten(limit?: number): any[];
+	flatten(limit?: number): T[];
 
 	/***
 	* Iterates over the array, calling [fn] on each loop.
@@ -2330,7 +2327,7 @@ interface Array {
 	*   });
 	*
 	***/
-	forEach(fn: (el: any, i?: number, array?: any[]) => any, scope?: any): void;
+	forEach(fn: (el: T, i?: number, array?: T[]) => void, scope?: any): void;
 
 	/***
 	* Returns a slice of the array from <index>.
@@ -2342,7 +2339,7 @@ interface Array {
 	*   [1,2,3].from(2)  -> [3]
 	*
 	***/
-	from(index: number): any[];
+	from(index: number): T[];
 
 	/***
 	* Groups the array by <map>.
@@ -2359,8 +2356,8 @@ interface Array {
 	*   });                                  -> { 35: [{age:35,name:'ken'}], 15: [{age:15,name:'bob'}] }
 	*
 	***/
-	groupBy(map: string, fn?: (n: any) => void ): Object;
-	groupBy(fn: (n: any) => void ): Object;
+	groupBy(map: string, fn?: (n: any) => void ): any;
+	groupBy(fn: (n: T) => any ): any;
 
 	/***
 	* Groups the array into <num> arrays.
@@ -2402,24 +2399,8 @@ interface Array {
 	*   [1,2,3,4].include([5,6,7]) -> [1,2,3,4,5,6,7]
 	*
 	***/
-	include(el: any, index?: number): any[];
-
-	/***
-	* Searches the array and returns the first index where <search> occurs, or -1 if the element is not found.
-	* @method indexOf(<search>, [fromIndex])
-	* @returns Number
-	* @extra [fromIndex] is the index from which to begin the search.
-	*        This method performs a simple strict equality comparison on <search>.
-	*        It does not support enhanced functionality such as searching
-	*        the contents against a regex, callback, or deep comparison of objects.
-	*        For such functionality, use the %findIndex% method instead.
-	* @example
-	*
-	*   [1,2,3].indexOf(3)           -> 1
-	*   [1,2,3].indexOf(7)           -> -1
-	*
-	***/
-	indexOf(search: any, fromIndex?: number): number;
+	include(el: T, index?: number): T[];
+	include(els: T[], index?: number): T[];	
 
 	/***
 	* Returns an array containing the elements all arrays have in common.
@@ -2432,10 +2413,10 @@ interface Array {
 	*   ['a','b'].intersect('b','c') -> ['b']
 	*
 	***/
-	intersect(...args: number[]): number[];
-	intersect(...args: string[]): string[];
-	intersect(...args: Object[]): Object[];
+	intersect(...args: T[]): T[];
+	intersect(args: T[]): T[];
 	intersect(...args: any[]): any[];
+	intersect(args: any[]): any[];
 
 	/***
 	* Returns true if the array is empty.
@@ -2462,23 +2443,8 @@ interface Array {
 	*   [1,2,3].last(2)       -> [2,3]
 	*
 	***/
-	last(): any;
-	last(num: number): any[];
-
-	/***
-	* Searches the array and returns the last index where <search> occurs,
-	*        or -1 if the element is not found.
-	* @method lastIndexOf(<search>, [fromIndex])
-	* @returns Number
-	* @extra [fromIndex] is the index from which to begin the search.
-	*        This method performs a simple strict equality comparison on <search>.
-	* @example
-	*
-	*   [1,2,1].lastIndexOf(1)                 -> 2
-	*   [1,2,1].lastIndexOf(7)                 -> -1
-	*
-	***/
-	lastIndexOf(search: any, fromIndex?: number): number;
+	last(): T;
+	last(num: number): T[];
 
 	/***
 	* Returns the elements in the array with the least
@@ -2496,8 +2462,9 @@ interface Array {
 	*   });                               -> [{age:35,name:'ken'}]
 	*
 	***/
-	least(map: string): any[];
-	least(map: (n: any) => any): any[];
+	least(): T[];
+	least(map: string): T[];
+	least(map: (n: T) => any): any[];
 
 	/***
 	* Maps the array to another array containing the values that
@@ -2518,8 +2485,8 @@ interface Array {
 	*   });                                  -> [3,3,5]
 	*   ['one','two','three'].map('length')  -> [3,3,5]
 	***/
-	map(map: string, scope?: any): any[];
-	map(map: (n: any) => any, scope?: any): any[];
+	map<U>(map: string, scope?: any): U[];
+	map<U>(map: (n: T) => U, scope?: any): U[];
 
 	/***
 	* Returns the element in the array with the greatest value.
@@ -2538,8 +2505,11 @@ interface Array {
 	*   });                              -> {a:3}
 	*
 	***/
-	max(map: string): any;
-	max(map: (n: any) => any): any;
+	max(): T;
+	max(map: string): T;
+	max(map: string, all: boolean): any;
+	max(map: (n: T) => any): T;
+	max(map: (n: T) => any, all: boolean): any;
 
 	/***
 	* Returns the element in the array with the lowest value.
@@ -2559,8 +2529,11 @@ interface Array {
 	*   });                              -> [{a:2}]
 	*
 	***/
-	min(map: string): any;
-	min(map: (n: any) => any): any;
+	min(): T;
+	min(map: string): T;
+	min(map: string, all: boolean): any;
+	min(map: (n: T) => any): T;
+	min(map: (n: T) => any, all: boolean): any;
 
 	/***
 	* Returns the elements in the array with the most
@@ -2578,8 +2551,9 @@ interface Array {
 	*   });                              -> [{age:12,name:'bob'},{age:12,name:'ted'}]
 	*
 	***/
-	most(map: string): any[];
-	most(map: (n: any) => any): any[];
+	most(): T[];
+	most(map: string): T[];
+	most(map: (T: any) => any): T[];
 
 	/***
 	* Returns true if none of the elements in the array match <f>.
@@ -2601,7 +2575,7 @@ interface Array {
 	none(f: RegExp): bool;
 	none(f: Object): bool;
 	none(f: any[]): bool;
-	none(f: (n: any) => bool): bool;
+	none(f: (n: T) => bool): bool;
 
 	/***
 	* Returns a copy of the array with the elements randomized.
@@ -2613,53 +2587,8 @@ interface Array {
 	*   [1,2,3,4].randomize()  -> [?,?,?,?]
 	*
 	***/
-	randomize(): any[];
-
-	/***
-	* Reduces the array to a single result.
-	* @method reduce(<fn>, [init])
-	* @returns Mixed
-	* @extra If [init] is passed as a starting value, that value will be passed
-	*        as the first argument to the callback. The second argument will be
-	*        the first element in the array. From that point, the result of the
-	*        callback will then be used as the first argument of the next
-	*        iteration. This is often refered to as "accumulation", and [init]
-	*        is often called an "accumulator". If [init] is not passed, then
-	*         <fn> will be called n - 1 times, where n is the length of the array.
-	*        In this case, on the first iteration only, the first argument will
-	*        be the first element of the array, and the second argument will be
-	*        the second. After that callbacks work as normal, using the result
-	*        of the previous callback as the first argument of the next. This
-	*        method is only provided for those browsers that do not support it
-	*        natively.
-	*
-	* @example
-	*
-	*   [1,2,3,4].reduce(function(a, b) {
-	*     return a - b;
-	*   });
-	*   [1,2,3,4].reduce(function(a, b) {
-	*     return a - b;
-	*   }, 100);
-	*
-	***/
-	reduce(fn: (a: any, b: any) => any, init: any): any;
-
-	/***
-	* Identical to %Array#reduce%,
-	*        but operates on the elements in reverse order.
-	* @method reduceRight([fn], [init])
-	* @returns Mixed
-	* @extra This method is only provided for those browsers that do not support
-	*        it natively.
-	* @example
-	*
-	*   [1,2,3,4].reduceRight(function(a, b) {
-	*     return a - b;
-	*   });
-	*
-	***/
-	reduceRight(fn: (a: any, b: any) => any, init: any): any;
+	randomize(): T[];
+	
 
 	/***
 	* Removes any element in the array that matches [f1], [f2], etc.
@@ -2678,11 +2607,11 @@ interface Array {
 	*   });                       -> [{b:2}]
 	*
 	***/
-	remove(...args: number[]): number[];
-	remove(...args: string[]): string[];
-	remove(...args: Object[]): Object[];
+	remove(...args: number[]): T[];
+	remove(...args: string[]): T[];
+	remove(...args: Object[]): T[];
 	remove(...args: any[]): any[];
-	remove(fn: (n: any) => bool): any[];
+	remove(...args: {(n: T): bool}[]): T[];
 
 	/***
 	* Removes element at <start>. If [end] is specified, removes the range
@@ -2696,7 +2625,7 @@ interface Array {
 	*   [1,2,3,4].removeAt(1, 3)  -> [1]
 	*
 	***/
-	removeAt(start: number, end?: number): any[];
+	removeAt(start: number, end?: number): T[];
 
 	/***
 	* Returns a random element from the array.
@@ -2709,8 +2638,8 @@ interface Array {
 	*   [1,2,3,4,5].sample(3) -> // Array of 3 random elements
 	*
 	***/
-	sample(): any;
-	sample(num: number): any[];
+	sample(): T;
+	sample(num: number): T[];
 
 	/***
 	* Returns true if any element in the array matches <f>.
@@ -2733,7 +2662,7 @@ interface Array {
 	some(f: number, scope?: any): bool;
 	some(f: string, scope?: any): bool;
 	some(f: any, scope?: any): bool;
-	some(f: (n: any) => bool, scope?: any): bool;
+	some(f: (n: T) => bool, scope?: any): bool;
 
 	/***
 	* Sorts the array by <map>.
@@ -2754,8 +2683,8 @@ interface Array {
 	*   });                                        -> [{age:13},{age:18},{age:72}]
 	*
 	***/
-	sortBy(map: string, desc?: bool): any[];
-	sortBy(fn: (n: any) => any, desc?: bool): any[];
+	sortBy(map: string, desc?: bool): T[];
+	sortBy(fn: (n: T) => any, desc?: bool): T[];
 
 	/***
 	* Subtracts from the array all elements in [a1], [a2], etc.
@@ -2768,8 +2697,8 @@ interface Array {
 	*   [1,3,5].subtract([3],[5])   -> [1]
 	*   ['a','b'].subtract('b','c') -> ['a']
 	*
-	***/
-	subtract(...args: any[]): any[];
+	***/	
+	subtract(...args: any[]): T[]; 
 
 	/***
 	* @method sum([map])
@@ -2786,8 +2715,9 @@ interface Array {
 	*   [{age:35},{age:12},{age:12}].sum('age') -> 59
 	*
 	***/
+	sum(): number;
 	sum(map: string): number;
-	sum(fn: (n: any) => number): number;
+	sum(fn: (n: T) => number): number;
 
 	/***
 	* Returns a slice of the array up to <index>.
@@ -2799,7 +2729,7 @@ interface Array {
 	*   [1,2,3].to(2)  -> [1,2]
 	*
 	***/
-	to(index: number): any[];
+	to(index: number): T[];
 
 	/***
 	* Returns an array containing all elements in all arrays with
@@ -2834,9 +2764,9 @@ interface Array {
 	*   }); -> [{foo:'bar'}]
 	*   [{foo:'bar'},{foo:'bar'}].unique('foo') -> [{foo:'bar'}]
 	*
-	***/
-	unique(map?: string): any[];
-	unique(fn?: (obj: any) => any): any[];
+	***/    
+	unique(map?: string): T[];
+	unique(fn?: (obj: T) => any): T[];
 
 	/***
 	* Merges multiple arrays together.
