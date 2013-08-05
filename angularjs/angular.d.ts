@@ -537,21 +537,21 @@ declare module ng {
         transformResponse?: any;
     }
 
-    interface IHttpPromiseCallback {
-        (data: any, status: number, headers: (headerName: string) => string, config: IRequestConfig): any;
+    interface IHttpPromiseCallback<T> {
+        (data: T, status: number, headers: (headerName: string) => string, config: IRequestConfig): any;
     }
 
-    interface IHttpPromiseCallbackArg {
-        data?: any;
+    interface IHttpPromiseCallbackArg<T> {
+        data?: T;
         status?: number;
         headers?: (headerName: string) => string;
         config?: IRequestConfig;
     }
 
-    interface IHttpPromise extends IPromise {
-        success(callback: IHttpPromiseCallback): IHttpPromise;
-        error(callback: IHttpPromiseCallback): IHttpPromise;
-        then(successCallback: (response: IHttpPromiseCallbackArg) => any, errorCallback?: (response: IHttpPromiseCallbackArg) => any): IPromise;
+    interface IHttpPromise<T> extends IPromise {
+        success(callback: IHttpPromiseCallback<T>): IHttpPromise;
+        error(callback: IHttpPromiseCallback<T>): IHttpPromise;
+        then(successCallback: (response: IHttpPromiseCallbackArg<T>) => any, errorCallback?: (response: IHttpPromiseCallbackArg<T>) => any): IPromise;
     }
 
     interface IHttpProvider extends IServiceProvider {
@@ -640,6 +640,8 @@ declare module ng {
             $scope: IScope;
             $template: string;
         };
+
+        params: any;
     }
 
     interface IRouteProvider extends IServiceProvider {
@@ -694,6 +696,7 @@ declare module ng {
             constant(name: string, value: any): void;
 
             decorator(name: string, decorator: Function): void;
+            decorator(name: string, decoratorInline: any[]): void;
             factory(name: string, serviceFactoryFunction: Function): ng.IServiceProvider;
             provider(name: string, provider: ng.IServiceProvider): ng.IServiceProvider;
             provider(name: string, serviceProviderConstructor: Function): ng.IServiceProvider;
