@@ -249,8 +249,8 @@ declare module breeze {
         getValidationErrors(property: string): ValidationError[];
         getValidationErrors(property: IProperty): ValidationError[];
 
-        loadNavigationProperty(navigationProperty: string, callback?: Function, errorCallback?: Function): Promise;
-        loadNavigationProperty(navigationProperty: NavigationProperty, callback?: Function, errorCallback?: Function): Promise;
+        loadNavigationProperty<T extends Entity>(navigationProperty: string, callback?: ExecuteQuerySuccessCallback<T>, errorCallback?: ExecuteQueryErrorCallback): Promise<QueryResult<T>>;
+        loadNavigationProperty<T extends Entity>(navigationProperty: NavigationProperty, callback?: ExecuteQuerySuccessCallback<T>, errorCallback?: ExecuteQueryErrorCallback): Promise<QueryResult<T>>;
 
         rejectChanges(): void;
 
@@ -298,6 +298,26 @@ declare module breeze {
         static equals(k1: EntityKey, k2: EntityKey): boolean;
     }
 
+    interface FetchResult<T extends Entity> {
+        entity: T;
+        entityKey: EntityKey;
+        fromCache: boolean;
+    }
+
+    interface QueryResult<T extends Entity> {
+        results: T[];
+        query: EntityQuery;
+        entityManager: EntityManager;
+        XHR: XMLHttpRequest;
+        inlineCount: number;
+    }
+
+    interface SaveChangesResult {
+        entities: Entity[];
+        keyMappings: any;
+        XHR: XMLHttpRequest;
+    }
+
     class EntityManager {
         dataService: DataService;
         keyGeneratorCtor: Function;
@@ -319,14 +339,14 @@ declare module breeze {
         createEmptyCopy(): EntityManager;
         createEntity(typeName: string, config?: {}, entityState?: EntityStateSymbol) : Entity;
         detachEntity(entity: Entity): boolean;
-        executeQuery(query: string, callback?: ExecuteQuerySuccessCallback, errorCallback?: ExecuteQueryErrorCallback): Promise;
-        executeQuery(query: EntityQuery, callback?: ExecuteQuerySuccessCallback, errorCallback?: ExecuteQueryErrorCallback): Promise;
+        executeQuery<T extends Entity>(query: string, callback?: ExecuteQuerySuccessCallback<T>, errorCallback?: ExecuteQueryErrorCallback): Promise<QueryResult<T>>;
+        executeQuery<T extends Entity>(query: EntityQuery, callback?: ExecuteQuerySuccessCallback<T>, errorCallback?: ExecuteQueryErrorCallback): Promise<QueryResult<T>>;
 
         executeQueryLocally(query: EntityQuery): Entity[];
         exportEntities(entities?: Entity[]): string;
-        fetchEntityByKey(typeName: string, keyValue: any, checkLocalCacheFirst?: boolean): Promise;
-        fetchEntityByKey(typeName: string, keyValues: any[], checkLocalCacheFirst?: boolean): Promise;
-        fetchEntityByKey(entityKey: EntityKey): Promise;
+        fetchEntityByKey<T extends Entity>(typeName: string, keyValue: any, checkLocalCacheFirst?: boolean): Promise<FetchResult<T>>;
+        fetchEntityByKey<T extends Entity>(typeName: string, keyValues: any[], checkLocalCacheFirst?: boolean): Promise<FetchResult<T>>;
+        fetchEntityByKey<T extends Entity>(entityKey: EntityKey): Promise<FetchResult<T>>;
         fetchMetadata(callback?: (schema: any) => void , errorCallback?: breezeCore.ErrorCallback): Promise;
         generateTempKeyValue(entity: Entity): any;
         getChanges(): Entity[];
@@ -359,7 +379,7 @@ declare module breeze {
         importEntities(exportedString: any, config?: { mergeStrategy?: MergeStrategySymbol; }): EntityManager;
 
         rejectChanges(): Entity[];
-        saveChanges(entities?: Entity[], saveOptions?: SaveOptions, callback?: SaveChangesSuccessCallback, errorCallback?: SaveChangesErrorCallback): Promise;
+        saveChanges(entities?: Entity[], saveOptions?: SaveOptions, callback?: SaveChangesSuccessCallback, errorCallback?: SaveChangesErrorCallback): Promise<SaveChangesResult>;
         setProperties(config: EntityManagerProperties): void;
 
         helper: {
@@ -389,8 +409,8 @@ declare module breeze {
         keyGeneratorCtor?: Function;
     }
 
-    interface ExecuteQuerySuccessCallback {
-        (data: { results: Entity[]; query: EntityQuery; XHR: XMLHttpRequest; }): void;
+    interface ExecuteQuerySuccessCallback<T extends Entity> {
+        (data: QueryResult<T>): void;
     }
 
     interface ExecuteQueryErrorCallback {
@@ -398,7 +418,7 @@ declare module breeze {
     }
 
     interface SaveChangesSuccessCallback {
-        (saveResult: { entities: Entity[]; keyMappings: any; XHR: XMLHttpRequest; }): void;
+        (saveResult: SaveChangesResult): void;
     }
 
     interface SaveChangesErrorCallback {
@@ -436,8 +456,8 @@ declare module breeze {
 
         constructor (resourceName?: string);
 
-        execute(callback?: ExecuteQuerySuccessCallback, errorCallback?: ExecuteQueryErrorCallback): Promise;
-        executeLocally(): Entity[];
+        execute<T extends Entity>(callback?: ExecuteQuerySuccessCallback<T>, errorCallback?: ExecuteQueryErrorCallback): Promise<T>;
+        executeLocally<T extends Entity>(): T[];
         expand(propertyPaths: string[]): EntityQuery;
         expand(propertyPaths: string): EntityQuery;
         static from(resourceName: string): EntityQuery;
@@ -583,8 +603,8 @@ declare module breeze {
         addDataService(dataService: DataService): void;
         addEntityType(structuralType: IStructuralType): void;
         exportMetadata(): string;
-        fetchMetadata(dataService: string, callback?: (data) => void , errorCallback?: breezeCore.ErrorCallback): Promise;
-        fetchMetadata(dataService: DataService, callback?: (data) => void , errorCallback?: breezeCore.ErrorCallback): Promise;
+        fetchMetadata(dataService: string, callback?: (data) => void , errorCallback?: breezeCore.ErrorCallback): Promise<any>;
+        fetchMetadata(dataService: DataService, callback?: (data) => void , errorCallback?: breezeCore.ErrorCallback): Promise<any>;
         getDataService(serviceName: string): DataService;
         getEntityType(entityTypeName: string, okIfNotFound?: boolean): IStructuralType;
         getEntityTypes(): IStructuralType[];
@@ -680,10 +700,10 @@ declare module breeze {
         (property: string, operator: FilterQueryOpSymbol, value: any, valueIsLiteral?: boolean): Predicate;
     }
 
-    class Promise {
-        fail(errorCallback: Function): Promise;
-        fin(finallyCallback: Function): Promise;
-        then(callback: Function): Promise;
+    class Promise<T> {
+        fail(errorCallback: Function): Promise<any>;
+        fin(finallyCallback: Function): Promise<T>;
+        then<R>(onFulfilled?: (value: T) => R): Promise<R>;
     }
 
     class QueryOptions {

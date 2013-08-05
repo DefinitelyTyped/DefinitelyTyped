@@ -1,6 +1,6 @@
-// Type definitions for durandal 1.1.1
+// Type definitions for durandal 1.2.0
 // Project: http://durandaljs.com
-// Definitions by: Evan Larsen <http://nouvosoft.com/>
+// Definitions by: Evan Larsen <http://nouvosoft.com/>, Vítor Castro
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
@@ -30,7 +30,7 @@ declare module "durandal/system" {
     /**
       * Creates a deferred object which can be used to create a promise. Optionally pass a function action to perform which will be passed an object used in resolving the promise.
       */
-    export var defer: (action?: Function) => JQueryDeferred;
+    export var defer: (action?: Function) => JQueryDeferred<any>;
     /**
       * Creates a simple V4 UUID. This should not be used as a PK in your database. It can be used to generate internal, unique ids.
       */
@@ -38,7 +38,7 @@ declare module "durandal/system" {
     /**
       * Uses require.js to obtain a module. This function returns a promise which resolves with the module instance. You can pass more than one module id to this function. If more than one is passed, then the promise will resolve with one callback parameter per module.
       */
-    export var acquire: (...modules: string[]) => JQueryPromise;
+    export var acquire: (...modules: string[]) => JQueryPromise<any>;
 }
 
 declare module "durandal/app" {
@@ -49,15 +49,15 @@ declare module "durandal/app" {
     /**
       *  simple helper function that wraps a call to modalDialog.show()
       */
-    export var showModal: (obj, activationData?, context?) => JQueryPromise;
+    export var showModal: (obj, activationData?, context?) => JQueryPromise<any>;
     /**
       * A simple helper function that translates to return modalDialog.show(new MessageBox(message, title, options));
       */
-    export var showMessage: (message: string, title?: string, options?: any) => JQueryPromise;
+    export var showMessage: (message: string, title?: string, options?: any) => JQueryPromise<any>;
     /**
       * Call this function to bootstrap the Durandal framework. It returns a promise which is resolved when the framework is configured and the dom is ready. At that point you are ready to set your root.
       */
-    export var start: () => JQueryPromise;
+    export var start: () => JQueryPromise<void>;
     /**
       * This sets the root view or view model and displays the composed application in the specified application host. 
       * @param root parameter is required and can be anything that the composition module understands as a view or view model. This includes strings and objects. 
@@ -111,7 +111,7 @@ declare module "durandal/composition" {
     /**
       * the default strategy which is: return viewLocator.locateViewForObject(settings.model, settings.viewElements);
       */
-    export var defaultStrategy: (settings: any) => JQueryPromise;
+    export var defaultStrategy: (settings: any) => JQueryPromise<any>;
     /**
       * the default method for getting settings from the binding handler compose.
       */
@@ -138,15 +138,15 @@ declare module "durandal/http" {
     /**
       * Performs an HTTP GET request on the specified URL. This function returns a promise which resolves with the returned response data. You can optionally return a query object whose properties will be used to construct a query string.
       */
-    export var get: (url: string, query: Object) => JQueryPromise;
+    export var get: (url: string, query: Object) => JQueryXHR;
     /**
       * Performs a JSONP request to the specified url. You can optionally include a query object whose properties will be used to construct the query string. Also, you can pass the name of the API's callback parameter. If none is specified, it defaults to "callback". This api returns a promise. If you are using a callback parameter other than "callback" consistently throughout your application, then you may want to set the http module's defaultJSONPCallbackParam so that you don't need to specify it on every request.
       */
-    export var jsonp: (url: string, query: Object, callbackParam: string) => JQueryPromise;
+    export var jsonp: (url: string, query: Object, callbackParam: string) => JQueryXHR;
     /**
       * Performs an HTTP POST request on the specified URL with the supplied data. The data object is converted to JSON and the request is sent with an application/json content type. Thie function returns a promise which resolves with the returned response data.
       */
-    export var post: (url: string, data: Object) => JQueryPromise;
+    export var post: (url: string, data: Object) => JQueryXHR;
 }
 
 declare module "durandal/modalDialog" {
@@ -169,7 +169,7 @@ declare module "durandal/modalDialog" {
     /**
       * Pass a name and an object which defines the proper modal display pipeline via the functions described in the next section. This creates a new modal context or "modal style."
       */
-    export var addContext: (name: string, modalContext: any) => JQueryPromise;
+    export var addContext: (name: string, modalContext: any) => JQueryPromise<void>;
     /**
       * creates a settings obj from the supplied params
       */
@@ -177,7 +177,7 @@ declare module "durandal/modalDialog" {
     /**
       * This API uses the composition module to compose your obj into a modal popover. It also uses the viewModel module to check and enforce any screen lifecycle needs that obj may have. A promise is returned which will be resolved when the modal dialog is dismissed. The obj is the view model for your modal dialog, or a moduleId for the view model to load. Your view model instance will have a single property added to it by this mechanism called modal which represents the dialog infrastructure itself. This modal object has a single function called close which can be invoked to close the modal. You may also pass data to close which will be returned via the promise mechanism. The modal object also references it's owner, activator, the composition settings it was created with and its display context. Speaking of context, this parameter represents the display context or modal style. By default, there is one context registered with the system, named 'default'. If no context is specified, the default context with be used to display the modal. You can also specify activationData which is an arbitrary object that will be passed to your modal's activate function, if it has one.
       */
-    export var show: (obj: any, activationData: any, context: any) => JQueryPromise;
+    export var show: (obj: any, activationData: any, context: any) => JQueryPromise<any>;
 }
 
 declare module "durandal/viewEngine" {
@@ -208,7 +208,7 @@ declare module "durandal/viewEngine" {
     /**
       * Returns a promise for a dom element identified by the viewId parameter.
       */
-    export var createView: (viewId: string) => JQueryPromise;
+    export var createView: (viewId: string) => JQueryPromise<HTMLElement>;
 }
 
 declare module "durandal/viewLocator" {
@@ -219,7 +219,7 @@ declare module "durandal/viewLocator" {
     /**
       * This function takes in an object instance, which it then maps to a view id. That id is then passed to the locateView function and it is processed as above. If elementsToSearch are provided, those are passed along to locateView. Following is a description of how locateViewForObject determines the view for a given object instance.
       */
-    export var locateViewForObject: (obj: {}, elementsToSearch: HTMLElement[]) => JQueryPromise;
+    export var locateViewForObject: (obj: {}, elementsToSearch: HTMLElement[]) => JQueryPromise<HTMLElement>;
     /**
       * This function does nothing by default which is why editCustomer.js is mapped to editCustomer.html (both have the same underlying id of editCustomer). Replace this function with your own implementation to easily create your own mapping logic based on moduleId.
       */
@@ -235,7 +235,7 @@ declare module "durandal/viewLocator" {
     /**
       * The viewOrUrlOrId parameter represents a url/id for the view. The file extension is not necessary (ie. .html). When this function is called, the viewEngine will be used to construct the view. The viewEngine is passed the finalized id and returns a constructed DOM sub-tree, which is returned from this function. If the viewOrUrlOrId is not a string but is actually a DOM node, then the DOM node will be immediately returned. Optionally, you can pass an area string and it along with the url will be passed to the view locator's translateViewIdToArea before constructing the final id to pass to the view engine. If you provide an array of DOM elements for elementsToSearch, before we call the view engine, we will search the existing array for a match and return it if found.
       */
-    export var locateView: (viewOrUrlOrId: any, area: string, elementsToSearch: HTMLElement[]) => JQueryPromise;
+    export var locateView: (viewOrUrlOrId: any, area: string, elementsToSearch: HTMLElement[]) => JQueryPromise<HTMLElement>;
 }
 
 declare module "durandal/viewModel" {
@@ -302,39 +302,39 @@ interface IDurandalViewModelActiveItem {
     /**
       * Pass a specific item as well as an indication of whether it should be closed, and this function will tell you the answer.
       */
-    canDeactivateItem(item, close): JQueryPromise;
+    canDeactivateItem(item, close): JQueryPromise<boolean>;
     /**
       * Deactivates the specified item (optionally closing it). Deactivation follows the lifecycle and thus only works if the item can be deactivated.
       */
-    deactivateItem(item, close): JQueryDeferred;
+    deactivateItem(item, close): JQueryDeferred<any>;
     /**
       * Determines if a specific item can be activated. You can pass an arbitrary object to this function, which will be passed to the item's canActivate function , if present. This is useful if you are manually controlling activation and you want to provide some context for the operation.
       */
-    canActivateItem(newItem, activationData?): JQueryPromise;
+    canActivateItem(newItem, activationData?): JQueryPromise<boolean>;
     /**
       * Activates a specific item. Activation follows the lifecycle and thus only occurs if possible. activationData functions as stated above.
       */
-    activateItem(newItem, activationData?): JQueryPromise;
+    activateItem(newItem, activationData?): JQueryPromise<any>;
     /**
       * Checks whether or not the activator itself can be activated...that is whether or not it's current item or initial value can be activated.
       */
-    canActivate(): JQueryPromise;
+    canActivate(): JQueryPromise<boolean>;
     /**
       * Activates the activator...that is..it activates it's current item or initial value.
       */
-    activate(): JQueryPromise;
+    activate(): JQueryPromise<any>;
     /**
       * Checks whether or not the activator itself can be deactivated...that is whether or not it's current item can be deactivated.
       */
-    canDeactivate(): JQueryPromise;
+    canDeactivate(): JQueryPromise<boolean>;
     /**
       *  Deactivates the activator...interpreted as deactivating its current item.
       */
-    deactivate(): JQueryDeferred;
+    deactivate(): JQueryDeferred<any>;
     /**
       * Adds canActivate, activate, canDeactivate and deactivate functions to the provided model which pass through to the corresponding functions on the activator.
       */
-    includeIn(includeIn: any): JQueryPromise;
+    includeIn(includeIn: any): JQueryPromise<any>;
     /**
       * Sets up a collection representing a pool of objects which the activator will activate. See below for details. Activators without an item bool always close their values on deactivate. Activators with an items pool only deactivate, but do not close them.
       */
@@ -479,7 +479,7 @@ declare module "durandal/plugins/router" {
     /**
       * After you've configured the router, you need to activate it. This is usually done in your shell. The activate function of the router returns a promise that resolves when the router is ready to start. To use the router, you should add an activate function to your shell and return the result from that. The application startup infrastructure of Durandal will detect your shell's activate function and call it at the appropriate time, waiting for it's promise to resolve. This allows Durandal to properly orchestrate the timing of composition and databinding along with animations and splash screen display.
       */
-    export var activate: (defaultRoute: string) => JQueryPromise;
+    export var activate: (defaultRoute: string) => JQueryPromise<any>;
     /**
       * Before any route is activated, the guardRoute funtion is called. You can plug into this function to add custom logic to allow, deny or redirect based on the requested route. To allow, return true. To deny, return false. To redirect, return a string with the hash or url. You may also return a promise for any of these values.
       */
