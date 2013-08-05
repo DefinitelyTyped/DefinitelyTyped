@@ -145,6 +145,7 @@ List of Definitions
 * [node_zeromq](https://github.com/JustinTulloss/zeromq.node) (by [Dave McKeown](https://github.com/davemckeown))
 * [node-sqlserver](https://github.com/WindowsAzure/node-sqlserver) (by [Boris Yankov](https://github.com/borisyankov))
 * [Numeral.js](https://github.com/adamwdraper/Numeral-js) (by [Vincent Bortone](https://github.com/vbortone/))
+* [Persona](http://www.mozilla.org/en-US/persona) (by [James Frasca](https://github.com/Nycto))
 * [PhantomJS](http://phantomjs.org) (by [Jed Hunsaker](https://github.com/jedhunsaker))
 * [PhoneGap](http://phonegap.com) (by [Boris Yankov](https://github.com/borisyankov))
 * [Platform](https://github.com/bestiejs/platform.js) (by [Jake Hickman](https://github.com/JakeH))
