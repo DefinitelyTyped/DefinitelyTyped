@@ -28,17 +28,17 @@ interface SignalR {
 
     hub: HubConnection;
     id: string;
-    logging: bool;
+    logging: boolean;
     messageId: string;
     url: string;
 
-    (url: string, queryString?: any, logging?: bool): SignalR;
+    (url: string, queryString?: any, logging?: boolean): SignalR;
     hubConnection(url?: string): SignalR;
 
-    log(msg: string, logging: bool): void;
-    isCrossDomain(url: string): bool;
-    changeState(connection: SignalR, expectedState: number, newState: number): bool;
-    isDisconnecting(connection: SignalR): bool;
+    log(msg: string, logging: boolean): void;
+    isCrossDomain(url: string): boolean;
+    changeState(connection: SignalR, expectedState: number, newState: number): boolean;
+    isDisconnecting(connection: SignalR): boolean;
 
    // createHubProxy(hubName: string): SignalR;
 
@@ -49,7 +49,7 @@ interface SignalR {
 
 
     send(data: string): void;
-    stop(async?: bool, notifyServer?: bool): void;
+    stop(async?: boolean, notifyServer?: boolean): void;
 
     starting(handler: () => void ): SignalR;
     received(handler: (data: any) => void ): SignalR;
@@ -64,7 +64,7 @@ interface SignalR {
 interface HubProxy {
     (connection: HubConnection, hubName: string): HubProxy;
     init(connection: HubConnection, hubName: string): void;
-    hasSubscriptions(): bool;
+    hasSubscriptions(): boolean;
     on(eventName: string, callback: (...msg) => void ): HubProxy;
     off(eventName: string, callback: (msg) => void ): HubProxy;
     invoke(methodName: string, ...args: any[]): JQueryDeferred;
@@ -72,12 +72,12 @@ interface HubProxy {
 
 interface HubConnectionSettings {
     queryString?: string;
-    logging?: bool;
-    useDefaultPath?: bool;
+    logging?: boolean;
+    useDefaultPath?: boolean;
 }
 
 interface HubConnection extends SignalR {
-    //(url?: string, queryString?: any, logging?: bool): HubConnection;
+    //(url?: string, queryString?: any, logging?: boolean): HubConnection;
     proxies;
     received(callback: (data: { Id; Method; Hub; State; Args; }) => void ): HubConnection;
     createHubProxy(hubName: string): HubProxy;
@@ -90,12 +90,12 @@ interface SignalRfn {
 interface ConnectionSettings {
     transport?;
     callback?;
-    waitForPageLoad?: bool;
-    jsonp?: bool;
+    waitForPageLoad?: boolean;
+    jsonp?: boolean;
 }
 
 interface JQueryStatic {
     signalR: SignalR;
     connection: SignalR;
-    hubConnection(url?: string, queryString?: any, logging?: bool): HubConnection;
+    hubConnection(url?: string, queryString?: any, logging?: boolean): HubConnection;
 }
