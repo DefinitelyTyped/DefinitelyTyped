@@ -3,4 +3,4 @@
 import moment = require('moment');
 
 var m = moment();
-m.toISOString();
+var d = m.toISOString();
