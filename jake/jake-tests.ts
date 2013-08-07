@@ -1,7 +1,7 @@
 // https://github.com/mde/jake
 /// <reference path="jake.d.ts" />
 
-import path = module("path");
+import path = require("path");
 
 desc('This is the default task.');
 task('default', function (params) {
