@@ -1,6 +1,6 @@
 /// <reference path="msnodesql.d.ts" />
 
-import sql = module('msnodesql');
+import sql = require('msnodesql');
 
 function test_streaming() {
 
