@@ -224,7 +224,7 @@ declare module "events" {
         on(event: string, listener: Function): any;
         once(event: string, listener: Function): void;
         removeListener(event: string, listener: Function): void;
-        removeAllListener(sevent?: string): void;
+        removeAllListeners(event?: string): void;
         setMaxListeners(n: number): void;
         listeners(event: string): { Function; }[];
         emit(event: string, arg1?: any, arg2?: any): void;
