@@ -2611,7 +2611,7 @@ interface Array<T> {
 	remove(...args: string[]): T[];
 	remove(...args: Object[]): T[];
 	remove(...args: any[]): any[];
-	remove(...args: {(n: T): bool}[]): T[];
+	remove(...args: {(n: T): boolean}[]): T[];
 
 	/***
 	* Removes element at <start>. If [end] is specified, removes the range
