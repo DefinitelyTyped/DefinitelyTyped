@@ -380,11 +380,13 @@ interface SinonStatic {
 	test(fn: (...args: any[]) => any): SinonTestWrapper;
 	testCase(tests: any): any;
 }
+++
 
 // Utility overridables
 interface SinonStatic {
 	format: (obj: any) => string;
 	log: (message: string) => void;
+	createStubInstance: (ctor: (...args: any[]) => any) => any;
 }
 
 declare var sinon: SinonStatic;
