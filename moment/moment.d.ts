@@ -68,8 +68,9 @@ interface Moment {
     subtract(soort: string, aantal: number): Moment;
 
     calendar(): string;
+    clone(): Moment;
 
-    valueOf(): string;
+    valueOf(): number;
 
     local(): Moment; // current date/time in local mode
 
@@ -95,13 +96,13 @@ interface Moment {
     seconds(): number;
     milliseconds(ms: number): Moment;
     milliseconds(): number;
-    weekday(): Moment;
+    weekday(): number;
     weekday(d: number): Moment;
-    isoWeekday(): Moment;
+    isoWeekday(): number;
     isoWeekday(d: number): Moment;
-    weekYear(): Moment;
+    weekYear(): number;
     weekYear(d: number): Moment;
-    isoWeekYear(): Moment;
+    isoWeekYear(): number;
     isoWeekYear(d: number): Moment;
 
     from(f: Moment): string;
@@ -232,7 +233,6 @@ interface MomentStatic {
     (date: number[]): Moment;
     (clone: Moment): Moment;
 
-    clone(): Moment;
     unix(timestamp: number): Moment;
 
     utc(): Moment; // current date/time in UTC mode

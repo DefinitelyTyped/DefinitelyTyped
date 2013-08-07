@@ -3,7 +3,6 @@
 // Definitions by: Stanislav Vyshchepan <http://gandjustas.blogspot.ru> and Andrey Markeev <http://markeev.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-
 declare module Sys {
     export class EventArgs {
         static Empty: Sys.EventArgs;
@@ -16,7 +15,7 @@ declare module Sys {
         /** Clears the contents of the string builder */
         clear(): void;
         /** Indicates wherever the string builder is empty */
-        isEmpty(): bool;
+        isEmpty(): boolean;
         /** Gets the contents of the string builder as a string */
         toString(): string;
     }
@@ -34,8 +33,86 @@ declare module Sys {
         }
     }
     module Net {
-        export class WebRequest { }
-        export class WebRequestExecutor { }
+        export class WebRequest {
+            get_url(): string;
+            set_url(value: string): void;
+            get_httpVerb(): string;
+            set_httpVerb(value: string): void;
+            get_timeout(): number;
+            set_timeout(value: number): void;
+            get_body(): string;
+            set_body(value: string): void;
+            get_headers(): { [key: string]: string; };
+            get_userContext(): any;
+            set_userContext(value: any): void;
+            get_executor(): WebRequestExecutor;
+            set_executor(value: WebRequestExecutor): void;
+
+            getResolvedUrl(); string;
+            invoke(): void;
+            completed(args: Sys.EventArgs): void;
+
+            add_completed(handler: (executor: WebRequestExecutor, args: Sys.EventArgs) => void ): void;
+            remove_completed(handler: (executor: WebRequestExecutor, args: Sys.EventArgs) => void ): void;
+        }
+
+        export class WebRequestExecutor {
+            get_aborted(): boolean;
+            get_responseAvailable(): boolean;
+            get_responseData(): string;
+            get_object(): any;
+            get_started(): boolean;
+            get_statusCode(): number;
+            get_statusText(): string;
+            get_timedOut(): boolean;
+            get_xml(): Document;
+            get_webRequest(): WebRequest;
+            abort(): void;
+            executeRequest(): void;
+            getAllResponseHeaders(): string;
+            getResponseHeader(key: string): string;
+        }
+        
+        export class NetworkRequestEventArgs extends EventArgs {
+            get_webRequest(): WebRequest;
+        }
+        
+        
+        export class WebRequestManager {
+            static get_defaultExecutorType(): string;
+            static set_defaultExecutorType(value: string): void;
+            static get_defaultTimeout(): number;
+            static set_defaultTimeout(value: number): void;
+
+            static executeRequest(request: WebRequest):void;
+            static add_completedRequest(handler: (executor: WebRequestExecutor, args: Sys.EventArgs) => void ): void;
+            static remove_completedRequest(handler: (executor: WebRequestExecutor, args: Sys.EventArgs) => void ): void;  
+            static add_invokingRequest(handler: (executor: WebRequestExecutor, args: NetworkRequestEventArgs) => void ): void;
+            static remove_invokingRequest(handler: (executor: WebRequestExecutor, args: NetworkRequestEventArgs ) => void ): void;               
+        } 
+
+        export class WebServiceProxy {
+            static invoke(
+                servicePath: string,
+                methodName: string,
+                useGet?: boolean,
+                params?: any,
+                onSuccess?: (result: string, eventArgs: EventArgs) => void ,
+                onFailure?: (error: WebServiceError) => void ,
+                userContext?: any,
+                timeout?: number,
+                enableJsonp?: boolean,
+                jsonpCallbackParameter?: string): WebRequest;
+        }
+        
+        export class WebServiceError {
+            get_errorObject(): any;
+            get_exceptionType(): any;
+            get_message(): string;
+            get_stackTrace(): string;
+            get_statusCode(): number;
+            get_timedOut(): boolean;
+        }
     }
     interface IDisposable {
         dispose(): void;
@@ -47,6 +124,139 @@ declare var $get: { (id: string): HTMLElement; };
 declare var $addHandler: { (element: HTMLElement, eventName: string, handler: (e: Event) => void ): void; };
 declare var $removeHandler: { (element: HTMLElement, eventName: string, handler: (e: Event) => void ): void; };
 
+declare module SP {
+    export class SOD {
+        static execute(fileName: string, functionName: string, ...args: any[]): void;
+        static executeFunc(fileName: string, typeName: string, fn: () => void ): void;
+        static executeOrDelayUntilEventNotified(func: Function, eventName: string): boolean;
+        static executeOrDelayUntilScriptLoaded(func: () => void , depScriptFileName: string): boolean;
+        static notifyScriptLoadedAndExecuteWaitingJobs(scriptFileName: string): void;
+        static notifyEventAndExecuteWaitingJobs(eventName: string, args?: any[]): void;
+        static registerSod(fileName: string, url: string): void;
+        static registerSodDep(fileName: string, dependentFileName: string): void;
+        static loadMultiple(keys: string[], fn: () => void , bSync?: boolean): void;
+        static delayUntilEventNotified(func: Function, eventName: string): void;
+
+        static get_prefetch(): boolean;
+        static set_prefetch(value: boolean): void;
+
+        static get_ribbonImagePrefetchEnabled(): boolean;
+        static set_ribbonImagePrefetchEnabled(value: boolean): void;
+
+
+    }
+}
+
+/** Register function to rerun on partial update in MDS-enabled site.*/
+declare function RegisterModuleInit(scriptFileName: string, initFunc: () => void ): void;
+
+/** Provides access to url and query string parts.*/
+declare class JSRequest {
+    /** Query string parts.*/
+    static QueryString: { [parameter: string]: string; };
+
+    /** initializes class.*/
+    static EnsureSetup(): void;
+
+    /** Current file name (after last '/' in url).*/
+    static FileName: string;
+
+    /** Current file path (before last '/' in url).*/
+    static PathName: string;
+}
+
+declare class _spPageContextInfo {
+    static alertsEnabled: boolean; //true
+    static allowSilverlightPrompt: string; //"True"
+    static clientServerTimeDelta: number; //-182
+    static crossDomainPhotosEnabled: boolean; //true
+    static currentCultureName: string; //"ru-RU"
+    static currentLanguage: number; //1049
+    static currentUICultureName: string; //"ru-RU"
+    static layoutsUrl: string;  //"_layouts/15"
+    static pageListId: string;  //"{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
+    static pagePersonalizationScope: string; //1
+    static serverRequestPath: string; //"/SPTypeScript/Lists/ConditionalFormattingTasksList/AllItems.aspx"
+    static siteAbsoluteUrl: string; // "https://gandjustas-7b20d3715e8ed4.sharepoint.com"
+    static siteClientTag: string; //"0$$15.0.4454.1021"
+    static siteServerRelativeUrl: string; // "/"
+    static systemUserKey: string; //"i:0h.f|membership|10033fff84e7cb2b@live.com"
+    static tenantAppVersion: string; //"0"
+    static userId: number; //12
+    static webAbsoluteUrl: string; //"https://gandjustas-7b20d3715e8ed4.sharepoint.com/SPTypeScript"
+    static webLanguage: number; //1049
+    static webLogoUrl: string; //"/_layouts/15/images/siteIcon.png?rev=23"
+    static webPermMasks: { High: number; Low: number; };
+    static webServerRelativeUrl: string; //"/SPTypeScript"
+    static webTemplate: string; //"17"
+    static webTitle: string; //"SPTypeScript"
+    static webUIVersion: number; //15
+}
+
+declare function STSHtmlEncode(value: string): string;
+
+declare function AddEvtHandler(element: HTMLElement, event: string, func: EventListener): void;
+
+/** Gets query string parameter */
+declare function GetUrlKeyValue(key: string): string;
+declare module SP {
+    export enum RequestExecutorErrors {
+        requestAbortedOrTimedout,
+        unexpectedResponse,
+        httpError,
+        noAppWeb,
+        domainDoesNotMatch,
+        noTrustedOrigins,
+        iFrameLoadError
+    }
+
+    export class RequestExecutor {
+        constructor(url: string, options?: any);
+        get_formDigestHandlingEnabled(): boolean;
+        set_formDigestHandlingEnabled(value: boolean): void;
+        get_iFrameSourceUrl(): string;
+        set_iFrameSourceUrl(value: string): void;
+        executeAsync(requestInfo:RequestInfo): void;
+        attemptLogin(returnUrl:string, success: (response: ResponseInfo) => void , error?: (response: ResponseInfo, error: RequestExecutorErrors, statusText: string) => void): void;
+    }
+
+    export interface RequestInfo {
+        url: string;
+        method?: string;
+        headers?: { [key: string]: string; };
+        /** Can be string or bytearray depending on binaryStringRequestBody field */
+        body?: any;
+        binaryStringRequestBody?: boolean;
+
+        /** Currently need fix to get ginary response. Details: http://techmikael.blogspot.ru/2013/07/how-to-copy-files-between-sites-using.html */
+        binaryStringResponseBody?: boolean;
+        timeout?: number;
+        success?: (response: ResponseInfo) => void;
+        error?: (response: ResponseInfo, error: RequestExecutorErrors, statusText: string) => void;
+        state?: any;
+    }
+
+    export interface ResponseInfo {
+        statusCode?: number;
+        statusText?: string;
+        responseAvailable: boolean;
+        allResponseHeaders?: string;
+        headers?: { [key: string]: string; };
+        contentType?: string;
+        /** Can be string or bytearray depending on request.binaryStringResponseBody field */
+        body?: any;
+        state?: any;
+    }
+
+    export class ProxyWebRequestExecutor extends Sys.Net.WebRequestExecutor {
+        constructor(url: string, options?: any);
+    }
+
+    export class ProxyWebRequestExecutorFactory implements SP.IWebRequestExecutorFactory {
+        constructor(url: string, options?: any);
+        createWebRequestExecutor(): ProxyWebRequestExecutor;
+    }
+}
 interface MQuery
 {
     (selector: string, context?: any): MQueryResultSetElements;
@@ -63,7 +273,7 @@ interface MQuery
     extend(target: any, ...objs: any[]): Object;
     extend(deep: boolean, target: any, ...objs: any[]): Object;
 
-    makeArray(obj: any): any[];
+    makeArray<T>(obj: any): any[];
 
     isDefined(obj: any): boolean;
     isNotNull(obj: any): boolean;
@@ -237,6 +447,7 @@ interface MQueryResultSetElements extends MQueryResultSet<HTMLElement>{
 }
 
 interface MQueryResultSet<T> {    
+    [index: number]: T;
     contains(contained: T): boolean;
     
     filter(fn: (elementOfArray: T, indexInArray: number) => boolean, context?: any): MQueryResultSet<T>;
@@ -290,9 +501,9 @@ declare class CalloutActionOptions {
         @param action The action object */
     onClickCallback: (event: Event, action: CalloutAction) => any;
     /** Callback which returns if the action link is enabled */
-    isEnabledCallback: (action: CalloutAction) => bool;
+    isEnabledCallback: (action: CalloutAction) => boolean;
     /** Callback which returns if the action link is visible */
-    isVisibleCallback: (action: CalloutAction) => bool;
+    isVisibleCallback: (action: CalloutAction) => boolean;
     /** Submenu entries for the action. If defined, the action link click will popup the specified menu. */
     menuEntries: CalloutActionMenuEntry[];
 }
@@ -332,13 +543,13 @@ declare class CalloutAction {
     getToolTop(): string;
     getDisabledToolTip(): string;
     getOnClickCallback(): (event, action: CalloutAction) => any;
-    getIsDisabledCallback(): (action: CalloutAction) => bool;
-    getIsVisibleCallback(): (action: CalloutAction) => bool;
-    getIsMenu(): bool;
+    getIsDisabledCallback(): (action: CalloutAction) => boolean;
+    getIsVisibleCallback(): (action: CalloutAction) => boolean;
+    getIsMenu(): boolean;
     getMenuEntries(): CalloutActionMenuEntry[];
     render(): void;
-    isEnabled(): bool;
-    isVisible(): bool;
+    isEnabled(): boolean;
+    isVisible(): boolean;
     set (options: CalloutActionOptions): void;
 }
 
@@ -369,15 +580,15 @@ declare class Callout {
     /** Returns the position algorithm function defined for the callout during its creation. */
     getPositionAlgorithm(): any;
     /** Specifies wherever callout is in "Opened" state */
-    isOpen(): bool;
+    isOpen(): boolean;
     /** Specifies wherever callout is in "Opening" state */
-    isOpening(): bool;
+    isOpening(): boolean;
     /** Specifies wherever callout is in "Opened" or "Opening" state */
-    isOpenOrOpening(): bool;
+    isOpenOrOpening(): boolean;
     /** Specifies wherever callout is in "Closing" state */
-    isClosing(): bool;
+    isClosing(): boolean;
     /** Specifies wherever callout is in "Closed" state */
-    isClosed(): bool;
+    isClosed(): boolean;
     /** Returns the callout actions menu */
     getActionMenu(): CalloutActionMenu;
     /** Adds a link to the actions panel in the bottom part of the callout window */
@@ -385,9 +596,9 @@ declare class Callout {
     /** Re-renders the actions menu. Call after the actions menu is changed. */
     refreshActions(): void;
     /** Display the callout. Animation can be used only for IE9+ */
-    open(useAnimation: bool);
+    open(useAnimation: boolean);
     /** Hide the callout. Animation can be used only for IE9+ */
-    close(useAnimation: bool);
+    close(useAnimation: boolean);
     /** Display if hidden, hide if shown. */
     toggle(): void;
     /** Do not call this directly. Instead, use CalloutManager.remove */
@@ -398,9 +609,9 @@ declare class CalloutOpenOptions {
     /** HTML event name, e.g. "click" */
     event: string;
     /** Callout will be closed on blur */
-    closeCalloutOnBlur: bool;
+    closeCalloutOnBlur: boolean;
     /** Close button will be shown within the callout window */
-    showCloseButton: bool;
+    showCloseButton: boolean;
 }
 
 declare class CalloutOptions {
@@ -448,17 +659,17 @@ declare class CalloutManager {
     static getFromLaunchPointIfExists(launchPoint: HTMLElement): Callout;
     /** Gets the first launch point within the specified ancestor element, and returns true if the associated with it callout is opened or opening.
         If the launch point is not found or the callout is hidden, returns false. */
-    static containsOneCalloutOpen(ancestor: HTMLElement): bool;
+    static containsOneCalloutOpen(ancestor: HTMLElement): boolean;
     /** Finds the closest launch point based on the specified descendant element, and returns callout associated with the launch point. */
     static getFromCalloutDescendant(descendant: HTMLElement): Callout;
     /** Perform some action for each callout on the page. */
     static forEach(callback: (callout: Callout) => void);
     /** Closes all callouts on the page */
-    static closeAll(): bool;
+    static closeAll(): boolean;
     /** Returns true if at least one of the defined on page callouts is opened. */
-    static isAtLeastOneCalloutOpen(): bool;
+    static isAtLeastOneCalloutOpen(): boolean;
     /** Returns true if at least one of the defined on page callouts is opened or opening. */
-    static isAtLeastOneCalloutOn(): bool;
+    static isAtLeastOneCalloutOn(): boolean;
 }
 
 
@@ -533,14 +744,14 @@ declare module SPClientTemplates {
     /** Represents schema for a Lookup field in list form or in list view in grid mode */
     export interface FieldSchema_InForm_Lookup extends FieldSchema_InForm {
         /** Specifies if the field allows multiple values */
-        AllowMultipleValues: bool;
+        AllowMultipleValues: boolean;
         /** Returns base url for a list display form, e.g. "http://portal/web/_layouts/15/listform.aspx?PageType=4"
             You must add "ListId" (Guid of the list) and "ID" (integer Id of the item) parameters in order to use this Url */
         BaseDisplayFormUrl: string;
         /** Indicates if the field is a dependent lookup */
-        DependentLookup: bool;
+        DependentLookup: boolean;
         /** Indicates wherever the lookup list is throttled (contains more items than value of the "List Throttle Limit" setting). */
-        Throttled: bool;
+        Throttled: boolean;
         /** Returns string representation of a number that represents the current value for the "List Throttle Limit" web application setting.
             Only appears if Throttled property is true, i.e. the target lookup list is throttled. */
         MaxQueryResult: string;
@@ -561,7 +772,7 @@ declare module SPClientTemplates {
         DisplayFormat: DateTimeDisplayFormat;
         /** Indicates wherever current user regional settings specify to display week numbers in day or week views of a calendar.
             Only appears for DateTime fields. */
-        ShowWeekNumber: bool;
+        ShowWeekNumber: boolean;
         TimeSeparator: string;
         TimeZoneDifference: string;
         FirstDayOfWeek: number;
@@ -572,39 +783,39 @@ declare module SPClientTemplates {
         LanguageId: string;
         MinJDay: number;
         MaxJDay: number;
-        HoursMode24: bool;
+        HoursMode24: boolean;
         HoursOptions: string[];
     }
     /** Represents schema for a DateTime field in list form or in list view in grid mode */
     export interface FieldSchema_InForm_Geolocation extends FieldSchema_InForm {
         BingMapsKey: string;
-        IsBingMapBlockedInCurrentRegion: bool;
+        IsBingMapBlockedInCurrentRegion: boolean;
     }
     /** Represents schema for a Choice field in list form or in list view in grid mode */
     export interface FieldSchema_InForm_MultiChoice extends FieldSchema_InForm {
         /** List of choices for this field. */
         MultiChoices: string[];
         /** Indicates wherever fill-in choice is allowed */
-        FillInChoice: bool;
+        FillInChoice: boolean;
     }
     /** Represents schema for a Choice field in list form or in list view in grid mode */
     export interface FieldSchema_InForm_MultiLineText extends FieldSchema_InForm {
         /** Specifies whether rich text formatting can be used in the field */
-        RichText: bool;
+        RichText: boolean;
         /** Changes are appended to the existing text. */
-        AppendOnly: bool;
+        AppendOnly: boolean;
         /** Rich text mode for the field */
         RichTextMode: RichTextMode;
         /** Number of lines configured to display */
         NumberOfLines: number;
         /** A boolean value that specifies whether hyperlinks can be used in this fields. */
-        AllowHyperlink: bool;
+        AllowHyperlink: boolean;
         /** WebPartAdderId for the ScriptEditorWebPart */
         ScriptEditorAdderId: string;
     }
     /** Represents schema for a Number field in list form or in list view in grid mode */
     export interface FieldSchema_InForm_Number extends FieldSchema_InForm {
-        ShowAsPercentage: bool;
+        ShowAsPercentage: boolean;
     }
     /** Represents schema for a Number field in list form or in list view in grid mode */
     export interface FieldSchema_InForm_Text extends FieldSchema_InForm {
@@ -616,23 +827,23 @@ declare module SPClientTemplates {
     }
     /** Represents schema for a Number field in list form or in list view in grid mode */
     export interface FieldSchema_InForm_User extends FieldSchema_InForm {
-        Presence: bool;
-        WithPicture: bool;
-        DefaultRender: bool;
-        WithPictureDetail: bool;
+        Presence: boolean;
+        WithPicture: boolean;
+        DefaultRender: boolean;
+        WithPictureDetail: boolean;
         /** Server relative Url for ~site/_layouts/listform.aspx */
         ListFormUrl: string;
         /** Server relative Url for ~site/_layouts/userdisp.aspx */
         UserDisplayUrl: string;
         EntitySeparator: string;
-        PictureOnly: bool;
+        PictureOnly: boolean;
         PictureSize: string;
     }
     /** Represents field schema in Grid mode and on list forms.
         Consider casting objects of this type to more specific field types, e.g. FieldSchemaInForm_Lookup */
     export interface FieldSchema_InForm {
         /** Specifies if the field can be edited while list view is in the Grid mode */
-        AllowGridEditing: bool;
+        AllowGridEditing: boolean;
         /** Description for this field. */
         Description: string;
         /** Direction of the reading order for the field. */
@@ -640,7 +851,7 @@ declare module SPClientTemplates {
         /** String representation of the field type, e.g. "Lookup". Same as SPField.TypeAsString */
         FieldType: string;
         /** Indicates whether the field is hidden */
-        Hidden: bool;
+        Hidden: boolean;
         /** Guid of the field */
         Id: string;
         /** Specifies Input Method Editor (IME) mode bias to use for the field.
@@ -649,17 +860,17 @@ declare module SPClientTemplates {
         /** Internal name of the field */
         Name: string;
         /** Specifies if the field is read only */
-        ReadOnlyField: bool;
+        ReadOnlyField: boolean;
         /** Specifies wherever field requires values */
-        Required: bool;
-        RestrictedMode: bool;
+        Required: boolean;
+        RestrictedMode: boolean;
         /** Title of the field */
         Title: string;
         /** For OOTB fields, returns the type of field. For "UserMulti" returns "User", for "LookupMulti" returns "Lookup".
             For custom field types, returns base type of the field. */
         Type: string;
         /** If SPFarm.Local.UseMinWidthForHtmlPicker is true, UseMinWidth will be set to true. Undefined in other cases. */
-        UseMinWidth: bool;
+        UseMinWidth: boolean;
     }
     export interface ListSchema_InForm {
         Field: FieldSchema_InForm[];
@@ -833,26 +1044,26 @@ declare module SPClientTemplates {
         CurrentItems: Item[];
     }
     export interface RenderContext_InView extends RenderContext {
-        AllowCreateFolder: bool;
-        AllowGridMode: bool;
-        BasePermissions: { [PermissionName: string]: bool; }; // SP.BasePermissions?
-        bInitialRender: bool;
-        CanShareLinkForNewDocument: bool;
+        AllowCreateFolder: boolean;
+        AllowGridMode: boolean;
+        BasePermissions: { [PermissionName: string]: boolean; }; // SP.BasePermissions?
+        bInitialRender: boolean;
+        CanShareLinkForNewDocument: boolean;
         CascadeDeleteWarningMessage: string;
         clvp: HTMLElement; // not in View
-        ContentTypesEnabled: bool;
+        ContentTypesEnabled: boolean;
         ctxId: number;
         ctxType: any; // not in View
         CurrentUserId: number;
-        CurrentUserIsSiteAdmin: bool;
+        CurrentUserIsSiteAdmin: boolean;
         dictSel: any;
         /** Absolute path for the list display form */
         displayFormUrl: string;
         /** Absolute path for the list edit form */
         editFormUrl: string;
-        EnableMinorVersions: bool;
-        ExternalDataList: bool;
-        enteringGridMode: bool;
+        EnableMinorVersions: boolean;
+        ExternalDataList: boolean;
+        enteringGridMode: boolean;
         existingServerFilterHash: any;
         HasRelatedCascadeLists: number;
         heroId: string; // e.g. "idHomePageNewItem"
@@ -860,19 +1071,19 @@ declare module SPClientTemplates {
         HttpRoot: string;
         imagesPath: string;
         inGridFullRender: any; // not in View
-        inGridMode: bool;
-        IsAppWeb: bool;
-        IsClientRendering: bool;
-        isForceCheckout: bool;
-        isModerated: bool;
+        inGridMode: boolean;
+        IsAppWeb: boolean;
+        IsClientRendering: boolean;
+        isForceCheckout: boolean;
+        isModerated: boolean;
         isPortalTemplate: any;
         isWebEditorPreview: number;
         isVersions: number;
-        isXslView: bool;
+        isXslView: boolean;
         LastRowIndexSelected: any; // not in View
         LastSelectableRowIdx: any;
         LastSelectedItemId: any; // not in View
-        leavingGridMode: bool;
+        leavingGridMode: boolean;
         listBaseType: number;
         ListData: ListData_InView;
         ListDataJSONItemsKey: string; // ="Row"
@@ -882,21 +1093,21 @@ declare module SPClientTemplates {
         listTemplate: string;
         ListTitle: string;
         listUrlDir: string;
-        loadingAsyncData: bool;
+        loadingAsyncData: boolean;
         ModerationStatus: number;
-        NavigateForFormsPages: bool;
+        NavigateForFormsPages: boolean;
         /** Absolute path for the list new form */
         newFormUrl: string;
         NewWOPIDocumentEnabled: any;
         NewWOPIDocumentUrl: any;
-        noGroupCollapse: bool;
+        noGroupCollapse: boolean;
         OfficialFileName: string;
         OfficialFileNames: string;
         overrideDeleteConfirmation: string; // not in View
         overrideFilterQstring: string; // not in View
         PortalUrl: string;
         queryString: any;
-        recursiveView: bool;
+        recursiveView: boolean;
         /** either 1 or 0 */
         RecycleBinEnabled: number;
         RegionalSettingsTimeZoneBias: string;
@@ -908,7 +1119,7 @@ declare module SPClientTemplates {
         SendToLocationUrl: string;
         serverUrl: any;
         SiteTitle: string;
-        StateInitDone: bool;
+        StateInitDone: boolean;
         TableCbxFocusHandler: any;
         TableMouseOverHandler: any;
         TotalListItems: any;
@@ -916,7 +1127,7 @@ declare module SPClientTemplates {
         /** Guid of the view. */
         view: string;
         viewTitle: string;
-        WorkflowAssociated: bool;
+        WorkflowAssociated: boolean;
         wpq: string;
         WriteSecurity: string;
     }
@@ -1033,7 +1244,7 @@ declare module SPClientTemplates {
         ListTemplateType?: number;
         /** Base view ID (SPView.BaseViewID) for which the template should be applied.
             If not defined, the templates will be applied to all views. */
-        BaseViewID?: number;
+        BaseViewID?: any;
     }
     export class TemplateManager {
         static RegisterTemplateOverrides(renderCtx: TemplateOverridesOptions): void;
@@ -1064,7 +1275,7 @@ declare module SPClientTemplates {
         static FileSystemObjectTypeToString(fileSystemObjectType: SPClientTemplates.FileSystemObjectType): string;
         static ChoiceFormatTypeToString(fileSystemObjectType: SPClientTemplates.ChoiceFormatType): string;
         static RichTextModeToString(fileSystemObjectType: SPClientTemplates.RichTextMode): string;
-        static IsValidControlMode(mode: number): bool;
+        static IsValidControlMode(mode: number): boolean;
         /** Removes leading and trailing spaces */
         static Trim(str: string): string;
         /** Creates SP.ClientContext based on the specified Web URL. If the SP.Runtime.js script is not loaded, returns null */
@@ -1079,7 +1290,7 @@ declare module SPClientTemplates {
         static ParseLookupValue(valueStr: string): ClientLookupValue;
         static ParseMultiLookupValues(valueStr: string): ClientLookupValue[];
         /** Represents lookup values array in some strange format */
-        static BuildLookupValuesAsString(choiceArray: ClientLookupValue[], isMultiLookup: bool, setGroupDesc: bool): string;
+        static BuildLookupValuesAsString(choiceArray: ClientLookupValue[], isMultiLookup: boolean, setGroupDesc: boolean): string;
         static ParseURLValue(value: string): ClientUrlValue;
         static GetFormContextForCurrentField(context: RenderContext_Form): ClientFormContext;
     }
@@ -1090,11 +1301,11 @@ declare module SPClientTemplates {
         fieldName: string;
         controlMode: number;
         webAttributes: {
-            AllowScriptableWebParts: bool;
+            AllowScriptableWebParts: boolean;
             CurrentUserId: number;
-            EffectivePresenceEnabled: bool;
+            EffectivePresenceEnabled: boolean;
             LCID: string;
-            PermissionCustomizePages: bool;
+            PermissionCustomizePages: boolean;
             WebUrl: string;
         };
         itemAttributes: {
@@ -1107,7 +1318,7 @@ declare module SPClientTemplates {
             BaseType: number;
             DefaultItemOpen: number;
             Direction: string;
-            EnableVesioning: bool;
+            EnableVesioning: boolean;
             Id: string;
         };
         registerInitCallback(fieldname: string, callback: () => void ): void;
@@ -1130,7 +1341,7 @@ declare function CoreRender(template: any, context: any): string;
 declare module SPClientForms {
     module ClientValidation {
         export class ValidationResult {
-            constructor(hasErrors: bool, errorMsg: string);
+            constructor(hasErrors: boolean, errorMsg: string);
         }
 
         export class ValidatorSet {
@@ -1148,10 +1359,86 @@ declare module SPClientForms {
 }
 
 
+declare module SPAnimation {
+    export enum Attribute {
+        PositionX,
+        PositionY,
+        Height,
+        Width,
+        Opacity
+    }
+
+    export enum ID {
+        Basic_Show,
+        Basic_SlowShow,
+        Basic_Fade,
+        Basic_Move,
+        Basic_Size,
+        Content_SlideInFadeInRight,
+        Content_SlideInFadeInRightInc,
+        Content_SlideOutFadeOutRight,
+        Content_SlideInFadeInLeft,
+        Content_SlideInFadeInLeftInc,
+        SmallObject_SlideInFadeInTop,
+        SmallObject_SlideInFadeInLeft,
+        Test_Instant,
+        Test_Hold,
+        Basic_Opacity,
+        Basic_QuickShow,
+        Basic_QuickFade,
+        Content_SlideInFadeInGeneric,
+        Basic_StrikeThrough,
+        SmallObject_SlideInFadeInBottom,
+        SmallObject_SlideOutFadeOutBottom,
+        Basic_QuickSize
+    }
+
+    export class Settings {
+        static DisableAnimation(): void;
+        static DisableSessionAnimation(): void;
+        static IsAnimationEnabled(): boolean;
+    }
+
+
+    export class State {
+        SetAttribute(attributeId: Attribute, value: number);
+        GetAttribute(attributeId: Attribute): number;
+        GetDataIndex(attributeId: Attribute): number
+    }
+
+    export class Object{
+        constructor(animationID: ID, delay: number, element: HTMLElement, finalState: State, finishFunc?: (data: any) => void , data?: any);
+        constructor(animationID: ID, delay: number, element: HTMLElement[], finalState: State, finishFunc?: (data: any) => void , data?: any);
+        RunAnimation(): void;
+    }
+}
+
+declare module SPAnimationUtility{
+    export class BasicAnimator {
+        static FadeIn(element: HTMLElement, finishFunc?: (data: any) => void , data?: any): void;
+        static FadeOut (element: HTMLElement, finishFunc?: (data: any) => void , data?: any): void;
+        static Move(element: HTMLElement, posX:number, posY:number, finishFunc?: (data: any) => void , data?: any): void;
+        static StrikeThrough(element: HTMLElement, strikeThroughWidth: number, finishFunc?: (data: any) => void , data?: any): void;
+        static Resize(element: HTMLElement, newHeight: number, newWidth: number, finishFunc?: (data: any) => void , data?: any): void;
+        static CommonResize(element: HTMLElement, newHeight: number, newWidth: number, finishFunc: (data: any) => void , data: any, animationId:SPAnimation.ID): void;
+        static QuickResize(element: HTMLElement, newHeight: number, newWidth: number, finishFunc?: (data: any) => void , data?: any): void;
+        static ResizeContainerAndFillContent(element: HTMLElement, newHeight: number, newWidth: number, finishFunc: () => void , fAddToEnd: boolean): void;
+        static GetWindowScrollPosition(): { x: number; y: number; };
+        static GetLeftOffset(element: HTMLElement): number;
+        static GetTopOffset(element: HTMLElement): number;
+        static GetRightOffset(element: HTMLElement): number;
+        static PositionElement(element: HTMLElement, topValue: number, leftValue: number, heightValue: number, widthValue: number): void;
+        static PositionAbsolute(element: HTMLElement): void;
+        static PositionRelative(element: HTMLElement): void;
+        static PositionRelativeExact(element: HTMLElement, topValue: number, leftValue: number, heightValue: number, widthValue: number): void;
+        static PositionAbsoluteExact(element: HTMLElement, topValue: number, leftValue: number, heightValue: number, widthValue: number): void;
+        static IsPositioned(element: HTMLElement): boolean;
+    }
+}
 
 interface IEnumerator<T> {
     get_current(): T;
-    moveNext(): bool;
+    moveNext(): boolean;
     reset(): void;
 }
 
@@ -1161,19 +1448,19 @@ interface IEnumerable<T> {
 
 declare module SP {
     export class ScriptUtility {
-        static isNullOrEmptyString(str: string): bool;
-        static isNullOrUndefined(obj: any): bool;
-        static isUndefined(obj: any): bool;
+        static isNullOrEmptyString(str: string): boolean;
+        static isNullOrUndefined(obj: any): boolean;
+        static isUndefined(obj: any): boolean;
         static truncateToInt(n: number): number;
     }
     export class Guid {
         constructor(guidText: string);
         static get_empty(): SP.Guid;
         static newGuid(): SP.Guid;
-        static isValid(uuid: string): bool;
+        static isValid(uuid: string): boolean;
         toString(): string;
         toString(format: string): string;
-        equals(uuid: SP.Guid): bool;
+        equals(uuid: SP.Guid): boolean;
         toSerialized(): string;
     }
     /** Specifies permissions that are used to define user roles. Represents SPBasePermissions class. */
@@ -1262,7 +1549,7 @@ declare module SP {
     }
     export interface IFromJson {
         fromJson(initValue: any): void;
-        customFromJson(initValue: any): bool;
+        customFromJson(initValue: any): boolean;
     }
     export class Base64EncodedByteArray {
         constructor();
@@ -1277,13 +1564,13 @@ declare module SP {
         startScope(): any;
         startIfTrue(): any;
         startIfFalse(): any;
-        get_testResult(): bool;
+        get_testResult(): boolean;
         fromJson(initValue: any): void;
-        customFromJson(initValue: any): bool;
+        customFromJson(initValue: any): boolean;
     }
     export class ClientObjectPropertyConditionalScope extends SP.ConditionalScopeBase {
         constructor(clientObject: SP.ClientObject, propertyName: string, comparisonOperator: string, valueToCompare: any);
-        constructor(clientObject: SP.ClientObject, propertyName: string, comparisonOperator: string, valueToCompare: any, allowAllActions: bool);
+        constructor(clientObject: SP.ClientObject, propertyName: string, comparisonOperator: string, valueToCompare: any, allowAllActions: boolean);
     }
     export class ClientResult {
         get_value(): any;
@@ -1291,7 +1578,7 @@ declare module SP {
         constructor();
     }
     export class BooleanResult {
-        get_value(): bool;
+        get_value(): boolean;
         constructor();
     }
     export class CharResult {
@@ -1370,7 +1657,7 @@ declare module SP {
     export class PageRequestFailedEventArgs extends Sys.EventArgs {
         get_executor(): Sys.Net.WebRequestExecutor;
         get_errorMessage(): string;
-        get_isErrorPage(): bool;
+        get_isErrorPage(): boolean;
     }
     export class PageRequestSucceededEventArgs extends Sys.EventArgs {
         get_executor(): Sys.Net.WebRequestExecutor;
@@ -1586,13 +1873,13 @@ declare module SP {
         get_objectVersion(): string;
         set_objectVersion(value: string): void;
         fromJson(initValue: any): void;
-        customFromJson(initValue: any): bool;
+        customFromJson(initValue: any): boolean;
         retrieve(): void;
         refreshLoad(): void;
         retrieve(propertyNames: string[]): void;
-        isPropertyAvailable(propertyName: string): bool;
-        isObjectPropertyInstantiated(propertyName: string): bool;
-        get_serverObjectIsNull(): bool;
+        isPropertyAvailable(propertyName: string): boolean;
+        isObjectPropertyInstantiated(propertyName: string): boolean;
+        get_serverObjectIsNull(): boolean;
         get_typedObject(): SP.ClientObject;
     }
     export class ClientObjectData {
@@ -1603,7 +1890,7 @@ declare module SP {
     }
     /** Provides a base class for a collection of objects on a remote client. */
     export class ClientObjectCollection<T> extends SP.ClientObject implements IEnumerable<T> {
-        get_areItemsAvailable(): bool;
+        get_areItemsAvailable(): boolean;
         /** Gets the data for all of the items in the collection. */
         retrieveItems(): SP.ClientObjectPrototype;
         /** Returns an enumerator that iterates through the collection. */
@@ -1618,7 +1905,7 @@ declare module SP {
     export class ClientObjectList<T> extends SP.ClientObjectCollection<T> {
         constructor(context: SP.ClientRuntimeContext, objectPath: SP.ObjectPath, childItemType: any);
         fromJson(initValue: any): void;
-        customFromJson(initValue: any): bool;
+        customFromJson(initValue: any): boolean;
     }
     export class ClientObjectPrototype {
         retrieve(): void;
@@ -1646,8 +1933,8 @@ declare module SP {
         remove_requestSucceeded(value: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void ): void;
         add_requestFailed(value: (sender: any, args: SP.ClientRequestFailedEventArgs) => void ): void;
         remove_requestFailed(value: (sender: any, args: SP.ClientRequestFailedEventArgs) => void ): void;
-        get_navigateWhenServerRedirect(): bool;
-        set_navigateWhenServerRedirect(value: bool): void;
+        get_navigateWhenServerRedirect(): boolean;
+        set_navigateWhenServerRedirect(value: boolean): void;
     }
     export class ClientRequestEventArgs extends Sys.EventArgs {
         get_request(): SP.ClientRequest;
@@ -1670,8 +1957,8 @@ declare module SP {
         get_url(): string;
         get_viaUrl(): string;
         set_viaUrl(value: string): void;
-        get_formDigestHandlingEnabled(): bool;
-        set_formDigestHandlingEnabled(value: bool): void;
+        get_formDigestHandlingEnabled(): boolean;
+        set_formDigestHandlingEnabled(value: boolean): void;
         get_applicationName(): string;
         set_applicationName(value: string): void;
         get_clientTag(): string;
@@ -1679,7 +1966,7 @@ declare module SP {
         get_webRequestExecutorFactory(): SP.IWebRequestExecutorFactory;
         set_webRequestExecutorFactory(value: SP.IWebRequestExecutorFactory): void;
         get_pendingRequest(): SP.ClientRequest;
-        get_hasPendingRequest(): bool;
+        get_hasPendingRequest(): boolean;
         add_executingWebRequest(value: (sender: any, args: SP.WebRequestEventArgs) => void ): void;
         remove_executingWebRequest(value: (sender: any, args: SP.WebRequestEventArgs) => void ): void;
         add_requestSucceeded(value: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void ): void;
@@ -1698,7 +1985,7 @@ declare module SP {
         addQuery(query: SP.ClientAction): void;
         addQueryIdAndResultObject(id: number, obj: any): void;
         parseObjectFromJsonString(json: string): any;
-        parseObjectFromJsonString(json: string, skipTypeFixup: bool): any;
+        parseObjectFromJsonString(json: string, skipTypeFixup: boolean): any;
         load(clientObject: SP.ClientObject): void;
         loadQuery<T>(clientObjectCollection: SP.ClientObjectCollection<T>, exp: string): any;
         load(clientObject: SP.ClientObject, ...exps: string[]): void;
@@ -1715,9 +2002,9 @@ declare module SP {
     }
     export class ClientValueObject {
         fromJson(obj: any): void;
-        customFromJson(obj: any): bool;
+        customFromJson(obj: any): boolean;
         writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
-        customWriteToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): bool;
+        customWriteToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): boolean;
         get_typeId(): string;
     }
     export class ClientValueObjectCollection<T> extends SP.ClientValueObject implements IEnumerable<T> {
@@ -1731,8 +2018,8 @@ declare module SP {
         startTry(): any;
         startCatch(): any;
         startFinally(): any;
-        get_processed(): bool;
-        get_hasException(): bool;
+        get_processed(): boolean;
+        get_hasException(): boolean;
         get_errorMessage(): string;
         get_serverStackTrace(): string;
         get_serverErrorCode(): number;
@@ -1891,7 +2178,7 @@ declare module SP {
     }
     export class ParseJSONUtil {
         static parseObjectFromJsonString(json: string): any;
-        static validateJson(text: string): bool;
+        static validateJson(text: string): boolean;
     }
     export enum DateTimeKind {
         unspecified,
@@ -1922,9 +2209,9 @@ declare module SP {
     /** Provides a Unified Logging Service (ULS) that monitors log messages. */
     export class ULS {
         /** Gets a value that indicates whether the Unified Logging Service (ULS) is enabled. */
-        static get_enabled(): bool;
+        static get_enabled(): boolean;
         /** Sets a value that indicates whether the Unified Logging Service (ULS) is enabled. */
-        static set_enabled(value: bool): void;
+        static set_enabled(value: boolean): void;
         /** Logs the specified debug message.
             This method logs the message with a time stamp. If any log messages are pending, this method also logs them. If the message cannot be logged, the message is added to the list of pending log messages. */
         static log(debugMessage: string): void;
@@ -1976,7 +2263,7 @@ declare module SP {
         get_appPrincipalId(): string;
         get_appWebFullUrl(): string;
         get_id(): SP.Guid;
-        get_inError(): bool;
+        get_inError(): boolean;
         get_startPage(): string;
         get_remoteAppUrl(): string;
         get_settingsPageUrl(): string;
@@ -2073,9 +2360,9 @@ declare module SP {
         set (perm: SP.PermissionKind): void;
         clear(perm: SP.PermissionKind): void;
         clearAll(): void;
-        has(perm: SP.PermissionKind): bool;
-        equals(perm: SP.BasePermissions): bool;
-        hasPermissions(high: number, low: number): bool;
+        has(perm: SP.PermissionKind): boolean;
+        equals(perm: SP.BasePermissions): boolean;
+        hasPermissions(high: number, low: number): boolean;
         get_typeId(): string;
         writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
         constructor();
@@ -2124,9 +2411,9 @@ declare module SP {
             the subfolders. */
         static createAllFoldersQuery(): SP.CamlQuery;
         /** Returns true if the query returns dates in Coordinated Universal Time (UTC) format. */
-        get_datesInUtc(): bool;
+        get_datesInUtc(): boolean;
         /** Sets a value that indicates whether the query returns dates in Coordinated Universal Time (UTC) format. */
-        set_datesInUtc(value: bool): void;
+        set_datesInUtc(value: boolean): void;
         /** Server relative URL of a list folder from which results will be returned. */
         get_folderServerRelativeUrl(): string;
         /** Sets a value that specifies the server relative URL of a list folder from which results will be returned. */
@@ -2205,67 +2492,67 @@ declare module SP {
     }
     export class ChangeQuery extends SP.ClientValueObject {
         constructor();
-        constructor(allChangeObjectTypes: bool, allChangeTypes: bool);
-        get_add(): bool;
-        set_add(value: bool): void;
-        get_alert(): bool;
-        set_alert(value: bool): void;
+        constructor(allChangeObjectTypes: boolean, allChangeTypes: boolean);
+        get_add(): boolean;
+        set_add(value: boolean): void;
+        get_alert(): boolean;
+        set_alert(value: boolean): void;
         get_changeTokenEnd(): SP.ChangeToken;
         set_changeTokenEnd(value: SP.ChangeToken): void;
         get_changeTokenStart(): SP.ChangeToken;
         set_changeTokenStart(value: SP.ChangeToken): void;
-        get_contentType(): bool;
-        set_contentType(value: bool): void;
-        get_deleteObject(): bool;
-        set_deleteObject(value: bool): void;
-        get_field(): bool;
-        set_field(value: bool): void;
-        get_file(): bool;
-        set_file(value: bool): void;
-        get_folder(): bool;
-        set_folder(value: bool): void;
-        get_group(): bool;
-        set_group(value: bool): void;
-        get_groupMembershipAdd(): bool;
-        set_groupMembershipAdd(value: bool): void;
-        get_groupMembershipDelete(): bool;
-        set_groupMembershipDelete(value: bool): void;
-        get_item(): bool;
-        set_item(value: bool): void;
-        get_list(): bool;
-        set_list(value: bool): void;
-        get_move(): bool;
-        set_move(value: bool): void;
-        get_navigation(): bool;
-        set_navigation(value: bool): void;
-        get_rename(): bool;
-        set_rename(value: bool): void;
-        get_restore(): bool;
-        set_restore(value: bool): void;
-        get_roleAssignmentAdd(): bool;
-        set_roleAssignmentAdd(value: bool): void;
-        get_roleAssignmentDelete(): bool;
-        set_roleAssignmentDelete(value: bool): void;
-        get_roleDefinitionAdd(): bool;
-        set_roleDefinitionAdd(value: bool): void;
-        get_roleDefinitionDelete(): bool;
-        set_roleDefinitionDelete(value: bool): void;
-        get_roleDefinitionUpdate(): bool;
-        set_roleDefinitionUpdate(value: bool): void;
-        get_securityPolicy(): bool;
-        set_securityPolicy(value: bool): void;
-        get_site(): bool;
-        set_site(value: bool): void;
-        get_systemUpdate(): bool;
-        set_systemUpdate(value: bool): void;
-        get_update(): bool;
-        set_update(value: bool): void;
-        get_user(): bool;
-        set_user(value: bool): void;
-        get_view(): bool;
-        set_view(value: bool): void;
-        get_web(): bool;
-        set_web(value: bool): void;
+        get_contentType(): boolean;
+        set_contentType(value: boolean): void;
+        get_deleteObject(): boolean;
+        set_deleteObject(value: boolean): void;
+        get_field(): boolean;
+        set_field(value: boolean): void;
+        get_file(): boolean;
+        set_file(value: boolean): void;
+        get_folder(): boolean;
+        set_folder(value: boolean): void;
+        get_group(): boolean;
+        set_group(value: boolean): void;
+        get_groupMembershipAdd(): boolean;
+        set_groupMembershipAdd(value: boolean): void;
+        get_groupMembershipDelete(): boolean;
+        set_groupMembershipDelete(value: boolean): void;
+        get_item(): boolean;
+        set_item(value: boolean): void;
+        get_list(): boolean;
+        set_list(value: boolean): void;
+        get_move(): boolean;
+        set_move(value: boolean): void;
+        get_navigation(): boolean;
+        set_navigation(value: boolean): void;
+        get_rename(): boolean;
+        set_rename(value: boolean): void;
+        get_restore(): boolean;
+        set_restore(value: boolean): void;
+        get_roleAssignmentAdd(): boolean;
+        set_roleAssignmentAdd(value: boolean): void;
+        get_roleAssignmentDelete(): boolean;
+        set_roleAssignmentDelete(value: boolean): void;
+        get_roleDefinitionAdd(): boolean;
+        set_roleDefinitionAdd(value: boolean): void;
+        get_roleDefinitionDelete(): boolean;
+        set_roleDefinitionDelete(value: boolean): void;
+        get_roleDefinitionUpdate(): boolean;
+        set_roleDefinitionUpdate(value: boolean): void;
+        get_securityPolicy(): boolean;
+        set_securityPolicy(value: boolean): void;
+        get_site(): boolean;
+        set_site(value: boolean): void;
+        get_systemUpdate(): boolean;
+        set_systemUpdate(value: boolean): void;
+        get_update(): boolean;
+        set_update(value: boolean): void;
+        get_user(): boolean;
+        set_user(value: boolean): void;
+        get_view(): boolean;
+        set_view(value: boolean): void;
+        get_web(): boolean;
+        set_web(value: boolean): void;
         get_typeId(): string;
         writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
     }
@@ -2302,7 +2589,7 @@ declare module SP {
         listContentTypeDelete,
     }
     export class ChangeUser extends SP.Change {
-        get_activate(): bool;
+        get_activate(): boolean;
         get_userId(): number;
     }
     export class ChangeView extends SP.Change {
@@ -2347,8 +2634,8 @@ declare module SP {
         get_fields(): SP.FieldCollection;
         get_group(): string;
         set_group(value: string): void;
-        get_hidden(): bool;
-        set_hidden(value: bool): void;
+        get_hidden(): boolean;
+        set_hidden(value: boolean): void;
         get_id(): SP.ContentTypeId;
         get_jSLink(): string;
         set_jSLink(value: string): void;
@@ -2359,17 +2646,17 @@ declare module SP {
         get_newFormUrl(): string;
         set_newFormUrl(value: string): void;
         get_parent(): SP.ContentType;
-        get_readOnly(): bool;
-        set_readOnly(value: bool): void;
+        get_readOnly(): boolean;
+        set_readOnly(value: boolean): void;
         get_schemaXml(): string;
         get_schemaXmlWithResourceTokens(): string;
         set_schemaXmlWithResourceTokens(value: string): void;
         get_scope(): string;
-        get_sealed(): bool;
-        set_sealed(value: bool): void;
+        get_sealed(): boolean;
+        set_sealed(value: boolean): void;
         get_stringId(): string;
         get_workflowAssociations(): SP.Workflow.WorkflowAssociationCollection;
-        update(updateChildren: bool): void;
+        update(updateChildren: boolean): void;
         deleteObject(): void;
     }
     export class ContentTypeCollection extends SP.ClientObjectCollection<ContentType> {
@@ -2545,8 +2832,8 @@ declare module SP {
         itemAt(index: number): SP.Feature;
         get_item(index: number): SP.Feature;
         getById(featureId: SP.Guid): SP.Feature;
-        add(featureId: SP.Guid, force: bool, featdefScope: SP.FeatureDefinitionScope): SP.Feature;
-        remove(featureId: SP.Guid, force: bool): void;
+        add(featureId: SP.Guid, force: boolean, featdefScope: SP.FeatureDefinitionScope): SP.Feature;
+        remove(featureId: SP.Guid, force: boolean): void;
     }
     export enum FeatureDefinitionScope {
         none,
@@ -2555,38 +2842,38 @@ declare module SP {
         web,
     }
     export class Field extends SP.ClientObject {
-        get_canBeDeleted(): bool;
+        get_canBeDeleted(): boolean;
         get_defaultValue(): string;
         set_defaultValue(value: string): void;
         get_description(): string;
         set_description(value: string): void;
         get_direction(): string;
         set_direction(value: string): void;
-        get_enforceUniqueValues(): bool;
-        set_enforceUniqueValues(value: bool): void;
+        get_enforceUniqueValues(): boolean;
+        set_enforceUniqueValues(value: boolean): void;
         get_entityPropertyName(): string;
-        get_filterable(): bool;
-        get_fromBaseType(): bool;
+        get_filterable(): boolean;
+        get_fromBaseType(): boolean;
         get_group(): string;
         set_group(value: string): void;
-        get_hidden(): bool;
-        set_hidden(value: bool): void;
+        get_hidden(): boolean;
+        set_hidden(value: boolean): void;
         get_id(): SP.Guid;
-        get_indexed(): bool;
-        set_indexed(value: bool): void;
+        get_indexed(): boolean;
+        set_indexed(value: boolean): void;
         get_internalName(): string;
         get_jSLink(): string;
         set_jSLink(value: string): void;
-        get_readOnlyField(): bool;
-        set_readOnlyField(value: bool): void;
-        get_required(): bool;
-        set_required(value: bool): void;
+        get_readOnlyField(): boolean;
+        set_readOnlyField(value: boolean): void;
+        get_required(): boolean;
+        set_required(value: boolean): void;
         get_schemaXml(): string;
         set_schemaXml(value: string): void;
         get_schemaXmlWithResourceTokens(): string;
         get_scope(): string;
-        get_sealed(): bool;
-        get_sortable(): bool;
+        get_sealed(): boolean;
+        get_sortable(): boolean;
         get_staticName(): string;
         set_staticName(value: string): void;
         get_title(): string;
@@ -2602,12 +2889,12 @@ declare module SP {
         get_validationMessage(): string;
         set_validationMessage(value: string): void;
         validateSetValue(item: SP.ListItem, value: string): void;
-        updateAndPushChanges(pushChangesToLists: bool): void;
+        updateAndPushChanges(pushChangesToLists: boolean): void;
         update(): void;
         deleteObject(): void;
-        setShowInDisplayForm(value: bool): void;
-        setShowInEditForm(value: bool): void;
-        setShowInNewForm(value: bool): void;
+        setShowInDisplayForm(value: boolean): void;
+        setShowInEditForm(value: boolean): void;
+        setShowInNewForm(value: boolean): void;
     }
     export class FieldCalculated extends SP.Field {
         get_dateFormat(): SP.DateTimeFieldFormatType;
@@ -2624,8 +2911,8 @@ declare module SP {
         constructor();
     }
     export class FieldMultiChoice extends SP.Field {
-        get_fillInChoice(): bool;
-        set_fillInChoice(value: bool): void;
+        get_fillInChoice(): boolean;
+        set_fillInChoice(value: boolean): void;
         get_mappings(): string;
         get_choices(): string[];
         set_choices(value: string[]): void;
@@ -2642,12 +2929,12 @@ declare module SP {
         getById(id: SP.Guid): SP.Field;
         add(field: SP.Field): SP.Field;
         addDependentLookup(displayName: string, primaryLookupField: SP.Field, lookupField: string): SP.Field;
-        addFieldAsXml(schemaXml: string, addToDefaultView: bool, options: SP.AddFieldOptions): SP.Field;
+        addFieldAsXml(schemaXml: string, addToDefaultView: boolean, options: SP.AddFieldOptions): SP.Field;
         getByInternalNameOrTitle(strName: string): SP.Field;
     }
     export class FieldComputed extends SP.Field {
-        get_enableLookup(): bool;
-        set_enableLookup(value: bool): void;
+        get_enableLookup(): boolean;
+        set_enableLookup(value: boolean): void;
     }
     export class FieldNumber extends SP.Field {
         get_maximumValue(): number;
@@ -2685,12 +2972,12 @@ declare module SP {
     export class FieldGuid extends SP.Field {
     }
     export class FieldLink extends SP.ClientObject {
-        get_hidden(): bool;
-        set_hidden(value: bool): void;
+        get_hidden(): boolean;
+        set_hidden(value: boolean): void;
         get_id(): SP.Guid;
         get_name(): string;
-        get_required(): bool;
-        set_required(value: bool): void;
+        get_required(): boolean;
+        set_required(value: boolean): void;
         deleteObject(): void;
     }
     export class FieldLinkCollection extends SP.ClientObjectCollection<FieldLink> {
@@ -2708,10 +2995,10 @@ declare module SP {
         constructor();
     }
     export class FieldLookup extends SP.Field {
-        get_allowMultipleValues(): bool;
-        set_allowMultipleValues(value: bool): void;
-        get_isRelationship(): bool;
-        set_isRelationship(value: bool): void;
+        get_allowMultipleValues(): boolean;
+        set_allowMultipleValues(value: boolean): void;
+        get_isRelationship(): boolean;
+        set_isRelationship(value: boolean): void;
         get_lookupField(): string;
         set_lookupField(value: string): void;
         get_lookupList(): string;
@@ -2732,17 +3019,17 @@ declare module SP {
         constructor();
     }
     export class FieldMultiLineText extends SP.Field {
-        get_allowHyperlink(): bool;
-        set_allowHyperlink(value: bool): void;
-        get_appendOnly(): bool;
-        set_appendOnly(value: bool): void;
+        get_allowHyperlink(): boolean;
+        set_allowHyperlink(value: boolean): void;
+        get_appendOnly(): boolean;
+        set_appendOnly(value: boolean): void;
         get_numberOfLines(): number;
         set_numberOfLines(value: number): void;
-        get_restrictedMode(): bool;
-        set_restrictedMode(value: bool): void;
-        get_richText(): bool;
-        set_richText(value: bool): void;
-        get_wikiLinking(): bool;
+        get_restrictedMode(): boolean;
+        set_restrictedMode(value: boolean): void;
+        get_richText(): boolean;
+        set_richText(value: boolean): void;
+        get_wikiLinking(): boolean;
     }
     export class FieldRatingScale extends SP.FieldMultiChoice {
         get_gridEndNumber(): number;
@@ -2827,10 +3114,10 @@ declare module SP {
         constructor();
     }
     export class FieldUser extends SP.FieldLookup {
-        get_allowDisplay(): bool;
-        set_allowDisplay(value: bool): void;
-        get_presence(): bool;
-        set_presence(value: bool): void;
+        get_allowDisplay(): boolean;
+        set_allowDisplay(value: boolean): void;
+        get_presence(): boolean;
+        set_presence(value: boolean): void;
         get_selectionGroup(): number;
         set_selectionGroup(value: number): void;
         get_selectionMode(): SP.FieldUserSelectionMode;
@@ -2861,7 +3148,7 @@ declare module SP {
         /** Gets the ETag of the file  */
         get_eTag(): string;
         /** Specifies whether the file exists  */
-        get_exists(): bool;
+        get_exists(): boolean;
         get_length(): number;
         get_level(): SP.FileLevel;
         /** Specifies the SPListItem corresponding to this file if this file belongs to a doclib. Values for all fields are returned also. */
@@ -2899,7 +3186,7 @@ declare module SP {
         static getContentVerFromTag(context: SP.ClientRuntimeContext, contentTag: string): SP.IntResult;
         getLimitedWebPartManager(scope: SP.WebParts.PersonalizationScope): SP.WebParts.LimitedWebPartManager;
         moveTo(newUrl: string, flags: SP.MoveOperations): void;
-        copyTo(strNewUrl: string, bOverWrite: bool): void;
+        copyTo(strNewUrl: string, bOverWrite: boolean): void;
         saveBinary(parameters: SP.FileSaveBinaryInformation): void;
         deleteObject(): void;
         /** Moves the file to the recycle bin. MUST return the identifier of the new Recycle Bin item */
@@ -2916,8 +3203,8 @@ declare module SP {
     export class FileCreationInformation extends SP.ClientValueObject {
         get_content(): SP.Base64EncodedByteArray;
         set_content(value: SP.Base64EncodedByteArray): void;
-        get_overwrite(): bool;
-        set_overwrite(value: bool): void;
+        get_overwrite(): boolean;
+        set_overwrite(value: boolean): void;
         get_url(): string;
         set_url(value: string): void;
         get_typeId(): string;
@@ -2930,8 +3217,8 @@ declare module SP {
         checkout,
     }
     export class FileSaveBinaryInformation extends SP.ClientValueObject {
-        get_checkRequiredFields(): bool;
-        set_checkRequiredFields(value: bool): void;
+        get_checkRequiredFields(): boolean;
+        set_checkRequiredFields(value: boolean): void;
         get_content(): SP.Base64EncodedByteArray;
         set_content(value: SP.Base64EncodedByteArray): void;
         get_eTag(): string;
@@ -2953,7 +3240,7 @@ declare module SP {
         get_created(): Date;
         get_createdBy(): SP.User;
         get_iD(): number;
-        get_isCurrentVersion(): bool;
+        get_isCurrentVersion(): boolean;
         get_size(): number;
         get_url(): string;
         get_versionLabel(): string;
@@ -3005,26 +3292,26 @@ declare module SP {
     }
     export class Principal extends SP.ClientObject {
         get_id(): number;
-        get_isHiddenInUI(): bool;
+        get_isHiddenInUI(): boolean;
         get_loginName(): string;
         get_title(): string;
         set_title(value: string): void;
         get_principalType(): SP.Utilities.PrincipalType;
     }
     export class Group extends SP.Principal {
-        get_allowMembersEditMembership(): bool;
-        set_allowMembersEditMembership(value: bool): void;
-        get_allowRequestToJoinLeave(): bool;
-        set_allowRequestToJoinLeave(value: bool): void;
-        get_autoAcceptRequestToJoinLeave(): bool;
-        set_autoAcceptRequestToJoinLeave(value: bool): void;
-        get_canCurrentUserEditMembership(): bool;
-        get_canCurrentUserManageGroup(): bool;
-        get_canCurrentUserViewMembership(): bool;
+        get_allowMembersEditMembership(): boolean;
+        set_allowMembersEditMembership(value: boolean): void;
+        get_allowRequestToJoinLeave(): boolean;
+        set_allowRequestToJoinLeave(value: boolean): void;
+        get_autoAcceptRequestToJoinLeave(): boolean;
+        set_autoAcceptRequestToJoinLeave(value: boolean): void;
+        get_canCurrentUserEditMembership(): boolean;
+        get_canCurrentUserManageGroup(): boolean;
+        get_canCurrentUserViewMembership(): boolean;
         get_description(): string;
         set_description(value: string): void;
-        get_onlyAllowMembersViewMembership(): bool;
-        set_onlyAllowMembersViewMembership(value: bool): void;
+        get_onlyAllowMembersViewMembership(): boolean;
+        set_onlyAllowMembersViewMembership(value: boolean): void;
         get_owner(): SP.Principal;
         set_owner(value: SP.Principal): void;
         get_ownerTitle(): string;
@@ -3053,26 +3340,26 @@ declare module SP {
         constructor();
     }
     export class InformationRightsManagementSettings extends SP.ClientObject {
-        get_allowPrint(): bool;
-        set_allowPrint(value: bool): void;
-        get_allowScript(): bool;
-        set_allowScript(value: bool): void;
-        get_allowWriteCopy(): bool;
-        set_allowWriteCopy(value: bool): void;
-        get_disableDocumentBrowserView(): bool;
-        set_disableDocumentBrowserView(value: bool): void;
+        get_allowPrint(): boolean;
+        set_allowPrint(value: boolean): void;
+        get_allowScript(): boolean;
+        set_allowScript(value: boolean): void;
+        get_allowWriteCopy(): boolean;
+        set_allowWriteCopy(value: boolean): void;
+        get_disableDocumentBrowserView(): boolean;
+        set_disableDocumentBrowserView(value: boolean): void;
         get_documentAccessExpireDays(): number;
         set_documentAccessExpireDays(value: number): void;
         get_documentLibraryProtectionExpireDate(): Date;
         set_documentLibraryProtectionExpireDate(value: Date): void;
-        get_enableDocumentAccessExpire(): bool;
-        set_enableDocumentAccessExpire(value: bool): void;
-        get_enableDocumentBrowserPublishingView(): bool;
-        set_enableDocumentBrowserPublishingView(value: bool): void;
-        get_enableGroupProtection(): bool;
-        set_enableGroupProtection(value: bool): void;
-        get_enableLicenseCacheExpire(): bool;
-        set_enableLicenseCacheExpire(value: bool): void;
+        get_enableDocumentAccessExpire(): boolean;
+        set_enableDocumentAccessExpire(value: boolean): void;
+        get_enableDocumentBrowserPublishingView(): boolean;
+        set_enableDocumentBrowserPublishingView(value: boolean): void;
+        get_enableGroupProtection(): boolean;
+        set_enableGroupProtection(value: boolean): void;
+        get_enableLicenseCacheExpire(): boolean;
+        set_enableLicenseCacheExpire(value: boolean): void;
         get_groupName(): string;
         set_groupName(value: string): void;
         get_licenseCacheExpireDays(): number;
@@ -3094,10 +3381,10 @@ declare module SP {
     }
     export class SecurableObject extends SP.ClientObject {
         get_firstUniqueAncestorSecurableObject(): SP.SecurableObject;
-        get_hasUniqueRoleAssignments(): bool;
+        get_hasUniqueRoleAssignments(): boolean;
         get_roleAssignments(): SP.RoleAssignmentCollection;
         resetRoleInheritance(): void;
-        breakRoleInheritance(copyRoleAssignments: bool, clearSubscopes: bool): void;
+        breakRoleInheritance(copyRoleAssignments: boolean, clearSubscopes: boolean): void;
     }
     /** Represents display mode for a control or form */
     export enum ControlMode {
@@ -3111,7 +3398,7 @@ declare module SP {
         /** Gets item by id. */
         getItemById(id: number): SP.ListItem;
         /** Gets a value that specifies whether the list supports content types. */
-        get_allowContentTypes(): bool;
+        get_allowContentTypes(): boolean;
         /** Gets the list definition type on which the list is based. For lists based on OOTB list definitions, return value corresponds the SP.ListTemplateType enumeration. */
         get_baseTemplate(): number;
         /** Gets base type for the list. */
@@ -3121,9 +3408,9 @@ declare module SP {
         /** Gets the content types that are associated with the list. */
         get_contentTypes(): SP.ContentTypeCollection;
         /** Gets a value that specifies whether content types are enabled for the list. */
-        get_contentTypesEnabled(): bool;
+        get_contentTypesEnabled(): boolean;
         /** Sets a value that specifies whether content types are enabled for the list. */
-        set_contentTypesEnabled(value: bool): void;
+        set_contentTypesEnabled(value: boolean): void;
         /** Gets a value that specifies when the list was created. */
         get_created(): Date;
         /** Gets the data source associated with the list, or null if the list is not a virtual list. */
@@ -3169,25 +3456,25 @@ declare module SP {
         /** Gets the effective base permissions for the current user, as they should be displayed in UI. This will only differ from EffectiveBasePermissions if ReadOnlyUI is set to true, and in all cases will be a subset of EffectiveBasePermissions. To put it another way, EffectiveBasePermissionsForUI will always be as or more restrictive than EffectiveBasePermissions. */
         get_effectiveBasePermissionsForUI(): SP.BasePermissions;
         /** Gets a value that specifies whether list item attachments are enabled for the list. */
-        get_enableAttachments(): bool;
+        get_enableAttachments(): boolean;
         /** Sets a value that specifies whether list item attachments are enabled for the list. */
-        set_enableAttachments(value: bool): void;
+        set_enableAttachments(value: boolean): void;
         /** Gets a value that specifies whether new list folders can be added to the list. */
-        get_enableFolderCreation(): bool;
+        get_enableFolderCreation(): boolean;
         /** Sets a value that specifies whether new list folders can be added to the list. */
-        set_enableFolderCreation(value: bool): void;
+        set_enableFolderCreation(value: boolean): void;
         /** Gets a value that specifies whether minor versions are enabled for the list. */
-        get_enableMinorVersions(): bool;
+        get_enableMinorVersions(): boolean;
         /** Sets a value that specifies whether minor versions are enabled for the list. */
-        set_enableMinorVersions(value: bool): void;
+        set_enableMinorVersions(value: boolean): void;
         /** Gets a value that specifies whether content approval is enabled for the list. */
-        get_enableModeration(): bool;
+        get_enableModeration(): boolean;
         /** Sets a value that specifies whether content approval is enabled for the list */
-        set_enableModeration(value: bool): void;
+        set_enableModeration(value: boolean): void;
         /** Gets a value that specifies whether historical versions of list items and documents can be created in the list */
-        get_enableVersioning(): bool;
+        get_enableVersioning(): boolean;
         /** Sets a value that specifies whether historical versions of list items and documents can be created in the list */
-        set_enableVersioning(value: bool): void;
+        set_enableVersioning(value: boolean): void;
         /** The entity type name. */
         get_entityTypeName(): string;
         /** Gets collection of event receiver objects associated with the list. */
@@ -3195,17 +3482,17 @@ declare module SP {
         /** Gets a value that specifies the collection of all fields in the list. */
         get_fields(): SP.FieldCollection;
         /** Gets a value that indicates whether forced checkout is enabled for the document library. */
-        get_forceCheckout(): bool;
+        get_forceCheckout(): boolean;
         /** Sets a value that indicates whether forced checkout is enabled for the document library */
-        set_forceCheckout(value: bool): void;
+        set_forceCheckout(value: boolean): void;
         /** Gets collections of forms associated with the list. */
         get_forms(): SP.FormCollection;
         /** Returns true if this is external list. */
-        get_hasExternalDataSource(): bool;
+        get_hasExternalDataSource(): boolean;
         /** Gets wherever the list is hidden */
-        get_hidden(): bool;
+        get_hidden(): boolean;
         /** Sets if the list is hidden from "All site contents" or not. */
-        set_hidden(value: bool): void;
+        set_hidden(value: boolean): void;
         /** Gets id of the list */
         get_id(): SP.Guid;
         /** Gets a value that specifies the URI for the icon of the list */
@@ -3215,27 +3502,27 @@ declare module SP {
         /** Settings of document library Information Rights Management (IRM)  */
         get_informationRightsManagementSettings(): SP.InformationRightsManagementSettings;
         /** Gets a value that specifies whether Information Rights Management (IRM) is enabled for the list.  */
-        get_irmEnabled(): bool;
+        get_irmEnabled(): boolean;
         /** Sets a value that specifies whether Information Rights Management (IRM) is enabled for the list.  */
-        set_irmEnabled(value: bool): void;
+        set_irmEnabled(value: boolean): void;
         /** Gets a value that specifies whether Information Rights Management (IRM) expiration is enabled for the list.  */
-        get_irmExpire(): bool;
+        get_irmExpire(): boolean;
         /** Sets a value that specifies whether Information Rights Management (IRM) expiration is enabled for the list.  */
-        set_irmExpire(value: bool): void;
+        set_irmExpire(value: boolean): void;
         /** Gets a value that specifies whether Information Rights Management (IRM) rejection is enabled for the list.  */
-        get_irmReject(): bool;
+        get_irmReject(): boolean;
         /** Sets a value that specifies whether Information Rights Management (IRM) rejection is enabled for the list.  */
-        set_irmReject(value: bool): void;
+        set_irmReject(value: boolean): void;
         /** Indicates whether this list should be treated as a top level navigation object or not.  */
-        get_isApplicationList(): bool;
+        get_isApplicationList(): boolean;
         /** Sets a value that indicates whether this list should be treated as a top level navigation object or not.  */
-        set_isApplicationList(value: bool): void;
+        set_isApplicationList(value: boolean): void;
         /** Gets a value that specifies whether the list is a gallery. */
-        get_isCatalog(): bool;
+        get_isCatalog(): boolean;
         /** Gets a value that indicates whether the document library is a private list with restricted permissions, such as for Solutions.  */
-        get_isPrivate(): bool;
+        get_isPrivate(): boolean;
         /** Gets a value that indicates whether the list is designated as a default asset location for images or other files which the users upload to their wiki pages. */
-        get_isSiteAssetsLibrary(): bool;
+        get_isSiteAssetsLibrary(): boolean;
         /** Gets a value that specifies the number of list items in the list */
         get_itemCount(): number;
         /** Gets a value that specifies the last time a list item was deleted from the list. */
@@ -3247,17 +3534,17 @@ declare module SP {
         /** The entity type full name of the list item in the list. */
         get_listItemEntityTypeFullName(): string;
         /** Gets a value that indicates whether the list in a Meeting Workspace site contains data for multiple meeting instances within the site */
-        get_multipleDataList(): bool;
+        get_multipleDataList(): boolean;
         /** Sets a value that indicates whether the list in a Meeting Workspace site contains data for multiple meeting instances within the site */
-        set_multipleDataList(value: bool): void;
+        set_multipleDataList(value: boolean): void;
         /** Gets a value that specifies that the crawler must not crawl the list */
-        get_noCrawl(): bool;
+        get_noCrawl(): boolean;
         /** Sets a value that specifies that the crawler must not crawl the list */
-        set_noCrawl(value: bool): void;
+        set_noCrawl(value: boolean): void;
         /** Gets a value that specifies whether the list appears on the Quick Launch of the site */
-        get_onQuickLaunch(): bool;
+        get_onQuickLaunch(): boolean;
         /** Sets a value that specifies whether the list appears on the Quick Launch of the site */
-        set_onQuickLaunch(value: bool): void;
+        set_onQuickLaunch(value: boolean): void;
         /** Gets a value that specifies the site that contains the list. */
         get_parentWeb(): SP.Web;
         /** Gets a value that specifies the server-relative URL of the site that contains the list. */
@@ -3267,7 +3554,7 @@ declare module SP {
         /** Gets a value that specifies the list schema of the list. */
         get_schemaXml(): string;
         /** Gets a value that indicates whether folders can be created within the list. */
-        get_serverTemplateCanCreateFolders(): bool;
+        get_serverTemplateCanCreateFolders(): boolean;
         /** Gets a value that specifies the feature identifier of the feature that contains the list schema for the list. */
         get_templateFeatureId(): SP.Guid;
         /** Gets the list title. You can determine list URL from it's root folder URL. */
@@ -3299,7 +3586,7 @@ declare module SP {
             @param newName The desired name the user typed
             @param privateView Boolean true when the user wants make a new view that's personal
             @param uri Url that keeps all the adhoc filter/sort inforatmion */
-        saveAsNewView(oldName: string, newName: string, privateView: bool, uri: string): SP.StringResult;
+        saveAsNewView(oldName: string, newName: string, privateView: boolean, uri: string): SP.StringResult;
         /** Returns a collection of lookup fields that use this list as a data source and that have FieldLookup.IsRelationship set to true. */
         getRelatedFields(): SP.RelatedFieldCollection;
         /** This member is reserved for internal use and is not intended to be used directly from your code. */
@@ -3447,7 +3734,7 @@ declare module SP {
         /** Sets the value of the field for the list item based on an implementation specific transformation of the value. */
         parseAndSetFieldValue(fieldInternalName: string, value: string): void;
         /** Validates form values specified for the list item. Errors are returned through hasException and errorMessage properties of the ListItemFormUpdateValue objects */
-        validateUpdateListItem(formValues: SP.ListItemFormUpdateValue[], bNewDocumentUpdate: bool): SP.ListItemFormUpdateValue[];
+        validateUpdateListItem(formValues: SP.ListItemFormUpdateValue[], bNewDocumentUpdate: boolean): SP.ListItemFormUpdateValue[];
     }
     export class ListItemCollection extends SP.ClientObjectCollection<ListItem> {
         itemAt(index: number): SP.ListItem;
@@ -3489,25 +3776,25 @@ declare module SP {
         set_fieldName(value: string): void;
         get_fieldValue(): string;
         set_fieldValue(value: string): void;
-        get_hasException(): bool;
-        set_hasException(value: bool): void;
+        get_hasException(): boolean;
+        set_hasException(value: boolean): void;
         get_typeId(): string;
         writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
         constructor();
     }
     export class ListTemplate extends SP.ClientObject {
-        get_allowsFolderCreation(): bool;
+        get_allowsFolderCreation(): boolean;
         get_baseType(): SP.BaseType;
         get_description(): string;
         get_featureId(): SP.Guid;
-        get_hidden(): bool;
+        get_hidden(): boolean;
         get_imageUrl(): string;
         get_internalName(): string;
-        get_isCustomTemplate(): bool;
+        get_isCustomTemplate(): boolean;
         get_name(): string;
-        get_onQuickLaunch(): bool;
+        get_onQuickLaunch(): boolean;
         get_listTemplateTypeKind(): number;
-        get_unique(): bool;
+        get_unique(): boolean;
     }
     export class ListTemplateCollection extends SP.ClientObjectCollection<ListTemplate> {
         itemAt(index: number): SP.ListTemplate;
@@ -3585,17 +3872,17 @@ declare module SP {
     export class Navigation extends SP.ClientObject {
         get_quickLaunch(): SP.NavigationNodeCollection;
         get_topNavigationBar(): SP.NavigationNodeCollection;
-        get_useShared(): bool;
-        set_useShared(value: bool): void;
+        get_useShared(): boolean;
+        set_useShared(value: boolean): void;
         getNodeById(id: number): SP.NavigationNode;
     }
     export class NavigationNode extends SP.ClientObject {
         get_children(): SP.NavigationNodeCollection;
         get_id(): number;
-        get_isDocLib(): bool;
-        get_isExternal(): bool;
-        get_isVisible(): bool;
-        set_isVisible(value: bool): void;
+        get_isDocLib(): boolean;
+        get_isExternal(): boolean;
+        get_isVisible(): boolean;
+        set_isVisible(value: boolean): void;
         get_title(): string;
         set_title(value: string): void;
         get_url(): string;
@@ -3609,10 +3896,10 @@ declare module SP {
         add(parameters: SP.NavigationNodeCreationInformation): SP.NavigationNode;
     }
     export class NavigationNodeCreationInformation extends SP.ClientValueObject {
-        get_asLastNode(): bool;
-        set_asLastNode(value: bool): void;
-        get_isExternal(): bool;
-        set_isExternal(value: bool): void;
+        get_asLastNode(): boolean;
+        set_asLastNode(value: boolean): void;
+        get_isExternal(): boolean;
+        set_isExternal(value: boolean): void;
         get_previousNode(): SP.NavigationNode;
         set_previousNode(value: SP.NavigationNode): void;
         get_title(): string;
@@ -3626,27 +3913,27 @@ declare module SP {
     export class ObjectSharingInformation extends SP.ClientObject {
         get_anonymousEditLink(): string;
         get_anonymousViewLink(): string;
-        get_canManagePermissions(): bool;
-        get_hasPendingAccessRequests(): bool;
-        get_hasPermissionLevels(): bool;
-        get_isSharedWithCurrentUser(): bool;
-        get_isSharedWithGuest(): bool;
-        get_isSharedWithMany(): bool;
-        get_isSharedWithSecurityGroup(): bool;
+        get_canManagePermissions(): boolean;
+        get_hasPendingAccessRequests(): boolean;
+        get_hasPermissionLevels(): boolean;
+        get_isSharedWithCurrentUser(): boolean;
+        get_isSharedWithGuest(): boolean;
+        get_isSharedWithMany(): boolean;
+        get_isSharedWithSecurityGroup(): boolean;
         get_pendingAccessRequestsLink(): string;
         getSharedWithUsers(): SP.ClientObjectList;
-        static getListItemSharingInformation(context: SP.ClientRuntimeContext, listID: SP.Guid, itemID: number, excludeCurrentUser: bool, excludeSiteAdmin: bool, excludeSecurityGroups: bool, retrieveAnonymousLinks: bool, retrieveUserInfoDetails: bool, checkForAccessRequests: bool): SP.ObjectSharingInformation;
-        static getWebSharingInformation(context: SP.ClientRuntimeContext, excludeCurrentUser: bool, excludeSiteAdmin: bool, excludeSecurityGroups: bool, retrieveAnonymousLinks: bool, retrieveUserInfoDetails: bool, checkForAccessRequests: bool): SP.ObjectSharingInformation;
-        static getObjectSharingInformation(context: SP.ClientRuntimeContext, securableObject: SP.SecurableObject, excludeCurrentUser: bool, excludeSiteAdmin: bool, excludeSecurityGroups: bool, retrieveAnonymousLinks: bool, retrieveUserInfoDetails: bool, checkForAccessRequests: bool, retrievePermissionLevels: bool): SP.ObjectSharingInformation;
+        static getListItemSharingInformation(context: SP.ClientRuntimeContext, listID: SP.Guid, itemID: number, excludeCurrentUser: boolean, excludeSiteAdmin: boolean, excludeSecurityGroups: boolean, retrieveAnonymousLinks: boolean, retrieveUserInfoDetails: boolean, checkForAccessRequests: boolean): SP.ObjectSharingInformation;
+        static getWebSharingInformation(context: SP.ClientRuntimeContext, excludeCurrentUser: boolean, excludeSiteAdmin: boolean, excludeSecurityGroups: boolean, retrieveAnonymousLinks: boolean, retrieveUserInfoDetails: boolean, checkForAccessRequests: boolean): SP.ObjectSharingInformation;
+        static getObjectSharingInformation(context: SP.ClientRuntimeContext, securableObject: SP.SecurableObject, excludeCurrentUser: boolean, excludeSiteAdmin: boolean, excludeSecurityGroups: boolean, retrieveAnonymousLinks: boolean, retrieveUserInfoDetails: boolean, checkForAccessRequests: boolean, retrievePermissionLevels: boolean): SP.ObjectSharingInformation;
     }
     export class ObjectSharingInformationUser extends SP.ClientObject {
         get_customRoleNames(): string;
         get_department(): string;
         get_email(): string;
-        get_hasEditPermission(): bool;
-        get_hasViewPermission(): bool;
+        get_hasEditPermission(): boolean;
+        get_hasViewPermission(): boolean;
         get_id(): number;
-        get_isSiteAdmin(): bool;
+        get_isSiteAdmin(): boolean;
         get_jobTitle(): string;
         get_loginName(): string;
         get_name(): string;
@@ -3755,18 +4042,18 @@ declare module SP {
         get_digitGrouping(): string;
         get_firstDayOfWeek(): number;
         get_firstWeekOfYear(): number;
-        get_isEastAsia(): bool;
-        get_isRightToLeft(): bool;
-        get_isUIRightToLeft(): bool;
+        get_isEastAsia(): boolean;
+        get_isRightToLeft(): boolean;
+        get_isUIRightToLeft(): boolean;
         get_listSeparator(): string;
         get_localeId(): number;
         get_negativeSign(): string;
         get_negNumberMode(): number;
         get_pM(): string;
         get_positiveSign(): string;
-        get_showWeeks(): bool;
+        get_showWeeks(): boolean;
         get_thousandSeparator(): string;
-        get_time24(): bool;
+        get_time24(): boolean;
         get_timeMarkerPosition(): number;
         get_timeSeparator(): string;
         get_timeZone(): SP.TimeZone;
@@ -3818,10 +4105,10 @@ declare module SP {
     export class RelatedItemManager extends SP.ClientObject {
         static getRelatedItems(context: SP.ClientRuntimeContext, SourceListName: string, SourceItemID: number): SP.RelatedItem[];
         static getPageOneRelatedItems(context: SP.ClientRuntimeContext, SourceListName: string, SourceItemID: number): SP.RelatedItem[];
-        static addSingleLink(context: SP.ClientRuntimeContext, SourceListName: string, SourceItemID: number, SourceWebUrl: string, TargetListName: string, TargetItemID: number, TargetWebUrl: string, TryAddReverseLink: bool): void;
-        static addSingleLinkToUrl(context: SP.ClientRuntimeContext, SourceListName: string, SourceItemID: number, TargetItemUrl: string, TryAddReverseLink: bool): void;
-        static addSingleLinkFromUrl(context: SP.ClientRuntimeContext, SourceItemUrl: string, TargetListName: string, TargetItemID: number, TryAddReverseLink: bool): void;
-        static deleteSingleLink(context: SP.ClientRuntimeContext, SourceListName: string, SourceItemID: number, SourceWebUrl: string, TargetListName: string, TargetItemID: number, TargetWebUrl: string, TryDeleteReverseLink: bool): void;
+        static addSingleLink(context: SP.ClientRuntimeContext, SourceListName: string, SourceItemID: number, SourceWebUrl: string, TargetListName: string, TargetItemID: number, TargetWebUrl: string, TryAddReverseLink: boolean): void;
+        static addSingleLinkToUrl(context: SP.ClientRuntimeContext, SourceListName: string, SourceItemID: number, TargetItemUrl: string, TryAddReverseLink: boolean): void;
+        static addSingleLinkFromUrl(context: SP.ClientRuntimeContext, SourceItemUrl: string, TargetListName: string, TargetItemID: number, TryAddReverseLink: boolean): void;
+        static deleteSingleLink(context: SP.ClientRuntimeContext, SourceListName: string, SourceItemID: number, SourceWebUrl: string, TargetListName: string, TargetItemID: number, TargetWebUrl: string, TryDeleteReverseLink: boolean): void;
     }
     export enum RelationshipDeleteBehaviorType {
         none,
@@ -3856,7 +4143,7 @@ declare module SP {
         set_basePermissions(value: SP.BasePermissions): void;
         get_description(): string;
         set_description(value: string): void;
-        get_hidden(): bool;
+        get_hidden(): boolean;
         get_id(): number;
         get_name(): string;
         set_name(value: string): void;
@@ -3910,17 +4197,17 @@ declare module SP {
         static getGlobalInstalledLanguages(context: SP.ClientRuntimeContext, compatibilityLevel: number): SP.Language[];
     }
     export class Site extends SP.ClientObject {
-        get_allowDesigner(): bool;
-        set_allowDesigner(value: bool): void;
-        get_allowMasterPageEditing(): bool;
-        set_allowMasterPageEditing(value: bool): void;
-        get_allowRevertFromTemplate(): bool;
-        set_allowRevertFromTemplate(value: bool): void;
-        get_allowSelfServiceUpgrade(): bool;
-        set_allowSelfServiceUpgrade(value: bool): void;
-        get_allowSelfServiceUpgradeEvaluation(): bool;
-        set_allowSelfServiceUpgradeEvaluation(value: bool): void;
-        get_canUpgrade(): bool;
+        get_allowDesigner(): boolean;
+        set_allowDesigner(value: boolean): void;
+        get_allowMasterPageEditing(): boolean;
+        set_allowMasterPageEditing(value: boolean): void;
+        get_allowRevertFromTemplate(): boolean;
+        set_allowRevertFromTemplate(value: boolean): void;
+        get_allowSelfServiceUpgrade(): boolean;
+        set_allowSelfServiceUpgrade(value: boolean): void;
+        get_allowSelfServiceUpgradeEvaluation(): boolean;
+        set_allowSelfServiceUpgradeEvaluation(value: boolean): void;
+        get_canUpgrade(): boolean;
         get_compatibilityLevel(): number;
         get_eventReceivers(): SP.EventReceiverDefinitionCollection;
         get_features(): SP.FeatureCollection;
@@ -3930,26 +4217,26 @@ declare module SP {
         get_owner(): SP.User;
         set_owner(value: SP.User): void;
         get_primaryUri(): string;
-        get_readOnly(): bool;
+        get_readOnly(): boolean;
         get_recycleBin(): SP.RecycleBinItemCollection;
         get_rootWeb(): SP.Web;
         get_serverRelativeUrl(): string;
-        get_shareByLinkEnabled(): bool;
-        get_showUrlStructure(): bool;
-        set_showUrlStructure(value: bool): void;
-        get_uIVersionConfigurationEnabled(): bool;
-        set_uIVersionConfigurationEnabled(value: bool): void;
+        get_shareByLinkEnabled(): boolean;
+        get_showUrlStructure(): boolean;
+        set_showUrlStructure(value: boolean): void;
+        get_uIVersionConfigurationEnabled(): boolean;
+        set_uIVersionConfigurationEnabled(value: boolean): void;
         get_upgradeInfo(): SP.UpgradeInfo;
         get_upgradeReminderDate(): Date;
-        get_upgrading(): bool;
+        get_upgrading(): boolean;
         get_url(): string;
         get_usage(): SP.UsageInfo;
         get_userCustomActions(): SP.UserCustomActionCollection;
-        updateClientObjectModelUseRemoteAPIsPermissionSetting(requireUseRemoteAPIs: bool): void;
-        needsUpgradeByType(versionUpgrade: bool, recursive: bool): SP.BooleanResult;
-        runHealthCheck(ruleId: SP.Guid, bRepair: bool, bRunAlways: bool): SP.SiteHealth.SiteHealthSummary;
-        createPreviewSPSite(upgrade: bool, sendemail: bool): void;
-        runUpgradeSiteSession(versionUpgrade: bool, queueOnly: bool, sendEmail: bool): void;
+        updateClientObjectModelUseRemoteAPIsPermissionSetting(requireUseRemoteAPIs: boolean): void;
+        needsUpgradeByType(versionUpgrade: boolean, recursive: boolean): SP.BooleanResult;
+        runHealthCheck(ruleId: SP.Guid, bRepair: boolean, bRunAlways: boolean): SP.SiteHealth.SiteHealthSummary;
+        createPreviewSPSite(upgrade: boolean, sendemail: boolean): void;
+        runUpgradeSiteSession(versionUpgrade: boolean, queueOnly: boolean, sendEmail: boolean): void;
         getChanges(query: SP.ChangeQuery): SP.ChangeCollection;
         openWeb(strUrl: string): SP.Web;
         openWebById(gWebId: SP.Guid): SP.Web;
@@ -4052,8 +4339,8 @@ declare module SP {
         get_email(): string;
         set_email(value: string): void;
         get_groups(): SP.GroupCollection;
-        get_isSiteAdmin(): bool;
-        set_isSiteAdmin(value: bool): void;
+        get_isSiteAdmin(): boolean;
+        set_isSiteAdmin(value: boolean): void;
         get_userId(): SP.UserIdInfo;
         update(): void;
     }
@@ -4150,21 +4437,21 @@ declare module SP {
         get_baseViewId(): string;
         get_contentTypeId(): SP.ContentTypeId;
         set_contentTypeId(value: SP.ContentTypeId): void;
-        get_defaultView(): bool;
-        set_defaultView(value: bool): void;
-        get_defaultViewForContentType(): bool;
-        set_defaultViewForContentType(value: bool): void;
-        get_editorModified(): bool;
-        set_editorModified(value: bool): void;
+        get_defaultView(): boolean;
+        set_defaultView(value: boolean): void;
+        get_defaultViewForContentType(): boolean;
+        set_defaultViewForContentType(value: boolean): void;
+        get_editorModified(): boolean;
+        set_editorModified(value: boolean): void;
         get_formats(): string;
         set_formats(value: string): void;
-        get_hidden(): bool;
-        set_hidden(value: bool): void;
+        get_hidden(): boolean;
+        set_hidden(value: boolean): void;
         get_htmlSchemaXml(): string;
         get_id(): SP.Guid;
         get_imageUrl(): string;
-        get_includeRootFolder(): bool;
-        set_includeRootFolder(value: bool): void;
+        get_includeRootFolder(): boolean;
+        set_includeRootFolder(value: boolean): void;
         get_viewJoins(): string;
         set_viewJoins(value: string): void;
         get_jSLink(): string;
@@ -4173,28 +4460,28 @@ declare module SP {
         set_listViewXml(value: string): void;
         get_method(): string;
         set_method(value: string): void;
-        get_mobileDefaultView(): bool;
-        set_mobileDefaultView(value: bool): void;
-        get_mobileView(): bool;
-        set_mobileView(value: bool): void;
+        get_mobileDefaultView(): boolean;
+        set_mobileDefaultView(value: boolean): void;
+        get_mobileView(): boolean;
+        set_mobileView(value: boolean): void;
         get_moderationType(): string;
-        get_orderedView(): bool;
-        get_paged(): bool;
-        set_paged(value: bool): void;
-        get_personalView(): bool;
+        get_orderedView(): boolean;
+        get_paged(): boolean;
+        set_paged(value: boolean): void;
+        get_personalView(): boolean;
         get_viewProjectedFields(): string;
         set_viewProjectedFields(value: string): void;
         get_viewQuery(): string;
         set_viewQuery(value: string): void;
-        get_readOnlyView(): bool;
-        get_requiresClientIntegration(): bool;
+        get_readOnlyView(): boolean;
+        get_requiresClientIntegration(): boolean;
         get_rowLimit(): number;
         set_rowLimit(value: number): void;
         get_scope(): SP.ViewScope;
         set_scope(value: SP.ViewScope): void;
         get_serverRelativeUrl(): string;
         get_styleId(): string;
-        get_threaded(): bool;
+        get_threaded(): boolean;
         get_title(): string;
         set_title(value: string): void;
         get_toolbar(): string;
@@ -4216,16 +4503,16 @@ declare module SP {
         add(parameters: SP.ViewCreationInformation): SP.View;
     }
     export class ViewCreationInformation extends SP.ClientValueObject {
-        get_paged(): bool;
-        set_paged(value: bool): void;
-        get_personalView(): bool;
-        set_personalView(value: bool): void;
+        get_paged(): boolean;
+        set_paged(value: boolean): void;
+        get_personalView(): boolean;
+        set_personalView(value: boolean): void;
         get_query(): string;
         set_query(value: string): void;
         get_rowLimit(): number;
         set_rowLimit(value: number): void;
-        get_setAsDefaultView(): bool;
-        set_setAsDefaultView(value: bool): void;
+        get_setAsDefaultView(): boolean;
+        set_setAsDefaultView(value: boolean): void;
         get_title(): string;
         set_title(value: string): void;
         get_viewFields(): string[];
@@ -4261,10 +4548,10 @@ declare module SP {
         gantt,
     }
     export class Web extends SP.SecurableObject {
-        get_allowDesignerForCurrentUser(): bool;
-        get_allowMasterPageEditingForCurrentUser(): bool;
-        get_allowRevertFromTemplateForCurrentUser(): bool;
-        get_allowRssFeeds(): bool;
+        get_allowDesignerForCurrentUser(): boolean;
+        get_allowMasterPageEditingForCurrentUser(): boolean;
+        get_allowRevertFromTemplateForCurrentUser(): boolean;
+        get_allowRssFeeds(): boolean;
         get_allProperties(): SP.PropertyValues;
         get_appInstanceId(): SP.Guid;
         get_associatedMemberGroup(): SP.Group;
@@ -4283,10 +4570,10 @@ declare module SP {
         set_customMasterUrl(value: string): void;
         get_description(): string;
         set_description(value: string): void;
-        get_documentLibraryCalloutOfficeWebAppPreviewersDisabled(): bool;
+        get_documentLibraryCalloutOfficeWebAppPreviewersDisabled(): boolean;
         get_effectiveBasePermissions(): SP.BasePermissions;
-        get_enableMinimalDownload(): bool;
-        set_enableMinimalDownload(value: bool): void;
+        get_enableMinimalDownload(): boolean;
+        set_enableMinimalDownload(value: boolean): void;
         get_eventReceivers(): SP.EventReceiverDefinitionCollection;
         get_features(): SP.FeatureCollection;
         get_fields(): SP.FieldCollection;
@@ -4301,33 +4588,33 @@ declare module SP {
         get_navigation(): SP.Navigation;
         get_parentWeb(): SP.WebInformation;
         get_pushNotificationSubscribers(): SP.PushNotificationSubscriberCollection;
-        get_quickLaunchEnabled(): bool;
-        set_quickLaunchEnabled(value: bool): void;
+        get_quickLaunchEnabled(): boolean;
+        set_quickLaunchEnabled(value: boolean): void;
         get_recycleBin(): SP.RecycleBinItemCollection;
-        get_recycleBinEnabled(): bool;
+        get_recycleBinEnabled(): boolean;
         get_regionalSettings(): SP.RegionalSettings;
         get_roleDefinitions(): SP.RoleDefinitionCollection;
         get_rootFolder(): SP.Folder;
-        get_saveSiteAsTemplateEnabled(): bool;
-        set_saveSiteAsTemplateEnabled(value: bool): void;
+        get_saveSiteAsTemplateEnabled(): boolean;
+        set_saveSiteAsTemplateEnabled(value: boolean): void;
         get_serverRelativeUrl(): string;
         set_serverRelativeUrl(value: string): void;
-        get_showUrlStructureForCurrentUser(): bool;
+        get_showUrlStructureForCurrentUser(): boolean;
         get_siteGroups(): SP.GroupCollection;
         get_siteUserInfoList(): SP.List;
         get_siteUsers(): SP.UserCollection;
         get_supportedUILanguageIds(): number[];
-        get_syndicationEnabled(): bool;
-        set_syndicationEnabled(value: bool): void;
+        get_syndicationEnabled(): boolean;
+        set_syndicationEnabled(value: boolean): void;
         get_themeInfo(): SP.ThemeInfo;
         get_title(): string;
         set_title(value: string): void;
-        get_treeViewEnabled(): bool;
-        set_treeViewEnabled(value: bool): void;
+        get_treeViewEnabled(): boolean;
+        set_treeViewEnabled(value: boolean): void;
         get_uIVersion(): number;
         set_uIVersion(value: number): void;
-        get_uIVersionConfigurationEnabled(): bool;
-        set_uIVersionConfigurationEnabled(value: bool): void;
+        get_uIVersionConfigurationEnabled(): boolean;
+        set_uIVersionConfigurationEnabled(value: boolean): void;
         get_url(): string;
         get_userCustomActions(): SP.UserCustomActionCollection;
         get_webs(): SP.WebCollection;
@@ -4344,7 +4631,7 @@ declare module SP {
         doesPushNotificationSubscriberExist(deviceAppInstanceId: SP.Guid): SP.BooleanResult;
         getPushNotificationSubscriber(deviceAppInstanceId: SP.Guid): SP.PushNotificationSubscriber;
         getUserById(userId: number): SP.User;
-        getAvailableWebTemplates(lcid: number, doIncludeCrossLanguage: bool): SP.WebTemplateCollection;
+        getAvailableWebTemplates(lcid: number, doIncludeCrossLanguage: boolean): SP.WebTemplateCollection;
         getCatalog(typeCatalog: number): SP.List;
         getChanges(query: SP.ChangeQuery): SP.ChangeCollection;
         applyWebTemplate(webTemplate: string): void;
@@ -4362,7 +4649,7 @@ declare module SP {
         loadApp(appPackageStream: any[], installationLocaleLCID: number): SP.AppInstance;
         loadAndInstallApp(appPackageStream: any[]): SP.AppInstance;
         ensureUser(logonName: string): SP.User;
-        applyTheme(colorPaletteUrl: string, fontSchemeUrl: string, backgroundImageUrl: string, shareGenerated: bool): void;
+        applyTheme(colorPaletteUrl: string, fontSchemeUrl: string, backgroundImageUrl: string, shareGenerated: boolean): void;
     }
     export class WebCollection extends SP.ClientObjectCollection<Web> {
         itemAt(index: number): SP.Web;
@@ -4378,8 +4665,8 @@ declare module SP {
         set_title(value: string): void;
         get_url(): string;
         set_url(value: string): void;
-        get_useSamePermissionsAsParentSite(): bool;
-        set_useSamePermissionsAsParentSite(value: bool): void;
+        get_useSamePermissionsAsParentSite(): boolean;
+        set_useSamePermissionsAsParentSite(value: boolean): void;
         get_webTemplate(): string;
         set_webTemplate(value: string): void;
         get_typeId(): string;
@@ -4430,9 +4717,9 @@ declare module SP {
         get_displayCategory(): string;
         get_id(): number;
         get_imageUrl(): string;
-        get_isHidden(): bool;
-        get_isRootWebOnly(): bool;
-        get_isSubWebOnly(): bool;
+        get_isHidden(): boolean;
+        get_isRootWebOnly(): boolean;
+        get_isSubWebOnly(): boolean;
         get_lcid(): number;
         get_name(): string;
         get_title(): string;
@@ -4465,11 +4752,11 @@ declare module SP {
                 static getDefaultFormsInformation(requestor: SP.Application.UI.DefaultFormsInformationRequestor, listId: SP.Guid): void;
             }
             export class ViewSelectorMenuOptions {
-                showRepairView: bool;
-                showMergeView: bool;
-                showEditView: bool;
-                showCreateView: bool;
-                showApproverView: bool;
+                showRepairView: boolean;
+                showMergeView: boolean;
+                showEditView: boolean;
+                showCreateView: boolean;
+                showApproverView: boolean;
                 listId: string;
                 viewId: string;
                 viewParameters: string;
@@ -4567,7 +4854,7 @@ declare module SP {
             get_messageAsText(): string;
             get_ruleHelpLink(): string;
             get_ruleId(): SP.Guid;
-            get_ruleIsRepairable(): bool;
+            get_ruleIsRepairable(): boolean;
             get_ruleName(): string;
             get_status(): SP.SiteHealth.SiteHealthStatusType;
             set_status(value: SP.SiteHealth.SiteHealthStatusType): void;
@@ -4603,8 +4890,8 @@ declare module Microsoft.SharePoint.Client.Search {
             get_blockDedupeMode: () => number;
             set_blockDedupeMode: (value: number) => void;
 
-            get_bypassResultTypes: () => bool;
-            set_bypassResultTypes: (value: bool) => void;
+            get_bypassResultTypes: () => boolean;
+            set_bypassResultTypes: (value: boolean) => void;
 
             get_clientType: () => string;
             set_clientType: (value: string) => void;
@@ -4615,34 +4902,34 @@ declare module Microsoft.SharePoint.Client.Search {
             get_desiredSnippetLength: () => number;
             set_desiredSnippetLength: (value: number) => void;
 
-            get_enableInterleaving: () => bool;
-            set_enableInterleaving: (value: bool) => void;
+            get_enableInterleaving: () => boolean;
+            set_enableInterleaving: (value: boolean) => void;
 
-            get_enableNicknames: () => bool;
-            set_enableNicknames: (value: bool) => void;
+            get_enableNicknames: () => boolean;
+            set_enableNicknames: (value: boolean) => void;
 
-            get_enableOrderingHitHighlightedProperty: () => bool;
-            set_enableOrderingHitHighlightedProperty: (value: bool) => void;
+            get_enableOrderingHitHighlightedProperty: () => boolean;
+            set_enableOrderingHitHighlightedProperty: (value: boolean) => void;
 
-            get_enablePhonetic: () => bool;
-            set_enablePhonetic: (value: bool) => void;
+            get_enablePhonetic: () => boolean;
+            set_enablePhonetic: (value: boolean) => void;
 
-            get_enableQueryRules: () => bool;
-            set_enableQueryRules: (value: bool) => void;
+            get_enableQueryRules: () => boolean;
+            set_enableQueryRules: (value: boolean) => void;
 
-            get_enableStemming: () => bool;
-            set_enableStemming: (value: bool) => void;
+            get_enableStemming: () => boolean;
+            set_enableStemming: (value: boolean) => void;
 
-            get_generateBlockRankLog: () => bool;
-            set_generateBlockRankLog: (value: bool) => void;
+            get_generateBlockRankLog: () => boolean;
+            set_generateBlockRankLog: (value: boolean) => void;
 
             get_hitHighlightedMultivaluePropertyLimit: () => number;
             set_hitHighlightedMultivaluePropertyLimit: (value: number) => void;
 
             get_hitHighlightedProperties: () => StringCollection;
 
-            get_ignoreSafeQueryPropertiesTemplateUrl: () => bool;
-            set_ignoreSafeQueryPropertiesTemplateUrl: (value: bool) => void;
+            get_ignoreSafeQueryPropertiesTemplateUrl: () => boolean;
+            set_ignoreSafeQueryPropertiesTemplateUrl: (value: boolean) => void;
 
             get_impressionID: () => string;
             set_impressionID: (value: string) => void;
@@ -4653,11 +4940,11 @@ declare module Microsoft.SharePoint.Client.Search {
             get_personalizationData: () => QueryPersonalizationData;
             set_personalizationData: (QueryPersonalizationData) => void;
 
-            get_processBestBets: () => bool;
-            set_processBestBets: (value: bool) => void;
+            get_processBestBets: () => boolean;
+            set_processBestBets: (value: boolean) => void;
 
-            get_processPersonalFavorites: () => bool;
-            set_processPersonalFavorites: (value: bool) => void;
+            get_processPersonalFavorites: () => boolean;
+            set_processPersonalFavorites: (value: boolean) => void;
 
             get_queryTag: () => string;
             set_queryTag: (value: string) => void;
@@ -4665,7 +4952,7 @@ declare module Microsoft.SharePoint.Client.Search {
             get_queryTemplate: () => string;
             set_queryTemplate: (value: string) => void;
 
-            get_queryTemplateParameters: () => { [key: string]: bool; };
+            get_queryTemplateParameters: () => { [key: string]: boolean; };
 
             get_queryText: () => string;
             set_queryText: (value: string) => void;
@@ -4685,8 +4972,8 @@ declare module Microsoft.SharePoint.Client.Search {
             get_safeQueryPropertiesTemplateUrl: () => string;
             set_safeQueryPropertiesTemplateUrl: (value: string) => void;
 
-            get_showPeopleNameSuggestions: () => bool;
-            set_showPeopleNameSuggestions: (value: bool) => void;
+            get_showPeopleNameSuggestions: () => boolean;
+            set_showPeopleNameSuggestions: (value: boolean) => void;
 
             get_sourceId: () => SP.Guid;
             set_sourceId: (value: SP.Guid) => void;
@@ -4703,8 +4990,8 @@ declare module Microsoft.SharePoint.Client.Search {
             get_totalRowsExactMinimum: () => number;
             set_totalRowsExactMinimum: (value: number) => void;
 
-            get_trimDuplicates: () => bool;
-            set_trimDuplicates: (value: bool) => void;
+            get_trimDuplicates: () => boolean;
+            set_trimDuplicates: (value: boolean) => void;
 
 
             get_uiLanguage: () => number;
@@ -4714,10 +5001,10 @@ declare module Microsoft.SharePoint.Client.Search {
 
             getQuerySuggestionsWithResults: (iNumberOfQuerySuggestions: number,
                 iNumberOfResultSuggestions: number,
-                fPreQuerySuggestions: bool,
-                fHitHighlighting: bool,
-                fCapitalizeFirstLetters: bool,
-                fPrefixMatchAllTerms: bool) => QuerySuggestionResults;
+                fPreQuerySuggestions: boolean,
+                fHitHighlighting: boolean,
+                fCapitalizeFirstLetters: boolean,
+                fPrefixMatchAllTerms: boolean) => QuerySuggestionResults;
 
 
         }
@@ -4729,8 +5016,8 @@ declare module Microsoft.SharePoint.Client.Search {
             get_collapseSpecification: () => string;
             set_collapseSpecification: (value: string) => void;
 
-            get_enableSorting: () => bool;
-            set_enableSorting: (value: bool) => void;
+            get_enableSorting: () => boolean;
+            set_enableSorting: (value: boolean) => void;
 
             get_hiddenConstraints: () => string;
             set_hiddenConstraints: (value: string) => void;
@@ -4761,7 +5048,7 @@ declare module Microsoft.SharePoint.Client.Search {
 
             /**Runs a query.*/
             executeQuery: (query: Query) => SP.JsonObjectResult;
-            executeQueries: (queryIds: string[], queries: Query[], handleExceptions: bool) => SP.JsonObjectResult;
+            executeQueries: (queryIds: string[], queries: Query[], handleExceptions: boolean) => SP.JsonObjectResult;
             recordPageClick: (
                 pageInfo: string,
                 clickType: string,
@@ -4804,8 +5091,8 @@ declare module Microsoft.SharePoint.Client.Search {
             get_highlightedTitle: () => string;
             set_highlightedTitle: (value: string) => void;
 
-            get_isBestBet: () => bool;
-            set_isBestBet: (value: bool) => void;
+            get_isBestBet: () => boolean;
+            set_isBestBet: (value: boolean) => void;
 
             get_title: () => string;
             set_title: (value: string) => void;
@@ -4815,8 +5102,8 @@ declare module Microsoft.SharePoint.Client.Search {
         }
 
         export class QuerySuggestionQuery extends SP.ClientValueObject {
-            get_isPersonal: () => bool;
-            set_isPersonal: (value: bool) => void;
+            get_isPersonal: () => boolean;
+            set_isPersonal: (value: boolean) => void;
 
             get_query: () => string;
             set_query: (value: string) => void;
@@ -4839,8 +5126,8 @@ declare module Microsoft.SharePoint.Client.Search {
         }
 
         export class QueryPropertyValue extends SP.ClientValueObject {
-            get_boolVal: () => bool;
-            set_boolVal: (value: bool) => bool;
+            get_boolVal: () => boolean;
+            set_boolVal: (value: boolean) => boolean;
 
             get_intVal: () => number;
             set_intVal: (value: number) => number;
@@ -5045,7 +5332,7 @@ declare module Microsoft.SharePoint.Client.Search {
 
             get_correlationID: () => string;
 
-            get_encodeDetails: () => bool;
+            get_encodeDetails: () => boolean;
 
             get_header: () => string;
 
@@ -5057,9 +5344,9 @@ declare module Microsoft.SharePoint.Client.Search {
 
             get_serverTypeId: () => string;
 
-            get_showForViewerUsers: () => bool;
+            get_showForViewerUsers: () => boolean;
 
-            get_showInEditModeOnly: () => bool;
+            get_showInEditModeOnly: () => boolean;
 
             get_stackTrace: () => string;
 
@@ -5076,10 +5363,10 @@ declare module Microsoft.SharePoint.Client.Search {
     module Administration {
         export class DocumentCrawlLog extends SP.ClientObject {
             constructor(context: SP.ClientContext, site: SP.Site);
-            getCrawledUrls: (getCountOnly: bool,
+            getCrawledUrls: (getCountOnly: boolean,
                 maxRows: { High: number; Low: number; },
                 queryString: string,
-                isLike: bool,
+                isLike: boolean,
                 contentSourceID: number,
                 errorLevel: number,
                 errorID: number,
@@ -5187,7 +5474,7 @@ declare module SP {
             unsubscribe(subscription: SP.BusinessData.Runtime.Subscription, onBehalfOfUser: string, unsubscriberName: string, lobSystemInstance: SP.BusinessData.LobSystemInstance): void;
         }
         export class EntityField extends SP.ClientObject {
-            get_containsLocalizedDisplayName(): bool;
+            get_containsLocalizedDisplayName(): boolean;
             get_defaultDisplayName(): string;
             get_localizedDisplayName(): string;
             get_name(): string;
@@ -5231,9 +5518,9 @@ declare module SP {
             get_item(index: number): SP.BusinessData.Runtime.EntityFieldValueDictionary;
         }
         export class TypeDescriptor extends SP.ClientObject {
-            get_containsReadOnly(): bool;
-            get_isCollection(): bool;
-            get_isReadOnly(): bool;
+            get_containsReadOnly(): boolean;
+            get_isCollection(): boolean;
+            get_isReadOnly(): boolean;
             get_name(): string;
             get_typeName(): string;
             containsLocalizedDisplayName(): SP.BooleanResult;
@@ -5337,78 +5624,13 @@ declare module SP {
         }
     }
 }
-declare module SP {
-    export class SOD {
-        static execute(fileName: string, functionName: string, args?: any[]): void;
-        static executeFunc(fileName: string, functionName: string, fn: () => void): void;
-        static executeOrDelayUntilEventNotified(func: () => void, eventName: string): bool;
-        static executeOrDelayUntilScriptLoaded(func: () => void, depScriptFileName: string): bool;
-        static notifyScriptLoadedAndExecuteWaitingJobs(scriptFileName: string): void;
-        static notifyEventAndExecuteWaitingJobs(eventName: string): void;
-        static registerSod(fileName: string, url: string): void;
-        static registerSodDep(fileName: string, dependentFileName: string): void;
-    }
-}
-
-/** Register function to rerun on partial update in MDS-enabled site.*/
-declare function RegisterModuleInit(scriptFileName: string, initFunc: () => void ): void;
-
-/** Provides access to url and query string parts.*/
-declare class JSRequest {
-    /** Query string parts.*/
-    static QueryString: { [parameter: string]: string; };
-
-    /** initializes class.*/
-    static EnsureSetup(): void;
-
-    /** Current file name (after last '/' in url).*/
-    static FileName: string;
-
-    /** Current file path (before last '/' in url).*/
-    static PathName: string;
-}
-
-declare class _spPageContextInfo {
-    static alertsEnabled: bool; //true
-    static allowSilverlightPrompt: string; //"True"
-    static clientServerTimeDelta: number; //-182
-    static crossDomainPhotosEnabled: bool; //true
-    static currentCultureName: string; //"ru-RU"
-    static currentLanguage: number; //1049
-    static currentUICultureName: string; //"ru-RU"
-    static layoutsUrl: string;  //"_layouts/15"
-    static pageListId: string;  //"{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
-    static pagePersonalizationScope: string; //1
-    static serverRequestPath: string; //"/SPTypeScript/Lists/ConditionalFormattingTasksList/AllItems.aspx"
-    static siteAbsoluteUrl: string; // "https://gandjustas-7b20d3715e8ed4.sharepoint.com"
-    static siteClientTag: string; //"0$$15.0.4454.1021"
-    static siteServerRelativeUrl: string; // "/"
-    static systemUserKey: string; //"i:0h.f|membership|10033fff84e7cb2b@live.com"
-    static tenantAppVersion: string; //"0"
-    static userId: number; //12
-    static webAbsoluteUrl: string; //"https://gandjustas-7b20d3715e8ed4.sharepoint.com/SPTypeScript"
-    static webLanguage: number; //1049
-    static webLogoUrl: string; //"/_layouts/15/images/siteIcon.png?rev=23"
-    static webPermMasks: { High: number; Low: number; };
-    static webServerRelativeUrl: string; //"/SPTypeScript"
-    static webTemplate: string; //"17"
-    static webTitle: string; //"SPTypeScript"
-    static webUIVersion: number; //15
-}
-
-declare function STSHtmlEncode(value: string): string;
-
-declare function AddEvtHandler(element: HTMLElement, event:string, func: EventListener): void;
-
-/** Gets query string parameter */
-declare function GetUrlKeyValue(key: string): string;
 
 declare module SP {
     export module Sharing {
         export class DocumentSharingManager {
             static getRoleDefinition(context: SP.ClientRuntimeContext, role: SP.Sharing.Role): SP.RoleDefinition;
             static isDocumentSharingEnabled(context: SP.ClientRuntimeContext, list: SP.List): SP.BooleanResult;
-            static updateDocumentSharingInfo(context: SP.ClientRuntimeContext, resourceAddress: string, userRoleAssignments: SP.Sharing.UserRoleAssignment[], validateExistingPermissions: bool, additiveMode: bool, sendServerManagedNotification: bool, customMessage: string, includeAnonymousLinksInNotification: bool): SP.Sharing.UserSharingResult[];
+            static updateDocumentSharingInfo(context: SP.ClientRuntimeContext, resourceAddress: string, userRoleAssignments: SP.Sharing.UserRoleAssignment[], validateExistingPermissions: boolean, additiveMode: boolean, sendServerManagedNotification: boolean, customMessage: string, includeAnonymousLinksInNotification: boolean): SP.Sharing.UserSharingResult[];
         }
         export enum Role {
             none,
@@ -5428,9 +5650,9 @@ declare module SP {
         export class UserSharingResult extends SP.ClientValueObject {
             get_allowedRoles(): SP.Sharing.Role[];
             get_currentRole(): SP.Sharing.Role;
-            get_isUserKnown(): bool;
+            get_isUserKnown(): boolean;
             get_message(): string;
-            get_status(): bool;
+            get_status(): boolean;
             get_user(): string;
             get_typeId(): string;
             writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
@@ -5603,7 +5825,7 @@ declare module SP {
             /** Identifies whether the actor is a user, document, site, or tag. */
             get_actorType(): SocialActorType;
             /** Specifies whether the actor can be followed by the current user. */
-            get_canFollow(): bool;
+            get_canFollow(): boolean;
             /** Returns the URI of the document or site content.
                 This property is only available for social actors of type Document or Site. */
             get_contentUri(): string;
@@ -5617,7 +5839,7 @@ declare module SP {
                 This property is only available if actor is User, Document, or Site. */
             get_imageUri(): string;
             /** Returns true if the current user is following the actor; otherwise, it returns false. */
-            get_isFollowed(): bool;
+            get_isFollowed(): boolean;
             /** Returns the URI of the library containing the document.
                 This property is only available for social actors of type "document". */
             get_libraryUri(): string;
@@ -5844,7 +6066,7 @@ declare module SP {
             /** Returns the root post and all reply posts in the thread. */
             getFullThread(threadId: string): SocialThread;
             /** Returns a feed containing mention reference threads from the current user's personal feed. */
-            getMentions(clearUnreadMentions: bool, options: SocialFeedOptions): SocialFeed;
+            getMentions(clearUnreadMentions: boolean, options: SocialFeedOptions): SocialFeed;
             /** Returns the server's count of unread mentions of the current user. 
                 The server maintains a count of unread mentions in posts, but does not track which mentions have been read. 
                 When a new mention is stored on the server, it increments the unread mention for the user specified by the mention. 
@@ -5950,7 +6172,7 @@ declare module SP {
 
         /** Specifies a set of users, documents, sites, and tags by an index into the SocialThreadActors array  */
         export class SocialPostActorInfo extends SP.ClientValueObject {
-            get_includesCurrentUser(): bool;
+            get_includesCurrentUser(): boolean;
             /** Specifies an array of indexes into the SocialThreadActors array.
                 The server can choose to return a limited set of actors. For example, the server can choose to return a subset of the users that like a post. */
             get_indexes(): number[];
@@ -5991,9 +6213,9 @@ declare module SP {
             /** Specifies that access to the post SHOULD be restricted to users that have access to the objects identified by the array of URIs */
             set_securityUris(value: string[]): string[];
             /** Indicates whether the post is to be used as the current user's new status message. */
-            get_updateStatusText(): bool;
+            get_updateStatusText(): boolean;
             /** Indicates whether the post is to be used as the current user's new status message. */
-            set_updateStatusText(value: bool): bool;
+            set_updateStatusText(value: boolean): boolean;
         }
 
         /** Provides additional information about server-generated posts.
@@ -6117,28 +6339,28 @@ declare module SP {
             static getTaxonomySession(context: SP.ClientContext): TaxonomySession;
             get_offlineTermStoreNames(): string[];
             get_termStores(): TermStoreCollection;
-            getTerms(termLabel: string, trimUnavailable: bool): TermCollection;
+            getTerms(termLabel: string, trimUnavailable: boolean): TermCollection;
             getTerms(labelMatchInformation: LabelMatchInformation): TermCollection;
             updateCache(): void;
             getTerm(guid: SP.Guid): Term;
             getTermsById(termIds: SP.Guid[]): TermCollection;
             getTermsInDefaultLanguage(
                 termLabel: string,
-                defaultLabelOnly: bool,
+                defaultLabelOnly: boolean,
                 stringMatchOption: StringMatchOption,
                 resultCollectionSize: number,
-                trimUnavailable: bool,
-                trimDeprecated: bool): TermCollection;
+                trimUnavailable: boolean,
+                trimDeprecated: boolean): TermCollection;
 
             getTermsInWorkingLocale(
                 termLabel: string,
-                defaultLabelOnly: bool,
+                defaultLabelOnly: boolean,
                 stringMatchOption: StringMatchOption,
                 resultCollectionSize: number,
-                trimUnavailable: bool,
-                trimDeprecated: bool): TermCollection;
+                trimUnavailable: boolean,
+                trimDeprecated: boolean): TermCollection;
 
-            getTermsWithCustomProperty(customPropertyName: string, trimUnavailable: bool): TermCollection;
+            getTermsWithCustomProperty(customPropertyName: string, trimUnavailable: boolean): TermCollection;
             getTermsWithCustomProperty(customPropertyMatchInformation: CustomPropertyMatchInformation): TermCollection;
             getTermSetsByName(termSetName: string, lcid: number): TermSetCollection;
             getTermSetsByTermLabel(requiredTermLabels: string[], lcid: number): TermSetCollection;
@@ -6160,7 +6382,7 @@ declare module SP {
             get_groups(): TermGroupCollection;
             get_hashTagsTermSet(): TermSet;
             get_id(): SP.Guid;
-            get_isOnline(): bool;
+            get_isOnline(): boolean;
             get_keywordsTermSet(): TermSet;
             get_languages(): number[];
             get_name(): string;
@@ -6182,18 +6404,18 @@ declare module SP {
             getTerm(termId: SP.Guid): Term;
             getTermInTermSet(termSetId: SP.Guid, termId: SP.Guid): Term;
             getTermsById(termIds: SP.Guid[]): TermCollection;
-            getTerms(termLabel: string, trimUnavailable: bool): TermCollection;
+            getTerms(termLabel: string, trimUnavailable: boolean): TermCollection;
             getTerms(labelMatchInformation: LabelMatchInformation): TermCollection;
             getTermSetsByName(termSetName: string, lcid: number): TermSetCollection;
             getTermSetsByTermLabel(requiredTermLabels: string[], lcid: number): TermSetCollection;
-            getTermsWithCustomProperty(customPropertyName: string, trimUnavailable: bool): TermCollection;
+            getTermsWithCustomProperty(customPropertyName: string, trimUnavailable: boolean): TermCollection;
             getTermsWithCustomProperty(customPropertyMatchInformation: CustomPropertyMatchInformation): TermCollection;
 
             getTermSet(termSetId: SP.Guid): TermSet;
             getTermSetsWithCustomProperty(customPropertyMatchInformation: CustomPropertyMatchInformation): TermSetCollection;
             rollbackAll(): void;
             updateCache(): void;
-            getSiteCollectionGroup(currentSite: SP.Site, createIfMissing: bool): TermGroup;
+            getSiteCollectionGroup(currentSite: SP.Site, createIfMissing: boolean): TermGroup;
             updateUsedTermsOnSite(currentSite: SP.Site): void;
         }
 
@@ -6218,8 +6440,8 @@ declare module SP {
         export class TermGroup extends TaxonomyItem {
             get_description(): string;
             set_description(value: string): void;
-            get_isSiteCollectionGroup(): bool;
-            get_isSystemGroup(): bool;
+            get_isSiteCollectionGroup(): boolean;
+            get_isSystemGroup(): boolean;
             get_termSets(): TermSetCollection;
             createTermSet(name: string, newTermSetId: SP.Guid, lcid: number): TermSet;
             exportObject(): SP.StringResult;
@@ -6231,14 +6453,14 @@ declare module SP {
             get_customProperties(): { [key: string]: string; };
             get_customSortOrder(): string;
             set_customSortOrder(value: string): void;
-            get_isAvailableForTagging(): bool;
-            set_isAvailableForTagging(value: bool): void;
+            get_isAvailableForTagging(): boolean;
+            set_isAvailableForTagging(value: boolean): void;
             get_owner(): string;
             set_owner(value: string): void;
             get_terms(): TermCollection;
             createTerm(name: string, lcid: number, newTermId: SP.Guid): Term;
             /*getTerms(pagingLimit: number): TermCollection;*/ //Moved to descendants to void TypeScript errors
-            reuseTerm(sourceTerm: Term, reuseBranch: bool): Term;
+            reuseTerm(sourceTerm: Term, reuseBranch: boolean): Term;
             reuseTermWithPinning(sourceTerm: Term): Term;
             deleteCustomProperty(name: string): void;
             deleteAllCustomProperties(): void;
@@ -6258,8 +6480,8 @@ declare module SP {
             get_description(): string;
             set_description(value: string): void;
             get_group(): TermGroup;
-            get_isOpenForTermCreation(): bool;
-            set_isOpenForTermCreation(value: bool): void;
+            get_isOpenForTermCreation(): boolean;
+            set_isOpenForTermCreation(value: boolean): void;
             get_stakeholders(): string[];
             addStakeholder(stakeholderName: string): void;
             copy(): TermSet;
@@ -6269,9 +6491,9 @@ declare module SP {
             getChanges(changeInformation: ChangeInformation): ChangedItemCollection;
             getTerm(termId: SP.Guid): Term;
             getTerms(pagingLimit: number): TermCollection;
-            getTerms(termLabel: string, trimUnavailable: bool): TermCollection;
+            getTerms(termLabel: string, trimUnavailable: boolean): TermCollection;
             getTerms(labelMatchInformation: LabelMatchInformation): TermCollection;
-            getTermsWithCustomProperty(customPropertyName: string, trimUnavailable: bool): TermCollection;
+            getTermsWithCustomProperty(customPropertyName: string, trimUnavailable: boolean): TermCollection;
             getTermsWithCustomProperty(customPropertyMatchInformation: CustomPropertyMatchInformation): TermCollection;
             move(targetGroup: TermGroup): void;
         }
@@ -6285,13 +6507,13 @@ declare module SP {
 
         export class Term extends TermSetItem {
             get_description(): string;
-            get_isDeprecated(): bool;
-            get_isKeyword(): bool;
-            get_isPinned(): bool;
-            get_isPinnedRoot(): bool;
-            get_isReused(): bool;
-            get_isRoot(): bool;
-            get_isSourceTerm(): bool;
+            get_isDeprecated(): boolean;
+            get_isKeyword(): boolean;
+            get_isPinned(): boolean;
+            get_isPinnedRoot(): boolean;
+            get_isReused(): boolean;
+            get_isRoot(): boolean;
+            get_isSourceTerm(): boolean;
             get_labels: LabelCollection;
             get_localCustomProperties(): { [key: string]: string; };
             get_mergedTermIds(): SP.Guid[];
@@ -6303,11 +6525,11 @@ declare module SP {
             get_termsCount(): number;
             get_termSet(): TermSet;
             get_termSets(): TermSetCollection;
-            copy(doCopyChildren: bool): Term;
-            createLabel(labelName: string, lcid: number, isDefault: bool): Label;
+            copy(doCopyChildren: boolean): Term;
+            createLabel(labelName: string, lcid: number, isDefault: boolean): Label;
             deleteLocalCustomProperty(name: string): void;
             deleteAllLocalCustomProperties(): void;
-            deprecate(doDepricate: bool): void;
+            deprecate(doDepricate: boolean): void;
             getAllLabels(lcid: number): LabelCollection;
             getDefaultLabel(lcid: number): Label;
             getDescription(lcid: number): SP.StringResult;
@@ -6316,10 +6538,10 @@ declare module SP {
             getTerms(
                 termLabel: string,
                 lcid: number,
-                defaultLabelOnly: bool,
+                defaultLabelOnly: boolean,
                 stringMatchOption: StringMatchOption,
                 resultCollectionSize: number,
-                trimUnavailable: bool): TermCollection;
+                trimUnavailable: boolean): TermCollection;
 
             merge(termToMerge: Term): void;
             move(newParnt: TermSetItem): void;
@@ -6338,7 +6560,7 @@ declare module SP {
         }
 
         export class Label extends SP.ClientObject {
-            get_isDefaultForLanguage(): bool;
+            get_isDefaultForLanguage(): boolean;
             get_language(): number;
             set_language(value: number): void;
             get_term(): Term;
@@ -6350,10 +6572,10 @@ declare module SP {
 
         export class LabelMatchInformation extends SP.ClientObject {
             constructor(context: SP.ClientContext);
-            get_defaultLabelOnly(): bool;
-            set_defaultLabelOnly(value: bool): void;
-            get_excludeKeyword(): bool;
-            set_excludeKeyword(value: bool): void;
+            get_defaultLabelOnly(): boolean;
+            set_defaultLabelOnly(value: boolean): void;
+            get_excludeKeyword(): boolean;
+            set_excludeKeyword(value: boolean): void;
             get_lcid(): number;
             set_lcid(value: number): void;
             get_resultCollectionSize(): number;
@@ -6362,10 +6584,10 @@ declare module SP {
             set_stringMatchOption(value: StringMatchOption): void;
             get_termLabel(): string;
             set_termLabel(value: string): void;
-            get_trimDeprecated(): bool;
-            set_trimDeprecated(value: bool): void;
-            get_trimUnavailable(): bool;
-            set_trimUnavailable(value: bool): void;
+            get_trimDeprecated(): boolean;
+            set_trimDeprecated(value: boolean): void;
+            get_trimUnavailable(): boolean;
+            set_trimUnavailable(value: boolean): void;
         }
 
         export class CustomPropertyMatchInformation extends SP.ClientObject {
@@ -6378,8 +6600,8 @@ declare module SP {
             set_resultCollectionSize(value: number): void;
             get_stringMatchOption(): StringMatchOption;
             set_stringMatchOption(value: StringMatchOption): void;
-            get_trimUnavailable(): bool;
-            set_trimUnavailable(value: bool): void;
+            get_trimUnavailable(): boolean;
+            set_trimUnavailable(value: boolean): void;
         }
 
         export class ChangeInformation extends SP.ClientObject {
@@ -6431,24 +6653,24 @@ declare module SP {
         }
         export class ChangedTermStore extends ChangedItem {
             get_changedLanguage(): number;
-            get_isDefaultLanguageChanged(): bool;
-            get_isFullFarmRestore(): bool;
+            get_isDefaultLanguageChanged(): boolean;
+            get_isFullFarmRestore(): boolean;
         }
 
         export class TaxonomyField extends SP.FieldLookup {
             constructor(context: SP.ClientContext, fields: SP.FieldCollection, filedName: string);
             get_anchorId(): SP.Guid;
             set_anchorId(value: SP.Guid): void;
-            get_createValuesInEditForm(): bool;
-            set_createValuesInEditForm(value: bool): void;
-            get_isAnchorValid(): bool;
-            get_isKeyword(): bool;
-            set_isKeyword(value: bool): void;
-            get_isPathRendered(): bool;
-            set_isPathRendered(value: bool): void;
-            get_isTermSetValid(): bool;
-            get_open(): bool;
-            set_open(value: bool): void;
+            get_createValuesInEditForm(): boolean;
+            set_createValuesInEditForm(value: boolean): void;
+            get_isAnchorValid(): boolean;
+            get_isKeyword(): boolean;
+            set_isKeyword(value: boolean): void;
+            get_isPathRendered(): boolean;
+            set_isPathRendered(value: boolean): void;
+            get_isTermSetValid(): boolean;
+            get_open(): boolean;
+            set_open(value: boolean): void;
             get_sspId(): SP.Guid;
             set_sspId(value: SP.Guid): void;
             get_targetTemplate(): string;
@@ -6489,7 +6711,7 @@ declare module SP {
         }
 
         export class MobileTaxonomyField extends SP.ClientObject {
-            get_readOnly(): bool;
+            get_readOnly(): boolean;
         }
     }
 }
@@ -6523,7 +6745,7 @@ declare module SP {
                 static instance(): SP.UI.ApplicationPages.CalendarSelector;
                 registerSelector(selector: SP.UI.ApplicationPages.ISelectorComponent): void;
                 getSelector(type: SP.UI.ApplicationPages.SelectorType, scopeKey: string): SP.UI.ApplicationPages.ISelectorComponent;
-                addHandler(scopeKey: string, people: bool, resource: bool, handler: (sender: any, selection: SP.UI.ApplicationPages.SelectorSelectionEventArgs) => void ): void;
+                addHandler(scopeKey: string, people: boolean, resource: boolean, handler: (sender: any, selection: SP.UI.ApplicationPages.SelectorSelectionEventArgs) => void ): void;
                 revertTo(scopeKey: string, ent: SP.UI.ApplicationPages.ResolveEntity): void;
                 removeEntity(scopeKey: string, ent: SP.UI.ApplicationPages.ResolveEntity): void;
                 constructor();
@@ -6576,22 +6798,22 @@ declare module SP {
                 accountName: string;
                 id: string;
                 members: SP.UI.ApplicationPages.ResolveEntity[];
-                needResolve: bool;
-                isGroup: bool;
+                needResolve: boolean;
+                isGroup: boolean;
                 get_key(): string;
                 constructor();
             }
             export class ClientPeoplePickerQueryParameters extends SP.ClientValueObject {
-                get_allowEmailAddresses(): bool;
-                set_allowEmailAddresses(value: bool): void;
-                get_allowMultipleEntities(): bool;
-                set_allowMultipleEntities(value: bool): void;
-                get_allUrlZones(): bool;
-                set_allUrlZones(value: bool): void;
+                get_allowEmailAddresses(): boolean;
+                set_allowEmailAddresses(value: boolean): void;
+                get_allowMultipleEntities(): boolean;
+                set_allowMultipleEntities(value: boolean): void;
+                get_allUrlZones(): boolean;
+                set_allUrlZones(value: boolean): void;
                 get_enabledClaimProviders(): string;
                 set_enabledClaimProviders(value: string): void;
-                get_forceClaims(): bool;
-                set_forceClaims(value: bool): void;
+                get_forceClaims(): boolean;
+                set_forceClaims(value: boolean): void;
                 get_maximumEntitySuggestions(): number;
                 set_maximumEntitySuggestions(value: number): void;
                 get_principalSource(): SP.Utilities.PrincipalSource;
@@ -6600,14 +6822,14 @@ declare module SP {
                 set_principalType(value: SP.Utilities.PrincipalType): void;
                 get_queryString(): string;
                 set_queryString(value: string): void;
-                get_required(): bool;
-                set_required(value: bool): void;
+                get_required(): boolean;
+                set_required(value: boolean): void;
                 get_sharePointGroupID(): number;
                 set_sharePointGroupID(value: number): void;
                 get_urlZone(): SP.UrlZone;
                 set_urlZone(value: SP.UrlZone): void;
-                get_urlZoneSpecified(): bool;
-                set_urlZoneSpecified(value: bool): void;
+                get_urlZoneSpecified(): boolean;
+                set_urlZoneSpecified(value: boolean): void;
                 get_web(): SP.Web;
                 set_web(value: SP.Web): void;
                 get_webApplicationID(): SP.Guid;
@@ -6631,10 +6853,10 @@ declare module SP {
 declare module SP {
     export module UI {
         export class PopoutMenu implements Sys.IDisposable {
-            constructor(launcherId: string, menuId: string, iconId: string, launcherOpenCssClass: string, textDirection: string, closeIconUrl: string, isClustered: bool, closeIconOffsetLeft: number, closeIconOffsetTop: number, closeIconHeight: number, closeIconWidth: number);
+            constructor(launcherId: string, menuId: string, iconId: string, launcherOpenCssClass: string, textDirection: string, closeIconUrl: string, isClustered: boolean, closeIconOffsetLeft: number, closeIconOffsetTop: number, closeIconHeight: number, closeIconWidth: number);
             launchMenu(): void;
             closeMenu(): void;
-            static createPopoutMenuInstanceAndLaunch(anchorId: string, menuId: string, iconId: string, anchorOpenCss: string, textDirection: string, closeIconUrl: string, isClustered: bool, x: number, y: number, height: number, width: number): void;
+            static createPopoutMenuInstanceAndLaunch(anchorId: string, menuId: string, iconId: string, anchorOpenCss: string, textDirection: string, closeIconUrl: string, isClustered: boolean, x: number, y: number, height: number, width: number): void;
             static closeActivePopoutMenuInstance(): void;
             dispose(): void;
         }
@@ -6651,7 +6873,7 @@ declare module SP {
             constructor();
         }
         export class Notify {
-            static addNotification(strHtml: string, bSticky: bool): string;
+            static addNotification(strHtml: string, bSticky: boolean): string;
             static removeNotification(nid: string): void;
             constructor();
         }
@@ -6667,14 +6889,14 @@ declare module SP {
             OnNotificationCountChanged,
         }
         export class SPNotification {
-            constructor(containerId: SP.UI.ContainerID, strHtml: string, bSticky: bool, strTooltip: string, onclickHandler: () => void , extraData: any);
-            constructor(containerId: SP.UI.ContainerID, strHtml: string, bSticky: bool, strTooltip: string, onclickHandler: () => void );
-            constructor(containerId: SP.UI.ContainerID, strHtml: string, bSticky: bool, strTooltip: string);
-            constructor(containerId: SP.UI.ContainerID, strHtml: string, bSticky: bool);
+            constructor(containerId: SP.UI.ContainerID, strHtml: string, bSticky: boolean, strTooltip: string, onclickHandler: () => void , extraData: any);
+            constructor(containerId: SP.UI.ContainerID, strHtml: string, bSticky: boolean, strTooltip: string, onclickHandler: () => void );
+            constructor(containerId: SP.UI.ContainerID, strHtml: string, bSticky: boolean, strTooltip: string);
+            constructor(containerId: SP.UI.ContainerID, strHtml: string, bSticky: boolean);
             constructor(containerId: SP.UI.ContainerID, strHtml: string);
             get_id(): string;
-            Show(bNoAnimate: bool): void;
-            Hide(bNoAnimate: bool): void;
+            Show(bNoAnimate: boolean): void;
+            Hide(bNoAnimate: boolean): void;
         }
         export class SPNotificationContainer {
             constructor(id: number, element: any, layer: number, notificationLimit: number);
@@ -6684,12 +6906,12 @@ declare module SP {
             SetEventHandler(eventId: SP.UI.EventID, eventHandler: any): void;
         }
         export class Status {
-            static addStatus(strTitle: string, strHtml: string, atBegining: bool): string;
+            static addStatus(strTitle: string, strHtml: string, atBegining: boolean): string;
             static appendStatus(sid: string, strTitle: string, strHtml: string): string;
             static updateStatus(sid: string, strHtml: string): void;
             static setStatusPriColor(sid: string, strColor: string): void;
             static removeStatus(sid: string): void;
-            static removeAllStatus(hide: bool): void;
+            static removeAllStatus(hide: boolean): void;
             constructor();
         }
         export class Workspace {
@@ -6701,8 +6923,8 @@ declare module SP {
             addMenuItem(text: string, actionScriptText: string, imageSourceUrl: string, imageAlternateText: string, sequenceNumber: number, description: string, id: string): HTMLElement;
             addSeparator(): void;
             addSubMenu(text: string, imageSourceUrl: string, imageAlternateText: string, sequenceNumber: number, description: string, id: string): SP.UI.Menu;
-            show(relativeElement: HTMLElement, forceRefresh: bool, flipTopLevelMenu: bool, yOffset: number): void;
-            showFilterMenu(relativeElement: HTMLElement, forceRefresh: bool, flipTopLevelMenu: bool, yOffset: number, fShowClose: bool, fShowCheckBoxes: bool): void;
+            show(relativeElement: HTMLElement, forceRefresh: boolean, flipTopLevelMenu: boolean, yOffset: number): void;
+            showFilterMenu(relativeElement: HTMLElement, forceRefresh: boolean, flipTopLevelMenu: boolean, yOffset: number, fShowClose: boolean, fShowCheckBoxes: boolean): void;
             hideIcons(): void;
             showIcons(): void;
         }
@@ -6739,17 +6961,17 @@ declare module SP {
             /** url of the page which is shown in the modal dialog. You should use either html or url attribute, but not both. */
             url?: string;
             /** specifies if close button should be shown on the dialog */
-            showClose?: bool;
+            showClose?: boolean;
             /** specifies if maximize button should be shown on the dialog */
-            allowMaximize?: bool;
+            allowMaximize?: boolean;
             /** callback that is called after dialog is closed */
             dialogReturnValueCallback?: DialogReturnValueCallback;
             /** automatically determine size of the dialog based on its contents. */
-            autoSize?: bool;
+            autoSize?: boolean;
             /** minimum width of the dialog when using autoSize option */
             autoSizeStartWidth?: number;
             /** include padding for adding a scrollbar */
-            includeScrollBarPadding?: bool;
+            includeScrollBarPadding?: boolean;
             /** width of the dialog. if not specified, will be determined automatically based on the contents of the dialog */
             width?: number;
             /** height of the dialog. if not specified, will be determined automatically based on the contents of the dialog */
@@ -6771,17 +6993,17 @@ declare module SP {
             /** url of the page which is shown in the modal dialog. You should use either html or url attribute, but not both. */
             url: string;
             /** specifies if close button should be shown on the dialog */
-            showClose: bool;
+            showClose: boolean;
             /** specifies if maximize button should be shown on the dialog */
-            allowMaximize: bool;
+            allowMaximize: boolean;
             /** callback that is called after dialog is closed */
             dialogReturnValueCallback: DialogReturnValueCallback;
             /** automatically determine size of the dialog based on its contents. */
-            autoSize: bool;
+            autoSize: boolean;
             /** minimum width of the dialog when using autoSize option */
             autoSizeStartWidth: number;
             /** include padding for adding a scrollbar */
-            includeScrollBarPadding: bool;
+            includeScrollBarPadding: boolean;
             /** width of the dialog. if not specified, will be determined automatically based on the contents of the dialog */
             width: number;
             /** height of the dialog. if not specified, will be determined automatically based on the contents of the dialog */
@@ -6799,14 +7021,14 @@ declare module SP {
             get_html(): string;
             get_title(): string;
             get_args(): any;
-            get_allowMaximize(): bool;
-            get_showClose(): bool;
+            get_allowMaximize(): boolean;
+            get_showClose(): boolean;
             get_returnValue(): any;
             set_returnValue(value: any): void;
             get_frameElement(): HTMLFrameElement;
             get_dialogElement(): HTMLElement;
-            get_isMaximized(): bool;
-            get_closed(): bool;
+            get_isMaximized(): boolean;
+            get_closed(): boolean;
             autoSizeSuppressScrollbar(resizePageCallBack: any): void;
             autoSize(): void;
         }
@@ -6899,7 +7121,7 @@ declare module SP {
             /** Gets the URL of the edit profile page for the current user. */
             get_editProfileLink(): string;
             /** Gets a Boolean value that indicates whether the current user's People I'm Following list is public. */
-            get_isMyPeopleListPublic(): bool;
+            get_isMyPeopleListPublic(): boolean;
             /** Gets tags that the user is following. */
             getFollowedTags(numberOfTagsToFetch: number): string[];
             /** Gets user properties for the current user. */
@@ -6991,7 +7213,7 @@ declare module SP {
             /** Specifies an array of strings that specify the account names of person's extended reports. */
             get_extendedReports(): string[];
             /** Represents whether or not the current user is following this person. */
-            get_isFollowed(): bool;
+            get_isFollowed(): boolean;
             /** Specifies the person's latest microblog post. */
             get_latestPost(): string;
             /** Specifies an array of strings that specify the account names of person's peers, that is, those who have the same manager. */
@@ -7032,17 +7254,17 @@ declare module SP {
             /** Provides the state of the user's personal site */
             get_personalSiteInstantiationState(): PersonalSiteInstantiationState;
             /** Specifies whether the user can import pictures */
-            get_pictureImportEnabled(): bool;
+            get_pictureImportEnabled(): boolean;
             /** Specifies the URL to allow the current user to create a personal site. */
             get_urlToCreatePersonalSite(): string;
             /** Specifies whether the current user's social data is to be shared. */
-            shareAllSocialData(shareAll: bool): void;
+            shareAllSocialData(shareAll: boolean): void;
             /** This member is reserved for internal use and is not intended to be used directly from your code.
                 Use the createPersonalSiteEnque method to create a personal site. */
             createPersonalSite(lcid: number): void;
             /** Enquees creation of a personal site for the current user.
                 @param isInteractive Has a true value if the request is from a web browser and a false value if the request is from a client application. */
-            createPersonalSiteEnque(isInteractive: bool): void;
+            createPersonalSiteEnque(isInteractive: boolean): void;
         }
 
         /** Provides access to followed content items. */
@@ -7124,13 +7346,13 @@ declare module SP {
                 The server stores the data so that it can return it to the client. */
             set_flags(value: string): string;
             /** Indicates whether the followed site has a feed. */
-            get_hasFeed(): bool;
+            get_hasFeed(): boolean;
             /** Indicates whether the followed site has a feed. */
-            set_hasFeed(value: bool): bool;
+            set_hasFeed(value: boolean): boolean;
             /** Specifies if the item is hidden from the user. If true this item will not generate activity in the user's feed. */
-            get_hidden(): bool;
+            get_hidden(): boolean;
             /** Specifies if the item is hidden from the user. If true this item will not generate activity in the user's feed. */
-            set_hidden(value: bool): bool;
+            set_hidden(value: boolean): boolean;
             /** Specifies the URL of an icon to represent this item. */
             get_iconUrl(): string;
             /** Specifies the URL of an icon to represent this item. */
@@ -7253,9 +7475,11 @@ declare module SP {
         /** Represents a set of user profile properties for a specified user. */
         export class UserProfilePropertiesForUser extends SP.ClientObject {
             /** Creates new UserProfilePropertiesForUser object
+                @param context Specifies the client context to use.
                 @param accountName Specifies the user by account name.
-                @propertyNames Specifies an array of strings that specify the properties to retrieve. */
-            constructor(accountName: string, propertyNames: string[]);
+                @param propertyNames Specifies an array of strings that specify the properties to retrieve. */
+            constructor(context: SP.ClientContext, accountName: string, propertyNames: string[]);
+
             /** Specifies the user account name */
             get_accountName(): string;
             /** Specifies the user account name */
@@ -7293,7 +7517,7 @@ declare module SP {
             static getCurrentUserEmailAddresses(context: SP.ClientRuntimeContext): SP.StringResult;
             static createEmailBodyForInvitation(context: SP.ClientRuntimeContext, pageAddress: string): SP.StringResult;
             static getPeoplePickerURL(context: SP.ClientRuntimeContext, web: SP.Web, fieldUser: SP.FieldUser): SP.StringResult;
-            static resolvePrincipal(context: SP.ClientRuntimeContext, web: SP.Web, input: string, scopes: SP.Utilities.PrincipalType, sources: SP.Utilities.PrincipalSource, usersContainer: SP.UserCollection, inputIsEmailOnly: bool): SP.Utilities.PrincipalInfo;
+            static resolvePrincipal(context: SP.ClientRuntimeContext, web: SP.Web, input: string, scopes: SP.Utilities.PrincipalType, sources: SP.Utilities.PrincipalSource, usersContainer: SP.UserCollection, inputIsEmailOnly: boolean): SP.Utilities.PrincipalInfo;
             static getLowerCaseString(context: SP.ClientRuntimeContext, sourceValue: string, lcid: number): SP.StringResult;
             static formatDateTime(context: SP.ClientRuntimeContext, web: SP.Web, datetime: Date, format: SP.Utilities.DateTimeFormat): SP.StringResult;
             static isUserLicensedForEntityInContext(context: SP.ClientRuntimeContext, licensableEntity: string): SP.BooleanResult;
@@ -7383,7 +7607,7 @@ declare module SP {
             constructor();
         }
         export class DateUtility {
-            static isLeapYear(year: number): bool;
+            static isLeapYear(year: number): boolean;
             static dateToJulianDay(year: number, month: number, day: number): number;
             static julianDayToDate(julianDay: number): SP.DateTimeUtil.SimpleDate;
             static daysInMonth(year: number, month: number): number;
@@ -7426,11 +7650,11 @@ declare module SP {
             set_day(value: number): void;
             get_era(): number;
             set_era(value: number): void;
-            static dateEquals(date1: SimpleDate, date2: SimpleDate): bool;
-            static dateLessEqual(date1: SimpleDate, date2: SimpleDate): bool;
-            static dateGreaterEqual(date1: SimpleDate, date2: SimpleDate): bool;
-            static dateLess(date1: SimpleDate, date2: SimpleDate): bool;
-            static dateGreater(date1: SimpleDate, date2: SimpleDate): bool;
+            static dateEquals(date1: SimpleDate, date2: SimpleDate): boolean;
+            static dateLessEqual(date1: SimpleDate, date2: SimpleDate): boolean;
+            static dateGreaterEqual(date1: SimpleDate, date2: SimpleDate): boolean;
+            static dateLess(date1: SimpleDate, date2: SimpleDate): boolean;
+            static dateGreater(date1: SimpleDate, date2: SimpleDate): boolean;
         }
     }
 }
@@ -7438,7 +7662,7 @@ declare module SP {
 declare module SP {
     export module WebParts {
         export class LimitedWebPartManager extends SP.ClientObject {
-            get_hasPersonalizedParts(): bool;
+            get_hasPersonalizedParts(): boolean;
             get_scope(): SP.WebParts.PersonalizationScope;
             get_webParts(): SP.WebParts.WebPartDefinitionCollection;
             addWebPart(webPart: SP.WebParts.WebPart, zoneId: string, zoneIndex: number): SP.WebParts.WebPartDefinition;
@@ -7466,9 +7690,9 @@ declare module SP {
             constructor();
         }
         export class WebPart extends SP.ClientObject {
-            get_hidden(): bool;
-            set_hidden(value: bool): void;
-            get_isClosed(): bool;
+            get_hidden(): boolean;
+            set_hidden(value: boolean): void;
+            get_isClosed(): boolean;
             get_properties(): SP.PropertyValues;
             get_subtitle(): string;
             get_title(): string;
@@ -7498,26 +7722,26 @@ declare module SP {
 declare module SP {
     export module Workflow {
         export class WorkflowAssociation extends SP.ClientObject {
-            get_allowManual(): bool;
-            set_allowManual(value: bool): void;
+            get_allowManual(): boolean;
+            set_allowManual(value: boolean): void;
             get_associationData(): string;
             set_associationData(value: string): void;
-            get_autoStartChange(): bool;
-            set_autoStartChange(value: bool): void;
-            get_autoStartCreate(): bool;
-            set_autoStartCreate(value: bool): void;
+            get_autoStartChange(): boolean;
+            set_autoStartChange(value: boolean): void;
+            get_autoStartCreate(): boolean;
+            set_autoStartCreate(value: boolean): void;
             get_baseId(): SP.Guid;
             get_created(): Date;
             get_description(): string;
             set_description(value: string): void;
-            get_enabled(): bool;
-            set_enabled(value: bool): void;
+            get_enabled(): boolean;
+            set_enabled(value: boolean): void;
             get_historyListTitle(): string;
             set_historyListTitle(value: string): void;
             get_id(): SP.Guid;
             get_instantiationUrl(): string;
             get_internalName(): string;
-            get_isDeclarative(): bool;
+            get_isDeclarative(): boolean;
             get_listId(): SP.Guid;
             get_modified(): Date;
             get_name(): string;
@@ -7553,13 +7777,13 @@ declare module SP {
             constructor();
         }
         export class WorkflowTemplate extends SP.ClientObject {
-            get_allowManual(): bool;
+            get_allowManual(): boolean;
             get_associationUrl(): string;
-            get_autoStartChange(): bool;
-            get_autoStartCreate(): bool;
+            get_autoStartChange(): boolean;
+            get_autoStartCreate(): boolean;
             get_description(): string;
             get_id(): SP.Guid;
-            get_isDeclarative(): bool;
+            get_isDeclarative(): boolean;
             get_name(): string;
             get_permissionsManual(): SP.BasePermissions;
         }
@@ -7622,19 +7846,19 @@ declare module SP.WorkflowServices {
         /** Gets custom properties of the workflow definition */
         get_properties(): { [propertyName: string]: any; };
         /** true if the workflow definition has been published to the external workflow host; false if the workflow definition is only saved on the site  */
-        get_published(): bool;
+        get_published(): boolean;
         /** Determines whether to automatically generate an association form for this workflow.
             If the value is true, and the associationUrl is not already set, a default association form is automatically generated for the workflow when saveDefinition is called.  */
-        get_requiresAssociationForm(): bool;
+        get_requiresAssociationForm(): boolean;
         /** Determines whether to automatically generate an association form for this workflow.
             If the value is true, and the associationUrl is not already set, a default association form is automatically generated for the workflow when saveDefinition is called.  */
-        set_requiresAssociationForm(value: bool): bool;
+        set_requiresAssociationForm(value: boolean): boolean;
         /** Determines whether to automatically generate an initiation form for this workflow.
             If the value is true, and the initiationUrl is not already set, a default initiation form is automatically generated for the workflow when saveDefinition is called.  */
-        get_requiresInitiationForm(): bool;
+        get_requiresInitiationForm(): boolean;
         /** Determines whether to automatically generate an initiation form for this workflow.
             If the value is true, and the initiationUrl is not already set, a default initiation form is automatically generated for the workflow when saveDefinition is called.  */
-        set_requiresInitiationForm(value: bool): bool;
+        set_requiresInitiationForm(value: boolean): boolean;
         /** RestrictToScope is a GUID value, used in conjunction with the RestrictToType property to further restrict the scope of the definition.
             For example, if the RestrictToType is "List", then setting the RestrictToScope to a particular list identifier limits the definition to be associable only to the specified list.
             If the RestrictToType is "List" but the RestrictToScope is null or the empty string, then the definition is associable to any list. */
@@ -7660,7 +7884,7 @@ declare module SP.WorkflowServices {
     }
 
     /** Represents a collection of WorkflowDefinition objects */
-    export class WorkflowDefinitionCollection extends SP.ClientObjectCollection {
+    export class WorkflowDefinitionCollection extends SP.ClientObjectCollection<WorkflowDefinition> {
         itemAt(index: number): WorkflowDefinition;
         get_item(index: number): WorkflowDefinition;
         /** returns SP.WorkflowDefinition class */
@@ -7687,7 +7911,7 @@ declare module SP.WorkflowServices {
             @param definitionId The guid identifier of the workflow definition.  */
         deleteDefinition(definitionId: string): void;
         /** Retrieves workflow definitions from the workflow store that match the tags. */
-        enumerateDefinitions(publishedOnly: bool): WorkflowDefinitionCollection;
+        enumerateDefinitions(publishedOnly: boolean): WorkflowDefinitionCollection;
         /** Retrieves a specified workflow definition from the workflow store.
             @param definitionId The guid identifier of the workflow definition.  */
         getDefinition(definitionId: string): WorkflowDefinition;
@@ -7739,7 +7963,7 @@ declare module SP.WorkflowServices {
     }
 
     /** Represents a collection of WorkflowInstance objects */
-    export class WorkflowInstanceCollection extends SP.ClientObjectCollection {
+    export class WorkflowInstanceCollection extends SP.ClientObjectCollection<WorkflowInstance> {
         itemAt(index: number): WorkflowInstance;
         get_item(index: number): WorkflowInstance;
         /** returns SP.WorkflowInstance class */
@@ -7794,7 +8018,7 @@ declare module SP.WorkflowServices {
         /** The current application identifier.*/
         get_appId(): string;
         /** Indicates whether this workflow service is actively connected to a workflow host. */
-        get_isConnected(): bool;
+        get_isConnected(): boolean;
         /** Returns the path of the current scope in the workflow host. */
         get_scopePath(): string;
         getWorkflowDeploymentService(): WorkflowDeploymentService;
@@ -7813,10 +8037,10 @@ declare module SP.WorkflowServices {
         set_definitionId(value);
         /** Gets a boolean value that specifies if the workflow subscription is enabled.
             When disabled, new instances of the subscription cannot be started, but existing instances will continue to run.  */
-        get_enabled(): bool;
+        get_enabled(): boolean;
         /** Sets a boolean value that enables or disables the workflow subscription.
             When disabled, new instances of the subscription cannot be started, but existing instances will continue to run.  */
-        set_enabled(value: bool): bool;
+        set_enabled(value: boolean): boolean;
         /** Gets the logical source instance name of the event. (GUID) */
         get_eventSourceId(): string;
         /** Sets the logical source instance name of the event. (GUID) */
@@ -7832,9 +8056,9 @@ declare module SP.WorkflowServices {
         /** Unique identifier (GUID) of the workflow subscription */
         set_id(value: string): string;
         /** Boolean value that specifies whether multiple workflow instances can be started manually on the same list item at the same time. This property can be used for list workflows only.  */
-        get_manualStartBypassesActivationLimit(): bool;
+        get_manualStartBypassesActivationLimit(): boolean;
         /** Boolean value that specifies whether multiple workflow instances can be started manually on the same list item at the same time. This property can be used for list workflows only.  */
-        set_manualStartBypassesActivationLimit(value: bool): bool;
+        set_manualStartBypassesActivationLimit(value: boolean): boolean;
         /** Gets the name of the workflow subscription for the specified event source.  */
         get_name();
         /** Sets the name of the workflow subscription for the specified event source.  */
@@ -7852,7 +8076,7 @@ declare module SP.WorkflowServices {
     }
 
     /** Represents a collection of WorkflowSubscription objects */
-    export class WorkflowSubscriptionCollection extends SP.ClientObjectCollection {
+    export class WorkflowSubscriptionCollection extends SP.ClientObjectCollection<WorkflowSubscription> {
         itemAt(index: number): WorkflowSubscription;
         get_item(index: number): WorkflowSubscription;
         /** returns SP.WorkflowInstance class */
@@ -7924,13 +8148,13 @@ declare class SPClientAutoFill{
     public AllOptionData: { [key:string]: ISPClientAutoFillData };
 
     PopulateAutoFill(jsonObjSuggestions: ISPClientAutoFillData[], fnOnAutoFillCloseFuncName: (elmTextId: string, objData:ISPClientAutoFillData) => void ): void;
-    IsAutoFillOpen(): bool;
+    IsAutoFillOpen(): boolean;
     SetAutoFillHeight(): void;
     SelectAutoFillOption(elemOption:HTMLElement): void;
     FocusAutoFill() :void;
     BlurAutoFill(): void;
     CloseAutoFill(ojData: ISPClientAutoFillData): void;
-    UpdateAutoFillMenuFocus(bMoveNextLink:bool): void;
+    UpdateAutoFillMenuFocus(bMoveNextLink:boolean): void;
     UpdateAutoFillPosition(): void;
 }
 
