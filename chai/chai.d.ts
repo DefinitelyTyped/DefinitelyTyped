@@ -5,26 +5,26 @@
 
 declare module chai {
     interface Equality {
-        (expected: any, message?: string): bool;
+        (expected: any, message?: string): boolean;
     }
 
     interface Property {
-        (name: string, value?: any, message?: string): bool;
+        (name: string, value?: any, message?: string): boolean;
     }
 
     interface NumberComparer {
-        (value: number, message?: string): bool;
+        (value: number, message?: string): boolean;
     }
 
     interface Eql {
-        (value: any, message?: string): bool;
+        (value: any, message?: string): boolean;
     }
 
     interface Include {
-        (value: Object, message?: string): bool;
-        (value: string, message?: string): bool;
-        (value: number, message?: string): bool;
-        keys(...names: string[]): bool;
+        (value: Object, message?: string): boolean;
+        (value: string, message?: string): boolean;
+        (value: number, message?: string): boolean;
+        keys(...names: string[]): boolean;
     }
 
     interface Throw {
@@ -34,8 +34,8 @@ declare module chai {
     }
 
     interface TypeComparison {
-        (type: string, message?: string): bool;
-        instanceof(type: Object): bool;
+        (type: string, message?: string): boolean;
+        instanceof(type: Object): boolean;
     }
 
     interface NumericComparison {
@@ -49,7 +49,7 @@ declare module chai {
     }
 
     interface Length extends NumericComparison {
-        (value: number, message?: string): bool;
+        (value: number, message?: string): boolean;
     }
 
     interface Deep {
@@ -61,32 +61,32 @@ declare module chai {
         property: Property;
         deep: Deep;
         length: Length;
-        ownProperty(name: string, message?: string): bool;
-        string(value: string, message?: string): bool;
-        keys(...values: string[]): bool;
+        ownProperty(name: string, message?: string): boolean;
+        string(value: string, message?: string): boolean;
+        keys(...values: string[]): boolean;
     }
 
     interface At {
-        least(value: number, message?: string): bool;
-        gte(value: number, message?: string): bool;
-        most(value: number, message?: string): bool;
-        lte(value: number, message?: string): bool;
+        least(value: number, message?: string): boolean;
+        gte(value: number, message?: string): boolean;
+        most(value: number, message?: string): boolean;
+        lte(value: number, message?: string): boolean;
     }
 
     interface Be extends NumericComparison {
-        ok: bool;
-        true: bool;
-        false: bool;
-        null: bool;
-        undefined: bool;
-        empty: bool;
-        arguments: bool;
+        ok: boolean;
+        true: boolean;
+        false: boolean;
+        null: boolean;
+        undefined: boolean;
+        empty: boolean;
+        arguments: boolean;
         an: TypeComparison;
         at: At;
 
-        a(type: string, message?: string): bool;
-        within(start: number, finish: number, message?: string): bool;
-        closeTo(expected: number, delta: number, message?: string): bool;
+        a(type: string, message?: string): boolean;
+        within(start: number, finish: number, message?: string): boolean;
+        closeTo(expected: number, delta: number, message?: string): boolean;
     }
 
     interface To {
@@ -95,7 +95,7 @@ declare module chai {
         deep: Deep;
         have: Have;
 
-        exist: bool;
+        exist: boolean;
 
         equal: Equality;
 
@@ -106,7 +106,7 @@ declare module chai {
         eql: Eql;
         eqls: Eql;
 
-        match(value: RegExp, message?: string): bool;
+        match(value: RegExp, message?: string): boolean;
 
         respondTo(method: string, message?: string);
         satisfy(matcher: Function, message?: string);
