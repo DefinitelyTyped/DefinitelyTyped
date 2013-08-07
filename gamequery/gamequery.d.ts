@@ -87,7 +87,7 @@ interface GameQuery {
 
     Animation: Animation;
 
-    keyTracker: bool[];
+    keyTracker: boolean[];
 
     spriteCssClass: string;
     groupCssClass: string;
