@@ -7,15 +7,15 @@
 /// <reference path='../jquery/jquery.d.ts'/>
 
 interface JNotifyInitOptions {
-    oneAtTime?: bool;
+    oneAtTime?: boolean;
     appendType?: string;
 }
 
 interface JNotifyOptions {
     text?: string;
     type?: string;
-    showIcon?: bool;
-    permanent?: bool;
+    showIcon?: boolean;
+    permanent?: boolean;
     disappearTime?: number;
 }
 

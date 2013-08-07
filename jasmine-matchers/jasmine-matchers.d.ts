@@ -25,45 +25,45 @@ declare module jasmine {
     interface Matchers {
 
         //toBe
-        toBeArray(): bool;
-        toBeCloseToOneOf(values: any[], isCloseToFunction: (actual: number, expected: number) => bool): bool;
-        toBeInstanceOf(Constructor: Function): bool;
-        toBeInRange(min: number, max: number): bool;
-        toBeNan(): bool;
-        toBeNumber(): bool;
-        toBeOfType(type: string): bool;
-        toBeOneOf(values: any[]): bool;
+        toBeArray(): boolean;
+        toBeCloseToOneOf(values: any[], isCloseToFunction: (actual: number, expected: number) => boolean): boolean;
+        toBeInstanceOf(Constructor: Function): boolean;
+        toBeInRange(min: number, max: number): boolean;
+        toBeNan(): boolean;
+        toBeNumber(): boolean;
+        toBeOfType(type: string): boolean;
+        toBeOneOf(values: any[]): boolean;
 
         //toContain
-        toContainOnce(value: any): bool;
+        toContainOnce(value: any): boolean;
 
         //toHave
-        toHaveBeenCalledXTimes(count:number): bool;
-        toHaveLength(length:number): bool;
-        toHaveOwnProperties(...names:string[]): bool;
-        toHaveOwnPropertiesWithValues(obj:Object): bool;
-        toHaveProperties(...names:string[]): bool;
-        toHavePropertiesWithValues(obj:Object): bool;
-        toExactlyHaveProperties(...names:string[]): bool;
+        toHaveBeenCalledXTimes(count:number): boolean;
+        toHaveLength(length:number): boolean;
+        toHaveOwnProperties(...names:string[]): boolean;
+        toHaveOwnPropertiesWithValues(obj:Object): boolean;
+        toHaveProperties(...names:string[]): boolean;
+        toHavePropertiesWithValues(obj:Object): boolean;
+        toExactlyHaveProperties(...names:string[]): boolean;
 
         //toStartEndWith
-        toStartWith(value:any): bool;
-        toStartWith(value:any[]): bool;
+        toStartWith(value:any): boolean;
+        toStartWith(value:any[]): boolean;
 
-        toEndWith(value:any): bool;
-        toEndWith(values:any[]): bool;
+        toEndWith(value:any): boolean;
+        toEndWith(values:any[]): boolean;
 
-        toEachStartWith(searchString:string): bool;
-        toSomeStartWith(searchString:string): bool;
+        toEachStartWith(searchString:string): boolean;
+        toSomeStartWith(searchString:string): boolean;
 
-        toEachEndWith(searchString:string): bool;
-        toSomeEndWith(searchString:string): bool;
+        toEachEndWith(searchString:string): boolean;
+        toSomeEndWith(searchString:string): boolean;
 
-        toStartWithEither(...searchString:any[]): bool;
+        toStartWithEither(...searchString:any[]): boolean;
 
         //toThrow
-        toThrowInstanceOf(klass:Function): bool;
-        toThrowStartsWith(text:string): bool;
+        toThrowInstanceOf(klass:Function): boolean;
+        toThrowStartsWith(text:string): boolean;
     }
 }
 

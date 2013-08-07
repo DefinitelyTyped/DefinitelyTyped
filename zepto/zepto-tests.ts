@@ -12,7 +12,7 @@ Zepto(function ($) {
 $.camelCase('hello-there') //=> "helloThere"
 $.camelCase('helloThere')  //=> "helloThere"
 
-$.each(['a', 'b', 'c'], function (index, item): bool {
+$.each(['a', 'b', 'c'], function (index, item): boolean {
 	console.log('item %d is: %s', index, item);
 	return true;
 });

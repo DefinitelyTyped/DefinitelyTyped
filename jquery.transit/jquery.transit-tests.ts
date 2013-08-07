@@ -61,9 +61,9 @@ function test_signatures() {
 	TestObject.transition(options);
 	TestObject.transition(options, 500);
 	TestObject.transition(options, 'in');
-	TestObject.transition(options, function () { var test: bool = true; });
+	TestObject.transition(options, function () { var test: boolean = true; });
 	TestObject.transition(options, 500, 'out');
-	TestObject.transition(options, 500, 'in-out', function () { var test: bool = true; });
+	TestObject.transition(options, 500, 'in-out', function () { var test: boolean = true; });
 }
 
 function test_opacity() {

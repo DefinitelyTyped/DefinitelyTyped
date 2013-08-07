@@ -7,11 +7,11 @@ declare module PubSubJS {
     }
 
     interface Publish{
-        publish(message: any, data: any): bool;
+        publish(message: any, data: any): boolean;
 
-        publish(message:any, data:any, sync:bool, immediateExceptions:Function): bool;
+        publish(message:any, data:any, sync:bool, immediateExceptions:Function): boolean;
 
-        publishSync(message: any, data: any): bool;
+        publishSync(message: any, data: any): boolean;
     }
 
     interface Subscribe{

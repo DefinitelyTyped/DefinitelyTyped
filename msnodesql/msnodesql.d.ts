@@ -20,11 +20,11 @@ declare module "msnodesql" {
     }
 
     interface QueryCallback {
-        (err?: Error, results?: any[], more?: bool): void;
+        (err?: Error, results?: any[], more?: boolean): void;
     }
 
     interface QueryRawCallback {
-        (err?: Error, results?: QueryRawResult, more?: bool): void;
+        (err?: Error, results?: QueryRawResult, more?: boolean): void;
     }
 
     interface QueryRawResult {

@@ -34,7 +34,7 @@ interface KnockoutBindingHandlers {
 
 interface JQuery {
     activity: KoLiteActivity;
-    activityEx(isLoading: bool): JQuery;
+    activityEx(isLoading: boolean): JQuery;
 }
 
 
@@ -60,7 +60,7 @@ interface KoliteCommand {
 
 interface KoLiteCommandOptions {
     execute?: any;
-    canExecute?: (isExecuting: bool) => any;
+    canExecute?: (isExecuting: boolean) => any;
 }
 
 interface KnockoutStatic {

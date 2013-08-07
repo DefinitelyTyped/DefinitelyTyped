@@ -5,15 +5,15 @@
 
 
 interface ScrollerOptions {
-    scrollingX?: bool;
-    scrollingY?: bool;
-    animating?: bool;
+    scrollingX?: boolean;
+    scrollingY?: boolean;
+    animating?: boolean;
     animationDuration?: number;
-    bouncing?: bool;
-    locking?: bool;
-    paging?: bool;
-    snapping?: bool;
-    zooming?: bool;
+    bouncing?: boolean;
+    locking?: boolean;
+    paging?: boolean;
+    snapping?: boolean;
+    zooming?: boolean;
     minZoom?: number;
     maxZoom?: number;
     speedMultiplier?: number;
@@ -38,8 +38,8 @@ declare class Scroller {
     finishPullToRefresh(): void;
     getValues(): ScrollValuesWithZoom;
     getScrollMax(): ScrollValues;
-    zoomTo(level: number, animate?: bool, originLeft?: bool, originTop?: bool): void;
-    zoomBy(factor: number, animate?: bool, originLeft?: bool, originTop?: bool): void;
+    zoomTo(level: number, animate?: bool, originLeft?: bool, originTop?: boolean): void;
+    zoomBy(factor: number, animate?: bool, originLeft?: bool, originTop?: boolean): void;
     scrollTo(left?: number, top?: number, animate?: number, zoom?: number): void;
     scrollBy(left?: number, top?: number, animate?: number): void;
 

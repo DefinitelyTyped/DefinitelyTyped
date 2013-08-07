@@ -64,7 +64,7 @@ declare module jake{
 	////////////////////////////////////////////////////////////////////////////////////
 
 	interface UtilOptions{
-		silent?: bool;
+		silent?: boolean;
 	}
 
 	/**
@@ -103,16 +103,16 @@ declare module jake{
 		 * print to stdout, default false
 		 */
 
-		printStdout?:bool;
+		printStdout?:boolean;
 		/**
 		 * print to stderr, default false
 		 */
-		printStderr?:bool;
+		printStderr?:boolean;
 		
 		/**
 		 * stop execution on error, default true
 		 */
-		breakOnError?:bool;
+		breakOnError?:boolean;
 	}
 	export function exec(cmds:string[], callback?:()=>void, opts?:ExecOptions);
 
@@ -156,7 +156,7 @@ declare module jake{
 	export var program: {
 		opts: { 
 			[name:string]: any; 
-			quiet: bool;
+			quiet: boolean;
 		};
 		taskNames: string[];
         taskArgs: string[];
@@ -174,7 +174,7 @@ declare module jake{
 		 * Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
 		 * @default false
 		 */
-		asyc?: bool;
+		asyc?: boolean;
 	}
 
 	/**
@@ -225,7 +225,7 @@ declare module jake{
 		 * Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task. 
 		 * @default false
 		 */
-		asyc?: bool;
+		asyc?: boolean;
 	}
 
 	export class FileTask{
@@ -239,7 +239,7 @@ declare module jake{
 	}
 
 	interface FileFilter{
-		(filename:string): bool;
+		(filename:string): boolean;
 	}
 
 	export class FileList{
@@ -259,7 +259,7 @@ declare module jake{
 		 * @param name The filename to check
          * @return Whether or not the file should be excluded
          */
-		shouldExclude(name:string): bool;
+		shouldExclude(name:string): boolean;
 
 		/**
 		 * Excludes file-patterns from the FileList. Should be called with one or more
@@ -330,22 +330,22 @@ declare module jake{
 		/** 
 		 * If set to true, uses the `jar` utility to create a .jar archive of the pagckage
 		 */
-		needJar: bool;
+		needJar: boolean;
 
 		/**
          * If set to true, uses the `tar` utility to create a gzip .tgz archive of the pagckage
          */
-        needTar: bool;
+        needTar: boolean;
 
         /**
          * If set to true, uses the `tar` utility to create a bzip2 .bz2 archive of the pagckage
          */
-		needTarBz2: bool;
+		needTarBz2: boolean;
 
 		/**
          * If set to true, uses the `zip` utility to create a .zip archive of the pagckage
 		 */
-		needZip: bool;
+		needZip: boolean;
 
 		/**
 		 * The list of files and directories to include in the package-archive		

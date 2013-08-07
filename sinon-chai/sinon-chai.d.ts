@@ -7,24 +7,24 @@
 
 declare module chai {
     interface Been {
-        called: bool;
-        calledOnce: bool;
-        calledTwice: bool;
-        calledThrice: bool;
-        calledBefore(spy: any): bool;
-        calledAfter(spy: any): bool;
-        calledOn(context: any): bool;
-        alwaysCalledOn(context: any): bool;
-        calledWith(...args: any[]): bool;
-        alwaysCalledWith(...args: any[]): bool;
-        calledWithExactly(...args: any[]): bool;
-        alwaysCalledWithExactly(...args: any[]): bool;
-        calledWithMatch(...args: any[]): bool;
-        alwaysCalledWithMatch(...args: any[]): bool;
-        returned(returnVal: any): bool;
-        alwaysReturned(returnVal: any): bool;
-        threw(errorObjOrErrorTypeStringOrNothing: any): bool;
-        alwaysThrew(errorObjOrErrorTypeStringOrNothing: any): bool;
+        called: boolean;
+        calledOnce: boolean;
+        calledTwice: boolean;
+        calledThrice: boolean;
+        calledBefore(spy: any): boolean;
+        calledAfter(spy: any): boolean;
+        calledOn(context: any): boolean;
+        alwaysCalledOn(context: any): boolean;
+        calledWith(...args: any[]): boolean;
+        alwaysCalledWith(...args: any[]): boolean;
+        calledWithExactly(...args: any[]): boolean;
+        alwaysCalledWithExactly(...args: any[]): boolean;
+        calledWithMatch(...args: any[]): boolean;
+        alwaysCalledWithMatch(...args: any[]): boolean;
+        returned(returnVal: any): boolean;
+        alwaysReturned(returnVal: any): boolean;
+        threw(errorObjOrErrorTypeStringOrNothing: any): boolean;
+        alwaysThrew(errorObjOrErrorTypeStringOrNothing: any): boolean;
     }
 
     interface Have {

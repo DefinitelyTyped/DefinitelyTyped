@@ -38,8 +38,8 @@ declare module jquery.flot {
     }
 
     interface gridOptions {
-        show?: bool;
-        aboveData?: bool;
+        show?: boolean;
+        aboveData?: boolean;
         color?: any;                // color
         backgroundColor?: any;      //color/gradient or null
         margin?: any;                // number or margin object
@@ -49,9 +49,9 @@ declare module jquery.flot {
         borderWidth: number;
         borderColor?: any;          // color or null
         minBorderMargin?: number;       // or null
-        clickable?: bool;
-        hoverable?: bool;
-        autoHighlight?: bool;
+        clickable?: boolean;
+        hoverable?: boolean;
+        autoHighlight?: boolean;
         mouseActiveRadius?: number;
         tickColor?: any;
         markingsColor?: any;
@@ -59,7 +59,7 @@ declare module jquery.flot {
     }
 
     interface legendOptions {
-        show?: bool;
+        show?: boolean;
         labelFormatter?: (label: string, series: any) => string; //  null or (fn: string, series object -> string)
         labelBoxBorderColor?: any;   //color
         noColumns?: number;
@@ -79,8 +79,8 @@ declare module jquery.flot {
         points?: pointsOptions;
         xaxis?: number;
         yaxis?: number;
-        clickable?: bool;
-        hoverable?: bool;
+        clickable?: boolean;
+        hoverable?: boolean;
         shadowSize?: number;
         highlightColor?: any;
     }
@@ -90,7 +90,7 @@ declare module jquery.flot {
     }
 
     interface axisOptions {
-        show?: bool;            // null or true/false
+        show?: boolean;            // null or true/false
         position?: string;      // "bottom" or "top" or "left" or "right"
 
         color?: any;            // null or color spec
@@ -112,7 +112,7 @@ declare module jquery.flot {
 
         labelWidth?: number;
         labelHeight?: number;
-        reserveSpace?: bool;
+        reserveSpace?: boolean;
 
         tickLength?: number;
 
@@ -120,20 +120,20 @@ declare module jquery.flot {
     }
 
     interface seriesTypeBase {
-        show?: bool;
+        show?: boolean;
         lineWidth?: number;
         fill?: any;              //boolean or number
         fillColor?: any;         //null or color/gradient
     }
 
     interface linesOptions extends seriesTypeBase {
-        steps?: bool;
+        steps?: boolean;
     }
 
     interface barsOptions extends seriesTypeBase {
         barWidth?: number;
         align?: string;
-        horizontal?: bool;
+        horizontal?: boolean;
     }
 
     interface pointsOptions extends seriesTypeBase {
@@ -161,10 +161,10 @@ declare module jquery.flot {
     }
 
     interface datapointFormat {
-        x?: bool;
-        y?: bool;
-        number: bool;
-        required: bool;
+        x?: boolean;
+        y?: boolean;
+        number: boolean;
+        required: boolean;
         defaultValue?: number;
     }
 

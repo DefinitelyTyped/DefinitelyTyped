@@ -926,7 +926,7 @@ interface HighchartsTooltipOptions {
     borderColor?: string;
     borderRadius?: number;
     borderWidth?: number;
-    crosshairs?: any; // bool | [bool,bool] | CrosshairObject | [CrosshairObject,CrosshairObject]
+    crosshairs?: any; // boolean | [bool,bool] | CrosshairObject | [CrosshairObject,CrosshairObject]
     enabled?: boolean;
     footerFormat?: string;
     formatter?: () => any;

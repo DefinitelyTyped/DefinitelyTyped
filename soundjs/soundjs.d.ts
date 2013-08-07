@@ -15,18 +15,18 @@ declare module createjs {
         // properties
         static BASE_PATH: string;
         static capabilities: Object;
-        showOutput: bool;
+        showOutput: boolean;
 
         // methods
         create(src: string): SoundInstance;
 		preload(src: string, instance: Object): void;
         static generateCapabilities(): void;
-        static isSupported(): bool;
-		isPreloadStarted(src: string): bool;
+        static isSupported(): boolean;
+		isPreloadStarted(src: string): boolean;
         register(src: string, instances: Number): Object;
-		setVolume(value: Number): bool;
+		setVolume(value: Number): boolean;
 		getVolume(): Number;
-		setMute(isMuted: bool): Boolean;
+		setMute(isMuted: boolean): Boolean;
 		toString(): string;
 
 		// Flash API
@@ -53,9 +53,9 @@ declare module createjs {
         // methods
         create(src: string): SoundInstance;
         static generateCapabilities(): void;
-        static isSupported(): bool;
+        static isSupported(): boolean;
         register(src: string, instances: number): Object;
-		isPreloadStarted(src: string): bool;
+		isPreloadStarted(src: string): boolean;
 		preload(src: string, instance: Object): void;
 		toString(): string;
     }
@@ -80,15 +80,15 @@ declare module createjs {
         // methods
         create(src: string): SoundInstance;
         static generateCapabilities(): void;
-        static isSupported(): bool;
-		setVolume(value: Number): bool;
+        static isSupported(): boolean;
+		setVolume(value: Number): boolean;
 		getVolume(): number;
         register(src: string, instances: number): Object;
-		isPreloadStarted(src: string): bool;
+		isPreloadStarted(src: string): boolean;
 		preload(src: string, instance: Object): void;
-		isPreloadComplete(src : string): bool;
+		isPreloadComplete(src : string): boolean;
 		removeFromPreload(src: string);
-		setMute(value: number): bool;
+		setMute(value: number): boolean;
 		toString(): string;
     }
 
@@ -96,10 +96,10 @@ declare module createjs {
         constructor (src: string, owner: string, flash: string);
 
         // properties
-        muted: bool;
+        muted: boolean;
         owner: HTMLAudioPlugin;
 		offset: number;
-        paused: bool;
+        paused: boolean;
 		delay: number;
 		pan: number;
 		duration: number;
@@ -114,14 +114,14 @@ declare module createjs {
         getPan(): number;
         getPosition(): number;
         getVolume(): number;
-        mute(isMuted: bool): bool;
-        pause(): bool;
+        mute(isMuted: boolean): boolean;
+        pause(): boolean;
         play(interrupt: string, delay: number, offset: number, loop: number, volume: number, pan: number): void;
-        resume(): bool;
+        resume(): boolean;
         setPan(value: number): number;
         setPosition(value: number): void;
-        setVolume(value: number): bool;
-        stop(): bool;
+        setVolume(value: number): boolean;
+        stop(): boolean;
 
         // events
         complete: () => any;
@@ -132,14 +132,14 @@ declare module createjs {
         ready: () => any;
 
 		// EventDispatcher mixins
-		addEventListener(type: string, listener: (eventObj: Object) => bool): Function;
-		addEventListener(type: string, listener: (eventObj: Object) => bool): Object;
-		removeEventListener(type: string, listener: (eventObj: Function) => bool): void;
-		removeEventListener(type: string, listener: (eventObj: Object) => bool): void;
+		addEventListener(type: string, listener: (eventObj: Object) => boolean): Function;
+		addEventListener(type: string, listener: (eventObj: Object) => boolean): Object;
+		removeEventListener(type: string, listener: (eventObj: Function) => boolean): void;
+		removeEventListener(type: string, listener: (eventObj: Object) => boolean): void;
 		removeAllEventListeners(type: string): void;
-		dispatchEvent(eventObj: string, target: Object): bool;
-		dispatchEvent(eventObj: Object, target: Object): bool;
-		hasEventListener(type: string): bool;
+		dispatchEvent(eventObj: string, target: Object): boolean;
+		dispatchEvent(eventObj: Object, target: Object): boolean;
+		hasEventListener(type: string): boolean;
     }
 
 
@@ -152,7 +152,7 @@ declare module createjs {
         static INTERRUPT_EARLY: string;
         static INTERRUPT_LATE: string;
         static INTERRUPT_NONE: string;
-        static muted: bool;
+        static muted: boolean;
         static PLAY_FAILED: string;
         static PLAY_FINISHED: string;
         static PLAY_INITED: string;
@@ -163,50 +163,50 @@ declare module createjs {
 		static defaultInterruptBehavior: string;
 
         // methods
-        static checkPlugin(initializeDefault: bool): bool;
+        static checkPlugin(initializeDefault: boolean): boolean;
 		static createInstance(src: string): SoundInstance;
         static getCapabilities(): Object;
         static getCapability(key: string): any;    //HERE can return string | number | bool
         static getInstanceById(uniqueId: string): SoundInstance;
-		static getMute(): bool;
+		static getMute(): boolean;
         static getMasterVolume(): number;
         static getSrcFromId(value: string): string;
 		static getVolume(): number;
-        static isReady(): bool;
+        static isReady(): boolean;
         static pause(id: string): void;
         static play(src: string, interrupt?: string, delay?: number, offset?: number, loop?: number, volume?: number, pan?: number): SoundInstance;
-        static registerPlugin(plugin: Object): bool;
-        static registerPlugins(plugins: Object[]): bool;
-		static registerSound(src: Object, id: string, data: Object, preload?: bool): Object;
+        static registerPlugin(plugin: Object): boolean;
+        static registerPlugins(plugins: Object[]): boolean;
+		static registerSound(src: Object, id: string, data: Object, preload?: boolean): Object;
 		static registerManifest(manifest: Array);
         static resume(id: string): void;
-        static setMasterVolume(value: number): bool;
-        static setMute(isMuted: bool): bool;
-        static setVolume(value: number, id?: string): bool;
-        static stop(): bool;
+        static setMasterVolume(value: number): boolean;
+        static setMute(isMuted: boolean): boolean;
+        static setVolume(value: number, id?: string): boolean;
+        static stop(): boolean;
 
 		// events
 		loadComplete: () => any;
 
 		// EventDispatcher mixins
-		addEventListener(type: string, listener: (eventObj: Object) => bool): Function;
-		addEventListener(type: string, listener: (eventObj: Object) => bool): Object;
-		removeEventListener(type: string, listener: (eventObj: Function) => bool): void;
-		removeEventListener(type: string, listener: (eventObj: Object) => bool): void;
+		addEventListener(type: string, listener: (eventObj: Object) => boolean): Function;
+		addEventListener(type: string, listener: (eventObj: Object) => boolean): Object;
+		removeEventListener(type: string, listener: (eventObj: Function) => boolean): void;
+		removeEventListener(type: string, listener: (eventObj: Object) => boolean): void;
 		removeAllEventListeners(type: string): void;
-		dispatchEvent(eventObj: string, target: Object): bool;
-		dispatchEvent(eventObj: Object, target: Object): bool;
-		hasEventListener(type: string): bool;
+		dispatchEvent(eventObj: string, target: Object): boolean;
+		dispatchEvent(eventObj: Object, target: Object): boolean;
+		hasEventListener(type: string): boolean;
     }
 
 	export class BrowserDetect {
 		// properties
-		static isFirefox: bool;
-		static isOpera: bool;
-		static isChrome: bool;
-		static isIOS: bool;
-		static isAndroid: bool;
-		static isBlackberry: bool;
+		static isFirefox: boolean;
+		static isOpera: boolean;
+		static isChrome: boolean;
+		static isIOS: boolean;
+		static isAndroid: boolean;
+		static isBlackberry: boolean;
 
 		// methods
 		static init();

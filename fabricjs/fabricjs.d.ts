@@ -22,8 +22,8 @@ declare module fabric {
     function parseTransformAttribute(attributeValue: string);
     function warn(values);
 
-    var isLikelyNode: bool;
-    var isTouchSupported: bool;
+    var isLikelyNode: boolean;
+    var isTouchSupported: boolean;
 
     export interface IObservable {
         observe(eventCollection: IEventList);
@@ -56,37 +56,37 @@ declare module fabric {
         cornersize?: number;
         fill?: string;
         fillRule?: string;
-        flipX?: bool;
-        flipY?: bool;
-        hasBorders?: bool;
-        hasControls?: bool;
-        hasRotatingPoint?: bool;
+        flipX?: boolean;
+        flipY?: boolean;
+        hasBorders?: boolean;
+        hasControls?: boolean;
+        hasRotatingPoint?: boolean;
         height?: number;
-        includeDefaultValues?: bool;
+        includeDefaultValues?: boolean;
         left?: number;
-        lockMovementX?: bool;
-        lockMovementY?: bool;
-        lockScalingX?: bool;
-        lockScalingY?: bool;
-        lockUniScaling?: bool;
-        lockRotation?: bool;
+        lockMovementX?: boolean;
+        lockMovementY?: boolean;
+        lockScalingX?: boolean;
+        lockScalingY?: boolean;
+        lockUniScaling?: boolean;
+        lockRotation?: boolean;
         opacity?: number;
         originX?: string;
         originY?: string;
         overlayFill?: string;
         padding?: number;
-        perPixelTargetFind?: bool;
+        perPixelTargetFind?: boolean;
         rotatingPointOffset?: number;
         scaleX?: number;
         scaleY?: number;
-        selectable?: bool;
+        selectable?: boolean;
         stateProperties?: any[];
         stroke?: string;
         strokeDashArray?: any[];
         strokeWidth?: number;
         top?: number;
         transformMatrix?: any[];
-        transparentCorners?: bool;
+        transparentCorners?: boolean;
         type?: string;
         width?: number;
     }
@@ -176,7 +176,7 @@ declare module fabric {
         initialize(options: any);
         initialize(text: string, options: any): IText;
         toString(): string;
-        render(ctx: CanvasRenderingContext2D, noTransform: bool);
+        render(ctx: CanvasRenderingContext2D, noTransform: boolean);
         toObject(propertiesToInclude: any[]): IObject;
         toSVG(): string;
         setColor(value: string): IText;
@@ -195,7 +195,7 @@ declare module fabric {
         initialize(options: any): any;
         toObject(propertiesToInclude: any[]): any;
         toSVG(): string;
-        render(ctx: CanvasRenderingContext2D, noTransform: bool);
+        render(ctx: CanvasRenderingContext2D, noTransform: boolean);
         complexity(): number;
     }
 
@@ -225,13 +225,13 @@ declare module fabric {
     export interface IObject extends IObservable {
 
         // constraint properties
-        lockMovementX: bool;
-        lockMovementY: bool;
-        lockScalingX: bool;
-        lockScalingY: bool;
-        lockScaling: bool;
-        lockUniScaling: bool;
-        lockRotation: bool;
+        lockMovementX: boolean;
+        lockMovementY: boolean;
+        lockScalingX: boolean;
+        lockScalingY: boolean;
+        lockScaling: boolean;
+        lockUniScaling: boolean;
+        lockRotation: boolean;
 
         getCurrentWidth(): number;
         getCurrentHeight(): number;
@@ -265,24 +265,24 @@ declare module fabric {
         getFillRule(): string;
         setFillRule(value: string): IObject;
 
-        flipX: bool;
-        getFlipX(): bool;
-        setFlipX(value: bool): IObject;
+        flipX: boolean;
+        getFlipX(): boolean;
+        setFlipX(value: boolean): IObject;
 
-        flipY: bool;
-        getFlipY(): bool;
-        setFlipY(value: bool): IObject;
+        flipY: boolean;
+        getFlipY(): boolean;
+        setFlipY(value: boolean): IObject;
 
-        hasBorders: bool;
+        hasBorders: boolean;
 
-        hasControls: bool;
-        hasRotatingPoint: bool;
+        hasControls: boolean;
+        hasRotatingPoint: boolean;
         
         height: number;
         getHeight(): number;
         setHeight(value: number): IObject;
 
-        includeDefaultValues: bool;
+        includeDefaultValues: boolean;
         
         left: number;
         getLeft(): number;
@@ -297,7 +297,7 @@ declare module fabric {
         setOverlayFill(value: string): IObject;
 
         padding: number;
-        perPixelTargetFind: bool;
+        perPixelTargetFind: boolean;
         rotatingPointOffset: number;
         
         scaleX: number;
@@ -308,7 +308,7 @@ declare module fabric {
         getScaleY(): number;
         setScaleY(value: number): IObject;
 
-        selectable: bool;
+        selectable: boolean;
         stateProperties: any[];
         stroke: string;
         strokeDashArray: any[];
@@ -319,7 +319,7 @@ declare module fabric {
         setTop(value: number): IObject;
 
         transformMatrix: any[];
-        transparentCorners: bool;
+        transparentCorners: boolean;
         type: string;
         
         width: number;
@@ -342,16 +342,16 @@ declare module fabric {
         getBoundingRectWidth(): number;
         getSvgStyles(): string;
         getSvgTransform(): string;
-        hasStateChanged(): bool;
+        hasStateChanged(): boolean;
         initialize(options: any);
-        intersectsWithObject(other: IObject): bool;
-        intersectsWithRect(selectionTL: any, selectionBR: any): bool;
-        isActive(): bool;
-        isContainedWithinObject(other: IObject): bool;
-        isContainedWithinRect(selectionTL: any, selectionBR: any): bool;
-        isType(type: string): bool;
+        intersectsWithObject(other: IObject): boolean;
+        intersectsWithRect(selectionTL: any, selectionBR: any): boolean;
+        isActive(): boolean;
+        isContainedWithinObject(other: IObject): boolean;
+        isContainedWithinRect(selectionTL: any, selectionBR: any): boolean;
+        isType(type: string): boolean;
         remove(): IObject;
-        render(ctx: CanvasRenderingContext2D, noTransform: bool);
+        render(ctx: CanvasRenderingContext2D, noTransform: boolean);
         rotate(value: number): IObject;
         saveState(): IObject;
         scale(value: number): IObject;
@@ -362,7 +362,7 @@ declare module fabric {
 
         set (properties: IObjectOptions): IObject;
         set (name: string, value: any): IObject;
-        setActive(active: bool): IObject;
+        setActive(active: boolean): IObject;
         setCoords();
         setGradientFill(options);
         setOptions(options: any);
@@ -384,11 +384,11 @@ declare module fabric {
         add(object): IGroup;
         addWithUpdate(object): IGroup;
         complexity(): number;
-        contains(object): bool;
-        containsPoint(point): bool;
+        contains(object): boolean;
+        containsPoint(point): boolean;
         destroy(): IGroup;
         getObjects(): IObject[];
-        hasMoved(): bool;
+        hasMoved(): boolean;
         initialize(options: any);
         initialize(objects, options): any;
         item(index): IObject;
@@ -437,7 +437,7 @@ declare module fabric {
         initialize(options: any);
         initialize(element: string, options: any);
         initialize(element: HTMLImageElement, options: any);
-        render(ctx: CanvasRenderingContext2D, noTransform: bool);
+        render(ctx: CanvasRenderingContext2D, noTransform: boolean);
         setElement(element): IImage;
         toObject(propertiesToInclude): any;
         tostring(): string;
@@ -461,7 +461,7 @@ declare module fabric {
         complexity(): number;
         initialize(options: any);
         initialize(path, options);
-        render(ctx: CanvasRenderingContext2D, noTransform: bool);
+        render(ctx: CanvasRenderingContext2D, noTransform: boolean);
         toDatalessObject(propertiesToInclude): any;
         toObject(propertiesToInclude): any;
         tostring(): string;
@@ -488,7 +488,7 @@ declare module fabric {
         complexity(): number;
         initialize(options: any);
         initialize(paths, options);
-        isSameColor(): bool;
+        isSameColor(): boolean;
         render(ctx: CanvasRenderingContext2D);
         toDatalessObject(propertiesToInclude): any;
         toGrayscale(): IPathGroup;
@@ -505,17 +505,17 @@ declare module fabric {
         backgroundImageOpacity: number;
         backgroundImageStretch: number;
         clipTo(clipFunction: (context: CanvasRenderingContext2D) => void );
-        controlsAboveOverlay: bool;
-        includeDefaultValues: bool;
+        controlsAboveOverlay: boolean;
+        includeDefaultValues: boolean;
         overlayImage: string;
         overlayImageLeft: number;
         overlayImageTop: number;
-        renderOnAddition: bool;
-        stateful: bool;
+        renderOnAddition: boolean;
+        stateful: boolean;
 
         // static 
         EMPTY_JSON: string;
-        supports(methodName: string): bool;
+        supports(methodName: string): boolean;
 
         // methods
         add(...object: IObject[]): ICanvas;
@@ -538,12 +538,12 @@ declare module fabric {
         getHeight(): number;
         getObjects(): IObject[];
         getWidth(): number;
-        insertAt(object: IObject, index: number, nonSplicing: bool): ICanvas;
-        isEmpty(): bool;
+        insertAt(object: IObject, index: number, nonSplicing: boolean): ICanvas;
+        isEmpty(): boolean;
         item(index: number): IObject;
         onBeforeScaleRotate(target: IObject);
         remove(object: IObject): IObject;
-        renderAll(allOnTop?: bool): ICanvas;
+        renderAll(allOnTop?: boolean): ICanvas;
         renderTop(): ICanvas;
 
         sendBackwards(object: IObject): ICanvas;
@@ -578,11 +578,11 @@ declare module fabric {
         freeDrawingColor: string;
         freeDrawingLineWidth: number;
         hoverCursor: string;
-        interactive: bool;
+        interactive: boolean;
         moveCursor: string;
-        perPixelTargetFind: bool;
+        perPixelTargetFind: boolean;
         rotationCursor: string;
-        selection: bool;
+        selection: boolean;
         selectionBorderColor: string;
         selectionColor: string;
         selectionDashArray: number[];
@@ -590,13 +590,13 @@ declare module fabric {
         targetFindTolerance: number;
 
         // methods
-        containsPoint(e: Event, target: IObject): bool;
+        containsPoint(e: Event, target: IObject): boolean;
         deactivateAll(): ICanvas;
         deactivateAllWithDispatch(): ICanvas;
         discardActiveGroup(): ICanvas;
         discardActiveObject(): ICanvas;
         drawDashedLine(ctx: CanvasRenderingContext2D, x: number, y: number, x2: number, y2: number, dashArray: number[]): ICanvas;
-        findTarget(e: MouseEvent, skipGroup: bool): ICanvas;
+        findTarget(e: MouseEvent, skipGroup: boolean): ICanvas;
         getActiveGroup(): IGroup;
         getActiveObject(): IObject;
         getPointer(e): { x: number; y: number; };
@@ -636,11 +636,11 @@ declare module fabric {
         freeDrawingColor?: string;
         freeDrawingLineWidth?: number;
         hoverCursor?: string;
-        interactive?: bool;
+        interactive?: boolean;
         moveCursor?: string;
-        perPixelTargetFind?: bool;
+        perPixelTargetFind?: boolean;
         rotationCursor?: string;
-        selection?: bool;
+        selection?: boolean;
         selectionBorderColor?: string;
         selectionColor?: string;
         selectionDashArray?: number[];
@@ -651,13 +651,13 @@ declare module fabric {
         backgroundImage?: string;
         backgroundImageOpacity?: number;
         backgroundImageStretch?: number;
-        controlsAboveOverlay?: bool;
-        includeDefaultValues?: bool;
+        controlsAboveOverlay?: boolean;
+        includeDefaultValues?: boolean;
         overlayImage?: string;
         overlayImageLeft?: number;
         overlayImageTop?: number;
-        renderOnAddition?: bool;
-        stateful?: bool;
+        renderOnAddition?: boolean;
+        stateful?: boolean;
     }
 
     export interface IRectOptions extends IObjectOptions {
@@ -686,7 +686,7 @@ declare module fabric {
         new (element: string, options?: ICanvasOptions): ICanvas;
 
         EMPTY_JSON: string;
-        supports(methodName: string): bool;
+        supports(methodName: string): boolean;
         prototype: any;
     }
 
@@ -695,7 +695,7 @@ declare module fabric {
         new (element: string, options?: ICanvasOptions): ICanvas;
 
         EMPTY_JSON: string;
-        supports(methodName: string): bool;
+        supports(methodName: string): boolean;
         prototype: any;
     }
 
@@ -833,7 +833,7 @@ declare module fabric {
         });
         createClass(parent, properties);
         degreesToRadians(degrees: number): number;
-        falseFunction(): () => bool;
+        falseFunction(): () => boolean;
         getById(id: HTMLElement): HTMLElement;
         getById(id: string): HTMLElement;
         getElementOffset(element): { left: number; top: number; };

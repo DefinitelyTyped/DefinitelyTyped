@@ -44,10 +44,10 @@ declare module Knockback {
         static useOptionsOrCreate(options: FactoryOptions, obj: any, owner_path: string);
 
         constructor (parent_factory: any);
-        hasPath(path: string): bool;
+        hasPath(path: string): boolean;
         addPathMapping(path: string, create_info);
         addPathMappings(factories: any, owner_path: string);
-        hasPathMappings(factories: any, owner_path: string): bool;
+        hasPathMappings(factories: any, owner_path: string): boolean;
         creatorForPath(obj: any, path: string);
     }
 
@@ -111,7 +111,7 @@ declare module Knockback {
     }
 
     interface CollectionOptions extends OptionsBase {
-        models_only?: bool;         // flag for skipping the creation of view models. The collection observable will be populated with (possibly sorted) models.
+        models_only?: boolean;         // flag for skipping the creation of view models. The collection observable will be populated with (possibly sorted) models.
         view_model?: any;           // (Constructor) — the view model constructor used for models in the collection. Signature: constructor(model, options)
         create?: any;               // a function used to create a view model for models in the collection. Signature: create(model, options)
         factories?: any;            // a map of dot-deliminated paths; for example 'models.owner': kb.ViewModel to either constructors or create functions. Signature: 'some.path': function(object, options)
@@ -127,11 +127,11 @@ declare module Knockback {
         shareOptions():  CollectionOptions;
         filters(id: any) : Backbone.Model;
         filters(ids: any[]): CollectionObservable;
-        filters(iterator: (element: Backbone.Model) => bool): CollectionObservable;
+        filters(iterator: (element: Backbone.Model) => boolean): CollectionObservable;
         comparator(comparatorFunction: any);
         sortAttribute(attr: string);
         viewModelByModel(model: Backbone.Model): ViewModel;
-        hasViewModels(): bool;
+        hasViewModels(): boolean;
     }
 
     interface Utils {
@@ -153,8 +153,8 @@ declare module Knockback {
         optionsPathJoin(options: any, path: string): any;
         inferCreator(value: any, factory: Factory, path: string, owner: any, key: string);
         createFromDefaultCreator(obj: any, options?: any);
-        hasModelSignature(obj: any): bool;
-        hasCollectionSignature(obj: any): bool;
+        hasModelSignature(obj: any): boolean;
+        hasCollectionSignature(obj: any): boolean;
     }
 
     interface Static extends Utils {

@@ -11,8 +11,8 @@ interface addressInterface {
 
 interface Request {
     header: (key: string, defaultValue?: string) => any;
-    accepts: (type: string) => bool;
-    is: (type: string) => bool;
+    accepts: (type: string) => boolean;
+    is: (type: string) => boolean;
     getLogger: (component: string) => any;
     contentLength: number;
     contentType: string;
@@ -21,7 +21,7 @@ interface Request {
     id: string;
     path: () => string;
     query: string;
-    secure: bool;
+    secure: boolean;
     time: number;
     params: any;
 }
@@ -107,9 +107,9 @@ interface HttpClient extends Client {
 interface ThrottleOptions {
     burst?: number;
     rate?: number;
-    ip?: bool;
-    xff?: bool;
-    username?: bool;
+    ip?: boolean;
+    xff?: boolean;
+    username?: boolean;
     tokensTable?: Object;
     maxKeys?: number;
     overrides?: Object;

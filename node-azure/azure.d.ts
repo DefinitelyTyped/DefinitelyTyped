@@ -175,7 +175,7 @@ declare module "azure" {
         performRequestInputStream(webResource: WebResource, outputData: string, inputStream, options, callback: Function): void;
         withFilter(newFilter: { handle: (requestOptions, next: Function) => void; }): ServiceClient;
         parseMetadataHeaders(headers): any;
-        isEmulated(): bool;
+        isEmulated(): boolean;
         setProxy(proxyUrl: string, proxyPort: number): void;
     }
 
@@ -192,9 +192,9 @@ declare module "azure" {
 
         constructor(storageAccount: string, storageAccessKey: string, host: string, usePathstyleUri: bool, authenticationProvider);
         beginBatch(): void;
-        isInBatch(): bool;
+        isInBatch(): boolean;
         rollback(): void;
-        hasOperations(): bool;
+        hasOperations(): boolean;
         addOperation(webResource: WebResource, outputData): void;
         commitBatch(callback: (error, operationResponses: any[], response) => void ): void;
         commitBatch(options, callback: (error, operationResponses: any[], response) => void ): void;
@@ -273,7 +273,7 @@ declare module "azure" {
 
     //#region Non-explicit, undeclared interfaces
     export interface WebResponse {
-        isSuccessful: bool;
+        isSuccessful: boolean;
         statusCode: number;
         body: { entry: { id: string; title; updated: string; author: { name; }; link; category; content; }; };
         headers;
@@ -334,7 +334,7 @@ declare module "azure" {
     }
 
     export interface UpdateEntityOptions extends TimeoutIntervalOptions {
-        checkEtag?: bool;
+        checkEtag?: boolean;
     }
 
     export interface Entity {
@@ -360,5 +360,5 @@ declare module "azure" {
     }
     //#endregion
 
-    export function isEmulated(): bool;
+    export function isEmulated(): boolean;
 }

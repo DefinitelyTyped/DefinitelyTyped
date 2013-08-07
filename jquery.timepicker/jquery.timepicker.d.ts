@@ -31,10 +31,10 @@ interface TimePickerOptions {
 
     timeSeparator?: string;               // The character to use to separate hours and minutes.
     periodSeparator?: string;           // The character to use to separate the time from the time period.
-    showPeriod?: bool;                 // Define whether or not to show AM/PM with selected time
-    showPeriodLabels?: bool;        // Show the AM/PM labels on the left of the time picker
-    showLeadingZero?: bool;            // Define whether or not to show a leading zero for hours < 10. [true/false]
-    showMinutesLeadingZero?: bool;      // Define whether or not to show a leading zero for minutes < 10.
+    showPeriod?: boolean;                 // Define whether or not to show AM/PM with selected time
+    showPeriodLabels?: boolean;        // Show the AM/PM labels on the left of the time picker
+    showLeadingZero?: boolean;            // Define whether or not to show a leading zero for hours < 10. [true/false]
+    showMinutesLeadingZero?: boolean;      // Define whether or not to show a leading zero for minutes < 10.
     altField?: string;                     // Selector for an alternate field to store selected time into
     defaultTime?: string;              // Used as default time when input field is empty or for inline timePicker
     // (set to 'now' for the current time, '' for no highlighted time)
@@ -50,14 +50,14 @@ interface TimePickerOptions {
     minutes?: TimePickerMinutes;
     rows?: number;                        // number of rows for the input tables, minimum 2, makes more sense if you use multiple of 2
     // 2011-08-05 0.2.4
-    showHours?: bool;                // display the hours section of the dialog
-    showMinutes?: bool;              // display the minute section of the dialog
-    optionalMinutes?: bool;        // optionally parse inputs of whole hours with minutes omitted
+    showHours?: boolean;                // display the hours section of the dialog
+    showMinutes?: boolean;              // display the minute section of the dialog
+    optionalMinutes?: boolean;        // optionally parse inputs of whole hours with minutes omitted
 
     // buttons
-    showCloseButton?: bool;       // shows an OK button to confirm the edit
-    showNowButton?: bool;          // Shows the 'now' button
-    showDeselectButton?: bool;       // Shows the deselect time button
+    showCloseButton?: boolean;       // shows an OK button to confirm the edit
+    showNowButton?: boolean;          // Shows the 'now' button
+    showDeselectButton?: boolean;       // Shows the deselect time button
 }
 
 

@@ -9,30 +9,30 @@ interface iScrollEvent {
 }
 
 interface iScrollOptions {
-    hScroll?: bool;
-    vScroll?: bool;
+    hScroll?: boolean;
+    vScroll?: boolean;
     x?: number;
     y?: number;
-    bounce?: bool;
-    bounceLock?: bool;
-    momentum?: bool;
-    lockDirection?: bool;
-    useTransform?: bool;
-    useTransition?: bool;
+    bounce?: boolean;
+    bounceLock?: boolean;
+    momentum?: boolean;
+    lockDirection?: boolean;
+    useTransform?: boolean;
+    useTransition?: boolean;
     topOffset?: number;
-    checkDOMChanges?: bool;
-    handleClick?: bool;
+    checkDOMChanges?: boolean;
+    handleClick?: boolean;
 
     // Scrollbar
-    hScrollbar?: bool;
-    vScrollbar?: bool;
-    fixedScrollbar?: bool;
-    hideScrollbar?: bool;
-    fadeScrollbar?: bool;
+    hScrollbar?: boolean;
+    vScrollbar?: boolean;
+    fixedScrollbar?: boolean;
+    hideScrollbar?: boolean;
+    fadeScrollbar?: boolean;
     scrollbarClass?: string;
 
     // Zoom
-    zoom?: bool;
+    zoom?: boolean;
     zoomMin?: number;
     zoomMax?: number;
     doubleTapZoom?: number;
@@ -64,12 +64,12 @@ declare class iScroll {
 
     destroy(): void;
     refresh(): void;
-    scrollTo(x: number, y: number, time: number, relative: bool): void;
+    scrollTo(x: number, y: number, time: number, relative: boolean): void;
     scrollToElement(element: string, time: number): void;
     scrollToPage(pageX: number, pageY: number, time: number): void;
     disable(): void;
     enalbe(): void;
     stop(): void;
     zoom(x: number, y: number, scale: number, time: number): void;
-    isReady(): bool;
+    isReady(): boolean;
 }

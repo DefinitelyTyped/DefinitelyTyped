@@ -24,7 +24,7 @@ interface Casper {
 	captureBase64(format: string, area: any);
 	captureSelector(targetFile: string, selector: string);
 	clear();
-	debugHTML(selector?: string, outer?: bool);
+	debugHTML(selector?: string, outer?: boolean);
 	debugPage();
 	die(message: string, status?: number);
 	download(url: string, target?: string, method?: string, data?: any);
@@ -37,7 +37,7 @@ interface Casper {
 	fetchText(selector: string);
 	forward();
 	log(message: string, level?: string, space?: string);
-	fill(selector: string, values: any, submit?: bool);
+	fill(selector: string, values: any, submit?: boolean);
 	getCurrentUrl(): string;
 	getElementAttribute(selector: string, attribute: string): string;
 	getElementBounds(selector: string): ElementBounds;
@@ -45,7 +45,7 @@ interface Casper {
 	getElementInfo(selector: string): ElementInfo;
 	getFormValues(selector: string): any;
 	getGlobal(name: string): any;
-	getHTML(selector?: string, outer?: bool): string;
+	getHTML(selector?: string, outer?: boolean): string;
 	getPageContent(): string;
 	getTitle(): string;
 	mouseEvent(type: string, selector: string);
@@ -58,7 +58,7 @@ interface Casper {
 	sendKeys(selector: string, keys: string, options?: any);
 	setHttpAuth(username: string, password: string);
 	start(url?: string, then?: (response: HttpResponse) => void): Casper;
-	status(asString: bool): any;
+	status(asString: boolean): any;
 	then(fn: (self?: Casper) => void);
 	thenClick(selector: string);
 	thenEvaluate(fn: Function, ...args: any[]);
@@ -123,12 +123,12 @@ interface ElementInfo {
 	y: number;
 	width: number;
 	height: number;
-	visible: bool;
+	visible: boolean;
 }
 
 interface CasperOptions {
 	clientScripts: Array;
-	exitOnError: bool;
+	exitOnError: boolean;
 	httpStatusHandlers: any;
 	logLevel: string;
 	onAlert: Function;
@@ -145,10 +145,10 @@ interface CasperOptions {
 	page: WebPage;
 	pageSettings: any;
 	remoteScripts: Array;
-	safeLogs: bool;
+	safeLogs: boolean;
 	stepTimeout: number;
 	timeout: number;
-	verbose: bool;
+	verbose: boolean;
 	viewportSize: any;
 	waitTimeout: number;
 }
@@ -170,7 +170,7 @@ interface ClientUtils {
 	getFormValues(selector: string);
 	mouseEvent(type: string, selector: string);
 	removeElementsByXPath(expression: string);
-	sendAJAX(url: string, method?: string, data?: any, async?: bool);
+	sendAJAX(url: string, method?: string, data?: any, async?: boolean);
 	visible(selector: string);
 }
 
@@ -225,7 +225,7 @@ interface Cases {
 }
 
 interface Case {
-	success: bool;
+	success: boolean;
 	type: string;
 	standard: string;
 	file: string;
@@ -233,8 +233,8 @@ interface Case {
 }
 
 interface CaseValues {
-	subject: bool;
-	expected: bool;
+	subject: boolean;
+	expected: boolean;
 }
 
 interface Utils {

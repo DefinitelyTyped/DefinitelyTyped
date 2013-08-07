@@ -9,16 +9,16 @@ interface iScrollEvent {
 }
 
 interface iScrollOptions {
-    hScroll?: bool;
-    vScroll?: bool;
+    hScroll?: boolean;
+    vScroll?: boolean;
     x?: number;
     y?: number;
-    bounce?: bool;
-    bounceLock?: bool;
-    momentum?: bool;
-    lockDirection?: bool;
-    useTransform?: bool;
-    useTransition?: bool;
+    bounce?: boolean;
+    bounceLock?: boolean;
+    momentum?: boolean;
+    lockDirection?: boolean;
+    useTransform?: boolean;
+    useTransition?: boolean;
 
     // Events
     onRefresh?: iScrollEvent;
@@ -39,7 +39,7 @@ declare class iScroll {
 
     destroy(): void;
     refresh(): void;
-    scrollTo(x: number, y: number, time: number, relative: bool): void;
+    scrollTo(x: number, y: number, time: number, relative: boolean): void;
     scrollToElement(element: string, time: number): void;
     disable(): void;
     enalbe(): void;

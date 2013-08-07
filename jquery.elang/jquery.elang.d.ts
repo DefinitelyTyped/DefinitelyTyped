@@ -80,7 +80,7 @@ interface IELangDB {
     cache?: any;
     delegates?: IELangDBDelegates;
     events?: IELangDBEvents;
-    isInitialized?: bool;
+    isInitialized?: boolean;
     options?: IELangDBOptions;
 
     name?: string;
@@ -149,7 +149,7 @@ interface IELangBase {
                      btnTooltips?: string[]): void;
     appendAsLastChild(node: JQuery, element: JQuery): JQuery;
     getLastChild(node: JQuery): JQuery;
-    isRdoChecked(eSrc: HTMLElement, rdoId: string): bool;
+    isRdoChecked(eSrc: HTMLElement, rdoId: string): boolean;
     processCommand(command: string): JQuery;
     setOptions(options: any): void;
 }
@@ -183,7 +183,7 @@ interface IELangSearch extends IELangBase {
     defaults: IELangSearchDefaults;
     delegates: IELangSearchDelegates;
     events: IELangSearchEvents;
-    isSearchInExp: bool;
+    isSearchInExp: boolean;
 
     initialize(target: HTMLElement, options: any): void;
     createContent(): void;

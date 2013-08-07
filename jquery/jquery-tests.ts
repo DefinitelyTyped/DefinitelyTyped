@@ -1572,7 +1572,7 @@ function test_hasClass() {
     $("div#result3").append($("p").hasClass("selected"));
 
     $('#mydiv').hasClass('foo');
-    // typescript has a bug to (bool).toString() - I'll comment this code until typescript team solve this problem.
+    // typescript has a bug to (boolean).toString() - I'll comment this code until typescript team solve this problem.
     //$("div#result1").append($("p:first").hasClass("selected").toString());
     //$("div#result2").append($("p:last").hasClass("selected").toString());
     //$("div#result3").append($("p").hasClass("selected").toString());

@@ -13,7 +13,7 @@ interface SJSOpenEvent extends SockJSSimpleEvent {}
 interface SJSCloseEvent extends SockJSSimpleEvent {
     code: number;
     reason: string;
-    wasClean: bool;
+    wasClean: boolean;
 }
 
 interface SJSMessageEvent extends SockJSSimpleEvent {
@@ -37,8 +37,8 @@ interface SockJS extends EventTarget {
 declare var SockJS: {
     prototype: SockJS;
     new (url: string, options?: {
-         debug: bool;
-         devel: bool;
+         debug: boolean;
+         devel: boolean;
          protocols_whitelist: string[];
      }): SockJS;
 
