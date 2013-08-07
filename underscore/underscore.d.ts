@@ -368,11 +368,11 @@ declare module _ {
 	* property values.
 	* @param list The list to pluck elements out of that have the property `propertyName`.
 	* @param propertyName The property to look for on each element within `list`.
-	* @return The list of elements within `list` that have the property `propertyName`.
+	* @return The list of values for `propertyName` for each element within `list`
 	**/
 	export function pluck<T extends {}>(
 		list: Collection<T>,
-		propertyName: string): T[];
+		propertyName: string): any[];
 
 	/**
 	* Returns the maximum value in list.
