@@ -40,7 +40,7 @@ interface CycleOptions {
     next?: any;                                                                                                                               // element, jQuery object, or jQuery selector string for the element to use as event trigger for next slide
     nowrap?: boolean;                                                                                                                            // true to prevent slideshow from wrapping
     onPagerEvent?: (zeroBasedSlideIndex: number, slideElement: Element) => void;                                                              // callback fn for pager events: function(zeroBasedSlideIndex, slideElement)
-    onPrevNextEvent?: (isNext: bool, zeroBasedSlideIndex: number, slideElement: Element) => void;                                             // callback fn for prev/next events: function(isNext, zeroBasedSlideIndex, slideElement)
+    onPrevNextEvent?: (isNext: boolean, zeroBasedSlideIndex: number, slideElement: Element) => void;                                             // callback fn for prev/next events: function(isNext, zeroBasedSlideIndex, slideElement)
     pager?: any;                                                                                                                              // element, jQuery object, or jQuery selector string for the element to use as pager container
     pagerAnchorBuilder?: (index: number, DOMelement: Element) => string;                                                                      // callback fn for building anchor links:  function(index, DOMelement)
     pagerEvent?: string;                                                                                                                      // name of event which drives the pager navigation
@@ -80,8 +80,8 @@ interface Cycle {
     prev: (options?: CycleOptions) => void;
 
     transitions: { [key: string]: ($cont: JQuery, $slides: JQuery, options: CycleOptions) => void; };                                                                 // transition definitions - only fade is defined here, transition pack defines the rest
-    custom: (currSlideElement: Element, nextSlideElement: Element, options: CycleOptions, afterCalback: Function, forwardFlag: bool, speedOverride?: number) => void; // the actual fn for effecting a transition
-    commonReset: (currSlideElement: Element, nextSlideElement: Element, options: CycleOptions, w?: bool, h?: bool, rev?: boolean) => void;                               // reset common props before the next transition
+    custom: (currSlideElement: Element, nextSlideElement: Element, options: CycleOptions, afterCalback: Function, forwardFlag: boolean, speedOverride?: number) => void; // the actual fn for effecting a transition
+    commonReset: (currSlideElement: Element, nextSlideElement: Element, options: CycleOptions, w?: boolean, h?: boolean, rev?: boolean) => void;                               // reset common props before the next transition
     hopsFromLast: (options: CycleOptions, forwardFlag?: boolean) => number;                                                                                              // helper fn to calculate the number of slides between the current and the next
     createPagerAnchor: (index: number, DOMElement: Element, $pager: JQuery, els: any, options: CycleOptions) => string;                                               
     updateActivePagerLink: (pager: any, currSlide: number, clsName: string) => void;                                                                                  // invoked after transition

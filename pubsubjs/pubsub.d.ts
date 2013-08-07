@@ -9,7 +9,7 @@ declare module PubSubJS {
     interface Publish{
         publish(message: any, data: any): boolean;
 
-        publish(message:any, data:any, sync:bool, immediateExceptions:Function): boolean;
+        publish(message:any, data:any, sync:boolean, immediateExceptions:Function): boolean;
 
         publishSync(message: any, data: any): boolean;
     }

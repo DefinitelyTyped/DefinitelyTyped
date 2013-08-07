@@ -296,7 +296,7 @@ declare module "less" {
         }
 
         export class Quoted implements IInjectable, IComparable {
-            constructor(str: string, content: string, escaped: bool, i);
+            constructor(str: string, content: string, escaped: boolean, i);
 
             escaped: boolean;
             value: string;
@@ -374,7 +374,7 @@ declare module "less" {
         }
 
         export class Import implements IInjectable {
-            constructor(path, imports, features: ICSSable, once: bool, index, rootpath);
+            constructor(path, imports, features: ICSSable, once: boolean, index, rootpath);
 
             once: boolean;
             index;

@@ -105,10 +105,10 @@ interface KnockoutObservableArrayFunctions<T> {
     difference(...others: T[][]): T[];
     difference_(...others: T[][]): T[];
 
-    uniq<TSort>(isSorted?: bool, iterator?: _.ListIterator<T, TSort>): T[];
-    uniq_<TSort>(isSorted?: bool, iterator?: _.ListIterator<T, TSort>): T[];
-    unique<TSort>(isSorted?: bool, iterator?: _.ListIterator<T, TSort>): T[];
-    unique_<TSort>(isSorted?: bool, iterator?: _.ListIterator<T, TSort>): T[];
+    uniq<TSort>(isSorted?: boolean, iterator?: _.ListIterator<T, TSort>): T[];
+    uniq_<TSort>(isSorted?: boolean, iterator?: _.ListIterator<T, TSort>): T[];
+    unique<TSort>(isSorted?: boolean, iterator?: _.ListIterator<T, TSort>): T[];
+    unique_<TSort>(isSorted?: boolean, iterator?: _.ListIterator<T, TSort>): T[];
 
     zip(...arrays: any[]): any[];
     zip_(...arrays: any[]): any[];

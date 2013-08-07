@@ -42,7 +42,7 @@ interface JQuery {
 
 interface DirtyFlag {
     isDirty: KnockoutComputed<boolean>;
-    new (objectToTrack: any, isInitiallyDirty?: bool, hashFunction?: () => any);
+    new (objectToTrack: any, isInitiallyDirty?: boolean, hashFunction?: () => any);
     reset(): void;
 }
 

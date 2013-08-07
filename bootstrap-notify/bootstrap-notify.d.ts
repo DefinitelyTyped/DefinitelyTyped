@@ -13,7 +13,7 @@ interface NotifyOptions {
     type?: string;
     /**
     Allow alert to be closable through a close icon.
-    @param {bool} closable
+    @param {boolean} closable
     */
     closable?: boolean;
     /**

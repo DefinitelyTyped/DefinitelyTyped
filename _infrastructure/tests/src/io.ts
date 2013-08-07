@@ -236,7 +236,7 @@ var IO = (function() {
             },
 
             directoryExists: function(path) {
-                return <bool>fso.FolderExists(path);
+                return <boolean>fso.FolderExists(path);
             },
 
             createDirectory: function(path) {

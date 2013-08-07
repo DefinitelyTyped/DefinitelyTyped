@@ -60,7 +60,7 @@ declare class Firebase implements IFirebaseQuery {
 	setWithPriority(value: any, priority: number, onComplete?: (error: any) => void): void;
 	setPriority(priority: string, onComplete?: (error: any) => void): void;
 	setPriority(priority: number, onComplete?: (error: any) => void): void;
-	transaction(updateFunction: (currentData: any)=> any, onComplete?: (error: any, committed: bool, snapshot: IFirebaseDataSnapshot) => void, applyLocally?: boolean): void;
+	transaction(updateFunction: (currentData: any)=> any, onComplete?: (error: any, committed: boolean, snapshot: IFirebaseDataSnapshot) => void, applyLocally?: boolean): void;
 	onDisconnect(): IFirebaseOnDisconnect;
 	on(eventType: string, callback: (dataSnapshot: IFirebaseDataSnapshot, prevChildName?: string) => void, cancelCallback?: ()=> void, context?: Object): (dataSnapshot: IFirebaseDataSnapshot, prevChildName?: string) => void;
 	off(eventType?: string, callback?: (dataSnapshot: IFirebaseDataSnapshot, prevChildName?: string) => void, context?: Object): void;

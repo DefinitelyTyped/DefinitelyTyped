@@ -1373,7 +1373,7 @@ declare module Box2D.Collision {
 		*	param proxy Proxy overlapping the supplied AABB.
 		* @aabb Proxies are query for overlap on this AABB.
 		**/
-		public Query(callback: (proxy: b2DynamicTreeNode) => bool, aabb: b2AABB): void;
+		public Query(callback: (proxy: b2DynamicTreeNode) => boolean, aabb: b2AABB): void;
 
 		/**
 		* Ray-cast against the proxies in the tree. This relies on the callback to perform a exact ray-cast in the case were the proxy contains a shape. The callback also performs the any collision filtering. This has performance roughly equal to k log(n), where k is the number of collisions and n is the number of proxies in the tree.
@@ -1438,7 +1438,7 @@ declare module Box2D.Collision {
 		/**
 		* @see IBroadPhase.Query
 		**/
-		public Query(callback: (proxy: b2DynamicTreeNode) => bool, aabb: b2AABB): void;
+		public Query(callback: (proxy: b2DynamicTreeNode) => boolean, aabb: b2AABB): void;
 
 		/**
 		* @see IBroadPhase.RayCast
@@ -1911,7 +1911,7 @@ declare module Box2D.Collision {
 		*	param proxy Proxy overlapping the supplied AABB.
 		* @param aabb Proxies are query for overlap on this AABB.
 		**/
-		Query(callback: (proxy: b2DynamicTreeNode) => bool, aabb: b2AABB): void;
+		Query(callback: (proxy: b2DynamicTreeNode) => boolean, aabb: b2AABB): void;
 
 		/**
 		* Ray-cast against the proxies in the tree. This relies on the callback to perform a exact ray-cast in the case were the proxy contains a shape. The callback also performs the any collision filtering. This has performance roughly equal to k log(n), where k is the number of collisions and n is the number of proxies in the tree.
@@ -3658,7 +3658,7 @@ declare module Box2D.Dynamics {
 		* @param callback  A user implemented callback class. It should match signature function Callback(fixture:b2Fixture):Boolean.  Return true to continue to the next fixture.
 		* @param aabb The query bounding box.
 		**/
-		public QueryAABB(callback: (fixutre: b2Fixture) => bool, aabb: Box2D.Collision.b2AABB): void;
+		public QueryAABB(callback: (fixutre: b2Fixture) => boolean, aabb: Box2D.Collision.b2AABB): void;
 
 		/**
 		* Query the world for all fixtures that contain a point.
@@ -3666,7 +3666,7 @@ declare module Box2D.Dynamics {
 		* @param callback A user implemented callback class.  It should match signature function Callback(fixture:b2Fixture):Boolean.  Return true to continue to the next fixture.
 		* @param p The query point.
 		**/
-		public QueryPoint(callback: (fixture: b2Fixture) => bool, p: Box2D.Common.Math.b2Vec2): void;
+		public QueryPoint(callback: (fixture: b2Fixture) => boolean, p: Box2D.Common.Math.b2Vec2): void;
 
 		/**
 		* Query the world for all fixtures that precisely overlap the provided transformed shape.
@@ -3675,7 +3675,7 @@ declare module Box2D.Dynamics {
 		* @param shape The query shape.
 		* @param transform Optional transform, default = null.
 		**/
-		public QueryShape(callback: (fixture: b2Fixture) => bool, shape: Box2D.Collision.Shapes.b2Shape, transform?: Box2D.Common.Math.b2Transform): void;
+		public QueryShape(callback: (fixture: b2Fixture) => boolean, shape: Box2D.Collision.Shapes.b2Shape, transform?: Box2D.Common.Math.b2Transform): void;
 
 		/**
 		* Ray-cast the world for all fixtures in the path of the ray. Your callback Controls whether you get the closest point, any point, or n-points The ray-cast ignores shapes that contain the starting point.

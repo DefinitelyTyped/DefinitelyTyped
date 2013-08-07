@@ -44,7 +44,7 @@ interface JQuery {
     clearForm(): JQuery;
     clearFields(): JQuery;
     ajaxFormUnbind: () => JQuery;
-    formToArray: (semantic?: bool, elements?: Element[]) => any[];
+    formToArray: (semantic?: boolean, elements?: Element[]) => any[];
     enable: (enable?: boolean) => JQuery;
     selected: (select?: boolean) => JQuery;
 }

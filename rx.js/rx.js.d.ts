@@ -221,9 +221,9 @@ declare module Rx {
 			dispose(): void;
 		}
 		export interface Enumerator<T> {
-			(moveNext: () =>bool, getCurrent: () => T, dispose: () =>void ): IEnumerator<T>;
+			(moveNext: () =>boolean, getCurrent: () => T, dispose: () =>void ): IEnumerator<T>;
 
-			create(moveNext: () =>bool, getCurrent: () => T, dispose?: () =>void ): IEnumerator<T>;
+			create(moveNext: () =>boolean, getCurrent: () => T, dispose?: () =>void ): IEnumerator<T>;
 		}
 
 		// Enumerable
@@ -384,7 +384,7 @@ declare module Rx {
 		empty<T>(scheduler?: IScheduler): IObservable<T>;
 		fromArray<T>(array: T[], scheduler?: IScheduler): IObservable<T>;
 		fromArray<T>(array: { length: number;[index: number]: T; }, scheduler?: IScheduler): IObservable<T>;
-		generate<TState, TResult>(initialState: TState, condition: (state: TState) => bool, iterate: (state: TState) => TState, resultSelector: (state: TState) => TResult, scheduler?: IScheduler): IObservable<TResult>;
+		generate<TState, TResult>(initialState: TState, condition: (state: TState) => boolean, iterate: (state: TState) => TState, resultSelector: (state: TState) => TResult, scheduler?: IScheduler): IObservable<TResult>;
 		never<T>(): IObservable<T>;
 		range(start: number, count: number, scheduler?: IScheduler): IObservable<number>;
 		repeat<T>(value: T, repeatCount?: number, scheduler?: IScheduler): IObservable<T>;

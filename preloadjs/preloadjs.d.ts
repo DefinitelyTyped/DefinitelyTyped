@@ -31,8 +31,8 @@ declare module createjs {
         loadStart: (event: Object) => any;
 
         // EventDispatcher mixins
-        addEventListener(type: string, listener: (eventObj: Object) => boolean): Function;
-        addEventListener(type: string, listener: (eventObj: Object) => boolean): Object;
+        addEventListener(type: string, listener: (eventObj: Object) => boolean): any;
+
         removeEventListener(type: string, listener: (eventObj: Function) => boolean): void;
         removeEventListener(type: string, listener: (eventObj: Object) => boolean): void;
         removeAllEventListeners(type: string): void;
@@ -92,8 +92,7 @@ declare module createjs {
     export class TagLoader extends AbstractLoader {
         constructor (item: Object, srcAttr: string, useXHR: boolean);
         constructor (item: string, srcAttr: string, useXHR: boolean);
-        getResult(): HTMLImageElement;
-        getResult(): HTMLAudioElement;
+        getResult(): any; // HTMLImageElement or HTMLAudioElement
     }
 
 

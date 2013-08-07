@@ -11,7 +11,7 @@ declare module JQueryUI {
 
     interface AccordionOptions {
         active?: any; // boolean or number
-        animate?: any; // bool, number, string or object
+        animate?: any; // boolean, number, string or object
         collapsible?: boolean;
         disabled?: boolean;
         event?: string;
@@ -428,7 +428,7 @@ declare module JQueryUI {
     // Slider //////////////////////////////////////////////////
 
     interface SliderOptions {
-        animate?: any; // bool, string or number
+        animate?: any; // boolean, string or number
         disabled?: boolean;
         max?: number;
         min?: number;
@@ -559,8 +559,8 @@ declare module JQueryUI {
         disabled?: any; // boolean or []
         event?: string;
         heightStyle?: string;
-        hide?: any; // bool, number, string or object
-        show?: any; // bool, number, string or object
+        hide?: any; // boolean, number, string or object
+        show?: any; // boolean, number, string or object
     }
 
     interface TabsUIParams {
@@ -586,10 +586,10 @@ declare module JQueryUI {
     interface TooltipOptions {
         content?: any; // () or string
         disabled?: boolean;
-        hide?: any; // bool, number, string or object
+        hide?: any; // boolean, number, string or object
         items?: string;
         position?: any; // TODO
-        show?: any; // bool, number, string or object
+        show?: any; // boolean, number, string or object
         tooltipClass?: string;
         track?: boolean;
     }
@@ -1033,8 +1033,8 @@ interface JQuery {
 
     toggleClass(className: string, duration?: number, easing?: string, complete?: Function): JQuery;
     toggleClass(className: string, duration?: string, easing?: string, complete?: Function): JQuery;
-    toggleClass(className: string, aswitch?: bool, duration?: number, easing?: string, complete?: Function): JQuery;
-    toggleClass(className: string, aswitch?: bool, duration?: string, easing?: string, complete?: Function): JQuery;
+    toggleClass(className: string, aswitch?: boolean, duration?: number, easing?: string, complete?: Function): JQuery;
+    toggleClass(className: string, aswitch?: boolean, duration?: string, easing?: string, complete?: Function): JQuery;
 
     effect(options: any): JQuery;
     effect(effect: string, options?: any, duration?: number, complete?: Function): JQuery;

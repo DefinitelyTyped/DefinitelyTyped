@@ -52,7 +52,7 @@ declare module "msnodesql" {
         rollback(callback?: ErrorCallback);
 
         close(callback?: ErrorCallback);
-        close(immediately: bool, callback?: ErrorCallback);
+        close(immediately: boolean, callback?: ErrorCallback);
     }
 
     interface StreamEvents extends EventEmitter { }

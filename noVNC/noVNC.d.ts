@@ -99,7 +99,7 @@ declare class RFB {
 	sendCtrlAltDel(): void;
 	sendKey(code: number, down: boolean): void;
 	clipboardPasteFrom(text: string): void;
-	testMode(override_send: (arr: Array) => bool, data_mode: string): void;
+	testMode(override_send: (arr: Array) => boolean, data_mode: string): void;
 }
 
 interface Display {
