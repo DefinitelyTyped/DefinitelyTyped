@@ -1,6 +1,6 @@
 /// <reference path="./browser-harness.d.ts" />
 
-import harness = module('browser-harness');
+import harness = require('browser-harness');
 
 harness.listen(4500);
 harness.listen(4500, function(){});

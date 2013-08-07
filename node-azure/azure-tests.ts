@@ -1,7 +1,7 @@
 ﻿/// <reference path="azure.d.ts" />
 
 
-import Azure = module("azure");
+import Azure = require("azure");
 
 var ts = new Azure.TableService();
 

@@ -1,6 +1,6 @@
 ﻿/// <reference path="less.d.ts" />
 
-import less = module("less");
+import less = require("less");
 
 declare var __dirname: string;
 
