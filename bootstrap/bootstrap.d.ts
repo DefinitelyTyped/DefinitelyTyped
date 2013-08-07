@@ -32,6 +32,7 @@ interface TooltipOptions {
     title?: any;
     trigger?: string;
     delay?: any;
+    container?: any;
 }
 
 interface PopoverOptions {
@@ -42,7 +43,8 @@ interface PopoverOptions {
     trigger?: string;
     title?: any;
     content?: any;
-    delay?: any;   
+    delay?: any;
+    container?: any;
 }
 
 interface CollapseOptions {
@@ -59,9 +61,10 @@ interface TypeaheadOptions {
     source?: any;
     items?: number;
     minLength?: number;
-    matcher?: () => any;
-    sorter?: () => any;
-    highlighter?: () => any;
+    matcher?: (item: any) => boolean;
+    sorter?: (items: any[]) => any[];
+    updater?: (item: any) => any;
+    highlighter?: (item: any) => string;
 }
 
 interface AffixOptions {
