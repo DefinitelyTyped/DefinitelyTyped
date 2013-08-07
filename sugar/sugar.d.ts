@@ -857,7 +857,7 @@ interface String {
 	*   'just sittin on the dock of the bay'.truncate(20, true, 'middle') -> 'just sitt...of the bay'
 	*   'just sittin on the dock of the bay'.truncate(20, true, 'left')   -> '...the dock of the bay'
 	**/
-	truncate(length: number, split?: bool, from?: string, ellipsis?: string): string;
+	truncate(length: number, split?: boolean, from?: string, ellipsis?: string): string;
 
 	/**
 	* Converts hyphens and camel casing to underscores.
@@ -1232,7 +1232,7 @@ interface Number {
 	*   (-5).pad(4)       -> '-0005'
 	*   (82).pad(3, true) -> '+082'
 	**/
-	pad(place?: number, sign?: bool, base?: number): string;
+	pad(place?: number, sign?: boolean, base?: number): string;
 
 	/**
 	* Shortcut for %Math.round% that also allows a [precision].
@@ -2167,11 +2167,11 @@ interface Array<T> {
 	every(f: number, scope?: any): boolean;
 	every(f: string, scope?: any): boolean;
 	every(f: Object, scope?: any): boolean;
-	every(f: (el: T, i?: number, array?: T[]) => bool, scope?: any): boolean;
+	every(f: (el: T, i?: number, array?: T[]) => boolean, scope?: any): boolean;
 	all(f: number, scope?: any): boolean;
 	all(f: string, scope?: any): boolean;
 	all(f: Object, scope?: any): boolean;
-	all(f: (el: T, i?: number, array?: T[]) => bool, scope?: any): boolean;
+	all(f: (el: T, i?: number, array?: T[]) => boolean, scope?: any): boolean;
 
 	/***
 	* Removes any element in the array that matches [f1], [f2], etc.
@@ -2212,7 +2212,7 @@ interface Array<T> {
 	filter(f: string, scope?: any): T[];
 	filter(f: RegExp, scope?: any): T[];
 	filter(f: Object, scope?: any): T[];
-	filter(f: (el: T, i?: number, array?: T[]) => bool, scope?: any): T[];
+	filter(f: (el: T, i?: number, array?: T[]) => boolean, scope?: any): T[];
 
 	/***
 	* Returns the first element that matches <f>.
@@ -2234,7 +2234,7 @@ interface Array<T> {
 	find(f: string, index?: number, loop?: boolean): T;
 	find(f: RegExp, index?: number, loop?: boolean): T;
 	find(f: Object, index?: number, loop?: boolean): T;
-	find(f: (el: T, i?: number, array?: T[]) => bool, index?: number, loop?: boolean): T;
+	find(f: (el: T, i?: number, array?: T[]) => boolean, index?: number, loop?: boolean): T;
 
 	/***
 	* Returns all elements that match <f>.
@@ -2257,7 +2257,7 @@ interface Array<T> {
 	findAll(f: string, index?: number, loop?: boolean): T[];
 	findAll(f: RegExp, index?: number, loop?: boolean): T[];
 	findAll(f: Object, index?: number, loop?: boolean): T[];
-	findAll(f: (el: T, i?: number, array?: T[]) => bool, index?: number, loop?: boolean): T[];
+	findAll(f: (el: T, i?: number, array?: T[]) => boolean, index?: number, loop?: boolean): T[];
 
 	/***
 	* Returns the index of the first element that matches <f>
@@ -2285,7 +2285,7 @@ interface Array<T> {
 	findIndex(f: number, startIndex?: number, loop?: boolean): number;
 	findIndex(f: any, startIndex?: number, loop?: boolean): number;
 	findIndex(f: RegExp, startIndex?: number, loop?: boolean): number;
-	findIndex(f: (el: T, i?: number, array?: T[]) => bool, startIndex?: number, loop?: boolean): number;
+	findIndex(f: (el: T, i?: number, array?: T[]) => boolean, startIndex?: number, loop?: boolean): number;
 
 	/***
 	* Returns the first element(s) in the array.
@@ -2662,7 +2662,7 @@ interface Array<T> {
 	some(f: number, scope?: any): boolean;
 	some(f: string, scope?: any): boolean;
 	some(f: any, scope?: any): boolean;
-	some(f: (n: T) => bool, scope?: any): boolean;
+	some(f: (n: T) => boolean, scope?: any): boolean;
 
 	/***
 	* Sorts the array by <map>.
@@ -3075,8 +3075,8 @@ interface Object {
 	*   Object.extended({a:1}).merge({b:2}) -> { a:1, b:2 }
 	*
 	***/
-	merge(target: Object, source: Object, deep?: bool, resolve?: boolean): Object;
-	merge(target: Object, source: Object, deep?: bool, resolve?: (key: string, targetVal: any, sourceVal: any) => any): Object;
+	merge(target: Object, source: Object, deep?: boolean, resolve?: boolean): Object;
+	merge(target: Object, source: Object, deep?: boolean, resolve?: (key: string, targetVal: any, sourceVal: any) => any): Object;
 
 	/**
 	* Builds a new object containing all values except those specified in find.

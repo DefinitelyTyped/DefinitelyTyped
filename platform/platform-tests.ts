@@ -78,7 +78,7 @@ function runTests() {
     }
 }
 
-function falsy(condition: () => bool, action: () => any) {
+function falsy(condition: () => boolean, action: () => any) {
     if (condition() === false)
         action();
 }

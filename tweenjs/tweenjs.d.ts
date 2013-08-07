@@ -138,8 +138,7 @@ declare module createjs {
         change: (event) => any;
 
         // EventDispatcher mixins
-        addEventListener(type: string, listener: (eventObj: Object) => boolean): Function;
-        addEventListener(type: string, listener: (eventObj: Object) => boolean): Object;
+        addEventListener(type: string, listener: (eventObj: Object) => boolean): any;
         removeEventListener(type: string, listener: (eventObj: Function) => boolean): void;
         removeEventListener(type: string, listener: (eventObj: Object) => boolean): void;
         removeAllEventListeners(type: string): void;

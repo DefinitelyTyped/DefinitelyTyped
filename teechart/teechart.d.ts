@@ -329,7 +329,7 @@ declare module Tee {
 
     items: IAxis[];
 
-    add(horizontal: bool, otherSide: boolean): IAxis;
+    add(horizontal: boolean, otherSide: boolean): IAxis;
     //each(f: function): void;
   }
 

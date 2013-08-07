@@ -181,8 +181,8 @@ declare module createjs {
         play: boolean;
 
         // methods
-        constructor(target: MovieClip, outLabel: string, overLabel: string, downLabel: string, play: bool, hitArea: DisplayObject, hitLabel: string);
-        constructor(target: BitmapAnimation, outLabel: string, overLabel: string, downLabel: string, play: bool, hitArea: DisplayObject, hitLabel: string);
+        constructor(target: MovieClip, outLabel: string, overLabel: string, downLabel: string, play: boolean, hitArea: DisplayObject, hitLabel: string);
+        constructor(target: BitmapAnimation, outLabel: string, overLabel: string, downLabel: string, play: boolean, hitArea: DisplayObject, hitLabel: string);
         setEnabled(value: boolean);
         toString(): string;
     }
@@ -428,7 +428,7 @@ declare module createjs {
         type: string;
 
         // methods
-        constructor (type: string, stageX: number, stageY: number, target: DisplayObject, nativeEvent: NativeMouseEvent, pointerID: number, primary: bool, rawX: number, rawY: number);
+        constructor (type: string, stageX: number, stageY: number, target: DisplayObject, nativeEvent: NativeMouseEvent, pointerID: number, primary: boolean, rawX: number, rawY: number);
         clone(): MouseEvent;
         toString(): string;
 
@@ -467,7 +467,7 @@ declare module createjs {
         timeline: Timeline; //HERE requires tweenJS
 
         // methods
-        constructor (mode: string, startPosition: number, loop: bool, labels: Object);
+        constructor (mode: string, startPosition: number, loop: boolean, labels: Object);
         clone(recursive?: boolean): MovieClip;
         gotoAndPlay(positionOrLabel: string): void;
         gotoAndPlay(positionOrLabel: number): void;
@@ -582,7 +582,7 @@ declare module createjs {
 
 
     export class SpriteSheetUtils {
-        static addFlippedFrames(spriteSheet: SpriteSheet, horizontal?: bool, vertical?: bool, both?: boolean): void;
+        static addFlippedFrames(spriteSheet: SpriteSheet, horizontal?: boolean, vertical?: boolean, both?: boolean): void;
         static extractFrame(spriteSheet: SpriteSheet, frame: number): HTMLImageElement;
         static extractFrame(spriteSheet: SpriteSheet, animationName: string): HTMLImageElement;
         static flip(spriteSheet: HTMLImageElement, flipData: Object): void;
@@ -688,7 +688,7 @@ declare module createjs {
     export class Touch {
         // methods
         static disable(stage: Stage): void;
-        static enable(stage: Stage, singleTouch?: bool, allowDefault?: boolean): boolean;
+        static enable(stage: Stage, singleTouch?: boolean, allowDefault?: boolean): boolean;
         static isSupported(): boolean;
     }
 

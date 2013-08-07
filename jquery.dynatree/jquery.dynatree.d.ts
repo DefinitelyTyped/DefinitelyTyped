@@ -40,7 +40,7 @@ interface DynaTree {
     selectKey(key: string, flag: string): DynaTreeNode;
     serializeArray(stopOnParents: boolean): any[];
     toDict(): any;
-    visit(fn: (node: DynaTreeNode) =>bool, includeRoot: boolean): void;
+    visit(fn: (node: DynaTreeNode) =>boolean, includeRoot: boolean): void;
 }
 
 
@@ -79,18 +79,18 @@ interface DynaTreeNode {
     reload(force: boolean): void;
     remove(): void;
     removeChildren(): void;
-    render(useEffects: bool, includeInvisible: boolean): void;
+    render(useEffects: boolean, includeInvisible: boolean): void;
     resetLazy(): void;
     scheduleAction(mode: string, ms: number);
     select(flag: string): void;
     setLazyNodeStatus(status: number): void;
     setTitle(title: string): void;
     sortChildren(cmp?: (a: DynaTreeNode, b: DynaTreeNode) =>number, deep?: boolean);
-    toDict(recursive: bool, callback?: (node: any) =>any): any;
+    toDict(recursive: boolean, callback?: (node: any) =>any): any;
     toggleExpand(): void;
     toggleSelect(): void;
-    visit(fn: (node: DynaTreeNode) =>bool, includeSelf: boolean): void;
-    visitParents(fn: (node: DynaTreeNode) =>bool, includeSelf: boolean): void;
+    visit(fn: (node: DynaTreeNode) =>boolean, includeSelf: boolean): void;
+    visitParents(fn: (node: DynaTreeNode) =>boolean, includeSelf: boolean): void;
 }
 
 interface DynatreeOptions {
@@ -140,7 +140,7 @@ interface DynatreeOptions {
     onQueryExpand?: (flag: string, dtnode: DynaTreeNode) =>void;// Callback(flag, dtnode) before a node is expanded/collpsed.
 
     // High level event handlers
-    onPostInit?: (isReloading: bool, isError: boolean) =>void;// Callback(isReloading, isError) when tree was (re)loaded.
+    onPostInit?: (isReloading: boolean, isError: boolean) =>void;// Callback(isReloading, isError) when tree was (re)loaded.
     onActivate?: (dtnode: DynaTreeNode) =>void; // Callback(dtnode) when a node is activated.
     onDeactivate?: (dtnode: DynaTreeNode) =>void; // Callback(dtnode) when a node is deactivated.
     onSelect?: (flag: string, dtnode: DynaTreeNode) =>void; // Callback(flag, dtnode) when a node is (de)selected.

@@ -917,7 +917,7 @@ declare module THREE {
         distance():number;
         at(t:number, optionalTarget?: Vector3):Vector3;
         closestPointToPointParameter(point:Vector3, clampToLine?:boolean):number;
-        closestPointToPoint(point:Vector3, clampToLine?:bool, optionalTarget?:Vector3):Vector3;
+        closestPointToPoint(point:Vector3, clampToLine?:boolean, optionalTarget?:Vector3):Vector3;
         applyMatrix4(matrix:Matrix4):Line3;
         equals(line:Line3):boolean;
         clone():Line3;
@@ -1885,7 +1885,7 @@ declare module THREE {
          * @param camera camera to use in the projection.
          * @param sort select whether to sort elements using the Painter's algorithm.
          */
-        projectScene(scene: Scene, camera: Camera, sortObjects: bool, sortElements?: boolean): {
+        projectScene(scene: Scene, camera: Camera, sortObjects: boolean, sortElements?: boolean): {
             objects: Object3D[];     // Mesh, Line or other object  
             sprites: Object3D[];    // Sprite or Particle 
             lights: Light[];
@@ -4529,7 +4529,7 @@ declare module THREE {
          * Tells the renderer to clear its color, depth or stencil drawing buffer(s).
          * If no parameters are passed, no buffer will be cleared.
          */
-        clear(color?: bool, depth?: bool, stencil?: boolean): void;
+        clear(color?: boolean, depth?: boolean, stencil?: boolean): void;
 
         /**
          * Initialises the postprocessing plugin, and adds it to the renderPluginsPost array.
@@ -4637,7 +4637,7 @@ declare module THREE {
         setClearColor(color: Color, alpha: number): void;
         getClearColor(): Color;
         getClearAlpha(): number;
-        clear(color?: bool, depth?: bool, stencil?: boolean): void;
+        clear(color?: boolean, depth?: boolean, stencil?: boolean): void;
         addPostPlugin(plugin: RendererPlugin): void;
         addPrePlugin(plugin: RendererPlugin): void;
         deallocateObject(object: Object3D): void;
@@ -5000,7 +5000,7 @@ declare module THREE {
         interpolationType: AnimationInterpolation;
         points: Vector3[];
         target: Vector3;
-        play(loop?: bool, startTimeMS?: number): void;
+        play(loop?: boolean, startTimeMS?: number): void;
         pause(): void;
         stop(): void;
         update(deltaTimeMS: number): void;
@@ -5038,7 +5038,7 @@ declare module THREE {
         isPlaying: boolean;
         isPaused: boolean;
         loop: boolean;
-        play(loop?: bool, startTimeMS?: number): void;
+        play(loop?: boolean, startTimeMS?: number): void;
         pause(): void;
         stop(): void;
         update(deltaTimeMS: number): void;
@@ -5667,11 +5667,11 @@ declare module THREE {
     }
 
     export class TubeGeometry extends Geometry {
-        constructor(path: Path, segments?: number, radius?: number, radiusSegments?: number, closed?: bool, debug?: Object3D);
+        constructor(path: Path, segments?: number, radius?: number, radiusSegments?: number, closed?: boolean, debug?: Object3D);
 
         // https://github.com/mrdoob/three.js/blob/master/examples/webgl_geometry_extrude_shapes.html#L208
         // Hmmm?
-        constructor(path: SplineCurve3, segments?: number, radius?: number, radiusSegments?: number, closed?: bool, debug?: boolean);
+        constructor(path: SplineCurve3, segments?: number, radius?: number, radiusSegments?: number, closed?: boolean, debug?: boolean);
 
         path: Path;
         segments: number;

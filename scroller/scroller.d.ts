@@ -38,8 +38,8 @@ declare class Scroller {
     finishPullToRefresh(): void;
     getValues(): ScrollValuesWithZoom;
     getScrollMax(): ScrollValues;
-    zoomTo(level: number, animate?: bool, originLeft?: bool, originTop?: boolean): void;
-    zoomBy(factor: number, animate?: bool, originLeft?: bool, originTop?: boolean): void;
+    zoomTo(level: number, animate?: boolean, originLeft?: boolean, originTop?: boolean): void;
+    zoomBy(factor: number, animate?: boolean, originLeft?: boolean, originTop?: boolean): void;
     scrollTo(left?: number, top?: number, animate?: number, zoom?: number): void;
     scrollBy(left?: number, top?: number, animate?: number): void;
 

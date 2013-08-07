@@ -1157,7 +1157,7 @@ declare module _ {
 	/**
 	* Returns true if object is either true or false.
 	* @param object Check if this object is a bool.
-	* @return True if `object` is a bool, otherwise false.
+	* @return True if `object` is a boolean, otherwise false.
 	**/
 	export function isBoolean(object: any): boolean;
 

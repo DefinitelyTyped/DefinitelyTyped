@@ -141,7 +141,7 @@ interface IELangBase {
     createContent(): void;
 
     createRadioGroup(node: JQuery,
-                     isMethodAppend: bool,
+                     isMethodAppend: boolean,
                      buttonNumber: number,
                      defaultButton: number,
                      btnLabels: string[],

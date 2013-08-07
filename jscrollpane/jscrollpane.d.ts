@@ -156,7 +156,7 @@ interface JScrollPaneApi {
 	 * @param animate Should an animation occur. If you don't provide this argument then the animateScroll
 			value from the settings object is used instead.
 	*/
-	scrollToElement(ele: JQuery, stickToTop?: bool, animate?: boolean): void;
+	scrollToElement(ele: JQuery, stickToTop?: boolean, animate?: boolean): void;
 	/**
 	 * Scrolls the specified element (a jQuery selector string) into view so that it can be seen within the viewport.
 	 * @param ele A jQuery selector of the object to scroll to
@@ -165,7 +165,7 @@ interface JScrollPaneApi {
 	 * @param animate Should an animation occur. If you don't provide this argument then the animateScroll
 			value from the settings object is used instead.
 	*/
-	scrollToElement(ele: string, stickToTop?: bool, animate?: boolean): void;
+	scrollToElement(ele: string, stickToTop?: boolean, animate?: boolean): void;
 	/**
 	 * Scrolls the specified element (a DOM node) into view so that it can be seen within the viewport.
 	 * @param ele A DOM node to scroll to
@@ -174,7 +174,7 @@ interface JScrollPaneApi {
 	 * @param animate Should an animation occur. If you don't provide this argument then the animateScroll
 			value from the settings object is used instead.
 	*/
-	scrollToElement(ele: HTMLElement, stickToTop?: bool, animate?: boolean): void;
+	scrollToElement(ele: HTMLElement, stickToTop?: boolean, animate?: boolean): void;
 	/**
 	 * Scrolls the pane so that the specified co-ordinates within the content are at the top left of the viewport.
 	 * @param destX Left position of the viewport to scroll to

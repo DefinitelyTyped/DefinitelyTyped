@@ -108,7 +108,7 @@ interface ZeptoStatic {
 	* @see ZeptoStatic.extend
 	* @param deep
 	**/
-	extend(deep: bool, target: any, ...sources: any[]): any;
+	extend(deep: boolean, target: any, ...sources: any[]): any;
 
 	/**
 	* Zepto.fn is an object that holds all of the methods that are available on Zepto collections, such as addClass(), attr(), and other. Adding a function to this object makes that method available on every Zepto collection.

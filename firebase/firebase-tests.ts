@@ -51,7 +51,7 @@ wilmaRef.transaction(function(currentData) {
     console.log('User wilma already exists.');
     return; // Abort the transaction.
   }
-}, function(error: any, committed: bool, snapshot: IFirebaseDataSnapshot) {
+}, function(error: any, committed: boolean, snapshot: IFirebaseDataSnapshot) {
   if (error)
     console.log('Transaction failed abnormally!', error);
   else if (!committed)

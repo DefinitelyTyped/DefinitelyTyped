@@ -50,7 +50,7 @@ interface ITagsManager {
                options?: ITagsManagerOptions,
                tagToManipulate?: string): void;
     setupTypeahead(): void;
-    onTypeaheadAjaxSuccess(data: any, isSetTypeaheadSource: bool, process?: Function): void;
+    onTypeaheadAjaxSuccess(data: any, isSetTypeaheadSource: boolean, process?: Function): void;
     ajaxPolling(query: string, process: Function): void;
     setTypeaheadSource(source: any): void;
     trimTag(tag: string): string;

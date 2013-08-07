@@ -9,7 +9,7 @@
 * TODO
 */
 declare module "azure" {
-    import events = module("events");
+    import events = require("events");
 
     //#region Services
     export class TableService extends BatchServiceClient {
@@ -190,7 +190,7 @@ declare module "azure" {
     export class BatchServiceClient extends StorageServiceClient {
         operations: any[];
 
-        constructor(storageAccount: string, storageAccessKey: string, host: string, usePathstyleUri: bool, authenticationProvider);
+        constructor(storageAccount: string, storageAccessKey: string, host: string, usePathstyleUri: boolean, authenticationProvider);
         beginBatch(): void;
         isInBatch(): boolean;
         rollback(): void;
@@ -290,11 +290,11 @@ declare module "azure" {
     }
 
     export interface CreateTableIfNotExistsCallback {
-        (error: Error, created: bool, response: WebResponse): void;
+        (error: Error, created: boolean, response: WebResponse): void;
     }
 
     export interface DeleteTableCallback {
-        (error: Error, successful: bool, response: WebResponse): void;
+        (error: Error, successful: boolean, response: WebResponse): void;
     }
 
     export interface QueryTablesCallback {
@@ -330,7 +330,7 @@ declare module "azure" {
     }
 
     export interface DeleteEntityCallback {
-        (error: Error, successful: bool, response: WebResponse): void;
+        (error: Error, successful: boolean, response: WebResponse): void;
     }
 
     export interface UpdateEntityOptions extends TimeoutIntervalOptions {
@@ -356,7 +356,7 @@ declare module "azure" {
         apiVersion: string;
         usePathStyleUri: string;
 
-        constructor(storageAccount: string, storageAccessKey: string, host: string, usePathStyleUri: bool, authenticationProvider);
+        constructor(storageAccount: string, storageAccessKey: string, host: string, usePathStyleUri: boolean, authenticationProvider);
     }
     //#endregion
 

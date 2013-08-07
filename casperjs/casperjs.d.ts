@@ -180,7 +180,7 @@ interface Colorizer {
 }
 
 interface Tester {
-	assert(condition: bool, message?: string);
+	assert(condition: boolean, message?: string);
 	assertDoesntExist(selector: string, message?: string);
 	assertEquals(testValue: any, expected: any, message?: string);
 	assertEval(fn: Function, message: string, arguments: any);
@@ -216,7 +216,7 @@ interface Tester {
 	getPasses(): Cases;
 	info(message: string);
 	pass(message: string);
-	renderResults(exit: bool, status: number, save: string);
+	renderResults(exit: boolean, status: number, save: string);
 }
 
 interface Cases {
