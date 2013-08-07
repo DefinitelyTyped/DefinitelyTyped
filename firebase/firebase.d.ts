@@ -17,8 +17,7 @@ interface IFirebaseDataSnapshot {
 	name(): string;
 	numChildren(): number;
 	ref(): Firebase;
-	getPriority(): string;
-	getPriority(): number;
+	getPriority(): any; // string or number
 	exportVal(): Object;
 }
 
