@@ -75,7 +75,7 @@ declare module Microsoft.WindowsAzure {
         select(...propNameSelected: string[]): IQuery;
         select(funcProjectionFromThis: () => any): IQuery;
         where(mapObjFilterCriteria: any): IQuery;
-        where(funcPredicateOnThis: (...qParams: any[]) => bool, ...qValues: any[]): IQuery;
+        where(funcPredicateOnThis: (...qParams: any[]) => boolean, ...qValues: any[]): IQuery;
         skip(n: number): IQuery;
         take(n: number): IQuery;
         includeTotalCount(): IQuery;
