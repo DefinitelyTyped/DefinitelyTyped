@@ -77,4 +77,12 @@ declare module 'knockout' {
 
     ///////////////////////////////////
     export var bindingProvider: any;
+
+    ////////////////////////////////////
+    //// selectExtensions.js
+    ////////////////////////////////////
+    export var selectExtensions: {
+        readValue(element: any);
+        writeValue(element: any, value: any);
+    }
 }
