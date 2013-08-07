@@ -44,7 +44,7 @@ function runTests() {
     var p: PlatformStatic;
     var x: string;
     var px: any;
-    var res: bool;
+    var res: boolean;
     var onFalse: (name: string) => () => any;
 
     for (var n in tests) {

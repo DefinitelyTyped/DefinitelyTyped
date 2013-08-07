@@ -40,9 +40,9 @@ declare module Backgrid {
 	cell: string;
 	headerCell: string;
 	label: string;
-	sortable: bool;
-	editable: bool;
-	renderable: bool;
+	sortable: boolean;
+	editable: boolean;
+	renderable: boolean;
 	formater: string;
     }
 

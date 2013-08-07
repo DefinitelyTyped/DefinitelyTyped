@@ -10,12 +10,12 @@ interface NotyOptions {
 	theme?: string;
 	type?: string;
 	text?: string;
-	dismissQueue?: bool;
+	dismissQueue?: boolean;
 	template?: string;
 	animation?: NotyAnimationOptions;
 	timeout?: number;
-	force?: bool;
-	modal?: bool;
+	force?: boolean;
+	modal?: boolean;
 	closeWith?: Array;
 	callback?: NotyCallbackOptions;
 	buttons?: any;
@@ -62,6 +62,6 @@ declare var noty: {
 	setType(type: string);
 	setTimeout(timeout: number);
 
-	closed: bool;
-	shown: bool;
+	closed: boolean;
+	shown: boolean;
 }

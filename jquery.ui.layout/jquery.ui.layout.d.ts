@@ -21,7 +21,7 @@ interface JQueryLayout {
     toggle(pane: any): any;
     open(pane: any): any;
     close(pane: any): any;
-    show(pane: any, openPane?: bool): any;
+    show(pane: any, openPane?: boolean): any;
     hide(pane: any): any;
     sizePane(pane: any, sizeInPixels: number): any;
     resizeContent(pane: any): any;

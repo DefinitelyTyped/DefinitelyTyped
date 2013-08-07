@@ -17,7 +17,7 @@ interface SimplePaginationOptions {
     prevText?: string;
     nextText?: string;
     cssStyle?: string;
-    selectOnClick?: bool;
+    selectOnClick?: boolean;
     onPageClick?: (interger) => void;
     onInit?: () => void;
 }

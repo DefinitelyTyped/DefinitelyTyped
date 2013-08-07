@@ -63,7 +63,7 @@ interface RestangularProvider {
     setMethodOverriders(newValue: any): void;
     setResponseExtractor(newValue: any): void;
     setRequestInterceptor(newValue: any): void;
-    setListTypeIsArray(newValue: bool): void;
+    setListTypeIsArray(newValue: boolean): void;
     setRestangularFields(newValue: any): void;
     setRequestSuffix(newValue: any): void;
     addElementTransformer(type, secondArg, thirdArg): void;

@@ -43,8 +43,8 @@ interface MediaConstraints {
 }
 
 interface MediaOfferConstraints {
-	OfferToReceiveAudio: bool;
-	OfferToReceiveVideo: bool;
+	OfferToReceiveAudio: boolean;
+	OfferToReceiveVideo: boolean;
 }
 
 interface RTCSessionDescription {
@@ -72,7 +72,7 @@ interface RTCPeerState {
 }
 
 interface RTCDataChannelInit {
-	reliable: bool;
+	reliable: boolean;
 }
 
 declare enum RTCSdpType {
@@ -90,7 +90,7 @@ declare enum RTCDataChannelState {
 
 interface RTCDataChannel extends EventTarget {
 	label: string;
-	reliable: bool;
+	reliable: boolean;
 	readyState: RTCDataChannelState;
 	bufferedAmount: number;
 	onopen: (event: Event)=> void;

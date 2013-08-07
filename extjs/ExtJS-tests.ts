@@ -67,11 +67,11 @@ Ext.define("MyApp.view.CompanyGridPanel", <Ext.grid.IPanel>{
 
 function test_create() {
     var gridPanel: MyApp.view.CompanyGridPanel = Ext.create("MyApp.view.CompanyGridPanel");
-    var isVisible: bool = gridPanel.isVisible();
+    var isVisible: boolean = gridPanel.isVisible();
     gridPanel.setWidth(500);
     var items: Ext.IComponent[] = gridPanel.items;
     var columns: Ext.grid.IColumn[] = gridPanel.columns;
-    var isArray: bool = Ext.isArray(columns);
+    var isArray: boolean = Ext.isArray(columns);
 }
 
 function test_events() {

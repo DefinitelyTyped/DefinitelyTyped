@@ -7,12 +7,12 @@
 
 interface ITagsManagerOptions {
     prefilled?: any;
-    CapitalizeFirstLetter?: bool;
-    preventSubmitOnEnter?: bool;
-    isClearInputOnEsc?: bool;
-    typeahead?: bool;
+    CapitalizeFirstLetter?: boolean;
+    preventSubmitOnEnter?: boolean;
+    isClearInputOnEsc?: boolean;
+    typeahead?: boolean;
     typeaheadAjaxSource?: string;
-    typeaheadAjaxPolling?: bool;
+    typeaheadAjaxPolling?: boolean;
     typeaheadDelegate?: Function;
     typeaheadOverrides?: ITypeaheadOverrides;
     typeaheadSource?: any;
@@ -24,7 +24,7 @@ interface ITagsManagerOptions {
     blinkBGColor_2?: string;
     hiddenTagListName?: string;
     hiddenTagListId?: string;
-    deleteTagsOnBackspace?: bool;
+    deleteTagsOnBackspace?: boolean;
     tagsContainer?: HTMLElement;
     tagCloseIcon?: string;
     tagClass?: string;
@@ -58,7 +58,7 @@ interface ITagsManager {
     empty(): void;
     refreshHiddenTagList(): void;
     spliceTag(tagId: number, eventData: any): void;
-    pushTag(tag: string, objToPush: any, isValid: bool): void;
+    pushTag(tag: string, objToPush: any, isValid: boolean): void;
 
     setOptions(options: ITagsManagerOptions): void;
     setContext(context: JQuery, tagToManipulate?: string): void;

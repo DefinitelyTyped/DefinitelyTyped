@@ -13,7 +13,7 @@ interface webkitAudioContext {
 
     createBuffer(numberOfChannels: number, length: number, sampleRate: number): AudioBuffer;
 
-    createBuffer(buffer: ArrayBuffer, mixToMono: bool): AudioBuffer;
+    createBuffer(buffer: ArrayBuffer, mixToMono: boolean): AudioBuffer;
 
     decodeAudioData(audioData: ArrayBuffer, successCallback: any, errorCallback?: any): void;
     createBufferSource(): AudioBufferSourceNode;
@@ -111,7 +111,7 @@ interface AudioBufferSourceNode extends AudioSourceNode {
 
     buffer: AudioBuffer;
     playbackRate: AudioParam;
-    loop: bool;
+    loop: boolean;
     loopStart: number;
     loopEnd: number;
     start(when: number, offset?: number, duration?: number): void;
@@ -169,7 +169,7 @@ interface AudioListener {
 interface ConvolverNode extends AudioNode {
 
     buffer: AudioBuffer;
-    normalize: bool;
+    normalize: boolean;
 
 }
 

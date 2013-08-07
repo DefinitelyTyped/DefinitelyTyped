@@ -19,12 +19,12 @@ interface DialogEvents {
 }
 
 interface PopupOptions {
-    corners?: bool;
-    history?: bool;
+    corners?: boolean;
+    history?: boolean;
     initSelector?: string;
     overlayTheme?: string;
     positionTo?: string;
-    shadow?: bool;
+    shadow?: boolean;
     theme?: string;
     tolerance?: string;
     transition?: string;
@@ -37,14 +37,14 @@ interface PopupEvents {
 }
 
 interface FixedToolbarOptions {
-    visibleOnPageShow?: bool;
-    disablePageZoom?: bool;
+    visibleOnPageShow?: boolean;
+    disablePageZoom?: boolean;
     transition?: string;
-    fullscreen?: bool;
-    tapToggle?: bool;
+    fullscreen?: boolean;
+    tapToggle?: boolean;
     tapToggleBlacklist?: string;
     hideDuringFocus?: string;
-    updatePagePadding?: bool;
+    updatePagePadding?: boolean;
     supportBlacklist?: Function;
     initSelector?: string;
 }
@@ -54,13 +54,13 @@ interface FixedToolbarEvents {
 }
 
 interface ButtonOptions {
-    corners?: bool;
+    corners?: boolean;
     icon?: string;
     iconpos?: string;
-    iconshadow?: bool;
-    inline?: bool;
-    mini?: bool;
-    shadow?: bool;
+    iconshadow?: boolean;
+    inline?: boolean;
+    mini?: boolean;
+    shadow?: boolean;
     theme?: string;
     initSelector?: string;
 }
@@ -70,7 +70,7 @@ interface ButtonEvents {
 }
 
 interface CollapsibleOptions {
-    collapsed?: bool;
+    collapsed?: boolean;
     collapseCueText?: string;
     collapsedIcon?: string;
     contentTheme?: string;
@@ -79,8 +79,8 @@ interface CollapsibleOptions {
     heading?: string;
     iconpos?: string;
     initSelector?: string;
-    inset?: bool;
-    mini?: bool;
+    inset?: boolean;
+    mini?: boolean;
     theme?: string;
 }
 
@@ -95,8 +95,8 @@ interface CollapsibleSetOptions {
     expandedIcon?: string;
     iconpos?: string;
     initSelector?: string;
-    inset?: bool;
-    mini?: bool;
+    inset?: boolean;
+    mini?: boolean;
     theme?: string;
 }
 
@@ -105,10 +105,10 @@ interface CollapsibleSetEvents {
 }
 
 interface TextInputOptions {
-    disabled?: bool;
+    disabled?: boolean;
     initSelector?: string;
-    mini?: bool;
-    preventFocusZoom?: bool;
+    mini?: boolean;
+    preventFocusZoom?: boolean;
     theme?: string;
 }
 
@@ -118,17 +118,17 @@ interface TextInputEvents {
 
 interface SearchInputOptions {
     clearSearchButtonText?: string;
-    disabled?: bool;
+    disabled?: boolean;
     initSelector?: string;
-    mini?: bool;
+    mini?: boolean;
     theme?: string;
 }
 
 interface SliderOptions {
-    disabled?: bool;
-    highlight?: bool;
+    disabled?: boolean;
+    highlight?: boolean;
     initSelector?: string;
-    mini?: bool;
+    mini?: boolean;
     theme?: string;
     trackTheme?: string;
 }
@@ -140,7 +140,7 @@ interface SliderEvents {
 }
 
 interface CheckboxRadioOptions {
-    mini?: bool;
+    mini?: boolean;
     theme?: string;
 }
 
@@ -149,17 +149,17 @@ interface CheckboxRadioEvents {
 }
 
 interface SelectMenuOptions {
-    corners?: bool;
+    corners?: boolean;
     icon?: string;
     iconpos?: string;
-    iconshadow?: bool;
+    iconshadow?: boolean;
     initSelector?: string;
-    inline?: bool;
-    mini?: bool;
-    nativeMenu?: bool;
+    inline?: boolean;
+    mini?: boolean;
+    nativeMenu?: boolean;
     overlayTheme?: string;
-    preventFocusZoom?: bool;
-    shadow?: bool;
+    preventFocusZoom?: boolean;
+    shadow?: boolean;
     theme?: string;
 }
 
@@ -170,13 +170,13 @@ interface SelectMenuEvents {
 interface ListViewOptions {
     countTheme?: string;
     dividerTheme?: string;
-    filter?: bool;
+    filter?: boolean;
     filterCallback?: Function;
     filterPlaceholder?: string;
     filterTheme?: string;
     headerTheme?: string;
     initSelector?: string;
-    inset?: bool;
+    inset?: boolean;
     splitIcon?: string;
     splitTheme?: string;
     theme?: string;
@@ -189,28 +189,28 @@ interface ListViewEvents {
 interface JQueryMobileOptions {
     activeBtnClass?: string;
     activePageClass?: string;
-    ajaxEnabled?: bool;
-    allowCrossDomainPages?: bool;
-    autoInitializePage?: bool;
+    ajaxEnabled?: boolean;
+    allowCrossDomainPages?: boolean;
+    autoInitializePage?: boolean;
     buttonMarkup;
     defaultDialogTransition?: string;
     defaultPageTransition?: string;
     getMaxScrollForTransition?: number;
     gradeA?: Function;
-    hashListeningEnabled?: bool;
-    ignoreContentEnabled?: bool;
-    linkBindingEnabled?: bool;
-    loadingMessageTextVisible?: bool;
+    hashListeningEnabled?: boolean;
+    ignoreContentEnabled?: boolean;
+    linkBindingEnabled?: boolean;
+    loadingMessageTextVisible?: boolean;
     loadingMessageTheme?: string;
     maxTransitionWidth?: number;
     minScrollBack?: number;
     ns?: number;
     pageLoadErrorMessage?: string;
     pageLoadErrorMessageTheme?: string;
-    phonegapNavigationEnabled?: bool;
-    pushStateEnabled?: bool;
+    phonegapNavigationEnabled?: boolean;
+    pushStateEnabled?: boolean;
     subPageUrlKey?: string;
-    touchOverflowEnabled?: bool;
+    touchOverflowEnabled?: boolean;
     transitionFallbacks;
 }
 
@@ -251,15 +251,15 @@ interface JQueryMobileEvents {
 }
 
 interface ChangePageOptions {
-    allowSamePageTransition?: bool;
-    changeHash?: bool;
+    allowSamePageTransition?: boolean;
+    changeHash?: boolean;
     data?: any;
     dataUrl?: string;
     pageContainer?: JQuery;
-    reloadPage?: bool;
-    reverse?: bool;
+    reloadPage?: boolean;
+    reverse?: boolean;
     role?: string;
-    showLoadMsg?: bool;
+    showLoadMsg?: boolean;
     transition?: string;
     type?: string;
 }
@@ -268,9 +268,9 @@ interface LoadPageOptions {
     data?: any;
     loadMsgDelay?: number;
     pageContainer?: JQuery;
-    reloadPage?: bool;
+    reloadPage?: boolean;
     role?: string;
-    showLoadMsg?: bool;
+    showLoadMsg?: boolean;
     type?: string;
 }
 
@@ -365,7 +365,7 @@ interface JQuery {
 
     selectmenu(): JQuery;
     selectmenu(command: string): JQuery;
-    selectmenu(command: string, update: bool): JQuery;
+    selectmenu(command: string, update: boolean): JQuery;
     selectmenu(options: CheckboxRadioOptions): JQuery;
     selectmenu(events: CheckboxRadioEvents): JQuery;
 

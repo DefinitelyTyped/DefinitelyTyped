@@ -7,7 +7,7 @@
 ///<reference path='../node/node.d.ts' />
 
 declare module "socket.io" {
-	import http = module('http');
+	import http = require('http');
 
 	export function listen(server: http.Server, options: any, fn: Function): SocketManager;
 	export function listen(server: http.Server, fn?: Function): SocketManager;
@@ -45,7 +45,7 @@ interface SocketNamespace {
 	except(id: any): SocketNamespace;
 	send(data: any): any;
 	emit(ev: any, ...data:any[]): Socket;
-	socket(sid: any, readable: bool): Socket;
+	socket(sid: any, readable: boolean): Socket;
 	authorization(fn: Function);
 }
 
@@ -54,8 +54,8 @@ interface SocketManager {
 	set(key: any, value: any): SocketManager;
 	enable(key: any): SocketManager;
 	disable(key: any): SocketManager;
-	enabled(key: any): bool;
-	disabled(key: any): bool;
+    enabled(key: any): boolean;
+    disabled(key: any): boolean;
 	configure(env: string, fn: Function): SocketManager;
 	configure(fn: Function): SocketManager;
 	of(nsp: string): SocketNamespace;

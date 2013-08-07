@@ -17,10 +17,10 @@ declare module "marked" {
 }
 
 interface Options {
-	gfm?: bool;
-	tables?: bool;
-	breaks?: bool;
-	pedantic?: bool;
-	sanitize?: bool;
+	gfm?: boolean;
+	tables?: boolean;
+	breaks?: boolean;
+	pedantic?: boolean;
+	sanitize?: boolean;
 	highlight?: any;
 }

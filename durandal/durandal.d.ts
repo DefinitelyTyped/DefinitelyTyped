@@ -336,7 +336,7 @@ interface IDurandalViewModelActiveItem {
       */
     includeIn(includeIn: any): JQueryPromise;
     /**
-      * Sets up a collection representing a pool of objects which the activator will activate. See below for details. Activators without an item bool always close their values on deactivate. Activators with an items pool only deactivate, but do not close them.
+      * Sets up a collection representing a pool of objects which the activator will activate. See below for details. Activators without an item boolean always close their values on deactivate. Activators with an items pool only deactivate, but do not close them.
       */
     forItems(items): IDurandalViewModelActiveItem;
 }

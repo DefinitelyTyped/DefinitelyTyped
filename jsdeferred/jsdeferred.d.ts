@@ -28,7 +28,7 @@ interface ErrorCallback { (d: Deferred, ...args: any[]); }
 declare class Deferred {
 
     static methods: string[];
-    static isDeferred(obj: any): bool;
+    static isDeferred(obj: any): boolean;
     static next(fun: Function): Deferred;
     static chain(...args: any[]): Deferred;
     static wait(n: number): Deferred;

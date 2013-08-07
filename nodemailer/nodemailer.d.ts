@@ -38,7 +38,7 @@ interface MailComposer {
 	text?: string;  // plaintext body
 	html?: string;  // HTML body
 	attachments?: NodeMailerAttachment[];  // An array of attachments
-	forceEmbeddedImages?: bool;
+	forceEmbeddedImages?: boolean;
 }
 
 interface DKIMOptions{
@@ -70,7 +70,7 @@ interface XOAuth2Options {
 interface NodemailerTransportOptions {
 	service?: string;
 	auth?: NodemailerAuthInterface;
-	debug?: bool;
+	debug?: boolean;
 	AWSAccessKeyID?: string;
 	AWSSecretKey: string;
 	ServiceUrl: string;
@@ -87,11 +87,11 @@ interface NodemailerSMTPTransportOptions {
 	service?:          string;
 	host?:             string;
 	port?:             number;
-	secureConnection?: bool;
+	secureConnection?: boolean;
 	name?:             string;
 	auth:              NodemailerAuthInterface;
-	ignoreTLS?:        bool;
-	debug?:            bool;
+	ignoreTLS?:        boolean;
+	debug?:            boolean;
 	maxConnections?:   number;
 }
 

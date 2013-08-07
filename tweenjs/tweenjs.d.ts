@@ -77,8 +77,8 @@ declare module createjs {
 
         // properties
         duration: number;
-        ignoreGlobalPause: bool;
-        loop: bool;
+        ignoreGlobalPause: boolean;
+        loop: boolean;
         position: number;
 
         // methods
@@ -91,7 +91,7 @@ declare module createjs {
         removeTween(...tween: Tween[]): void;
         resolve(positionOrLabel: string): number;
         resolve(positionOrLabel: number): number;
-        setPaused(value: bool): void;
+        setPaused(value: boolean): void;
         setPosition(value: number, actionsMode?: number): void;
         tick(delta: number): void;
         toString(): string;
@@ -108,8 +108,8 @@ declare module createjs {
         // properties
         duration: number;
         static IGNORE: Object;
-        ignoreGlobalPause: bool;
-        loop: bool;
+        ignoreGlobalPause: boolean;
+        loop: boolean;
         static LOOP: number;
         static NONE: number;
         pluginData: Object;
@@ -120,16 +120,16 @@ declare module createjs {
         // methods
         call(callback: (tweenObject: Tween) => any, params?: any[], scope?: Object);    // when 'params' isn't given, the callback receives a tweenObject
         call(callback: (...params: any[]) => any, params?: any[], scope?: Object); // otherwise, it receives the params only
-        static get(target, props?: Object, pluginData?: Object, override?: bool): Tween;
+        static get(target, props?: Object, pluginData?: Object, override?: boolean): Tween;
         static hasActiveTweens(target? ): void;
         static installPlugin(plugin: Object, properties: Object): void;
         pause(tween: Tween): void;
         play(tween: Tween): void;
         static removeTweens(target): void;
         set(props: Object, target? ): void;
-        setPaused(value: bool): void;
+        setPaused(value: boolean): void;
         setPosition(value: number, actionsMode: number): void;
-        static tick(delta: number, paused: bool): void;
+        static tick(delta: number, paused: boolean): void;
         to(props: Object, duration?: number, ease?: (amount: number) => number): Tween;
         toString(): string;
         wait(duration: number): void;
@@ -138,14 +138,14 @@ declare module createjs {
         change: (event) => any;
 
         // EventDispatcher mixins
-        addEventListener(type: string, listener: (eventObj: Object) => bool): Function;
-        addEventListener(type: string, listener: (eventObj: Object) => bool): Object;
-        removeEventListener(type: string, listener: (eventObj: Function) => bool): void;
-        removeEventListener(type: string, listener: (eventObj: Object) => bool): void;
+        addEventListener(type: string, listener: (eventObj: Object) => boolean): Function;
+        addEventListener(type: string, listener: (eventObj: Object) => boolean): Object;
+        removeEventListener(type: string, listener: (eventObj: Function) => boolean): void;
+        removeEventListener(type: string, listener: (eventObj: Object) => boolean): void;
         removeAllEventListeners(type: string): void;
-        dispatchEvent(eventObj: string, target: Object): bool;
-        dispatchEvent(eventObj: Object, target: Object): bool;
-        hasEventListener(type: string): bool;
+        dispatchEvent(eventObj: string, target: Object): boolean;
+        dispatchEvent(eventObj: Object, target: Object): boolean;
+        hasEventListener(type: string): boolean;
     }
 
 

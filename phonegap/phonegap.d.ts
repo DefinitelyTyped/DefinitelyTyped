@@ -47,13 +47,13 @@ interface CameraOptions {
     quality?: number;
     destinationType?: number;
     sourceType?: number;
-    allowEdit?: bool;
+    allowEdit?: boolean;
     encodingType?: number;
     targetWidth?: number;
     targetHeight?: number;
     mediaType?: number;
-    correctOrientation?: bool;
-    saveToPhotoAlbum?: bool;
+    correctOrientation?: boolean;
+    saveToPhotoAlbum?: boolean;
     popoverOptions?: number;
 }
 
@@ -168,7 +168,7 @@ interface Connection {
 }
 
 interface ContactAddress {
-    pref: bool;
+    pref: boolean;
     type: string;
     formatted: string;
     streetAddress: string;
@@ -181,10 +181,10 @@ interface ContactAddress {
 interface ContactField {
     type: string;
     value: string;
-    pref: bool;
+    pref: boolean;
 }
 declare var ContactField: {
-    new(type: string, calue: string, perf: bool): ContactField;
+    new(type: string, calue: string, perf: boolean): ContactField;
 }
 
 interface Contact {
@@ -210,7 +210,7 @@ interface Contact {
 
 interface ContactFindOptions {
     filter?: string;
-    multiple?: bool;
+    multiple?: boolean;
 }
 declare var ContactFindOptions : {
     new(): ContactFindOptions;
@@ -229,7 +229,7 @@ declare var ContactName: {
 }
 
 interface ContactOrganization {
-    pref: bool;
+    pref: boolean;
     type: string;
     name: string;
     department: string;
@@ -292,8 +292,8 @@ declare var DirectoryEntry: {
 }
 
 interface FileSystemEntry {
-    isFile: bool;
-    isDirectory: bool;
+    isFile: boolean;
+    isDirectory: boolean;
     name: string;
     fullPath: string;
     filesystem: FileSystem;
@@ -340,7 +340,7 @@ interface FileUploadOptions {
     fileName?: string;
     mimeType?: string;
     params?: any;
-    chunkedMode?: bool;
+    chunkedMode?: boolean;
     headers?: any;
 }
 declare var FileUploadOptions: {
@@ -382,7 +382,7 @@ interface FileTransferError {
 }
 
 interface GeolocationOptions {
-    enableHighAccuracy?: bool;
+    enableHighAccuracy?: boolean;
     timeout?: number;
     maximumAge?: number;
 }
@@ -411,7 +411,7 @@ interface Globalization {
 interface InAppBrowser {
     addEventListener(eventname: string, callback): void;
     removeEventListener(eventname: string, callback): void;
-    open(url?: string, target?: string, features?: string, replace?: bool): Window;
+    open(url?: string, target?: string, features?: string, replace?: boolean): Window;
     close(): void;
 }
 */

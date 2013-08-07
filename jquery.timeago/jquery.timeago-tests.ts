@@ -22,8 +22,8 @@ var date1: Date = jQuery.timeago.parse("2008-07-17T09:24:17Z");
 var date2: Date = jQuery.timeago.datetime(jQuery("abbr#some_id"));
 var date3: Date = jQuery.timeago.datetime(document.getElementById("some_id"));
 
-var isTime1: bool = jQuery.timeago.isTime(jQuery("abbr#some_id"));
-var isTime2: bool = jQuery.timeago.isTime(document.getElementById("some_id"));
+var isTime1: boolean = jQuery.timeago.isTime(jQuery("abbr#some_id"));
+var isTime2: boolean = jQuery.timeago.isTime(document.getElementById("some_id"));
 
 // Settings
 

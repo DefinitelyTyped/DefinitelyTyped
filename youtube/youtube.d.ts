@@ -94,7 +94,7 @@ declare module YT {
         playVideo(): void;
         pauseVideo(): void;
         stopVideo(): void;
-        seekTo(seconds:number, allowSeekAhead:bool): void;
+        seekTo(seconds:number, allowSeekAhead:boolean): void;
         clearVideo(): void;
 
         // Playlist
@@ -105,7 +105,7 @@ declare module YT {
         // Volume
         mute(): void;
         unMute(): void;
-        isMuted(): bool;
+        isMuted(): boolean;
         setVolume(volume: number): void;
         getVolume(): number;
 
@@ -118,8 +118,8 @@ declare module YT {
         getAvailablePlaybackRates(): number[];
         
         // Behavior
-        setLoop(loopPlaylists: bool): void;
-        setShuffle(shufflePlaylist: bool): void;
+        setLoop(loopPlaylists: boolean): void;
+        setShuffle(shufflePlaylist: boolean): void;
 
         // Status
         getVideoLoadedFraction(): number;

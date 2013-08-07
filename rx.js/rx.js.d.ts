@@ -24,14 +24,14 @@ declare module Rx {
 		items: IIndexedItem[];
 		length: number;
 
-		isHigherPriority(left: number, right: number): bool;
+		isHigherPriority(left: number, right: number): boolean;
 		percolate(index: number): void;
 		heapify(index: number): void;
 		peek(): IIndexedItem;
 		removeAt(index: number): void;
 		dequeue(): IIndexedItem;
 		enqueue(item: IIndexedItem): void;
-		remove(item: IIndexedItem): bool;
+		remove(item: IIndexedItem): boolean;
 	}
 
 	interface _IDisposable {
@@ -42,20 +42,20 @@ declare module Rx {
 		constructor (...disposables: _IDisposable[]);
 
 		disposables: _IDisposable[];
-		isDisposed: bool;
+		isDisposed: boolean;
 		length: number;
 
 		dispose(): void;
 		add(item: _IDisposable): void;
-		remove(item: _IDisposable): bool;
+		remove(item: _IDisposable): boolean;
 		clear(): void;
-		contains(item: _IDisposable): bool;
+		contains(item: _IDisposable): boolean;
 		toArray(): _IDisposable[];
 	}
 
 	// Main disposable class
 	interface IDisposable {
-		isDisposed: bool;
+		isDisposed: boolean;
 		action: () =>void;
 
 		dispose(): void;
@@ -69,7 +69,7 @@ declare module Rx {
 
 	// Single assignment
 	interface ISingleAssignmentDisposable {
-		isDisposed: bool;
+		isDisposed: boolean;
 		current: _IDisposable;
 
 		dispose(): void;
@@ -83,7 +83,7 @@ declare module Rx {
 
 	// Multiple assignment disposable
 	export class SerialDisposable {
-		isDisposed: bool;
+		isDisposed: boolean;
 		current: _IDisposable;
 
 		dispose(): void;
@@ -96,8 +96,8 @@ declare module Rx {
 		constructor(disposable: _IDisposable);
 
 		underlyingDisposable: _IDisposable;
-		isDisposed: bool;
-		isPrimaryDisposed: bool;
+		isDisposed: boolean;
+		isPrimaryDisposed: boolean;
 		count: number;
 
 		dispose(): void;
@@ -114,7 +114,7 @@ declare module Rx {
 
 		invoke(): void;
 		compareTo(other: IScheduledItem): number;
-		isCancelled(): bool;
+		isCancelled(): boolean;
 		invokeCore(): _IDisposable;
 	}
 
@@ -128,7 +128,7 @@ declare module Rx {
 		scheduleWithAbsoluteAndState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable): _IDisposable;
 		scheduleWithRelativeAndState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable): _IDisposable;
 
-		catchException(handler: (exception: any) =>bool): ICatchScheduler;
+		catchException(handler: (exception: any) =>boolean): ICatchScheduler;
 		schedulePeriodic(period: number, action: () =>void ): _IDisposable;
 		schedulePeriodicWithState(state: any, period: number, action: (state: any) =>any): _IDisposable;//returns {Disposable|SingleAssignmentDisposable}
 		schedule(action: () =>void ): _IDisposable;
@@ -158,7 +158,7 @@ declare module Rx {
 
 	// Current Thread IScheduler
 	interface ICurrentScheduler extends IScheduler {
-		scheduleRequired(): bool;
+		scheduleRequired(): boolean;
 		ensureTrampoline(action: () =>_IDisposable): _IDisposable;
 	}
 
@@ -169,7 +169,7 @@ declare module Rx {
 
 		clock: number;
 		comparer: (x: number, y: number) =>number;
-		isEnabled: bool;
+		isEnabled: boolean;
 		queue: IPriorityQueue;
 		scheduleRelativeWithState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable): _IDisposable;
 		scheduleRelative(dueTime: number, action: () =>void ): _IDisposable;
@@ -196,8 +196,8 @@ declare module Rx {
 		accept(observer: IObserver<T>): void;
 		accept(onNext: (value: T) =>void , onError?: (exception: any) =>void , onCompleted?: () =>void ): void;
 		toObservable(scheduler?: IScheduler): IObservable;
-		hasValue: bool;
-		equals(other: INotification<T>): bool;
+		hasValue: boolean;
+		equals(other: INotification<T>): boolean;
 		kind: string;
 		value?: T;
 		exception?: any;
@@ -216,7 +216,7 @@ declare module Rx {
 	export module Internals {
 		// Enumerator
 		interface IEnumerator<T> {
-			moveNext(): bool;
+			moveNext(): boolean;
 			getCurrent(): T;
 			dispose(): void;
 		}
@@ -263,13 +263,13 @@ declare module Rx {
 	export module Internals {
 		// Abstract Observer
 		interface IAbstractObserver<T> extends IObserver<T> {
-			isStopped: bool;
+			isStopped: boolean;
 
 			dispose(): void;
 			next(value: T): void;
 			error(exception: any): void;
 			completed(): void;
-			fail(): bool;
+			fail(): boolean;
 		}
 		//export module AbstractObserver {
 		//    //abstract
@@ -291,8 +291,8 @@ declare module Rx {
 		interface IScheduledObserver<T> extends IAbstractObserver<T> {
 			scheduler: IScheduler;
 			observer: IObserver<T>;
-			isAcquired: bool;
-			hasFaulted: bool;
+			isAcquired: boolean;
+			hasFaulted: boolean;
 			//queue: { (value: any): void; (exception: any): void; (): void; }[];
 			disposable: SerialDisposable;
 
@@ -342,7 +342,7 @@ declare module Rx {
 		asIObservable(): IObservable;
 		bufferWithCount(count: number, skip?: number): IObservable<T>;
 		dematerialize<TOrigin>(): IObservable<TOrigin>;
-		distinctUntilChanged<TValue>(keySelector?: (value: T) => TValue, comparer?: (x: TValue, y: TValue) =>bool): IObservable;
+		distinctUntilChanged<TValue>(keySelector?: (value: T) => TValue, comparer?: (x: TValue, y: TValue) =>boolean): IObservable;
 		doAction(observer: IObserver<T>): IObservable<T>;
 		doAction(onNext: (value: T) => void , onError?: (exception: any) =>void , onCompleted?: () =>void ): IObservable<T>;
 		finallyAction(action: () =>void): IObservable<T>;
@@ -366,10 +366,10 @@ declare module Rx {
 		selectMany<T2>(selector: (value: T) =>IObservable<T2>, resultSelector?: (x: any, y: any) =>any): IObservable<T2>;
 		selectMany<T2>(other: IObservable<T2>): IObservable<T2>;
 		skip(count: number): IObservable<T>;
-		skipWhile(predicate: (value: T, index?: number) =>bool): IObservable<T>;
+		skipWhile(predicate: (value: T, index?: number) =>boolean): IObservable<T>;
 		take(count: number, scheduler?: IScheduler): IObservable<T>;
-		takeWhile(predicate: (value: T, index?: number) =>bool): IObservable<T>;
-		where(predicate: (value: T, index?: number) => bool): IObservable<T>;
+		takeWhile(predicate: (value: T, index?: number) =>boolean): IObservable<T>;
+		where(predicate: (value: T, index?: number) => boolean): IObservable<T>;
 	}
 
 	interface Observable {
@@ -419,8 +419,8 @@ declare module Rx {
 	}
 
 	interface ISubject<T> extends IObservable<T>, IObserver<T> {
-		isDisposed: bool;
-		isStopped: bool;
+		isDisposed: boolean;
+		isStopped: boolean;
 		//observers: IObserver<T>[];
 
 		dispose(): void;
@@ -435,9 +435,9 @@ declare module Rx {
 	}
 
 	interface IAsyncSubject<T> extends IObservable<T>, IObserver<T> {
-		isDisposed: bool;
+		isDisposed: boolean;
 		value: T;
-		hasValue: bool;
+		hasValue: boolean;
 		observers: IObserver<T>[];
 		exception: any;
 

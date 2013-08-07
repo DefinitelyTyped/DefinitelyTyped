@@ -81,19 +81,19 @@ interface ZeptoStatic {
 	* @param node
 	* @return
 	**/
-	contains(parent: HTMLElement, node: HTMLElement): bool;
+	contains(parent: HTMLElement, node: HTMLElement): boolean;
 
 	/**
 	* Iterate over array elements or object key-value pairs. Returning false from the iterator function stops the iteration.
 	* @param collection
 	* @param fn
 	**/
-	each(collection: any[], fn: (index: number, item: any) => bool): void;
+	each(collection: any[], fn: (index: number, item: any) => boolean): void;
 
 	/**
 	* @see ZeptoStatic.each
 	**/
-	each(collection: any, fn: (key: string, value: any) => bool): void;
+	each(collection: any, fn: (key: string, value: any) => boolean): void;
 
 	/**
 	* Extend target object with properties from each of the source objects, overriding the properties on target.
@@ -121,7 +121,7 @@ interface ZeptoStatic {
 	* @param fn
 	* @return
 	**/
-	grep(items: any[], fn: (item: any) => bool): any[];
+	grep(items: any[], fn: (item: any) => boolean): any[];
 
 	/**
 	* Get the position of element inside an array, or -1 if not found.
@@ -137,28 +137,28 @@ interface ZeptoStatic {
 	* @param object
 	* @return
 	**/
-	isArray(object: any): bool;
+	isArray(object: any): boolean;
 
 	/**
 	* True if the object is a function.
 	* @param object
 	* @return
 	**/
-	isFunction(object: any): bool;
+	isFunction(object: any): boolean;
 
 	/**
 	* True if the object is a “plain” JavaScript object, which is only true for object literals and objects created with new Object.
 	* @param object
 	* @return
 	**/
-	isPlainObject(object: any): bool;
+	isPlainObject(object: any): boolean;
 
 	/**
 	* True if the object is a window object. This is useful for iframes where each one has its own window, and where these objects fail the regular obj === window check.
 	* @param object
 	* @return
 	**/
-	isWindow(object: any): bool;
+	isWindow(object: any): boolean;
 
 	/**
 	* Iterate through elements of collection and return all results of running the iterator function, with null and undefined values filtered out.
@@ -291,7 +291,7 @@ interface ZeptoStatic {
 	* @param shallow Only serialize the first level of `object`.
 	* @return Seralized URL-encoded string representation of `object`.
 	**/
-	param(object: any, shallow?: bool): string;
+	param(object: any, shallow?: boolean): string;
 
 	/**
 	* Perform an Ajax POST request. This is a shortcut for the $.ajax method.
@@ -332,26 +332,26 @@ interface ZeptoStatic {
 		/**
 		* General device type
 		**/
-		phone: bool;
-		tablet: bool;
+		phone: boolean;
+		tablet: boolean;
 
 		/**
 		* Specific OS
 		**/
-		ios: bool;
-		android: bool;
-		webos: bool;
-		blackberry: bool;
-		bb10: bool;
-		rimtabletos: bool;
+		ios: boolean;
+		android: boolean;
+		webos: boolean;
+		blackberry: boolean;
+		bb10: boolean;
+		rimtabletos: boolean;
 
 		/**
 		* Specific device type
 		**/
-		iphone: bool;
-		ipad: bool;
-		touchpad: bool;
-		kindle: bool;
+		iphone: boolean;
+		ipad: boolean;
+		touchpad: boolean;
+		kindle: boolean;
 	};
 
 	/**
@@ -366,10 +366,10 @@ interface ZeptoStatic {
 		/**
 		* Specific browser
 		**/
-		chrome: bool;
-		firefox: bool;
-		silk: bool;
-		playbook: bool;
+		chrome: boolean;
+		firefox: boolean;
+		silk: boolean;
+		playbook: boolean;
 
 	};
 }
@@ -379,7 +379,7 @@ interface ZeptoEffects {
 	/**
 	* (default false in browsers that support CSS transitions): set to true to disable all animate() transitions.
 	**/
-	off: bool;
+	off: boolean;
 
 	/**
 	* An object with duration settings for animations.
@@ -604,7 +604,7 @@ interface ZeptoCollection {
 	* @param item
 	* @return Self object.
 	**/
-	each(fn: (index: number, item: any) => bool): ZeptoCollection;
+	each(fn: (index: number, item: any) => boolean): ZeptoCollection;
 
 	/**
 	* Clear DOM contents of each element in the collection.
@@ -631,7 +631,7 @@ interface ZeptoCollection {
 	* @see ZeptoCollection.filter
 	* @param fn
 	**/
-	filter(fn: (index: number) => bool): ZeptoCollection;
+	filter(fn: (index: number) => boolean): ZeptoCollection;
 
 	/**
 	* Find elements that match CSS selector executed in scope of nodes in the current collection.
@@ -697,7 +697,7 @@ interface ZeptoCollection {
 	* @param name
 	* @return
 	**/
-	hasClass(name: string): bool;
+	hasClass(name: string): boolean;
 
 	/**
 	* Get the height of the first element in the collection; or set the height of all elements in the collection.
@@ -826,7 +826,7 @@ interface ZeptoCollection {
 	* @param selector
 	* @return
 	**/
-	is(selector?: string): bool;
+	is(selector?: string): boolean;
 
 	/**
 	* Get the last element of the current collection.
@@ -867,7 +867,7 @@ interface ZeptoCollection {
 	* @see ZeptoCollection.not
 	* @param fn
 	**/
-	not(fn: (index: number) => bool): ZeptoCollection;
+	not(fn: (index: number) => boolean): ZeptoCollection;
 
 	/**
 	* Get position of the element in the document. Returns an object with properties: top, left, width and height.
@@ -1107,7 +1107,7 @@ interface ZeptoCollection {
 	* @param setting
 	* @return
 	**/
-	toggle(setting?: bool): ZeptoCollection;
+	toggle(setting?: boolean): ZeptoCollection;
 
 	/**
 	* Toggle given class names (space-separated) in each element in the collection. The class name is removed if present on an element; otherwise it’s added. If setting is present, this method behaves like addClass if setting is truthy or removeClass otherwise.
@@ -1115,13 +1115,13 @@ interface ZeptoCollection {
 	* @param setting
 	* @return
 	**/
-	toggleClass(names: string, setting?: bool): ZeptoCollection;
+	toggleClass(names: string, setting?: boolean): ZeptoCollection;
 
 	/**
 	* @see ZeptoCollection.toggleClass
 	* @param fn
 	**/
-	toggleClass(fn: (index: number, oldClassNames: string) => void , setting?: bool): ZeptoCollection;
+	toggleClass(fn: (index: number, oldClassNames: string) => void , setting?: boolean): ZeptoCollection;
 
 	/**
 	* Remove immediate parent nodes of each element in the collection and put their children in their place. Basically, this method removes one level of ancestry while keeping current elements in the DOM.
@@ -1274,12 +1274,12 @@ interface ZeptoCollection {
 	* @param fn
 	* @return
 	**/
-	off(type: string, selector: string, fn: (e: Event) => bool): ZeptoCollection;
+	off(type: string, selector: string, fn: (e: Event) => boolean): ZeptoCollection;
 
 	/**
 	* @see ZeptoCollection.off
 	**/
-	off(type: string, fn: (e: Event) => bool): ZeptoCollection;
+	off(type: string, fn: (e: Event) => boolean): ZeptoCollection;
 
 	/**
 	* @see ZeptoCollection.off
@@ -1305,12 +1305,12 @@ interface ZeptoCollection {
 	* @param fn
 	* @return
 	**/
-	on(type: string, selector: string, fn: (e: Event) => bool): ZeptoCollection;
+	on(type: string, selector: string, fn: (e: Event) => boolean): ZeptoCollection;
 
 	/**
 	* @see ZeptoCollection.on
 	**/
-	on(type: string, fn: (e: Event) => bool): ZeptoCollection;
+	on(type: string, fn: (e: Event) => boolean): ZeptoCollection;
 	// todo: v0.9 will introduce string literals
 	//on(type: 'ajaxStart', fn: ZeptoAjaxStartEvent): ZeptoCollection;
 	//on(type: 'ajaxBeforeSend', fn: ZeptoAjaxBeforeSendEvent): ZeptoCollection;
@@ -1364,7 +1364,7 @@ interface ZeptoCollection {
 	* @param fn
 	* @return
 	**/
-	unbind(type: string, fn: (e: Event) => bool): ZeptoCollection;
+	unbind(type: string, fn: (e: Event) => boolean): ZeptoCollection;
 
 	/**
 	* Detach event handler added with delegate.
@@ -1374,7 +1374,7 @@ interface ZeptoCollection {
 	* @param fn
 	* @return
 	**/
-	undelegate(selector: string, type: string, fn: (e: Event) => bool): ZeptoCollection;
+	undelegate(selector: string, type: string, fn: (e: Event) => boolean): ZeptoCollection;
 
 	/**
 	* Ajax
@@ -1467,16 +1467,16 @@ interface ZeptoAjaxSettings {
 	type?: string;
 	url?: string;
 	data?: any;
-	processData?: bool;
+	processData?: boolean;
 	contentType?: string;
 	dataType?: string;
 	timeout?: number;
 	headers?: string;
-	async?: bool;
-	global?: bool;
+	async?: boolean;
+	global?: boolean;
 	context?: any;
-	traditional?: bool;
-	beforeSend?: (xhr: XMLHttpRequest, settings: ZeptoAjaxSettings) => bool;
+	traditional?: boolean;
+	beforeSend?: (xhr: XMLHttpRequest, settings: ZeptoAjaxSettings) => boolean;
 	success?: (data: any, status: string, xhr: XMLHttpRequest) => void;
 	error?: (xhr: XMLHttpRequest, errorType: string, error: Error) => void;
 	complete?: (xhr: XMLHttpRequest, status: string) => void;

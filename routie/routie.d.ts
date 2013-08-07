@@ -8,7 +8,7 @@ interface Route {
     addHandler(fn: Function): void;
     removeHandler(fn: Function): void;
     run(params: any): void;
-    match(path: string, params: any): bool;
+    match(path: string, params: any): boolean;
     toURL(params: any): string;
 }
 

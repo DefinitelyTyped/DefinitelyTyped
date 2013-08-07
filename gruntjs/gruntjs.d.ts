@@ -16,9 +16,9 @@ interface IGruntConfig {
 /// uglify : https://github.com/gruntjs/grunt-contrib-uglify
 ////////////////
 interface IGruntUglifyConfig {
-    mangle?: bool;
-    compress?: bool;
-    beautify?: bool;
+    mangle?: boolean;
+    compress?: boolean;
+    beautify?: boolean;
     report?: any; // false / 'min' / 'gzip'
     sourceMap?: any; // String / Function 
     sourceMapRoot?: string;
@@ -26,8 +26,8 @@ interface IGruntUglifyConfig {
     sourceMappingURL?: any; // String / Function
     sourceMapPrefix?: number;
     wrap?: string;
-    exportAll?: bool;
-    preserveComments?: any; // bool / string / function 
+    exportAll?: boolean;
+    preserveComments?: any; // boolean / string / function 
     banner?: string;
 }
 interface IGruntConfig {
@@ -126,7 +126,7 @@ interface IGruntFileObject {
     readYAML(filepath, options?: IGruntFileObjectOptionsSimple);
     write(filepath, contents, options?: IGruntFileObjectOptionsSimple);
     copy(srcpath, destpath, options?: IGruntFileObjectOptions);
-    delete (filepath, options?: { force?: bool; });
+    delete (filepath, options?: { force?: boolean; });
 
     // Directories
     mkdir(dirpath, mode?);
@@ -138,8 +138,8 @@ interface IGruntFileObject {
     expandMapping(patterns, dest, options?);
     match(patterns, filepaths);
     match(options, patterns, filepaths);
-    isMatch(patterns, filepaths): bool;
-    isMatch(options, patterns, filepaths): bool;
+    isMatch(patterns, filepaths): boolean;
+    isMatch(options, patterns, filepaths): boolean;
 
     // file types
     exists(...paths: any[]);

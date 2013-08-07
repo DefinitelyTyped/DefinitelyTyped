@@ -41,14 +41,14 @@ interface KnockoutObservableArrayFunctions<T> {
     reject(iterator: _.ListIterator<T, boolean>, context?: any): T[];
     reject_(iterator: _.ListIterator<T, boolean>, context?: any): T[];
 
-    all(iterator: _.ListIterator<T, boolean>, context?: any): bool;
-    every(iterator: _.ListIterator<T, boolean>, context?: any): bool;
+    all(iterator: _.ListIterator<T, boolean>, context?: any): boolean;
+    every(iterator: _.ListIterator<T, boolean>, context?: any): boolean;
 
-    any(iterator?: _.ListIterator<T, boolean>, context?: any): bool;
-    some(iterator?: _.ListIterator<T, boolean>, context?: any): bool;
+    any(iterator?: _.ListIterator<T, boolean>, context?: any): boolean;
+    some(iterator?: _.ListIterator<T, boolean>, context?: any): boolean;
 
-    contains(value: T): bool;
-    include(value: T): bool;
+    contains(value: T): boolean;
+    include(value: T): boolean;
 
     invoke(methodName: string, ...arguments: any[]): any;
     invoke_(methodName: string, ...arguments: any[]): any;
@@ -94,8 +94,8 @@ interface KnockoutObservableArrayFunctions<T> {
 
     compact(): T[];
     compact_(): T[];
-    flatten(shallow?: bool): any[];
-    flatten_(shallow?: bool): any[];
+    flatten(shallow?: boolean): any[];
+    flatten_(shallow?: boolean): any[];
     without(...values: T[]): T[];
     without_(...values: T[]): T[];
     union(...arrays: T[][]): T[];
@@ -113,7 +113,7 @@ interface KnockoutObservableArrayFunctions<T> {
     zip(...arrays: any[]): any[];
     zip_(...arrays: any[]): any[];
     object(): any;
-    indexOf(value: T, isSorted?: bool): number;
+    indexOf(value: T, isSorted?: boolean): number;
     lastIndexOf(value: T, fromIndex?: number): number;
     lastIndexOf(value: T, isSorted?: boolean): number;
     sortedIndex<TSort>(value: T, iterator?: _.ListIterator<T, TSort>): number;

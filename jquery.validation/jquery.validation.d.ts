@@ -7,19 +7,19 @@
 /// <reference path="../jquery/jquery.d.ts"/>
 
 interface ValidationOptions {
-    debug?: bool;
+    debug?: boolean;
     submitHandler?: Function;
     invalidHandler?: Function;
     ignore?: any;
     rules?: any;
     messages?: any;
     groups?: any;
-    onsubmit?: bool;
-    onfocusout?: bool;
-    onkeyup?: bool;
-    onclick?: bool;
-    focusInvalid?: bool;
-    focusCleanup?: bool;
+    onsubmit?: boolean;
+    onfocusout?: boolean;
+    onkeyup?: boolean;
+    onclick?: boolean;
+    focusInvalid?: boolean;
+    focusCleanup?: boolean;
     meta?: string;
     errorClass?: string;
     validClass?: string;
@@ -32,13 +32,13 @@ interface ValidationOptions {
     success?: any;
     highlight?: Function;
     unhighlight?: Function;
-    ignoreTitle?: bool;
+    ignoreTitle?: boolean;
 }
 
 interface Validator {
     format(template: string, ...arguments: string[]): string;
-    form(): bool;
-    element(element: any): bool;
+    form(): boolean;
+    element(element: any): boolean;
     resetForm(): void;
     showErrors(errors: any): void;
     numberOfInvalids(): number;
@@ -50,7 +50,7 @@ interface Validator {
 
 interface JQuery {
     validate(options?: ValidationOptions): Validator;
-    valid(): bool;
+    valid(): boolean;
     rules(): any;
     rules(methodName: string): any;
     rules(methodName: string, rules: any): any;

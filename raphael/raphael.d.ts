@@ -37,15 +37,15 @@ interface RaphaelElement {
     data(key: string, value: any): RaphaelElement;
     dblclick(handler: Function): RaphaelElement;
     drag(onmove: (dx: number, dy: number, x: number, y: number, event: DragEvent) =>{ }, onstart: (x: number, y: number, event: DragEvent) =>{ }, onend: (DragEvent) =>{ }, mcontext?: any, scontext?: any, econtext?: any): RaphaelElement;
-    getBBox(isWithoutTransform?: bool): BoundingBox;
-    glow(glow?: { width?: number; fill?: bool; opacity?: number; offsetx?: number; offsety?: number; color?: string; }): RaphaelSet;
+    getBBox(isWithoutTransform?: boolean): BoundingBox;
+    glow(glow?: { width?: number; fill?: boolean; opacity?: number; offsetx?: number; offsety?: number; color?: string; }): RaphaelSet;
     hide(): RaphaelElement;
     hover(f_in: Function, f_out: Function, icontext?: any, ocontext?: any): RaphaelElement;
     id: string;
     insertAfter(): RaphaelElement;
     insertBefore(): RaphaelElement;
-    isPointInside(x: number, y: number): bool;
-    isVisible(): bool;
+    isPointInside(x: number, y: number): boolean;
+    isVisible(): boolean;
     matrix: RaphaelMatrix;
     mousedown(handler: Function): RaphaelElement;
     mousemove(handler: Function): RaphaelElement;
@@ -101,7 +101,7 @@ interface RaphaelPath extends RaphaelElement {
 
 interface RaphaelSet {
     clear();
-    exclude(element: RaphaelElement): bool;
+    exclude(element: RaphaelElement): boolean;
     forEach(callback: Function, thisArg?: any): RaphaelSet;
     pop(): RaphaelElement;
     push(...RaphaelElement: any[]): RaphaelElement;
@@ -124,15 +124,15 @@ interface RaphaelSet {
     data(key: string, value: any): RaphaelElement;
     dblclick(handler: Function): RaphaelElement;
     drag(onmove: (dx: number, dy: number, x: number, y: number, event: DragEvent) =>{ }, onstart: (x: number, y: number, event: DragEvent) =>{ }, onend: (DragEvent) =>{ }, mcontext?: any, scontext?: any, econtext?: any): RaphaelElement;
-    getBBox(isWithoutTransform?: bool): BoundingBox;
-    glow(glow?: { width?: number; fill?: bool; opacity?: number; offsetx?: number; offsety?: number; color?: string; }): RaphaelSet;
+    getBBox(isWithoutTransform?: boolean): BoundingBox;
+    glow(glow?: { width?: number; fill?: boolean; opacity?: number; offsetx?: number; offsety?: number; color?: string; }): RaphaelSet;
     hide(): RaphaelElement;
     hover(f_in: Function, f_out: Function, icontext?: any, ocontext?: any): RaphaelElement;
     id: string;
     insertAfter(): RaphaelElement;
     insertBefore(): RaphaelElement;
-    isPointInside(x: number, y: number): bool;
-    isVisible(): bool;
+    isPointInside(x: number, y: number): boolean;
+    isVisible(): boolean;
     matrix: RaphaelMatrix;
     mousedown(handler: Function): RaphaelElement;
     mousemove(handler: Function): RaphaelElement;
@@ -185,7 +185,7 @@ interface RaphaelMatrix {
     invert(): RaphaelMatrix;
     rotate(a: number, x: number, y: number);
     scale(x: number, y?: number, cx?: number, cy?: number);
-    split(): { dx: number; dy: number; scalex: number; scaley: number; shear: number; rotate: number; isSimple: bool; };
+    split(): { dx: number; dy: number; scalex: number; scaley: number; shear: number; rotate: number; isSimple: boolean; };
     toTransformString(): string;
     translate(x: number, y: number);
     x(x: number, y: number);
@@ -218,7 +218,7 @@ interface RaphaelPaper {
     setFinish();
     setSize(width: number, height: number);
     setStart();
-    setViewBox(x: number, y: number, w: number, h: number, fit: bool);
+    setViewBox(x: number, y: number, w: number, h: number, fit: boolean);
     text(x: number, y: number, text: string): RaphaelElement;
     top: RaphaelElement;
     width: number;
@@ -235,7 +235,7 @@ interface RaphaelStatic {
     animation(params: any, ms: number, easing?: string, callback?: Function): RaphaelAnimation;
     bezierBBox(p1x: number, p1y: number, c1x: number, c1y: number, c2x: number, c2y: number, p2x: number, p2y: number): { min: { x: number; y: number; }; max: { x: number; y: number; }; };
     bezierBBox(bez: Array): { min: { x: number; y: number; }; max: { x: number; y: number; }; };
-    color(clr: string): { r: number; g: number; b: number; hex: string; error: bool; h: number; s: number; v: number; l: number; };
+    color(clr: string): { r: number; g: number; b: number; hex: string; error: boolean; h: number; s: number; v: number; l: number; };
     createUUID(): string;
     deg(deg: number): number;
     easing_formulas: any;
@@ -249,17 +249,17 @@ interface RaphaelStatic {
         reset();
     };
     getPointAtLength(path: string, length: number): { x: number; y: number; alpha: number; };
-    getRGB(colour: string): { r: number; g: number; b: number; hex: string; error: bool; };
+    getRGB(colour: string): { r: number; g: number; b: number; hex: string; error: boolean; };
     getSubpath(path: string, from: number, to: number): string;
     getTotalLength(path: string): number;
     hsb(h: number, s: number, b: number): string;
     hsb2rgb(h: number, s: number, v: number): { r: number; g: number; b: number; hex: string; };
     hsl(h: number, s: number, l: number): string;
     hsl2rgb(h: number, s: number, l: number): { r: number; g: number; b: number; hex: string; };
-    is(o: any, type: string): bool;
-    isBBoxIntersect(bbox1: string, bbox2: string): bool;
-    isPointInsideBBox(bbox: string, x: number, y: number): bool;
-    isPointInsidePath(path: string, x: number, y: number): bool;
+    is(o: any, type: string): boolean;
+    isBBoxIntersect(bbox1: string, bbox2: string): boolean;
+    isPointInsideBBox(bbox: string, x: number, y: number): boolean;
+    isPointInsidePath(path: string, x: number, y: number): boolean;
     matrix(a: number, b: number, c: number, d: number, e: number, f: number): RaphaelMatrix;
     ninja();
     parsePathString(pathString: string): string[];
@@ -281,13 +281,13 @@ interface RaphaelStatic {
     snapTo(values: number, value: number, tolerance?: number): number;
     snapTo(values: number[], value: number, tolerance?: number): number;
     st: any;
-    svg: bool;
+    svg: boolean;
     toMatrix(path: string, transform: string): RaphaelMatrix;
     toMatrix(path: string, transform: string[]): RaphaelMatrix;
     transformPath(path: string, transform: string): string;
     transformPath(path: string, transform: string[]): string;
     type: string;
-    vml: bool;
+    vml: boolean;
 }
 
 declare var Raphael: RaphaelStatic;

@@ -12,14 +12,14 @@ interface GlDatePickerOffset {
 
 interface GlDatePickerDate {
     date: Date;
-    repeatMonth?: bool;
-    repeatYear?: bool;
+    repeatMonth?: boolean;
+    repeatYear?: boolean;
 }
 
 interface GlDatePickerDateRange {
     from: Date;
     to?: Date;
-    repeatYear?: bool;
+    repeatYear?: boolean;
 }
 
 interface GlDatePickerSpecialDate extends GlDatePickerDate {
@@ -32,10 +32,10 @@ interface GlDatePickerOptions {
     zIndex?: number;
     borderSize?: number;
     calendarOffset?: GlDatePickerOffset;
-    showAlways?: bool;
-    hideOnClick?: bool;
-    allowMonthSelect?: bool;
-    allowYearSelect?: bool;
+    showAlways?: boolean;
+    hideOnClick?: boolean;
+    allowMonthSelect?: boolean;
+    allowYearSelect?: boolean;
     todayDate?: Date;
     selectedDate?: Date;
     prevArrow?: string;
@@ -65,5 +65,5 @@ interface GlDatePicker {
 
 interface JQuery {
     glDatePicker(options?: GlDatePickerOptions): JQuery;
-    glDatePicker(ret: bool): GlDatePicker;
+    glDatePicker(ret: boolean): GlDatePicker;
 }

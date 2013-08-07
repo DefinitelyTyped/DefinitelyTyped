@@ -27,13 +27,13 @@ declare module "less" {
         mime?: string;
         filename?: string;
         optimization?: number;
-        dumpLineNumbers?: bool;
+        dumpLineNumbers?: boolean;
         strictImports?;
         entryPath?: string;
         relativeUrls?;
         errback? (path: string, paths: string[], callback: Function, env: Options);
         frames?;
-        compress?: bool;
+        compress?: boolean;
     }
 
     export module tree {
@@ -251,7 +251,7 @@ declare module "less" {
             eval(env: Options): Ruleset;
             evalImports(env: Options): void;
             makeImportant(): Ruleset;
-            matchArgs(args: any): bool;
+            matchArgs(args: any): boolean;
             resetCache(): void;
             variables(): RuleContainer;
             variable(): Rule;
@@ -290,7 +290,7 @@ declare module "less" {
         export class Selector implements IInjectable {
             constructor(elements: Element[]);
 
-            match(other: Selector): bool;
+            match(other: Selector): boolean;
             eval(env: Options): Selector;
             toCSS(env?: Options): string;
         }
@@ -298,7 +298,7 @@ declare module "less" {
         export class Quoted implements IInjectable, IComparable {
             constructor(str: string, content: string, escaped: bool, i);
 
-            escaped: bool;
+            escaped: boolean;
             value: string;
             quote: string;
             index;
@@ -318,13 +318,13 @@ declare module "less" {
         }
 
         export class Rule implements IInjectable {
-            constructor(name: string, value?: Value, important?: string, index?, inline?: bool);
+            constructor(name: string, value?: Value, important?: string, index?, inline?: boolean);
 
             name: string;
             value: Value;
             important: string;
             index;
-            inline: bool;
+            inline: boolean;
 
             toCSS(env?: Options): string;
             eval(context): Rule;
@@ -376,12 +376,12 @@ declare module "less" {
         export class Import implements IInjectable {
             constructor(path, imports, features: ICSSable, once: bool, index, rootpath);
 
-            once: bool;
+            once: boolean;
             index;
             features: ICSSable;
             rootpath;
             path: string;
-            css: bool;
+            css: boolean;
 
             toCSS(env?: Options): string;
             eval(env: Options): IEvalable;
@@ -391,7 +391,7 @@ declare module "less" {
             constructor(value: string, silent);
 
             value: string;
-            silent: bool;
+            silent: boolean;
 
             toCSS(env?: Options): string;
             eval(): Comment;
@@ -418,9 +418,9 @@ declare module "less" {
         }
 
         export class JavaScript implements IEvalable {
-            constructor(expression: string, index, escaped: bool);
+            constructor(expression: string, index, escaped: boolean);
 
-            escaped: bool;
+            escaped: boolean;
             expression: string;
             index;
 
@@ -440,15 +440,15 @@ declare module "less" {
         }
 
         export class Condition {
-            constructor(op: string, l, r, i, negate: bool);
+            constructor(op: string, l, r, i, negate: boolean);
 
             op: string;
             lvalue;
             rvalue;
             index;
-            negate: bool;
+            negate: boolean;
 
-            eval(env: Options): bool;
+            eval(env: Options): boolean;
         }
 
         export class Paren implements IInjectable {
@@ -509,7 +509,7 @@ declare module "less" {
 
     class ParserNode extends tree.AbstractRuleset {
         toCSS(): string;
-        toCSS(options: { compress: bool; }, variables?): string;
+        toCSS(options: { compress: boolean; }, variables?): string;
     }
 
     export class Parser {
@@ -535,8 +535,8 @@ declare module "less" {
     export function render(input: string, options: Options,
         callback: (e, css: string) => void): void;
 
-    export function formatError(ctx, options: { color: bool; }): string;
-    export function writeError(ctx, options: { color: bool; }): void;
+    export function formatError(ctx, options: { color: boolean; }): string;
+    export function writeError(ctx, options: { color: boolean; }): void;
 
     export var version: number[];
 }

@@ -36,11 +36,11 @@ interface ColorboxSettings {
     /**
     * If true, and if maxWidth, maxHeight, innerWidth, innerHeight, width, or height have been defined, Colorbox will scale photos to fit within the those values.
     */
-    scalePhotos?: bool;
+    scalePhotos?: boolean;
     /**
     * If false, Colorbox will hide scrollbars for overflowing content.
     */
-    scrolling?: bool;
+    scrolling?: boolean;
     /**
     * The overlay opacity level. Range: 0 to 1.
     */
@@ -48,35 +48,35 @@ interface ColorboxSettings {
     /**
     * If true, Colorbox will immediately open.
     */
-    open?: bool;
+    open?: boolean;
     /**
     * If true, focus will be returned when Colorbox exits to the element it was launched from.
     */
-    returnFocus?: bool;
+    returnFocus?: boolean;
     /**
     * If false, the loading graphic removal and onComplete event will be delayed until iframe's content has completely loaded.
     */
-    fastIframe?: bool;
+    fastIframe?: boolean;
     /**
     * Allows for preloading of 'Next' and 'Previous' content in a group, after the current content has finished loading. Set to false to disable.
     */
-    preloading?: bool;
+    preloading?: boolean;
     /**
     * If false, disables closing Colorbox by clicking on the background overlay.
     */
-    overlayClose?: bool;
+    overlayClose?: boolean;
     /**
     * If false, will disable closing colorbox on 'esc' key press.
     */
-    escKey?: bool;
+    escKey?: boolean;
     /**
     * If false, will disable the left and right arrow keys from navigating between the items in a group.
     */
-    arrowKey?: bool;
+    arrowKey?: boolean;
     /**
     * If false, will disable the ability to loop back to the beginning of the group when on the last element.
     */
-    loop?: bool;
+    loop?: boolean;
     /**
     * For submitting GET or POST values through an ajax request. The data property will act exactly like jQuery's .load() data argument, as Colorbox uses .load() for ajax handling.
     */
@@ -116,11 +116,11 @@ interface ColorboxSettings {
     /**
     * If true, specifies that content should be displayed in an iFrame.
     */
-    iframe?: bool;
+    iframe?: boolean;
     /**
     * If true, content from the current document can be displayed by passing the href property a jQuery selector, or jQuery object.
     */
-    inline?: bool;
+    inline?: boolean;
     /**
     * For displaying a string of HTML or text: $.colorbox({html:"<p>Hello</p>"});
     */
@@ -128,7 +128,7 @@ interface ColorboxSettings {
     /**
     * If true, this setting forces Colorbox to display a link as a photo. Use this when automatic photo detection fails (such as using a url like 'photo.php' instead of 'photo.jpg')
     */
-    photo?: bool;
+    photo?: boolean;
     /**
     * This property isn't actually used as Colorbox assumes all hrefs should be treated as either ajax or photos, unless one of the other content types were specified.
     */
@@ -168,7 +168,7 @@ interface ColorboxSettings {
     /**
     * If true, adds an automatic slideshow to a content group / gallery.
     */
-    slideshow?: bool;
+    slideshow?: boolean;
     /**
     * Sets the speed of the slideshow, in milliseconds.
     */
@@ -176,7 +176,7 @@ interface ColorboxSettings {
     /**
     * If true, the slideshow will automatically start to play.
     */
-    slideshowAuto?: bool;
+    slideshowAuto?: boolean;
     /**
     * Text for the slideshow start button.
     */
@@ -188,7 +188,7 @@ interface ColorboxSettings {
     /**
     * If true, Colorbox will be displayed in a fixed position within the visitor's viewport. This is unlike the default absolute positioning relative to the document.
     */
-    fixed?: bool;
+    fixed?: boolean;
     /**
     * Accepts a pixel or percent value (50, "50px", "10%"). Controls Colorbox's vertical positioning instead of using the default position of being centered in the viewport.
     */
@@ -208,15 +208,15 @@ interface ColorboxSettings {
     /**
     * Repositions Colorbox if the window's resize event is fired.
     */
-    reposition?: bool;
+    reposition?: boolean;
     /**
     * If true, Colorbox will scale down the current photo to match the screen's pixel ratio
     */
-    retinaImage?: bool;
+    retinaImage?: boolean;
     /**
     * If true and the device has a high resolution display, Colorbox will replace the current photo's file extention with the retinaSuffix+extension
     */
-    retinaUrl?: bool;
+    retinaUrl?: boolean;
     /**
     * If retinaUrl is true and the device has a high resolution display, the href value will have it's extention extended with this suffix. For example, the default value would change `my-photo.jpg` to `my-photo@2x.jpg`
     */

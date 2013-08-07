@@ -11,7 +11,7 @@ interface HistoryAdapter {
 }
 
 interface Historyjs {
-    enabled: bool;
+    enabled: boolean;
     pushState(data, title, url);
     replaceState(data, title, url);
     getState();

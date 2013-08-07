@@ -18,9 +18,9 @@ declare module BgiFrame {
         left: string;
         width: string;
         height: string;
-        opacity: bool;
+        opacity: boolean;
         src: string;
-        conditional: bool;
+        conditional: boolean;
     }
 
     interface IBgiframe {
