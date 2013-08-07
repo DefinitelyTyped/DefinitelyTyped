@@ -1,6 +1,6 @@
 /// <reference path="express.d.ts" />
 
-import express = module('express');
+import express = require('express');
 var app = express();
 
 //////////////////////////
