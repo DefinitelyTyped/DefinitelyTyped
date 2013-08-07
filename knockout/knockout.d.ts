@@ -477,6 +477,17 @@ interface KnockoutStatic {
     /////////////////////////////////
 
     bindingProvider: any;
+
+    /////////////////////////////////
+    // selectExtensions.js
+    /////////////////////////////////
+
+    selectExtensions: {
+
+        readValue(element: any);
+
+        writeValue(element: any, value: any);
+    };
 }
 
 declare var ko: KnockoutStatic;
