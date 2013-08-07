@@ -912,8 +912,7 @@ interface JQuery {
     progressbar(methodName: 'disable'): void;
     progressbar(methodName: 'enable'): void;
     progressbar(methodName: 'refresh'): void;
-    progressbar(methodName: 'value'): number;
-    progressbar(methodName: 'value'): boolean;
+    progressbar(methodName: 'value'): any; // number or boolean
     progressbar(methodName: 'value', value: number): void;
     progressbar(methodName: 'value', value: boolean): void;
     progressbar(methodName: 'widget'): JQuery;
