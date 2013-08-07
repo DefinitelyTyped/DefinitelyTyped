@@ -182,7 +182,7 @@ declare module jake{
 	 * 
 	 * @event complete
 	 */
-	export class Task implements EventEmitter{
+	export class Task implements EventEmitter {
 		/**
 		 * @name name The name of the Task
 		 * @param prereqs Prerequisites to be run before this task
@@ -205,7 +205,7 @@ declare module jake{
 		on(event: string, listener: Function);
 		once(event: string, listener: Function): void;
 		removeListener(event: string, listener: Function): void;
-		removeAllListener(event: string): void;
+		removeAllListeners(event?: string): void;
 		setMaxListeners(n: number): void;
 		listeners(event: string): { Function; }[];
 		emit(event: string, arg1?: any, arg2?: any): void;
