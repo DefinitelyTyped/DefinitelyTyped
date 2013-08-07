@@ -210,8 +210,7 @@ declare module google.maps {
         getDraggable(): boolean;
         getFlat(): boolean;
         getIcon(): MarkerImage;
-        getMap(): Map;
-        getMap(): StreetViewPanorama;
+        getMap(): any; // Map or StreetViewPanorama
         getPosition(): LatLng;
         getShadow(): MarkerImage;
         getShape(): MarkerShape;
@@ -297,8 +296,7 @@ declare module google.maps {
     export class InfoWindow extends MVCObject {
         constructor (opts?: InfoWindowOptions);
         close(): void;
-        getContent(): string;
-        getContent(): Element;
+        getContent(): any; // string or Element
         getPosition(): LatLng;
         getZIndex(): number;
         open(map?: Map, anchor?: MVCObject): void;
