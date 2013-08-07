@@ -9,8 +9,8 @@ USAGE
 declare module fabric {
 
     function createCanvasForNode(width: number, height: number): ICanvas;
-    function getCSSRules(doc: SVGDocument);
-    function getGradientDefs(doc: SVGDocument);
+    function getCSSRules(doc: SVGElement);
+    function getGradientDefs(doc: SVGElement);
     function loadSVGFromString(text: string, callback: (results: IObject[], options) => void , reviver?: (el, obj) => void );
     function loadSVGFromURL(url, callback: (results: IObject[], options) => void , reviver?: (el, obj) => void );
     function log(values);
@@ -18,7 +18,7 @@ declare module fabric {
     function parseElements(elements: any[], callback, options, reviver);
     function parsePointsAttribute(points: string): any[];
     function parseStyleAttribute(element: SVGElement);
-    function parseSVGDocument(doc: SVGDocument, callback: (results, options) => void , reviver?: (el, obj) => void );
+    function parseSVGDocument(doc: SVGElement, callback: (results, options) => void , reviver?: (el, obj) => void );
     function parseTransformAttribute(attributeValue: string);
     function warn(values);
 
