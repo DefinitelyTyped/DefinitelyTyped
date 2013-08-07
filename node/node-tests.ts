@@ -1,8 +1,8 @@
 ﻿/// <reference path="node.d.ts" />
 
-import assert = module("assert");
-import fs = module("fs");
-import events = module("events");
+import assert = require("assert");
+import fs = require("fs");
+import events = require("events");
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
