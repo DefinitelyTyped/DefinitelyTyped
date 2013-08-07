@@ -1,4 +1,4 @@
-/// <reference path="sugar.d.ts" />
+ï»¿/// <reference path="sugar.d.ts" />
 
 'schfifty'.add(' five');		// - > schfifty five
 'dopamine'.insert('e', 3);		// - > dopeamine
@@ -90,7 +90,7 @@
 '?????'.hasCyrillic();		// - > true
 '? ?????!'.hasHangul();		// - > true
 '??????'.hasKatakana();		// - > true
-"l'année".hasLatin();		// - > true
+"l'annÃ©e".hasLatin();		// - > true
 
 // visual studio is not liking these characters very much.
 '????'.hiragana();		// - > '????'
@@ -110,7 +110,7 @@
 '?????'.isCyrillic();	// - > true
 '? ?????!'.isHangul();	// - > true
 '??????'.isKatakana();	// - > false
-"l'année".isLatin();	// - > true
+"l'annÃ©e".isLatin();	// - > true
 
 // visual studio is not liking these characters very much.
 '????'.katakana();	// - > '????'
@@ -124,8 +124,8 @@
 	// Called three times: "broken wear", "and", "jumpy jump"
 });
 
-'á'.normalize();				// - > 'a'
-'Ménage à trois'.normalize();	// - > 'Menage a trois'
+'Ã¡'.normalize();				// - > 'a'
+'MÃ©nage Ã  trois'.normalize();	// - > 'Menage a trois'
 'Volkswagen'.normalize();		// - > 'Volkswagen'
 'FULLWIDTH'.normalize();		// - > 'FULLWIDTH'
 
@@ -345,3 +345,235 @@
 		// This function is called 5 times receiving n as the value.
 });
 (2).upto(8, null, 2);	// - > [2, 4, 6, 8]
+
+
+//#region Arrays
+
+[1, 2, 3, 4].add(5);
+[1, 2, 3, 4].add([5, 6, 7]);
+[1, 2, 3, 4].insert(8, 1);
+
+[1, 2, 3].at(0);
+[1, 2, 3].at(2);
+[1, 2, 3].at(4);
+[1, 2, 3].at(4, false);
+[1, 2, 3].at(-1);
+[1, 2, 3].at(0, 1);
+
+[1, 2, 3].average();
+[{age:35},{age:11},{age:11}].average(function(n) {
+    return n.age;
+}); 
+[{ age: 35 }, { age: 11 }, { age: 11 }].average('age');
+
+[1, 2, 3].clone();
+
+[1, null, 2, undefined, 3].compact();
+[1, '', 2, false, 3].compact();
+[1, '', 2, false, 3].compact(true);
+
+[1, 2, 3, 1].count(1);
+['a', 'b', 'c'].count(/b/);
+[{a:1},{b:2}].count(function(n) {
+    return n['a'] > 1;
+});
+
+[1,2,3,4].each(function(n) {
+    // Called 4 times: 1, 2, 3, 4    
+});
+[1,2,3,4].each(function(n) {
+  // Called 4 times: 3, 4, 1, 2
+}, 2, true);
+[1,2,3,4].each(n => false);
+
+['a','a','a'].every(function(n) {
+  return n == 'a';
+});
+['a', 'a', 'a'].every('a');
+[{ a: 2 }, { a: 2 }].every({ a: 2 });
+
+[1, 2, 3].exclude(3);
+['a', 'b', 'c'].exclude(/b/);
+[{a:1},{b:2}].exclude(function(n) {
+  return n['a'] == 1;
+});
+["a", "bbb", "ccc"].exclude((e,i,a) => e.length > 2, (e,i,a) => e.length < 0);
+
+[1,2,3].filter(function(n) {
+  return n > 1;
+});
+[1, 2, 2, 4].filter(2);
+
+[{a:1,b:2},{a:1,b:3},{a:1,b:4}].find(function(n) {
+  return n['a'] == 1;
+});
+['cuba', 'japan', 'canada'].find(/^c/, 2);
+
+[{a:1,b:2},{a:1,b:3},{a:2,b:4}].findAll(function(n) {
+  return n['a'] == 1;
+});
+['cuba', 'japan', 'canada'].findAll(/^c/); 
+['cuba', 'japan', 'canada'].findAll(/^c/, 2);
+
+[1,2,3,4].findIndex(3);
+[1,2,3,4].findIndex(function(n) {
+  return n % 2 == 0;
+});
+['one','two','three'].findIndex(/th/);
+
+[1, 2, 3].first();
+[1, 2, 3].first(2);
+
+[[1], 2, [3]].flatten();
+[['a'], [], 'b', 'c'].flatten();
+
+['a','b','c'].forEach(function(a) {
+  // Called 3 times: 'a','b','c'
+});
+
+[1, 2, 3].from(1);
+[1, 2, 3].from(2);
+
+['fee', 'fi', 'fum'].groupBy('length');
+[{age:35,name:'ken'},{age:15,name:'bob'}].groupBy(function(n) {
+  return n.age;
+});
+
+[1, 2, 3, 4, 5, 6, 7].inGroups(3); 
+[1, 2, 3, 4, 5, 6, 7].inGroups(3, 'none');
+
+[1, 2, 3, 4, 5, 6, 7].inGroupsOf(4);   
+[1, 2, 3, 4, 5, 6, 7].inGroupsOf(4, 'none');
+
+[1, 2, 3, 4].include(5);
+[1, 2, 3, 4].include(8, 1);
+[1, 2, 3, 4].include([5, 6, 7]);
+
+[1, 2, 3].indexOf(3);
+[1, 2, 3].indexOf(7);
+
+[1, 3, 5].intersect([5, 7, 9]);
+['a', 'b'].intersect('b', 'c');
+
+[1, 2, 3].last();
+[1, 2, 3].last(2);
+
+[1, 2, 1].lastIndexOf(1);
+[1, 2, 1].lastIndexOf(7);
+
+[3, 2, 2].least();
+['fe', 'fo', 'fum'].least('length');
+[{age:35,name:'ken'},{age:12,name:'bob'},{age:12,name:'ted'}].least(function(n) {
+  return n.age;
+});
+
+[1,2,3].map(function(n) {
+  return n * 3;
+});
+['one','two','three'].map(function(n) {
+  return n.length;
+});
+['one', 'two', 'three'].map('length');
+
+[1, 2, 3].max();
+['fee', 'fo', 'fum'].max('length');
+['fee', 'fo', 'fum'].max('length', true);
+[{a:3,a:2}].max(function(n) {
+  return n['a'];
+});
+
+[1, 2, 3].min();
+['fee', 'fo', 'fum'].min('length');
+['fee', 'fo', 'fum'].min('length', true);
+['fee','fo','fum'].min(function(n) {
+  return n.length;
+});
+[{a:3,a:2}].min(function(n) {
+  return n['a'];
+}); 
+
+[3, 2, 2].most();
+['fe', 'fo', 'fum'].most('length');
+[{age:35,name:'ken'},{age:12,name:'bob'},{age:12,name:'ted'}].most(function(n) {
+  return n.age;
+});
+
+[1, 2, 3].none(5);
+['a', 'b', 'c'].none(/b/);
+[{a:1},{b:2}].none(function(n) {
+  return n['a'] > 1;
+});
+
+[1, 2, 3, 4].randomize();
+
+[1,2,3,4].reduce(function(a, b) {
+  return a - b;
+});
+[1,2,3,4].reduce(function(a, b) {
+  return a - b;
+}, 100);
+
+[1,2,3,4].reduceRight(function(a, b) {
+  return a - b;
+});
+
+[1, 2, 3].remove(3);
+['a', 'b', 'c'].remove(/b/);
+[{a:1},{b:2}].remove(function(n) {
+  return n['a'] == 1;
+}); 
+
+[1, 2, 3].remove(3); 
+['a', 'b', 'c'].remove(/b/);
+[{a:1},{b:2}].remove(function(n) {
+  return n['a'] == 1;
+});
+
+['a', 'b', 'c'].removeAt(0);
+[1, 2, 3, 4].removeAt(1, 3);
+
+[1, 2, 3, 4, 5].sample();
+[1, 2, 3, 4, 5].sample(3);
+
+['a','b','c'].some(function(n) {
+  return n == 'a';
+});
+['a','b','c'].some(function(n) {
+  return n == 'd';
+});
+['a', 'b', 'c'].some('a');
+[{ a: 2 }, { b: 5 }].some({ a: 2 });
+
+['world', 'a', 'new'].sortBy('length');
+['world', 'a', 'new'].sortBy('length', true);
+[{age:72},{age:13},{age:18}].sortBy(function(n) {
+  return n.age;
+});
+
+[1, 3, 5].subtract([5, 7, 9]);  
+[1, 3, 5].subtract([3], [5]);  
+['a', 'b'].subtract('b', 'c');
+
+[1, 2, 2].sum();
+[{age:35},{age:12},{age:12}].sum(function(n) {
+  return n.age;
+});
+[{ age: 35 }, { age: 12 }, { age: 12 }].sum('age');
+
+[1, 2, 3].to(1);
+[1, 2, 3].to(2);
+
+[1, 3, 5].union([5, 7, 9]);  
+['a', 'b'].union(['b', 'c']);
+
+[1, 2, 2, 3].unique();
+[{ foo: 'bar' }, { foo: 'bar' }].unique();
+[{foo:'bar'},{foo:'bar'}].unique(function(obj){
+  return obj.foo;
+});
+[{ foo: 'bar' }, { foo: 'bar' }].unique('foo');
+
+[1, 2, 3].zip([4, 5, 6]);                                      
+['Martin', 'John'].zip(['Luther', 'F.'], ['King', 'Kennedy']);
+
+//#endregion

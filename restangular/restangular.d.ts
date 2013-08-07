@@ -8,9 +8,10 @@
 
 interface Restangular extends RestangularCustom {
     one(route: string, id?: number): RestangularElement;
+    one(route: string, id?: string): RestangularElement;
     all(route: string): RestangularCollection;
     copy(fromElement: any): RestangularElement;
-    withConfig(configurer: any): RestangularElement;
+    withConfig(configurer: any): Restangular;
 }
 
 interface RestangularElement extends Restangular {
@@ -31,6 +32,7 @@ interface RestangularElement extends Restangular {
     trace(queryParams?, headers?): ng.IPromise;
     options(queryParams?, headers?): ng.IPromise;
     patch(queryParams?, headers?): ng.IPromise;
+    getRestangularUrl(): string;
 }
 
 interface RestangularCollection extends Restangular {
@@ -41,6 +43,7 @@ interface RestangularCollection extends Restangular {
     options(queryParams?, headers?): ng.IPromise;
     patch(queryParams?, headers?): ng.IPromise;
     putElement(idx, params, headers): ng.IPromise;
+    getRestangularUrl(): string;
 }
 
 interface RestangularCustom {

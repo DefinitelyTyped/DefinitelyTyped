@@ -35,6 +35,11 @@ $('#myCollapsible').collapse({ toggle: false });
 $('.carousel').carousel();
 $('.carousel').carousel({ interval: 2000 });
 
-$('.typeahead').typeahead();
+$('.typeahead').typeahead({
+    matcher: item => true,
+    sorter: (items: any[]) => items,
+    updater: item => item,
+    highlighter: item => ""
+});
 
 $('#navbar').affix();
