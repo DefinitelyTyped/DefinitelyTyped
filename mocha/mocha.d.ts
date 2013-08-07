@@ -12,11 +12,11 @@ declare var describe : {
 
 declare var it: {
     (expectation: string, assertion?: () => void): void;
-    (expectation: string, assertion?: (done: (failReason?) => void) => void): void;
+    (expectation: string, assertion?: (done: (error?: Error) => void) => void): void;
     only(expectation: string, assertion?: () => void): void;
-	only(expectation: string, assertion?: (done: (failReason?) => void) => void): void;
+    only(expectation: string, assertion?: (done: (error?: Error) => void) => void): void;
     skip(expectation: string, assertion?: () => void): void;
-	skip(expectation: string, assertion?: (done: (failReason?) => void) => void): void;
+    skip(expectation: string, assertion?: (done: (error?: Error) => void) => void): void;
     timeout(ms: number);
 };
 
