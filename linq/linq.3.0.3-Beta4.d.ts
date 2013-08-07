@@ -115,11 +115,11 @@ declare module linqjs {
         elementAt(index: number): any;
         elementAtOrDefault(index: number, defaultValue?: any): any;
         first(predicate?: (element: any, index: number) => boolean): any;
-        firstOrDefault(predicate?: (element: any, index: number) => bool, defaultValue?: any): any;
+        firstOrDefault(predicate?: (element: any, index: number) => boolean, defaultValue?: any): any;
         last(predicate?: (element: any, index: number) => boolean): any;
-        lastOrDefault(predicate?: (element: any, index: number) => bool, defaultValue?: any): any;
+        lastOrDefault(predicate?: (element: any, index: number) => boolean, defaultValue?: any): any;
         single(predicate?: (element: any, index: number) => boolean): any;
-        singleOrDefault(predicate?: (element: any, index: number) => bool, defaultValue?: any): any;
+        singleOrDefault(predicate?: (element: any, index: number) => boolean, defaultValue?: any): any;
         skip(count: number): Enumerable;
         skipWhile(predicate: (element: any, index: number) => boolean): Enumerable;
         take(count: number): Enumerable;

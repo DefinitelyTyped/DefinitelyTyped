@@ -13,8 +13,8 @@
 declare module JQueryResults {
 
 	export interface eventBase{
-		bubbles: bool;
-		cancelable: bool;
+		bubbles: boolean;
+		cancelable: boolean;
 		type: string;
 		preventDefault(): void;
 		isDefaultPrevented(): boolean;

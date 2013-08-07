@@ -22,9 +22,9 @@ declare module Rx {
 	}
 
 	interface IObservable<T> {
-		ifThen(condition: () => bool, thenSource: IObservable<T>): IObservable<T>;
-		ifThen(condition: () => bool, thenSource: IObservable<T>, elseSource: IObservable<T>): IObservable<T>;
-		ifThen(condition: () => bool, thenSource: IObservable<T>, scheduler: IScheduler): IObservable<T>;
+		ifThen(condition: () => boolean, thenSource: IObservable<T>): IObservable<T>;
+		ifThen(condition: () => boolean, thenSource: IObservable<T>, elseSource: IObservable<T>): IObservable<T>;
+		ifThen(condition: () => boolean, thenSource: IObservable<T>, scheduler: IScheduler): IObservable<T>;
 
 		delay(dueTime: number, scheduler?: IScheduler): IObservable<T>;
 		throttle(dueTime: number, scheduler?: IScheduler): IObservable<T>;
