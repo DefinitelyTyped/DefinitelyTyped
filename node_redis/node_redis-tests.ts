@@ -1,6 +1,6 @@
 /// <reference path="node_redis.d.ts" />
 
-import redis = module('redis');
+import redis = require('redis');
 
 function test1() {
     var client = redis.createClient();

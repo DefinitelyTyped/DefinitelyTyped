@@ -6,7 +6,7 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module "browser-harness" {
-    import events = module("events");
+    import events = require("events");
 
     interface HarnessEvents extends events.NodeEventEmitter {
         once(event: string, listener: (driver: Driver) => void);

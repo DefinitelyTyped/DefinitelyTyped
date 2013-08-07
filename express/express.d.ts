@@ -5,7 +5,7 @@
 
 /* =================== USAGE =================== 
 
-    import express = module('express');
+    import express = require('express');
     var app = express();
 
  =============================================== */

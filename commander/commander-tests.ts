@@ -5,7 +5,7 @@
 // [the code below was extracted from the documentation and examples, but does not seem to cover all cases]
 // 
 
-import program = module("commander");
+import program = require("commander");
 
 program
   .version('0.0.1')
