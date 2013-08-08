@@ -100,7 +100,7 @@ declare module Ember {
 		without*/
     }
 
-    export interface NativeArray extends Array {
+    export interface NativeArray<T> extends Array<T> {
         activate();
     }
 
