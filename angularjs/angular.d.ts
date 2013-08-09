@@ -239,8 +239,8 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$timeout
     ///////////////////////////////////////////////////////////////////////////
     interface ITimeoutService {
-        (func: Function, delay?: number, invokeApply?: boolean): IPromise;
-        cancel(promise: IPromise): boolean;
+        (func: Function, delay?: number, invokeApply?: boolean): IPromise<any>;
+        cancel(promise: IPromise<any>): boolean;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -399,20 +399,20 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$q
     ///////////////////////////////////////////////////////////////////////////
     interface IQService {
-        all(promises: IPromise[]): IPromise;
-        defer(): IDeferred;
-        reject(reason?: any): IPromise;
-        when(value: any): IPromise;
+        all(promises: IPromise<any>[]): IPromise<any[]>;
+        defer<T>(): IDeferred<T>;
+        reject(reason?: any): IPromise<void>;
+        when<T>(value: T): IPromise<T>;
     }
 
-    interface IPromise {
-        then(successCallback: (promiseValue: any) => any, errorCallback?: (reason: any) => any): IPromise;
+    interface IPromise<T> {
+        then(successCallback: (promiseValue: T) => any, errorCallback?: (reason: any) => any): IPromise<any>;
     }
 
-    interface IDeferred {
-        resolve(value?: any): void;
+    interface IDeferred<T> {
+        resolve(value?: T): void;
         reject(reason?: any): void;
-        promise: IPromise;
+        promise: IPromise<T>;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -548,10 +548,10 @@ declare module ng {
         config?: IRequestConfig;
     }
 
-    interface IHttpPromise<T> extends IPromise {
+    interface IHttpPromise<T> extends IPromise<T> {
         success(callback: IHttpPromiseCallback<T>): IHttpPromise;
         error(callback: IHttpPromiseCallback<T>): IHttpPromise;
-        then(successCallback: (response: IHttpPromiseCallbackArg<T>) => any, errorCallback?: (response: IHttpPromiseCallbackArg<T>) => any): IPromise;
+        then(successCallback: (response: IHttpPromiseCallbackArg<T>) => any, errorCallback?: (response: IHttpPromiseCallbackArg<T>) => any): IPromise<any>;
     }
 
     interface IHttpProvider extends IServiceProvider {
