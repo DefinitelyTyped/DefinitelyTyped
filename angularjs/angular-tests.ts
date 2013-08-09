@@ -29,7 +29,7 @@ angular.module('http-auth-interceptor', [])
 
       this.$get = ['$rootScope', '$injector', <any>function ($rootScope: ng.IScope, $injector: ng.auto.IInjectorService) {
             var $http: ng.IHttpService; //initialized later because of circular dependency problem
-            function retry(config: ng.IRequestConfig, deferred: ng.IDeferred) {
+            function retry(config: ng.IRequestConfig, deferred: ng.IDeferred<any>) {
                 $http = $http || $injector.get('$http');
                 $http(config).then(function (response) {
                     deferred.resolve(response);
@@ -118,17 +118,17 @@ module HttpAndRegularPromiseTests {
                 $scope.person = response.data;
             });
 
-        var aPromise: ng.IPromise = $q.when({ firstName: "Jack", lastName: "Sparrow" });
+        var aPromise: ng.IPromise<Person> = $q.when({ firstName: "Jack", lastName: "Sparrow" });
         aPromise.then((person: Person) => {
             $scope.person = person;
         });
 
-        var bPromise: ng.IPromise = $q.when(42);
+        var bPromise: ng.IPromise<number> = $q.when(42);
         bPromise.then((answer: number) => {
             $scope.theAnswer = answer;
         });
 
-        var cPromise: ng.IPromise = $q.when(["a", "b", "c"]);
+        var cPromise: ng.IPromise<string[]> = $q.when(["a", "b", "c"]);
         cPromise.then((letters: string[]) => {
             $scope.letters = letters;
         });
