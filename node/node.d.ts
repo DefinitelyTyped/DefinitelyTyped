@@ -1035,8 +1035,6 @@ declare module "assert" {
         export function doesNotThrow(block: any, error?: any, messsage?: string): void;
         export function ifError(value: any): void;
     }
-	
-	export = internal;
 }
 
 declare module "tty" {
