@@ -60,10 +60,13 @@ declare module Rx {
 
 		dispose(): void;
 	}
-	export interface Disposable {
-		(action: () =>void ): IDisposable;
 
-		create(action: () =>void ): _IDisposable;
+	export interface Disposable {
+		new (action: () =>void ): IDisposable;
+	}
+
+	var Disposable: {
+		create(action: () => void): _IDisposable;
 		empty: _IDisposable;
 	}
 
@@ -141,12 +144,13 @@ declare module Rx {
 		scheduleRecursiveWithAbsolute(dueTime: number, action: (action: (dueTime: number) =>void ) =>void ): _IDisposable;
 		scheduleRecursiveWithAbsoluteAndState(state: any, dueTime: number, action: (state: any, action: (state: any, dueTime: number) =>void ) =>void ): _IDisposable;
 	}
-	export interface Scheduler {
-		(now: () =>number,
-			schedule: (state: any, action: (scheduler: IScheduler, state: any) =>_IDisposable) => _IDisposable,
-			scheduleRelative: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable) =>_IDisposable,
-			scheduleAbsolute: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable) =>_IDisposable
-			): IScheduler;
+
+	var Scheduler: {
+		//(now: () =>number,
+		//	schedule: (state: any, action: (scheduler: IScheduler, state: any) =>_IDisposable) => _IDisposable,
+		//	scheduleRelative: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable) =>_IDisposable,
+		//	scheduleAbsolute: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable) =>_IDisposable
+		//	): IScheduler;
 
 		now(): number;
 		normalize(timeSpan: number): number;
