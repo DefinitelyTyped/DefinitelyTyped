@@ -29,7 +29,7 @@ declare module jasmine {
     var Clock: Clock;
 
     function any(aclass: any);
-    function createSpy(name: string): Spy;
+    function createSpy(name: string, originalFn: Function): Spy;
     function createSpyObj(baseName: string, methodNames: any[]): any;
     function pp(value: any): string;
     function getEnv(): Env;
