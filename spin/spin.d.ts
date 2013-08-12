@@ -1,6 +1,6 @@
 // Type definitions for Spin.js 1.3
 // Project: http://fgnass.github.com/spin.js/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/> and Theodore Brown <https://github.com/theodorejb/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -25,9 +25,22 @@ interface SpinnerOptions {
 
 
 declare class Spinner {
-    constructor (options?: SpinnerOptions);
-    spin(target?: any);
-    stop();
+    /** The Spinner's HTML element - can be used to manually insert the spinner into the DOM  */
+    public el: HTMLElement;
+    constructor(options?: SpinnerOptions);
+
+    /**
+     * Adds the spinner to the given target element. If this instance is already
+     * spinning, it is automatically removed from its previous target by calling
+     * stop() internally.
+     */
+    spin(target?: any): Spinner;
+
+    /**
+     * Stops and removes the Spinner.
+     * Stopped spinners may be reused by calling spin() again.
+     */
+    stop(): Spinner;
     lines(el, o);
     opacity(el, i, val);
 }
