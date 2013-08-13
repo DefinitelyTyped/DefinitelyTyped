@@ -1,22 +1,23 @@
-// Type definitions for Breeze 1.2.6
+// Type definitions for Breeze 1.4.1
 // Project: http://www.breezejs.com/
 // Definitions by: IdeaBlade <https://github.com/IdeaBlade/Breeze/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped  
 
 /// <reference path="breeze.d.ts" />
 
-import breeze = module(Breeze);
-import core = module(BreezeCore);
+import core = breeze.core;
+import config = breeze.config;
+
 
 function test_dataType() {
     var typ = breeze.DataType.DateTime;
     var nm = typ.getName();
-    var isNumber = typ.isNumeric;
     var dv = typ.defaultValue;
     var symbs = breeze.DataType.getSymbols();
-    var x = typ.parentEnum === <BreezeCore.IEnum> breeze.DataType;
+    var x = typ.parentEnum === <breeze.core.IEnum> breeze.DataType;
     var isFalse = breeze.DataType.contains(breeze.DataType.Double);
     var dt = breeze.DataType.fromName("Decimal");
+    
 }
 
 function test_dataProperty() {
@@ -27,17 +28,18 @@ function test_dataProperty() {
         maxLength: 20
     });
     var personEntityType: breeze.EntityType;
-    personEntityType.addProperty(lastNameProp);   
+    personEntityType.addProperty(lastNameProp);
 }
 
 function test_dataService() {
     var ds = new breeze.DataService({
-        serviceName: "api/NorthwindIBModel",
+        serviceName: "breeze/NorthwindIBModel",
         hasServerMetadata: true
     });
     var em = new breeze.EntityManager({
         dataService: ds
     });
+    
 }
 
 function test_entityAspect() {
@@ -94,7 +96,7 @@ function test_entityKey() {
 function test_metadataStore() {
     var ms = new breeze.MetadataStore();
     var entityManager = new breeze.EntityManager({
-        serviceName: "api/NorthwindIBModel",
+        serviceName: "breeze/NorthwindIBModel",
         metadataStore: ms
     });
     var em1: breeze.EntityManager;
@@ -105,13 +107,13 @@ function test_metadataStore() {
     var newMetadataStore = new breeze.MetadataStore();
     newMetadataStore.importMetadata(metadataFromStorage);
     var ms = new breeze.MetadataStore();
-    ms.fetchMetadata("api/NorthwindIBModel")
+    ms.fetchMetadata("breeze/NorthwindIBModel")
         .then(function (rawMetadata) { })
         .fail(function (exception) { });
     var odType = em1.metadataStore.getEntityType("OrderDetail");
     var badType = em1.metadataStore.getEntityType("Foo", false);
     var allTypes = em1.metadataStore.getEntityTypes();
-    if (!em1.metadataStore.hasMetadataFor("api/NorthwindIBModel")) { }
+    if (!em1.metadataStore.hasMetadataFor("breeze/NorthwindIBModel")) { }
     var metadataAsString = ms.exportMetadata();
     window.localStorage.setItem("metadata", metadataAsString);
     var metadataFromStorage = window.localStorage.getItem("metadata");
@@ -129,13 +131,14 @@ function test_metadataStore() {
 }
 
 function test_entityManager() {
-    var entityManager = new breeze.EntityManager("api/NorthwindIBModel");
-    var entityManager = new breeze.EntityManager({ serviceName: "api/NorthwindIBModel" });
+    var entityManager = new breeze.EntityManager("breeze/NorthwindIBModel");
+    var em1 = new breeze.EntityManager({ serviceName: "breeze/NorthwindIBModel" });
     var metadataStore = new breeze.MetadataStore();
     var entityManager = new breeze.EntityManager({
-        serviceName: "api/NorthwindIBModel",
+        serviceName: "breeze/NorthwindIBModel",
         metadataStore: metadataStore
     });
+    
     return new breeze.QueryOptions({
         mergeStrategy: null,
         fetchStrategy: this.fetchStrategy
@@ -150,13 +153,17 @@ function test_entityManager() {
         validateOnQuery: false
     });
     var entityManager = new breeze.EntityManager({
-        serviceName: "api/NorthwindIBModel",
+        serviceName: "breeze/NorthwindIBModel",
         queryOptions: queryOptions,
         validationOptions: validationOptions
     });
     var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
     var cust1 = custType.createEntity();
     em1.addEntity(cust1);
+
+    var cust2 = em1.createEntity("Customer", { companyName: "foo" });
+    var cust3 = em1.createEntity("foo", { xxx: 3 }, breeze.EntityState.Added);
+    
     em1.attachEntity(cust1, breeze.EntityState.Added);
     em1.clear();
     var em2 = em1.createEmptyCopy();
@@ -205,7 +212,7 @@ function test_entityManager() {
     var entitiesToExport: breeze.Entity[];
     var bundle = em1.exportEntities(entitiesToExport);
     em2.importEntities(bundle, { mergeStrategy: breeze.MergeStrategy.PreserveChanges });
-    var em1 = new breeze.EntityManager("api/NorthwindIBModel");
+    var em1 = new breeze.EntityManager("breeze/NorthwindIBModel");
     em1.fetchMetadata()
        .then(function () {
            var metadataStore = em1.metadataStore;
@@ -222,7 +229,7 @@ function test_entityManager() {
     var customerId = em.generateTempKeyValue(custumer);
     em1.saveChanges()
         .then(function (data) {
-            var sameCust1 = data.results[0];
+            var sameCust1 = data.entities[0];
         });
     var changedEntities = em1.getChanges();
     var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
@@ -244,7 +251,8 @@ function test_entityManager() {
     if (em1.hasChanges(custType)) { }
     var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
     var orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
-    if (em1.hasChanges([custType, orderType])) { }
+    if (em1.hasChanges([custType, orderType])) { };
+    
     var bundle = em1.exportEntities();
     window.localStorage.setItem("myEntityManager", bundle);
     var bundleFromStorage = window.localStorage.getItem("myEntityManager");
@@ -276,16 +284,16 @@ function test_entityManager() {
         }, function (e) { }
     );
     em1.setProperties({
-        serviceName: "api/foo",
+        serviceName: "breeze/foo",
     });
-    var em = new breeze.EntityManager({ serviceName: "api/NorthwindIBModel" });
+    var em = new breeze.EntityManager({ serviceName: "breeze/NorthwindIBModel" });
     em.entityChanged.subscribe(function (changeArgs) {
         var action = changeArgs.entityAction;
         var entity = changeArgs.entity;
     });
-    var em = new breeze.EntityManager({ serviceName: "api/NorthwindIBModel" });
+    var em = new breeze.EntityManager({ serviceName: "breeze/NorthwindIBModel" });
     em.hasChangesChanged.subscribe(function (args) {
-        var hasChangesChanged = args.hasChanges;
+        var hasChanges = args.hasChanges;
         var entityManager = args.entityManager;
     });
 }
@@ -382,6 +390,8 @@ function test_entityQuery() {
     var em = new breeze.EntityManager(serviceName);
     var query = new breeze.EntityQuery("Orders")
         .using(breeze.FetchStrategy.FromLocalCache);
+    var adapter = new breeze.JsonResultsAdapter({ name: "foo", visitNode: function (x) { return x; } });
+    var q2 = query.using(adapter);
     var query = new breeze.EntityQuery("Customers")
         .where("CompanyName", "startsWith", "C");
     var query = new breeze.EntityQuery("Customers")
@@ -398,6 +408,7 @@ function test_entityQuery() {
         .where("toLower(CompanyName)", "startsWith", "c");
     var query = new breeze.EntityQuery("Customers")
         .where("toUpper(substring(CompanyName, 1, 2))", breeze.FilterQueryOp.Equals, "OM");
+    var q2 = query.toType("foo").orderBy("foo2");
 }
 
 function test_entityState() {
@@ -433,7 +444,7 @@ function test_entityType() {
     var em1: breeze.EntityManager;
     var entityManager = new breeze.EntityType({
         metadataStore: myMetadataStore,
-        serviceName: "api/NorthwindIBModel",
+        serviceName: "breeze/NorthwindIBModel",
         name: "person",
         namespace: "myAppNamespace"
     });
@@ -476,50 +487,50 @@ function test_entityType() {
 }
 
 //function test_enum() {
-//    var prototype = {
-//        nextDay: function () {
-//            var nextIndex = (this.dayIndex + 1) % 7;
-//            return DayOfWeek.getSymbols()[nextIndex];
-//        }
-//    };
-//    var DayOfWeek = new core.Enum("DayOfWeek", prototype);
-//    DayOfWeek.Monday = DayOfWeek.addSymbol({ dayIndex: 0 });
-//    var symbol = DayOfWeek.Friday;
-//    if (DayOfWeek.contains(symbol)) { }
-//    var dayOfWeek = DayOfWeek.from("Thursday");
-//    var symbols = DayOfWeek.getNames();
-//    var symbols = DayOfWeek.getSymbols();
-//    if (core.Enum.isSymbol(DayOfWeek.Wednesday)) { };
-//    DayOfWeek.seal();
-//    var name = DayOfWeek.Monday.getName();
-//    var name = DayOfWeek.Monday.toString();
+// var prototype = {
+// nextDay: function () {
+// var nextIndex = (this.dayIndex + 1) % 7;
+// return DayOfWeek.getSymbols()[nextIndex];
+// }
+// };
+// var DayOfWeek = new core.Enum("DayOfWeek", prototype);
+// DayOfWeek.Monday = DayOfWeek.addSymbol({ dayIndex: 0 });
+// var symbol = DayOfWeek.Friday;
+// if (DayOfWeek.contains(symbol)) { }
+// var dayOfWeek = DayOfWeek.from("Thursday");
+// var symbols = DayOfWeek.getNames();
+// var symbols = DayOfWeek.getSymbols();
+// if (core.Enum.isSymbol(DayOfWeek.Wednesday)) { };
+// DayOfWeek.seal();
+// var name = DayOfWeek.Monday.getName();
+// var name = DayOfWeek.Monday.toString();
 
 
-//    var prototype = {
-//        nextDay: function () {
-//            var nextIndex = (this.dayIndex + 1) % 7;
-//            return DayOfWeek.getSymbols()[nextIndex];
-//        }
-//    };
-//    var DayOfWeek = new core.Enum("DayOfWeek", prototype);
-//    DayOfWeek.Monday = DayOfWeek.addSymbol({ dayIndex: 0 });
-//    DayOfWeek.Tuesday = DayOfWeek.addSymbol({ dayIndex: 1 });
-//    DayOfWeek.Wednesday = DayOfWeek.addSymbol({ dayIndex: 2 });
-//    DayOfWeek.Thursday = DayOfWeek.addSymbol({ dayIndex: 3 });
-//    DayOfWeek.Friday = DayOfWeek.addSymbol({ dayIndex: 4 });
-//    DayOfWeek.Saturday = DayOfWeek.addSymbol({ dayIndex: 5, isWeekend: true });
-//    DayOfWeek.Sunday = DayOfWeek.addSymbol({ dayIndex: 6, isWeekend: true });
-//    DayOfWeek.seal();
-//    DayOfWeek.Monday.nextDay() === DayOfWeek.Tuesday;
-//    DayOfWeek.Sunday.nextDay() === DayOfWeek.Monday;
-//    DayOfWeek.Tuesday.isWeekend === undefined;
-//    DayOfWeek.Saturday.isWeekend == true;
-//    DayOfWeek instanceof core.Enum;
-//    core.Enum.isSymbol(DayOfWeek.Wednesday);
-//    DayOfWeek.contains(DayOfWeek.Thursday);
-//    DayOfWeek.Tuesday.parentEnum == DayOfWeek;
-//    DayOfWeek.getSymbols().length === 7;
-//    DayOfWeek.Friday.toString() === "Friday";
+// var prototype = {
+// nextDay: function () {
+// var nextIndex = (this.dayIndex + 1) % 7;
+// return DayOfWeek.getSymbols()[nextIndex];
+// }
+// };
+// var DayOfWeek = new core.Enum("DayOfWeek", prototype);
+// DayOfWeek.Monday = DayOfWeek.addSymbol({ dayIndex: 0 });
+// DayOfWeek.Tuesday = DayOfWeek.addSymbol({ dayIndex: 1 });
+// DayOfWeek.Wednesday = DayOfWeek.addSymbol({ dayIndex: 2 });
+// DayOfWeek.Thursday = DayOfWeek.addSymbol({ dayIndex: 3 });
+// DayOfWeek.Friday = DayOfWeek.addSymbol({ dayIndex: 4 });
+// DayOfWeek.Saturday = DayOfWeek.addSymbol({ dayIndex: 5, isWeekend: true });
+// DayOfWeek.Sunday = DayOfWeek.addSymbol({ dayIndex: 6, isWeekend: true });
+// DayOfWeek.seal();
+// DayOfWeek.Monday.nextDay() === DayOfWeek.Tuesday;
+// DayOfWeek.Sunday.nextDay() === DayOfWeek.Monday;
+// DayOfWeek.Tuesday.isWeekend === undefined;
+// DayOfWeek.Saturday.isWeekend == true;
+// DayOfWeek instanceof core.Enum;
+// core.Enum.isSymbol(DayOfWeek.Wednesday);
+// DayOfWeek.contains(DayOfWeek.Thursday);
+// DayOfWeek.Tuesday.parentEnum == DayOfWeek;
+// DayOfWeek.getSymbols().length === 7;
+// DayOfWeek.Friday.toString() === "Friday";
 //}
 
 function test_event() {
@@ -733,38 +744,38 @@ function test_validator() {
     var orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
     var freightProperty = orderType.getProperty("Freight");
     regionProperty.validators.push(breeze.Validator.byte());
-    var orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
+    orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
     var orderDateProperty = orderType.getProperty("OrderDate");
     orderDateProperty.validators.push(breeze.Validator.date());
     var v0 = breeze.Validator.maxLength({ maxLength: 5, displayName: "City" });
     v0.validate("adasdfasdf");
     var errMessage = v0.getMessage();
-    var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
+    custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
     var customerIdProperty = custType.getProperty("CustomerID");
     customerIdProperty.validators.push(breeze.Validator.guid());
-    var orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
-    var freightProperty = orderType.getProperty("Freight");
+    orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
+    freightProperty = orderType.getProperty("Freight");
     freightProperty.validators.push(breeze.Validator.int16());
-    var orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
-    var freightProperty = orderType.getProperty("Freight");
+    orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
+    freightProperty = orderType.getProperty("Freight");
     freightProperty.validators.push(breeze.Validator.int32());
-    var orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
-    var freightProperty = orderType.getProperty("Freight");
+    orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
+    freightProperty = orderType.getProperty("Freight");
     freightProperty.validators.push(breeze.Validator.int64());
-    var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
+    custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
     var regionProperty = custType.getProperty("Region");
     regionProperty.validators.push(breeze.Validator.maxLength({ maxLength: 5 }));
-    var orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
-    var freightProperty = orderType.getProperty("Freight");
+    orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
+    freightProperty = orderType.getProperty("Freight");
     freightProperty.validators.push(breeze.Validator.number());
-    var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
-    var regionProperty = custType.getProperty("Region");
+    custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
+    regionProperty = custType.getProperty("Region");
     regionProperty.validators.push(breeze.Validator.required());
-    var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
-    var regionProperty = custType.getProperty("Region");
+    custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
+    regionProperty = custType.getProperty("Region");
     regionProperty.validators.push(breeze.Validator.string());
-    var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
-    var regionProperty = custType.getProperty("Region");
+    custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
+     regionProperty = custType.getProperty("Region");
     regionProperty.validators.push(breeze.Validator.stringLength({ minLength: 2, maxLength: 5 }));
     var validator = breeze.Validator.maxLength({ maxLength: 5, displayName: "City" });
     var result = validator.validate("asdf");
@@ -775,18 +786,91 @@ function test_validator() {
     var sameValidator = result.validator;
     var valFn = function (v) {
         if (v == null) return true;
-        return (v.substr(0,2) ===  "US");
+        return (v.substr(0,2) === "US");
     };
     var countryValidator = new breeze.Validator("countryIsUS", valFn, { displayName: "Country" });
     breeze.Validator.messageTemplates["countryIsUS"] = "'%displayName%' must start with 'US'";
+
+    breeze.Validator.register(countryValidator);
+    breeze.Validator.registerFactory(() => countryValidator, "country");
 }
 
 function test_demo() {
 
-    var manager = new breeze.EntityManager('api/northwind');
+    var manager = new breeze.EntityManager('breeze/northwind');
 
     var query = new breeze.EntityQuery()
         .from("Employees");
 
     manager.executeQuery(query).then(function (data) { });
+}
+
+function test_corefns() {
+    var o1: Object;
+    var kvfn = function (p) { return p; }
+    core.objectForEach(o1, kvfn);
+
+    var o2: Object;
+    var o3: Object;
+    o3 = core.extend(o1, o2);
+
+    var f1: Function;
+    var f2: Function;
+    f1 = core.propEq("name", "Joe");
+    f1 = core.pluck("name");
+
+    var a1: Array;
+    var a2: Array;
+    var a3: Array;
+    var b: boolean;
+    var n: number;
+
+    var f3 = function (e1: any, e2: any) { return e1 == e2; };
+    var f4 = function (e1: any) { return false; };
+    b = core.arrayEquals(a1, a2, f3);
+    b = core.arrayFirst(a1, f4);
+    n = core.arrayIndexOf(a1, f4);
+    b = core.arrayRemoveItem(a1, "whatever", false);
+    a3 = core.arrayZip(a1, a2, f3);
+
+    var f5 = function () { return false; };
+    o1 = core.requireLib("libc,stdio", "Library not found");
+    o1 = core.using(o2, "something", "x", f5);
+    f2 = core.memoize(f4);
+    var s: string;
+    s = core.getUuid();
+    n = core.durationToSeconds(s);
+
+    b = core.isDate(s);
+    b = core.isGuid(s);
+    b = core.isDuration(s);
+    b = core.isFunction(s);
+    b = core.isEmpty(s);
+    b = core.isNumeric(s);
+
+    b = core.stringStartsWith(s, "pre");
+    b = core.stringEndsWith(s, "suf");
+    s = core.formatString("My %1 is full of %2", "hovercraft", "eels");
+
+}
+
+function test_config() {
+    var s: string;
+    s = config.ajax;
+    s = config.dataService;
+    var o: Object;
+    o = config.functionRegistry;
+    o = config.getAdapter("myInterfaceName", "myAdapterName");
+    o = config.getAdapterInstance("myInterfaceName", "myAdapterName");
+    config.initializeAdapterInstance("myInterfaceName", "myAdapterName", true);
+    config.initializeAdapterInstances({ x: 3, y: "not" });
+    s = config.interfaceInitialized.type;
+    o = config.interfaceRegistry;
+    o = config.objectRegistry;
+    config.registerAdapter("myAdapterName");
+    var f1: Function;
+    config.registerFunction(f1, "myFunction");
+    config.registerType(f1, "myCtor");
+    s = config.stringifyPad;
+    o = config.typeRegistry;
 }
