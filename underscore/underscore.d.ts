@@ -860,7 +860,7 @@ declare module _ {
 	**/
 	export function memoize(
 		fn: Function,
-		hashFn?: (n: any) => string): Function;
+		hashFn?: (...n: any[]) => string): Function;
 
 	/**
 	* Much like setTimeout, invokes function after wait milliseconds. If you pass the optional arguments,
@@ -1778,7 +1778,7 @@ declare class _<T> {
 	* Wrapped type `Function`.
 	* @see _.memoize
 	**/
-	memoize(hashFn?: (n: any) => string): Function;
+	memoize(hashFn?: (...n: any[]) => string): Function;
 
 	/**
 	* Wrapped type `Function`.
@@ -2544,7 +2544,7 @@ interface _Chain<T> {
 	* Wrapped type `Function`.
 	* @see _.memoize
 	**/
-	memoize(hashFn?: (n: any) => string): _Chain;
+	memoize(hashFn?: (...n: any[]) => string): _Chain;
 
 	/**
 	* Wrapped type `Function`.
