@@ -1555,6 +1555,16 @@ declare module D3 {
                 (...arguments: any[]): Axis;
             };
 
+            tickPadding: {
+                (): number;
+                (padding: number): Axis;
+            };
+
+            tickValues: {
+                (): any[];
+                (values: any[]): Axis;
+            };
+
             tickSubdivide(count: number): Axis;
             tickSize(major?: number, minor?: number, end?: number): Axis;
             tickFormat(formatter: (value: any) => string): Axis;
