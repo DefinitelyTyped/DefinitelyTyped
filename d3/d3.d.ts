@@ -505,6 +505,8 @@ declare module D3 {
             flush(): void;
         }
         transition(): Transition.Transition;
+
+        round(x: number, n: number): number;
     }
 
     export interface Dispatch {
