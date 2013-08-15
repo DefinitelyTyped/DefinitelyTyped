@@ -1898,12 +1898,20 @@ declare module L {
 
     }
 
+    interface IconDefaults {
+      imagePath: string;
+    }
+
     export class Icon {
         /**
           * Creates an icon instance with the given options.
           */
         constructor(options: IconOptions);
 
+        /**
+          * Defaults properties for newly constructed icons
+          */
+        public static Default : IconDefaults;
     }
 
     export interface DivIconOptions {
