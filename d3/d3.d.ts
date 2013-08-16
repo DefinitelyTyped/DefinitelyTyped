@@ -1126,41 +1126,41 @@ declare module D3 {
             };
             linkDistance: {
                 (): number;
-                (number): ForceLayout;
+                (number:number): ForceLayout;
                 (accessor: (d: any, index: number) => number): ForceLayout;
             };
             linkStrength:
             {
                 (): number;
-                (number): ForceLayout;
+                (number:number): ForceLayout;
                 (accessor: (d: any, index: number) => number): ForceLayout;
             };
             friction:
             {
                 (): number;
-                (number): ForceLayout;
+                (number:number): ForceLayout;
                 (accessor: (d: any, index: number) => number): ForceLayout;
             };
             alpha: {
                 (): number;
-                (number): ForceLayout;
+                (number:number): ForceLayout;
                 (accessor: (d: any, index: number) => number): ForceLayout;
             };
             charge: {
                 (): number;
-                (number): ForceLayout;
+                (number:number): ForceLayout;
                 (accessor: (d: any, index: number) => number): ForceLayout;
             };
 
             theta: {
                 (): number;
-                (number): ForceLayout;
+                (number:number): ForceLayout;
                 (accessor: (d: any, index: number) => number): ForceLayout;
             };
 
             gravity: {
                 (): number;
-                (number): ForceLayout;
+                (number:number): ForceLayout;
                 (accessor: (d: any, index: number) => number): ForceLayout;
             };
 
@@ -1465,8 +1465,8 @@ declare module D3 {
         }
 
         export interface Symbol {
-            type: (string) => Symbol;
-            size: (number) => Symbol;
+            type: (string:string) => Symbol;
+            size: (number:number) => Symbol;
         }
 
         export interface Brush {
@@ -2917,15 +2917,15 @@ declare module D3 {
             /**
             * Computes the projected area
             */
-            area(feature: any);
+            area(feature: any): any;
             /**
             * Computes the projected centroid
             */
-            centroid(feature: any);
+            centroid(feature: any): any;
             /**
             * Computes the projected bounding box
             */
-            bounds(feature: any);
+            bounds(feature: any): any;
             /**
             * get or set the radius to display point features.
             */
