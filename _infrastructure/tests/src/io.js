@@ -1,5 +1,20 @@
-﻿var IOUtils;
+﻿//
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//   http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+var IOUtils;
 (function (IOUtils) {
+    // Creates the directory including its parent if not already present
     function createDirectoryStructure(ioHost, dirName) {
         if (ioHost.directoryExists(dirName)) {
             return;
@@ -12,6 +27,7 @@
         ioHost.createDirectory(dirName);
     }
 
+    // Creates a file including its directory structure if not already present
     function createFileAndFolderStructure(ioHost, fileName, useUTF8) {
         var path = ioHost.resolvePath(fileName);
         var dirName = ioHost.dirName(path);
@@ -31,6 +47,8 @@
 })(IOUtils || (IOUtils = {}));
 
 var IO = (function () {
+    // Create an IO object for use inside WindowsScriptHost hosts
+    // Depends on WSCript and FileSystemObject
     function getWindowsScriptHostIO() {
         var fso = new ActiveXObject("Scripting.FileSystemObject");
         var streamObjectPool = [];
@@ -68,6 +86,7 @@ var IO = (function () {
                         streamObj.Charset = 'utf-8';
                     }
 
+                    // Read the whole file
                     var str = streamObj.ReadText(-1);
                     streamObj.Close();
                     releaseStreamObject(streamObj);
@@ -99,6 +118,7 @@ var IO = (function () {
                             var content = this.readFile(path);
                             return { content: content, path: path };
                         } catch (err) {
+                            //Tools.CompilerDiagnostics.debugPrint("Could not find " + path + ", trying parent");
                         }
                     } else {
                         rootPath = fso.GetParentFolderName(fso.GetAbsolutePathName(rootPath));
@@ -222,6 +242,8 @@ var IO = (function () {
     }
     ;
 
+    // Create an IO object for use inside Node.js hosts
+    // Depends on 'fs' and 'path' modules
     function getNodeIO() {
         var _fs = require('fs');
         var _path = require('path');
@@ -234,6 +256,8 @@ var IO = (function () {
                     switch (buffer[0]) {
                         case 0xFE:
                             if (buffer[1] == 0xFF) {
+                                // utf16-be. Reading the buffer as big endian is not supported, so convert it to
+                                // Little Endian first
                                 var i = 0;
                                 while ((i + 1) < buffer.length) {
                                     var temp = buffer[i];
@@ -246,15 +270,18 @@ var IO = (function () {
                             break;
                         case 0xFF:
                             if (buffer[1] == 0xFE) {
+                                // utf16-le
                                 return buffer.toString("ucs2", 2);
                             }
                             break;
                         case 0xEF:
                             if (buffer[1] == 0xBB) {
+                                // utf-8
                                 return buffer.toString("utf8", 3);
                             }
                     }
 
+                    // Default behaviour
                     return buffer.toString();
                 } catch (e) {
                     IOUtils.throwIOError("Error reading file \"" + file + "\".", e);
@@ -354,6 +381,7 @@ var IO = (function () {
                             var content = this.readFile(path);
                             return { content: content, path: path };
                         } catch (err) {
+                            //Tools.CompilerDiagnostics.debugPrint(("Could not find " + path) + ", trying parent");
                         }
                     } else {
                         var parentPath = _path.resolve(rootPath, "..");
@@ -439,7 +467,9 @@ var IO = (function () {
     ;
 
     if (typeof ActiveXObject === "function")
-        return getWindowsScriptHostIO(); else if (typeof require === "function")
-        return getNodeIO(); else
+        return getWindowsScriptHostIO();
+else if (typeof require === "function")
+        return getNodeIO();
+else
         return null;
 })();
