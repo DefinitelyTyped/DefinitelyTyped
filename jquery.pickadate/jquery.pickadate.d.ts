@@ -1,11 +1,28 @@
-﻿// Type definitions for pickadate.js 3.0.5
+﻿// Type definitions for pickadate.js 3.2.0
 // Project: https://github.com/amsul/pickadate.js
 // Definitions by: Theodore Brown <https://github.com/theodorejb/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path="../jquery/jquery.d.ts" />
 
-interface pickadateOptions {
+/** Options shared between date and time pickers */
+interface pickerOptions {
+    /** Set clear button text */
+    clear?: string; // default 'Clear'
+
+    /** Specify where to insert the picker's root element by passing any valid CSS selector to this option */
+    container?: any;
+
+    // Events
+    onStart?: (event: any) => void;
+    onRender?: (event: any) => void;
+    onOpen?: (event: any) => void;
+    onClose?: (event: any) => void;
+    onSet?: (event: any) => void;
+    onStop?: (event: any) => void;
+}
+
+interface pickadateOptions extends pickerOptions {
     // Strings and translations
     monthsFull?: string[]; // default 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
     monthsShort?: string[]; // default 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
@@ -16,7 +33,6 @@ interface pickadateOptions {
 
     // Buttons
     today?: string; // default 'Today'
-    clear?: string; // default 'Clear'
 
     // Formats
     format?: string; // default 'd mmmm, yyyy'
@@ -36,14 +52,6 @@ interface pickadateOptions {
 
     // Disable dates
     disable?: any[]; // arrays formatted as [YEAR,MONTH,DATE] or integers representing days of the week (from 1 to 7). Switch to whitelist by setting first item in collection to `true`.
-
-    // Events
-    onStart?: (event: any) => void;
-    onRender?: (event: any) => void;
-    onOpen?: (event: any) => void;
-    onClose?: (event: any) => void;
-    onSet?: (event: any) => void;
-    onStop?: (event: any) => void;
 
     // Classes
     klass?: {
@@ -105,9 +113,7 @@ interface pickadateOptions {
     }
 }
 
-interface pickatimeOptions {
-    // Translations and clear button
-    clear?: string; // default 'Clear'
+interface pickatimeOptions extends pickerOptions {
 
     // Formats
     format?: string; // default 'h:i A'
@@ -124,14 +130,6 @@ interface pickatimeOptions {
 
     // Disable times
     disable?: any[]; // arrays formatted as [HOUR,MINUTE] or integers representing hours (from 0 to 23). Switch to whitelist by setting true as the first item in the collection.
-
-    // Events
-    onStart?: (event: any) => void;
-    onRender?: (event: any) => void;
-    onOpen?: (event: any) => void;
-    onClose?: (event: any) => void;
-    onSet?: (event: any) => void;
-    onStop?: (event: any) => void;
 
     // Classes
     klass?: {
@@ -241,8 +239,13 @@ interface DatePickerObject extends PickerObject {
     /** Destroy the picker. */
     stop(): DatePickerObject;
 
-    /** Refresh the picker after adding something to the holder. */
-    render(): DatePickerObject;
+    /**
+    * Refresh the picker box after adding something to the holder.
+    * By default, only the "face" of the picker (i.e. the box element)
+    * has it’s contents re-rendered. To render the entire picker from 
+    * the root up, pass true as the first argument.
+    */
+    render(entirePicker?: boolean): DatePickerObject;
 
     /** Clear the value in the picker's input element. */
     clear(): DatePickerObject;
@@ -307,8 +310,13 @@ interface TimePickerObject extends PickerObject {
     /** Destroy the picker. */
     stop(): TimePickerObject;
 
-    /** Refresh the picker after adding something to the holder. */
-    render(): TimePickerObject;
+    /**
+    * Refresh the picker box after adding something to the holder.
+    * By default, only the "face" of the picker (i.e. the box element)
+    * has it’s contents re-rendered. To render the entire picker from 
+    * the root up, pass true as the first argument.
+    */
+    render(entirePicker?: boolean): TimePickerObject;
 
     /** Clear the value in the picker's input element. */
     clear(): TimePickerObject;
