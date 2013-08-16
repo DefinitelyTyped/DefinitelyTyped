@@ -537,7 +537,7 @@ var DefinitelyTyped;
             function Tsc() {
             }
             Tsc.run = function (tsfile, callback) {
-                Exec.exec('node ./_infrastructure/tests/typescript/tsc.js ', [tsfile], function (ExecResult) {
+                Exec.exec('node ./_infrastructure/tests/typescript/tsc.js --module commonjs ', [tsfile], function (ExecResult) {
                     callback(ExecResult);
                 });
             };
