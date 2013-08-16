@@ -250,6 +250,9 @@ interface DatePickerObject extends PickerObject {
     /** Clear the value in the picker's input element. */
     clear(): DatePickerObject;
 
+    /** Short for picker.get('value') */
+    get(): string;
+
     /** Get the properties, objects, and states that make up the current state of the picker. */
     get(thing: string): any;
 
@@ -321,6 +324,9 @@ interface TimePickerObject extends PickerObject {
     /** Clear the value in the picker's input element. */
     clear(): TimePickerObject;
 
+    /** Short for picker.get('value') */
+    get(): string;
+
     /** Get the properties, objects, and states that make up the current state of the picker. */
     get(thing: string): any;
 
@@ -379,5 +385,4 @@ interface JQuery {
 interface HTMLInputElement {
     pickadate(picker: string): DatePickerObject;
     pickatime(picker: string): TimePickerObject;
-
 }
