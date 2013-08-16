@@ -100,6 +100,10 @@ $('.datepicker').pickadate({
 });
 
 $('.datepicker').pickadate({
+    container: '#root-outlet'
+});
+
+$('.datepicker').pickadate({
     onStart: function () {
         console.log('Hello there :)')
     },
@@ -187,6 +191,10 @@ $('.timepicker').pickatime({
         [8, 30],
         [9, 0]
     ]
+});
+
+$('.timepicker').pickatime({
+    container: '#root-outlet'
 });
 
 $('.timepicker').pickatime({
