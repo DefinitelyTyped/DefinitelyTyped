@@ -40,7 +40,7 @@ interface SocketNamespace {
 	json: any;
 	volatile: any;
 	in(room: string): SocketNamespace;
-	on(evt: string, fn: Function): SocketNamespace;
+	on(evt: string, fn: (socket: Socket) => void): SocketNamespace;
 	to(room: string): SocketNamespace;
 	except(id: any): SocketNamespace;
 	send(data: any): any;
