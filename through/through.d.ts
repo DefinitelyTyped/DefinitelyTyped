@@ -8,7 +8,7 @@
 declare module "through" {
 	import Stream = require("stream");
 
-	function through(write: (data) => void,
+	function through(write?: (data) => void,
 		end?: () => void,
 		opts?: {
 			autoDestroy: boolean;
