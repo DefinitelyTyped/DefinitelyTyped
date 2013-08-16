@@ -36,7 +36,7 @@ declare module ng {
         element: JQueryStatic;
         equals(value1: any, value2: any): boolean;
         extend(destination: any, ...sources: any[]): any;
-        forEach(obj: any, iterator: (value, key) => any, context?: any): any;
+        forEach(obj: any, iterator: (value: any, key: any) => any, context?: any): any;
         fromJson(json: string): any;
         identity(arg?: any): any;
         injector(modules?: any[]): auto.IInjectorService;
