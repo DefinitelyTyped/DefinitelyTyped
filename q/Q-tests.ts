@@ -91,3 +91,18 @@ Q.fbind((dateString) => new Date(dateString), "11/11/1991")().then(d => d.toLoca
 
 Q.when(8, num => num + "!");
 Q.when(Q(8), num => num + "!").then(str => str.split(','));
+
+declare function saveToDisk(): Q.Promise<any>;
+declare function saveToCloud(): Q.Promise<any>;
+Q.allSettled([saveToDisk(), saveToCloud()]).spread(function (disk, cloud) {
+    console.log("saved to disk:", disk.state === "fulfilled");
+    console.log("saved to cloud:", cloud.state === "fulfilled");
+
+    if (disk.state === "fulfilled") {
+        console.log("value was " + disk.value);
+    }
+    else if (disk.state === "rejected") {
+        console.log("rejected because " + disk.reason);
+    }
+}).done();
+

@@ -60,6 +60,14 @@ declare module Q {
         isPending(): boolean;
 
         valueOf(): any;
+
+        inspect(): PromiseState<T>;
+    }
+
+    interface PromiseState<T> {
+        state: string /* "fulfilled", "rejected", "pending" */;
+        value?: T;
+        reason?: any;
     }
 
     // if no fulfill, reject, or progress provided, returned promise will be of same type
@@ -96,8 +104,8 @@ declare module Q {
     export function all<T>(promises: any[]): Promise<T[]>;
     export function all<T>(promises: IPromise<T>[]): Promise<T[]>;
     
-    export function allSettled<T>(promises: any[]): Promise<Promise<T>[]>;
-    export function allSettled<T>(promises: IPromise<T>[]): Promise<Promise<T>[]>;
+    export function allSettled<T>(promises: any[]): Promise<PromiseState<T>[]>;
+    export function allSettled<T>(promises: IPromise<T>[]): Promise<PromiseState<T>[]>;
 
     export function allResolved<T>(promises: any[]): Promise<Promise<T>[]>;
     export function allResolved<T>(promises: IPromise<T>[]): Promise<Promise<T>[]>;
