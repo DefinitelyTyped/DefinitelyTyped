@@ -277,6 +277,10 @@ interface ColorboxStatic {
     * Removes all traces of Colorbox from the document.
     */
     remove(): void;
+    /**
+    * Default settings used for Colorbox calls
+    */
+    settings: ColorboxSettings;
 
 }
 
