@@ -67,7 +67,7 @@ List of Definitions
 * [FullCalendar](http://arshaw.com/fullcalendar/) (by [Neil Stalker](https://github.com/nestalk))
 * [Gamepad](http://www.w3.org/TR/gamepad/) (by [Kon](http://phyzkit.net/))
 * [glDatePicker](http://glad.github.com/glDatePicker/) (by [Dániel Tar](https://github.com/qcz))
-* [GeoXML3](https://code.google.com/p/geoxml3/) (by [Richard Hauer](https://github.com/in/richardhauer))
+* [GeoXML3](https://code.google.com/p/geoxml3/) (by [Richard Hauer](https://github.com/richardhauer))
 * [GreenSock Animation Platform (GSAP)](http://www.greensock.com/get-started-js/) (by [Robert S.](https://github.com/codeBelt))
 * [Grunt JS](http://gruntjs.com/) (by [Basarat Ali Syed](https://github.com/basarat))
 * [Google API Client](https://code.google.com/p/google-api-javascript-client/) (by [Frank M](https://github.com/sgtfrankieboy))
