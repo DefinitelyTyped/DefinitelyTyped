@@ -28,7 +28,7 @@ module DefinitelyTyped {
 
 		class Tsc {
 			public static run(tsfile: string, callback: Function) {
-				Exec.exec('node ./_infrastructure/tests/typescript/tsc.js ', [tsfile], (ExecResult) => {
+				Exec.exec('node ./_infrastructure/tests/typescript/tsc.js --module commonjs ', [tsfile], (ExecResult) => {
 				    callback(ExecResult);
 				});
 			}
