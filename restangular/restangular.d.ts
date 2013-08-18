@@ -15,18 +15,10 @@ interface Restangular extends RestangularCustom {
 }
 
 interface RestangularElement extends Restangular {
-    get (): ng.IPromise<any>;
-    get (params: any): ng.IPromise<any>;
-    get (params: any, headers: any): ng.IPromise<any>;
-
-    getList(): ng.IPromise<any>;
-    getList(subElement: any): ng.IPromise<any>;
-    getList(subElement: any, queryParams: string, headers: any): ng.IPromise<any>;
-
-    put(queryParams?: string, headers?: any): ng.IPromise<any>;
-
+    get (queryParams?: any, headers?: any): ng.IPromise<any>;
+    getList(subElement: any, queryParams?: any, headers?: any): ng.IPromise<any>;
+    put(queryParams?: any, headers?: any): ng.IPromise<any>;
     post(subElement, elementToPost, queryParams?, headers?): ng.IPromise<any>;
-
     remove(queryParams?, headers?): ng.IPromise<any>;
     head(queryParams?, headers?): ng.IPromise<any>;
     trace(queryParams?, headers?): ng.IPromise<any>;
