@@ -148,7 +148,7 @@ interface NodeProcess extends EventEmitter {
     title: string;
     arch: string;
     platform: string;
-    memoryUsage(): { rss: number; heapTotal; number; heapUsed: number; };
+    memoryUsage(): { rss: number; heapTotal: number; heapUsed: number; };
     nextTick(callback: Function): void;
     umask(mask?: number): number;
     uptime(): number;
