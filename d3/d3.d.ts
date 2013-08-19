@@ -188,7 +188,7 @@ declare module D3 {
         *
         * @param definition 2D affine transform string
         */
-        transform(definition: string): any[];
+        transform(definition: string): any;
         /**
         * Transpose an array of arrays.
         *
