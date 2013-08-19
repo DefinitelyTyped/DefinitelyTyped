@@ -661,12 +661,12 @@ declare module "net" {
     }
     export function createServer(connectionListener?: (socket: NodeSocket) =>void ): Server;
     export function createServer(options?: { allowHalfOpen?: boolean; }, connectionListener?: (socket: NodeSocket) =>void ): Server;
-    export function connect(options: { allowHalfOpen?: boolean; }, connectionListener?: Function): void;
-    export function connect(port: number, host?: string, connectionListener?: Function): void;
-    export function connect(path: string, connectionListener?: Function): void;
-    export function createConnection(options: { allowHalfOpen?: boolean; }, connectionListener?: Function): void;
-    export function createConnection(port: number, host?: string, connectionListener?: Function): void;
-    export function createConnection(path: string, connectionListener?: Function): void;
+    export function connect(options: { allowHalfOpen?: boolean; }, connectionListener?: Function): NodeSocket;
+    export function connect(port: number, host?: string, connectionListener?: Function): NodeSocket;
+    export function connect(path: string, connectionListener?: Function): NodeSocket;
+    export function createConnection(options: { allowHalfOpen?: boolean; }, connectionListener?: Function): NodeSocket;
+    export function createConnection(port: number, host?: string, connectionListener?: Function): NodeSocket;
+    export function createConnection(path: string, connectionListener?: Function): NodeSocket;
     export function isIP(input: string): number;
     export function isIPv4(input: string): boolean;
     export function isIPv6(input: string): boolean;
