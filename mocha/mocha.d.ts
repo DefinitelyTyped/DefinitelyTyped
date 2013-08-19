@@ -3,6 +3,17 @@
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid/>
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
 
+interface Mocha {
+    setup(options: MochaSetupOptions);
+    run(callback: () => void);
+}
+
+interface MochaSetupOptions {
+    slow: number;
+    timeout: number;
+    ui: string;
+}
+
 declare var describe : {
     (description: string, spec: () => void): void;
     only(description: string, spec: () => void): void;
