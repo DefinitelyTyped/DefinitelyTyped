@@ -187,7 +187,6 @@ declare module jasmine {
     }
 
     interface Reporter {
-        new ():any;
         reportRunnerStarting(runner:any):any;
         reportRunnerResults(runner:any):any;
         reportSuiteResults(suite:any):any;
