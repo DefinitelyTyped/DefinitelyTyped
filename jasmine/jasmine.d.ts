@@ -29,6 +29,7 @@ declare module jasmine {
     var Clock: Clock;
 
     function any(aclass: any):any;
+    function objectContaining(sample: any): ObjectContaining;
     function createSpy(name: string, originalFn: Function): Spy;
     function createSpyObj(baseName: string, methodNames: any[]): any;
     function pp(value: any): string;
@@ -40,6 +41,13 @@ declare module jasmine {
 
         jasmineMatches(other:any):any;
         jasmineToString():any;
+    }
+
+    interface ObjectContaining {
+        new (sample: any): any;
+
+        jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): any;
+        jasmineToString(): any;
     }
 
     interface Block {
@@ -214,6 +222,18 @@ declare module jasmine {
     interface Spec {
 
         new (env: Env, suite: Suite, description: string):any;
+
+        id: number;
+        env: Env;
+        suite: Suite;
+        description: string;
+        queue: Queue;
+
+        afterCallbacks: any;
+        spies_: any;
+
+        results_: NestedResults;
+        matchersClass: any;
 
         getFullName(): string;
         results():any;
