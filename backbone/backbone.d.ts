@@ -46,8 +46,8 @@ declare module Backbone {
     interface PersistenceOptions {
         url?: string;
         beforeSend?: (jqxhr: JQueryXHR) => void;
-        success?: (modelOrCollection: any, response: any, options: any) => void;
-        error?: (modelOrCollection: any, jqxhr: JQueryXHR, options: any) => void;
+        success?: (modelOrCollection?: any, response?: any, options?: any) => void;
+        error?: (modelOrCollection?: any, jqxhr?: JQueryXHR, options?: any) => void;
     }
 
     interface ModelSetOptions extends Silenceable, Validable {
