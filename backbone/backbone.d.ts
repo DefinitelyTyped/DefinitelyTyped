@@ -5,8 +5,8 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-/// <reference path="underscore.d.ts" />
-/// <reference path="jquery.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="../underscore/underscore.d.ts" />
 
 declare module Backbone {
 
