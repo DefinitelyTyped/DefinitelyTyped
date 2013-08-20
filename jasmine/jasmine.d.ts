@@ -78,6 +78,8 @@ declare module jasmine {
         clearInterval:any;
         updateInterval:any;
 
+        currentSpec: Spec;
+
         version():any;
         versionString(): string;
         nextSpecId(): number;
