@@ -173,7 +173,7 @@ List of Definitions
 * [Spin](http://fgnass.github.com/spin.js/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Store.js](https://github.com/marcuswestin/store.js/) (by [Vincent Bortone](https://github.com/vbortone))
 * [Sugar](http://sugarjs.com/) (by [Josh Baldwin](https://github.com/jbaldwin/))
-* [Swiper](www.idangero.us/sliders/swiper/‎) (by [Sebastián Galiano](https://github.com/sgaliano))
+* [Swiper](http://www.idangero.us/sliders/swiper/‎) (by [Sebastián Galiano](https://github.com/sgaliano))
 * [SwipeView](http://cubiq.org/swipeview) (by [Boris Yankov](https://github.com/borisyankov))
 * [Tags Manager](http://welldonethings.com/tags/manager) (by [Vincent Bortone](https://github.com/vbortone))
 * [Teechart](http://www.steema.com) (by [Steema](http://www.steema.com))
