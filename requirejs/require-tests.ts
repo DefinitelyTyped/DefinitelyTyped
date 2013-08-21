@@ -38,7 +38,6 @@ require(['main'], (main, $, _, Backbone) => {
 
 });
 
-// ISSUE: https://github.com/borisyankov/DefinitelyTyped/issues/764
-var recOne = requirejs.config({ baseUrl: 'js' });
+var recOne = require.config({ baseUrl: 'js' });
 recOne(['core'], function (core) {/*some code*/});
 
