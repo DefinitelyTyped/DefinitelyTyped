@@ -126,6 +126,7 @@ List of Definitions
 * [KeyboardJS](https://github.com/RobertWHurst/KeyboardJS) (by [Vincent Bortone](https://github.com/vbortone/))
 * [Knockback](http://kmalakoff.github.com/knockback/) (by [Marcel Binot](https://github.com/docgit))
 * [Knockout.js](http://knockoutjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
+* [Knockout.ES5](http://github.com/SteveSanderson/knockout-es5/‎) (by [Sebastián Galiano](https://github.com/sgaliano))
 * [Knockout.Mapping](https://github.com/SteveSanderson/knockout.mapping) (by [Boris Yankov](https://github.com/borisyankov))
 * [Knockout.Postbox](https://github.com/rniemeyer/knockout-postbox) (by [Judah Gabriel](https://github.com/JudahGabriel))
 * [Knockout.Validation](https://github.com/ericmbarnard/Knockout-Validation) (by [Dan Ludwig](https://github.com/danludwig))
