@@ -30,7 +30,7 @@ declare module jasmine {
 
     function any(aclass: any):any;
     function objectContaining(sample: any): ObjectContaining;
-    function createSpy(name: string, originalFn: Function): Spy;
+    function createSpy(name: string, originalFn?: Function): Spy;
     function createSpyObj(baseName: string, methodNames: any[]): any;
     function pp(value: any): string;
     function getEnv(): Env;
