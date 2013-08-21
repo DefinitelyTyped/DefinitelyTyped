@@ -491,4 +491,8 @@ interface KnockoutStatic {
     };
 }
 
+declare module "knockout" {
+	export = ko;
+}
+
 declare var ko: KnockoutStatic;

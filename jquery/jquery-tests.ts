@@ -1239,7 +1239,7 @@ function test_extend() {
 
     var defaults = { validate: false, limit: 5, name: "foo" };
     var options = { validate: true, name: "bar" };
-    var settings = $.extend({}, defaults, options);
+    var settings: typeof defaults = $.extend({}, defaults, options);
 }
 
 function test_fadeIn() {

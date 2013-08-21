@@ -8,7 +8,7 @@ declare function describe(description: string, specDefinitions: Function): void;
 declare function xdescribe(description: string, specDefinitions: Function): void;
 
 declare function it(expectation: string, assertion: () => void ): void;
-declare function it(expectation: string, assertion: (done: (err?) => void) => void ): void;
+declare function it(expectation: string, assertion: (done: (err?:any) => void) => void ): void;
 declare function xit(expectation: string, assertion: Function): void;
 
 declare function beforeEach(action: Function): void;
@@ -28,122 +28,132 @@ declare module jasmine {
 
     var Clock: Clock;
 
-    function any(aclass: any);
-    function createSpy(name: string, originalFn: Function): Spy;
+    function any(aclass: any):any;
+    function objectContaining(sample: any): ObjectContaining;
+    function createSpy(name: string, originalFn?: Function): Spy;
     function createSpyObj(baseName: string, methodNames: any[]): any;
     function pp(value: any): string;
     function getEnv(): Env;
 
     interface Any {
 
-        new (expectedClass);
+        new (expectedClass:any):any;
 
-        jasmineMatches(other);
-        jasmineToString();
+        jasmineMatches(other:any):any;
+        jasmineToString():any;
+    }
+
+    interface ObjectContaining {
+        new (sample: any): any;
+
+        jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): any;
+        jasmineToString(): any;
     }
 
     interface Block {
 
-        new (env: Env, func: Function, spec: Spec);
+        new (env: Env, func: Function, spec: Spec):any;
 
-        execute(onComplete);
+        execute(onComplete:any):any;
     }
 
     interface Clock {
         reset(): void;
-        tick(millis): void;
-        runFunctionsWithinRange(oldMillis, nowMillis): void;
-        scheduleFunction(timeoutKey, funcToCall, millis, recurring): void;
+        tick(millis:any): void;
+        runFunctionsWithinRange(oldMillis:any, nowMillis:any): void;
+        scheduleFunction(timeoutKey:any, funcToCall:any, millis:any, recurring:any): void;
         useMock(): void;
         installMock(): void;
         uninstallMock(): void;
-        real;
+        real:any;
         assertInstalled(): void;
         isInstalled(): boolean;
         installed: any;
     }
 
     interface Env {
-        setTimeout;
-        clearTimeout;
-        setInterval;
-        clearInterval;
-        updateInterval;
+        setTimeout:any;
+        clearTimeout:any;
+        setInterval:any;
+        clearInterval:any;
+        updateInterval:any;
 
-        version();
+        currentSpec: Spec;
+
+        version():any;
         versionString(): string;
         nextSpecId(): number;
-        addReporter(reporter);
-        execute();
-        describe(description, specDefinitions);
-        beforeEach(beforeEachFunction);
-        currentRunner();
-        afterEach(afterEachFunction);
-        xdescribe(desc, specDefinitions);
-        it(description, func);
-        xit(desc, func);
-        compareObjects_(a, b, mismatchKeys, mismatchValues);
-        equals_(a, b, mismatchKeys, mismatchValues);
-        contains_(haystack, needle);
-        addEqualityTester(equalityTester);
-        specFilter(spec): boolean;
+        addReporter(reporter:any):any;
+        execute():any;
+        describe(description:any, specDefinitions:any):any;
+        beforeEach(beforeEachFunction:any):any;
+        currentRunner():any;
+        afterEach(afterEachFunction:any):any;
+        xdescribe(desc:any, specDefinitions:any):any;
+        it(description:any, func:any):any;
+        xit(desc:any, func:any):any;
+        compareObjects_(a:any, b:any, mismatchKeys:any, mismatchValues:any):any;
+        equals_(a:any, b:any, mismatchKeys:any, mismatchValues:any):any;
+        contains_(haystack:any, needle:any):any;
+        addEqualityTester(equalityTester:any):any;
+        specFilter(spec:any): boolean;
     }
 
     interface FakeTimer {
 
-        new ();
+        new ():any;
 
         reset(): void;
-        tick(millis): void;
-        runFunctionsWithinRange(oldMillis, nowMillis): void;
-        scheduleFunction(timeoutKey, funcToCall, millis, recurring): void;
+        tick(millis:any): void;
+        runFunctionsWithinRange(oldMillis:any, nowMillis:any): void;
+        scheduleFunction(timeoutKey:any, funcToCall:any, millis:any, recurring:any): void;
     }
 
     interface HtmlReporter {
-        new ();
+        new ():any;
     }
 
     interface NestedResults {
 
-        new ();
+        new ():any;
 
-        rollupCounts(result);
-        log(values);
-        getItems();
-        addResult(result);
-        passed();
+        rollupCounts(result:any):any;
+        log(values:any):any;
+        getItems():any;
+        addResult(result:any):any;
+        passed():any;
     }
 
 
     interface PrettyPrinter {
 
-        new ();
+        new ():any;
 
-        format(value);
-        iterateObject(obj, fn);
-        emitScalar(value);
-        emitString(value);
-        emitArray(array);
-        emitObject(obj);
-        append(value);
+        format(value:any):any;
+        iterateObject(obj:any, fn:any):any;
+        emitScalar(value:any):any;
+        emitString(value:any):any;
+        emitArray(array:any):any;
+        emitObject(obj:any):any;
+        append(value:any):any;
     }
 
     interface Queue {
 
-        new (env);
+        new (env:any):any;
 
-        addBefore(block, ensure);
-        add(block, ensure);
-        insertNext(block, ensure);
-        start(onComplete);
-        isRunning();
-        next_();
-        results();
+        addBefore(block:any, ensure:any):any;
+        add(block:any, ensure:any):any;
+        insertNext(block:any, ensure:any):any;
+        start(onComplete:any):any;
+        isRunning():any;
+        next_():any;
+        results():any;
     }
 
     interface Matchers {
 
-        new (env: Env, actual, spec: Env, isNot?: boolean);
+        new (env: Env, actual:any, spec: Env, isNot?: boolean):any;
 
         env: Env;
         actual: any;
@@ -151,12 +161,12 @@ declare module jasmine {
         isNot?: boolean;
         message(): any;
 
-        toBe(expected): boolean;
-        toNotBe(expected): boolean;
-        toEqual(expected): boolean;
-        toNotEqual(expected): boolean;
-        toMatch(expected): boolean;
-        toNotMatch(expected): boolean;
+        toBe(expected:any): boolean;
+        toNotBe(expected:any): boolean;
+        toEqual(expected:any): boolean;
+        toNotEqual(expected:any): boolean;
+        toMatch(expected:any): boolean;
+        toNotMatch(expected:any): boolean;
         toBeDefined(): boolean;
         toBeUndefined(): boolean;
         toBeNull(): boolean;
@@ -166,14 +176,14 @@ declare module jasmine {
         toHaveBeenCalled(): boolean;
         wasNotCalled(): boolean;
         toHaveBeenCalledWith(...params: any[]): boolean;
-        toContain(expected): boolean;
-        toNotContain(expected): boolean;
-        toBeLessThan(expected): boolean;
-        toBeGreaterThan(expected): boolean;
-        toBeCloseTo(expected, precision): boolean;
+        toContain(expected:any): boolean;
+        toNotContain(expected:any): boolean;
+        toBeLessThan(expected:any): boolean;
+        toBeGreaterThan(expected:any): boolean;
+        toBeCloseTo(expected:any, precision:any): boolean;
         toContainHtml(expected: string): boolean;
         toContainText(expected: string): boolean;
-        toThrow(expected? ): boolean;
+        toThrow(expected?:any ): boolean;
         not: Matchers;
 
         Any: Any;
@@ -181,60 +191,71 @@ declare module jasmine {
 
     interface MultiReporter {
 
-        new ();
+        new ():any;
 
-        addReporter(reporter: Reporter);
+        addReporter(reporter: Reporter):any;
     }
 
     interface Reporter {
-        new ();
-        reportRunnerStarting(runner);
-        reportRunnerResults(runner);
-        reportSuiteResults(suite);
-        reportSpecStarting(spec);
-        reportSpecResults(spec);
-        log(str);
+        reportRunnerStarting(runner:any):any;
+        reportRunnerResults(runner:any):any;
+        reportSuiteResults(suite:any):any;
+        reportSpecStarting(spec:any):any;
+        reportSpecResults(spec:any):any;
+        log(str:any):any;
     }
 
     interface Runner {
 
-        new (env: Env);
+        new (env: Env):any;
 
-        execute();
-        beforeEach(beforeEachFunction);
-        afterEach(afterEachFunction);
-        finishCallback();
-        addSuite(suite);
-        add(block);
-        specs();
-        suites();
-        topLevelSuites();
-        results();
+        execute():any;
+        beforeEach(beforeEachFunction:any):any;
+        afterEach(afterEachFunction:any):any;
+        finishCallback():any;
+        addSuite(suite:any):any;
+        add(block:any):any;
+        specs():any;
+        suites():any;
+        topLevelSuites():any;
+        results():any;
     }
 
     interface Spec {
 
-        new (env: Env, suite: Suite, description: string);
+        new (env: Env, suite: Suite, description: string):any;
+
+        id: number;
+        env: Env;
+        suite: Suite;
+        description: string;
+        queue: Queue;
+
+        afterCallbacks: any;
+        spies_: any;
+
+        results_: NestedResults;
+        matchersClass: any;
 
         getFullName(): string;
-        results();
-        log();
-        runs(func: Function);
-        addToQueue(block);
-        addMatcherResult(result);
-        expect(actual);
-        waitsFor(latchFunction: Function, timeoutMessage?: string, timeout?: number);
-        fail(e);
-        getMatchersClass_();
-        addMatchers(matchersPrototype);
-        finishCallback();
-        finish(onComplete);
-        after(doAfter);
-        execute(onComplete);
-        addBeforesAndAftersToQueue();
-        explodes();
-        spyOn(obj, methodName, ignoreMethodDoesntExist);
-        removeAllSpies();
+        results():any;
+        log():any;
+        runs(func: Function):any;
+        addToQueue(block:any):any;
+        addMatcherResult(result:any):any;
+        expect(actual:any):any;
+        waitsFor(latchFunction: Function, timeoutMessage?: string, timeout?: number):any;
+        fail(e:any):any;
+        getMatchersClass_():any;
+        addMatchers(matchersPrototype:any):any;
+        finishCallback():any;
+        finish(onComplete:any):any;
+        after(doAfter:any):any;
+        execute(onComplete:any):any;
+        addBeforesAndAftersToQueue():any;
+        explodes():any;
+        spyOn(obj:any, methodName:any, ignoreMethodDoesntExist:any):any;
+        removeAllSpies():any;
     }
 
     interface Spy {
@@ -247,53 +268,53 @@ declare module jasmine {
         wasCalled: boolean;
         callCount: number;
 
-        andReturn(value): Spy;
+        andReturn(value:any): Spy;
         andCallThrough(): Spy;
         andCallFake(fakeFunc: Function): Spy;
     }
 
     interface Suite {
 
-        new (env: Env, description: string, specDefinitions: Function, parentSuite: Suite);
+        new (env: Env, description: string, specDefinitions: Function, parentSuite: Suite):any;
 
-        getFullName();
-        finish(onComplete);
-        beforeEach(beforeEachFunction);
-        afterEach(afterEachFunction);
-        results();
-        add(suiteOrSpec);
-        specs();
-        suites();
-        children();
-        execute(onComplete);
+        getFullName():any;
+        finish(onComplete:any):any;
+        beforeEach(beforeEachFunction:any):any;
+        afterEach(afterEachFunction:any):any;
+        results():any;
+        add(suiteOrSpec:any):any;
+        specs():any;
+        suites():any;
+        children():any;
+        execute(onComplete:any):any;
     }
 
     interface Util {
-        inherit(childClass: Function, parentClass: Function);
-        formatException(e);
+        inherit(childClass: Function, parentClass: Function):any;
+        formatException(e:any):any;
         htmlEscape(str: string): string;
-        argsToArray(args);
-        extend(destination, source);
+        argsToArray(args:any):any;
+        extend(destination:any, source:any):any;
     }
 
     interface JsApiReporter {
 
-        result;
-        messages;
+        result:any;
+        messages:any;
 
-        new ();
+        new ():any;
 
-        reportRunnerStarting(runner);
-        suites();
-        summarize_(suiteOrSpec);
-        results();
-        resultsForSpec(specId);
-        reportRunnerResults(runner);
-        reportSuiteResults(suite);
-        reportSpecResults(spec);
-        log(str);
-        resultsForSpecs(specIds);
-        summarizeResult_(result);
+        reportRunnerStarting(runner:any):any;
+        suites():any;
+        summarize_(suiteOrSpec:any):any;
+        results():any;
+        resultsForSpec(specId:any):any;
+        reportRunnerResults(runner:any):any;
+        reportSuiteResults(suite:any):any;
+        reportSpecResults(spec:any):any;
+        log(str:any):any;
+        resultsForSpecs(specIds:any):any;
+        summarizeResult_(result:any):any;
     }
 
     interface Jasmine {

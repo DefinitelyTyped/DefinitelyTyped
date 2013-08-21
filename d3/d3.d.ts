@@ -184,6 +184,12 @@ declare module D3 {
         */
         zip(...arrs: any[]): any[];
         /**
+        * Parse the given 2D affine transform string, as defined by SVG's transform attribute.
+        *
+        * @param definition 2D affine transform string
+        */
+        transform(definition: string): any;
+        /**
         * Transpose an array of arrays.
         *
         * @param matrix Two dimensional array to transpose

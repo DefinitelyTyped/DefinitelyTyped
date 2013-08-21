@@ -58,7 +58,8 @@ interface SignalR {
     disconnected(handler: () => void ): SignalR;
     connectionSlow(handler: () => void ): SignalR;
     sending(handler: () => void ): SignalR;
-    reconnected(handler: () => void ): SignalR;
+    reconnecting(handler: () => void): SignalR;
+    reconnected(handler: () => void): SignalR;
 }
 
 interface HubProxy {

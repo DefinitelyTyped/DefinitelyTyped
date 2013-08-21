@@ -124,6 +124,7 @@ interface Moment {
     daysInMonth(): number;
     isDST(): boolean;
 
+    isBefore(): boolean;
     isBefore(b: Moment): boolean;
     isBefore(b: string): boolean;
     isBefore(b: Number): boolean;
@@ -135,6 +136,7 @@ interface Moment {
     isBefore(b: Date, granularity: string): boolean;
     isBefore(b: Array, granularity: string): boolean;
 
+    isAfter(): boolean;
     isAfter(b: Moment): boolean;
     isAfter(b: string): boolean;
     isAfter(b: Number): boolean;

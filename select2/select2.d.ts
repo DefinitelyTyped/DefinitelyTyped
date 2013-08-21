@@ -10,7 +10,7 @@ interface Select2QueryOptions {
     term?: string;
     page?: number;
     context?: any;
-    callback?: (result: { results: any; more: boolean; context: any; }) => void;
+    callback?: (result: { results: any; more?: boolean; context?: any; }) => void;
 }
 
 interface AjaxFunction {
