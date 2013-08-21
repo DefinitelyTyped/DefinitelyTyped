@@ -42,6 +42,6 @@ declare class iScroll {
     scrollTo(x: number, y: number, time: number, relative: boolean): void;
     scrollToElement(element: string, time: number): void;
     disable(): void;
-    enalbe(): void;
+    enable(): void;
     stop(): void;
 }

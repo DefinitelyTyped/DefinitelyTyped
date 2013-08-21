@@ -68,7 +68,7 @@ declare class iScroll {
     scrollToElement(element: string, time: number): void;
     scrollToPage(pageX: number, pageY: number, time: number): void;
     disable(): void;
-    enalbe(): void;
+    enable(): void;
     stop(): void;
     zoom(x: number, y: number, scale: number, time: number): void;
     isReady(): boolean;
