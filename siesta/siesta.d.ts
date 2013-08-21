@@ -9,25 +9,25 @@ declare module Siesta {
     }
 
     export module Harness {
-        export class Browser {
+        export class Browser extends Harness {
         }
 
         export module Browser {
-            export class ExtJS {
+            export class ExtJS extends Browser implements ExtJSCore {
             }
 
             export class ExtJSCore {
             }
 
-            export class SenchaTouch {
+            export class SenchaTouch extends Browser implements ExtJSCore {
             }
         }
 
-        export class NodeJS {
+        export class NodeJS implements Harness {
         }
     }
 
-    export class Test {
+    export class Test implements Test.BDD, Test.Date, Test.Function, Test.More {
     }
 
     export module Test {
@@ -40,52 +40,52 @@ declare module Siesta {
                 }
             }
 
-            export class Click {
+            export class Click extends Action implements Role.HasTarget {
             }
 
-            export class Done {
+            export class Done extends Action {
             }
 
-            export class DoubleClick {
+            export class DoubleClick extends Action implements Role.HasTarget {
             }
 
-            export class DoubleTap {
+            export class DoubleTap extends Action implements Role.HasTarget {
             }
 
-            export class Drag {
+            export class Drag extends Action {
             }
 
-            export class Eval {
+            export class Eval extends Action {
             }
 
-            export class LongPress {
+            export class LongPress extends Action implements Role.HasTarget {
             }
 
-            export class MouseDown {
+            export class MouseDown extends Action implements Role.HasTarget {
             }
 
-            export class MouseUp {
+            export class MouseUp extends Action implements Role.HasTarget {
             }
 
-            export class MoveCursor {
+            export class MoveCursor extends Action implements Role.HasTarget {
             }
 
-            export class MoveCursorTo {
+            export class MoveCursorTo extends Action implements Role.HasTarget {
             }
 
-            export class RightClick {
+            export class RightClick extends Action implements Role.HasTarget {
             }
 
-            export class Swipe {
+            export class Swipe extends Action implements Role.HasTarget {
             }
 
-            export class Tap {
+            export class Tap extends Action implements Role.HasTarget {
             }
 
-            export class Type {
+            export class Type extends Action implements Role.HasTarget {
             }
 
-            export class Wait {
+            export class Wait extends Action {
             }
         }
 
@@ -97,7 +97,7 @@ declare module Siesta {
             }
         }
 
-        export class ExtJS {
+        export class ExtJS extends Browser implements ExtJS.Ajax, ExtJS.Component, ExtJS.DataView, ExtJS.Element, ExtJS.FormField, ExtJS.Grid, ExtJS.Observable, ExtJS.Store, ExtJSCore {
         }
 
         export module ExtJS {
@@ -143,7 +143,7 @@ declare module Siesta {
         export class ActionTarget {
         }
 
-        export class Browser {
+        export class Browser implements Simulate.Event, Simulate.Keyboard, Simulate.Mouse, TextSelection {
         }
 
         export class Date {
@@ -158,13 +158,13 @@ declare module Siesta {
         export class Function {
         }
 
-        export class jQuery {
+        export class jQuery extends Browser {
         }
 
         export class More {
         }
 
-        export class SenchaTouch {
+        export class SenchaTouch extends Browser implements ExtJS.Component, ExtJS.Element, ExtJS.FormField, ExtJS.Observable, ExtJS.Store, ExtJSCore {
         }
 
         export class TextSelection {
