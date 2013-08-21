@@ -81,7 +81,6 @@ declare module Sammy {
         $element(selector?: string): JQuery;
         after(callback: Function): Application;
         any(verb: string, path: string, callback: Function): void;
-        route(verb: string, path: string, callback: Function): void;
         around(callback: Function): Application;
         before(options: any, callback: Function): Application;
         bind(name: string, callback: Function): Application;
