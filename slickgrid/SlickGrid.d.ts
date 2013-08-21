@@ -24,7 +24,7 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 */
 
-/// <reference path="jQuery.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 declare module Slick {
 
@@ -759,8 +759,10 @@ declare module Slick {
 		* Returns an array of every data object, unless you're using DataView in which case it returns a DataView object.
 		* @return
 		**/
-		public getData(): T[];
-		public getData(): DataView;
+		public getData(): any;
+		//public getData(): T[];
+		// Issue: typescript limitation, cannot differentiate calls by return type only, so need to cast to DataView or T[].
+		//public getData(): DataView;
 
 		/**
 		* Returns the databinding item at a given position. 
@@ -1589,19 +1591,19 @@ declare module Slick {
 				public storeResult(groupTotals: GroupTotals<T, any>): void;	// todo "R"
 			}
 
-			export class Avg extends Aggregator {
+			export class Avg<T> extends Aggregator<T> {
 
 			}
 
-			export class Min extends Aggregator {
-
+			export class Min<T> extends Aggregator<T> {
+				
 			}
 
-			export class Max extends Aggregator {
-
+			export class Max<T> extends Aggregator<T> {
+				
 			}
 
-			export class Sum extends Aggregator {
+			export class Sum<T> extends Aggregator<T> {
 
 			}
 		}
