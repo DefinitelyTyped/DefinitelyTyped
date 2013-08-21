@@ -324,8 +324,8 @@ interface JQueryStatic {
     each(collection: JQuery, callback: (indexInArray: number, valueOfElement: HTMLElement) => any): any;
     each<T>(collection: T[], callback: (indexInArray: number, valueOfElement: T) => any): any;
 
-    extend(target: any, ...objs: any[]): Object;
-    extend(deep: boolean, target: any, ...objs: any[]): Object;
+    extend(target: any, ...objs: any[]): any;
+    extend(deep: boolean, target: any, ...objs: any[]): any;
 
     globalEval(code: string): any;
 
