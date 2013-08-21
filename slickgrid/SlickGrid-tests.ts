@@ -124,10 +124,18 @@ grid.canCellBeActive(5, 10);
 
 grid.canCellBeSelected(5, 10);
 
-grid.editActiveCell(Slick.Editors.Date);
+grid.editActiveCell(new Slick.Editors.Date<MyData>({
+	column: cols,
+	container: undefined,
+	grid: grid
+}));
 
 grid.setActiveCell(0, 0);
-grid.editActiveCell(Slick.Editors.Date);
+grid.editActiveCell(new Slick.Editors.Date<MyData>({
+	column: cols,
+	container: undefined,
+	grid: grid
+}));
 
 grid.flashCell(5, 10);
 grid.flashCell(5, 10, 500);

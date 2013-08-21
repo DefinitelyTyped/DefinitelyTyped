@@ -142,13 +142,13 @@ interface RequireConfig {
 	* that does not call define() or have shim exports string
 	* value that can be checked.
 	**/
-	enforceDefine?: bool;
+	enforceDefine?: boolean;
 
 	/**
 	* If set to true, document.createElementNS() will be used
 	* to create script elements.
 	**/
-	xhtml?: bool;
+	xhtml?: boolean;
 
 	/**
 	* Extra query string arguments appended to URLs that RequireJS
@@ -194,7 +194,7 @@ interface Require {
 	/**
 	* Configure require.js
 	**/
-	config(config: RequireConfig): void;
+	config(config: RequireConfig): Require;
 
 	/**
 	* Start the main app logic.
