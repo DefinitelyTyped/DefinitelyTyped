@@ -1,4 +1,4 @@
-DefinitelyTyped [![Build Status](https://travis-ci.org/borisyankov/DefinitelyTyped.png?branch=master)](https://travis-ci.org/borisyankov/DefinitelyTyped)
+﻿DefinitelyTyped [![Build Status](https://travis-ci.org/borisyankov/DefinitelyTyped.png?branch=master)](https://travis-ci.org/borisyankov/DefinitelyTyped)
 ===============
 
 The repository for *high quality* TypeScript type definitions.
@@ -47,6 +47,7 @@ List of Definitions
 * [CodeMirror](http://codemirror.net) (by [François de Campredon](https://github.com/fdecampredon))
 * [Commander](http://github.com/visionmedia/commander.js) (by [Marcelo Dezem](https://github.com/mdezem))
 * [d3.js](http://d3js.org/) (from TypeScript samples)
+* [docCookies](https://developer.mozilla.org/en-US/docs/Web/API/document.cookie) (by [Jon Egerton](https://github.com/jonegerton))
 * [domo](http://domo-js.com/) (by [Steve Fenton](https://github.com/Steve-Fenton))
 * [dust](http://linkedin.github.com/dustjs) (by [Marcelo Dezem](https://github.com/mdezem))
 * [EaselJS](http://www.createjs.com/#!/EaselJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
