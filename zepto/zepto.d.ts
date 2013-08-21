@@ -262,13 +262,13 @@ interface ZeptoStatic {
 	* @param fn Callback function when the HTTP GET request is completed.
 	* @return The XMLHttpRequest object.
 	**/
-	get (url: string, fn: (data: any, status?: string, xhr?: XMLHttpRequest) => void ): XMLHttpRequest;
+	get (url: string, fn: (data: any, status: string, xhr: XMLHttpRequest) => void ): XMLHttpRequest;
 
 	/**
 	* @see ZeptoStatic.get
 	* @param data See ZeptoAjaxSettings.data
 	**/
-	get (url: string, data: any, fn: (data: any, status?: string, xhr?: XMLHttpRequest) => void ): XMLHttpRequest;
+	get (url: string, data: any, fn: (data: any, status: string, xhr: XMLHttpRequest) => void ): XMLHttpRequest;
 
 	/**
 	* Get JSON data via Ajax GET request. This is a shortcut for the $.ajax method.
@@ -1009,7 +1009,7 @@ interface ZeptoCollection {
 	* @param fn
 	* @return
 	**/
-	reduce(fn: (memo: any, item: any, index: number, array: any[], initial?: any) => any): any;
+	reduce(fn: (memo: any, item: any, index: number, array: any[], initial: any) => any): any;
 
 	/**
 	* Remove elements in the current collection from their parent nodes, effectively detaching them from the DOM.
@@ -1391,7 +1391,7 @@ interface ZeptoCollection {
 	* @example
 	*	$('#some_element').load('/foo.html #bar')
 	**/
-	load(url: string, fn?: (data: any, status?: string, xhr?: XMLHttpRequest) => void ): ZeptoCollection;
+	load(url: string, fn?: (data: any, status: string, xhr: XMLHttpRequest) => void ): ZeptoCollection;
 
 	/**
 	* Form
