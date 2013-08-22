@@ -51,7 +51,9 @@ interface amplifyRequest {
     *   error: Callback to invoke on error.
     */
     define(resourceId: string, resource: Function): void;
-
+	
+    decoders: any;
+    cache: any;
 }
 
 interface amplifySubscribe {
