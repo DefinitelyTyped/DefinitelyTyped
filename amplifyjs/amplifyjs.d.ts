@@ -5,7 +5,7 @@
 
 interface amplifyRequestSettings {
     resourceId: string;
-    data?: Object;
+    data?: any;
     success?: Function;
     error?: Function;
 }
@@ -18,7 +18,7 @@ interface amplifyRequest {
     * data: A set of key/value pairs of data to be sent to the resource.
     * callback: A function to invoke if the resource is retrieved successfully.
     */
-    (resourceId: string, hash?: Object, callback?: Function): void;
+    (resourceId: string, hash?: any, callback?: Function): void;
 
     /***
     * Request a resource.
@@ -39,7 +39,7 @@ interface amplifyRequest {
     *   cache: See the cache section for more details.
     *   decoder: See the decoder section for more details.
     */
-    define(resourceId: string, requestType: string, settings?: Object): void;
+    define(resourceId: string, requestType: string, settings?: any): void;
 
     /***
     * Define a custom request.
@@ -58,11 +58,24 @@ interface amplifySubscribe {
     /***
     * Subscribe to a message.
     * topic: Name of the message to subscribe to.
-    * [context]: What this will be when the callback is invoked.
+    * callback: Function to invoke when the message is published.
+    */
+    (topic: string, callback: Function): void;
+    /***
+    * Subscribe to a message.
+    * topic: Name of the message to subscribe to.
+    * context: What this will be when the callback is invoked.
     * callback: Function to invoke when the message is published.
     * [priority]: Priority relative to other subscriptions for the same message. Lower values have higher priority. Default is 10.
     */
-    (topic: string, context?: Object, callback?: Function, priority?: number): void;
+    (topic: string, context: any, callback: Function, priority?: number): void;
+    /***
+    * Subscribe to a message.
+    * topic: Name of the message to subscribe to.
+    * callback: Function to invoke when the message is published.
+    * [priority]: Priority relative to other subscriptions for the same message. Lower values have higher priority. Default is 10.
+    */
+    (topic: string, callback: Function, priority?: number): void;
 }
 interface amplifyStorageTypeStore {
     /***
@@ -72,17 +85,17 @@ interface amplifyStorageTypeStore {
     * value: The value to store. The value can be anything that can be serialized as JSON.
     * [options]: A set of key/value pairs that relate to settings for storing the value.
     */
-    (key: string, value: Object, options?: Object): void;
+    (key: string, value: any, options?: any): void;
 
     /***
     * Gets a stored value based on the key.
     */
-    (key: string): Object;
+    (key: string): any;
 
     /***
     * Gets a hash of all stored values.
     */
-    (): Object;
+    (): any;
 }
 
 interface amplifyStore extends amplifyStorageTypeStore{
