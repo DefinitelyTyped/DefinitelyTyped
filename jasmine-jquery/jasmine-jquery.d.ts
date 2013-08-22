@@ -133,7 +133,7 @@ declare module jasmine {
         spyOn(selector: string, eventName: string): JQueryEventSpy;
         args(selector: string, eventName: string): any;
         wasTriggered(selector: string, eventName: string): boolean;
-        wasTriggeredWith(selector: string, eventName: string, expectedArgs: any, env: jasmine.Env): boolean;
+        wasTriggeredWith(selector: string, eventName: string, expectedArgs: any, env: Env): boolean;
         wasPrevented(selector: string, eventName: string): boolean;
         wasStopped(selector: string, eventName: string): boolean;
         cleanUp();
