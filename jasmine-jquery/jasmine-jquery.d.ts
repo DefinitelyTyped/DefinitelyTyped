@@ -97,19 +97,19 @@ declare module jasmine {
         toHaveData(key, expectedValue): boolean;
         toBe(selector: JQuery): boolean;
         toContain(selector: JQuery): boolean;
-        toBeMatchedBy(selector: JQuery): boolean;
+        toBeMatchedBy(selector: string): boolean;
         toBeDisabled(): boolean;
         toBeFocused(): boolean;
         toHandle(event): boolean;
         toHandleWith(eventName: string, eventHandler): boolean;
 
-        toHaveBeenTriggeredOn(selector: JQuery): boolean;
         toHaveBeenTriggered(): boolean;
-        toHaveBeenTriggeredOnAndWith(...args: any[]): boolean;
-        toHaveBeenPreventedOn(selector: JQuery): boolean;
+        toHaveBeenTriggeredOn(selector: JQuery): boolean;
+        toHaveBeenTriggeredOnAndWith(selector: JQuery, ...args: any[]): boolean;
         toHaveBeenPrevented(): boolean;
-        toHaveBeenStoppedOn(selector: JQuery): boolean;
+        toHaveBeenPreventedOn(selector: JQuery): boolean;
         toHaveBeenStopped(): boolean;
+        toHaveBeenStoppedOn(selector: JQuery): boolean;
     }
 
     interface JasmineJQuery {
