@@ -785,6 +785,7 @@ interface JQuery {
 
     parentsUntil(selector?: string, filter?: string): JQuery;
     parentsUntil(element?: Element, filter?: string): JQuery;
+    parentsUntil(obj?: JQuery, filter?: string): JQuery;
 
     prev(selector?: string): JQuery;
 
