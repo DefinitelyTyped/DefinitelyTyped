@@ -8,3 +8,5 @@ startTest(function (t: Siesta.Test) {
 
 describe(function (t: Siesta.Test) {
 });
+
+var Harness = Siesta.Harness.Browser.ExtJS;

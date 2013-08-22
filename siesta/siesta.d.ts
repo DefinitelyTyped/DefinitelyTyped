@@ -1,70 +1,8 @@
-declare function StartTest(testScript: (t: Siesta.Test) => void): void;
-
-declare var startTest: typeof StartTest;
-
-declare var describe: typeof StartTest;
-
 declare module Siesta {
-    export module Harness {
-        export module Browser {
-            export interface ExtJS extends Browser, ExtJSCore {
-            }
 
-            export interface ExtJSCore {
-            }
+    //#region Harness
 
-            export interface SenchaTouch extends Browser, ExtJSCore {
-            }
-        }
-
-        export interface Browser extends Harness {
-            autoRun: boolean;
-
-            autoScrollElementsIntoView: boolean;
-
-            breakOnFail: boolean;
-
-            coverageUnit: string;
-
-            disableCaching: boolean;
-
-            enableCodeCoverage: boolean;
-
-            excludeCoverageUnits: RegExp;
-
-            hostPageUrl: string;
-
-            includeCoverageUnits: RegExp;
-
-            maintainViewportSize: boolean;
-
-            runCore: string;
-
-            separateContext: boolean;
-
-            simulateEventsWith: string;
-
-            speedRun: boolean;
-
-            testClass: Function;
-
-            useStrictMode: boolean;
-
-            viewDOM: boolean;
-
-            viewportHeight: number;
-
-            viewportWidth: number;
-        }
-
-        export interface NodeJS extends Harness {
-        }
-    }
-
-    /**
-     * `Siesta.Harness` is an abstract base harness interface in Siesta hierarchy. This interface provides no UI, you should use one of it subinterfacees, for example Siesta.Harness.Browser.
-     */
-    export interface Harness {
+    interface IHarness {
         alsoPreload: any[];
 
         autoCheckGlobals: boolean;
@@ -114,148 +52,243 @@ declare module Siesta {
         start(...descriptors: any[]): void;
     }
 
-    export module Test {
-        export module Action {
-            export module Role {
-                export interface HasTarget {
-                }
-            }
+    interface IHarnessBrowser extends IHarness {
+        autoRun: boolean;
 
-            export interface Click extends Action, Role.HasTarget {
-            }
+        autoScrollElementsIntoView: boolean;
 
-            export interface Done extends Action {
-            }
+        breakOnFail: boolean;
 
-            export interface DoubleClick extends Action, Role.HasTarget {
-            }
+        coverageUnit: string;
 
-            export interface DoubleTap extends Action, Role.HasTarget {
-            }
+        disableCaching: boolean;
 
-            export interface Drag extends Action {
-            }
+        enableCodeCoverage: boolean;
 
-            export interface Eval extends Action {
-            }
+        excludeCoverageUnits: RegExp;
 
-            export interface LongPress extends Action, Role.HasTarget {
-            }
+        hostPageUrl: string;
 
-            export interface MouseDown extends Action, Role.HasTarget {
-            }
+        includeCoverageUnits: RegExp;
 
-            export interface MouseUp extends Action, Role.HasTarget {
-            }
+        maintainViewportSize: boolean;
 
-            export interface MoveCursor extends Action, Role.HasTarget {
-            }
+        runCore: string;
 
-            export interface MoveCursorTo extends Action, Role.HasTarget {
-            }
+        separateContext: boolean;
 
-            export interface RightClick extends Action, Role.HasTarget {
-            }
+        simulateEventsWith: string;
 
-            export interface Swipe extends Action, Role.HasTarget {
-            }
+        speedRun: boolean;
 
-            export interface Tap extends Action, Role.HasTarget {
-            }
+        testClass: Function;
 
-            export interface Type extends Action, Role.HasTarget {
-            }
+        useStrictMode: boolean;
 
-            export interface Wait extends Action {
-            }
-        }
+        viewDOM: boolean;
 
-        export interface Action {
-        }
+        viewportHeight: number;
 
-        export module BDD {
-            export interface Expectation {
-            }
-        }
-
-        export interface BDD {
-            //any(clsConstructor: Function): any;
-        }
-
-        export module ExtJS {
-            export interface Ajax {
-            }
-
-            export interface Component {
-            }
-
-            export interface DataView {
-            }
-
-            export interface Element {
-            }
-
-            export interface FormField {
-            }
-
-            export interface Grid {
-            }
-
-            export interface Observable {
-            }
-
-            export interface Store {
-            }
-        }
-
-        export interface ExtJS extends Browser, ExtJS.Ajax, ExtJS.Component, ExtJS.DataView, ExtJS.Element, ExtJS.FormField, ExtJS.Grid, ExtJS.Observable, ExtJS.Store, ExtJSCore {
-        }
-
-        export module Simulate {
-            export interface Event {
-            }
-
-            export interface Keyboard {
-            }
-
-            export interface KeyCodes {
-            }
-
-            export interface Mouse {
-            }
-        }
-
-        export interface ActionTarget {
-        }
-
-        export interface Browser extends Simulate.Event, Simulate.Keyboard, Simulate.Mouse, TextSelection {
-        }
-
-        export interface Date {
-        }
-
-        export interface Element {
-        }
-
-        export interface ExtJSCore {
-        }
-
-        export interface Function {
-        }
-
-        export interface jQuery extends Browser {
-        }
-
-        export interface More {
-        }
-
-        export interface SenchaTouch extends Browser, ExtJS.Component, ExtJS.Element, ExtJS.FormField, ExtJS.Observable, ExtJS.Store, ExtJSCore {
-        }
-
-        export interface TextSelection {
-        }
+        viewportWidth: number;
     }
 
-    export interface Test extends Test.BDD, Test.Date, Test.Function, Test.More {
+    interface IHarnessBrowserExtJS extends IHarnessBrowser, IHarnessBrowserExtJSCore {
     }
+
+    interface IHarnessBrowserExtJSCore {
+    }
+
+    interface IHarnessBrowserSenchaTouch extends IHarnessBrowser, IHarnessBrowserExtJSCore {
+    }
+
+    interface IHarnessBrowserSingleton extends IHarnessBrowser {
+        ExtJS: IHarnessBrowserExtJS;
+        SenchaTouch: IHarnessBrowserSenchaTouch;
+    }
+
+    interface IHarnessNodeJS extends IHarness {
+    }
+
+    interface IHarnessSingleton {
+        Browser: IHarnessBrowserSingleton;
+        NojeJS: IHarnessNodeJS;
+    }
+
+    /**
+     * `Siesta.Harness` is an abstract base harness interface in Siesta hierarchy. This interface provides no UI, you should use one of it subinterfacees, for example Siesta.Harness.Browser.
+     */
+    var Harness: IHarnessSingleton;
+
+    //#endregion
+
+    //#region Test
+
+    interface ITest extends ITestBDD, ITestDate, ITestFunction, ITestMore {
+    }
+
+    interface ITestBDD {
+        any(clsConstructor: Function): any;
+    }
+
+    interface ITestBDDExpectation {
+    }
+
+    interface ITestDate {
+    }
+
+    interface ITestFunction {
+    }
+
+    interface ITestMore {
+    }
+
+    interface ITestAction {
+    }
+
+    interface ITestActionClick extends ITestAction, ITestActionRoleHasTarget {
+    }
+
+    interface ITestActionDone extends ITestAction {
+    }
+
+    interface ITestActionDoubleClick extends ITestAction, ITestActionRoleHasTarget {
+    }
+
+    interface ITestActionDoubleTap extends ITestAction, ITestActionRoleHasTarget {
+    }
+
+    interface ITestActionDrag extends ITestAction {
+    }
+
+    interface ITestActionEval extends ITestAction {
+    }
+
+    interface ITestActionLongPress extends ITestAction, ITestActionRoleHasTarget {
+    }
+
+    interface ITestActionMouseDown extends ITestAction, ITestActionRoleHasTarget {
+    }
+
+    interface ITestActionMouseUp extends ITestAction, ITestActionRoleHasTarget {
+    }
+
+    interface ITestActionMoveCursor extends ITestAction, ITestActionRoleHasTarget {
+    }
+
+    interface ITestActionMoveCursorTo extends ITestAction, ITestActionRoleHasTarget {
+    }
+
+    interface ITestActionRightClick extends ITestAction, ITestActionRoleHasTarget {
+    }
+
+    interface ITestActionSwipe extends ITestAction, ITestActionRoleHasTarget {
+    }
+
+    interface ITestActionTap extends ITestAction, ITestActionRoleHasTarget {
+    }
+
+    interface ITestActionType extends ITestAction, ITestActionRoleHasTarget {
+    }
+
+    interface ITestActionWait extends ITestAction {
+    }
+
+    interface ITestActionRoleHasTarget {
+    }
+
+    interface ITestBrowser extends ITestElement, ITestSimulateEvent, ITestSimulateKeyboard, ITestSimulateMouse, ITestTextSelection {
+    }
+
+    interface ITestElement {
+    }
+
+    interface ITestExtJS extends ITestBrowser, ITestExtJSAjax, ITestExtJSComponent, ITestExtJSDataView, ITestExtJSElement, ITestExtJSFormField, ITestExtJSGrid, ITestExtJSObservable, ITestExtJSStore, ITestExtJSCore {
+    }
+
+    interface ITestExtJSCore {
+    }
+
+    interface ITestExtJSAjax {
+    }
+
+    interface ITestExtJSComponent {
+    }
+
+    interface ITestExtJSDataView {
+    }
+
+    interface ITestExtJSElement {
+    }
+
+    interface ITestExtJSFormField {
+    }
+
+    interface ITestExtJSGrid {
+    }
+
+    interface ITestExtJSObservable {
+    }
+
+    interface ITestExtJSStore {
+    }
+
+    interface ITestSimulateEvent {
+    }
+
+    interface ITestSimulateKeyboard {
+    }
+
+    interface ITestSimulateKeyCodes {
+    }
+
+    interface ITestSimulateMouse {
+    }
+
+    interface ITestTextSelection {
+    }
+
+    interface ITestjQuery extends ITestBrowser {
+    }
+
+    interface ITestSenchaTouch extends ITestBrowser, ITestExtJSComponent, ITestExtJSElement, ITestExtJSFormField, ITestExtJSObservable, ITestExtJSStore, ITestExtJSCore {
+    }
+
+    interface ITestSingleton {
+        new (): Test;
+
+        BDD: {
+            Expectation: {
+                new (): ITestBDDExpectation
+            }
+        };
+
+        ExtJS: {
+            new (): ITestExtJS;
+        };
+
+        Browser: {
+            new (): ITestBrowser;
+        }
+
+        jQuery: {
+            new (): ITestjQuery;
+        };
+
+        SenchaTouch: {
+            new (): ITestSenchaTouch;
+        };
+    }
+
+    interface Test extends ITest {
+    }
+
+    var Test: ITestSingleton;
+
+    //#endregion
 }
+
+declare function StartTest(testScript: (t: Siesta.Test) => void): void;
+
+declare var startTest: typeof StartTest;
+
+declare var describe: typeof StartTest;
