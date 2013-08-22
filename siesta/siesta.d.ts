@@ -5,169 +5,257 @@ declare var startTest: typeof StartTest;
 declare var describe: typeof StartTest;
 
 declare module Siesta {
-    export class Harness {
-    }
-
     export module Harness {
-        export class Browser extends Harness {
-        }
-
         export module Browser {
-            export class ExtJS extends Browser implements ExtJSCore {
+            export interface ExtJS extends Browser, ExtJSCore {
             }
 
-            export class ExtJSCore {
+            export interface ExtJSCore {
             }
 
-            export class SenchaTouch extends Browser implements ExtJSCore {
+            export interface SenchaTouch extends Browser, ExtJSCore {
             }
         }
 
-        export class NodeJS implements Harness {
+        export interface Browser extends Harness {
+            autoRun: boolean;
+
+            autoScrollElementsIntoView: boolean;
+
+            breakOnFail: boolean;
+
+            coverageUnit: string;
+
+            disableCaching: boolean;
+
+            enableCodeCoverage: boolean;
+
+            excludeCoverageUnits: RegExp;
+
+            hostPageUrl: string;
+
+            includeCoverageUnits: RegExp;
+
+            maintainViewportSize: boolean;
+
+            runCore: string;
+
+            separateContext: boolean;
+
+            simulateEventsWith: string;
+
+            speedRun: boolean;
+
+            testClass: Function;
+
+            useStrictMode: boolean;
+
+            viewDOM: boolean;
+
+            viewportHeight: number;
+
+            viewportWidth: number;
+        }
+
+        export interface NodeJS extends Harness {
         }
     }
 
-    export class Test implements Test.BDD, Test.Date, Test.Function, Test.More {
+    /**
+     * `Siesta.Harness` is an abstract base harness interface in Siesta hierarchy. This interface provides no UI, you should use one of it subinterfacees, for example Siesta.Harness.Browser.
+     */
+    export interface Harness {
+        alsoPreload: any[];
+
+        autoCheckGlobals: boolean;
+
+        cachePreload: boolean;
+
+        defaultTimeout: boolean;
+
+        disableColoring: boolean;
+
+        expectedGlobals: string[];
+
+        isReadyTimeout: number;
+
+        keepNLastResults: number;
+
+        keepResults: boolean;
+
+        listenters: {
+            [key: string]: (event: Event, ...args: any[]) => void;
+        }
+
+        maxThreads: number;
+
+        needDone: boolean;
+
+        overrideSetTimeout: boolean;
+
+        pauseBetweenTests: number;
+
+        preload: any[];
+
+        runCore: string;
+
+        subTestTimeout: number;
+
+        testClass: Function;
+
+        title: string;
+
+        transparentEx: boolean;
+
+        waitForTimeout: number;
+
+        configure(config: any): void;
+
+        start(...descriptors: any[]): void;
     }
 
     export module Test {
-        export class Action {
-        }
-
         export module Action {
             export module Role {
-                export class HasTarget {
+                export interface HasTarget {
                 }
             }
 
-            export class Click extends Action implements Role.HasTarget {
+            export interface Click extends Action, Role.HasTarget {
             }
 
-            export class Done extends Action {
+            export interface Done extends Action {
             }
 
-            export class DoubleClick extends Action implements Role.HasTarget {
+            export interface DoubleClick extends Action, Role.HasTarget {
             }
 
-            export class DoubleTap extends Action implements Role.HasTarget {
+            export interface DoubleTap extends Action, Role.HasTarget {
             }
 
-            export class Drag extends Action {
+            export interface Drag extends Action {
             }
 
-            export class Eval extends Action {
+            export interface Eval extends Action {
             }
 
-            export class LongPress extends Action implements Role.HasTarget {
+            export interface LongPress extends Action, Role.HasTarget {
             }
 
-            export class MouseDown extends Action implements Role.HasTarget {
+            export interface MouseDown extends Action, Role.HasTarget {
             }
 
-            export class MouseUp extends Action implements Role.HasTarget {
+            export interface MouseUp extends Action, Role.HasTarget {
             }
 
-            export class MoveCursor extends Action implements Role.HasTarget {
+            export interface MoveCursor extends Action, Role.HasTarget {
             }
 
-            export class MoveCursorTo extends Action implements Role.HasTarget {
+            export interface MoveCursorTo extends Action, Role.HasTarget {
             }
 
-            export class RightClick extends Action implements Role.HasTarget {
+            export interface RightClick extends Action, Role.HasTarget {
             }
 
-            export class Swipe extends Action implements Role.HasTarget {
+            export interface Swipe extends Action, Role.HasTarget {
             }
 
-            export class Tap extends Action implements Role.HasTarget {
+            export interface Tap extends Action, Role.HasTarget {
             }
 
-            export class Type extends Action implements Role.HasTarget {
+            export interface Type extends Action, Role.HasTarget {
             }
 
-            export class Wait extends Action {
+            export interface Wait extends Action {
             }
         }
 
-        export class BDD {
+        export interface Action {
         }
 
         export module BDD {
-            export class Expectation {
+            export interface Expectation {
             }
         }
 
-        export class ExtJS extends Browser implements ExtJS.Ajax, ExtJS.Component, ExtJS.DataView, ExtJS.Element, ExtJS.FormField, ExtJS.Grid, ExtJS.Observable, ExtJS.Store, ExtJSCore {
+        export interface BDD {
+            //any(clsConstructor: Function): any;
         }
 
         export module ExtJS {
-            export class Ajax {
+            export interface Ajax {
             }
 
-            export class Component {
+            export interface Component {
             }
 
-            export class DataView {
+            export interface DataView {
             }
 
-            export class Element {
+            export interface Element {
             }
 
-            export class FormField {
+            export interface FormField {
             }
 
-            export class Grid {
+            export interface Grid {
             }
 
-            export class Observable {
+            export interface Observable {
             }
 
-            export class Store {
+            export interface Store {
             }
+        }
+
+        export interface ExtJS extends Browser, ExtJS.Ajax, ExtJS.Component, ExtJS.DataView, ExtJS.Element, ExtJS.FormField, ExtJS.Grid, ExtJS.Observable, ExtJS.Store, ExtJSCore {
         }
 
         export module Simulate {
-            export class Event {
+            export interface Event {
             }
 
-            export class Keyboard {
+            export interface Keyboard {
             }
 
-            export module KeyCodes {
+            export interface KeyCodes {
             }
 
-            export class Mouse {
+            export interface Mouse {
             }
         }
 
-        export class ActionTarget {
+        export interface ActionTarget {
         }
 
-        export class Browser implements Simulate.Event, Simulate.Keyboard, Simulate.Mouse, TextSelection {
+        export interface Browser extends Simulate.Event, Simulate.Keyboard, Simulate.Mouse, TextSelection {
         }
 
-        export class Date {
+        export interface Date {
         }
 
-        export class Element {
+        export interface Element {
         }
 
-        export class ExtJSCore {
+        export interface ExtJSCore {
         }
 
-        export class Function {
+        export interface Function {
         }
 
-        export class jQuery extends Browser {
+        export interface jQuery extends Browser {
         }
 
-        export class More {
+        export interface More {
         }
 
-        export class SenchaTouch extends Browser implements ExtJS.Component, ExtJS.Element, ExtJS.FormField, ExtJS.Observable, ExtJS.Store, ExtJSCore {
+        export interface SenchaTouch extends Browser, ExtJS.Component, ExtJS.Element, ExtJS.FormField, ExtJS.Observable, ExtJS.Store, ExtJSCore {
         }
 
-        export class TextSelection {
+        export interface TextSelection {
         }
+    }
+
+    export interface Test extends Test.BDD, Test.Date, Test.Function, Test.More {
     }
 }
