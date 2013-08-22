@@ -98,8 +98,8 @@ declare module jasmine {
         toBe(selector: JQuery): boolean;
         toContain(selector: JQuery): boolean;
         toBeMatchedBy(selector: JQuery): boolean;
-        toBeDisabled(selector: JQuery): boolean;
-        toBeFocused(selector: JQuery): boolean;
+        toBeDisabled(): boolean;
+        toBeFocused(): boolean;
         toHandle(event): boolean;
         toHandleWith(eventName: string, eventHandler): boolean;
 
