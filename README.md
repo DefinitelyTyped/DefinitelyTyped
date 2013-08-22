@@ -152,6 +152,7 @@ List of Definitions
 * [Persona](http://www.mozilla.org/en-US/persona) (by [James Frasca](https://github.com/Nycto))
 * [PhantomJS](http://phantomjs.org) (by [Jed Hunsaker](https://github.com/jedhunsaker))
 * [PhoneGap](http://phonegap.com) (by [Boris Yankov](https://github.com/borisyankov))
+* [PixiJS](https://github.com/GoodBoyDigital/pixi.js) (by [Pedro Casaubon](https://github.com/xperiments))
 * [Platform](https://github.com/bestiejs/platform.js) (by [Jake Hickman](https://github.com/JakeH))
 * [PouchDB](http://pouchdb.com) (by [Bill Sears](https://github.com/MrBigDog2U/))
 * [PreloadJS](http://www.createjs.com/#!/PreloadJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
