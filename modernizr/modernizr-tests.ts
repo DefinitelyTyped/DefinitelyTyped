@@ -2,10 +2,6 @@
 
 declare var $: any;
 
-function alert(thing: any) {
-    $('#content').append('<div>' + thing + '</div>');
-}
-
 $(function () {
     var audio = new Audio();
     audio.src = Modernizr.audio.ogg ? 'background.ogg' :
