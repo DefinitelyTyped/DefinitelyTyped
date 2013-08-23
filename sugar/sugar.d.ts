@@ -2375,8 +2375,9 @@ interface Array<T> {
 	* @example
 	*   [1,2,3,4,5,6,7].inGroups(3)         -> [ [1,2,3], [4,5,6], [7] ]
 	*   [1,2,3,4,5,6,7].inGroups(3, 'none') -> [ [1,2,3], [4,5,6], [7,'none','none'] ]
+	* @note removed because of TSC bug https://typescript.codeplex.com/workitem/1143?FocusElement=CommentTextBox
 	**/
-	inGroups(num: number, padding?: T): T[][];
+	//inGroups(num: number, padding?: T): T[][];
 
 	/**
 	* Groups the array into arrays of <num> elements each.
@@ -2387,8 +2388,9 @@ interface Array<T> {
 	* @example
 	*   [1,2,3,4,5,6,7].inGroupsOf(4)         -> [ [1,2,3,4], [5,6,7] ]
 	*   [1,2,3,4,5,6,7].inGroupsOf(4, 'none') -> [ [1,2,3,4], [5,6,7,'none'] ]
+	* @note removed because of TSC bug https://typescript.codeplex.com/workitem/1143?FocusElement=CommentTextBox
 	**/
-	inGroupsOf(num: number, padding?: T): T[][];
+	//inGroupsOf(num: number, padding?: T): T[][];
 
 	/**
 	* Adds <element> to the array.
@@ -2424,8 +2426,9 @@ interface Array<T> {
 	* @example
 	*   [1,2,3].indexOf(3)           -> 1
 	*   [1,2,3].indexOf(7)           -> -1
+	* @note Already defined in lib.d.ts.
 	**/
-	indexOf(search: T, fromIndex?: number): number;
+	//indexOf(search: T, fromIndex?: number): number;
 
 	/**
 	* Returns an array containing the elements all arrays have in common.
@@ -2898,8 +2901,9 @@ interface Array<T> {
 	* @example
 	*   [1,2,3].zip([4,5,6])                                       -> [[1,2], [3,4], [5,6]]
 	*   ['Martin','John'].zip(['Luther','F.'], ['King','Kennedy']) -> [['Martin','Luther','King'], ['John','F.','Kennedy']]
+	* @note removed because of TSC bug https://typescript.codeplex.com/workitem/1143?FocusElement=CommentTextBox
 	**/
-	zip(...arrays: T[]): T[][];
+	//zip(...arrays: T[]): T[][];
 }
 
 interface ObjectStatic {
