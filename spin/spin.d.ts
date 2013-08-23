@@ -1,4 +1,4 @@
-// Type definitions for Spin.js 1.3
+// Type definitions for Spin.js 1.3.1
 // Project: http://fgnass.github.com/spin.js/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/> and Theodore Brown <https://github.com/theodorejb/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -12,7 +12,7 @@ interface SpinnerOptions {
     corners?: number; // Corner roundness (0..1)
     rotate?: number; // The rotation offset
     direction?: number; // 1: clockwise, -1: counterclockwise
-    color?: string; // #rgb or #rrggbb
+    color?: any; // #rgb or #rrggbb or array of colors
     speed?: number; // Rounds per second
     trail?: number; // Afterglow percentage
     shadow?: boolean; // Whether to render a shadow
