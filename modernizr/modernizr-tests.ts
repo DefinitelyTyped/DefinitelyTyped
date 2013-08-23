@@ -1,4 +1,4 @@
-/// <reference path="modernizr.d.ts" />
+ï»¿/// <reference path="modernizr.d.ts" />
 
 declare var $: any;
 
@@ -15,7 +15,7 @@ $(function () {
     if (Modernizr.webgl) {
         // loadAllWebGLScripts();
     } else {
-        var msg = 'With a different browser you’ll get to see the WebGL experience here: get.webgl.org.';
+        var msg = "With a different browser you'll get to see the WebGL experience here: get.webgl.org.";
         document.getElementById('#notice').innerHTML = msg;
     }
 
