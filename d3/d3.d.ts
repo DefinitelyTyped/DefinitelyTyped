@@ -1388,7 +1388,7 @@ declare module D3 {
             /**
             * convert the color to a string.
             */
-            toString(): Color;
+            toString(): string;
         }
 
         export interface RGBColor extends Color{
