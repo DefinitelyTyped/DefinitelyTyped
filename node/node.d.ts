@@ -152,7 +152,7 @@ interface NodeProcess extends EventEmitter {
     nextTick(callback: Function): void;
     umask(mask?: number): number;
     uptime(): number;
-    hrtime(): number[];
+    hrtime(time?:number[]): number[];
 }
 
 // Buffer class
