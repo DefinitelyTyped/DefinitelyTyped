@@ -28,7 +28,11 @@ module DefinitelyTyped {
 
 		class Tsc {
 			public static run(tsfile: string, callback: Function) {
-				Exec.exec('node ./_infrastructure/tests/typescript/tsc.js --module commonjs ', [tsfile], (ExecResult) => {
+				var command = 'node ./_infrastructure/tests/typescript/tsc.js --module commonjs ';
+				if (IO.fileExists(tsfile + '.tscparams')) {
+					command += '@' + tsfile + '.tscparams';
+				}
+				Exec.exec(command, [tsfile], (ExecResult) => {
 				    callback(ExecResult);
 				});
 			}
@@ -292,7 +296,7 @@ module DefinitelyTyped {
 			}
 
             private run(it, file, len, maxLen, callback: Function) {
-                if (!endsWith(file.toUpperCase(), '-TESTS.TS') && file.indexOf('../_infrastructure') < 0) {
+                if (!endsWith(file.toUpperCase(), '-TESTS.TS') && endsWith(file.toUpperCase(), '.TS') && file.indexOf('../_infrastructure') < 0) {
 					new Test(file).run((o) => {
 						var failed = false;
 
