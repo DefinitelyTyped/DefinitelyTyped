@@ -1089,7 +1089,7 @@ function test_datepicker() {
         buttonImage: "images/calendar.gif",
         buttonImageOnly: true
     });
-    $.datepicker.setDefaults($.datepicker.regional[""]);
+    $.datepicker.setDefaults($.datepicker.regional[<string>""]);
     $("#datepicker").datepicker($.datepicker.regional["fr"]);
     $("#locale").change(function () {
         $("#datepicker").datepicker("option",
@@ -1137,7 +1137,7 @@ function test_datepicker() {
     $(".selector").datepicker({ dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"] });
     $(".selector").datepicker({ dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"] });
 
-    $.datepicker.setDefaults($.datepicker.regional[""]);
+    $.datepicker.setDefaults($.datepicker.regional[<string>""]);
     $(".selector").datepicker($.datepicker.regional["fr"]);
 }
 
