@@ -4,15 +4,15 @@
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
 
 
-declare function describe(description: string, specDefinitions: Function): void;
-declare function xdescribe(description: string, specDefinitions: Function): void;
+declare function describe(description: string, specDefinitions: () => void): void;
+declare function xdescribe(description: string, specDefinitions: () => void): void;
 
-declare function it(expectation: string, assertion: () => void ): void;
-declare function it(expectation: string, assertion: (done: (err?:any) => void) => void ): void;
-declare function xit(expectation: string, assertion: Function): void;
+declare function it(expectation: string, assertion: () => void): void;
+declare function it(expectation: string, assertion: (done: (err?: any) => void) => void): void;
+declare function xit(expectation: string, assertion: () => void): void;
 
-declare function beforeEach(action: Function): void;
-declare function afterEach(action: Function): void;
+declare function beforeEach(action: () => void): void;
+declare function afterEach(action: () => void): void;
 
 declare function expect(spy: Function): jasmine.Matchers;
 //declare function expect(spy: jasmine.Spy): jasmine.Matchers;
@@ -28,7 +28,7 @@ declare module jasmine {
 
     var Clock: Clock;
 
-    function any(aclass: any):any;
+    function any(aclass: any): Any;
     function objectContaining(sample: any): ObjectContaining;
     function createSpy(name: string, originalFn?: Function): Spy;
     function createSpyObj(baseName: string, methodNames: any[]): any;
@@ -37,123 +37,173 @@ declare module jasmine {
 
     interface Any {
 
-        new (expectedClass:any):any;
+        new (expectedClass: any): any;
 
-        jasmineMatches(other:any):any;
-        jasmineToString():any;
+        jasmineMatches(other: any): boolean;
+        jasmineToString(): string;
     }
 
     interface ObjectContaining {
         new (sample: any): any;
 
-        jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): any;
-        jasmineToString(): any;
+        jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): boolean;
+        jasmineToString(): string;
     }
 
     interface Block {
 
-        new (env: Env, func: Function, spec: Spec):any;
+        new (env: Env, func: SpecFunction, spec: Spec): any;
 
-        execute(onComplete:any):any;
+        execute(onComplete: () => void): void;
+    }
+
+    interface WaitsBlock extends Block {
+        new (env: Env, timeout: number, spec: Spec): any;
+    }
+
+    interface WaitsForBlock extends Block {
+        new (env: Env, timeout: number, latchFunction: SpecFunction, message: string, spec: Spec): any;
     }
 
     interface Clock {
         reset(): void;
-        tick(millis:any): void;
-        runFunctionsWithinRange(oldMillis:any, nowMillis:any): void;
-        scheduleFunction(timeoutKey:any, funcToCall:any, millis:any, recurring:any): void;
+        tick(millis: number): void;
+        runFunctionsWithinRange(oldMillis: number, nowMillis: number): void;
+        scheduleFunction(timeoutKey: any, funcToCall: () => void, millis: number, recurring: boolean): void;
         useMock(): void;
         installMock(): void;
         uninstallMock(): void;
-        real:any;
+        real: void;
         assertInstalled(): void;
         isInstalled(): boolean;
         installed: any;
     }
 
     interface Env {
-        setTimeout:any;
-        clearTimeout:any;
-        setInterval:any;
-        clearInterval:any;
-        updateInterval:any;
+        setTimeout: any;
+        clearTimeout: void;
+        setInterval: any;
+        clearInterval: void;
+        updateInterval: number;
 
         currentSpec: Spec;
 
-        version():any;
+        matchersClass: Matchers;
+
+        version(): any;
         versionString(): string;
         nextSpecId(): number;
-        addReporter(reporter:any):any;
-        execute():any;
-        describe(description:any, specDefinitions:any):any;
-        beforeEach(beforeEachFunction:any):any;
-        currentRunner():any;
-        afterEach(afterEachFunction:any):any;
-        xdescribe(desc:any, specDefinitions:any):any;
-        it(description:any, func:any):any;
-        xit(desc:any, func:any):any;
-        compareObjects_(a:any, b:any, mismatchKeys:any, mismatchValues:any):any;
-        equals_(a:any, b:any, mismatchKeys:any, mismatchValues:any):any;
-        contains_(haystack:any, needle:any):any;
-        addEqualityTester(equalityTester:any):any;
-        specFilter(spec:any): boolean;
+        addReporter(reporter: Reporter): void;
+        execute(): void;
+        describe(description: string, specDefinitions: () => void): Suite;
+        beforeEach(beforeEachFunction: () => void): void;
+        currentRunner(): Runner;
+        afterEach(afterEachFunction: () => void): void;
+        xdescribe(desc: string, specDefinitions: () => void): XSuite;
+        it(description: string, func: () => void): Spec;
+        xit(desc: string, func: () => void): XSpec;
+        compareRegExps_(a: RegExp, b: RegExp, mismatchKeys: string[], mismatchValues: string[]): boolean;
+        compareObjects_(a: any, b: any, mismatchKeys: string[], mismatchValues: string[]): boolean;
+        equals_(a: any, b: any, mismatchKeys: string[], mismatchValues: string[]): boolean;
+        contains_(haystack: any, needle: any): boolean;
+        addEqualityTester(equalityTester: (a: any, b: any, env: Env, mismatchKeys: string[], mismatchValues: string[]) => boolean): void;
+        specFilter(spec: Spec): boolean;
     }
 
     interface FakeTimer {
 
-        new ():any;
+        new (): any;
 
         reset(): void;
-        tick(millis:any): void;
-        runFunctionsWithinRange(oldMillis:any, nowMillis:any): void;
-        scheduleFunction(timeoutKey:any, funcToCall:any, millis:any, recurring:any): void;
+        tick(millis: number): void;
+        runFunctionsWithinRange(oldMillis: number, nowMillis: number): void;
+        scheduleFunction(timeoutKey: any, funcToCall: () => void, millis: number, recurring: boolean): void;
     }
 
     interface HtmlReporter {
-        new ():any;
+        new (): any;
     }
 
-    interface NestedResults {
-
-        new ():any;
-
-        rollupCounts(result:any):any;
-        log(values:any):any;
-        getItems():any;
-        addResult(result:any):any;
-        passed():any;
+    interface Result {
+        type: string;
     }
 
+    interface NestedResults extends Result {
+        description: string;
+
+        totalCount: number;
+        passedCount: number;
+        failedCount: number;
+
+        skipped: boolean;
+
+        rollupCounts(result: NestedResults): void;
+        log(values: any): void;
+        getItems(): Result[];
+        addResult(result: Result): void;
+        passed(): boolean;
+    }
+
+    interface MessageResult extends Result  {
+        values: any;
+        trace: Trace;
+    }
+
+    interface ExpectationResult extends Result  {
+        matcherName: string;
+        passed(): boolean;
+        expected: any;
+        actual: any;
+        message: string;
+        trace: Trace;
+    }
+
+    interface Trace {
+        name: string;
+        message: string;
+        stack: any;
+    }
 
     interface PrettyPrinter {
 
-        new ():any;
+        new (): any;
 
-        format(value:any):any;
-        iterateObject(obj:any, fn:any):any;
-        emitScalar(value:any):any;
-        emitString(value:any):any;
-        emitArray(array:any):any;
-        emitObject(obj:any):any;
-        append(value:any):any;
+        format(value: any): void;
+        iterateObject(obj: any, fn: (property: string, isGetter: boolean) => void): void;
+        emitScalar(value: any): void;
+        emitString(value: string): void;
+        emitArray(array: any[]): void;
+        emitObject(obj: any): void;
+        append(value: any): void;
+    }
+
+    interface StringPrettyPrinter extends PrettyPrinter {
     }
 
     interface Queue {
 
-        new (env:any):any;
+        new (env: any): any;
 
-        addBefore(block:any, ensure:any):any;
-        add(block:any, ensure:any):any;
-        insertNext(block:any, ensure:any):any;
-        start(onComplete:any):any;
-        isRunning():any;
-        next_():any;
-        results():any;
+        env: Env;
+        ensured: boolean[];
+        blocks: Block[];
+        running: boolean;
+        index: number;
+        offset: number;
+        abort: boolean;
+
+        addBefore(block: Block, ensure?: boolean): void;
+        add(block: any, ensure?: boolean): void;
+        insertNext(block: any, ensure?: boolean): void;
+        start(onComplete?: () => void): void;
+        isRunning(): boolean;
+        next_(): void;
+        results(): NestedResults;
     }
 
     interface Matchers {
 
-        new (env: Env, actual:any, spec: Env, isNot?: boolean):any;
+        new (env: Env, actual: any, spec: Env, isNot?: boolean): any;
 
         env: Env;
         actual: any;
@@ -161,12 +211,12 @@ declare module jasmine {
         isNot?: boolean;
         message(): any;
 
-        toBe(expected:any): boolean;
-        toNotBe(expected:any): boolean;
-        toEqual(expected:any): boolean;
-        toNotEqual(expected:any): boolean;
-        toMatch(expected:any): boolean;
-        toNotMatch(expected:any): boolean;
+        toBe(expected: any): boolean;
+        toNotBe(expected: any): boolean;
+        toEqual(expected: any): boolean;
+        toNotEqual(expected: any): boolean;
+        toMatch(expected: any): boolean;
+        toNotMatch(expected: any): boolean;
         toBeDefined(): boolean;
         toBeUndefined(): boolean;
         toBeNull(): boolean;
@@ -176,86 +226,118 @@ declare module jasmine {
         toHaveBeenCalled(): boolean;
         wasNotCalled(): boolean;
         toHaveBeenCalledWith(...params: any[]): boolean;
-        toContain(expected:any): boolean;
-        toNotContain(expected:any): boolean;
-        toBeLessThan(expected:any): boolean;
-        toBeGreaterThan(expected:any): boolean;
-        toBeCloseTo(expected:any, precision:any): boolean;
+        toContain(expected: any): boolean;
+        toNotContain(expected: any): boolean;
+        toBeLessThan(expected: any): boolean;
+        toBeGreaterThan(expected: any): boolean;
+        toBeCloseTo(expected: any, precision: any): boolean;
         toContainHtml(expected: string): boolean;
         toContainText(expected: string): boolean;
-        toThrow(expected?:any ): boolean;
+        toThrow(expected?: any): boolean;
         not: Matchers;
 
         Any: Any;
     }
 
-    interface MultiReporter {
-
-        new ():any;
-
-        addReporter(reporter: Reporter):any;
+    interface Reporter {
+        reportRunnerStarting(runner: Runner): void;
+        reportRunnerResults(runner: Runner): void;
+        reportSuiteResults(suite: Suite): void;
+        reportSpecStarting(spec: Spec): void;
+        reportSpecResults(spec: Spec): void;
+        log(str: string): void;
     }
 
-    interface Reporter {
-        reportRunnerStarting(runner:any):any;
-        reportRunnerResults(runner:any):any;
-        reportSuiteResults(suite:any):any;
-        reportSpecStarting(spec:any):any;
-        reportSpecResults(spec:any):any;
-        log(str:any):any;
+    interface MultiReporter extends Reporter {
+        addReporter(reporter: Reporter): void;
     }
 
     interface Runner {
 
-        new (env: Env):any;
+        new (env: Env): any;
 
-        execute():any;
-        beforeEach(beforeEachFunction:any):any;
-        afterEach(afterEachFunction:any):any;
-        finishCallback():any;
-        addSuite(suite:any):any;
-        add(block:any):any;
-        specs():any;
-        suites():any;
-        topLevelSuites():any;
-        results():any;
+        execute(): void;
+        beforeEach(beforeEachFunction: SpecFunction): void;
+        afterEach(afterEachFunction: SpecFunction): void;
+        finishCallback(): void;
+        addSuite(suite: Suite): void;
+        add(block: Block): void;
+        specs(): Spec[];
+        suites(): Suite[];
+        topLevelSuites(): Suite[];
+        results(): NestedResults;
     }
 
-    interface Spec {
+    interface SpecFunction {
+        (spec?: Spec): void
+    }
 
-        new (env: Env, suite: Suite, description: string):any;
-
+    interface SuiteOrSpec {
         id: number;
         env: Env;
-        suite: Suite;
         description: string;
         queue: Queue;
+    }
 
-        afterCallbacks: any;
-        spies_: any;
+    interface Spec extends SuiteOrSpec {
+
+        new (env: Env, suite: Suite, description: string): any;
+
+        suite: Suite;
+
+        afterCallbacks: SpecFunction[];
+        spies_: Spy[];
 
         results_: NestedResults;
-        matchersClass: any;
+        matchersClass: Matchers;
 
         getFullName(): string;
-        results():any;
-        log():any;
-        runs(func: Function):any;
-        addToQueue(block:any):any;
-        addMatcherResult(result:any):any;
-        expect(actual:any):any;
-        waitsFor(latchFunction: Function, timeoutMessage?: string, timeout?: number):any;
-        fail(e:any):any;
-        getMatchersClass_():any;
-        addMatchers(matchersPrototype:any):any;
-        finishCallback():any;
-        finish(onComplete:any):any;
-        after(doAfter:any):any;
-        execute(onComplete:any):any;
-        addBeforesAndAftersToQueue():any;
-        explodes():any;
-        spyOn(obj:any, methodName:any, ignoreMethodDoesntExist:any):any;
-        removeAllSpies():any;
+        results(): NestedResults;
+        log(arguments): any;
+        runs(func: SpecFunction): Spec;
+        addToQueue(block: Block): void;
+        addMatcherResult(result: Result): void;
+        expect(actual: any): any;
+        waits(timeout: number): Spec;
+        waitsFor(latchFunction: SpecFunction, timeoutMessage?: string, timeout?: number): Spec;
+        fail(e?: any): void;
+        getMatchersClass_(): Matchers;
+        addMatchers(matchersPrototype: any): void;
+        finishCallback(): void;
+        finish(onComplete?: () => void): void;
+        after(doAfter: SpecFunction): void;
+        execute(onComplete?: () => void): any;
+        addBeforesAndAftersToQueue(): void;
+        explodes(): void;
+        spyOn(obj: any, methodName: string, ignoreMethodDoesntExist: boolean): Spy;
+        removeAllSpies(): void;
+    }
+
+    interface XSpec {
+        id: number;
+        runs(): void;
+    }
+
+    interface Suite extends SuiteOrSpec {
+
+        new (env: Env, description: string, specDefinitions: () => void, parentSuite: Suite): any;
+
+        parentSuite: Suite;
+
+        getFullName(): string;
+        finish(onComplete?: () => void): void;
+        beforeEach(beforeEachFunction: SpecFunction): void;
+        afterEach(afterEachFunction: SpecFunction): void;
+        results(): NestedResults;
+        add(suiteOrSpec: SuiteOrSpec): void;
+        specs(): Spec[];
+        suites(): Suite[];
+        children(): any[];
+        execute(onComplete?: () => void): void;
+    }
+
+    interface XSuite {
+        execute(): void;
     }
 
     interface Spy {
@@ -268,53 +350,35 @@ declare module jasmine {
         wasCalled: boolean;
         callCount: number;
 
-        andReturn(value:any): Spy;
+        andReturn(value: any): Spy;
         andCallThrough(): Spy;
         andCallFake(fakeFunc: Function): Spy;
     }
 
-    interface Suite {
-
-        new (env: Env, description: string, specDefinitions: Function, parentSuite: Suite):any;
-
-        getFullName():any;
-        finish(onComplete:any):any;
-        beforeEach(beforeEachFunction:any):any;
-        afterEach(afterEachFunction:any):any;
-        results():any;
-        add(suiteOrSpec:any):any;
-        specs():any;
-        suites():any;
-        children():any;
-        execute(onComplete:any):any;
-    }
-
     interface Util {
-        inherit(childClass: Function, parentClass: Function):any;
-        formatException(e:any):any;
+        inherit(childClass: Function, parentClass: Function): any;
+        formatException(e: any): any;
         htmlEscape(str: string): string;
-        argsToArray(args:any):any;
-        extend(destination:any, source:any):any;
+        argsToArray(args: any): any;
+        extend(destination: any, source: any): any;
     }
 
-    interface JsApiReporter {
+    interface JsApiReporter extends Reporter {
 
-        result:any;
-        messages:any;
+        started: boolean;
+        finished: boolean;
+        result: any;
+        messages: any;
 
-        new ():any;
+        new (): any;
 
-        reportRunnerStarting(runner:any):any;
-        suites():any;
-        summarize_(suiteOrSpec:any):any;
-        results():any;
-        resultsForSpec(specId:any):any;
-        reportRunnerResults(runner:any):any;
-        reportSuiteResults(suite:any):any;
-        reportSpecResults(spec:any):any;
-        log(str:any):any;
-        resultsForSpecs(specIds:any):any;
-        summarizeResult_(result:any):any;
+        suites(): Suite[];
+        summarize_(suiteOrSpec: SuiteOrSpec): any;
+        results(): any;
+        resultsForSpec(specId: any): any;
+        log(str: any): any;
+        resultsForSpecs(specIds: any): any;
+        summarizeResult_(result: any): any;
     }
 
     interface Jasmine {

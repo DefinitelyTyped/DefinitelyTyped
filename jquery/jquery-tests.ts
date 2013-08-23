@@ -1124,7 +1124,9 @@ function test_error() {
             $(this).hide();
         })
         .attr("src", "missing.png");
-    jQuery.error = console.error;
+    jQuery.error = (message?: string) => {
+        console.error(message); return this;
+    }
 }
 
 function test_eventParams() {
