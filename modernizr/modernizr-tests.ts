@@ -2,9 +2,9 @@
 
 declare var $: any;
 
-/*function alert(thing: any) {
+window.alert = function(thing?: string) {
     $('#content').append('<div>' + thing + '</div>');
-}*/
+}
 
 $(function () {
     var audio = new Audio();
