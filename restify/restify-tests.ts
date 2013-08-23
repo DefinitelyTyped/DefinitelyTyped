@@ -1,6 +1,6 @@
 /// <reference path="restify.d.ts" />
 
-import restify = module("restify");
+import restify = require("restify");
 
 var server = restify.createServer({
   formatters: {
