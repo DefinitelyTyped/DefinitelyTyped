@@ -9,6 +9,6 @@ interface KnockoutStatic {
     track(obj: any, propertyNames?: Array<string>): any;
     defineProperty(obj: any, propertyName: string, evaluator: Function): any;
     defineProperty(obj: any, propertyName: string, options: { get: () => any; set?: (value: any) => void; }): any;
-    getObservable(obj: any, propertyName: string): KnockoutObservable;
+    getObservable(obj: any, propertyName: string): KnockoutObservable<any>;
     valueHasMutated(obj: any, propertyName: string): void;
 }
