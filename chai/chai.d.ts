@@ -8,6 +8,10 @@ declare module chai {
 
     function expect(target: any): Expect;
 
+    interface ExpectStatic {
+        (target: any): Expect;
+    }
+
     interface Expect extends LanguageChains, NumericComparison, TypeComparison {
         not: Expect;
         deep: Deep;
