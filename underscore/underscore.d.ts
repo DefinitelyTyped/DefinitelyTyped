@@ -1310,7 +1310,7 @@ declare module _ {
 	* @param obj Object to chain.
 	* @return Wrapped `obj`.
 	**/
-	export function chain(obj: any): _Chain;
+	export function chain(obj: any): _Chain<any>;
 
 	/**
 	* Extracts the value of a wrapped object.
@@ -2077,7 +2077,7 @@ declare class _<T> {
 	* Wrapped type `any`.
 	* @see _.chain
 	**/
-	chain(): _Chain;
+	chain(): _Chain<any>;
 
 	/**
 	* Wrapped type `any`.
@@ -2096,7 +2096,7 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.each
 	**/
-	each(iterator: _.ListIterator<T, void >, context?: any): _Chain;
+	each(iterator: _.ListIterator<T, void >, context?: any): _Chain<any>;
 
 	/**
 	* @see _.each
