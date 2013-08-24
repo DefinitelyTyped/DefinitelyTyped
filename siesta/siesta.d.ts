@@ -5,27 +5,169 @@ declare var startTest: typeof StartTest;
 declare var describe: typeof StartTest;
 
 declare module Siesta {
-    export class Harness {
+
+    //#region Harness
+
+    class Harness {
+        alsoPreload: any[];
+
+        autoCheckGlobals: boolean;
+
+        cachePreload: boolean;
+
+        defaultTimeout: boolean;
+
+        disableColoring: boolean;
+
+        expectedGlobals: string[];
+
+        isReadyTimeout: number;
+
+        keepNLastResults: number;
+
+        keepResults: boolean;
+
+        listenters: {
+            [key: string]: (event: Event, ...args: any[]) => void;
+        }
+
+        maxThreads: number;
+
+        needDone: boolean;
+
+        overrideSetTimeout: boolean;
+
+        pauseBetweenTests: number;
+
+        preload: any[];
+
+        runCore: string;
+
+        subTestTimeout: number;
+
+        testClass: Siesta.Test;
+
+        title: string;
+
+        transparentEx: boolean;
+
+        waitForTimeout: number;
+
+        configure(config: any): void;
+
+        start(...descriptors: any[]): void;
     }
 
-    export module Harness {
-        export class Browser extends Harness {
+    module Harness {
+        interface ITestGroupDescriptor {
+            group: string;
+
+            items: any[];
         }
 
-        export module Browser {
-            export class ExtJS extends Browser implements ExtJSCore {
-            }
-
-            export class ExtJSCore {
-            }
-
-            export class SenchaTouch extends Browser implements ExtJSCore {
-            }
+        interface ITestUrlDescriptor {
+            url: string;
         }
 
-        export class NodeJS implements Harness {
+        interface IPreloadUrlDescriptor {
+            type: string;
+
+            url: string;
         }
+
+        interface IPreloadContentDescriptor {
+            type: string;
+
+            content: string;
+        }
+
+        interface IPreloadTextDescriptor {
+            text: string;
+        }
+
+        interface IBrowser extends Harness {
+            autoRun: boolean;
+
+            autoScrollElementsIntoView: boolean;
+
+            breakOnFail: boolean;
+
+            coverageUnit: string;
+
+            disableCaching: boolean;
+
+            enableCodeCoverage: boolean;
+
+            excludeCoverageUnits: RegExp;
+
+            hostPageUrl: string;
+
+            includeCoverageUnits: RegExp;
+
+            maintainViewportSize: boolean;
+
+            runCore: string;
+
+            separateContext: boolean;
+
+            simulateEventsWith: string;
+
+            speedRun: boolean;
+
+            testClass: Function;
+
+            useStrictMode: boolean;
+
+            viewDOM: boolean;
+
+            viewportHeight: number;
+
+            viewportWidth: number;
+        }
+
+        interface IBrowserExtJSCore {
+            coverageUnit: string;
+
+            excludeCoverageUnits: RegExp;
+
+            installLoaderInstrumentationHook: boolean;
+        }
+
+        interface IBrowserExtJS extends IBrowser, IBrowserExtJSCore {
+            allowExtVersionChange: boolean;
+
+            loaderPath: any;
+
+            waitForAppReady;
+
+            waitForExtReady;
+        }
+
+        interface IBrowserSenchaTouch extends IBrowser, IBrowserExtJSCore {
+            loaderPath: any;
+
+            performSetup: boolean;
+
+            runCore: string;
+
+            transparentEx: boolean
+        }
+
+        interface IBrowserSingleton extends IBrowser {
+            ExtJS: IBrowserExtJS;
+
+            SenchaTouch: IBrowserSenchaTouch;
+        }
+
+        interface IHarnessNodeJS extends Harness {
+        }
+
+        var Browser: IBrowserSingleton;
+
+        var NodeJS: IHarnessNodeJS;
     }
+
+    //#endregion
 
     export class Test implements Test.BDD, Test.Date, Test.Function, Test.More {
     }
