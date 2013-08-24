@@ -69,6 +69,9 @@ interface SignalR {
 
 interface HubProxy {
     (connection: HubConnection, hubName: string): HubProxy;
+    state: any;
+    connection: HubConnection;
+    hubName: string;
     init(connection: HubConnection, hubName: string): void;
     hasSubscriptions(): boolean;
     on(eventName: string, callback: (...msg) => void ): HubProxy;
