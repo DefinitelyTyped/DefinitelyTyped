@@ -1,5 +1,5 @@
 /* 
-require-2.1.5.d.ts may be freely distributed under the MIT license.
+require-2.1.8.d.ts may be freely distributed under the MIT license.
 
 Copyright (c) 2013 Josh Baldwin https://github.com/jbaldwin/require.d.ts
 
@@ -27,7 +27,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 interface RequireError extends Error {
 
 	/**
-	* Error Type
+	* The error ID that maps to an ID on a web page.
 	**/
 	requireType: string;
 
@@ -37,7 +37,7 @@ interface RequireError extends Error {
 	requireModules: string[];
 
 	/**
-	* Original error, might be null.
+	* The original error, if there is one (might be null).
 	**/
 	originalError: Error;
 }
@@ -180,12 +180,39 @@ interface RequireModule {
 
 }
 
+/**
+*
+**/
 interface RequireMap {
+
+	/**
+	*
+	**/
 	prefix: string;
+
+	/**
+	*
+	**/
 	name: string;
+
+	/**
+	*
+	**/
 	parentMap: RequireMap;
+
+	/**
+	*
+	**/
 	url: string;
+
+	/**
+	*
+	**/
 	originalName: string;
+
+	/**
+	*
+	**/
 	fullName: string;
 }
 
@@ -221,7 +248,7 @@ interface Require {
 	* On Error override
 	* @param err
 	**/
-	onError(err: RequireError): void;
+	onError(err: RequireError, errback?: (err: RequireError) => void): void;
 
 	/**
 	* Undefine a module
