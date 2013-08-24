@@ -2,7 +2,7 @@
 
 declare var $: any;
 
-function alert(thing: any) {
+window.alert = function(thing?: string) {
 	$('body').append('<div>' + thing + '</div>');
 }
 
