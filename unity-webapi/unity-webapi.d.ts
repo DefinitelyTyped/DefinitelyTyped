@@ -3,6 +3,10 @@
 // Definitions by: John Vrbanac <john.vrbanac@linux.com> | https://github.com/jmvrbanac
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+interface External {
+	getUnityObject(version:number):Unity;
+}
+
 declare class UnitySettings {
    public name:String;
    public iconUrl:String;
