@@ -20,7 +20,10 @@ interface AjaxFunction {
 
 interface Select2AjaxOptions {
     transport?: AjaxFunction;
-    url?: string;
+    /**
+    * Url to make request to, Can be string or a function returning a string.
+    */
+    url?: any;
     dataType?: string;
     quietMillis?: number;
     data?: (term: string, page: number, context: any) => any;
@@ -72,8 +75,60 @@ interface JQuery {
     select2(): JQuery;
     select2(it: IdTextPair): JQuery;
     select2(options: Select2Options): JQuery;
-    select2(method: string, something: string): JQuery;
-    select2(method: string, something: string[]): JQuery;
-    select2(method: string, something: IdTextPair[]): JQuery;
-    select2(method: string, options: IdTextPair): JQuery;
+    select2(method: string): any;
+    select2(method: string, value: any, trigger?: boolean): any;
+    /**
+    * Get the id value of the current selection
+    */
+    select2(method: 'val'): any;
+    /**
+    * Set the id value of the current selection
+    * @params value Value to set the id to
+    * @params triggerChange Should a change event be triggered
+    */
+    select2(method: 'val', value: any, triggerChange?: boolean): any;
+    /**
+    * Get the data object of the current selection
+    */
+    select2(method: 'data'): any;
+    /**
+    * Set the data of the current selection
+    * @params value Object to set the data to
+    * @params triggerChange Should a change event be triggered
+    */
+    select2(method: 'data', value: any, triggerChange?: boolean): any;
+    /**
+    * Reverts changes to DOM done by Select2. Any selection done via Select2 will be preserved.
+    */
+    select2(method: 'destroy'): void;
+    /**
+    * Opens the dropdown
+    */
+    select2(method: 'open'): void;
+    /**
+    * Closes the dropdown
+    */
+    select2(method: 'close'): void;
+    /**
+    * Enables or disables Select2 and its underlying form component
+    * @param value True if it should be enabled false if it should be disabled
+    */
+    select2(method: 'enable', value: boolean): void;
+    /**
+    * Toggles readonly mode on Select2 and its underlying form component
+    * @param value True if it should be readonly false if it should be read write
+    */
+    select2(method: 'readonly', value: boolean): void;
+    /**
+    * Retrieves the main container element that wraps all of DOM added by Select2
+    */
+    select2(method: 'container'): HTMLElement;
+    /**
+    * Notifies Select2 that a drag and drop sorting operation has started
+    */
+    select2(method: 'onSortStart'): void;
+    /**
+    * Notifies Select2 that a drag and drop sorting operation has finished
+    */
+    select2(method: 'onSortEnd'): void;
 }

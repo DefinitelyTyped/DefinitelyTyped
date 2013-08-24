@@ -18,10 +18,22 @@ interface SimplePaginationOptions {
     nextText?: string;
     cssStyle?: string;
     selectOnClick?: boolean;
-    onPageClick?: (interger) => void;
+    onPageClick?: (page?: number, event?: any) => void;
     onInit?: () => void;
 }
 
 interface JQuery {
     pagination(options?: SimplePaginationOptions): JQuery;
+    pagination(method: string): any;
+    pagination(method: string, value: any): any;
+    pagination(method: 'selectPage', pageNumber: number): void;
+    pagination(method: 'prevPage'): void;
+    pagination(method: 'nextPage'): void;
+    pagination(method: 'getPagesCount'): number;
+    pagination(method: 'getCurrentPage'): number;
+    pagination(method: 'disable'): void;
+    pagination(method: 'enable'): void;
+    pagination(method: 'destroy'): void;
+    pagination(method: 'redraw'): void;
+    pagination(method: 'updateItems', items: number): void;
 }
