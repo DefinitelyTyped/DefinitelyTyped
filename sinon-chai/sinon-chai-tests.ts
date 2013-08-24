@@ -1,11 +1,11 @@
 /// <reference path="../chai/chai.d.ts" />
 /// <reference path="sinon-chai.d.ts" />
 
-var expect = chai.expect;
+declare var expect: chai.ExpectStatic;
 
 function test() {
-    var spy;
-    var anotherSpy;
+    var spy: Function;
+    var anotherSpy: Function;
     var context;
     var match;
 
@@ -15,6 +15,8 @@ function test() {
     expect(spy).to.have.been.calledThrice;
     expect(spy).to.have.been.calledBefore(anotherSpy);
     expect(spy).to.have.been.calledAfter(anotherSpy);
+    expect(spy).to.have.been.calledWithNew;
+    expect(spy).to.have.been.alwaysCalledWithNew;
     expect(spy).to.have.been.calledOn(context);
     expect(spy).to.have.been.alwaysCalledOn(context);
     expect(spy).to.have.been.calledWith('foo', 'bar');
@@ -23,8 +25,8 @@ function test() {
     expect(spy).to.have.been.alwaysCalledWithExactly('foo', 'bar');
     expect(spy).to.have.been.calledWithMatch(match);
     expect(spy).to.have.been.alwaysCalledWithMatch(match);
-    expect(spy).to.have.been.returned(1);
-    expect(spy).to.have.been.alwaysReturned(1);
-    expect(spy).to.have.been.threw('an error');
-    expect(spy).to.have.been.alwaysThrew('an error');
+    expect(spy).to.have.returned(1);
+    expect(spy).to.have.alwaysReturned(1);
+    expect(spy).threw('an error');
+    expect(spy).alwaysThrew('an error');
 }
