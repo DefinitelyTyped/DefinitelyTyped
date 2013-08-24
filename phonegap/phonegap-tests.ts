@@ -107,21 +107,21 @@ function test_capture() {
     }
     var options = { limit: 3, duration: 10 };
     navigator.device.capture.captureAudio(captureSuccess, captureError, options);
-    var captureSuccess = function (mediaFiles) {
+    function captureSuccess2(mediaFiles) {
         var i, path, len;
         for (i = 0, len = mediaFiles.length; i < len; i += 1) {
             path = mediaFiles[i].fullPath;
         }
     };
-    var captureError = function (error) {
+    function captureError2(error) {
         navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
     };
-    navigator.device.capture.captureImage(captureSuccess, captureError, { limit: 2 });
+    navigator.device.capture.captureImage(captureSuccess2, captureError2, { limit: 2 });
     function captureImage() {
-        navigator.device.capture.captureImage(captureSuccess, captureError, { limit: 2 });
+        navigator.device.capture.captureImage(captureSuccess2, captureError2, { limit: 2 });
     }
     function captureVideo() {
-        navigator.device.capture.captureVideo(captureSuccess, captureError, { limit: 2 });
+        navigator.device.capture.captureVideo(captureSuccess2, captureError2, { limit: 2 });
     }
 }
 

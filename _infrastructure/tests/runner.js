@@ -583,7 +583,11 @@ var DefinitelyTyped;
             function Tsc() {
             }
             Tsc.run = function (tsfile, callback) {
-                Exec.exec('node ./_infrastructure/tests/typescript/tsc.js --module commonjs ', [tsfile], function (ExecResult) {
+                var command = 'node ./_infrastructure/tests/typescript/tsc.js --module commonjs ';
+                if (IO.fileExists(tsfile + '.tscparams')) {
+                    command += '@' + tsfile + '.tscparams';
+                }
+                Exec.exec(command, [tsfile], function (ExecResult) {
                     callback(ExecResult);
                 });
             };
@@ -846,7 +850,7 @@ var DefinitelyTyped;
 
             SyntaxChecking.prototype.run = function (it, file, len, maxLen, callback) {
                 var _this = this;
-                if (!endsWith(file.toUpperCase(), '-TESTS.TS') && file.indexOf('../_infrastructure') < 0) {
+                if (!endsWith(file.toUpperCase(), '-TESTS.TS') && endsWith(file.toUpperCase(), '.TS') && file.indexOf('../_infrastructure') < 0) {
                     new Test(file).run(function (o) {
                         var failed = false;
 
