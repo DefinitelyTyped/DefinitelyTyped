@@ -26,7 +26,3 @@ Harness.start({
     ],
     option1: true
 });
-
-var temp: Siesta.Test.ExtJS;
-
-var temps: Shapes.Point;

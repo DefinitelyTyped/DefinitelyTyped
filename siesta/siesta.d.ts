@@ -56,31 +56,31 @@ declare module Siesta {
     }
 
     module Harness {
-        //interface ITestGroupDescriptor {
-        //    group: string;
+        interface ITestGroupDescriptor {
+            group: string;
 
-        //    items: any[];
-        //}
+            items: any[];
+        }
 
-        //interface ITestUrlDescriptor {
-        //    url: string;
-        //}
+        interface ITestUrlDescriptor {
+            url: string;
+        }
 
-        //interface IPreloadUrlDescriptor {
-        //    type: string;
+        interface IPreloadUrlDescriptor {
+            type: string;
 
-        //    url: string;
-        //}
+            url: string;
+        }
 
-        //interface IPreloadContentDescriptor {
-        //    type: string;
+        interface IPreloadContentDescriptor {
+            type: string;
 
-        //    content: string;
-        //}
+            content: string;
+        }
 
-        //interface IPreloadTextDescriptor {
-        //    text: string;
-        //}
+        interface IPreloadTextDescriptor {
+            text: string;
+        }
 
         /**
          * @singleton
@@ -188,6 +188,14 @@ declare module Siesta {
     }
 
     module Test {
+        interface IActionCall extends IAction {
+            (next: (...args: any[]) => void, ...previous: any[]): void;
+
+            action?: IActionCall;
+
+            timeout?: number;
+        }
+
         /**
          * @abstract
          */
@@ -342,19 +350,19 @@ declare module Siesta {
         interface IBDD {
             any(clsConstructor: Function): any;
 
-            ddescribe(name: string, code: Function, timeout?: number);
+            ddescribe(name: string, code: Function, timeout?: number): void;
 
-            describe(name: string, code: Function, timeout?: number);
+            describe(name: string, code: Function, timeout?: number): void;
 
             expect(value: any): BDD.Expectation;
 
-            iit(name: string, code: Function, timeout?: number);
+            iit(name: string, code: Function, timeout?: number): void;
 
-            it(name: string, code: Function, timeout?: number);
+            it(name: string, code: Function, timeout?: number): void;
 
-            xdescribe(name: string, code: Function, timeout?: number);
+            xdescribe(name: string, code: Function, timeout?: number): void;
 
-            xit(name: string, code: Function, timeout?: number);
+            xit(name: string, code: Function, timeout?: number): void;
         }
 
         module BDD {
@@ -362,6 +370,35 @@ declare module Siesta {
              @class
              */
             interface Expectation {
+                not: Expectation;
+
+                toBe(expectedValue: any): void;
+
+                toBeCloseTo(expectedValue: number, precision?: number): void;
+
+                toBeDefined(expectedValue: any): void;
+
+                toBeFalsy(expectedValue: any): void;
+
+                toBeGreaterThan(expectedValue: any): void;
+
+                toBeLessThan(expectedValue: any): void;
+
+                toBeNaN(expectedValue: any): void;
+
+                toBeNull(expectedValue: any): void;
+
+                toBeTruthy(expectedValue: any): void;
+
+                toBeUndefined(value: any): void;
+
+                toContain(element: any): void;
+
+                toEqual(expectedValue: any): void;
+
+                toMatch(regexp: RegExp): void;
+
+                toThrow(): void;
             }
         }
 
@@ -433,6 +470,9 @@ declare module Siesta {
              * @mixin
              */
             interface IKeyboard {
+                keyPress(el: any, key: string, options: any): void;
+
+                type(el: any, text: string, callback?: Function, scope?: any, options?: any): void;
             }
 
             module KeyCodes {
@@ -442,6 +482,42 @@ declare module Siesta {
              * @mixin
              */
             interface IMouse {
+                dragDelay: number;
+
+                dragPrecision: number;
+
+                moveCursorBetweenPoints: boolean;
+
+                click(el?: any, callback?: Function, scope?: any, options?: any): void;
+                click(callback?: Function, scope?: any, options?: any): void;
+
+                doubleClick(el?: any, callback?: Function, scope?: any, options?: any): void;
+                doubleClick(callback?: Function, scope?: any, options?: any): void;
+
+                drag(source: any, target?: any, delta?: number[], callback?: Function, scope?: any, options?: any): void;
+
+                dragBy(source: any, delta: number[], callback?: Function, scope?: any, options?: any, dragOnly?: boolean): void;
+
+                dragTo(source: any, target: any, callback?: Function, scope?: any, options?: any, dragOnly?: boolean): void;
+
+                mouseDown(el: any, options: any): void;
+
+                mouseOut(el: any, options: any): void;
+
+                mouseOver(el: any, options: any): void;
+
+                mouseUp(el: any, options: any): void;
+
+                moveCursorBy(delta: number[], callback?: Function, scope?: any): void;
+
+                moveCursorTo(target?: any, callback?: Function, scope?: any): void;
+
+                moveMouseBy(delta: number[], callback?: Function, scope?: any): void;
+
+                moveMouseTo(target?: any, callback?: Function, scope?: any): void;
+
+                rightClick(el?: any, callback?: Function, scope?: any, options?: any): void;
+                rightClick(callback?: Function, scope?: any, options?: any): void;
             }
         }
 
@@ -449,12 +525,34 @@ declare module Siesta {
          * @class
          */
         interface Browser extends Simulate.IEvent, Simulate.IKeyboard, Simulate.IMouse, IElement, ITextSelection {
+            clearTimeout(timeoutId: number): void;
+
+            elementFromPoint(x: number, y: number, shallow?: boolean): HTMLElement;
+
+            firesAtLeastNTimes(observable: any, event: string, n: number, desc: string);
+
+            firesOk(options: any): void;
+
+            firesOnce(observable: any, event: string, desc: string): void;
+
+            isntFired(observable: any, event: string, desc: string): void;
+
+            setTimeout(func: Function, delay: number): number;
+
+            waitForEvent(observable: any, event: string, callback: Function, scope: any, timeout: number): void;
+
+            waitForPageLoad(callback: Function, scope: any): void;
+
+            willFireNTimes(observable: any, event: string, n: number, desc: string): void;
+
+            wontFire(observable: any, event: string, desc: string): void;
         }
 
         /**
          * @mixin
          */
         interface IDate {
+            isDateEqual(got: Date, expectedDate: Date, description?: string): void;
         }
 
         /**
@@ -473,6 +571,32 @@ declare module Siesta {
          * @mixin
          */
         interface IFunction {
+            isCalled(fn: string, host: any, desc: string): void;
+            isCalled(fn: Function, host: any, desc: string): void;
+
+            isCalledNTimes(fn: string, host: any, n: number, desc: string): void;
+            isCalledNTimes(fn: Function, host: any, n: number, desc: string): void;
+
+            isCalledOnce(fn: string, host: any, desc: string): void;
+            isCalledOnce(fn: Function, host: any, desc: string): void;
+
+            isntCalled(fn: string, host: any, n: number, desc: string): void;
+            isntCalled(fn: Function, host: any, n: number, desc: string): void;
+
+            methodIsCalled(fn: string, className: string, desc: string): void;
+            methodIsCalled(fn: Function, className: string, desc: string): void;
+            methodIsCalled(fn: string, className: Function, desc: string): void;
+            methodIsCalled(fn: Function, className: Function, desc: string): void;
+
+            methodIsCalledNTimes(fn: string, className: string, n: number, desc: string): void;
+            methodIsCalledNTimes(fn: Function, className: string, n: number, desc: string): void;
+            methodIsCalledNTimes(fn: string, className: Function, n: number, desc: string): void;
+            methodIsCalledNTimes(fn: Function, className: Function, n: number, desc: string): void;
+
+            methodIsntCalled(fn: string, className: string, desc: string): void;
+            methodIsntCalled(fn: Function, className: string, desc: string): void;
+            methodIsntCalled(fn: string, className: Function, desc: string): void;
+            methodIsntCalled(fn: Function, className: Function, desc: string): void;
         }
 
         /**
@@ -481,10 +605,82 @@ declare module Siesta {
         interface jQuery extends Browser {
         }
 
+        interface IWaitForConfig {
+            method: Function;
+
+            callback: Function;
+
+            scope?: any;
+
+            timeout?: number;
+
+            interval?: number;
+        }
+
+        interface IWaitForReturn {
+            force: Function
+        }
+
         /**
          * @mixin
          */
         interface IMore {
+            waitForTimeout: number;
+
+            chain(steps: IAction[]): void;
+            chain(...step: IAction[]): void;
+
+            expectGlobals(...names: any[]): void;
+
+            isApprox(value1: number, value2: number, threshHold: number, desc: string): void;
+
+            isArray(value: any, desc: string): void;
+
+            isBoolean(value: any, desc: string): void;
+
+            isDate(value: any, desc: string): void;
+
+            isDeeply(obj1: any, obj2: any, desc: string): void;
+
+            isDeeplyStrict(obj1: any, obj2: any, desc: string): void;
+
+            isFunction(value: any, desc: string): void;
+
+            isGreater(value1: any, value2: any, desc: string): void;
+
+            isGreaterOrEqual(value1: any, value2: any, desc: string): void;
+
+            isLess(value1: any, value2: any, desc: string): void;
+
+            isLessOrEqual(value1: any, value2: any, desc: string): void;
+
+            isNumber(value: any, desc: string): void;
+
+            isObject(value: any, desc: string): void;
+
+            isRegExp(value: any, desc: string): void;
+
+            isString(value: any, desc: string): void;
+
+            isaOk(value: any, className: string, desc: string): void;
+            isaOk(value: any, className: Function, desc: string): void;
+
+            like(string: string, regex: string, desc: string): void;
+            like(string: string, regex: RegExp, desc: string): void;
+
+            livesOk(func: Function, desc: string): void;
+
+            throwsOk(func: Function, expected: string, desc: string): void;
+            throwsOk(func: Function, expected: RegExp, desc: string): void;
+
+            unlike(string: string, regex: string, desc: string): void;
+            unlike(string: string, regex: RegExp, desc: string): void;
+
+            verifyGlobals(...names: string[]): void;
+
+            waitFor(wait: number, callback: Function, scope: any, timeout: number, interval?: number): IWaitForReturn;
+            waitFor(method: Function, callback: Function, scope: any, timeout: number, interval?: number): IWaitForReturn;
+            waitFor(config: IWaitForConfig): IWaitForReturn;
         }
 
         /**
