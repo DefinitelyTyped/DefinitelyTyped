@@ -3,13 +3,13 @@
 // Definitions by: https://github.com/sunetos
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-module TWEEN {
+declare module TWEEN {
   export var REVISION: string;
   export function getAll(): Tween[];
   export function removeAll(): void;
   export function add(tween:Tween): void;
   export function remove(tween:Tween): void;
-  export function update(time:number): bool;
+  export function update(time:number): boolean;
 
   export class Tween {
     constructor(object?:any);
@@ -23,8 +23,8 @@ module TWEEN {
     onStart(callback:Function): Tween;
     onUpdate(callback:Function): Tween;
     onComplete(callback:Function): Tween;
-    update(time:number): bool;
-  };
+    update(time:number): boolean;
+  }
   export var Easing: TweenEasing;
   export var Interpolation: TweenInterpolation;
 }

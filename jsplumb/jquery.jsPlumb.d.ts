@@ -12,7 +12,8 @@ interface jsPlumb {
 	bind(event: string, callback: (e) => void ): void;
 	unbind(event?: string): void;
 	ready(callback: () => void): void;
-	importDefaults(defaults: Defaults): void;//
+	importDefaults(defaults: Defaults): void;
+	Defaults: Defaults;
 	restoreDefaults(): void;
 	addClass(el: any, clazz: string): void;
 	addEndpoint(ep: string): any;
@@ -27,13 +28,15 @@ interface jsPlumb {
 	detachAllConnections(el: string): void;
 	removeAllEndpoints(el: any): void;
 	select(params: SelectParams): Connections;
+	getConnections(options?: any, flat?: any): any[];
 }
 
 interface Defaults {
 	Endpoint?: any[];
+	PaintStyle?: PaintStyle;
 	HoverPaintStyle?: PaintStyle;
-	ConnectionsDetachable?: bool;
-	ReattachConnections?: bool;
+	ConnectionsDetachable?: boolean;
+	ReattachConnections?: boolean;
 	ConnectionOverlays?: any[][];
 }
 
@@ -63,8 +66,8 @@ interface Connections {
 interface ConnectParams {
 	source: string;
 	target: string;
-	detachable?: bool;
-	deleteEndpointsOnDetach?: bool;
+	detachable?: boolean;
+	deleteEndpointsOnDetach?: boolean;
 	endPoint?: string;
 	anchor?: string;
 	anchors?: any[];
@@ -84,10 +87,10 @@ interface SourceOptions {
 }
 
 interface TargetOptions {
-	isTarget?: bool;
+	isTarget?: boolean;
 	maxConnections?: number;
-	uniqueEndpoint?: bool;
-	deleteEndpointsOnDetach?: bool;
+	uniqueEndpoint?: boolean;
+	deleteEndpointsOnDetach?: boolean;
 	endpoint?: string;
 	dropOptions?: DropOptions;
 	anchor?: any;

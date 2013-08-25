@@ -24,7 +24,7 @@ class Assert {
 	static passedTests: number = 0;
 
 	static Results() {
-		console.log('Tests succeeded - ' + passedTests + '/' + totalTests + '; Tests failed - ' + (totalTests - passedTests) + '/' + totalTests);
+		console.log('Tests succeeded - ' + this.passedTests + '/' + this.totalTests + '; Tests failed - ' + (this.totalTests - this.passedTests) + '/' + this.totalTests);
 	}
 
 	static AssertionFailed(actual: any, expected: any, test: string) {
@@ -32,21 +32,21 @@ class Assert {
 	}
 
 	static Equal(actual: any, expected: any, test?: string) {
-		totalTests++;
+		this.totalTests++;
 		if (actual === expected) {
-			passedTests++;
+			this.passedTests++;
 			return;
 		}
-		AssertionFailed(actual, expected, test);
+		this.AssertionFailed(actual, expected, test);
 	}
 
 	static NotEqual(actual: any, expected: any, test?: string) {
-		totalTests++;
+		this.totalTests++;
 		if (actual !== expected) {
-			passedTests++;
+			this.passedTests++;
 			return;
 		}
-		AssertionFailed(actual, expected, test);
+		this.AssertionFailed(actual, expected, test);
 	}
 }
 
@@ -61,9 +61,9 @@ function test_signatures() {
 	TestObject.transition(options);
 	TestObject.transition(options, 500);
 	TestObject.transition(options, 'in');
-	TestObject.transition(options, function () { var test: bool = true; });
+	TestObject.transition(options, function () { var test: boolean = true; });
 	TestObject.transition(options, 500, 'out');
-	TestObject.transition(options, 500, 'in-out', function () { var test: bool = true; });
+	TestObject.transition(options, 500, 'in-out', function () { var test: boolean = true; });
 }
 
 function test_opacity() {

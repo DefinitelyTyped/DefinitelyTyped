@@ -7,8 +7,8 @@
 declare module Ember {
 
     export class CoreObject {
-        isDestroyed: bool;
-        isDestroying: bool;
+        isDestroyed: boolean;
+        isDestroying: boolean;
 
         destroy(): Object;
         eachComputedProperty(callback: Function, binding: Object): void;
@@ -24,13 +24,13 @@ declare module Ember {
         beginPropertyChanges(): Observable;
         cacheFor(keyName: string): Object;
         decrementProperty(keyName: string, increment: Object): Object;
-        detect(obj: Object): bool;
+        detect(obj: Object): boolean;
         endPropertyChanges(): Observable;
         get(key: string): Object;
         getProperties(...list: string[]): any;
         getProperties(list: string[]): any;
         getWithDefault(keyName: string, defaultValue: Object): Object;
-        hasObserverFor(key: string): bool;
+        hasObserverFor(key: string): boolean;
         incrementProperty(keyName: string, increment: Object): Object;
         notifyPropertyChange(keyName: string): Observable;
         propertyDidChange(keyName: string): Observable;
@@ -48,7 +48,7 @@ declare module Ember {
     export interface Mixin {
         apply(obj: Object): Object;
         create(obj: Object): Object;
-        detect(obj: Object): bool;
+        detect(obj: Object): boolean;
         extend(first: Object, second: Object): Object;
         reopen(...arguments: any[]): Mixin;
     }
@@ -61,14 +61,14 @@ declare module Ember {
     export interface Enumerable extends Mixin {
         // Fields
         firstObject: Object;
-        hasEnumerableObservers: bool;
+        hasEnumerableObservers: boolean;
         lastObject: Object;
         nextObject: Object;
 
         // Methods
         addEnumerableObserver(target, opts);
         compact(): any[];
-        contains(obj: Object): bool;
+        contains(obj: Object): boolean;
         enumerableContentDidChange(removing: number, adding: number): Object;
         enumerableContentDidChange(removing: Ember.Enumerable, adding: Ember.Enumerable): Object;
         enumerableContentDidChange(start: Number, removing: number, adding: number): Object;
@@ -79,7 +79,7 @@ declare module Ember {
         enumerableContentWillChange(start: Number, removing: number, adding: number): Ember.Enumerable;
         enumerableContentWillChange(start: Number, removing: Ember.Enumerable, adding: Ember.Enumerable): Ember.Enumerable;
 
-        every(callback: Function, target?: Object): bool;
+        every(callback: Function, target?: Object): boolean;
         everyProperty(key: string, value?: string): any[];
         filter(callback: Function, target?: Object): any[];
         filterProperty(key: string, value?: string): any[];
@@ -100,7 +100,7 @@ declare module Ember {
 		without*/
     }
 
-    export interface NativeArray extends Array {
+    export interface NativeArray<T> extends Array<T> {
         activate();
     }
 
@@ -124,7 +124,7 @@ declare module Ember {
 
     export class Binding {
         static from();
-        static oneWay(path: string, flag?: bool);
+        static oneWay(path: string, flag?: boolean);
         static to();
 
         connect(obj: Object): Binding;
@@ -136,7 +136,7 @@ declare module Ember {
     }
 
     export interface ComputedProperty {
-        cacheable(aFlag?: bool): ComputedProperty;
+        cacheable(aFlag?: boolean): ComputedProperty;
         meta(hash: any): ComputedProperty;
         property(path: string): ComputedProperty;
         volatile(): ComputedProperty;
@@ -164,7 +164,7 @@ declare module Ember {
         getProperties(...list: string[]): any;
         getProperties(list: any[]): any;
         getWithDefault(keyName: string, defaultValue: Object): Object;
-        hasObserverFor(key: string): bool;
+        hasObserverFor(key: string): boolean;
         incrementProperty(keyName: string, increment: Object): Object;
         insertItemSorted(item);
         notifyPropertyChange(keyName: string): Ember.Observable;
@@ -187,16 +187,16 @@ declare module Ember {
 interface EmberStatic {
 
     // Statics
-    CP_DEFAULT_CACHEABLE: bool;
+    CP_DEFAULT_CACHEABLE: boolean;
     ENV: Object;
-    EXTEND_PROTOTYPES: bool;
-    LOG_BINDINGS: bool;
-    LOG_STACKTRACE_ON_DEPRECATION: bool;
+    EXTEND_PROTOTYPES: boolean;
+    LOG_BINDINGS: boolean;
+    LOG_STACKTRACE_ON_DEPRECATION: boolean;
     META_KEY: string;
-    SHIM_ES5: bool;
+    SHIM_ES5: boolean;
     StringS: Object;
     VERSION: string;
-    VIEW_PRESERVES_CONTEXT: bool;
+    VIEW_PRESERVES_CONTEXT: boolean;
 
     Application: Ember.Application;
     View: Ember.View;
@@ -209,7 +209,7 @@ interface EmberStatic {
     addListener(obj: Object, eventName: string, target: Object, method: Function);
     addObserver(obj: Object, path: string, target: Object, method: Function);
     alias(methodName: string);
-    assert(desc: string, test: bool);
+    assert(desc: string, test: boolean);
     beforeObserver(func: Function);
     beginPropertyChanges();
     bind(obj: Object, to: string, from: string): Ember.Binding;
@@ -218,25 +218,25 @@ interface EmberStatic {
     changeProperties(cb: Function, binding?: Ember.Binding);
     compare(first: Object, second: Object): number;
     computed(func: Function): Ember.ComputedProperty;
-    copy(obj: Object, deep: bool): Object;
+    copy(obj: Object, deep: boolean): Object;
     create(obj: Object, props: any);
     deferEvent(obj: Object, eventName: string, param: any);
-    deprecate(message: string, test?: bool);
+    deprecate(message: string, test?: boolean);
     deprecateFunc(message: string, func: Function);
     destroy(obj: Object): void;
-    empty(obj: Object): bool;
+    empty(obj: Object): boolean;
     endPropertyChanges();
     finishChains(obj: Object);
     get(obj: Object, keyName: string): Object;
     getMeta(obj: Object, property: any);
     getWithDefault(root, key, defaultValue);
-    hasListeners(obj: Object, eventName: string): bool;
+    hasListeners(obj: Object, eventName: string): boolean;
     immediateObserver();
     inspect(obj: Object): string;
-    isArray(obj?: any): bool;
-    isEqual(a: Object, b: Object): bool;
-    isGlobalPath(path: string): bool;
-    isWatching(obj: Object, key): bool;
+    isArray(obj?: any): boolean;
+    isEqual(a: Object, b: Object): boolean;
+    isGlobalPath(path: string): boolean;
+    isWatching(obj: Object, key): boolean;
     keys(obj: Object): any[];
     listenersFor(obj: Object, eventName: string): any[];
     makeArray(obj: Object): any[];
@@ -244,7 +244,7 @@ interface EmberStatic {
     Map();
     MapWithDefault(options);
     mixin(obj: Object);
-    none(obj: Object): bool;
+    none(obj: Object): boolean;
     observer(func: Function);
     oneWay(obj: Object, to, from);
     onLoad(name: string, callback: Function);
@@ -264,10 +264,10 @@ interface EmberStatic {
     setMeta(obj: Object, property, value);
     setProperties(self, hash);
     toString(): string;
-    tryInvoke(obj: Object, methodName: string, args: any[]): bool;
+    tryInvoke(obj: Object, methodName: string, args: any[]): boolean;
     trySet(root, path, value);
     typeOf(item): string;
-    warn(message: string, test: bool);
+    warn(message: string, test: boolean);
     watchedEvents(obj: Object);
 
     // Other public members not listed in API Doc
@@ -292,5 +292,4 @@ interface EmberStatic {
     wrap(func: Function, superFunc: Function);
 }
 
-declare var Em: Ember;
-//declare var Ember: EmberStatic;
+declare var Em: EmberStatic;

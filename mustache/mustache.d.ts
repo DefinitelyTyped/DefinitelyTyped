@@ -9,7 +9,7 @@ interface MustacheScanner {
     tail: string;
     pos: number;
 
-    eos(): bool;
+    eos(): boolean;
     scan(re: RegExp): string;
     scanUntil(re: RegExp): string;
 }

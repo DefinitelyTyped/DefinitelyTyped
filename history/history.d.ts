@@ -10,8 +10,8 @@ interface HistoryAdapter {
     onDomLoad(callback);
 }
 
-interface History {
-    enabled: bool;
+interface Historyjs {
+    enabled: boolean;
     pushState(data, title, url);
     replaceState(data, title, url);
     getState();
@@ -23,3 +23,5 @@ interface History {
     log(...messages: any[]);
     debug(...messages: any[]);
 }
+
+declare var Historyjs: Historyjs;

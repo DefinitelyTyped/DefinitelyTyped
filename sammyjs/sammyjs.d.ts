@@ -1,16 +1,28 @@
 // Type definitions for Sammy.js
 // Project: http://sammyjs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// - Updated for TypeScript 0.9.x by: Oisin Grehan <https://github.com/oising>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-module Sammy {
-    export function (): Sammy.Application;
-    export function (selector: string): Sammy.Application;
-    export function (handler: Function): Sammy.Application;
-    export function (selector: string, handler: Function): Sammy.Application;
+interface SammyFunc {
+    (): Sammy.Application;
+    (selector: string): Sammy.Application;
+    (handler: Function): Sammy.Application;
+    (selector: string, handler: Function): Sammy.Application;
+}
+
+declare function Sammy(): Sammy.Application;
+declare function Sammy(selector: string): Sammy.Application;
+declare function Sammy(handler: Function): Sammy.Application;
+declare function Sammy(selector: string, handler: Function): Sammy.Application;
+
+interface JQueryStatic {
+    sammy: SammyFunc;
+}
+
+declare module Sammy {
 
     export function Cache(app, options);
     export function DataCacheProxy(initial, $element);
@@ -50,13 +62,13 @@ module Sammy {
         escapeHTML(s: string): string;
         h(s: string): string;
 
-        has(key: string): bool;
+        has(key: string): boolean;
         join(...args: any[]): string;
-        keys(attributes_only?: bool): string[];
+        keys(attributes_only?: boolean): string[];
         log(...args: any[]): void;
         toHTML(): string;
         toHash(): any;
-        toString(include_functions?: bool): string;
+        toString(include_functions?: boolean): string;
     }
 
     export interface Application extends Object {
@@ -69,14 +81,13 @@ module Sammy {
         $element(selector?: string): JQuery;
         after(callback: Function): Application;
         any(verb: string, path: string, callback: Function): void;
-        route(verb: string, path: string, callback: Function): void;
         around(callback: Function): Application;
         before(options: any, callback: Function): Application;
         bind(name: string, callback: Function): Application;
         bind(name: string, data: any, callback: Function): Application;
         bindToAllEvents(callback: Function): Application;
         clearTemplateCache(): any;
-        contextMatchesOptions(context: any, match_options: any, positive?: bool): bool;
+        contextMatchesOptions(context: any, match_options: any, positive?: boolean): boolean;
         del(path: string, callback: Function): Application;
         del(path: RegExp, callback: Function): Application;
         destroy(): Application;
@@ -87,7 +98,7 @@ module Sammy {
         getLocation(): string;
         helper(name: string, method: Function): Application;
         helpers(extensions: any): Application;
-        isRunning(): bool;
+        isRunning(): boolean;
         log(...params: any[]): void;
         lookupRoute(verb: string, path: string): any;
         mapRoutes(route_array: any[]): Application;
@@ -180,8 +191,8 @@ module Sammy {
         new (event_context);
 
         appendTo(selector: string): RenderContext;
-        collect(array: any[], callback: Function, now?: bool): RenderContext;
-        interpolate(data: any, engine?: any, retain?: bool): RenderContext;
+        collect(array: any[], callback: Function, now?: boolean): RenderContext;
+        interpolate(data: any, engine?: any, retain?: boolean): RenderContext;
         load(location: string, options?: any, callback?: Function): RenderContext;
         loadPartials(partials?: any): RenderContext;
         next(content: any): void;
@@ -201,8 +212,7 @@ module Sammy {
         trigger(name, data);
         wait(): void;
     }
-
-
+	
     export interface StoreOptions {
         name?: string;
         element?: string;
@@ -222,13 +232,13 @@ module Sammy {
 
         clear(key: string): any;
         clearAll(): void;
-        each(callback: Function): bool;
-        exists(key: string): bool;
+        each(callback: Function): boolean;
+        exists(key: string): boolean;
         fetch(key: string, callback: Function): any;
-        filter(callback: Function): bool;
-        first(callback: Function): bool;
+        filter(callback: Function): boolean;
+        first(callback: Function): boolean;
         get(key: string): any;
-        isAvailable(): bool;
+        isAvailable(): boolean;
         keys(): string[];
         load(key: string, path: string, callback: Function): void;
         set(key: string, value: any): any;
@@ -241,7 +251,4 @@ module Sammy {
         isAvailable(type);
         Template(app, method_alias);
     }
-}
-interface JQueryStatic {
-    sammy: Sammy;
 }

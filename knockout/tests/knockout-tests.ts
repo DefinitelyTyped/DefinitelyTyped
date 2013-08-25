@@ -53,7 +53,7 @@ function test_computed() {
         });
     }
 
-    function MyViewModel() {
+    function MyViewModel1() {
         this.price = ko.observable(25.99);
 
         this.formattedPrice = ko.computed({
@@ -68,7 +68,7 @@ function test_computed() {
         });
     }
 
-    function MyViewModel() {
+    function MyViewModel2() {
         this.acceptedNumericValue = ko.observable(123);
         this.lastInputWasValid = ko.observable(true);
 
@@ -90,13 +90,13 @@ function test_computed() {
 }
 
 class GetterViewModel {
-    private _selectedRange: KnockoutObservableAny;
+    private _selectedRange: KnockoutObservable<any>;
 
     constructor() {
         this._selectedRange = ko.observable();
     }
 
-    public range: KnockoutObservableAny;
+    public range: KnockoutObservable<any>;
 }
 
 function testGetter() {
@@ -244,7 +244,6 @@ function test_bindings() {
     };
 
     var node, containerElem, nodeToInsert, insertAfter, nodeToPrepend, arrayOfNodes;
-    ko.virtualElements.allowedBindings.mySuperBinding = true;
     ko.virtualElements.emptyNode(containerElem);
     ko.virtualElements.firstChild(containerElem);
     ko.virtualElements.insertAfter(containerElem, nodeToInsert, insertAfter);
@@ -334,12 +333,12 @@ function test_more() {
         return target;
     };
 
-    function AppViewModel(first, last) {
+    function AppViewModel2(first, last) {
         this.firstName = ko.observable(first).extend({ required: "Please enter a first name" });
         this.lastName = ko.observable(last).extend({ required: "" });
     }
 
-    ko.applyBindings(new AppViewModel("Bob", "Smith"));
+    ko.applyBindings(new AppViewModel2("Bob", "Smith"));
 
     var first;
     this.firstName = ko.observable(first).extend({ required: "Please enter a first name", logChange: "first name" });
@@ -348,7 +347,7 @@ function test_more() {
         return name.toUpperCase();
     }).extend({ throttle: 500 });
 
-    function AppViewModel() {
+    function AppViewModel3() {
         this.instantaneousValue = ko.observable();
         this.throttledValue = ko.computed(this.instantaneousValue)
                                 .extend({ throttle: 400 });
@@ -421,7 +420,7 @@ function test_more() {
         this.done = ko.observable(done);
     }
 
-    function AppViewModel() {
+    function AppViewModel4() {
         this.tasks = ko.observableArray([
             new Task('Find new desktop background', true),
             new Task('Put shiny stickers on laptop', false),
@@ -431,7 +430,7 @@ function test_more() {
         this.doneTasks = this.tasks.filterByProperty("done", true);
     }
 
-    ko.applyBindings(new AppViewModel());
+    ko.applyBindings(new AppViewModel4());
     this.doneTasks = ko.computed(function () {
     var all = this.tasks(), done = [];
         for (var i = 0; i < all.length; i++)
@@ -442,7 +441,7 @@ function test_more() {
 }
 
 function test_mappingplugin() {
-    var viewModel = {
+    var viewModel0 = {
         serverTime: ko.observable(),
         numUsers: ko.observable()
     }
@@ -450,8 +449,8 @@ function test_mappingplugin() {
         serverTime: '2010-01-07',
         numUsers: 3
     };
-    viewModel.serverTime(data.serverTime);
-    viewModel.numUsers(data.numUsers);
+    viewModel0.serverTime(data.serverTime);
+    viewModel0.numUsers(data.numUsers);
 
     var viewModel = ko.mapping.fromJS(data);
     ko.mapping.fromJS(data, viewModel);
@@ -527,7 +526,7 @@ function test_misc() {
         return this;
     };
 
-    this.myObservable = <KnockoutObservableString>ko.observable("myValue").publishOn("myTopic");
+    this.myObservable = <KnockoutObservable<string>>ko.observable("myValue").publishOn("myTopic");
 
     ko.subscribable.fn.subscribeTo = function (topic) {
         postbox.subscribe(this, null, topic);
@@ -535,7 +534,7 @@ function test_misc() {
         return this;
     };
 
-    this.observableFromAnotherVM = <KnockoutObservableAny>ko.observable().subscribeTo("myTopic");
+    this.observableFromAnotherVM = <KnockoutObservable<any>>ko.observable().subscribeTo("myTopic");
 
     postbox.subscribe(function (newValue) {
         this(newValue);

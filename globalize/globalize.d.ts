@@ -88,7 +88,7 @@ interface GlobalizeCulture {
     name: string;
     englishName: string;
     nativeName: string;
-    isRTL: bool;
+    isRTL: boolean;
     language: string;
     numberFormat: GlobalizeNumberFormat;
     calendars: GlobalizeCalendars;
@@ -98,7 +98,7 @@ interface GlobalizeCultures {
     [index: number]: GlobalizeCulture;
 }
 
-class GlobalizeStatic {
+interface GlobalizeStatic {
     cultures: GlobalizeCultures;
     init(cultureSelector: string);
     cultureSelector: string;

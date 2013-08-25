@@ -93,7 +93,7 @@ declare module "commander" {
         /**
         * Prompts the user for a confirmation.
         */
-        confirm(label: string, callback: (flag: bool) => any): void;
+        confirm(label: string, callback: (flag: boolean) => any): void;
 
         /**
         * Prompt for password with str, mask char and callback fn(val).
@@ -201,7 +201,7 @@ declare module "commander" {
     /**
     * Prompts the user for a confirmation.
     */
-    export function confirm(label: string, callback: (flag: bool) => any): void;
+    export function confirm(label: string, callback: (flag: boolean) => any): void;
 
     /**
     * Prompt for password with str, mask char and callback fn(val).

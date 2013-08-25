@@ -51,7 +51,7 @@ interface AudioContext {
      * @param buffer the audio file data (for example from a .wav file).
      * @param mixToMono if a mixdown to mono will be performed. Normally, this would not be set.
      */
-    createBuffer(buffer: ArrayBuffer, mixToMono: bool): AudioBuffer;
+    createBuffer(buffer: ArrayBuffer, mixToMono: boolean): AudioBuffer;
 
     /**
      * Asynchronously decodes the audio file data contained in the ArrayBuffer. The ArrayBuffer can, for example, be loaded from an XMLHttpRequest's response attribute after setting the responseType to "arraybuffer". Audio file data can be in any of the formats supported by the audio element.
@@ -518,7 +518,7 @@ interface AudioBufferSourceNode extends AudioSourceNode {
     /**
      * Indicates if the audio data should play in a loop. The default value is false.
      */
-    loop: bool;
+    loop: boolean;
 
     /**
      * Schedules a sound to playback at an exact time.
@@ -597,7 +597,7 @@ interface AudioProcessingEvent extends Event {
     outputBuffer: AudioBuffer; 
 }
 
-enum PanningModelType {
+declare enum PanningModelType {
     /**
      * A simple and efficient spatialization algorithm using equal-power panning.
      */
@@ -614,7 +614,7 @@ enum PanningModelType {
     soundfield
 }
 
-enum DistanceModelType {
+declare enum DistanceModelType {
     /**
      * A linear distance model which calculates distanceGain according to:
      *     1 - rolloffFactor * (distance - refDistance) / (maxDistance - refDistance)
@@ -782,7 +782,7 @@ interface ConvolverNode extends AudioNode {
     /**
      * Controls whether the impulse response from the buffer will be scaled by an equal-power normalization when the buffer atttribute is set. Its default value is true in order to achieve a more uniform output level from the convolver when loaded with diverse impulse responses. If normalize is set to false, then the convolution will be rendered with no pre-processing/scaling of the impulse response. Changes to this value do not take effect until the next time the buffer attribute is set.
      */
-    normalize: bool;
+    normalize: boolean;
 }
 
 /** 
@@ -895,7 +895,7 @@ interface DynamicsCompressorNode extends AudioNode {
 
 }
 
-enum BiquadFilterType {
+declare enum BiquadFilterType {
     /**
      * A lowpass filter allows frequencies below the cutoff frequency to pass through and attenuates frequencies above the cutoff. It implements a standard second-order resonant lowpass filter with 12dB/octave rolloff.
      *
@@ -1043,7 +1043,7 @@ interface WaveShaperNode extends AudioNode {
     curve: Float32Array;
 }
 
-enum OscillatorType {
+declare enum OscillatorType {
   sine,
   square,
   sawtooth,

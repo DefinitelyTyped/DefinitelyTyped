@@ -62,13 +62,6 @@ interface SignalR {
 
 function test_hubs() {
     var chat = $.connection.chat;
-    chat.client.addMessage = function (message) {
-        $('#messages').append('<li>' + message + '</li>');
-    };
-
-    $("#broadcast").click(function () {
-        chat.server.send($('#msg').val());
-    });
     $.connection.hub.start()
         .done(function () { alert("Now connected!"); })
         .fail(function () { alert("Could not Connect!"); });

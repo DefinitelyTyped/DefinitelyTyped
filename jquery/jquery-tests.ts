@@ -940,8 +940,7 @@ function test_deferred() {
     filtered.done(function (data) { });
 
     function asyncEvent() {
-        var newDeferred = new jQuery.Deferred();
-        var dfd: JQueryDeferred;
+        var dfd: JQueryDeferred<string> = $.Deferred<string>();
         setTimeout(function () {
             dfd.resolve("hurray");
         }, Math.floor(400 + Math.random() * 2000));
@@ -1061,6 +1060,9 @@ function test_each() {
     $.each({ name: "John", lang: "JS" }, function (k, v) {
         alert("Key: " + k + ", Value: " + v);
     });
+    $.each([{a: 1}, {a: 2}, {a: 3}], function (i, o) {
+        alert("Index #" + i + ": " + o.a);
+    });
     $('li').each(function (index) {
         alert(index + ': ' + $(this).text());
     });
@@ -1122,7 +1124,9 @@ function test_error() {
             $(this).hide();
         })
         .attr("src", "missing.png");
-    jQuery.error = console.error;
+    jQuery.error = (message?: string) => {
+        console.error(message); return this;
+    }
 }
 
 function test_eventParams() {
@@ -1237,7 +1241,7 @@ function test_extend() {
 
     var defaults = { validate: false, limit: 5, name: "foo" };
     var options = { validate: true, name: "bar" };
-    var settings = $.extend({}, defaults, options);
+    var settings: typeof defaults = $.extend({}, defaults, options);
 }
 
 function test_fadeIn() {
@@ -1550,11 +1554,12 @@ function test_grep() {
         return (n != 5 && i > 4);
     });
     $("p").text(arr.join(", "));
-    arr = jQuery.grep(arr, function (a) { return a != 9; });
+    var arr2 = jQuery.grep(arr, function (a) { return a != 9; });
     $("span").text(arr.join(", "));
     $.grep([0, 1, 2], function (n, i) {
         return n > 0;
     }, true);
+    var arr3 = $.grep(["a", "b", "c"], function (n, i) { return n !== "b"; });
 }
 
 function test_has() {
@@ -1569,7 +1574,7 @@ function test_hasClass() {
     $("div#result3").append($("p").hasClass("selected"));
 
     $('#mydiv').hasClass('foo');
-    // typescript has a bug to (bool).toString() - I'll comment this code until typescript team solve this problem.
+    // typescript has a bug to (boolean).toString() - I'll comment this code until typescript team solve this problem.
     //$("div#result1").append($("p:first").hasClass("selected").toString());
     //$("div#result2").append($("p:last").hasClass("selected").toString());
     //$("div#result3").append($("p").hasClass("selected").toString());
@@ -1693,6 +1698,9 @@ function test_inArray() {
     $spans.eq(1).text(jQuery.inArray(4, arr));
     $spans.eq(2).text(jQuery.inArray("Karl", arr));
     $spans.eq(3).text(jQuery.inArray("Pete", arr, 2));
+
+    var arr2: number[] = [1, 2, 3, 4];
+    $spans.eq(1).text(jQuery.inArray(4, arr2));
 }
 
 function test_index() {
@@ -1712,14 +1720,30 @@ function test_index() {
     $('div').html('Index: ' + foobar);
 }
 
-function test_innedHeight() {
+function test_innerHeight() {
     var p = $("p:first");
     $("p:last").text("innerHeight:" + p.innerHeight());
+    p.innerHeight(p.innerHeight() * 2).innerHeight();
 }
 
 function test_innerWidth() {
     var p = $("p:first");
     $("p:last").text("innerWidth:" + p.innerWidth());
+    p.innerWidth(p.innerWidth() * 2).innerWidth();
+}
+
+function test_outerHeight() {
+    var p = $("p:first");
+    $("p:last").text("outerHeight:" + p.outerHeight(true));
+    p.outerHeight(p.outerHeight() * 2).outerHeight();
+    p.outerHeight(p.outerHeight() * 2, true).outerHeight();
+}
+
+function test_outerWidth() {
+    var p = $("p:first");
+    $("p:last").text("outerWidth:" + p.outerWidth(true));
+    p.outerWidth(p.outerWidth() * 2).outerWidth();
+    p.outerWidth(p.outerWidth() * 2, true).outerWidth();
 }
 
 function test_insertAfter() {
@@ -2195,7 +2219,7 @@ function test_map() {
         return (a > 50 ? a - 45 : null);
     });
     var array = [0, 1, 52, 97];
-    array = $.map(array, function (a, index) {
+    var array2 = $.map(array, function (a, index) {
         return [a - 45, index];
     });
 }
@@ -2207,6 +2231,7 @@ function test_merge() {
     var first = ['a', 'b', 'c'];
     var second = ['d', 'e', 'f'];
     $.merge($.merge([], first), second);
+    var z = $.merge([0, 1, 2], ['a', 'b', 'c']);
 }
 
 function test_prop() {
@@ -2265,18 +2290,47 @@ function test_parseHTML() {
 		str = "hello, <b>my name is</b> jQuery.",
 		html = $.parseHTML( str ),
 		nodeNames = [];
-	 
+
 	// Append the parsed HTML
 	$log.append( html );
-	 
+
 	// Gather the parsed HTML's node names
 	$.each( html, function( i, el ) {
 		nodeNames[i] = "<li>" + el.nodeName + "</li>";
 	});
-	 
+
 	// Insert the node names
 	$log.append( "<h3>Node Names:</h3>" );
 	$( "<ol></ol>" )
 	  .append( nodeNames.join( "" ) )
 	  .appendTo( $log );
 }
+
+function test_EventIsNewable() {
+    var ev = new jQuery.Event('click');
+}
+
+function test_EventIsCallable() {
+    var ev = jQuery.Event('click');
+}
+
+$.when($.ajax("/my/page.json")).then((a,b,c) => a.asdf); // is type JQueryPromise<any>
+$.when("asdf", "jkl;").done(x => x.length, x=> x.length);
+
+var f1 = $.when("fetch"); // Is type JQueryPromise<string>
+var f2: JQueryPromise<string[]> = f1.then(s => [s, s]);
+var f3: JQueryPromise<number> = f2.then(v => 3);
+
+// ISSUE: https://github.com/borisyankov/DefinitelyTyped/issues/742
+// http://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax#answer-5976031
+$.ajax({
+    url: 'php/upload.php',
+    data: {},
+    cache: false,
+    contentType: false,
+    processData: false,
+    type: 'POST',
+    success: function (data) {
+        alert(data);
+    }
+});

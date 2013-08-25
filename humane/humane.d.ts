@@ -9,9 +9,9 @@ interface HumaneOptions {
     baseCls?: string;
     addnCls?: string;
     timeout?: number;
-    waitForMove?: bool;
-    clickToClose?: bool;
-    forceNew?: bool;
+    waitForMove?: boolean;
+    clickToClose?: boolean;
+    forceNew?: boolean;
 }
 
 interface Humane {
@@ -19,9 +19,9 @@ interface Humane {
     baseCls: string;
     addnCls: string;
     timeout: number;
-    waitForMove: bool;
-    clickToClose: bool;
-    forceNew: bool;
+    waitForMove: boolean;
+    clickToClose: boolean;
+    forceNew: boolean;
 
     create(options?: HumaneOptions): Humane;
     info: Function;

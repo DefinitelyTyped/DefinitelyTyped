@@ -34,7 +34,7 @@ interface JQRangeSliderDateSteps {
 interface JQRangeSliderOptions {
     wheelMode?: string; // function of the wheel, "zoom", "scroll" or null
     wheelSpeed?: number; // speed of the wheel scrolling
-    arrows?: bool; // hide the arrows or not
+    arrows?: boolean; // hide the arrows or not
     valueLabels?: string; // when to show value labels: "show" (always), "hide" (never) and "change" (only if slider changed)
     durationIn?: number; // fade in length when displaying value labels (only when valueLabels = "change")
     durationOut?: number; // fade out length when displaying value labels (only when valueLabels = "change")

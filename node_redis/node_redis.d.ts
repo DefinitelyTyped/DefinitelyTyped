@@ -5,22 +5,22 @@
 
 
 declare module 'redis' {
-    export var debug_mode: bool;
+    export var debug_mode: boolean;
     export function createClient(): RedisClient;
     export function createClient(port: number, host: string, options?: RedisOptions): RedisClient;
     export function print(err: string, reply?: string);
 
     interface RedisOptions {
         parser?: string;
-        return_buffers?: bool;
-        detect_buffers?: bool;
-        socket_nodelay?: bool;
-        no_ready_check?: bool;
-        enable_offline_queue?: bool;
+        return_buffers?: boolean;
+        detect_buffers?: boolean;
+        socket_nodelay?: boolean;
+        no_ready_check?: boolean;
+        enable_offline_queue?: boolean;
     }
 
     interface Command {
-        (...args: any[]): Commands;
+        (...args: any[]): any;
     }
     
     interface Commands {
@@ -327,7 +327,7 @@ declare module 'redis' {
         stream;
 
         server_info;
-        connected: bool;
+        connected: boolean;
         command_queue: any[];
         offline_queue: any[];
         retry_delay : number;

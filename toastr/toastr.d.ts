@@ -1,4 +1,4 @@
-// Type definitions for Toastr 1.0
+// Type definitions for Toastr 1.3.0
 // Project: https://github.com/CodeSeven/toastr
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -10,7 +10,7 @@ interface ToastrOptions {
     /**
     * Should clicking on toast dismiss it?
     */
-    tapToDismiss?: bool;
+    tapToDismiss?: boolean;
     /**
     * CSS class the toast element will be given
     */
@@ -22,15 +22,23 @@ interface ToastrOptions {
     /**
     * Should debug details be outputted to the console
     */
-    debug?: bool;
+    debug?: boolean;
     /**
     * Time in milliseconds the toast should take to fade in
     */
     fadeIn?: number;
     /**
+    * OnFadeIn function callback
+    **/
+    onFadeIn?: () => void;
+    /**
     * Time in milliseconds the toast should take to fade out
     */
     fadeOut?: number;
+    /**
+    * OnFadeOut function callback
+    **/
+    onFadeOut?: () => void;
     /**
     * Time in milliseconds the toast should be displayed after mouse over
     */
@@ -77,6 +85,10 @@ interface ToastrOptions {
     * CSS class the message element will be given
     */
     messageClass?: string;
+    /**
+    * Set newest toast to appear on top
+    **/
+    newestOnTop?: boolean;
 
     /**
     * Function to execute on toast click

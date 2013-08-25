@@ -13,35 +13,35 @@ interface IResourceStoreLanguage {
     [namespace: string]: IResourceStoreKey;
 }
 interface IResourceStoreKey {
-    [key: string];
+    [key: string]: any;
 }
 
 interface I18nextOptions {
     lng?: string;                           // Default value: undefined
     load?: string;                          // Default value: 'all'
     preload?: string[];                     // Default value: []
-    lowerCaseLng?: bool;                    // Default value: false
-    returnObjectTrees?: bool;               // Default value: false
+    lowerCaseLng?: boolean;                    // Default value: false
+    returnObjectTrees?: boolean;               // Default value: false
     fallbackLng?: string;                   // Default value: 'dev'
     detectLngQS?: string;                   // Default value: 'setLng'
     ns?: any;                               // Default value: 'translation' (string), can also be an object
     nsseparator?: string;                   // Default value: '::'
     keyseparator?: string;                  // Default value: '.'
     selectorAttr?: string;                  // Default value: 'data-i18n'
-    debug?: bool;                           // Default value: false
+    debug?: boolean;                           // Default value: false
 
     resGetPath?: string;                    // Default value: 'locales/__lng__/__ns__.json'
     resPostPath?: string;                   // Default value: 'locales/add/__lng__/__ns__'
 
-    getAsync?: bool;                        // Default value: true
-    postAsync?: bool;                       // Default value: true
+    getAsync?: boolean;                        // Default value: true
+    postAsync?: boolean;                       // Default value: true
 
     resStore?: IResourceStore;              // Default value: undefined
-    useLocalStorage?: bool;                 // Default value: false
+    useLocalStorage?: boolean;                 // Default value: false
     localStorageExpirationTime?: number;    // Default value: 7 * 24 * 60 * 60 * 1000 (in ms default one week)
 
-    dynamicLoad?: bool;                     // Default value: false
-    sendMissing?: bool;                     // Default value: false
+    dynamicLoad?: boolean;                     // Default value: false
+    sendMissing?: boolean;                     // Default value: false
     sendMissingTo?: string;                 // Default value: 'fallback'. Other options are: current | all
     sendType?: string;                      // Default value: 'POST'
 
@@ -53,11 +53,11 @@ interface I18nextOptions {
     pluralNotFound?: string;                // Default value: ['plural_not_found' Math.random()].join( '' )
     contextNotFound?: string;               // Default value: ['context_not_found' Math.random()].join( '' )
 
-    setJqueryExt?: bool;                    // Default value: true
-    defaultValueFromContent?: bool;         // Default value: true
-    useDataAttrOptions?: bool;              // Default value: false
+    setJqueryExt?: boolean;                    // Default value: true
+    defaultValueFromContent?: boolean;         // Default value: true
+    useDataAttrOptions?: boolean;              // Default value: false
     cookieExpirationTime?: number;          // Default value: undefined
-    useCookie?: bool;                       // Default value: true
+    useCookie?: boolean;                       // Default value: true
     cookieName?: string;                    // Default value: 'i18next'
 
     postProcess?: string;                   // Default value: undefined
@@ -69,7 +69,7 @@ interface I18nextStatic {
     detectLanguage(): string;
     functions: {
         extend(target: any, ...objs: any[]): Object;
-        extend(deep: bool, target: any, ...objs: any[]): Object;
+        extend(deep: boolean, target: any, ...objs: any[]): Object;
         each(collection: any, callback: (indexInArray: any, valueOfElement: any) => any): any;
         ajax(settings: JQueryAjaxSettings): JQueryXHR;
         ajax(url: string, settings?: JQueryAjaxSettings): JQueryXHR;

@@ -3,19 +3,24 @@
 // Definitions by: William Orr <https://github.com/worr>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+
 declare module "marked" {
-	export function (src: string, opt?: Options): string;
-	export function lexer(src: string, opt?: Options): Array;
-	export function parser(src: string, opt?: Options): string;
-	export function parse(src: string, opt?: Options): string;
-	export function setOptions(opt: Options): void;
+	function marked(src: string, opt?: Options): string;
+	module marked {
+		export function lexer(src: string, opt?: Options): any[];
+		export function parser(src: any[], opt?: Options): string;
+		export function parse(src: string, opt?: Options): string;
+		export function setOptions(opt: Options): void;
+	}
+
+	export = marked;
 }
 
 interface Options {
-	gfm?: bool;
-	tables?: bool;
-	breaks?: bool;
-	pedantic?: bool;
-	sanitize?: bool;
+	gfm?: boolean;
+	tables?: boolean;
+	breaks?: boolean;
+	pedantic?: boolean;
+	sanitize?: boolean;
 	highlight?: any;
 }

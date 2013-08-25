@@ -8,28 +8,28 @@
 /**
  * Complets an asynchronous task, allowing Jake's execution to proceed to the next task 
  */
-function complete(): void;
+declare function complete(): void;
 
 /**
  * Creates a description for a Jake Task (or FileTask, DirectoryTask). When invoked, the description that iscreated will be associated with whatever Task is created next. 
  * @param description The description for the Task
  */
-function desc(description:string): void;
+declare function desc(description:string): void;
 
 /**
  * Creates a Jake DirectoryTask. Can be used as a prerequisite for FileTasks, or for simply ensuring a directory exists for use with a Task's action.  
  * @param name The name of the DiretoryTask
  */
-function directory(name:string): jake.DirectoryTask;
+declare function directory(name:string): jake.DirectoryTask;
 
 
 /**
  * Causes Jake execution to abort with an error. Allows passing an optional error code, which will be used to set the exit-code of exiting process. 
  * @param err The error to thow when aborting execution. If this argument is an Error object, it will simply be thrown. If a String, it will be used as the error-message. (If it is a multi-line String, the first line will be used as the Error message, and the remaining lines will be used as the error-stack.)
  */
-function fail(...err:string[]): void;
-function fail(...err:Error[]): void;
-function fail(...err:any[]): void;
+declare function fail(...err:string[]): void;
+declare function fail(...err:Error[]): void;
+declare function fail(...err:any[]): void;
 
 /**
  * Creates a Jake FileTask. 
@@ -38,14 +38,14 @@ function fail(...err:any[]): void;
  * @param action The action to perform for this task
  * @param opts Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
  */
-function file(name:string, prereqs?:string[], action?:()=>void, opts?:jake.FileTaskOptions): jake.FileTask;
+declare function file(name:string, prereqs?:string[], action?:()=>void, opts?:jake.FileTaskOptions): jake.FileTask;
 
 /**
  * Creates a namespace which allows logical grouping of tasks, and prevents name-collisions with task-names. Namespaces can be nested inside of other namespaces. 
  * @param name The name of the namespace
  * @param scope The enclosing scope for the namespaced tasks
  */
-function namespace(name:string, scope:()=>void): void;
+declare function namespace(name:string, scope:()=>void): void;
 
 /**
  * @param name The name of the Task
@@ -53,18 +53,18 @@ function namespace(name:string, scope:()=>void): void;
  * @param action The action to perform for this task
  * @param opts 
  */
-function task(name:string, prereqs?:string[], action?:(...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
-function task(name:string, action?:(...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
-function task(name:string, opts?:jake.TaskOptions, action?:(...params:any[])=>any): jake.Task;
+declare function task(name:string, prereqs?:string[], action?:(...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
+declare function task(name:string, action?:(...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
+declare function task(name:string, opts?:jake.TaskOptions, action?:(...params:any[])=>any): jake.Task;
 
-module jake{
+declare module jake{
 
     ////////////////////////////////////////////////////////////////////////////////////
 	// File-utils //////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////
 
 	interface UtilOptions{
-		silent?: bool;
+		silent?: boolean;
 	}
 
 	/**
@@ -103,16 +103,16 @@ module jake{
 		 * print to stdout, default false
 		 */
 
-		printStdout?:bool;
+		printStdout?:boolean;
 		/**
 		 * print to stderr, default false
 		 */
-		printStderr?:bool;
+		printStderr?:boolean;
 		
 		/**
 		 * stop execution on error, default true
 		 */
-		breakOnError?:bool;
+		breakOnError?:boolean;
 	}
 	export function exec(cmds:string[], callback?:()=>void, opts?:ExecOptions);
 
@@ -156,7 +156,7 @@ module jake{
 	export var program: {
 		opts: { 
 			[name:string]: any; 
-			quiet: bool;
+			quiet: boolean;
 		};
 		taskNames: string[];
         taskArgs: string[];
@@ -174,7 +174,7 @@ module jake{
 		 * Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
 		 * @default false
 		 */
-		asyc?: bool;
+		asyc?: boolean;
 	}
 
 	/**
@@ -182,7 +182,7 @@ module jake{
 	 * 
 	 * @event complete
 	 */
-	export class Task implements EventEmitter{
+	export class Task implements EventEmitter {
 		/**
 		 * @name name The name of the Task
 		 * @param prereqs Prerequisites to be run before this task
@@ -205,7 +205,7 @@ module jake{
 		on(event: string, listener: Function);
 		once(event: string, listener: Function): void;
 		removeListener(event: string, listener: Function): void;
-		removeAllListener(event: string): void;
+		removeAllListeners(event?: string): void;
 		setMaxListeners(n: number): void;
 		listeners(event: string): { Function; }[];
 		emit(event: string, arg1?: any, arg2?: any): void;
@@ -225,7 +225,7 @@ module jake{
 		 * Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task. 
 		 * @default false
 		 */
-		asyc?: bool;
+		asyc?: boolean;
 	}
 
 	export class FileTask{
@@ -239,7 +239,7 @@ module jake{
 	}
 
 	interface FileFilter{
-		(filename:string): bool;
+		(filename:string): boolean;
 	}
 
 	export class FileList{
@@ -259,7 +259,7 @@ module jake{
 		 * @param name The filename to check
          * @return Whether or not the file should be excluded
          */
-		shouldExclude(name:string): bool;
+		shouldExclude(name:string): boolean;
 
 		/**
 		 * Excludes file-patterns from the FileList. Should be called with one or more
@@ -330,22 +330,22 @@ module jake{
 		/** 
 		 * If set to true, uses the `jar` utility to create a .jar archive of the pagckage
 		 */
-		needJar: bool;
+		needJar: boolean;
 
 		/**
          * If set to true, uses the `tar` utility to create a gzip .tgz archive of the pagckage
          */
-        needTar: bool;
+        needTar: boolean;
 
         /**
          * If set to true, uses the `tar` utility to create a bzip2 .bz2 archive of the pagckage
          */
-		needTarBz2: bool;
+		needTarBz2: boolean;
 
 		/**
          * If set to true, uses the `zip` utility to create a .zip archive of the pagckage
 		 */
-		needZip: bool;
+		needZip: boolean;
 
 		/**
 		 * The list of files and directories to include in the package-archive		

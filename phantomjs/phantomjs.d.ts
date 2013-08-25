@@ -8,17 +8,17 @@ interface Phantom {
 	// Properties
 	args: string[];  // DEPRECATED
 	cookies: Cookie[];
-	cookiesEnabled: bool;
+	cookiesEnabled: boolean;
 	libraryPath: string;
 	scriptName: string;  // DEPRECATED
 	version: any;
 
 	// Functions
-	addCookie(cookie: Cookie): bool;
+	addCookie(cookie: Cookie): boolean;
 	clearCookies();
-	deleteCookie(cookieName: string): bool;
-	exit(returnValue: any): bool;
-	injectJs(filename: string): bool;
+	deleteCookie(cookieName: string): boolean;
+	exit(returnValue: any): boolean;
+	injectJs(filename: string): boolean;
 
 	// Callbacks
 	onError: Function;
@@ -41,8 +41,8 @@ interface OS {
 interface WebPage {
 	
 	// Properties
-	canGoBack: bool;
-	canGoForward: bool;
+	canGoBack: boolean;
+	canGoForward: boolean;
 	clipRect: ClipRect;
 	content: string;
 	cookies: Cookie[];
@@ -57,10 +57,10 @@ interface WebPage {
 	framesCount: number;
 	framesName;
 	libraryPath: string;
-	navigationLocked: bool;
+	navigationLocked: boolean;
 	offlineStoragePath: string;
 	offlineStorageQuota: number;
-	ownsPages: bool;
+	ownsPages: boolean;
 	pages;
 	pagesWindowName: string;
 	paperSize: PaperSize;
@@ -74,13 +74,13 @@ interface WebPage {
 	zoomFactor: number;
 
 	// Functions
-	addCookie(cookie: Cookie): bool;
+	addCookie(cookie: Cookie): boolean;
 	childFramesCount(): number;  // DEPRECATED
 	childFramesName(): string;  // DEPRECATED
 	clearCookies();
 	close();
 	currentFrameName(): string;  // DEPRECATED
-	deleteCookie(cookieName: string): bool;
+	deleteCookie(cookieName: string): boolean;
 	evaluate(fn: Function, ...args: any[]): any;
 	evaluateAsync(fn: Function);
 	evaluateJavascript(str: string);
@@ -89,7 +89,7 @@ interface WebPage {
 	goBack();
 	goForward();
 	includeJs(url: string, callback: Function);
-	injectJs(filename: string): bool;
+	injectJs(filename: string): boolean;
 	open(url: string, callback: (status: string) => void);
 	openUrl(url: string, httpConf: any, settings: any);
 	release();  // DEPRECATED
@@ -134,7 +134,7 @@ interface WebPage {
 	javaScriptConsoleMessageSent(message: string);
 	loadFinished(status);
 	loadStarted();
-	navigationRequested(url: string, navigationType, navigationLocked, isMainFrame: bool);
+	navigationRequested(url: string, navigationType, navigationLocked, isMainFrame: boolean);
 	rawPageCreated(page);
 	resourceReceived(request);
 	resourceRequested(resource);
@@ -150,13 +150,13 @@ interface PaperSize {
 }
 
 interface WebPageSettings {
-	javascriptEnabled: bool;
-	loadImages: bool;
-	localToRemoteUrlAccessEnabled: bool;
+	javascriptEnabled: boolean;
+	loadImages: boolean;
+	localToRemoteUrlAccessEnabled: boolean;
 	userAgent: string;
 	password: string;
-	XSSAuditingEnabled: bool;
-	webSecurityEnabled: bool;
+	XSSAuditingEnabled: boolean;
+	webSecurityEnabled: boolean;
 }
 
 interface FileSystem {
@@ -170,14 +170,14 @@ interface FileSystem {
 	// Query Functions
 	list(path: string): string[];
 	absolute(path: string): string;
-	exists(path: string): bool;
-	isDirectory(path: string): bool;
-	isFile(path: string): bool;
-	isAbsolute(path: string): bool;
-	isExecutable(path: string): bool;
-	isReadable(path: string): bool;
-	isWritable(path: string): bool;
-	isLink(path: string): bool;
+	exists(path: string): boolean;
+	isDirectory(path: string): boolean;
+	isFile(path: string): boolean;
+	isAbsolute(path: string): boolean;
+	isExecutable(path: string): boolean;
+	isReadable(path: string): boolean;
+	isWritable(path: string): boolean;
+	isLink(path: string): boolean;
 	readLink(path: string): string;
 
 	// Directory Functions
@@ -210,8 +210,8 @@ interface Stream {
 
 interface WebServer {
 	port: number;
-	listen(port: number, cb?:(request, response) => void): bool;
-	listen(ipAddressPort: string, cb?:(request, response) => void): bool;
+	listen(port: number, cb?:(request, response) => void): boolean;
+	listen(ipAddressPort: string, cb?:(request, response) => void): boolean;
 	close();
 }
 

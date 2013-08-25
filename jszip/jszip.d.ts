@@ -3,7 +3,7 @@
 // Definitions by: mzeiher <https://github.com/mzeiher>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-module jszip {
+declare module jszip {
     export interface JSZip {
         /**
          * Get a file from the archive
@@ -87,7 +87,7 @@ module jszip {
          *
          * @return {JSZipFile[]} array of matched elements
          */
-        filter(predicate: (relativePath: string, file: JSZipFile) => bool): JSZipFile[];
+        filter(predicate: (relativePath: string, file: JSZipFile) => boolean): JSZipFile[];
 
         /**
          * Calculate crc32 of given string
@@ -123,20 +123,20 @@ module jszip {
     }
 
     export interface JSZipSupport {
-        arraybuffer: bool;
-        uint8array: bool;
-        blob: bool;
+        arraybuffer: boolean;
+        uint8array: boolean;
+        blob: boolean;
     }
 
     export interface JSZipGeneratorOptions {
-        base64?: bool; //deprecated
+        base64?: boolean; //deprecated
         compression: string; //DEFLATE or STORE
         type: string; //base64 (default), string, uint8array, blob
     }
 
     export interface JSZipOptions {
-        base64: bool;
-        checkCRC32: bool;
+        base64: boolean;
+        checkCRC32: boolean;
     }
 
     export interface JSZipFile {
@@ -151,9 +151,9 @@ module jszip {
     }
 
     export interface JSZipFileOptions {
-        base64: bool;
-        binary: bool;
-        dir: bool;
+        base64: boolean;
+        binary: boolean;
+        dir: boolean;
         date: Date;
     }
 

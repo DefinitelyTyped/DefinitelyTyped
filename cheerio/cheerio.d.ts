@@ -4,10 +4,10 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-declare interface Cheerio {
+interface Cheerio {
     
     addClass(classNames: string): Cheerio;
-    hasClass(className: string): bool;
+    hasClass(className: string): boolean;
     removeClass(className?: any): Cheerio;
 
     attr(attributeName: string, value: any): Cheerio;
@@ -57,21 +57,21 @@ declare interface Cheerio {
     root() : Cheerio;
     dom(): any;
 
-    contains(container: Element, contained: Element): bool;
-    isArray(obj: any): bool;
+    contains(container: Element, contained: Element): boolean;
+    isArray(obj: any): boolean;
     inArray(value: any, array: any[], fromIndex?: number): number;
     merge(first: any[], second: any[]): any[];
 
 
 }
 
-declare interface CheerioOptionsInterface {
-    ignoreWhitespace?: bool;
-    xmlMode?: bool;
-    lowerCaseTags?: bool;
+interface CheerioOptionsInterface {
+    ignoreWhitespace?: boolean;
+    xmlMode?: boolean;
+    lowerCaseTags?: boolean;
 }
 
-declare interface CheerioStatic {
+interface CheerioStatic {
     (...selectors: any[]): Cheerio;
     (): Cheerio;
 }

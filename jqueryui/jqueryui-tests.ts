@@ -601,7 +601,7 @@ function test_accordion() {
     var heightStyle = $(".selector").accordion("option", "heightStyle");
     $(".selector").accordion("option", "heightStyle", "fill");
     $(".selector").accordion({ icons: { "header": "ui-icon-plus", "headerSelected": "ui-icon-minus" } });
-    var icons = $(".selector").accordion("option", "icons");
+    icons = $(".selector").accordion("option", "icons");
     $(".selector").accordion("option", "icons", { "header": "ui-icon-plus", "headerSelected": "ui-icon-minus" });
     var isDisabled = $(".selector").accordion("option", "disabled");
     $(".selector").accordion("option", { disabled: true });
@@ -1089,7 +1089,7 @@ function test_datepicker() {
         buttonImage: "images/calendar.gif",
         buttonImageOnly: true
     });
-    $.datepicker.setDefaults($.datepicker.regional[""]);
+    $.datepicker.setDefaults($.datepicker.regional[<string>""]);
     $("#datepicker").datepicker($.datepicker.regional["fr"]);
     $("#locale").change(function () {
         $("#datepicker").datepicker("option",
@@ -1137,7 +1137,7 @@ function test_datepicker() {
     $(".selector").datepicker({ dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"] });
     $(".selector").datepicker({ dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"] });
 
-    $.datepicker.setDefaults($.datepicker.regional[""]);
+    $.datepicker.setDefaults($.datepicker.regional[<string>""]);
     $(".selector").datepicker($.datepicker.regional["fr"]);
 }
 

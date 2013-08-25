@@ -12,15 +12,15 @@
  *       Copyright (c) 2013 Brandon Aaron (http://brandonaaron.net)
  */
 
-module BgiFrame {
+declare module BgiFrame {
     interface ISettings {
         top: string;
         left: string;
         width: string;
         height: string;
-        opacity: bool;
+        opacity: boolean;
         src: string;
-        conditional: bool;
+        conditional: boolean;
     }
 
     interface IBgiframe {

@@ -23,7 +23,7 @@ interface NumeralJSLanguage {
 interface Numeral {
 	(value?: any): Numeral;
 	version: string;
-	isNumeral: bool;
+	isNumeral: boolean;
 	language(key: string, values?: NumeralJSLanguage): Numeral;
 	zeroFormat(format: string): string;
 	clone(): Numeral;

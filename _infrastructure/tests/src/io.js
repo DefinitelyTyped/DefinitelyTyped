@@ -1,15 +1,33 @@
+﻿//
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//   http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
 var IOUtils;
 (function (IOUtils) {
+    // Creates the directory including its parent if not already present
     function createDirectoryStructure(ioHost, dirName) {
-        if(ioHost.directoryExists(dirName)) {
+        if (ioHost.directoryExists(dirName)) {
             return;
         }
+
         var parentDirectory = ioHost.dirName(dirName);
-        if(parentDirectory != "") {
+        if (parentDirectory != "") {
             createDirectoryStructure(ioHost, parentDirectory);
         }
         ioHost.createDirectory(dirName);
     }
+
+    // Creates a file including its directory structure if not already present
     function createFileAndFolderStructure(ioHost, fileName, useUTF8) {
         var path = ioHost.resolvePath(fileName);
         var dirName = ioHost.dirName(path);
@@ -17,9 +35,10 @@ var IOUtils;
         return ioHost.createFile(path, useUTF8);
     }
     IOUtils.createFileAndFolderStructure = createFileAndFolderStructure;
+
     function throwIOError(message, error) {
         var errorMessage = message;
-        if(error && error.message) {
+        if (error && error.message) {
             errorMessage += (" " + error.message);
         }
         throw new Error(errorMessage);
@@ -28,23 +47,29 @@ var IOUtils;
 })(IOUtils || (IOUtils = {}));
 
 var IO = (function () {
+    // Create an IO object for use inside WindowsScriptHost hosts
+    // Depends on WSCript and FileSystemObject
     function getWindowsScriptHostIO() {
         var fso = new ActiveXObject("Scripting.FileSystemObject");
         var streamObjectPool = [];
+
         function getStreamObject() {
-            if(streamObjectPool.length > 0) {
+            if (streamObjectPool.length > 0) {
                 return streamObjectPool.pop();
             } else {
                 return new ActiveXObject("ADODB.Stream");
             }
         }
+
         function releaseStreamObject(obj) {
             streamObjectPool.push(obj);
         }
+
         var args = [];
-        for(var i = 0; i < WScript.Arguments.length; i++) {
+        for (var i = 0; i < WScript.Arguments.length; i++) {
             args[i] = WScript.Arguments.Item(i);
         }
+
         return {
             readFile: function (path) {
                 try  {
@@ -55,11 +80,13 @@ var IO = (function () {
                     streamObj.LoadFromFile(path);
                     var bomChar = streamObj.ReadText(2);
                     streamObj.Position = 0;
-                    if((bomChar.charCodeAt(0) == 254 && bomChar.charCodeAt(1) == 255) || (bomChar.charCodeAt(0) == 255 && bomChar.charCodeAt(1) == 254)) {
+                    if ((bomChar.charCodeAt(0) == 0xFE && bomChar.charCodeAt(1) == 0xFF) || (bomChar.charCodeAt(0) == 0xFF && bomChar.charCodeAt(1) == 0xFE)) {
                         streamObj.Charset = 'unicode';
-                    } else if(bomChar.charCodeAt(0) == 239 && bomChar.charCodeAt(1) == 187) {
+                    } else if (bomChar.charCodeAt(0) == 0xEF && bomChar.charCodeAt(1) == 0xBB) {
                         streamObj.Charset = 'utf-8';
                     }
+
+                    // Read the whole file
                     var str = streamObj.ReadText(-1);
                     streamObj.Close();
                     releaseStreamObject(streamObj);
@@ -84,19 +111,19 @@ var IO = (function () {
             },
             findFile: function (rootPath, partialFilePath) {
                 var path = fso.GetAbsolutePathName(rootPath) + "/" + partialFilePath;
-                while(true) {
-                    if(fso.FileExists(path)) {
+
+                while (true) {
+                    if (fso.FileExists(path)) {
                         try  {
                             var content = this.readFile(path);
-                            return {
-                                content: content,
-                                path: path
-                            };
+                            return { content: content, path: path };
                         } catch (err) {
+                            //Tools.CompilerDiagnostics.debugPrint("Could not find " + path + ", trying parent");
                         }
                     } else {
                         rootPath = fso.GetParentFolderName(fso.GetAbsolutePathName(rootPath));
-                        if(rootPath == "") {
+
+                        if (rootPath == "") {
                             return null;
                         } else {
                             path = fso.BuildPath(rootPath, partialFilePath);
@@ -106,7 +133,7 @@ var IO = (function () {
             },
             deleteFile: function (path) {
                 try  {
-                    if(fso.FileExists(path)) {
+                    if (fso.FileExists(path)) {
                         fso.DeleteFile(path, true);
                     }
                 } catch (e) {
@@ -130,8 +157,8 @@ var IO = (function () {
                                 streamObj.SaveToFile(path, 2);
                             } catch (saveError) {
                                 IOUtils.throwIOError("Couldn't write to file '" + path + "'.", saveError);
-                            }finally {
-                                if(streamObj.State != 0) {
+                            } finally {
+                                if (streamObj.State != 0) {
                                     streamObj.Close();
                                 }
                                 releaseStreamObject(streamObj);
@@ -147,7 +174,7 @@ var IO = (function () {
             },
             createDirectory: function (path) {
                 try  {
-                    if(!this.directoryExists(path)) {
+                    if (!this.directoryExists(path)) {
                         fso.CreateFolder(path);
                     }
                 } catch (e) {
@@ -155,27 +182,33 @@ var IO = (function () {
                 }
             },
             dir: function (path, spec, options) {
-                options = options || {
-                };
+                options = options || {};
                 function filesInFolder(folder, root) {
                     var paths = [];
                     var fc;
-                    if(options.recursive) {
+
+                    if (options.recursive) {
                         fc = new Enumerator(folder.subfolders);
-                        for(; !fc.atEnd(); fc.moveNext()) {
+
+                        for (; !fc.atEnd(); fc.moveNext()) {
                             paths = paths.concat(filesInFolder(fc.item(), root + "/" + fc.item().Name));
                         }
                     }
+
                     fc = new Enumerator(folder.files);
-                    for(; !fc.atEnd(); fc.moveNext()) {
-                        if(!spec || fc.item().Name.match(spec)) {
+
+                    for (; !fc.atEnd(); fc.moveNext()) {
+                        if (!spec || fc.item().Name.match(spec)) {
                             paths.push(root + "/" + fc.item().Name);
                         }
                     }
+
                     return paths;
                 }
+
                 var folder = fso.GetFolder(path);
                 var paths = [];
+
                 return filesInFolder(folder, path);
             },
             print: function (str) {
@@ -208,19 +241,25 @@ var IO = (function () {
         };
     }
     ;
+
+    // Create an IO object for use inside Node.js hosts
+    // Depends on 'fs' and 'path' modules
     function getNodeIO() {
         var _fs = require('fs');
         var _path = require('path');
         var _module = require('module');
+
         return {
             readFile: function (file) {
                 try  {
                     var buffer = _fs.readFileSync(file);
-                    switch(buffer[0]) {
-                        case 254:
-                            if(buffer[1] == 255) {
+                    switch (buffer[0]) {
+                        case 0xFE:
+                            if (buffer[1] == 0xFF) {
+                                // utf16-be. Reading the buffer as big endian is not supported, so convert it to
+                                // Little Endian first
                                 var i = 0;
-                                while((i + 1) < buffer.length) {
+                                while ((i + 1) < buffer.length) {
                                     var temp = buffer[i];
                                     buffer[i] = buffer[i + 1];
                                     buffer[i + 1] = temp;
@@ -229,16 +268,20 @@ var IO = (function () {
                                 return buffer.toString("ucs2", 2);
                             }
                             break;
-                        case 255:
-                            if(buffer[1] == 254) {
+                        case 0xFF:
+                            if (buffer[1] == 0xFE) {
+                                // utf16-le
                                 return buffer.toString("ucs2", 2);
                             }
                             break;
-                        case 239:
-                            if(buffer[1] == 187) {
+                        case 0xEF:
+                            if (buffer[1] == 0xBB) {
+                                // utf-8
                                 return buffer.toString("utf8", 3);
                             }
                     }
+
+                    // Default behaviour
                     return buffer.toString();
                 } catch (e) {
                     IOUtils.throwIOError("Error reading file \"" + file + "\".", e);
@@ -258,16 +301,18 @@ var IO = (function () {
             createFile: function (path, useUTF8) {
                 function mkdirRecursiveSync(path) {
                     var stats = _fs.statSync(path);
-                    if(stats.isFile()) {
+                    if (stats.isFile()) {
                         IOUtils.throwIOError("\"" + path + "\" exists but isn't a directory.", null);
-                    } else if(stats.isDirectory()) {
+                    } else if (stats.isDirectory()) {
                         return;
                     } else {
                         mkdirRecursiveSync(_path.dirname(path));
-                        _fs.mkdirSync(path, 775);
+                        _fs.mkdirSync(path, 0775);
                     }
                 }
+
                 mkdirRecursiveSync(_path.dirname(path));
+
                 try  {
                     var fd = _fs.openSync(path, 'w');
                 } catch (e) {
@@ -287,26 +332,31 @@ var IO = (function () {
                 };
             },
             dir: function dir(path, spec, options) {
-                options = options || {
-                };
-                function filesInFolder(folder) {
+                options = options || {};
+
+                function filesInFolder(folder, deep) {
                     var paths = [];
+
                     var files = _fs.readdirSync(folder);
-                    for(var i = 0; i < files.length; i++) {
+                    for (var i = 0; i < files.length; i++) {
                         var stat = _fs.statSync(folder + "/" + files[i]);
-                        if(options.recursive && stat.isDirectory()) {
-                            paths = paths.concat(filesInFolder(folder + "/" + files[i]));
-                        } else if(stat.isFile() && (!spec || files[i].match(spec))) {
+                        if (options.recursive && stat.isDirectory()) {
+                            if (deep < (options.deep || 100)) {
+                                paths = paths.concat(filesInFolder(folder + "/" + files[i], 1));
+                            }
+                        } else if (stat.isFile() && (!spec || files[i].match(spec))) {
                             paths.push(folder + "/" + files[i]);
                         }
                     }
+
                     return paths;
                 }
-                return filesInFolder(path);
+
+                return filesInFolder(path, 0);
             },
             createDirectory: function (path) {
                 try  {
-                    if(!this.directoryExists(path)) {
+                    if (!this.directoryExists(path)) {
                         _fs.mkdirSync(path);
                     }
                 } catch (e) {
@@ -324,19 +374,19 @@ var IO = (function () {
             },
             findFile: function (rootPath, partialFilePath) {
                 var path = rootPath + "/" + partialFilePath;
-                while(true) {
-                    if(_fs.existsSync(path)) {
+
+                while (true) {
+                    if (_fs.existsSync(path)) {
                         try  {
                             var content = this.readFile(path);
-                            return {
-                                content: content,
-                                path: path
-                            };
+                            return { content: content, path: path };
                         } catch (err) {
+                            //Tools.CompilerDiagnostics.debugPrint(("Could not find " + path) + ", trying parent");
                         }
                     } else {
                         var parentPath = _path.resolve(rootPath, "..");
-                        if(rootPath === parentPath) {
+
+                        if (rootPath === parentPath) {
                             return null;
                         } else {
                             rootPath = parentPath;
@@ -375,13 +425,15 @@ var IO = (function () {
             watchFile: function (filename, callback) {
                 var firstRun = true;
                 var processingChange = false;
+
                 var fileChanged = function (curr, prev) {
-                    if(!firstRun) {
-                        if(curr.mtime < prev.mtime) {
+                    if (!firstRun) {
+                        if (curr.mtime < prev.mtime) {
                             return;
                         }
+
                         _fs.unwatchFile(filename, fileChanged);
-                        if(!processingChange) {
+                        if (!processingChange) {
                             processingChange = true;
                             callback(filename);
                             setTimeout(function () {
@@ -390,11 +442,9 @@ var IO = (function () {
                         }
                     }
                     firstRun = false;
-                    _fs.watchFile(filename, {
-                        persistent: true,
-                        interval: 500
-                    }, fileChanged);
+                    _fs.watchFile(filename, { persistent: true, interval: 500 }, fileChanged);
                 };
+
                 fileChanged();
                 return {
                     filename: filename,
@@ -415,11 +465,11 @@ var IO = (function () {
         };
     }
     ;
-    if(typeof ActiveXObject === "function") {
+
+    if (typeof ActiveXObject === "function")
         return getWindowsScriptHostIO();
-    } else if(typeof require === "function") {
+else if (typeof require === "function")
         return getNodeIO();
-    } else {
+else
         return null;
-    }
 })();

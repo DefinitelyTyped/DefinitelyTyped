@@ -10,7 +10,7 @@ declare class ZeroClipboard {
     setText(newText: string);
     setTitle(newTitle: string);
     setSize(width: number, height: number);
-    setHandCursor(enabled: bool);
+    setHandCursor(enabled: boolean);
     version: string;
     moviePath: string;
     trustedDomains: any;
@@ -18,7 +18,7 @@ declare class ZeroClipboard {
     hoverClass: string;
     activeClass: string;
     resetBridge();
-    ready: bool;
+    ready: boolean;
     reposition();
     on(eventName, func);
     addEventListener(eventName: string, func);
@@ -29,7 +29,7 @@ declare class ZeroClipboard {
     unglue(elements: any);
     static setDefaults(options: ZeroClipboardOptions);
     static destroy();
-    static detectFlashSupport(): bool;
+    static detectFlashSupport(): boolean;
     static dispatch(eventName: string, func);
 }
 

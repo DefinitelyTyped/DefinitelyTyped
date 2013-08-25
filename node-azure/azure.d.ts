@@ -9,7 +9,7 @@
 * TODO
 */
 declare module "azure" {
-    import events = module("events");
+    import events = require("events");
 
     //#region Services
     export class TableService extends BatchServiceClient {
@@ -175,7 +175,7 @@ declare module "azure" {
         performRequestInputStream(webResource: WebResource, outputData: string, inputStream, options, callback: Function): void;
         withFilter(newFilter: { handle: (requestOptions, next: Function) => void; }): ServiceClient;
         parseMetadataHeaders(headers): any;
-        isEmulated(): bool;
+        isEmulated(): boolean;
         setProxy(proxyUrl: string, proxyPort: number): void;
     }
 
@@ -190,11 +190,11 @@ declare module "azure" {
     export class BatchServiceClient extends StorageServiceClient {
         operations: any[];
 
-        constructor(storageAccount: string, storageAccessKey: string, host: string, usePathstyleUri: bool, authenticationProvider);
+        constructor(storageAccount: string, storageAccessKey: string, host: string, usePathstyleUri: boolean, authenticationProvider);
         beginBatch(): void;
-        isInBatch(): bool;
+        isInBatch(): boolean;
         rollback(): void;
-        hasOperations(): bool;
+        hasOperations(): boolean;
         addOperation(webResource: WebResource, outputData): void;
         commitBatch(callback: (error, operationResponses: any[], response) => void ): void;
         commitBatch(options, callback: (error, operationResponses: any[], response) => void ): void;
@@ -273,7 +273,7 @@ declare module "azure" {
 
     //#region Non-explicit, undeclared interfaces
     export interface WebResponse {
-        isSuccessful: bool;
+        isSuccessful: boolean;
         statusCode: number;
         body: { entry: { id: string; title; updated: string; author: { name; }; link; category; content; }; };
         headers;
@@ -290,11 +290,11 @@ declare module "azure" {
     }
 
     export interface CreateTableIfNotExistsCallback {
-        (error: Error, created: bool, response: WebResponse): void;
+        (error: Error, created: boolean, response: WebResponse): void;
     }
 
     export interface DeleteTableCallback {
-        (error: Error, successful: bool, response: WebResponse): void;
+        (error: Error, successful: boolean, response: WebResponse): void;
     }
 
     export interface QueryTablesCallback {
@@ -330,11 +330,11 @@ declare module "azure" {
     }
 
     export interface DeleteEntityCallback {
-        (error: Error, successful: bool, response: WebResponse): void;
+        (error: Error, successful: boolean, response: WebResponse): void;
     }
 
     export interface UpdateEntityOptions extends TimeoutIntervalOptions {
-        checkEtag?: bool;
+        checkEtag?: boolean;
     }
 
     export interface Entity {
@@ -356,9 +356,9 @@ declare module "azure" {
         apiVersion: string;
         usePathStyleUri: string;
 
-        constructor(storageAccount: string, storageAccessKey: string, host: string, usePathStyleUri: bool, authenticationProvider);
+        constructor(storageAccount: string, storageAccessKey: string, host: string, usePathStyleUri: boolean, authenticationProvider);
     }
     //#endregion
 
-    export function isEmulated(): bool;
+    export function isEmulated(): boolean;
 }

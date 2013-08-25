@@ -11,16 +11,16 @@ interface SinonSpyCallApi {
 	returnValue: any;
 
 	// Methods
-	calledOn(obj: any): bool;
-	calledWith(...args: any[]): bool;
-	calledWithExactly(...args: any[]): bool;
-	calledWithMatch(...args: SinonMatcher[]): bool;
-	notCalledWith(...args: any[]): bool;
-	notCalledWithMatch(...args: SinonMatcher[]): bool;
-	returned(value: any): bool;
-	threw(): bool;
-	threw(type: string): bool;
-	threw(obj: any): bool;
+	calledOn(obj: any): boolean;
+	calledWith(...args: any[]): boolean;
+	calledWithExactly(...args: any[]): boolean;
+	calledWithMatch(...args: SinonMatcher[]): boolean;
+	notCalledWith(...args: any[]): boolean;
+	notCalledWithMatch(...args: SinonMatcher[]): boolean;
+	returned(value: any): boolean;
+	threw(): boolean;
+	threw(type: string): boolean;
+	threw(obj: any): boolean;
 	callArg(pos: number): void;
 	callArgOn(pos: number, obj: any, ...args: any[]): void;
 	callArgWith(pos: number, ...args: any[]): void;
@@ -32,19 +32,19 @@ interface SinonSpyCallApi {
 }
 
 interface SinonSpyCall extends SinonSpyCallApi {
-	calledBefore(call: SinonSpyCall): bool;
-	calledAfter(call: SinonSpyCall): bool;
-	calledWithNew(call: SinonSpyCall): bool;
+	calledBefore(call: SinonSpyCall): boolean;
+	calledAfter(call: SinonSpyCall): boolean;
+	calledWithNew(call: SinonSpyCall): boolean;
 }
 
 interface SinonSpy extends SinonSpyCallApi {
 	// Properties
 	callCount: number;
-	called: bool;
-	notCalled: bool;
-	calledOnce: bool;
-	calledTwice: bool;
-	calledThrice: bool;
+	called: boolean;
+	notCalled: boolean;
+	calledOnce: boolean;
+	calledTwice: boolean;
+	calledThrice: boolean;
 	firstCall: SinonSpyCall;
 	secondCall: SinonSpyCall;
 	thirdCall: SinonSpyCall;
@@ -56,9 +56,9 @@ interface SinonSpy extends SinonSpyCallApi {
 
 	// Methods
 	(...args: any[]): any;
-	calledBefore(anotherSpy: SinonSpy): bool;
-	calledAfter(anotherSpy: SinonSpy): bool;
-	calledWithNew(spy: SinonSpy): bool;
+	calledBefore(anotherSpy: SinonSpy): boolean;
+	calledAfter(anotherSpy: SinonSpy): boolean;
+	calledWithNew(spy: SinonSpy): boolean;
 	withArgs(...args: any[]): void;
 	alwaysCalledOn(obj: any);
 	alwaysCalledWith(...args: any[]);
@@ -66,10 +66,10 @@ interface SinonSpy extends SinonSpyCallApi {
 	alwaysCalledWithMatch(...args: SinonMatcher[]);
 	neverCalledWith(...args: any[]);
 	neverCalledWithMatch(...args: SinonMatcher[]);
-	alwaysThrew(): bool;
+	alwaysThrew(): boolean;
 	alwaysThrew(type: string);
 	alwaysThrew(obj: any);
-	alwaysReturned(): bool;
+	alwaysReturned(): boolean;
 	invokeCallback(...args: any[]): void;
 	getCall(n: number): SinonSpyCall;
 	reset(): void;
@@ -197,7 +197,7 @@ interface SinonFakeXMLHttpRequest {
 	requestBody: string;
 	status: number;
 	statusText: string;
-	async: bool;
+	async: boolean;
 	username: string;
 	password: string;
 	responseXML: Document;
@@ -206,8 +206,8 @@ interface SinonFakeXMLHttpRequest {
 
 	// Methods
 	restore(): void;
-	useFilters: bool;
-	addFilter(filter: (method, url, async, username, password) => bool): void;
+	useFilters: boolean;
+	addFilter(filter: (method, url, async, username, password) => boolean): void;
 	setResponseHeaders(headers: any): void;
 	setResponseBody(body: string): void;
 	respond(status: number, headers: any, body: string): void;
@@ -225,27 +225,27 @@ interface SinonStatic {
 
 interface SinonFakeServer {
 	// Properties
-	autoRespond: bool;
+	autoRespond: boolean;
 	autoRespondAfter: number;
-	fakeHTTPMethods: bool;
+	fakeHTTPMethods: boolean;
 	getHTTPMethod: (request: SinonFakeXMLHttpRequest) => string;
 
 	// Methods
 	respondWith(body: string): void;
 	respondWith(response: any[]): void;
-	respondWith(fn: (SinonFakeXMLHttpRequest) => void ): void;
+	respondWith(fn: (xhr: SinonFakeXMLHttpRequest) => void ): void;
 	respondWith(url: string, body: string): void;
 	respondWith(url: string, response: any[]): void;
-	respondWith(url: string, fn: (SinonFakeXMLHttpRequest) => void ): void;
+	respondWith(url: string, fn: (xhr: SinonFakeXMLHttpRequest) => void ): void;
 	respondWith(method: string, url: string, body: string): void;
 	respondWith(method: string, url: string, response: any[]): void;
-	respondWith(method: string, url: string, fn: (SinonFakeXMLHttpRequest) => void ): void;
+	respondWith(method: string, url: string, fn: (xhr: SinonFakeXMLHttpRequest) => void ): void;
 	respondWith(url: RegExp, body: string): void;
 	respondWith(url: RegExp, response: any[]): void;
-	respondWith(url: RegExp, fn: (SinonFakeXMLHttpRequest) => void ): void;
+	respondWith(url: RegExp, fn: (xhr: SinonFakeXMLHttpRequest) => void ): void;
 	respondWith(method: string, url: RegExp, body: string): void;
 	respondWith(method: string, url: RegExp, response: any[]): void;
-	respondWith(method: string, url: RegExp, fn: (SinonFakeXMLHttpRequest) => void ): void;
+	respondWith(method: string, url: RegExp, fn: (xhr: SinonFakeXMLHttpRequest) => void ): void;
 	respond(): void;
 	restore(): void;
 }
@@ -261,7 +261,7 @@ interface SinonStatic {
 
 interface SinonExposeOptions {
 	prefix?: string;
-	includeFail?: bool;
+	includeFail?: boolean;
 }
 
 interface SinonAssert {
@@ -302,8 +302,8 @@ interface SinonStatic {
 }
 
 interface SinonMatcher {
-	and(expr: SinonMatch): SinonMatcher;
-	or(expr: SinonMatch): SinonMatcher;
+	and(expr: SinonMatcher): SinonMatcher;
+	or(expr: SinonMatcher): SinonMatcher;
 }
 
 interface SinonMatch {
@@ -311,7 +311,7 @@ interface SinonMatch {
 	(value: string): SinonMatcher;
 	(expr: RegExp): SinonMatcher;
 	(obj: any): SinonMatcher;
-	(callback: (value: any) => bool): SinonMatcher;
+	(callback: (value: any) => boolean): SinonMatcher;
 	any: SinonMatcher;
 	defined: SinonMatcher;
 	truthy: SinonMatcher;
@@ -364,11 +364,11 @@ interface SinonStatic {
 }
 
 interface SinonTestConfig {
-	injectIntoThis?: bool;
+	injectIntoThis?: boolean;
 	injectInto?: any;
 	properties?: string[];
-	useFakeTimers?: bool;
-	useFakeServer?: bool;
+	useFakeTimers?: boolean;
+	useFakeServer?: boolean;
 }
 
 interface SinonTestWrapper extends SinonSandbox {
@@ -387,4 +387,4 @@ interface SinonStatic {
 	log: (message: string) => void;
 }
 
-var sinon: SinonStatic;
+declare var sinon: SinonStatic;

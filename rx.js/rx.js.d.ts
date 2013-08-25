@@ -5,449 +5,455 @@
 
 
 declare module Rx {
-    export module Internals {
-        function inherits(child: Function, parent: Function): Function;
-        function addProperties(obj: Object, ...sourcces: Object[]): void;
-        function addRef(xs: IObservable, r: { getDisposable(): _IDisposable; }): IObservable;
-    }
+	export module Internals {
+		function inherits(child: Function, parent: Function): Function;
+		function addProperties(obj: Object, ...sourcces: Object[]): void;
+		function addRef<T>(xs: IObservable<T>, r: { getDisposable(): _IDisposable; }): IObservable<T>;
+	}
 
-    //Collections
-    interface IIndexedItem {
-        id: number;
-        value: IScheduledItem;
+	//Collections
+	interface IIndexedItem {
+		id: number;
+		value: IScheduledItem;
 
-        compareTo(other: IIndexedItem): number;
-    }
+		compareTo(other: IIndexedItem): number;
+	}
 
-    // Priority Queue for Scheduling
-    interface IPriorityQueue {
-        items: IIndexedItem[];
-        length: number;
+	// Priority Queue for Scheduling
+	interface IPriorityQueue {
+		items: IIndexedItem[];
+		length: number;
 
-        isHigherPriority(left: number, right: number): bool;
-        percolate(index: number): void;
-        heapify(index: number): void;
-        peek(): IIndexedItem;
-        removeAt(index: number): void;
-        dequeue(): IIndexedItem;
-        enqueue(item: IIndexedItem): void;
-        remove(item: IIndexedItem): bool;
-    }
+		isHigherPriority(left: number, right: number): boolean;
+		percolate(index: number): void;
+		heapify(index: number): void;
+		peek(): IIndexedItem;
+		removeAt(index: number): void;
+		dequeue(): IIndexedItem;
+		enqueue(item: IIndexedItem): void;
+		remove(item: IIndexedItem): boolean;
+	}
 
-    interface _IDisposable {
-        dispose(): void;
-    }
+	interface _IDisposable {
+		dispose(): void;
+	}
 
-    interface ICompositeDisposable {
-        disposables: _IDisposable[];
-        isDisposed: bool;
-        length: number;
+	export class CompositeDisposable {
+		constructor (...disposables: _IDisposable[]);
 
-        dispose(): void;
-        add(item: _IDisposable): void;
-        remove(item: _IDisposable): bool;
-        clear(): void;
-        contains(item: _IDisposable): bool;
-        toArray(): _IDisposable[];
-    }
-    export module CompositeDisposable {
-        function new (...disposables: _IDisposable[]): ICompositeDisposable;
-    }
+		disposables: _IDisposable[];
+		isDisposed: boolean;
+		length: number;
 
-    // Main disposable class
-    interface IDisposable {
-        isDisposed: bool;
-        action: () =>void;
+		dispose(): void;
+		add(item: _IDisposable): void;
+		remove(item: _IDisposable): boolean;
+		clear(): void;
+		contains(item: _IDisposable): boolean;
+		toArray(): _IDisposable[];
+	}
 
-        dispose(): void;
-    }
-    export module Disposable {
-        function new (action: () =>void ): IDisposable;
+	// Main disposable class
+	interface IDisposable {
+		isDisposed: boolean;
+		action: () =>void;
 
-        function create(action: () =>void ): _IDisposable;
-        var empty: _IDisposable;
-    }
+		dispose(): void;
+	}
 
-    // Single assignment
-    interface ISingleAssignmentDisposable {
-        isDisposed: bool;
-        current: _IDisposable;
+	export interface Disposable {
+		new (action: () =>void ): IDisposable;
+	}
 
-        dispose(): void;
-        disposable(value?: _IDisposable): _IDisposable;
-        getDisposable(): _IDisposable;
-        setDisposable(value: _IDisposable): void;
-    }
-    export module SingleAssignmentDisposable {
-        function new (): ISingleAssignmentDisposable;
-    }
+	var Disposable: {
+		create(action: () => void): _IDisposable;
+		empty: _IDisposable;
+	}
 
-    // Multiple assignment disposable
-    interface ISerialDisposable {
-        isDisposed: bool;
-        current: _IDisposable;
+	// Single assignment
+	interface ISingleAssignmentDisposable {
+		isDisposed: boolean;
+		current: _IDisposable;
 
-        dispose(): void;
-        getDisposable(): _IDisposable;
-        setDisposable(value: _IDisposable): void;
-        disposable(value?: _IDisposable): _IDisposable;
-    }
-    export module SerialDisposable {
-        function new (): ISerialDisposable;
-    }
+		dispose(): void;
+		disposable(value?: _IDisposable): _IDisposable;
+		getDisposable(): _IDisposable;
+		setDisposable(value: _IDisposable): void;
+	}
+	export interface SingleAssignmentDisposable {
+		(): ISingleAssignmentDisposable;
+	}
 
-    interface IRefCountDisposable {
-        underlyingDisposable: _IDisposable;
-        isDisposed: bool;
-        isPrimaryDisposed: bool;
-        count: number;
+	// Multiple assignment disposable
+	export class SerialDisposable {
+		isDisposed: boolean;
+		current: _IDisposable;
 
-        dispose(): void;
-        getDisposable(): _IDisposable;
-    }
-    export module RefCountDisposable {
-        function new (disposable: _IDisposable): IRefCountDisposable;
-    }
+		dispose(): void;
+		getDisposable(): _IDisposable;
+		setDisposable(value: _IDisposable): void;
+		disposable(value?: _IDisposable): _IDisposable;
+	}
 
-    interface IScheduledItem {
-        scheduler: IScheduler;
-        state: any;
-        action: (scheduler: IScheduler, state) => _IDisposable;
-        dueTime: number;
-        comparer: (x: number, y: number) =>number;
-        disposable: ISingleAssignmentDisposable;
+	export class RefCountDisposable {
+		constructor(disposable: _IDisposable);
 
-        invoke(): void;
-        compareTo(other: IScheduledItem): number;
-        isCancelled(): bool;
-        invokeCore(): _IDisposable;
-    }
+		underlyingDisposable: _IDisposable;
+		isDisposed: boolean;
+		isPrimaryDisposed: boolean;
+		count: number;
 
-    interface IScheduler {
-        _schedule: (state: any, action: (scheduler: IScheduler, state: any) =>_IDisposable) => _IDisposable;
-        _scheduleRelative: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable) =>_IDisposable;
-        _scheduleAbsolute: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable) =>_IDisposable;
+		dispose(): void;
+		getDisposable(): _IDisposable;
+	}
 
-        now(): number;
-        scheduleWithState(state: any, action: (scheduler: IScheduler, state: any) =>_IDisposable): _IDisposable;
-        scheduleWithAbsoluteAndState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable): _IDisposable;
-        scheduleWithRelativeAndState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable): _IDisposable;
+	interface IScheduledItem {
+		scheduler: IScheduler;
+		state: any;
+		action: (scheduler: IScheduler, state) => _IDisposable;
+		dueTime: number;
+		comparer: (x: number, y: number) =>number;
+		disposable: ISingleAssignmentDisposable;
 
-        catchException(handler: (exception: any) =>bool): ICatchScheduler;
-        schedulePeriodic(period: number, action: () =>void ): _IDisposable;
-        schedulePeriodicWithState(state: any, period: number, action: (state: any) =>any): _IDisposable;//returns {Disposable|SingleAssignmentDisposable}
-        schedule(action: () =>void ): _IDisposable;
-        scheduleWithRelative(dueTime: number, action: () =>void ): _IDisposable;
-        scheduleWithAbsolute(dueTime: number, action: () =>void ): _IDisposable;
-        scheduleRecursive(action: (action: () =>void ) =>void ): _IDisposable;
-        scheduleRecursiveWithState(state: any, action: (state: any, action: (state: any) =>void ) =>void ): _IDisposable;
-        scheduleRecursiveWithRelative(dueTime: number, action: (action: (dueTime: number) =>void ) =>void ): _IDisposable;
-        scheduleRecursiveWithRelativeAndState(state: any, dueTime: number, action: (state: any, action: (state: any, dueTime: number) =>void ) =>void ): _IDisposable;
-        scheduleRecursiveWithAbsolute(dueTime: number, action: (action: (dueTime: number) =>void ) =>void ): _IDisposable;
-        scheduleRecursiveWithAbsoluteAndState(state: any, dueTime: number, action: (state: any, action: (state: any, dueTime: number) =>void ) =>void ): _IDisposable;
-    }
-    export module Scheduler {
-        function new (now: () =>number,
-            schedule: (state: any, action: (scheduler: IScheduler, state: any) =>_IDisposable) => _IDisposable,
-            scheduleRelative: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable) =>_IDisposable,
-            scheduleAbsolute: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable) =>_IDisposable
-            ): IScheduler;
+		invoke(): void;
+		compareTo(other: IScheduledItem): number;
+		isCancelled(): boolean;
+		invokeCore(): _IDisposable;
+	}
 
-        function now(): number;
-        function normalize(timeSpan: number): number;
+	interface IScheduler {
+		_schedule: (state: any, action: (scheduler: IScheduler, state: any) =>_IDisposable) => _IDisposable;
+		_scheduleRelative: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable) =>_IDisposable;
+		_scheduleAbsolute: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable) =>_IDisposable;
 
-        var immediate: IScheduler;
-        var currentThread: ICurrentScheduler;//IScheduler;
-        var timeout: IScheduler;
-    }
+		now(): number;
+		scheduleWithState(state: any, action: (scheduler: IScheduler, state: any) =>_IDisposable): _IDisposable;
+		scheduleWithAbsoluteAndState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable): _IDisposable;
+		scheduleWithRelativeAndState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable): _IDisposable;
 
-    // Current Thread IScheduler
-    interface ICurrentScheduler extends IScheduler {
-        scheduleRequired(): bool;
-        ensureTrampoline(action: () =>_IDisposable): _IDisposable;
-    }
+		catchException(handler: (exception: any) =>boolean): ICatchScheduler;
+		schedulePeriodic(period: number, action: () =>void ): _IDisposable;
+		schedulePeriodicWithState(state: any, period: number, action: (state: any) =>any): _IDisposable;//returns {Disposable|SingleAssignmentDisposable}
+		schedule(action: () =>void ): _IDisposable;
+		scheduleWithRelative(dueTime: number, action: () =>void ): _IDisposable;
+		scheduleWithAbsolute(dueTime: number, action: () =>void ): _IDisposable;
+		scheduleRecursive(action: (action: () =>void ) =>void ): _IDisposable;
+		scheduleRecursiveWithState(state: any, action: (state: any, action: (state: any) =>void ) =>void ): _IDisposable;
+		scheduleRecursiveWithRelative(dueTime: number, action: (action: (dueTime: number) =>void ) =>void ): _IDisposable;
+		scheduleRecursiveWithRelativeAndState(state: any, dueTime: number, action: (state: any, action: (state: any, dueTime: number) =>void ) =>void ): _IDisposable;
+		scheduleRecursiveWithAbsolute(dueTime: number, action: (action: (dueTime: number) =>void ) =>void ): _IDisposable;
+		scheduleRecursiveWithAbsoluteAndState(state: any, dueTime: number, action: (state: any, action: (state: any, dueTime: number) =>void ) =>void ): _IDisposable;
+	}
 
-    // Virtual IScheduler
-    interface IVirtualTimeScheduler extends IScheduler {
-        toRelative(duetime): number;
-        toDateTimeOffset(duetime: number): number;
+	var Scheduler: {
+		//(now: () =>number,
+		//	schedule: (state: any, action: (scheduler: IScheduler, state: any) =>_IDisposable) => _IDisposable,
+		//	scheduleRelative: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable) =>_IDisposable,
+		//	scheduleAbsolute: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable) =>_IDisposable
+		//	): IScheduler;
 
-        clock: number;
-        comparer: (x: number, y: number) =>number;
-        isEnabled: bool;
-        queue: IPriorityQueue;
-        scheduleRelativeWithState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable): _IDisposable;
-        scheduleRelative(dueTime: number, action: () =>void ): _IDisposable;
-        start(): _IDisposable;
-        stop(): void;
-        advanceTo(time: number);
-        advanceBy(time: number);
-        sleep(time: number);
-        getNext(): IScheduledItem;
-        scheduleAbsolute(dueTime: number, action: () =>void );
-        scheduleAbsoluteWithState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable): _IDisposable;
-    }
-    //export module VirtualTimeScheduler {
-    //    //absract
-    //    function new (initialClock: number, comparer: (x: number, y: number) =>number): IVirtualTimeScheduler;
-    //}
+		now(): number;
+		normalize(timeSpan: number): number;
 
+		immediate: IScheduler;
+		currentThread: ICurrentScheduler;//IScheduler;
+		timeout: IScheduler;
+	}
 
-    // CatchScheduler
-    interface ICatchScheduler extends IScheduler { }
+	// Current Thread IScheduler
+	interface ICurrentScheduler extends IScheduler {
+		scheduleRequired(): boolean;
+		ensureTrampoline(action: () =>_IDisposable): _IDisposable;
+	}
 
-    // Notifications
-    interface INotification {
-        accept(observer: IObserver): void;
-        accept(onNext: (value: any) =>void , onError?: (exception: any) =>void , onCompleted?: () =>void ): void;
-        toObservable(scheduler?: IScheduler): IObservable;
-        hasValue: bool;
-        equals(other: INotification): bool;
-    }
-    export module Notification {
-        //absctract
-        //function new (): INotification;
+	// Virtual IScheduler
+	interface IVirtualTimeScheduler extends IScheduler {
+		toRelative(duetime): number;
+		toDateTimeOffset(duetime: number): number;
 
-        function createOnNext(value: any): INotification;//ON
-        function createOnError(exception): INotification;//OE
-        function createOnCompleted(): INotification;//OC
-    }
-
-    export module  Internals {
-        // Enumerator
-        interface IEnumerator {
-            moveNext(): bool;
-            getCurrent(): any;
-            dispose(): void;
-        }
-        export module Enumerator {
-            function new (moveNext: () =>bool, getCurrent: () => any, dispose: () =>void ): IEnumerator;
-
-            function create(moveNext: () =>bool, getCurrent: () =>any, dispose?: () =>void ): IEnumerator;
-        }
-
-        // Enumerable
-        interface IEnumerable {
-            getEnumerator(): IEnumerator;
-
-            concat(): IObservable;
-            catchException(): IObservable;
-        }
-        export module Enumerable {
-            function new (getEnumerator: () =>IEnumerator): IEnumerable;
-
-            function repeat(value: any, repeatCount?: number): IEnumerable;
-            function forEach(source: any[], selector?: (element: any, index: number) =>any): IEnumerable;
-            function forEach(source: { length: number;[index: number]: any; }, selector?: (element: any, index: number) =>any): IEnumerable;
-        }
-    }
-
-    // Observer
-    interface IObserver {
-        onNext(value: any): void;
-        onError(exception: any): void;
-        onCompleted(): void;
-
-        toNotifier(): (notification: INotification) =>void;
-        asObserver(): IObserver;
-        checked(): ICheckedObserver;
-    }
-    export module Observer {
-        //abstract
-        //function new (): IObserver;
-
-        function create(onNext: (value: any) =>void , onError?: (exception: any) =>void , onCompleted?: () =>void ): IObserver;
-        function fromNotifier(handler: (notification: INotification) =>void ): IObserver;
-    }
-
-    export module Internals {
-        // Abstract Observer
-        interface IAbstractObserver extends IObserver {
-            isStopped: bool;
-
-            dispose(): void;
-            next(value: any): void;
-            error(exception: any): void;
-            completed(): void;
-            fail(): bool;
-        }
-        //export module AbstractObserver {
-        //    //abstract
-        //    function new (): IAbstractObserver;
-        //}
-    }
-
-    interface IAnonymousObserver extends Internals.IAbstractObserver {
-        _onNext: (value: any) =>void;
-        _onError: (exception: any) =>void;
-        _onCompleted: () =>void;
-    }
-    export module AnonymousObserver {
-        function new (onNext: (value: any) =>void , onError: (exception: any) =>void , onCompleted: () =>void ): IAnonymousObserver;
-    }
-
-    interface ICheckedObserver extends IObserver {
-        _observer: IObserver;
-        _state: number; // 0 - idle, 1 - busy, 2 - done
-        checkAccess(): void;
-    }
-
-    export module Internals {
-        interface IScheduledObserver extends IAbstractObserver {
-            scheduler: IScheduler;
-            observer: IObserver;
-            isAcquired: bool;
-            hasFaulted: bool;
-            queue: { (value: any): void; (exception: any): void; (): void; }[];
-            disposable: ISerialDisposable;
-
-            ensureActive(): void;
-        }
-        export module ScheduledObserver {
-            function new (scheduler: IScheduler, observer: IObserver): IScheduledObserver;
-        }
-    }
+		clock: number;
+		comparer: (x: number, y: number) =>number;
+		isEnabled: boolean;
+		queue: IPriorityQueue;
+		scheduleRelativeWithState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable): _IDisposable;
+		scheduleRelative(dueTime: number, action: () =>void ): _IDisposable;
+		start(): _IDisposable;
+		stop(): void;
+		advanceTo(time: number);
+		advanceBy(time: number);
+		sleep(time: number);
+		getNext(): IScheduledItem;
+		scheduleAbsolute(dueTime: number, action: () =>void );
+		scheduleAbsoluteWithState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable): _IDisposable;
+	}
+	//export module VirtualTimeScheduler {
+	//    //absract
+	//    function new (initialClock: number, comparer: (x: number, y: number) =>number): IVirtualTimeScheduler;
+	//}
 
 
-    interface IObservable {
-        _subscribe: (observer: IObserver) =>_IDisposable;
+	// CatchScheduler
+	interface ICatchScheduler extends IScheduler { }
 
-        subscribe(observer: IObserver): _IDisposable;
+	// Notifications
+	interface INotification<T> {
+		accept(observer: IObserver<T>): void;
+		accept(onNext: (value: T) =>void , onError?: (exception: any) =>void , onCompleted?: () =>void ): void;
+		toObservable(scheduler?: IScheduler): IObservable;
+		hasValue: boolean;
+		equals(other: INotification<T>): boolean;
+		kind: string;
+		value?: T;
+		exception?: any;
+	}
+	export interface Notification {
+		//abstract
+		//function new (): INotification;
 
-        finalValue(): IObservable;
-        subscribe(onNext?: (value: any) =>void , onError?: (exception: any) =>void , onCompleted?: () =>void ): _IDisposable;
-        toArray(): IObservable;
+		createOnNext<T>(value: T): INotification<T>;//ON
+		createOnError<T>(exception): INotification<T>;//OE
+		createOnCompleted<T>(): INotification<T>;//OC
+	}
 
-        observeOn(scheduler: IScheduler): IObservable;
-        subscribeOn(scheduler: IScheduler): IObservable;
-        amb(rightSource: IObservable): IObservable;
-        catchException(handler: (exception: any) =>IObservable): IObservable;
-        catchException(second: IObservable): IObservable;
-        combineLatest(second: IObservable, resultSelector: (v1: any, v2: any) =>any): IObservable;
-        combineLatest(second: IObservable, third: IObservable, resultSelector: (v1: any, v2: any, v3: any) =>any): IObservable;
-        combineLatest(second: IObservable, third: IObservable, fourth: IObservable, resultSelector: (v1: any, v2: any, v3: any, v4: any) =>any): IObservable;
-        combineLatest(second: IObservable, third: IObservable, fourth: IObservable, fifth, IObservable, resultSelector: (v1: any, v2: any, v3: any, v4: any, v5: any) =>any): IObservable;
-        combineLatest(...soucesAndResultSelector: any[]): IObservable;
-        concat(...sources: IObservable[]): IObservable;
-        concat(sources: IObservable[]): IObservable;
-        concatIObservable(): IObservable;
-        merge(maxConcurrent: number): IObservable;
-        merge(other: IObservable): IObservable;
-        mergeIObservable(): IObservable;
-        onErrorResumeNext(second: IObservable): IObservable;
-        skipUntil(other: IObservable): IObservable;
-        switchLatest(): IObservable;
-        takeUntil(other: IObservable): IObservable;
-        zip(second: IObservable, resultSelector: (v1: any, v2: any) =>any): IObservable;
-        zip(second: IObservable, third: IObservable, resultSelector: (v1: any, v2: any, v3: any) =>any): IObservable;
-        zip(second: IObservable, third: IObservable, fourth: IObservable, resultSelector: (v1: any, v2: any, v3: any, v4: any) =>any): IObservable;
-        zip(second: IObservable, third: IObservable, fourth: IObservable, fifth, IObservable, resultSelector: (v1: any, v2: any, v3: any, v4: any, v5: any) =>any): IObservable;
-        zip(...soucesAndResultSelector: any[]): IObservable;
-        zip(second: any[], resultSelector: (left: any, right: any) =>any): IObservable;
-        asIObservable(): IObservable;
-        bufferWithCount(count: number, skip?: number): IObservable;
-        dematerialize(): IObservable;
-        distinctUntilChanged(keySelector?: (value: any) =>any, comparer?: (x: any, y: any) =>bool): IObservable;
-        doAction(observer: IObserver): IObservable;
-        doAction(onNext: (value: any) => void , onError?: (exception: any) =>void , onCompleted?: () =>void ): IObservable;
-        finallyAction(action: () =>void ): IObservable;
-        ignoreElements(): IObservable;
-        materialize(): IObservable;
-        repeat(repeatCount?: number): IObservable;
-        retry(retryCount?: number): IObservable;
-        scan(seed: number, accumulator: (acc: any, value: any) =>any): IObservable;
-        scan(accumulator: (acc: any, value: any) =>any): IObservable;
-        skipLast(count: number): IObservable;
-        startWith(...values: any[]): IObservable;
-        startWith(scheduler: IScheduler, ...values: any[]): IObservable;
-        takeLast(count: number, scheduler?: IScheduler): IObservable;
-        takeLastBuffer(count: number): IObservable;
-        windowWithCount(count: number, skip?: number): IObservable;
-        defaultIfEmpty(defaultValue?: any): IObservable;
-        distinct(keySelector?: (value: any) =>any, keySerializer?: (key: any) =>string): IObservable;
-        groupBy(keySelector: (value: any) =>any, elementSelector?: (value: any) =>any, keySerializer?: (key: any) =>string): IGroupedObservable;
-        groupByUntil(keySelector: (value: any) =>any, elementSelector: (value: any) =>any, durationSelector: (gloup: IGroupedObservable) =>IObservable, keySerializer?: (key: any) =>string): IGroupedObservable;
-        select(selector: (value: any, index: number) =>any): IObservable;
-        selectMany(selector: (value: any) =>IObservable, resultSelector?: (x: any, y: any) =>any): IObservable;
-        selectMany(other: IObservable): IObservable;
-        skip(count: number): IObservable;
-        skipWhile(predicate: (value: any, index?: number) =>bool): IObservable;
-        take(count: number, scheduler?: IScheduler): IObservable;
-        takeWhile(predicate: (value: any, index?: number) =>bool): IObservable;
-        where(predicate: (value: any, index?: number) =>bool): IObservable;
-    }
-    export module Observable {
-        function new (subscribe: (observer: IObserver) =>_IDisposable): IObservable;
+	var Notification: Notification;
 
-        function start(func: () =>any, scheduler?: IScheduler, context?: any): IObservable;
-        function toAsync(func: Function, scheduler?: IScheduler, context?: any): (...arguments: any[]) => IObservable;
-        function create(subscribe: (Observer) =>() =>void ): IObservable;
-        function createWithDisposable(subscribe: (Observer) =>_IDisposable): IObservable;
-        function defer(observableFactory: () =>IObservable): IObservable;
-        function empty(scheduler?: IScheduler): IObservable;
-        function fromArray(array: any[], scheduler?: IScheduler): IObservable;
-        function fromArray(array: { length: number;[index: number]: any; }, scheduler?: IScheduler): IObservable;
-        function generate(initialState: any, condition: (state: any) =>bool, iterate: (state: any) =>any, resultSelector: (state: any) =>any, scheduler?: IScheduler): IObservable;
-        function never(): IObservable;
-        function range(start: number, count: number, scheduler?: IScheduler): IObservable;
-        function repeat(value: any, repeatCount?: number, scheduler?: IScheduler): IObservable;
-        function returnValue(value: any, scheduler?: IScheduler): IObservable;
-        function throwException(exception: any, scheduler?: IScheduler): IObservable;
-        function using(resourceFactory: () =>any, observableFactory: (resource: any) =>IObservable): IObservable;
-        function amb(...sources: IObservable[]): IObservable;
-        function catchException(sources: IObservable[]): IObservable;
-        function catchException(...sources: IObservable[]): IObservable;
-        function concat(...sources: IObservable[]): IObservable;
-        function concat(sources: IObservable[]): IObservable;
-        function merge(...sources: IObservable[]): IObservable;
-        function merge(sources: IObservable[]): IObservable;
-        function merge(scheduler: IScheduler, ...sources: IObservable[]): IObservable;
-        function merge(scheduler: IScheduler, sources: IObservable[]): IObservable;
-        function onErrorResumeNext(...sources: IObservable[]): IObservable;
-        function onErrorResumeNext(sources: IObservable[]): IObservable;
-    }
+	export module Internals {
+		// Enumerator
+		interface IEnumerator<T> {
+			moveNext(): boolean;
+			getCurrent(): T;
+			dispose(): void;
+		}
+		export interface Enumerator<T> {
+			(moveNext: () =>boolean, getCurrent: () => T, dispose: () =>void ): IEnumerator<T>;
 
-    export module Internals {
-        interface IAnonymousObservable extends IObservable { }
-        export module AnonymousObservable {
-            function new (subscribe: (observer: IObserver) =>_IDisposable): IAnonymousObservable;
-        }
-    }
+			create(moveNext: () =>boolean, getCurrent: () => T, dispose?: () =>void ): IEnumerator<T>;
+		}
 
-    interface IGroupedObservable extends IObservable {
-        key: any;
-        underlyingObservable: IObservable;
-    }
+		// Enumerable
+		interface IEnumerable<T> {
+			getEnumerator(): IEnumerator<T>;
 
-    interface ISubject extends IObservable, IObserver {
-        isDisposed: bool;
-        isStopped: bool;
-        observers: IObserver[];
+			concat(): IObservable<T>;
+			catchException(): IObservable<T>;
+		}
+		export interface Enumerable<T> {
+			(getEnumerator: () =>IEnumerator<T>): IEnumerable<T>;
 
-        dispose(): void;
-    }
-    export module Subject {
-        function new (): ISubject;
+			repeat(value: T, repeatCount?: number): IEnumerable;
+			forEach<T2>(source: T[], selector?: (element: T, index: number) => T2): IEnumerable<T2>;
+			forEach<T2>(source: { length: number; [index: number]: T; }, selector?: (element: T, index: number) => T2): IEnumerable<T2>;
+		}
+	}
 
-        function create(observer: IObserver, observable: IObservable): ISubject;
-    }
+	// Observer
+	interface IObserver<T> {
+		onNext(value: T): void;
+		onError(exception: any): void;
+		onCompleted(): void;
 
-    interface IAsyncSubject extends IObservable, IObserver {
-        isDisposed: bool;
-        value: any;
-        hasValue: bool;
-        observers: IObserver[];
-        exception: any;
+		toNotifier(): (notification: INotification<T>) =>void;
+		asObserver(): IObserver<T>;
+		checked(): ICheckedObserver;
+	}
+	export module Observer {
+		//abstract
+		//function new (): IObserver;
 
-        dispose(): void;
-    }
-    export module AsyncSubject {
-        function new (): IAsyncSubject;
-    }
+		function create<T>(onNext: (value: T) =>void , onError?: (exception: any) =>void , onCompleted?: () =>void ): IObserver<T>;
+		function fromNotifier<T>(handler: (notification: INotification<T>) =>void ): IObserver<T>;
+	}
 
-    interface IAnonymousSubject extends IObservable {
-        onNext(value: any): void;
-        onError(exception: any): void;
-        onCompleted(): void;
-    }
+	export module Internals {
+		// Abstract Observer
+		interface IAbstractObserver<T> extends IObserver<T> {
+			isStopped: boolean;
+
+			dispose(): void;
+			next(value: T): void;
+			error(exception: any): void;
+			completed(): void;
+			fail(): boolean;
+		}
+		//export module AbstractObserver {
+		//    //abstract
+		//    function new (): IAbstractObserver;
+		//}
+	}
+
+	export class AnonymousObserver<T> {
+		constructor(onNext: (value: T) => void , onError: (exception: any) => void , onCompleted: () => void);
+	}
+
+	interface ICheckedObserver<T> extends IObserver<T> {
+		_observer: IObserver<T>;
+		_state: number; // 0 - idle, 1 - busy, 2 - done
+		checkAccess(): void;
+	}
+
+	export module Internals {
+		interface IScheduledObserver<T> extends IAbstractObserver<T> {
+			scheduler: IScheduler;
+			observer: IObserver<T>;
+			isAcquired: boolean;
+			hasFaulted: boolean;
+			//queue: { (value: any): void; (exception: any): void; (): void; }[];
+			disposable: SerialDisposable;
+
+			ensureActive(): void;
+		}
+		export interface ScheduledObserver<T> {
+			(scheduler: IScheduler, observer: IObserver<T>): IScheduledObserver<T>;
+		}
+	}
+
+	interface IObservable<T> {
+		_subscribe: (observer: IObserver<T>) =>_IDisposable;
+
+		subscribe(observer: IObserver<T>): _IDisposable;
+
+		finalValue(): IObservable<T>;
+		subscribe(onNext?: (value: T) =>void , onError?: (exception: any) =>void , onCompleted?: () =>void ): _IDisposable;
+		toArray(): IObservable<T>;
+
+		observeOn(scheduler: IScheduler): IObservable<T>;
+		subscribeOn(scheduler: IScheduler): IObservable<T>;
+
+		amb(rightSource: IObservable<T>): IObservable<T>;
+		catchException(handler: (exception: any) =>IObservable<T>): IObservable<T>;
+		catchException(second: IObservable<T>): IObservable<T>;
+		combineLatest<T2, TResult>(second: IObservable<T2>, resultSelector: (v1: T, v2: T2) =>TResult): IObservable<TResult>;
+		combineLatest<T2, T3, TResult>(second: IObservable<T2>, third: IObservable<T3>, resultSelector: (v1: T, v2: T2, v3: T3) =>TResult): IObservable<TResult>;
+		combineLatest<T2, T3, T4, TResult>(second: IObservable<T2>, third: IObservable<T3>, fourth: IObservable<T4>, resultSelector: (v1: T, v2: T2, v3: T3, v4: T4) =>TResult): IObservable<TResult>;
+		combineLatest<T2, T3, T4, T5, TResult>(second: IObservable<T2>, third: IObservable<T3>, fourth: IObservable<T4>, fifth: IObservable<T5>, resultSelector: (v1: T, v2: T2, v3: T3, v4: T4, v5: T5) =>TResult): IObservable<TResult>;
+		combineLatest<TResult>(...soucesAndResultSelector: any[]): IObservable<TResult>;
+		concat(...sources: IObservable<T>[]): IObservable<T>;
+		concat(sources: IObservable<T>[]): IObservable<T>;
+		//concatIObservable(): IObservable<T>;
+		merge(maxConcurrent: number): IObservable<T>;
+		merge(other: IObservable<T>): IObservable<T>;
+		//mergeIObservable(): IObservable;
+		onErrorResumeNext(second: IObservable<T>): IObservable<T>;
+		skipUntil<T2>(other: IObservable<T2>): IObservable<T>;
+		switchLatest(): IObservable<T>;
+		takeUntil<T2>(other: IObservable<T2>): IObservable<T>;
+		zip<T2, TResult>(second: IObservable<T2>, resultSelector: (v1: T, v2: T2) =>TResult): IObservable<TResult>;
+		zip<T2, T3, TResult>(second: IObservable<T2>, third: IObservable<T3>, resultSelector: (v1: T, v2: T2, v3: T3) => TResult): IObservable<TResult>;
+		zip<T2, T3, T4, TResult>(second: IObservable<T2>, third: IObservable<T3>, fourth: IObservable<T4>, resultSelector: (v1: T, v2: T2, v3: T3, v4: T4) => TResult): IObservable<TResult>;
+		zip<T2, T3, T4, T5, TResult>(second: IObservable<T2>, third: IObservable<T3>, fourth: IObservable<T4>, fifth: IObservable<T5>, resultSelector: (v1: T, v2: T2, v3: T3, v4: T4, v5: T5) => TResult): IObservable<TResult>;
+		zip<TResult>(...soucesAndResultSelector: any[]): IObservable<TResult>;
+		zip<TResult>(second: any[], resultSelector: (left: T, right: any) => TResult): IObservable<TResult>;
+		asIObservable(): IObservable;
+		bufferWithCount(count: number, skip?: number): IObservable<T>;
+		dematerialize<TOrigin>(): IObservable<TOrigin>;
+		distinctUntilChanged<TValue>(keySelector?: (value: T) => TValue, comparer?: (x: TValue, y: TValue) =>boolean): IObservable;
+		doAction(observer: IObserver<T>): IObservable<T>;
+		doAction(onNext: (value: T) => void , onError?: (exception: any) =>void , onCompleted?: () =>void ): IObservable<T>;
+		finallyAction(action: () =>void): IObservable<T>;
+		ignoreElements(): IObservable<T>;
+		materialize(): IObservable<INotification<any>>; // IObservable<INotification<T>> not supported by TypeScript 0.9.0 !!
+		repeat(repeatCount?: number): IObservable<T>;
+		retry(retryCount?: number): IObservable<T>;
+		scan<TAcc>(seed: TAcc, accumulator: (acc: TAcc, value: T) => TAcc): IObservable<TAcc>;
+		scan<TAcc>(accumulator: (acc: TAcc, value: T) => TAcc): IObservable<TAcc>;
+		skipLast(count: number): IObservable<T>;
+		startWith(...values: T[]): IObservable<T>;
+		startWith(scheduler: IScheduler, ...values: T[]): IObservable<T>;
+		takeLast(count: number, scheduler?: IScheduler): IObservable<T>;
+		takeLastBuffer(count: number): IObservable<T>;
+		windowWithCount(count: number, skip?: number): IObservable<T>;
+		defaultIfEmpty(defaultValue?: any): IObservable<T>;
+		distinct<TKey>(keySelector?: (value: T) => TKey, keySerializer?: (key: TKey) =>string): IObservable<T>;
+		groupBy<TKey, TElement>(keySelector: (value: T) => TKey, elementSelector?: (value: T) => TElement, keySerializer?: (key: TKey) => string): IGroupedObservable<TKey, TElement>;
+		groupByUntil<TKey, TElement>(keySelector: (value: T) => TKey, elementSelector: (value: T) => TElement, durationSelector: (group: IGroupedObservable<TKey, TElement>) => IObservable<number>, keySerializer?: (key: TKey) => string): IGroupedObservable<TKey, TElement>;
+		select<T2>(selector: (value: T, index: number) =>T2): IObservable<T2>;
+		selectMany<T2>(selector: (value: T) =>IObservable<T2>, resultSelector?: (x: any, y: any) =>any): IObservable<T2>;
+		selectMany<T2>(other: IObservable<T2>): IObservable<T2>;
+		skip(count: number): IObservable<T>;
+		skipWhile(predicate: (value: T, index?: number) =>boolean): IObservable<T>;
+		take(count: number, scheduler?: IScheduler): IObservable<T>;
+		takeWhile(predicate: (value: T, index?: number) =>boolean): IObservable<T>;
+		where(predicate: (value: T, index?: number) => boolean): IObservable<T>;
+	}
+
+	interface Observable {
+		(subscribe: (observer: IObserver<any>) =>_IDisposable): IObservable;
+
+		start<T>(func: () =>T, scheduler?: IScheduler, context?: any): IObservable<T>;
+		toAsync<T>(func: Function, scheduler?: IScheduler, context?: any): (...arguments: any[]) => IObservable<T>;
+		create<T>(subscribe: (observer: IObserver<T>) => void ): IObservable<T>;
+		//create<T>(subscribe: (observer: IObserver<T>) => () => void ): IObservable<T>;
+		createWithDisposable<T>(subscribe: (observer: IObserver<T>) =>_IDisposable): IObservable<T>;
+		defer<T>(observableFactory: () => IObservable<T>): IObservable<T>;
+		empty<T>(scheduler?: IScheduler): IObservable<T>;
+		fromArray<T>(array: T[], scheduler?: IScheduler): IObservable<T>;
+		fromArray<T>(array: { length: number;[index: number]: T; }, scheduler?: IScheduler): IObservable<T>;
+		generate<TState, TResult>(initialState: TState, condition: (state: TState) => boolean, iterate: (state: TState) => TState, resultSelector: (state: TState) => TResult, scheduler?: IScheduler): IObservable<TResult>;
+		never<T>(): IObservable<T>;
+		range(start: number, count: number, scheduler?: IScheduler): IObservable<number>;
+		repeat<T>(value: T, repeatCount?: number, scheduler?: IScheduler): IObservable<T>;
+		returnValue<T>(value: T, scheduler?: IScheduler): IObservable<T>;
+		throwException<T>(exception: any, scheduler?: IScheduler): IObservable<T>;
+		using<TSource, TResource>(resourceFactory: () => TResource, observableFactory: (resource: TResource) => IObservable<TSource>): IObservable<TSource>;
+		amb<T>(...sources: IObservable<T>[]): IObservable<T>;
+		catchException<T>(sources: IObservable<T>[]): IObservable<T>;
+		catchException<T>(...sources: IObservable<T>[]): IObservable<T>;
+		concat<T>(...sources: IObservable<T>[]): IObservable<T>;
+		concat<T>(sources: IObservable<T>[]): IObservable<T>;
+		merge<T>(...sources: IObservable<T>[]): IObservable<T>;
+		merge<T>(sources: IObservable<T>[]): IObservable<T>;
+		merge<T>(scheduler: IScheduler, ...sources: IObservable<T>[]): IObservable<T>;
+		merge<T>(scheduler: IScheduler, sources: IObservable<T>[]): IObservable<T>;
+		onErrorResumeNext<T>(...sources: IObservable<T>[]): IObservable<T>;
+		onErrorResumeNext<T>(sources: IObservable<T>[]): IObservable<T>;
+	}
+
+	var Observable: Observable;
+
+	export module Internals {
+		interface IAnonymousObservable<T> extends IObservable<T> { }
+		export interface AnonymousObservable<T> {
+			(subscribe: (observer: IObserver<T>) =>_IDisposable): IAnonymousObservable<T>;
+		}
+	}
+
+	interface IGroupedObservable<TKey, TElement> extends IObservable<TElement> {
+		key: TKey;
+		underlyingObservable: IObservable<TElement>;
+	}
+
+	interface ISubject<T> extends IObservable<T>, IObserver<T> {
+		isDisposed: boolean;
+		isStopped: boolean;
+		//observers: IObserver<T>[];
+
+		dispose(): void;
+	}
+
+	export interface Subject {
+		create<T>(observer?: IObserver<T>, observable?: IObservable<T>): ISubject<T>;
+	}
+
+	var Subject: {
+		new<T> (): ISubject<T>;
+	}
+
+	interface IAsyncSubject<T> extends IObservable<T>, IObserver<T> {
+		isDisposed: boolean;
+		value: T;
+		hasValue: boolean;
+		observers: IObserver<T>[];
+		exception: any;
+
+		dispose(): void;
+	}
+	export interface AsyncSubject<T> {
+		(): IAsyncSubject<T>;
+	}
+
+	interface IAnonymousSubject<T> extends IObservable<T> {
+		onNext(value: T): void;
+		onError(exception: any): void;
+		onCompleted(): void;
+	}
 }

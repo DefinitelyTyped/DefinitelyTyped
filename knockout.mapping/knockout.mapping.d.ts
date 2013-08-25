@@ -13,7 +13,7 @@ interface KnockoutMappingCreateOptions {
 interface KnockoutMappingUpdateOptions {
     data: any;
     parent: any;
-    observable: KnockoutObservableAny;
+    observable: KnockoutObservable<any>;
 }
 
 interface KnockoutMappingOptions {
@@ -21,18 +21,20 @@ interface KnockoutMappingOptions {
     include?: string[];
     copy?: string[];
     mappedProperties?: string[];
-    deferEvaluation?: bool;
+    deferEvaluation?: boolean;
     create?: (options: KnockoutMappingCreateOptions) => void;
     update?: (options: KnockoutMappingUpdateOptions) => void;
     key?: (data: any) => any;
 }
 
 interface KnockoutMapping {
-    isMapped(viewModel: any): bool;
+    isMapped(viewModel: any): boolean;
     fromJS(jsObject: any): any;
     fromJS(jsObject: any, targetOrOptions: any): any;
     fromJS(jsObject: any, inputOptions: any, target: any): any;
     fromJSON(jsonString: string): any;
+    fromJSON(jsonString: string, targetOrOptions: any): any;
+    fromJSON(jsonString: string, inputOptions: any, target: any): any;
     toJS(rootObject: any, options?: KnockoutMappingOptions): any;
     toJSON(rootObject: any, options?: KnockoutMappingOptions): any;
     defaultOptions(): KnockoutMappingOptions;

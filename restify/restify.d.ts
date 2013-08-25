@@ -11,8 +11,8 @@ interface addressInterface {
 
 interface Request {
     header: (key: string, defaultValue?: string) => any;
-    accepts: (type: string) => bool;
-    is: (type: string) => bool;
+    accepts: (type: string) => boolean;
+    is: (type: string) => boolean;
     getLogger: (component: string) => any;
     contentLength: number;
     contentType: string;
@@ -21,7 +21,7 @@ interface Request {
     id: string;
     path: () => string;
     query: string;
-    secure: bool;
+    secure: boolean;
     time: number;
     params: any;
 }
@@ -107,9 +107,9 @@ interface HttpClient extends Client {
 interface ThrottleOptions {
     burst?: number;
     rate?: number;
-    ip?: bool;
-    xff?: bool;
-    username?: bool;
+    ip?: boolean;
+    xff?: boolean;
+    username?: boolean;
     tokensTable?: Object;
     maxKeys?: number;
     overrides?: Object;
@@ -122,23 +122,23 @@ declare module "restify" {
     export function createStringClient(options?: ClientOptions): Client;
     export function createClient(options?: ClientOptions): HttpClient;
     
-    export class ConflictError { constructor(message?: any); };
-    export class InvalidArguementError { constructor(message?: any); };
-    export class RestError { constructor(message?: any); };
-    export class BadDigestError { constructor(message: any); };
-    export class BadMethodError { constructor(message: any); };
-    export class BadRequestError { constructor(message: any); };
-    export class InternalError { constructor(message: any); };
-    export class InvalidContentError { constructor(message: any); };
-    export class InvalidCredentialsError { constructor(message: any); };
-    export class InvalidHeaderError { constructor(message: any); };
-    export class InvalidVersionError { constructor(message: any); };
-    export class MissingParameterError { constructor(message: any); };
-    export class NotAuthorizedError { constructor(message: any); };
-    export class RequestExpiredError { constructor(message: any); };
-    export class RequestThrottledError { constructor(message: any); };
-    export class ResourceNotFoundError { constructor(message: any); };
-    export class WrongAcceptError { constructor(message: any); };
+    export class ConflictError { constructor(message?: any); }
+    export class InvalidArguementError { constructor(message?: any); }
+    export class RestError { constructor(message?: any); }
+    export class BadDigestError { constructor(message: any); }
+    export class BadMethodError { constructor(message: any); }
+    export class BadRequestError { constructor(message: any); }
+    export class InternalError { constructor(message: any); }
+    export class InvalidContentError { constructor(message: any); }
+    export class InvalidCredentialsError { constructor(message: any); }
+    export class InvalidHeaderError { constructor(message: any); }
+    export class InvalidVersionError { constructor(message: any); }
+    export class MissingParameterError { constructor(message: any); }
+    export class NotAuthorizedError { constructor(message: any); }
+    export class RequestExpiredError { constructor(message: any); }
+    export class RequestThrottledError { constructor(message: any); }
+    export class ResourceNotFoundError { constructor(message: any); }
+    export class WrongAcceptError { constructor(message: any); }
 
     export function acceptParser(parser: any);
     export function authorizationParser();

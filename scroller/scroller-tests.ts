@@ -41,7 +41,7 @@ function test_canvas() {
 function test_domlist() {
     var container = document.getElementById("container");
     var content = document.getElementById("content");
-    var refreshElem = <HTMLCanvasElement>content.getElementsByTagName("div")[0];
+    var refreshElem = <HTMLElement>content.getElementsByTagName("div")[0];
     var scroller = new Scroller(render, {
         scrollingX: false
     });
