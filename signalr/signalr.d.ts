@@ -47,10 +47,10 @@ interface SignalR {
 
    // createHubProxy(hubName: string): SignalR;
 
-    start(): JQueryPromise;
-    start(callback: () => void ): JQueryPromise;
-    start(settings: ConnectionSettings): JQueryPromise;
-    start(settings: ConnectionSettings, callback: () => void ): JQueryPromise;
+    start(): JQueryPromise<any>;
+    start(callback: () => void ): JQueryPromise<any>;
+    start(settings: ConnectionSettings): JQueryPromise<any>;
+    start(settings: ConnectionSettings, callback: () => void ): JQueryPromise<any>;
 
 
     send(data: string): void;
@@ -76,7 +76,7 @@ interface HubProxy {
     hasSubscriptions(): boolean;
     on(eventName: string, callback: (...msg) => void ): HubProxy;
     off(eventName: string, callback: (msg) => void ): HubProxy;
-    invoke(methodName: string, ...args: any[]): JQueryDeferred;
+    invoke(methodName: string, ...args: any[]): JQueryDeferred<any>;
 }
 
 interface HubConnectionSettings {
