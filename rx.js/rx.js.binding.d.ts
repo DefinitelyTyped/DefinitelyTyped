@@ -16,7 +16,7 @@ declare module Rx {
 	}
 
 	interface BehaviorSubject<T> extends ISubject<T> {
-		new (initialValue: T): BehaviorSubject;
+		new (initialValue: T): BehaviorSubject<any>;
 	}
 
 	interface ConnectableObservable<T> extends IObservable<T>{
