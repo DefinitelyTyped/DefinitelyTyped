@@ -716,7 +716,7 @@ declare module "fs" {
         ctime: Date;
     }
 
-    interface FSWatcher {
+    interface FSWatcher extends EventEmitter {
         close(): void;
     }
 
