@@ -108,6 +108,7 @@ List of Definitions
 * [jQuery.Flot](http://www.flotcharts.org/) (by [Matt Burland](https://github.com/burlandm))
 * [jQuery.form](http://malsup.com/jquery/form/) (by [François Guillot](http://fguillot.developpez.com/))
 * [jQuery.Globalize](https://github.com/jquery/globalize) (by [Boris Yankov](https://github.com/borisyankov))
+* [jQuery.gridster] (http://gridster.net) (by [Josh Baldwin](https://github.com/jbaldwin/gridster.d.ts))
 * [jQuery.jNotify](http://jnotify.codeplex.com) (by [James Curran](https://github.com/jamescurran/))
 * [jQuery.noty](http://needim.github.io/noty/) (by [Aaron King](https://github.com/kingdango/))
 * [jQuery.pickadate](https://github.com/amsul/pickadate.js) (by [Theodore Brown](https://github.com/theodorejb))
