@@ -1,14 +1,11 @@
-declare function StartTest(testScript: (t: Siesta.Test) => void): void;
-
-declare var startTest: typeof StartTest;
-
-declare var describe: typeof StartTest;
-
 declare module Siesta {
 
     //#region Harness
 
-    class Harness {
+    /**
+     * @abstract
+     */
+    interface IHarness {
         alsoPreload: any[];
 
         autoCheckGlobals: boolean;
@@ -45,7 +42,7 @@ declare module Siesta {
 
         subTestTimeout: number;
 
-        testClass: Siesta.Test;
+        testClass: Siesta.ITest;
 
         title: string;
 
@@ -59,33 +56,36 @@ declare module Siesta {
     }
 
     module Harness {
-        interface ITestGroupDescriptor {
-            group: string;
+        //interface ITestGroupDescriptor {
+        //    group: string;
 
-            items: any[];
-        }
+        //    items: any[];
+        //}
 
-        interface ITestUrlDescriptor {
-            url: string;
-        }
+        //interface ITestUrlDescriptor {
+        //    url: string;
+        //}
 
-        interface IPreloadUrlDescriptor {
-            type: string;
+        //interface IPreloadUrlDescriptor {
+        //    type: string;
 
-            url: string;
-        }
+        //    url: string;
+        //}
 
-        interface IPreloadContentDescriptor {
-            type: string;
+        //interface IPreloadContentDescriptor {
+        //    type: string;
 
-            content: string;
-        }
+        //    content: string;
+        //}
 
-        interface IPreloadTextDescriptor {
-            text: string;
-        }
+        //interface IPreloadTextDescriptor {
+        //    text: string;
+        //}
 
-        interface IBrowser extends Harness {
+        /**
+         * @singleton
+         */
+        interface IBrowser extends IHarness {
             autoRun: boolean;
 
             autoScrollElementsIntoView: boolean;
@@ -114,8 +114,6 @@ declare module Siesta {
 
             speedRun: boolean;
 
-            testClass: Function;
-
             useStrictMode: boolean;
 
             viewDOM: boolean;
@@ -125,6 +123,9 @@ declare module Siesta {
             viewportWidth: number;
         }
 
+        /**
+         * @mixin
+         */
         interface IBrowserExtJSCore {
             coverageUnit: string;
 
@@ -133,6 +134,9 @@ declare module Siesta {
             installLoaderInstrumentationHook: boolean;
         }
 
+        /**
+         * @singleton
+         */
         interface IBrowserExtJS extends IBrowser, IBrowserExtJSCore {
             allowExtVersionChange: boolean;
 
@@ -143,6 +147,9 @@ declare module Siesta {
             waitForExtReady;
         }
 
+        /**
+         * @singleton
+         */
         interface IBrowserSenchaTouch extends IBrowser, IBrowserExtJSCore {
             loaderPath: any;
 
@@ -159,7 +166,10 @@ declare module Siesta {
             SenchaTouch: IBrowserSenchaTouch;
         }
 
-        interface IHarnessNodeJS extends Harness {
+        /**
+         * @singleton
+         */
+        interface IHarnessNodeJS extends IHarness {
         }
 
         var Browser: IBrowserSingleton;
@@ -169,147 +179,333 @@ declare module Siesta {
 
     //#endregion
 
-    export class Test implements Test.BDD, Test.Date, Test.Function, Test.More {
+    //#region Test
+
+    /**
+     * @abstract
+     */
+    interface ITest extends Test.IBDD, Test.IDate, Test.IFunction, Test.IMore {
     }
 
-    export module Test {
-        export class Action {
+    module Test {
+        /**
+         * @abstract
+         */
+        interface IAction {
+            desc?: string;
         }
 
-        export module Action {
-            export module Role {
-                export class HasTarget {
+        module Action {
+            module Role {
+                /**
+                 * @mixin
+                 */
+                interface IHasTarget {
+                    passTargetToNext?: boolean;
+
+                    target?: any;
+
+                    el?: typeof target;
                 }
             }
 
-            export class Click extends Action implements Role.HasTarget {
+            /**
+             * @class
+             */
+            interface Click extends IAction, Role.IHasTarget {
+                options?: any;
             }
 
-            export class Done extends Action {
+            /**
+             * @class
+             */
+            interface Done extends IAction {
+                delay?: number;
             }
 
-            export class DoubleClick extends Action implements Role.HasTarget {
+            /**
+             * @class
+             */
+            interface DoubleClick extends IAction, Role.IHasTarget {
+                options?: any;
             }
 
-            export class DoubleTap extends Action implements Role.HasTarget {
+            /**
+             * @class
+             */
+            interface DoubleTap extends IAction, Role.IHasTarget {
             }
 
-            export class Drag extends Action {
+            /**
+             * @class
+             */
+            interface Drag extends IAction {
+                by?: any;
+
+                dragOnly?: boolean;
+
+                source?: any;
+
+                target?: any;
+
+                to?: any;
             }
 
-            export class Eval extends Action {
+            /**
+             * @class
+             */
+            interface Eval extends IAction {
+                options?: any;
             }
 
-            export class LongPress extends Action implements Role.HasTarget {
+            /**
+             * @class
+             */
+            interface LongPress extends IAction, Role.IHasTarget {
             }
 
-            export class MouseDown extends Action implements Role.HasTarget {
+            /**
+             * @class
+             */
+            interface MouseDown extends IAction, Role.IHasTarget {
+                options?: any;
             }
 
-            export class MouseUp extends Action implements Role.HasTarget {
+            /**
+             * @class
+             */
+            interface MouseUp extends IAction, Role.IHasTarget {
+                options?: any;
             }
 
-            export class MoveCursor extends Action implements Role.HasTarget {
+            /**
+             * @class
+             */
+            interface MoveCursor extends IAction, Role.IHasTarget {
+                by?: any;
+
+                to?: any;
             }
 
-            export class MoveCursorTo extends Action implements Role.HasTarget {
+            /**
+             * @class
+             */
+            interface MoveCursorTo extends IAction, Role.IHasTarget {
             }
 
-            export class RightClick extends Action implements Role.HasTarget {
+            /**
+             * @class
+             */
+            interface RightClick extends IAction, Role.IHasTarget {
+                options?: any;
             }
 
-            export class Swipe extends Action implements Role.HasTarget {
+            /**
+             * @class
+             */
+            interface Swipe extends IAction, Role.IHasTarget {
+                direction?: string;
             }
 
-            export class Tap extends Action implements Role.HasTarget {
+            /**
+             * @class
+             */
+            interface Tap extends IAction, Role.IHasTarget {
+                options?: any;
+
+                text?: string;
             }
 
-            export class Type extends Action implements Role.HasTarget {
+            /**
+             * @class
+             */
+            interface Type extends IAction, Role.IHasTarget {
             }
 
-            export class Wait extends Action {
+            /**
+             * @class
+             */
+            interface Wait extends IAction {
+                args?: any[];
+
+                delay?: number;
+
+                timeout?: number;
+
+                waitFor?: string;
             }
         }
 
-        export class BDD {
+        /**
+         * @mixin
+         */
+        interface IBDD {
+            any(clsConstructor: Function): any;
+
+            ddescribe(name: string, code: Function, timeout?: number);
+
+            describe(name: string, code: Function, timeout?: number);
+
+            expect(value: any): BDD.Expectation;
+
+            iit(name: string, code: Function, timeout?: number);
+
+            it(name: string, code: Function, timeout?: number);
+
+            xdescribe(name: string, code: Function, timeout?: number);
+
+            xit(name: string, code: Function, timeout?: number);
         }
 
-        export module BDD {
-            export class Expectation {
+        module BDD {
+            /**
+             @class
+             */
+            interface Expectation {
             }
         }
 
-        export class ExtJS extends Browser implements ExtJS.Ajax, ExtJS.Component, ExtJS.DataView, ExtJS.Element, ExtJS.FormField, ExtJS.Grid, ExtJS.Observable, ExtJS.Store, ExtJSCore {
+        /**
+         * @mixin
+         */
+        interface IExtJSAjax {
         }
 
-        export module ExtJS {
-            export class Ajax {
+        /**
+         * @mixin
+         */
+        interface IExtJSComponent {
+        }
+
+        /**
+         * @mixin
+         */
+        interface IExtJSDataView {
+        }
+
+        /**
+         * @mixin
+         */
+        interface IExtJSElement {
+        }
+
+        /**
+         * @mixin
+         */
+        interface IExtJSFormField {
+        }
+
+        /**
+         * @mixin
+         */
+        interface IExtJSGrid {
+        }
+
+        /**
+         * @mixin
+         */
+        interface IExtJSObservable {
+        }
+
+        /**
+         * @mixin
+         */
+        interface IExtJSStore {
+        }
+
+        /**
+         * @class
+         */
+        interface ExtJS extends Browser, IExtJSAjax, IExtJSComponent, IExtJSDataView, IExtJSElement, IExtJSFormField, IExtJSGrid, IExtJSObservable, IExtJSStore, IExtJSCore {
+        }
+
+        module Simulate {
+            /**
+             * @mixin
+             */
+            interface IEvent {
+                simulateEventsWith: string;
+
+                simulateEvent(el: any, type: string, the?: any, suppressLog?: boolean): void;
             }
 
-            export class Component {
+            /**
+             * @mixin
+             */
+            interface IKeyboard {
             }
 
-            export class DataView {
+            module KeyCodes {
             }
 
-            export class Element {
-            }
-
-            export class FormField {
-            }
-
-            export class Grid {
-            }
-
-            export class Observable {
-            }
-
-            export class Store {
+            /**
+             * @mixin
+             */
+            interface IMouse {
             }
         }
 
-        export module Simulate {
-            export class Event {
-            }
-
-            export class Keyboard {
-            }
-
-            export module KeyCodes {
-            }
-
-            export class Mouse {
-            }
+        /**
+         * @class
+         */
+        interface Browser extends Simulate.IEvent, Simulate.IKeyboard, Simulate.IMouse, IElement, ITextSelection {
         }
 
-        export class ActionTarget {
+        /**
+         * @mixin
+         */
+        interface IDate {
         }
 
-        export class Browser implements Simulate.Event, Simulate.Keyboard, Simulate.Mouse, TextSelection {
+        /**
+         * @mixin
+         */
+        interface IElement {
         }
 
-        export class Date {
+        /**
+         * @mixin
+         */
+        interface IExtJSCore {
         }
 
-        export class Element {
+        /**
+         * @mixin
+         */
+        interface IFunction {
         }
 
-        export class ExtJSCore {
+        /**
+         * @class
+         */
+        interface jQuery extends Browser {
         }
 
-        export class Function {
+        /**
+         * @mixin
+         */
+        interface IMore {
         }
 
-        export class jQuery extends Browser {
+        /**
+         * @class
+         */
+        interface SenchaTouch extends Browser, IExtJSComponent, IExtJSElement, IExtJSFormField, IExtJSObservable, IExtJSStore, IExtJSCore {
         }
 
-        export class More {
-        }
-
-        export class SenchaTouch extends Browser implements ExtJS.Component, ExtJS.Element, ExtJS.FormField, ExtJS.Observable, ExtJS.Store, ExtJSCore {
-        }
-
-        export class TextSelection {
+        /**
+         * @mixin
+         */
+        interface ITextSelection {
         }
     }
+
+    //#endregion
+
 }
+
+declare function StartTest(testScript: (t: Siesta.ITest) => void): void;
+
+declare var startTest: typeof StartTest;
+
+declare var describe: typeof StartTest;
