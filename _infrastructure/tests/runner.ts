@@ -145,7 +145,7 @@ module DefinitelyTyped {
 
 			public printHeader() {
 				this.out('=============================================================================\n');
-				this.out('                    \33[36m\33[1mDefinitelyTyped test runner 0.2.1\33[0m\n');
+				this.out('                    \33[36m\33[1mDefinitelyTyped test runner 0.3.0\33[0m\n');
 				this.out('=============================================================================\n');
 				this.out(' \33[36m\33[1mTypescript version:\33[0m ' + this.version + '\n');
 				this.out(' \33[36m\33[1mTypings           :\33[0m ' + this.typings + '\n');
@@ -508,7 +508,7 @@ module DefinitelyTyped {
 
 			constructor(public dtPath: string) {
 				this.fh = new FileHandler(dtPath, /.\.ts/g);
-				this.out = new Print('0.9.1.0', this.fh.allTypings().length, this.fh.allTS().length);
+				this.out = new Print('0.9.1.1', this.fh.allTypings().length, this.fh.allTS().length);
 				this.sc = new SyntaxChecking(this.fh, this.out);
 				this.te = new TestEval(this.fh, this.out);
 
