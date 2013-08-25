@@ -111,7 +111,7 @@ module DefinitelyTyped {
 					return;
 						
 				return <string><any> (day_diff == 0 && (
-						diff < 60 && (diff + " secconds") ||
+						diff < 60 && (diff + " seconds") ||
 						diff < 120 && "1 minute" ||
 						diff < 3600 && Math.floor( diff / 60 ) + " minutes" ||
 						diff < 7200 && "1 hour" ||
