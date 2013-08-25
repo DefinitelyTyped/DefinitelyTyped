@@ -21,6 +21,11 @@ interface SignalREvents {
     onDisconnect: string;
 }
 
+interface SignalRStateChange {
+    oldState: number;
+    newState: number;
+}
+
 interface SignalR {
     events: SignalREvents;
     connectionState: any;
@@ -53,8 +58,8 @@ interface SignalR {
 
     starting(handler: () => void ): SignalR;
     received(handler: (data: any) => void ): SignalR;
-    error(handler: (error: any) => void ): SignalR;
-    stateChanged(handler: (change: any) => void ): SignalR;
+    error(handler: (error: string) => void ): SignalR;
+    stateChanged(handler: (change: SignalRStateChange) => void ): SignalR;
     disconnected(handler: () => void ): SignalR;
     connectionSlow(handler: () => void ): SignalR;
     sending(handler: () => void ): SignalR;
@@ -64,6 +69,9 @@ interface SignalR {
 
 interface HubProxy {
     (connection: HubConnection, hubName: string): HubProxy;
+    state: any;
+    connection: HubConnection;
+    hubName: string;
     init(connection: HubConnection, hubName: string): void;
     hasSubscriptions(): boolean;
     on(eventName: string, callback: (...msg) => void ): HubProxy;
