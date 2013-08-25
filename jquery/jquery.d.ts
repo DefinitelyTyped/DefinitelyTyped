@@ -488,7 +488,7 @@ interface JQuery {
     removeData(nameOrList?: any): JQuery;
 
     // Deferred
-    promise(type?: any, target?: any): JQueryPromise;
+    promise(type?: any, target?: any): JQueryPromise<any>;
 
     // Effects
     animate(properties: any, duration?: any, complete?: Function): JQuery;
