@@ -148,7 +148,9 @@ _.invert({ Moe: "Moses", Larry: "Louis", Curly: "Jerome" });
 _.functions(_);
 _.extend({ name: 'moe' }, { age: 50 });
 _.pick({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
-_.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'userid');
+_.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name');
+_.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
+_.omit({ name: 'moe', age: 50, userid: 'moe1' }, ['name', 'age']);
 
 var iceCream = { flavor: "chocolate" };
 _.defaults(iceCream, { flavor: "vanilla", sprinkles: "lots" });
