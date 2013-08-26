@@ -2,18 +2,37 @@
 
 import marked = require('marked');
 
-marked.setOptions({
+var options: MarkedOptions = {
     gfm: true,
     tables: true,
     breaks: false,
     pedantic: false,
     sanitize: true,
-    highlight: function (code, lang) {
-    }
-});
-console.log(marked('i am using __markdown__.'));
+    smartLsts: true,
+    silent: false,
+    highlight: function (code: string, lang: string) {
+    	return '';
+    },
+    langPrefix: 'lang-',
+    smartypants: false
+};
 
-var text = 'something',
-    options = {};
+function callback() {
+	console.log('callback called');
+}
+
+marked.setOptions(options);
+
+console.log(marked('i am using __markdown__.'));
+console.log(marked('i am using __markdown__.', options));
+console.log(marked('i am using __markdown__.', callback));
+console.log(marked('i am using __markdown__.', options, callback));
+
+console.log(marked.parse('i am using __markdown__.'));
+console.log(marked.parse('i am using __markdown__.', options));
+console.log(marked.parse('i am using __markdown__.', callback));
+console.log(marked.parse('i am using __markdown__.', options, callback));
+
+var text = 'something';
 var tokens = marked.lexer(text, options);
 console.log(marked.parser(tokens));
