@@ -776,4 +776,13 @@ declare module breeze {
         messageTemplate: string;
         message?: string;
     }
+
+    interface config {
+        getAdapter(interfaceName: string, adapterName?: string): any;
+        getAdapterInstance(interfaceName: string, adapterName?: string): any;
+        initializeAdapterInstance(interfaceName: string, adapterName: string, isDefault?: boolean): any;
+        initializeAdapterInstances(config: { ajax?: string; dataService?: string; modelLibrary?: string; }): any;
+        registerAdapter(interfaceName: string, adapterCtor: any): string;
+        setProperties(config: { remoteAccessImplementation?: any; trackingImplementation?: any; ajaxImplementation?: any; }): any;
+    }
 }
