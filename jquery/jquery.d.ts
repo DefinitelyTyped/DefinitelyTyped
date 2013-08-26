@@ -374,6 +374,9 @@ interface JQueryStatic {
     * @param keepScripts A Boolean indicating whether to include scripts passed in the HTML string
     */
     parseHTML(data: string, context?: HTMLElement, keepScripts?: boolean): any[];
+
+    Animation(elem: any, properties: any, options: any): any;
+
 }
 
 /*
