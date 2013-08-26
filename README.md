@@ -96,6 +96,7 @@ List of Definitions
 * [jQuery](http://jquery.com/) (from TypeScript samples)
 * [jQuery Mobile](http://jquerymobile.com) (by [Boris Yankov](https://github.com/borisyankov))
 * [jQuery UI](http://jqueryui.com/) (by [Boris Yankov](https://github.com/borisyankov))
+* [jQuery.areYouSure](https://github.com/codedance/jquery.AreYouSure) (by [Jon Egerton](https://github.com/jonegerton))
 * [jQuery.autosize](http://www.jacklmoore.com/autosize/) (by [Jack Moore](http://www.jacklmoore.com/))
 * [jQuery.BBQ](http://benalman.com/projects/jquery-bbq-plugin/) (by [Adam R. Smith](https://github.com/sunetos))
 * [jQuery.contextMenu](http://medialize.github.com/jQuery-contextMenu/) (by [Natan Vivo](https://github.com/nvivo/))
