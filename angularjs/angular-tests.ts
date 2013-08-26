@@ -181,3 +181,26 @@ mod.constant(My.Namespace);
 mod.value('name', 23);
 mod.value('name', "23");
 mod.value(My.Namespace);
+
+// Promise signature tests
+var foo: ng.IPromise<number>;
+foo.then((x) => {
+    // x is infered to be a number. Expected
+    return "asdf";
+}).then((x) => {
+    // x is inferred to be string. Awesome
+    x.length;
+    return 123;
+}).then((x) => {
+    // x is infered to be a number. Awesomer
+    x.toFixed();
+    return;
+}).then((x) => {
+    // x is infered to be void. Sounds good. 
+    // Of course you cannot use x here (typescript will prevent you)
+    // Try object:
+    return { a: 123 };
+}).then((x) => {
+    // Still works
+    x.a = 123;
+});
