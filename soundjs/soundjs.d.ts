@@ -185,16 +185,16 @@ declare module createjs {
         static stop(): boolean;
 
 		// events
-		loadComplete: () => any;
+	static loadComplete: () => any;
 
 		// EventDispatcher mixins
-		addEventListener(type: string, listener: (eventObj: Object) => boolean): any;
-		removeEventListener(type: string, listener: (eventObj: Function) => boolean): void;
-		removeEventListener(type: string, listener: (eventObj: Object) => boolean): void;
-		removeAllEventListeners(type: string): void;
-		dispatchEvent(eventObj: string, target: Object): boolean;
-		dispatchEvent(eventObj: Object, target: Object): boolean;
-		hasEventListener(type: string): boolean;
+	static addEventListener(type: string, listener: (eventObj: Object) => boolean): any;
+	static removeEventListener(type: string, listener: (eventObj: Function) => boolean): void;
+	static removeEventListener(type: string, listener: (eventObj: Object) => boolean): void;
+	static removeAllEventListeners(type: string): void;
+	static dispatchEvent(eventObj: string, target: Object): boolean;
+	static dispatchEvent(eventObj: Object, target: Object): boolean;
+	static hasEventListener(type: string): boolean;
     }
 
 	export class BrowserDetect {
