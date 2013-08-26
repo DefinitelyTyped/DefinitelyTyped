@@ -1,3 +1,6 @@
+/// <reference path="amplifyjs.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
+
 // Copied examples directly from AmplifyJs site
 
 // Subscribe and publish with no data
