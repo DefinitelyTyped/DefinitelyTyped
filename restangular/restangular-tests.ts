@@ -5,7 +5,7 @@ function test_basic() {
     Restangular.all('accounts');
     Restangular.one('accounts', 1234);
 
-    Restangular.one('users').getList().then(function (users) {
+    Restangular.all('users').getList().then(function (users) {
         $scope.user = users[0];
     })
     $scope.cars = $scope.user.getList('cars');

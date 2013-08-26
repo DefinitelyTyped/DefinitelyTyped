@@ -15,45 +15,37 @@ interface Restangular extends RestangularCustom {
 }
 
 interface RestangularElement extends Restangular {
-    get (): ng.IPromise;
-    get (params: any): ng.IPromise;
-    get (params: any, headers: any): ng.IPromise;
-
-    getList(): ng.IPromise;
-    getList(subElement: any): ng.IPromise;
-    getList(subElement: any, queryParams: string, headers: any): ng.IPromise;
-
-    put(queryParams?: string, headers?: any): ng.IPromise;
-
-    post(subElement, elementToPost, queryParams?, headers?): ng.IPromise;
-
-    remove(queryParams?, headers?): ng.IPromise;
-    head(queryParams?, headers?): ng.IPromise;
-    trace(queryParams?, headers?): ng.IPromise;
-    options(queryParams?, headers?): ng.IPromise;
-    patch(queryParams?, headers?): ng.IPromise;
+    get (queryParams?: any, headers?: any): ng.IPromise<any>;
+    getList(subElement: any, queryParams?: any, headers?: any): ng.IPromise<any>;
+    put(queryParams?: any, headers?: any): ng.IPromise<any>;
+    post(subElement, elementToPost, queryParams?, headers?): ng.IPromise<any>;
+    remove(queryParams?, headers?): ng.IPromise<any>;
+    head(queryParams?, headers?): ng.IPromise<any>;
+    trace(queryParams?, headers?): ng.IPromise<any>;
+    options(queryParams?, headers?): ng.IPromise<any>;
+    patch(queryParams?, headers?): ng.IPromise<any>;
     getRestangularUrl(): string;
 }
 
 interface RestangularCollection extends Restangular {
-    getList(queryParams?, headers?): ng.IPromise;
-    post(elementToPost, queryParams?, headers?): ng.IPromise;
-    head(queryParams?, headers?): ng.IPromise;
-    trace(queryParams?, headers?): ng.IPromise;
-    options(queryParams?, headers?): ng.IPromise;
-    patch(queryParams?, headers?): ng.IPromise;
-    putElement(idx, params, headers): ng.IPromise;
+    getList(queryParams?, headers?): ng.IPromise<any>;
+    post(elementToPost, queryParams?, headers?): ng.IPromise<any>;
+    head(queryParams?, headers?): ng.IPromise<any>;
+    trace(queryParams?, headers?): ng.IPromise<any>;
+    options(queryParams?, headers?): ng.IPromise<any>;
+    patch(queryParams?, headers?): ng.IPromise<any>;
+    putElement(idx, params, headers): ng.IPromise<any>;
     getRestangularUrl(): string;
 }
 
 interface RestangularCustom {
-    customGET(path, params?, headers?): ng.IPromise;
-    customGETLIST(path, params?, headers?): ng.IPromise;
-    customDELETE(path, params?, headers?): ng.IPromise;
-    customPOST(path, params?, headers?, elem?): ng.IPromise;
-    customPUT(path, params?, headers?, elem?): ng.IPromise;
-    customOperation(operation, path, params?, headers?, elem?): ng.IPromise;
-    addRestangularMethod(name, operation, path?, params?, headers?, elem?): ng.IPromise;
+    customGET(path, params?, headers?): ng.IPromise<any>;
+    customGETLIST(path, params?, headers?): ng.IPromise<any>;
+    customDELETE(path, params?, headers?): ng.IPromise<any>;
+    customPOST(path, params?, headers?, elem?): ng.IPromise<any>;
+    customPUT(path, params?, headers?, elem?): ng.IPromise<any>;
+    customOperation(operation, path, params?, headers?, elem?): ng.IPromise<any>;
+    addRestangularMethod(name, operation, path?, params?, headers?, elem?): ng.IPromise<any>;
 }
 
 interface RestangularProvider {
