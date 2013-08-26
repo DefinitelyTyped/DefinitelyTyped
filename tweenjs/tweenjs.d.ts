@@ -132,7 +132,7 @@ declare module createjs {
         static tick(delta: number, paused: boolean): void;
         to(props: Object, duration?: number, ease?: (amount: number) => number): Tween;
         toString(): string;
-        wait(duration: number): void;
+        wait(duration: number): Tween;
 
         // events
         change: (event) => any;
