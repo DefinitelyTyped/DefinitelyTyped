@@ -14,18 +14,15 @@ declare module chai {
         calledBefore(spy: Function): Expect;
         calledAfter(spy: Function): Expect;
         calledWithNew: Expect;
-        alwaysCalledWithNew: Expect;
         calledOn(context: any): Expect;
-        alwaysCalledOn(context: any): Expect;
         calledWith(...args: any[]): Expect;
-        alwaysCalledWith(...args: any[]): Expect;
         calledWithExactly(...args: any[]): Expect;
-        alwaysCalledWithExactly(...args: any[]): Expect;
         calledWithMatch(...args: any[]): Expect;
-        alwaysCalledWithMatch(...args: any[]): Expect;
         returned(returnVal: any): Expect;
-        alwaysReturned(returnVal: any): Expect;
-        threw(errorObjOrErrorTypeStringOrNothing: any): Expect;
-        alwaysThrew(errorObjOrErrorTypeStringOrNothing: any): Expect;
+        thrown(errorObjOrErrorTypeStringOrNothing: any): Expect;
+    }
+
+    interface LanguageChains {
+        always: Expect;
     }
 }
