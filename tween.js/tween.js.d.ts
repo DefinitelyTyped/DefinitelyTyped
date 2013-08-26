@@ -11,6 +11,7 @@ declare module TWEEN {
   export function remove(tween:Tween): void;
   export function update(time:number): boolean;
 
+  // Class documentation : http://www.createjs.com/Docs/TweenJS/classes/Tween.html
   export class Tween {
     constructor(object?:any);
     to(properties:any, duration:number): Tween;
@@ -23,7 +24,10 @@ declare module TWEEN {
     onStart(callback:Function): Tween;
     onUpdate(callback:Function): Tween;
     onComplete(callback:Function): Tween;
-    update(time:number): boolean;
+    update(time: number): boolean;
+    wait(duration: number): Tween;
+    call(callback: Function, params?: any[], scope?: any): Tween;
+    static get(target: any, props?: any, pluginData?: any, override?: boolean): Tween;
   }
   export var Easing: TweenEasing;
   export var Interpolation: TweenInterpolation;
