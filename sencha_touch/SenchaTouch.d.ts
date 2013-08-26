@@ -196,9 +196,7 @@ declare module Ext {
 		/** [Method] Returns the value of autoAbort  */
 		static getAutoAbort(): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		static getBubbleEvents(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		static getBubbleEvents(): string[];
+		static getBubbleEvents(): any;
 		/** [Method] Returns the value of defaultHeaders  */
 		static getDefaultHeaders(): any;
 		/** [Method] Returns the value of defaultPostHeader  */
@@ -820,9 +818,7 @@ declare module Ext.app {
 		/** [Method] Returns the value of before  */
 		getBefore?(): any;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of control  */
 		getControl?(): any;
 		/** [Method] Returns a reference to another Controller  
@@ -1095,9 +1091,7 @@ declare module Ext.app {
 		/** [Method] Returns the value of actions  */
 		getActions?(): any[];
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of listeners  */
 		getListeners?(): any;
 		/** [Method] Returns the value of token  */
@@ -1330,9 +1324,7 @@ declare module Ext.app {
 		/** [Method] Returns the value of application  */
 		getApplication?(): Ext.app.IApplication;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of controllers  */
 		getControllers?(): any[];
 		/** [Method] Returns the value of listeners  */
@@ -1952,9 +1944,7 @@ declare module Ext {
 		/** [Method] Returns the value of pressedCls  */
 		getPressedCls?(): string;
 		/** [Method] Returns the value of pressedDelay  */
-		getPressedDelay?(): number;
-		/** [Method] Returns the value of pressedDelay  */
-		getPressedDelay?(): boolean;
+		getPressedDelay?(): any;
 		/** [Method] Returns the value of scope  */
 		getScope?(): any;
 		/** [Method] Returns the value of text  */
@@ -2300,9 +2290,7 @@ declare module Ext.chart {
 		/** [Method] Returns the value of background  */
 		getBackground?(): any;
 		/** [Method] Returns the value of colors  */
-		getColors?(): boolean;
-		/** [Method] Returns the value of colors  */
-		getColors?(): any[];
+		getColors?(): any;
 		/** [Method] Returns the value of highlightItem  */
 		getHighlightItem?(): any;
 		/** [Method] Returns the value of innerPadding  */
@@ -2326,9 +2314,7 @@ declare module Ext.chart {
 		/** [Method] Return the legend store that contains all the legend information  */
 		getLegendStore?(): Ext.data.IStore;
 		/** [Method] Returns the value of series  */
-		getSeries?(): Ext.chart.series.ISeries;
-		/** [Method] Returns the value of series  */
-		getSeries?(): any[];
+		getSeries?(): any;
 		/** [Method] Returns the value of shadow  */
 		getShadow?(): any;
 		/** [Method] Returns the value of store  */
@@ -2511,9 +2497,7 @@ declare module Ext.chart.axis {
 		/** [Method] Returns the value of background  */
 		getBackground?(): any;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of chart  */
 		getChart?(): Ext.chart.IAbstractChart;
 		/** [Method] Mapping data value into coordinate  
@@ -3205,9 +3189,7 @@ declare module Ext.chart.axis {
 		*/
 		getCoordFor?( value?:any ): number;
 		/** [Method] Returns the value of dateFormat  */
-		getDateFormat?(): string;
-		/** [Method] Returns the value of dateFormat  */
-		getDateFormat?(): boolean;
+		getDateFormat?(): any;
 		/** [Method] Returns the value of fromDate  */
 		getFromDate?(): any;
 		/** [Method] Returns the value of layout  */
@@ -3410,9 +3392,7 @@ declare module Ext.chart.interactions {
 		*/
 		fireEvent?( eventName:string, ...args:any[] ): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of chart  */
 		getChart?(): Ext.chart.IAbstractChart;
 		/** [Method] Returns the value of enabled  */
@@ -4199,9 +4179,7 @@ declare module Ext.chart.series {
 		/** [Method] Returns the value of selectionTolerance  */
 		getSelectionTolerance?(): number;
 		/** [Method] Returns the value of smooth  */
-		getSmooth?(): boolean;
-		/** [Method] Returns the value of smooth  */
-		getSmooth?(): number;
+		getSmooth?(): any;
 		/** [Method] Returns the value of step  */
 		getStep?(): boolean;
 		/** [Method] Sets the value of aggregator  
@@ -4249,9 +4227,7 @@ declare module Ext.chart.series {
 		/** [Property] (String) */
 		type?: string;
 		/** [Method] Returns the value of donut  */
-		getDonut?(): boolean;
-		/** [Method] Returns the value of donut  */
-		getDonut?(): number;
+		getDonut?(): any;
 		/** [Method] For a given x y point relative to the main region find a corresponding item from this series if any  
 		* @param x Object 
 		* @param y Object 
@@ -4314,9 +4290,7 @@ declare module Ext.chart.series {
 		/** [Method] Returns the value of distortion  */
 		getDistortion?(): number;
 		/** [Method] Returns the value of donut  */
-		getDonut?(): boolean;
-		/** [Method] Returns the value of donut  */
-		getDonut?(): number;
+		getDonut?(): any;
 		/** [Method] Returns the value of field  */
 		getField?(): string;
 		/** [Method] Returns the value of region  */
@@ -4583,15 +4557,11 @@ declare module Ext.chart.series {
 		/** [Method] Returns the value of background  */
 		getBackground?(): any;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of colors  */
 		getColors?(): any[];
 		/** [Method] Returns the value of hidden  */
-		getHidden?(): boolean;
-		/** [Method] Returns the value of hidden  */
-		getHidden?(): any[];
+		getHidden?(): any;
 		/** [Method] Returns the value of highlightCfg  */
 		getHighlightCfg?(): any;
 		/** [Method] Returns the value of highlightItem  */
@@ -5425,9 +5395,7 @@ declare module Ext {
 		/** [Method] Returns the value of baseCls  */
 		getBaseCls?(): string;
 		/** [Method] Returns the value of border  */
-		getBorder?(): number;
-		/** [Method] Returns the value of border  */
-		getBorder?(): string;
+		getBorder?(): any;
 		/** [Method] Returns the value of bottom  */
 		getBottom?(): any;
 		/** [Method] Returns the value of centered  */
@@ -5435,11 +5403,7 @@ declare module Ext {
 		/** [Method] Returns the value of cls  */
 		getCls?(): any;
 		/** [Method] Returns the value of contentEl  */
-		getContentEl?(): Ext.IElement;
-		/** [Method] Returns the value of contentEl  */
-		getContentEl?(): HTMLElement;
-		/** [Method] Returns the value of contentEl  */
-		getContentEl?(): string;
+		getContentEl?(): any;
 		/** [Method] Returns the value of data  */
 		getData?(): any;
 		/** [Method] Returns the value of disabled  */
@@ -5451,11 +5415,7 @@ declare module Ext {
 		/** [Method] Retrieves the top level element representing this component  */
 		getEl?(): Ext.dom.IElement;
 		/** [Method] Returns the value of enterAnimation  */
-		getEnterAnimation?(): string;
-		/** [Method] Returns the value of enterAnimation  */
 		getEnterAnimation?(): any;
-		/** [Method] Returns the value of exitAnimation  */
-		getExitAnimation?(): string;
 		/** [Method] Returns the value of exitAnimation  */
 		getExitAnimation?(): any;
 		/** [Method] Returns the value of flex  */
@@ -5463,53 +5423,31 @@ declare module Ext {
 		/** [Method] Returns the value of floatingCls  */
 		getFloatingCls?(): string;
 		/** [Method] Returns the value of height  */
-		getHeight?(): number;
-		/** [Method] Returns the value of height  */
-		getHeight?(): string;
+		getHeight?(): any;
 		/** [Method] Returns the value of hidden  */
 		getHidden?(): boolean;
 		/** [Method] Returns the value of hiddenCls  */
 		getHiddenCls?(): string;
 		/** [Method] Returns the value of hideAnimation  */
-		getHideAnimation?(): string;
-		/** [Method] Returns the value of hideAnimation  */
 		getHideAnimation?(): any;
 		/** [Method] Returns the value of html  */
-		getHtml?(): string;
-		/** [Method] Returns the value of html  */
-		getHtml?(): Ext.IElement;
-		/** [Method] Returns the value of html  */
-		getHtml?(): HTMLElement;
+		getHtml?(): any;
 		/** [Method] Returns the value of itemId  */
 		getItemId?(): string;
 		/** [Method] Returns the value of left  */
-		getLeft?(): number;
-		/** [Method] Returns the value of left  */
-		getLeft?(): string;
+		getLeft?(): any;
 		/** [Method] Returns the value of margin  */
-		getMargin?(): number;
-		/** [Method] Returns the value of margin  */
-		getMargin?(): string;
+		getMargin?(): any;
 		/** [Method] Returns the value of maxHeight  */
-		getMaxHeight?(): number;
-		/** [Method] Returns the value of maxHeight  */
-		getMaxHeight?(): string;
+		getMaxHeight?(): any;
 		/** [Method] Returns the value of maxWidth  */
-		getMaxWidth?(): number;
-		/** [Method] Returns the value of maxWidth  */
-		getMaxWidth?(): string;
+		getMaxWidth?(): any;
 		/** [Method] Returns the value of minHeight  */
-		getMinHeight?(): number;
-		/** [Method] Returns the value of minHeight  */
-		getMinHeight?(): string;
+		getMinHeight?(): any;
 		/** [Method] Returns the value of minWidth  */
-		getMinWidth?(): number;
-		/** [Method] Returns the value of minWidth  */
-		getMinWidth?(): string;
+		getMinWidth?(): any;
 		/** [Method] Returns the value of padding  */
-		getPadding?(): number;
-		/** [Method] Returns the value of padding  */
-		getPadding?(): string;
+		getPadding?(): any;
 		/** [Method] Returns the parent of this component if it has one  */
 		getParent?(): Ext.IComponent;
 		/** [Method] Returns the value of plugins  */
@@ -5519,11 +5457,7 @@ declare module Ext {
 		/** [Method] Returns the value of renderTo  */
 		getRenderTo?(): Ext.IElement;
 		/** [Method] Returns the value of right  */
-		getRight?(): number;
-		/** [Method] Returns the value of right  */
-		getRight?(): string;
-		/** [Method] Returns the value of showAnimation  */
-		getShowAnimation?(): string;
+		getRight?(): any;
 		/** [Method] Returns the value of showAnimation  */
 		getShowAnimation?(): any;
 		/** [Method] Returns the height and width of the Component  */
@@ -5535,25 +5469,15 @@ declare module Ext {
 		/** [Method] Returns the value of styleHtmlContent  */
 		getStyleHtmlContent?(): boolean;
 		/** [Method] Returns the value of top  */
-		getTop?(): number;
-		/** [Method] Returns the value of top  */
-		getTop?(): string;
+		getTop?(): any;
 		/** [Method] Returns the value of tpl  */
-		getTpl?(): string;
-		/** [Method] Returns the value of tpl  */
-		getTpl?(): string[];
-		/** [Method] Returns the value of tpl  */
-		getTpl?(): Ext.ITemplate[];
-		/** [Method] Returns the value of tpl  */
-		getTpl?(): Ext.IXTemplate[];
+		getTpl?(): any;
 		/** [Method] Returns the value of tplWriteMode  */
 		getTplWriteMode?(): string;
 		/** [Method] Returns the value of ui  */
 		getUi?(): string;
 		/** [Method] Returns the value of width  */
-		getWidth?(): number;
-		/** [Method] Returns the value of width  */
-		getWidth?(): string;
+		getWidth?(): any;
 		/** [Method] Returns this Component s xtype hierarchy as a slash delimited string  */
 		getXTypes?(): string;
 		/** [Method] Returns the value of zIndex  */
@@ -5956,9 +5880,7 @@ declare module Ext.lib {
 		/** [Method] Returns the value of baseCls  */
 		getBaseCls?(): string;
 		/** [Method] Returns the value of border  */
-		getBorder?(): number;
-		/** [Method] Returns the value of border  */
-		getBorder?(): string;
+		getBorder?(): any;
 		/** [Method] Returns the value of bottom  */
 		getBottom?(): any;
 		/** [Method] Returns the value of centered  */
@@ -5966,11 +5888,7 @@ declare module Ext.lib {
 		/** [Method] Returns the value of cls  */
 		getCls?(): any;
 		/** [Method] Returns the value of contentEl  */
-		getContentEl?(): Ext.IElement;
-		/** [Method] Returns the value of contentEl  */
-		getContentEl?(): HTMLElement;
-		/** [Method] Returns the value of contentEl  */
-		getContentEl?(): string;
+		getContentEl?(): any;
 		/** [Method] Returns the value of data  */
 		getData?(): any;
 		/** [Method] Returns the value of disabled  */
@@ -5982,11 +5900,7 @@ declare module Ext.lib {
 		/** [Method] Retrieves the top level element representing this component  */
 		getEl?(): Ext.dom.IElement;
 		/** [Method] Returns the value of enterAnimation  */
-		getEnterAnimation?(): string;
-		/** [Method] Returns the value of enterAnimation  */
 		getEnterAnimation?(): any;
-		/** [Method] Returns the value of exitAnimation  */
-		getExitAnimation?(): string;
 		/** [Method] Returns the value of exitAnimation  */
 		getExitAnimation?(): any;
 		/** [Method] Returns the value of flex  */
@@ -5994,53 +5908,31 @@ declare module Ext.lib {
 		/** [Method] Returns the value of floatingCls  */
 		getFloatingCls?(): string;
 		/** [Method] Returns the value of height  */
-		getHeight?(): number;
-		/** [Method] Returns the value of height  */
-		getHeight?(): string;
+		getHeight?(): any;
 		/** [Method] Returns the value of hidden  */
 		getHidden?(): boolean;
 		/** [Method] Returns the value of hiddenCls  */
 		getHiddenCls?(): string;
 		/** [Method] Returns the value of hideAnimation  */
-		getHideAnimation?(): string;
-		/** [Method] Returns the value of hideAnimation  */
 		getHideAnimation?(): any;
 		/** [Method] Returns the value of html  */
-		getHtml?(): string;
-		/** [Method] Returns the value of html  */
-		getHtml?(): Ext.IElement;
-		/** [Method] Returns the value of html  */
-		getHtml?(): HTMLElement;
+		getHtml?(): any;
 		/** [Method] Returns the value of itemId  */
 		getItemId?(): string;
 		/** [Method] Returns the value of left  */
-		getLeft?(): number;
-		/** [Method] Returns the value of left  */
-		getLeft?(): string;
+		getLeft?(): any;
 		/** [Method] Returns the value of margin  */
-		getMargin?(): number;
-		/** [Method] Returns the value of margin  */
-		getMargin?(): string;
+		getMargin?(): any;
 		/** [Method] Returns the value of maxHeight  */
-		getMaxHeight?(): number;
-		/** [Method] Returns the value of maxHeight  */
-		getMaxHeight?(): string;
+		getMaxHeight?(): any;
 		/** [Method] Returns the value of maxWidth  */
-		getMaxWidth?(): number;
-		/** [Method] Returns the value of maxWidth  */
-		getMaxWidth?(): string;
+		getMaxWidth?(): any;
 		/** [Method] Returns the value of minHeight  */
-		getMinHeight?(): number;
-		/** [Method] Returns the value of minHeight  */
-		getMinHeight?(): string;
+		getMinHeight?(): any;
 		/** [Method] Returns the value of minWidth  */
-		getMinWidth?(): number;
-		/** [Method] Returns the value of minWidth  */
-		getMinWidth?(): string;
+		getMinWidth?(): any;
 		/** [Method] Returns the value of padding  */
-		getPadding?(): number;
-		/** [Method] Returns the value of padding  */
-		getPadding?(): string;
+		getPadding?(): any;
 		/** [Method] Returns the parent of this component if it has one  */
 		getParent?(): Ext.IComponent;
 		/** [Method] Returns the value of plugins  */
@@ -6050,11 +5942,7 @@ declare module Ext.lib {
 		/** [Method] Returns the value of renderTo  */
 		getRenderTo?(): Ext.IElement;
 		/** [Method] Returns the value of right  */
-		getRight?(): number;
-		/** [Method] Returns the value of right  */
-		getRight?(): string;
-		/** [Method] Returns the value of showAnimation  */
-		getShowAnimation?(): string;
+		getRight?(): any;
 		/** [Method] Returns the value of showAnimation  */
 		getShowAnimation?(): any;
 		/** [Method] Returns the height and width of the Component  */
@@ -6066,25 +5954,15 @@ declare module Ext.lib {
 		/** [Method] Returns the value of styleHtmlContent  */
 		getStyleHtmlContent?(): boolean;
 		/** [Method] Returns the value of top  */
-		getTop?(): number;
-		/** [Method] Returns the value of top  */
-		getTop?(): string;
+		getTop?(): any;
 		/** [Method] Returns the value of tpl  */
-		getTpl?(): string;
-		/** [Method] Returns the value of tpl  */
-		getTpl?(): string[];
-		/** [Method] Returns the value of tpl  */
-		getTpl?(): Ext.ITemplate[];
-		/** [Method] Returns the value of tpl  */
-		getTpl?(): Ext.IXTemplate[];
+		getTpl?(): any;
 		/** [Method] Returns the value of tplWriteMode  */
 		getTplWriteMode?(): string;
 		/** [Method] Returns the value of ui  */
 		getUi?(): string;
 		/** [Method] Returns the value of width  */
-		getWidth?(): number;
-		/** [Method] Returns the value of width  */
-		getWidth?(): string;
+		getWidth?(): any;
 		/** [Method] Returns this Component s xtype hierarchy as a slash delimited string  */
 		getXTypes?(): string;
 		/** [Method] Returns the value of zIndex  */
@@ -6569,11 +6447,6 @@ declare module Ext {
 		getDockedComponent?( component?:any ): any;
 		getDockedComponent?( component?:string ): Ext.IComponent;
 		getDockedComponent?( component?:number ): Ext.IComponent;
-		/** [Method] Finds a docked item of this container using a reference idor an index of its location in getDockedItems  
-		* @param component String/Number The id or index of the component to find. 
-		*/
-		getDockedComponent?( component?:string ): boolean;
-		getDockedComponent?( component?:number ): boolean;
 		/** [Method] Returns all the Ext Component docked items in this container  */
 		getDockedItems?(): any[];
 		/** [Method] Returns the value of hideOnMaskTap  */
@@ -6753,11 +6626,6 @@ declare module Ext.lib {
 		getDockedComponent?( component?:any ): any;
 		getDockedComponent?( component?:string ): Ext.IComponent;
 		getDockedComponent?( component?:number ): Ext.IComponent;
-		/** [Method] Finds a docked item of this container using a reference idor an index of its location in getDockedItems  
-		* @param component String/Number The id or index of the component to find. 
-		*/
-		getDockedComponent?( component?:string ): boolean;
-		getDockedComponent?( component?:number ): boolean;
 		/** [Method] Returns all the Ext Component docked items in this container  */
 		getDockedItems?(): any[];
 		/** [Method] Returns the value of hideOnMaskTap  */
@@ -6898,9 +6766,7 @@ declare module Ext.data.association {
 		/** [Method] Returns the value of name  */
 		getName?(): any;
 		/** [Method] Returns the value of ownerModel  */
-		getOwnerModel?(): Ext.data.IModel;
-		/** [Method] Returns the value of ownerModel  */
-		getOwnerModel?(): string;
+		getOwnerModel?(): any;
 		/** [Method] Returns the value of ownerName  */
 		getOwnerName?(): string;
 		/** [Method] Returns the value of primaryKey  */
@@ -6974,9 +6840,7 @@ declare module Ext.data {
 		/** [Method] Returns the value of name  */
 		getName?(): any;
 		/** [Method] Returns the value of ownerModel  */
-		getOwnerModel?(): Ext.data.IModel;
-		/** [Method] Returns the value of ownerModel  */
-		getOwnerModel?(): string;
+		getOwnerModel?(): any;
 		/** [Method] Returns the value of ownerName  */
 		getOwnerName?(): string;
 		/** [Method] Returns the value of primaryKey  */
@@ -7362,9 +7226,7 @@ declare module Ext.data {
 		/** [Method] Returns the value of autoStart  */
 		getAutoStart?(): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of listeners  */
 		getListeners?(): any;
 		/** [Method] Returns the value of pauseOnException  */
@@ -7617,9 +7479,7 @@ declare module Ext.data {
 		/** [Method] Returns the value of autoAbort  */
 		getAutoAbort?(): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of defaultHeaders  */
 		getDefaultHeaders?(): any;
 		/** [Method] Returns the value of defaultPostHeader  */
@@ -7952,9 +7812,7 @@ declare module Ext.data {
 		/** [Method] Returns the value of encode  */
 		getEncode?(): any;
 		/** [Method] Returns the value of mapping  */
-		getMapping?(): string;
-		/** [Method] Returns the value of mapping  */
-		getMapping?(): number;
+		getMapping?(): any;
 		/** [Method] Returns the value of name  */
 		getName?(): string;
 		/** [Method] Returns the value of persist  */
@@ -8304,9 +8162,7 @@ declare module Ext.data {
 		/** [Method] Returns the value of belongsTo  */
 		getBelongsTo?(): any;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Gets a hash of only the fields that have been modified since this Model was created or committed  */
 		getChanges?(): any;
 		/** [Method] Returns the value of clientIdProperty  */
@@ -8321,8 +8177,6 @@ declare module Ext.data {
 		getHasMany?(): any;
 		/** [Method] Returns the value of hasOne  */
 		getHasOne?(): any;
-		/** [Method] Returns the unique ID allocated to this model instance as defined by idProperty  */
-		getId?(): number;
 		/** [Method] Returns the unique ID allocated to this model instance as defined by idProperty  */
 		getId?(): string;
 		/** [Method] Returns the value of idProperty  */
@@ -8426,7 +8280,8 @@ declare module Ext.data {
 		/** [Method] Removes an event handler  
 		* @param eventName String/String[]/Object The type of event the handler was associated with. 
 		* @param fn Function/String The handler to remove. This must be a reference to the function passed into the addListener call. 
-		* @param scope Object The scope originally specified for the handler. It must be the same as the scope argument specified in the original call to addListener or the listener will not be removed. 
+		* @param scope Object The scope originally specified for the handler. It must be the same as the scope argument specified in
+		* the original call to addListener or the listener will not be removed. 
 		* @param options Object Extra options object. See addListener for details. 
 		* @param order String The order of the listener to remove. Possible values are before, current and after. 
 		*/
@@ -8447,7 +8302,9 @@ declare module Ext.data {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Saves the model instance using the configured proxy  
-		* @param options Object/Function Options to pass to the proxy. Config object for Ext.data.Operation. If you pass a function, this will automatically become the callback method. For convenience the config object may also contain success and failure methods in addition to callback - they will all be invoked with the Model and Operation as arguments. 
+		* @param options Object/Function Options to pass to the proxy. Config object for Ext.data.Operation. If you pass a function, this
+		* will automatically become the callback method. For convenience the config object may also contain success and failure methods in
+		* addition to callback - they will all be invoked with the Model and Operation as arguments. 
 		* @param scope Object The scope to run your callback method in. This is only used if you passed a function as the first argument. 
 		*/
 		save?( options?:any, scope?:any ): Ext.data.IModel;
@@ -8728,9 +8585,7 @@ declare module Ext.data {
 		/** [Method] Returns the value of belongsTo  */
 		getBelongsTo?(): any;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Gets a hash of only the fields that have been modified since this Model was created or committed  */
 		getChanges?(): any;
 		/** [Method] Returns the value of clientIdProperty  */
@@ -8745,8 +8600,6 @@ declare module Ext.data {
 		getHasMany?(): any;
 		/** [Method] Returns the value of hasOne  */
 		getHasOne?(): any;
-		/** [Method] Returns the unique ID allocated to this model instance as defined by idProperty  */
-		getId?(): number;
 		/** [Method] Returns the unique ID allocated to this model instance as defined by idProperty  */
 		getId?(): string;
 		/** [Method] Returns the value of idProperty  */
@@ -10070,14 +9923,10 @@ declare module Ext.data.proxy {
 		getApi?(): any;
 		/** [Method] Returns the value of directFn  */
 		getDirectFn?(): any;
-		/** [Method] Returns the value of directFn  */
-		getDirectFn?(): string;
 		/** [Method] Returns the value of extraParams  */
 		getExtraParams?(): any;
 		/** [Method] Returns the value of paramOrder  */
-		getParamOrder?(): string;
-		/** [Method] Returns the value of paramOrder  */
-		getParamOrder?(): string[];
+		getParamOrder?(): any;
 		/** [Method] Returns the value of paramsAsHash  */
 		getParamsAsHash?(): boolean;
 		/** [Method] Sets the value of api  
@@ -10129,14 +9978,10 @@ declare module Ext.data {
 		getApi?(): any;
 		/** [Method] Returns the value of directFn  */
 		getDirectFn?(): any;
-		/** [Method] Returns the value of directFn  */
-		getDirectFn?(): string;
 		/** [Method] Returns the value of extraParams  */
 		getExtraParams?(): any;
 		/** [Method] Returns the value of paramOrder  */
-		getParamOrder?(): string;
-		/** [Method] Returns the value of paramOrder  */
-		getParamOrder?(): string[];
+		getParamOrder?(): any;
 		/** [Method] Returns the value of paramsAsHash  */
 		getParamsAsHash?(): boolean;
 		/** [Method] Sets the value of api  
@@ -10377,9 +10222,7 @@ declare module Ext.data.proxy {
 		/** [Method] Returns the value of batchOrder  */
 		getBatchOrder?(): string;
 		/** [Method] Returns the value of model  */
-		getModel?(): string;
-		/** [Method] Returns the value of model  */
-		getModel?(): Ext.data.IModel;
+		getModel?(): any;
 		/** [Method] Returns the value of reader  */
 		getReader?(): any;
 		/** [Method] Returns the value of writer  */
@@ -10453,9 +10296,7 @@ declare module Ext.data {
 		/** [Method] Returns the value of batchOrder  */
 		getBatchOrder?(): string;
 		/** [Method] Returns the value of model  */
-		getModel?(): string;
-		/** [Method] Returns the value of model  */
-		getModel?(): Ext.data.IModel;
+		getModel?(): any;
 		/** [Method] Returns the value of reader  */
 		getReader?(): any;
 		/** [Method] Returns the value of writer  */
@@ -10529,9 +10370,7 @@ declare module Ext.data {
 		/** [Method] Returns the value of batchOrder  */
 		getBatchOrder?(): string;
 		/** [Method] Returns the value of model  */
-		getModel?(): string;
-		/** [Method] Returns the value of model  */
-		getModel?(): Ext.data.IModel;
+		getModel?(): any;
 		/** [Method] Returns the value of reader  */
 		getReader?(): any;
 		/** [Method] Returns the value of writer  */
@@ -11361,9 +11200,7 @@ declare module Ext.data.reader {
 		*/
 		fireEvent?( eventName:string, ...args:any[] ): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of clientIdProperty  */
 		getClientIdProperty?(): string;
 		/** [Method] Returns the value of idProperty  */
@@ -11644,9 +11481,7 @@ declare module Ext.data {
 		*/
 		fireEvent?( eventName:string, ...args:any[] ): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of clientIdProperty  */
 		getClientIdProperty?(): string;
 		/** [Method] Returns the value of idProperty  */
@@ -11927,9 +11762,7 @@ declare module Ext.data {
 		*/
 		fireEvent?( eventName:string, ...args:any[] ): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of clientIdProperty  */
 		getClientIdProperty?(): string;
 		/** [Method] Returns the value of idProperty  */
@@ -12558,19 +12391,13 @@ declare module Ext.data {
 		findRecord?( fieldName?:string, value?:string, startIndex?:number, anyMatch?:boolean, caseSensitive?:boolean, exactMatch?:boolean ): Ext.data.IModel;
 		findRecord?( fieldName?:string, value?:RegExp, startIndex?:number, anyMatch?:boolean, caseSensitive?:boolean, exactMatch?:boolean ): Ext.data.IModel;
 		/** [Method] Convenience function for getting the first model instance in the store  */
-		first?(): Ext.data.IModel;
-		/** [Method] Convenience function for getting the first model instance in the store  */
-		first?(): void;
+		first?(): any;
 		/** [Method] Gets the number of all cached records including the ones currently filtered  */
 		getAllCount?(): number;
 		/** [Method] Get the Record at the specified index  
 		* @param index Number The index of the Record to find. 
 		*/
-		getAt?( index?:number ): Ext.data.IModel;
-		/** [Method] Get the Record at the specified index  
-		* @param index Number The index of the Record to find. 
-		*/
-		getAt?( index?:number ): void;
+		getAt?( index?:number ): any;
 		/** [Method] Returns the value of autoLoad  */
 		getAutoLoad?(): any;
 		/** [Method] Returns the value of autoSync  */
@@ -12578,11 +12405,7 @@ declare module Ext.data {
 		/** [Method] Get the Record with the specified id  
 		* @param id String The id of the Record to find. 
 		*/
-		getById?( id?:string ): Ext.data.IModel;
-		/** [Method] Get the Record with the specified id  
-		* @param id String The id of the Record to find. 
-		*/
-		getById?( id?:string ): void;
+		getById?( id?:string ): any;
 		/** [Method] Returns the value of clearOnPageLoad  */
 		getClearOnPageLoad?(): boolean;
 		/** [Method] Gets the number of cached records  */
@@ -12662,9 +12485,7 @@ declare module Ext.data {
 		/** [Method] Returns true if this store is currently sorted  */
 		isSorted?(): boolean;
 		/** [Method] Convenience function for getting the last model instance in the store  */
-		last?(): Ext.data.IModel;
-		/** [Method] Convenience function for getting the last model instance in the store  */
-		last?(): void;
+		last?(): any;
 		/** [Method] Loads data into the Store via the configured proxy  
 		* @param options Object/Function config object, passed into the Ext.data.Operation object before loading. 
 		* @param scope Object Scope for the function. 
@@ -14582,11 +14403,7 @@ declare module Ext.dataview {
 		/** [Method] Returns an item at the specified index  
 		* @param index Number Index of the item. 
 		*/
-		getItemAt?( index?:number ): Ext.dom.IElement;
-		/** [Method] Returns an item at the specified index  
-		* @param index Number Index of the item. 
-		*/
-		getItemAt?( index?:number ): Ext.dataview.component.IDataItem;
+		getItemAt?( index?:number ): any;
 		/** [Method] Returns the value of itemCls  */
 		getItemCls?(): string;
 		/** [Method] Returns the value of itemConfig  */
@@ -14596,11 +14413,7 @@ declare module Ext.dataview {
 		*/
 		getItemIndex?( item?:number ): number;
 		/** [Method] Returns the value of itemTpl  */
-		getItemTpl?(): string;
-		/** [Method] Returns the value of itemTpl  */
-		getItemTpl?(): string[];
-		/** [Method] Returns the value of itemTpl  */
-		getItemTpl?(): Ext.IXTemplate;
+		getItemTpl?(): any;
 		/** [Method] Returns the array of previously selected items  */
 		getLastSelected?(): any[];
 		/** [Method] Returns the value of loadingText  */
@@ -14644,9 +14457,7 @@ declare module Ext.dataview {
 		/** [Method] Returns the value of useComponents  */
 		getUseComponents?(): boolean;
 		/** [Method] Returns an array of the current items in the DataView  */
-		getViewItems?(): Ext.dom.IElement[];
-		/** [Method] Returns an array of the current items in the DataView  */
-		getViewItems?(): Ext.dataview.component.IDataItem[];
+		getViewItems?(): any;
 		/** [Method] Method called when the Store s Reader throws an exception */
 		handleException?(): void;
 		/** [Method] Returns true if there is a selected record  */
@@ -14922,11 +14733,7 @@ declare module Ext {
 		/** [Method] Returns an item at the specified index  
 		* @param index Number Index of the item. 
 		*/
-		getItemAt?( index?:number ): Ext.dom.IElement;
-		/** [Method] Returns an item at the specified index  
-		* @param index Number Index of the item. 
-		*/
-		getItemAt?( index?:number ): Ext.dataview.component.IDataItem;
+		getItemAt?( index?:number ): any;
 		/** [Method] Returns the value of itemCls  */
 		getItemCls?(): string;
 		/** [Method] Returns the value of itemConfig  */
@@ -14936,11 +14743,7 @@ declare module Ext {
 		*/
 		getItemIndex?( item?:number ): number;
 		/** [Method] Returns the value of itemTpl  */
-		getItemTpl?(): string;
-		/** [Method] Returns the value of itemTpl  */
-		getItemTpl?(): string[];
-		/** [Method] Returns the value of itemTpl  */
-		getItemTpl?(): Ext.IXTemplate;
+		getItemTpl?(): any;
 		/** [Method] Returns the array of previously selected items  */
 		getLastSelected?(): any[];
 		/** [Method] Returns the value of loadingText  */
@@ -14984,9 +14787,7 @@ declare module Ext {
 		/** [Method] Returns the value of useComponents  */
 		getUseComponents?(): boolean;
 		/** [Method] Returns an array of the current items in the DataView  */
-		getViewItems?(): Ext.dom.IElement[];
-		/** [Method] Returns an array of the current items in the DataView  */
-		getViewItems?(): Ext.dataview.component.IDataItem[];
+		getViewItems?(): any;
 		/** [Method] Method called when the Store s Reader throws an exception */
 		handleException?(): void;
 		/** [Method] Returns true if there is a selected record  */
@@ -15319,11 +15120,7 @@ declare module Ext.dataview {
 		/** [Method] Returns an item at the specified index  
 		* @param index Number Index of the item. 
 		*/
-		getItemAt?( index?:number ): Ext.dom.IElement;
-		/** [Method] Returns an item at the specified index  
-		* @param index Number Index of the item. 
-		*/
-		getItemAt?( index?:number ): Ext.dataview.component.IDataItem;
+		getItemAt?( index?:number ): any;
 		/** [Method] Returns the value of itemHeight  */
 		getItemHeight?(): number;
 		/** [Method] Returns an index for the specified item  
@@ -15349,9 +15146,7 @@ declare module Ext.dataview {
 		/** [Method] Returns the value of variableHeights  */
 		getVariableHeights?(): boolean;
 		/** [Method] Returns an array of the current items in the DataView  */
-		getViewItems?(): Ext.dom.IElement[];
-		/** [Method] Returns an array of the current items in the DataView  */
-		getViewItems?(): Ext.dataview.component.IDataItem[];
+		getViewItems?(): any;
 		/** [Method] We override DataView s initialize method with an empty function */
 		initialize?(): void;
 		/** [Method] Sets the value of baseCls  
@@ -15475,11 +15270,7 @@ declare module Ext {
 		/** [Method] Returns an item at the specified index  
 		* @param index Number Index of the item. 
 		*/
-		getItemAt?( index?:number ): Ext.dom.IElement;
-		/** [Method] Returns an item at the specified index  
-		* @param index Number Index of the item. 
-		*/
-		getItemAt?( index?:number ): Ext.dataview.component.IDataItem;
+		getItemAt?( index?:number ): any;
 		/** [Method] Returns the value of itemHeight  */
 		getItemHeight?(): number;
 		/** [Method] Returns an index for the specified item  
@@ -15505,9 +15296,7 @@ declare module Ext {
 		/** [Method] Returns the value of variableHeights  */
 		getVariableHeights?(): boolean;
 		/** [Method] Returns an array of the current items in the DataView  */
-		getViewItems?(): Ext.dom.IElement[];
-		/** [Method] Returns an array of the current items in the DataView  */
-		getViewItems?(): Ext.dataview.component.IDataItem[];
+		getViewItems?(): any;
 		/** [Method] We override DataView s initialize method with an empty function */
 		initialize?(): void;
 		/** [Method] Sets the value of baseCls  
@@ -15675,13 +15464,9 @@ declare module Ext.dataview {
 		/** [Method] Returns the value of loadingText  */
 		getLoadingText?(): string;
 		/** [Method] Returns the value of onItemDisclosure  */
-		getOnItemDisclosure?(): boolean;
-		/** [Method] Returns the value of onItemDisclosure  */
 		getOnItemDisclosure?(): any;
 		/** [Method] Returns the value of store  */
-		getStore?(): Ext.data.ITreeStore;
-		/** [Method] Returns the value of store  */
-		getStore?(): string;
+		getStore?(): any;
 		/** [Method] Returns the subList for a specified node  */
 		getSubList?(): void;
 		/** [Method] Returns the value of title  */
@@ -15884,13 +15669,9 @@ declare module Ext {
 		/** [Method] Returns the value of loadingText  */
 		getLoadingText?(): string;
 		/** [Method] Returns the value of onItemDisclosure  */
-		getOnItemDisclosure?(): boolean;
-		/** [Method] Returns the value of onItemDisclosure  */
 		getOnItemDisclosure?(): any;
 		/** [Method] Returns the value of store  */
-		getStore?(): Ext.data.ITreeStore;
-		/** [Method] Returns the value of store  */
-		getStore?(): string;
+		getStore?(): any;
 		/** [Method] Returns the subList for a specified node  */
 		getSubList?(): void;
 		/** [Method] Returns the value of title  */
@@ -16491,9 +16272,7 @@ declare module Ext.device.connection {
 		*/
 		fireEvent?( eventName:string, ...args:any[] ): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of listeners  */
 		getListeners?(): any;
 		/** [Method] Returns the value of online  */
@@ -16725,9 +16504,7 @@ declare module Ext.device {
 		*/
 		static fireEvent( eventName:string, ...args:any[] ): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		static getBubbleEvents(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		static getBubbleEvents(): string[];
+		static getBubbleEvents(): any;
 		/** [Method] Retrieves the id of this component  */
 		static getId(): string;
 		/** [Method] Returns the initial configuration passed to constructor  
@@ -16974,9 +16751,7 @@ declare module Ext.device.contacts {
 		*/
 		fireEvent?( eventName:string, ...args:any[] ): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns an Array of contact objects  
 		* @param config Object 
 		*/
@@ -17212,9 +16987,7 @@ declare module Ext.device {
 		*/
 		static fireEvent( eventName:string, ...args:any[] ): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		static getBubbleEvents(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		static getBubbleEvents(): string[];
+		static getBubbleEvents(): any;
 		/** [Method] Returns an Array of contact objects  
 		* @param config Object 
 		*/
@@ -17469,9 +17242,7 @@ declare module Ext.device.device {
 		*/
 		fireEvent?( eventName:string, ...args:any[] ): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of listeners  */
 		getListeners?(): any;
 		/** [Method] Checks to see if this object has any listeners for a specified event 
@@ -17693,9 +17464,7 @@ declare module Ext.device {
 		*/
 		static fireEvent( eventName:string, ...args:any[] ): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		static getBubbleEvents(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		static getBubbleEvents(): string[];
+		static getBubbleEvents(): any;
 		/** [Method] Retrieves the id of this component  */
 		static getId(): string;
 		/** [Method] Returns the initial configuration passed to constructor  
@@ -18142,9 +17911,7 @@ declare module Ext.device.orientation {
 		*/
 		fireEvent?( eventName:string, ...args:any[] ): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of listeners  */
 		getListeners?(): any;
 		/** [Method] Checks to see if this object has any listeners for a specified event 
@@ -18366,9 +18133,7 @@ declare module Ext.device {
 		*/
 		static fireEvent( eventName:string, ...args:any[] ): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		static getBubbleEvents(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		static getBubbleEvents(): string[];
+		static getBubbleEvents(): any;
 		/** [Method] Retrieves the id of this component  */
 		static getId(): string;
 		/** [Method] Returns the initial configuration passed to constructor  
@@ -18943,9 +18708,7 @@ declare module Ext.direct {
 		*/
 		static fireEvent( eventName:string, ...args:any[] ): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		static getBubbleEvents(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		static getBubbleEvents(): string[];
+		static getBubbleEvents(): any;
 		/** [Method] Retrieves the id of this component  */
 		static getId(): string;
 		/** [Method] Returns the initial configuration passed to constructor  
@@ -19062,11 +18825,6 @@ declare module Ext.direct {
 		* @param provider String/Ext.direct.Provider The provider instance or the id of the provider. 
 		*/
 		static removeProvider( provider?:any ): any;
-		static removeProvider( provider?:string ): Ext.direct.IProvider;
-		static removeProvider( provider?:Ext.direct.IProvider ): Ext.direct.IProvider;
-		/** [Method] Removes the provider  
-		* @param provider String/Ext.direct.Provider The provider instance or the id of the provider. 
-		*/
 		static removeProvider( provider?:string ): any;
 		static removeProvider( provider?:Ext.direct.IProvider ): any;
 		/** [Method] Resumes firing events see suspendEvents 
@@ -19201,9 +18959,7 @@ declare module Ext {
 		*/
 		static fireEvent( eventName:string, ...args:any[] ): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		static getBubbleEvents(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		static getBubbleEvents(): string[];
+		static getBubbleEvents(): any;
 		/** [Method] Retrieves the id of this component  */
 		static getId(): string;
 		/** [Method] Returns the initial configuration passed to constructor  
@@ -19320,11 +19076,6 @@ declare module Ext {
 		* @param provider String/Ext.direct.Provider The provider instance or the id of the provider. 
 		*/
 		static removeProvider( provider?:any ): any;
-		static removeProvider( provider?:string ): Ext.direct.IProvider;
-		static removeProvider( provider?:Ext.direct.IProvider ): Ext.direct.IProvider;
-		/** [Method] Removes the provider  
-		* @param provider String/Ext.direct.Provider The provider instance or the id of the provider. 
-		*/
 		static removeProvider( provider?:string ): any;
 		static removeProvider( provider?:Ext.direct.IProvider ): any;
 		/** [Method] Resumes firing events see suspendEvents 
@@ -19389,8 +19140,6 @@ declare module Ext.direct {
 		getBaseParams?(): any;
 		/** [Method] Returns the value of interval  */
 		getInterval?(): number;
-		/** [Method] Returns the value of url  */
-		getUrl?(): string;
 		/** [Method] Returns the value of url  */
 		getUrl?(): any;
 		/** [Method] Returns whether or not the server side is currently connected  */
@@ -19481,9 +19230,7 @@ declare module Ext.direct {
 		*/
 		fireEvent?( eventName:string, ...args:any[] ): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of id  */
 		getId?(): string;
 		/** [Method] Returns the value of listeners  */
@@ -19712,9 +19459,7 @@ declare module Ext.direct {
 		/** [Method] Returns the value of actions  */
 		getActions?(): any;
 		/** [Method] Returns the value of enableBuffer  */
-		getEnableBuffer?(): number;
-		/** [Method] Returns the value of enableBuffer  */
-		getEnableBuffer?(): boolean;
+		getEnableBuffer?(): any;
 		/** [Method] Returns the value of enableUrlEncode  */
 		getEnableUrlEncode?(): string;
 		/** [Method] Returns the value of maxRetries  */
@@ -19872,12 +19617,7 @@ declare module Ext.dom {
 		* @param selector String The CSS selector. 
 		* @param returnDom Boolean true to return the DOM node instead of Ext.dom.Element. 
 		*/
-		child?( selector?:string, returnDom?:boolean ): HTMLElement;
-		/** [Method] Selects a single direct child based on the passed CSS selector the selector should not contain an id 
-		* @param selector String The CSS selector. 
-		* @param returnDom Boolean true to return the DOM node instead of Ext.dom.Element. 
-		*/
-		child?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
+		child?( selector?:string, returnDom?:boolean ): any;
 		/** [Method] Removes all elements  */
 		clear?(): void;
 		/** [Method] Returns true if this composite contains the passed element 
@@ -19902,12 +19642,7 @@ declare module Ext.dom {
 		* @param selector String The CSS selector. 
 		* @param returnDom Boolean true to return the DOM node instead of Ext.dom.Element. 
 		*/
-		down?( selector?:string, returnDom?:boolean ): HTMLElement;
-		/** [Method] Selects a single child at any depth below this element based on the passed CSS selector the selector should not cont  
-		* @param selector String The CSS selector. 
-		* @param returnDom Boolean true to return the DOM node instead of Ext.dom.Element. 
-		*/
-		down?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
+		down?( selector?:string, returnDom?:boolean ): any;
 		/** [Method] Calls the passed function for each element in this composite  
 		* @param fn Function The function to call. 
 		* @param scope Object The scope (this reference) in which the function is executed. Defaults to the Element. 
@@ -19930,15 +19665,6 @@ declare module Ext.dom {
 		* @param returnEl Boolean true to return a Ext.Element object instead of DOM node. 
 		*/
 		findParent?( simpleSelector?:any, maxDepth?:any, returnEl?:any ): any;
-		findParent?( simpleSelector?:string, maxDepth?:number, returnEl?:boolean ): HTMLElement;
-		findParent?( simpleSelector?:string, maxDepth?:string, returnEl?:boolean ): HTMLElement;
-		findParent?( simpleSelector?:string, maxDepth?:HTMLElement, returnEl?:boolean ): HTMLElement;
-		findParent?( simpleSelector?:string, maxDepth?:Ext.IElement, returnEl?:boolean ): HTMLElement;
-		/** [Method] Looks at this node and then at parent nodes for a match of the passed simple selector e g  
-		* @param simpleSelector String The simple selector to test. 
-		* @param maxDepth Number/String/HTMLElement/Ext.Element The max depth to search as a number or element (defaults to 50 || document.body) 
-		* @param returnEl Boolean true to return a Ext.Element object instead of DOM node. 
-		*/
 		findParent?( simpleSelector?:string, maxDepth?:number, returnEl?:boolean ): any;
 		findParent?( simpleSelector?:string, maxDepth?:string, returnEl?:boolean ): any;
 		findParent?( simpleSelector?:string, maxDepth?:HTMLElement, returnEl?:boolean ): any;
@@ -19949,15 +19675,6 @@ declare module Ext.dom {
 		* @param returnEl Boolean true to return a Ext.Element object instead of DOM node. 
 		*/
 		findParentNode?( simpleSelector?:any, maxDepth?:any, returnEl?:any ): any;
-		findParentNode?( simpleSelector?:string, maxDepth?:number, returnEl?:boolean ): HTMLElement;
-		findParentNode?( simpleSelector?:string, maxDepth?:string, returnEl?:boolean ): HTMLElement;
-		findParentNode?( simpleSelector?:string, maxDepth?:HTMLElement, returnEl?:boolean ): HTMLElement;
-		findParentNode?( simpleSelector?:string, maxDepth?:Ext.IElement, returnEl?:boolean ): HTMLElement;
-		/** [Method] Looks at parent nodes for a match of the passed simple selector e g  
-		* @param simpleSelector String The simple selector to test. 
-		* @param maxDepth Number/String/HTMLElement/Ext.Element The max depth to search as a number or element (defaults to 10 || document.body). 
-		* @param returnEl Boolean true to return a Ext.Element object instead of DOM node. 
-		*/
 		findParentNode?( simpleSelector?:string, maxDepth?:number, returnEl?:boolean ): any;
 		findParentNode?( simpleSelector?:string, maxDepth?:string, returnEl?:boolean ): any;
 		findParentNode?( simpleSelector?:string, maxDepth?:HTMLElement, returnEl?:boolean ): any;
@@ -20039,11 +19756,7 @@ declare module Ext.dom {
 		/** [Method] Returns the value of the value attribute  
 		* @param asNumber Boolean true to parse the value as a number. 
 		*/
-		getValue?( asNumber?:boolean ): string;
-		/** [Method] Returns the value of the value attribute  
-		* @param asNumber Boolean true to parse the value as a number. 
-		*/
-		getValue?( asNumber?:boolean ): number;
+		getValue?( asNumber?:boolean ): any;
 		/** [Method] Returns the dimensions of the element available to lay content out in  */
 		getViewSize?(): any;
 		/** [Method] Returns the offset width of the element  
@@ -20100,13 +19813,7 @@ declare module Ext.dom {
 		* @param html String The HTML fragment 
 		* @param returnEl Boolean true to return an Ext.dom.Element. 
 		*/
-		insertHtml?( where?:string, html?:string, returnEl?:boolean ): HTMLElement;
-		/** [Method] Inserts an HTML fragment into this element  
-		* @param where String Where to insert the HTML in relation to this element - 'beforeBegin', 'afterBegin', 'beforeEnd', 'afterEnd'. See Ext.DomHelper.insertHtml for details. 
-		* @param html String The HTML fragment 
-		* @param returnEl Boolean true to return an Ext.dom.Element. 
-		*/
-		insertHtml?( where?:string, html?:string, returnEl?:boolean ): Ext.dom.IElement;
+		insertHtml?( where?:string, html?:string, returnEl?:boolean ): any;
 		/** [Method] Inserts or creates the passed element or DomHelper config as a sibling of this element 
 		* @param el String/HTMLElement/Ext.dom.Element/Object/Array The id, element to insert or a DomHelper config to create and insert or an array of any of those. 
 		* @param where String 'before' or 'after'. 
@@ -20138,42 +19845,12 @@ declare module Ext.dom {
 		* @param selector String Find the next sibling that matches the passed simple selector. 
 		* @param returnDom Boolean true to return a raw dom node instead of an Ext.dom.Element. 
 		*/
-		next?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the next sibling skipping text nodes  
-		* @param selector String Find the next sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw dom node instead of an Ext.dom.Element. 
-		*/
-		next?( selector?:string, returnDom?:boolean ): HTMLElement;
-		/** [Method] Gets the next sibling skipping text nodes  
-		* @param selector String Find the next sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw dom node instead of an Ext.dom.Element. 
-		*/
 		next?( selector?:string, returnDom?:boolean ): any;
 		/** [Method] Gets the parent node for this element optionally chaining up trying to match a selector  
 		* @param selector String Find a parent node that matches the passed simple selector. 
 		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
 		*/
-		parent?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the parent node for this element optionally chaining up trying to match a selector  
-		* @param selector String Find a parent node that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		parent?( selector?:string, returnDom?:boolean ): HTMLElement;
-		/** [Method] Gets the parent node for this element optionally chaining up trying to match a selector  
-		* @param selector String Find a parent node that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
 		parent?( selector?:string, returnDom?:boolean ): any;
-		/** [Method] Gets the previous sibling skipping text nodes  
-		* @param selector String Find the previous sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element 
-		*/
-		prev?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the previous sibling skipping text nodes  
-		* @param selector String Find the previous sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element 
-		*/
-		prev?( selector?:string, returnDom?:boolean ): HTMLElement;
 		/** [Method] Gets the previous sibling skipping text nodes  
 		* @param selector String Find the previous sibling that matches the passed simple selector. 
 		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element 
@@ -20386,14 +20063,6 @@ declare module Ext.dom {
 		* @param maxDepth Number/String/HTMLElement/Ext.Element The max depth to search as a number or element (defaults to 10 || document.body). 
 		*/
 		up?( simpleSelector?:any, maxDepth?:any ): any;
-		up?( simpleSelector?:string, maxDepth?:number ): Ext.dom.IElement;
-		up?( simpleSelector?:string, maxDepth?:string ): Ext.dom.IElement;
-		up?( simpleSelector?:string, maxDepth?:HTMLElement ): Ext.dom.IElement;
-		up?( simpleSelector?:string, maxDepth?:Ext.IElement ): Ext.dom.IElement;
-		/** [Method] Walks up the dom looking for a parent node that matches the passed simple selector e g  
-		* @param simpleSelector String The simple selector to test 
-		* @param maxDepth Number/String/HTMLElement/Ext.Element The max depth to search as a number or element (defaults to 10 || document.body). 
-		*/
 		up?( simpleSelector?:string, maxDepth?:number ): any;
 		up?( simpleSelector?:string, maxDepth?:string ): any;
 		up?( simpleSelector?:string, maxDepth?:HTMLElement ): any;
@@ -20406,12 +20075,7 @@ declare module Ext.dom {
 		* @param config Object DomHelper element config object for the wrapper element or null for an empty div 
 		* @param domNode Boolean true to return the raw DOM element instead of Ext.dom.Element. 
 		*/
-		wrap?( config?:any, domNode?:boolean ): HTMLElement;
-		/** [Method] Creates and wraps this element with another element  
-		* @param config Object DomHelper element config object for the wrapper element or null for an empty div 
-		* @param domNode Boolean true to return the raw DOM element instead of Ext.dom.Element. 
-		*/
-		wrap?( config?:any, domNode?:boolean ): Ext.dom.IElement;
+		wrap?( config?:any, domNode?:boolean ): any;
 	}
 }
 declare module Ext {
@@ -20461,12 +20125,7 @@ declare module Ext {
 		* @param selector String The CSS selector. 
 		* @param returnDom Boolean true to return the DOM node instead of Ext.dom.Element. 
 		*/
-		child?( selector?:string, returnDom?:boolean ): HTMLElement;
-		/** [Method] Selects a single direct child based on the passed CSS selector the selector should not contain an id 
-		* @param selector String The CSS selector. 
-		* @param returnDom Boolean true to return the DOM node instead of Ext.dom.Element. 
-		*/
-		child?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
+		child?( selector?:string, returnDom?:boolean ): any;
 		/** [Method] Removes all elements  */
 		clear?(): void;
 		/** [Method] Returns true if this composite contains the passed element 
@@ -20491,12 +20150,7 @@ declare module Ext {
 		* @param selector String The CSS selector. 
 		* @param returnDom Boolean true to return the DOM node instead of Ext.dom.Element. 
 		*/
-		down?( selector?:string, returnDom?:boolean ): HTMLElement;
-		/** [Method] Selects a single child at any depth below this element based on the passed CSS selector the selector should not cont  
-		* @param selector String The CSS selector. 
-		* @param returnDom Boolean true to return the DOM node instead of Ext.dom.Element. 
-		*/
-		down?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
+		down?( selector?:string, returnDom?:boolean ): any;
 		/** [Method] Calls the passed function for each element in this composite  
 		* @param fn Function The function to call. 
 		* @param scope Object The scope (this reference) in which the function is executed. Defaults to the Element. 
@@ -20519,15 +20173,6 @@ declare module Ext {
 		* @param returnEl Boolean true to return a Ext.Element object instead of DOM node. 
 		*/
 		findParent?( simpleSelector?:any, maxDepth?:any, returnEl?:any ): any;
-		findParent?( simpleSelector?:string, maxDepth?:number, returnEl?:boolean ): HTMLElement;
-		findParent?( simpleSelector?:string, maxDepth?:string, returnEl?:boolean ): HTMLElement;
-		findParent?( simpleSelector?:string, maxDepth?:HTMLElement, returnEl?:boolean ): HTMLElement;
-		findParent?( simpleSelector?:string, maxDepth?:Ext.IElement, returnEl?:boolean ): HTMLElement;
-		/** [Method] Looks at this node and then at parent nodes for a match of the passed simple selector e g  
-		* @param simpleSelector String The simple selector to test. 
-		* @param maxDepth Number/String/HTMLElement/Ext.Element The max depth to search as a number or element (defaults to 50 || document.body) 
-		* @param returnEl Boolean true to return a Ext.Element object instead of DOM node. 
-		*/
 		findParent?( simpleSelector?:string, maxDepth?:number, returnEl?:boolean ): any;
 		findParent?( simpleSelector?:string, maxDepth?:string, returnEl?:boolean ): any;
 		findParent?( simpleSelector?:string, maxDepth?:HTMLElement, returnEl?:boolean ): any;
@@ -20538,15 +20183,6 @@ declare module Ext {
 		* @param returnEl Boolean true to return a Ext.Element object instead of DOM node. 
 		*/
 		findParentNode?( simpleSelector?:any, maxDepth?:any, returnEl?:any ): any;
-		findParentNode?( simpleSelector?:string, maxDepth?:number, returnEl?:boolean ): HTMLElement;
-		findParentNode?( simpleSelector?:string, maxDepth?:string, returnEl?:boolean ): HTMLElement;
-		findParentNode?( simpleSelector?:string, maxDepth?:HTMLElement, returnEl?:boolean ): HTMLElement;
-		findParentNode?( simpleSelector?:string, maxDepth?:Ext.IElement, returnEl?:boolean ): HTMLElement;
-		/** [Method] Looks at parent nodes for a match of the passed simple selector e g  
-		* @param simpleSelector String The simple selector to test. 
-		* @param maxDepth Number/String/HTMLElement/Ext.Element The max depth to search as a number or element (defaults to 10 || document.body). 
-		* @param returnEl Boolean true to return a Ext.Element object instead of DOM node. 
-		*/
 		findParentNode?( simpleSelector?:string, maxDepth?:number, returnEl?:boolean ): any;
 		findParentNode?( simpleSelector?:string, maxDepth?:string, returnEl?:boolean ): any;
 		findParentNode?( simpleSelector?:string, maxDepth?:HTMLElement, returnEl?:boolean ): any;
@@ -20628,11 +20264,7 @@ declare module Ext {
 		/** [Method] Returns the value of the value attribute  
 		* @param asNumber Boolean true to parse the value as a number. 
 		*/
-		getValue?( asNumber?:boolean ): string;
-		/** [Method] Returns the value of the value attribute  
-		* @param asNumber Boolean true to parse the value as a number. 
-		*/
-		getValue?( asNumber?:boolean ): number;
+		getValue?( asNumber?:boolean ): any;
 		/** [Method] Returns the dimensions of the element available to lay content out in  */
 		getViewSize?(): any;
 		/** [Method] Returns the offset width of the element  
@@ -20689,13 +20321,7 @@ declare module Ext {
 		* @param html String The HTML fragment 
 		* @param returnEl Boolean true to return an Ext.dom.Element. 
 		*/
-		insertHtml?( where?:string, html?:string, returnEl?:boolean ): HTMLElement;
-		/** [Method] Inserts an HTML fragment into this element  
-		* @param where String Where to insert the HTML in relation to this element - 'beforeBegin', 'afterBegin', 'beforeEnd', 'afterEnd'. See Ext.DomHelper.insertHtml for details. 
-		* @param html String The HTML fragment 
-		* @param returnEl Boolean true to return an Ext.dom.Element. 
-		*/
-		insertHtml?( where?:string, html?:string, returnEl?:boolean ): Ext.dom.IElement;
+		insertHtml?( where?:string, html?:string, returnEl?:boolean ): any;
 		/** [Method] Inserts or creates the passed element or DomHelper config as a sibling of this element 
 		* @param el String/HTMLElement/Ext.dom.Element/Object/Array The id, element to insert or a DomHelper config to create and insert or an array of any of those. 
 		* @param where String 'before' or 'after'. 
@@ -20727,42 +20353,12 @@ declare module Ext {
 		* @param selector String Find the next sibling that matches the passed simple selector. 
 		* @param returnDom Boolean true to return a raw dom node instead of an Ext.dom.Element. 
 		*/
-		next?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the next sibling skipping text nodes  
-		* @param selector String Find the next sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw dom node instead of an Ext.dom.Element. 
-		*/
-		next?( selector?:string, returnDom?:boolean ): HTMLElement;
-		/** [Method] Gets the next sibling skipping text nodes  
-		* @param selector String Find the next sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw dom node instead of an Ext.dom.Element. 
-		*/
 		next?( selector?:string, returnDom?:boolean ): any;
 		/** [Method] Gets the parent node for this element optionally chaining up trying to match a selector  
 		* @param selector String Find a parent node that matches the passed simple selector. 
 		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
 		*/
-		parent?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the parent node for this element optionally chaining up trying to match a selector  
-		* @param selector String Find a parent node that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		parent?( selector?:string, returnDom?:boolean ): HTMLElement;
-		/** [Method] Gets the parent node for this element optionally chaining up trying to match a selector  
-		* @param selector String Find a parent node that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
 		parent?( selector?:string, returnDom?:boolean ): any;
-		/** [Method] Gets the previous sibling skipping text nodes  
-		* @param selector String Find the previous sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element 
-		*/
-		prev?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the previous sibling skipping text nodes  
-		* @param selector String Find the previous sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element 
-		*/
-		prev?( selector?:string, returnDom?:boolean ): HTMLElement;
 		/** [Method] Gets the previous sibling skipping text nodes  
 		* @param selector String Find the previous sibling that matches the passed simple selector. 
 		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element 
@@ -20975,14 +20571,6 @@ declare module Ext {
 		* @param maxDepth Number/String/HTMLElement/Ext.Element The max depth to search as a number or element (defaults to 10 || document.body). 
 		*/
 		up?( simpleSelector?:any, maxDepth?:any ): any;
-		up?( simpleSelector?:string, maxDepth?:number ): Ext.dom.IElement;
-		up?( simpleSelector?:string, maxDepth?:string ): Ext.dom.IElement;
-		up?( simpleSelector?:string, maxDepth?:HTMLElement ): Ext.dom.IElement;
-		up?( simpleSelector?:string, maxDepth?:Ext.IElement ): Ext.dom.IElement;
-		/** [Method] Walks up the dom looking for a parent node that matches the passed simple selector e g  
-		* @param simpleSelector String The simple selector to test 
-		* @param maxDepth Number/String/HTMLElement/Ext.Element The max depth to search as a number or element (defaults to 10 || document.body). 
-		*/
 		up?( simpleSelector?:string, maxDepth?:number ): any;
 		up?( simpleSelector?:string, maxDepth?:string ): any;
 		up?( simpleSelector?:string, maxDepth?:HTMLElement ): any;
@@ -20995,12 +20583,7 @@ declare module Ext {
 		* @param config Object DomHelper element config object for the wrapper element or null for an empty div 
 		* @param domNode Boolean true to return the raw DOM element instead of Ext.dom.Element. 
 		*/
-		wrap?( config?:any, domNode?:boolean ): HTMLElement;
-		/** [Method] Creates and wraps this element with another element  
-		* @param config Object DomHelper element config object for the wrapper element or null for an empty div 
-		* @param domNode Boolean true to return the raw DOM element instead of Ext.dom.Element. 
-		*/
-		wrap?( config?:any, domNode?:boolean ): Ext.dom.IElement;
+		wrap?( config?:any, domNode?:boolean ): any;
 	}
 }
 declare module Ext {
@@ -21050,12 +20633,7 @@ declare module Ext {
 		* @param selector String The CSS selector. 
 		* @param returnDom Boolean true to return the DOM node instead of Ext.dom.Element. 
 		*/
-		child?( selector?:string, returnDom?:boolean ): HTMLElement;
-		/** [Method] Selects a single direct child based on the passed CSS selector the selector should not contain an id 
-		* @param selector String The CSS selector. 
-		* @param returnDom Boolean true to return the DOM node instead of Ext.dom.Element. 
-		*/
-		child?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
+		child?( selector?:string, returnDom?:boolean ): any;
 		/** [Method] Removes all elements  */
 		clear?(): void;
 		/** [Method] Returns true if this composite contains the passed element 
@@ -21080,12 +20658,7 @@ declare module Ext {
 		* @param selector String The CSS selector. 
 		* @param returnDom Boolean true to return the DOM node instead of Ext.dom.Element. 
 		*/
-		down?( selector?:string, returnDom?:boolean ): HTMLElement;
-		/** [Method] Selects a single child at any depth below this element based on the passed CSS selector the selector should not cont  
-		* @param selector String The CSS selector. 
-		* @param returnDom Boolean true to return the DOM node instead of Ext.dom.Element. 
-		*/
-		down?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
+		down?( selector?:string, returnDom?:boolean ): any;
 		/** [Method] Calls the passed function for each element in this composite  
 		* @param fn Function The function to call. 
 		* @param scope Object The scope (this reference) in which the function is executed. Defaults to the Element. 
@@ -21108,15 +20681,6 @@ declare module Ext {
 		* @param returnEl Boolean true to return a Ext.Element object instead of DOM node. 
 		*/
 		findParent?( simpleSelector?:any, maxDepth?:any, returnEl?:any ): any;
-		findParent?( simpleSelector?:string, maxDepth?:number, returnEl?:boolean ): HTMLElement;
-		findParent?( simpleSelector?:string, maxDepth?:string, returnEl?:boolean ): HTMLElement;
-		findParent?( simpleSelector?:string, maxDepth?:HTMLElement, returnEl?:boolean ): HTMLElement;
-		findParent?( simpleSelector?:string, maxDepth?:Ext.IElement, returnEl?:boolean ): HTMLElement;
-		/** [Method] Looks at this node and then at parent nodes for a match of the passed simple selector e g  
-		* @param simpleSelector String The simple selector to test. 
-		* @param maxDepth Number/String/HTMLElement/Ext.Element The max depth to search as a number or element (defaults to 50 || document.body) 
-		* @param returnEl Boolean true to return a Ext.Element object instead of DOM node. 
-		*/
 		findParent?( simpleSelector?:string, maxDepth?:number, returnEl?:boolean ): any;
 		findParent?( simpleSelector?:string, maxDepth?:string, returnEl?:boolean ): any;
 		findParent?( simpleSelector?:string, maxDepth?:HTMLElement, returnEl?:boolean ): any;
@@ -21127,15 +20691,6 @@ declare module Ext {
 		* @param returnEl Boolean true to return a Ext.Element object instead of DOM node. 
 		*/
 		findParentNode?( simpleSelector?:any, maxDepth?:any, returnEl?:any ): any;
-		findParentNode?( simpleSelector?:string, maxDepth?:number, returnEl?:boolean ): HTMLElement;
-		findParentNode?( simpleSelector?:string, maxDepth?:string, returnEl?:boolean ): HTMLElement;
-		findParentNode?( simpleSelector?:string, maxDepth?:HTMLElement, returnEl?:boolean ): HTMLElement;
-		findParentNode?( simpleSelector?:string, maxDepth?:Ext.IElement, returnEl?:boolean ): HTMLElement;
-		/** [Method] Looks at parent nodes for a match of the passed simple selector e g  
-		* @param simpleSelector String The simple selector to test. 
-		* @param maxDepth Number/String/HTMLElement/Ext.Element The max depth to search as a number or element (defaults to 10 || document.body). 
-		* @param returnEl Boolean true to return a Ext.Element object instead of DOM node. 
-		*/
 		findParentNode?( simpleSelector?:string, maxDepth?:number, returnEl?:boolean ): any;
 		findParentNode?( simpleSelector?:string, maxDepth?:string, returnEl?:boolean ): any;
 		findParentNode?( simpleSelector?:string, maxDepth?:HTMLElement, returnEl?:boolean ): any;
@@ -21217,11 +20772,7 @@ declare module Ext {
 		/** [Method] Returns the value of the value attribute  
 		* @param asNumber Boolean true to parse the value as a number. 
 		*/
-		getValue?( asNumber?:boolean ): string;
-		/** [Method] Returns the value of the value attribute  
-		* @param asNumber Boolean true to parse the value as a number. 
-		*/
-		getValue?( asNumber?:boolean ): number;
+		getValue?( asNumber?:boolean ): any;
 		/** [Method] Returns the dimensions of the element available to lay content out in  */
 		getViewSize?(): any;
 		/** [Method] Returns the offset width of the element  
@@ -21278,13 +20829,7 @@ declare module Ext {
 		* @param html String The HTML fragment 
 		* @param returnEl Boolean true to return an Ext.dom.Element. 
 		*/
-		insertHtml?( where?:string, html?:string, returnEl?:boolean ): HTMLElement;
-		/** [Method] Inserts an HTML fragment into this element  
-		* @param where String Where to insert the HTML in relation to this element - 'beforeBegin', 'afterBegin', 'beforeEnd', 'afterEnd'. See Ext.DomHelper.insertHtml for details. 
-		* @param html String The HTML fragment 
-		* @param returnEl Boolean true to return an Ext.dom.Element. 
-		*/
-		insertHtml?( where?:string, html?:string, returnEl?:boolean ): Ext.dom.IElement;
+		insertHtml?( where?:string, html?:string, returnEl?:boolean ): any;
 		/** [Method] Inserts or creates the passed element or DomHelper config as a sibling of this element 
 		* @param el String/HTMLElement/Ext.dom.Element/Object/Array The id, element to insert or a DomHelper config to create and insert or an array of any of those. 
 		* @param where String 'before' or 'after'. 
@@ -21316,43 +20861,13 @@ declare module Ext {
 		* @param selector String Find the next sibling that matches the passed simple selector. 
 		* @param returnDom Boolean true to return a raw dom node instead of an Ext.dom.Element. 
 		*/
-		next?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the next sibling skipping text nodes  
-		* @param selector String Find the next sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw dom node instead of an Ext.dom.Element. 
-		*/
-		next?( selector?:string, returnDom?:boolean ): HTMLElement;
-		/** [Method] Gets the next sibling skipping text nodes  
-		* @param selector String Find the next sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw dom node instead of an Ext.dom.Element. 
-		*/
 		next?( selector?:string, returnDom?:boolean ): any;
 		/** [Method] Gets the parent node for this element optionally chaining up trying to match a selector  
 		* @param selector String Find a parent node that matches the passed simple selector. 
 		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
 		*/
-		parent?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the parent node for this element optionally chaining up trying to match a selector  
-		* @param selector String Find a parent node that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		parent?( selector?:string, returnDom?:boolean ): HTMLElement;
-		/** [Method] Gets the parent node for this element optionally chaining up trying to match a selector  
-		* @param selector String Find a parent node that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
 		parent?( selector?:string, returnDom?:boolean ): any;
-		/** [Method] Gets the previous sibling skipping text nodes  
-		* @param selector String Find the previous sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element 
-		*/
-		prev?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the previous sibling skipping text nodes  
-		* @param selector String Find the previous sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element 
-		*/
-		prev?( selector?:string, returnDom?:boolean ): HTMLElement;
-		/** [Method] Gets the previous sibling skipping text nodes  
+		/** [Method] Gets the previous sibling skipping text nodes 
 		* @param selector String Find the previous sibling that matches the passed simple selector. 
 		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element 
 		*/
@@ -21564,14 +21079,6 @@ declare module Ext {
 		* @param maxDepth Number/String/HTMLElement/Ext.Element The max depth to search as a number or element (defaults to 10 || document.body). 
 		*/
 		up?( simpleSelector?:any, maxDepth?:any ): any;
-		up?( simpleSelector?:string, maxDepth?:number ): Ext.dom.IElement;
-		up?( simpleSelector?:string, maxDepth?:string ): Ext.dom.IElement;
-		up?( simpleSelector?:string, maxDepth?:HTMLElement ): Ext.dom.IElement;
-		up?( simpleSelector?:string, maxDepth?:Ext.IElement ): Ext.dom.IElement;
-		/** [Method] Walks up the dom looking for a parent node that matches the passed simple selector e g  
-		* @param simpleSelector String The simple selector to test 
-		* @param maxDepth Number/String/HTMLElement/Ext.Element The max depth to search as a number or element (defaults to 10 || document.body). 
-		*/
 		up?( simpleSelector?:string, maxDepth?:number ): any;
 		up?( simpleSelector?:string, maxDepth?:string ): any;
 		up?( simpleSelector?:string, maxDepth?:HTMLElement ): any;
@@ -21584,12 +21091,7 @@ declare module Ext {
 		* @param config Object DomHelper element config object for the wrapper element or null for an empty div 
 		* @param domNode Boolean true to return the raw DOM element instead of Ext.dom.Element. 
 		*/
-		wrap?( config?:any, domNode?:boolean ): HTMLElement;
-		/** [Method] Creates and wraps this element with another element  
-		* @param config Object DomHelper element config object for the wrapper element or null for an empty div 
-		* @param domNode Boolean true to return the raw DOM element instead of Ext.dom.Element. 
-		*/
-		wrap?( config?:any, domNode?:boolean ): Ext.dom.IElement;
+		wrap?( config?:any, domNode?:boolean ): any;
 	}
 }
 declare module Ext.dom {
@@ -21673,12 +21175,7 @@ declare module Ext.dom {
 		* @param selector String The CSS selector. 
 		* @param returnDom Boolean true to return the DOM node instead of Ext.dom.Element. 
 		*/
-		child?( selector?:string, returnDom?:boolean ): HTMLElement;
-		/** [Method] Selects a single direct child based on the passed CSS selector the selector should not contain an id 
-		* @param selector String The CSS selector. 
-		* @param returnDom Boolean true to return the DOM node instead of Ext.dom.Element. 
-		*/
-		child?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
+		child?( selector?:string, returnDom?:boolean ): any;
 		/** [Method] Removes all listeners for this object  */
 		clearListeners?(): void;
 		/** [Method] Returns true if this element is an ancestor of the passed element  
@@ -21701,12 +21198,7 @@ declare module Ext.dom {
 		* @param selector String The CSS selector. 
 		* @param returnDom Boolean true to return the DOM node instead of Ext.dom.Element. 
 		*/
-		down?( selector?:string, returnDom?:boolean ): HTMLElement;
-		/** [Method] Selects a single child at any depth below this element based on the passed CSS selector the selector should not cont  
-		* @param selector String The CSS selector. 
-		* @param returnDom Boolean true to return the DOM node instead of Ext.dom.Element. 
-		*/
-		down?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
+		down?( selector?:string, returnDom?:boolean ): any;
 		/** [Method] Enables events fired by this Observable to bubble up an owner hierarchy by calling this getBubbleTarget  if present  
 		* @param events String/String[] The event name to bubble, or an Array of event names. 
 		*/
@@ -21719,15 +21211,6 @@ declare module Ext.dom {
 		* @param returnEl Boolean true to return a Ext.Element object instead of DOM node. 
 		*/
 		findParent?( simpleSelector?:any, maxDepth?:any, returnEl?:any ): any;
-		findParent?( simpleSelector?:string, maxDepth?:number, returnEl?:boolean ): HTMLElement;
-		findParent?( simpleSelector?:string, maxDepth?:string, returnEl?:boolean ): HTMLElement;
-		findParent?( simpleSelector?:string, maxDepth?:HTMLElement, returnEl?:boolean ): HTMLElement;
-		findParent?( simpleSelector?:string, maxDepth?:Ext.IElement, returnEl?:boolean ): HTMLElement;
-		/** [Method] Looks at this node and then at parent nodes for a match of the passed simple selector e g  
-		* @param simpleSelector String The simple selector to test. 
-		* @param maxDepth Number/String/HTMLElement/Ext.Element The max depth to search as a number or element (defaults to 50 || document.body) 
-		* @param returnEl Boolean true to return a Ext.Element object instead of DOM node. 
-		*/
 		findParent?( simpleSelector?:string, maxDepth?:number, returnEl?:boolean ): any;
 		findParent?( simpleSelector?:string, maxDepth?:string, returnEl?:boolean ): any;
 		findParent?( simpleSelector?:string, maxDepth?:HTMLElement, returnEl?:boolean ): any;
@@ -21738,15 +21221,6 @@ declare module Ext.dom {
 		* @param returnEl Boolean true to return a Ext.Element object instead of DOM node. 
 		*/
 		findParentNode?( simpleSelector?:any, maxDepth?:any, returnEl?:any ): any;
-		findParentNode?( simpleSelector?:string, maxDepth?:number, returnEl?:boolean ): HTMLElement;
-		findParentNode?( simpleSelector?:string, maxDepth?:string, returnEl?:boolean ): HTMLElement;
-		findParentNode?( simpleSelector?:string, maxDepth?:HTMLElement, returnEl?:boolean ): HTMLElement;
-		findParentNode?( simpleSelector?:string, maxDepth?:Ext.IElement, returnEl?:boolean ): HTMLElement;
-		/** [Method] Looks at parent nodes for a match of the passed simple selector e g  
-		* @param simpleSelector String The simple selector to test. 
-		* @param maxDepth Number/String/HTMLElement/Ext.Element The max depth to search as a number or element (defaults to 10 || document.body). 
-		* @param returnEl Boolean true to return a Ext.Element object instead of DOM node. 
-		*/
 		findParentNode?( simpleSelector?:string, maxDepth?:number, returnEl?:boolean ): any;
 		findParentNode?( simpleSelector?:string, maxDepth?:string, returnEl?:boolean ): any;
 		findParentNode?( simpleSelector?:string, maxDepth?:HTMLElement, returnEl?:boolean ): any;
@@ -21763,16 +21237,6 @@ declare module Ext.dom {
 		* @param args Object... Variable number of parameters are passed to handlers. 
 		*/
 		fireEvent?( eventName:string, ...args:any[] ): boolean;
-		/** [Method] Gets the first child skipping text nodes  
-		* @param selector String Find the next sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		first?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the first child skipping text nodes  
-		* @param selector String Find the next sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		first?( selector?:string, returnDom?:boolean ): HTMLElement;
 		/** [Method] Gets the first child skipping text nodes  
 		* @param selector String Find the next sibling that matches the passed simple selector. 
 		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
@@ -21807,9 +21271,7 @@ declare module Ext.dom {
 		*/
 		getBox?( contentBox?:boolean, local?:boolean ): any;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the innerHTML of an element  */
 		getHTML?(): string;
 		/** [Method] Returns the offset height of the element  
@@ -21859,11 +21321,7 @@ declare module Ext.dom {
 		/** [Method] Returns the value of the value attribute  
 		* @param asNumber Boolean true to parse the value as a number. 
 		*/
-		getValue?( asNumber?:boolean ): string;
-		/** [Method] Returns the value of the value attribute  
-		* @param asNumber Boolean true to parse the value as a number. 
-		*/
-		getValue?( asNumber?:boolean ): number;
+		getValue?( asNumber?:boolean ): any;
 		/** [Method] Returns the dimensions of the element available to lay content out in  */
 		getViewSize?(): any;
 		/** [Method] Returns the offset width of the element  
@@ -21916,13 +21374,7 @@ declare module Ext.dom {
 		* @param html String The HTML fragment 
 		* @param returnEl Boolean true to return an Ext.dom.Element. 
 		*/
-		insertHtml?( where?:string, html?:string, returnEl?:boolean ): HTMLElement;
-		/** [Method] Inserts an HTML fragment into this element  
-		* @param where String Where to insert the HTML in relation to this element - 'beforeBegin', 'afterBegin', 'beforeEnd', 'afterEnd'. See Ext.DomHelper.insertHtml for details. 
-		* @param html String The HTML fragment 
-		* @param returnEl Boolean true to return an Ext.dom.Element. 
-		*/
-		insertHtml?( where?:string, html?:string, returnEl?:boolean ): Ext.dom.IElement;
+		insertHtml?( where?:string, html?:string, returnEl?:boolean ): any;
 		/** [Method] Inserts or creates the passed element or DomHelper config as a sibling of this element 
 		* @param el String/HTMLElement/Ext.dom.Element/Object/Array The id, element to insert or a DomHelper config to create and insert or an array of any of those. 
 		* @param where String 'before' or 'after'. 
@@ -21944,16 +21396,6 @@ declare module Ext.dom {
 		* @param prop String The style property whose value is to be tested. 
 		*/
 		isTransparent?( prop?:string ): boolean;
-		/** [Method] Gets the last child skipping text nodes  
-		* @param selector String Find the previous sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		last?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the last child skipping text nodes  
-		* @param selector String Find the previous sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		last?( selector?:string, returnDom?:boolean ): HTMLElement;
 		/** [Method] Gets the last child skipping text nodes  
 		* @param selector String Find the previous sibling that matches the passed simple selector. 
 		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
@@ -21980,16 +21422,6 @@ declare module Ext.dom {
 		mun?( object?:any, eventName?:any, fn?:any, scope?:any ): any;
 		mun?( object?:Ext.mixin.IObservable, eventName?:any, fn?:any, scope?:any ): void;
 		mun?( object?:HTMLElement, eventName?:any, fn?:any, scope?:any ): void;
-		/** [Method] Gets the next sibling skipping text nodes  
-		* @param selector String Find the next sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw dom node instead of an Ext.dom.Element. 
-		*/
-		next?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the next sibling skipping text nodes  
-		* @param selector String Find the next sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw dom node instead of an Ext.dom.Element. 
-		*/
-		next?( selector?:string, returnDom?:boolean ): HTMLElement;
 		/** [Method] Gets the next sibling skipping text nodes  
 		* @param selector String Find the next sibling that matches the passed simple selector. 
 		* @param returnDom Boolean true to return a raw dom node instead of an Ext.dom.Element. 
@@ -22025,27 +21457,7 @@ declare module Ext.dom {
 		* @param selector String Find a parent node that matches the passed simple selector. 
 		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
 		*/
-		parent?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the parent node for this element optionally chaining up trying to match a selector  
-		* @param selector String Find a parent node that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		parent?( selector?:string, returnDom?:boolean ): HTMLElement;
-		/** [Method] Gets the parent node for this element optionally chaining up trying to match a selector  
-		* @param selector String Find a parent node that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
 		parent?( selector?:string, returnDom?:boolean ): any;
-		/** [Method] Gets the previous sibling skipping text nodes  
-		* @param selector String Find the previous sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element 
-		*/
-		prev?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the previous sibling skipping text nodes  
-		* @param selector String Find the previous sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element 
-		*/
-		prev?( selector?:string, returnDom?:boolean ): HTMLElement;
 		/** [Method] Gets the previous sibling skipping text nodes  
 		* @param selector String Find the previous sibling that matches the passed simple selector. 
 		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element 
@@ -22310,14 +21722,6 @@ declare module Ext.dom {
 		* @param maxDepth Number/String/HTMLElement/Ext.Element The max depth to search as a number or element (defaults to 10 || document.body). 
 		*/
 		up?( simpleSelector?:any, maxDepth?:any ): any;
-		up?( simpleSelector?:string, maxDepth?:number ): Ext.dom.IElement;
-		up?( simpleSelector?:string, maxDepth?:string ): Ext.dom.IElement;
-		up?( simpleSelector?:string, maxDepth?:HTMLElement ): Ext.dom.IElement;
-		up?( simpleSelector?:string, maxDepth?:Ext.IElement ): Ext.dom.IElement;
-		/** [Method] Walks up the dom looking for a parent node that matches the passed simple selector e g  
-		* @param simpleSelector String The simple selector to test 
-		* @param maxDepth Number/String/HTMLElement/Ext.Element The max depth to search as a number or element (defaults to 10 || document.body). 
-		*/
 		up?( simpleSelector?:string, maxDepth?:number ): any;
 		up?( simpleSelector?:string, maxDepth?:string ): any;
 		up?( simpleSelector?:string, maxDepth?:HTMLElement ): any;
@@ -22330,12 +21734,7 @@ declare module Ext.dom {
 		* @param config Object DomHelper element config object for the wrapper element or null for an empty div 
 		* @param domNode Boolean true to return the raw DOM element instead of Ext.dom.Element. 
 		*/
-		wrap?( config?:any, domNode?:boolean ): HTMLElement;
-		/** [Method] Creates and wraps this element with another element  
-		* @param config Object DomHelper element config object for the wrapper element or null for an empty div 
-		* @param domNode Boolean true to return the raw DOM element instead of Ext.dom.Element. 
-		*/
-		wrap?( config?:any, domNode?:boolean ): Ext.dom.IElement;
+		wrap?( config?:any, domNode?:boolean ): any;
 	}
 	export class Element {
 		/** [Method] Add methods  properties to the prototype of this class  
@@ -22506,12 +21905,7 @@ declare module Ext {
 		* @param selector String The CSS selector. 
 		* @param returnDom Boolean true to return the DOM node instead of Ext.dom.Element. 
 		*/
-		child?( selector?:string, returnDom?:boolean ): HTMLElement;
-		/** [Method] Selects a single direct child based on the passed CSS selector the selector should not contain an id 
-		* @param selector String The CSS selector. 
-		* @param returnDom Boolean true to return the DOM node instead of Ext.dom.Element. 
-		*/
-		child?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
+		child?( selector?:string, returnDom?:boolean ): any;
 		/** [Method] Removes all listeners for this object  */
 		clearListeners?(): void;
 		/** [Method] Returns true if this element is an ancestor of the passed element  
@@ -22534,12 +21928,7 @@ declare module Ext {
 		* @param selector String The CSS selector. 
 		* @param returnDom Boolean true to return the DOM node instead of Ext.dom.Element. 
 		*/
-		down?( selector?:string, returnDom?:boolean ): HTMLElement;
-		/** [Method] Selects a single child at any depth below this element based on the passed CSS selector the selector should not cont  
-		* @param selector String The CSS selector. 
-		* @param returnDom Boolean true to return the DOM node instead of Ext.dom.Element. 
-		*/
-		down?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
+		down?( selector?:string, returnDom?:boolean ): any;
 		/** [Method] Enables events fired by this Observable to bubble up an owner hierarchy by calling this getBubbleTarget  if present  
 		* @param events String/String[] The event name to bubble, or an Array of event names. 
 		*/
@@ -22552,15 +21941,6 @@ declare module Ext {
 		* @param returnEl Boolean true to return a Ext.Element object instead of DOM node. 
 		*/
 		findParent?( simpleSelector?:any, maxDepth?:any, returnEl?:any ): any;
-		findParent?( simpleSelector?:string, maxDepth?:number, returnEl?:boolean ): HTMLElement;
-		findParent?( simpleSelector?:string, maxDepth?:string, returnEl?:boolean ): HTMLElement;
-		findParent?( simpleSelector?:string, maxDepth?:HTMLElement, returnEl?:boolean ): HTMLElement;
-		findParent?( simpleSelector?:string, maxDepth?:Ext.IElement, returnEl?:boolean ): HTMLElement;
-		/** [Method] Looks at this node and then at parent nodes for a match of the passed simple selector e g  
-		* @param simpleSelector String The simple selector to test. 
-		* @param maxDepth Number/String/HTMLElement/Ext.Element The max depth to search as a number or element (defaults to 50 || document.body) 
-		* @param returnEl Boolean true to return a Ext.Element object instead of DOM node. 
-		*/
 		findParent?( simpleSelector?:string, maxDepth?:number, returnEl?:boolean ): any;
 		findParent?( simpleSelector?:string, maxDepth?:string, returnEl?:boolean ): any;
 		findParent?( simpleSelector?:string, maxDepth?:HTMLElement, returnEl?:boolean ): any;
@@ -22571,15 +21951,6 @@ declare module Ext {
 		* @param returnEl Boolean true to return a Ext.Element object instead of DOM node. 
 		*/
 		findParentNode?( simpleSelector?:any, maxDepth?:any, returnEl?:any ): any;
-		findParentNode?( simpleSelector?:string, maxDepth?:number, returnEl?:boolean ): HTMLElement;
-		findParentNode?( simpleSelector?:string, maxDepth?:string, returnEl?:boolean ): HTMLElement;
-		findParentNode?( simpleSelector?:string, maxDepth?:HTMLElement, returnEl?:boolean ): HTMLElement;
-		findParentNode?( simpleSelector?:string, maxDepth?:Ext.IElement, returnEl?:boolean ): HTMLElement;
-		/** [Method] Looks at parent nodes for a match of the passed simple selector e g  
-		* @param simpleSelector String The simple selector to test. 
-		* @param maxDepth Number/String/HTMLElement/Ext.Element The max depth to search as a number or element (defaults to 10 || document.body). 
-		* @param returnEl Boolean true to return a Ext.Element object instead of DOM node. 
-		*/
 		findParentNode?( simpleSelector?:string, maxDepth?:number, returnEl?:boolean ): any;
 		findParentNode?( simpleSelector?:string, maxDepth?:string, returnEl?:boolean ): any;
 		findParentNode?( simpleSelector?:string, maxDepth?:HTMLElement, returnEl?:boolean ): any;
@@ -22596,16 +21967,6 @@ declare module Ext {
 		* @param args Object... Variable number of parameters are passed to handlers. 
 		*/
 		fireEvent?( eventName:string, ...args:any[] ): boolean;
-		/** [Method] Gets the first child skipping text nodes  
-		* @param selector String Find the next sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		first?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the first child skipping text nodes  
-		* @param selector String Find the next sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		first?( selector?:string, returnDom?:boolean ): HTMLElement;
 		/** [Method] Gets the first child skipping text nodes  
 		* @param selector String Find the next sibling that matches the passed simple selector. 
 		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
@@ -22640,9 +22001,7 @@ declare module Ext {
 		*/
 		getBox?( contentBox?:boolean, local?:boolean ): any;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the innerHTML of an element  */
 		getHTML?(): string;
 		/** [Method] Returns the offset height of the element  
@@ -22692,11 +22051,7 @@ declare module Ext {
 		/** [Method] Returns the value of the value attribute  
 		* @param asNumber Boolean true to parse the value as a number. 
 		*/
-		getValue?( asNumber?:boolean ): string;
-		/** [Method] Returns the value of the value attribute  
-		* @param asNumber Boolean true to parse the value as a number. 
-		*/
-		getValue?( asNumber?:boolean ): number;
+		getValue?( asNumber?:boolean ): any;
 		/** [Method] Returns the dimensions of the element available to lay content out in  */
 		getViewSize?(): any;
 		/** [Method] Returns the offset width of the element  
@@ -22749,13 +22104,7 @@ declare module Ext {
 		* @param html String The HTML fragment 
 		* @param returnEl Boolean true to return an Ext.dom.Element. 
 		*/
-		insertHtml?( where?:string, html?:string, returnEl?:boolean ): HTMLElement;
-		/** [Method] Inserts an HTML fragment into this element  
-		* @param where String Where to insert the HTML in relation to this element - 'beforeBegin', 'afterBegin', 'beforeEnd', 'afterEnd'. See Ext.DomHelper.insertHtml for details. 
-		* @param html String The HTML fragment 
-		* @param returnEl Boolean true to return an Ext.dom.Element. 
-		*/
-		insertHtml?( where?:string, html?:string, returnEl?:boolean ): Ext.dom.IElement;
+		insertHtml?( where?:string, html?:string, returnEl?:boolean ): any;
 		/** [Method] Inserts or creates the passed element or DomHelper config as a sibling of this element 
 		* @param el String/HTMLElement/Ext.dom.Element/Object/Array The id, element to insert or a DomHelper config to create and insert or an array of any of those. 
 		* @param where String 'before' or 'after'. 
@@ -22777,16 +22126,6 @@ declare module Ext {
 		* @param prop String The style property whose value is to be tested. 
 		*/
 		isTransparent?( prop?:string ): boolean;
-		/** [Method] Gets the last child skipping text nodes  
-		* @param selector String Find the previous sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		last?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the last child skipping text nodes  
-		* @param selector String Find the previous sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		last?( selector?:string, returnDom?:boolean ): HTMLElement;
 		/** [Method] Gets the last child skipping text nodes  
 		* @param selector String Find the previous sibling that matches the passed simple selector. 
 		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
@@ -22813,16 +22152,6 @@ declare module Ext {
 		mun?( object?:any, eventName?:any, fn?:any, scope?:any ): any;
 		mun?( object?:Ext.mixin.IObservable, eventName?:any, fn?:any, scope?:any ): void;
 		mun?( object?:HTMLElement, eventName?:any, fn?:any, scope?:any ): void;
-		/** [Method] Gets the next sibling skipping text nodes  
-		* @param selector String Find the next sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw dom node instead of an Ext.dom.Element. 
-		*/
-		next?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the next sibling skipping text nodes  
-		* @param selector String Find the next sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw dom node instead of an Ext.dom.Element. 
-		*/
-		next?( selector?:string, returnDom?:boolean ): HTMLElement;
 		/** [Method] Gets the next sibling skipping text nodes  
 		* @param selector String Find the next sibling that matches the passed simple selector. 
 		* @param returnDom Boolean true to return a raw dom node instead of an Ext.dom.Element. 
@@ -22858,27 +22187,7 @@ declare module Ext {
 		* @param selector String Find a parent node that matches the passed simple selector. 
 		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
 		*/
-		parent?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the parent node for this element optionally chaining up trying to match a selector  
-		* @param selector String Find a parent node that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
-		parent?( selector?:string, returnDom?:boolean ): HTMLElement;
-		/** [Method] Gets the parent node for this element optionally chaining up trying to match a selector  
-		* @param selector String Find a parent node that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element. 
-		*/
 		parent?( selector?:string, returnDom?:boolean ): any;
-		/** [Method] Gets the previous sibling skipping text nodes  
-		* @param selector String Find the previous sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element 
-		*/
-		prev?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the previous sibling skipping text nodes  
-		* @param selector String Find the previous sibling that matches the passed simple selector. 
-		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element 
-		*/
-		prev?( selector?:string, returnDom?:boolean ): HTMLElement;
 		/** [Method] Gets the previous sibling skipping text nodes  
 		* @param selector String Find the previous sibling that matches the passed simple selector. 
 		* @param returnDom Boolean true to return a raw DOM node instead of an Ext.dom.Element 
@@ -23143,32 +22452,16 @@ declare module Ext {
 		* @param maxDepth Number/String/HTMLElement/Ext.Element The max depth to search as a number or element (defaults to 10 || document.body). 
 		*/
 		up?( simpleSelector?:any, maxDepth?:any ): any;
-		up?( simpleSelector?:string, maxDepth?:number ): Ext.dom.IElement;
-		up?( simpleSelector?:string, maxDepth?:string ): Ext.dom.IElement;
-		up?( simpleSelector?:string, maxDepth?:HTMLElement ): Ext.dom.IElement;
-		up?( simpleSelector?:string, maxDepth?:Ext.IElement ): Ext.dom.IElement;
-		/** [Method] Walks up the dom looking for a parent node that matches the passed simple selector e g  
-		* @param simpleSelector String The simple selector to test 
-		* @param maxDepth Number/String/HTMLElement/Ext.Element The max depth to search as a number or element (defaults to 10 || document.body). 
-		*/
 		up?( simpleSelector?:string, maxDepth?:number ): any;
 		up?( simpleSelector?:string, maxDepth?:string ): any;
 		up?( simpleSelector?:string, maxDepth?:HTMLElement ): any;
 		up?( simpleSelector?:string, maxDepth?:Ext.IElement ): any;
-		/** [Method] Sets the innerHTML of this element  
-		* @param html String The new HTML. 
-		*/
 		update?( html?:string ): void;
 		/** [Method] Creates and wraps this element with another element  
 		* @param config Object DomHelper element config object for the wrapper element or null for an empty div 
 		* @param domNode Boolean true to return the raw DOM element instead of Ext.dom.Element. 
 		*/
-		wrap?( config?:any, domNode?:boolean ): HTMLElement;
-		/** [Method] Creates and wraps this element with another element  
-		* @param config Object DomHelper element config object for the wrapper element or null for an empty div 
-		* @param domNode Boolean true to return the raw DOM element instead of Ext.dom.Element. 
-		*/
-		wrap?( config?:any, domNode?:boolean ): Ext.dom.IElement;
+		wrap?( config?:any, domNode?:boolean ): any;
 	}
 	export class Element {
 		/** [Method] Add methods  properties to the prototype of this class  
@@ -23292,17 +22585,9 @@ declare module Ext {
 		* @param returnElement Boolean true to return a Ext.Element 
 		*/
 		append?( el?:any, o?:any, returnElement?:any ): any;
-		append?( el?:string, o?:any, returnElement?:boolean ): HTMLElement;
-		append?( el?:HTMLElement, o?:any, returnElement?:boolean ): HTMLElement;
-		append?( el?:Ext.IElement, o?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Creates new DOM element s and appends them to el  
-		* @param el String/HTMLElement/Ext.Element The context element 
-		* @param o Object/String The DOM object spec (and children) or raw HTML blob 
-		* @param returnElement Boolean true to return a Ext.Element 
-		*/
-		append?( el?:string, o?:any, returnElement?:boolean ): Ext.IElement;
-		append?( el?:HTMLElement, o?:any, returnElement?:boolean ): Ext.IElement;
-		append?( el?:Ext.IElement, o?:any, returnElement?:boolean ): Ext.IElement;
+		append?( el?:string, o?:any, returnElement?:boolean ): any;
+		append?( el?:HTMLElement, o?:any, returnElement?:boolean ): any;
+		append?( el?:Ext.IElement, o?:any, returnElement?:boolean ): any;
 		/** [Method] Applies a style specification to an element  
 		* @param el String/HTMLElement The element to apply styles to 
 		* @param styles String/Object/Function A style specification string e.g. 'width:100px', or object in the form {width:'100px'}, or a function which returns such a specification. 
@@ -23318,63 +22603,34 @@ declare module Ext {
 		* @param styles Object The object describing the styles. 
 		* @param buffer String[] The output buffer. 
 		*/
-		generateStyles?( styles?:any, buffer?:string[] ): string;
-		/** [Method] Converts the styles from the given object to text  
-		* @param styles Object The object describing the styles. 
-		* @param buffer String[] The output buffer. 
-		*/
-		generateStyles?( styles?:any, buffer?:string[] ): string[];
+		generateStyles?( styles?:any, buffer?:string[] ): any;
 		/** [Method] Creates new DOM element s and inserts them after el  
 		* @param el String/HTMLElement/Ext.Element The context element 
 		* @param o Object The DOM object spec (and children) 
 		* @param returnElement Boolean true to return a Ext.Element 
 		*/
 		insertAfter?( el?:any, o?:any, returnElement?:any ): any;
-		insertAfter?( el?:string, o?:any, returnElement?:boolean ): HTMLElement;
-		insertAfter?( el?:HTMLElement, o?:any, returnElement?:boolean ): HTMLElement;
-		insertAfter?( el?:Ext.IElement, o?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Creates new DOM element s and inserts them after el  
-		* @param el String/HTMLElement/Ext.Element The context element 
-		* @param o Object The DOM object spec (and children) 
-		* @param returnElement Boolean true to return a Ext.Element 
-		*/
-		insertAfter?( el?:string, o?:any, returnElement?:boolean ): Ext.IElement;
-		insertAfter?( el?:HTMLElement, o?:any, returnElement?:boolean ): Ext.IElement;
-		insertAfter?( el?:Ext.IElement, o?:any, returnElement?:boolean ): Ext.IElement;
+		insertAfter?( el?:string, o?:any, returnElement?:boolean ): any;
+		insertAfter?( el?:HTMLElement, o?:any, returnElement?:boolean ): any;
+		insertAfter?( el?:Ext.IElement, o?:any, returnElement?:boolean ): any;
 		/** [Method] Creates new DOM element s and inserts them before el  
 		* @param el String/HTMLElement/Ext.Element The context element 
 		* @param o Object/String The DOM object spec (and children) or raw HTML blob 
 		* @param returnElement Boolean true to return a Ext.Element 
 		*/
 		insertBefore?( el?:any, o?:any, returnElement?:any ): any;
-		insertBefore?( el?:string, o?:any, returnElement?:boolean ): HTMLElement;
-		insertBefore?( el?:HTMLElement, o?:any, returnElement?:boolean ): HTMLElement;
-		insertBefore?( el?:Ext.IElement, o?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Creates new DOM element s and inserts them before el  
-		* @param el String/HTMLElement/Ext.Element The context element 
-		* @param o Object/String The DOM object spec (and children) or raw HTML blob 
-		* @param returnElement Boolean true to return a Ext.Element 
-		*/
-		insertBefore?( el?:string, o?:any, returnElement?:boolean ): Ext.IElement;
-		insertBefore?( el?:HTMLElement, o?:any, returnElement?:boolean ): Ext.IElement;
-		insertBefore?( el?:Ext.IElement, o?:any, returnElement?:boolean ): Ext.IElement;
+		insertBefore?( el?:string, o?:any, returnElement?:boolean ): any;
+		insertBefore?( el?:HTMLElement, o?:any, returnElement?:boolean ): any;
+		insertBefore?( el?:Ext.IElement, o?:any, returnElement?:boolean ): any;
 		/** [Method] Creates new DOM element s and inserts them as the first child of el  
 		* @param el String/HTMLElement/Ext.Element The context element 
 		* @param o Object/String The DOM object spec (and children) or raw HTML blob 
 		* @param returnElement Boolean true to return a Ext.Element 
 		*/
 		insertFirst?( el?:any, o?:any, returnElement?:any ): any;
-		insertFirst?( el?:string, o?:any, returnElement?:boolean ): HTMLElement;
-		insertFirst?( el?:HTMLElement, o?:any, returnElement?:boolean ): HTMLElement;
-		insertFirst?( el?:Ext.IElement, o?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Creates new DOM element s and inserts them as the first child of el  
-		* @param el String/HTMLElement/Ext.Element The context element 
-		* @param o Object/String The DOM object spec (and children) or raw HTML blob 
-		* @param returnElement Boolean true to return a Ext.Element 
-		*/
-		insertFirst?( el?:string, o?:any, returnElement?:boolean ): Ext.IElement;
-		insertFirst?( el?:HTMLElement, o?:any, returnElement?:boolean ): Ext.IElement;
-		insertFirst?( el?:Ext.IElement, o?:any, returnElement?:boolean ): Ext.IElement;
+		insertFirst?( el?:string, o?:any, returnElement?:boolean ): any;
+		insertFirst?( el?:HTMLElement, o?:any, returnElement?:boolean ): any;
+		insertFirst?( el?:Ext.IElement, o?:any, returnElement?:boolean ): any;
 		/** [Method] Inserts an HTML fragment into the DOM  
 		* @param where String Where to insert the html in relation to el - beforeBegin, afterBegin, beforeEnd, afterEnd. For example take the following HTML: &lt;div&gt;Contents&lt;/div&gt; Using different where values inserts element to the following places:  beforeBegin: &lt;HERE&gt;&lt;div&gt;Contents&lt;/div&gt; afterBegin: &lt;div&gt;&lt;HERE&gt;Contents&lt;/div&gt; beforeEnd: &lt;div&gt;Contents&lt;HERE&gt;&lt;/div&gt; afterEnd: &lt;div&gt;Contents&lt;/div&gt;&lt;HERE&gt;  
 		* @param el HTMLElement/TextNode The context element 
@@ -23393,17 +22649,9 @@ declare module Ext {
 		* @param returnElement Boolean true to return a Ext.Element 
 		*/
 		overwrite?( el?:any, o?:any, returnElement?:any ): any;
-		overwrite?( el?:string, o?:any, returnElement?:boolean ): HTMLElement;
-		overwrite?( el?:HTMLElement, o?:any, returnElement?:boolean ): HTMLElement;
-		overwrite?( el?:Ext.IElement, o?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Creates new DOM element s and overwrites the contents of el with them  
-		* @param el String/HTMLElement/Ext.Element The context element 
-		* @param o Object/String The DOM object spec (and children) or raw HTML blob 
-		* @param returnElement Boolean true to return a Ext.Element 
-		*/
-		overwrite?( el?:string, o?:any, returnElement?:boolean ): Ext.IElement;
-		overwrite?( el?:HTMLElement, o?:any, returnElement?:boolean ): Ext.IElement;
-		overwrite?( el?:Ext.IElement, o?:any, returnElement?:boolean ): Ext.IElement;
+		overwrite?( el?:string, o?:any, returnElement?:boolean ): any;
+		overwrite?( el?:HTMLElement, o?:any, returnElement?:boolean ): any;
+		overwrite?( el?:Ext.IElement, o?:any, returnElement?:boolean ): any;
 	}
 }
 declare module Ext.dom {
@@ -23414,17 +22662,9 @@ declare module Ext.dom {
 		* @param returnElement Boolean true to return a Ext.Element 
 		*/
 		append?( el?:any, o?:any, returnElement?:any ): any;
-		append?( el?:string, o?:any, returnElement?:boolean ): HTMLElement;
-		append?( el?:HTMLElement, o?:any, returnElement?:boolean ): HTMLElement;
-		append?( el?:Ext.IElement, o?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Creates new DOM element s and appends them to el  
-		* @param el String/HTMLElement/Ext.Element The context element 
-		* @param o Object/String The DOM object spec (and children) or raw HTML blob 
-		* @param returnElement Boolean true to return a Ext.Element 
-		*/
-		append?( el?:string, o?:any, returnElement?:boolean ): Ext.IElement;
-		append?( el?:HTMLElement, o?:any, returnElement?:boolean ): Ext.IElement;
-		append?( el?:Ext.IElement, o?:any, returnElement?:boolean ): Ext.IElement;
+		append?( el?:string, o?:any, returnElement?:boolean ): any;
+		append?( el?:HTMLElement, o?:any, returnElement?:boolean ): any;
+		append?( el?:Ext.IElement, o?:any, returnElement?:boolean ): any;
 		/** [Method] Applies a style specification to an element  
 		* @param el String/HTMLElement The element to apply styles to 
 		* @param styles String/Object/Function A style specification string e.g. 'width:100px', or object in the form {width:'100px'}, or a function which returns such a specification. 
@@ -23440,63 +22680,34 @@ declare module Ext.dom {
 		* @param styles Object The object describing the styles. 
 		* @param buffer String[] The output buffer. 
 		*/
-		generateStyles?( styles?:any, buffer?:string[] ): string;
-		/** [Method] Converts the styles from the given object to text  
-		* @param styles Object The object describing the styles. 
-		* @param buffer String[] The output buffer. 
-		*/
-		generateStyles?( styles?:any, buffer?:string[] ): string[];
+		generateStyles?( styles?:any, buffer?:string[] ): any;
 		/** [Method] Creates new DOM element s and inserts them after el  
 		* @param el String/HTMLElement/Ext.Element The context element 
 		* @param o Object The DOM object spec (and children) 
 		* @param returnElement Boolean true to return a Ext.Element 
 		*/
 		insertAfter?( el?:any, o?:any, returnElement?:any ): any;
-		insertAfter?( el?:string, o?:any, returnElement?:boolean ): HTMLElement;
-		insertAfter?( el?:HTMLElement, o?:any, returnElement?:boolean ): HTMLElement;
-		insertAfter?( el?:Ext.IElement, o?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Creates new DOM element s and inserts them after el  
-		* @param el String/HTMLElement/Ext.Element The context element 
-		* @param o Object The DOM object spec (and children) 
-		* @param returnElement Boolean true to return a Ext.Element 
-		*/
-		insertAfter?( el?:string, o?:any, returnElement?:boolean ): Ext.IElement;
-		insertAfter?( el?:HTMLElement, o?:any, returnElement?:boolean ): Ext.IElement;
-		insertAfter?( el?:Ext.IElement, o?:any, returnElement?:boolean ): Ext.IElement;
+		insertAfter?( el?:string, o?:any, returnElement?:boolean ): any;
+		insertAfter?( el?:HTMLElement, o?:any, returnElement?:boolean ): any;
+		insertAfter?( el?:Ext.IElement, o?:any, returnElement?:boolean ): any;
 		/** [Method] Creates new DOM element s and inserts them before el  
 		* @param el String/HTMLElement/Ext.Element The context element 
 		* @param o Object/String The DOM object spec (and children) or raw HTML blob 
 		* @param returnElement Boolean true to return a Ext.Element 
 		*/
 		insertBefore?( el?:any, o?:any, returnElement?:any ): any;
-		insertBefore?( el?:string, o?:any, returnElement?:boolean ): HTMLElement;
-		insertBefore?( el?:HTMLElement, o?:any, returnElement?:boolean ): HTMLElement;
-		insertBefore?( el?:Ext.IElement, o?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Creates new DOM element s and inserts them before el  
-		* @param el String/HTMLElement/Ext.Element The context element 
-		* @param o Object/String The DOM object spec (and children) or raw HTML blob 
-		* @param returnElement Boolean true to return a Ext.Element 
-		*/
-		insertBefore?( el?:string, o?:any, returnElement?:boolean ): Ext.IElement;
-		insertBefore?( el?:HTMLElement, o?:any, returnElement?:boolean ): Ext.IElement;
-		insertBefore?( el?:Ext.IElement, o?:any, returnElement?:boolean ): Ext.IElement;
+		insertBefore?( el?:string, o?:any, returnElement?:boolean ): any;
+		insertBefore?( el?:HTMLElement, o?:any, returnElement?:boolean ): any;
+		insertBefore?( el?:Ext.IElement, o?:any, returnElement?:boolean ): any;
 		/** [Method] Creates new DOM element s and inserts them as the first child of el  
 		* @param el String/HTMLElement/Ext.Element The context element 
 		* @param o Object/String The DOM object spec (and children) or raw HTML blob 
 		* @param returnElement Boolean true to return a Ext.Element 
 		*/
 		insertFirst?( el?:any, o?:any, returnElement?:any ): any;
-		insertFirst?( el?:string, o?:any, returnElement?:boolean ): HTMLElement;
-		insertFirst?( el?:HTMLElement, o?:any, returnElement?:boolean ): HTMLElement;
-		insertFirst?( el?:Ext.IElement, o?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Creates new DOM element s and inserts them as the first child of el  
-		* @param el String/HTMLElement/Ext.Element The context element 
-		* @param o Object/String The DOM object spec (and children) or raw HTML blob 
-		* @param returnElement Boolean true to return a Ext.Element 
-		*/
-		insertFirst?( el?:string, o?:any, returnElement?:boolean ): Ext.IElement;
-		insertFirst?( el?:HTMLElement, o?:any, returnElement?:boolean ): Ext.IElement;
-		insertFirst?( el?:Ext.IElement, o?:any, returnElement?:boolean ): Ext.IElement;
+		insertFirst?( el?:string, o?:any, returnElement?:boolean ): any;
+		insertFirst?( el?:HTMLElement, o?:any, returnElement?:boolean ): any;
+		insertFirst?( el?:Ext.IElement, o?:any, returnElement?:boolean ): any;
 		/** [Method] Inserts an HTML fragment into the DOM  
 		* @param where String Where to insert the html in relation to el - beforeBegin, afterBegin, beforeEnd, afterEnd. For example take the following HTML: &lt;div&gt;Contents&lt;/div&gt; Using different where values inserts element to the following places:  beforeBegin: &lt;HERE&gt;&lt;div&gt;Contents&lt;/div&gt; afterBegin: &lt;div&gt;&lt;HERE&gt;Contents&lt;/div&gt; beforeEnd: &lt;div&gt;Contents&lt;HERE&gt;&lt;/div&gt; afterEnd: &lt;div&gt;Contents&lt;/div&gt;&lt;HERE&gt;  
 		* @param el HTMLElement/TextNode The context element 
@@ -23515,17 +22726,9 @@ declare module Ext.dom {
 		* @param returnElement Boolean true to return a Ext.Element 
 		*/
 		overwrite?( el?:any, o?:any, returnElement?:any ): any;
-		overwrite?( el?:string, o?:any, returnElement?:boolean ): HTMLElement;
-		overwrite?( el?:HTMLElement, o?:any, returnElement?:boolean ): HTMLElement;
-		overwrite?( el?:Ext.IElement, o?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Creates new DOM element s and overwrites the contents of el with them  
-		* @param el String/HTMLElement/Ext.Element The context element 
-		* @param o Object/String The DOM object spec (and children) or raw HTML blob 
-		* @param returnElement Boolean true to return a Ext.Element 
-		*/
-		overwrite?( el?:string, o?:any, returnElement?:boolean ): Ext.IElement;
-		overwrite?( el?:HTMLElement, o?:any, returnElement?:boolean ): Ext.IElement;
-		overwrite?( el?:Ext.IElement, o?:any, returnElement?:boolean ): Ext.IElement;
+		overwrite?( el?:string, o?:any, returnElement?:boolean ): any;
+		overwrite?( el?:HTMLElement, o?:any, returnElement?:boolean ): any;
+		overwrite?( el?:Ext.IElement, o?:any, returnElement?:boolean ): any;
 	}
 }
 declare module Ext {
@@ -24298,9 +23501,7 @@ declare module Ext.draw {
 		*/
 		getBBox?( isWithTransform?:any ): void;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of listeners  */
 		getListeners?(): any;
 		/** [Method] Returns the value of surface  */
@@ -24619,9 +23820,7 @@ declare module Ext.draw {
 		/** [Method] Return a string that can be used as transform attribute in SVG  */
 		toSvg?(): string;
 		/** [Method] Create an array of elements by vertical order xx xy yx yy dx dy */
-		toVerticalArray?(): any[];
-		/** [Method] Create an array of elements by vertical order xx xy yx yy dx dy */
-		toVerticalArray?(): string;
+		toVerticalArray?(): any;
 		/** [Method]  
 		* @param bbox Object Given as {x: Number, y: Number, width: Number, height: Number}. 
 		* @param radius Number 
@@ -24790,9 +23989,7 @@ declare module Ext.draw.modifier {
 		*/
 		fireEvent?( eventName:string, ...args:any[] ): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of customDuration  */
 		getCustomDuration?(): any;
 		/** [Method] Returns the value of customEasings  */
@@ -25737,9 +24934,7 @@ declare module Ext.draw.sprite {
 		*/
 		getBBoxCenter?( isWithoutTransform?:boolean ): any[];
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of listeners  */
 		getListeners?(): any;
 		/** [Method] Returns the value of parent  */
@@ -26490,9 +25685,7 @@ declare module Ext {
 		*/
 		fireEvent?( eventName:string, ...args:any[] ): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of listeners  */
 		getListeners?(): any;
 		/** [Method] Checks to see if this object has any listeners for a specified event 
@@ -26693,9 +25886,7 @@ declare module Ext {
 		*/
 		fireEvent?( eventName:string, ...args:any[] ): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of listeners  */
 		getListeners?(): any;
 		/** [Method] Checks to see if this object has any listeners for a specified event 
@@ -26949,9 +26140,7 @@ declare module Ext.field {
 		/** [Method] Returns an array of values from the checkboxes in the group that are checked  */
 		getGroupValues?(): any[];
 		/** [Method] Returns the submit value for the checkbox which can be used when submitting forms  */
-		getSubmitValue?(): boolean;
-		/** [Method] Returns the submit value for the checkbox which can be used when submitting forms  */
-		getSubmitValue?(): string;
+		getSubmitValue?(): any;
 		/** [Method] Returns the value of ui  */
 		getUi?(): string;
 		/** [Method] Returns the value of value  */
@@ -27005,9 +26194,7 @@ declare module Ext.form {
 		/** [Method] Returns an array of values from the checkboxes in the group that are checked  */
 		getGroupValues?(): any[];
 		/** [Method] Returns the submit value for the checkbox which can be used when submitting forms  */
-		getSubmitValue?(): boolean;
-		/** [Method] Returns the submit value for the checkbox which can be used when submitting forms  */
-		getSubmitValue?(): string;
+		getSubmitValue?(): any;
 		/** [Method] Returns the value of ui  */
 		getUi?(): string;
 		/** [Method] Returns the value of value  */
@@ -27241,9 +26428,7 @@ declare module Ext.field {
 		/** [Method] Returns the value of labelCls  */
 		getLabelCls?(): string;
 		/** [Method] Returns the value of labelWidth  */
-		getLabelWidth?(): number;
-		/** [Method] Returns the value of labelWidth  */
-		getLabelWidth?(): string;
+		getLabelWidth?(): any;
 		/** [Method] Returns the value of labelWrap  */
 		getLabelWrap?(): boolean;
 		/** [Method] Returns the value of name  */
@@ -27381,9 +26566,7 @@ declare module Ext.form {
 		/** [Method] Returns the value of labelCls  */
 		getLabelCls?(): string;
 		/** [Method] Returns the value of labelWidth  */
-		getLabelWidth?(): number;
-		/** [Method] Returns the value of labelWidth  */
-		getLabelWidth?(): string;
+		getLabelWidth?(): any;
 		/** [Method] Returns the value of labelWrap  */
 		getLabelWrap?(): boolean;
 		/** [Method] Returns the value of name  */
@@ -27842,9 +27025,7 @@ declare module Ext.field {
 		/** [Method] Returns the selected value if this radio is part of a group other radio fields with the same name in the same FormP  */
 		getGroupValue?(): string;
 		/** [Method] Returns the submit value for the checkbox which can be used when submitting forms  */
-		getSubmitValue?(): boolean;
-		/** [Method] Returns the submit value for the checkbox which can be used when submitting forms  */
-		getSubmitValue?(): string;
+		getSubmitValue?(): any;
 		/** [Method] Returns the value of ui  */
 		getUi?(): string;
 		/** [Method] Returns the value of value  */
@@ -27878,9 +27059,7 @@ declare module Ext.form {
 		/** [Method] Returns the selected value if this radio is part of a group other radio fields with the same name in the same FormP  */
 		getGroupValue?(): string;
 		/** [Method] Returns the submit value for the checkbox which can be used when submitting forms  */
-		getSubmitValue?(): boolean;
-		/** [Method] Returns the submit value for the checkbox which can be used when submitting forms  */
-		getSubmitValue?(): string;
+		getSubmitValue?(): any;
 		/** [Method] Returns the value of ui  */
 		getUi?(): string;
 		/** [Method] Returns the value of value  */
@@ -27976,9 +27155,7 @@ declare module Ext.field {
 		/** [Method] Returns the value of defaultTabletPickerConfig  */
 		getDefaultTabletPickerConfig?(): any;
 		/** [Method] Returns the value of displayField  */
-		getDisplayField?(): string;
-		/** [Method] Returns the value of displayField  */
-		getDisplayField?(): number;
+		getDisplayField?(): any;
 		/** [Method] Returns the value of hiddenName  */
 		getHiddenName?(): string;
 		/** [Method] Returns the value of name  */
@@ -27992,15 +27169,11 @@ declare module Ext.field {
 		/** [Method] Returns the value of ui  */
 		getUi?(): string;
 		/** [Method] Returns the value of usePicker  */
-		getUsePicker?(): string;
-		/** [Method] Returns the value of usePicker  */
-		getUsePicker?(): boolean;
+		getUsePicker?(): any;
 		/** [Method] Returns the value of value  */
 		getValue?(): any;
 		/** [Method] Returns the value of valueField  */
-		getValueField?(): string;
-		/** [Method] Returns the value of valueField  */
-		getValueField?(): number;
+		getValueField?(): any;
 		/** [Method] Called when the internal store s data has changed  
 		* @param store Object 
 		*/
@@ -28098,9 +27271,7 @@ declare module Ext.form {
 		/** [Method] Returns the value of defaultTabletPickerConfig  */
 		getDefaultTabletPickerConfig?(): any;
 		/** [Method] Returns the value of displayField  */
-		getDisplayField?(): string;
-		/** [Method] Returns the value of displayField  */
-		getDisplayField?(): number;
+		getDisplayField?(): any;
 		/** [Method] Returns the value of hiddenName  */
 		getHiddenName?(): string;
 		/** [Method] Returns the value of name  */
@@ -28114,15 +27285,11 @@ declare module Ext.form {
 		/** [Method] Returns the value of ui  */
 		getUi?(): string;
 		/** [Method] Returns the value of usePicker  */
-		getUsePicker?(): string;
-		/** [Method] Returns the value of usePicker  */
-		getUsePicker?(): boolean;
+		getUsePicker?(): any;
 		/** [Method] Returns the value of value  */
 		getValue?(): any;
 		/** [Method] Returns the value of valueField  */
-		getValueField?(): string;
-		/** [Method] Returns the value of valueField  */
-		getValueField?(): number;
+		getValueField?(): any;
 		/** [Method] Called when the internal store s data has changed  
 		* @param store Object 
 		*/
@@ -28216,9 +27383,7 @@ declare module Ext.field {
 		/** [Method] Returns the value of readOnly  */
 		getReadOnly?(): boolean;
 		/** [Method] Returns the value of value  */
-		getValue?(): number;
-		/** [Method] Returns the value of value  */
-		getValue?(): number[];
+		getValue?(): any;
 		/** [Method] Convenience method  */
 		getValues?(): any;
 		/** [Method] Returns true if the value of this Field has been changed from its originalValue  */
@@ -28290,9 +27455,7 @@ declare module Ext.form {
 		/** [Method] Returns the value of readOnly  */
 		getReadOnly?(): boolean;
 		/** [Method] Returns the value of value  */
-		getValue?(): number;
-		/** [Method] Returns the value of value  */
-		getValue?(): number[];
+		getValue?(): any;
 		/** [Method] Convenience method  */
 		getValues?(): any;
 		/** [Method] Returns true if the value of this Field has been changed from its originalValue  */
@@ -28802,9 +27965,7 @@ declare module Ext.field {
 		/** [Method] Returns the value of minValueCls  */
 		getMinValueCls?(): string;
 		/** [Method] Returns the value of value  */
-		getValue?(): number;
-		/** [Method] Returns the value of value  */
-		getValue?(): number[];
+		getValue?(): any;
 		/** [Method] Sets the value of cls  
 		* @param cls String 
 		*/
@@ -28852,9 +28013,7 @@ declare module Ext.form {
 		/** [Method] Returns the value of minValueCls  */
 		getMinValueCls?(): string;
 		/** [Method] Returns the value of value  */
-		getValue?(): number;
-		/** [Method] Returns the value of value  */
-		getValue?(): number[];
+		getValue?(): any;
 		/** [Method] Sets the value of cls  
 		* @param cls String 
 		*/
@@ -30835,9 +29994,7 @@ declare module Ext.layout {
 		*/
 		fireEvent?( eventName:string, ...args:any[] ): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of listeners  */
 		getListeners?(): any;
 		/** [Method] Checks to see if this object has any listeners for a specified event 
@@ -31340,9 +30497,7 @@ declare module Ext {
 		/** [Method] Returns the state of the Map  */
 		getState?(): any;
 		/** [Method] Returns the value of useCurrentLocation  */
-		getUseCurrentLocation?(): boolean;
-		/** [Method] Returns the value of useCurrentLocation  */
-		getUseCurrentLocation?(): Ext.util.IGeolocation;
+		getUseCurrentLocation?(): any;
 		/** [Method] Allows addition of behavior to the rendering phase  */
 		initialize?(): void;
 		/** [Method] Sets the value of baseCls  
@@ -31762,9 +30917,7 @@ declare module Ext.mixin {
 		*/
 		fireEvent?( eventName:string, ...args:any[] ): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Retrieves the id of this component  */
 		getId?(): string;
 		/** [Method] Returns the value of listeners  */
@@ -31971,9 +31124,7 @@ declare module Ext.util {
 		*/
 		fireEvent?( eventName:string, ...args:any[] ): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Retrieves the id of this component  */
 		getId?(): string;
 		/** [Method] Returns the value of listeners  */
@@ -32448,43 +31599,23 @@ declare module Ext {
 		/** [Method] Returns the value of baseCls  */
 		static getBaseCls(): string;
 		/** [Method] Returns the value of bodyBorder  */
-		static getBodyBorder(): number;
-		/** [Method] Returns the value of bodyBorder  */
-		static getBodyBorder(): boolean;
-		/** [Method] Returns the value of bodyBorder  */
-		static getBodyBorder(): string;
+		static getBodyBorder(): any;
 		/** [Method] Returns the value of bodyMargin  */
-		static getBodyMargin(): number;
-		/** [Method] Returns the value of bodyMargin  */
-		static getBodyMargin(): boolean;
-		/** [Method] Returns the value of bodyMargin  */
-		static getBodyMargin(): string;
+		static getBodyMargin(): any;
 		/** [Method] Returns the value of bodyPadding  */
-		static getBodyPadding(): number;
-		/** [Method] Returns the value of bodyPadding  */
-		static getBodyPadding(): boolean;
-		/** [Method] Returns the value of bodyPadding  */
-		static getBodyPadding(): string;
+		static getBodyPadding(): any;
 		/** [Method] Returns the value of border  */
-		static getBorder(): number;
-		/** [Method] Returns the value of border  */
-		static getBorder(): string;
+		static getBorder(): any;
 		/** [Method] Returns the value of bottom  */
-		static getBottom(): number;
-		/** [Method] Returns the value of bottom  */
-		static getBottom(): string;
+		static getBottom(): any;
 		/** [Method] Returns the value of bubbleEvents  */
-		static getBubbleEvents(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		static getBubbleEvents(): string[];
+		static getBubbleEvents(): any;
 		/** [Method] Returns the value of buttons  */
 		static getButtons(): any;
 		/** [Method] Returns the value of centered  */
 		static getCentered(): boolean;
 		/** [Method] Returns the value of cls  */
-		static getCls(): string;
-		/** [Method] Returns the value of cls  */
-		static getCls(): string[];
+		static getCls(): any;
 		/** [Method] Examines this container s items property and gets a direct child component of this container  
 		* @param component String/Number This parameter may be any of the following:  {String} : representing the itemId or id of the child component. {Number} : representing the position of the child component within the items property. For additional information see Ext.util.MixedCollection.get. 
 		*/
@@ -32492,11 +31623,7 @@ declare module Ext {
 		static getComponent( component?:string ): Ext.IComponent;
 		static getComponent( component?:number ): Ext.IComponent;
 		/** [Method] Returns the value of contentEl  */
-		static getContentEl(): Ext.IElement;
-		/** [Method] Returns the value of contentEl  */
-		static getContentEl(): HTMLElement;
-		/** [Method] Returns the value of contentEl  */
-		static getContentEl(): string;
+		static getContentEl(): any;
 		/** [Method] Returns the value of control  */
 		static getControl(): any;
 		/** [Method] Returns the value of data  */
@@ -32517,11 +31644,6 @@ declare module Ext {
 		* @param component String/Number The id or index of the component to find. 
 		*/
 		static getDockedComponent( component?:any ): any;
-		static getDockedComponent( component?:string ): Ext.IComponent;
-		static getDockedComponent( component?:number ): Ext.IComponent;
-		/** [Method] Finds a docked item of this container using a reference idor an index of its location in getDockedItems  
-		* @param component String/Number The id or index of the component to find. 
-		*/
 		static getDockedComponent( component?:string ): boolean;
 		static getDockedComponent( component?:number ): boolean;
 		/** [Method] Returns all the Ext Component docked items in this container  */
@@ -32531,13 +31653,9 @@ declare module Ext {
 		/** [Method] Returns the value of enter  */
 		static getEnter(): string;
 		/** [Method] Returns the value of enterAnimation  */
-		static getEnterAnimation(): string;
-		/** [Method] Returns the value of enterAnimation  */
 		static getEnterAnimation(): any;
 		/** [Method] Returns the value of exit  */
 		static getExit(): string;
-		/** [Method] Returns the value of exitAnimation  */
-		static getExitAnimation(): string;
 		/** [Method] Returns the value of exitAnimation  */
 		static getExitAnimation(): any;
 		/** [Method] Returns the value of flex  */
@@ -32545,9 +31663,7 @@ declare module Ext {
 		/** [Method] Returns the value of floatingCls  */
 		static getFloatingCls(): string;
 		/** [Method] Returns the value of height  */
-		static getHeight(): number;
-		/** [Method] Returns the value of height  */
-		static getHeight(): string;
+		static getHeight(): any;
 		/** [Method] Returns the value of hidden  */
 		static getHidden(): boolean;
 		/** [Method] Returns the value of hiddenCls  */
@@ -32557,11 +31673,7 @@ declare module Ext {
 		/** [Method] Returns the value of hideOnMaskTap  */
 		static getHideOnMaskTap(): boolean;
 		/** [Method] Returns the value of html  */
-		static getHtml(): string;
-		/** [Method] Returns the value of html  */
-		static getHtml(): Ext.IElement;
-		/** [Method] Returns the value of html  */
-		static getHtml(): HTMLElement;
+		static getHtml(): any;
 		/** [Method] Retrieves the id of this component  */
 		static getId(): string;
 		/** [Method] Returns the initial configuration passed to constructor  
@@ -32577,37 +31689,23 @@ declare module Ext {
 		/** [Method] Returns the value of layout  */
 		static getLayout(): any;
 		/** [Method] Returns the value of left  */
-		static getLeft(): number;
-		/** [Method] Returns the value of left  */
-		static getLeft(): string;
+		static getLeft(): any;
 		/** [Method] Returns the value of listeners  */
 		static getListeners(): any;
 		/** [Method] Returns the value of margin  */
-		static getMargin(): number;
-		/** [Method] Returns the value of margin  */
-		static getMargin(): string;
+		static getMargin(): any;
 		/** [Method] Returns the value of masked  */
 		static getMasked(): any;
 		/** [Method] Returns the value of maxHeight  */
-		static getMaxHeight(): number;
-		/** [Method] Returns the value of maxHeight  */
-		static getMaxHeight(): string;
+		static getMaxHeight(): any;
 		/** [Method] Returns the value of maxWidth  */
-		static getMaxWidth(): number;
-		/** [Method] Returns the value of maxWidth  */
-		static getMaxWidth(): string;
+		static getMaxWidth(): any;
 		/** [Method] Returns the value of minHeight  */
-		static getMinHeight(): number;
-		/** [Method] Returns the value of minHeight  */
-		static getMinHeight(): string;
+		static getMinHeight(): any;
 		/** [Method] Returns the value of minWidth  */
-		static getMinWidth(): number;
-		/** [Method] Returns the value of minWidth  */
-		static getMinWidth(): string;
+		static getMinWidth(): any;
 		/** [Method] Returns the value of padding  */
-		static getPadding(): number;
-		/** [Method] Returns the value of padding  */
-		static getPadding(): string;
+		static getPadding(): any;
 		/** [Method] Returns the parent of this component if it has one  */
 		static getParent(): Ext.IComponent;
 		/** [Method] Returns the value of plugins  */
@@ -32619,9 +31717,7 @@ declare module Ext {
 		/** [Method] Returns the value of renderTo  */
 		static getRenderTo(): Ext.IElement;
 		/** [Method] Returns the value of right  */
-		static getRight(): number;
-		/** [Method] Returns the value of right  */
-		static getRight(): string;
+		static getRight(): any;
 		/** [Method] Returns an the scrollable instance for this container which is a Ext scroll View class  */
 		static getScrollable(): Ext.scroll.IView;
 		/** [Method] Returns the value of showAnimation  */
@@ -32641,25 +31737,15 @@ declare module Ext {
 		/** [Method] Returns the value of title  */
 		static getTitle(): string;
 		/** [Method] Returns the value of top  */
-		static getTop(): number;
-		/** [Method] Returns the value of top  */
-		static getTop(): string;
+		static getTop(): any;
 		/** [Method] Returns the value of tpl  */
-		static getTpl(): string;
-		/** [Method] Returns the value of tpl  */
-		static getTpl(): string[];
-		/** [Method] Returns the value of tpl  */
-		static getTpl(): Ext.ITemplate[];
-		/** [Method] Returns the value of tpl  */
-		static getTpl(): Ext.IXTemplate[];
+		static getTpl(): any;
 		/** [Method] Returns the value of tplWriteMode  */
 		static getTplWriteMode(): string;
 		/** [Method] Returns the value of ui  */
 		static getUi(): string;
 		/** [Method] Returns the value of width  */
-		static getWidth(): number;
-		/** [Method] Returns the value of width  */
-		static getWidth(): string;
+		static getWidth(): any;
 		/** [Method] Returns this Component s xtype hierarchy as a slash delimited string  */
 		static getXTypes(): string;
 		/** [Method] Returns the value of zIndex  */
@@ -33512,23 +32598,11 @@ declare module Ext {
 		/** [Method] Returns the value of baseCls  */
 		getBaseCls?(): string;
 		/** [Method] Returns the value of bodyBorder  */
-		getBodyBorder?(): number;
-		/** [Method] Returns the value of bodyBorder  */
-		getBodyBorder?(): boolean;
-		/** [Method] Returns the value of bodyBorder  */
-		getBodyBorder?(): string;
+		getBodyBorder?(): any;
 		/** [Method] Returns the value of bodyMargin  */
-		getBodyMargin?(): number;
-		/** [Method] Returns the value of bodyMargin  */
-		getBodyMargin?(): boolean;
-		/** [Method] Returns the value of bodyMargin  */
-		getBodyMargin?(): string;
+		getBodyMargin?(): any;
 		/** [Method] Returns the value of bodyPadding  */
-		getBodyPadding?(): number;
-		/** [Method] Returns the value of bodyPadding  */
-		getBodyPadding?(): boolean;
-		/** [Method] Returns the value of bodyPadding  */
-		getBodyPadding?(): string;
+		getBodyPadding?(): any;
 		/** [Method] Sets the value of baseCls  
 		* @param baseCls String 
 		*/
@@ -33569,23 +32643,11 @@ declare module Ext.lib {
 		/** [Method] Returns the value of baseCls  */
 		getBaseCls?(): string;
 		/** [Method] Returns the value of bodyBorder  */
-		getBodyBorder?(): number;
-		/** [Method] Returns the value of bodyBorder  */
-		getBodyBorder?(): boolean;
-		/** [Method] Returns the value of bodyBorder  */
-		getBodyBorder?(): string;
+		getBodyBorder?(): any;
 		/** [Method] Returns the value of bodyMargin  */
-		getBodyMargin?(): number;
-		/** [Method] Returns the value of bodyMargin  */
-		getBodyMargin?(): boolean;
-		/** [Method] Returns the value of bodyMargin  */
-		getBodyMargin?(): string;
+		getBodyMargin?(): any;
 		/** [Method] Returns the value of bodyPadding  */
-		getBodyPadding?(): number;
-		/** [Method] Returns the value of bodyPadding  */
-		getBodyPadding?(): boolean;
-		/** [Method] Returns the value of bodyPadding  */
-		getBodyPadding?(): string;
+		getBodyPadding?(): any;
 		/** [Method] Sets the value of baseCls  
 		* @param baseCls String 
 		*/
@@ -33633,8 +32695,6 @@ declare module Ext.picker {
 		yearTo?: number;
 		/** [Method] Returns the value of dayText  */
 		getDayText?(): string;
-		/** [Method] Returns the value of doneButton  */
-		getDoneButton?(): string;
 		/** [Method] Returns the value of doneButton  */
 		getDoneButton?(): any;
 		/** [Method] Returns the value of monthText  */
@@ -33727,8 +32787,6 @@ declare module Ext {
 		yearTo?: number;
 		/** [Method] Returns the value of dayText  */
 		getDayText?(): string;
-		/** [Method] Returns the value of doneButton  */
-		getDoneButton?(): string;
 		/** [Method] Returns the value of doneButton  */
 		getDoneButton?(): any;
 		/** [Method] Returns the value of monthText  */
@@ -33844,13 +32902,9 @@ declare module Ext.picker {
 		/** [Method] Returns the value of bottom  */
 		getBottom?(): number;
 		/** [Method] Returns the value of cancelButton  */
-		getCancelButton?(): string;
-		/** [Method] Returns the value of cancelButton  */
 		getCancelButton?(): any;
 		/** [Method] Returns the value of activeItem  */
 		getCard?(): any;
-		/** [Method] Returns the value of doneButton  */
-		getDoneButton?(): string;
 		/** [Method] Returns the value of doneButton  */
 		getDoneButton?(): any;
 		/** [Method] Returns the value of layout  */
@@ -33977,13 +33031,9 @@ declare module Ext {
 		/** [Method] Returns the value of bottom  */
 		getBottom?(): number;
 		/** [Method] Returns the value of cancelButton  */
-		getCancelButton?(): string;
-		/** [Method] Returns the value of cancelButton  */
 		getCancelButton?(): any;
 		/** [Method] Returns the value of activeItem  */
 		getCard?(): any;
-		/** [Method] Returns the value of doneButton  */
-		getDoneButton?(): string;
 		/** [Method] Returns the value of doneButton  */
 		getDoneButton?(): any;
 		/** [Method] Returns the value of layout  */
@@ -34201,11 +33251,7 @@ declare module Ext.plugin {
 		/** [Method] Returns the value of pullRefreshText  */
 		getPullRefreshText?(): string;
 		/** [Method] Returns the value of pullTpl  */
-		getPullTpl?(): Ext.IXTemplate;
-		/** [Method] Returns the value of pullTpl  */
-		getPullTpl?(): string;
-		/** [Method] Returns the value of pullTpl  */
-		getPullTpl?(): any[];
+		getPullTpl?(): any;
 		/** [Method] Returns the value of releaseRefreshText  */
 		getReleaseRefreshText?(): string;
 		/** [Method] Returns the value of snappingAnimationDuration  */
@@ -34783,9 +33829,7 @@ declare module Ext.slider {
 		/** [Method] Returns the Thumb instances bound to this Slider */
 		getThumbs?(): Ext.slider.IThumb[];
 		/** [Method] Returns the value of value  */
-		getValue?(): number;
-		/** [Method] Returns the value of value  */
-		getValue?(): number[];
+		getValue?(): any;
 		/** [Method] Convenience method  */
 		getValues?(): any;
 		/** [Method] Sets the value of allowThumbsOverlapping  
@@ -34997,11 +34041,7 @@ declare module Ext.tab {
 		/** [Config Option] (String) */
 		baseCls?: string;
 		/** [Method] Returns the value of activeTab  */
-		getActiveTab?(): number;
-		/** [Method] Returns the value of activeTab  */
-		getActiveTab?(): string;
-		/** [Method] Returns the value of activeTab  */
-		getActiveTab?(): Ext.IComponent;
+		getActiveTab?(): any;
 		/** [Method] Returns the value of baseCls  */
 		getBaseCls?(): string;
 		/** [Method] Allows addition of behavior to the rendering phase  */
@@ -35026,11 +34066,7 @@ declare module Ext {
 		/** [Config Option] (String) */
 		baseCls?: string;
 		/** [Method] Returns the value of activeTab  */
-		getActiveTab?(): number;
-		/** [Method] Returns the value of activeTab  */
-		getActiveTab?(): string;
-		/** [Method] Returns the value of activeTab  */
-		getActiveTab?(): Ext.IComponent;
+		getActiveTab?(): any;
 		/** [Method] Returns the value of baseCls  */
 		getBaseCls?(): string;
 		/** [Method] Allows addition of behavior to the rendering phase  */
@@ -35299,17 +34335,9 @@ declare module Ext {
 		* @param returnElement Boolean true to return an Ext.Element. 
 		*/
 		append?( el?:any, values?:any, returnElement?:any ): any;
-		append?( el?:string, values?:any, returnElement?:boolean ): HTMLElement;
-		append?( el?:HTMLElement, values?:any, returnElement?:boolean ): HTMLElement;
-		append?( el?:Ext.IElement, values?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Applies the supplied values to the template and appends the new node s to the specified el  
-		* @param el String/HTMLElement/Ext.Element The context element. 
-		* @param values Object/Array The template values. See applyTemplate for details. 
-		* @param returnElement Boolean true to return an Ext.Element. 
-		*/
-		append?( el?:string, values?:any, returnElement?:boolean ): Ext.IElement;
-		append?( el?:HTMLElement, values?:any, returnElement?:boolean ): Ext.IElement;
-		append?( el?:Ext.IElement, values?:any, returnElement?:boolean ): Ext.IElement;
+		append?( el?:string, values?:any, returnElement?:boolean ): any;
+		append?( el?:HTMLElement, values?:any, returnElement?:boolean ): any;
+		append?( el?:Ext.IElement, values?:any, returnElement?:boolean ): any;
 		/** [Method] Returns an HTML fragment of this template with the specified values applied  
 		* @param values Object/Array The template values. Can be an array if your params are numeric:  var tpl = new Ext.Template('Name: {0}, Age: {1}'); tpl.apply(['John', 25]); or an object:  var tpl = new Ext.Template('Name: {name}, Age: {age}'); tpl.apply({name: 'John', age: 25});  
 		*/
@@ -35331,68 +34359,36 @@ declare module Ext {
 		* @param returnElement Boolean true to return a Ext.Element. 
 		*/
 		insertAfter?( el?:any, values?:any, returnElement?:any ): any;
-		insertAfter?( el?:string, values?:any, returnElement?:boolean ): HTMLElement;
-		insertAfter?( el?:HTMLElement, values?:any, returnElement?:boolean ): HTMLElement;
-		insertAfter?( el?:Ext.IElement, values?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Applies the supplied values to the template and inserts the new node s after el  
-		* @param el String/HTMLElement/Ext.Element The context element. 
-		* @param values Object/Array The template values. See applyTemplate for details. 
-		* @param returnElement Boolean true to return a Ext.Element. 
-		*/
-		insertAfter?( el?:string, values?:any, returnElement?:boolean ): Ext.IElement;
-		insertAfter?( el?:HTMLElement, values?:any, returnElement?:boolean ): Ext.IElement;
-		insertAfter?( el?:Ext.IElement, values?:any, returnElement?:boolean ): Ext.IElement;
+		insertAfter?( el?:string, values?:any, returnElement?:boolean ): any;
+		insertAfter?( el?:HTMLElement, values?:any, returnElement?:boolean ): any;
+		insertAfter?( el?:Ext.IElement, values?:any, returnElement?:boolean ): any;
 		/** [Method] Applies the supplied values to the template and inserts the new node s before el  
 		* @param el String/HTMLElement/Ext.Element The context element. 
 		* @param values Object/Array The template values. See applyTemplate for details. 
 		* @param returnElement Boolean true to return an Ext.Element. 
 		*/
 		insertBefore?( el?:any, values?:any, returnElement?:any ): any;
-		insertBefore?( el?:string, values?:any, returnElement?:boolean ): HTMLElement;
-		insertBefore?( el?:HTMLElement, values?:any, returnElement?:boolean ): HTMLElement;
-		insertBefore?( el?:Ext.IElement, values?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Applies the supplied values to the template and inserts the new node s before el  
-		* @param el String/HTMLElement/Ext.Element The context element. 
-		* @param values Object/Array The template values. See applyTemplate for details. 
-		* @param returnElement Boolean true to return an Ext.Element. 
-		*/
-		insertBefore?( el?:string, values?:any, returnElement?:boolean ): Ext.IElement;
-		insertBefore?( el?:HTMLElement, values?:any, returnElement?:boolean ): Ext.IElement;
-		insertBefore?( el?:Ext.IElement, values?:any, returnElement?:boolean ): Ext.IElement;
+		insertBefore?( el?:string, values?:any, returnElement?:boolean ): any;
+		insertBefore?( el?:HTMLElement, values?:any, returnElement?:boolean ): any;
+		insertBefore?( el?:Ext.IElement, values?:any, returnElement?:boolean ): any;
 		/** [Method] Applies the supplied values to the template and inserts the new node s as the first child of el  
 		* @param el String/HTMLElement/Ext.Element The context element. 
 		* @param values Object/Array The template values. See applyTemplate for details. 
 		* @param returnElement Boolean true to return a Ext.Element. 
 		*/
 		insertFirst?( el?:any, values?:any, returnElement?:any ): any;
-		insertFirst?( el?:string, values?:any, returnElement?:boolean ): HTMLElement;
-		insertFirst?( el?:HTMLElement, values?:any, returnElement?:boolean ): HTMLElement;
-		insertFirst?( el?:Ext.IElement, values?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Applies the supplied values to the template and inserts the new node s as the first child of el  
-		* @param el String/HTMLElement/Ext.Element The context element. 
-		* @param values Object/Array The template values. See applyTemplate for details. 
-		* @param returnElement Boolean true to return a Ext.Element. 
-		*/
-		insertFirst?( el?:string, values?:any, returnElement?:boolean ): Ext.IElement;
-		insertFirst?( el?:HTMLElement, values?:any, returnElement?:boolean ): Ext.IElement;
-		insertFirst?( el?:Ext.IElement, values?:any, returnElement?:boolean ): Ext.IElement;
+		insertFirst?( el?:string, values?:any, returnElement?:boolean ): any;
+		insertFirst?( el?:HTMLElement, values?:any, returnElement?:boolean ): any;
+		insertFirst?( el?:Ext.IElement, values?:any, returnElement?:boolean ): any;
 		/** [Method] Applies the supplied values to the template and overwrites the content of el with the new node s 
 		* @param el String/HTMLElement/Ext.Element The context element. 
 		* @param values Object/Array The template values. See applyTemplate for details. 
 		* @param returnElement Boolean true to return a Ext.Element. 
 		*/
 		overwrite?( el?:any, values?:any, returnElement?:any ): any;
-		overwrite?( el?:string, values?:any, returnElement?:boolean ): HTMLElement;
-		overwrite?( el?:HTMLElement, values?:any, returnElement?:boolean ): HTMLElement;
-		overwrite?( el?:Ext.IElement, values?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Applies the supplied values to the template and overwrites the content of el with the new node s 
-		* @param el String/HTMLElement/Ext.Element The context element. 
-		* @param values Object/Array The template values. See applyTemplate for details. 
-		* @param returnElement Boolean true to return a Ext.Element. 
-		*/
-		overwrite?( el?:string, values?:any, returnElement?:boolean ): Ext.IElement;
-		overwrite?( el?:HTMLElement, values?:any, returnElement?:boolean ): Ext.IElement;
-		overwrite?( el?:Ext.IElement, values?:any, returnElement?:boolean ): Ext.IElement;
+		overwrite?( el?:string, values?:any, returnElement?:boolean ): any;
+		overwrite?( el?:HTMLElement, values?:any, returnElement?:boolean ): any;
+		overwrite?( el?:Ext.IElement, values?:any, returnElement?:boolean ): any;
 		/** [Method] Sets the HTML used as the template and optionally compiles it  
 		* @param html String 
 		* @param compile Boolean true to compile the template. 
@@ -35733,9 +34729,7 @@ declare module Ext.util {
 		*/
 		getAt?( index?:number ): any;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the item associated with the passed key  
 		* @param key String/Number The key of the item. 
 		*/
@@ -36294,9 +35288,7 @@ declare module Ext.util {
 		*/
 		fireEvent?( eventName:string, ...args:any[] ): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of cls  */
 		getCls?(): string;
 		/** [Method] Returns the value of constraint  */
@@ -36565,9 +35557,7 @@ declare module Ext.util {
 		/** [Method] Returns the value of baseCls  */
 		getBaseCls?(): string;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of listeners  */
 		getListeners?(): any;
 		/** [Method] Checks to see if this object has any listeners for a specified event 
@@ -36747,8 +35737,6 @@ declare module Ext.util {
 		getRoot?(): string;
 		/** [Method] Returns the value of scope  */
 		getScope?(): any;
-		/** [Method] Returns the value of value  */
-		getValue?(): RegExp;
 		/** [Method] Returns the value of value  */
 		getValue?(): any;
 		/** [Method] Sets the value of anyMatch  
@@ -37063,9 +36051,7 @@ declare module Ext.util {
 		*/
 		get?( key?:string ): any;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents? (): any;
 		/** [Method] Gets the number of items in the hash  */
 		getCount?(): number;
 		/** [Method] Return all of the keys in the hash  */
@@ -37499,11 +36485,7 @@ declare module Ext.util {
 		/** [Method] Checks if this region intersects the region passed in  
 		* @param region Ext.util.Region 
 		*/
-		intersect?( region?:Ext.util.IRegion ): Ext.util.IRegion;
-		/** [Method] Checks if this region intersects the region passed in  
-		* @param region Ext.util.Region 
-		*/
-		intersect?( region?:Ext.util.IRegion ): boolean;
+		intersect?( region?:Ext.util.IRegion ): any;
 		/** [Method] Check whether the point  offset is out of bounds  
 		* @param axis String optional 
 		* @param p Ext.util.Point/Number The point / offset. 
@@ -37761,9 +36743,7 @@ declare module Ext.util {
 		/** [Method] Returns the value of accelerate  */
 		getAccelerate?(): boolean;
 		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		getBubbleEvents?(): string[];
+		getBubbleEvents?(): any;
 		/** [Method] Returns the value of delay  */
 		getDelay?(): number;
 		/** [Method] Returns the value of el  */
@@ -38174,8 +37154,6 @@ declare module Ext {
 		getPosterUrl?(): string;
 		/** [Method] Returns the value of url  */
 		getUrl?(): string;
-		/** [Method] Returns the value of url  */
-		getUrl?(): any[];
 		/** [Method] Allows addition of behavior to the rendering phase  */
 		initialize?(): void;
 		/** [Method] Sets the value of cls  
@@ -38399,23 +37377,15 @@ declare module Ext {
 		/** [Method] Returns the value of baseCls  */
 		static getBaseCls(): string;
 		/** [Method] Returns the value of border  */
-		static getBorder(): number;
-		/** [Method] Returns the value of border  */
-		static getBorder(): string;
+		static getBorder(): any;
 		/** [Method] Returns the value of bottom  */
-		static getBottom(): number;
-		/** [Method] Returns the value of bottom  */
-		static getBottom(): string;
+		static getBottom(): any;
 		/** [Method] Returns the value of bubbleEvents  */
-		static getBubbleEvents(): string;
-		/** [Method] Returns the value of bubbleEvents  */
-		static getBubbleEvents(): string[];
+		static getBubbleEvents(): any;
 		/** [Method] Returns the value of centered  */
 		static getCentered(): boolean;
 		/** [Method] Returns the value of cls  */
-		static getCls(): string;
-		/** [Method] Returns the value of cls  */
-		static getCls(): string[];
+		static getCls(): any;
 		/** [Method] Examines this container s items property and gets a direct child component of this container  
 		* @param component String/Number This parameter may be any of the following:  {String} : representing the itemId or id of the child component. {Number} : representing the position of the child component within the items property. For additional information see Ext.util.MixedCollection.get. 
 		*/
@@ -38423,11 +37393,7 @@ declare module Ext {
 		static getComponent( component?:string ): Ext.IComponent;
 		static getComponent( component?:number ): Ext.IComponent;
 		/** [Method] Returns the value of contentEl  */
-		static getContentEl(): Ext.IElement;
-		/** [Method] Returns the value of contentEl  */
-		static getContentEl(): HTMLElement;
-		/** [Method] Returns the value of contentEl  */
-		static getContentEl(): string;
+		static getContentEl(): any;
 		/** [Method] Returns the value of control  */
 		static getControl(): any;
 		/** [Method] Returns the value of data  */
@@ -38446,23 +37412,14 @@ declare module Ext {
 		* @param component String/Number The id or index of the component to find. 
 		*/
 		static getDockedComponent( component?:any ): any;
-		static getDockedComponent( component?:string ): Ext.IComponent;
-		static getDockedComponent( component?:number ): Ext.IComponent;
-		/** [Method] Finds a docked item of this container using a reference idor an index of its location in getDockedItems  
-		* @param component String/Number The id or index of the component to find. 
-		*/
-		static getDockedComponent( component?:string ): boolean;
-		static getDockedComponent( component?:number ): boolean;
+		static getDockedComponent( component?:string ): any;
+		static getDockedComponent( component?:number ): any;
 		/** [Method] Returns all the Ext Component docked items in this container  */
 		static getDockedItems(): any[];
 		/** [Method] Retrieves the top level element representing this component  */
 		static getEl(): Ext.dom.IElement;
 		/** [Method] Returns the value of enterAnimation  */
-		static getEnterAnimation(): string;
-		/** [Method] Returns the value of enterAnimation  */
 		static getEnterAnimation(): any;
-		/** [Method] Returns the value of exitAnimation  */
-		static getExitAnimation(): string;
 		/** [Method] Returns the value of exitAnimation  */
 		static getExitAnimation(): any;
 		/** [Method] Returns the value of flex  */
@@ -38474,17 +37431,11 @@ declare module Ext {
 		/** [Method] Returns the value of hiddenCls  */
 		static getHiddenCls(): string;
 		/** [Method] Returns the value of hideAnimation  */
-		static getHideAnimation(): string;
-		/** [Method] Returns the value of hideAnimation  */
 		static getHideAnimation(): any;
 		/** [Method] Returns the value of hideOnMaskTap  */
 		static getHideOnMaskTap(): boolean;
 		/** [Method] Returns the value of html  */
-		static getHtml(): string;
-		/** [Method] Returns the value of html  */
-		static getHtml(): Ext.IElement;
-		/** [Method] Returns the value of html  */
-		static getHtml(): HTMLElement;
+		static getHtml(): any;
 		/** [Method] Retrieves the id of this component  */
 		static getId(): string;
 		/** [Method] Returns the initial configuration passed to constructor  
@@ -38500,41 +37451,27 @@ declare module Ext {
 		/** [Method] Returns the value of layout  */
 		static getLayout(): any;
 		/** [Method] Returns the value of left  */
-		static getLeft(): number;
-		/** [Method] Returns the value of left  */
-		static getLeft(): string;
+		static getLeft(): any;
 		/** [Method] Returns the value of listeners  */
 		static getListeners(): any;
 		/** [Method] Returns the value of margin  */
-		static getMargin(): number;
-		/** [Method] Returns the value of margin  */
-		static getMargin(): string;
+		static getMargin(): any;
 		/** [Method] Returns the value of masked  */
 		static getMasked(): any;
 		/** [Method] Returns the value of maxHeight  */
-		static getMaxHeight(): number;
-		/** [Method] Returns the value of maxHeight  */
-		static getMaxHeight(): string;
+		static getMaxHeight(): any;
 		/** [Method] Returns the value of maxWidth  */
-		static getMaxWidth(): number;
-		/** [Method] Returns the value of maxWidth  */
-		static getMaxWidth(): string;
+		static getMaxWidth(): any;
 		/** [Method] Returns the value of minHeight  */
-		static getMinHeight(): number;
-		/** [Method] Returns the value of minHeight  */
-		static getMinHeight(): string;
+		static getMinHeight(): any;
 		/** [Method] Returns the value of minWidth  */
-		static getMinWidth(): number;
-		/** [Method] Returns the value of minWidth  */
-		static getMinWidth(): string;
+		static getMinWidth(): any;
 		/** [Method] Returns the value of modal  */
 		static getModal(): boolean;
 		/** [Method] Returns the current orientation  */
 		static getOrientation(): string;
 		/** [Method] Returns the value of padding  */
-		static getPadding(): number;
-		/** [Method] Returns the value of padding  */
-		static getPadding(): string;
+		static getPadding(): any;
 		/** [Method] Returns the parent of this component if it has one  */
 		static getParent(): Ext.IComponent;
 		/** [Method] Returns the value of plugins  */
@@ -38548,13 +37485,9 @@ declare module Ext {
 		/** [Method] Returns the value of renderTo  */
 		static getRenderTo(): Ext.IElement;
 		/** [Method] Returns the value of right  */
-		static getRight(): number;
-		/** [Method] Returns the value of right  */
-		static getRight(): string;
+		static getRight(): any;
 		/** [Method] Returns an the scrollable instance for this container which is a Ext scroll View class  */
 		static getScrollable(): Ext.scroll.IView;
-		/** [Method] Returns the value of showAnimation  */
-		static getShowAnimation(): string;
 		/** [Method] Returns the value of showAnimation  */
 		static getShowAnimation(): any;
 		/** [Method] Returns the height and width of the Component  */
@@ -38566,17 +37499,9 @@ declare module Ext {
 		/** [Method] Returns the value of styleHtmlContent  */
 		static getStyleHtmlContent(): boolean;
 		/** [Method] Returns the value of top  */
-		static getTop(): number;
-		/** [Method] Returns the value of top  */
-		static getTop(): string;
+		static getTop(): any;
 		/** [Method] Returns the value of tpl  */
-		static getTpl(): string;
-		/** [Method] Returns the value of tpl  */
-		static getTpl(): string[];
-		/** [Method] Returns the value of tpl  */
-		static getTpl(): Ext.ITemplate[];
-		/** [Method] Returns the value of tpl  */
-		static getTpl(): Ext.IXTemplate[];
+		static getTpl(): any;
 		/** [Method] Returns the value of tplWriteMode  */
 		static getTplWriteMode(): string;
 		/** [Method] Returns the value of ui  */
