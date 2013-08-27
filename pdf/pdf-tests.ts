@@ -1,4 +1,4 @@
-/// <reference path="PDF.D.TS" />
+/// <reference path="pdf.d.ts" />
 
 var pdf: PDFPageProxy;
 
