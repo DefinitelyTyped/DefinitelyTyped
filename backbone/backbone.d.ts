@@ -6,6 +6,7 @@
 
 
 /// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="../underscore/underscore.d.ts" />
 
 declare module Backbone {
 
@@ -88,7 +89,7 @@ declare module Backbone {
 
     class Model extends ModelBase {
 
-        static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
+        private static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
         attributes: any;
         changed: any[];
@@ -124,7 +125,7 @@ declare module Backbone {
         unset(attribute: string, options?: Silenceable);
         validate(attributes: any, options?: any): any;
 
-        _validate(attrs: any, options: any): boolean;
+        private _validate(attrs: any, options: any): boolean;
 
         // mixins from underscore
 
@@ -138,118 +139,122 @@ declare module Backbone {
         omit(...keys: string[]): any;
     }
 
-    class Collection extends ModelBase {
+    class Collection<TModel extends Model> extends ModelBase {
 
-        static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
+        private static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
-        model: any;
-        models: any;
-        collection: Model;
+        // TODO: this really has to be typeof TModel
+        //model: typeof TModel;
+        model: { new(): TModel; };
+        models: TModel[];
+        collection: TModel;
         length: number;
 
-        constructor(models?: any, options?: any);
+        constructor(models?: TModel[], options?: any);
 
         fetch(options?: CollectionFetchOptions): JQueryXHR;
 
-        comparator(element: Model): any;
-        comparator(compare: Model, to?: Model): any;
+        comparator(element: TModel): number;
+        comparator(compare: TModel, to?: TModel): number;
 
-        add(model: Model, options?: AddOptions);
-        add(models: Model[], options?: AddOptions);
-        at(index: number): Model;
-        get(id: any): Model;
-        create(attributes: any, options?: ModelSaveOptions): Model;
+        add(model: TModel, options?: AddOptions);
+        add(models: TModel[], options?: AddOptions);
+        at(index: number): TModel;
+        get(id: string): TModel;
+        create(attributes: any, options?: ModelSaveOptions): TModel;
         pluck(attribute: string): any[];
-        push(model: Model, options?: AddOptions);
+        push(model: TModel, options?: AddOptions);
         pop(options?: Silenceable);
-        remove(model: Model, options?: Silenceable);
-        remove(models: Model[], options?: Silenceable);
-        reset(models?: Model[], options?: Silenceable);
+        remove(model: TModel, options?: Silenceable);
+        remove(models: TModel[], options?: Silenceable);
+        reset(models?: TModel[], options?: Silenceable);
         shift(options?: Silenceable);
         sort(options?: Silenceable);
-        unshift(model: Model, options?: AddOptions);
-        where(properies: any): Model[];
+        unshift(model: TModel, options?: AddOptions);
+        where(properies: any): TModel[];
 
-        _prepareModel(attrs?: any, options?: any): any;
-        _removeReference(model: Model): void;
-        _onModelEvent(event: string, model: Model, collection: Collection, options: any): void;
+        private _prepareModel(attrs?: any, options?: any): any;
+        private _removeReference(model: TModel): void;
+        private _onModelEvent(event: string, model: TModel, collection: Collection<TModel>, options: any): void;
 
         // mixins from underscore
 
-        all(iterator: (element: Model, index: number) => boolean, context?: any): boolean;
-        any(iterator: (element: Model, index: number) => boolean, context?: any): boolean;
-        collect(iterator: (element: Model, index: number, context?: any) => any[], context?: any): any[];
+        all(iterator: (element: TModel, index: number) => boolean, context?: any): boolean;
+        any(iterator: (element: TModel, index: number) => boolean, context?: any): boolean;
+        collect(iterator: (element: TModel, index: number, context?: any) => any[], context?: any): any[];
         chain(): any;
-        compact(): Model[];
+        compact(): TModel[];
         contains(value: any): boolean;
-        countBy(iterator: (element: Model, index: number) => any): any[];
-        countBy(attribute: string): any[];
+        countBy(iterator: (element: TModel, index: number) => any): _.Dictionary<number[]>;
+        countBy(attribute: string): _.Dictionary<number[]>;
         detect(iterator: (item: any) => boolean, context?: any): any; // ???
-        difference(...model: Model[]): Model[];
-        drop(): Model;
-        drop(n: number): Model[];
-        each(iterator: (element: Model, index: number, list?: any) => void , context?: any);
-        every(iterator: (element: Model, index: number) => boolean, context?: any): boolean;
-        filter(iterator: (element: Model, index: number) => boolean, context?: any): Model[];
-        find(iterator: (element: Model, index: number) => boolean, context?: any): Model;
-        first(): Model;
-        first(n: number): Model[];
-        flatten(shallow?: boolean): Model[];
-        foldl(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any;
-        forEach(iterator: (element: Model, index: number, list?: any) => void , context?: any);
+        difference(...model: TModel[]): TModel[];
+        drop(): TModel;
+        drop(n: number): TModel[];
+        each(iterator: (element: TModel, index: number, list?: any) => void, context?: any);
+        every(iterator: (element: TModel, index: number) => boolean, context?: any): boolean;
+        filter(iterator: (element: TModel, index: number) => boolean, context?: any): TModel[];
+        find(iterator: (element: TModel, index: number) => boolean, context?: any): TModel;
+        first(): TModel;
+        first(n: number): TModel[];
+        flatten(shallow?: boolean): TModel[];
+        foldl(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any;
+        forEach(iterator: (element: TModel, index: number, list?: any) => void, context?: any);
+        groupBy(iterator: (element: TModel, index: number) => string, context?: any): _.Dictionary<TModel[]>;
+        groupBy(attribute: string, context?: any): _.Dictionary<TModel[]>;
         include(value: any): boolean;
-        indexOf(element: Model, isSorted?: boolean): number;
-        initial(): Model;
-        initial(n: number): Model[];
-        inject(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any;
-        intersection(...model: Model[]): Model[];
+        indexOf(element: TModel, isSorted?: boolean): number;
+        initial(): TModel;
+        initial(n: number): TModel[];
+        inject(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any;
+        intersection(...model: TModel[]): TModel[];
         isEmpty(object: any): boolean;
         invoke(methodName: string, arguments?: any[]);
-        last(): Model;
-        last(n: number): Model[];
-        lastIndexOf(element: Model, fromIndex?: number): number;
-        map(iterator: (element: Model, index: number, context?: any) => any[], context?: any): any[];
-        max(iterator?: (element: Model, index: number) => any, context?: any): Model;
-        min(iterator?: (element: Model, index: number) => any, context?: any): Model;
+        last(): TModel;
+        last(n: number): TModel[];
+        lastIndexOf(element: TModel, fromIndex?: number): number;
+        map(iterator: (element: TModel, index: number, context?: any) => any[], context?: any): any[];
+        max(iterator?: (element: TModel, index: number) => any, context?: any): TModel;
+        min(iterator?: (element: TModel, index: number) => any, context?: any): TModel;
         object(...values: any[]): any[];
-        reduce(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any;
+        reduce(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any;
         select(iterator: any, context?: any): any[];
         size(): number;
         shuffle(): any[];
-        some(iterator: (element: Model, index: number) => boolean, context?: any): boolean;
-        sortBy(iterator: (element: Model, index: number) => number, context?: any): Model[];
-        sortBy(attribute: string, context?: any): Model[];
-        sortedIndex(element: Model, iterator?: (element: Model, index: number) => number): number;
+        some(iterator: (element: TModel, index: number) => boolean, context?: any): boolean;
+        sortBy(iterator: (element: TModel, index: number) => number, context?: any): TModel[];
+        sortBy(attribute: string, context?: any): TModel[];
+        sortedIndex(element: TModel, iterator?: (element: TModel, index: number) => number): number;
         range(stop: number, step?: number);
         range(start: number, stop: number, step?: number);
-        reduceRight(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any[];
-        reject(iterator: (element: Model, index: number) => boolean, context?: any): Model[];
-        rest(): Model;
-        rest(n: number): Model[];
-        tail(): Model;
-        tail(n: number): Model[];
+        reduceRight(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any[];
+        reject(iterator: (element: TModel, index: number) => boolean, context?: any): TModel[];
+        rest(): TModel;
+        rest(n: number): TModel[];
+        tail(): TModel;
+        tail(n: number): TModel[];
         toArray(): any[];
-        union(...model: Model[]): Model[];
-        uniq(isSorted?: boolean, iterator?: (element: Model, index: number) => boolean): Model[];
-        without(...values: any[]): Model[];
-        zip(...model: Model[]): Model[];
+        union(...model: TModel[]): TModel[];
+        uniq(isSorted?: boolean, iterator?: (element: TModel, index: number) => boolean): TModel[];
+        without(...values: any[]): TModel[];
+        zip(...model: TModel[]): TModel[];
     }
 
     class Router extends Events {
 
-        static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
+        private static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
         routes: any;
 
         constructor(options?: RouterOptions);
         initialize(options?: RouterOptions);
-        route(route: string, name: string, callback?: (...parameter: any[]) => void );
+        route(route: string, name: string, callback?: (...parameter: any[]) => void);
         navigate(fragment: string, options?: NavigateOptions);
         navigate(fragment: string, trigger?: boolean);
 
-        _bindRoutes(): void;
-        _routeToRegExp(route: string): RegExp;
-        _extractParameters(route: RegExp, fragment: string): string[];
+        private _bindRoutes(): void;
+        private _routeToRegExp(route: string): RegExp;
+        private _extractParameters(route: RegExp, fragment: string): string[];
     }
 
     var history: History;
@@ -270,12 +275,12 @@ declare module Backbone {
         navigate(fragment: string, options?: any);
         started: boolean;
 
-        _updateHash(location: Location, fragment: string, replace: boolean);
+        private _updateHash(location: Location, fragment: string, replace: boolean);
     }
 
-    interface ViewOptions {
-        model?: Backbone.Model;
-        collection?: Backbone.Collection;
+    interface ViewOptions<TModel extends Model> {
+        model?: TModel;
+        collection?: Backbone.Collection<TModel>;
         el?: any;
         id?: string;
         className?: string;
@@ -283,15 +288,19 @@ declare module Backbone {
         attributes?: any[];
     }
 
-    class View extends Events {
+    class View<TModel extends Model> extends Events {
 
-        static extend(properties: any, classProperties?: any): any;  // do not use, prefer TypeScript's extend functionality
+        private static extend(properties: any, classProperties?: any): any;  // do not use, prefer TypeScript's extend functionality
 
-        constructor(options?: ViewOptions);
+        // TODO: use generics
+        // Related issue: https://typescript.codeplex.com/workitem/1461
+        //constructor(options?: ViewOptions<TModel>);
+        constructor(options?: ViewOptions<Backbone.Model>);
 
         $(selector: string): JQuery;
-        model: Model;
-        collection: Collection;
+        model: TModel;
+        collection: Collection<TModel>;
+        template: (json, options?) => string;
         make(tagName: string, attrs?, opts?): View;
         setElement(element: HTMLElement, delegate?: boolean);
         setElement(element: JQuery, delegate?: boolean);
@@ -312,7 +321,7 @@ declare module Backbone {
         delegateEvents(events?: any): any;
         undelegateEvents();
 
-        _ensureElement(): void;
+        private _ensureElement(): void;
     }
 
     // SYNC
@@ -321,13 +330,7 @@ declare module Backbone {
     var emulateJSONBackbone: boolean;
 
     // Utility
-
-    // 0.9 cannot return modules anymore, and "typeof <Module>" is not compiling for some reason
-    // returning "any" until this is fixed
-
-    //function noConflict(): typeof Backbone;
-    function noConflict(): any;
-
+    function noConflict(): typeof Backbone;
     function setDomLibrary(jQueryNew);
 }
 
