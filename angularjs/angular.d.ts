@@ -406,7 +406,7 @@ declare module ng {
     }
 
     interface IPromise<T> {
-        then<TResult>(successCallback: (promiseValue: T) => TResult, errorCallback?: (reason: any) => TResult): IPromise<TResult>;
+        then(successCallback: (promiseValue: T) => any, errorCallback?: (reason: any) => any): IPromise<any>;
     }
 
     interface IDeferred<T> {
