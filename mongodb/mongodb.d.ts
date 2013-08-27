@@ -2,8 +2,8 @@
 
 declare module "mongodb" {
 
-    export function connect(uri: string, options: any, callback: (err: any, db: Db) => void);
-    export function connect(uri: string, callback: (err: any, db: Db) => void);
+	export function connect(uri: string, options: any, callback: (err: any, db: Db) => void);
+	export function connect(uri: string, callback: (err: any, db: Db) => void);
 
 	export class Server {
 		constructor (host: string, port: number, opts?: ServerOptions);
@@ -19,9 +19,9 @@ declare module "mongodb" {
 		public collectionsInfo(collectionName: string, callback?: (err, result) => void );
 		public collectionNames(collectionName: string, options: any, callback?: (err, result) => void );
 
-        public collection(collectionName: string): Collection;
-        public collection(collectionName: string, callback: (err: any, collection: Collection) => void ): Collection;
-        public collection(collectionName: string, options: MongoCollectionOptions, callback: (err: any, collection: Collection) => void ): Collection;
+		public collection(collectionName: string): Collection;
+		public collection(collectionName: string, callback: (err: any, collection: Collection) => void ): Collection;
+		public collection(collectionName: string, options: MongoCollectionOptions, callback: (err: any, collection: Collection) => void ): Collection;
 
 		public collections(callback: (err: any, collections: Collection[]) => void );
 		public eval(code: any, parameters: any[], options?: any, callback?: (err, result) => void );
@@ -85,7 +85,7 @@ declare module "mongodb" {
 		public DEFAULT_URL: string;
 
 		public connect(url: string, options: { uri_decode_auth?: boolean; }, callback: (err, result) => void );
-        
+		
 		public addListener(event: string, handler:(param: any) => any);
 	}
 
@@ -226,8 +226,8 @@ declare module "mongodb" {
 		geoNear(x, y, options, callback);
 		geoHaystackSearch(x, y, options, callback);
 		indexes(callback);
-        aggregate(pipeline: any[], callback: (err: Error, results: any) => void);
-        aggregate(pipeline: any[], options, callback: (err: Error, results: any) => void);
+		aggregate(pipeline: any[], callback: (err: Error, results: any) => void);
+		aggregate(pipeline: any[], options, callback: (err: Error, results: any) => void);
 		stats(options, callback);
 		
 		hint;
