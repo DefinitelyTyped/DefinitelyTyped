@@ -202,13 +202,13 @@ declare module "mongodb" {
 		find(selector: any, fields: any, skip: number, limit: number, callback?: (err: any, result: Cursor) => void): Cursor;
 		find(selector: any, fields: any, skip: number, limit: number, timeout: number, callback?: (err: any, result: Cursor) => void): Cursor;
 		
-		findOne(callback?: (err: any, result: any) => void): Cursor;
-		findOne(selector: any, callback?: (err: any, result: any) => void): Cursor;
-		findOne(selector: any, fields: any, callback?: (err: any, result: any) => void): Cursor;
-		findOne(selector: any, options: CollectionFindOptions, callback?: (err: any, result: any) => void): Cursor;
-		findOne(selector: any, fields: any, options: CollectionFindOptions, callback?: (err: any, result: any) => void): Cursor;
-		findOne(selector: any, fields: any, skip: number, limit: number, callback?: (err: any, result: any) => void): Cursor;
-		findOne(selector: any, fields: any, skip: number, limit: number, timeout: number, callback?: (err: any, result: any) => void): Cursor;
+		findOne<T>(callback?: (err: any, result: T) => void): Cursor;
+		findOne<T>(selector: any, callback?: (err: any, result: T) => void): Cursor;
+		findOne<T>(selector: any, fields: any, callback?: (err: any, result: T) => void): Cursor;
+		findOne<T>(selector: any, options: CollectionFindOptions, callback?: (err: any, result: T) => void): Cursor;
+		findOne<T>(selector: any, fields: any, options: CollectionFindOptions, callback?: (err: any, result: T) => void): Cursor;
+		findOne<T>(selector: any, fields: any, skip: number, limit: number, callback?: (err: any, result: T) => void): Cursor;
+		findOne<T>(selector: any, fields: any, skip: number, limit: number, timeout: number, callback?: (err: any, result: T) => void): Cursor;
 		
 		createIndex(fieldOrSpec, options: IndexOptions, callback: (err: Error, indexName: string) => void);
 		ensureIndex(fieldOrSpec, options: IndexOptions, callback: (err: Error, indexName: string) => void);
