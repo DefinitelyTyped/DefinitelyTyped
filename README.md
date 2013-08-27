@@ -144,6 +144,7 @@ List of Definitions
 * [linq.js](http://linqjs.codeplex.com/) (by [Marcin Najder](https://github.com/marcinnajder))
 * [Livestamp.js](https://github.com/mattbradley/livestampjs) (by [Vincent Bortone](https://github.com/vbortone))
 * [Marked](https://github.com/chjj/marked) (by [William Orr](https://github.com/worr))
+* [Meteor](https://www.meteor.com) (by [Dave Allen](https://github.com/fullflavedave))
 * [Modernizr](http://modernizr.com/) (by [Boris Yankov](https://github.com/borisyankov) and [Theodore Brown](https://github.com/theodorejb/))
 * [Moment.js](https://github.com/timrwood/moment) (by [Michael Lakerveld](https://github.com/Lakerfield))
 * [Mousetrap](http://craig.is/killing/mice) (by [Dániel Tar](https://github.com/qcz))
