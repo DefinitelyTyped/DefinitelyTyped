@@ -1,9 +1,17 @@
+// Project : https://github.com/mongodb/node-mongodb-native
+// Documentation : http://mongodb.github.io/node-mongodb-native/
+
+
 /// <reference path='../node/node.d.ts' />
 
 declare module "mongodb" {
-
-	export function connect(uri: string, options: any, callback: (err: any, db: Db) => void);
-	export function connect(uri: string, callback: (err: any, db: Db) => void);
+    // Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/mongoclient.html
+    export class MongoClient{           
+        constructor(serverConfig: any, options: any);
+             
+        static connect(uri: string, options: any, callback: (err: any, db: Db) => void);
+        static connect(uri: string, callback: (err: any, db: Db) => void);
+    }
 
 	export class Server {
 		constructor (host: string, port: number, opts?: ServerOptions);
