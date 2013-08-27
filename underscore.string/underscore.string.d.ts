@@ -295,7 +295,7 @@ declare module 'underscore.string' {
      * @param padStr
      * @param type
      */
-    function pad(str: string, length: number, padStr?:string, type?: string): string;
+    function pad(str: string, length: number, padStr:string, type?: string): string;
 
     /**
      * Left-pad a string.
@@ -357,9 +357,13 @@ declare module 'underscore.string' {
      */
     function center(str: string, length: number, padStr?: string): string;
 
+    /**
+     * C like string formatting.
+     * _.sprintf('%.1f', 1.17) => '1.2'
+     * @param format
+     * @param args
+     */
     function sprintf(format: string, ...args: any[]): string;
-
-    function vsprintf(fmt: string, ...argv: any[]): string;
 
     /**
      * Parse string to number.
@@ -371,6 +375,15 @@ declare module 'underscore.string' {
      */
     function toNumber(str: string, decimals?: number): number;
 
+    /**
+     * Formats the numbers.
+     * (1000, 2) => '1,000.00'
+     * (123456789.123, 5, '.', ',') => '123,456,789.12300'
+     * @param number
+     * @param dec
+     * @param dsep
+     * @param tsep
+     */
     function numberFormat(number: number, dec?: number, dsep?: string, tsep?: string): string;
 
     /**
