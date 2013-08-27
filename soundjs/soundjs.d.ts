@@ -116,7 +116,7 @@ declare module createjs {
         getVolume(): number;
         mute(isMuted: boolean): boolean;
         pause(): boolean;
-        play(interrupt: string, delay: number, offset: number, loop: number, volume: number, pan: number): void;
+        play(interrupt?: string, delay?: number, offset?: number, loop?: number, volume?: number, pan?: number): void;
         resume(): boolean;
         setPan(value: number): number;
         setPosition(value: number): void;
