@@ -14,7 +14,7 @@ declare module "mongodb" {
 		public db(dbName: string): Db;
 
 		public open(callback: (err : Error, db : Db) => void );
-		public close(forceClose?: bool, callback?: (err: any, result: any) => void );
+		public close(forceClose?: boolean, callback?: (err: any, result: any) => void );
 		public admin(callback: (err, result) => void ): any;
 		public collectionsInfo(collectionName: string, callback?: (err, result) => void );
 		public collectionNames(collectionName: string, options: any, callback?: (err, result) => void );
@@ -84,7 +84,7 @@ declare module "mongodb" {
 
 		public DEFAULT_URL: string;
 
-		public connect(url: string, options: { uri_decode_auth?: bool; }, callback: (err, result) => void );
+		public connect(url: string, options: { uri_decode_auth?: boolean; }, callback: (err, result) => void );
         
 		public addListener(event: string, handler:(param: any) => any);
 	}
@@ -97,7 +97,7 @@ declare module "mongodb" {
 		//= set seconds before connection times out default:0
 		timeout?: number;
 		//= Disables the Nagle algorithm default:true
-		noDelay?: bool;
+		noDelay?: boolean;
 		//= Set if keepAlive is used default:0 , which means no keepAlive, set higher than 0 for keepAlive
 		keepAlive?: number;
 		//= ‘ascii’|’utf8’|’base64’ default:null
@@ -106,7 +106,7 @@ declare module "mongodb" {
 
 	export interface ServerOptions {
 		// - to reconnect automatically, default:false
-		auto_reconnect?: bool;
+		auto_reconnect?: boolean;
 		// - specify the number of connections in the pool default:1
 		poolSize?: number;
 		// - a collection of pr socket settings
@@ -120,44 +120,44 @@ declare module "mongodb" {
 
 	export interface DBOptions {
 		//- if true, use native BSON parser
-		native_parser?: bool;
+		native_parser?: boolean;
 		//- sets strict mode , if true then existing collections can’t be “recreated” etc.
-		strict?: bool;
+		strict?: boolean;
 		//- custom primary key factory to generate _id values (see Custom primary keys).
 		pk?: PKFactory;
 		//- generation of objectid is delegated to the mongodb server instead of the driver. default is false
-		forceServerObjectId?: bool;
+		forceServerObjectId?: boolean;
 		//- specify the number of milliseconds between connection attempts default:5000
 		retryMiliSeconds?: number;
 		//- specify the number of retries for connection attempts default:3
 		numberOfRetries?: number;
 		//- enable/disable reaper (true/false) default:false
-		reaper?: bool;
+		reaper?: boolean;
 		//- specify the number of milliseconds between each reaper attempt default:10000
 		reaperInterval?: number;
 		//- specify the number of milliseconds for timing out callbacks that don’t return default:30000
 		reaperTimeout?: number;
 		//- driver expects Buffer raw bson document, default:false
-		raw?: bool;
+		raw?: boolean;
 	}
 
 	export interface CollectionCreateOptions {
 		// {true | {w:n, wtimeout:n} | {fsync:true}, default:false}, executes with a getLastError command returning the results of the command on MongoDB.
-		safe?: bool;
+		safe?: boolean;
 		// {Boolean, default:false}, serialize functions on the document.
-		serializeFunctions?: bool;
+		serializeFunctions?: boolean;
 		// {Boolean, default:false}, perform all operations using raw bson objects.
-		raw?: bool; 
+		raw?: boolean; 
 		// object overriding the basic ObjectID primary key generation.
 		pkFactory?: PKFactory;
 		// {Boolean, default:false}, create a capped collection.
-		capped?: bool;
+		capped?: boolean;
 		// {Number}, the size of the capped collection in bytes. 
 		size?: number;
 		// {Number}, the maximum number of documents in the capped collection.
 		max?: number;
 		// {Boolean, default:false}, create an index on the _id field of the document, not created automatically on capped collections.
-		autoIndexId?: bool;
+		autoIndexId?: boolean;
 		// {String}, the prefered read preference (ReadPreference.PRIMARY, ReadPreference.PRIMARY_PREFERRED, ReadPreference.SECONDARY, ReadPreference.SECONDARY_PREFERRED, ReadPreference.NEAREST).
 		readPreference?: string; 
 	}
@@ -166,10 +166,10 @@ declare module "mongodb" {
 		//constructor (db: Db, collectionName: string, pkFactory, options);
 		
 		insert(query: any, callback: (err: any, result: any) => void): void;
-		insert(query: any, options: { safe?: any; continueOnError?: bool; keepGoing?: bool; serializeFunctions?: bool; }, callback: (err: any, result: any) => void): void;
+		insert(query: any, options: { safe?: any; continueOnError?: boolean; keepGoing?: boolean; serializeFunctions?: boolean; }, callback: (err: any, result: any) => void): void;
 		
 		remove(selector, callback?: (err: any, result: any) => void);
-		remove(selector, options: { safe?: any; single?: bool; }, callback?: (err: any, result: any) => void);
+		remove(selector, options: { safe?: any; single?: boolean; }, callback?: (err: any, result: any) => void);
 		
 		rename(newName: String, callback?: (err, result) => void);
 		
@@ -189,7 +189,7 @@ declare module "mongodb" {
 		drop(callback?: (err, result) => void);
 		
 		findAndModify(query: Object, sort: any[], doc: Object, callback: (err, result) => void);
-		findAndModify(query: Object, sort: any[], doc: Object, options: { safe?: any; remove?: bool; upsert?: bool; new?: bool; }, callback: (err, result) => void);
+		findAndModify(query: Object, sort: any[], doc: Object, options: { safe?: any; remove?: boolean; upsert?: boolean; new?: boolean; }, callback: (err, result) => void);
 		
 		findAndRemove(query : Object, sort? : any[], callback?: (err, result) => void);
 		findAndRemove(query : Object, sort? : any[], options?: { safe; }, callback?: (err, result) => void);
@@ -234,10 +234,10 @@ declare module "mongodb" {
 	}
 
 	export interface IndexOptions {
-		background?: bool;
-		dropDups?: bool;
-		sparse?: bool;
-		unique?: bool;
+		background?: boolean;
+		dropDups?: boolean;
+		sparse?: boolean;
+		unique?: boolean;
 		v?: number;
 	}
 
@@ -298,7 +298,7 @@ declare module "mongodb" {
 	export interface MongoCollectionOptions {
 		safe?: any;
 		serializeFunctions?: any;
-		raw?: bool;
+		raw?: boolean;
 		pkFactory?: any;
 		readPreferences?: string;
 	}
