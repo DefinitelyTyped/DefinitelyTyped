@@ -201,6 +201,8 @@ List of Definitions
 * [Viewporter](https://github.com/zynga/viewporter) (by [Boris Yankov](https://github.com/borisyankov))
 * [Vimeo](http://developer.vimeo.com/player/js-api) (by [Daz Wilkin](https://github.com/DazWilkin/))
 * [WebRTC](http://dev.w3.org/2011/webrtc/editor/webrtc.html) (by [Ken Smith](https://github.com/smithkl42))
+* [WinJS](http://msdn.microsoft.com/en-us/library/windows/apps/br229773.aspx) (from TypeScript samples)
+* [WinRT](http://msdn.microsoft.com/en-us/library/windows/apps/br211377.aspx) (from TypeScript samples)
 * [YouTube](https://developers.google.com/youtube/) (by [Daz Wilkin](https://github.com/DazWilkin/))
 * [YouTube Analytics API](https://developers.google.com/youtube/analytics/) (by [Frank M](https://github.com/sgtfrankieboy))
 * [YouTube Data API](https://developers.google.com/youtube/v3/) (by [Frank M](https://github.com/sgtfrankieboy/))
