@@ -104,8 +104,26 @@ declare module "mongodb" {
 	}
 
 	// Class documentation : http://mongodb.github.io/node-mongodb-native/api-bson-generated/objectid.html
+	// Last update: doc. version 1.3.13 (28.08.2013)
 	export class ObjectID {
 		constructor (s: string);
+
+		// Returns the ObjectID id as a 24 byte hex string representation
+		public toHexString() : string;
+
+		// Compares the equality of this ObjectID with otherID.
+		public equals(otherID: ObjectID) : boolean;
+
+		// Returns the generation date (accurate up to the second) that this ID was generated.
+		public getTimestamp(): Date;
+
+		// Creates an ObjectID from a second based number, with the rest of the ObjectID zeroed out. Used for comparisons or sorting the ObjectID.
+		// time – an integer number representing a number of seconds.
+		public static createFromTime(time: number): ObjectID;
+
+		// Creates an ObjectID from a hex string representation of an ObjectID.
+		// hexString – create a ObjectID from a passed in 24 byte hexstring.
+		public static createFromHexString(hexString: string): ObjectID;
 	}
 
 	export interface SocketOptions {
@@ -214,6 +232,7 @@ declare module "mongodb" {
 		readPreference?: string; 
 	}
 
+	// Documentation : http://mongodb.github.io/node-mongodb-native/api-generated/collection.html
 	export interface Collection {
 		constructor (db: Db, collectionName: string, pkFactory?: Object, options?: CollectionCreateOptions);
 
