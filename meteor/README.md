@@ -1,6 +1,6 @@
 #Meteor Type Definitions Usage Notes
 
-In order to effectively write your Meteor app with TypeScript, there are a few extra things you will need to do in addition to simply referencing this Meteor type definition file and renaming all of your *.js files to *.ts (which will not work).
+In order to effectively write your Meteor app with TypeScript, there are a few extra things you will need to do in addition to simply referencing the Meteor type definition file and renaming all of your *.js files to *.ts (which will not work).
 
 ##Referencing Meteor type definitions in your app
 - Place the meteor.d.ts file in a directory (maybe `<app root dir>/lib/typescript`)
@@ -66,4 +66,4 @@ A simple Meteor reference application created with TypeScript is listed below.  
 - Code (TypeScript and transpiled JS):  <https://github.com/fullflavedave/MicroscopicTypeScript>
 
 ##Meteor package
-There will hopefully be a Meteor package soon listed on [Atmosphere](http://atmosphere.meteor.com "http://atmosphere.meteor.com") that can be easily added using "mrt add meteor".
+There will hopefully be a Meteor package soon listed on [Atmosphere](http://atmosphere.meteor.com "http://atmosphere.meteor.com") that can be easily added using 'mrt add meteor'.
