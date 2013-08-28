@@ -92,6 +92,7 @@ List of Definitions
 * [jake](https://github.com/mde/jake) (by [Kon](http://phyzkit.net/))
 * [Jasmine](http://pivotal.github.com/jasmine/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Jasmine-jQuery](https://github.com/velesin/jasmine-jquery) (by [Gregor Stamac](https://github.com/gstamac))
+* [JointJS](http://www.jointjs.com/) (by [Aidan Reel](http://github.com/areel))
 * [jQRangeSlider](http://ghusse.github.com/jQRangeSlider) (by [Dániel Tar](https://github.com/qcz))
 * [jQuery](http://jquery.com/) (from TypeScript samples)
 * [jQuery Mobile](http://jquerymobile.com) (by [Boris Yankov](https://github.com/borisyankov))
