@@ -6,7 +6,7 @@ In order to effectively write your Meteor app with TypeScript, there are a few t
 - Place the meteor.d.ts file in a directory (maybe `<app root dir>/lib/typescript`)
 - Add `/// <reference path='../lib/typescript/meteor.d.ts'/>` to the top of any TypeScript file
 
-This will make these Typescript variables/objects available across your application:
+This will make these typed Meteor variables/objects available across your application:
 
 - Meteor
 - Session
@@ -42,11 +42,11 @@ In order to call `Template.yourTemplateName.method`, you will need to create a s
 	  header: IMeteorViewModel;
 	}
 
-After you create this file, you may access the Template variable by declaring something like `/// <reference path='../view-model-types.d.ts'/>` at the top of any file containing references to Template.  Something like Template.postsList would then be accessible and get all the benefits of typing.
+After you create this file, you may access the Template variable by declaring something like `/// <reference path='../view-model-types.d.ts'/>` at the top of any TypeScript file containing references to Template.  Something like `Template.postsList.helpers()` would then transpile successfully (and have the benefits of typing).
 
 
 ##Defining Collections
-In TypeScript, creating global variables is not allowed, and in a Meteor app, creating local variables (using `var <varName>`) limits variables' scope to the file.  However, it is often necessary in a Meteor app to define variables that can be used across files, such as collections.  In the case of collections, one way to work around this is to wrap each collection within a module, and then make the module globally accessible.  Here is an example using posts.ts:
+In TypeScript, creating global variables is not allowed, and in a Meteor app, creating local variables (using `var <varName>`) limits variables' scope to the file.  However, you will probably want to define variables, such as collections, that can be used across files.  In the case of collections, one way to work around these limitations is to wrap each collection within a module, and then make the module globally accessible.  Here is an example using posts.ts:
 
 	module PostsModel {
 	  export var Posts = new Meteor.Collection('posts');
@@ -54,13 +54,13 @@ In TypeScript, creating global variables is not allowed, and in a Meteor app, cr
 
 	this.PostsModel = PostsModel;
 
-You can then access the Posts collection by placing `/// <reference path='../../../collections/posts.ts'/>` at the top of a TypeScript file.  The call would look like this:
+You can then access the Posts collection by placing `/// <reference path='../../../collections/posts.ts'/>` at the top of a TypeScript file.  The code would look like this:
 
 	PostsModel.Posts.findOne(Session.get('currentPostId'));
 
 
 ##Reference app
-A simple Meteor application created with TypeScript is listed below.  It is based on the Microscope reference app in the [Discover Meteor](http://www.discovermeteor.com/ "http://www.discovermeteor.com/").
+A simple Meteor application created with TypeScript is listed below.  It is based on the Microscope reference app in [Discover Meteor](http://www.discovermeteor.com/ "http://www.discovermeteor.com/").
 
 - Sample Site:  <http://microscopic-typescript.meteor.com/>
 - Code (TypeScript and transpiled JS):  <https://github.com/fullflavedave/MicroscopicTypeScript>
