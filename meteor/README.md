@@ -1,6 +1,6 @@
 #Meteor Type Definitions Usage Notes
 
-In order to effectively write your Meteor app with TypeScript, there are a few things you will need to do since simply referencing this Meteor type definition file and renaming all of your *.js files to *.ts will not work.
+In order to effectively write your Meteor app with TypeScript, there are a few extra things you will need to do in addition to simply referencing this Meteor type definition file and renaming all of your *.js files to *.ts (which will not work).
 
 ##Referencing Meteor type definitions in your app
 - Place the meteor.d.ts file in a directory (maybe `<app root dir>/lib/typescript`)
