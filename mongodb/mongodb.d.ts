@@ -181,13 +181,6 @@ declare module "mongodb" {
 
 		// when deserializing a Long will fit it into a Number if it’s smaller than 53 bits. default:true.
 		promoteLongs?: boolean;
-		
-		// enable/disable reaper (true/false) default:false
-		reaper?: boolean;
-		// specify the number of milliseconds between each reaper attempt default:10000
-		reaperInterval?: number;
-		// specify the number of milliseconds for timing out callbacks that don’t return default:30000
-		reaperTimeout?: number;
 	}
 
 	export interface CollectionCreateOptions {
