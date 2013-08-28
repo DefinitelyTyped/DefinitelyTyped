@@ -1,10 +1,10 @@
 #Meteor Type Definitions Usage Notes
 
-In order to effectively write your Meteor app with TypeScript, there are a few things you will need to do since simply referencing this Meteor type definition file and renaming all of you *.js files to *.ts will not work.
+In order to effectively write your Meteor app with TypeScript, there are a few things you will need to do since simply referencing this Meteor type definition file and renaming all of your *.js files to *.ts will not work.
 
 ##Referencing Meteor type definitions in your app
 - Place the meteor.d.ts file in a directory (maybe `<app root dir>/lib/typescript`)
-- Add `/// <reference path='../lib/typescript/meteor.d.ts'/>` to the top of any file
+- Add `/// <reference path='../lib/typescript/meteor.d.ts'/>` to the top of any TypeScript file
 
 This will make these Typescript variables/objects available across your application:
 
@@ -24,7 +24,7 @@ This will make these Typescript variables/objects available across your applicat
 *Please note that the Template variable is not automatically available.  You need to follow the instructions below to use the Template variable.*
 
 ##Defining Templates
-In order to call `Template.yourTemplateName.method`, you will need to create a simple TypeScript definition file that declares a Template variable containing a list of template view-models/managers of type IMeteorViewModel (or IMeteorManager, which contains the same contents).  A good place for this definition could be `<app root dir>/client/views/view-model-types.d.ts`.  Here is an example of that file:
+In order to call `Template.yourTemplateName.method`, you will need to create a simple TypeScript definition file that declares a Template variable containing a list of template view-models/managers of type IMeteorViewModel (or IMeteorManager, which is the same as IMeteorViewModel).  A good place for this definition could be `<app root dir>/client/views/view-model-types.d.ts`.  Here is an example of that file:
 
 	/// <reference path='../../lib/typescript/meteor.d.ts'/>
 
@@ -46,7 +46,7 @@ After you create this file, you may access the Template variable by declaring so
 
 
 ##Defining Collections
-In TypeScript, creating global variables is not allowed, and in a Meteor app, creating local variables (using `var <varName>`) limits their scope to the file they are in.  However, it is often necessary in a Meteor app to define variables that can be used across files, such as collections.  In the case of collections, one way to work around this is to wrap each collections within a module, and then make the module globally accessible.  Here is an example of posts.ts:
+In TypeScript, creating global variables is not allowed, and in a Meteor app, creating local variables (using `var <varName>`) limits variables' scope to the file.  However, it is often necessary in a Meteor app to define variables that can be used across files, such as collections.  In the case of collections, one way to work around this is to wrap each collection within a module, and then make the module globally accessible.  Here is an example using posts.ts:
 
 	module PostsModel {
 	  export var Posts = new Meteor.Collection('posts');
@@ -54,13 +54,13 @@ In TypeScript, creating global variables is not allowed, and in a Meteor app, cr
 
 	this.PostsModel = PostsModel;
 
-You can then access the Posts collection by placing `/// <reference path='../../../collections/posts.ts'/>` at the top of a typescript file and creating a call like this:
+You can then access the Posts collection by placing `/// <reference path='../../../collections/posts.ts'/>` at the top of a TypeScript file.  The call would look like this:
 
 	PostsModel.Posts.findOne(Session.get('currentPostId'));
 
 
 ##Reference app
-A simple Meteor application created with TypeScript is listed below.  It is based on the Microscope reference application in the [Discover Meteor](http://www.discovermeteor.com/ "http://www.discovermeteor.com/") book.
+A simple Meteor application created with TypeScript is listed below.  It is based on the Microscope reference app in the [Discover Meteor](http://www.discovermeteor.com/ "http://www.discovermeteor.com/").
 
 - Sample Site:  <http://microscopic-typescript.meteor.com/>
 - Code (TypeScript and transpiled JS):  <https://github.com/fullflavedave/MicroscopicTypeScript>
