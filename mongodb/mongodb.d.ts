@@ -310,28 +310,33 @@ declare module "mongodb" {
 		v?: number;
 	}
 
+	// Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/cursor.html
+	// Last update: doc. version 1.3.13 (28.08.2013)
 	export class Cursor {
-		constructor (db, collection, selector, fields, skip, limit, sort, hint, explain, snapshot, timeout, tailable, batchSize, slaveOk, raw, read, returnKey, maxScan, min, max, showDiskLoc, comment, awaitdata, numberOfRetries, dbName, tailableRetryInterval, exhaust, partial);
+		constructor (db: Db, collection: Collection, selector, fields, skip, limit, sort, hint, explain, snapshot, timeout, tailable, batchSize, slaveOk, raw, read, returnKey, maxScan, min, max, showDiskLoc, comment, awaitdata, numberOfRetries, dbName, tailableRetryInterval, exhaust, partial);
 
 		rewind() : Cursor;
 		toArray(callback: (err: any, results: any[]) => any) : void;
 		each(callback: (err: Error, item: any) => void) : void;
-		count(callback: (err: any, count: number) => void) : void;
+		count(applySkipLimit: boolean, callback: (err: any, count: number) => void) : void;
 
-		sort(keyOrList : any, callback? : (err, result) => void): Cursor;
-		sort(keyOrList : String, direction : any, callback? : (err, result) => void): Cursor;
+		sort(keyOrList: any, callback? : (err, result) => void): Cursor;
 
+		// this determines how the results are sorted. "asc", "ascending" or 1 for asceding order while "desc", "desceding or -1 for descending order. Note that the strings are case insensitive.
+		sort(keyOrList: String, direction : string, callback : (err, result) => void): Cursor;
 		limit(limit: number, callback?: (err, result) => void): Cursor;
-		setReadPreference(readPreferences, tags, callback?): Cursor;
+		setReadPreference(preference: string, callback?): Cursor;
 		skip(skip: number, callback?: (err, result) => void): Cursor;
-		batchSize(batchSize, callback: (err, result) => void): Cursor;
+		batchSize(batchSize, callback?: (err, result) => void): Cursor;
 
-		nextObject(callback: (err:any, doc: any) => void);
-		explain(callback: (err, result) => void);
+		nextObject(callback: (err: any, doc: any) => void) : void;
+		explain(callback: (err, result) => void) : void;
+
+		// TODO:
 		//stream(): CursorStream;
 
-		close(callback?: (err, result) => void);
-		isClosed(): Boolean;
+		close(callback: (err, result) => void) : void;
+		isClosed(): boolean;
 
 		static INIT;
 		static OPEN;
