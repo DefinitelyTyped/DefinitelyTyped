@@ -17,6 +17,8 @@ declare module "mongodb" {
 	// Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/server.html
 	export class Server {
 		constructor (host: string, port: number, opts?: ServerOptions);
+
+		public connect();
 	}
 
 	// Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/db.html
