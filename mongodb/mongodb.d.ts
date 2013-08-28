@@ -6,20 +6,20 @@
 
 declare module "mongodb" {
 
-    // Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/mongoclient.html
-    export class MongoClient{           
-        constructor(serverConfig: any, options: any);
-             
-        static connect(uri: string, options: any, callback: (err: any, db: Db) => void);
-        static connect(uri: string, callback: (err: any, db: Db) => void);
-    }
+	// Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/mongoclient.html
+	export class MongoClient{           
+		constructor(serverConfig: any, options: any);
 
-    // Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/server.html
+		static connect(uri: string, options: any, callback: (err: any, db: Db) => void);
+		static connect(uri: string, callback: (err: any, db: Db) => void);
+	}
+
+	// Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/server.html
 	export class Server {
 		constructor (host: string, port: number, opts?: ServerOptions);
 	}
 
-    // Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/db.html
+	// Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/db.html
 	export class Db {
 		constructor (databaseName: string, serverConfig: Server, db_options?: DBOptions);
 
@@ -101,7 +101,7 @@ declare module "mongodb" {
 		public addListener(event: string, handler:(param: any) => any);
 	}
 
-    // Class documentation : http://mongodb.github.io/node-mongodb-native/api-bson-generated/objectid.html
+	// Class documentation : http://mongodb.github.io/node-mongodb-native/api-bson-generated/objectid.html
 	export class ObjectID {
 		constructor (s: string);
 	}
@@ -177,36 +177,36 @@ declare module "mongodb" {
 
 	export interface Collection {
 		//constructor (db: Db, collectionName: string, pkFactory, options);
-		
+
 		insert(query: any, callback: (err: any, result: any) => void): void;
 		insert(query: any, options: { safe?: any; continueOnError?: boolean; keepGoing?: boolean; serializeFunctions?: boolean; }, callback: (err: any, result: any) => void): void;
-		
+
 		remove(selector, callback?: (err: any, result: any) => void);
 		remove(selector, options: { safe?: any; single?: boolean; }, callback?: (err: any, result: any) => void);
-		
+
 		rename(newName: String, callback?: (err, result) => void);
-		
+
 		save(doc: any, callback : (err, result) => void);
 		save(doc: any, options: { safe: any; }, callback : (err, result) => void);
-		
+
 		update(selector: any, document: any, callback?: (err: any, result: any) => void): void;
 		update(selector: any, document: any, options: { safe?; upsert?; multi?; serializeFunctions?; }, callback: (err: any, result: any) => void): void;
-		
+
 		distinct(key: string, query: Object, callback: (err, result) => void);
 		distinct(key: string, query: Object, options: { readPreferences; }, callback: (err, result) => void);
-		
+
 		count(callback: (err, result) => void);
 		count(query: Object, callback: (err, result) => void);
 		count(query: Object, options: { readPreferences; }, callback: (err, result) => void);
-		
+
 		drop(callback?: (err, result) => void);
-		
+
 		findAndModify(query: Object, sort: any[], doc: Object, callback: (err, result) => void);
 		findAndModify(query: Object, sort: any[], doc: Object, options: { safe?: any; remove?: boolean; upsert?: boolean; new?: boolean; }, callback: (err, result) => void);
-		
+
 		findAndRemove(query : Object, sort? : any[], callback?: (err, result) => void);
 		findAndRemove(query : Object, sort? : any[], options?: { safe; }, callback?: (err, result) => void);
-		
+
 		find(callback?: (err: any, result: Cursor) => void): Cursor;
 		find(selector: any, callback?: (err: any, result: Cursor) => void): Cursor;
 		find(selector: any, fields: any, callback?: (err: any, result: Cursor) => void): Cursor;
@@ -214,7 +214,7 @@ declare module "mongodb" {
 		find(selector: any, fields: any, options: CollectionFindOptions, callback?: (err: any, result: Cursor) => void): Cursor;
 		find(selector: any, fields: any, skip: number, limit: number, callback?: (err: any, result: Cursor) => void): Cursor;
 		find(selector: any, fields: any, skip: number, limit: number, timeout: number, callback?: (err: any, result: Cursor) => void): Cursor;
-		
+
 		findOne(callback?: (err: any, result: any) => void): Cursor;
 		findOne(selector: any, callback?: (err: any, result: any) => void): Cursor;
 		findOne(selector: any, fields: any, callback?: (err: any, result: any) => void): Cursor;
@@ -222,14 +222,14 @@ declare module "mongodb" {
 		findOne(selector: any, fields: any, options: CollectionFindOptions, callback?: (err: any, result: any) => void): Cursor;
 		findOne(selector: any, fields: any, skip: number, limit: number, callback?: (err: any, result: any) => void): Cursor;
 		findOne(selector: any, fields: any, skip: number, limit: number, timeout: number, callback?: (err: any, result: any) => void): Cursor;
-		
+
 		createIndex(fieldOrSpec, options: IndexOptions, callback: (err: Error, indexName: string) => void);
 		ensureIndex(fieldOrSpec, options: IndexOptions, callback: (err: Error, indexName: string) => void);
 		indexInformation(options, callback);
 		dropIndex(name, callback);
 		dropAllIndexes(callback);
 		// dropIndexes = dropAllIndexes
-		
+
 		reIndex(callback);
 		mapReduce(map, reduce, options, callback);
 		group(keys, condition, initial, reduce, finalize, command, options, callback);
@@ -242,7 +242,7 @@ declare module "mongodb" {
 		aggregate(pipeline: any[], callback: (err: Error, results: any) => void);
 		aggregate(pipeline: any[], options, callback: (err: Error, results: any) => void);
 		stats(options, callback);
-		
+
 		hint;
 	}
 
