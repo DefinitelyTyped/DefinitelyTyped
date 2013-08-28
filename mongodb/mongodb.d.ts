@@ -211,25 +211,23 @@ declare module "mongodb" {
 		public static NEAREST: string;
 	}
 
+	// See : http://mongodb.github.io/node-mongodb-native/api-generated/collection.html
+	// Current definition by documentation version 1.3.13 (28.08.2013)
 	export interface CollectionCreateOptions {
-		// {true | {w:n, wtimeout:n} | {fsync:true}, default:false}, executes with a getLastError command returning the results of the command on MongoDB.
-		safe?: boolean;
-		// {Boolean, default:false}, serialize functions on the document.
+		// the prefered read preference. use 'ReadPreference' class.
+		readPreference?: string; 
+
+		// Allow reads from secondaries. default:false.
+		slaveOk?: boolean;
+
+		// serialize functions on the document. default:false.
 		serializeFunctions?: boolean;
-		// {Boolean, default:false}, perform all operations using raw bson objects.
+
+		// perform all operations using raw bson objects. default:false.
 		raw?: boolean; 
+
 		// object overriding the basic ObjectID primary key generation.
 		pkFactory?: PKFactory;
-		// {Boolean, default:false}, create a capped collection.
-		capped?: boolean;
-		// {Number}, the size of the capped collection in bytes. 
-		size?: number;
-		// {Number}, the maximum number of documents in the capped collection.
-		max?: number;
-		// {Boolean, default:false}, create an index on the _id field of the document, not created automatically on capped collections.
-		autoIndexId?: boolean;
-		// {String}, the prefered read preference (ReadPreference.PRIMARY, ReadPreference.PRIMARY_PREFERRED, ReadPreference.SECONDARY, ReadPreference.SECONDARY_PREFERRED, ReadPreference.NEAREST).
-		readPreference?: string; 
 	}
 
 	// Documentation : http://mongodb.github.io/node-mongodb-native/api-generated/collection.html
