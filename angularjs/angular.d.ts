@@ -539,7 +539,7 @@ declare module ng {
     }
 
     interface IHttpPromiseCallback<T> {
-        (data: T, status: number, headers: (headerName: string) => string, config: IRequestConfig): any;
+        (data: T, status: number, headers: (headerName: string) => string, config: IRequestConfig): void;
     }
 
     interface IHttpPromiseCallbackArg<T> {
@@ -550,8 +550,8 @@ declare module ng {
     }
 
     interface IHttpPromise<T> extends IPromise<T> {
-        success(callback: IHttpPromiseCallback<T>): IHttpPromise<any>;
-        error(callback: IHttpPromiseCallback<T>): IHttpPromise<any>;
+        success(callback: IHttpPromiseCallback<T>): IHttpPromise<T>;
+        error(callback: IHttpPromiseCallback<T>): IHttpPromise<T>;
         then(successCallback: (response: IHttpPromiseCallbackArg<T>) => any, errorCallback?: (response: IHttpPromiseCallbackArg<T>) => any): IPromise<any>;
     }
 
