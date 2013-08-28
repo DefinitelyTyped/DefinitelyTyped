@@ -23,7 +23,7 @@ declare module "mongodb" {
 
 	// Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/db.html
 	export class Db {
-		constructor (databaseName: string, serverConfig: Server, dbOptions?: DBOptions);
+		constructor (databaseName: string, serverConfig: Server, dbOptions?: DbCreateOptions);
 
 		public db(dbName: string): Db;
 
@@ -153,7 +153,7 @@ declare module "mongodb" {
 
 	// See : http://mongodb.github.io/node-mongodb-native/api-generated/db.html
 	// Current definition by documentation version 1.3.13 (28.08.2013)
-	export interface DBOptions {
+	export interface DbCreateOptions {
 		//  the write concern for the operation where < 1 is no acknowlegement of write and w >= 1, w = ‘majority’ or tag acknowledges the write.
 		w?: string;
 
