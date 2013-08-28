@@ -23,7 +23,7 @@ declare module "mongodb" {
 
 	// Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/db.html
 	export class Db {
-		constructor (databaseName: string, serverConfig: Server, db_options?: DBOptions);
+		constructor (databaseName: string, serverConfig: Server, dbOptions?: DBOptions);
 
 		public db(dbName: string): Db;
 
@@ -133,27 +133,61 @@ declare module "mongodb" {
 		createPk: () => number;
 	}
 
+	// See : http://mongodb.github.io/node-mongodb-native/api-generated/db.html
 	export interface DBOptions {
-		//- if true, use native BSON parser
+		//  the write concern for the operation where < 1 is no acknowlegement of write and w >= 1, w = ‘majority’ or tag acknowledges the write.
+		w?: string;
+
+		// set the timeout for waiting for write concern to finish (combines with w option).
+		wtimeout?: number;
+
+		//  write waits for fsync before returning. default:false.
+		fsync?: boolean;
+
+		// write waits for journal sync before returning. default:false.
+		journal?: boolean;
+
+		readPreference?: string;
+
+		// use c++ bson parser. default:false.
 		native_parser?: boolean;
-		//- sets strict mode , if true then existing collections can’t be “recreated” etc.
-		strict?: boolean;
-		//- custom primary key factory to generate _id values (see Custom primary keys).
-		pk?: PKFactory;
-		//- generation of objectid is delegated to the mongodb server instead of the driver. default is false
+
+		// force server to create _id fields instead of client. default:false.
 		forceServerObjectId?: boolean;
-		//- specify the number of milliseconds between connection attempts default:5000
-		retryMiliSeconds?: number;
-		//- specify the number of retries for connection attempts default:3
-		numberOfRetries?: number;
-		//- enable/disable reaper (true/false) default:false
-		reaper?: boolean;
-		//- specify the number of milliseconds between each reaper attempt default:10000
-		reaperInterval?: number;
-		//- specify the number of milliseconds for timing out callbacks that don’t return default:30000
-		reaperTimeout?: number;
-		//- driver expects Buffer raw bson document, default:false
+
+		// custom primary key factory to generate _id values (see Custom primary keys).
+		pkFactory?: PKFactory;
+
+		// serialize functions. default:false.
+		serializeFunctions?: boolean;
+
+		// peform operations using raw bson buffers. default:false.
 		raw?: boolean;
+
+		// record query statistics during execution. default:false.
+		recordQueryStats?: boolean;
+
+		// number of miliseconds between retries. default:5000.
+		retryMiliSeconds?: number;
+
+		// number of retries off connection. default:5.
+		numberOfRetries?: number;
+
+		// an object representing a logger that you want to use, needs to support functions debug, log, error. default:null.
+		logger?: Object
+
+		// force setting of SlaveOk flag on queries (only use when explicitly connecting to a secondary server). default:null.
+		slaveOk?: number;
+
+		// when deserializing a Long will fit it into a Number if it’s smaller than 53 bits. default:true.
+		promoteLongs?: boolean;
+		
+		// enable/disable reaper (true/false) default:false
+		reaper?: boolean;
+		// specify the number of milliseconds between each reaper attempt default:10000
+		reaperInterval?: number;
+		// specify the number of milliseconds for timing out callbacks that don’t return default:30000
+		reaperTimeout?: number;
 	}
 
 	export interface CollectionCreateOptions {
