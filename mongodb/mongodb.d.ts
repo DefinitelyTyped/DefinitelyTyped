@@ -5,6 +5,7 @@
 /// <reference path='../node/node.d.ts' />
 
 declare module "mongodb" {
+
     // Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/mongoclient.html
     export class MongoClient{           
         constructor(serverConfig: any, options: any);
@@ -13,9 +14,12 @@ declare module "mongodb" {
         static connect(uri: string, callback: (err: any, db: Db) => void);
     }
 
+    // Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/server.html
 	export class Server {
 		constructor (host: string, port: number, opts?: ServerOptions);
 	}
+
+    // Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/db.html
 	export class Db {
 		constructor (databaseName: string, serverConfig: Server, db_options?: DBOptions);
 
@@ -97,6 +101,7 @@ declare module "mongodb" {
 		public addListener(event: string, handler:(param: any) => any);
 	}
 
+    // Class documentation : http://mongodb.github.io/node-mongodb-native/api-bson-generated/objectid.html
 	export class ObjectID {
 		constructor (s: string);
 	}
