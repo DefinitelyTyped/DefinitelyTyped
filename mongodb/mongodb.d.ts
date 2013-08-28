@@ -313,7 +313,9 @@ declare module "mongodb" {
 	// Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/cursor.html
 	// Last update: doc. version 1.3.13 (28.08.2013)
 	export class Cursor {
-		constructor (db: Db, collection: Collection, selector, fields, skip, limit, sort, hint, explain, snapshot, timeout, tailable, batchSize, slaveOk, raw, read, returnKey, maxScan, min, max, showDiskLoc, comment, awaitdata, numberOfRetries, dbName, tailableRetryInterval, exhaust, partial);
+		// INTERNAL TYPE
+		// constructor (db: Db, collection: Collection, selector, fields, skip, limit, sort, hint, explain, snapshot, timeout, tailable, batchSize, slaveOk, raw, read, returnKey, maxScan, min, max, showDiskLoc, comment, awaitdata, numberOfRetries, dbName, tailableRetryInterval, exhaust, partial);
+		// constructor(db: Db, collection: Collection, selector, fields, options)
 
 		rewind() : Cursor;
 		toArray(callback: (err: any, results: any[]) => any) : void;
