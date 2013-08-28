@@ -215,7 +215,7 @@ declare module "mongodb" {
 	}
 
 	export interface Collection {
-		//constructor (db: Db, collectionName: string, pkFactory, options);
+		constructor (db: Db, collectionName: string, pkFactory?: Object, options?: CollectionCreateOptions);
 
 		insert(query: any, callback: (err: any, result: any) => void): void;
 		insert(query: any, options: { safe?: any; continueOnError?: boolean; keepGoing?: boolean; serializeFunctions?: boolean; }, callback: (err: any, result: any) => void): void;
