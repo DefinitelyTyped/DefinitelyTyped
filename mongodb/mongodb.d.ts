@@ -134,6 +134,7 @@ declare module "mongodb" {
 	}
 
 	// See : http://mongodb.github.io/node-mongodb-native/api-generated/db.html
+	// Current definition by documentation version 1.3.13 (28.08.2013)
 	export interface DBOptions {
 		//  the write concern for the operation where < 1 is no acknowlegement of write and w >= 1, w = ‘majority’ or tag acknowledges the write.
 		w?: string;
@@ -147,6 +148,7 @@ declare module "mongodb" {
 		// write waits for journal sync before returning. default:false.
 		journal?: boolean;
 
+		// the prefered read preference. use 'ReadPreference' class.
 		readPreference?: string;
 
 		// use c++ bson parser. default:false.
@@ -181,6 +183,14 @@ declare module "mongodb" {
 
 		// when deserializing a Long will fit it into a Number if it’s smaller than 53 bits. default:true.
 		promoteLongs?: boolean;
+	}
+
+	export class ReadPreference {
+		public static PRIMARY: string;
+		public static PRIMARY_PREFERRED: string;
+		public static SECONDARY: string;
+		public static SECONDARY_PREFERRED: string;
+		public static NEAREST: string;
 	}
 
 	export interface CollectionCreateOptions {
