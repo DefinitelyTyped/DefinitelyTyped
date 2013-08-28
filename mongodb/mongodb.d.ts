@@ -338,9 +338,10 @@ declare module "mongodb" {
 		close(callback: (err, result) => void) : void;
 		isClosed(): boolean;
 
-		static INIT;
-		static OPEN;
-		static CLOSED;
+		public static INIT: number;
+		public static OPEN: number;
+		public static CLOSED: number;
+		public static GET_MORE: number;
 	}
 
 	export interface CollectionFindOptions {
