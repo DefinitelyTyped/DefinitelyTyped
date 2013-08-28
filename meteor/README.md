@@ -46,7 +46,7 @@ After you create this file, you may access the Template variable by declaring so
 
 
 ##Defining Collections
-In TypeScript, creating global variables is not allowed, and in a Meteor app, creating local variables (using `var <varName>`) limits variables' scope to the file.  However, you will probably want to define variables, such as collections, that can be used across files.  In the case of collections, one way to work around these limitations is to wrap each collection within a module, and then make the module globally accessible.  Here is an example using posts.ts:
+In TypeScript, global variables are not allowed, and in a Meteor app, creating a local variable (using `var <varName>`) limits a variable's scope to the file.  However, you will probably want to define variables, such as collections, that can be used across files.  In the case of collections, one way to work around these limitations is to wrap each collection within a module, and then make the module globally accessible.  Here is an example using posts.ts:
 
 	module PostsModel {
 	  export var Posts = new Meteor.Collection('posts');
@@ -60,7 +60,7 @@ You can then access the Posts collection by placing `/// <reference path='../../
 
 
 ##Reference app
-A simple Meteor application created with TypeScript is listed below.  It is based on the Microscope reference app in [Discover Meteor](http://www.discovermeteor.com/ "http://www.discovermeteor.com/").
+A simple Meteor reference application created with TypeScript is listed below.  It is based on the Microscope reference app in [Discover Meteor](http://www.discovermeteor.com/ "http://www.discovermeteor.com/").
 
 - Sample Site:  <http://microscopic-typescript.meteor.com/>
 - Code (TypeScript and transpiled JS):  <https://github.com/fullflavedave/MicroscopicTypeScript>
