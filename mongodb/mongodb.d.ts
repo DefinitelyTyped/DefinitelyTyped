@@ -311,11 +311,11 @@ declare module "mongodb" {
 	}
 
 	// Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/cursor.html
-	// Last update: doc. version 1.3.13 (28.08.2013)
+	// Last update: doc. version 1.3.13 (29.08.2013)
 	export class Cursor {
 		// INTERNAL TYPE
 		// constructor (db: Db, collection: Collection, selector, fields, skip, limit, sort, hint, explain, snapshot, timeout, tailable, batchSize, slaveOk, raw, read, returnKey, maxScan, min, max, showDiskLoc, comment, awaitdata, numberOfRetries, dbName, tailableRetryInterval, exhaust, partial);
-		// constructor(db: Db, collection: Collection, selector, fields, options)
+		// constructor(db: Db, collection: Collection, selector, fields, options);
 
 		rewind() : Cursor;
 		toArray(callback: (err: any, results: any[]) => any) : void;
@@ -334,8 +334,7 @@ declare module "mongodb" {
 		nextObject(callback: (err: any, doc: any) => void) : void;
 		explain(callback: (err, result) => void) : void;
 
-		// TODO:
-		//stream(): CursorStream;
+		stream(): CursorStream;
 
 		close(callback: (err, result) => void) : void;
 		isClosed(): boolean;
@@ -344,6 +343,16 @@ declare module "mongodb" {
 		public static OPEN: number;
 		public static CLOSED: number;
 		public static GET_MORE: number;
+	}
+
+	// Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/cursorstream.html
+	// Last update: doc. version 1.3.13 (29.08.2013)
+	export class CursorStream {
+		constructor(cursor: Cursor);
+
+		public pause();
+		public resume();
+		public destroy();
 	}
 
 	export interface CollectionFindOptions {
