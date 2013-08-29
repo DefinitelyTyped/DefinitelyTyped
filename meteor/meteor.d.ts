@@ -89,19 +89,9 @@ interface IMeteor {
   /************
    * Accounts *
    ************/
-  user(): {
-    _id: string;
-    username: string;
-    emails?: {
-      address: string;
-      verified: boolean;
-    }
-    profile?: Object;
-    services?: Object;
-    createdAt?: number;
-  };
+  user(): IMeteorUser;
   userId(): string;
-  users: IMeteorCollection;
+  users: IMeteorUserCollection;
   loggingIn(): boolean;
   logout(callback?: Function): void;
   loginWithPassword(user: Object, password: string, callback?: Function): void;
@@ -191,8 +181,8 @@ interface IMeteor {
  ***************/
 interface IMeteorCollection {
   find(selector?, options?: Object): IMeteorCursor;
-  findOne(selector, options?: Object): Object;
-  insert(doc, callback?: Function): number;
+  findOne(selector, options?: Object): any;
+  insert(doc: Object, callback?: Function): string;
   update(selector, modifier, options?: Object, callback?: Function): void;
   remove(selector, callback?: Function): void;
   allow(options: Object): boolean;
@@ -244,7 +234,7 @@ interface IMeteorManager {
   created(callback: Function): void;
   destroyed(callback: Function): void;
   events(eventMap: {[eventType: string]: Function}): void;
-  helpers(helpers: Object): Object;
+  helpers(helpers: Object): any;
   preserve(selector: Object): void;
 }
 
@@ -288,6 +278,29 @@ interface IMeteorHandle {
 /**************************
  * Accounts and Passwords *
  **************************/
+interface IMeteorUser {
+  _id?: string;
+  username?: string;
+  emails?: {
+    address: string;
+    verified: boolean;
+  }
+  profile?: any;
+  services?: any;
+  createdAt?: number;
+}
+
+interface IMeteorUserCollection {
+  find(selector?, options?: Object): IMeteorCursor;
+  findOne(selector, options?: Object): IMeteorUser;
+  insert(doc: IMeteorUser, callback?: Function): IMeteorUser;
+  update(selector, modifier, options?: Object, callback?: Function): void;
+  remove(selector, callback?: Function): void;
+  allow(options: Object): boolean;
+  deny(options: Object): boolean;
+  ObjectID(hexString?: string): Object;
+}
+
 interface IMeteorAccounts {
   config(options: {
            sendVerificationEmail?: boolean;
