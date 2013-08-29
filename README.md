@@ -148,6 +148,7 @@ List of Definitions
 * [Meteor](https://www.meteor.com) (by [Dave Allen](https://github.com/fullflavedave))
 * [Modernizr](http://modernizr.com/) (by [Boris Yankov](https://github.com/borisyankov) and [Theodore Brown](https://github.com/theodorejb/))
 * [Moment.js](https://github.com/timrwood/moment) (by [Michael Lakerveld](https://github.com/Lakerfield))
+* [MongoDB](http://mongodb.github.io/node-mongodb-native/) (from TypeScript samples, updated by [Niklas Mollenhauer](https://github.com/nikeee))
 * [Mousetrap](http://craig.is/killing/mice) (by [Dániel Tar](https://github.com/qcz))
 * [Mustache.js](https://github.com/janl/mustache.js) (by [Boris Yankov](https://github.com/borisyankov))
 * [Node.js](http://nodejs.org/) (from TypeScript samples)
