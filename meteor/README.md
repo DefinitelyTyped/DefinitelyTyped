@@ -1,6 +1,11 @@
 #Meteor Type Definitions Usage Notes
 
-In order to effectively write your Meteor app with TypeScript, there are a few extra things you will need to do in addition to simply referencing the Meteor type definition file and renaming all of your *.js files to *.ts (which alone will not work).
+In order to effectively write your Meteor app with TypeScript, you will probably need to follow these steps:
+
+- Reference the type definitions file
+- Create a Templates definitions file
+- Create Collections within modules
+
 
 ##Referencing Meteor type definitions in your app
 - Place the meteor.d.ts file in a directory (maybe `<app root dir>/lib/typescript`)
@@ -22,6 +27,7 @@ This will make these typed Meteor variables/objects available across your applic
 - DPP
 
 *Please note that the Template variable is not automatically available.  You need to follow the instructions below to use the Template variable.*
+
 
 ##Defining Templates
 In order to call `Template.yourTemplateName.method`, you will need to create a simple TypeScript definition file that declares a Template variable containing a list of template view-models/managers of type IMeteorViewModel (or IMeteorManager, which is the same as IMeteorViewModel).  A good place for this definition could be `<app root dir>/client/views/view-model-types.d.ts`.  Here is an example of that file:
