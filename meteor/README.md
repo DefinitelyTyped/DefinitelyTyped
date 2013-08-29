@@ -1,9 +1,9 @@
 #Meteor Type Definitions Usage Notes
 
-In order to effectively write your Meteor app with TypeScript, you will probably need to follow these steps:
+In order to effectively write your Meteor app with TypeScript, you will probably need to do these things:
 
-- Reference the type definitions file
-- Create a Templates definitions file
+- Reference the Meteor type definitions file (meteor.d.ts)
+- Create a Template definition file
 - Create Collections within modules
 
 
