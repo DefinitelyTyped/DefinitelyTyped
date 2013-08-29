@@ -48,7 +48,7 @@ In order to call `Template.yourTemplateName.method`, you will need to create a s
 	  header: IMeteorViewModel;
 	}
 
-After you create this file, you may access the Template variable by declaring something like `/// <reference path='../view-model-types.d.ts'/>` at the top of any TypeScript file containing references to Template.  Something like `Template.postsList.helpers()` would then transpile successfully (and have the benefits of typing).
+After you create this file, you may access the Template variable by declaring something similar to `/// <reference path='../view-model-types.d.ts'/>` at the top of any TypeScript file containing references to Template.  Something like `Template.postsList.helpers()` would then transpile successfully (and also have the benefits of typing).
 
 
 ##Defining Collections
@@ -60,7 +60,7 @@ In TypeScript, global variables are not allowed, and in a Meteor app, creating a
 
 	this.PostsModel = PostsModel;
 
-You can then access the Posts collection by placing `/// <reference path='../../../collections/posts.ts'/>` at the top of a TypeScript file.  The code would look like this:
+You can then access the Posts collection by placing something similar to `/// <reference path='../../../collections/posts.ts'/>` at the top of a TypeScript file.  The code within the file something would look something like this:
 
 	PostsModel.Posts.findOne(Session.get('currentPostId'));
 
