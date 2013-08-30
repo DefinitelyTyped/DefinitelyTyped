@@ -29,6 +29,7 @@ declare module Ladda {
     function bind(target: HTMLElement, options?: ILaddaOptions): void;
     function bind(cssSelector: string, options?: ILaddaOptions): void;
 
-    function create(button: HTMLElement): ILaddaButton;
+    function create(button: Element): ILaddaButton;
     
-    function stopAll(): void;}
+    function stopAll(): void;
+}
