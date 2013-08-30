@@ -4,20 +4,19 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-interface HandlebarsStatic {
-    registerHelper(name: string, fn: Function, inverse?: boolean): void;
-    registerPartial(name: string, str): void;
-    K();
-    createFrame(object);
-
-    Exception(message: string): void;
-    SafeString(str: string): void;
-
-    parse(string: string);
-    print(ast);
-    logger;
-    log(level, str): void;
-    compile(environment, options?, context?, asObject?);
+declare module Handlebars {
+    function registerHelper(name: string, fn: Function, inverse?: boolean): void;
+    function registerPartial(name: string, str): void;
+    function K();
+    function createFrame(object);
+    function Exception(message: string): void;
+    class SafeString {
+        constructor(str: string);
+        static toString(): string;
+    }
+    function parse(string: string);
+    function print(ast);
+    var logger;
+    function log(level, str): void;
+    function compile(environment, options?, context?, asObject?);
 }
-
-declare var Handlebars: HandlebarsStatic;
