@@ -550,8 +550,7 @@ declare module ng {
         config?: IRequestConfig;
     }
 
-    interface IHttpPromise<T> extends IPromise<T> {
-        interface IHttpPromise<T> extends IPromise<T> {
+    interface IHttpPromise<T> extends IPromise<T> {        
         success(callback: IHttpPromiseCallback<T>): IHttpPromise<T>;
         error(callback: IHttpPromiseCallback<T>): IHttpPromise<T>;
         then<TResult>(successCallback: (response: IHttpPromiseCallbackArg<T>) => TResult, errorCallback?: (response: IHttpPromiseCallbackArg<T>) => any): IPromise<TResult>;
