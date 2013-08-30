@@ -406,6 +406,7 @@ declare module ng {
     }
 
     interface IPromise<T> {
+        then<TResult>(successCallback: (promiseValue: T) => IHttpPromise<TResult>, errorCallback?: (reason: any) => any): IPromise<TResult>;
         then<TResult>(successCallback: (promiseValue: T) => IPromise<TResult>, errorCallback?: (reason: any) => any): IPromise<TResult>;
         then<TResult>(successCallback: (promiseValue: T) => TResult, errorCallback?: (reason: any) => TResult): IPromise<TResult>;
     }
@@ -550,9 +551,10 @@ declare module ng {
     }
 
     interface IHttpPromise<T> extends IPromise<T> {
+        interface IHttpPromise<T> extends IPromise<T> {
         success(callback: IHttpPromiseCallback<T>): IHttpPromise<T>;
         error(callback: IHttpPromiseCallback<T>): IHttpPromise<T>;
-        then(successCallback: (response: IHttpPromiseCallbackArg<T>) => any, errorCallback?: (response: IHttpPromiseCallbackArg<T>) => any): IPromise<any>;
+        then<TResult>(successCallback: (response: IHttpPromiseCallbackArg<T>) => TResult, errorCallback?: (response: IHttpPromiseCallbackArg<T>) => any): IPromise<TResult>;
     }
 
     interface IHttpProvider extends IServiceProvider {
