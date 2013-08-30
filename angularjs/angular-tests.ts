@@ -210,3 +210,10 @@ foo.then((x) => {
     // x is infered to be a number, which is the resolved value of a promise 
     x.toFixed();
 });
+
+
+// angular.element() tests
+var element = angular.element("div.myApp");
+var scope: ng.IScope = element.scope();
+
+

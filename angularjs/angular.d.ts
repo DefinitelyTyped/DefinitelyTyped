@@ -33,7 +33,7 @@ declare module ng {
         bootstrap(element: JQuery, modules?: any[]): auto.IInjectorService;
         bootstrap(element: Element, modules?: any[]): auto.IInjectorService;
         copy(source: any, destination?: any): any;
-        element: JQueryStatic;
+        element: IAugmentedJQueryStatic;
         equals(value1: any, value2: any): boolean;
         extend(destination: any, ...sources: any[]): any;
         forEach(obj: any, iterator: (value: any, key: any) => any, context?: any): any;
@@ -667,6 +667,38 @@ declare module ng {
         scope?: any;
         link?: Function;
         compile?: Function;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // angular.element
+    // when calling angular.element, angular returns a jQuery object,
+    // augmented with additional methods like e.g. scope.
+    // see: http://docs.angularjs.org/api/angular.element
+    ///////////////////////////////////////////////////////////////////////////
+    interface IAugmentedJQueryStatic extends JQueryStatic {
+        (selector: string, context?: any): IAugmentedJQuery;
+        (element: Element): IAugmentedJQuery;
+        (object: {}): IAugmentedJQuery;
+        (elementArray: Element[]): IAugmentedJQuery;
+        (object: JQuery): IAugmentedJQuery;
+        (func: Function): IAugmentedJQuery;
+        (array: any[]): IAugmentedJQuery;
+        (): IAugmentedJQuery;
+    }
+
+    interface IAugmentedJQuery extends JQuery {
+        // TODO: events, how to define?
+        //$destroy
+
+        controller(name: string): any;
+        injector(): any;
+        scope(): IScope;
+
+        inheritedData(key: string, value: any): JQuery;
+        inheritedData(obj: { [key: string]: any; }): JQuery;
+        inheritedData(key?: string): any;
+
+
     }
 
 
