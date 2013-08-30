@@ -111,3 +111,7 @@ var highChartSettings: HighchartsOptions = {
 };
 
 var chart = $("#container").highcharts(highChartSettings);
+
+var options = Highcharts.getOptions();
+
+var options2 = Highcharts.setOptions(options);
