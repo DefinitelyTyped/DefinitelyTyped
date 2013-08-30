@@ -1,4 +1,4 @@
-// Type definitions for jStorage 0.4.0
+// Type definitions for Ladda 0.7.0
 // Project: https://github.com/hakimel/Ladda
 // Definitions by: Danil Flores <https://github.com/dflor003/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -31,5 +31,4 @@ declare module Ladda {
 
     function create(button: HTMLElement): ILaddaButton;
     
-    function stopAll(): void;
-}
+    function stopAll(): void;}
