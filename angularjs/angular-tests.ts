@@ -149,7 +149,7 @@ module HttpAndRegularPromiseTests {
     }
 }
 
-// Test for AngularJS Syntac
+// Test for AngularJS Syntax
 
 module My.Namespace {
     export var x; // need to export something for module to kick in    
