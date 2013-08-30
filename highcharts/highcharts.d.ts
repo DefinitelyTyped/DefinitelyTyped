@@ -3,6 +3,8 @@
 // Definitions by: Damiano Gambarotto <http://github.com/damianog>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../jquery/jquery.d.ts" />
+
 interface HighchartsPosition {
     align?: string;
     verticalAlign?: string;
@@ -1105,4 +1107,8 @@ interface HighchartsSeriesObject {
     visible: boolean;
     xAxis: HighchartsAxisObject;
     yAxis: HighchartsAxisObject;
+}
+
+interface JQuery {
+    highcharts(options: HighchartsOptions): HighchartsChart;
 }
