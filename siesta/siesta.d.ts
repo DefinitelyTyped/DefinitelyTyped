@@ -809,6 +809,7 @@ declare module Siesta {
          * @class
          */
         interface jQuery extends Browser {
+            get$(): any;
         }
 
         interface IWaitForConfig {
@@ -889,16 +890,40 @@ declare module Siesta {
             waitFor(config: IWaitForConfig): IWaitForReturn;
         }
 
+        interface IPositionConfig {
+            x?: number;
+
+            y?: number;
+        }
+
         /**
          * @class
          */
         interface SenchaTouch extends Browser, IExtJSComponent, IExtJSElement, IExtJSFormField, IExtJSObservable, IExtJSStore, IExtJSCore {
+            doubleTap(target: any, callback?: Function, scope?: any, offset?: number[]): void;
+
+            longpress(target: any, callback?: Function, scope?: any, offset?: number[]): void;
+
+            moveFingerBy(delta: number[], callback?: Function, scope?: any): void;
+
+            moveFingerTo(target: any, callback?: Function, scope?: any, offset?: number[]): void;
+
+            scrollUntilElementVisible(scrollable: any, direction: string, actionTarget: any, callback: Function, scope: any): void;
+
+            swipe(target: any, direction: string, callback?: Function, scope?: any): void;
+
+            tap(target: any, callback?: Function, scope?: any): void;
+
+            waitForScrollerPosition(scroller: any, position: IPositionConfig, callback: Function, scope: any, timeout: number): void;
         }
 
         /**
          * @mixin
          */
         interface ITextSelection {
+            getSelectedText(el: any): string;
+
+            selectText(el: any, start?: number, end?: number): void;
         }
     }
 }
