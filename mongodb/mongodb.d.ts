@@ -56,8 +56,8 @@ declare module "mongodb" {
 		public createCollection(collectionName: string, callback?: (err: Error, result: Collection) => void );
 		public createCollection(collectionName: string, options: CollectionCreateOptions, callback?: (err, result) => void );
 
-		public command(selector: any, callback?: (err, result) => void );
-		public command(selector: any, options: any, callback?: (err, result) => void );
+		public command(selector: Object, callback?: (err, result) => void );
+		public command(selector: Object, options: any, callback?: (err, result) => void );
 
 		public dropCollection(collectionName: string, callback?: (err, result) => void );
 		public renameCollection(fromCollection: string, toCollection: string, callback?: (err, result) => void );
@@ -237,16 +237,16 @@ declare module "mongodb" {
 		insert(query: any, callback: (err: any, result: any) => void): void;
 		insert(query: any, options: { safe?: any; continueOnError?: boolean; keepGoing?: boolean; serializeFunctions?: boolean; }, callback: (err: any, result: any) => void): void;
 
-		remove(selector, callback?: (err: any, result: any) => void);
-		remove(selector, options: { safe?: any; single?: boolean; }, callback?: (err: any, result: any) => void);
+		remove(selector: Object, callback?: (err: any, result: any) => void);
+		remove(selector: Object, options: { safe?: any; single?: boolean; }, callback?: (err: any, result: any) => void);
 
 		rename(newName: String, callback?: (err, result) => void);
 
 		save(doc: any, callback : (err, result) => void);
 		save(doc: any, options: { safe: any; }, callback : (err, result) => void);
 
-		update(selector: any, document: any, callback?: (err: any, result: any) => void): void;
-		update(selector: any, document: any, options: { safe?; upsert?; multi?; serializeFunctions?; }, callback: (err: any, result: any) => void): void;
+		update(selector: Object, document: any, callback?: (err: any, result: any) => void): void;
+		update(selector: Object, document: any, options: { safe?; upsert?; multi?; serializeFunctions?; }, callback: (err: any, result: any) => void): void;
 
 		distinct(key: string, query: Object, callback: (err, result) => void);
 		distinct(key: string, query: Object, options: { readPreferences; }, callback: (err, result) => void);
@@ -264,20 +264,20 @@ declare module "mongodb" {
 		findAndRemove(query : Object, sort? : any[], options?: { safe; }, callback?: (err, result) => void);
 
 		find(callback?: (err: any, result: Cursor) => void): Cursor;
-		find(selector: any, callback?: (err: any, result: Cursor) => void): Cursor;
-		find(selector: any, fields: any, callback?: (err: any, result: Cursor) => void): Cursor;
-		find(selector: any, options: CollectionFindOptions, callback?: (err: any, result: Cursor) => void): Cursor;
-		find(selector: any, fields: any, options: CollectionFindOptions, callback?: (err: any, result: Cursor) => void): Cursor;
-		find(selector: any, fields: any, skip: number, limit: number, callback?: (err: any, result: Cursor) => void): Cursor;
-		find(selector: any, fields: any, skip: number, limit: number, timeout: number, callback?: (err: any, result: Cursor) => void): Cursor;
+		find(selector: Object, callback?: (err: any, result: Cursor) => void): Cursor;
+		find(selector: Object, fields: any, callback?: (err: any, result: Cursor) => void): Cursor;
+		find(selector: Object, options: CollectionFindOptions, callback?: (err: any, result: Cursor) => void): Cursor;
+		find(selector: Object, fields: any, options: CollectionFindOptions, callback?: (err: any, result: Cursor) => void): Cursor;
+		find(selector: Object, fields: any, skip: number, limit: number, callback?: (err: any, result: Cursor) => void): Cursor;
+		find(selector: Object, fields: any, skip: number, limit: number, timeout: number, callback?: (err: any, result: Cursor) => void): Cursor;
 
 		findOne(callback?: (err: any, result: any) => void): Cursor;
-		findOne(selector: any, callback?: (err: any, result: any) => void): Cursor;
-		findOne(selector: any, fields: any, callback?: (err: any, result: any) => void): Cursor;
-		findOne(selector: any, options: CollectionFindOptions, callback?: (err: any, result: any) => void): Cursor;
-		findOne(selector: any, fields: any, options: CollectionFindOptions, callback?: (err: any, result: any) => void): Cursor;
-		findOne(selector: any, fields: any, skip: number, limit: number, callback?: (err: any, result: any) => void): Cursor;
-		findOne(selector: any, fields: any, skip: number, limit: number, timeout: number, callback?: (err: any, result: any) => void): Cursor;
+		findOne(selector: Object, callback?: (err: any, result: any) => void): Cursor;
+		findOne(selector: Object, fields: any, callback?: (err: any, result: any) => void): Cursor;
+		findOne(selector: Object, options: CollectionFindOptions, callback?: (err: any, result: any) => void): Cursor;
+		findOne(selector: Object, fields: any, options: CollectionFindOptions, callback?: (err: any, result: any) => void): Cursor;
+		findOne(selector: Object, fields: any, skip: number, limit: number, callback?: (err: any, result: any) => void): Cursor;
+		findOne(selector: Object, fields: any, skip: number, limit: number, timeout: number, callback?: (err: any, result: any) => void): Cursor;
 
 		createIndex(fieldOrSpec, options: IndexOptions, callback: (err: Error, indexName: string) => void);
 		ensureIndex(fieldOrSpec, options: IndexOptions, callback: (err: Error, indexName: string) => void);
