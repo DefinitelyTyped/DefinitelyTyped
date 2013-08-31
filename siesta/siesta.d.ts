@@ -1,7 +1,4 @@
 declare module Siesta {
-
-    //#region Harness
-
     /**
      * @abstract
      */
@@ -177,10 +174,6 @@ declare module Siesta {
         var NodeJS: IHarnessNodeJS;
     }
 
-    //#endregion
-
-    //#region Test
-
     /**
      * @abstract
      */
@@ -188,9 +181,11 @@ declare module Siesta {
     }
 
     module Test {
-        interface IActionCall extends IAction {
+        interface IActionCall {
             (next: (...args: any[]) => void, ...previous: any[]): void;
+        }
 
+        interface IActionConfig extends IActionCall, IAction {
             action?: IActionCall;
 
             timeout?: number;
@@ -475,7 +470,117 @@ declare module Siesta {
                 type(el: any, text: string, callback?: Function, scope?: any, options?: any): void;
             }
 
-            module KeyCodes {
+            enum KeyCodes {
+                '\b' = 8,
+                'BACKSPACE' = 8,
+
+                '\t' = 9,
+                'TAB' = 9,
+
+                '\r' = 13,
+                'RETURN' = 13,
+                'ENTER' = 13,
+
+                'SHIFT' = 16,
+                'CTRL' = 17,
+                'ALT' = 18,
+
+                'PAUSE-BREAK' = 19,
+                'CAPS' = 20,
+                'ESCAPE' = 27,
+                'NUM-LOCK' = 144,
+                'SCROLL-LOCK' = 145,
+                'PRINT' = 44,
+
+                'PAGE-UP' = 33,
+                'PAGE-DOWN' = 34,
+                'END' = 35,
+                'HOME' = 36,
+                'LEFT' = 37,
+                'UP' = 38,
+                'RIGHT' = 39,
+                'DOWN' = 40,
+                'INSERT' = 45,
+                'DELETE' = 46,
+
+                ' ' = 32,
+                '0' = 48,
+                '1' = 49,
+                '2' = 50,
+                '3' = 51,
+                '4' = 52,
+                '5' = 53,
+                '6' = 54,
+                '7' = 55,
+                '8' = 56,
+                '9' = 57,
+                'A' = 65,
+                'B' = 66,
+                'C' = 67,
+                'D' = 68,
+                'E' = 69,
+                'F' = 70,
+                'G' = 71,
+                'H' = 72,
+                'I' = 73,
+                'J' = 74,
+                'K' = 75,
+                'L' = 76,
+                'M' = 77,
+                'N' = 78,
+                'O' = 79,
+                'P' = 80,
+                'Q' = 81,
+                'R' = 82,
+                'S' = 83,
+                'T' = 84,
+                'U' = 85,
+                'V' = 86,
+                'W' = 87,
+                'X' = 88,
+                'Y' = 89,
+                'Z' = 90,
+
+                'NUM0' = 96,
+                'NUM1' = 97,
+                'NUM2' = 98,
+                'NUM3' = 99,
+                'NUM4' = 100,
+                'NUM5' = 101,
+                'NUM6' = 102,
+                'NUM7' = 103,
+                'NUM8' = 104,
+                'NUM9' = 105,
+                'NUM*' = 106,
+                'NUM+' = 107,
+                //'NUM-' = 109,
+                //'NUM.' = 110,
+                //'NUM/' = 111,
+
+                ';' = 186,
+                '=' = 187,
+                ',' = 188,
+                '-' = 189,
+                '.' = 190,
+                '/' = 191,
+                '`' = 192,
+                '[' = 219,
+                '\\' = 220,
+                ']' = 221,
+                '\'' = 222,
+
+                'F1' = 112,
+                'F2' = 113,
+                'F3' = 114,
+                'F4' = 115,
+                'F5' = 116,
+                'F6' = 117,
+                'F7' = 118,
+                'F8' = 119,
+                'F9' = 120,
+                'F10' = 121,
+                'F11' = 122,
+                'F12' = 123
             }
 
             /**
@@ -524,7 +629,7 @@ declare module Siesta {
         /**
          * @class
          */
-        interface Browser extends Simulate.IEvent, Simulate.IKeyboard, Simulate.IMouse, IElement, ITextSelection {
+        interface Browser extends ITest, Simulate.IEvent, Simulate.IKeyboard, Simulate.IMouse, IElement, ITextSelection {
             clearTimeout(timeoutId: number): void;
 
             elementFromPoint(x: number, y: number, shallow?: boolean): HTMLElement;
@@ -559,12 +664,113 @@ declare module Siesta {
          * @mixin
          */
         interface IElement {
+            chainClick(elements: any[], callback: Function): void;
+
+            clickSelector(selector: string, callback: Function, scope?: any): void;
+            clickSelector(selector: string, root: any, callback: Function, scope?: any): void;
+
+            contentLike(el: any, text: string, description?: string): void;
+
+            contentNotLike(el: any, text: string, description?: string): void;
+
+            elementIsAt(el: any, xy: number[], allowChildren: boolean, description?: string): void;
+
+            elementIsInView(el: any): void;
+
+            elementIsNotTopElement(el: any, allowChildren: boolean, description?: string): void;
+
+            elementIsNotVisible(el: any, description?: string): void;
+
+            elementIsTop(el: any, allowChildren: boolean): boolean;
+
+            elementIsTopElement(el: any, allowChildren: boolean, description?: string, strict?): void;
+
+            elementIsVisible(el: any, description?: string): void;
+
+            findCenter(el: any, local?: boolean): number[];
+
+            hasCls(el: any, cls: string, description?: string): void;
+
+            hasNotCls(el: any, cls: string, description?: string): void;
+
+            hasNotStyle(el: any, property: string, value: string, description?: string): void;
+
+            hasStyle(el: any, property: string, value: string, description?: string): void;
+
+            isElementVisible(el: any): boolean;
+
+            isInView(el: any, description?: string): void;
+
+            monkeyTest(el: any, nbrInteractions: number, description?: string, callback?: Function, scope?: any): void;
+
+            scrollHorizontallyTo(el: any, newLeft: number, delay?: number, callback?: Function): number;
+
+            scrollVerticallyTo(el: any, newTop: number, delay?: number, callback?: Function): number;
+
+            selectorCountIs(selector: string, count: number, description: string): void;
+            selectorCountIs(selector: string, root: any, count: number, description: string): void;
+
+            selectorExists(selector: string, description?: string): void;
+
+            selectorIsAt(selector: string, xy: number[], allowChildren: boolean, description?: string): void;
+
+            selectorNotExists(selector: string, description?: string): void;
+
+            waitForContentLike(el: any, text: string, callback: Function, scope: any, timeout: number): void;
+
+            waitForContentNotLike(el: any, text: string, callback: Function, scope: any, timeout: number): void;
+
+            waitForElementNotTop(el: any, callback: Function, scope: any, timeout: number): void;
+
+            waitForElementNotVisible(el: any, callback: Function, scope: any, timeout: number): void;
+
+            waitForElementTop(el: any, callback: Function, scope: any, timeout: number): void;
+
+            waitForElementVisible(el: any, callback: Function, scope: any, timeout: number): void;
+
+            waitForScrollChange(el: any, side: string, callback: Function, scope: any, timeout: number): void;
+
+            waitForScrollLeftChange(el: any, callback: Function, scope: any, timeout: number): void;
+
+            waitForScrollTopChange(el: any, callback: Function, scope: any, timeout: number): void;
+
+            waitForSelector(selector: string, callback: Function, scope: any, timeout: number): void;
+            waitForSelector(selector: string, root: any, callback: Function, scope: any, timeout: number): void;
+
+            waitForSelectorAt(xy: number[], selector: string, callback: Function, scope: any, timeout: number): void;
+
+            waitForSelectorAtCursor(xy: number[], selector: string, callback: Function, scope: any, timeout: number): void;
+
+            waitForSelectorNotFound(selector: string, callback: Function, scope: any, timeout: number): void;
+            waitForSelectorNotFound(selector: string, root: any, callback: Function, scope: any, timeout: number): void;
+
+            waitForSelectors(selectors: string[], callback: Function, scope: any, timeout: number): void;
+            waitForSelectors(selectors: string[], root: any, callback: Function, scope: any, timeout: number): void;
+
+            waitUntilInView(el: any, callback: Function, scope: any, timeout: number): void;
         }
 
         /**
          * @mixin
          */
         interface IExtJSCore {
+            Ext(): any;
+
+            clickCQ(selector: string, root: any, callback: Function);
+
+            clickComponentQuery(selector: string, root: any, callback: Function);
+
+            compositeQuery(selector: string, root: any, allowEmpty: boolean): HTMLElement[];
+
+            cq(selector: string);
+
+            cq1(selector: string);
+
+            getExt(): any;
+
+            knownBugIn(frameworkVersion: string, fn: Function, reason: string);
+
+            requireOk(...args: any[]): void;
         }
 
         /**
@@ -695,9 +901,6 @@ declare module Siesta {
         interface ITextSelection {
         }
     }
-
-    //#endregion
-
 }
 
 declare function StartTest(testScript: (t: Siesta.ITest) => void): void;
