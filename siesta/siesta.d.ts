@@ -413,14 +413,10 @@ declare module Siesta {
          * @mixin
          */
         interface IExtJSComponent {
-            destroysOk(components: any[], description?: string): void;
-            destroysOk(components: string, description?: string): void;
             destroysOk(components: any, description?: string): void;
 
-            hasPosition(component: string, x: number, y: number, description?: string): void;
             hasPosition(component: any, x: number, y: number, description?: string): void;
 
-            hasSize(component: string, width: number, height: number, description?: string): void;
             hasSize(component: any, width: number, height: number, description?: string): void;
 
             waitForCQ(query: string, root: any, callback: Function, scope: any, timeout: number): void;
@@ -433,7 +429,6 @@ declare module Siesta {
 
             waitForComponent(component: string, rendered: boolean, callback: Function, scope: any, timeout: number): void;
 
-            waitForComponentNotVisible(component: string, callback: Function, scope: any, timeout: number): void;
             waitForComponentNotVisible(component: any, callback: Function, scope: any, timeout: number): void;
 
             waitForComponentQuery(query: string, root: any, callback: Function, scope: any, timeout: number): void;
@@ -444,7 +439,6 @@ declare module Siesta {
 
             waitForComponentQueryVisible(query: string, root: any, callback: Function, scope: any, timeout: number): void;
 
-            waitForComponentVisible(component: string, callback: Function, scope: any, timeout: number): void;
             waitForComponentVisible(component: any, callback: Function, scope: any, timeout: number): void;
 
             waitForCompositeQuery(query: string, root: any, callback: Function, scope: any, timeout: number): void;
@@ -459,10 +453,8 @@ declare module Siesta {
          * @mixin
          */
         interface IExtJSDataView {
-            getFirstItem(view: string): any;
             getFirstItem(view: any): any;
 
-            waitForViewRendered(view: string, callback: Function, scope: any, timeout: number): void;
             waitForViewRendered(view: any, callback: Function, scope: any, timeout: number): void;
         }
 
@@ -470,36 +462,79 @@ declare module Siesta {
          * @mixin
          */
         interface IExtJSElement {
+            hasRegion(el: any, region: any, description?: string): void;
         }
 
         /**
          * @mixin
          */
         interface IExtJSFormField {
+            fieldHasValue(field: any, value: any, description?: string): void;
+
+            isFieldEmpty(field: any, description?: string): void;
         }
 
         /**
          * @mixin
          */
         interface IExtJSGrid {
+            getCell(panel: any, row: number, column: number): HTMLElement;
+
+            getFirstCell(panel: any): HTMLElement;
+
+            getFirstRow(panel: any): any;
+
+            getLastCellInRow(panel: any, row: number): HTMLElement;
+
+            getRow(panel: any, index: number): any;
+
+            matchGridCellContent(panel: any, row: number, column: number, string: RegExp, description?: string): void;
+            matchGridCellContent(panel: any, row: number, column: number, string: string, description?: string): void;
+
+            waitForRowsVisible(panel: any, callback: Function, scope: any, timeout: number): void;
         }
 
         /**
          * @mixin
          */
         interface IExtJSObservable {
+            firesAtLeastNTimes(observable: any, event: string, n: number, desc: string): void;
+
+            firesOnce(observable: any, event: string, desc: string): void;
+
+            hasListener(observable: any, eventName: string, description?: string): void;
+
+            isFiredWithSignature(observable: any, event: string, checkerFn: Function, desc: string): void;
+
+            waitForEvent(observable: any, event: string, callback: Function, scope: any, timeout: number): void;
+
+            wontFire(observable: any, event: string, desc: string): void;
         }
 
         /**
          * @mixin
          */
         interface IExtJSStore {
+            isStoreEmpty(store: any, description?: string): void;
+
+            loadStoresAndThen(...args: any[]): void;
+
+            waitForStoresToLoad(...args: any[]): void;
         }
 
         /**
          * @class
          */
         interface ExtJS extends Browser, IExtJSAjax, IExtJSComponent, IExtJSDataView, IExtJSElement, IExtJSFormField, IExtJSGrid, IExtJSObservable, IExtJSStore, IExtJSCore {
+            assertMaxNumberOfGlobalExtOverrides(maxNumber: number, description?): void;
+
+            assertNoGlobalExtOverrides(description?: string): void;
+
+            assertNoLayoutTriggered(fn: Function, scope: any, description?: string): void;
+
+            getTotalLayoutCounter(): number;
+
+            waitForPageLoad(callback: Function, scope: any): void;
         }
 
         module Simulate {
