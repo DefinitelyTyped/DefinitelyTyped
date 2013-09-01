@@ -178,6 +178,49 @@ declare module Siesta {
      * @abstract
      */
     interface ITest extends Test.IBDD, Test.IDate, Test.IFunction, Test.IMore {
+        isReadyTimeout: number;
+
+        beginAsync(time: number, errback: Function): any;
+
+        compareObjects(obj1: any, obj2: any, strict?: boolean, onlyPrimitives?: boolean, asObjects?: boolean): boolean;
+
+        diag(desc: string): void;
+
+        done(delay: number): void;
+
+        endAsync(frame: any): void;
+
+        endWait(title: string): void;
+
+        fail(desc: string, annotation: any): void;
+
+        getSubTest(name: string, code: (t: ITest) => void, timeout?: number): ITest;
+
+        is(got: any, expected: any, desc: string): void;
+
+        isNot(got: any, expected: any, desc: string): void;
+
+        isNotStrict(got: any, expected: any, desc: string): void;
+
+        isReady(): any;
+
+        isStrict(got: any, expected: any, desc: string): void;
+
+        launchSubTest(subTest: ITest, callback: Function): void;
+
+        notOk(value: any, desc: string): void;
+
+        ok(value: any, desc: string): void;
+
+        pass(desc: string, annotation: any): void;
+
+        subTest(desc: string, code: (t: ITest) => void, callback: Function, timeout?: number): void;
+
+        todo(why: string, code: Function): void;
+
+        typeOf(object: any): string;
+
+        wait(title: string, howLong: number): void;
     }
 
     module Test {
