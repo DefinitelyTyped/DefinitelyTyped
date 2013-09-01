@@ -7,10 +7,25 @@
 
 declare module FullCalendar {
     export interface Calendar {
+        /**
+        * Formats a Date object into a string.
+        */
         formatDate(date: Date, format: string, options?: Options): string;
+        /**
+        * Formats a date range (two Date objects) into a string.
+        */
         formatDates(date1: Date, date2: Date, format: string, options?: Options): string;
+        /**
+        * Parses a string into a Date object.
+        */
         parseDate(dateString: string, ignoreTimezone?: boolean): Date;
+        /**
+        * Parses an ISO8601 string into a Date object.
+        */
         parseISO8601(dateString: string, ignoreTimezone?: boolean): Date;
+        /**
+        * Gets the version of Fullcalendar
+        */
         version: string;
     }
 
@@ -179,33 +194,117 @@ declare module FullCalendar {
 }
 
 interface JQuery {
+    /**
+    * Create calendar object
+    */
     fullCalendar(options: FullCalendar.Options): JQuery;
+    /**
+    * Generic method function
+    */
     fullCalendar(method: string, arg1: any, arg2: any, arg3: any): void;
+    /**
+    * Get/Set option value
+    */
     fullCalendar(method: 'option', option: string, value?: any): void;
+    /**
+    * Immediately forces the calendar to render and/or readjusts its size.
+    */
     fullCalendar(method: 'render'): void;
+    /**
+    * Restores the element to the state before FullCalendar was initialized.
+    */
     fullCalendar(method: 'destroy'): void;
+    /**
+    * Moves the calendar one step back (either by a month, week, or day).
+    */
     fullCalendar(method: 'prev'): void;
+    /**
+    * Moves the calendar one step forward (either by a month, week, or day).
+    */
     fullCalendar(method: 'next'): void;
+    /**
+    * Moves the calendar back one year.
+    */
     fullCalendar(method: 'prevYear'): void;
+    /**
+    * Moves the calendar forward one year.
+    */
     fullCalendar(method: 'nextYear'): void;
+    /**
+    * Moves the calendar to the current date.
+    */
     fullCalendar(method: 'today'): void;
+    /**
+    * Returns the View Object for the current view.
+    */
     fullCalendar(method: 'getView'): FullCalendar.View;
+    /**
+    * Immediately switches to a different view.
+    */
     fullCalendar(method: 'changeView', viewName: string): void;
+    /**
+    * Moves the calendar to an arbitrary year/month/date.
+    */
     fullCalendar(method: 'gotoDate', year: number, month?: number, date?: number): void;
+    /**
+    * Moves the calendar to an arbitrary date.
+    */
     fullCalendar(method: 'gotoDate', date: Date): void;
+    /**
+    * Moves the calendar forward/backward an arbitrary amount of time.
+    */
     fullCalendar(method: 'incrementDate', year: number, month?: number, date?: number): void;
+    /**
+    * Returns a Date object for the current date of the calendar.
+    */
     fullCalendar(method: 'getDate'): Date;
+    /**
+    * A method for programmatically selecting a period of time.
+    */
     fullCalendar(method: 'select', startDate: Date, endDate: Date, allDay: boolean): void;
+    /**
+    * A method for programmatically clearing the current selection.
+    */
     fullCalendar(method: 'unselect'): void;
+    /**
+    * Reports changes to an event and renders them on the calendar.
+    */
     fullCalendar(method: 'updateEvent', event: FullCalendar.EventObject): void;
+    /**
+    * Retrieves events that FullCalendar has in memory.
+    */
     fullCalendar(method: 'clientEvents', idOrfilter?: any): Array<FullCalendar.EventObject>;
+    /**
+    * Retrieves events that FullCalendar has in memory.
+    */
     fullCalendar(method: 'clientEvents', idOrfilter?: (e: FullCalendar.EventObject) => boolean): Array<FullCalendar.EventObject>;
+    /**
+    * Removes events from the calendar.
+    */
     fullCalendar(method: 'removeEvents', idOrfilter?: any): void;
+    /**
+    * Removes events from the calendar.
+    */
     fullCalendar(method: 'removeEvents', idOrfilter?: (e: FullCalendar.EventObject) => boolean): void;
-    fullCalendar(method: 'refreshEvents'): void;
+    /**
+    * Refetches events from all sources and rerenders them on the screen.
+    */
+    fullCalendar(method: 'refetchEvents'): void;
+    /**
+    * Dynamically adds an event source.
+    */
     fullCalendar(method: 'addEventSource', source: any): void;
+    /**
+    * Dynamically removes an event source.
+    */
     fullCalendar(method: 'removeEventSource', source: any): void;
+    /**
+    * Renders a new event on the calendar.
+    */
     fullCalendar(method: 'renderEvent', event: FullCalendar.EventObject, stick?: boolean): void;
+    /**
+    * Rerenders all events on the calendar.
+    */
     fullCalendar(method: 'rerenderEvents'): void;
 }
 
