@@ -405,8 +405,8 @@ declare module Siesta {
 
             isAjaxLoading(object?: any, description?: string): void;
 
-            waitForAjaxRequest(callback: Function, scope: any, timeout: number): void;
-            waitForAjaxRequest(object: any, callback: Function, scope: any, timeout: number): void;
+            waitForAjaxRequest(callback: Function, scope?: any, timeout?: number): void;
+            waitForAjaxRequest(object: any, callback: Function, scope?: any, timeout?: number): void;
         }
 
         /**
@@ -419,34 +419,41 @@ declare module Siesta {
 
             hasSize(component: any, width: number, height: number, description?: string): void;
 
-            waitForCQ(query: string, root: any, callback: Function, scope: any, timeout: number): void;
+            waitForCQ(query: string, callback: Function, scope?: any, timeout?: number): void;
+            waitForCQ(query: string, root: any, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForCQNotFound(query: string, callback: Function, scope: any, timeout: number): void;
+            waitForCQNotFound(query: string, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForCQNotVisible(query: string, callback: Function, scope: any, timeout: number): void;
+            waitForCQNotVisible(query: string, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForCQVisible(query: string, callback: Function, scope: any, timeout: number): void;
+            waitForCQVisible(query: string, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForComponent(component: string, rendered: boolean, callback: Function, scope: any, timeout: number): void;
+            waitForComponent(component: string, rendered: boolean, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForComponentNotVisible(component: any, callback: Function, scope: any, timeout: number): void;
+            waitForComponentNotVisible(component: any, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForComponentQuery(query: string, root: any, callback: Function, scope: any, timeout: number): void;
+            waitForComponentQuery(query: string, callback: Function, scope?: any, timeout?: number): void;
+            waitForComponentQuery(query: string, root: any, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForComponentQueryNotFound(query: string, root: any, callback: Function, scope: any, timeout: number): void;
+            waitForComponentQueryNotFound(query: string, callback: Function, scope?: any, timeout?: number): void;
+            waitForComponentQueryNotFound(query: string, root: any, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForComponentQueryNotVisible(query: string, root: any, callback: Function, scope: any, timeout: number): void;
+            waitForComponentQueryNotVisible(query: string, callback: Function, scope?: any, timeout?: number): void;
+            waitForComponentQueryNotVisible(query: string, root: any, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForComponentQueryVisible(query: string, root: any, callback: Function, scope: any, timeout: number): void;
+            waitForComponentQueryVisible(query: string, callback: Function, scope?: any, timeout?: number): void;
+            waitForComponentQueryVisible(query: string, root: any, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForComponentVisible(component: any, callback: Function, scope: any, timeout: number): void;
+            waitForComponentVisible(component: any, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForCompositeQuery(query: string, root: any, callback: Function, scope: any, timeout: number): void;
+            waitForCompositeQuery(query: string, callback: Function, scope?: any, timeout?: number): void;
+            waitForCompositeQuery(query: string, root: any, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForCompositeQueryNotFound(query: string, root: any, callback: Function, scope: any, timeout: number): void;
+            waitForCompositeQueryNotFound(query: string, callback: Function, scope?: any, timeout?: number): void;
+            waitForCompositeQueryNotFound(query: string, root: any, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForXType(xtype: string, callback: Function, scope: any, timeout: number): void;
-            waitForXType(xtype: string, root: any, callback: Function, scope: any, timeout: number): void;
+            waitForXType(xtype: string, callback: Function, scope?: any, timeout?: number): void;
+            waitForXType(xtype: string, root: any, callback: Function, scope?: any, timeout?: number): void;
         }
 
         /**
@@ -455,7 +462,7 @@ declare module Siesta {
         interface IExtJSDataView {
             getFirstItem(view: any): any;
 
-            waitForViewRendered(view: any, callback: Function, scope: any, timeout: number): void;
+            waitForViewRendered(view: any, callback: Function, scope?: any, timeout?: number): void;
         }
 
         /**
@@ -491,7 +498,7 @@ declare module Siesta {
             matchGridCellContent(panel: any, row: number, column: number, string: RegExp, description?: string): void;
             matchGridCellContent(panel: any, row: number, column: number, string: string, description?: string): void;
 
-            waitForRowsVisible(panel: any, callback: Function, scope: any, timeout: number): void;
+            waitForRowsVisible(panel: any, callback: Function, scope?: any, timeout?: number): void;
         }
 
         /**
@@ -506,7 +513,7 @@ declare module Siesta {
 
             isFiredWithSignature(observable: any, event: string, checkerFn: Function, desc: string): void;
 
-            waitForEvent(observable: any, event: string, callback: Function, scope: any, timeout: number): void;
+            waitForEvent(observable: any, event: string, callback: Function, scope?: any, timeout?: number): void;
 
             wontFire(observable: any, event: string, desc: string): void;
         }
@@ -534,7 +541,7 @@ declare module Siesta {
 
             getTotalLayoutCounter(): number;
 
-            waitForPageLoad(callback: Function, scope: any): void;
+            waitForPageLoad(callback: Function, scope?: any): void;
         }
 
         module Simulate {
@@ -730,9 +737,9 @@ declare module Siesta {
 
             setTimeout(func: Function, delay: number): number;
 
-            waitForEvent(observable: any, event: string, callback: Function, scope: any, timeout: number): void;
+            waitForEvent(observable: any, event: string, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForPageLoad(callback: Function, scope: any): void;
+            waitForPageLoad(callback: Function, scope?: any): void;
 
             willFireNTimes(observable: any, event: string, n: number, desc: string): void;
 
@@ -802,38 +809,38 @@ declare module Siesta {
 
             selectorNotExists(selector: string, description?: string): void;
 
-            waitForContentLike(el: any, text: string, callback: Function, scope: any, timeout: number): void;
+            waitForContentLike(el: any, text: string, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForContentNotLike(el: any, text: string, callback: Function, scope: any, timeout: number): void;
+            waitForContentNotLike(el: any, text: string, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForElementNotTop(el: any, callback: Function, scope: any, timeout: number): void;
+            waitForElementNotTop(el: any, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForElementNotVisible(el: any, callback: Function, scope: any, timeout: number): void;
+            waitForElementNotVisible(el: any, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForElementTop(el: any, callback: Function, scope: any, timeout: number): void;
+            waitForElementTop(el: any, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForElementVisible(el: any, callback: Function, scope: any, timeout: number): void;
+            waitForElementVisible(el: any, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForScrollChange(el: any, side: string, callback: Function, scope: any, timeout: number): void;
+            waitForScrollChange(el: any, side: string, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForScrollLeftChange(el: any, callback: Function, scope: any, timeout: number): void;
+            waitForScrollLeftChange(el: any, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForScrollTopChange(el: any, callback: Function, scope: any, timeout: number): void;
+            waitForScrollTopChange(el: any, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForSelector(selector: string, callback: Function, scope: any, timeout: number): void;
-            waitForSelector(selector: string, root: any, callback: Function, scope: any, timeout: number): void;
+            waitForSelector(selector: string, callback: Function, scope?: any, timeout?: number): void;
+            waitForSelector(selector: string, root: any, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForSelectorAt(xy: number[], selector: string, callback: Function, scope: any, timeout: number): void;
+            waitForSelectorAt(xy: number[], selector: string, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForSelectorAtCursor(xy: number[], selector: string, callback: Function, scope: any, timeout: number): void;
+            waitForSelectorAtCursor(xy: number[], selector: string, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForSelectorNotFound(selector: string, callback: Function, scope: any, timeout: number): void;
-            waitForSelectorNotFound(selector: string, root: any, callback: Function, scope: any, timeout: number): void;
+            waitForSelectorNotFound(selector: string, callback: Function, scope?: any, timeout?: number): void;
+            waitForSelectorNotFound(selector: string, root: any, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForSelectors(selectors: string[], callback: Function, scope: any, timeout: number): void;
-            waitForSelectors(selectors: string[], root: any, callback: Function, scope: any, timeout: number): void;
+            waitForSelectors(selectors: string[], callback: Function, scope?: any, timeout?: number): void;
+            waitForSelectors(selectors: string[], root: any, callback: Function, scope?: any, timeout?: number): void;
 
-            waitUntilInView(el: any, callback: Function, scope: any, timeout: number): void;
+            waitUntilInView(el: any, callback: Function, scope?: any, timeout?: number): void;
         }
 
         /**
@@ -971,8 +978,8 @@ declare module Siesta {
 
             verifyGlobals(...names: string[]): void;
 
-            waitFor(wait: number, callback: Function, scope: any, timeout: number, interval?: number): IWaitForReturn;
-            waitFor(method: Function, callback: Function, scope: any, timeout: number, interval?: number): IWaitForReturn;
+            waitFor(wait: number, callback: Function, scope?: any, timeout?: number, interval?: number): IWaitForReturn;
+            waitFor(method: Function, callback: Function, scope?: any, timeout?: number, interval?: number): IWaitForReturn;
             waitFor(config: IWaitForConfig): IWaitForReturn;
         }
 
@@ -1000,7 +1007,7 @@ declare module Siesta {
 
             tap(target: any, callback?: Function, scope?: any): void;
 
-            waitForScrollerPosition(scroller: any, position: IPositionConfig, callback: Function, scope: any, timeout: number): void;
+            waitForScrollerPosition(scroller: any, position: IPositionConfig, callback: Function, scope?: any, timeout?: number): void;
         }
 
         /**
