@@ -62,6 +62,9 @@ declare module WinJS {
         function start(): void;
         function stop(): void;
     }
+    class ErrorFromName {
+        constructor(name: string, message?: string);
+    }    
     class Promise<T> {
     	constructor(init: (c: any, e: any, p: any) => void);
         then<U>(success?: (value: T) => Promise<U>, error?: (error: any) => Promise<U>, progress?: (progress: any) => void ): Promise<U>;
