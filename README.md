@@ -166,6 +166,7 @@ List of Definitions
 * [PouchDB](http://pouchdb.com) (by [Bill Sears](https://github.com/MrBigDog2U/))
 * [PreloadJS](http://www.createjs.com/#!/PreloadJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [QUnit](http://qunitjs.com/) (by [Diullei Gomes](https://github.com/Diullei))
+* [Raven.js](https://github.com/getsentry/raven-js) (by [Santi Albo](https://github.com/santialbo))
 * [Restify](https://github.com/mcavage/node-restify) (by [Bret Little](https://github.com/blittle))
 * [Royalslider](http://dimsemenov.com/plugins/royal-slider/) (by [Christiaan Rakowski](https://github.com/csrakowski))
 * [Rx.js](http://rx.codeplex.com/) (by [gsino](http://www.codeplex.com/site/users/view/gsino))
