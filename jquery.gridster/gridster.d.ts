@@ -32,8 +32,8 @@ interface GridsterDraggable {
 	limit: boolean;
 	offset_left: number;
 	drag: (event: Event, ui: GridsterUi) => void;
-	start: (event: Event, ui: { helper: JQuery }) => void;
-	stop: (event: Event, ui: { helper: JQuery }) => void;
+	start: (event: Event, ui: { helper: JQuery; }) => void;
+	stop: (event: Event, ui: { helper: JQuery; }) => void;
 }
 
 interface GridsterUi {
