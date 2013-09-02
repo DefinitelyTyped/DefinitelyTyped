@@ -1051,7 +1051,8 @@ interface HighchartsStatic {
 
     dateFormat(format: string, time?: number, capitalize?: boolean): string;
     numberFormat(value: number, decimals?: number, decimalPoint?: string, thousandsSep?: string): string;
-    setOptions(options: HighchartsOptions): any;
+    setOptions(options: HighchartsOptions): HighchartsOptions;
+    getOptions(): HighchartsOptions;
 }
 declare var Highcharts: HighchartsStatic;
 
