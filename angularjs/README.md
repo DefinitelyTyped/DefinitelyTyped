@@ -96,7 +96,7 @@ Since you are augmenting the $scope object, you should let the compiler know wha
         $scope.title = 'Yabadabadu';
     }
 
-## Exemples
+## Examples
 
 ### Working with $resource
 
