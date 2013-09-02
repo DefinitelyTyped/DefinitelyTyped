@@ -12,6 +12,20 @@ $(function () {
 });
 
 $(function () {
+    $(selector).pagination({
+        onPageClick: (page) => {
+        }
+    });
+});
+
+$(function () {
+    $(selector).pagination({
+        onPageClick: (page, event) => {
+        }
+    });
+});
+
+$(function () {
     $(selector).pagination('selectPage', 1);
 });
 
