@@ -110,7 +110,7 @@ var highChartSettings: HighchartsOptions = {
     }]
 };
 
-var chart = $("#container").highcharts(highChartSettings);
+var container = $("#container").highcharts(highChartSettings);
 
 var options = Highcharts.getOptions();
 
