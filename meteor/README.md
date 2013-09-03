@@ -52,29 +52,17 @@ After you create this file, you may access the Template variable by declaring so
 
 
 ##Defining Collections
-In TypeScript, global variables are not allowed, and in a Meteor app, creating a local variable (using `var <varName>`) limits a variable's scope to the file.  However, you will probably want to define variables, such as collections, that can be used across files.  In the case of collections, one way to work around these limitations is to wrap the definitions of all collections within a module, and then make the module globally accessible.  Here is an example (collections/models.ts):
+In TypeScript, global variables are not allowed, and in a Meteor app, creating a local variable (using `var <varName>`) limits a variable's scope to the file.  However, you will probably want to define variables, such as collections, that can be used across multiple files.  In the case of collections, one way to work around these limitations is to wrap the definitions of all collections within a module, and then make the module globally accessible.  Here is an example (collections/models.ts):
 
 	module Models {
 	  export var Posts = new Meteor.Collection('posts');
 	  export var Comments = new Meteor.Collection('comments');
 	  export var Notifications = new Meteor.Collection('notifications');
-
-	  export var createCommentNotification = function (comment) {
-	    var post = Posts.findOne(comment.postId);
-	    Notifications.insert({
-	      userId: post.userId,
-	      postId: post._id,
-	      commentId: comment._id,
-	      commenterName: comment.author,
-	      read: false
-	    });
-	  };
-
 	}
 
 	this.Models = Models;
 
-You can then access the Posts collection by placing something similar to `/// <reference path='../../../collections/models.ts'/>` at the top of a TypeScript file.  The code within the file something would look something like this:
+You can then access the Posts collection by placing something similar to `/// <reference path='../../../collections/models.ts'/>` at the top of a TypeScript file.  The code within the file would look something like this:
 
 	Models.Posts.findOne(Session.get('currentPostId'));
 
