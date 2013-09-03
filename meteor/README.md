@@ -4,7 +4,7 @@ In order to effectively write a Meteor app with TypeScript, you will probably ne
 
 - Reference the Meteor type definitions file (meteor.d.ts)
 - Create a Template definition file
-- Create Collections within modules
+- Create Collections within a module or modules
 
 
 ##Referencing Meteor type definitions in your app
@@ -52,17 +52,33 @@ After you create this file, you may access the Template variable by declaring so
 
 
 ##Defining Collections
-In TypeScript, global variables are not allowed, and in a Meteor app, creating a local variable (using `var <varName>`) limits a variable's scope to the file.  However, you will probably want to define variables, such as collections, that can be used across files.  In the case of collections, one way to work around these limitations is to wrap each collection within a module, and then make the module globally accessible.  Here is an example using posts.ts:
+In TypeScript, global variables are not allowed, and in a Meteor app, creating a local variable (using `var <varName>`) limits a variable's scope to the file.  However, you will probably want to define variables, such as collections, that can be used across files.  In the case of collections, one way to work around these limitations is to wrap the definitions of all collections within a module, and then make the module globally accessible.  Here is an example (collections/models.ts):
 
-	module PostsModel {
+	module Models {
 	  export var Posts = new Meteor.Collection('posts');
-	};
+	  export var Comments = new Meteor.Collection('comments');
+	  export var Notifications = new Meteor.Collection('notifications');
 
-	this.PostsModel = PostsModel;
+	  export var createCommentNotification = function (comment) {
+	    var post = Posts.findOne(comment.postId);
+	    Notifications.insert({
+	      userId: post.userId,
+	      postId: post._id,
+	      commentId: comment._id,
+	      commenterName: comment.author,
+	      read: false
+	    });
+	  };
 
-You can then access the Posts collection by placing something similar to `/// <reference path='../../../collections/posts.ts'/>` at the top of a TypeScript file.  The code within the file something would look something like this:
+	}
 
-	PostsModel.Posts.findOne(Session.get('currentPostId'));
+	this.Models = Models;
+
+You can then access the Posts collection by placing something similar to `/// <reference path='../../../collections/models.ts'/>` at the top of a TypeScript file.  The code within the file something would look something like this:
+
+	Models.Posts.findOne(Session.get('currentPostId'));
+
+For organizational purposes, any additional code related to each Collection can be placed in a separate file per each collection.  Alternatively, you could wrap each collection in its own module (e.g. PostsModel for posts, CommentsModel for comments).
 
 
 ##Reference app
