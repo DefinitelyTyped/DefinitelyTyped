@@ -79,27 +79,32 @@ function test_basic() {
 }
 
 function test_config() {
-    RestangularProvider.setBaseUrl('/api/v1');
-    RestangularProvider.setExtraFields(['name']);
-    RestangularProvider.setResponseExtractor(function (response, operation) {
-        return response.data;
-    });
+    var myRestangular = Restangular.withConfig((configurer: RestangularProvider) => {
+        configurer.setBaseUrl('/api/v1');
+        configurer.setExtraFields(['name']);
 
-    RestangularProvider.setDefaultHttpFields({ cache: true });
-    RestangularProvider.setMethodOverriders(["put", "patch"]);
+        configurer.setErrorInterceptor(function (response) {
+            console.error('' + response.status + ' ' + response.data);
+        });
+        configurer.setResponseExtractor(function (response, operation) {
+            return response.data;
+        });
+        configurer.setDefaultHttpFields({ cache: true });
+        configurer.setMethodOverriders(["put", "patch"]);
 
-    RestangularProvider.setRestangularFields({
-        id: "_id",
-        route: "restangularRoute"
-    });
+        configurer.setRestangularFields({
+            id: "_id",
+            route: "restangularRoute"
+        });
 
-    RestangularProvider.setRequestSuffix('.json');
+        configurer.setRequestSuffix('.json');
 
-    RestangularProvider.setRequestInterceptor(function (element, operation, route, url) {
-    });
+        configurer.setRequestInterceptor(function (element, operation, route, url) {
+        });
 
-    RestangularProvider.addElementTransformer('accounts', false, function (elem) {
-        elem.accountName = 'Changed';
-        return elem;
+        configurer.addElementTransformer('accounts', false, function (elem) {
+            elem.accountName = 'Changed';
+            return elem;
+        });
     });
 }
