@@ -1446,7 +1446,7 @@ declare module Slick {
 	}
 
 	export interface Formatter<T extends Slick.SlickData> {
-		(row: number, cell: number, columnDef: Column<T>, dataContext: SlickData): string;
+        (row: number, cell: number, value: any, columnDef: Column<T>, dataContext: SlickData): string;
 	}
 
 	export module Formatters {
