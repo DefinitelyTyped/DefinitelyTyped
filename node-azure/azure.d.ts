@@ -184,7 +184,16 @@ declare module "azure" {
     }
 
     export class TableQuery {
-
+        static select(...fields: string[]): TableQuery;
+        from(table: string): TableQuery;
+        whereKeys(partitionKey: string, rowKey: string): TableQuery;
+        whereNextKeys(partitionKey: string, rowKey: string): TableQuery;
+        where(condition: string, ...values: string[]): TableQuery;
+        and(condition: string, ...arguments: string[]): TableQuery;
+        or(condition: string, ...arguments: string[]): TableQuery;
+        top(integer): TableQuery;
+        toQueryObject(): any;
+        toPath(): string;
     }
 
     export class BatchServiceClient extends StorageServiceClient {
