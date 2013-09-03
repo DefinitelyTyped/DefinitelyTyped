@@ -88,8 +88,6 @@ function test_config() {
     RestangularProvider.setDefaultHttpFields({ cache: true });
     RestangularProvider.setMethodOverriders(["put", "patch"]);
 
-    RestangularProvider.setListTypeIsArray(true);
-
     RestangularProvider.setRestangularFields({
         id: "_id",
         route: "restangularRoute"
