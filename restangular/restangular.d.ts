@@ -56,11 +56,11 @@ interface RestangularProvider {
     addElementTransformer(route: string, transformer: Function): void;
     addElementTransformer(route: string, isCollection: boolean, transformer: Function): void;
     setOnElemRestangularized(callback: (elem: any, isCollection: boolean, what: string, restangular: Restangular) => any): void;
-    setResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: XMLHttpRequest, deferred: ng.IDeferred<any>) => any): void;
-    setResponseExtractor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: XMLHttpRequest, deferred: ng.IDeferred<any>) => any): void;
+    setResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: RestangularResponse, deferred: ng.IDeferred<any>) => any): void;
+    setResponseExtractor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: RestangularResponse, deferred: ng.IDeferred<any>) => any): void;
     setRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any);
     setFullRequestInterceptor(fullRequestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any) => {element: any; headers: any; params: any});
-    setErrorInterceptor(errorInterceptor: (response: XMLHttpRequest) => any): void;
+    setErrorInterceptor(errorInterceptor: (response: RestangularResponse) => any): void;
     setRestangularFields(fields: {[fieldName: string]: string}): void;
     setMethodOverriders(overriders: string[]): void;
     setDefaultRequestParams(params: any): void;
@@ -69,6 +69,16 @@ interface RestangularProvider {
     setDefaultHeaders(headers: any): void;
     setRequestSuffix(suffix: string): void;
     setUseCannonicalId(useCannonicalId: boolean): void;
+}
+
+interface RestangularResponse {
+    status: number;
+    data: any;
+    config: {
+        method: string;
+        url: string;
+        params: any;
+    }
 }
 
 declare var Restangular: Restangular;
