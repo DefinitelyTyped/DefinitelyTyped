@@ -56,11 +56,11 @@ interface RestangularProvider {
     addElementTransformer(route: string, transformer: Function): void;
     addElementTransformer(route: string, isCollection: boolean, transformer: Function): void;
     setOnElemRestangularized(callback: (elem: any, isCollection: boolean, what: string, restangular: Restangular) => any): void;
-    setResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: any, deferred: ng.IDeferred<any>) => any): void;
-    setResponseExtractor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: any, deferred: ng.IDeferred<any>) => any): void;
+    setResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: XMLHttpRequest, deferred: ng.IDeferred<any>) => any): void;
+    setResponseExtractor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: XMLHttpRequest, deferred: ng.IDeferred<any>) => any): void;
     setRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any);
     setFullRequestInterceptor(fullRequestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any) => {element: any; headers: any; params: any});
-    setErrorInterceptor(errorInterceptor: (response: any) => any): void;
+    setErrorInterceptor(errorInterceptor: (response: XMLHttpRequest) => any): void;
     setRestangularFields(fields: {[fieldName: string]: string}): void;
     setMethodOverriders(overriders: string[]): void;
     setDefaultRequestParams(params: any): void;
