@@ -518,8 +518,8 @@ declare module ng {
         pendingRequests: any[];
     }
 
-    // This is just for hinting.    
-    // Some opetions might not be available depending on the request. 
+    // This is just for hinting.
+    // Some opetions might not be available depending on the request.
     // see http://docs.angularjs.org/api/ng.$http#Usage for options explanations
     interface IRequestConfig {
         method: string;
@@ -550,10 +550,11 @@ declare module ng {
         config?: IRequestConfig;
     }
 
-    interface IHttpPromise<T> extends IPromise<T> {        
+    interface IHttpPromise<T> extends IPromise<T> {
         success(callback: IHttpPromiseCallback<T>): IHttpPromise<T>;
         error(callback: IHttpPromiseCallback<T>): IHttpPromise<T>;
         then<TResult>(successCallback: (response: IHttpPromiseCallbackArg<T>) => TResult, errorCallback?: (response: IHttpPromiseCallbackArg<T>) => any): IPromise<TResult>;
+        then<TResult>(successCallback: (response: IHttpPromiseCallbackArg<T>) => IPromise<TResult>, errorCallback?: (response: IHttpPromiseCallbackArg<T>) => any): IPromise<TResult>;
     }
 
     interface IHttpProvider extends IServiceProvider {
