@@ -1001,6 +1001,24 @@ declare module "stream" {
         pipe(destination: WritableStream, options?: { end?: boolean; }): void;
     }
 
+    export interface ReadableOptions {
+        highWaterMark?: number;
+        encoding?: string;
+        objectMode?: boolean;
+    }
+
+    export class Readable extends events.EventEmitter implements ReadableStream {
+        readable: boolean;
+        constructor(opts?: ReadableOptions);
+        setEncoding(encoding: string): void;
+        pause(): void;
+        resume(): void;
+        destroy(): void;
+        pipe(destination: WritableStream, options?: { end?: boolean; }): void;
+        _read(): void;
+        push(chunk: any, encoding?: string): boolean;
+    }
+
     export interface ReadWriteStream extends ReadableStream, WritableStream { }
 }
 
