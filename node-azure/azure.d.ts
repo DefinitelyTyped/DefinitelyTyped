@@ -216,11 +216,17 @@ declare module "azure" {
     }
 
     export class LinearRetryPolicyFilter {
-
+        constructor(retryCount?: number, retryInterval?: number);
+        retryCount: number;
+        retryInterval: number;
     }
 
     export class ExponentialRetryPolicyFilter {
-
+        constructor(retryCount?: number, retryInterval?: number, minRetryInterval?: number, maxRetryInterval?: number);
+        retryCount: number;
+        retryInterval: number;
+        minRetryInterval: number;
+        maxRetryInterval: number;
     }
 
     export class SharedAccessSignature {
