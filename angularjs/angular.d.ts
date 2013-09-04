@@ -138,6 +138,7 @@ declare module ng {
         $valid: boolean;
         $invalid: boolean;
         $error: any;
+        $setDirty(dirty: boolean): void;
     }
 
     ///////////////////////////////////////////////////////////////////////////
