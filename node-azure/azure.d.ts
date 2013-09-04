@@ -332,6 +332,10 @@ declare module "azure" {
 
     export interface QueryEntitiesResultContinuation extends QueryResultContinuation {
         tableQuery: TableQuery;
+        nextPartitionKey: string;
+        nextRowKey: string;
+        getNextPage(callback?: QueryEntitiesCallback): void;
+        hasNextPage(): boolean;
     }
 
     export interface ModifyEntityCallback {
@@ -370,4 +374,5 @@ declare module "azure" {
     //#endregion
 
     export function isEmulated(): boolean;
+
 }
