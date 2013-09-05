@@ -186,6 +186,10 @@ interface ListViewEvents {
     create?: JQueryMobileEvent;
 }
 
+interface NavbarOptions {
+    iconpos: string;
+}
+
 interface JQueryMobileOptions {
     activeBtnClass?: string;
     activePageClass?: string;
@@ -280,10 +284,6 @@ interface LoaderOptions {
     html?: string;
     text?: string;
     textonly?: boolean;
-}
-
-interface NavbarOptions {
-    iconpos: string;
 }
 
 interface JQueryMobile extends JQueryMobileOptions {
@@ -389,6 +389,9 @@ interface JQuery {
     listview(events: ListViewEvents): JQuery;
 
     navbar(options?: NavbarOptions): JQuery;
+
+    table(): JQuery;
+    table(command: string): JQuery;
 }
 
 
