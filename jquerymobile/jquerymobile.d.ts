@@ -186,6 +186,10 @@ interface ListViewEvents {
     create?: JQueryMobileEvent;
 }
 
+interface NavbarOptions {
+    iconpos: string;
+}
+
 interface JQueryMobileOptions {
     activeBtnClass?: string;
     activePageClass?: string;
@@ -274,12 +278,22 @@ interface LoadPageOptions {
     type?: string;
 }
 
+interface LoaderOptions {
+    theme?: string;
+    textVisible?: boolean;
+    html?: string;
+    text?: string;
+    textonly?: boolean;
+}
+
 interface JQueryMobile extends JQueryMobileOptions {
+
+    version: string;
 
     changePage(to: any, options?: ChangePageOptions): void;
     initializePage(): void;
     loadPage(url: any, options?: LoadPageOptions): void;
-    loading(command: string, options? ): void;
+    loading(command: string, options?: LoaderOptions): void;
 
     base;
     silentScroll(yPos: number): void;
@@ -373,6 +387,11 @@ interface JQuery {
     listview(command: string): JQuery;
     listview(options: ListViewOptions): JQuery;
     listview(events: ListViewEvents): JQuery;
+
+    navbar(options?: NavbarOptions): JQuery;
+
+    table(): JQuery;
+    table(command: string): JQuery;
 }
 
 
