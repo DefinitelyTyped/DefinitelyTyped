@@ -216,11 +216,17 @@ declare module "azure" {
     }
 
     export class LinearRetryPolicyFilter {
-
+        constructor(retryCount?: number, retryInterval?: number);
+        retryCount: number;
+        retryInterval: number;
     }
 
     export class ExponentialRetryPolicyFilter {
-
+        constructor(retryCount?: number, retryInterval?: number, minRetryInterval?: number, maxRetryInterval?: number);
+        retryCount: number;
+        retryInterval: number;
+        minRetryInterval: number;
+        maxRetryInterval: number;
     }
 
     export class SharedAccessSignature {
@@ -332,6 +338,10 @@ declare module "azure" {
 
     export interface QueryEntitiesResultContinuation extends QueryResultContinuation {
         tableQuery: TableQuery;
+        nextPartitionKey: string;
+        nextRowKey: string;
+        getNextPage(callback?: QueryEntitiesCallback): void;
+        hasNextPage(): boolean;
     }
 
     export interface ModifyEntityCallback {
@@ -370,4 +380,5 @@ declare module "azure" {
     //#endregion
 
     export function isEmulated(): boolean;
+
 }
