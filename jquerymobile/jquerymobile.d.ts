@@ -288,6 +288,8 @@ interface NavbarOptions {
 
 interface JQueryMobile extends JQueryMobileOptions {
 
+    version: string;
+
     changePage(to: any, options?: ChangePageOptions): void;
     initializePage(): void;
     loadPage(url: any, options?: LoadPageOptions): void;
@@ -320,7 +322,6 @@ interface JQueryMobile extends JQueryMobileOptions {
     checkboxradio;
     selectmenu;
     listview;
-    navbar(options?: NavbarOptions);
 }
 
 interface JQuerySupport {
@@ -386,6 +387,8 @@ interface JQuery {
     listview(command: string): JQuery;
     listview(options: ListViewOptions): JQuery;
     listview(events: ListViewEvents): JQuery;
+
+    navbar(options?: NavbarOptions): JQuery;
 }
 
 
