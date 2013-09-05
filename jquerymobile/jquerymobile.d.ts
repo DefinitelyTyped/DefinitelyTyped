@@ -282,6 +282,10 @@ interface LoaderOptions {
     textonly?: boolean;
 }
 
+interface NavbarOptions {
+    iconpos: string;
+}
+
 interface JQueryMobile extends JQueryMobileOptions {
 
     changePage(to: any, options?: ChangePageOptions): void;
@@ -316,6 +320,7 @@ interface JQueryMobile extends JQueryMobileOptions {
     checkboxradio;
     selectmenu;
     listview;
+    navbar(options?: NavbarOptions);
 }
 
 interface JQuerySupport {
