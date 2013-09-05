@@ -274,12 +274,19 @@ interface LoadPageOptions {
     type?: string;
 }
 
+interface LoaderOptions {
+    theme?: string;
+    textVisible?: boolean;
+    html?: string;
+    text?: string;
+}
+
 interface JQueryMobile extends JQueryMobileOptions {
 
     changePage(to: any, options?: ChangePageOptions): void;
     initializePage(): void;
     loadPage(url: any, options?: LoadPageOptions): void;
-    loading(command: string, options? ): void;
+    loading(command: string, options?: LoaderOptions): void;
 
     base;
     silentScroll(yPos: number): void;
