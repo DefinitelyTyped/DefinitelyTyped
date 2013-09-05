@@ -279,6 +279,7 @@ interface LoaderOptions {
     textVisible?: boolean;
     html?: string;
     text?: string;
+    textonly?: boolean;
 }
 
 interface JQueryMobile extends JQueryMobileOptions {
