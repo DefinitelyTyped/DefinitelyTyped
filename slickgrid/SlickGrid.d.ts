@@ -1459,15 +1459,15 @@ declare module Slick {
 	export module Data {
 
 		export interface DataViewOptions<T extends Slick.SlickData> {
-			groupItemMetadataProvider: GroupItemMetadataProvider<T>;
-			inlineFilters: boolean;
+			groupItemMetadataProvider?: GroupItemMetadataProvider<T>;
+			inlineFilters?: boolean;
 		}
 
 		/**
 		* Item -> Data by index
 		* Row -> Data by row
 		**/
-		export class DataView<T extends Slick.SlickData> {
+		export class DataView<T extends Slick.SlickData> implements DataProvider {
 
 			constructor(options: DataViewOptions<T>);
 
@@ -1537,7 +1537,7 @@ declare module Slick {
 			public syncGridCellCssStyles(grid: Grid<T>, key: string): void;
 
 			public getLength(): number;
-			public getItem(): void;
+			public getItem(index: number): SlickData;
 			public getItemMetadata(): void;
 
 			public onRowCountChanged: Slick.SlickEvent<OnRowCountChangedEventData>;
