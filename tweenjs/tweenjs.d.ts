@@ -10,6 +10,8 @@
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+// Library documentation : http://www.createjs.com/Docs/TweenJS/modules/TweenJS.html
+
 declare module createjs {
 
     export class TweenJS {
@@ -132,7 +134,7 @@ declare module createjs {
         static tick(delta: number, paused: boolean): void;
         to(props: Object, duration?: number, ease?: (amount: number) => number): Tween;
         toString(): string;
-        wait(duration: number): void;
+        wait(duration: number): Tween;
 
         // events
         change: (event) => any;

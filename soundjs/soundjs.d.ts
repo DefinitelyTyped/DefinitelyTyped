@@ -10,6 +10,8 @@
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+// Library documentation : http://www.createjs.com/Docs/SoundJS/modules/SoundJS.html
+
 declare module createjs {
     export class FlashPlugin {
         // properties
@@ -116,7 +118,7 @@ declare module createjs {
         getVolume(): number;
         mute(isMuted: boolean): boolean;
         pause(): boolean;
-        play(interrupt: string, delay: number, offset: number, loop: number, volume: number, pan: number): void;
+        play(interrupt?: string, delay?: number, offset?: number, loop?: number, volume?: number, pan?: number): void;
         resume(): boolean;
         setPan(value: number): number;
         setPosition(value: number): void;
@@ -141,7 +143,7 @@ declare module createjs {
 		hasEventListener(type: string): boolean;
     }
 
-
+    // Class documentation : http://www.createjs.com/Docs/SoundJS/classes/Sound.html
     export class Sound {
         // properties
         static activePlugin: Object;
@@ -176,7 +178,7 @@ declare module createjs {
         static play(src: string, interrupt?: string, delay?: number, offset?: number, loop?: number, volume?: number, pan?: number): SoundInstance;
         static registerPlugin(plugin: Object): boolean;
         static registerPlugins(plugins: Object[]): boolean;
-		static registerSound(src: Object, id: string, data: Object, preload?: boolean): Object;
+		static registerSound(src: Object, id?: string, data?: Object, preload?: boolean): Object;
 		static registerManifest(manifest: Array);
         static resume(id: string): void;
         static setMasterVolume(value: number): boolean;
@@ -185,16 +187,16 @@ declare module createjs {
         static stop(): boolean;
 
 		// events
-		loadComplete: () => any;
+	    static loadComplete: () => any;
 
 		// EventDispatcher mixins
-		addEventListener(type: string, listener: (eventObj: Object) => boolean): any;
-		removeEventListener(type: string, listener: (eventObj: Function) => boolean): void;
-		removeEventListener(type: string, listener: (eventObj: Object) => boolean): void;
-		removeAllEventListeners(type: string): void;
-		dispatchEvent(eventObj: string, target: Object): boolean;
-		dispatchEvent(eventObj: Object, target: Object): boolean;
-		hasEventListener(type: string): boolean;
+	    static addEventListener(type: string, listener: (eventObj: Object) => boolean): any;
+    	static removeEventListener(type: string, listener: (eventObj: Function) => boolean): void;
+    	static removeEventListener(type: string, listener: (eventObj: Object) => boolean): void;
+    	static removeAllEventListeners(type: string): void;
+    	static dispatchEvent(eventObj: string, target: Object): boolean;
+    	static dispatchEvent(eventObj: Object, target: Object): boolean;
+    	static hasEventListener(type: string): boolean;
     }
 
 	export class BrowserDetect {
@@ -208,5 +210,7 @@ declare module createjs {
 
 		// methods
 		static init();
-	}
+    }
+
+    export function proxy(handler: Function, context: any);
 }

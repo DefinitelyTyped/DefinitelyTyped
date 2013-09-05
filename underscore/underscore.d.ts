@@ -2654,6 +2654,7 @@ interface _Chain<T> {
 	* @see _.omit
 	**/
 	omit(...keys: string[]): _Chain;
+	omit(keys: string[]): _Chain;
 
 	/**
 	* Wrapped type `object`.

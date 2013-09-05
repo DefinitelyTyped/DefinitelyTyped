@@ -496,15 +496,15 @@ declare module Slick {
 		**/
 		width?: number;
 	}
-	
+
 	export interface EditorFactory {
 		getEditor(column): Editors.Editor;
 	}
 
 	export interface FormatterFactory<T extends Slick.SlickData> {
-		getFormatter(column: Column<T>): Formatter;
+		getFormatter(column: Column<T>): Formatter<any>;
 	}
-	
+
 	export interface GridOptions<T extends Slick.SlickData> {
 
 		/**
@@ -518,7 +518,7 @@ declare module Slick {
 		asyncEditorLoadDelay?: number;
 
 		/**
-		* 
+		*
 		**/
 		asyncPostRenderDelay?: number;
 
@@ -528,7 +528,7 @@ declare module Slick {
 		autoEdit?: boolean;
 
 		/**
-		* 
+		*
 		**/
 		autoHeight?: boolean;
 
@@ -543,22 +543,22 @@ declare module Slick {
 		cellHighlightCssClass?: string;
 
 		/**
-		* 
+		*
 		**/
 		dataItemColumnValueExtractor?: any;
 
 		/**
-		* 
+		*
 		**/
 		defaultColumnWidth?: number;
 
 		/**
-		* 
+		*
 		**/
 		defaultFormatter?: Formatter<T>;
 
 		/**
-		* 
+		*
 		**/
 		editable?: boolean;
 
@@ -598,7 +598,7 @@ declare module Slick {
 		enableCellNavigation?: boolean;
 
 		/**
-		* 
+		*
 		**/
 		enableColumnReorder?: boolean;
 
@@ -608,7 +608,7 @@ declare module Slick {
 		enableRowReordering?: any;
 
 		/**
-		* 
+		*
 		**/
 		enableTextSelectionOnCells?: boolean;
 
@@ -623,7 +623,7 @@ declare module Slick {
 		forceFitColumns?: boolean;
 
 		/**
-		* 
+		*
 		**/
 		forceSyncScrolling?: boolean;
 
@@ -638,12 +638,12 @@ declare module Slick {
 		fullWidthRows?: boolean;
 
 		/**
-		* 
+		*
 		**/
 		headerRowHeight?: number;
 
 		/**
-		* 
+		*
 		**/
 		leaveSpaceForNewRows?: boolean;
 
@@ -653,22 +653,22 @@ declare module Slick {
 		multiColumnSort?: boolean;
 
 		/**
-		* 
+		*
 		**/
 		multiSelect?: boolean;
 
 		/**
-		* 
+		*
 		**/
 		rowHeight?: number;
 
 		/**
-		* 
+		*
 		**/
 		selectedCellCssClass?: string;
 
 		/**
-		* 
+		*
 		**/
 		showHeaderRow?: boolean;
 
@@ -678,11 +678,11 @@ declare module Slick {
 		syncColumnCellResize?: boolean;
 
 		/**
-		* 
+		*
 		**/
 		topPanelHeight?: number;
 	}
-	
+
 	export interface DataProvider {
 		getItem(index: number): SlickData;
 		getLength(): number;
@@ -697,7 +697,7 @@ declare module Slick {
 	* Selection models are controllers responsible for handling user interactions and notifying subscribers of the changes in the selection. Selection is represented as an array of Slick.Range objects.
 	* You can get the current selection model from the grid by calling getSelectionModel() and set a different one using setSelectionModel(selectionModel). By default, no selection model is set.
 	* The grid also provides two helper methods to simplify development - getSelectedRows() and setSelectedRows(rowsArray), as well as an onSelectedRowsChanged event.
-	* SlickGrid includes two pre-made selection models - Slick.CellSelectionModel and Slick.RowSelectionModel, but you can easily write a custom one. 
+	* SlickGrid includes two pre-made selection models - Slick.CellSelectionModel and Slick.RowSelectionModel, but you can easily write a custom one.
 	**/
 	export class SelectionModel<T extends Slick.SlickData, E> {
 		/**
@@ -712,7 +712,7 @@ declare module Slick {
 
 		onSelectedRangesChanged: Slick.SlickEvent<E>;
 	}
-	
+
 	export class Grid<T extends SlickData> {
 
 		/**
@@ -765,7 +765,7 @@ declare module Slick {
 		//public getData(): DataView;
 
 		/**
-		* Returns the databinding item at a given position. 
+		* Returns the databinding item at a given position.
 		* @param index Item index.
 		* @return
 		**/
@@ -774,12 +774,12 @@ declare module Slick {
 		/**
 		* Sets a new source for databinding and removes all rendered rows. Note that this doesn't render the new rows - you can follow it with a call to render() to do that.
 		* @param newData New databinding source. This can either be a regular JavaScript array or a custom object exposing getItem(index) and getLength() functions.
-		* @param scrollToTop If true, the grid will reset the vertical scroll position to the top of the grid. 
+		* @param scrollToTop If true, the grid will reset the vertical scroll position to the top of the grid.
 		**/
 		public setData(newData: T[], scrollToTop: boolean): void;
 
 		/**
-		* Returns the size of the databinding source. 
+		* Returns the size of the databinding source.
 		* @return
 		**/
 		public getDataLength(): number;
@@ -788,7 +788,7 @@ declare module Slick {
 		* Returns an object containing all of the Grid options set on the grid. See a list of Grid Options here.
 		* @return
 		**/
-		public getOptions(): GridOptions;
+		public getOptions(): GridOptions<any>;
 
 		/**
 		* Returns an array of row indices corresponding to the currently selected rows.
@@ -800,16 +800,16 @@ declare module Slick {
 		* Returns the current SelectionModel. See here for more information about SelectionModels.
 		* @return
 		**/
-		public getSelectionModel(): SelectionModel;
+		public getSelectionModel(): SelectionModel<any, any>;
 
 		/**
-		* Extends grid options with a given hash. If an there is an active edit, the grid will attempt to commit the changes and only continue if the attempt succeeds. 
+		* Extends grid options with a given hash. If an there is an active edit, the grid will attempt to commit the changes and only continue if the attempt succeeds.
 		* @options An object with configuration options.
 		**/
 		public setOptions(options: GridOptions<T>): void;
 
 		/**
-		* Accepts an array of row indices and applies the current selectedCellCssClass to the cells in the row, respecting whether cells have been flagged as selectable. 
+		* Accepts an array of row indices and applies the current selectedCellCssClass to the cells in the row, respecting whether cells have been flagged as selectable.
 		* @param rowsArray An array of row numbers.
 		**/
 		public setSelectedRows(rowsArray: number[]): void;
@@ -843,7 +843,7 @@ declare module Slick {
 		public getColumns(): Column[];
 
 		/**
-		* Sets grid columns. Column headers will be recreated and all rendered rows will be removed. To rerender the grid (if necessary), call render(). 
+		* Sets grid columns. Column headers will be recreated and all rendered rows will be removed. To rerender the grid (if necessary), call render().
 		* @param columnDefinitions An array of column definitions.
 		**/
 		public setColumns(columnDefinitions: Column[]): void;
@@ -868,7 +868,7 @@ declare module Slick {
 		public getSortColumns(): Column[];
 
 		/**
-		* Updates an existing column definition and a corresponding header DOM element with the new title and tooltip. 
+		* Updates an existing column definition and a corresponding header DOM element with the new title and tooltip.
 		* @param columnId Column id.
 		* @param title New column name.
 		* @param toolTip New column tooltip.
@@ -913,7 +913,7 @@ declare module Slick {
 		public canCellBeSelected(row: number, col: number): boolean;
 
 		/**
-		* Attempts to switch the active cell into edit mode. Will throw an error if the cell is set to be not editable. Uses the specified editor, otherwise defaults to any default editor for that given cell. 
+		* Attempts to switch the active cell into edit mode. Will throw an error if the cell is set to be not editable. Uses the specified editor, otherwise defaults to any default editor for that given cell.
 		* @param editor A SlickGrid editor (see examples in slick.editors.js).
 		**/
 		public editActiveCell(editor: Editors.Editor<T>): void;
@@ -927,10 +927,10 @@ declare module Slick {
 		public flashCell(row: number, cell: number, speed?: number): void;
 
 		/**
-		* Returns an object representing the coordinates of the currently active cell: 
+		* Returns an object representing the coordinates of the currently active cell:
 		* @example
 		* 	{
-		* 	  row: activeRow, 
+		* 	  row: activeRow,
 		* 	  cell: activeCell
 		* 	}
 		* @return
@@ -938,7 +938,7 @@ declare module Slick {
 		public getActiveCell(): Cell;
 
 		/**
-		* Returns the DOM element containing the currently active cell. If no cell is active, null is returned. 
+		* Returns the DOM element containing the currently active cell. If no cell is active, null is returned.
 		* @return
 		**/
 		public getActiveCellNode(): HTMLElement;
@@ -960,7 +960,7 @@ declare module Slick {
 		* Returns the active cell editor. If there is no actively edited cell, null is returned.
 		* @return
 		**/
-		public getCellEditor(): Editors.Editor;
+		public getCellEditor(): Editors.Editor<any>;
 
 		/**
 		* Returns a hash containing row and cell indexes from a standard W3C/jQuery event.
@@ -1002,7 +1002,7 @@ declare module Slick {
 		* @return
 		**/
 		public gotoCell(row: number, cell: number, forceEdit?: boolean): void;
-		
+
 		/**
 		* todo: no docs
 		* @return
@@ -1032,7 +1032,7 @@ declare module Slick {
 		* @param columnId
 		* @return
 		**/
-		public getHeaderRowColumn(columnId: string): Column;
+		public getHeaderRowColumn(columnId: string): Column<any>;
 
 		/**
 		* todo: no docs
@@ -1045,7 +1045,7 @@ declare module Slick {
 		* @return
 		**/
 		public navigateDown(): boolean;
-		
+
 		/**
 		* Switches the active cell one cell left skipping unselectable cells. Unline navigatePrev, navigateLeft stops at the first cell of the row. Returns a boolean saying whether it was able to complete or not.
 		* @return
@@ -1103,7 +1103,7 @@ declare module Slick {
 		* @param hash A hash of additional cell CSS classes keyed by row number and then by column id. Multiple CSS classes can be specified and separated by space.
 		**/
 		public setCellCssStyles(key: string, hash: CellCssStylesHash): void;
-		
+
 		// #endregion Cells
 
 		// #region Events
@@ -1171,8 +1171,8 @@ declare module Slick {
 
 		// #region Editors
 
-		public getEditorLock(): EditorLock;
-		public getEditController(): Editors.Editor;
+		public getEditorLock(): EditorLock<any>;
+		public getEditController(): Editors.Editor<any>;
 
 		// #endregion Editors
 	}
@@ -1241,7 +1241,7 @@ declare module Slick {
 	}
 
 	export interface OnColumnsReorderedEventData {
-		
+
 	}
 
 	export interface OnValidationErrorEventData<T extends SlickData> {
@@ -1316,13 +1316,13 @@ declare module Slick {
 	export interface OnHeaderMouseEventData<T extends SlickData> {
 		column: Column<T>;
 	}
-	
+
 	// todo: merge with existing column definition
 	export interface Column {
 		sortCol?: string;
 		sortAsc?: boolean;
 	}
-	
+
 	export interface OnSortEventData<T extends SlickData> {
 		multiColumnSort: boolean;
 		sortCol?: Column<T>;
@@ -1378,7 +1378,7 @@ declare module Slick {
 			container: HTMLElement;
 			grid: Grid<T>;
 		}
-		
+
 		export class Editor<T extends Slick.SlickData> {
 			constructor(args: EditorOptions<T>);
 			public init(): void;
@@ -1393,7 +1393,7 @@ declare module Slick {
 
 		export class Text<T extends Slick.SlickData> extends Editor<T> {
 			constructor(args: EditorOptions<T>);
-			
+
 			public getValue(): string;
 			public setValue(val: string): void;
 			public serializeValue(): string;
@@ -1434,7 +1434,7 @@ declare module Slick {
 
 		export class LongText<T extends Slick.SlickData> extends Editor<T> {
 			constructor(args: EditorOptions<T>);
-			
+
 			public handleKeyDown(e: Event): void;
 			public save(): void;
 			public cancel(): void;
@@ -1446,7 +1446,7 @@ declare module Slick {
 	}
 
 	export interface Formatter<T extends Slick.SlickData> {
-		(row: number, cell: number, columnDef: Column<T>, dataContext: SlickData): string;
+        (row: number, cell: number, value: any, columnDef: Column<T>, dataContext: SlickData): string;
 	}
 
 	export module Formatters {
@@ -1489,12 +1489,12 @@ declare module Slick {
 			* @deprecated
 			**/
 			public groupBy(valueGetter, valueFormatter, sortComparer): void;
-			
+
 			/**
 			* @deprecated
 			**/
 			public setAggregators(groupAggregators, includeCollapsed): void;
-			
+
 			/**
 			* @param level Optional level to collapse.  If not specified, applies to all levels.
 			**/
@@ -1596,11 +1596,11 @@ declare module Slick {
 			}
 
 			export class Min<T> extends Aggregator<T> {
-				
+
 			}
 
 			export class Max<T> extends Aggregator<T> {
-				
+
 			}
 
 			export class Sum<T> extends Aggregator<T> {
