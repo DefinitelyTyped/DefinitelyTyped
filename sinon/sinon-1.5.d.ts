@@ -59,7 +59,7 @@ interface SinonSpy extends SinonSpyCallApi {
 	calledBefore(anotherSpy: SinonSpy): boolean;
 	calledAfter(anotherSpy: SinonSpy): boolean;
 	calledWithNew(spy: SinonSpy): boolean;
-	withArgs(...args: any[]): void;
+	withArgs(...args: any[]): SinonSpy;
 	alwaysCalledOn(obj: any);
 	alwaysCalledWith(...args: any[]);
 	alwaysCalledWithExactly(...args: any[]);
@@ -109,6 +109,7 @@ interface SinonStub extends SinonSpy {
 	yieldsOnAsync(context: any, ...args: any[]): SinonStub;
 	yieldsToAsync(property: string, ...args: any[]): SinonStub;
 	yieldsToOnAsync(property: string, context: any, ...args: any[]): SinonStub;
+	withArgs(...args: any[]): SinonStub;
 }
 
 interface SinonStubStatic {
