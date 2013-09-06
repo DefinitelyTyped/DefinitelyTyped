@@ -3,10 +3,12 @@
 // Definitions by: Daisuke Mino <https://github.com/minodisk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../jquery/jquery.d.ts"/>
+
 interface Loop {
-    begin: number;
-    end: number;
-    step: number;
+    begin?: number;
+    end?: number;
+    step?: number;
 }
 
 interface ConnectOption {
@@ -22,7 +24,7 @@ interface RetryOption {
 
 interface DeferredizedFunction { (...arg: any[]): Deferred; }
 interface DeferredizedFunctionWithNumber { (n: number): Deferred; }
-interface FunctionWithNumber { (i: number); }
+interface FunctionWithNumber { (i: number, o?: any);  }
 interface ErrorCallback { (d: Deferred, ...args: any[]); }
 
 declare class Deferred {
@@ -62,6 +64,9 @@ declare class Deferred {
     loop(n: Loop, fun: FunctionWithNumber): Deferred;
 }
 
+interface JQueryXHR {
+    next(fun: Function): Deferred;
+}
 
 declare function chain(...args: any[]): Deferred;
 declare function wait(n: number): Deferred;
@@ -73,3 +78,6 @@ declare function loop(n: number, fun: FunctionWithNumber): Deferred;
 declare function loop(n: Loop, fun: FunctionWithNumber): Deferred;
 
 declare function repeat(n: number, fun: FunctionWithNumber): Deferred;
+
+declare function next(fun: Function): Deferred;
+

@@ -183,7 +183,7 @@ declare module createjs {
         // methods
         constructor(target: MovieClip, outLabel: string, overLabel: string, downLabel: string, play: boolean, hitArea: DisplayObject, hitLabel: string);
         constructor(target: BitmapAnimation, outLabel: string, overLabel: string, downLabel: string, play: boolean, hitArea: DisplayObject, hitLabel: string);
-        setEnabled(value: boolean);
+        setEnabled(value: boolean): void;
         toString(): string;
     }
 
@@ -245,7 +245,7 @@ declare module createjs {
 
     export class Command {
         // methods
-        constructor (f, params, path);
+        constructor (f: any, params: any, path: any);
         exec(scope: any): void;
     }
 
@@ -255,6 +255,7 @@ declare module createjs {
         children: DisplayObject[];
 
         // methods
+        constructor();
         addChild(...child: DisplayObject[]): DisplayObject;
         addChildAt(...childOrIndex: any[]): DisplayObject; // actually (...child: DisplayObject[], index: number)
         clone(recursive?: boolean): Container;
@@ -262,7 +263,7 @@ declare module createjs {
         getChildAt(index: number): DisplayObject;
         getChildIndex(child: DisplayObject): number;
         getNumChildren(): number;
-        getObjectsUnderPoint(x, number, y: number): DisplayObject[];
+        getObjectsUnderPoint(x: number, y: number): DisplayObject[];
         getObjectUnderPoint(x: number, y: number): DisplayObject;
         hitTest(x: number, y: number): boolean;
         removeAllChildren(): void;
@@ -372,9 +373,9 @@ declare module createjs {
         static level: number;
 
         // methods
-        static out(message: string, details: string, level: number);
-        static addKeys(keys: Object);
-        static log(message: string, details: string, level: number);
+        static out(message: string, details: string, level: number): void;
+        static addKeys(keys: Object): void;
+        static log(message: string, details: string, level: number): void;
     }
 
     export class Matrix2D {
@@ -547,7 +548,7 @@ declare module createjs {
         getAnimation(name: string): SpriteSheetAnimation;
         getAnimations(): string[];
         getFrame(frameIndex: number): Object;
-        getFrameBounds(frameIndex: number);
+        getFrameBounds(frameIndex: number): Rectangle;
         getNumFrames(animation: string): number;
         toString(): string;
 

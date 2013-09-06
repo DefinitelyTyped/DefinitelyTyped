@@ -60,20 +60,20 @@ interface SinonSpy extends SinonSpyCallApi {
 	calledAfter(anotherSpy: SinonSpy): boolean;
 	calledWithNew(spy: SinonSpy): boolean;
 	withArgs(...args: any[]): SinonSpy;
-	alwaysCalledOn(obj: any);
-	alwaysCalledWith(...args: any[]);
-	alwaysCalledWithExactly(...args: any[]);
-	alwaysCalledWithMatch(...args: SinonMatcher[]);
-	neverCalledWith(...args: any[]);
-	neverCalledWithMatch(...args: SinonMatcher[]);
+	alwaysCalledOn(obj: any): boolean;
+	alwaysCalledWith(...args: any[]): boolean;
+	alwaysCalledWithExactly(...args: any[]): boolean;
+	alwaysCalledWithMatch(...args: SinonMatcher[]): boolean;
+	neverCalledWith(...args: any[]): boolean;
+	neverCalledWithMatch(...args: SinonMatcher[]): boolean;
 	alwaysThrew(): boolean;
-	alwaysThrew(type: string);
-	alwaysThrew(obj: any);
+	alwaysThrew(type: string): boolean;
+	alwaysThrew(obj: any): boolean;
 	alwaysReturned(): boolean;
 	invokeCallback(...args: any[]): void;
 	getCall(n: number): SinonSpyCall;
 	reset(): void;
-	printf(format: string, ...args: any[]);
+	printf(format: string, ...args: any[]): string;
 	restore(): void;
 }
 
@@ -123,7 +123,7 @@ interface SinonStatic {
 	stub: SinonStubStatic;
 }
 
-interface SinonExpectation {
+interface SinonExpectation extends SinonStub {
 	atLeast(n: number): SinonExpectation;
 	atMost(n: number): SinonExpectation;
 	never(): SinonExpectation;
@@ -208,7 +208,7 @@ interface SinonFakeXMLHttpRequest {
 	// Methods
 	restore(): void;
 	useFilters: boolean;
-	addFilter(filter: (method, url, async, username, password) => boolean): void;
+	addFilter(filter: (method: string, url: string, async: boolean, username: string, password: string) => boolean): void;
 	setResponseHeaders(headers: any): void;
 	setResponseBody(body: string): void;
 	respond(status: number, headers: any, body: string): void;
@@ -347,11 +347,12 @@ interface SinonSandbox {
 	clock: SinonFakeTimers;
 	requests: SinonFakeXMLHttpRequest;
 	server: SinonFakeServer;
-	spy(): SinonSpy;
-	stub(): SinonStub;
-	mock(): SinonMock;
-	useFakeTimers: SinonFakeTimers;
-	useFakeXMLHttpRequest: SinonFakeXMLHttpRequest;
+	spy: SinonSpyStatic;
+	stub: SinonStubStatic;
+	mock: SinonMockStatic;
+	useFakeTimers: SinonFakeTimersStatic;
+	useFakeXMLHttpRequest: SinonFakeXMLHttpRequestStatic;
+	useFakeServer(): SinonFakeServer;
 	restore(): void;
 }
 

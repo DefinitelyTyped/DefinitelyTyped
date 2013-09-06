@@ -116,11 +116,10 @@ interface KnockoutValidationStatic {
     formatMessage(message: string, params: string): string;
 
     addRule<T>(observable: KnockoutObservable<T>, rule: KnockoutValidationRule): KnockoutObservable<T>;
-
-    addAnonymousRule(observable: KnockoutObservableBase, ruleObj: KnockoutValidationAnonymousRuleDefinition): void;
+    addAnonymousRule<T>(observable: KnockoutObservable<T>, ruleObj: KnockoutValidationAnonymousRuleDefinition): void;
 
     insertValidationMessage(element: Element): Element;
-    parseInputValidationAttributes(element: Element, valueAccessor: () => KnockoutObservableBase): void;
+    parseInputValidationAttributes(element: Element, valueAccessor: () => KnockoutObservable<any>): void;
 
     rules: KnockoutValidationRuleDefinitions;
 
@@ -129,18 +128,25 @@ interface KnockoutValidationStatic {
     utils: KnockoutValidationUtils;
 
     localize(msgTranslations: any): void;
-    validateObservable(observable: KnockoutObservableBase): boolean;
+    validateObservable<T>(observable: KnockoutObservable<T>): boolean;
 }
 
 interface KnockoutStatic {
     validation: KnockoutValidationStatic;
-    validatedObservable(initialValue: any): KnockoutObservableBase;
+
+    validatedObservable<T>(initialValue: T): KnockoutValidatedObservable<T>;
+
     applyBindingsWithValidation(viewModel: any, rootNode?: any, options?: KnockoutValidationConfiguration): void;
 }
 
-interface KnockoutSubscribableFunctions {
+interface KnockoutValidatedObservable<T> extends KnockoutObservable<T> {
     isValid: KnockoutComputed<boolean>;
-    isValidating: KnockoutObservable<boolean>;
-    rules: KnockoutObservableArray<KnockoutValidationRule>;
-}
+    error?: string;
+    errors?: KnockoutValidationErrors;
 
+    isValidating?: KnockoutObservable<boolean>;
+    isModified?: KnockoutObservable<boolean>;
+    rules?: KnockoutObservableArray<KnockoutValidationRule>;
+
+    _disposeValidation? (): void;
+}

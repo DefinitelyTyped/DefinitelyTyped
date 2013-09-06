@@ -9,7 +9,9 @@
 interface JQueryMobileEvent { (event: Event, ui): void; }
 
 interface DialogOptions {
+    closeBtn?: string;
     closeBtnText?: string;
+    corners?: boolean;
     initSelector?: string;
     overlayTheme?: string;
 }
@@ -105,6 +107,8 @@ interface CollapsibleSetEvents {
 }
 
 interface TextInputOptions {
+    clearBtn?: boolean;
+    clearBtnText?: string;
     disabled?: boolean;
     initSelector?: string;
     mini?: boolean;
@@ -188,6 +192,14 @@ interface ListViewEvents {
 
 interface NavbarOptions {
     iconpos: string;
+}
+
+interface ControlgroupOptions {
+    corners?: boolean;
+    excludeInvisible?: boolean;
+    mini?: boolean;
+    shadow?: boolean;
+    type?: string;
 }
 
 interface JQueryMobileOptions {
@@ -349,8 +361,10 @@ interface JQuery {
 
     button(): JQuery;
     button(command: string): JQuery;
-    buttonMarkup(options: ButtonOptions): JQuery;
+    button(options?: ButtonOptions): JQuery;
     button(events: ButtonEvents): JQuery;
+    
+    buttonMarkup(options?: ButtonOptions): JQuery;
 
     collapsible(): JQuery;
     collapsible(command: string): JQuery;
@@ -392,6 +406,10 @@ interface JQuery {
 
     table(): JQuery;
     table(command: string): JQuery;
+
+    controlgroup(): JQuery;
+    controlgroup(command: string): JQuery;
+    controlgroup(options: ControlgroupOptions): JQuery;
 }
 
 
