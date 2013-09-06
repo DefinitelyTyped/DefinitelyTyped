@@ -226,3 +226,4 @@ Requested Definitions
 * [java](https://github.com/nearinfinity/node-java)
 * [SVG.js](http://www.svgjs.com/)
 * [CreateJS](http://createjs.com/)
+* [node-postgres](https://github.com/brianc/node-postgres)
