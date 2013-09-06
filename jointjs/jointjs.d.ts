@@ -77,7 +77,7 @@ declare module joint {
             snapToGrid(p): { x: number; y: number; };
         }
 
-        class ElementView {
+        class ElementView extends CellView  {
             scale(sx: number, sy: number);
         }
         class CellView extends Backbone.View {
@@ -110,6 +110,6 @@ declare module joint {
         function mixin(objects: any[]): any;
         function supplement(objects: any[]): any;
         function deepMixin(objects: any[]): any;
-        function deepSupplement(objects: any[]): any;
+        function deepSupplement(objects: any[], defaultIndicator?: any): any;
     }
 }

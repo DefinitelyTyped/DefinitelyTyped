@@ -1111,5 +1111,11 @@ interface HighchartsSeriesObject {
 }
 
 interface JQuery {
-    highcharts(options: HighchartsOptions): HighchartsChart;
+    /**
+    * Creates a new Highcharts.Chart for the current JQuery selector; usually
+    * a div selected by $('#container')
+    * @param {HighchartsOptions} options Options for this chart
+    * @return current {JQuery} selector the current JQuery selector
+    **/
+    highcharts(options: HighchartsOptions): JQuery;
 }
