@@ -295,13 +295,13 @@ declare module _ {
 	* Returns true if all of the values in the list pass the iterator truth test. Delegates to the
 	* native method every, if present.
 	* @param list Truth test against all elements within this list.
-	* @param iterator Trust test iterator function for each element in `list`.
+	* @param iterator Trust test iterator function for each element in `list`, optional.
 	* @param context `this` object in `iterator`, optional.
 	* @return True if all elements passed the truth test, otherwise false.
 	**/
 	export function all<T>(
 		list: Collection<T>,
-		iterator: ListIterator<T, boolean>,
+		iterator?: ListIterator<T, boolean>,
 		context?: any): boolean;
 
 	/**
@@ -309,7 +309,7 @@ declare module _ {
 	**/
 	export function every<T>(
 		list: Collection<T>,
-		iterator: ListIterator<T, boolean>,
+		iterator?: ListIterator<T, boolean>,
 		context?: any): boolean;
 
 	/**
@@ -799,7 +799,7 @@ declare module _ {
 		start: number,
 		stop: number,
 		step?: number): number[];
-	
+
 	/**
 	* @see _.range
 	* @param stop Stop here.
