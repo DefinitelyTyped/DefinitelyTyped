@@ -347,8 +347,10 @@ interface JQuery {
 
     button(): JQuery;
     button(command: string): JQuery;
-    buttonMarkup(options: ButtonOptions): JQuery;
+    button(options?: ButtonOptions): JQuery;
     button(events: ButtonEvents): JQuery;
+    
+    buttonMarkup(options?: ButtonOptions): JQuery;
 
     collapsible(): JQuery;
     collapsible(command: string): JQuery;
