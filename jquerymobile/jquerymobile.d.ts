@@ -9,7 +9,9 @@
 interface JQueryMobileEvent { (event: Event, ui): void; }
 
 interface DialogOptions {
+    closeBtn?: string;
     closeBtnText?: string;
+    corners?: boolean;
     initSelector?: string;
     overlayTheme?: string;
 }
