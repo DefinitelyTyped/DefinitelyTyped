@@ -5,17 +5,19 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "ffi" {}
+declare module "ffi" {
+    // import StructType = require('ref-struct');
+    
+    export interface StructType {}
 
-declare module "ref" {
     export interface Type {
         /** The size in bytes required to hold this datatype. */
         size: number;
         /** The current level of indirection of the buffer. */
         indirection: number;
-        /** To invoke when ref.get() is invoked on a buffer of this type. */
+        /** To invoke when `ref.get` is invoked on a buffer of this type. */
         get(buffer: NodeBuffer, offset: number): any;
-        /** To invoke when ref.set() is invoked on a buffer of this type. */
+        /** To invoke when `ref.set` is invoked on a buffer of this type. */
         set(buffer: NodeBuffer, offset: number, value): void;
         /** The name to use during debugging for this datatype. */
         name?: string;
@@ -23,14 +25,210 @@ declare module "ref" {
         alignment?: number;
     }
 
+    /** Provides a friendly API on-top of `DynamicLibrary` and `ForeignFunction`. */
+    export var Library: {
+        /** The extension to use on libraries. */
+        EXT: string;
+
+        /**
+         * @param libFile name of library
+         * @param funcs hash of [retType, [...argType], opts?: {abi?, async?, varargs?}]
+         * @param lib hash that will be extended
+         */
+        new (libFile: string, funcs?: {[key: string]: any[]}, lib?: Object): any;
+
+        /**
+         * @param libFile name of library
+         * @param funcs hash of [retType, [...argType], opts?: {abi?, async?, varargs?}]
+         * @param lib hash that will be extended
+         */
+        (libFile: string, funcs?: {[key: string]: any[]}, lib?: Object): any;
+    };
+
+    /** Get value of errno. */
+    export function errno(): number;
+
+    export interface Function extends Type {
+        /** The type of return value. */
+        retType: Type;
+        /** The type of arguments. */
+        argTypes: Type[];
+        abi: number;
+
+        /** Is set for node-ffi functions. */
+        ffi_type: NodeBuffer;
+        /** The size in bytes required to hold this datatype. */
+        size: number;
+        /** The current level of indirection of the buffer. */
+        indirection: number;
+        /** To invoke when `ref.get` is invoked on a buffer of this type. */
+        get(buffer: NodeBuffer, offset: number): any;
+        /** To invoke when `ref.set` is invoked on a buffer of this type. */
+        set(buffer: NodeBuffer, offset: number, value): void;
+        /** The alignment of this datatype when placed inside a struct. */
+        alignment: number;
+
+        /** Get a `Callback` pointer of this function type. */
+        toPointer(fn: (...args: any[]) => any): NodeBuffer;
+        /** Get a `ForeignFunction` of this function type. */
+        toFunction(buf: NodeBuffer): ForeignFunction;
+    }
+
+    /** Creates and returns a type for a C function pointer. */
+    export var Function: {
+        new (retType: Type, argTypes: any[], abi?: number): Function;
+        new (retType: string, argTypes: any[], abi?: number): Function;
+        (retType: Type, argTypes: any[], abi?: number): Function;
+        (retType: string, argTypes: any[], abi?: number): Function;
+    };
+
+    export interface ForeignFunction {
+        (...args: any[]): any;
+        async(...args: any[]): void;
+    }
+
+    /**
+     * Represents a foreign function in another library. Manages all of the aspects
+     * of function execution, including marshalling the data parameters for the
+     * function into native types and also unmarshalling the return from function
+     * execution.
+     */
+    export var ForeignFunction: {
+        new (ptr: NodeBuffer, retType: Type, argTypes: any[], abi?: number): ForeignFunction;
+        new (ptr: NodeBuffer, retType: string, argTypes: any[], abi?: number): ForeignFunction;
+        (ptr: NodeBuffer, retType: Type, argTypes: any[], abi?: number): ForeignFunction;
+        (ptr: NodeBuffer, retType: string, argTypes: any[], abi?: number): ForeignFunction;
+    }
+
+    export interface VariadicForeignFunction {
+        /**
+         * What gets returned is another function that needs to be invoked with the rest
+         * of the variadic types that are being invoked from the function.
+         */
+        (...args: any[]): ForeignFunction;
+
+        /**
+         * Return type as a property of the function generator to
+         * allow for monkey patching the return value in the very rare case where the
+         * return type is variadic as well
+         */
+        returnType: any;
+    }
+
+    /**
+     * For when you want to call to a C function with variable amount of arguments.
+     * i.e. `printf`.
+     *
+     * This function takes care of caching and reusing `ForeignFunction` instances that
+     * contain the same ffi_type argument signature.
+     */
+    export var VariadicForeignFunction: {
+        new (ptr: NodeBuffer, ret: Type, fixedArgs: any[], abi?: number): VariadicForeignFunction;
+        new (ptr: NodeBuffer, ret: string, fixedArgs: any[], abi?: number): VariadicForeignFunction;
+        (ptr: NodeBuffer, ret: Type, fixedArgs: any[], abi?: number): VariadicForeignFunction;
+        (ptr: NodeBuffer, ret: string, fixedArgs: any[], abi?: number): VariadicForeignFunction;
+    };
+
+    export interface DynamicLibrary {
+        /** Close library, returns the result of the `dlclose` system function. */
+        close(): number;
+        /** Get a symbol from this library. */
+        get(symbol: string): NodeBuffer;
+        /** Get the result of the `dlerror` system function. */
+        error(): string;
+    }
+
+    /**
+     * This class loads and fetches function pointers for dynamic libraries
+     * (.so, .dylib, etc). After the libray's function pointer is acquired, then you
+     * call `get(symbol)` to retreive a pointer to an exported symbol. You need to
+     * call `get___` on the pointer to dereference it into its actual value, or
+     * turn the pointer into a callable function with `ForeignFunction`.
+     */
+    export var DynamicLibrary: {
+        FLAGS: {
+            RTLD_LAZY: number;
+            RTLD_NOW: number;
+            RTLD_LOCAL: number;
+            RTLD_GLOBAL: number;
+            RTLD_NOLOAD: number;
+            RTLD_NODELETE: number;
+            RTLD_NEXT: NodeBuffer;
+            RTLD_DEFAUL: NodeBuffer;
+        }
+
+        new (path?: string, mode?: number): DynamicLibrary;
+        (path?: string, mode?: number): DynamicLibrary;
+    };
+
+    /**
+     * Turns a JavaScript function into a C function pointer.
+     * The function pointer may be used in other C functions that
+     * accept C callback functions.
+     */
+    export var Callback: {
+        new (retType, argTypes: any[], abi: number, fn: Function): NodeBuffer;
+        new (retType, argTypes: any[], fn: Function): NodeBuffer;
+        (retType, argTypes: any[], abi: number, fn: Function): NodeBuffer;
+        (retType, argTypes: any[], fn: Function): NodeBuffer;
+    }
+
+    export var ffiType: {
+        /** Get a `ffi_type *` Buffer appropriate for the given type. */
+        (type: Type): NodeBuffer
+        /** Get a `ffi_type *` Buffer appropriate for the given type. */
+        (type: string): NodeBuffer
+        FFI_TYPE: StructType;
+    }
+
+    export var CIF: Function;
+    export var CIF_var: Function;
+    export var HAS_OBJC: boolean;
+    export var FFI_TYPES: {[key: string]: NodeBuffer};
+    export var FFI_OK: number;
+    export var FFI_BAD_TYPEDEF: number;
+    export var FFI_BAD_ABI: number;
+    export var FFI_DEFAULT_ABI: number;
+    export var FFI_FIRST_ABI: number;
+    export var FFI_LAST_ABI: number;
+    export var FFI_SYSV: number;
+    export var FFI_UNIX64: number;
+    export var RTLD_LAZY: number;
+    export var RTLD_NOW: number;
+    export var RTLD_LOCAL: number;
+    export var RTLD_GLOBAL: number;
+    export var RTLD_NOLOAD: number;
+    export var RTLD_NODELETE: number;
+    export var RTLD_NEXT: NodeBuffer;
+    export var RTLD_DEFAULT: NodeBuffer;
+    export var LIB_EXT: string;
+    export var FFI_TYPE: StructType;
+
+    /** Default types. */
+    export var types: {
+        void: Type;                 int64: Type;                 ushort: Type;
+        int: Type;                  uint64: Type;                float: Type;
+        uint: Type;                 long: Type;                  double: Type;
+        int8: Type;                 ulong: Type;                 Object: Type;
+        uint8: Type;                longlong: Type;              CString: Type;
+        int16: Type;                ulonglong: Type;             bool: Type;
+        uint16: Type;               char: Type;                  byte: Type;
+        int32: Type;                uchar: Type;                 size_t: Type;
+        uint32: Type;               short: Type;
+    };
+}
+
+declare module "ref" {
+    import ffi = require('ffi');
+
     /** A Buffer that references the C NULL pointer. */
     export var NULL: NodeBuffer;
-    /** A pointer-sized Buffer instance pointing to NULL. */
+    /** A pointer-sized buffer pointing to NULL. */
     export var NULL_POINTER: NodeBuffer;
     /** Get the memory address of buffer. */
     export function address(buffer: NodeBuffer): number;
     /** Allocate the memory with the given value written to it. */
-    export function alloc(type: Type, value?): NodeBuffer;
+    export function alloc(type: ffi.Type, value?): NodeBuffer;
     /** Allocate the memory with the given value written to it. */
     export function alloc(type: string, value?): NodeBuffer;
 
@@ -42,9 +240,9 @@ declare module "ref" {
     export function allocCString(string: string, encoding?: string): NodeBuffer;
 
     /** Coerce a type.*/
-    export function coerceType(type: Type): Type;
+    export function coerceType(type: ffi.Type): ffi.Type;
     /** Coerce a type. String are looked up from the ref.types object. */
-    export function coerceType(type: string): Type;
+    export function coerceType(type: string): ffi.Type;
     
     /**
      * Get value after dereferencing buffer.
@@ -55,31 +253,31 @@ declare module "ref" {
     export function deref(buffer: NodeBuffer): any;
 
     /** Create clone of the type, with decremented indirection level by 1. */
-    export function derefType(type: Type): Type;
+    export function derefType(type: ffi.Type): ffi.Type;
     /** Create clone of the type, with decremented indirection level by 1. */
-    export function derefType(type: string): Type;
+    export function derefType(type: string): ffi.Type;
     /** Represents the native endianness of the processor ("LE" or "BE"). */
     export var endianness: string;
     /** Check the indirection level and return a dereferenced when necessary. */
-    export function get(buffer: NodeBuffer, offset?: number, type?: Type): any;
+    export function get(buffer: NodeBuffer, offset?: number, type?: ffi.Type): any;
     /** Check the indirection level and return a dereferenced when necessary. */
     export function get(buffer: NodeBuffer, offset?: number, type?: string): any;
     /** Get type of the buffer. Create a default type when none exists. */
-    export function getType(buffer: NodeBuffer): Type;
+    export function getType(buffer: NodeBuffer): ffi.Type;
     /** Check the NULL. */
     export function isNull(buffer: NodeBuffer): boolean;
     /** Read C string until the first NULL. */
     export function readCString(buffer: NodeBuffer, offset?: number): string;
 
     /**
-     * Read a big-endian signed 64-bit int
+     * Read a big-endian signed 64-bit int.
      * If there is losing precision, then return a string, otherwise a number.
      * @return {number|string}
      */
     export function readInt64BE(buffer: NodeBuffer, offset?: number): any;
 
     /**
-     * Read a little-endian signed 64-bit int
+     * Read a little-endian signed 64-bit int.
      * If there is losing precision, then return a string, otherwise a number.
      * @return {number|string}
      */
@@ -91,14 +289,14 @@ declare module "ref" {
     export function readPointer(buffer: NodeBuffer, offset?: number,
                                                    length?: number): NodeBuffer;
     /**
-     * Read a big-endian unsigned 64-bit int
+     * Read a big-endian unsigned 64-bit int.
      * If there is losing precision, then return a string, otherwise a number.
      * @return {number|string}
      */
     export function readUInt64BE(buffer: NodeBuffer, offset?: number): any;
 
     /**
-     * Read a little-endian unsigned 64-bit int
+     * Read a little-endian unsigned 64-bit int.
      * If there is losing precision, then return a string, otherwise a number.
      * @return {number|string}
      */
@@ -107,9 +305,9 @@ declare module "ref" {
     /** Create pointer to buffer. */
     export function ref(buffer: NodeBuffer): NodeBuffer;
     /** Create clone of the type, with incremented indirection level by 1. */
-    export function refType(type: Type): Type;
+    export function refType(type: ffi.Type): ffi.Type;
     /** Create clone of the type, with incremented indirection level by 1. */
-    export function refType(type: string): Type;
+    export function refType(type: string): ffi.Type;
 
     /**
      * Create buffer with the specified size, with the same address as source.
@@ -119,14 +317,14 @@ declare module "ref" {
     export function reinterpret(buffer: NodeBuffer, size: number,
                                                   offset?: number): NodeBuffer;
     /**
-     * Scan past the boundary of the Buffer's length until it finds size number
+     * Scan past the boundary of the buffer's length until it finds size number
      * of aligned NULL bytes.
      */
     export function reinterpretUntilZeros(buffer: NodeBuffer, size: number,
                                           offset?: number): NodeBuffer;
     
     /** Write pointer if the indirection is 1, otherwise write value. */
-    export function set(buffer: NodeBuffer, offset: number, value, type?: Type): void;
+    export function set(buffer: NodeBuffer, offset: number, value, type?: ffi.Type): void;
     /** Write pointer if the indirection is 1, otherwise write value. */
     export function set(buffer: NodeBuffer, offset: number, value, type?: string): void;
     /** Write the string as a NULL terminated. Default encoding is utf8. */
@@ -177,67 +375,68 @@ declare module "ref" {
     /** Same as ref.writeObject, except that this version does not attach object. */
     export function _writeObject(buffer: NodeBuffer, offset: number, object: Object): void;
 
+    /** Default types. */
     export var types: {
-        void: Type;                int64: Type;              ushort: Type;
-        int: Type;                 uint64: Type;             float: Type;
-        uint: Type;                long: Type;               double: Type;
-        int8: Type;                ulong: Type;              Object: Type;
-        uint8: Type;               longlong: Type;           CString: Type;
-        int16: Type;               ulonglong: Type;          bool: Type;
-        uint16: Type;              char: Type;               byte: Type;
-        int32: Type;               uchar: Type;              size_t: Type;
-        uint32: Type;              short: Type;
+        void: ffi.Type;            int64: ffi.Type;            ushort: ffi.Type;
+        int: ffi.Type;             uint64: ffi.Type;           float: ffi.Type;
+        uint: ffi.Type;            long: ffi.Type;             double: ffi.Type;
+        int8: ffi.Type;            ulong: ffi.Type;            Object: ffi.Type;
+        uint8: ffi.Type;           longlong: ffi.Type;         CString: ffi.Type;
+        int16: ffi.Type;           ulonglong: ffi.Type;        bool: ffi.Type;
+        uint16: ffi.Type;          char: ffi.Type;             byte: ffi.Type;
+        int32: ffi.Type;           uchar: ffi.Type;            size_t: ffi.Type;
+        uint32: ffi.Type;          short: ffi.Type;
     };
 }
 
 interface NodeBuffer {
-    /** Shorthand for ref.address. */
+    /** Shorthand for `ref.address`. */
     address(): number;
-    /** Shorthand for ref.deref. */
+    /** Shorthand for `ref.deref`. */
     deref(): any;
-    /** Shorthand for ref.isNull. */
+    /** Shorthand for `ref.isNull`. */
     isNull(): boolean;
-    /** Shorthand for ref.readCString. */
+    /** Shorthand for `ref.readCString`. */
     readCString(offset?: number): string;
-    /** Shorthand for ref.readInt64BE. */
+    /** Shorthand for `ref.readInt64BE`. */
     readInt64BE(offset?: number): string;
-    /** Shorthand for ref.readInt64LE. */
+    /** Shorthand for `ref.readInt64LE`. */
     readInt64LE(offset?: number): string;
-    /** Shorthand for ref.readObject. */
+    /** Shorthand for `ref.readObject`. */
     readObject(offset?: number): string;
-    /** Shorthand for ref.readPointer. */
+    /** Shorthand for `ref.readPointer`. */
     readPointer(offset?: number): string;
-    /** Shorthand for ref.readUInt64BE. */
+    /** Shorthand for `ref.readUInt64BE`. */
     readUInt64BE(offset?: number): string;
-    /** Shorthand for ref.readUInt64LE. */
+    /** Shorthand for `ref.readUInt64LE`. */
     readUInt64LE(offset?: number): string;
-    /** Shorthand for ref.ref. */
+    /** Shorthand for `ref.ref`. */
     ref(): NodeBuffer;
-    /** Shorthand for ref.reinterpret. */
+    /** Shorthand for `ref.reinterpret`. */
     reinterpret(size: number, offset?: number): NodeBuffer;
-    /** Shorthand for ref.reinterpretUntilZeros. */
+    /** Shorthand for `ref.reinterpretUntilZeros`. */
     reinterpretUntilZeros(size: number, offset?: number): NodeBuffer;
-    /** Shorthand for ref.writeCString. */
+    /** Shorthand for `ref.writeCString`. */
     writeCString(offset: number, string: string, encoding?: string): void;
-    /** Shorthand for ref.writeInt64BE. */
+    /** Shorthand for `ref.writeInt64BE`. */
     writeInt64BE(offset: number, input: number): any;
-    /** Shorthand for ref.writeInt64BE. */
+    /** Shorthand for `ref.writeInt64BE`. */
     writeInt64BE(offset: number, input: string): any;
-    /** Shorthand for ref.writeInt64LE. */
+    /** Shorthand for `ref.writeInt64LE`. */
     writeInt64LE(offset: number, input: number): any;
-    /** Shorthand for ref.writeInt64LE. */
+    /** Shorthand for `ref.writeInt64LE`. */
     writeInt64LE(offset: number, input: string): any;
-    /** Shorthand for ref.writeObject. */
+    /** Shorthand for `ref.writeObject`. */
     writeObject(offset: number, object: Object): void;
-    /** Shorthand for ref.writePointer. */
+    /** Shorthand for `ref.writePointer`. */
     writePointer(offset: number, pointer: NodeBuffer): void;
-    /** Shorthand for ref.writeUInt64BE. */
+    /** Shorthand for `ref.writeUInt64BE`. */
     writeUInt64BE(offset: number, input: number): any;
-    /** Shorthand for ref.writeUInt64BE. */
+    /** Shorthand for `ref.writeUInt64BE`. */
     writeUInt64BE(offset: number, input: string): any;
-    /** Shorthand for ref.writeUInt64LE. */
+    /** Shorthand for `ref.writeUInt64LE`. */
     writeUInt64LE(offset: number, input: number): any;
-    /** Shorthand for ref.writeUInt64LE. */
+    /** Shorthand for `ref.writeUInt64LE`. */
     writeUInt64LE(offset: number, input: string): any;
 
     /**
