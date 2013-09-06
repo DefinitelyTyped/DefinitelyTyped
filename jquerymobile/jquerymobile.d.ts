@@ -105,6 +105,8 @@ interface CollapsibleSetEvents {
 }
 
 interface TextInputOptions {
+    clearBtn?: boolean;
+    clearBtnText?: string;
     disabled?: boolean;
     initSelector?: string;
     mini?: boolean;
