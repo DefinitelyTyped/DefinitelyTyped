@@ -190,6 +190,14 @@ interface NavbarOptions {
     iconpos: string;
 }
 
+interface ControlgroupOptions {
+    corners?: boolean;
+    excludeInvisible?: boolean;
+    mini?: boolean;
+    shadow?: boolean;
+    type?: string;
+}
+
 interface JQueryMobileOptions {
     activeBtnClass?: string;
     activePageClass?: string;
@@ -392,6 +400,10 @@ interface JQuery {
 
     table(): JQuery;
     table(command: string): JQuery;
+
+    controlgroup(): JQuery;
+    controlgroup(command: string): JQuery;
+    controlgroup(options: ControlgroupOptions): JQuery;
 }
 
 
