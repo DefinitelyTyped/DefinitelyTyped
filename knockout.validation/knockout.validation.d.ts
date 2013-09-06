@@ -117,7 +117,7 @@ interface KnockoutValidationStatic {
 
     addRule<T>(observable: KnockoutObservable<T>, rule: KnockoutValidationRule): KnockoutObservable<T>;
 
-    addAnonymousRule(observable: KnockoutObservableBase, ruleObj: KnockoutValidationAnonymousRuleDefinition): void;
+    addAnonymousRule<T>(observable: KnockoutObservable<T>, ruleObj: KnockoutValidationAnonymousRuleDefinition): void;
 
     insertValidationMessage(element: Element): Element;
     parseInputValidationAttributes(element: Element, valueAccessor: () => KnockoutObservableBase): void;
@@ -129,12 +129,12 @@ interface KnockoutValidationStatic {
     utils: KnockoutValidationUtils;
 
     localize(msgTranslations: any): void;
-    validateObservable(observable: KnockoutObservableBase): boolean;
+    validateObservable<T>(observable: KnockoutObservable<T>): boolean;
 }
 
 interface KnockoutStatic {
     validation: KnockoutValidationStatic;
-    validatedObservable(initialValue: any): KnockoutObservableBase;
+    validatedObservable<T>(initialValue: T): KnockoutObservable<T>;
     applyBindingsWithValidation(viewModel: any, rootNode?: any, options?: KnockoutValidationConfiguration): void;
 }
 
