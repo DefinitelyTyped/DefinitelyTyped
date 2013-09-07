@@ -9,7 +9,9 @@
 interface JQueryMobileEvent { (event: Event, ui): void; }
 
 interface DialogOptions {
+    closeBtn?: string;
     closeBtnText?: string;
+    corners?: boolean;
     initSelector?: string;
     overlayTheme?: string;
 }
@@ -105,6 +107,8 @@ interface CollapsibleSetEvents {
 }
 
 interface TextInputOptions {
+    clearBtn?: boolean;
+    clearBtnText?: string;
     disabled?: boolean;
     initSelector?: string;
     mini?: boolean;
@@ -357,8 +361,10 @@ interface JQuery {
 
     button(): JQuery;
     button(command: string): JQuery;
-    buttonMarkup(options: ButtonOptions): JQuery;
+    button(options?: ButtonOptions): JQuery;
     button(events: ButtonEvents): JQuery;
+    
+    buttonMarkup(options?: ButtonOptions): JQuery;
 
     collapsible(): JQuery;
     collapsible(command: string): JQuery;
