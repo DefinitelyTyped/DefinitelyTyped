@@ -225,6 +225,5 @@ Requested Definitions
 * [Lo-Dash](http://lodash.com/)
 * [java](https://github.com/nearinfinity/node-java)
 * [SVG.js](http://www.svgjs.com/)
-* [CreateJS](http://createjs.com/)
 
 In addition you can find the [updated open requests that you can contribute here](https://github.com/borisyankov/DefinitelyTyped/issues?labels=request&page=1&state=open)
