@@ -158,23 +158,6 @@ _.defaults(iceCream, { flavor: "vanilla", sprinkles: "lots" });
 
 _.clone({ name: 'moe' });
 _.clone(['i', 'am', 'an', 'object!']);
-
-_([1, 2, 3, 4])
-	.chain()
-	.filter((num: number) => {
-		return num % 2 == 0;
-	}).tap(alert)
-	.map((num: number) => {
-		return num * num;
-	})
-	.value();
-
-_.chain([1, 2, 3, 200])
-	.filter(function (num: number) { return num % 2 == 0; })
-	.tap(alert)
-	.map(function (num: number) { return num * num })
-	.value();
-
 _.has({ a: 1, b: 2, c: 3 }, "b");
 
 var moe = { name: 'moe', luckyNumbers: [13, 27, 34] };
@@ -268,3 +251,32 @@ _.template("Using 'with': <%= data.answer %>", { answer: 'no' }, { variable: 'da
 
 
 _(['test', 'test']).pick(['test2', 'test2']);
+
+
+//////////////// Chain Tests
+function chain_tests() {
+    var list:number[] = _.chain([1, 2, 3, 4, 5, 6, 7, 8])
+        .filter(n => n % 2 == 0)
+        .map(n => n * n)
+        .value();
+
+    _([1, 2, 3, 4])
+        .chain()
+        .filter((num: number) => {
+            return num % 2 == 0;
+        }).tap(alert)
+        .map((num: number) => {
+            return num * num;
+        })
+        .value();
+
+    _.chain([1, 2, 3, 200])
+        .filter(function (num: number) { return num % 2 == 0; })
+        .tap(alert)
+        .map(function (num: number) { return num * num })
+        .value();
+}
+
+    
+    
+    

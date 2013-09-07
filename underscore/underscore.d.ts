@@ -2847,7 +2847,7 @@ interface _Chain<T> {
 	* Wrapped type `any`.
 	* @see _.value
 	**/
-	value<TResult>(): _Chain;
+	value<TResult>(): TResult;
 }
 
 declare module "underscore" {
