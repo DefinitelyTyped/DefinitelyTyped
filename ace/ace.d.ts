@@ -50,7 +50,7 @@ declare module AceAjax {
     export interface TokenInfo {
 
         value: string;
-    }    
+    }
 
     export interface Position {
 
@@ -1023,7 +1023,7 @@ declare module AceAjax {
 
         new (text: string[], mode?: string): IEditSession;
     }
-        
+
     ////////////////////////////////
     /// Editor
     ////////////////////////////////
@@ -1040,7 +1040,7 @@ declare module AceAjax {
         selectMoreLines(n: number);
 
         onTextInput(text: string);
-        
+
         onCommandKey(e, hashId, keyCode);
 
         commands: CommandManager;
@@ -1702,7 +1702,7 @@ declare module AceAjax {
 
     }
 
-    var Editor: {    
+    var Editor: {
         /**
          * Creates a new `Editor` object.
          * @param renderer Associated `VirtualRenderer` that draws everything
@@ -1773,7 +1773,7 @@ declare module AceAjax {
         new (session: Document, length: number, pos: number, others: string, mainClass: string, othersClass: string): PlaceHolder;
 
         new (session: IEditSession, length: number, pos: Position, positions: Position[]): PlaceHolder;
-    }    
+    }
 
     ////////////////
     /// RangeList
@@ -1998,7 +1998,7 @@ declare module AceAjax {
     var Range: {
         fromPoints(pos1: Position, pos2: Position): Range;
         new(startRow: number, startColumn: number, endRow: number, endColumn: number): Range;
-    }    
+    }
 
     ////////////////
     /// RenderLoop
@@ -2157,7 +2157,7 @@ declare module AceAjax {
         /**
          * Gets the current position of the cursor.
         **/
-        getCursor(): number;
+        getCursor(): Position;
 
         /**
          * Sets the row and column position of the anchor. This function also emits the `'changeSelection'` event.
@@ -2377,7 +2377,7 @@ declare module AceAjax {
          * @param session The session to use
         **/
         new(session: IEditSession): Selection;
-    }    
+    }
 
     ////////////////
     /// Split
@@ -2529,7 +2529,7 @@ declare module AceAjax {
          * @param flag Any additional regular expression flags to pass (like "i" for case insensitive)
         **/
         new(rules: any, flag: string): Tokenizer;
-    }    
+    }
 
     //////////////////
     /// UndoManager
