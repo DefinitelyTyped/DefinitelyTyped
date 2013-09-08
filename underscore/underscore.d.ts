@@ -1030,9 +1030,8 @@ declare module _ {
 	* @keys The key/value pairs to keep on `object`.
 	* @return Copy of `object` with only the `keys` properties.
 	**/
-	export function pick(
-		object: any,
-		...keys: string[]): any;
+	export function pick(object: any, ...keys: string[]): any;
+	export function pick(object: any, keys: string[]): any;
 
 	/**
 	* Return a copy of the object, filtered to omit the blacklisted keys (or array of keys).
@@ -2648,6 +2647,7 @@ interface _Chain<T> {
 	* @see _.pick
 	**/
 	pick(...keys: string[]): _Chain;
+	pick(keys: string[]): _Chain;
 
 	/**
 	* Wrapped type `object`.
