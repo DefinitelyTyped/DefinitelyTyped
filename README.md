@@ -82,7 +82,7 @@ List of Definitions
 * [Hammer.js](http://eightmedia.github.com/hammer.js/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Handlebars](http://handlebarsjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Highcharts](http://www.highcharts.com/) (by [damianog](https://github.com/damianog))
-* [History.js](https://github.com/balupton/History.js/) (by [Boris Yankov](https://github.com/borisyankov))
+* [History.js](https://github.com/browserstate/history.js) (by [Boris Yankov](https://github.com/borisyankov))
 * [Humane.js](http://wavded.github.com/humane-js/) (by [John Vrbanac](https://github.com/jmvrbanac))
 * [i18next](http://i18next.com/) (by [Maarten Docter](https://github.com/mdocter))
 * [iCheck](http://damirfoy.com/iCheck/) (by [Dániel Tar](https://github.com/qcz))
