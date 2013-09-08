@@ -498,7 +498,7 @@ declare module JQueryUI {
     }
 
     interface SortableEvent {
-        (event: Event, ui: SortableUIParams): void;
+        (event: JQueryEventObject, ui: SortableUIParams): void;
     }
 
     interface SortableEvents {
@@ -955,7 +955,7 @@ interface JQuery {
     slider(methodName: 'values', index: number): number;
     slider(methodName: string, index: number, value: number): void;
     slider(methodName: 'values', index: number, value: number): void;
-    slider(methodName: string, values: Array<number>): void;    
+    slider(methodName: string, values: Array<number>): void;
     slider(methodName: 'values', values: Array<number>): void;
     slider(methodName: 'widget'): JQuery;
     slider(options: JQueryUI.SliderOptions): JQuery;
