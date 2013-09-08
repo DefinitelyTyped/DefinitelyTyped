@@ -83,8 +83,8 @@ interface I18nextStatic {
         toLanguages(language: string): string[];
         regexEscape(str: string): string;
     };
-    init(callback?: (t: (key: string, options?: any) => string) => void ): JQueryDeferred;
-    init(options?: I18nextOptions, callback?: (t: (key: string, options?: any) => string) => void ): JQueryDeferred;
+    init(callback?: (t: (key: string, options?: any) => string) => void ): JQueryDeferred<any>;
+    init(options?: I18nextOptions, callback?: (t: (key: string, options?: any) => string) => void ): JQueryDeferred<any>;
     lng(): string;
     loadNamespace(namespace: string, callback?: () => void ): void;
     loadNamespaces(namespaces: string[], callback?: () => void ): void;
