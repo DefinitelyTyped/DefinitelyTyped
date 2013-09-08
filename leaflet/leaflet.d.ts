@@ -808,7 +808,7 @@ declare module L {
           * Subdomains of the tile service. Can be passed in the form of one string (where
           * each letter is a subdomain name) or an array of strings.
           */
-        subdomains?: string;
+        subdomains?: any;
 
         /**
           * URL to the tile image to show in place of the tile that failed to load.
