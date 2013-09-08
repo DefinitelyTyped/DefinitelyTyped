@@ -1,3 +1,5 @@
+/// <reference path="camljs.d.ts" />
+
 var caml = new CamlBuilder().Where()
 	.Any(
 	CamlBuilder.Expression().TextField("Email").EqualTo("support@google.com"),
@@ -7,16 +9,16 @@ var caml = new CamlBuilder().Where()
 	)
 	.ToString();
 
-	
-var caml = new CamlBuilder().Where()
+
+caml = new CamlBuilder().Where()
 	.UserField("AssignedTo").EqualToCurrentUser()
 	.Or()
 	.UserField("AssignedTo").Membership.CurrentUserGroups()
 	.GroupBy("Category")
 	.OrderBy("Priority").ThenBy("Title")
 	.ToString();
-	
-var caml = new CamlBuilder().Where()
+
+caml = new CamlBuilder().Where()
 	.All(
 	CamlBuilder.Expression().All(
 		CamlBuilder.Expression().BooleanField("Enabled").IsTrue(),
@@ -28,18 +30,18 @@ var caml = new CamlBuilder().Where()
 		)
 	)
 	.ToString();
-	
-var caml = new CamlBuilder().Where()
+
+caml = new CamlBuilder().Where()
 	.LookupIdField("Category").In([2, 3, 10])
 	.And()
 	.DateField("ExpirationDate").GreaterThan(CamlBuilder.CamlValues.Now)
 	.OrderBy("ExpirationDate")
 	.ToString()
-	
-	
-var caml = new CamlBuilder().Where().CounterField("ID").In([1, 2, 3]).ToString();
 
-var caml = CamlBuilder.Expression()
+
+caml = new CamlBuilder().Where().CounterField("ID").In([1, 2, 3]).ToString();
+
+caml = CamlBuilder.Expression()
 	.All(
 		CamlBuilder.Expression().DateField("BroadcastExpires").GreaterThanOrEqualTo(CamlBuilder.CamlValues.Today),
 		CamlBuilder.Expression().Any(
@@ -49,5 +51,5 @@ var caml = CamlBuilder.Expression()
 		CamlBuilder.Expression().DateRangesOverlap(CamlBuilder.DateRangesOverlapType.Year, new Date().toISOString())
 	)
 	.ToString();
-	
-var caml = new CamlBuilder().Where().DateTimeField("Created").GreaterThan(new Date(Date.UTC(2013,0,1))).ToString();
+
+caml = new CamlBuilder().Where().DateTimeField("Created").GreaterThan(new Date(Date.UTC(2013,0,1))).ToString();
