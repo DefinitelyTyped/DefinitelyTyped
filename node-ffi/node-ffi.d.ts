@@ -53,20 +53,9 @@ declare module "ffi" {
         retType: Type;
         /** The type of arguments. */
         argTypes: Type[];
-        abi: number;
-
         /** Is set for node-ffi functions. */
         ffi_type: NodeBuffer;
-        /** The size in bytes required to hold this datatype. */
-        size: number;
-        /** The current level of indirection of the buffer. */
-        indirection: number;
-        /** To invoke when `ref.get` is invoked on a buffer of this type. */
-        get(buffer: NodeBuffer, offset: number): any;
-        /** To invoke when `ref.set` is invoked on a buffer of this type. */
-        set(buffer: NodeBuffer, offset: number, value): void;
-        /** The alignment of this datatype when placed inside a struct. */
-        alignment: number;
+        abi: number;
 
         /** Get a `Callback` pointer of this function type. */
         toPointer(fn: (...args: any[]) => any): NodeBuffer;
