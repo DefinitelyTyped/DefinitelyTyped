@@ -116,13 +116,13 @@ declare module 'durandal/system' {
      * @param {object} extension* Uses to extend the target object.
     */
     export function extend(obj: any, ...extensions: any[]): any;
-    
+
     /**
      * Uses a setTimeout to wait the specified milliseconds.
      * @param {number} milliseconds The number of milliseconds to wait.
      * @returns {JQueryPromise}
     */
-    export function wait(milliseconds: number): JQueryPromise;
+    export function wait(milliseconds: number): JQueryPromise<any>;
 
     /**
      * Gets all the owned keys of the specified object.
@@ -226,7 +226,7 @@ declare module 'durandal/viewEngine' {
      * @returns {boolean} True if the url is a view url, false otherwise.
     */
     export function isViewUrl(url: string):boolean;
-    
+
     /**
      * Converts a view url into a view id.
      * @param {string} url The url to convert.
@@ -389,7 +389,7 @@ declare module 'durandal/binder' {
      * @param {object} [obj] The data to bind to, causing the creation of a child binding context if present.
     */
     export function bindContext(bindingContext: KnockoutBindingContext, view: HTMLElement, obj?: any): BindingInstruction;
-    
+
     /**
      * Binds the view, preserving the existing binding context. Optionally, a new context can be created, parented to the previous context.
      * @param {object} obj The data to bind to.
@@ -463,7 +463,7 @@ declare module 'durandal/activator' {
          * @returns {boolean}
         */
         isActivating: KnockoutObservable<boolean>;
-        
+
         /**
          * Determines whether or not the specified item can be deactivated.
          * @param {object} item The item to check.
@@ -536,7 +536,7 @@ declare module 'durandal/activator' {
      * @property {ActivatorSettings} defaults
     */
     export var defaults: ActivatorSettings;
-    
+
     /**
     * Creates a new activator.
      * @method create
@@ -568,7 +568,7 @@ declare module 'durandal/viewLocator' {
      * @param {string} [areasPath] Partial views are mapped to the "views" folder if not specified. Use this parameter to change their location.
     */
     export function useConvention(modulesPath?: string, viewsPath?: string, areasPath?: string): void;
-    
+
     /**
      * Maps an object instance to a view instance.
      * @param {object} obj The object to locate the view for.
@@ -577,7 +577,7 @@ declare module 'durandal/viewLocator' {
      * @returns {Promise} A promise of the view.
     */
     export function locateViewForObject(obj: any, area:string, elementsToSearch?: HTMLElement[]): JQueryPromise<HTMLElement>;
-    
+
     /**
      * Converts a module id into a view id. By default the ids are the same.
      * @param {string} moduleId The module id.
@@ -599,7 +599,7 @@ declare module 'durandal/viewLocator' {
      * @returns {string} The translated view id.
     */
     export function translateViewIdToArea(viewId: string, area: string): string;
-    
+
     /**
      * Locates the specified view.
      * @param {string|DOMElement} view A view. It will be immediately returned.
@@ -608,7 +608,7 @@ declare module 'durandal/viewLocator' {
      * @returns {Promise} A promise of the view.
     */
     export function locateView(view: HTMLElement, area?: string, elementsToSearch?: HTMLElement[]): JQueryPromise<HTMLElement>;
-    
+
     /**
      * Locates the specified view.
      * @param {string|DOMElement} viewUrlOrId A view url or view id to locate.
@@ -732,7 +732,7 @@ declare module 'durandal/app' {
      * The title of your application.
     */
     export var title: string;
-    
+
     /**
      * Shows a dialog via the dialog plugin.
      * @param {object|string} obj The object (or moduleId) to display as a dialog.
@@ -740,7 +740,7 @@ declare module 'durandal/app' {
      * @param {string} [context] The name of the dialog context to use. Uses the default context if none is specified.
      * @returns {Promise} A promise that resolves when the dialog is closed and returns any data passed at the time of closing.
     */
-    export function showDialog(obj: any, activationData?: any, context?: string):JQueryPromise;
+    export function showDialog(obj: any, activationData?: any, context?: string):JQueryPromise<any>;
 
     /**
      * Shows a message box via the dialog plugin.
@@ -750,7 +750,7 @@ declare module 'durandal/app' {
      * @returns {Promise} A promise that resolves when the message box is closed and returns the selected option.
     */
     export function showMessage(message: string, title?: string, options?: string[]): JQueryPromise<string>;
-    
+
     /**
      * Configures one or more plugins to be loaded and installed into the application.
      * @method configurePlugins
@@ -763,7 +763,7 @@ declare module 'durandal/app' {
      * Starts the application.
      * @returns {promise}
     */
-    export function start(): JQueryPromise;
+    export function start(): JQueryPromise<any>;
 
     /**
      * Sets the root module/view for the application.
@@ -908,7 +908,7 @@ declare module 'plugins/dialog' {
         owner: any;
         context: DialogContext;
         activator: activator.Activator<any>;
-        close(): JQueryPromise;
+        close(): JQueryPromise<any>;
         settings: composition.CompositionContext;
     }
 
@@ -947,7 +947,7 @@ declare module 'plugins/dialog' {
      * @param {DialogContext} dialogContext The context to add.
     */
     export function addContext(name: string, modalContext: DialogContext): void;
-    
+
     /**
      * Gets the dialog model that is associated with the specified object.
      * @param {object} obj The object for whom to retrieve the dialog.
@@ -969,7 +969,7 @@ declare module 'plugins/dialog' {
      * @param {string} [context] The name of the dialog context to use. Uses the default context if none is specified.
      * @returns {Promise} A promise that resolves when the dialog is closed and returns any data passed at the time of closing.
     */
-    export function show(obj: any, activationData?: any, context?: string): JQueryPromise;
+    export function show(obj: any, activationData?: any, context?: string): JQueryPromise<any>;
 
     /**
      * Shows a message box.
@@ -1121,14 +1121,14 @@ declare module 'plugins/http' {
      * @default callback
     */
     export var callbackParam: string;
-    
+
     /**
      * Makes an HTTP GET request.
      * @param {string} url The url to send the get request to.
      * @param {object} [query] An optional key/value object to transform into query string parameters.
      * @returns {Promise} A promise of the get response data.
     */
-    export function get(url: string, query?: Object): JQueryPromise;
+    export function get(url: string, query?: Object): JQueryPromise<any>;
 
     /**
      * Makes an JSONP request.
@@ -1137,15 +1137,15 @@ declare module 'plugins/http' {
      * @param {string} [callbackParam] The name of the callback parameter the api expects (overrides the default callbackParam).
      * @returns {Promise} A promise of the response data.
     */
-    export function jsonp(url: string, query?: Object, callbackParam?: string): JQueryPromise;
-    
+    export function jsonp(url: string, query?: Object, callbackParam?: string): JQueryPromise<any>;
+
     /**
      * Makes an HTTP POST request.
      * @param {string} url The url to send the post request to.
      * @param {object} data The data to post. It will be converted to JSON. If the data contains Knockout observables, they will be converted into normal properties before serialization.
      * @returns {Promise} A promise of the response data.
     */
-    export function post(url: string, data: Object): JQueryPromise;
+    export function post(url: string, data: Object): JQueryPromise<any>;
 }
 
 /**
@@ -1155,7 +1155,7 @@ declare module 'plugins/http' {
  * @requires knockout
  */
 declare module 'plugins/observable' {
-    function observable(obj: any, property: string): KnockoutObservable;
+    function observable(obj: any, property: string): KnockoutObservable<any>;
 
     module observable {
         /**
@@ -1171,7 +1171,7 @@ declare module 'plugins/observable' {
          * @param {object} [original] The original value of the property. If not specified, it will be retrieved from the object.
          * @returns {KnockoutObservable} The underlying observable.
          */
-        export function convertProperty(obj: any, propertyName: string, original?: any): KnockoutObservable;
+        export function convertProperty(obj: any, propertyName: string, original?: any): KnockoutObservable<any>;
 
         /**
          * Defines a computed property using ES5 getters and setters.
@@ -1703,7 +1703,7 @@ declare module 'durandal/typescript' {
          * Activates the router and the underlying history tracking mechanism.
          * @returns {Promise} A promise that resolves when the router is ready.
          */
-        activate(options?: history.HistoryOptions): JQueryPromise;
+        activate(options?: history.HistoryOptions): JQueryPromise<any>;
 
         /**
          * Disable history, perhaps temporarily. Not useful in a real app, but possibly useful for unit testing Routers.

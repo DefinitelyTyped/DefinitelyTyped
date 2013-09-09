@@ -72,12 +72,12 @@ declare module Sys {
             getAllResponseHeaders(): string;
             getResponseHeader(key: string): string;
         }
-        
+
         export class NetworkRequestEventArgs extends EventArgs {
             get_webRequest(): WebRequest;
         }
-        
-        
+
+
         export class WebRequestManager {
             static get_defaultExecutorType(): string;
             static set_defaultExecutorType(value: string): void;
@@ -86,10 +86,10 @@ declare module Sys {
 
             static executeRequest(request: WebRequest):void;
             static add_completedRequest(handler: (executor: WebRequestExecutor, args: Sys.EventArgs) => void ): void;
-            static remove_completedRequest(handler: (executor: WebRequestExecutor, args: Sys.EventArgs) => void ): void;  
+            static remove_completedRequest(handler: (executor: WebRequestExecutor, args: Sys.EventArgs) => void ): void;
             static add_invokingRequest(handler: (executor: WebRequestExecutor, args: NetworkRequestEventArgs) => void ): void;
-            static remove_invokingRequest(handler: (executor: WebRequestExecutor, args: NetworkRequestEventArgs ) => void ): void;               
-        } 
+            static remove_invokingRequest(handler: (executor: WebRequestExecutor, args: NetworkRequestEventArgs ) => void ): void;
+        }
 
         export class WebServiceProxy {
             static invoke(
@@ -104,7 +104,7 @@ declare module Sys {
                 enableJsonp?: boolean,
                 jsonpCallbackParameter?: string): WebRequest;
         }
-        
+
         export class WebServiceError {
             get_errorObject(): any;
             get_exceptionType(): any;
@@ -263,7 +263,7 @@ interface MQuery
     (element: HTMLElement): MQueryResultSetElements;
     (object: MQueryResultSetElements): MQueryResultSetElements;
     <T>(object: MQueryResultSet<T>): MQueryResultSet<T>;
-    <T>(object: T): MQueryResultSet<T>;    
+    <T>(object: T): MQueryResultSet<T>;
     (elementArray: HTMLElement[]): MQueryResultSetElements;
     <T>(array: T[]): MQueryResultSet<T>;
     <T>(): MQueryResultSet<T>;
@@ -330,7 +330,7 @@ interface MQuery
     data(element: HTMLElement, key: string): any;
     data(element: HTMLElement): any;
 
-    removeData(element: HTMLElement, name?: string): MQueryResultSet;
+    removeData(element: HTMLElement, name?: string): MQueryResultSet<any>;
     hasData(element: HTMLElement): boolean;
 }
 
@@ -341,10 +341,10 @@ interface MQueryResultSetElements extends MQueryResultSet<HTMLElement>{
 
     bind(eventType: string, handler: (eventObject: MQueryEvent) => any): MQueryResultSetElements;
     unbind(eventType: string, handler: (eventObject: MQueryEvent) => any): MQueryResultSetElements;
-    trigger(eventType: string): MQueryResultSet;
+    trigger(eventType: string): MQueryResultSet<any>;
     one(eventType: string, handler: (eventObject: MQueryEvent) => any): MQueryResultSetElements;
 
-    detach(): MQueryResultSet;
+    detach(): MQueryResultSet<any>;
 
     find(selector: string): MQueryResultSetElements;
     closest(selector: string, context?: any): MQueryResultSetElements;
@@ -442,26 +442,26 @@ interface MQueryResultSetElements extends MQueryResultSet<HTMLElement>{
     submit(): MQueryResultSetElements;
     submit(handler: (eventObject: MQueryEvent) => any): MQueryResultSetElements;
     unload(): MQueryResultSetElements;
-    unload(handler: (eventObject: MQueryEvent) => any): MQueryResultSetElements; 
+    unload(handler: (eventObject: MQueryEvent) => any): MQueryResultSetElements;
 
 }
 
-interface MQueryResultSet<T> {    
+interface MQueryResultSet<T> {
     [index: number]: T;
     contains(contained: T): boolean;
-    
+
     filter(fn: (elementOfArray: T, indexInArray: number) => boolean, context?: any): MQueryResultSet<T>;
-    filter(fn: (elementOfArray: T) => boolean, context?: any): MQueryResultSet<T>;    
+    filter(fn: (elementOfArray: T) => boolean, context?: any): MQueryResultSet<T>;
 
     every(fn: (elementOfArray: T, indexInArray: number) => boolean, context?: any): boolean;
     every(fn: (elementOfArray: T) => boolean, context?: any): boolean;
-    
+
     some(fn: (elementOfArray: T, indexInArray: number) => boolean, context?: any): boolean;
     some(fn: (elementOfArray: T) => boolean, context?: any): boolean;
-    
+
     map(callback: (elementOfArray: T, indexInArray: number) => any): MQueryResultSet<T>;
     map(callback: (elementOfArray: T) => any): MQueryResultSet<T>;
-    
+
     forEach(fn: (elementOfArray: T, indexInArray: number) => void, context?: any): void;
     forEach(fn: (elementOfArray: T) => void, context?: any): void;
 
@@ -1212,7 +1212,7 @@ declare module SPClientTemplates {
 
     export interface TemplateOverrides {
         View?: (renderContext: any) => string; // TODO: determine appropriate context type and purpose of this template
-        Body?: (renderContext: any) => string; // TODO: determine appropriate context type and purpose of this template 
+        Body?: (renderContext: any) => string; // TODO: determine appropriate context type and purpose of this template
         /** Defines templates for rendering groups (aggregations). */
         Group?: GroupCallback;
         /** Defines templates for list items rendering. */
@@ -1236,10 +1236,10 @@ declare module SPClientTemplates {
         /** �allbacks called after rendered html inserted into DOM. Can be function (ctx: RenderContext) => void or array of functions.*/
         OnPostRender?: any;
 
-        /** View style (SPView.StyleID) for which the templates should be applied. 
+        /** View style (SPView.StyleID) for which the templates should be applied.
             If not defined, the templates will be applied only to default view style. */
         ViewStyle?: number;
-        /** List template type (SPList.BaseTemplate) for which the template should be applied. 
+        /** List template type (SPList.BaseTemplate) for which the template should be applied.
             If not defined, the templates will be applied to all lists. */
         ListTemplateType?: number;
         /** Base view ID (SPView.BaseViewID) for which the template should be applied.
@@ -2249,8 +2249,8 @@ declare module SP {
         get_versionString(): string;
     }
     export class AppCatalog {
-        static getAppInstances(context: SP.ClientRuntimeContext, web: SP.Web): SP.ClientObjectList;
-        static getDeveloperSiteAppInstancesByIds(context: SP.ClientRuntimeContext, site: SP.Site, appInstanceIds: SP.Guid[]): SP.ClientObjectList;
+        static getAppInstances(context: SP.ClientRuntimeContext, web: SP.Web): SP.ClientObjectList<any>;
+        static getDeveloperSiteAppInstancesByIds(context: SP.ClientRuntimeContext, site: SP.Site, appInstanceIds: SP.Guid[]): SP.ClientObjectList<any>;
         static isAppSideloadingEnabled(context: SP.ClientRuntimeContext): SP.BooleanResult;
     }
     export class AppContextSite extends SP.ClientObject {
@@ -2271,7 +2271,7 @@ declare module SP {
         get_status(): SP.AppInstanceStatus;
         get_title(): string;
         get_webId(): SP.Guid;
-        getErrorDetails(): SP.ClientObjectList;
+        getErrorDetails(): SP.ClientObjectList<any>;
         uninstall(): SP.GuidResult;
         upgrade(appPackageStream: any[]): void;
         cancelAllJobs(): SP.BooleanResult;
@@ -2402,12 +2402,12 @@ declare module SP {
     /** Specifies a Collaborative Application Markup Language (CAML) query on a list. */
     export class CamlQuery extends SP.ClientValueObject {
         constructor();
-        /** This method creates a Collaborative Application Markup Language (CAML) string 
-            that can be used to recursively get all of the items in a list, including 
+        /** This method creates a Collaborative Application Markup Language (CAML) string
+            that can be used to recursively get all of the items in a list, including
             the items in the subfolders. */
         static createAllItemsQuery(): SP.CamlQuery;
-        /** This method creates a Collaborative Application Markup Language (CAML) string 
-            that can be used to recursively get all of the folders in a list, including 
+        /** This method creates a Collaborative Application Markup Language (CAML) string
+            that can be used to recursively get all of the folders in a list, including
             the subfolders. */
         static createAllFoldersQuery(): SP.CamlQuery;
         /** Returns true if the query returns dates in Coordinated Universal Time (UTC) format. */
@@ -3686,7 +3686,7 @@ declare module SP {
         choiceField,
         minMaxField,
         textField,
-    } 
+    }
     /** Represents an item or row in a list. */
     export class ListItem extends SP.SecurableObject {
         get_fieldValues(): any;
@@ -3921,7 +3921,7 @@ declare module SP {
         get_isSharedWithMany(): boolean;
         get_isSharedWithSecurityGroup(): boolean;
         get_pendingAccessRequestsLink(): string;
-        getSharedWithUsers(): SP.ClientObjectList;
+        getSharedWithUsers(): SP.ClientObjectList<any>;
         static getListItemSharingInformation(context: SP.ClientRuntimeContext, listID: SP.Guid, itemID: number, excludeCurrentUser: boolean, excludeSiteAdmin: boolean, excludeSecurityGroups: boolean, retrieveAnonymousLinks: boolean, retrieveUserInfoDetails: boolean, checkForAccessRequests: boolean): SP.ObjectSharingInformation;
         static getWebSharingInformation(context: SP.ClientRuntimeContext, excludeCurrentUser: boolean, excludeSiteAdmin: boolean, excludeSecurityGroups: boolean, retrieveAnonymousLinks: boolean, retrieveUserInfoDetails: boolean, checkForAccessRequests: boolean): SP.ObjectSharingInformation;
         static getObjectSharingInformation(context: SP.ClientRuntimeContext, securableObject: SP.SecurableObject, excludeCurrentUser: boolean, excludeSiteAdmin: boolean, excludeSecurityGroups: boolean, retrieveAnonymousLinks: boolean, retrieveUserInfoDetails: boolean, checkForAccessRequests: boolean, retrievePermissionLevels: boolean): SP.ObjectSharingInformation;
@@ -4193,7 +4193,7 @@ declare module SP {
         editor,
     }
     export class ServerSettings {
-        static getAlternateUrls(context: SP.ClientRuntimeContext): SP.ClientObjectList;
+        static getAlternateUrls(context: SP.ClientRuntimeContext): SP.ClientObjectList<any>;
         static getGlobalInstalledLanguages(context: SP.ClientRuntimeContext, compatibilityLevel: number): SP.Language[];
     }
     export class Site extends SP.ClientObject {
@@ -4644,7 +4644,7 @@ declare module SP {
         getAppBdcCatalog(): SP.BusinessData.AppBdcCatalog;
         getSubwebsForCurrentUser(query: SP.SubwebQuery): SP.WebCollection;
         getAppInstanceById(appInstanceId: SP.Guid): SP.AppInstance;
-        getAppInstancesByProductId(productId: SP.Guid): SP.ClientObjectList;
+        getAppInstancesByProductId(productId: SP.Guid): SP.ClientObjectList<any>;
         loadAndInstallAppInSpecifiedLocale(appPackageStream: any[], installationLocaleLCID: number): SP.AppInstance;
         loadApp(appPackageStream: any[], installationLocaleLCID: number): SP.AppInstance;
         loadAndInstallApp(appPackageStream: any[]): SP.AppInstance;
@@ -5819,7 +5819,7 @@ declare module SP {
 
         /** Contains information about an actor retrieved from server. An actor is a user, document, site, or tag. */
         export class SocialActor extends SP.ClientValueObject {
-            /** The AccountName property returns the user account name. 
+            /** The AccountName property returns the user account name.
                 This property is only available for social actors of type "user". */
             get_accountName(): string;
             /** Identifies whether the actor is a user, document, site, or tag. */
@@ -5850,7 +5850,7 @@ declare module SP {
             get_personalSiteUri(): string;
             /** Represents the status of retrieving the actor */
             get_status(): SocialStatusCode;
-            /** The StatusText property returns the most recent post of the user. 
+            /** The StatusText property returns the most recent post of the user.
                 This property is only available for social actors of type "user". */
             get_statusText(): string;
             /** Returns the GUID of the tag.
@@ -5865,10 +5865,10 @@ declare module SP {
 
         /** Identifies an actor to the server. An actor can be a user, document, site, or tag. */
         export class SocialActorInfo extends SP.ClientValueObject {
-            /** User account name. 
+            /** User account name.
                 This property is only available for social actors of type "user". */
             get_accountName(): string;
-            /** User account name. 
+            /** User account name.
                 This property is only available for social actors of type "user". */
             set_accountName(value: string): string;
             /** Identifies whether the actor is a user, document, site, or tag. */
@@ -5979,7 +5979,7 @@ declare module SP {
         }
 
         /** Provides information about an overlay.
-            An overlay is a substring in a post that represents a user, document, site, tag, or link. 
+            An overlay is a substring in a post that represents a user, document, site, tag, or link.
             The SocialPost class contains an array of SocialDataOverlay objects.
             Each of the SocialDataOverlay objects specifies a link or one or more actors. */
         export class SocialDataOverlay extends SP.ClientValueObject {
@@ -6016,8 +6016,8 @@ declare module SP {
                 The most recent post that was requested can be removed from the feed if the current user does not have access to it.
                 Consequently, the feed does not always contain the post with the date specified in this property. */
             get_newestProcessed(): string;
-            /** The OldestProcessed property returns the date-time of the oldest post that was requested. 
-                The oldest post that was requested can be removed from the feed if the current user does not have access to it. 
+            /** The OldestProcessed property returns the date-time of the oldest post that was requested.
+                The oldest post that was requested can be removed from the feed if the current user does not have access to it.
                 Consequently, the feed does not always contain the post with the date specified in this property */
             get_oldestProcessed(): string;
             /** Contains the social threads in the feed. */
@@ -6034,7 +6034,7 @@ declare module SP {
             get_owner(): SocialActor;
             /** Specifies the URI of the personal site portal. */
             get_personalSitePortalUri(): string;
-            /** Creates a post in the current user's newsfeed, in the specified user's feed, or in the specified thread. 
+            /** Creates a post in the current user's newsfeed, in the specified user's feed, or in the specified thread.
                 This method returns a new or a modified thread.
                 @param targetId Optional, specifies the target of the post.
                                 If this parameter is null, the post is created as a root post in the current user's feed.
@@ -6067,19 +6067,19 @@ declare module SP {
             getFullThread(threadId: string): SocialThread;
             /** Returns a feed containing mention reference threads from the current user's personal feed. */
             getMentions(clearUnreadMentions: boolean, options: SocialFeedOptions): SocialFeed;
-            /** Returns the server's count of unread mentions of the current user. 
-                The server maintains a count of unread mentions in posts, but does not track which mentions have been read. 
-                When a new mention is stored on the server, it increments the unread mention for the user specified by the mention. 
+            /** Returns the server's count of unread mentions of the current user.
+                The server maintains a count of unread mentions in posts, but does not track which mentions have been read.
+                When a new mention is stored on the server, it increments the unread mention for the user specified by the mention.
                 The unread mention count is cleared by the GetMentions method. */
             getUnreadMentionCount(): SP.IntResult;
-            /** Specifies that the current user likes the specified post. 
-                Returns a digest thread containing the specified post. 
+            /** Specifies that the current user likes the specified post.
+                Returns a digest thread containing the specified post.
                 A digest thread contains the root post and a selection of reply posts */
             likePost(postId: string): SocialThread;
-            /** Specifies that the current user does not like the specified post. 
+            /** Specifies that the current user does not like the specified post.
                 Returns a digest thread containing the specified post.  */
             unlikePost(postId: string): SocialThread;
-            /** Prevents any user from adding a new reply post to the specified thread. 
+            /** Prevents any user from adding a new reply post to the specified thread.
                 Once a thread is locked, no new reply posts can be added until after the thread has been unlocked with the unlockThread method.
                 This method returns a digest of the locked thread */
             lockThread(threadId: string): SocialThread;
@@ -6119,9 +6119,9 @@ declare module SP {
             get_followedSitesUri(): string;
             /** Adds the specified actor to the current user's list of followed items.
                 Returns one of the following values, wrapped into the SP.IntResult object:
-                0 = ok, 
-                1 = alreadyFollowing, 
-                2 = limitReached, 
+                0 = ok,
+                1 = alreadyFollowing,
+                2 = limitReached,
                 3 = internalError */
             follow(actor: SocialActorInfo): SP.IntResult;
             stopFollowing(actor: SocialActorInfo): SP.BooleanResult;
@@ -6254,10 +6254,10 @@ declare module SP {
             get_text(): string;
             /** Specifies the text that is substituted for the placeholder */
             set_text(value: string): string;
-            /** Specifies the URI of the document, site, or link. 
+            /** Specifies the URI of the document, site, or link.
                 This property is only available if the ItemType property specifies that the item is a Document, Link, or Site. */
             get_uri(): string;
-            /** Specifies the URI of the document, site, or link. 
+            /** Specifies the URI of the document, site, or link.
                 This property is only available if the ItemType property specifies that the item is a Document, Link, or Site. */
             set_uri(value: string): string;
         }
@@ -7134,7 +7134,7 @@ declare module SP {
             /** Gets suggestions for who the current user might want to follow.
                 Note: The recommended API to use for this task is SocialFollowingManager.getSuggestions.
                 Returns list of PersonProperties objects */
-            getMySuggestions(): SP.ClientObjectList;
+            getMySuggestions(): SP.ClientObjectList<any>;
             /** Removes the specified user from the user's list of suggested people to follow. */
             hideSuggestion(accountName: string): void;
             follow(accountName: string): void;
@@ -7146,10 +7146,10 @@ declare module SP {
                 @param tagId GUID of the tag to stop following. */
             stopFollowingTag(tagId: string): void;
             amIFollowing(accountName: string): SP.BooleanResult;
-            getPeopleFollowedByMe(): SP.ClientObjectList;
-            getPeopleFollowedBy(accountName: string): SP.ClientObjectList;
-            getMyFollowers(): SP.ClientObjectList;
-            getFollowersFor(accountName: string): SP.ClientObjectList;
+            getPeopleFollowedByMe(): SP.ClientObjectList<any>;
+            getPeopleFollowedBy(accountName: string): SP.ClientObjectList<any>;
+            getMyFollowers(): SP.ClientObjectList<any>;
+            getFollowersFor(accountName: string): SP.ClientObjectList<any>;
             amIFollowedBy(accountName: string): SP.BooleanResult;
             /** Uploads and sets the user profile picture.
                 Pictures in bmp, jpg and png formats and up to 5,000,000 bytes are supported.
@@ -7225,7 +7225,7 @@ declare module SP {
             /** Specifies the person's title. */
             get_title(): string;
             /** Represents all user profile properties including custom.
-                The privacy settings affect which properties can be retrieved. 
+                The privacy settings affect which properties can be retrieved.
                 Multiple values are delimited by the vertical bar "|".
                 Null values are specified as empty strings. */
             get_userProfileProperties(): { [name: string]: string; };
@@ -7314,7 +7314,7 @@ declare module SP {
             /** Updates the properties for followed item with specified URL.
                 @param url  URL that identifies the followed item.
                             The url parameter can identify an existing document or site using the url property of the original item.
-                            The url parameter can also identify a document with the following format: http://host/site?listId=<listGuid>&itemId=<itemId> 
+                            The url parameter can also identify a document with the following format: http://host/site?listId=<listGuid>&itemId=<itemId>
                 @param data Application-defined data stored with the followed item. */
             updateData(url: string, data: FollowedItemData): void;
             /** Returns the refreshed item that is being pointed to in the Social list.
@@ -7384,11 +7384,11 @@ declare module SP {
             /** Specifies the site identification (GUID) in the Content database for this item if this item is a site, or for its parent site if this item is not a site. */
             set_siteId(value: string): string;
             /** Specifies the subtype of this item.
-                If the ItemType is Site, the Subtype specifies the web template identification. 
+                If the ItemType is Site, the Subtype specifies the web template identification.
                 If the ItemType is Document, the Subtype has a value of 1. */
             get_subtype(): number;
             /** Specifies the subtype of this item.
-                If the ItemType is Site, the Subtype specifies the web template identification. 
+                If the ItemType is Site, the Subtype specifies the web template identification.
                 If the ItemType is Document, the Subtype has a value of 1. */
             set_subtype(value: number): number;
             /** Specifies the item of this item */
@@ -7502,7 +7502,7 @@ declare module SP {
             static getLayoutsPageUrl(pageName: string): string;
             static getImageUrl(imageName: string): string;
             static createWikiPageInContextWeb(context: SP.ClientRuntimeContext, parameters: SP.Utilities.WikiPageCreationInformation): SP.File;
-            static localizeWebPartGallery(context: SP.ClientRuntimeContext, items: SP.ListItemCollection): SP.ClientObjectList;
+            static localizeWebPartGallery(context: SP.ClientRuntimeContext, items: SP.ListItemCollection): SP.ClientObjectList<any>;
             static getAppLicenseInformation(context: SP.ClientRuntimeContext, productId: SP.Guid): SP.AppLicenseCollection;
             static importAppLicense(context: SP.ClientRuntimeContext, licenseTokenToImport: string, contentMarket: string, billingMarket: string, appName: string, iconUrl: string, providerName: string, appSubtype: number): void;
             static getAppLicenseDeploymentId(context: SP.ClientRuntimeContext): SP.GuidResult;
@@ -7638,7 +7638,7 @@ declare module SP {
             toString(): string;
         }
     }
-    
+
     export module DateTimeUtil {
         export class SimpleDate {
             construction(year: number, month: number, day: number, era: number);

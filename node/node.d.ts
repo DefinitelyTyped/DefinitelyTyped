@@ -246,7 +246,7 @@ declare module "http" {
     export interface ServerRequest extends events.NodeEventEmitter, stream.ReadableStream {
         method: string;
         url: string;
-        headers: string;
+        headers: any;
         trailers: string;
         httpVersion: string;
         setEncoding(encoding?: string): void;
@@ -351,13 +351,13 @@ declare module "zlib" {
     export interface InflateRaw extends stream.ReadWriteStream { }
     export interface Unzip extends stream.ReadWriteStream { }
 
-    export function createGzip(options: ZlibOptions): Gzip;
-    export function createGunzip(options: ZlibOptions): Gunzip;
-    export function createDeflate(options: ZlibOptions): Deflate;
-    export function createInflate(options: ZlibOptions): Inflate;
-    export function createDeflateRaw(options: ZlibOptions): DeflateRaw;
-    export function createInflateRaw(options: ZlibOptions): InflateRaw;
-    export function createUnzip(options: ZlibOptions): Unzip;
+    export function createGzip(options?: ZlibOptions): Gzip;
+    export function createGunzip(options?: ZlibOptions): Gunzip;
+    export function createDeflate(options?: ZlibOptions): Deflate;
+    export function createInflate(options?: ZlibOptions): Inflate;
+    export function createDeflateRaw(options?: ZlibOptions): DeflateRaw;
+    export function createInflateRaw(options?: ZlibOptions): InflateRaw;
+    export function createUnzip(options?: ZlibOptions): Unzip;
 
     export function deflate(buf: NodeBuffer, callback: (error: Error, result: any) =>void ): void;
     export function deflateRaw(buf: NodeBuffer, callback: (error: Error, result: any) =>void ): void;

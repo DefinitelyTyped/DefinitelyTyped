@@ -204,7 +204,7 @@ interface EmberStatic {
     $; // jQuery
 
     // API Doc Members
-    A(arr: any[]): Ember.NativeArray;
+    A(arr: any[]): Ember.NativeArray<any>;
     addBeforeObserver(obj: Object, path: string, target: Object, method: Function);
     addListener(obj: Object, eventName: string, target: Object, method: Function);
     addObserver(obj: Object, path: string, target: Object, method: Function);
