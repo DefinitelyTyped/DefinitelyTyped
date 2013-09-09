@@ -98,6 +98,6 @@ declare module createjs {
 
     export class XHRLoader extends AbstractLoader {
         constructor (file: Object);
-        getResult(rawResult?: boolean);
+        getResult(rawResult?: boolean):any;
     }
 }
