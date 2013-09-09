@@ -307,5 +307,6 @@ interface RequireDefine {
 }
 
 // Ambient declarations for 'require' and 'define'
+declare var requirejs: Require;
 declare var require: Require;
 declare var define: RequireDefine;
