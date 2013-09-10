@@ -998,7 +998,7 @@ declare module "stream" {
         pause(): void;
         resume(): void;
         destroy(): void;
-        pipe(destination: WritableStream, options?: { end?: boolean; }): void;
+        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
     }
 
     export interface ReadableOptions {
@@ -1014,7 +1014,7 @@ declare module "stream" {
         pause(): void;
         resume(): void;
         destroy(): void;
-        pipe(destination: WritableStream, options?: { end?: boolean; }): void;
+        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
         _read(): void;
         push(chunk: any, encoding?: string): boolean;
     }
