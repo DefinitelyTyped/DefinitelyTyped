@@ -434,6 +434,52 @@ interface NodeBuffer {
     inspect(): string;
 }
 
+declare module "ref-array" {
+    import ffi = require('ffi');
+
+    interface ArrayType extends ffi.Type {
+        BYTES_PER_ELEMENT: number;
+        /** The reference to the base type. */
+        type: ffi.Type;
+
+        /**
+         * Accepts a Buffer instance that should be an already-populated with data
+         * for the ArrayType. The "length" of the Array is determined by searching
+         * through the buffer's contents until an aligned NULL pointer is encountered.
+         */
+        untilZeros(buffer: NodeBuffer): { [i: number]: number; length: number;
+                                          buffer: NodeBuffer; ref(): NodeBuffer; };
+
+        new (length?: number): { [i: number]: number; length: number;
+                                 buffer: NodeBuffer; ref(): NodeBuffer; };
+
+        new (data: number[], length?: number): { [i: number]: number; length: number;
+                                                 buffer: NodeBuffer; ref(): NodeBuffer; };
+        new (data: NodeBuffer, length?: number): { [i: number]: number; length: number;
+                                                   buffer: NodeBuffer; ref(): NodeBuffer; };
+        (length?: number): { [i: number]: number; length: number;
+                             buffer: NodeBuffer; ref(): NodeBuffer; };
+        (data: number[], length?: number): { [i: number]: number; length: number;
+                                             buffer: NodeBuffer; ref(): NodeBuffer; };
+        (data: NodeBuffer, length?: number): { [i: number]: number; length: number;
+                                               buffer: NodeBuffer; ref(): NodeBuffer; };
+    }
+
+    /**
+     * The array type meta-constructor.
+     * The returned constructor's API is highly influenced by the WebGL
+     * TypedArray API.
+     */
+    var ArrayType: {
+        new (type: ffi.Type, length?: number): ArrayType;
+        new (type: string, length?: number): ArrayType;
+        (type: ffi.Type, length?: number): ArrayType;
+        (type: string, length?: number): ArrayType;
+    };
+
+    export = ArrayType;
+}
+
 declare module "ref-struct" {
     import ffi = require('ffi');
 

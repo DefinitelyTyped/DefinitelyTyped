@@ -3,6 +3,8 @@
 import ffi = require('ffi');
 import ref = require('ref');
 import Struct = require('ref-struct');
+import Union = require('ref-union');
+import TArray = require('ref-array');
 
 {
     var sqlite3 = ref.types.void;
@@ -76,4 +78,28 @@ import Struct = require('ref-struct');
 {
     var ST = Struct();
     var test: ffi.Type = ST.fields['t'].type;
+}
+{
+    var CharArray = TArray('char');
+    var b = new Buffer('hello', 'ascii');
+    var a = new CharArray(b);
+}
+{
+    var Int32Array = TArray(ref.types.int32);
+    var input = [1, 4, 91, 123123, 5123512, 0, -1];
+    var a = new Int32Array(input);
+}
+{
+    var int = ref.types.int;
+    var IntArray = TArray(int);
+
+    var buf = new Buffer(int.size * 3);
+    int.set(buf, int.size * 0, 5);
+    int.set(buf, int.size * 1, 8);
+    int.set(buf, int.size * 2, 0);
+
+    var array = IntArray.untilZeros(buf);
+}
+{
+    var refCharArr = TArray('char')([1, 3, 5], 2).ref();
 }
