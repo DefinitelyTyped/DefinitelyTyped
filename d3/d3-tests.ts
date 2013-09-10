@@ -1960,7 +1960,7 @@ function healthAndWealth() {
             .text(function (d) { return d.name; } );
 
         // Add an overlay for the year label.
-        var box = label.node().getBBox();
+        var box = (<SVGTextElement>label.node()).getBBox();
         
         var overlay = svg.append("rect")
             .attr("class", "overlay")
