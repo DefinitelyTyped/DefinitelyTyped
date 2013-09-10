@@ -3,7 +3,7 @@
 
 var App;
 
-App = Em.Application.create();
+App = Ember.Application.create();
 
 App.president = Ember.Object.create({
     name: "Barack Obama"
@@ -16,7 +16,7 @@ App.country.get('presidentName');
 App.president = Ember.Object.create({
     firstName: "Barack",
     lastName: "Obama",
-    fullName: () => {
+    fullName: function(){
         return this.get('firstName') + ' ' + this.get('lastName');
     }.property()
 });
@@ -124,7 +124,7 @@ App.userController = Ember.Object.create({
 });
 
 Handlebars.registerHelper('highlight', (property, options) => {
-    var value = Ember.Handlebars.getPath(this, property, options);
+    var value = Ember.Handlebars.get(this, property, options);
     return new Handlebars.SafeString('<span class="highlight">' + value + '</span>');
 });
 

@@ -18,6 +18,7 @@ declare module Ember {
     export class Object extends CoreObject {
 
         static create(...arguments: any[]): Object;
+        static extend: Function;        
 
         addObserver(key: string, target: Object, method: any): Object;
         apply(obj: Object): Object;
@@ -25,8 +26,9 @@ declare module Ember {
         cacheFor(keyName: string): Object;
         decrementProperty(keyName: string, increment: Object): Object;
         detect(obj: Object): boolean;
-        endPropertyChanges(): Observable;
-        get(key: string): Object;
+        endPropertyChanges(): Observable;        
+        get(key: string): any;
+        getPath(path: string): any; // Deprecated
         getProperties(...list: string[]): any;
         getProperties(list: string[]): any;
         getWithDefault(keyName: string, defaultValue: Object): Object;
@@ -38,7 +40,7 @@ declare module Ember {
         removeObserver(key: string, target: Object, method: string): Observable;
         removeObserver(key: string, target: Object, method: Function): Observable;
         reopen(...arguments: any[]);
-        set(key: string, value: Object): Observable;
+        set(key: string, value: any): Observable;
         setProperties(hash: any): Observable;
         setUnknownProperty(key: string, value: Object): void;
         toggleProperty(keyName: string): Object;
@@ -53,8 +55,12 @@ declare module Ember {
         reopen(...arguments: any[]): Mixin;
     }
 
+    //http://emberjs.com/api/classes/Ember.View.html
     export class View extends Object {
         append(): View;
+        appendTo(element:any): View;
+        remove(): View;
+
         static create(...arguments: any[]): View;
     }
 
@@ -181,6 +187,28 @@ declare module Ember {
         toggleProperty(keyName: string): Object;
         unknownProperty(key: string): Object;
     }
+
+    // http://emberjs.com/api/classes/Ember.TextField.html
+    export class TextField extends Object {
+        static create(...arguments: any[]): TextField;
+    }
+
+    // http://emberjs.com/api/classes/Ember.TextArea.html
+    export class TextArea extends Object {
+        static create(...arguments: any[]): TextArea;
+    }
+
+    // http://emberjs.com/api/classes/Ember.ContainerView.html
+    export class ContainerView extends Ember.View {
+        static create(...arguments: any[]): ContainerView;
+
+        pushObject(view:Ember.View);
+    }
+
+    // http://emberjs.com/api/classes/Ember.Handlebars.html
+    export module Handlebars{
+        var get: Function; 
+    }
 }
 
 
@@ -293,3 +321,18 @@ interface EmberStatic {
 }
 
 declare var Em: EmberStatic;
+
+// What ember adds to functions 
+interface Function {
+    property(...dependents:string[]): any;
+}
+
+// Ember enumerables work on native arrays
+// http://emberjs.com/api/classes/Ember.Enumerable.html
+interface Array<T> {
+    everyProperty: Function;
+    getEach: Function;
+    invoke: Function;
+    setEach: Function;
+    someProperty: Function;
+}
