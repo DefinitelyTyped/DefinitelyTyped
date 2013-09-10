@@ -490,3 +490,61 @@ declare module "ref-struct" {
 
     export = StructType;
 }
+
+declare module "ref-union" {
+    import ffi = require('ffi');
+
+    /**
+     * This is the `constructor` of the Struct type that gets returned.
+     *
+     * Invoke it with `new` to create a new Buffer instance backing the union.
+     * Pass it an existing Buffer instance to use that as the backing buffer.
+     * Pass in an Object containing the union fields to auto-populate the
+     * union with the data.
+     *
+     * @constructor
+     */
+    interface UnionType extends ffi.Type {
+        /** Pass it an existing Buffer instance to use that as the backing buffer. */
+        new (arg: NodeBuffer, data?: {}): any;
+        new (data?: {}): any;
+        /** Pass it an existing Buffer instance to use that as the backing buffer. */
+        (arg: NodeBuffer, data?: {}): any;
+        (data?: {}): any;
+
+        fields: {[key: string]: {type: ffi.Type}};
+
+        /**
+         * Adds a new field to the union instance with the given name and type.
+         * Note that this function will throw an Error if any instances of the union
+         * type have already been created, therefore this function must be called at the
+         * beginning, before any instances are created.
+         */
+        defineProperty(name: string, type: ffi.Type): void;
+        
+        /**
+         * Adds a new field to the union instance with the given name and type.
+         * Note that this function will throw an Error if any instances of the union
+         * type have already been created, therefore this function must be called at the
+         * beginning, before any instances are created.
+         */
+        defineProperty(name: string, type: string): void;
+
+        /**
+         * Custom for union type instances.
+         * @override
+         */
+        toString(): string;
+    }
+
+    /** The union type meta-constructor. */
+    var UnionType: {
+        new (fields?: {}): UnionType;
+        new (fields?: any[]): UnionType;
+        (fields?: {}): UnionType;
+        (fields?: any[]): UnionType;
+    }
+
+    export = UnionType;
+}
+
