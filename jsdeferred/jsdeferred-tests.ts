@@ -9,7 +9,7 @@ interface DeferredizedJQueryStatic extends JQueryStatic {
 }
 declare var $: DeferredizedJQueryStatic;
 
-declare interface http {
+interface http {
     get (url: string): Deferred;
 }
 
@@ -18,8 +18,8 @@ declare interface http {
 
 // constructor
 (() => {
-    var d = new Deferred();
-    var d = Deferred();
+    var d1 = new Deferred(); 
+    var d2 = Deferred(); 
 })();
 
 // define
