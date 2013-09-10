@@ -77,7 +77,7 @@ import TArray = require('ref-array');
 }
 {
     var ST = Struct();
-    var test: ffi.Type = ST.fields['t'].type;
+    var test: ref.Type = ST.fields['t'].type;
 }
 {
     var CharArray = TArray('char');
