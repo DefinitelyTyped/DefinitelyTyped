@@ -2,6 +2,7 @@
 
 import ffi = require('ffi');
 import ref = require('ref');
+import Struct = require('ref-struct');
 
 {
     var sqlite3 = ref.types.void;
@@ -53,4 +54,26 @@ import ref = require('ref');
     var voidPtrType = ref.refType(ref.types.void);
     var buf = ref.alloc('int64');
     ref.writeInt64LE(buf, 0, '9223372036854775807');
+}
+{
+    var S1 = Struct({ a: ref.types.int });
+    var S2 = new Struct({ a: 'int' });
+}
+{
+    var P = new Struct;
+    P.defineProperty('a', ref.types.int);
+    P.defineProperty('d', 'long');
+}
+{
+    var SimpleStruct = Struct({
+        first : ref.types.byte,
+        last  : ref.types.byte
+    });
+
+    var ss = new SimpleStruct({ first: 50, last: 100 });
+    ss.first += 200;
+}
+{
+    var ST = Struct();
+    var test: ffi.Type = ST.fields['t'].type;
 }
