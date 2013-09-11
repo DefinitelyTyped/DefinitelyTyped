@@ -5,7 +5,7 @@
 	Project Page: http://softwaremaniacs.org/soft/highlight/en/
 */
 
-/// <reference path="highlight.js.d.ts" />
+/// <reference path="highlightjs.d.ts" />
 
 import hljs = require("highlight.js");
 
