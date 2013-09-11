@@ -3,7 +3,7 @@
 
 /*  Copyright (C) 1998 - 2013 by Northwoods Software Corporation. */
 
-/// <reference path="GoJS.d.ts" />
+/// <reference path="goJS.d.ts" />
 
 function init() {
   var $ = go.GraphObject.make;  // for conciseness in defining templates
