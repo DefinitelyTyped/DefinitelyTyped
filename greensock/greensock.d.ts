@@ -159,19 +159,19 @@ declare class TimelineMax extends TimelineLite {
 
 //com.greensock.easing
 interface Back {
-    easeIn;
-    easeInOut;
-    easeOut;
+    easeIn:Ease;
+    easeInOut:Ease;
+    easeOut:Ease;
 }
 interface Bounce {
-    easeIn;
-    easeInOut;
-    easeOut;
+    easeIn:Ease;
+    easeInOut:Ease;
+    easeOut:Ease;
 }
 interface Circ {
-    easeIn;
-    easeInOut;
-    easeOut;
+    easeIn:Ease;
+    easeInOut:Ease;
+    easeOut:Ease;
 }
 interface Cubic {
     easeIn:Ease;
@@ -185,14 +185,14 @@ interface EaseLookup {
     find(name:string):Ease;
 }
 interface Elastic {
-    easeIn;
-    easeInOut;
-    easeOut;
+    easeIn:Ease;
+    easeInOut:Ease;
+    easeOut:Ease;
 }
 interface Expo {
-    easeIn;
-    easeInOut;
-    easeOut;
+    easeIn:Ease;
+    easeInOut:Ease;
+    easeOut:Ease;
 }
 interface Linear {
     ease:Linear;
@@ -242,14 +242,14 @@ interface Quint {
     easeOut:Ease;
 }
 interface Sine {
-    easeIn;
-    easeInOut;
-    easeOut;
+    easeIn:Ease;
+    easeInOut:Ease;
+    easeOut:Ease;
 }
 interface SlowMo {
     ease:SlowMo;
 
-    SlowMo(linearRatio:number, power:number, yoyoMode:boolean);
+    new (linearRatio:number, power:number, yoyoMode:boolean):SlowMo;
     config(linearRatio:number, power:number, yoyoMode:boolean):SlowMo;
     getRatio(p:number):number;
 }
