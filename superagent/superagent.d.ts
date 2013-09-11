@@ -8,8 +8,9 @@
 declare module "superagent" {
   export interface Response {
     text: string;
-    body: Object;
-    header: Object;
+    body: any;
+    files: any;
+    header: any;
     type: string;
     charset: string;
     status: number;
