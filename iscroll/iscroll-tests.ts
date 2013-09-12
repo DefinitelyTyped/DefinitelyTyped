@@ -17,3 +17,7 @@ var myScroll4 = new iScroll('wrapper', {
 var myScroll6 = new iScroll('wrapper', { scrollbarClass: 'myScrollbar' });
 
 myScroll1.refresh();
+
+
+var myScroll7 = new iScroll(document.getElementById('wrapper'));
+var myScroll8 = new iScroll(document.getElementById('wrapper'), { scrollbarClass: 'myScrollbar' });
