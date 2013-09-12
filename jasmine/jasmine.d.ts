@@ -7,7 +7,7 @@
 declare function describe(description: string, specDefinitions: () => void): void;
 declare function xdescribe(description: string, specDefinitions: () => void): void;
 
-declare function it(expectation: string, assertion: () => void): void;
+declare function it(expectation: string, assertinterface SpecFunction {ion: () => void): void;
 declare function it(expectation: string, assertion: (done: (err?: any) => void) => void): void;
 declare function xit(expectation: string, assertion: () => void): void;
 
@@ -269,7 +269,7 @@ declare module jasmine {
     }
 
     interface SpecFunction {
-        (spec?: Spec): void
+        (spec?: Spec): void;
     }
 
     interface SuiteOrSpec {
