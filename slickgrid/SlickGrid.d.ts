@@ -1,4 +1,4 @@
-/* 
+/*
 SlickGrid-2.1.d.ts may be freely distributed under the MIT license.
 
 Copyright (c) 2013 Josh Baldwin https://github.com/jbaldwin/SlickGrid.d.ts
@@ -25,6 +25,8 @@ OTHER DEALINGS IN THE SOFTWARE.
 */
 
 /// <reference path="../jquery/jquery.d.ts" />
+
+interface DOMEvent extends Event {}
 
 declare module Slick {
 
@@ -71,11 +73,10 @@ declare module Slick {
 
 	/***
 	* A simple publisher-subscriber implementation.
-	* todo: SlickEvent is named 'Event', but this clashes with the native DOM Event which is also used is various places.
 	* @class Event
 	* @constructor
 	*/
-	export class SlickEvent<T> {
+	export class Event<T> {
 
 		constructor();
 
@@ -110,8 +111,8 @@ declare module Slick {
 		* @return Last run callback result.
 		* @note slick.core.Event.notify shows this method as returning a value, type is unknown.
 		*/
-		public notify(args: T, e: EventData, scope: any): any;
-		public notify(args: T, e: Event, scope: any): any;
+		public notify(args?: T, e?: EventData, scope?: any): any;
+		public notify(args?: T, e?: DOMEvent, scope?: any): any;
 
 	}
 
@@ -710,7 +711,7 @@ declare module Slick {
 		**/
 		destroy(): void;
 
-		onSelectedRangesChanged: Slick.SlickEvent<E>;
+		onSelectedRangesChanged: Slick.Event<E>;
 	}
 
 	export class Grid<T extends SlickData> {
@@ -967,7 +968,7 @@ declare module Slick {
 		* @param e A standard W3C/jQuery event.
 		* @return
 		**/
-		public getCellFromEvent<T>(e: SlickEvent<T>): Cell; // todo: !! Unsure on return type !!
+		public getCellFromEvent<T>(e: Event<T>): Cell; // todo: !! Unsure on return type !!
 
 		/**
 		* Returns a hash containing row and cell indexes. Coordinates are relative to the top left corner of the grid beginning with the first row (not including the column headers).
@@ -1108,38 +1109,39 @@ declare module Slick {
 
 		// #region Events
 
-		public onScroll: Slick.SlickEvent<OnScrollEventData>;
-		public onSort: Slick.SlickEvent<OnSortEventData<T>>;
-		public onHeaderMouseEnter: Slick.SlickEvent<OnHeaderMouseEventData<T>>;
-		public onHeaderMouseLeave: Slick.SlickEvent<OnHeaderMouseEventData<T>>;
-		public onHeaderContextMenu: Slick.SlickEvent<OnHeaderContextMenuEventData<T>>;
-		public onHeaderClick: Slick.SlickEvent<OnHeaderClickEventData<T>>;
-		public onHeaderCellRendered: Slick.SlickEvent<OnHeaderCellRenderedEventData<T>>;
-		public onBeforeHeaderCellDestroy: Slick.SlickEvent<OnBeforeHeaderCellDestroyEventData<T>>;
-		public onHeaderRowCellRendered: Slick.SlickEvent<OnHeaderRowCellRenderedEventData<T>>;
-		public onBeforeHeaderRowCellDestroy: Slick.SlickEvent<OnBeforeHeaderRowCellDestroyEventData<T>>;
-		public onMouseEnter: Slick.SlickEvent<OnMouseEnterEventData>;
-		public onMouseLeave: Slick.SlickEvent<OnMouseLeaveEventData>;
-		public onClick: Slick.SlickEvent<OnClickEventData>;
-		public onDblClick: Slick.SlickEvent<OnDblClickEventData>;
-		public onContextMenu: Slick.SlickEvent<OnContextMenuEventData>;
-		public onKeyDown: Slick.SlickEvent<OnKeyDownEventData>;
-		public onAddNewRow: Slick.SlickEvent<OnAddNewRowEventData<T>>;
-		public onValidationError: Slick.SlickEvent<OnValidationErrorEventData<T>>;
-		public onColumnsReordered: Slick.SlickEvent<OnColumnsReorderedEventData>;
-		public onColumnsResized: Slick.SlickEvent<OnColumnsResizedEventData>;
-		public onCellChange: Slick.SlickEvent<OnCellChangeEventData<T>>;
-		public onBeforeEditCell: Slick.SlickEvent<OnBeforeEditCellEventData<T>>;
-		public onBeforeCellEditorDestroy: Slick.SlickEvent<OnBeforeCellEditorDestroyEventData<T>>;
-		public onBeforeDestroy: Slick.SlickEvent<OnBeforeDestroyEventData>;
-		public onActiveCellChanged: Slick.SlickEvent<OnActiveCellChangedEventData>;
-		public onActiveCellPositionChanged: Slick.SlickEvent<OnActiveCellPositionChangedEventData>;
-		public onDragInit: Slick.SlickEvent<OnDragInitEventData>;
-		public onDragStart: Slick.SlickEvent<OnDragStartEventData>;
-		public onDrag: Slick.SlickEvent<OnDragEventData>;
-		public onDragEnd: Slick.SlickEvent<OnDragEndEventData>;
-		public onSelectedRowsChanged: Slick.SlickEvent<OnSelectedRowsChangedEventData>;
-		public onCellCssStylesChanged: Slick.SlickEvent<OnCellCssStylesChangedEventData>;
+		public onScroll: Slick.Event<OnScrollEventData>;
+		public onSort: Slick.Event<OnSortEventData<T>>;
+		public onHeaderMouseEnter: Slick.Event<OnHeaderMouseEventData<T>>;
+		public onHeaderMouseLeave: Slick.Event<OnHeaderMouseEventData<T>>;
+		public onHeaderContextMenu: Slick.Event<OnHeaderContextMenuEventData<T>>;
+		public onHeaderClick: Slick.Event<OnHeaderClickEventData<T>>;
+		public onHeaderCellRendered: Slick.Event<OnHeaderCellRenderedEventData<T>>;
+		public onBeforeHeaderCellDestroy: Slick.Event<OnBeforeHeaderCellDestroyEventData<T>>;
+		public onHeaderRowCellRendered: Slick.Event<OnHeaderRowCellRenderedEventData<T>>;
+		public onBeforeHeaderRowCellDestroy: Slick.Event<OnBeforeHeaderRowCellDestroyEventData<T>>;
+		public onMouseEnter: Slick.Event<OnMouseEnterEventData>;
+		public onMouseLeave: Slick.Event<OnMouseLeaveEventData>;
+		public onClick: Slick.Event<OnClickEventData>;
+		public onDblClick: Slick.Event<OnDblClickEventData>;
+		public onContextMenu: Slick.Event<OnContextMenuEventData>;
+		public onKeyDown: Slick.Event<OnKeyDownEventData>;
+		public onAddNewRow: Slick.Event<OnAddNewRowEventData<T>>;
+		public onValidationError: Slick.Event<OnValidationErrorEventData<T>>;
+		public onColumnsReordered: Slick.Event<OnColumnsReorderedEventData>;
+		public onColumnsResized: Slick.Event<OnColumnsResizedEventData>;
+		public onCellChange: Slick.Event<OnCellChangeEventData<T>>;
+		public onBeforeEditCell: Slick.Event<OnBeforeEditCellEventData<T>>;
+		public onBeforeCellEditorDestroy: Slick.Event<OnBeforeCellEditorDestroyEventData<T>>;
+		public onBeforeDestroy: Slick.Event<OnBeforeDestroyEventData>;
+		public onActiveCellChanged: Slick.Event<OnActiveCellChangedEventData>;
+		public onActiveCellPositionChanged: Slick.Event<OnActiveCellPositionChangedEventData>;
+		public onDragInit: Slick.Event<OnDragInitEventData>;
+		public onDragStart: Slick.Event<OnDragStartEventData>;
+		public onDrag: Slick.Event<OnDragEventData>;
+		public onDragEnd: Slick.Event<OnDragEndEventData>;
+		public onSelectedRowsChanged: Slick.Event<OnSelectedRowsChangedEventData>;
+		public onCellCssStylesChanged: Slick.Event<OnCellCssStylesChangedEventData>;
+		public onViewportChanged: Slick.Event<OnViewportChangedEventData>;
 		// #endregion Events
 
 		// #region Plugins
@@ -1335,6 +1337,10 @@ declare module Slick {
 		scrollTop: number;
 	}
 
+	export interface OnViewportChangedEventData {
+
+	}
+
 	export interface Cell {
 		row: number;
 		cell: number;
@@ -1435,7 +1441,7 @@ declare module Slick {
 		export class LongText<T extends Slick.SlickData> extends Editor<T> {
 			constructor(args: EditorOptions<T>);
 
-			public handleKeyDown(e: Event): void;
+			public handleKeyDown(e: DOMEvent): void;
 			public save(): void;
 			public cancel(): void;
 			public hide(): void;
@@ -1469,7 +1475,7 @@ declare module Slick {
 		**/
 		export class DataView<T extends Slick.SlickData> implements DataProvider {
 
-			constructor(options: DataViewOptions<T>);
+			constructor(options?: DataViewOptions<T>);
 
 			public beginUpdate(): void;
 			public endUpdate(): void;
@@ -1540,9 +1546,9 @@ declare module Slick {
 			public getItem(index: number): SlickData;
 			public getItemMetadata(): void;
 
-			public onRowCountChanged: Slick.SlickEvent<OnRowCountChangedEventData>;
-			public onRowsChanged: Slick.SlickEvent<OnRowsChangedEventData>;
-			public onPagingInfoChanged: Slick.SlickEvent<OnPagingInfoChangedEventData>;
+			public onRowCountChanged: Slick.Event<OnRowCountChangedEventData>;
+			public onRowsChanged: Slick.Event<OnRowsChangedEventData>;
+			public onPagingInfoChanged: Slick.Event<OnPagingInfoChangedEventData>;
 		}
 
 		export interface GroupingOptions<T> {
@@ -1672,8 +1678,8 @@ declare module Slick {
 		//	public setSort(): any;
 		//	public setSearch(): any;
 
-		//	public onDataLoading: Slick.SlickEvent<OnDataLoadingEventData>;
-		//	public onDataLoaded: Slick.SlickEvent<OnDataLoadedEventData>;
+		//	public onDataLoading: Slick.Event<OnDataLoadingEventData>;
+		//	public onDataLoaded: Slick.Event<OnDataLoadedEventData>;
 
 		//}
 
@@ -1696,5 +1702,5 @@ declare module Slick {
 	export interface PluginOptions {
 		// extend your plugin options here
 	}
-}
 
+}
