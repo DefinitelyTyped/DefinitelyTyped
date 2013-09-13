@@ -98,6 +98,7 @@ List of Definitions
 * [jQuery](http://jquery.com/) (from TypeScript samples)
 * [jQuery Mobile](http://jquerymobile.com) (by [Boris Yankov](https://github.com/borisyankov))
 * [jQuery UI](http://jqueryui.com/) (by [Boris Yankov](https://github.com/borisyankov))
+* [jQuery.Address](https://github.com/asual/jquery-address) (by [Martin Duparc](https://github.com/martinduparc/))
 * [jQuery.areYouSure](https://github.com/codedance/jquery.AreYouSure) (by [Jon Egerton](https://github.com/jonegerton))
 * [jQuery.autosize](http://www.jacklmoore.com/autosize/) (by [Jack Moore](http://www.jacklmoore.com/))
 * [jQuery.BBQ](http://benalman.com/projects/jquery-bbq-plugin/) (by [Adam R. Smith](https://github.com/sunetos))
