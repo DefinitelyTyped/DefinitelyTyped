@@ -13,10 +13,10 @@ interface KnockoutInstancePrototypeStatic<T> extends KnockoutPrototypeStatic<T> 
 }
 
 interface KnockoutSubscribableFunctions<T> {
-    subscribe(callback: (newValue: T) => void , target?: any, topic?: string): KnockoutSubscription;
-    notifySubscribers(valueToWrite: T, topic?: string);
+    subscribe(callback: (newValue: T) => void , target?: any, topic?: string): KnockoutSubscription<T>;
+    notifySubscribers(valueToWrite: T, topic?: string): void;
     getSubscriptionsCount(): number;
-    extend(source);
+    extend(source: any): any;
 }
 
 interface KnockoutComputedFunctions<T> { }
@@ -218,6 +218,8 @@ interface KnockoutVirtualElements {
 }
 
 interface KnockoutExtenders {
+    [name: string]: any;
+
     throttle(target: any, timeout: number): KnockoutComputed<any>;
     notify(target: any, notifyWhen: string): any;
 }
@@ -332,8 +334,6 @@ interface KnockoutUtils {
     //setTextContent(element: any, textContent: string): void; // NOT PART OF THE MINIFIED API SURFACE (ONLY IN knockout-{version}.debug.js) https://github.com/SteveSanderson/knockout/issues/670
 
     setElementName(element: any, name: string): void;
-
-    ensureSelectElementIsRenderedCorrectly(selectElement);
 
     forceRefresh(node: any): void;
 
