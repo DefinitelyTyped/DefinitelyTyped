@@ -35,3 +35,30 @@ db.batch([{
     , valueEncoding : 'json'
 }], (error)=> {});
 
+db.batch()
+    .del('father')
+    .put('name', 'Yuri Irsenovich Kim')
+    .put('dob', '16 February 1941')
+    .put('spouse', 'Kim Young-sook')
+    .put('occupation', 'Clown')
+    .write(function () { console.log('Done!') })
+
+var open:boolean = db.isOpen();
+var closed:boolean = db.isClosed(); 
+db.createReadStream()
+    .on('data', function (data) {
+      console.log(data.key, '=', data.value)
+    })
+    .on('error', function (err) {
+      console.log('Oh my!', err)
+    })
+    .on('close', function () {
+      console.log('Stream closed')
+    })
+    .on('end', function () {
+      console.log('Stream closed')
+    })
+
+import leveldown = require('leveldown');
+leveldown.destroy('mypath', ()=>{});
+leveldown.repair('mypath', ()=>{});
