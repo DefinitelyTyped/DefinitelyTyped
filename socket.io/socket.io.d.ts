@@ -15,6 +15,7 @@ declare module "socket.io" {
 }
 
 interface Socket {
+	id: string;
 	json:any;
 	log: any;
 	volatile: any;
