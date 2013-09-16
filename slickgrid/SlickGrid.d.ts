@@ -1533,7 +1533,7 @@ declare module Slick {
 			public getItemByIdx(): T;
 			public mapRowsToIds(rowArray: T[]): string[];
 			public setRefreshHints(hints: RefreshHints): void;
-			public setFilterArgs(hints: RefreshHints): void;
+			public setFilterArgs(args: any): void;
 			public refresh(): void;
 			public updateItem(id: string, item: T): void;
 			public insertItem(insertBefore: number, item: T): void;
