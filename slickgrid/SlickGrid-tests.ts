@@ -157,7 +157,7 @@ grid.getCellCssStyles("test")[0]["number_column"];
 
 grid.getCellEditor();
 
-grid.getCellFromEvent(new Slick.SlickEvent());
+grid.getCellFromEvent(new Slick.Event());
 
 grid.getCellFromPoint(5, 10);
 
