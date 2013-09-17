@@ -269,7 +269,7 @@ declare module jasmine {
     }
 
     interface SpecFunction {
-        (spec?: Spec): void
+        (spec?: Spec): void;
     }
 
     interface SuiteOrSpec {
