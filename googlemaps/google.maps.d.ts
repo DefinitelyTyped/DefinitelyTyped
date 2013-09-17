@@ -55,7 +55,7 @@ declare module google.maps {
     /***** Map *****/
     export class Map extends MVCObject {
         constructor (mapDiv: Element, opts?: MapOptions);
-        fitBounds(bounds: LatLngBounds);
+        fitBounds(bounds: LatLngBounds): void;
         getBounds(): LatLngBounds;
         getCenter(): LatLng;
         getDiv(): Element;
@@ -866,7 +866,7 @@ declare module google.maps {
 
     export interface ImageMapTypeOptions {
         alt?: string;
-        getTileUrl: (Point, number) => string;
+        getTileUrl: (Point: number) => string;
         maxZoom?: number;
         minZoom?: number;
         name?: string;
@@ -1098,7 +1098,7 @@ declare module google.maps {
         getPosition(): LatLng;
         getPov(): StreetViewPov;
         getVisible(): boolean;
-        registerPanoProvider(provider: (input: string) => StreetViewPanoramaData);
+        registerPanoProvider(provider: (input: string) => StreetViewPanoramaData): void;
         setPano(pano: string): void;
         setPosition(latLng: LatLng): void;
         setPov(pov: StreetViewPov): void;
@@ -1163,8 +1163,8 @@ declare module google.maps {
     }
 
     export class StreetViewService {
-        getPanoramaById(pano: string, callback: (streetViewPanoramaData: StreetViewPanoramaData, streetViewStatus: StreetViewStatus) => void );
-        getPanoramaByLocation(latlng: LatLng, radius: number, callback: (streetViewPanoramaData: StreetViewPanoramaData, streetViewStatus: StreetViewStatus) => void );
+        getPanoramaById(pano: string, callback: (streetViewPanoramaData: StreetViewPanoramaData, streetViewStatus: StreetViewStatus) => void ): void;
+        getPanoramaByLocation(latlng: LatLng, radius: number, callback: (streetViewPanoramaData: StreetViewPanoramaData, streetViewStatus: StreetViewStatus) => void ): void;
     }
 
     export enum StreetViewStatus {
