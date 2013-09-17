@@ -257,7 +257,7 @@ interface KnockoutUtils {
     arrayFilter(array: any[], predicate: (item) => boolean): any[];
 
     arrayPushAll(array: any[], valuesToPush: any[]): any[];
-    
+
     arrayPushAll(array: KnockoutObservableArray<any>, valuesToPush: any[]): any[];
 
     extend(target, source);
@@ -291,6 +291,8 @@ interface KnockoutUtils {
     triggerEvent(element: any, eventType: any): void;
 
     unwrapObservable<T>(value: KnockoutObservable<T>): T;
+
+    peekObservable<T>(value: KnockoutObservable<T>): T;
 
     toggleDomNodeCssClass(node: any, className: string, shouldHaveClass: boolean): void;
 
