@@ -1,4 +1,33 @@
-#Meteor Type Definitions Usage Notes
+#Meteor Type Definitions
+
+=========================
+These definitions are now deprecated.  Although they will still work up to Meteor version 0.6.5.1 (and possibly much later), the better way to develop a Meteor app with TypeScript is by installing the [typescript-libs](https://atmosphere.meteor.com/package/typescript-libs) Meteor smart package.
+
+
+You first need to have Meteorite version and smart package manager.  If you don't have it, install it with this command:
+- `npm install -g meteorite`
+
+
+Once you have installed Meteorite, from the command line, you can easily install the smart packages with these commands:
+- `mrt install typescript-libs`
+- Also recommended:  `mrt install typescript-compiler'
+
+
+The smart packages and documentation for them can be found here:
+- [typescript-libs](https://atmosphere.meteor.com/package/typescript-libs)
+- [typescript-compiler](https://github.com/orefalo/meteor-typescript-compiler)
+
+
+Using the typescript-libs smart package eliminates the need for the Template and Collections steps below, although there
+are a couple of new catches listed in the docs for those packages (e.g. calling Template['yourTemplate']['helpers'], creating Data Objects).
+
+
+Kudos to (Olivier Refalo)[https://github.com/orefalo] for developing these smart packages quicker and better than me!
+
+=========================
+
+
+#Overview
 
 In order to effectively write a Meteor app with TypeScript, you will probably need to do these things:
 
