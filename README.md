@@ -89,7 +89,7 @@ List of Definitions
 * [iCheck](http://damirfoy.com/iCheck/) (by [Dániel Tar](https://github.com/qcz))
 * [Impress.js](https://github.com/bartaz/impress.js) (by [Boris Yankov](https://github.com/borisyankov))
 * [Intl](http://www.ecma-international.org/ecma-402/1.0/) (by [Jeffery Grajkowski](http://github.com/pushplay))
-* [iScroll](http://cubiq.org/iscroll-4) (by [Boris Yankov](https://github.com/borisyankov))
+* [iScroll](http://cubiq.org/iscroll-4) (by [Boris Yankov](https://github.com/borisyankov) and [Christiaan Rakowski](https://github.com/csrakowski))
 * [jake](https://github.com/mde/jake) (by [Kon](http://phyzkit.net/))
 * [Jasmine](http://pivotal.github.com/jasmine/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Jasmine-jQuery](https://github.com/velesin/jasmine-jquery) (by [Gregor Stamac](https://github.com/gstamac))
