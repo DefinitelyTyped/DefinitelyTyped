@@ -15,7 +15,7 @@ Once you have installed Meteorite, you can easily install the smart package with
 
 The smart packages and documentation for them can be found on [Atmosphere](https://atmosphere.meteor.com):
 - [typescript-libs](https://atmosphere.meteor.com/package/typescript-libs)
-- [typescript-compiler](https://github.com/orefalo/meteor-typescript-compiler)
+- [typescript-compiler](https://atmosphere.meteor.com/package/typescript-compiler)
 
 
 Using the typescript-libs smart package eliminates the need for the Template and Collections steps listed below, although there
