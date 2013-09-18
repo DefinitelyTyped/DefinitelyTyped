@@ -8,18 +8,18 @@ You first need to have the Meteorite version and smart package manager.  If you 
 - `npm install -g meteorite`
 
 
-Once you have installed Meteorite, from the command line, you can easily install the smart package with this commands:
+Once you have installed Meteorite, you can easily install the smart package with this command:
 - `mrt install typescript-libs`
 - I also recommend installing the Meteor typescript compiler:  `mrt install typescript-compiler`
 
 
-The smart packages and documentation for them can be found here:
+The smart packages and documentation for them can be found on [Atmosphere](https://atmosphere.meteor.com):
 - [typescript-libs](https://atmosphere.meteor.com/package/typescript-libs)
 - [typescript-compiler](https://github.com/orefalo/meteor-typescript-compiler)
 
 
-Using the typescript-libs smart package eliminates the need for the Template and Collections steps below, although there
-are a couple of new modifications necessary (e.g. calling Template['yourTemplate']['helpers'], creating Data Objects).
+Using the typescript-libs smart package eliminates the need for the Template and Collections steps listed below, although there
+are several new modifications necessary to use typescript-libs (e.g. calling Template['yourTemplate']['helpers'], creating Data Objects).
 
 
 Kudos to [Olivier Refalo](https://github.com/orefalo) for developing these smart packages quicker and better than me!
@@ -104,5 +104,3 @@ Listed below is a simple Meteor reference application created with TypeScript is
 - Sample Site:  <http://microscopic-typescript.meteor.com/>
 - Code (TypeScript and transpiled JS):  <https://github.com/fullflavedave/MicroscopicTypeScript>
 
-##Meteor package
-There will hopefully be a Meteor package soon listed on [Atmosphere](http://atmosphere.meteor.com "http://atmosphere.meteor.com") that can be easily added using `mrt add typescript`.
