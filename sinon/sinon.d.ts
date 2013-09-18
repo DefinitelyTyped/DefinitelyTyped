@@ -123,7 +123,7 @@ interface SinonStatic {
 	stub: SinonStubStatic;
 }
 
-interface SinonExpectation {
+interface SinonExpectation extends SinonStub {
 	atLeast(n: number): SinonExpectation;
 	atMost(n: number): SinonExpectation;
 	never(): SinonExpectation;
