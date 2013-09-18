@@ -30,8 +30,6 @@ Properties
 !_infrastructure/tests/*/*/*.js
 !_infrastructure/tests/*/*/*/*.js
 
-.idea
-
 .idea/.name
 
 .idea/DefinitelyTyped.iml
