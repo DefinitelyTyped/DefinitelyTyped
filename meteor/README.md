@@ -4,7 +4,7 @@
 These definitions are now deprecated.  Although they will still work up to Meteor version 0.6.5.1 (and possibly much later), the better way to develop a Meteor app with TypeScript is by installing the [typescript-libs](https://atmosphere.meteor.com/package/typescript-libs) Meteor smart package.
 
 
-You first need to have Meteorite version and smart package manager.  If you don't have it, install it with this command:
+You first need to have (Meteorite)[http://oortcloud.github.io/meteorite/] version and smart package manager.  If you don't have it, install it with this command:
 - `npm install -g meteorite`
 
 
