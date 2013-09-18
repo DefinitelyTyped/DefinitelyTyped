@@ -347,11 +347,12 @@ interface SinonSandbox {
 	clock: SinonFakeTimers;
 	requests: SinonFakeXMLHttpRequest;
 	server: SinonFakeServer;
-	spy(): SinonSpy;
-	stub(): SinonStub;
-	mock(): SinonMock;
-	useFakeTimers: SinonFakeTimers;
-	useFakeXMLHttpRequest: SinonFakeXMLHttpRequest;
+	spy: SinonSpyStatic;
+	stub: SinonStubStatic;
+	mock: SinonMockStatic;
+	useFakeTimers: SinonFakeTimersStatic;
+	useFakeXMLHttpRequest: SinonFakeXMLHttpRequestStatic;
+	useFakeServer(): SinonFakeServer;
 	restore(): void;
 }
 
