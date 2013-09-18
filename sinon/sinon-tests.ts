@@ -1,4 +1,4 @@
-/// <reference path="sinon-1.5.d.ts" />
+/// <reference path="sinon.d.ts" />
 
 function once(fn) {
 	var returnValue, called = false;
