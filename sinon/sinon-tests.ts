@@ -1,7 +1,7 @@
 /// <reference path="sinon.d.ts" />
 
-function once(fn) {
-	var returnValue, called = false;
+function once(fn: Function) {
+	var returnValue: any, called = false;
 	return function () {
 		if (!called) {
 			called = true;
@@ -52,7 +52,7 @@ function testFive() {
 }
 
 var objectUnderTest: any = {
-	process: function (obj) {
+	process: function (obj: any) {
 		// It doesn't really matter what's here because the stub is going to replace this function
 		var dummy = true;
 		if (dummy) { return obj.success(99); } else { obj.failure(99); }
