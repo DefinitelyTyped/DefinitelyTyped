@@ -17,6 +17,7 @@ interface JQueryCookieStatic {
     raw?: boolean;
     json?: boolean;
 
+    (): {[key:string]:string};
     (name: string): any;
     (name: string, value: string): void;
     (name: string, value: string, options: JQueryCookieOptions): void;
