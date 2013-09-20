@@ -226,28 +226,28 @@ function test_bindings() {
             return { controlsDescendantBindings: true };
         }
     };
-    ko.bindingHandlers.randomOrder = {
-        init: function (elem, valueAccessor) {
-            var child = ko.virtualElements.firstChild(elem),
-                childElems = [];
-            while (child) {
-                childElems.push(child);
-                child = ko.virtualElements.nextSibling(child);
-            }
-            ko.virtualElements.emptyNode(elem);
-            while (childElems.length) {
-                var randomIndex = Math.floor(Math.random() * childElems.length),
-                    chosenChild = childElems.splice(randomIndex, 1);
-                ko.virtualElements.prepend(elem, chosenChild[0]);
-            }
-        }
-    };
+    //ko.bindingHandlers.randomOrder = {
+    //    init: function (elem, valueAccessor) {
+    //        var child = ko.virtualElements.firstChild(elem),
+    //            childElems = [];
+    //        while (child) {
+    //            childElems.push(child);
+    //            child = ko.virtualElements.nextSibling(child);
+    //        }
+    //        ko.virtualElements.emptyNode(elem);
+    //        while (childElems.length) {
+    //            var randomIndex = Math.floor(Math.random() * childElems.length),
+    //                chosenChild = childElems.splice(randomIndex, 1);
+    //            ko.virtualElements.prepend(elem, chosenChild[0]);
+    //        }
+    //    }
+    //};
 
     var node, containerElem, nodeToInsert, insertAfter, nodeToPrepend, arrayOfNodes;
     ko.virtualElements.emptyNode(containerElem);
-    ko.virtualElements.firstChild(containerElem);
+    //ko.virtualElements.firstChild(containerElem);
     ko.virtualElements.insertAfter(containerElem, nodeToInsert, insertAfter);
-    ko.virtualElements.nextSibling(node);
+    //ko.virtualElements.nextSibling(node);
     ko.virtualElements.prepend(containerElem, nodeToPrepend);
     ko.virtualElements.setDomNodeChildren(containerElem, arrayOfNodes);
 }
