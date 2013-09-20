@@ -11,3 +11,12 @@ ts.createTable("babbsies", function (error, table) {
             ts.deleteEntity(table.TableName, { PartitionKey: "Midwest", RowKey: "1" });
         });
 });
+
+Azure.RoleEnvironment.on('stopping', () => {
+});
+
+Azure.RoleEnvironment.getDeploymentId((error, id) => { 
+});
+
+Azure.RoleEnvironment.isAvailable((error, available) => { 
+});
