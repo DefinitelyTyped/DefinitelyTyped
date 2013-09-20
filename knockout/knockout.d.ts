@@ -137,12 +137,11 @@ interface KnockoutBindingContext {
 }
 
 interface KnockoutBindingProvider {
-    bindingCache: { [key: string]: ($context: KnockoutBindingContext, $element: Element) => { [key: string]: any } };
-
     nodeHasBindings(node: Element): boolean;
-    getBindings(node: Element, bindingContext: KnockoutBindingContext): string;
+    getBindings(node: Element, bindingContext: KnockoutBindingContext): { [key: string]: any };
     getBindingsString(node: Element, bindingContext: KnockoutBindingContext): string;
-    parseBindingsString(bindingString: string, bindingContext: KnockoutBindingContext, node: Element): { [key: string]: any };
+    getBindingAccessors(node: Element, bindingContext: KnockoutBindingContext): { [key: string]: any };
+    parseBindingsString(bindingString: string, bindingContext: KnockoutBindingContext, node: Element, options?: any): { [key: string]: any };
 }
 
 interface KnockoutBindingHandler {

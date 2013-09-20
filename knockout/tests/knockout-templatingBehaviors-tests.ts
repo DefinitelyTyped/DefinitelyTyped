@@ -363,13 +363,34 @@ describe('Templating', function() {
         // and external (non-rewritten) ones
         var originalBindingProvider = ko.bindingProvider.instance;
         ko.bindingProvider.instance = {
-            nodeHasBindings: function(node, bindingContext) {
-                return (node.tagName == 'EM') || originalBindingProvider.nodeHasBindings(node, bindingContext);
+            nodeHasBindings: function (node) {
+                return (node.tagName == 'EM') || originalBindingProvider.nodeHasBindings(node);
             },
-            getBindings: function(node, bindingContext) {
+            getBindings: function (node, bindingContext) {
                 if (node.tagName == 'EM')
                     return { text: ++model.numBindings };
+
                 return originalBindingProvider.getBindings(node, bindingContext);
+            },
+            getBindingsString: function (node, bindingContext) {
+                if (node.tagName == 'EM')
+                    return "text: numBindings";
+
+                return originalBindingProvider.getBindingsString(node, bindingContext);
+            },
+            getBindingAccessors: function (node, bindingContext) {
+                if (node.tagName == 'EM')
+                    return { text: function () { return ++model.numBindings; } };
+
+                return originalBindingProvider.getBindingAccessors(node, bindingContext);
+            },
+            parseBindingsString: function (bindingString, bindingContext, node, options?) {
+                if (node.tagName == 'EM')
+                    return function () {
+                        return { text: ++model.numBindings };
+                    };
+
+                return originalBindingProvider.parseBindingsString(bindingString, bindingContext, node, options);
             }
         };
 
