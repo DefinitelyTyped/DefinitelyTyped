@@ -311,7 +311,7 @@ declare module _ {
 	**/
 	export function every<T>(
 		list: Collection<T>,
-		iterator: ListIterator<T, boolean>,
+		iterator?: ListIterator<T, boolean>,
 		context?: any): boolean;
 
 	/**
@@ -319,7 +319,7 @@ declare module _ {
 	**/
 	export function all<T>(
 		list: Collection<T>,
-		iterator: ListIterator<T, boolean>,
+		iterator?: ListIterator<T, boolean>,
 		context?: any): boolean;
 
 	/**
@@ -1089,8 +1089,6 @@ declare module _ {
 	export function omit(
 		object: any,
 		...keys: string[]): any;
-<<<<<<< HEAD
-=======
 
 	/**
 	* @see _.omit
@@ -1098,7 +1096,6 @@ declare module _ {
 	export function omit(
 		object: any,
 		keys: string[]): any;
->>>>>>> Upgraded underscore to v1.5.2
 
 	/**
 	* Fill in null and undefined properties in object with values from the defaults objects,
@@ -2285,20 +2282,12 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.all
 	**/
-<<<<<<< HEAD
-	all(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
-=======
 	all(iterator?: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
->>>>>>> Upgraded underscore to v1.5.2
 
 	/**
 	* @see _.all
 	**/
-<<<<<<< HEAD
-	every(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
-=======
 	every(iterator?: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
->>>>>>> Upgraded underscore to v1.5.2
 
 	/**
 	* Wrapped type `any[]`.
