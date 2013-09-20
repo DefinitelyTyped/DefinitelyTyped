@@ -9,6 +9,7 @@ _.map([1, 2, 3], (num) => num * 3);
 _.map({ one: 1, two: 2, three: 3 }, (value: number, key?: string) => value * 3);
 
 var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);
+sum = _.reduce([1, 2, 3], (memo, num) => memo + num); // memo is optional #issue 5 github
 
 var list = [[0, 1], [2, 3], [4, 5]];
 var flat = _.reduceRight(list, (a, b) => a.concat(b), []);
@@ -22,8 +23,8 @@ _.where(listOfPlays, { author: "Shakespeare", year: 1611 });
 
 var odds = _.reject([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
-_.all([true, 1, null, 'yes'], _.identity);
-_.all([true, 1, null, 'yes']);
+_.every([true, 1, null, 'yes'], _.identity);
+_.every<{}>([true, 1, null, 'yes']);
 
 _.any([null, 0, 'yes', false]);
 
@@ -47,6 +48,13 @@ _.sortBy([1, 2, 3, 4, 5, 6], (num) => Math.sin(num));
 _([1.3, 2.1, 2.4]).groupBy((e) => Math.floor(e));
 _.groupBy([1.3, 2.1, 2.4], (num: number) => Math.floor(num).toString());
 _.groupBy(['one', 'two', 'three'], 'length');
+
+_.indexBy(stooges, 'age')['40'].age;
+_(stooges).indexBy('age')['40'].name;
+_(stooges)
+	.chain()
+	.indexBy('age')
+	.value()['40'].age;
 
 _.countBy<number>([1, 2, 3, 4, 5], (num) => (num % 2 == 0) ? 'even' : 'odd');
 
@@ -158,6 +166,23 @@ _.defaults(iceCream, { flavor: "vanilla", sprinkles: "lots" });
 
 _.clone({ name: 'moe' });
 _.clone(['i', 'am', 'an', 'object!']);
+
+_([1, 2, 3, 4])
+	.chain()
+	.filter((num: number) => {
+		return num % 2 == 0;
+	}).tap(alert)
+	.map((num: number) => {
+		return num * num;
+	})
+	.value();
+
+_.chain([1, 2, 3, 200])
+	.filter(function (num: number) { return num % 2 == 0; })
+	.tap(alert)
+	.map(function (num: number) { return num * num })
+	.value();
+
 _.has({ a: 1, b: 2, c: 3 }, "b");
 
 var moe = { name: 'moe', luckyNumbers: [13, 27, 34] };
@@ -252,7 +277,6 @@ _.template("Using 'with': <%= data.answer %>", { answer: 'no' }, { variable: 'da
 
 _(['test', 'test']).pick(['test2', 'test2']);
 
-
 //////////////// Chain Tests
 function chain_tests() {
     var list:number[] = _.chain([1, 2, 3, 4, 5, 6, 7, 8])
@@ -276,7 +300,3 @@ function chain_tests() {
         .map(function (num: number) { return num * num })
         .value();
 }
-
-    
-    
-    
