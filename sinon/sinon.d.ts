@@ -123,7 +123,7 @@ interface SinonStatic {
 	stub: SinonStubStatic;
 }
 
-interface SinonExpectation {
+interface SinonExpectation extends SinonStub {
 	atLeast(n: number): SinonExpectation;
 	atMost(n: number): SinonExpectation;
 	never(): SinonExpectation;
@@ -347,11 +347,12 @@ interface SinonSandbox {
 	clock: SinonFakeTimers;
 	requests: SinonFakeXMLHttpRequest;
 	server: SinonFakeServer;
-	spy(): SinonSpy;
-	stub(): SinonStub;
-	mock(): SinonMock;
-	useFakeTimers: SinonFakeTimers;
-	useFakeXMLHttpRequest: SinonFakeXMLHttpRequest;
+	spy: SinonSpyStatic;
+	stub: SinonStubStatic;
+	mock: SinonMockStatic;
+	useFakeTimers: SinonFakeTimersStatic;
+	useFakeXMLHttpRequest: SinonFakeXMLHttpRequestStatic;
+	useFakeServer(): SinonFakeServer;
 	restore(): void;
 }
 

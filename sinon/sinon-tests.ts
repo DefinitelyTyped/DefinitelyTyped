@@ -1,4 +1,4 @@
-/// <reference path="sinon-1.5.d.ts" />
+/// <reference path="sinon.d.ts" />
 
 function once(fn) {
 	var returnValue, called = false;
@@ -19,7 +19,7 @@ function testOne() {
 }
 
 function testTwo() {
-	var callback = sinon.spy();
+	var callback = sinon.spy(() => {});
 	var proxy = once(callback);
 	proxy();
 	proxy();
@@ -28,7 +28,7 @@ function testTwo() {
 
 function testThree() {
 	var obj = { thisObj: true };
-	var callback = sinon.spy();
+	var callback = sinon.spy({}, "method");
 	var proxy = once(callback);
 	proxy.call(obj, callback, 1, 2, 3);
 	if (callback.calledOn(obj)) { console.log("test3 calledOn success"); } else { console.log("test3 calledOn failure"); }
@@ -78,6 +78,18 @@ function testSeven() {
 
 function testEight() {
     var combinedMatcher = sinon.match.typeOf("object").and(sinon.match.has("pages"));
+}
+
+function testSandbox() {
+	var sandbox = sinon.sandbox.create();
+	if (sandbox.spy().called) {
+		sandbox.stub(objectUnderTest, "process").yieldsTo("success");
+		sandbox.mock(objectUnderTest).expects("process").once();
+	}
+	sandbox.useFakeTimers();
+	sandbox.useFakeXMLHttpRequest();
+	sandbox.useFakeServer();
+	sandbox.restore();
 }
 
 testOne();
