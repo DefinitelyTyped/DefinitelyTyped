@@ -1,4 +1,33 @@
-#Meteor Type Definitions Usage Notes
+#Meteor Type Definitions
+-------------------------
+
+These definitions are now deprecated.  Although they will still work up to Meteor version 0.6.5.1 (and possibly much later), the better way to develop a Meteor app with TypeScript is by installing the [typescript-libs](https://atmosphere.meteor.com/package/typescript-libs) Meteor smart package.
+
+
+You first need to have (Meteorite)[http://oortcloud.github.io/meteorite/] version and smart package manager.  If you don't have it, install it with this command:
+- `npm install -g meteorite`
+
+
+Once you have installed Meteorite, you can easily install the smart package with this command:
+- `mrt install typescript-libs`
+- I also recommend installing the Meteor typescript compiler:  `mrt install typescript-compiler`
+
+
+The smart packages and documentation for them can be found on [Atmosphere](https://atmosphere.meteor.com):
+- [typescript-libs](https://atmosphere.meteor.com/package/typescript-libs)
+- [typescript-compiler](https://atmosphere.meteor.com/package/typescript-compiler)
+
+
+Using the typescript-libs smart package eliminates the need for the Template and Collections steps listed below, although there
+are several new modifications necessary to use typescript-libs (e.g. calling Template['yourTemplate']['helpers'], creating Data Objects).
+
+
+Kudos to [Olivier Refalo](https://github.com/orefalo) for developing the smart packages quicker and better than me!
+
+--------------------------
+
+
+#Overview
 
 In order to effectively write a Meteor app with TypeScript, you will probably need to do these things:
 
@@ -75,5 +104,3 @@ Listed below is a simple Meteor reference application created with TypeScript is
 - Sample Site:  <http://microscopic-typescript.meteor.com/>
 - Code (TypeScript and transpiled JS):  <https://github.com/fullflavedave/MicroscopicTypeScript>
 
-##Meteor package
-There will hopefully be a Meteor package soon listed on [Atmosphere](http://atmosphere.meteor.com "http://atmosphere.meteor.com") that can be easily added using `mrt add typescript`.
