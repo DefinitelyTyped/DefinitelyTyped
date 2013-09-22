@@ -1,26 +1,3 @@
-declare module L {
-    export class Attribution extends Control {
-        /**
-          * Creates an attribution control.
-          */
-        constructor(options?: AttributionOptions);
-
-        /**
-          * Sets the text before the attributions.
-          */
-        setPrefix(prefix: string): Attribution;
-    
-        /**
-          * Adds an attribution text (e.g. 'Vector data &copy; CloudMade').
-          */
-        addAttribution(text: string): Attribution;
-    
-        /**
-          * Removes an attribution text.
-          */
-        removeAttribution(text: string): Attribution;
-    
-    }
-} 
- 
- 
+// This file is left for convenience only. Declaration is moved to Control.d.ts. Explanation is below.
+// https://typescript.codeplex.com/workitem/1701
+// http://stackoverflow.com/questions/18890427/how-to-write-x-base-descendant-where-x-base-both-a-class-and-module

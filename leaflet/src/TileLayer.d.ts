@@ -1,16 +1,20 @@
-
-
-
-
-
+// updated
 declare module L {
+
     export class TileLayer implements ILayer, IEventPowered<TileLayer> {
+
         /**
           * Instantiates a tile layer object given a URL template and optionally an options
           * object.
           */
         constructor(urlTemplate: string, options?: TileLayerOptions);
     
+        /**
+          * Instantiates a tile layer object given a URL template and optionally an options
+          * object.
+          */
+        static tileLayer(urlTemplate: string, options?: TileLayerOptions): TileLayer;
+
         /**
           * Adds the layer to the map.
           */
@@ -45,10 +49,12 @@ declare module L {
           * Updates the layer's URL template and redraws it.
           */
         setUrl(urlTemplate: string): TileLayer;
-        static WMS: new () => WMS;
-    
-        static Canvas: new () => Canvas;
-		
+
+        /**
+          * Returns the HTML element that contains the tiles for this layer.
+          */
+        getContainer(): HTMLElement;
+
         ////////////
         //// ILayer members
         ////////////
@@ -83,6 +89,57 @@ declare module L {
         on(eventMap: any, context?: any): TileLayer;
         off(eventMap?: any, context?: any): TileLayer;
     }
-} 
- 
- 
+
+    module TileLayer {
+
+        export class WMS {
+
+            /**
+              * Instantiates a WMS tile layer object given a base URL of the WMS service and
+              * a WMS parameters/options object.
+              */
+            constructor(baseUrl: string, options: WMSOptions);
+
+            /**
+              * Merges an object with the new parameters and re-requests tiles on the current
+              * screen (unless noRedraw was set to true).
+              */
+            setParams(params: WMS, noRedraw?: boolean): WMS;
+        }
+
+        export class Canvas {
+
+            /**
+              * Instantiates a Canvas tile layer object given an options object (optionally).
+              */
+            constructor(options?: TileLayerOptions);
+
+            /**
+              * You need to define this method after creating the instance to draw tiles;
+              * canvas is the actual canvas tile on which you can draw, tilePoint represents
+              * the tile numbers, and zoom is the current zoom.
+              */
+            drawTile(canvas: HTMLCanvasElement, tilePoint: Point, zoom: number): Canvas;
+
+            /**
+              * Calling redraw will cause the drawTile method to be called for all tiles.
+              * May be used for updating dynamic content drawn on the Canvas
+              */
+            redraw(): Canvas;
+        }
+    }
+
+    export class tileLayer {
+        
+        /**
+          * Instantiates a WMS tile layer object given a base URL of the WMS service and
+          * a WMS parameters/options object.
+          */
+        static wms(baseUrl: string, options: WMSOptions): L.TileLayer.WMS;
+
+        /**
+          * Instantiates a Canvas tile layer object given an options object (optionally).
+          */
+        static canvas(options?: TileLayerOptions): L.TileLayer.Canvas;
+    }
+}

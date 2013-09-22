@@ -1,46 +1,22 @@
+ 
 declare module L {
-    export class Attribution extends Control {
-        /**
-          * Creates an attribution control.
-          */
-        constructor(options?: AttributionOptions);
+
+    export interface AttributionOptions {
 
         /**
-          * Sets the text before the attributions.
-          */
-        setPrefix(prefix: string): Attribution;
-    
-        /**
-          * Adds an attribution text (e.g. 'Vector data &copy; CloudMade').
-          */
-        addAttribution(text: string): Attribution;
-    
-        /**
-          * Removes an attribution text.
-          */
-        removeAttribution(text: string): Attribution;
-    
-    }
-} 
- 
- 
- 
-declare module L {
-    export interface AttributionOptions {
-        /**
           * The position of the control (one of the map corners). See control positions.
+          * Default value: 'bottomright'.
           */
         position?: string;
     
         /**
           * The HTML text shown before the attributions. Pass false to disable.
+          * Default value: 'Powered by Leaflet'.
           */
         prefix?: string;
     
     }
-} 
- 
- 
+}
  
 declare module L {
     export class Bounds {
@@ -174,30 +150,6 @@ declare module L {
  
  
  
-declare module L {
-    export class Canvas {
-        /**
-          * Instantiates a Canvas tile layer object given an options object (optionally).
-          */
-        constructor(options?: TileLayerOptions);
-    
-        /**
-          * You need to define this method after creating the instance to draw tiles;
-          * canvas is the actual canvas tile on which you can draw, tilePoint represents
-          * the tile numbers, and zoom is the current zoom.
-          */
-        drawTile(canvas: HTMLCanvasElement, tilePoint: Point, zoom: number): Canvas;
-    
-        /**
-          * Calling redraw will cause the drawTile method to be called for all tiles.
-          * May be used for updating dynamic content drawn on the Canvas
-          */
-        redraw(): Canvas;
-    
-    }
-} 
- 
- 
  
 declare module L {
     export class Circle extends Path {
@@ -262,79 +214,184 @@ declare module L {
  
  
  
-
-
-
-
-
-
 declare module L {
+
     export class Control implements IControl {
+
         /**
           * Creates a control with the given options.
           */
         constructor(options?: ControlOptions);
-    
+
+        /**
+          * Creates a control with the given options.
+          */
+        static control(options?: ControlOptions): Control;
+
         /**
           * Sets the position of the control. See control positions.
           */
         setPosition(position: string): Control;
-    
+
         /**
           * Returns the current position of the control.
           */
         getPosition(): string;
-    
+
         /**
           * Adds the control to the map.
           */
         addTo(map: Map): Control;
-    
+
         /**
           * Removes the control from the map.
           */
         removeFrom(map: Map): Control;
-        static Zoom: new () => Zoom;
-    
-        static Attribution: new () => Attribution;
-    
-        static Layers: new () => Layers;
-    
-        static Scale: new () => Scale;
-        ////////////
-        //// IControl members
-        ////////////
+
+        /**
+          * Returns the HTML container of the control.
+          */
+        getContainer(): HTMLElement;
+
+
         /**
           * Should contain code that creates all the neccessary DOM elements for the
           * control, adds listeners on relevant map events, and returns the element
           * containing the control. Called on map.addControl(control) or control.addTo(map).
           */
         onAdd(map: Map): HTMLElement;
-    
+
         /**
           * Optional, should contain all clean up code (e.g. removes control's event
           * listeners). Called on map.removeControl(control) or control.removeFrom(map).
           * The control's DOM container is removed automatically.
           */
         onRemove(map: Map): void;
-    
+
     }
-} 
- 
- 
+
+    module Control {
+
+        export class Zoom extends L.Control {
+
+            /**
+              * Creates a zoom control.
+              */
+            constructor(options?: ZoomOptions);
+        }
+
+        export class Attribution extends L.Control {
+
+            /**
+              * Creates an attribution control.
+              */
+            constructor(options?: AttributionOptions);
+
+            /**
+              * Sets the text before the attributions.
+              */
+            setPrefix(prefix: string): Attribution;
+
+            /**
+              * Adds an attribution text (e.g. 'Vector data &copy; CloudMade').
+              */
+            addAttribution(text: string): Attribution;
+
+            /**
+              * Removes an attribution text.
+              */
+            removeAttribution(text: string): Attribution;
+
+        }
+
+        export class Layers extends L.Control implements IEventPowered<Layers> {
+
+            /**
+              * Creates an attribution control with the given layers. Base layers will be
+              * switched with radio buttons, while overlays will be switched with checkboxes.
+              */
+            constructor(baseLayers?: any, overlays?: any, options?: LayersOptions);
+
+            /**
+              * Adds a base layer (radio button entry) with the given name to the control.
+              */
+            addBaseLayer(layer: ILayer, name: string): Layers;
+
+            /**
+              * Adds an overlay (checkbox entry) with the given name to the control.
+              */
+            addOverlay(layer: ILayer, name: string): Layers;
+
+            /**
+              * Remove the given layer from the control.
+              */
+            removeLayer(layer: ILayer): Layers;
+
+            ////////////////
+            ////////////////
+            addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Layers;
+            addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Layers;
+            removeEventListener(type: string, fn?: (e: LeafletEvent) => void, context?: any): Layers;
+            hasEventListeners(type: string): boolean;
+            fireEvent(type: string, data?: any): Layers;
+            on(type: string, fn: (e: LeafletEvent) => void, context?: any): Layers;
+            once(type: string, fn: (e: LeafletEvent) => void, context?: any): Layers;
+            off(type: string, fn?: (e: LeafletEvent) => void, context?: any): Layers;
+            fire(type: string, data?: any): Layers; addEventListener(eventMap: any, context?: any): Layers;
+            removeEventListener(eventMap?: any, context?: any): Layers;
+            cleanAllEventListeners(): Layers
+            on(eventMap: any, context?: any): Layers;
+            off(eventMap?: any, context?: any): Layers;
+        }
+
+        export class Scale extends L.Control {
+
+            /**
+              * Creates an scale control with the given options.
+              */
+            constructor(options?: ScaleOptions);
+
+        }
+    }
+
+    export class control {
+
+        /**
+          * Creates a zoom control.
+          */
+        static zoom(options?: ZoomOptions): L.Control.Zoom;
+
+        /**
+          * Creates an attribution control.
+          */
+        static attribution(options?: AttributionOptions): L.Control.Attribution;
+
+        /**
+            * Creates an attribution control with the given layers. Base layers will be
+            * switched with radio buttons, while overlays will be switched with checkboxes.
+            */
+        static layers(baseLayers?: any, overlays?: any, options?: LayersOptions): L.Control.Layers;
+
+        /**
+          * Creates an scale control with the given options.
+          */
+        static scale(options?: ScaleOptions): L.Control.Scale;
+    }
+}
  
 declare module L {
     export interface ControlOptions {
+
         /**
           * The initial position of the control (one of the map corners). See control
           * positions.
+          * Default value: 'topright'.
           */
         position: string;
     
     }
-} 
- 
- 
+}
+
  
 
 declare module L {
@@ -413,9 +470,10 @@ declare module L {
  
  
  
-
 declare module L {
+
     export class DomEvent {
+
         /**
           * Adds a listener fn to the element's DOM event of the specified type. this keyword
           * inside the listener will point to context, or to the element if not specified.
@@ -431,8 +489,8 @@ declare module L {
           * Stop the given event from propagation to parent elements. Used inside the
           * listener functions:
           * L.DomEvent.addListener(div, 'click', function
-                  * (e) {
-              * L.DomEvent.stopPropagation(e);
+          * (e) {
+          * L.DomEvent.stopPropagation(e);
           * });
           */
         static stopPropagation(e: Event): DomEvent;
@@ -467,7 +525,8 @@ declare module L {
         static getWheelDelta(e: Event): number;
     
     }
-} 
+}
+ 
 
 declare module L {
     export class DomUtil {
@@ -593,7 +652,6 @@ declare module L {
         disable(): void;
         
         ////////////////
-        //// Methods for events
         ////////////////
         addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Draggable;
         addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Draggable;
@@ -655,7 +713,6 @@ declare module L {
           */
         bringToBack(): FeatureGroup;
         ////////////
-        //// ILayer members
         ////////////
         /**
           * Should contain code that creates DOM elements for the overlay, adds them
@@ -671,7 +728,6 @@ declare module L {
         onRemove(map: Map): void;
         
         ////////////////
-        //// Methods for events
         ////////////////
         addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): FeatureGroup;
         addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): FeatureGroup;
@@ -1117,7 +1173,6 @@ declare module L {
           */
         bringToBack(): ImageOverlay;
         ////////////
-        //// ILayer members
         ////////////
         /**
           * Should contain code that creates DOM elements for the overlay, adds them
@@ -1180,24 +1235,6 @@ declare module L {
     */
     function noConflict(): typeof L;
 }
-
-/**
-  * Forces Leaflet to use the Canvas back-end (if available) for vector layers 
-  * instead of SVG. This can increase performance considerably in some cases 
-  * (e.g. many thousands of circle markers on the map).
-  */
-declare var L_PREFER_CANVAS: boolean;
-
-/**
-  * Forces Leaflet to not use touch events even if it detects them.
-  */
-declare var L_NO_TOUCH: boolean;
-
-/**
-  * Forces Leaflet to not use hardware-accelerated CSS 3D transforms for positioning 
-  * (which may cause glitches in some rare environments) even if they're supported.
-  */
-declare var L_DISABLE_3D: boolean; 
  
  
  
@@ -1368,7 +1405,6 @@ declare module L {
           */
         eachLayer(fn: (layer: ILayer) => void, context?: any): LayerGroup;
         ////////////
-        //// ILayer members
         ////////////
         /**
           * Should contain code that creates DOM elements for the overlay, adds them
@@ -1388,78 +1424,33 @@ declare module L {
  
  
  
-
-
-
-
-
-declare module L {
-    export class Layers extends Control implements IEventPowered<Layers> {
-        /**
-          * Creates an attribution control with the given layers. Base layers will be
-          * switched with radio buttons, while overlays will be switched with checkboxes.
-          */
-        constructor(baseLayers?: any, overlays?: any, options?: LayersOptions);
-    
-        /**
-          * Adds a base layer (radio button entry) with the given name to the control.
-          */
-        addBaseLayer(layer: ILayer, name: string): Layers;
-    
-        /**
-          * Adds an overlay (checkbox entry) with the given name to the control.
-          */
-        addOverlay(layer: ILayer, name: string): Layers;
-    
-        /**
-          * Remove the given layer from the control.
-          */
-        removeLayer(layer: ILayer): Layers;
-        
-        ////////////////
-        //// Methods for events
-        ////////////////
-        addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Layers;
-        addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Layers;
-        removeEventListener(type: string, fn?: (e: LeafletEvent) => void, context?: any): Layers;
-        hasEventListeners(type: string): boolean;
-        fireEvent(type: string, data?: any): Layers;
-        on(type: string, fn: (e: LeafletEvent) => void, context?: any): Layers;
-        once(type: string, fn: (e: LeafletEvent) => void, context?: any): Layers;
-        off(type: string, fn?: (e: LeafletEvent) => void, context?: any): Layers;
-        fire(type: string, data?: any): Layers;addEventListener(eventMap: any, context?: any): Layers;
-        removeEventListener(eventMap?: any, context?: any): Layers;
-        cleanAllEventListeners(): Layers
-        on(eventMap: any, context?: any): Layers;
-        off(eventMap?: any, context?: any): Layers;
-    }
-} 
- 
- 
  
 declare module L {
+
     export interface LayersOptions {
+
         /**
           * The position of the control (one of the map corners). See control positions.
+          * Default value: 'topright'.
           */
         position?: string;
     
         /**
           * If true, the control will be collapsed into an icon and expanded on mouse hover
           * or touch.
+          * Default value: true.
           */
         collapsed?: boolean;
     
         /**
           * If true, the control will assign zIndexes in increasing order to all of its
           * layers so that the order is preserved when switching them on/off.
+          * Default value: true.
           */
         autoZIndex?: boolean;
     
     }
-} 
- 
- 
+}
  
 
 declare module L {
@@ -1726,6 +1717,7 @@ declare module L {
  
  
 declare module L {
+
     export class Map implements IEventPowered<Map> {
         /**
           * Instantiates a map object given a div element and optionally an
@@ -1734,6 +1726,7 @@ declare module L {
           * @constructor
           */
         constructor(id: HTMLElement, options?: MapOptions);
+
         /**
           * Instantiates a map object given a div element id and optionally an
           * object literal with map options described below.
@@ -1741,6 +1734,23 @@ declare module L {
           * @constructor
           */
         constructor(id: string, options?: MapOptions);
+
+        /**
+          * Instantiates a map object given a div element and optionally an
+          * object literal with map options described below.
+          *
+          * @constructor
+          */
+        static map(id: HTMLElement, options?: MapOptions): Map;
+
+        /**
+          * Instantiates a map object given a div element id and optionally an
+          * object literal with map options described below.
+          *
+          * @constructor
+          */
+        static map(id: string, options?: MapOptions): Map;
+
 
         /**
           * Sets the view of the map (geographical center and zoom) with the given
@@ -1756,12 +1766,13 @@ declare module L {
         /**
           * Increases the zoom of the map by delta (1 by default).
           */
-        zoomIn(delta?: number): Map;
+        zoomIn(delta?: number, options?: ZoomOptions): Map;
         
         /**
           * Decreases the zoom of the map by delta (1 by default).
           */
-        zoomOut(delta?: number): Map;
+        zoomOut(delta?: number, options?: ZoomOptions): Map;
+
         /**
           * Zooms the map while keeping a specified point on the map stationary
           * (e.g. used internally for scroll zoom and double-click zoom).
@@ -1799,15 +1810,22 @@ declare module L {
         
         /**
           * Checks if the map container size changed and updates the map if so — call it
-          * after you've changed the map size dynamically. If animate is true, map animates
-          * the update.
+          * after you've changed the map size dynamically, also animating pan by default.
+          * If options.pan is false, panning will not occur.
           */
-        invalidateSize(animate?: boolean, options?: ZoomPanOptions): Map;
+        invalidateSize(options: ZoomPanOptions): Map;
     
         /**
-          * Restricts the map view to the given bounds (see map maxBounds option).
+          * Checks if the map container size changed and updates the map if so — call it
+          * after you've changed the map size dynamically, also animating pan by default.
           */
-        setMaxBounds(bounds: LatLngBounds): Map;
+        invalidateSize(animate: boolean): Map;
+
+        /**
+          * Restricts the map view to the given bounds (see map maxBounds option),
+          * passing the given animation options through to `setView`, if required.
+          */
+        setMaxBounds(bounds: LatLngBounds, options?: ZoomPanOptions): Map;
     
         /**
           * Tries to locate the user using Geolocation API, firing locationfound event
@@ -1823,11 +1841,13 @@ declare module L {
           * and aborts resetting the map view if map.locate was called with {setView: true}.
           */
         stopLocate(): Map;
+
         /**
           * Destroys the map and clears all related event listeners.
           */
         remove(): Map;
     
+
         /**
           * Returns the geographical center of the map view.
           */
@@ -1878,6 +1898,7 @@ declare module L {
           */
         getPixelOrigin(): Point;
     
+
         /**
           * Adds the given layer to the map. If optional insertAtTheBottom is set to true,
           * the layer is inserted under all others (useful when switching base tile layers).
@@ -1905,11 +1926,13 @@ declare module L {
           * on a map.
           */
         openPopup(html: string, latlng: LatLng, options?: PopupOptions): Map;
+        
         /**
           * Creates a popup with the specified options and opens it in the given point 
           * on a map.
           */
         openPopup(el: HTMLElement, latlng: LatLng, options?: PopupOptions): Map;
+
         /**
           * Closes the popup previously opened with openPopup (or the given one).
           */
@@ -1925,6 +1948,7 @@ declare module L {
           */
         removeControl(control: IControl): Map;
     
+
         /**
           * Returns the map layer point that corresponds to the given geographical coordinates
           * (useful for placing overlays on the map).
@@ -1989,6 +2013,7 @@ declare module L {
           */
         mouseEventToLatLng(event: LeafletMouseEvent): LatLng;
     
+
         /**
           * Returns the container element of the map.
           */
@@ -2003,8 +2028,9 @@ declare module L {
           * Runs the given callback when the map gets initialized with a place and zoom,
           * or immediately if it happened already, optionally passing a function context.
           */
-        whenReady(fn: Function, context?: any): Map;
+        whenReady(fn: (Map) => void, context?: any): Map;
     
+
         /**
           * Map dragging handler (by both mouse and touch).
           */
@@ -2036,18 +2062,22 @@ declare module L {
         keyboard: IHandler;
     
         /**
+          * Mobile touch hacks (quick tap and touch hold) handler.
+          */
+        tap: IHandler;
+
+        /**
           * Zoom control.
           */
-        zoomControl: Zoom;
-    
+        zoomControl: Control.Zoom;
+
         /**
           * Attribution control.
           */
-        attributionControl: Attribution;
+        attributionControl: Control.Attribution;
 
 
         ////////////////
-        //// Methods for events
         ////////////////
         addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Map;
         addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Map;
@@ -2064,13 +2094,12 @@ declare module L {
         off(eventMap?: any, context?: any): Map;
         
     }
-} 
-
-
-
-
+}
+ 
 declare module L {
     export interface MapOptions {
+
+
         /**
           * Initial geographical center of the map.
           */
@@ -2111,6 +2140,7 @@ declare module L {
           */
         crs?: ICRS;
         
+
         /**
           * Whether the map be draggable with mouse/touch or not.
           * Default value: true.
@@ -2134,24 +2164,28 @@ declare module L {
           * Default value: true.
           */
         doubleClickZoom?: boolean;
+
         /**
           * Whether the map can be zoomed to a rectangular area specified by dragging
           * the mouse while pressing shift.
           * Default value: true.
           */
         boxZoom?: boolean;
+
         /**
           * Enables mobile hacks for supporting instant taps (fixing 200ms click delay
           * on iOS/Android) and touch holds (fired as contextmenu events).
           * Default value: true.
           */
         tap?: boolean;
+
         /**
           * The max number of pixels a user can shift his finger during touch for it
           * to be considered a valid tap.
           * Default value: 15.
           */
         tapTolerance?: number;
+
         /**
           * Whether the map automatically handles browser window resize to update itself.
           * Default value: true.
@@ -2172,6 +2206,7 @@ declare module L {
           */
         closePopupOnClick?: boolean;
         
+
         /**
           * Makes the map focusable and allows users to navigate the map with keyboard
           * arrows and +/- keys.
@@ -2191,6 +2226,7 @@ declare module L {
           */
         keyboardZoomOffset?: number;
         
+
         /**
           * If enabled, panning of the map will have an inertia effect where the map builds
           * momentum while dragging and continues moving in the same direction for some
@@ -2214,10 +2250,11 @@ declare module L {
         /**
           * Amount of milliseconds that should pass between stopping the movement and
           * releasing the mouse or touch to prevent inertial movement.
-          * Default value: 32 for touch devices and 14 for the rest by default.
+          * Default value: 32 for touch devices and 14 for the rest.
           */
         inertiaThreshold?: number;
         
+
         /**
           * Whether the zoom control is added to the map by default.
           * Default value: true.
@@ -2230,6 +2267,7 @@ declare module L {
           */
         attributionControl?: boolean;
         
+
         /**
           * Whether the tile fade animation is enabled. By default it's enabled in all
           * browsers that support CSS3 Transitions except Android.
@@ -2241,11 +2279,13 @@ declare module L {
           * browsers that support CSS3 Transitions except Android.
           */
         zoomAnimation?: boolean;
+
         /**
           * Won't animate zoom if the zoom difference exceeds this value.
           * Default value: 4.
           */
         zoomAnimationThreshold?: number;
+
         /**
           * Whether markers animate their zoom with the zoom animation, if disabled
           * they will disappear for the length of the animation. By default it's enabled
@@ -2254,9 +2294,6 @@ declare module L {
         markerZoomAnimation?: boolean;
     }
 } 
- 
- 
- 
 declare module L {
     export interface MapPanes {
         /**
@@ -2289,7 +2326,6 @@ declare module L {
         popupPane: HTMLElement;
     }
     ////////////
-    //// Marker
     ////////////
 } 
  
@@ -2365,7 +2401,6 @@ declare module L {
           */
         closePopup(): Marker;
         ////////////
-        //// ILayer members
         ////////////
         /**
           * Should contain code that creates DOM elements for the overlay, adds them
@@ -2381,7 +2416,6 @@ declare module L {
         onRemove(map: Map): void;
         
         ////////////////
-        //// Methods for events
         ////////////////
         addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Marker;
         addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Marker;
@@ -2605,7 +2639,6 @@ declare module L {
           */
         static CLIP_PADDING: number;
         ////////////
-        //// ILayer members
         ////////////
         /**
           * Should contain code that creates DOM elements for the overlay, adds them
@@ -2621,7 +2654,6 @@ declare module L {
         onRemove(map: Map): void;
         
         ////////////////
-        //// Methods for events
         ////////////////
         addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Path;
         addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Path;
@@ -2898,7 +2930,6 @@ declare module L {
           */
         setContent(htmlContent: string): Popup;
         ////////////
-        //// ILayer members
         ////////////
         /**
           * Should contain code that creates DOM elements for the overlay, adds them
@@ -2989,7 +3020,6 @@ declare module L {
         run(element: HTMLElement, newPos: Point, duration?: number, easeLinearity?: number): PosAnimation;
         
         ////////////////
-        //// Methods for events
         ////////////////
         addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): PosAnimation;
         addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): PosAnimation;
@@ -3061,67 +3091,62 @@ declare module L {
  
  
  
-
-
-declare module L {
-    export class Scale extends Control {
-        /**
-          * Creates an scale control with the given options.
-          */
-        constructor(options?: ScaleOptions);
-    
-    }
-} 
- 
- 
  
 declare module L {
+
     export interface ScaleOptions {
+
         /**
           * The position of the control (one of the map corners). See control positions.
+          * Default value: 'bottomleft'.
           */
         position?: string;
     
         /**
           * Maximum width of the control in pixels. The width is set dynamically to show
           * round values (e.g. 100, 200, 500).
+          * Default value: 100.
           */
         maxWidth?: number;
     
         /**
           * Whether to show the metric scale line (m/km).
+          * Default value: true.
           */
         metric?: boolean;
     
         /**
           * Whether to show the imperial scale line (mi/ft).
+          * Default value: true.
           */
         imperial?: boolean;
     
         /**
           * If true, the control is updated on moveend, otherwise it's always up-to-date
           * (updated on move).
+          * Default value: false.
           */
         updateWhenIdle?: boolean;
     
     }
-} 
+}
  
- 
- 
-
-
-
-
-
 declare module L {
+
     export class TileLayer implements ILayer, IEventPowered<TileLayer> {
+
         /**
           * Instantiates a tile layer object given a URL template and optionally an options
           * object.
           */
         constructor(urlTemplate: string, options?: TileLayerOptions);
     
+        /**
+          * Instantiates a tile layer object given a URL template and optionally an options
+          * object.
+          */
+        static tileLayer(urlTemplate: string, options?: TileLayerOptions): TileLayer;
+
         /**
           * Adds the layer to the map.
           */
@@ -3156,12 +3181,13 @@ declare module L {
           * Updates the layer's URL template and redraws it.
           */
         setUrl(urlTemplate: string): TileLayer;
-        static WMS: new () => WMS;
-    
-        static Canvas: new () => Canvas;
-		
+
+        /**
+          * Returns the HTML element that contains the tiles for this layer.
+          */
+        getContainer(): HTMLElement;
+
         ////////////
-        //// ILayer members
         ////////////
         /**
           * Should contain code that creates DOM elements for the overlay, adds them
@@ -3177,7 +3203,6 @@ declare module L {
         onRemove(map: Map): void;
     
         ////////////////
-        //// Methods for events
         ////////////////
         addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): TileLayer;
         addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): TileLayer;
@@ -3194,46 +3219,106 @@ declare module L {
         on(eventMap: any, context?: any): TileLayer;
         off(eventMap?: any, context?: any): TileLayer;
     }
-} 
- 
- 
+
+    module TileLayer {
+
+        export class WMS {
+
+            /**
+              * Instantiates a WMS tile layer object given a base URL of the WMS service and
+              * a WMS parameters/options object.
+              */
+            constructor(baseUrl: string, options: WMSOptions);
+
+            /**
+              * Merges an object with the new parameters and re-requests tiles on the current
+              * screen (unless noRedraw was set to true).
+              */
+            setParams(params: WMS, noRedraw?: boolean): WMS;
+        }
+
+        export class Canvas {
+
+            /**
+              * Instantiates a Canvas tile layer object given an options object (optionally).
+              */
+            constructor(options?: TileLayerOptions);
+
+            /**
+              * You need to define this method after creating the instance to draw tiles;
+              * canvas is the actual canvas tile on which you can draw, tilePoint represents
+              * the tile numbers, and zoom is the current zoom.
+              */
+            drawTile(canvas: HTMLCanvasElement, tilePoint: Point, zoom: number): Canvas;
+
+            /**
+              * Calling redraw will cause the drawTile method to be called for all tiles.
+              * May be used for updating dynamic content drawn on the Canvas
+              */
+            redraw(): Canvas;
+        }
+    }
+
+    export class tileLayer {
+        
+        /**
+          * Instantiates a WMS tile layer object given a base URL of the WMS service and
+          * a WMS parameters/options object.
+          */
+        static wms(baseUrl: string, options: WMSOptions): L.TileLayer.WMS;
+
+        /**
+          * Instantiates a Canvas tile layer object given an options object (optionally).
+          */
+        static canvas(options?: TileLayerOptions): L.TileLayer.Canvas;
+    }
+}
  
 declare module L {
+
     export interface TileLayerOptions {
+
         /**
           * Minimum zoom number.
+          * Default value: 0.
           */
         minZoom?: number;
     
         /**
           * Maximum zoom number.
+          * Default value: 18.
           */
         maxZoom?: number;
     
         /**
           * Tile size (width and height in pixels, assuming tiles are square).
+          * Default value: 256.
           */
         tileSize?: number;
     
         /**
           * Subdomains of the tile service. Can be passed in the form of one string (where
           * each letter is a subdomain name) or an array of strings.
+          * Default value: 'abc'.
           */
-        subdomains?: string;
+        subdomains?: any;
     
         /**
           * URL to the tile image to show in place of the tile that failed to load.
+          * Default value: ''.
           */
         errorTileUrl?: string;
     
         /**
           * e.g. "© CloudMade" — the string used by the attribution control, describes
           * the layer data.
+          * Default value: ''.
           */
         attribution?: string;
     
         /**
           * If true, inverses Y axis numbering for tiles (turn this on for TMS services).
+          * Default value: false.
           */
         tms?: boolean;
     
@@ -3242,28 +3327,33 @@ declare module L {
           * to 180 longitude) or clamped to lie within world height (-90 to 90). Use this
           * if you use Leaflet for maps that don't reflect the real world (e.g. game, indoor
           * or photo maps).
+          * Default value: false.
           */
         continuousWorld?: boolean;
     
         /**
           * If set to true, the tiles just won't load outside the world width (-180 to 180
           * longitude) instead of repeating.
+          * Default value: false.
           */
         noWrap?: boolean;
     
         /**
           * The zoom number used in tile URLs will be offset with this value.
+          * Default value: 0.
           */
         zoomOffset?: number;
     
         /**
           * If set to true, the zoom number used in tile URLs will be reversed (maxZoom
           * - zoom instead of zoom)
+          * Default value: false.
           */
         zoomReverse?: boolean;
     
         /**
           * The opacity of the tile layer.
+          * Default value: 1.0.
           */
         opacity?: number;
     
@@ -3287,6 +3377,7 @@ declare module L {
         /**
           * If true and user is on a retina display, it will request four tiles of half the
           * specified size and a bigger zoom level in place of one to utilize the high resolution.
+          * Default value: false.
           */
         detectRetina?: boolean;
     
@@ -3296,13 +3387,12 @@ declare module L {
           * to dynamically creating new ones). This will in theory keep memory usage
           * low and eliminate the need for reserving new memory whenever a new tile is
           * needed.
+          * Default value: false.
           */
         reuseTiles?: boolean;
     
     }
-} 
- 
- 
+}
  
 
 declare module L {
@@ -3409,45 +3499,31 @@ declare module L {
  
  
  
+declare module L {
 
-declare module L {
-    export class WMS {
-        /**
-          * Instantiates a WMS tile layer object given a base URL of the WMS service and
-          * a WMS parameters/options object.
-          */
-        constructor(baseUrl: string, options: WMSOptions);
-    
-        /**
-          * Merges an object with the new parameters and re-requests tiles on the current
-          * screen (unless noRedraw was set to true).
-          */
-        setParams(params: WMS, noRedraw?: boolean): WMS;
-    
-    }
-} 
- 
- 
- 
-declare module L {
     export interface WMSOptions {
+
         /**
           * (required) Comma-separated list of WMS layers to show.
+          * Default value: ''.
           */
         layers?: string;
     
         /**
           * Comma-separated list of WMS styles.
+          * Default value: 'image/jpeg'.
           */
         styles?: string;
     
         /**
           * WMS image format (use 'image/png' for layers with transparency).
+          * Default value: false.
           */
         format?: string;
     
         /**
           * If true, the WMS service will return images with transparency.
+          * Default value: '1.1.1'.
           */
         transparent?: boolean;
     
@@ -3457,61 +3533,63 @@ declare module L {
         version?: string;
     
     }
-} 
- 
- 
- 
-
-
-declare module L {
-    export class Zoom extends Control {
-        /**
-          * Creates a zoom control.
-          */
-        constructor(options?: ZoomOptions);
-    
-    }
-} 
- 
+}
  
  
 declare module L {
+
     export interface ZoomOptions {
+
         /**
           * The position of the control (one of the map corners). See control positions.
+          * Default value: 'topright'.
           */
         position?: string;
     }
-} 
+}
  
- 
- 
-
 declare module L {
+
     export interface ZoomPanOptions {
+
         /**
           * If true, the map view will be completely reset (without any animations).
-          * 
           * Default value: false.
           */
         reset?: boolean;
+
         /**
           * Sets the options for the panning (without the zoom change) if it occurs.
           */
         pan?: PanOptions;
+
         /**
           * Sets the options for the zoom change if it occurs.
-          * 
-          * Default value: false.
           */
         zoom?: ZoomOptions;
+
         /**
           * An equivalent of passing animate to both zoom and pan options (see below).
           */
         animate?: boolean;
     }
-} 
+}
  
+/**
+  * Forces Leaflet to use the Canvas back-end (if available) for vector layers 
+  * instead of SVG. This can increase performance considerably in some cases 
+  * (e.g. many thousands of circle markers on the map).
+  */
+declare var L_PREFER_CANVAS: boolean;
+
+/**
+  * Forces Leaflet to not use touch events even if it detects them.
+  */
+declare var L_NO_TOUCH: boolean;
+
+/**
+  * Forces Leaflet to not use hardware-accelerated CSS 3D transforms for positioning 
+  * (which may cause glitches in some rare environments) even if they're supported.
+  */
+declare var L_DISABLE_3D: boolean;
  
- 
-

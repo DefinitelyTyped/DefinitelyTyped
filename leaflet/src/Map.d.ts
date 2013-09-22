@@ -1,4 +1,6 @@
+// checked
 declare module L {
+
     export class Map implements IEventPowered<Map> {
         /**
           * Instantiates a map object given a div element and optionally an
@@ -7,6 +9,7 @@ declare module L {
           * @constructor
           */
         constructor(id: HTMLElement, options?: MapOptions);
+
         /**
           * Instantiates a map object given a div element id and optionally an
           * object literal with map options described below.
@@ -14,6 +17,24 @@ declare module L {
           * @constructor
           */
         constructor(id: string, options?: MapOptions);
+
+        /**
+          * Instantiates a map object given a div element and optionally an
+          * object literal with map options described below.
+          *
+          * @constructor
+          */
+        static map(id: HTMLElement, options?: MapOptions): Map;
+
+        /**
+          * Instantiates a map object given a div element id and optionally an
+          * object literal with map options described below.
+          *
+          * @constructor
+          */
+        static map(id: string, options?: MapOptions): Map;
+
+        // Methods for Modifying Map State
 
         /**
           * Sets the view of the map (geographical center and zoom) with the given
@@ -29,12 +50,13 @@ declare module L {
         /**
           * Increases the zoom of the map by delta (1 by default).
           */
-        zoomIn(delta?: number): Map;
+        zoomIn(delta?: number, options?: ZoomOptions): Map;
         
         /**
           * Decreases the zoom of the map by delta (1 by default).
           */
-        zoomOut(delta?: number): Map;
+        zoomOut(delta?: number, options?: ZoomOptions): Map;
+
         /**
           * Zooms the map while keeping a specified point on the map stationary
           * (e.g. used internally for scroll zoom and double-click zoom).
@@ -70,17 +92,25 @@ declare module L {
           */
         panBy(point: Point, options?: PanOptions): Map;
         
+        // REVIEW: Documentation contains invalid signature for this method, took from the source.
         /**
           * Checks if the map container size changed and updates the map if so — call it
-          * after you've changed the map size dynamically. If animate is true, map animates
-          * the update.
+          * after you've changed the map size dynamically, also animating pan by default.
+          * If options.pan is false, panning will not occur.
           */
-        invalidateSize(animate?: boolean, options?: ZoomPanOptions): Map;
+        invalidateSize(options: ZoomPanOptions): Map;
     
         /**
-          * Restricts the map view to the given bounds (see map maxBounds option).
+          * Checks if the map container size changed and updates the map if so — call it
+          * after you've changed the map size dynamically, also animating pan by default.
           */
-        setMaxBounds(bounds: LatLngBounds): Map;
+        invalidateSize(animate: boolean): Map;
+
+        /**
+          * Restricts the map view to the given bounds (see map maxBounds option),
+          * passing the given animation options through to `setView`, if required.
+          */
+        setMaxBounds(bounds: LatLngBounds, options?: ZoomPanOptions): Map;
     
         /**
           * Tries to locate the user using Geolocation API, firing locationfound event
@@ -96,11 +126,14 @@ declare module L {
           * and aborts resetting the map view if map.locate was called with {setView: true}.
           */
         stopLocate(): Map;
+
         /**
           * Destroys the map and clears all related event listeners.
           */
         remove(): Map;
     
+        // Methods for Getting Map State
+
         /**
           * Returns the geographical center of the map view.
           */
@@ -151,6 +184,8 @@ declare module L {
           */
         getPixelOrigin(): Point;
     
+        // Methods for Layers and Controls
+
         /**
           * Adds the given layer to the map. If optional insertAtTheBottom is set to true,
           * the layer is inserted under all others (useful when switching base tile layers).
@@ -178,11 +213,13 @@ declare module L {
           * on a map.
           */
         openPopup(html: string, latlng: LatLng, options?: PopupOptions): Map;
+        
         /**
           * Creates a popup with the specified options and opens it in the given point 
           * on a map.
           */
         openPopup(el: HTMLElement, latlng: LatLng, options?: PopupOptions): Map;
+
         /**
           * Closes the popup previously opened with openPopup (or the given one).
           */
@@ -198,6 +235,8 @@ declare module L {
           */
         removeControl(control: IControl): Map;
     
+        // Conversion Methods
+
         /**
           * Returns the map layer point that corresponds to the given geographical coordinates
           * (useful for placing overlays on the map).
@@ -262,6 +301,8 @@ declare module L {
           */
         mouseEventToLatLng(event: LeafletMouseEvent): LatLng;
     
+        // Other Methods
+
         /**
           * Returns the container element of the map.
           */
@@ -272,12 +313,15 @@ declare module L {
           */
         getPanes(): MapPanes;
     
+        // REVIEW: Should we make it more flexible declaring parameter 'fn' as Function?
         /**
           * Runs the given callback when the map gets initialized with a place and zoom,
           * or immediately if it happened already, optionally passing a function context.
           */
-        whenReady(fn: Function, context?: any): Map;
+        whenReady(fn: (Map) => void, context?: any): Map;
     
+        // Properties
+
         /**
           * Map dragging handler (by both mouse and touch).
           */
@@ -309,14 +353,19 @@ declare module L {
         keyboard: IHandler;
     
         /**
+          * Mobile touch hacks (quick tap and touch hold) handler.
+          */
+        tap: IHandler;
+
+        /**
           * Zoom control.
           */
-        zoomControl: Zoom;
-    
+        zoomControl: Control.Zoom;
+
         /**
           * Attribution control.
           */
-        attributionControl: Attribution;
+        attributionControl: Control.Attribution;
 
 
         ////////////////

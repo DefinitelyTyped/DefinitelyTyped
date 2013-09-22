@@ -1,6 +1,8 @@
-
+// updated
 declare module L {
+
     export class DomEvent {
+
         /**
           * Adds a listener fn to the element's DOM event of the specified type. this keyword
           * inside the listener will point to context, or to the element if not specified.
@@ -16,8 +18,8 @@ declare module L {
           * Stop the given event from propagation to parent elements. Used inside the
           * listener functions:
           * L.DomEvent.addListener(div, 'click', function
-                  * (e) {
-              * L.DomEvent.stopPropagation(e);
+          * (e) {
+          * L.DomEvent.stopPropagation(e);
           * });
           */
         static stopPropagation(e: Event): DomEvent;

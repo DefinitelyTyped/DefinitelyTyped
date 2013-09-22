@@ -1,9 +1,9 @@
-
-
-
-
+// checked
 declare module L {
     export interface MapOptions {
+
+        // Map State Options
+
         /**
           * Initial geographical center of the map.
           */
@@ -44,6 +44,8 @@ declare module L {
           */
         crs?: ICRS;
         
+        // Interaction Options
+
         /**
           * Whether the map be draggable with mouse/touch or not.
           * Default value: true.
@@ -67,24 +69,28 @@ declare module L {
           * Default value: true.
           */
         doubleClickZoom?: boolean;
+
         /**
           * Whether the map can be zoomed to a rectangular area specified by dragging
           * the mouse while pressing shift.
           * Default value: true.
           */
         boxZoom?: boolean;
+
         /**
           * Enables mobile hacks for supporting instant taps (fixing 200ms click delay
           * on iOS/Android) and touch holds (fired as contextmenu events).
           * Default value: true.
           */
         tap?: boolean;
+
         /**
           * The max number of pixels a user can shift his finger during touch for it
           * to be considered a valid tap.
           * Default value: 15.
           */
         tapTolerance?: number;
+
         /**
           * Whether the map automatically handles browser window resize to update itself.
           * Default value: true.
@@ -105,6 +111,8 @@ declare module L {
           */
         closePopupOnClick?: boolean;
         
+        // Keyboard Navigation Options
+
         /**
           * Makes the map focusable and allows users to navigate the map with keyboard
           * arrows and +/- keys.
@@ -124,6 +132,8 @@ declare module L {
           */
         keyboardZoomOffset?: number;
         
+        // Panning Inertia Options
+
         /**
           * If enabled, panning of the map will have an inertia effect where the map builds
           * momentum while dragging and continues moving in the same direction for some
@@ -147,10 +157,12 @@ declare module L {
         /**
           * Amount of milliseconds that should pass between stopping the movement and
           * releasing the mouse or touch to prevent inertial movement.
-          * Default value: 32 for touch devices and 14 for the rest by default.
+          * Default value: 32 for touch devices and 14 for the rest.
           */
         inertiaThreshold?: number;
         
+        // Control options
+
         /**
           * Whether the zoom control is added to the map by default.
           * Default value: true.
@@ -163,6 +175,8 @@ declare module L {
           */
         attributionControl?: boolean;
         
+        // Animation options
+
         /**
           * Whether the tile fade animation is enabled. By default it's enabled in all
           * browsers that support CSS3 Transitions except Android.
@@ -174,11 +188,13 @@ declare module L {
           * browsers that support CSS3 Transitions except Android.
           */
         zoomAnimation?: boolean;
+
         /**
           * Won't animate zoom if the zoom difference exceeds this value.
           * Default value: 4.
           */
         zoomAnimationThreshold?: number;
+
         /**
           * Whether markers animate their zoom with the zoom animation, if disabled
           * they will disappear for the length of the animation. By default it's enabled
@@ -186,6 +202,4 @@ declare module L {
           */
         markerZoomAnimation?: boolean;
     }
-} 
- 
- 
+}
