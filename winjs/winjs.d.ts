@@ -25,7 +25,7 @@ declare module WinJS {
             public splice(index: number, count: number): any[];
             public splice(index: number): any[];
             public createFiltered(predicate: (x: any) => boolean): List;
-            public createGrouped(keySelector: (x: any) => any, dataSelector: (x:any) => any): List;
+            public createGrouped(keySelector: (x: any) => any, dataSelector: (x:any) => any, groupSorter: (left:any, right:any) => number): List;
             public groups: any;
             public dataSource: any;
             public getAt: any;
