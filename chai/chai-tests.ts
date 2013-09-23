@@ -67,7 +67,7 @@ function _undefined() {
 
 function exist() {
     var foo = 'bar'
-        , bar;
+        , bar:string;
     expect(foo).to.exist;
     expect(bar).to.not.exist;
 }
@@ -81,7 +81,7 @@ function arguments() {
 }
 
 function equal() {
-    var foo;
+    var foo:string;
     expect(undefined).to.equal(foo);
 }
 
@@ -112,14 +112,14 @@ function _typeof() {
 
 function _instanceof() {
     function Foo() { }
-    expect(new Foo()).to.be.an.instanceof(Foo);
+    expect(new <any>Foo()).to.be.an.instanceof(Foo);
 
     err(() => {
         expect(3).to.an.instanceof(Foo, 'blah');
     }, "blah: expected 3 to be an instance of Foo");
 }
 
-function within(start, finish) {
+function within(start:Number, finish:Number) {
     expect(5).to.be.within(5, 10);
     expect(5).to.be.within(3, 6);
     expect(5).to.be.within(3, 5);
@@ -144,7 +144,7 @@ function within(start, finish) {
     }, "blah: expected [ 1, 2, 3 ] to have a length within 5..7");
 }
 
-function above(n) {
+function above(n:Number) {
     expect(5).to.be.above(2);
     expect(5).to.be.greaterThan(2);
     expect(5).to.not.be.above(5);
@@ -169,7 +169,7 @@ function above(n) {
     }, "blah: expected [ 1, 2, 3 ] to have a length above 4 but got 3");
 }
 
-function least(n) {
+function least(n:Number) {
     expect(5).to.be.at.least(2);
     expect(5).to.be.at.least(5);
     expect(5).to.not.be.at.least(6);
@@ -197,7 +197,7 @@ function least(n) {
     }, "blah: expected [ 1, 2, 3, 4 ] to have a length below 4");
 }
 
-function below(n) {
+function below(n:Number) {
     expect(2).to.be.below(5);
     expect(2).to.be.lessThan(5);
     expect(2).to.not.be.below(2);
@@ -222,7 +222,7 @@ function below(n) {
     }, "blah: expected [ 1, 2, 3 ] to have a length below 2 but got 3");
 }
 
-function most(n) {
+function most(n:Number) {
     expect(2).to.be.at.most(5);
     expect(2).to.be.at.most(2);
     expect(2).to.not.be.at.most(1);
@@ -251,7 +251,7 @@ function most(n) {
     }, "blah: expected [ 1, 2 ] to have a length above 2");
 }
 
-function match(regexp) {
+function match(regexp:RegExp) {
     expect('foobar').to.match(/^foo/);
     expect('foobar').to.not.match(/^bar/);
 
@@ -264,7 +264,7 @@ function match(regexp) {
 }, "blah: expected 'foobar' not to match /^foo/i");
 }
 
-function length2(n) {
+function length2(n:Number) {
     expect('test').to.have.length(4);
     expect('test').to.not.have.length(3);
     expect([1, 2, 3]).to.have.length(3);
@@ -278,7 +278,7 @@ function length2(n) {
     }, "blah: expected 'asd' to not have a length of 3");
 }
 
-function eql(val) {
+function eql(val:any) {
     expect('test').to.eql('test');
     expect({ foo: 'bar' }).to.eql({ foo: 'bar' });
     expect(1).to.eql(1);
@@ -290,7 +290,7 @@ function eql(val) {
 }
 
 function buffer() {
-    var Buffer;
+    var Buffer:any;
     expect(new Buffer([1])).to.eql(new Buffer([1]));
 
     err(() => {
@@ -298,7 +298,7 @@ function buffer() {
     }, 'expected <Buffer 00> to deeply equal <Buffer 01>');
 }
 
-function equal2(val) {
+function equal2(val:any) {
     expect('test').to.equal('test');
     expect(1).to.equal(1);
 
@@ -311,7 +311,7 @@ function equal2(val) {
     }, "blah: expected '4' to equal 4");
 }
 
-function deepEqual(val) {
+function deepEqual(val:any) {
     expect({ foo: 'bar' }).to.deep.equal({ foo: 'bar' });
     expect({ foo: 'bar' }).not.to.deep.equal({ foo: 'baz' });
 }
@@ -328,7 +328,7 @@ function deepEqual2() {
     expect(/a/m).not.to.deep.equal(/b/m);
 }
 
-function deepEqual3(Date) {
+function deepEqual3(date:Date) {
     var a = new Date(1, 2, 3)
         , b = new Date(4, 5, 6);
     expect(a).to.deep.equal(a);
@@ -344,7 +344,7 @@ function empty() {
     expect('foo').not.to.be.empty;
     expect([]).to.be.empty;
     expect(['foo']).not.to.be.empty;
-    expect(new FakeArgs).to.be.empty;
+    expect(new <any>FakeArgs).to.be.empty;
     expect({ arguments: 0 }).not.to.be.empty;
     expect({}).to.be.empty;
     expect({ foo: 'bar' }).not.to.be.empty;
@@ -366,7 +366,7 @@ function empty() {
     }, "expected [ \'foo\' ] to be empty");
 
     err(() => {
-        expect(new FakeArgs).not.to.be.empty;
+        expect(new <any>FakeArgs).not.to.be.empty;
     }, "expected { length: 0 } not to be empty");
 
     err(() => {
@@ -382,7 +382,7 @@ function empty() {
     }, "expected { foo: \'bar\' } to be empty");
 }
 
-function property(name) {
+function property(name:string) {
     expect('test').to.have.property('length');
     expect(4).to.not.have.property('length');
 
@@ -400,7 +400,7 @@ function property(name) {
     }, "expected { foo: { bar: 'baz' } } to have a property 'foo.bar'");
 }
 
-function deepProperty(name) {
+function deepProperty(name:string) {
     expect({ 'foo.bar': 'baz' })
         .to.not.have.deep.property('foo.bar');
     expect({ foo: { bar: 'baz' } })
@@ -412,7 +412,7 @@ function deepProperty(name) {
     }, "expected { 'foo.bar': 'baz' } to have a deep property 'foo.bar'");
 }
 
-function property2(name, val) {
+function property2(name:string, val:any) {
     expect('test').to.have.property('length', 4);
     expect('asd').to.have.property('constructor', String);
 
@@ -433,7 +433,7 @@ function property2(name, val) {
     }, "blah: expected 'asd' to have a property 'constructor' of [Function: Number], but got [Function: String]");
 }
 
-function deepProperty2(name, val) {
+function deepProperty2(name:string, val:any) {
     expect({ foo: { bar: 'baz' } })
         .to.have.deep.property('foo.bar', 'baz');
 
@@ -451,7 +451,7 @@ function deepProperty2(name, val) {
     }, "blah: { foo: 5 } has no deep property 'foo.bar'");
 }
 
-function ownProperty(name) {
+function ownProperty(name:string) {
     expect('test').to.have.ownProperty('length');
     expect('test').to.haveOwnProperty('length');
     expect({ length: 12 }).to.have.ownProperty('length');
@@ -496,7 +496,7 @@ function include() {
     }, "blah: expected [ 'bar', 'foo' ] to not include 'foo'");
 }
 
-function keys(array) {
+function keys(array: any[]) {
     expect({ foo: 1 }).to.have.keys(['foo']);
     expect({ foo: 1, bar: 2 }).to.have.keys(['foo', 'bar']);
     expect({ foo: 1, bar: 2 }).to.have.keys('foo', 'bar');
@@ -590,7 +590,7 @@ function _throw() {
     var goodFn = () => { 1 == 1; }
         , badFn = () => { throw new Error('testing'); }
         , refErrFn = () => { throw new ReferenceError('hello'); }
-        , ickyErrFn = () => { throw new PoorlyConstructedError(); }
+        , ickyErrFn = () => { throw new <any>PoorlyConstructedError(); }
         , specificErrFn = () => { throw specificError; };
 
     expect(goodFn).to.not.throw();
@@ -709,7 +709,7 @@ function respondTo() {
 }
 
 function satisfy() {
-    function matcher(num) {
+    function matcher(num:Number) {
         return num === 1;
     };
 
