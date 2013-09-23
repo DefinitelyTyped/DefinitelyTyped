@@ -413,6 +413,13 @@ interface GlobalizationError {
     message: string;
 }
 
+declare var GlobalizationError: {
+    UNKNOWN_ERROR: number;
+    FORMATTING_ERROR: number;
+    PARSING_ERROR: number;
+    PATTERN_ERROR: number;
+}
+
 interface Globalization {
     getPreferredLanguage(successCB, errorCB): void;
     getLocaleName(successCB, errorCB): void;
