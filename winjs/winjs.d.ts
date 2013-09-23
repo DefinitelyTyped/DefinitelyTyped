@@ -18,17 +18,34 @@ declare module WinJS {
     module Binding {
         function as(data: any): any;
         class List {
-        	constructor(data: any[]);
+            constructor(data: any[]);
             public push(item: any): any;
             public indexOf(item: any): number;
-            public splice(index: number, count: number, newelems: any[]): any[];
-            public splice(index: number, count: number): any[];
-            public splice(index: number): any[];
+            public splice(start: number, howMany?: number, item?: any[]): any[];
             public createFiltered(predicate: (x: any) => boolean): List;
             public createGrouped(keySelector: (x: any) => any, dataSelector: (x:any) => any, groupSorter: (left:any, right:any) => number): List;
             public groups: any;
             public dataSource: any;
-            public getAt: any;
+            public getAt(index: number): any;
+            public createSorted(sorter: (left, right) => number);
+            public forEach(callback: (val: any, index: number, array: any[]) => void, thisArg?: any);
+            public every(callback: (val: any, index: number, array: any[]) => boolean, thisArg?: any): boolean;
+            public join(separator: string): string;
+            public map(callback: (val: any, index: number, array: any[]) => any, thisArg?: any): any[];
+            public move(index: number, newIndex: number);
+            public pop(): any;
+            public reduce(callback: (previousValue: any, currentValue: any, currentIndex: number, array: any[]) => any, initialValue?: any): any;
+            public reduceRight(callback: (previousValue: any, currentValue: any, currentIndex: number, array: any[]) => any, initialValue?: any): any;
+            public reverse();
+            public setAt(index: number, newValue: number);
+            public shift(): any;
+            public slice(begin: number, end: number): WinJS.Binding.List;
+            public some(callback: (val: any, index: number, array: any[]) => boolean, thisArg?: any): boolean;
+            public sort(sortFunction: (left, right) => number);
+            public unshift(value: any): number;
+            public length: number;
+            public notifyMutated(index: number);            
+            
         }
     }
     module Namespace {
