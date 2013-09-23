@@ -1,12 +1,7 @@
-
-
-
-
-
-
-
 declare module L {
-    export class FeatureGroup implements ILayer, IEventPowered<FeatureGroup> {
+
+    export class FeatureGroup extends LayerGroup implements ILayer, IEventPowered<FeatureGroup> {
+
         /**
           * Create a layer group, optionally given an initial set of layers.
           */
@@ -72,6 +67,4 @@ declare module L {
         on(eventMap: any, context?: any): FeatureGroup;
         off(eventMap?: any, context?: any): FeatureGroup;
     }
-} 
- 
- 
+}

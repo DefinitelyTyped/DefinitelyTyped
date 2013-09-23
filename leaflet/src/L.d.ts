@@ -8,7 +8,7 @@ declare module L {
     * This method restores the L global variale to the original value it had
     * before Leaflet inclusion, and returns the real Leaflet namespace.
     */
-    function noConflict(): typeof L;
+    export function noConflict(): typeof L;
 }
  
  

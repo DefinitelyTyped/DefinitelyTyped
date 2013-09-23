@@ -1,6 +1,8 @@
-
+// updated to 0.6.4
 declare module L {
+
     export interface IconOptions {
+
         /**
           * (required) The URL to the icon image (absolute or relative to your script
           * path).
@@ -59,8 +61,5 @@ declare module L {
           * A custom class name to assign to both icon and shadow images. Empty by default.
           */
         className?: string;
-    
     }
-} 
- 
- 
+}

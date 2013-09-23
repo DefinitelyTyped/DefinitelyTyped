@@ -672,15 +672,10 @@ declare module L {
  
  
  
-
-
-
-
-
-
-
 declare module L {
-    export class FeatureGroup implements ILayer, IEventPowered<FeatureGroup> {
+
+    export class FeatureGroup extends LayerGroup implements ILayer, IEventPowered<FeatureGroup> {
+
         /**
           * Create a layer group, optionally given an initial set of layers.
           */
@@ -744,9 +739,7 @@ declare module L {
         on(eventMap: any, context?: any): FeatureGroup;
         off(eventMap?: any, context?: any): FeatureGroup;
     }
-} 
- 
- 
+}
  
 
 
@@ -867,22 +860,35 @@ declare module L {
  
  
  
-
 declare module L {
+
     export class Icon {
         /**
           * Creates an icon instance with the given options.
           */
         constructor(options: IconOptions);
-    
-    }
-} 
- 
- 
- 
 
+        static Default: IconDefault;
+    }
+}
+ 
 declare module L {
+
+    export class IconDefault extends Icon {
+
+        /**
+          * Creates an icon instance with default options.
+          */
+        constructor();
+
+        imagePath: string;
+    }
+}
+ 
+declare module L {
+
     export interface IconOptions {
+
         /**
           * (required) The URL to the icon image (absolute or relative to your script
           * path).
@@ -941,11 +947,8 @@ declare module L {
           * A custom class name to assign to both icon and shadow images. Empty by default.
           */
         className?: string;
-    
     }
-} 
- 
- 
+}
  
 
 declare module L {
@@ -1233,7 +1236,7 @@ declare module L {
     * This method restores the L global variale to the original value it had
     * before Leaflet inclusion, and returns the real Leaflet namespace.
     */
-    function noConflict(): typeof L;
+    export function noConflict(): typeof L;
 }
  
  
@@ -2522,7 +2525,9 @@ declare module L {
  
  
 declare module L {
+
     export interface PanOptions {
+
         /**
           * If true, panning will always be animated if possible. If false, it will not
           * animate panning, either resetting the map view if panning more than a screen
@@ -2530,12 +2535,14 @@ declare module L {
           * which always does the latter).
           */
         animate?: boolean;
+
         /**
           * Duration of animated panning.
           * 
           * Default value: 0.25.
           */
         duration?: number;
+
         /**
           * The curvature factor of panning animation easing (third parameter of the Cubic
           * Bezier curve). 1.0 means linear animation, the less the more bowed the curve.
@@ -2543,6 +2550,7 @@ declare module L {
           * Default value: 0.25.
           */
         easeLinearity?: number;
+
         /**
           * If true, panning won't fire movestart event on start (used internally for panning inertia).
           * 
@@ -2550,9 +2558,8 @@ declare module L {
           */
         noMoveStart?: boolean;
     }
-} 
- 
- 
+}
+
  
 
 
@@ -3280,18 +3287,21 @@ declare module L {
 
         /**
           * Minimum zoom number.
+          *
           * Default value: 0.
           */
         minZoom?: number;
     
         /**
           * Maximum zoom number.
+          *
           * Default value: 18.
           */
         maxZoom?: number;
     
         /**
           * Tile size (width and height in pixels, assuming tiles are square).
+          *
           * Default value: 256.
           */
         tileSize?: number;
@@ -3299,12 +3309,14 @@ declare module L {
         /**
           * Subdomains of the tile service. Can be passed in the form of one string (where
           * each letter is a subdomain name) or an array of strings.
+          *
           * Default value: 'abc'.
           */
-        subdomains?: any;
+        subdomains?: string[];
     
         /**
           * URL to the tile image to show in place of the tile that failed to load.
+          *
           * Default value: ''.
           */
         errorTileUrl?: string;
@@ -3312,12 +3324,14 @@ declare module L {
         /**
           * e.g. "© CloudMade" — the string used by the attribution control, describes
           * the layer data.
+          *
           * Default value: ''.
           */
         attribution?: string;
     
         /**
           * If true, inverses Y axis numbering for tiles (turn this on for TMS services).
+          *
           * Default value: false.
           */
         tms?: boolean;
@@ -3327,6 +3341,7 @@ declare module L {
           * to 180 longitude) or clamped to lie within world height (-90 to 90). Use this
           * if you use Leaflet for maps that don't reflect the real world (e.g. game, indoor
           * or photo maps).
+          *
           * Default value: false.
           */
         continuousWorld?: boolean;
@@ -3334,12 +3349,14 @@ declare module L {
         /**
           * If set to true, the tiles just won't load outside the world width (-180 to 180
           * longitude) instead of repeating.
+          *
           * Default value: false.
           */
         noWrap?: boolean;
     
         /**
           * The zoom number used in tile URLs will be offset with this value.
+          *
           * Default value: 0.
           */
         zoomOffset?: number;
@@ -3347,12 +3364,14 @@ declare module L {
         /**
           * If set to true, the zoom number used in tile URLs will be reversed (maxZoom
           * - zoom instead of zoom)
+          *
           * Default value: false.
           */
         zoomReverse?: boolean;
     
         /**
           * The opacity of the tile layer.
+          *
           * Default value: 1.0.
           */
         opacity?: number;
@@ -3377,6 +3396,7 @@ declare module L {
         /**
           * If true and user is on a retina display, it will request four tiles of half the
           * specified size and a bigger zoom level in place of one to utilize the high resolution.
+          *
           * Default value: false.
           */
         detectRetina?: boolean;
@@ -3387,6 +3407,7 @@ declare module L {
           * to dynamically creating new ones). This will in theory keep memory usage
           * low and eliminate the need for reserving new memory whenever a new tile is
           * needed.
+          *
           * Default value: false.
           */
         reuseTiles?: boolean;
@@ -3505,24 +3526,28 @@ declare module L {
 
         /**
           * (required) Comma-separated list of WMS layers to show.
+          *
           * Default value: ''.
           */
         layers?: string;
     
         /**
           * Comma-separated list of WMS styles.
+          *
           * Default value: 'image/jpeg'.
           */
         styles?: string;
     
         /**
           * WMS image format (use 'image/png' for layers with transparency).
+          *
           * Default value: false.
           */
         format?: string;
     
         /**
           * If true, the WMS service will return images with transparency.
+          *
           * Default value: '1.1.1'.
           */
         transparent?: boolean;
@@ -3542,6 +3567,7 @@ declare module L {
 
         /**
           * The position of the control (one of the map corners). See control positions.
+          *
           * Default value: 'topright'.
           */
         position?: string;
@@ -3554,6 +3580,7 @@ declare module L {
 
         /**
           * If true, the map view will be completely reset (without any animations).
+          *
           * Default value: false.
           */
         reset?: boolean;
