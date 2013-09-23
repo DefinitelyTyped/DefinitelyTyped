@@ -740,7 +740,7 @@ declare module D3 {
         */
         sort<T>(comparator?: (a: T, b: T) => number): Selection;
         order: () => Selection;
-        node: () => SVGLocatable;
+        node: () => Element;
     }
 
     export interface EnterSelection {
@@ -748,7 +748,7 @@ declare module D3 {
         insert: (name: string, before: string) => Selection;
         select: (selector: string) => Selection;
         empty: () => boolean;
-        node: () => SVGLocatable;
+        node: () => Element;
     }
 
     export interface UpdateSelection extends Selection {

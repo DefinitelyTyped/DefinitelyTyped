@@ -120,15 +120,15 @@ declare module createjs {
         target: Object;
 
         // methods
-        call(callback: (tweenObject: Tween) => any, params?: any[], scope?: Object);    // when 'params' isn't given, the callback receives a tweenObject
-        call(callback: (...params: any[]) => any, params?: any[], scope?: Object); // otherwise, it receives the params only
-        static get(target, props?: Object, pluginData?: Object, override?: boolean): Tween;
-        static hasActiveTweens(target? ): void;
+        call(callback: (tweenObject: Tween) => any, params?: any[], scope?: Object): Tween;    // when 'params' isn't given, the callback receives a tweenObject
+        call(callback: (...params: any[]) => any, params?: any[], scope?: Object): Tween; // otherwise, it receives the params only
+        static get(target: any, props?: Object, pluginData?: Object, override?: boolean): Tween;
+        static hasActiveTweens(target?: any ): void;
         static installPlugin(plugin: Object, properties: Object): void;
         pause(tween: Tween): void;
         play(tween: Tween): void;
-        static removeTweens(target): void;
-        set(props: Object, target? ): void;
+        static removeTweens(target: any): void;
+        set(props: Object, target?: any ): void;
         setPaused(value: boolean): void;
         setPosition(value: number, actionsMode: number): void;
         static tick(delta: number, paused: boolean): void;
@@ -137,7 +137,7 @@ declare module createjs {
         wait(duration: number): Tween;
 
         // events
-        change: (event) => any;
+        change: (event: any) => any;
 
         // EventDispatcher mixins
         addEventListener(type: string, listener: (eventObj: Object) => boolean): any;

@@ -1,6 +1,32 @@
 /// <reference path="three.d.ts" />
 /// <reference path="../qunit/qunit.d.ts" />
 
+/////////////////////////////////////////////////////////////////////
+// Lib.d.ts browser specific fixes necessary for these tests to work : 
+/////////////////////////////////////////////////////////////////////
+interface CSSStyleDeclaration {
+    WebkitFilter: string;
+}
+interface Document {
+    pointerLockElement: any;
+    mozPointerLockElement: any;
+    webkitPointerLockElement: any;
+    fullscreenElement: any;
+    mozFullscreenElement: any;
+    mozFullScreenElement: any;
+    webkitFullscreenElement: any;
+}
+interface HTMLElement {
+    requestPointerLock: any;
+    mozRequestPointerLock: any;
+    webkitRequestPointerLock: any;
+    requestFullScreen: any;
+    requestFullscreen: any;
+    mozRequestFullScreen: any;
+    mozRequestFullscreen: any;
+    webkitRequestFullscreen: any;
+}
+
 /*
 The MIT License
 
@@ -3156,31 +3182,6 @@ declare module THREE{
     var UTF8Loader: any;
     var UnpackDepthRGBAShader: any;
 }
-
-interface CSS3Properties{
-    WebkitFilter: string;
-}
-
-interface HTMLDocument{
-    pointerLockElement: any;
-    mozPointerLockElement: any;
-    webkitPointerLockElement: any;
-    fullscreenElement: any;
-    mozFullscreenElement: any;
-    mozFullScreenElement: any;
-    webkitFullscreenElement: any;
-}
-interface HTMLElement{
-    requestPointerLock: any;
-    mozRequestPointerLock: any;
-    webkitRequestPointerLock: any;
-    requestFullScreen: any;
-    requestFullscreen: any;
-    mozRequestFullScreen: any;
-    mozRequestFullscreen: any;
-    webkitRequestFullscreen: any;
-}
-
 
 // https://github.com/mrdoob/three.js/blob/master/examples/canvas_camera_orthographic.html
 
@@ -11231,7 +11232,7 @@ declare var ballPosition: THREE.Vector3;
         buffalos = [];
         animations = [];
 
-        var x, y,
+        var x:number, y,
             buffalo, animation,
             gridx = 25, gridz = 15,
             sepx  = 150, sepz = 300;
@@ -13618,7 +13619,7 @@ declare var ballPosition: THREE.Vector3;
         object.scale.multiplyScalar( 100 );
         scene.add( object );
 
-        var geo = new THREE.ParametricGeometry( THREE.ParametricGeometries.plane( 200, 200 ), 10, 20 );
+        geo = new THREE.ParametricGeometry( THREE.ParametricGeometries.plane( 200, 200 ), 10, 20 );
         // document.body.appendChild( THREE.UVsDebug( geo ));
         object = THREE.SceneUtils.createMultiMaterialObject( geo, materials );
         object.position.set( 0, 0, 0 );
@@ -14284,7 +14285,7 @@ declare var ballPosition: THREE.Vector3;
 
         }
 
-        var extrudeSettings: { amount: number;  bevelEnabled: bool; bevelSegments: number; steps: number; extrudePath?: THREE.SplineCurve3; };
+        var extrudeSettings: { amount: number;  bevelEnabled: boolean; bevelSegments: number; steps: number; extrudePath?: THREE.SplineCurve3; };
         extrudeSettings = { amount: 200,  bevelEnabled: true, bevelSegments: 2, steps: 150 }; // bevelSegments: 2, steps: 2 , bevelSegments: 5, bevelSize: 8, bevelThickness:5,
 
         // var extrudePath = new THREE.Path();
@@ -16585,8 +16586,11 @@ function render() {
 
                 var normalLength = 15;
 
-                for( var f = 0, fl = geometry.faces.length; f < fl; f ++ ) {
-                    var face = geometry.faces[ f ];
+                var fl: number;
+                var face: THREE.Face;
+
+                for( f = 0, fl = geometry.faces.length; f < fl; f ++ ) {
+                    face = geometry.faces[ f ];
                     var arrow = new THREE.ArrowHelper( 
                             face.normal,
                             face.centroid,
@@ -16595,8 +16599,8 @@ function render() {
                     mesh.add( arrow );
                 }
 
-                for( var f = 0, fl = originalGeometry.faces.length; f < fl; f ++ ) {
-                    var face = originalGeometry.faces[ f ];
+                for( f = 0, fl = originalGeometry.faces.length; f < fl; f ++ ) {
+                    face = originalGeometry.faces[ f ];
                     if( face.vertexNormals === undefined ) {
                         continue;
                     }
@@ -16610,8 +16614,8 @@ function render() {
                     }
                 }
 
-                for( var f = 0, fl = mesh.geometry.faces.length; f < fl; f ++ ) {
-                    var face = mesh.geometry.faces[ f ];
+                for( f = 0, fl = mesh.geometry.faces.length; f < fl; f ++ ) {
+                    face = mesh.geometry.faces[ f ];
                     if( face.vertexNormals === undefined ) {
                         continue;
                     }

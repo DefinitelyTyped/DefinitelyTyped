@@ -283,9 +283,14 @@ interface KnockoutUtils {
     arrayFilter(array: any[], predicate: (item) => boolean): any[];
 
     arrayPushAll(array: any[], valuesToPush: any[]): any[];
+<<<<<<< HEAD
     arrayPushAll(array: KnockoutObservableArray<any>, valuesToPush: any[]): any[];
 
     compareArrays(oldArray: any[], newArray: any[], dontLimitMoves?: boolean): { status: string; value: any; index?: number }[];
+=======
+
+    arrayPushAll(array: KnockoutObservableArray<any>, valuesToPush: any[]): any[];
+>>>>>>> borisyankov/master
 
     extend(target, source);
 
@@ -325,10 +330,16 @@ interface KnockoutUtils {
 
     registerEventHandler(element: any, eventType: string, handler: (any) => void );
 
+<<<<<<< HEAD
     unwrapObservable<T>(value: KnockoutSubscribable<T>): T;
     unwrapObservable<T>(value: any): T;
 
     toggleDomNodeCssClass(node: any, classNames: string, shouldHaveClass?: boolean): void;
+=======
+    peekObservable<T>(value: KnockoutObservable<T>): T;
+
+    toggleDomNodeCssClass(node: any, className: string, shouldHaveClass: boolean): void;
+>>>>>>> borisyankov/master
 
     //setTextContent(element: any, textContent: string): void; // NOT PART OF THE MINIFIED API SURFACE (ONLY IN knockout-{version}.debug.js) https://github.com/SteveSanderson/knockout/issues/670
 

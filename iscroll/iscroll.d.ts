@@ -1,6 +1,6 @@
 // Type definitions for iScroll 4.2
 // Project: http://cubiq.org/iscroll-4
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/> and Christiaan Rakowski <https://github.com/csrakowski/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -59,17 +59,18 @@ interface iScrollOptions {
 
 declare class iScroll {
 
-    constructor (element: string);
-    constructor (element: string, options: iScrollOptions);
+    constructor (element: string, options?: iScrollOptions);
+	constructor (element: HTMLElement, options?: iScrollOptions);
 
     destroy(): void;
     refresh(): void;
-    scrollTo(x: number, y: number, time: number, relative: boolean): void;
-    scrollToElement(element: string, time: number): void;
-    scrollToPage(pageX: number, pageY: number, time: number): void;
+    scrollTo(x: number, y: number, time?: number, relative?: boolean): void;
+    scrollToElement(element: string, time?: number): void;
+    scrollToElement(element: HTMLElement, time?: number): void;
+    scrollToPage(pageX: number, pageY: number, time?: number): void;
     disable(): void;
     enable(): void;
     stop(): void;
-    zoom(x: number, y: number, scale: number, time: number): void;
+    zoom(x: number, y: number, scale: number, time?: number): void;
     isReady(): boolean;
 }

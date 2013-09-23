@@ -9,4 +9,5 @@ agent
   .end((err, res) => {
     if (err) throw err;
     if (res.status !== 200) throw new Error('bad status ' + res.status);
+    if (res.body.foo === 'bar') throw new Error('bad body');
   });

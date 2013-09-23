@@ -808,7 +808,7 @@ declare module L {
           * Subdomains of the tile service. Can be passed in the form of one string (where
           * each letter is a subdomain name) or an array of strings.
           */
-        subdomains?: string;
+        subdomains?: any;
 
         /**
           * URL to the tile image to show in place of the tile that failed to load.
@@ -1449,7 +1449,7 @@ declare module L {
 
     }
 
-    export class FeatureGroup implements ILayer, IEventPowered {
+    export class FeatureGroup extends LayerGroup implements ILayer, IEventPowered {
         /**
           * Create a layer group, optionally given an initial set of layers.
           */
@@ -1898,10 +1898,6 @@ declare module L {
 
     }
 
-    interface IconDefaults {
-      imagePath: string;
-    }
-
     export class Icon {
         /**
           * Creates an icon instance with the given options.
@@ -1911,7 +1907,16 @@ declare module L {
         /**
           * Default properties for newly constructed icons.
           */
-        public static Default : IconDefaults;
+        public static Default : IconDefault;
+    }
+
+    export class IconDefault extends Icon {
+        /**
+          * Creates an icon instance with default options.
+          */
+        constructor();
+
+        imagePath: string;
     }
 
     export interface DivIconOptions {
