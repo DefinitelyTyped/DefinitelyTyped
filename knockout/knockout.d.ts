@@ -242,23 +242,23 @@ interface KnockoutUtils {
 
     fieldsIncludedWithJsonPost: any[];
 
-    arrayForEach(array: any[], action: (any) => void ): void;
+    arrayForEach<T>(array: T[], action: (item: T) => void): void;
 
-    arrayIndexOf(array: any[], item: any): number;
+    arrayIndexOf<T>(array: T[], item: T): number;
 
-    arrayFirst(array: any[], predicate: (item) => boolean, predicateOwner?: any): any;
+    arrayFirst<T>(array: T[], predicate: (item: T) => boolean, predicateOwner?: any): T;
 
-    arrayRemoveItem(array: any[], itemToRemove: any): void;
+    arrayRemoveItem<T>(array: T[], itemToRemove: T): void;
 
-    arrayGetDistinctValues(array: any[]): any[];
+    arrayGetDistinctValues<T>(array: T[]): T[];
 
-    arrayMap(array: any[], mapping: (item) => any): any[];
+    arrayMap<TIn,TOut>(array: TIn[], mapping: (item: TIn) => TOut): TOut[];
 
-    arrayFilter(array: any[], predicate: (item) => boolean): any[];
+    arrayFilter<T>(array: T[], predicate: (item: T) => boolean): T[];
 
-    arrayPushAll(array: any[], valuesToPush: any[]): any[];
+    arrayPushAll<T>(array: T[], valuesToPush: T[]): T[];
 
-    arrayPushAll(array: KnockoutObservableArray<any>, valuesToPush: any[]): any[];
+    arrayPushAll<T>(array: KnockoutObservableArray<T>, valuesToPush: T[]): T[];
 
     extend(target, source);
 
