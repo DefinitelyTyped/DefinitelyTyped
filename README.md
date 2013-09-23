@@ -26,7 +26,7 @@ Other means to get the definitions
 List of Definitions
 -------------------
 * [Ace Cloud9 Editor](http://ace.ajax.org/) (by [Diullei Gomes](https://github.com/Diullei))
-* [Adobe Edge Animate]http://html.adobe.com/edge/animate/) (by [Eirik Hoem](https://github.com/eirikhm))
+* [Adobe Edge Animate](http://html.adobe.com/edge/animate/) (by [Eirik Hoem](https://github.com/eirikhm))
 * [AmCharts](http://www.amcharts.com/) (by [Covobonomo](https://github.com/covobonomo/))
 * [AngularJS](http://angularjs.org) (by [Diego Vilar](https://github.com/diegovilar)) ([wiki](https://github.com/borisyankov/DefinitelyTyped/wiki/AngularJS-Definitions-Usage-Notes))
 * [async](https://github.com/caolan/async) (by [Boris Yankov](https://github.com/borisyankov))
