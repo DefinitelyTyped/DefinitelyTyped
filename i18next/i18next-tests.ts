@@ -1,4 +1,4 @@
-/// <reference path="../sinon/sinon-1.5.d.ts" />
+/// <reference path="../sinon/sinon.d.ts" />
 /// <reference path="../mocha/mocha.d.ts" />
 /// <reference path="../expect.js/expect.js.d.ts" />
 /// <reference path="../js-fixtures/fixtures.d.ts" />

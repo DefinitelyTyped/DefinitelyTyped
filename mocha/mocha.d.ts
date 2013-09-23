@@ -4,8 +4,8 @@
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
 
 interface Mocha {
-    setup(options: MochaSetupOptions);
-    run(callback: () => void);
+    setup(options: MochaSetupOptions): void;
+    run(callback: () => void): void;
 }
 
 interface MochaSetupOptions {
@@ -18,7 +18,7 @@ declare var describe : {
     (description: string, spec: () => void): void;
     only(description: string, spec: () => void): void;
     skip(description: string, spec: () => void): void;
-    timeout(ms: number);
+    timeout(ms: number): void;
 }
 
 declare var it: {
@@ -28,22 +28,22 @@ declare var it: {
     only(expectation: string, assertion?: (done: (error?: Error) => void) => void): void;
     skip(expectation: string, assertion?: () => void): void;
     skip(expectation: string, assertion?: (done: (error?: Error) => void) => void): void;
-    timeout(ms: number);
+    timeout(ms: number): void;
 };
 
 declare function before(action: () => void): void;
 
-declare function before(action: (done: (failReason?) => void) => void): void;
+declare function before(action: (done: (error?: Error) => void) => void): void;
 
 declare function after(action: () => void): void;
 
-declare function after(action: (done: (failReason?) => void) => void): void;
+declare function after(action: (done: (error?: Error) => void) => void): void;
 
 declare function beforeEach(action: () => void): void;
 
-declare function beforeEach(action: (done: (failReason?) => void) => void): void;
+declare function beforeEach(action: (done: (error?: Error) => void) => void): void;
 
 declare function afterEach(action: () => void): void;
 
-declare function afterEach(action: (done: (failReason?) => void) => void): void;
+declare function afterEach(action: (done: (error?: Error) => void) => void): void;
 

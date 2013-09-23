@@ -1702,8 +1702,16 @@ declare module L {
           * Number of millisecond to wait for a response from geolocation before firing
           * a locationerror event.
           */
+<<<<<<< HEAD
         timeout?: number;
         
+=======
+        onRemove(map: Map): void;
+
+    }
+
+    export class FeatureGroup extends LayerGroup implements ILayer, IEventPowered {
+>>>>>>> upstream/master
         /**
           * Maximum age of detected location. If less than this amount of milliseconds
           * passed since last geolocation response, locate will return a cached location.
@@ -2154,8 +2162,16 @@ declare module L {
           * Whether the map can be zoomed by touch-dragging with two fingers.
           * Default value: true.
           */
+<<<<<<< HEAD
         touchZoom?: boolean;
         
+=======
+        className?: string;
+
+    }
+
+    export class Icon {
+>>>>>>> upstream/master
         /**
           * Whether the map can be zoomed by using the mouse wheel.
           * Default value: true.
@@ -2166,7 +2182,21 @@ declare module L {
           * Whether the map can be zoomed in by double clicking on it.
           * Default value: true.
           */
+<<<<<<< HEAD
         doubleClickZoom?: boolean;
+=======
+        public static Default : IconDefault;
+    }
+
+    export class IconDefault extends Icon {
+        /**
+          * Creates an icon instance with default options.
+          */
+        constructor();
+
+        imagePath: string;
+    }
+>>>>>>> upstream/master
 
         /**
           * Whether the map can be zoomed to a rectangular area specified by dragging
