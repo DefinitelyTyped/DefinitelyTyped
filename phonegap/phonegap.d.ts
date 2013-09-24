@@ -174,12 +174,6 @@ interface InAppBrowser {
 }
 */
 
-interface Notification {
-    alert(message: string, alertCallback: Function, title?: string, buttonName?: string): void;
-    confirm(message: string, confirmCallback: Function, title?: string, buttonLabels?: string): void;
-    beep(times: number): void;
-}
-
 interface Database {
     transaction(populateDB?: (tx: SQLTransaction) => any, errorCB?: (err) => any, successCB?: () => any);
     changeVersion(var1: string, var2: string);
