@@ -175,6 +175,43 @@ interface IGruntFileObject {
     findup: any;
 }
 
+////////////////
+// 'this' when executing within a task
+// http://gruntjs.com/api/inside-tasks
+////////////////
+interface IGruntTaskThis {
+    async(): (err:any) => void;
+    requires(...taskNames: string[]): void;
+    requiresConfig(...props: string[]): void;
+    name: string;
+    nameArgs: string;
+    args: string[];
+    flags: any;
+    errorCount: number;
+    options(defaults?: Object): any;
+}
+
+////////////////
+// 'this' when executing within a multitask
+// http://gruntjs.com/api/inside-tasks
+////////////////
+interface IGruntMultiTaskThis extends IGruntTaskThis {
+  target: string;
+  files: IGruntFileArray[];
+  filesSrc: string[];
+  data: any;
+}
+
+////////////////
+// Files array format
+// http://gruntjs.com/configuring-tasks#files-array-format
+////////////////
+interface IGruntFileArray {
+  src: string[];
+  dest: string;
+  nonull?: boolean;
+  filter?: any;
+}
 
 ////////////////
 /// Globally called export function module.exports
