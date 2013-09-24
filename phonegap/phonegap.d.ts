@@ -210,22 +210,6 @@ interface InAppBrowser {
 }
 */
 
-interface Media {
-    new (src: string, mediaSuccess: Function, mediaError?: (mediaError: MediaError) => any, mediaStatus?: Function);
-    getCurrentPosition(mediaSuccess: Function, mediaError?: (mediaError: MediaError) => any): void;
-    getDuration(): any;
-    play(): void;
-    pause(): void;
-    release(): void;
-    seekTo(milliseconds: number): void;
-    startRecord(): void;
-    stopRecord(): void;
-    stop(): void;
-}
-declare var Media: {
-    new(src: string, onSuccess: (arg) => any, onError: (arg) => any): Media;
-}
-
 interface Notification {
     alert(message: string, alertCallback: Function, title?: string, buttonName?: string): void;
     confirm(message: string, confirmCallback: Function, title?: string, buttonLabels?: string): void;
