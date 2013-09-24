@@ -210,10 +210,6 @@ interface LocalStorage {
 }
 */
 
-interface /*PhoneGapNavigator extends*/ Navigator {
-    capture: Capture;
-}
-
 interface Window {
     requestFileSystem: any;
     openDatabase(database_name: string, database_version: string, database_displayname: string, database_size: number): Database;
