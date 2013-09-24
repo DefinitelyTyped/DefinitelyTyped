@@ -261,12 +261,6 @@ interface Contacts {
 }
 
 interface Device {
-    name: string;
-    cordova: string;
-    platform: string;
-    uuid: string;
-    version: string;
-    model: string;
     capture: Capture;
 }
 
@@ -530,7 +524,6 @@ interface /*PhoneGapNavigator extends*/ Navigator {
     compass: Compass;
     connection: Connection;
     contacts: Contacts;
-    device: Device;
     globalization: Globalization;
     notification: Notification;
     splashscreen: Splashscreen;
@@ -541,5 +534,4 @@ interface Window {
     openDatabase(database_name: string, database_version: string, database_displayname: string, database_size: number): Database;
 }
 
-declare var device: Device;
 declare var phoneGapNavigator: Navigator /*PhoneGapNavigator*/;
