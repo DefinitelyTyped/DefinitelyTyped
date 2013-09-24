@@ -1,9 +1,7 @@
 // Type definitions for Leaflet.js 0.6.4
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Vladimir Zotov <https://github.com/rgripper>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped// This file is left for convenience only. Declaration is moved to Control.d.ts. Explanation is below.
-// https://typescript.codeplex.com/workitem/1701
-// http://stackoverflow.com/questions/18890427/how-to-write-x-base-descendant-where-x-base-both-a-class-and-module
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
  
 declare module L {
 
@@ -156,9 +154,6 @@ declare module L {
  
  
  
-// This file is left for convenience only. Declaration is moved to TileLayer.d.ts. Explanation is below.
-// https://typescript.codeplex.com/workitem/1701
-// http://stackoverflow.com/questions/18890427/how-to-write-x-base-descendant-where-x-base-both-a-class-and-module
  
 declare module L {
     export class Circle extends Path {
@@ -338,7 +333,6 @@ declare module L {
             removeLayer(layer: ILayer): Layers;
 
             ////////////////
-            //// Methods for events
             ////////////////
             addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Layers;
             addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Layers;
@@ -663,7 +657,6 @@ declare module L {
         disable(): void;
         
         ////////////////
-        //// Methods for events
         ////////////////
         addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Draggable;
         addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Draggable;
@@ -720,7 +713,6 @@ declare module L {
           */
         bringToBack(): FeatureGroup;
         ////////////
-        //// ILayer members
         ////////////
         /**
           * Should contain code that creates DOM elements for the overlay, adds them
@@ -736,7 +728,6 @@ declare module L {
         onRemove(map: Map): void;
         
         ////////////////
-        //// Methods for events
         ////////////////
         addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): FeatureGroup;
         addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): FeatureGroup;
@@ -1190,7 +1181,6 @@ declare module L {
           */
         bringToBack(): ImageOverlay;
         ////////////
-        //// ILayer members
         ////////////
         /**
           * Should contain code that creates DOM elements for the overlay, adds them
@@ -1423,7 +1413,6 @@ declare module L {
           */
         eachLayer(fn: (layer: ILayer) => void, context?: any): LayerGroup;
         ////////////
-        //// ILayer members
         ////////////
         /**
           * Should contain code that creates DOM elements for the overlay, adds them
@@ -1443,9 +1432,6 @@ declare module L {
  
  
  
-// This file is left for convenience only. Declaration is moved to Control.d.ts. Explanation is below.
-// https://typescript.codeplex.com/workitem/1701
-// http://stackoverflow.com/questions/18890427/how-to-write-x-base-descendant-where-x-base-both-a-class-and-module
  
 declare module L {
 
@@ -2109,7 +2095,6 @@ declare module L {
 
 
         ////////////////
-        //// Methods for events
         ////////////////
         addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Map;
         addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Map;
@@ -2365,7 +2350,6 @@ declare module L {
         popupPane: HTMLElement;
     }
     ////////////
-    //// Marker
     ////////////
 } 
  
@@ -2441,7 +2425,6 @@ declare module L {
           */
         closePopup(): Marker;
         ////////////
-        //// ILayer members
         ////////////
         /**
           * Should contain code that creates DOM elements for the overlay, adds them
@@ -2457,7 +2440,6 @@ declare module L {
         onRemove(map: Map): void;
         
         ////////////////
-        //// Methods for events
         ////////////////
         addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Marker;
         addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Marker;
@@ -2685,7 +2667,6 @@ declare module L {
           */
         static CLIP_PADDING: number;
         ////////////
-        //// ILayer members
         ////////////
         /**
           * Should contain code that creates DOM elements for the overlay, adds them
@@ -2701,7 +2682,6 @@ declare module L {
         onRemove(map: Map): void;
         
         ////////////////
-        //// Methods for events
         ////////////////
         addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Path;
         addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Path;
@@ -2978,7 +2958,6 @@ declare module L {
           */
         setContent(htmlContent: string): Popup;
         ////////////
-        //// ILayer members
         ////////////
         /**
           * Should contain code that creates DOM elements for the overlay, adds them
@@ -3069,7 +3048,6 @@ declare module L {
         run(element: HTMLElement, newPos: Point, duration?: number, easeLinearity?: number): PosAnimation;
         
         ////////////////
-        //// Methods for events
         ////////////////
         addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): PosAnimation;
         addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): PosAnimation;
@@ -3141,9 +3119,6 @@ declare module L {
  
  
  
-// This file is left for convenience only. Declaration is moved to Control.d.ts. Explanation is below.
-// https://typescript.codeplex.com/workitem/1701
-// http://stackoverflow.com/questions/18890427/how-to-write-x-base-descendant-where-x-base-both-a-class-and-module
  
 declare module L {
 
@@ -3241,7 +3216,6 @@ declare module L {
         getContainer(): HTMLElement;
 
         ////////////
-        //// ILayer members
         ////////////
         /**
           * Should contain code that creates DOM elements for the overlay, adds them
@@ -3257,7 +3231,6 @@ declare module L {
         onRemove(map: Map): void;
     
         ////////////////
-        //// Methods for events
         ////////////////
         addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): TileLayer;
         addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): TileLayer;
@@ -3568,9 +3541,7 @@ declare module L {
  
  
  
-// This file is left for convenience only. Declaration is moved to TileLayer.d.ts. Explanation is below.
-// https://typescript.codeplex.com/workitem/1701
-// http://stackoverflow.com/questions/18890427/how-to-write-x-base-descendant-where-x-base-both-a-class-and-module 
+ 
 declare module L {
 
     export interface WMSOptions {
@@ -3611,9 +3582,6 @@ declare module L {
     }
 }
  
-// This file is left for convenience only. Declaration is moved to Control.d.ts. Explanation is below.
-// https://typescript.codeplex.com/workitem/1701
-// http://stackoverflow.com/questions/18890427/how-to-write-x-base-descendant-where-x-base-both-a-class-and-module
  
 declare module L {
 
