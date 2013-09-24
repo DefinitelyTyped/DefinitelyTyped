@@ -130,7 +130,7 @@ interface IGruntFileObject {
 
     // Directories
     mkdir(dirpath: string, mode?: number): void;
-    recurse(rootdir: string, callback: Function): void;
+    recurse(rootdir: string, callback: (abspath: string, rootdir: string, subdir: string, filename: string) => void): void;
 
     // Globbing patterns
     expand(...patterns: string[]): string[];
@@ -164,7 +164,9 @@ interface IGruntFileObject {
     // paths
     isPathAbsolute(...paths: string[]): boolean;
     arePathsEquivalent(...paths: string[]): boolean;
+    doesPathContain(ancestorPath: string, ...descendantPaths: string[]): boolean;
     isPathCwd(...paths: string[]): boolean;
+    isPathInCwd(...paths: string[]): boolean;
     setBase(...paths: string[]): void;
 
     // External libraries
