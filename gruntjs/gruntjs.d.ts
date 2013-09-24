@@ -51,7 +51,7 @@ interface IGruntConfig {
 interface IGrunt {
     // Config
     config: IGruntConfigObject;
-    initConfig(config?: IGruntConfig);
+    initConfig(config?: IGruntConfig): void;
 
 
     // Tasks
@@ -121,37 +121,53 @@ interface IGruntFileObject {
     defaultEncoding: string;
 
     // Reading and writing
-    read(filepath, options?: IGruntFileObjectOptionsSimple);
-    readJSON(filepath, options?: IGruntFileObjectOptionsSimple);
-    readYAML(filepath, options?: IGruntFileObjectOptionsSimple);
-    write(filepath, contents, options?: IGruntFileObjectOptionsSimple);
-    copy(srcpath, destpath, options?: IGruntFileObjectOptions);
-    delete (filepath, options?: { force?: boolean; });
+    read(filepath: string, options?: IGruntFileObjectOptionsSimple): string;
+    readJSON(filepath: string, options?: IGruntFileObjectOptionsSimple): any;
+    readYAML(filepath: string, options?: IGruntFileObjectOptionsSimple): any;
+    write(filepath: string, contents: any, options?: IGruntFileObjectOptionsSimple): void;
+    copy(srcpath: string, destpath: string, options?: IGruntFileObjectOptions): void;
+    delete(filepath: string, options?: { force?: boolean; }): void;
 
     // Directories
-    mkdir(dirpath, mode?);
-    recurse(rootdir, callback);
+    mkdir(dirpath: string, mode?: number): void;
+    recurse(rootdir: string, callback: (abspath: string, rootdir: string, subdir: string, filename: string) => void): void;
 
     // Globbing patterns
-    expand(patterns);
-    expand(options, patterns);
-    expandMapping(patterns, dest, options?);
-    match(patterns, filepaths);
-    match(options, patterns, filepaths);
-    isMatch(patterns, filepaths): boolean;
-    isMatch(options, patterns, filepaths): boolean;
+    expand(...patterns: string[]): string[];
+    expand(options: Object, ...patterns: string[]): string[];
+    expandMapping(patterns: string[], dest: string, options?: Object): any[];
+
+    match(patterns: string[], filepaths: string[]): string[];
+    match(patterns: string[], filepaths: string): string[];
+    match(patterns: string, filepaths: string[]): string[];
+    match(patterns: string, filepaths: string): string[];
+    match(options: Object, patterns: string[], filepaths: string[]): string[];
+    match(options: Object, patterns: string[], filepaths: string): string[];
+    match(options: Object, patterns: string, filepaths: string[]): string[];
+    match(options: Object, patterns: string, filepaths: string): string[];
+
+    isMatch(patterns: string[], filepaths: string[]): boolean;
+    isMatch(patterns: string[], filepaths: string): boolean;
+    isMatch(patterns: string, filepaths: string[]): boolean;
+    isMatch(patterns: string, filepaths: string): boolean;
+    isMatch(options: Object, patterns: string[], filepaths: string[]): boolean;
+    isMatch(options: Object, patterns: string[], filepaths: string): boolean;
+    isMatch(options: Object, patterns: string, filepaths: string[]): boolean;
+    isMatch(options: Object, patterns: string, filepaths: string): boolean;
 
     // file types
-    exists(...paths: any[]);
-    isLink(...paths: any[]);
-    isDir(...paths: any[]);
-    isFile(...paths: any[]);
+    exists(...paths: string[]): boolean;
+    isLink(...paths: string[]): boolean;
+    isDir(...paths: string[]): boolean;
+    isFile(...paths: string[]): boolean;
 
     // paths
-    isPathAbsolute(...paths: any[]);
-    arePathsEquivalent(...paths: any[]);
-    isPathCwd(...paths: any[]);
-    setBase(...paths: any[]);
+    isPathAbsolute(...paths: string[]): boolean;
+    arePathsEquivalent(...paths: string[]): boolean;
+    doesPathContain(ancestorPath: string, ...descendantPaths: string[]): boolean;
+    isPathCwd(...paths: string[]): boolean;
+    isPathInCwd(...paths: string[]): boolean;
+    setBase(...paths: string[]): void;
 
     // External libraries
     glob: any;
@@ -159,6 +175,43 @@ interface IGruntFileObject {
     findup: any;
 }
 
+////////////////
+// 'this' when executing within a task
+// http://gruntjs.com/api/inside-tasks
+////////////////
+interface IGruntTaskThis {
+    async(): (err:any) => void;
+    requires(...taskNames: string[]): void;
+    requiresConfig(...props: string[]): void;
+    name: string;
+    nameArgs: string;
+    args: string[];
+    flags: any;
+    errorCount: number;
+    options(defaults?: Object): any;
+}
+
+////////////////
+// 'this' when executing within a multitask
+// http://gruntjs.com/api/inside-tasks
+////////////////
+interface IGruntMultiTaskThis extends IGruntTaskThis {
+  target: string;
+  files: IGruntFileArray[];
+  filesSrc: string[];
+  data: any;
+}
+
+////////////////
+// Files array format
+// http://gruntjs.com/configuring-tasks#files-array-format
+////////////////
+interface IGruntFileArray {
+  src: string[];
+  dest: string;
+  nonull?: boolean;
+  filter?: any;
+}
 
 ////////////////
 /// Globally called export function module.exports
