@@ -11,7 +11,6 @@ declare var Connection: {
     CELL_4G: number;
     NONE: number;
 }
-declare var Connection: Connection;
 
 interface Navigator {
     connection: Connection;

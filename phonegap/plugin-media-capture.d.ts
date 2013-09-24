@@ -49,3 +49,5 @@ interface Capture {
 interface Device {
     capture: Capture;
 }
+
+declare var device: Device;
