@@ -12,26 +12,6 @@ interface GeolocationError {
     message: string;
 }
 
-interface Acceleration {
-    x: number;
-    y: number;
-    z: number;
-    timestamp: number; //DOMTimeStamp;
-}
-declare var Acceleration: {
-    new(): Acceleration;
-}
-
-interface AccelerometerOptions {
-    frequency?: number;
-}
-
-interface Accelerometer {
-    getCurrentAcceleration(accelerometerSuccess: (acceleration: Acceleration) => void , accelerometerError: () => void ): void;
-    watchAcceleration(accelerometerSuccess: (acceleration: Acceleration) => void , accelerometerError: () => void , accelerometerOptions?: AccelerometerOptions): void;
-    clearWatch(watchID: number): void;
-}
-
 interface CameraPopoverOptions {
     x?: number;
     y?: number;
@@ -128,6 +108,20 @@ interface Capture {
     captureAudio(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureAudioOptions);
     captureImage(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureImageOptions);
     captureVideo(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureImageOptions);
+}
+
+interface Connection {
+    UNKNOWN: number;
+    ETHERNET: number;
+    WIFI: number;
+    CELL_2G: number;
+    CELL_3G: number;
+    CELL_4G: number;
+    NONE: number;
+}
+
+interface Connection {
+    type: number;
 }
 
 interface Device {
@@ -355,7 +349,6 @@ interface LocalStorage {
 */
 
 interface /*PhoneGapNavigator extends*/ Navigator {
-    accelerometer: Accelerometer;
     camera: Camera;
     capture: Capture;
 }
