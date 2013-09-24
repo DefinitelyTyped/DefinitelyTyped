@@ -1,3 +1,9 @@
+// Type definitions for Leaflet.js 0.6.4
+// Project: https://github.com/Leaflet/Leaflet
+// Definitions by: Vladimir Zotov <https://github.com/rgripper>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped// This file is left for convenience only. Declaration is moved to Control.d.ts. Explanation is below.
+// https://typescript.codeplex.com/workitem/1701
+// http://stackoverflow.com/questions/18890427/how-to-write-x-base-descendant-where-x-base-both-a-class-and-module
  
 declare module L {
 
@@ -150,6 +156,9 @@ declare module L {
  
  
  
+// This file is left for convenience only. Declaration is moved to TileLayer.d.ts. Explanation is below.
+// https://typescript.codeplex.com/workitem/1701
+// http://stackoverflow.com/questions/18890427/how-to-write-x-base-descendant-where-x-base-both-a-class-and-module
  
 declare module L {
     export class Circle extends Path {
@@ -253,6 +262,7 @@ declare module L {
           */
         getContainer(): HTMLElement;
 
+        // IControl members
 
         /**
           * Should contain code that creates all the neccessary DOM elements for the
@@ -328,6 +338,7 @@ declare module L {
             removeLayer(layer: ILayer): Layers;
 
             ////////////////
+            //// Methods for events
             ////////////////
             addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Layers;
             addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Layers;
@@ -652,6 +663,7 @@ declare module L {
         disable(): void;
         
         ////////////////
+        //// Methods for events
         ////////////////
         addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Draggable;
         addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Draggable;
@@ -708,6 +720,7 @@ declare module L {
           */
         bringToBack(): FeatureGroup;
         ////////////
+        //// ILayer members
         ////////////
         /**
           * Should contain code that creates DOM elements for the overlay, adds them
@@ -723,6 +736,7 @@ declare module L {
         onRemove(map: Map): void;
         
         ////////////////
+        //// Methods for events
         ////////////////
         addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): FeatureGroup;
         addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): FeatureGroup;
@@ -1176,6 +1190,7 @@ declare module L {
           */
         bringToBack(): ImageOverlay;
         ////////////
+        //// ILayer members
         ////////////
         /**
           * Should contain code that creates DOM elements for the overlay, adds them
@@ -1408,6 +1423,7 @@ declare module L {
           */
         eachLayer(fn: (layer: ILayer) => void, context?: any): LayerGroup;
         ////////////
+        //// ILayer members
         ////////////
         /**
           * Should contain code that creates DOM elements for the overlay, adds them
@@ -1427,6 +1443,9 @@ declare module L {
  
  
  
+// This file is left for convenience only. Declaration is moved to Control.d.ts. Explanation is below.
+// https://typescript.codeplex.com/workitem/1701
+// http://stackoverflow.com/questions/18890427/how-to-write-x-base-descendant-where-x-base-both-a-class-and-module
  
 declare module L {
 
@@ -1702,16 +1721,8 @@ declare module L {
           * Number of millisecond to wait for a response from geolocation before firing
           * a locationerror event.
           */
-<<<<<<< HEAD
         timeout?: number;
         
-=======
-        onRemove(map: Map): void;
-
-    }
-
-    export class FeatureGroup extends LayerGroup implements ILayer, IEventPowered {
->>>>>>> upstream/master
         /**
           * Maximum age of detected location. If less than this amount of milliseconds
           * passed since last geolocation response, locate will return a cached location.
@@ -1727,6 +1738,7 @@ declare module L {
  
  
  
+// checked
 declare module L {
 
     export class Map implements IEventPowered<Map> {
@@ -1762,6 +1774,7 @@ declare module L {
           */
         static map(id: string, options?: MapOptions): Map;
 
+        // Methods for Modifying Map State
 
         /**
           * Sets the view of the map (geographical center and zoom) with the given
@@ -1819,6 +1832,7 @@ declare module L {
           */
         panBy(point: Point, options?: PanOptions): Map;
         
+        // REVIEW: Documentation contains invalid signature for this method, took from the source.
         /**
           * Checks if the map container size changed and updates the map if so — call it
           * after you've changed the map size dynamically, also animating pan by default.
@@ -1858,6 +1872,7 @@ declare module L {
           */
         remove(): Map;
     
+        // Methods for Getting Map State
 
         /**
           * Returns the geographical center of the map view.
@@ -1909,6 +1924,7 @@ declare module L {
           */
         getPixelOrigin(): Point;
     
+        // Methods for Layers and Controls
 
         /**
           * Adds the given layer to the map. If optional insertAtTheBottom is set to true,
@@ -1959,6 +1975,7 @@ declare module L {
           */
         removeControl(control: IControl): Map;
     
+        // Conversion Methods
 
         /**
           * Returns the map layer point that corresponds to the given geographical coordinates
@@ -2024,6 +2041,7 @@ declare module L {
           */
         mouseEventToLatLng(event: LeafletMouseEvent): LatLng;
     
+        // Other Methods
 
         /**
           * Returns the container element of the map.
@@ -2035,12 +2053,14 @@ declare module L {
           */
         getPanes(): MapPanes;
     
+        // REVIEW: Should we make it more flexible declaring parameter 'fn' as Function?
         /**
           * Runs the given callback when the map gets initialized with a place and zoom,
           * or immediately if it happened already, optionally passing a function context.
           */
         whenReady(fn: (Map) => void, context?: any): Map;
     
+        // Properties
 
         /**
           * Map dragging handler (by both mouse and touch).
@@ -2089,6 +2109,7 @@ declare module L {
 
 
         ////////////////
+        //// Methods for events
         ////////////////
         addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Map;
         addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Map;
@@ -2107,9 +2128,11 @@ declare module L {
     }
 }
  
+// checked
 declare module L {
     export interface MapOptions {
 
+        // Map State Options
 
         /**
           * Initial geographical center of the map.
@@ -2151,6 +2174,7 @@ declare module L {
           */
         crs?: ICRS;
         
+        // Interaction Options
 
         /**
           * Whether the map be draggable with mouse/touch or not.
@@ -2162,16 +2186,8 @@ declare module L {
           * Whether the map can be zoomed by touch-dragging with two fingers.
           * Default value: true.
           */
-<<<<<<< HEAD
         touchZoom?: boolean;
         
-=======
-        className?: string;
-
-    }
-
-    export class Icon {
->>>>>>> upstream/master
         /**
           * Whether the map can be zoomed by using the mouse wheel.
           * Default value: true.
@@ -2182,21 +2198,7 @@ declare module L {
           * Whether the map can be zoomed in by double clicking on it.
           * Default value: true.
           */
-<<<<<<< HEAD
         doubleClickZoom?: boolean;
-=======
-        public static Default : IconDefault;
-    }
-
-    export class IconDefault extends Icon {
-        /**
-          * Creates an icon instance with default options.
-          */
-        constructor();
-
-        imagePath: string;
-    }
->>>>>>> upstream/master
 
         /**
           * Whether the map can be zoomed to a rectangular area specified by dragging
@@ -2239,6 +2241,7 @@ declare module L {
           */
         closePopupOnClick?: boolean;
         
+        // Keyboard Navigation Options
 
         /**
           * Makes the map focusable and allows users to navigate the map with keyboard
@@ -2259,6 +2262,7 @@ declare module L {
           */
         keyboardZoomOffset?: number;
         
+        // Panning Inertia Options
 
         /**
           * If enabled, panning of the map will have an inertia effect where the map builds
@@ -2287,6 +2291,7 @@ declare module L {
           */
         inertiaThreshold?: number;
         
+        // Control options
 
         /**
           * Whether the zoom control is added to the map by default.
@@ -2300,6 +2305,7 @@ declare module L {
           */
         attributionControl?: boolean;
         
+        // Animation options
 
         /**
           * Whether the tile fade animation is enabled. By default it's enabled in all
@@ -2359,6 +2365,7 @@ declare module L {
         popupPane: HTMLElement;
     }
     ////////////
+    //// Marker
     ////////////
 } 
  
@@ -2434,6 +2441,7 @@ declare module L {
           */
         closePopup(): Marker;
         ////////////
+        //// ILayer members
         ////////////
         /**
           * Should contain code that creates DOM elements for the overlay, adds them
@@ -2449,6 +2457,7 @@ declare module L {
         onRemove(map: Map): void;
         
         ////////////////
+        //// Methods for events
         ////////////////
         addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Marker;
         addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Marker;
@@ -2676,6 +2685,7 @@ declare module L {
           */
         static CLIP_PADDING: number;
         ////////////
+        //// ILayer members
         ////////////
         /**
           * Should contain code that creates DOM elements for the overlay, adds them
@@ -2691,6 +2701,7 @@ declare module L {
         onRemove(map: Map): void;
         
         ////////////////
+        //// Methods for events
         ////////////////
         addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Path;
         addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Path;
@@ -2967,6 +2978,7 @@ declare module L {
           */
         setContent(htmlContent: string): Popup;
         ////////////
+        //// ILayer members
         ////////////
         /**
           * Should contain code that creates DOM elements for the overlay, adds them
@@ -3057,6 +3069,7 @@ declare module L {
         run(element: HTMLElement, newPos: Point, duration?: number, easeLinearity?: number): PosAnimation;
         
         ////////////////
+        //// Methods for events
         ////////////////
         addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): PosAnimation;
         addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): PosAnimation;
@@ -3128,6 +3141,9 @@ declare module L {
  
  
  
+// This file is left for convenience only. Declaration is moved to Control.d.ts. Explanation is below.
+// https://typescript.codeplex.com/workitem/1701
+// http://stackoverflow.com/questions/18890427/how-to-write-x-base-descendant-where-x-base-both-a-class-and-module
  
 declare module L {
 
@@ -3225,6 +3241,7 @@ declare module L {
         getContainer(): HTMLElement;
 
         ////////////
+        //// ILayer members
         ////////////
         /**
           * Should contain code that creates DOM elements for the overlay, adds them
@@ -3240,6 +3257,7 @@ declare module L {
         onRemove(map: Map): void;
     
         ////////////////
+        //// Methods for events
         ////////////////
         addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): TileLayer;
         addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): TileLayer;
@@ -3550,6 +3568,9 @@ declare module L {
  
  
  
+// This file is left for convenience only. Declaration is moved to TileLayer.d.ts. Explanation is below.
+// https://typescript.codeplex.com/workitem/1701
+// http://stackoverflow.com/questions/18890427/how-to-write-x-base-descendant-where-x-base-both-a-class-and-module 
 declare module L {
 
     export interface WMSOptions {
@@ -3590,6 +3611,9 @@ declare module L {
     }
 }
  
+// This file is left for convenience only. Declaration is moved to Control.d.ts. Explanation is below.
+// https://typescript.codeplex.com/workitem/1701
+// http://stackoverflow.com/questions/18890427/how-to-write-x-base-descendant-where-x-base-both-a-class-and-module
  
 declare module L {
 
