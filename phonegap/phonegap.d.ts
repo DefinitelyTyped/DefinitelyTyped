@@ -358,7 +358,6 @@ interface Notification {
     alert(message: string, alertCallback: Function, title?: string, buttonName?: string): void;
     confirm(message: string, confirmCallback: Function, title?: string, buttonLabels?: string): void;
     beep(times: number): void;
-    vibrate(milliseconds: number): void;
 }
 
 interface Database {
@@ -403,7 +402,6 @@ interface /*PhoneGapNavigator extends*/ Navigator {
     capture: Capture;
     connection: Connection;
     globalization: Globalization;
-    notification: Notification;
 }
 
 interface Window {
