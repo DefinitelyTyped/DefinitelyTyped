@@ -65,7 +65,7 @@ function authenticate(name, pass, fn) {
     })
 }
 
-function restrict(req: ExpressServerRequest, res: ExpressServerResponse, next?: Function) {
+function restrict(req: express.Request, res: express.Response, next?: Function) {
     if (req.session.user) {
         next();
     } else {
@@ -1337,7 +1337,7 @@ function test_general() {
 }
 
 function test_request() {
-    var req: ExpressServerRequest;
+    var req: express.Request;
     req.params.name;
     req.params[0];
     req.query.q;
@@ -1370,7 +1370,7 @@ function test_request() {
 }
 
 function test_response() {
-    var res: ExpressServerResponse;
+    var res: express.Response;
     res.status(404).sendfile('path/to/404.png');
     res.set('Content-Type', 'text/plain');
     res.set({
