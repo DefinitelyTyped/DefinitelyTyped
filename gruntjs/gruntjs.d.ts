@@ -51,7 +51,7 @@ interface IGruntConfig {
 interface IGrunt {
     // Config
     config: IGruntConfigObject;
-    initConfig(config?: IGruntConfig);
+    initConfig(config?: IGruntConfig): void;
 
 
     // Tasks
@@ -121,37 +121,51 @@ interface IGruntFileObject {
     defaultEncoding: string;
 
     // Reading and writing
-    read(filepath, options?: IGruntFileObjectOptionsSimple);
-    readJSON(filepath, options?: IGruntFileObjectOptionsSimple);
-    readYAML(filepath, options?: IGruntFileObjectOptionsSimple);
-    write(filepath, contents, options?: IGruntFileObjectOptionsSimple);
-    copy(srcpath, destpath, options?: IGruntFileObjectOptions);
-    delete (filepath, options?: { force?: boolean; });
+    read(filepath: string, options?: IGruntFileObjectOptionsSimple): string;
+    readJSON(filepath: string, options?: IGruntFileObjectOptionsSimple): any;
+    readYAML(filepath: string, options?: IGruntFileObjectOptionsSimple): any;
+    write(filepath: string, contents: any, options?: IGruntFileObjectOptionsSimple): void;
+    copy(srcpath: string, destpath: string, options?: IGruntFileObjectOptions): void;
+    delete(filepath: string, options?: { force?: boolean; }): void;
 
     // Directories
-    mkdir(dirpath, mode?);
-    recurse(rootdir, callback);
+    mkdir(dirpath: string, mode?: number): void;
+    recurse(rootdir: string, callback: Function): void;
 
     // Globbing patterns
-    expand(patterns);
-    expand(options, patterns);
-    expandMapping(patterns, dest, options?);
-    match(patterns, filepaths);
-    match(options, patterns, filepaths);
-    isMatch(patterns, filepaths): boolean;
-    isMatch(options, patterns, filepaths): boolean;
+    expand(...patterns: string[]): string[];
+    expand(options: Object, ...patterns: string[]): string[];
+    expandMapping(patterns: string[], dest: string, options?: Object): any[];
+
+    match(patterns: string[], filepaths: string[]): string[];
+    match(patterns: string[], filepaths: string): string[];
+    match(patterns: string, filepaths: string[]): string[];
+    match(patterns: string, filepaths: string): string[];
+    match(options: Object, patterns: string[], filepaths: string[]): string[];
+    match(options: Object, patterns: string[], filepaths: string): string[];
+    match(options: Object, patterns: string, filepaths: string[]): string[];
+    match(options: Object, patterns: string, filepaths: string): string[];
+
+    isMatch(patterns: string[], filepaths: string[]): boolean;
+    isMatch(patterns: string[], filepaths: string): boolean;
+    isMatch(patterns: string, filepaths: string[]): boolean;
+    isMatch(patterns: string, filepaths: string): boolean;
+    isMatch(options: Object, patterns: string[], filepaths: string[]): boolean;
+    isMatch(options: Object, patterns: string[], filepaths: string): boolean;
+    isMatch(options: Object, patterns: string, filepaths: string[]): boolean;
+    isMatch(options: Object, patterns: string, filepaths: string): boolean;
 
     // file types
-    exists(...paths: any[]);
-    isLink(...paths: any[]);
-    isDir(...paths: any[]);
-    isFile(...paths: any[]);
+    exists(...paths: string[]): boolean;
+    isLink(...paths: string[]): boolean;
+    isDir(...paths: string[]): boolean;
+    isFile(...paths: string[]): boolean;
 
     // paths
-    isPathAbsolute(...paths: any[]);
-    arePathsEquivalent(...paths: any[]);
-    isPathCwd(...paths: any[]);
-    setBase(...paths: any[]);
+    isPathAbsolute(...paths: string[]): boolean;
+    arePathsEquivalent(...paths: string[]): boolean;
+    isPathCwd(...paths: string[]): boolean;
+    setBase(...paths: string[]): void;
 
     // External libraries
     glob: any;
