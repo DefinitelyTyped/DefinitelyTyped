@@ -361,11 +361,6 @@ interface Notification {
     vibrate(milliseconds: number): void;
 }
 
-interface Splashscreen {
-    show(): void;
-    hide(): void;
-}
-
 interface Database {
     transaction(populateDB?: (tx: SQLTransaction) => any, errorCB?: (err) => any, successCB?: () => any);
     changeVersion(var1: string, var2: string);
@@ -409,7 +404,6 @@ interface /*PhoneGapNavigator extends*/ Navigator {
     connection: Connection;
     globalization: Globalization;
     notification: Notification;
-    splashscreen: Splashscreen;
 }
 
 interface Window {
