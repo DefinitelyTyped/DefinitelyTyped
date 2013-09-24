@@ -12,42 +12,6 @@ interface GeolocationError {
     message: string;
 }
 
-interface CaptureAudioOptions {
-    limit?: number;
-    duration?: number;
-    mode?: number;
-}
-
-interface CaptureImageOptions {
-    limit?: number;
-    mode?: number;
-}
-
-interface MediaFile {
-    name: string;
-    fullPath: string;
-    type: string;
-    lastModifiedDate: Date;
-    size: number;
-
-    getFormatData(successCallback: Function, errorCallback?: Function): void;
-}
-
-interface CaptureError {
-    code: number;
-    message: string;
-}
-
-interface Capture {
-    captureAudio(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureAudioOptions);
-    captureImage(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureImageOptions);
-    captureVideo(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureImageOptions);
-}
-
-interface Device {
-    capture: Capture;
-}
-
 /* Defined in lib.d.ts
 interface File {
     fullPath: string;
