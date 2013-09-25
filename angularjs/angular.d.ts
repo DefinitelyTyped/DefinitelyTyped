@@ -500,7 +500,7 @@ declare module ng {
         (controllerName: string, locals?: any): any;
     }
 
-    interface IControlerProvider extends IServiceProvider {
+    interface IControllerProvider extends IServiceProvider {
         register(name: string, controllerConstructor: Function): void;
         register(name: string, dependencyAnnotadedConstructor: any[]): void;
     }
