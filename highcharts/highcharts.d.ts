@@ -175,6 +175,9 @@ interface HighchartsColorOrGradient {
         cx: number; cy: number; r: number;
     };
     stops?: any[][];
+    
+    brighten?(amount: number): HighchartsColorOrGradient;
+    get?(type: string): string;
 }
 
 interface HighchartsBoolOrShadow {
@@ -1048,11 +1051,14 @@ interface HighchartsRenderer {
 interface HighchartsStatic {
     Chart: HighchartsChart;
     Renderer: HighchartsRenderer;
+    Color(color: HighchartsColorOrGradient): HighchartsColorOrGradient;
 
     dateFormat(format: string, time?: number, capitalize?: boolean): string;
     numberFormat(value: number, decimals?: number, decimalPoint?: string, thousandsSep?: string): string;
     setOptions(options: HighchartsOptions): HighchartsOptions;
     getOptions(): HighchartsOptions;
+    
+    map(array: Array, any): Array;
 }
 declare var Highcharts: HighchartsStatic;
 
