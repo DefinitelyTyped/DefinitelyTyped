@@ -30,17 +30,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-///<reference path="chai-assert.d.ts" />
+///<reference path="chai.d.ts" />
 
-//stubs
-declare module chai {
-	var AssertionError;
-	function expect(body):any;
-}
+import chai = require('chai');
+var assert = chai.assert;
+
 //tdd
-declare function suite(description, action):void;
-declare function test(description, action):void;
-declare function err(action, msg?):void;
+declare function suite(description:string, action:Function):void;
+declare function test(description:string, action:Function):void;
+declare function err(action:Function, msg?:string):void;
 interface FieldObj {
 	field: any;
 }
@@ -109,7 +107,7 @@ suite('assert', function () {
 	});
 
 	test('equal', function () {
-		var foo;
+		var foo:any;
 		assert.equal(foo, undefined);
 	});
 
@@ -136,7 +134,7 @@ suite('assert', function () {
 		function Foo() {
 		}
 
-		assert.instanceOf(new Foo(), Foo);
+		assert.instanceOf(new <any>Foo(), Foo);
 
 		err(function () {
 			assert.instanceOf(5, Foo);
@@ -147,17 +145,17 @@ suite('assert', function () {
 		CrashyObject.prototype.inspect = function () {
 			throw new Error("Arg's inspect() called even though the test passed");
 		};
-		assert.instanceOf(new CrashyObject(), CrashyObject);
+		assert.instanceOf(new <any>CrashyObject(), CrashyObject);
 	});
 
 	test('notInstanceOf', function () {
 		function Foo() {
 		}
 
-		assert.notInstanceOf(new Foo(), String);
+		assert.notInstanceOf(new <any>Foo(), String);
 
 		err(function () {
-			assert.notInstanceOf(new Foo(), Foo);
+			assert.notInstanceOf(new <any>Foo(), Foo);
 		}, "expected {} to not be an instance of Foo");
 	});
 
@@ -166,7 +164,7 @@ suite('assert', function () {
 		}
 
 		assert.isObject({});
-		assert.isObject(new Foo());
+		assert.isObject(new <any>Foo());
 
 		err(function () {
 			assert.isObject(true);
@@ -182,9 +180,6 @@ suite('assert', function () {
 	});
 
 	test('isNotObject', function () {
-		function Foo() {
-		}
-
 		assert.isNotObject(5);
 
 		err(function () {

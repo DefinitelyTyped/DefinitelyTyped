@@ -5,7 +5,7 @@
 
 /// <reference path="../chai/chai.d.ts" />
 
-declare module chai {
+declare module "chai" {
     interface Expect {
         called: Expect;
         calledOnce: Expect;

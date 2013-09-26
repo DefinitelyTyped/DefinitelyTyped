@@ -1,7 +1,11 @@
 /// <reference path="../chai/chai.d.ts" />
 /// <reference path="sinon-chai.d.ts" />
 
-declare var expect: chai.ExpectStatic;
+import chai = require('chai');
+import sinonChai = require("sinon-chai");
+chai.use(sinonChai);
+
+var expect = chai.expect;
 
 function test() {
     var spy: Function;
