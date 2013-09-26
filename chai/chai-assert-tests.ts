@@ -30,13 +30,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-///<reference path="chai-assert.d.ts" />
+///<reference path="chai.d.ts" />
 
-//stubs
-declare module chai {
-	var AssertionError:Error;
-	function expect(body:any):any;
-}
+import chai = require('chai');
+var assert = chai.assert;
+
 //tdd
 declare function suite(description:string, action:Function):void;
 declare function test(description:string, action:Function):void;

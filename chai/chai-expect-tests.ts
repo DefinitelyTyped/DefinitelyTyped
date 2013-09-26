@@ -1,5 +1,7 @@
 /// <reference path="chai.d.ts" />
 
+import chai = require('chai');
+
 var expect = chai.expect;
 declare var err: Function;
 
