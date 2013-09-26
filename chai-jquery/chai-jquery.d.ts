@@ -5,33 +5,35 @@
 
 /// <reference path="../chai/chai.d.ts" />
 
-declare module chai {
-    interface NameValueRegexMatcher {
-        match(value: RegExp): boolean;
-    }
-
+declare module "chai" {
     interface NameValueMatcher {
-        (name: string, value?: string): boolean;
+        (name: string, value?: string): Expect;
     }
 
-    interface Have {
+    interface ValueMatcher {
+        (value: string): Expect;
+    }
+
+    interface Expect {
         attr: NameValueMatcher;
         css: NameValueMatcher;
         data: NameValueMatcher;
-        class(className: string): boolean;
-        id(id: string): boolean;
-        html(html: string): boolean;
-        text(text: string): boolean;
-        value(text: string): boolean;
-        (selector: string): boolean;
-    }
-
-    interface Be {
-        visible: boolean;
-        hidden: boolean;
-        selected: boolean;
-        checked: boolean;
-        disabled: boolean;
-        (selector: string): boolean;
+        class: ValueMatcher;
+        id: ValueMatcher;
+        html: ValueMatcher;
+        text: ValueMatcher;
+        value: ValueMatcher;
+        visible: Expect;
+        hidden: Expect;
+        selected: Expect;
+        checked: Expect;
+        disabled: Expect;
+        // already provided by core chai definitions:
+        //empty: Expect;
+        //exist: Expect;
+        //match: ValueMatcher;
+        //be: ValueMatcher;
+        //contain: ValueMatcher;
+        //have: ValueMatcher;
     }
 }
