@@ -3,6 +3,10 @@
 
 // tests taken from https://github.com/chaijs/chai-jquery
 
+import chai = require('chai');
+import chaiJquery = require('chai-jquery');
+chai.use(chaiJquery);
+
 declare var $;
 var expect = chai.expect;
 

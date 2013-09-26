@@ -7,6 +7,8 @@
 
 declare module "chai" {
 
+    function use(chaiModule: any): void;
+
 }
 
 // expect api
