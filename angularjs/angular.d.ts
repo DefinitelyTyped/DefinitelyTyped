@@ -698,6 +698,10 @@ declare module ng {
         // TODO: events, how to define?
         //$destroy
 
+        find(selector: string): IAugmentedJQuery;
+        find(element: any): IAugmentedJQuery;
+        find(obj: JQuery): IAugmentedJQuery;
+
         controller(name: string): any;
         injector(): any;
         scope(): IScope;
