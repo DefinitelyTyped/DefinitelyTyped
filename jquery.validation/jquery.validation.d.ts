@@ -47,6 +47,7 @@ interface Validator
 	numberOfInvalids(): number;
 	resetForm(): void;
 	setDefaults(defaults: ValidationOptions): void;
+	settings: ValidationOptions;
 	showErrors(errors: any): void;
 }
 
