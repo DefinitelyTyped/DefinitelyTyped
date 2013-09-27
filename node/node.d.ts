@@ -725,10 +725,12 @@ declare module "fs" {
 
     export function rename(oldPath: string, newPath: string, callback?: Function): void;
     export function renameSync(oldPath: string, newPath: string): void;
+    export function truncate(path: string, callback?: Function): void;
     export function truncate(path: string, len: number, callback?: Function): void;
-    export function truncateSync(path: string, len: number): void;
+    export function truncateSync(path: string, len?: number): void;
+    export function ftruncate(fd: string, callback?: Function): void;
     export function ftruncate(fd: string, len: number, callback?: Function): void;
-    export function ftruncateSync(fd: string, len: number): void;
+    export function ftruncateSync(fd: string, len?: number): void;
     export function chown(path: string, uid: number, gid: number, callback?: Function): void;
     export function chownSync(path: string, uid: number, gid: number): void;
     export function fchown(fd: string, uid: number, gid: number, callback?: Function): void;
