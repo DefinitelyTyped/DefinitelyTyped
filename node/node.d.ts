@@ -754,8 +754,8 @@ declare module "fs" {
     export function readlink(path: string, callback?: (err: Error, linkString: string) =>any): void;
     export function readlinkSync(path: string): string;
     export function realpath(path: string, callback?: (err: Error, resolvedPath: string) =>any): void;
-    export function realpath(path: string, cache: string, callback: (err: Error, resolvedPath: string) =>any): void;
-    export function realpathSync(path: string, cache?: string): void;
+    export function realpath(path: string, cache: {[path: string]: string}, callback: (err: Error, resolvedPath: string) =>any): void;
+    export function realpathSync(path: string, cache?: {[path: string]: string}): void;
     export function unlink(path: string, callback?: Function): void;
     export function unlinkSync(path: string): void;
     export function rmdir(path: string, callback?: Function): void;
