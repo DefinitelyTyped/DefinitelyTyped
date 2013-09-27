@@ -737,11 +737,17 @@ declare module "fs" {
     export function fchownSync(fd: string, uid: number, gid: number): void;
     export function lchown(path: string, uid: number, gid: number, callback?: Function): void;
     export function lchownSync(path: string, uid: number, gid: number): void;
+    export function chmod(path: string, mode: number, callback?: Function): void;
     export function chmod(path: string, mode: string, callback?: Function): void;
+    export function chmodSync(path: string, mode: number): void;
     export function chmodSync(path: string, mode: string): void;
+    export function fchmod(fd: string, mode: number, callback?: Function): void;
     export function fchmod(fd: string, mode: string, callback?: Function): void;
+    export function fchmodSync(fd: string, mode: number): void;
     export function fchmodSync(fd: string, mode: string): void;
+    export function lchmod(path: string, mode: number, callback?: Function): void;
     export function lchmod(path: string, mode: string, callback?: Function): void;
+    export function lchmodSync(path: string, mode: number): void;
     export function lchmodSync(path: string, mode: string): void;
     export function stat(path: string, callback?: (err: Error, stats: Stats) =>any): Stats;
     export function lstat(path: string, callback?: (err: Error, stats: Stats) =>any): Stats;
@@ -763,14 +769,18 @@ declare module "fs" {
     export function rmdir(path: string, callback?: Function): void;
     export function rmdirSync(path: string): void;
     export function mkdir(path: string, callback?: Function): void;
+    export function mkdir(path: string, mode: number, callback?: Function): void;
     export function mkdir(path: string, mode: string, callback?: Function): void;
+    export function mkdirSync(path: string, mode?: number): void;
     export function mkdirSync(path: string, mode?: string): void;
     export function readdir(path: string, callback?: (err: Error, files: string[]) => void): void;
     export function readdirSync(path: string): string[];
     export function close(fd: string, callback?: Function): void;
     export function closeSync(fd: string): void;
     export function open(path: string, flags: string, callback?: (err: Error, fd: string) => any): void;
+    export function open(path: string, flags: string, mode: number, callback?: (err: Error, fd: string) => any): void;
     export function open(path: string, flags: string, mode: string, callback?: (err: Error, fd: string) => any): void;
+    export function openSync(path: string, flags: string, mode?: number): void;
     export function openSync(path: string, flags: string, mode?: string): void;
     export function utimes(path: string, atime: number, mtime: number, callback?: Function): void;
     export function utimesSync(path: string, atime: number, mtime: number): void;
@@ -788,10 +798,14 @@ declare module "fs" {
     export function readFileSync(filename: string, options: { encoding?: string; flag?: string; }): any;
     export function writeFile(filename: string, data: any, callback?: (err: Error) => void): void;
     export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: Error) => void): void;
+    export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: Error) => void): void;
     export function writeFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
+    export function writeFileSync(filename: string, data: any, options?: { encoding?: string; mode?: string; flag?: string; }): void;
     export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: Error) => void): void;
+    export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: Error) => void): void;
     export function appendFile(filename: string, data: any, callback?: (err: Error) => void): void;
     export function appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
+    export function appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: string; flag?: string; }): void;
     export function watchFile(filename: string, listener: { curr: Stats; prev: Stats; }): void;
     export function watchFile(filename: string, options: { persistent?: boolean; interval?: number; }, listener: { curr: Stats; prev: Stats; }): void;
     export function unwatchFile(filename: string, listener?: Stats): void;
@@ -803,6 +817,13 @@ declare module "fs" {
         encoding?: string;
         fd?: string;
         mode?: number;
+        bufferSize?: number;
+    }): ReadStream;
+    export function createReadStream(path: string, options?: {
+        flags?: string;
+        encoding?: string;
+        fd?: string;
+        mode?: string;
         bufferSize?: number;
     }): ReadStream;
     export function createWriteStream(path: string, options?: {
