@@ -106,7 +106,7 @@ interface NodeProcess extends EventEmitter {
     execPath: string;
     abort(): void;
     chdir(directory: string): void;
-    cwd(): void;
+    cwd(): string;
     env: any;
     exit(code?: number): void;
     getgid(): number;
@@ -725,8 +725,10 @@ declare module "fs" {
 
     export function rename(oldPath: string, newPath: string, callback?: Function): void;
     export function renameSync(oldPath: string, newPath: string): void;
-    export function truncate(fd: string, len: number, callback?: Function): void;
-    export function truncateSync(fd: string, len: number): void;
+    export function truncate(path: string, len: number, callback?: Function): void;
+    export function truncateSync(path: string, len: number): void;
+    export function ftruncate(fd: number, len: number, callback?: Function): void;
+    export function ftruncateSync(fd: number, len: number): void;
     export function chown(path: string, uid: number, gid: number, callback?: Function): void;
     export function chownSync(path: string, uid: number, gid: number): void;
     export function fchown(fd: string, uid: number, gid: number, callback?: Function): void;
@@ -750,6 +752,7 @@ declare module "fs" {
     export function symlink(srcpath: string, dstpath: string, type?: string, callback?: Function): void;
     export function symlinkSync(srcpath: string, dstpath: string, type?: string): void;
     export function readlink(path: string, callback?: (err: Error, linkString: string) =>any): void;
+    export function readlinkSync(path: string): string;
     export function realpath(path: string, callback?: (err: Error, resolvedPath: string) =>any): void;
     export function realpath(path: string, cache: string, callback: (err: Error, resolvedPath: string) =>any): void;
     export function realpathSync(path: string, cache?: string): void;
@@ -808,12 +811,7 @@ declare module "fs" {
 declare module "path" {
     export function normalize(p: string): string;
     export function join(...paths: any[]): string;
-    export function resolve(to: string): string;
-    export function resolve(from: string, to: string): string;
-    export function resolve(from: string, from2: string, to: string): string;
-    export function resolve(from: string, from2: string, from3: string, to: string): string;
-    export function resolve(from: string, from2: string, from3: string, from4: string, to: string): string;
-    export function resolve(from: string, from2: string, from3: string, from4: string, from5: string, to: string): string;
+    export function resolve(...pathSegments: any[]): string;
     export function relative(from: string, to: string): string;
     export function dirname(p: string): string;
     export function basename(p: string, ext?: string): string;
