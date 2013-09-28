@@ -215,6 +215,10 @@ declare module ng {
         $parent: IScope;
 
         $id: number;
+        
+        // Hidden members
+        $$isolateBindings: any;
+        $$phase: any;
     }
 
     interface IAngularEvent {
