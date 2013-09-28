@@ -3,6 +3,7 @@
 /// <reference path="PopupOptions.d.ts" />
 /// <reference path="LatLngBounds.d.ts" />
 /// <reference path="PathOptions.d.ts" />
+/// <reference path="LayerGroup.d.ts" />
 /// <reference path="LeafletEvent.d.ts" />
 /// <reference path="Map.d.ts" />
 declare module L {

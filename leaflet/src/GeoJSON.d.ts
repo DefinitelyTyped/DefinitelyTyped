@@ -2,7 +2,7 @@
 /// <reference path="GeoJSONOptions.d.ts" />
 /// <reference path="LatLng.d.ts" />
 /// <reference path="Path.d.ts" />
-
+/// <reference path="PathOptions.d.ts" />
 
 
 

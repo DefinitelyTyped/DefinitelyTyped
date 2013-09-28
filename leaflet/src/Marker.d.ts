@@ -3,10 +3,7 @@
 /// <reference path="MarkerOptions.d.ts" />
 /// <reference path="Icon.d.ts" />
 /// <reference path="PopupOptions.d.ts" />
-
-
-
-
+/// <reference path="LatLng.d.ts" />
 
 declare module L {
     export class Marker implements ILayer, IEventPowered<Marker> {

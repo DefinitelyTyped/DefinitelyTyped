@@ -1,9 +1,6 @@
 /// <reference path="FeatureGroup.d.ts" />
 /// <reference path="LatLng.d.ts" />
 /// <reference path="PolylineOptions.d.ts" />
-
-
-
 declare module L {
     export class MultiPolygon extends FeatureGroup {
         /**
@@ -14,6 +11,4 @@ declare module L {
         constructor(latlngs: LatLng[][], options?: PolylineOptions);
     
     }
-} 
- 
- 
+}

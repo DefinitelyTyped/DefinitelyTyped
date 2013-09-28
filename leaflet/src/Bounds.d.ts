@@ -1,3 +1,4 @@
+/// <reference path="Point.d.ts" />
 declare module L {
     export class Bounds {
         /**
@@ -52,6 +53,4 @@ declare module L {
         max: Point;
     
     }
-} 
- 
- 
+}
