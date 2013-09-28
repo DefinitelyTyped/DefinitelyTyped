@@ -23,13 +23,31 @@ declare module L {
 }
  
 declare module L {
+
     export class Bounds {
+
         /**
           * Creates a Bounds object from two coordinates (usually top-left and bottom-right
           * corners).
           */
         constructor(topLeft: Point, bottomRight: Point);
     
+        /**
+          * Creates a Bounds object defined by the points it contains.
+          */
+        constructor(points: Point[]);
+
+        /**
+          * Creates a Bounds object from two coordinates (usually top-left and bottom-right
+          * corners).
+          */
+        static bounds(topLeft: Point, bottomRight: Point): Bounds;
+
+        /**
+          * Creates a Bounds object defined by the points it contains.
+          */
+        static bounds(points: Point[]): Bounds;
+
         /**
           * Extends the bounds to contain the given point.
           */
@@ -76,12 +94,12 @@ declare module L {
         max: Point;
     
     }
-} 
- 
- 
+}
  
 declare module L {
+
     export class Browser {
+
         /**
           * true for all Internet Explorer versions.
           */
@@ -150,19 +168,25 @@ declare module L {
         static retina: boolean;
     
     }
-} 
- 
- 
+}
  
  
 declare module L {
+
     export class Circle extends Path {
+
         /**
           * Instantiates a circle object given a geographical point, a radius in meters
           * and optionally an options object.
           */
         constructor(latlng: LatLng, radius: number, options?: PathOptions);
     
+        /**
+          * Instantiates a circle object given a geographical point, a radius in meters
+          * and optionally an options object.
+          */
+        static circle(latlng: LatLng, radius: number, options?: PathOptions): Circle;
+
         /**
           * Returns the current geographical position of the circle.
           */
@@ -182,13 +206,19 @@ declare module L {
           * Sets the radius of a circle. Units are in meters.
           */
         setRadius(radius: number): Circle;
-    
+
+        /**
+          * Returns a GeoJSON representation of the circle (GeoJSON Point Feature).
+          */
+        toGeoJSON(): any;
+
     }
 }
  
- 
 declare module L {
+
     export class CircleMarker extends Circle {
+
         /**
           * Instantiates a circle marker given a geographical point and optionally
           * an options object. The default radius is 10 and can be altered by passing a
@@ -196,6 +226,13 @@ declare module L {
           */
         constructor(latlng: LatLng, options?: PathOptions);
     
+        /**
+          * Instantiates a circle marker given a geographical point and optionally
+          * an options object. The default radius is 10 and can be altered by passing a
+          * "radius" member in the path options object.
+          */
+        static circleMarker(latlng: LatLng, options?: PathOptions): CircleMarker;
+
         /**
           * Sets the position of a circle marker to a new location.
           */
@@ -205,11 +242,13 @@ declare module L {
           * Sets the radius of a circle marker. Units are in pixels.
           */
         setRadius(radius: number): CircleMarker;
-    
+
+        /**
+          * Returns a GeoJSON representation of the circle marker (GeoJSON Point Feature).
+          */
+        toGeoJSON(): any;
     }
-} 
- 
- 
+}
  
 declare module L {
     export class Class {
@@ -747,7 +786,6 @@ declare module L {
 }
  
 
-
 declare module L {
     export interface FitBoundsOptions extends ZoomPanOptions {
         /**
@@ -776,7 +814,6 @@ declare module L {
  
  
  
-
 
 
 
@@ -2358,10 +2395,6 @@ declare module L {
  
  
 
-
-
-
-
 declare module L {
     export class Marker implements ILayer, IEventPowered<Marker> {
         /**
@@ -2462,7 +2495,6 @@ declare module L {
  
  
  
-
 declare module L {
     export interface MarkerOptions {
         /**
@@ -2510,13 +2542,8 @@ declare module L {
         riseOffset?: number;
     
     }
-} 
+}
  
- 
- 
-
-
-
 declare module L {
     export class MultiPolygon extends FeatureGroup {
         /**
@@ -2527,15 +2554,12 @@ declare module L {
         constructor(latlngs: LatLng[][], options?: PolylineOptions);
     
     }
-} 
+}
  
- 
- 
-
-
-
 declare module L {
+
     export class MultiPolyline extends FeatureGroup {
+
         /**
           * Instantiates a multi-polyline object given an array of arrays of geographical
           * points (one for each individual polyline) and optionally an options object.
@@ -2543,9 +2567,7 @@ declare module L {
         constructor(latlngs: LatLng[][], options?: PolylineOptions);
     
     }
-} 
- 
- 
+}
  
 declare module L {
 

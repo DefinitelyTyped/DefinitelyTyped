@@ -1,12 +1,31 @@
+//// updated to 0.6.4
 /// <reference path="Point.d.ts" />
 declare module L {
+
     export class Bounds {
+
         /**
           * Creates a Bounds object from two coordinates (usually top-left and bottom-right
           * corners).
           */
         constructor(topLeft: Point, bottomRight: Point);
     
+        /**
+          * Creates a Bounds object defined by the points it contains.
+          */
+        constructor(points: Point[]);
+
+        /**
+          * Creates a Bounds object from two coordinates (usually top-left and bottom-right
+          * corners).
+          */
+        static bounds(topLeft: Point, bottomRight: Point): Bounds;
+
+        /**
+          * Creates a Bounds object defined by the points it contains.
+          */
+        static bounds(points: Point[]): Bounds;
+
         /**
           * Extends the bounds to contain the given point.
           */

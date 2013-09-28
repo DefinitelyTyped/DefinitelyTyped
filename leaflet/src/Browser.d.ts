@@ -1,5 +1,8 @@
+//// updated to 0.6.4
 declare module L {
+
     export class Browser {
+
         /**
           * true for all Internet Explorer versions.
           */
@@ -68,6 +71,4 @@ declare module L {
         static retina: boolean;
     
     }
-} 
- 
- 
+}

@@ -1,14 +1,23 @@
+//// updated to 0.6.4
 /// <reference path="Path.d.ts" />
 /// <reference path="LatLng.d.ts" />
 /// <reference path="PathOptions.d.ts" />
 declare module L {
+
     export class Circle extends Path {
+
         /**
           * Instantiates a circle object given a geographical point, a radius in meters
           * and optionally an options object.
           */
         constructor(latlng: LatLng, radius: number, options?: PathOptions);
     
+        /**
+          * Instantiates a circle object given a geographical point, a radius in meters
+          * and optionally an options object.
+          */
+        static circle(latlng: LatLng, radius: number, options?: PathOptions): Circle;
+
         /**
           * Returns the current geographical position of the circle.
           */
@@ -28,7 +37,11 @@ declare module L {
           * Sets the radius of a circle. Units are in meters.
           */
         setRadius(radius: number): Circle;
-    
+
+        /**
+          * Returns a GeoJSON representation of the circle (GeoJSON Point Feature).
+          */
+        toGeoJSON(): any;
+
     }
 }
- 
