@@ -293,7 +293,7 @@ declare module jasmine {
 
         getFullName(): string;
         results(): NestedResults;
-        log(arguments): any;
+        log(arguments: any): any;
         runs(func: SpecFunction): Spec;
         addToQueue(block: Block): void;
         addMatcherResult(result: Result): void;

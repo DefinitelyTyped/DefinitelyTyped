@@ -7,7 +7,7 @@ describe("A suite", () => {
 });
 
 describe("A suite is just a function", () => {
-    var a;
+    var a: boolean;
     it("and so is a spec", () => {
         a = true;
         expect(a).toBe(true);
@@ -72,7 +72,7 @@ describe("Included matchers:", () => {
     });
 
     it("The 'toBeNull' matcher compares against null", () => {
-        var a = null;
+        var a: string = null;
         var foo = 'foo';
         expect(null).toBeNull();
         expect(a).toBeNull();
@@ -80,13 +80,13 @@ describe("Included matchers:", () => {
     });
 
     it("The 'toBeTruthy' matcher is for boolean casting testing", () => {
-      var a, foo = 'foo';
+      var a: string, foo = 'foo';
         expect(foo).toBeTruthy();
         expect(a).not.toBeTruthy();
     });
 
     it("The 'toBeFalsy' matcher is for boolean casting testing", () => {
-      var a, foo = 'foo';
+      var a: string, foo = 'foo';
         expect(a).toBeFalsy();
         expect(foo).not.toBeFalsy();
     });
@@ -143,7 +143,7 @@ describe("A spec", () => {
 });
 
 describe("A spec (with setup and tear-down)", () => {
-    var foo;
+    var foo: number;
     beforeEach(() => {
         foo = 0;
         foo += 1;
@@ -161,7 +161,7 @@ describe("A spec (with setup and tear-down)", () => {
 });
 
 describe("A spec", () => {
-    var foo;
+    var foo: number;
     beforeEach(() => {
         foo = 0;
         foo += 1;
@@ -177,7 +177,7 @@ describe("A spec", () => {
         expect(true).toEqual(true);
     });
     describe("nested inside a second describe", () => {
-        var bar;
+        var bar: number;
         beforeEach(() => {
             bar = 1;
         });
@@ -188,7 +188,7 @@ describe("A spec", () => {
 });
 
 xdescribe("A spec", () => {
-    var foo;
+    var foo: number;
     beforeEach(() => {
         foo = 0;
         foo += 1;
@@ -199,10 +199,10 @@ xdescribe("A spec", () => {
 });
 
 describe("A spy", () => {
-  var foo, bar = null;
+  var foo: any, bar: any = null;
     beforeEach(() => {
         foo = {
-            setBar: function (value) {
+            setBar: function (value: any) {
                 bar = value;
             }
         };
@@ -232,10 +232,10 @@ describe("A spy", () => {
 });
 
 describe("A spy, when configured to call through", () => {
-  var foo, bar, fetchedBar;
+  var foo: any, bar: any, fetchedBar: any;
     beforeEach(() => {
         foo = {
-            setBar: function (value) {
+            setBar: function (value: any) {
                 bar = value;
             },
             getBar: () => {
@@ -258,10 +258,10 @@ describe("A spy, when configured to call through", () => {
 });
 
 describe("A spy, when faking a return value", () => {
-  var foo, bar, fetchedBar;
+  var foo: any, bar: any, fetchedBar: any;
     beforeEach(() => {
         foo = {
-            setBar: function (value) {
+            setBar: function (value: any) {
                 bar = value;
             },
             getBar: () => {
@@ -284,10 +284,10 @@ describe("A spy, when faking a return value", () => {
 });
 
 describe("A spy, when faking a return value", () => {
-  var foo, bar, fetchedBar;
+  var foo: any, bar: any, fetchedBar: any;
     beforeEach(() => {
         foo = {
-            setBar: function (value) {
+            setBar: function (value: any) {
                 bar = value;
             },
             getBar: () => {
@@ -312,7 +312,7 @@ describe("A spy, when faking a return value", () => {
 });
 
 describe("A spy, when created manually", () => {
-    var whatAmI;
+    var whatAmI: any;
 
     beforeEach(() => {
         whatAmI = jasmine.createSpy('whatAmI');
@@ -336,7 +336,7 @@ describe("A spy, when created manually", () => {
 });
 
 describe("Multiple spies, when created manually", () => {
-    var tape;
+    var tape: any;
     beforeEach(() => {
         tape = jasmine.createSpyObj('tape', ['play', 'pause', 'stop', 'rewind']);
         tape.play();
@@ -377,7 +377,7 @@ describe("jasmine.any", () => {
 });
 
 describe("Manually ticking the Jasmine Mock Clock", () => {
-    var timerCallback;
+    var timerCallback: any;
     beforeEach(() => {
         timerCallback = jasmine.createSpy('timerCallback');
         jasmine.Clock.useMock();
@@ -406,7 +406,7 @@ describe("Manually ticking the Jasmine Mock Clock", () => {
 });
 
 describe("Asynchronous specs", () => {
-  var value, flag;
+  var value: number, flag: any;
     it("should support async execution of test preparation and exepectations", () => {
         runs(() => {
             flag = false;
