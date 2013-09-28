@@ -1,3 +1,7 @@
+/// <reference path="ILayer.d.ts" />
+/// <reference path="PopupOptions.d.ts" />
+/// <reference path="Map.d.ts" />
+/// <reference path="LatLng.d.ts" />
 
 
 

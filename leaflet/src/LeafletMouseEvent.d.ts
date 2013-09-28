@@ -1,3 +1,6 @@
+/// <reference path="LeafletEvent.d.ts" />
+/// <reference path="LatLng.d.ts" />
+/// <reference path="Point.d.ts" />
 
 
 

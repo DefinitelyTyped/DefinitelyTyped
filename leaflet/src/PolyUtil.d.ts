@@ -1,3 +1,5 @@
+/// <reference path="Point.d.ts" />
+/// <reference path="Bounds.d.ts" />
 
 
 declare module L {

@@ -1,3 +1,4 @@
+/// <reference path="DivIconOptions.d.ts" />
 
 declare module L {
     export class DivIcon {

@@ -1148,7 +1148,8 @@ declare module L {
         onRemove(map: Map): void;
     
     }
-} 
+}
+ 
 
 
 
@@ -2317,7 +2318,8 @@ declare module L {
           */
         markerZoomAnimation?: boolean;
     }
-} 
+}
+ 
 declare module L {
     export interface MapPanes {
         /**

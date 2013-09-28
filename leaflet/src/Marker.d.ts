@@ -1,3 +1,8 @@
+/// <reference path="ILayer.d.ts" />
+/// <reference path="IEventPowered.d.ts" />
+/// <reference path="MarkerOptions.d.ts" />
+/// <reference path="Icon.d.ts" />
+/// <reference path="PopupOptions.d.ts" />
 
 
 

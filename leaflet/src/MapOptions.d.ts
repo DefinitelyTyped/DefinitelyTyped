@@ -1,3 +1,7 @@
+/// <reference path="LatLng.d.ts" />
+/// <reference path="ILayer.d.ts" />
+/// <reference path="ICRS.d.ts" />
+/// <reference path="LatLngBounds.d.ts" />
 // checked
 declare module L {
     export interface MapOptions {

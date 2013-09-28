@@ -1,3 +1,6 @@
+/// <reference path="Circle.d.ts" />
+/// <reference path="LatLng.d.ts" />
+/// <reference path="PathOptions.d.ts" />
 declare module L {
     export class CircleMarker extends Circle {
         /**

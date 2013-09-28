@@ -1,3 +1,4 @@
+/// <reference path="LatLng.d.ts" />
 
 declare module L {
     export class LatLngBounds {

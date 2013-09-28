@@ -1,3 +1,4 @@
+/// <reference path="IProjection.d.ts" />
 
 declare module L {
     export class Projection {

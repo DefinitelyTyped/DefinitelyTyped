@@ -1,3 +1,8 @@
+/// <reference path="ILayer.d.ts" />
+/// <reference path="Map.d.ts" />
+/// <reference path="TileLayerOptions.d.ts" />
+/// <reference path="WMS.d.ts" />
+/// <reference path="Canvas.d.ts" />
 //// updated to 0.6.4
 declare module L {
 

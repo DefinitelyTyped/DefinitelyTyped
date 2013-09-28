@@ -1,3 +1,4 @@
+/// <reference path="Map.d.ts" />
 
 declare module L {
     export interface IControl {

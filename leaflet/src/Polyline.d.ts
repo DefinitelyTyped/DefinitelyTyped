@@ -1,3 +1,7 @@
+/// <reference path="Path.d.ts" />
+/// <reference path="LatLng.d.ts" />
+/// <reference path="PolylineOptions.d.ts" />
+/// <reference path="LatLngBounds.d.ts" />
 
 
 

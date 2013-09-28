@@ -1,3 +1,5 @@
+/// <reference path="LatLng.d.ts" />
+/// <reference path="Point.d.ts" />
 
 
 declare module L {

@@ -1,3 +1,7 @@
+/// <reference path="FeatureGroup.d.ts" />
+/// <reference path="GeoJSONOptions.d.ts" />
+/// <reference path="LatLng.d.ts" />
+/// <reference path="Path.d.ts" />
 
 
 

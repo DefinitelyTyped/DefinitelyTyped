@@ -1,3 +1,7 @@
+/// <reference path="IProjection.d.ts" />
+/// <reference path="Transformation.d.ts" />
+/// <reference path="Point.d.ts" />
+/// <reference path="LatLng.d.ts" />
 
 
 

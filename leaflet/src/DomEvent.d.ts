@@ -1,3 +1,4 @@
+/// <reference path="Point.d.ts" />
 //// updated to 0.6.4
 declare module L {
 

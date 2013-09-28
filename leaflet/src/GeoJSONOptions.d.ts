@@ -1,3 +1,4 @@
+/// <reference path="ILayer.d.ts" />
 
 declare module L {
     export interface GeoJSONOptions {

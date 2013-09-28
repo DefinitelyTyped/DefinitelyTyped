@@ -1,3 +1,4 @@
+/// <reference path="Icon.d.ts" />
 
 declare module L {
     export interface MarkerOptions {

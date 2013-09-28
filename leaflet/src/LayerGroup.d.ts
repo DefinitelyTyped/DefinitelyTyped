@@ -1,3 +1,5 @@
+/// <reference path="ILayer.d.ts" />
+/// <reference path="Map.d.ts" />
 
 
 declare module L {

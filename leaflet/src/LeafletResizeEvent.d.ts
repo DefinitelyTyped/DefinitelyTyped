@@ -1,3 +1,5 @@
+/// <reference path="LeafletEvent.d.ts" />
+/// <reference path="Point.d.ts" />
 
 
 declare module L {

@@ -1,3 +1,6 @@
+/// <reference path="FeatureGroup.d.ts" />
+/// <reference path="LatLng.d.ts" />
+/// <reference path="PolylineOptions.d.ts" />
 
 
 

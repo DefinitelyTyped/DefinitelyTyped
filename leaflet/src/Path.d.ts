@@ -1,3 +1,7 @@
+/// <reference path="ILayer.d.ts" />
+/// <reference path="PopupOptions.d.ts" />
+/// <reference path="PathOptions.d.ts" />
+/// <reference path="LeafletEvent.d.ts" />
 
 
 

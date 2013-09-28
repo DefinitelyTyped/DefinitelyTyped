@@ -1,3 +1,21 @@
+/// <reference path="IEventPowered.d.ts" />
+/// <reference path="MapOptions.d.ts" />
+/// <reference path="LatLng.d.ts" />
+/// <reference path="ZoomPanOptions.d.ts" />
+/// <reference path="ZoomOptions.d.ts" />
+/// <reference path="LatLngBounds.d.ts" />
+/// <reference path="FitBoundsOptions.d.ts" />
+/// <reference path="PanOptions.d.ts" />
+/// <reference path="ILayer.d.ts" />
+/// <reference path="LeafletMouseEvent.d.ts" />
+/// <reference path="IHandler.d.ts" />
+/// <reference path="Zoom.d.ts" />
+/// <reference path="Attribution.d.ts" />
+/// <reference path="LocateOptions.d.ts" />
+/// <reference path="Bounds.d.ts" />
+/// <reference path="PopupOptions.d.ts" />
+/// <reference path="Popup.d.ts" />
+/// <reference path="MapPanes.d.ts" />
 // checked
 declare module L {
 

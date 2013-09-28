@@ -1,3 +1,6 @@
+/// <reference path="IEventPowered.d.ts" />
+/// <reference path="LeafletEvent.d.ts" />
+/// <reference path="Point.d.ts" />
 
 
 

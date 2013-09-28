@@ -1,3 +1,9 @@
+/// <reference path="IControl.d.ts" />
+/// <reference path="ControlOptions.d.ts" />
+/// <reference path="Map.d.ts" />
+/// <reference path="Zoom.d.ts" />
+/// <reference path="Layers.d.ts" />
+/// <reference path="Scale.d.ts" />
 //// updated to 0.6.4
 declare module L {
 

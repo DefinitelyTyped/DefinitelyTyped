@@ -1,3 +1,7 @@
+/// <reference path="ILayer.d.ts" />
+/// <reference path="LatLngBounds.d.ts" />
+/// <reference path="ImageOverlayOptions.d.ts" />
+/// <reference path="Map.d.ts" />
 
 
 

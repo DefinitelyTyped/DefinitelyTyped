@@ -1,3 +1,10 @@
+/// <reference path="ILayer.d.ts" />
+/// <reference path="IEventPowered.d.ts" />
+/// <reference path="PopupOptions.d.ts" />
+/// <reference path="LatLngBounds.d.ts" />
+/// <reference path="PathOptions.d.ts" />
+/// <reference path="LeafletEvent.d.ts" />
+/// <reference path="Map.d.ts" />
 declare module L {
 
     export class FeatureGroup extends LayerGroup implements ILayer, IEventPowered<FeatureGroup> {

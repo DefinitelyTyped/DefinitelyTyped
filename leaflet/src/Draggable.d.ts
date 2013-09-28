@@ -1,3 +1,5 @@
+/// <reference path="IEventPowered.d.ts" />
+/// <reference path="LeafletEvent.d.ts" />
 
 
 declare module L {

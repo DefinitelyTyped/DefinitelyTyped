@@ -1,3 +1,6 @@
+/// <reference path="Polygon.d.ts" />
+/// <reference path="LatLngBounds.d.ts" />
+/// <reference path="PathOptions.d.ts" />
 
 
 

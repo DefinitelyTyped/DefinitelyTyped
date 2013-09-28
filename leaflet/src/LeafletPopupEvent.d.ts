@@ -1,3 +1,5 @@
+/// <reference path="LeafletEvent.d.ts" />
+/// <reference path="Popup.d.ts" />
 
 
 declare module L {

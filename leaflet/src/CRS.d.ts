@@ -1,3 +1,4 @@
+/// <reference path="ICRS.d.ts" />
 
 declare module L {
     export class CRS {

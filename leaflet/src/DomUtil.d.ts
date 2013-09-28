@@ -1,3 +1,4 @@
+/// <reference path="Point.d.ts" />
 
 declare module L {
     export class DomUtil {
