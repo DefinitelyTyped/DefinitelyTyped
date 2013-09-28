@@ -63,17 +63,20 @@ interface KnockoutComputedStatic {
     fn: KnockoutComputedFunctions;
 
     <T>(): KnockoutComputed<T>;
-    <T>(func: () => T, context?: any, options?: any): KnockoutComputed<T>;
+    <T>(func: () => T, context?: any, options?: any): ReadonlyKnockoutComputed<T>;
     <T>(def: KnockoutComputedDefine<T>): KnockoutComputed<T>;
     (options?: any): KnockoutComputed<any>;
 }
 
-interface KnockoutComputed<T> extends KnockoutComputedFunctions {
+interface ReadonlyKnockoutComputed<T> extends KnockoutComputedFunctions {
     (): T;
-    (value: T): void;
 
-    subscribe(callback: (newValue: T) => void, target?:any, topic?: string): KnockoutSubscription;
+    subscribe(callback: (newValue: T) => void, target?: any, topic?: string): KnockoutSubscription;
     notifySubscribers(valueToWrite: T, topic?: string);
+}
+
+interface KnockoutComputed<T> extends ReadonlyKnockoutComputed<T> {
+    (value: T): void;
 }
 
 interface KnockoutObservableArrayStatic {
