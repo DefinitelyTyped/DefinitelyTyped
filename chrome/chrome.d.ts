@@ -1534,11 +1534,11 @@ declare module chrome.storage {
         oldValue?: any;
     }
 
-    interface Local {
+    interface Local extends StorageArea {
         QUOTA_BYTES: number;
     }
 
-    interface Sync {
+    interface Sync extends StorageArea {
         MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number;
         QUOTA_BYTES: number;
         QUOTA_BYTES_PER_ITEM: number;
