@@ -80,30 +80,18 @@ declare module Backbone {
 
     var Events: Eventable;
 
-    class ModelBase implements Eventable {
+    interface ModelBase extends Eventable {
         url: any;
         parse(response, options?: any);
         toJSON(options?: any): any;
         sync(...arg: any[]): JQueryXHR;
-
-        // Implementation of Backbone.Events
-
-        on(eventName: any, callback?: (...args: any[]) => void , context?: any): any;
-        off(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
-        trigger(eventName: string, ...args: any[]): any;
-        bind(eventName: string, callback: (...args: any[]) => void , context?: any): any;
-        unbind(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
-        once(events: string, callback: (...args: any[]) => void , context?: any): any;
-        listenTo(object: any, events: string, callback: (...args: any[]) => void ): any;
-        listenToOnce(object: any, events: string, callback: (...args: any[]) => void ): any;
-        stopListening(object?: any, events?: string, callback?: (...args: any[]) => void ): any;
     }
 
     interface OptionalDefaults {
         defaults?(): any;
     }
 
-    class Model extends ModelBase implements OptionalDefaults {
+    class Model implements ModelBase, OptionalDefaults {
 
         static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
@@ -142,6 +130,23 @@ declare module Backbone {
 
         _validate(attrs: any, options: any): boolean;
 
+        url: any;
+        parse(response, options?: any);
+        toJSON(options?: any): any;
+        sync(...arg: any[]): JQueryXHR;
+
+        // Implementation of Backbone.Events
+
+        on(eventName: any, callback?: (...args: any[]) => void , context?: any): any;
+        off(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
+        trigger(eventName: string, ...args: any[]): any;
+        bind(eventName: string, callback: (...args: any[]) => void , context?: any): any;
+        unbind(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
+        once(events: string, callback: (...args: any[]) => void , context?: any): any;
+        listenTo(object: any, events: string, callback: (...args: any[]) => void ): any;
+        listenToOnce(object: any, events: string, callback: (...args: any[]) => void ): any;
+        stopListening(object?: any, events?: string, callback?: (...args: any[]) => void ): any;
+
         // mixins from underscore
 
         keys(): string[];
@@ -154,7 +159,7 @@ declare module Backbone {
         omit(...keys: string[]): any;
     }
 
-    class Collection extends ModelBase {
+    class Collection implements ModelBase {
 
         static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
@@ -190,6 +195,23 @@ declare module Backbone {
         _removeReference(model: Model): void;
         _onModelEvent(event: string, model: Model, collection: Collection, options: any): void;
 
+        url: any;
+        parse(response, options?: any);
+        toJSON(options?: any): any;
+        sync(...arg: any[]): JQueryXHR;
+
+        // Implementation of Backbone.Events
+
+        on(eventName: any, callback?: (...args: any[]) => void , context?: any): any;
+        off(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
+        trigger(eventName: string, ...args: any[]): any;
+        bind(eventName: string, callback: (...args: any[]) => void , context?: any): any;
+        unbind(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
+        once(events: string, callback: (...args: any[]) => void , context?: any): any;
+        listenTo(object: any, events: string, callback: (...args: any[]) => void ): any;
+        listenToOnce(object: any, events: string, callback: (...args: any[]) => void ): any;
+        stopListening(object?: any, events?: string, callback?: (...args: any[]) => void ): any;
+        
         // mixins from underscore
 
         all(iterator: (element: Model, index: number) => boolean, context?: any): boolean;
