@@ -749,9 +749,9 @@ declare module "fs" {
     export function lchmod(path: string, mode: string, callback?: Function): void;
     export function lchmodSync(path: string, mode: number): void;
     export function lchmodSync(path: string, mode: string): void;
-    export function stat(path: string, callback?: (err: Error, stats: Stats) =>any): Stats;
-    export function lstat(path: string, callback?: (err: Error, stats: Stats) =>any): Stats;
-    export function fstat(fd: string, callback?: (err: Error, stats: Stats) =>any): Stats;
+    export function stat(path: string, callback?: (err: Error, stats: Stats) => any): void;
+    export function lstat(path: string, callback?: (err: Error, stats: Stats) => any): void;
+    export function fstat(fd: string, callback?: (err: Error, stats: Stats) => any): void;
     export function statSync(path: string): Stats;
     export function lstatSync(path: string): Stats;
     export function fstatSync(fd: string): Stats;
@@ -759,9 +759,9 @@ declare module "fs" {
     export function linkSync(srcpath: string, dstpath: string): void;
     export function symlink(srcpath: string, dstpath: string, type?: string, callback?: Function): void;
     export function symlinkSync(srcpath: string, dstpath: string, type?: string): void;
-    export function readlink(path: string, callback?: (err: Error, linkString: string) =>any): void;
+    export function readlink(path: string, callback?: (err: Error, linkString: string) => any): void;
     export function readlinkSync(path: string): string;
-    export function realpath(path: string, callback?: (err: Error, resolvedPath: string) =>any): void;
+    export function realpath(path: string, callback?: (err: Error, resolvedPath: string) => any): void;
     export function realpath(path: string, cache: {[path: string]: string}, callback: (err: Error, resolvedPath: string) =>any): void;
     export function realpathSync(path: string, cache?: {[path: string]: string}): void;
     export function unlink(path: string, callback?: Function): void;
@@ -792,7 +792,7 @@ declare module "fs" {
     export function writeSync(fd: string, buffer: NodeBuffer, offset: number, length: number, position: number): void;
     export function read(fd: string, buffer: NodeBuffer, offset: number, length: number, position: number, callback?: (err: Error, bytesRead: number, buffer: NodeBuffer) => void): void;
     export function readSync(fd: string, buffer: NodeBuffer, offset: number, length: number, position: number): any[];
-    export function readFile(filename: string, options: { encoding?: string; flag?: string; }, callback: (err: Error, data: any) => void ): void;
+    export function readFile(filename: string, options: { encoding?: string; flag?: string; }, callback: (err: Error, data: any) => void): void;
     export function readFile(filename: string, callback: (err: Error, data: NodeBuffer) => void ): void;
     export function readFileSync(filename: string): NodeBuffer;
     export function readFileSync(filename: string, options: { encoding?: string; flag?: string; }): any;
@@ -810,7 +810,7 @@ declare module "fs" {
     export function watchFile(filename: string, options: { persistent?: boolean; interval?: number; }, listener: { curr: Stats; prev: Stats; }): void;
     export function unwatchFile(filename: string, listener?: Stats): void;
     export function watch(filename: string, options?: { persistent?: boolean; }, listener?: (event: string, filename: string) =>any): FSWatcher;
-    export function exists(path: string, callback?: (exists: boolean) =>void ): void;
+    export function exists(path: string, callback?: (exists: boolean) => void): void;
     export function existsSync(path: string): boolean;
     export function createReadStream(path: string, options?: {
         flags?: string;
