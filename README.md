@@ -44,6 +44,7 @@ List of Definitions
 * [Cheerio](https://github.com/MatthewMueller/cheerio) (by [Bret Little](https://github.com/blittle))
 * [Chosen](http://harvesthq.github.com/chosen/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Chrome](http://developer.chrome.com/extensions/) (by [Matthew Kimber](https://github.com/matthewkimber))
+* [Chrome App](http://developer.chrome.com/apps/) (by [Adam Lay](https://github.com/AdamLay))
 * [CodeMirror](http://codemirror.net) (by [François de Campredon](https://github.com/fdecampredon))
 * [Commander](http://github.com/visionmedia/commander.js) (by [Marcelo Dezem](https://github.com/mdezem))
 * [d3.js](http://d3js.org/) (from TypeScript samples)
