@@ -312,7 +312,7 @@ declare module D3 {
         };
         /**
         * Request an XML document fragment.
-        * 
+        *
         * @param url Url to request
         * @param callback Function to invoke when resource is loaded or the request fails
         */
@@ -563,7 +563,7 @@ declare module D3 {
             (): string;
             /**
             * Set the MIME Type for the request
-            * 
+            *
             * @param type The MIME type for the request
             */
             (type: string): Xhr;
@@ -578,7 +578,7 @@ declare module D3 {
             (): (xhr: XMLHttpRequest) => any;
             /**
             * Set function used to map the response to the associated data value
-            * 
+            *
             * @param value The function used to map the response to a data value
             */
             (value: (xhr: XMLHttpRequest) => any): Xhr;
@@ -643,7 +643,7 @@ declare module D3 {
     export interface Dsv {
         /**
         * Request a delimited values file
-        * 
+        *
         * @param url Url to request
         * @param callback Function to invoke when resource is loaded or the request fails
         */
@@ -656,7 +656,7 @@ declare module D3 {
         parse(string: string): any[];
         /**
         * Parse a delimited string into tuples, ignoring the header row.
-        * 
+        *
         * @param string delimited formatted string to parse
         */
         parseRows(string: string, accessor: (row: any[], index: number) => any): any;
@@ -709,6 +709,7 @@ declare module D3 {
         append: (name: string) => Selection;
         insert: (name: string, before: string) => Selection;
         remove: () => Selection;
+        empty: () => boolean;
 
         data: {
             (values: (data: any, index?: number) => any[], key?: (data: any, index?: number) => string): UpdateSelection;
@@ -1048,15 +1049,15 @@ declare module D3 {
                 (seperation: (a: GraphNode, b: GraphNode) => number): TreeLayout;
             };
             /**
-            * Gets or sets the available layout size 
+            * Gets or sets the available layout size
             */
             size: {
                 /**
-                * Gets the available layout size 
+                * Gets the available layout size
                 */
                 (): Array<number>;
                 /**
-                * Sets the available layout size 
+                * Sets the available layout size
                 */
                 (size: Array<number>): TreeLayout;
             };
@@ -1335,7 +1336,7 @@ declare module D3 {
                 (size: Array<number>): PackLayout;
             }
         }
-        
+
         export interface TreeMapLayout {
             sort: {
                 (): (a: GraphNode, b: GraphNode) => number;
@@ -1392,6 +1393,18 @@ declare module D3 {
         }
 
         export interface RGBColor extends Color{
+            /**
+            * the red color channel.
+            */
+            r: number;
+            /**
+            * the greeb color channel.
+            */
+            g: number;
+            /**
+            * the blue color channel.
+            */
+            b: number;
             /**
             * convert from RGB to HSL.
             */
@@ -2011,7 +2024,7 @@ declare module D3 {
                 (defined: (data: any) => any): Area;
             };
         }
-        
+
         export interface AreaRadial {
             /**
             * Generate a piecewise linear area, as in an area chart.
@@ -2876,15 +2889,15 @@ declare module D3 {
             */
             stream(object: GeoJSON, listener: any): Stream;
             /**
-            * 
+            *
             */
             graticule(): Graticule;
             /**
-            * 
+            *
             */
             greatArc: GreatArc;
             /**
-            * 
+            *
             */
             rotation(rotation: Array<number>): Rotation;
         }
