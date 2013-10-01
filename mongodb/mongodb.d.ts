@@ -4,7 +4,7 @@
 
 /// <reference path='../node/node.d.ts' />
 
-declare module "mongodb" {
+declare module mongodb {
 
 	// Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/mongoclient.html
 	export class MongoClient{           
@@ -388,4 +388,8 @@ declare module "mongodb" {
 		pkFactory?: any;
 		readPreferences?: string;
 	}
+}
+
+declare module "mongodb" {
+    export = mongodb;
 }
