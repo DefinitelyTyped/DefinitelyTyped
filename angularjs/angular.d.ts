@@ -679,6 +679,7 @@ declare module ng {
         scope?: any;
         link?: Function;
         compile?: Function;
+        controller?: Function;
     }
 
     ///////////////////////////////////////////////////////////////////////////
