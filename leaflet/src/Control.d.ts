@@ -7,7 +7,7 @@
 //// updated to 0.6.4
 declare module L {
 
-    export class Control implements IControl {
+    export class Control extends Class implements IControl {
 
         /**
           * Creates a control with the given options.

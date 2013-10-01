@@ -1,7 +1,9 @@
+//// updated to 0.6.4
 /// <reference path="ICRS.d.ts" />
-
 declare module L {
+
     export class CRS {
+
         /**
           * The most common CRS for online maps, used by almost all free and commercial
           * tile providers. Uses Spherical Mercator projection. Set in by default in
@@ -28,6 +30,4 @@ declare module L {
         static Simple: ICRS;
     
     }
-} 
- 
- 
+}

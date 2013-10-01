@@ -1,7 +1,9 @@
+//// updated to 0.6.4
 /// <reference path="Point.d.ts" />
-
 declare module L {
+
     export interface DivIconOptions {
+
         /**
           * Size of the icon in pixels. Can be also set through CSS.
           */
@@ -16,16 +18,17 @@ declare module L {
         iconAnchor?: Point;
     
         /**
-          * A custom class name to assign to the icon. 'leaflet-div-icon' by default.
+          * A custom class name to assign to the icon.
+          *
+          * Default value: 'leaflet-div-icon'.
           */
         className?: string;
     
         /**
-          * A custom HTML code to put inside the div element, empty by default.
+          * A custom HTML code to put inside the div element.
+          * Default value: ''.
           */
         html?: string;
     
     }
-} 
- 
- 
+}

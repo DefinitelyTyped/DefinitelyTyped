@@ -1,13 +1,12 @@
+//// updated to 0.6.4
 /// <reference path="IProjection.d.ts" />
 /// <reference path="Transformation.d.ts" />
 /// <reference path="Point.d.ts" />
 /// <reference path="LatLng.d.ts" />
-
-
-
-
 declare module L {
+
     export interface ICRS {
+
         /**
           * Projection that this CRS uses.
           */
@@ -49,10 +48,4 @@ declare module L {
         scale(zoom: number): number;
         
     }
-    /**
-      * This method restores the L global variale to the original value it had 
-      * before Leaflet inclusion, and returns the real Leaflet namespace.
-      */
-} 
- 
- 
+}

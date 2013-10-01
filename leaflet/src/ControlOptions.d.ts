@@ -1,5 +1,6 @@
 //// updated to 0.6.4
 declare module L {
+
     export interface ControlOptions {
 
         /**
@@ -8,7 +9,6 @@ declare module L {
           * Default value: 'topright'.
           */
         position: string;
-    
+
     }
 }
-
