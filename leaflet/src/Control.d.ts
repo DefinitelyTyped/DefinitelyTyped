@@ -4,6 +4,7 @@
 /// <reference path="Zoom.d.ts" />
 /// <reference path="Layers.d.ts" />
 /// <reference path="Scale.d.ts" />
+/// <reference path="Class.d.ts" />
 //// updated to 0.6.4
 declare module L {
 

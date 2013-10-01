@@ -1,7 +1,9 @@
+//// updated to 0.6.4
 /// <reference path="Point.d.ts" />
-
 declare module L {
+
     export class DomUtil {
+
         /**
           * Returns an element with the given id if a string was passed, or just returns
           * the element if it was passed directly.
@@ -61,7 +63,7 @@ declare module L {
           * style name for an element. If no such name is found, it returns false. Useful
           * for vendor-prefixed styles like transform.
           */
-        static testProp(props: String[]): string;
+        static testProp(props: string[]): any;
     
         /**
           * Returns a CSS transform string to move an element by the offset provided in
@@ -99,6 +101,4 @@ declare module L {
         static TRANSFORM: string;
     
     }
-} 
- 
- 
+}
