@@ -137,6 +137,7 @@ List of Definitions
 * [Knockout.js](http://knockoutjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Knockout.DeferredUpdates](https://github.com/mbest/knockout-deferred-updates) (by [Sebastián Galiano](https://github.com/sgaliano))
 * [Knockout.ES5](https://github.com/SteveSanderson/knockout-es5) (by [Sebastián Galiano](https://github.com/sgaliano))
+* [Knockout.Mapper](https://github.com/LucasLorentz/knockout.mapper) (by [Brandon Meyer](https://github.com/BMeyerKC))
 * [Knockout.Mapping](https://github.com/SteveSanderson/knockout.mapping) (by [Boris Yankov](https://github.com/borisyankov))
 * [Knockout.Postbox](https://github.com/rniemeyer/knockout-postbox) (by [Judah Gabriel](https://github.com/JudahGabriel))
 * [Knockout.Validation](https://github.com/ericmbarnard/Knockout-Validation) (by [Dan Ludwig](https://github.com/danludwig))
