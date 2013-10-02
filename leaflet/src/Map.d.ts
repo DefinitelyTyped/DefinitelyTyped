@@ -16,7 +16,6 @@
 /// <reference path="PopupOptions.d.ts" />
 /// <reference path="Popup.d.ts" />
 /// <reference path="MapPanes.d.ts" />
-// checked
 declare module L {
 
     export class Map implements IEventPowered<Map> {

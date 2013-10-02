@@ -1,6 +1,7 @@
 /// <reference path="ILayer.d.ts" />
 /// <reference path="IEventPowered.d.ts" />
 /// <reference path="PopupOptions.d.ts" />
+//// updated to 0.6.4
 /// <reference path="LatLngBounds.d.ts" />
 /// <reference path="PathOptions.d.ts" />
 /// <reference path="LayerGroup.d.ts" />
@@ -15,6 +16,11 @@ declare module L {
           */
         constructor(layers?: ILayer[]);
     
+        /**
+          * Create a layer group, optionally given an initial set of layers.
+          */
+        static featureGroup(layers?: ILayer[]): FeatureGroup;
+
         /**
           * Binds a popup with a particular HTML content to a click on any layer from the
           * group that has a bindPopup method.
@@ -41,6 +47,7 @@ declare module L {
           * Brings the layer group to the bottom of all other layers.
           */
         bringToBack(): FeatureGroup;
+
         ////////////
         //// ILayer members
         ////////////

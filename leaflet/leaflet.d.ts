@@ -251,15 +251,58 @@ declare module L {
 }
  
 declare module L {
-    export class Class {
+
+    export interface ClassExtendOptions {
+        /**
+          * options is a special property that unlike other objects that you pass 
+          * to extend will be merged with the parent one instead of overriding it 
+          * completely, which makes managing configuration of objects and default 
+          * values convenient.
+          */
+        options?: any;
+
+        /**
+          * includes is a special class property that merges all specified objects 
+          * into the class (such objects are called mixins). A good example of this
+          * is L.Mixin.Events that event-related methods like on, off and fire 
+          * to the class.
+          */
+        includes?: any;
+
+        /**
+          * statics is just a convenience property that injects specified object 
+          * properties as the static properties of the class, useful for defining 
+          * constants.
+          */
+        static?: any;
     }
+
+    /**
+      * L.Class powers the OOP facilities of Leaflet and is used to create
+      * almost all of the Leaflet classes documented.
+      */
+    export class Class {
+
+        /**
+          * You use L.Class.extend to define new classes, but you can use the
+          * same method on any class to inherit from it.
+          */
+        static extend(options: ClassExtendOptions): any;
+
+        /**
+          * You can also use the following shortcut when you just need to make
+          * one additional method call.
+          */
+        static addInitHook(methodName: string, ...args: any[]);
+    }
+
 } 
  
  
  
 declare module L {
 
-    export class Control implements IControl {
+    export class Control extends Class implements IControl {
 
         /**
           * Creates a control with the given options.
@@ -424,6 +467,7 @@ declare module L {
 }
  
 declare module L {
+
     export interface ControlOptions {
 
         /**
@@ -432,14 +476,14 @@ declare module L {
           * Default value: 'topright'.
           */
         position: string;
-    
+
     }
 }
-
  
-
 declare module L {
+
     export class CRS {
+
         /**
           * The most common CRS for online maps, used by almost all free and commercial
           * tile providers. Uses Spherical Mercator projection. Set in by default in
@@ -466,26 +510,29 @@ declare module L {
         static Simple: ICRS;
     
     }
-} 
+}
  
- 
- 
-
 declare module L {
-    export class DivIcon {
+
+    export class DivIcon extends Icon {
+
         /**
           * Creates a div icon instance with the given options.
           */
         constructor(options: DivIconOptions);
+
+        /**
+          * Creates a div icon instance with the given options.
+          */
+        static divIcon(options: DivIconOptions): DivIcon;
     
     }
-} 
+}
  
- 
- 
-
 declare module L {
+
     export interface DivIconOptions {
+
         /**
           * Size of the icon in pixels. Can be also set through CSS.
           */
@@ -500,19 +547,20 @@ declare module L {
         iconAnchor?: Point;
     
         /**
-          * A custom class name to assign to the icon. 'leaflet-div-icon' by default.
+          * A custom class name to assign to the icon.
+          *
+          * Default value: 'leaflet-div-icon'.
           */
         className?: string;
     
         /**
-          * A custom HTML code to put inside the div element, empty by default.
+          * A custom HTML code to put inside the div element.
+          * Default value: ''.
           */
         html?: string;
     
     }
-} 
- 
- 
+}
  
 declare module L {
 
@@ -571,9 +619,10 @@ declare module L {
     }
 }
  
-
 declare module L {
+
     export class DomUtil {
+
         /**
           * Returns an element with the given id if a string was passed, or just returns
           * the element if it was passed directly.
@@ -633,7 +682,7 @@ declare module L {
           * style name for an element. If no such name is found, it returns false. Useful
           * for vendor-prefixed styles like transform.
           */
-        static testProp(props: String[]): string;
+        static testProp(props: string[]): any;
     
         /**
           * Returns a CSS transform string to move an element by the offset provided in
@@ -671,20 +720,24 @@ declare module L {
         static TRANSFORM: string;
     
     }
-} 
+}
  
- 
- 
-
-
 declare module L {
-    export class Draggable implements IEventPowered<Draggable> {
+
+    export class Draggable extends Class implements IEventPowered<Draggable> {
+
         /**
           * Creates a Draggable object for moving the given element when you start dragging
           * the dragHandle element (equals the element itself by default).
           */
         constructor(element: HTMLElement, dragHandle?: HTMLElement);
     
+        /**
+          * Creates a Draggable object for moving the given element when you start dragging
+          * the dragHandle element (equals the element itself by default).
+          */
+        static draggable(element: HTMLElement, dragHandle?: HTMLElement): Draggable;
+
         /**
           * Enables the dragging ability.
           */
@@ -726,6 +779,11 @@ declare module L {
         constructor(layers?: ILayer[]);
     
         /**
+          * Create a layer group, optionally given an initial set of layers.
+          */
+        static featureGroup(layers?: ILayer[]): FeatureGroup;
+
+        /**
           * Binds a popup with a particular HTML content to a click on any layer from the
           * group that has a bindPopup method.
           */
@@ -751,6 +809,7 @@ declare module L {
           * Brings the layer group to the bottom of all other layers.
           */
         bringToBack(): FeatureGroup;
+
         ////////////
         ////////////
         /**
@@ -904,26 +963,30 @@ declare module L {
  
 declare module L {
 
-    export class Icon {
+    export class Icon extends Class {
+
         /**
           * Creates an icon instance with the given options.
           */
         constructor(options: IconOptions);
 
-        static Default: IconDefault;
     }
-}
- 
-declare module L {
 
-    export class IconDefault extends Icon {
+    module Icon {
 
         /**
-          * Creates an icon instance with default options.
+          * L.Icon.Default extends L.Icon and is the blue icon Leaflet uses
+          * for markers by default.
           */
-        constructor();
+        export class Default extends Icon {
 
-        imagePath: string;
+            /**
+              * Creates an icon instance with default options.
+              */
+            constructor(options: IconOptions);
+
+            static imagePath: string;
+        }
     }
 }
  
@@ -1014,12 +1077,10 @@ declare module L {
  
  
  
-
-
-
-
 declare module L {
+
     export interface ICRS {
+
         /**
           * Projection that this CRS uses.
           */
@@ -1061,13 +1122,7 @@ declare module L {
         scale(zoom: number): number;
         
     }
-    /**
-      * This method restores the L global variale to the original value it had 
-      * before Leaflet inclusion, and returns the real Leaflet namespace.
-      */
-} 
- 
- 
+}
  
 
 declare module L {
@@ -1762,7 +1817,6 @@ declare module L {
  
  
  
-// checked
 declare module L {
 
     export class Map implements IEventPowered<Map> {

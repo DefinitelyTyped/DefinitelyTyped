@@ -1,15 +1,22 @@
 /// <reference path="IEventPowered.d.ts" />
 /// <reference path="LeafletEvent.d.ts" />
-
-
+/// <reference path="Class.d.ts" />
 declare module L {
-    export class Draggable implements IEventPowered<Draggable> {
+
+    export class Draggable extends Class implements IEventPowered<Draggable> {
+
         /**
           * Creates a Draggable object for moving the given element when you start dragging
           * the dragHandle element (equals the element itself by default).
           */
         constructor(element: HTMLElement, dragHandle?: HTMLElement);
     
+        /**
+          * Creates a Draggable object for moving the given element when you start dragging
+          * the dragHandle element (equals the element itself by default).
+          */
+        static draggable(element: HTMLElement, dragHandle?: HTMLElement): Draggable;
+
         /**
           * Enables the dragging ability.
           */
