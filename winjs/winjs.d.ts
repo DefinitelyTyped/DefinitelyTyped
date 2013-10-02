@@ -18,7 +18,7 @@ declare module WinJS {
     module Binding {
         function as(data: any): any;
         class List {
-            constructor(data: any[]);
+            constructor(data?: any[]);
             public push(item: any): any;
             public indexOf(item: any): number;
             public splice(start: number, howMany?: number, item?: any[]): any[];
@@ -47,6 +47,24 @@ declare module WinJS {
             public notifyMutated(index: number);            
             
         }
+        class Template {
+            public element: HTMLElement;
+            public extractChild: boolean;
+            public processTimeout: number;
+            public debugBreakOnRender: boolean;
+            public disableOptimizedProcessing: boolean;
+            public isDeclarativeControlContainer: boolean;
+            public bindingInitializer: any;
+
+            constructor(element: HTMLElement, options?: any);            
+            public render: {
+                (dataContext: any, container?: HTMLElement): WinJS.Promise<HTMLElement>;
+                value(href: string, dataContext: any, container?: HTMLElement): WinJS.Promise<HTMLElement>;
+            };
+            public renderItem(item: any, recycled?: HTMLElement);
+        }
+
+        
     }
     module Namespace {
         var define: any;
