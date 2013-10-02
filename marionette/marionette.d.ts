@@ -58,7 +58,7 @@ declare module Backbone {
     // Backbone.Wreqr
     module Wreqr {
 
-        class Handlers extends Backbone.Events {
+        class Handlers implements Backbone.Eventable {
 
             constructor(options?: any);
 
@@ -69,6 +69,18 @@ declare module Backbone {
             getHandler(name: string): Function;
             removeHandler(name: string);
             removeAllHandlers(): void;
+
+            // Implementation of Backbone.Events
+
+            on(eventName: any, callback?: (...args: any[]) => void , context?: any): any;
+            off(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
+            trigger(eventName: string, ...args: any[]): any;
+            bind(eventName: string, callback: (...args: any[]) => void , context?: any): any;
+            unbind(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
+            once(events: string, callback: (...args: any[]) => void , context?: any): any;
+            listenTo(object: any, events: string, callback: (...args: any[]) => void ): any;
+            listenToOnce(object: any, events: string, callback: (...args: any[]) => void ): any;
+            stopListening(object?: any, events?: string, callback?: (...args: any[]) => void ): any;
         }
 
         class CommandStorage {
@@ -95,9 +107,21 @@ declare module Backbone {
             request(...args: any[]);
         }
 
-        class EventAggregator extends Backbone.Events {
+        class EventAggregator implements Backbone.Eventable {
 
             constructor(options?: any);
+
+            // Implementation of Backbone.Events
+
+            on(eventName: any, callback?: (...args: any[]) => void , context?: any): any;
+            off(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
+            trigger(eventName: string, ...args: any[]): any;
+            bind(eventName: string, callback: (...args: any[]) => void , context?: any): any;
+            unbind(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
+            once(events: string, callback: (...args: any[]) => void , context?: any): any;
+            listenTo(object: any, events: string, callback: (...args: any[]) => void ): any;
+            listenToOnce(object: any, events: string, callback: (...args: any[]) => void ): any;
+            stopListening(object?: any, events?: string, callback?: (...args: any[]) => void ): any;
         }
     }
 }
@@ -116,11 +140,23 @@ declare module Marionette {
         reset(): void;
     }
 
-    class Controller extends Backbone.Events {
+    class Controller implements Backbone.Eventable {
         close();
+
+        // Implementation of Backbone.Events
+
+        on(eventName: any, callback?: (...args: any[]) => void , context?: any): any;
+        off(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
+        trigger(eventName: string, ...args: any[]): any;
+        bind(eventName: string, callback: (...args: any[]) => void , context?: any): any;
+        unbind(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
+        once(events: string, callback: (...args: any[]) => void , context?: any): any;
+        listenTo(object: any, events: string, callback: (...args: any[]) => void ): any;
+        listenToOnce(object: any, events: string, callback: (...args: any[]) => void ): any;
+        stopListening(object?: any, events?: string, callback?: (...args: any[]) => void ): any;
     }
 
-    class Region extends Backbone.Events {
+    class Region implements Backbone.Eventable {
 
         static buildRegion(regionConfig, defaultRegionType): Region;
 
@@ -132,6 +168,18 @@ declare module Marionette {
         close(): void;
         attachView(view: Backbone.View);
         reset();
+
+        // Implementation of Backbone.Events
+
+        on(eventName: any, callback?: (...args: any[]) => void , context?: any): any;
+        off(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
+        trigger(eventName: string, ...args: any[]): any;
+        bind(eventName: string, callback: (...args: any[]) => void , context?: any): any;
+        unbind(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
+        once(events: string, callback: (...args: any[]) => void , context?: any): any;
+        listenTo(object: any, events: string, callback: (...args: any[]) => void ): any;
+        listenToOnce(object: any, events: string, callback: (...args: any[]) => void ): any;
+        stopListening(object?: any, events?: string, callback?: (...args: any[]) => void ): any;
     }
 
     class RegionManager extends Controller {
@@ -275,7 +323,7 @@ declare module Marionette {
         processAppRoutes(controller: Controller, appRoutes: any);
     }
 
-    class Application extends Backbone.Events {
+    class Application implements Backbone.Eventable {
 
         vent: Backbone.Wreqr.EventAggregator;
         commands: Backbone.Wreqr.Commands;
@@ -289,10 +337,22 @@ declare module Marionette {
         addRegions(regions);
         removeRegion(region: Region);
         module(moduleNames, moduleDefinition);
+
+        // Implementation of Backbone.Events
+
+        on(eventName: any, callback?: (...args: any[]) => void , context?: any): any;
+        off(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
+        trigger(eventName: string, ...args: any[]): any;
+        bind(eventName: string, callback: (...args: any[]) => void , context?: any): any;
+        unbind(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
+        once(events: string, callback: (...args: any[]) => void , context?: any): any;
+        listenTo(object: any, events: string, callback: (...args: any[]) => void ): any;
+        listenToOnce(object: any, events: string, callback: (...args: any[]) => void ): any;
+        stopListening(object?: any, events?: string, callback?: (...args: any[]) => void ): any;
     }
 
     // modules mapped for convenience, but you should probably use TypeScript modules instead
-    class Module extends Backbone.Events {
+    class Module implements Backbone.Eventable {
 
         constructor(moduleName: string, app: Application);
 
@@ -304,5 +364,17 @@ declare module Marionette {
         start(options?: any): void;
         stopvoid;
         addDefinition(moduleDefinition, customArgs);
+        
+        // Implementation of Backbone.Events
+
+        on(eventName: any, callback?: (...args: any[]) => void , context?: any): any;
+        off(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
+        trigger(eventName: string, ...args: any[]): any;
+        bind(eventName: string, callback: (...args: any[]) => void , context?: any): any;
+        unbind(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
+        once(events: string, callback: (...args: any[]) => void , context?: any): any;
+        listenTo(object: any, events: string, callback: (...args: any[]) => void ): any;
+        listenToOnce(object: any, events: string, callback: (...args: any[]) => void ): any;
+        stopListening(object?: any, events?: string, callback?: (...args: any[]) => void ): any;
     }
 }
