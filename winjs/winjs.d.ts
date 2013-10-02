@@ -56,10 +56,14 @@ declare module WinJS {
             public isDeclarativeControlContainer: boolean;
             public bindingInitializer: any;
 
-            constructor(element: HTMLElement, options?: any);
-            public render(dataContext: any, container?: HTMLElement): WinJS.Promise<any>;
+            constructor(element: HTMLElement, options?: any);            
+            public render: {
+                (dataContext: any, container?: HTMLElement): WinJS.Promise<HTMLElement>;
+                value(href: string, dataContext: any, container?: HTMLElement): WinJS.Promise<HTMLElement>;
+            };
             public renderItem(item: any, recycled?: HTMLElement);
         }
+
         
     }
     module Namespace {
