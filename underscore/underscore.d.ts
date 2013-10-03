@@ -861,7 +861,7 @@ declare module _ {
 	* @return `fn` with `this` bound to `object`.
 	**/
 	export function bind(
-		func: (...as: any[]) => any,
+		func: Function,
 		context: any,
 		...arguments: any[]): () => any;
 
