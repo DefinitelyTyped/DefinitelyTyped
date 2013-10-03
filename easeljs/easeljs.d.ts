@@ -600,7 +600,8 @@ declare module createjs {
         mouseY: number;
         snapToPixelEnabled: boolean;
         tickOnUpdate: boolean;
-
+        mouseMoveOutside: boolean;
+        
         new (): Stage;
         new (canvas: HTMLElement): Stage;
 
