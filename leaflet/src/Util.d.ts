@@ -1,7 +1,9 @@
+//// updated to 0.6.4
 /// <reference path="Point.d.ts" />
-
 declare module L {
+
     export class Util {
+
         /**
           * Merges the properties of the src object (or multiple objects) into dest object
           * and returns the latter. Has an L.extend shortcut.
@@ -68,13 +70,15 @@ declare module L {
         static isArray(obj: any): boolean;
     
         /**
+          * Trims the whitespace from both ends of the string and returns the result.
+          */
+        static trim(str: string): boolean;
+
+        /**
           * Data URI string containing a base64-encoded empty GIF image. Used as a hack
           * to free memory from unused images on WebKit-powered mobile devices (by setting
           * image src to this string).
           */
         static emptyImageUrl: string;
-    
     }
-} 
- 
- 
+}

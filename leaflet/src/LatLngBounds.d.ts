@@ -1,7 +1,9 @@
+//// updated to 0.6.4
 /// <reference path="LatLng.d.ts" />
-
 declare module L {
+
     export class LatLngBounds {
+
         /**
           * Creates a LatLngBounds object by defining south-west and north-east corners
           * of the rectangle.
@@ -9,14 +11,33 @@ declare module L {
         constructor(southWest: LatLng, northEast: LatLng);
     
         /**
-          * Extends the bounds to contain the given point or bounds.
+          * Creates a LatLngBounds object defined by the geographical points it contains.
+          * Very useful for zooming the map to fit a particular set of locations with fitBounds.
+          */
+        constructor(latlngs: LatLng[]);
+
+        /**
+          * Creates a LatLngBounds object by defining south-west and north-east corners
+          * of the rectangle.
+          */
+        static latLngBounds(southWest: LatLng, northEast: LatLng): LatLngBounds;
+
+        /**
+          * Creates a LatLngBounds object defined by the geographical points it contains.
+          * Very useful for zooming the map to fit a particular set of locations with fitBounds.
+          */
+        static latLngBounds(latlngs: LatLng[]): LatLngBounds;
+
+        /**
+          * Extends the bounds to contain the given point.
           */
         extend(latlng: LatLng): LatLngBounds;
     
         /**
-          * Extends the bounds to contain the given point or bounds.
+          * Extends the bounds to contain the given bounds.
           */
         extend(latlng: LatLngBounds): LatLngBounds;
+
         /**
           * Returns the south-west point of the bounds.
           */
@@ -81,6 +102,4 @@ declare module L {
         isValid(): boolean;
     
     }
-} 
- 
- 
+}

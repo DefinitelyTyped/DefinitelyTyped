@@ -1,9 +1,10 @@
+//// updated to 0.6.4
 /// <reference path="LatLng.d.ts" />
 /// <reference path="ILayer.d.ts" />
 /// <reference path="ICRS.d.ts" />
 /// <reference path="LatLngBounds.d.ts" />
-// checked
 declare module L {
+
     export interface MapOptions {
 
         // Map State Options
@@ -44,6 +45,7 @@ declare module L {
         /**
           * Coordinate Reference System to use. Don't change this if you're not sure
           * what it means.
+          *
           * Default value: L.CRS.EPSG3857.
           */
         crs?: ICRS;
@@ -52,24 +54,28 @@ declare module L {
 
         /**
           * Whether the map be draggable with mouse/touch or not.
+          *
           * Default value: true.
           */
         dragging?: boolean;
         
         /**
           * Whether the map can be zoomed by touch-dragging with two fingers.
+          *
           * Default value: true.
           */
         touchZoom?: boolean;
         
         /**
           * Whether the map can be zoomed by using the mouse wheel.
+          *
           * Default value: true.
           */
         scrollWheelZoom?: boolean;
         
         /**
           * Whether the map can be zoomed in by double clicking on it.
+          *
           * Default value: true.
           */
         doubleClickZoom?: boolean;
@@ -77,6 +83,7 @@ declare module L {
         /**
           * Whether the map can be zoomed to a rectangular area specified by dragging
           * the mouse while pressing shift.
+          *
           * Default value: true.
           */
         boxZoom?: boolean;
@@ -84,6 +91,7 @@ declare module L {
         /**
           * Enables mobile hacks for supporting instant taps (fixing 200ms click delay
           * on iOS/Android) and touch holds (fired as contextmenu events).
+          *
           * Default value: true.
           */
         tap?: boolean;
@@ -91,12 +99,14 @@ declare module L {
         /**
           * The max number of pixels a user can shift his finger during touch for it
           * to be considered a valid tap.
+          *
           * Default value: 15.
           */
         tapTolerance?: number;
 
         /**
           * Whether the map automatically handles browser window resize to update itself.
+          *
           * Default value: true.
           */
         trackResize?: boolean;
@@ -105,12 +115,14 @@ declare module L {
           * With this option enabled, the map tracks when you pan to another "copy" of
           * the world and seamlessly jumps to the original one so that all overlays like
           * markers and vector layers are still visible.
+          *
           * Default value: false.
           */
         worldCopyJump?: boolean;
         
         /**
           * Set it to false if you don't want popups to close when user clicks the map.
+          *
           * Default value: true.
           */
         closePopupOnClick?: boolean;
@@ -120,18 +132,21 @@ declare module L {
         /**
           * Makes the map focusable and allows users to navigate the map with keyboard
           * arrows and +/- keys.
+          *
           * Default value: true.
           */
         keyboard?: boolean;
         
         /**
           * Amount of pixels to pan when pressing an arrow key.
+          *
           * Default value: 80.
           */
         keyboardPanOffset?: number;
         
         /**
           * Number of zoom levels to change when pressing + or - key.
+          *
           * Default value: 1.
           */
         keyboardZoomOffset?: number;
@@ -142,18 +157,21 @@ declare module L {
           * If enabled, panning of the map will have an inertia effect where the map builds
           * momentum while dragging and continues moving in the same direction for some
           * time. Feels especially nice on touch devices.
+          *
           * Default value: true.
           */
         inertia?: boolean;
         
         /**
           * The rate with which the inertial movement slows down, in pixels/second2.
+          *
           * Default value: 3000.
           */
         inertiaDeceleration?: number;
         
         /**
           * Max speed of the inertial movement, in pixels/second.
+          *
           * Default value: 1500.
           */
         inertiaMaxSpeed?: number;
@@ -161,6 +179,7 @@ declare module L {
         /**
           * Amount of milliseconds that should pass between stopping the movement and
           * releasing the mouse or touch to prevent inertial movement.
+          *
           * Default value: 32 for touch devices and 14 for the rest.
           */
         inertiaThreshold?: number;
@@ -169,12 +188,14 @@ declare module L {
 
         /**
           * Whether the zoom control is added to the map by default.
+          *
           * Default value: true.
           */
         zoomControl?: boolean;
         
         /**
           * Whether the attribution control is added to the map by default.
+          *
           * Default value: true.
           */
         attributionControl?: boolean;
@@ -195,6 +216,7 @@ declare module L {
 
         /**
           * Won't animate zoom if the zoom difference exceeds this value.
+          *
           * Default value: 4.
           */
         zoomAnimationThreshold?: number;

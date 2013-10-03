@@ -1,19 +1,25 @@
+//// updated to 0.6.4
+/// <reference path="Class.d.ts" />
 /// <reference path="ILayer.d.ts" />
 /// <reference path="LatLngBounds.d.ts" />
 /// <reference path="ImageOverlayOptions.d.ts" />
 /// <reference path="Map.d.ts" />
-
-
-
-
 declare module L {
-    export class ImageOverlay implements ILayer {
+
+    export class ImageOverlay extends Class implements ILayer {
+
         /**
           * Instantiates an image overlay object given the URL of the image and the geographical
           * bounds it is tied to.
           */
         constructor(imageUrl: string, bounds: LatLngBounds, options?: ImageOverlayOptions);
     
+        /**
+          * Instantiates an image overlay object given the URL of the image and the geographical
+          * bounds it is tied to.
+          */
+        static imageOverlay(imageUrl: string, bounds: LatLngBounds, options?: ImageOverlayOptions): ImageOverlay;
+
         /**
           * Adds the overlay to the map.
           */
@@ -33,6 +39,7 @@ declare module L {
           * Brings the layer to the bottom of all overlays.
           */
         bringToBack(): ImageOverlay;
+
         ////////////
         //// ILayer members
         ////////////
@@ -48,8 +55,5 @@ declare module L {
           * the DOM and removes listeners previously added in onAdd. Called on map.removeLayer(layer).
           */
         onRemove(map: Map): void;
-    
     }
-} 
- 
- 
+}

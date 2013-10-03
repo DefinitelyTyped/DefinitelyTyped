@@ -1,11 +1,32 @@
+//// updated to 0.6.4
 declare module L {
+
     export class LatLng {
+
         /**
           * Creates an object representing a geographical point with the given latitude
           * and longitude.
           */
         constructor(latitude: number, longitude: number);
     
+        /**
+          * Creates an object representing a geographical point with the given latitude
+          * and longitude.
+          */
+        constructor(coords: number[]);
+
+        /**
+          * Creates an object representing a geographical point with the given latitude
+          * and longitude.
+          */
+        static latLng(latitude: number, longitude: number): LatLng;
+
+        /**
+          * Creates an object representing a geographical point with the given latitude
+          * and longitude.
+          */
+        static latLng(coords: number[]): LatLng;
+
         /**
           * Returns the distance (in meters) to the given LatLng calculated using the
           * Haversine formula. See description on wikipedia
@@ -38,8 +59,26 @@ declare module L {
           * Longitude in degrees.
           */
         lng: number;
-    
+
+        /**
+          * A multiplier for converting degrees into radians.
+          *
+          * Value: Math.PI / 180.
+          */
+        static DEG_TO_RAD: number;		
+
+        /**
+          * A multiplier for converting radians into degrees.
+          *
+          * Value: 180 / Math.PI.
+          */
+        static RAD_TO_DEG: number;
+
+        /**
+          * Max margin of error for the equality check.
+          *
+          * Value: 1.0E-9.
+          */
+        static MAX_MARGIN: number;
     }
-} 
- 
- 
+}

@@ -1,9 +1,10 @@
+//// updated to 0.6.4
 /// <reference path="LatLng.d.ts" />
 /// <reference path="Point.d.ts" />
-
-
 declare module L {
+
     export interface IProjection {
+
         /**
           * Projects geographical coordinates into a 2D point.
           */
@@ -13,8 +14,5 @@ declare module L {
           * The inverse of project. Projects a 2D point into geographical location.
           */
         unproject(point: Point): LatLng;
-    
     }
-} 
- 
- 
+}

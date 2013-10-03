@@ -1,5 +1,8 @@
+//// updated to 0.6.4
 declare module L {
+
     export interface IHandler {
+
         /**
           * Enables the handler.
           */
@@ -14,8 +17,5 @@ declare module L {
           * Returns true if the handler is enabled.
           */
         enabled(): boolean;
-    
     }
-} 
- 
- 
+}

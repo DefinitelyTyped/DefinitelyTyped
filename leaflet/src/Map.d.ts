@@ -1,3 +1,5 @@
+//// updated to 0.6.4
+/// <reference path="Class.d.ts" />
 /// <reference path="IEventPowered.d.ts" />
 /// <reference path="MapOptions.d.ts" />
 /// <reference path="LatLng.d.ts" />
@@ -18,7 +20,8 @@
 /// <reference path="MapPanes.d.ts" />
 declare module L {
 
-    export class Map implements IEventPowered<Map> {
+    export class Map extends Class implements IEventPowered<Map> {
+
         /**
           * Instantiates a map object given a div element and optionally an
           * object literal with map options described below.
@@ -109,7 +112,6 @@ declare module L {
           */
         panBy(point: Point, options?: PanOptions): Map;
         
-        // REVIEW: Documentation contains invalid signature for this method, took from the source.
         /**
           * Checks if the map container size changed and updates the map if so — call it
           * after you've changed the map size dynamically, also animating pan by default.
@@ -401,6 +403,5 @@ declare module L {
         cleanAllEventListeners(): Map
         on(eventMap: any, context?: any): Map;
         off(eventMap?: any, context?: any): Map;
-        
     }
 }

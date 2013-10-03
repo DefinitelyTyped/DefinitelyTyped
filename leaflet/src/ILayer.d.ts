@@ -1,7 +1,9 @@
+//// updated to 0.6.4
 /// <reference path="Map.d.ts" />
-
 declare module L {
+
     export interface ILayer {
+
         /**
           * Should contain code that creates DOM elements for the overlay, adds them
           * to map panes where they should belong and puts listeners on relevant map events.
@@ -14,6 +16,5 @@ declare module L {
           * the DOM and removes listeners previously added in onAdd. Called on map.removeLayer(layer).
           */
         onRemove(map: Map): void;
-    
     }
 }

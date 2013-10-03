@@ -10,6 +10,10 @@ declare module L {
           */
         constructor(options: IconOptions);
 
+        /**
+          * Creates an icon instance with the given options.
+          */
+        static icon(options: IconOptions): Icon;
     }
 
     module Icon {

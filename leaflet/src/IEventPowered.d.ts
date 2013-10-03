@@ -1,7 +1,9 @@
+//// updated to 0.6.4
 /// <reference path="LeafletEvent.d.ts" />
-
 declare module L {
+
     export interface IEventPowered<T> {
+
         /**
           * Adds a listener function (fn) to a particular event type of the object. You
           * can optionally specify the context of the listener (object the this keyword
@@ -40,27 +42,32 @@ declare module L {
           * — the first argument of the listener function will contain its properties.
           */
         fireEvent(type: string, data?: any): T;
-        
+                
         /**
           * Removes all listeners to all events on the object.
           */
         cleanAllEventListeners()
+
         /**
           * Alias to addEventListener.
           */
         on(type: string, fn: (e: LeafletEvent) => void, context?: any): T;
+
         /**
           * Alias to addEventListener.
           */
         on(eventMap: any, context?: any): T;
+
         /**
           * Alias to addOneTimeEventListener.
           */
         once(type: string, fn: (e: LeafletEvent) => void, context?: any): T;
+
         /**
           * Alias to removeEventListener.
           */
         off(type: string, fn?: (e: LeafletEvent) => void, context?: any): T;
+
         /**
           * Alias to removeEventListener.
           */
@@ -70,8 +77,5 @@ declare module L {
           * Alias to fireEvent.
           */
         fire(type: string, data?: any): T;
-    
     }
-} 
- 
- 
+}

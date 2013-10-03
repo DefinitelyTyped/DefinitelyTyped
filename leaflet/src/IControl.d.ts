@@ -1,7 +1,9 @@
+//// updated to 0.6.4
 /// <reference path="Map.d.ts" />
-
 declare module L {
+
     export interface IControl {
+
         /**
           * Should contain code that creates all the neccessary DOM elements for the
           * control, adds listeners on relevant map events, and returns the element
@@ -15,8 +17,5 @@ declare module L {
           * The control's DOM container is removed automatically.
           */
         onRemove(map: Map): void;
-    
     }
-} 
- 
- 
+}

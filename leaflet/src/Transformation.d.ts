@@ -1,7 +1,9 @@
+//// updated to 0.6.4
 /// <reference path="Point.d.ts" />
-
 declare module L {
+
     export class Transformation {
+
         /**
           * Creates a transformation object with the given coefficients.
           */
@@ -18,8 +20,5 @@ declare module L {
           * by the given scale. Only accepts real L.Point instances, not arrays.
           */
         untransform(point: Point, scale?: number): Point;
-    
     }
-} 
- 
- 
+}

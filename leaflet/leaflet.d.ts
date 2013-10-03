@@ -977,6 +977,10 @@ declare module L {
           */
         constructor(options: IconOptions);
 
+        /**
+          * Creates an icon instance with the given options.
+          */
+        static icon(options: IconOptions): Icon;
     }
 
     module Icon {
@@ -1062,9 +1066,10 @@ declare module L {
     }
 }
  
-
 declare module L {
+
     export interface IControl {
+
         /**
           * Should contain code that creates all the neccessary DOM elements for the
           * control, adds listeners on relevant map events, and returns the element
@@ -1078,11 +1083,8 @@ declare module L {
           * The control's DOM container is removed automatically.
           */
         onRemove(map: Map): void;
-    
     }
-} 
- 
- 
+}
  
 declare module L {
 
@@ -1131,9 +1133,10 @@ declare module L {
     }
 }
  
-
 declare module L {
+
     export interface IEventPowered<T> {
+
         /**
           * Adds a listener function (fn) to a particular event type of the object. You
           * can optionally specify the context of the listener (object the this keyword
@@ -1172,27 +1175,32 @@ declare module L {
           * — the first argument of the listener function will contain its properties.
           */
         fireEvent(type: string, data?: any): T;
-        
+                
         /**
           * Removes all listeners to all events on the object.
           */
         cleanAllEventListeners()
+
         /**
           * Alias to addEventListener.
           */
         on(type: string, fn: (e: LeafletEvent) => void, context?: any): T;
+
         /**
           * Alias to addEventListener.
           */
         on(eventMap: any, context?: any): T;
+
         /**
           * Alias to addOneTimeEventListener.
           */
         once(type: string, fn: (e: LeafletEvent) => void, context?: any): T;
+
         /**
           * Alias to removeEventListener.
           */
         off(type: string, fn?: (e: LeafletEvent) => void, context?: any): T;
+
         /**
           * Alias to removeEventListener.
           */
@@ -1202,14 +1210,13 @@ declare module L {
           * Alias to fireEvent.
           */
         fire(type: string, data?: any): T;
-    
     }
-} 
- 
- 
+}
  
 declare module L {
+
     export interface IHandler {
+
         /**
           * Enables the handler.
           */
@@ -1224,15 +1231,13 @@ declare module L {
           * Returns true if the handler is enabled.
           */
         enabled(): boolean;
-    
     }
-} 
+}
  
- 
- 
-
 declare module L {
+
     export interface ILayer {
+
         /**
           * Should contain code that creates DOM elements for the overlay, adds them
           * to map panes where they should belong and puts listeners on relevant map events.
@@ -1245,22 +1250,25 @@ declare module L {
           * the DOM and removes listeners previously added in onAdd. Called on map.removeLayer(layer).
           */
         onRemove(map: Map): void;
-    
     }
 }
  
-
-
-
-
 declare module L {
-    export class ImageOverlay implements ILayer {
+
+    export class ImageOverlay extends Class implements ILayer {
+
         /**
           * Instantiates an image overlay object given the URL of the image and the geographical
           * bounds it is tied to.
           */
         constructor(imageUrl: string, bounds: LatLngBounds, options?: ImageOverlayOptions);
     
+        /**
+          * Instantiates an image overlay object given the URL of the image and the geographical
+          * bounds it is tied to.
+          */
+        static imageOverlay(imageUrl: string, bounds: LatLngBounds, options?: ImageOverlayOptions): ImageOverlay;
+
         /**
           * Adds the overlay to the map.
           */
@@ -1280,6 +1288,7 @@ declare module L {
           * Brings the layer to the bottom of all overlays.
           */
         bringToBack(): ImageOverlay;
+
         ////////////
         ////////////
         /**
@@ -1294,28 +1303,24 @@ declare module L {
           * the DOM and removes listeners previously added in onAdd. Called on map.removeLayer(layer).
           */
         onRemove(map: Map): void;
-    
     }
-} 
- 
- 
+}
  
 declare module L {
+
     export interface ImageOverlayOptions {
+
         /**
           * The opacity of the image overlay.
           */
         opacity?: number;
-    
     }
-} 
+}
  
- 
- 
-
-
 declare module L {
+
     export interface IProjection {
+
         /**
           * Projects geographical coordinates into a 2D point.
           */
@@ -1325,14 +1330,12 @@ declare module L {
           * The inverse of project. Projects a 2D point into geographical location.
           */
         unproject(point: Point): LatLng;
-    
     }
-} 
- 
- 
+}
  
 declare module L {
-	/**
+
+    /**
     * A constant that represents the Leaflet version in use.
     */
     export var version: string;
@@ -1344,16 +1347,34 @@ declare module L {
     export function noConflict(): typeof L;
 }
  
- 
- 
 declare module L {
+
     export class LatLng {
+
         /**
           * Creates an object representing a geographical point with the given latitude
           * and longitude.
           */
         constructor(latitude: number, longitude: number);
     
+        /**
+          * Creates an object representing a geographical point with the given latitude
+          * and longitude.
+          */
+        constructor(coords: number[]);
+
+        /**
+          * Creates an object representing a geographical point with the given latitude
+          * and longitude.
+          */
+        static latLng(latitude: number, longitude: number): LatLng;
+
+        /**
+          * Creates an object representing a geographical point with the given latitude
+          * and longitude.
+          */
+        static latLng(coords: number[]): LatLng;
+
         /**
           * Returns the distance (in meters) to the given LatLng calculated using the
           * Haversine formula. See description on wikipedia
@@ -1386,15 +1407,34 @@ declare module L {
           * Longitude in degrees.
           */
         lng: number;
-    
-    }
-} 
- 
- 
- 
 
+        /**
+          * A multiplier for converting degrees into radians.
+          *
+          * Value: Math.PI / 180.
+          */
+        static DEG_TO_RAD: number;		
+
+        /**
+          * A multiplier for converting radians into degrees.
+          *
+          * Value: 180 / Math.PI.
+          */
+        static RAD_TO_DEG: number;
+
+        /**
+          * Max margin of error for the equality check.
+          *
+          * Value: 1.0E-9.
+          */
+        static MAX_MARGIN: number;
+    }
+}
+ 
 declare module L {
+
     export class LatLngBounds {
+
         /**
           * Creates a LatLngBounds object by defining south-west and north-east corners
           * of the rectangle.
@@ -1402,14 +1442,33 @@ declare module L {
         constructor(southWest: LatLng, northEast: LatLng);
     
         /**
-          * Extends the bounds to contain the given point or bounds.
+          * Creates a LatLngBounds object defined by the geographical points it contains.
+          * Very useful for zooming the map to fit a particular set of locations with fitBounds.
+          */
+        constructor(latlngs: LatLng[]);
+
+        /**
+          * Creates a LatLngBounds object by defining south-west and north-east corners
+          * of the rectangle.
+          */
+        static latLngBounds(southWest: LatLng, northEast: LatLng): LatLngBounds;
+
+        /**
+          * Creates a LatLngBounds object defined by the geographical points it contains.
+          * Very useful for zooming the map to fit a particular set of locations with fitBounds.
+          */
+        static latLngBounds(latlngs: LatLng[]): LatLngBounds;
+
+        /**
+          * Extends the bounds to contain the given point.
           */
         extend(latlng: LatLng): LatLngBounds;
     
         /**
-          * Extends the bounds to contain the given point or bounds.
+          * Extends the bounds to contain the given bounds.
           */
         extend(latlng: LatLngBounds): LatLngBounds;
+
         /**
           * Returns the south-west point of the bounds.
           */
@@ -1474,9 +1533,7 @@ declare module L {
         isValid(): boolean;
     
     }
-} 
- 
- 
+}
  
 
 
@@ -1826,7 +1883,8 @@ declare module L {
  
 declare module L {
 
-    export class Map implements IEventPowered<Map> {
+    export class Map extends Class implements IEventPowered<Map> {
+
         /**
           * Instantiates a map object given a div element and optionally an
           * object literal with map options described below.
@@ -1917,7 +1975,6 @@ declare module L {
           */
         panBy(point: Point, options?: PanOptions): Map;
         
-        // REVIEW: Documentation contains invalid signature for this method, took from the source.
         /**
           * Checks if the map container size changed and updates the map if so — call it
           * after you've changed the map size dynamically, also animating pan by default.
@@ -2208,12 +2265,11 @@ declare module L {
         cleanAllEventListeners(): Map
         on(eventMap: any, context?: any): Map;
         off(eventMap?: any, context?: any): Map;
-        
     }
 }
  
-// checked
 declare module L {
+
     export interface MapOptions {
 
         // Map State Options
@@ -2254,6 +2310,7 @@ declare module L {
         /**
           * Coordinate Reference System to use. Don't change this if you're not sure
           * what it means.
+          *
           * Default value: L.CRS.EPSG3857.
           */
         crs?: ICRS;
@@ -2262,24 +2319,28 @@ declare module L {
 
         /**
           * Whether the map be draggable with mouse/touch or not.
+          *
           * Default value: true.
           */
         dragging?: boolean;
         
         /**
           * Whether the map can be zoomed by touch-dragging with two fingers.
+          *
           * Default value: true.
           */
         touchZoom?: boolean;
         
         /**
           * Whether the map can be zoomed by using the mouse wheel.
+          *
           * Default value: true.
           */
         scrollWheelZoom?: boolean;
         
         /**
           * Whether the map can be zoomed in by double clicking on it.
+          *
           * Default value: true.
           */
         doubleClickZoom?: boolean;
@@ -2287,6 +2348,7 @@ declare module L {
         /**
           * Whether the map can be zoomed to a rectangular area specified by dragging
           * the mouse while pressing shift.
+          *
           * Default value: true.
           */
         boxZoom?: boolean;
@@ -2294,6 +2356,7 @@ declare module L {
         /**
           * Enables mobile hacks for supporting instant taps (fixing 200ms click delay
           * on iOS/Android) and touch holds (fired as contextmenu events).
+          *
           * Default value: true.
           */
         tap?: boolean;
@@ -2301,12 +2364,14 @@ declare module L {
         /**
           * The max number of pixels a user can shift his finger during touch for it
           * to be considered a valid tap.
+          *
           * Default value: 15.
           */
         tapTolerance?: number;
 
         /**
           * Whether the map automatically handles browser window resize to update itself.
+          *
           * Default value: true.
           */
         trackResize?: boolean;
@@ -2315,12 +2380,14 @@ declare module L {
           * With this option enabled, the map tracks when you pan to another "copy" of
           * the world and seamlessly jumps to the original one so that all overlays like
           * markers and vector layers are still visible.
+          *
           * Default value: false.
           */
         worldCopyJump?: boolean;
         
         /**
           * Set it to false if you don't want popups to close when user clicks the map.
+          *
           * Default value: true.
           */
         closePopupOnClick?: boolean;
@@ -2330,18 +2397,21 @@ declare module L {
         /**
           * Makes the map focusable and allows users to navigate the map with keyboard
           * arrows and +/- keys.
+          *
           * Default value: true.
           */
         keyboard?: boolean;
         
         /**
           * Amount of pixels to pan when pressing an arrow key.
+          *
           * Default value: 80.
           */
         keyboardPanOffset?: number;
         
         /**
           * Number of zoom levels to change when pressing + or - key.
+          *
           * Default value: 1.
           */
         keyboardZoomOffset?: number;
@@ -2352,18 +2422,21 @@ declare module L {
           * If enabled, panning of the map will have an inertia effect where the map builds
           * momentum while dragging and continues moving in the same direction for some
           * time. Feels especially nice on touch devices.
+          *
           * Default value: true.
           */
         inertia?: boolean;
         
         /**
           * The rate with which the inertial movement slows down, in pixels/second2.
+          *
           * Default value: 3000.
           */
         inertiaDeceleration?: number;
         
         /**
           * Max speed of the inertial movement, in pixels/second.
+          *
           * Default value: 1500.
           */
         inertiaMaxSpeed?: number;
@@ -2371,6 +2444,7 @@ declare module L {
         /**
           * Amount of milliseconds that should pass between stopping the movement and
           * releasing the mouse or touch to prevent inertial movement.
+          *
           * Default value: 32 for touch devices and 14 for the rest.
           */
         inertiaThreshold?: number;
@@ -2379,12 +2453,14 @@ declare module L {
 
         /**
           * Whether the zoom control is added to the map by default.
+          *
           * Default value: true.
           */
         zoomControl?: boolean;
         
         /**
           * Whether the attribution control is added to the map by default.
+          *
           * Default value: true.
           */
         attributionControl?: boolean;
@@ -2405,6 +2481,7 @@ declare module L {
 
         /**
           * Won't animate zoom if the zoom difference exceeds this value.
+          *
           * Default value: 4.
           */
         zoomAnimationThreshold?: number;
@@ -2665,7 +2742,6 @@ declare module L {
         noMoveStart?: boolean;
     }
 }
-
  
 
 declare module L {
@@ -3518,9 +3594,10 @@ declare module L {
     }
 }
  
-
 declare module L {
+
     export class Transformation {
+
         /**
           * Creates a transformation object with the given coefficients.
           */
@@ -3537,15 +3614,13 @@ declare module L {
           * by the given scale. Only accepts real L.Point instances, not arrays.
           */
         untransform(point: Point, scale?: number): Point;
-    
     }
-} 
+}
  
- 
- 
-
 declare module L {
+
     export class Util {
+
         /**
           * Merges the properties of the src object (or multiple objects) into dest object
           * and returns the latter. Has an L.extend shortcut.
@@ -3612,16 +3687,18 @@ declare module L {
         static isArray(obj: any): boolean;
     
         /**
+          * Trims the whitespace from both ends of the string and returns the result.
+          */
+        static trim(str: string): boolean;
+
+        /**
           * Data URI string containing a base64-encoded empty GIF image. Used as a hack
           * to free memory from unused images on WebKit-powered mobile devices (by setting
           * image src to this string).
           */
         static emptyImageUrl: string;
-    
     }
-} 
- 
- 
+}
  
  
 declare module L {
