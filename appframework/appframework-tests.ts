@@ -1,6 +1,6 @@
 /// <reference path="appframework.d.ts" />
 
-af(function ($: appFrameworkCollection) {});
+af(($: appFrameworkStatic) => {});
 
 ((): appFrameworkCollection => {
   return $('div'); //=> all DIV elements on the page
@@ -192,7 +192,7 @@ $.feat.cssTransformEnd;
 
 
 ((): appFrameworkCollection => {
-  return $('').reduce(() => {});
+  return $('').reduce((hoge) => { return hoge; });
 })();
 
 ((): number => {
