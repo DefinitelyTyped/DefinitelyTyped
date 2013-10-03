@@ -53,8 +53,8 @@ interface appFrameworkStatic {
      * @return {Array} elements
      * @title $.each(elements,callback)
      */
-    each(collection: any[], fn: (index: number, item: any) => boolean): void;
-    each(collection: any, fn: (key: string, value: any) => boolean): void;
+    each(collection: any[], fn: (index: number, item: any) => any): void;
+    each(collection: any, fn: (key: string, value: any) => any): void;
 
     /**
      * Extends an object with additional arguments
