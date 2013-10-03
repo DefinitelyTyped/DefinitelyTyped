@@ -6,31 +6,31 @@
 
 declare class ZeroClipboard {
     constructor(elements?: any, options?: ZeroClipboardOptions);
-    setCurrent(element: any);
-    setText(newText: string);
-    setTitle(newTitle: string);
-    setSize(width: number, height: number);
-    setHandCursor(enabled: boolean);
+    setCurrent(element: any): void;
+    setText(newText: string): void;
+    setTitle(newTitle: string): void;
+    setSize(width: number, height: number): void;
+    setHandCursor(enabled: boolean): void;
     version: string;
     moviePath: string;
     trustedDomains: any;
     text: string;
     hoverClass: string;
     activeClass: string;
-    resetBridge();
+    resetBridge(): void;
     ready: boolean;
-    reposition();
-    on(eventName, func);
-    addEventListener(eventName: string, func);
-    off(eventName: string, func);
-    removeEventListener(eventName: string, func);
-    receiveEvent(eventName: string, args);
-    glue(elements: any);
-    unglue(elements: any);
-    static setDefaults(options: ZeroClipboardOptions);
-    static destroy();
+    reposition(): void; // returns false in some scenarios, but never returns true
+    on(eventName: string, func: Function): void;
+    addEventListener(eventName: string, func: Function): void;
+    off(eventName: string, func: Function): void;
+    removeEventListener(eventName: string, func: Function): void;
+    receiveEvent(eventName: string, args: any): void;
+    glue(elements: any): void;
+    unglue(elements: any): void;
+    static setDefaults(options: ZeroClipboardOptions): void;
+    static destroy(): void;
     static detectFlashSupport(): boolean;
-    static dispatch(eventName: string, func);
+    static dispatch(eventName: string, args: any): void;
 }
 
 interface ZeroClipboardOptions {
