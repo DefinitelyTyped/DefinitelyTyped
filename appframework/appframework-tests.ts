@@ -349,6 +349,10 @@ $.feat.cssTransformEnd;
 })();
 
 ((): appFrameworkCollection => {
+  return $('').toggleClass('');
+})();
+
+((): appFrameworkCollection => {
   return $('').replaceClass('', '');
 })();
 
