@@ -1,13 +1,13 @@
+//// updated to 0.6.4
 /// <reference path="FeatureGroup.d.ts" />
 /// <reference path="GeoJSONOptions.d.ts" />
 /// <reference path="LatLng.d.ts" />
 /// <reference path="Path.d.ts" />
 /// <reference path="PathOptions.d.ts" />
-
-
-
 declare module L {
+
     export class GeoJSON extends FeatureGroup {
+
         /**
           * Creates a GeoJSON layer. Optionally accepts an object in GeoJSON format
           * to display on the map (you can alternatively add it later with addData method)
@@ -16,14 +16,17 @@ declare module L {
         constructor(geojson?: any, options?: GeoJSONOptions);
     
         /**
+          * Creates a GeoJSON layer. Optionally accepts an object in GeoJSON format
+          * to display on the map (you can alternatively add it later with addData method)
+          * and an options object.
+          */
+        static geoJson(geojson?: any, options?: GeoJSONOptions): GeoJSON;
+
+        /**
           * Adds a GeoJSON object to the layer. 
           */
         addData(data: any): boolean;
     
-        /**
-          * NOTE: A fake signature to allow an overriding overload.
-          */
-        setStyle(style: PathOptions): FeatureGroup;
         /**
           * Changes styles of GeoJSON vector layers with the given style function.
           */
@@ -45,7 +48,7 @@ declare module L {
           * used in GeoJSON for points. If reverse is set to true, the numbers will be interpreted
           * as (longitude, latitude).
           */
-        static coordsToLatlng(coords: Array, reverse?: boolean): LatLng;
+        static coordsToLatlng(coords: number[], reverse?: boolean): LatLng;
     
         /**
           * Creates a multidimensional array of LatLng objects from a GeoJSON coordinates
@@ -53,9 +56,7 @@ declare module L {
           * 1 for an array of arrays of points, etc., 0 by default). If reverse is set to
           * true, the numbers will be interpreted as (longitude, latitude).
           */
-        static coordsToLatlngs(coords: Array, levelsDeep?: number, reverse?: boolean): Array;
+        static coordsToLatlngs(coords: number[], levelsDeep?: number, reverse?: boolean): LatLng[];
     
     }
-} 
- 
- 
+}

@@ -844,9 +844,10 @@ declare module L {
     }
 }
  
-
 declare module L {
+
     export interface FitBoundsOptions extends ZoomPanOptions {
+
         /**
           * Sets the amount of padding in the top left corner of a map container that
           * shouldn't be accounted for when setting the view to fit bounds. Useful if
@@ -856,12 +857,14 @@ declare module L {
           * Default value: [0, 0].
           */
         paddingTopLeft?: Point;
+
         /**
           * The same for bottom right corner of the map.
           * 
           * Default value: [0, 0].
           */
         paddingBottomRight?: Point;
+
         /**
           * Equivalent of setting both top left and bottom right padding to the same value.
           * 
@@ -869,15 +872,12 @@ declare module L {
           */
         padding?: Point;
     }
-} 
+}
  
- 
- 
-
-
-
 declare module L {
+
     export class GeoJSON extends FeatureGroup {
+
         /**
           * Creates a GeoJSON layer. Optionally accepts an object in GeoJSON format
           * to display on the map (you can alternatively add it later with addData method)
@@ -886,14 +886,17 @@ declare module L {
         constructor(geojson?: any, options?: GeoJSONOptions);
     
         /**
+          * Creates a GeoJSON layer. Optionally accepts an object in GeoJSON format
+          * to display on the map (you can alternatively add it later with addData method)
+          * and an options object.
+          */
+        static geoJson(geojson?: any, options?: GeoJSONOptions): GeoJSON;
+
+        /**
           * Adds a GeoJSON object to the layer. 
           */
         addData(data: any): boolean;
     
-        /**
-          * NOTE: A fake signature to allow an overriding overload.
-          */
-        setStyle(style: PathOptions): FeatureGroup;
         /**
           * Changes styles of GeoJSON vector layers with the given style function.
           */
@@ -915,7 +918,7 @@ declare module L {
           * used in GeoJSON for points. If reverse is set to true, the numbers will be interpreted
           * as (longitude, latitude).
           */
-        static coordsToLatlng(coords: Array, reverse?: boolean): LatLng;
+        static coordsToLatlng(coords: number[], reverse?: boolean): LatLng;
     
         /**
           * Creates a multidimensional array of LatLng objects from a GeoJSON coordinates
@@ -923,14 +926,11 @@ declare module L {
           * 1 for an array of arrays of points, etc., 0 by default). If reverse is set to
           * true, the numbers will be interpreted as (longitude, latitude).
           */
-        static coordsToLatlngs(coords: Array, levelsDeep?: number, reverse?: boolean): Array;
+        static coordsToLatlngs(coords: number[], levelsDeep?: number, reverse?: boolean): LatLng[];
     
     }
-} 
+}
  
- 
- 
-
 declare module L {
     export interface GeoJSONOptions {
         /**
@@ -938,26 +938,33 @@ declare module L {
           * specified, simple markers will be created).
           */
         pointToLayer?: (featureData: any, latlng: LatLng) => ILayer;
-    
+
         /**
           * Function that will be used to get style options for vector layers created
           * for GeoJSON features.
           */
         style?: (featureData: any) => any;
-    
+
         /**
           * Function that will be called on each created feature layer. Useful for attaching
           * events and popups to features.
           */
         onEachFeature?: (featureData: any, layer: ILayer) => void;
-    
+
         /**
           * Function that will be used to decide whether to show a feature or not.
           */
         filter?: (featureData: any, layer: ILayer) => boolean;
-    
+
+        /**
+          * Function that will be used for converting GeoJSON coordinates to LatLng points
+          * (if not specified, coords will be assumed to be WGS84 — standard[longitude, latitude]
+          * values in degrees).
+          */
+        coordsToLatLng?: (coords: any[]) => LatLng[];
     }
-} 
+}
+
  
  
  
@@ -2660,9 +2667,6 @@ declare module L {
 }
 
  
-
-
-
 
 declare module L {
     export class Path implements ILayer, IEventPowered<Path> {
