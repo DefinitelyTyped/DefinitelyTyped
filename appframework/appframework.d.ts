@@ -740,6 +740,19 @@ interface appFrameworkCollection {
     removeClass(className: string): appFrameworkCollection;
 
     /**
+    * Adds or removes a css class to elements.
+        ```
+        $().toggleClass("selected");
+        ```
+
+    * @param {String} classes that are space delimited
+    * @param {Boolean} [state] force toggle to add or remove classes
+    * @return {Object} appframework object
+    * @title $().toggleClass(name)
+    */
+    toggleClass(name: string, state?: boolean): appFrameworkCollection;
+
+    /**
      * Replaces a css class on elements.
      ```
      $().replaceClass("on", "off");
