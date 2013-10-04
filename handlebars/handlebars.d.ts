@@ -6,17 +6,28 @@
 
 declare module Handlebars {
     function registerHelper(name: string, fn: Function, inverse?: boolean): void;
-    function registerPartial(name: string, str): void;
-    function K();
-    function createFrame(object);
+    function registerPartial(name: string, str: any): void;
+    function K(): void;
+    function createFrame(object: any): any;
     function Exception(message: string): void;
     class SafeString {
         constructor(str: string);
         static toString(): string;
     }
-    function parse(string: string);
-    function print(ast);
-    var logger;
-    function log(level, str): void;
-    function compile(environment, options?, context?, asObject?);
+    function parse(input: string): boolean;
+    var logger: Logger;
+    function log(level: number, obj: any): void;
+    function compile(input: any, options?: any): (context: any, options?: any) => string;
+
+    interface Logger {
+        DEBUG: number;
+        INFO: number;
+        WARN: number;
+        ERROR: number;
+        level: number;
+
+        methodMap: { [level: number]: string };
+
+        log(level: number, obj: string): void;
+    }
 }
