@@ -866,7 +866,7 @@ declare module google.maps {
 
     export interface ImageMapTypeOptions {
         alt?: string;
-        getTileUrl: (Point: number) => string;
+        getTileUrl: (tileCoord: Point, zoom: number) => string;
         maxZoom?: number;
         minZoom?: number;
         name?: string;
