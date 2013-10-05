@@ -20,8 +20,8 @@ interface KnockoutStatic {
     ignoreDependencies(callback: Function, callbackTarget: any, callbackArgs?: Array);
 }
 
-// Observables
-interface KnockoutSubscribableFunctions {
+// Subscription
+interface KnockoutSubscription<T> {
     deferUpdates: boolean;
 }
 
@@ -30,7 +30,8 @@ interface KnockoutComputedStatic {
     deferUpdates: boolean;
 }
 
-interface KnockoutComputedFunctions {
+// Subscribable
+interface KnockoutSubscribableFunctions<T> {
     deferUpdates: boolean;
 }
 
