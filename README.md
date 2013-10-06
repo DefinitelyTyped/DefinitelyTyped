@@ -154,6 +154,7 @@ List of Definitions
 * [Livestamp.js](https://github.com/mattbradley/livestampjs) (by [Vincent Bortone](https://github.com/vbortone))
 * [Logg](https://github.com/dpup/node-logg) (by [Bret Little](https://github.com/blittle))
 * [Marked](https://github.com/chjj/marked) (by [William Orr](https://github.com/worr))
+* [mCustomScrollbar](https://github.com/malihu/malihu-custom-scrollbar-plugin) (by [Sarah Williams] (https://github.com/flurg))
 * [Meteor](https://www.meteor.com) (by [Dave Allen](https://github.com/fullflavedave))
 * [Modernizr](http://modernizr.com/) (by [Boris Yankov](https://github.com/borisyankov) and [Theodore Brown](https://github.com/theodorejb/))
 * [Moment.js](https://github.com/timrwood/moment) (by [Michael Lakerveld](https://github.com/Lakerfield))
