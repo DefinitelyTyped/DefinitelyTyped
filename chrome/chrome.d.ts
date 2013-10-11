@@ -1056,6 +1056,15 @@ declare module chrome.history {
     var onVisitRemoved: HistoryVisitRemovedEvent;
 }
 
+
+////////////////////
+// Identity
+////////////////////
+declare module chrome.identity {
+    var getAuthToken: (options:{}, cb:(token:{})=>void)=>void;
+}
+
+
 ////////////////////
 // Internationalization
 ////////////////////
