@@ -114,7 +114,7 @@ declare module chrome.bookmarks {
     export function getSubTree(id: string, callback: (results: BookmarkTreeNode[]) => void): void;
     export function removeTree(id: string, callback?: Function): void;
 
-    var onRemoved: chrome.alarms.AlarmEvent;
+    var onRemoved: BookmarkRemovedEvent;
     var onImportEnded: BookmarkImportEndedEvent;
     var onImportBegan: BookmarkImportBeganEvent;
     var onChanged: BookmarkChangedEvent;
