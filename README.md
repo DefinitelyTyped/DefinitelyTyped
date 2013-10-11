@@ -49,6 +49,8 @@ List of Definitions
 * [CodeMirror](http://codemirror.net) (by [François de Campredon](https://github.com/fdecampredon))
 * [Commander](http://github.com/visionmedia/commander.js) (by [Marcelo Dezem](https://github.com/mdezem))
 * [d3.js](http://d3js.org/) (from TypeScript samples)
+* [dhtmlxGantt](http://dhtmlx.com/docs/products/dhtmlxGantt) (by [Maksim Kozhukh](http://github.com/mkozhukh))
+* [dhtmlxScheduler](http://dhtmlx.com/docs/products/dhtmlxScheduler) (by [Maksim Kozhukh](http://github.com/mkozhukh))
 * [docCookies](https://developer.mozilla.org/en-US/docs/Web/API/document.cookie) (by [Jon Egerton](https://github.com/jonegerton))
 * [domo](http://domo-js.com/) (by [Steve Fenton](https://github.com/Steve-Fenton))
 * [dust](http://linkedin.github.com/dustjs) (by [Marcelo Dezem](https://github.com/mdezem))
