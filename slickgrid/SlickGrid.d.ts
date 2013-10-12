@@ -874,7 +874,7 @@ declare module Slick {
 		* @param title New column name.
 		* @param toolTip New column tooltip.
 		**/
-		public updateColumnHeader(columnId: string, title: string, toolTip?: string): void;
+		public updateColumnHeader(columnId: string, title?: string, toolTip?: string): void;
 
 		// #endregion Columns
 
