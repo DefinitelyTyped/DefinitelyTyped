@@ -156,7 +156,7 @@ interface BaseJQueryEventObject extends Event {
     pageX: number;
     pageY: number;
     which: number;
-    metaKey: any;
+    metaKey: boolean;
 }
 
 interface JQueryInputEventObject extends BaseJQueryEventObject {
