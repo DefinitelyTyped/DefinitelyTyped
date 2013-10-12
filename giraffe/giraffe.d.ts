@@ -111,7 +111,7 @@ declare module Giraffe {
     addChild( child:View ): View;
     addChildren( children:View[] ): View;
     removeChild( child:View, preserve?:boolean ): View;
-    removeChilren( preserve?:boolean ): View;
+    removeChildren( preserve?:boolean ): View;
 
     detach( preserve?:boolean ): View;
     detachChildren( preserve?:boolean ): View;
