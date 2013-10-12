@@ -129,35 +129,35 @@ interface Moment {
     isBefore(b: string): boolean;
     isBefore(b: Number): boolean;
     isBefore(b: Date): boolean;
-    isBefore(b: Array): boolean;
+    isBefore(b: number[]): boolean;
     isBefore(b: Moment, granularity: string): boolean;
     isBefore(b: String, granularity: string): boolean;
     isBefore(b: Number, granularity: string): boolean;
     isBefore(b: Date, granularity: string): boolean;
-    isBefore(b: Array, granularity: string): boolean;
+    isBefore(b: number[], granularity: string): boolean;
 
     isAfter(): boolean;
     isAfter(b: Moment): boolean;
     isAfter(b: string): boolean;
     isAfter(b: Number): boolean;
     isAfter(b: Date): boolean;
-    isAfter(b: Array): boolean;
+    isAfter(b: number[]): boolean;
     isAfter(b: Moment, granularity: string): boolean;
     isAfter(b: String, granularity: string): boolean;
     isAfter(b: Number, granularity: string): boolean;
     isAfter(b: Date, granularity: string): boolean;
-    isAfter(b: Array, granularity: string): boolean;
+    isAfter(b: number[], granularity: string): boolean;
 
     isSame(b: Moment): boolean;
     isSame(b: string): boolean;
     isSame(b: Number): boolean;
     isSame(b: Date): boolean;
-    isSame(b: Array): boolean;
+    isSame(b: number[]): boolean;
     isSame(b: Moment, granularity: string): boolean;
     isSame(b: String, granularity: string): boolean;
     isSame(b: Number, granularity: string): boolean;
     isSame(b: Date, granularity: string): boolean;
-    isSame(b: Array, granularity: string): boolean;
+    isSame(b: number[], granularity: string): boolean;
 
     lang(language: string): void;
     lang(reset: boolean): void;
@@ -268,34 +268,34 @@ interface MomentStatic {
     isBefore(b: string): boolean;
     isBefore(b: Number): boolean;
     isBefore(b: Date): boolean;
-    isBefore(b: Array): boolean;
+    isBefore(b: number[]): boolean;
     isBefore(b: Moment, granularity: string): boolean;
     isBefore(b: String, granularity: string): boolean;
     isBefore(b: Number, granularity: string): boolean;
     isBefore(b: Date, granularity: string): boolean;
-    isBefore(b: Array, granularity: string): boolean;
+    isBefore(b: number[], granularity: string): boolean;
 
     isAfter(b: Moment): boolean;
     isAfter(b: string): boolean;
     isAfter(b: Number): boolean;
     isAfter(b: Date): boolean;
-    isAfter(b: Array): boolean;
+    isAfter(b: number[]): boolean;
     isAfter(b: Moment, granularity: string): boolean;
     isAfter(b: String, granularity: string): boolean;
     isAfter(b: Number, granularity: string): boolean;
     isAfter(b: Date, granularity: string): boolean;
-    isAfter(b: Array, granularity: string): boolean;
+    isAfter(b: number[], granularity: string): boolean;
 
     isSame(b: Moment): boolean;
     isSame(b: string): boolean;
     isSame(b: Number): boolean;
     isSame(b: Date): boolean;
-    isSame(b: Array): boolean;
+    isSame(b: number[]): boolean;
     isSame(b: Moment, granularity: string): boolean;
     isSame(b: String, granularity: string): boolean;
     isSame(b: Number, granularity: string): boolean;
     isSame(b: Date, granularity: string): boolean;
-    isSame(b: Array, granularity: string): boolean;
+    isSame(b: number[], granularity: string): boolean;
 }
 
 declare var moment: MomentStatic;
