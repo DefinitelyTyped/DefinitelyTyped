@@ -105,6 +105,16 @@ result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2);
 result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2, 3);
 result = <number>_.indexOf([1, 1, 2, 2, 3, 3], 2, true);
 
+result = <number[]>_.initial([1, 2, 3]);
+result = <number[]>_.initial([1, 2, 3], 2);
+result = <number[]>_.initial([1, 2, 3], function(num) {
+  return num > 1;
+});
+result = <IFoodOrganic[]>_.initial(foodsOrganic, 'organic');
+result = <IFoodType[]>_.initial(foodsType, { 'type': 'vegetable' });
+
+result = <number[]>_.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1]);
+
 ////////////////////////////////////////////////////////////////////////////////////////
 //WHAT'S LEFT
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -174,7 +184,7 @@ _.size({ one: 1, two: 2, three: 3 });
 ///////////////////////////////////////////////////////////////////////////////////////
 
 
-_.initial([5, 4, 3, 2, 1]);
+
 _.last([5, 4, 3, 2, 1]);
 
 
@@ -183,7 +193,7 @@ _.last([5, 4, 3, 2, 1]);
 
 _.without([1, 2, 1, 0, 3, 1, 4], 0, 1);
 _.union([1, 2, 3], [101, 2, 1, 10], [2, 1]);
-_.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1]);
+
 _.difference([1, 2, 3, 4, 5], [5, 2, 10]);
 _.uniq([1, 2, 1, 3, 1, 4]);
 _.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]);
