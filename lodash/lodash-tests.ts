@@ -123,6 +123,8 @@ result = <number[]>_.last([1, 2, 3], function(num) {
 result = <IFoodOrganic[]>_.last(foodsOrganic, 'organic');
 result = <IFoodType[]>_.last(foodsType, { 'type': 'vegetable' });
 
+result = <number>_.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
+result = <number>_.lastIndexOf([1, 2, 3, 1, 2, 3], 2, 3);
 
 ////////////////////////////////////////////////////////////////////////////////////////
 //WHAT'S LEFT

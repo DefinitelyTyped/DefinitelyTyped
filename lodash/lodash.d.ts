@@ -1062,17 +1062,18 @@ declare module _ {
 		isSorted: boolean): number;
 
 	/**
-	* Returns the index of the last occurrence of value in the array, or -1 if value is not present. Uses the
-	* native lastIndexOf function if possible. Pass fromIndex to start your search at a given index.
-	* @param array The array to search for the last index of `value`.
-	* @param value The value to search for within `array`.
-	* @param from The starting index for the search, optional.
-	* @return The index of the last occurance of `value` within `array`.
+	* Gets the index at which the last occurrence of value is found using strict equality 
+	* for comparisons, i.e. ===. If fromIndex is negative, it is used as the offset from the 
+	* end of the collection.
+	* @param array The array to search.
+	* @param value The value to search for.
+	* @param fromIndex The index to search from.
+	* @return The index of the matched value or -1.
 	**/
 	export function lastIndexOf<T>(
 		array: List<T>,
 		value: T,
-		from?: number): number;
+		fromIndex?: number): number;
 
 	/**
 	* Uses a binary search to determine the index at which the value should be inserted into the list in order
