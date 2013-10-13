@@ -760,19 +760,52 @@ declare module _ {
 		whereValue: Dictionary<any>): T[];
 
 	/**
-	* Returns the last element of an array. Passing n will return the last n elements of the array.
-	* @param array Retrieves the last element of this array.
-	* @return Returns the last element of `array`.
+	* Gets the last element or last n elements of an array. If a callback is provided 
+	* elements at the end of the array are returned as long as the callback returns truey. 
+	* The callback is bound to thisArg and invoked with three arguments; (value, index, array).
+	*
+	* If a property name is provided for callback the created "_.pluck" style callback will 
+	* return the property value of the given element.
+	*
+	* If an object is provided for callback the created "_.where" style callback will return 
+	* true for elements that have the properties of the given object, else false.
+	* @param array The array to query.
+	* @return Returns the last element(s) of array.
 	**/
 	export function last<T>(array: List<T>): T;
 
 	/**
 	* @see _.last
-	* @param n Return more than one element from `array`.
+	* @param n The number of elements to return
 	**/
 	export function last<T>(
 		array: List<T>,
 		n: number): T[];
+
+	/**
+	* @see _.last
+	* @param callback The function called per element
+	**/
+	export function last<T>(
+		array: List<T>,
+		callback: ListIterator<T, boolean>,
+		thisArg?: any): T[];
+
+	/**
+	* @see _.last
+	* @param pluckValue _.pluck style callback
+	**/
+	export function last<T>(
+		array: List<T>,
+		pluckValue: string): T[];
+
+	/**
+	* @see _.last
+	* @param whereValue _.where style callback
+	**/
+	export function last<T>(
+		array: List<T>,
+		whereValue: Dictionary<any>): T[];
 
 	/**
 	* The opposite of _.initial this method gets all but the first element or first n elements of 
@@ -897,10 +930,10 @@ declare module _ {
 	export function union<T>(...arrays: List<T>[]): T[];
 
 	/**
-	* Computes the list of values that are the intersection of all the arrays. Each value in the result
-	* is present in each of the arrays.
-	* @param arrays Array of arrays to compute the intersection of.
-	* @return The intersection of elements within `arrays`.
+	* Creates an array of unique values present in all provided arrays using strict 
+	* equality for comparisons, i.e. ===.
+	* @param arrays The arrays to inspect.
+	* @return Returns an array of composite values.
 	**/
 	export function intersection<T>(...arrays: List<T>[]): T[];
 

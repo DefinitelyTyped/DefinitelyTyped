@@ -115,6 +115,15 @@ result = <IFoodType[]>_.initial(foodsType, { 'type': 'vegetable' });
 
 result = <number[]>_.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1]);
 
+result = <number>_.last([1, 2, 3]);
+result = <number[]>_.last([1, 2, 3], 2);
+result = <number[]>_.last([1, 2, 3], function(num) {
+  return num > 1;
+});
+result = <IFoodOrganic[]>_.last(foodsOrganic, 'organic');
+result = <IFoodType[]>_.last(foodsType, { 'type': 'vegetable' });
+
+
 ////////////////////////////////////////////////////////////////////////////////////////
 //WHAT'S LEFT
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -185,7 +194,7 @@ _.size({ one: 1, two: 2, three: 3 });
 
 
 
-_.last([5, 4, 3, 2, 1]);
+
 
 
 
