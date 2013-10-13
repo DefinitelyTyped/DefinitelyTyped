@@ -1005,11 +1005,19 @@ declare module _ {
 	export function zip(...arrays: any[]): any[];
 
 	/**
-	* Converts arrays into objects. Pass either a single list of [key, value] pairs, or a
-	* list of keys, and a list of values.
-	* @param keys Key array.
-	* @param values Value array.
-	* @return An object containing the `keys` as properties and `values` as the property values.
+	* Creates an object composed from arrays of keys and values. Provide either a single 
+	* two dimensional array, i.e. [[key1, value1], [key2, value2]] or two arrays, one of 
+	* keys and one of corresponding values.
+	* @param keys The array of keys.
+	* @param values The array of values.
+	* @return An object composed of the given keys and corresponding values.
+	**/
+	export function zipObject<TResult extends {}>(
+		keys: List<string>,
+		values: List<any>): TResult;
+
+	/**
+	* @see _.zipObject
 	**/
 	export function object<TResult extends {}>(
 		keys: List<string>,
