@@ -42,7 +42,7 @@ declare module L {
           * You can also use the following shortcut when you just need to make
           * one additional method call.
           */
-        static addInitHook(methodName: string, ...args: any[]);
+        static addInitHook(methodName: string, ...args: any[]): void;
     }
 
 } 

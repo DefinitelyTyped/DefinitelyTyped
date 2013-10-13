@@ -1,18 +1,28 @@
+//// updated to 0.6.4
+/// <reference path="Class.d.ts" />
 /// <reference path="ILayer.d.ts" />
 /// <reference path="IEventPowered.d.ts" />
 /// <reference path="MarkerOptions.d.ts" />
 /// <reference path="Icon.d.ts" />
+/// <reference path="Popup.d.ts" />
 /// <reference path="PopupOptions.d.ts" />
 /// <reference path="LatLng.d.ts" />
-
 declare module L {
-    export class Marker implements ILayer, IEventPowered<Marker> {
+
+    export class Marker extends Class implements ILayer, IEventPowered<Marker> {
+
         /**
           * Instantiates a Marker object given a geographical point and optionally
           * an options object.
           */
         constructor(latlng: LatLng, options?: MarkerOptions);
     
+        /**
+          * Instantiates a Marker object given a geographical point and optionally
+          * an options object.
+          */
+        static marker(latlng: LatLng, options?: MarkerOptions): Marker;
+
         /**
           * Adds the marker to the map.
           */
@@ -53,8 +63,20 @@ declare module L {
           * Binds a popup with a particular HTML content to a click on this marker. You
           * can also open the bound popup with the Marker openPopup method.
           */
-        bindPopup(htmlContent: string, options?: PopupOptions): Marker;
+        bindPopup(html: string, options?: PopupOptions): Marker;
     
+        /**
+          * Binds a popup with a particular HTML content to a click on this marker. You
+          * can also open the bound popup with the Marker openPopup method.
+          */
+        bindPopup(el: HTMLElement, options?: PopupOptions): Marker;
+
+        /**
+          * Binds a popup with a particular HTML content to a click on this marker. You
+          * can also open the bound popup with the Marker openPopup method.
+          */
+        bindPopup(popup: Popup, options?: PopupOptions): Marker;
+
         /**
           * Unbinds the popup previously bound to the marker with bindPopup.
           */
@@ -69,6 +91,27 @@ declare module L {
           * Closes the bound popup of the marker if it's opened.
           */
         closePopup(): Marker;
+
+        /**
+          * Toggles the popup previously bound by the bindPopup method.
+          */
+        togglePopup(): Marker;
+
+        /**
+          * Sets an HTML content of the popup of this marker.
+          */
+        setPopupContent(html: string, options?: PopupOptions): Marker;
+
+        /**
+          * Sets an HTML content of the popup of this marker.
+          */
+        setPopupContent(el: HTMLElement, options?: PopupOptions): Marker;
+
+        /**
+          * Returns a GeoJSON representation of the marker (GeoJSON Point Feature).
+          */
+        toGeoJSON(popup: Popup, options?: PopupOptions): any;
+
         ////////////
         //// ILayer members
         ////////////
@@ -103,6 +146,4 @@ declare module L {
         on(eventMap: any, context?: any): Marker;
         off(eventMap?: any, context?: any): Marker;
     }
-} 
- 
- 
+}

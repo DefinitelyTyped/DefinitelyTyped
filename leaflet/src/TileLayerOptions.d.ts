@@ -129,6 +129,5 @@ declare module L {
           * Default value: false.
           */
         reuseTiles?: boolean;
-    
     }
 }

@@ -293,7 +293,7 @@ declare module L {
           * You can also use the following shortcut when you just need to make
           * one additional method call.
           */
-        static addInitHook(methodName: string, ...args: any[]);
+        static addInitHook(methodName: string, ...args: any[]): void;
     }
 
 } 
@@ -555,6 +555,7 @@ declare module L {
     
         /**
           * A custom HTML code to put inside the div element.
+          *
           * Default value: ''.
           */
         html?: string;
@@ -1535,15 +1536,20 @@ declare module L {
     }
 }
  
-
-
 declare module L {
-    export class LayerGroup implements ILayer {
+
+    export class LayerGroup extends Class implements ILayer {
+
         /**
           * Create a layer group, optionally given an initial set of layers.
           */
         constructor(layers?: ILayer[]);
     
+        /**
+          * Create a layer group, optionally given an initial set of layers.
+          */
+        static layerGroup(layers?: ILayer[]): LayerGroup;
+
         /**
           * Adds the group of layers to the map.
           */
@@ -1560,6 +1566,26 @@ declare module L {
         removeLayer(layer: ILayer): LayerGroup;
     
         /**
+          * Removes a given layer of the given id from the group.
+          */
+        removeLayer(id: string): LayerGroup;
+
+        /**
+          * Returns true if the given layer is currently added to the group.
+          */
+        hasLayer(layer: ILayer): boolean;
+
+        /**
+          * Returns the layer with the given id.
+          */
+        getLayer(id: string): ILayer;
+
+        /**
+          * Returns an array of all the layers added to the group.
+          */
+        getLayers(): ILayer[];
+
+        /**
           * Removes all the layers from the group.
           */
         clearLayers(): LayerGroup;
@@ -1569,6 +1595,12 @@ declare module L {
           * the iterator function.
           */
         eachLayer(fn: (layer: ILayer) => void, context?: any): LayerGroup;
+
+        /**
+          * Returns a GeoJSON representation of the layer group (GeoJSON FeatureCollection).
+          */
+        toGeoJSON(): any;
+
         ////////////
         ////////////
         /**
@@ -1583,11 +1615,8 @@ declare module L {
           * the DOM and removes listeners previously added in onAdd. Called on map.removeLayer(layer).
           */
         onRemove(map: Map): void;
-    
     }
-} 
- 
- 
+}
  
  
 declare module L {
@@ -1596,6 +1625,7 @@ declare module L {
 
         /**
           * The position of the control (one of the map corners). See control positions.
+          *
           * Default value: 'topright'.
           */
         position?: string;
@@ -1603,6 +1633,7 @@ declare module L {
         /**
           * If true, the control will be collapsed into an icon and expanded on mouse hover
           * or touch.
+          *
           * Default value: true.
           */
         collapsed?: boolean;
@@ -1610,6 +1641,7 @@ declare module L {
         /**
           * If true, the control will assign zIndexes in increasing order to all of its
           * layers so that the order is preserved when switching them on/off.
+          *
           * Default value: true.
           */
         autoZIndex?: boolean;
@@ -1617,9 +1649,10 @@ declare module L {
     }
 }
  
-
 declare module L {
+
     export interface LeafletErrorEvent extends LeafletEvent {
+
         /**
           * Error message.
           */
@@ -1629,33 +1662,29 @@ declare module L {
           * Error code (if applicable).
           */
         code: number;
-    
     }
-} 
- 
- 
+}
  
 declare module L {
+
     export interface LeafletEvent {
+
         /**
           * The event type (e.g. 'click').
           */
         type: string;
-    
+
         /**
           * The object that fired the event.
           */
         target: any;
-    
     }
-} 
+}
  
- 
- 
-
-
 declare module L {
-    export interface LeafletGeoJSONEvent extends LeafletEvent {
+
+    export interface Leaflet extends LeafletEvent {
+
         /**
           * The layer for the GeoJSON feature that is being added to the map.
           */
@@ -1675,31 +1704,24 @@ declare module L {
           * GeoJSON ID of the feature (if present).
           */
         id: string;
-    
     }
-} 
+}
  
- 
- 
-
-
 declare module L {
+
     export interface LeafletLayerEvent extends LeafletEvent {
+
         /**
           * The layer that was added or removed.
           */
         layer: ILayer;
-    
     }
-} 
+}
  
- 
- 
-
-
-
 declare module L {
+
     export interface LeafletLocationEvent extends LeafletEvent {
+
         /**
           * Detected geographical location of the user.
           */
@@ -1715,17 +1737,39 @@ declare module L {
           * Accuracy of location in meters.
           */
         accuracy: number;
+
+        /**
+          * Height of the position above the WGS84 ellipsoid in meters.
+          */
+        altitude: number;
+
+        /**
+          * Accuracy of altitude in meters.
+          */
+        altitudeAccuracy: number;
+
+        /**
+          * The direction of travel in degrees counting clockwise from true North.
+          */
+        heading: number;
+
+        /**
+          * Current velocity in meters per second.
+          */
+        speed: number;
+
+        /**
+          * The time when the position was acquired.
+          */
+        timestamp: number;
     
     }
-} 
+}
  
- 
- 
-
-
-
 declare module L {
+
     export interface LeafletMouseEvent extends LeafletEvent {
+
         /**
           * The geographical point where the mouse event occured.
           */
@@ -1747,30 +1791,24 @@ declare module L {
           * The original DOM mouse event fired by the browser.
           */
         originalEvent: MouseEvent;
-    
     }
-} 
+}
  
- 
- 
-
-
 declare module L {
+
     export interface LeafletPopupEvent extends LeafletEvent {
+
         /**
           * The popup that was opened or closed.
           */
         popup: Popup;
-    
     }
-} 
+}
  
- 
- 
-
-
 declare module L {
+
     export interface LeafletResizeEvent extends LeafletEvent {
+
         /**
           * The old size before resize event.
           */
@@ -1780,15 +1818,13 @@ declare module L {
           * The new size after the resize event.
           */
         newSize: Point;
-    
     }
-} 
+}
  
- 
- 
-
 declare module L {
+
     export interface LeafletTileEvent extends LeafletEvent {
+
         /**
           * The tile element (image).
           */
@@ -1798,16 +1834,13 @@ declare module L {
           * The source URL of the tile.
           */
         url: string;
-    
     }
-} 
+}
  
- 
- 
-
-
 declare module L {
+
     export class LineUtil {
+
         /**
           * Dramatically reduces the number of points in a polyline while retaining
           * its shape and returns a new array of simplified points. Used for a huge performance
@@ -1836,50 +1869,60 @@ declare module L {
         static clipSegment(a: Point, b: Point, bounds: Bounds): void;
     
     }
-} 
- 
- 
+}
  
 declare module L {
+
     export interface LocateOptions {
+
         /**
           * If true, starts continous watching of location changes (instead of detecting
           * it once) using W3C watchPosition method. You can later stop watching using
           * map.stopLocate() method.
+          *
+          * Default value: false.
           */
         watch?: boolean;
         
         /**
           * If true, automatically sets the map view to the user location with respect
           * to detection accuracy, or to world view if geolocation failed.
+          *
+          * Default value: false.
           */
         setView?: boolean;
         
         /**
           * The maximum zoom for automatic view setting when using `setView` option.
+          *
+          * Default value: Infinity.
           */
         maxZoom?: number;
         
         /**
           * Number of millisecond to wait for a response from geolocation before firing
           * a locationerror event.
+          *
+          * Default value: 10000.
           */
         timeout?: number;
         
         /**
           * Maximum age of detected location. If less than this amount of milliseconds
           * passed since last geolocation response, locate will return a cached location.
+          *
+          * Default value: 0.
           */
         maximumAge?: number;
         
         /**
           * Enables high accuracy, see description in the W3C spec.
+          *
+          * Default value: false.
           */
         enableHighAccuracy?: boolean;
     }
-} 
- 
- 
+}
  
 declare module L {
 
@@ -2496,51 +2539,62 @@ declare module L {
 }
  
 declare module L {
+
     export interface MapPanes {
+
         /**
           * Pane that contains all other map panes.
           */
         mapPane: HTMLElement;
+
         /**
           * Pane for tile layers.
           */
         tilePane: HTMLElement;
+
         /**
           * Pane that contains all the panes except tile pane.
           */
         objectsPane: HTMLElement;
+
         /**
           * Pane for overlay shadows (e.g. marker shadows).
           */
         shadowPane: HTMLElement;
+
         /**
           * Pane for overlays like polylines and polygons.
           */
         overlayPane: HTMLElement;
+
         /**
           * Pane for marker icons.
           */
         markerPane: HTMLElement;
+
         /**
           * Pane for popups.
           */
         popupPane: HTMLElement;
     }
-    ////////////
-    ////////////
-} 
+}
  
- 
- 
-
 declare module L {
-    export class Marker implements ILayer, IEventPowered<Marker> {
+
+    export class Marker extends Class implements ILayer, IEventPowered<Marker> {
+
         /**
           * Instantiates a Marker object given a geographical point and optionally
           * an options object.
           */
         constructor(latlng: LatLng, options?: MarkerOptions);
     
+        /**
+          * Instantiates a Marker object given a geographical point and optionally
+          * an options object.
+          */
+        static marker(latlng: LatLng, options?: MarkerOptions): Marker;
+
         /**
           * Adds the marker to the map.
           */
@@ -2581,8 +2635,20 @@ declare module L {
           * Binds a popup with a particular HTML content to a click on this marker. You
           * can also open the bound popup with the Marker openPopup method.
           */
-        bindPopup(htmlContent: string, options?: PopupOptions): Marker;
+        bindPopup(html: string, options?: PopupOptions): Marker;
     
+        /**
+          * Binds a popup with a particular HTML content to a click on this marker. You
+          * can also open the bound popup with the Marker openPopup method.
+          */
+        bindPopup(el: HTMLElement, options?: PopupOptions): Marker;
+
+        /**
+          * Binds a popup with a particular HTML content to a click on this marker. You
+          * can also open the bound popup with the Marker openPopup method.
+          */
+        bindPopup(popup: Popup, options?: PopupOptions): Marker;
+
         /**
           * Unbinds the popup previously bound to the marker with bindPopup.
           */
@@ -2597,6 +2663,27 @@ declare module L {
           * Closes the bound popup of the marker if it's opened.
           */
         closePopup(): Marker;
+
+        /**
+          * Toggles the popup previously bound by the bindPopup method.
+          */
+        togglePopup(): Marker;
+
+        /**
+          * Sets an HTML content of the popup of this marker.
+          */
+        setPopupContent(html: string, options?: PopupOptions): Marker;
+
+        /**
+          * Sets an HTML content of the popup of this marker.
+          */
+        setPopupContent(el: HTMLElement, options?: PopupOptions): Marker;
+
+        /**
+          * Returns a GeoJSON representation of the marker (GeoJSON Point Feature).
+          */
+        toGeoJSON(popup: Popup, options?: PopupOptions): any;
+
         ////////////
         ////////////
         /**
@@ -2629,31 +2716,46 @@ declare module L {
         on(eventMap: any, context?: any): Marker;
         off(eventMap?: any, context?: any): Marker;
     }
-} 
- 
- 
+}
  
 declare module L {
+
     export interface MarkerOptions {
+
         /**
           * Icon class to use for rendering the marker. See Icon documentation for details
-          * on how to customize the marker icon. Set to new L.Icon.Default() by default.
+          * on how to customize the marker icon.
+          *
+          * Default value: new L.Icon.Default().
           */
         icon?: Icon;
     
         /**
           * If false, the marker will not emit mouse events and will act as a part of the
           * underlying map.
+          *
+          * Default value: true.
           */
         clickable?: boolean;
     
         /**
           * Whether the marker is draggable with mouse/touch or not.
+          *
+          * Default value: false.
           */
         draggable?: boolean;
+
+        /**
+          * Whether the marker can be tabbed to with a keyboard and clicked by pressing enter.
+          *
+          * Default value: true.
+          */
+        keyboard?: boolean;
     
         /**
           * Text for the browser tooltip that appear on marker hover (no tooltip by default).
+          *
+          * Default value: ''.
           */
         title?: string;
     
@@ -2661,29 +2763,38 @@ declare module L {
           * By default, marker images zIndex is set automatically based on its latitude.
           * You this option if you want to put the marker on top of all others (or below),
           * specifying a high value like 1000 (or high negative value, respectively).
+          *
+          * Default value: 0.
           */
         zIndexOffset?: number;
     
         /**
           * The opacity of the marker.
+          *
+          * Default value: 1.0.
           */
         opacity?: number;
     
         /**
           * If true, the marker will get on top of others when you hover the mouse over it.
+          *
+          * Default value: false.
           */
         riseOnHover?: boolean;
     
         /**
           * The z-index offset used for the riseOnHover feature.
+          *
+          * Default value: 250.
           */
         riseOffset?: number;
-    
     }
 }
  
 declare module L {
+
     export class MultiPolygon extends FeatureGroup {
+
         /**
           * Instantiates a multi-polyline object given an array of latlngs arrays (one
           * for each individual polygon) and optionally an options object (the same
@@ -2691,6 +2802,28 @@ declare module L {
           */
         constructor(latlngs: LatLng[][], options?: PolylineOptions);
     
+        /**
+          * Instantiates a multi-polyline object given an array of latlngs arrays (one
+          * for each individual polygon) and optionally an options object (the same
+          * as for MultiPolyline).
+          */
+        static multiPolygon(latlngs: LatLng[][], options?: PolylineOptions): MultiPolygon;
+
+        /**
+          * Replace all polygons and their paths with the given array of arrays
+          * of geographical points.
+          */
+        setLatLngs(latlngs: LatLng[][]): MultiPolygon;
+
+        /**
+          * Returns an array of arrays of geographical points in each polygon.
+          */
+        getLatLngs(): LatLng[][];
+
+        /**
+          * Returns a GeoJSON representation of the multipolygon (GeoJSON MultiPolygon Feature).
+          */
+        toGeoJSON(): any;
     }
 }
  
@@ -2703,7 +2836,28 @@ declare module L {
           * points (one for each individual polyline) and optionally an options object.
           */
         constructor(latlngs: LatLng[][], options?: PolylineOptions);
-    
+
+        /**
+          * Instantiates a multi-polyline object given an array of arrays of geographical
+          * points (one for each individual polyline) and optionally an options object.
+          */
+        static multiPolyline(latlngs: LatLng[][], options?: PolylineOptions): MultiPolyline;
+
+        /**
+          * Replace all polygons and their paths with the given array of arrays
+          * of geographical points.
+          */
+        setLatLngs(latlngs: LatLng[][]): MultiPolyline;
+
+        /**
+          * Returns an array of arrays of geographical points in each polygon.
+          */
+        getLatLngs(): LatLng[][];
+
+        /**
+          * Returns a GeoJSON representation of the multipolyline (GeoJSON MultiLineString Feature).
+          */
+        toGeoJSON(): any;
     }
 }
  
@@ -2743,9 +2897,10 @@ declare module L {
     }
 }
  
-
 declare module L {
-    export class Path implements ILayer, IEventPowered<Path> {
+
+    export class Path extends Class implements ILayer, IEventPowered<Path> {
+
         /**
           * Adds the layer to the map.
           */
@@ -2754,8 +2909,18 @@ declare module L {
         /**
           * Binds a popup with a particular HTML content to a click on this path.
           */
-        bindPopup(htmlContent: string, options?: PopupOptions): Path;
+        bindPopup(html: string, options?: PopupOptions): Path;
     
+        /**
+          * Binds a popup with a particular HTML content to a click on this path.
+          */
+        bindPopup(el: HTMLElement, options?: PopupOptions): Path;
+
+        /**
+          * Binds a popup with a particular HTML content to a click on this path.
+          */
+        bindPopup(popup: Popup, options?: PopupOptions): Path;
+
         /**
           * Unbinds the popup previously bound to the path with bindPopup.
           */
@@ -2824,6 +2989,7 @@ declare module L {
           * decrease drawing performance.
           */
         static CLIP_PADDING: number;
+
         ////////////
         ////////////
         /**
@@ -2856,30 +3022,38 @@ declare module L {
         on(eventMap: any, context?: any): Path;
         off(eventMap?: any, context?: any): Path;
     }
-} 
- 
- 
+}
  
 declare module L {
+
     export interface PathOptions {
+
         /**
           * Whether to draw stroke along the path. Set it to false to disable borders on
           * polygons or circles.
+          *
+          * Default value: true.
           */
         stroke?: boolean;
     
         /**
           * Stroke color.
+          *
+          * Default value: '#03f'.
           */
         color?: string;
     
         /**
           * Stroke width in pixels.
+          *
+          * Default value: 5.
           */
         weight?: number;
     
         /**
           * Stroke opacity.
+          *
+          * Default value: 0.5.
           */
         opacity?: number;
     
@@ -2891,11 +3065,15 @@ declare module L {
     
         /**
           * Fill color.
+          *
+          * Default value: same as color.
           */
         fillColor?: string;
     
         /**
           * Fill opacity.
+          *
+          * Default value: 0.2.
           */
         fillOpacity?: number;
     
@@ -2908,22 +3086,35 @@ declare module L {
         /**
           * If false, the vector will not emit mouse events and will act as a part of the
           * underlying map.
+          *
+          * Default value: true.
           */
         clickable?: boolean;
+
+        /**
+          * Sets the pointer-events attribute on the path if SVG backend is used.
+          */
+        pointerEvents?: boolean;
     
     }
-} 
- 
- 
+}
  
 declare module L {
+
     export class Point {
+
         /**
           * Creates a Point object with the given x and y coordinates. If optional round
           * is set to true, rounds the x and y values.
           */
         constructor(x: number, y: number, round?: boolean);
     
+        /**
+          * Creates a Point object with the given x and y coordinates. If optional round
+          * is set to true, rounds the x and y values.
+          */
+        static point(x: number, y: number, round?: boolean): Point;
+
         /**
           * Returns the result of addition of the current and the given points.
           */
@@ -2969,27 +3160,23 @@ declare module L {
           * Returns a string representation of the point for debugging purposes.
           */
         toString(): string;
-    
+   
         /**
           * The x coordinate.
           */
         x: number;
-    
+
         /**
           * The y coordinate.
           */
         y: number;
-    
     }
-} 
+}
  
- 
- 
-
-
-
 declare module L {
+
     export class Polygon extends Polyline {
+
         /**
           * Instantiates a polygon object given an array of geographical points and
           * optionally an options object (the same as for Polyline). You can also create
@@ -2998,24 +3185,34 @@ declare module L {
           * the holes inside.
           */
         constructor(latlngs: LatLng[], options?: PolylineOptions);
-    
+
+        /**
+          * Instantiates a polygon object given an array of geographical points and
+          * optionally an options object (the same as for Polyline). You can also create
+          * a polygon with holes by passing an array of arrays of latlngs, with the first
+          * latlngs array representing the exterior ring while the remaining represent
+          * the holes inside.
+          */
+        static polygon(latlngs: LatLng[], options?: PolylineOptions): Polygon;
     }
-} 
+}
  
- 
- 
-
-
-
-
 declare module L {
+
     export class Polyline extends Path {
+
         /**
           * Instantiates a polyline object given an array of geographical points and
           * optionally an options object.
           */
         constructor(latlngs: LatLng[], options?: PolylineOptions);
     
+        /**
+          * Instantiates a polyline object given an array of geographical points and
+          * optionally an options object.
+          */
+        static polyline(latlngs: LatLng[], options?: PolylineOptions): Polyline;
+
         /**
           * Adds a given point to the polyline.
           */
@@ -3042,34 +3239,39 @@ declare module L {
           * Returns the LatLngBounds of the polyline.
           */
         getBounds(): LatLngBounds;
-    
+
+        /**
+          * Returns a GeoJSON representation of the polyline (GeoJSON LineString Feature).
+          */
+        toGeoJSON();
     }
-} 
- 
- 
+}
  
 declare module L {
+
     export interface PolylineOptions {
+
         /**
           * How much to simplify the polyline on each zoom level. More means better performance
           * and smoother look, and less means more accurate representation.
+          *
+          * Default value: 1.0.
           */
         smoothFactor?: number;
     
         /**
           * Disabled polyline clipping.
+          *
+          * Default value: false.
           */
         noClip?: boolean;
-    
     }
-} 
+}
  
- 
- 
-
-
 declare module L {
+
     export class PolyUtil {
+
         /**
           * Clips the polygon geometry defined by the given points by rectangular bounds.
           * Used by Leaflet to only show polygon points that are on the screen or near,
@@ -3077,18 +3279,13 @@ declare module L {
           * for clipping than polyline, so there's a seperate method for it.
           */
         static clipPolygon(points: Point[], bounds: Bounds): Point[];
-    
     }
-} 
+}
  
- 
- 
-
-
-
-
 declare module L {
+
     export class Popup implements ILayer {
+
         /**
           * Instantiates a Popup object given an optional options object that describes
           * its appearance and location and an optional object that is used to tag the
@@ -3096,6 +3293,13 @@ declare module L {
           */
         constructor(options?: PopupOptions, source?: any);
     
+        /**
+          * Instantiates a Popup object given an optional options object that describes
+          * its appearance and location and an optional object that is used to tag the
+          * popup with a reference to the source object to which it refers.
+          */
+        static popup(options?: PopupOptions, source?: any): Popup;
+
         /**
           * Adds the popup to the map.
           */
@@ -3114,7 +3318,13 @@ declare module L {
         /**
           * Sets the HTML content of the popup.
           */
-        setContent(htmlContent: string): Popup;
+        setContent(html: string): Popup;
+
+        /**
+          * Sets the HTML content of the popup.
+          */
+        setContent(el: HTMLElement): Popup;
+
         ////////////
         ////////////
         /**
@@ -3129,22 +3339,24 @@ declare module L {
           * the DOM and removes listeners previously added in onAdd. Called on map.removeLayer(layer).
           */
         onRemove(map: Map): void;
-    
     }
-} 
+}
  
- 
- 
-
 declare module L {
+
     export interface PopupOptions {
+
         /**
           * Max width of the popup.
+          *
+          * Default value: 300.
           */
         maxWidth?: number;
     
         /**
           * Min width of the popup.
+          *
+          * Default value: 50.
           */
         minWidth?: number;
     
@@ -3157,42 +3369,55 @@ declare module L {
         /**
           * Set it to false if you don't want the map to do panning animation to fit the opened
           * popup.
+          *
+          * Default value: true.
           */
         autoPan?: boolean;
     
         /**
           * Controls the presense of a close button in the popup.
+          *
+          * Default value: true.
           */
         closeButton?: boolean;
     
         /**
           * The offset of the popup position. Useful to control the anchor of the popup
           * when opening it on some overlays.
+          *
+          * Default value: new Point(0, 6).
           */
         offset?: Point;
     
         /**
           * The margin between the popup and the edges of the map view after autopanning
           * was performed.
+          *
+          * Default value: new Point(5, 5).
           */
         autoPanPadding?: Point;
     
         /**
           * Whether to animate the popup on zoom. Disable it if you have problems with
           * Flash content inside popups.
+          *
+          * Default value: true.
           */
         zoomAnimation?: boolean;
-    
+
+        /**
+          * Set it to false if you want to override the default behavior of the popup 
+          * closing when user clicks the map (set globally by the Map closePopupOnClick
+          * option).
+          */
+        closeOnClick?: boolean;
     }
-} 
+}
  
- 
- 
-
-
-
 declare module L {
-    export class PosAnimation implements IEventPowered<PosAnimation> {
+
+    export class PosAnimation extends Class implements IEventPowered<PosAnimation> {
+
         /**
           * Creates a PosAnimation object.
           */
@@ -3222,13 +3447,12 @@ declare module L {
         on(eventMap: any, context?: any): PosAnimation;
         off(eventMap?: any, context?: any): PosAnimation;
     }
-} 
+}
  
- 
- 
-
 declare module L {
+
     export class Projection {
+
         /**
           * Spherical Mercator projection — the most common projection for online maps,
           * used by almost all free and commercial tile providers. Assumes that Earth
@@ -3250,17 +3474,13 @@ declare module L {
           * CRS.
           */
         static LonLat: IProjection;
-    
     }
-} 
+}
  
- 
- 
-
-
-
 declare module L {
+
     export class Rectangle extends Polygon {
+
         /**
           * Instantiates a rectangle object with the given geographical bounds and
           * optionally an options object.
@@ -3268,14 +3488,17 @@ declare module L {
         constructor(bounds: LatLngBounds, options?: PathOptions);
     
         /**
+          * Instantiates a rectangle object with the given geographical bounds and
+          * optionally an options object.
+          */
+        static rectangle(bounds: LatLngBounds, options?: PathOptions): Rectangle;
+
+        /**
           * Redraws the rectangle with the passed bounds.
           */
         setBounds(bounds: LatLngBounds): Rectangle;
-    
     }
-} 
- 
- 
+}
  
  
 declare module L {
@@ -3313,7 +3536,6 @@ declare module L {
           * Default value: false.
           */
         updateWhenIdle?: boolean;
-    
     }
 }
  
@@ -3590,7 +3812,6 @@ declare module L {
           * Default value: false.
           */
         reuseTiles?: boolean;
-    
     }
 }
  

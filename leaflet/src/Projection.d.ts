@@ -1,7 +1,9 @@
+//// updated to 0.6.4
 /// <reference path="IProjection.d.ts" />
-
 declare module L {
+
     export class Projection {
+
         /**
           * Spherical Mercator projection — the most common projection for online maps,
           * used by almost all free and commercial tile providers. Assumes that Earth
@@ -23,8 +25,5 @@ declare module L {
           * CRS.
           */
         static LonLat: IProjection;
-    
     }
-} 
- 
- 
+}

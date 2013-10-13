@@ -26,6 +26,7 @@ declare module L {
     
         /**
           * A custom HTML code to put inside the div element.
+          *
           * Default value: ''.
           */
         html?: string;

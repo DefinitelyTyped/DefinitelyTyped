@@ -1,11 +1,11 @@
+//// updated to 0.6.4
 /// <reference path="LeafletEvent.d.ts" />
 /// <reference path="LatLng.d.ts" />
 /// <reference path="Point.d.ts" />
-
-
-
 declare module L {
+
     export interface LeafletMouseEvent extends LeafletEvent {
+
         /**
           * The geographical point where the mouse event occured.
           */
@@ -27,8 +27,5 @@ declare module L {
           * The original DOM mouse event fired by the browser.
           */
         originalEvent: MouseEvent;
-    
     }
-} 
- 
- 
+}

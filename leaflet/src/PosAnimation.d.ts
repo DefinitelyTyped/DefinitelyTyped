@@ -1,11 +1,12 @@
+//// updated to 0.6.4
+/// <reference path="Class.d.ts" />
 /// <reference path="IEventPowered.d.ts" />
 /// <reference path="LeafletEvent.d.ts" />
 /// <reference path="Point.d.ts" />
-
-
-
 declare module L {
-    export class PosAnimation implements IEventPowered<PosAnimation> {
+
+    export class PosAnimation extends Class implements IEventPowered<PosAnimation> {
+
         /**
           * Creates a PosAnimation object.
           */
@@ -36,6 +37,4 @@ declare module L {
         on(eventMap: any, context?: any): PosAnimation;
         off(eventMap?: any, context?: any): PosAnimation;
     }
-} 
- 
- 
+}

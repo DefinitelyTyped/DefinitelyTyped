@@ -34,6 +34,5 @@ declare module L {
           * Default value: false.
           */
         updateWhenIdle?: boolean;
-    
     }
 }

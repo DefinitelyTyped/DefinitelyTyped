@@ -1,3 +1,5 @@
+//// updated to 0.6.4
+/// <reference path="Class.d.ts" />
 /// <reference path="ILayer.d.ts" />
 /// <reference path="PopupOptions.d.ts" />
 /// <reference path="PathOptions.d.ts" />
@@ -5,9 +7,10 @@
 /// <reference path="LatLngBounds.d.ts" />
 /// <reference path="Map.d.ts" />
 /// <reference path="IEventPowered.d.ts" />
-
 declare module L {
-    export class Path implements ILayer, IEventPowered<Path> {
+
+    export class Path extends Class implements ILayer, IEventPowered<Path> {
+
         /**
           * Adds the layer to the map.
           */
@@ -16,8 +19,18 @@ declare module L {
         /**
           * Binds a popup with a particular HTML content to a click on this path.
           */
-        bindPopup(htmlContent: string, options?: PopupOptions): Path;
+        bindPopup(html: string, options?: PopupOptions): Path;
     
+        /**
+          * Binds a popup with a particular HTML content to a click on this path.
+          */
+        bindPopup(el: HTMLElement, options?: PopupOptions): Path;
+
+        /**
+          * Binds a popup with a particular HTML content to a click on this path.
+          */
+        bindPopup(popup: Popup, options?: PopupOptions): Path;
+
         /**
           * Unbinds the popup previously bound to the path with bindPopup.
           */
@@ -86,6 +99,7 @@ declare module L {
           * decrease drawing performance.
           */
         static CLIP_PADDING: number;
+
         ////////////
         //// ILayer members
         ////////////
@@ -120,6 +134,4 @@ declare module L {
         on(eventMap: any, context?: any): Path;
         off(eventMap?: any, context?: any): Path;
     }
-} 
- 
- 
+}

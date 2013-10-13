@@ -1,14 +1,21 @@
+//// updated to 0.6.4
+/// <reference path="Class.d.ts" />
 /// <reference path="ILayer.d.ts" />
 /// <reference path="Map.d.ts" />
-
-
 declare module L {
-    export class LayerGroup implements ILayer {
+
+    export class LayerGroup extends Class implements ILayer {
+
         /**
           * Create a layer group, optionally given an initial set of layers.
           */
         constructor(layers?: ILayer[]);
     
+        /**
+          * Create a layer group, optionally given an initial set of layers.
+          */
+        static layerGroup(layers?: ILayer[]): LayerGroup;
+
         /**
           * Adds the group of layers to the map.
           */
@@ -25,6 +32,26 @@ declare module L {
         removeLayer(layer: ILayer): LayerGroup;
     
         /**
+          * Removes a given layer of the given id from the group.
+          */
+        removeLayer(id: string): LayerGroup;
+
+        /**
+          * Returns true if the given layer is currently added to the group.
+          */
+        hasLayer(layer: ILayer): boolean;
+
+        /**
+          * Returns the layer with the given id.
+          */
+        getLayer(id: string): ILayer;
+
+        /**
+          * Returns an array of all the layers added to the group.
+          */
+        getLayers(): ILayer[];
+
+        /**
           * Removes all the layers from the group.
           */
         clearLayers(): LayerGroup;
@@ -34,6 +61,12 @@ declare module L {
           * the iterator function.
           */
         eachLayer(fn: (layer: ILayer) => void, context?: any): LayerGroup;
+
+        /**
+          * Returns a GeoJSON representation of the layer group (GeoJSON FeatureCollection).
+          */
+        toGeoJSON(): any;
+
         ////////////
         //// ILayer members
         ////////////
@@ -49,8 +82,5 @@ declare module L {
           * the DOM and removes listeners previously added in onAdd. Called on map.removeLayer(layer).
           */
         onRemove(map: Map): void;
-    
     }
-} 
- 
- 
+}

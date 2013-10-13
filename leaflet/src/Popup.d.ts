@@ -1,13 +1,12 @@
+//// updated to 0.6.4
 /// <reference path="ILayer.d.ts" />
 /// <reference path="PopupOptions.d.ts" />
 /// <reference path="Map.d.ts" />
 /// <reference path="LatLng.d.ts" />
-
-
-
-
 declare module L {
+
     export class Popup implements ILayer {
+
         /**
           * Instantiates a Popup object given an optional options object that describes
           * its appearance and location and an optional object that is used to tag the
@@ -15,6 +14,13 @@ declare module L {
           */
         constructor(options?: PopupOptions, source?: any);
     
+        /**
+          * Instantiates a Popup object given an optional options object that describes
+          * its appearance and location and an optional object that is used to tag the
+          * popup with a reference to the source object to which it refers.
+          */
+        static popup(options?: PopupOptions, source?: any): Popup;
+
         /**
           * Adds the popup to the map.
           */
@@ -33,7 +39,13 @@ declare module L {
         /**
           * Sets the HTML content of the popup.
           */
-        setContent(htmlContent: string): Popup;
+        setContent(html: string): Popup;
+
+        /**
+          * Sets the HTML content of the popup.
+          */
+        setContent(el: HTMLElement): Popup;
+
         ////////////
         //// ILayer members
         ////////////
@@ -49,8 +61,5 @@ declare module L {
           * the DOM and removes listeners previously added in onAdd. Called on map.removeLayer(layer).
           */
         onRemove(map: Map): void;
-    
     }
-} 
- 
- 
+}

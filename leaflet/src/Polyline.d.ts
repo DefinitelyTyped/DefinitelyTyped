@@ -1,19 +1,24 @@
+//// updated to 0.6.4
 /// <reference path="Path.d.ts" />
 /// <reference path="LatLng.d.ts" />
 /// <reference path="PolylineOptions.d.ts" />
 /// <reference path="LatLngBounds.d.ts" />
-
-
-
-
 declare module L {
+
     export class Polyline extends Path {
+
         /**
           * Instantiates a polyline object given an array of geographical points and
           * optionally an options object.
           */
         constructor(latlngs: LatLng[], options?: PolylineOptions);
     
+        /**
+          * Instantiates a polyline object given an array of geographical points and
+          * optionally an options object.
+          */
+        static polyline(latlngs: LatLng[], options?: PolylineOptions): Polyline;
+
         /**
           * Adds a given point to the polyline.
           */
@@ -40,8 +45,10 @@ declare module L {
           * Returns the LatLngBounds of the polyline.
           */
         getBounds(): LatLngBounds;
-    
+
+        /**
+          * Returns a GeoJSON representation of the polyline (GeoJSON LineString Feature).
+          */
+        toGeoJSON();
     }
-} 
- 
- 
+}

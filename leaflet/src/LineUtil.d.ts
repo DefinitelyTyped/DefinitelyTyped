@@ -1,9 +1,10 @@
+///// updated to 0.6.4
 /// <reference path="Point.d.ts" />
 /// <reference path="Bounds.d.ts" />
-
-
 declare module L {
+
     export class LineUtil {
+
         /**
           * Dramatically reduces the number of points in a polyline while retaining
           * its shape and returns a new array of simplified points. Used for a huge performance
@@ -32,6 +33,4 @@ declare module L {
         static clipSegment(a: Point, b: Point, bounds: Bounds): void;
     
     }
-} 
- 
- 
+}
