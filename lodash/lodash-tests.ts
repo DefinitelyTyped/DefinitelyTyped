@@ -126,6 +126,9 @@ result = <IFoodType[]>_.last(foodsType, { 'type': 'vegetable' });
 result = <number>_.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
 result = <number>_.lastIndexOf([1, 2, 3, 1, 2, 3], 2, 3);
 
+result = <{[key: string]: any}>_.zipObject(['moe', 'larry'], [30, 40]);
+	result = <{[key: string]: any}>_.object(['moe', 'larry'], [30, 40]);
+
 ////////////////////////////////////////////////////////////////////////////////////////
 //WHAT'S LEFT
 ////////////////////////////////////////////////////////////////////////////////////////
