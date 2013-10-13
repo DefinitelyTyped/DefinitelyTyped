@@ -140,4 +140,47 @@ declare module Giraffe {
     start( options?:any ): App;
   }
 
+  module Contrib {
+
+    class Controller extends Backbone.Events implements GiraffeObject {
+      app: App;
+    }
+
+    class CollectionView extends View {
+
+      collection: Collection;
+      modelView: View;
+      modelViewArgs: any[];
+      modelViewEl: any;
+      renderOnChange: boolean;
+
+      findByModel( model:Model ): View;
+      addOne( model:Model ): View;
+      removeOne( model:Model ): View;
+
+      static getDefaults( ctx:any ): any;
+    }
+
+    class FastCollectionView extends View {
+      collection: Collection;
+      modelTemplate: any;
+      modelTemplateStrategy: string;
+      modelEl: any;
+      renderOnChange: boolean;
+
+      modelSerialize(): any;
+
+      addAll(): View;
+      addOne( model:Model ): View;
+      removeOne( model:Model ): View;
+
+      removeByIndex( index:number ): View;
+      findElByModel( model:Model ): JQuery;
+      findElByIndex( index:number ): JQuery;
+      findModelByEl( el:any ): Model;
+
+      static getDefaults( ctx:any ): any;
+    }
+
+  }
 }
