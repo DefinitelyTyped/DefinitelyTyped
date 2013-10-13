@@ -235,7 +235,6 @@ Requested Definitions
 * [google.visualizations](https://developers.google.com/chart/)
 * [Prelude.ls](http://gkz.github.com/prelude-ls/)
 * [MooTools](http://mootools.net/)
-* [Lo-Dash](http://lodash.com/)
 * [java](https://github.com/nearinfinity/node-java)
 * [SVG.js](http://www.svgjs.com/)
 
