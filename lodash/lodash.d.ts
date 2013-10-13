@@ -912,6 +912,17 @@ declare module _ {
 		thisArg?: any): any[];
 
 	/**
+	* Removes all provided values from the given array using strict equality for comparisons, 
+	* i.e. ===.
+	* @param array The array to modify.
+	* @param values The values to remove.
+	* @return array.
+	**/
+	export function pull(
+		array: List<any>,
+		...values: any[]): any[];
+
+	/**
 	* Returns a copy of the array with all instances of the values removed.
 	* @param array The array to remove `values` from.
 	* @param values The values to remove from `array`.
