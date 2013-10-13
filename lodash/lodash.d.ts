@@ -238,6 +238,49 @@ declare module _ {
 		context?: any): T;
 
 	/**
+	* This method is like _.find except that it returns the index of the first element that passes 
+	* the callback check, instead of the element itself.
+	* @param array The array to search.
+	* @param {(Function|Object|string)} callback The function called per iteration. If a property name or object is provided it will be 
+	* used to create a ".pluck" or ".where" style callback, respectively.
+	* @param thisArg The this binding of callback.
+	* @return Returns the index of the found element, else -1.
+	**/
+	export function findIndex<T>(
+		array: List<T>,
+		callback: ListIterator<T, boolean>,
+		thisArg?: any): number;
+	export function findIndex<T>(
+		array: List<T>,
+		pluckValue: string,
+		thisArg?: any): number;
+	export function findIndex<T>(
+		array: List<T>,
+		whereDictionary: Dictionary<any>,
+		thisArg?: any): number;
+
+	/**
+	* This method is like _.findIndex except that it iterates over elements of a collection from right to left.
+	* @param array The array to search.
+	* @param {(Function|Object|string)} callback The function called per iteration. If a property name or object is provided it will be 
+	* used to create a ".pluck" or ".where" style callback, respectively.
+	* @param thisArg The this binding of callback.
+	* @return Returns the index of the found element, else -1.
+	**/
+	export function findLastIndex<T>(
+		array: List<T>,
+		callback: ListIterator<T, boolean>,
+		thisArg?: any): number;
+	export function findLastIndex<T>(
+		array: List<T>,
+		pluckValue: string,
+		thisArg?: any): number;
+	export function findLastIndex<T>(
+		array: List<T>,
+		whereDictionary: Dictionary<any>,
+		thisArg?: any): number;
+
+	/**
 	* @see _.find
 	**/
 	export function detect<T>(
@@ -549,7 +592,16 @@ declare module _ {
 	**********/
 
 	/**
-	* Returns the first element of an array. Passing n will return the first n elements of the array.
+	* Gets the first element or first n elements of an array. If a callback is provided 
+	* elements at the beginning of the array are returned as long as the callback returns 
+	* truey. The callback is bound to thisArg and invoked with three arguments; (value, 
+	* index, array).
+	*
+	* If a property name is provided for callback the created "_.pluck" style callback 
+	* will return the property value of the given element.
+	*
+	* If an object is provided for callback the created "_.where" style callback will return ]
+	* true for elements that have the properties of the given object, else false.
 	* @param array Retrieves the first element of this array.
 	* @return Returns the first element of `array`.
 	**/
@@ -557,11 +609,37 @@ declare module _ {
 
 	/**
 	* @see _.first
-	* @param n Return more than one element from `array`.
+	* @param n The number of elements to return.
 	**/
 	export function first<T>(
 		array: List<T>,
 		n: number): T[];
+
+	/**
+	* @see _.first
+	* @param callback The function called per element.
+	* @param [thisArg] The this binding of callback.
+	**/
+	export function first<T>(
+		array: List<T>,
+		callback: ListIterator<T, boolean>,
+		thisArg?: any): T[];
+
+	/**
+	* @see _.first
+	* @param pluckValue "_.pluck" style callback value
+	**/
+	export function first<T>(
+		array: List<T>,
+		pluckValue: string): T[];
+
+	/**
+	* @see _.first
+	* @param whereValue "_.where" style callback value
+	**/
+	export function first<T>(
+		array: List<T>,
+		whereValue: Dictionary<string>): T[];
 
 	/**
 	* @see _.first
@@ -614,35 +692,85 @@ declare module _ {
 		n: number): T[];
 
 	/**
-	* Returns the rest of the elements in an array. Pass an index to return the values of the array
-	* from that index onward.
-	* @param array The array to retrieve all but the first `index` elements.
-	* @param n The index to start retrieving elements forward from, optional, default = 1.
-	* @return Returns the elements of `array` from `index` to the end of `array`.
+	* The opposite of _.initial this method gets all but the first element or first n elements of 
+	* an array. If a callback function is provided elements at the beginning of the array are excluded 
+	* from the result as long as the callback returns truey. The callback is bound to thisArg and 
+	* invoked with three arguments; (value, index, array).
+	*
+	* If a property name is provided for callback the created "_.pluck" style callback will return 
+	* the property value of the given element.
+	* 
+	* If an object is provided for callback the created "_.where" style callback will return true 
+	* for elements that have the properties of the given object, else false.
+	* @param array The array to query.
+	* @param {(Function|Object|number|string)} [callback=1] The function called per element or the number 
+	* of elements to exclude. If a property name or object is provided it will be used to create a 
+	* ".pluck" or ".where" style callback, respectively.
+	* @param {*} [thisArg] The this binding of callback.
+	* @return Returns a slice of array.
 	**/
 	export function rest<T>(
 		array: List<T>,
-		n?: number): T[];
-
-	/**
-	* @see _.rest
-	**/
-	export function tail<T>(
+		callback: (num: number) => boolean,
+		thisArg?: any): T[];
+	export function rest<T>(
 		array: List<T>,
-		n?: number): T[];
+		n?: number,
+		thisArg?: any): T[];
+	export function rest<T>(
+		array: List<T>,
+		pluckValue: string,
+		thisArg?: any): T[];
+	export function rest<T>(
+		array: List<T>,
+		whereValue: Dictionary<any>,
+		thisArg?: any): T[];
 
 	/**
 	* @see _.rest
 	**/
 	export function drop<T>(
 		array: List<T>,
-		n?: number): T[];
+		callback: (num: number) => boolean,
+		thisArg?: any): T[];
+	export function drop<T>(
+		array: List<T>,
+		n?: number,
+		thisArg?: any): T[];
+	export function drop<T>(
+		array: List<T>,
+		pluckValue: string,
+		thisArg?: any): T[];
+	export function drop<T>(
+		array: List<T>,
+		whereValue: Dictionary<any>,
+		thisArg?: any): T[];
+
+	/**
+	* @see _.rest
+	**/
+	export function tail<T>(
+		array: List<T>,
+		callback: (num: number) => boolean,
+		thisArg?: any): T[];
+	export function tail<T>(
+		array: List<T>,
+		n?: number,
+		thisArg?: any): T[];
+	export function tail<T>(
+		array: List<T>,
+		pluckValue: string,
+		thisArg?: any): T[];
+	export function tail<T>(
+		array: List<T>,
+		whereValue: Dictionary<any>,
+		thisArg?: any): T[];
 
 	/**
 	* Returns a copy of the array with all falsy values removed. In JavaScript, false, null, 0, "",
 	* undefined and NaN are all falsy.
 	* @param array Array to compact.
-	* @return Copy of `array` without false values.
+	* @return (Array) Returns a new array of filtered values.
 	**/
 	export function compact<T>(array: List<T>): T[];
 
@@ -684,10 +812,11 @@ declare module _ {
 	export function intersection<T>(...arrays: List<T>[]): T[];
 
 	/**
-	* Similar to without, but returns the values from array that are not present in the other arrays.
-	* @param array Keeps values that are within `others`.
-	* @param others The values to keep within `array`.
-	* @return Copy of `array` with only `others` values.
+	* Creates an array excluding all values of the provided arrays using strict equality for comparisons
+	* , i.e. ===.
+	* @param array The array to process
+	* @param others The arrays of values to exclude.
+	* @return Returns a new array of filtered values.
 	**/
 	export function difference<T>(
 		array: List<T>,

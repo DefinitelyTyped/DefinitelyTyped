@@ -1,6 +1,81 @@
-/// <reference path="underscore.d.ts" />
+/// <reference path="lodash.d.ts" />
 
 declare var $;
+
+interface IFoodOrganic {
+	name: string;
+	organic: boolean;
+}
+
+interface IFoodType {
+	name: string;
+	type: string;
+}
+
+
+var foodsOrganic: IFoodOrganic[] = [
+  { name: 'banana', organic: true },
+  { name: 'beet',   organic: false },
+];
+var foodsType: IFoodType[] = [
+  { name: 'apple',  type: 'fruit' },
+  { name: 'banana', type: 'fruit' },
+  { name: 'beet',   type: 'vegetable' }
+];
+var result;
+
+result = <any[]>_.compact([0, 1, false, 2, '', 3]);
+result = <number[]>_.difference([1, 2, 3, 4, 5], [5, 2, 10]);
+
+result = <number[]>_.rest([1, 2, 3]);
+result = <number[]>_.rest([1, 2, 3], 2);
+result = <number[]>_.rest([1, 2, 3], function(num) {
+  return num < 3;
+});
+result = <IFoodOrganic[]>_.rest(foodsOrganic, 'test');
+result = <IFoodType[]>_.rest(foodsType, { 'test': 'value' });
+
+	_.drop([1, 2, 3]);
+	_.drop([1, 2, 3], 2);
+	_.drop([1, 2, 3], function(num) {
+	  return num < 3;
+	});
+	_.drop(foodsOrganic, 'test');
+	_.drop(foodsType, { 'test': 'value' });
+
+	_.tail([1, 2, 3]);
+	_.tail([1, 2, 3], 2);
+	_.tail([1, 2, 3], function(num) {
+	  return num < 3;
+	});
+	_.tail(foodsOrganic, 'test');
+	_.tail(foodsType, { 'test': 'value' });
+
+result = <number>_.findIndex(['apple', 'banana', 'beet'], function(f) {
+  return /^b/.test(f);
+});
+result = <number>_.findIndex(['apple', 'banana', 'beet'], 'apple');
+result = <number>_.findIndex([{ food: 'apple' }, { food: 'banana' }, { food: 'beet' }], { food: 'apple'});
+
+result = <number>_.findLastIndex(['apple', 'banana', 'beet'], function(f) {
+  return /^b/.test(f);
+});
+result = <number>_.findLastIndex(['apple', 'banana', 'beet'], 'apple');
+result = <number>_.findLastIndex([{ food: 'apple' }, { food: 'banana' }, { food: 'beet' }], { food: 'apple'});
+
+
+result = <number>_.first([1, 2, 3]);
+result = <number[]>_.first([1, 2, 3], 2);
+result = <number[]>_.first([1, 2, 3], function(num) {
+  return num < 3;
+});
+result = <IFoodOrganic[]>_.first(foodsOrganic, 'organic');
+result = <IFoodType[]>_.first(foodsType, { 'type': 'fruit' });
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+//WHAT'S LEFT
+////////////////////////////////////////////////////////////////////////////////////////
 
 _.each([1, 2, 3], (num) => alert(num.toString()));
 _.each({ one: 1, two: 2, three: 3 }, (value) => alert(value.toString()));
@@ -66,11 +141,13 @@ _.size({ one: 1, two: 2, three: 3 });
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-_.first([5, 4, 3, 2, 1]);
+
 _.initial([5, 4, 3, 2, 1]);
 _.last([5, 4, 3, 2, 1]);
-_.rest([5, 4, 3, 2, 1]);
-_.compact([0, 1, false, 2, '', 3]);
+
+
+
+
 
 _.flatten([1, 2, 3, 4]);
 _.flatten([1, <any>[2]]);
