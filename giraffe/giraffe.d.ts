@@ -129,7 +129,7 @@ declare module Giraffe {
     static setDocumentEvents( events:string[], prefix?:string ): string[];
     static removeDocumentEvents( prefix?:string );
     static setDocumentEventPrefix( prefix?:string );
-    static setTemplateStrategy( strategy:string, instance?:any );
+    static setTemplateStrategy( strategy:any, instance?:any );
   }
 
   class App extends View {
