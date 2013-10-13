@@ -819,15 +819,25 @@ declare module _ {
 	export function compact<T>(array: List<T>): T[];
 
 	/**
-	* Flattens a nested array (the nesting can be to any depth). If you pass shallow, the array will
-	* only be flattened a single level.
+	* Flattens a nested array (the nesting can be to any depth). If isShallow is truey, the 
+	* array will only be flattened a single level. If a callback is provided each element of 
+	* the array is passed through the callback before flattening. The callback is bound to 
+	* thisArg and invoked with three arguments; (value, index, array).
+	*
+	* If a property name is provided for callback the created "_.pluck" style callback will 
+	* return the property value of the given element.
+	*
+	* If an object is provided for callback the created "_.where" style callback will return 
+	* true for elements that have the properties of the given object, else false.
 	* @param array The array to flatten.
 	* @param shallow If true then only flatten one level, optional, default = false.
 	* @return `array` flattened.
 	**/
 	export function flatten(
 		array: List<any>,
-		shallow?: boolean): any[];
+		isShallow?,
+		callback?: ListIterator<any, any>,
+		thisArg?: any): any[];
 
 	/**
 	* Returns a copy of the array with all instances of the values removed.
