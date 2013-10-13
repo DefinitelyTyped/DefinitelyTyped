@@ -1,14 +1,14 @@
-// Type definitions for Underscore 1.5.2
-// Project: http://underscorejs.org/
+// Type definitions for Lo-Dash 2.2.1
+// Project: http://lodash.com/
 // Definitions by:
-// Boris Yankov <https://github.com/borisyankov/>
-// Josh Baldwin <https://github.com/jbaldwin/underscore.d.ts>
+// Brian Zengel <https://github.com/bczengel/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Heavily based on Underscore definitions by Boris Yankov
 
 /**
-* Underscore OOP Wrapper, all Underscore functions that take an object
+* Lo-Dash OOP Wrapper, all Lo-Dash functions that take an object
 * as the first parameter can be invoked through this function.
-* @param key First argument to Underscore object functions.
+* @param key First argument to Lo-Dash object functions.
 **/
 declare function _<T>(value: Array<T>): _<T>;
 declare function _<T>(value: T): _<T>;
@@ -16,7 +16,7 @@ declare function _<T>(value: T): _<T>;
 declare module _ {
 
 	/**
-	* underscore.js _.throttle options.
+	* lodash.js _.throttle options.
 	**/
 	interface ThrottleSettings {
 
@@ -32,7 +32,7 @@ declare module _ {
 	}
 
 	/**
-	* underscore.js template settings, set templateSettings or pass as an argument
+	* lodash.js template settings, set templateSettings or pass as an argument
 	* to 'template()' to overide defaults.
 	**/
 	interface TemplateSettings {
@@ -1257,14 +1257,14 @@ declare module _ {
 
 	/**
 	* Give control of the "_" variable back to its previous owner.
-	* Returns a reference to the Underscore object.
-	* @return Underscore object reference.
+	* Returns a reference to the Lo-Dash object.
+	* @return Lo-Dash object reference.
 	**/
 	export function noConflict(): any;
 
 	/**
 	* Returns the same value that is used as the argument. In math: f(x) = x
-	* This function looks useless, but is used throughout Underscore as a default iterator.
+	* This function looks useless, but is used throughout Lo-Dash as a default iterator.
 	* @param value Identity of this object.
 	* @return `value`.
 	**/
@@ -1295,10 +1295,10 @@ declare module _ {
 	export function random(min: number, max: number): number;
 
 	/**
-	* Allows you to extend Underscore with your own utility functions. Pass a hash of
-	* {name: function} definitions to have your functions added to the Underscore object,
+	* Allows you to extend Lo-Dash with your own utility functions. Pass a hash of
+	* {name: function} definitions to have your functions added to the Lo-Dash object,
 	* as well as the OOP wrapper.
-	* @param object Mixin object containing key/function pairs to add to the Underscore object.
+	* @param object Mixin object containing key/function pairs to add to the Lo-Dash object.
 	**/
 	export function mixin(object: any): void;
 
@@ -1340,15 +1340,15 @@ declare module _ {
 	* the second parameter to template in order to render immediately instead of returning a template
 	* function. The settings argument should be a hash containing any _.templateSettings that should
 	* be overridden.
-	* @param templateString Underscore HTML template.
+	* @param templateString Lo-Dash HTML template.
 	* @param data Data to use when compiling `templateString`.
 	* @param settings Settings to use while compiling.
-	* @return Returns the compiled Underscore HTML template.
+	* @return Returns the compiled Lo-Dash HTML template.
 	**/
 	export function template(templateString: string, data?: any, settings?: TemplateSettings): (...data: any[]) => string;
 
 	/**
-	* By default, Underscore uses ERB-style template delimiters, change the
+	* By default, Lo-Dash uses ERB-style template delimiters, change the
 	* following template settings to use alternative delimiters.
 	**/
 	export var templateSettings: TemplateSettings;
@@ -2949,6 +2949,6 @@ interface _Chain<T> {
 	value<TResult>(): TResult;
 }
 
-declare module "underscore" {
+declare module "lodash" {
 	export = _;
 }
