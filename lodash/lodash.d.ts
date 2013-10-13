@@ -959,27 +959,35 @@ declare module _ {
 		values?: any): TResult;
 
 	/**
-	* Returns the index at which value can be found in the array, or -1 if value is not present in the array.
-	* Uses the native indexOf function unless it's missing. If you're working with a large array, and you know
-	* that the array is already sorted, pass true for isSorted to use a faster binary search ... or, pass a number
-	* as the third argument in order to look for the first matching value in the array after the given index.
-	* @param array The array to search for the index of `value`.
-	* @param value The value to search for within `array`.
-	* @param isSorted True if the array is already sorted, optional, default = false.
+	* Gets the index at which the first occurrence of value is found using strict equality 
+	* for comparisons, i.e. ===. If the array is already sorted providing true for fromIndex 
+	* will run a faster binary search.
+	* @param array The array to search.
+	* @param value The value to search for.
+	* @param fromIndex The index to search from.
 	* @return The index of `value` within `array`.
 	**/
 	export function indexOf<T>(
 		array: List<T>,
-		value: T,
-		isSorted?: boolean): number;
+		value: T): number;
 
 	/**
-	* @see _indexof
+	* @see _.indexOf
+	* @param fromIndex The index to search from
 	**/
 	export function indexOf<T>(
 		array: List<T>,
 		value: T,
-		startFrom: number): number;
+		fromIndex: number): number;
+
+	/**
+	* @see _.indexOf
+	* @param isSorted True to perform a binary search on a sorted array.
+	**/
+	export function indexOf<T>(
+		array: List<T>,
+		value: T,
+		isSorted: boolean): number;
 
 	/**
 	* Returns the index of the last occurrence of value in the array, or -1 if value is not present. Uses the

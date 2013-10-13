@@ -12,6 +12,10 @@ interface IFoodType {
 	type: string;
 }
 
+interface IStoogesQuotes {
+	name: string;
+	quotes: string[];
+}
 
 var foodsOrganic: IFoodOrganic[] = [
   { name: 'banana', organic: true },
@@ -22,8 +26,13 @@ var foodsType: IFoodType[] = [
   { name: 'banana', type: 'fruit' },
   { name: 'beet',   type: 'vegetable' }
 ];
+var stoogesQuotes = [
+  { 'name': 'curly', 'quotes': ['Oh, a wise guy, eh?', 'Poifect!'] },
+  { 'name': 'moe', 'quotes': ['Spread out!', 'You knucklehead!'] }
+];
 var result;
 
+//Array Method Tests
 result = <any[]>_.compact([0, 1, false, 2, '', 3]);
 result = <number[]>_.difference([1, 2, 3, 4, 5], [5, 2, 10]);
 
@@ -88,6 +97,13 @@ result = <number[]>_.take([1, 2, 3], function(num) {
 result = <IFoodOrganic[]>_.take(foodsOrganic, 'organic');
 result = <IFoodType[]>_.take(foodsType, { 'type': 'fruit' });
 
+result = <number[]>_.flatten([1, [2], [3, [[4]]]]);
+result = <any[]>_.flatten([1, [2], [3, [[4]]]], true);
+result = <string[]>_.flatten(stoogesQuotes, 'quotes');
+
+result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2);
+result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2, 3);
+result = <number>_.indexOf([1, 1, 2, 2, 3, 3], 2, true);
 
 ////////////////////////////////////////////////////////////////////////////////////////
 //WHAT'S LEFT
@@ -165,12 +181,6 @@ _.last([5, 4, 3, 2, 1]);
 
 
 
-_.flatten([1, 2, 3, 4]);
-_.flatten([1, <any>[2]]);
-
-// typescript doesn't like the elements being different
-_.flatten([1, [2], <any>[3, <any>[[4]]]]);
-_.flatten([1, [2], <any>[3, <any>[[4]]]], true);
 _.without([1, 2, 1, 0, 3, 1, 4], 0, 1);
 _.union([1, 2, 3], [101, 2, 1, 10], [2, 1]);
 _.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1]);
@@ -179,7 +189,7 @@ _.uniq([1, 2, 1, 3, 1, 4]);
 _.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]);
 var r = _.object<{ [key: string]: number }>(['moe', 'larry', 'curly'], [30, 40, 50]);
 _.object([[<any>'moe', 30], [<any>'larry', 40], [<any>'curly', 50]]);
-_.indexOf([1, 2, 3], 2);
+
 _.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
 _.sortedIndex([10, 20, 30, 40, 50], 35);
 _.range(10);
