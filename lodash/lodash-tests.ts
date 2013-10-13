@@ -72,6 +72,22 @@ result = <number[]>_.first([1, 2, 3], function(num) {
 result = <IFoodOrganic[]>_.first(foodsOrganic, 'organic');
 result = <IFoodType[]>_.first(foodsType, { 'type': 'fruit' });
 
+result = <number>_.head([1, 2, 3]);
+result = <number[]>_.head([1, 2, 3], 2);
+result = <number[]>_.head([1, 2, 3], function(num) {
+  return num < 3;
+});
+result = <IFoodOrganic[]>_.head(foodsOrganic, 'organic');
+result = <IFoodType[]>_.head(foodsType, { 'type': 'fruit' });
+
+result = <number>_.take([1, 2, 3]);
+result = <number[]>_.take([1, 2, 3], 2);
+result = <number[]>_.take([1, 2, 3], function(num) {
+  return num < 3;
+});
+result = <IFoodOrganic[]>_.take(foodsOrganic, 'organic');
+result = <IFoodType[]>_.take(foodsType, { 'type': 'fruit' });
+
 
 ////////////////////////////////////////////////////////////////////////////////////////
 //WHAT'S LEFT

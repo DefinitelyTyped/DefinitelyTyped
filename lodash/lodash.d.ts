@@ -656,6 +656,28 @@ declare module _ {
 	/**
 	* @see _.first
 	**/
+	export function head<T>(
+		array: List<T>,
+		callback: ListIterator<T, boolean>,
+		thisArg?: any): T[];
+
+	/**
+	* @see _.first
+	**/
+	export function head<T>(
+		array: List<T>,
+		pluckValue: string): T[];
+
+	/**
+	* @see _.first
+	**/
+	export function head<T>(
+		array: List<T>,
+		whereValue: Dictionary<string>): T[];
+
+	/**
+	* @see _.first
+	**/
 	export function take<T>(array: List<T>): T;
 
 	/**
@@ -664,6 +686,28 @@ declare module _ {
 	export function take<T>(
 		array: List<T>,
 		n: number): T[];
+
+	/**
+	* @see _.first
+	**/
+	export function take<T>(
+		array: List<T>,
+		callback: ListIterator<T, boolean>,
+		thisArg?: any): T[];
+
+	/**
+	* @see _.first
+	**/
+	export function take<T>(
+		array: List<T>,
+		pluckValue: string): T[];
+
+	/**
+	* @see _.first
+	**/
+	export function take<T>(
+		array: List<T>,
+		whereValue: Dictionary<string>): T[];
 
 	/**
 	* Returns everything but the last entry of the array. Especially useful on the arguments object.
