@@ -710,15 +710,54 @@ declare module _ {
 		whereValue: Dictionary<string>): T[];
 
 	/**
-	* Returns everything but the last entry of the array. Especially useful on the arguments object.
-	* Pass n to exclude the last n elements from the result.
-	* @param array Retreive all elements except the last `n`.
+	* Gets all but the last element or last n elements of an array. If a callback is provided 
+	* elements at the end of the array are excluded from the result as long as the callback 
+	* returns truey. The callback is bound to thisArg and invoked with three arguments; 
+	* (value, index, array).
+	*
+	* If a property name is provided for callback the created "_.pluck" style callback will 
+	* return the property value of the given element.
+	*
+	* If an object is provided for callback the created "_.where" style callback will return 
+	* true for elements that have the properties of the given object, else false.
+	* @param array The array to query.
 	* @param n Leaves this many elements behind, optional.
 	* @return Returns everything but the last `n` elements of `array`.
 	**/
 	export function initial<T>(
+		array: List<T>): T[];
+
+	/**
+	* @see _.initial
+	* @param n The number of elements to exclude.
+	**/
+	export function initial<T>(
 		array: List<T>,
-		n?: number): T[];
+		n: number): T[];
+
+	/**
+	* @see _.initial
+	* @param callback The function called per element
+	**/
+	export function initial<T>(
+		array: List<T>,
+		callback: ListIterator<T, boolean>): T[];
+
+	/**
+	* @see _.initial
+	* @param pluckValue _.pluck style callback
+	**/
+	export function initial<T>(
+		array: List<T>,
+		pluckValue: string): T[];
+
+	/**
+	* @see _.initial
+	* @param whereValue _.where style callback
+	**/
+	export function initial<T>(
+		array: List<T>,
+		whereValue: Dictionary<any>): T[];
 
 	/**
 	* Returns the last element of an array. Passing n will return the last n elements of the array.
