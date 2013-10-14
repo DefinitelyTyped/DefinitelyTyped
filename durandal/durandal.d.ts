@@ -960,7 +960,7 @@ declare module 'plugins/dialog' {
      * @param {object} obj The object whose dialog should be closed.
      * @param {object} result* The results to return back to the dialog caller after closing.
     */
-    export function close(obj: any): void;
+    export function close(obj: any, ...result: any[]): void;
 
     /**
      * Shows a dialog.
