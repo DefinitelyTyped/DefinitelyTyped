@@ -2,7 +2,6 @@
 // Project: http://angularjs.org
 // Definitions: https://github.com/daptiv/DefinitelyTyped
 
-
 /// <reference path="angular.d.ts" />
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -27,7 +26,7 @@ declare module ng {
     interface IMockStatic {
         // see http://docs.angularjs.org/api/angular.mock.dump
         dump(obj: any): string;
-                
+
         // see http://docs.angularjs.org/api/angular.mock.inject
         inject(...fns: Function[]): any;
 
