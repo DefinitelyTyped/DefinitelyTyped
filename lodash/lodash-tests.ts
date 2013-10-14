@@ -138,6 +138,10 @@ result = <number[]>_.range(0, -10, -1);
 result = <number[]>_.range(1, 4, 0);
 result = <number[]>_.range(0);
 
+result = <number[]>_.remove([1, 2, 3, 4, 5, 6], function(num) { return num % 2 == 0; });
+result = <IFoodOrganic[]>_.remove(foodsOrganic, 'organic');
+result = <IFoodType[]>_.remove(foodsType, { 'type': 'vegetable'});
+
 ////////////////////////////////////////////////////////////////////////////////////////
 //WHAT'S LEFT
 ////////////////////////////////////////////////////////////////////////////////////////
