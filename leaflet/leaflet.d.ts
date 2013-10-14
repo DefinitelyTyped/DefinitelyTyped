@@ -1,7 +1,6 @@
 // Type definitions for Leaflet.js 0.6.4
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Vladimir Zotov <https://github.com/rgripper>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
  
 declare module L {
 
@@ -24,6 +23,17 @@ declare module L {
  
 declare module L {
 
+    /**
+        * Creates a Bounds object from two coordinates (usually top-left and bottom-right
+        * corners).
+        */
+    export function bounds(topLeft: Point, bottomRight: Point): Bounds;
+
+    /**
+        * Creates a Bounds object defined by the points it contains.
+        */
+    export function bounds(points: Point[]): Bounds;
+
     export class Bounds {
 
         /**
@@ -36,17 +46,6 @@ declare module L {
           * Creates a Bounds object defined by the points it contains.
           */
         constructor(points: Point[]);
-
-        /**
-          * Creates a Bounds object from two coordinates (usually top-left and bottom-right
-          * corners).
-          */
-        static bounds(topLeft: Point, bottomRight: Point): Bounds;
-
-        /**
-          * Creates a Bounds object defined by the points it contains.
-          */
-        static bounds(points: Point[]): Bounds;
 
         /**
           * Extends the bounds to contain the given point.
@@ -92,7 +91,6 @@ declare module L {
           * The bottom right corner of the rectangle.
           */
         max: Point;
-    
     }
 }
  
