@@ -131,6 +131,13 @@ result = <{[key: string]: any}>_.zipObject(['moe', 'larry'], [30, 40]);
 
 result = <any[]>_.pull([1, 2, 3, 1, 2, 3], 2, 3);
 
+result = <number[]>_.range(10);
+result = <number[]>_.range(1, 11);
+result = <number[]>_.range(0, 30, 5);
+result = <number[]>_.range(0, -10, -1);
+result = <number[]>_.range(1, 4, 0);
+result = <number[]>_.range(0);
+
 ////////////////////////////////////////////////////////////////////////////////////////
 //WHAT'S LEFT
 ////////////////////////////////////////////////////////////////////////////////////////
