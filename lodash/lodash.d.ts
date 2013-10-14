@@ -76,6 +76,439 @@ declare module _ {
 		[index: string]: T;
 	}
 
+	/*********
+	* Arrays *
+	**********/
+
+	/**
+	* Returns a copy of the array with all falsy values removed. In JavaScript, false, null, 0, "",
+	* undefined and NaN are all falsy.
+	* @param array Array to compact.
+	* @return (Array) Returns a new array of filtered values.
+	**/
+	export function compact<T>(array: List<T>): T[];
+
+	/**
+	* Creates an array excluding all values of the provided arrays using strict equality for comparisons
+	* , i.e. ===.
+	* @param array The array to process
+	* @param others The arrays of values to exclude.
+	* @return Returns a new array of filtered values.
+	**/
+	export function difference<T>(
+		array: List<T>,
+		...others: List<T>[]): T[];
+
+	/**
+	* @see _.rest
+	**/
+	export function drop<T>(
+		array: List<T>,
+		callback: (num: number) => boolean,
+		thisArg?: any): T[];
+	export function drop<T>(
+		array: List<T>,
+		n?: number,
+		thisArg?: any): T[];
+	export function drop<T>(
+		array: List<T>,
+		pluckValue: string,
+		thisArg?: any): T[];
+	export function drop<T>(
+		array: List<T>,
+		whereValue: Dictionary<any>,
+		thisArg?: any): T[];
+
+	/**
+	* This method is like _.find except that it returns the index of the first element that passes 
+	* the callback check, instead of the element itself.
+	* @param array The array to search.
+	* @param {(Function|Object|string)} callback The function called per iteration. If a property name or object is provided it will be 
+	* used to create a ".pluck" or ".where" style callback, respectively.
+	* @param thisArg The this binding of callback.
+	* @return Returns the index of the found element, else -1.
+	**/
+	export function findIndex<T>(
+		array: List<T>,
+		callback: ListIterator<T, boolean>,
+		thisArg?: any): number;
+	export function findIndex<T>(
+		array: List<T>,
+		pluckValue: string,
+		thisArg?: any): number;
+	export function findIndex<T>(
+		array: List<T>,
+		whereDictionary: Dictionary<any>,
+		thisArg?: any): number;
+
+	/**
+	* This method is like _.findIndex except that it iterates over elements of a collection from right to left.
+	* @param array The array to search.
+	* @param {(Function|Object|string)} callback The function called per iteration. If a property name or object is provided it will be 
+	* used to create a ".pluck" or ".where" style callback, respectively.
+	* @param thisArg The this binding of callback.
+	* @return Returns the index of the found element, else -1.
+	**/
+	export function findLastIndex<T>(
+		array: List<T>,
+		callback: ListIterator<T, boolean>,
+		thisArg?: any): number;
+	export function findLastIndex<T>(
+		array: List<T>,
+		pluckValue: string): number;
+	export function findLastIndex<T>(
+		array: List<T>,
+		whereDictionary: Dictionary<any>): number;
+
+	/**
+	* Gets the first element or first n elements of an array. If a callback is provided 
+	* elements at the beginning of the array are returned as long as the callback returns 
+	* truey. The callback is bound to thisArg and invoked with three arguments; (value, 
+	* index, array).
+	*
+	* If a property name is provided for callback the created "_.pluck" style callback 
+	* will return the property value of the given element.
+	*
+	* If an object is provided for callback the created "_.where" style callback will return ]
+	* true for elements that have the properties of the given object, else false.
+	* @param array Retrieves the first element of this array.
+	* @return Returns the first element of `array`.
+	**/
+	export function first<T>(array: List<T>): T;
+
+	/**
+	* @see _.first
+	* @param n The number of elements to return.
+	**/
+	export function first<T>(
+		array: List<T>,
+		n: number): T[];
+
+	/**
+	* @see _.first
+	* @param callback The function called per element.
+	* @param [thisArg] The this binding of callback.
+	**/
+	export function first<T>(
+		array: List<T>,
+		callback: ListIterator<T, boolean>,
+		thisArg?: any): T[];
+
+	/**
+	* @see _.first
+	* @param pluckValue "_.pluck" style callback value
+	**/
+	export function first<T>(
+		array: List<T>,
+		pluckValue: string): T[];
+
+	/**
+	* @see _.first
+	* @param whereValue "_.where" style callback value
+	**/
+	export function first<T>(
+		array: List<T>,
+		whereValue: Dictionary<string>): T[];
+
+	/**
+	* Flattens a nested array (the nesting can be to any depth). If isShallow is truey, the 
+	* array will only be flattened a single level. If a callback is provided each element of 
+	* the array is passed through the callback before flattening. The callback is bound to 
+	* thisArg and invoked with three arguments; (value, index, array).
+	*
+	* If a property name is provided for callback the created "_.pluck" style callback will 
+	* return the property value of the given element.
+	*
+	* If an object is provided for callback the created "_.where" style callback will return 
+	* true for elements that have the properties of the given object, else false.
+	* @param array The array to flatten.
+	* @param shallow If true then only flatten one level, optional, default = false.
+	* @return `array` flattened.
+	**/
+	export function flatten(
+		array: List<any>,
+		isShallow?,
+		callback?: ListIterator<any, any>,
+		thisArg?: any): any[];
+
+	/**
+	* @see _.first
+	**/
+	export function head<T>(array: List<T>): T;
+
+	/**
+	* @see _.first
+	**/
+	export function head<T>(
+		array: List<T>,
+		n: number): T[];
+
+	/**
+	* @see _.first
+	**/
+	export function head<T>(
+		array: List<T>,
+		callback: ListIterator<T, boolean>,
+		thisArg?: any): T[];
+
+	/**
+	* @see _.first
+	**/
+	export function head<T>(
+		array: List<T>,
+		pluckValue: string): T[];
+
+	/**
+	* @see _.first
+	**/
+	export function head<T>(
+		array: List<T>,
+		whereValue: Dictionary<string>): T[];
+
+	/**
+	* Gets the index at which the first occurrence of value is found using strict equality 
+	* for comparisons, i.e. ===. If the array is already sorted providing true for fromIndex 
+	* will run a faster binary search.
+	* @param array The array to search.
+	* @param value The value to search for.
+	* @param fromIndex The index to search from.
+	* @return The index of `value` within `array`.
+	**/
+	export function indexOf<T>(
+		array: List<T>,
+		value: T): number;
+
+	/**
+	* @see _.indexOf
+	* @param fromIndex The index to search from
+	**/
+	export function indexOf<T>(
+		array: List<T>,
+		value: T,
+		fromIndex: number): number;
+
+	/**
+	* @see _.indexOf
+	* @param isSorted True to perform a binary search on a sorted array.
+	**/
+	export function indexOf<T>(
+		array: List<T>,
+		value: T,
+		isSorted: boolean): number;
+
+	/**
+	* Gets all but the last element or last n elements of an array. If a callback is provided 
+	* elements at the end of the array are excluded from the result as long as the callback 
+	* returns truey. The callback is bound to thisArg and invoked with three arguments; 
+	* (value, index, array).
+	*
+	* If a property name is provided for callback the created "_.pluck" style callback will 
+	* return the property value of the given element.
+	*
+	* If an object is provided for callback the created "_.where" style callback will return 
+	* true for elements that have the properties of the given object, else false.
+	* @param array The array to query.
+	* @param n Leaves this many elements behind, optional.
+	* @return Returns everything but the last `n` elements of `array`.
+	**/
+	export function initial<T>(
+		array: List<T>): T[];
+
+	/**
+	* @see _.initial
+	* @param n The number of elements to exclude.
+	**/
+	export function initial<T>(
+		array: List<T>,
+		n: number): T[];
+
+	/**
+	* @see _.initial
+	* @param callback The function called per element
+	**/
+	export function initial<T>(
+		array: List<T>,
+		callback: ListIterator<T, boolean>): T[];
+
+	/**
+	* @see _.initial
+	* @param pluckValue _.pluck style callback
+	**/
+	export function initial<T>(
+		array: List<T>,
+		pluckValue: string): T[];
+
+	/**
+	* @see _.initial
+	* @param whereValue _.where style callback
+	**/
+	export function initial<T>(
+		array: List<T>,
+		whereValue: Dictionary<any>): T[];
+
+	/**
+	* Creates an array of unique values present in all provided arrays using strict 
+	* equality for comparisons, i.e. ===.
+	* @param arrays The arrays to inspect.
+	* @return Returns an array of composite values.
+	**/
+	export function intersection<T>(...arrays: List<T>[]): T[];
+
+	/**
+	* Gets the last element or last n elements of an array. If a callback is provided 
+	* elements at the end of the array are returned as long as the callback returns truey. 
+	* The callback is bound to thisArg and invoked with three arguments; (value, index, array).
+	*
+	* If a property name is provided for callback the created "_.pluck" style callback will 
+	* return the property value of the given element.
+	*
+	* If an object is provided for callback the created "_.where" style callback will return 
+	* true for elements that have the properties of the given object, else false.
+	* @param array The array to query.
+	* @return Returns the last element(s) of array.
+	**/
+	export function last<T>(array: List<T>): T;
+
+	/**
+	* @see _.last
+	* @param n The number of elements to return
+	**/
+	export function last<T>(
+		array: List<T>,
+		n: number): T[];
+
+	/**
+	* @see _.last
+	* @param callback The function called per element
+	**/
+	export function last<T>(
+		array: List<T>,
+		callback: ListIterator<T, boolean>,
+		thisArg?: any): T[];
+
+	/**
+	* @see _.last
+	* @param pluckValue _.pluck style callback
+	**/
+	export function last<T>(
+		array: List<T>,
+		pluckValue: string): T[];
+
+	/**
+	* @see _.last
+	* @param whereValue _.where style callback
+	**/
+	export function last<T>(
+		array: List<T>,
+		whereValue: Dictionary<any>): T[];
+
+	/**
+	* Gets the index at which the last occurrence of value is found using strict equality 
+	* for comparisons, i.e. ===. If fromIndex is negative, it is used as the offset from the 
+	* end of the collection.
+	* @param array The array to search.
+	* @param value The value to search for.
+	* @param fromIndex The index to search from.
+	* @return The index of the matched value or -1.
+	**/
+	export function lastIndexOf<T>(
+		array: List<T>,
+		value: T,
+		fromIndex?: number): number;
+
+	/**
+	* @see _.zipObject
+	**/
+	export function object<TResult extends {}>(
+		keys: List<string>,
+		values: List<any>): TResult;
+
+	/**
+	* Converts arrays into objects. Pass either a single list of [key, value] pairs, or a
+	* list of keys, and a list of values.
+	* @param keyValuePairs Array of [key, value] pairs.
+	* @return An object containing the `keys` as properties and `values` as the property values.
+	**/
+	export function object<TResult extends {}>(...keyValuePairs: any[][]): TResult;
+
+	/**
+	* @see _.object
+	**/
+	export function object<TResult extends {}>(
+		list: List<any>,
+		values?: any): TResult;
+
+	/**
+	* Removes all provided values from the given array using strict equality for comparisons, 
+	* i.e. ===.
+	* @param array The array to modify.
+	* @param values The values to remove.
+	* @return array.
+	**/
+	export function pull(
+		array: List<any>,
+		...values: any[]): any[];
+
+	/**
+	* Creates an array of numbers (positive and/or negative) progressing from start up 
+	* to but not including end. If start is less than stop a zero-length range is created 
+	* unless a negative step is specified.
+	* @param start The start of the range.
+	* @param end The end of the range.
+	* @param step The value to increment or decrement by.
+	* @return Returns a new range array.
+	**/
+
+	export function range(
+		start: number,
+		stop: number,
+		step?: number): number[];
+	
+	/**
+	* @see _.range
+	* @param end The end of the range.
+	* @return Returns a new range array.
+	* @note If start is not specified the implementation will never pull the step (step = arguments[2] || 0)
+	**/
+	export function range(stop: number): number[];
+
+	/**
+	* Removes all elements from an array that the callback returns truey for and returns 
+	* an array of removed elements. The callback is bound to thisArg and invoked with three 
+	* arguments; (value, index, array).
+	*
+	* If a property name is provided for callback the created "_.pluck" style callback will 
+	* return the property value of the given element.
+	*
+	* If an object is provided for callback the created "_.where" style callback will return 
+	* true for elements that have the properties of the given object, else false.
+	* @param array The array to modify.
+	* @param callback The function called per iteration.
+	* @param thisArg The this binding of callback.
+	* @return A new array of removed elements.
+	**/
+	export function remove(
+		array: List<any>,
+		callback?: ListIterator<any, boolean>,
+		thisArg?: any): any[];
+
+	/**
+	* @see _.remove
+	* @param pluckValue _.pluck style callback
+	**/
+	export function remove(
+		array: List<any>,
+		pluckValue?: string): any[];
+
+	/**
+	* @see _.remove
+	* @param whereValue _.where style callback
+	**/
+	export function remove(
+		array: List<any>,
+		wherealue?: Dictionary<any>): any[];
+
+
 	/* *************
 	 * Collections *
 	 ************* */
@@ -237,48 +670,9 @@ declare module _ {
 		iterator: ListIterator<T, boolean>,
 		context?: any): T;
 
-	/**
-	* This method is like _.find except that it returns the index of the first element that passes 
-	* the callback check, instead of the element itself.
-	* @param array The array to search.
-	* @param {(Function|Object|string)} callback The function called per iteration. If a property name or object is provided it will be 
-	* used to create a ".pluck" or ".where" style callback, respectively.
-	* @param thisArg The this binding of callback.
-	* @return Returns the index of the found element, else -1.
-	**/
-	export function findIndex<T>(
-		array: List<T>,
-		callback: ListIterator<T, boolean>,
-		thisArg?: any): number;
-	export function findIndex<T>(
-		array: List<T>,
-		pluckValue: string,
-		thisArg?: any): number;
-	export function findIndex<T>(
-		array: List<T>,
-		whereDictionary: Dictionary<any>,
-		thisArg?: any): number;
+	
 
-	/**
-	* This method is like _.findIndex except that it iterates over elements of a collection from right to left.
-	* @param array The array to search.
-	* @param {(Function|Object|string)} callback The function called per iteration. If a property name or object is provided it will be 
-	* used to create a ".pluck" or ".where" style callback, respectively.
-	* @param thisArg The this binding of callback.
-	* @return Returns the index of the found element, else -1.
-	**/
-	export function findLastIndex<T>(
-		array: List<T>,
-		callback: ListIterator<T, boolean>,
-		thisArg?: any): number;
-	export function findLastIndex<T>(
-		array: List<T>,
-		pluckValue: string,
-		thisArg?: any): number;
-	export function findLastIndex<T>(
-		array: List<T>,
-		whereDictionary: Dictionary<any>,
-		thisArg?: any): number;
+	
 
 	/**
 	* @see _.find
@@ -587,93 +981,11 @@ declare module _ {
 	**/
 	export function size<T>(list: Collection<T>): number;
 
-	/*********
-	* Arrays *
-	**********/
+	
 
-	/**
-	* Gets the first element or first n elements of an array. If a callback is provided 
-	* elements at the beginning of the array are returned as long as the callback returns 
-	* truey. The callback is bound to thisArg and invoked with three arguments; (value, 
-	* index, array).
-	*
-	* If a property name is provided for callback the created "_.pluck" style callback 
-	* will return the property value of the given element.
-	*
-	* If an object is provided for callback the created "_.where" style callback will return ]
-	* true for elements that have the properties of the given object, else false.
-	* @param array Retrieves the first element of this array.
-	* @return Returns the first element of `array`.
-	**/
-	export function first<T>(array: List<T>): T;
+	
 
-	/**
-	* @see _.first
-	* @param n The number of elements to return.
-	**/
-	export function first<T>(
-		array: List<T>,
-		n: number): T[];
-
-	/**
-	* @see _.first
-	* @param callback The function called per element.
-	* @param [thisArg] The this binding of callback.
-	**/
-	export function first<T>(
-		array: List<T>,
-		callback: ListIterator<T, boolean>,
-		thisArg?: any): T[];
-
-	/**
-	* @see _.first
-	* @param pluckValue "_.pluck" style callback value
-	**/
-	export function first<T>(
-		array: List<T>,
-		pluckValue: string): T[];
-
-	/**
-	* @see _.first
-	* @param whereValue "_.where" style callback value
-	**/
-	export function first<T>(
-		array: List<T>,
-		whereValue: Dictionary<string>): T[];
-
-	/**
-	* @see _.first
-	**/
-	export function head<T>(array: List<T>): T;
-
-	/**
-	* @see _.first
-	**/
-	export function head<T>(
-		array: List<T>,
-		n: number): T[];
-
-	/**
-	* @see _.first
-	**/
-	export function head<T>(
-		array: List<T>,
-		callback: ListIterator<T, boolean>,
-		thisArg?: any): T[];
-
-	/**
-	* @see _.first
-	**/
-	export function head<T>(
-		array: List<T>,
-		pluckValue: string): T[];
-
-	/**
-	* @see _.first
-	**/
-	export function head<T>(
-		array: List<T>,
-		whereValue: Dictionary<string>): T[];
+	
 
 	/**
 	* @see _.first
@@ -709,103 +1021,9 @@ declare module _ {
 		array: List<T>,
 		whereValue: Dictionary<string>): T[];
 
-	/**
-	* Gets all but the last element or last n elements of an array. If a callback is provided 
-	* elements at the end of the array are excluded from the result as long as the callback 
-	* returns truey. The callback is bound to thisArg and invoked with three arguments; 
-	* (value, index, array).
-	*
-	* If a property name is provided for callback the created "_.pluck" style callback will 
-	* return the property value of the given element.
-	*
-	* If an object is provided for callback the created "_.where" style callback will return 
-	* true for elements that have the properties of the given object, else false.
-	* @param array The array to query.
-	* @param n Leaves this many elements behind, optional.
-	* @return Returns everything but the last `n` elements of `array`.
-	**/
-	export function initial<T>(
-		array: List<T>): T[];
+	
 
-	/**
-	* @see _.initial
-	* @param n The number of elements to exclude.
-	**/
-	export function initial<T>(
-		array: List<T>,
-		n: number): T[];
-
-	/**
-	* @see _.initial
-	* @param callback The function called per element
-	**/
-	export function initial<T>(
-		array: List<T>,
-		callback: ListIterator<T, boolean>): T[];
-
-	/**
-	* @see _.initial
-	* @param pluckValue _.pluck style callback
-	**/
-	export function initial<T>(
-		array: List<T>,
-		pluckValue: string): T[];
-
-	/**
-	* @see _.initial
-	* @param whereValue _.where style callback
-	**/
-	export function initial<T>(
-		array: List<T>,
-		whereValue: Dictionary<any>): T[];
-
-	/**
-	* Gets the last element or last n elements of an array. If a callback is provided 
-	* elements at the end of the array are returned as long as the callback returns truey. 
-	* The callback is bound to thisArg and invoked with three arguments; (value, index, array).
-	*
-	* If a property name is provided for callback the created "_.pluck" style callback will 
-	* return the property value of the given element.
-	*
-	* If an object is provided for callback the created "_.where" style callback will return 
-	* true for elements that have the properties of the given object, else false.
-	* @param array The array to query.
-	* @return Returns the last element(s) of array.
-	**/
-	export function last<T>(array: List<T>): T;
-
-	/**
-	* @see _.last
-	* @param n The number of elements to return
-	**/
-	export function last<T>(
-		array: List<T>,
-		n: number): T[];
-
-	/**
-	* @see _.last
-	* @param callback The function called per element
-	**/
-	export function last<T>(
-		array: List<T>,
-		callback: ListIterator<T, boolean>,
-		thisArg?: any): T[];
-
-	/**
-	* @see _.last
-	* @param pluckValue _.pluck style callback
-	**/
-	export function last<T>(
-		array: List<T>,
-		pluckValue: string): T[];
-
-	/**
-	* @see _.last
-	* @param whereValue _.where style callback
-	**/
-	export function last<T>(
-		array: List<T>,
-		whereValue: Dictionary<any>): T[];
+	
 
 	/**
 	* The opposite of _.initial this method gets all but the first element or first n elements of 
@@ -842,25 +1060,7 @@ declare module _ {
 		whereValue: Dictionary<any>,
 		thisArg?: any): T[];
 
-	/**
-	* @see _.rest
-	**/
-	export function drop<T>(
-		array: List<T>,
-		callback: (num: number) => boolean,
-		thisArg?: any): T[];
-	export function drop<T>(
-		array: List<T>,
-		n?: number,
-		thisArg?: any): T[];
-	export function drop<T>(
-		array: List<T>,
-		pluckValue: string,
-		thisArg?: any): T[];
-	export function drop<T>(
-		array: List<T>,
-		whereValue: Dictionary<any>,
-		thisArg?: any): T[];
+	
 
 	/**
 	* @see _.rest
@@ -882,45 +1082,9 @@ declare module _ {
 		whereValue: Dictionary<any>,
 		thisArg?: any): T[];
 
-	/**
-	* Returns a copy of the array with all falsy values removed. In JavaScript, false, null, 0, "",
-	* undefined and NaN are all falsy.
-	* @param array Array to compact.
-	* @return (Array) Returns a new array of filtered values.
-	**/
-	export function compact<T>(array: List<T>): T[];
+	
 
-	/**
-	* Flattens a nested array (the nesting can be to any depth). If isShallow is truey, the 
-	* array will only be flattened a single level. If a callback is provided each element of 
-	* the array is passed through the callback before flattening. The callback is bound to 
-	* thisArg and invoked with three arguments; (value, index, array).
-	*
-	* If a property name is provided for callback the created "_.pluck" style callback will 
-	* return the property value of the given element.
-	*
-	* If an object is provided for callback the created "_.where" style callback will return 
-	* true for elements that have the properties of the given object, else false.
-	* @param array The array to flatten.
-	* @param shallow If true then only flatten one level, optional, default = false.
-	* @return `array` flattened.
-	**/
-	export function flatten(
-		array: List<any>,
-		isShallow?,
-		callback?: ListIterator<any, any>,
-		thisArg?: any): any[];
-
-	/**
-	* Removes all provided values from the given array using strict equality for comparisons, 
-	* i.e. ===.
-	* @param array The array to modify.
-	* @param values The values to remove.
-	* @return array.
-	**/
-	export function pull(
-		array: List<any>,
-		...values: any[]): any[];
+	
 
 	/**
 	* Returns a copy of the array with all instances of the values removed.
@@ -940,24 +1104,9 @@ declare module _ {
 	**/
 	export function union<T>(...arrays: List<T>[]): T[];
 
-	/**
-	* Creates an array of unique values present in all provided arrays using strict 
-	* equality for comparisons, i.e. ===.
-	* @param arrays The arrays to inspect.
-	* @return Returns an array of composite values.
-	**/
-	export function intersection<T>(...arrays: List<T>[]): T[];
+	
 
-	/**
-	* Creates an array excluding all values of the provided arrays using strict equality for comparisons
-	* , i.e. ===.
-	* @param array The array to process
-	* @param others The arrays of values to exclude.
-	* @return Returns a new array of filtered values.
-	**/
-	export function difference<T>(
-		array: List<T>,
-		...others: List<T>[]): T[];
+	
 
 	/**
 	* Produces a duplicate-free version of the array, using === to test object equality. If you know in
@@ -1027,72 +1176,11 @@ declare module _ {
 		keys: List<string>,
 		values: List<any>): TResult;
 
-	/**
-	* @see _.zipObject
-	**/
-	export function object<TResult extends {}>(
-		keys: List<string>,
-		values: List<any>): TResult;
+	
 
-	/**
-	* Converts arrays into objects. Pass either a single list of [key, value] pairs, or a
-	* list of keys, and a list of values.
-	* @param keyValuePairs Array of [key, value] pairs.
-	* @return An object containing the `keys` as properties and `values` as the property values.
-	**/
-	export function object<TResult extends {}>(...keyValuePairs: any[][]): TResult;
+	
 
-	/**
-	* @see _.object
-	**/
-	export function object<TResult extends {}>(
-		list: List<any>,
-		values?: any): TResult;
-
-	/**
-	* Gets the index at which the first occurrence of value is found using strict equality 
-	* for comparisons, i.e. ===. If the array is already sorted providing true for fromIndex 
-	* will run a faster binary search.
-	* @param array The array to search.
-	* @param value The value to search for.
-	* @param fromIndex The index to search from.
-	* @return The index of `value` within `array`.
-	**/
-	export function indexOf<T>(
-		array: List<T>,
-		value: T): number;
-
-	/**
-	* @see _.indexOf
-	* @param fromIndex The index to search from
-	**/
-	export function indexOf<T>(
-		array: List<T>,
-		value: T,
-		fromIndex: number): number;
-
-	/**
-	* @see _.indexOf
-	* @param isSorted True to perform a binary search on a sorted array.
-	**/
-	export function indexOf<T>(
-		array: List<T>,
-		value: T,
-		isSorted: boolean): number;
-
-	/**
-	* Gets the index at which the last occurrence of value is found using strict equality 
-	* for comparisons, i.e. ===. If fromIndex is negative, it is used as the offset from the 
-	* end of the collection.
-	* @param array The array to search.
-	* @param value The value to search for.
-	* @param fromIndex The index to search from.
-	* @return The index of the matched value or -1.
-	**/
-	export function lastIndexOf<T>(
-		array: List<T>,
-		value: T,
-		fromIndex?: number): number;
+	
 
 	/**
 	* Uses a binary search to determine the index at which the value should be inserted into the list in order
@@ -1108,28 +1196,7 @@ declare module _ {
 		value: T,
 		iterator?: (x: T) => TSort, context?: any): number;
 
-	/**
-	* Creates an array of numbers (positive and/or negative) progressing from start up 
-	* to but not including end. If start is less than stop a zero-length range is created 
-	* unless a negative step is specified.
-	* @param start The start of the range.
-	* @param end The end of the range.
-	* @param step The value to increment or decrement by.
-	* @return Returns a new range array.
-	**/
-
-	export function range(
-		start: number,
-		stop: number,
-		step?: number): number[];
 	
-	/**
-	* @see _.range
-	* @param end The end of the range.
-	* @return Returns a new range array.
-	* @note If start is not specified the implementation will never pull the step (step = arguments[2] || 0)
-	**/
-	export function range(stop: number): number[];
 
 	/*************
 	 * Functions *
