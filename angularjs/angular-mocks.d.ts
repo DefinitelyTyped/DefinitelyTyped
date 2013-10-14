@@ -1,7 +1,6 @@
-// Type definitions for Angular JS 1.0 (ngMock, ngMockE2E module)
+// Type definitions for Angular JS 1.2.0 (ngMock, ngMockE2E module)
 // Project: http://angularjs.org
-// Definitions by: Diego Vilar <http://github.com/diegovilar>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/daptiv/DefinitelyTyped
 
 
 /// <reference path="angular.d.ts" />
@@ -26,14 +25,16 @@ declare module ng {
     }
 
     interface IMockStatic {
-        // see http://docs.angularjs.org/api/angular.mock.debug
-        debug(obj: any): string;
+        // see http://docs.angularjs.org/api/angular.mock.dump
+        dump(obj: any): string;
                 
         // see http://docs.angularjs.org/api/angular.mock.inject
         inject(...fns: Function[]): any;
         
         // see http://docs.angularjs.org/api/angular.mock.module
-        module(...modules: any[]): any;
+        module(...modules: string[]): any;
+        module(...modules: Function[]): any;
+        module(modules: Object): any;
 
         // see http://docs.angularjs.org/api/angular.mock.TzDate
         TzDate(offset: number, timestamp: number): Date;
