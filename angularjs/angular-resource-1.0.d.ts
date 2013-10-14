@@ -1,4 +1,4 @@
-// Type definitions for Angular JS 1.2 (ngResource module)
+// Type definitions for Angular JS 1.0 (ngResource module)
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -20,7 +20,7 @@ declare module ng.resource {
     ///////////////////////////////////////////////////////////////////////////
     interface IResourceService {
     	(url: string, paramDefaults?: any,
-			/** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
+			/** example:  {update: { method: 'PUT' }, delete: deleteDescriptor } 
 			where deleteDescriptor : IActionDescriptor */
 			actionDescriptors?: any): IResourceClass;
     }
