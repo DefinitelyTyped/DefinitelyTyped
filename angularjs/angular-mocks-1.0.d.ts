@@ -1,6 +1,8 @@
-// Type definitions for Angular JS 1.2.0 (ngMock, ngMockE2E module)
+// Type definitions for Angular JS 1.0 (ngMock, ngMockE2E module)
 // Project: http://angularjs.org
-// Definitions: https://github.com/daptiv/DefinitelyTyped
+// Definitions by: Diego Vilar <http://github.com/diegovilar>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 
 /// <reference path="angular.d.ts" />
 
@@ -24,16 +26,14 @@ declare module ng {
     }
 
     interface IMockStatic {
-        // see http://docs.angularjs.org/api/angular.mock.dump
-        dump(obj: any): string;
-
+        // see http://docs.angularjs.org/api/angular.mock.debug
+        debug(obj: any): string;
+                
         // see http://docs.angularjs.org/api/angular.mock.inject
         inject(...fns: Function[]): any;
-
+        
         // see http://docs.angularjs.org/api/angular.mock.module
-        module(...modules: string[]): any;
-        module(...modules: Function[]): any;
-        module(modules: Object): any;
+        module(...modules: any[]): any;
 
         // see http://docs.angularjs.org/api/angular.mock.TzDate
         TzDate(offset: number, timestamp: number): Date;
@@ -85,8 +85,8 @@ declare module ng {
         expect(method: string, url: string, data?: any, headers?: any): mock.IRequestHandler;
         expect(method: string, url: RegExp, data?: any, headers?: any): mock.IRequestHandler;
         expect(method: RegExp, url: string, data?: any, headers?: any): mock.IRequestHandler;
-        expect(method: RegExp, url: RegExp, data?: any, headers?: any): mock.IRequestHandler;
-
+        expect(method: RegExp, url: RegExp, data?: any, headers?: any): mock.IRequestHandler;      
+        
         when(method: string, url: string, data?: string, headers?: any): mock.IRequestHandler;
         when(method: string, url: RegExp, data?: string, headers?: any): mock.IRequestHandler;
         when(method: string, url: string, data?: RegExp, headers?: any): mock.IRequestHandler;
@@ -94,8 +94,8 @@ declare module ng {
         when(method: RegExp, url: string, data?: string, headers?: any): mock.IRequestHandler;
         when(method: RegExp, url: RegExp, data?: string, headers?: any): mock.IRequestHandler;
         when(method: RegExp, url: string, data?: RegExp, headers?: any): mock.IRequestHandler;
-        when(method: RegExp, url: RegExp, data?: RegExp, headers?: any): mock.IRequestHandler;
-
+        when(method: RegExp, url: RegExp, data?: RegExp, headers?: any): mock.IRequestHandler;        
+                
         expectDELETE(url: string, headers?: any): mock.IRequestHandler;
         expectDELETE(url: RegExp, headers?: any): mock.IRequestHandler;
         expectGET(url: string, headers?: any): mock.IRequestHandler;
@@ -131,13 +131,13 @@ declare module ng {
         whenPUT(url: RegExp, data?: string, headers?: any): mock.IRequestHandler;
         whenPUT(url: string, data?: RegExp, headers?: any): mock.IRequestHandler;
         whenPUT(url: RegExp, data?: RegExp, headers?: any): mock.IRequestHandler;
-    }
+    }    
 
     export module mock {
-
+        
         // returned interface by the the mocked HttpBackendService expect/when methods
         interface IRequestHandler {
-            respond(func: Function): void;
+            respond(func: Function): void;        
             respond(status: number, data?: any, headers?: any): void;
             respond(data: any, headers?: any): void;
 
@@ -145,6 +145,6 @@ declare module ng {
             passThrough(): void;
         }
 
-    }
+    }    
 
 }

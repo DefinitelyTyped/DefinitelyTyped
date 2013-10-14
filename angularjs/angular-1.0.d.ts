@@ -1,6 +1,8 @@
-// Type definitions for Angular JS 1.2.0
+// Type definitions for Angular JS 1.2
 // Project: http://angularjs.org
-// Definitions: https://github.com/daptiv/DefinitelyTyped
+// Definitions by: Diego Vilar <http://github.com/diegovilar>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 
 /// <reference path="../jquery/jquery.d.ts" />
 
@@ -58,7 +60,7 @@ declare module ng {
             name: string,
             /** name of modules yours depends on */
             requires?: string[],
-            configFunction?: Function): IModule;
+            configFunction?: any): IModule;
         noop(...args: any[]): void;
         toJson(obj: any, pretty?: boolean): string;
         uppercase(str: string): string;
@@ -604,6 +606,12 @@ declare module ng {
     }
 
     ///////////////////////////////////////////////////////////////////////////
+    // RouteParamsService
+    // see http://docs.angularjs.org/api/ng.$routeParams
+    ///////////////////////////////////////////////////////////////////////////
+    interface IRouteParamsService {}
+
+    ///////////////////////////////////////////////////////////////////////////
     // TemplateCacheService
     // see http://docs.angularjs.org/api/ng.$templateCache
     ///////////////////////////////////////////////////////////////////////////
@@ -614,6 +622,46 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$rootScope
     ///////////////////////////////////////////////////////////////////////////
     interface IRootScopeService extends IScope {}
+
+    ///////////////////////////////////////////////////////////////////////////
+    // RouteService
+    // see http://docs.angularjs.org/api/ng.$route
+    // see http://docs.angularjs.org/api/ng.$routeProvider
+    ///////////////////////////////////////////////////////////////////////////
+    interface IRouteService {
+        reload(): void;
+        routes: any;
+
+        // May not always be available. For instance, current will not be available
+        // to a controller that was not initialized as a result of a route maching.
+        current?: ICurrentRoute;
+    }
+
+    // see http://docs.angularjs.org/api/ng.$routeProvider#when for options explanations
+    interface IRoute {
+        controller?: any;
+        name?: string;
+        template?: string;
+        templateUrl?: any;
+        resolve?: any;
+        redirectTo?: any;
+        reloadOnSearch?: boolean;
+    }
+
+    // see http://docs.angularjs.org/api/ng.$route#current
+    interface ICurrentRoute extends IRoute {
+        locals: {
+            $scope: IScope;
+            $template: string;
+        };
+
+        params: any;
+    }
+
+    interface IRouteProvider extends IServiceProvider {
+        otherwise(params: any): IRouteProvider;
+        when(path: string, route: IRoute): IRouteProvider;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // Directive
