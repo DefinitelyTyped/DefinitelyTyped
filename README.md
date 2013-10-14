@@ -70,6 +70,7 @@ List of Definitions
 * [FPSMeter](http://darsa.in/fpsmeter/) (by [Aaron Lampros](https://github.com/alampros))
 * [FullCalendar](http://arshaw.com/fullcalendar/) (by [Neil Stalker](https://github.com/nestalk))
 * [Gamepad](http://www.w3.org/TR/gamepad/) (by [Kon](http://phyzkit.net/))
+* [Giraffe](https://github.com/barc/backbone.giraffe) (by [Matt McCray](https://github.com/darthapo))
 * [glDatePicker](http://glad.github.com/glDatePicker/) (by [Dániel Tar](https://github.com/qcz))
 * [GoJS](http://gojs.net/) (by [Barbara Duckworth](https://github.com/barbara42))
 * [GreenSock Animation Platform (GSAP)](http://www.greensock.com/get-started-js/) (by [Robert S.](https://github.com/codeBelt))
