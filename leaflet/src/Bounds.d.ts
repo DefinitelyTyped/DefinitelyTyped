@@ -2,6 +2,17 @@
 /// <reference path="Point.d.ts" />
 declare module L {
 
+    /**
+        * Creates a Bounds object from two coordinates (usually top-left and bottom-right
+        * corners).
+        */
+    export function bounds(topLeft: Point, bottomRight: Point): Bounds;
+
+    /**
+        * Creates a Bounds object defined by the points it contains.
+        */
+    export function bounds(points: Point[]): Bounds;
+
     export class Bounds {
 
         /**
@@ -14,17 +25,6 @@ declare module L {
           * Creates a Bounds object defined by the points it contains.
           */
         constructor(points: Point[]);
-
-        /**
-          * Creates a Bounds object from two coordinates (usually top-left and bottom-right
-          * corners).
-          */
-        static bounds(topLeft: Point, bottomRight: Point): Bounds;
-
-        /**
-          * Creates a Bounds object defined by the points it contains.
-          */
-        static bounds(points: Point[]): Bounds;
 
         /**
           * Extends the bounds to contain the given point.
@@ -70,6 +70,5 @@ declare module L {
           * The bottom right corner of the rectangle.
           */
         max: Point;
-    
     }
 }
