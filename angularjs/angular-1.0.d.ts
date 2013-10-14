@@ -1,4 +1,4 @@
-// Type definitions for Angular JS 1.0
+// Type definitions for Angular JS 1.2
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -150,11 +150,14 @@ declare module ng {
     interface INgModelController {
         $render(): void;
         $setValidity(validationErrorKey: string, isValid: boolean): void;
-        // Documentation states viewValue and modelValue to be a string but other
-        // types do work and it's common to use them.
-        $setViewValue(value: any): void;
+        $setViewValue(value: string): void;
+
+        // XXX Not sure about the types here. Documentation states it's a string, but
+        // I've seen it receiving other types throughout the code.
+        // Falling back to any for now.
         $viewValue: any;
 
+        // XXX Same as avove
         $modelValue: any;
 
         $parsers: IModelParser[];
@@ -603,6 +606,12 @@ declare module ng {
     }
 
     ///////////////////////////////////////////////////////////////////////////
+    // RouteParamsService
+    // see http://docs.angularjs.org/api/ng.$routeParams
+    ///////////////////////////////////////////////////////////////////////////
+    interface IRouteParamsService {}
+
+    ///////////////////////////////////////////////////////////////////////////
     // TemplateCacheService
     // see http://docs.angularjs.org/api/ng.$templateCache
     ///////////////////////////////////////////////////////////////////////////
@@ -615,6 +624,46 @@ declare module ng {
     interface IRootScopeService extends IScope {}
 
     ///////////////////////////////////////////////////////////////////////////
+    // RouteService
+    // see http://docs.angularjs.org/api/ng.$route
+    // see http://docs.angularjs.org/api/ng.$routeProvider
+    ///////////////////////////////////////////////////////////////////////////
+    interface IRouteService {
+        reload(): void;
+        routes: any;
+
+        // May not always be available. For instance, current will not be available
+        // to a controller that was not initialized as a result of a route maching.
+        current?: ICurrentRoute;
+    }
+
+    // see http://docs.angularjs.org/api/ng.$routeProvider#when for options explanations
+    interface IRoute {
+        controller?: any;
+        name?: string;
+        template?: string;
+        templateUrl?: any;
+        resolve?: any;
+        redirectTo?: any;
+        reloadOnSearch?: boolean;
+    }
+
+    // see http://docs.angularjs.org/api/ng.$route#current
+    interface ICurrentRoute extends IRoute {
+        locals: {
+            $scope: IScope;
+            $template: string;
+        };
+
+        params: any;
+    }
+
+    interface IRouteProvider extends IServiceProvider {
+        otherwise(params: any): IRouteProvider;
+        when(path: string, route: IRoute): IRouteProvider;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
     // Directive
     // see http://docs.angularjs.org/api/ng.$compileProvider#directive
     // and http://docs.angularjs.org/guide/directive
@@ -622,15 +671,15 @@ declare module ng {
 
     interface IDirective{
         priority?: number;
-        template?: any;
-        templateUrl?: any;
+        template?: string;
+        templateUrl?: string;
         replace?: boolean;
         transclude?: any;
         restrict?: string;
         scope?: any;
         link?: Function;
         compile?: Function;
-        controller?: any;
+        controller?: Function;
     }
 
     ///////////////////////////////////////////////////////////////////////////
