@@ -6,7 +6,7 @@
  * License: MIT
  */
 
-declare var $routProvider: ng.route.IRouteProvider;
+declare var $routeProvider: ng.route.IRouteProvider;
 $routeProvider
         .when('/projects/:projectId/dashboard',{
             controller: ''
