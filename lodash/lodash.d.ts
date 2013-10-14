@@ -1109,13 +1109,13 @@ declare module _ {
 		iterator?: (x: T) => TSort, context?: any): number;
 
 	/**
-	* A function to create flexibly-numbered lists of integers, handy for each and map loops. start, if omitted,
-	* defaults to 0; step defaults to 1. Returns a list of integers from start to stop, incremented (or decremented)
-	* by step, exclusive.
-	* @param start Start here.
-	* @param stop Stop here.
-	* @param step The number to count up by each iteration, optional, default = 1.
-	* @return Array of numbers from `start` to `stop` with increments of `step`.
+	* Creates an array of numbers (positive and/or negative) progressing from start up 
+	* to but not including end. If start is less than stop a zero-length range is created 
+	* unless a negative step is specified.
+	* @param start The start of the range.
+	* @param end The end of the range.
+	* @param step The value to increment or decrement by.
+	* @return Returns a new range array.
 	**/
 
 	export function range(
@@ -1125,8 +1125,8 @@ declare module _ {
 	
 	/**
 	* @see _.range
-	* @param stop Stop here.
-	* @return Array of numbers from 0 to `stop` with increments of 1.
+	* @param end The end of the range.
+	* @return Returns a new range array.
 	* @note If start is not specified the implementation will never pull the step (step = arguments[2] || 0)
 	**/
 	export function range(stop: number): number[];
