@@ -20,7 +20,7 @@ angular.module('http-auth-interceptor', [])
          * Required by HTTP interceptor.
          * Function is attached to provider to be invisible for regular users of this service.
          */
-        this.pushToBuffer = function (config: ng.IRequestConfig, deferred: ng.IDeferred) {
+        this.pushToBuffer = function (config: ng.IRequestConfig, deferred: ng.IDeferred<any>) {
             buffer.push({
                 config: config,
                 deferred: deferred
@@ -154,6 +154,8 @@ module HttpAndRegularPromiseTests {
 module My.Namespace {
     export var x; // need to export something for module to kick in    
 }
+
+angular.module('some-module-name', [], function configFunction() {});
 
 // IModule Registering Test
 var mod = angular.module('tests', []);
