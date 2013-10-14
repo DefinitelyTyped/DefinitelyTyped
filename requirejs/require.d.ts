@@ -72,7 +72,7 @@ interface RequireConfig {
 
 	// Path mappings for module names not found directly under 
 	// baseUrl.
-	paths?: { [key: string]: string; };
+	paths?: { [key: string]: any; };
 
 	// Dictionary of Shim's.
 	// does not cover case of key->string[]
