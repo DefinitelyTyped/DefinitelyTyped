@@ -222,6 +222,13 @@ interface Require {
 	* Configure require.js
 	**/
 	config(config: RequireConfig): Require;
+	
+	/**
+	* CommonJS require call
+	* @param module Module to load
+	* @return The loaded module
+	*/
+	(module: string): any;
 
 	/**
 	* Start the main app logic.
