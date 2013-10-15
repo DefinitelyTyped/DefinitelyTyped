@@ -142,6 +142,18 @@ result = <number[]>_.remove([1, 2, 3, 4, 5, 6], function(num) { return num % 2 =
 result = <IFoodOrganic[]>_.remove(foodsOrganic, 'organic');
 result = <IFoodType[]>_.remove(foodsType, { 'type': 'vegetable'});
 
+result = <number>_.sortedIndex([20, 30, 50], 40);
+result = <number>_.sortedIndex([{ 'x': 20 }, { 'x': 30 }, { 'x': 50 }], { 'x': 40 }, 'x');
+var sortedIndexDict = {
+  'wordToNumber': { 'twenty': 20, 'thirty': 30, 'fourty': 40, 'fifty': 50 }
+};
+result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function(word) {
+  return sortedIndexDict.wordToNumber[word];
+});
+result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function(word) {
+  return this.wordToNumber[word];
+}, sortedIndexDict);
+
 ////////////////////////////////////////////////////////////////////////////////////////
 //WHAT'S LEFT
 ////////////////////////////////////////////////////////////////////////////////////////
