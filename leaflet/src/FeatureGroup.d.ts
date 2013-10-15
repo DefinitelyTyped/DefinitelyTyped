@@ -9,6 +9,11 @@
 /// <reference path="Map.d.ts" />
 declare module L {
 
+    /**
+      * Create a layer group, optionally given an initial set of layers.
+      */
+    function featureGroup(layers?: ILayer[]): FeatureGroup;
+
     export class FeatureGroup extends LayerGroup implements ILayer, IEventPowered<FeatureGroup> {
 
         /**
@@ -16,11 +21,6 @@ declare module L {
           */
         constructor(layers?: ILayer[]);
     
-        /**
-          * Create a layer group, optionally given an initial set of layers.
-          */
-        static featureGroup(layers?: ILayer[]): FeatureGroup;
-
         /**
           * Binds a popup with a particular HTML content to a click on any layer from the
           * group that has a bindPopup method.

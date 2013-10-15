@@ -6,6 +6,13 @@
 /// <reference path="PathOptions.d.ts" />
 declare module L {
 
+    /**
+      * Creates a GeoJSON layer. Optionally accepts an object in GeoJSON format
+      * to display on the map (you can alternatively add it later with addData method)
+      * and an options object.
+      */
+    function geoJson(geojson?: any, options?: GeoJSONOptions): GeoJSON;
+
     export class GeoJSON extends FeatureGroup {
 
         /**
@@ -15,13 +22,6 @@ declare module L {
           */
         constructor(geojson?: any, options?: GeoJSONOptions);
     
-        /**
-          * Creates a GeoJSON layer. Optionally accepts an object in GeoJSON format
-          * to display on the map (you can alternatively add it later with addData method)
-          * and an options object.
-          */
-        static geoJson(geojson?: any, options?: GeoJSONOptions): GeoJSON;
-
         /**
           * Adds a GeoJSON object to the layer. 
           */

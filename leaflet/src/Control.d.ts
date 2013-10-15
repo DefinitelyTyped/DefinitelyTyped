@@ -1,3 +1,4 @@
+//// updated to 0.6.4
 /// <reference path="IControl.d.ts" />
 /// <reference path="ControlOptions.d.ts" />
 /// <reference path="AttributionOptions.d.ts" />
@@ -6,7 +7,6 @@
 /// <reference path="ScaleOptions.d.ts" />
 /// <reference path="Map.d.ts" />
 /// <reference path="Class.d.ts" />
-//// updated to 0.6.4
 declare module L {
 
     export class Control extends Class implements IControl {
@@ -15,11 +15,6 @@ declare module L {
           * Creates a control with the given options.
           */
         constructor(options?: ControlOptions);
-
-        /**
-          * Creates a control with the given options.
-          */
-        static control(options?: ControlOptions): Control;
 
         /**
           * Sets the position of the control. See control positions.
@@ -61,7 +56,6 @@ declare module L {
           * The control's DOM container is removed automatically.
           */
         onRemove(map: Map): void;
-
     }
 
     module Control {
@@ -150,6 +144,11 @@ declare module L {
     }
 
     export class control {
+
+        /**
+          * Creates a control with the given options.
+          */
+        function (options?: ControlOptions): Control;
 
         /**
           * Creates a zoom control.

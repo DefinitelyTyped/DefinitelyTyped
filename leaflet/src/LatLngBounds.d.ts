@@ -2,6 +2,18 @@
 /// <reference path="LatLng.d.ts" />
 declare module L {
 
+    /**
+      * Creates a LatLngBounds object by defining south-west and north-east corners
+      * of the rectangle.
+      */
+    function latLngBounds(southWest: LatLng, northEast: LatLng): LatLngBounds;
+
+    /**
+      * Creates a LatLngBounds object defined by the geographical points it contains.
+      * Very useful for zooming the map to fit a particular set of locations with fitBounds.
+      */
+    function latLngBounds(latlngs: LatLng[]): LatLngBounds;
+
     export class LatLngBounds {
 
         /**
@@ -15,18 +27,6 @@ declare module L {
           * Very useful for zooming the map to fit a particular set of locations with fitBounds.
           */
         constructor(latlngs: LatLng[]);
-
-        /**
-          * Creates a LatLngBounds object by defining south-west and north-east corners
-          * of the rectangle.
-          */
-        static latLngBounds(southWest: LatLng, northEast: LatLng): LatLngBounds;
-
-        /**
-          * Creates a LatLngBounds object defined by the geographical points it contains.
-          * Very useful for zooming the map to fit a particular set of locations with fitBounds.
-          */
-        static latLngBounds(latlngs: LatLng[]): LatLngBounds;
 
         /**
           * Extends the bounds to contain the given point.

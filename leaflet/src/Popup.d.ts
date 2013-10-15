@@ -5,6 +5,13 @@
 /// <reference path="LatLng.d.ts" />
 declare module L {
 
+    /**
+      * Instantiates a Popup object given an optional options object that describes
+      * its appearance and location and an optional object that is used to tag the
+      * popup with a reference to the source object to which it refers.
+      */
+    function popup(options?: PopupOptions, source?: any): Popup;
+
     export class Popup implements ILayer {
 
         /**
@@ -14,13 +21,6 @@ declare module L {
           */
         constructor(options?: PopupOptions, source?: any);
     
-        /**
-          * Instantiates a Popup object given an optional options object that describes
-          * its appearance and location and an optional object that is used to tag the
-          * popup with a reference to the source object to which it refers.
-          */
-        static popup(options?: PopupOptions, source?: any): Popup;
-
         /**
           * Adds the popup to the map.
           */

@@ -20,6 +20,18 @@
 /// <reference path="MapPanes.d.ts" />
 declare module L {
 
+    /**
+      * Instantiates a map object given a div element and optionally an
+      * object literal with map options described below.
+      */
+    function map(id: HTMLElement, options?: MapOptions): Map;
+
+    /**
+      * Instantiates a map object given a div element id and optionally an
+      * object literal with map options described below.
+      */
+    function map(id: string, options?: MapOptions): Map;
+
     export class Map extends Class implements IEventPowered<Map> {
 
         /**
@@ -37,22 +49,6 @@ declare module L {
           * @constructor
           */
         constructor(id: string, options?: MapOptions);
-
-        /**
-          * Instantiates a map object given a div element and optionally an
-          * object literal with map options described below.
-          *
-          * @constructor
-          */
-        static map(id: HTMLElement, options?: MapOptions): Map;
-
-        /**
-          * Instantiates a map object given a div element id and optionally an
-          * object literal with map options described below.
-          *
-          * @constructor
-          */
-        static map(id: string, options?: MapOptions): Map;
 
         // Methods for Modifying Map State
 

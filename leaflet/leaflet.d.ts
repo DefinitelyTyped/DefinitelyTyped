@@ -1,6 +1,8 @@
 // Type definitions for Leaflet.js 0.6.4
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Vladimir Zotov <https://github.com/rgripper>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
  
 declare module L {
 
@@ -171,6 +173,12 @@ declare module L {
  
 declare module L {
 
+    /**
+      * Instantiates a circle object given a geographical point, a radius in meters
+      * and optionally an options object.
+      */
+    function circle(latlng: LatLng, radius: number, options?: PathOptions): Circle;
+
     export class Circle extends Path {
 
         /**
@@ -179,12 +187,6 @@ declare module L {
           */
         constructor(latlng: LatLng, radius: number, options?: PathOptions);
     
-        /**
-          * Instantiates a circle object given a geographical point, a radius in meters
-          * and optionally an options object.
-          */
-        static circle(latlng: LatLng, radius: number, options?: PathOptions): Circle;
-
         /**
           * Returns the current geographical position of the circle.
           */
@@ -215,6 +217,13 @@ declare module L {
  
 declare module L {
 
+    /**
+      * Instantiates a circle marker given a geographical point and optionally
+      * an options object. The default radius is 10 and can be altered by passing a
+      * "radius" member in the path options object.
+      */
+    function circleMarker(latlng: LatLng, options?: PathOptions): CircleMarker;
+
     export class CircleMarker extends Circle {
 
         /**
@@ -223,13 +232,6 @@ declare module L {
           * "radius" member in the path options object.
           */
         constructor(latlng: LatLng, options?: PathOptions);
-    
-        /**
-          * Instantiates a circle marker given a geographical point and optionally
-          * an options object. The default radius is 10 and can be altered by passing a
-          * "radius" member in the path options object.
-          */
-        static circleMarker(latlng: LatLng, options?: PathOptions): CircleMarker;
 
         /**
           * Sets the position of a circle marker to a new location.
@@ -308,11 +310,6 @@ declare module L {
         constructor(options?: ControlOptions);
 
         /**
-          * Creates a control with the given options.
-          */
-        static control(options?: ControlOptions): Control;
-
-        /**
           * Sets the position of the control. See control positions.
           */
         setPosition(position: string): Control;
@@ -352,7 +349,6 @@ declare module L {
           * The control's DOM container is removed automatically.
           */
         onRemove(map: Map): void;
-
     }
 
     module Control {
@@ -442,6 +438,11 @@ declare module L {
     export class control {
 
         /**
+          * Creates a control with the given options.
+          */
+        function (options?: ControlOptions): Control;
+
+        /**
           * Creates a zoom control.
           */
         static zoom(options?: ZoomOptions): L.Control.Zoom;
@@ -512,18 +513,17 @@ declare module L {
  
 declare module L {
 
+    /**
+      * Creates a div icon instance with the given options.
+      */
+    function divIcon(options: DivIconOptions): DivIcon;
+
     export class DivIcon extends Icon {
 
         /**
           * Creates a div icon instance with the given options.
           */
         constructor(options: DivIconOptions);
-
-        /**
-          * Creates a div icon instance with the given options.
-          */
-        static divIcon(options: DivIconOptions): DivIcon;
-    
     }
 }
  
@@ -723,6 +723,12 @@ declare module L {
  
 declare module L {
 
+    /**
+      * Creates a Draggable object for moving the given element when you start dragging
+      * the dragHandle element (equals the element itself by default).
+      */
+    function draggable(element: HTMLElement, dragHandle?: HTMLElement): Draggable;
+
     export class Draggable extends Class implements IEventPowered<Draggable> {
 
         /**
@@ -731,12 +737,6 @@ declare module L {
           */
         constructor(element: HTMLElement, dragHandle?: HTMLElement);
     
-        /**
-          * Creates a Draggable object for moving the given element when you start dragging
-          * the dragHandle element (equals the element itself by default).
-          */
-        static draggable(element: HTMLElement, dragHandle?: HTMLElement): Draggable;
-
         /**
           * Enables the dragging ability.
           */
@@ -770,6 +770,11 @@ declare module L {
  
 declare module L {
 
+    /**
+      * Create a layer group, optionally given an initial set of layers.
+      */
+    function featureGroup(layers?: ILayer[]): FeatureGroup;
+
     export class FeatureGroup extends LayerGroup implements ILayer, IEventPowered<FeatureGroup> {
 
         /**
@@ -777,11 +782,6 @@ declare module L {
           */
         constructor(layers?: ILayer[]);
     
-        /**
-          * Create a layer group, optionally given an initial set of layers.
-          */
-        static featureGroup(layers?: ILayer[]): FeatureGroup;
-
         /**
           * Binds a popup with a particular HTML content to a click on any layer from the
           * group that has a bindPopup method.
@@ -875,6 +875,13 @@ declare module L {
  
 declare module L {
 
+    /**
+      * Creates a GeoJSON layer. Optionally accepts an object in GeoJSON format
+      * to display on the map (you can alternatively add it later with addData method)
+      * and an options object.
+      */
+    function geoJson(geojson?: any, options?: GeoJSONOptions): GeoJSON;
+
     export class GeoJSON extends FeatureGroup {
 
         /**
@@ -884,13 +891,6 @@ declare module L {
           */
         constructor(geojson?: any, options?: GeoJSONOptions);
     
-        /**
-          * Creates a GeoJSON layer. Optionally accepts an object in GeoJSON format
-          * to display on the map (you can alternatively add it later with addData method)
-          * and an options object.
-          */
-        static geoJson(geojson?: any, options?: GeoJSONOptions): GeoJSON;
-
         /**
           * Adds a GeoJSON object to the layer. 
           */
@@ -969,17 +969,17 @@ declare module L {
  
 declare module L {
 
+    /**
+      * Creates an icon instance with the given options.
+      */
+    function icon(options: IconOptions): Icon;
+
     export class Icon extends Class {
 
         /**
           * Creates an icon instance with the given options.
           */
         constructor(options: IconOptions);
-
-        /**
-          * Creates an icon instance with the given options.
-          */
-        static icon(options: IconOptions): Icon;
     }
 
     module Icon {
@@ -1254,6 +1254,12 @@ declare module L {
  
 declare module L {
 
+    /**
+      * Instantiates an image overlay object given the URL of the image and the geographical
+      * bounds it is tied to.
+      */
+    function imageOverlay(imageUrl: string, bounds: LatLngBounds, options?: ImageOverlayOptions): ImageOverlay;
+
     export class ImageOverlay extends Class implements ILayer {
 
         /**
@@ -1261,12 +1267,6 @@ declare module L {
           * bounds it is tied to.
           */
         constructor(imageUrl: string, bounds: LatLngBounds, options?: ImageOverlayOptions);
-    
-        /**
-          * Instantiates an image overlay object given the URL of the image and the geographical
-          * bounds it is tied to.
-          */
-        static imageOverlay(imageUrl: string, bounds: LatLngBounds, options?: ImageOverlayOptions): ImageOverlay;
 
         /**
           * Adds the overlay to the map.
@@ -1348,6 +1348,18 @@ declare module L {
  
 declare module L {
 
+    /**
+      * Creates an object representing a geographical point with the given latitude
+      * and longitude.
+      */
+    function latLng(latitude: number, longitude: number): LatLng;
+
+    /**
+      * Creates an object representing a geographical point with the given latitude
+      * and longitude.
+      */
+    function latLng(coords: number[]): LatLng;
+
     export class LatLng {
 
         /**
@@ -1361,18 +1373,6 @@ declare module L {
           * and longitude.
           */
         constructor(coords: number[]);
-
-        /**
-          * Creates an object representing a geographical point with the given latitude
-          * and longitude.
-          */
-        static latLng(latitude: number, longitude: number): LatLng;
-
-        /**
-          * Creates an object representing a geographical point with the given latitude
-          * and longitude.
-          */
-        static latLng(coords: number[]): LatLng;
 
         /**
           * Returns the distance (in meters) to the given LatLng calculated using the
@@ -1432,6 +1432,18 @@ declare module L {
  
 declare module L {
 
+    /**
+      * Creates a LatLngBounds object by defining south-west and north-east corners
+      * of the rectangle.
+      */
+    function latLngBounds(southWest: LatLng, northEast: LatLng): LatLngBounds;
+
+    /**
+      * Creates a LatLngBounds object defined by the geographical points it contains.
+      * Very useful for zooming the map to fit a particular set of locations with fitBounds.
+      */
+    function latLngBounds(latlngs: LatLng[]): LatLngBounds;
+
     export class LatLngBounds {
 
         /**
@@ -1445,18 +1457,6 @@ declare module L {
           * Very useful for zooming the map to fit a particular set of locations with fitBounds.
           */
         constructor(latlngs: LatLng[]);
-
-        /**
-          * Creates a LatLngBounds object by defining south-west and north-east corners
-          * of the rectangle.
-          */
-        static latLngBounds(southWest: LatLng, northEast: LatLng): LatLngBounds;
-
-        /**
-          * Creates a LatLngBounds object defined by the geographical points it contains.
-          * Very useful for zooming the map to fit a particular set of locations with fitBounds.
-          */
-        static latLngBounds(latlngs: LatLng[]): LatLngBounds;
 
         /**
           * Extends the bounds to contain the given point.
@@ -1536,6 +1536,11 @@ declare module L {
  
 declare module L {
 
+    /**
+      * Create a layer group, optionally given an initial set of layers.
+      */
+    function layerGroup(layers?: ILayer[]): LayerGroup;
+
     export class LayerGroup extends Class implements ILayer {
 
         /**
@@ -1543,11 +1548,6 @@ declare module L {
           */
         constructor(layers?: ILayer[]);
     
-        /**
-          * Create a layer group, optionally given an initial set of layers.
-          */
-        static layerGroup(layers?: ILayer[]): LayerGroup;
-
         /**
           * Adds the group of layers to the map.
           */
@@ -1924,6 +1924,18 @@ declare module L {
  
 declare module L {
 
+    /**
+      * Instantiates a map object given a div element and optionally an
+      * object literal with map options described below.
+      */
+    function map(id: HTMLElement, options?: MapOptions): Map;
+
+    /**
+      * Instantiates a map object given a div element id and optionally an
+      * object literal with map options described below.
+      */
+    function map(id: string, options?: MapOptions): Map;
+
     export class Map extends Class implements IEventPowered<Map> {
 
         /**
@@ -1941,22 +1953,6 @@ declare module L {
           * @constructor
           */
         constructor(id: string, options?: MapOptions);
-
-        /**
-          * Instantiates a map object given a div element and optionally an
-          * object literal with map options described below.
-          *
-          * @constructor
-          */
-        static map(id: HTMLElement, options?: MapOptions): Map;
-
-        /**
-          * Instantiates a map object given a div element id and optionally an
-          * object literal with map options described below.
-          *
-          * @constructor
-          */
-        static map(id: string, options?: MapOptions): Map;
 
         // Methods for Modifying Map State
 
@@ -2579,6 +2575,12 @@ declare module L {
  
 declare module L {
 
+    /**
+      * Instantiates a Marker object given a geographical point and optionally
+      * an options object.
+      */
+    function marker(latlng: LatLng, options?: MarkerOptions): Marker;
+
     export class Marker extends Class implements ILayer, IEventPowered<Marker> {
 
         /**
@@ -2587,12 +2589,6 @@ declare module L {
           */
         constructor(latlng: LatLng, options?: MarkerOptions);
     
-        /**
-          * Instantiates a Marker object given a geographical point and optionally
-          * an options object.
-          */
-        static marker(latlng: LatLng, options?: MarkerOptions): Marker;
-
         /**
           * Adds the marker to the map.
           */
@@ -2791,6 +2787,13 @@ declare module L {
  
 declare module L {
 
+    /**
+      * Instantiates a multi-polyline object given an array of latlngs arrays (one
+      * for each individual polygon) and optionally an options object (the same
+      * as for MultiPolyline).
+      */
+    function multiPolygon(latlngs: LatLng[][], options?: PolylineOptions): MultiPolygon;
+
     export class MultiPolygon extends FeatureGroup {
 
         /**
@@ -2800,13 +2803,6 @@ declare module L {
           */
         constructor(latlngs: LatLng[][], options?: PolylineOptions);
     
-        /**
-          * Instantiates a multi-polyline object given an array of latlngs arrays (one
-          * for each individual polygon) and optionally an options object (the same
-          * as for MultiPolyline).
-          */
-        static multiPolygon(latlngs: LatLng[][], options?: PolylineOptions): MultiPolygon;
-
         /**
           * Replace all polygons and their paths with the given array of arrays
           * of geographical points.
@@ -2827,6 +2823,12 @@ declare module L {
  
 declare module L {
 
+    /**
+      * Instantiates a multi-polyline object given an array of arrays of geographical
+      * points (one for each individual polyline) and optionally an options object.
+      */
+    function multiPolyline(latlngs: LatLng[][], options?: PolylineOptions): MultiPolyline;
+
     export class MultiPolyline extends FeatureGroup {
 
         /**
@@ -2834,12 +2836,6 @@ declare module L {
           * points (one for each individual polyline) and optionally an options object.
           */
         constructor(latlngs: LatLng[][], options?: PolylineOptions);
-
-        /**
-          * Instantiates a multi-polyline object given an array of arrays of geographical
-          * points (one for each individual polyline) and optionally an options object.
-          */
-        static multiPolyline(latlngs: LatLng[][], options?: PolylineOptions): MultiPolyline;
 
         /**
           * Replace all polygons and their paths with the given array of arrays
@@ -3099,6 +3095,12 @@ declare module L {
  
 declare module L {
 
+    /**
+      * Creates a Point object with the given x and y coordinates. If optional round
+      * is set to true, rounds the x and y values.
+      */
+    function point(x: number, y: number, round?: boolean): Point;
+
     export class Point {
 
         /**
@@ -3106,12 +3108,6 @@ declare module L {
           * is set to true, rounds the x and y values.
           */
         constructor(x: number, y: number, round?: boolean);
-    
-        /**
-          * Creates a Point object with the given x and y coordinates. If optional round
-          * is set to true, rounds the x and y values.
-          */
-        static point(x: number, y: number, round?: boolean): Point;
 
         /**
           * Returns the result of addition of the current and the given points.
@@ -3173,6 +3169,15 @@ declare module L {
  
 declare module L {
 
+    /**
+      * Instantiates a polygon object given an array of geographical points and
+      * optionally an options object (the same as for Polyline). You can also create
+      * a polygon with holes by passing an array of arrays of latlngs, with the first
+      * latlngs array representing the exterior ring while the remaining represent
+      * the holes inside.
+      */
+    function polygon(latlngs: LatLng[], options?: PolylineOptions): Polygon;
+
     export class Polygon extends Polyline {
 
         /**
@@ -3183,19 +3188,16 @@ declare module L {
           * the holes inside.
           */
         constructor(latlngs: LatLng[], options?: PolylineOptions);
-
-        /**
-          * Instantiates a polygon object given an array of geographical points and
-          * optionally an options object (the same as for Polyline). You can also create
-          * a polygon with holes by passing an array of arrays of latlngs, with the first
-          * latlngs array representing the exterior ring while the remaining represent
-          * the holes inside.
-          */
-        static polygon(latlngs: LatLng[], options?: PolylineOptions): Polygon;
     }
 }
  
 declare module L {
+
+    /**
+      * Instantiates a polyline object given an array of geographical points and
+      * optionally an options object.
+      */
+    function polyline(latlngs: LatLng[], options?: PolylineOptions): Polyline;
 
     export class Polyline extends Path {
 
@@ -3205,12 +3207,6 @@ declare module L {
           */
         constructor(latlngs: LatLng[], options?: PolylineOptions);
     
-        /**
-          * Instantiates a polyline object given an array of geographical points and
-          * optionally an options object.
-          */
-        static polyline(latlngs: LatLng[], options?: PolylineOptions): Polyline;
-
         /**
           * Adds a given point to the polyline.
           */
@@ -3282,6 +3278,13 @@ declare module L {
  
 declare module L {
 
+    /**
+      * Instantiates a Popup object given an optional options object that describes
+      * its appearance and location and an optional object that is used to tag the
+      * popup with a reference to the source object to which it refers.
+      */
+    function popup(options?: PopupOptions, source?: any): Popup;
+
     export class Popup implements ILayer {
 
         /**
@@ -3291,13 +3294,6 @@ declare module L {
           */
         constructor(options?: PopupOptions, source?: any);
     
-        /**
-          * Instantiates a Popup object given an optional options object that describes
-          * its appearance and location and an optional object that is used to tag the
-          * popup with a reference to the source object to which it refers.
-          */
-        static popup(options?: PopupOptions, source?: any): Popup;
-
         /**
           * Adds the popup to the map.
           */
@@ -3477,6 +3473,12 @@ declare module L {
  
 declare module L {
 
+    /**
+      * Instantiates a rectangle object with the given geographical bounds and
+      * optionally an options object.
+      */
+    function rectangle(bounds: LatLngBounds, options?: PathOptions): Rectangle;
+
     export class Rectangle extends Polygon {
 
         /**
@@ -3485,12 +3487,6 @@ declare module L {
           */
         constructor(bounds: LatLngBounds, options?: PathOptions);
     
-        /**
-          * Instantiates a rectangle object with the given geographical bounds and
-          * optionally an options object.
-          */
-        static rectangle(bounds: LatLngBounds, options?: PathOptions): Rectangle;
-
         /**
           * Redraws the rectangle with the passed bounds.
           */
@@ -3547,12 +3543,6 @@ declare module L {
           */
         constructor(urlTemplate: string, options?: TileLayerOptions);
     
-        /**
-          * Instantiates a tile layer object given a URL template and optionally an options
-          * object.
-          */
-        static tileLayer(urlTemplate: string, options?: TileLayerOptions): TileLayer;
-
         /**
           * Adds the layer to the map.
           */
@@ -3667,6 +3657,12 @@ declare module L {
 
     export class tileLayer {
         
+        /**
+          * Instantiates a tile layer object given a URL template and optionally an options
+          * object.
+          */
+        function (urlTemplate: string, options?: TileLayerOptions): TileLayer;
+
         /**
           * Instantiates a WMS tile layer object given a base URL of the WMS service and
           * a WMS parameters/options object.

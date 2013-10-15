@@ -9,6 +9,12 @@
 /// <reference path="LatLng.d.ts" />
 declare module L {
 
+    /**
+      * Instantiates a Marker object given a geographical point and optionally
+      * an options object.
+      */
+    function marker(latlng: LatLng, options?: MarkerOptions): Marker;
+
     export class Marker extends Class implements ILayer, IEventPowered<Marker> {
 
         /**
@@ -17,12 +23,6 @@ declare module L {
           */
         constructor(latlng: LatLng, options?: MarkerOptions);
     
-        /**
-          * Instantiates a Marker object given a geographical point and optionally
-          * an options object.
-          */
-        static marker(latlng: LatLng, options?: MarkerOptions): Marker;
-
         /**
           * Adds the marker to the map.
           */

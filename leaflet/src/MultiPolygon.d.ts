@@ -4,6 +4,13 @@
 /// <reference path="PolylineOptions.d.ts" />
 declare module L {
 
+    /**
+      * Instantiates a multi-polyline object given an array of latlngs arrays (one
+      * for each individual polygon) and optionally an options object (the same
+      * as for MultiPolyline).
+      */
+    function multiPolygon(latlngs: LatLng[][], options?: PolylineOptions): MultiPolygon;
+
     export class MultiPolygon extends FeatureGroup {
 
         /**
@@ -13,13 +20,6 @@ declare module L {
           */
         constructor(latlngs: LatLng[][], options?: PolylineOptions);
     
-        /**
-          * Instantiates a multi-polyline object given an array of latlngs arrays (one
-          * for each individual polygon) and optionally an options object (the same
-          * as for MultiPolyline).
-          */
-        static multiPolygon(latlngs: LatLng[][], options?: PolylineOptions): MultiPolygon;
-
         /**
           * Replace all polygons and their paths with the given array of arrays
           * of geographical points.

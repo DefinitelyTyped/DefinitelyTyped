@@ -4,6 +4,12 @@
 /// <reference path="PathOptions.d.ts" />
 declare module L {
 
+    /**
+      * Instantiates a rectangle object with the given geographical bounds and
+      * optionally an options object.
+      */
+    function rectangle(bounds: LatLngBounds, options?: PathOptions): Rectangle;
+
     export class Rectangle extends Polygon {
 
         /**
@@ -12,12 +18,6 @@ declare module L {
           */
         constructor(bounds: LatLngBounds, options?: PathOptions);
     
-        /**
-          * Instantiates a rectangle object with the given geographical bounds and
-          * optionally an options object.
-          */
-        static rectangle(bounds: LatLngBounds, options?: PathOptions): Rectangle;
-
         /**
           * Redraws the rectangle with the passed bounds.
           */

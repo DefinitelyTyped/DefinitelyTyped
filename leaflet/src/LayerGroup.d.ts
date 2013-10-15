@@ -4,6 +4,11 @@
 /// <reference path="Map.d.ts" />
 declare module L {
 
+    /**
+      * Create a layer group, optionally given an initial set of layers.
+      */
+    function layerGroup(layers?: ILayer[]): LayerGroup;
+
     export class LayerGroup extends Class implements ILayer {
 
         /**
@@ -11,11 +16,6 @@ declare module L {
           */
         constructor(layers?: ILayer[]);
     
-        /**
-          * Create a layer group, optionally given an initial set of layers.
-          */
-        static layerGroup(layers?: ILayer[]): LayerGroup;
-
         /**
           * Adds the group of layers to the map.
           */

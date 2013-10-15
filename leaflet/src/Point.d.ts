@@ -1,6 +1,12 @@
 //// updated to 0.6.4
 declare module L {
 
+    /**
+      * Creates a Point object with the given x and y coordinates. If optional round
+      * is set to true, rounds the x and y values.
+      */
+    function point(x: number, y: number, round?: boolean): Point;
+
     export class Point {
 
         /**
@@ -8,12 +14,6 @@ declare module L {
           * is set to true, rounds the x and y values.
           */
         constructor(x: number, y: number, round?: boolean);
-    
-        /**
-          * Creates a Point object with the given x and y coordinates. If optional round
-          * is set to true, rounds the x and y values.
-          */
-        static point(x: number, y: number, round?: boolean): Point;
 
         /**
           * Returns the result of addition of the current and the given points.

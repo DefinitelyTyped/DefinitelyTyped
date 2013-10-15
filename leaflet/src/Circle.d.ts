@@ -4,6 +4,12 @@
 /// <reference path="PathOptions.d.ts" />
 declare module L {
 
+    /**
+      * Instantiates a circle object given a geographical point, a radius in meters
+      * and optionally an options object.
+      */
+    function circle(latlng: LatLng, radius: number, options?: PathOptions): Circle;
+
     export class Circle extends Path {
 
         /**
@@ -12,12 +18,6 @@ declare module L {
           */
         constructor(latlng: LatLng, radius: number, options?: PathOptions);
     
-        /**
-          * Instantiates a circle object given a geographical point, a radius in meters
-          * and optionally an options object.
-          */
-        static circle(latlng: LatLng, radius: number, options?: PathOptions): Circle;
-
         /**
           * Returns the current geographical position of the circle.
           */

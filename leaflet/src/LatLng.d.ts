@@ -1,6 +1,18 @@
 //// updated to 0.6.4
 declare module L {
 
+    /**
+      * Creates an object representing a geographical point with the given latitude
+      * and longitude.
+      */
+    function latLng(latitude: number, longitude: number): LatLng;
+
+    /**
+      * Creates an object representing a geographical point with the given latitude
+      * and longitude.
+      */
+    function latLng(coords: number[]): LatLng;
+
     export class LatLng {
 
         /**
@@ -14,18 +26,6 @@ declare module L {
           * and longitude.
           */
         constructor(coords: number[]);
-
-        /**
-          * Creates an object representing a geographical point with the given latitude
-          * and longitude.
-          */
-        static latLng(latitude: number, longitude: number): LatLng;
-
-        /**
-          * Creates an object representing a geographical point with the given latitude
-          * and longitude.
-          */
-        static latLng(coords: number[]): LatLng;
 
         /**
           * Returns the distance (in meters) to the given LatLng calculated using the

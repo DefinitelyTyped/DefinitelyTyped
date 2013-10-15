@@ -6,6 +6,12 @@
 /// <reference path="Map.d.ts" />
 declare module L {
 
+    /**
+      * Instantiates an image overlay object given the URL of the image and the geographical
+      * bounds it is tied to.
+      */
+    function imageOverlay(imageUrl: string, bounds: LatLngBounds, options?: ImageOverlayOptions): ImageOverlay;
+
     export class ImageOverlay extends Class implements ILayer {
 
         /**
@@ -13,12 +19,6 @@ declare module L {
           * bounds it is tied to.
           */
         constructor(imageUrl: string, bounds: LatLngBounds, options?: ImageOverlayOptions);
-    
-        /**
-          * Instantiates an image overlay object given the URL of the image and the geographical
-          * bounds it is tied to.
-          */
-        static imageOverlay(imageUrl: string, bounds: LatLngBounds, options?: ImageOverlayOptions): ImageOverlay;
 
         /**
           * Adds the overlay to the map.

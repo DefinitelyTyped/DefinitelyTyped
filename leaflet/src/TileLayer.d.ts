@@ -17,12 +17,6 @@ declare module L {
         constructor(urlTemplate: string, options?: TileLayerOptions);
     
         /**
-          * Instantiates a tile layer object given a URL template and optionally an options
-          * object.
-          */
-        static tileLayer(urlTemplate: string, options?: TileLayerOptions): TileLayer;
-
-        /**
           * Adds the layer to the map.
           */
         addTo(map: Map): TileLayer;
@@ -138,6 +132,12 @@ declare module L {
 
     export class tileLayer {
         
+        /**
+          * Instantiates a tile layer object given a URL template and optionally an options
+          * object.
+          */
+        function (urlTemplate: string, options?: TileLayerOptions): TileLayer;
+
         /**
           * Instantiates a WMS tile layer object given a base URL of the WMS service and
           * a WMS parameters/options object.

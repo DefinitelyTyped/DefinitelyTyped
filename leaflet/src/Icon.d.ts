@@ -3,17 +3,17 @@
 /// <reference path="Class.d.ts" />
 declare module L {
 
+    /**
+      * Creates an icon instance with the given options.
+      */
+    function icon(options: IconOptions): Icon;
+
     export class Icon extends Class {
 
         /**
           * Creates an icon instance with the given options.
           */
         constructor(options: IconOptions);
-
-        /**
-          * Creates an icon instance with the given options.
-          */
-        static icon(options: IconOptions): Icon;
     }
 
     module Icon {

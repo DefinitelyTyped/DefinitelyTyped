@@ -5,6 +5,12 @@
 /// <reference path="LatLngBounds.d.ts" />
 declare module L {
 
+    /**
+      * Instantiates a polyline object given an array of geographical points and
+      * optionally an options object.
+      */
+    function polyline(latlngs: LatLng[], options?: PolylineOptions): Polyline;
+
     export class Polyline extends Path {
 
         /**
@@ -13,12 +19,6 @@ declare module L {
           */
         constructor(latlngs: LatLng[], options?: PolylineOptions);
     
-        /**
-          * Instantiates a polyline object given an array of geographical points and
-          * optionally an options object.
-          */
-        static polyline(latlngs: LatLng[], options?: PolylineOptions): Polyline;
-
         /**
           * Adds a given point to the polyline.
           */
