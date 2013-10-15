@@ -549,6 +549,14 @@ declare module _ {
 		value: T,
 		whereValue: Dictionary<any>): number;
 
+	/**
+	* Creates an array of unique values, in order, of the provided arrays using strict 
+	* equality for comparisons, i.e. ===.
+	* @param arrays The arrays to inspect.
+	* @return Returns an array of composite values.
+	**/
+	export function union<T>(...arrays: List<T>[]): T[];
+
 	/* *************
 	 * Collections *
 	 ************* */
@@ -1136,13 +1144,7 @@ declare module _ {
 		array: List<T>,
 		...values: T[]): T[];
 
-	/**
-	* Computes the union of the passed-in arrays: the list of unique items, in order, that are
-	* present in one or more of the arrays.
-	* @param arrays Array of arrays to compute the union of.
-	* @return The union of elements within `arrays`.
-	**/
-	export function union<T>(...arrays: List<T>[]): T[];
+	
 
 	
 
