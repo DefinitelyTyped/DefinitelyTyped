@@ -211,6 +211,40 @@ declare module _ {
 		whereValue: Dictionary<string>): T[];
 
 	/**
+	* @see _.first
+	**/
+	export function take<T>(array: List<T>): T;
+
+	/**
+	* @see _.first
+	**/
+	export function take<T>(
+		array: List<T>,
+		n: number): T[];
+
+	/**
+	* @see _.first
+	**/
+	export function take<T>(
+		array: List<T>,
+		callback: ListIterator<T, boolean>,
+		thisArg?: any): T[];
+
+	/**
+	* @see _.first
+	**/
+	export function take<T>(
+		array: List<T>,
+		pluckValue: string): T[];
+
+	/**
+	* @see _.first
+	**/
+	export function take<T>(
+		array: List<T>,
+		whereValue: Dictionary<string>): T[];
+	
+	/**
 	* Flattens a nested array (the nesting can be to any depth). If isShallow is truey, the 
 	* array will only be flattened a single level. If a callback is provided each element of 
 	* the array is passed through the callback before flattening. The callback is bound to 
@@ -508,6 +542,60 @@ declare module _ {
 		array: List<any>,
 		wherealue?: Dictionary<any>): any[];
 
+	/**
+	* The opposite of _.initial this method gets all but the first element or first n elements of 
+	* an array. If a callback function is provided elements at the beginning of the array are excluded 
+	* from the result as long as the callback returns truey. The callback is bound to thisArg and 
+	* invoked with three arguments; (value, index, array).
+	*
+	* If a property name is provided for callback the created "_.pluck" style callback will return 
+	* the property value of the given element.
+	* 
+	* If an object is provided for callback the created "_.where" style callback will return true 
+	* for elements that have the properties of the given object, else false.
+	* @param array The array to query.
+	* @param {(Function|Object|number|string)} [callback=1] The function called per element or the number 
+	* of elements to exclude. If a property name or object is provided it will be used to create a 
+	* ".pluck" or ".where" style callback, respectively.
+	* @param {*} [thisArg] The this binding of callback.
+	* @return Returns a slice of array.
+	**/
+	export function rest<T>(
+		array: List<T>,
+		callback: (num: number) => boolean,
+		thisArg?: any): T[];
+	export function rest<T>(
+		array: List<T>,
+		n?: number,
+		thisArg?: any): T[];
+	export function rest<T>(
+		array: List<T>,
+		pluckValue: string,
+		thisArg?: any): T[];
+	export function rest<T>(
+		array: List<T>,
+		whereValue: Dictionary<any>,
+		thisArg?: any): T[];
+
+	/**
+	* @see _.rest
+	**/
+	export function tail<T>(
+		array: List<T>,
+		callback: (num: number) => boolean,
+		thisArg?: any): T[];
+	export function tail<T>(
+		array: List<T>,
+		n?: number,
+		thisArg?: any): T[];
+	export function tail<T>(
+		array: List<T>,
+		pluckValue: string,
+		thisArg?: any): T[];
+	export function tail<T>(
+		array: List<T>,
+		whereValue: Dictionary<any>,
+		thisArg?: any): T[];
 
 	/**
 	* Uses a binary search to determine the smallest index at which a value should be inserted 
@@ -1152,100 +1240,7 @@ declare module _ {
 
 	
 
-	/**
-	* @see _.first
-	**/
-	export function take<T>(array: List<T>): T;
-
-	/**
-	* @see _.first
-	**/
-	export function take<T>(
-		array: List<T>,
-		n: number): T[];
-
-	/**
-	* @see _.first
-	**/
-	export function take<T>(
-		array: List<T>,
-		callback: ListIterator<T, boolean>,
-		thisArg?: any): T[];
-
-	/**
-	* @see _.first
-	**/
-	export function take<T>(
-		array: List<T>,
-		pluckValue: string): T[];
-
-	/**
-	* @see _.first
-	**/
-	export function take<T>(
-		array: List<T>,
-		whereValue: Dictionary<string>): T[];
-
 	
-
-	
-
-	/**
-	* The opposite of _.initial this method gets all but the first element or first n elements of 
-	* an array. If a callback function is provided elements at the beginning of the array are excluded 
-	* from the result as long as the callback returns truey. The callback is bound to thisArg and 
-	* invoked with three arguments; (value, index, array).
-	*
-	* If a property name is provided for callback the created "_.pluck" style callback will return 
-	* the property value of the given element.
-	* 
-	* If an object is provided for callback the created "_.where" style callback will return true 
-	* for elements that have the properties of the given object, else false.
-	* @param array The array to query.
-	* @param {(Function|Object|number|string)} [callback=1] The function called per element or the number 
-	* of elements to exclude. If a property name or object is provided it will be used to create a 
-	* ".pluck" or ".where" style callback, respectively.
-	* @param {*} [thisArg] The this binding of callback.
-	* @return Returns a slice of array.
-	**/
-	export function rest<T>(
-		array: List<T>,
-		callback: (num: number) => boolean,
-		thisArg?: any): T[];
-	export function rest<T>(
-		array: List<T>,
-		n?: number,
-		thisArg?: any): T[];
-	export function rest<T>(
-		array: List<T>,
-		pluckValue: string,
-		thisArg?: any): T[];
-	export function rest<T>(
-		array: List<T>,
-		whereValue: Dictionary<any>,
-		thisArg?: any): T[];
-
-	
-
-	/**
-	* @see _.rest
-	**/
-	export function tail<T>(
-		array: List<T>,
-		callback: (num: number) => boolean,
-		thisArg?: any): T[];
-	export function tail<T>(
-		array: List<T>,
-		n?: number,
-		thisArg?: any): T[];
-	export function tail<T>(
-		array: List<T>,
-		pluckValue: string,
-		thisArg?: any): T[];
-	export function tail<T>(
-		array: List<T>,
-		whereValue: Dictionary<any>,
-		thisArg?: any): T[];
 
 	
 
