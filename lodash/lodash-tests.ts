@@ -156,6 +156,29 @@ result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function
 
 result = <number[]>_.union([1, 2, 3], [101, 2, 1, 10], [2, 1]);
 
+result = <number[]>_.uniq([1, 2, 1, 3, 1]);
+result = <number[]>_.uniq([1, 1, 2, 2, 3], true);
+result = <string[]>_.uniq(['A', 'b', 'C', 'a', 'B', 'c'], function(letter) { 
+	return letter.toLowerCase(); 
+});
+result = <number[]>_.uniq([1, 2.5, 3, 1.5, 2, 3.5], function(num) { return this.floor(num); }, Math);
+result = <{x: number;}[]>_.uniq([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
+
+	result = <number[]>_.unique([1, 2, 1, 3, 1]);
+	result = <number[]>_.unique([1, 1, 2, 2, 3], true);
+	result = <string[]>_.unique(['A', 'b', 'C', 'a', 'B', 'c'], function(letter) { 
+		return letter.toLowerCase(); 
+	});
+	result = <number[]>_.unique([1, 2.5, 3, 1.5, 2, 3.5], function(num) { return this.floor(num); }, Math);
+	result = <{x: number;}[]>_.unique([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
+
+result = <any[][]>_.unzip(['moe', 'larry'], [30, 40], [true, false]);
+	result = <any[][]>_.zip(['moe', 'larry'], [30, 40], [true, false]);
+
+result = <number[]>_.without([1, 2, 1, 0, 3, 1, 4], 0, 1);
+
+
+
 ////////////////////////////////////////////////////////////////////////////////////////
 //WHAT'S LEFT
 ////////////////////////////////////////////////////////////////////////////////////////

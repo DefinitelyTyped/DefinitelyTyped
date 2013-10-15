@@ -520,9 +520,9 @@ declare module _ {
 	*
 	* If an object is provided for callback the created "_.where" style callback will return 
 	* true for elements that have the properties of the given object, else false.
-	* @param list The sorted list.
+	* @param array The sorted list.
 	* @param value The value to determine its index within `list`.
-	* @param iterator Iterator to compute the sort ranking of each value, optional.
+	* @param callback Iterator to compute the sort ranking of each value, optional.
 	* @return The index at which value should be inserted into array.
 	**/
 	export function sortedIndex<T, TSort>(
@@ -556,6 +556,123 @@ declare module _ {
 	* @return Returns an array of composite values.
 	**/
 	export function union<T>(...arrays: List<T>[]): T[];
+
+	/**
+	* Creates a duplicate-value-free version of an array using strict equality for comparisons, 
+	* i.e. ===. If the array is sorted, providing true for isSorted will use a faster algorithm. 
+	* If a callback is provided each element of array is passed through the callback before 
+	* uniqueness is computed. The callback is bound to thisArg and invoked with three arguments; 
+	* (value, index, array).
+	*
+	* If a property name is provided for callback the created "_.pluck" style callback will 
+	* return the property value of the given element.
+	*
+	* If an object is provided for callback the created "_.where" style callback will return 
+	* true for elements that have the properties of the given object, else false.
+	* @param array Array to remove duplicates from.
+	* @param isSorted True if `array` is already sorted, optiona, default = false.
+	* @param iterator Transform the elements of `array` before comparisons for uniqueness.
+	* @param context 'this' object in `iterator`, optional.
+	* @return Copy of `array` where all elements are unique.
+	**/
+	export function uniq<T, TSort>(
+		array: List<T>,
+		isSorted?: boolean,
+		callback?: ListIterator<T, TSort>,
+		thisArg?: any): T[];
+
+	/**
+	* @see _.uniq
+	**/
+	export function uniq<T, TSort>(
+		array: List<T>,
+		callback?: ListIterator<T, TSort>,
+		thisArg?: any): T[];
+
+	/**
+	* @see _.uniq
+	* @param pluckValue _.pluck style callback
+	**/
+	export function uniq<T, TSort>(
+		array: List<T>,
+		isSorted?: boolean,
+		pluckValue?: string): T[];
+
+	/**
+	* @see _.uniq
+	* @param whereValue _.where style callback
+	**/
+	export function uniq<T, TSort>(
+		array: List<T>,
+		whereValue?: Dictionary<any>): T[];
+
+	/**
+	* @see _.uniq
+	**/
+	export function unique<T, TSort>(
+		array: List<T>,
+		callback?: ListIterator<T, TSort>,
+		thisArg?: any): T[];
+
+	/**
+	* @see _.uniq
+	**/
+	export function unique<T, TSort>(
+		array: List<T>,
+		isSorted?: boolean,
+		callback?: ListIterator<T, TSort>,
+		thisArg?: any): T[];
+
+	/**
+	* @see _.uniq
+	* @param pluckValue _.pluck style callback
+	**/
+	export function unique<T, TSort>(
+		array: List<T>,
+		isSorted?: boolean,
+		pluckValue?: string): T[];
+
+	/**
+	* @see _.uniq
+	* @param whereValue _.where style callback
+	**/
+	export function unique<T, TSort>(
+		array: List<T>,
+		whereValue?: Dictionary<any>): T[];
+
+	/**
+	* Creates an array of grouped elements, the first of which contains the first 
+	* elements of the given arrays, the second of which contains the second elements 
+	* of the given arrays, and so on.
+	* @param arrays Arrays to process.
+	* @return A new array of grouped elements.
+	**/
+	export function zip(...arrays: any[][]): any[][];
+
+	/**
+	* @see _.zip
+	**/
+	export function zip(...arrays: any[]): any[];
+
+	/**
+	* @see _.zip
+	**/
+	export function unzip(...arrays: any[][]): any[][];
+
+	/**
+	* @see _.zip
+	**/
+	export function unzip(...arrays: any[]): any[];
+
+	/**
+	* Creates an array excluding all provided values using strict equality for comparisons, i.e. ===.
+	* @param array The array to filter.
+	* @param values The value(s) to exclude.
+	* @return A new array of filtered values.
+	**/
+	export function without<T>(
+		array: List<T>,
+		...values: T[]): T[];
 
 	/* *************
 	 * Collections *
@@ -1134,15 +1251,9 @@ declare module _ {
 
 	
 
-	/**
-	* Returns a copy of the array with all instances of the values removed.
-	* @param array The array to remove `values` from.
-	* @param values The values to remove from `array`.
-	* @return Copy of `array` without `values`.
-	**/
-	export function without<T>(
-		array: List<T>,
-		...values: T[]): T[];
+	
+
+	
 
 	
 
@@ -1150,61 +1261,8 @@ declare module _ {
 
 	
 
-	/**
-	* Produces a duplicate-free version of the array, using === to test object equality. If you know in
-	* advance that the array is sorted, passing true for isSorted will run a much faster algorithm. If
-	* you want to compute unique items based on a transformation, pass an iterator function.
-	* @param array Array to remove duplicates from.
-	* @param isSorted True if `array` is already sorted, optiona, default = false.
-	* @param iterator Transform the elements of `array` before comparisons for uniqueness.
-	* @param context 'this' object in `iterator`, optional.
-	* @return Copy of `array` where all elements are unique.
-	**/
-	export function uniq<T, TSort>(
-		array: List<T>,
-		isSorted?: boolean,
-		iterator?: ListIterator<T, TSort>,
-		context?: any): T[];
 
-	/**
-	* @see _.uniq
-	**/
-	export function uniq<T, TSort>(
-		array: List<T>,
-		iterator?: ListIterator<T, TSort>,
-		context?: any): T[];
-
-	/**
-	* @see _.uniq
-	**/
-	export function unique<T, TSort>(
-		array: List<T>,
-		iterator?: ListIterator<T, TSort>,
-		context?: any): T[];
-
-	/**
-	* @see _.uniq
-	**/
-	export function unique<T, TSort>(
-		array: List<T>,
-		isSorted?: boolean,
-		iterator?: ListIterator<T, TSort>,
-		context?: any): T[];
-
-
-	/**
-	* Merges together the values of each of the arrays with the values at the corresponding position.
-	* Useful when you have separate data sources that are coordinated through matching array indexes.
-	* If you're working with a matrix of nested arrays, zip.apply can transpose the matrix in a similar fashion.
-	* @param arrays The arrays to merge/zip.
-	* @return Zipped version of `arrays`.
-	**/
-	export function zip(...arrays: any[][]): any[][];
-
-	/**
-	* @see _.zip
-	**/
-	export function zip(...arrays: any[]): any[];
+	
 
 	/**
 	* Creates an object composed from arrays of keys and values. Provide either a single 
