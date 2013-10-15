@@ -1,4 +1,4 @@
-/// <reference path="./dhtmlx/dhtmlxscheduler.d.ts" />
+/// <reference path="dhtmlxscheduler.d.ts" />
 
 //date operations
 var start: Date = scheduler.date.week_start(new Date());
