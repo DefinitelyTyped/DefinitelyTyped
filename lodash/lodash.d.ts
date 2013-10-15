@@ -509,6 +509,46 @@ declare module _ {
 		wherealue?: Dictionary<any>): any[];
 
 
+	/**
+	* Uses a binary search to determine the smallest index at which a value should be inserted 
+	* into a given sorted array in order to maintain the sort order of the array. If a callback 
+	* is provided it will be executed for value and each element of array to compute their sort 
+	* ranking. The callback is bound to thisArg and invoked with one argument; (value).
+	*
+	* If a property name is provided for callback the created "_.pluck" style callback will 
+	* return the property value of the given element.
+	*
+	* If an object is provided for callback the created "_.where" style callback will return 
+	* true for elements that have the properties of the given object, else false.
+	* @param list The sorted list.
+	* @param value The value to determine its index within `list`.
+	* @param iterator Iterator to compute the sort ranking of each value, optional.
+	* @return The index at which value should be inserted into array.
+	**/
+	export function sortedIndex<T, TSort>(
+		array: List<T>,
+		value: T,
+		callback?: (x: T) => TSort, 
+		thisArg?: any): number;
+
+	/**
+	* @see _.sortedIndex
+	* @param pluckValue the _.pluck style callback
+	**/
+	export function sortedIndex<T, TSort>(
+		array: List<T>,
+		value: T,
+		pluckValue: string): number;
+
+	/**
+	* @see _.sortedIndex
+	* @param pluckValue the _.where style callback
+	**/
+	export function sortedIndex<T, TSort>(
+		array: List<T>,
+		value: T,
+		whereValue: Dictionary<any>): number;
+
 	/* *************
 	 * Collections *
 	 ************* */
@@ -1182,19 +1222,7 @@ declare module _ {
 
 	
 
-	/**
-	* Uses a binary search to determine the index at which the value should be inserted into the list in order
-	* to maintain the list's sorted order. If an iterator is passed, it will be used to compute the sort ranking
-	* of each value, including the value you pass.
-	* @param list The sorted list.
-	* @param value The value to determine its index within `list`.
-	* @param iterator Iterator to compute the sort ranking of each value, optional.
-	* @return The index where `value` should be inserted into `list`.
-	**/
-	export function sortedIndex<T, TSort>(
-		list: List<T>,
-		value: T,
-		iterator?: (x: T) => TSort, context?: any): number;
+	
 
 	
 
