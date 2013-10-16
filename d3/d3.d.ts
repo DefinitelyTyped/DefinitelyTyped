@@ -719,6 +719,7 @@ declare module D3 {
         datum: {
             (values: (data: any, index: number) => any): UpdateSelection;
             (values: any): UpdateSelection;
+            () : any;
         };
 
         filter: {
