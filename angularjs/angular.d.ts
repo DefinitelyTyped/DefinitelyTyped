@@ -641,16 +641,29 @@ declare module ng {
     ///////////////////////////////////////////////////////////////////////////
 
     interface IDirective{
+        compile?:
+            (templateElement: any,
+            templateAttributes: IAttributes,
+            transclude: (scope: IScope, cloneLinkingFn: Function) => void
+            ) => any;
+        controller?: (...injectables: any[]) => void;
+        controllerAs?: string;
+        link?:
+            (scope: IScope,
+            instanceElement: any,
+            instanceAttributes: IAttributes,
+            controller: any
+            ) => void;
+        name?: string;
         priority?: number;
-        template?: string;
-        templateUrl?: string;
         replace?: boolean;
-        transclude?: any;
+        require?: string[];
         restrict?: string;
         scope?: any;
-        link?: Function;
-        compile?: Function;
-        controller?: Function;
+        template?: any;
+        templateUrl?: any;
+        terminal?: boolean;
+        transclude?: any;
     }
 
     ///////////////////////////////////////////////////////////////////////////
