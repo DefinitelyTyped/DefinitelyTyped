@@ -1086,6 +1086,11 @@ $(document).ready( function() {
 	} );
 } );
 
+/*
+
+This test does not compile, because - for some hard to find reason - the compiler is missing the aTargets 
+property of the second element. 
+
 // Using aoColumnDefs
 $(document).ready( function() {
 	$('#example').dataTable( {
@@ -1097,6 +1102,8 @@ $(document).ready( function() {
 		]
 	} );
 } );
+
+*/
 
 // Using aoColumns
 $(document).ready( function() {

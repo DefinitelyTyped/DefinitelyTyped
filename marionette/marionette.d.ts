@@ -26,31 +26,31 @@ declare module Backbone {
 
         //mixins from Collection (copied from Backbone's Collection declaration)
 
-        all(iterator: (element: View, index: number) => bool, context?: any): bool;
-        any(iterator: (element: View, index: number) => bool, context?: any): bool;
-        contains(value: any): bool;
-        detect(iterator: (item: any) => bool, context?: any): any;
+        all(iterator: (element: View, index: number) => boolean, context?: any): boolean;
+        any(iterator: (element: View, index: number) => boolean, context?: any): boolean;
+        contains(value: any): boolean;
+        detect(iterator: (item: any) => boolean, context?: any): any;
         each(iterator: (element: View, index: number, list?: any) => void , context?: any);
-        every(iterator: (element: View, index: number) => bool, context?: any): bool;
-        filter(iterator: (element: View, index: number) => bool, context?: any): View[];
-        find(iterator: (element: View, index: number) => bool, context?: any): View;
+        every(iterator: (element: View, index: number) => boolean, context?: any): boolean;
+        filter(iterator: (element: View, index: number) => boolean, context?: any): View[];
+        find(iterator: (element: View, index: number) => boolean, context?: any): View;
         first(): View;
         forEach(iterator: (element: View, index: number, list?: any) => void , context?: any);
-        include(value: any): bool;
+        include(value: any): boolean;
         initial(): View;
         initial(n: number): View[];
         invoke(methodName: string, arguments?: any[]);
-        isEmpty(object: any): bool;
+        isEmpty(object: any): boolean;
         last(): View;
         last(n: number): View[];
         lastIndexOf(element: View, fromIndex?: number): number;
         map(iterator: (element: View, index: number, context?: any) => any[], context?: any): any[];
         pluck(attribute: string): any[];
-        reject(iterator: (element: View, index: number) => bool, context?: any): View[];
+        reject(iterator: (element: View, index: number) => boolean, context?: any): View[];
         rest(): View;
         rest(n: number): View[];
         select(iterator: any, context?: any): any[];
-        some(iterator: (element: View, index: number) => bool, context?: any): bool;
+        some(iterator: (element: View, index: number) => boolean, context?: any): boolean;
         toArray(): any[];
         without(...values: any[]): View[];
     }
@@ -65,7 +65,7 @@ declare module Backbone {
             options: any;
 
             setHandler(name: string, handler: any, context: any): void;
-            hasHandler(name: string): bool;
+            hasHandler(name: string): boolean;
             getHandler(name: string): Function;
             removeHandler(name: string);
             removeAllHandlers(): void;
@@ -145,31 +145,31 @@ declare module Marionette {
 
         //mixins from Collection (copied from Backbone's Collection declaration)
 
-        all(iterator: (element: Region, index: number) => bool, context?: any): bool;
-        any(iterator: (element: Region, index: number) => bool, context?: any): bool;
-        contains(value: any): bool;
-        detect(iterator: (item: any) => bool, context?: any): any;
+        all(iterator: (element: Region, index: number) => boolean, context?: any): boolean;
+        any(iterator: (element: Region, index: number) => boolean, context?: any): boolean;
+        contains(value: any): boolean;
+        detect(iterator: (item: any) => boolean, context?: any): any;
         each(iterator: (element: Region, index: number, list?: any) => void , context?: any);
-        every(iterator: (element: Region, index: number) => bool, context?: any): bool;
-        filter(iterator: (element: Region, index: number) => bool, context?: any): Region[];
-        find(iterator: (element: Region, index: number) => bool, context?: any): Region;
+        every(iterator: (element: Region, index: number) => boolean, context?: any): boolean;
+        filter(iterator: (element: Region, index: number) => boolean, context?: any): Region[];
+        find(iterator: (element: Region, index: number) => boolean, context?: any): Region;
         first(): Region;
         forEach(iterator: (element: Region, index: number, list?: any) => void , context?: any);
-        include(value: any): bool;
+        include(value: any): boolean;
         initial(): Region;
         initial(n: number): Region[];
         invoke(methodName: string, arguments?: any[]);
-        isEmpty(object: any): bool;
+        isEmpty(object: any): boolean;
         last(): Region;
         last(n: number): Region[];
         lastIndexOf(element: Region, fromIndex?: number): number;
         map(iterator: (element: Region, index: number, context?: any) => any[], context?: any): any[];
         pluck(attribute: string): any[];
-        reject(iterator: (element: Region, index: number) => bool, context?: any): Region[];
+        reject(iterator: (element: Region, index: number) => boolean, context?: any): Region[];
         rest(): Region;
         rest(n: number): Region[];
         select(iterator: any, context?: any): any[];
-        some(iterator: (element: Region, index: number) => bool, context?: any): bool;
+        some(iterator: (element: Region, index: number) => boolean, context?: any): boolean;
         toArray(): any[];
         without(...values: any[]): Region[];
     }

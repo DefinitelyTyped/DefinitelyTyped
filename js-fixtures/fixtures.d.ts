@@ -3,7 +3,7 @@
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid/>
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
 
-declare interface Fixtures {
+interface Fixtures {
     path: string;
     containerId: string;
     body(): string;

@@ -21,7 +21,7 @@ interface VideoJSSource {
 interface VideoJSPlayer {
 	play(): VideoJSPlayer;
 	pause(): VideoJSPlayer;
-	paused(): bool;
+	paused(): boolean;
 	src(newSource: string): VideoJSPlayer;
 	src(newSource: VideoJSSource): VideoJSPlayer;
 	src(newSource: VideoJSSource[]): VideoJSPlayer;

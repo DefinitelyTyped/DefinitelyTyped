@@ -9,7 +9,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // ngResource module (angular-resource.js)
 ///////////////////////////////////////////////////////////////////////////////
-module ng.resource {
+declare module ng.resource {
 
     ///////////////////////////////////////////////////////////////////////////
     // ResourceService
@@ -28,7 +28,7 @@ module ng.resource {
     // Just a reference to facilitate describing new actions
     interface IActionDescriptor {
         method: string;
-        isArray?: bool;
+        isArray?: boolean;
         params?: any;
         headers?: any;
     }
@@ -73,7 +73,7 @@ module ng.resource {
 }
 
 /** extensions to base ng based on using angular-resource */
-module ng {
+declare module ng {
 
     interface IModule {
         /** creating a resource service factory */

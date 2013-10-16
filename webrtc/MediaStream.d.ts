@@ -1,8 +1,8 @@
 ﻿// Type definitions take from http://dev.w3.org/2011/webrtc/editor/getusermedia.html
 
 interface MediaStreamConstraints {
-	audio: bool;
-	video: bool;
+	audio: boolean;
+	video: boolean;
 }
 declare var MediaStreamConstraints: {
 	prototype: MediaStreamConstraints;
@@ -76,7 +76,7 @@ interface MediaStream {
 	label: string;
 	getAudioTracks(): MediaStreamTrackList;
 	getVideoTracks(): MediaStreamTrackList;
-	ended: bool;
+	ended: boolean;
 	onended: (event: Event) => void;
 }
 declare var MediaStream: {
@@ -101,7 +101,7 @@ interface LocalMediaStream extends MediaStream {
 interface MediaStreamTrack {
 	kind: string;
 	label: string;
-	enabled: bool;
+	enabled: boolean;
 	LIVE: number; // = 0;
 	MUTED: number; // = 1;
 	ENDED: number; // = 2;
@@ -110,7 +110,7 @@ interface MediaStreamTrack {
 	onunmute: (event: Event) => void;
 	onended: (event: Event) => void;
 }
-var MediaStramTrack: {
+declare var MediaStramTrack: {
 	prototype: MediaStreamTrack;
 	new (): MediaStreamTrack;
 	LIVE: number; // = 0;
@@ -118,19 +118,19 @@ var MediaStramTrack: {
 	ENDED: number; // = 2;
 }
 
-interface URL {
+interface streamURL extends URL {
 	createObjectURL(stream: MediaStream): string;
 }
-var URL: {
-	prototype: MediaStreamTrack;
-	new (): URL;
-	createObjectURL(stream: MediaStream): string;
-}
+//declare var URL: {
+//	prototype: MediaStreamTrack;
+//	new (): URL;
+//	createObjectURL(stream: MediaStream): string;
+//}
 
-interface WebkitURL extends URL {
+interface WebkitURL extends streamURL {
 }
-var webkitURL: {
+declare var webkitURL: {
 	prototype: WebkitURL;
-	new (): URL;
+    new (): streamURL;
 	createObjectURL(stream: MediaStream): string;
 }

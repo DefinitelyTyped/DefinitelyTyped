@@ -7,9 +7,9 @@
  * 
  */
 
-interface WebGLRenderingContext {};
+interface WebGLRenderingContext {}
 
-module THREE {
+declare module THREE {
     export var REVISION: string;
 
     // GL STATE CONSTANTS
@@ -213,7 +213,7 @@ module THREE {
         /**
          * When set, it holds certain buffers in memory to have faster updates for this object. When unset, it deletes those buffers and saves memory.
          */
-        dynamic: bool;
+        dynamic: boolean;
 
         /**
          * Bounding box.
@@ -225,7 +225,7 @@ module THREE {
          */
         boundingSphere: BoundingSphere;
 
-        hasTangents: bool;
+        hasTangents: boolean;
         morphTargets: any[];
 
         /**
@@ -233,7 +233,7 @@ module THREE {
          */
         applyMatrix(matrix: Matrix4): void;
 
-        verticesNeedUpdate: bool;
+        verticesNeedUpdate: boolean;
 
         /**
          * Computes bounding box of the geometry, updating Geometry.boundingBox attribute.
@@ -277,12 +277,12 @@ module THREE {
         /**
          * @param autoStart Automatically start the clock.
          */
-        constructor(autoStart?: bool);
+        constructor(autoStart?: boolean);
 
         /**
          * If set, starts the clock automatically when the first update is called.
          */
-        autoStart: bool;
+        autoStart: boolean;
 
         /**
          * When the clock is running, It holds the starttime of the clock. 
@@ -305,7 +305,7 @@ module THREE {
         /**
          * This property keeps track whether the clock is running or not.
          */
-        running: bool;
+        running: boolean;
 
         /**
          * Starts clock.
@@ -831,10 +831,10 @@ module THREE {
         /**
          * Checks whether the object is inside the Frustum.
          */
-        intersectsObject(object: Object3D): bool;
+        intersectsObject(object: Object3D): boolean;
 
-        intersectsSphere(sphere: Sphere): bool;
-        containsPoint(point: Vector3): bool;
+        intersectsSphere(sphere: Sphere): boolean;
+        containsPoint(point: Vector3): boolean;
         clone(): Frustum;
     }
 
@@ -853,11 +853,11 @@ module THREE {
         distanceToSphere(sphere: Sphere): number;
         projectPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
         orthoPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
-        isIntersectionLine(startPoint: Vector3, endPoint: Vector3): bool;
-        coplanarPoint(optionalTarget?: bool): Vector3;
+        isIntersectionLine(startPoint: Vector3, endPoint: Vector3): boolean;
+        coplanarPoint(optionalTarget?: boolean): Vector3;
         transform(matrix: Matrix3, optionalNormalMatrix?: Matrix3): Plane;
         translate(offset: Vector3): Plane;
-        equals(plane: Plane): bool;
+        equals(plane: Plane): boolean;
         clone(): Plane;
     }
 
@@ -868,15 +868,15 @@ module THREE {
         set (center: Vector3, radius: number): Sphere;
         setFromCenterAndPoints(center: Vector3, points: Vector3[]): Sphere;
         copy(sphere: Sphere): Sphere;
-        empty(): bool;
-        containsPoint(point: Vector3): bool;
+        empty(): boolean;
+        containsPoint(point: Vector3): boolean;
         distanceToPoint(point: Vector3): number;
-        intersectsSphere(sphere: Sphere): bool;
+        intersectsSphere(sphere: Sphere): boolean;
         clampPoint(point: Vector3, optionalTarget?: Vector3): Sphere;
         getBoundingBox(optionalTarget: Box3): Box3;
         transform(matrix: Matrix): Sphere;
         translate(offset: Vector3): Sphere;
-        equals(sphere: Sphere): bool;
+        equals(sphere: Sphere): boolean;
         clone(): Sphere;
     }
 
@@ -930,16 +930,16 @@ module THREE {
         skinIndices: number[];
         boundingBox: BoundingBox3D;
         boundingSphere: BoundingSphere;
-        hasTangents: bool;
-        dynamic: bool;
-        verticesNeedUpdate: bool;
-        elementsNeedUpdate: bool;
-        uvsNeedUpdate: bool;
-        normalsNeedUpdate: bool;
-        tangentsNeedUpdate: bool;
-        colorsNeedUpdate: bool;
-        lineDistancesNeedUpdate: bool;
-        buffersNeedUpdate: bool;
+        hasTangents: boolean;
+        dynamic: boolean;
+        verticesNeedUpdate: boolean;
+        elementsNeedUpdate: boolean;
+        uvsNeedUpdate: boolean;
+        normalsNeedUpdate: boolean;
+        tangentsNeedUpdate: boolean;
+        colorsNeedUpdate: boolean;
+        lineDistancesNeedUpdate: boolean;
+        buffersNeedUpdate: boolean;
         animation: AnimationData;
 
         /**
@@ -961,7 +961,7 @@ module THREE {
          * Computes vertex normals by averaging face normals.
          * Face normals must be existing / computed beforehand.
          */
-        computeVertexNormals(areaWeighted?: bool): void;
+        computeVertexNormals(areaWeighted?: boolean): void;
 
         computeMorphNormals(): void;
 
@@ -1090,9 +1090,9 @@ module THREE {
         determinant(): number;
 
         /**
-         * getInverse(matrix:T, throwOnInvertible?:bool):T;
+         * getInverse(matrix:T, throwOnInvertible?:boolean):T;
          */
-        getInverse(matrix: Matrix, throwOnInvertible?: bool): Matrix;
+        getInverse(matrix: Matrix, throwOnInvertible?: boolean): Matrix;
 
         /**
          * transpose():T;
@@ -1122,7 +1122,7 @@ module THREE {
         multiplyVector3Array(a: number[]): number[];
         multiplyScalar(s: number): Matrix3;
         determinant(): number;
-        getInverse(matrix: Matrix3, throwOnInvertible?: bool): Matrix3;
+        getInverse(matrix: Matrix3, throwOnInvertible?: boolean): Matrix3;
 
         /**
          * Transposes this matrix in place.
@@ -1284,7 +1284,7 @@ module THREE {
          * Sets this matrix to the inverse of matrix m.
          * Based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm.
          */
-        getInverse(m: Matrix4, throwOnInvertible?: bool): Matrix4;
+        getInverse(m: Matrix4, throwOnInvertible?: boolean): Matrix4;
 
         /**
          * Sets this matrix to the transformation composed of translation, rotation and scale.
@@ -1410,12 +1410,12 @@ module THREE {
         recastSelf(t: number): Ray;
         closestPointToPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
         distanceToPoint(point: Vector3): number;
-        isIntersectionSphere(sphere: Sphere): bool;
-        isIntersectionPlane(plane: Plane): bool;
+        isIntersectionSphere(sphere: Sphere): boolean;
+        isIntersectionPlane(plane: Plane): boolean;
         distanceToPlane(plane: Plane): number;
         intersectPlane(plane: Plane, optionalTarget?: Vector3): Vector3;
         transform(matrix4: Matrix4): Ray;
-        equals(ray: Ray): bool;
+        equals(ray: Ray): boolean;
         clone(): Ray;
     }
 
@@ -1492,7 +1492,7 @@ module THREE {
         /**
          * Use quaternion instead of Euler angles for specifying local rotation.
          */
-        useQuaternion: bool;
+        useQuaternion: boolean;
 
         /**
          * Default is 0.0.
@@ -1512,22 +1512,22 @@ module THREE {
         /**
          * Object gets rendered if true.
          */
-        visible: bool;
+        visible: boolean;
 
         /**
          * Gets rendered into shadow map.
          */
-        castShadow: bool;
+        castShadow: boolean;
 
         /**
          * Material gets baked in shadow receiving.
          */
-        receiveShadow: bool;
+        receiveShadow: boolean;
 
-        frustumCulled: bool;
-        matrixAutoUpdate: bool;
-        matrixWorldNeedsUpdate: bool;
-        rotationAutoUpdate: bool;
+        frustumCulled: boolean;
+        matrixAutoUpdate: boolean;
+        matrixWorldNeedsUpdate: boolean;
+        rotationAutoUpdate: boolean;
         applyMatrix(matrix: Matrix4): void;
         translate(distance: number, axis: Vector3): void;
         translateX(distance: number): void;
@@ -1559,7 +1559,7 @@ module THREE {
          * @param name Object name.
          * @param recursive Whether check in the objects's children.
          */
-        getChildByName(name: string, recursive: bool): Object3D;
+        getChildByName(name: string, recursive: boolean): Object3D;
 
         /**
          * Searches whole subgraph recursively to add all objects in the array.
@@ -1575,7 +1575,7 @@ module THREE {
         /**
          * Updates global transform of the object and its children.
          */
-        updateMatrixWorld(force: bool): void;
+        updateMatrixWorld(force: boolean): void;
         clone(object?: Object3D): Object3D;
         deallocate(): void;
 
@@ -1610,7 +1610,7 @@ module THREE {
          * @param camera camera to use in the projection.
          * @param sort select whether to sort elements using the Painter's algorithm.
          */
-        projectScene(scene: Scene, camera: Camera, sortObjects: bool, sortElements?: bool): {
+        projectScene(scene: Scene, camera: Camera, sortObjects: boolean, sortElements?: boolean): {
             objects: Object3D[];     // Mesh, Line or other object  
             sprites: Object3D[];    // Sprite or Particle 
             lights: Light[];
@@ -1700,7 +1700,7 @@ module THREE {
 
         slerp(qb: Quaternion, t: number): Quaternion;
 
-        equals(v: Quaternion): bool;
+        equals(v: Quaternion): boolean;
 
         /**
          * Clones this quaternion.
@@ -1728,8 +1728,8 @@ module THREE {
         far: number;
         precision: number;
         set (origin: Vector3, direction: Vector3): void;
-        intersectObject(object: Object3D, recursive?: bool): Intersection[];
-        intersectObjects(objects: Object3D[], recursive?: bool): Intersection[];
+        intersectObject(object: Object3D, recursive?: boolean): Intersection[];
+        intersectObjects(objects: Object3D[], recursive?: boolean): Intersection[];
     }
 
     export interface SplineControlPoint {
@@ -1883,9 +1883,9 @@ module THREE {
         lerp(v: Vector, alpha: number): Vector;
 
         /**
-         * equals(v:T):bool;
+         * equals(v:T):boolean;
          */
-        equals(v: Vector): bool;
+        equals(v: Vector): boolean;
 
         /**
          * clone():T;
@@ -1992,7 +1992,7 @@ module THREE {
         /**
          * Checks for strict equality of this vector and v.
          */
-        equals(v: Vector2): bool;
+        equals(v: Vector2): boolean;
 
         /**
          * Clones this vector.
@@ -2182,7 +2182,7 @@ module THREE {
         /**
          * Checks for strict equality of this vector and v.
          */
-        equals(v: Vector3): bool;
+        equals(v: Vector3): boolean;
 
         /**
          * Clones this vector.
@@ -2259,11 +2259,6 @@ module THREE {
         lengthSq(): number;
 
         /**
-         * Computes dot product of this vector and v.
-         */
-        dot(v: Vector4): Vector4;
-
-        /**
          * Computes length of this vector.
          */
         length(): number;
@@ -2301,7 +2296,7 @@ module THREE {
         /**
          * Checks for strict equality of this vector and v.
          */
-        equals(v: Vector4): bool;
+        equals(v: Vector4): boolean;
 
         /**
          * Clones this vector.
@@ -2328,22 +2323,22 @@ module THREE {
         setFromCenterAndSize(center: Vector2, size: number): Box2;
         copy(box: Box2): Box2;
         makeEmpty(): Box2;
-        empty(): bool;
+        empty(): boolean;
         center(optionalTarget?: Vector2): Vector2;
         size(optionalTarget?: Vector2): Vector2;
         expandByPoint(point: Vector2): Box2;
         expandByVector(vector: Vector2): Box2;
         expandByScalar(scalar: number): Box2;
-        containsPoint(point: Vector2): bool;
-        containsBox(box: Box2): bool;
+        containsPoint(point: Vector2): boolean;
+        containsBox(box: Box2): boolean;
         getParameter(point: Vector2): Vector2;
-        isIntersectionBox(box: Box2): bool;
+        isIntersectionBox(box: Box2): boolean;
         clampPoint(point: Vector2, optionalTarget?: Vector2): Vector2;
         distanceToPoint(point: Vector2): Vector2;
         intersect(box: Box2): Box2;
         union(box: Box2): Box2;
         translate(offset: Vector2): Box2;
-        equals(box: Box2): bool;
+        equals(box: Box2): boolean;
         clone(): Box2;
     }
 
@@ -2354,23 +2349,23 @@ module THREE {
         setFromCenterAndSize(center: Vector3, size: number): Box3;
         copy(box: Box3): Box3;
         makeEmpty(): Box3;
-        empty(): bool;
+        empty(): boolean;
         center(optionalTarget?: Vector3): Vector3;
         size(optionalTarget?: Vector3): Vector3;
         expandByPoint(point: Vector3): Box3;
         expandByVector(vector: Vector3): Box3;
         expandByScalar(scalar: number): Box3;
-        containsPoint(point: Vector3): bool;
-        containsBox(box: Box3): bool;
+        containsPoint(point: Vector3): boolean;
+        containsBox(box: Box3): boolean;
         getParameter(point: Vector3): Vector3;
-        isIntersectionBox(box: Box3): bool;
+        isIntersectionBox(box: Box3): boolean;
         clampPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
         distanceToPoint(point: Vector3): Vector3;
         intersect(box: Box3): Box3;
         union(box: Box3): Box3;
         transform(matrix: Matrix4): Box3;
         translate(offset: Vector3): Box3;
-        equals(box: Box3): bool;
+        equals(box: Box3): boolean;
         clone(): Box3;
     }
 
@@ -2546,13 +2541,13 @@ module THREE {
          * If set to true light will cast dynamic shadows. Warning: This is expensive and requires tweaking to get shadows looking right.
          * Default — false.
          */
-        castShadow: bool;
+        castShadow: boolean;
 
         /**
          * If set to true light will only cast shadow but not contribute any lighting (as if intensity was 0 but cheaper to compute).
          * Default — false.
          */
-        onlyShadow: bool;
+        onlyShadow: boolean;
 
         /**
          * Orthographic shadow camera frustum parameter.
@@ -2594,7 +2589,7 @@ module THREE {
          * Show debug shadow camera frustum.
          * Default — false.
          */
-        shadowCameraVisible: bool;
+        shadowCameraVisible: boolean;
 
         /**
          * Shadow map bias.
@@ -2623,7 +2618,7 @@ module THREE {
         /**
          * Default — false.
          */
-        shadowCascade: bool;
+        shadowCascade: boolean;
 
         /**
          * Three.Vector3( 0, 0, -1000 ).
@@ -2781,13 +2776,13 @@ module THREE {
          * If set to true light will cast dynamic shadows. Warning: This is expensive and requires tweaking to get shadows looking right.
          * Default — false.
          */
-        castShadow: bool;
+        castShadow: boolean;
 
         /**
          * If set to true light will only cast shadow but not contribute any lighting (as if intensity was 0 but cheaper to compute).
          * Default — false.
          */
-        onlyShadow: bool;
+        onlyShadow: boolean;
 
         /**
          * Perspective shadow camera frustum near parameter.
@@ -2811,7 +2806,7 @@ module THREE {
          * Show debug shadow camera frustum.
          * Default — false.
          */
-        shadowCameraVisible: bool;
+        shadowCameraVisible: boolean;
 
         /**
          * Shadow map bias.
@@ -2864,12 +2859,12 @@ module THREE {
      *          message — error message
      */
     export class Loader {
-        constructor(showStatus?: bool);
+        constructor(showStatus?: boolean);
 
         /**
          * If true, show loading status in the statusDomElement.
          */
-        showStatus: bool;
+        showStatus: boolean;
 
         /**
          * This is the recipient of status messages.
@@ -2903,8 +2898,8 @@ module THREE {
         updateProgress(progress: Progress): void;
         extractUrlBase(url: string): string;
         initMaterials(materials: Material[], texturePath: string): Material[];
-        needsTangents(materials: Material[]): bool;
-        createMaterial(m: Material, texturePath: string): bool;
+        needsTangents(materials: Material[]): boolean;
+        createMaterial(m: Material, texturePath: string): boolean;
     }
 
     /**
@@ -2927,8 +2922,8 @@ module THREE {
      * A loader for loading objects in JSON format.
      */
     export class JSONLoader extends Loader {
-        constructor(showStatus?: bool);
-        withCredentials: bool;
+        constructor(showStatus?: boolean);
+        withCredentials: boolean;
 
         /**
          * @param url
@@ -3031,7 +3026,7 @@ module THREE {
          * Defines whether this material is transparent. This has an effect on rendering, as transparent objects need an special treatment, and are rendered after the opaque (i.e. non transparent) objects. For a working example of this behaviour, check the {@link WebGLRenderer} code.
          * Default is false.
          */
-        transparent: bool;
+        transparent: boolean;
 
         /**
          * Which blending to use when displaying objects with this material. Default is {@link NormalBlending}.
@@ -3056,18 +3051,18 @@ module THREE {
         /**
          * Whether to have depth test enabled when rendering this material. Default is true.
          */
-        depthTest: bool;
+        depthTest: boolean;
 
         /**
          * Whether rendering this material has any effect on the depth buffer. Default is true.
          * When drawing 2D overlays it can be useful to disable the depth writing in order to layer several things together without creating z-index artifacts.
          */
-        depthWrite: bool;
+        depthWrite: boolean;
 
         /**
          * Whether to use polygon offset. Default is false. This corresponds to the POLYGON_OFFSET_FILL WebGL feature.
          */
-        polygonOffset: bool;
+        polygonOffset: boolean;
 
         /**
          * Sets the polygon offset factor. Default is 0.
@@ -3087,12 +3082,12 @@ module THREE {
         /**
          * Enables/disables overdraw. If enabled, polygons are drawn slightly bigger in order to fix antialiasing gaps when using the CanvasRenderer. Default is false.
          */
-        overdraw: bool;
+        overdraw: boolean;
 
         /**
          * Defines whether this material is visible. Default is true.
          */
-        visible: bool;
+        visible: boolean;
 
         /**
          * Defines which of the face sides will be rendered - front, back or both.
@@ -3104,7 +3099,7 @@ module THREE {
          * Specifies that the material needs to be updated, WebGL wise. Set it to true if you made changes that need to be reflected in WebGL.
          * This property is automatically set to true when instancing a new material.
          */
-        needsUpdate: bool;
+        needsUpdate: boolean;
 
         clone(): Material;
 
@@ -3118,12 +3113,12 @@ module THREE {
         color?: number;
         opacity?: number;
         blending?: Blending;
-        depthTest?: bool;
+        depthTest?: boolean;
         linewidth?: number;
         linecap?: string;
         linejoin?: string;
-        vertexColors?: bool;
-        fog?: bool;
+        vertexColors?: boolean;
+        fog?: boolean;
     }
 
     export class LineBasicMaterial extends Material {
@@ -3132,8 +3127,8 @@ module THREE {
         linewidth: number;
         linecap: string;
         linejoin: string;
-        vertexColors: bool;
-        fog: bool;
+        vertexColors: boolean;
+        fog: boolean;
         clone(): LineBasicMaterial;
     }
 
@@ -3141,13 +3136,13 @@ module THREE {
         color?: number;
         opacity?: number;
         blending?: Blending;
-        depthTest?: bool;
+        depthTest?: boolean;
         linewidth?: number;
         scale?: number;
         dashSize?: number;
         gapSize?: number;
         vertexColors?: number;
-        fog?: bool;
+        fog?: boolean;
     }
 
     export class LineDashedMaterial extends Material {
@@ -3157,8 +3152,8 @@ module THREE {
         scale: number;
         dashSize: number;
         gapSize: number;
-        vertexColors: bool;
-        fog: bool;
+        vertexColors: boolean;
+        fog: boolean;
         clone(): LineDashedMaterial;
     }
 
@@ -3193,11 +3188,11 @@ module THREE {
          */
         shading?: Shading;
         blending?: Blending;
-        depthTest?: bool;
+        depthTest?: boolean;
         /**
          * render geometry as wireframe. Default is false.
          */
-        wireframe?: bool;
+        wireframe?: boolean;
         /**
          * Line thickness. Default is 1.
          */
@@ -3209,15 +3204,15 @@ module THREE {
         /**
          * Default is false.
          */
-        skinning?: bool;
+        skinning?: boolean;
         /**
          * Default is false.
          */
-        morphTargets?: bool;
+        morphTargets?: boolean;
         /**
          * Define whether the material color is affected by global fog settings. Default is true.
          */
-        fog?: bool;
+        fog?: boolean;
     }
 
     export class MeshBasicMaterial extends Material {
@@ -3230,29 +3225,29 @@ module THREE {
         combine: Combine;
         reflectivity: number;
         refractionRatio: number;
-        fog: bool;
+        fog: boolean;
         shading: Shading;
-        wireframe: bool;
+        wireframe: boolean;
         wireframeLinewidth: number;
         wireframeLinecap: string;
         wireframeLinejoin: string;
         vertexColors: Colors;
-        skinning: bool;
-        morphTargets: bool;
+        skinning: boolean;
+        morphTargets: boolean;
         clone(): MeshBasicMaterial;
     }
 
     export interface MeshDepthMaterialParameters {
         opacity?: number;
         blending?: Blending;
-        depthTest?: bool;
-        wireframe?: bool;
+        depthTest?: boolean;
+        wireframe?: boolean;
         wireframeLinewidth?: number;
     }
 
     export class MeshDepthMaterial extends Material {
         constructor(parameters?: MeshDepthMaterialParameters);
-        wireframe: bool;
+        wireframe: boolean;
         wireframeLinewidth: number;
         clone(): MeshDepthMaterial;
     }
@@ -3277,14 +3272,14 @@ module THREE {
         refractionRatio?: number;
         shading?: Shading;
         blending?: Blending;
-        depthTest?: bool;
-        wireframe?: bool;
+        depthTest?: boolean;
+        wireframe?: boolean;
         wireframeLinewidth?: number;
         vertexColors?: Colors;
-        skinning?: bool;
-        morphTargets?: bool;
-        morphNormals?: bool;
-        fog?: bool;
+        skinning?: boolean;
+        morphTargets?: boolean;
+        morphNormals?: boolean;
+        fog?: boolean;
     }
 
     export class MeshLambertMaterial extends Material {
@@ -3292,7 +3287,7 @@ module THREE {
         color: Color;
         ambient: Color;
         emissive: Color;
-        wrapAround: bool;
+        wrapAround: boolean;
         wrapRGB: Vector3;
         map: Texture;
         lightMap: Texture;
@@ -3301,16 +3296,16 @@ module THREE {
         combine: Combine;
         reflectivity: number;
         refractionRatio: number;
-        fog: bool;
+        fog: boolean;
         shading: Shading;
-        wireframe: bool;
+        wireframe: boolean;
         wireframeLinewidth: number;
         wireframeLinecap: string;
         wireframeLinejoin: string;
         vertexColors: Colors;
-        skinning: bool;
-        morphTargets: bool;
-        morphNormals: bool;
+        skinning: boolean;
+        morphTargets: boolean;
+        morphNormals: boolean;
         clone(): MeshLambertMaterial;
     }
 
@@ -3318,15 +3313,15 @@ module THREE {
         opacity?: number;
         shading?: Shading;
         blending?: Blending;
-        depthTest?: bool;
-        wireframe?: bool;
+        depthTest?: boolean;
+        wireframe?: boolean;
         wireframeLinewidth?: number;
     }
 
     export class MeshNormalMaterial extends Material {
         constructor(parameters?: MeshNormalMaterialParameters);
         shading: Shading;
-        wireframe: bool;
+        wireframe: boolean;
         wireframeLinewidth: number;
         clone(): MeshNormalMaterial;
     }
@@ -3351,14 +3346,14 @@ module THREE {
         refractionRatio?: number;
         shading?: Shading;
         blending?: Blending;
-        depthTest?: bool;
-        wireframe?: bool;
+        depthTest?: boolean;
+        wireframe?: boolean;
         wireframeLinewidth?: number;
         vertexColors?: Colors;
-        skinning?: bool;
-        morphTargets?: bool;
-        morphNormals?: bool;
-        fog?: bool;
+        skinning?: boolean;
+        morphTargets?: boolean;
+        morphNormals?: boolean;
+        fog?: boolean;
     }
 
     export class MeshPhongMaterial extends Material {
@@ -3368,9 +3363,9 @@ module THREE {
         emissive: Color;
         specular: Color;
         shininess: number;
-        metal: bool;
-        perPixel: bool;
-        wrapAround: bool;
+        metal: boolean;
+        perPixel: boolean;
+        wrapAround: boolean;
         wrapRGB: Vector3;
         map: Texture;
         lightMap: Texture;
@@ -3383,16 +3378,16 @@ module THREE {
         combine: Combine;
         reflectivity: number;
         refractionRatio: number;
-        fog: bool;
+        fog: boolean;
         shading: Shading;
-        wireframe: bool;
+        wireframe: boolean;
         wireframeLinewidth: number;
         wireframeLinecap: string;
         wireframeLinejoin: string;
         vertexColors: Colors;
-        skinning: bool;
-        morphTargets: bool;
-        morphNormals: bool;
+        skinning: boolean;
+        morphTargets: boolean;
+        morphNormals: boolean;
         clone(): MeshPhongMaterial;
     }
 
@@ -3402,9 +3397,9 @@ module THREE {
         map?: Texture;
         size?: number;
         blending?: Blending;
-        depthTest?: bool;
-        vertexColors?: bool;
-        fog?: bool;
+        depthTest?: boolean;
+        vertexColors?: boolean;
+        fog?: boolean;
     }
 
     export class ParticleBasicMaterial extends Material {
@@ -3412,9 +3407,9 @@ module THREE {
         color: Color;
         map: Texture;
         size: number;
-        sizeAttenuation: bool;
-        vertexColors: bool;
-        fog: bool;
+        sizeAttenuation: boolean;
+        vertexColors: boolean;
+        fog: boolean;
         clone(): ParticleBasicMaterial;
     }
 
@@ -3452,15 +3447,15 @@ module THREE {
         defines?: { [label: string]: string; };
         shading?: Shading;
         blending?: Blending;
-        depthTest?: bool;
-        wireframe?: bool;
+        depthTest?: boolean;
+        wireframe?: boolean;
         wireframeLinewidth?: number;
-        lights?: bool;
+        lights?: boolean;
         vertexColors?: Colors;
-        skinning?: bool;
-        morphTargets?: bool;
-        morphNormals?: bool;
-        fog?: bool;
+        skinning?: boolean;
+        morphTargets?: boolean;
+        morphNormals?: boolean;
+        fog?: boolean;
     }
 
     export class ShaderMaterial extends Material {
@@ -3471,14 +3466,14 @@ module THREE {
         defines: { [label: string]: string; };
         attributes: { [name: string]: Object; };
         shading: Shading;
-        wireframe: bool;
+        wireframe: boolean;
         wireframeLinewidth: number;
-        fog: bool;
-        lights: bool;
+        fog: boolean;
+        lights: boolean;
         vertexColors: Colors;
-        skinning: bool;
-        morphTargets: bool;
-        morphNormals: bool;
+        skinning: boolean;
+        morphTargets: boolean;
+        morphNormals: boolean;
         clone(): ShaderMaterial;
     }
 
@@ -3488,7 +3483,7 @@ module THREE {
         constructor(belongsToSkin: SkinnedMesh);
         skin: SkinnedMesh;
         skinMatrix: Matrix4;
-        update(parentSkinMatrix?: Matrix4, forceUpdate?: bool): void;
+        update(parentSkinMatrix?: Matrix4, forceUpdate?: boolean): void;
     }
 
     export class Line extends Object3D {
@@ -3537,12 +3532,12 @@ module THREE {
         constructor(geometry?: Geometry, material?: MeshPhongMaterial);
         constructor(geometry?: Geometry, material?: ShaderMaterial);
         duration: number; // milliseconds
-        mirroredLoop: bool;
+        mirroredLoop: boolean;
         time: number;
         lastKeyframe: number;
         currentKeyframe: number;
         direction: number;
-        directionBackwards: bool;
+        directionBackwards: boolean;
         setFrameRange(start: number, end: number): void;
         setDirectionForward(): void;
         setDirectionBackward(): void;
@@ -3587,7 +3582,7 @@ module THREE {
         /**
          * Specifies whether the particle system will be culled if it's outside the camera's frustum. By default this is set to false.
          */
-        sortParticles: bool;
+        sortParticles: boolean;
 
         clone(object?: ParticleSystem): ParticleSystem;
     }
@@ -3607,7 +3602,7 @@ module THREE {
         constructor(geometry?: Geometry, material?: MeshNormalMaterial);
         constructor(geometry?: Geometry, material?: MeshPhongMaterial);
         constructor(geometry?: Geometry, material?: ShaderMaterial);
-        useVertexTexture: bool;
+        useVertexTexture: boolean;
         identityMatrix: Matrix4;
         bones: Bone[];
         boneMatrices: Float32Array;
@@ -3615,7 +3610,7 @@ module THREE {
         boneTextureHeight: number;
         boneTexture: DataTexture;
         addBone(bone?: Bone): Bone;
-        updateMatrixWorld(force?: bool): void;
+        updateMatrixWorld(force?: boolean): void;
         pose(): void;
         clone(object?: SkinnedMesh): SkinnedMesh;
         static offsetMatrix: Matrix4;
@@ -3628,16 +3623,16 @@ module THREE {
         blendSrc?: BlendingSrcFactor;
         blendDst?: BlendingDstFactor;
         blendEquation?: BlendingEquation;
-        useScreenCoordinates?: bool;
-        mergeWith3D?: bool;
-        affectedByDistance?: bool;
+        useScreenCoordinates?: boolean;
+        mergeWith3D?: boolean;
+        affectedByDistance?: boolean;
         alignment?: Vector2;
-        fog?: bool;
+        fog?: boolean;
         uvOffset?: Vector2;
         uvScale?: Vector2;
-        depthTest?: bool;
-        sizeAttenuation?: bool;
-        scaleByViewport?: bool;
+        depthTest?: boolean;
+        sizeAttenuation?: boolean;
+        scaleByViewport?: boolean;
     }
 
     export class SpriteMaterial extends Material {
@@ -3646,14 +3641,14 @@ module THREE {
         map: Texture;
         blending: Blending;
         blendEquation: BlendingEquation;
-        useScreenCoordinates: bool;
-        scaleByViewport: bool;
+        useScreenCoordinates: boolean;
+        scaleByViewport: boolean;
         alignment: Vector2;
-        fog: bool;
+        fog: boolean;
         uvOffset: Vector2;
         uvScale: Vector2;
-        depthTest: bool;
-        sizeAttenuation: bool;
+        depthTest: boolean;
+        sizeAttenuation: boolean;
         clone(): SpriteMaterial;
     }
 
@@ -3688,9 +3683,9 @@ module THREE {
     export class CanvasRenderer implements Renderer {
         constructor(parameters?: CanvasRendererParameters);
         domElement: HTMLCanvasElement;
-        autoClear: bool;
-        sortObjects: bool;
-        sortElements: bool;
+        autoClear: boolean;
+        sortObjects: boolean;
+        sortElements: boolean;
         devicePixelRatio: number;
         info: { render: { vertices: number; faces: number; }; };
         setSize(width: number, height: number): void;
@@ -3772,27 +3767,27 @@ module THREE {
         /**
          * default is true.
          */
-        alpha?: bool;
+        alpha?: boolean;
 
         /**
          * default is true.
          */
-        premultipliedAlpha?: bool;
+        premultipliedAlpha?: boolean;
 
         /**
          * default is false.
          */
-        antialias?: bool;
+        antialias?: boolean;
 
         /**
          * default is true.
          */
-        stencil?: bool;
+        stencil?: boolean;
 
         /**
          * default is false.
          */
-        preserveDrawingBuffer?: bool;
+        preserveDrawingBuffer?: boolean;
 
         /**
          * default is 0x000000.
@@ -3836,62 +3831,62 @@ module THREE {
         /**
          * Defines whether the renderer should automatically clear its output before rendering.
          */
-        autoClear: bool;
+        autoClear: boolean;
 
         /**
          * If autoClear is true, defines whether the renderer should clear the color buffer. Default is true.
          */
-        autoClearColor: bool;
+        autoClearColor: boolean;
 
         /**
          * If autoClear is true, defines whether the renderer should clear the depth buffer. Default is true.
          */
-        autoClearDepth: bool;
+        autoClearDepth: boolean;
 
         /**
          * If autoClear is true, defines whether the renderer should clear the stencil buffer. Default is true.
          */
-        autoClearStencil: bool;
+        autoClearStencil: boolean;
 
         /**
          * Defines whether the renderer should sort objects. Default is true.
          */
-        sortObjects: bool;
+        sortObjects: boolean;
 
         /**
          * Defines whether the renderer should auto update objects. Default is true.
          */
-        autoUpdateObjects: bool;
+        autoUpdateObjects: boolean;
 
         /**
          * Defines whether the renderer should auto update the scene. Default is true.
          */
-        autoUpdateScene: bool;
+        autoUpdateScene: boolean;
 
         /**
          * Default is false.
          */
-        gammaInput: bool;
+        gammaInput: boolean;
 
         /** 
          * Default is false.
          */
-        gammaOutput: bool;
+        gammaOutput: boolean;
 
         /**
          * Default is false.
          */
-        physicallyBasedShading: bool;
+        physicallyBasedShading: boolean;
 
         /**
          * Default is false.
          */
-        shadowMapEnabled: bool;
+        shadowMapEnabled: boolean;
 
         /**
          * Default is true.
          */
-        shadowMapAutoUpdate: bool;
+        shadowMapAutoUpdate: boolean;
 
         /**
          * Defines shadow map type (unfiltered, percentage close filtering, percentage close filtering with bilinear filtering in shader)
@@ -3899,7 +3894,7 @@ module THREE {
          */
         shadowMapType: ShadowMapType;
 
-        shadowMapSoft: bool;
+        shadowMapSoft: boolean;
 
         /**
          * Default is true
@@ -3909,12 +3904,12 @@ module THREE {
         /**
          * Default is false.
          */
-        shadowMapDebug: bool;
+        shadowMapDebug: boolean;
 
         /**
          * Default is false. 
          */
-        shadowMapCascade: bool;
+        shadowMapCascade: boolean;
 
         /**
          * Default is 8.
@@ -3929,7 +3924,7 @@ module THREE {
         /**
          * Default is true.
          */
-        autoScaleCubemaps: bool;
+        autoScaleCubemaps: boolean;
 
         /**
          * An array with render plugins to be applied before rendering.
@@ -3970,7 +3965,7 @@ module THREE {
         /**
          * Return a Boolean true if the context supports vertex textures.
          */
-        supportsVertexTextures(): bool;
+        supportsVertexTextures(): boolean;
 
         getMaxAnisotropy(): number;
 
@@ -3992,7 +3987,7 @@ module THREE {
         /** 
          * Enable the scissor test. When this is enabled, only the pixels within the defined scissor area will be affected by further renderer actions.
          */
-        enableScissorTest(enable: bool): void;
+        enableScissorTest(enable: boolean): void;
 
         /**
          * Sets the clear color, using hex for the color and alpha for the opacity.
@@ -4024,7 +4019,7 @@ module THREE {
          * Tells the renderer to clear its color, depth or stencil drawing buffer(s).
          * If no parameters are passed, no buffer will be cleared.
          */
-        clear(color?: bool, depth?: bool, stencil?: bool): void;
+        clear(color?: boolean, depth?: boolean, stencil?: boolean): void;
 
         /**
          * Initialises the postprocessing plugin, and adds it to the renderPluginsPost array.
@@ -4061,7 +4056,7 @@ module THREE {
          * The render is done to the renderTarget (if specified) or to the canvas as usual.
          * If forceClear is true, the canvas will be cleared before rendering, even if the renderer's autoClear property is false.
          */
-        render(scene: Scene, camera: Camera, renderTarget?: RenderTarget, forceClear?: bool): void;
+        render(scene: Scene, camera: Camera, renderTarget?: RenderTarget, forceClear?: boolean): void;
         renderImmediateObject(camera: Camera, lights: Light[], fog: Fog, material: Material, object: Object3D): void;
         initWebGLObjects(scene: Scene): void;
         initMaterial(material: Material, lights: Light[], fog: Fog, object: Object3D): void;
@@ -4074,8 +4069,8 @@ module THREE {
          */
         setFaceCulling(cullFace?: string, frontFace?: FrontFaceDirection): void;
         setMaterialFaces(material: Material): void;
-        setDepthTest(depthTest: bool): void;
-        setDepthWrite(depthWrite: bool): void;
+        setDepthTest(depthTest: boolean): void;
+        setDepthWrite(depthWrite: boolean): void;
         setBlending(blending: Blending, blendEquation: BlendingEquation, blendSrc: BlendingSrcFactor, blendDst: BlendingDstFactor): void;
         setTexture(texture: Texture, slot: number): void;
         setRenderTarget(renderTarget: RenderTarget): void;
@@ -4085,26 +4080,26 @@ module THREE {
         constructor(parameters?: WebGLRendererParameters);
         domElement: HTMLCanvasElement;
         context: WebGLRenderingContext;
-        autoClear: bool;
-        autoClearColor: bool;
-        autoClearDepth: bool;
-        autoClearStencil: bool;
-        sortObjects: bool;
-        autoUpdateObjects: bool;
-        autoUpdateScene: bool;
-        gammaInput: bool;
-        gammaOutput: bool;
-        physicallyBasedShading: bool;
-        shadowMapEnabled: bool;
-        shadowMapAutoUpdate: bool;
+        autoClear: boolean;
+        autoClearColor: boolean;
+        autoClearDepth: boolean;
+        autoClearStencil: boolean;
+        sortObjects: boolean;
+        autoUpdateObjects: boolean;
+        autoUpdateScene: boolean;
+        gammaInput: boolean;
+        gammaOutput: boolean;
+        physicallyBasedShading: boolean;
+        shadowMapEnabled: boolean;
+        shadowMapAutoUpdate: boolean;
         shadowMapType: ShadowMapType;
-        shadowMapSoft: bool;
+        shadowMapSoft: boolean;
         shadowMapCullFace: CullFace;
-        shadowMapDebug: bool;
-        shadowMapCascade: bool;
+        shadowMapDebug: boolean;
+        shadowMapCascade: boolean;
         maxMorphTargets: number;
         maxMorphNormals: number;
-        autoScaleCubemaps: bool;
+        autoScaleCubemaps: boolean;
         renderPluginsPre: RendererPlugin[];
         renderPluginsPost: RendererPlugin[];
         devicePixelRatio: number;
@@ -4122,17 +4117,17 @@ module THREE {
             };
         };
         getContext(): WebGLRenderingContext;
-        supportsVertexTextures(): bool;
+        supportsVertexTextures(): boolean;
         getMaxAnisotropy(): number;
         setSize(width: number, height: number): void;
         setViewport(x?: number, y?: number, width?: number, height?: number): void;
         setScissor(x: number, y: number, width: number, height: number): void;
-        enableScissorTest(enable: bool): void;
+        enableScissorTest(enable: boolean): void;
         setClearColorHex(hex: number, alpha: number): void;
         setClearColor(color: Color, alpha: number): void;
         getClearColor(): Color;
         getClearAlpha(): number;
-        clear(color?: bool, depth?: bool, stencil?: bool): void;
+        clear(color?: boolean, depth?: boolean, stencil?: boolean): void;
         addPostPlugin(plugin: RendererPlugin): void;
         addPrePlugin(plugin: RendererPlugin): void;
         deallocateObject(object: Object3D): void;
@@ -4142,14 +4137,14 @@ module THREE {
         renderBufferImmediate(object: Object3D, program: Object, material: Material): void;
         renderBufferDirect(camera: Camera, lights: Light[], fog: Fog, material: Material, geometryGroup: any, object: Object3D): void;
         renderBuffer(camera: Camera, lights: Light[], fog: Fog, material: Material, geometryGroup: any, object: Object3D): void;
-        render(scene: Scene, camera: Camera, renderTarget?: RenderTarget, forceClear?: bool): void;
+        render(scene: Scene, camera: Camera, renderTarget?: RenderTarget, forceClear?: boolean): void;
         renderImmediateObject(camera: Camera, lights: Light[], fog: Fog, material: Material, object: Object3D): void;
         initWebGLObjects(scene: Scene): void;
         initMaterial(material: Material, lights: Light[], fog: Fog, object: Object3D): void;
         setFaceCulling(cullFace?: string, frontFace?: FrontFaceDirection): void;
         setMaterialFaces(material: Material): void;
-        setDepthTest(depthTest: bool): void;
-        setDepthWrite(depthWrite: bool): void;
+        setDepthTest(depthTest: boolean): void;
+        setDepthWrite(depthWrite: boolean): void;
         setBlending(blending: Blending, blendEquation: BlendingEquation, blendSrc: BlendingSrcFactor, blendDst: BlendingDstFactor): void;
         setTexture(texture: Texture, slot: number): void;
         setRenderTarget(renderTarget: RenderTarget): void;
@@ -4163,8 +4158,8 @@ module THREE {
         anisotropy?: number; // 1;
         format?: number; // RGBAFormat;
         type?: TextureDataType; // UnsignedByteType;
-        depthBuffer?: bool; // true;
-        stencilBuffer?: bool; // true;
+        depthBuffer?: boolean; // true;
+        stencilBuffer?: boolean; // true;
     }
 
     export class WebGLRenderTarget extends RenderTarget {
@@ -4180,9 +4175,9 @@ module THREE {
         repeat: Vector2;
         format: number;
         type: number;
-        depthBuffer: bool;
-        stencilBuffer: bool;
-        generateMipmaps: bool;
+        depthBuffer: boolean;
+        stencilBuffer: boolean;
+        generateMipmaps: boolean;
         clone(): WebGLRenderTarget;
         dispose(): void;
     }
@@ -4256,7 +4251,7 @@ module THREE {
         constructor();
         positionWorld: Vector3;
         positionScreen: Vector4;
-        visible: bool;
+        visible: boolean;
         copy(vertex: RenderableVertex): void;
     }
 
@@ -4326,7 +4321,7 @@ module THREE {
         /**
          * Default is false.
          */
-        matrixAutoUpdate: bool;
+        matrixAutoUpdate: boolean;
 
         constructor();
     }
@@ -4358,10 +4353,10 @@ module THREE {
         type: TextureDataType;
         offset: Vector2;
         repeat: Vector2;
-        generateMipmaps: bool;
-        premultiplyAlpha: bool;
-        flipY: bool;
-        needsUpdate: bool;
+        generateMipmaps: boolean;
+        premultiplyAlpha: boolean;
+        flipY: boolean;
+        needsUpdate: boolean;
         onUpdate: () => void;
         clone(): Texture;
         dispose(): void;
@@ -4413,7 +4408,7 @@ module THREE {
         extractGlyphPoints(c: string, face: Face, scale: number, offset: number, path: Path): { offset: number; path: Path; };
         generateShapes(text: string, parameters?: { size?: number; curveSegments?: number; font?: string; weight?: string; style?: string; }): Shape[];
         Triangulate: {
-            (contour: Vector2[], indices: bool): Vector2[];
+            (contour: Vector2[], indices: boolean): Vector2[];
             area(contour: Vector2[]): number;
         };
     };
@@ -4423,7 +4418,7 @@ module THREE {
         merge(geometry1: Geometry, object2: Geometry): void;
         removeMaterials(geometry: Geometry, materialIndexArray: number[]): void;
         randomPointInTriangle(vectorA: Vector3, vectorB: Vector3, vectorC: Vector3): Vector3;
-        randomPointInFace(face: Face, geometry: Geometry, useCachedAreas: bool): Vector3;
+        randomPointInFace(face: Face, geometry: Geometry, useCachedAreas: boolean): Vector3;
         randomPointsInGeometry(geometry: Geometry, n: number): Vector3;
         triangleArea(vectorA: Vector3, vectorB: Vector3, vectorC: Vector3): number;
         center(geometry: Geometry): Vector3;
@@ -4438,7 +4433,7 @@ module THREE {
         loadCompressedTexture(url: string, mapping?: Mapping, onLoad?: (texture: Texture) => void , onError?: (message: string) => void ): Texture;
         loadTextureCube(array: string[], mapping?: Mapping, onLoad?: () => void , onError?: (message: string) => void ): Texture;
         loadCompressedTextureCube(array: string[], mapping?: Mapping, onLoad?: () => void , onError?: (message: string) => void ): Texture;
-        parseDDS(buffer: ArrayBuffer, loadMipmaps: bool): { mipmaps: { data: Uint8Array; width: number; height: number; }[]; width: number; height: number; format: number; mipmapCount: number; };
+        parseDDS(buffer: ArrayBuffer, loadMipmaps: boolean): { mipmaps: { data: Uint8Array; width: number; height: number; }[]; width: number; height: number; format: number; mipmapCount: number; };
         getNormalMap(image: HTMLImageElement, depth?: number): HTMLCanvasElement;
         generateDataTexture(width: number, height: number, color: Color): DataTexture;
     };
@@ -4482,13 +4477,13 @@ module THREE {
         hierarchy: Bone[];
         currentTime: number;
         timeScale: number;
-        isPlaying: bool;
-        isPaused: bool;
-        loop: bool;
+        isPlaying: boolean;
+        isPaused: boolean;
+        loop: boolean;
         interpolationType: AnimationInterpolation;
         points: Vector3[];
         target: Vector3;
-        play(loop?: bool, startTimeMS?: number): void;
+        play(loop?: boolean, startTimeMS?: number): void;
         pause(): void;
         stop(): void;
         update(deltaTimeMS: number): void;
@@ -4521,17 +4516,17 @@ module THREE {
         hierarchy: KeyFrames[];
         currentTime: number;
         timeScale: number;
-        isPlaying: bool;
-        isPaused: bool;
-        loop: bool;
-        play(loop?: bool, startTimeMS?: number): void;
+        isPlaying: boolean;
+        isPaused: boolean;
+        loop: boolean;
+        play(loop?: boolean, startTimeMS?: number): void;
         pause(): void;
         stop(): void;
         update(deltaTimeMS: number): void;
     }
 
     export class KeyFrameAnimation {
-        constructor(root: Mesh, data: any, JITCompile?: bool);
+        constructor(root: Mesh, data: any, JITCompile?: boolean);
         JITCompile: number;
 
         root: Mesh;
@@ -4565,8 +4560,8 @@ module THREE {
         zoom: number;
         near: number;
         far: number;
-        inPerspectiveMode: bool;
-        inOrthographicMode: bool;
+        inPerspectiveMode: boolean;
+        inOrthographicMode: boolean;
         toPerspective(): void;
         toOrthographic(): void;
         setSize(width: number, height: number): void;
@@ -4631,7 +4626,7 @@ module THREE {
          */
         getLengths(divisions?: number): number[];
 
-        needsUpdate: bool;
+        needsUpdate: boolean;
 
         /**
          * Update the cumlative segment distance cache
@@ -4681,7 +4676,7 @@ module THREE {
         getSpacedPoints(divisions?: number): Vector2[];
         getLength(): number;
         getLengths(divisions?: number): number[];
-        needsUpdate: bool;
+        needsUpdate: boolean;
         updateArcLengths(): void;
         getUtoTmapping(u: number, distance: number): number;
         getNormalVector(t: number): Vector2;
@@ -4700,7 +4695,7 @@ module THREE {
         getSpacedPoints(divisions?: number): Vector2[];
         getLength(): number;
         getLengths(divisions?: number): number[];
-        needsUpdate: bool;
+        needsUpdate: boolean;
         updateArcLengths(): void;
         getUtoTmapping(u: number, distance: number): number;
         getNormalVector(t: number): Vector2;
@@ -4718,7 +4713,7 @@ module THREE {
         getSpacedPoints(divisions?: number): Vector2[];
         getLength(): number;
         getLengths(divisions?: number): number[];
-        needsUpdate: bool;
+        needsUpdate: boolean;
         updateArcLengths(): void;
         getUtoTmapping(u: number, distance: number): number;
         getNormalVector(t: number): Vector2;
@@ -4736,7 +4731,7 @@ module THREE {
         getSpacedPoints(divisions?: number): Vector2[];
         getLength(): number;
         getLengths(divisions?: number): number[];
-        needsUpdate: bool;
+        needsUpdate: boolean;
         updateArcLengths(): void;
         getUtoTmapping(u: number, distance: number): number;
         getNormalVector(t: number): Vector2;
@@ -4747,14 +4742,14 @@ module THREE {
      * class EllipseCurve extends Curve<Vector2>
      */
     export class EllipseCurve extends Curve {
-        constructor(aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: bool);
+        constructor(aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean);
         aX: number;
         aY: number;
         xRadius: number;
         yRadius: number;
         aStartAngle: number;
         aEndAngle: number;
-        aClockwise: bool;
+        aClockwise: boolean;
 
         getPoint(t: number): Vector2;
         getPointAt(u: number): Vector2;
@@ -4762,7 +4757,7 @@ module THREE {
         getSpacedPoints(divisions?: number): Vector2[];
         getLength(): number;
         getLengths(divisions?: number): number[];
-        needsUpdate: bool;
+        needsUpdate: boolean;
         updateArcLengths(): void;
         getUtoTmapping(u: number, distance: number): number;
         getNormalVector(t: number): Vector2;
@@ -4773,14 +4768,14 @@ module THREE {
      * class ArcCurve extends EllipseCurve
      */
     export class ArcCurve extends EllipseCurve {
-        constructor(aX: number, aY: number, aRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: bool);
+        constructor(aX: number, aY: number, aRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean);
         getPoint(t: number): Vector2;
         getPointAt(u: number): Vector2;
         getPoints(divisions?: number): Vector2[];
         getSpacedPoints(divisions?: number): Vector2[];
         getLength(): number;
         getLengths(divisions?: number): number[];
-        needsUpdate: bool;
+        needsUpdate: boolean;
         updateArcLengths(): void;
         getUtoTmapping(u: number, distance: number): number;
         getNormalVector(t: number): Vector2;
@@ -4799,7 +4794,7 @@ module THREE {
         getSpacedPoints(divisions?: number): Vector3[];
         getLength(): number;
         getLengths(divisions?: number): number[];
-        needsUpdate: bool;
+        needsUpdate: boolean;
         updateArcLengths(): void;
         getUtoTmapping(u: number, distance: number): number;
         getNormalVector(t: number): Vector3;
@@ -4818,7 +4813,7 @@ module THREE {
         getSpacedPoints(divisions?: number): Vector3[];
         getLength(): number;
         getLengths(divisions?: number): number[];
-        needsUpdate: bool;
+        needsUpdate: boolean;
         updateArcLengths(): void;
         getUtoTmapping(u: number, distance: number): number;
         getNormalVector(t: number): Vector3;
@@ -4837,7 +4832,7 @@ module THREE {
         getSpacedPoints(divisions?: number): Vector3[];
         getLength(): number;
         getLengths(divisions?: number): number[];
-        needsUpdate: bool;
+        needsUpdate: boolean;
         updateArcLengths(): void;
         getUtoTmapping(u: number, distance: number): number;
         getNormalVector(t: number): Vector3;
@@ -4857,7 +4852,7 @@ module THREE {
         getSpacedPoints(divisions?: number): Vector3[];
         getLength(): number;
         getLengths(divisions?: number): number[];
-        needsUpdate: bool;
+        needsUpdate: boolean;
         updateArcLengths(): void;
         getUtoTmapping(u: number, distance: number): number;
         getNormalVector(t: number): Vector3;
@@ -4877,7 +4872,7 @@ module THREE {
         getSpacedPoints(divisions?: number): Vector3[];
         getLength(): number;
         getLengths(divisions?: number): number[];
-        needsUpdate: bool;
+        needsUpdate: boolean;
         updateArcLengths(): void;
         getUtoTmapping(u: number, distance: number): number;
         getNormalVector(t: number): Vector3;
@@ -4897,9 +4892,9 @@ module THREE {
         constructor();
         curves: Curve[];
         bends: Path[];
-        autoClose: bool;
+        autoClose: boolean;
         add(curve: Curve): void;
-        checkConnection(): bool;
+        checkConnection(): boolean;
         closePath(): void;
         getBoundingBox(): BoundingBox;
         createPointsGeometry(divisions: number): Geometry;
@@ -4933,16 +4928,16 @@ module THREE {
         quadraticCurveTo(aCPx: number, aCPy: number, aX: number, aY: number): void;
         bezierCurveTo(aCP1x: number, aCP1y: number, aCP2x: number, aCP2y: number, aX: number, aY: number): void;
         splineThru(pts: Vector2[]): void;
-        arc(aX: number, aY: number, aRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: bool): void;
-        absarc(aX: number, aY: number, aRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: bool): void;
-        ellipse(aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: bool): void;
-        absellipse(aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: bool): void;
+        arc(aX: number, aY: number, aRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean): void;
+        absarc(aX: number, aY: number, aRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean): void;
+        ellipse(aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean): void;
+        absellipse(aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean): void;
         toShapes(): Shape[];
     }
 
     export class Gyroscope extends Object3D {
         constructor();
-        updateMatrixWorld(force?: bool): void;
+        updateMatrixWorld(force?: boolean): void;
         translationWorld: Vector3;
         translationObject: Vector3;
         rotationWorld: Quaternion;
@@ -4965,7 +4960,7 @@ module THREE {
             shape: Vector2[];
             holes: Vector2[][];
         };
-        useSpacedPoints: bool;
+        useSpacedPoints: boolean;
         extractPoints(divisions: number): Vector2[];
         extractAllSpacedPoints(divisions: Vector2): {
             shape: Vector2[];
@@ -4979,7 +4974,7 @@ module THREE {
                 allpoints: Vector2[];
             };
             triangulateShape(contour: Vector2[], holes: Vector2[][]): Vector2[];
-            isClockWise(pts: Vector2[]): bool;
+            isClockWise(pts: Vector2[]): boolean;
             b2p0(t: number, p: number): number;
             b2p1(t: number, p: number): number;
             b2p2(t: number, p: number): number;
@@ -5032,7 +5027,7 @@ module THREE {
          * @param heightSegments — Number of rows of faces along the height of the cylinder.
          * @param openEnded - A Boolean indicating whether or not to cap the ends of the cylinder.
           */
-        constructor(radiusTop?: number, radiusBottom?: number, height?: number, radiusSegments?: number, heightSegments?: number, openEnded?: bool);
+        constructor(radiusTop?: number, radiusBottom?: number, height?: number, radiusSegments?: number, heightSegments?: number, openEnded?: boolean);
     }
 
     export class ExtrudeGeometry extends Geometry {
@@ -5063,7 +5058,7 @@ module THREE {
     }
 
     export class ParametricGeometry extends Geometry {
-        constructor(func: (u: number, v: number) => Vector3, slices: number, stacks: number, useTris?: bool);
+        constructor(func: (u: number, v: number) => Vector3, slices: number, stacks: number, useTris?: boolean);
     }
 
     export class PlaneGeometry extends Geometry {
@@ -5122,7 +5117,7 @@ module THREE {
         font?: string; // font name
         weight?: string; // font weight (normal, bold)
         style?: string; // font style  (normal, italics)
-        bevelEnabled?: bool;   // turn on bevel
+        bevelEnabled?: boolean;   // turn on bevel
         bevelThickness?: number; // how deep into text bevel goes
         bevelSize?: number; // how far from text outline is bevel
     }
@@ -5153,17 +5148,17 @@ module THREE {
     }
 
     export class TubeGeometry extends Geometry {
-        constructor(path: Path, segments?: number, radius?: number, radiusSegments?: number, closed?: bool, debug?: ArrowHelper[]);
+        constructor(path: Path, segments?: number, radius?: number, radiusSegments?: number, closed?: boolean, debug?: ArrowHelper[]);
         path: Path;
         segments: number;
         radius: number;
         radiusSegments: number;
-        closed: bool;
+        closed: boolean;
         grid: number[][];
         tangents: Vector3[];
         normals: Vector3[];
         binormals: Vector3[];
-        FrenetFrames(path: Path, segments: number, closed: bool): void;
+        FrenetFrames(path: Path, segments: number, closed: boolean): void;
     }
 
     // Extras / Helpers /////////////////////////////////////////////////////////////////////
@@ -5259,6 +5254,7 @@ module THREE {
         lensFlares: LensFlareProperty[];
         positionScreen: Vector3;
         customUpdateCallback: () => void;
+        add(object: Object3D): void;
         add(texture?: Texture, size?: number, distance?: number, blending?: Blending, color?: number, opacity?: number): void;
         updateLensFlares(): void;
     }
@@ -5271,12 +5267,12 @@ module THREE {
         duration: number;
         lastFrame: number;
         currentFrame: number;
-        active: bool;
+        active: boolean;
         time: number;
         direction: number;
         weight: number;
-        directionBackwards: bool;
-        mirroredLoop: bool;
+        directionBackwards: boolean;
+        mirroredLoop: boolean;
     }
 
     export class MorphBlendMesh extends Mesh {
@@ -5303,7 +5299,7 @@ module THREE {
 
     export class DepthPassPlugin implements RendererPlugin {
         constructor();
-        enabled: bool;
+        enabled: boolean;
         renderTarget: RenderTarget;
         init(renderer: Renderer): void;
         render(scene: Scene, camera: Camera): void;

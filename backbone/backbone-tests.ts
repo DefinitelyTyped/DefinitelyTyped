@@ -1,8 +1,6 @@
 /// <reference path="backbone.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare var _, $;
-
 function test_events() {
 
     var object = new Backbone.Events();

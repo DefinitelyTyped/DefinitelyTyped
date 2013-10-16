@@ -57,11 +57,11 @@ interface StateMachineTransition {
 }
 
 interface StateMachineIs {
-	(state: string): bool;
+	(state: string): boolean;
 }
 
 interface StateMachineCan {
-	(evt: string): bool;
+	(evt: string): boolean;
 }
 
 interface StateMachine {

@@ -13,9 +13,9 @@ interface NotifyOptions {
     type?: string;
     /**
     Allow alert to be closable through a close icon.
-    @param {bool} closable
+    @param {boolean} closable
     */
-    closable?: bool;
+    closable?: boolean;
     /**
     Alert transition, pretty sure only fade is supported, you can try others if you wish.
     @param {string} transition
@@ -44,7 +44,7 @@ interface NotifyOptions {
 }
 
 interface NotifyFadeOutSettings {
-    enabled?: bool;
+    enabled?: boolean;
     delay?: number;
 }
 

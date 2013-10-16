@@ -6,26 +6,26 @@
 
 interface JSONEditorOptions {
 	change?: () => void;
-	history?: bool;
+	history?: boolean;
 	mode?: string;
 	name?: string;
-	search?: bool;	
+	search?: boolean;	
 }
 
-class JSONEditorHistory {	
+declare class JSONEditorHistory {	
 	constructor(editor: JSONEditor);	
 	onChange(): void;
 	add(action: string, params: Object);
 	clear(): void;
-	canUndo(): bool;
-	canRedo(): bool;
+	canUndo(): boolean;
+	canRedo(): boolean;
 	undo(): void;
 	redo(): void;
 }
 
 interface JSONEditorNodeUpdateDomOptions {
-	recurse?: bool;
-	updateIndexes?: bool;
+	recurse?: boolean;
+	updateIndexes?: boolean;
 }
 
 interface JSONEditorNodeType {
@@ -36,22 +36,22 @@ interface JSONEditorNodeType {
 
 interface JSONEditorConstructorParams {
 	field?: string;
-	fieldEditable?: bool;
+	fieldEditable?: boolean;
 	value?: any;
 }
 
-class JSONEditorNode {
+declare class JSONEditorNode {
 	constructor(editor: JSONEditor, params: JSONEditorConstructorParams);
 	setParent(parent: JSONEditorNode): void;
 	getParent(): JSONEditorNode;
-	setField(field: string, fieldEditable: bool): void;
+	setField(field: string, fieldEditable: boolean): void;
 	getField(): string;
 	setValue(value: any): void;
 	getValue(): any;
 	getLevel(): number;
 	clone(): JSONEditorNode;
-	expand(recurse: bool): void;
-	collapse(recurse: bool): void;
+	expand(recurse: boolean): void;
+	collapse(recurse: boolean): void;
 	showChilds(): void;
 	hide(): void;
 	hideChilds(): void;
@@ -63,12 +63,12 @@ class JSONEditorNode {
 	scrollTo(): void;
 	focus(): void;
 	blur(): void;
-	containsNode(node: JSONEditorNode): bool;
+	containsNode(node: JSONEditorNode): boolean;
 	removeChild(node: JSONEditorNode): JSONEditorNode;
 	changeType(newType: string): void;
 	clearDom(): void;
 	getDom(): HTMLElement;
-	setHighlight(highlight: bool): void;
+	setHighlight(highlight: boolean): void;
 	updateValue(value: any): void;
 	updateField(field: string): void;
 	updateDom(options): void;
@@ -77,7 +77,7 @@ class JSONEditorNode {
 	getAppend(): HTMLElement;
 }
 
-class JSONEditorAppendNode extends JSONEditorNode {
+declare class JSONEditorAppendNode extends JSONEditorNode {
 	constructor(editor: JSONEditor);
 }
 
@@ -92,7 +92,7 @@ interface JSONEditorShowDropDownListParams {
 	callback: (value: any) => void;
 }
 
-class JSONEditorSearchBox {
+declare class JSONEditorSearchBox {
 	constructor(editor: JSONEditor, container: HTMLElement);
 	next(): void;
 	previous(): void;
@@ -100,7 +100,7 @@ class JSONEditorSearchBox {
 	focusActiveResult(): void;
 	clearDelay(): void;
 	onDelayedSearch(event: Event): void;
-	onSearch(event: Event, forcedSearch: bool): void;
+	onSearch(event: Event, forcedSearch: boolean): void;
 	onKeyDown(event: Event): void;
 	onKeyUp(event: Event): void;
 }
@@ -126,7 +126,7 @@ interface JSONEditorActionParams {
 	newType?: JSONEditorNodeType;
 }
 
-class JSONEditor {
+declare class JSONEditor {
 	constructor(container: HTMLElement, options?: JSONEditorOptions, json?: any);
 	set(json: Object, name?: string): void;
 	setName(name?: string): void;
@@ -143,7 +143,7 @@ class JSONEditor {
 	Node: JSONEditorNode;
 	SearchBox: JSONEditorSearchBox;
 	static focusNode: JSONEditorNode;
-	static freezeHighlight: bool;
+	static freezeHighlight: boolean;
 	static showDropDownList(params): void;
 	static getNodeFromTarget(target: HTMLElement): JSONEditorNode;
 	static getAbsoluteLeft(elem: HTMLElement): number;
@@ -155,8 +155,8 @@ class JSONEditor {
 	static getInnerText(element: HTMLElement, buffer: JSONEditorBuffer): string;	
 	static getInternetExplorerVersion(): number;
 	Events: {
-		addEventListener(element: HTMLElement, action: string, listener:(event?: Event) => void, useCapture:bool): (event?: Event) => void;
-		removeEventListener(element: HTMLElement, action: string, listener:(event?: Event) => void, useCapture:bool): void;
+		addEventListener(element: HTMLElement, action: string, listener:(event?: Event) => void, useCapture:boolean): (event?: Event) => void;
+		removeEventListener(element: HTMLElement, action: string, listener:(event?: Event) => void, useCapture:boolean): void;
 		stopPropagation(event: Event): void;
 		preventDefault(event:Event): void;
 
@@ -170,7 +170,7 @@ interface JSONFormatterOptions {
 	indentation?: number;
 }
 
-class JSONFormatter {
+declare class JSONFormatter {
 	constructor(container: HTMLElement, options?: JSONFormatterOptions, json?: any);
 	set(json: Object);
 	get(): Object;

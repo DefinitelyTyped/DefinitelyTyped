@@ -20,11 +20,11 @@ declare module "msnodesql" {
     }
 
     interface QueryCallback {
-        (err?: Error, results?: any[], more?: bool): void;
+        (err?: Error, results?: QueryRawResult, more?: boolean): void;
     }
 
     interface QueryRawCallback {
-        (err?: Error, results?: QueryRawResult, more?: bool): void;
+        (err?: Error, results?: QueryRawResult, more?: boolean): void;
     }
 
     interface QueryRawResult {
@@ -52,7 +52,7 @@ declare module "msnodesql" {
         rollback(callback?: ErrorCallback);
 
         close(callback?: ErrorCallback);
-        close(immediately: bool, callback?: ErrorCallback);
+        close(immediately: boolean, callback?: ErrorCallback);
     }
 
     interface StreamEvents extends EventEmitter { }

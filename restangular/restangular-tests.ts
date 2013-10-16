@@ -5,7 +5,7 @@ function test_basic() {
     Restangular.all('accounts');
     Restangular.one('accounts', 1234);
 
-    Restangular.one('users').getList().then(function (users) {
+    Restangular.all('users').getList().then(function (users) {
         $scope.user = users[0];
     })
     $scope.cars = $scope.user.getList('cars');
@@ -88,7 +88,9 @@ function test_config() {
     RestangularProvider.setDefaultHttpFields({ cache: true });
     RestangularProvider.setMethodOverriders(["put", "patch"]);
 
-    RestangularProvider.setListTypeIsArray(true);
+    RestangularProvider.setErrorInterceptor(function (response) {
+        console.error('' + response.status + ' ' + response.data);
+    });
 
     RestangularProvider.setRestangularFields({
         id: "_id",
@@ -103,5 +105,34 @@ function test_config() {
     RestangularProvider.addElementTransformer('accounts', false, function (elem) {
         elem.accountName = 'Changed';
         return elem;
+    });
+
+    var myRestangular = Restangular.withConfig((configurer: RestangularProvider) => {
+        configurer.setBaseUrl('/api/v1');
+        configurer.setExtraFields(['name']);
+
+        configurer.setErrorInterceptor(function (response) {
+            console.error('' + response.status + ' ' + response.data);
+        });
+        configurer.setResponseExtractor(function (response, operation) {
+            return response.data;
+        });
+        configurer.setDefaultHttpFields({ cache: true });
+        configurer.setMethodOverriders(["put", "patch"]);
+
+        configurer.setRestangularFields({
+            id: "_id",
+            route: "restangularRoute"
+        });
+
+        configurer.setRequestSuffix('.json');
+
+        configurer.setRequestInterceptor(function (element, operation, route, url) {
+        });
+
+        configurer.addElementTransformer('accounts', false, function (elem) {
+            elem.accountName = 'Changed';
+            return elem;
+        });
     });
 }

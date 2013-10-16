@@ -9,15 +9,15 @@ interface KnockoutEditable {
     beginEdit(): void;
     commit(): void;
     rollback(): void;
-    hasChanges(): bool;
+    hasChanges(): boolean;
 }
 
 interface KnockoutEditableStatic {
-    (viewModel: any, autoInit?: bool): void;
+    (viewModel: any, autoInit?: boolean): void;
     beginEdit(scope: string): void;
     commit(scope: string): void;
     rollback(scope: string): void;
-    hasChanges(scope: string): bool;
+    hasChanges(scope: string): boolean;
 
     // INTERNAL
     //getHasChangesFlag(scope: string): any;

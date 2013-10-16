@@ -20,13 +20,13 @@ declare module ArbiterDef {
         /**
           * A subscriber can be set to execute asynchronously, even if the message wasn't published as async.
           */
-        async?: bool;
+        async?: boolean;
 
         /**
           * If your subscriber is not interested in any past messages that may have been 
           * persisted, you can force them to be ignored.
           */
-        persist?: bool;
+        persist?: boolean;
     }
 
     export interface PublishOptions {
@@ -35,19 +35,19 @@ declare module ArbiterDef {
           * receiving the message. By passing cancelable:false in the options, the publisher 
           * can prevent canceling.
           */
-        cancelable?: bool;
+        cancelable?: boolean;
 
         /**
           * If the publishers wants subscribers to be notified even if they subscribe later, 
           * setting the persist flag will do that.
           */
-        persist?: bool;
+        persist?: boolean;
 
         /**
           * If you wish to notify the subscribers but return from the publish() call before 
           * the subscriber functions execute, use asynchronous mode
           */
-        async?: bool;
+        async?: boolean;
     }
 
     export interface ArbiterStatic {
@@ -67,7 +67,7 @@ declare module ArbiterDef {
           * @param msg Message may be in any format, but may not contain [ ,*]. A structure like a/b/c is recommended by convention, to allow messages to be categorized.
           * @param data Pass data to subscribers that contains details about the message.
           */
-        publish(msg: string, data?: any, options?: PublishOptions): bool;
+        publish(msg: string, data?: any, options?: PublishOptions): boolean;
 
 
         /**
