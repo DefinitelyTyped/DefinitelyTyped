@@ -3,7 +3,6 @@
 // Definitions by: Vladimir Zotov <https://github.com/rgripper>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-
 declare module L {
 
     export interface AttributionOptions {
@@ -957,7 +956,7 @@ declare module L {
 
         /**
           * Function that will be used for converting GeoJSON coordinates to LatLng points
-          * (if not specified, coords will be assumed to be WGS84 — standard[longitude, latitude]
+          * (if not specified, coords will be assumed to be WGS84 ï¿½ standard[longitude, latitude]
           * values in degrees).
           */
         coordsToLatLng?: (coords: any[]) => LatLng[];
