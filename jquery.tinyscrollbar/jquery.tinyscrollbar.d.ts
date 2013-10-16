@@ -5,12 +5,12 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-module JQueryTinyScrollbar {
+declare module JQueryTinyScrollbar {
     export interface JQueryTinyScrollbarOptions {
         /**
         * Enable mobile invert style scrolling. (default: false)
         */
-        invertscroll?: bool;
+        invertscroll?: boolean;
         /**
         * Vertical or horizontal scroller? 'x' or 'y'. (default: 'x')
         */
@@ -22,11 +22,11 @@ module JQueryTinyScrollbar {
         /**
         * Enable or disable the mousewheel. (default: true)
         */
-        scroll?: bool;
+        scroll?: boolean;
         /**
         * Return scrollwheel event to browser if there is no more content. (default: true)
         */
-        lockscroll?: bool;
+        lockscroll?: boolean;
         /**
         * Set the size of the scrollbar to auto or a fixed number. (default: 'auto')
         */

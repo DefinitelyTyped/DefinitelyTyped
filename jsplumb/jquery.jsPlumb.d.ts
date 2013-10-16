@@ -35,8 +35,8 @@ interface Defaults {
 	Endpoint?: any[];
 	PaintStyle?: PaintStyle;
 	HoverPaintStyle?: PaintStyle;
-	ConnectionsDetachable?: bool;
-	ReattachConnections?: bool;
+	ConnectionsDetachable?: boolean;
+	ReattachConnections?: boolean;
 	ConnectionOverlays?: any[][];
 }
 
@@ -66,8 +66,8 @@ interface Connections {
 interface ConnectParams {
 	source: string;
 	target: string;
-	detachable?: bool;
-	deleteEndpointsOnDetach?: bool;
+	detachable?: boolean;
+	deleteEndpointsOnDetach?: boolean;
 	endPoint?: string;
 	anchor?: string;
 	anchors?: any[];
@@ -87,10 +87,10 @@ interface SourceOptions {
 }
 
 interface TargetOptions {
-	isTarget?: bool;
+	isTarget?: boolean;
 	maxConnections?: number;
-	uniqueEndpoint?: bool;
-	deleteEndpointsOnDetach?: bool;
+	uniqueEndpoint?: boolean;
+	deleteEndpointsOnDetach?: boolean;
 	endpoint?: string;
 	dropOptions?: DropOptions;
 	anchor?: any;

@@ -10,8 +10,8 @@ _V_("example_video_1").ready(function(){
 
 	myPlayer.pause();
 
-	var isPaused: bool = myPlayer.paused();
-	var isPlaying: bool = !myPlayer.paused();
+	var isPaused: boolean = myPlayer.paused();
+	var isPlaying: boolean = !myPlayer.paused();
 
 	myPlayer.src("http://www.example.com/path/to/video.mp4");
 

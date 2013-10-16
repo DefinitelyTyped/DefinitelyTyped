@@ -11,14 +11,13 @@ interface IFirebaseAuthResult {
 interface IFirebaseDataSnapshot {
 	val(): any;
 	child(): IFirebaseDataSnapshot;
-	forEach(childAction: (childSnapshot: IFirebaseDataSnapshot) => bool): bool;
-	hasChild(childPath: string): bool;
-	hasChildren(): bool;
+	forEach(childAction: (childSnapshot: IFirebaseDataSnapshot) => boolean): boolean;
+	hasChild(childPath: string): boolean;
+	hasChildren(): boolean;
 	name(): string;
 	numChildren(): number;
 	ref(): Firebase;
-	getPriority(): string;
-	getPriority(): number;
+	getPriority(): any; // string or number
 	exportVal(): Object;
 }
 
@@ -43,7 +42,7 @@ interface IFirebaseQuery {
 	ref(): Firebase;
 }
 
-class Firebase implements IFirebaseQuery {
+declare class Firebase implements IFirebaseQuery {
 	constructor(firebaseURL: string);
 	auth(authToken: string, onComplete?: (error: string, result: IFirebaseAuthResult) => void, onCancel?:(error: string) => void): void;
 	unauth(): void;
@@ -60,7 +59,7 @@ class Firebase implements IFirebaseQuery {
 	setWithPriority(value: any, priority: number, onComplete?: (error: any) => void): void;
 	setPriority(priority: string, onComplete?: (error: any) => void): void;
 	setPriority(priority: number, onComplete?: (error: any) => void): void;
-	transaction(updateFunction: (currentData: any)=> any, onComplete?: (error: any, committed: bool, snapshot: IFirebaseDataSnapshot) => void, applyLocally?: bool): void;
+	transaction(updateFunction: (currentData: any)=> any, onComplete?: (error: any, committed: boolean, snapshot: IFirebaseDataSnapshot) => void, applyLocally?: boolean): void;
 	onDisconnect(): IFirebaseOnDisconnect;
 	on(eventType: string, callback: (dataSnapshot: IFirebaseDataSnapshot, prevChildName?: string) => void, cancelCallback?: ()=> void, context?: Object): (dataSnapshot: IFirebaseDataSnapshot, prevChildName?: string) => void;
 	off(eventType?: string, callback?: (dataSnapshot: IFirebaseDataSnapshot, prevChildName?: string) => void, context?: Object): void;

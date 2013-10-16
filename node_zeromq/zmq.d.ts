@@ -3,7 +3,7 @@
 // Definitions by: Dave McKeown <http://github.com/davemckeown>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare interface EventEmitter {};
+interface EventEmitter {}
 
 declare module 'zmq' {
 

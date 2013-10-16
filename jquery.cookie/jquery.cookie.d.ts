@@ -10,13 +10,14 @@ interface JQueryCookieOptions {
     expires?: any;
     path?: string;
     domain?: string;
-    secure?: bool;
+    secure?: boolean;
 }
 
 interface JQueryCookieStatic {
-    raw?: bool;
-    json?: bool;
+    raw?: boolean;
+    json?: boolean;
 
+    (): {[key:string]:string};
     (name: string): any;
     (name: string, value: string): void;
     (name: string, value: string, options: JQueryCookieOptions): void;
@@ -27,6 +28,6 @@ interface JQueryCookieStatic {
 interface JQueryStatic {   
     cookie?: JQueryCookieStatic;
 
-    removeCookie(name: string): bool;
-    removeCookie(name: string, options: JQueryCookieOptions): bool;
+    removeCookie(name: string): boolean;
+    removeCookie(name: string, options: JQueryCookieOptions): boolean;
 }

@@ -28,7 +28,7 @@ declare module Backbone {
 
         getRelations():Relation[];
 
-        fetchRelated(key:string, options?:any, update?:bool):any;
+        fetchRelated(key:string, options?:any, update?:boolean):any;
 
         toJSON():any;
 
@@ -54,7 +54,7 @@ declare module Backbone {
         reverseRelation:any;
         related:any;
 
-        checkPreconditions():bool;
+        checkPreconditions():boolean;
 
         setRelated(related:Model):void;
 
@@ -135,9 +135,9 @@ declare module Backbone {
 
         processOrphanRelations():void;
 
-        retroFitRelation(relation:RelationalModel, create:bool):Collection;
+        retroFitRelation(relation:RelationalModel, create:boolean):Collection;
 
-        getCollection(type:RelationalModel, create:bool):Collection;
+        getCollection(type:RelationalModel, create:boolean):Collection;
 
         getObjectByName(name:string):any;
 

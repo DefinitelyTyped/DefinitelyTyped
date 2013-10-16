@@ -11,11 +11,11 @@ interface DatepickerOptions {
     weekStart?: number;
     startDate?: Date;
     endDate?: Date;
-    autoclose?: bool;
+    autoclose?: boolean;
     startView?: number;
-    todayBtn?: bool;
-    todayHighlight?: bool;
-    keyboardNavigation?: bool;
+    todayBtn?: boolean;
+    todayHighlight?: boolean;
+    keyboardNavigation?: boolean;
     language?: string;
 }
 
