@@ -1494,6 +1494,7 @@ declare module chrome.runtime {
     var onInstalled: RuntimeInstalledEvent;
     var onSuspendCanceled: RuntimeSuspendCanceledEvent;
     var onMessage: RuntimeMessageEvent;
+    var onMessageExternal: RuntimeMessageEvent;
     var sendMessage:(req:any, cb:(resp:any)=>void)=>void;
 
 }
