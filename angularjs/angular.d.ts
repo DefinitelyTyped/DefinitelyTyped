@@ -124,9 +124,28 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$compile.directive.Attributes
     ///////////////////////////////////////////////////////////////////////////
     interface IAttributes {
-        $set(name: string, value: any): void;
-        $observe(name: string, fn:(value?:any)=>any):void;
-        $attr: any;
+        // Adds the CSS class value specified by the classVal parameter to the 
+        // element. If animations are enabled then an animation will be triggered 
+        // for the class addition.
+        $addClass(classVal: string): void;
+
+        // Removes the CSS class value specified by the classVal parameter from the 
+        // element. If animations are enabled then an animation will be triggered for 
+        // the class removal.
+        $removeClass(classVal: string): void;
+
+        // Set DOM element attribute value.
+        $set(key: string, value: any): void;
+
+        // Observes an interpolated attribute.
+        // The observer function will be invoked once during the next $digest 
+        // following compilation. The observer is then invoked whenever the 
+        // interpolated value changes.
+        $observe(name: string, fn:(value?:any)=>any): Function;
+
+        // A map of DOM element attribute names to the normalized name. This is needed 
+        // to do reverse lookup from normalized name back to actual name.
+        $attr: Object;
     }
 
     ///////////////////////////////////////////////////////////////////////////
