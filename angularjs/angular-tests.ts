@@ -184,6 +184,7 @@ mod.value('name', 23);
 mod.value('name', "23");
 mod.value(My.Namespace);
 
+
 // Promise signature tests
 var foo: ng.IPromise<number>;
 foo.then((x) => {
@@ -219,3 +220,17 @@ var element = angular.element("div.myApp");
 var scope: ng.IScope = element.scope();
 
 
+
+function test_IAttributes(attributes: ng.IAttributes){
+    return attributes;
+}
+
+test_IAttributes({
+    $addClass: function (classVal){},
+    $removeClass: function(classVal){},
+    $set: function(key, value){},
+    $observe: function(name, fn){
+        return fn;
+    },
+    $attr: {}
+});
