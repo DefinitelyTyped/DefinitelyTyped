@@ -671,15 +671,15 @@ declare module ng {
 
     interface IDirective{
         priority?: number;
-        template?: string;
-        templateUrl?: string;
+        template?: any;
+        templateUrl?: any;
         replace?: boolean;
         transclude?: any;
         restrict?: string;
         scope?: any;
         link?: Function;
         compile?: Function;
-        controller?: Function;
+        controller?: any; 
     }
 
     ///////////////////////////////////////////////////////////////////////////
