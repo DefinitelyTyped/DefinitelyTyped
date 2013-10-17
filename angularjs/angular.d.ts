@@ -150,14 +150,11 @@ declare module ng {
     interface INgModelController {
         $render(): void;
         $setValidity(validationErrorKey: string, isValid: boolean): void;
-        $setViewValue(value: string): void;
-
-        // XXX Not sure about the types here. Documentation states it's a string, but
-        // I've seen it receiving other types throughout the code.
-        // Falling back to any for now.
+        // Documentation states viewValue and modelValue to be a string but other
+        // types do work and it's common to use them.
+        $setViewValue(value: any): void;
         $viewValue: any;
 
-        // XXX Same as avove
         $modelValue: any;
 
         $parsers: IModelParser[];
