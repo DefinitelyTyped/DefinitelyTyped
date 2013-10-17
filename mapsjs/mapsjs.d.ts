@@ -2611,6 +2611,12 @@ declare module 'mapsjs' {
 		* @param {number} cem The content extent margin in pixels.
 		*/
 		setContentExtentsMarginInPixels(cem: number): void;
+
+		/**
+		* Sets the background color of the map using a css color string
+		* @param {number} b- a css color string
+		*/
+		setBackground(b: string): void;
     }
 }
 
