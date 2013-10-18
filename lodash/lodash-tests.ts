@@ -205,6 +205,16 @@ result = <number[]>_.without([1, 2, 1, 0, 3, 1, 4], 0, 1);
 result = <string[]>_.at(['a', 'b', 'c', 'd', 'e'], [0, 2, 4]);
 result = <string[]>_.at(['moe', 'larry', 'curly'], 0, 2);
 
+result = <boolean>_.contains([1, 2, 3], 1);
+result = <boolean>_.contains([1, 2, 3], 1, 2);
+result = <boolean>_.contains({ 'name': 'moe', 'age': 40 }, 'moe');
+result = <boolean>_.contains('curly', 'ur');
+
+	result = <boolean>_.include([1, 2, 3], 1);
+	result = <boolean>_.include([1, 2, 3], 1, 2);
+	result = <boolean>_.include({ 'name': 'moe', 'age': 40 }, 'moe');
+	result = <boolean>_.include('curly', 'ur');
+
 result = <boolean>_.every([true, 1, null, 'yes'], Boolean);
 result = <boolean>_.every(stoogesAges, 'age');
 result = <boolean>_.every(stoogesAges, { 'age': 50 });

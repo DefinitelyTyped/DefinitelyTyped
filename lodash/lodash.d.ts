@@ -785,6 +785,62 @@ declare module _ {
 		collection: Collection<T>,
 		...indexes: number[]): T[];
 
+	/**
+	* Checks if a given value is present in a collection using strict equality for comparisons, 
+	* i.e. ===. If fromIndex is negative, it is used as the offset from the end of the collection.
+	* @param collection The collection to iterate over.
+	* @param target The value to check for.
+	* @param fromIndex The index to search from.
+	* @return True if the target element is found, else false.
+	**/
+	export function contains<T>(
+		collection: Collection<T>,
+		target: T,
+		fromIndex?: number): boolean;
+
+	/**
+	* @see _.contains
+	* @param dictionary The dictionary to iterate over.
+	* @param key The key in the dictionary to search for.
+	**/
+	export function contains<T>(
+		dictionary: Dictionary<T>,
+		key: string,
+		fromIndex?: number): boolean;
+
+	/**
+	* @see _.contains
+	* @param searchString the string to search
+	* @param targetString the string to search for
+	**/
+	export function contains(
+		searchString: string,
+		targetString: string,
+		fromIndex?: number): boolean;
+
+		/**
+		* @see _.contains
+		**/
+		export function include<T>(
+			collection: Collection<T>,
+			target: T,
+			fromIndex?: number): boolean;
+
+		/**
+		* @see _.contains
+		**/
+		export function include<T>(
+			dictionary: Dictionary<T>,
+			key: string,
+			fromIndex?: number): boolean;
+
+		/**
+		* @see _.contains
+		**/
+		export function include(
+			searchString: string,
+			targetString: string,
+			fromIndex?: number): boolean;
 
 	/**
 	* Checks if the given callback returns truey value for all elements of a collection. 
@@ -1176,23 +1232,7 @@ declare module _ {
 
 	
 
-	/**
-	* Returns true if the value is present in the list. Uses indexOf internally,
-	* if list is an Array.
-	* @param list Checks each element to see if `value` is present.
-	* @param value The value to check for within `list`.
-	* @return True if `value` is present in `list`, otherwise false.
-	**/
-	export function contains<T>(
-		list: Collection<T>,
-		value: T): boolean;
-
-	/**
-	* @see _.contains
-	**/
-	export function include<T>(
-		list: Collection<T>,
-		value: T): boolean;
+	
 
 	/**
 	* Calls the method named by methodName on each value in the list. Any extra arguments passed to
