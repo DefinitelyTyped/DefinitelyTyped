@@ -843,27 +843,34 @@ declare module _ {
 			fromIndex?: number): boolean;
 	
 	/**
-	* Sorts a list into groups and returns a count for the number of objects in each group. Similar
-	* to groupBy, but instead of returning a list of values, returns a count for the number of values
-	* in that group.
-	* @param list Group elements in this list and then count the number of elements in each group.
-	* @param iterator Group iterator for each element within `list`, return the key to group the element by.
-	* @param context `this` object in `iterator`, optional.
-	* @return An object with the group names as properties where each property contains the number of elements in that group.
+	* Creates an object composed of keys generated from the results of running each element 
+	* of collection through the callback. The corresponding value of each key is the number 
+	* of times the key was returned by the callback. The callback is bound to thisArg and 
+	* invoked with three arguments; (value, index|key, collection).
+	*
+	* If a property name is provided for callback the created "_.pluck" style callback will 
+	* return the property value of the given element.
+	*
+	* If an object is provided for callback the created "_.where" style callback will return 
+	* true for elements that have the properties of the given object, else false.
+	* @param collection The collection to iterate over.
+	* @param callback The function called per iteration.
+	* @param thisArg The this binding of callback.
+	* @return Returns the composed aggregate object.
 	**/
 	export function countBy<T>(
-		list: Collection<T>,
-		iterator?: ListIterator<T, any>,
-		context?: any): Dictionary<number>;
+		collection: Collection<T>,
+		callback?: ListIterator<T, any>,
+		thisArg?: any): Dictionary<number>;
 
 	/**
 	* @see _.countBy
 	* @param iterator Function name
 	**/
 	export function countBy<T>(
-		list: Collection<T>,
-		iterator: string,
-		context?: any): Dictionary<number>;
+		collection: Collection<T>,
+		callback: string,
+		thisArg?: any): Dictionary<number>;
 
 	/**
 	* Checks if the given callback returns truey value for all elements of a collection. 
