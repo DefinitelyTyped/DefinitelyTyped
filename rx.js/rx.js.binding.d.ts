@@ -15,14 +15,26 @@ declare module Rx {
 		new (bufferSize?: number, window?: number, scheduler?: IScheduler): ReplaySubject<T>;
 	}
 
+    var ReplaySubject: {
+        new <T>(bufferSize?: number, window?: number, scheduler?: IScheduler): ReplaySubject<T>;
+    }
+
 	interface BehaviorSubject<T> extends ISubject<T> {
 		new (initialValue: T): BehaviorSubject<any>;
 	}
 
+    var BehaviorSubject: {
+        new <T>(initialValue: T): BehaviorSubject<T>;
+    }
+
 	interface ConnectableObservable<T> extends IObservable<T>{
 		connect(): _IDisposable;
 		refCount(): IObservable<T>;
-	}
+    }
+
+    var ConnectableObservable: {
+        new <T>(): ConnectableObservable<T>;
+    }
 
 	interface IObservable<T> {
 
