@@ -841,6 +841,29 @@ declare module _ {
 			searchString: string,
 			targetString: string,
 			fromIndex?: number): boolean;
+	
+	/**
+	* Sorts a list into groups and returns a count for the number of objects in each group. Similar
+	* to groupBy, but instead of returning a list of values, returns a count for the number of values
+	* in that group.
+	* @param list Group elements in this list and then count the number of elements in each group.
+	* @param iterator Group iterator for each element within `list`, return the key to group the element by.
+	* @param context `this` object in `iterator`, optional.
+	* @return An object with the group names as properties where each property contains the number of elements in that group.
+	**/
+	export function countBy<T>(
+		list: Collection<T>,
+		iterator?: ListIterator<T, any>,
+		context?: any): Dictionary<number>;
+
+	/**
+	* @see _.countBy
+	* @param iterator Function name
+	**/
+	export function countBy<T>(
+		list: Collection<T>,
+		iterator: string,
+		context?: any): Dictionary<number>;
 
 	/**
 	* Checks if the given callback returns truey value for all elements of a collection. 
@@ -1359,29 +1382,6 @@ declare module _ {
 		list: List<T>,
 		iterator: string,
 		context?: any): Dictionary<T>;
-
-	/**
-	* Sorts a list into groups and returns a count for the number of objects in each group. Similar
-	* to groupBy, but instead of returning a list of values, returns a count for the number of values
-	* in that group.
-	* @param list Group elements in this list and then count the number of elements in each group.
-	* @param iterator Group iterator for each element within `list`, return the key to group the element by.
-	* @param context `this` object in `iterator`, optional.
-	* @return An object with the group names as properties where each property contains the number of elements in that group.
-	**/
-	export function countBy<T>(
-		list: Collection<T>,
-		iterator?: ListIterator<T, any>,
-		context?: any): Dictionary<number[]>;
-
-	/**
-	* @see _.countBy
-	* @param iterator Function name
-	**/
-	export function countBy<T>(
-		list: Collection<T>,
-		iterator: string,
-		context?: any): Dictionary<number[]>;
 
 	/**
 	* Returns a shuffled copy of the list, using a version of the Fisher-Yates shuffle.

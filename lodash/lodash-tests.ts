@@ -215,6 +215,10 @@ result = <boolean>_.contains('curly', 'ur');
 	result = <boolean>_.include({ 'name': 'moe', 'age': 40 }, 'moe');
 	result = <boolean>_.include('curly', 'ur');
 
+result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function(num) { return Math.floor(num); });
+result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function(num) { return this.floor(num); }, Math);
+result = <_.Dictionary<number>>_.countBy(['one', 'two', 'three'], 'length');
+
 result = <boolean>_.every([true, 1, null, 'yes'], Boolean);
 result = <boolean>_.every(stoogesAges, 'age');
 result = <boolean>_.every(stoogesAges, { 'age': 50 });
