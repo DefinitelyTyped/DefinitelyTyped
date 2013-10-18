@@ -219,6 +219,24 @@ result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function(num) { return
 result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function(num) { return this.floor(num); }, Math);
 result = <_.Dictionary<number>>_.countBy(['one', 'two', 'three'], 'length');
 
+result = <number>_.find([1, 2, 3, 4], function(num) {
+  return num % 2 == 0;
+});
+result = <IFoodCombined>_.find(foodsCombined, { 'type': 'vegetable' });
+result = <IFoodCombined>_.find(foodsCombined, 'organic');
+
+	result = <number>_.detect([1, 2, 3, 4], function(num) {
+	  return num % 2 == 0;
+	});
+	result = <IFoodCombined>_.detect(foodsCombined, { 'type': 'vegetable' });
+	result = <IFoodCombined>_.detect(foodsCombined, 'organic');
+
+result = <number>_.findLast([1, 2, 3, 4], function(num) {
+  return num % 2 == 0;
+});
+result = <IFoodCombined>_.findLast(foodsCombined, { 'type': 'vegetable' });
+result = <IFoodCombined>_.findLast(foodsCombined, 'organic');
+
 result = <boolean>_.every([true, 1, null, 'yes'], Boolean);
 result = <boolean>_.every(stoogesAges, 'age');
 result = <boolean>_.every(stoogesAges, { 'age': 50 });
