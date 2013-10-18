@@ -1258,6 +1258,28 @@ declare module _ {
 		whereValue: Dictionary<any>): Dictionary<T>;
 
 	/**
+	* Invokes the method named by methodName on each element in the collection returning 
+	* an array of the results of each invoked method. Additional arguments will be provided 
+	* to each invoked method. If methodName is a function it will be invoked for, and this 
+	* bound to, each element in the collection.
+	* @param collection The collection to iterate over.
+	* @param methodName The name of the method to invoke.
+	* @param args Arguments to invoke the method with.
+	**/
+	export function invoke<T extends {}>(
+		collection: Collection<T>,
+		methodName: string,
+		...args: any[]): any;
+
+	/**
+	* @see _.invoke
+	**/
+	export function invoke<T extends {}>(
+		collection: Collection<T>,
+		method: Function,
+		...args: any[]): any;
+
+	/**
 	* Creates an array of values by running each element in the collection through the callback. 
 	* The callback is bound to thisArg and invoked with three arguments; (value, index|key, 
 	* collection).
@@ -1507,17 +1529,7 @@ declare module _ {
 
 	
 
-	/**
-	* Calls the method named by methodName on each value in the list. Any extra arguments passed to
-	* invoke will be forwarded on to the method invocation.
-	* @param list The element's in this list will each have the method `methodName` invoked.
-	* @param methodName The method's name to call on each element within `list`.
-	* @param arguments Additional arguments to pass to the method `methodName`.
-	**/
-	export function invoke<T extends {}>(
-		list: Collection<T>,
-		methodName: string,
-		...arguments: any[]): any;
+	
 
 	/**
 	* A convenient version of what is perhaps the most common use-case for map: extracting a list of

@@ -289,6 +289,9 @@ result = <_.Dictionary<IKey>>_.indexBy(keys, 'dir');
 result = <_.Dictionary<IKey>>_.indexBy(keys, function(key) { return String.fromCharCode(key.code); });
 result = <_.Dictionary<IKey>>_.indexBy(keys, function(key) { this.fromCharCode(key.code); }, String);
 
+result = <any[]>_.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
+result = <any[]>_.invoke([123, 456], String.prototype.split, '');
+
 result = <any[]>_.map([1, 2, 3], function(num) { return num * 3; });
 result = <any[]>_.map({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { return num * 3; });
 result = <any[]>_.map(stoogesAges, 'name');
