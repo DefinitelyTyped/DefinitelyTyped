@@ -251,6 +251,12 @@ result = <_.Dictionary<number>>_.forEach({ 'one': 1, 'two': 2, 'three': 3 }, fun
 	result = <number[]>_.each([1, 2, 3], function(num) { console.log(num); });
 	result = <_.Dictionary<number>>_.each({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { console.log(num); });
 
+result = <number[]>_.forEachRight([1, 2, 3], function(num) { console.log(num); });
+result = <_.Dictionary<number>>_.forEachRight({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { console.log(num); });
+
+	result = <number[]>_.eachRight([1, 2, 3], function(num) { console.log(num); });
+	result = <_.Dictionary<number>>_.eachRight({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { console.log(num); });
+
 result = <any[]>_.map([1, 2, 3], function(num) { return num * 3; });
 result = <any[]>_.map({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { return num * 3; });
 result = <any[]>_.map(stoogesAges, 'name');

@@ -1052,16 +1052,53 @@ declare module _ {
 
 		/**
 		* @see _.each
-		* @param object Iterators over this object's properties.
-		* @param iterator Iterator function for each property on `obj`.
-		* @param context 'this' object in `iterator`, optional.
+		* @param object The object to iterate over
+		* @param callback The function called per iteration.
+		* @param thisArg The this binding of callback.
 		**/
 		export function each<T extends {}>(
 			object: Dictionary<T>,
 			callback: ObjectIterator<T, void>,
 			thisArg?: any): Dictionary<T>;
 
-	
+	/**
+	* This method is like _.forEach except that it iterates over elements of a 
+	* collection from right to left.
+	* @param collection The collection to iterate over.
+	* @param callback The function called per iteration.
+	* @param thisArg The this binding of callback.
+	**/
+	export function forEachRight<T>(
+		collection: List<T>,
+		callback: ListIterator<T, void >,
+		thisArg?: any): List<T>;
+
+	/**
+	* @see _.each
+	**/
+	export function forEachRight<T extends {}>(
+		object: Dictionary<T>,
+		callback: ObjectIterator<T, void >,
+		thisArg?: any): Dictionary<T>;
+
+		/**
+		* @see _.each
+		**/
+		export function eachRight<T>(
+			collection: List<T>,
+			callback: ListIterator<T, void>,
+			thisArg?: any): List<T>;
+
+		/**
+		* @see _.each
+		* @param object The object to iterate over
+		* @param callback The function called per iteration.
+		* @param thisArg The this binding of callback.
+		**/
+		export function eachRight<T extends {}>(
+			object: Dictionary<T>,
+			callback: ObjectIterator<T, void>,
+			thisArg?: any): Dictionary<T>;
 
 	/**
 	* Creates an array of values by running each element in the collection through the callback. 
