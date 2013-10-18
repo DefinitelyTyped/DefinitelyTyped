@@ -2,6 +2,8 @@
 // Project: http://rethinkdb.com/
 // Definitions by: Sean Hess <https://seanhess.github.io/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Reference: http://www.rethinkdb.com/api/#js
+// TODO: Document manipulation and below
 
 declare module "rethinkdb" {
 
@@ -114,12 +116,12 @@ declare module "rethinkdb" {
     nth(n:number):Expression<any>;
     indexesOf(obj:any):Sequence;
     isEmpty():Expression<boolean>;
-    union(sequence:Sequence):Sequence; // concatenates two sequences
+    union(sequence:Sequence):Sequence;
     sample(n:number):Sequence;
 
     // Aggregate
-    reduce(r:Reduce, base?:any):Expression<any>; // makes a single value
-    count():Expression<number>; // number query!
+    reduce(r:Reduce, base?:any):Expression<any>;
+    count():Expression<number>;
     distinct():Sequence;
     groupedMapReduce(group:ExpressionFunction<any>, map:ExpressionFunction<any>, reduce:Reduce, base?:any):Expression<any>;
     groupBy(...aggregators:Aggregator[]):Expression<Object>; // TODO: reduction object
@@ -135,7 +137,6 @@ declare module "rethinkdb" {
   }
 
   interface Reduce {
-    // TODO, do I know anything about the type of acc and val?
     (acc:any, val:any):any;
   }
 
@@ -182,9 +183,9 @@ declare module "rethinkdb" {
   }
 
   interface Expression<T> extends Writeable, Operation<T> {
-      (prop:string):Expression<any>; // not necessarily, this could be ANYTHING. I can't get to .add here for example!
+      (prop:string):Expression<any>; 
       merge(query:Expression<Object>):Expression<Object>;
-      append(prop:string):Expression<Object>; // returns another query object with them appended. Would only work on an array
+      append(prop:string):Expression<Object>;
       contains(prop:string):Expression<boolean>;
 
       and(b:boolean):Expression<boolean>;
