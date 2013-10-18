@@ -933,6 +933,66 @@ declare module _ {
 			whereValue: Dictionary<any>): boolean;
 
 	/**
+	* Iterates over elements of a collection, returning an array of all elements the 
+	* callback returns truey for. The callback is bound to thisArg and invoked with three 
+	* arguments; (value, index|key, collection).
+	*
+	* If a property name is provided for callback the created "_.pluck" style callback will 
+	* return the property value of the given element.
+	*
+	* If an object is provided for callback the created "_.where" style callback will return 
+	* true for elements that have the properties of the given object, else false.
+	* @param collection The collection to iterate over.
+	* @param callback The function called per iteration.
+	* @param context The this binding of callback.
+	* @return Returns a new array of elements that passed the callback check.
+	**/
+	export function filter<T>(
+		collection: Collection<T>,
+		callback: ListIterator<T, boolean>,
+		thisArg?: any): T[];
+
+	/**
+	* @see _.filter
+	* @param pluckValue _.pluck style callback
+	**/
+	export function filter<T>(
+		collection: Collection<T>,
+		pluckValue: string): T[];
+
+	/**
+	* @see _.filter
+	* @param pluckValue _.pluck style callback
+	**/
+	export function filter<T>(
+		collection: Collection<T>,
+		whereValue: Dictionary<any>): T[];
+
+		/**
+		* @see _.filter
+		**/
+		export function select<T>(
+		collection: Collection<T>,
+		callback: ListIterator<T, boolean>,
+		thisArg?: any): T[];
+
+		/**
+		* @see _.filter
+		* @param pluckValue _.pluck style callback
+		**/
+		export function select<T>(
+			collection: Collection<T>,
+			pluckValue: string): T[];
+
+		/**
+		* @see _.filter
+		* @param pluckValue _.pluck style callback
+		**/
+		export function select<T>(
+			collection: Collection<T>,
+			whereValue: Dictionary<any>): T[];
+
+	/**
 	* Iterates over elements of a collection, returning the first element that the callback 
 	* returns truey for. The callback is bound to thisArg and invoked with three arguments; 
 	* (value, index|key, collection).
@@ -1307,26 +1367,7 @@ declare module _ {
 		memo?: TResult,
 		context?: any): TResult;
 
-	/**
-	* Looks through each value in the list, returning an array of all the values that pass a truth
-	* test (iterator). Delegates to the native filter method, if it exists.
-	* @param list Filter elements out of this list.
-	* @param iterator Filter iterator function for each element in `list`.
-	* @param context `this` object in `iterator`, optional.
-	* @return The filtered list of elements.
-	**/
-	export function filter<T>(
-		list: Collection<T>,
-		iterator: ListIterator<T, boolean>,
-		context?: any): T[];
-
-	/**
-	* @see _.filter
-	**/
-	export function select<T>(
-		list: Collection<T>,
-		iterator: ListIterator<T, boolean>,
-		context?: any): T[];
+	
 
 	/**
 	* Looks through each value in the list, returning an array of all the values that contain all

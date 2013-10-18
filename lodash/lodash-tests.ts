@@ -227,6 +227,14 @@ result = <boolean>_.every(stoogesAges, { 'age': 50 });
 	result = <boolean>_.all(stoogesAges, 'age');
 	result = <boolean>_.all(stoogesAges, { 'age': 50 });
 
+result = <number[]>_.filter([1, 2, 3, 4, 5, 6], function(num) { return num % 2 == 0; });
+result = <IFoodCombined[]>_.filter(foodsCombined, 'organic');
+result = <IFoodCombined[]>_.filter(foodsCombined, { 'type': 'fruit' });
+
+	result = <number[]>_.select([1, 2, 3, 4, 5, 6], function(num) { return num % 2 == 0; });
+	result = <IFoodCombined[]>_.select(foodsCombined, 'organic');
+	result = <IFoodCombined[]>_.select(foodsCombined, { 'type': 'fruit' });
+
 result = <number>_.find([1, 2, 3, 4], function(num) {
   return num % 2 == 0;
 });
@@ -282,12 +290,6 @@ result = <boolean>_.some(foodsCombined, { 'type': 'meat' });
 //WHAT'S LEFT
 ////////////////////////////////////////////////////////////////////////////////////////
 
-_.each([1, 2, 3], (num) => alert(num.toString()));
-_.each({ one: 1, two: 2, three: 3 }, (value) => alert(value.toString()));
-
-_.map([1, 2, 3], (num) => num * 3);
-_.map({ one: 1, two: 2, three: 3 }, (value: number, key?: string) => value * 3);
-
 var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);
 sum = _.reduce([1, 2, 3], (memo, num) => memo + num); // memo is optional #issue 5 github
 
@@ -296,19 +298,10 @@ var flat = _.reduceRight(list, (a, b) => a.concat(b), []);
 
 var even = _.find([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
-var evens = _.filter([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
-
 var listOfPlays = [{ title: "Cymbeline", author: "Shakespeare", year: 1611 }, { title: "The Tempest", author: "Shakespeare", year: 1611 }, { title: "Other", author: "Not Shakespeare", year: 2012 }];
 _.where(listOfPlays, { author: "Shakespeare", year: 1611 });
 
 var odds = _.reject([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
-
-_.every([true, 1, null, 'yes'], _.identity);
-_.every<{}>([true, 1, null, 'yes']);
-
-_.any([null, 0, 'yes', false]);
-
-_.contains([1, 2, 3], 3);
 
 _.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
 
@@ -335,8 +328,6 @@ _(stooges)
 	.chain()
 	.indexBy('age')
 	.value()['40'].age;
-
-_.countBy<number>([1, 2, 3, 4, 5], (num) => (num % 2 == 0) ? 'even' : 'odd');
 
 _.shuffle([1, 2, 3, 4, 5, 6]);
 
