@@ -303,6 +303,10 @@ result = <any>_.reduce({ 'a': 1, 'b': 2, 'c': 3 }, function(result, num, key) {
 	  return result;
 	}, {});
 
+result = <any>_.reduceRight([[0, 1], [2, 3], [4, 5]], function(a, b) { return a.concat(b); }, []);
+
+	result = <any>_.foldr([[0, 1], [2, 3], [4, 5]], function(a, b) { return a.concat(b); }, []);
+
 result = <boolean>_.some([null, 0, 'yes', false], Boolean);
 result = <boolean>_.some(foodsCombined, 'organic');
 result = <boolean>_.some(foodsCombined, { 'type': 'meat' });
