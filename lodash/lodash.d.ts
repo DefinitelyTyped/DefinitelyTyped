@@ -1185,6 +1185,42 @@ declare module _ {
 			thisArg?: any): Dictionary<T>;
 
 	/**
+	* Creates an object composed of keys generated from the results of running each element 
+	* of a collection through the callback. The corresponding value of each key is an array 
+	* of the elements responsible for generating the key. The callback is bound to thisArg 
+	* and invoked with three arguments; (value, index|key, collection).
+	*
+	* If a property name is provided for callback the created "_.pluck" style callback will 
+	* return the property value of the given element.
+	* If an object is provided for callback the created "_.where" style callback will return 
+	* true for elements that have the properties of the given object, else false
+	* @param collection The collection to iterate over.
+	* @param callback The function called per iteration.
+	* @param thisArg The this binding of callback.
+	* @return Returns the composed aggregate object.
+	**/
+	export function groupBy<T>(
+		collection: List<T>,
+		callback?: ListIterator<T, any>,
+		thisArg?: any): Dictionary<T[]>;
+
+	/**
+	* @see _.groupBy
+	* @param pluckValue _.pluck style callback
+	**/
+	export function groupBy<T>(
+		collection: List<T>,
+		pluckValue: string): Dictionary<T[]>;
+
+	/**
+	* @see _.groupBy
+	* @param whereValue _.where style callback
+	**/
+	export function groupBy<T>(
+		collection: List<T>,
+		whereValue: Dictionary<any>): Dictionary<T[]>;
+
+	/**
 	* Creates an array of values by running each element in the collection through the callback. 
 	* The callback is bound to thisArg and invoked with three arguments; (value, index|key, 
 	* collection).
@@ -1518,29 +1554,6 @@ declare module _ {
 		list: List<T>,
 		iterator: string,
 		context?: any): T[];
-
-	/**
-	* Splits a collection into sets, grouped by the result of running each value through iterator.
-	* If iterator is a string instead of a function, groups by the property named by iterator on
-	* each of the values.
-	* @param list Groups this list.
-	* @param iterator Group iterator for each element within `list`, return the key to group the element by.
-	* @param context `this` object in `iterator`, optional.
-	* @return An object with the group names as properties where each property contains the grouped elements from `list`.
-	**/
-	export function groupBy<T>(
-		list: List<T>,
-		iterator?: ListIterator<T, any>,
-		context?: any): Dictionary<T[]>;
-
-	/**
-	* @see _.groupBy
-	* @param iterator Property on each object to group them by.
-	**/
-	export function groupBy<T>(
-		list: List<T>,
-		iterator: string,
-		context?: any): Dictionary<T[]>;
 
 	/**
 	* Given a `list`, and an `iterator` function that returns a key for each element in the list (or a property name),

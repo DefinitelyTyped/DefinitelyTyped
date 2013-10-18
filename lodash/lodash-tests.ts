@@ -271,6 +271,10 @@ result = <_.Dictionary<number>>_.forEachRight({ 'one': 1, 'two': 2, 'three': 3 }
 	result = <number[]>_.eachRight([1, 2, 3], function(num) { console.log(num); });
 	result = <_.Dictionary<number>>_.eachRight({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { console.log(num); });
 
+result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function(num) { return Math.floor(num); });
+result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function(num) { return this.floor(num); }, Math);
+result = <_.Dictionary<string[]>>_.groupBy(['one', 'two', 'three'], 'length');
+
 result = <any[]>_.map([1, 2, 3], function(num) { return num * 3; });
 result = <any[]>_.map({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { return num * 3; });
 result = <any[]>_.map(stoogesAges, 'name');
