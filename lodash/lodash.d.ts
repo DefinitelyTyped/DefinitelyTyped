@@ -1221,6 +1221,43 @@ declare module _ {
 		whereValue: Dictionary<any>): Dictionary<T[]>;
 
 	/**
+	* Creates an object composed of keys generated from the results of running each element 
+	* of the collection through the given callback. The corresponding value of each key is 
+	* the last element responsible for generating the key. The callback is bound to thisArg 
+	* and invoked with three arguments; (value, index|key, collection).
+	*
+	* If a property name is provided for callback the created "_.pluck" style callback will 
+	* return the property value of the given element.
+	*
+	* If an object is provided for callback the created "_.where" style callback will return 
+	* true for elements that have the properties of the given object, else false.
+	* @param collection The collection to iterate over.
+	* @param callback The function called per iteration.
+	* @param thisArg The this binding of callback.
+	* @return Returns the composed aggregate object.
+	**/
+	export function indexBy<T>(
+		list: List<T>,
+		iterator: ListIterator<T, any>,
+		context?: any): Dictionary<T>;
+
+	/**
+	* @see _.indexBy
+	* @param pluckValue _.pluck style callback
+	**/
+	export function indexBy<T>(
+		collection: List<T>,
+		pluckValue: string): Dictionary<T>;
+
+	/**
+	* @see _.indexBy
+	* @param whereValue _.where style callback
+	**/
+	export function indexBy<T>(
+		collection: List<T>,
+		whereValue: Dictionary<any>): Dictionary<T>;
+
+	/**
 	* Creates an array of values by running each element in the collection through the callback. 
 	* The callback is bound to thisArg and invoked with three arguments; (value, index|key, 
 	* collection).
@@ -1554,24 +1591,6 @@ declare module _ {
 		list: List<T>,
 		iterator: string,
 		context?: any): T[];
-
-	/**
-	* Given a `list`, and an `iterator` function that returns a key for each element in the list (or a property name),
-	* returns an object with an index of each item.  Just like _.groupBy, but for when you know your keys are unique.
-	**/
-	export function indexBy<T>(
-		list: List<T>,
-		iterator: ListIterator<T, any>,
-		context?: any): Dictionary<T>;
-
-	/**
-	* @see _.indexBy
-	* @param iterator Property on each object to index them by.
-	**/
-	export function indexBy<T>(
-		list: List<T>,
-		iterator: string,
-		context?: any): Dictionary<T>;
 
 	/**
 	* Returns a shuffled copy of the list, using a version of the Fisher-Yates shuffle.

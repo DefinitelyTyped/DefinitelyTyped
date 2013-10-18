@@ -28,6 +28,11 @@ interface IStoogesAge {
 	age: number;
 }
 
+interface IKey {
+	dir: string;
+	code: number;
+}
+
 var foodsOrganic: IFoodOrganic[] = [
 	{ name: 'banana', organic: true },
 	{ name: 'beet',   organic: false },
@@ -49,6 +54,11 @@ var stoogesQuotes: IStoogesQuote[] = [
 var stoogesAges: IStoogesAge[] = [
 	{ 'name': 'moe', 'age': 40 },
 	{ 'name': 'larry', 'age': 50 }
+];
+
+var keys: IKey[] = [
+  { 'dir': 'left', 'code': 97 },
+  { 'dir': 'right', 'code': 100 }
 ];
 
 var result;
@@ -275,6 +285,10 @@ result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function(num) { retu
 result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function(num) { return this.floor(num); }, Math);
 result = <_.Dictionary<string[]>>_.groupBy(['one', 'two', 'three'], 'length');
 
+result = <_.Dictionary<IKey>>_.indexBy(keys, 'dir');
+result = <_.Dictionary<IKey>>_.indexBy(keys, function(key) { return String.fromCharCode(key.code); });
+result = <_.Dictionary<IKey>>_.indexBy(keys, function(key) { this.fromCharCode(key.code); }, String);
+
 result = <any[]>_.map([1, 2, 3], function(num) { return num * 3; });
 result = <any[]>_.map({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { return num * 3; });
 result = <any[]>_.map(stoogesAges, 'name');
@@ -328,14 +342,6 @@ result = <boolean>_.some(foodsCombined, { 'type': 'meat' });
 //WHAT'S LEFT
 ////////////////////////////////////////////////////////////////////////////////////////
 
-var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);
-sum = _.reduce([1, 2, 3], (memo, num) => memo + num); // memo is optional #issue 5 github
-
-var list = [[0, 1], [2, 3], [4, 5]];
-var flat = _.reduceRight(list, (a, b) => a.concat(b), []);
-
-var even = _.find([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
-
 var listOfPlays = [{ title: "Cymbeline", author: "Shakespeare", year: 1611 }, { title: "The Tempest", author: "Shakespeare", year: 1611 }, { title: "Other", author: "Not Shakespeare", year: 2012 }];
 _.where(listOfPlays, { author: "Shakespeare", year: 1611 });
 
@@ -355,10 +361,6 @@ _.min(numbers);
 
 _.sortBy([1, 2, 3, 4, 5, 6], (num) => Math.sin(num));
 
-
-_([1.3, 2.1, 2.4]).groupBy((e) => Math.floor(e));
-_.groupBy([1.3, 2.1, 2.4], (num: number) => Math.floor(num).toString());
-_.groupBy(['one', 'two', 'three'], 'length');
 
 _.indexBy(stooges, 'age')['40'].age;
 _(stooges).indexBy('age')['40'].name;
