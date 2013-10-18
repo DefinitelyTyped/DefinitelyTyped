@@ -1052,6 +1052,30 @@ declare module _ {
 			collection: Collection<T>,
 			pluckValue: string): T;
 
+		/**
+		* @see _.find
+		**/
+		export function findWhere<T>(
+			collection: Collection<T>,
+			callback: ListIterator<T, boolean>,
+			thisArg?: any): T;
+
+		/**
+		* @see _.find
+		* @param _.pluck style callback
+		**/
+		export function findWhere<T>(
+			collection: Collection<T>,
+			whereValue: Dictionary<any>): T;
+
+		/**
+		* @see _.find
+		* @param _.where style callback
+		**/
+		export function findWhere<T>(
+			collection: Collection<T>,
+			pluckValue: string): T;
+
 	/**
 	* This method is like _.find except that it iterates over elements of a collection from 
 	* right to left.

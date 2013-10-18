@@ -247,6 +247,12 @@ result = <IFoodCombined>_.find(foodsCombined, 'organic');
 	result = <IFoodCombined>_.detect(foodsCombined, { 'type': 'vegetable' });
 	result = <IFoodCombined>_.detect(foodsCombined, 'organic');
 
+	result = <number>_.findWhere([1, 2, 3, 4], function(num) {
+	  return num % 2 == 0;
+	});
+	result = <IFoodCombined>_.findWhere(foodsCombined, { 'type': 'vegetable' });
+	result = <IFoodCombined>_.findWhere(foodsCombined, 'organic');
+
 result = <number>_.findLast([1, 2, 3, 4], function(num) {
   return num % 2 == 0;
 });
