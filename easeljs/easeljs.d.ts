@@ -596,11 +596,12 @@ declare module createjs {
         autoClear: boolean;
         canvas: HTMLCanvasElement;
         mouseInBounds: boolean;
+        mouseMoveOutside: boolean;
         mouseX: number;
         mouseY: number;
         snapToPixelEnabled: boolean;
         tickOnUpdate: boolean;
-
+        
         new (): Stage;
         new (canvas: HTMLElement): Stage;
 

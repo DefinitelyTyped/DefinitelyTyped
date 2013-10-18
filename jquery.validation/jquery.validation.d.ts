@@ -36,6 +36,12 @@ interface ValidationOptions
 	wrapper?: string;
 }
 
+interface ErrorListItem
+{
+	message: string;
+	element: HTMLElement;
+}
+
 interface Validator
 {
 	addClassRules(name: string, rules: any): void;
@@ -49,6 +55,12 @@ interface Validator
 	setDefaults(defaults: ValidationOptions): void;
 	settings: ValidationOptions;
 	showErrors(errors: any): void;
+	hideErrors(): void;
+	valid(): boolean;
+	size(): number;
+
+	errorMap: Object;
+	errorList: ErrorListItem[];
 }
 
 interface JQuery

@@ -72,7 +72,7 @@ interface RequireConfig {
 
 	// Path mappings for module names not found directly under 
 	// baseUrl.
-	paths?: { [key: string]: string; };
+	paths?: { [key: string]: any; };
 
 	// Dictionary of Shim's.
 	// does not cover case of key->string[]
@@ -222,6 +222,13 @@ interface Require {
 	* Configure require.js
 	**/
 	config(config: RequireConfig): Require;
+	
+	/**
+	* CommonJS require call
+	* @param module Module to load
+	* @return The loaded module
+	*/
+	(module: string): any;
 
 	/**
 	* Start the main app logic.

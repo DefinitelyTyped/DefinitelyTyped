@@ -4,23 +4,23 @@ SlickGrid-2.1.d.ts may be freely distributed under the MIT license.
 Copyright (c) 2013 Josh Baldwin https://github.com/jbaldwin/SlickGrid.d.ts
 
 Permission is hereby granted, free of charge, to any person
-obtaining a copy of this software and associated documentation 
-files (the "Software"), to deal in the Software without 
-restriction, including without limitation the rights to use, 
-copy, modify, merge, publish, distribute, sublicense, and/or sell 
-copies of the Software, and to permit persons to whom the 
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
 Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be 
+The above copyright notice and this permission notice shall be
 included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES 
-OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
-HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
-WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 */
 
@@ -499,7 +499,7 @@ declare module Slick {
 	}
 
 	export interface EditorFactory {
-		getEditor(column): Editors.Editor;
+		getEditor<T>(column: Column<T>): Editors.Editor<T>;
 	}
 
 	export interface FormatterFactory<T extends Slick.SlickData> {
@@ -726,22 +726,22 @@ declare module Slick {
 		constructor(
 			container: string,
 			data: T[],
-			columns: Column[],
+			columns: Column<T>[],
 			options: GridOptions<T>);
 		constructor(
 			container: HTMLElement,
 			data: T[],
-			columns: Column[],
+			columns: Column<T>[],
 			options: GridOptions<T>);
 		constructor(
 			container: string,
 			data: DataProvider,
-			columns: Column[],
+			columns: Column<T>[],
 			options: GridOptions<T>);
 		constructor(
 			container: HTMLElement,
 			data: DataProvider,
-			columns: Column[],
+			columns: Column<T>[],
 			options: GridOptions<T>);
 
 		// #region Core
@@ -841,13 +841,13 @@ declare module Slick {
 		* Returns an array of column definitions, containing the option settings for each individual column.
 		* @return
 		**/
-		public getColumns(): Column[];
+		public getColumns(): Column<T>[];
 
 		/**
 		* Sets grid columns. Column headers will be recreated and all rendered rows will be removed. To rerender the grid (if necessary), call render().
 		* @param columnDefinitions An array of column definitions.
 		**/
-		public setColumns(columnDefinitions: Column[]): void;
+		public setColumns(columnDefinitions: Column<T>[]): void;
 
 		/**
 		* Accepts a columnId string and an ascending boolean. Applies a sort glyph in either ascending or descending form to the header of the column. Note that this does not actually sort the column. It only adds the sort glyph to the header.
@@ -866,7 +866,7 @@ declare module Slick {
 		* todo: no docs or comments available
 		* @return
 		**/
-		public getSortColumns(): Column[];
+		public getSortColumns(): Column<T>[];
 
 		/**
 		* Updates an existing column definition and a corresponding header DOM element with the new title and tooltip.
@@ -874,7 +874,7 @@ declare module Slick {
 		* @param title New column name.
 		* @param toolTip New column tooltip.
 		**/
-		public updateColumnHeader(columnId: string, title: string, toolTip?: string): void;
+		public updateColumnHeader(columnId: string, title?: string, toolTip?: string): void;
 
 		// #endregion Columns
 
@@ -1328,7 +1328,7 @@ declare module Slick {
 	export interface OnSortEventData<T extends SlickData> {
 		multiColumnSort: boolean;
 		sortCol?: Column<T>;
-		sortCols: Column[];
+		sortCols: Column<T>[];
 		sortAsc?: boolean;
 	}
 
@@ -1526,7 +1526,7 @@ declare module Slick {
 			*     the 'high' setGrouping.
 			*/
 			public expandGroup(...varArgs: string[]): void;
-			public getGroups(): Group[];
+			public getGroups(): Group<T, any>[];
 			public getIdxById(): string;
 			public getRowById(): T;
 			public getItemById(): T;
