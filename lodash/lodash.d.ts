@@ -767,6 +767,168 @@ declare module _ {
 	 ************* */
 
 	/**
+	* Creates an array of elements from the specified indexes, or keys, of the collection. 
+	* Indexes may be specified as individual arguments or as arrays of indexes.
+	* @param collection The collection to iterate over.
+	* @param indexes The indexes of collection to retrieve, specified as individual indexes or 
+	* arrays of indexes.
+	* @return A new array of elements corresponding to the provided indexes.
+	**/
+	export function at<T>(
+		collection: Collection<T>,
+		indexes: number[]): T[];
+
+	/**
+	* @see _.at
+	**/
+	export function at<T>(
+		collection: Collection<T>,
+		...indexes: number[]): T[];
+
+
+	/**
+	* Checks if the given callback returns truey value for all elements of a collection. 
+	* The callback is bound to thisArg and invoked with three arguments; (value, index|key, 
+	* collection).
+	*
+	* If a property name is provided for callback the created "_.pluck" style callback will 
+	* return the property value of the given element.
+	*
+	* If an object is provided for callback the created "_.where" style callback will return 
+	* true for elements that have the properties of the given object, else false.
+	* @param collection The collection to iterate over.
+	* @param callback The function called per iteration.
+	* @param thisArg The this binding of callback.
+	* @return True if all elements passed the callback check, else false.
+	**/
+	export function every<T>(
+		collection: Collection<T>,
+		callback?: ListIterator<T, boolean>,
+		thisArg?: any): boolean;
+
+	/**
+	* @see _.every
+	* @param pluckValue _.pluck style callback
+	**/
+	export function every<T>(
+		collection: Collection<T>,
+		pluckValue: string): boolean;
+
+	/**
+	* @see _.every
+	* @param whereValue _.where style callback
+	**/
+	export function every<T>(
+		collection: Collection<T>,
+		whereValue: Dictionary<any>): boolean;
+
+		/**
+		* @see _.every
+		**/
+		export function all<T>(
+			collection: Collection<T>,
+			callback?: ListIterator<T, boolean>,
+			thisArg?: any): boolean;
+
+		/**
+		* @see _.every
+		* @param pluckValue _.pluck style callback
+		**/
+		export function all<T>(
+			collection: Collection<T>,
+			pluckValue: string): boolean;
+
+		/**
+		* @see _.every
+		* @param whereValue _.where style callback
+		**/
+		export function all<T>(
+			collection: Collection<T>,
+			whereValue: Dictionary<any>): boolean;
+
+	/**
+	* Checks if the callback returns a truey value for any element of a collection. The function 
+	* returns as soon as it finds a passing value and does not iterate over the entire collection. 
+	* The callback is bound to thisArg and invoked with three arguments; (value, index|key, collection).
+	*
+	* If a property name is provided for callback the created "_.pluck" style callback will return 
+	* the property value of the given element.
+	*
+	* If an object is provided for callback the created "_.where" style callback will return true for 
+	* elements that have the properties of the given object, else false.
+	* @param collection The collection to iterate over.
+	* @param callback The function called per iteration.
+	* @param thisArg The this binding of callback.
+	* @return True if any element passed the callback check, else false.
+	**/
+	export function some<T>(
+		collection: Collection<T>,
+		callback?: ListIterator<T, boolean>,
+		thisArg?: any): boolean;
+
+	/**
+	* @see _.some
+	* @param pluckValue _.pluck style callback
+	**/
+	export function some<T>(
+		collection: Collection<T>,
+		pluckValue: string): boolean;
+
+	/**
+	* @see _.some
+	* @param whereValue _.where style callback
+	**/
+	export function some<T>(
+		collection: Collection<T>,
+		whereValue: Dictionary<any>): boolean;
+
+		/**
+		* @see _.some
+		**/
+		export function any<T>(
+			collection: Collection<T>,
+			callback?: ListIterator<T, boolean>,
+			thisArg?: any): boolean;
+
+		/**
+		* @see _.some
+		* @param pluckValue _.pluck style callback
+		**/
+		export function any<T>(
+			collection: Collection<T>,
+			pluckValue: string): boolean;
+
+		/**
+		* @see _.some
+		* @param whereValue _.where style callback
+		**/
+		export function any<T>(
+			collection: Collection<T>,
+			whereValue: Dictionary<any>): boolean;
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/**
 	* Iterates over a list of elements, yielding each in turn to an iterator function. The iterator is
 	* bound to the context object, if one is passed. Each invocation of iterator is called with three
 	* arguments: (element, index, list). If list is a JavaScript object, iterator's arguments will be
@@ -991,47 +1153,7 @@ declare module _ {
 		iterator: ListIterator<T, boolean>,
 		context?: any): T[];
 
-	/**
-	* Returns true if all of the values in the list pass the iterator truth test. Delegates to the
-	* native method every, if present.
-	* @param list Truth test against all elements within this list.
-	* @param iterator Trust test iterator function for each element in `list`.
-	* @param context `this` object in `iterator`, optional.
-	* @return True if all elements passed the truth test, otherwise false.
-	**/
-	export function every<T>(
-		list: Collection<T>,
-		iterator?: ListIterator<T, boolean>,
-		context?: any): boolean;
-
-	/**
-	* @see _.all
-	**/
-	export function all<T>(
-		list: Collection<T>,
-		iterator?: ListIterator<T, boolean>,
-		context?: any): boolean;
-
-	/**
-	* Returns true if any of the values in the list pass the iterator truth test. Short-circuits and
-	* stops traversing the list if a true element is found. Delegates to the native method some, if present.
-	* @param list Truth test against all elements within this list.
-	* @param iterator Trust test iterator function for each element in `list`.
-	* @param context `this` object in `iterator`, optional.
-	* @return True if any elements passed the truth test, otherwise false.
-	**/
-	export function any<T>(
-		list: Collection<T>,
-		iterator?: ListIterator<T, boolean>,
-		context?: any): boolean;
-
-	/**
-	* @see _.any
-	**/
-	export function some<T>(
-		list: Collection<T>,
-		iterator?: ListIterator<T, boolean>,
-		context?: any): boolean;
+	
 
 	/**
 	* Returns true if the value is present in the list. Uses indexOf internally,
