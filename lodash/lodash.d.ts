@@ -933,6 +933,95 @@ declare module _ {
 			whereValue: Dictionary<any>): boolean;
 
 	/**
+	* Iterates over elements of a collection, returning the first element that the callback 
+	* returns truey for. The callback is bound to thisArg and invoked with three arguments; 
+	* (value, index|key, collection).
+	*
+	* If a property name is provided for callback the created "_.pluck" style callback will 
+	* return the property value of the given element.
+	*
+	* If an object is provided for callback the created "_.where" style callback will return 
+	* true for elements that have the properties of the given object, else false.
+	* @param collection Searches for a value in this list.
+	* @param callback The function called per iteration. 
+	* @param thisArg The this binding of callback.
+	* @return The found element, else undefined.
+	**/
+	export function find<T>(
+		collection: Collection<T>,
+		callback: ListIterator<T, boolean>,
+		thisArg?: any): T;
+
+	/**
+	* @see _.find
+	* @param _.pluck style callback
+	**/
+	export function find<T>(
+		collection: Collection<T>,
+		whereValue: Dictionary<any>): T;
+
+	/**
+	* @see _.find
+	* @param _.where style callback
+	**/
+	export function find<T>(
+		collection: Collection<T>,
+		pluckValue: string): T;
+
+		/**
+		* @see _.find
+		**/
+		export function detect<T>(
+			collection: Collection<T>,
+			callback: ListIterator<T, boolean>,
+			thisArg?: any): T;
+
+		/**
+		* @see _.find
+		* @param _.pluck style callback
+		**/
+		export function detect<T>(
+			collection: Collection<T>,
+			whereValue: Dictionary<any>): T;
+
+		/**
+		* @see _.find
+		* @param _.where style callback
+		**/
+		export function detect<T>(
+			collection: Collection<T>,
+			pluckValue: string): T;
+
+	/**
+	* This method is like _.find except that it iterates over elements of a collection from 
+	* right to left.
+	* @param collection Searches for a value in this list.
+	* @param callback The function called per iteration. 
+	* @param thisArg The this binding of callback.
+	* @return The found element, else undefined.
+	**/
+	export function findLast<T>(
+		collection: Collection<T>,
+		callback: ListIterator<T, boolean>,
+		thisArg?: any): T;
+
+	/**
+	* @see _.find
+	* @param _.pluck style callback
+	**/
+	export function findLast<T>(
+		collection: Collection<T>,
+		whereValue: Dictionary<any>): T;
+
+	/**
+	* @see _.find
+	* @param _.where style callback
+	**/
+	export function findLast<T>(
+		collection: Collection<T>,
+		pluckValue: string): T;
+
+	/**
 	* Creates an array of values by running each element in the collection through the callback. 
 	* The callback is bound to thisArg and invoked with three arguments; (value, index|key, 
 	* collection).
@@ -1177,32 +1266,6 @@ declare module _ {
 		iterator: MemoIterator<T, TResult>,
 		memo?: TResult,
 		context?: any): TResult;
-
-	/**
-	* Looks through each value in the list, returning the first one that passes a truth
-	* test (iterator). The function returns as soon as it finds an acceptable element,
-	* and doesn't traverse the entire list.
-	* @param list Searches for a value in this list.
-	* @param iterator Search iterator function for each element in `list`.
-	* @param context `this` object in `iterator`, optional.
-	* @return The first acceptable found element in `list`, if nothing is found undefined/null is returned.
-	**/
-	export function find<T>(
-		list: Collection<T>,
-		iterator: ListIterator<T, boolean>,
-		context?: any): T;
-
-	
-
-	
-
-	/**
-	* @see _.find
-	**/
-	export function detect<T>(
-		list: Collection<T>,
-		iterator: ListIterator<T, boolean>,
-		context?: any): T;
 
 	/**
 	* Looks through each value in the list, returning an array of all the values that pass a truth
