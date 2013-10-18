@@ -1248,6 +1248,42 @@ declare module _ {
 				pluckValue: string): TResult[];
 
 	/**
+	* Reduces a collection to a value which is the accumulated result of running each 
+	* element in the collection through the callback, where each successive callback execution 
+	* consumes the return value of the previous execution. If accumulator is not provided the 
+	* first element of the collection will be used as the initial accumulator value. The callback 
+	* is bound to thisArg and invoked with four arguments; (accumulator, value, index|key, collection).
+	* @param collection The collection to iterate over.
+	* @param callback The function called per iteration.
+	* @param accumulator Initial value of the accumulator.
+	* @param thisArg The this binding of callback.
+	* @return Returns the accumulated value.
+	**/
+	export function reduce<T, TResult>(
+		collection: Collection<T>,
+		callback: MemoIterator<T, TResult>,
+		accumulator?: TResult,
+		thisArg?: any): TResult;
+
+		/**
+		* @see _.reduce
+		**/
+		export function inject<T, TResult>(
+			collection: Collection<T>,
+			callback: MemoIterator<T, TResult>,
+			accumulator?: TResult,
+			thisArg?: any): TResult;
+
+		/**
+		* @see _.reduce
+		**/
+		export function foldl<T, TResult>(
+			collection: Collection<T>,
+			callback: MemoIterator<T, TResult>,
+			accumulator?: TResult,
+			thisArg?: any): TResult;
+
+	/**
 	* Checks if the callback returns a truey value for any element of a collection. The function 
 	* returns as soon as it finds a passing value and does not iterate over the entire collection. 
 	* The callback is bound to thisArg and invoked with three arguments; (value, index|key, collection).
@@ -1330,41 +1366,6 @@ declare module _ {
 
 
 	
-
-	/**
-	* Also known as inject and foldl, reduce boils down a list of values into a single value.
-	* Memo is the initial state of the reduction, and each successive step of it should be
-	* returned by iterator. The iterator is passed four arguments: the memo, then the value
-	* and index (or key) of the iteration, and finally a reference to the entire list.
-	* @param list Reduces the elements of this array.
-	* @param iterator Reduce iterator function for each element in `list`.
-	* @param memo Initial reduce state.
-	* @param context `this` object in `iterator`, optional.
-	* @return Reduced object result.
-	**/
-	export function reduce<T, TResult>(
-		list: Collection<T>,
-		iterator: MemoIterator<T, TResult>,
-		memo?: TResult,
-		context?: any): TResult;
-
-	/**
-	* @see _.reduce
-	**/
-	export function inject<T, TResult>(
-		list: Collection<T>,
-		iterator: MemoIterator<T, TResult>,
-		memo?: TResult,
-		context?: any): TResult;
-
-	/**
-	* @see _.reduce
-	**/
-	export function foldl<T, TResult>(
-		list: Collection<T>,
-		iterator: MemoIterator<T, TResult>,
-		memo?: TResult,
-		context?: any): TResult;
 
 	/**
 	* The right-associative version of reduce. Delegates to the JavaScript 1.8 version of

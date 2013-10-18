@@ -279,6 +279,30 @@ result = <any[]>_.map(stoogesAges, 'name');
 	result = <any[]>_.collect({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { return num * 3; });
 	result = <any[]>_.collect(stoogesAges, 'name');
 
+result = <any>_.reduce([1, 2, 3], function(sum, num) {
+  return sum + num;
+});
+result = <any>_.reduce({ 'a': 1, 'b': 2, 'c': 3 }, function(result, num, key) {
+  result[key] = num * 3;
+  return result;
+}, {});
+
+	result = <any>_.foldl([1, 2, 3], function(sum, num) {
+	  return sum + num;
+	});
+	result = <any>_.foldl({ 'a': 1, 'b': 2, 'c': 3 }, function(result, num, key) {
+	  result[key] = num * 3;
+	  return result;
+	}, {});
+
+	result = <any>_.inject([1, 2, 3], function(sum, num) {
+	  return sum + num;
+	});
+	result = <any>_.inject({ 'a': 1, 'b': 2, 'c': 3 }, function(result, num, key) {
+	  result[key] = num * 3;
+	  return result;
+	}, {});
+
 result = <boolean>_.some([null, 0, 'yes', false], Boolean);
 result = <boolean>_.some(foodsCombined, 'organic');
 result = <boolean>_.some(foodsCombined, { 'type': 'meat' });
