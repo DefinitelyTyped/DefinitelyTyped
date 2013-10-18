@@ -1,4 +1,4 @@
-﻿// Type definitions for pickadate.js 3.2.0
+﻿// Type definitions for pickadate.js 3.3.0
 // Project: https://github.com/amsul/pickadate.js
 // Definitions by: Theodore Brown <https://github.com/theodorejb/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -37,6 +37,7 @@ interface pickadateOptions extends pickerOptions {
     // Formats
     format?: string; // default 'd mmmm, yyyy'
     formatSubmit?: string; // e.g. 'yyyy/mm/dd'
+    hiddenPrefix?: string; // default undefined
     hiddenSuffix?: string; // default '_submit'
 
     // Dropdown selectors
@@ -51,7 +52,7 @@ interface pickadateOptions extends pickerOptions {
     max?: any;
 
     // Disable dates
-    disable?: any[]; // arrays formatted as [YEAR,MONTH,DATE] or integers representing days of the week (from 1 to 7). Switch to whitelist by setting first item in collection to `true`.
+    disable?: any[]; // Date objects, arrays formatted as [YEAR,MONTH,DATE], or integers representing days of the week (from 1 to 7). Switch to whitelist by setting first item in collection to `true`.
 
     // Classes
     klass?: {
@@ -119,6 +120,7 @@ interface pickatimeOptions extends pickerOptions {
     format?: string; // default 'h:i A'
     formatLabel?: any;
     formatSubmit?: string;
+    hiddenPrefix?: string; // default undefined
     hiddenSuffix?: string; // default '_submit'
 
     // Time intervals
