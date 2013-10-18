@@ -12,24 +12,45 @@ interface IFoodType {
 	type: string;
 }
 
-interface IStoogesQuotes {
+interface IFoodCombined {
+	name: string;
+	organic: boolean;
+	type: string;
+}
+
+interface IStoogesQuote {
 	name: string;
 	quotes: string[];
 }
 
+interface IStoogesAge {
+	name: string;
+	age: number;
+}
+
 var foodsOrganic: IFoodOrganic[] = [
-  { name: 'banana', organic: true },
-  { name: 'beet',   organic: false },
+	{ name: 'banana', organic: true },
+	{ name: 'beet',   organic: false },
 ];
 var foodsType: IFoodType[] = [
-  { name: 'apple',  type: 'fruit' },
-  { name: 'banana', type: 'fruit' },
-  { name: 'beet',   type: 'vegetable' }
+	{ name: 'apple',  type: 'fruit' },
+	{ name: 'banana', type: 'fruit' },
+	{ name: 'beet',   type: 'vegetable' }
 ];
-var stoogesQuotes = [
-  { 'name': 'curly', 'quotes': ['Oh, a wise guy, eh?', 'Poifect!'] },
-  { 'name': 'moe', 'quotes': ['Spread out!', 'You knucklehead!'] }
+var foodsCombined: IFoodCombined[] = [
+  { 'name': 'apple',  'organic': false, 'type': 'fruit' },
+  { 'name': 'carrot', 'organic': true,  'type': 'vegetable' }
 ];
+
+var stoogesQuotes: IStoogesQuote[] = [
+	{ 'name': 'curly', 'quotes': ['Oh, a wise guy, eh?', 'Poifect!'] },
+	{ 'name': 'moe', 'quotes': ['Spread out!', 'You knucklehead!'] }
+];
+var stoogesAges: IStoogesAge[] = [
+	{ 'name': 'moe', 'age': 40 },
+	{ 'name': 'larry', 'age': 50 }
+];
+
 var result;
 
 //Array Method Tests
@@ -176,6 +197,32 @@ result = <any[][]>_.unzip(['moe', 'larry'], [30, 40], [true, false]);
 	result = <any[][]>_.zip(['moe', 'larry'], [30, 40], [true, false]);
 
 result = <number[]>_.without([1, 2, 1, 0, 3, 1, 4], 0, 1);
+
+/* *************
+ * Collections *
+ ************* */
+
+result = <string>_.at(['a', 'b', 'c', 'd', 'e'], [0, 2, 4]);
+result = <string>_.at(['moe', 'larry', 'curly'], 0, 2);
+
+result = <boolean>_.every([true, 1, null, 'yes'], Boolean);
+result = <boolean>_.every(stoogesAges, 'age');
+result = <boolean>_.every(stoogesAges, { 'age': 50 });
+
+	result = <boolean>_.all([true, 1, null, 'yes'], Boolean);
+	result = <boolean>_.all(stoogesAges, 'age');
+	result = <boolean>_.all(stoogesAges, { 'age': 50 });
+
+result = <boolean>_.some([null, 0, 'yes', false], Boolean);
+result = <boolean>_.some(foodsCombined, 'organic');
+result = <boolean>_.some(foodsCombined, { 'type': 'meat' });
+	
+	result = <boolean>_.any([null, 0, 'yes', false], Boolean);
+	result = <boolean>_.any(foodsCombined, 'organic');
+	result = <boolean>_.any(foodsCombined, { 'type': 'meat' });
+	
+	
+
 
 
 
