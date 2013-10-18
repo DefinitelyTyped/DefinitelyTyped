@@ -202,8 +202,8 @@ result = <number[]>_.without([1, 2, 1, 0, 3, 1, 4], 0, 1);
  * Collections *
  ************* */
 
-result = <string>_.at(['a', 'b', 'c', 'd', 'e'], [0, 2, 4]);
-result = <string>_.at(['moe', 'larry', 'curly'], 0, 2);
+result = <string[]>_.at(['a', 'b', 'c', 'd', 'e'], [0, 2, 4]);
+result = <string[]>_.at(['moe', 'larry', 'curly'], 0, 2);
 
 result = <boolean>_.every([true, 1, null, 'yes'], Boolean);
 result = <boolean>_.every(stoogesAges, 'age');
@@ -212,6 +212,14 @@ result = <boolean>_.every(stoogesAges, { 'age': 50 });
 	result = <boolean>_.all([true, 1, null, 'yes'], Boolean);
 	result = <boolean>_.all(stoogesAges, 'age');
 	result = <boolean>_.all(stoogesAges, { 'age': 50 });
+
+result = <any[]>_.map([1, 2, 3], function(num) { return num * 3; });
+result = <any[]>_.map({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { return num * 3; });
+result = <any[]>_.map(stoogesAges, 'name');
+
+	result = <any[]>_.collect([1, 2, 3], function(num) { return num * 3; });
+	result = <any[]>_.collect({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { return num * 3; });
+	result = <any[]>_.collect(stoogesAges, 'name');
 
 result = <boolean>_.some([null, 0, 'yes', false], Boolean);
 result = <boolean>_.some(foodsCombined, 'organic');

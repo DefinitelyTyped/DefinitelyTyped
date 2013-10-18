@@ -847,6 +847,69 @@ declare module _ {
 			whereValue: Dictionary<any>): boolean;
 
 	/**
+	* Creates an array of values by running each element in the collection through the callback. 
+	* The callback is bound to thisArg and invoked with three arguments; (value, index|key, 
+	* collection).
+	*
+	* If a property name is provided for callback the created "_.pluck" style callback will return 
+	* the property value of the given element.
+	*
+	* If an object is provided for callback the created "_.where" style callback will return true 
+	* for elements that have the properties of the given object, else false.
+	* @param collection The collection to iterate over.
+	* @param callback The function called per iteration.
+	* @param theArg The this binding of callback.
+	* @return The mapped array result.
+	**/
+	export function map<T, TResult>(
+		collection: List<T>,
+		callback: ListIterator<T, TResult>,
+		thisArg?: any): TResult[];
+
+	/**
+	* @see _.map
+	* @param object The object to iterate over.
+	* @param callback The function called per iteration.
+	* @param thisArg `this` object in `iterator`, optional.
+	* @return The mapped object result.
+	**/
+	export function map<T extends {}, TResult>(
+		object: Dictionary<T>,
+		callback: ObjectIterator<T, TResult>,
+		thisArg?: any): TResult[];
+
+	/**
+	* @see _.map
+	* @param pluckValue _.pluck style callback
+	**/
+	export function map<T, TResult>(
+		collection: List<T>,
+		pluckValue: string): TResult[];
+
+			/**
+			* @see _.map
+			**/
+			export function collect<T, TResult>(
+				collection: List<T>,
+				callback: ListIterator<T, TResult>,
+				thisArg?: any): TResult[];
+
+			/**
+			* @see _.map
+			**/
+			export function collect<T extends {}, TResult>(
+				object: Dictionary<T>,
+				callback: ObjectIterator<T, TResult>,
+				thisArg?: any): TResult[];
+
+			/**
+			* @see _.map
+			**/
+			export function collect<T, TResult>(
+				collection: List<T>,
+				pluckValue: string): TResult[];
+
+	/**
 	* Checks if the callback returns a truey value for any element of a collection. The function 
 	* returns as soon as it finds a passing value and does not iterate over the entire collection. 
 	* The callback is bound to thisArg and invoked with three arguments; (value, index|key, collection).
@@ -968,48 +1031,6 @@ declare module _ {
 		object: Dictionary<T>,
 		iterator: ObjectIterator<T, void >,
 		context?: any): void;
-
-	/**
-	* Produces a new array of values by mapping each value in list through a transformation function
-	* (iterator). If the native map method exists, it will be used instead. If list is a JavaScript
-	* object, iterator's arguments will be (value, key, object).
-	* @param list Maps the elements of this array.
-	* @param iterator Map iterator function for each element in `list`.
-	* @param context `this` object in `iterator`, optional.
-	* @return The mapped array result.
-	**/
-	export function map<T, TResult>(
-		list: List<T>,
-		iterator: ListIterator<T, TResult>,
-		context?: any): TResult[];
-
-	/**
-	* @see _.map
-	* @param object Maps the properties of this object.
-	* @param iterator Map iterator function for each property on `obj`.
-	* @param context `this` object in `iterator`, optional.
-	* @return The mapped object result.
-	**/
-	export function map<T extends {}, TResult>(
-		object: Dictionary<T>,
-		iterator: ObjectIterator<T, TResult>,
-		context?: any): TResult[];
-
-	/**
-	* @see _.map
-	**/
-	export function collect<T, TResult>(
-		list: List<T>, iterator:
-		ListIterator<T, TResult>,
-		context?: any): TResult[];
-
-	/**
-	* @see _.map
-	**/
-	export function collect<T extends {}, TResult>(
-		object: Dictionary<T>,
-		iterator: ObjectIterator<T, TResult>,
-		context?: any): TResult[];
 
 	/**
 	* Also known as inject and foldl, reduce boils down a list of values into a single value.
