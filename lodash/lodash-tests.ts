@@ -219,6 +219,14 @@ result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function(num) { return
 result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function(num) { return this.floor(num); }, Math);
 result = <_.Dictionary<number>>_.countBy(['one', 'two', 'three'], 'length');
 
+result = <boolean>_.every([true, 1, null, 'yes'], Boolean);
+result = <boolean>_.every(stoogesAges, 'age');
+result = <boolean>_.every(stoogesAges, { 'age': 50 });
+
+	result = <boolean>_.all([true, 1, null, 'yes'], Boolean);
+	result = <boolean>_.all(stoogesAges, 'age');
+	result = <boolean>_.all(stoogesAges, { 'age': 50 });
+
 result = <number>_.find([1, 2, 3, 4], function(num) {
   return num % 2 == 0;
 });
@@ -237,13 +245,11 @@ result = <number>_.findLast([1, 2, 3, 4], function(num) {
 result = <IFoodCombined>_.findLast(foodsCombined, { 'type': 'vegetable' });
 result = <IFoodCombined>_.findLast(foodsCombined, 'organic');
 
-result = <boolean>_.every([true, 1, null, 'yes'], Boolean);
-result = <boolean>_.every(stoogesAges, 'age');
-result = <boolean>_.every(stoogesAges, { 'age': 50 });
+result = <number[]>_.forEach([1, 2, 3], function(num) { console.log(num); });
+result = <_.Dictionary<number>>_.forEach({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { console.log(num); });
 
-	result = <boolean>_.all([true, 1, null, 'yes'], Boolean);
-	result = <boolean>_.all(stoogesAges, 'age');
-	result = <boolean>_.all(stoogesAges, { 'age': 50 });
+	result = <number[]>_.each([1, 2, 3], function(num) { console.log(num); });
+	result = <_.Dictionary<number>>_.each({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { console.log(num); });
 
 result = <any[]>_.map([1, 2, 3], function(num) { return num * 3; });
 result = <any[]>_.map({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { return num * 3; });
