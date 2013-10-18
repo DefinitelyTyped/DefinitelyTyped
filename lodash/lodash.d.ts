@@ -237,10 +237,24 @@ declare module _ {
 		iterator: ListIterator<T, boolean>,
 		context?: any): T;
 
+    // This definition allows findWhere style
+    // However the findWhere type parameter <U extends {}> ruins type inference
+    // So explicitly use findWhere if you want a sub-typing rather than exact comparison
+	export function find<T>(
+		list: Collection<T>,
+		properties: T): T;
+
 	export function findIndex<T>(
 		list: Collection<T>,
 		iterator: ListIterator<T, boolean>,
 		context?: any): number;
+
+    // This definition allows _.where style
+    // However the where type parameter <U extends {}> ruins type inference
+    // If you want sub-typing rather than exact comparison, you need a different type signature
+	export function findIndex<T>(
+		list: Collection<T>,
+		properties: T): number;
 
 	/**
 	* @see _.find
