@@ -1022,6 +1022,48 @@ declare module _ {
 		pluckValue: string): T;
 
 	/**
+	* Iterates over elements of a collection, executing the callback for each element. 
+	* The callback is bound to thisArg and invoked with three arguments; (value, index|key, 
+	* collection). Callbacks may exit iteration early by explicitly returning false.
+	* @param collection The collection to iterate over.
+	* @param callback The function called per iteration.
+	* @param thisArg The this binding of callback.
+	**/
+	export function forEach<T>(
+		collection: List<T>,
+		callback: ListIterator<T, void >,
+		thisArg?: any): List<T>;
+
+	/**
+	* @see _.each
+	**/
+	export function forEach<T extends {}>(
+		object: Dictionary<T>,
+		callback: ObjectIterator<T, void >,
+		thisArg?: any): Dictionary<T>;
+
+		/**
+		* @see _.each
+		**/
+		export function each<T>(
+			collection: List<T>,
+			callback: ListIterator<T, void>,
+			thisArg?: any): List<T>;
+
+		/**
+		* @see _.each
+		* @param object Iterators over this object's properties.
+		* @param iterator Iterator function for each property on `obj`.
+		* @param context 'this' object in `iterator`, optional.
+		**/
+		export function each<T extends {}>(
+			object: Dictionary<T>,
+			callback: ObjectIterator<T, void>,
+			thisArg?: any): Dictionary<T>;
+
+	
+
+	/**
 	* Creates an array of values by running each element in the collection through the callback. 
 	* The callback is bound to thisArg and invoked with three arguments; (value, index|key, 
 	* collection).
@@ -1166,46 +1208,7 @@ declare module _ {
 
 
 
-	/**
-	* Iterates over a list of elements, yielding each in turn to an iterator function. The iterator is
-	* bound to the context object, if one is passed. Each invocation of iterator is called with three
-	* arguments: (element, index, list). If list is a JavaScript object, iterator's arguments will be
-	* (value, key, object). Delegates to the native forEach function if it exists.
-	* @param list Iterates over this list of elements.
-	* @param iterator Iterator function for each element `list`.
-	* @param context 'this' object in `iterator`, optional.
-	**/
-	export function each<T>(
-		list: List<T>,
-		iterator: ListIterator<T, void>,
-		context?: any): void;
-
-	/**
-	* @see _.each
-	* @param object Iterators over this object's properties.
-	* @param iterator Iterator function for each property on `obj`.
-	* @param context 'this' object in `iterator`, optional.
-	**/
-	export function each<T extends {}>(
-		object: Dictionary<T>,
-		iterator: ObjectIterator<T, void>,
-		context?: any): void;
-
-	/**
-	* @see _.each
-	**/
-	export function forEach<T>(
-		list: List<T>,
-		iterator: ListIterator<T, void >,
-		context?: any): void;
-
-	/**
-	* @see _.each
-	**/
-	export function forEach<T extends {}>(
-		object: Dictionary<T>,
-		iterator: ObjectIterator<T, void >,
-		context?: any): void;
+	
 
 	/**
 	* Also known as inject and foldl, reduce boils down a list of values into a single value.
