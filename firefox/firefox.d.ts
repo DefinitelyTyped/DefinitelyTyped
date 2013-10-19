@@ -33,7 +33,7 @@ interface App {
 	installTime:number;
 	receipts:any[];
 
-	launch();
+	launch():void;
 	checkForUpdate():DOMRequest<any>;
 }
 
