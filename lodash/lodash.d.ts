@@ -1534,6 +1534,13 @@ declare module _ {
 	**/
 	export function sample<T>(collection: Collection<T>, n: number): T[];
 
+	/**
+	* Creates an array of shuffled values, using a version of the Fisher-Yates shuffle. 
+	* See http://en.wikipedia.org/wiki/Fisher-Yates_shuffle.
+	* @param collection The collection to shuffle.
+	* @return Returns a new shuffled collection.
+	**/
+	export function shuffle<T>(list: Collection<T>): T[];
 
 	/**
 	* Checks if the callback returns a truey value for any element of a collection. The function 
@@ -1656,12 +1663,7 @@ declare module _ {
 		iterator: string,
 		context?: any): T[];
 
-	/**
-	* Returns a shuffled copy of the list, using a version of the Fisher-Yates shuffle.
-	* @param list List to shuffle.
-	* @return Shuffled copy of `list`.
-	**/
-	export function shuffle<T>(list: Collection<T>): T[];
+	
 
 	/**
 	* Converts the list (anything that can be iterated over), into a real Array. Useful for transmuting
