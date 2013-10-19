@@ -1,6 +1,6 @@
 /// <reference path="lodash.d.ts" />
 
-declare var $;
+declare var $, jQuery;
 
 interface IFoodOrganic {
 	name: string;
@@ -399,6 +399,14 @@ var func = function (greeting) { return greeting + ' ' + this.name };
 var func2 = _.bind(func, { 'name': 'moe' }, 'hi');
 func2();
 
+var view = {
+ 'label': 'docs',
+ 'onClick': function() { console.log('clicked ' + this.label); }
+};
+
+_.bindAll(view);
+jQuery('#docs').on('click', view.onClick);
+
 
 
 
@@ -421,13 +429,13 @@ func2();
 
 
 
-var buttonView = {
-	label: 'underscore',
-	onClick: function () { alert('clicked: ' + this.label); },
-	onHover: function () { console.log('hovering: ' + this.label); }
-};
-_.bindAll(buttonView);
-$('#underscore_button').bind('click', buttonView.onClick);
+// var buttonView = {
+// 	label: 'underscore',
+// 	onClick: function () { alert('clicked: ' + this.label); },
+// 	onHover: function () { console.log('hovering: ' + this.label); }
+// };
+// _.bindAll(buttonView);
+// $('#underscore_button').bind('click', buttonView.onClick);
 
 var fibonacci = _.memoize(function (n) {
 	return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
