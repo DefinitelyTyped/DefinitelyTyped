@@ -16,6 +16,26 @@ declare function _<T>(value: T): _<T>;
 declare module _ {
 
 	/**
+	* lodash.js _.debounce options
+	**/
+	interface DebounceSettings {
+		/**
+		* Specify execution on the leading edge of the timeout.
+		**/
+		leading?: boolean;
+		
+		/**
+		* The maximum time func is allowed to be delayed before it’s called.
+		**/
+		maxWait?: number;
+
+		/**
+		* Specify execution on the trailing edge of the timeout.
+		**/
+		trailing?: boolean;
+	}
+
+	/**
 	* lodash.js _.throttle options.
 	**/
 	interface ThrottleSettings {
@@ -1813,13 +1833,7 @@ declare module _ {
 	export function debounce(
 		func: Function,
 		wait: number,
-		options?: IDebounceOptions): Function;
-
-	interface IDebounceOptions {
-		leading?: boolean;
-		maxWait?: number;
-		trailing?: boolean;
-	}
+		options?: DebounceSettings): Function;	
 
 	/**
 	* Defers executing the func function until the current call stack has cleared. Additional 
@@ -1891,7 +1905,25 @@ declare module _ {
 		func: Function,
 		...args: any[]): Function;
 
-	
+	/**
+	* Creates a function that, when executed, will only call the func function at most once per 
+	* every wait milliseconds. Provide an options object to indicate that func should be invoked 
+	* on the leading and/or trailing edge of the wait timeout. Subsequent calls to the throttled 
+	* function will return the result of the last func call.
+	*
+	* Note: If leading and trailing options are true func will be called on the trailing edge of 
+	* the timeout only if the the throttled function is invoked more than once during the wait timeout.
+	* @param func The function to throttle.
+	* @param wait The number of milliseconds to throttle executions to.
+	* @param options The options object.
+	* @param options.leading Specify execution on the leading edge of the timeout.
+	* @param options.trailing Specify execution on the trailing edge of the timeout.
+	* @return The new throttled function.
+	**/
+	export function throttle(
+		func: any,
+		wait: number,
+		options?: ThrottleSettings): Function;
 
 	
 
@@ -2060,23 +2092,7 @@ declare module _ {
 
 	
 
-	/**
-	* Creates and returns a new, throttled version of the passed function, that, when invoked repeatedly,
-	* will only actually call the original function at most once per every wait milliseconds. Useful for
-	* rate-limiting events that occur faster than you can keep up with.
-	* By default, throttle will execute the function as soon as you call it for the first time, and,
-	* if you call it again any number of times during the wait period, as soon as that period is over.
-	* If you'd like to disable the leading-edge call, pass {leading: false}, and if you'd like to disable
-	* the execution on the trailing-edge, pass {trailing: false}.
-	* @param fn Function to throttle `waitMS` ms.
-	* @param wait The number of milliseconds to wait before `fn` can be invoked again.
-	* @param options Allows for disabling execution of the throttled function on either the leading or trailing edge.
-	* @return `fn` with a throttle of `wait`.
-	**/
-	export function throttle(
-		func: any,
-		wait: number,
-		options?: ThrottleSettings): Function;
+	
 
 	
 
