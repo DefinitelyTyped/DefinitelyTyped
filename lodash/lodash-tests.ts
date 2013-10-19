@@ -347,6 +347,10 @@ result = <number[]>_.sample([1, 2, 3, 4], 2);
 
 result = <number[]>_.shuffle([1, 2, 3, 4, 5, 6]);
 
+result = <number>_.size([1, 2]);
+result = <number>_.size({ 'one': 1, 'two': 2, 'three': 3 });
+result = <number>_.size('curly');
+
 result = <boolean>_.some([null, 0, 'yes', false], Boolean);
 result = <boolean>_.some(foodsCombined, 'organic');
 result = <boolean>_.some(foodsCombined, { 'type': 'meat' });

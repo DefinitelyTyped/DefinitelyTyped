@@ -1540,7 +1540,29 @@ declare module _ {
 	* @param collection The collection to shuffle.
 	* @return Returns a new shuffled collection.
 	**/
-	export function shuffle<T>(list: Collection<T>): T[];
+	export function shuffle<T>(collection: Collection<T>): T[];
+
+	/**
+	* Gets the size of the collection by returning collection.length for arrays and array-like 
+	* objects or the number of own enumerable properties for objects.
+	* @param collection The collection to inspect.
+	* @return collection.length
+	**/
+	export function size<T>(collection: List<T>): number;
+
+	/**
+	* @see _.size
+	* @param object The object to inspect
+	* @return The number of own enumerable properties.
+	**/
+	export function size<T extends {}>(object: T): number;
+
+	/**
+	* @see _.size
+	* @param aString The string to inspect
+	* @return The length of aString
+	**/
+	export function size(aString: string): number;
 
 	/**
 	* Checks if the callback returns a truey value for any element of a collection. The function 
@@ -1673,12 +1695,7 @@ declare module _ {
 	**/
 	export function toArray<T>(list: Collection<T>): T[];
 
-	/**
-	* Return the number of values in the list.
-	* @param list Count the number of values/elements in this list.
-	* @return Number of values in `list`.
-	**/
-	export function size<T>(list: Collection<T>): number;
+	
 
 	
 
