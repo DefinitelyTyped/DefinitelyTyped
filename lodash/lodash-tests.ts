@@ -443,6 +443,14 @@ var createCallbackObj = { name: 'Joe' };
 var pluckCallback: () => any = _.createCallback('name');
 var whereCallback: () => boolean = _.createCallback(createCallbackObj);
 
+var curried: Function = _.curry(function(a, b, c) {
+  console.log(a + b + c);
+});
+
+curried(1)(2)(3);
+curried(1, 2)(3);
+curried(1, 2, 3);
+
 
 ////////////////////////////////////////////////////////////////////////////////////////
 //WHAT'S LEFT

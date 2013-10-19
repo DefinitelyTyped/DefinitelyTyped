@@ -1780,6 +1780,20 @@ declare module _ {
 		thisArg?: any,
 		argCount?: number): () => boolean;
 
+	/**
+	* Creates a function which accepts one or more arguments of func that when invoked either 
+	* executes func returning its result, if all func arguments have been provided, or returns 
+	* a function that accepts one or more of the remaining func arguments, and so on. The arity 
+	* of func can be specified if func.length is not sufficient.
+	* @param func The function to curry.
+	* @param arity The arity of func.
+	* @return The new curried function.
+	**/
+	export function curry(
+		func: Function,
+		arity?: number): Function;
+
+
 
 
 
