@@ -1868,73 +1868,74 @@ declare module _ {
 	**/
 	export function once(func: Function): Function;
 
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
 	/**
-	* Partially apply a function by filling in any number of its arguments, without changing its dynamic this value.
-	* A close cousin of bind.
-	* @param fn Function to partially fill in arguments.
-	* @param arguments The partial arguments.
-	* @return `fn` with partially filled in arguments.
+	* Creates a function that, when called, invokes func with any additional partial arguments 
+	* prepended to those provided to the new function. This method is similar to _.bind except 
+	* it does not alter the this binding.
+	* @param func The function to partially apply arguments to.
+	* @param args Arguments to be partially applied.
+	* @return The new partially applied function.
 	**/
 	export function partial(
 		fn: Function,
 		...arguments: any[]): Function;
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
 
 	/**
 	* Creates and returns a new, throttled version of the passed function, that, when invoked repeatedly,

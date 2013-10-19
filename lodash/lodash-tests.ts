@@ -469,7 +469,7 @@ result = <number>_.defer(function() { console.log('deferred'); });
 var log = _.bind(console.log, console);
 result = <number>_.delay(log, 1000, 'logged later');
 
-var fibonacci = _.memoize(function(n) {
+var fibonacci = <Function>_.memoize(function(n) {
   return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
 });
 
@@ -478,15 +478,19 @@ var data = {
   'curly': { 'name': 'curly', 'age': 60 }
 };
 
-var stooge = _.memoize(function(name) { return data[name]; }, _.identity);
+var stooge = <Function>_.memoize(function(name) { return data[name]; }, _.identity);
 stooge('curly');
 
 stooge['cache']['curly'].name = 'jerome';
 stooge('curly');
 
-var initialize = _.once(function(){ });
+var initialize = <Function>_.once(function(){ });
 initialize();
 initialize();
+
+var greetPartial = function(greeting, name) { return greeting + ' ' + name; };
+var hi = <Function>_.partial(greetPartial, 'hi');
+hi('moe');
 
 ////////////////////////////////////////////////////////////////////////////////////////
 //WHAT'S LEFT
