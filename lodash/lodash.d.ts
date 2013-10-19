@@ -1821,6 +1821,18 @@ declare module _ {
 		trailing?: boolean;
 	}
 
+	/**
+	* Defers executing the func function until the current call stack has cleared. Additional 
+	* arguments will be provided to func when it is invoked.
+	* @param func The function to defer.
+	* @param args Arguments to invoke the function with.
+	* @return The timer id.
+	**/
+	export function defer(
+		func: Function,
+		...args: any[]): number;
+
+
 
 
 
@@ -1927,18 +1939,6 @@ declare module _ {
 	export function delay(
 		func: Function,
 		...arguments: any[]): any;
-
-	/**
-	* Defers invoking the function until the current call stack has cleared, similar to using setTimeout
-	* with a delay of 0. Useful for performing expensive computations or HTML rendering in chunks without
-	* blocking the UI thread from updating. If you pass the optional arguments, they will be forwarded on
-	* to the function when it is invoked.
-	* @param fn The function to defer.
-	* @param arguments Additional arguments to pass to `fn`.
-	**/
-	export function defer(
-		fn: Function,
-		...arguments: any[]): void;
 
 	/**
 	* Creates and returns a new, throttled version of the passed function, that, when invoked repeatedly,
