@@ -1845,8 +1845,19 @@ declare module _ {
 		wait: number,
 		...args: any[]): number;
 
-
-
+	/**
+	* Creates a function that memoizes the result of func. If resolver is provided it will be 
+	* used to determine the cache key for storing the result based on the arguments provided to 
+	* the memoized function. By default, the first argument provided to the memoized function is 
+	* used as the cache key. The func is executed with the this binding of the memoized function. 
+	* The result cache is exposed as the cache property on the memoized function.
+	* @param func Computationally expensive function that will now memoized results.
+	* @param resolver Hash function for storing the result of `fn`.
+	* @return Returns the new memoizing function.
+	**/
+	export function memoize(
+		func: Function,
+		resolver?: (n: any) => string): Function;
 
 	
 
@@ -1917,21 +1928,6 @@ declare module _ {
 	export function partial(
 		fn: Function,
 		...arguments: any[]): Function;
-
-	/**
-	* Memoizes a given function by caching the computed result. Useful for speeding up slow-running computations.
-	* If passed an optional hashFunction, it will be used to compute the hash key for storing the result, based
-	* on the arguments to the original function. The default hashFunction just uses the first argument to the
-	* memoized function as the key.
-	* @param fn Computationally expensive function that will now memoized results.
-	* @param hashFn Hash function for storing the result of `fn`.
-	* @return Memoized version of `fn`.
-	**/
-	export function memoize(
-		fn: Function,
-		hashFn?: (n: any) => string): Function;
-
-	
 
 	/**
 	* Creates and returns a new, throttled version of the passed function, that, when invoked repeatedly,
