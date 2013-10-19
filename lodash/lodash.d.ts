@@ -1691,80 +1691,89 @@ declare module _ {
 		list: Collection<T>,
 		properties: U): T[];
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
 	/*************
 	 * Functions *
 	 *************/
+
+	 /**
+	* Creates a function that executes func, with the this binding and arguments of the 
+	* created function, only after being called n times.
+	* @param n The number of times the function must be called before func is executed.
+	* @param func The function to restrict.
+	* @return The new restricted function.
+	**/
+	export function after(
+		n: number,
+		func: Function): Function;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
 
 	/**
 	* Bind a function to an object, meaning that whenever the function is called, the value of this will
@@ -1893,17 +1902,7 @@ declare module _ {
 	**/
 	export function once(fn: Function): Function;
 
-	/**
-	* Creates a version of the function that will only be run after first being called count times. Useful
-	* for grouping asynchronous responses, where you want to be sure that all the async calls have finished,
-	* before proceeding.
-	* @param count Number of times to be called before actually executing.
-	* @fn The function to defer execution `count` times.
-	* @return Copy of `fn` that will not execute until it is invoked `count` times.
-	**/
-	export function after(
-		count: number,
-		fn: Function): Function;
+	
 
 	/**
 	* Wraps the first function inside of the wrapper function, passing it as the first argument. This allows
