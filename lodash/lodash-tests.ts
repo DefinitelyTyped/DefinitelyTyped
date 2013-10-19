@@ -492,7 +492,7 @@ var greetPartial = function(greeting, name) { return greeting + ' ' + name; };
 var hi = <Function>_.partial(greetPartial, 'hi');
 hi('moe');
 
-var defaultsDeep = <Function>_.partialRight(_['merge'], _.defaults);
+var defaultsDeep = <Function>_.partialRight(_.merge, _.defaults);
 
 var optionsPartialRight = {
   'variable': 'data',
