@@ -466,6 +466,8 @@ source.addEventListener('message', <Function>_.debounce(function() {}, 250, {
 
 result = <number>_.defer(function() { console.log('deferred'); });
 
+var log = _.bind(console.log, console);
+result = <number>_.delay(log, 1000, 'logged later');
 
 ////////////////////////////////////////////////////////////////////////////////////////
 //WHAT'S LEFT
