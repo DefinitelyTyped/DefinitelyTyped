@@ -1661,6 +1661,12 @@ declare module _ {
 		collection: List<T>,
 		whereValue: Dictionary<any>): T[];
 
+	/**
+	* Converts the collection to an array.
+	* @param collection The collection to convert.
+	* @return The new converted array.
+	**/
+	export function toArray<T>(collection: Collection<T>): T[];
 
 
 
@@ -1703,13 +1709,7 @@ declare module _ {
 
 	
 
-	/**
-	* Converts the list (anything that can be iterated over), into a real Array. Useful for transmuting
-	* the arguments object.
-	* @param list object to transform into an array.
-	* @return `list` as an array.
-	**/
-	export function toArray<T>(list: Collection<T>): T[];
+	
 
 	
 

@@ -363,6 +363,7 @@ result = <number[]>_.sortBy([1, 2, 3], function(num) { return Math.sin(num); });
 result = <number[]>_.sortBy([1, 2, 3], function(num) { return this.sin(num); }, Math);
 result = <string[]>_.sortBy(['banana', 'strawberry', 'apple'], 'length');
 
+(function(a, b, c, d){ return _.toArray(arguments).slice(1); })(1, 2, 3, 4);
 
 
 	
@@ -377,11 +378,6 @@ result = <string[]>_.sortBy(['banana', 'strawberry', 'apple'], 'length');
 var listOfPlays = [{ title: "Cymbeline", author: "Shakespeare", year: 1611 }, { title: "The Tempest", author: "Shakespeare", year: 1611 }, { title: "Other", author: "Not Shakespeare", year: 2012 }];
 _.where(listOfPlays, { author: "Shakespeare", year: 1611 });
 
-var odds = _.reject([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
-
-_.sortBy([1, 2, 3, 4, 5, 6], (num) => Math.sin(num));
-
-
 // _.indexBy(stooges, 'age')['40'].age;
 // _(stooges).indexBy('age')['40'].name;
 // _(stooges)
@@ -389,11 +385,7 @@ _.sortBy([1, 2, 3, 4, 5, 6], (num) => Math.sin(num));
 // 	.indexBy('age')
 // 	.value()['40'].age;
 
-_.shuffle([1, 2, 3, 4, 5, 6]);
 
-(function(a, b, c, d){ return _.toArray(arguments).slice(1); })(1, 2, 3, 4);
-
-_.size({ one: 1, two: 2, three: 3 });
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
