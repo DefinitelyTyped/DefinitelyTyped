@@ -379,7 +379,19 @@ result = <string[]>_.sortBy(['banana', 'strawberry', 'apple'], 'length');
 result = <IStoogesCombined[]>_.where(stoogesCombined, { 'age': 40 });
 result = <IStoogesCombined[]>_.where(stoogesCombined, { 'quotes': ['Poifect!'] });
 	
+/*************
+ * Functions *
+ *************/
+var saves = ['profile', 'settings'];
+var asyncSave = (obj) => obj.done();
 
+var done = _.after(saves.length, function() {
+  console.log('Done saving!');
+});
+
+_.forEach(saves, function(type) {
+  asyncSave({ 'type': type, 'complete': done });
+});
 
 
 
@@ -464,10 +476,10 @@ var initialize = _.once(createApplication);
 initialize();
 initialize();
 
-var notes: any[];
-var render = () => alert("rendering...");
-var renderNotes = _.after(notes.length, render);
-_.each(notes, (note) => note.asyncSave({ success: renderNotes }));
+// var notes: any[];
+// var render = () => alert("rendering...");
+// var renderNotes = _.after(notes.length, render);
+// _.each(notes, (note) => note.asyncSave({ success: renderNotes }));
 
 var hello = function (name) { return "hello: " + name; };
 // can't use the same "hello" var otherwise typescript fails
