@@ -451,7 +451,19 @@ declare module _ {
 		fromIndex?: number): number;
 
 	/**
-	* @see _.zipObject
+	* Creates an object composed from arrays of keys and values. Provide either a single 
+	* two dimensional array, i.e. [[key1, value1], [key2, value2]] or two arrays, one of 
+	* keys and one of corresponding values.
+	* @param keys The array of keys.
+	* @param values The array of values.
+	* @return An object composed of the given keys and corresponding values.
+	**/
+	export function zipObject<TResult extends {}>(
+		keys: List<string>,
+		values: List<any>): TResult;
+
+	/**
+	* @see _.object
 	**/
 	export function object<TResult extends {}>(
 		keys: List<string>,
@@ -1668,43 +1680,37 @@ declare module _ {
 	**/
 	export function toArray<T>(collection: Collection<T>): T[];
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-	
-
-	
-
 	/**
-	* Looks through each value in the list, returning an array of all the values that contain all
-	* of the key-value pairs listed in properties.
-	* @param list List to match elements again `properties`.
-	* @param properties The properties to check for on each element within `list`.
-	* @return The elements within `list` that contain the required `properties`.
+	* Performs a deep comparison of each element in a collection to the given properties 
+	* object, returning an array of all elements that have equivalent property values.
+	* @param collection The collection to iterate over.
+	* @param properties The object of property values to filter by.
+	* @return A new array of elements that have the given properties.
 	**/
 	export function where<T, U extends {}>(
 		list: Collection<T>,
 		properties: U): T[];
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
 	
 
 	
@@ -1735,20 +1741,16 @@ declare module _ {
 
 	
 
+	
 
 	
 
-	/**
-	* Creates an object composed from arrays of keys and values. Provide either a single 
-	* two dimensional array, i.e. [[key1, value1], [key2, value2]] or two arrays, one of 
-	* keys and one of corresponding values.
-	* @param keys The array of keys.
-	* @param values The array of values.
-	* @return An object composed of the given keys and corresponding values.
-	**/
-	export function zipObject<TResult extends {}>(
-		keys: List<string>,
-		values: List<any>): TResult;
+	
+
+
+	
+
+	
 
 	
 
