@@ -484,7 +484,9 @@ stooge('curly');
 stooge['cache']['curly'].name = 'jerome';
 stooge('curly');
 
-
+var initialize = _.once(function(){ });
+initialize();
+initialize();
 
 ////////////////////////////////////////////////////////////////////////////////////////
 //WHAT'S LEFT
