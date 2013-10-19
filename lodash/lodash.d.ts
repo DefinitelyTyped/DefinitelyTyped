@@ -1793,6 +1793,34 @@ declare module _ {
 		func: Function,
 		arity?: number): Function;
 
+	/**
+	* Creates a function that will delay the execution of func until after wait milliseconds have 
+	* elapsed since the last time it was invoked. Provide an options object to indicate that func 
+	* should be invoked on the leading and/or trailing edge of the wait timeout. Subsequent calls 
+	* to the debounced function will return the result of the last func call.
+	*
+	* Note: If leading and trailing options are true func will be called on the trailing edge of 
+	* the timeout only if the the debounced function is invoked more than once during the wait 
+	* timeout.
+	* @param func The function to debounce.
+	* @param wait The number of milliseconds to delay.
+	* @param options The options object.
+	* @param options.leading Specify execution on the leading edge of the timeout.
+	* @param options.maxWait The maximum time func is allowed to be delayed before it’s called.
+	* @param options.trailing Specify execution on the trailing edge of the timeout.
+	* @return The new debounced function.
+	**/
+	export function debounce(
+		func: Function,
+		wait: number,
+		options?: IDebounceOptions): Function;
+
+	interface IDebounceOptions {
+		leading?: boolean;
+		maxWait?: number;
+		trailing?: boolean;
+	}
+
 
 
 
@@ -1929,25 +1957,6 @@ declare module _ {
 		func: any,
 		wait: number,
 		options?: ThrottleSettings): Function;
-
-	/**
-	* Creates and returns a new debounced version of the passed function that will postpone its execution
-	* until after wait milliseconds have elapsed since the last time it was invoked. Useful for implementing
-	* behavior that should only happen after the input has stopped arriving. For example: rendering a preview
-	* of a Markdown comment, recalculating a layout after the window has stopped being resized, and so on.
-	*
-	* Pass true for the immediate parameter to cause debounce to trigger the function on the leading instead
-	* of the trailing edge of the wait interval. Useful in circumstances like preventing accidental double
-	*-clicks on a "submit" button from firing a second time.
-	* @param fn Function to debounce `waitMS` ms.
-	* @param wait The number of milliseconds to wait before `fn` can be invoked again.
-	* @param immediate True if `fn` should be invoked on the leading edge of `waitMS` instead of the trailing edge.
-	* @return Debounced version of `fn` that waits `wait` ms when invoked.
-	**/
-	export function debounce(
-		fn: Function,
-		wait: number,
-		immediate?: boolean): Function;
 
 	/**
 	* Creates a version of the function that can only be called one time. Repeated calls to the modified

@@ -451,6 +451,19 @@ curried(1)(2)(3);
 curried(1, 2)(3);
 curried(1, 2, 3);
 
+var lazyLayout: Function = _.debounce(calculateLayout, 150);
+jQuery(window).on('resize', lazyLayout);
+
+jQuery('#postbox').on('click', <Function>_.debounce(function() {}, 300, {
+  'leading': true,
+  'trailing': false
+}));
+
+declare var source;
+source.addEventListener('message', <Function>_.debounce(function() {}, 250, {
+  'maxWait': 1000
+}), false);
+
 
 ////////////////////////////////////////////////////////////////////////////////////////
 //WHAT'S LEFT
