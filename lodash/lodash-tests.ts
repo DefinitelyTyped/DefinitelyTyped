@@ -501,7 +501,12 @@ var optionsPartialRight = {
 
 defaultsDeep(optionsPartialRight, _.templateSettings);
 
+var throttled = _.throttle(updatePosition, 100);
+jQuery(window).on('scroll', throttled);
 
+jQuery('.interactive').on('click', _.throttle(function() { }, 300000, {
+  'trailing': false
+}));
 
 
 
