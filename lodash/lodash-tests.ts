@@ -469,6 +469,23 @@ result = <number>_.defer(function() { console.log('deferred'); });
 var log = _.bind(console.log, console);
 result = <number>_.delay(log, 1000, 'logged later');
 
+var fibonacci = _.memoize(function(n) {
+  return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
+});
+
+var data = {
+  'moe': { 'name': 'moe', 'age': 40 },
+  'curly': { 'name': 'curly', 'age': 60 }
+};
+
+var stooge = _.memoize(function(name) { return data[name]; }, _.identity);
+stooge('curly');
+
+stooge['cache']['curly'].name = 'jerome';
+stooge('curly');
+
+
+
 ////////////////////////////////////////////////////////////////////////////////////////
 //WHAT'S LEFT
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -485,18 +502,6 @@ result = <number>_.delay(log, 1000, 'logged later');
 ///////////////////////////////////////////////////////////////////////////////////////
 
 
-
-// var buttonView = {
-// 	label: 'underscore',
-// 	onClick: function () { alert('clicked: ' + this.label); },
-// 	onHover: function () { console.log('hovering: ' + this.label); }
-// };
-// _.bindAll(buttonView);
-// $('#underscore_button').bind('click', buttonView.onClick);
-
-var fibonacci = _.memoize(function (n) {
-	return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
-});
 
 var updatePosition = () => alert('updating position...');
 var throttled = _.throttle(updatePosition, 100);
