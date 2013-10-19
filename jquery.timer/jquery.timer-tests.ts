@@ -1,10 +1,10 @@
 /// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="jquerytimer.d.ts" />
+/// <reference path="jquery.timer.d.ts" />
 
     // Create the timer
     $("body").timer(
         function () {
-        alert("This function just got called")
+            alert("This function just got called");
         }, 10000, true
     );
 
@@ -16,15 +16,16 @@
     // #region Outputting if timer is active or not
     var isTimerActive = $("body").timer.isActive; // Define boolean isActive as isTimerActive
     if (isTimerActive == true){
-        $("body").html("Timer is active!");
+        alert("Timer is active!");
     }
     else{
-        $("body").html("Timer is not active!");
+        alert("Timer is not active!");
     }
     // #endregion
 
     // #region Get time remaining
     $("body").html("Time remaining on timer: " + $("body").timer.remaining.toString);
     // #endregion
+
     $("body").timer.stop(); // Stop the timer once more for the purpose of the tests (to test once())
     $("body").timer.once(1000); // Run the timer ONCE in 1 second
