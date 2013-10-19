@@ -345,6 +345,8 @@ result = <IFoodCombined[]>_.reject(foodsCombined, { 'type': 'fruit' });
 result = <number>_.sample([1, 2, 3, 4]);
 result = <number[]>_.sample([1, 2, 3, 4], 2);
 
+result = <number[]>_.shuffle([1, 2, 3, 4, 5, 6]);
+
 result = <boolean>_.some([null, 0, 'yes', false], Boolean);
 result = <boolean>_.some(foodsCombined, 'organic');
 result = <boolean>_.some(foodsCombined, { 'type': 'meat' });
