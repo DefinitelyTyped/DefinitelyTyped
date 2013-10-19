@@ -28,6 +28,12 @@ interface IStoogesAge {
 	age: number;
 }
 
+interface IStoogesCombined {
+	name: string;
+	age: number;
+	quotes: string[];
+}
+
 interface IKey {
 	dir: string;
 	code: number;
@@ -54,6 +60,11 @@ var stoogesQuotes: IStoogesQuote[] = [
 var stoogesAges: IStoogesAge[] = [
 	{ 'name': 'moe', 'age': 40 },
 	{ 'name': 'larry', 'age': 50 }
+];
+
+var stoogesCombined: IStoogesCombined[] = [
+  { 'name': 'curly', 'age': 30, 'quotes': ['Oh, a wise guy, eh?', 'Poifect!'] },
+  { 'name': 'moe', 'age': 40, 'quotes': ['Spread out!', 'You knucklehead!'] }
 ];
 
 var keys: IKey[] = [
@@ -365,7 +376,8 @@ result = <string[]>_.sortBy(['banana', 'strawberry', 'apple'], 'length');
 
 (function(a, b, c, d){ return _.toArray(arguments).slice(1); })(1, 2, 3, 4);
 
-
+result = <IStoogesCombined[]>_.where(stoogesCombined, { 'age': 40 });
+result = <IStoogesCombined[]>_.where(stoogesCombined, { 'quotes': ['Poifect!'] });
 	
 
 
