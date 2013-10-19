@@ -1746,6 +1746,15 @@ declare module _ {
 		key: string,
 		...args: any[]): Function;
 
+	/**
+	* Creates a function that is the composition of the provided functions, where each function 
+	* consumes the return value of the function that follows. For example, composing the functions 
+	* f(), g(), and h() produces f(g(h())). Each function is executed with the this binding of the 
+	* composed function.
+	* @param funcs Functions to compose.
+	* @return The new composed function.
+	**/
+	export function compose(...funcs: Function[]): Function;
 
 
 
@@ -1928,13 +1937,7 @@ declare module _ {
 		fn: Function,
 		wrapper: (fn: Function, ...args: any[]) => any): Function;
 
-	/**
-	* Returns the composition of a list of functions, where each function consumes the return value of the
-	* function that follows. In math terms, composing the functions f(), g(), and h() produces f(g(h())).
-	* @param functions List of functions to compose.
-	* @return Composition of `functions`.
-	**/
-	export function compose(...functions: Function[]): Function;
+	
 
 	/**********
 	* Objects *
