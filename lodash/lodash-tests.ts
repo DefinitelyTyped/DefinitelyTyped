@@ -359,6 +359,12 @@ result = <boolean>_.some(foodsCombined, { 'type': 'meat' });
 	result = <boolean>_.any(foodsCombined, 'organic');
 	result = <boolean>_.any(foodsCombined, { 'type': 'meat' });
 	
+result = <number[]>_.sortBy([1, 2, 3], function(num) { return Math.sin(num); });
+result = <number[]>_.sortBy([1, 2, 3], function(num) { return this.sin(num); }, Math);
+result = <string[]>_.sortBy(['banana', 'strawberry', 'apple'], 'length');
+
+
+
 	
 
 
