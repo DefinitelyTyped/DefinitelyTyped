@@ -300,6 +300,10 @@ result = <any[]>_.map(stoogesAges, 'name');
 	result = <any[]>_.collect({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { return num * 3; });
 	result = <any[]>_.collect(stoogesAges, 'name');
 
+result = <number>_.max([4, 2, 8, 6]);
+result = <IStoogesAge>_.max(stoogesAges, function(stooge) { return stooge.age; });
+result = <IStoogesAge>_.max(stooges, 'age');
+
 result = <any>_.reduce([1, 2, 3], function(sum, num) {
   return sum + num;
 });

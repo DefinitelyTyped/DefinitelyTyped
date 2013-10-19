@@ -1343,6 +1343,43 @@ declare module _ {
 				pluckValue: string): TResult[];
 
 	/**
+	* Retrieves the maximum value of a collection. If the collection is empty or falsey -Infinity is 
+	* returned. If a callback is provided it will be executed for each value in the collection to 
+	* generate the criterion by which the value is ranked. The callback is bound to thisArg and invoked 
+	* with three arguments; (value, index, collection).
+	* 
+	* If a property name is provided for callback the created "_.pluck" style callback will return the 
+	* property value of the given element.
+	*
+	* If an object is provided for callback the created "_.where" style callback will return true for 
+	* elements that have the properties of the given object, else false.
+	* @param collection The collection to iterate over.
+	* @param callback The function called per iteration.
+	* @param thisArg The this binding of callback.
+	* @return Returns the maximum value.
+	**/
+	export function max<T>(
+		collection: Collection<T>,
+		callback?: ListIterator<T, any>,
+		thisArg?: any): T;
+
+	/**
+	* @see _.max
+	* @param pluckValue _.pluck style callback
+	**/
+	export function max<T>(
+		collection: Collection<T>,
+		pluckValue: string): T;
+
+	/**
+	* @see _.max
+	* @param whereValue _.where style callback
+	**/
+	export function max<T>(
+		collection: Collection<T>,
+		whereValue: Dictionary<any>): T;
+
+	/**
 	* Reduces a collection to a value which is the accumulated result of running each 
 	* element in the collection through the callback, where each successive callback execution 
 	* consumes the return value of the previous execution. If accumulator is not provided the 
@@ -1502,16 +1539,6 @@ declare module _ {
 		properties: U): T[];
 
 	/**
-	* Looks through the list and returns the first value that matches all of the key-value pairs listed in properties.
-	* @param list Search through this list's elements for the first object with all `properties`.
-	* @param properties Properties to look for on the elements within `list`.
-	* @return The first element in `list` that has all `properties`.
-	**/
-	export function findWhere<T, U extends {}>(
-		list: List<T>,
-		properties: U): T;
-
-	/**
 	* Returns the values in list without the elements that the truth test (iterator) passes.
 	* The opposite of filter.
 	* Return all the elements for which a truth test fails.
@@ -1542,25 +1569,7 @@ declare module _ {
 		list: Collection<T>,
 		propertyName: string): T[];
 
-	/**
-	* Returns the maximum value in list.
-	* @param list Finds the maximum value in this list.
-	* @return Maximum value in `list`.
-	**/
-	export function max(list: List<number>): number;
-
-	/**
-	* Returns the maximum value in list. If iterator is passed, it will be used on each value to generate
-	* the criterion by which the value is ranked.
-	* @param list Finds the maximum value in this list.
-	* @param iterator Compares each element in `list` to find the maximum value.
-	* @param context `this` object in `iterator`, optional.
-	* @return The maximum element within `list`.
-	**/
-	export function max<T>(
-		list: Collection<T>,
-		iterator?: ListIterator<T, any>,
-		context?: any): T;
+	
 
 	/**
 	* Returns the minimum value in list.
