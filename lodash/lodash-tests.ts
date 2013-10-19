@@ -385,7 +385,7 @@ result = <IStoogesCombined[]>_.where(stoogesCombined, { 'quotes': ['Poifect!'] }
 var saves = ['profile', 'settings'];
 var asyncSave = (obj) => obj.done();
 
-var done = _.after(saves.length, function() {
+var done: Function = _.after(saves.length, function() {
   console.log('Done saving!');
 });
 
@@ -396,7 +396,7 @@ _.forEach(saves, function(type) {
 var funcBind = function (greeting) { return greeting + ' ' + this.name };
 // need a second var otherwise typescript thinks func signature is the above func type,
 // instead of the newly returned _bind => func type.
-var funcBind2 = _.bind(funcBind, { 'name': 'moe' }, 'hi');
+var funcBind2: () => any = _.bind(funcBind, { 'name': 'moe' }, 'hi');
 funcBind2();
 
 var view = {
@@ -404,7 +404,7 @@ var view = {
  'onClick': function() { console.log('clicked ' + this.label); }
 };
 
-_.bindAll(view);
+view = _.bindAll(view);
 jQuery('#docs').on('click', view.onClick);
 
 var objectBindKey = {
@@ -414,7 +414,7 @@ var objectBindKey = {
   }
 };
 
-var funcBindKey = _.bindKey(object, 'greet', 'hi');
+var funcBindKey: Function = _.bindKey(object, 'greet', 'hi');
 funcBindKey();
 
 objectBindKey.greet = function(greeting) {
@@ -436,10 +436,12 @@ var greet = function(formatted) {
   return 'Hiya ' + formatted + '!';
 };
 
-var welcome = _.compose(greet, format);
+var welcome: Function = _.compose(greet, format);
 welcome('curly');
 
-
+var createCallbackObj = { name: 'Joe' };
+var pluckCallback: () => any = _.createCallback('name');
+var whereCallback: () => boolean = _.createCallback(createCallbackObj);
 
 
 ////////////////////////////////////////////////////////////////////////////////////////
