@@ -1719,87 +1719,86 @@ declare module _ {
 		thisArg: any,
 		...args: any[]): () => any;
 
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
 	/**
-	* Binds a number of methods on the object, specified by methodNames, to be run in the context of that object
-	* whenever they are invoked. Very handy for binding functions that are going to be used as event handlers,
-	* which would otherwise be invoked with a fairly useless this. If no methodNames are provided, all of the
-	* object's function properties will be bound to it.
-	* @param object The object to bind the methods `methodName` to.
-	* @param methodNames The methods to bind to `object`, optional and if not provided all of `object`'s
-	* methods are bound.
+	* Binds methods of an object to the object itself, overwriting the existing method. Method 
+	* names may be specified as individual arguments or as arrays of method names. If no method 
+	* names are provided all the function properties of object will be bound.
+	* @param object The object to bind and assign the bound methods to.
+	* @param methodNames The object method names to bind, specified as individual method names 
+	* or arrays of method names.
 	**/
 	export function bindAll(
 		object: any,
 		...methodNames: string[]): any;
+
+
+
+
+
+
+
+
+
+
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
 
 	/**
 	* Partially apply a function by filling in any number of its arguments, without changing its dynamic this value.
