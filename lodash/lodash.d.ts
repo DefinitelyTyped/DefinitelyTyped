@@ -1417,6 +1417,16 @@ declare module _ {
 		whereValue: Dictionary<any>): T;
 
 	/**
+	* Retrieves the value of a specified property from all elements in the collection.
+	* @param collection The collection to iterate over.
+	* @param property The property to pluck.
+	* @return A new array of property values.
+	**/
+	export function pluck<T extends {}>(
+		collection: Collection<T>,
+		property: string): any[];
+
+	/**
 	* Reduces a collection to a value which is the accumulated result of running each 
 	* element in the collection through the callback, where each successive callback execution 
 	* consumes the return value of the previous execution. If accumulator is not provided the 
@@ -1467,14 +1477,49 @@ declare module _ {
 		accumulator?: TResult,
 		thisArg?: any): TResult;
 
+		/**
+		* @see _.reduceRight
+		**/
+		export function foldr<T, TResult>(
+			collection: Collection<T>,
+			callback: MemoIterator<T, TResult>,
+			accumulator?: TResult,
+			thisArg?: any): TResult;
+
 	/**
-	* @see _.reduceRight
+	* The opposite of _.filter this method returns the elements of a collection that 
+	* the callback does not return truey for.
+	*
+	* If a property name is provided for callback the created "_.pluck" style callback 
+	* will return the property value of the given element.
+	*
+	* If an object is provided for callback the created "_.where" style callback will 
+	* return true for elements that have the properties of the given object, else false.
+	* @param collection The collection to iterate over.
+	* @param callback The function called per iteration.
+	* @param thisArg The this binding of callback.
+	* @return A new array of elements that failed the callback check.
 	**/
-	export function foldr<T, TResult>(
+	export function reject<T>(
 		collection: Collection<T>,
-		callback: MemoIterator<T, TResult>,
-		accumulator?: TResult,
-		thisArg?: any): TResult;
+		callback: ListIterator<T, boolean>,
+		thisArg?: any): T[];
+
+	/**
+	* @see _.reject
+	* @param pluckValue _.pluck style callback
+	**/
+	export function reject<T>(
+		collection: Collection<T>,
+		pluckValue: string): T[];
+
+	/**
+	* @see _.reject
+	* @param whereValue _.where style callback
+	**/
+	export function reject<T>(
+		collection: Collection<T>,
+		whereValue: Dictionary<any>): T[];
 
 	/**
 	* Checks if the callback returns a truey value for any element of a collection. The function 
@@ -1574,39 +1619,6 @@ declare module _ {
 	export function where<T, U extends {}>(
 		list: Collection<T>,
 		properties: U): T[];
-
-	/**
-	* Returns the values in list without the elements that the truth test (iterator) passes.
-	* The opposite of filter.
-	* Return all the elements for which a truth test fails.
-	* @param list Reject elements within this list.
-	* @param iterator Reject iterator function for each element in `list`.
-	* @param context `this` object in `iterator`, optional.
-	* @return The rejected list of elements.
-	**/
-	export function reject<T>(
-		list: Collection<T>,
-		iterator: ListIterator<T, boolean>,
-		context?: any): T[];
-
-	
-
-	
-
-	
-
-	/**
-	* A convenient version of what is perhaps the most common use-case for map: extracting a list of
-	* property values.
-	* @param list The list to pluck elements out of that have the property `propertyName`.
-	* @param propertyName The property to look for on each element within `list`.
-	* @return The list of elements within `list` that have the property `propertyName`.
-	**/
-	export function pluck<T extends {}>(
-		list: Collection<T>,
-		propertyName: string): T[];
-
-	
 
 	/**
 	* Returns a sorted copy of list, ranked in ascending order by the results of running each value

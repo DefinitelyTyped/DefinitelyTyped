@@ -302,11 +302,13 @@ result = <any[]>_.map(stoogesAges, 'name');
 
 result = <number>_.max([4, 2, 8, 6]);
 result = <IStoogesAge>_.max(stoogesAges, function(stooge) { return stooge.age; });
-result = <IStoogesAge>_.max(stooges, 'age');
+result = <IStoogesAge>_.max(stoogesAges, 'age');
 
 result = <number>_.min([4, 2, 8, 6]);
 result = <IStoogesAge>_.min(stoogesAges, function(stooge) { return stooge.age; });
-result = <IStoogesAge>_.min(stooges, 'age');
+result = <IStoogesAge>_.min(stoogesAges, 'age');
+
+result = <string[]>_.pluck(stoogesAges, 'name');
 
 result = <any>_.reduce([1, 2, 3], function(sum, num) {
   return sum + num;
@@ -336,6 +338,10 @@ result = <any>_.reduceRight([[0, 1], [2, 3], [4, 5]], function(a, b) { return a.
 
 	result = <any>_.foldr([[0, 1], [2, 3], [4, 5]], function(a, b) { return a.concat(b); }, []);
 
+result = <number[]>_.reject([1, 2, 3, 4, 5, 6], function(num) { return num % 2 == 0; });
+result = <IFoodCombined[]>_.reject(foodsCombined, 'organic');
+result = <IFoodCombined[]>_.reject(foodsCombined, { 'type': 'fruit' });
+
 result = <boolean>_.some([null, 0, 'yes', false], Boolean);
 result = <boolean>_.some(foodsCombined, 'organic');
 result = <boolean>_.some(foodsCombined, { 'type': 'meat' });
@@ -358,27 +364,15 @@ _.where(listOfPlays, { author: "Shakespeare", year: 1611 });
 
 var odds = _.reject([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
-_.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
-
-var stooges = [{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }];
-_.pluck(stooges, 'name');
-
-_.max(stooges, (stooge) => stooge.age);
-
-_.max([1, 2, 3, 4, 5]);
-
-var numbers = [10, 5, 100, 2, 1000];
-_.min(numbers);
-
 _.sortBy([1, 2, 3, 4, 5, 6], (num) => Math.sin(num));
 
 
-_.indexBy(stooges, 'age')['40'].age;
-_(stooges).indexBy('age')['40'].name;
-_(stooges)
-	.chain()
-	.indexBy('age')
-	.value()['40'].age;
+// _.indexBy(stooges, 'age')['40'].age;
+// _(stooges).indexBy('age')['40'].name;
+// _(stooges)
+// 	.chain()
+// 	.indexBy('age')
+// 	.value()['40'].age;
 
 _.shuffle([1, 2, 3, 4, 5, 6]);
 
