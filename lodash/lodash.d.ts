@@ -1832,8 +1832,18 @@ declare module _ {
 		func: Function,
 		...args: any[]): number;
 
-
-
+	/**
+	* Executes the func function after wait milliseconds. Additional arguments will be provided 
+	* to func when it is invoked.
+	* @param func The function to delay.
+	* @param wait The number of milliseconds to delay execution.
+	* @param args Arguments to invoke the function with.
+	* @return The timer id.
+	**/
+	export function delay(
+		func: Function,
+		wait: number,
+		...args: any[]): number;
 
 
 
@@ -1921,24 +1931,7 @@ declare module _ {
 		fn: Function,
 		hashFn?: (n: any) => string): Function;
 
-	/**
-	* Much like setTimeout, invokes function after wait milliseconds. If you pass the optional arguments,
-	* they will be forwarded on to the function when it is invoked.
-	* @param fn Function to delay `waitMS` amount of ms.
-	* @param wait The amount of milliseconds to delay `fn`.
-	* @arguments Additional arguments to pass to `fn`.
-	**/
-	export function delay(
-		func: Function,
-		wait: number,
-		...arguments: any[]): any;
-
-	/**
-	* @see _delay
-	**/
-	export function delay(
-		func: Function,
-		...arguments: any[]): any;
+	
 
 	/**
 	* Creates and returns a new, throttled version of the passed function, that, when invoked repeatedly,
