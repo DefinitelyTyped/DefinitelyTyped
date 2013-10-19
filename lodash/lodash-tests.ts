@@ -393,11 +393,11 @@ _.forEach(saves, function(type) {
   asyncSave({ 'type': type, 'complete': done });
 });
 
-var func = function (greeting) { return greeting + ' ' + this.name };
+var funcBind = function (greeting) { return greeting + ' ' + this.name };
 // need a second var otherwise typescript thinks func signature is the above func type,
 // instead of the newly returned _bind => func type.
-var func2 = _.bind(func, { 'name': 'moe' }, 'hi');
-func2();
+var funcBind2 = _.bind(funcBind, { 'name': 'moe' }, 'hi');
+funcBind2();
 
 var view = {
  'label': 'docs',
@@ -407,7 +407,21 @@ var view = {
 _.bindAll(view);
 jQuery('#docs').on('click', view.onClick);
 
+var objectBindKey = {
+  'name': 'moe',
+  'greet': function(greeting) {
+    return greeting + ' ' + this.name;
+  }
+};
 
+var funcBindKey = _.bindKey(object, 'greet', 'hi');
+funcBindKey();
+
+objectBindKey.greet = function(greeting) {
+  return greeting + ', ' + this.name + '!';
+};
+
+funcBindKey();
 
 
 
