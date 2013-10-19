@@ -451,7 +451,7 @@ curried(1)(2)(3);
 curried(1, 2)(3);
 curried(1, 2, 3);
 
-var lazyLayout: Function = _.debounce(calculateLayout, 150);
+var lazyLayout: Function = _.debounce(function() {}, 150);
 jQuery(window).on('resize', lazyLayout);
 
 jQuery('#postbox').on('click', <Function>_.debounce(function() {}, 300, {
@@ -463,6 +463,8 @@ declare var source;
 source.addEventListener('message', <Function>_.debounce(function() {}, 250, {
   'maxWait': 1000
 }), false);
+
+result = <number>_.defer(function() { console.log('deferred'); });
 
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -494,18 +496,9 @@ var fibonacci = _.memoize(function (n) {
 	return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
 });
 
-var log = _.bind(console.log, console);
-_.delay(log, 1000, 'logged later');
-
-_.defer(function () { alert('deferred'); });
-
 var updatePosition = () => alert('updating position...');
 var throttled = _.throttle(updatePosition, 100);
 $(window).scroll(throttled);
-
-var calculateLayout = () => alert('calculating layout...');
-var lazyLayout = _.debounce(calculateLayout, 300);
-$(window).resize(lazyLayout);
 
 var createApplication = () => alert('creating application...');
 var initialize = _.once(createApplication);
