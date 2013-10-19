@@ -399,9 +399,6 @@ _.forEach(saves, function(type) {
 //WHAT'S LEFT
 ////////////////////////////////////////////////////////////////////////////////////////
 
-var listOfPlays = [{ title: "Cymbeline", author: "Shakespeare", year: 1611 }, { title: "The Tempest", author: "Shakespeare", year: 1611 }, { title: "Other", author: "Not Shakespeare", year: 2012 }];
-_.where(listOfPlays, { author: "Shakespeare", year: 1611 });
-
 // _.indexBy(stooges, 'age')['40'].age;
 // _(stooges).indexBy('age')['40'].name;
 // _(stooges)
@@ -410,33 +407,6 @@ _.where(listOfPlays, { author: "Shakespeare", year: 1611 });
 // 	.value()['40'].age;
 
 
-
-///////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-_.without([1, 2, 1, 0, 3, 1, 4], 0, 1);
-_.union([1, 2, 3], [101, 2, 1, 10], [2, 1]);
-
-_.difference([1, 2, 3, 4, 5], [5, 2, 10]);
-_.uniq([1, 2, 1, 3, 1, 4]);
-_.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]);
-var r = _.object<{ [key: string]: number }>(['moe', 'larry', 'curly'], [30, 40, 50]);
-_.object([[<any>'moe', 30], [<any>'larry', 40], [<any>'curly', 50]]);
-
-_.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
-_.sortedIndex([10, 20, 30, 40, 50], 35);
-_.range(10);
-_.range(1, 11);
-_.range(0, 30, 5);
-_.range(0, 30, 5);
-_.range(0);
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
