@@ -1925,7 +1925,17 @@ declare module _ {
 		wait: number,
 		options?: ThrottleSettings): Function;
 
-	
+	/**
+	* Creates a function that provides value to the wrapper function as its first argument. 
+	* Additional arguments provided to the function are appended to those provided to the 
+	* wrapper function. The wrapper is executed with the this binding of the created function.
+	* @param value The value to wrap.
+	* @param wrapper The wrapper function.
+	* @return The new function.
+	**/
+	export function wrap(
+		value: any,
+		wrapper: (func: Function, ...args: any[]) => any): Function;
 
 	
 
@@ -2089,26 +2099,6 @@ declare module _ {
 	
 
 	
-
-	
-
-	
-
-	
-
-	
-
-	/**
-	* Wraps the first function inside of the wrapper function, passing it as the first argument. This allows
-	* the wrapper to execute code before and after the function runs, adjust the arguments, and execute it
-	* conditionally.
-	* @param fn Function to wrap.
-	* @param wrapper The function that will wrap `fn`.
-	* @return Wrapped version of `fn.
-	**/
-	export function wrap(
-		fn: Function,
-		wrapper: (fn: Function, ...args: any[]) => any): Function;
 
 	
 

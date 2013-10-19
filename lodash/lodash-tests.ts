@@ -501,12 +501,18 @@ var optionsPartialRight = {
 
 defaultsDeep(optionsPartialRight, _.templateSettings);
 
-var throttled = _.throttle(updatePosition, 100);
+var throttled = _.throttle(function () { }, 100);
 jQuery(window).on('scroll', throttled);
 
 jQuery('.interactive').on('click', _.throttle(function() { }, 300000, {
   'trailing': false
 }));
+
+var helloWrap = function(name) { return 'hello ' + name; };
+var helloWrap2 = _.wrap(helloWrap, function(func) {
+  return 'before, ' + func('moe') + ', after';
+});
+helloWrap2();
 
 
 
@@ -558,36 +564,6 @@ _.merge(mergeFood, mergeOtherFood, function(a, b) {
 // 	.value()['40'].age;
 
 
-
-///////////////////////////////////////////////////////////////////////////////////////
-
-
-
-var updatePosition = () => alert('updating position...');
-var throttled = _.throttle(updatePosition, 100);
-$(window).scroll(throttled);
-
-var createApplication = () => alert('creating application...');
-var initialize = _.once(createApplication);
-initialize();
-initialize();
-
-// var notes: any[];
-// var render = () => alert("rendering...");
-// var renderNotes = _.after(notes.length, render);
-// _.each(notes, (note) => note.asyncSave({ success: renderNotes }));
-
-var hello = function (name) { return "hello: " + name; };
-// can't use the same "hello" var otherwise typescript fails
-var hello2 = _.wrap(hello, (func) => { return "before, " + func("moe") + ", after"; });
-hello2();
-
-var greet = function (name) { return "hi: " + name; };
-var exclaim = function (statement) { return statement + "!"; };
-var welcome = _.compose(exclaim, greet);
-welcome('moe');
-
-///////////////////////////////////////////////////////////////////////////////////////
 
 _.keys({ one: 1, two: 2, three: 3 });
 _.values({ one: 1, two: 2, three: 3 });
