@@ -1726,6 +1726,7 @@ declare module _ {
 	* @param object The object to bind and assign the bound methods to.
 	* @param methodNames The object method names to bind, specified as individual method names 
 	* or arrays of method names.
+	* @return object
 	**/
 	export function bindAll(
 		object: any,
@@ -1756,8 +1757,28 @@ declare module _ {
 	**/
 	export function compose(...funcs: Function[]): Function;
 
+	/**
+	* Produces a callback bound to an optional thisArg. If func is a property name the created 
+	* callback will return the property value for a given element. If func is an object the created 
+	* callback will return true for elements that contain the equivalent object properties, 
+	* otherwise it will return false.
+	* @param func The value to convert to a callback.
+	* @param thisArg The this binding of the created callback.
+	* @param argCount The number of arguments the callback accepts.
+	* @return A callback function.
+	**/
+	export function createCallback(
+		func: string,
+		thisArg?: any,
+		argCount?: number): () => any;
 
-
+	/**
+	* @see _.createCallback
+	**/
+	export function createCallback(
+		func: Dictionary<any>,
+		thisArg?: any,
+		argCount?: number): () => boolean;
 
 
 
