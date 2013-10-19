@@ -1877,8 +1877,19 @@ declare module _ {
 	* @return The new partially applied function.
 	**/
 	export function partial(
-		fn: Function,
-		...arguments: any[]): Function;
+		func: Function,
+		...args: any[]): Function;
+
+	/**
+	* This method is like _.partial except that partial arguments are appended to those provided 
+	* to the new function.
+	* @param func The function to partially apply arguments to.
+	* @param args Arguments to be partially applied.
+	* @return The new partially applied function.
+	**/
+	export function partialRight(
+		func: Function,
+		...args: any[]): Function;
 
 	
 
