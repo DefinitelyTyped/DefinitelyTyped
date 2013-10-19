@@ -502,6 +502,45 @@ var optionsPartialRight = {
 defaultsDeep(optionsPartialRight, _.templateSettings);
 
 
+
+
+
+
+
+/**********
+* Objects *
+***********/
+var mergeNames = {
+  'stooges': [
+    { 'name': 'moe' },
+    { 'name': 'larry' }
+  ]
+};
+
+var mergeAges = {
+  'stooges': [
+    { 'age': 40 },
+    { 'age': 50 }
+  ]
+};
+
+_.merge(mergeNames, mergeAges);
+// → { 'stooges': [{ 'name': 'moe', 'age': 40 }, { 'name': 'larry', 'age': 50 }] }
+
+var mergeFood = {
+  'fruits': ['apple'],
+  'vegetables': ['beet']
+};
+
+var mergeOtherFood = {
+  'fruits': ['banana'],
+  'vegetables': ['carrot']
+};
+
+_.merge(mergeFood, mergeOtherFood, function(a, b) {
+  return _.isArray(a) ? a.concat(b) : undefined;
+});
+
 ////////////////////////////////////////////////////////////////////////////////////////
 //WHAT'S LEFT
 ////////////////////////////////////////////////////////////////////////////////////////

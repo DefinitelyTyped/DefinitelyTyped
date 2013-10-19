@@ -1905,7 +1905,119 @@ declare module _ {
 
 	
 
-	
+	/**********
+	* Objects *
+	***********/
+
+	/**
+	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
+	* to undefined into the destination object. Subsequent sources will overwrite property 
+	* assignments of previous sources. If a callback is provided it will be executed to produce 
+	* the merged values of the destination and source properties. If the callback returns undefined 
+	* merging will be handled by the method instead. The callback is bound to thisArg and invoked 
+	* with two arguments; (objectValue, sourceValue).
+	* @param object The destination object.
+	* @param s1-8 The source object(s)
+	* @param callback The function to customize merging properties.
+	* @param thisArg The this binding of callback.
+	* @return The destination object.
+	**/
+	export function merge(
+		object: any,
+		s1: any,
+		callback?: (objectValue: any, sourceValue: any) => any,
+		thisArg?: any): any;
+
+	/**
+	* @see _.merge
+	**/
+	export function merge(
+		object: any,
+		s1: any,
+		s2: any,
+		callback?: (objectValue: any, sourceValue: any) => any,
+		thisArg?: any): any;
+
+	/**
+	* @see _.merge
+	**/
+	export function merge(
+		object: any,
+		s1: any,
+		s2: any,
+		s3: any,
+		callback?: (objectValue: any, sourceValue: any) => any,
+		thisArg?: any): any;
+
+	/**
+	* @see _.merge
+	**/
+	export function merge(
+		object: any,
+		s1: any,
+		s2: any,
+		s3: any,
+		s4: any,
+		callback?: (objectValue: any, sourceValue: any) => any,
+		thisArg?: any): any;
+
+	/**
+	* @see _.merge
+	**/
+	export function merge(
+		object: any,
+		s1: any,
+		s2: any,
+		s3: any,
+		s4: any,
+		s5: any,
+		callback?: (objectValue: any, sourceValue: any) => any,
+		thisArg?: any): any;
+
+	/**
+	* @see _.merge
+	**/
+	export function merge(
+		object: any,
+		s1: any,
+		s2: any,
+		s3: any,
+		s4: any,
+		s5: any,
+		s6: any,
+		callback?: (objectValue: any, sourceValue: any) => any,
+		thisArg?: any): any;
+
+	/**
+	* @see _.merge
+	**/
+	export function merge(
+		object: any,
+		s1: any,
+		s2: any,
+		s3: any,
+		s4: any,
+		s5: any,
+		s6: any,
+		s7: any,
+		callback?: (objectValue: any, sourceValue: any) => any,
+		thisArg?: any): any;
+
+	/**
+	* @see _.merge
+	**/
+	export function merge(
+		object: any,
+		s1: any,
+		s2: any,
+		s3: any,
+		s4: any,
+		s5: any,
+		s6: any,
+		s7: any,
+		s8: any,
+		callback?: (objectValue: any, sourceValue: any) => any,
+		thisArg?: any): any;
 
 	
 
