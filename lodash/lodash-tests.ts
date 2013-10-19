@@ -393,6 +393,15 @@ _.forEach(saves, function(type) {
   asyncSave({ 'type': type, 'complete': done });
 });
 
+var func = function (greeting) { return greeting + ' ' + this.name };
+// need a second var otherwise typescript thinks func signature is the above func type,
+// instead of the newly returned _bind => func type.
+var func2 = _.bind(func, { 'name': 'moe' }, 'hi');
+func2();
+
+
+
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -410,11 +419,7 @@ _.forEach(saves, function(type) {
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-var func = function (greeting) { return greeting + ': ' + this.name };
-// need a second var otherwise typescript thinks func signature is the above func type,
-// instead of the newly returned _bind => func type.
-var func2 = _.bind(func, { name: 'moe' }, 'hi');
-func2();
+
 
 var buttonView = {
 	label: 'underscore',

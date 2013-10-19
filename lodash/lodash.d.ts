@@ -1706,87 +1706,87 @@ declare module _ {
 		n: number,
 		func: Function): Function;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
 	/**
-	* Bind a function to an object, meaning that whenever the function is called, the value of this will
-	* be the object. Optionally, bind arguments to the function to pre-fill them, also known as partial application.
-	* @param func The function to bind `this` to `object`.
-	* @param context The `this` pointer whenever `fn` is called.
-	* @param arguments Additional arguments to pass to `fn` when called.
-	* @return `fn` with `this` bound to `object`.
+	* Creates a function that, when called, invokes func with the this binding of thisArg 
+	* and prepends any additional bind arguments to those provided to the bound function.
+	* @param func The function to bind.
+	* @param thisArg The this binding of func.
+	* @param args Arguments to be partially applied.
+	* @return The new bound function.
 	**/
 	export function bind(
 		func: Function,
-		context: any,
-		...arguments: any[]): () => any;
+		thisArg: any,
+		...args: any[]): () => any;
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
 
 	/**
 	* Binds a number of methods on the object, specified by methodNames, to be run in the context of that object
