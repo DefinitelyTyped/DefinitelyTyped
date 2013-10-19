@@ -1731,7 +1731,20 @@ declare module _ {
 		object: any,
 		...methodNames: string[]): any;
 
-
+	/**
+	* Creates a function that, when called, invokes the method at object[key] and prepends any 
+	* additional bindKey arguments to those provided to the bound function. This method differs 
+	* from _.bind by allowing bound functions to reference methods that will be redefined or don't 
+	* yet exist. See http://michaux.ca/articles/lazy-function-definition-pattern.
+	* @param object The object the method belongs to.
+	* @param key The key of the method.
+	* @param args Arguments to be partially applied.
+	* @return The new bound function.
+	**/
+	export function bindKey(
+		object: any,
+		key: string,
+		...args: any[]): Function;
 
 
 
