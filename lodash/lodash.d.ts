@@ -1624,6 +1624,42 @@ declare module _ {
 			collection: Collection<T>,
 			whereValue: Dictionary<any>): boolean;
 	
+	/**
+	* Creates an array of elements, sorted in ascending order by the results of running each 
+	* element in a collection through the callback. This method performs a stable sort, that 
+	* is, it will preserve the original sort order of equal elements. The callback is bound 
+	* to thisArg and invoked with three arguments; (value, index|key, collection).
+	*
+	* If a property name is provided for callback the created "_.pluck" style callback will 
+	* return the property value of the given element.
+	*
+	* If an object is provided for callback the created "_.where" style callback will return 
+	* true for elements that have the properties of the given object, else false.
+	* @param collection The collection to iterate over.
+	* @param callback The function called per iteration.
+	* @param thisArg The this binding of callback.
+	* @return A new array of sorted elements.
+	**/
+	export function sortBy<T, TSort>(
+		collection: List<T>,
+		callback?: ListIterator<T, TSort>,
+		thisArg?: any): T[];
+
+	/**
+	* @see _.sortBy
+	* @param pluckValue _.pluck style callback
+	**/
+	export function sortBy<T>(
+		collection: List<T>,
+		pluckValue: string): T[];
+
+	/**
+	* @see _.sortBy
+	* @param whereValue _.where style callback
+	**/
+	export function sortBy<T>(
+		collection: List<T>,
+		whereValue: Dictionary<any>): T[];
 
 
 
@@ -1663,27 +1699,7 @@ declare module _ {
 		list: Collection<T>,
 		properties: U): T[];
 
-	/**
-	* Returns a sorted copy of list, ranked in ascending order by the results of running each value
-	* through iterator. Iterator may also be the string name of the property to sort by (eg. length).
-	* @param list Sorts this list.
-	* @param iterator Sort iterator for each element within `list`.
-	* @param context `this` object in `iterator`, optional.
-	* @return A sorted copy of `list`.
-	**/
-	export function sortBy<T, TSort>(
-		list: List<T>,
-		iterator?: ListIterator<T, TSort>,
-		context?: any): T[];
-
-	/**
-	* @see _.sortBy
-	* @param iterator Sort iterator for each element within `list`.
-	**/
-	export function sortBy<T>(
-		list: List<T>,
-		iterator: string,
-		context?: any): T[];
+	
 
 	
 
