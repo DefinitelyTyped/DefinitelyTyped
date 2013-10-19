@@ -304,6 +304,10 @@ result = <number>_.max([4, 2, 8, 6]);
 result = <IStoogesAge>_.max(stoogesAges, function(stooge) { return stooge.age; });
 result = <IStoogesAge>_.max(stooges, 'age');
 
+result = <number>_.min([4, 2, 8, 6]);
+result = <IStoogesAge>_.min(stoogesAges, function(stooge) { return stooge.age; });
+result = <IStoogesAge>_.min(stooges, 'age');
+
 result = <any>_.reduce([1, 2, 3], function(sum, num) {
   return sum + num;
 });
