@@ -342,6 +342,9 @@ result = <number[]>_.reject([1, 2, 3, 4, 5, 6], function(num) { return num % 2 =
 result = <IFoodCombined[]>_.reject(foodsCombined, 'organic');
 result = <IFoodCombined[]>_.reject(foodsCombined, { 'type': 'fruit' });
 
+result = <number>_.sample([1, 2, 3, 4]);
+result = <number[]>_.sample([1, 2, 3, 4], 2);
+
 result = <boolean>_.some([null, 0, 'yes', false], Boolean);
 result = <boolean>_.some(foodsCombined, 'organic');
 result = <boolean>_.some(foodsCombined, { 'type': 'meat' });

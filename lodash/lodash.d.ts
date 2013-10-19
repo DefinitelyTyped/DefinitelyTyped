@@ -1522,6 +1522,20 @@ declare module _ {
 		whereValue: Dictionary<any>): T[];
 
 	/**
+	* Retrieves a random element or n random elements from a collection.
+	* @param collection The collection to sample.
+	* @return Returns the random sample(s) of collection.
+	**/
+	export function sample<T>(collection: Collection<T>): T;
+
+	/**
+	* @see _.sample
+	* @param n The number of elements to sample.
+	**/
+	export function sample<T>(collection: Collection<T>, n: number): T[];
+
+
+	/**
 	* Checks if the callback returns a truey value for any element of a collection. The function 
 	* returns as soon as it finds a passing value and does not iterate over the entire collection. 
 	* The callback is bound to thisArg and invoked with three arguments; (value, index|key, collection).
@@ -1648,18 +1662,6 @@ declare module _ {
 	* @return Shuffled copy of `list`.
 	**/
 	export function shuffle<T>(list: Collection<T>): T[];
-
-	/**
-	* Produce a random sample from the `list`.  Pass a number to return `n` random elements from the list.  Otherwise a single random item will be returned.
-	* @param list List to sample.
-	* @return Random sample of `n` elements in `list`.
-	**/
-	export function sample<T>(list: Collection<T>, n: number): T[];
-
-	/**
-	* @see _.sample
-	**/
-	export function sample<T>(list: Collection<T>): T;
 
 	/**
 	* Converts the list (anything that can be iterated over), into a real Array. Useful for transmuting
