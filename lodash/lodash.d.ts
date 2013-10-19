@@ -1859,7 +1859,14 @@ declare module _ {
 		func: Function,
 		resolver?: (n: any) => string): Function;
 
-	
+	/**
+	* Creates a function that is restricted to execute func once. Repeat calls to the function 
+	* will return the value of the first call. The func is executed with the this binding of the 
+	* created function.
+	* @param func Function to only execute once.
+	* @return The new restricted function.
+	**/
+	export function once(func: Function): Function;
 
 	
 
@@ -1947,14 +1954,7 @@ declare module _ {
 		wait: number,
 		options?: ThrottleSettings): Function;
 
-	/**
-	* Creates a version of the function that can only be called one time. Repeated calls to the modified
-	* function will have no effect, returning the value from the original call. Useful for initialization
-	* functions, instead of having to set a boolean flag and then check it later.
-	* @param fn Function to only execute once.
-	* @return Copy of `fn` that can only be invoked once.
-	**/
-	export function once(fn: Function): Function;
+	
 
 	
 
