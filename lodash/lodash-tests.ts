@@ -532,6 +532,12 @@ result = <any>_.assign({ 'name': 'moe' }, { 'age': 40 }, function(a, b) {
 	  return typeof a == 'undefined' ? b : a;
 	});
 
+var result = <any>_.clone(stoogesAges);
+var result = <any>_.clone(stoogesAges, true);
+var result = <any>_.clone(stoogesAges, true, function(value) {
+    return _.isElement(value) ? value.cloneNode(false) : undefined;
+});
+
 var mergeNames = {
   'stooges': [
     { 'name': 'moe' },
