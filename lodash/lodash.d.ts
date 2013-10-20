@@ -57,19 +57,29 @@ declare module _ {
 	**/
 	interface TemplateSettings {
 		/**
-		* Default value is '/<%([\s\S]+?)%>/g'.
+		* The "escape" delimiter.
+		**/
+		escape?: RegExp;
+
+		/**
+		* The "evaluate" delimiter.
 		**/
 		evaluate?: RegExp;
 
 		/**
-		* Default value is '/<%=([\s\S]+?)%>/g'.
+		* An object to import into the template as local variables.
 		**/
-		interpolate?: RegExp;
+		imports?: Dictionary<any>;
 
 		/**
-		* Default value is '/<%-([\s\S]+?)%>/g'.
+		* The "interpolate" delimiter.
 		**/
-		escape?: RegExp;
+		interpolate?: RegExp;
+	}
+
+	interface TemplateExecutor {
+		(...data: any[]): string;
+		source: string;
 	}
 
 	interface ListIterator<T, TResult> {
@@ -2779,7 +2789,43 @@ declare module _ {
 	**/
 	export function runInContext(context: any): typeof _;
 
+	/**
+	* A micro-templating method that handles arbitrary delimiters, preserves whitespace, and 
+	* correctly escapes quotes within interpolated code.
+	*
+	* Note: In the development build, _.template utilizes sourceURLs for easier debugging. See 
+	* http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl
+	*
+	* For more information on precompiling templates see:
+	* http://lodash.com/#custom-builds
+	*
+	* For more information on Chrome extension sandboxes see:
+	* http://developer.chrome.com/stable/extensions/sandboxingEval.html
+	* @param text The template text.
+	* @param data The data object used to populate the text.
+	* @param options The options object.
+	* @param options.escape The "escape" delimiter.
+	* @param options.evaluate The "evaluate" delimiter.
+	* @param options.import An object to import into the template as local variables.
+	* @param options.interpolate The "interpolate" delimiter.
+	* @param sourceURL The sourceURL of the template’s compiled source.
+	* @param variable The data object variable name.
+	* @return Returns the compiled Lo-Dash HTML template or a TemplateExecutor if no data is passed.
+	**/
+	export function template(
+		text: string): TemplateExecutor;
 
+	/**
+	* @see _.template
+	**/
+	export function template(
+		text: string,
+		data: any, 
+		options?: TemplateSettings,
+		sourceURL?: string,
+		variable?: string): any /* string or TemplateExecutor*/;
+	
+	
 
 	
 
@@ -2809,22 +2855,7 @@ declare module _ {
 
 	
 
-	/**
-	* Compiles JavaScript templates into functions that can be evaluated for rendering. Useful
-	* for rendering complicated bits of HTML from JSON data sources. Template functions can both
-	* interpolate variables, using <%= ... %>, as well as execute arbitrary JavaScript code, with
-	* <% ... %>. If you wish to interpolate a value, and have it be HTML-escaped, use <%- ... %> When
-	* you evaluate a template function, pass in a data object that has properties corresponding to
-	* the template's free variables. If you're writing a one-off, you can pass the data object as
-	* the second parameter to template in order to render immediately instead of returning a template
-	* function. The settings argument should be a hash containing any _.templateSettings that should
-	* be overridden.
-	* @param templateString Lo-Dash HTML template.
-	* @param data Data to use when compiling `templateString`.
-	* @param settings Settings to use while compiling.
-	* @return Returns the compiled Lo-Dash HTML template.
-	**/
-	export function template(templateString: string, data?: any, settings?: TemplateSettings): (...data: any[]) => string;
+	
 
 	/**
 	* By default, Lo-Dash uses ERB-style template delimiters, change the

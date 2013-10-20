@@ -745,6 +745,21 @@ result = <any>_.result(object, 'stuff');
 var tempObject = {};
 result = <typeof _>_.runInContext(tempObject);
 
+result = <_.TemplateExecutor>_.template('hello <%= name %>');
+result = <string>_.template('<b><%- value %></b>', { 'value': '<script>' });
+
+var listTemplate = '<% _.forEach(people, function(name) { %><li><%- name %></li><% }); %>';
+result = <string>_.template(listTemplate, { 'people': ['moe', 'larry'] });
+result = <string>_.template('hello ${ name }', { 'name': 'curly' });
+result = <string>_.template('<% print("hello " + name); %>!', { 'name': 'larry' });
+
+var listTemplate = '<% $.each(people, function(name) { %><li><%- name %></li><% }); %>';
+result = <string>_.template(listTemplate, { 'people': ['moe', 'larry'] }, { 'imports': { '$': jQuery } });
+result = <_.TemplateExecutor>_.template('hello <%= name %>', null, { 'sourceURL': '/basic/greeting.jst' });
+
+result = <_.TemplateExecutor>_.template('hi <%= data.name %>!', null, { 'variable': 'data' });
+result = <string>(<_.TemplateExecutor>result).source;
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 var iceCream = { flavor: "chocolate" };
@@ -794,20 +809,7 @@ _.result(object, 'cheese');
 
 _.result(object, 'stuff');
 
-var compiled = _.template("hello: <%= name %>");
-compiled({ name: 'moe' });
-var list2 = "<% _.each(people, function(name) { %> <li><%= name %></li> <% }); %>";
-_.template(list2, { people: ['moe', 'curly', 'larry'] });
-var template = _.template("<b><%- value %></b>");
-template({ value: '<script>' });
-var compiled2 = _.template("<% print('Hello ' + epithet); %>");
-compiled2({ epithet: "stooge" });
-_.templateSettings = {
-	interpolate: /\{\{(.+?)\}\}/g
-};
-var template2 = _.template("Hello {{ name }}!");
-template2({ name: "Mustache" });
-_.template("Using 'with': <%= data.answer %>", { answer: 'no' }, { variable: 'data' });
+
 
 
 _(['test', 'test']).pick(['test2', 'test2']);
