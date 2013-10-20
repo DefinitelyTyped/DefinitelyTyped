@@ -578,6 +578,9 @@ _.forOwnRight({ '0': 'zero', '1': 'one', 'length': 2 }, function(num, key) {
   console.log(key);
 });
 
+_.functions(_);
+_.methods(_);
+
 var mergeNames = {
   'stooges': [
     { 'name': 'moe' },
