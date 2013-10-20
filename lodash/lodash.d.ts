@@ -2417,6 +2417,16 @@ declare module _ {
 		thisArg?: any): boolean;
 
 	/**
+	* Checks if value is, or can be coerced to, a finite number.
+	*
+	* Note: This is not the same as native isFinite which will return true for booleans and empty 
+	* strings. See http://es5.github.io/#x15.1.2.5.
+	* @param value The value to check.
+	* @return True if the value is finite, else false.
+	**/
+	export function isFinite(value: any): boolean;
+
+	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
 	* to undefined into the destination object. Subsequent sources will overwrite property 
 	* assignments of previous sources. If a callback is provided it will be executed to produce 
@@ -2663,15 +2673,6 @@ declare module _ {
 	* @return True if `object` is a Number, otherwise false.
 	**/
 	export function isNumber(object: any): boolean;
-
-	/**
-	* Returns true if object is a finite Number.
-	* @param object Check if this object is a finite Number.
-	* @return True if `object` is a finite Number.
-	**/
-	export function isFinite(object: any): boolean;
-
-	
 
 	/**
 	* Returns true if object is a RegExp.
