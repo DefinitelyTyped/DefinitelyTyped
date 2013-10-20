@@ -570,6 +570,10 @@ _.forInRight(new Dog('Dagny'), function(value, key) {
   console.log(key);
 });
 
+_.forOwn({ '0': 'zero', '1': 'one', 'length': 2 }, function(num, key) {
+  console.log(key);
+});
+
 var mergeNames = {
   'stooges': [
     { 'name': 'moe' },
