@@ -522,13 +522,13 @@ helloWrap2();
 /**********
 * Objects *
 ***********/
-_.assign({ 'name': 'moe' }, { 'age': 40 });
-_.assign({ 'name': 'moe' }, { 'age': 40 }, function(a, b) {
+result = <any>_.assign({ 'name': 'moe' }, { 'age': 40 });
+result = <any>_.assign({ 'name': 'moe' }, { 'age': 40 }, function(a, b) {
   return typeof a == 'undefined' ? b : a;
 });
 
-	_.extend({ 'name': 'moe' }, { 'age': 40 });
-	_.extend({ 'name': 'moe' }, { 'age': 40 }, function(a, b) {
+	result = <any>_.extend({ 'name': 'moe' }, { 'age': 40 });
+	result = <any>_.extend({ 'name': 'moe' }, { 'age': 40 }, function(a, b) {
 	  return typeof a == 'undefined' ? b : a;
 	});
 
@@ -580,7 +580,6 @@ _.values({ one: 1, two: 2, three: 3 });
 _.pairs({ one: 1, two: 2, three: 3 });
 _.invert({ Moe: "Moses", Larry: "Louis", Curly: "Jerome" });
 _.functions(_);
-_.extend({ name: 'moe' }, { age: 50 });
 _.pick({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
