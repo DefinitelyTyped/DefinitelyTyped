@@ -2641,6 +2641,15 @@ declare module _ {
 		callback: (value: any) => boolean,
 		thisArg?: any): any;
 
+	/**
+	* Creates a two dimensional array of an object’s key-value pairs, 
+	* i.e. [[key1, value1], [key2, value2]].
+	* @param object The object to inspect.
+	* @return Aew array of key-value pairs.
+	**/
+	export function pairs(object: any): any[][];
+
+
 	
 
 	
@@ -2691,12 +2700,7 @@ declare module _ {
 	**/
 	export function values(object: any): any[];
 
-	/**
-	* Convert an object into a list of [key, value] pairs.
-	* @param object Convert this object to a list of [key, value] pairs.
-	* @return List of [key, value] pairs on `object`.
-	**/
-	export function pairs(object: any): any[][];
+	
 
 	/**
 	* Return a copy of the object, filtered to only have values for the whitelisted keys
