@@ -625,6 +625,10 @@ result = <boolean>_.isFinite(Infinity);
 
 result = <boolean>_.isFunction(_);
 
+result = <boolean>_.isNaN(NaN);
+result = <boolean>_.isNaN(new Number(NaN));
+result = <boolean>_.isNaN(undefined);
+
 var mergeNames = {
   'stooges': [
     { 'name': 'moe' },

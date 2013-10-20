@@ -2434,6 +2434,16 @@ declare module _ {
 	export function isFunction(value: any): boolean;
 
 	/**
+	* Checks if value is NaN.
+	*
+	* Note: This is not the same as native isNaN which will return true for undefined and other 
+	* non-numeric values. See http://es5.github.io/#x15.1.2.4.
+	* @param value The value to check.
+	* @return True if the value is NaN, else false.
+	**/
+	export function isNaN(value: any): boolean;
+
+	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
 	* to undefined into the destination object. Subsequent sources will overwrite property 
 	* assignments of previous sources. If a callback is provided it will be executed to produce 
@@ -2680,15 +2690,6 @@ declare module _ {
 	* @return True if `object` is a RegExp, otherwise false.
 	**/
 	export function isRegExp(object: any): boolean;
-
-	/**
-	* Returns true if object is NaN.
-	* Note: this is not the same as the native isNaN function,
-	* which will also return true if the variable is undefined.
-	* @param object Check if this object is NaN.
-	* @return True if `object` is NaN, otherwise false.
-	**/
-	export function isNaN(object: any): boolean;
 
 	/**
 	* Returns true if the value of object is null.
