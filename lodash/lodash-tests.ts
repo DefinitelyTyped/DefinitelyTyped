@@ -647,6 +647,8 @@ result = <boolean>_.isPlainObject(new Stooge('moe', 40));
 result = <boolean>_.isPlainObject([1, 2, 3]);
 result = <boolean>_.isPlainObject({ 'name': 'moe', 'age': 40 });
 
+result = <boolean>_.isRegExp(/moe/);
+
 var mergeNames = {
   'stooges': [
     { 'name': 'moe' },
