@@ -714,6 +714,14 @@ result = <any[]>_.values({ 'one': 1, 'two': 2, 'three': 3 });
 
 result = <string>_.escape('Moe, Larry & Curly');
 
+result = <{ name: string }>_.identity({ 'name': 'moe' });
+
+_.mixin({
+  'capitalize': function(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  }
+});
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 var iceCream = { flavor: "chocolate" };

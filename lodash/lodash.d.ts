@@ -2714,8 +2714,18 @@ declare module _ {
 	**/
 	export function escape(str: string): string;
 
+	/**
+	* This method returns the first argument provided to it.
+	* @param value Any value.
+	* @return value.
+	**/
+	export function identity<T>(value: T): T;
 
-
+	/**
+	* Adds function properties of a source object to the lodash function and chainable wrapper.
+	* @param object The object of function properties to add to lodash.
+	**/
+	export function mixin(object: Dictionary<(value: any) => any>): void;
 
 
 
@@ -2733,13 +2743,7 @@ declare module _ {
 	**/
 	export function noConflict(): any;
 
-	/**
-	* Returns the same value that is used as the argument. In math: f(x) = x
-	* This function looks useless, but is used throughout Lo-Dash as a default iterator.
-	* @param value Identity of this object.
-	* @return `value`.
-	**/
-	export function identity<T>(value: T): T;
+	
 
 	/**
 	* Invokes the given iterator function n times.
@@ -2765,13 +2769,7 @@ declare module _ {
 	**/
 	export function random(min: number, max: number): number;
 
-	/**
-	* Allows you to extend Lo-Dash with your own utility functions. Pass a hash of
-	* {name: function} definitions to have your functions added to the Lo-Dash object,
-	* as well as the OOP wrapper.
-	* @param object Mixin object containing key/function pairs to add to the Lo-Dash object.
-	**/
-	export function mixin(object: any): void;
+	
 
 	/**
 	* Generate a globally-unique id for client-side models or DOM elements that need one.
