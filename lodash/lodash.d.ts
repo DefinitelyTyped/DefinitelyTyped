@@ -2649,7 +2649,34 @@ declare module _ {
 	**/
 	export function pairs(object: any): any[][];
 
+	/**
+	* Creates a shallow clone of object composed of the specified properties. Property names may be 
+	* specified as individual arguments or as arrays of property names. If a callback is provided 
+	* it will be executed for each property of object picking the properties the callback returns 
+	* truey for. The callback is bound to thisArg and invoked with three arguments; (value, key, 
+	* object).
+	* @param object Object to strip unwanted key/value pairs.
+	* @param keys Property names to pick
+	* @return An object composed of the picked properties.
+	**/
+	export function pick(
+		object: any,
+		...keys: string[]): any;
 
+	/**
+	* @see _.pick
+	**/
+	export function pick(
+		object: any,
+		keys: string[]): any;
+
+	/**
+	* @see _.pick
+	**/
+	export function pick(
+		object: any,
+		callback: ObjectIterator<any, boolean>,
+		thisArg?: any): any;
 	
 
 	
@@ -2702,16 +2729,7 @@ declare module _ {
 
 	
 
-	/**
-	* Return a copy of the object, filtered to only have values for the whitelisted keys
-	* (or array of valid keys).
-	* @param object Object to strip unwanted key/value pairs.
-	* @keys The key/value pairs to keep on `object`.
-	* @return Copy of `object` with only the `keys` properties.
-	**/
-	export function pick(
-		object: any,
-		...keys: string[]): any;
+	
 
 	
 
