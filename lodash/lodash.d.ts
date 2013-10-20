@@ -2347,6 +2347,13 @@ declare module _ {
 	export function invert(object: any): any;
 
 	/**
+	* Checks if value is an arguments object.
+	* @param value The value to check.
+	* @return True if the value is an arguments object, else false.
+	**/
+	export function isArguments(value: any): boolean;
+
+	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
 	* to undefined into the destination object. Subsequent sources will overwrite property 
 	* assignments of previous sources. If a callback is provided it will be executed to produce 
@@ -2596,13 +2603,6 @@ declare module _ {
 	* @return True of `object` is an Object, otherwise false.
 	**/
 	export function isObject(object: any): boolean;
-
-	/**
-	* Returns true if object is an Arguments object.
-	* @param object Check if this object is an Arguments object.
-	* @return True if `object` is an Arguments object, otherwise false.
-	**/
-	export function isArguments(object: any): boolean;
 
 	/**
 	* Returns true if object is a Function.

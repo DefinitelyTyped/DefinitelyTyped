@@ -585,7 +585,7 @@ result = <boolean>_.has({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
 
 result = <any>_.invert({ 'first': 'moe', 'second': 'larry' });
 
-
+(function(...args: any[]) { return <boolean>_.isArguments(arguments); })(1, 2, 3);
 
 var mergeNames = {
   'stooges': [
@@ -672,9 +672,6 @@ _.isArray([1, 2, 3]);
 _.isObject({});
 _.isObject(1);
 
-
-// (() => { return _.isArguments(arguments); })(1, 2, 3);
-_.isArguments([1, 2, 3]);
 
 _.isFunction(alert);
 
