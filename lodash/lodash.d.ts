@@ -2176,6 +2176,25 @@ declare module _ {
 		thisArg?: any): T;
 
 	/**
+	* Creates a deep clone of value. If a callback is provided it will be executed to produce the 
+	* cloned values. If the callback returns undefined cloning will be handled by the method instead. 
+	* The callback is bound to thisArg and invoked with one argument; (value).
+	*
+	* Note: This method is loosely based on the structured clone algorithm. Functions and DOM nodes 
+	* are not cloned. The enumerable properties of arguments objects and objects created by constructors 
+	* other than Object are cloned to plain Object objects. 
+	* See http://www.w3.org/TR/html5/infrastructure.html#internal-structured-cloning-algorithm.
+	* @param value The value to clone.
+	* @param callback The function to customize cloning values.
+	* @param thisArg The this binding of callback.
+	* @return The cloned value.
+	**/
+	export function cloneDeep<T>(
+		value: T,
+		callback?: (value: any) => any,
+		thisArg?: any): T;
+
+	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
 	* to undefined into the destination object. Subsequent sources will overwrite property 
 	* assignments of previous sources. If a callback is provided it will be executed to produce 
