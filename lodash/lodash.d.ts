@@ -2489,6 +2489,13 @@ declare module _ {
 	export function isString(value: any): boolean;
 
 	/**
+	* Checks if value is undefined.
+	* @param value The value to check.
+	* @return True if the value is undefined, else false.
+	**/
+	export function isUndefined(value: any): boolean;
+
+	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
 	* to undefined into the destination object. Subsequent sources will overwrite property 
 	* assignments of previous sources. If a callback is provided it will be executed to produce 
@@ -2703,12 +2710,7 @@ declare module _ {
 
 	
 
-	/**
-	* Returns true if value is undefined.
-	* @param object Check if this object is undefined.
-	* @return True if `object` is undefined, otherwise false.
-	**/
-	export function isUndefined(value: any): boolean;
+	
 
 	/* *********
 	 * Utility *
