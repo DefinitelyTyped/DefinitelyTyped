@@ -726,6 +726,12 @@ var lodash = <typeof _>_.noConflict();
 
 result = <number>_.parseInt('08');
 
+result = <number>_.random(0, 5);
+result = <number>_.random(5);
+result = <number>_.random(5, true);
+result = <number>_.random(1.2, 5.2);
+result = <number>_.random(0, 5, true);
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 var iceCream = { flavor: "chocolate" };

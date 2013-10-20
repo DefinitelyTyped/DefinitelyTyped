@@ -2745,7 +2745,22 @@ declare module _ {
 	**/
 	export function parseInt(value: string): number;
 
+	/**
+	* Produces a random number between min and max (inclusive). If only one argument is provided a 
+	* number between 0 and the given number will be returned. If floating is truey or either min or 
+	* max are floats a floating-point number will be returned instead of an integer.
+	* @param max The maximum possible value.
+	* @param floating Specify returning a floating-point number.
+	* @return A random number.
+	**/
+	export function random(max: number, floating?: boolean): number;
 
+	/**
+	* @see _.random
+	* @param min The minimum possible value.
+	* @return A random number between `min` and `max`.
+	**/
+	export function random(min: number, max: number, floating?: boolean): number;
 
 
 
@@ -2764,23 +2779,6 @@ declare module _ {
 	* @param context `this` object in `iterator`, optional.
 	**/
 	export function times<TResult>(n: number, iterator: (n: number) => TResult, context?: any): TResult[];
-
-	/**
-	* Returns a random integer between min and max, inclusive. If you only pass one argument,
-	* it will return a number between 0 and that number.
-	* @param max The maximum random number.
-	* @return A random number between 0 and `max`.
-	**/
-	export function random(max: number): number;
-
-	/**
-	* @see _.random
-	* @param min The minimum random number.
-	* @return A random number between `min` and `max`.
-	**/
-	export function random(min: number, max: number): number;
-
-	
 
 	/**
 	* Generate a globally-unique id for client-side models or DOM elements that need one.
