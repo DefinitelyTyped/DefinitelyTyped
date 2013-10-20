@@ -2264,6 +2264,21 @@ declare module _ {
 		whereValue: Dictionary<any>): string;
 
 	/**
+	* Iterates over own and inherited enumerable properties of an object, executing the callback for 
+	* each property. The callback is bound to thisArg and invoked with three arguments; (value, key, 
+	* object). Callbacks may exit iteration early by explicitly returning false.
+	* @param object The object to iterate over.
+	* @param callback The function called per iteration.
+	* @param thisArg The this binding of callback.
+	* @return object
+	**/
+	export function forIn<T extends {}>(
+		object: Dictionary<T>,
+		callback?: ObjectIterator<T, void>,
+		thisArg?: any): Dictionary<T>;
+
+
+	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
 	* to undefined into the destination object. Subsequent sources will overwrite property 
 	* assignments of previous sources. If a callback is provided it will be executed to produce 

@@ -554,6 +554,18 @@ result = <string>_.findLastKey({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, function(num)
   return num % 2 == 1;
 });
 
+function Dog(name) {
+  this.name = name;
+}
+
+Dog.prototype.bark = function() {
+  console.log('Woof, woof!');
+};
+
+_.forIn(new Dog('Dagny'), function(value, key) {
+  console.log(key);
+});
+
 var mergeNames = {
   'stooges': [
     { 'name': 'moe' },
