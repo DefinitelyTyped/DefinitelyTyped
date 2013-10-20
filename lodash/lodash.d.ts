@@ -2694,7 +2694,14 @@ declare module _ {
 		collection: Collection<T>,
 		callback?: MemoIterator<T, any>,
 		accumulator?: any,
-		thisArg?: any): any
+		thisArg?: any): any;
+
+	/**
+	* Creates an array composed of the own enumerable property values of object.
+	* @param object The object to inspect.
+	* @return Returns an array of property values.
+	**/
+	export function values(object: any): any[];
 	
 
 	
@@ -2736,12 +2743,7 @@ declare module _ {
 
 	
 
-	/**
-	* Return all of the values of the object's properties.
-	* @param object Retreive the values of all the properties on this object.
-	* @return List of all the values on `object`.
-	**/
-	export function values(object: any): any[];
+	
 
 	
 
