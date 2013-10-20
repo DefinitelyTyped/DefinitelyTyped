@@ -588,8 +588,15 @@ result = <any>_.invert({ 'first': 'moe', 'second': 'larry' });
 
 (function(...args: any[]) { return <boolean>_.isArguments(arguments); })(1, 2, 3);
 
-(function () { return _.isArray(arguments); })();
-_.isArray([1, 2, 3]);
+(function () { return <boolean>_.isArray(arguments); })();
+result = <boolean>_.isArray([1, 2, 3]);
+
+result = <boolean>_.isBoolean(null);
+
+result = <boolean>_.isDate(new Date());
+
+
+
 
 var mergeNames = {
   'stooges': [
@@ -684,9 +691,7 @@ _.isFinite(-101);
 
 _.isFinite(-Infinity);
 
-_.isBoolean(null);
 
-_.isDate(new Date());
 
 _.isRegExp(/moe/);
 
