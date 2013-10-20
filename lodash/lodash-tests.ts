@@ -669,7 +669,7 @@ var mergeAges = {
   ]
 };
 
-_.merge(mergeNames, mergeAges);
+result = <any>_.merge(mergeNames, mergeAges);
 
 var mergeFood = {
   'fruits': ['apple'],
@@ -681,8 +681,14 @@ var mergeOtherFood = {
   'vegetables': ['carrot']
 };
 
-_.merge(mergeFood, mergeOtherFood, function(a, b) {
+result = <any>_.merge(mergeFood, mergeOtherFood, function(a, b) {
   return _.isArray(a) ? a.concat(b) : undefined;
+});
+
+result = <any>_.omit({ 'name': 'moe', 'age': 40 }, 'age');
+result = <any>_.omit({ 'name': 'moe', 'age': 40 }, ['age']);
+result = <any>_.omit({ 'name': 'moe', 'age': 40 }, function(value) {
+  return typeof value == 'number';
 });
 
 ////////////////////////////////////////////////////////////////////////////////////////

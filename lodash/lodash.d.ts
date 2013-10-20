@@ -2612,9 +2612,34 @@ declare module _ {
 		callback?: (objectValue: any, sourceValue: any) => any,
 		thisArg?: any): any;
 
-	
+	/**
+	* Creates a shallow clone of object excluding the specified properties. Property names may be 
+	* specified as individual arguments or as arrays of property names. If a callback is provided 
+	* it will be executed for each property of object omitting the properties the callback returns 
+	* truey for. The callback is bound to thisArg and invoked with three arguments; (value, key, 
+	* object).
+	* @param object The source object.
+	* @param keys The properties to omit.
+	* @return An object without the omitted properties.
+	**/
+	export function omit(
+		object: any,
+		...keys: string[]): any;
 
-	
+	/**
+	* @see _.omit
+	**/
+	export function omit(
+		object: any,
+		keys: string[]): any;	
+
+	/**
+	* @see _.omit
+	**/
+	export function omit(
+		object: any,
+		callback: (value: any) => boolean,
+		thisArg?: any): any;
 
 	
 
@@ -2684,22 +2709,7 @@ declare module _ {
 		object: any,
 		...keys: string[]): any;
 
-	/**
-	* Return a copy of the object, filtered to omit the blacklisted keys (or array of keys).
-	* @param object Object to strip unwanted key/value pairs.
-	* @param keys The key/value pairs to remove on `object`.
-	* @return Copy of `object` without the `keys` properties.
-	**/
-	export function omit(
-		object: any,
-		...keys: string[]): any;
-
-	/**
-	* @see _.omit
-	**/
-	export function omit(
-		object: any,
-		keys: string[]): any;
+	
 
 	/**
 	* Invokes interceptor with the object, and then returns object. The primary purpose of this method
