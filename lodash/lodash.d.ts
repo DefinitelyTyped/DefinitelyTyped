@@ -2703,25 +2703,28 @@ declare module _ {
 	**/
 	export function values(object: any): any[];
 
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
 	/* *********
-	 * Utility *
+	 * Utilities *
 	********** */
+
+	/**
+	* Converts the characters &, <, >, ", and ' in string to their corresponding HTML entities.
+	* @param string The string to escape.
+	* @return The escaped string.
+	**/
+	export function escape(str: string): string;
+
+
+
+
+
+
+
+
+
+
+
+
 
 	/**
 	* Give control of the "_" variable back to its previous owner.
@@ -2783,12 +2786,7 @@ declare module _ {
 	**/
 	export function uniqueId(): number;
 
-	/**
-	* Escapes a string for insertion into HTML, replacing &, <, >, ", ', and / characters.
-	* @param str Raw string to escape.
-	* @return `str` HTML escaped.
-	**/
-	export function escape(str: string): string;
+	
 
 	/**
 	* If the value of the named property is a function then invoke it; otherwise, return it.
