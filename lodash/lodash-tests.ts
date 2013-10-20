@@ -617,6 +617,11 @@ result = <boolean>_.isEqual(words, otherWords, function(a, b) {
   return (aGreet || bGreet) ? (aGreet == bGreet) : undefined;
 });
 
+result = <boolean>_.isFinite(-101);
+result = <boolean>_.isFinite('10');
+result = <boolean>_.isFinite(true);
+result = <boolean>_.isFinite('');
+result = <boolean>_.isFinite(Infinity);
 
 var mergeNames = {
   'stooges': [
