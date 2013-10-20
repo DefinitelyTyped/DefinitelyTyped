@@ -595,7 +595,7 @@ result = <boolean>_.isBoolean(null);
 
 result = <boolean>_.isDate(new Date());
 
-
+result = <boolean>_.isElement(document.body);
 
 
 var mergeNames = {
@@ -674,8 +674,6 @@ _.isEqual(moe, clone);
 
 _.isEmpty([1, 2, 3]);
 _.isEmpty({});
-
-_.isElement($('body')[0]);
 
 _.isObject({});
 _.isObject(1);
