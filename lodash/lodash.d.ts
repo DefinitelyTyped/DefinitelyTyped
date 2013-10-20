@@ -1950,6 +1950,214 @@ declare module _ {
 	/**********
 	* Objects *
 	***********/
+	/**
+	* Assigns own enumerable properties of source object(s) to the destination object. Subsequent 
+	* sources will overwrite property assignments of previous sources. If a callback is provided 
+	* it will be executed to produce the assigned values. The callback is bound to thisArg and 
+	* invoked with two arguments; (objectValue, sourceValue).
+	* @param object The destination object.
+	* @param s1-8 The source object(s)
+	* @param callback The function to customize merging properties.
+	* @param thisArg The this binding of callback.
+	* @return The destination object.
+	**/
+	export function assign(
+		object: any,
+		s1: any,
+		callback?: (objectValue: any, sourceValue: any) => any,
+		thisArg?: any): any;
+
+	/**
+	* @see _.assign
+	**/
+	export function assign(
+		object: any,
+		s1: any,
+		s2: any,
+		callback?: (objectValue: any, sourceValue: any) => any,
+		thisArg?: any): any;
+
+	/**
+	* @see _.assign
+	**/		
+	export function assign(
+		object: any,
+		s1: any,
+		s2: any,
+		s3: any,
+		callback?: (objectValue: any, sourceValue: any) => any,
+		thisArg?: any): any;
+
+	/**
+	* @see _.assign
+	**/
+	export function assign(
+		object: any,
+		s1: any,
+		s2: any,
+		s3: any,
+		s4: any,
+		callback?: (objectValue: any, sourceValue: any) => any,
+		thisArg?: any): any;
+
+	/**
+	* @see _.assign
+	**/
+	export function assign(
+		object: any,
+		s1: any,
+		s2: any,
+		s3: any,
+		s4: any,
+		s5: any,
+		callback?: (objectValue: any, sourceValue: any) => any,
+		thisArg?: any): any;
+
+	/**
+	* @see _.assign
+	**/
+	export function assign(
+		object: any,
+		s1: any,
+		s2: any,
+		s3: any,
+		s4: any,
+		s5: any,
+		s6: any,
+		callback?: (objectValue: any, sourceValue: any) => any,
+		thisArg?: any): any;
+
+	/**
+	* @see _.assign
+	**/
+	export function assign(
+		object: any,
+		s1: any,
+		s2: any,
+		s3: any,
+		s4: any,
+		s5: any,
+		s6: any,
+		s7: any,
+		callback?: (objectValue: any, sourceValue: any) => any,
+		thisArg?: any): any;
+
+	/**
+	* @see _.assign
+	**/
+	export function assign(
+		object: any,
+		s1: any,
+		s2: any,
+		s3: any,
+		s4: any,
+		s5: any,
+		s6: any,
+		s7: any,
+		s8: any,
+		callback?: (objectValue: any, sourceValue: any) => any,
+		thisArg?: any): any;
+
+			/**
+			* @see _.extend
+			**/
+			export function extend(
+				object: any,
+				s1: any,
+				callback?: (objectValue: any, sourceValue: any) => any,
+				thisArg?: any): any;
+
+			/**
+			* @see _.extend
+			**/
+			export function extend(
+				object: any,
+				s1: any,
+				s2: any,
+				callback?: (objectValue: any, sourceValue: any) => any,
+				thisArg?: any): any;
+
+			/**
+			* @see _.extend
+			**/				
+			export function extend(
+				object: any,
+				s1: any,
+				s2: any,
+				s3: any,
+				callback?: (objectValue: any, sourceValue: any) => any,
+				thisArg?: any): any;
+
+			/**
+			* @see _.extend
+			**/
+			export function extend(
+				object: any,
+				s1: any,
+				s2: any,
+				s3: any,
+				s4: any,
+				callback?: (objectValue: any, sourceValue: any) => any,
+				thisArg?: any): any;
+
+			/**
+			* @see _.extend
+			**/
+			export function extend(
+				object: any,
+				s1: any,
+				s2: any,
+				s3: any,
+				s4: any,
+				s5: any,
+				callback?: (objectValue: any, sourceValue: any) => any,
+				thisArg?: any): any;
+
+			/**
+			* @see _.extend
+			**/
+			export function extend(
+				object: any,
+				s1: any,
+				s2: any,
+				s3: any,
+				s4: any,
+				s5: any,
+				s6: any,
+				callback?: (objectValue: any, sourceValue: any) => any,
+				thisArg?: any): any;
+
+			/**
+			* @see _.extend
+			**/
+			export function extend(
+				object: any,
+				s1: any,
+				s2: any,
+				s3: any,
+				s4: any,
+				s5: any,
+				s6: any,
+				s7: any,
+				callback?: (objectValue: any, sourceValue: any) => any,
+				thisArg?: any): any;
+
+			/**
+			* @see _.extend
+			**/
+			export function extend(
+				object: any,
+				s1: any,
+				s2: any,
+				s3: any,
+				s4: any,
+				s5: any,
+				s6: any,
+				s7: any,
+				s8: any,
+				callback?: (objectValue: any, sourceValue: any) => any,
+				thisArg?: any): any;
+
 
 	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 

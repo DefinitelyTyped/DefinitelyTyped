@@ -518,9 +518,20 @@ helloWrap2();
 
 
 
+
 /**********
 * Objects *
 ***********/
+_.assign({ 'name': 'moe' }, { 'age': 40 });
+_.assign({ 'name': 'moe' }, { 'age': 40 }, function(a, b) {
+  return typeof a == 'undefined' ? b : a;
+});
+
+	_.extend({ 'name': 'moe' }, { 'age': 40 });
+	_.extend({ 'name': 'moe' }, { 'age': 40 }, function(a, b) {
+	  return typeof a == 'undefined' ? b : a;
+	});
+
 var mergeNames = {
   'stooges': [
     { 'name': 'moe' },
@@ -536,7 +547,6 @@ var mergeAges = {
 };
 
 _.merge(mergeNames, mergeAges);
-// → { 'stooges': [{ 'name': 'moe', 'age': 40 }, { 'name': 'larry', 'age': 50 }] }
 
 var mergeFood = {
   'fruits': ['apple'],
