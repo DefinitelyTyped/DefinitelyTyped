@@ -550,6 +550,10 @@ result = <string>_.findKey({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, function(num) {
   return num % 2 == 0;
 });
 
+result = <string>_.findLastKey({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, function(num) {
+  return num % 2 == 1;
+});
+
 var mergeNames = {
   'stooges': [
     { 'name': 'moe' },

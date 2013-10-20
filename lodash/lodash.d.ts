@@ -2236,6 +2236,34 @@ declare module _ {
 		whereValue: Dictionary<any>): string;
 
 	/**
+	* This method is like _.findKey except that it iterates over elements of a collection in the opposite order.
+	* @param object The object to search.
+	* @param callback The function called per iteration.
+	* @param thisArg The this binding of callback.
+	* @return The key of the found element, else undefined.
+	**/
+	export function findLastKey(
+		object: any,
+		callback: (value: any) => boolean,
+		thisArg?: any): string;
+
+	/**
+	* @see _.findLastKey
+	* @param pluckValue _.pluck style callback
+	**/
+	export function findLastKey(
+		object: any,
+		pluckValue: string): string;
+
+	/**
+	* @see _.findLastKey
+	* @param whereValue _.where style callback
+	**/
+	export function findLastKey(
+		object: any,
+		whereValue: Dictionary<any>): string;
+
+	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
 	* to undefined into the destination object. Subsequent sources will overwrite property 
 	* assignments of previous sources. If a callback is provided it will be executed to produce 
