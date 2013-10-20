@@ -2444,6 +2444,13 @@ declare module _ {
 	export function isNaN(value: any): boolean;
 
 	/**
+	* Checks if value is null.
+	* @param value The value to check.
+	* @return True if the value is null, else false.
+	**/
+	export function isNull(value: any): boolean;
+
+	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
 	* to undefined into the destination object. Subsequent sources will overwrite property 
 	* assignments of previous sources. If a callback is provided it will be executed to produce 
@@ -2690,13 +2697,6 @@ declare module _ {
 	* @return True if `object` is a RegExp, otherwise false.
 	**/
 	export function isRegExp(object: any): boolean;
-
-	/**
-	* Returns true if the value of object is null.
-	* @param object Check if this object is null.
-	* @return True if `object` is null, otherwise false.
-	**/
-	export function isNull(object: any): boolean;
 
 	/**
 	* Returns true if value is undefined.
