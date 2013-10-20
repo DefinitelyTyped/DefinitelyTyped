@@ -2702,18 +2702,6 @@ declare module _ {
 	* @return Returns an array of property values.
 	**/
 	export function values(object: any): any[];
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
 
 	
 
@@ -2726,39 +2714,6 @@ declare module _ {
 	
 
 	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	/**********
-	* Objects *
-	***********/
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	/**
-	* Invokes interceptor with the object, and then returns object. The primary purpose of this method
-	* is to "tap into" a method chain, in order to perform operations on intermediate results within the chain.
-	* @param object Argument to `interceptor`.
-	* @param intercepter The function to modify `object` before continuing the method chain.
-	* @return Modified `object`.
-	**/
-	export function tap<T>(object: T, intercepter: Function): T;
 
 	
 
@@ -2884,6 +2839,15 @@ declare module _ {
 	* @return Value of `obj`.
 	**/
 	export function value<T, TResult>(obj: T): TResult;
+
+	/**
+	* Invokes interceptor with the object, and then returns object. The primary purpose of this method
+	* is to "tap into" a method chain, in order to perform operations on intermediate results within the chain.
+	* @param object Argument to `interceptor`.
+	* @param intercepter The function to modify `object` before continuing the method chain.
+	* @return Modified `object`.
+	**/
+	export function tap<T>(object: T, intercepter: Function): T;
 }
 
 declare class _<T> {
