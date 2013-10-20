@@ -2727,21 +2727,20 @@ declare module _ {
 	**/
 	export function mixin(object: Dictionary<(value: any) => any>): void;
 
-
-
-
-
-
-
-
-
-
 	/**
-	* Give control of the "_" variable back to its previous owner.
-	* Returns a reference to the Lo-Dash object.
-	* @return Lo-Dash object reference.
+	* Reverts the '_' variable to its previous value and returns a reference to the lodash function.
+	* @return The lodash function.
 	**/
-	export function noConflict(): any;
+	export function noConflict(): typeof _;
+
+
+
+
+
+
+
+
+	
 
 	
 
