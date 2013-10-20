@@ -2290,6 +2290,20 @@ declare module _ {
 		callback?: ObjectIterator<T, void>,
 		thisArg?: any): Dictionary<T>;
 
+	/**
+	* Iterates over own enumerable properties of an object, executing the callback for each 
+	* property. The callback is bound to thisArg and invoked with three arguments; (value, key, 
+	* object). Callbacks may exit iteration early by explicitly returning false.
+	* @param object The object to iterate over.
+	* @param callback The function called per iteration.
+	* @param thisArg The this binding of callback.
+	* @return object
+	**/
+	export function forOwn<T extends {}>(
+		object: Dictionary<T>,
+		callback?: ObjectIterator<T, void>,
+		thisArg?: any): Dictionary<T>;
+
 
 	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
