@@ -724,6 +724,8 @@ _.mixin({
 
 var lodash = <typeof _>_.noConflict();
 
+result = <number>_.parseInt('08');
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 var iceCream = { flavor: "chocolate" };

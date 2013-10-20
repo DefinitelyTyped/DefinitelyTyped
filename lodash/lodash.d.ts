@@ -2733,6 +2733,18 @@ declare module _ {
 	**/
 	export function noConflict(): typeof _;
 
+	/**
+	* Converts the given value into an integer of the specified radix. If radix is undefined or 0 a 
+	* radix of 10 is used unless the value is a hexadecimal, in which case a radix of 16 is used.
+	*
+	* Note: This method avoids differences in native ES3 and ES5 parseInt implementations. See 
+	* http://es5.github.io/#E.
+	* @param value The value to parse.
+	* @param radix The radix used to interpret the value to parse.
+	* @return The new integer value.
+	**/
+	export function parseInt(value: string): number;
+
 
 
 
