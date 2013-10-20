@@ -2762,7 +2762,15 @@ declare module _ {
 	**/
 	export function random(min: number, max: number, floating?: boolean): number;
 
-
+	/**
+	* Resolves the value of property on object. If property is a function it will be invoked with 
+	* the this binding of object and its result returned, else the property value is returned. If 
+	* object is falsey then undefined is returned.
+	* @param object The object to inspect.
+	* @param property The property to get the value of.
+	* @return The resolved value.
+	**/
+	export function result(object: any, property: string): any;
 
 
 
@@ -2794,14 +2802,6 @@ declare module _ {
 	export function uniqueId(): number;
 
 	
-
-	/**
-	* If the value of the named property is a function then invoke it; otherwise, return it.
-	* @param object Object to maybe invoke function `property` on.
-	* @param property The function by name to invoke on `object`.
-	* @return The result of invoking the function `property` on `object.
-	**/
-	export function result(object: any, property: string): any;
 
 	/**
 	* Compiles JavaScript templates into functions that can be evaluated for rendering. Useful
