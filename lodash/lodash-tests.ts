@@ -630,7 +630,6 @@ _.keys({ one: 1, two: 2, three: 3 });
 _.values({ one: 1, two: 2, three: 3 });
 _.pairs({ one: 1, two: 2, three: 3 });
 _.invert({ Moe: "Moses", Larry: "Louis", Curly: "Jerome" });
-_.functions(_);
 _.pick({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
@@ -653,8 +652,6 @@ _.chain([1, 2, 3, 200])
 	.tap(alert)
 	.map(function (num: number) { return num * num })
 	.value();
-
-_.has({ a: 1, b: 2, c: 3 }, "b");
 
 var moe = { name: 'moe', luckyNumbers: [13, 27, 34] };
 var clone = { name: 'moe', luckyNumbers: [13, 27, 34] };
