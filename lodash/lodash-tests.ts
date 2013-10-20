@@ -634,6 +634,10 @@ result = <boolean>_.isNull(undefined);
 
 result = <boolean>_.isNumber(8.4 * 5);
 
+result = <boolean>_.isObject({});
+result = <boolean>_.isObject([1, 2, 3]);
+result = <boolean>_.isObject(1);
+
 var mergeNames = {
   'stooges': [
     { 'name': 'moe' },

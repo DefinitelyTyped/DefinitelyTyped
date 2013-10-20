@@ -2460,6 +2460,14 @@ declare module _ {
 	export function isNumber(value: any): boolean;
 
 	/**
+	* Checks if value is the language type of Object. (e.g. arrays, functions, objects, regexes, 
+	* new Number(0), and new String(''))
+	* @param value The value to check.
+	* @return True if the value is an object, else false.
+	**/
+	export function isObject(value: any): boolean;
+
+	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
 	* to undefined into the destination object. Subsequent sources will overwrite property 
 	* assignments of previous sources. If a callback is provided it will be executed to produce 
@@ -2671,20 +2679,6 @@ declare module _ {
 	* @return Modified `object`.
 	**/
 	export function tap<T>(object: T, intercepter: Function): T;
-
-	
-
-	
-
-	
-
-	/**
-	* Returns true if value is an Object. Note that JavaScript arrays and functions are objects,
-	* while (normal) strings and numbers are not.
-	* @param object Check if this object is an Object.
-	* @return True of `object` is an Object, otherwise false.
-	**/
-	export function isObject(object: any): boolean;
 
 	/**
 	* Returns true if object is a String.
