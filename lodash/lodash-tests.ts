@@ -623,6 +623,8 @@ result = <boolean>_.isFinite(true);
 result = <boolean>_.isFinite('');
 result = <boolean>_.isFinite(Infinity);
 
+result = <boolean>_.isFunction(_);
+
 var mergeNames = {
   'stooges': [
     { 'name': 'moe' },
