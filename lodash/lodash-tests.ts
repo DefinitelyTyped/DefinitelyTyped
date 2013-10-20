@@ -597,6 +597,10 @@ result = <boolean>_.isDate(new Date());
 
 result = <boolean>_.isElement(document.body);
 
+result = <boolean>_.isEmpty([1, 2, 3]);
+result = <boolean>_.isEmpty({});
+result = <boolean>_.isEmpty('');
+
 
 var mergeNames = {
   'stooges': [
@@ -672,8 +676,7 @@ var clone = { name: 'moe', luckyNumbers: [13, 27, 34] };
 moe == clone;
 _.isEqual(moe, clone);
 
-_.isEmpty([1, 2, 3]);
-_.isEmpty({});
+
 
 _.isObject({});
 _.isObject(1);

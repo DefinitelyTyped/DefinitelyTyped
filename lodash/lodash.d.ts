@@ -2382,6 +2382,24 @@ declare module _ {
 	export function isElement(value: any): boolean;
 
 	/**
+	* Checks if value is empty. Arrays, strings, or arguments objects with a length of 0 and objects 
+	* with no own enumerable properties are considered "empty".
+	* @param value The value to inspect.
+	* @return True if the value is empty, else false.
+	**/
+	export function isEmpty(value: any[]): boolean;
+
+	/**
+	* @see _.isEmpty
+	**/
+	export function isEmpty(value: Dictionary<any>): boolean;
+
+	/**
+	* @see _.isEmpty
+	**/
+	export function isEmpty(value: string): boolean;
+
+	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
 	* to undefined into the destination object. Subsequent sources will overwrite property 
 	* assignments of previous sources. If a callback is provided it will be executed to produce 
@@ -2603,12 +2621,7 @@ declare module _ {
 	**/
 	export function isEqual(object: any, other: any): boolean;
 
-	/**
-	* Returns true if object contains no values.
-	* @param object Check if this object has no properties or values.
-	* @return True if `object` is empty.
-	**/
-	export function isEmpty(object: any): boolean;
+	
 
 	
 
