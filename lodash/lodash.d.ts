@@ -2361,6 +2361,20 @@ declare module _ {
 	export function isArray(value: any): boolean;
 
 	/**
+	* Checks if value is a boolean value.
+	* @param value The value to check.
+	* @return True if the value is a boolean value, else false.
+	**/
+	export function isBoolean(value: any): boolean;
+
+	/**
+	* Checks if value is a date.
+	* @param value The value to check.
+	* @return True if the value is a date, else false.
+	**/
+	export function isDate(value: any): boolean;
+
+	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
 	* to undefined into the destination object. Subsequent sources will overwrite property 
 	* assignments of previous sources. If a callback is provided it will be executed to produce 
@@ -2632,19 +2646,7 @@ declare module _ {
 	**/
 	export function isFinite(object: any): boolean;
 
-	/**
-	* Returns true if object is either true or false.
-	* @param object Check if this object is a bool.
-	* @return True if `object` is a bool, otherwise false.
-	**/
-	export function isBoolean(object: any): boolean;
-
-	/**
-	* Returns true if object is a Date.
-	* @param object Check if this object is a Date.
-	* @return True if `object` is a Date, otherwise false.
-	**/
-	export function isDate(object: any): boolean;
+	
 
 	/**
 	* Returns true if object is a RegExp.
