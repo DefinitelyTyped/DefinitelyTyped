@@ -2317,6 +2317,18 @@ declare module _ {
 		callback?: ObjectIterator<T, void>,
 		thisArg?: any): Dictionary<T>;
 
+	/**
+	* Creates a sorted array of property names of all enumerable properties, own and inherited, of 
+	* object that have function values.
+	* @param object The object to inspect.
+	* @return An array of property names that have function values.
+	**/
+	export function functions(object: any): string[];
+
+		/**
+		* @see _functions
+		**/
+		export function methods(object: any): string[];
 
 	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
@@ -2503,19 +2515,6 @@ declare module _ {
 	export function invert(object: any): any;
 
 	/**
-	* Returns a sorted list of the names of every method in an object - that is to say,
-	* the name of every function property of the object.
-	* @param object Object to pluck all function property names from.
-	* @return List of all the function names on `object`.
-	**/
-	export function functions(object: any): string[];
-
-	/**
-	* @see _functions
-	**/
-	export function methods(object: any): string[];
-
-		/**
 	* Return a copy of the object, filtered to only have values for the whitelisted keys
 	* (or array of valid keys).
 	* @param object Object to strip unwanted key/value pairs.
