@@ -2207,6 +2207,35 @@ declare module _ {
 		...sources: any[]): any;
 
 	/**
+	* This method is like _.findIndex except that it returns the key of the first element that 
+	* passes the callback check, instead of the element itself.
+	* @param object The object to search.
+	* @param callback The function called per iteration.
+	* @param thisArg The this binding of callback.
+	* @return The key of the found element, else undefined.
+	**/
+	export function findKey(
+		object: any,
+		callback: (value: any) => boolean,
+		thisArg?: any): string;
+
+	/**
+	* @see _.findKey
+	* @param pluckValue _.pluck style callback
+	**/
+	export function findKey(
+		object: any,
+		pluckValue: string): string;
+
+	/**
+	* @see _.findKey
+	* @param whereValue _.where style callback
+	**/
+	export function findKey(
+		object: any,
+		whereValue: Dictionary<any>): string;
+
+	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
 	* to undefined into the destination object. Subsequent sources will overwrite property 
 	* assignments of previous sources. If a callback is provided it will be executed to produce 
