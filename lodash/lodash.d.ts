@@ -2427,6 +2427,13 @@ declare module _ {
 	export function isFinite(value: any): boolean;
 
 	/**
+	* Checks if value is a function.
+	* @param value The value to check.
+	* @return True if the value is a function, else false.
+	**/
+	export function isFunction(value: any): boolean;
+
+	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
 	* to undefined into the destination object. Subsequent sources will overwrite property 
 	* assignments of previous sources. If a callback is provided it will be executed to produce 
@@ -2652,13 +2659,6 @@ declare module _ {
 	* @return True of `object` is an Object, otherwise false.
 	**/
 	export function isObject(object: any): boolean;
-
-	/**
-	* Returns true if object is a Function.
-	* @param object Check if this object is a Function.
-	* @return True if `object` is a Function, otherwise false.
-	**/
-	export function isFunction(object: any): boolean;
 
 	/**
 	* Returns true if object is a String.
