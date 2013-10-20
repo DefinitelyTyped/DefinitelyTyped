@@ -632,6 +632,8 @@ result = <boolean>_.isNaN(undefined);
 result = <boolean>_.isNull(null);
 result = <boolean>_.isNull(undefined);
 
+result = <boolean>_.isNumber(8.4 * 5);
+
 var mergeNames = {
   'stooges': [
     { 'name': 'moe' },
