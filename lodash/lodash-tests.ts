@@ -583,6 +583,8 @@ _.functions(_);
 
 _.has({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
 
+_.invert({ 'first': 'moe', 'second': 'larry' });
+
 var mergeNames = {
   'stooges': [
     { 'name': 'moe' },
@@ -629,7 +631,6 @@ _.merge(mergeFood, mergeOtherFood, function(a, b) {
 _.keys({ one: 1, two: 2, three: 3 });
 _.values({ one: 1, two: 2, three: 3 });
 _.pairs({ one: 1, two: 2, three: 3 });
-_.invert({ Moe: "Moses", Larry: "Louis", Curly: "Jerome" });
 _.pick({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');

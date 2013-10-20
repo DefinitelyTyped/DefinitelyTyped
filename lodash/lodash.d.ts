@@ -2340,6 +2340,13 @@ declare module _ {
 	export function has(object: any, property: string): boolean;
 
 	/**
+	* Creates an object composed of the inverted keys and values of the given object.
+	* @param object The object to invert.
+	* @return The created inverted object.
+	**/
+	export function invert(object: any): any;
+
+	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
 	* to undefined into the destination object. Subsequent sources will overwrite property 
 	* assignments of previous sources. If a callback is provided it will be executed to produce 
@@ -2514,14 +2521,6 @@ declare module _ {
 	* @return List of [key, value] pairs on `object`.
 	**/
 	export function pairs(object: any): any[][];
-
-	/**
-	* Returns a copy of the object where the keys have become the values and the values the keys.
-	* For this to work, all of your object's values should be unique and string serializable.
-	* @param object Object to invert key/value pairs.
-	* @return An inverted key/value paired version of `object`.
-	**/
-	export function invert(object: any): any;
 
 	/**
 	* Return a copy of the object, filtered to only have values for the whitelisted keys
