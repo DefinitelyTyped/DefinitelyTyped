@@ -2496,6 +2496,13 @@ declare module _ {
 	export function isUndefined(value: any): boolean;
 
 	/**
+	* Creates an array composed of the own enumerable property names of an object.
+	* @param object The object to inspect.
+	* @return An array of property names.
+	**/
+	export function keys(object: any): string[];
+
+	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
 	* to undefined into the destination object. Subsequent sources will overwrite property 
 	* assignments of previous sources. If a callback is provided it will be executed to produce 
@@ -2650,12 +2657,7 @@ declare module _ {
 	* Objects *
 	***********/
 
-	/**
-	* Retrieve all the names of the object's properties.
-	* @param object Retreive the key or property names from this object.
-	* @return List of all the property names on `object`.
-	**/
-	export function keys(object: any): string[];
+	
 
 	/**
 	* Return all of the values of the object's properties.
