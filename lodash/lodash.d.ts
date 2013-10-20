@@ -2636,9 +2636,9 @@ declare module _ {
 	/**
 	* @see _.omit
 	**/
-	export function omit(
+	export function omit<T>(
 		object: any,
-		callback: (value: any) => boolean,
+		callback: ObjectIterator<T, boolean>,
 		thisArg?: any): any;
 
 	/**
