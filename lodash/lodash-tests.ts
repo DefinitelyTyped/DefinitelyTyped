@@ -601,6 +601,22 @@ result = <boolean>_.isEmpty([1, 2, 3]);
 result = <boolean>_.isEmpty({});
 result = <boolean>_.isEmpty('');
 
+var moe = { 'name': 'moe', 'age': 40 };
+var copy = { 'name': 'moe', 'age': 40 };
+
+result = <boolean>_.isEqual(moe, copy);
+
+var words = ['hello', 'goodbye'];
+var otherWords = ['hi', 'goodbye'];
+
+result = <boolean>_.isEqual(words, otherWords, function(a, b) {
+  var reGreet = /^(?:hello|hi)$/i,
+      aGreet = _.isString(a) && reGreet.test(a),
+      bGreet = _.isString(b) && reGreet.test(b);
+
+  return (aGreet || bGreet) ? (aGreet == bGreet) : undefined;
+});
+
 
 var mergeNames = {
   'stooges': [
@@ -671,10 +687,7 @@ _.chain([1, 2, 3, 200])
 	.map(function (num: number) { return num * num })
 	.value();
 
-var moe = { name: 'moe', luckyNumbers: [13, 27, 34] };
-var clone = { name: 'moe', luckyNumbers: [13, 27, 34] };
-moe == clone;
-_.isEqual(moe, clone);
+
 
 
 

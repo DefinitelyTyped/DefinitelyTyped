@@ -2400,6 +2400,23 @@ declare module _ {
 	export function isEmpty(value: string): boolean;
 
 	/**
+	* Performs a deep comparison between two values to determine if they are equivalent to each 
+	* other. If a callback is provided it will be executed to compare values. If the callback 
+	* returns undefined comparisons will be handled by the method instead. The callback is bound to 
+	* thisArg and invoked with two arguments; (a, b).
+	* @param a The value to compare.
+	* @param b The other value to compare.
+	* @param callback The function to customize comparing values.
+	* @param thisArg The this binding of callback.
+	* @return True if the values are equivalent, else false.
+	**/
+	export function isEqual(
+		a: any,
+		b: any,
+		callback?: (a, b) => boolean,
+		thisArg?: any): boolean;
+
+	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
 	* to undefined into the destination object. Subsequent sources will overwrite property 
 	* assignments of previous sources. If a callback is provided it will be executed to produce 
@@ -2612,14 +2629,7 @@ declare module _ {
 	**/
 	export function tap<T>(object: T, intercepter: Function): T;
 
-	/**
-	* Performs an optimized deep comparison between the two objects,
-	* to determine if they should be considered equal.
-	* @param object Compare to `other`.
-	* @param other Compare to `object`.
-	* @return True if `object` is equal to `other`.
-	**/
-	export function isEqual(object: any, other: any): boolean;
+	
 
 	
 
