@@ -699,6 +699,18 @@ result = <any>_.pick({ 'name': 'moe', '_userid': 'moe1' }, function(value, key) 
   return key.charAt(0) != '_';
 });
 
+result = <any>_.transform([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], function(result, num) {
+  num *= num;
+  if (num % 2) {
+    return result.push(num) < 3;
+  }
+});
+// → [1, 9, 25]
+
+result = <any>_.transform({ 'a': 1, 'b': 2, 'c': 3 }, function(result, num, key) {
+  result[key] = num * 3;
+});
+
 ////////////////////////////////////////////////////////////////////////////////////////
 //WHAT'S LEFT
 ////////////////////////////////////////////////////////////////////////////////////////
