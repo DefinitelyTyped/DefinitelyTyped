@@ -546,6 +546,10 @@ var result = <any>_.cloneDeep(stoogesAges, function(value) {
 var foodDefaults = { 'name': 'apple' };
 result = <any>_.defaults(foodDefaults, { 'name': 'banana', 'type': 'fruit' });
 
+result = <string>_.findKey({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, function(num) {
+  return num % 2 == 0;
+});
+
 var mergeNames = {
   'stooges': [
     { 'name': 'moe' },
