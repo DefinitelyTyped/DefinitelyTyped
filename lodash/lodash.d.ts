@@ -2158,6 +2158,22 @@ declare module _ {
 				callback?: (objectValue: any, sourceValue: any) => any,
 				thisArg?: any): any;
 
+	/**
+	* Creates a clone of value. If deep is true nested objects will also be cloned, otherwise 
+	* they will be assigned by reference. If a callback is provided it will be executed to produce 
+	* the cloned values. If the callback returns undefined cloning will be handled by the method 
+	* instead. The callback is bound to thisArg and invoked with one argument; (value).
+	* @param value The value to clone.
+	* @param deep Specify a deep clone.
+	* @param callback The function to customize cloning values.
+	* @param thisArg The this binding of callback.
+	* @return The cloned value.
+	**/
+	export function clone<T>(
+		value: T,
+		deep?: boolean,
+		callback?: (value: any) => any,
+		thisArg?: any): T;
 
 	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
@@ -2407,13 +2423,7 @@ declare module _ {
 		object: any,
 		...defaults: any[]): any;
 
-	/**
-	* Create a shallow-copied clone of the object.
-	* Any nested objects or arrays will be copied by reference, not duplicated.
-	* @param object Object to clone.
-	* @return Copy of `object`.
-	**/
-	export function clone<T>(object: T): T;
+	
 
 	/**
 	* Invokes interceptor with the object, and then returns object. The primary purpose of this method
