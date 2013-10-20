@@ -2678,7 +2678,23 @@ declare module _ {
 		callback: ObjectIterator<any, boolean>,
 		thisArg?: any): any;
 	
-
+	/**
+	* An alternative to _.reduce this method transforms object to a new accumulator object which is 
+	* the result of running each of its elements through a callback, with each callback execution 
+	* potentially mutating the accumulator object. The callback is bound to thisArg and invoked with 
+	* four arguments; (accumulator, value, key, object). Callbacks may exit iteration early by 
+	* explicitly returning false.
+	* @param collection The collection to iterate over.
+	* @param callback The function called per iteration.
+	* @param accumulator The custom accumulator value.
+	* @param thisArg The this binding of callback.
+	* @return The accumulated value.
+	**/
+	export function transform<T>(
+		collection: Collection<T>,
+		callback?: MemoIterator<T, any>,
+		accumulator?: any,
+		thisArg?: any): any
 	
 
 	
