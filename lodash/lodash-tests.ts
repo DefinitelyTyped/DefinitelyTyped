@@ -742,6 +742,9 @@ var object = {
 result = <any>_.result(object, 'cheese');
 result = <any>_.result(object, 'stuff');
 
+var tempObject = {};
+result = <typeof _>_.runInContext(tempObject);
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 var iceCream = { flavor: "chocolate" };

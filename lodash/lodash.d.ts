@@ -2772,6 +2772,12 @@ declare module _ {
 	**/
 	export function result(object: any, property: string): any;
 
+	/**
+	* Create a new lodash function using the given context object.
+	* @param context The context object
+	* @returns The lodash function.
+	**/
+	export function runInContext(context: any): typeof _;
 
 
 
