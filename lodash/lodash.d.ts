@@ -2468,6 +2468,13 @@ declare module _ {
 	export function isObject(value: any): boolean;
 
 	/**
+	* Checks if value is an object created by the Object constructor.
+	* @param value The value to check.
+	* @return True if value is a plain object, else false.
+	**/
+	export function isPlainObject(value: any): boolean;
+
+	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
 	* to undefined into the destination object. Subsequent sources will overwrite property 
 	* assignments of previous sources. If a callback is provided it will be executed to produce 
