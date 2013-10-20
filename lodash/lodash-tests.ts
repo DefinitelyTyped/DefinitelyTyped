@@ -638,6 +638,15 @@ result = <boolean>_.isObject({});
 result = <boolean>_.isObject([1, 2, 3]);
 result = <boolean>_.isObject(1);
 
+function Stooge(name, age) {
+  this.name = name;
+  this.age = age;
+}
+
+result = <boolean>_.isPlainObject(new Stooge('moe', 40));
+result = <boolean>_.isPlainObject([1, 2, 3]);
+result = <boolean>_.isPlainObject({ 'name': 'moe', 'age': 40 });
+
 var mergeNames = {
   'stooges': [
     { 'name': 'moe' },
