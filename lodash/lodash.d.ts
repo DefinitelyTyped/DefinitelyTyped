@@ -2482,6 +2482,13 @@ declare module _ {
 	export function isRegExp(value: any): boolean;
 
 	/**
+	* Checks if value is a string.
+	* @param value The value to check.
+	* @return True if the value is a string, else false.
+	**/
+	export function isString(value: any): boolean;
+
+	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
 	* to undefined into the destination object. Subsequent sources will overwrite property 
 	* assignments of previous sources. If a callback is provided it will be executed to produce 
@@ -2694,12 +2701,7 @@ declare module _ {
 	**/
 	export function tap<T>(object: T, intercepter: Function): T;
 
-	/**
-	* Returns true if object is a String.
-	* @param object Check if this object is a String.
-	* @return True if `object` is a String, otherwise false.
-	**/
-	export function isString(object: any): boolean;
+	
 
 	/**
 	* Returns true if value is undefined.
