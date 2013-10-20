@@ -732,6 +732,16 @@ result = <number>_.random(5, true);
 result = <number>_.random(1.2, 5.2);
 result = <number>_.random(0, 5, true);
 
+var object = {
+  'cheese': 'crumpets',
+  'stuff': function() {
+    return 'nonsense';
+  }
+};
+
+result = <any>_.result(object, 'cheese');
+result = <any>_.result(object, 'stuff');
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 var iceCream = { flavor: "chocolate" };
