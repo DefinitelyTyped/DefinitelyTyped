@@ -562,28 +562,30 @@ result = <string>_.findLastKey({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, function(num)
   return num % 2 == 1;
 });
 
-_.forIn(new Dog('Dagny'), function(value, key) {
+result = <any>_.forIn(new Dog('Dagny'), function(value, key) {
   console.log(key);
 });
 
-_.forInRight(new Dog('Dagny'), function(value, key) {
+result = <any>_.forInRight(new Dog('Dagny'), function(value, key) {
   console.log(key);
 });
 
-_.forOwn({ '0': 'zero', '1': 'one', 'length': 2 }, function(num, key) {
+result = <any>_.forOwn({ '0': 'zero', '1': 'one', 'length': 2 }, function(num, key) {
   console.log(key);
 });
 
-_.forOwnRight({ '0': 'zero', '1': 'one', 'length': 2 }, function(num, key) {
+result = <any>_.forOwnRight({ '0': 'zero', '1': 'one', 'length': 2 }, function(num, key) {
   console.log(key);
 });
 
-_.functions(_);
-	_.methods(_);
+result = <string[]>_.functions(_);
+	result = <string[]>_.methods(_);
 
-_.has({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
+result = <boolean>_.has({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
 
-_.invert({ 'first': 'moe', 'second': 'larry' });
+result = <any>_.invert({ 'first': 'moe', 'second': 'larry' });
+
+
 
 var mergeNames = {
   'stooges': [
