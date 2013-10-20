@@ -2304,6 +2304,19 @@ declare module _ {
 		callback?: ObjectIterator<T, void>,
 		thisArg?: any): Dictionary<T>;
 
+	/**
+	* This method is like _.forOwn except that it iterates over elements of a collection in the 
+	* opposite order.
+	* @param object The object to iterate over.
+	* @param callback The function called per iteration.
+	* @param thisArg The this binding of callback.
+	* @return object
+	**/
+	export function forOwnRight<T extends {}>(
+		object: Dictionary<T>,
+		callback?: ObjectIterator<T, void>,
+		thisArg?: any): Dictionary<T>;
+
 
 	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
