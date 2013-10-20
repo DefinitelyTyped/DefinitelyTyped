@@ -522,11 +522,6 @@ var helloWrap2 = _.wrap(helloWrap, function(func) {
 });
 helloWrap2();
 
-
-
-
-
-
 /**********
 * Objects *
 ***********/
@@ -713,26 +708,12 @@ result = <any>_.transform({ 'a': 1, 'b': 2, 'c': 3 }, function(result, num, key)
 
 result = <any[]>_.values({ 'one': 1, 'two': 2, 'three': 3 });
 
-////////////////////////////////////////////////////////////////////////////////////////
-//WHAT'S LEFT
-////////////////////////////////////////////////////////////////////////////////////////
-
-// _.indexBy(stooges, 'age')['40'].age;
-// _(stooges).indexBy('age')['40'].name;
-// _(stooges)
-// 	.chain()
-// 	.indexBy('age')
-// 	.value()['40'].age;
+/**********
+* Utilities *
+***********/
 
 
-
-
-_.values({ one: 1, two: 2, three: 3 });
-_.pairs({ one: 1, two: 2, three: 3 });
-_.pick({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
-_.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name');
-_.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
-_.omit({ name: 'moe', age: 50, userid: 'moe1' }, ['name', 'age']);
+//////////////////////////////////////////////////////////////////////////////////////////////////
 
 var iceCream = { flavor: "chocolate" };
 
@@ -751,37 +732,6 @@ _.chain([1, 2, 3, 200])
 	.tap(alert)
 	.map(function (num: number) { return num * num })
 	.value();
-
-
-
-
-
-_.isObject({});
-_.isObject(1);
-
-
-_.isFunction(alert);
-
-_.isString("moe");
-
-_.isNumber(8.4 * 5);
-
-_.isFinite(-101);
-
-_.isFinite(-Infinity);
-
-
-
-_.isRegExp(/moe/);
-
-_.isNaN(NaN);
-isNaN(undefined);
-_.isNaN(undefined);
-
-_.isNull(null);
-_.isNull(undefined);
-
-_.isUndefined((<any>window).missingVariable);
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
