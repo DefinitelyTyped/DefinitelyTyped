@@ -653,6 +653,8 @@ result = <boolean>_.isString('moe');
 
 result = <boolean>_.isUndefined(void 0);
 
+result = <string[]>_.keys({ 'one': 1, 'two': 2, 'three': 3 });
+
 var mergeNames = {
   'stooges': [
     { 'name': 'moe' },
@@ -696,7 +698,7 @@ _.merge(mergeFood, mergeOtherFood, function(a, b) {
 
 
 
-_.keys({ one: 1, two: 2, three: 3 });
+
 _.values({ one: 1, two: 2, three: 3 });
 _.pairs({ one: 1, two: 2, three: 3 });
 _.pick({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
