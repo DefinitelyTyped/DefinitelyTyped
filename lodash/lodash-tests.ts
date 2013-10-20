@@ -651,6 +651,8 @@ result = <boolean>_.isRegExp(/moe/);
 
 result = <boolean>_.isString('moe');
 
+result = <boolean>_.isUndefined(void 0);
+
 var mergeNames = {
   'stooges': [
     { 'name': 'moe' },
