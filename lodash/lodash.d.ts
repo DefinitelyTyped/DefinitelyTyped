@@ -2475,6 +2475,13 @@ declare module _ {
 	export function isPlainObject(value: any): boolean;
 
 	/**
+	* Checks if value is a regular expression.
+	* @param value The value to check.
+	* @return True if the value is a regular expression, else false.
+	**/
+	export function isRegExp(value: any): boolean;
+
+	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
 	* to undefined into the destination object. Subsequent sources will overwrite property 
 	* assignments of previous sources. If a callback is provided it will be executed to produce 
@@ -2693,13 +2700,6 @@ declare module _ {
 	* @return True if `object` is a String, otherwise false.
 	**/
 	export function isString(object: any): boolean;
-
-	/**
-	* Returns true if object is a RegExp.
-	* @param object Check if this object is a RegExp.
-	* @return True if `object` is a RegExp, otherwise false.
-	**/
-	export function isRegExp(object: any): boolean;
 
 	/**
 	* Returns true if value is undefined.
