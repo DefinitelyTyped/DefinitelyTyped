@@ -2331,6 +2331,15 @@ declare module _ {
 		export function methods(object: any): string[];
 
 	/**
+	* Checks if the specified object property exists and is a direct property, instead of an 
+	* inherited property.
+	* @param object The object to check.
+	* @param property The property to check for.
+	* @return True if key is a direct property, else false.
+	**/
+	export function has(object: any, property: string): boolean;
+
+	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
 	* to undefined into the destination object. Subsequent sources will overwrite property 
 	* assignments of previous sources. If a callback is provided it will be executed to produce 
@@ -2550,15 +2559,6 @@ declare module _ {
 	* @return Modified `object`.
 	**/
 	export function tap<T>(object: T, intercepter: Function): T;
-
-	/**
-	* Does the object contain the given key? Identical to object.hasOwnProperty(key), but uses a safe
-	* reference to the hasOwnProperty function, in case it's been overridden accidentally.
-	* @param object Object to check for `key`.
-	* @param key The key to check for on `object`.
-	* @return True if `key` is a property on `object`, otherwise false.
-	**/
-	export function has(object: any, key: string): boolean;
 
 	/**
 	* Performs an optimized deep comparison between the two objects,

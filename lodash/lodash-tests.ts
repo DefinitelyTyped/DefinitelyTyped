@@ -579,7 +579,9 @@ _.forOwnRight({ '0': 'zero', '1': 'one', 'length': 2 }, function(num, key) {
 });
 
 _.functions(_);
-_.methods(_);
+	_.methods(_);
+
+_.has({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
 
 var mergeNames = {
   'stooges': [
