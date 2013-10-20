@@ -570,6 +570,7 @@ result = <any>_.forInRight(new Dog('Dagny'), function(value, key) {
   console.log(key);
 });
 
+
 result = <any>_.forOwn({ '0': 'zero', '1': 'one', 'length': 2 }, function(num, key) {
   console.log(key);
 });
@@ -586,6 +587,9 @@ result = <boolean>_.has({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
 result = <any>_.invert({ 'first': 'moe', 'second': 'larry' });
 
 (function(...args: any[]) { return <boolean>_.isArguments(arguments); })(1, 2, 3);
+
+(function () { return _.isArray(arguments); })();
+_.isArray([1, 2, 3]);
 
 var mergeNames = {
   'stooges': [
@@ -665,9 +669,6 @@ _.isEmpty([1, 2, 3]);
 _.isEmpty({});
 
 _.isElement($('body')[0]);
-
-(function () { return _.isArray(arguments); })();
-_.isArray([1, 2, 3]);
 
 _.isObject({});
 _.isObject(1);
