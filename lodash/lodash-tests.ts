@@ -693,6 +693,12 @@ result = <any>_.omit({ 'name': 'moe', 'age': 40 }, function(value) {
 
 result = <any[][]>_.pairs({ 'moe': 30, 'larry': 40 });
 
+result = <any>_.pick({ 'name': 'moe', '_userid': 'moe1' }, 'name');
+result = <any>_.pick({ 'name': 'moe', '_userid': 'moe1' }, ['name']);
+result = <any>_.pick({ 'name': 'moe', '_userid': 'moe1' }, function(value, key) {
+  return key.charAt(0) != '_';
+});
+
 ////////////////////////////////////////////////////////////////////////////////////////
 //WHAT'S LEFT
 ////////////////////////////////////////////////////////////////////////////////////////
