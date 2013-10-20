@@ -629,6 +629,9 @@ result = <boolean>_.isNaN(NaN);
 result = <boolean>_.isNaN(new Number(NaN));
 result = <boolean>_.isNaN(undefined);
 
+result = <boolean>_.isNull(null);
+result = <boolean>_.isNull(undefined);
+
 var mergeNames = {
   'stooges': [
     { 'name': 'moe' },
