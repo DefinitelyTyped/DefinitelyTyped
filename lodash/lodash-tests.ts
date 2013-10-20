@@ -543,6 +543,9 @@ var result = <any>_.cloneDeep(stoogesAges, function(value) {
     return _.isElement(value) ? value.cloneNode(false) : undefined;
 });
 
+var foodDefaults = { 'name': 'apple' };
+result = <any>_.defaults(foodDefaults, { 'name': 'banana', 'type': 'fruit' });
+
 var mergeNames = {
   'stooges': [
     { 'name': 'moe' },
@@ -597,7 +600,6 @@ _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, ['name', 'age']);
 
 var iceCream = { flavor: "chocolate" };
-_.defaults(iceCream, { flavor: "vanilla", sprinkles: "lots" });
 
 _([1, 2, 3, 4])
 	.chain()

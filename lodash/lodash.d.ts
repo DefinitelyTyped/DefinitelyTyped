@@ -2195,6 +2195,18 @@ declare module _ {
 		thisArg?: any): T;
 
 	/**
+	* Assigns own enumerable properties of source object(s) to the destination object for all 
+	* destination properties that resolve to undefined. Once a property is set, additional defaults 
+	* of the same property will be ignored.
+	* @param object The destination object.
+	* @param sources The source objects.
+	* @return The destination object.
+	**/
+	export function defaults(
+		object: any,
+		...sources: any[]): any;
+
+	/**
 	* Recursively merges own enumerable properties of the source object(s), that don't resolve 
 	* to undefined into the destination object. Subsequent sources will overwrite property 
 	* assignments of previous sources. If a callback is provided it will be executed to produce 
@@ -2391,19 +2403,7 @@ declare module _ {
 	**/
 	export function methods(object: any): string[];
 
-	/**
-	* Copy all of the properties in the source objects over to the destination object, and return
-	* the destination object. It's in-order, so the last source will override properties of the
-	* same name in previous arguments.
-	* @param destination Object to extend all the properties from `sources`.
-	* @param sources Extends `destination` with all properties from these source objects.
-	* @return `destination` extended with all the properties from the `sources` objects.
-	**/
-	export function extend(
-		destination: any,
-		...sources: any[]): any;
-
-	/**
+		/**
 	* Return a copy of the object, filtered to only have values for the whitelisted keys
 	* (or array of valid keys).
 	* @param object Object to strip unwanted key/value pairs.
@@ -2430,19 +2430,6 @@ declare module _ {
 	export function omit(
 		object: any,
 		keys: string[]): any;
-
-	/**
-	* Fill in null and undefined properties in object with values from the defaults objects,
-	* and return the object. As soon as the property is filled, further defaults will have no effect.
-	* @param object Fill this object with default values.
-	* @param defaults The default values to add to `object`.
-	* @return `object` with added `defaults` values.
-	**/
-	export function defaults(
-		object: any,
-		...defaults: any[]): any;
-
-	
 
 	/**
 	* Invokes interceptor with the object, and then returns object. The primary purpose of this method
