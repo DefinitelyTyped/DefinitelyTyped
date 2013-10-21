@@ -321,6 +321,14 @@ declare module _ {
 		array: List<T>,
 		...others: List<T>[]): T[];
 
+		interface LoDashWrapper<T> {
+			/**
+			* @see _.difference
+			**/
+			difference(
+				...others: List<any>[]): LoDashWrapper<any[]>;
+		}
+
 	/**
 	* @see _.rest
 	**/
