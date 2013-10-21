@@ -1,4 +1,4 @@
-﻿DefinitelyTyped [![Build Status](https://travis-ci.org/borisyankov/DefinitelyTyped.png?branch=master)](https://travis-ci.org/borisyankov/DefinitelyTyped)
+DefinitelyTyped [![Build Status](https://travis-ci.org/borisyankov/DefinitelyTyped.png?branch=master)](https://travis-ci.org/borisyankov/DefinitelyTyped)
 ===============
 
 The repository for *high quality* TypeScript type definitions.
@@ -127,6 +127,7 @@ List of Definitions
 * [jquery.superLink](http://james.padolsey.com/demos/plugins/jQuery/superLink/superlink.jquery.js) (by [Blake Niemyjski](https://github.com/niemyjski))
 * [jQuery.timeago](http://timeago.yarp.com/) (by [François Guillot](http://fguillot.developpez.com/))
 * [jQuery.Timepicker](http://fgelinas.com/code/timepicker/) (by [Anwar Javed](https://github.com/anwarjaved))
+* [jQuery.Timer](http://jchavannes.com/jquery-timer/demo) (by [Joshua Strobl](https://github.com/JoshStrobl))
 * [jQuery.TinyCarousel](http://baijs.nl/tinycarousel/) (by [Christiaan Rakowski](https://github.com/csrakowski))
 * [jQuery.TinyScrollbar](http://baijs.nl/tinyscrollbar/) (by [Christiaan Rakowski](https://github.com/csrakowski))
 * [jQuery.Transit](http://ricostacruz.com/jquery.transit/) (by [MrBigDog2U](https://github.com/MrBigDog2U))
