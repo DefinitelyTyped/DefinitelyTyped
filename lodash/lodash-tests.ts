@@ -105,6 +105,8 @@ result = <number[]>_([1, 2, 3]).valueOf();
  * Arrays *
  *************/
 result = <any[]>_.compact([0, 1, false, 2, '', 3]);
+	result = <_.LoDashWrapper<any[]>>_([0, 1, false, 2, '', 3]).compact();
+
 result = <number[]>_.difference([1, 2, 3, 4, 5], [5, 2, 10]);
 
 result = <number[]>_.rest([1, 2, 3]);
