@@ -504,8 +504,11 @@ result = <Function>_.compose(greet, format);
 result = <_.LoDashWrapper<Function>>_(greet).compose(format);
 
 var createCallbackObj = { name: 'Joe' };
-var pluckCallback: () => any = _.createCallback('name');
-var whereCallback: () => boolean = _.createCallback(createCallbackObj);
+result = <() => any>_.createCallback('name');
+result = <() => boolean>_.createCallback(createCallbackObj);
+result = <_.LoDashWrapper<() => any>>_('name').createCallback();
+result = <_.LoDashWrapper<() => boolean>>_(createCallbackObj).createCallback();
+
 
 var curried: Function = _.curry(function(a, b, c) {
   console.log(a + b + c);
