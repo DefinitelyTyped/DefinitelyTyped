@@ -2149,6 +2149,15 @@ declare module _ {
 		wait: number,
 		...args: any[]): number;
 
+		interface LoDashWrapper<T> {
+			/**
+			* @see _.delay
+			**/
+			delay(
+				wait: number,
+				...args: any[]): LoDashWrapper<number>;
+		}
+
 	/**
 	* Creates a function that memoizes the result of func. If resolver is provided it will be 
 	* used to determine the cache key for storing the result based on the arguments provided to 
