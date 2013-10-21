@@ -82,7 +82,28 @@ Dog.prototype.bark = function() {
 
 var result;
 
-//Array Method Tests
+/*************
+ * Chaining *
+ *************/
+result = <_.LoDashWrapper<string>>_('test');
+result = <_.LoDashWrapper<string[]>>_(['test1', 'test2']);
+
+result = <_.LoDashWrapper<string>>_('test').chain();
+result = <_.LoDashWrapper<string[]>>_(['test1', 'test2']).chain();
+result = <_.LoDashWrapper<string>>_.chain('test');
+result = <_.LoDashWrapper<string[]>>_.chain(['test1', 'test2']);
+
+result = <number[]>_.tap([1, 2, 3, 4], function(array) { console.log(array); });
+result = <_.LoDashWrapper<number[]>>_([1, 2, 3, 4]).tap(function(array) { console.log(array); });
+
+result = <string>_([1, 2, 3]).toString();
+
+result = <number[]>_([1, 2, 3]).valueOf();
+	result = <number[]>_([1, 2, 3]).value();
+
+/*************
+ * Arrays *
+ *************/
 result = <any[]>_.compact([0, 1, false, 2, '', 3]);
 result = <number[]>_.difference([1, 2, 3, 4, 5], [5, 2, 10]);
 
@@ -773,81 +794,3 @@ result = <string>_.unescape('Moe, Larry &amp; Curly');
 
 result = <string>_.uniqueId('contact_');
 result = <string>_.uniqueId();
-
-//////////////////////////////////////////////////////////////////////////////////////////////////
-
-var iceCream = { flavor: "chocolate" };
-
-_([1, 2, 3, 4])
-	.chain()
-	.filter((num: number) => {
-		return num % 2 == 0;
-	}).tap(alert)
-	.map((num: number) => {
-		return num * num;
-	})
-	.value();
-
-_.chain([1, 2, 3, 200])
-	.filter(function (num: number) { return num % 2 == 0; })
-	.tap(alert)
-	.map(function (num: number) { return num * num })
-	.value();
-
-///////////////////////////////////////////////////////////////////////////////////////
-
-var underscore = _.noConflict();
-
-var moe2 = { name: 'moe' };
-moe2 === _.identity(moe);
-
-var genie;
-var r2 = _.times<number>(3, (n) => { return n * n });
-_(3).times(function (n) { genie.grantWishNumber(n); });
-
-_.random(0, 100);
-
-_.mixin({
-	capitalize: function (string) {
-		return string.charAt(0).toUpperCase() + string.substring(1).toLowerCase();
-	}
-});
-(<any>_("fabio")).capitalize();
-
-_.uniqueId('contact_');
-
-_.escape('Curly, Larry & Moe');
-
-var object = { cheese: 'crumpets', stuff: function () { return 'nonsense'; } };
-_.result(object, 'cheese');
-
-_.result(object, 'stuff');
-
-
-
-
-_(['test', 'test']).pick(['test2', 'test2']);
-
-//////////////// Chain Tests
-function chain_tests() {
-    var list:number[] = _.chain([1, 2, 3, 4, 5, 6, 7, 8])
-        .filter(n => n % 2 == 0)
-        .map(n => n * n)
-        .value();
-
-    _([1, 2, 3, 4])
-        .chain()
-        .filter((num: number) => {
-            return num % 2 == 0;
-        }).tap(alert)
-        .map((num: number) => {
-            return num * num;
-        })
-        .value();
-
-    _.chain([1, 2, 3, 200])
-        .filter(function (num: number) { return num % 2 == 0; })
-        .tap(alert)
-        .map(function (num: number) { return num * num })
-        .value();
-}
