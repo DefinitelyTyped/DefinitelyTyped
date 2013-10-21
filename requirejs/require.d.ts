@@ -224,6 +224,12 @@ interface Require {
 	config(config: RequireConfig): Require;
 
 	/**
+	* get already loaded module
+	* @param module Required module to get.
+	**/
+	<t>(module: string): t;
+
+	/**
 	* Start the main app logic.
 	* Callback is optional.
 	* Can alternatively use deps and callback.

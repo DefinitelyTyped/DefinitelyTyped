@@ -162,7 +162,7 @@ interface BaseJQueryEventObject extends Event {
 interface JQueryInputEventObject extends BaseJQueryEventObject {
     altKey: boolean;
     ctrlKey: boolean;
-    metaKey: boolean;
+    metaKey: any;
     shiftKey: boolean;
 }
 
