@@ -2107,7 +2107,16 @@ declare module _ {
 	export function debounce(
 		func: Function,
 		wait: number,
-		options?: DebounceSettings): Function;	
+		options?: DebounceSettings): Function;
+
+		interface LoDashWrapper<T> {
+			/**
+			* @see _.debounce
+			**/
+			debounce(
+				wait: number,
+				options?: DebounceSettings): LoDashWrapper<Function>;
+		}
 
 	/**
 	* Defers executing the func function until the current call stack has cleared. Additional 

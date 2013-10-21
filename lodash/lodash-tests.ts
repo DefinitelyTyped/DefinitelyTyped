@@ -518,16 +518,26 @@ result = <_.LoDashWrapper<Function>>_(function(a, b, c) {
   console.log(a + b + c);
 }).curry();
 
-var lazyLayout: Function = _.debounce(function() {}, 150);
-jQuery(window).on('resize', lazyLayout);
+declare var source;
+result = <Function>_.debounce(function() {}, 150);
 
 jQuery('#postbox').on('click', <Function>_.debounce(function() {}, 300, {
   'leading': true,
   'trailing': false
 }));
 
-declare var source;
 source.addEventListener('message', <Function>_.debounce(function() {}, 250, {
+  'maxWait': 1000
+}), false);
+
+result = <_.LoDashWrapper<Function>>_(function() {}).debounce(150);
+
+jQuery('#postbox').on('click', <_.LoDashWrapper<Function>>_(function() {}).debounce(300, {
+  'leading': true,
+  'trailing': false
+}));
+
+source.addEventListener('message', <_.LoDashWrapper<Function>>_(function() {}).debounce(250, {
   'maxWait': 1000
 }), false);
 
