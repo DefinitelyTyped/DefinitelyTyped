@@ -284,6 +284,10 @@ result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function(num) { return
 result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function(num) { return this.floor(num); }, Math);
 result = <_.Dictionary<number>>_.countBy(['one', 'two', 'three'], 'length');
 
+	result = <_.LoDashWrapper<_.Dictionary<number>>>_([4.3, 6.1, 6.4]).countBy(function(num) { return Math.floor(num); });
+	result = <_.LoDashWrapper<_.Dictionary<number>>>_([4.3, 6.1, 6.4]).countBy(function(num) { return this.floor(num); }, Math);
+	result = <_.LoDashWrapper<_.Dictionary<number>>>_(['one', 'two', 'three']).countBy('length');
+
 result = <boolean>_.every([true, 1, null, 'yes'], Boolean);
 result = <boolean>_.every(stoogesAges, 'age');
 result = <boolean>_.every(stoogesAges, { 'age': 50 });
