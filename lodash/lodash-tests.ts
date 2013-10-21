@@ -510,13 +510,13 @@ result = <_.LoDashWrapper<() => any>>_('name').createCallback();
 result = <_.LoDashWrapper<() => boolean>>_(createCallbackObj).createCallback();
 
 
-var curried: Function = _.curry(function(a, b, c) {
+result = <Function>_.curry(function(a, b, c) {
   console.log(a + b + c);
 });
 
-curried(1)(2)(3);
-curried(1, 2)(3);
-curried(1, 2, 3);
+result = <_.LoDashWrapper<Function>>_(function(a, b, c) {
+  console.log(a + b + c);
+}).curry();
 
 var lazyLayout: Function = _.debounce(function() {}, 150);
 jQuery(window).on('resize', lazyLayout);

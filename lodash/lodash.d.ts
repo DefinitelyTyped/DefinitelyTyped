@@ -2080,6 +2080,13 @@ declare module _ {
 		func: Function,
 		arity?: number): Function;
 
+		interface LoDashWrapper<T> {
+			/**
+			* @see _.curry
+			**/
+			curry(arity?: number): LoDashWrapper<Function>;
+		}
+
 	/**
 	* Creates a function that will delay the execution of func until after wait milliseconds have 
 	* elapsed since the last time it was invoked. Provide an options object to indicate that func 
