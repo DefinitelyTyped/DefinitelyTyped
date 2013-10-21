@@ -1900,6 +1900,15 @@ declare module _ {
 		thisArg: any,
 		...args: any[]): () => any;
 
+		interface LoDashWrapper<T> {
+			/**
+			* @see _.bind
+			**/
+			bind(
+				thisArg: any,
+				...args: any[]): LoDashWrapper<() => any>;
+		}
+
 	/**
 	* Binds methods of an object to the object itself, overwriting the existing method. Method 
 	* names may be specified as individual arguments or as arrays of method names. If no method 

@@ -432,10 +432,11 @@ _.forEach(saves, function(type) {
 });
 
 var funcBind = function (greeting) { return greeting + ' ' + this.name };
-// need a second var otherwise typescript thinks func signature is the above func type,
-// instead of the newly returned _bind => func type.
 var funcBind2: () => any = _.bind(funcBind, { 'name': 'moe' }, 'hi');
 funcBind2();
+
+var funcBind3: () => any = _(funcBind).bind({ 'name': 'moe' }, 'hi').value();
+funcBind3();
 
 var view = {
  'label': 'docs',
