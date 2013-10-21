@@ -52,8 +52,8 @@ declare module _ {
 	}
 
 	/**
-	* lodash.js template settings, set templateSettings or pass as an argument
-	* to 'template()' to overide defaults.
+	* By default, the template delimiters used by Lo-Dash are similar to those in embedded Ruby 
+	* (ERB). Change the following template settings to use alternative delimiters.
 	**/
 	interface TemplateSettings {
 		/**
@@ -75,6 +75,11 @@ declare module _ {
 		* The "interpolate" delimiter.
 		**/
 		interpolate?: RegExp;
+
+		/**
+		* Used to reference the data object in the template text.
+		**/
+		variable?: string;
 	}
 
 	interface TemplateExecutor {
@@ -2853,13 +2858,9 @@ declare module _ {
 	**/
 	export function uniqueId(prefix?: string): string;
 
-	
-
-	
-
 	/**
-	* By default, Lo-Dash uses ERB-style template delimiters, change the
-	* following template settings to use alternative delimiters.
+	* By default, the template delimiters used by Lo-Dash are similar to those in embedded Ruby 
+	* (ERB). Change the following template settings to use alternative delimiters.
 	**/
 	export var templateSettings: TemplateSettings;
 
