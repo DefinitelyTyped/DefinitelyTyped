@@ -1227,6 +1227,29 @@ declare module _ {
 		collection: Collection<T>,
 		whereValue: Dictionary<any>): T[];
 
+		interface LoDashWrapper<T> {
+			/**
+			* @see _.filter
+			**/
+			filter<T>(
+				callback: ListIterator<T, boolean>,
+				thisArg?: any): T[];
+
+			/**
+			* @see _.filter
+			* @param pluckValue _.pluck style callback
+			**/
+			filter<T>(
+				pluckValue: string): T[];
+
+			/**
+			* @see _.filter
+			* @param pluckValue _.pluck style callback
+			**/
+			filter<T>(
+				whereValue: Dictionary<any>): T[];
+		}
+
 		/**
 		* @see _.filter
 		**/
@@ -1250,6 +1273,29 @@ declare module _ {
 		export function select<T>(
 			collection: Collection<T>,
 			whereValue: Dictionary<any>): T[];
+
+			interface LoDashWrapper<T> {
+				/**
+				* @see _.filter
+				**/
+				select<T>(
+					callback: ListIterator<T, boolean>,
+					thisArg?: any): T[];
+
+				/**
+				* @see _.filter
+				* @param pluckValue _.pluck style callback
+				**/
+				select<T>(
+					pluckValue: string): T[];
+
+				/**
+				* @see _.filter
+				* @param pluckValue _.pluck style callback
+				**/
+				select<T>(
+					whereValue: Dictionary<any>): T[];
+			}
 
 	/**
 	* Iterates over elements of a collection, returning the first element that the callback 
