@@ -2058,6 +2058,15 @@ declare module _ {
 		thisArg?: any,
 		argCount?: number): () => boolean;
 
+		interface LoDashWrapper<T> {
+			/**
+			* @see _.createCallback
+			**/
+			createCallback(
+				thisArg?: any,
+				argCount?: number): LoDashWrapper<() => any>;
+		}
+
 	/**
 	* Creates a function which accepts one or more arguments of func that when invoked either 
 	* executes func returning its result, if all func arguments have been provided, or returns 
