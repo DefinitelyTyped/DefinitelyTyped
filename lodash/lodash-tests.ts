@@ -542,6 +542,7 @@ source.addEventListener('message', <_.LoDashWrapper<Function>>_(function() {}).d
 }), false);
 
 result = <number>_.defer(function() { console.log('deferred'); });
+result = <_.LoDashWrapper<number>>_(function() { console.log('deferred'); }).defer();
 
 var log = _.bind(console.log, console);
 result = <number>_.delay(log, 1000, 'logged later');

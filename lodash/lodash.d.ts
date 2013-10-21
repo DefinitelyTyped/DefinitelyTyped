@@ -2129,6 +2129,13 @@ declare module _ {
 		func: Function,
 		...args: any[]): number;
 
+		interface LoDashWrapper<T> {
+			/**
+			* @see 
+			**/
+			defer(...args: any[]): LoDashWrapper<number>;
+		}
+
 	/**
 	* Executes the func function after wait milliseconds. Additional arguments will be provided 
 	* to func when it is invoked.
