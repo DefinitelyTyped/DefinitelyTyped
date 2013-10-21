@@ -2825,20 +2825,23 @@ declare module _ {
 		sourceURL?: string,
 		variable?: string): any /* string or TemplateExecutor*/;
 	
-	
-
-	
-
-	
-
 	/**
-	* Invokes the given iterator function n times.
-	* Each invocation of iterator is called with an index argument
-	* @param n Number of times to invoke `iterator`.
-	* @param iterator Function iterator to invoke `n` times.
-	* @param context `this` object in `iterator`, optional.
+	* Executes the callback n times, returning an array of the results of each callback execution. 
+	* The callback is bound to thisArg and invoked with one argument; (index).
+	* @param n The number of times to execute the callback.
+	* @param callback The function called per iteration.
+	* @param thisArg The this binding of callback.
 	**/
-	export function times<TResult>(n: number, iterator: (n: number) => TResult, context?: any): TResult[];
+	export function times<TResult>(
+		n: number, 
+		callback: Function, 
+		context?: any): TResult[];
+
+	
+
+	
+
+	
 
 	/**
 	* Generate a globally-unique id for client-side models or DOM elements that need one.

@@ -760,6 +760,15 @@ result = <_.TemplateExecutor>_.template('hello <%= name %>', null, { 'sourceURL'
 result = <_.TemplateExecutor>_.template('hi <%= data.name %>!', null, { 'variable': 'data' });
 result = <string>(<_.TemplateExecutor>result).source;
 
+function Mage() {
+	this.castSpell = (n:number) => n;
+	this.cast = (n: number) => n;
+};
+var mage = new Mage(); 
+result = <any[]>_.times(3, _.partial(_.random, 1, 6));
+result = <any[]>_.times(3, function(n: number) { mage.castSpell(n); });
+result = <any[]>_.times(3, function(n: number) { this.cast(n); }, mage);
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 var iceCream = { flavor: "chocolate" };
