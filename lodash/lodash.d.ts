@@ -1922,6 +1922,13 @@ declare module _ {
 		object: any,
 		...methodNames: string[]): any;
 
+		interface LoDashWrapper<T> {
+			/**
+			* @see _.bindAll
+			**/
+			bindAll(...methodNames: string[]): LoDashWrapper<any>;
+		}
+
 	/**
 	* Creates a function that, when called, invokes the method at object[key] and prepends any 
 	* additional bindKey arguments to those provided to the bound function. This method differs 
@@ -1936,6 +1943,15 @@ declare module _ {
 		object: any,
 		key: string,
 		...args: any[]): Function;
+
+		interface LoDashWrapper<T> {
+			/**
+			* @see _.bindKey
+			**/
+			bindKey(
+				key: string,
+				...args: any[]): LoDashWrapper<Function>;
+		}
 
 	/**
 	* Creates a function that is the composition of the provided functions, where each function 

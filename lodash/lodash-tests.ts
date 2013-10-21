@@ -446,6 +446,9 @@ var view = {
 view = _.bindAll(view);
 jQuery('#docs').on('click', view.onClick);
 
+view = _(view).bindAll().value();
+jQuery('#docs').on('click', view.onClick);
+
 var objectBindKey = {
   'name': 'moe',
   'greet': function(greeting) {
@@ -453,13 +456,16 @@ var objectBindKey = {
   }
 };
 
-var funcBindKey: Function = _.bindKey(object, 'greet', 'hi');
+var funcBindKey: Function = _.bindKey(objectBindKey, 'greet', 'hi');
 funcBindKey();
 
 objectBindKey.greet = function(greeting) {
   return greeting + ', ' + this.name + '!';
 };
 
+funcBindKey();
+
+funcBindKey = _(objectBindKey).bindKey('greet', 'hi').value();
 funcBindKey();
 
 var realNameMap = {
