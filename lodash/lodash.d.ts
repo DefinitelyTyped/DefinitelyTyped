@@ -2844,24 +2844,14 @@ declare module _ {
 	* @return The unescaped string.
 	**/
 	export function unescape(
-		string: string): string;
-
-	
-
-	
+		string: string): string;	
 
 	/**
-	* Generate a globally-unique id for client-side models or DOM elements that need one.
-	* If prefix is passed, the id will be appended to it. Without prefix, returns an integer.
-	* @param prefix A prefix string to start the unique ID with.
-	* @return Unique string ID beginning with `prefix`.
+	* Generates a unique ID. If prefix is provided the ID will be appended to it.
+	* @param prefix The value to prefix the ID with.
+	* @return Returns the unique ID.
 	**/
-	export function uniqueId(prefix: string): string;
-
-	/**
-	* @see _.uniqueId
-	**/
-	export function uniqueId(): number;
+	export function uniqueId(prefix?: string): string;
 
 	
 
