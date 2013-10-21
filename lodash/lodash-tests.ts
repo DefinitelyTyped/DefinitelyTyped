@@ -423,9 +423,9 @@ _.forEach(saves, function(type) {
   asyncSave({ 'type': type, 'complete': done });
 });
 
-done = _(function() {
+done = _(saves.length).after(function() {
   console.log('Done saving!');
-}).after(saves.length);
+}).value();
 
 _.forEach(saves, function(type) {
   asyncSave({ 'type': type, 'complete': done });
@@ -560,8 +560,18 @@ result = <any>_.assign({ 'name': 'moe' }, { 'age': 40 }, function(a, b) {
   return typeof a == 'undefined' ? b : a;
 });
 
+result = <_.LoDashWrapper<any>>_({ 'name': 'moe' }).assign({ 'age': 40 });
+result = <_.LoDashWrapper<any>>_({ 'name': 'moe' }).assign({ 'age': 40 }, function(a, b) {
+  return typeof a == 'undefined' ? b : a;
+});
+
 	result = <any>_.extend({ 'name': 'moe' }, { 'age': 40 });
 	result = <any>_.extend({ 'name': 'moe' }, { 'age': 40 }, function(a, b) {
+	  return typeof a == 'undefined' ? b : a;
+	});
+
+	result = <_.LoDashWrapper<any>>_({ 'name': 'moe' }).extend({ 'age': 40 });
+	result = <_.LoDashWrapper<any>>_({ 'name': 'moe' }).extend({ 'age': 40 }, function(a, b) {
 	  return typeof a == 'undefined' ? b : a;
 	});
 
