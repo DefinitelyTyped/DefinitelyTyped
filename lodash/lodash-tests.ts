@@ -769,6 +769,9 @@ result = <any[]>_.times(3, _.partial(_.random, 1, 6));
 result = <any[]>_.times(3, function(n: number) { mage.castSpell(n); });
 result = <any[]>_.times(3, function(n: number) { this.cast(n); }, mage);
 
+result = <string>_.unescape('Moe, Larry &amp; Curly');
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 var iceCream = { flavor: "chocolate" };
