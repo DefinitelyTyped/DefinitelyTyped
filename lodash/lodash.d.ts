@@ -82,6 +82,81 @@ declare module _ {
 		variable?: string;
 	}
 
+	/**
+	* An object used to flag environments features.
+	**/
+	interface Support {
+		/**
+		* Detect if an arguments object’s [[Class]] is resolvable (all but Firefox < 4, IE < 9).
+		**/
+		argsClass: boolean;
+
+		/**
+		* Detect if arguments objects are Object objects (all but Narwhal and Opera < 10.5).
+		**/
+		argsObject: boolean;
+
+		/**
+		* Detect if name or message properties of Error.prototype are enumerable by default. 
+		* (IE < 9, Safari < 5.1)
+		**/
+		enumErrorProps: boolean;
+
+		/**
+		* Detect if Function#bind exists and is inferred to be fast (all but V8).
+		**/
+		fastBind: boolean;
+
+		/**
+		* Detect if functions can be decompiled by Function#toString (all but PS3 and older Opera 
+		* mobile browsers & avoided in Windows 8 apps).
+		**/
+		funcDecomp: boolean;
+
+		/**
+		* Detect if Function#name is supported (all but IE).
+		**/
+		funcNames: boolean;
+
+		/**
+		* Detect if arguments object indexes are non-enumerable (Firefox < 4, IE < 9, PhantomJS, 
+		* Safari < 5.1).
+		**/
+		nonEnumArgs: boolean;
+
+		/**
+		* Detect if properties shadowing those on Object.prototype are non-enumerable.
+		*
+		* In IE < 9 an objects own properties, shadowing non-enumerable ones, are made 
+		* non-enumerable as well (a.k.a the JScript [[DontEnum]] bug).
+		**/
+		nonEnumShadows: boolean;
+
+		/**
+		* Detect if own properties are iterated after inherited properties (all but IE < 9).
+		**/
+		ownLast: boolean;
+
+		/**
+		* Detect if Array#shift and Array#splice augment array-like objects correctly.
+		*
+		* Firefox < 10, IE compatibility mode, and IE < 9 have buggy Array shift() and splice() 
+		* functions that fail to remove the last element, value[0], of array-like objects even 
+		* though the length property is set to 0. The shift() method is buggy in IE 8 compatibility 
+		* mode, while splice() is buggy regardless of mode in IE < 9 and buggy in compatibility mode
+		* in IE 9.
+		**/
+		spliceObjects: boolean;
+
+		/**
+		* Detect lack of support for accessing string characters by index.
+		*
+		* IE < 8 can't access characters by index and IE 8 can only access characters by index on 
+		* string literals.
+		**/
+		unindexedChars: boolean;
+	}
+
 	interface TemplateExecutor {
 		(...data: any[]): string;
 		source: string;
@@ -2863,6 +2938,11 @@ declare module _ {
 	* (ERB). Change the following template settings to use alternative delimiters.
 	**/
 	export var templateSettings: TemplateSettings;
+
+	/**
+	* An object used to flag environments features.
+	**/
+	export var support: Support;
 
 	/* **********
 	 * Chaining *
