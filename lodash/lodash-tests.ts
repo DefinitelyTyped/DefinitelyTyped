@@ -93,6 +93,19 @@ result = <_.LoDashWrapper<string[]>>_(['test1', 'test2']).chain();
 result = <_.LoDashWrapper<string>>_.chain('test');
 result = <_.LoDashWrapper<string[]>>_.chain(['test1', 'test2']);
 
+result = <_.LoDashWrapper<number[]>>_([1, 2, 3, 4]).concat([5, 6, 7]);
+result = <_.LoDashWrapper<string>>_([1, 2, 3, 4]).join(',');
+result = <_.LoDashWrapper<number>>_([1, 2, 3, 4]).pop();
+_([1, 2, 3, 4]).push(5, 6, 7);
+result = <_.LoDashWrapper<number[]>>_([1, 2, 3, 4]).reverse();
+result = <_.LoDashWrapper<number>>_([1, 2, 3, 4]).shift();
+result = <_.LoDashWrapper<number[]>>_([1, 2, 3, 4]).slice(1, 2);
+result = <_.LoDashWrapper<number[]>>_([1, 2, 3, 4]).slice(2);
+result = <_.LoDashWrapper<number[]>>_([1, 2, 3, 4]).sort((a, b) => 1);
+result = <_.LoDashWrapper<number[]>>_([1, 2, 3, 4]).splice(1);
+result = <_.LoDashWrapper<number[]>>_([1, 2, 3, 4]).splice(1, 2, 5, 6);
+result = <_.LoDashWrapper<number>>_([1, 2, 3, 4]).unshift(5, 6);
+
 result = <number[]>_.tap([1, 2, 3, 4], function(array) { console.log(array); });
 result = <_.LoDashWrapper<number[]>>_([1, 2, 3, 4]).tap(function(array) { console.log(array); });
 
@@ -483,8 +496,8 @@ var greet = function(formatted) {
   return 'Hiya ' + formatted + '!';
 };
 
-var welcome: Function = _.compose(greet, format);
-welcome('curly');
+result = <Function>_.compose(greet, format);
+result = <_.LoDashWrapper<Function>>_(greet).compose(format);
 
 var createCallbackObj = { name: 'Joe' };
 var pluckCallback: () => any = _.createCallback('name');
