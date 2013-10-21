@@ -6,16 +6,42 @@
 // Heavily based on Underscore definitions by Boris Yankov
 
 /**
-* Lo-Dash OOP Wrapper, all Lo-Dash functions that take an object
-* as the first parameter can be invoked through this function.
-* @param key First argument to Lo-Dash object functions.
+* Creates a lodash object which wraps the given value to enable intuitive method chaining.
+*
+* In addition to Lo-Dash methods, wrappers also have the following Array methods:
+* concat, join, pop, push, reverse, shift, slice, sort, splice, and unshift
+*
+* Chaining is supported in custom builds as long as the value method is implicitly or explicitly 
+* included in the build.
+*
+* The chainable wrapper functions are:
+* after, assign, bind, bindAll, bindKey, chain, compact, compose, concat, countBy, createCallback, 
+* curry, debounce, defaults, defer, delay, difference, filter, flatten, forEach, forEachRight, 
+* forIn, forInRight, forOwn, forOwnRight, functions, groupBy, indexBy, initial, intersection, 
+* invert, invoke, keys, map, max, memoize, merge, min, object, omit, once, pairs, partial, 
+* partialRight, pick, pluck, pull, push, range, reject, remove, rest, reverse, shuffle, slice, sort, 
+* sortBy, splice, tap, throttle, times, toArray, transform, union, uniq, unshift, unzip, values, 
+* where, without, wrap, and zip
+*
+* The non-chainable wrapper functions are:
+* clone, cloneDeep, contains, escape, every, find, findIndex, findKey, findLast, findLastIndex, 
+* findLastKey, has, identity, indexOf, isArguments, isArray, isBoolean, isDate, isElement, isEmpty, 
+* isEqual, isFinite, isFunction, isNaN, isNull, isNumber, isObject, isPlainObject, isRegExp, 
+* isString, isUndefined, join, lastIndexOf, mixin, noConflict, parseInt, pop, random, reduce, 
+* reduceRight, result, shift, size, some, sortedIndex, runInContext, template, unescape, uniqueId, 
+* and value
+*
+* The wrapper functions first and last return wrapped values when n is provided, otherwise they 
+* return unwrapped values.
+*
+* Explicit chaining can be enabled by using the _.chain method.
+* @param value The value to wrap in a lodash instance.
+* @return A lodash instance.
 **/
-declare function _<T>(value: Array<T>): _.LoDashWrapper<Array<T>>;
 declare function _<T>(value: T): _.LoDashWrapper<T>;
+declare function _<T>(value: T[]): _.LoDashWrapper<T[]>;
 
 declare module _ {
-	interface LoDashWrapper<T> {}
-
 	/**
 	* lodash.js _.debounce options
 	**/
@@ -190,6 +216,21 @@ declare module _ {
 	/*********
 	* Chaining *
 	**********/
+
+	//Wrapper Array methods
+	interface LoDashWrapper<T> {
+		concat(...items: any[]): LoDashWrapper<T>;
+		join(seperator?: string): LoDashWrapper<string>;
+		pop(): LoDashWrapper<any>;
+		push(...items: any[]): void;
+		reverse(): LoDashWrapper<T>;
+		shift(): LoDashWrapper<any>;
+		slice(start: number, end?: number): LoDashWrapper<T>;
+		sort(compareFn?: (a: any, b: any) => number): LoDashWrapper<T>;
+		splice(start: number): LoDashWrapper<T>;
+		splice(start: number, deleteCount: number, ...items: any[]): LoDashWrapper<T>;
+		unshift(...items: any[]): LoDashWrapper<number>;
+	}
 	
 	/**
 	* Creates a lodash object that wraps the given value with explicit method chaining enabled.
@@ -1969,6 +2010,13 @@ declare module _ {
 	* @return The new composed function.
 	**/
 	export function compose(...funcs: Function[]): Function;
+
+		interface LoDashWrapper<T> {
+			/**
+			* @see _.compose
+			**/
+			compose(...funcs: Function[]): LoDashWrapper<Function>;
+		}
 
 	/**
 	* Produces a callback bound to an optional thisArg. If func is a property name the created 
