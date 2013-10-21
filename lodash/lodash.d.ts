@@ -262,6 +262,13 @@ declare module _ {
 	**/
 	export function compact<T>(array: List<T>): T[];
 
+		interface LoDashWrapper<T> {
+			/**
+			* @see _.compact
+			**/
+			compact<T>(): LoDashWrapper<T[]>;
+		}
+
 	/**
 	* Creates an array excluding all values of the provided arrays using strict equality for comparisons
 	* , i.e. ===.
