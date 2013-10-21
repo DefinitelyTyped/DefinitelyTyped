@@ -4,6 +4,11 @@
 
 declare module 'mapsjs' {
 
+	/** 
+	 * Clusters a set of points.
+	 * @param {object} options An options object which specifies the clustering algorithm.
+	 * @returns {object} An array of clustered points.
+	 */
     export function clusterPoints(options: {
         data: {}[];
         pointKey: string;
@@ -15,1048 +20,1075 @@ declare module 'mapsjs' {
     }): {}[];
 
     /**
-	 * This is a desc of envelope export function.
-	 * @class <envelope>
-	 * @classdesc This is a description of the envelope class.
+	 * An immutable envelope
+	 * @class envelope
 	 */
     export class envelope {
-
         constructor(minX: number, minY: number, maxX: number, maxY: number);
 
         /**
-         * Gets the minX of the envelope.
-         * @returns {number} The minimum x value
+         * Gets the minimum x coordinate of the envelope.
+         * @returns {number} The minimum x coordinate. 
          */
         getMinX(): number;
 
 		/**
-		 * Gets the minY of the envelope
-		 * @returns {number} The minimum y value
+		 * Gets the minimum y coordinate of the envelope
+		 * @returns {number} The minimum y coordinate.
 		 */
         getMinY(): number;
 		
 		/** 
-		 * Gets the maxX of the envelope
-		 * @returns {number} The maximum x value
+		 * Gets the maximum x coordinate of the envelope
+		 * @returns {number} The maximum x coordinate.
 		 */
         getMaxX(): number;
 		
 		/**
-		 * Gets the maxY of the envelope
-		 * @returns {number} The maximum y value
+		 * Gets the maximum y coordinate of the envelope
+		 * @returns {number} The maximum y coordinate.
 		 */
         getMaxY(): number;
 		
 		/**
-		 * Create a new envelope from this as deep copy
-		 * @returns {envelope} - a new envelope
+		 * Creates a new envelope from this as deep copy.
+		 * @returns {envelope} The new cloned envelope.
 		 */
         clone(): envelope;
 
         /**
-         * Create a new envelope from this one plus x and y margins.
-         * @param {number} marginX - the x margin
-         * @param {number} marginY - the y margin
-         * @returns {envelope} - a new envelope
+         * Creates a new envelope from this one plus x and y margins.
+         * @param {number} marginX The x margin.
+         * @param {number} marginY The y margin.
+         * @returns {envelope} A new envelope.
          */
         createFromMargins(marginX: number, marginY: number): envelope;
 		
 		/**
-		 * Create a new envelope from this one number plus bleed ratio
-		 * @param {number} bleed - the number bleed
-		 * @returns {envelope} a new envelope
+		 * Create a new envelope from this one plus a bleed ratio.
+		 * @param {number} bleed The bleed ratio.
+		 * @returns {envelope} A new envelope.
 		 */
         createFromBleed(bleed: number): envelope;
 		
 		/**
-		 * Gets the center point of the envelope
-		 * @returns {point} - center as point
+		 * Gets the center point of the envelope.
+		 * @returns {point} Center as a point.
 		 */
         getCenter(): point;
 		
 		/**
-		 * Gets the width of the envelope
-		 * @returns {number} value of width
+		 * Gets the width of the envelope.
+		 * @returns {number} Width of the envelope.
 		 */
         getWidth(): number;
 		
 		/**
-		 * Gets height of the envelope
-		 * @returns {number} value of height
+		 * Gets height of the envelope.
+		 * @returns {number} Height of the envelope.
 		 */
         getHeight(): number;
 		
 		/**
-		 * Gets area of the envelope
-		 * @return {number} value of area
+		 * Gets area of the envelope.
+		 * @return {number} Area of the envelope.
 		 */
         getArea(): number;
 		
 		/**
-		 * Returns associative array of this
-		 * Returns value of minX
-		 * Returns value of minY
-		 * Returns value of maxX
-		 * Returns value of maxY
-		 * @returns {object} values of associative array 
+		 * Returns the minimum and maximum coordinates of this envelope as an envObject.
+		 * @returns {envObject} Representaton of this envelope as an envObject.
 		 */
         toObject(): envObject;
 		
 		/**
-		 * Gets UL coordinate of this envelope
-		 * @returns {point} - a new point
+		 * Gets upper left coordinate of this envelope.
+		 * @returns {point} A new point.
 		 */
         getUL(): point;
 		
 		/**
-		 * Gets UR of this envelope
-		 *@returns {point} - a new point
+		 * Gets upper right of this envelope.
+		 * @returns {point} A new point.
 		 */
         getUR(): point;
 		
 		/**
-		 * Gets LL of this envelope
-		 * @returns {point} - a new point
+		 * Gets lower left of this envelope.
+		 * @returns {point} A new point.
 		 */
         getLL(): point;
 		
 		/**
-		 * Gets LR of this envelope
-		 * @returns {point} - a new point
+		 * Gets lower right of this envelope.
+		 * @returns {point} A new point.
 		 */
         getLR(): point;
 		
 		/**
-		 * Gets the aspect of the envelope plus width, height
-		 * @returns {number} - numeric ratio
+		 * Gets the aspect of the envelope.
+		 * @returns {number} Width-to-height ratio.
 		 */
         getAspect(): number;
 		
 		/**
-		 * tests for identical envelope as this
-		 * @param {envelope} env - tests envelope
-		 * @return {boolean} - envelope match is true, otherwise false
+		 * Equality comparer between this and another envelope.
+		 * @param {envelope} env Envelope to compare.
+		 * @return {boolean} Result of equality comparison.
 		 */
         equals(env: envelope): boolean;
 		
 		/**
-		 * Create string of this
-		 * @returns {string} - string in the form: [minx],[miny],[maxx],[maxy]
+		 * Method for casting this envelope as a string.
+		 * @returns {string} String of the form 'minX,minY,maxX,maxY'.
 		 */
         toString(): string;
 		
 		/**
-		 * Create geometry of this envelope. The polygon returned is closed
-	     * @returns {geometry} - a new geometry
+		 * Create a closed geometry from this envelope.
+	     * @returns {geometry} A new closed path geometry.
 		 */
         toGeometry(): geometry;
 		
 		/**
-		 * Tests function for point within this envelope
-		 * @param {point} - test point
-		 * @returns {boolean} point contained is true, otherwise false
+		 * Tests whether the given point is contained within this envelope.
+		 * @param {point} pt Point to test.
+		 * @returns {boolean} Result of containment test.
 		 */
         contains(pt: point): boolean;
     }
+
     /**
-	* @module my/envelope
-	*/
+	 * Exposes static functions that act on or return envelopes.
+	 * @module envelope
+	 */
     export module envelope {
 	
 		/**
-		 * Creates a new MapDotNet xml envelope by Static function
-		 * @param {string} xml - an xml string of envelope
-		 * @returns {envelope} - a new envelope 
+		 * Creates a new envelope from MapDotNet XML.
+		 * @param {string} xml A MapDotNet XML string of the envelope.
+		 * @returns {envelope} A new envelope 
 		 */
         export function createFromMdnXml(xml: string): envelope;
 		
 		/**
-		 * creates new envelope from two points using static function
-		 * @param {point} pt1 - corner point
-		 * @param {point} pt2 - opposite corner point
-		 * @returns {envelope} a new envelope
+		 * Creates new envelope from two corner points.
+		 * @param {point} pt1 Corner point
+		 * @param {point} pt2 Opposite corner point
+		 * @returns {envelope} A new envelope
 		 */
         export function createFromPoints(pt1: point, pt2: point): envelope;
 		
 		/**
-		 * static function creates new x and y center points envelope plus y and x margins
-		 * @param {number} centerX - the center x as float
-		 * @param {number} centerY - the center y as float
-		 * @param {number} marginX - the margin x from center as float
-		 * @param {number} marginY - the margin y from center as float
-		 * @returns {envelope} a new envelope
+		 * Creates a new envelope from the x and y coordinates of the center 
+		 * point and x and y margins from the center point.
+		 * @param {number} centerPtX The center x coordinate.
+		 * @param {number} centerPtY The center y coordinate.
+		 * @param {number} marginX The margin from center x coordinate.
+		 * @param {number} marginY The margin from center y coordinate.
+		 * @returns {envelope} A new envelope
 		 */
-		 export function createFromCenterAndMargins(centerPtX: number, centerPtY: number, marginX: number, marginY: number): envelope;
+		export function createFromCenterAndMargins(centerPtX: number, centerPtY: number, marginX: number, marginY: number): envelope;
 		
 		/**
-		 * static functions tests intersection of two envelopes
-		 * @param {envelope} envelope 1 - envelope 1 test
-		 * @param {envelope} envelope 2 - envelope 2 test
-		 * @returns {boolean} intersecting envelopes are true, otherwise false
+		 * Tests whether two given envelopes intersect.
+		 * @param {envelope} env1 First envelope to test.
+		 * @param {envelope} env2 Second envelope to test.
+		 * @returns {boolean} Result of the intersection test.
 		 */
         export function intersects(env1: envelope, env2: envelope): boolean;
 		
 		/**
-		 * static function creates two-envelope union
-		 * @param {envelope} envelope 1 - envelope 1
-		 * @param {envelope} envelope 2 - evelope 2
-		 * @returns {envelope} a new envelope as union of supplied envelopes
+		 * Creates a new envelope from the union of two given envelopes.
+		 * @param {envelope} env1 The first enevelope to unite.
+		 * @param {envelope} env2 The second envelope to unite.
+		 * @returns {envelope} A new envelope.
 		 */
         export function union(env1: envelope, env2: envelope): envelope;
     }
-   /**
-    * Constructor creates a geometry which can represent a point, line, polygon,
-	* mulitpoint, multilinestring.
-	 * This is a desc of geometry export class.
-	 * @class <geometry>
-	 * @classdesc This is a description of the geometry class.
-	 * @param {boolean} isPath - is this a path (true if path or false for set of 
-	 * points)
-	 * @param {boolean} isClosed - is this a closed path (true or false)
-	 * @returns {geometry} a new geometry
+
+    /**
+     * A general geometry which can represent a point, line, polygon,
+     * mulitpoint, multilinestring
+	 * @class geometry
 	 */
     export class geometry {
         constructor(isPath?: boolean, isClosed?: boolean);
         
 		/**
-		 * Creates a new polygon or polyline form the geometry according to whether the 
-		 * geometry is closed.
-		 * @returns {geometry} a new geometry
+		 * Creates a new polygon or polyline form the geometry according to
+		 * whether the geometry is closed.
+		 * @returns {any} A new polyline or polygon geometry.
 		 */
 		factoryPoly(): any;
 		
 		/**
-		 * Creates a deep copy of this geometry
-		 * @returns {geometry} a new geometry
-		*/
+		 * Creates a deep copy of this geometry.
+		 * @returns {geometry} The new cloned geometry.
+		 */
         clone(): geometry;
 		
 		/**
-		 * Iterates every vertex in the geometry and passes to the supplied action. Return true on the action to abort.
-		 * @param {action} - must be a function with the signature action(setIdx, idx, x, y) 
+		 * Iterates every vertex in the geometry and passes to the supplied 
+		 * callback. Return true from in the callback will break the iteration.
+		 * @param {function} action Callback with the signature action(setIdx, idx, x, y, set).
 		 */
         foreachVertex(action: (setIdx: number, idx: number, x: number, y: number, s: number[]) => void): void;
         
 		/**
-		 * Returns geometry bounding box
-		 * @returns {envelope} a new envelope
+		 * Returns the geometry's bounding box as an envelope.
+		 * @returns {envelope} The bounding box of the geometry as an envelope.
 		 */
 		getBounds(): envelope;
 		
 		/**
-		 * Returns whether this geometory is a path or points
-		 * Returns this geometry as path or point
-		 * @returns {boolean} a path is true, collection of points is false
+		 * Checks whether or not this geometry is closed.
+		 * @returns {boolean} Result of the path check.
 		 */
         getIsPath(): boolean;
 		
 		/**
-		 * Returns whether this geometry is closed
-		 * @returns {boolean} closed path is true, otherwise false
+		 * Checks whether or not this geometry is closed.
+		 * @returns {boolean} Result of the closed check.
 		 */
         getIsClosed(): boolean;
 		
 		/**
-		 *Gets number of sets in this geometry
-		 * @returns {number} number of sets as integer
+		 * Gets the number of sets in this geometry.
+		 * @returns {number} Number of sets.
 		 */
         getSetCount(): number;
 		
 		/**
-		 * Gets set by its index. Note: for polygons, first set is primary ring and subsequent
-		 * ones are holes.
-		 * @param {number} idx - option index of set to return as an integer; if not provided,
-		 * returns as last set.
-		 * @returns {number} a set as an array of points in the form [x1,y1,x2,y2, ... xn,yn]
+		 * Gets a set from this geometry's set collection by index, or, if no 
+		 * index is provided, gets the last set. Note: for polygons, first set
+		 * is primary ring and subsequent ones are holes.
+		 * @param {number} [idx] Index of the set to return.
+		 * @returns {number[]} A set as an array of points in the form [xn,yn].
 		 */
         getSet(idx: number): number[];
 		
 		/**
-		 * Pushes set onto geometry end
-		 * @param {number} s - set as an array of points in the form [x1,y1,x2,y2, ... xn, yn] to push
+		 * Adds a new set to this geometry's collection of sets.
+		 * @param {number[]} s Set to add as an array of points in the form [xn,yn].
 		 */
         pushSet(s: number[]): void;
 		
 		/**
-		 * Pops set off end of geometry
-		 * @returns {number} set popped as an array of points in the form [x1,y1,x2,y2, ... xn, yn]
+		 * Gets the last set in the geometry's set collection and removes it 
+		 * from the collection.
+		 * @returns {number} Set removed as an array of points in the form [xn,yn].
 		 */
         popSet(): number[];
 		
 		/**
-		 * Creates SVG path data string from this
-		 * @returns {geometry} string of SVG path or null if not a path
+		 * Creates SVG path data from this geometry if it is a path.
+		 * @returns {string} String of the SVG path or null the geometry is not a path.
 		 */
         toSvgPathData(): string;
 		
 		/**
-		 * Adds point onto last set in geometry. If geometry is empty,
-		 * automatically creates set to add to.
-		 * @param {point} pt - a point to add
-		 * @returns {number} {setIdx: [0-based index of set the point was added to] , idx: [the 0-
-		 * based index of the x-coord added]}
+		 * Adds point to the last set in geometry's set collection. If the
+		 * geometry is empty, a new set is added to the geometry first.
+		 * @param {point} pt The point to add.
+		 * @returns {object} Object of the form {setIdx, idx} where setIdx is
+		 * the 0-based index of the set the point was added to and idx is the
+		 * 0-based index of the point in its set.
 		 */
         addPointToLastSet(pt: point): { setIdx: number; idx: number; };
 		
 		/**
-		 * Tests for validity of get. At least one path
-		 * with two verticies plus at least one ring with at least
-         * three vertices.
-		 * Returns true if it is a point collection
+		 * Tests the validity of this geometry. An open path geometry is valid
+		 * if it has at least one set with at least two points. A closed 
+		 * geometry is valid if it has at least one set with at least three
+		 * points. A point (non-path) geometry is always valid.
 		 * @returns {geometry} valid geometry is true, otherwise false.
 		 */
         isValid(): boolean;
 		
 		/**
-		 * Create wkt string from [this]
-		 * @returns {string} a string of wkt
+		 * Creates a wkt string from this geometry.
+		 * @returns {string} A string of well known text.
 		 */
         toString(): string;
-        
         toWkt(): string;
 		
 		/**
-		 * Finds vertex of geometry nearest to the given point
-		 * @param {point} pt - point of the reference point
-		 * @returns {number|point} an associated array closestVertex with:
-		 * - closestVertex.setIdx, index of the set the vertex is in
-	     * - closestVertex.ptIdx, index of the point of vertex in set
-		 * - closestVertext.pt, pt of the vertex
-		 *- closestVertex.distance, distance of vertex to reference point in projected units
+		 * Finds the point in this geometry nearest to the given point.
+		 * @param {point} pt Reference point.
+		 * @returns {object} An object of the form {setIdx, ptIdx, pt, distance}
+		 * where setIdx is the index of the set the point is in, ptIdx is the
+		 * index of the point in the set, pt is the point object, and distance
+		 * is the distance of the point to the reference point in map units.
 		 */
         findNearestVertex(pt: point): { setIdx: number; ptIdx: number; pt: point; distance: number; };
         
 		/**
 		 * Finds point along boundary of geometry nearest to the given point
-		 * @param {point} point of the reference point
-		 * @param {boolean} close - closest point
-		 * @returns {number|point} associated array closestPoint with:
-		 * - closestPoint.setIdx, index of the set the point is in
-         * - closestPoint.ptIdx, index of the first point of the segment which the point is in
-         * - closestPoint.pt, pt of the point
-         * - closestPoint.distance, distance of the point to the reference point in projected units
+		 * @param {point} pt Reference point.
+		 * @param {boolean} [close] Flag to indicate whether this geometry
+		 * should be treated as a closed geometry.
+		 * @returns {object} An object of the form {setIdx, ptIdx, pt, distance}
+		 * where setIdx is the index of the set the point is in, ptIdx is the
+		 * index of the point in the set, pt is the point object, and distance
+		 * is the distance of the point to the reference point in map units.
 		 */
 		findNearestSegment(pt: point, close?: boolean): { setIdx: number; ptIdx: number; pt: point; distance: number; };
         
 		/** 
-		 * Finds coordinates in map units of midpoint of geometry
-		 * @param {number} idx - optional index of line to find labeling point for;
-		    if not provided, returns labeling point of last line.
-		 * @returns {point} coordinates of midpoint of line as a point
+		 * Finds coordinates in map units of the midpoint of this geometry. If
+		 * this geometry is an open path, the midpoint is the midpoint of the
+		 * path. If this geometry is a closed path, the midpoint is the centroid
+		 * of the polygon. If a set index is not provided, finds the labeling
+		 * point for the last set in this geometry's set collection.
+		 * @param {number} [idx] Index of set for which to find the labeling point.
+		 * @returns {point} Midpoint of this geometry.
 		 */
 		getLabelingPoint(idx?: number): point;
 		
 		/**
-		 * Determines whether geometry contains a point
-		 * @param {point} pt - a point to contain
-		 * @returns {boolean} If contains point is true, otherwise false
+		 * Tests whether this geometry contains a given point/
+		 * @param {point} pt The reference point.
+		 * @returns {boolean} Result of the containment test.
 		 */
         contains(pt: point): boolean;
     }
 
-	/** @module my/geometry */
+	/** 
+	 * Exposes static functions that act on or return geometries, including
+	 * constructors for specific geometries such as polygon and polyline.
+	 * @module geometry 
+	 */
     export module geometry {
         
 		/**
-		 * This is a desc of polyline extends geometry class.
-	     * @class <polyline extends geometry>
-	     * @classdesc This is a description of the geometry class.
+		 * A polyline object which is an open path geometry with one or more paths.
+	     * @class polyline
 	     */
         class polyline extends geometry {
             constructor(geom: geometry);
             
 			/**
-			 * Gets geometry in a polyline
-			 * @returns {geometry} a geometry
+			 * Gets the underlying geometry of the polyline.
+			 * @returns {geometry} The polyline's underlying geometry object.
 			 */
 			getGeometry(): geometry;
 			
 			/**
-			 * Creates deep copy polyline object of underlying geometry
-			 * @returns {polyline} - a new geometry
+			 * Creates a new polyline object from a deep copy of the underlying geometry.
+			 * @returns {polyline} Thew new cloned polyline.
 			 */
             clone(): polyline;
 			
 			/**
-			 * Gets number of lines in polyline
-			 * @returns {number} - lines as integer
+			 * Gets number of lines in this polyline.
+			 * @returns {number} Number of lines.
 			 */
             getLineCount(): number;
 			
 			/**
-			 * Gets line in polyline by its index
-			 * @para {number} idx - option index of line to return as an integer;
-			 * if not provided, returns last line
-			 * @returns {number[]} a line as an array of x and y points in the form
+			 * Gets a line from this polyline's liune collection by index, or, 
+			 * if no index is provided, gets the last line.
+			 * @param {number} [idx] Index of the line to return.
+			 * @returns {number[]} A line as an array of points in the form [xn,yn].
 			 */
             getLine(idx: number): number[];
 			
 			/**
-			 * Pushes line onto polyline end
-			 * @param {number[]} s - a line as an array of y and y points to push
+			 * Adds a new line to this polyline's line collection.
+			 * @param {number[]} s Line to add as an array of points in the form [xn,yn].
 			 */
             pushLine(s: number[]): void;
 			
-			
+			/**
+			 * Gets the last line in the polyline's set collection and removes it 
+			 * from the collection.
+			 * @returns {number} Line removed as an array of points in the form [xn,yn].
+			 */
             popLine(): number[];
 			
 			/**
-			 * Calculates the line distance in a polyline according to projected map cooordinates
-			 * @param {number} idx - options index of line to calculate the distance of an integer; if not provided, returns distance of last line
-			 * @returns lenth in projected units in meters of distance of polyline
+			 * Calculates distance of a line in a polyline by index according 
+			 * to projected map cooordinates. If no index is provided, uses
+			 * the last line in the polyline's set collection.
+			 * @param {number} [idx] Index of the line for which to compute the distance.
+			 * @returns {number} Length in projected units of the distance of the line.
 			 */
             getProjectedDistance(idx: number): number;
 			
 			/**
-			 * Calculates distance of a line in polyline from actual distance measurements
-			 * @param {number} idx - options index of line to calculate distance of an integer; if not provided, returns distance of the last line
-			 * @returns {number} length in meters of polyline distance
+			 * Calculates distance of a line in a polyline by index according 
+			 * to actual distance. If no index is provided, uses the last line 
+			 * in the polyline's set collection.
+			 * @param {number} [idx] Index of the line for which to compute the distance.
+			 * @returns {number} Distance in meters of the line.
 			 */
             getActualDistance(idx: number): number;
 			
 			/**
-			 * Determines polyline intersection of another geom
-			 * @param {geometry} geom - geometry to test against
-			 * @returns {boolean} intersection is true, otherwise false
+			 * Determines whether this polyline intersects a given geometry.
+			 * @param {geometry} geom Geometry to test against.
+			 * @returns {boolean} Result of the intersection test.
 			 */
             intersects(geom: geometry): boolean;
         }
         
 		/**
-		  * This is a desc of polygon extends geometry class.
-	      * @class <polygon extends geometry>
-	      * @classdesc This is a description of the polygon extends geometry class.
+		  * A polyline object which is a closed path geometry with one or more paths.
+	      * @class polygon
 	      */
         class polygon extends geometry {
             constructor(geom: geometry);
 			
 			/**
-			 * Returns geometry of the polygon
-			 * @returns {geometry} a geometry
+			 * Gets the underlying geometry of the polygon.
+			 * @returns {geometry} The polygon's underlying geometry object.
 			 */
             getGeometry(): geometry;
 			
 			/**
-			 * Creates new polygon object from deep copy of underlying geometry
-			 * @returns {geometry} - a new geometry
+			 * Creates a new polygon object from a deep copy of the underlying geometry.
+			 * @returns {polygon} Thew new cloned polygon.
 			 */
             clone(): polygon;
 			
 			/**
-			 * Gets polygon ring number
-			 * @returns {number} - a ring integer number 
+			 * Gets number of rings in this polygon.
+			 * @returns {number} Number of rings.
 			 */
             getRingCount(): number;
-			
+		
 			/**
-			 * Gets polygon ring by its index. Primary ring is first and subsequent ones are holes.
-			 * @param {number} idx - option ring index to return as integer, if not provided, returns last set
-			 * @returns {number[]} array of x and y points in ring
+			 * Gets a ring from this polygon's set collection by index, or, 
+			 * if no index is provided, gets the last ring.
+			 * @param {number} [idx] Index of the ring to return.
+			 * @returns {number[]} A ring as an array of points in the form [xn,yn].
 			 */
             getRing(idx: number): number[];
 			
 			/**
-			* Pushes ring onto polygon end
-			* @param {number[]} s - array of x and y points in the form to push in ring
-			*/
+			 * Adds a new ring to this polygon's ring collection.
+			 * @param {number[]} s Ring to add as an array of points in the form [xn,yn].
+			 */
             pushRing(s: number[]): void;
 			
 			/**
-			 * Pops ring of end of polygon
-			 * @returns {number[]} popped ring as array of x and y point in the form
+			 * Gets the last ring in the polygon's ring collection and removes it 
+			 * from the collection.
+			 * @returns {number} Ring removed as an array of points in the form [xn,yn].
 			 */
             popRing(): number[];
 			
 			/**
-			 * Calculates polyline line distance from projected map coord
-			 * @param {number} idx - option line index to calculate distance as integer; if not provided, returns distance of last line
-			 * @returns {number} polyline distence length in projected meters
+			 * Calculates area of a ring in a polygon by index according 
+			 * to projected map cooordinates. If no index is provided, uses
+			 * the last ring in the polygon's ring collection.
+			 * @param {number} [idx] Index of the ring for which to compute the area.
+			 * @returns {number} Area in square projected units of the ring.
 			 */
             getProjectedArea(idx: number): number;
 			
 			/**
-			 * Calculates polygon ring perimeter from projected map coord
-			 * @param {number} idx - option index to get projected perimeter of ring.
-			 * @returns {number} distance in projected meters of polygon perimeter
+			 * Calculates perimeter of a ring in a polygon by index according 
+			 * to projected map cooordinates. If no index is provided, uses
+			 * the last ring in the polygon's ring collection.
+			 * @param {number} [idx] Index of the ring for which to compute the perimeter.
+			 * @returns {number} Length in projected units of the distance of the ring.
 			 */
             getProjectedPerimeter(idx: number): number;
 			
 			/**
-			 * Calculates polygon ring are from actual distance measurements
-			 * @param {number} idx - option index to get ring perimeter.
-			 * @returns {number} polygon area in square meters
+			 * Calculates area of a ring in a polygon by index according 
+			 * to the actual area. If no index is provided, uses the last ring
+			 * in the polygon's ring collection.
+			 * @param {number} [idx] Index of the ring for which to compute the area.
+			 * @returns {number} Area in square meters of the ring.
 			 */
             getActualArea(idx: number): number;
 			
 			/**
-			 * Calculates polygon ring perimeter from actual distance measurements
-			 * @param {number} idx - option index to get actual ring perimeter.
-			 * @returns {number} polygon perimeter distance in meters
+			 * Calculates perimeter of a ring in a polygon by index according 
+			 * to actual distance. If no index is provided, uses the last ring
+			 * in the polygon's ring collection.
+			 * @param {number} [idx] Index of the ring for which to compute the perimeter.
+			 * @returns {number} Length in meters of the perimeter of the ring.
 			 */
             getActualPerimeter(idx: number): number;
 			
 			/**
-			 * Determines polygon intersection of another geometry
-			 * @param {geometry} geom - geometry to test against
-			 * @returns {boolean} intersection is true, otherwise false
+			 * Determines whether this polygon intersects a given geometry.
+			 * @param {geometry} geom Geometry to test against.
+			 * @returns {boolean} Result of the intersection test.
 			 */
-            intersects(geom: geometry): boolean;
+			intersects(geom: geometry): boolean;
 			
 			/**
-			 * Determines overlapping of polygons.
-			 * @param {polygon} poly - polygon to test against
-			 * @returns {boolean} overlap is true, otherwise false
+			 * Determines whether this polyline overlaps a given geometry.
+			 * @param {geometry} geom Geometry to test against.
+			 * @returns {boolean} Result of the intersection test.
 			 */
             overlaps(poly: polygon): boolean;
-        }
 
-        export module polygon {
-            
 			/**
-			 * Create MultiPolygon from [this].
-			 * @returns {polygon} a new multiPolygon
+			 * Convert this polygon into an array of OGC compliant polygons where
+			 * the first set is a ring and all subsequent contained sets are holes.
+			 * @returns {polygon[]} An array of OGC polygons.
 			 */
-			export function toMultiPolygon(): polygon[];
+			toMultiPolygon(): polygon[];
         }
     }
+
     /**
-	 * Constructor creates a geometry style.
-	 * This is a desc of geometryStyle export class.
-	 * @class <geometryStyle>
-	 * @classdesc This is a description of the geometry class.
-	 * @returns {geometry} a new geometryStyle
+	 * A style specification for geometry objects.
+	 * @class geometryStyle
 	 */
     export class geometryStyle {
         constructor();
 		
 		/**
 		 * Gets path outline thickness in pixels.
-		 * @returns {number} thickness as numeric
+		 * @returns {number} Thickness of path outline.
 		 */
         getOutlineThicknessPix(): number;
 		
 		/**
 		 * Sets path outline thickness in pixels.
-		 * @param {number} t - thickness as a numeric
+		 * @param {number} t Desired thickness.
 		 */
         setOutlineThicknessPix(t: number): void;
 		
 		/**
-		 * Gets path outline color as css style string
-		 * @returns {string} outline color as string
+		 * Gets path outline color as a CSS style string.
+		 * @returns {string} Outline color as a CSS style string.
 		 */
         getOutlineColor(): string;
 		
 		/**
-		 * Sets path outline color as css style string.
-		 * @param {string} c - outline color as string
+		 * Sets path outline color from a CSS style string.
+		 * @param {string} c Outline color as a CSS style string.
 		 */
-        setOutlineColor(t: string): void;
+        setOutlineColor(c: string): void;
 		
 		/**
-		 * Gets path outline opacity from 0 to 1.
-		 * @returns {number} outline opacity as numeric
+		 * Gets path outline opacity in decimal format.
+		 * @returns {number} Outline opacity.
 		 */
         getOutlineOpacity(): number;
 		
 		/**
-		 * Set path outline opacity from 0 to 1.
-		 * @param {number} o - outline opacity as numeric
+		 * Set path outline opacity to a decimal between 0 and 1.
+		 * @param {number} o Outline opacity.
 		 */
         setOutlineOpacity(o: number): void;
 		
 		/**
-		 * Gets path fill color as css style string
-		 * @returns {string} fill color as string
+		 * Gets fill color as a CSS style string.
+		 * @returns {string} Fill color as a CSS style string.
 		 */
         getFillColor(): string;
 		
 		/**
-		 * Set path fill color as css style string.
-		 * @param {string} c - fill color as string
+		 * Sets fill color as a CSS style string.
+		 * @param {string} c Fill color as a CSS style string.
 		 */
         setFillColor(c: string): void;
 		
 		/**
-		 * Gets path fill opacity from 0 to 1.
-		 *@returns {number} fill opacity as numeric
+		 * Gets fill opacity in decimal format.
+		 * @returns {number} Fill opacity.
 		 */
         getFillOpacity(): number;
 		
 		/**
-		 * Sets path fill opacity from 0 to 1
-		 * @param {number} o - fill opacity as numeric
+		 * Sets fill opacity to a decimal between 0 and 1.
+		 * @param {number} o Fill opacity.
 		 */
         setFillOpacity(o: number): void;
         
 		/**
-		 * Gets dash array string for path
-		 * @returns {string} a dash array as a string (defaults to null [solid stroke])
+		 * Gets the dash array as a string.
+		 * @returns {string} Dash array as astring.
 		 */
 		getDashArray(): string;
         
 		/**
-		 * Sets dash array string for path
-		 * @param {string} da - CSS dash array as a string
+		 * Sets dash array string from a CSS style string. Defaults to solid
+		 * stroke if no dash array string is provided.
+		 * @param {string} [da] Dash array as a CSS style string.
 		 */
 		setDashArray(da: string): void;
     }
+
     /**
-	 * Executes the license
-	 * @returns {string} a license
+	 * Gets the mapsjs license.
+	 * @returns {string} The license.
 	 */
     export var license: string;
+
     /**
-	 * This is a desc of point export class.
-	 * @class <point>
-	 * @classdesc This is a description of the point class.
+	 * A simple point class with x and y coordinates.
+	 * @class point
+	 */
     export class point {
 
         constructor(x: number, y: number);
 		
 		/**
-		 * Returns x coord as float
-		 * @returns {number} x coord as a float
+		 * Returns the x coordinate.
+		 * @returns {number} The x coordinate.
 		 */
         getX(): number;
 		
 		/**
-		 * Returns y coord as float
-		 * @returns {number} - a y coord as a float
+		 * Returns the y coordinate.
+		 * @returns {number} The y coordinate.
 		 */
         getY(): number;
 		
 		/**
-		 * Converts point object to associative arry with x and y property names
-		 * @returns {pointObject} - an associative array with x and y property names
+		 * Returns the x and y coordinates of this point as a pointObject.
+		 * @returns {pointObject} Representaton of this point as an pointObject.
 		 */
         toProps(): pointObject;
 		
 		/**
-		 * Test for matching locations of supplied point and [this]
-		 * @param {point} pt - point to test
-		 * @returns {boolean} - matching points is true, otherwise false
+		 * Equality comparer between this point and a given reference point.
+		 * @param {point} pt Reference point.
+		 * @returns {boolean} Result of the equality test.
 		 */
         equals(pt: point): boolean;
 		
 		/** 
-		 * Creates new point from [this] offset by supplied x and y deltas.
-		 * @param {number} dx - x coord offset as float
-		 * @param {number} dy - y coord offset as float
-		 * @returns {point} a new point offset
+		 * Creates a point from this point offset by a given x and y distance.
+		 * @param {number} dx The x offset.
+		 * @param {number} dy The y offset.
+		 * @returns {point} The offset point.
 		 */
         createOffsetBy(dx: number, dy: number): point;
 		
 		/**
-		 * Creates new n-sided polygon from this point
-		 * @param {number} sides - number of polygon sides
-		 * @param {number} radius - distance to polygon vertices
-		 * @returns {geometry|polygon} a new polygon
+		 * Creates new n-sided polygon around this point.
+		 * @param {number} sides Number of polygon sides.
+		 * @param {number} radius Distance to polygon points.
+		 * @returns {polygon} The generated polygon.
 		 */
         convertToPoly(side: number, radius: number): geometry.polygon;
 		
 		/**
-		 * Converts point object to associative array with x and y property names
-		 * @returns {string} an associate array with x and y property names
+		 * Gets the wkt representation of this point.
+		 * @returns {string} The well known text for this point.
 		 */
         toString(): string;
 		
 		/** 
-		 * Creates a deep copy new point of this.
-		 * @returns {point} a new point clone
+		 * Creates a deep copy of this point.
+		 * @returns {point} The new cloned point.
 		 */
         clone(): point;
 		
 		/**
-		 * Returns this point's bounding box for consistency with geometry
-		 * @returns {envelope} a new envelope
+		 * Returns this point's bounding box.
+		 * @returns {envelope} The bounding box of the point as an envelope.
 		 */
         getBounds(): envelope;
 		
 		/**
-		 * Computes distance between this and supplied point
-		 * @param {point} pt - point to compute distance to
-		 * @returns {number} distance as a float
+		 * Computes distance between this point and a given point in projected
+		 * map units.
+		 * @param {point} pt Point to which to compute distance.
+		 * @returns {number} Distance from this point to the given point in
+		 * projected map units.
 		 */
         distanceTo(pt: point): number;
     }
     
 	/**
-	 * @module my/point
+	 * Exposes static functions that act on points.
+	 * @module point
 	 */
     export module point {
 	
 	    /**
-		 * Shows the distance for the application
-		 * @param {number} x1 - 
-		 * @param {number} y1 - 
-		 * @param {number} x2 - 
-		 * @param {number} y2 - 
-		 * @returns {number} a distance
+		 * Computes the distance between two points in coordinate units.
+		 * @param {number} x1 The x coordinate for the first point.
+		 * @param {number} y1 The y coordinate for the first point. 
+		 * @param {number} x2 The x coordinate for the second point. 
+		 * @param {number} y2 The y coordinate for the second point. 
+		 * @returns {number} Distance in coordinate units.
 		 */
         export function distance(x1: number, y1: number, x2: number, y2: number): number;
         
 		/**
-		 * Shows the midpoint for the application
-		 * @param {number} x1 - 
-		 * @param {number} y1 - 
-		 * @param {number} x2 - 
-		 * @param {number} y2 - 
-		 * @return {point} a midpoint
+		 * Computes the midpoint of two points.
+		 * @param {number} x1 The x coordinate for the first point.
+		 * @param {number} y1 The y coordinate for the first point. 
+		 * @param {number} x2 The x coordinate for the second point. 
+		 * @param {number} y2 The y coordinate for the second point. 
+		 * @return {point} Midpoint point.
 		 */
 		export function midpoint(x1: number, y1: number, x2: number, y2: number): point;
     }
     
 	/** 
-	* @module my/geometry 
-	*/
+	 * Exposes static functions related to the Spherical Mercator projection.
+	 * @module sphericalMercator 
+	 */
     export module sphericalMercator {
         
 		/**
-		 * Static function. Returns the Epsg number for the Spherical Mercator
-		 * @return {number} an integer
+		 * Gets the EPSG number for Spherical Mercator.
+		 * @return {number} ESPG number.
 		 */
 		export function getEpsg(): number;
 		
 		/** 
-		 * Static function. Returns the minimum zoom level for this projection.
-		 * @returns {number} an integer
+		 * Gets the minimum zoom level for this projection.
+		 * @returns {number} Minimum zoom level.
 		 */
         export function getMinZoomLevel(): number;
 		
 		/**
-		 * Static function. Override the minimum zoom level used by this projection. Normally this is set to 1.0 and should not need to be altered.
-		 * @param {number} minZ - minimum zoom level as numeric
+		 * Sets the minimum zoom level for this projection. Normally this is 
+		 * set to 1.0 and should not be altered.
+		 * @param {number} minZ Desired minimum zoom level.
 		 */
         export function setMinZoomLevel(minZ: number): void;
 		
 		/**
-		 * Static function. Return the maximum zoom level for this projection.
-		 * @returns {number} an integer
+		 * Gets the maxmimum zoom level for this projection.
+		 * @returns {number} Maximum zoom level.
 		 */
         export function getMaxZoomLevel(): number;
 		
 		/**
-		 * Static function. Override the maximum zoom level used by this projection. Normally set to 20.0 and should not need to be altered.
-		 * @param {number} maxZ1 - maximum zoom level as numeric
+		 * Sets the maximum zoom level for this projection. Normally this is 
+		 * set to 20.0 and should not be altered.
+		 * @param {number} maxZ1 Desired maximum zoom level.
 		 */
         export function setMaxZoomLevel(maxZ: number): void;
 		
 		/**
-		 * Static function. Returns tile width or height in pixels
-		 * @returns {number} an integer
+		 * Gets the tile height and width in pixels.
+		 * @returns {number} The height and width of the tiles in pixels.
 		 */
         export function getTileSizePix(): number;
 		
 		/**
-		 * Static function. Returns display dpi (defaults to 96). The dpi is recomputer on page load complete.
-		 * @returns {number} an integer
+		 * Gets the display DPI, which defaults to 96. Note: The dpi is 
+		 * recomputed on page load complete.
+		 * @returns {number} Dots per inch on display.
 		 */
         export function getDpi(): number;
 		
 		/**
-		 * Static function. Override the display dpi (defaults to 96). The dpi is recomputed on page load complete.
-		 * @param {number} dpi - dots per inch on display
+		 * Set the display DPI, which defaults to 96. Note: The DPI is 
+		 * recomputed on page load complete.
+		 * @param {number} dpi Dots per inch on display.
 		 */
         export function setDpi(dpi: number): void;
 		
 		/**
-		 * Static function. Return the radius polar and equitorial in meters for this projection.
-		 * @returns {number} a numeric
+		 * Return the equitorial radius in meters for this projection.
+		 * @returns {number} Equitorial radius in meters.
 		 */
         export function getRadius(): number;
 		
 		/**
-		 * Static function. Returns circumference polar and equitorial in meters for this projection
-		 * @returns {number} a numeric
+		 * Returns equitorial circumference in meters for this projection
+		 * @returns {number} Equitorial circumference in meters.
 		 */
         export function getCircumference(): number;
 		
 		/**
-		 * TODO
- 		 */
+		 * Returns half the equitorial circumference in meters for this projection
+		 * @returns {number} Half of the equitorial circumference in meters.
+		 */
         export function getHalfCircumference(): number;
 		
 		/**
-		 *Static function. Get the envelope in map units for a given quadtree node (tile) based on x,y,z in the QuadTree
-		 * @param {number} x - x position
-		 * @param {number} y - y position
-		 * @param {number} z - z position
-		 * @returns {envelope} an envelope
+		 * Get the envelope in map units for a given quadtree node, i.e. tile,
+		 * based on the given x, y, and z quadtree coordinates.
+		 * @param {number} x The x coordinate.
+		 * @param {number} y The y coordinate.
+		 * @param {number} z The z coordinate.
+		 * @returns {envelope} Envelope of the tile in map units.
 		 */
         export function getQuadTreeNodeToMapEnvelope(x: number, y: number, z: number): envelope;
         
 		/**
-		 * Static function. Gets envelope (x,y array) of tile positions (indices) in QuadTree from an evelope in map units and zoom level.
-		 * @param {envelope} env - an envelope in map units
-		 * @param {number} z - zoom level
-		 * @returns {envelope} an evelope
+		 * Gets the envelope in map units of tiles in the quadtree from an 
+		 * evelope in map units and a zoom level.
+		 * @param {envelope} env Envelope for which to find intersecting tiles.
+		 * @param {number} z Zoom level with which to test for intersection.
+		 * @returns {envelope} The envelope in map units of the tiles.
 		 */
 		export function getQuadTreeNodeRangeFromEnvelope(env: envelope, z: number): envelope;
         
 		/**
-		 * Static function. Gets projected map units per pixel for a given zoom level.
-		 * @param {number} zoomLevel - zoom level
-		 * @returns {number} float
+		 * Gets projected map units per pixel for a given zoom level.
+		 * @param {number} zoomLevel Reference zoom level.
+		 * @returns {number} Projection units per pixel.
 		 */
 		export function getProjectionUnitsPerPixel(zoomLevel: number): number;
         
 		/** 
-		 * Returns a scale transform to apply to shapes so distance and are computations will be actual Earth-geodesic units instead of projected map units.
-		 * @param {number} mapPtY - location where computation is made (latitude is used)
-		 * @returns {number} float
+		 * Gets the required scale transform to apply to shapes so distance 
+		 * and area computations yield actual Earth-geodesic units instead of 
+		 * projected map units.
+		 * @param {number} mapPtY Reference latitude for the computation.
+		 * @returns {number} Scale transform multiplier.
 		 */
 		export function getActualShapeScaleTransform(mapPtY: number): number;
         
 		/**
-		 * Static function. Gets actual physical (on the ground) meters per pixel for a given zoom level and map point in map units.
-		 * @param {point} mapPt - location where computation is made (latitude is used)
-		 * @param {number} z - zoom level
-		 * @returns {number} float
+		 * Gets actual, on-the-ground meters per pixel for a given zoom level 
+		 * and map point in map units.
+		 * @param {point} mapPt Reference location for the computation.
+		 * @param {number} z Reference zoom level.
+		 * @returns {number} Meters per pixel multiplier.
 		 */
 		export function getActualUnitsPerPixel(mapPt: point, zoomLevel: number): number;
         
 		/**
-		 * Static function. Gets the zoom level based on a supplied envelope in map and device units.
-		 * @param {envelope} envelopeMap - envelope in map units
-		 * @param {envelope} evelopeDevice - envelope in device units
-		 * @returns {number} numeric best fit zoom level
+		 * Gets the optimal zoom level for a given envelope in map units 
+		 * based on the envelope of visible device area in pixels.
+		 * @param {envelope} envelopeMap Envelope in map units to display.
+		 * @param {envelope} envelopeDevice Envelope in pixels of visible area.
+		 * @returns {number} Optimal zoom level for viewing envelopeMap.
 		 */
 		export function getBestFitZoomLevelByExtents(envelopeMap: envelope, envelopeDevice: envelope): number;
         
 		/**
-		 * Static function. Gets a quad-key from an x,y,z QuadTree node.
-		 * @param {number} x - x location
-		 * @param {number} y - y location
-		 * @param {number} z - z location
-		 * @returns {string} string quad-key
+		 * Gets a quad-key from x, y, and z coordinates.
+		 * @param {number} x The x coordinate.
+		 * @param {number} y The y coordinate.
+		 * @param {number} z The z coordinate.
+		 * @returns {string} Quad-key string.
 		 */
 		export function getQuadKeyFromXYZ(x: number, y: number, z: number): string;
         
 		/**
-		* Static function. Gets x,y,z QuadTree node from a quad-key
-		* @param {string} key - quad-key
-		* @return {object} associative array of x,y,z QuadTree node
-		*/
+		 * Gets x, y, and z coordinates as an object from a given quad-key.
+		 * @param {string} key Reference quad-key.
+		 * @return {object} JavaScript object of the form {x,y,z}.
+		 */
 		export function getXYZFromQuadKey(key: string): { x: number; y: number; z: number; };
         
 		/**
-		 * Static function. Project a lon/lat point to a Spherical Mercator point
-		 * @param {point} lonLat - point where x-coord is lon and y-coord is lat
-		 * @returns a point
+		 * Project a point from latitude/longitude to Spherical Mercator.
+		 * @param {point} lonLat Point object in latitude/longitude. 
+		 * @returns {point} The same point in Spherical Mercator.
 		 */
 		export function projectFromLatLon(lonLat: point): point;
 		
 		/**
-		 * Static function. De-project a Spherical Mercator point to a lat-lon.
-		 * @param {point} mapPt - point in Spherical Mercator
-		 * @returns {point} point where x-coord is lon and y-coord is lat
+		 * Project a point from Spherical Mercator to latitude/longitude.
+		 * @param {point} mapPt Point object in Spherical Mercator.
+		 * @returns {point} The same point in latitude/longitude.
 		 */
         export function deprojectToLatLon(mapPt: point): point;
     }
-    
 
 	/**
-	 * Contructor creates a styled geometry from the provided geometry. This is an
-	 * adornment pattern to add rendering style to raw geometry.
-	 * This is a desc of styledGeometry export class.
-	 * @class <styledGeometry>
-	 * @classdesc This is a description of the styledGeometry class.
-	 * @param {geometry} geometry - the geometry to adorn
-	 * @param {geometry} geometryStyle - an optional geometryStyle
-	 * @returns {point} a point to add
+	 * A geometry object decorated with a geometry style object
+	 * @class styledGeometry
 	 */
     export class styledGeometry {
         constructor(geom: geometry, gStyle: geometryStyle);
 		
 		/**
-		 * Set internal geometryStyle for this styledGeometry. This overrides what was passed in as second constructor param
-		 * @param {geometryStyle} gs - new styledGeometry
+		 * Set this styledGeometry's geometryStyle.
+		 * @param {geometryStyle} gs A new styledGeometry.
 		 */
         setGeometryStyle(gs: geometryStyle): void;
 		
 		/**
-		 * Gets underlying geometry instance passed in.
-		 * @returns a geometry
+		 * Gets the styledGeometry's underlying geometry object.
+		 * @returns {geometry} The underlying geometry.
 		 */
         getGeometry(): geometry;
 		
 		/**
 		 * Gets path outline thickness in pixels.
-		 * @returns {number} thickness as numeric
+		 * @returns {number} Thickness in pixels.
 		 */
         getOutlineThicknessPix(): number;
 		
 		/**
 		 * Sets path outline thickness in pixels.
-		 * @param {number} t - thickness as numeric
+		 * @param {number} t Thickness in pixels.
 		 */
         setOutlineThicknessPix(t: number): void;
 		
 		/**
-		 * Gets path outline color as css style string.
-		 * @returns {string} an outline color as a string
+		 * Gets path outline color as a CSS style string.
+		 * @returns {string} Outline color as a CSS style string.
 		 */
         getOutlineColor(): string;
 		
 		/**
-		 * Sets path outline color as css style string
-		 * @param {string} c - outline color as a string
+		 * Gets path outline opacity in decimal format.
+		 * @returns {number} Outline opacity.
 		 */
         setOutlineColor(c: string): void;
 		
 		/**
-		 * Gets path outline opacity from 0 to 1
-		 * @returns {number} an outline opacity as numeric
+		 * Gets path outline opacity in decimal format.
+		 * @returns {number} Outline opacity.
 		 */
         getOutlineOpacity(): number;
 		
 		/**
-		 * Sets path outline opacity from 0 to 1
-		 * @param {number} o - outline color as string
+		 * Set path outline opacity to a decimal between 0 and 1.
+		 * @param {number} o Outline opacity.
 		 */
         setOutlineOpacity(o: number): void;
 		
-		/** 
-		 * Gets path fill color as css style string
-		 * @returns {string} a fill color as a string
+		/**
+		 * Gets fill color as a CSS style string.
+		 * @returns {string} Fill color as a CSS style string.
 		 */
         getFillColor(): string;
 		
 		/**
-		 * Sets path fill color as css style string
-		 * @param {string} c - fill color as a string
+		 * Sets fill color as a CSS style string.
+		 * @param {string} c Fill color as a CSS style string.
 		 */
-        setFillColor(t: string): void;
+        setFillColor(c: string): void;
 		
 		/**
-		 * Gets path fill opacity from 0 to 1
-		 * @returns {number} a fill opacity as numeric
+		 * Gets fill opacity in decimal format.
+		 * @returns {number} Fill opacity.
 		 */
         getFillOpacity(): number;
 		
 		/**
-		 * Sets path fill opacity from 0 to 1
-		 * @param {number} o - fill opacity as numeric
+		 * Sets fill opacity to a decimal between 0 and 1.
+		 * @param {number} o Fill opacity.
 		 */
         setFillOpacity(o: number): void;
 		
 		/**
-		 * Gets dash array string for path
-		 * @returns {string} a dash array as a string (defaults to null [solid stroke])
+		 * Gets the dash array as a string.
+		 * @returns {string} Dash array as astring.
 		 */
         getDashArray(): string;
 		
 		/**
-		 * Sets dash array string for path
-		 * @param {string} da - CSS dash array as a string
+		 * Sets dash array string from a CSS style string. Defaults to solid
+		 * stroke if no dash array string is provided.
+		 * @param {string} [da] Dash array as a CSS style string.
 		 */
-        setDashArray(t: string): void;
+        setDashArray(da: string): void;
 		
 		/**
-		 * Gets optional animation function called when SVG node is created. You can use the loopback parameter on complete to call itself and create repeating animation.
-		 * @returns {action} in the form function (pathElement, loopback) {}
+		 * Gets optional animation function called when SVG node is created.
+		 * @returns {function} Function with the signature animation(pathElement, loopback).
 		 */
         getAnimation(): (pathElement: HTMLElement, loopback: () => void) => void;
 		
 		/**
-		 * Sets optional animation function called when SVG nod is created. You can use loopback param on complete to call itself and create repeating animation.
-		 * @param {function} a - in the form function (pathElement, loopback) {}
+		 * You can use the loopback parameter on complete to call itself and 
+		 * create repeating animation.
+		 * @param {function} Function with the signature animation(pathElement, loopback).
 		 */
-        setAnimation(any): void;
+        setAnimation((pathElement: HTMLElement, loopback: () => void) => void): void;
 		
 		/**
-		 * Renders this to a canvas context. Note we attach original geometry bounds to svg doc as an expando.
-		 * @param {string} key - key to track svg DOM element
-		 * @param {number} mupp - map units per pixel to create SVG element
-		 * @returns {HTMLElement} a new SVG document root
+		 * Renders this geometry as an SVG path. Note: We attach original
+		 * geometry bounds to svg doc as an expando.
+		 * @param {string} key Identifer to keep track of the SVG DOM element.
+		 * @param {number} mupp Map units per pixel with which to create the SVG element.
+		 * @returns {HTMLElement} A new SVG document root.
 		 */
         createSvgPathElement(key: string, mapUnitsPerPix: number): HTMLElement;
 		
 		/** 
 		 * Renders this to a canvas context.
-		 * @param {CanvasRenderingContext2D} ctx - canvas context to render to
+		 * @param {CanvasRenderingContext2D} ctx Canvas context to which to render.
 		 */
         renderPathToCanvasContext(ctx: CanvasRenderingContext2D): void;
     }
 	
     /**
-	 * Durandal's version.
-	 * @returns {string}
+	 * The mapjs version.
 	 */
     export var version: string;
 
 	/** 
-	* @module my/wkt 
-	*/
+	 * Exposes static functions for working with well known text.
+	 * @module wkt 
+	 */
     export module wkt {
         
 		/**
-		 * Parses wkt as a point.
-		 * @param {string} w - wkt string
-		 * @returns {point} a point
+		 * Parses WKT as a point.
+		 * @param {string} w A WKT string.
+		 * @returns {point} The parsed point.
 		 */
 		export function parsePoint(wkt: string): point;
 		
 		/**
-		 * Parses as a multipoint.
-		 * @param [string} w - wkt string
-		 * @retuns {geometry} geometry holding the set of points
+		 * Parses WKT as a multipoint.
+		 * @param [string} w A WKT string.
+		 * @retuns {geometry} The parsed multipoint geometry.
 		 */
         export function parseMultiPoint(wkt: string): geometry;
 		
 		/**
-		 * Parses wkt as a linestring.
-		 * @param {string} w - wkt string
-		 * @returns {geometry} geometry holding the path
+		 * Parses WKT as an open path geometry with a single set.
+		 * @param {string} w A WKT string.
+		 * @returns {geometry} The parsed open path geometry.
 		 */
         export function parseLineString(wkt: string): geometry;
 		
 		/**
-		 * Parses wkt as a multilinestring
-		 * @param {string} w - wkt string
-		 * @returns {geometry} geometry holding set of paths
+		 * Parses WKT as an open path geometry with multiple sets.
+		 * @param {string} w A WKT string.
+		 * @returns {geometry} The parsed open path geometry.
 		 */
         export function parseMultiLineString(wkt: string): geometry;
 		
 		/**
-		 * Parses wkt as a polygon
-		 * @param {string} w - wkt string
-		 * @returns {geometry} geometry holding one or more closed paths (first is outer ring
-		 * and optional subsequent closed paths are inner rings [holes]).
+		 * Parses WKT as a closed path geometry with a single set.
+		 * @param {string} w A WKT string.
+		 * @returns {geometry} The parsed closed path geometry.
 		 */
         export function parsePolygon(wkt: string): geometry;
 		
 		/**
-		 * Parses wkt as a mulitpolygon.
-		 * @param {string} w - wkt string
-		 * @returns {geometry} geometry where each polygon is added as a collection of sets (ring/holes)
-		 * so the multipolygon is flattened into a single multi-ring polygon.
+		 * Parses WKT as a closed path geometry with multiple sets.
+		 * @param {string} w A WKT string.
+		 * @returns {geometry} The parsed closed path geometry.
 		 */
 		export function parseMultiPolygon(wkt: string): geometry;
 		
-		
-        export function toMultiPolygonString(polys: geometry.polygon[]): string;
-        
 		/**
-		 * Parses wkt and determines type from the string.
-		 * @param {string} w - wkt string
-		 * @@returns {geometry} point (for point) or geometry for everything else (multipolygon
-		   is an array of geometry.)
+		 * Parses WKT as a geometry and determines its type from the string.
+		 * @param {string} w The WKT string.
+		 * @returns {any} The parsed shape, a point, geometry, or an array of
+		 * polygons depending on the WKT.
 		 */
 		export function parse(wkt: string): any;
+
+		/**
+		 * Converts an array of polygons to an OGC compliant multipolygon WKT string.
+		 * @param {polygon[]} polys Set of polygons to parse into WKT.
+		 * @returns {geometry} The OGC compliant WKT for the polygons.
+		 */
+        export function toMultiPolygonString(polys: geometry.polygon[]): string;
     }
     
 	/** 
-	* @module my/geometry 
-	*/
+	 * Exposes various tile-related constructors, including layers, descriptors,
+	 * and requestors.
+	 * @module tile
+	 */
     export module tile {
         
 		/**
 		 * A tile layer is a view on the map containing an array of rectangular content.
-		 * This is a desc of layer export class.
-	     * @class <layer>
-	     * @classdesc This is a description of the layer class.
+	     * @class layer
 	     */
         export class layer {
             constructor(id: string, useBackdrop?: boolean, maxConcurrentRequests?: number);
@@ -1064,161 +1096,179 @@ declare module 'mapsjs' {
 			/**
 			 * @param {number} m - number for margin in pixels
 			 */
-			setContentExtentsMarginInPixels(m: number): void;
+			// setContentExtentsMarginInPixels(m: number): void;
             
 			/**
-			 * Gets ID associated with this tile.layer.
-			 * @returns {string} a string
+			 * Gets ID associated with this tile layer.
+			 * @returns {string} ID of the layer.
 			 */
 			getId(): string;
 			
 			/**
-			 * Returns true if this tile.layer uses a backdrop.
-			 * @returns {boolean} a boolean
+			 * Determines whether this tile layer uses a backdrop.
+			 * @returns {boolean} Whether or not the layer uses a backdrop.
 			 */
             getUseBackdrop(): boolean;
 			
 			/**
-			 * Returns descriptor which describes how requested content is rendered or styled.
-			 * @returns {function} an object that depends on the type of tile requestor associated with this tile layer.
+			 * Returns the tile layer's descriptor, which describes how 
+			 * requested content is rendered or styled.
+			 * @returns {object} The tile layer's descriptor.
 			 */
             getDescriptor(): any;
 			
 			/**
-			 * Sets descriptor which describes how requested content is rendered or styled.
-			 * @param {function} d - an object that depends on type of tile requestor associated with this tile layer.
+			 * Sets the tile layer's descriptor, which describes how requested
+			 * content is rendered or styled.
+			 * @param {function} d A descriptor for this tile layer.
 			 */
             setDescriptor(d: any): void;
 			
-			
+			/**
+			 * Notifies the tile layer to check for changes to its descriptor.
+			 */
             notifyDescriptorChange(): void;
 			
 			/**
-			 * Returns requestor which defines what kind of content to get and where to get it.
-			 * @returns {tile.requestor} a boolean
+			 * Returns this tile layer's requestor which defines what kind of 
+			 * content to get and where to get it.
+			 * @returns {requestor} This tile layer's requestor.
 			 */
             getRequestor(): tile.requestor;
 			
 			/**
-			 * Sets requestor which defines what kind of content to get and where to get it.
-			 * @param {tile.requestor} req - an instance that extends tile requestor
-			 * @param {tile.requestor} opd - an optional descriptor so that both can be set in one call and incur only one content change event.
-            */			 
+			 * Sets this tile layer's requestor, which defines what kind of
+			 * content to get and where to get it.
+			 * @param {tile.requestor} req A requestor object.
+			 * @param {tile.requestor} [desc] Descriptor object so that both
+			 * can be set in one call and incur only one content change event.
+             */			 
             setRequestor(req: tile.requestor, desc?: any): void;
 			
 			/**
-			 * Returns optional renderer which defines how geometry data for a quadView is rendered.
-			 * @returns {tile.renderer} an object
+			 * Returns this tile layer's renderer if it exists, which defines 
+			 * how geometry data for a quadView is rendered.
+			 * @returns {renderer} The renderer object.
 			 */
             getRenderer(): tile.renderer;
 			
 			/**
-			 * Sets optional renderer which defines how geometry data for quadView is rendered. The renderer delegate (function) takes a single quadView param.
-			 * @param {tile.renderer} r - a function taking a single parameter
+			 * Sets optional renderer which defines how geometry data for 
+			 * quadView is rendered.
+			 * @param {renderer} r The renderer delegate function with 
+			 * signature renderer(quadview).
 			 */
             setRenderer(r: tile.renderer): void;
 			
-			
+			/**
+			 * Notifies the tile layer to check for changes to its renderer.
+			 */
             notifyRendererChange(): void;
 			
 			/**
-			 * Gets visibility state of this tile.layer.
-			 * @returns {boolean} a boolean indicating whether layer is displayed or not
+			 * Gets the visibility state of this tile layer.
+			 * @returns {boolean} Whether or not this layer is visible.
 			 */
             getIsVisible(): boolean;
 			
 			/**
-			 * Sets visibility state of this tile.layer
-			 * @param {boolean} v - boolean indicationg whether the layer is displayed or not
+			 * Sets visibility state of this tile layer.
+			 * @param {boolean} v Whether this layer should be visible or not.
 			 */
             setIsVisible(v: boolean): void;
 			
 			/**
-			 * Gets opacity of this tile.layer.
-			 * @returns {number} 0.0 transparent to 1.0 opaque
+			 * Gets the opacity of this tile layer.
+			 * @returns {number} Opacity as a decimal.
 			 */
             getOpacity(): number;
 			
 			/** 
-			 * Sets opacity of this tile.layer.
-			 * @param {number} o - from 0.0 transparent to 1.0 opaque
+			 * Sets opacity of this tile layer.
+			 * @param {number} o Opacity as a decimal.
 			 */
             setOpacity(o: number): void;
 			
 			/**
-			 * Gets minimum zoom level where this tile.layer is visible.
-			 * @returns {number} zoom level in the range supported by the projection (e.g. 1 to 20)
+			 * Gets minimum zoom level where this tile layer is visible.
+			 * @returns {number} The minimum zoom level.
 			 */
             getMinZoomLevel(): number;
 			
 			/** 
 			 * Sets minimum zoom level where this tile layer is visible.
-			 * @param {number} minZ1 - any zoom level in the range supporeted by the projection (e.g. 1 to 20)
+			 * @param {number} minZ The desired minimum zoom level.
 			 */
             setMinZoomLevel(minZ: number): void;
 			
 			/**
-			 * Gets maximum zoom level where this tile lay is visible.
-			 * @returns {number} zoom level in the range supported by the projection (e.g. 1 to 20)
+			 * Gets maximum zoom level where this tile layer is visible.
+			 * @returns {number} The maximum zoom level.
 			 */
             getMaxZoomLevel(): number;
 			
 			/**
 			 * Sets maximum zoom level where this tile layer is visible.
-			 * @param {number} maxZ1 - any zoom level in the range supported by the projection (e.g. 1 to 20)
+			 * @param {number} maxZ The desired maximum zoom level.
 			 */
             setMaxZoomLevel(maxZ: number): void;
 			
 			/**
-			 * Sets pixel bleed on quadTiles. Defaults to 1. Setting to zero for overlay layers with translucent polygon fills is recommended. Bleed overlap can create faint lines at tile boundries when fill is not opaque.
-			 * @param {number} bleed - number of pixels from 0 to integer > 0
+			 * Sets pixel bleed on quadTiles, which defaults to 1. Setting this 
+			 * to zero for overlay layers with translucent polygon fills is 
+			 * recommended. Bleed overlap can create faint lines at tile 
+			 * boundries when fill is not opaque.
+			 * @param {number} bleed The number of pixels to bleed.
 			 */
             setTileBleedPix(bleed: number): void;
 			
 			/**
-			 * Sets whether or not to retain and display previous level tile content as you
-			 * change tile levels to provide a nice zoom level change effect. Once the next
-			 * level is loaded the old level content is always discarded. Setting this to false
-			 * if there is translucent content to display. Defaults to true (prior to version 9.0.0001
-			 * this value had the same state as useBackdrop.)
-			 * @param {boolean} ret - set to true to retain and false to discard.
+			 * Sets whether or not to retain and display previous level tile 
+			 * content as you change tile levels to provide a nice zoom level 
+			 * change effect. Once the next level is loaded the old level 
+			 * content is always discarded. This should be set to false if there 
+			 * is translucent content to display. Defaults to true (prior to 
+			 * version 9.0.0001 this value had the same state as useBackdrop.)
+			 * @param {boolean} ret Whether or not to retain interlevel content.
 			 */
             setRetainInterlevelContent(retain: boolean): void;
 			
 			/**
-			 * Enables or disables the fad-in on tile content (default is true).
-			 * @param {boolean} fadeInE - boolean to enable or disable fade-in content
+			 * Enables or disables the fade in on tile content, which defaults to enabled.
+			 * @param {boolean} fadeIn Whether or not fade in on tile content 
+			 * should be enabled.
 			 */
             setEnableTileFadeIn(fadeIn: boolean): void;
 			
 			/**
-			 * Set optional function to be called on any tile layer errors.
-			 * @param {function} a - action to call
+			 * Sets the default action to take on error.
+			 * @param {function} action Function to execute on error.
 			 */
             setNotifyErrorAction(action: () => void): void;
 			
 			/** 
-			 * Sets optional function to be called when the tile loading queue for this layer
-			 *has emptied.
-			 * @param {function} a - action to call
+			 * Sets an optional function to be called when the tile loading
+			 * queue for this layer has emptied.
+			 * @param {function} action Callback function.
 			 */
             setNotifyLoadingQueueHasEmptiedAction(action: () => void): void;
 			
 			/**
-			 *Sets optional function to be called by this layer's tile loader during
-			 * processing. The supplied progress function takes tiles loaded and tiles total
-			 * parameters.
-			 * @param {number} tileLoaded 
-			 * @param {number} tileTotal
+			 * Sets the optional function to be called by this layer's tile 
+			 * loader during processing. The supplied progress function takes 
+			 * tiles loaded and tiles total parameters.
+			 * @param {function} action Callback of the signature action(tileLoaded, tilesTotal).
 			 */
-            setNotifyLoadingQueueProgressAction(action: (tileLoaded: number, tilesTotal: number) => void): void;
+            setNotifyLoadingQueueProgressAction(action: (tilesLoaded: number, tilesTotal: number) => void): void;
             
 			/**
-			 * Sets option request processor for this tile layer. This is an advanced
-			 * feature allowing developers to tap into tile request pipeline for purposes
-			 * of customizing requests or manage custom caching. This is also the 
-			 * mechanism used for offline apps with frameworks such as phonegap.
-			 * @param {
+			 * Sets optional request processor for this tile layer. This is 
+			 * an advanced feature allowing developers to tap into tile 
+			 * request pipeline for purposes of customizing requests or manage 
+			 * custom caching. This is also the mechanism used for offline 
+			 * apps with frameworks such as phonegap.
+			 * @param {function} Processor function with signature
+			 * processor(requestor, descriptor, quad, timeoutMs, complete, error)
 			 */
 			setRequestProcessor(processorFunc: (
                 requestor: tile.requestor,
@@ -1227,14 +1277,53 @@ declare module 'mapsjs' {
                 timeoutMs: number,
                 completeAction: (img: HTMLElement) => void,
                 errorAction: (msg: string) => void) => void): void;
+
+			/**
+			 * Instructs the tile loader to populate a specified tile pyramid.
+			 * This is used to fetch content (e.g. bitmap tiles) and preload 
+			 * it into the browser cache.
+			 * @param {envelope} extents Envelope for which to fetch content.
+			 * @param {number} startZoomLevel Minimum zoom level for which to
+			 * fetch content.
+			 * @param {number} endZoomLevel Maximum zoom level for which to 
+			 * fetch content.
+			 */
             preload(extents: envelope, startZoomLevel: number, endZoomLevel: number): void;
-            compose(extentsMapUnits: envelope, ententsDeviceUnits: envelope);
+            
+			/**
+			 * Composes an array of quadtiles with composition information and
+			 * requestor endpoints. This can be used to create static images
+			 * or print-ready versions of this tile layer at arbitrary extents
+			 * (both source and target) For example: If you needed a 5x3 inch 
+			 * 300 dpi output you can specify extents in device units to be
+			 * 1500x900. This function determines the correct zoom level so 
+			 * that the source extents fits in the target extents to the
+			 * nearest integer zoom level.
+			 * @param {envelope} extentsMapUnits Source extents in map units.
+			 * @param {envelope} extentsDeviceUnits Target extents in pixels.
+			 * @returns {object} Composed object in the form 
+			 * {quadCollection, endpointCollection, idxMinX, idxMinY, ulX, ulY }
+			 * where quadCollection is an array of quad objects, endpointCollection
+			 * is an array of REST endpoints from which to obtain the tiled content,
+			 * idxMinX and idxMinY are the minimum x and y tile indicies of the
+			 * collection respectively, and ulX and ulY are the offset in pixels
+			 * of the upper left tile from the upper left target extents.
+			 */
+            compose(extentsMapUnits: envelope, extentsDeviceUnits: envelope): { 
+            	quadCollection: tile.quad[];
+            	endpointCollection: string[];
+            	idxMinX: number;
+            	idxMinY: number;
+            	ulX: number;
+            	ulY: number;
+            };
         }
         
 		/**
-		 * This is a desc of layerOptions export class.
-	     * @class <layerOptions>
-	     * @classdesc This is a description of the layerOptions class.
+		 * A layerOptions object is a method for constructing a tile layer for 
+		 * immediate use, for example by passing it to the jQuery widget or
+		 * in the knockout binding.
+	     * @class layerOptions
 	     */
         export class layerOptions {
             constructor(id: string, options: {
@@ -1256,296 +1345,345 @@ declare module 'mapsjs' {
             });
 			
 			/**
-			 * Returns underlying tile layer.
-			 * @returns {tile.layer} a tile layer
+			 * Returns the underlying tile layer.
+			 * @returns {layer} The underlying tile layer.
 			 */
             getTileLayer(): tile.layer;
 			
 			/**
-			 * Gets ID associated with this tile layerOptions
-			 * @returns {string} a string
+			 * Gets ID associated with the underlying tile layer.
+			 * @returns {string} ID of the layer.
 			 */
             getId(): string;
 			
 			/**
-			 * Gets options associated with this tile layerOptions.
+			 * Gets this layerOptions object as a JavaScript object.
 			 */
-            getOptions(): {};
+            getOptions(): any;
         }
 
+        /**
+    	 * The quad class represents a quad tile within three dimensional
+    	 * coordinate space.
+    	 * @class quad
+		 */
         export class quad {
+
+        	/**
+    		 * Gets the x coodinate of this quad tile.
+    		 * @returns {number} The x coordinate of this quad tile.
+    		 */
             getX(): number;
+
+            /** 
+             * Gets the y coordinate of this quad tile.
+             * @returns {number} The y coordinate of this quad tile.
+         	 */
             getY(): number;
+
+            /**
+             * Gets the z coordinate of this quad tile, or depth.
+             * @returns {number} The z coordinate of this quad tile.
+             */
             getLevel(): number;
+
+            /**
+             * Gets the envelope in map units which encompasses this quad tile.
+             * @returns {envelope} The encompassing envelope of this quad tile.
+             */
             getEnvelope(): envelope;
+
+            /**
+             * Gets the string representation of this quad tile as a quad key.
+             * @returns {string} Quad key for this quad tile as a string.
+             */
             toString(): string;
+
+            /**
+             * Gets the quad key for this quad tile as a string.
+             * @returns {string} Quad key for this quad tile as a string.
+             */
             getKey(): string;
+
+            /** 
+             * Compares this quad tile with another quad tile and determines
+             * whether or not they are equal.
+             * @param {quad} Quad tile with which to check for equality with this quad tile.
+             * @returns {boolean} Result of the equality test.
+             */
             equals(q: quad): boolean;
+
+            /**
+             * Generates the quad tile which is a given number of levels above
+             * this tile in the pyramid and in which this quad tile is contained.
+             * @param {number} ancestorsBack Number of levels above this tile the
+             * generated tile should be.
+             * @returns {quad} The generated parent tile.
+             */
             factoryParent(ancestorsBack: number): quad;
         }
         
 		/**
-		 * @module my/geometry 
+		 * Exposes static functions for generating and handling quad tiles.
+		 * @module quad 
 		 */
         export module quad {
+
+        	/**
+        	 * Generates a new quad tile based on a given quad key.
+        	 * @param {string} key The quad key from which to generate the quad tile.
+        	 * @returns The generated quad tile.
+        	 */
             export function factoryQuadFromKey(key: string): quad;
         }
+
         /**
 		 * A tile renderer handles converting JSON vector content loaded from the
 		 * MapDotNet REST feature service into a canvas rendering on a tile.
-		 * This is a desc of renderer export class.
-	     * @class <renderer>
-	     * @classdesc This is a description of the renderer class.
+	     * @class renderer
 		 */
         export class renderer {
             constructor(options? : {
-			
-			   
                 renderPoint?: (pt: point, context: CanvasRenderingContext2D) => void;
-				
-				
-				 
-                renderGeometry?: (shape: geometry, context: CanvasRenderingContext2D) => void;
-                
-				
-				renderBitmap?: (img: HTMLElement, context: CanvasRenderingContext2D, contextSize: number, bleed: number) => void;
+				renderGeometry?: (shape: geometry, context: CanvasRenderingContext2D) => void;
+                renderBitmap?: (img: HTMLElement, context: CanvasRenderingContext2D, contextSize: number, bleed: number) => void;
             });
 			
 			/**
-			 * Sets render point function which takes a point and canvas context. The 
-			 *points passed in are transformed to pixel units and offset to context origin.
-			 * @param {function} a - function of the form myPointRenderer (shape, context)
-			 * @param {point} pt - shape of type point
-			 * @param {CanvasRenderingContext2D} context - context is canvas context
-			 * @param {number} context - context size in pixels (e.g. 256)
+			 * Sets the render point function which takes a point and canvas 
+			 * context and renders the point to the canvas. The points passed 
+			 * in are transformed to pixel units and offset to context origin.
+			 * @param {function} func Function of the form func(shape, context)
+			 * where shape is the point object to be rendered and context is the 
+			 * canvas context on which to render.
 			 */
             setRenderPoint(func: (pt: point, context: CanvasRenderingContext2D) => void): void ;
             
 			/**
-			 * Sets render geometry function which takes a geometry and canvas context.
-			 * The geometries passed in are transformed to pixel units and offset to the context origin.
-			 * @param {function} a - function of the form myGeomRenderer (shape, context)
-			 * @param {geometry} shape - shape is of type geometry
-			 * @param {CanvasRenderingContext2D} context - context is a canvas context
-			 * @param {number} context - context size in pixels
+			 * Sets render geometry function which takes a geometry and canvas 
+			 * context and renders the geometry to the canvas context. The 
+			 * geometries passed in are transformed to pixel units and offset 
+			 * to the context origin.
+			 * @param {function} func Function with signature func(shape, context)
+			 * where shape is the geometry to render and context is the canvas
+			 * context on which to render.
 			 */
 			setRenderGeometry(func: (shape: geometry, context: CanvasRenderingContext2D) => void): void;
             
 			/**
-			 * Sets the render bitmap function which takes an image, bleed and canvas context.
-			 * @param {function} a - function of the form myBitmapRenderer (imp, context, contextSize, bleed)
-		     * @param {HTMLElement} img - image is of type Image
-			 * @param {CanvasRenderingContext2D} context - context is a canvas context
-			 * @param {number} contextSize - context size in pixels
-			 * @param {number} bleed - bleed is >= 1.0 and represents extra margin around tile to paint
-			 * so no gaps when trimmed
+			 * Sets the render bitmap function which takes a bitmap image and
+			 * a canvas context and renders the image to the canvas context.
+			 * @param {function} func Function with the signature 
+			 * func(img, context, contextSize, bleed) where img is the bitmap
+			 * image to render, context is the canvas context on which to 
+			 * render the image, contextSize is the size of the canvas context
+			 * in pixels and bleed is the margin around each tile to bleed.
 			 */
 			setRenderBitmap(func: (img: HTMLElement, context: CanvasRenderingContext2D, contextSize: number, bleed: number) => void): void;
-
         }
-        
 		
 		/**
-		 * This is a desc of rendererDensityMap export class.
-	     * @class <rendererDensityMap>
-	     * @classdesc This is a description of the rendererDensityMap class.
+		 * An auto-ranging density map renderer.
+	     * @class rendererDensityMap
 	     */
         export class rendererDensityMap {
-            
 			
 			constructor();
             
 			/**
-			 * Sets bleed margin (1.0 = no bleed, > 1.0 for positive bleed). A bleed is
-			 * required as points in adjacent tiles add to the "heat" computation in the tile
-			 * being rendered.
-			 * @param {number} bleed - a numeric > 1.0
+			 * Sets the bleed ratio, which is the sets the percentage of the
+			 * margin around each tile to use in the tile's computation. Note:
+			 * some bleed (i.e., greater than 1) is required since a heat map
+			 * relies on adjacent data.
+			 * @param {number} bleed The desired bleed ratio.
 			 */
 			setBleed(bleed: number): void;
 			
 			/**
-			 * Sets grid width and height in cells.
-			 * @param {number} gridSize - integer (typical values are from 16 to 64)
+			 * Sets the number of rows and columns of cells to be used for 
+			 * computation within the grid.
+			 * @param {number} gridSize Number of rows and columns used in
+			 * the grid.
 			 */
             setGridSize(gridSize: number): void;
 			
 			/**
-			 * Sets filter radius corresponding to one standard deviation.
-			 * @param {number} filterStdDevRadius - integer (typical values are from 2 to 4)
+			 * Sets filter radius corresponding to standard deviations. The
+			 * filter radius is the cutoff point at which adjacent cells no
+			 * longer contribute to a cell's calculation.
+			 * @param {number} filterStdDevRadius Number of standard deviations
+			 * from the mean of a normal distribution to which to give positive 
+			 * weight.
 			 */
             setFilterStdDevRadius(filterStdDevRadius: number): void;
 			
 			/**
-			 * Sets color matrix for renderer.
-			 * @param {number [] []} matrix - array of arrays [ (r,g,b,a) (r,g,b,a)...] from 
-			 * cold to hot (typically about a dozen colors)
+			 * Sets color ranges from cold to hot for the renderer.
+			 * @param {number[][]} matrix Array of arrrays of numbers, each
+			 * of the form [r,g,b,a], where each array represents a color and
+			 * colors range from cold to hot. Note: Typically, a dozen colors
+			 * is sufficient.
 			 */
             setColorMatrix(matrix: number[][]): void;
 			
 			/**
-			 * Sets minimum cell value
-			 * @param {number} mcv - minimum cell value (defaults to 0)
+			 * Sets the minimum required cell value for a cell to receive 
+			 * a color. Default minimum value is 0.
+			 * @param {number} mcv The minimum cell value for painting.
 			 */
             setMinCellValue(min: number): void;
 			
 			/**
-			 * Sets optional row action. This provides a means to creat hot spot maps by
-			 * processing row atrributes instead a density map from counting features.
-			 * @param {action} ra - row action function takes a single parameter (shape with
-			 * an optionally attached fieldValues property). The function returns the value
-		     *to add to the grid cell.
+			 * Sets an optional action to perform on each row. This enables 
+			 * processing the values on one or more columns for each row for
+			 * use in the density map computations.
+			 * @param {action} ra Function to call on each row with signature
+			 * action(row). The value returned from the function will is added
+			 * to the cell's value.
 			 */
-            setRowAction(action: (row: {}) => void): void;
+            setRowAction(action: (row: any) => number): void;
 			
 			/**
-			 * Tells renderer to re-render density map and recompute ranges. This should
-			 * be called if data changes or due to extent changes the density changes.
-			 * @param {}
+			 * Tells renderer to re-render density map and recompute ranges. 
+			 * This should be called if the data changes or if, due to extent
+			 * changes, the density changes.
 			 */
             notifyRecompute(): void;
         }
-        
 		
 		/**
-		 * This is the base class for all requestors.
-		 * This is a desc of requestor export class.
-	     * @class <requestor>
-	     * @classdesc This is a description of the requestor class.
+		 * This is a base requestor class.
+	     * @class requestor
 		 */
         export class requestor {
             
-			/**
-			 * This is the base class constructor for all requestors.
-			 */
 			constructor();
 			
 			/**
-			 * Gets formatted input using the endpoint template and supplied quad tile
-			 * location and descriptor.
-			 * @param {quad} quad - formatted input
-			 * @returns {string} a uri string
+			 * Gets formatted endpoint using the supplied quadtile and a descriptor.
+			 * @param {quad} quad Quadtile for which to fetch the endpoint.
+			 * @returns {string} The requested URI string.
 			 */
             getFormattedEndpoint(quad: quad, descriptor: any): string;
 			
 			/**
-			 * Gets data locally without using remote endpoint if implemented on the
-			 * concrete requestor.
-			 * @param {quad} quad - concrete requestor local data
-			 * @returns {string} a json string
+			 * Gets data locally if the requestor supports it.
+			 * @param {quad} quad Quadtile for which to fetch the endpoint.
+			 * @returns {string} The requested JSON data.
 			 */
             getLocalData(quad: quad, descriptor: any): string;
 			
 			/**
-			 * Creates unique sha1 string from this requestor plus supplied descriptor.
-			 * This is useful in creating a unique key or folder for tile caching. This combined
-			 * with tile's quad-key can uniquely/efficiently ID particular tile.
-			 * @returns {string} a sha1 string
+			 * Creates unique sha1 hash from this requestor and the supplied
+			 * descriptor. This is useful in creating a unique key or folder 
+			 * for tile caching. This combined with a tile's quad-key can 
+			 * efficiently and uniquely identify a particular tile.
+			 * @params {descriptor} The descriptor for which to create the hash.
+			 * @returns {string} The generated sha1 hash.
 			 */
             hash(descriptor: any): string;
 			
 			/**
-			 * Gets whether or not the concrete class returns bitmap image
-			 * @returns {boolean} true (default) if REST service returns an image and false if it is JSON
+			 * Determines whether or not this requestor returns bitmap images.
+			 * @returns {boolean} Whether or not this requestor returns bitmap
+			 * images.
 			 */
             getIsRestImage(): boolean;
 			
 			/**
-			 * Sets whether or not the concrete class returns a bitmap image
-			 * @param {boolean} flag/iri - boolean
+			 * Sets whether this requestor should return bitmap images.
+			 * @param {boolean} flag Whether or not this requestor should return
+			 * bitmap images.
 			 */
             setIsRestImage(flag: boolean): void;
 			
 			/**
-			 * Gets whether or not the concrete class uses an endpoint rathar than local data.
-			 * @returns {boolean} true (default) if this requestor uses an endpoint
+			 * Determines whether or not this requestor uses an endpoint 
+			 * rather than local data.
+			 * @returns {boolean} Whether or not this requestor gets data from
+			 * an endpoint.
 			 */
             getUsesEndpoint(): boolean;
 			
 			/**
-			 * Sets whether or not the concrete class uses an endpoint rather than local data.
-			 * @param {boolean} flag/ue - boolean
+			 * Sets whether or not this requestor uses an endpoint rather than
+			 * local data.
+			 * @param {boolean} Whether or not this requestor should get data
+			 * from an endpoint.
 			 */
             setUsesEndpoint(flag: boolean): void;
 			
 			/**
-			 * Gets format of data returned by REST service
-			 * @returns {string} string specifying data format (default 'json')
+			 * Gets format of data returned by REST service.
+			 * @returns {string} Data format returned by the REST service.
 			 */
             getDataFormat(): string;
 			
 			/**
-			 * Sets format of data returned by REST service
-			 * @param {string} df - data format as string ('json' or 'jsonp')
+			 * Sets format of data that should be returned by REST service.
+			 * @param {string} df Name of the data format the REST service 
+			 * should use.
 			 */
             setDataFormat(df: string): void;
 			
 			/**
-			 * Returns whether or not caching is enabled for vector-based requestors. This 
-			 * value is set on the $.ajax call 'cache' parameter.
-			 * @returns {boolean} true (default) if caching enabled
+			 * Returns whether or not caching is enabled for vector-based 
+			 * requestors. 
+			 * @returns {boolean} Whether or not caching is enabled.
 			 */
             getCacheEnabled(): boolean;
 			
 			/**
-			 * Sets whether or not caching is enabled for vector-beased requestors. This 
-			 * value is set on the $.ajax call 'cache' parameter.
+			 * Sets whether or not caching is enabled for vector-beased requestors. 
 			 * @param {boolean} flagce - true (default) if caching is enabled
 			 */
             setCacheEnabled(flag: boolean): void;
 			
 			/**
-			 * Gets requestor timeout in mS
-			 * @returns {number} an integer
+			 * Gets requestor timeout in miliseconds.
+			 * @returns {number} Requestor timeout in miliseconds.
 			 */
             getTimeoutMs(): number;
 			
 			/**
-			 * Sets requestor timeout in mS
-			 * @param {number} ms - an integer
+			 * Sets requestor timeout in miliseconds.
+			 * @param {number} ms Desired requestor timeout in miliseconds.
 			 */
             setTimeoutMs(ms: number): void;
 			
-			/**
-			 * Gets any key/value pairs attached to ajax call (such as username and password)
-			 * @returns {} [] associative array or null for none
+			/** ???
+			 * Gets the additional 
+			 * @returns {object[]}
 			 */
             getKeyVals(): {}[];
 			
-			
+			/** Set any key/value pairs that are attached to the ajax call (such as username and password)
+			 */
             setKeyVals(options: {}[]): void;
 			
 			/**
-			 * Gets maximum available zoom level content that can be retrieved from
-			 *endpoint this requestor consumes
-			 * @returns {number} a numeric
+			 * Gets maximum available zoom level content that can be retrieved 
+			 * from the endpoint this requestor consumes.
+			 * @returns {number} The maximum available zoom level for this requestor.
 			 */
             getMaxAvailableZoomLevel(): number;
 			
 			/**
-			 * Sets maximum available zoom level content that can be retrieved from
-			 * endpoint this requestor consumes
-			 * @param {number} maz1 - max available zoom level for the concrete requestor
-			 *(defaults to projection's max)
+			 * Sets maximum available zoom level content that can be retrieved
+			 * from the endpoint this requestor consumes. Note: This defaults
+			 * to the projection's maximum available zoom level, which is 20
+			 * in spherical mercator.
+			 * @param {number} max The maximum available zoom level for this requestor.
 		     */
             setMaxAvailableZoomLevel(max: number): void;
         }
+
         /**
 		 * A tile requestor for Microsoft Bing maps.
-		 * This is a desc of requestorBing extends requestor export class.
-	     * @class <requestorBing extends requestor>
-	     * @classdesc This is a description of the requestorBings extends requestor class.
+	     * @class requestorBing
          */
 		export class requestorBing extends requestor {
             
-			/**
-			 * This is the requestorBing constructor.
-			 * @param {function} options - optional associative array of options
-			 * - dataFormat: 'json' or 'jsonp'
-			 * - timeoutMs: timeout in mS
-			 * - maxAvailableZoomLevel: the maximum zoom level in which content is
-			 * available (defaults to projection maxZoomLevel)
-			 * @returns {} a new tile requestorBing
-			 */
 			constructor(options?: {
                 dataFormat?: string;
                 timeoutMs?: number;
@@ -1553,21 +1691,21 @@ declare module 'mapsjs' {
             });
 			
 			/**
-			 * Gets endpoint uri
+			 * Gets the formatted endpoint uri for Bing maps, e.g. 
+			 * ecn.t{0}.tiles.virtualearth.net/tiles/{1}{2}{3}?g={4}&mkt={5}&shading=hill.
 			 * @returns {string} endpoint to Bing tile server as a formatted string
-			 *   (e.g. ecn.t{0}.tiles.virtualearth.net/tiles/{1}{2}{3}?g={4}&mkt={5}&shading=hill)
 		     */
             getEndpoint(): string;
 			
 			/**
-			 * Gets endpoint scheme
-			 * @returns {string} either 'http' or 'https'
+			 * Gets the protocol for the endpoint, either 'http' or 'https'.
+			 * @returns {string} The endpoint protocol.
 			 */
             getScheme(): string;
 			
 			/**
-			 * Sets endpoint scheme
-			 * @param {string} s - either 'http' or 'https'
+			 * Sets endpoint protocol to either 'http' or 'https'.
+			 * @param {string} s Protocol to use in endpoints.
 			 */
             setScheme(s: string): void;
 			
@@ -1584,36 +1722,36 @@ declare module 'mapsjs' {
             setGeneration(g: string): void;
             
 			/**
-			 * Gets provider Market
-			 * @returns {string} the market the tile is rendered for, defaults to 'en-US'
+			 * Gets the language code for which the tiles are rendered. The
+			 * default code is 'en-US'.
+			 * @returns {string} The language code for which tiles are rendered.
 			 */
 			getMarket(): string;
             
 			/**
-			 * Sets provider market
-			 * @param {string} m - market as a string (e.g. 'en-US')
+			 * Sets language code for which to render tiles. For example,
+			 * 'en-US'.
+			 * @param {string} m Language code for which to render tiles.
 			 */
 			setMarket(m: string): void;
             
 			/**
-			 * Gets Bing key
-			 * @returns {string} Bing key as a string
+			 * Gets the Bing key associated with this requestor.
+			 * @returns {string} The Bing key for this requestor.
 			 */
 			getBingKey(): string;
             
 			/**
-			 * Sets Bing key. Then calls Microsoft metadata service to automatically
-			 * configure content endpoint.
-			 * @param {string} key - Bing key as a string
+			 * Sets Bing key which then calls Microsoft metadata service and
+			 * automatically configures content endpoint.
+			 * @param {string} key Bing key.
 			 */
 			setBingKey(key: string): void;
         }
+
         /**
-		 *  This is a set of classes for both bitmap and vector tile requestors 
-		 * and descriptors using MapDotNet REST services.
-		 * This is a desc of requestorMDN extends requestor export class.
-	     * @class <requestorMDN extends requestor>
-	     * @classdesc This is a description of the requestorMDN extends requestor class.
+		 * The bitmap or vector tile requestor using MapDotNet REST services.
+	     * @class requestorMDN
          */
 		export class requestorMDN extends requestor {
             constructor(endpoint: string, options?: {
@@ -1623,264 +1761,265 @@ declare module 'mapsjs' {
             });
             
 			/**
-			 * Gets uri string of MapDotNet REST services
-			 * @returns {string} a string
+			 * Gets uri endpoint for the MapDotNet REST service.
+			 * @returns {string} Uri endpoint for the MapDotNet REST service.
 			 */
 			getEndpoint(): string;
         }
         
 		/**
-		 * This is a desc of descriptorMDNRestMap export class.
-	     * @class <descriptorMDNRestMap>
-	     * @classdesc This is a description of the descriptorMDNRestMap class.
+		 * Creates an instance of a descriptor for describing content from a 
+		 * MapDotNet UX REST map service.
+	     * @class descriptorMDNRestMap
 	     */
         export class descriptorMDNRestMap {
             constructor(mapId: string, options?: {
                 version?: string;
-                
 				imageType?: string;
-                
-				
 				bleedRatio?: number;
-                
-				
 				mapCacheOption?: string;
-                
-				
 				mapCacheName?: string;
-                
-				
 				useQuadKeyForMapCacheName?: boolean;
-                
-				
 				backgroundColorStr?: string;
                 layerVisibility?: {};
                 layerOutline?: {};
                 layerFill?: {};
                 layerWhere?: {};
-                
-				
 				tag?: string;
             });
 
             /**
-			 * Sets suspend descriptor change notifications flag. If set true, all changes to
-			 * this descriptor will not readraw the map, set this to false to re-enable
-			 * notifications. Setting to false will fire a notifyDescriptorChange(). This is used
-			 * to queue multiple changes without having to redraw on each change.
-			 * @param {boolean} flag - boolean (true or false)
+			 * Sets the flag to suspend descriptor change notifications. If 
+			 * set true, all changes to this descriptor will not cause the map
+			 * to redraw. Setting to false will enable redraws and immediately
+			 * force a redraw.
+			 * @param {boolean} flag Whether or not descriptor change notifications
+			 * should be enabled.
 			 */
 			setSuspendDescriptorChangeNotifications(flag: boolean): void;
 			
 			/**
-			 * Gets map id
-			 * @returns {string} a string
+			 * Gets the map ID.
+			 * @returns {string} The map ID.
 			 */
             getMapId(): string;
 			
 			/**
-			 * Gets REST service version
-			 * @returns {string} a string
+			 * Gets the REST service version.
+			 * @returns {string} The REST service version.
 			 */
             getVersion(): string;
 			
 			/**
-			 * Sets flag that replaces map cache name with quad-key
-			 * @param {string} v - version number
+			 * Sets the REST service version.
+			 * @param {string} v The version number.
 			 */
             setVersion(v: string): void;
             
 			/**
-			 * Gets image type string ['png,''png8,''jpg']
-			 * @returns {string} a string
+			 * Gets image type associated with this descriptor, either 'png',
+			 * 'png8', or 'jpg'.
+			 * @returns {string} The image type associated with this descriptor.
 			 */
 			getImageType(): string;
             
 			/**
-			 * Sets the image type string ['png','png8','jpg']
-			 * @param {string} v - image type string
+			 * Gets image type associated with this descriptor to one of 'png',
+			 * 'png8', or 'jpg'.
+			 * @param {string} t The image type associated which should be
+			 * associated with this descriptor.
 			 */
-			setImageType(v: string): void;
+			setImageType(t: string): void;
             
 			/**
-			 * Gets bleed ratio from 1.0 to 2.0. Bleeds greater than 1.0 will fetch content
-			 * beyond the edge of the tile extents (this is useful for point features)
-			 * @returns {number} a numeric from 1.0 to 2.0
+			 * Gets bleed ratio for the layer associated with this descriptor.
+			 * @returns {number} The bleed ratio.
 			 */
 			getBleedRatio(): number;
             
 			/**
-			 * Sets the bleed ratio from 1.0 to 2.0. Bleeds greater than 1.0 will fetch content 
-			 * beyond the edge of the tile extents (this is useful for point features).
-			 * @param {number} br - numeric from 1.0 to 2.0
+			 * Sets the bleed ratio. Bleeds greater than 1.0 will fetch content 
+			 * beyond the edge of the tile extents (this is useful for point 
+			 * features).
+			 * @param {number} br The desired bleed ratio, between 1.0 and 2.0.
 			 */
 			setBleedRatio(br: number): void;
 			
 			/**
-			 * Gets map cache option. Options include
-			 * 'None,''ReadOnly,''ReadWrite,'ForceWrite,''Default.'
-			 * @returns {string} a string
+			 * Gets the map's cache setting, which is one of 'None', 
+			 * 'ReadOnly', 'ReadWrite', 'ForceWrite', and 'Default.'
+			 * @returns {string} The map's cache setting.
 			 */
             getMapCacheOption(): string;
             
 			/**
-			 * Sets the map cache option. Options include 
-			 * 'None','ReadOnly','ReadWrite','ForceWrite','Default'.
-			 * @param {string} mco - string
+			 * Gets the map's cache setting to one of 'None', 
+			 * 'ReadOnly', 'ReadWrite', 'ForceWrite', and 'Default.'
+			 * @param {string} mco The desired cache setting for the map.
 			 */
 			setMapCacheOption(mco: string): void;
             
 			/**
-			 * Gets optional map cache name
-			 * @returns {string} a string
+			 * Gets the optional map cache name.
+			 * @returns {string} The map cache name.
 			 */
 			getMapCacheName(): string;
             
 			/**
-			 * Gets the optional map cache name.
-			 * @param {string} mcn - string
+			 * Sets the optional map cache name.
+			 * @param {string} mcn The desired map cache name.
 			 */
 			setMapCacheName(mcn: string): void;
             
 			/**
-			 * Gets flag that replaces map cache name with quad-key
-			 * @returns {boolean} a boolean
+			 * Determines whether the map is flagged to use the quadkey as its
+			 * map cache name.
+			 * @returns {boolean} Whether or not the map has been flagged to
+			 * use the quadkey as its map cache name.
 			 */
 			getUseQuadKeyForMapCacheName(): boolean;
             
 			/**
-			 * Sets the flag that replaces map cache name with the quad-key.
-			 * @param {boolean} flag - uqmcn = boolean
+			 * Sets the flag that uses the quadkey as its map cache name.
+			 * @param {boolean} flag Whether or not the map should be flagged
+			 * to use the quadkey as its map cache name.
 			 */
 			setUseQuadKeyForMapCacheName(flag: boolean): void;
             
 			/**
-			 * Gets map image background color
-			 * @returns {string} a string
+			 * Gets map image background color.
+			 * @returns {string} CSS style string for the map image background color.
 			 */
 			getBackgroundColorStr(): string;
             
 			/**
-			 * Sets the map image background color
-			 * @param {number} a - alpha byte
-			 * @param {number} r - red byte
-			 * @param {number} g - green byte
-			 * @param {number} b - blue byte
+			 * Sets the map image background color.
+			 * @param {number} a Alpha level.
+			 * @param {number} r Red level.
+			 * @param {number} g Green level.
+			 * @param {number} b Blue level.
 			 */
 			setBackgroundColor(a: number, r: number, g:number, b:number): void;
             
 			/**
-			 * Gets a boolean indicating whether or not the background is transparent.
-			 * @returns {boolean} a boolean
+			 * Checks whether or not the map background is transparent.
+			 * @returns {boolean} Whether or not the map background is transparent.
 			 */
 			getIsBackgroundTransparent(): boolean;
             
 			/**
-			 * Set layer visibility by layer Id and boolean. These are MapDotNet map layer 
-			 * Ids, not tile layer
-			 * @param {string} layerId - string Id
-			 * @param {boolean} isVisible - boolean
+			 * Sets a layer's visibility.
+			 * @param {string} layerId The MapDotNet map layer ID.
+			 * @param {boolean} isVisible Whether or not the layer should be visible.
 			 */
 			setLayerVisibility(layerId: string, isVisible: boolean): void;
             
 			/**
-			 * Get layer visibility by layer Id.
-			 * @param {string} layerId - string
-			 * @returns {boolean} true if specified layer is visible, otherwise false.
+			 * Gets a layer's visibility.
+			 * @param {string} layerId The MapDotNet map layer ID.
+			 * @returns {boolean} Whether or not the layer is visible.
 			 */
 			getLayerVisibility(layerId: string): boolean;
             
 			/**
-			 * Set layer outline pen by layer id, pen color and thickness.
-			 * @param {string} layerId - the layer Id to affect style
-			 * @param {number} a - alpha byte
-			 * @param {number} r - red byte
-			 * @param {number} g - green byte
-			 * @param {number} b - blue byte
-			 * @param {number} thk - thickness in pixels
+			 * Sets a layer's outline color and thickness.
+			 * @param {string} layerId The MapDotNet map layer ID.
+			 * @param {number} a Alpha level.
+			 * @param {number} r Red level.
+			 * @param {number} g Green level.
+			 * @param {number} b Blue level.
+			 * @param {number} thk Outline thickness in pixels.
 			 */
 			setLayerOutline(layerId: string, a: number, r: number, g: number, b: number, thk: number): void;
             
 			/**
-			 * Get layer outline pen by layer id.
-			 * @param {string} layerId - the layer Id to query
-			 8 @returns {string|thickness|number} associative array [color: cStr, thickness:thk}
+			 * Gets a layer's outline color and thickness.
+			 * @param {string} layerId The MapDotNet map layer ID.
+			 * @returns {object} JavaScript object of the form {color, thickness}
+			 * where color is the CSS style string of the outline color and 
+			 * thickness is the outline thickness in pixels.
 			 */
 			getLayerOutline(layerId: string): { color: string; thickness: number; };
             
 			/**
-			 * Set layer fill by layer id and fill color as an ARGB value
-			 * @param {string} layerId - the layer Id to affect style
-             * @param {number} a - alpha byte
-             * @param {number} r - red byte
-             * @param {number} g - green byte
-             * @param {number} b - blue byte
+			 * Sets a layer's fill color.
+			 * @param {string} layerId The MapDotNet map layer ID.
+             * @param {number} a Alpha level.
+             * @param {number} r Red level.
+             * @param {number} g Green level.
+             * @param {number} b Blue level.
 			 */
 			setLayerFill(layerId: string, a: number, r: number, g: number, b: number): void;
             
 			/**
-			 * Set layer fill by layer id and fill color as an expression.
-			 * @param {string} layerId - the layer Id to affect style
-             * @param {string} exp - SQL expression to select for color
+			 * Sets a layer's fill color as a SQL expression.
+			 * @param {string} layerId The MapDotNet map layer ID.
+             * @param {string} exp The SQL expression to select a row's fill color.
              */
 			setLayerFillAsExpression(layerId: string, exp: string): void;
             
 			/**
-			 * Gets layer fill as a css color string or SQL expression, by layer id.
-			 * @param {string} layerId	- the layer Id to query
-			 * @returns {string} a string
+			 * Gets a layer's fill color as a CSS style string or as a SQL expression.
+			 * @param {string} layerId The MapDotNet map layer ID.
+			 * @returns {string} Either the CSS style string or the SQL expression,
+			 * according to how the layer's fill color was set.
              */
 			getLayerFill(layerId: string): string;
             
 			/**
-			 * Set a layer where clause.
-			 * @param {string} layerId	- the layer Id
-             * @param {string} where -	the where clause
-             * @param {boolean} merge -	optional boolean, false to replace any existing where 
-             *clause defined in the map layer (default) or true to 
-             *merge (AND) with any existing
+			 * Add or replace the where clause for a layer. The where clause
+			 * is a SQL expression used to filter rows.
+			 * @param {string} layerId The MapDotNet map layer ID.
+             * @param {string} where The desired SQL where expression.
+             * @param {boolean} [merge] Whether to merge the new where clause
+             * with the existing where clause using a SQL AND or to replace
+             * the existing where clause with the new one. Defaults to true (merge).
 			 */
 			setLayerWhere(layerId: string, where: string, merge: boolean): void;
             
 			/**
-			 * Set a separator for the layer where clause query string value. Default is ',' so 
-			 * this is useful if using an IN clause.
-			 * @param {string} sep - separator, should be a single character
+			 * Sets a separator character for the layer where clause expression
+			 * in the query string. This is set to ',' by default, which is 
+			 * consistent with SQL.
+			 * @param {string} sep The desired seperator, which should be a 
+			 * single character.
 			 */
 			setLayerWhereSep(sep: string): void;
             
 			/**
-			 * Returns a separator for the layer where clause query string value.
-			 * @returns {string} separator, should be a single character
+			 * Returns the current separator for the layer where clause in the
+			 * query string. 
+			 * @returns {string} The current seperator.
 			 */
 			getLayerWhereSep(): string;
             
 			/**
-			 * Gets layer where clause if explicitly set
-			 * @param {string} layerId - the layer Id to query
-			 * @returns {string} a string where clause
+			 * Gets the current layer where clause.
+			 * @param {string} layerId The MapDotNet map layer ID.
+			 * @returns {string} The current where clause. If no where clause
+			 * is in use, this will return an empty string.
 			 */
 			getLayerWhere(layerId: string): string;
             
 			/**
-			 * Gets tag used to modify request URLs to avoid browser caching
-			 * @returns {string} a string
+			 * Gets a tag which is used to modify the request URIs to avoid 
+			 * browser caching
+			 * @returns {string} The map's tag.
 			 */
 			getTag(): string;
             
 			/**
-			 * Sets a tag, typically the map tag. Non-string objects are coerced to strings. 
-			 * Used to modify request URLs to avoid browser caching.
-			 * @param {string} tag - the tag to use
+			 * Sets the map's tag, which is used modify request URIs to avoid 
+			 * browser caching.
+			 * @param {string} tag The desired tag.
 			 */
 			setTag(tag: string): void;
         }
-        
 		
 		/**
-	     * This is a desc of a descriptorMDNRestFeature export class.
-	     * @class <descriptorMDNRestFeature>
-	     * @classdesc This is a description of the descriptorMDNRestFeature class.
+	     * Creates an instance of a descriptor for describing content from
+	     * a MapDotNet REST feature service.
+	     * @class descriptorMDNRestFeature
 	     */
         export class descriptorMDNRestFeature {
             constructor(mapId: string, layerId: string, options?: {
@@ -1891,49 +2030,47 @@ declare module 'mapsjs' {
                 simplifyEnabled?: boolean;
             });
             
-			
 			/**
-			 * Gets map Id
-			 * @returns {string} a string
+			 * Gets the map ID.
+			 * @returns {string} The map ID.
 			 */
             getMapId(): string;
             
 			/**
-			 * Gets layer Id
-			 * @returns {string} a string
+			 * Gets the layer's ID.
+			 * @returns {string} The layer's ID.
 			 */
 			getLayerId(): string;
             
 			/**
-			 * Gets REST service version
-			 * @returns {string} a string
+			 * Gets the version of the REST service.
+			 * @returns {string} The REST service version.
 			 */
 			getVersion(): string;
             
 			/**
-			 * Sets REST service version
-			 * @param {string} v - version number
+			 * Sets the REST service version number.
+			 * @param {string} v The version number to set.
 			 */
 			setVersion(v: string): void;
             
 			/**
-			 * Gets the bleed ratio from 1.0 to 2.0. Bleeds greater than 1.0 will fetch content 
-			 * beyond the edge of the tile extents (this is useful for point features)
-			 * @returns {number} numeric from 1.0 to 2.0
+			 * Gets the bleed ratio.
+			 * @returns {number} The current bleed ratio.
 			 */
 			getBleedRatio(): number;
             
 			/**
-			 * Sets the bleed ratio from 1.0 to 2.0. Bleeds greater than 1.0 will fetch content 
+			 * Sets the bleed ratio. Bleeds greater than 1.0 will fetch content 
 			 * beyond the edge of the tile extents (this is useful for point features).
-			 * @param {number} br - numeric from 1.0 to 2.0
+			 * @param {number} br The desired bleed ratio, a number between 1.0 and 2.0.
 			 */
 			setBleedRatio(br: number): void;
             
 			/**
-			 * Gets the optional field names to query. This attribute data may be used in 
-			 * dynamic client-side rendering.
-			 * @returns {string[]} an array of strings
+			 * Gets the optional field names to query. This attribute data may
+			 * be used in dynamic client-side rendering.
+			 * @returns {string[]} An array of field names as strings.
 			 */
 			getFieldNames(): string[];
             
@@ -1945,47 +2082,49 @@ declare module 'mapsjs' {
 			setFieldNames(names: string[]): void;
             
 			/**
-			 * Gets the flag whether to clip geometry fetched to the bounds of the request. 
-			 * This can greatly improve performance with large complex geometries. Only 
-			 * supported when back-end store is SQL 2008/2012 or PostGIS.
-			 * @returns {boolean} a boolean
+			 * Checks the flag whether to clip geometry fetched at the bounds 
+			 * of the request.
+			 * @returns {boolean} The value of the flag.
 			 */
 			getClipToRenderBounds(): boolean;
             
 			/**
-			 * Sets the flag whether to clip geometry fetched to the bounds of the request. 
-			 * This can greatly improve performance with large complex geometries. Only 
-			 * supported when back-end store is SQL 2008/2012 or PostGIS
-			 * @param {boolean} flag - boolean
+			 * Sets the flag whether to clip geometry fetched at the bounds 
+			 * of the request. This can greatly improve performance with large
+			 * complex geometries. Only supported when back-end store is SQL 
+			 * 2008/2012 or PostGIS.
+			 * @param {boolean} flag Whether or not to clip geometries fetched
+			 * at the bounds of the request.
 			 */
 			setClipToRenderBounds(flag: boolean): void;
 			
 			/**
-			 * Gets the flag whether to simplify paths based on the 
-			 * units per pixel for the quad tile being requested.
-			 * @returns {boolean} a boolean
+			 * Checks the flag whether to simplify paths based on the units per
+			 * pixel for the quad tile being requested.
+			 * @returns {boolean} The value of the flag.
 			 */
             getSimplifyEnabled(): boolean;
 			
 			/**
-			 * Sets the flag whether to simplify paths based on the units per pixel for the 
-			 *  quad tile being requested.
-			 * @param {boolean} flag - boolean
+			 * Sets the flag whether to simplify paths based on the units per
+			 * pixel for the quad tile being requested.
+			 * @param {boolean} flag Whether or not to simply paths based on 
+			 * the units per pixel.
 			 */
             setSimplifyEnabled(flag: boolean): void;
 			
 			/**
-			 * Sets descriptor change notification
-			 * @param {function} action - notify descriptor change
+			 * Sets the action to perform on descriptor change.
+			 * @param {function} action Function with signature action().
 			 */
             setNotifyDescriptorChangeAction(action: () => void): void;
         }
+
         /**
-		 * This is a generic tile requestor suitable for several third-party tile servers. These 
-		 *include open street map, map quest, cloudmade, Nokia, etc.
-		 * @class <requestorOpen extends requestor>
-	     * @classdesc This is a description of the requestorOpen extends requestor 
-		 * class.
+		 * This is a generic tile requestor suitable for several third-party
+		 * tile servers. These include open street map, map quest, cloudmade, 
+		 * Nokia, etc.
+		 * @class requestorOpen
 		 */
         export class requestorOpen extends requestor {
             constructor(endpoint: string, subdomains: string[], options?: {
@@ -1994,13 +2133,12 @@ declare module 'mapsjs' {
                 maxAvailableZoomLevel?: number;
             });
         }
+
         /**
 		 * This is a requestor for local collections of data. These local collections may 
 		 * originate from inlined code or from datasources other than a MapDotNet REST 
 		 * feature service.
-		 * @class <requestorLocal extends requestor>
-	     * @classdesc This is a description of the requestorLocal extends requestor 
-	     *class.
+		 * @class requestorLocal
 		 */
         export class requestorLocal extends requestor {
             constructor(options?: {
@@ -2011,35 +2149,37 @@ declare module 'mapsjs' {
             });
 			
 			/** 
-			 * Gets unparsed source data
-			 * @returns {[]} associative array of source data
+			 * Gets the unparsed source data.
+			 * @returns {object} Array of source data objects.
 			 */
             getSource(): {}[];
             
 			/**
-			 * Sets unparsed source data
-			 * @param {[]} data - an associative array of source data
+			 * Sets source data.
+			 * @param {object} data An array of JavaScript objects to use as
+			 * the requestor source data.
 			 */
 			setSource(data: {}[]): void;
             
 			/** 
-			 * Returns your source data parsed into an internal format { Shapes
-             * [], Values: [], Bounds: [] } This may be useful for doing client-side queries on 
-			 * the local data where all of the WKT has been parsed into points and geometry. 
-			 * There is also a bounds collection to do a quick spatial check for complex polys.
-			 * @returns {} parsed data
+			 * Returns your source data parsed into theformat { Shapes: [],
+             * Values: [], Bounds: [] } This may be useful for doing client-side 
+             * queries on the local data where all of the WKT has been parsed 
+             * into points and geometry. There is also a bounds collection to 
+             * do a quick spatial check for complex polygons.
+			 * @returns {object} Parsed data object in the form {Shapes, Values, Bounds}.
 			 */
 			getParsedData(): {
                 Shapes: any[];
                 Values: any[];
                 Bounds: envelope[];
             };
-
         }
         
 		/**
-		 * @class <descriptorLocal>
-	     * @classdesc This is a description of the descriptorLocal class. 
+		 * Local descriptor object for describing source data when the source
+		 * data is fecthed by a local requestor.
+		 * @class descriptorLocal
 	     */
         export class descriptorLocal {
             constructor(options: {
@@ -2054,14 +2194,7 @@ declare module 'mapsjs' {
         x: number;
         y: number;
     }
-    /**
-	 * This is an immutable envelope constructor.
-	 * @param {number} minX - coord as a float
-	 * @param {number} minY - coord as a float
-	 * @param {number} maxX - coord as a float
-	 * @param {number} maxY - coord as a float
-	 * @returns {envelope} a new envelope
-	 */
+
     interface envObject {
         
 		/**
@@ -2090,269 +2223,255 @@ declare module 'mapsjs' {
 		/**
 		 * Gets the center of the map in spherical mercator. Use 
 		 * sphericalMercator.deprojectToLatLon static function to convert to a lat/lon.
-		 * @return {point} a point map center
+		 * @return {point} A point map center
 		 */
 		getMapCenter(): point;
         
 		/**
 		 * Sets the center of the map in spherical mercator. Use
 		 * sphericalMercator.projectFromLatLon static function to convert from a lat/lon.
-		 * @param {point} center - map center as a point
+		 * @param {point} center The map center as a point
 		 */
 		setMapCenter(center: point): void;
         
 		/**
 		 * Same as setMapCenter except will animate from current map center to the 
 		 * specified location
-		 * @param {point} mc	-	 map center as an isc.rim.point
-         * @param {number} duration - float in mS
-         * @param {function} onCompleteAction - optional function, if provided, is called when
-         * the animation is completed
+		 * @param {point} center The map center as a point.
+         * @param {number} [durationMs] Duration in miliseconds.
+         * @param {function} [completeAction] Callback to perform on animaton complete.
 		 */
 		setMapCenterAnimate(center: point, durationMs?: number, completeAction?: () => void): void;
         
 		/**
 		 * Sets the map center to the current geolocation if supported. The map is
          * animated to the new location.
-		 * @param {number} durationMS - float in mS
-		 * @param {function} completeAction - optional function, if provided, is called
-		 * when the animation is completed
+         * @param {number} [durationMs] Duration in miliseconds.
+         * @param {function} [completeAction] Callback to perform on animaton complete.
 		 */
 		setMapCenterToGeolocationAnimate(durationMs?: number, completeAction?: () => void): void;
         
 		/**
-		 * Gets current zoom level from 1 to 20
-		 * @returns {number} zoom level as a float
+		 * Gets the current zoom level.
+		 * @returns {number} The current zoom level.
 		 */
 		getZoomLevel(): number;
         
 		/**
-		 * Sets current zoom level from 1 to 20
-		 * @param {number} z1 - zoom level as an integer
+		 * Sets the current zoom level.
+		 * @param {number} z1 The desired zoom level.
 		 */
 		setZoomLevel(zl: number): void;
         
 		/**
-		 * Sets minimum zoom level for the map
-		 * @param {number} z1 - zoom level as an integer
+		 * Sets the minimum zoom level for the map.
+		 * @param {number} zl Desired minimum zoom level.
 		 */
 		setMinZoomLevel(zl: number): void;
         
 		/**
-		 * Sets maximum zoom level for the map
-		 * @param {number} z1 - zoom level as an integer
+		 * Sets the maximum zoom level for the map.
+		 * @param {number} z1 The desired maximum zoom level.
 		 */
 		setMaxZoomLevel(zl: number): void;
         
 		/**
-		 * Same as setZoomLevel but animates from the current zoom level to the new value
-		 * @param {number} zl -	zoom level as an integer
-         * @param {number} duration - float in mS
-         * @param {function} onCompleteAction -	optional function, if provided, is called when
-         * the animation is completed
+		 * Animates the map from the current zoom level to the given zoom level.
+		 * @param {number} zl The desired zoom level.
+         * @param {number} [durationMs] The duration in miliseconds.
+         * @param {function} [completeAction] Function to call when the animation
+         * completes with signature completeAction().
 		 */
 		setZoomLevelAnimate(zl: number, durationMs?: number, completeAction?: () => void): void;
         
 		/**
-		 * Updates current zoom level by applying a delta
-		 * @param {number} delta - integer zoom level delta to apply
+		 * Changes the current zoom level.
+		 * @param {number} delta Change to be added to the current zoom level.
 		 */
 		zoomDelta(delta: number): void;
         
 		/** 
-		 * Same as zoomDelta but animates from the current zoom level to the new
-		 * value
-		 * @param {number} delta - integer zoom level delta to apply
-		 * @param {number} durationMs - float in mS
+		 * Animates a change to the current zoom level.
+		 * @param {number} delta Change to be added to the current zoom level.
+		 * @param {number} [durationMs] Duration in miliseconds.
 		 */
 		zoomDeltaAnimate(delta: number, durationMs?: number): void;
         
 		/**
-		 * Animates between two locations (map center and zoom level) and does so as
-         * a parabolic path.
-		 * @param {point} mc - destination map center as an isc.rim.point
-         * @param {number} zl - destination zoom level as an integer
-         * @param {number} duration - animation duration as a float in mS
-         * @param {function} onCompleteAction -	optional function, if provided, is call when
-         * the animation is completed
+		 * Animates parabolically from the current map center and zoom level
+		 * to the given map center and zoom level.
+		 * @param {point} center Desired map center as a point.
+         * @param {number} zl Desired zoom level.
+         * @param {number} [durationMs] Animation duration in miliseconds.
+         * @param {function} [completeAction] Function to call after the animation
+         * completes with signature completeAction().
 		 */
 		flyTo(center: point, zl: number, durationMs?: number, completeAction?: () => void): void;
         
 		/**
-		 * Gets current map extents in spherical mercator units
-		 * @return {envelope} envelope map extents
+		 * Gets the current map extents in spherical mercator units.
+		 * @return {envelope} envelope The current map extents.
 		 */
 		getMapExtents(): envelope;
         
 		/**
-		 * Gets current map units per pixel (meters)
-		 * @returns {number} meters as a float
+		 * Gets the current map units per pixel.
+		 * @returns {number} Map units (meters) per pixel.
 		 */
 		getMapUnitsPerPixel(): number;
         
 		/**
-		 * Gets map extens width and height in pixels
-		 * @returns {number} associative array
-		 *  w: width in pixels as an integer
-		 *  h: height in pixels as an integer
+		 * Gets the map extents' width and height in pixels.
+		 * @returns {object} JavaScript object of the form {w, h} where w is
+		 * the current extents' width in pixels and h is the current extents'
+		 * height in pixels.
 		 */
 		getViewExtentsInPix(): { w: number; h: number; };
         
 		/**
-		 * Gets the current projected map scale. This is the ratio of units on the screen
-         * to map units depicted.
-		 * @returns {number} ration (1 to N) as a float
+		 * Gets the current projected map scale. This is the ratio of units on
+		 * the screen to map units depicted.
+		 * @returns {number} Ratio of screen units to map units.
 		 */
 		getProjectedMapScale(): number;
         
 		/**
-		 * Gets the current actual map scale. This is the ratio of units on the screen to
-         * actual units on the earth's surface at the latitude of the current map center.
-		 * @returns {number} ration (1 to N) as a float
+		 * Gets the current actual map scale. This is the ratio of units on 
+		 * the screen to actual units on the earth's surface at the latitude 
+		 * of the current map center.
+		 * @returns {number} The ratio of screen units to actual meters.
 		 */
 		getActualMapScale(): number;
         
 		/**
-		 * Gets the best fit zoom level based on the supplied map extents for the current
-         * display extents in pixels.
-		 * @param {envelope} extentsNew - new map extents to fit to as an envelope
-		 * @returns {number} an integer between min and max supported zoom levels
+		 * Gets the best fit zoom level based on the supplied map extents for 
+		 * the current display extents in pixels.
+		 * @param {envelope} extentsNew New map extents to fit.
+		 * @returns {number} The zoom level which best fits the extents.
 		 */
 		getBestFitZoomLevelByExtents(extentsNew: envelope): number;
         
 		/**
-		 * Forces the map to redraw the currently loaded tile and geometry content.
-         * You should not have to call this as redraws are automatically handled during 
-		 * programatic state changes. This would be for edge cases where the developer 
-		 * is affecting internal state in an undocumented way.
+		 * Forces the map to redraw the currently loaded tile and geometry 
+		 * content. You should not have to call this as redraws are automatically
+		 * handled during programatic state changes. This would be for edge cases 
+		 * where the developer is affecting internal state in an undocumented way.
 		 */
 		redraw(): void;
         
 		/**
-		 * Updates the map to the size of its container. This updates internal parameters 
-		 * for computing map extents and handling the amount of tile content to 
-		 * download. This is handled automatically if the browser window is resized. But 
-		 * if you are sizing the map programatically (e.g. resizable panel or slider) then 
-		 * call this after the parent container has resized.
+		 * Updates the map to the size of its container. This updates internal 
+		 * parameters for computing map extents and handling the amount of tile 
+		 * content to download. This is handled automatically if the browser 
+		 * window is resized. But if you are sizing the map programatically 
+		 * (e.g. resizable panel or slider) then call this after the parent 
+		 * container has resized.
 		 */
 		resize(): void;
         
 		/**
-		 * pushes a tile layer onto the top of the display stack
-		 * @param {tile.layer} tl - a tile layer
+		 * Pushes a supplied tile layer onto the top of the display stack.
+		 * @param {tile.layer} tl The desired tile layer.
 		 */
 		pushTileLayer(tl: tile.layer): void;
         
 		/**
-		 * Pops a tile layer off the top of the display stack
-		 * @returns {tile.layer} the removed tile layer as a tile layer
+		 * Removes a tile layer off the top of the display stack
+		 * @returns {tile.layer} The removed tile layer.
 		 */
 		popTileLayer(): tile.layer;
         
 		/**
-		 * Gets current number of tile layers on display stack
-		 * @returns {number} a count as an integer
+		 * Gets the current number of tile layers in the display stack.
+		 * @returns {number} The number of tile layers in the display stack.
 		 */
 		getTileLayerCount(): number;
         
 		/**
-		 * Gets tile layer on display stack by its key
-		 * @param {string} key - tile layer by key
-		 * @returns {tile.layer} tile layer found as a tile layer or null if not found
+		 * Gets a tile layer from the display stack by its key.
+		 * @param {string} key The desired tile layer's key.
+		 * @returns {tile.layer} The tile layer associated with the key, or null
+		 * if no tile layer is associated with the key.
 		 */
 		getTileLayer(key: string): tile.layer;
         
 		/**
-		 * Gets a map point in map units from a supplied point in pixel units from the 
-		 * currently displayed extents.
-		 * @param {number} x - x coord in map pixels
-		 * @param {number} y - y coord in map pixels
-		 * @returns {point} a converted point as a point
+		 * Gets a point in map units from supplied coordinates pixel units 
+		 * with respect to the currently displayed extents.
+		 * @param {number} x The x coordinate in pixels.
+		 * @param {number} y The y coordinate in pixels.
+		 * @returns {point} The generated point in map units.
 		 */
 		computeMapPointFromPixelLocation(x: number, y: number): point;
         
 		/**
-		 * Determines whether or not map extent changes can occur through gestures 
-		 * like mouse or touch drag, mouse wheel or pinch zoom.
-		 * @param {boolean} flag - set to true to freeze the map and prevent all map 
-		 * extent changes through gestures, or false to resume normal behavior.
+		 * Flags whether or not map extent changes can occur through gestures 
+		 * like mouse or touch drag, mouse wheel, or pinch zoom.
+		 * @param {boolean} flag Whether or not gestures should affect map 
+		 * extent changes.
 		 */
 		setSuspendMapExtentChangesByGestures(flag: boolean): void;
         
 		/**
-		 * Sets the z-order of drawn content in relation to the gesture capture panel. The 
-		 * default behavior (false) is to have fixed content and geometry underneath the 
-		 * gesture panel in the DOM. If false, all pointer events are handled by the 
-		 * gesture capture panel and optionally parents of the map control. If true, drawn 
-		 * content will receive pointer events first and will block gestures to the map. If 
-		 * true, digitizing will not function and polygons will block map navigation. In some 
-		 * scenarios you may want to set this to true if you are placing fixed-
-		 * content (such as point features) on the map and need to handle gestures on 
-		 * the placed content. You can call this function at any time to change the order.
-         * @param {boolean} flag - order of the drawn content area in relation to the gesture 
-		 * capture panel. False (default) is below and True is above.
+		 * Sets the z-order of drawn content in relation to the gesture capture 
+		 * panel. The default behavior (false) is to have fixed content and 
+		 * geometry underneath the gesture panel in the DOM. If false, all 
+		 * pointer events are handled by the gesture capture panel and
+		 * optionally parents of the map control. If true, drawn content will
+		 * receive pointer events first and will block gestures to the map. If 
+		 * true, digitizing will not function and polygons will block map 
+		 * navigation. In some scenarios you may want to set this to true if you
+		 * are placing fixed content (such as point features) on the map and 
+		 * need to handle gestures on the placed content. You can call this 
+		 * function at any time to change the order.
+         * @param {boolean} flag Whether or not the fixed content layer should 
+         * reside above the gesture layer.
 		 */
 		setDrawnContentZorderToTop(flag: boolean): void;
         
 		/**
-		 * Add a fixed element to the content area which resides at a z-level above tiled 
-		 * map content. These elements do not scale with the map scale. This is used to 
-		 * place markers or callouts on the map
-		 * @param {HTMLElement} element - any html that can be added to the DOM
-         * @param {number} mapUnitsX	-	 is the insertion point X value in map units
-         * @param {number} mapUnitsY	-	 is the insertion point Y value in map units
-         * @param {function} addAction	-	 is an optional function which is passed the DOM element after it is placed into the fixed element content area
-         * @param {HTMLElement} dragOptions	-	 is an optional object to support making the placed object draggable, the properties include:
-         * dragEnabled is a boolean property that must be true to enable dragging
-         * downAction is an optional function taking an isc.rim.point that is called when a pointer down occurs on the element
-         * moveAction is an optional function taking an isc.rim.point that is called when the element moves under pointer movement
-         *upAction is an optional function taking an isc.rim.point that is called when a pointer up occurs on the element
+		 * Add a fixed element to the content area which resides at a z-level 
+		 * above tiled map content. These elements do not scale with the map
+		 * scale. This is used to place markers or callouts on the map
+		 * @param {HTMLElement} element Any html that can be added to the DOM.
+         * @param {number} mapUnitsX The x coordinate of the insertion point in map units.
+         * @param {number} mapUnitsY The y coordinate of the insertion point in map units.
+         * @param {function} [addAction] Callback function called after the 
+         * DOM element has been placed with signature addAction(element).
+         * @param {object} dragOptions JavaScript object of the form {dragEnabled,
+         * useElementInsteadOfNewGestureOverlay, downAction, moveAction, upAction, 
+         * wheelAction } where dragEnabled flags whether dragging should be
+         * enabled on the element, and downAction, moveAction, upAction, and 
+         * wheelAction are callback functions invoked on mousedown, mousemove,
+         * mouseup, and scroll events respectively.
 		 */
-		addFixedContentElement(element: HTMLElement, mapUnitsX: number, mapUnitsY: number, addAction: (ele: HTMLElement) => void, dragOptions: {
-            
-			/**
-			 * @returns {boolean} a boolean
-			 */
-			dragEnabled: boolean;
-            
-			/**
-			 * @returns {boolean} a boolean
-			 */
-			useElementInsteadOfNewGestureOverlay: boolean;
-            
-			/**
-			 * @param {point} downPoint - 
-			 * @returns {function} 
-			 */
-			downAction?: (downPoint: point) => any;
-            
-			/**
-			 * @param {point} movePoint - 
-			 */
-			moveAction?: (movePoint: point) => void;
-            
-			/**
-			 * @param {point} upPoint - 
-			 */
-			upAction?: (upPoint: point) => void;
-            
-			/**
-			 * @param {number} delta - 
-			 */
-			wheelAction?: (delta: number) => void;
-        }): void;
+		addFixedContentElement(
+			element: HTMLElement, 
+			mapUnitsX: number, 
+			mapUnitsY: number, 
+			addAction?: (ele: HTMLElement) => void, 
+			dragOptions?: {
+				dragEnabled: boolean;
+				useElementInsteadOfNewGestureOverlay: boolean;
+				downAction?: (downPoint: point) => any;
+				moveAction?: (movePoint: point) => void;
+				upAction?: (upPoint: point) => void;
+				wheelAction?: (delta: number) => void;
+        	}
+    	): void;
 		
 		/**
-		 * Move an existing fixed element on the content area
-		 * @param {HTMLElement} element - is the existing DOM element to move
-		 * @param {number} mapUnitsX - is the new point X value in map units
-		 * @param {number} mapUnitsY - is the new point Y value in map units
+		 * Move an existing fixed content element.
+		 * @param {HTMLElement} element The existing DOM element to move.
+		 * @param {number} mapUnitsX The new x coordinate in map units.
+		 * @param {number} mapUnitsY The new y coordinate in map units.
 		 */
         moveFixedContentElement(element: HTMLElement, mapUnitsX: number, mapUnitsY: number): void;
         
 		/**
-		 * Removes fixed element from display by reference
-		 * @param {HTMLElement} element - a DOM element added via addFixedContentElement
+		 * Removes a fixed content element.
+		 * @param {HTMLElement} element The DOM element to remove. Note: This
+		 * must be the same element added by addFixedContentElement.
 		 */
 		removeFixedContentElement(element: HTMLElement): void;
         
@@ -2362,183 +2481,139 @@ declare module 'mapsjs' {
 		 * content area DOM. If an attempt to add a geometry is made with the same 
 		 * key, the geometry is swapped out. You must remove using removePathGeometry 
 		 * for resource cleanup.
-		 * @param {styleGeometry} styledGeom - styledGeometry to render
-		 * @param {string} key - string used to tie a geometry to its SVG rendering in
-		 * the DOM and is used to remove the geometry
-		 * @returns {element} a SVG element added to the DOM
+		 * @param {styleGeometry} styledGeom THe styledGeometry to render.
+		 * @param {string} key String used to tie a geometry to its SVG 
+		 * rendering in the DOM.
+		 * @returns {element} The SVG element which was added to the DOM.
 		 */
 		addPathGeometry(styledGeom: styledGeometry, key: string): void;
         
 		/**
-		 * Updates an existing path geometry to reflect a style change
-		 * @param {geometryStyle} styleNew - a new geometryStyle
-		 * @param {string} key - string used to identify an existing
-		 * styledGeometry in the DOM that was added by
-		 * addPathGeometry
+		 * Updates an existing path geometry to reflect a style change.
+		 * @param {geometryStyle} styleNew The new geometryStyle.
+		 * @param {string} key The key of the geometry to receive the new style.
 		 */
 		updatePathGeometryStyle(styleNew: geometryStyle, key: string): void;
         
 		/**
-		 * Removes styledGeometry from display by its key
-		 * @param {string} key - a string used to lookup the geometry to removed based on
-		 * the key used in addPathGeometry
+		 * Removes a styledGeometry from display.
+		 * @param {string} key The key of the geometry to remove.
 		 */
 		removePathGeometry(key: string): void;
-        
+
 		/**
-		 * Begins creation of an envelope by click-dragging the bounds
-		 * @param {function} options - an action (function) taking a single envelope parameter that is called at
-		 * the end of the envelope creation
+		 * Initiates digitization on the map control. This creates a new
+		 * geometry and adds verticies to the geometry accord to mouse
+		 * click locations.
+		 * @param {object} options JavaScript object of the form { key,
+		 * shapeType, geometryStyle, nodeTapAndHoldAction, nodeMoveAction,
+		 * shapeChangeAction, envelopeEndAction, supressNodeAdd, leavePath }
+		 * where key is a a string associated with this geometry, shapeType
+		 * is the type of shape this geometry is, one of 'point', 'path', or
+		 * 'polygon', geometryStyle is a geometryStyle which should be applied
+		 * to the digitized geometry, nodeTapAndHoldAction is a callback invoked
+		 * when any point in the geometry is clicked and held and has the
+		 * signature nodeTapAndHoldAction(setIdx, idx), nodeMoveAction is a
+		 * callback invoked after any node is dragged to a new location and
+		 * has signature nodeMoveAction(x, y, actionType), shapeChangeAction
+		 * is a callback that is invoked after the geometry shape changes and,
+		 * has signature shapeChangeAction(), envelopeEndAction is a callback 
+		 * invoked after an envelope is created and has signature envelopeEndAction(envelope), 
+		 * and leavePath is a flag that indicates whether the digitized shape
+		 * should be left on the map after digitization is complete.
 		 */
 		beginDigitize(options: {
-            /**
-			 * a string used to keep track of the DOM element
-			 * if the path is left behind after the call to beginDigitize
-			 * @returns {string} a string
-			 */
-			key?: string;
+           	key?: string;
             shapeType: string;
             geometryStyle?: geometryStyle;
-            
-			/**
-             * an existing styledGeometry to edit			
-			 * @returns {styledGeometry} an edited styledGeometry
-			styledGeometry?: styledGeometry;
-            
-			/**
-			 * @param {number} setIdx - optional action called on a nodetap
-			 * and hold
-			 * @param {number} idx - optional action called on a nodetap and hold
-			 * @returns {boolean} a boolean
-			 */
-			nodeTapAndHoldAction?: (setIdx: number, idx: number) => boolean;
-            
-			/**
-			 * @param {number) x - optional action called on a node move for value x
-			 * @param {number} y - optional action called on a node move for value y
-			 * @param {string} actionType - optional action on a node move for action
-			 * Type string
-			 * @returns {string} a string
-			 */
-			nodeMoveAction?: (x: number, y: number, actionType: string) => any;
-            
-			/**
-			* optional action on geometry change
-			*/
-			shapeChangeAction?: () => void;
-            
-			/**
-			 * an action (function) taking a single 
-			 * envelope parameter that is called at the end of the envelope creation
-			 * @param {envelope} env - envelope parameter
-			 */
-			envelopeEndAction?: (env: envelope) => void;
+            nodeTapAndHoldAction?: (setIdx: number, idx: number) => boolean;
+            nodeMoveAction?: (x: number, y: number, actionType: string) => any;
+            shapeChangeAction?: () => void;
+            envelopeEndAction?: (env: envelope) => void;
             suppressNodeAdd?: boolean;
-            
-			/**
-			 * @returns {boolean} true to leave path behind when done
-			 */
-			leavePath?: boolean;
+            leavePath?: boolean;
         }): void;
         endDigitize(): void;
         
 		/**
-		 * Gets a snapshot copy of current digitizing path while editing
-		 * @returns {geometry} a geometry
+		 * Gets a snapshot copy of the currently digitizing path.
+		 * @returns {geometry} The currently digitizing path.
 		 */
 		getDigitizeSnapshot(): geometry;
         
 		/** 
-		 * Adds set to end of digitizing path
+		 * Forces additional digitized points to be pushed to a new set of the
+		 * currently digitizing geometry.
 		 */
 		pushSetOnDigitizePath(): void;
         
 		/**
-		 * Removes last set from digitizing path
-		 * @return {number} 
+		 * Removes the last set from the currently digitizing path.
+		 * @return {number[]} The last set from the currently digitizing path
+		 * in the form [xn,yn]. 
 		 */
 		popSetFromDigitizePath(): number[];
         
 		/**
-		 * Programmatically delete a node while digitizing
-		 * @param {number} setIdx - the set index (0-based) of the ring or path to
-		 * remove the node from
-		 * @param {number} nodeIdx - the node index to remove (0-based) in the specified
-		 * ring or path
+		 * Programmatically delete a node from the currently digitizing path.
+		 * @param {number} setIdx The index of the set from which to remove the node.
+		 * @param {number} nodeIdx The index of the node to remove.
 		 */
 		deleteNodeOnDigitizePath(setIdx: number, nodeIdx: number): void;
         
 		/**
-		 * Returns true if digitizing is enabled
-		 * @returns {boolean} true if digitizing is enabled, otherwise false
+		 * Determines whether a shape is currently being digitized.
+		 * @returns {boolean} Whether or not a shape is being digitized.
 		 */
 		isDigitizingEnabled(): boolean;
         
 		/** 
 		 * Set the function called when the map extents have stopped changing 
-		 *(e.g. after an animated pan or zoom).
-		 * @param {function} action - an action (function reference) that takes one parameter. 
-		 * The parameter passed in is an associative array with the following keys:
-         * - centerX
-         * - centerY
-         * - centerLat
-         * - centerLon
-         * - zoomLevel
-         * - mapScale (actual ground scale)
-         * - mapScaleProjected (map projection scale)
-         * - mapUnitsPerPixel
-         * - extents
+		 * (e.g. after an animated pan or zoom).
+		 * @param {function} action The function to call when the extents
+		 * finish changing with signature action(object) where object is of
+		 * the form { centerX, centerY, centerLat, centerLon, zoomLevel, mapScale,
+		 * mapScaleProjected, mapUnitsPerPixel, extents }.
 		 */
 		setExtentChangeCompleteAction(action: (vals: {}) => void): void;
         
 		/**
 		 * Set the function called when map content (map tiles and fixed elements) are 
-		 * re-positioned in the DOM This is done automatically as the map is panned 
+		 * re-positioned in the DOM. This is done automatically as the map is panned 
 		 * beyond existing content and zoomed to a new level requiring content.
-		 * @param {function} action - an action (function reference) that takes one parameter. 
-		 * The parameter passed in is an associative array with the following keys:
-         * - centerX
-         * - centerY
-         * - zoomLevel
-         * - mapUnitsPerPixel
+		 * @param {function} action The function to call when the map content
+		 * completes repositioning with signature action(object) where object
+		 * is of the form { centerX, centerY, zoomLevel, mapUnitsPerPixel }.
 		 */
 		setContentRepositionAction(action: (vals: {}) => void): void;
         
 		/**
-		 * Sets function called when map is clicked (left mouse click or touch on
-		 * mobile)
-		 * @param {function} action - an action (function reference) that takes one
-		 * parameter
-		 * @param {point} pt - point in map units where clicked
+		 * Sets function called when map is clicked or tapped.
+		 * @param {function} action The function to call on mouse click or tap 
+		 * with signature action(point).
 		 */
 		setPointerClickAction(action: (pt: point) => void): void;
         
 		/** 
-		 * Sets function called when the map pointer is moved and then hovers
-		 * @param {function} action - an action (function reference) that takes one
-		 * parameter
-		 * @param {point} pt - point in map units where hovered
+		 * Sets function called when the map pointer hovers over the map.
+		 * @param {function} action The function to call on mouse hover with 
+		 * signature action(point).
 		 */
 		setPointerHoverAction(action: (pt: point) => void): void;
         
 		/** 
 		* Sets the margin around the map in pixels for extra content fetched so that tile 
 		* rebuilding of the display is minimized. This is an advanced property and does not 
-		* generally need to be adjusted. The default is 128 pixel (one half tile width) 
-		* Increase for very large maps (width and height in pixels is large) or panning is 
-		* active. Decrease for very small maps (e.g. mobile devices) or where panning is 
-		* minimal.
-		* @param {number} cem - a pixel margin as an integer
+		* generally need to be adjusted. The default is 128 pixels, or half the width
+		* of a tile. This should be increased for maps which are very large in pixels
+		* or where panning is constant. This should be decreased for very small maps,
+		* such as on mobile devices, or where panning is minimal.
+		* @param {number} cem The content extent margin in pixels.
 		*/
 		setContentExtentsMarginInPixels(cem: number): void;
     }
 }
 
-/**
- * This is a jQuery widget encapsulating the MapDotNet UX RIM (Rich Interactive 
- * Mapping) HTML5 map control usage: 
- * $(myContainerDOMElement).rimMap('[widget function]', param1, param2...);
- */
 interface JQuery {
 
     rimMap(): JQuery;
