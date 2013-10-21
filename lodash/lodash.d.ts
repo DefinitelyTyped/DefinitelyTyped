@@ -1099,12 +1099,29 @@ declare module _ {
 
 	/**
 	* @see _.countBy
-	* @param iterator Function name
+	* @param callback Function name
 	**/
 	export function countBy<T>(
 		collection: Collection<T>,
 		callback: string,
 		thisArg?: any): Dictionary<number>;
+
+		interface LoDashWrapper<T> {
+			/**
+			* @see _.countBy
+			**/
+			countBy<T>(
+				callback?: ListIterator<T, any>,
+				thisArg?: any): LoDashWrapper<Dictionary<number>>;
+
+			/**
+			* @see _.countBy
+			* @param callback Function name
+			**/
+			countBy<T>(
+				callback: string,
+				thisArg?: any): LoDashWrapper<Dictionary<number>>;
+		}
 
 	/**
 	* Checks if the given callback returns truey value for all elements of a collection. 
