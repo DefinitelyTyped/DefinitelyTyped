@@ -771,6 +771,8 @@ result = <any[]>_.times(3, function(n: number) { this.cast(n); }, mage);
 
 result = <string>_.unescape('Moe, Larry &amp; Curly');
 
+result = <string>_.uniqueId('contact_');
+result = <string>_.uniqueId();
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
