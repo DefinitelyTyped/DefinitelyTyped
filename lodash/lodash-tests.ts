@@ -413,10 +413,19 @@ result = <IStoogesCombined[]>_.where(stoogesCombined, { 'quotes': ['Poifect!'] }
  *************/
 var saves = ['profile', 'settings'];
 var asyncSave = (obj) => obj.done();
+var done: Function;
 
-var done: Function = _.after(saves.length, function() {
+done = _.after(saves.length, function() {
   console.log('Done saving!');
 });
+
+_.forEach(saves, function(type) {
+  asyncSave({ 'type': type, 'complete': done });
+});
+
+done = _(function() {
+  console.log('Done saving!');
+}).after(saves.length);
 
 _.forEach(saves, function(type) {
   asyncSave({ 'type': type, 'complete': done });

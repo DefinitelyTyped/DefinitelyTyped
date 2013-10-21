@@ -1880,6 +1880,13 @@ declare module _ {
 		n: number,
 		func: Function): Function;
 
+		interface LoDashWrapper<T> {
+			/**
+			* @see _.after
+			**/
+			after(n: number): Function;
+		}
+
 	/**
 	* Creates a function that, when called, invokes func with the this binding of thisArg 
 	* and prepends any additional bind arguments to those provided to the bound function.
