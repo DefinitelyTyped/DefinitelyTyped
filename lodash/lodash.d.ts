@@ -2934,15 +2934,20 @@ declare module _ {
 	export function uniqueId(prefix?: string): string;
 
 	/**
-	* By default, the template delimiters used by Lo-Dash are similar to those in embedded Ruby 
-	* (ERB). Change the following template settings to use alternative delimiters.
+	* The semantic version number.
 	**/
-	export var templateSettings: TemplateSettings;
+	export var VERSION: string;
 
 	/**
 	* An object used to flag environments features.
 	**/
 	export var support: Support;
+
+	/**
+	* By default, the template delimiters used by Lo-Dash are similar to those in embedded Ruby 
+	* (ERB). Change the following template settings to use alternative delimiters.
+	**/
+	export var templateSettings: TemplateSettings;
 
 	/* **********
 	 * Chaining *
