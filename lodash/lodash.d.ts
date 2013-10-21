@@ -1884,7 +1884,7 @@ declare module _ {
 			/**
 			* @see _.after
 			**/
-			after(n: number): Function;
+			after(func: Function): LoDashWrapper<Function>;
 		}
 
 	/**
@@ -2219,105 +2219,293 @@ declare module _ {
 		callback?: (objectValue: any, sourceValue: any) => any,
 		thisArg?: any): any;
 
-			/**
-			* @see _.extend
-			**/
-			export function extend(
-				object: any,
-				s1: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): any;
+	interface LoDashWrapper<T> {
+		/**
+		* @see _.assign
+		**/
+		assign(
+			s1: any,
+			callback?: (objectValue: any, sourceValue: any) => any,
+			thisArg?: any): any;
 
-			/**
-			* @see _.extend
-			**/
-			export function extend(
-				object: any,
-				s1: any,
-				s2: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): any;
+		/**
+		* @see _.assign
+		**/
+		assign(
+			s1: any,
+			s2: any,
+			callback?: (objectValue: any, sourceValue: any) => any,
+			thisArg?: any): any;
 
-			/**
-			* @see _.extend
-			**/				
-			export function extend(
-				object: any,
-				s1: any,
-				s2: any,
-				s3: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): any;
+		/**
+		* @see _.assign
+		**/		
+		assign(
+			s1: any,
+			s2: any,
+			s3: any,
+			callback?: (objectValue: any, sourceValue: any) => any,
+			thisArg?: any): any;
 
-			/**
-			* @see _.extend
-			**/
-			export function extend(
-				object: any,
-				s1: any,
-				s2: any,
-				s3: any,
-				s4: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): any;
+		/**
+		* @see _.assign
+		**/
+		assign(
+			s1: any,
+			s2: any,
+			s3: any,
+			s4: any,
+			callback?: (objectValue: any, sourceValue: any) => any,
+			thisArg?: any): any;
 
-			/**
-			* @see _.extend
-			**/
-			export function extend(
-				object: any,
-				s1: any,
-				s2: any,
-				s3: any,
-				s4: any,
-				s5: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): any;
+		/**
+		* @see _.assign
+		**/
+		assign(
+			s1: any,
+			s2: any,
+			s3: any,
+			s4: any,
+			s5: any,
+			callback?: (objectValue: any, sourceValue: any) => any,
+			thisArg?: any): any;
 
-			/**
-			* @see _.extend
-			**/
-			export function extend(
-				object: any,
-				s1: any,
-				s2: any,
-				s3: any,
-				s4: any,
-				s5: any,
-				s6: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): any;
+		/**
+		* @see _.assign
+		**/
+		assign(
+			s1: any,
+			s2: any,
+			s3: any,
+			s4: any,
+			s5: any,
+			s6: any,
+			callback?: (objectValue: any, sourceValue: any) => any,
+			thisArg?: any): any;
 
-			/**
-			* @see _.extend
-			**/
-			export function extend(
-				object: any,
-				s1: any,
-				s2: any,
-				s3: any,
-				s4: any,
-				s5: any,
-				s6: any,
-				s7: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): any;
+		/**
+		* @see _.assign
+		**/
+		assign(
+			s1: any,
+			s2: any,
+			s3: any,
+			s4: any,
+			s5: any,
+			s6: any,
+			s7: any,
+			callback?: (objectValue: any, sourceValue: any) => any,
+			thisArg?: any): any;
 
-			/**
-			* @see _.extend
-			**/
-			export function extend(
-				object: any,
-				s1: any,
-				s2: any,
-				s3: any,
-				s4: any,
-				s5: any,
-				s6: any,
-				s7: any,
-				s8: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): any;
+		/**
+		* @see _.assign
+		**/
+		assign(
+			s1: any,
+			s2: any,
+			s3: any,
+			s4: any,
+			s5: any,
+			s6: any,
+			s7: any,
+			s8: any,
+			callback?: (objectValue: any, sourceValue: any) => any,
+			thisArg?: any): any;
+	}
+
+		/**
+		* @see _.extend
+		**/
+		export function extend(
+			object: any,
+			s1: any,
+			callback?: (objectValue: any, sourceValue: any) => any,
+			thisArg?: any): any;
+
+		/**
+		* @see _.extend
+		**/
+		export function extend(
+			object: any,
+			s1: any,
+			s2: any,
+			callback?: (objectValue: any, sourceValue: any) => any,
+			thisArg?: any): any;
+
+		/**
+		* @see _.extend
+		**/				
+		export function extend(
+			object: any,
+			s1: any,
+			s2: any,
+			s3: any,
+			callback?: (objectValue: any, sourceValue: any) => any,
+			thisArg?: any): any;
+
+		/**
+		* @see _.extend
+		**/
+		export function extend(
+			object: any,
+			s1: any,
+			s2: any,
+			s3: any,
+			s4: any,
+			callback?: (objectValue: any, sourceValue: any) => any,
+			thisArg?: any): any;
+
+		/**
+		* @see _.extend
+		**/
+		export function extend(
+			object: any,
+			s1: any,
+			s2: any,
+			s3: any,
+			s4: any,
+			s5: any,
+			callback?: (objectValue: any, sourceValue: any) => any,
+			thisArg?: any): any;
+
+		/**
+		* @see _.extend
+		**/
+		export function extend(
+			object: any,
+			s1: any,
+			s2: any,
+			s3: any,
+			s4: any,
+			s5: any,
+			s6: any,
+			callback?: (objectValue: any, sourceValue: any) => any,
+			thisArg?: any): any;
+
+		/**
+		* @see _.extend
+		**/
+		export function extend(
+			object: any,
+			s1: any,
+			s2: any,
+			s3: any,
+			s4: any,
+			s5: any,
+			s6: any,
+			s7: any,
+			callback?: (objectValue: any, sourceValue: any) => any,
+			thisArg?: any): any;
+
+		/**
+		* @see _.extend
+		**/
+		export function extend(
+			object: any,
+			s1: any,
+			s2: any,
+			s3: any,
+			s4: any,
+			s5: any,
+			s6: any,
+			s7: any,
+			s8: any,
+			callback?: (objectValue: any, sourceValue: any) => any,
+			thisArg?: any): any;
+
+			interface LoDashWrapper<T> {
+				/**
+				* @see _.assign
+				**/
+				extend(
+					s1: any,
+					callback?: (objectValue: any, sourceValue: any) => any,
+					thisArg?: any): any;
+
+				/**
+				* @see _.assign
+				**/
+				extend(
+					s1: any,
+					s2: any,
+					callback?: (objectValue: any, sourceValue: any) => any,
+					thisArg?: any): any;
+
+				/**
+				* @see _.assign
+				**/		
+				extend(
+					s1: any,
+					s2: any,
+					s3: any,
+					callback?: (objectValue: any, sourceValue: any) => any,
+					thisArg?: any): any;
+
+				/**
+				* @see _.assign
+				**/
+				extend(
+					s1: any,
+					s2: any,
+					s3: any,
+					s4: any,
+					callback?: (objectValue: any, sourceValue: any) => any,
+					thisArg?: any): any;
+
+				/**
+				* @see _.assign
+				**/
+				extend(
+					s1: any,
+					s2: any,
+					s3: any,
+					s4: any,
+					s5: any,
+					callback?: (objectValue: any, sourceValue: any) => any,
+					thisArg?: any): any;
+
+				/**
+				* @see _.assign
+				**/
+				extend(
+					s1: any,
+					s2: any,
+					s3: any,
+					s4: any,
+					s5: any,
+					s6: any,
+					callback?: (objectValue: any, sourceValue: any) => any,
+					thisArg?: any): any;
+
+				/**
+				* @see _.assign
+				**/
+				extend(
+					s1: any,
+					s2: any,
+					s3: any,
+					s4: any,
+					s5: any,
+					s6: any,
+					s7: any,
+					callback?: (objectValue: any, sourceValue: any) => any,
+					thisArg?: any): any;
+
+				/**
+				* @see _.assign
+				**/
+				extend(
+					s1: any,
+					s2: any,
+					s3: any,
+					s4: any,
+					s5: any,
+					s6: any,
+					s7: any,
+					s8: any,
+					callback?: (objectValue: any, sourceValue: any) => any,
+					thisArg?: any): any;
+			}
 
 	/**
 	* Creates a clone of value. If deep is true nested objects will also be cloned, otherwise 
