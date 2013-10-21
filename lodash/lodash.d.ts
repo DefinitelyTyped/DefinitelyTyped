@@ -2677,6 +2677,13 @@ declare module _ {
 		object: any,
 		...sources: any[]): any;
 
+		interface LoDashWrapper<T> {
+			/**
+			* @see _.defaults
+			**/
+			defaults(...sources: any[]): LoDashWrapper<any>
+		}
+
 	/**
 	* This method is like _.findIndex except that it returns the key of the first element that 
 	* passes the callback check, instead of the element itself.
