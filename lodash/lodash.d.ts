@@ -495,6 +495,13 @@ declare module _ {
 		callback?: ListIterator<any, any>,
 		thisArg?: any): any[];
 
+		interface LoDashWrapper<T> {
+			flatten(
+				isShallow?,
+				callback?: ListIterator<any, any>,
+				thisArg?: any): any[];
+		}
+
 	/**
 	* @see _.first
 	**/

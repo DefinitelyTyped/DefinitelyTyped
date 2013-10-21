@@ -188,6 +188,10 @@ result = <number[]>_.flatten([1, [2], [3, [[4]]]]);
 result = <any[]>_.flatten([1, [2], [3, [[4]]]], true);
 result = <string[]>_.flatten(stoogesQuotes, 'quotes');
 
+	result = <number[]>_([1, [2], [3, [[4]]]]).flatten();
+	result = <any[]>_([1, [2], [3, [[4]]]]).flatten(true);
+	result = <string[]>_(stoogesQuotes).flatten('quotes');
+
 result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2);
 result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2, 3);
 result = <number>_.indexOf([1, 1, 2, 2, 3, 3], 2, true);
