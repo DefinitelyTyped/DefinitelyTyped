@@ -2837,7 +2837,14 @@ declare module _ {
 		callback: Function, 
 		context?: any): TResult[];
 
-	
+	/**
+	* The inverse of _.escape this method converts the HTML entities &amp;, <, &gt;, &quot;, and 
+	* &#39; in string to their corresponding characters.
+	* @param string The string to unescape.
+	* @return The unescaped string.
+	**/
+	export function unescape(
+		string: string): string;
 
 	
 
