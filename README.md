@@ -48,6 +48,7 @@ List of Definitions
 * [Chrome App](http://developer.chrome.com/apps/) (by [Adam Lay](https://github.com/AdamLay))
 * [CodeMirror](http://codemirror.net) (by [François de Campredon](https://github.com/fdecampredon))
 * [Commander](http://github.com/visionmedia/commander.js) (by [Marcelo Dezem](https://github.com/mdezem))
+* [Crossfilter](https://github.com/square/crossfilter) (by [Schmulik Raskin](https://github.com/schmuli)
 * [d3.js](http://d3js.org/) (from TypeScript samples)
 * [dhtmlxGantt](http://dhtmlx.com/docs/products/dhtmlxGantt) (by [Maksim Kozhukh](http://github.com/mkozhukh))
 * [dhtmlxScheduler](http://dhtmlx.com/docs/products/dhtmlxScheduler) (by [Maksim Kozhukh](http://github.com/mkozhukh))
