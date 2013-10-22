@@ -2380,6 +2380,17 @@ declare module 'mapsjs' {
 		 * @returns {tile.layer} The removed tile layer.
 		 */
 		popTileLayer(): tile.layer;
+
+		/**
+         	* Removes a tile layer off the display stack by reference
+         	* @param {tile.layer} tl - a tile layer
+         	*/
+        	removeTileLayer(tl: tile.layer): void;
+
+        	/**
+         	* Removes all tile layers off the display stack
+         	*/
+        	removeAllTileLayers(): void;
         
 		/**
 		 * Gets the current number of tile layers in the display stack.
