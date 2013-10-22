@@ -986,13 +986,13 @@ declare module 'mapsjs' {
 		 * @returns {function} Function with the signature animation(pathElement, loopback).
 		 */
         getAnimation(): (pathElement: HTMLElement, loopback: () => void) => void;
-		
+
 		/**
 		 * You can use the loopback parameter on complete to call itself and 
 		 * create repeating animation.
 		 * @param {function} Function with the signature animation(pathElement, loopback).
 		 */
-        setAnimation((pathElement: HTMLElement, loopback: () => void) => void): void;
+        setAnimation(action: (pathElement: HTMLElement, loopback: () => void) => void): void;
 		
 		/**
 		 * Renders this geometry as an SVG path. Note: We attach original
