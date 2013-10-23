@@ -1,4 +1,4 @@
-// Type definitions for Angular JS 1.2.0 (ngResource module)
+// Type definitions for Angular JS 1.2 (ngResource module)
 // Project: http://angularjs.org
 // Definitions: https://github.com/daptiv/DefinitelyTyped
 
