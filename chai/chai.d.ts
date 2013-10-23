@@ -8,6 +8,7 @@ declare module chai {
 
     function expect(target: any): Expect;
 
+    // Provides a way to extend the internals of Chai
     function use(fn: (chai: any, utils: any) => void);
 
     interface ExpectStatic {
