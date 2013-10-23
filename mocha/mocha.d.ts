@@ -46,6 +46,10 @@ interface MochaSetupOptions {
     grep?: any;
 }
 
+interface Done {
+    (error?: Error): void;
+}
+
 declare var describe : {
     (description: string, spec: () => void): void;
     only(description: string, spec: () => void): void;
@@ -55,27 +59,27 @@ declare var describe : {
 
 declare var it: {
     (expectation: string, assertion?: () => void): void;
-    (expectation: string, assertion?: (done: (error?: Error) => void) => void): void;
+    (expectation: string, assertion?: (done: Done) => void): void;
     only(expectation: string, assertion?: () => void): void;
-    only(expectation: string, assertion?: (done: (error?: Error) => void) => void): void;
+    only(expectation: string, assertion?: (done: Done) => void): void;
     skip(expectation: string, assertion?: () => void): void;
-    skip(expectation: string, assertion?: (done: (error?: Error) => void) => void): void;
+    skip(expectation: string, assertion?: (done: Done) => void): void;
     timeout(ms: number): void;
 };
 
 declare function before(action: () => void): void;
 
-declare function before(action: (done: (error?: Error) => void) => void): void;
+declare function before(action: (done: Done) => void): void;
 
 declare function after(action: () => void): void;
 
-declare function after(action: (done: (error?: Error) => void) => void): void;
+declare function after(action: (done: Done) => void): void;
 
 declare function beforeEach(action: () => void): void;
 
-declare function beforeEach(action: (done: (error?: Error) => void) => void): void;
+declare function beforeEach(action: (done: Done) => void): void;
 
 declare function afterEach(action: () => void): void;
 
-declare function afterEach(action: (done: (error?: Error) => void) => void): void;
+declare function afterEach(action: (done: Done) => void): void;
 
