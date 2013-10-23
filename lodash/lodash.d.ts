@@ -1,7 +1,43 @@
+// Type definitions for Lo-Dash
+// Project: http://lodash.com/
+// Definitions by: Brian Zengel <https://github.com/bczengel>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 declare var _: LoDash.LoDashStatic;
 
 declare module LoDash {
 	interface LoDashStatic {
+		/**
+		* Creates a lodash object which wraps the given value to enable intuitive method chaining.
+		*
+		* In addition to Lo-Dash methods, wrappers also have the following Array methods:
+		* concat, join, pop, push, reverse, shift, slice, sort, splice, and unshift
+		*
+		* Chaining is supported in custom builds as long as the value method is implicitly or 
+		* explicitly included in the build.
+		*
+		* The chainable wrapper functions are:
+		* after, assign, bind, bindAll, bindKey, chain, compact, compose, concat, countBy, 
+		* createCallback, curry, debounce, defaults, defer, delay, difference, filter, flatten, 
+		* forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, functions, groupBy, 
+		* indexBy, initial, intersection, invert, invoke, keys, map, max, memoize, merge, min, 
+		* object, omit, once, pairs, partial, partialRight, pick, pluck, pull, push, range, reject, 
+		* remove, rest, reverse, shuffle, slice, sort, sortBy, splice, tap, throttle, times, 
+		* toArray, transform, union, uniq, unshift, unzip, values, where, without, wrap, and zip
+		*
+		* The non-chainable wrapper functions are:
+		* clone, cloneDeep, contains, escape, every, find, findIndex, findKey, findLast, 
+		* findLastIndex, findLastKey, has, identity, indexOf, isArguments, isArray, isBoolean, 
+		* isDate, isElement, isEmpty, isEqual, isFinite, isFunction, isNaN, isNull, isNumber, 
+		* isObject, isPlainObject, isRegExp, isString, isUndefined, join, lastIndexOf, mixin, 
+		* noConflict, parseInt, pop, random, reduce, reduceRight, result, shift, size, some, 
+		* sortedIndex, runInContext, template, unescape, uniqueId, and value
+		*
+		* The wrapper functions first and last return wrapped values when n is provided, otherwise 
+		* they return unwrapped values.
+		*
+		* Explicit chaining can be enabled by using the _.chain method.
+		**/
 		(value: number): LoDashWrapper<number>;
 		(value: string): LoDashWrapper<string>;
 		(value: boolean): LoDashWrapper<boolean>;
@@ -9,9 +45,21 @@ declare module LoDash {
 		<T extends {}>(value: T): LoDashObjectWrapper<T>;
 		(value: any): LoDashWrapper<any>;
 
+		/**
+		* The semantic version number.
+		**/
 		VERSION: string;
-		templateSettings: TemplateSettings;
+
+		/**
+		* An object used to flag environments features.
+		**/
 		support: Support;
+
+		/**
+		* By default, the template delimiters used by Lo-Dash are similar to those in embedded Ruby 
+		* (ERB). Change the following template settings to use alternative delimiters.
+		**/
+		templateSettings: TemplateSettings;
 	}
 
 	/**
