@@ -1,6 +1,7 @@
 // Type definitions for Angular JS 1.2 (ngMock, ngMockE2E module)
 // Project: http://angularjs.org
-// Definitions: https://github.com/daptiv/DefinitelyTyped
+// Definitions by: Diego Vilar <http://github.com/diegovilar>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="angular.d.ts" />
 
