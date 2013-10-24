@@ -1,6 +1,6 @@
-// Type definitions for jQuery.timeago.js 1.0.2
+﻿// Type definitions for jQuery.timeago.js 1.0.2
 // Project: http://timeago.yarp.com/
-// Definitions by: Francois Guillot <http://fguillot.developpez.com/>
+// Definitions by: François Guillot <http://fguillot.developpez.com/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
