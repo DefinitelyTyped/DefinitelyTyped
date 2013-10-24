@@ -1,4 +1,4 @@
-﻿DefinitelyTyped
+DefinitelyTyped [![Build Status](https://travis-ci.org/daptiv/DefinitelyTyped.png?branch=master)](https://travis-ci.org/daptiv/DefinitelyTyped)
 ===============
 
 The repository for *high quality* TypeScript type definitions.
@@ -13,6 +13,10 @@ Include a line like this:
 
 [TypeScript Directory: tools, libraries, projects and learning resources](https://github.com/DefinitelyTyped/typescript-directory)
 
+Contributor Guidelines
+----------------------
+
+See the section: [How to contribute](https://github.com/borisyankov/DefinitelyTyped/wiki/How-to-contribute)
 
 Other means to get the definitions
 ----------------------------------

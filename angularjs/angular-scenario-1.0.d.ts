@@ -77,7 +77,7 @@ declare module angularScenario {
     }
 
     export interface Input {
-        enter(value: any);
+        enter(value: any): any;
         check(): any;
         select(radioButtonValue: any): any;
         val(): Future;
