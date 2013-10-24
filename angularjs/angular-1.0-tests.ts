@@ -14,7 +14,7 @@ angular.module('http-auth-interceptor', [])
          * Holds all the requests which failed due to 401 response,
          * so they can be re-requested in future, once login is completed.
          */
-        var buffer = [];
+        var buffer: any[] = [];
 
         /**
          * Required by HTTP interceptor.
@@ -145,14 +145,14 @@ module HttpAndRegularPromiseTests {
                 .success(callback);
         }
 
-    doFoo((data) => console.log(data));
+        doFoo((data: any) => console.log(data));
     }
 }
 
 // Test for AngularJS Syntax
 
 module My.Namespace {
-    export var x; // need to export something for module to kick in
+    export var x: any; // need to export something for module to kick in
 }
 
 // IModule Registering Test
@@ -200,14 +200,13 @@ foo.then((x) => {
     // Typescript will prevent you to actually use x as a local variable
     // Try object:
     return { a: 123 };
-}).then((x) => {
+}).then((x: any) => {
     // Object is inferred here
     x.a = 123;
     //Try a promise
     var y: ng.IPromise<number>;
     return y;
-}).then((x) => {
-    // x is infered to be a number, which is the resolved value of a promise
+}).then((x: number) => {
     x.toFixed();
 });
 

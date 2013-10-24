@@ -586,6 +586,8 @@ var DefinitelyTyped;
                 var command = 'node ./_infrastructure/tests/typescript/tsc.js --module commonjs ';
                 if (IO.fileExists(tsfile + '.tscparams')) {
                     command += '@' + tsfile + '.tscparams';
+                } else {
+                    command += '--noImplicitAny';
                 }
                 Exec.exec(command, [tsfile], function (ExecResult) {
                     callback(ExecResult);
