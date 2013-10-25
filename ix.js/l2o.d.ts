@@ -4,7 +4,7 @@
 
 declare module Ix {
 	export interface Disposable {
-		dispose();
+		dispose(): void;
 	}
 
 	export interface Enumerator<T> extends Disposable {
