@@ -124,28 +124,9 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$compile.directive.Attributes
     ///////////////////////////////////////////////////////////////////////////
     interface IAttributes {
-        // Adds the CSS class value specified by the classVal parameter to the 
-        // element. If animations are enabled then an animation will be triggered 
-        // for the class addition.
-        $addClass(classVal: string): void;
-
-        // Removes the CSS class value specified by the classVal parameter from the 
-        // element. If animations are enabled then an animation will be triggered for 
-        // the class removal.
-        $removeClass(classVal: string): void;
-
-        // Set DOM element attribute value.
-        $set(key: string, value: any): void;
-
-        // Observes an interpolated attribute.
-        // The observer function will be invoked once during the next $digest 
-        // following compilation. The observer is then invoked whenever the 
-        // interpolated value changes.
-        $observe(name: string, fn:(value?:any)=>any): Function;
-
-        // A map of DOM element attribute names to the normalized name. This is needed 
-        // to do reverse lookup from normalized name back to actual name.
-        $attr: Object;
+        $set(name: string, value: any): void;
+        $observe(name: string, fn:(value?:any)=>any):void;
+        $attr: any;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -169,11 +150,14 @@ declare module ng {
     interface INgModelController {
         $render(): void;
         $setValidity(validationErrorKey: string, isValid: boolean): void;
-        // Documentation states viewValue and modelValue to be a string but other
-        // types do work and it's common to use them.
-        $setViewValue(value: any): void;
+        $setViewValue(value: string): void;
+
+        // XXX Not sure about the types here. Documentation states it's a string, but
+        // I've seen it receiving other types throughout the code.
+        // Falling back to any for now.
         $viewValue: any;
 
+        // XXX Same as avove
         $modelValue: any;
 
         $parsers: IModelParser[];
@@ -622,6 +606,12 @@ declare module ng {
     }
 
     ///////////////////////////////////////////////////////////////////////////
+    // RouteParamsService
+    // see http://docs.angularjs.org/api/ng.$routeParams
+    ///////////////////////////////////////////////////////////////////////////
+    interface IRouteParamsService {}
+
+    ///////////////////////////////////////////////////////////////////////////
     // TemplateCacheService
     // see http://docs.angularjs.org/api/ng.$templateCache
     ///////////////////////////////////////////////////////////////////////////
@@ -634,35 +624,62 @@ declare module ng {
     interface IRootScopeService extends IScope {}
 
     ///////////////////////////////////////////////////////////////////////////
+    // RouteService
+    // see http://docs.angularjs.org/api/ng.$route
+    // see http://docs.angularjs.org/api/ng.$routeProvider
+    ///////////////////////////////////////////////////////////////////////////
+    interface IRouteService {
+        reload(): void;
+        routes: any;
+
+        // May not always be available. For instance, current will not be available
+        // to a controller that was not initialized as a result of a route maching.
+        current?: ICurrentRoute;
+    }
+
+    // see http://docs.angularjs.org/api/ng.$routeProvider#when for options explanations
+    interface IRoute {
+        controller?: any;
+        name?: string;
+        template?: string;
+        templateUrl?: any;
+        resolve?: any;
+        redirectTo?: any;
+        reloadOnSearch?: boolean;
+    }
+
+    // see http://docs.angularjs.org/api/ng.$route#current
+    interface ICurrentRoute extends IRoute {
+        locals: {
+            $scope: IScope;
+            $template: string;
+        };
+
+        params: any;
+    }
+
+    interface IRouteProvider extends IServiceProvider {
+        otherwise(params: any): IRouteProvider;
+        when(path: string, route: IRoute): IRouteProvider;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
     // Directive
     // see http://docs.angularjs.org/api/ng.$compileProvider#directive
     // and http://docs.angularjs.org/guide/directive
     ///////////////////////////////////////////////////////////////////////////
 
     interface IDirective{
-        compile?:
-            (templateElement: any,
-            templateAttributes: IAttributes,
-            transclude: (scope: IScope, cloneLinkingFn: Function) => void
-            ) => any;
-        controller?: (...injectables: any[]) => void;
-        controllerAs?: string;
-        link?:
-            (scope: IScope,
-            instanceElement: any,
-            instanceAttributes: IAttributes,
-            controller: any
-            ) => void;
-        name?: string;
         priority?: number;
-        replace?: boolean;
-        require?: string[];
-        restrict?: string;
-        scope?: any;
         template?: any;
         templateUrl?: any;
-        terminal?: boolean;
+        replace?: boolean;
         transclude?: any;
+        restrict?: string;
+        scope?: any;
+        link?: Function;
+        compile?: Function;
+        controller?: any; 
     }
 
     ///////////////////////////////////////////////////////////////////////////
