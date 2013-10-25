@@ -19,12 +19,50 @@ interface FlightComponent {
 
 interface FlightBase extends FlightAdvice, FlightComponent {
 
+	/**
+	 * Most Components and Mixins need to define attributes. In Flight, 
+	 * default values are assigned by passing an object to the defaultAttrs 
+	 * function.
+	 */
     defaultAttrs(obj: Object);
     
+	/**
+	 * The select method takes an attr key as its argument. The value of the 
+	 * attr must be a CSS Selector. The method will return all matching 
+	 * elements within the component's node.
+	 *
+	 * This is a handy alternative to jQuery's this.$node.find() and prevents 
+	 * accidental access to elements outside of the component's node.
+	 *
+	 * @param attr 
+	 */
     select(attr: string)
 
+	/**
+	 * This method is attached to the prototype of every Component; it accepts 
+	 * the component's node and an options object as arguments. The core 
+	 * implementation, which is called every time an instance is created, will
+	 * assign the node to the instance and override the default attrs with the 
+	 * options object.
+	 *
+	 * Components and Mixins will typically augment the core implementation by 
+	 * supplying a function as an argument to the after method (see the advice 
+	 * API for more information). This is a good place to set up event 
+	 * listeners that bind to callbacks.
+	 */
     initialize();
 
+	/**
+	 * This allows a component instance to listen to an event and register a 
+	 * callback to be invoked. Flight will automatically bind the context 
+	 * (this) of the callback to the component instance.
+	 *
+	 * @param selector Optional. Specify the DOM node(s) that should listen for the event. Defaults to the component instance's node value.
+	 *
+	 * @param eventType The event type to listen for.
+	 *
+	 * @param handler Either a function (callback) to be invoked, or a map of targets and callbacks.
+	 */
     on(eventType: string, handler: Function);
     on(selector: string, eventType: string, handler: Function);
     on(selector: Document, eventType: string, handler: Function);
