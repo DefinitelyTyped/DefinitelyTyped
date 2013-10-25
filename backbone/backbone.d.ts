@@ -67,16 +67,16 @@ declare module Backbone {
     }
 
     class Events {
-        on(eventName: any, callback?: (...args: any[]) => void , context?: any): any;
-        off(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
+        on(eventName: any, callback?: Function, context?: any): any;
+        off(eventName?: string, callback?: Function, context?: any): any;
         trigger(eventName: string, ...args: any[]): any;
-        bind(eventName: string, callback: (...args: any[]) => void , context?: any): any;
-        unbind(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
+        bind(eventName: string, callback: Function, context?: any): any;
+        unbind(eventName?: string, callback?: Function, context?: any): any;
 
-        once(events: string, callback: (...args: any[]) => void , context?: any): any;
-        listenTo(object: any, events: string, callback: (...args: any[]) => void ): any;
-        listenToOnce(object: any, events: string, callback: (...args: any[]) => void ): any;
-        stopListening(object?: any, events?: string, callback?: (...args: any[]) => void ): any;
+        once(events: string, callback: Function, context?: any): any;
+        listenTo(object: any, events: string, callback: Function): any;
+        listenToOnce(object: any, events: string, callback: Function): any;
+        stopListening(object?: any, events?: string, callback?: Function): any;
     }
 
     class ModelBase extends Events {
@@ -248,7 +248,7 @@ declare module Backbone {
 
         constructor(options?: RouterOptions);
         initialize(options?: RouterOptions);
-        route(route: string, name: string, callback?: (...parameter: any[]) => void );
+        route(route: string, name: string, callback?: Function);
         navigate(fragment: string, options?: NavigateOptions);
         navigate(fragment: string, trigger?: boolean);
 
@@ -269,7 +269,7 @@ declare module Backbone {
         getHash(window?: Window): string;
         getFragment(fragment?: string, forcePushState?: boolean): string;
         stop(): void;
-        route(route: string, callback: (...args: any[]) => void );
+        route(route: string, callback: Function);
         checkUrl(e?: any): void;
         loadUrl(fragmentOverride: string): boolean;
         navigate(fragment: string, options?: any);
@@ -339,4 +339,3 @@ declare module Backbone {
 
     function setDomLibrary(jQueryNew);
 }
-
