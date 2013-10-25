@@ -74,8 +74,6 @@ declare module Ix {
 		onErrorResumeNext<T>(second: Enumerable<T>): Enumerable<T>;
 
 		retry(retryCount?: number): Enumerable<T>;
-
-		
 	}
 
 	export interface EnumerableStatic {
