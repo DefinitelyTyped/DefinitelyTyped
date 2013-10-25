@@ -3,10 +3,13 @@
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 
 declare module Ix {
-    export interface Enumerator<T> {
+	export interface Disposable {
+		dispose();
+	}
+
+	export interface Enumerator<T> extends Disposable {
         moveNext(): boolean;
         getCurrent(): T;
-        dispose();
     }
 
     export interface EnumeratorStatic {
@@ -84,8 +87,11 @@ declare module Ix {
         groupBy<TKey, TElement>(
             keySelector: (item: T) => TKey,
             elementSelector: (item: T) => TElement): Grouping<TKey, TElement>;
-        groupBy<TKey>(
-            keySelector: (item: T) => TKey): Grouping<TKey, T>;
+        // spec 3.5.2, waiting for restriction on generative recursion removal
+		/*groupBy<TKey>(
+            keySelector: (item: T) => TKey): Grouping<TKey, T>;*/
+        groupBy<TKey, _T extends T>(
+            keySelector: (item: T) => TKey): Grouping<TKey, _T>;
 
         // if need to set comparer without resultSelector
         groupBy<TKey, TElement>(
@@ -100,11 +106,17 @@ declare module Ix {
             resultSelector: (key: TKey, values: Enumerable<T>) => TResult,
             comparer?: EqualityComparer<TKey, TKey>): Enumerable<TResult>;
         // if need to set comparer without elementSelector and resultSelector
-        groupBy<TKey>(
+        // spec 3.5.2, waiting for restriction on generative recursion removal
+		/*groupBy<TKey>(
             keySelector: (item: T) => TKey,
             _: boolean,
             __: boolean,
-            comparer: EqualityComparer<TKey, TKey>): Grouping<TKey, T>;
+            comparer: EqualityComparer<TKey, TKey>): Grouping<TKey, T>;*/
+        groupBy<TKey, _T extends T>(
+            keySelector: (item: T) => TKey,
+            _: boolean,
+            __: boolean,
+            comparer: EqualityComparer<TKey, TKey>): Grouping<TKey, _T>;
 
         groupJoin<TInner, TOuterKey, TInnerKey, TResult>(
             inner: Enumerable<TInner>,
@@ -160,25 +172,41 @@ declare module Ix {
             keySelector: (item: T) => TKey,
             elementSelector: (item: T) => TValue,
             comparer?: EqualityComparer<TKey, TKey>): Dictionary<TKey, TValue>;
-        toDictionary<TKey>(
-            keySelector: (item: T) => TKey): Dictionary<TKey, T>;
+        // spec 3.5.2, waiting for restriction on generative recursion removal
+		/*toDictionary<TKey>(
+            keySelector: (item: T) => TKey): Dictionary<TKey, T>;*/
+        toDictionary<TKey, _T extends T>(
+            keySelector: (item: T) => TKey): Dictionary<TKey, _T>;
         // if need to set comparer without elementSelector
-        toDictionary<TKey>(
+        // spec 3.5.2, waiting for restriction on generative recursion removal
+		/*toDictionary<TKey>(
             keySelector: (item: T) => TKey,
             _: boolean,
-            comparer: EqualityComparer<TKey, TKey>): Dictionary<TKey, T>;
+            comparer: EqualityComparer<TKey, TKey>): Dictionary<TKey, T>;*/
+        toDictionary<TKey, _T extends T>(
+            keySelector: (item: T) => TKey,
+            _: boolean,
+            comparer: EqualityComparer<TKey, TKey>): Dictionary<TKey, _T>;
 
         toLookup<TKey, TValue>(
             keySelector: (item: T) => TKey,
             elementSelector: (item: T) => TValue,
             comparer?: EqualityComparer<TKey, TKey>): Lookup<TKey, TValue>;
-        toLookup<TKey>(
-            keySelector: (item: T) => TKey): Lookup<TKey, T>;
+        // spec 3.5.2, waiting for restriction on generative recursion removal
+		/*toLookup<TKey>(
+            keySelector: (item: T) => TKey): Lookup<TKey, T>;*/
+        toLookup<TKey, _T extends T>(
+            keySelector: (item: T) => TKey): Lookup<TKey, _T>;
         // if need to set comparer without elementSelector
-        toLookup<TKey>(
+        // spec 3.5.2, waiting for restriction on generative recursion removal
+		/*toLookup<TKey>(
             keySelector: (item: T) => TKey,
             _: boolean,
-            comparer: EqualityComparer<TKey, TKey>): Lookup<TKey, T>;
+            comparer: EqualityComparer<TKey, TKey>): Lookup<TKey, T>;*/
+        toLookup<TKey, _T extends T>(
+            keySelector: (item: T) => TKey,
+            _: boolean,
+            comparer: EqualityComparer<TKey, TKey>): Lookup<TKey, _T>;
 
         where(selector: EnumerablePredicate<T>, thisArg?: any): Enumerable<T>;
         filter(selector: EnumerablePredicate<T>, thisArg?: any): Enumerable<T>;
@@ -199,6 +227,7 @@ declare module Ix {
         constructor(capacity, comparer?: EqualityComparer<TKey, TKey>);
 
         toEnumerable(): Enumerable<KeyValuePair<TKey, TValue>>;
+
         add(key: TKey, value: TValue): void;
         remove(key: TKey): boolean;
         clear(): void;
@@ -216,7 +245,7 @@ declare module Ix {
     }
 
     export interface Lookup<TKey, TValue> {
-        toEnumerable(): Enumerable<Grouping<TKey, TValue>>;
+        toEnumerable(): Enumerable<Grouping<TKey, any>>;
         has(key: TKey): boolean;
         length(): number;
         get(key: TKey): Enumerable<TValue>;
