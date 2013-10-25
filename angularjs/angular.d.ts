@@ -158,6 +158,8 @@ declare module ng {
         $valid: boolean;
         $invalid: boolean;
         $error: any;
+        $addControl(control: ng.INgModelController): void;
+        $removeControl(control: ng.INgModelController): void;
         $setDirty(): void;
         $setPristine(): void;
     }
