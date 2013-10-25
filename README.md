@@ -68,6 +68,7 @@ List of Definitions
 * [Firebase](https://www.firebase.com/docs/javascript/firebase) (by [Vincent Bortone](https://github.com/vbortone))
 * [Firefox](https://developer.mozilla.org/en-US/docs/Web/API) (by [vvakame](https://github.com/vvakame))
 * [FlexSlider](http://www.woothemes.com/flexslider/) (by [Diullei Gomes](https://github.com/Diullei))
+* [Flight by Twitter](http://flightjs.github.com/flight/) (by [Jonathan Hedrén](https://github.com/jonathanhedren))
 * [Foundation](http://foundation.zurb.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [FPSMeter](http://darsa.in/fpsmeter/) (by [Aaron Lampros](https://github.com/alampros))
 * [FullCalendar](http://arshaw.com/fullcalendar/) (by [Neil Stalker](https://github.com/nestalk))
