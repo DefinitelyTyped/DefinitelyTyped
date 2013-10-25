@@ -1,4 +1,4 @@
-/// <reference path="angular.d.ts" />
+/// <reference path="angular-1.0.d.ts" />
 
 // issue: https://github.com/borisyankov/DefinitelyTyped/issues/369
 https://github.com/witoldsz/angular-http-auth/blob/master/src/angular-http-auth.js
@@ -20,7 +20,7 @@ angular.module('http-auth-interceptor', [])
          * Required by HTTP interceptor.
          * Function is attached to provider to be invisible for regular users of this service.
          */
-        this.pushToBuffer = function (config: ng.IRequestConfig, deferred: ng.IDeferred) {
+        this.pushToBuffer = function (config: ng.IRequestConfig, deferred: ng.IDeferred<any>) {
             buffer.push({
                 config: config,
                 deferred: deferred
@@ -152,7 +152,7 @@ module HttpAndRegularPromiseTests {
 // Test for AngularJS Syntax
 
 module My.Namespace {
-    export var x; // need to export something for module to kick in    
+    export var x; // need to export something for module to kick in
 }
 
 // IModule Registering Test
@@ -182,7 +182,6 @@ mod.value('name', 23);
 mod.value('name', "23");
 mod.value(My.Namespace);
 
-
 // Promise signature tests
 var foo: ng.IPromise<number>;
 foo.then((x) => {
@@ -204,11 +203,11 @@ foo.then((x) => {
 }).then((x) => {
     // Object is inferred here
     x.a = 123;
-    //Try a promise 
+    //Try a promise
     var y: ng.IPromise<number>;
-    return y; 
+    return y;
 }).then((x) => {
-    // x is infered to be a number, which is the resolved value of a promise 
+    // x is infered to be a number, which is the resolved value of a promise
     x.toFixed();
 });
 
@@ -218,17 +217,3 @@ var element = angular.element("div.myApp");
 var scope: ng.IScope = element.scope();
 
 
-
-function test_IAttributes(attributes: ng.IAttributes){
-    return attributes;
-}
-
-test_IAttributes({
-    $addClass: function (classVal){},
-    $removeClass: function(classVal){},
-    $set: function(key, value){},
-    $observe: function(name, fn){
-        return fn;
-    },
-    $attr: {}
-});
