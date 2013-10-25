@@ -87,7 +87,7 @@ declare module Slick {
 		* @method subscribe
 		* @param fn {Function} Event handler.
 		*/
-		public subscribe<T>(fn: (eventData: EventData, data: T) => any ): void;
+		public subscribe(fn: (eventData: EventData, data: T) => any ): void;
 
 		/***
 		* Removes an event handler added with <code>subscribe(fn)</code>.
