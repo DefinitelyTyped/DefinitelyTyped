@@ -6,10 +6,6 @@
 
 declare module Ix {
 
-	export interface Comparer<T1, T2> {
-		(item1: T1, item2: T2): number;
-	}
-
 	export interface Observer<T> {
 		onNext? (value: T): void;
 		onError? (error: Error): void;
