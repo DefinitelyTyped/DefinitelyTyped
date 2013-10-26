@@ -8,13 +8,13 @@ declare module google {
         // https://developers.google.com/chart/interactive/docs/reference#DataTable
         export class DataTable {
             constructor(data?: any, version?: any);
-    //        addColumn(type: string, label?: string, id?: string): number;
-    //        addColumn(descriptionObject: DataTableColumnDescription): number;
-    //        addRow(cellObject: DataObjectCell): number;
-    //        addRow(cellArray?: any[]): number;
-    //        addRows(count: number): number;
-    //        addRows(array: DataObjectCell[][]);
-    //        addRows(array: any[]);
+            addColumn(type: string, label?: string, id?: string): number;
+            //addColumn(descriptionObject: DataTableColumnDescription): number;
+            //addRow(cellObject: DataObjectCell): number;
+            addRow(cellArray?: any[]): number;
+            addRows(count: number): number;
+            //addRows(array: DataObjectCell[][]): number;
+            addRows(array: any[]): number;
         }
 
     //    function arrayToDataTable(data: any[]): DataTable;
