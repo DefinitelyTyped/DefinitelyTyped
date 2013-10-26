@@ -17,7 +17,7 @@ declare module Ix {
 		create<T>(moveNext: () => boolean, getCurrent: () => T, dispose?: () => void): Enumerator<T>;
 	}
 
-	var Enumerator: EnumerableStatic;
+	var Enumerator: EnumeratorStatic;
 
 	export interface EnumerableFunc<T, TResult> {
 		(item: T, index: number, self: Enumerable<T>): TResult;
@@ -26,8 +26,11 @@ declare module Ix {
 	export interface Predicate<T> {
 		(item: T): boolean;
 	}
-	export interface EqualityComparer<T1, T2> {
-		(item1: T1, item2: T2): boolean;
+	export interface EqualityComparer<TFirst, TSecond> {
+		(item1: TFirst, item2: TSecond): boolean;
+	}
+	export interface Comparer<TFirst, TSecond> {
+		(item1: TFirst, item2: TSecond): number;
 	}
 
 	export interface Enumerable<T> {
@@ -57,18 +60,19 @@ declare module Ix {
 		concat<T>(...sources: Enumerable<T>[]): Enumerable<T>;
 
 		contains<TValue>(value: TValue, comparer: EqualityComparer<T, TValue>): boolean;
-		contains(value: any): boolean;
+		contains(value: T): boolean;
 
 		count(predicate?: EnumerablePredicate<T>, thisArg?: any): number;
 
-		defaultIfEmpty(defaultValue: T): Enumerable<T>;
+		defaultIfEmpty(defaultValue?: T): Enumerable<T>;
 
 		distinct(comparer?: EqualityComparer<T, T>): Enumerable<T>;
 
 		elementAt(index: number): T;
 		elementAtOrDefault(index: number): T;
 
-		except(second: Enumerable<T>, comparer?: EqualityComparer<T, T>): Enumerable<T>;
+		except<TOther>(second: Enumerable<TOther>, comparer: EqualityComparer<T, TOther>): Enumerable<T>;
+		except(second: Enumerable<T>): Enumerable<T>;
 
 		first(predicate?: Predicate<T>): T;
 		firstOrDefault(predicate?: Predicate<T>): T;
@@ -146,8 +150,8 @@ declare module Ix {
 		intersect(second: Enumerable<T>): Enumerable<T>;
 		union(second: Enumerable<T>, comparer?: EqualityComparer<T, T>): Enumerable<T>;
 
-		orderBy<TKey>(keySelector: (item: T) => TKey, comparer?: EqualityComparer<TKey, TKey>): OrderedEnumerable<T>;
-		orderByDescending<TKey>(keySelector: (item: T) => TKey, comparer?: EqualityComparer<TKey, TKey>): OrderedEnumerable<T>;
+		orderBy<TKey>(keySelector: (item: T) => TKey, comparer?: Comparer<TKey, TKey>): OrderedEnumerable<T>;
+		orderByDescending<TKey>(keySelector: (item: T) => TKey, comparer?: Comparer<TKey, TKey>): OrderedEnumerable<T>;
 
 		reverse(): Enumerable<T>;
 
@@ -219,12 +223,12 @@ declare module Ix {
 	}
 
 	export interface OrderedEnumerable<T> extends Enumerable<T> {
-		thenBy<TKey>(keySelector: (item: T) => TKey, comparer?: EqualityComparer<TKey, TKey>): OrderedEnumerable<T>;
-		thenByDescending<TKey>(keySelector: (item: T) => TKey, comparer?: EqualityComparer<TKey, TKey>): OrderedEnumerable<T>;
+		thenBy<TKey>(keySelector: (item: T) => TKey, comparer?: Comparer<TKey, TKey>): OrderedEnumerable<T>;
+		thenByDescending<TKey>(keySelector: (item: T) => TKey, comparer?: Comparer<TKey, TKey>): OrderedEnumerable<T>;
 	}
 
 	class Dictionary<TKey, TValue> {
-		constructor(capacity, comparer?: EqualityComparer<TKey, TKey>);
+		constructor(capacity?: number, comparer?: EqualityComparer<TKey, TKey>);
 
 		toEnumerable(): Enumerable<KeyValuePair<TKey, TValue>>;
 
@@ -258,7 +262,8 @@ declare module Ix {
 		concat<T>(...sources: Enumerable<T>[]): Enumerable<T>;
 		empty<T>(): Enumerable<T>;
 		fromArray<T>(array: T[]): Enumerable<T>;
-		returnValue<T>(value: T): Enumerable<T>;
+		return<T>(value: T): Enumerable<T>;
+		returnValue<T>(value: T): Enumerable<T>;	// alias for <IE9
 		range(start: number, count: number): Enumerable<number>;
 		repeat<T>(value: T, repeatCount?: number): Enumerable<T>;
 
