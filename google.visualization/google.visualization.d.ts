@@ -40,8 +40,8 @@ declare module google {
     //        pattern?: string;
     //    }
 
-    //    // https://developers.google.com/chart/interactive/docs/reference#DataTable
-    //    export class DataTable {
+        // https://developers.google.com/chart/interactive/docs/reference#DataTable
+        export class DataTable {
     //        constructor(data?: any, version?: any);
     //        addColumn(type: string, label?: string, id?: string): number;
     //        addColumn(descriptionObject: DataTableColumnDescription): number;
@@ -50,7 +50,7 @@ declare module google {
     //        addRows(count: number): number;
     //        addRows(array: DataObjectCell[][]);
     //        addRows(array: any[]);
-    //    }
+        }
 
     //    //https://google-developers.appspot.com/chart/interactive/docs/gallery/geochart
     //    export class GeoChart {
