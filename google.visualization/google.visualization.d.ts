@@ -5,52 +5,54 @@ declare module google {
     function setOnLoadCallback(handler: () => void): void;
 
     module visualization {
+
         // https://developers.google.com/chart/interactive/docs/reference#DataTable
+
+        export interface DataTableColumnDescription {
+            type?: string;
+            label?: string;
+            id?: string;
+            role?: string;
+            pattern?: string;
+        }
+
+        export interface DataObjectCell {
+            v?: any;
+            f?: string;
+            p?: any;
+        }
+
+        export interface DataObjectColumn {
+            type: string;
+            id?: string;
+            label?: string;
+            pattern?: string;
+            p?: any;
+        }
+
+        export interface DataObjectRow {
+            c: DataObjectCell[];
+            p?: any;
+        }
+
+        export interface DataObject {
+            cols: DataObjectColumn[];
+            rows: DataObjectRow[];
+            p: any;
+        }
+
         export class DataTable {
             constructor(data?: any, version?: any);
             addColumn(type: string, label?: string, id?: string): number;
-            //addColumn(descriptionObject: DataTableColumnDescription): number;
-            //addRow(cellObject: DataObjectCell): number;
+            addColumn(descriptionObject: DataTableColumnDescription): number;
+            addRow(cellObject: DataObjectCell): number;
             addRow(cellArray?: any[]): number;
             addRows(count: number): number;
-            //addRows(array: DataObjectCell[][]): number;
+            addRows(array: DataObjectCell[][]): number;
             addRows(array: any[]): number;
         }
 
     //    function arrayToDataTable(data: any[]): DataTable;
-
-    //    export interface DataObjectColumn {
-    //        type: string;
-    //        id?: string;
-    //        label?: string;
-    //        pattern?: string;
-    //        p?: any;
-    //    }
-
-    //    export interface DataObjectRow {
-    //        c: DataObjectCell[];
-    //        p?: any;
-    //    }
-
-    //    export interface DataObject {
-    //        cols: DataObjectColumn[];
-    //        rows: DataObjectRow[];
-    //        p: any;
-    //    }
-
-    //    export interface DataObjectCell {
-    //        v?: any;
-    //        f?: any;
-    //        p?: any;
-    //    }
-
-    //    export interface DataTableColumnDescription {
-    //        type?: string;
-    //        label?: string;
-    //        id?: string;
-    //        role?: string;
-    //        pattern?: string;
-    //    }
 
     //    //https://google-developers.appspot.com/chart/interactive/docs/gallery/geochart
     //    export class GeoChart {
@@ -111,9 +113,9 @@ declare module google {
     //        trigger?: string;
     //    }
 
-    //    module events {
-    //        function addListener(chart: any, eventName: string, callback: Function);
-    //        function addListener(chart: any, eventName: string, callback: () => any);
-    //    }
+        module events {
+            function addListener(chart: any, eventName: string, callback: Function);
+            function addListener(chart: any, eventName: string, callback: () => any);
+        }
     }
 }
