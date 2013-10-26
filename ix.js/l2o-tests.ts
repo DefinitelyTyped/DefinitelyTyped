@@ -96,14 +96,14 @@ ax.singleOrDefault();
 ax.forEach(a => console.log(a));
 ax.forEach(a => console.log(a), cx);
 
-bx.groupBy<number, string>(b => b.length);
+//bx.groupBy(b => b.length);						// spec 3.5.2, waiting for restriction on generative recursion removal
 bx.groupBy(b => b.length, b => "[" + b + "]");
 bx.groupBy(b => b.length, b => "[" + b + "]", (l, values) => l + values.count());
 bx.groupBy(b => b.length, false, (l, values) => l + values.count());
 bx.groupBy(b => b.length, b => "[" + b + "]", (l, values) => l + values.count(), ec_nn);
 bx.groupBy(b => b.length, b => "[" + b + "]", false, (x, y) => x == y);
 bx.groupBy(b => b.length, false, (l, values) => l + values.count(), ec_nn);
-bx.groupBy<number, number>(b => b.length, false, false, ec_nn);
+//bx.groupBy(b => b.length, false, false, ec_nn);	// spec 3.5.2, waiting for restriction on generative recursion removal
 
 ax.groupJoin(bx, a => a, b => b, (a, b) => [a, b], ec_ns);
 ax.groupJoin(bx, a => a, b => b.length, (a, b) => [a, b]);
@@ -142,14 +142,14 @@ ax.takeWhile(a => a > 10);
 ax.toArray();
 
 bx.toDictionary(b => b.length, b => 10, ec_nn);
-bx.toDictionary<number, string>(b => b.length, false, ec_nn);
+//bx.toDictionary(b => b.length, false, ec_nn);	// spec 3.5.2, waiting for restriction on generative recursion removal
 bx.toDictionary(b => b.length, b => 10);
-bx.toDictionary<number, string>(b => b.length);
+//bx.toDictionary(b => b.length);				// spec 3.5.2, waiting for restriction on generative recursion removal
 
 bx.toLookup(b => b.length, b => 10, ec_nn);
-bx.toLookup<number, string>(b => b.length, false, ec_nn);
+//bx.toLookup(b => b.length, false, ec_nn);		// spec 3.5.2, waiting for restriction on generative recursion removal
 bx.toLookup(b => b.length, b => 10);
-bx.toLookup<number, string>(b => b.length);
+//bx.toLookup(b => b.length);					// spec 3.5.2, waiting for restriction on generative recursion removal
 
 ax.where(a=> a > 10, {});
 ax.where(a=> a > 10);
@@ -158,3 +158,64 @@ ax.filter(a=> a > 10);
 
 ax.zip(bx, (a: number, b: string) => [a, b]);
 ax.zip(bx, (a, b) => [a, b]);
+
+// Disposable
+
+{
+	var d: Ix.Disposable;
+
+	d.dispose();
+}
+
+// Enumerator
+
+{
+	var e: Ix.Enumerator<number>;
+
+	try {
+		while (e.moveNext()) { var c = e.getCurrent(); }
+	}
+	finally {
+		e.dispose();
+	}
+}
+
+// Dictionary
+
+{
+	var dic = new Ix.Dictionary<number, string>(0, ec_nn);
+
+	var key = dic.toEnumerable().first().key;
+	var value = dic.toEnumerable().first().value;
+
+	dic.add(1, "1");
+	dic.remove(1);
+	dic.clear();
+	dic.length();
+	dic.tryGetValue(1);
+	dic.get(1);
+	dic.set(1, "1");
+	dic.getValues();
+	dic.has(1);
+}
+
+// KeyValuePair
+
+{
+	var kv: Ix.KeyValuePair<number, string>;
+	var key = kv.key;
+	var value = kv.value;
+}
+
+// Lookup
+
+{
+	var lookup: Ix.Lookup<number, string>;
+
+	var key = lookup.toEnumerable().first().key;
+	lookup.toEnumerable().first().first();
+
+	lookup.has(1);
+	lookup.length();
+	lookup.get(1).first();
+}
