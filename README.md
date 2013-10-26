@@ -75,6 +75,7 @@ List of Definitions
 * [Giraffe](https://github.com/barc/backbone.giraffe) (by [Matt McCray](https://github.com/darthapo))
 * [glDatePicker](http://glad.github.com/glDatePicker/) (by [Dániel Tar](https://github.com/qcz))
 * [GoJS](http://gojs.net/) (by [Barbara Duckworth](https://github.com/barbara42))
+* [Greasemonkey](http://www.greasespot.net/) (by [Kota Saito](https://github.com/kotas))
 * [GreenSock Animation Platform (GSAP)](http://www.greensock.com/get-started-js/) (by [Robert S.](https://github.com/codeBelt))
 * [Grunt JS](http://gruntjs.com/) (by [Basarat Ali Syed](https://github.com/basarat))
 * [Google API Client](https://code.google.com/p/google-api-javascript-client/) (by [Frank M](https://github.com/sgtfrankieboy))
