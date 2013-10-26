@@ -637,9 +637,10 @@ declare module ng {
         current?: ICurrentRoute;
     }
 
-    // see http://docs.angularjs.org/api/ng.$routeProvider#when for options explanations
+    // see http://docs.angularjs.org/api/ngRoute.$routeProvider for options explanations
     interface IRoute {
         controller?: any;
+        controllerAs?: any;
         name?: string;
         template?: string;
         templateUrl?: any;
