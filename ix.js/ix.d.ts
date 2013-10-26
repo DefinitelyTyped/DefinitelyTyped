@@ -67,7 +67,7 @@ declare module Ix {
 		finally(finallyAction: () => void): Enumerable<T>;
 		finallyDo(finallyAction: () => void): Enumerable<T>;
 
-		onErrorResumeNext<T>(second: Enumerable<T>): Enumerable<T>;
+		onErrorResumeNext(second: Enumerable<T>): Enumerable<T>;
 
 		retry(retryCount?: number): Enumerable<T>;
 	}
