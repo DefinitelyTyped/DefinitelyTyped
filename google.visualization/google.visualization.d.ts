@@ -4,7 +4,7 @@ declare module google {
     function setOnLoadCallback(handler: Function): void;
     function setOnLoadCallback(handler: () => void): void;
 
-    //module visualization {
+    module visualization {
     //    function arrayToDataTable(data: any[]): DataTable;
 
     //    export interface DataObjectColumn {
@@ -115,5 +115,5 @@ declare module google {
     //        function addListener(chart: any, eventName: string, callback: Function);
     //        function addListener(chart: any, eventName: string, callback: () => any);
     //    }
-    //}
+    }
 }
