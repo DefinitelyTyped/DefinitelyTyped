@@ -5,6 +5,18 @@ declare module google {
     function setOnLoadCallback(handler: () => void): void;
 
     module visualization {
+        // https://developers.google.com/chart/interactive/docs/reference#DataTable
+        export class DataTable {
+            constructor(data?: any, version?: any);
+            addColumn(type: string, label?: string, id?: string): number;
+    //        addColumn(descriptionObject: DataTableColumnDescription): number;
+    //        addRow(cellObject: DataObjectCell): number;
+            addRow(cellArray?: any[]): number;
+            addRows(count: number): number;
+    //        addRows(array: DataObjectCell[][]);
+            addRows(array: any[]);
+        }
+
     //    function arrayToDataTable(data: any[]): DataTable;
 
     //    export interface DataObjectColumn {
@@ -39,18 +51,6 @@ declare module google {
     //        role?: string;
     //        pattern?: string;
     //    }
-
-        // https://developers.google.com/chart/interactive/docs/reference#DataTable
-        export class DataTable {
-    //        constructor(data?: any, version?: any);
-    //        addColumn(type: string, label?: string, id?: string): number;
-    //        addColumn(descriptionObject: DataTableColumnDescription): number;
-    //        addRow(cellObject: DataObjectCell): number;
-    //        addRow(cellArray?: any[]): number;
-    //        addRows(count: number): number;
-    //        addRows(array: DataObjectCell[][]);
-    //        addRows(array: any[]);
-        }
 
     //    //https://google-developers.appspot.com/chart/interactive/docs/gallery/geochart
     //    export class GeoChart {
