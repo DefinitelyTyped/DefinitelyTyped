@@ -4,7 +4,7 @@
 // http://gruntjs.com/getting-started#an-example-gruntfile
 
 // exports should work same as module.exports 
-exports = function (grunt) {
+exports = (grunt: IGrunt) => {
 
     // Project configuration.
     grunt.initConfig({
