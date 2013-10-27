@@ -113,9 +113,9 @@ declare module google {
     //        trigger?: string;
     //    }
 
-        export class events {
+        module events {
             static addListener(chart: any, eventName: string, callback: Function): any;
-        //    static addListener(chart: any, eventName: string, callback: () => any);
+            static addListener(chart: any, eventName: string, callback: () => any): any;
         }
     }
 }
