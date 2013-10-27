@@ -113,9 +113,9 @@ declare module google {
     //        trigger?: string;
     //    }
 
-        module events {
-            function addListener(chart: any, eventName: string, callback: Function);
-            function addListener(chart: any, eventName: string, callback: () => any);
-        }
+        //module events {
+        //    function addListener(chart: any, eventName: string, callback: Function);
+        //    function addListener(chart: any, eventName: string, callback: () => any);
+        //}
     }
 }
