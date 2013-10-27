@@ -34,6 +34,7 @@ declare module ng.route {
     // see http://docs.angularjs.org/api/ngRoute.$routeProvider#when for options explanations
     interface IRoute {
         controller?: any;
+        controllerAs?: any;
         name?: string;
         template?: string;
         templateUrl?: any;
