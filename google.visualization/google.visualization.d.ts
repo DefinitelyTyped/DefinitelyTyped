@@ -114,8 +114,8 @@ declare module google {
     //    }
 
         module events {
-            static addListener(chart: any, eventName: string, callback: Function): any;
-            static addListener(chart: any, eventName: string, callback: () => any): any;
+            function addListener(chart: any, eventName: string, callback: Function): any;
+            function addListener(chart: any, eventName: string, callback: () => any): any;
         }
     }
 }
