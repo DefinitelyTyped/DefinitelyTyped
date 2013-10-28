@@ -36,7 +36,7 @@ interface FlightBase extends FlightAdvice, FlightComponent {
      *
      * @param attr 
      */
-    select(attr: string)
+    select(attr: string): JQuery;
 
     /**
      * This method is attached to the prototype of every Component; it accepts 
@@ -50,7 +50,7 @@ interface FlightBase extends FlightAdvice, FlightComponent {
      * API for more information). This is a good place to set up event 
      * listeners that bind to callbacks.
      */
-    initialize();
+    initialize(node, options: Object);
 
     /**
      * This allows a component instance to listen to an event and register a 
@@ -66,6 +66,7 @@ interface FlightBase extends FlightAdvice, FlightComponent {
 	 *        targets and callbacks.
      */
     on(eventType: string, handler: Function);
+    on(eventType: string, handler: Object);
     on(selector: string, eventType: string, handler: Function);
     on(selector: Document, eventType: string, handler: Function);
     on(selector: Element, eventType: string, handler: Function);
