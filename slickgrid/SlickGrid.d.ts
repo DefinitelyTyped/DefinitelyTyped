@@ -1529,7 +1529,7 @@ declare module Slick {
 			public getGroups(): Group<T, any>[];
 			public getIdxById(): string;
 			public getRowById(): T;
-			public getItemById(): T;
+			public getItemById(id: any): T;
 			public getItemByIdx(): T;
 			public mapRowsToIds(rowArray: T[]): string[];
 			public setRefreshHints(hints: RefreshHints): void;
