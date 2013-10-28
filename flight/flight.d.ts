@@ -7,51 +7,7 @@
 
 declare module Flight {
 
-    export interface Advice {
-        /**
-         * Run the customFunc function after the existingFunc function.
-         *
-         * @param existingFuncName The name of the existing function (existingFunc)
-         *        you want to augment.
-         *
-         * customFunc The function to be invoked after existingFunc.
-         */
-        after(method: string, fn: Function);
-
-        /**
-         * Run the existingFunc function in the middle of the customFunc function. 
-         * It's similar to underscore's _wrap function).
-         *
-         * @param existingFuncName The name of the existing function (existingFunc) 
-         *        you want to augment.
-         *
-         * customFunc The function to wrap around existingFunc. The existingFunc 
-         * function will be passed to customFunc as an argument.
-         *
-         * The existing function is passed to the custom function as an argument so
-         * that it can be referenced. If the custom function does not call the 
-         * existing function then it will replace that function instead of 
-         * surrounding it.
-         */
-        around(method: string, fn: Function);
-
-        /**
-         * Run the customFunc function before the existingFunc function.
-         *
-         * @param existingFuncName The name of the existing function (existingFunc)
-         *        you want to augment.
-         *
-         * @param customFunc The function to be invoked before existingFunc.
-         */
-        before(method: string, fn: Function);
-    }
-
-    export interface Component {
-        node: Element;
-        $node: JQuery;
-    }
-
-    export interface Base extends Advice, Component {
+    export interface Base {
 
         /**
          * Most Components and Mixins need to define attributes. In Flight, 
@@ -181,6 +137,51 @@ declare module Flight {
         teardown();
     }
 
+    export interface Advice extends Base {
+        /**
+         * Run the customFunc function after the existingFunc function.
+         *
+         * @param existingFuncName The name of the existing function (existingFunc)
+         *        you want to augment.
+         *
+         * customFunc The function to be invoked after existingFunc.
+         */
+        after(method: string, fn: Function);
+
+        /**
+         * Run the existingFunc function in the middle of the customFunc function. 
+         * It's similar to underscore's _wrap function).
+         *
+         * @param existingFuncName The name of the existing function (existingFunc) 
+         *        you want to augment.
+         *
+         * customFunc The function to wrap around existingFunc. The existingFunc 
+         * function will be passed to customFunc as an argument.
+         *
+         * The existing function is passed to the custom function as an argument so
+         * that it can be referenced. If the custom function does not call the 
+         * existing function then it will replace that function instead of 
+         * surrounding it.
+         */
+        around(method: string, fn: Function);
+
+        /**
+         * Run the customFunc function before the existingFunc function.
+         *
+         * @param existingFuncName The name of the existing function (existingFunc)
+         *        you want to augment.
+         *
+         * @param customFunc The function to be invoked before existingFunc.
+         */
+        before(method: string, fn: Function);
+    }
+
+    export interface Component extends Base, Advice {
+        node: Element;
+        $node: JQuery;
+    }
+
+
     export interface AdviceStatic {
         withAdvice();
     }
@@ -196,6 +197,15 @@ declare module Flight {
     export interface ComposeStatic {
         mixin(base: Object, mixins: Function[]): void;
         unlockProperty(obj, prop, op);
+    }
+
+    export interface DebugStatic {
+        events: {
+            logAll();
+            logByAction(action: string);
+            logByName(name: string);
+            logNone();
+        }
     }
 
     export interface LoggerStatic {
@@ -249,4 +259,5 @@ declare module Flight {
     }
 }
 
+declare var DEBUG: Flight.DebugStatic;
 declare var flight: Flight.FlightStatic;
