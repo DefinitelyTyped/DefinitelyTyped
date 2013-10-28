@@ -330,6 +330,7 @@ interface FileEntry extends FileSystemEntry {
 interface DirectoryEntry extends FileSystemEntry {
     createReader();
     getDirectory();
+    getDirectory(subFolder: string, options: any, onSuccess: (arg) => any, onError?: (arg) => any);
     getFile();
     removeRecursively();
 }
