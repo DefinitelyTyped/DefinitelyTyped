@@ -54,64 +54,64 @@ declare module google {
 
         function arrayToDataTable(data: any[]): DataTable;
 
-    //    //https://google-developers.appspot.com/chart/interactive/docs/gallery/geochart
-    //    export class GeoChart {
-    //        constructor(element: Element);
-    //        draw(chart: DataTable, options: GeoChartOptions);
-    //    }
-    //    export interface GeoChartOptions {
-    //        backgroundColor?: any;
-    //        colorAxis?: GeoChartColorAxis;
-    //        datalessRegionColor?: string;
-    //        displayMode?: string;
-    //        enableRegionInteractivity?: boolean;
-    //        height?: number;
-    //        keepAspectRatio?: boolean;
-    //        legend?: GeoChartLegend;
-    //        region?: string;
-    //        magnifyingGlass?: GeoChartMagnifyingGlass;
-    //        markerOpacity?: number;
-    //        resolution?: string;
-    //        sizeAxis?: GeoChartAxis;
-    //        tooltip?: GeoChartTooltip;
-    //        width?: number;
-    //    }
-    //    //export interface GeoChartColor {
-    //    //    fill?: string;
-    //    //    stroke?: string;
-    //    //    strokeWidth: number;
-    //    //}
-    //    export interface GeoChartColorAxis extends GeoChartAxis {
-    //        minValue?: number;
-    //        maxValue?: number;
-    //        values?: number[];
-    //        colors?: string[];
-    //    }
-    //    export interface GeoChartTextStyle {
-    //        color?: string;
-    //        fontName?: string;
-    //        fontSize?: number;
-    //        bold?: boolean;
-    //        italic?: boolean;
-    //    }
-    //    export interface GeoChartLegend {
-    //        numberFormat?: string;
-    //        textStyle?: GeoChartTextStyle;
-    //    }
-    //    export interface GeoChartMagnifyingGlass {
-    //        enable?: boolean;
-    //        zoomFactor?: number;
-    //    }
-    //    export interface GeoChartAxis {
-    //        maxSize?: number;
-    //        maxValue?: number;
-    //        minSize?: number;
-    //        minValue?: number;
-    //    }
-    //    export interface GeoChartTooltip {
-    //        textStyle?: GeoChartTextStyle;
-    //        trigger?: string;
-    //    }
+        //https://google-developers.appspot.com/chart/interactive/docs/gallery/geochart
+        export class GeoChart {
+            constructor(element: Element);
+            draw(chart: DataTable, options: GeoChartOptions): void;
+        }
+        export interface GeoChartOptions {
+            backgroundColor?: any;
+            colorAxis?: GeoChartColorAxis;
+            datalessRegionColor?: string;
+            displayMode?: string;
+            enableRegionInteractivity?: boolean;
+            height?: number;
+            keepAspectRatio?: boolean;
+            legend?: GeoChartLegend;
+            region?: string;
+            magnifyingGlass?: GeoChartMagnifyingGlass;
+            markerOpacity?: number;
+            resolution?: string;
+            sizeAxis?: GeoChartAxis;
+            tooltip?: GeoChartTooltip;
+            width?: number;
+        }
+        //export interface GeoChartColor {
+        //    fill?: string;
+        //    stroke?: string;
+        //    strokeWidth: number;
+        //}
+        export interface GeoChartColorAxis extends GeoChartAxis {
+            minValue?: number;
+            maxValue?: number;
+            values?: number[];
+            colors?: string[];
+        }
+        export interface GeoChartTextStyle {
+            color?: string;
+            fontName?: string;
+            fontSize?: number;
+            bold?: boolean;
+            italic?: boolean;
+        }
+        export interface GeoChartLegend {
+            numberFormat?: string;
+            textStyle?: GeoChartTextStyle;
+        }
+        export interface GeoChartMagnifyingGlass {
+            enable?: boolean;
+            zoomFactor?: number;
+        }
+        export interface GeoChartAxis {
+            maxSize?: number;
+            maxValue?: number;
+            minSize?: number;
+            minValue?: number;
+        }
+        export interface GeoChartTooltip {
+            textStyle?: GeoChartTextStyle;
+            trigger?: string;
+        }
 
         module events {
             function addListener(chart: any, eventName: string, callback: Function): any;
