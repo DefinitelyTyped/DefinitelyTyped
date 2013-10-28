@@ -991,14 +991,222 @@ declare module grunt {
     module template {
 
         interface TemplateModule {
-            // TODO
+
+            /**
+             * Process a Lo-Dash template string.
+             *
+             * The template argument will be processed recursively until there are no more templates to process.
+             *
+             * The default data object is the entire config object, but if options.data is set, that object will
+             * be used instead. The default template delimiters are <% %> but if options.delimiters is set to a
+             * custom delimiter name, those template delimiters will be used instead.
+             *
+             * Inside templates, the grunt object is exposed so that you can do things like:
+             *     <%= grunt.template.today('yyyy') %>
+             *
+             * @note if the data object already has a grunt property, the grunt API will not be accessible in templates.
+             */
+            process(template: string): (options: any) => string
+            process(template: string, options: any): string
+
+            /**
+             * Set the Lo-Dash template delimiters to a predefined set in case you grunt.util._.template
+             * needs to be called manually.
+             *
+             * The config delimiters <% %> are included by default.
+             */
+            setDelimiters(name: string): void
+
+            /**
+             * Add a named set of Lo-Dash template delimiters.
+             *
+             * You probably won't need to use this method, because the built-in delimiters should be sufficient,
+             * but you could always add {% %} or [% %] style delimiters.
+             */
+            addDelimiters(name: string, opener: string, closer: string): void
+
+            /**
+             * {@link http://github.com/felixge/node-dateformat}
+             *
+             * @note if you don't include the mask argument, dateFormat.masks.default is used
+             */
+            date(date?: Date, format?: string): string
+            date(date?: number, format?: string): string
+            date(date?: string, format?: string): string
+
+            /**
+             * {@link http://github.com/felixge/node-dateformat}
+             *
+             * @note if you don't include the mask argument, dateFormat.masks.default is used
+             */
+            today(format?: string)
         }
     }
 
     module util {
 
+        /**
+         * {@link http://gruntjs.com/api/grunt.util}
+         */
         interface UtilModule {
-            // TODO
+
+            /**
+             * Return the "kind" of a value. Like typeof but returns the internal [Class](Class/) value.
+             * Possible results are "number", "string", "boolean", "function", "regexp", "array", "date",
+             * "error", "null", "undefined" and the catch-all "object".
+             */
+            kindOf(value: any): string
+
+            /**
+             * Return a new Error instance (that can be thrown) with the appropriate message.
+             * If an Error object is specified instead of message that object will be returned.
+             * Also, if an Error object is specified for origError and Grunt was run with the --debug 9 option,
+             * the original Error stack will be dumped.
+             */
+            error(message: string, origError?: Error)
+
+            /**
+             * The linefeed character, normalized for the current operating system.
+             * (\r\n on Windows, \n otherwise)
+             */
+            linefeed: string
+
+            /**
+             * Given a string, return a new string with all the linefeeds normalized for the current operating system.
+             * (\r\n on Windows, \n otherwise)
+             */
+            normalizelf(str: string): string
+
+            /**
+             * Recurse through nested objects and arrays, executing callbackFunction for each non-object value.
+             * If continueFunction returns false, a given object or value will be skipped.
+             */
+            recurse(object: any, callbackFunction: (value: any) => void, continueFunction: (objOrValue: any) => boolean): void
+
+            /**
+             * Return string str repeated n times.
+             */
+            repeat(n: number, str: string): string
+
+            /**
+             * Given str of "a/b", If n is 1, return "a" otherwise "b".
+             * You can specify a custom separator if '/' doesn't work for you.
+             */
+            pluralize(n: number, str: string, separator?: string): string
+
+            /**
+             * Spawn a child process, keeping track of its stdout, stderr and exit code.
+             * The method returns a reference to the spawned child.
+             * When the child exits, the done function is called.
+             *
+             * @param done a function with arguments:
+             *        error  - If the exit code was non-zero and a fallback wasn't specified,
+             *                 an Error object, otherwise null.
+             *        result - The result object is an
+             *        code   - The numeric exit code.
+             */
+            spawn(options: ISpawnOptions, done: (error: Error, result: ISpawnResult, code: number) => void): ISpawnedChild
+
+            /**
+             * Given an array or array-like object, return an array.
+             * Great for converting arguments objects into arrays.
+             */
+            toArray<T>(arrayLikeObject: any): T[]
+
+            /**
+             * Normalizes both "returns a value" and "passes result to a callback" functions to always
+             * pass a result to the specified callback. If the original function returns a value,
+             * that value will now be passed to the callback, which is specified as the last argument,
+             * after all other predefined arguments. If the original function passed a value to a callback,
+             * it will continue to do so.
+             */
+            callbackify<R>(syncOrAsyncFunction: () => R):
+                (callback: (result: R) => void) => void
+            callbackify<A, R>(syncOrAsyncFunction: (a: A) => R):
+                (a: A, callback: (result: R) => void) => void
+            callbackify<A, B, R>(syncOrAsyncFunction: (a: A, b: B) => R):
+                (a: A, b: B, callback: (result: R) => void) => void
+            callbackify<A, B, C, R>(syncOrAsyncFunction: (a: A, b: B, c: C) => R):
+                (a: A, b: B, c: C, callback: (result: R) => void) => void
+            callbackify<A, B, C, D, R>(syncOrAsyncFunction: (a: A, b: B, c: C, d: D) => R):
+                (a: A, b: B, c: C, d: D, callback: (result: R) => void) => void
+
+            // Internal libraries
+            namespace: any
+            task: any
+        }
+
+        /**
+         * {@link http://gruntjs.com/api/grunt.util#grunt.util.spawn}
+         */
+        interface ISpawnOptions {
+
+            /**
+             * The command to execute. It should be in the system path.
+             */
+            cmd: string
+
+            /**
+             * If specified, the same grunt bin that is currently running will be
+             * spawned as the child command, instead of the "cmd" option.
+             * Defaults to false.
+             */
+            grunt?: boolean
+
+            /**
+             * An array of arguments to pass to the command.
+             */
+            args?: string[]
+
+            /**
+             * Additional options for the Node.js child_process spawn method.
+             */
+            opts?: ISpawnOptions
+
+            /**
+             * If this value is set and an error occurs, it will be used as the value
+             * and null will be passed as the error value.
+             */
+            fallback?: any
+        }
+
+        /**
+         * @note When result is coerced to a string, the value is stdout if the exit code
+         *       was zero, the fallback if the exit code was non-zero and a fallback was
+         *       specified, or stderr if the exit code was non-zero and a fallback was
+         *       not specified.
+         */
+        interface ISpawnResult {
+            stdout: string
+            stderr: string
+            code: number
+        }
+
+        /**
+         * {@link http://github.com/snbartell/node-spawn}
+         */
+        interface ISpawnedChild {
+            /**
+             * Start the cmd with the options provided.
+             */
+            start(): void
+
+            /**
+             * Convenience function. Overrides options. restarts to 0.
+             * Runs command exactly once no matter the options passed into the constructor.
+             */
+            once(): void
+
+            /**
+             * Convenience function. Overrides options.restarts to -1.
+             * Runs command indefinitely no matter the options passed into the constructor.
+             */
+            forever(): void
+
+            /**
+             * Shut down the child and don't let it restart.
+             */
+            kill(): void
         }
     }
 
