@@ -4,13 +4,14 @@ declare var els: Element[];
 declare var mixinFn: Function;
 
 function TestComponent() {
-    var self: FlightBase = this;                   
+    var self: Flight.Base = this;                   
           
     self.defaultAttrs({
        fooSelector: '.bar'
     });
 
-    this.onClick = function (ev: JQueryEventObject, data) {
+    this.onClick = function (ev: JQueryEventObject, data: Flight.EventData) {
+        var el: HTMLElement = data.el;
         self.select('fooSelector').addClass('bar');
     };
                                            
