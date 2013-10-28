@@ -47,7 +47,7 @@ declare module CrossFilter {
 
     export interface Heap<T> {
         (array: T[], lo: number, hi: number): T[];
-]        sort(array: T[], lo: number, hi: number): T[];
+        sort(array: T[], lo: number, hi: number): T[];
     }
 
     export interface HeapSelect<T> {
@@ -84,10 +84,10 @@ declare module CrossFilter {
     }
 
     export interface CrossFilter<T> {
-        add(records: any[]): CrossFilter;
-        remove(): CrossFilter;
+        add(records: T[]): CrossFilter<T>;
+        remove(): CrossFilter<T>;
         size(): number;
-        groupAll(): GroupAll
+        groupAll(): GroupAll<T>;
         dimension<TDimension>(value: (data: T) => TDimension): Dimension<T, TDimension>;
     }
 

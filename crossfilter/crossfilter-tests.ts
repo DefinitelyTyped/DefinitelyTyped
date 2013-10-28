@@ -72,13 +72,13 @@ interface Group {
     total: number;
 }
 
-function reduceAdd(p: Group, v) {
+function reduceAdd(p: Group, v: Payment) {
   ++p.count;
   p.total += v.total;
   return p;
 }
 
-function reduceRemove(p: Group, v) {
+function reduceRemove(p: Group, v: Payment) {
   --p.count;
   p.total -= v.total;
   return p;
