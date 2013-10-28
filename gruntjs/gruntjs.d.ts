@@ -8,18 +8,15 @@
 /**
  * {@link http://github.com/marak/colors.js/}
  */
-declare module colors {
-
-    interface String {
-        yellow: string;
-        cyan: string;
-        white: string;
-        magenta: string;
-        green: string;
-        red: string;
-        grey: string;
-        blue: string;
-    }
+interface String {
+    yellow: string;
+    cyan: string;
+    white: string;
+    magenta: string;
+    green: string;
+    red: string;
+    grey: string;
+    blue: string;
 }
 
 declare module node {
@@ -924,7 +921,7 @@ declare module grunt {
         /**
          * {@link http://gruntjs.com/inside-tasks#inside-multi-tasks}
          */
-        interface IMultiTask extends ITask {
+        interface IMultiTask<T> extends ITask {
             /**
              * In a multi task, this property contains the name of the target currently being iterated over.
              * For example, if a "sample" multi task was run as grunt sample:foo with the config data
@@ -967,7 +964,7 @@ declare module grunt {
              * @note It is recommended that this.options this.files and this.filesSrc are used instead of this.data,
              *       as their values are normalized.
              */
-            data: any
+            data: T
         }
 
         /**
@@ -1031,7 +1028,7 @@ declare module grunt {
          * The currently running task or multitask.
          * @see IMultiTask for when to cast
          */
-            current: grunt.task.ITask
+        current: grunt.task.ITask
 
         /**
          * Load task-related files from the specified directory, relative to the Gruntfile.
