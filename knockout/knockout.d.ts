@@ -4,25 +4,18 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-interface KnockoutSubscribableFunctions {
-    extend(source);
-    dispose(): void;
-    peek(): any;
-    valueHasMutated(): void;
-
-    valueWillMutate(): void;
+interface KnockoutSubscribableFunctions<T> {
+	notifySubscribers(valueToWrite: T, event?: string);
 }
 
-interface KnockoutComputedFunctions extends KnockoutSubscribableFunctions {
-    getDependenciesCount(): number;
-    getSubscriptionsCount(): number;
-    hasWriteFunction(): boolean;
+interface KnockoutComputedFunctions<T> {
 }
 
-interface KnockoutObservableFunctions extends KnockoutSubscribableFunctions {
+interface KnockoutObservableFunctions<T> {
+	equalityComparer(a: any, b: any): boolean;
 }
 
-interface KnockoutObservableArrayFunctions<T> extends KnockoutObservableFunctions {
+interface KnockoutObservableArrayFunctions<T> {
     // General Array functions
     indexOf(searchElement: T, fromIndex?: number): number;
     slice(start: number, end?: number): T[];
@@ -49,18 +42,26 @@ interface KnockoutObservableArrayFunctions<T> extends KnockoutObservableFunction
 }
 
 interface KnockoutSubscribableStatic {
-    fn: KnockoutSubscribableFunctions;
+    fn: KnockoutSubscribableFunctions<any>;
 
-    new (): KnockoutSubscription;
+    new <T>(): KnockoutSubscribable<T>;
 }
 
-interface KnockoutSubscription extends KnockoutSubscribableFunctions {
-    subscribe(callback: (newValue: any) => void, target?:any, topic?: string): KnockoutSubscription;
-    notifySubscribers(valueToWrite, topic?: string);
+interface KnockoutSubscription {
+	dispose(): void;
+}
+
+interface KnockoutSubscribable<T> extends KnockoutSubscribableFunctions<T> {
+	(): T;
+	(value: T): void;
+
+	subscribe(callback: (newValue: T) => void, target?: any, event?: string): KnockoutSubscription;
+	extend(requestedExtenders: { [key: string]: any; }): KnockoutSubscribable<T>;
+	getSubscriptionsCount(): number;
 }
 
 interface KnockoutComputedStatic {
-    fn: KnockoutComputedFunctions;
+    fn: KnockoutComputedFunctions<any>;
 
     <T>(): KnockoutComputed<T>;
     <T>(func: () => T, context?: any, options?: any): KnockoutComputed<T>;
@@ -68,51 +69,41 @@ interface KnockoutComputedStatic {
     (options?: any): KnockoutComputed<any>;
 }
 
-interface KnockoutComputed<T> extends KnockoutComputedFunctions {
-    (): T;
-    (value: T): void;
-
-    subscribe(callback: (newValue: T) => void, target?:any, topic?: string): KnockoutSubscription;
-    notifySubscribers(valueToWrite: T, topic?: string);
+interface KnockoutComputed<T> extends KnockoutSubscribable<T>, KnockoutComputedFunctions<T> {
+	peek(): T;
+	dispose(): void;
+	isActive(): boolean;
+	getDependenciesCount(): number;
 }
 
 interface KnockoutObservableArrayStatic {
-
     fn: KnockoutObservableArrayFunctions<any>;
 
     <T>(value?: T[]): KnockoutObservableArray<T>;
 }
 
-interface KnockoutObservableArray<T> extends KnockoutObservableArrayFunctions<T> {
-    (): T[];
-    (value: T[]): void;
-
-    subscribe(callback: (newValue: T[]) => void, target?:any, topic?: string): KnockoutSubscription;
-    notifySubscribers(valueToWrite: T[], topic?: string);
+interface KnockoutObservableArray<T> extends KnockoutObservable<T[]>, KnockoutObservableArrayFunctions<T> {
 }
 
 interface KnockoutObservableStatic {
-    fn: KnockoutObservableFunctions;
+    fn: KnockoutObservableFunctions<any>;
 
     <T>(value?: T): KnockoutObservable<T>;
 }
 
-/** use as method to get/set the value */
-interface KnockoutObservableBase extends KnockoutObservableFunctions {
-    getSubscriptionsCount(): number;
-}
-
-interface KnockoutObservable<T> extends KnockoutObservableBase {
-    (): T;
-    (value: T): void;
-
-    subscribe(callback: (newValue: T) => void, target?:any, topic?: string): KnockoutSubscription;
-    notifySubscribers(valueToWrite: T, topic?: string);
+interface KnockoutObservable<T> extends KnockoutSubscribable<T>, KnockoutObservableFunctions<T> {
+	peek(): T;
+	valueHasMutated(): void;
+	valueWillMutate(): void;
 }
 
 interface KnockoutComputedDefine<T> {
-    read(): T;
-    write(T);
+	read(): T;
+	write? (value: T): void;
+	disposeWhenNodeIsRemoved?: Node;
+	disposeWhen? (): boolean;
+	owner?: any;
+	deferEvaluation?: boolean;
 }
 
 interface KnockoutBindingContext {
