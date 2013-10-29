@@ -149,7 +149,7 @@ declare module grunt {
              * if two arguments are passed, grunt.config.set is called,
              * otherwise grunt.config.get is called.
              */
-            (prop: string, value: any): void
+            (prop: string, value: any): any
             (prop: string): any
 
             /**
@@ -164,6 +164,8 @@ declare module grunt {
              * If prop is specified, that property's value is returned, or null if that property is not defined.
              * If prop isn't specified, a copy of the entire config object is returned.
              * Templates strings will be recursively processed using the grunt.config.process method.
+             *
+             * @note Although this accepts a generic type, you may still get the wrong typed value.
              */
             get<T>(prop: string): T
             get(): ConfigModule
@@ -191,7 +193,7 @@ declare module grunt {
              * Set a value into the project's Grunt configuration.
              * @note any specified <% %> template strings will only be processed when config data is retrieved.
              */
-            set(prop: string, value: any): void
+            set<T>(prop: string, value: T): T
 
             /**
              * Escape '.' dots in the given propString. This should be used for property names that contain dots.
@@ -202,8 +204,8 @@ declare module grunt {
              * Fail the current task if one or more required config properties is missing, null or undefined.
              * One or more string or array config properties may be specified.
              */
-            requires(prop: string, ...andProps: string[])
-            requires(prop: string[], ...andProps: string[][])
+            requires(prop: string, ...andProps: string[]): void
+            requires(prop: string[], ...andProps: string[][]): void
         }
     }
 
@@ -216,42 +218,42 @@ declare module grunt {
             /**
              * Adds a listener to the end of the listeners array for the specified event.
              */
-            addListener(event: string, listener: Function): void
-            on(event: string, listener: Function): void
+            addListener(event: string, listener: Function): EventModule
+            on(event: string, listener: Function): EventModule
 
             /**
              * Adds a listener that will be fired when any event is emitted.
              */
-            onAny(listener: Function): void
+            onAny(listener: Function): EventModule
 
             /**
              * Removes the listener that will be fired when any event is emitted.
              */
-            offAny(listener: Function): void
+            offAny(listener: Function): EventModule
 
             /**
              * Adds a one time listener for the event.
              * The listener is invoked only the first time the event is fired, after which it is removed.
              */
-            once(event: string, listener: Function): void
+            once(event: string, listener: Function): EventModule
 
             /**
              * Adds a listener that will execute n times for the event before being removed.
              * The listener is invoked only the first time the event is fired, after which it is removed.
              */
-            many(event: string, timesToListen: number, listener: Function): void
+            many(event: string, timesToListen: number, listener: Function): EventModule
 
             /**
              * Remove a listener from the listener array for the specified event.
              * Caution: changes array indices in the listener array behind the listener.
              */
-            removeListener(event: string, listener: Function): void
-            off(event: string, listener: Function): void
+            removeListener(event: string, listener: Function): EventModule
+            off(event: string, listener: Function): EventModule
 
             /**
              * Removes all listeners, or those of the specified event.
              */
-            removeAllListeners(event: string): void
+            removeAllListeners(event: string): EventModule
 
             /**
              * By default EventEmitters will print a warning if more than 10 listeners are added to it.
@@ -272,13 +274,13 @@ declare module grunt {
              * Returns an array of listeners that are listening for any event that is specified.
              * This array can be manipulated, e.g. to remove listeners.
              */
-            listenersAny()
+            listenersAny(): Function[]
 
             /**
              * Execute each of the listeners that may be listening for the specified event name
              * in order with the list of arguments.
              */
-            emit(event: string, ...args: any[])
+            emit(event: string, ...args: any[]): any
         }
     }
 
@@ -380,22 +382,22 @@ declare module grunt {
              * Read and return a file's contents.
              * Returns a string, unless options.encoding is null in which case it returns a Buffer.
              */
-            read(filepath): string
-            read(filepath, options: IFileEncodedOption): NodeBuffer
+            read(filepath: string): string
+            read(filepath: string, options: IFileEncodedOption): NodeBuffer
 
             /**
              * Read a file's contents, parsing the data as JSON and returning the result.
              * @see FileModule.read for a list of supported options.
              */
-            readJSON(filepath): string
-            readJSON(filepath, options: IFileEncodedOption): NodeBuffer
+            readJSON(filepath: string): any
+            readJSON(filepath: string, options: IFileEncodedOption): NodeBuffer
 
             /**
              * Read a file's contents, parsing the data as YAML and returning the result.
              * @see FileModule.read for a list of supported options.
              */
-            readYAML(filepath: string)
-            readYAML(filepath: string, options: IFileEncodedOption)
+            readYAML(filepath: string): any
+            readYAML(filepath: string, options: IFileEncodedOption): NodeBuffer
 
             /**
              * Write the specified contents to a file, creating intermediate directories if necessary.
@@ -409,20 +411,22 @@ declare module grunt {
             /**
              * Copy a source file to a destination path, creating intermediate directories if necessary.
              */
-            copy(srcpath: string, destpath: string)
-            copy(srcpath: string, destpath: string, options: IFileWriteStringOption)
-            copy(srcpath: string, destpath: string, options: IFileWriteBufferOption)
+            copy(srcpath: string, destpath: string): void
+            copy(srcpath: string, destpath: string, options: IFileWriteStringOption): void
+            copy(srcpath: string, destpath: string, options: IFileWriteBufferOption): void
 
             /**
              * Delete the specified filepath. Will delete files and folders recursively.
+             *
+             * @return true if the files could be deleted, otherwise false.
              */
-            delete(filepath: string, options?: { force?: boolean })
+            delete(filepath: string, options?: { force?: boolean }): boolean
 
             /**
              * Works like mkdir -p. Create a directory along with any intermediate directories.
              * If mode isn't specified, it defaults to 0777 & (~process.umask()).
              */
-            mkdir(dirpath: string, mode?: string)
+            mkdir(dirpath: string, mode?: string): void
 
             /**
              * Recurse into a directory, executing callback for each file.
@@ -437,7 +441,7 @@ declare module grunt {
             recurse(
                 rootdir: string,
                 callback: (abspath: string, rootdir: string, subdir: string, filename: string) => void
-            )
+            ): void
 
             /**
              * Return a unique array of all file or directory paths that match the given globbing pattern(s).
@@ -871,7 +875,7 @@ declare module grunt {
              * One or more string or array config properties may be specified.
              * this.requiresConfig(prop [, prop [, ...]])
              */
-            requiresConfig(prop: string, ...andProps: string[])
+            requiresConfig(prop: string, ...andProps: string[]): void
 
             /**
              * The name of the task, as defined in grunt.registerTask.
@@ -1026,6 +1030,7 @@ declare module grunt {
             addDelimiters(name: string, opener: string, closer: string): void
 
             /**
+             * Format a date using the dateformat library.
              * {@link http://github.com/felixge/node-dateformat}
              *
              * @note if you don't include the mask argument, dateFormat.masks.default is used
@@ -1035,11 +1040,12 @@ declare module grunt {
             date(date?: string, format?: string): string
 
             /**
+             * Format today's date using the dateformat library using the current date and time.
              * {@link http://github.com/felixge/node-dateformat}
              *
              * @note if you don't include the mask argument, dateFormat.masks.default is used
              */
-            today(format?: string)
+            today(format?: string): string
         }
     }
 
@@ -1063,7 +1069,9 @@ declare module grunt {
              * Also, if an Error object is specified for origError and Grunt was run with the --debug 9 option,
              * the original Error stack will be dumped.
              */
-            error(message: string, origError?: Error)
+            error(message: string, origError?: Error): Error
+            error(error: Error, origError?: Error): Error
+            error(error: any, origError?: Error): Error
 
             /**
              * The linefeed character, normalized for the current operating system.
