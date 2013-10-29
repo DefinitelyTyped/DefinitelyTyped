@@ -6,6 +6,14 @@ interface KnockoutSubscribableFunctions<T> {
 	toObservable<TEvent>(event: string): Rx.IObservable<TEvent>;
 }
 
+interface KnockoutObservableFunctions<T> {
+	toObservableWithReplyLatest(): Rx.IObservable<T>;
+}
+
+interface KnockoutComputedFunctions<T> {
+	toObservableWithReplyLatest(): Rx.IObservable<T>;
+}
+
 declare module Rx {
 	interface IObservable<T> {
 		toKoSubscribable(): KnockoutSubscribable<T>;
