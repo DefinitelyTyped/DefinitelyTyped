@@ -4,13 +4,297 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module OpenLayers {
+
+    export interface MapOptions {
+
+        projection?: string;
+
+        maxExtend?: Bounds;
+
+        center?: LonLat;
+    }
+
+    export interface DistanceOptions {
+        /**
+         *Return details from the distance calculation.  Default is false.
+         */
+        details?: boolean;
+
+        /**
+         *Calculate the distance from this geometry to the nearest edge of the target geometry.  Default is true.  If true, calling distanceTo from a geometry that is wholly contained within the target will result in a non-zero distance.  If false, whenever geometries intersect, calling distanceTo will return 0.  If false, details cannot be returned.
+         */
+        edge?: boolean;
+    }
+
+    export interface BoundsOptions {
+        /**
+         *Whether or not to include the border. Default is true.
+         */
+        inclusive?: boolean;
+
+        /**
+         *If a worldBounds is provided, the
+         *ll will be considered as contained if it exceeds the world bounds,
+         *but can be wrapped around the dateline so it is contained by this
+         *bounds.
+         */
+        worldBounds?: Bounds;
+    }
+
+    export interface WrapDateLineOptions {
+        /**
+         *Allow for a margin of error
+         * with the 'left' value of this
+         * bound.
+         * Default is 0.
+         */
+        leftTolerance?: number;
+
+        /**
+         *Allow for a margin of error
+         * with the 'right' value of this
+         * bound.
+         * Default is 0.
+         */
+        rightTolerance?: number;
+    }
+
+    export class Animation {
+        // TODO
+    }
+
+    export class String {
+        // TODO
+    }
+
+    export class Number {
+        // TODO
+    }
+
+    export class Function {
+        // TODO
+    } 
+
+    export class Array {
+        // TODO
+    } 
+
+    export class Console {
+        // TODO
+    } 
+
+    export class Control {
+        // TODO
+    } 
+
+    export class Event {
+        // TODO
+    } 
+
+    export class Events {
+        // TODO
+    } 
+
+    export class Feature {
+        // TODO
+    } 
+
+    export class Filter {
+        // TODO
+    } 
+
+    export class Format {
+        // TODO
+    } 
+
+    export class Handler {
+        // TODO
+    } 
+
+    export class Icon {
+        // TODO
+    } 
+
+    export class Kinetic {
+        // TODO
+    } 
+
+    export class Lang {
+        // TODO
+    } 
+
+    export class Layer {
+        // TODO
+    } 
+
+    export class Marker {
+        // TODO
+    } 
+
+    export class Popup {
+        // TODO
+    } 
+
+    export class Protocol {
+        // TODO
+    } 
+
+    export class Renderer {
+        // TODO
+    } 
+
+    export class Request {
+        // TODO
+    } 
+
+    export class Rule {
+        // TODO
+    } 
+
+    export class SingleFile {
+        // TODO
+    } 
+
+    export class Spherical {
+        // TODO
+    } 
+
+    export class Strategy {
+        // TODO
+    } 
+
+    export class Style {
+        // TODO
+    } 
+
+    export class Style2 {
+        // TODO
+    } 
+
+    export class StyleMap {
+        // TODO
+    } 
+
+    export class Symbolizer {
+        // TODO
+    } 
+
+    export class Tile {
+        // TODO
+    } 
+
+    export class TileManager {
+        // TODO
+    } 
+
+    export class Tween {
+        // TODO
+    } 
+
+    export class Util {
+        // TODO
+    } 
+
+    export class WPSClient {
+        // TODO
+    } 
+
+    export class WPSProcess {
+        // TODO
+    } 
+
     export class Geometry {
-        static Point: new () => Point;
-    }
+        /**
+         *A unique identifier for this geometry.
+         */
+        id: string;
 
-    export class Point extends Geometry {
+        /**
+         *This is set when a Geometry is added as component
+         *of another geometry
+         */
+        parent: Geometry;
 
-    }
+        /**
+         *The bounds of this geometry
+         */
+        bounds: Bounds;
+
+        /**
+          *A Geometry is a description of a geographic object.
+          */
+        constructor();
+
+        /**
+          *Destroy this geometry.
+          */
+        destroy(): void;
+
+        /**
+         *Create a clone of this geometry.  Does not set any non-standard properties of the cloned geometry.
+         */
+        clone(): Geometry;
+
+        /**
+         *Set the bounds for this Geometry.
+         */
+        setBounds(bounds: Bounds): void;
+
+        /**
+         *Nullify this components bounds and that of its parent as well.
+         */
+        clearBounds(): void;
+
+        /**
+         *Extend the existing bounds to include the new bounds.
+         *If geometry's bounds is not yet set, then set a new Bounds.
+         */
+        extendBounds(newBounds: Bounds): void;
+
+        /**
+         *Get the bounds for this Geometry.  If bounds is not set, it is calculated again, this makes queries faster.
+         */
+        getBounds(): Bounds;
+
+        /**
+         *Calculate the closest distance between two geometries (on the x-y plane).
+         */
+        distanceTo(geometry: Geometry, options: Object): Object;
+
+        /**
+         *Return a list of all points in this geometry.
+         */
+        getVertices(nodes: boolean): Array;
+
+        /**
+         *Return whether or not the geometry is at the specified location
+         */
+        atPoint(lonlat: LonLat, toleranceLon?: number, toleranceLat?: number): boolean;
+
+        /**
+         *Returns the length of the collection by summing its parts
+         */
+        getLength(): number;
+
+        /**
+         *Returns the area of the collection by summing its parts
+         */
+        getArea(): number;
+
+        /**
+         *Returns a text representation of the geometry. If the WKT format is
+         * included in a build, this will be the Well-Known Text
+         * representation.
+         */
+        toString(): string;
+
+        /**
+         *Calculate the centroid of this geometry.  This method is defined in subclasses.
+         */
+        getCentroid(): Geometry.Point;
+
+        static CLASS_NAME: string;
+    }    
 
     export class Projection {
         /**
@@ -31,12 +315,12 @@ declare module OpenLayers {
         /**
           *Set a custom transform method between two projections.  Use this method in cases where the proj4js lib is not available or where custom projections need to be handled.
           */
-        addTransform(from: string, to: string, method: Function);
+        addTransform(from: string, to: string, method: () => void);
 
         /**
           *Transform a point coordinate from one projection to another. Note that the input point is transformed in place.
           */
-        transform(point: OpenLayers.Geometry.Point, source: Projection, dest: OpenLayers.Projection): Object;
+        transform(point: Geometry.Point, source: Projection, dest: OpenLayers.Projection): Object;
 
         /**
           *Transform a point coordinate from one projection to another. Note that the input point is transformed in place.
@@ -50,7 +334,203 @@ declare module OpenLayers {
     }
 
     export class Bounds {
+        /**
+         *Minimum horizontal coordinate.
+         */
+        left: number;
 
+        /**
+         *Minimum vertical coordinate.
+         */
+        bottom: number;
+
+        /**
+         *Maximum horizontal coordinate.
+         */
+        right: number;
+
+        /**
+         *Maximum vertical coordinate.
+         */
+        top: number;
+
+        /**
+         *Construct a new bounds object. Coordinates can either be passed as four
+         * arguments, or as a single argument.
+         */
+        constructor(left: number, bottom: number, right: number, top: number);
+
+        /**
+         *Construct a new bounds object. Coordinates can either be passed as four
+         * arguments, or as a single argument.
+         */
+        constructor(bounds: number[]);
+
+        /**
+         *Create a cloned instance of this bounds.
+         */
+        clone(): Bounds;
+
+        /**
+         *Test a two bounds for equivalence.
+         */
+        equals(bounds: Bounds): boolean;
+
+        /**
+         *Returns a string representation of the bounds object.
+         */
+        toString(): string;
+
+        /**
+         *Returns an array representation of the bounds object.
+         */
+        toArray(reverseAxisOrder?: boolean): number[];
+
+        /**
+         *Returns a boundingbox-string representation of the bounds object.
+         */
+        toBBOX(decimal?: number, reverseAxisOrder?: boolean): string;
+
+        /**
+         *Create a new polygon geometry based on this bounds.
+         */
+        toGeometry(): OpenLayers.Geometry.Polygon;
+
+        /**
+         *Returns the width of the bounds.
+         */
+        getWidth(): number;
+
+        /**
+         *Returns the height of the bounds.
+         */
+        getHeight(): number;
+
+        /**
+         *
+         */
+        getSize(): Size;
+
+        /**
+         * Returns the Pixel object which represents the center of the bounds.
+         */
+        getCenterPixel(): Pixel;
+
+        /**
+         *Returns the LonLat object which represents the center of the bounds.
+         */
+        getCenterLonLat(): LonLat;
+
+        /**
+         *Scales the bounds around a pixel or lonlat. Note that the new
+         *bounds may return non-integer properties, even if a pixel
+         *is passed. 
+         */
+        scale(ratio: number, origin?: Pixel);
+
+        /**
+         *Scales the bounds around a pixel or lonlat. Note that the new
+         *bounds may return non-integer properties, even if a pixel
+         *is passed. 
+         */
+        scale(ratio: number, origin?: LonLat);
+
+        /**
+         *Shifts the coordinates of the bound by the given horizontal and vertical
+         * deltas.
+         */
+        add(x: number, y: number): Bounds;
+
+        /**
+         *Extend the bounds.
+         */
+        extend(object: LonLat): void;
+
+        /**
+         *Extend the bounds.
+         */
+        extend(object: Geometry.Point): void;
+
+        /**
+         *Extend the bounds.
+         */
+        extend(object: Bounds): void;
+
+        /**
+         *
+         */
+        extendXY(x: number, y: number): void;
+
+        /**
+         *Returns whether the bounds object contains the given <OpenLayers.LonLat>.
+         */
+        containsLonLat(ll: LonLat, options: BoundsOptions);
+
+        /**
+         *Returns whether the bounds object contains the given <OpenLayers.LonLat>.
+         */
+        containsLonLat(ll: Object, options: BoundsOptions);
+
+        /**
+         *Returns whether the bounds object contains the given <OpenLayers.Pixel>.
+         */
+        containsPixel(px: Pixel, inclusive: boolean): boolean;
+
+        /**
+         *Returns whether the bounds object contains the given x and y.
+         */
+        contains(x: number, y: number, inclusive?: boolean): boolean;
+
+        /**
+         *Determine whether the target bounds intersects this bounds. Bounds are
+         *considered intersecting if any of their edges intersect or if one
+         *bounds contains the other.
+         */
+        intersectsBounds(bounds: Bounds, options: BoundsOptions): boolean;
+
+        /**
+         *Returns whether the bounds object contains the given <OpenLayers.Bounds>.
+         */
+        containsBounds(bounds: Bounds, partial: boolean, inclusive: boolean): boolean;
+
+        /**
+         *Returns the the quadrant ("br", "tr", "tl", "bl") in which the given
+         *<OpenLayers.LonLat> lies.
+         */
+        determineQuadrant(lonlat: LonLat): string;
+
+        /**
+         *Transform the Bounds object from source to dest.
+         */
+        transform(source: Projection, dest: Projection): Bounds;
+
+        /**
+         *Wraps the bounds object around the dateline.
+         */
+        wrapDateLine(maxExtent: Bounds, options: WrapDateLineOptions): Bounds;
+
+        static CLASS_NAME: string;
+
+        /**
+         *Alternative constructor that builds a new OpenLayers.Bounds from a
+         *parameter string.
+         */
+        static fromString(str: string, reverseAxisOrder: boolean): Bounds;
+
+        /**
+         *Alternative constructor that builds a new OpenLayers.Bounds from an array.
+         */
+        static fromArray(bbox: number[], reverseAxisOrder: boolean): Bounds;
+
+        /**
+         *Alternative constructor that builds a new OpenLayers.Bounds from a size.
+         */
+        static fromSize(size: Size): Bounds;
+
+        /**
+         *Get the opposite quadrant for a given quadrant string.
+         */
+        static oppositeQuadrant(quadrant: string): string;
     }
 
     export class LonLat {
@@ -95,19 +575,795 @@ declare module OpenLayers {
         wrapDateLine(maxExtend: Bounds): LonLat;
     }
 
-    export interface MapOptions {
-
-        projection?: string;
-
-        maxExtend?: Bounds;
-
-        center?: LonLat;
-    }
-
     export class Map {
 
         constructor(id: HTMLElement, options?: MapOptions);
 
         constructor(id: string, options?: MapOptions);
     }
+
+    export class Class {
+
+    }
+
+    export class Date {
+
+    }
+
+    export class Element {
+
+    }
+
+    export class Pixel {
+
+    }
+
+    export class Size {
+
+    }
+
+    module Geometry {
+
+        export class Collection extends Geometry {
+            /**
+             *The component parts of this geometry
+             */
+            components: Geometry[];
+
+            /**
+             *An array of class names representing the types of
+             *components that the collection can include. A null value means the
+             *component types are not restricted.
+             */
+            componentTypes: string[];
+
+            /**
+             *Creates a Geometry Collection -- a list of geoms.
+             */
+            constructor(components: Geometry[]);
+
+            /**
+             *Destroy this geometry.
+             */
+            destroy(): void;
+
+            /**
+             *Clone this geometry.
+             */
+            clone(): Collection;
+
+            /**
+             *Get a string representing the components for this collection
+             */
+            getComponentsString(): string;
+
+            /**
+             *Recalculate the bounds by iterating through the components and
+             *calling calling extendBounds() on each item.
+             */
+            calculateBounds();
+
+            /**
+             *Add components to this geometry.
+             */
+            addComponents(components: Geometry[]);
+
+            /**
+             *Add a new component (geometry) to the collection. If this.componentTypes
+             *is set, then the component class name must be in the componentTypes array.
+             */
+            addComponent(component: Geometry, index: number): boolean;
+
+            /**
+             *Remove components from this geometry.
+             */
+            removeComponents(components: Geometry[]): boolean;
+
+            /**
+             *Remove a component from this geometry.
+             */
+            removeComponent(component: Geometry): boolean;
+
+            /**
+             *Calculate the length of this geometry
+             */
+            getLength(): number;
+
+            /**
+             *Calculate the area of this geometry. Note how this function is overridden
+             *in <OpenLayers.Geometry.Polygon>.
+             */
+            getArea(): number;
+
+            /**
+             *Calculate the approximate area of the polygon were it projected onto
+             *the earth.
+             */
+            getGeodesicArea(projection: Projection): number;
+
+            /**
+             *Compute the centroid for this geometry collection.
+             */
+            getCentroid(weighted?: boolean): Point;
+
+            /**
+             *Calculate the approximate length of the geometry were it projected onto
+             *the earth.
+             */
+            getGeodesicLength(projection: Projection): number;
+
+            /**
+             *Moves a geometry by the given displacement along positive x and y axes.
+             *This modifies the position of the geometry and clears the cached
+             *bounds.
+             */
+            move(x: number, y: number): void;
+
+            /**
+             *Rotate a geometry around some origin
+             */
+            rotate(angle: number, origin: Point);
+
+            /**
+             *Resize a geometry relative to some origin. Use this method to apply
+             *a uniform scaling to a geometry.
+             */
+            resize(scale: number, origin: Point, ratio: number): Geometry;
+
+            /**
+             *Calculate the closest distance between two geometries (on the x-y plane).
+             */
+            distanceTo(geometry: Geometry, options: DistanceOptions): Object;
+
+            /**
+             *Determine whether another geometry is equivalent to this one. Geometries
+             *are considered equivalent if all components have the same coordinates.
+             */
+            equals(geometry: Geometry): boolean;
+
+            /**
+             *Reproject the components geometry from source to dest.
+             */
+            transform(source: Projection, dest: Projection): Geometry;
+
+            /**
+             *Determine if the input geometry intersects this one.
+             */
+            intersects(geometry: Geometry): boolean;
+
+            /**
+             *Return a list of all points in this geometry.
+             */
+            getVertices(nodes: boolean): Array;
+
+            static CLASS_NAME: string;
+        }
+
+        export class Point extends Geometry {
+
+            x: number;
+
+            y: number;
+
+            /**
+             *Construct a point geometry.
+             */
+            constructor(x: number, y: number);
+
+            /**
+             *Create a clone of this geometry.
+             */
+            clone(): Geometry;
+
+            /**
+             *An exact clone of this OpenLayers.Geometry.Point
+             */
+            clone(obj: Point): Point;
+
+            /**
+             *Calculate the closest distance between two geometries (on the x-y plane).
+             */
+            distanceTo(geometry: Geometry, options: DistanceOptions): Object;
+
+            /**
+             *Determine whether another geometry is equivalent to this one.  Geometries are considered equivalent if all components have the same coordinates.
+             */
+            equals(geom: Point): boolean;
+
+            /**
+             *Moves a geometry by the given displacement along positive x and y axes.  This modifies the position of the geometry and clears the cached bounds.
+             */
+            move(x: number, y: number): void;
+
+            /**
+             *Rotate a point around another.
+             */
+            rotate(angle: number, origin: Point);
+
+            /**
+             *Resize a point relative to some origin.  For points, this has the effect of scaling a vector (from the origin to the point).  This method is more useful on geometry collection subclasses.
+             */
+            resize(scale: number, origin: Point, ratio: number): Geometry;
+
+            /**
+             *Determine if the input geometry intersects this one.
+             */
+            intersects(geometry: Geometry): boolean;
+
+            /**
+             *Translate the x,y properties of the point from source to dest.
+             */
+            transform(source: Projection, dest: Projection): Geometry;
+
+            /**
+             *Return a list of all points in this geometry.
+             */
+            getVertices(nodes: boolean): Array;
+        }
+
+        export class Curve extends Geometry.MultiPoint {
+
+        }
+
+        export class LineString extends Geometry.Curve {
+
+        }
+
+        export class LinearRing extends Geometry.LineString {
+
+        }
+
+        export class MultiLineString extends Geometry.Collection {
+
+        }
+
+        export class MultiPoint extends Geometry.Collection {
+
+        }
+
+        export class MultiPolygon extends Geometry.Collection {
+
+        }
+
+        export class Polygon extends Geometry.Collection {
+
+        }
+    }
+
+    module Control {
+        export class ArgParser {
+
+        }
+
+        export class Attribution {
+
+        }
+
+        export class Button {
+
+        }
+
+        export class CacheRead {
+
+        }
+
+        export class CacheWrite {
+
+        }
+
+        export class DragFeature {
+
+        }
+
+        export class DragPan {
+
+        }
+
+        export class DrawFeature {
+
+        }
+
+        export class EditingToolbar {
+
+        }
+
+        export class Geolocate {
+
+        }
+
+        export class GetFeature {
+
+        }
+
+        export class Graticule {
+
+        }
+
+        export class KeyboardDefaults {
+
+        }
+
+        export class LayerSwitcher {
+
+        }
+
+        export class Measure {
+
+        }
+
+        export class ModifyFeature {
+
+        }
+
+        export class MousePosition {
+
+        }
+
+        export class NavToolbar {
+
+        }
+
+        export class Navigation {
+
+        }
+
+        export class NavigationHistory {
+
+        }
+
+        export class OverviewMap {
+
+        }
+
+        export class Pan {
+
+        }
+
+        export class PanPanel {
+
+        }
+
+        export class PanZoom {
+
+        }
+
+        export class PanZoomBar {
+
+        }
+
+        export class Panel {
+
+        }
+
+        export class Permalink {
+
+        }
+
+        export class PinchZoom {
+
+        }
+
+        export class SLDSelect {
+
+        }
+
+        export class Scale {
+
+        }
+
+        export class ScaleLine {
+
+        }
+
+        export class SelectFeature {
+
+        }
+
+        export class Snapping {
+
+        }
+
+        export class Split {
+
+        }
+
+        export class TextButtonPanel {
+
+        }
+
+        export class TouchNavigation {
+
+        }
+
+        export class TransformFeature {
+
+        }
+
+        export class UTFGrid {
+
+        }
+
+        export class WMSGetFeatureInfo {
+
+        }
+
+        export class WMTSGetFeatureInfo {
+
+        }
+
+        export class Zoom {
+
+        }
+
+        export class ZoomBox {
+
+        }
+
+        export class ZoomIn {
+
+        }
+
+        export class ZoomOut {
+
+        }
+
+        export class ZoomPanel {
+
+        }
+
+        export class ZoomToMaxExtent {
+
+        }
+    }
+
+    module Events {
+        export class buttonclick extends OpenLayers.Class {
+
+        }
+
+        export class featureclick extends OpenLayers.Class {
+
+        }
+    }
+
+    module Feature {
+        export class Vector {
+
+        }
+    }
+
+    module Filter {
+        export class Comparison {
+
+        }
+
+        export class FeatureId {
+
+        }
+
+        export class Function {
+
+        }
+
+        export class Logical {
+
+        }
+
+        export class Spatial {
+
+        }
+    }
+
+    module Format {
+        export class ArcXML {
+            constructor();
+        }
+
+        export class Atom {
+
+        }
+
+        export class CQL {
+
+        }
+
+        export class CSWGetDomain {
+
+        }
+
+        export class CSWGetRecords {
+
+        }
+
+        export class Context { }
+        export class EncodedPolyline { }
+        export class Filter { }
+        export class GML { }
+        export class GPX { }
+        export class GeoJSON { }
+        export class GeoRSS { }
+        export class JSON { }
+        export class KML { }
+        export class OGCExceptionReport { }
+        export class OSM { }
+        export class OWSCommon { }
+        export class OWSContext { }
+        export class QueryStringFilter { }
+        export class SLD { }
+        export class SOSCapabilities { }
+        export class SOSGetFeatureOfInterest { }
+        export class SOSGetObservation { }
+        export class TMSCapabilities { }
+        export class Text { }
+        export class WCSCapabilities { }
+        export class WCSDescribeCoverage { }
+        export class WCSGetCoverage { }
+        export class WFS { }
+        export class WFSCapabilities { }
+        export class WFSDescribeFeatureType { }
+        export class WFST { }
+        export class WKT { }
+        export class WMC { }
+        export class WMSCapabilities { }
+        export class WMSDescribeLayer { }
+        export class WMSGetFeatureInfo { }
+        export class WMTSCapabilities { }
+        export class WPSCapabilities { }
+        export class WPSDescribeProcess { }
+        export class WPSExecute { }
+        export class XLS { }
+        export class XML { }
+
+        module ArcXML {
+            export class Features extends OpenLayers.Class {
+
+            }
+        }
+
+        module CSWGetDomain {
+            export class v2_0_2 { }
+        }
+
+        module CSWGetRecords {
+            export class v2_0_2 { }
+        }
+
+        module Filter {
+
+        }
+
+        module GML {
+
+        }
+
+        module OWSCommon {
+
+        }
+
+        module OWSContext {
+
+        }
+
+        module SLD {
+
+        }
+
+        module SOSCapabilities {
+
+        }
+
+        module WCSCapabilities {
+
+        }
+
+        module WCSDescribeCoverage {
+
+        }
+
+        module WFSCapabilities {
+
+        }
+
+        module WFST {
+
+        }
+
+        module WMC {
+
+        }
+
+        module WMSCapabilities {
+
+
+        }
+
+        module WMSDescribeLayer {
+
+        }
+
+        module WMTSCapabilities {
+
+        }
+
+        module WPSCapabilities {
+
+        }
+
+        module XLS {
+
+        }
+
+        module XML {
+
+        }
+    }
+
+    module Handler {
+        export class Box {
+
+        }
+
+        export class Click {
+
+        }
+
+        export class Drag {
+
+        }
+
+        export class Feature {
+
+        }
+
+        export class Hover {
+
+        }
+
+        export class Keyboard {
+
+        }
+
+        export class MouseWheel {
+
+        }
+
+        export class Path {
+
+        }
+
+        export class Pinch {
+
+        }
+
+        export class Point {
+
+        }
+
+        export class Polygon {
+
+        }
+
+        export class RegularPolygon {
+
+        }
+    }
+
+    module Lang {
+
+    }
+
+    module Layer {
+        export class ArcGIS93Rest { }
+        export class ArcGISCache { }
+        export class ArcIMS { }
+        export class Bing { }
+        export class Boxes { }
+        export class EventPane { }
+        export class FixedZoomLevels { }
+        export class GeoRSS { }
+        export class Google { }
+        export class Grid { }
+        export class HTTPRequest { }
+        export class Image { }
+        export class KaMap { }
+        export class KaMapCache { }
+        export class MapGuide { }
+        export class MapServer { }
+        export class Markers { }
+        export class OSM { }
+        export class PointGrid { }
+        export class PointTrack { }
+        export class SphericalMercator { }
+        export class TMS { }
+        export class Text { }
+        export class TileCache { }
+        export class UTFGrid { }
+        export class Vector { }
+        export class WMS { }
+        export class WMTS { }
+        export class WorldWind { }
+        export class XYZ { }
+        export class Zoomify { }
+
+        module Google {
+            export class v3 { }
+        }
+
+        module Vector {
+            export class RootContainer { }
+        }
+    }
+
+    module Marker {
+        export class Box { }
+    }
+
+    module Popup {
+        export class Anchored { }
+        export class Framed { }
+        export class FramedCloud { }
+    }
+
+    module Protocol {
+        export class CSW { }
+        export class HTTP { }
+        export class SOS { }
+        export class Script { }
+        export class WFS { }
+
+        module CSW {
+            export class v2_0_2 { }
+        }
+
+        module SOS {
+            export class v1_0_0 { }
+        }
+
+        module WFS {
+            export class v2_0_0 { }
+        }
+    }
+
+    module Renderer {
+        export class Canvas { }
+        export class Elements { }
+        export class SVG { }
+        export class VML { }
+    }
+
+    module Request {
+        export class XMLHttpRequest { }
+    }
+
+    module Strategy {
+        export class BBOX { }
+        export class Cluster { }
+        export class Filter { }
+        export class Fixed { }
+        export class Paging { }
+        export class Refresh { }
+        export class Save { }
+    }
+
+    module Symbolizer {
+        export class Line { }
+        export class Point { }
+        export class Polygon { }
+        export class Raster { }
+        export class Text { }
+    }
+
+    module Tile {
+        export class Image { }
+        export class UTFGrid { }
+
+        module Image {
+            export class IFrame { }
+        }
+    }
+
+    module Util {
+        export class vendorPrefix { }
+    }
 }
+
