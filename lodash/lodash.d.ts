@@ -1,6 +1,6 @@
-declare var _: LoDash.LoDashStatic;
+declare var _: _.LoDashStatic;
 
-declare module LoDash {
+declare module _ {
 	interface LoDashStatic {
 		(value: number): LoDashWrapper<number>;
 		(value: string): LoDashWrapper<string>;
