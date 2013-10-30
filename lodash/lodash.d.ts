@@ -358,9 +358,9 @@ declare module LoDash {
 		* @see _.first
 		* @param whereValue "_.where" style callback value
 		**/
-		first<T>(
+		first<W, T extends W>(
 			array: List<T>,
-			whereValue: Dictionary<string>): T[];
+			whereValue: W): T[];
 
 			/**
 			* @see _.first
@@ -392,9 +392,9 @@ declare module LoDash {
 			/**
 			* @see _.first
 			**/
-			head<T>(
+			head<W, T extends W>(
 				array: List<T>,
-				whereValue: Dictionary<string>): T[];
+				whereValue: W): T[];
 
 			/**
 			* @see _.first
@@ -426,9 +426,9 @@ declare module LoDash {
 			/**
 			* @see _.first
 			**/
-			take<T>(
+			take<W, T extends W>(
 				array: List<T>,
-				whereValue: Dictionary<string>): T[];
+				whereValue: W): T[];
 	}
 
 	//_.flatten
@@ -450,7 +450,7 @@ declare module LoDash {
 		**/
 		flatten<T>(
 			array: List<T>,
-			isShallow?,
+			isShallow?: boolean,
 			callback?: ListIterator<T, any>,
 			thisArg?: any): any[];			
 	}
@@ -460,7 +460,7 @@ declare module LoDash {
 		* @see _.flatten
 		**/
 		flatten(
-			isShallow?,
+			isShallow?: boolean,
 			callback?: ListIterator<T, any>,
 			thisArg?: any): LoDashArrayWrapper<any>;
 	}
@@ -547,9 +547,9 @@ declare module LoDash {
 		* @see _.initial
 		* @param whereValue _.where style callback
 		**/
-		initial<T>(
+		initial<W, T extends W>(
 			array: List<T>,
-			whereValue: Dictionary<any>): T[];
+			whereValue: W): T[];
 	}
 
 	//_.intersection
@@ -609,9 +609,9 @@ declare module LoDash {
 		* @see _.last
 		* @param whereValue _.where style callback
 		**/
-		last<T>(
+		last<W, T extends W>(
 			array: List<T>,
-			whereValue: Dictionary<any>): T[];
+			whereValue: W): T[];
 	}
 
 	//_.lastIndexOf
@@ -754,9 +754,9 @@ declare module LoDash {
 		/**
 		* @see _.rest
 		**/
-		rest<T>(
+		rest<W, T extends W>(
 			array: List<T>,
-			whereValue: Dictionary<any>,
+			whereValue: W,
 			thisArg?: any): T[];
 
 			/**
@@ -786,9 +786,9 @@ declare module LoDash {
 			/**
 			* @see _.rest
 			**/
-			drop<T>(
+			drop<W, T extends W>(
 				array: List<T>,
-				whereValue: Dictionary<any>,
+				whereValue: W,
 				thisArg?: any): T[];
 
 			/**
@@ -818,9 +818,9 @@ declare module LoDash {
 			/**
 			* @see _.rest
 			**/
-			tail<T>(
+			tail<W, T extends W>(
 				array: List<T>,
-				whereValue: Dictionary<any>,
+				whereValue: W,
 				thisArg?: any): T[];
 	}
 
@@ -852,7 +852,7 @@ declare module LoDash {
 		* @see _.sortedIndex
 		* @param pluckValue the _.pluck style callback
 		**/
-		sortedIndex<T, TSort>(
+		sortedIndex<T>(
 			array: List<T>,
 			value: T,
 			pluckValue: string): number;
@@ -861,10 +861,10 @@ declare module LoDash {
 		* @see _.sortedIndex
 		* @param pluckValue the _.where style callback
 		**/
-		sortedIndex<T, TSort>(
+		sortedIndex<W, T extends W>(
 			array: List<T>,
 			value: T,
-			whereValue: Dictionary<any>): number;
+			whereValue: W): number;
 	}
 
 	//_.union
@@ -916,7 +916,7 @@ declare module LoDash {
 		* @see _.uniq
 		* @param pluckValue _.pluck style callback
 		**/
-		uniq<T, TSort>(
+		uniq<T>(
 			array: List<T>,
 			isSorted?: boolean,
 			pluckValue?: string): T[];
@@ -925,9 +925,9 @@ declare module LoDash {
 		* @see _.uniq
 		* @param whereValue _.where style callback
 		**/
-		uniq<T, TSort>(
+		uniq<W, T extends W>(
 			array: List<T>,
-			whereValue?: Dictionary<any>): T[];
+			whereValue?: W): T[];
 
 			/**
 			* @see _.uniq
@@ -950,7 +950,7 @@ declare module LoDash {
 			* @see _.uniq
 			* @param pluckValue _.pluck style callback
 			**/
-			unique<T, TSort>(
+			unique<T>(
 				array: List<T>,
 				isSorted?: boolean,
 				pluckValue?: string): T[];
@@ -959,9 +959,9 @@ declare module LoDash {
 			* @see _.uniq
 			* @param whereValue _.where style callback
 			**/
-			unique<T, TSort>(
+			unique<W, T extends W>(
 				array: List<T>,
-				whereValue?: Dictionary<any>): T[];
+				whereValue?: W): T[];
 	}
 
 	//_.without
@@ -1196,9 +1196,9 @@ declare module LoDash {
 		* @see _.every
 		* @param whereValue _.where style callback
 		**/
-		every<T>(
+		every<W, T extends W>(
 			collection: Collection<T>,
-			whereValue: Dictionary<any>): boolean;
+			whereValue: W): boolean;
 
 			/**
 			* @see _.every
@@ -1220,9 +1220,9 @@ declare module LoDash {
 			* @see _.every
 			* @param whereValue _.where style callback
 			**/
-			all<T>(
+			all<W, T extends W>(
 				collection: Collection<T>,
-				whereValue: Dictionary<any>): boolean;
+				whereValue: W): boolean;
 	}
 
 	//_.filter
@@ -1259,9 +1259,9 @@ declare module LoDash {
 		* @see _.filter
 		* @param pluckValue _.pluck style callback
 		**/
-		filter<T>(
+        filter<W, T extends W>(
 			collection: Collection<T>,
-			whereValue: Dictionary<any>): T[];
+            whereValue: W): T[];
 
 			/**
 			* @see _.filter
@@ -1283,9 +1283,9 @@ declare module LoDash {
 			* @see _.filter
 			* @param pluckValue _.pluck style callback
 			**/
-			select<T>(
+			select<W, T extends W>(
 				collection: Collection<T>,
-				whereValue: Dictionary<any>): T[];				
+				whereValue: W): T[];
 	}
 
 	interface LoDashArrayWrapper<T> {
@@ -1307,8 +1307,8 @@ declare module LoDash {
 		* @see _.filter
 		* @param pluckValue _.pluck style callback
 		**/
-		filter<T>(
-			whereValue: Dictionary<any>): T[];
+		filter<W, T extends W>(
+			whereValue: W): T[];
 
 			/**
 			* @see _.filter
@@ -1328,8 +1328,8 @@ declare module LoDash {
 			* @see _.filter
 			* @param pluckValue _.pluck style callback
 			**/
-			select<T>(
-				whereValue: Dictionary<any>): T[];
+			select<W, T extends W>(
+				whereValue: W): T[];
 	}
 
 	//_.find
@@ -1358,9 +1358,9 @@ declare module LoDash {
 		* @see _.find
 		* @param _.pluck style callback
 		**/
-		find<T>(
+		find<W, T extends W>(
 			collection: Collection<T>,
-			whereValue: Dictionary<any>): T;
+			whereValue: W): T;
 
 		/**
 		* @see _.find
@@ -1382,9 +1382,9 @@ declare module LoDash {
 			* @see _.find
 			* @param _.pluck style callback
 			**/
-			detect<T>(
+			detect<W, T extends W>(
 				collection: Collection<T>,
-				whereValue: Dictionary<any>): T;
+				whereValue: W): T;
 
 			/**
 			* @see _.find
@@ -1406,9 +1406,9 @@ declare module LoDash {
 			* @see _.find
 			* @param _.pluck style callback
 			**/
-			findWhere<T>(
+			findWhere<W, T extends W>(
 				collection: Collection<T>,
-				whereValue: Dictionary<any>): T;
+				whereValue: W): T;
 
 			/**
 			* @see _.find
@@ -1438,9 +1438,9 @@ declare module LoDash {
 		* @see _.find
 		* @param _.pluck style callback
 		**/
-		findLast<T>(
+		findLast<W, T extends W>(
 			collection: Collection<T>,
-			whereValue: Dictionary<any>): T;
+			whereValue: W): T;
 
 		/**
 		* @see _.find
@@ -1602,9 +1602,9 @@ declare module LoDash {
 		* @see _.groupBy
 		* @param whereValue _.where style callback
 		**/
-		groupBy<T>(
+		groupBy<W, T extends W>(
 			collection: List<T>,
-			whereValue: Dictionary<any>): Dictionary<T[]>;
+			whereValue: W): Dictionary<T[]>;
 	}
 
 	//_.indexBy
@@ -1642,9 +1642,9 @@ declare module LoDash {
 		* @see _.indexBy
 		* @param whereValue _.where style callback
 		**/
-		indexBy<T>(
+		indexBy<W, T extends W>(
 			collection: List<T>,
-			whereValue: Dictionary<any>): Dictionary<T>;
+			whereValue: W): Dictionary<T>;
 	}
 
 	//_.invoke
@@ -1773,9 +1773,9 @@ declare module LoDash {
 		* @see _.max
 		* @param whereValue _.where style callback
 		**/
-		max<T>(
+		max<W, T extends W>(
 			collection: Collection<T>,
-			whereValue: Dictionary<any>): T;
+			whereValue: W): T;
 	}
 
 	//_.min
@@ -1813,9 +1813,9 @@ declare module LoDash {
 		* @see _.min
 		* @param whereValue _.where style callback
 		**/
-		min<T>(
+		min<W, T extends W>(
 			collection: Collection<T>,
-			whereValue: Dictionary<any>): T;
+			whereValue: W): T;
 	}
 
 	//_.pluck
@@ -1930,9 +1930,9 @@ declare module LoDash {
 		* @see _.reject
 		* @param whereValue _.where style callback
 		**/
-		reject<T>(
+		reject<W, T extends W>(
 			collection: Collection<T>,
-			whereValue: Dictionary<any>): T[];
+			whereValue: W): T[];
 	}
 
 	//_.sample
@@ -2021,9 +2021,9 @@ declare module LoDash {
 		* @see _.some
 		* @param whereValue _.where style callback
 		**/
-		some<T>(
+		some<W, T extends W>(
 			collection: Collection<T>,
-			whereValue: Dictionary<any>): boolean;
+			whereValue: W): boolean;
 
 			/**
 			* @see _.some
@@ -2045,9 +2045,9 @@ declare module LoDash {
 			* @see _.some
 			* @param whereValue _.where style callback
 			**/
-			any<T>(
+			any<W, T extends W>(
 				collection: Collection<T>,
-				whereValue: Dictionary<any>): boolean;
+				whereValue: W): boolean;
 	}
 
 	//_.sortBy
@@ -2085,9 +2085,9 @@ declare module LoDash {
 		* @see _.sortBy
 		* @param whereValue _.where style callback
 		**/
-		sortBy<T>(
+		sortBy<W, T extends W>(
 			collection: List<T>,
-			whereValue: Dictionary<any>): T[];
+			whereValue: W): T[];
 	}
 
 	//_.toArray
@@ -2999,9 +2999,9 @@ declare module LoDash {
 		* @see _.findKey
 		* @param whereValue _.where style callback
 		**/
-		findKey(
-			object: any,
-			whereValue: Dictionary<any>): string;
+        findKey<W extends Dictionary<any>, T extends W>(
+			object: T,
+			whereValue: W): string;
 	}
 
 	//_.findLastKey
@@ -3030,9 +3030,9 @@ declare module LoDash {
 		* @see _.findLastKey
 		* @param whereValue _.where style callback
 		**/
-		findLastKey(
-			object: any,
-			whereValue: Dictionary<any>): string;
+        findLastKey<W extends Dictionary<any>, T extends W>(
+			object: T,
+			whereValue: W): string;
 	}
 
 	//_.forIn
@@ -3226,7 +3226,7 @@ declare module LoDash {
 		isEqual(
 			a: any,
 			b: any,
-			callback?: (a, b) => boolean,
+			callback?: (a: any, b: any) => boolean,
 			thisArg?: any): boolean;
 	}
 
