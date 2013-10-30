@@ -14,7 +14,7 @@ declare module Flight {
          * default values are assigned by passing an object to the defaultAttrs 
          * function.
          */
-        defaultAttrs(obj: Object);
+        defaultAttrs(obj: Object): void;
 
         /**
          * The select method takes an attr key as its argument. The value of the 
@@ -40,7 +40,7 @@ declare module Flight {
          * API for more information). This is a good place to set up event 
          * listeners that bind to callbacks.
          */
-        initialize(node, options: Object);
+        initialize(node: any, options: Object): void;
 
         /**
          * This allows a component instance to listen to an event and register a 
@@ -55,16 +55,16 @@ declare module Flight {
          * @param handler Either a function (callback) to be invoked, or a map of 
          *        targets and callbacks.
          */
-        on(eventType: string, handler: Function);
-        on(eventType: string, handler: Object);
-        on(selector: string, eventType: string, handler: Function);
-        on(selector: Document, eventType: string, handler: Function);
-        on(selector: Element, eventType: string, handler: Function);
-        on(selector: Element[], eventType: string, handler: Function);
-        on(selector: string, eventType: string, handler: Object);
-        on(selector: Document, eventType: string, handler: Object);
-        on(selector: Element, eventType: string, handler: Object);
-        on(selector: Element[], eventType: string, handler: Object);
+        on(eventType: string, handler: Function): void;
+        on(eventType: string, handler: Object): void;
+        on(selector: string, eventType: string, handler: Function): void;
+        on(selector: Document, eventType: string, handler: Function): void;
+        on(selector: Element, eventType: string, handler: Function): void;
+        on(selector: Element[], eventType: string, handler: Function): void;
+        on(selector: string, eventType: string, handler: Object): void;
+        on(selector: Document, eventType: string, handler: Object): void;
+        on(selector: Element, eventType: string, handler: Object): void;
+        on(selector: Element[], eventType: string, handler: Object): void;
 
         /**
          * If we no longer want a component instance to listen to an event we can 
@@ -78,23 +78,23 @@ declare module Flight {
          * @param handler Optional. The function (callback) to detach from the 
          *        component instance. Defaults to the detaching all callbacks for the event.
          */
-        off(eventType: string, handler?: Function);
-        off(selector: string, eventType: string, handler?: Function);
-        off(selector: Document, eventType: string, handler?: Function);
-        off(selector: Element, eventType: string, handler?: Function);
-        off(selector: Element[], eventType: string, handler?: Function);
-        off(selector: string, eventType: Object, handler?: Function);
-        off(selector: Document, eventType: Object, handler?: Function);
-        off(selector: Element, eventType: Object, handler?: Function);
-        off(selector: Element[], eventType: Object, handler?: Function);
-        off(selector: string, eventType: string, handler?: Object);
-        off(selector: Document, eventType: string, handler?: Object);
-        off(selector: Element, eventType: string, handler?: Object);
-        off(selector: Element[], eventType: string, handler?: Object);
-        off(selector: string, eventType: Object, handler?: Object);
-        off(selector: Document, eventType: Object, handler?: Object);
-        off(selector: Element, eventType: Object, handler?: Object);
-        off(selector: Element[], eventType: Object, handler?: Object);
+        off(eventType: string, handler?: Function): void;
+        off(selector: string, eventType: string, handler?: Function): void;
+        off(selector: Document, eventType: string, handler?: Function): void;
+        off(selector: Element, eventType: string, handler?: Function): void;
+        off(selector: Element[], eventType: string, handler?: Function): void;
+        off(selector: string, eventType: Object, handler?: Function): void;
+        off(selector: Document, eventType: Object, handler?: Function): void;
+        off(selector: Element, eventType: Object, handler?: Function): void;
+        off(selector: Element[], eventType: Object, handler?: Function): void;
+        off(selector: string, eventType: string, handler?: Object): void;
+        off(selector: Document, eventType: string, handler?: Object): void;
+        off(selector: Element, eventType: string, handler?: Object): void;
+        off(selector: Element[], eventType: string, handler?: Object): void;
+        off(selector: string, eventType: Object, handler?: Object): void;
+        off(selector: Document, eventType: Object, handler?: Object): void;
+        off(selector: Element, eventType: Object, handler?: Object): void;
+        off(selector: Element[], eventType: Object, handler?: Object): void;
 
         /**
          * Trigger an event.
@@ -115,16 +115,16 @@ declare module Flight {
          *
          * @param eventPayload This is the payload of data that accompanies the event.
          */
-        trigger(eventType: string);
-        trigger(selector: string, eventType: string, eventPayload?: Object);
-        trigger(selector: Document, eventType: string, eventPayload?: Object);
-        trigger(selector: Element, eventType: string, eventPayload?: Object);
-        trigger(selector: Element[], eventType: string, eventPayload?: Object);
-        trigger(eventType: Object);
-        trigger(selector: string, eventType: Object, eventPayload?: Object);
-        trigger(selector: Document, eventType: Object, eventPayload?: Object);
-        trigger(selector: Element, eventType: Object, eventPayload?: Object);
-        trigger(selector: Element[], eventType: Object, eventPayload?: Object);
+        trigger(eventType: string): void;
+        trigger(selector: string, eventType: string, eventPayload?: Object): void;
+        trigger(selector: Document, eventType: string, eventPayload?: Object): void;
+        trigger(selector: Element, eventType: string, eventPayload?: Object): void;
+        trigger(selector: Element[], eventType: string, eventPayload?: Object): void;
+        trigger(eventType: Object): void;
+        trigger(selector: string, eventType: Object, eventPayload?: Object): void;
+        trigger(selector: Document, eventType: Object, eventPayload?: Object): void;
+        trigger(selector: Element, eventType: Object, eventPayload?: Object): void;
+        trigger(selector: Element[], eventType: Object, eventPayload?: Object): void;
 
         /**
          * Remove a component instance and its event bindings.
@@ -134,7 +134,7 @@ declare module Flight {
          * the user navigates away from a page.
          *
          */
-        teardown();
+        teardown(): void;
     }
 
     export interface Advice extends Base {
@@ -146,7 +146,7 @@ declare module Flight {
          *
          * customFunc The function to be invoked after existingFunc.
          */
-        after(method: string, fn: Function);
+        after(method: string, fn: Function): void;
 
         /**
          * Run the existingFunc function in the middle of the customFunc function. 
@@ -163,7 +163,7 @@ declare module Flight {
          * existing function then it will replace that function instead of 
          * surrounding it.
          */
-        around(method: string, fn: Function);
+        around(method: string, fn: Function): void;
 
         /**
          * Run the customFunc function before the existingFunc function.
@@ -173,7 +173,7 @@ declare module Flight {
          *
          * @param customFunc The function to be invoked before existingFunc.
          */
-        before(method: string, fn: Function);
+        before(method: string, fn: Function): void;
     }
 
     export interface Component extends Base, Advice {
@@ -183,63 +183,40 @@ declare module Flight {
 
 
     export interface AdviceStatic {
-        withAdvice();
+        withAdvice(): Function;
     }
 
     export interface ComponentStatic {
         (...fns: Function[]): ComponentStatic;
-        attachTo(selector: string, options?: Object);
-        attachTo(selector: Element, options?: Object);
-        attachTo(selector: JQuery, options?: Object);
-        teardownAll();
+        attachTo(selector: string, options?: Object): void;
+        attachTo(selector: Element, options?: Object): void;
+        attachTo(selector: JQuery, options?: Object): void;
+        teardownAll(): void;
     }
 
     export interface ComposeStatic {
         mixin(base: Object, mixins: Function[]): void;
-        unlockProperty(obj, prop, op);
     }
 
     export interface DebugStatic {
         events: {
-            logAll();
-            logByAction(action: string);
-            logByName(name: string);
-            logNone();
+            logAll(): void;
+            logByAction(action: string): void;
+            logByName(name: string): void;
+            logNone(): void;
         }
-    }
-
-    export interface LoggerStatic {
-
-    }
-
-    export interface RegistryStatic {
-        addInstance(instance);
-        allInstances: Object;
-        components: Array<ComponentStatic>;
-        events: Array;
-        findComponentInfo(which);
-        findInstanceInfo(instance);
-        findInstanceInfoByNode(node);
-        off(el, type, callback);
-        on(componentOn);
-        removeComponentInfo(componentInfo);
-        removeInstance(instance);
-        reset();
-        teardown();
-        trigger();
-        withRegistration();
     }
 
     export interface UtilsStatic {
         compose(fn1: Function, fn2: Function, ...fns: Function[]): Function;
         countThen(num: number, base: Function): Function;
         debounce(func: Function, wait: number, immediate: boolean): Function;
-        delegate(rules: Object);
-        isDomObj(obj): boolean;
-        isEnumerable(obj: Object, property): boolean;
+        delegate(rules: Object): void;
+        isDomObj(obj: Object): boolean;
+        isEnumerable(obj: Object, property: string): boolean;
         merge(obj1: Object, obj2: Object, deepClone?: boolean): Object;
         merge(obj1: Object, obj2: Object, ...args: any[]): Object;
-        push(base: Object, extra: Object, protect?: boolean);
+        push(base: Object, extra: Object, protect?: boolean): void;
         throttle(func: Function, wait: number): Function;
         toArray(obj: Object, from?: number): Array;
         uniqueArray(array: Array): Array;
@@ -253,8 +230,6 @@ declare module Flight {
         advice: AdviceStatic;
         component: ComponentStatic;
         compose: ComposeStatic;
-        logger: LoggerStatic;
-        registry: RegistryStatic;
         utils: UtilsStatic;
     }
 }
