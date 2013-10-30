@@ -144,28 +144,21 @@ result = <number[]>_.difference([1, 2, 3, 4, 5], [5, 2, 10]);
 
 result = <number[]>_.rest([1, 2, 3]);
 result = <number[]>_.rest([1, 2, 3], 2);
-result = <number[]>_.rest([1, 2, 3], function(num) {
-  return num < 3;
-});
+result = <number[]>_.rest([1, 2, 3], (num) => num < 3)
 result = <IFoodOrganic[]>_.rest(foodsOrganic, 'test');
-var result : any;
-result = <IFoodType[]>_.rest(foodsType, { 'test': 'value' });
+result = <IFoodType[]>_.rest(foodsType, { 'type': 'value' });
 
-	result = <number[]>_.drop([1, 2, 3]);
-	result = <number[]>_.drop([1, 2, 3], 2);
-	result = <number[]>_.drop([1, 2, 3], function(num) {
-	  return num < 3;
-	});
-	result = <IFoodOrganic[]>_.drop(foodsOrganic, 'test');
-	result = <IFoodType[]>_.drop(foodsType, { 'test': 'value' });
+result = <number[]>_.drop([1, 2, 3]);
+result = <number[]>_.drop([1, 2, 3], 2);
+result = <number[]>_.drop([1, 2, 3], (num) => num < 3)
+result = <IFoodOrganic[]>_.drop(foodsOrganic, 'test');
+result = <IFoodType[]>_.drop(foodsType, { 'type': 'value' });
 
-	result = <number[]>_.tail([1, 2, 3]);
-	result = <number[]>_.tail([1, 2, 3], 2);
-	result = <number[]>_.tail([1, 2, 3], function(num) {
-	  return num < 3;
-	});
-	result = <IFoodOrganic[]>_.tail(foodsOrganic, 'test');
-	result = <IFoodType[]>_.tail(foodsType, { 'test': 'value' });
+result = <number[]>_.tail([1, 2, 3])
+result = <number[]>_.tail([1, 2, 3], 2)
+result = <number[]>_.tail([1, 2, 3], (num) => num < 3)
+result = <IFoodOrganic[]>_.tail(foodsOrganic, 'test')
+result = <IFoodType[]> _.tail(foodsType, { 'type': 'value' })
 
 result = <number>_.findIndex(['apple', 'banana', 'beet'], function(f) {
   return /^b/.test(f);
@@ -203,9 +196,9 @@ result = <IFoodType[]>_.first(foodsType, { 'type': 'fruit' });
 
 result = <number[]>_.flatten([1, [2], [3, [[4]]]]);
 result = <any[]>_.flatten([1, [2], [3, [[4]]]], true);
+var result: any
 result = <string[]>_.flatten(stoogesQuotes, 'quotes');
 
-var result: any
 	result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten();
 	result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten(true);
 	result = <_.LoDashArrayWrapper<string>>_(stoogesQuotes).flatten('quotes');

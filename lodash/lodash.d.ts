@@ -780,7 +780,7 @@ declare module _ {
 		**/
 		rest<T>(
 			array: List<T>,
-			callback: (elem: T) => boolean,
+            callback: ListIterator<T, boolean>,
 			thisArg?: any): T[];
 
 		/**
@@ -800,10 +800,13 @@ declare module _ {
 		/**
 		* @see _.rest
 		**/
-		rest<W, T extends W>(
+        rest<W, T extends W>(
 			array: List<T>,
 			whereValue: W): T[];
 
+            /**
+            * @see _.rest
+            **/
             drop<T>(array: List<T>): T[];
 
             /**
@@ -811,7 +814,7 @@ declare module _ {
             **/
             drop<T>(
                 array: List<T>,
-                callback: (elem: T) => boolean,
+                callback: ListIterator<T, boolean>,
                 thisArg?: any): T[];
 
             /**
@@ -835,6 +838,9 @@ declare module _ {
                 array: List<T>,
                 whereValue: W): T[];
 
+                /**
+                * @see _.rest
+                **/
                 tail<T>(array: List<T>): T[];
 
                 /**
@@ -842,7 +848,7 @@ declare module _ {
                 **/
                 tail<T>(
                     array: List<T>,
-                    callback: (elem: T) => boolean,
+                    callback: ListIterator<T, boolean>,
                     thisArg?: any): T[];
 
                 /**
@@ -1916,6 +1922,14 @@ declare module _ {
 			accumulator?: TResult,
 			thisArg?: any): TResult;
 
+        /**
+        * @see _.reduce
+        **/
+		reduce<T, TResult>(
+			collection: Collection<T>,
+			callback: MemoIterator<T, TResult>,
+			thisArg?: any): TResult;
+
 			/**
 			* @see _.reduce
 			**/
@@ -1928,10 +1942,26 @@ declare module _ {
 			/**
 			* @see _.reduce
 			**/
+			inject<T, TResult>(
+				collection: Collection<T>,
+				callback: MemoIterator<T, TResult>,
+				thisArg?: any): TResult;
+
+			/**
+			* @see _.reduce
+			**/
 			foldl<T, TResult>(
 				collection: Collection<T>,
 				callback: MemoIterator<T, TResult>,
 				accumulator?: TResult,
+				thisArg?: any): TResult;
+
+			/**
+			* @see _.reduce
+			**/
+			foldl<T, TResult>(
+				collection: Collection<T>,
+				callback: MemoIterator<T, TResult>,
 				thisArg?: any): TResult;
 	}
 
@@ -1952,6 +1982,14 @@ declare module _ {
 			accumulator?: TResult,
 			thisArg?: any): TResult;
 
+        /**
+        * @see _.reduceRight
+        **/
+		reduceRight<T, TResult>(
+			collection: Collection<T>,
+			callback: MemoIterator<T, TResult>,
+			thisArg?: any): TResult;
+
 			/**
 			* @see _.reduceRight
 			**/
@@ -1959,6 +1997,14 @@ declare module _ {
 				collection: Collection<T>,
 				callback: MemoIterator<T, TResult>,
 				accumulator?: TResult,
+				thisArg?: any): TResult;
+
+			/**
+			* @see _.reduceRight
+			**/
+			foldr<T, TResult>(
+				collection: Collection<T>,
+				callback: MemoIterator<T, TResult>,
 				thisArg?: any): TResult;
 	}
 
@@ -3620,6 +3666,14 @@ declare module _ {
 			collection: Collection<T>,
 			callback?: MemoIterator<T, any>,
 			accumulator?: any,
+			thisArg?: any): any;
+
+		/**
+		* @see _.transform
+		**/
+		transform<T>(
+			collection: Collection<T>,
+			callback?: MemoIterator<T, any>,
 			thisArg?: any): any;
 	}
 
