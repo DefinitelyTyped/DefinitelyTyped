@@ -3474,24 +3474,24 @@ declare module LoDash {
 		* @param keys The properties to omit.
 		* @return An object without the omitted properties.
 		**/
-		omit(
-			object: any,
-			...keys: string[]): any;
+        omit<Omitted, T extends Omitted>(
+			object: T,
+			...keys: string[]): Omitted;
 
 		/**
 		* @see _.omit
 		**/
-		omit(
-			object: any,
-			keys: string[]): any;	
+		omit<Omitted, T extends Omitted>(
+			object: T,
+			keys: string[]): Omitted;
 
 		/**
 		* @see _.omit
 		**/
-		omit<T>(
-			object: any,
-			callback: ObjectIterator<T, boolean>,
-			thisArg?: any): any;
+		omit<Omitted, T extends Omitted>(
+			object: T,
+			callback: ObjectIterator<any, boolean>,
+			thisArg?: any): Omitted;
 	}
 
 	//_.pairs
@@ -3517,24 +3517,24 @@ declare module LoDash {
 		* @param keys Property names to pick
 		* @return An object composed of the picked properties.
 		**/
-		pick(
-			object: any,
-			...keys: string[]): any;
+        pick<Picked, T extends Picked>(
+			object: T,
+			...keys: string[]): Picked;
 
 		/**
 		* @see _.pick
 		**/
-		pick(
-			object: any,
-			keys: string[]): any;
+		pick<Picked, T extends Picked>(
+			object: T,
+			keys: string[]): Picked;
 
 		/**
 		* @see _.pick
 		**/
-		pick(
-			object: any,
+		pick<Picked, T extends Picked>(
+			object: T,
 			callback: ObjectIterator<any, boolean>,
-			thisArg?: any): any;
+			thisArg?: any): Picked;
 	}
 
 	//_.transform
