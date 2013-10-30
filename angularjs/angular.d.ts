@@ -124,6 +124,11 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$compile.directive.Attributes
     ///////////////////////////////////////////////////////////////////////////
     interface IAttributes {
+    	// this is necessary to be able to access the scoped attributes. it's not very elegant
+    	// because you have to use attrs['foo'] instead of attrs.foo but I don't know of a better way
+    	// this should really be limited to return string but it creates this problem: http://stackoverflow.com/q/17201854/165656
+    	[name: string]: any; 
+    	
         // Adds the CSS class value specified by the classVal parameter to the 
         // element. If animations are enabled then an animation will be triggered 
         // for the class addition.
@@ -647,7 +652,7 @@ declare module ng {
             templateAttributes: IAttributes,
             transclude: (scope: IScope, cloneLinkingFn: Function) => void
             ) => any;
-        controller?: (...injectables: any[]) => void;
+        controller?: any;
         controllerAs?: string;
         link?:
             (scope: IScope,
@@ -658,7 +663,7 @@ declare module ng {
         name?: string;
         priority?: number;
         replace?: boolean;
-        require?: string[];
+        require?: any;
         restrict?: string;
         scope?: any;
         template?: any;
