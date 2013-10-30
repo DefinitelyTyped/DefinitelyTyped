@@ -2813,7 +2813,12 @@ interface Array<T> {
 	*   ['a','b'].subtract('b','c') -> ['a']
 	**/
 	subtract(...args: T[]): T[];
-
+	
+	/**
+	* @see subtract
+	**/
+	subtract(args: T[]): T[];
+	
 	/**
 	* Sums all values in the array.
 	* @param map Property on each element in the array or callback function to sum up the elements.
