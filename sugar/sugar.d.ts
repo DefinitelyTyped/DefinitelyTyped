@@ -4392,9 +4392,9 @@ interface Date {
 	*   });                                                      -> ex. 1 day ago
 	**/
 	format(format: string, locale?: string): string;
-	short(): string;
-	long(): string;
-	full(): string;
+    	short(locale?: string): string;
+    	long(locale?: string): string;
+    	full(locale?: string): string;
 
 	/**
 	* Returns a string representation of the offset from UTC time. If [iso]
