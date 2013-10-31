@@ -215,8 +215,8 @@ declare module ng {
         $emit(name: string, ...args: any[]): IAngularEvent;
 
         // Documentation says exp is optional, but actual implementaton counts on it
-        $eval(expression: string): any;
-        $eval(expression: (scope: IScope) => any): any;
+        $eval(expression: string, args?: Object): any;
+        $eval(expression: (scope: IScope) => any, args?: Object): any;
 
         // Documentation says exp is optional, but actual implementaton counts on it
         $evalAsync(expression: string): void;
