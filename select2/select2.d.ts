@@ -47,7 +47,7 @@ interface Select2Options {
     closeOnSelect?: boolean;
     openOnEnter?: boolean;
     id?: (object: any) => string;
-    matcher?: (term: string, text: string, option: JQuery) => boolean;
+    matcher?: (term: string, text: string, option: any) => boolean;
     formatSelection?: (object: any, container: JQuery) => string;
     formatResult?: (object: any, container: JQuery, query: any) => string;
     formatResultCssClass?: (object: any) => string;
