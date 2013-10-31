@@ -16,34 +16,57 @@ declare module OpenLayers {
 
     export interface DistanceOptions {
         /**
+<<<<<<< HEAD
          * Return details from the distance calculation.  Default is false.
+=======
+         *Return details from the distance calculation.  Default is false.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         details?: boolean;
 
         /**
+<<<<<<< HEAD
          * Calculate the distance from this geometry to the nearest edge of the target geometry.  Default is true.  If true, calling distanceTo from a geometry that is wholly contained within the target will result in a non-zero distance.  If false, whenever geometries intersect, calling distanceTo will return 0.  If false, details cannot be returned.
+=======
+         *Calculate the distance from this geometry to the nearest edge of the target geometry.  Default is true.  If true, calling distanceTo from a geometry that is wholly contained within the target will result in a non-zero distance.  If false, whenever geometries intersect, calling distanceTo will return 0.  If false, details cannot be returned.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         edge?: boolean;
     }
 
     export interface BoundsOptions {
         /**
+<<<<<<< HEAD
          * Whether or not to include the border. Default is true.
+=======
+         *Whether or not to include the border. Default is true.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         inclusive?: boolean;
 
         /**
+<<<<<<< HEAD
          * If a worldBounds is provided, the
          * ll will be considered as contained if it exceeds the world bounds,
          * but can be wrapped around the dateline so it is contained by this
          * bounds.
+=======
+         *If a worldBounds is provided, the
+         *ll will be considered as contained if it exceeds the world bounds,
+         *but can be wrapped around the dateline so it is contained by this
+         *bounds.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         worldBounds?: Bounds;
     }
 
     export interface WrapDateLineOptions {
         /**
+<<<<<<< HEAD
          * Allow for a margin of error
+=======
+         *Allow for a margin of error
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          * with the 'left' value of this
          * bound.
          * Default is 0.
@@ -51,7 +74,11 @@ declare module OpenLayers {
         leftTolerance?: number;
 
         /**
+<<<<<<< HEAD
          * Allow for a margin of error
+=======
+         *Allow for a margin of error
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          * with the 'right' value of this
          * bound.
          * Default is 0.
@@ -205,91 +232,161 @@ declare module OpenLayers {
 
     export class Geometry {
         /**
+<<<<<<< HEAD
          * A unique identifier for this geometry.
+=======
+         *A unique identifier for this geometry.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         id: string;
 
         /**
+<<<<<<< HEAD
          * This is set when a Geometry is added as component
          * of another geometry
+=======
+         *This is set when a Geometry is added as component
+         *of another geometry
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         parent: Geometry;
 
         /**
+<<<<<<< HEAD
          * The bounds of this geometry
+=======
+         *The bounds of this geometry
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         bounds: Bounds;
 
         /**
+<<<<<<< HEAD
           * A Geometry is a description of a geographic object.
+=======
+          *A Geometry is a description of a geographic object.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
           */
         constructor();
 
         /**
+<<<<<<< HEAD
           * Destroy this geometry.
+=======
+          *Destroy this geometry.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
           */
         destroy(): void;
 
         /**
+<<<<<<< HEAD
          * Create a clone of this geometry.  Does not set any non-standard properties of the cloned geometry.
+=======
+         *Create a clone of this geometry.  Does not set any non-standard properties of the cloned geometry.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         clone(): Geometry;
 
         /**
+<<<<<<< HEAD
          * Set the bounds for this Geometry.
+=======
+         *Set the bounds for this Geometry.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         setBounds(bounds: Bounds): void;
 
         /**
+<<<<<<< HEAD
          * Nullify this components bounds and that of its parent as well.
+=======
+         *Nullify this components bounds and that of its parent as well.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         clearBounds(): void;
 
         /**
+<<<<<<< HEAD
          * Extend the existing bounds to include the new bounds.
          * If geometry's bounds is not yet set, then set a new Bounds.
+=======
+         *Extend the existing bounds to include the new bounds.
+         *If geometry's bounds is not yet set, then set a new Bounds.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         extendBounds(newBounds: Bounds): void;
 
         /**
+<<<<<<< HEAD
          * Get the bounds for this Geometry.  If bounds is not set, it is calculated again, this makes queries faster.
+=======
+         *Get the bounds for this Geometry.  If bounds is not set, it is calculated again, this makes queries faster.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         getBounds(): Bounds;
 
         /**
+<<<<<<< HEAD
          * Calculate the closest distance between two geometries (on the x-y plane).
+=======
+         *Calculate the closest distance between two geometries (on the x-y plane).
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         distanceTo(geometry: Geometry, options: Object): Object;
 
         /**
+<<<<<<< HEAD
          * Return a list of all points in this geometry.
+=======
+         *Return a list of all points in this geometry.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         getVertices(nodes: boolean): Array;
 
         /**
+<<<<<<< HEAD
          * Return whether or not the geometry is at the specified location
+=======
+         *Return whether or not the geometry is at the specified location
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         atPoint(lonlat: LonLat, toleranceLon?: number, toleranceLat?: number): boolean;
 
         /**
+<<<<<<< HEAD
          * Returns the length of the collection by summing its parts
+=======
+         *Returns the length of the collection by summing its parts
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         getLength(): number;
 
         /**
+<<<<<<< HEAD
          * Returns the area of the collection by summing its parts
+=======
+         *Returns the area of the collection by summing its parts
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         getArea(): number;
 
         /**
+<<<<<<< HEAD
          * Returns a text representation of the geometry. If the WKT format is
+=======
+         *Returns a text representation of the geometry. If the WKT format is
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          * included in a build, this will be the Well-Known Text
          * representation.
          */
         toString(): string;
 
         /**
+<<<<<<< HEAD
          * Calculate the centroid of this geometry.  This method is defined in subclasses.
+=======
+         *Calculate the centroid of this geometry.  This method is defined in subclasses.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         getCentroid(): Geometry.Point;
 
@@ -298,111 +395,195 @@ declare module OpenLayers {
 
     export class Projection {
         /**
+<<<<<<< HEAD
           * This class offers several methods for interacting with a wrapped pro4js projection object.
+=======
+          *This class offers several methods for interacting with a wrapped pro4js projection object.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
           */
         constructor(projCode: string, options?: any);
 
         /**
+<<<<<<< HEAD
           * Get the string SRS code.
+=======
+          *Get the string SRS code.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
           */
         getCode(): string;
 
         /**
+<<<<<<< HEAD
           * Get the units string for the projection -- returns null if proj4js is not available.
+=======
+          *Get the units string for the projection -- returns null if proj4js is not available.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
           */
         getUnits(): string;
 
         /**
+<<<<<<< HEAD
           * Set a custom transform method between two projections.  Use this method in cases where the proj4js lib is not available or where custom projections need to be handled.
+=======
+          *Set a custom transform method between two projections.  Use this method in cases where the proj4js lib is not available or where custom projections need to be handled.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
           */
         addTransform(from: string, to: string, method: () => void);
 
         /**
+<<<<<<< HEAD
           * Transform a point coordinate from one projection to another. Note that the input point is transformed in place.
+=======
+          *Transform a point coordinate from one projection to another. Note that the input point is transformed in place.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
           */
         transform(point: Geometry.Point, source: Projection, dest: OpenLayers.Projection): Object;
 
         /**
+<<<<<<< HEAD
           * Transform a point coordinate from one projection to another. Note that the input point is transformed in place.
+=======
+          *Transform a point coordinate from one projection to another. Note that the input point is transformed in place.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
           */
         transform(point: Object, source: Projection, dest: OpenLayers.Projection): Object;
 
         /**
+<<<<<<< HEAD
           * A null transformation useful for defining projection aliases when proj4js is not available:
+=======
+          *A null transformation useful for defining projection aliases when proj4js is not available:
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
           */
         nullTransform(point: Object): Function;
     }
 
     export class Bounds {
         /**
+<<<<<<< HEAD
          * Minimum horizontal coordinate.
+=======
+         *Minimum horizontal coordinate.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         left: number;
 
         /**
+<<<<<<< HEAD
          * Minimum vertical coordinate.
+=======
+         *Minimum vertical coordinate.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         bottom: number;
 
         /**
+<<<<<<< HEAD
          * Maximum horizontal coordinate.
+=======
+         *Maximum horizontal coordinate.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         right: number;
 
         /**
+<<<<<<< HEAD
          * Maximum vertical coordinate.
+=======
+         *Maximum vertical coordinate.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         top: number;
 
         /**
+<<<<<<< HEAD
          * Construct a new bounds object. Coordinates can either be passed as four
+=======
+         *Construct a new bounds object. Coordinates can either be passed as four
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          * arguments, or as a single argument.
          */
         constructor(left: number, bottom: number, right: number, top: number);
 
         /**
+<<<<<<< HEAD
          * Construct a new bounds object. Coordinates can either be passed as four
+=======
+         *Construct a new bounds object. Coordinates can either be passed as four
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          * arguments, or as a single argument.
          */
         constructor(bounds: number[]);
 
         /**
+<<<<<<< HEAD
          * Create a cloned instance of this bounds.
+=======
+         *Create a cloned instance of this bounds.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         clone(): Bounds;
 
         /**
+<<<<<<< HEAD
          * Test a two bounds for equivalence.
+=======
+         *Test a two bounds for equivalence.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         equals(bounds: Bounds): boolean;
 
         /**
+<<<<<<< HEAD
          * Returns a string representation of the bounds object.
+=======
+         *Returns a string representation of the bounds object.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         toString(): string;
 
         /**
+<<<<<<< HEAD
          * Returns an array representation of the bounds object.
+=======
+         *Returns an array representation of the bounds object.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         toArray(reverseAxisOrder?: boolean): number[];
 
         /**
+<<<<<<< HEAD
          * Returns a boundingbox-string representation of the bounds object.
+=======
+         *Returns a boundingbox-string representation of the bounds object.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         toBBOX(decimal?: number, reverseAxisOrder?: boolean): string;
 
         /**
+<<<<<<< HEAD
          * Create a new polygon geometry based on this bounds.
+=======
+         *Create a new polygon geometry based on this bounds.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         toGeometry(): OpenLayers.Geometry.Polygon;
 
         /**
+<<<<<<< HEAD
          * Returns the width of the bounds.
+=======
+         *Returns the width of the bounds.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         getWidth(): number;
 
         /**
+<<<<<<< HEAD
          * Returns the height of the bounds.
+=======
+         *Returns the height of the bounds.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         getHeight(): number;
 
@@ -417,42 +598,74 @@ declare module OpenLayers {
         getCenterPixel(): Pixel;
 
         /**
+<<<<<<< HEAD
          * Returns the LonLat object which represents the center of the bounds.
+=======
+         *Returns the LonLat object which represents the center of the bounds.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         getCenterLonLat(): LonLat;
 
         /**
+<<<<<<< HEAD
          * Scales the bounds around a pixel or lonlat. Note that the new
          * bounds may return non-integer properties, even if a pixel
          * is passed. 
+=======
+         *Scales the bounds around a pixel or lonlat. Note that the new
+         *bounds may return non-integer properties, even if a pixel
+         *is passed. 
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         scale(ratio: number, origin?: Pixel);
 
         /**
+<<<<<<< HEAD
          * Scales the bounds around a pixel or lonlat. Note that the new
          * bounds may return non-integer properties, even if a pixel
          * is passed. 
+=======
+         *Scales the bounds around a pixel or lonlat. Note that the new
+         *bounds may return non-integer properties, even if a pixel
+         *is passed. 
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         scale(ratio: number, origin?: LonLat);
 
         /**
+<<<<<<< HEAD
          * Shifts the coordinates of the bound by the given horizontal and vertical
+=======
+         *Shifts the coordinates of the bound by the given horizontal and vertical
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          * deltas.
          */
         add(x: number, y: number): Bounds;
 
         /**
+<<<<<<< HEAD
          * Extend the bounds.
+=======
+         *Extend the bounds.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         extend(object: LonLat): void;
 
         /**
+<<<<<<< HEAD
          * Extend the bounds.
+=======
+         *Extend the bounds.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         extend(object: Geometry.Point): void;
 
         /**
+<<<<<<< HEAD
          * Extend the bounds.
+=======
+         *Extend the bounds.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         extend(object: Bounds): void;
 
@@ -462,120 +675,208 @@ declare module OpenLayers {
         extendXY(x: number, y: number): void;
 
         /**
+<<<<<<< HEAD
          * Returns whether the bounds object contains the given <OpenLayers.LonLat>.
+=======
+         *Returns whether the bounds object contains the given <OpenLayers.LonLat>.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         containsLonLat(ll: LonLat, options: BoundsOptions);
 
         /**
+<<<<<<< HEAD
          * Returns whether the bounds object contains the given <OpenLayers.LonLat>.
+=======
+         *Returns whether the bounds object contains the given <OpenLayers.LonLat>.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         containsLonLat(ll: Object, options: BoundsOptions);
 
         /**
+<<<<<<< HEAD
          * Returns whether the bounds object contains the given <OpenLayers.Pixel>.
+=======
+         *Returns whether the bounds object contains the given <OpenLayers.Pixel>.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         containsPixel(px: Pixel, inclusive: boolean): boolean;
 
         /**
+<<<<<<< HEAD
          * Returns whether the bounds object contains the given x and y.
+=======
+         *Returns whether the bounds object contains the given x and y.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         contains(x: number, y: number, inclusive?: boolean): boolean;
 
         /**
+<<<<<<< HEAD
          * Determine whether the target bounds intersects this bounds. Bounds are
          * considered intersecting if any of their edges intersect or if one
          * bounds contains the other.
+=======
+         *Determine whether the target bounds intersects this bounds. Bounds are
+         *considered intersecting if any of their edges intersect or if one
+         *bounds contains the other.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         intersectsBounds(bounds: Bounds, options: BoundsOptions): boolean;
 
         /**
+<<<<<<< HEAD
          * Returns whether the bounds object contains the given <OpenLayers.Bounds>.
+=======
+         *Returns whether the bounds object contains the given <OpenLayers.Bounds>.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         containsBounds(bounds: Bounds, partial: boolean, inclusive: boolean): boolean;
 
         /**
+<<<<<<< HEAD
          * Returns the the quadrant ("br", "tr", "tl", "bl") in which the given
+=======
+         *Returns the the quadrant ("br", "tr", "tl", "bl") in which the given
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          *<OpenLayers.LonLat> lies.
          */
         determineQuadrant(lonlat: LonLat): string;
 
         /**
+<<<<<<< HEAD
          * Transform the Bounds object from source to dest.
+=======
+         *Transform the Bounds object from source to dest.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         transform(source: Projection, dest: Projection): Bounds;
 
         /**
+<<<<<<< HEAD
          * Wraps the bounds object around the dateline.
+=======
+         *Wraps the bounds object around the dateline.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         wrapDateLine(maxExtent: Bounds, options: WrapDateLineOptions): Bounds;
 
         static CLASS_NAME: string;
 
         /**
+<<<<<<< HEAD
          * Alternative constructor that builds a new OpenLayers.Bounds from a
          * parameter string.
+=======
+         *Alternative constructor that builds a new OpenLayers.Bounds from a
+         *parameter string.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         static fromString(str: string, reverseAxisOrder: boolean): Bounds;
 
         /**
+<<<<<<< HEAD
          * Alternative constructor that builds a new OpenLayers.Bounds from an array.
+=======
+         *Alternative constructor that builds a new OpenLayers.Bounds from an array.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         static fromArray(bbox: number[], reverseAxisOrder: boolean): Bounds;
 
         /**
+<<<<<<< HEAD
          * Alternative constructor that builds a new OpenLayers.Bounds from a size.
+=======
+         *Alternative constructor that builds a new OpenLayers.Bounds from a size.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         static fromSize(size: Size): Bounds;
 
         /**
+<<<<<<< HEAD
          * Get the opposite quadrant for a given quadrant string.
+=======
+         *Get the opposite quadrant for a given quadrant string.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
          */
         static oppositeQuadrant(quadrant: string): string;
     }
 
     export class LonLat {
         /**
+<<<<<<< HEAD
           * Create a new map location.  Coordinates can be passed either as two arguments, or as a single argument.
+=======
+          *Create a new map location.  Coordinates can be passed either as two arguments, or as a single argument.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
           */
         constructor(lon: number, lat: number);
 
         /**
+<<<<<<< HEAD
           * Create a new map location.  Coordinates can be passed either as two arguments, or as a single argument.
+=======
+          *Create a new map location.  Coordinates can be passed either as two arguments, or as a single argument.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
           */
         constructor(lonlat: number[]);
 
         /**
+<<<<<<< HEAD
           * Shortened String representation of OpenLayers.LonLat object.
+=======
+          *Shortened String representation of OpenLayers.LonLat object.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
           */
         toShortString(): string;
 
         /**
+<<<<<<< HEAD
           * New OpenLayers.LonLat object with the same lon and lat values
+=======
+          *New OpenLayers.LonLat object with the same lon and lat values
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
           */
         clone(): LonLat;
 
         /**   
+<<<<<<< HEAD
           * A new OpenLayers.LonLat object with the lon and lat passed-in added to this’s.
+=======
+          *A new OpenLayers.LonLat object with the lon and lat passed-in added to this’s.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
           */
         add(lon: number, lat: number): LonLat;
 
         /**   
+<<<<<<< HEAD
           * Boolean value indicating whether the passed-in OpenLayers.LonLat object has the same lon and lat components as this.  Note: if ll passed in is null, returns false.
+=======
+          *Boolean value indicating whether the passed-in OpenLayers.LonLat object has the same lon and lat components as this.  Note: if ll passed in is null, returns false.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
           */
         equals(ll: LonLat): boolean;
 
         /**   
+<<<<<<< HEAD
           * Transform the LonLat object from source to dest.  This transformation is in place: if you want a new lonlat, use .clone() first.
+=======
+          *Transform the LonLat object from source to dest.  This transformation is in place: if you want a new lonlat, use .clone() first.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
           */
         transform(source: Projection, dest: Projection): LonLat;
 
         /**
+<<<<<<< HEAD
           * Returns a copy of this lonlat, but wrapped around the "dateline" (as specified by the borders of maxExtent).
+=======
+          *Returns a copy of this lonlat, but wrapped around the "dateline" (as specified by the borders of maxExtent).
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
           */
         wrapDateLine(maxExtend: Bounds): LonLat;
     }
 
     export class Map {
+<<<<<<< HEAD
         /**
          * Unique identifier for the map
          */
@@ -717,10 +1018,13 @@ declare module OpenLayers {
 
 
 
+=======
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
 
         constructor(id: HTMLElement, options?: MapOptions);
 
         constructor(id: string, options?: MapOptions);
+<<<<<<< HEAD
 
         /**
          *
@@ -741,6 +1045,8 @@ declare module OpenLayers {
          *
          */
         prop: string;
+=======
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
     }
 
     export class Class {
@@ -767,133 +1073,240 @@ declare module OpenLayers {
 
         export class Collection extends Geometry {
             /**
+<<<<<<< HEAD
              * The component parts of this geometry
+=======
+             *The component parts of this geometry
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             components: Geometry[];
 
             /**
+<<<<<<< HEAD
              * An array of class names representing the types of
              * components that the collection can include. A null value means the
              * component types are not restricted.
+=======
+             *An array of class names representing the types of
+             *components that the collection can include. A null value means the
+             *component types are not restricted.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             componentTypes: string[];
 
             /**
+<<<<<<< HEAD
              * Creates a Geometry Collection -- a list of geoms.
+=======
+             *Creates a Geometry Collection -- a list of geoms.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             constructor(components: Geometry[]);
 
             /**
+<<<<<<< HEAD
              * Destroy this geometry.
+=======
+             *Destroy this geometry.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             destroy(): void;
 
             /**
+<<<<<<< HEAD
              * Clone this geometry.
+=======
+             *Clone this geometry.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             clone(): Collection;
 
             /**
+<<<<<<< HEAD
              * Get a string representing the components for this collection
+=======
+             *Get a string representing the components for this collection
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             getComponentsString(): string;
 
             /**
+<<<<<<< HEAD
              * Recalculate the bounds by iterating through the components and
              * calling calling extendBounds() on each item.
+=======
+             *Recalculate the bounds by iterating through the components and
+             *calling calling extendBounds() on each item.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             calculateBounds();
 
             /**
+<<<<<<< HEAD
              * Add components to this geometry.
+=======
+             *Add components to this geometry.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             addComponents(components: Geometry[]);
 
             /**
+<<<<<<< HEAD
              * Add a new component (geometry) to the collection. If this.componentTypes
              * is set, then the component class name must be in the componentTypes array.
+=======
+             *Add a new component (geometry) to the collection. If this.componentTypes
+             *is set, then the component class name must be in the componentTypes array.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             addComponent(component: Geometry, index: number): boolean;
 
             /**
+<<<<<<< HEAD
              * Remove components from this geometry.
+=======
+             *Remove components from this geometry.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             removeComponents(components: Geometry[]): boolean;
 
             /**
+<<<<<<< HEAD
              * Remove a component from this geometry.
+=======
+             *Remove a component from this geometry.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             removeComponent(component: Geometry): boolean;
 
             /**
+<<<<<<< HEAD
              * Calculate the length of this geometry
+=======
+             *Calculate the length of this geometry
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             getLength(): number;
 
             /**
+<<<<<<< HEAD
              * Calculate the area of this geometry. Note how this function is overridden
              * in <OpenLayers.Geometry.Polygon>.
+=======
+             *Calculate the area of this geometry. Note how this function is overridden
+             *in <OpenLayers.Geometry.Polygon>.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             getArea(): number;
 
             /**
+<<<<<<< HEAD
              * Calculate the approximate area of the polygon were it projected onto
              * the earth.
+=======
+             *Calculate the approximate area of the polygon were it projected onto
+             *the earth.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             getGeodesicArea(projection: Projection): number;
 
             /**
+<<<<<<< HEAD
              * Compute the centroid for this geometry collection.
+=======
+             *Compute the centroid for this geometry collection.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             getCentroid(weighted?: boolean): Point;
 
             /**
+<<<<<<< HEAD
              * Calculate the approximate length of the geometry were it projected onto
              * the earth.
+=======
+             *Calculate the approximate length of the geometry were it projected onto
+             *the earth.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             getGeodesicLength(projection: Projection): number;
 
             /**
+<<<<<<< HEAD
              * Moves a geometry by the given displacement along positive x and y axes.
              * This modifies the position of the geometry and clears the cached
              * bounds.
+=======
+             *Moves a geometry by the given displacement along positive x and y axes.
+             *This modifies the position of the geometry and clears the cached
+             *bounds.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             move(x: number, y: number): void;
 
             /**
+<<<<<<< HEAD
              * Rotate a geometry around some origin
+=======
+             *Rotate a geometry around some origin
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             rotate(angle: number, origin: Point);
 
             /**
+<<<<<<< HEAD
              * Resize a geometry relative to some origin. Use this method to apply
              * a uniform scaling to a geometry.
+=======
+             *Resize a geometry relative to some origin. Use this method to apply
+             *a uniform scaling to a geometry.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             resize(scale: number, origin: Point, ratio: number): Geometry;
 
             /**
+<<<<<<< HEAD
              * Calculate the closest distance between two geometries (on the x-y plane).
+=======
+             *Calculate the closest distance between two geometries (on the x-y plane).
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             distanceTo(geometry: Geometry, options: DistanceOptions): Object;
 
             /**
+<<<<<<< HEAD
              * Determine whether another geometry is equivalent to this one. Geometries
              * are considered equivalent if all components have the same coordinates.
+=======
+             *Determine whether another geometry is equivalent to this one. Geometries
+             *are considered equivalent if all components have the same coordinates.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             equals(geometry: Geometry): boolean;
 
             /**
+<<<<<<< HEAD
              * Reproject the components geometry from source to dest.
+=======
+             *Reproject the components geometry from source to dest.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             transform(source: Projection, dest: Projection): Geometry;
 
             /**
+<<<<<<< HEAD
              * Determine if the input geometry intersects this one.
+=======
+             *Determine if the input geometry intersects this one.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             intersects(geometry: Geometry): boolean;
 
             /**
+<<<<<<< HEAD
              * Return a list of all points in this geometry.
+=======
+             *Return a list of all points in this geometry.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             getVertices(nodes: boolean): Array;
 
@@ -907,57 +1320,101 @@ declare module OpenLayers {
             y: number;
 
             /**
+<<<<<<< HEAD
              * Construct a point geometry.
+=======
+             *Construct a point geometry.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             constructor(x: number, y: number);
 
             /**
+<<<<<<< HEAD
              * Create a clone of this geometry.
+=======
+             *Create a clone of this geometry.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             clone(): Geometry;
 
             /**
+<<<<<<< HEAD
              * An exact clone of this OpenLayers.Geometry.Point
+=======
+             *An exact clone of this OpenLayers.Geometry.Point
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             clone(obj: Point): Point;
 
             /**
+<<<<<<< HEAD
              * Calculate the closest distance between two geometries (on the x-y plane).
+=======
+             *Calculate the closest distance between two geometries (on the x-y plane).
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             distanceTo(geometry: Geometry, options: DistanceOptions): Object;
 
             /**
+<<<<<<< HEAD
              * Determine whether another geometry is equivalent to this one.  Geometries are considered equivalent if all components have the same coordinates.
+=======
+             *Determine whether another geometry is equivalent to this one.  Geometries are considered equivalent if all components have the same coordinates.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             equals(geom: Point): boolean;
 
             /**
+<<<<<<< HEAD
              * Moves a geometry by the given displacement along positive x and y axes.  This modifies the position of the geometry and clears the cached bounds.
+=======
+             *Moves a geometry by the given displacement along positive x and y axes.  This modifies the position of the geometry and clears the cached bounds.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             move(x: number, y: number): void;
 
             /**
+<<<<<<< HEAD
              * Rotate a point around another.
+=======
+             *Rotate a point around another.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             rotate(angle: number, origin: Point);
 
             /**
+<<<<<<< HEAD
              * Resize a point relative to some origin.  For points, this has the effect of scaling a vector (from the origin to the point).  This method is more useful on geometry collection subclasses.
+=======
+             *Resize a point relative to some origin.  For points, this has the effect of scaling a vector (from the origin to the point).  This method is more useful on geometry collection subclasses.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             resize(scale: number, origin: Point, ratio: number): Geometry;
 
             /**
+<<<<<<< HEAD
              * Determine if the input geometry intersects this one.
+=======
+             *Determine if the input geometry intersects this one.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             intersects(geometry: Geometry): boolean;
 
             /**
+<<<<<<< HEAD
              * Translate the x,y properties of the point from source to dest.
+=======
+             *Translate the x,y properties of the point from source to dest.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             transform(source: Projection, dest: Projection): Geometry;
 
             /**
+<<<<<<< HEAD
              * Return a list of all points in this geometry.
+=======
+             *Return a list of all points in this geometry.
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
              */
             getVertices(nodes: boolean): Array;
         }
@@ -1414,6 +1871,7 @@ declare module OpenLayers {
     }
 
     module Layer {
+<<<<<<< HEAD
         export interface WMSGetMapParams {
             version?: string;
             exceptions?: string;
@@ -1437,6 +1895,8 @@ declare module OpenLayers {
             crossOriginKeyword?: string;
         }
 
+=======
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
         export class ArcGIS93Rest { }
         export class ArcGISCache { }
         export class ArcIMS { }
@@ -1454,6 +1914,7 @@ declare module OpenLayers {
         export class MapGuide { }
         export class MapServer { }
         export class Markers { }
+<<<<<<< HEAD
 
         export class OSM extends Layer.XYZ {
             /**
@@ -1502,6 +1963,9 @@ declare module OpenLayers {
             static CLASS_NAME: string;
         }
 
+=======
+        export class OSM { }
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
         export class PointGrid { }
         export class PointTrack { }
         export class SphericalMercator { }
@@ -1509,6 +1973,7 @@ declare module OpenLayers {
         export class Text { }
         export class TileCache { }
         export class UTFGrid { }
+<<<<<<< HEAD
         export class Vector { }       
 
         export class WMS {
@@ -1624,6 +2089,10 @@ declare module OpenLayers {
             static CLASS_NAME: string;
         }
 
+=======
+        export class Vector { }
+        export class WMS { }
+>>>>>>> c19fb92cad220a320f0e717d542712c03c15b3c1
         export class WMTS { }
         export class WorldWind { }
         export class XYZ { }
