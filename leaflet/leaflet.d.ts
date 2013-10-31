@@ -932,7 +932,7 @@ declare module L {
           */
         setUrl(urlTemplate: string): TileLayer;
 
-        static WMS: new () => WMS;
+        static WMS: new (url: string, options: WMSOptions) => WMS;
 
         static Canvas: new () => Canvas;
 
@@ -998,7 +998,7 @@ declare module L {
 
     }
 
-    export class WMS {
+    export class WMS extends TileLayer {
         /**
           * Instantiates a WMS tile layer object given a base URL of the WMS service and
           * a WMS parameters/options object.
@@ -1009,11 +1009,11 @@ declare module L {
           * Merges an object with the new parameters and re-requests tiles on the current
           * screen (unless noRedraw was set to true).
           */
-        setParams(params: WMS, noRedraw?: boolean): WMS;
+        setParams(params: any, noRedraw?: boolean): WMS;
 
     }
 
-    export class Canvas {
+    export class Canvas extends TileLayer {
         /**
           * Instantiates a Canvas tile layer object given an options object (optionally).
           */
