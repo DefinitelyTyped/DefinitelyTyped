@@ -73,6 +73,10 @@ anOrder.lines.push(someOrderLine);
 anOrder.lines.push(someOrderLine);
 anOrder.lines.shift();
 
+console.log(someOrderLine.subtotal == someOrderLine.getSubtotal());     // true
+console.log(anOrder.lines.length);                                      // 1
+
+//Array methods
 anOrder.lines.remove(someOrderLine);
 anOrder.lines.removeAll([someOrderLine]);
 anOrder.lines.removeAll();
@@ -80,6 +84,3 @@ anOrder.lines.removeAll();
 anOrder.lines.destroy(someOrderLine);
 anOrder.lines.destroyAll([someOrderLine]);
 anOrder.lines.destroyAll();
-
-console.log(someOrderLine.subtotal == someOrderLine.getSubtotal());     // true
-console.log(anOrder.lines.length);                                      // 1
