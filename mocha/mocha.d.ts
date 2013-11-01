@@ -8,7 +8,7 @@ interface Mocha {
     setup(options: MochaSetupOptions): Mocha;
 
     //Run tests and invoke `fn()` when complete.
-    run(callback: () => void): void;
+    run(callback?: () => void): void;
 
     // Set reporter as function
     reporter(reporter: () => void): Mocha;
