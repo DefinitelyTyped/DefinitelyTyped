@@ -398,7 +398,7 @@ declare module OpenLayers {
          * setNewBaseLayer - {Boolean} Set a new base layer when this layer has
          * been destroyed. Default is true.
          */
-        destroy(setNewBaseLayer?: boolean);
+        destroy(setNewBaseLayer?: boolean): void;
 
         /**
          * Method: clone
@@ -974,7 +974,7 @@ declare module OpenLayers {
         /**
           * Set a custom transform method between two projections.  Use this method in cases where the proj4js lib is not available or where custom projections need to be handled.
           */
-        addTransform(from: string, to: string, method: () => void);
+        addTransform(from: string, to: string, method: () => void): void;
 
         /**
           * Transform a point coordinate from one projection to another. Note that the input point is transformed in place.
@@ -1085,14 +1085,14 @@ declare module OpenLayers {
          * bounds may return non-integer properties, even if a pixel
          * is passed. 
          */
-        scale(ratio: number, origin?: Pixel);
+        scale(ratio: number, origin?: Pixel): void;
 
         /**
          * Scales the bounds around a pixel or lonlat. Note that the new
          * bounds may return non-integer properties, even if a pixel
          * is passed. 
          */
-        scale(ratio: number, origin?: LonLat);
+        scale(ratio: number, origin?: LonLat): void;
 
         /**
          * Shifts the coordinates of the bound by the given horizontal and vertical
@@ -1123,12 +1123,12 @@ declare module OpenLayers {
         /**
          * Returns whether the bounds object contains the given <OpenLayers.LonLat>.
          */
-        containsLonLat(ll: LonLat, options: BoundsOptions);
+        containsLonLat(ll: LonLat, options: BoundsOptions): boolean;
 
         /**
          * Returns whether the bounds object contains the given <OpenLayers.LonLat>.
          */
-        containsLonLat(ll: Object, options: BoundsOptions);
+        containsLonLat(ll: Object, options: BoundsOptions): boolean;
 
         /**
          * Returns whether the bounds object contains the given <OpenLayers.Pixel>.
@@ -1666,7 +1666,7 @@ declare module OpenLayers {
          * Parameters:
          * options - {Object} Hashtable of options to tag to the map
          */
-        setOptions(options: {});
+        setOptions(options: {}): void;
 
         /**
          * APIMethod: getTileSize
@@ -1927,7 +1927,7 @@ declare module OpenLayers {
          * Parameters:
          * newBaseLayer - {<OpenLayers.Layer>}
          */
-        setBaseLayer(newBaseLayer): void;
+        setBaseLayer(newBaseLayer: Layer): void;
 
         /**
          * APIMethod: addControl
@@ -1938,7 +1938,7 @@ declare module OpenLayers {
          * control - {<OpenLayers.Control>}
          * px - {<OpenLayers.Pixel>}
          */
-        addControl(control: Control, px: Pixel);
+        addControl(control: Control, px: Pixel): void;
 
         /**
          * APIMethod: addControls
@@ -1996,7 +1996,7 @@ declare module OpenLayers {
          * popup - {<OpenLayers.Popup>}
          * exclusive - {Boolean} If true, closes all other popups first
          */
-        addPopup(popup: Popup, exclusive: boolean);
+        addPopup(popup: Popup, exclusive: boolean): void;
 
         /**
          * APIMethod: removePopup
@@ -2772,12 +2772,12 @@ declare module OpenLayers {
              * Recalculate the bounds by iterating through the components and
              * calling calling extendBounds() on each item.
              */
-            calculateBounds();
+            calculateBounds(): void;
 
             /**
              * Add components to this geometry.
              */
-            addComponents(components: Geometry[]);
+            addComponents(components: Geometry[]): void;
 
             /**
              * Add a new component (geometry) to the collection. If this.componentTypes
@@ -2833,7 +2833,7 @@ declare module OpenLayers {
             /**
              * Rotate a geometry around some origin
              */
-            rotate(angle: number, origin: Point);
+            rotate(angle: number, origin: Point): void;
 
             /**
              * Resize a geometry relative to some origin. Use this method to apply
@@ -2909,7 +2909,7 @@ declare module OpenLayers {
             /**
              * Rotate a point around another.
              */
-            rotate(angle: number, origin: Point);
+            rotate(angle: number, origin: Point): void;
 
             /**
              * Resize a point relative to some origin.  For points, this has the effect of scaling a vector (from the origin to the point).  This method is more useful on geometry collection subclasses.
