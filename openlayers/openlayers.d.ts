@@ -2934,29 +2934,43 @@ declare module OpenLayers {
 
         export class Curve extends Geometry.MultiPoint {
 
+            // TODO
+
         }
 
         export class LineString extends Geometry.Curve {
+
+            // TODO
 
         }
 
         export class LinearRing extends Geometry.LineString {
 
+            // TODO
+
         }
 
         export class MultiLineString extends Geometry.Collection {
+
+            // TODO
 
         }
 
         export class MultiPoint extends Geometry.Collection {
 
         }
+        // TODO
+
 
         export class MultiPolygon extends Geometry.Collection {
+
+            // TODO
 
         }
 
         export class Polygon extends Geometry.Collection {
+
+            // TODO
 
         }
     }
@@ -2964,113 +2978,169 @@ declare module OpenLayers {
     module Control {
         export class ArgParser {
 
+            // TODO
+
         }
 
         export class Attribution {
+
+            // TODO
 
         }
 
         export class Button {
 
+            // TODO
+
         }
 
         export class CacheRead {
+
+            // TODO
 
         }
 
         export class CacheWrite {
 
+            // TODO
+
         }
 
         export class DragFeature {
+
+            // TODO
 
         }
 
         export class DragPan {
 
+            // TODO
+
         }
 
         export class DrawFeature {
+
+            // TODO
 
         }
 
         export class EditingToolbar {
 
+            // TODO
+
         }
 
         export class Geolocate {
+
+            // TODO
 
         }
 
         export class GetFeature {
 
+            // TODO
+
         }
 
         export class Graticule {
+
+            // TODO
 
         }
 
         export class KeyboardDefaults {
 
+            // TODO
+
         }
 
         export class LayerSwitcher {
+
+            // TODO
 
         }
 
         export class Measure {
 
+            // TODO
+
         }
 
         export class ModifyFeature {
+
+            // TODO
 
         }
 
         export class MousePosition {
 
+            // TODO
+
         }
 
         export class NavToolbar {
+
+            // TODO
 
         }
 
         export class Navigation {
 
+            // TODO
+
         }
 
         export class NavigationHistory {
+
+            // TODO
 
         }
 
         export class OverviewMap {
 
+            // TODO
+
         }
 
         export class Pan {
+
+            // TODO
 
         }
 
         export class PanPanel {
 
+            // TODO
+
         }
 
         export class PanZoom {
+
+            // TODO
 
         }
 
         export class PanZoomBar {
 
+            // TODO
+
         }
 
         export class Panel {
+
+            // TODO
 
         }
 
         export class Permalink {
 
+            // TODO
+
         }
 
         export class PinchZoom {
+
+            // TODO
 
         }
 
@@ -3080,69 +3150,103 @@ declare module OpenLayers {
 
         export class Scale {
 
+            // TODO
+
         }
 
         export class ScaleLine {
+
+            // TODO
 
         }
 
         export class SelectFeature {
 
+            // TODO
+
         }
 
         export class Snapping {
+
+            // TODO
 
         }
 
         export class Split {
 
+            // TODO
+
         }
 
         export class TextButtonPanel {
+
+            // TODO
 
         }
 
         export class TouchNavigation {
 
+            // TODO
+
         }
 
         export class TransformFeature {
+
+            // TODO
 
         }
 
         export class UTFGrid {
 
+            // TODO
+
         }
 
         export class WMSGetFeatureInfo {
+
+            // TODO
 
         }
 
         export class WMTSGetFeatureInfo {
 
+            // TODO
+
         }
 
         export class Zoom {
+
+            // TODO
 
         }
 
         export class ZoomBox {
 
+            // TODO
+
         }
 
         export class ZoomIn {
+
+            // TODO
 
         }
 
         export class ZoomOut {
 
+            // TODO
+
         }
 
         export class ZoomPanel {
 
+            // TODO
+
         }
 
         export class ZoomToMaxExtent {
+
+            // TODO
 
         }
     }
@@ -3150,9 +3254,13 @@ declare module OpenLayers {
     module Events {
         export class buttonclick extends OpenLayers.Class {
 
+            // TODO
+
         }
 
         export class featureclick extends OpenLayers.Class {
+
+            // TODO
 
         }
     }
@@ -3160,27 +3268,39 @@ declare module OpenLayers {
     module Feature {
         export class Vector {
 
+            // TODO
+
         }
     }
 
     module Filter {
         export class Comparison {
 
+            // TODO
+
         }
 
         export class FeatureId {
+
+            // TODO
 
         }
 
         export class Function {
 
+            // TODO
+
         }
 
         export class Logical {
 
+            // TODO
+
         }
 
         export class Spatial {
+
+            // TODO
 
         }
     }
@@ -3192,139 +3312,263 @@ declare module OpenLayers {
 
         export class Atom {
 
+            // TODO
+
         }
 
         export class CQL {
+
+            // TODO
 
         }
 
         export class CSWGetDomain {
 
+            // TODO
+
         }
 
         export class CSWGetRecords {
 
+            // TODO
+
         }
 
-        export class Context { }
-        export class EncodedPolyline { }
-        export class Filter { }
-        export class GML { }
-        export class GPX { }
-        export class GeoJSON { }
-        export class GeoRSS { }
-        export class JSON { }
-        export class KML { }
-        export class OGCExceptionReport { }
-        export class OSM { }
-        export class OWSCommon { }
-        export class OWSContext { }
-        export class QueryStringFilter { }
-        export class SLD { }
-        export class SOSCapabilities { }
-        export class SOSGetFeatureOfInterest { }
-        export class SOSGetObservation { }
-        export class TMSCapabilities { }
-        export class Text { }
-        export class WCSCapabilities { }
-        export class WCSDescribeCoverage { }
-        export class WCSGetCoverage { }
-        export class WFS { }
-        export class WFSCapabilities { }
-        export class WFSDescribeFeatureType { }
-        export class WFST { }
-        export class WKT { }
-        export class WMC { }
-        export class WMSCapabilities { }
-        export class WMSDescribeLayer { }
-        export class WMSGetFeatureInfo { }
-        export class WMTSCapabilities { }
-        export class WPSCapabilities { }
-        export class WPSDescribeProcess { }
-        export class WPSExecute { }
-        export class XLS { }
-        export class XML { }
+        export class Context {
+            // TODO
+        }
+        export class EncodedPolyline {
+            // TODO
+        }
+        export class Filter {
+            // TODO
+        }
+        export class GML {
+            // TODO
+        }
+        export class GPX {
+            // TODO
+        }
+        export class GeoJSON {
+            // TODO
+        }
+        export class GeoRSS {
+            // TODO
+        }
+        export class JSON {
+            // TODO
+        }
+        export class KML {
+            // TODO
+        }
+        export class OGCExceptionReport {
+            // TODO
+        }
+        export class OSM {
+            // TODO
+        }
+        export class OWSCommon {
+            // TODO
+        }
+        export class OWSContext {
+            // TODO
+        }
+        export class QueryStringFilter {
+            // TODO
+        }
+        export class SLD {
+            // TODO
+        }
+        export class SOSCapabilities {
+            // TODO
+        }
+        export class SOSGetFeatureOfInterest {
+            // TODO
+        }
+        export class SOSGetObservation {
+            // TODO
+        }
+        export class TMSCapabilities {
+            // TODO
+        }
+        export class Text {
+            // TODO
+        }
+        export class WCSCapabilities {
+            // TODO
+        }
+        export class WCSDescribeCoverage {
+            // TODO
+        }
+        export class WCSGetCoverage {
+            // TODO
+        }
+        export class WFS {
+            // TODO
+        }
+        export class WFSCapabilities {
+            // TODO
+        }
+        export class WFSDescribeFeatureType {
+            // TODO
+        }
+        export class WFST {
+            // TODO
+        }
+        export class WKT {
+            // TODO
+        }
+        export class WMC {
+            // TODO
+        }
+        export class WMSCapabilities {
+            // TODO
+        }
+        export class WMSDescribeLayer {
+            // TODO
+        }
+        export class WMSGetFeatureInfo {
+            // TODO
+        }
+        export class WMTSCapabilities {
+            // TODO
+        }
+        export class WPSCapabilities {
+            // TODO
+        }
+        export class WPSDescribeProcess {
+            // TODO
+        }
+        export class WPSExecute {
+            // TODO
+        }
+        export class XLS {
+            // TODO
+        }
+        export class XML {
+            // TODO
+        }
 
         module ArcXML {
             export class Features extends OpenLayers.Class {
+
+                // TODO
 
             }
         }
 
         module CSWGetDomain {
-            export class v2_0_2 { }
+            export class v2_0_2 {
+                // TODO
+            }
         }
 
         module CSWGetRecords {
-            export class v2_0_2 { }
+            export class v2_0_2 {
+                // TODO
+            }
         }
 
         module Filter {
+
+            // TODO
 
         }
 
         module GML {
 
+            // TODO
+
         }
 
         module OWSCommon {
+
+            // TODO
 
         }
 
         module OWSContext {
 
+            // TODO
+
         }
 
         module SLD {
+
+            // TODO
 
         }
 
         module SOSCapabilities {
 
+            // TODO
+
         }
 
         module WCSCapabilities {
+
+            // TODO
 
         }
 
         module WCSDescribeCoverage {
 
+            // TODO
+
         }
 
         module WFSCapabilities {
+
+            // TODO
 
         }
 
         module WFST {
 
+            // TODO
+
         }
 
         module WMC {
 
+            // TODO
+
         }
 
         module WMSCapabilities {
+
+            // TODO
 
 
         }
 
         module WMSDescribeLayer {
 
+            // TODO
+
         }
 
         module WMTSCapabilities {
+
+            // TODO
 
         }
 
         module WPSCapabilities {
 
+            // TODO
+
         }
 
         module XLS {
 
+            // TODO
+
         }
 
         module XML {
+
+            // TODO
 
         }
     }
@@ -3332,49 +3576,73 @@ declare module OpenLayers {
     module Handler {
         export class Box {
 
+            // TODO
+
         }
 
         export class Click {
+
+            // TODO
 
         }
 
         export class Drag {
 
+            // TODO
+
         }
 
         export class Feature {
+
+            // TODO
 
         }
 
         export class Hover {
 
+            // TODO
+
         }
 
         export class Keyboard {
+
+            // TODO
 
         }
 
         export class MouseWheel {
 
+            // TODO
+
         }
 
         export class Path {
+
+            // TODO
 
         }
 
         export class Pinch {
 
+            // TODO
+
         }
 
         export class Point {
+
+            // TODO
 
         }
 
         export class Polygon {
 
+            // TODO
+
         }
 
         export class RegularPolygon {
+
+            // TODO
 
         }
     }
@@ -4116,12 +4384,24 @@ declare module OpenLayers {
             getFullRequestString(newParams: Object, altUrl: string): string;
         }
 
-        export class Image { }
-        export class KaMap { }
-        export class KaMapCache { }
-        export class MapGuide { }
-        export class MapServer { }
-        export class Markers { }
+        export class Image {
+            // TODO
+        }
+        export class KaMap {
+            // TODO
+        }
+        export class KaMapCache {
+            // TODO
+        }
+        export class MapGuide {
+            // TODO
+        }
+        export class MapServer {
+            // TODO
+        }
+        export class Markers {
+            // TODO
+        }
 
         export class OSM extends Layer.XYZ {
             /**
@@ -4170,14 +4450,30 @@ declare module OpenLayers {
             static CLASS_NAME: string;
         }
 
-        export class PointGrid { }
-        export class PointTrack { }
-        export class SphericalMercator { }
-        export class TMS { }
-        export class Text { }
-        export class TileCache { }
-        export class UTFGrid { }
-        export class Vector { }
+        export class PointGrid {
+            // TODO
+        }
+        export class PointTrack {
+            // TODO
+        }
+        export class SphericalMercator {
+            // TODO
+        }
+        export class TMS {
+            // TODO
+        }
+        export class Text {
+            // TODO
+        }
+        export class TileCache {
+            // TODO
+        }
+        export class UTFGrid {
+            // TODO
+        }
+        export class Vector {
+            // TODO
+        }
 
         export class WMS extends Layer.Grid {
             /**
@@ -4292,9 +4588,13 @@ declare module OpenLayers {
             static CLASS_NAME: string;
         }
 
-        export class WMTS { }
+        export class WMTS {
+            // TODO
+        }
 
-        export class WorldWind { }
+        export class WorldWind {
+            // TODO
+        }
 
         export class XYZ extends Layer.Grid {
             /**
@@ -4398,87 +4698,159 @@ declare module OpenLayers {
             setMap(map: Map): void;
         }
 
-        export class Zoomify { }
+        export class Zoomify {
+            // TODO
+        }
 
         module Google {
-            export class v3 { }
+            export class v3 {
+                // TODO
+            }
         }
 
         module Vector {
-            export class RootContainer { }
+            export class RootContainer {
+                // TODO
+            }
         }
     }
 
     module Marker {
-        export class Box { }
+        export class Box {
+            // TODO
+        }
     }
 
     module Popup {
-        export class Anchored { }
-        export class Framed { }
-        export class FramedCloud { }
+        export class Anchored {
+            // TODO
+        }
+        export class Framed {
+            // TODO
+        }
+        export class FramedCloud {
+            // TODO
+        }
     }
 
     module Protocol {
-        export class CSW { }
-        export class HTTP { }
-        export class SOS { }
-        export class Script { }
-        export class WFS { }
+        export class CSW {
+            // TODO
+        }
+        export class HTTP {
+            // TODO
+        }
+        export class SOS {
+            // TODO
+        }
+        export class Script {
+            // TODO
+        }
+        export class WFS {
+            // TODO
+        }
 
         module CSW {
-            export class v2_0_2 { }
+            export class v2_0_2 {
+                // TODO
+            }
         }
 
         module SOS {
-            export class v1_0_0 { }
+            export class v1_0_0 {
+                // TODO
+            }
         }
 
         module WFS {
-            export class v2_0_0 { }
+            export class v2_0_0 {
+                // TODO
+            }
         }
     }
 
     module Renderer {
-        export class Canvas { }
-        export class Elements { }
-        export class SVG { }
-        export class VML { }
+        export class Canvas {
+            // TODO
+        }
+        export class Elements {
+            // TODO
+        }
+        export class SVG {
+            // TODO
+        }
+        export class VML {
+            // TODO
+        }
     }
 
     module Request {
-        export class XMLHttpRequest { }
+        export class XMLHttpRequest {
+            // TODO
+        }
     }
 
     module Strategy {
-        export class BBOX { }
-        export class Cluster { }
-        export class Filter { }
-        export class Fixed { }
-        export class Paging { }
-        export class Refresh { }
-        export class Save { }
+        export class BBOX {
+            // TODO
+        }
+        export class Cluster {
+            // TODO
+        }
+        export class Filter {
+            // TODO
+        }
+        export class Fixed {
+            // TODO
+        }
+        export class Paging {
+            // TODO
+        }
+        export class Refresh {
+            // TODO
+        }
+        export class Save {
+            // TODO
+        }
     }
 
     module Symbolizer {
-        export class Line { }
-        export class Point { }
-        export class Polygon { }
-        export class Raster { }
-        export class Text { }
+        export class Line {
+            // TODO
+        }
+        export class Point {
+            // TODO
+        }
+        export class Polygon {
+            // TODO
+        }
+        export class Raster {
+            // TODO
+        }
+        export class Text {
+            // TODO
+        }
     }
 
     module Tile {
-        export class Image { }
-        export class UTFGrid { }
+        export class Image {
+            // TODO
+        }
+        export class UTFGrid {
+            // TODO
+        }
 
         module Image {
-            export class IFrame { }
+            export class IFrame {
+                // TODO
+            }
         }
     }
 
     module Util {
-        export class vendorPrefix { }
+        export class vendorPrefix {
+            // TODO
+        }
     }
 }
 
