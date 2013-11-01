@@ -1,4 +1,4 @@
-// Type definitions for OpenLayers.js 2.10
+﻿// Type definitions for OpenLayers.js 2.10
 // Project: https://github.com/openlayers/openlayers
 // Definitions by: Ilya Bolkhovsky <https://github.com/bolhovsky>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -1214,7 +1214,7 @@ declare module OpenLayers {
         clone(): LonLat;
 
         /**   
-          * A new OpenLayers.LonLat object with the lon and lat passed-in added to this�s.
+          * A new OpenLayers.LonLat object with the lon and lat passed-in added to this’s.
           */
         add(lon: number, lat: number): LonLat;
 
