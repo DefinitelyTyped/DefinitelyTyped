@@ -5,7 +5,6 @@
 /// <reference path="WMS.d.ts" />
 /// <reference path="WMSOptions.d.ts" />
 /// <reference path="Canvas.d.ts" />
-//// updated to 0.6.4
 declare module L {
 
     export class TileLayer implements ILayer, IEventPowered<TileLayer> {

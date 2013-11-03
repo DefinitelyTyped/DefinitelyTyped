@@ -1,4 +1,3 @@
-//// updated to 0.6.4
 /**
   * Forces Leaflet to use the Canvas back-end (if available) for vector layers 
   * instead of SVG. This can increase performance considerably in some cases 

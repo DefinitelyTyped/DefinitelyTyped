@@ -1,4 +1,3 @@
-//// updated to 0.6.4
 /// <reference path="IProjection.d.ts" />
 /// <reference path="Transformation.d.ts" />
 /// <reference path="Point.d.ts" />

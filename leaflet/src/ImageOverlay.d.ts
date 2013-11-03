@@ -1,4 +1,3 @@
-//// updated to 0.6.4
 /// <reference path="Class.d.ts" />
 /// <reference path="ILayer.d.ts" />
 /// <reference path="LatLngBounds.d.ts" />

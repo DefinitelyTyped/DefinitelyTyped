@@ -1,4 +1,3 @@
-//// updated to 0.6.4
 /// <reference path="ICRS.d.ts" />
 declare module L {
 

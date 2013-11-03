@@ -1,4 +1,3 @@
-//// updated to 0.6.4
 /// <reference path="ILayer.d.ts" />
 /// <reference path="LeafletEvent.d.ts" />
 declare module L {

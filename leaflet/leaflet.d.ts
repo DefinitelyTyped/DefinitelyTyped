@@ -3,7 +3,11 @@
 // Definitions by: Vladimir Zotov <https://github.com/rgripper>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 08e9fe7... removed unneeded comment lines
 declare module L {
 
     export interface AttributionOptions {

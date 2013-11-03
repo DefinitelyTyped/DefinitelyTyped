@@ -1,4 +1,3 @@
-//// updated to 0.6.4
 /// <reference path="Polygon.d.ts" />
 /// <reference path="LatLngBounds.d.ts" />
 /// <reference path="PathOptions.d.ts" />

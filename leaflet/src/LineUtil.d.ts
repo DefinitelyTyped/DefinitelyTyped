@@ -1,5 +1,4 @@
-///// updated to 0.6.4
-/// <reference path="Point.d.ts" />
+//// <reference path="Point.d.ts" />
 /// <reference path="Bounds.d.ts" />
 declare module L {
 

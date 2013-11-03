@@ -1,4 +1,3 @@
-//// updated to 0.6.4
 /// <reference path="Polyline.d.ts" />
 /// <reference path="LatLng.d.ts" />
 /// <reference path="PolylineOptions.d.ts" />

@@ -1,4 +1,3 @@
-//// updated to 0.6.4
 /// <reference path="FeatureGroup.d.ts" />
 /// <reference path="GeoJSONOptions.d.ts" />
 /// <reference path="LatLng.d.ts" />

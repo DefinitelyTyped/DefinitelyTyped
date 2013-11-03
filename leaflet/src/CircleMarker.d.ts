@@ -1,4 +1,3 @@
-//// updated to 0.6.4
 /// <reference path="Circle.d.ts" />
 /// <reference path="LatLng.d.ts" />
 /// <reference path="PathOptions.d.ts" />

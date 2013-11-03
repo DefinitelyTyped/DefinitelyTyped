@@ -1,6 +1,5 @@
 /// <reference path="PanOptions.d.ts" />
 /// <reference path="ZoomOptions.d.ts" />
-//// updated to 0.6.4
 declare module L {
 
     export interface ZoomPanOptions {

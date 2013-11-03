@@ -1,4 +1,3 @@
-//// updated to 0.6.4
 /// <reference path="IControl.d.ts" />
 /// <reference path="ControlOptions.d.ts" />
 /// <reference path="AttributionOptions.d.ts" />

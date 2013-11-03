@@ -1,4 +1,3 @@
-//// updated to 0.6.4
 /// <reference path="IconOptions.d.ts" />
 /// <reference path="Class.d.ts" />
 declare module L {
