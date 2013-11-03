@@ -156,7 +156,7 @@ interface BaseJQueryEventObject extends Event {
     pageX: number;
     pageY: number;
     which: number;
-    metaKey: any;
+    metaKey: boolean;
 }
 
 interface JQueryInputEventObject extends BaseJQueryEventObject {
@@ -421,14 +421,14 @@ interface JQuery {
     prop(map: any): JQuery;
     prop(propertyName: string, func: (index: any, oldPropertyValue: any) => any): JQuery;
 
-    removeAttr(attributeName: any): JQuery;
+    removeAttr(attributeName: string): JQuery;
 
-    removeClass(className?: any): JQuery;
+    removeClass(className?: string): JQuery;
     removeClass(func: (index: any, cls: any) => any): JQuery;
 
-    removeProp(propertyName: any): JQuery;
+    removeProp(propertyName: string): JQuery;
 
-    toggleClass(className: any, swtch?: boolean): JQuery;
+    toggleClass(className: string, swtch?: boolean): JQuery;
     toggleClass(swtch?: boolean): JQuery;
     toggleClass(func: (index: any, cls: any, swtch: any) => any): JQuery;
 
@@ -614,8 +614,9 @@ interface JQuery {
     off(events?: string, selector?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     off(eventsMap: { [key: string]: any; }, selector?: any): JQuery;
 
-    on(events: string, selector?: any, data?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
-    on(events: string, selector?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    on(events: string, selector?: string, data?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    on(events: string, selector?: string, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    on(events: string, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     on(eventsMap: { [key: string]: any; }, selector?: any, data?: any): JQuery;
 
     one(events: string, selector?: any, data?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;

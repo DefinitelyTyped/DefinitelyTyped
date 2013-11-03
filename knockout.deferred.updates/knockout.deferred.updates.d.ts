@@ -30,7 +30,7 @@ interface KnockoutComputedStatic {
     deferUpdates: boolean;
 }
 
-interface KnockoutComputedFunctions {
+interface KnockoutSubscription {
     deferUpdates: boolean;
 }
 
