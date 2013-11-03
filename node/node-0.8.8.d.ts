@@ -156,7 +156,7 @@ interface NodeBuffer {
     write(string: string, offset?: number, length?: number, encoding?: string): number;
     toString(encoding?: string, start?: number, end?: number): string;
     length: number;
-    copy(targetBuffer: NodeBuffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): void;
+    copy(targetBuffer: NodeBuffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
     slice(start?: number, end?: number): NodeBuffer;
     readUInt8(offset: number, noAsset?: boolean): number;
     readUInt16LE(offset: number, noAssert?: boolean): number;
