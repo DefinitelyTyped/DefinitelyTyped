@@ -10,35 +10,35 @@ declare module Expect {
         /**
          * Check if the value is truthy
          */
-        ok();
+        ok(): void;
 
         /**
          * Assert that the function throws.
          *
          * @param fn callback to match error string against
          */
-        throwError(fn?: Function);
+        throwError(fn?: Function): void;
 
         /**
          * Assert that the function throws.
          *
          * @param fn callback to match error string against
          */
-        throwException(fn?: Function);
+        throwException(fn?: Function): void;
 
         /**
          * Assert that the function throws.
          *
          * @param regexp regexp to match error string against
          */
-        throwError(regexp: RegExp);
+        throwError(regexp: RegExp): void;
 
         /**
          * Assert that the function throws.
          *
          * @param fn callback to match error string against
          */
-        throwException(regexp: RegExp);
+        throwException(regexp: RegExp): void;
 
         /**
          * Checks if the array is empty.

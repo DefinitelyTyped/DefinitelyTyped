@@ -656,6 +656,12 @@ function test_notification() {
         'Game Over',
         'Restart,Exit'
     );
+	navigator.notification.confirm(
+        'You are the winner!',
+        onConfirm,
+        'Game Over',
+        ['Restart','Exit']
+    );
     navigator.notification.beep(2);
     navigator.notification.vibrate(2500);
 }

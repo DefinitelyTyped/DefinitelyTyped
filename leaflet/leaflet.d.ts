@@ -932,7 +932,7 @@ declare module L {
           */
         setUrl(urlTemplate: string): TileLayer;
 
-        static WMS: new () => WMS;
+        static WMS: new (url: string, options: WMSOptions) => WMS;
 
         static Canvas: new () => Canvas;
 
@@ -998,7 +998,7 @@ declare module L {
 
     }
 
-    export class WMS {
+    export class WMS extends TileLayer {
         /**
           * Instantiates a WMS tile layer object given a base URL of the WMS service and
           * a WMS parameters/options object.
@@ -1009,11 +1009,11 @@ declare module L {
           * Merges an object with the new parameters and re-requests tiles on the current
           * screen (unless noRedraw was set to true).
           */
-        setParams(params: WMS, noRedraw?: boolean): WMS;
+        setParams(params: any, noRedraw?: boolean): WMS;
 
     }
 
-    export class Canvas {
+    export class Canvas extends TileLayer {
         /**
           * Instantiates a Canvas tile layer object given an options object (optionally).
           */
@@ -1581,7 +1581,7 @@ declare module L {
           * used in GeoJSON for points. If reverse is set to true, the numbers will be interpreted
           * as (longitude, latitude).
           */
-        static coordsToLatlng(coords: Array, reverse?: boolean): LatLng;
+        static coordsToLatlng(coords: number[], reverse?: boolean): LatLng;
 
         /**
           * Creates a multidimensional array of LatLng objects from a GeoJSON coordinates
@@ -1589,7 +1589,7 @@ declare module L {
           * 1 for an array of arrays of points, etc., 0 by default). If reverse is set to
           * true, the numbers will be interpreted as (longitude, latitude).
           */
-        static coordsToLatlngs(coords: Array, levelsDeep?: number, reverse?: boolean): Array;
+        static coordsToLatlngs(coords: number[], levelsDeep?: number, reverse?: boolean): LatLng[];
 
     }
 
@@ -1903,20 +1903,17 @@ declare module L {
           * Creates an icon instance with the given options.
           */
         constructor(options: IconOptions);
-
-        /**
-          * Default properties for newly constructed icons.
-          */
-        public static Default : IconDefault;
     }
 
-    export class IconDefault extends Icon {
-        /**
-          * Creates an icon instance with default options.
-          */
-        constructor();
+    export module Icon {
+        export class Default extends Icon {
+            /**
+              * Creates an icon instance with default options.
+              */
+            constructor();
 
-        imagePath: string;
+            static imagePath: string;
+        }
     }
 
     export interface DivIconOptions {

@@ -3,6 +3,8 @@
 // Definitions by: Stanislav Vyshchepan <http://gandjustas.blogspot.ru> and Andrey Markeev <http://markeev.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+
+
 declare module Sys {
     export class EventArgs {
         static Empty: Sys.EventArgs;
@@ -25,11 +27,39 @@ declare module Sys {
         initialize(): void;
         updated(): void;
     }
+
+    export interface IContainer {
+        addComponent(component: Component): void;
+        findComponent(id: string): Component;
+        getComponents(): Component[];
+        removeComponent(component: Component);
+    }
+
+    export class Application extends Component implements IContainer {
+        addComponent(component: Component): void;
+        findComponent(id: string): Component;
+        getComponents(): Component[];
+        removeComponent(component: Component);
+
+        static add_load(handler: (sender: Application, eventArgs: ApplicationLoadEventArgs) => void);
+        static remove_load(handler: (sender: Application, eventArgs: ApplicationLoadEventArgs) => void);
+    }
+
+    export class ApplicationLoadEventArgs {
+        constructor(components: Component[], isPartialLoad: boolean);
+        public components: Component[];
+        public isPartialLoad: boolean;
+    }
+
     module UI {
-        export class Control { }
+        export class Control extends Component { }
         export class DomEvent {
-            static addHandler(element: HTMLElement, eventName: string, handler: (e: Event) => void );
-            static removeHandler(element: HTMLElement, eventName: string, handler: (e: Event) => void );
+            static addHandler(element: HTMLElement, eventName: string, handler: (e: Event) => void);
+            static removeHandler(element: HTMLElement, eventName: string, handler: (e: Event) => void);
+        }
+
+        export class DomElement {
+            static getBounds(element: HTMLElement): { x: number; y: number; width: number; height: number; };
         }
     }
     module Net {
@@ -52,8 +82,8 @@ declare module Sys {
             invoke(): void;
             completed(args: Sys.EventArgs): void;
 
-            add_completed(handler: (executor: WebRequestExecutor, args: Sys.EventArgs) => void ): void;
-            remove_completed(handler: (executor: WebRequestExecutor, args: Sys.EventArgs) => void ): void;
+            add_completed(handler: (executor: WebRequestExecutor, args: Sys.EventArgs) => void): void;
+            remove_completed(handler: (executor: WebRequestExecutor, args: Sys.EventArgs) => void): void;
         }
 
         export class WebRequestExecutor {
@@ -84,11 +114,11 @@ declare module Sys {
             static get_defaultTimeout(): number;
             static set_defaultTimeout(value: number): void;
 
-            static executeRequest(request: WebRequest):void;
-            static add_completedRequest(handler: (executor: WebRequestExecutor, args: Sys.EventArgs) => void ): void;
-            static remove_completedRequest(handler: (executor: WebRequestExecutor, args: Sys.EventArgs) => void ): void;
-            static add_invokingRequest(handler: (executor: WebRequestExecutor, args: NetworkRequestEventArgs) => void ): void;
-            static remove_invokingRequest(handler: (executor: WebRequestExecutor, args: NetworkRequestEventArgs ) => void ): void;
+            static executeRequest(request: WebRequest): void;
+            static add_completedRequest(handler: (executor: WebRequestExecutor, args: Sys.EventArgs) => void): void;
+            static remove_completedRequest(handler: (executor: WebRequestExecutor, args: Sys.EventArgs) => void): void;
+            static add_invokingRequest(handler: (executor: WebRequestExecutor, args: NetworkRequestEventArgs) => void): void;
+            static remove_invokingRequest(handler: (executor: WebRequestExecutor, args: NetworkRequestEventArgs) => void): void;
         }
 
         export class WebServiceProxy {
@@ -97,8 +127,8 @@ declare module Sys {
                 methodName: string,
                 useGet?: boolean,
                 params?: any,
-                onSuccess?: (result: string, eventArgs: EventArgs) => void ,
-                onFailure?: (error: WebServiceError) => void ,
+                onSuccess?: (result: string, eventArgs: EventArgs) => void,
+                onFailure?: (error: WebServiceError) => void,
                 userContext?: any,
                 timeout?: number,
                 enableJsonp?: boolean,
@@ -121,20 +151,20 @@ declare module Sys {
 }
 
 declare var $get: { (id: string): HTMLElement; };
-declare var $addHandler: { (element: HTMLElement, eventName: string, handler: (e: Event) => void ): void; };
-declare var $removeHandler: { (element: HTMLElement, eventName: string, handler: (e: Event) => void ): void; };
+declare var $addHandler: { (element: HTMLElement, eventName: string, handler: (e: Event) => void): void; };
+declare var $removeHandler: { (element: HTMLElement, eventName: string, handler: (e: Event) => void): void; };
 
 declare module SP {
     export class SOD {
         static execute(fileName: string, functionName: string, ...args: any[]): void;
-        static executeFunc(fileName: string, typeName: string, fn: () => void ): void;
+        static executeFunc(fileName: string, typeName: string, fn: () => void): void;
         static executeOrDelayUntilEventNotified(func: Function, eventName: string): boolean;
-        static executeOrDelayUntilScriptLoaded(func: () => void , depScriptFileName: string): boolean;
+        static executeOrDelayUntilScriptLoaded(func: () => void, depScriptFileName: string): boolean;
         static notifyScriptLoadedAndExecuteWaitingJobs(scriptFileName: string): void;
         static notifyEventAndExecuteWaitingJobs(eventName: string, args?: any[]): void;
         static registerSod(fileName: string, url: string): void;
         static registerSodDep(fileName: string, dependentFileName: string): void;
-        static loadMultiple(keys: string[], fn: () => void , bSync?: boolean): void;
+        static loadMultiple(keys: string[], fn: () => void, bSync?: boolean): void;
         static delayUntilEventNotified(func: Function, eventName: string): void;
 
         static get_prefetch(): boolean;
@@ -148,7 +178,7 @@ declare module SP {
 }
 
 /** Register function to rerun on partial update in MDS-enabled site.*/
-declare function RegisterModuleInit(scriptFileName: string, initFunc: () => void ): void;
+declare function RegisterModuleInit(scriptFileName: string, initFunc: () => void): void;
 
 /** Provides access to url and query string parts.*/
 declare class JSRequest {
@@ -216,8 +246,8 @@ declare module SP {
         set_formDigestHandlingEnabled(value: boolean): void;
         get_iFrameSourceUrl(): string;
         set_iFrameSourceUrl(value: string): void;
-        executeAsync(requestInfo:RequestInfo): void;
-        attemptLogin(returnUrl:string, success: (response: ResponseInfo) => void , error?: (response: ResponseInfo, error: RequestExecutorErrors, statusText: string) => void): void;
+        executeAsync(requestInfo: RequestInfo): void;
+        attemptLogin(returnUrl: string, success: (response: ResponseInfo) => void, error?: (response: ResponseInfo, error: RequestExecutorErrors, statusText: string) => void): void;
     }
 
     export interface RequestInfo {
@@ -257,8 +287,7 @@ declare module SP {
         createWebRequestExecutor(): ProxyWebRequestExecutor;
     }
 }
-interface MQuery
-{
+interface MQuery {
     (selector: string, context?: any): MQueryResultSetElements;
     (element: HTMLElement): MQueryResultSetElements;
     (object: MQueryResultSetElements): MQueryResultSetElements;
@@ -292,7 +321,7 @@ interface MQuery
     isObject(obj: any): boolean;
     isEmptyObject(obj: any): boolean;
 
-    ready(callback: () => void ): void;
+    ready(callback: () => void): void;
     contains(container: HTMLElement, contained: HTMLElement): boolean;
 
     proxy(fn: (...args: any[]) => any, context: any, ...args: any[]): Function;
@@ -330,21 +359,21 @@ interface MQuery
     data(element: HTMLElement, key: string): any;
     data(element: HTMLElement): any;
 
-    removeData(element: HTMLElement, name?: string): MQueryResultSet<any>;
+    removeData(element: HTMLElement, name?: string): MQueryResultSetElements;
     hasData(element: HTMLElement): boolean;
 }
 
-interface MQueryResultSetElements extends MQueryResultSet<HTMLElement>{
+interface MQueryResultSetElements extends MQueryResultSet<HTMLElement> {
     append(node: HTMLElement): MQueryResultSetElements;
     append(mQuerySet: MQueryResultSetElements): MQueryResultSetElements;
     append(html: string): MQueryResultSetElements;
 
     bind(eventType: string, handler: (eventObject: MQueryEvent) => any): MQueryResultSetElements;
     unbind(eventType: string, handler: (eventObject: MQueryEvent) => any): MQueryResultSetElements;
-    trigger(eventType: string): MQueryResultSet<any>;
+    trigger(eventType: string): MQueryResultSetElements;
     one(eventType: string, handler: (eventObject: MQueryEvent) => any): MQueryResultSetElements;
 
-    detach(): MQueryResultSet<any>;
+    detach(): MQueryResultSetElements;
 
     find(selector: string): MQueryResultSetElements;
     closest(selector: string, context?: any): MQueryResultSetElements;
@@ -550,12 +579,12 @@ declare class CalloutAction {
     render(): void;
     isEnabled(): boolean;
     isVisible(): boolean;
-    set (options: CalloutActionOptions): void;
+    set(options: CalloutActionOptions): void;
 }
 
 declare class Callout {
     /** Sets options for the callout. Not all options can be changed for the callout after its creation. */
-    set (options: CalloutOptions);
+    set(options: CalloutOptions);
     /** Adds event handler to the callout.
         @param eventName one of the following: "opened", "opening", "closing", "closed" */
     addEventCallback(eventName: string, callback: (callout: Callout) => void);
@@ -755,9 +784,8 @@ declare module SPClientTemplates {
         /** Returns string representation of a number that represents the current value for the "List Throttle Limit" web application setting.
             Only appears if Throttled property is true, i.e. the target lookup list is throttled. */
         MaxQueryResult: string;
-        /** List of choices for this field.
-            For a lookup field, contains array of possible values pulled from the target lookup list. */
-        Choices: string[];
+        /** List of choices for this field. */
+        Choices: { LookupId: number; LookupValue: string; }[];
         /** Number of choices. Appears only for Lookup field. */
         ChoiceCount: number;
 
@@ -1212,7 +1240,7 @@ declare module SPClientTemplates {
 
     export interface TemplateOverrides {
         View?: (renderContext: any) => string; // TODO: determine appropriate context type and purpose of this template
-        Body?: (renderContext: any) => string; // TODO: determine appropriate context type and purpose of this template
+        Body?: (renderContext: any) => string; // TODO: determine appropriate context type and purpose of this template 
         /** Defines templates for rendering groups (aggregations). */
         Group?: GroupCallback;
         /** Defines templates for list items rendering. */
@@ -1236,10 +1264,10 @@ declare module SPClientTemplates {
         /** �allbacks called after rendered html inserted into DOM. Can be function (ctx: RenderContext) => void or array of functions.*/
         OnPostRender?: any;
 
-        /** View style (SPView.StyleID) for which the templates should be applied.
+        /** View style (SPView.StyleID) for which the templates should be applied. 
             If not defined, the templates will be applied only to default view style. */
         ViewStyle?: number;
-        /** List template type (SPList.BaseTemplate) for which the template should be applied.
+        /** List template type (SPList.BaseTemplate) for which the template should be applied. 
             If not defined, the templates will be applied to all lists. */
         ListTemplateType?: number;
         /** Base view ID (SPView.BaseViewID) for which the template should be applied.
@@ -1321,13 +1349,13 @@ declare module SPClientTemplates {
             EnableVesioning: boolean;
             Id: string;
         };
-        registerInitCallback(fieldname: string, callback: () => void ): void;
-        registerFocusCallback(fieldname: string, callback: () => void ): void;
-        registerValidationErrorCallback(fieldname: string, callback: (error: any) => void ): void;
+        registerInitCallback(fieldname: string, callback: () => void): void;
+        registerFocusCallback(fieldname: string, callback: () => void): void;
+        registerValidationErrorCallback(fieldname: string, callback: (error: any) => void): void;
         registerGetValueCallback(fieldname: string, callback: () => any): void;
         updateControlValue(fieldname: string, value: any): void;
         registerClientValidator(fieldname: string, validator: SPClientForms.ClientValidation.ValidatorSet): void;
-        registerHasValueChangedCallback(fieldname: string, callback: (eventArg?: any) => void );
+        registerHasValueChangedCallback(fieldname: string, callback: (eventArg?: any) => void);
     }
 
 }
@@ -1406,23 +1434,23 @@ declare module SPAnimation {
         GetDataIndex(attributeId: Attribute): number
     }
 
-    export class Object{
-        constructor(animationID: ID, delay: number, element: HTMLElement, finalState: State, finishFunc?: (data: any) => void , data?: any);
-        constructor(animationID: ID, delay: number, element: HTMLElement[], finalState: State, finishFunc?: (data: any) => void , data?: any);
+    export class Object {
+        constructor(animationID: ID, delay: number, element: HTMLElement, finalState: State, finishFunc?: (data: any) => void, data?: any);
+        constructor(animationID: ID, delay: number, element: HTMLElement[], finalState: State, finishFunc?: (data: any) => void, data?: any);
         RunAnimation(): void;
     }
 }
 
-declare module SPAnimationUtility{
+declare module SPAnimationUtility {
     export class BasicAnimator {
-        static FadeIn(element: HTMLElement, finishFunc?: (data: any) => void , data?: any): void;
-        static FadeOut (element: HTMLElement, finishFunc?: (data: any) => void , data?: any): void;
-        static Move(element: HTMLElement, posX:number, posY:number, finishFunc?: (data: any) => void , data?: any): void;
-        static StrikeThrough(element: HTMLElement, strikeThroughWidth: number, finishFunc?: (data: any) => void , data?: any): void;
-        static Resize(element: HTMLElement, newHeight: number, newWidth: number, finishFunc?: (data: any) => void , data?: any): void;
-        static CommonResize(element: HTMLElement, newHeight: number, newWidth: number, finishFunc: (data: any) => void , data: any, animationId:SPAnimation.ID): void;
-        static QuickResize(element: HTMLElement, newHeight: number, newWidth: number, finishFunc?: (data: any) => void , data?: any): void;
-        static ResizeContainerAndFillContent(element: HTMLElement, newHeight: number, newWidth: number, finishFunc: () => void , fAddToEnd: boolean): void;
+        static FadeIn(element: HTMLElement, finishFunc?: (data: any) => void, data?: any): void;
+        static FadeOut(element: HTMLElement, finishFunc?: (data: any) => void, data?: any): void;
+        static Move(element: HTMLElement, posX: number, posY: number, finishFunc?: (data: any) => void, data?: any): void;
+        static StrikeThrough(element: HTMLElement, strikeThroughWidth: number, finishFunc?: (data: any) => void, data?: any): void;
+        static Resize(element: HTMLElement, newHeight: number, newWidth: number, finishFunc?: (data: any) => void, data?: any): void;
+        static CommonResize(element: HTMLElement, newHeight: number, newWidth: number, finishFunc: (data: any) => void, data: any, animationId: SPAnimation.ID): void;
+        static QuickResize(element: HTMLElement, newHeight: number, newWidth: number, finishFunc?: (data: any) => void, data?: any): void;
+        static ResizeContainerAndFillContent(element: HTMLElement, newHeight: number, newWidth: number, finishFunc: () => void, fAddToEnd: boolean): void;
         static GetWindowScrollPosition(): { x: number; y: number; };
         static GetLeftOffset(element: HTMLElement): number;
         static GetTopOffset(element: HTMLElement): number;
@@ -1669,13 +1697,13 @@ declare module SP {
         get_expectedContentType(): string;
         set_expectedContentType(value: string): void;
         post(body: string): void;
-        get (): void;
-        static doPost(url: string, body: string, expectedContentType: string, succeededHandler: (sender: any, args: SP.PageRequestSucceededEventArgs) => void , failedHandler: (sender: any, args: SP.PageRequestFailedEventArgs) => void ): void;
-        static doGet(url: string, expectedContentType: string, succeededHandler: (sender: any, args: SP.PageRequestSucceededEventArgs) => void , failedHandler: (sender: any, args: SP.PageRequestFailedEventArgs) => void ): void;
-        add_succeeded(value: (sender: any, args: SP.PageRequestSucceededEventArgs) => void ): void;
-        remove_succeeded(value: (sender: any, args: SP.PageRequestSucceededEventArgs) => void ): void;
-        add_failed(value: (sender: any, args: SP.PageRequestFailedEventArgs) => void ): void;
-        remove_failed(value: (sender: any, args: SP.PageRequestFailedEventArgs) => void ): void;
+        get(): void;
+        static doPost(url: string, body: string, expectedContentType: string, succeededHandler: (sender: any, args: SP.PageRequestSucceededEventArgs) => void, failedHandler: (sender: any, args: SP.PageRequestFailedEventArgs) => void): void;
+        static doGet(url: string, expectedContentType: string, succeededHandler: (sender: any, args: SP.PageRequestSucceededEventArgs) => void, failedHandler: (sender: any, args: SP.PageRequestFailedEventArgs) => void): void;
+        add_succeeded(value: (sender: any, args: SP.PageRequestSucceededEventArgs) => void): void;
+        remove_succeeded(value: (sender: any, args: SP.PageRequestSucceededEventArgs) => void): void;
+        add_failed(value: (sender: any, args: SP.PageRequestFailedEventArgs) => void): void;
+        remove_failed(value: (sender: any, args: SP.PageRequestFailedEventArgs) => void): void;
         constructor();
     }
     export class ResResources {
@@ -1929,10 +1957,10 @@ declare module SP {
     export class ClientRequest {
         static get_nextSequenceId(): number;
         get_webRequest(): Sys.Net.WebRequest;
-        add_requestSucceeded(value: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void ): void;
-        remove_requestSucceeded(value: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void ): void;
-        add_requestFailed(value: (sender: any, args: SP.ClientRequestFailedEventArgs) => void ): void;
-        remove_requestFailed(value: (sender: any, args: SP.ClientRequestFailedEventArgs) => void ): void;
+        add_requestSucceeded(value: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void): void;
+        remove_requestSucceeded(value: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void): void;
+        add_requestFailed(value: (sender: any, args: SP.ClientRequestFailedEventArgs) => void): void;
+        remove_requestFailed(value: (sender: any, args: SP.ClientRequestFailedEventArgs) => void): void;
         get_navigateWhenServerRedirect(): boolean;
         set_navigateWhenServerRedirect(value: boolean): void;
     }
@@ -1967,18 +1995,18 @@ declare module SP {
         set_webRequestExecutorFactory(value: SP.IWebRequestExecutorFactory): void;
         get_pendingRequest(): SP.ClientRequest;
         get_hasPendingRequest(): boolean;
-        add_executingWebRequest(value: (sender: any, args: SP.WebRequestEventArgs) => void ): void;
-        remove_executingWebRequest(value: (sender: any, args: SP.WebRequestEventArgs) => void ): void;
-        add_requestSucceeded(value: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void ): void;
-        remove_requestSucceeded(value: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void ): void;
-        add_requestFailed(value: (sender: any, args: SP.ClientRequestFailedEventArgs) => void ): void;
-        remove_requestFailed(value: (sender: any, args: SP.ClientRequestFailedEventArgs) => void ): void;
-        add_beginningRequest(value: (sender: any, args: SP.ClientRequestEventArgs) => void ): void;
-        remove_beginningRequest(value: (sender: any, args: SP.ClientRequestEventArgs) => void ): void;
+        add_executingWebRequest(value: (sender: any, args: SP.WebRequestEventArgs) => void): void;
+        remove_executingWebRequest(value: (sender: any, args: SP.WebRequestEventArgs) => void): void;
+        add_requestSucceeded(value: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void): void;
+        remove_requestSucceeded(value: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void): void;
+        add_requestFailed(value: (sender: any, args: SP.ClientRequestFailedEventArgs) => void): void;
+        remove_requestFailed(value: (sender: any, args: SP.ClientRequestFailedEventArgs) => void): void;
+        add_beginningRequest(value: (sender: any, args: SP.ClientRequestEventArgs) => void): void;
+        remove_beginningRequest(value: (sender: any, args: SP.ClientRequestEventArgs) => void): void;
         get_requestTimeout(): number;
         set_requestTimeout(value: number): void;
-        executeQueryAsync(succeededCallback: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void , failedCallback: (sender: any, args: SP.ClientRequestFailedEventArgs) => void ): void;
-        executeQueryAsync(succeededCallback: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void ): void;
+        executeQueryAsync(succeededCallback: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void, failedCallback: (sender: any, args: SP.ClientRequestFailedEventArgs) => void): void;
+        executeQueryAsync(succeededCallback: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void): void;
         executeQueryAsync(): void;
         get_staticObjects(): any;
         castTo(obj: SP.ClientObject, type: any): SP.ClientObject;
@@ -2249,8 +2277,8 @@ declare module SP {
         get_versionString(): string;
     }
     export class AppCatalog {
-        static getAppInstances(context: SP.ClientRuntimeContext, web: SP.Web): SP.ClientObjectList<any>;
-        static getDeveloperSiteAppInstancesByIds(context: SP.ClientRuntimeContext, site: SP.Site, appInstanceIds: SP.Guid[]): SP.ClientObjectList<any>;
+        static getAppInstances(context: SP.ClientRuntimeContext, web: SP.Web): SP.ClientObjectList<SP.AppInstance>;
+        static getDeveloperSiteAppInstancesByIds(context: SP.ClientRuntimeContext, site: SP.Site, appInstanceIds: SP.Guid[]): SP.ClientObjectList<SP.AppInstance>;
         static isAppSideloadingEnabled(context: SP.ClientRuntimeContext): SP.BooleanResult;
     }
     export class AppContextSite extends SP.ClientObject {
@@ -2271,7 +2299,7 @@ declare module SP {
         get_status(): SP.AppInstanceStatus;
         get_title(): string;
         get_webId(): SP.Guid;
-        getErrorDetails(): SP.ClientObjectList<any>;
+        getErrorDetails(): SP.ClientObjectList<SP.AppInstanceErrorDetails>;
         uninstall(): SP.GuidResult;
         upgrade(appPackageStream: any[]): void;
         cancelAllJobs(): SP.BooleanResult;
@@ -2357,7 +2385,7 @@ declare module SP {
         constructor();
     }
     export class BasePermissions extends SP.ClientValueObject {
-        set (perm: SP.PermissionKind): void;
+        set(perm: SP.PermissionKind): void;
         clear(perm: SP.PermissionKind): void;
         clearAll(): void;
         has(perm: SP.PermissionKind): boolean;
@@ -2402,12 +2430,12 @@ declare module SP {
     /** Specifies a Collaborative Application Markup Language (CAML) query on a list. */
     export class CamlQuery extends SP.ClientValueObject {
         constructor();
-        /** This method creates a Collaborative Application Markup Language (CAML) string
-            that can be used to recursively get all of the items in a list, including
+        /** This method creates a Collaborative Application Markup Language (CAML) string 
+            that can be used to recursively get all of the items in a list, including 
             the items in the subfolders. */
         static createAllItemsQuery(): SP.CamlQuery;
-        /** This method creates a Collaborative Application Markup Language (CAML) string
-            that can be used to recursively get all of the folders in a list, including
+        /** This method creates a Collaborative Application Markup Language (CAML) string 
+            that can be used to recursively get all of the folders in a list, including 
             the subfolders. */
         static createAllFoldersQuery(): SP.CamlQuery;
         /** Returns true if the query returns dates in Coordinated Universal Time (UTC) format. */
@@ -3921,7 +3949,7 @@ declare module SP {
         get_isSharedWithMany(): boolean;
         get_isSharedWithSecurityGroup(): boolean;
         get_pendingAccessRequestsLink(): string;
-        getSharedWithUsers(): SP.ClientObjectList<any>;
+        getSharedWithUsers(): SP.ClientObjectList<SP.ObjectSharingInformationUser>;
         static getListItemSharingInformation(context: SP.ClientRuntimeContext, listID: SP.Guid, itemID: number, excludeCurrentUser: boolean, excludeSiteAdmin: boolean, excludeSecurityGroups: boolean, retrieveAnonymousLinks: boolean, retrieveUserInfoDetails: boolean, checkForAccessRequests: boolean): SP.ObjectSharingInformation;
         static getWebSharingInformation(context: SP.ClientRuntimeContext, excludeCurrentUser: boolean, excludeSiteAdmin: boolean, excludeSecurityGroups: boolean, retrieveAnonymousLinks: boolean, retrieveUserInfoDetails: boolean, checkForAccessRequests: boolean): SP.ObjectSharingInformation;
         static getObjectSharingInformation(context: SP.ClientRuntimeContext, securableObject: SP.SecurableObject, excludeCurrentUser: boolean, excludeSiteAdmin: boolean, excludeSecurityGroups: boolean, retrieveAnonymousLinks: boolean, retrieveUserInfoDetails: boolean, checkForAccessRequests: boolean, retrievePermissionLevels: boolean): SP.ObjectSharingInformation;
@@ -4120,7 +4148,7 @@ declare module SP {
         get_value(): string;
         static newObject(context: SP.ClientRuntimeContext): SP.RequestVariable;
         append(value: string): void;
-        set (value: string): void;
+        set(value: string): void;
     }
     export class RoleAssignment extends SP.ClientObject {
         get_member(): SP.Principal;
@@ -4193,7 +4221,7 @@ declare module SP {
         editor,
     }
     export class ServerSettings {
-        static getAlternateUrls(context: SP.ClientRuntimeContext): SP.ClientObjectList<any>;
+        static getAlternateUrls(context: SP.ClientRuntimeContext): SP.ClientObjectList<SP.AlternateUrl>;
         static getGlobalInstalledLanguages(context: SP.ClientRuntimeContext, compatibilityLevel: number): SP.Language[];
     }
     export class Site extends SP.ClientObject {
@@ -4644,7 +4672,7 @@ declare module SP {
         getAppBdcCatalog(): SP.BusinessData.AppBdcCatalog;
         getSubwebsForCurrentUser(query: SP.SubwebQuery): SP.WebCollection;
         getAppInstanceById(appInstanceId: SP.Guid): SP.AppInstance;
-        getAppInstancesByProductId(productId: SP.Guid): SP.ClientObjectList<any>;
+        getAppInstancesByProductId(productId: SP.Guid): SP.ClientObjectList<SP.AppInstance>;
         loadAndInstallAppInSpecifiedLocale(appPackageStream: any[], installationLocaleLCID: number): SP.AppInstance;
         loadApp(appPackageStream: any[], installationLocaleLCID: number): SP.AppInstance;
         loadAndInstallApp(appPackageStream: any[]): SP.AppInstance;
@@ -4813,8 +4841,8 @@ declare module SP {
                 set_moreColorsPicker(value: SP.Application.UI.MoreColorsPicker): void;
             }
             export class ThemeWebPage extends Sys.UI.Control {
-                add_themeDisplayUpdated(value: (sender: any, e: Sys.EventArgs) => void ): void;
-                remove_themeDisplayUpdated(value: (sender: any, e: Sys.EventArgs) => void ): void;
+                add_themeDisplayUpdated(value: (sender: any, e: Sys.EventArgs) => void): void;
+                remove_themeDisplayUpdated(value: (sender: any, e: Sys.EventArgs) => void): void;
                 constructor(e: HTMLElement);
                 initialize(): void;
                 dispose(): void;
@@ -5000,11 +5028,11 @@ declare module Microsoft.SharePoint.Client.Search {
 
 
             getQuerySuggestionsWithResults: (iNumberOfQuerySuggestions: number,
-                iNumberOfResultSuggestions: number,
-                fPreQuerySuggestions: boolean,
-                fHitHighlighting: boolean,
-                fCapitalizeFirstLetters: boolean,
-                fPrefixMatchAllTerms: boolean) => QuerySuggestionResults;
+            iNumberOfResultSuggestions: number,
+            fPreQuerySuggestions: boolean,
+            fHitHighlighting: boolean,
+            fCapitalizeFirstLetters: boolean,
+            fPrefixMatchAllTerms: boolean) => QuerySuggestionResults;
 
 
         }
@@ -5050,15 +5078,15 @@ declare module Microsoft.SharePoint.Client.Search {
             executeQuery: (query: Query) => SP.JsonObjectResult;
             executeQueries: (queryIds: string[], queries: Query[], handleExceptions: boolean) => SP.JsonObjectResult;
             recordPageClick: (
-                pageInfo: string,
-                clickType: string,
-                blockType: number,
-                clickedResultId: string,
-                subResultIndex: number,
-                immediacySourceId: string,
-                immediacyQueryString: string,
-                immediacyTitle: string,
-                immediacyUrl: string) => void;
+            pageInfo: string,
+            clickType: string,
+            blockType: number,
+            clickedResultId: string,
+            subResultIndex: number,
+            immediacySourceId: string,
+            immediacyQueryString: string,
+            immediacyTitle: string,
+            immediacyUrl: string) => void;
             exportPopularQueries: (web: SP.Web, sourceId: SP.Guid) => SP.JsonObjectResult;
         }
 
@@ -5364,14 +5392,14 @@ declare module Microsoft.SharePoint.Client.Search {
         export class DocumentCrawlLog extends SP.ClientObject {
             constructor(context: SP.ClientContext, site: SP.Site);
             getCrawledUrls: (getCountOnly: boolean,
-                maxRows: { High: number; Low: number; },
-                queryString: string,
-                isLike: boolean,
-                contentSourceID: number,
-                errorLevel: number,
-                errorID: number,
-                startDateTime: Date,
-                endDateTime: Date) => SP.JsonObjectResult;
+            maxRows: { High: number; Low: number; },
+            queryString: string,
+            isLike: boolean,
+            contentSourceID: number,
+            errorLevel: number,
+            errorID: number,
+            startDateTime: Date,
+            endDateTime: Date) => SP.JsonObjectResult;
         }
 
         export class SearchObjectOwner extends SP.ClientObject {
@@ -5819,7 +5847,7 @@ declare module SP {
 
         /** Contains information about an actor retrieved from server. An actor is a user, document, site, or tag. */
         export class SocialActor extends SP.ClientValueObject {
-            /** The AccountName property returns the user account name.
+            /** The AccountName property returns the user account name. 
                 This property is only available for social actors of type "user". */
             get_accountName(): string;
             /** Identifies whether the actor is a user, document, site, or tag. */
@@ -5850,7 +5878,7 @@ declare module SP {
             get_personalSiteUri(): string;
             /** Represents the status of retrieving the actor */
             get_status(): SocialStatusCode;
-            /** The StatusText property returns the most recent post of the user.
+            /** The StatusText property returns the most recent post of the user. 
                 This property is only available for social actors of type "user". */
             get_statusText(): string;
             /** Returns the GUID of the tag.
@@ -5865,10 +5893,10 @@ declare module SP {
 
         /** Identifies an actor to the server. An actor can be a user, document, site, or tag. */
         export class SocialActorInfo extends SP.ClientValueObject {
-            /** User account name.
+            /** User account name. 
                 This property is only available for social actors of type "user". */
             get_accountName(): string;
-            /** User account name.
+            /** User account name. 
                 This property is only available for social actors of type "user". */
             set_accountName(value: string): string;
             /** Identifies whether the actor is a user, document, site, or tag. */
@@ -5979,7 +6007,7 @@ declare module SP {
         }
 
         /** Provides information about an overlay.
-            An overlay is a substring in a post that represents a user, document, site, tag, or link.
+            An overlay is a substring in a post that represents a user, document, site, tag, or link. 
             The SocialPost class contains an array of SocialDataOverlay objects.
             Each of the SocialDataOverlay objects specifies a link or one or more actors. */
         export class SocialDataOverlay extends SP.ClientValueObject {
@@ -6016,8 +6044,8 @@ declare module SP {
                 The most recent post that was requested can be removed from the feed if the current user does not have access to it.
                 Consequently, the feed does not always contain the post with the date specified in this property. */
             get_newestProcessed(): string;
-            /** The OldestProcessed property returns the date-time of the oldest post that was requested.
-                The oldest post that was requested can be removed from the feed if the current user does not have access to it.
+            /** The OldestProcessed property returns the date-time of the oldest post that was requested. 
+                The oldest post that was requested can be removed from the feed if the current user does not have access to it. 
                 Consequently, the feed does not always contain the post with the date specified in this property */
             get_oldestProcessed(): string;
             /** Contains the social threads in the feed. */
@@ -6034,7 +6062,7 @@ declare module SP {
             get_owner(): SocialActor;
             /** Specifies the URI of the personal site portal. */
             get_personalSitePortalUri(): string;
-            /** Creates a post in the current user's newsfeed, in the specified user's feed, or in the specified thread.
+            /** Creates a post in the current user's newsfeed, in the specified user's feed, or in the specified thread. 
                 This method returns a new or a modified thread.
                 @param targetId Optional, specifies the target of the post.
                                 If this parameter is null, the post is created as a root post in the current user's feed.
@@ -6067,19 +6095,19 @@ declare module SP {
             getFullThread(threadId: string): SocialThread;
             /** Returns a feed containing mention reference threads from the current user's personal feed. */
             getMentions(clearUnreadMentions: boolean, options: SocialFeedOptions): SocialFeed;
-            /** Returns the server's count of unread mentions of the current user.
-                The server maintains a count of unread mentions in posts, but does not track which mentions have been read.
-                When a new mention is stored on the server, it increments the unread mention for the user specified by the mention.
+            /** Returns the server's count of unread mentions of the current user. 
+                The server maintains a count of unread mentions in posts, but does not track which mentions have been read. 
+                When a new mention is stored on the server, it increments the unread mention for the user specified by the mention. 
                 The unread mention count is cleared by the GetMentions method. */
             getUnreadMentionCount(): SP.IntResult;
-            /** Specifies that the current user likes the specified post.
-                Returns a digest thread containing the specified post.
+            /** Specifies that the current user likes the specified post. 
+                Returns a digest thread containing the specified post. 
                 A digest thread contains the root post and a selection of reply posts */
             likePost(postId: string): SocialThread;
-            /** Specifies that the current user does not like the specified post.
+            /** Specifies that the current user does not like the specified post. 
                 Returns a digest thread containing the specified post.  */
             unlikePost(postId: string): SocialThread;
-            /** Prevents any user from adding a new reply post to the specified thread.
+            /** Prevents any user from adding a new reply post to the specified thread. 
                 Once a thread is locked, no new reply posts can be added until after the thread has been unlocked with the unlockThread method.
                 This method returns a digest of the locked thread */
             lockThread(threadId: string): SocialThread;
@@ -6105,7 +6133,7 @@ declare module SP {
             set_newerThan(value: string): string;
             get_olderThan(): string;
             set_olderThan(value: string): string;
-            get_sortOrder():SocialFeedSortOrder;
+            get_sortOrder(): SocialFeedSortOrder;
             set_sortOrder(value: SocialFeedSortOrder): SocialFeedSortOrder;
         }
 
@@ -6119,9 +6147,9 @@ declare module SP {
             get_followedSitesUri(): string;
             /** Adds the specified actor to the current user's list of followed items.
                 Returns one of the following values, wrapped into the SP.IntResult object:
-                0 = ok,
-                1 = alreadyFollowing,
-                2 = limitReached,
+                0 = ok, 
+                1 = alreadyFollowing, 
+                2 = limitReached, 
                 3 = internalError */
             follow(actor: SocialActorInfo): SP.IntResult;
             stopFollowing(actor: SocialActorInfo): SP.BooleanResult;
@@ -6254,10 +6282,10 @@ declare module SP {
             get_text(): string;
             /** Specifies the text that is substituted for the placeholder */
             set_text(value: string): string;
-            /** Specifies the URI of the document, site, or link.
+            /** Specifies the URI of the document, site, or link. 
                 This property is only available if the ItemType property specifies that the item is a Document, Link, or Site. */
             get_uri(): string;
-            /** Specifies the URI of the document, site, or link.
+            /** Specifies the URI of the document, site, or link. 
                 This property is only available if the ItemType property specifies that the item is a Document, Link, or Site. */
             set_uri(value: string): string;
         }
@@ -6727,7 +6755,7 @@ declare module SP {
                 get_selectedEntities(): any;
                 set_selectedEntities(value: any): void;
                 get_callback(): (sender: any, e: Sys.EventArgs) => void;
-                set_callback(value: (sender: any, e: Sys.EventArgs) => void ): void;
+                set_callback(value: (sender: any, e: Sys.EventArgs) => void): void;
                 get_scopeKey(): string;
                 get_componentType(): SP.UI.ApplicationPages.SelectorType;
                 revertTo(ent: SP.UI.ApplicationPages.ResolveEntity): void;
@@ -6745,7 +6773,7 @@ declare module SP {
                 static instance(): SP.UI.ApplicationPages.CalendarSelector;
                 registerSelector(selector: SP.UI.ApplicationPages.ISelectorComponent): void;
                 getSelector(type: SP.UI.ApplicationPages.SelectorType, scopeKey: string): SP.UI.ApplicationPages.ISelectorComponent;
-                addHandler(scopeKey: string, people: boolean, resource: boolean, handler: (sender: any, selection: SP.UI.ApplicationPages.SelectorSelectionEventArgs) => void ): void;
+                addHandler(scopeKey: string, people: boolean, resource: boolean, handler: (sender: any, selection: SP.UI.ApplicationPages.SelectorSelectionEventArgs) => void): void;
                 revertTo(scopeKey: string, ent: SP.UI.ApplicationPages.ResolveEntity): void;
                 removeEntity(scopeKey: string, ent: SP.UI.ApplicationPages.ResolveEntity): void;
                 constructor();
@@ -6757,7 +6785,7 @@ declare module SP {
                 get_selectedEntities(): any;
                 set_selectedEntities(value: any): void;
                 get_callback(): (sender: any, e: Sys.EventArgs) => void;
-                set_callback(value: (sender: any, e: Sys.EventArgs) => void ): void;
+                set_callback(value: (sender: any, e: Sys.EventArgs) => void): void;
                 revertTo(ent: SP.UI.ApplicationPages.ResolveEntity): void;
                 removeEntity(ent: SP.UI.ApplicationPages.ResolveEntity): void;
                 setEntity(ent: SP.UI.ApplicationPages.ResolveEntity): void;
@@ -6889,8 +6917,8 @@ declare module SP {
             OnNotificationCountChanged,
         }
         export class SPNotification {
-            constructor(containerId: SP.UI.ContainerID, strHtml: string, bSticky: boolean, strTooltip: string, onclickHandler: () => void , extraData: any);
-            constructor(containerId: SP.UI.ContainerID, strHtml: string, bSticky: boolean, strTooltip: string, onclickHandler: () => void );
+            constructor(containerId: SP.UI.ContainerID, strHtml: string, bSticky: boolean, strTooltip: string, onclickHandler: () => void, extraData: any);
+            constructor(containerId: SP.UI.ContainerID, strHtml: string, bSticky: boolean, strTooltip: string, onclickHandler: () => void);
             constructor(containerId: SP.UI.ContainerID, strHtml: string, bSticky: boolean, strTooltip: string);
             constructor(containerId: SP.UI.ContainerID, strHtml: string, bSticky: boolean);
             constructor(containerId: SP.UI.ContainerID, strHtml: string);
@@ -6915,8 +6943,8 @@ declare module SP {
             constructor();
         }
         export class Workspace {
-            static add_resized(handler: () => void ): void;
-            static remove_resized(handler: () => void ): void;
+            static add_resized(handler: () => void): void;
+            static remove_resized(handler: () => void): void;
         }
         export class Menu {
             static create(id: string): SP.UI.Menu;
@@ -7063,6 +7091,93 @@ declare module SP {
 }
 
 declare module SP {
+    export module UI {
+        export module Controls {
+
+            export interface INavigationOptions {
+                assetId?: string;
+                siteTitle?: string;
+                siteUrl?: string;
+                appTitle?: string;
+                appTitleIconUrl?: string;
+                rightToLeft?: boolean;
+                appStartPage?: string;
+                appIconUrl?: string;
+                appHelpPageUrl?: string;
+                appHelpPageOnClick?: string;
+                settingsLinks?: ISettingsLink[];
+                language?: string;
+                clientTag?: string;
+                appWebUrl?: string;
+                onCssLoaded?: string;
+
+
+                bottomHeaderVisible?: boolean;
+                topHeaderVisible?: boolean;
+            }
+
+            export class NavigationOptions implements INavigationOptions { }
+
+
+            export interface ISettingsLink {
+                linkUrl: string;
+                displayName: string;
+            }
+
+            export class SettingsLink implements ISettingsLink {
+                linkUrl: string;
+                displayName: string;
+            }
+
+
+            export class Navigation {
+                constructor(placeholderDOMElementId: string, options: INavigationOptions);
+                public get_assetId(): string;
+                public get_siteTitle(): string;
+                public get_siteUrl(): string;
+
+                public get_appTitle(): string;
+                public set_appTitle(value: string): string;
+
+                public get_appTitleIconUrl(): string;
+                public set_appTitleIconUrl(value: string): string;
+
+                public get_rightToLeft(): boolean;
+                public set_rightToLeft(value: boolean): boolean;
+
+                public get_appStartPage(): string;
+                public set_appStartPage(value: string): string;
+
+                public get_appIconUrl(): string;
+                public set_appIconUrl(value: string): string;
+
+                public get_appHelpPageUrl(): string;
+                public set_appHelpPageUrl(value: string): string;
+
+                public get_appHelpPageOnClick(): string;
+                public set_appHelpPageOnClick(value: string): string;
+
+                public get_settingsLinks(): ISettingsLink[];
+                public set_settingsLinks(value: ISettingsLink[]): ISettingsLink[];
+
+                public setVisible(value: boolean): void;
+
+                public setTopHeaderVisible(value: boolean): void;
+                public setBottomHeaderVisible(value: boolean): void;
+                public remove(): void;
+
+                static getVersionedLayoutsUrl(pageName: string): string;
+            }
+
+
+            export class ControlManager {
+                static getControl(placeHolderId: string): any;
+            }
+        }
+    }
+}
+
+declare module SP {
 
     export module UserProfiles {
         /** Specifies types of changes made in the user profile store. */
@@ -7134,7 +7249,7 @@ declare module SP {
             /** Gets suggestions for who the current user might want to follow.
                 Note: The recommended API to use for this task is SocialFollowingManager.getSuggestions.
                 Returns list of PersonProperties objects */
-            getMySuggestions(): SP.ClientObjectList<any>;
+            getMySuggestions(): SP.ClientObjectList<PersonProperties>;
             /** Removes the specified user from the user's list of suggested people to follow. */
             hideSuggestion(accountName: string): void;
             follow(accountName: string): void;
@@ -7146,10 +7261,10 @@ declare module SP {
                 @param tagId GUID of the tag to stop following. */
             stopFollowingTag(tagId: string): void;
             amIFollowing(accountName: string): SP.BooleanResult;
-            getPeopleFollowedByMe(): SP.ClientObjectList<any>;
-            getPeopleFollowedBy(accountName: string): SP.ClientObjectList<any>;
-            getMyFollowers(): SP.ClientObjectList<any>;
-            getFollowersFor(accountName: string): SP.ClientObjectList<any>;
+            getPeopleFollowedByMe(): SP.ClientObjectList<PersonProperties>;
+            getPeopleFollowedBy(accountName: string): SP.ClientObjectList<PersonProperties>;
+            getMyFollowers(): SP.ClientObjectList<PersonProperties>;
+            getFollowersFor(accountName: string): SP.ClientObjectList<PersonProperties>;
             amIFollowedBy(accountName: string): SP.BooleanResult;
             /** Uploads and sets the user profile picture.
                 Pictures in bmp, jpg and png formats and up to 5,000,000 bytes are supported.
@@ -7225,7 +7340,7 @@ declare module SP {
             /** Specifies the person's title. */
             get_title(): string;
             /** Represents all user profile properties including custom.
-                The privacy settings affect which properties can be retrieved.
+                The privacy settings affect which properties can be retrieved. 
                 Multiple values are delimited by the vertical bar "|".
                 Null values are specified as empty strings. */
             get_userProfileProperties(): { [name: string]: string; };
@@ -7314,7 +7429,7 @@ declare module SP {
             /** Updates the properties for followed item with specified URL.
                 @param url  URL that identifies the followed item.
                             The url parameter can identify an existing document or site using the url property of the original item.
-                            The url parameter can also identify a document with the following format: http://host/site?listId=<listGuid>&itemId=<itemId>
+                            The url parameter can also identify a document with the following format: http://host/site?listId=<listGuid>&itemId=<itemId> 
                 @param data Application-defined data stored with the followed item. */
             updateData(url: string, data: FollowedItemData): void;
             /** Returns the refreshed item that is being pointed to in the Social list.
@@ -7384,11 +7499,11 @@ declare module SP {
             /** Specifies the site identification (GUID) in the Content database for this item if this item is a site, or for its parent site if this item is not a site. */
             set_siteId(value: string): string;
             /** Specifies the subtype of this item.
-                If the ItemType is Site, the Subtype specifies the web template identification.
+                If the ItemType is Site, the Subtype specifies the web template identification. 
                 If the ItemType is Document, the Subtype has a value of 1. */
             get_subtype(): number;
             /** Specifies the subtype of this item.
-                If the ItemType is Site, the Subtype specifies the web template identification.
+                If the ItemType is Site, the Subtype specifies the web template identification. 
                 If the ItemType is Document, the Subtype has a value of 1. */
             set_subtype(value: number): number;
             /** Specifies the item of this item */
@@ -7502,7 +7617,7 @@ declare module SP {
             static getLayoutsPageUrl(pageName: string): string;
             static getImageUrl(imageName: string): string;
             static createWikiPageInContextWeb(context: SP.ClientRuntimeContext, parameters: SP.Utilities.WikiPageCreationInformation): SP.File;
-            static localizeWebPartGallery(context: SP.ClientRuntimeContext, items: SP.ListItemCollection): SP.ClientObjectList<any>;
+            static localizeWebPartGallery(context: SP.ClientRuntimeContext, items: SP.ListItemCollection): SP.ClientObjectList<SP.ListItem>;
             static getAppLicenseInformation(context: SP.ClientRuntimeContext, productId: SP.Guid): SP.AppLicenseCollection;
             static importAppLicense(context: SP.ClientRuntimeContext, licenseTokenToImport: string, contentMarket: string, billingMarket: string, appName: string, iconUrl: string, providerName: string, appSubtype: number): void;
             static getAppLicenseDeploymentId(context: SP.ClientRuntimeContext): SP.GuidResult;
@@ -8116,12 +8231,12 @@ declare module SP.WorkflowServices {
 
 }
 
-declare class SPClientAutoFill{
-    static MenuOptionType : {
+declare class SPClientAutoFill {
+    static MenuOptionType: {
         Option: number;
         Footer: number;
         Separator: number;
-        Loading:number;
+        Loading: number;
     }
 
     static KeyProperty: string; //= 'AutoFillKey';
@@ -8134,7 +8249,7 @@ declare class SPClientAutoFill{
     static GetAutoFillObjFromContainer(elmChild: HTMLElement): SPClientAutoFill;
     static GetAutoFillMenuItemFromOption(elmChild: HTMLElement): HTMLElement;
 
-    constructor(elmTextId: string, elmContainerId: string, fnPopulateAutoFill: (targetElement: HTMLInputElement) => void );
+    constructor(elmTextId: string, elmContainerId: string, fnPopulateAutoFill: (targetElement: HTMLInputElement) => void);
     public TextElementId: string;
     public AutoFillContainerId: string;
     public AutoFillMenuId: string;
@@ -8145,16 +8260,16 @@ declare class SPClientAutoFill{
     public AutoFillCallbackTimeoutID: string;
     public FuncOnAutoFillClose: (elmTextId: string, ojData: ISPClientAutoFillData) => void;
     public FuncPopulateAutoFill: (targetElement: HTMLElement) => void;
-    public AllOptionData: { [key:string]: ISPClientAutoFillData };
+    public AllOptionData: { [key: string]: ISPClientAutoFillData };
 
-    PopulateAutoFill(jsonObjSuggestions: ISPClientAutoFillData[], fnOnAutoFillCloseFuncName: (elmTextId: string, objData:ISPClientAutoFillData) => void ): void;
+    PopulateAutoFill(jsonObjSuggestions: ISPClientAutoFillData[], fnOnAutoFillCloseFuncName: (elmTextId: string, objData: ISPClientAutoFillData) => void): void;
     IsAutoFillOpen(): boolean;
     SetAutoFillHeight(): void;
-    SelectAutoFillOption(elemOption:HTMLElement): void;
-    FocusAutoFill() :void;
+    SelectAutoFillOption(elemOption: HTMLElement): void;
+    FocusAutoFill(): void;
     BlurAutoFill(): void;
     CloseAutoFill(ojData: ISPClientAutoFillData): void;
-    UpdateAutoFillMenuFocus(bMoveNextLink:boolean): void;
+    UpdateAutoFillMenuFocus(bMoveNextLink: boolean): void;
     UpdateAutoFillPosition(): void;
 }
 
@@ -8164,5 +8279,166 @@ interface ISPClientAutoFillData {
     AutoFillSubDisplayText?: string;
     AutoFillTitleText?: string;
     AutoFillMenuOptionType?: number;
+}
+
+declare class SPClientPeoplePicker {
+    static ValueName: string; // = 'Key';
+    static DisplayTextName: string; // = 'DisplayText';
+    static SubDisplayTextName: string; // = 'Title';
+    static DescriptionName: string; // = 'Description';
+    static SIPAddressName: string; // = 'SIPAddress';
+    static SuggestionsName: string; // = 'MultipleMatches';
+    static UnvalidatedEmailAddressKey: string; // = "UNVALIDATED_EMAIL_ADDRESS";
+    static KeyProperty: string; // = 'AutoFillKey';
+    static DisplayTextProperty: string; // = 'AutoFillDisplayText';
+    static SubDisplayTextProperty: string; // = 'AutoFillSubDisplayText';
+    static TitleTextProperty: string; // = 'AutoFillTitleText';
+    static DomainProperty: string; // = 'DomainText';
+
+    static SPClientPeoplePickerDict: {
+        [pickerIelementId: string]: SPClientPeoplePicker;
+    };
+
+    static InitializeStandalonePeoplePicker(clientId: string, value: ISPClientPeoplePickerEntity[], schema: ISPClientPeoplePickerSchema): void;
+
+    public TopLevelElementId: string;// '',
+    public EditorElementId: string;//'',
+    public AutoFillElementId: string;//'',
+    public ResolvedListElementId: string;//'',
+    public InitialHelpTextElementId: string;//'',
+    public WaitImageId: string;//'',
+    public HiddenInputId: string;//'',
+    public AllowEmpty: boolean;//true,
+    public ForceClaims: boolean;//false,
+    public AutoFillEnabled: boolean;//true,
+    public AllowMultipleUsers: boolean;//false,
+    public OnValueChangedClientScript: (pickerElementId: string, users: ISPClientPeoplePickerEntity[]) => void;
+    public OnUserResolvedClientScript: (pickerElementId: string, users: ISPClientPeoplePickerEntity[]) => void;
+    public OnControlValidateClientScript: (pickerElementId: string, users: ISPClientPeoplePickerEntity[]) => void;
+    public UrlZone: string;//null,
+    public AllUrlZones: boolean;//false,
+    public SharePointGroupID: number;//0,
+    public AllowEmailAddresses: boolean;//false,
+    public PPMRU: SPClientPeoplePickerMRU;
+    public UseLocalSuggestionCache: boolean;//true,
+    public CurrentQueryStr: string;//'',
+    public LatestSearchQueryStr: string;// '',
+    public InitialSuggestions: ISPClientPeoplePickerEntity[];
+    public CurrentLocalSuggestions: ISPClientPeoplePickerEntity[];
+    public CurrentLocalSuggestionsDict: ISPClientPeoplePickerEntity;
+    public VisibleSuggestions: number;//5,
+    public PrincipalAccountType: string;//'',
+    public PrincipalAccountTypeEnum: SP.Utilities.PrincipalType;
+    public EnabledClaimProviders: string;//'',
+    public SearchPrincipalSource: SP.Utilities.PrincipalSource;//null,
+    public ResolvePrincipalSource: SP.Utilities.PrincipalSource;//null,
+    public MaximumEntitySuggestions: number;//30,
+    public EditorWidthSet: boolean;//false,
+    public QueryScriptInit: boolean;//false,
+    public AutoFillControl: string;//null,
+    public TotalUserCount: number;//0,
+    public UnresolvedUserCount: number;//0,
+    public UserQueryDict: ISPClientPeoplePickerEntity;
+    public ProcessedUserList: ISPClientPeoplePickerEntity;
+    public HasInputError: boolean;//false,
+    public HasServerError: boolean;//false,
+    public ShowUserPresence: boolean;//true,
+    public TerminatingCharacter: string;//';',
+    public UnresolvedUserElmIdToReplace: string;//'',
+    public WebApplicationID: SP.Guid;//'{00000000-0000-0000-0000-000000000000}',
+
+    public GetAllUserInfo(): ISPClientPeoplePickerEntity[];
+}
+
+interface ISPClientPeoplePickerSchema {
+    TopLevelElementId?: string;
+    EditorElementId?: string;
+    AutoFillElementId?: string;
+    ResolvedListElementId?: string;
+    InitialHelpTextElementId?: string;
+    WaitImageId?: string;
+    HiddenInputId?: string;
+
+    AllowMultipleValues?: boolean;
+    Required?: boolean;
+    AutoFillEnabled?: boolean;
+    ForceClaims?: boolean;
+    AllowEmailAddresses?: boolean;
+    AllUrlZones?: boolean;
+    UseLocalSuggestionCache?: boolean;
+    UserNoQueryPermission?: boolean;
+
+    VisibleSuggestions?: number;
+    MaximumEntitySuggestions?: number;
+
+    ErrorMessage?: string;
+    InitialHelpText?: string;
+
+    InitialSuggestions?: ISPClientPeoplePickerEntity[];
+
+
+    UrlZone?: SP.UrlZone;
+    WebApplicationID?: SP.Guid;
+    SharePointGroupID?: number;
+
+    /** Specify User, DL, SecGroup or SPGroup*/
+    PrincipalAccountType?: string;
+
+    EnabledClaimProvider?: string;
+    ResolvePrincipalSource?: SP.Utilities.PrincipalSource;
+    SearchPrincipalSource?: SP.Utilities.PrincipalSource;
+
+    OnUserResolvedClientScript?: (pickerElementId: string, users: ISPClientPeoplePickerEntity[]) => void;
+    OnValueChangedClientScript?: (pickerElementId: string, users: ISPClientPeoplePickerEntity[]) => void;
+
+    /** Number or '100%'*/
+    Width?: any;
+
+    Rows?: number;
+
+}
+
+declare class SPClientPeoplePickerMRU {
+    static PPMRUVersion: number;// = 1;
+    static MaxPPMRUItems: number;// = 200;
+    static PPMRUDomLocalStoreKey: string;// = "ClientPeoplePickerMRU";
+    static GetSPClientPeoplePickerMRU(): SPClientPeoplePickerMRU;
+
+    GetItems(strKey: string): Object[];
+    SetItem(strSearchTerm: string, objEntity: Object): void;
+    ResetCache(): void;
+}
+
+interface ISPClientPeoplePickerEntity {
+    Key?: string;
+    Description?: string;
+    DisplayText?: string;
+    EntityType?: string;
+    ProviderDisplayName?: string;
+    ProviderName?: string;
+    IsResolved?: boolean;
+    EntityData?: {
+        Title: string;
+        MobilePhone: string;
+        Department: string;
+        Email: string;
+    };
+    MultipleMatches: Object[];
+    DomainText?: string;
+    [key: string]: any;
+}
+
+declare module Microsoft {
+    export module Office {
+        export module Server {
+            export module ReputationModel {
+                export class Reputation {
+                    constructor();
+                    static setLike(context: SP.ClientContext, listId: string, itemId: number, like: boolean);
+                    static setRating(context: SP.ClientContext, listId: string, itemId: number, rating: number);
+                }
+            }
+        }
+    }
 }
 

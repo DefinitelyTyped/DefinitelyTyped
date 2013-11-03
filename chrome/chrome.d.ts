@@ -1,4 +1,4 @@
-﻿// Type definitions for Chrome extension development.
+// Type definitions for Chrome extension development.
 // Project: http://developer.chrome.com/extensions/
 // Definitions by: Matthew Kimber <https://github.com/matthewkimber>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -114,7 +114,7 @@ declare module chrome.bookmarks {
     export function getSubTree(id: string, callback: (results: BookmarkTreeNode[]) => void): void;
     export function removeTree(id: string, callback?: Function): void;
 
-    var onRemoved: chrome.alarms.AlarmEvent;
+    var onRemoved: BookmarkRemovedEvent;
     var onImportEnded: BookmarkImportEndedEvent;
     var onImportBegan: BookmarkImportBeganEvent;
     var onChanged: BookmarkChangedEvent;
@@ -1056,6 +1056,15 @@ declare module chrome.history {
     var onVisitRemoved: HistoryVisitRemovedEvent;
 }
 
+
+////////////////////
+// Identity
+////////////////////
+declare module chrome.identity {
+    var getAuthToken: (options:any, cb:(token:{})=>void)=>void;
+}
+
+
 ////////////////////
 // Internationalization
 ////////////////////
@@ -1341,7 +1350,7 @@ declare module chrome.pageCapture {
         tabId: number;
     }
 
-    export function saveAsMHTML(details: SaveDetails, callback: (mhtmlData?: any) => void): void;
+    export function saveAsMHTML(details: SaveDetails, callback: (mhtmlData: any) => void): void;
 }
 
 ////////////////////
@@ -1472,6 +1481,9 @@ declare module chrome.runtime {
     interface RuntimeSuspendCanceledEvent extends chrome.events.Event {
         addListener(callback: Function): void;
     }
+    interface RuntimeMessageEvent extends chrome.events.Event {
+        addListener(callback: Function): void;
+    }
     
     export function getBackgroundPage(callback: (backgroundPage?: Window) => void): void;
     export function getManifest(): Object;
@@ -1481,6 +1493,10 @@ declare module chrome.runtime {
     var onStartup: RuntimeStartupEvent;
     var onInstalled: RuntimeInstalledEvent;
     var onSuspendCanceled: RuntimeSuspendCanceledEvent;
+    var onMessage: RuntimeMessageEvent;
+    var onMessageExternal: RuntimeMessageEvent;
+    var sendMessage:(req:any, cb:(resp:any)=>void)=>void;
+
 }
 
 ////////////////////

@@ -430,13 +430,13 @@ declare module Rx {
 		dispose(): void;
 	}
 
-	export interface Subject {
-		create<T>(observer?: IObserver<T>, observable?: IObservable<T>): ISubject<T>;
-	}
+    export interface Subject<T> extends ISubject<T> {
+        create<T>(observer?: IObserver<T>, observable?: IObservable<T>): ISubject<T>;
+    }
 
-	var Subject: {
-		new<T> (): ISubject<T>;
-	}
+    var Subject: {
+        new <T>(): Subject<T>;
+    }
 
 	interface IAsyncSubject<T> extends IObservable<T>, IObserver<T> {
 		isDisposed: boolean;

@@ -47,6 +47,7 @@ interface InputTypesboolean {
 }
 
 interface ModernizrStatic {
+    autofocus: boolean;
     fontface: boolean;
     backgroundsize: boolean;
     borderimage: boolean;
