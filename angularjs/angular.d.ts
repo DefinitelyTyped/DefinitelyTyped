@@ -650,6 +650,58 @@ declare module ng {
     interface IRootScopeService extends IScope {}
 
     ///////////////////////////////////////////////////////////////////////////
+    // SCEService
+    // see http://docs.angularjs.org/api/ng.$sce
+    ///////////////////////////////////////////////////////////////////////////
+	interface ISCEService {
+		getTrusted(type: string, mayBeTrusted: any): any;
+		getTrustedCss(value: any): any;
+		getTrustedHtml(value: any): any;
+		getTrustedJs(value: any): any;
+		getTrustedResourceUrl(value: any): any;
+		getTrustedUrl(value: any): any;
+		parse(type: string, expression: string): (context: any, locals: any) => any;
+		parseAsCss(expression: string): (context: any, locals: any) => any;
+		parseAsHtml(expression: string): (context: any, locals: any) => any;
+		parseAsJs(expression: string): (context: any, locals: any) => any;
+		parseAsResourceUrl(expression: string): (context: any, locals: any) => any;
+		parseAsUrl(expression: string): (context: any, locals: any) => any;
+		trustAs(type: string, value: any): any;
+		trustAsHtml(value: any): any;
+		trustAsJs(value: any): any;
+		trustAsResourceUrl(value: any): any;
+		trustAsUrl(value: any): any;
+		isEnabled(): bool;
+	}
+
+    ///////////////////////////////////////////////////////////////////////////
+    // SCEProvider
+    // see http://docs.angularjs.org/api/ng.$sceProvider
+    ///////////////////////////////////////////////////////////////////////////
+    interface ISCEProvider extends IServiceProvider {
+        enabled(value: bool): void;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // SCEDelegateService
+    // see http://docs.angularjs.org/api/ng.$sceDelegate
+    ///////////////////////////////////////////////////////////////////////////
+    interface ISCEDelegateService {
+        getTrusted(type: string, mayBeTrusted: any): any;
+        trustAs(type: string, value: any): any;
+        valueOf(value: any): any;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // SCEDelegateProvider
+    // see http://docs.angularjs.org/api/ng.$sceDelegateProvider
+    ///////////////////////////////////////////////////////////////////////////
+    interface ISCEDelegateProvider extends IServiceProvider {
+        resourceUrlBlacklist(blacklist: any[]): void;
+        resourceUrlWhitelist(whitelist: any[]): void;
+    }
+	
+    ///////////////////////////////////////////////////////////////////////////
     // Directive
     // see http://docs.angularjs.org/api/ng.$compileProvider#directive
     // and http://docs.angularjs.org/guide/directive
