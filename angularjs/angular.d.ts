@@ -277,6 +277,15 @@ declare module ng {
     }
 
     ///////////////////////////////////////////////////////////////////////////
+    // IntervalService
+    // see http://docs.angularjs.org/api/ng.$interval
+    ///////////////////////////////////////////////////////////////////////////
+    interface IIntervalService {
+        (func: Function, delay: number, count?: number, invokeApply?: boolean): IPromise<any>;
+        cancel(promise: IPromise<any>): boolean;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
     // FilterService
     // see http://docs.angularjs.org/api/ng.$filter
     // see http://docs.angularjs.org/api/ng.$filterProvider
