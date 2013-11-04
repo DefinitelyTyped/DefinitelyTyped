@@ -1,0 +1,8 @@
+Add coords signature?
+Put generic constraints on signatures with arg of type Function where it's just a wrapper for the user function
+Add `Control Positions`?
+Figure out how to make IEventPowered methods of the descendants of a FeatureGroup return instances of the descendant type and not base.
+
+leaflet API web page tasks:
+Add column for DivIconOptions defaults
+Fix extra bindPopup method for Path
