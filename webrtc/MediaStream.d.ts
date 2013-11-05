@@ -1,8 +1,8 @@
 ﻿// Type definitions take from http://dev.w3.org/2011/webrtc/editor/getusermedia.html
 
 interface MediaStreamConstraints {
-	audio: bool;
-	video: bool;
+	audio: boolean;
+	video: boolean;
 }
 declare var MediaStreamConstraints: {
 	prototype: MediaStreamConstraints;
@@ -76,7 +76,7 @@ interface MediaStream {
 	label: string;
 	getAudioTracks(): MediaStreamTrackList;
 	getVideoTracks(): MediaStreamTrackList;
-	ended: bool;
+	ended: boolean;
 	onended: (event: Event) => void;
 }
 declare var MediaStream: {
@@ -101,7 +101,7 @@ interface LocalMediaStream extends MediaStream {
 interface MediaStreamTrack {
 	kind: string;
 	label: string;
-	enabled: bool;
+	enabled: boolean;
 	LIVE: number; // = 0;
 	MUTED: number; // = 1;
 	ENDED: number; // = 2;

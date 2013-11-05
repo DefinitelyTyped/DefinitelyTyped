@@ -1,4 +1,18 @@
-﻿var ExecResult = (function () {
+﻿//
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//   http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+var ExecResult = (function () {
     function ExecResult() {
         this.stdout = "";
         this.stderr = "";
@@ -63,8 +77,23 @@ var Exec = (function () {
         return new NodeExec();
     }
 })();
+//
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//   http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
 var IOUtils;
 (function (IOUtils) {
+    // Creates the directory including its parent if not already present
     function createDirectoryStructure(ioHost, dirName) {
         if (ioHost.directoryExists(dirName)) {
             return;
@@ -77,6 +106,7 @@ var IOUtils;
         ioHost.createDirectory(dirName);
     }
 
+    // Creates a file including its directory structure if not already present
     function createFileAndFolderStructure(ioHost, fileName, useUTF8) {
         var path = ioHost.resolvePath(fileName);
         var dirName = ioHost.dirName(path);
@@ -96,6 +126,8 @@ var IOUtils;
 })(IOUtils || (IOUtils = {}));
 
 var IO = (function () {
+    // Create an IO object for use inside WindowsScriptHost hosts
+    // Depends on WSCript and FileSystemObject
     function getWindowsScriptHostIO() {
         var fso = new ActiveXObject("Scripting.FileSystemObject");
         var streamObjectPool = [];
@@ -133,6 +165,7 @@ var IO = (function () {
                         streamObj.Charset = 'utf-8';
                     }
 
+                    // Read the whole file
                     var str = streamObj.ReadText(-1);
                     streamObj.Close();
                     releaseStreamObject(streamObj);
@@ -164,6 +197,7 @@ var IO = (function () {
                             var content = this.readFile(path);
                             return { content: content, path: path };
                         } catch (err) {
+                            //Tools.CompilerDiagnostics.debugPrint("Could not find " + path + ", trying parent");
                         }
                     } else {
                         rootPath = fso.GetParentFolderName(fso.GetAbsolutePathName(rootPath));
@@ -287,6 +321,8 @@ var IO = (function () {
     }
     ;
 
+    // Create an IO object for use inside Node.js hosts
+    // Depends on 'fs' and 'path' modules
     function getNodeIO() {
         var _fs = require('fs');
         var _path = require('path');
@@ -299,6 +335,8 @@ var IO = (function () {
                     switch (buffer[0]) {
                         case 0xFE:
                             if (buffer[1] == 0xFF) {
+                                // utf16-be. Reading the buffer as big endian is not supported, so convert it to
+                                // Little Endian first
                                 var i = 0;
                                 while ((i + 1) < buffer.length) {
                                     var temp = buffer[i];
@@ -311,15 +349,18 @@ var IO = (function () {
                             break;
                         case 0xFF:
                             if (buffer[1] == 0xFE) {
+                                // utf16-le
                                 return buffer.toString("ucs2", 2);
                             }
                             break;
                         case 0xEF:
                             if (buffer[1] == 0xBB) {
+                                // utf-8
                                 return buffer.toString("utf8", 3);
                             }
                     }
 
+                    // Default behaviour
                     return buffer.toString();
                 } catch (e) {
                     IOUtils.throwIOError("Error reading file \"" + file + "\".", e);
@@ -419,6 +460,7 @@ var IO = (function () {
                             var content = this.readFile(path);
                             return { content: content, path: path };
                         } catch (err) {
+                            //Tools.CompilerDiagnostics.debugPrint(("Could not find " + path) + ", trying parent");
                         }
                     } else {
                         var parentPath = _path.resolve(rootPath, "..");
@@ -504,10 +546,14 @@ var IO = (function () {
     ;
 
     if (typeof ActiveXObject === "function")
-        return getWindowsScriptHostIO(); else if (typeof require === "function")
-        return getNodeIO(); else
+        return getWindowsScriptHostIO();
+else if (typeof require === "function")
+        return getNodeIO();
+else
         return null;
 })();
+/// <reference path='src/exec.ts' />
+/// <reference path='src/io.ts' />
 var DefinitelyTyped;
 (function (DefinitelyTyped) {
     (function (TestManager) {
@@ -537,7 +583,13 @@ var DefinitelyTyped;
             function Tsc() {
             }
             Tsc.run = function (tsfile, callback) {
-                Exec.exec('node ./_infrastructure/tests/typescript/tsc.js ', [tsfile], function (ExecResult) {
+                var command = 'node ./_infrastructure/tests/typescript/tsc.js --module commonjs ';
+                if (IO.fileExists(tsfile + '.tscparams')) {
+                    command += '@' + tsfile + '.tscparams';
+                } else {
+                    command += '--noImplicitAny';
+                }
+                Exec.exec(command, [tsfile], function (ExecResult) {
                     callback(ExecResult);
                 });
             };
@@ -617,7 +669,7 @@ var DefinitelyTyped;
                 if (isNaN(day_diff) || day_diff < 0 || day_diff >= 31)
                     return;
 
-                return (day_diff == 0 && (diff < 60 && (diff + " secconds") || diff < 120 && "1 minute" || diff < 3600 && Math.floor(diff / 60) + " minutes" || diff < 7200 && "1 hour" || diff < 86400 && Math.floor(diff / 3600) + " hours") || day_diff == 1 && "Yesterday" || day_diff < 7 && day_diff + " days" || day_diff < 31 && Math.ceil(day_diff / 7) + " weeks");
+                return (day_diff == 0 && (diff < 60 && (diff + " seconds") || diff < 120 && "1 minute" || diff < 3600 && Math.floor(diff / 60) + " minutes" || diff < 7200 && "1 hour" || diff < 86400 && Math.floor(diff / 3600) + " hours") || day_diff == 1 && "Yesterday" || day_diff < 7 && day_diff + " days" || day_diff < 31 && Math.ceil(day_diff / 7) + " weeks");
             };
 
             Timer.prototype.start = function () {
@@ -648,15 +700,15 @@ var DefinitelyTyped;
 
             Print.prototype.printHeader = function () {
                 this.out('=============================================================================\n');
-                this.out('                    \33[36m\33[1mDefinitelyTyped test runner 0.2.0\33[0m\n');
+                this.out('                    \33[36m\33[1mDefinitelyTyped test runner 0.3.0\33[0m\n');
                 this.out('=============================================================================\n');
                 this.out(' \33[36m\33[1mTypescript version:\33[0m ' + this.version + '\n');
                 this.out(' \33[36m\33[1mTypings           :\33[0m ' + this.typings + '\n');
                 this.out(' \33[36m\33[1mTypeScript files  :\33[0m ' + this.tsFiles + '\n');
             };
 
-            Print.prototype.printSyntaxCheking = function () {
-                this.out('============================ \33[34m\33[1mSyntax cheking\33[0m =================================\n');
+            Print.prototype.printSyntaxChecking = function () {
+                this.out('============================ \33[34m\33[1mSyntax checking\33[0m ================================\n');
             };
 
             Print.prototype.printTypingTests = function () {
@@ -745,14 +797,14 @@ var DefinitelyTyped;
             return File;
         })();
 
-        var SyntaxCheking = (function () {
-            function SyntaxCheking(fielHandler, out) {
-                this.fielHandler = fielHandler;
+        var SyntaxChecking = (function () {
+            function SyntaxChecking(fileHandler, out) {
+                this.fileHandler = fileHandler;
                 this.out = out;
                 this.files = [];
                 this.timer = new Timer();
             }
-            SyntaxCheking.prototype.getFailedFiles = function () {
+            SyntaxChecking.prototype.getFailedFiles = function () {
                 var list = [];
 
                 for (var i = 0; i < this.files.length; i++) {
@@ -764,7 +816,7 @@ var DefinitelyTyped;
                 return list;
             };
 
-            SyntaxCheking.prototype.getSuccessFiles = function () {
+            SyntaxChecking.prototype.getSuccessFiles = function () {
                 var list = [];
 
                 for (var i = 0; i < this.files.length; i++) {
@@ -776,14 +828,14 @@ var DefinitelyTyped;
                 return list;
             };
 
-            SyntaxCheking.prototype.printStats = function () {
+            SyntaxChecking.prototype.printStats = function () {
                 this.out.printDiv();
                 this.out.printElapsedTime(this.timer.asString, this.timer.time);
                 this.out.printSuccessCount(this.getSuccessFiles().length, this.files.length);
                 this.out.printFailedCount(this.getFailedFiles().length, this.files.length);
             };
 
-            SyntaxCheking.prototype.printFailedFiles = function () {
+            SyntaxChecking.prototype.printFailedFiles = function () {
                 if (this.getFailedFiles().length > 0) {
                     this.out.printDiv();
 
@@ -793,14 +845,14 @@ var DefinitelyTyped;
 
                     for (var i = 0; i < this.getFailedFiles().length; i++) {
                         var errorFile = this.getFailedFiles()[i];
-                        this.out.printErrorFile(errorFile.formatName(this.fielHandler.path));
+                        this.out.printErrorFile(errorFile.formatName(this.fileHandler.path));
                     }
                 }
             };
 
-            SyntaxCheking.prototype.run = function (it, file, len, maxLen, callback) {
+            SyntaxChecking.prototype.run = function (it, file, len, maxLen, callback) {
                 var _this = this;
-                if (!endsWith(file, '-tests.ts')) {
+                if (!endsWith(file.toUpperCase(), '-TESTS.TS') && endsWith(file.toUpperCase(), '.TS') && file.indexOf('../_infrastructure') < 0) {
                     new Test(file).run(function (o) {
                         var failed = false;
 
@@ -843,10 +895,10 @@ var DefinitelyTyped;
                 }
             };
 
-            SyntaxCheking.prototype.start = function (callback) {
+            SyntaxChecking.prototype.start = function (callback) {
                 this.timer.start();
 
-                var tsFiles = this.fielHandler.allTS();
+                var tsFiles = this.fileHandler.allTS();
 
                 var it = new Iterator(tsFiles);
 
@@ -857,12 +909,12 @@ var DefinitelyTyped;
                     this.run(it, it.next(), len, maxLen, callback);
                 }
             };
-            return SyntaxCheking;
+            return SyntaxChecking;
         })();
 
         var TestEval = (function () {
-            function TestEval(fielHandler, out) {
-                this.fielHandler = fielHandler;
+            function TestEval(fileHandler, out) {
+                this.fileHandler = fileHandler;
                 this.out = out;
                 this.files = [];
                 this.timer = new Timer();
@@ -908,14 +960,14 @@ var DefinitelyTyped;
 
                     for (var i = 0; i < this.getFailedFiles().length; i++) {
                         var errorFile = this.getFailedFiles()[i];
-                        this.out.printErrorFile(errorFile.formatName(this.fielHandler.path));
+                        this.out.printErrorFile(errorFile.formatName(this.fileHandler.path));
                     }
                 }
             };
 
             TestEval.prototype.run = function (it, file, len, maxLen, callback) {
                 var _this = this;
-                if (endsWith(file, '-tests.ts')) {
+                if (endsWith(file.toUpperCase(), '-TESTS.TS')) {
                     new Test(file).run(function (o) {
                         var failed = false;
 
@@ -961,7 +1013,7 @@ var DefinitelyTyped;
             TestEval.prototype.start = function (callback) {
                 this.timer.start();
 
-                var tsFiles = this.fielHandler.allTS();
+                var tsFiles = this.fileHandler.allTS();
 
                 var it = new Iterator(tsFiles);
 
@@ -980,8 +1032,8 @@ var DefinitelyTyped;
                 this.dtPath = dtPath;
                 this.typings = [];
                 this.fh = new FileHandler(dtPath, /.\.ts/g);
-                this.out = new Print('0.9.0.0', this.fh.allTypings().length, this.fh.allTS().length);
-                this.sc = new SyntaxCheking(this.fh, this.out);
+                this.out = new Print('0.9.1.1', this.fh.allTypings().length, this.fh.allTS().length);
+                this.sc = new SyntaxChecking(this.fh, this.out);
                 this.te = new TestEval(this.fh, this.out);
 
                 var tpgs = this.fh.allTypings();
@@ -1019,7 +1071,7 @@ var DefinitelyTyped;
                 timer.start();
 
                 this.out.printHeader();
-                this.out.printSyntaxCheking();
+                this.out.printSyntaxChecking();
 
                 this.sc.start(function (syntaxFailedCount, syntaxTotal) {
                     _this.out.printTypingTests();

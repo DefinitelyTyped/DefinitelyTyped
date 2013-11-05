@@ -28,7 +28,13 @@ module DefinitelyTyped {
 
 		class Tsc {
 			public static run(tsfile: string, callback: Function) {
-				Exec.exec('node ./_infrastructure/tests/typescript/tsc.js ', [tsfile], (ExecResult) => {
+				var command = 'node ./_infrastructure/tests/typescript/tsc.js --module commonjs ';
+				if (IO.fileExists(tsfile + '.tscparams')) {
+					command += '@' + tsfile + '.tscparams';
+				} else {
+					command += '--noImplicitAny';
+				}
+				Exec.exec(command, [tsfile], (ExecResult) => {
 				    callback(ExecResult);
 				});
 			}
@@ -107,7 +113,7 @@ module DefinitelyTyped {
 					return;
 						
 				return <string><any> (day_diff == 0 && (
-						diff < 60 && (diff + " secconds") ||
+						diff < 60 && (diff + " seconds") ||
 						diff < 120 && "1 minute" ||
 						diff < 3600 && Math.floor( diff / 60 ) + " minutes" ||
 						diff < 7200 && "1 hour" ||
@@ -141,15 +147,15 @@ module DefinitelyTyped {
 
 			public printHeader() {
 				this.out('=============================================================================\n');
-				this.out('                    \33[36m\33[1mDefinitelyTyped test runner 0.2.0\33[0m\n');
+				this.out('                    \33[36m\33[1mDefinitelyTyped test runner 0.3.0\33[0m\n');
 				this.out('=============================================================================\n');
 				this.out(' \33[36m\33[1mTypescript version:\33[0m ' + this.version + '\n');
 				this.out(' \33[36m\33[1mTypings           :\33[0m ' + this.typings + '\n');
 				this.out(' \33[36m\33[1mTypeScript files  :\33[0m ' + this.tsFiles + '\n');
 			}
 
-			public printSyntaxCheking() {
-				this.out('============================ \33[34m\33[1mSyntax cheking\33[0m =================================\n');
+			public printSyntaxChecking() {
+				this.out('============================ \33[34m\33[1mSyntax checking\33[0m ================================\n');
 			}
 
 			public printTypingTests() {
@@ -235,7 +241,7 @@ module DefinitelyTyped {
 			}
 		}
 
-		class SyntaxCheking {
+		class SyntaxChecking {
 
 			private timer: Timer;
 
@@ -265,7 +271,7 @@ module DefinitelyTyped {
 				return list;
 			}
 
-			constructor(public fielHandler: FileHandler, public out: Print) {
+			constructor(public fileHandler: FileHandler, public out: Print) {
 				this.timer = new Timer();
 			}
 
@@ -286,13 +292,13 @@ module DefinitelyTyped {
 
 					for(var i = 0; i < this.getFailedFiles().length; i++) {
 						var errorFile = this.getFailedFiles()[i];
-						this.out.printErrorFile(errorFile.formatName(this.fielHandler.path));
+						this.out.printErrorFile(errorFile.formatName(this.fileHandler.path));
 					}
 				}
 			}
 
-			private run(it, file, len, maxLen, callback: Function) {
-				if (!endsWith(file, '-tests.ts')) {
+            private run(it, file, len, maxLen, callback: Function) {
+                if (!endsWith(file.toUpperCase(), '-TESTS.TS') && endsWith(file.toUpperCase(), '.TS') && file.indexOf('../_infrastructure') < 0) {
 					new Test(file).run((o) => {
 						var failed = false;
 
@@ -338,7 +344,7 @@ module DefinitelyTyped {
 			public start(callback: Function) {
 				this.timer.start();
 
-				var tsFiles = this.fielHandler.allTS();
+				var tsFiles = this.fileHandler.allTS();
 
 				var it = new Iterator(tsFiles);
 
@@ -381,7 +387,7 @@ module DefinitelyTyped {
 				return list;
 			}
 
-			constructor(public fielHandler: FileHandler, public out: Print) {
+			constructor(public fileHandler: FileHandler, public out: Print) {
 				this.timer = new Timer();
 			}
 
@@ -402,13 +408,13 @@ module DefinitelyTyped {
 
 					for(var i = 0; i < this.getFailedFiles().length; i++) {
 						var errorFile = this.getFailedFiles()[i];
-						this.out.printErrorFile(errorFile.formatName(this.fielHandler.path));
+						this.out.printErrorFile(errorFile.formatName(this.fileHandler.path));
 					}
 				}
 			}
 
 			private run(it, file, len, maxLen, callback: Function) {
-				if (endsWith(file, '-tests.ts')) {
+                if (endsWith(file.toUpperCase(), '-TESTS.TS')) {
 					new Test(file).run((o) => {
 						var failed = false;
 
@@ -454,7 +460,7 @@ module DefinitelyTyped {
 			public start(callback: Function) {
 				this.timer.start();
 
-				var tsFiles = this.fielHandler.allTS();
+				var tsFiles = this.fileHandler.allTS();
 
 				var it = new Iterator(tsFiles);
 
@@ -470,7 +476,7 @@ module DefinitelyTyped {
 		export class TestRunner {
 			private fh: FileHandler;
 			private out: Print;
-			private sc: SyntaxCheking;
+			private sc: SyntaxChecking;
 			private te: TestEval;
 			private typings: Typing[] = [];
 
@@ -504,8 +510,8 @@ module DefinitelyTyped {
 
 			constructor(public dtPath: string) {
 				this.fh = new FileHandler(dtPath, /.\.ts/g);
-				this.out = new Print('0.9.0.0', this.fh.allTypings().length, this.fh.allTS().length);
-				this.sc = new SyntaxCheking(this.fh, this.out);
+				this.out = new Print('0.9.1.1', this.fh.allTypings().length, this.fh.allTS().length);
+				this.sc = new SyntaxChecking(this.fh, this.out);
 				this.te = new TestEval(this.fh, this.out);
 
 				var tpgs = this.fh.allTypings();
@@ -519,7 +525,7 @@ module DefinitelyTyped {
 				timer.start();
 
 				this.out.printHeader();
-				this.out.printSyntaxCheking();
+				this.out.printSyntaxChecking();
 
 				this.sc.start((syntaxFailedCount, syntaxTotal) => {
 					this.out.printTypingTests();

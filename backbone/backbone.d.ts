@@ -67,16 +67,16 @@ declare module Backbone {
     }
 
     class Events {
-        on(eventName: string, callback: (...args: any[]) => void , context?: any): any;
-        off(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
+        on(eventName: any, callback?: Function, context?: any): any;
+        off(eventName?: string, callback?: Function, context?: any): any;
         trigger(eventName: string, ...args: any[]): any;
-        bind(eventName: string, callback: (...args: any[]) => void , context?: any): any;
-        unbind(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
+        bind(eventName: string, callback: Function, context?: any): any;
+        unbind(eventName?: string, callback?: Function, context?: any): any;
 
-        once(events: string, callback: (...args: any[]) => void , context?: any): any;
-        listenTo(object: any, events: string, callback: (...args: any[]) => void ): any;
-        listenToOnce(object: any, events: string, callback: (...args: any[]) => void ): any;
-        stopListening(object?: any, events?: string, callback?: (...args: any[]) => void ): any;
+        once(events: string, callback: Function, context?: any): any;
+        listenTo(object: any, events: string, callback: Function): any;
+        listenToOnce(object: any, events: string, callback: Function): any;
+        stopListening(object?: any, events?: string, callback?: Function): any;
     }
 
     class ModelBase extends Events {
@@ -86,7 +86,11 @@ declare module Backbone {
         sync(...arg: any[]): JQueryXHR;
     }
 
-    class Model extends ModelBase {
+    interface OptionalDefaults {
+        defaults?(): any;
+    }
+
+    class Model extends ModelBase implements OptionalDefaults {
 
         static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
@@ -111,7 +115,6 @@ declare module Backbone {
         changedAttributes(attributes?: any): any[];
         clear(options?: Silenceable);
         clone(): Model;
-        defaults(): any;
         destroy(options?: ModelDestroyOptions);
         escape(attribute: string);
         has(attribute: string): boolean;
@@ -151,9 +154,8 @@ declare module Backbone {
 
         fetch(options?: CollectionFetchOptions): JQueryXHR;
 
-        comparator(element: Model): number;
-        comparator(element: Model): string;
-        comparator(compare: Model, to?: Model): number;
+        comparator(element: Model): any;
+        comparator(compare: Model, to?: Model): any;
 
         add(model: Model, options?: AddOptions);
         add(models: Model[], options?: AddOptions);
@@ -236,15 +238,17 @@ declare module Backbone {
         zip(...model: Model[]): Model[];
     }
 
-    class Router extends Events {
+    interface OptionalRoutes {
+        routes?(): any;
+    }
+
+    class Router extends Events implements OptionalRoutes {
 
         static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
-        routes: any;
-
         constructor(options?: RouterOptions);
         initialize(options?: RouterOptions);
-        route(route: string, name: string, callback?: (...parameter: any[]) => void );
+        route(route: string, name: string, callback?: Function);
         navigate(fragment: string, options?: NavigateOptions);
         navigate(fragment: string, trigger?: boolean);
 
@@ -265,13 +269,13 @@ declare module Backbone {
         getHash(window?: Window): string;
         getFragment(fragment?: string, forcePushState?: boolean): string;
         stop(): void;
-        route(route: string, callback: (...args: any[]) => void );
+        route(route: string, callback: Function);
         checkUrl(e?: any): void;
         loadUrl(fragmentOverride: string): boolean;
         navigate(fragment: string, options?: any);
         started: boolean;
 
-        _updateHash(location: Location, fragment: string, replace: bool);
+        _updateHash(location: Location, fragment: string, replace: boolean);
     }
 
     interface ViewOptions {
@@ -284,7 +288,11 @@ declare module Backbone {
         attributes?: any[];
     }
 
-    class View extends Events {
+    interface OptionalEvents {
+        events?(): any;
+    }
+
+    class View extends Events implements OptionalEvents {
 
         static extend(properties: any, classProperties?: any): any;  // do not use, prefer TypeScript's extend functionality
 
@@ -295,11 +303,12 @@ declare module Backbone {
         collection: Collection;
         make(tagName: string, attrs?, opts?): View;
         setElement(element: HTMLElement, delegate?: boolean);
+        setElement(element: JQuery, delegate?: boolean);
         id: string;
         cid: string;
         className: string;
         tagName: string;
-        events: any;
+        options: any;
 
         el: any;
         $el: JQuery;
@@ -330,4 +339,3 @@ declare module Backbone {
 
     function setDomLibrary(jQueryNew);
 }
-

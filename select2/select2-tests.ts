@@ -71,6 +71,27 @@ $("#e6").select2({
     formatSelection: movieFormatSelection,
     dropdownCssClass: "bigdrop"
 });
+$("#e6").select2({
+    placeholder: "Search for a movie",
+    minimumInputLength: 1,
+    ajax: {
+        url: () => { return "http://api.rottentomatoes.com/api/public/v1.0/movies.json"; },
+        dataType: 'jsonp',
+        data: function (term, page) {
+            return {
+                q: term,
+                page_limit: 10,
+                apikey: "ju6z9mjyajq2djue3gbvv26t"
+            };
+        },
+        results: function (data, page) {
+            return { results: data.movies };
+        }
+    },
+    formatResult: movieFormatResult,
+    formatSelection: movieFormatSelection,
+    dropdownCssClass: "bigdrop"
+});
 $("#e7").select2({
     placeholder: "Search for a movie",
     minimumInputLength: 3,
@@ -162,3 +183,15 @@ $("#e17_2").select2({
 });
 $("#e18,#e18_2").select2();
 alert("Selected value is: " + $("#e8").select2("val")); $("#e8").select2("val", { id: "CA", text: "Califoria" });
+
+$("#e8").select2("val");
+$("#e8").select2("val", "CA");
+$("#e8").select2("data");
+$("#e8").select2("data", { id: "CA", text: "Califoria" });
+$("#e8").select2("destroy");
+$("#e8").select2("open");
+$("#e8").select2("enable", false);
+$("#e8").select2("readonly", false);
+$("#e8").select2('container');
+$("#e8").select2('onSortStart');
+$("#e8").select2('onSortEnd');

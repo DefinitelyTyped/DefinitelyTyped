@@ -3,6 +3,8 @@
 // Definitions by: Damiano Gambarotto <http://github.com/damianog>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../jquery/jquery.d.ts" />
+
 interface HighchartsPosition {
     align?: string;
     verticalAlign?: string;
@@ -173,6 +175,9 @@ interface HighchartsColorOrGradient {
         cx: number; cy: number; r: number;
     };
     stops?: any[][];
+    
+    brighten?(amount: number): HighchartsColorOrGradient;
+    get?(type: string): string;
 }
 
 interface HighchartsBoolOrShadow {
@@ -926,7 +931,7 @@ interface HighchartsTooltipOptions {
     borderColor?: string;
     borderRadius?: number;
     borderWidth?: number;
-    crosshairs?: any; // bool | [bool,bool] | CrosshairObject | [CrosshairObject,CrosshairObject]
+    crosshairs?: any; // boolean | [boolean,bool] | CrosshairObject | [CrosshairObject,CrosshairObject]
     enabled?: boolean;
     footerFormat?: string;
     formatter?: () => any;
@@ -1046,10 +1051,14 @@ interface HighchartsRenderer {
 interface HighchartsStatic {
     Chart: HighchartsChart;
     Renderer: HighchartsRenderer;
+    Color(color: HighchartsColorOrGradient): HighchartsColorOrGradient;
 
     dateFormat(format: string, time?: number, capitalize?: boolean): string;
     numberFormat(value: number, decimals?: number, decimalPoint?: string, thousandsSep?: string): string;
-    setOptions(options: HighchartsOptions): any;
+    setOptions(options: HighchartsOptions): HighchartsOptions;
+    getOptions(): HighchartsOptions;
+    
+    map(array: Array, any): Array;
 }
 declare var Highcharts: HighchartsStatic;
 
@@ -1105,4 +1114,14 @@ interface HighchartsSeriesObject {
     visible: boolean;
     xAxis: HighchartsAxisObject;
     yAxis: HighchartsAxisObject;
+}
+
+interface JQuery {
+    /**
+    * Creates a new Highcharts.Chart for the current JQuery selector; usually
+    * a div selected by $('#container')
+    * @param {HighchartsOptions} options Options for this chart
+    * @return current {JQuery} selector the current JQuery selector
+    **/
+    highcharts(options: HighchartsOptions): JQuery;
 }

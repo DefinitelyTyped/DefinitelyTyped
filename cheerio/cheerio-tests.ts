@@ -1,6 +1,6 @@
 /// <reference path="cheerio.d.ts" />
 
-import cheerio = module("cheerio");
+import cheerio = require("cheerio");
 
 var $ = cheerio.load("<html></html>");
 var $el = $('selector');

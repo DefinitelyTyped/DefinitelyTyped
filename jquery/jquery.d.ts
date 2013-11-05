@@ -21,11 +21,13 @@ and limitations under the License.
 interface JQueryAjaxSettings {
     accepts?: any;
     async?: boolean;
-    beforeSend? (jqXHR: JQueryXHR, settings: JQueryAjaxSettings);
+    beforeSend? (jqXHR: JQueryXHR, settings: JQueryAjaxSettings): any;
     cache?: boolean;
-    complete? (jqXHR: JQueryXHR, textStatus: string);
+    complete? (jqXHR: JQueryXHR, textStatus: string): any;
     contents?: { [key: string]: any; };
-    contentType?: string;
+    //According to jQuery.ajax source code, ajax's option actually allows contentType to set to "false"
+    // https://github.com/borisyankov/DefinitelyTyped/issues/742
+    contentType?: any;
     context?: any;
     converters?: { [key: string]: any; };
     crossDomain?: boolean;
@@ -44,7 +46,7 @@ interface JQueryAjaxSettings {
     processData?: boolean;
     scriptCharset?: string;
     statusCode?: { [key: string]: any; };
-    success? (data: any, textStatus: string, jqXHR: JQueryXHR);
+    success? (data: any, textStatus: string, jqXHR: JQueryXHR): any;
     timeout?: number;
     traditional?: boolean;
     type?: string;
@@ -57,8 +59,8 @@ interface JQueryAjaxSettings {
 /*
     Interface for the jqXHR object
 */
-interface JQueryXHR extends XMLHttpRequest, JQueryPromise {
-    overrideMimeType(mimeType: string);
+interface JQueryXHR extends XMLHttpRequest, JQueryPromise<any> {
+    overrideMimeType(mimeType: string): any;
     abort(statusText?: string): void;
 }
 
@@ -79,32 +81,60 @@ interface JQueryCallback {
 }
 
 /*
+    Allows jQuery Promises to interop with non-jQuery promises
+*/
+interface JQueryGenericPromise<T> {
+    then<U>(onFulfill: (value: T) => U, onReject?: (reason: any) => U): JQueryGenericPromise<U>;
+    then<U>(onFulfill: (value: T) => JQueryGenericPromise<U>, onReject?: (reason: any) => U): JQueryGenericPromise<U>;
+    then<U>(onFulfill: (value: T) => U, onReject?: (reason: any) => JQueryGenericPromise<U>): JQueryGenericPromise<U>;
+    then<U>(onFulfill: (value: T) => JQueryGenericPromise<U>, onReject?: (reason: any) => JQueryGenericPromise<U>): JQueryGenericPromise<U>;
+}
+
+/*
     Interface for the JQuery promise, part of callbacks
 */
-interface JQueryPromise {
-    always(...alwaysCallbacks: any[]): JQueryDeferred;
-    done(...doneCallbacks: any[]): JQueryDeferred;
-    fail(...failCallbacks: any[]): JQueryDeferred;
-    pipe(doneFilter?: (x: any) => any, failFilter?: (x: any) => any, progressFilter?: (x: any) => any): JQueryPromise;
-    then(doneCallbacks: any, failCallbacks?: any, progressCallbacks?: any): JQueryDeferred;
+interface JQueryPromise<T> {
+    always(...alwaysCallbacks: any[]): JQueryPromise<T>;
+    done(...doneCallbacks: any[]): JQueryPromise<T>;
+    fail(...failCallbacks: any[]): JQueryPromise<T>;
+    progress(...progressCallbacks: any[]): JQueryPromise<T>;
+
+    // Deprecated - given no typings
+    pipe(doneFilter?: (x: any) => any, failFilter?: (x: any) => any, progressFilter?: (x: any) => any): JQueryPromise<any>;
+
+    then<U>(onFulfill: (value: T) => U, onReject?: (...reasons: any[]) => U, onProgress?: (...progression: any[]) => any): JQueryPromise<U>;
+    then<U>(onFulfill: (value: T) => JQueryGenericPromise<U>, onReject?: (...reasons: any[]) => U, onProgress?: (...progression: any[]) => any): JQueryPromise<U>;
+    then<U>(onFulfill: (value: T) => U, onReject?: (...reasons: any[]) => JQueryGenericPromise<U>, onProgress?: (...progression: any[]) => any): JQueryPromise<U>;
+    then<U>(onFulfill: (value: T) => JQueryGenericPromise<U>, onReject?: (...reasons: any[]) => JQueryGenericPromise<U>, onProgress?: (...progression: any[]) => any): JQueryPromise<U>;
+
+    // Because JQuery Promises Suck
+    then<U>(onFulfill: (...values: any[]) => U, onReject?: (...reasons: any[]) => U, onProgress?: (...progression: any[]) => any): JQueryPromise<U>;
+	then<U>(onFulfill: (...values: any[]) => JQueryGenericPromise<U>, onReject?: (...reasons: any[]) => U, onProgress?: (...progression: any[]) => any): JQueryPromise<U>;
+	then<U>(onFulfill: (...values: any[]) => U, onReject?: (...reasons: any[]) => JQueryGenericPromise<U>, onProgress?: (...progression: any[]) => any): JQueryPromise<U>;
+	then<U>(onFulfill: (...values: any[]) => JQueryGenericPromise<U>, onReject?: (...reasons: any[]) => JQueryGenericPromise<U>, onProgress?: (...progression: any[]) => any): JQueryPromise<U>;
 }
 
 /*
     Interface for the JQuery deferred, part of callbacks
 */
-interface JQueryDeferred extends JQueryPromise {
-    notify(...args: any[]): JQueryDeferred;
-    notifyWith(context: any, ...args: any[]): JQueryDeferred;
+interface JQueryDeferred<T> extends JQueryPromise<T> {
+    always(...alwaysCallbacks: any[]): JQueryDeferred<T>;
+    done(...doneCallbacks: any[]): JQueryDeferred<T>;
+    fail(...failCallbacks: any[]): JQueryDeferred<T>;
+    progress(...progressCallbacks: any[]): JQueryDeferred<T>;
 
-    pipe(doneFilter?: any, failFilter?: any, progressFilter?: any): JQueryPromise;
-    progress(...progressCallbacks: any[]): JQueryDeferred;
-    reject(...args: any[]): JQueryDeferred;
-    rejectWith(context: any, ...args: any[]): JQueryDeferred;
-    resolve(...args: any[]): JQueryDeferred;
-    resolveWith(context: any, ...args: any[]): JQueryDeferred;
+    notify(...args: any[]): JQueryDeferred<T>;
+    notifyWith(context: any, ...args: any[]): JQueryDeferred<T>;
+
+    reject(...args: any[]): JQueryDeferred<T>;
+    rejectWith(context: any, ...args: any[]): JQueryDeferred<T>;
+
+    resolve(val: T): JQueryDeferred<T>;
+    resolve(...args: any[]): JQueryDeferred<T>;
+    resolveWith(context: any, ...args: any[]): JQueryDeferred<T>;
     state(): string;
-    then(doneCallbacks: any, failCallbacks?: any, progressCallbacks?: any): JQueryDeferred;
-    promise(target?: any): JQueryPromise;
+
+    promise(target?: any): JQueryPromise<T>;
 }
 
 /*
@@ -121,12 +151,12 @@ interface BaseJQueryEventObject extends Event {
     preventDefault(): any;
     relatedTarget: Element;
     result: any;
-    stopImmediatePropagation();
-    stopPropagation();
+    stopImmediatePropagation(): void;
+    stopPropagation(): void;
     pageX: number;
     pageY: number;
     which: number;
-    metaKey: any;
+    metaKey: boolean;
 }
 
 interface JQueryInputEventObject extends BaseJQueryEventObject {
@@ -209,8 +239,8 @@ interface JQueryStatic {
 
     ajaxSettings: JQueryAjaxSettings;
 
-    ajaxSetup();
-    ajaxSetup(options: JQueryAjaxSettings);
+    ajaxSetup(): void;
+    ajaxSetup(options: JQueryAjaxSettings): void;
 
     get(url: string, data?: any, success?: any, dataType?: any): JQueryXHR;
     getJSON(url: string, data?: any, success?: any): JQueryXHR;
@@ -237,11 +267,13 @@ interface JQueryStatic {
 
     noConflict(removeAll?: boolean): Object;
 
-    when(...deferreds: any[]): JQueryPromise;
+	when<T>(...deferreds: JQueryGenericPromise<T>[]): JQueryPromise<T>;
+	when<T>(...deferreds: T[]): JQueryPromise<T>;
+	when<T>(...deferreds: any[]): JQueryPromise<T>;
 
     // CSS
-    css(e: any, propertyName: string, value?: any);
-    css(e: any, propertyName: any, value?: any);
+    css(e: any, propertyName: string, value?: any): any;
+    css(e: any, propertyName: any, value?: any): any;
     cssHooks: { [key: string]: any; };
     cssNumber: any;
 
@@ -260,10 +292,7 @@ interface JQueryStatic {
     removeData(element: Element, name?: string): JQuery;
 
     // Deferred
-    Deferred: {
-        (beforeStart?: (deferred: JQueryDeferred) => any): JQueryDeferred;
-        new (beforeStart?: (deferred: JQueryDeferred) => any): JQueryDeferred;
-    };
+    Deferred<T>(beforeStart?: (deferred: JQueryDeferred<T>) => any): JQueryDeferred<T>;
 
     // Effects
     fx: { tick: () => void; interval: number; stop: () => void; speeds: { slow: number; fast: number; }; off: boolean; step: any; };
@@ -278,7 +307,7 @@ interface JQueryStatic {
     };
 
     // Internals
-    error(message: any);
+    error(message: any): JQuery;
 
     // Miscellaneous
     expr: any;
@@ -295,8 +324,8 @@ interface JQueryStatic {
     each(collection: JQuery, callback: (indexInArray: number, valueOfElement: HTMLElement) => any): any;
     each<T>(collection: T[], callback: (indexInArray: number, valueOfElement: T) => any): any;
 
-    extend(target: any, ...objs: any[]): Object;
-    extend(deep: boolean, target: any, ...objs: any[]): Object;
+    extend(target: any, ...objs: any[]): any;
+    extend(deep: boolean, target: any, ...objs: any[]): any;
 
     globalEval(code: string): any;
 
@@ -336,8 +365,8 @@ interface JQueryStatic {
     type(obj: any): string;
 
     unique(arr: any[]): any[];
-    
-    /** 
+
+    /**
     * Parses a string into an array of DOM nodes.
     *
     * @param data HTML string to be parsed
@@ -345,6 +374,9 @@ interface JQueryStatic {
     * @param keepScripts A Boolean indicating whether to include scripts passed in the HTML string
     */
     parseHTML(data: string, context?: HTMLElement, keepScripts?: boolean): any[];
+
+    Animation(elem: any, properties: any, options: any): any;
+
 }
 
 /*
@@ -382,21 +414,21 @@ interface JQuery {
     html(): string;
     html(htmlString: string): JQuery;
     html(htmlContent: (index: number, oldhtml: string) => string): JQuery;
-    html(JQuery): JQuery;
+    html(obj: JQuery): JQuery;
 
     prop(propertyName: string): any;
     prop(propertyName: string, value: any): JQuery;
     prop(map: any): JQuery;
     prop(propertyName: string, func: (index: any, oldPropertyValue: any) => any): JQuery;
 
-    removeAttr(attributeName: any): JQuery;
+    removeAttr(attributeName: string): JQuery;
 
-    removeClass(className?: any): JQuery;
+    removeClass(className?: string): JQuery;
     removeClass(func: (index: any, cls: any) => any): JQuery;
 
-    removeProp(propertyName: any): JQuery;
+    removeProp(propertyName: string): JQuery;
 
-    toggleClass(className: any, swtch?: boolean): JQuery;
+    toggleClass(className: string, swtch?: boolean): JQuery;
     toggleClass(swtch?: boolean): JQuery;
     toggleClass(func: (index: any, cls: any, swtch: any) => any): JQuery;
 
@@ -419,14 +451,20 @@ interface JQuery {
     height(func: (index: any, height: any) => any): JQuery;
 
     innerHeight(): number;
+    innerHeight(value: number): JQuery;
+
     innerWidth(): number;
+    innerWidth(value: number): JQuery;
 
     offset(): { left: number; top: number; };
     offset(coordinates: any): JQuery;
     offset(func: (index: any, coords: any) => any): JQuery;
 
     outerHeight(includeMargin?: boolean): number;
+    outerHeight(value: number, includeMargin?: boolean): JQuery;
+
     outerWidth(includeMargin?: boolean): number;
+    outerWidth(value: number, includeMargin?: boolean): JQuery;
 
     position(): { top: number; left: number; };
 
@@ -453,12 +491,12 @@ interface JQuery {
     removeData(nameOrList?: any): JQuery;
 
     // Deferred
-    promise(type?: any, target?: any): JQueryPromise;
+    promise(type?: any, target?: any): JQueryPromise<any>;
 
     // Effects
     animate(properties: any, duration?: any, complete?: Function): JQuery;
     animate(properties: any, duration?: any, easing?: string, complete?: Function): JQuery;
-    animate(properties: any, options: { duration?: any; easing?: string; complete?: Function; step?: Function; queue?: boolean; specialEasing?: any; });
+    animate(properties: any, options: { duration?: any; easing?: string; complete?: Function; step?: Function; queue?: boolean; specialEasing?: any; }): JQuery;
 
     delay(duration: number, queueName?: string): JQuery;
 
@@ -502,7 +540,7 @@ interface JQuery {
     bind(eventType: string, eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     bind(eventType: string, eventData: any, preventBubble: boolean): JQuery;
     bind(eventType: string, preventBubble: boolean): JQuery;
-    bind(...events: any[]);
+    bind(...events: any[]): JQuery;
 
     blur(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     blur(handler: (eventObject: JQueryEventObject) => any): JQuery;
@@ -576,8 +614,9 @@ interface JQuery {
     off(events?: string, selector?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     off(eventsMap: { [key: string]: any; }, selector?: any): JQuery;
 
-    on(events: string, selector?: any, data?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
-    on(events: string, selector?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    on(events: string, selector?: string, data?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    on(events: string, selector?: string, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    on(events: string, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     on(eventsMap: { [key: string]: any; }, selector?: any, data?: any): JQuery;
 
     one(events: string, selector?: any, data?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
@@ -626,15 +665,15 @@ interface JQuery {
 
     // Manipulation
     after(...content: any[]): JQuery;
-    after(func: (index: any) => any);
+    after(func: (index: any) => any): JQuery;
 
     append(...content: any[]): JQuery;
-    append(func: (index: any, html: any) => any);
+    append(func: (index: any, html: any) => any): JQuery;
 
     appendTo(target: any): JQuery;
 
     before(...content: any[]): JQuery;
-    before(func: (index: any) => any);
+    before(func: (index: any) => any): JQuery;
 
     clone(withDataAndEvents?: boolean, deepWithDataAndEvents?: boolean): JQuery;
 
@@ -736,6 +775,7 @@ interface JQuery {
 
     nextUntil(selector?: string, filter?: string): JQuery;
     nextUntil(element?: Element, filter?: string): JQuery;
+    nextUntil(obj?: JQuery, filter?: string): JQuery;
 
     not(selector: string): JQuery;
     not(func: (index: any) => any): JQuery;
@@ -750,6 +790,7 @@ interface JQuery {
 
     parentsUntil(selector?: string, filter?: string): JQuery;
     parentsUntil(element?: Element, filter?: string): JQuery;
+    parentsUntil(obj?: JQuery, filter?: string): JQuery;
 
     prev(selector?: string): JQuery;
 
@@ -757,6 +798,7 @@ interface JQuery {
 
     prevUntil(selector?: string, filter?: string): JQuery;
     prevUntil(element?: Element, filter?: string): JQuery;
+    prevUntil(obj?: JQuery, filter?: string): JQuery;
 
     siblings(selector?: string): JQuery;
 
@@ -768,6 +810,8 @@ interface JQuery {
     queue(queueName: string, newQueueOrCallback: any): JQuery;
     queue(newQueueOrCallback: any): JQuery;
 }
-
+declare module "jquery" {
+    export = $;
+}
 declare var jQuery: JQueryStatic;
 declare var $: JQueryStatic;

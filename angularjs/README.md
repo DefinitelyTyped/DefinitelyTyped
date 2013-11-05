@@ -35,6 +35,7 @@ To avoid cluttering the list of suggestions as you type in your IDE, all interfa
 * `ng.cookies` for **ngCookies**
 * `ng.mock` for **ngMock**
 * `ng.resource` for **ngResource**
+* `ng.route` for **ngRoute**
 * `ng.sanitize` for **ngSanitize**
 
 **ngMockE2E** does not define a new namespace, but rather modifies some of **ng**'s interfaces.
@@ -96,7 +97,7 @@ Since you are augmenting the $scope object, you should let the compiler know wha
         $scope.title = 'Yabadabadu';
     }
 
-## Exemples
+## Examples
 
 ### Working with $resource
 

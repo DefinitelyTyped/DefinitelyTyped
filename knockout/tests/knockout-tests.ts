@@ -260,7 +260,7 @@ interface KnockoutExtenders {
 }
 
 interface KnockoutObservableArrayFunctions {
-    filterByProperty(propName, matchValue): KnockoutComputed;
+    filterByProperty(propName, matchValue): KnockoutComputed<any>;
 }
 
 declare var validate;

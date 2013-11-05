@@ -1,8 +1,9 @@
 ﻿/// <reference path="node.d.ts" />
 
-import assert = module("assert");
-import fs = module("fs");
-import events = module("events");
+import assert = require("assert");
+import fs = require("fs");
+import events = require("events");
+import zlib = require("zlib");
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -24,11 +25,11 @@ fs.writeFile("thebible.txt",
     assert.ifError);
 
 fs.writeFile("Harry Potter",
-            "\"You be wizzing, Harry,\" jived Dumbledore.",
-            {
-                encoding: "ascii"
-            },
-            assert.ifError);
+    "\"You be wizzing, Harry,\" jived Dumbledore.",
+    {
+        encoding: "ascii"
+    },
+    assert.ifError);
 
 class Networker extends events.EventEmitter {
     constructor() {
@@ -36,4 +37,16 @@ class Networker extends events.EventEmitter {
 
         this.emit("mingling");
     }
+}
+
+////////////////////////////////////////////////////
+/// Stream tests : http://nodejs.org/api/stream.html
+////////////////////////////////////////////////////
+
+// http://nodejs.org/api/stream.html#stream_readable_pipe_destination_options
+function stream_readable_pipe_test() {
+    var r = fs.createReadStream('file.txt');
+    var z = zlib.createGzip();
+    var w = fs.createWriteStream('file.txt.gz');
+    r.pipe(z).pipe(w);
 }
