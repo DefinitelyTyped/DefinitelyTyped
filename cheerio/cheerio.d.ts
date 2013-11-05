@@ -7,7 +7,7 @@
 interface Cheerio {
     
     addClass(classNames: string): Cheerio;
-    hasClass(className: string): bool;
+    hasClass(className: string): boolean;
     removeClass(className?: any): Cheerio;
 
     attr(attributeName: string, value: any): Cheerio;
@@ -57,8 +57,8 @@ interface Cheerio {
     root() : Cheerio;
     dom(): any;
 
-    contains(container: Element, contained: Element): bool;
-    isArray(obj: any): bool;
+    contains(container: Element, contained: Element): boolean;
+    isArray(obj: any): boolean;
     inArray(value: any, array: any[], fromIndex?: number): number;
     merge(first: any[], second: any[]): any[];
 
@@ -66,9 +66,9 @@ interface Cheerio {
 }
 
 interface CheerioOptionsInterface {
-    ignoreWhitespace?: bool;
-    xmlMode?: bool;
-    lowerCaseTags?: bool;
+    ignoreWhitespace?: boolean;
+    xmlMode?: boolean;
+    lowerCaseTags?: boolean;
 }
 
 interface CheerioStatic {

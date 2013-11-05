@@ -10,7 +10,7 @@ declare class Tracker {
     _getVersion(): string;
     _getVisitorCustomVar(index: number); string;
     _setAccount(): string;
-    _setCustomVar(index: number, name: string, value: string, opt_scope?: number): bool;
+    _setCustomVar(index: number, name: string, value: string, opt_scope?: number): boolean;
     _setSampleRate(newRate: string): void;
     _setSessionCookieTimeout(cookieTimeoutMillis: number): void;
     _setSiteSpeedSampleRate(sampleRate: number): void;
@@ -33,7 +33,7 @@ interface GoogleAnalyticsTracker {
 interface GoogleAnalytics {
     type: string;
     src: string;
-    async: bool;
+    async: boolean;
 }
 
 declare var ga: GoogleAnalytics;

@@ -940,8 +940,7 @@ function test_deferred() {
     filtered.done(function (data) { });
 
     function asyncEvent() {
-        var newDeferred = new jQuery.Deferred();
-        var dfd: JQueryDeferred;
+        var dfd: JQueryDeferred<string> = $.Deferred<string>();
         setTimeout(function () {
             dfd.resolve("hurray");
         }, Math.floor(400 + Math.random() * 2000));
@@ -1125,7 +1124,9 @@ function test_error() {
             $(this).hide();
         })
         .attr("src", "missing.png");
-    jQuery.error = console.error;
+    jQuery.error = (message?: string) => {
+        console.error(message); return this;
+    }
 }
 
 function test_eventParams() {
@@ -1240,7 +1241,7 @@ function test_extend() {
 
     var defaults = { validate: false, limit: 5, name: "foo" };
     var options = { validate: true, name: "bar" };
-    var settings = $.extend({}, defaults, options);
+    var settings: typeof defaults = $.extend({}, defaults, options);
 }
 
 function test_fadeIn() {
@@ -1573,7 +1574,7 @@ function test_hasClass() {
     $("div#result3").append($("p").hasClass("selected"));
 
     $('#mydiv').hasClass('foo');
-    // typescript has a bug to (bool).toString() - I'll comment this code until typescript team solve this problem.
+    // typescript has a bug to (boolean).toString() - I'll comment this code until typescript team solve this problem.
     //$("div#result1").append($("p:first").hasClass("selected").toString());
     //$("div#result2").append($("p:last").hasClass("selected").toString());
     //$("div#result3").append($("p").hasClass("selected").toString());
@@ -1719,14 +1720,30 @@ function test_index() {
     $('div').html('Index: ' + foobar);
 }
 
-function test_innedHeight() {
+function test_innerHeight() {
     var p = $("p:first");
     $("p:last").text("innerHeight:" + p.innerHeight());
+    p.innerHeight(p.innerHeight() * 2).innerHeight();
 }
 
 function test_innerWidth() {
     var p = $("p:first");
     $("p:last").text("innerWidth:" + p.innerWidth());
+    p.innerWidth(p.innerWidth() * 2).innerWidth();
+}
+
+function test_outerHeight() {
+    var p = $("p:first");
+    $("p:last").text("outerHeight:" + p.outerHeight(true));
+    p.outerHeight(p.outerHeight() * 2).outerHeight();
+    p.outerHeight(p.outerHeight() * 2, true).outerHeight();
+}
+
+function test_outerWidth() {
+    var p = $("p:first");
+    $("p:last").text("outerWidth:" + p.outerWidth(true));
+    p.outerWidth(p.outerWidth() * 2).outerWidth();
+    p.outerWidth(p.outerWidth() * 2, true).outerWidth();
 }
 
 function test_insertAfter() {
@@ -2273,15 +2290,15 @@ function test_parseHTML() {
 		str = "hello, <b>my name is</b> jQuery.",
 		html = $.parseHTML( str ),
 		nodeNames = [];
-	 
+
 	// Append the parsed HTML
 	$log.append( html );
-	 
+
 	// Gather the parsed HTML's node names
 	$.each( html, function( i, el ) {
 		nodeNames[i] = "<li>" + el.nodeName + "</li>";
 	});
-	 
+
 	// Insert the node names
 	$log.append( "<h3>Node Names:</h3>" );
 	$( "<ol></ol>" )
@@ -2296,3 +2313,24 @@ function test_EventIsNewable() {
 function test_EventIsCallable() {
     var ev = jQuery.Event('click');
 }
+
+$.when($.ajax("/my/page.json")).then((a,b,c) => a.asdf); // is type JQueryPromise<any>
+$.when("asdf", "jkl;").done(x => x.length, x=> x.length);
+
+var f1 = $.when("fetch"); // Is type JQueryPromise<string>
+var f2: JQueryPromise<string[]> = f1.then(s => [s, s]);
+var f3: JQueryPromise<number> = f2.then(v => 3);
+
+// ISSUE: https://github.com/borisyankov/DefinitelyTyped/issues/742
+// http://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax#answer-5976031
+$.ajax({
+    url: 'php/upload.php',
+    data: {},
+    cache: false,
+    contentType: false,
+    processData: false,
+    type: 'POST',
+    success: function (data) {
+        alert(data);
+    }
+});

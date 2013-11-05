@@ -12,15 +12,15 @@ interface SwipeViewOptions {
     text?: string;
     numberOfPages?: number;
     snapThreshold?: number;
-    hastyPageFlip?: bool;
-    loop?: bool;
+    hastyPageFlip?: boolean;
+    loop?: boolean;
 }
 
 interface PageHTMLElement extends HTMLElement {
     dataset: any;
 }
 
-class SwipeView {
+declare class SwipeView {
 
     masterPages: PageHTMLElement[];
     currentMasterPage: number;

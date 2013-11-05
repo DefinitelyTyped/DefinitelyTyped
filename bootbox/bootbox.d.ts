@@ -23,21 +23,21 @@ interface BootboxHandler {
 
 interface BootboxOption {
 	header: string;
-	headerCloseButton: bool;
+	headerCloseButton: boolean;
 }
 
 interface BootboxStatic {
 	alert(message: string, callback: () => void): void;
 	alert(message: string, customButtonText?: string, callback?: () => void): void;
-	confirm(message: string, callback: (result: bool) => void): void;
-	confirm(message: string, cancelButtonText?: string, confirmButtonText?: string, callback?: (result: bool) => void): void;
+	confirm(message: string, callback: (result: boolean) => void): void;
+	confirm(message: string, cancelButtonText?: string, confirmButtonText?: string, callback?: (result: boolean) => void): void;
 	prompt(message: string, callback: (result: string) => void, defaultValue?: string): void;
 	prompt(message: string, cancelButtonText?: string, confirmButtonText?: string, callback?: (result: string) => void, defaultValue?: string): void;
 	dialog(message: string, handlers: BootboxHandler[], options?: any): void;
 	dialog(message: string, handler: BootboxHandler): void;
 	dialog(message: string): void;
 	hideAll(): void;
-	animate(shouldAnimate: bool): void;
+	animate(shouldAnimate: boolean): void;
 	backdrop(backdropValue: string): void;
 	classes(customCssClasses: string): void;
 	setIcons(icons: BootboxIcons): void;

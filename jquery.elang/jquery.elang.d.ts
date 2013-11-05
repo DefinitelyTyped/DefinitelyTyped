@@ -70,17 +70,17 @@ interface IELangDBDelegates {
 }
 
 interface IELangDBEvents {
-    select: JQueryDeferred;
-    insert: JQueryDeferred;
-    modify: JQueryDeferred;
-    remove: JQueryDeferred;
+    select: JQueryDeferred<any>;
+    insert: JQueryDeferred<any>;
+    modify: JQueryDeferred<any>;
+    remove: JQueryDeferred<any>;
 }
 
 interface IELangDB {
     cache?: any;
     delegates?: IELangDBDelegates;
     events?: IELangDBEvents;
-    isInitialized?: bool;
+    isInitialized?: boolean;
     options?: IELangDBOptions;
 
     name?: string;
@@ -141,7 +141,7 @@ interface IELangBase {
     createContent(): void;
 
     createRadioGroup(node: JQuery,
-                     isMethodAppend: bool,
+                     isMethodAppend: boolean,
                      buttonNumber: number,
                      defaultButton: number,
                      btnLabels: string[],
@@ -149,7 +149,7 @@ interface IELangBase {
                      btnTooltips?: string[]): void;
     appendAsLastChild(node: JQuery, element: JQuery): JQuery;
     getLastChild(node: JQuery): JQuery;
-    isRdoChecked(eSrc: HTMLElement, rdoId: string): bool;
+    isRdoChecked(eSrc: HTMLElement, rdoId: string): boolean;
     processCommand(command: string): JQuery;
     setOptions(options: any): void;
 }
@@ -176,14 +176,14 @@ interface IELangSearchDelegates {
 }
 
 interface IELangSearchEvents {
-    select: JQueryDeferred;
+    select: JQueryDeferred<any>;
 }
 
 interface IELangSearch extends IELangBase {
     defaults: IELangSearchDefaults;
     delegates: IELangSearchDelegates;
     events: IELangSearchEvents;
-    isSearchInExp: bool;
+    isSearchInExp: boolean;
 
     initialize(target: HTMLElement, options: any): void;
     createContent(): void;
@@ -212,10 +212,10 @@ interface IELangEditDelegates {
 }
 
 interface IELangEditEvents {
-    insert: JQueryDeferred;
-    modify: JQueryDeferred;
-    remove: JQueryDeferred;
-    select: JQueryDeferred;
+    insert: JQueryDeferred<any>;
+    modify: JQueryDeferred<any>;
+    remove: JQueryDeferred<any>;
+    select: JQueryDeferred<any>;
 }
 
 interface IELangEditDefaults extends IELangBaseDefaults {

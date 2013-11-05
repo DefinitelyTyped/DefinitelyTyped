@@ -4,12 +4,12 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface Viewporter {
-    preventPageScroll: bool;
-    forceDetection: bool;
-    ACTIVE: bool;
-    READY: bool;
+    preventPageScroll: boolean;
+    forceDetection: boolean;
+    ACTIVE: boolean;
+    READY: boolean;
 
-    isLandscape(): bool;
+    isLandscape(): boolean;
     ready(callback: EventListener): void;
     change(callback: EventListener): void;
     refresh(): void;

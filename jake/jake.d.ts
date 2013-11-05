@@ -6,25 +6,25 @@
 /// <reference path="../node/node.d.ts" />
 
 /**
- * Complets an asynchronous task, allowing Jake's execution to proceed to the next task 
+ * Complets an asynchronous task, allowing Jake's execution to proceed to the next task
  */
 declare function complete(): void;
 
 /**
- * Creates a description for a Jake Task (or FileTask, DirectoryTask). When invoked, the description that iscreated will be associated with whatever Task is created next. 
+ * Creates a description for a Jake Task (or FileTask, DirectoryTask). When invoked, the description that iscreated will be associated with whatever Task is created next.
  * @param description The description for the Task
  */
 declare function desc(description:string): void;
 
 /**
- * Creates a Jake DirectoryTask. Can be used as a prerequisite for FileTasks, or for simply ensuring a directory exists for use with a Task's action.  
+ * Creates a Jake DirectoryTask. Can be used as a prerequisite for FileTasks, or for simply ensuring a directory exists for use with a Task's action.
  * @param name The name of the DiretoryTask
  */
 declare function directory(name:string): jake.DirectoryTask;
 
 
 /**
- * Causes Jake execution to abort with an error. Allows passing an optional error code, which will be used to set the exit-code of exiting process. 
+ * Causes Jake execution to abort with an error. Allows passing an optional error code, which will be used to set the exit-code of exiting process.
  * @param err The error to thow when aborting execution. If this argument is an Error object, it will simply be thrown. If a String, it will be used as the error-message. (If it is a multi-line String, the first line will be used as the Error message, and the remaining lines will be used as the error-stack.)
  */
 declare function fail(...err:string[]): void;
@@ -32,7 +32,7 @@ declare function fail(...err:Error[]): void;
 declare function fail(...err:any[]): void;
 
 /**
- * Creates a Jake FileTask. 
+ * Creates a Jake FileTask.
  * @name name The name of the Task
  * @param prereqs Prerequisites to be run before this task
  * @param action The action to perform for this task
@@ -41,7 +41,7 @@ declare function fail(...err:any[]): void;
 declare function file(name:string, prereqs?:string[], action?:()=>void, opts?:jake.FileTaskOptions): jake.FileTask;
 
 /**
- * Creates a namespace which allows logical grouping of tasks, and prevents name-collisions with task-names. Namespaces can be nested inside of other namespaces. 
+ * Creates a namespace which allows logical grouping of tasks, and prevents name-collisions with task-names. Namespaces can be nested inside of other namespaces.
  * @param name The name of the namespace
  * @param scope The enclosing scope for the namespaced tasks
  */
@@ -51,7 +51,7 @@ declare function namespace(name:string, scope:()=>void): void;
  * @param name The name of the Task
  * @param prereqs Prerequisites to be run before this task
  * @param action The action to perform for this task
- * @param opts 
+ * @param opts
  */
 declare function task(name:string, prereqs?:string[], action?:(...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
 declare function task(name:string, action?:(...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
@@ -64,22 +64,22 @@ declare module jake{
 	////////////////////////////////////////////////////////////////////////////////////
 
 	interface UtilOptions{
-		silent?: bool;
+		silent?: boolean;
 	}
 
 	/**
 	 * The jake.mkdirP utility recursively creates a set of nested directories. It will not throw an error if any of the directories already exists.
 	 * https://github.com/substack/node-mkdirp
 	 */
-	export function mkdirP(name:string, mode?:string, f?:(er:Error, made:any)=>void): void;	 
+	export function mkdirP(name:string, mode?:string, f?:(er:Error, made:any)=>void): void;
 	export function mkdirP(name:string, f?:(er:Error, made:any)=>void): void;
 
 	/**
 	 * The jake.cpR utility does a recursive copy of a file or directory.
-	 * Note that this command can only copy files and directories; it does not perform globbing (so arguments like '*.txt' are not possible). 
+	 * Note that this command can only copy files and directories; it does not perform globbing (so arguments like '*.txt' are not possible).
 	 * @param path the file/directory to copy,
-	 * @param destination the destination. 
-	 */ 
+	 * @param destination the destination.
+	 */
 	export function cpR(path:string, destination:string, opts?:UtilOptions, callback?:()=>void): void;
 	export function cpR(path:string, destination:string, callback?:(err:Error)=>void): void;
 
@@ -103,16 +103,16 @@ declare module jake{
 		 * print to stdout, default false
 		 */
 
-		printStdout?:bool;
+		printStdout?:boolean;
 		/**
 		 * print to stderr, default false
 		 */
-		printStderr?:bool;
-		
+		printStderr?:boolean;
+
 		/**
 		 * stop execution on error, default true
 		 */
-		breakOnError?:bool;
+		breakOnError?:boolean;
 	}
 	export function exec(cmds:string[], callback?:()=>void, opts?:ExecOptions);
 
@@ -154,9 +154,9 @@ declare module jake{
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export var program: {
-		opts: { 
-			[name:string]: any; 
-			quiet: bool;
+		opts: {
+			[name:string]: any;
+			quiet: boolean;
 		};
 		taskNames: string[];
         taskArgs: string[];
@@ -174,15 +174,15 @@ declare module jake{
 		 * Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
 		 * @default false
 		 */
-		asyc?: bool;
+		asyc?: boolean;
 	}
 
 	/**
 	 * A Jake Task
-	 * 
+	 *
 	 * @event complete
 	 */
-	export class Task implements EventEmitter{
+	export class Task implements EventEmitter {
 		/**
 		 * @name name The name of the Task
 		 * @param prereqs Prerequisites to be run before this task
@@ -195,20 +195,20 @@ declare module jake{
 		 * Runs prerequisites, then this task. If the task has already been run, will not run the task again.
 		 */
 		invoke(): void;
-		
+
 		/**
 		 * Runs this task, without running any prerequisites. If the task has already been run, it will still run it again.
 		 */
 		reenable(): void;
 
-		addListener(event: string, listener: Function);
-		on(event: string, listener: Function);
-		once(event: string, listener: Function): void;
-		removeListener(event: string, listener: Function): void;
-		removeAllListener(event: string): void;
-		setMaxListeners(n: number): void;
-		listeners(event: string): { Function; }[];
-		emit(event: string, arg1?: any, arg2?: any): void;
+		addListener(event: string, listener: Function): EventEmitter;
+        on(event: string, listener: Function): EventEmitter;
+        once(event: string, listener: Function): EventEmitter;
+        removeListener(event: string, listener: Function): EventEmitter;
+        removeAllListeners(event?: string): EventEmitter;
+        setMaxListeners(n: number): void;
+        listeners(event: string): Function[];
+        emit(event: string, arg1?: any, arg2?: any): boolean;
 	}
 
 
@@ -222,10 +222,10 @@ declare module jake{
 
 	export interface FileTaskOptions{
 		/**
-		 * Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task. 
+		 * Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
 		 * @default false
 		 */
-		asyc?: bool;
+		asyc?: boolean;
 	}
 
 	export class FileTask{
@@ -239,7 +239,7 @@ declare module jake{
 	}
 
 	interface FileFilter{
-		(filename:string): bool;
+		(filename:string): boolean;
 	}
 
 	export class FileList{
@@ -259,7 +259,7 @@ declare module jake{
 		 * @param name The filename to check
          * @return Whether or not the file should be excluded
          */
-		shouldExclude(name:string): bool;
+		shouldExclude(name:string): boolean;
 
 		/**
 		 * Excludes file-patterns from the FileList. Should be called with one or more
@@ -274,7 +274,7 @@ declare module jake{
 		exclude(...file:RegExp[]): void;
 		exclude(file:FileFilter[]): void;
 		exclude(...file:FileFilter[]): void;
-		
+
 
 		/**
 		 * Populates the FileList from the include/exclude rules with a list of
@@ -306,8 +306,8 @@ declare module jake{
 		 * 	Equivalent to the '-C' command for the `tar` and `jar` commands. ("Change to this directory before adding files.")
 		 */
 		archiveChangeDir: string;
-	
-		/** 
+
+		/**
 		 * Specifies the files and directories to include in the package-archive. If unset, this will default to the main package directory -- i.e., name + version.
          */
      	archiveContentDir: string;
@@ -319,7 +319,7 @@ declare module jake{
 
         /**
          * Can be set to point the `jar` utility at a manifest file to use in a .jar archive. If unset, one will be automatically created by the `jar` utility. This path should be relative to the root of the package directory (this.packageDir above, likely 'pkg')
-         */ 
+         */
         manifestFile: string;
 
         /**
@@ -327,29 +327,29 @@ declare module jake{
          */
 		name: string;
 
-		/** 
+		/**
 		 * If set to true, uses the `jar` utility to create a .jar archive of the pagckage
 		 */
-		needJar: bool;
+		needJar: boolean;
 
 		/**
          * If set to true, uses the `tar` utility to create a gzip .tgz archive of the pagckage
          */
-        needTar: bool;
+        needTar: boolean;
 
         /**
          * If set to true, uses the `tar` utility to create a bzip2 .bz2 archive of the pagckage
          */
-		needTarBz2: bool;
+		needTarBz2: boolean;
 
 		/**
          * If set to true, uses the `zip` utility to create a .zip archive of the pagckage
 		 */
-		needZip: bool;
+		needZip: boolean;
 
 		/**
-		 * The list of files and directories to include in the package-archive		
-         */ 
+		 * The list of files and directories to include in the package-archive
+         */
         packageFiles: FileList;
 
         /**

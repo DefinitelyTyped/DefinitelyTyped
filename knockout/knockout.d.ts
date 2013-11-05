@@ -1,35 +1,29 @@
-// Type definitions for Knockout 2.2
+// Type definitions for Knockout 2.3
 // Project: http://knockoutjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-interface KnockoutSubscribableFunctions {
-    extend(source);
-    dispose(): void;
-    peek(): any;
-    valueHasMutated(): void;
-
-    valueWillMutate(): void;
+interface KnockoutSubscribableFunctions<T> {
+	notifySubscribers(valueToWrite: T, event?: string);
 }
 
-interface KnockoutComputedFunctions extends KnockoutSubscribableFunctions {
-    getDependenciesCount(): number;
-    hasWriteFunction(): boolean;
+interface KnockoutComputedFunctions<T> {
 }
 
-interface KnockoutObservableFunctions extends KnockoutSubscribableFunctions {
+interface KnockoutObservableFunctions<T> {
+	equalityComparer(a: any, b: any): boolean;
 }
 
-interface KnockoutObservableArrayFunctions<T> extends KnockoutObservableFunctions {
+interface KnockoutObservableArrayFunctions<T> {
     // General Array functions
     indexOf(searchElement: T, fromIndex?: number): number;
     slice(start: number, end?: number): T[];
     splice(start: number): T[];
     splice(start: number, deleteCount: number, ...items: T[]): T[];
-    pop();
+    pop(): T;
     push(...items: T[]): void;
-    shift();
+    shift(): T;
     unshift(...items: T[]): number;
     reverse(): T[];
     sort(): void;
@@ -48,18 +42,26 @@ interface KnockoutObservableArrayFunctions<T> extends KnockoutObservableFunction
 }
 
 interface KnockoutSubscribableStatic {
-    fn: KnockoutSubscribableFunctions;
+    fn: KnockoutSubscribableFunctions<any>;
 
-    new (): KnockoutSubscription;
+    new <T>(): KnockoutSubscribable<T>;
 }
 
-interface KnockoutSubscription extends KnockoutSubscribableFunctions {
-    subscribe(callback: (newValue: any) => void, target?:any, topic?: string): KnockoutSubscription;
-    notifySubscribers(valueToWrite, topic?: string);
+interface KnockoutSubscription {
+	dispose(): void;
+}
+
+interface KnockoutSubscribable<T> extends KnockoutSubscribableFunctions<T> {
+	(): T;
+	(value: T): void;
+
+	subscribe(callback: (newValue: T) => void, target?: any, event?: string): KnockoutSubscription;
+	extend(requestedExtenders: { [key: string]: any; }): KnockoutSubscribable<T>;
+	getSubscriptionsCount(): number;
 }
 
 interface KnockoutComputedStatic {
-    fn: KnockoutComputedFunctions;
+    fn: KnockoutComputedFunctions<any>;
 
     <T>(): KnockoutComputed<T>;
     <T>(func: () => T, context?: any, options?: any): KnockoutComputed<T>;
@@ -67,51 +69,41 @@ interface KnockoutComputedStatic {
     (options?: any): KnockoutComputed<any>;
 }
 
-interface KnockoutComputed<T> extends KnockoutComputedFunctions {
-    (): T;
-    (value: T): void;
-
-    subscribe(callback: (newValue: T) => void, target?:any, topic?: string): KnockoutSubscription;
-    notifySubscribers(valueToWrite: T, topic?: string);
+interface KnockoutComputed<T> extends KnockoutSubscribable<T>, KnockoutComputedFunctions<T> {
+	peek(): T;
+	dispose(): void;
+	isActive(): boolean;
+	getDependenciesCount(): number;
 }
 
 interface KnockoutObservableArrayStatic {
-
     fn: KnockoutObservableArrayFunctions<any>;
 
     <T>(value?: T[]): KnockoutObservableArray<T>;
 }
 
-interface KnockoutObservableArray<T> extends KnockoutObservableArrayFunctions<T> {
-    (): T[];
-    (value: T[]): void;
-
-    subscribe(callback: (newValue: T[]) => void, target?:any, topic?: string): KnockoutSubscription;
-    notifySubscribers(valueToWrite: T[], topic?: string);
+interface KnockoutObservableArray<T> extends KnockoutObservable<T[]>, KnockoutObservableArrayFunctions<T> {
 }
 
 interface KnockoutObservableStatic {
-    fn: KnockoutObservableFunctions;
+    fn: KnockoutObservableFunctions<any>;
 
     <T>(value?: T): KnockoutObservable<T>;
 }
 
-/** use as method to get/set the value */
-interface KnockoutObservableBase extends KnockoutObservableFunctions {
-    getSubscriptionsCount(): number;
-}
-
-interface KnockoutObservable<T> extends KnockoutObservableBase {
-    (): T;
-    (value: T): void;
-
-    subscribe(callback: (newValue: T) => void, target?:any, topic?: string): KnockoutSubscription;
-    notifySubscribers(valueToWrite: T, topic?: string);
+interface KnockoutObservable<T> extends KnockoutSubscribable<T>, KnockoutObservableFunctions<T> {
+	peek(): T;
+	valueHasMutated(): void;
+	valueWillMutate(): void;
 }
 
 interface KnockoutComputedDefine<T> {
-    read(): T;
-    write(T);
+	read(): T;
+	write? (value: T): void;
+	disposeWhenNodeIsRemoved?: Node;
+	disposeWhen? (): boolean;
+	owner?: any;
+	deferEvaluation?: boolean;
 }
 
 interface KnockoutBindingContext {
@@ -187,7 +179,7 @@ interface KnockoutVirtualElements {
 }
 
 interface KnockoutExtenders {
-    throttle(target: any, timeout: number): KnockoutComputed;
+    throttle(target: any, timeout: number): KnockoutComputed<any>;
     notify(target: any, notifyWhen: string): any;
 }
 
@@ -241,21 +233,37 @@ interface KnockoutUtils {
 
     fieldsIncludedWithJsonPost: any[];
 
+    arrayForEach<T>(array: T[], action: (item: T) => void): void;
+
     arrayForEach(array: any[], action: (any) => void ): void;
 
     arrayIndexOf(array: any[], item: any): number;
+
+    arrayFirst<T>(array: T[], predicate: (item: T) => boolean, predicateOwner?: any): T;
 
     arrayFirst(array: any[], predicate: (item) => boolean, predicateOwner?: any): any;
 
     arrayRemoveItem(array: any[], itemToRemove: any): void;
 
+    arrayGetDistinctValues<T>(array: T[]): T[];
+
     arrayGetDistinctValues(array: any[]): any[];
+
+    arrayMap<T, U>(array: T[], mapping: (item: T) => U): U[];
 
     arrayMap(array: any[], mapping: (item) => any): any[];
 
+    arrayFilter<T>(array: T[], predicate: (item: T) => boolean): T[];
+
     arrayFilter(array: any[], predicate: (item) => boolean): any[];
 
+    arrayPushAll<T>(array: T[], valuesToPush: T[]): T[];
+
     arrayPushAll(array: any[], valuesToPush: any[]): any[];
+
+    arrayPushAll<T>(array: KnockoutObservableArray<T>, valuesToPush: T[]): T[];
+
+    arrayPushAll(array: KnockoutObservableArray<any>, valuesToPush: any[]): any[];
 
     extend(target, source);
 
@@ -287,15 +295,15 @@ interface KnockoutUtils {
 
     triggerEvent(element: any, eventType: any): void;
 
-    unwrapObservable(value: any): any;
+    unwrapObservable<T>(value: KnockoutObservable<T>): T;
+
+    peekObservable<T>(value: KnockoutObservable<T>): T;
 
     toggleDomNodeCssClass(node: any, className: string, shouldHaveClass: boolean): void;
 
     //setTextContent(element: any, textContent: string): void; // NOT PART OF THE MINIFIED API SURFACE (ONLY IN knockout-{version}.debug.js) https://github.com/SteveSanderson/knockout/issues/670
 
     setElementName(element: any, name: string): void;
-
-    ensureSelectElementIsRenderedCorrectly(selectElement);
 
     forceRefresh(node: any): void;
 
@@ -393,12 +401,14 @@ interface KnockoutStatic {
     toJSON(viewModel: any, replacer?: Function, space?: any): string;
     toJS(viewModel: any): any;
     isObservable(instance: any): boolean;
+    isWriteableObservable(instance: any): boolean;
     isComputed(instance: any): boolean;
     dataFor(node: any): any;
     removeNode(node: Element);
     cleanNode(node: Element);
     renderTemplate(template: Function, viewModel: any, options?: any, target?: any, renderMode?: any);
     renderTemplate(template: string, viewModel: any, options?: any, target?: any, renderMode?: any);
+    unwrap(value: any): any;
 
     //////////////////////////////////
     // templateSources.js
@@ -475,6 +485,21 @@ interface KnockoutStatic {
     /////////////////////////////////
 
     bindingProvider: any;
+
+    /////////////////////////////////
+    // selectExtensions.js
+    /////////////////////////////////
+
+    selectExtensions: {
+
+        readValue(element: any);
+
+        writeValue(element: any, value: any);
+    };
+}
+
+declare module "knockout" {
+	export = ko;
 }
 
 declare var ko: KnockoutStatic;

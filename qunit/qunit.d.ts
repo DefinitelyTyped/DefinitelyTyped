@@ -30,7 +30,7 @@ interface LogCallbackObject {
 	/**
 	* The boolean result of an assertion, true means passed, false means failed.
 	*/
-	result: bool;
+	result: boolean;
 
 	/**
 	* One side of a comparision assertion. Can be undefined when ok() is used.
@@ -129,11 +129,11 @@ interface TestStartCallbackObject {
 }
 
 interface Config {
-	altertitle: bool;
-	autostart: bool;
+	altertitle: boolean;
+	autostart: boolean;
 	current: Object;
-	reorder: bool;
-	requireExpects: bool;
+	reorder: boolean;
+	requireExpects: boolean;
     testTimeout: number;
 	urlConfig: Array;
 	done: any;

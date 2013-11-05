@@ -12,7 +12,7 @@ Zepto(function ($) {
 $.camelCase('hello-there') //=> "helloThere"
 $.camelCase('helloThere')  //=> "helloThere"
 
-$.each(['a', 'b', 'c'], function (index, item): bool {
+$.each(['a', 'b', 'c'], function (index, item): boolean {
 	console.log('item %d is: %s', index, item);
 	return true;
 });
@@ -164,7 +164,7 @@ var handler = function (e: Event) {
 };
 
 // ensures that the handler will be executed in the context of `obj`:
-$(document).on('click', <(e: Event) => bool>$.proxy(handler, obj));
+$(document).on('click', <(e: Event) => boolean>$.proxy(handler, obj));
 
 elem = $('#content');
 // observe all clicks inside #content:
@@ -177,7 +177,7 @@ $(document).on('click', 'a', function (e) { return true; });
 // add a handler for a custom event
 $(document).on(
 	'mylib:change',
-	<(e: Event) => bool>function (e, from, to) {
+	<(e: Event) => boolean>function (e, from, to) {
 		console.log('change on %o with data %s, %s', e.target, from, to);
 		return true;
 	}
@@ -186,7 +186,7 @@ $(document).on(
 $(document.body).trigger('mylib:change', ['one', 'two']);
 
 $(document).on('ajaxBeforeSend',
-	<(e: Event) => bool>function (e, xhr, options) {
+	<(e: Event) => boolean>function (e, xhr, options) {
 		// This gets fired for every Ajax request performed on the page.
 		// The xhr object and $.ajax() options are available for editing.
 		// Return false to cancel this request.
