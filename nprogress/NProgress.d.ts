@@ -7,7 +7,7 @@ interface NProgressStatic {
     /**
      * Shows the progress bar and begins trickling progress.
      */
-    start();
+    start(): NProgressStatic;
 
     /**
      * Finishes loading by transitioning it to 100%, then fading out.
@@ -18,24 +18,24 @@ interface NProgressStatic {
     /**
      * Increments the progress bar with a random amount. This will never get to 100%: use it for every image load (or similar).
      */
-    inc();
+    inc(): NProgressStatic;
 
     /**
      * Removes the progress indicator.
      */
-    remove();
+    remove(): void;
 
     /**
      * Sets the progress percentage.
      * @param {number} progressPercent A number between 0.0 and 1.0 that represents the progress percentage.
      */
-    set(progressPercent: number);
+    set(progressPercent: number): NProgressStatic;
 
     /**
      * Configures the progress indicator.
      * @param {NProgressConfigureOptions} options An object containing the configuration options.
      */
-    configure(options: NProgressConfigureOptions);
+    configure(options: NProgressConfigureOptions): NProgressStatic;
 
     /**
      * Gets the NProgress version.
