@@ -1718,6 +1718,7 @@ declare module chrome.tabs {
     }
 
     interface TabRemoveInfo {
+        windowId: number;
         isWindowClosing: boolean;
     }
 
