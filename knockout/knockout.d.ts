@@ -74,6 +74,7 @@ interface KnockoutComputed<T> extends KnockoutSubscribable<T>, KnockoutComputedF
 	dispose(): void;
 	isActive(): boolean;
 	getDependenciesCount(): number;
+    extend(requestedExtenders: { [key: string]: any; }): KnockoutComputed<T>;
 }
 
 interface KnockoutObservableArrayStatic {
@@ -83,6 +84,7 @@ interface KnockoutObservableArrayStatic {
 }
 
 interface KnockoutObservableArray<T> extends KnockoutObservable<T[]>, KnockoutObservableArrayFunctions<T> {
+    extend(requestedExtenders: { [key: string]: any; }): KnockoutObservableArray<T>;
 }
 
 interface KnockoutObservableStatic {
@@ -95,6 +97,7 @@ interface KnockoutObservable<T> extends KnockoutSubscribable<T>, KnockoutObserva
 	peek(): T;
 	valueHasMutated(): void;
 	valueWillMutate(): void;
+    extend(requestedExtenders: { [key: string]: any; }): KnockoutObservable<T>;
 }
 
 interface KnockoutComputedDefine<T> {
@@ -116,6 +119,7 @@ interface KnockoutBindingContext {
 
     extend(any): any;
     createChildContext(any): any;
+    createChildContext(a: any, b: any, c: Function): any;
 }
 
 interface KnockoutBindingHandler {
@@ -233,6 +237,8 @@ interface KnockoutUtils {
 
     fieldsIncludedWithJsonPost: any[];
 
+    compareArrays<T>(a: T[], b: T[]): Array<KnockoutArrayChange<T>>;
+
     arrayForEach<T>(array: T[], action: (item: T) => void): void;
 
     arrayForEach(array: any[], action: (any) => void ): void;
@@ -326,6 +332,12 @@ interface KnockoutUtils {
     isIe6: boolean;
 
     isIe7: boolean;
+}
+
+interface KnockoutArrayChange<T> {
+    status: string;
+    value: T;
+    index: number;
 }
 
 //////////////////////////////////
