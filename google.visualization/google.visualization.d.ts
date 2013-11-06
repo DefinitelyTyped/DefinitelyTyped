@@ -27,51 +27,51 @@ declare module google {
             //setColumnLabel(columnIndex: number, label: string): void;
         }
 
-        //export interface DataTableColumnDescription {
-        //    type?: string;
-        //    label?: string;
-        //    id?: string;
-        //    role?: string;
-        //    pattern?: string;
-        //}
+        export interface DataTableColumnDescription {
+            type?: string;
+            label?: string;
+            id?: string;
+            role?: string;
+            pattern?: string;
+        }
 
-        //export interface DataObject {
-        //    cols: DataObjectColumn[];
-        //    rows: DataObjectRow[];
-        //    p: any;
-        //}
+        export interface DataObject {
+            cols: DataObjectColumn[];
+            rows: DataObjectRow[];
+            p: any;
+        }
 
-        //export interface DataObjectColumn {
-        //    type: string;
-        //    id?: string;
-        //    label?: string;
-        //    pattern?: string;
-        //    p?: any;
-        //}
+        export interface DataObjectColumn {
+            type: string;
+            id?: string;
+            label?: string;
+            pattern?: string;
+            p?: any;
+        }
 
-        //export interface DataObjectRow {
-        //    c: DataObjectCell[];
-        //    p?: any;
-        //}
+        export interface DataObjectRow {
+            c: DataObjectCell[];
+            p?: any;
+        }
 
-        //export interface DataTableCellFilter {
-        //    column: number;
-        //}
+        export interface DataTableCellFilter {
+            column: number;
+        }
 
-        //export interface DataObjectCell {
-        //    v?: any;
-        //    f?: string;
-        //    p?: any;
-        //}
+        export interface DataObjectCell {
+            v?: any;
+            f?: string;
+            p?: any;
+        }
 
-        //export interface DataTableCellValueFilter extends DataTableCellFilter {
-        //    value: any;
-        //}
+        export interface DataTableCellValueFilter extends DataTableCellFilter {
+            value: any;
+        }
 
-        //export interface DataTableCellRangeFilter extends DataTableCellFilter {
-        //    minValue?: any;
-        //    maxValue?: any;
-        //}
+        export interface DataTableCellRangeFilter extends DataTableCellFilter {
+            minValue?: any;
+            maxValue?: any;
+        }
 
         function arrayToDataTable(data: any[]): DataTable;
 
