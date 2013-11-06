@@ -12,150 +12,150 @@ declare module google {
         export class DataTable {
             constructor(data?: any, version?: any);
             addColumn(type: string, label?: string, id?: string): number;
-            addColumn(descriptionObject: DataTableColumnDescription): number;
-            addRow(cellObject: DataObjectCell): number;
+            //addColumn(descriptionObject: DataTableColumnDescription): number;
+            //addRow(cellObject: DataObjectCell): number;
             addRow(cellArray?: any[]): number;
-            addRows(count: number): number;
-            addRows(array: DataObjectCell[][]): number;
-            addRows(array: any[]): number;
-            getFilteredRows(filters: DataTableCellFilter[]): number[];
-            getFormattedValue(rowIndex: number, columnIndex: number);
-            getNumberOfColumns(): number;
-            getNumberOfRows(): number;
-            removeRow(rowIndex: number): void;
-            removeRows(rowIndex: number, numberOfRows: number): void;
-            setColumnLabel(columnIndex: number, label: string): void;
+            //addRows(count: number): number;
+            //addRows(array: DataObjectCell[][]): number;
+            //addRows(array: any[]): number;
+            //getFilteredRows(filters: DataTableCellFilter[]): number[];
+            //getFormattedValue(rowIndex: number, columnIndex: number);
+            //getNumberOfColumns(): number;
+            //getNumberOfRows(): number;
+            //removeRow(rowIndex: number): void;
+            //removeRows(rowIndex: number, numberOfRows: number): void;
+            //setColumnLabel(columnIndex: number, label: string): void;
         }
 
-        export interface DataTableColumnDescription {
-            type?: string;
-            label?: string;
-            id?: string;
-            role?: string;
-            pattern?: string;
-        }
+        //export interface DataTableColumnDescription {
+        //    type?: string;
+        //    label?: string;
+        //    id?: string;
+        //    role?: string;
+        //    pattern?: string;
+        //}
 
-        export interface DataObject {
-            cols: DataObjectColumn[];
-            rows: DataObjectRow[];
-            p: any;
-        }
+        //export interface DataObject {
+        //    cols: DataObjectColumn[];
+        //    rows: DataObjectRow[];
+        //    p: any;
+        //}
 
-        export interface DataObjectColumn {
-            type: string;
-            id?: string;
-            label?: string;
-            pattern?: string;
-            p?: any;
-        }
+        //export interface DataObjectColumn {
+        //    type: string;
+        //    id?: string;
+        //    label?: string;
+        //    pattern?: string;
+        //    p?: any;
+        //}
 
-        export interface DataObjectRow {
-            c: DataObjectCell[];
-            p?: any;
-        }
+        //export interface DataObjectRow {
+        //    c: DataObjectCell[];
+        //    p?: any;
+        //}
 
-        export interface DataTableCellFilter {
-            column: number;
-        }
+        //export interface DataTableCellFilter {
+        //    column: number;
+        //}
 
-        export interface DataObjectCell {
-            v?: any;
-            f?: string;
-            p?: any;
-        }
+        //export interface DataObjectCell {
+        //    v?: any;
+        //    f?: string;
+        //    p?: any;
+        //}
 
-        export interface DataTableCellValueFilter extends DataTableCellFilter {
-            value: any;
-        }
+        //export interface DataTableCellValueFilter extends DataTableCellFilter {
+        //    value: any;
+        //}
 
-        export interface DataTableCellRangeFilter extends DataTableCellFilter {
-            minValue?: any;
-            maxValue?: any;
-        }
+        //export interface DataTableCellRangeFilter extends DataTableCellFilter {
+        //    minValue?: any;
+        //    maxValue?: any;
+        //}
 
         function arrayToDataTable(data: any[]): DataTable;
 
         //#endregion
-        //#region DataView
+        ////#region DataView
 
-        // https://developers.google.com/chart/interactive/docs/reference#DataView
-        export class DataView {
-            constructor(data: DataTable);
-            constructor(data: DataView);
-            setColumns(columnIndexes: number[]): void;
-        }
+        //// https://developers.google.com/chart/interactive/docs/reference#DataView
+        //export class DataView {
+        //    constructor(data: DataTable);
+        //    constructor(data: DataView);
+        //    setColumns(columnIndexes: number[]): void;
+        //}
 
-        //#endregion
-        //#region GeoChart
+        ////#endregion
+        ////#region GeoChart
 
-        //https://google-developers.appspot.com/chart/interactive/docs/gallery/geochart
-        export class GeoChart {
-            constructor(element: Element);
+        ////https://google-developers.appspot.com/chart/interactive/docs/gallery/geochart
+        //export class GeoChart {
+        //    constructor(element: Element);
 
-            // https://developers.google.com/chart/interactive/docs/gallery/geochart?hl=fr&csw=1#Methods
-            draw(data: DataTable, options: GeoChartOptions): void;
-            getSelection(): GeoChartSelection[];
-            setSelection(selection: VisualizationSelectionArray[]): void;
-            clearChart(): void;
-        }
+        //    // https://developers.google.com/chart/interactive/docs/gallery/geochart?hl=fr&csw=1#Methods
+        //    draw(data: DataTable, options: GeoChartOptions): void;
+        //    getSelection(): GeoChartSelection[];
+        //    setSelection(selection: VisualizationSelectionArray[]): void;
+        //    clearChart(): void;
+        //}
 
-        // https://developers.google.com/chart/interactive/docs/gallery/geochart?hl=fr&csw=1#Configuration_Options
-        export interface GeoChartOptions {
-            backgroundColor?: any;
-            colorAxis?: GeoChartColorAxis;
-            datalessRegionColor?: string;
-            displayMode?: string;
-            enableRegionInteractivity?: boolean;
-            height?: number;
-            keepAspectRatio?: boolean;
-            legend?: GeoChartLegend;
-            region?: string;
-            magnifyingGlass?: GeoChartMagnifyingGlass;
-            markerOpacity?: number;
-            resolution?: string;
-            sizeAxis?: GeoChartAxis;
-            tooltip?: GeoChartTooltip;
-            width?: number;
-        }
-        export interface GeoChartAxis {
-            maxSize?: number;
-            maxValue?: number;
-            minSize?: number;
-            minValue?: number;
-        }
-        export interface GeoChartColorAxis extends GeoChartAxis {
-            minValue?: number;
-            maxValue?: number;
-            values?: number[];
-            colors?: string[];
-        }
-        export interface GeoChartTextStyle {
-            color?: string;
-            fontName?: string;
-            fontSize?: number;
-            bold?: boolean;
-            italic?: boolean;
-        }
-        export interface GeoChartLegend {
-            numberFormat?: string;
-            textStyle?: GeoChartTextStyle;
-        }
-        export interface GeoChartMagnifyingGlass {
-            enable?: boolean;
-            zoomFactor?: number;
-        }
-        export interface GeoChartTooltip {
-            textStyle?: GeoChartTextStyle;
-            trigger?: string;
-        }
-        export interface GeoChartRegionClickEvent {
-            region: string;
-        }
-        export interface GeoChartSelection {
-            row: number;
-        }
+        //// https://developers.google.com/chart/interactive/docs/gallery/geochart?hl=fr&csw=1#Configuration_Options
+        //export interface GeoChartOptions {
+        //    backgroundColor?: any;
+        //    colorAxis?: GeoChartColorAxis;
+        //    datalessRegionColor?: string;
+        //    displayMode?: string;
+        //    enableRegionInteractivity?: boolean;
+        //    height?: number;
+        //    keepAspectRatio?: boolean;
+        //    legend?: GeoChartLegend;
+        //    region?: string;
+        //    magnifyingGlass?: GeoChartMagnifyingGlass;
+        //    markerOpacity?: number;
+        //    resolution?: string;
+        //    sizeAxis?: GeoChartAxis;
+        //    tooltip?: GeoChartTooltip;
+        //    width?: number;
+        //}
+        //export interface GeoChartAxis {
+        //    maxSize?: number;
+        //    maxValue?: number;
+        //    minSize?: number;
+        //    minValue?: number;
+        //}
+        //export interface GeoChartColorAxis extends GeoChartAxis {
+        //    minValue?: number;
+        //    maxValue?: number;
+        //    values?: number[];
+        //    colors?: string[];
+        //}
+        //export interface GeoChartTextStyle {
+        //    color?: string;
+        //    fontName?: string;
+        //    fontSize?: number;
+        //    bold?: boolean;
+        //    italic?: boolean;
+        //}
+        //export interface GeoChartLegend {
+        //    numberFormat?: string;
+        //    textStyle?: GeoChartTextStyle;
+        //}
+        //export interface GeoChartMagnifyingGlass {
+        //    enable?: boolean;
+        //    zoomFactor?: number;
+        //}
+        //export interface GeoChartTooltip {
+        //    textStyle?: GeoChartTextStyle;
+        //    trigger?: string;
+        //}
+        //export interface GeoChartRegionClickEvent {
+        //    region: string;
+        //}
+        //export interface GeoChartSelection {
+        //    row: number;
+        //}
 
-        //#endregion
+        ////#endregion
         ////#region Common
 
         //export interface ChartArea {
@@ -250,10 +250,10 @@ declare module google {
         //    getYLocation(position: number, axisIndex?: number): number;
         //}
 
-        export interface VisualizationSelectionArray {
-            column?: number;
-            row?: number;
-        }
+        //export interface VisualizationSelectionArray {
+        //    column?: number;
+        //    row?: number;
+        //}
 
         ////#endregion
         ////#region ColumnChart
@@ -354,16 +354,16 @@ declare module google {
         //}
 
         ////#endregion
-        //#region Events
+        ////#region Events
 
-        module events {
-            function addListener(visualization: any, eventName: string, callback: Function): any;
-            function addListener(visualization: any, eventName: string, callback: (...args: any[]) => void): any;
-            function removeListener(listener: any): void;
-            function removeAllListeners(visualization: any): void;
-            function trigger(visualization: any, eventName: string, args?: any): void;
-        }
+        //module events {
+        //    function addListener(visualization: any, eventName: string, callback: Function): any;
+        //    function addListener(visualization: any, eventName: string, callback: (...args: any[]) => void): any;
+        //    function removeListener(listener: any): void;
+        //    function removeAllListeners(visualization: any): void;
+        //    function trigger(visualization: any, eventName: string, args?: any): void;
+        //}
 
-        //#endregion
+        ////#endregion
     }
 }
