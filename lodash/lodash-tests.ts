@@ -80,46 +80,46 @@ Dog.prototype.bark = function() {
   console.log('Woof, woof!');
 };
 
-var result;
+var result : any;
 
 /*************
  * Chaining *
  *************/
-result = <LoDash.LoDashWrapper<string>>_('test');
-result = <LoDash.LoDashWrapper<number>>_(1);
-result = <LoDash.LoDashWrapper<boolean>>_(true);
-result = <LoDash.LoDashArrayWrapper<string>>_(['test1', 'test2']);
-result = <LoDash.LoDashObjectWrapper<LoDash.Dictionary<string>>>_({'key1': 'test1', 'key2': 'test2'});
+result = <_.LoDashWrapper<string>>_('test');
+result = <_.LoDashWrapper<number>>_(1);
+result = <_.LoDashWrapper<boolean>>_(true);
+result = <_.LoDashArrayWrapper<string>>_(['test1', 'test2']);
+result = <_.LoDashObjectWrapper<_.Dictionary<string>>>_({'key1': 'test1', 'key2': 'test2'});
 
-result = <LoDash.LoDashWrapper<string>>_.chain('test');
-result = <LoDash.LoDashWrapper<string>>_('test').chain();
-result = <LoDash.LoDashWrapper<number>>_.chain(1);
-result = <LoDash.LoDashWrapper<number>>_(1).chain();
-result = <LoDash.LoDashWrapper<boolean>>_.chain(true);
-result = <LoDash.LoDashWrapper<boolean>>_(true).chain();
-result = <LoDash.LoDashArrayWrapper<string>>_.chain(['test1', 'test2']);
-result = <LoDash.LoDashArrayWrapper<string>>_(['test1', 'test2']).chain();
-result = <LoDash.LoDashObjectWrapper<LoDash.Dictionary<string>>>_.chain({'key1': 'test1', 'key2': 'test2'});
-result = <LoDash.LoDashObjectWrapper<LoDash.Dictionary<string>>>_({'key1': 'test1', 'key2': 'test2'}).chain();
+result = <_.LoDashWrapper<string>>_.chain('test');
+result = <_.LoDashWrapper<string>>_('test').chain();
+result = <_.LoDashWrapper<number>>_.chain(1);
+result = <_.LoDashWrapper<number>>_(1).chain();
+result = <_.LoDashWrapper<boolean>>_.chain(true);
+result = <_.LoDashWrapper<boolean>>_(true).chain();
+result = <_.LoDashArrayWrapper<string>>_.chain(['test1', 'test2']);
+result = <_.LoDashArrayWrapper<string>>_(['test1', 'test2']).chain();
+result = <_.LoDashObjectWrapper<_.Dictionary<string>>>_.chain({'key1': 'test1', 'key2': 'test2'});
+result = <_.LoDashObjectWrapper<_.Dictionary<string>>>_({'key1': 'test1', 'key2': 'test2'}).chain();
 
 //Wrapped array shortcut methods
-result = <LoDash.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).concat(5, 6);
-result = <LoDash.LoDashWrapper<string>>_([1, 2, 3, 4]).join(',');
-result = <LoDash.LoDashWrapper<number>>_([1, 2, 3, 4]).pop();
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).concat(5, 6);
+result = <_.LoDashWrapper<string>>_([1, 2, 3, 4]).join(',');
+result = <_.LoDashWrapper<number>>_([1, 2, 3, 4]).pop();
 _([1, 2, 3, 4]).push(5, 6, 7);
-result = <LoDash.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).reverse();
-result = <LoDash.LoDashWrapper<number>>_([1, 2, 3, 4]).shift();
-result = <LoDash.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).slice(1, 2);
-result = <LoDash.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).slice(2);
-result = <LoDash.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).sort((a, b) => 1);
-result = <LoDash.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).splice(1);
-result = <LoDash.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).splice(1, 2, 5, 6);
-result = <LoDash.LoDashWrapper<number>>_([1, 2, 3, 4]).unshift(5, 6);
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).reverse();
+result = <_.LoDashWrapper<number>>_([1, 2, 3, 4]).shift();
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).slice(1, 2);
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).slice(2);
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).sort((a, b) => 1);
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).splice(1);
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).splice(1, 2, 5, 6);
+result = <_.LoDashWrapper<number>>_([1, 2, 3, 4]).unshift(5, 6);
 
 result = <number[]>_.tap([1, 2, 3, 4], function(array) { console.log(array); });
-result = <LoDash.LoDashWrapper<string>>_('test').tap(function(value) { console.log(value); });
-result = <LoDash.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).tap(function(array) { console.log(array); });
-result = <LoDash.LoDashObjectWrapper<LoDash.Dictionary<string>>>_({'key1': 'test1', 'key2': 'test2'}).tap(function(array) { console.log(array); });
+result = <_.LoDashWrapper<string>>_('test').tap(function(value) { console.log(value); });
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).tap(function(array) { console.log(array); });
+result = <_.LoDashObjectWrapper<_.Dictionary<string>>>_({'key1': 'test1', 'key2': 'test2'}).tap(function(array) { console.log(array); });
 
 result = <string>_('test').toString();
 result = <string>_([1, 2, 3]).toString();
@@ -127,44 +127,38 @@ result = <string>_({'key1': 'test1', 'key2': 'test2'}).toString();
 
 result = <string>_('test').valueOf();
 result = <number[]>_([1, 2, 3]).valueOf();
-result = <LoDash.Dictionary<string>>_({'key1': 'test1', 'key2': 'test2'}).valueOf();
+result = <_.Dictionary<string>>_({'key1': 'test1', 'key2': 'test2'}).valueOf();
 
 result = <string>_('test').value();
 result = <number[]>_([1, 2, 3]).value();
-result = <LoDash.Dictionary<string>>_({'key1': 'test1', 'key2': 'test2'}).value();
+result = <_.Dictionary<string>>_({'key1': 'test1', 'key2': 'test2'}).value();
 
 // /*************
 //  * Arrays *
 //  *************/
 result = <any[]>_.compact([0, 1, false, 2, '', 3]);
-	result = <LoDash.LoDashArrayWrapper<any>>_([0, 1, false, 2, '', 3]).compact();
+	result = <_.LoDashArrayWrapper<any>>_([0, 1, false, 2, '', 3]).compact();
 
 result = <number[]>_.difference([1, 2, 3, 4, 5], [5, 2, 10]);
-	result = <LoDash.LoDashArrayWrapper<number>>_([1, 2, 3, 4, 5]).difference([5, 2, 10]);
+	result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4, 5]).difference([5, 2, 10]);
 
 result = <number[]>_.rest([1, 2, 3]);
 result = <number[]>_.rest([1, 2, 3], 2);
-result = <number[]>_.rest([1, 2, 3], function(num) {
-  return num < 3;
-});
+result = <number[]>_.rest([1, 2, 3], (num) => num < 3)
 result = <IFoodOrganic[]>_.rest(foodsOrganic, 'test');
-result = <IFoodType[]>_.rest(foodsType, { 'test': 'value' });
+result = <IFoodType[]>_.rest(foodsType, { 'type': 'value' });
 
-	result = <number[]>_.drop([1, 2, 3]);
-	result = <number[]>_.drop([1, 2, 3], 2);
-	result = <number[]>_.drop([1, 2, 3], function(num) {
-	  return num < 3;
-	});
-	result = <IFoodOrganic[]>_.drop(foodsOrganic, 'test');
-	result = <IFoodType[]>_.drop(foodsType, { 'test': 'value' });
+result = <number[]>_.drop([1, 2, 3]);
+result = <number[]>_.drop([1, 2, 3], 2);
+result = <number[]>_.drop([1, 2, 3], (num) => num < 3)
+result = <IFoodOrganic[]>_.drop(foodsOrganic, 'test');
+result = <IFoodType[]>_.drop(foodsType, { 'type': 'value' });
 
-	result = <number[]>_.tail([1, 2, 3]);
-	result = <number[]>_.tail([1, 2, 3], 2);
-	result = <number[]>_.tail([1, 2, 3], function(num) {
-	  return num < 3;
-	});
-	result = <IFoodOrganic[]>_.tail(foodsOrganic, 'test');
-	result = <IFoodType[]>_.tail(foodsType, { 'test': 'value' });
+result = <number[]>_.tail([1, 2, 3])
+result = <number[]>_.tail([1, 2, 3], 2)
+result = <number[]>_.tail([1, 2, 3], (num) => num < 3)
+result = <IFoodOrganic[]>_.tail(foodsOrganic, 'test')
+result = <IFoodType[]> _.tail(foodsType, { 'type': 'value' })
 
 result = <number>_.findIndex(['apple', 'banana', 'beet'], function(f) {
   return /^b/.test(f);
@@ -196,19 +190,18 @@ result = <IFoodType[]>_.first(foodsType, { 'type': 'fruit' });
 
 	result = <number>_.take([1, 2, 3]);
 	result = <number[]>_.take([1, 2, 3], 2);
-	result = <number[]>_.take([1, 2, 3], function(num) {
-	  return num < 3;
-	});
+    result = <number[]>_.take([1, 2, 3], (num) => num < 3);
 	result = <IFoodOrganic[]>_.take(foodsOrganic, 'organic');
 	result = <IFoodType[]>_.take(foodsType, { 'type': 'fruit' });
 
 result = <number[]>_.flatten([1, [2], [3, [[4]]]]);
 result = <any[]>_.flatten([1, [2], [3, [[4]]]], true);
+var result: any
 result = <string[]>_.flatten(stoogesQuotes, 'quotes');
 
-	result = <LoDash.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten();
-	result = <LoDash.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten(true);
-	result = <LoDash.LoDashArrayWrapper<string>>_(stoogesQuotes).flatten('quotes');
+	result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten();
+	result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten(true);
+	result = <_.LoDashArrayWrapper<string>>_(stoogesQuotes).flatten('quotes');
 
 result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2);
 result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2, 3);
@@ -303,13 +296,13 @@ result = <boolean>_.contains('curly', 'ur');
 	result = <boolean>_.include({ 'name': 'moe', 'age': 40 }, 'moe');
 	result = <boolean>_.include('curly', 'ur');
 
-result = <LoDash.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function(num) { return Math.floor(num); });
-result = <LoDash.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function(num) { return this.floor(num); }, Math);
-result = <LoDash.Dictionary<number>>_.countBy(['one', 'two', 'three'], 'length');
+result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function(num) { return Math.floor(num); });
+result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function(num) { return this.floor(num); }, Math);
+result = <_.Dictionary<number>>_.countBy(['one', 'two', 'three'], 'length');
 
-	result = <LoDash.LoDashObjectWrapper<LoDash.Dictionary<number>>>_([4.3, 6.1, 6.4]).countBy(function(num) { return Math.floor(num); });
-	result = <LoDash.LoDashObjectWrapper<LoDash.Dictionary<number>>>_([4.3, 6.1, 6.4]).countBy(function(num) { return this.floor(num); }, Math);
-	result = <LoDash.LoDashObjectWrapper<LoDash.Dictionary<number>>>_(['one', 'two', 'three']).countBy('length');
+	result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_([4.3, 6.1, 6.4]).countBy(function(num) { return Math.floor(num); });
+	result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_([4.3, 6.1, 6.4]).countBy(function(num) { return this.floor(num); }, Math);
+	result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_(['one', 'two', 'three']).countBy('length');
 
 result = <boolean>_.every([true, 1, null, 'yes'], Boolean);
 result = <boolean>_.every(stoogesAges, 'age');
@@ -360,30 +353,30 @@ result = <IFoodCombined>_.findLast(foodsCombined, { 'type': 'vegetable' });
 result = <IFoodCombined>_.findLast(foodsCombined, 'organic');
 
 result = <number[]>_.forEach([1, 2, 3], function(num) { console.log(num); });
-result = <LoDash.Dictionary<number>>_.forEach({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { console.log(num); });
+result = <_.Dictionary<number>>_.forEach({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { console.log(num); });
 
 	result = <number[]>_.each([1, 2, 3], function(num) { console.log(num); });
-	result = <LoDash.Dictionary<number>>_.each({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { console.log(num); });
+	result = <_.Dictionary<number>>_.each({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { console.log(num); });
 
-	result = <LoDash.LoDashArrayWrapper<number>>_([1, 2, 3]).forEach(function(num) { console.log(num); });
-	result = <LoDash.LoDashObjectWrapper<LoDash.Dictionary<number>>>_({ 'one': 1, 'two': 2, 'three': 3 }).forEach(function(num) { console.log(num); });	
+	result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).forEach(function(num) { console.log(num); });
+	result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_({ 'one': 1, 'two': 2, 'three': 3 }).forEach(function(num) { console.log(num); });	
 
-		result = <LoDash.LoDashArrayWrapper<number>>_([1, 2, 3]).each(function(num) { console.log(num); });
-		result = <LoDash.LoDashObjectWrapper<LoDash.Dictionary<number>>>_({ 'one': 1, 'two': 2, 'three': 3 }).each(function(num) { console.log(num); });	
+		result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).each(function(num) { console.log(num); });
+		result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_({ 'one': 1, 'two': 2, 'three': 3 }).each(function(num) { console.log(num); });	
 
 result = <number[]>_.forEachRight([1, 2, 3], function(num) { console.log(num); });
-result = <LoDash.Dictionary<number>>_.forEachRight({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { console.log(num); });
+result = <_.Dictionary<number>>_.forEachRight({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { console.log(num); });
 
 	result = <number[]>_.eachRight([1, 2, 3], function(num) { console.log(num); });
-	result = <LoDash.Dictionary<number>>_.eachRight({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { console.log(num); });
+	result = <_.Dictionary<number>>_.eachRight({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { console.log(num); });
 
-result = <LoDash.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function(num) { return Math.floor(num); });
-result = <LoDash.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function(num) { return this.floor(num); }, Math);
-result = <LoDash.Dictionary<string[]>>_.groupBy(['one', 'two', 'three'], 'length');
+result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function(num) { return Math.floor(num); });
+result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function(num) { return this.floor(num); }, Math);
+result = <_.Dictionary<string[]>>_.groupBy(['one', 'two', 'three'], 'length');
 
-result = <LoDash.Dictionary<IKey>>_.indexBy(keys, 'dir');
-result = <LoDash.Dictionary<IKey>>_.indexBy(keys, function(key) { return String.fromCharCode(key.code); });
-result = <LoDash.Dictionary<IKey>>_.indexBy(keys, function(key) { this.fromCharCode(key.code); }, String);
+result = <_.Dictionary<IKey>>_.indexBy(keys, 'dir');
+result = <_.Dictionary<IKey>>_.indexBy(keys, function(key) { return String.fromCharCode(key.code); });
+result = <_.Dictionary<IKey>>_.indexBy(keys, function(key) { this.fromCharCode(key.code); }, String);
 
 result = <any[]>_.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
 result = <any[]>_.invoke([123, 456], String.prototype.split, '');
@@ -537,19 +530,19 @@ var greet = function(formatted) {
 };
 
 result = <Function>_.compose(greet, format);
-result = <LoDash.LoDashObjectWrapper<Function>>_(greet).compose(format);
+result = <_.LoDashObjectWrapper<Function>>_(greet).compose(format);
 
 var createCallbackObj = { name: 'Joe' };
 result = <() => any>_.createCallback('name');
 result = <() => boolean>_.createCallback(createCallbackObj);
-result = <LoDash.LoDashObjectWrapper<() => any>>_('name').createCallback();
-result = <LoDash.LoDashObjectWrapper<() => boolean>>_(createCallbackObj).createCallback();
+result = <_.LoDashObjectWrapper<() => any>>_('name').createCallback();
+result = <_.LoDashObjectWrapper<() => boolean>>_(createCallbackObj).createCallback();
 
 result = <Function>_.curry(function(a, b, c) {
   	console.log(a + b + c);
 });
 
-result = <LoDash.LoDashObjectWrapper<Function>>_(function(a, b, c) {
+result = <_.LoDashObjectWrapper<Function>>_(function(a, b, c) {
   	console.log(a + b + c);
 }).curry();
 
@@ -565,23 +558,23 @@ source.addEventListener('message', <Function>_.debounce(function() {}, 250, {
   'maxWait': 1000
 }), false);
 
-result = <LoDash.LoDashObjectWrapper<Function>>_(function() {}).debounce(150);
+result = <_.LoDashObjectWrapper<Function>>_(function() {}).debounce(150);
 
-jQuery('#postbox').on('click', <LoDash.LoDashObjectWrapper<Function>>_(function() {}).debounce(300, {
+jQuery('#postbox').on('click', <_.LoDashObjectWrapper<Function>>_(function() {}).debounce(300, {
   'leading': true,
   'trailing': false
 }));
 
-source.addEventListener('message', <LoDash.LoDashObjectWrapper<Function>>_(function() {}).debounce(250, {
+source.addEventListener('message', <_.LoDashObjectWrapper<Function>>_(function() {}).debounce(250, {
   'maxWait': 1000
 }), false);
 
 result = <number>_.defer(function() { console.log('deferred'); });
-result = <LoDash.LoDashWrapper<number>>_(function() { console.log('deferred'); }).defer();
+result = <_.LoDashWrapper<number>>_(function() { console.log('deferred'); }).defer();
 
 var log = _.bind(console.log, console);
 result = <number>_.delay(log, 1000, 'logged later');
-result = <LoDash.LoDashWrapper<number>>_(log).delay(1000, 'logged later');
+result = <_.LoDashWrapper<number>>_(log).delay(1000, 'logged later');
 
 var fibonacci = <Function>_.memoize(function(n) {
   return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
@@ -636,8 +629,8 @@ result = <any>_.assign({ 'name': 'moe' }, { 'age': 40 }, function(a, b) {
   return typeof a == 'undefined' ? b : a;
 });
 
-result = <LoDash.LoDashObjectWrapper<any>>_({ 'name': 'moe' }).assign({ 'age': 40 });
-result = <LoDash.LoDashObjectWrapper<any>>_({ 'name': 'moe' }).assign({ 'age': 40 }, function(a, b) {
+result = <_.LoDashObjectWrapper<any>>_({ 'name': 'moe' }).assign({ 'age': 40 });
+result = <_.LoDashObjectWrapper<any>>_({ 'name': 'moe' }).assign({ 'age': 40 }, function(a, b) {
   return typeof a == 'undefined' ? b : a;
 });
 
@@ -646,8 +639,8 @@ result = <LoDash.LoDashObjectWrapper<any>>_({ 'name': 'moe' }).assign({ 'age': 4
 	  return typeof a == 'undefined' ? b : a;
 	});
 
-	result = <LoDash.LoDashObjectWrapper<any>>_({ 'name': 'moe' }).extend({ 'age': 40 });
-	result = <LoDash.LoDashObjectWrapper<any>>_({ 'name': 'moe' }).extend({ 'age': 40 }, function(a, b) {
+	result = <_.LoDashObjectWrapper<any>>_({ 'name': 'moe' }).extend({ 'age': 40 });
+	result = <_.LoDashObjectWrapper<any>>_({ 'name': 'moe' }).extend({ 'age': 40 }, function(a, b) {
 	  return typeof a == 'undefined' ? b : a;
 	});
 
@@ -861,7 +854,7 @@ result = <any>_.result(object, 'stuff');
 var tempObject = {};
 result = <typeof _>_.runInContext(tempObject);
 
-result = <LoDash.TemplateExecutor>_.template('hello <%= name %>');
+result = <_.TemplateExecutor>_.template('hello <%= name %>');
 result = <string>_.template('<b><%- value %></b>', { 'value': '<script>' });
 
 var listTemplate = '<% _.forEach(people, function(name) { %><li><%- name %></li><% }); %>';
@@ -871,10 +864,10 @@ result = <string>_.template('<% print("hello " + name); %>!', { 'name': 'larry' 
 
 var listTemplate = '<% $.each(people, function(name) { %><li><%- name %></li><% }); %>';
 result = <string>_.template(listTemplate, { 'people': ['moe', 'larry'] }, { 'imports': { '$': jQuery } });
-result = <LoDash.TemplateExecutor>_.template('hello <%= name %>', null, { 'sourceURL': '/basic/greeting.jst' });
+result = <_.TemplateExecutor>_.template('hello <%= name %>', null, { 'sourceURL': '/basic/greeting.jst' });
 
-result = <LoDash.TemplateExecutor>_.template('hi <%= data.name %>!', null, { 'variable': 'data' });
-result = <string>(<LoDash.TemplateExecutor>result).source;
+result = <_.TemplateExecutor>_.template('hi <%= data.name %>!', null, { 'variable': 'data' });
+result = <string>(<_.TemplateExecutor>result).source;
 
 function Mage() {
 	this.castSpell = (n:number) => n;
@@ -895,5 +888,5 @@ result = <string>_.uniqueId();
 ***********/
 
 result = <string>_.VERSION;
-result = <LoDash.Support>_.support;
-result = <LoDash.TemplateSettings>_.templateSettings;
+result = <_.Support>_.support;
+result = <_.TemplateSettings>_.templateSettings;
