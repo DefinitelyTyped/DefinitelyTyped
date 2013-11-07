@@ -72,7 +72,7 @@ declare module jquery.flot {
     }
 
     interface seriesOptions {
-        color?: number;
+        color?: any;            // color or number
         label?: string;
         lines?: linesOptions;
         bars?: barsOptions;
