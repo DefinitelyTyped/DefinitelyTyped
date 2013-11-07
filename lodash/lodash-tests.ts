@@ -377,6 +377,12 @@ result = <LoDash.Dictionary<number>>_.forEachRight({ 'one': 1, 'two': 2, 'three'
 	result = <number[]>_.eachRight([1, 2, 3], function(num) { console.log(num); });
 	result = <LoDash.Dictionary<number>>_.eachRight({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { console.log(num); });
 
+	result = <LoDash.LoDashArrayWrapper<number>>_([1, 2, 3]).forEachRight(function(num) { console.log(num); });
+	result = <LoDash.LoDashObjectWrapper<LoDash.Dictionary<number>>>_({ 'one': 1, 'two': 2, 'three': 3 }).forEachRight(function(num) { console.log(num); });
+
+		result = <LoDash.LoDashArrayWrapper<number>>_([1, 2, 3]).eachRight(function(num) { console.log(num); });
+		result = <LoDash.LoDashObjectWrapper<LoDash.Dictionary<number>>>_({ 'one': 1, 'two': 2, 'three': 3 }).eachRight(function(num) { console.log(num); });
+
 result = <LoDash.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function(num) { return Math.floor(num); });
 result = <LoDash.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function(num) { return this.floor(num); }, Math);
 result = <LoDash.Dictionary<string[]>>_.groupBy(['one', 'two', 'three'], 'length');
