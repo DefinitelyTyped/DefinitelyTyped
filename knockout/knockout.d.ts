@@ -123,7 +123,7 @@ interface KnockoutBindingContext {
     $parentContext?: KnockoutBindingContext;
 
     extend(properties: any): any;
-    createChildContext(dataItemOrAccessor: any, dataItemAlias: any, extendCallback?: Function): any;
+    createChildContext(dataItemOrAccessor: any, dataItemAlias?: any, extendCallback?: Function): any;
 }
 
 interface KnockoutBindingHandler {
