@@ -1589,7 +1589,7 @@ declare module LoDash {
 			thisArg?: any): List<T>;
 
 		/**
-		* @see _.each
+		* @see _.forEachRight
 		**/
 		forEachRight<T extends {}>(
 			object: Dictionary<T>,
@@ -1597,7 +1597,7 @@ declare module LoDash {
 			thisArg?: any): Dictionary<T>;
 
 			/**
-			* @see _.each
+			* @see _.forEachRight
 			**/
 			eachRight<T>(
 				collection: List<T>,
@@ -1605,7 +1605,7 @@ declare module LoDash {
 				thisArg?: any): List<T>;
 
 			/**
-			* @see _.each
+			* @see _.forEachRight
 			* @param object The object to iterate over
 			* @param callback The function called per iteration.
 			* @param thisArg The this binding of callback.
@@ -1614,6 +1614,41 @@ declare module LoDash {
 				object: Dictionary<T>,
 				callback: ObjectIterator<T, void>,
 				thisArg?: any): Dictionary<T>;
+	}
+
+	interface LoDashArrayWrapper<T> {
+		/**
+		* @see _.forEachRight
+		**/
+		forEachRight<T>(
+			callback: ListIterator<T, void >,
+			thisArg?: any): LoDashArrayWrapper<List<T>>;
+
+			/**
+			* @see _.forEachRight
+			**/
+			eachRight<T>(
+				callback: ListIterator<T, void >,
+				thisArg?: any): LoDashArrayWrapper<List<T>>;
+	}
+
+	interface LoDashObjectWrapper<T> {
+		/**
+		* @see _.forEachRight
+		**/
+		forEachRight<T extends {}>(
+			callback: ObjectIterator<T, void >,
+			thisArg?: any): LoDashObjectWrapper<Dictionary<T>>;
+
+			/**
+			* @see _.forEachRight
+			* @param object The object to iterate over
+			* @param callback The function called per iteration.
+			* @param thisArg The this binding of callback.
+			**/
+			eachRight<T extends {}>(
+				callback: ObjectIterator<T, void>,
+				thisArg?: any): LoDashObjectWrapper<Dictionary<T>>;
 	}
 
 	//_.groupBy
