@@ -1,5 +1,4 @@
 /// <reference path="../backbone/backbone.d.ts" />
-/// <reference path="../underscore/underscore.d.ts" />
 /// <reference path="backbone-relational.d.ts" />
 
 class House extends Backbone.RelationalModel {

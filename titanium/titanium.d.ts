@@ -670,7 +670,7 @@ declare module Ti {
 			setWidth (width: number) : void;
 			setWidth (width: string) : void;
 			setZIndex (zIndex: number) : void;
-			show (...args: Array<any>) : void;
+            show: Function;
 			startLayout () : void;
 			toImage (callback?: (...args : any[]) => any, honorScaleFactor?: boolean) : Ti.Blob;
 			updateLayout (params: Dictionary<Object>) : void;

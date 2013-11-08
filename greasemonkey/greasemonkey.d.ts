@@ -183,6 +183,7 @@ interface GMXMLHttpRequestResponse {
     readyState: number;
     responseHeaders: string;
     responseText: string;
+    responseXML?: Document;
     status: number;
     statusText: string;
     context: any;

@@ -23,11 +23,12 @@ OTHER DEALINGS IN THE SOFTWARE.
 */
 
 interface PDFPromise<T> {
-	isResolved(): boolean;
-	isRejected(): boolean;
-	resolve(value: T): void;
-	reject(reason: string): void;
-	then<T>(onResolve: (promise: T) => void, onReject?: (reason: string) => void): PDFPromise<T>;
+    isResolved(): boolean;
+    isRejected(): boolean;
+    resolve(value: T): void;
+    reject(reason: string): void;
+    then(onResolve: (promise: T) => void, onReject?: (reason: string) => void): PDFPromise<T>;
+    then<U>(onResolve: (promise: U) => void, onReject?: (reason: string) => void): PDFPromise<U>;
 }
 
 interface PDFTreeNode {
@@ -276,48 +277,48 @@ interface PDFObjects {
 }
 
 interface PDFJSStatic {
-	
-	/**
-	* The maximum allowed image size in total pixels e.g. width * height.  Images above this value will not be drawn.  Use -1 for no limit.
-	**/
-	maxImageSize: number;
-	
-	/**
-	* By default fonts are converted to OpenType fonts and loaded via font face rules.  If disabled, the font will be rendered using a built in font renderer that constructs the glyphs with primitive path commands.
-	**/
-	disableFontFace: boolean;
 
-	/**
-	* This is the main entry point for loading a PDF and interacting with it.
-	* NOTE: If a URL is used to fetch the PDF data a standard XMLHttpRequest(XHR)
-	* is used, which means it must follow the same origin rules that any XHR does
-	* e.g. No corss domain requests without CORS.
-	* @param source
-	* @param pdfDataRangeTransport Used if you want to manually server range requests for data in the PDF.  @ee viewer.js for an example of pdfDataRangeTransport's interface.
-	* @param passwordCallback Used to request a password if wrong or no password was provided.  The callback receives two parameters: function that needs to be called with new password and the reason.
-	* @param progressCallback Progress callback.
-	* @return A promise that is resolved with PDFDocumentProxy object.
-	**/
-	getDocument(
-		source: string,
-		pdfDataRangeTransport?,
-		passwordCallback?: (fn: (password: string) => void, reason: string) => string,
-		progressCallback?: (progressData: PDFProgressData) => void)
-		: PDFPromise<PDFDocumentProxy>;
+    /**
+    * The maximum allowed image size in total pixels e.g. width * height.  Images above this value will not be drawn.  Use -1 for no limit.
+    **/
+    maxImageSize: number;
 
-	getDocument(
-		source: Uint8Array,
-		pdfDataRangeTransport?,
-		passwordCallback?: (fn: (password: string) => void, reason: string) => string,
-		progressCallback?: (progressData: PDFProgressData) => void)
-		: PDFPromise<PDFDocumentProxy>;
+    /**
+    * By default fonts are converted to OpenType fonts and loaded via font face rules.  If disabled, the font will be rendered using a built in font renderer that constructs the glyphs with primitive path commands.
+    **/
+    disableFontFace: boolean;
 
-	getDocument(
-		source: PDFSource,
-		pdfDataRangeTransport?,
-		passwordCallback?: (fn: (password: string) => void, reason: string) => string,
-		progressCallback?: (progressData: PDFProgressData) => void)
-		: PDFPromise<PDFDocumentProxy>;
+    /**
+    * This is the main entry point for loading a PDF and interacting with it.
+    * NOTE: If a URL is used to fetch the PDF data a standard XMLHttpRequest(XHR)
+    * is used, which means it must follow the same origin rules that any XHR does
+    * e.g. No corss domain requests without CORS.
+    * @param source
+    * @param pdfDataRangeTransport Used if you want to manually server range requests for data in the PDF.  @ee viewer.js for an example of pdfDataRangeTransport's interface.
+    * @param passwordCallback Used to request a password if wrong or no password was provided.  The callback receives two parameters: function that needs to be called with new password and the reason.
+    * @param progressCallback Progress callback.
+    * @return A promise that is resolved with PDFDocumentProxy object.
+    **/
+    getDocument(
+        source: string,
+        pdfDataRangeTransport?,
+        passwordCallback?: (fn: (password: string) => void, reason: string) => string,
+        progressCallback?: (progressData: PDFProgressData) => void)
+        : PDFPromise<PDFDocumentProxy>;
+
+    getDocument(
+        source: Uint8Array,
+        pdfDataRangeTransport?,
+        passwordCallback?: (fn: (password: string) => void, reason: string) => string,
+        progressCallback?: (progressData: PDFProgressData) => void)
+        : PDFPromise<PDFDocumentProxy>;
+
+    getDocument(
+        source: PDFSource,
+        pdfDataRangeTransport?,
+        passwordCallback?: (fn: (password: string) => void, reason: string) => string,
+        progressCallback?: (progressData: PDFProgressData) => void)
+        : PDFPromise<PDFDocumentProxy>;
 }
 
 declare var PDFJS: PDFJSStatic;

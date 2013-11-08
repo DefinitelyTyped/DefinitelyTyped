@@ -606,7 +606,7 @@ interface GanttStatic{
 	 * @param name the event's name, case-insensitive
 	 * @param handler the handler function
 	*/
-	attachEvent(name: string, handler: (...args: any[])=>any): any;
+	attachEvent(name: string, handler: Function): any;
 
 	/**
 	 * calls an inner event

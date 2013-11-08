@@ -502,9 +502,9 @@ declare module D3 {
         functor<T>(value: T): (p : any) => T;
 
         map(object?: any): Map;
-        set(array?: Array<any>): Set;
+        set(array?: any[]): Set;
         dispatch(...types: Array<string>): Dispatch;
-        rebind(target: any, source: any, ...names: Array<any>): any;
+        rebind(target: any, source: any, ...names: any[]): any;
         requote(str: string): string;
         timer: {
             (funct: () => boolean, delay?: number, mark?: number): void;
@@ -779,8 +779,8 @@ declare module D3 {
         set<T>(key: string, value: T): T;
         remove(key: string): boolean;
         keys(): Array<string>;
-        values(): Array<any>;
-        entries(): Array<any>;
+        values(): any[];
+        entries(): any[];
         forEach(func: (key: string, value: any) => void ): void;
     }
 
@@ -788,7 +788,7 @@ declare module D3 {
         has(value: any): boolean;
         Add(value: any): any;
         remove(value: any): boolean;
-        values(): Array<any>;
+        values(): any[];
         forEach(func: (value: any) => void ): void;
     }
 
@@ -1270,7 +1270,7 @@ declare module D3 {
         }
 
         export interface HistogramLayout {
-            (values: Array<any>, index?: number): Array<Bin>;
+            (values: any[], index?: number): Array<Bin>;
             value: {
                 (): (value: any) => any;
                 (accessor: (value: any) => any): HistogramLayout
@@ -1281,8 +1281,8 @@ declare module D3 {
                 (range: Array<number>): HistogramLayout;
             }
             bins: {
-                (): (range: Array<any>, index: number) => Array<number>;
-                (bins: (range: Array<any>, index: number) => Array<number>): HistogramLayout;
+                (): (range: any[], index: number) => Array<number>;
+                (bins: (range: any[], index: number) => Array<number>): HistogramLayout;
                 (bins: number): HistogramLayout;
                 (bins: Array<number>): HistogramLayout;
             }
@@ -2974,11 +2974,11 @@ declare module D3 {
         }
 
         export interface Circle {
-            (...args: Array<any>): GeoJSON;
+            (...args: any[]): GeoJSON;
             origin: {
                 (): Array<number>;
                 (origin: Array<number>): Circle;
-                (origin: (...args: Array<any>) => Array<number>): Circle;
+                (origin: (...args: any[]) => Array<number>): Circle;
             }
             angle: {
                 (): number;

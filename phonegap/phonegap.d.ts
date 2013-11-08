@@ -54,7 +54,7 @@ interface CameraOptions {
     mediaType?: number;
     correctOrientation?: boolean;
     saveToPhotoAlbum?: boolean;
-    popoverOptions?: number;
+    popoverOptions?: CameraPopoverOptions;
 }
 
 interface CameraPictureSourceTypeObject {

@@ -10,7 +10,7 @@ interface SerializeData {
 var options: GridsterOptions = {
 	min_cols: 5,
 	autogenerate_sytesheet: true,
-	serialize_params: ($w: JQuery, wgd: GridsterCoords) => {
+	serialize_params: <SerializeData>($w: JQuery, wgd: GridsterCoords) => {
 		return {
 			x: wgd.row,
 			y: wgd.col

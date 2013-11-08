@@ -62,16 +62,16 @@ declare module breeze.core {
     export function extend(target: Object, source: Object): Object;
     export function propEq(propertyName: string, value: any): (obj: Object) => boolean;
     export function pluck(propertyName: string): (obj: Object) => any;
-    export function arrayEquals(a1:Array, a2:Array, equalsFn: (e1:any, e2:any) => boolean): boolean;
-    export function arrayFirst(a1:Array, predicate: (e:any) => boolean): any;
-    export function arrayIndexOf(a1: Array, predicate: (e: any) => boolean): number;
-    export function arrayRemoveItem(array: Array, item: any, shouldRemoveMultiple: boolean): any;
-    export function arrayRemoveItem(array: Array, predicate: (e: any) => boolean, shouldRemoveMultiple: boolean): any;
-    export function arrayZip(a1: Array, a2: Array, callback: (e1:any, e2:any) => any): Array;
+    export function arrayEquals<T>(a1: T[], a2: T[], equalsFn: (e1: T, e2: T) => boolean): boolean;
+    export function arrayFirst<T>(a1:T[], predicate: (e:T) => boolean): T;
+    export function arrayIndexOf<T>(a1: T[], predicate: (e: T) => boolean): number;
+    export function arrayRemoveItem<T>(array: T[], item: T, shouldRemoveMultiple: boolean): T;
+    export function arrayRemoveItem<T>(array: T[], predicate: (e: T) => boolean, shouldRemoveMultiple: boolean): T;
+    export function arrayZip<T, U, TResult>(a1: T[], a2: U[], callback: (e1: T, e2: U) => TResult): TResult[];
 
     export function requireLib(libnames: string, errMessage: string): Object;
     export function using(obj: Object, property: string, tempValue: any, fn: () => any): any;
-    export function memoize(fn:(...any) => any): any;
+    export function memoize(Function): any;
     export function getUuid(): string;
     export function durationToSeconds(duration: string): number;
 

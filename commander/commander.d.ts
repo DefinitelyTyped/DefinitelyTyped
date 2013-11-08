@@ -22,7 +22,7 @@ declare module "commander" {
         /**
         * Register callback fn for the command.
         */
-        action(fn: (...args: any[]) => any): Command;
+        action(fn: Function): Command;
 
         /**
         * Define option with flags, description and optional coercion function and default value.

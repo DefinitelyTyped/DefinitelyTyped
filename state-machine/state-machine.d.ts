@@ -23,7 +23,7 @@ interface StateMachineConfig {
     initial?: any; // string or { state: 'foo', event: 'setup', defer: true|false }
     events?: StateMachineEventDef[];
     callbacks?: {
-        [s: string]: (event?: string, from?: string, to?: string, ...args: any[]) => any;
+        [s: string]: Function;
     };
     target?: StateMachine;
     error?: StateMachineErrorCallback;

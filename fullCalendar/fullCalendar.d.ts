@@ -69,10 +69,10 @@ declare module FullCalendar {
         dayNamesShort?: Array<string>;
         weekNumberTitle?: number;
 
-        dayClick?: (date: Date, allDay: boolean, jsEvent: Event, view: View) => void;
-        eventClick?: (event: EventObject, jsEvent: Event, view: View) => any; // return type boolean or void
-        eventMouseover?: (event: EventObject, jsEvent: Event, view: View) => void;
-        eventMouseout?: (event: EventObject, jsEvent: Event, view: View) => void;
+        dayClick?: (date: Date, allDay: boolean, jsEvent: MouseEvent, view: View) => void;
+        eventClick?: (event: EventObject, jsEvent: MouseEvent, view: View) => any; // return type boolean or void
+        eventMouseover?: (event: EventObject, jsEvent: MouseEvent, view: View) => void;
+        eventMouseout?: (event: EventObject, jsEvent: MouseEvent, view: View) => void;
 
         selectable?: any; // Boolean/ViewOptionHash
         selectHelper?: any; // Boolean/Function
@@ -195,14 +195,6 @@ declare module FullCalendar {
 
 interface JQuery {
     /**
-    * Create calendar object
-    */
-    fullCalendar(options: FullCalendar.Options): JQuery;
-    /**
-    * Generic method function
-    */
-    fullCalendar(method: string, arg1: any, arg2: any, arg3: any): void;
-    /**
     * Get/Set option value
     */
     fullCalendar(method: 'option', option: string, value?: any): void;
@@ -306,6 +298,14 @@ interface JQuery {
     * Rerenders all events on the calendar.
     */
     fullCalendar(method: 'rerenderEvents'): void;
+    /**
+    * Generic method function
+    */
+    fullCalendar(method: string, arg1: any, arg2: any, arg3: any): void;
+    /**
+    * Create calendar object
+    */
+    fullCalendar(options: FullCalendar.Options): JQuery;
 }
 
 interface JQueryStatic {

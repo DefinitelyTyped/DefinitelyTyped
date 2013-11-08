@@ -289,16 +289,16 @@ var items = [];
 // now create some items and randomly position them in the stuff container
 for (var i=0; i < 20; i++)
 {
-	var item = PIXI.Sprite.fromImage(fruits[i % fruits.length]);
-	item.position.x = Math.random() * 400 - 200;
-	item.position.y = Math.random() * 400 - 200;
+	var myItem = PIXI.Sprite.fromImage(fruits[i % fruits.length]);
+    myItem.position.x = Math.random() * 400 - 200;
+    myItem.position.y = Math.random() * 400 - 200;
 
-	item.anchor.x = 0.5;
-	item.anchor.y = 0.5;
+    myItem.anchor.x = 0.5;
+    myItem.anchor.y = 0.5;
 
-	stuffContainer.addChild(item);
+    stuffContainer.addChild(myItem);
 	console.log("_")
-	items.push(item);
+	items.push(myItem);
 };
 
 // used for spinning!

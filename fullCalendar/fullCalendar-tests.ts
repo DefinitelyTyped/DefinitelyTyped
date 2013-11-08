@@ -678,7 +678,7 @@ $('#calendar').fullCalendar({
         }
         // more events here
     ],
-    eventRender: function (event, element) {
+    eventRender: function (event:any, element:any) {
         element.qtip({
             content: event.description
         });

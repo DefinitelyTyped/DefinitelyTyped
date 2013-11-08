@@ -700,7 +700,7 @@ declare module Slick {
 	* The grid also provides two helper methods to simplify development - getSelectedRows() and setSelectedRows(rowsArray), as well as an onSelectedRowsChanged event.
 	* SlickGrid includes two pre-made selection models - Slick.CellSelectionModel and Slick.RowSelectionModel, but you can easily write a custom one.
 	**/
-	export class SelectionModel<T extends Slick.SlickData, E> {
+	export class SelectionModel<T extends SlickData, E> {
 		/**
 		* An initializer function that will be called with an instance of the grid whenever a selection model is registered with setSelectionModel. The selection model can use this to initialize its state and subscribe to grid events.
 		**/

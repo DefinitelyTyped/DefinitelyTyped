@@ -770,7 +770,7 @@ declare module Siesta {
 
             elementFromPoint(x: number, y: number, shallow?: boolean): HTMLElement;
 
-            firesAtLeastNTimes(observable: any, event: string, n: number, desc: string);
+            firesAtLeastNTimes(observable: any, event: string, n: number, desc: string): void;
 
             firesOk(options: any): void;
 

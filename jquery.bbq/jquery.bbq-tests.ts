@@ -588,7 +588,7 @@ $.elemUrlAttr({ span: 'arbitrary_attr' });
 var test_elems = 'a form link span'.split(' ');
 
 function init_url_attr( container, url ) {
-  var container = $('<div/>').hide().appendTo('body');
+  var container:any = $('<div/>').hide().appendTo('body');
   $.each( test_elems, function(i,v){
     $('<' + v + '/>')
       .attr( $.elemUrlAttr()[ v ], url )

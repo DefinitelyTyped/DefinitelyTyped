@@ -1,11 +1,11 @@
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="Q.d.ts" />
 
-import q = require('q');
+//import q = require('q');
 
 Q(8).then(x => console.log(x.toExponential()));
 
-var delay = function (delay: number) {
+var delay = function (delay: number) {    
     var d = Q.defer<void>();
     setTimeout(d.resolve, delay);
     return d.promise;

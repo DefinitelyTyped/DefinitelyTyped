@@ -5,9 +5,17 @@
 
 /// <reference path="../knockout/knockout.d.ts" />
 
+interface KnockoutDeferredTaskOptions
+{
+    distinct?: boolean;
+    object?: any;
+    args?: any[];
+}
+
 interface KnockoutDeferredTasks {
-    processImmediate(evaluator: Function, object?: any, args?: Array): any;
-    processDelayed(evaluator: Function, distinct?: boolean, options?: Array): boolean;
+    processImmediate(evaluator: Function, object?: any, args?: any[]): any;
+    processDelayed(evaluator: Function, distinct: boolean, options?: KnockoutDeferredTaskOptions): boolean;
+    processDelayed(evaluator: Function, options?: KnockoutDeferredTaskOptions): boolean;
     makeProcessedCallback(evaluator: Function): void;
 }
 
@@ -17,7 +25,7 @@ interface KnockoutStatic {
     processAllDeferredBindingUpdates(): void;
     processAllDeferredUpdates(): void;
     evaluateAsynchronously(evaluator: Function, timeout?: any): number;
-    ignoreDependencies(callback: Function, callbackTarget: any, callbackArgs?: Array);
+    ignoreDependencies(callback: Function, callbackTarget: any, callbackArgs?: any[]);
 }
 
 // Observables

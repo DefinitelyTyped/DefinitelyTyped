@@ -135,7 +135,7 @@ interface Config {
 	reorder: boolean;
 	requireExpects: boolean;
     testTimeout: number;
-	urlConfig: Array;
+	urlConfig: any[];
 	done: any;
 }
 

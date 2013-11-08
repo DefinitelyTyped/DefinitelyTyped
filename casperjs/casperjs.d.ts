@@ -28,7 +28,7 @@ interface Casper {
 	debugPage();
 	die(message: string, status?: number);
 	download(url: string, target?: string, method?: string, data?: any);
-	each(array: Array, fn: (self, link) => void);
+	each<T>(array: T[], fn: (self, item: T) => void);
 	echo(message: string, style?: string);
 	evaluate(fn: Function, ...args: any[]);
 	evaluateOrDie(fn: Function, message?: string);
@@ -127,7 +127,7 @@ interface ElementInfo {
 }
 
 interface CasperOptions {
-	clientScripts: Array;
+    clientScripts: any[];
 	exitOnError: boolean;
 	httpStatusHandlers: any;
 	logLevel: string;
@@ -144,7 +144,7 @@ interface CasperOptions {
 	onWaitTimeout: Function;
 	page: WebPage;
 	pageSettings: any;
-	remoteScripts: Array;
+    remoteScripts: any[];
 	safeLogs: boolean;
 	stepTimeout: number;
 	timeout: number;
@@ -193,7 +193,7 @@ interface Tester {
 	assertNot(subject: any, message?: string);
 	assertNotEquals(testValue: any, expected: any, message?: string);
 	assertNotVisible(selector: string, message?: string);
-	assertRaises(fn: Function, args: Array, message?: string);
+    assertRaises(fn: Function, args: any[], message?: string);
 	assertSelectorDoesntHaveText(selector: string, text: string, message?: string);
 	assertSelectorExists(selector: string, message?: string);
 	assertSelectorHasText(selector: string, text: string, message?: string);
@@ -263,5 +263,5 @@ interface Utils {
 	mergeObjects(origin: any, add: any);
 	node(name: string, attributes: any);
 	serialize(value: any);
-	unique(array: Array);
+    unique(array: any[]);
 }

@@ -53,9 +53,9 @@ declare function namespace(name:string, scope:()=>void): void;
  * @param action The action to perform for this task
  * @param opts
  */
-declare function task(name:string, prereqs?:string[], action?:(...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
-declare function task(name:string, action?:(...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
-declare function task(name:string, opts?:jake.TaskOptions, action?:(...params:any[])=>any): jake.Task;
+declare function task(name: string, prereqs?: string[], action?: Function, opts?: jake.TaskOptions): jake.Task;
+declare function task(name: string, action?: Function, opts?: jake.TaskOptions): jake.Task;
+declare function task(name: string, opts?: jake.TaskOptions, action?: Function): jake.Task;
 
 declare module jake{
 

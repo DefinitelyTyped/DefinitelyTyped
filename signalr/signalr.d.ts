@@ -74,7 +74,7 @@ interface HubProxy {
     hubName: string;
     init(connection: HubConnection, hubName: string): void;
     hasSubscriptions(): boolean;
-    on(eventName: string, callback: (...msg) => void ): HubProxy;
+    on(eventName: string, callback: Function): HubProxy;
     off(eventName: string, callback: (msg) => void ): HubProxy;
     invoke(methodName: string, ...args: any[]): JQueryDeferred<any>;
 }

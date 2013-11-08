@@ -5487,6 +5487,10 @@ declare module THREE {
         };
 
         static Utils: {
+            tangentQuadraticBezier(t: number, p0: number, p1: number, p2: number): number;
+            tangentCubicBezier(t: number, p0: number, p1: number, p2: number, p3: number): number;
+            tangentSpline(t: number, p0: number, p1: number, p2: number, p3: number): number;
+            interpolate(p0: number, p1: number, p2: number, p3: number, t: number): number;
             removeHoles(contour: Vector2[], holes: Vector2[][]): {
                 shape: Shape;
                 isolatedPts: Vector2[];

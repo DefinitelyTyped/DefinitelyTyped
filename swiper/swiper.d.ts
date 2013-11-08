@@ -90,7 +90,7 @@ interface SwiperOptions {
 
     // Slides Loader
     loader?: {
-        slides?: Array;
+        slides?: string[];
         slidesHTMLType?: string;
         surroundGroups?: number;
         logic?: string;

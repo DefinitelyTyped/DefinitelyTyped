@@ -1060,7 +1060,7 @@ interface SchedulerStatic{
 	 * @param name the event name, case-insensitive
 	 * @param handler the handler function
 	*/
-	attachEvent(name: string, handler: (...args: any[])=>any): string;
+	attachEvent(name: string, handler: Function): string;
 
 	/**
 	 * makes the scheduler reflect all data changes in the Backbone model and vice versa

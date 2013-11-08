@@ -135,7 +135,7 @@ async.waterfall([
 ], function (err, result) { });
 
 
-var q = async.queue(function (task, callback) {
+var q = async.queue<{ name: string }>(function (task, callback) {
     console.log('hello ' + task.name);
     callback();
 }, 2);
@@ -202,7 +202,7 @@ async.parallel([
     },
 ]);
 
-var call_order = [];
+var call_order: string[] = [];
 async.nextTick(function () {
     call_order.push('two');
 });

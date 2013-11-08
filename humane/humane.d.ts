@@ -33,7 +33,7 @@ interface Humane {
     log(message: string, options: HumaneOptions): Humane;
     log(message: string, callback: Function, options: HumaneOptions): Humane;
 
-    log(listOfMessages: Array): Humane;
+    log(listOfMessages: string[]): Humane;
 }
 
 declare var humane: Humane;

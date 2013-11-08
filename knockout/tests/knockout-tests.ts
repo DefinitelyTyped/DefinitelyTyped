@@ -180,8 +180,6 @@ function test_bindings() {
         init: function (element, valueAccessor) {
             var value = ko.utils.unwrapObservable(valueAccessor());
             $(element).toggle(value);
-        },
-        update: function (element, valueAccessor, allBindingsAccessor) {
         }
     };
     ko.bindingHandlers.hasFocus = {

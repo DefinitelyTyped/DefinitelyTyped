@@ -24,7 +24,7 @@ describe('i18next', function () {
             dynamicLoad: false,
             useLocalStorage: false,
             sendMissing: false,
-            resStore: false,
+            resStore: undefined,
             getAsync: true,
             returnObjectTrees: false,
             debug: true,
