@@ -169,19 +169,19 @@ module DefinitelyTyped.TestManager {
             this.out(' \33[36m\33[1mTypeScript files  :\33[0m ' + this.tsFiles + '\n');
         }
 
-        public printSyntaxChecking() {
+        public printSyntaxCheckingHeader() {
             this.out('============================ \33[34m\33[1mSyntax checking\33[0m ================================\n');
         }
 
-        public printTypingTests() {
+        public printTypingTestsHeader() {
             this.out('============================= \33[34m\33[1mTyping tests\33[0m ==================================\n');
         }
 
-        public printSuccess() {
+        public printSuccessCharacter() {
             this.out('\33[36m\33[1m.\33[0m');
         }
 
-        public printFailure() {
+        public printFailureCharacter() {
             this.out('x');
         }
 
@@ -213,7 +213,7 @@ module DefinitelyTyped.TestManager {
             this.out(' - \33[33m\33[1m' + file + '\33[0m\n');
         }
 
-        public breack() {
+        public printBreak() {
             this.out('\n');
         }
 
@@ -325,10 +325,10 @@ module DefinitelyTyped.TestManager {
                 new Test(file).run((execResult) => {                    
 
                     if (execResult.exitCode === 1) {
-                        this.out.printFailure();                        
+                        this.out.printFailureCharacter();                        
                         len++;
                     } else {
-                        this.out.printSuccess();
+                        this.out.printSuccessCharacter();
                         len++;
                     }
 
@@ -336,13 +336,13 @@ module DefinitelyTyped.TestManager {
 
                     if (len > maxLen) {
                         len = 0;
-                        this.out.breack();
+                        this.out.printBreak();
                     }
 
                     if (it.hasNext()) {
                         this.run(it, it.next(), len, maxLen, callback);
                     } else {
-                        this.out.breack();
+                        this.out.printBreak();
                         this.timer.end();
                         this.printFailedFiles();
                         this.printStats();
@@ -353,7 +353,7 @@ module DefinitelyTyped.TestManager {
             } else if (it.hasNext()) {
                 this.run(it, it.next(), len, maxLen, callback);
             } else {
-                this.out.breack();
+                this.out.printBreak();
                 this.timer.end();
                 this.printStats();
                 this.printFailedFiles();
@@ -442,10 +442,10 @@ module DefinitelyTyped.TestManager {
                 new Test(file).run((execResult) => {                    
 
                     if (execResult.exitCode === 1) {
-                        this.out.printFailure();
+                        this.out.printFailureCharacter();
                         len++;
                     } else {
-                        this.out.printSuccess();
+                        this.out.printSuccessCharacter();
                         len++;
                     }
 
@@ -453,13 +453,13 @@ module DefinitelyTyped.TestManager {
 
                     if (len > maxLen) {
                         len = 0;
-                        this.out.breack();
+                        this.out.printBreak();
                     }
 
                     if (it.hasNext()) {
                         this.run(it, it.next(), len, maxLen, callback);
                     } else {
-                        this.out.breack();
+                        this.out.printBreak();
                         this.timer.end();
                         this.printFailedFiles();
                         this.printStats();
@@ -470,7 +470,7 @@ module DefinitelyTyped.TestManager {
             } else if (it.hasNext()) {
                 this.run(it, it.next(), len, maxLen, callback);
             } else {
-                this.out.breack();
+                this.out.printBreak();
                 this.timer.end();
                 this.printFailedFiles();
                 this.printStats();
@@ -552,11 +552,11 @@ module DefinitelyTyped.TestManager {
             this.out.printHeader();
 
             // Run syntax tests
-            this.out.printSyntaxChecking();
+            this.out.printSyntaxCheckingHeader();
             this.sc.start((syntaxFailedCount, syntaxTotal) => {
 
                 // Now run typing tests
-                this.out.printTypingTests();                
+                this.out.printTypingTestsHeader();                
                 this.te.start((testFailedCount, testTotal) => {
 
                     // Get the tests without any typing and simultaneously print their names
