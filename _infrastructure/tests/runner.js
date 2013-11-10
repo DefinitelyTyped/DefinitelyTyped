@@ -552,10 +552,11 @@ else if (typeof require === "function")
 else
         return null;
 })();
-/// <reference path='src/exec.ts' />
-/// <reference path='src/io.ts' />
 var DefinitelyTyped;
 (function (DefinitelyTyped) {
+    /// <reference path='../../node/node.d.ts' />
+    /// <reference path='src/exec.ts' />
+    /// <reference path='src/io.ts' />
     (function (TestManager) {
         var path = require('path');
 
@@ -614,6 +615,10 @@ var DefinitelyTyped;
             return Typing;
         })();
 
+        /////////////////////////////////
+        // Given a document root + ts file pattern this class returns:
+        //         all the TS files OR just tests OR just definition files
+        /////////////////////////////////
         var FileHandler = (function () {
             function FileHandler(path, pattern) {
                 this.path = path;
@@ -659,6 +664,10 @@ var DefinitelyTyped;
             return FileHandler;
         })();
 
+        /////////////////////////////////
+        // Timer.start starts a timer
+        // Timer.end stops the timer and sets asString to the pretty print value
+        /////////////////////////////////
         var Timer = (function () {
             function Timer() {
                 this.time = 0;
@@ -688,6 +697,9 @@ var DefinitelyTyped;
             return Timer;
         })();
 
+        /////////////////////////////////
+        // All the common things that we pring are functions of this class
+        /////////////////////////////////
         var Print = (function () {
             function Print(version, typings, tsFiles) {
                 this.version = version;
@@ -781,11 +793,15 @@ var DefinitelyTyped;
             return Print;
         })();
 
+        /////////////////////////////
+        // Used to get printable relative path to a file
+        /////////////////////////////
         var File = (function () {
             function File(name, hasError) {
                 this.name = name;
                 this.hasError = hasError;
             }
+            // From '/complete/path/to/file' to 'specfolder/specfile.d.ts'
             File.prototype.formatName = function (baseDir) {
                 var dirName = path.dirname(this.name.substr(baseDir.length + 1)).replace('\\', '/');
                 var dir = dirName.split('/')[0];
@@ -1027,6 +1043,9 @@ var DefinitelyTyped;
             return TestEval;
         })();
 
+        /////////////////////////////////
+        // The main class to kick things off
+        /////////////////////////////////
         var TestRunner = (function () {
             function TestRunner(dtPath) {
                 this.dtPath = dtPath;
