@@ -719,19 +719,19 @@ var DefinitelyTyped;
                 this.out(' \33[36m\33[1mTypeScript files  :\33[0m ' + this.tsFiles + '\n');
             };
 
-            Print.prototype.printSyntaxChecking = function () {
+            Print.prototype.printSyntaxCheckingHeader = function () {
                 this.out('============================ \33[34m\33[1mSyntax checking\33[0m ================================\n');
             };
 
-            Print.prototype.printTypingTests = function () {
+            Print.prototype.printTypingTestsHeader = function () {
                 this.out('============================= \33[34m\33[1mTyping tests\33[0m ==================================\n');
             };
 
-            Print.prototype.printSuccess = function () {
+            Print.prototype.printSuccessCharacter = function () {
                 this.out('\33[36m\33[1m.\33[0m');
             };
 
-            Print.prototype.printFailure = function () {
+            Print.prototype.printFailureCharacter = function () {
                 this.out('x');
             };
 
@@ -763,7 +763,7 @@ var DefinitelyTyped;
                 this.out(' - \33[33m\33[1m' + file + '\33[0m\n');
             };
 
-            Print.prototype.breack = function () {
+            Print.prototype.printBreak = function () {
                 this.out('\n');
             };
 
@@ -874,10 +874,10 @@ var DefinitelyTyped;
                 if (!endsWith(file.toUpperCase(), '-TESTS.TS') && endsWith(file.toUpperCase(), '.TS') && file.indexOf('../_infrastructure') < 0) {
                     new Test(file).run(function (execResult) {
                         if (execResult.exitCode === 1) {
-                            _this.out.printFailure();
+                            _this.out.printFailureCharacter();
                             len++;
                         } else {
-                            _this.out.printSuccess();
+                            _this.out.printSuccessCharacter();
                             len++;
                         }
 
@@ -885,13 +885,13 @@ var DefinitelyTyped;
 
                         if (len > maxLen) {
                             len = 0;
-                            _this.out.breack();
+                            _this.out.printBreak();
                         }
 
                         if (it.hasNext()) {
                             _this.run(it, it.next(), len, maxLen, callback);
                         } else {
-                            _this.out.breack();
+                            _this.out.printBreak();
                             _this.timer.end();
                             _this.printFailedFiles();
                             _this.printStats();
@@ -902,7 +902,7 @@ var DefinitelyTyped;
                 } else if (it.hasNext()) {
                     this.run(it, it.next(), len, maxLen, callback);
                 } else {
-                    this.out.breack();
+                    this.out.printBreak();
                     this.timer.end();
                     this.printStats();
                     this.printFailedFiles();
@@ -989,10 +989,10 @@ var DefinitelyTyped;
                 if (endsWith(file.toUpperCase(), '-TESTS.TS')) {
                     new Test(file).run(function (execResult) {
                         if (execResult.exitCode === 1) {
-                            _this.out.printFailure();
+                            _this.out.printFailureCharacter();
                             len++;
                         } else {
-                            _this.out.printSuccess();
+                            _this.out.printSuccessCharacter();
                             len++;
                         }
 
@@ -1000,13 +1000,13 @@ var DefinitelyTyped;
 
                         if (len > maxLen) {
                             len = 0;
-                            _this.out.breack();
+                            _this.out.printBreak();
                         }
 
                         if (it.hasNext()) {
                             _this.run(it, it.next(), len, maxLen, callback);
                         } else {
-                            _this.out.breack();
+                            _this.out.printBreak();
                             _this.timer.end();
                             _this.printFailedFiles();
                             _this.printStats();
@@ -1017,7 +1017,7 @@ var DefinitelyTyped;
                 } else if (it.hasNext()) {
                     this.run(it, it.next(), len, maxLen, callback);
                 } else {
-                    this.out.breack();
+                    this.out.printBreak();
                     this.timer.end();
                     this.printFailedFiles();
                     this.printStats();
@@ -1092,10 +1092,10 @@ var DefinitelyTyped;
                 this.out.printHeader();
 
                 // Run syntax tests
-                this.out.printSyntaxChecking();
+                this.out.printSyntaxCheckingHeader();
                 this.sc.start(function (syntaxFailedCount, syntaxTotal) {
                     // Now run typing tests
-                    _this.out.printTypingTests();
+                    _this.out.printTypingTestsHeader();
                     _this.te.start(function (testFailedCount, testTotal) {
                         // Get the tests without any typing and simultaneously print their names
                         var totalTypingsWithoutTest = _this.printTypingsWithoutTest();
