@@ -692,6 +692,7 @@ declare module ng {
         valueOf(value: any): any;
     }
 
+	
     ///////////////////////////////////////////////////////////////////////////
     // SCEDelegateProvider
     // see http://docs.angularjs.org/api/ng.$sceDelegateProvider
