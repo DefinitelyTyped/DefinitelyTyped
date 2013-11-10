@@ -26,8 +26,12 @@ module DefinitelyTyped.TestManager {
         }
     }
 
+    interface TscCallback {
+        (result: ExecResult): void;
+    }
+
     class Tsc {
-        public static run(tsfile: string, callback: Function) {
+        public static run(tsfile: string, callback: TscCallback) {
             var command = 'node ./_infrastructure/tests/typescript/tsc.js --module commonjs ';
             if (IO.fileExists(tsfile + '.tscparams')) {
                 command += '@' + tsfile + '.tscparams';
@@ -43,7 +47,7 @@ module DefinitelyTyped.TestManager {
     class Test {
         constructor(public tsfile: string) { }
 
-        public run(callback: Function) {
+        public run(callback: TscCallback) {
             Tsc.run(this.tsfile, callback);
         }
     }
@@ -239,11 +243,11 @@ module DefinitelyTyped.TestManager {
     }
 
     /////////////////////////////
-    // Used to get printable relative path to a file
+    // Represents the results of a test file execution
     /////////////////////////////
     class File {
 
-        constructor(public name: string, public hasError: boolean) { }
+        constructor(public name: string, public execResult: ExecResult) { }
 
         // From '/complete/path/to/file' to 'specfolder/specfile.d.ts'
         public formatName(baseDir: string): string {
@@ -256,6 +260,10 @@ module DefinitelyTyped.TestManager {
         }
     }
 
+
+    /////////////////////////////
+    // Determine syntax errors in typings
+    /////////////////////////////
     class SyntaxChecking {
 
         private timer: Timer;
@@ -266,7 +274,7 @@ module DefinitelyTyped.TestManager {
             var list: File[] = [];
 
             for (var i = 0; i < this.files.length; i++) {
-                if (this.files[i].hasError) {
+                if (this.files[i].execResult.exitCode) {
                     list.push(this.files[i]);
                 }
             }
@@ -278,7 +286,7 @@ module DefinitelyTyped.TestManager {
             var list: File[] = [];
 
             for (var i = 0; i < this.files.length; i++) {
-                if (!this.files[i].hasError) {
+                if (!this.files[i].execResult.exitCode) {
                     list.push(this.files[i]);
                 }
             }
@@ -314,19 +322,17 @@ module DefinitelyTyped.TestManager {
 
         private run(it, file, len, maxLen, callback: Function) {
             if (!endsWith(file.toUpperCase(), '-TESTS.TS') && endsWith(file.toUpperCase(), '.TS') && file.indexOf('../_infrastructure') < 0) {
-                new Test(file).run((o) => {
-                    var failed = false;
+                new Test(file).run((execResult) => {                    
 
-                    if (o.exitCode === 1) {
-                        this.out.printFailure();
-                        failed = true;
+                    if (execResult.exitCode === 1) {
+                        this.out.printFailure();                        
                         len++;
                     } else {
                         this.out.printSuccess();
                         len++;
                     }
 
-                    this.files.push(new File(file, failed));
+                    this.files.push(new File(file, execResult));
 
                     if (len > maxLen) {
                         len = 0;
@@ -372,6 +378,9 @@ module DefinitelyTyped.TestManager {
         }
     }
 
+    /////////////////////////////
+    // Determines errors in typing tests
+    /////////////////////////////
     class TestEval {
 
         private timer: Timer;
@@ -382,7 +391,7 @@ module DefinitelyTyped.TestManager {
             var list: File[] = [];
 
             for (var i = 0; i < this.files.length; i++) {
-                if (this.files[i].hasError) {
+                if (this.files[i].execResult.exitCode) {
                     list.push(this.files[i]);
                 }
             }
@@ -394,7 +403,7 @@ module DefinitelyTyped.TestManager {
             var list: File[] = [];
 
             for (var i = 0; i < this.files.length; i++) {
-                if (!this.files[i].hasError) {
+                if (!this.files[i].execResult.exitCode) {
                     list.push(this.files[i]);
                 }
             }
@@ -430,19 +439,17 @@ module DefinitelyTyped.TestManager {
 
         private run(it, file, len, maxLen, callback: Function) {
             if (endsWith(file.toUpperCase(), '-TESTS.TS')) {
-                new Test(file).run((o) => {
-                    var failed = false;
+                new Test(file).run((execResult) => {                    
 
-                    if (o.exitCode === 1) {
+                    if (execResult.exitCode === 1) {
                         this.out.printFailure();
-                        failed = true;
                         len++;
                     } else {
                         this.out.printSuccess();
                         len++;
                     }
 
-                    this.files.push(new File(file, failed));
+                    this.files.push(new File(file, execResult));
 
                     if (len > maxLen) {
                         len = 0;
@@ -543,13 +550,19 @@ module DefinitelyTyped.TestManager {
             timer.start();
 
             this.out.printHeader();
+
+            // Run syntax tests
             this.out.printSyntaxChecking();
-
             this.sc.start((syntaxFailedCount, syntaxTotal) => {
-                this.out.printTypingTests();
-                this.te.start((testFailedCount, testTotal) => {
-                    var total = this.printTypingsWithoutTest();
 
+                // Now run typing tests
+                this.out.printTypingTests();                
+                this.te.start((testFailedCount, testTotal) => {
+
+                    // Get the tests without any typing and simultaneously print their names
+                    var totalTypingsWithoutTest = this.printTypingsWithoutTest();
+
+                    // End total timer and print final messages
                     timer.end();
 
                     this.out.printDiv();
@@ -559,7 +572,7 @@ module DefinitelyTyped.TestManager {
                     this.out.printElapsedTime(timer.asString, timer.time);
                     this.out.printSyntaxErrorCount(syntaxFailedCount, syntaxTotal);
                     this.out.printTestErrorCount(testFailedCount, testTotal);
-                    this.out.printWithoutTestCount(total, this.fh.allTypings().length);
+                    this.out.printWithoutTestCount(totalTypingsWithoutTest, this.fh.allTypings().length);
 
                     this.out.printDiv();
 

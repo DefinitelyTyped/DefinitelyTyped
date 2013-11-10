@@ -794,12 +794,12 @@ var DefinitelyTyped;
         })();
 
         /////////////////////////////
-        // Used to get printable relative path to a file
+        // Represents the results of a test file execution
         /////////////////////////////
         var File = (function () {
-            function File(name, hasError) {
+            function File(name, execResult) {
                 this.name = name;
-                this.hasError = hasError;
+                this.execResult = execResult;
             }
             // From '/complete/path/to/file' to 'specfolder/specfile.d.ts'
             File.prototype.formatName = function (baseDir) {
@@ -813,6 +813,9 @@ var DefinitelyTyped;
             return File;
         })();
 
+        /////////////////////////////
+        // Determine syntax errors in typings
+        /////////////////////////////
         var SyntaxChecking = (function () {
             function SyntaxChecking(fileHandler, out) {
                 this.fileHandler = fileHandler;
@@ -824,7 +827,7 @@ var DefinitelyTyped;
                 var list = [];
 
                 for (var i = 0; i < this.files.length; i++) {
-                    if (this.files[i].hasError) {
+                    if (this.files[i].execResult.exitCode) {
                         list.push(this.files[i]);
                     }
                 }
@@ -836,7 +839,7 @@ var DefinitelyTyped;
                 var list = [];
 
                 for (var i = 0; i < this.files.length; i++) {
-                    if (!this.files[i].hasError) {
+                    if (!this.files[i].execResult.exitCode) {
                         list.push(this.files[i]);
                     }
                 }
@@ -869,19 +872,16 @@ var DefinitelyTyped;
             SyntaxChecking.prototype.run = function (it, file, len, maxLen, callback) {
                 var _this = this;
                 if (!endsWith(file.toUpperCase(), '-TESTS.TS') && endsWith(file.toUpperCase(), '.TS') && file.indexOf('../_infrastructure') < 0) {
-                    new Test(file).run(function (o) {
-                        var failed = false;
-
-                        if (o.exitCode === 1) {
+                    new Test(file).run(function (execResult) {
+                        if (execResult.exitCode === 1) {
                             _this.out.printFailure();
-                            failed = true;
                             len++;
                         } else {
                             _this.out.printSuccess();
                             len++;
                         }
 
-                        _this.files.push(new File(file, failed));
+                        _this.files.push(new File(file, execResult));
 
                         if (len > maxLen) {
                             len = 0;
@@ -928,6 +928,9 @@ var DefinitelyTyped;
             return SyntaxChecking;
         })();
 
+        /////////////////////////////
+        // Determines errors in typing tests
+        /////////////////////////////
         var TestEval = (function () {
             function TestEval(fileHandler, out) {
                 this.fileHandler = fileHandler;
@@ -939,7 +942,7 @@ var DefinitelyTyped;
                 var list = [];
 
                 for (var i = 0; i < this.files.length; i++) {
-                    if (this.files[i].hasError) {
+                    if (this.files[i].execResult.exitCode) {
                         list.push(this.files[i]);
                     }
                 }
@@ -951,7 +954,7 @@ var DefinitelyTyped;
                 var list = [];
 
                 for (var i = 0; i < this.files.length; i++) {
-                    if (!this.files[i].hasError) {
+                    if (!this.files[i].execResult.exitCode) {
                         list.push(this.files[i]);
                     }
                 }
@@ -984,19 +987,16 @@ var DefinitelyTyped;
             TestEval.prototype.run = function (it, file, len, maxLen, callback) {
                 var _this = this;
                 if (endsWith(file.toUpperCase(), '-TESTS.TS')) {
-                    new Test(file).run(function (o) {
-                        var failed = false;
-
-                        if (o.exitCode === 1) {
+                    new Test(file).run(function (execResult) {
+                        if (execResult.exitCode === 1) {
                             _this.out.printFailure();
-                            failed = true;
                             len++;
                         } else {
                             _this.out.printSuccess();
                             len++;
                         }
 
-                        _this.files.push(new File(file, failed));
+                        _this.files.push(new File(file, execResult));
 
                         if (len > maxLen) {
                             len = 0;
@@ -1090,13 +1090,17 @@ var DefinitelyTyped;
                 timer.start();
 
                 this.out.printHeader();
-                this.out.printSyntaxChecking();
 
+                // Run syntax tests
+                this.out.printSyntaxChecking();
                 this.sc.start(function (syntaxFailedCount, syntaxTotal) {
+                    // Now run typing tests
                     _this.out.printTypingTests();
                     _this.te.start(function (testFailedCount, testTotal) {
-                        var total = _this.printTypingsWithoutTest();
+                        // Get the tests without any typing and simultaneously print their names
+                        var totalTypingsWithoutTest = _this.printTypingsWithoutTest();
 
+                        // End total timer and print final messages
                         timer.end();
 
                         _this.out.printDiv();
@@ -1106,7 +1110,7 @@ var DefinitelyTyped;
                         _this.out.printElapsedTime(timer.asString, timer.time);
                         _this.out.printSyntaxErrorCount(syntaxFailedCount, syntaxTotal);
                         _this.out.printTestErrorCount(testFailedCount, testTotal);
-                        _this.out.printWithoutTestCount(total, _this.fh.allTypings().length);
+                        _this.out.printWithoutTestCount(totalTypingsWithoutTest, _this.fh.allTypings().length);
 
                         _this.out.printDiv();
 
