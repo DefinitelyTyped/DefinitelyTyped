@@ -189,6 +189,23 @@ module DefinitelyTyped.TestManager {
             this.out('-----------------------------------------------------------------------------\n');
         }
 
+        public printBoldDiv() {
+            this.out('=============================================================================\n');
+        }
+
+        public printErrorsHeader() {
+            this.out('=============================================================================\n');
+            this.out('                    \33[34m\33[1mErrors in files\33[0m \n');
+            this.out('=============================================================================\n');
+        }
+
+        public printErrorsForFile(file: File) {            
+            this.out('----------------- For file:' + file.formatName() );
+            this.printBreak();
+            this.out(file.execResult.stderr);
+            this.printBreak();
+        }
+
         public printfilesWithSintaxErrorMessage() {
             this.out(' \33[36m\33[1mFiles with syntax error\33[0m\n');
         }
@@ -205,7 +222,7 @@ module DefinitelyTyped.TestManager {
             this.out(' \33[36m\33[1mTotal\33[0m\n');
         }
 
-        public printErrorFile(file) {
+        public printErrorFile(file: string) {
             this.out(' - ' + file + '\n');
         }
 
@@ -246,15 +263,16 @@ module DefinitelyTyped.TestManager {
     // Represents the results of a test file execution
     /////////////////////////////
     class File {
+        static baseDir: string;
 
-        constructor(public name: string, public execResult: ExecResult) { }
+        constructor(public baseDir: string, public filePathWithName: string, public execResult: ExecResult) { }
 
         // From '/complete/path/to/file' to 'specfolder/specfile.d.ts'
-        public formatName(baseDir: string): string {
-            var dirName = path.dirname(this.name.substr(baseDir.length + 1)).replace('\\', '/');
+        public formatName(): string {
+            var dirName = path.dirname(this.filePathWithName.substr(this.baseDir.length + 1)).replace('\\', '/');
             var dir = dirName.split('/')[0];
-            var file = path.basename(this.name, '.ts');
-            var ext = path.extname(this.name);
+            var file = path.basename(this.filePathWithName, '.ts');
+            var ext = path.extname(this.filePathWithName);
 
             return dir + ((dirName.split('/').length > 1) ? '/-/' : '/') + '\33[36m\33[1m' + file + '\33[0m' + ext;
         }
@@ -315,24 +333,24 @@ module DefinitelyTyped.TestManager {
 
                 for (var i = 0; i < this.getFailedFiles().length; i++) {
                     var errorFile = this.getFailedFiles()[i];
-                    this.out.printErrorFile(errorFile.formatName(this.fileHandler.path));
+                    this.out.printErrorFile(errorFile.formatName());
                 }
             }
         }
 
         private run(it, file, len, maxLen, callback: Function) {
             if (!endsWith(file.toUpperCase(), '-TESTS.TS') && endsWith(file.toUpperCase(), '.TS') && file.indexOf('../_infrastructure') < 0) {
-                new Test(file).run((execResult) => {                    
+                new Test(file).run((execResult) => {
 
                     if (execResult.exitCode === 1) {
-                        this.out.printFailureCharacter();                        
+                        this.out.printFailureCharacter();
                         len++;
                     } else {
                         this.out.printSuccessCharacter();
                         len++;
                     }
 
-                    this.files.push(new File(file, execResult));
+                    this.files.push(new File(this.fileHandler.path, file, execResult));
 
                     if (len > maxLen) {
                         len = 0;
@@ -432,14 +450,14 @@ module DefinitelyTyped.TestManager {
 
                 for (var i = 0; i < this.getFailedFiles().length; i++) {
                     var errorFile = this.getFailedFiles()[i];
-                    this.out.printErrorFile(errorFile.formatName(this.fileHandler.path));
+                    this.out.printErrorFile(errorFile.formatName());
                 }
             }
         }
 
         private run(it, file, len, maxLen, callback: Function) {
             if (endsWith(file.toUpperCase(), '-TESTS.TS')) {
-                new Test(file).run((execResult) => {                    
+                new Test(file).run((execResult) => {
 
                     if (execResult.exitCode === 1) {
                         this.out.printFailureCharacter();
@@ -449,7 +467,7 @@ module DefinitelyTyped.TestManager {
                         len++;
                     }
 
-                    this.files.push(new File(file, execResult));
+                    this.files.push(new File(this.fileHandler.path, file, execResult));
 
                     if (len > maxLen) {
                         len = 0;
@@ -533,6 +551,23 @@ module DefinitelyTyped.TestManager {
             return count;
         }
 
+        private printErrorsDetected() {
+            this.out.printErrorsHeader();
+
+            var printErrorsForFileIfFound = (file: File) => {
+                if (file.execResult.exitCode)
+                    this.out.printErrorsForFile(file);
+            };
+
+            // sc errors:
+            this.sc.files.forEach(printErrorsForFileIfFound);
+            this.out.printBoldDiv();
+
+            // te errors: 
+            this.te.files.forEach(printErrorsForFileIfFound);
+            this.out.printBoldDiv();
+        }
+
         constructor(public dtPath: string) {
             this.fh = new FileHandler(dtPath, /.\.ts/g);
             this.out = new Print('0.9.1.1', this.fh.allTypings().length, this.fh.allTS().length);
@@ -556,7 +591,7 @@ module DefinitelyTyped.TestManager {
             this.sc.start((syntaxFailedCount, syntaxTotal) => {
 
                 // Now run typing tests
-                this.out.printTypingTestsHeader();                
+                this.out.printTypingTestsHeader();
                 this.te.start((testFailedCount, testTotal) => {
 
                     // Get the tests without any typing and simultaneously print their names
@@ -577,6 +612,7 @@ module DefinitelyTyped.TestManager {
                     this.out.printDiv();
 
                     if (syntaxFailedCount > 0 || testFailedCount > 0) {
+                        this.printErrorsDetected();
                         process.exit(1);
                     }
                 });

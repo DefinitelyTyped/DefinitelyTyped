@@ -739,6 +739,23 @@ var DefinitelyTyped;
                 this.out('-----------------------------------------------------------------------------\n');
             };
 
+            Print.prototype.printBoldDiv = function () {
+                this.out('=============================================================================\n');
+            };
+
+            Print.prototype.printErrorsHeader = function () {
+                this.out('=============================================================================\n');
+                this.out('                    \33[34m\33[1mErrors in files\33[0m \n');
+                this.out('=============================================================================\n');
+            };
+
+            Print.prototype.printErrorsForFile = function (file) {
+                this.out('----------------- For file:' + file.formatName());
+                this.printBreak();
+                this.out(file.execResult.stderr);
+                this.printBreak();
+            };
+
             Print.prototype.printfilesWithSintaxErrorMessage = function () {
                 this.out(' \33[36m\33[1mFiles with syntax error\33[0m\n');
             };
@@ -797,16 +814,17 @@ var DefinitelyTyped;
         // Represents the results of a test file execution
         /////////////////////////////
         var File = (function () {
-            function File(name, execResult) {
-                this.name = name;
+            function File(baseDir, filePathWithName, execResult) {
+                this.baseDir = baseDir;
+                this.filePathWithName = filePathWithName;
                 this.execResult = execResult;
             }
             // From '/complete/path/to/file' to 'specfolder/specfile.d.ts'
-            File.prototype.formatName = function (baseDir) {
-                var dirName = path.dirname(this.name.substr(baseDir.length + 1)).replace('\\', '/');
+            File.prototype.formatName = function () {
+                var dirName = path.dirname(this.filePathWithName.substr(this.baseDir.length + 1)).replace('\\', '/');
                 var dir = dirName.split('/')[0];
-                var file = path.basename(this.name, '.ts');
-                var ext = path.extname(this.name);
+                var file = path.basename(this.filePathWithName, '.ts');
+                var ext = path.extname(this.filePathWithName);
 
                 return dir + ((dirName.split('/').length > 1) ? '/-/' : '/') + '\33[36m\33[1m' + file + '\33[0m' + ext;
             };
@@ -864,7 +882,7 @@ var DefinitelyTyped;
 
                     for (var i = 0; i < this.getFailedFiles().length; i++) {
                         var errorFile = this.getFailedFiles()[i];
-                        this.out.printErrorFile(errorFile.formatName(this.fileHandler.path));
+                        this.out.printErrorFile(errorFile.formatName());
                     }
                 }
             };
@@ -881,7 +899,7 @@ var DefinitelyTyped;
                             len++;
                         }
 
-                        _this.files.push(new File(file, execResult));
+                        _this.files.push(new File(_this.fileHandler.path, file, execResult));
 
                         if (len > maxLen) {
                             len = 0;
@@ -979,7 +997,7 @@ var DefinitelyTyped;
 
                     for (var i = 0; i < this.getFailedFiles().length; i++) {
                         var errorFile = this.getFailedFiles()[i];
-                        this.out.printErrorFile(errorFile.formatName(this.fileHandler.path));
+                        this.out.printErrorFile(errorFile.formatName());
                     }
                 }
             };
@@ -996,7 +1014,7 @@ var DefinitelyTyped;
                             len++;
                         }
 
-                        _this.files.push(new File(file, execResult));
+                        _this.files.push(new File(_this.fileHandler.path, file, execResult));
 
                         if (len > maxLen) {
                             len = 0;
@@ -1084,6 +1102,24 @@ var DefinitelyTyped;
                 return count;
             };
 
+            TestRunner.prototype.printErrorsDetected = function () {
+                var _this = this;
+                this.out.printErrorsHeader();
+
+                var printErrorsForFileIfFound = function (file) {
+                    if (file.execResult.exitCode)
+                        _this.out.printErrorsForFile(file);
+                };
+
+                // sc errors:
+                this.sc.files.forEach(printErrorsForFileIfFound);
+                this.out.printBoldDiv();
+
+                // te errors:
+                this.te.files.forEach(printErrorsForFileIfFound);
+                this.out.printBoldDiv();
+            };
+
             TestRunner.prototype.run = function () {
                 var _this = this;
                 var timer = new Timer();
@@ -1115,6 +1151,7 @@ var DefinitelyTyped;
                         _this.out.printDiv();
 
                         if (syntaxFailedCount > 0 || testFailedCount > 0) {
+                            _this.printErrorsDetected();
                             process.exit(1);
                         }
                     });
