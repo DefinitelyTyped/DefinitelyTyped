@@ -1693,14 +1693,14 @@ declare module _ {
 		**/
 		forEachRight<T>(
 			callback: ListIterator<T, void >,
-			thisArg?: any): LoDashArrayWrapper<List<T>>;
+			thisArg?: any): LoDashArrayWrapper<T>;
 
 			/**
 			* @see _.forEachRight
 			**/
 			eachRight<T>(
 				callback: ListIterator<T, void >,
-				thisArg?: any): LoDashArrayWrapper<List<T>>;
+				thisArg?: any): LoDashArrayWrapper<T>;
 	}
 
 	interface LoDashObjectWrapper<T> {
@@ -3242,6 +3242,15 @@ declare module _ {
 		**/
 		forIn<T extends {}>(
 			object: Dictionary<T>,
+			callback?: ObjectIterator<T, void>,
+			thisArg?: any): Dictionary<T>;
+	}
+
+	interface LoDashObjectWrapper {
+		/**
+		* @see _.forIn
+		**/
+		forIn<T extends {}>(
 			callback?: ObjectIterator<T, void>,
 			thisArg?: any): Dictionary<T>;
 	}

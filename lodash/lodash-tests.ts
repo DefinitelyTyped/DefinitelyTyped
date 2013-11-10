@@ -677,6 +677,10 @@ result = <any>_.forIn(new Dog('Dagny'), function(value, key) {
   console.log(key);
 });
 
+	result = <_.LoDashObjectWrapper<any>>_(new Dog('Dagny')).forIn(function(value, key) {
+	  console.log(key);
+	});
+
 result = <any>_.forInRight(new Dog('Dagny'), function(value, key) {
   console.log(key);
 });
