@@ -8,7 +8,22 @@
 interface KnockoutStatic {
     track(obj: any, propertyNames?: Array<string>): any;
     defineProperty(obj: any, propertyName: string, evaluator: Function): any;
-    defineProperty(obj: any, propertyName: string, options: { get: () => any; set?: (value: any) => void; }): any;
+    defineProperty(obj: any, propertyName: string, options: KnockoutDefinePropertyOptions): any;
     getObservable(obj: any, propertyName: string): KnockoutObservable<any>;
     valueHasMutated(obj: any, propertyName: string): void;
+}
+
+interface KnockoutDefinePropertyOptions {
+	get(): any;
+	set?(value: any): void;
+}
+
+interface Array<T> {
+	remove(item): T[];
+	removeAll(items: T[]): T[];
+	removeAll(): T[];
+
+	destroy(item: T): void;
+	destroyAll(items: T[]): void;
+	destroyAll(): void;
 }
