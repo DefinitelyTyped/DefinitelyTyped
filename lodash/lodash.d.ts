@@ -3271,6 +3271,15 @@ declare module _ {
 			thisArg?: any): Dictionary<T>;
 	}
 
+	interface LoDashObjectWrapper {
+		/**
+		* @see _.forInRight
+		**/
+		forInRight<T extends {}>(
+			callback?: ObjectIterator<T, void>,
+			thisArg?: any): Dictionary<T>;
+	}
+
 	//_.forOwn
 	interface LoDashStatic {
 		/**
