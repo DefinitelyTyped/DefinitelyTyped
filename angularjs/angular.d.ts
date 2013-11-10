@@ -671,7 +671,7 @@ declare module ng {
 		trustAsJs(value: any): any;
 		trustAsResourceUrl(value: any): any;
 		trustAsUrl(value: any): any;
-		isEnabled(): bool;
+		isEnabled(): boolean;
 	}
 
     ///////////////////////////////////////////////////////////////////////////
@@ -679,7 +679,7 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$sceProvider
     ///////////////////////////////////////////////////////////////////////////
     interface ISCEProvider extends IServiceProvider {
-        enabled(value: bool): void;
+        enabled(value: boolean): void;
     }
 
     ///////////////////////////////////////////////////////////////////////////
