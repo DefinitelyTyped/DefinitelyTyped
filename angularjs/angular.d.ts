@@ -1,8 +1,6 @@
-// Type definitions for Angular JS 1.0
+// Type definitions for Angular JS 1.2.0
 // Project: http://angularjs.org
-// Definitions by: Diego Vilar <http://github.com/diegovilar>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-
+// Definitions: https://github.com/daptiv/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
@@ -60,7 +58,7 @@ declare module ng {
             name: string,
             /** name of modules yours depends on */
             requires?: string[],
-            configFunction?: any): IModule;
+            configFunction?: Function): IModule;
         noop(...args: any[]): void;
         toJson(obj: any, pretty?: boolean): string;
         uppercase(str: string): string;

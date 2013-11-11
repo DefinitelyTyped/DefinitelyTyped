@@ -71,12 +71,12 @@ declare module Q {
     }
 
     // if no fulfill, reject, or progress provided, returned promise will be of same type
-    export function when<T>(value: IPromise<T>): Promise<T>;
     export function when<T>(value: T): Promise<T>;
+    export function when<T>(value: IPromise<T>): Promise<T>;
 
     // If a non-promise value is provided, it will not reject or progress
-    export function when<T, U>(value: T, onFulfilled: (val: T) => IPromise<U>): Promise<U>;
     export function when<T, U>(value: T, onFulfilled: (val: T) => U): Promise<U>;
+    export function when<T, U>(value: T, onFulfilled: (val: T) => IPromise<U>): Promise<U>;
 
     export function when<T, U>(value: IPromise<T>, onFulfilled: (val: T) => IPromise<U>, onRejected?: (reason: any) => IPromise<U>, onProgress?: (progress: any) => any): Promise<U>;
     export function when<T, U>(value: IPromise<T>, onFulfilled: (val: T) => IPromise<U>, onRejected?: (reason: any) => U, onProgress?: (progress: any) => any): Promise<U>;
@@ -85,8 +85,8 @@ declare module Q {
     
     //export function try(method: Function, ...args: any[]): Promise<any>; // <- This is broken currently - not sure how to fix.
 
-    export function fbind<T>(method: (...args: any[]) => IPromise<T>, ...args: any[]): (...args: any[]) => Promise<T>;
     export function fbind<T>(method: (...args: any[]) => T, ...args: any[]): (...args: any[]) => Promise<T>;
+    export function fbind<T>(method: (...args: any[]) => IPromise<T>, ...args: any[]): (...args: any[]) => Promise<T>;
 
     export function fcall<T>(method: (...args: any[]) => T, ...args: any[]): Promise<T>;
 
@@ -148,8 +148,8 @@ declare module Q {
     export var oneerror: () => void;
     export var longStackSupport: boolean;
 
-    export function resolve<T>(object: IPromise<T>): Promise<T>;
     export function resolve<T>(object: T): Promise<T>;
+    export function resolve<T>(object: IPromise<T>): Promise<T>;
 }
 
 declare module "q" {
