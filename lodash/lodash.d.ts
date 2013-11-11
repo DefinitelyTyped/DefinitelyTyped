@@ -2023,7 +2023,7 @@ declare module _ {
 		reduce<T, TResult>(
 			collection: Collection<T>,
 			callback: MemoIterator<T, TResult>,
-			accumulator?: TResult,
+			accumulator: TResult,
 			thisArg?: any): TResult;
 
         /**
@@ -2040,7 +2040,7 @@ declare module _ {
 			inject<T, TResult>(
 				collection: Collection<T>,
 				callback: MemoIterator<T, TResult>,
-				accumulator?: TResult,
+				accumulator: TResult,
 				thisArg?: any): TResult;
 
 			/**
@@ -2057,7 +2057,7 @@ declare module _ {
 			foldl<T, TResult>(
 				collection: Collection<T>,
 				callback: MemoIterator<T, TResult>,
-				accumulator?: TResult,
+				accumulator: TResult,
 				thisArg?: any): TResult;
 
 			/**
@@ -2083,7 +2083,7 @@ declare module _ {
 		reduceRight<T, TResult>(
 			collection: Collection<T>,
 			callback: MemoIterator<T, TResult>,
-			accumulator?: TResult,
+			accumulator: TResult,
 			thisArg?: any): TResult;
 
         /**
@@ -2100,7 +2100,7 @@ declare module _ {
 			foldr<T, TResult>(
 				collection: Collection<T>,
 				callback: MemoIterator<T, TResult>,
-				accumulator?: TResult,
+				accumulator: TResult,
 				thisArg?: any): TResult;
 
 			/**
@@ -2739,388 +2739,172 @@ declare module _ {
 		* @param thisArg The this binding of callback.
 		* @return The destination object.
 		**/
-		assign<T, TResult>(
-			object: T,
-			s1: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
-			thisArg?: any): TResult;
+        assign<P, T extends P, S1 extends P, Value, Result extends P>(
+            object: T,
+            s1: S1,
+			callback?: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg?: any): Result;
 
 		/**
 		* @see _.assign
 		**/
-		assign<T, TResult>(
-			object: T,
-			s1: any,
-			s2: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
-			thisArg?: any): TResult;
-
-		/**
-		* @see _.assign
-		**/		
-		assign<T, TResult>(
-			object: T,
-			s1: any,
-			s2: any,
-			s3: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
-			thisArg?: any): TResult;
+        assign<P, T extends P, S1 extends P, S2 extends P, Value, Result extends P>(
+            object: T,
+            s1: S1,
+            s2: S2,
+			callback?: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg?: any): Result;
 
 		/**
 		* @see _.assign
 		**/
-		assign<T, TResult>(
-			object: T,
-			s1: any,
-			s2: any,
-			s3: any,
-			s4: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
-			thisArg?: any): TResult;
+        assign<P, T extends P, S1 extends P, S2 extends P, S3 extends P, Value, Result extends P>(
+            object: T,
+            s1: S1,
+            s2: S2,
+            s3: S3,
+			callback?: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg?: any): Result;
 
 		/**
 		* @see _.assign
 		**/
-		assign<T, TResult>(
-			object: T,
-			s1: any,
-			s2: any,
-			s3: any,
-			s4: any,
-			s5: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
-			thisArg?: any): TResult;
+        assign<P, T extends P, S1 extends P, S2 extends P, S3 extends P, S4 extends P, Value, Result extends P>(
+            object: T,
+            s1: S1,
+            s2: S2,
+            s3: S3,
+            s4: S4,
+			callback?: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg?: any): Result;
 
 		/**
 		* @see _.assign
 		**/
-		assign<T, TResult>(
-			object: T,
-			s1: any,
-			s2: any,
-			s3: any,
-			s4: any,
-			s5: any,
-			s6: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
-			thisArg?: any): TResult;
+        extend<P, T extends P, S1 extends P, S2 extends P, Value, Result extends P>(
+            object: T,
+            s1: S1,
+			callback?: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg?: any): Result;
 
 		/**
 		* @see _.assign
 		**/
-		assign<T, TResult>(
-			object: T,
-			s1: any,
-			s2: any,
-			s3: any,
-			s4: any,
-			s5: any,
-			s6: any,
-			s7: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
-			thisArg?: any): TResult;
+        extend<P, T extends P, S1 extends P, S2 extends P, S3 extends P, Value, Result extends P>(
+            object: T,
+            s1: S1,
+            s2: S2,
+			callback?: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg?: any): Result;
 
 		/**
 		* @see _.assign
 		**/
-		assign<T, TResult>(
-			object: T,
-			s1: any,
-			s2: any,
-			s3: any,
-			s4: any,
-			s5: any,
-			s6: any,
-			s7: any,
-			s8: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
-			thisArg?: any): TResult;
-
-			/**
-			* @see _.extend
-			**/
-			extend<T, TResult>(
-				object: T,
-				s1: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): TResult;
-
-			/**
-			* @see _.extend
-			**/
-			extend<T, TResult>(
-				object: T,
-				s1: any,
-				s2: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): TResult;
-
-			/**
-			* @see _.extend
-			**/				
-			extend<T, TResult>(
-				object: T,
-				s1: any,
-				s2: any,
-				s3: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): TResult;
-
-			/**
-			* @see _.extend
-			**/
-			extend<T, TResult>(
-				object: T,
-				s1: any,
-				s2: any,
-				s3: any,
-				s4: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): TResult;
-
-			/**
-			* @see _.extend
-			**/
-			extend<T, TResult>(
-				object: T,
-				s1: any,
-				s2: any,
-				s3: any,
-				s4: any,
-				s5: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): TResult;
-
-			/**
-			* @see _.extend
-			**/
-			extend<T, TResult>(
-				object: T,
-				s1: any,
-				s2: any,
-				s3: any,
-				s4: any,
-				s5: any,
-				s6: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): TResult;
-
-			/**
-			* @see _.extend
-			**/
-			extend<T, TResult>(
-				object: T,
-				s1: any,
-				s2: any,
-				s3: any,
-				s4: any,
-				s5: any,
-				s6: any,
-				s7: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): TResult;
-
-			/**
-			* @see _.extend
-			**/
-			extend<T, TResult>(
-				object: T,
-				s1: any,
-				s2: any,
-				s3: any,
-				s4: any,
-				s5: any,
-				s6: any,
-				s7: any,
-				s8: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): TResult;			
+        extend<P, T extends P, S1 extends P, S2 extends P, S3 extends P, S4 extends P, Value, Result extends P>(
+            object: T,
+            s1: S1,
+            s2: S2,
+            s3: S3,
+            s4: S4,
+			callback?: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg?: any): Result;
 	}
 
 	interface LoDashObjectWrapper<T> {
 		/**
 		* @see _.assign
 		**/
-		assign<TResult>(
-			s1: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
+		assign<S1, Value, TResult>(
+			s1: S1,
+			callback?: (objectValue: Value, sourceValue: Value) => Value,
 			thisArg?: any): TResult;
 
 		/**
 		* @see _.assign
 		**/
-		assign<TResult>(
-			s1: any,
-			s2: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
+		assign<S1, S2, Value, TResult>(
+			s1: S1,
+			s2: S2,
+			callback?: (objectValue: Value, sourceValue: Value) => Value,
 			thisArg?: any): TResult;
-
-		/**
-		* @see _.assign
-		**/		
-		assign<TResult>(
-			s1: any,
-			s2: any,
-			s3: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
-			thisArg?: any): TResult;
-
 		/**
 		* @see _.assign
 		**/
-		assign<TResult>(
-			s1: any,
-			s2: any,
-			s3: any,
-			s4: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
+		assign<S1, S2, S3, Value, TResult>(
+			s1: S1,
+			s2: S2,
+			s3: S3,
+			callback?: (objectValue: Value, sourceValue: Value) => Value,
 			thisArg?: any): TResult;
-
 		/**
 		* @see _.assign
 		**/
-		assign<TResult>(
-			s1: any,
-			s2: any,
-			s3: any,
-			s4: any,
-			s5: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
+		assign<S1, S2, S3, S4, Value, TResult>(
+			s1: S1,
+			s2: S2,
+			s3: S3,
+			s4: S4,
+			callback?: (objectValue: Value, sourceValue: Value) => Value,
 			thisArg?: any): TResult;
-
 		/**
 		* @see _.assign
 		**/
-		assign<TResult>(
-			s1: any,
-			s2: any,
-			s3: any,
-			s4: any,
-			s5: any,
-			s6: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
+		assign<S1, S2, S3, S4, S5, Value, TResult>(
+			s1: S1,
+			s2: S2,
+			s3: S3,
+			s4: S4,
+			s5: S5,
+			callback?: (objectValue: Value, sourceValue: Value) => Value,
 			thisArg?: any): TResult;
 
-		/**
-		* @see _.assign
-		**/
-		assign<TResult>(
-			s1: any,
-			s2: any,
-			s3: any,
-			s4: any,
-			s5: any,
-			s6: any,
-			s7: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
-			thisArg?: any): TResult;
+          /**
+          * @see _.assign
+          **/
+          extend<S1, Value, TResult>(
+              s1: S1,
+              callback?: (objectValue: Value, sourceValue: Value) => Value,
+              thisArg?: any): TResult;
 
-		/**
-		* @see _.assign
-		**/
-		assign<TResult>(
-			s1: any,
-			s2: any,
-			s3: any,
-			s4: any,
-			s5: any,
-			s6: any,
-			s7: any,
-			s8: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
-			thisArg?: any): TResult;
+          /**
+          * @see _.assign
+          **/
+          extend<S1, S2, Value, TResult>(
+              s1: S1,
+              s2: S2,
+              callback?: (objectValue: Value, sourceValue: Value) => Value,
+              thisArg?: any): TResult;
+          /**
+          * @see _.assign
+          **/
+          extend<S1, S2, S3, Value, TResult>(
+              s1: S1,
+              s2: S2,
+              s3: S3,
+              callback?: (objectValue: Value, sourceValue: Value) => Value,
+              thisArg?: any): TResult;
+          /**
+          * @see _.assign
+          **/
+          extend<S1, S2, S3, S4, Value, TResult>(
+              s1: S1,
+              s2: S2,
+              s3: S3,
+              s4: S4,
+              callback?: (objectValue: Value, sourceValue: Value) => Value,
+              thisArg?: any): TResult;
+          /**
+          * @see _.assign
+          **/
+          extend<S1, S2, S3, S4, S5, Value, TResult>(
+              s1: S1,
+              s2: S2,
+              s3: S3,
+              s4: S4,
+              s5: S5,
+              callback?: (objectValue: Value, sourceValue: Value) => Value,
+              thisArg?: any): TResult;
 
-			/**
-			* @see _.assign
-			**/
-			extend<TResult>(
-				s1: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): TResult;
-
-			/**
-			* @see _.assign
-			**/
-			extend<TResult>(
-				s1: any,
-				s2: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): TResult;
-
-			/**
-			* @see _.assign
-			**/		
-			extend<TResult>(
-				s1: any,
-				s2: any,
-				s3: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): TResult;
-
-			/**
-			* @see _.assign
-			**/
-			extend<TResult>(
-				s1: any,
-				s2: any,
-				s3: any,
-				s4: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): TResult;
-
-			/**
-			* @see _.assign
-			**/
-			extend<TResult>(
-				s1: any,
-				s2: any,
-				s3: any,
-				s4: any,
-				s5: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): TResult;
-
-			/**
-			* @see _.assign
-			**/
-			extend<TResult>(
-				s1: any,
-				s2: any,
-				s3: any,
-				s4: any,
-				s5: any,
-				s6: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): TResult;
-
-			/**
-			* @see _.assign
-			**/
-			extend<TResult>(
-				s1: any,
-				s2: any,
-				s3: any,
-				s4: any,
-				s5: any,
-				s6: any,
-				s7: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): TResult;
-
-			/**
-			* @see _.assign
-			**/
-			extend<TResult>(
-				s1: any,
-				s2: any,
-				s3: any,
-				s4: any,
-				s5: any,
-				s6: any,
-				s7: any,
-				s8: any,
-				callback?: (objectValue: any, sourceValue: any) => any,
-				thisArg?: any): TResult;
 	}
 
 	//_.clone
@@ -3261,7 +3045,7 @@ declare module _ {
 		* @param thisArg The this binding of callback.
 		* @return object
 		**/
-		forIn<T extends {}>(
+		forIn<T>(
 			object: Dictionary<T>,
 			callback?: ObjectIterator<T, void>,
 			thisArg?: any): Dictionary<T>;
@@ -3627,102 +3411,44 @@ declare module _ {
 		* @param thisArg The this binding of callback.
 		* @return The destination object.
 		**/
-		merge(
-			object: any,
-			s1: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
-			thisArg?: any): any;
+        merge<P, T extends P, S1 extends P, Value, Result extends P>(
+            object: T,
+            s1: S1,
+			callback?: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg?: any): Result;
 
 		/**
 		* @see _.merge
 		**/
-		merge(
-			object: any,
-			s1: any,
-			s2: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
-			thisArg?: any): any;
+        merge<P, T extends P, S1 extends P, S2 extends P, Value, Result extends P>(
+            object: T,
+            s1: S1,
+            s2: S2,
+			callback?: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg?: any): Result;
 
 		/**
 		* @see _.merge
 		**/
-		merge(
-			object: any,
-			s1: any,
-			s2: any,
-			s3: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
-			thisArg?: any): any;
+        merge<P, T extends P, S1 extends P, S2 extends P, S3 extends P, Value, Result extends P>(
+            object: T,
+            s1: S1,
+            s2: S2,
+            s3: S3,
+			callback?: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg?: any): Result;
 
 		/**
 		* @see _.merge
 		**/
-		merge(
-			object: any,
-			s1: any,
-			s2: any,
-			s3: any,
-			s4: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
-			thisArg?: any): any;
-
-		/**
-		* @see _.merge
-		**/
-		merge(
-			object: any,
-			s1: any,
-			s2: any,
-			s3: any,
-			s4: any,
-			s5: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
-			thisArg?: any): any;
-
-		/**
-		* @see _.merge
-		**/
-		merge(
-			object: any,
-			s1: any,
-			s2: any,
-			s3: any,
-			s4: any,
-			s5: any,
-			s6: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
-			thisArg?: any): any;
-
-		/**
-		* @see _.merge
-		**/
-		merge(
-			object: any,
-			s1: any,
-			s2: any,
-			s3: any,
-			s4: any,
-			s5: any,
-			s6: any,
-			s7: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
-			thisArg?: any): any;
-
-		/**
-		* @see _.merge
-		**/
-		merge(
-			object: any,
-			s1: any,
-			s2: any,
-			s3: any,
-			s4: any,
-			s5: any,
-			s6: any,
-			s7: any,
-			s8: any,
-			callback?: (objectValue: any, sourceValue: any) => any,
-			thisArg?: any): any;
+        merge<P, T extends P, S1 extends P, S2 extends P, S3 extends P, S4 extends P, Value, Result extends P>(
+            object: T,
+            s1: S1,
+            s2: S2,
+            s3: S3,
+            s4: S4,
+			callback?: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg?: any): Result;
 	}
 
 	//_.omit
@@ -3814,19 +3540,19 @@ declare module _ {
 		* @param thisArg The this binding of callback.
 		* @return The accumulated value.
 		**/
-		transform<T>(
+		transform<T, Acc>(
 			collection: Collection<T>,
-			callback?: MemoIterator<T, any>,
-			accumulator?: any,
-			thisArg?: any): any;
+			callback: MemoVoidIterator<T, Acc>,
+			accumulator: Acc,
+			thisArg?: any): Acc;
 
 		/**
 		* @see _.transform
 		**/
-		transform<T>(
+		transform<T, Acc>(
 			collection: Collection<T>,
-			callback?: MemoIterator<T, any>,
-			thisArg?: any): any;
+			callback?: MemoVoidIterator<T, Acc>,
+			thisArg?: any): Acc;
 	}
 
 	//_.values
@@ -4027,9 +3753,20 @@ declare module _ {
 		(element: T, key: string, list: any): TResult;
 	}
 
+	interface MemoVoidIterator<T, TResult> {
+		(prev: TResult, curr: T, indexOrKey: any, list?: T[]): void;
+	}
 	interface MemoIterator<T, TResult> {
 		(prev: TResult, curr: T, indexOrKey: any, list?: T[]): TResult;
 	}
+    /*
+	interface MemoListIterator<T, TResult> {
+		(prev: TResult, curr: T, index: number, list?: T[]): TResult;
+	}
+	interface MemoObjectIterator<T, TResult> {
+		(prev: TResult, curr: T, index: string, object?: Dictionary<T>): TResult;
+	}
+    */
 
 	interface Collection<T> { }
 
