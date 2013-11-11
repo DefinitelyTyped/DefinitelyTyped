@@ -708,6 +708,9 @@ result = <any>_.forOwnRight({ '0': 'zero', '1': 'one', 'length': 2 }, function(n
 result = <string[]>_.functions(_);
  	result = <string[]>_.methods(_);
 
+ 	result = <_.LoDashArrayWrapper<string>>_(_).functions();
+ 		result = <_.LoDashArrayWrapper<string>>_(_).methods();
+
 result = <boolean>_.has({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
 
 result = <any>_.invert({ 'first': 'moe', 'second': 'larry' });

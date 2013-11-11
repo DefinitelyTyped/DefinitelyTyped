@@ -3347,6 +3347,18 @@ declare module _ {
 			methods(object: any): string[];
 	}
 
+	interface LoDashObjectWrapper {
+		/**
+		* @see _.functions
+		**/
+		functions(): _.LoDashArrayWrapper<string>
+
+			/**
+			* @see _.functions
+			**/
+			methods(): _.LoDashArrayWrapper<string>
+	}
+
 	//_.has
 	interface LoDashStatic {
 		/**
