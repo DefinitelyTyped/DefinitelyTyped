@@ -159,6 +159,7 @@ List of Definitions
 * [Levelup](https://github.com/rvagg/node-levelup) (by [Bret Little](https://github.com/blittle))
 * [linq.js](http://linqjs.codeplex.com/) (by [Marcin Najder](https://github.com/marcinnajder))
 * [Livestamp.js](https://github.com/mattbradley/livestampjs) (by [Vincent Bortone](https://github.com/vbortone))
+* [Lodash](http://lodash.com/) (by [Brian Zengel](https://github.com/bczengel))
 * [Logg](https://github.com/dpup/node-logg) (by [Bret Little](https://github.com/blittle))
 * [Marked](https://github.com/chjj/marked) (by [William Orr](https://github.com/worr))
 * [mCustomScrollbar](https://github.com/malihu/malihu-custom-scrollbar-plugin) (by [Sarah Williams] (https://github.com/flurg))
@@ -243,7 +244,6 @@ Requested Definitions
 * [google.visualizations](https://developers.google.com/chart/)
 * [Prelude.ls](http://gkz.github.com/prelude-ls/)
 * [MooTools](http://mootools.net/)
-* [Lo-Dash](http://lodash.com/)
 * [java](https://github.com/nearinfinity/node-java)
 * [SVG.js](http://www.svgjs.com/)
 
