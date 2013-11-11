@@ -107,14 +107,16 @@ interface GlobalizeStatic {
     culture(cultureSelector: string): GlobalizeCulture;
     culture(cultureSelector: string[]): GlobalizeCulture;
 
-    addCultureInfo(cultureName, baseCultureName, info? );
+    addCultureInfo(cultureName: string, baseCultureName, info?);
     findClosestCulture(cultureSelector: string);
-    format(value, format, cultureSelector? );
-    localize(key, cultureSelector?);
+    format(value: number, format: string, cultureSelector?: string);
+    format(value: Date, format: string, cultureSelector?: string);
+    localize(key: string, cultureSelector?: string);
 
-    parseDate(value: string, formats? , cultureSelector?: string): Date;
-    parseInt(value: string, radix? , cultureSelector?: string): number;
-    parseFloat(value: string, radix? , cultureSelector?: string): number;
+    parseDate(value: string, format?: string, cultureSelector?: string): Date;
+    parseDate(value: string, formats?: string[], cultureSelector?: string): Date;
+    parseInt(value: string, radix?: number, cultureSelector?: string): number;
+    parseFloat(value: string, radix?: number, cultureSelector?: string): number;
 }
 
 declare var Globalize: GlobalizeStatic;

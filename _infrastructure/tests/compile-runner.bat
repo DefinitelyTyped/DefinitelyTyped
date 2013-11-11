@@ -1,0 +1,1 @@
+tsc runner.ts --out runner.js --module commonjs
