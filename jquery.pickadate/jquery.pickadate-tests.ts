@@ -39,7 +39,8 @@ $('.datepicker').pickadate({
     // Escape any "rule" characters with an exclamation mark (!).
     format: 'You selecte!d: dddd, dd mmm, yyyy',
     formatSubmit: 'yyyy/mm/dd',
-    hiddenSuffix: '--submit'
+    hiddenPrefix: 'prefix__',
+    hiddenSuffix: '__suffix'
 });
 
 $('.datepicker').pickadate({
@@ -85,6 +86,13 @@ $('.datepicker').pickadate({
 $('.datepicker').pickadate({
     disable: [
         1, 4, 7
+    ]
+});
+
+$('.datepicker').pickadate({
+    disable: [
+        new Date(2013, 3, 13),
+        new Date(2013, 3, 29)
     ]
 });
 
@@ -140,7 +148,8 @@ $('.timepicker').pickatime({
     format: 'T!ime selected: h:i a',
     formatLabel: '<b>h</b>:i <!i>a</!i>',
     formatSubmit: 'HH:i',
-    hiddenSuffix: '--submit'
+    hiddenPrefix: 'prefix__',
+    hiddenSuffix: '__suffix'
 });
 
 $('.timepicker').pickatime({
@@ -265,6 +274,9 @@ picker.get('id');
 picker.get('disable');
 
 picker.set('clear');
+
+// reset disabled dates
+picker.set('disable', undefined);
 
 // Using arrays formatted as [YEAR,MONTH,DATE].
 picker.set('select', [2013, 3, 20]);

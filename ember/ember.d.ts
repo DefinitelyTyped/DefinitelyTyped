@@ -2728,13 +2728,13 @@ declare module Ember {
         (target: any, method: Function): void;
         begin(): void;
         cancel(timer: any): void;
-        debounce(target: any, method: Function, wait: number, immediate: boolean): void;
-        debounce(target: any, method: string, wait: number, immediate: boolean): void;
+        debounce(target: any, method: Function, ...args: any[]): void;
+        debounce(target: any, method: string, ...args: any[]): void;
         end(): void;
         join(target: any, method: Function, ...any): any;
         join(target: any, method: string, ...any): any;
-        later(target: any, method: Function, wait: boolean): string;
-        later(target: any, method: string, wait: boolean): string;
+        later(target: any, method: Function, ...args: any[]): string;
+        later(target: any, method: string, ...args: any[]): string;
         next(target: any, method: Function, ...any): number;
         next(target: any, method: string, ...any): number;
         once(target: any, method: Function, ...any): number;
@@ -2744,8 +2744,8 @@ declare module Ember {
         scheduleOnce(queue: string, target: any, method: Function, ...any): void;
         scheduleOnce(queue: string, target: any, method: string, ...any): void;
         sync(): void;
-        throttle(target: any, method: Function, spacing: number): void;
-        throttle(target: any, method: string, spacing: number): void;
+        throttle(target: any, method: Function, ...args: any[]): void;
+        throttle(target: any, method: string, ...args: any[]): void;
         queues: any[];
     };
     function runLoadHooks(name: string, object: any): void;

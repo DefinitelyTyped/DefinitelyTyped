@@ -382,7 +382,7 @@ declare module _ {
 	**/
 	export function pluck<T extends {}>(
 		list: Collection<T>,
-		propertyName: string): T[];
+		propertyName: string): any[];
 
 	/**
 	* Returns the maximum value in list.
@@ -839,7 +839,7 @@ declare module _ {
 		start: number,
 		stop: number,
 		step?: number): number[];
-	
+
 	/**
 	* @see _.range
 	* @param stop Stop here.
@@ -900,7 +900,7 @@ declare module _ {
 	**/
 	export function memoize(
 		fn: Function,
-		hashFn?: (n: any) => string): Function;
+		hashFn?: (...args: any[]) => string): Function;
 
 	/**
 	* Much like setTimeout, invokes function after wait milliseconds. If you pass the optional arguments,
@@ -1624,7 +1624,7 @@ declare class _<T> {
 	* @see _.shuffle
 	**/
 	shuffle(): T[];
-	
+
 	/**
 	* Wrapped type `any[]`.
 	* @see _.sample

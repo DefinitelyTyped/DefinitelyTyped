@@ -73,7 +73,7 @@ declare module JQueryUI {
     }
 
     interface Autocomplete extends Widget, AutocompleteOptions, AutocompleteEvents {
-        escapeRegex: (string) => string;
+        escapeRegex: (value: string) => string;
     }
 
 
@@ -154,7 +154,7 @@ declare module JQueryUI {
 
     interface Datepicker extends Widget, DatepickerOptions {
         regional: { [languageCod3: string]: any; };
-        setDefaults(defaults: DatepickerOptions);
+        setDefaults(defaults: DatepickerOptions): void;
         formatDate(format: string, date: Date, settings?: DatepickerFormatDateOptions): string;
         parseDate(format: string, date: string, settings?: DatepickerFormatDateOptions): Date;
         iso8601Week(date: Date): void;
