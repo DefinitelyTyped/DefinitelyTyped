@@ -47,4 +47,8 @@ $(function () {
 
     var elem;
     Modernizr.hasEvent('gesturestart', elem);
+	
+    if (!Modernizr.autofocus) {
+          $("[autofocus]").focus();
+    }
 });

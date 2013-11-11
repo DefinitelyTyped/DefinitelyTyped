@@ -3,6 +3,8 @@
 // Definitions by: Stanislav Vyshchepan <http://gandjustas.blogspot.ru> and Andrey Markeev <http://markeev.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+
+
 declare module Sys {
     export class EventArgs {
         static Empty: Sys.EventArgs;
@@ -25,11 +27,39 @@ declare module Sys {
         initialize(): void;
         updated(): void;
     }
+
+    export interface IContainer {
+        addComponent(component: Component): void;
+        findComponent(id: string): Component;
+        getComponents(): Component[];
+        removeComponent(component: Component);
+    }
+
+    export class Application extends Component implements IContainer {
+        addComponent(component: Component): void;
+        findComponent(id: string): Component;
+        getComponents(): Component[];
+        removeComponent(component: Component);
+
+        static add_load(handler: (sender: Application, eventArgs: ApplicationLoadEventArgs) => void);
+        static remove_load(handler: (sender: Application, eventArgs: ApplicationLoadEventArgs) => void);
+    }
+
+    export class ApplicationLoadEventArgs {
+        constructor(components: Component[], isPartialLoad: boolean);
+        public components: Component[];
+        public isPartialLoad: boolean;
+    }
+
     module UI {
-        export class Control { }
+        export class Control extends Component { }
         export class DomEvent {
             static addHandler(element: HTMLElement, eventName: string, handler: (e: Event) => void);
             static removeHandler(element: HTMLElement, eventName: string, handler: (e: Event) => void);
+        }
+
+        export class DomElement {
+            static getBounds(element: HTMLElement): { x: number; y: number; width: number; height: number; };
         }
     }
     module Net {
@@ -1210,7 +1240,7 @@ declare module SPClientTemplates {
 
     export interface TemplateOverrides {
         View?: (renderContext: any) => string; // TODO: determine appropriate context type and purpose of this template
-        Body?: (renderContext: any) => string; // TODO: determine appropriate context type and purpose of this template
+        Body?: (renderContext: any) => string; // TODO: determine appropriate context type and purpose of this template 
         /** Defines templates for rendering groups (aggregations). */
         Group?: GroupCallback;
         /** Defines templates for list items rendering. */
@@ -1234,10 +1264,10 @@ declare module SPClientTemplates {
         /** �allbacks called after rendered html inserted into DOM. Can be function (ctx: RenderContext) => void or array of functions.*/
         OnPostRender?: any;
 
-        /** View style (SPView.StyleID) for which the templates should be applied.
+        /** View style (SPView.StyleID) for which the templates should be applied. 
             If not defined, the templates will be applied only to default view style. */
         ViewStyle?: number;
-        /** List template type (SPList.BaseTemplate) for which the template should be applied.
+        /** List template type (SPList.BaseTemplate) for which the template should be applied. 
             If not defined, the templates will be applied to all lists. */
         ListTemplateType?: number;
         /** Base view ID (SPView.BaseViewID) for which the template should be applied.
@@ -2400,12 +2430,12 @@ declare module SP {
     /** Specifies a Collaborative Application Markup Language (CAML) query on a list. */
     export class CamlQuery extends SP.ClientValueObject {
         constructor();
-        /** This method creates a Collaborative Application Markup Language (CAML) string
-            that can be used to recursively get all of the items in a list, including
+        /** This method creates a Collaborative Application Markup Language (CAML) string 
+            that can be used to recursively get all of the items in a list, including 
             the items in the subfolders. */
         static createAllItemsQuery(): SP.CamlQuery;
-        /** This method creates a Collaborative Application Markup Language (CAML) string
-            that can be used to recursively get all of the folders in a list, including
+        /** This method creates a Collaborative Application Markup Language (CAML) string 
+            that can be used to recursively get all of the folders in a list, including 
             the subfolders. */
         static createAllFoldersQuery(): SP.CamlQuery;
         /** Returns true if the query returns dates in Coordinated Universal Time (UTC) format. */
@@ -5817,7 +5847,7 @@ declare module SP {
 
         /** Contains information about an actor retrieved from server. An actor is a user, document, site, or tag. */
         export class SocialActor extends SP.ClientValueObject {
-            /** The AccountName property returns the user account name.
+            /** The AccountName property returns the user account name. 
                 This property is only available for social actors of type "user". */
             get_accountName(): string;
             /** Identifies whether the actor is a user, document, site, or tag. */
@@ -5848,7 +5878,7 @@ declare module SP {
             get_personalSiteUri(): string;
             /** Represents the status of retrieving the actor */
             get_status(): SocialStatusCode;
-            /** The StatusText property returns the most recent post of the user.
+            /** The StatusText property returns the most recent post of the user. 
                 This property is only available for social actors of type "user". */
             get_statusText(): string;
             /** Returns the GUID of the tag.
@@ -5863,10 +5893,10 @@ declare module SP {
 
         /** Identifies an actor to the server. An actor can be a user, document, site, or tag. */
         export class SocialActorInfo extends SP.ClientValueObject {
-            /** User account name.
+            /** User account name. 
                 This property is only available for social actors of type "user". */
             get_accountName(): string;
-            /** User account name.
+            /** User account name. 
                 This property is only available for social actors of type "user". */
             set_accountName(value: string): string;
             /** Identifies whether the actor is a user, document, site, or tag. */
@@ -5977,7 +6007,7 @@ declare module SP {
         }
 
         /** Provides information about an overlay.
-            An overlay is a substring in a post that represents a user, document, site, tag, or link.
+            An overlay is a substring in a post that represents a user, document, site, tag, or link. 
             The SocialPost class contains an array of SocialDataOverlay objects.
             Each of the SocialDataOverlay objects specifies a link or one or more actors. */
         export class SocialDataOverlay extends SP.ClientValueObject {
@@ -6014,8 +6044,8 @@ declare module SP {
                 The most recent post that was requested can be removed from the feed if the current user does not have access to it.
                 Consequently, the feed does not always contain the post with the date specified in this property. */
             get_newestProcessed(): string;
-            /** The OldestProcessed property returns the date-time of the oldest post that was requested.
-                The oldest post that was requested can be removed from the feed if the current user does not have access to it.
+            /** The OldestProcessed property returns the date-time of the oldest post that was requested. 
+                The oldest post that was requested can be removed from the feed if the current user does not have access to it. 
                 Consequently, the feed does not always contain the post with the date specified in this property */
             get_oldestProcessed(): string;
             /** Contains the social threads in the feed. */
@@ -6032,7 +6062,7 @@ declare module SP {
             get_owner(): SocialActor;
             /** Specifies the URI of the personal site portal. */
             get_personalSitePortalUri(): string;
-            /** Creates a post in the current user's newsfeed, in the specified user's feed, or in the specified thread.
+            /** Creates a post in the current user's newsfeed, in the specified user's feed, or in the specified thread. 
                 This method returns a new or a modified thread.
                 @param targetId Optional, specifies the target of the post.
                                 If this parameter is null, the post is created as a root post in the current user's feed.
@@ -6065,19 +6095,19 @@ declare module SP {
             getFullThread(threadId: string): SocialThread;
             /** Returns a feed containing mention reference threads from the current user's personal feed. */
             getMentions(clearUnreadMentions: boolean, options: SocialFeedOptions): SocialFeed;
-            /** Returns the server's count of unread mentions of the current user.
-                The server maintains a count of unread mentions in posts, but does not track which mentions have been read.
-                When a new mention is stored on the server, it increments the unread mention for the user specified by the mention.
+            /** Returns the server's count of unread mentions of the current user. 
+                The server maintains a count of unread mentions in posts, but does not track which mentions have been read. 
+                When a new mention is stored on the server, it increments the unread mention for the user specified by the mention. 
                 The unread mention count is cleared by the GetMentions method. */
             getUnreadMentionCount(): SP.IntResult;
-            /** Specifies that the current user likes the specified post.
-                Returns a digest thread containing the specified post.
+            /** Specifies that the current user likes the specified post. 
+                Returns a digest thread containing the specified post. 
                 A digest thread contains the root post and a selection of reply posts */
             likePost(postId: string): SocialThread;
-            /** Specifies that the current user does not like the specified post.
+            /** Specifies that the current user does not like the specified post. 
                 Returns a digest thread containing the specified post.  */
             unlikePost(postId: string): SocialThread;
-            /** Prevents any user from adding a new reply post to the specified thread.
+            /** Prevents any user from adding a new reply post to the specified thread. 
                 Once a thread is locked, no new reply posts can be added until after the thread has been unlocked with the unlockThread method.
                 This method returns a digest of the locked thread */
             lockThread(threadId: string): SocialThread;
@@ -6117,9 +6147,9 @@ declare module SP {
             get_followedSitesUri(): string;
             /** Adds the specified actor to the current user's list of followed items.
                 Returns one of the following values, wrapped into the SP.IntResult object:
-                0 = ok,
-                1 = alreadyFollowing,
-                2 = limitReached,
+                0 = ok, 
+                1 = alreadyFollowing, 
+                2 = limitReached, 
                 3 = internalError */
             follow(actor: SocialActorInfo): SP.IntResult;
             stopFollowing(actor: SocialActorInfo): SP.BooleanResult;
@@ -6252,10 +6282,10 @@ declare module SP {
             get_text(): string;
             /** Specifies the text that is substituted for the placeholder */
             set_text(value: string): string;
-            /** Specifies the URI of the document, site, or link.
+            /** Specifies the URI of the document, site, or link. 
                 This property is only available if the ItemType property specifies that the item is a Document, Link, or Site. */
             get_uri(): string;
-            /** Specifies the URI of the document, site, or link.
+            /** Specifies the URI of the document, site, or link. 
                 This property is only available if the ItemType property specifies that the item is a Document, Link, or Site. */
             set_uri(value: string): string;
         }
@@ -7061,6 +7091,93 @@ declare module SP {
 }
 
 declare module SP {
+    export module UI {
+        export module Controls {
+
+            export interface INavigationOptions {
+                assetId?: string;
+                siteTitle?: string;
+                siteUrl?: string;
+                appTitle?: string;
+                appTitleIconUrl?: string;
+                rightToLeft?: boolean;
+                appStartPage?: string;
+                appIconUrl?: string;
+                appHelpPageUrl?: string;
+                appHelpPageOnClick?: string;
+                settingsLinks?: ISettingsLink[];
+                language?: string;
+                clientTag?: string;
+                appWebUrl?: string;
+                onCssLoaded?: string;
+
+
+                bottomHeaderVisible?: boolean;
+                topHeaderVisible?: boolean;
+            }
+
+            export class NavigationOptions implements INavigationOptions { }
+
+
+            export interface ISettingsLink {
+                linkUrl: string;
+                displayName: string;
+            }
+
+            export class SettingsLink implements ISettingsLink {
+                linkUrl: string;
+                displayName: string;
+            }
+
+
+            export class Navigation {
+                constructor(placeholderDOMElementId: string, options: INavigationOptions);
+                public get_assetId(): string;
+                public get_siteTitle(): string;
+                public get_siteUrl(): string;
+
+                public get_appTitle(): string;
+                public set_appTitle(value: string): string;
+
+                public get_appTitleIconUrl(): string;
+                public set_appTitleIconUrl(value: string): string;
+
+                public get_rightToLeft(): boolean;
+                public set_rightToLeft(value: boolean): boolean;
+
+                public get_appStartPage(): string;
+                public set_appStartPage(value: string): string;
+
+                public get_appIconUrl(): string;
+                public set_appIconUrl(value: string): string;
+
+                public get_appHelpPageUrl(): string;
+                public set_appHelpPageUrl(value: string): string;
+
+                public get_appHelpPageOnClick(): string;
+                public set_appHelpPageOnClick(value: string): string;
+
+                public get_settingsLinks(): ISettingsLink[];
+                public set_settingsLinks(value: ISettingsLink[]): ISettingsLink[];
+
+                public setVisible(value: boolean): void;
+
+                public setTopHeaderVisible(value: boolean): void;
+                public setBottomHeaderVisible(value: boolean): void;
+                public remove(): void;
+
+                static getVersionedLayoutsUrl(pageName: string): string;
+            }
+
+
+            export class ControlManager {
+                static getControl(placeHolderId: string): any;
+            }
+        }
+    }
+}
+
+declare module SP {
 
     export module UserProfiles {
         /** Specifies types of changes made in the user profile store. */
@@ -7223,7 +7340,7 @@ declare module SP {
             /** Specifies the person's title. */
             get_title(): string;
             /** Represents all user profile properties including custom.
-                The privacy settings affect which properties can be retrieved.
+                The privacy settings affect which properties can be retrieved. 
                 Multiple values are delimited by the vertical bar "|".
                 Null values are specified as empty strings. */
             get_userProfileProperties(): { [name: string]: string; };
@@ -7312,7 +7429,7 @@ declare module SP {
             /** Updates the properties for followed item with specified URL.
                 @param url  URL that identifies the followed item.
                             The url parameter can identify an existing document or site using the url property of the original item.
-                            The url parameter can also identify a document with the following format: http://host/site?listId=<listGuid>&itemId=<itemId>
+                            The url parameter can also identify a document with the following format: http://host/site?listId=<listGuid>&itemId=<itemId> 
                 @param data Application-defined data stored with the followed item. */
             updateData(url: string, data: FollowedItemData): void;
             /** Returns the refreshed item that is being pointed to in the Social list.
@@ -7382,11 +7499,11 @@ declare module SP {
             /** Specifies the site identification (GUID) in the Content database for this item if this item is a site, or for its parent site if this item is not a site. */
             set_siteId(value: string): string;
             /** Specifies the subtype of this item.
-                If the ItemType is Site, the Subtype specifies the web template identification.
+                If the ItemType is Site, the Subtype specifies the web template identification. 
                 If the ItemType is Document, the Subtype has a value of 1. */
             get_subtype(): number;
             /** Specifies the subtype of this item.
-                If the ItemType is Site, the Subtype specifies the web template identification.
+                If the ItemType is Site, the Subtype specifies the web template identification. 
                 If the ItemType is Document, the Subtype has a value of 1. */
             set_subtype(value: number): number;
             /** Specifies the item of this item */
@@ -8162,5 +8279,166 @@ interface ISPClientAutoFillData {
     AutoFillSubDisplayText?: string;
     AutoFillTitleText?: string;
     AutoFillMenuOptionType?: number;
+}
+
+declare class SPClientPeoplePicker {
+    static ValueName: string; // = 'Key';
+    static DisplayTextName: string; // = 'DisplayText';
+    static SubDisplayTextName: string; // = 'Title';
+    static DescriptionName: string; // = 'Description';
+    static SIPAddressName: string; // = 'SIPAddress';
+    static SuggestionsName: string; // = 'MultipleMatches';
+    static UnvalidatedEmailAddressKey: string; // = "UNVALIDATED_EMAIL_ADDRESS";
+    static KeyProperty: string; // = 'AutoFillKey';
+    static DisplayTextProperty: string; // = 'AutoFillDisplayText';
+    static SubDisplayTextProperty: string; // = 'AutoFillSubDisplayText';
+    static TitleTextProperty: string; // = 'AutoFillTitleText';
+    static DomainProperty: string; // = 'DomainText';
+
+    static SPClientPeoplePickerDict: {
+        [pickerIelementId: string]: SPClientPeoplePicker;
+    };
+
+    static InitializeStandalonePeoplePicker(clientId: string, value: ISPClientPeoplePickerEntity[], schema: ISPClientPeoplePickerSchema): void;
+
+    public TopLevelElementId: string;// '',
+    public EditorElementId: string;//'',
+    public AutoFillElementId: string;//'',
+    public ResolvedListElementId: string;//'',
+    public InitialHelpTextElementId: string;//'',
+    public WaitImageId: string;//'',
+    public HiddenInputId: string;//'',
+    public AllowEmpty: boolean;//true,
+    public ForceClaims: boolean;//false,
+    public AutoFillEnabled: boolean;//true,
+    public AllowMultipleUsers: boolean;//false,
+    public OnValueChangedClientScript: (pickerElementId: string, users: ISPClientPeoplePickerEntity[]) => void;
+    public OnUserResolvedClientScript: (pickerElementId: string, users: ISPClientPeoplePickerEntity[]) => void;
+    public OnControlValidateClientScript: (pickerElementId: string, users: ISPClientPeoplePickerEntity[]) => void;
+    public UrlZone: string;//null,
+    public AllUrlZones: boolean;//false,
+    public SharePointGroupID: number;//0,
+    public AllowEmailAddresses: boolean;//false,
+    public PPMRU: SPClientPeoplePickerMRU;
+    public UseLocalSuggestionCache: boolean;//true,
+    public CurrentQueryStr: string;//'',
+    public LatestSearchQueryStr: string;// '',
+    public InitialSuggestions: ISPClientPeoplePickerEntity[];
+    public CurrentLocalSuggestions: ISPClientPeoplePickerEntity[];
+    public CurrentLocalSuggestionsDict: ISPClientPeoplePickerEntity;
+    public VisibleSuggestions: number;//5,
+    public PrincipalAccountType: string;//'',
+    public PrincipalAccountTypeEnum: SP.Utilities.PrincipalType;
+    public EnabledClaimProviders: string;//'',
+    public SearchPrincipalSource: SP.Utilities.PrincipalSource;//null,
+    public ResolvePrincipalSource: SP.Utilities.PrincipalSource;//null,
+    public MaximumEntitySuggestions: number;//30,
+    public EditorWidthSet: boolean;//false,
+    public QueryScriptInit: boolean;//false,
+    public AutoFillControl: string;//null,
+    public TotalUserCount: number;//0,
+    public UnresolvedUserCount: number;//0,
+    public UserQueryDict: ISPClientPeoplePickerEntity;
+    public ProcessedUserList: ISPClientPeoplePickerEntity;
+    public HasInputError: boolean;//false,
+    public HasServerError: boolean;//false,
+    public ShowUserPresence: boolean;//true,
+    public TerminatingCharacter: string;//';',
+    public UnresolvedUserElmIdToReplace: string;//'',
+    public WebApplicationID: SP.Guid;//'{00000000-0000-0000-0000-000000000000}',
+
+    public GetAllUserInfo(): ISPClientPeoplePickerEntity[];
+}
+
+interface ISPClientPeoplePickerSchema {
+    TopLevelElementId?: string;
+    EditorElementId?: string;
+    AutoFillElementId?: string;
+    ResolvedListElementId?: string;
+    InitialHelpTextElementId?: string;
+    WaitImageId?: string;
+    HiddenInputId?: string;
+
+    AllowMultipleValues?: boolean;
+    Required?: boolean;
+    AutoFillEnabled?: boolean;
+    ForceClaims?: boolean;
+    AllowEmailAddresses?: boolean;
+    AllUrlZones?: boolean;
+    UseLocalSuggestionCache?: boolean;
+    UserNoQueryPermission?: boolean;
+
+    VisibleSuggestions?: number;
+    MaximumEntitySuggestions?: number;
+
+    ErrorMessage?: string;
+    InitialHelpText?: string;
+
+    InitialSuggestions?: ISPClientPeoplePickerEntity[];
+
+
+    UrlZone?: SP.UrlZone;
+    WebApplicationID?: SP.Guid;
+    SharePointGroupID?: number;
+
+    /** Specify User, DL, SecGroup or SPGroup*/
+    PrincipalAccountType?: string;
+
+    EnabledClaimProvider?: string;
+    ResolvePrincipalSource?: SP.Utilities.PrincipalSource;
+    SearchPrincipalSource?: SP.Utilities.PrincipalSource;
+
+    OnUserResolvedClientScript?: (pickerElementId: string, users: ISPClientPeoplePickerEntity[]) => void;
+    OnValueChangedClientScript?: (pickerElementId: string, users: ISPClientPeoplePickerEntity[]) => void;
+
+    /** Number or '100%'*/
+    Width?: any;
+
+    Rows?: number;
+
+}
+
+declare class SPClientPeoplePickerMRU {
+    static PPMRUVersion: number;// = 1;
+    static MaxPPMRUItems: number;// = 200;
+    static PPMRUDomLocalStoreKey: string;// = "ClientPeoplePickerMRU";
+    static GetSPClientPeoplePickerMRU(): SPClientPeoplePickerMRU;
+
+    GetItems(strKey: string): Object[];
+    SetItem(strSearchTerm: string, objEntity: Object): void;
+    ResetCache(): void;
+}
+
+interface ISPClientPeoplePickerEntity {
+    Key?: string;
+    Description?: string;
+    DisplayText?: string;
+    EntityType?: string;
+    ProviderDisplayName?: string;
+    ProviderName?: string;
+    IsResolved?: boolean;
+    EntityData?: {
+        Title: string;
+        MobilePhone: string;
+        Department: string;
+        Email: string;
+    };
+    MultipleMatches: Object[];
+    DomainText?: string;
+    [key: string]: any;
+}
+
+declare module Microsoft {
+    export module Office {
+        export module Server {
+            export module ReputationModel {
+                export class Reputation {
+                    constructor();
+                    static setLike(context: SP.ClientContext, listId: string, itemId: number, like: boolean);
+                    static setRating(context: SP.ClientContext, listId: string, itemId: number, rating: number);
+                }
+            }
+        }
+    }
 }
 
