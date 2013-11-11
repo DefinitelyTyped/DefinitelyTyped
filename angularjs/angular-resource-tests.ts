@@ -16,6 +16,7 @@ actionDescriptor.params = { key: 'value' };
 ///////////////////////////////////////
 var resourceClass: ng.resource.IResourceClass;
 var resource: ng.resource.IResource;
+var resourceArray: ng.resource.IResource[];
 
 resource = resourceClass.delete();
 resource = resourceClass.delete({ key: 'value' });
@@ -35,14 +36,14 @@ resource = resourceClass.get({ key: 'value' }, { key: 'value' });
 resource = resourceClass.get({ key: 'value' }, { key: 'value' }, function () { });
 resource = resourceClass.get({ key: 'value' }, { key: 'value' }, function () { }, function () { });
 
-resource = resourceClass.query();
-resource = resourceClass.query({ key: 'value' });
-resource = resourceClass.query({ key: 'value' }, function () { });
-resource = resourceClass.query(function () { });
-resource = resourceClass.query(function () { }, function () { });
-resource = resourceClass.query({ key: 'value' }, { key: 'value' });
-resource = resourceClass.query({ key: 'value' }, { key: 'value' }, function () { });
-resource = resourceClass.query({ key: 'value' }, { key: 'value' }, function () { }, function () { });
+resourceArray = resourceClass.query();
+resourceArray = resourceClass.query({ key: 'value' });
+resourceArray = resourceClass.query({ key: 'value' }, function () { });
+resourceArray = resourceClass.query(function () { });
+resourceArray = resourceClass.query(function () { }, function () { });
+resourceArray = resourceClass.query({ key: 'value' }, { key: 'value' });
+resourceArray = resourceClass.query({ key: 'value' }, { key: 'value' }, function () { });
+resourceArray = resourceClass.query({ key: 'value' }, { key: 'value' }, function () { }, function () { });
 
 resource = resourceClass.remove();
 resource = resourceClass.remove({ key: 'value' });
