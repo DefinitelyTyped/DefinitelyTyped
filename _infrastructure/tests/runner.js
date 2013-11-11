@@ -552,10 +552,11 @@ else if (typeof require === "function")
 else
         return null;
 })();
-/// <reference path='src/exec.ts' />
-/// <reference path='src/io.ts' />
 var DefinitelyTyped;
 (function (DefinitelyTyped) {
+    /// <reference path='../../node/node.d.ts' />
+    /// <reference path='src/exec.ts' />
+    /// <reference path='src/io.ts' />
     (function (TestManager) {
         var path = require('path');
 
@@ -586,6 +587,8 @@ var DefinitelyTyped;
                 var command = 'node ./_infrastructure/tests/typescript/tsc.js --module commonjs ';
                 if (IO.fileExists(tsfile + '.tscparams')) {
                     command += '@' + tsfile + '.tscparams';
+                } else {
+                    command += '--noImplicitAny';
                 }
                 Exec.exec(command, [tsfile], function (ExecResult) {
                     callback(ExecResult);
@@ -612,6 +615,10 @@ var DefinitelyTyped;
             return Typing;
         })();
 
+        /////////////////////////////////
+        // Given a document root + ts file pattern this class returns:
+        //         all the TS files OR just tests OR just definition files
+        /////////////////////////////////
         var FileHandler = (function () {
             function FileHandler(path, pattern) {
                 this.path = path;
@@ -657,6 +664,10 @@ var DefinitelyTyped;
             return FileHandler;
         })();
 
+        /////////////////////////////////
+        // Timer.start starts a timer
+        // Timer.end stops the timer and sets asString to the pretty print value
+        /////////////////////////////////
         var Timer = (function () {
             function Timer() {
                 this.time = 0;
@@ -686,6 +697,9 @@ var DefinitelyTyped;
             return Timer;
         })();
 
+        /////////////////////////////////
+        // All the common things that we pring are functions of this class
+        /////////////////////////////////
         var Print = (function () {
             function Print(version, typings, tsFiles) {
                 this.version = version;
@@ -705,24 +719,41 @@ var DefinitelyTyped;
                 this.out(' \33[36m\33[1mTypeScript files  :\33[0m ' + this.tsFiles + '\n');
             };
 
-            Print.prototype.printSyntaxChecking = function () {
+            Print.prototype.printSyntaxCheckingHeader = function () {
                 this.out('============================ \33[34m\33[1mSyntax checking\33[0m ================================\n');
             };
 
-            Print.prototype.printTypingTests = function () {
+            Print.prototype.printTypingTestsHeader = function () {
                 this.out('============================= \33[34m\33[1mTyping tests\33[0m ==================================\n');
             };
 
-            Print.prototype.printSuccess = function () {
+            Print.prototype.printSuccessCharacter = function () {
                 this.out('\33[36m\33[1m.\33[0m');
             };
 
-            Print.prototype.printFailure = function () {
+            Print.prototype.printFailureCharacter = function () {
                 this.out('x');
             };
 
             Print.prototype.printDiv = function () {
                 this.out('-----------------------------------------------------------------------------\n');
+            };
+
+            Print.prototype.printBoldDiv = function () {
+                this.out('=============================================================================\n');
+            };
+
+            Print.prototype.printErrorsHeader = function () {
+                this.out('=============================================================================\n');
+                this.out('                    \33[34m\33[1mErrors in files\33[0m \n');
+                this.out('=============================================================================\n');
+            };
+
+            Print.prototype.printErrorsForFile = function (file) {
+                this.out('----------------- For file:' + file.formatName());
+                this.printBreak();
+                this.out(file.execResult.stderr);
+                this.printBreak();
             };
 
             Print.prototype.printfilesWithSintaxErrorMessage = function () {
@@ -749,7 +780,7 @@ var DefinitelyTyped;
                 this.out(' - \33[33m\33[1m' + file + '\33[0m\n');
             };
 
-            Print.prototype.breack = function () {
+            Print.prototype.printBreak = function () {
                 this.out('\n');
             };
 
@@ -779,22 +810,30 @@ var DefinitelyTyped;
             return Print;
         })();
 
+        /////////////////////////////
+        // Represents the results of a test file execution
+        /////////////////////////////
         var File = (function () {
-            function File(name, hasError) {
-                this.name = name;
-                this.hasError = hasError;
+            function File(baseDir, filePathWithName, execResult) {
+                this.baseDir = baseDir;
+                this.filePathWithName = filePathWithName;
+                this.execResult = execResult;
             }
-            File.prototype.formatName = function (baseDir) {
-                var dirName = path.dirname(this.name.substr(baseDir.length + 1)).replace('\\', '/');
+            // From '/complete/path/to/file' to 'specfolder/specfile.d.ts'
+            File.prototype.formatName = function () {
+                var dirName = path.dirname(this.filePathWithName.substr(this.baseDir.length + 1)).replace('\\', '/');
                 var dir = dirName.split('/')[0];
-                var file = path.basename(this.name, '.ts');
-                var ext = path.extname(this.name);
+                var file = path.basename(this.filePathWithName, '.ts');
+                var ext = path.extname(this.filePathWithName);
 
                 return dir + ((dirName.split('/').length > 1) ? '/-/' : '/') + '\33[36m\33[1m' + file + '\33[0m' + ext;
             };
             return File;
         })();
 
+        /////////////////////////////
+        // Determine syntax errors in typings
+        /////////////////////////////
         var SyntaxChecking = (function () {
             function SyntaxChecking(fileHandler, out) {
                 this.fileHandler = fileHandler;
@@ -806,7 +845,7 @@ var DefinitelyTyped;
                 var list = [];
 
                 for (var i = 0; i < this.files.length; i++) {
-                    if (this.files[i].hasError) {
+                    if (this.files[i].execResult.exitCode) {
                         list.push(this.files[i]);
                     }
                 }
@@ -818,7 +857,7 @@ var DefinitelyTyped;
                 var list = [];
 
                 for (var i = 0; i < this.files.length; i++) {
-                    if (!this.files[i].hasError) {
+                    if (!this.files[i].execResult.exitCode) {
                         list.push(this.files[i]);
                     }
                 }
@@ -843,7 +882,7 @@ var DefinitelyTyped;
 
                     for (var i = 0; i < this.getFailedFiles().length; i++) {
                         var errorFile = this.getFailedFiles()[i];
-                        this.out.printErrorFile(errorFile.formatName(this.fileHandler.path));
+                        this.out.printErrorFile(errorFile.formatName());
                     }
                 }
             };
@@ -851,29 +890,26 @@ var DefinitelyTyped;
             SyntaxChecking.prototype.run = function (it, file, len, maxLen, callback) {
                 var _this = this;
                 if (!endsWith(file.toUpperCase(), '-TESTS.TS') && endsWith(file.toUpperCase(), '.TS') && file.indexOf('../_infrastructure') < 0) {
-                    new Test(file).run(function (o) {
-                        var failed = false;
-
-                        if (o.exitCode === 1) {
-                            _this.out.printFailure();
-                            failed = true;
+                    new Test(file).run(function (execResult) {
+                        if (execResult.exitCode === 1) {
+                            _this.out.printFailureCharacter();
                             len++;
                         } else {
-                            _this.out.printSuccess();
+                            _this.out.printSuccessCharacter();
                             len++;
                         }
 
-                        _this.files.push(new File(file, failed));
+                        _this.files.push(new File(_this.fileHandler.path, file, execResult));
 
                         if (len > maxLen) {
                             len = 0;
-                            _this.out.breack();
+                            _this.out.printBreak();
                         }
 
                         if (it.hasNext()) {
                             _this.run(it, it.next(), len, maxLen, callback);
                         } else {
-                            _this.out.breack();
+                            _this.out.printBreak();
                             _this.timer.end();
                             _this.printFailedFiles();
                             _this.printStats();
@@ -884,7 +920,7 @@ var DefinitelyTyped;
                 } else if (it.hasNext()) {
                     this.run(it, it.next(), len, maxLen, callback);
                 } else {
-                    this.out.breack();
+                    this.out.printBreak();
                     this.timer.end();
                     this.printStats();
                     this.printFailedFiles();
@@ -910,6 +946,9 @@ var DefinitelyTyped;
             return SyntaxChecking;
         })();
 
+        /////////////////////////////
+        // Determines errors in typing tests
+        /////////////////////////////
         var TestEval = (function () {
             function TestEval(fileHandler, out) {
                 this.fileHandler = fileHandler;
@@ -921,7 +960,7 @@ var DefinitelyTyped;
                 var list = [];
 
                 for (var i = 0; i < this.files.length; i++) {
-                    if (this.files[i].hasError) {
+                    if (this.files[i].execResult.exitCode) {
                         list.push(this.files[i]);
                     }
                 }
@@ -933,7 +972,7 @@ var DefinitelyTyped;
                 var list = [];
 
                 for (var i = 0; i < this.files.length; i++) {
-                    if (!this.files[i].hasError) {
+                    if (!this.files[i].execResult.exitCode) {
                         list.push(this.files[i]);
                     }
                 }
@@ -958,7 +997,7 @@ var DefinitelyTyped;
 
                     for (var i = 0; i < this.getFailedFiles().length; i++) {
                         var errorFile = this.getFailedFiles()[i];
-                        this.out.printErrorFile(errorFile.formatName(this.fileHandler.path));
+                        this.out.printErrorFile(errorFile.formatName());
                     }
                 }
             };
@@ -966,29 +1005,26 @@ var DefinitelyTyped;
             TestEval.prototype.run = function (it, file, len, maxLen, callback) {
                 var _this = this;
                 if (endsWith(file.toUpperCase(), '-TESTS.TS')) {
-                    new Test(file).run(function (o) {
-                        var failed = false;
-
-                        if (o.exitCode === 1) {
-                            _this.out.printFailure();
-                            failed = true;
+                    new Test(file).run(function (execResult) {
+                        if (execResult.exitCode === 1) {
+                            _this.out.printFailureCharacter();
                             len++;
                         } else {
-                            _this.out.printSuccess();
+                            _this.out.printSuccessCharacter();
                             len++;
                         }
 
-                        _this.files.push(new File(file, failed));
+                        _this.files.push(new File(_this.fileHandler.path, file, execResult));
 
                         if (len > maxLen) {
                             len = 0;
-                            _this.out.breack();
+                            _this.out.printBreak();
                         }
 
                         if (it.hasNext()) {
                             _this.run(it, it.next(), len, maxLen, callback);
                         } else {
-                            _this.out.breack();
+                            _this.out.printBreak();
                             _this.timer.end();
                             _this.printFailedFiles();
                             _this.printStats();
@@ -999,7 +1035,7 @@ var DefinitelyTyped;
                 } else if (it.hasNext()) {
                     this.run(it, it.next(), len, maxLen, callback);
                 } else {
-                    this.out.breack();
+                    this.out.printBreak();
                     this.timer.end();
                     this.printFailedFiles();
                     this.printStats();
@@ -1025,6 +1061,9 @@ var DefinitelyTyped;
             return TestEval;
         })();
 
+        /////////////////////////////////
+        // The main class to kick things off
+        /////////////////////////////////
         var TestRunner = (function () {
             function TestRunner(dtPath) {
                 this.dtPath = dtPath;
@@ -1063,19 +1102,41 @@ var DefinitelyTyped;
                 return count;
             };
 
+            TestRunner.prototype.printErrorsDetected = function () {
+                var _this = this;
+                this.out.printErrorsHeader();
+
+                var printErrorsForFileIfFound = function (file) {
+                    if (file.execResult.exitCode)
+                        _this.out.printErrorsForFile(file);
+                };
+
+                // sc errors:
+                this.sc.files.forEach(printErrorsForFileIfFound);
+                this.out.printBoldDiv();
+
+                // te errors:
+                this.te.files.forEach(printErrorsForFileIfFound);
+                this.out.printBoldDiv();
+            };
+
             TestRunner.prototype.run = function () {
                 var _this = this;
                 var timer = new Timer();
                 timer.start();
 
                 this.out.printHeader();
-                this.out.printSyntaxChecking();
 
+                // Run syntax tests
+                this.out.printSyntaxCheckingHeader();
                 this.sc.start(function (syntaxFailedCount, syntaxTotal) {
-                    _this.out.printTypingTests();
+                    // Now run typing tests
+                    _this.out.printTypingTestsHeader();
                     _this.te.start(function (testFailedCount, testTotal) {
-                        var total = _this.printTypingsWithoutTest();
+                        // Get the tests without any typing and simultaneously print their names
+                        var totalTypingsWithoutTest = _this.printTypingsWithoutTest();
 
+                        // End total timer and print final messages
                         timer.end();
 
                         _this.out.printDiv();
@@ -1085,11 +1146,12 @@ var DefinitelyTyped;
                         _this.out.printElapsedTime(timer.asString, timer.time);
                         _this.out.printSyntaxErrorCount(syntaxFailedCount, syntaxTotal);
                         _this.out.printTestErrorCount(testFailedCount, testTotal);
-                        _this.out.printWithoutTestCount(total, _this.fh.allTypings().length);
+                        _this.out.printWithoutTestCount(totalTypingsWithoutTest, _this.fh.allTypings().length);
 
                         _this.out.printDiv();
 
                         if (syntaxFailedCount > 0 || testFailedCount > 0) {
+                            _this.printErrorsDetected();
                             process.exit(1);
                         }
                     });

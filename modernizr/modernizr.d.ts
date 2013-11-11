@@ -47,6 +47,7 @@ interface InputTypesboolean {
 }
 
 interface ModernizrStatic {
+    autofocus: boolean;
     fontface: boolean;
     backgroundsize: boolean;
     borderimage: boolean;
@@ -91,9 +92,9 @@ interface ModernizrStatic {
     touch: boolean;
     webgl: boolean;
 
-    load(resources: Array);
-    load(resourceObject: any);
-    load(resourceString: string);
+    load(resources: Array): void;
+    load(resourceObject: any): void;
+    load(resourceString: string): void;
 
     prefixed(): boolean;
     prefixed(property: string): boolean;
@@ -101,11 +102,11 @@ interface ModernizrStatic {
 
     mq(mediaQuery: string): boolean;
 
-    addTest(feature: string, test: () => any);
-    addTest(feature: string, test: boolean);
-    addTest(feature: any);
+    addTest(feature: string, test: () => any): void;
+    addTest(feature: string, test: boolean): void;
+    addTest(feature: any): void;
 
-    testStyles(rule: string, callback: (element, rule) => void, nodes?: number, testnames?: string[]): boolean;
+    testStyles(rule: string, callback: (element: HTMLDivElement, rule: string) => void, nodes?: number, testnames?: string[]): boolean;
     testProp(property: string): boolean;
     testAllProps(property: string, prefix?: string): boolean;
     testAllProps(property: string, obj: any, element: any): boolean;

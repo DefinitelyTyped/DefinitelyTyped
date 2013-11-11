@@ -87,7 +87,7 @@ declare module Slick {
 		* @method subscribe
 		* @param fn {Function} Event handler.
 		*/
-		public subscribe<T>(fn: (eventData: EventData, data: T) => any ): void;
+		public subscribe(fn: (eventData: EventData, data: T) => any ): void;
 
 		/***
 		* Removes an event handler added with <code>subscribe(fn)</code>.
@@ -1529,7 +1529,7 @@ declare module Slick {
 			public getGroups(): Group<T, any>[];
 			public getIdxById(): string;
 			public getRowById(): T;
-			public getItemById(): T;
+			public getItemById(id: any): T;
 			public getItemByIdx(): T;
 			public mapRowsToIds(rowArray: T[]): string[];
 			public setRefreshHints(hints: RefreshHints): void;

@@ -830,42 +830,9 @@ declare module chrome.events {
 // Extension
 ////////////////////
 declare module chrome.extension {
-    interface MessageSender {
-        id: string;
-        tab?: chrome.tabs.Tab;
-    }
-
-    interface Port {
-        postMessage: Function;
-        sender?: MessageSender;
-        onDisconnect: chrome.events.Event;
-        onMessage: chrome.events.Event;
-        name: string;
-    }
-
     interface FetchProperties {
         windowId?: number;
         type?: string;
-    }
-
-    interface ConnectInfo {
-        name?: string;
-    }
-
-    interface ExtensionMessageEvent extends chrome.events.Event {
-        addListener(callback: (message: any, sender: MessageSender, sendResponse: Function) => void): void;
-    }
-
-    interface ExtensionMessageExternalEvent extends chrome.events.Event {
-        addListener(callback: (message: any, sender: MessageSender, sendResponse: Function) => void): void;
-    }
-
-    interface ExtensionConnectEvent extends chrome.events.Event {
-        addListener(callback: (port: Port) => void): void;
-    }
-
-    interface ExtensionConnectExternalEvent extends chrome.events.Event {
-        addListener(callback: (port: Port) => void): void;
     }
 
     var inIncognitoContext: boolean;
@@ -876,15 +843,7 @@ declare module chrome.extension {
     export function setUpdateUrlData(data: string): void;
     export function getViews(fetchProperties?: FetchProperties): Window[];
     export function isAllowedFileSchemeAccess(callback: (isAllowedAccess: boolean) => void): void;
-    export function sendMessage(message: any, responseCallback?: (response: any) => void): void;
-    export function sendMessage(extensionId: string, message: any, responseCallback?: (response: any) => void): void;
-    export function connect(extensionId?: string, connectInfo?: ConnectInfo): Port;
     export function isAllowedIncognitoAccess(callback: (isAllowedAccess) => void): void;
-
-    var onMessage: ExtensionMessageEvent;
-    var onMessageExternal: ExtensionMessageExternalEvent;
-    var onConnect: ExtensionConnectEvent;
-    var onConnectExternal: ExtensionConnectExternalEvent;
 }
 
 ////////////////////
@@ -1461,9 +1420,60 @@ declare module chrome.runtime {
     var lastError: Object;
     var id: string;
 
+    interface ConnectInfo {
+        name?: string;
+    }
+
     interface InstalledDetails {
         reason: string;
         previousVersion?: string;
+    }
+
+    interface MessageOptions {
+        includeTlsChannelId?: boolean;
+    }
+
+    interface MessageSender {
+        id: string;
+        tab?: chrome.tabs.Tab;
+    }
+
+    interface PlatformInfo {
+        os: string;
+        arch: string;
+        nacl_arch: string;
+    }
+    
+    interface Port {
+        postMessage: Function;
+        sender?: MessageSender;
+        onDisconnect: chrome.events.Event;
+        onMessage: chrome.events.Event;
+        name: string;
+    }
+
+    interface UpdateAvailableDetails {
+        version: string;
+    }
+
+    interface UpdateCheckDetails {
+        version: string;
+    }
+
+    interface ExtensionMessageEvent extends chrome.events.Event {
+        addListener(callback: (message: any, sender: MessageSender, sendResponse: Function) => void): void;
+    }
+
+    interface ExtensionMessageExternalEvent extends chrome.events.Event {
+        addListener(callback: (message: any, sender: MessageSender, sendResponse: Function) => void): void;
+    }
+
+    interface ExtensionConnectEvent extends chrome.events.Event {
+        addListener(callback: (port: Port) => void): void;
+    }
+
+    interface ExtensionConnectExternalEvent extends chrome.events.Event {
+        addListener(callback: (port: Port) => void): void;
     }
 
     interface RuntimeSuspendEvent extends chrome.events.Event {
@@ -1484,17 +1494,43 @@ declare module chrome.runtime {
     interface RuntimeMessageEvent extends chrome.events.Event {
         addListener(callback: Function): void;
     }
+
+    interface RuntimeRestartRequiredEvent extends chrome.events.Event {
+        addListener(callback: (reason: string) => void): void;
+    }
+
+    interface RuntimeUpdateAvailableEvent extends chrome.events.Event {
+        addListener(callback: (details: UpdateAvailableDetails) => void): void;
+    }
     
+    export function connect(connectInfo?: ConnectInfo): Port;
+    export function connect(extensionId: string, connectInfo?: ConnectInfo): Port;
+    export function connectNative(application: string): Port;
     export function getBackgroundPage(callback: (backgroundPage?: Window) => void): void;
     export function getManifest(): Object;
+    export function getPackageDirectoryEntry(callback: (directoryEntry: any) => void): void;
+    export function getPlatformInfo(callback: (platformInfo: PlatformInfo) => void): void;
     export function getURL(path: string): string;
-    
+    export function reload(): void;
+    export function requestUpdateCheck(callback: (status: string, details?: UpdateCheckDetails) => void): void;
+    export function restart(): void;
+    export function sendMessage(message: any, responseCallback?: (response: any) => void): void;
+    export function sendMessage(message: any, options: MessageOptions, responseCallback?: (response: any) => void): void;
+    export function sendMessage(extensionId: string, message: any, responseCallback?: (response: any) => void): void;
+    export function sendMessage(extensionId: string, message: any, options: MessageOptions, responseCallback?: (response: any) => void): void;
+    export function sendNativeMessage(application: string, message: any, responseCallback?: (response: any) => void ): void;
+    export function setUninstallUrl(url: string): void;
+
+    var onConnect: ExtensionConnectEvent;
+    var onConnectExternal: ExtensionConnectExternalEvent;
     var onSuspend: RuntimeSuspendEvent;
     var onStartup: RuntimeStartupEvent;
     var onInstalled: RuntimeInstalledEvent;
     var onSuspendCanceled: RuntimeSuspendCanceledEvent;
     var onMessage: RuntimeMessageEvent;
-    var sendMessage:(req:any, cb:(resp:any)=>void)=>void;
+    var onMessageExternal: RuntimeMessageEvent;
+    var onRestartRequired: RuntimeRestartRequiredEvent;
+    var onUpdateAvailable: RuntimeUpdateAvailableEvent;
 
 }
 
@@ -1717,6 +1753,7 @@ declare module chrome.tabs {
     }
 
     interface TabRemoveInfo {
+        windowId: number;
         isWindowClosing: boolean;
     }
 

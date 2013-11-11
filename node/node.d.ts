@@ -68,14 +68,14 @@ declare var Buffer: {
 ************************************************/
 
 interface EventEmitter {
-    addListener(event: string, listener: Function): void;
-    on(event: string, listener: Function): void;
-    once(event: string, listener: Function): void;
-    removeListener(event: string, listener: Function): void;
-    removeAllListeners(event?: string): void;
+    addListener(event: string, listener: Function): EventEmitter;
+    on(event: string, listener: Function): EventEmitter;
+    once(event: string, listener: Function): EventEmitter;
+    removeListener(event: string, listener: Function): EventEmitter;
+    removeAllListeners(event?: string): EventEmitter;
     setMaxListeners(n: number): void;
     listeners(event: string): Function[];
-    emit(event: string, arg1?: any, arg2?: any): void;
+    emit(event: string, arg1?: any, arg2?: any): boolean;
 }
 
 interface WritableStream extends EventEmitter {
@@ -161,7 +161,7 @@ interface NodeBuffer {
     write(string: string, offset?: number, length?: number, encoding?: string): number;
     toString(encoding?: string, start?: number, end?: number): string;
     length: number;
-    copy(targetBuffer: NodeBuffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): void;
+    copy(targetBuffer: NodeBuffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
     slice(start?: number, end?: number): NodeBuffer;
     readUInt8(offset: number, noAsset?: boolean): number;
     readUInt16LE(offset: number, noAssert?: boolean): number;
@@ -209,25 +209,25 @@ declare module "querystring" {
 
 declare module "events" {
     export interface NodeEventEmitter {
-        addListener(event: string, listener: Function): void;
-        on(event: string, listener: Function): any;
-        once(event: string, listener: Function): void;
-        removeListener(event: string, listener: Function): void;
-        removeAllListeners(event?: string): void;
+        addListener(event: string, listener: Function): NodeEventEmitter;
+        on(event: string, listener: Function): NodeEventEmitter;
+        once(event: string, listener: Function): NodeEventEmitter;
+        removeListener(event: string, listener: Function): NodeEventEmitter;
+        removeAllListeners(event?: string): NodeEventEmitter;
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
-        emit(event: string, arg1?: any, arg2?: any): void;
+        emit(event: string, arg1?: any, arg2?: any): boolean;
     }
 
     export class EventEmitter implements NodeEventEmitter {
-        addListener(event: string, listener: Function): void;
-        on(event: string, listener: Function): any;
-        once(event: string, listener: Function): void;
-        removeListener(event: string, listener: Function): void;
-        removeAllListeners(event?: string): void;
+        addListener(event: string, listener: Function): EventEmitter;
+        on(event: string, listener: Function): EventEmitter;
+        once(event: string, listener: Function): EventEmitter;
+        removeListener(event: string, listener: Function): EventEmitter;
+        removeAllListeners(event?: string): EventEmitter;
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
-        emit(event: string, arg1?: any, arg2?: any): void;
+        emit(event: string, arg1?: any, arg2?: any): boolean;
     }
 }
 
