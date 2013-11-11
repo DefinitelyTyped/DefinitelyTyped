@@ -121,6 +121,8 @@ interface Moment {
 
     isLeapYear(): boolean;
     zone(): number;
+    zone(b: number) Moment;
+    zone(b: string): Moment;
     daysInMonth(): number;
     isDST(): boolean;
 
