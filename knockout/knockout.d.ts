@@ -5,7 +5,7 @@
 
 
 interface KnockoutSubscribableFunctions<T> {
-	notifySubscribers(valueToWrite: T, event?: string);
+	notifySubscribers(valueToWrite: T, event?: string): void;
 }
 
 interface KnockoutComputedFunctions<T> {
@@ -27,12 +27,13 @@ interface KnockoutObservableArrayFunctions<T> {
     unshift(...items: T[]): number;
     reverse(): T[];
     sort(): void;
-    sort(compareFunction): void;
+    sort(compareFunction: (left: any, right: any) => number): void;
 
     // Ko specific
     replace(oldItem: T, newItem: T): void;
 
-    remove(item): T[];
+    remove(item: T): T[];
+    remove(removeFunction: (item: T) => boolean): T[];
     removeAll(items: T[]): T[];
     removeAll(): T[];
 
@@ -52,10 +53,8 @@ interface KnockoutSubscription {
 }
 
 interface KnockoutSubscribable<T> extends KnockoutSubscribableFunctions<T> {
-	(): T;
-	(value: T): void;
-
 	subscribe(callback: (newValue: T) => void, target?: any, event?: string): KnockoutSubscription;
+	subscribe<TEvent>(callback: (newValue: TEvent) => void, target: any, event: string): KnockoutSubscription;
 	extend(requestedExtenders: { [key: string]: any; }): KnockoutSubscribable<T>;
 	getSubscriptionsCount(): number;
 }
@@ -70,10 +69,14 @@ interface KnockoutComputedStatic {
 }
 
 interface KnockoutComputed<T> extends KnockoutSubscribable<T>, KnockoutComputedFunctions<T> {
+	(): T;
+	(value: T): void;
+
 	peek(): T;
 	dispose(): void;
 	isActive(): boolean;
 	getDependenciesCount(): number;
+    extend(requestedExtenders: { [key: string]: any; }): KnockoutComputed<T>;
 }
 
 interface KnockoutObservableArrayStatic {
@@ -83,6 +86,7 @@ interface KnockoutObservableArrayStatic {
 }
 
 interface KnockoutObservableArray<T> extends KnockoutObservable<T[]>, KnockoutObservableArrayFunctions<T> {
+    extend(requestedExtenders: { [key: string]: any; }): KnockoutObservableArray<T>;
 }
 
 interface KnockoutObservableStatic {
@@ -92,9 +96,13 @@ interface KnockoutObservableStatic {
 }
 
 interface KnockoutObservable<T> extends KnockoutSubscribable<T>, KnockoutObservableFunctions<T> {
+	(): T;
+	(value: T): void;
+
 	peek(): T;
 	valueHasMutated(): void;
 	valueWillMutate(): void;
+    extend(requestedExtenders: { [key: string]: any; }): KnockoutObservable<T>;
 }
 
 interface KnockoutComputedDefine<T> {
@@ -114,8 +122,8 @@ interface KnockoutBindingContext {
     $index?: number;
     $parentContext?: KnockoutBindingContext;
 
-    extend(any): any;
-    createChildContext(any): any;
+    extend(properties: any): any;
+    createChildContext(dataItemOrAccessor: any, dataItemAlias?: any, extendCallback?: Function): any;
 }
 
 interface KnockoutBindingHandler {
@@ -159,23 +167,23 @@ interface KnockoutBindingHandlers {
 }
 
 interface KnockoutMemoization {
-    memoize(callback);
-    unmemoize(memoId, callbackParams);
-    unmemoizeDomNodeAndDescendants(domNode, extraCallbackParamsArray);
-    parseMemoText(memoText);
+    memoize(callback: () => string): string;
+    unmemoize(memoId: string, callbackParams: Array): boolean;
+    unmemoizeDomNodeAndDescendants(domNode: any, extraCallbackParamsArray: Array): boolean;
+    parseMemoText(memoText: string): string;
 }
 
 interface KnockoutVirtualElement {}
 
 interface KnockoutVirtualElements {
 	allowedBindings: { [bindingName: string]: boolean; };
-	emptyNode( e: KnockoutVirtualElement );
-	firstChild( e: KnockoutVirtualElement );
-	insertAfter( container: KnockoutVirtualElement, nodeToInsert: HTMLElement, insertAfter: HTMLElement );
-	nextSibling( e: KnockoutVirtualElement );
-	prepend( e: KnockoutVirtualElement, toInsert: HTMLElement );
-	setDomNodeChildren( e: KnockoutVirtualElement, newChildren: { length: number;[index: number]: HTMLElement; } );
-	childNodes( e: KnockoutVirtualElement ): HTMLElement[];
+    emptyNode(node: KnockoutVirtualElement ): void;
+    firstChild(node: KnockoutVirtualElement ): KnockoutVirtualElement;
+	insertAfter( container: KnockoutVirtualElement, nodeToInsert: HTMLElement, insertAfter: HTMLElement ): void;
+    nextSibling(node: KnockoutVirtualElement): HTMLElement;
+    prepend(node: KnockoutVirtualElement, toInsert: HTMLElement ): void;
+    setDomNodeChildren(node: KnockoutVirtualElement, newChildren: { length: number;[index: number]: HTMLElement; } ): void;
+    childNodes(node: KnockoutVirtualElement ): HTMLElement[];
 }
 
 interface KnockoutExtenders {
@@ -189,11 +197,11 @@ interface KnockoutUtils {
     // utils.domManipulation.js
     //////////////////////////////////
 
-    simpleHtmlParse(html: string);
+    simpleHtmlParse(html: string): Array;
 
-    jQueryHtmlParse(html: string);
+    jQueryHtmlParse(html: string): Array;
 
-    parseHtmlFragment(html: string);
+    parseHtmlFragment(html: string): Array;
 
     setHtml(node: Element, html: string): void;
 
@@ -204,13 +212,13 @@ interface KnockoutUtils {
     //////////////////////////////////
 
     domData: {
-        get (node: Element, key: string);
+        get (node: Element, key: string): any;
 
-        set (node: Element, key: string, value: any);
+        set (node: Element, key: string, value: any): void;
 
-        getAll(node: Element, createIfNotFound: boolean);
+        getAll(node: Element, createIfNotFound: boolean): any;
 
-        clear(node: Element);
+        clear(node: Element): boolean;
     };
 
     //////////////////////////////////
@@ -218,13 +226,13 @@ interface KnockoutUtils {
     //////////////////////////////////
 
     domNodeDisposal: {
-        addDisposeCallback(node: Element, callback: Function);
+        addDisposeCallback(node: Element, callback: Function): void;
 
-        removeDisposeCallback(node: Element, callback: Function);
+        removeDisposeCallback(node: Element, callback: Function): void;
 
-        cleanNode(node: Element);
+        cleanNode(node: Element): Element;
 
-        removeNode(node: Element);
+        removeNode(node: Element): void;
     };
 
     //////////////////////////////////
@@ -233,41 +241,29 @@ interface KnockoutUtils {
 
     fieldsIncludedWithJsonPost: any[];
 
-    arrayForEach<T>(array: T[], action: (item: T) => void): void;
+    compareArrays<T>(a: T[], b: T[]): Array<KnockoutArrayChange<T>>;
 
-    arrayForEach(array: any[], action: (any) => void ): void;
+    arrayForEach<T>(array: T[], action: (item: T) => void): void;
 
     arrayIndexOf(array: any[], item: any): number;
 
     arrayFirst<T>(array: T[], predicate: (item: T) => boolean, predicateOwner?: any): T;
 
-    arrayFirst(array: any[], predicate: (item) => boolean, predicateOwner?: any): any;
-
     arrayRemoveItem(array: any[], itemToRemove: any): void;
 
     arrayGetDistinctValues<T>(array: T[]): T[];
 
-    arrayGetDistinctValues(array: any[]): any[];
-
     arrayMap<T, U>(array: T[], mapping: (item: T) => U): U[];
-
-    arrayMap(array: any[], mapping: (item) => any): any[];
 
     arrayFilter<T>(array: T[], predicate: (item: T) => boolean): T[];
 
-    arrayFilter(array: any[], predicate: (item) => boolean): any[];
-
     arrayPushAll<T>(array: T[], valuesToPush: T[]): T[];
-
-    arrayPushAll(array: any[], valuesToPush: any[]): any[];
 
     arrayPushAll<T>(array: KnockoutObservableArray<T>, valuesToPush: T[]): T[];
 
-    arrayPushAll(array: KnockoutObservableArray<any>, valuesToPush: any[]): any[];
+    extend(target: Object, source: Object): Object;
 
-    extend(target, source);
-
-    emptyDomNode(domNode): void;
+    emptyDomNode(domNode: HTMLElement): void;
 
     moveCleanedNodesToContainerElement(nodes: any[]): HTMLElement;
 
@@ -328,15 +324,21 @@ interface KnockoutUtils {
     isIe7: boolean;
 }
 
+interface KnockoutArrayChange<T> {
+    status: string;
+    value: T;
+    index: number;
+}
+
 //////////////////////////////////
 // templateSources.js
 //////////////////////////////////
 
 interface KnockoutTemplateSourcesDomElement {
 
-    text(valueToWrite?);
+    text(valueToWrite?: any): any;
 
-    data(key, valueToWrite?);
+    data(key: string, valueToWrite?: any): any;
 }
 
 
@@ -358,7 +360,7 @@ interface KnockoutTemplateSources {
 
 interface KnockoutNativeTemplateEngine {
 
-    renderTemplateSource(templateSource, bindingContext, options?);
+    renderTemplateSource(templateSource: Object, bindingContext?: KnockoutBindingContext, options?: Object): Array;
 }
 
 //////////////////////////////////
@@ -367,15 +369,15 @@ interface KnockoutNativeTemplateEngine {
 
 interface KnockoutTemplateEngine extends KnockoutNativeTemplateEngine {
 
-    createJavaScriptEvaluatorBlock(script: string);
+    createJavaScriptEvaluatorBlock(script: string): string;
 
-    makeTemplateSource(template, templateDocument);
+    makeTemplateSource(template: any, templateDocument?: Document): any;
 
-    renderTemplate(template, bindingContext, options, templateDocument);
+    renderTemplate(template: any, bindingContext: KnockoutBindingContext, options: Object, templateDocument: Document): any;
 
-    isTemplateRewritten(template, templateDocument): boolean;
+    isTemplateRewritten(template: any, templateDocument: Document): boolean;
 
-    rewriteTemplate(template, rewriterCallback, templateDocument);
+    rewriteTemplate(template: any, rewriterCallback: Function, templateDocument: Document): void;
 }
 
 /////////////////////////////////
@@ -404,10 +406,10 @@ interface KnockoutStatic {
     isWriteableObservable(instance: any): boolean;
     isComputed(instance: any): boolean;
     dataFor(node: any): any;
-    removeNode(node: Element);
-    cleanNode(node: Element);
-    renderTemplate(template: Function, viewModel: any, options?: any, target?: any, renderMode?: any);
-    renderTemplate(template: string, viewModel: any, options?: any, target?: any, renderMode?: any);
+    removeNode(node: Element): void;
+    cleanNode(node: Element): Element;
+    renderTemplate(template: Function, viewModel: any, options?: any, target?: any, renderMode?: any): any;
+    renderTemplate(template: string, viewModel: any, options?: any, target?: any, renderMode?: any): any;
     unwrap(value: any): any;
 
     //////////////////////////////////
@@ -433,11 +435,12 @@ interface KnockoutStatic {
 
     templateRewriting: {
 
-        ensureTemplateIsRewritten(template, templateEngine, templateDocument);
+        ensureTemplateIsRewritten(template: Node, templateEngine: KnockoutTemplateEngine, templateDocument: Document): any;
+        ensureTemplateIsRewritten(template: string, templateEngine: KnockoutTemplateEngine, templateDocument: Document): any;
 
-        memoizeBindingAttributeSyntax(htmlString: string, templateEngine: KnockoutTemplateEngine);
+        memoizeBindingAttributeSyntax(htmlString: string, templateEngine: KnockoutTemplateEngine): any;
 
-        applyMemoizedBindingsToNextSibling(bindings);
+        applyMemoizedBindingsToNextSibling(bindings: any, nodeName: string): string;
     };
 
     //////////////////////////////////
@@ -461,22 +464,32 @@ interface KnockoutStatic {
 
         prototype: KnockoutTemplateEngine;
 
-        renderTemplateSource(templateSource, bindingContext, options);
+        renderTemplateSource(templateSource: Object, bindingContext: KnockoutBindingContext, options: Object): Node[];
 
         createJavaScriptEvaluatorBlock(script: string): string;
 
-        addTemplate(templateName, templateMarkup);
+        addTemplate(templateName: string, templateMarkup: string): void;
     };
 
     //////////////////////////////////
     // templating.js
     //////////////////////////////////
 
-    setTemplateEngine(templateEngine: KnockoutNativeTemplateEngine);
+    setTemplateEngine(templateEngine: KnockoutNativeTemplateEngine): void;
 
-    renderTemplate(template, dataOrBindingContext, options, targetNodeOrNodeArray, renderMode);
+    renderTemplate(template: Function, dataOrBindingContext: KnockoutBindingContext, options: Object, targetNodeOrNodeArray: Node, renderMode: string): any;
+    renderTemplate(template: any, dataOrBindingContext: KnockoutBindingContext, options: Object, targetNodeOrNodeArray: Node, renderMode: string): any;
+    renderTemplate(template: Function, dataOrBindingContext: any, options: Object, targetNodeOrNodeArray: Node, renderMode: string): any;
+    renderTemplate(template: any, dataOrBindingContext: any, options: Object, targetNodeOrNodeArray: Node, renderMode: string): any;
+    renderTemplate(template: Function, dataOrBindingContext: KnockoutBindingContext, options: Object, targetNodeOrNodeArray: Node[], renderMode: string): any;
+    renderTemplate(template: any, dataOrBindingContext: KnockoutBindingContext, options: Object, targetNodeOrNodeArray: Node[], renderMode: string): any;
+    renderTemplate(template: Function, dataOrBindingContext: any, options: Object, targetNodeOrNodeArray: Node[], renderMode: string): any;
+    renderTemplate(template: any, dataOrBindingContext: any, options: Object, targetNodeOrNodeArray: Node[], renderMode: string): any;
 
-    renderTemplateForEach(template, arrayOrObservableArray, options, targetNode, parentBindingContext);
+    renderTemplateForEach(template: Function, arrayOrObservableArray: Array, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
+    renderTemplateForEach(template: any, arrayOrObservableArray: Array, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
+    renderTemplateForEach(template: Function, arrayOrObservableArray: KnockoutObservable<Array>, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
+    renderTemplateForEach(template: any, arrayOrObservableArray: KnockoutObservable<Array>, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
 
     expressionRewriting: {
         bindingRewriteValidators: any;
@@ -492,9 +505,9 @@ interface KnockoutStatic {
 
     selectExtensions: {
 
-        readValue(element: any);
+        readValue(element: HTMLElement): any;
 
-        writeValue(element: any, value: any);
+        writeValue(element: HTMLElement, value: any): void;
     };
 }
 

@@ -134,9 +134,15 @@ interface Config {
 	current: Object;
 	reorder: boolean;
 	requireExpects: boolean;
-    testTimeout: number;
-	urlConfig: Array;
+	testTimeout: number;
+	urlConfig: Array<URLConfigItem>;
 	done: any;
+}
+
+interface URLConfigItem {
+	id: string;
+	label: string;
+	tooltip: string;
 }
 
 interface LifecycleObject {

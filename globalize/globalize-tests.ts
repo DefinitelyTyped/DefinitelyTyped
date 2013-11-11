@@ -22,10 +22,14 @@ Globalize.addCultureInfo("fr", { messages: { "translate": "traduire" } });
 console.log(Globalize.localize("translate", "fr"));
 
 Globalize.parseInt("1,234.56"); 
-Globalize.parseInt("1.234,56");
+Globalize.parseInt("1.234,56", 10);
+Globalize.parseInt("1.234,56", 10, "de");
 Globalize.parseFloat("1,234.56"); 
-Globalize.parseFloat("1.234,56");
+Globalize.parseFloat("1.234,56", 10);
+Globalize.parseFloat("1.234,56", 10, "de");
 Globalize.parseDate("1/2/2003");
+Globalize.parseDate("15 Jun 2012", "dd MMM yyyy");
+Globalize.parseDate("15 Jun 2012", ["dd MMM yyyy"]);
 Globalize.culture("fr");
 Globalize.parseDate("1/2/2003"); 
 
