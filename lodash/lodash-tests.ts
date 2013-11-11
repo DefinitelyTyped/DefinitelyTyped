@@ -693,9 +693,17 @@ result = <any>_.forOwn({ '0': 'zero', '1': 'one', 'length': 2 }, function(num, k
   console.log(key);
 });
 
+	result = <_.LoDashObjectWrapper<any>>_({ '0': 'zero', '1': 'one', 'length': 2 }).forOwn(function(num, key) {
+	  console.log(key);
+	});
+
 result = <any>_.forOwnRight({ '0': 'zero', '1': 'one', 'length': 2 }, function(num, key) {
   console.log(key);
 });
+
+	result = <_.LoDashObjectWrapper<any>>_({ '0': 'zero', '1': 'one', 'length': 2 }).forOwnRight(function(num, key) {
+	  console.log(key);
+	});
 
 result = <string[]>_.functions(_);
  	result = <string[]>_.methods(_);
