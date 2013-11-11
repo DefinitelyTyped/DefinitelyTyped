@@ -245,7 +245,7 @@ interface KnockoutUtils {
 
     arrayForEach<T>(array: T[], action: (item: T) => void): void;
 
-    arrayIndexOf(array: any[], item: any): number;
+    arrayIndexOf<T>(array: T[], item: T): number;
 
     arrayFirst<T>(array: T[], predicate: (item: T) => boolean, predicateOwner?: any): T;
 
