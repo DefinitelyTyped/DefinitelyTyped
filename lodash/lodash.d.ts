@@ -3251,8 +3251,8 @@ declare module _ {
 		* @see _.forIn
 		**/
 		forIn<T extends {}>(
-			callback?: ObjectIterator<T, void>,
-			thisArg?: any): Dictionary<T>;
+			callback: ObjectIterator<T, void>,
+			thisArg?: any): _.LoDashObjectWrapper<T>;
 	}
 
 	//_.forInRight
@@ -3276,8 +3276,8 @@ declare module _ {
 		* @see _.forInRight
 		**/
 		forInRight<T extends {}>(
-			callback?: ObjectIterator<T, void>,
-			thisArg?: any): Dictionary<T>;
+			callback: ObjectIterator<T, void>,
+			thisArg?: any): _.LoDashObjectWrapper<T>;
 	}
 
 	//_.forOwn
@@ -3297,6 +3297,15 @@ declare module _ {
 			thisArg?: any): Dictionary<T>;
 	}
 
+	interface LoDashObjectWrapper {
+		/**
+		* @see _.forOwn
+		**/
+		forOwn<T extends {}>(
+			callback: ObjectIterator<T, void>,
+			thisArg?: any): _.LoDashObjectWrapper<T>;
+	}
+
 	//_.forOwnRight
 	interface LoDashStatic {
 		/**
@@ -3311,6 +3320,15 @@ declare module _ {
 			object: Dictionary<T>,
 			callback?: ObjectIterator<T, void>,
 			thisArg?: any): Dictionary<T>;
+	}
+
+	interface LoDashObjectWrapper {
+		/**
+		* @see _.forOwnRight
+		**/
+		forOwnRight<T extends {}>(
+			callback: ObjectIterator<T, void>,
+			thisArg?: any): _.LoDashObjectWrapper<T>;
 	}
 
 	//_.functions
