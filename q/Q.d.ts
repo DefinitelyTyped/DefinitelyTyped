@@ -8,10 +8,10 @@ declare function Q<T>(promise: Q.IPromise<T>): Q.Promise<T>;
 
 declare module Q {
     interface IPromise<T> {
-        then<U>(onFulfill: (value: T) => U, onReject?: (reason: any) => U): IPromise<U>;
+        then<U>(onFulfill: (value: T) => IPromise<U>, onReject?: (reason: any) => IPromise<U>): IPromise<U>;
         then<U>(onFulfill: (value: T) => IPromise<U>, onReject?: (reason: any) => U): IPromise<U>;
         then<U>(onFulfill: (value: T) => U, onReject?: (reason: any) => IPromise<U>): IPromise<U>;
-        then<U>(onFulfill: (value: T) => IPromise<U>, onReject?: (reason: any) => IPromise<U>): IPromise<U>;
+        then<U>(onFulfill: (value: T) => U, onReject?: (reason: any) => U): IPromise<U>;
     }
 
     interface Deferred<T> {
@@ -26,10 +26,10 @@ declare module Q {
         fin(finallyCallback: () => any): Promise<T>;
         finally(finallyCallback: () => any): Promise<T>;
 
-        then<U>(onFulfill: (value: T) => U, onReject?: (reason: any) => U, onProgress?: Function): Promise<U>;
+        then<U>(onFulfill: (value: T) => IPromise<U>, onReject?: (reason: any) => IPromise<U>, onProgress?: Function): Promise<U>;
         then<U>(onFulfill: (value: T) => IPromise<U>, onReject?: (reason: any) => U, onProgress?: Function): Promise<U>;
         then<U>(onFulfill: (value: T) => U, onReject?: (reason: any) => IPromise<U>, onProgress?: Function): Promise<U>;
-        then<U>(onFulfill: (value: T) => IPromise<U>, onReject?: (reason: any) => IPromise<U>, onProgress?: Function): Promise<U>;
+        then<U>(onFulfill: (value: T) => U, onReject?: (reason: any) => U, onProgress?: Function): Promise<U>;
 
         spread<U>(onFulfilled: Function, onRejected?: Function): Promise<U>;
 
@@ -78,10 +78,10 @@ declare module Q {
     export function when<T, U>(value: T, onFulfilled: (val: T) => U): Promise<U>;
     export function when<T, U>(value: T, onFulfilled: (val: T) => IPromise<U>): Promise<U>;
 
-    export function when<T, U>(value: IPromise<T>, onFulfilled: (val: T) => U, onRejected?: (reason: any) => U, onProgress?: (progress: any) => any): Promise<U>;
+    export function when<T, U>(value: IPromise<T>, onFulfilled: (val: T) => IPromise<U>, onRejected?: (reason: any) => IPromise<U>, onProgress?: (progress: any) => any): Promise<U>;
     export function when<T, U>(value: IPromise<T>, onFulfilled: (val: T) => IPromise<U>, onRejected?: (reason: any) => U, onProgress?: (progress: any) => any): Promise<U>;
     export function when<T, U>(value: IPromise<T>, onFulfilled: (val: T) => U, onRejected?: (reason: any) => IPromise<U>, onProgress?: (progress: any) => any): Promise<U>;
-    export function when<T, U>(value: IPromise<T>, onFulfilled: (val: T) => IPromise<U>, onRejected?: (reason: any) => IPromise<U>, onProgress?: (progress: any) => any): Promise<U>;
+    export function when<T, U>(value: IPromise<T>, onFulfilled: (val: T) => U, onRejected?: (reason: any) => U, onProgress?: (progress: any) => any): Promise<U>;
     
     //export function try(method: Function, ...args: any[]): Promise<any>; // <- This is broken currently - not sure how to fix.
 
@@ -110,14 +110,15 @@ declare module Q {
     export function allResolved<T>(promises: any[]): Promise<Promise<T>[]>;
     export function allResolved<T>(promises: IPromise<T>[]): Promise<Promise<T>[]>;
 
-    export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => U, onRejected: (reason: any) => U): Promise<U>;
+    export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => IPromise<U>, onRejected: (reason: any) => IPromise<U>): Promise<U>;
     export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => IPromise<U>, onRejected: (reason: any) => U): Promise<U>;
     export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => U, onRejected: (reason: any) => IPromise<U>): Promise<U>;
-    export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => IPromise<U>, onRejected: (reason: any) => IPromise<U>): Promise<U>;
-    export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => U, onRejected: (reason: any) => U): Promise<U>;
+    export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => U, onRejected: (reason: any) => U): Promise<U>;
+    
+    export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => IPromise<U>, onRejected: (reason: any) => IPromise<U>): Promise<U>;
     export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => IPromise<U>, onRejected: (reason: any) => U): Promise<U>;
     export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => U, onRejected: (reason: any) => IPromise<U>): Promise<U>;
-    export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => IPromise<U>, onRejected: (reason: any) => IPromise<U>): Promise<U>;
+    export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => U, onRejected: (reason: any) => U): Promise<U>;
     
     export function timeout<T>(promise: Promise<T>, ms: number, message?: string): Promise<T>;
 
@@ -132,8 +133,8 @@ declare module Q {
 
     export function reject(reason?: any): Promise<any>;
 
-    export function promise<T>(resolver: (resolve: (val: T) => void , reject: (reason: any) => void , notify: (progress: any) => void ) => void ): Promise<T>;
     export function promise<T>(resolver: (resolve: (val: IPromise<T>) => void , reject: (reason: any) => void , notify: (progress: any) => void ) => void ): Promise<T>;
+    export function promise<T>(resolver: (resolve: (val: T) => void , reject: (reason: any) => void , notify: (progress: any) => void ) => void ): Promise<T>;
 
     export function promised<T>(callback: (...args: any[]) => T): (...args: any[]) => Promise<T>;
 
