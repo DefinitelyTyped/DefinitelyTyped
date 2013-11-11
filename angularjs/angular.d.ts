@@ -92,7 +92,7 @@ declare module ng {
         controller(name: string, controllerConstructor: Function): IModule;
         controller(name: string, inlineAnnotadedConstructor: any[]): IModule;
         controller(object : Object): IModule;
-        directive(name: string, directiveFactory: (...params:any[])=> IDirective): IModule;
+        directive(name: string, directiveFactory: Function): IModule;
         directive(name: string, inlineAnnotadedFunction: any[]): IModule;
         directive(object: Object): IModule;
         factory(name: string, serviceFactoryFunction: Function): IModule;
@@ -122,6 +122,11 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$compile.directive.Attributes
     ///////////////////////////////////////////////////////////////////////////
     interface IAttributes {
+    	// this is necessary to be able to access the scoped attributes. it's not very elegant
+    	// because you have to use attrs['foo'] instead of attrs.foo but I don't know of a better way
+    	// this should really be limited to return string but it creates this problem: http://stackoverflow.com/q/17201854/165656
+    	[name: string]: any; 
+    	
         // Adds the CSS class value specified by the classVal parameter to the 
         // element. If animations are enabled then an animation will be triggered 
         // for the class addition.
@@ -156,6 +161,8 @@ declare module ng {
         $valid: boolean;
         $invalid: boolean;
         $error: any;
+        $addControl(control: ng.INgModelController): void;
+        $removeControl(control: ng.INgModelController): void;
         $setDirty(): void;
         $setPristine(): void;
     }
@@ -206,8 +213,8 @@ declare module ng {
         $emit(name: string, ...args: any[]): IAngularEvent;
 
         // Documentation says exp is optional, but actual implementaton counts on it
-        $eval(expression: string): any;
-        $eval(expression: (scope: IScope) => any): any;
+        $eval(expression: string, args?: Object): any;
+        $eval(expression: (scope: IScope) => any, args?: Object): any;
 
         // Documentation says exp is optional, but actual implementaton counts on it
         $evalAsync(expression: string): void;
@@ -264,6 +271,15 @@ declare module ng {
     ///////////////////////////////////////////////////////////////////////////
     interface ITimeoutService {
         (func: Function, delay?: number, invokeApply?: boolean): IPromise<any>;
+        cancel(promise: IPromise<any>): boolean;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // IntervalService
+    // see http://docs.angularjs.org/api/ng.$interval
+    ///////////////////////////////////////////////////////////////////////////
+    interface IIntervalService {
+        (func: Function, delay: number, count?: number, invokeApply?: boolean): IPromise<any>;
         cancel(promise: IPromise<any>): boolean;
     }
 
@@ -632,6 +648,59 @@ declare module ng {
     interface IRootScopeService extends IScope {}
 
     ///////////////////////////////////////////////////////////////////////////
+    // SCEService
+    // see http://docs.angularjs.org/api/ng.$sce
+    ///////////////////////////////////////////////////////////////////////////
+	interface ISCEService {
+		getTrusted(type: string, mayBeTrusted: any): any;
+		getTrustedCss(value: any): any;
+		getTrustedHtml(value: any): any;
+		getTrustedJs(value: any): any;
+		getTrustedResourceUrl(value: any): any;
+		getTrustedUrl(value: any): any;
+		parse(type: string, expression: string): (context: any, locals: any) => any;
+		parseAsCss(expression: string): (context: any, locals: any) => any;
+		parseAsHtml(expression: string): (context: any, locals: any) => any;
+		parseAsJs(expression: string): (context: any, locals: any) => any;
+		parseAsResourceUrl(expression: string): (context: any, locals: any) => any;
+		parseAsUrl(expression: string): (context: any, locals: any) => any;
+		trustAs(type: string, value: any): any;
+		trustAsHtml(value: any): any;
+		trustAsJs(value: any): any;
+		trustAsResourceUrl(value: any): any;
+		trustAsUrl(value: any): any;
+		isEnabled(): boolean;
+	}
+
+    ///////////////////////////////////////////////////////////////////////////
+    // SCEProvider
+    // see http://docs.angularjs.org/api/ng.$sceProvider
+    ///////////////////////////////////////////////////////////////////////////
+    interface ISCEProvider extends IServiceProvider {
+        enabled(value: boolean): void;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // SCEDelegateService
+    // see http://docs.angularjs.org/api/ng.$sceDelegate
+    ///////////////////////////////////////////////////////////////////////////
+    interface ISCEDelegateService {
+        getTrusted(type: string, mayBeTrusted: any): any;
+        trustAs(type: string, value: any): any;
+        valueOf(value: any): any;
+    }
+
+	
+    ///////////////////////////////////////////////////////////////////////////
+    // SCEDelegateProvider
+    // see http://docs.angularjs.org/api/ng.$sceDelegateProvider
+    ///////////////////////////////////////////////////////////////////////////
+    interface ISCEDelegateProvider extends IServiceProvider {
+        resourceUrlBlacklist(blacklist: any[]): void;
+        resourceUrlWhitelist(whitelist: any[]): void;
+    }
+	
+    ///////////////////////////////////////////////////////////////////////////
     // Directive
     // see http://docs.angularjs.org/api/ng.$compileProvider#directive
     // and http://docs.angularjs.org/guide/directive
@@ -643,7 +712,7 @@ declare module ng {
             templateAttributes: IAttributes,
             transclude: (scope: IScope, cloneLinkingFn: Function) => void
             ) => any;
-        controller?: (...injectables: any[]) => void;
+        controller?: any;
         controllerAs?: string;
         link?:
             (scope: IScope,
@@ -654,7 +723,7 @@ declare module ng {
         name?: string;
         priority?: number;
         replace?: boolean;
-        require?: string[];
+        require?: any;
         restrict?: string;
         scope?: any;
         template?: any;
