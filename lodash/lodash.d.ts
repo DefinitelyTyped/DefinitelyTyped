@@ -4028,7 +4028,7 @@ declare module _ {
 	}
 
 	interface MemoIterator<T, TResult> {
-		(prev: TResult, curr: T, index: number, list: T[]): TResult;
+		(prev: TResult, curr: T, indexOrKey: any, list?: T[]): TResult;
 	}
 
 	interface Collection<T> { }
