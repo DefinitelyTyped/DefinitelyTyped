@@ -9,7 +9,7 @@ declare module CrossFilter {
         (value: T): any;
     }
 
-  export interface CrossFilterStatic {
+    export interface CrossFilterStatic {
         <T>(data: T[]): CrossFilter<T>;
         version: string;
         permute<T>(array: T[], index: number[]): T[];
@@ -34,7 +34,7 @@ declare module CrossFilter {
             <T>(array: T[], lo: number, hi: number): T[];
             by<T>(value: Selector<T>): Sort<T>;
         }
-	}
+    }
 
     export interface Bisection<T> {
         (array: T[], value: T, lo: number, hi: number): number;
@@ -91,7 +91,7 @@ declare module CrossFilter {
         dimension<TDimension>(value: (data: T) => TDimension): Dimension<T, TDimension>;
     }
 
-    export interface Dimension<T, TDimension> { 
+    export interface Dimension<T, TDimension> {
         filter(value: TDimension[]): Dimension<T, TDimension>;
         filter(value: TDimension): Dimension<T, TDimension>;
         filter(value: Selector<TDimension>): Dimension<T, TDimension>;
