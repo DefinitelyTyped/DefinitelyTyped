@@ -1,4 +1,4 @@
-// Type definitions for Backbone 1.0.0
+// Type definitions for Backbone 2.3.1
 // Project: http://backbonejs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions by: Natan Vivo <https://github.com/nvivo/>
@@ -81,7 +81,7 @@ declare module Backbone {
 
     class ModelBase extends Events {
         url: any;
-        parse(response, options?: any);
+        parse(response: any, options?: any): any;
         toJSON(options?: any): any;
         sync(...arg: any[]): JQueryXHR;
     }
@@ -103,28 +103,28 @@ declare module Backbone {
         urlRoot: any;
 
         constructor(attributes?: any, options?: any);
-        initialize(attributes?: any);
+        initialize(attributes?: any): void;
 
         fetch(options?: ModelFetchOptions): JQueryXHR;
 
         get(attributeName: string): any;
-        set(attributeName: string, value: any, options?: ModelSetOptions);
-        set(obj: any, options?: ModelSetOptions);
+        set(attributeName: string, value: any, options?: ModelSetOptions): Model;
+        set(obj: any, options?: ModelSetOptions): Model;
 
-        change();
+        change(): any;
         changedAttributes(attributes?: any): any[];
-        clear(options?: Silenceable);
+        clear(options?: Silenceable): Model;
         clone(): Model;
-        destroy(options?: ModelDestroyOptions);
-        escape(attribute: string);
+        destroy(options?: ModelDestroyOptions): any;
+        escape(attribute: string): string;
         has(attribute: string): boolean;
         hasChanged(attribute?: string): boolean;
         isNew(): boolean;
         isValid(): boolean;
         previous(attribute: string): any;
         previousAttributes(): any[];
-        save(attributes?: any, options?: ModelSaveOptions);
-        unset(attribute: string, options?: Silenceable);
+        save(attributes?: any, options?: ModelSaveOptions): any;
+        unset(attribute: string, options?: Silenceable): Model;
         validate(attributes: any, options?: any): any;
 
         _validate(attrs: any, options: any): boolean;
@@ -163,14 +163,14 @@ declare module Backbone {
         get(id: any): Model;
         create(attributes: any, options?: ModelSaveOptions): Model;
         pluck(attribute: string): any[];
-        push(model: Model, options?: AddOptions);
-        pop(options?: Silenceable);
-        remove(model: Model, options?: Silenceable);
-        remove(models: Model[], options?: Silenceable);
-        reset(models?: Model[], options?: Silenceable);
-        shift(options?: Silenceable);
-        sort(options?: Silenceable);
-        unshift(model: Model, options?: AddOptions);
+        push(model: Model, options?: AddOptions): Model;
+        pop(options?: Silenceable): Model;
+        remove(model: Model, options?: Silenceable): Model;
+        remove(models: Model[], options?: Silenceable): Model[];
+        reset(models?: Model[], options?: Silenceable): Model[];
+        shift(options?: Silenceable): Model;
+        sort(options?: Silenceable): Collection;
+        unshift(model: Model, options?: AddOptions): Model;
         where(properies: any): Model[];
 
         _prepareModel(attrs?: any, options?: any): any;
@@ -191,7 +191,7 @@ declare module Backbone {
         difference(...model: Model[]): Model[];
         drop(): Model;
         drop(n: number): Model[];
-        each(iterator: (element: Model, index: number, list?: any) => void , context?: any);
+        each(iterator: (element: Model, index: number, list?: any) => void , context?: any): any;
         every(iterator: (element: Model, index: number) => boolean, context?: any): boolean;
         filter(iterator: (element: Model, index: number) => boolean, context?: any): Model[];
         find(iterator: (element: Model, index: number) => boolean, context?: any): Model;
@@ -199,7 +199,7 @@ declare module Backbone {
         first(n: number): Model[];
         flatten(shallow?: boolean): Model[];
         foldl(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any;
-        forEach(iterator: (element: Model, index: number, list?: any) => void , context?: any);
+        forEach(iterator: (element: Model, index: number, list?: any) => void , context?: any): any;
         include(value: any): boolean;
         indexOf(element: Model, isSorted?: boolean): number;
         initial(): Model;
@@ -207,7 +207,7 @@ declare module Backbone {
         inject(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any;
         intersection(...model: Model[]): Model[];
         isEmpty(object: any): boolean;
-        invoke(methodName: string, arguments?: any[]);
+        invoke(methodName: string, arguments?: any[]): any;
         last(): Model;
         last(n: number): Model[];
         lastIndexOf(element: Model, fromIndex?: number): number;
@@ -223,8 +223,8 @@ declare module Backbone {
         sortBy(iterator: (element: Model, index: number) => number, context?: any): Model[];
         sortBy(attribute: string, context?: any): Model[];
         sortedIndex(element: Model, iterator?: (element: Model, index: number) => number): number;
-        range(stop: number, step?: number);
-        range(start: number, stop: number, step?: number);
+        range(stop: number, step?: number): any;
+        range(start: number, stop: number, step?: number): any;
         reduceRight(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any[];
         reject(iterator: (element: Model, index: number) => boolean, context?: any): Model[];
         rest(): Model;
@@ -247,10 +247,10 @@ declare module Backbone {
         static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
         constructor(options?: RouterOptions);
-        initialize(options?: RouterOptions);
-        route(route: string, name: string, callback?: Function);
-        navigate(fragment: string, options?: NavigateOptions);
-        navigate(fragment: string, trigger?: boolean);
+        initialize(options?: RouterOptions): void;
+        route(route: string, name: string, callback?: Function): Router;
+        navigate(fragment: string, options?: NavigateOptions): Router;
+        navigate(fragment: string, trigger?: boolean): Router;
 
         _bindRoutes(): void;
         _routeToRegExp(route: string): RegExp;
@@ -264,18 +264,18 @@ declare module Backbone {
         handlers: any[];
         interval: number;
 
-        start(options?: HistoryOptions);
+        start(options?: HistoryOptions): boolean;
 
         getHash(window?: Window): string;
         getFragment(fragment?: string, forcePushState?: boolean): string;
         stop(): void;
-        route(route: string, callback: Function);
+        route(route: string, callback: Function): number;
         checkUrl(e?: any): void;
         loadUrl(fragmentOverride: string): boolean;
-        navigate(fragment: string, options?: any);
+        navigate(fragment: string, options?: any): boolean;
         started: boolean;
 
-        _updateHash(location: Location, fragment: string, replace: boolean);
+        _updateHash(location: Location, fragment: string, replace: boolean): void;
     }
 
     interface ViewOptions {
@@ -294,16 +294,16 @@ declare module Backbone {
 
     class View extends Events implements OptionalEvents {
 
-        static extend(properties: any, classProperties?: any): any;  // do not use, prefer TypeScript's extend functionality
+        static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
         constructor(options?: ViewOptions);
 
         $(selector: string): JQuery;
         model: Model;
         collection: Collection;
-        make(tagName: string, attrs?, opts?): View;
-        setElement(element: HTMLElement, delegate?: boolean);
-        setElement(element: JQuery, delegate?: boolean);
+        make(tagName: string, attrs?: any, opts?: any): View;
+        setElement(element: HTMLElement, delegate?: boolean): View;
+        setElement(element: JQuery, delegate?: boolean): View;
         id: string;
         cid: string;
         className: string;
@@ -312,12 +312,12 @@ declare module Backbone {
 
         el: any;
         $el: JQuery;
-        setElement(element);
-        attributes;
-        $(selector): JQuery;
+        setElement(element: any): View;
+        attributes: any;
+        $(selector: any): JQuery;
         render(): View;
         remove(): View;
-        make(tagName, attributes?, content?);
+        make(tagName: any, attributes?: any, content?: any): any;
         delegateEvents(events?: any): any;
         undelegateEvents();
 
@@ -325,7 +325,7 @@ declare module Backbone {
     }
 
     // SYNC
-    function sync(method, model, options?: JQueryAjaxSettings);
+    function sync(method: string, model: Model, options?: JQueryAjaxSettings): any;
     var emulateHTTP: boolean;
     var emulateJSONBackbone: boolean;
 
@@ -337,5 +337,5 @@ declare module Backbone {
     //function noConflict(): typeof Backbone;
     function noConflict(): any;
 
-    function setDomLibrary(jQueryNew);
+    function setDomLibrary(jQueryNew: any): any;
 }
