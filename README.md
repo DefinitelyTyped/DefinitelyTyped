@@ -173,6 +173,7 @@ List of Definitions
 * [Node.js](http://nodejs.org/) (from TypeScript samples)
 * [node_redis](https://github.com/mranney/node_redis) (by [Boris Yankov](https://github.com/borisyankov))
 * [node-ffi](https://github.com/rbranson/node-ffi) (by [Paul Loyd](https://github.com/loyd))
+* [node-git](https://github.com/christkv/node-git) (by [vvakame](https://github.com/vvakame))
 * [node_zeromq](https://github.com/JustinTulloss/zeromq.node) (by [Dave McKeown](https://github.com/davemckeown))
 * [node-sqlserver](https://github.com/WindowsAzure/node-sqlserver) (by [Boris Yankov](https://github.com/borisyankov))
 * [NProgress](https://github.com/rstacruz/nprogress) (by [Judah Gabriel Himango](https://github.com/judahgabriel))
