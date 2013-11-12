@@ -5,6 +5,7 @@
 
 
 declare function describe(description: string, specDefinitions: () => void): void;
+declare function ddescribe(description: string, specDefinitions: () => void): void;
 declare function xdescribe(description: string, specDefinitions: () => void): void;
 
 declare function it(expectation: string, assertion: () => void): void;
