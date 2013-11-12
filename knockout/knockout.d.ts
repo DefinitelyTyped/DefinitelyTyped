@@ -27,7 +27,7 @@ interface KnockoutObservableArrayFunctions<T> {
     unshift(...items: T[]): number;
     reverse(): T[];
     sort(): void;
-    sort(compareFunction: (left: any, right: any) => number): void;
+    sort(compareFunction: (left: T, right: T) => number): void;
 
     // Ko specific
     replace(oldItem: T, newItem: T): void;
