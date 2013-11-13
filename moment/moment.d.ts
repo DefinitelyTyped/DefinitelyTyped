@@ -74,6 +74,13 @@ interface Moment {
     local(): Moment; // current date/time in local mode
 
     utc(): Moment; // current date/time in UTC mode
+	
+	max(date: Date): Moment;
+	max(date: number): Moment;
+	max(date: Array): Moment;
+	max(date: string): Moment;
+	max(date: string, format: string): Moment;
+	max(clone: Moment): Moment;
 
     isValid(): bool;
 
@@ -288,6 +295,13 @@ interface MomentStatic {
     isSame(b: Number, granularity: string): bool;
     isSame(b: Date, granularity: string): bool;
     isSame(b: Array, granularity: string): bool;
+	
+	max(date: Date): Moment;
+	max(date: number): Moment;
+	max(date: Array): Moment;
+	max(date: string): Moment;
+	max(date: string, format: string): Moment;
+	max(clone: Moment): Moment;
 }
 
 declare var moment: MomentStatic;
