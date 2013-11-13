@@ -113,7 +113,7 @@ declare module Backbone {
 
         change(): any;
         changedAttributes(attributes?: any): any[];
-        clear(options?: Silenceable): Model;
+        clear(options?: Silenceable): any;
         clone(): Model;
         destroy(options?: ModelDestroyOptions): any;
         escape(attribute: string): string;
