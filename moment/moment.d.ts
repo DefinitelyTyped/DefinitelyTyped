@@ -232,6 +232,8 @@ interface MomentStatic {
     utc(array: number[]): Moment; // parse an array of numbers matching Date.UTC() parameters
     utc(String: string): Moment; // parse string into UTC mode
     utc(String1: string, String2: string): Moment; // parse a string and format into UTC mode
+	utc(date: Date): Moment;
+	utc(clone: Moment): Moment;
 
     isMoment(): bool;
     isMoment(m: any): bool;
