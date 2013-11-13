@@ -75,8 +75,16 @@ interface Moment {
     local(): Moment; // current date/time in local mode
 
     utc(): Moment; // current date/time in UTC mode
+	
+	isValid(): boolean;
+	
+	max(date: Date): Moment;
+    max(date: number): Moment;
+	max(date: Array): Moment;
+	max(date: string): Moment;
+	max(date: string, format: string): Moment;
+	max(clone: Moment): Moment;
 
-    isValid(): boolean;
 
     year(y: number): Moment;
     year(): number;
@@ -244,6 +252,8 @@ interface MomentStatic {
     utc(array: number[]): Moment; // parse an array of numbers matching Date.UTC() parameters
     utc(String: string): Moment; // parse string into UTC mode
     utc(String1: string, String2: string): Moment; // parse a string and format into UTC mode
+	utc(date: Date): Moment;
+	utc(clone: Moment): Moment;
 
     isMoment(): boolean;
     isMoment(m: any): boolean;
@@ -298,6 +308,13 @@ interface MomentStatic {
     isSame(b: Number, granularity: string): boolean;
     isSame(b: Date, granularity: string): boolean;
     isSame(b: number[], granularity: string): boolean;
+	
+	max(date: Date): Moment;
+	max(date: number): Moment;
+	max(date: Array): Moment;
+	max(date: string): Moment;
+	max(date: string, format: string): Moment;
+	max(clone: Moment): Moment;
 }
 
 declare var moment: MomentStatic;
