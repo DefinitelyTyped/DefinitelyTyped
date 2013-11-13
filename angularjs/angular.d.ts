@@ -448,14 +448,22 @@ declare module ng {
     }
 
     interface IPromise<T> {
-        then<TResult>(successCallback: (promiseValue: T) => IHttpPromise<TResult>, errorCallback?: (reason: any) => any): IPromise<TResult>;
-        then<TResult>(successCallback: (promiseValue: T) => IPromise<TResult>, errorCallback?: (reason: any) => any): IPromise<TResult>;
-        then<TResult>(successCallback: (promiseValue: T) => TResult, errorCallback?: (reason: any) => TResult): IPromise<TResult>;
+        then<TResult>(successCallback: (promiseValue: T) => IHttpPromise<TResult>, errorCallback?: (reason: any) => any, notifyCallback?: (state: any) => any): IPromise<TResult>;
+        then<TResult>(successCallback: (promiseValue: T) => IPromise<TResult>, errorCallback?: (reason: any) => any, notifyCallback?: (state: any) => any): IPromise<TResult>;
+        then<TResult>(successCallback: (promiseValue: T) => TResult, errorCallback?: (reason: any) => TResult, notifyCallback?: (state: any) => any): IPromise<TResult>;
+        
+        
+        catch<TResult>(onRejected: (reason: any) => IHttpPromise<TResult>): IPromise<TResult>;
+        catch<TResult>(onRejected: (reason: any) => IPromise<TResult>): IPromise<TResult>;
+        catch<TResult>(onRejected: (reason: any) => TResult): IPromise<TResult>;
+        
+        finally<TResult>(finallyCallback: ()=>any):IPromise<TResult>;
     }
 
     interface IDeferred<T> {
         resolve(value?: T): void;
         reject(reason?: any): void;
+        notify(state?:any): void;
         promise: IPromise<T>;
     }
 
