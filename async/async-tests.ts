@@ -18,10 +18,10 @@ async.series([
     function () { }
 ]);
 
-var data;
-function asyncProcess() { }
+var data = [];
+function asyncProcess(item, callback) { }
 async.map(data, asyncProcess, function (err, results) {
-    alert(results);
+    console.log(results);
 });
 
 var openFiles = ['file1', 'file2'];

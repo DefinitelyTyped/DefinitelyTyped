@@ -10,7 +10,7 @@ interface Logger {
     info: (...var_args: any[])=> void;
     warn: (...var_args: any[])=> void;
     error: (...var_args: any[])=> void;
-    isLoggable: (level: number)=> bool;
+    isLoggable: (level: number)=> boolean;
 }
 
 interface loggingLevels {

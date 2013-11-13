@@ -1,6 +1,6 @@
 /// <reference path="express.d.ts" />
 
-import express = module('express');
+import express = require('express');
 var app = express();
 
 //////////////////////////
@@ -1277,7 +1277,7 @@ function test_general() {
 
     app.enabled('trust proxy');
 
-    app.configure(function () => {
+    app.configure(() => {
         app.set('title', 'My Application');
     });
 

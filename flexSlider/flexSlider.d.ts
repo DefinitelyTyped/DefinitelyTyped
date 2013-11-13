@@ -11,9 +11,9 @@ interface SliderObject { //Object: The slider element itself
 	count: number;                  //Int: The total number of slides in the slider
 	currentSlide: number;           //Int: The slide currently being shown
 	animatingTo: number;            //Int: Useful in .before(), the slide currently animating to
-	animating: bool;              //Boolean: is slider animating?
-	atEnd: bool;                  //Boolean: is the slider at either end?
-	manualPause: bool;            //Boolean: force slider to stay paused during pauseOnHover event
+	animating: boolean;              //Boolean: is slider animating?
+	atEnd: boolean;                  //Boolean: is the slider at either end?
+	manualPause: boolean;            //Boolean: force slider to stay paused during pauseOnHover event
 	controlNav: Object;             //Object: The slider controlNav
 	directionNav: Object;            //Object: The slider directionNav
 	controlsContainer: Object;      //Object: The controlsContainer element of the slider
@@ -31,34 +31,34 @@ interface FlexSliderOptions {
 	animation?: string;              //String: Select your animation type, "fade" or "slide"
 	easing?: string;               //{NEW} String: Determines the easing method used in jQuery transitions. jQuery easing plugin is supported!
 	direction?: string;        //String: Select the sliding direction, "horizontal" or "vertical"
-	reverse?: bool;                 //{NEW} Boolean: Reverse the animation direction
-	animationLoop?: bool;             //Boolean: Should the animation loop? If bool; directionNav will received "disable" classes at either end
-	smoothHeight?: bool;            //{NEW} Boolean: Allow height of the slider to animate smoothly in horizontal mode
+	reverse?: boolean;                 //{NEW} Boolean: Reverse the animation direction
+	animationLoop?: boolean;             //Boolean: Should the animation loop? If boolean; directionNav will received "disable" classes at either end
+	smoothHeight?: boolean;            //{NEW} Boolean: Allow height of the slider to animate smoothly in horizontal mode
 	startAt?: number;                     //Integer: The slide that the slider should start on. Array notation (0 = first slide)
-	slideshow?: bool;                //Boolean: Animate slider automatically
+	slideshow?: boolean;                //Boolean: Animate slider automatically
 	slideshowSpeed?: number;           //Integer: Set the speed of the slideshow cycling, in milliseconds
 	animationSpeed?: number;            //Integer: Set the speed of animations, in milliseconds
 	initDelay?: number;                   //{NEW} Integer: Set an initialization delay, in milliseconds
-	randomize?: bool;               //Boolean: Randomize slide order
+	randomize?: boolean;               //Boolean: Randomize slide order
 	 
 	// Usability features
-	pauseOnAction?: bool;            //Boolean: Pause the slideshow when interacting with control elements, highly recommended.
-	pauseOnHover?: bool;            //Boolean: Pause the slideshow when hovering over slider, then resume when no longer hovering
-	useCSS?: bool;                   //{NEW} Boolean: Slider will use CSS3 transitions if available
-	touch?: bool;                    //{NEW} Boolean: Allow touch swipe navigation of the slider on touch-enabled devices
-	video?: bool;                   //{NEW} Boolean: If using video in the slider, will prevent CSS3 3D Transforms to avoid graphical glitches
+	pauseOnAction?: boolean;            //Boolean: Pause the slideshow when interacting with control elements, highly recommended.
+	pauseOnHover?: boolean;            //Boolean: Pause the slideshow when hovering over slider, then resume when no longer hovering
+	useCSS?: boolean;                   //{NEW} Boolean: Slider will use CSS3 transitions if available
+	touch?: boolean;                    //{NEW} Boolean: Allow touch swipe navigation of the slider on touch-enabled devices
+	video?: boolean;                   //{NEW} Boolean: If using video in the slider, will prevent CSS3 3D Transforms to avoid graphical glitches
 	 
 	// Primary Controls
 	controlNav?: any;               //Boolean: Create navigation for paging control of each clide? Note: Leave true for manualControls usage
-	directionNav?: bool;             //Boolean: Create navigation for previous/next navigation? (true/false)
+	directionNav?: boolean;             //Boolean: Create navigation for previous/next navigation? (true/false)
 	prevText?: string;           //String: Set the text for the "previous" directionNav item
 	nextText?: string;               //String: Set the text for the "next" directionNav item
 	 
 	// Secondary Navigation
-	keyboard?: bool;                 //Boolean: Allow slider navigating via keyboard left/right keys
-	multipleKeyboard?: bool;        //{NEW} Boolean: Allow keyboard navigation to affect multiple sliders. Default behavior cuts out keyboard navigation with more than one slider present.
-	mousewheel?: bool;              //{UPDATED} Boolean: Requires jquery.mousewheel.js (https://github.com/brandonaaron/jquery-mousewheel) - Allows slider navigating via mousewheel
-	pausePlay?: bool;               //Boolean: Create pause/play dynamic element
+	keyboard?: boolean;                 //Boolean: Allow slider navigating via keyboard left/right keys
+	multipleKeyboard?: boolean;        //{NEW} Boolean: Allow keyboard navigation to affect multiple sliders. Default behavior cuts out keyboard navigation with more than one slider present.
+	mousewheel?: boolean;              //{UPDATED} Boolean: Requires jquery.mousewheel.js (https://github.com/brandonaaron/jquery-mousewheel) - Allows slider navigating via mousewheel
+	pausePlay?: boolean;               //Boolean: Create pause/play dynamic element
 	pauseText?: string;             //String: Set the text for the "pause" pausePlay item
 	playText?: string;               //String: Set the text for the "play" pausePlay item
 	 

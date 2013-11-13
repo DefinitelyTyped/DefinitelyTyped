@@ -53,22 +53,24 @@ function test_connection() {
 interface MyHubConnection extends HubConnection {
     someState: string;
     SomeFunction: Function;
+
+    // My Hubs Client functions: 
+    client: {
+        addMessage: (message: string) => void;
+    }
+    // My Hubs Server function: 
+    server: {
+        send(message: string);
+    } 
 }
 
 interface SignalR {
-    chat: HubConnection;
+    chat: MyHubConnection;
     myHub: MyHubConnection;
 }
 
 function test_hubs() {
     var chat = $.connection.chat;
-    chat.client.addMessage = function (message) {
-        $('#messages').append('<li>' + message + '</li>');
-    };
-
-    $("#broadcast").click(function () {
-        chat.server.send($('#msg').val());
-    });
     $.connection.hub.start()
         .done(function () { alert("Now connected!"); })
         .fail(function () { alert("Could not Connect!"); });
@@ -114,3 +116,22 @@ function test_hubs() {
     var connection = $.hubConnection('http://localhost:8081/');
     connection.start({ jsonp: true });
 }
+
+// Sample from : https://github.com/SignalR/SignalR/wiki/QuickStart-Hubs#javascript--html 
+$(function () {
+    // Proxy created on the fly          
+    var chat = $.connection.chat;
+
+    // Declare a function on the chat hub so the server can invoke it          
+    chat.client.addMessage = function (message) {
+        $('#messages').append('<li>' + message + '</li>');
+    };
+
+    // Start the connection
+    $.connection.hub.start().done(function () {
+        $("#broadcast").click(function () {
+            // Call the chat method on the server
+            chat.server.send($('#msg').val());
+        });
+    });
+});

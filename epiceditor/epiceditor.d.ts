@@ -8,9 +8,9 @@ interface EpicEditorOptions {
     container?: any;
     textarea?: any;
     basePath?: string;
-    clientSideStorage?: bool;
+    clientSideStorage?: boolean;
     localStorageName?: string;
-    useNativeFullsreen?: bool;
+    useNativeFullsreen?: boolean;
     parser?: any;
     file?: {
         name: string;
@@ -22,7 +22,7 @@ interface EpicEditorOptions {
         preview: string;
         editor: string;
     };
-    focusOnLoad?: bool;
+    focusOnLoad?: boolean;
     shortcut?: {
         modifier: number;
         fullscreen: number;
@@ -35,14 +35,14 @@ interface EpicEditorOptions {
     };
 }
 
-class EpicEditor {
+declare class EpicEditor {
     constructor();
     constructor(options: EpicEditorOptions);
 
     load(callback?: Function): EpicEditor;
     unload(callback?: Function): EpicEditor;
     getElement(element: string): any;
-    is(state: string): bool;
+    is(state: string): boolean;
     open(filename: string);
     importFile(filename?: string, content?: string): void;
     exportFile(filename?: string, type?: string): any;

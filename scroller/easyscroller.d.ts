@@ -6,7 +6,7 @@
 
 /// <reference path="scroller.d.ts"/>
 
-class EasyScroller  {
+declare class EasyScroller  {
     constructor (content: any, options: ScrollerOptions);
 
     render(): void;

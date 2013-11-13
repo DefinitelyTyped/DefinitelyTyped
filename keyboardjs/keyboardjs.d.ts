@@ -40,7 +40,7 @@ interface KeyboardJSStatic {
 		code(keyName: string): any;
 	};
 	combo: {
-		active(keyCombo: string): bool;
+		active(keyCombo: string): boolean;
 		parse(keyCombo: any): any[];
 		stringify(keyComboArray: any): string;
 	};

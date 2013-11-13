@@ -66,7 +66,7 @@ interface MediaContent {
     fileSize: number;
     type: string;
     medium: string;
-    isDefault: bool;
+    isDefault: boolean;
     expression: string;
     bitrate: number;
     framerate: number;

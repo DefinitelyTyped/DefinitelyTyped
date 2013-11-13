@@ -1,6 +1,6 @@
 ﻿// Type definitions for Azure SDK for Node - v0.6.10
 // Project: https://github.com/WindowsAzure/azure-sdk-for-node
-// Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar>
+// Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar> and Anti Veeranna <https://github.com/antiveeranna>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
@@ -9,7 +9,7 @@
 * TODO
 */
 declare module "azure" {
-    import events = module("events");
+    import events = require("events");
 
     //#region Services
     export class TableService extends BatchServiceClient {
@@ -139,10 +139,22 @@ declare module "azure" {
 
     export function createSqlManagementService(subscriptionId: string, authentication: string, hostOptions: string): SqlManagementService;
     //#endregion
-    
-    export module RoleEnvironment {
 
+    interface RoleEnvironmentInterface extends events.EventEmitter {
+        getCurrentRoleInstance(callback: (error, instance) => void): void;
+        getDeploymentId(callback: (error, id:string) => void): void;
+        isAvailable(callback: (error, available: boolean) => void): void;
+        isEmulated(callback: (error, emulated: boolean) => void): void;
+        getRoles(callback: (error, roles) => void): void;
+        getConfigurationSettings(callback: (error, settings) => void): void;
+        getLocalResources(callback: (error, resources) => void): void;
+        requestRecycle(callback: (error) => void): void;
+        setStatus(roleInstanceStatus, expirationUtc, callback: (error) => void): void;
+        clearStatus(callback: (error) => void): void;
     }
+
+    export var RoleEnvironment: RoleEnvironmentInterface;
+    
 
     //#region Export of internal classes
     export class WebResource {
@@ -175,7 +187,7 @@ declare module "azure" {
         performRequestInputStream(webResource: WebResource, outputData: string, inputStream, options, callback: Function): void;
         withFilter(newFilter: { handle: (requestOptions, next: Function) => void; }): ServiceClient;
         parseMetadataHeaders(headers): any;
-        isEmulated(): bool;
+        isEmulated(): boolean;
         setProxy(proxyUrl: string, proxyPort: number): void;
     }
 
@@ -184,17 +196,26 @@ declare module "azure" {
     }
 
     export class TableQuery {
-
+        static select(...fields: string[]): TableQuery;
+        from(table: string): TableQuery;
+        whereKeys(partitionKey: string, rowKey: string): TableQuery;
+        whereNextKeys(partitionKey: string, rowKey: string): TableQuery;
+        where(condition: string, ...values: string[]): TableQuery;
+        and(condition: string, ...arguments: string[]): TableQuery;
+        or(condition: string, ...arguments: string[]): TableQuery;
+        top(integer): TableQuery;
+        toQueryObject(): any;
+        toPath(): string;
     }
 
     export class BatchServiceClient extends StorageServiceClient {
         operations: any[];
 
-        constructor(storageAccount: string, storageAccessKey: string, host: string, usePathstyleUri: bool, authenticationProvider);
+        constructor(storageAccount: string, storageAccessKey: string, host: string, usePathstyleUri: boolean, authenticationProvider);
         beginBatch(): void;
-        isInBatch(): bool;
+        isInBatch(): boolean;
         rollback(): void;
-        hasOperations(): bool;
+        hasOperations(): boolean;
         addOperation(webResource: WebResource, outputData): void;
         commitBatch(callback: (error, operationResponses: any[], response) => void ): void;
         commitBatch(options, callback: (error, operationResponses: any[], response) => void ): void;
@@ -207,11 +228,17 @@ declare module "azure" {
     }
 
     export class LinearRetryPolicyFilter {
-
+        constructor(retryCount?: number, retryInterval?: number);
+        retryCount: number;
+        retryInterval: number;
     }
 
     export class ExponentialRetryPolicyFilter {
-
+        constructor(retryCount?: number, retryInterval?: number, minRetryInterval?: number, maxRetryInterval?: number);
+        retryCount: number;
+        retryInterval: number;
+        minRetryInterval: number;
+        maxRetryInterval: number;
     }
 
     export class SharedAccessSignature {
@@ -273,7 +300,7 @@ declare module "azure" {
 
     //#region Non-explicit, undeclared interfaces
     export interface WebResponse {
-        isSuccessful: bool;
+        isSuccessful: boolean;
         statusCode: number;
         body: { entry: { id: string; title; updated: string; author: { name; }; link; category; content; }; };
         headers;
@@ -290,11 +317,11 @@ declare module "azure" {
     }
 
     export interface CreateTableIfNotExistsCallback {
-        (error: Error, created: bool, response: WebResponse): void;
+        (error: Error, created: boolean, response: WebResponse): void;
     }
 
     export interface DeleteTableCallback {
-        (error: Error, successful: bool, response: WebResponse): void;
+        (error: Error, successful: boolean, response: WebResponse): void;
     }
 
     export interface QueryTablesCallback {
@@ -323,6 +350,10 @@ declare module "azure" {
 
     export interface QueryEntitiesResultContinuation extends QueryResultContinuation {
         tableQuery: TableQuery;
+        nextPartitionKey: string;
+        nextRowKey: string;
+        getNextPage(callback?: QueryEntitiesCallback): void;
+        hasNextPage(): boolean;
     }
 
     export interface ModifyEntityCallback {
@@ -330,11 +361,11 @@ declare module "azure" {
     }
 
     export interface DeleteEntityCallback {
-        (error: Error, successful: bool, response: WebResponse): void;
+        (error: Error, successful: boolean, response: WebResponse): void;
     }
 
     export interface UpdateEntityOptions extends TimeoutIntervalOptions {
-        checkEtag?: bool;
+        checkEtag?: boolean;
     }
 
     export interface Entity {
@@ -356,9 +387,10 @@ declare module "azure" {
         apiVersion: string;
         usePathStyleUri: string;
 
-        constructor(storageAccount: string, storageAccessKey: string, host: string, usePathStyleUri: bool, authenticationProvider);
+        constructor(storageAccount: string, storageAccessKey: string, host: string, usePathStyleUri: boolean, authenticationProvider);
     }
     //#endregion
 
-    export function isEmulated(): bool;
+    export function isEmulated(): boolean;
+
 }

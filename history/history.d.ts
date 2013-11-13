@@ -10,8 +10,14 @@ interface HistoryAdapter {
     onDomLoad(callback);
 }
 
-interface History {
-    enabled: bool;
+// Since History is defined in lib.d.ts as well 
+// the name for our interfaces was chosen to be Historyjs
+// However at runtime you would need to do
+// https://github.com/borisyankov/DefinitelyTyped/issues/277 
+// var Historyjs: Historyjs = <any>History;
+
+interface Historyjs {
+    enabled: boolean;
     pushState(data, title, url);
     replaceState(data, title, url);
     getState();

@@ -1,10 +1,13 @@
 /// <reference path="../ace.d.ts" />
 
-exports = {
+var assert: any;
+var renderer: AceAjax.VirtualRenderer;
+var mode: any;
+var exports = {
 
     "test: simple at the end appending of text": function () {
-        var session = new AceAjax.EditSession("var a = 10;\nconsole.log(a, a);", new JavaScriptMode());
-        var editor = new AceAjax.Editor(new MockRenderer(), session);
+        var session = new AceAjax.EditSession("var a = 10;\nconsole.log(a, a);", mode);
+        var editor = new AceAjax.Editor(renderer, session);
 
         new AceAjax.PlaceHolder(session, 1, { row: 0, column: 4 }, [{ row: 1, column: 12 }, { row: 1, column: 15 }]);
 
@@ -20,8 +23,8 @@ exports = {
     },
 
     "test: inserting text outside placeholder": function () {
-        var session = new AceAjax.EditSession("var a = 10;\nconsole.log(a, a);\n", new JavaScriptMode());
-        var editor = new AceAjax.Editor(new MockRenderer(), session);
+        var session = new AceAjax.EditSession("var a = 10;\nconsole.log(a, a);\n", mode);
+        var editor = new AceAjax.Editor(renderer, session);
 
         new AceAjax.PlaceHolder(session, 1, { row: 0, column: 4 }, [{ row: 1, column: 12 }, { row: 1, column: 15 }]);
 
@@ -31,8 +34,8 @@ exports = {
     },
 
     "test: insertion at the beginning": function (next) {
-        var session = new AceAjax.EditSession("var a = 10;\nconsole.log(a, a);", new JavaScriptMode());
-        var editor = new AceAjax.Editor(new MockRenderer(), session);
+        var session = new AceAjax.EditSession("var a = 10;\nconsole.log(a, a);", mode);
+        var editor = new AceAjax.Editor(renderer, session);
 
         var p = new AceAjax.PlaceHolder(session, 1, { row: 0, column: 4 }, [{ row: 1, column: 12 }, { row: 1, column: 15 }]);
 
@@ -49,8 +52,8 @@ exports = {
     },
 
     "test: detaching placeholder": function () {
-        var session = new AceAjax.EditSession("var a = 10;\nconsole.log(a, a);", new JavaScriptMode());
-        var editor = new AceAjax.Editor(new MockRenderer(), session);
+        var session = new AceAjax.EditSession("var a = 10;\nconsole.log(a, a);", mode);
+        var editor = new AceAjax.Editor(renderer, session);
 
         var p = new AceAjax.PlaceHolder(session, 1, { row: 0, column: 4 }, [{ row: 1, column: 12 }, { row: 1, column: 15 }]);
 
@@ -63,8 +66,8 @@ exports = {
     },
 
     "test: events": function () {
-        var session = new AceAjax.EditSession("var a = 10;\nconsole.log(a, a);", new JavaScriptMode());
-        var editor = new AceAjax.Editor(new MockRenderer(), session);
+        var session = new AceAjax.EditSession("var a = 10;\nconsole.log(a, a);", mode);
+        var editor = new AceAjax.Editor(renderer, session);
 
         var p = new AceAjax.PlaceHolder(session, 1, { row: 0, column: 4 }, [{ row: 1, column: 12 }, { row: 1, column: 15 }]);
         var entered = false;
@@ -86,9 +89,9 @@ exports = {
     },
 
     "test: cancel": function (next) {
-        var session = new AceAjax.EditSession("var a = 10;\nconsole.log(a, a);", new JavaScriptMode());
+        var session = new AceAjax.EditSession("var a = 10;\nconsole.log(a, a);", mode);
         session.setUndoManager(new AceAjax.UndoManager());
-        var editor = new AceAjax.Editor(new MockRenderer(), session);
+        var editor = new AceAjax.Editor(renderer, session);
         var p = new AceAjax.PlaceHolder(session, 1, { row: 0, column: 4 }, [{ row: 1, column: 12 }, { row: 1, column: 15 }]);
 
         editor.moveCursorTo(0, 5);

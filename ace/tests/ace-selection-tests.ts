@@ -1,6 +1,7 @@
 /// <reference path="../ace.d.ts" />
 
-exports = {
+var assert: any;
+var exports = {
     createSession: function (rows, cols) {
         var line = new Array(cols + 1).join("a");
         var text = new Array(rows).join(line + "\n") + line;

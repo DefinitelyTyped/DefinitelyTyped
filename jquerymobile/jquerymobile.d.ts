@@ -9,7 +9,9 @@
 interface JQueryMobileEvent { (event: Event, ui): void; }
 
 interface DialogOptions {
+    closeBtn?: string;
     closeBtnText?: string;
+    corners?: boolean;
     initSelector?: string;
     overlayTheme?: string;
 }
@@ -19,12 +21,12 @@ interface DialogEvents {
 }
 
 interface PopupOptions {
-    corners?: bool;
-    history?: bool;
+    corners?: boolean;
+    history?: boolean;
     initSelector?: string;
     overlayTheme?: string;
     positionTo?: string;
-    shadow?: bool;
+    shadow?: boolean;
     theme?: string;
     tolerance?: string;
     transition?: string;
@@ -37,14 +39,14 @@ interface PopupEvents {
 }
 
 interface FixedToolbarOptions {
-    visibleOnPageShow?: bool;
-    disablePageZoom?: bool;
+    visibleOnPageShow?: boolean;
+    disablePageZoom?: boolean;
     transition?: string;
-    fullscreen?: bool;
-    tapToggle?: bool;
+    fullscreen?: boolean;
+    tapToggle?: boolean;
     tapToggleBlacklist?: string;
     hideDuringFocus?: string;
-    updatePagePadding?: bool;
+    updatePagePadding?: boolean;
     supportBlacklist?: Function;
     initSelector?: string;
 }
@@ -54,13 +56,13 @@ interface FixedToolbarEvents {
 }
 
 interface ButtonOptions {
-    corners?: bool;
+    corners?: boolean;
     icon?: string;
     iconpos?: string;
-    iconshadow?: bool;
-    inline?: bool;
-    mini?: bool;
-    shadow?: bool;
+    iconshadow?: boolean;
+    inline?: boolean;
+    mini?: boolean;
+    shadow?: boolean;
     theme?: string;
     initSelector?: string;
 }
@@ -70,7 +72,7 @@ interface ButtonEvents {
 }
 
 interface CollapsibleOptions {
-    collapsed?: bool;
+    collapsed?: boolean;
     collapseCueText?: string;
     collapsedIcon?: string;
     contentTheme?: string;
@@ -79,8 +81,8 @@ interface CollapsibleOptions {
     heading?: string;
     iconpos?: string;
     initSelector?: string;
-    inset?: bool;
-    mini?: bool;
+    inset?: boolean;
+    mini?: boolean;
     theme?: string;
 }
 
@@ -95,8 +97,8 @@ interface CollapsibleSetOptions {
     expandedIcon?: string;
     iconpos?: string;
     initSelector?: string;
-    inset?: bool;
-    mini?: bool;
+    inset?: boolean;
+    mini?: boolean;
     theme?: string;
 }
 
@@ -105,10 +107,12 @@ interface CollapsibleSetEvents {
 }
 
 interface TextInputOptions {
-    disabled?: bool;
+    clearBtn?: boolean;
+    clearBtnText?: string;
+    disabled?: boolean;
     initSelector?: string;
-    mini?: bool;
-    preventFocusZoom?: bool;
+    mini?: boolean;
+    preventFocusZoom?: boolean;
     theme?: string;
 }
 
@@ -118,17 +122,17 @@ interface TextInputEvents {
 
 interface SearchInputOptions {
     clearSearchButtonText?: string;
-    disabled?: bool;
+    disabled?: boolean;
     initSelector?: string;
-    mini?: bool;
+    mini?: boolean;
     theme?: string;
 }
 
 interface SliderOptions {
-    disabled?: bool;
-    highlight?: bool;
+    disabled?: boolean;
+    highlight?: boolean;
     initSelector?: string;
-    mini?: bool;
+    mini?: boolean;
     theme?: string;
     trackTheme?: string;
 }
@@ -140,7 +144,7 @@ interface SliderEvents {
 }
 
 interface CheckboxRadioOptions {
-    mini?: bool;
+    mini?: boolean;
     theme?: string;
 }
 
@@ -149,17 +153,17 @@ interface CheckboxRadioEvents {
 }
 
 interface SelectMenuOptions {
-    corners?: bool;
+    corners?: boolean;
     icon?: string;
     iconpos?: string;
-    iconshadow?: bool;
+    iconshadow?: boolean;
     initSelector?: string;
-    inline?: bool;
-    mini?: bool;
-    nativeMenu?: bool;
+    inline?: boolean;
+    mini?: boolean;
+    nativeMenu?: boolean;
     overlayTheme?: string;
-    preventFocusZoom?: bool;
-    shadow?: bool;
+    preventFocusZoom?: boolean;
+    shadow?: boolean;
     theme?: string;
 }
 
@@ -170,13 +174,13 @@ interface SelectMenuEvents {
 interface ListViewOptions {
     countTheme?: string;
     dividerTheme?: string;
-    filter?: bool;
+    filter?: boolean;
     filterCallback?: Function;
     filterPlaceholder?: string;
     filterTheme?: string;
     headerTheme?: string;
     initSelector?: string;
-    inset?: bool;
+    inset?: boolean;
     splitIcon?: string;
     splitTheme?: string;
     theme?: string;
@@ -186,31 +190,43 @@ interface ListViewEvents {
     create?: JQueryMobileEvent;
 }
 
+interface NavbarOptions {
+    iconpos: string;
+}
+
+interface ControlgroupOptions {
+    corners?: boolean;
+    excludeInvisible?: boolean;
+    mini?: boolean;
+    shadow?: boolean;
+    type?: string;
+}
+
 interface JQueryMobileOptions {
     activeBtnClass?: string;
     activePageClass?: string;
-    ajaxEnabled?: bool;
-    allowCrossDomainPages?: bool;
-    autoInitializePage?: bool;
+    ajaxEnabled?: boolean;
+    allowCrossDomainPages?: boolean;
+    autoInitializePage?: boolean;
     buttonMarkup;
     defaultDialogTransition?: string;
     defaultPageTransition?: string;
     getMaxScrollForTransition?: number;
     gradeA?: Function;
-    hashListeningEnabled?: bool;
-    ignoreContentEnabled?: bool;
-    linkBindingEnabled?: bool;
-    loadingMessageTextVisible?: bool;
+    hashListeningEnabled?: boolean;
+    ignoreContentEnabled?: boolean;
+    linkBindingEnabled?: boolean;
+    loadingMessageTextVisible?: boolean;
     loadingMessageTheme?: string;
     maxTransitionWidth?: number;
     minScrollBack?: number;
     ns?: number;
     pageLoadErrorMessage?: string;
     pageLoadErrorMessageTheme?: string;
-    phonegapNavigationEnabled?: bool;
-    pushStateEnabled?: bool;
+    phonegapNavigationEnabled?: boolean;
+    pushStateEnabled?: boolean;
     subPageUrlKey?: string;
-    touchOverflowEnabled?: bool;
+    touchOverflowEnabled?: boolean;
     transitionFallbacks;
 }
 
@@ -251,15 +267,15 @@ interface JQueryMobileEvents {
 }
 
 interface ChangePageOptions {
-    allowSamePageTransition?: bool;
-    changeHash?: bool;
+    allowSamePageTransition?: boolean;
+    changeHash?: boolean;
     data?: any;
     dataUrl?: string;
     pageContainer?: JQuery;
-    reloadPage?: bool;
-    reverse?: bool;
+    reloadPage?: boolean;
+    reverse?: boolean;
     role?: string;
-    showLoadMsg?: bool;
+    showLoadMsg?: boolean;
     transition?: string;
     type?: string;
 }
@@ -268,18 +284,28 @@ interface LoadPageOptions {
     data?: any;
     loadMsgDelay?: number;
     pageContainer?: JQuery;
-    reloadPage?: bool;
+    reloadPage?: boolean;
     role?: string;
-    showLoadMsg?: bool;
+    showLoadMsg?: boolean;
     type?: string;
+}
+
+interface LoaderOptions {
+    theme?: string;
+    textVisible?: boolean;
+    html?: string;
+    text?: string;
+    textonly?: boolean;
 }
 
 interface JQueryMobile extends JQueryMobileOptions {
 
+    version: string;
+
     changePage(to: any, options?: ChangePageOptions): void;
     initializePage(): void;
     loadPage(url: any, options?: LoadPageOptions): void;
-    loading(command: string, options? ): void;
+    loading(command: string, options?: LoaderOptions): void;
 
     base;
     silentScroll(yPos: number): void;
@@ -291,11 +317,8 @@ interface JQueryMobile extends JQueryMobileOptions {
     showPageLoadingMsg();
     hidePageLoadingMsg();
     loader;
-    loading;
-    loadPage;
     page;
 
-    silentScroll;
     touchOverflow;
     showCategory;
     path;
@@ -338,8 +361,10 @@ interface JQuery {
 
     button(): JQuery;
     button(command: string): JQuery;
-    buttonMarkup(options: ButtonOptions): JQuery;
+    button(options?: ButtonOptions): JQuery;
     button(events: ButtonEvents): JQuery;
+    
+    buttonMarkup(options?: ButtonOptions): JQuery;
 
     collapsible(): JQuery;
     collapsible(command: string): JQuery;
@@ -368,7 +393,7 @@ interface JQuery {
 
     selectmenu(): JQuery;
     selectmenu(command: string): JQuery;
-    selectmenu(command: string, update: bool): JQuery;
+    selectmenu(command: string, update: boolean): JQuery;
     selectmenu(options: CheckboxRadioOptions): JQuery;
     selectmenu(events: CheckboxRadioEvents): JQuery;
 
@@ -376,6 +401,15 @@ interface JQuery {
     listview(command: string): JQuery;
     listview(options: ListViewOptions): JQuery;
     listview(events: ListViewEvents): JQuery;
+
+    navbar(options?: NavbarOptions): JQuery;
+
+    table(): JQuery;
+    table(command: string): JQuery;
+
+    controlgroup(): JQuery;
+    controlgroup(command: string): JQuery;
+    controlgroup(options: ControlgroupOptions): JQuery;
 }
 
 

@@ -9,7 +9,7 @@ interface JQueryContextMenuOptions {
     selector: string;
     appendTo?: string;
     trigger?: string;
-    autoHide?: bool;
+    autoHide?: boolean;
     delay?: number;
     determinePosition?: (menu) => void;
     position?: (opt, x, y) => void;
@@ -26,7 +26,7 @@ interface JQueryContextMenuOptions {
     };
     callback?: (...args: any[]) => any;
     items: any;
-};
+}
 
 interface JQueryStatic {
     contextMenu(options?: JQueryContextMenuOptions): JQuery;

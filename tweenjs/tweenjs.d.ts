@@ -10,7 +10,9 @@
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-module createjs {
+// Library documentation : http://www.createjs.com/Docs/TweenJS/modules/TweenJS.html
+
+declare module createjs {
 
     export class TweenJS {
         // properties
@@ -77,8 +79,8 @@ module createjs {
 
         // properties
         duration: number;
-        ignoreGlobalPause: bool;
-        loop: bool;
+        ignoreGlobalPause: boolean;
+        loop: boolean;
         position: number;
 
         // methods
@@ -91,7 +93,7 @@ module createjs {
         removeTween(...tween: Tween[]): void;
         resolve(positionOrLabel: string): number;
         resolve(positionOrLabel: number): number;
-        setPaused(value: bool): void;
+        setPaused(value: boolean): void;
         setPosition(value: number, actionsMode?: number): void;
         tick(delta: number): void;
         toString(): string;
@@ -108,8 +110,8 @@ module createjs {
         // properties
         duration: number;
         static IGNORE: Object;
-        ignoreGlobalPause: bool;
-        loop: bool;
+        ignoreGlobalPause: boolean;
+        loop: boolean;
         static LOOP: number;
         static NONE: number;
         pluginData: Object;
@@ -118,34 +120,33 @@ module createjs {
         target: Object;
 
         // methods
-        call(callback: (tweenObject: Tween) => any, params?: any[], scope?: Object);    // when 'params' isn't given, the callback receives a tweenObject
-        call(callback: (...params: any[]) => any, params?: any[], scope?: Object); // otherwise, it receives the params only
-        static get(target, props?: Object, pluginData?: Object, override?: bool): Tween;
-        static hasActiveTweens(target? ): void;
+        call(callback: (tweenObject: Tween) => any, params?: any[], scope?: Object): Tween;    // when 'params' isn't given, the callback receives a tweenObject
+        call(callback: (...params: any[]) => any, params?: any[], scope?: Object): Tween; // otherwise, it receives the params only
+        static get(target: any, props?: Object, pluginData?: Object, override?: boolean): Tween;
+        static hasActiveTweens(target?: any ): void;
         static installPlugin(plugin: Object, properties: Object): void;
         pause(tween: Tween): void;
         play(tween: Tween): void;
-        static removeTweens(target): void;
-        set(props: Object, target? ): void;
-        setPaused(value: bool): void;
+        static removeTweens(target: any): void;
+        set(props: Object, target?: any ): void;
+        setPaused(value: boolean): void;
         setPosition(value: number, actionsMode: number): void;
-        static tick(delta: number, paused: bool): void;
+        static tick(delta: number, paused: boolean): void;
         to(props: Object, duration?: number, ease?: (amount: number) => number): Tween;
         toString(): string;
-        wait(duration: number): void;
+        wait(duration: number): Tween;
 
         // events
-        change: (event) => any;
+        change: (event: any) => any;
 
         // EventDispatcher mixins
-        addEventListener(type: string, listener: (eventObj: Object) => bool): Function;
-        addEventListener(type: string, listener: (eventObj: Object) => bool): Object;
-        removeEventListener(type: string, listener: (eventObj: Function) => bool): void;
-        removeEventListener(type: string, listener: (eventObj: Object) => bool): void;
+        addEventListener(type: string, listener: (eventObj: Object) => boolean): any;
+        removeEventListener(type: string, listener: (eventObj: Function) => boolean): void;
+        removeEventListener(type: string, listener: (eventObj: Object) => boolean): void;
         removeAllEventListeners(type: string): void;
-        dispatchEvent(eventObj: string, target: Object): bool;
-        dispatchEvent(eventObj: Object, target: Object): bool;
-        hasEventListener(type: string): bool;
+        dispatchEvent(eventObj: string, target: Object): boolean;
+        dispatchEvent(eventObj: Object, target: Object): boolean;
+        hasEventListener(type: string): boolean;
     }
 
 
