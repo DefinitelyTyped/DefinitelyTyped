@@ -165,6 +165,16 @@ interface Moment {
     lang(reset: boolean): void;
     lang(): string;
 
+	max(date: Date): Moment;
+	max(date: number): Moment;
+	max(date: Array): Moment;
+	max(date: string): Moment;
+	max(date: string, format: string): Moment;
+	max(clone: Moment): Moment;
+	
+	get(unit: string): number;
+	set(unit: string, value: number): Moment;
+	
 }
 
 interface MomentCalendar {
@@ -229,12 +239,13 @@ interface MomentRelativeTime {
 interface MomentStatic {
 
     (): Moment;
-    (date: number): Moment;
-    (date: string): Moment;
-    (date: string, time: string): Moment;
-    (date: Date): Moment;
-    (date: string, formats: string[]): Moment;
-    (date: number[]): Moment;
+	(dateObject: Object, language?: string, strict?: boolean): Moment;
+    (date: number, language?: string, strict?: boolean): Moment;
+    (date: string, language?: string, strict?: boolean): Moment;
+    (date: string, format: string, language?: string, strict?: boolean): Moment;
+	(date: string, formats: string[], language?: string, strict?: boolean): Moment;
+    (date: Date, language?: string, strict?: boolean): Moment;
+    (date: number[], language?: string, strict?: boolean): Moment;
     (clone: Moment): Moment;
 
     unix(timestamp: number): Moment;
@@ -244,16 +255,13 @@ interface MomentStatic {
     utc(array: number[]): Moment; // parse an array of numbers matching Date.UTC() parameters
     utc(String: string): Moment; // parse string into UTC mode
     utc(String1: string, String2: string): Moment; // parse a string and format into UTC mode
+	utc(date: Date): Moment;
+	utc(clone: Moment): Moment;
 
     isMoment(): boolean;
     isMoment(m: any): boolean;
     lang(language: string): any;
     lang(language: string, definition: MomentLanguage): any;
-    months: string[];
-    monthsShort: string[];
-    weekdays: string[];
-    weekdaysShort: string[];
-    weekdaysMin: string[];
     longDateFormat: any;
     relativeTime: any;
     meridiem: (hour: number, minute: number, isLowercase: boolean) => string;
@@ -265,39 +273,19 @@ interface MomentStatic {
     duration(input: MomentInput): Duration;
     duration(object: any): Duration;
     duration(): Duration;
-
-    isBefore(b: Moment): boolean;
-    isBefore(b: string): boolean;
-    isBefore(b: Number): boolean;
-    isBefore(b: Date): boolean;
-    isBefore(b: number[]): boolean;
-    isBefore(b: Moment, granularity: string): boolean;
-    isBefore(b: String, granularity: string): boolean;
-    isBefore(b: Number, granularity: string): boolean;
-    isBefore(b: Date, granularity: string): boolean;
-    isBefore(b: number[], granularity: string): boolean;
-
-    isAfter(b: Moment): boolean;
-    isAfter(b: string): boolean;
-    isAfter(b: Number): boolean;
-    isAfter(b: Date): boolean;
-    isAfter(b: number[]): boolean;
-    isAfter(b: Moment, granularity: string): boolean;
-    isAfter(b: String, granularity: string): boolean;
-    isAfter(b: Number, granularity: string): boolean;
-    isAfter(b: Date, granularity: string): boolean;
-    isAfter(b: number[], granularity: string): boolean;
-
-    isSame(b: Moment): boolean;
-    isSame(b: string): boolean;
-    isSame(b: Number): boolean;
-    isSame(b: Date): boolean;
-    isSame(b: number[]): boolean;
-    isSame(b: Moment, granularity: string): boolean;
-    isSame(b: String, granularity: string): boolean;
-    isSame(b: Number, granularity: string): boolean;
-    isSame(b: Date, granularity: string): boolean;
-    isSame(b: number[], granularity: string): boolean;
+	
+	parseZone(date: string): Moment;
+	
+	// These return either string or string[]
+	months(format?: string, index?: number);
+	monthsShort(format?: string, index?: number);
+	weekdays(format?: string, index?: number);
+	weekdaysShort(format?: string, index?: number);
+	weekdaysMin(format?: string, index?: number);
+	
+	normalizeUnits(unit: string): string;
+	
+	invalid(parsingFlags?: Object): Moment;
 }
 
 declare var moment: MomentStatic;
