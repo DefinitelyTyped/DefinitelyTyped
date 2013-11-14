@@ -284,12 +284,26 @@ interface MomentStatic {
 	
 	parseZone(date: string): Moment;
 	
-	// These return either string or string[]
-	months(format?: string, index?: number): any;
-	monthsShort(format?: string, index?: number): any;
-	weekdays(format?: string, index?: number): any;
-	weekdaysShort(format?: string, index?: number): any;
-	weekdaysMin(format?: string, index?: number): any;
+	months(): string[];
+	months(index: number): string;
+	months(format: string): string[];
+	months(format: string, index: number): string;
+	monthsShort(): string[];
+	monthsShort(index: number): string;
+	monthsShort(format: string): string[];
+	monthsShort(format: string, index: number): string;
+	weekdays(): string[];
+	weekdays(index: number): string;
+	weekdays(format: string): string[];
+	weekdays(format: string, index: number): string;
+	weekdaysShort(): string[];
+	weekdaysShort(index: number): string;
+	weekdaysShort(format: string): string[];
+	weekdaysShort(format: string, index: number): string;
+	weekdaysMin(): string[];
+	weekdaysMin(index: number): string;
+	weekdaysMin(format: string): string[];
+	weekdaysMin(format: string, index: number): string;
 	
 	normalizeUnits(unit: string): string;
 	
