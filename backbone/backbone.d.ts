@@ -1,4 +1,4 @@
-// Type definitions for Backbone 2.3.1
+// Type definitions for Backbone 1.0.0
 // Project: http://backbonejs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions by: Natan Vivo <https://github.com/nvivo/>
