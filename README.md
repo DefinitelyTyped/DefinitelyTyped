@@ -241,12 +241,4 @@ List of Definitions
 
 Requested Definitions
 ---------------------
-* [jQuery ScrollTo](https://github.com/balupton/jquery-scrollto)
-* [dc.js](https://github.com/NickQiZhu/dc.js)
-* [google.visualizations](https://developers.google.com/chart/)
-* [Prelude.ls](http://gkz.github.com/prelude-ls/)
-* [MooTools](http://mootools.net/)
-* [java](https://github.com/nearinfinity/node-java)
-* [SVG.js](http://www.svgjs.com/)
-
-In addition you can find the [updated open requests that you can contribute here](https://github.com/borisyankov/DefinitelyTyped/issues?labels=request&page=1&state=open)
+Here is an updated list of [definitions people have requested](https://github.com/borisyankov/DefinitelyTyped/issues?labels=Definition%3ARequest)
