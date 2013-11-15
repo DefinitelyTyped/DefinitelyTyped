@@ -75,7 +75,7 @@ interface EventEmitter {
     removeAllListeners(event?: string): EventEmitter;
     setMaxListeners(n: number): void;
     listeners(event: string): Function[];
-    emit(event: string, arg1?: any, arg2?: any): boolean;
+    emit(event: string, ...args: any[]): boolean;
 }
 
 interface WritableStream extends EventEmitter {
@@ -216,7 +216,7 @@ declare module "events" {
         removeAllListeners(event?: string): NodeEventEmitter;
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
-        emit(event: string, arg1?: any, arg2?: any): boolean;
+        emit(event: string, ...args: any[]): boolean;
     }
 
     export class EventEmitter implements NodeEventEmitter {
@@ -227,8 +227,8 @@ declare module "events" {
         removeAllListeners(event?: string): EventEmitter;
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
-        emit(event: string, arg1?: any, arg2?: any): boolean;
-    }
+        emit(event: string, ...args: any[]): boolean;
+   }
 }
 
 declare module "http" {
@@ -336,7 +336,7 @@ declare module "cluster" {
     export function removeAllListeners(event?: string): void;
     export function setMaxListeners(n: number): void;
     export function listeners(event: string): Function[];
-    export function emit(event: string, arg1?: any, arg2?: any): void;
+    export function emit(event: string, ...args: any[]): boolean;
 }
 
 declare module "zlib" {
