@@ -778,7 +778,7 @@ declare module "express" {
              */
 
             render(view: string, options?: Object, callback?: (err: Error, html: string) => void ): void;
-
+            
             render(view: string, callback?: (err: Error, html: string) => void ): void;
 
             locals: any;
@@ -1026,20 +1026,24 @@ declare module "express" {
              * @param options or fn
              * @param fn
              */
-            render(name: string, options?: Object, callback?: (err: Error, html: string) => void);
-
-            render(name: string, callback: (err: Error, html: string) => void);
+            render(name: string, options?: Object, callback?: (err: Error, html: string) => void): void;
+            
+            render(name: string, callback: (err: Error, html: string) => void): void;
 
             get(name: string, ...handlers: RequestFunction[]): any;
+            
             get(name: RegExp, ...handlers: RequestFunction[]): any;
 
             post(name: string, ...handlers: RequestFunction[]): any;
+            
             post(name: RegExp, ...handlers: RequestFunction[]): any;
 
             put(name: string, ...handlers: RequestFunction[]): any;
+            
             put(name: RegExp, ...handlers: RequestFunction[]): any;
 
             del(name: string, ...handlers: RequestFunction[]): any;
+            
             del(name: RegExp, ...handlers: RequestFunction[]): any;
 
             /**
