@@ -406,6 +406,7 @@ declare module Rx {
 		merge<T>(scheduler: IScheduler, sources: IObservable<T>[]): IObservable<T>;
 		onErrorResumeNext<T>(...sources: IObservable<T>[]): IObservable<T>;
 		onErrorResumeNext<T>(sources: IObservable<T>[]): IObservable<T>;
+		zip<T>(...soucesAndResultSelector: any[]): IObservable<T>;
 	}
 
 	var Observable: Observable;
