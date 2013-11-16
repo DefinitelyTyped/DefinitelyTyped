@@ -168,8 +168,8 @@ interface KnockoutBindingHandlers {
 
 interface KnockoutMemoization {
     memoize(callback: () => string): string;
-    unmemoize(memoId: string, callbackParams: Array): boolean;
-    unmemoizeDomNodeAndDescendants(domNode: any, extraCallbackParamsArray: Array): boolean;
+    unmemoize(memoId: string, callbackParams: any[]): boolean;
+    unmemoizeDomNodeAndDescendants(domNode: any, extraCallbackParamsArray: any[]): boolean;
     parseMemoText(memoText: string): string;
 }
 
@@ -197,11 +197,11 @@ interface KnockoutUtils {
     // utils.domManipulation.js
     //////////////////////////////////
 
-    simpleHtmlParse(html: string): Array;
+    simpleHtmlParse(html: string): any[];
 
-    jQueryHtmlParse(html: string): Array;
+    jQueryHtmlParse(html: string): any[];
 
-    parseHtmlFragment(html: string): Array;
+    parseHtmlFragment(html: string): any[];
 
     setHtml(node: Element, html: string): void;
 
@@ -360,7 +360,7 @@ interface KnockoutTemplateSources {
 
 interface KnockoutNativeTemplateEngine {
 
-    renderTemplateSource(templateSource: Object, bindingContext?: KnockoutBindingContext, options?: Object): Array;
+    renderTemplateSource(templateSource: Object, bindingContext?: KnockoutBindingContext, options?: Object): any[];
 }
 
 //////////////////////////////////
@@ -486,10 +486,10 @@ interface KnockoutStatic {
     renderTemplate(template: Function, dataOrBindingContext: any, options: Object, targetNodeOrNodeArray: Node[], renderMode: string): any;
     renderTemplate(template: any, dataOrBindingContext: any, options: Object, targetNodeOrNodeArray: Node[], renderMode: string): any;
 
-    renderTemplateForEach(template: Function, arrayOrObservableArray: Array, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
-    renderTemplateForEach(template: any, arrayOrObservableArray: Array, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
-    renderTemplateForEach(template: Function, arrayOrObservableArray: KnockoutObservable<Array>, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
-    renderTemplateForEach(template: any, arrayOrObservableArray: KnockoutObservable<Array>, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
+    renderTemplateForEach(template: Function, arrayOrObservableArray: any[], options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
+    renderTemplateForEach(template: any, arrayOrObservableArray: any[], options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
+    renderTemplateForEach(template: Function, arrayOrObservableArray: KnockoutObservable<any>, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
+    renderTemplateForEach(template: any, arrayOrObservableArray: KnockoutObservable<any>, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
 
     expressionRewriting: {
         bindingRewriteValidators: any;
