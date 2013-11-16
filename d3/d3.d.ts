@@ -714,6 +714,7 @@ declare module D3 {
         data: {
             (values: (data: any, index?: number) => any[], key?: (data: any, index?: number) => string): UpdateSelection;
             (values: any[], key?: (data: any, index?: number) => string): UpdateSelection;
+            (): any[];
         };
 
         datum: {
