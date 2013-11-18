@@ -1,123 +1,90 @@
-﻿/// <reference path='../../node/node.d.ts' />
+/// <reference path='../../node/node.d.ts' />
 
 /// <reference path='src/exec.ts' />
 /// <reference path='src/io.ts' />
 
 module DefinitelyTyped.TestManager {
-
     var path = require('path');
 
-    function endsWith(str, suffix) {
+    function endsWith(str:string, suffix:string) {
         return str.indexOf(suffix, str.length - suffix.length) !== -1;
     }
 
-    class Iterator {
-        index: number = -1;
-
-        constructor(public list: any[]) { }
-
-        public next() {
-            this.index++;
-            return this.list[this.index];
-        }
-
-        public hasNext() {
-            return this.list[1 + this.index] != null;
-        }
-    }
-
-    interface TscCallback {
-        (result: ExecResult): void;
+    export interface TscExecOptions {
+        useTscParams?:boolean;
+        checkNoImplicitAny?:boolean;
     }
 
     class Tsc {
-        public static run(tsfile: string, callback: TscCallback) {
+        public static run(tsfile:string, options:TscExecOptions, callback:(result:ExecResult)=>void) {
+            options = options || {};
+            if (typeof options.checkNoImplicitAny === "undefined") {
+                options.checkNoImplicitAny = true;
+            }
+            if (typeof options.useTscParams === "undefined") {
+                options.useTscParams = true;
+            }
+
+            if (!IO.fileExists(tsfile)) {
+                throw new Error(tsfile + " not exists");
+            }
+
             var command = 'node ./_infrastructure/tests/typescript/tsc.js --module commonjs ';
-            if (IO.fileExists(tsfile + '.tscparams')) {
+            if (options.useTscParams && IO.fileExists(tsfile + '.tscparams')) {
                 command += '@' + tsfile + '.tscparams';
-            } else {
+            } else if (options.checkNoImplicitAny) {
                 command += '--noImplicitAny';
             }
-            Exec.exec(command, [tsfile], (ExecResult) => {
-                callback(ExecResult);
+            Exec.exec(command, [tsfile], (execResult) => {
+                callback(execResult);
             });
         }
     }
 
     class Test {
-        constructor(public tsfile: string) { }
-
-        public run(callback: TscCallback) {
-            Tsc.run(this.tsfile, callback);
-        }
-    }
-
-    class Typing {
-        public fileHandler: FileHandler;
-
-        constructor(public name: string, baseDir: string) {
-            this.fileHandler = new FileHandler(baseDir + '/' + name + '/', /.\.ts/g);
-        }
-    }
-
-    /////////////////////////////////
-    // Given a document root + ts file pattern this class returns:
-    //         all the TS files OR just tests OR just definition files 
-    ///////////////////////////////// 
-    class FileHandler {
-        public files: string[] = [];
-        public typings: Typing[] = [];
-
-        constructor(public path: string, pattern: any) {
-            this.files = IO.dir(path, pattern, { recursive: true }).sort();
+        constructor(public suite:ITestSuite, public tsfile:File, public options?:TscExecOptions) {
         }
 
-        public allTS(): string[] {
-            return this.files;
-        }
+        public run(callback:(result:TestResult)=>void) {
+            Tsc.run(this.tsfile.filePathWithName, this.options, (execResult)=> {
+                var testResult = new TestResult();
+                testResult.hostedBy = this.suite;
+                testResult.targetFile = this.tsfile;
+                testResult.options = this.options;
 
-        public allTests(): string[] {
-            var tests = [];
+                testResult.stdout = execResult.stdout;
+                testResult.stderr = execResult.stderr;
+                testResult.exitCode = execResult.exitCode;
 
-            for (var i = 0; i < this.files.length; i++) {
-                if (endsWith(this.files[i].toUpperCase(), '-TESTS.TS')) {
-                    tests.push(this.files[i]);
-                }
-            }
-
-            return tests;
-        }
-
-        public allTypings(): string[] {
-            var typings = {};
-
-            for (var i = 0; i < this.files.length; i++) {
-                var file = this.files[i];
-                var firName = path.dirname(file.substr(this.path.length + 1)).replace('\\', '/');
-                var dir = firName.split('/')[0];
-
-                if (!typings[dir]) typings[dir] = true;
-            }
-
-            var list = [];
-            for (var attr in typings) {
-                list.push(attr);
-            }
-
-            return list;
+                callback(testResult);
+            });
         }
     }
 
     /////////////////////////////////
-    // Timer.start starts a timer 
+    // Timer.start starts a timer
     // Timer.end stops the timer and sets asString to the pretty print value
-    ///////////////////////////////// 
-    class Timer {
-        public startTime;
-        public time = 0;
-        public asString: string;
+    /////////////////////////////////
+    export class Timer {
+        startTime:number;
+        time = 0;
+        asString:string;
 
-        private static prettyDate(date1, date2): string {
+        public start() {
+            this.time = 0;
+            this.startTime = this.now();
+        }
+
+        public now():number {
+            return Date.now();
+        }
+
+        public end() {
+            this.time = (this.now() - this.startTime) / 1000;
+            this.asString = Timer.prettyDate(this.startTime, this.now());
+        }
+
+        public static prettyDate(date1:number, date2:number):string {
             var diff = ((date2 - date1) / 1000),
                 day_diff = Math.floor(diff / 86400);
 
@@ -126,63 +93,145 @@ module DefinitelyTyped.TestManager {
 
             return <string><any> (day_diff == 0 && (
                 diff < 60 && (diff + " seconds") ||
-                diff < 120 && "1 minute" ||
-                diff < 3600 && Math.floor(diff / 60) + " minutes" ||
-                diff < 7200 && "1 hour" ||
-                diff < 86400 && Math.floor(diff / 3600) + " hours") ||
+                    diff < 120 && "1 minute" ||
+                    diff < 3600 && Math.floor(diff / 60) + " minutes" ||
+                    diff < 7200 && "1 hour" ||
+                    diff < 86400 && Math.floor(diff / 3600) + " hours") ||
                 day_diff == 1 && "Yesterday" ||
                 day_diff < 7 && day_diff + " days" ||
                 day_diff < 31 && Math.ceil(day_diff / 7) + " weeks");
         }
+    }
 
-        public start() {
-            this.time = 0;
-            this.startTime = this.now();
+    /////////////////////////////////
+    // Given a document root + ts file pattern this class returns:
+    //         all the TS files OR just tests OR just definition files
+    /////////////////////////////////
+    export class File {
+        dir:string;
+        file:string;
+        ext:string;
+
+        constructor(public baseDir:string, public filePathWithName:string) {
+            var dirName = path.dirname(this.filePathWithName.substr(this.baseDir.length + 1)).replace('\\', '/');
+            this.dir = dirName.split('/')[0];
+            this.file = path.basename(this.filePathWithName, '.ts');
+            this.ext = path.extname(this.filePathWithName);
         }
 
-        private now() {
-            return Date.now();
+        // From '/complete/path/to/file' to 'specfolder/specfile.d.ts'
+        public get formatName():string {
+            var dirName = path.dirname(this.filePathWithName.substr(this.baseDir.length + 1)).replace('\\', '/');
+            return this.dir + ((dirName.split('/').length > 1) ? '/-/' : '/') + this.file + this.ext;
+        }
+    }
+
+    /////////////////////////////////
+    // Test results
+    /////////////////////////////////
+    export class TestResult {
+        hostedBy:ITestSuite;
+        targetFile:File;
+        options:TscExecOptions;
+
+        stdout:string;
+        stderr:string;
+        exitCode:number;
+
+        public get success():boolean {
+            return this.exitCode !== 1;
+        }
+    }
+
+    /////////////////////////////////
+    // The interface for test suite
+    /////////////////////////////////
+    export interface ITestSuite {
+        testSuiteName:string;
+        errorHeadline:string;
+        filterTargetFiles(files:File[]):File[];
+
+        start(targetFiles:File[], testCallback:(result:TestResult, index:number)=>void, suiteCallback:(suite:ITestSuite)=>void):void;
+
+        testResults:TestResult[];
+        okTests:TestResult[];
+        ngTests:TestResult[];
+        timer:Timer;
+
+        testReporter:ITestReporter;
+        printErrorCount:boolean;
+    }
+
+    /////////////////////////////////
+    // Test reporter interface
+    // for example, . and x
+    /////////////////////////////////
+    export interface ITestReporter {
+        printPositiveCharacter(index:number, testResult:TestResult):void;
+        printNegativeCharacter(index:number, testResult:TestResult):void;
+    }
+
+    /////////////////////////////////
+    // Default test reporter
+    /////////////////////////////////
+    class DefaultTestReporter implements ITestReporter {
+        constructor(public print:Print) {
         }
 
-        public end() {
-            this.time = (this.now() - this.startTime) / 1000;
-            this.asString = Timer.prettyDate(this.startTime, this.now());
+        public printPositiveCharacter(index:number, testResult:TestResult) {
+            this.print.out('\33[36m\33[1m' + '.' + '\33[0m');
+
+            this.printBreakIfNeeded(index);
+        }
+
+        public printNegativeCharacter(index:number, testResult:TestResult) {
+            this.print.out("x");
+
+            this.printBreakIfNeeded(index);
+        }
+
+        private printBreakIfNeeded(index:number) {
+            if (index % this.print.WIDTH === 0) {
+                this.print.printBreak();
+            }
         }
     }
 
     /////////////////////////////////
     // All the common things that we pring are functions of this class
-    ///////////////////////////////// 
+    /////////////////////////////////
     class Print {
-        constructor(public version: string, public typings: number, public tsFiles: number) { }
 
-        public out(s) {
+        WIDTH = 77;
+
+        constructor(public version:string, public typings:number, public tests:number, public tsFiles:number) {
+        }
+
+        public out(s:any):Print {
             process.stdout.write(s);
+            return this;
+        }
+
+        public repeat(s:string, times:number):string {
+            return new Array(times + 1).join(s);
         }
 
         public printHeader() {
             this.out('=============================================================================\n');
-            this.out('                    \33[36m\33[1mDefinitelyTyped test runner 0.3.0\33[0m\n');
+            this.out('                    \33[36m\33[1mDefinitelyTyped test runner 0.4.0\33[0m\n');
             this.out('=============================================================================\n');
             this.out(' \33[36m\33[1mTypescript version:\33[0m ' + this.version + '\n');
             this.out(' \33[36m\33[1mTypings           :\33[0m ' + this.typings + '\n');
+            this.out(' \33[36m\33[1mTests             :\33[0m ' + this.tests + '\n');
             this.out(' \33[36m\33[1mTypeScript files  :\33[0m ' + this.tsFiles + '\n');
         }
 
-        public printSyntaxCheckingHeader() {
-            this.out('============================ \33[34m\33[1mSyntax checking\33[0m ================================\n');
-        }
-
-        public printTypingTestsHeader() {
-            this.out('============================= \33[34m\33[1mTyping tests\33[0m ==================================\n');
-        }
-
-        public printSuccessCharacter() {
-            this.out('\33[36m\33[1m.\33[0m');
-        }
-
-        public printFailureCharacter() {
-            this.out('x');
+        public printSuiteHeader(title:string) {
+            var left = Math.floor((this.WIDTH - title.length ) / 2) - 1;
+            var right = Math.ceil((this.WIDTH - title.length ) / 2) - 1;
+            this.out(this.repeat("=", left)).out(" \33[34m\33[1m");
+            this.out(title);
+            this.out("\33[0m ").out(this.repeat("=", right)).printBreak();
         }
 
         public printDiv() {
@@ -199,19 +248,27 @@ module DefinitelyTyped.TestManager {
             this.out('=============================================================================\n');
         }
 
-        public printErrorsForFile(file: File) {            
-            this.out('----------------- For file:' + file.formatName() );
-            this.printBreak();
-            this.out(file.execResult.stderr);
-            this.printBreak();
+        public printErrorsForFile(testResult:TestResult) {
+            this.out('----------------- For file:' + testResult.targetFile.formatName);
+            this.printBreak().out(testResult.stderr).printBreak();
         }
 
-        public printfilesWithSintaxErrorMessage() {
-            this.out(' \33[36m\33[1mFiles with syntax error\33[0m\n');
+        public printBreak():Print {
+            this.out('\n');
+            return this;
         }
 
-        public printFailedTestMessage() {
-            this.out(' \33[36m\33[1mFailed tests\33[0m\n');
+        public clearCurrentLine():Print {
+            this.out("\r\33[K");
+            return this;
+        }
+
+        public printSuccessCount(current:number, total:number) {
+            this.out(' \33[36m\33[1mSuccessful      :\33[0m \33[32m\33[1m' + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
+        }
+
+        public printFailedCount(current:number, total:number) {
+            this.out(' \33[36m\33[1mFailure         :\33[0m \33[31m\33[1m' + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
         }
 
         public printTypingsWithoutTestsMessage() {
@@ -222,401 +279,240 @@ module DefinitelyTyped.TestManager {
             this.out(' \33[36m\33[1mTotal\33[0m\n');
         }
 
-        public printErrorFile(file: string) {
-            this.out(' - ' + file + '\n');
-        }
-
-        public printTypingsWithoutTest(file) {
-            this.out(' - \33[33m\33[1m' + file + '\33[0m\n');
-        }
-
-        public printBreak() {
-            this.out('\n');
-        }
-
-        public printSuccessCount(current: number, total: number) {
-            this.out(' \33[36m\33[1mSuccessful      :\33[0m \33[32m\33[1m' + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
-        }
-
-        public printFailedCount(current: number, total: number) {
-            this.out(' \33[36m\33[1mFailure         :\33[0m \33[31m\33[1m' + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
-        }
-
-        public printElapsedTime(time, s) {
+        public printElapsedTime(time:string, s:number) {
             this.out(' \33[36m\33[1mElapsed time    :\33[0m ~' + time + ' (' + s + 's)\n');
         }
 
-        public printSyntaxErrorCount(current: number, total: number) {
-            this.out(' \33[36m\33[1mSyntax error    :\33[0m \33[31m\33[1m' + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
+        public printSuiteErrorCount(errorHeadline:string, current:number, total:number, valuesColor = '\33[31m\33[1m') {
+            this.out(' \33[36m\33[1m').out(errorHeadline).out(this.repeat(' ', 16 - errorHeadline.length));
+            this.out(':\33[0m ' + valuesColor + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
         }
 
-        public printTestErrorCount(current: number, total: number) {
-            this.out(' \33[36m\33[1mFailed tests    :\33[0m \33[31m\33[1m' + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
+        public printTypingsWithoutTestName(file:string) {
+            this.out(' - \33[33m\33[1m' + file + '\33[0m\n');
         }
 
-        public printWithoutTestCount(current: number, total: number) {
-            this.out(' \33[36m\33[1mWithout tests   :\33[0m \33[33m\33[1m' + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
-        }
-    }
+        public printTypingsWithoutTest(withoutTestTypings:string[]) {
+            if (withoutTestTypings.length > 0) {
+                this.printTypingsWithoutTestsMessage();
 
-    /////////////////////////////
-    // Represents the results of a test file execution
-    /////////////////////////////
-    class File {
-        static baseDir: string;
-
-        constructor(public baseDir: string, public filePathWithName: string, public execResult: ExecResult) { }
-
-        // From '/complete/path/to/file' to 'specfolder/specfile.d.ts'
-        public formatName(): string {
-            var dirName = path.dirname(this.filePathWithName.substr(this.baseDir.length + 1)).replace('\\', '/');
-            var dir = dirName.split('/')[0];
-            var file = path.basename(this.filePathWithName, '.ts');
-            var ext = path.extname(this.filePathWithName);
-
-            return dir + ((dirName.split('/').length > 1) ? '/-/' : '/') + '\33[36m\33[1m' + file + '\33[0m' + ext;
-        }
-    }
-
-
-    /////////////////////////////
-    // Determine syntax errors in typings
-    /////////////////////////////
-    class SyntaxChecking {
-
-        private timer: Timer;
-
-        public files: File[] = [];
-
-        private getFailedFiles(): File[] {
-            var list: File[] = [];
-
-            for (var i = 0; i < this.files.length; i++) {
-                if (this.files[i].execResult.exitCode) {
-                    list.push(this.files[i]);
-                }
-            }
-
-            return list;
-        }
-
-        private getSuccessFiles(): File[] {
-            var list: File[] = [];
-
-            for (var i = 0; i < this.files.length; i++) {
-                if (!this.files[i].execResult.exitCode) {
-                    list.push(this.files[i]);
-                }
-            }
-
-            return list;
-        }
-
-        constructor(public fileHandler: FileHandler, public out: Print) {
-            this.timer = new Timer();
-        }
-
-        private printStats() {
-            this.out.printDiv();
-            this.out.printElapsedTime(this.timer.asString, this.timer.time);
-            this.out.printSuccessCount(this.getSuccessFiles().length, this.files.length);
-            this.out.printFailedCount(this.getFailedFiles().length, this.files.length);
-        }
-
-        private printFailedFiles() {
-            if (this.getFailedFiles().length > 0) {
-                this.out.printDiv();
-
-                this.out.printfilesWithSintaxErrorMessage();
-
-                this.out.printDiv();
-
-                for (var i = 0; i < this.getFailedFiles().length; i++) {
-                    var errorFile = this.getFailedFiles()[i];
-                    this.out.printErrorFile(errorFile.formatName());
-                }
-            }
-        }
-
-        private run(it, file, len, maxLen, callback: Function) {
-            if (!endsWith(file.toUpperCase(), '-TESTS.TS') && endsWith(file.toUpperCase(), '.TS') && file.indexOf('../_infrastructure') < 0) {
-                new Test(file).run((execResult) => {
-
-                    if (execResult.exitCode === 1) {
-                        this.out.printFailureCharacter();
-                        len++;
-                    } else {
-                        this.out.printSuccessCharacter();
-                        len++;
-                    }
-
-                    this.files.push(new File(this.fileHandler.path, file, execResult));
-
-                    if (len > maxLen) {
-                        len = 0;
-                        this.out.printBreak();
-                    }
-
-                    if (it.hasNext()) {
-                        this.run(it, it.next(), len, maxLen, callback);
-                    } else {
-                        this.out.printBreak();
-                        this.timer.end();
-                        this.printFailedFiles();
-                        this.printStats();
-
-                        callback(this.getFailedFiles().length, this.files.length);
-                    }
+                this.printDiv();
+                withoutTestTypings.forEach(t=> {
+                    this.printTypingsWithoutTestName(t);
                 });
-            } else if (it.hasNext()) {
-                this.run(it, it.next(), len, maxLen, callback);
-            } else {
-                this.out.printBreak();
-                this.timer.end();
-                this.printStats();
-                this.printFailedFiles();
-
-                callback(this.getFailedFiles().length, this.files.length);
-            }
-        }
-
-        public start(callback: Function) {
-            this.timer.start();
-
-            var tsFiles = this.fileHandler.allTS();
-
-            var it = new Iterator(tsFiles);
-
-            var len = 0;
-            var maxLen = 76;
-
-            if (it.hasNext()) {
-                this.run(it, it.next(), len, maxLen, callback);
-            }
-        }
-    }
-
-    /////////////////////////////
-    // Determines errors in typing tests
-    /////////////////////////////
-    class TestEval {
-
-        private timer: Timer;
-
-        public files: File[] = [];
-
-        private getFailedFiles(): File[] {
-            var list: File[] = [];
-
-            for (var i = 0; i < this.files.length; i++) {
-                if (this.files[i].execResult.exitCode) {
-                    list.push(this.files[i]);
-                }
-            }
-
-            return list;
-        }
-
-        private getSuccessFiles(): File[] {
-            var list: File[] = [];
-
-            for (var i = 0; i < this.files.length; i++) {
-                if (!this.files[i].execResult.exitCode) {
-                    list.push(this.files[i]);
-                }
-            }
-
-            return list;
-        }
-
-        constructor(public fileHandler: FileHandler, public out: Print) {
-            this.timer = new Timer();
-        }
-
-        private printStats() {
-            this.out.printDiv();
-            this.out.printElapsedTime(this.timer.asString, this.timer.time);
-            this.out.printSuccessCount(this.getSuccessFiles().length, this.files.length);
-            this.out.printFailedCount(this.getFailedFiles().length, this.files.length);
-        }
-
-        private printFailedFiles() {
-            if (this.getFailedFiles().length > 0) {
-                this.out.printDiv();
-
-                this.out.printFailedTestMessage();
-
-                this.out.printDiv();
-
-                for (var i = 0; i < this.getFailedFiles().length; i++) {
-                    var errorFile = this.getFailedFiles()[i];
-                    this.out.printErrorFile(errorFile.formatName());
-                }
-            }
-        }
-
-        private run(it, file, len, maxLen, callback: Function) {
-            if (endsWith(file.toUpperCase(), '-TESTS.TS')) {
-                new Test(file).run((execResult) => {
-
-                    if (execResult.exitCode === 1) {
-                        this.out.printFailureCharacter();
-                        len++;
-                    } else {
-                        this.out.printSuccessCharacter();
-                        len++;
-                    }
-
-                    this.files.push(new File(this.fileHandler.path, file, execResult));
-
-                    if (len > maxLen) {
-                        len = 0;
-                        this.out.printBreak();
-                    }
-
-                    if (it.hasNext()) {
-                        this.run(it, it.next(), len, maxLen, callback);
-                    } else {
-                        this.out.printBreak();
-                        this.timer.end();
-                        this.printFailedFiles();
-                        this.printStats();
-
-                        callback(this.getFailedFiles().length, this.files.length);
-                    }
-                });
-            } else if (it.hasNext()) {
-                this.run(it, it.next(), len, maxLen, callback);
-            } else {
-                this.out.printBreak();
-                this.timer.end();
-                this.printFailedFiles();
-                this.printStats();
-
-                callback(this.getFailedFiles().length, this.files.length);
-            }
-        }
-
-        public start(callback: Function) {
-            this.timer.start();
-
-            var tsFiles = this.fileHandler.allTS();
-
-            var it = new Iterator(tsFiles);
-
-            var len = 0;
-            var maxLen = 76;
-
-            if (it.hasNext()) {
-                this.run(it, it.next(), len, maxLen, callback);
             }
         }
     }
 
     /////////////////////////////////
-    // The main class to kick things off        
-    ///////////////////////////////// 
-    export class TestRunner {
-        private fh: FileHandler;
-        private out: Print;
-        private sc: SyntaxChecking;
-        private te: TestEval;
-        private typings: Typing[] = [];
+    // Base class for test suite
+    /////////////////////////////////
+    class TestSuiteBase implements ITestSuite {
+        timer:Timer = new Timer();
+        testResults:TestResult[] = [];
+        testReporter:ITestReporter;
+        printErrorCount = true;
 
-        private printTypingsWithoutTest() {
+        constructor(public testSuiteName:string, public errorHeadline:string) {
+        }
+
+        public filterTargetFiles(files:File[]):File[] {
+            throw new Error("please implement this method");
+        }
+
+        public start(targetFiles:File[], testCallback:(result:TestResult, index:number)=>void, suiteCallback:(suite:ITestSuite)=>void):void {
+            targetFiles = this.filterTargetFiles(targetFiles);
+            this.timer.start();
             var count = 0;
-
-            if (this.typings.length > 0) {
-                this.out.printDiv();
-
-                this.out.printTypingsWithoutTestsMessage();
-
-                this.out.printDiv();
-
-                for (var i = 0; i < this.typings.length; i++) {
-                    var typing = this.typings[i];
-                    if (typing.fileHandler.allTests().length == 0) {
-                        if (typing.name != '_infrastructure'
-                            && typing.name != '_ReSharper.DefinitelyTyped'
-                            && typing.name != 'obj'
-                            && typing.name != 'bin'
-                            && typing.name != 'Properties') {
-                            this.out.printTypingsWithoutTest(typing.name);
-                            count++;
-                        }
-                    }
+            // exec test is async process. serialize.
+            var executor = () => {
+                var targetFile = targetFiles[count];
+                if (targetFile) {
+                    this.runTest(targetFile, (result)=> {
+                        testCallback(result, count + 1);
+                        count++;
+                        executor();
+                    });
+                } else {
+                    this.timer.end();
+                    this.finish(suiteCallback);
                 }
-            }
-
-            return count;
-        }
-
-        private printErrorsDetected() {
-            this.out.printErrorsHeader();
-
-            var printErrorsForFileIfFound = (file: File) => {
-                if (file.execResult.exitCode)
-                    this.out.printErrorsForFile(file);
             };
-
-            // sc errors:
-            this.sc.files.forEach(printErrorsForFileIfFound);
-            this.out.printBoldDiv();
-
-            // te errors: 
-            this.te.files.forEach(printErrorsForFileIfFound);
-            this.out.printBoldDiv();
+            executor();
         }
 
-        constructor(public dtPath: string) {
-            this.fh = new FileHandler(dtPath, /.\.ts/g);
-            this.out = new Print('0.9.1.1', this.fh.allTypings().length, this.fh.allTS().length);
-            this.sc = new SyntaxChecking(this.fh, this.out);
-            this.te = new TestEval(this.fh, this.out);
+        public runTest(targetFile:File, callback:(result:TestResult)=>void):void {
+            new Test(this, targetFile, null).run(result=> {
+                this.testResults.push(result);
+                callback(result);
+            });
+        }
 
-            var tpgs = this.fh.allTypings();
-            for (var i = 0; i < tpgs.length; i++) {
-                this.typings.push(new Typing(tpgs[i], this.dtPath));
-            }
+        public finish(suiteCallback:(suite:ITestSuite)=>void) {
+            suiteCallback(this);
+        }
+
+        public get okTests():TestResult[] {
+            return this.testResults.filter(r=>r.success);
+        }
+
+        public get ngTests():TestResult[] {
+            return this.testResults.filter(r=>!r.success);
+        }
+    }
+
+    /////////////////////////////////
+    // .d.ts syntax inspection
+    /////////////////////////////////
+    class SyntaxChecking extends TestSuiteBase {
+
+        constructor() {
+            super("Syntax checking", "Syntax error");
+        }
+
+        public filterTargetFiles(files:File[]):File[] {
+            return files.filter(file => endsWith(file.formatName.toUpperCase(), '.D.TS'));
+        }
+    }
+
+    /////////////////////////////////
+    // Compile with *-tests.ts
+    /////////////////////////////////
+    class TestEval extends TestSuiteBase {
+
+        constructor() {
+            super("Typing tests", "Failed tests");
+        }
+
+        public filterTargetFiles(files:File[]):File[] {
+            return files.filter(file => endsWith(file.formatName.toUpperCase(), '-TESTS.TS'));
+        }
+    }
+
+    /////////////////////////////////
+    // The main class to kick things off
+    /////////////////////////////////
+    export class TestRunner {
+        files:File[];
+        timer:Timer;
+        suites:ITestSuite[] = [];
+        private print:Print;
+
+        constructor(dtPath:string) {
+            var filesName = IO.dir(dtPath, /.\.ts/g, { recursive: true }).sort();
+            // only includes .d.ts or -tests.ts or -test.ts or .ts
+            filesName = filesName
+                .filter(fileName => fileName.indexOf('../_infrastructure') < 0)
+                .filter(fileName => !endsWith(fileName, ".tscparams"));
+            this.files = filesName.map(fileName => new File(dtPath, fileName));
+        }
+
+        public addSuite(suite:ITestSuite) {
+            this.suites.push(suite);
         }
 
         public run() {
-            var timer = new Timer();
-            timer.start();
+            this.timer = new Timer();
+            this.timer.start();
 
-            this.out.printHeader();
+            var syntaxChecking = new SyntaxChecking();
+            var testEval = new TestEval();
+            this.addSuite(syntaxChecking);
+            this.addSuite(testEval);
 
-            // Run syntax tests
-            this.out.printSyntaxCheckingHeader();
-            this.sc.start((syntaxFailedCount, syntaxTotal) => {
+            var typings = syntaxChecking.filterTargetFiles(this.files).length;
+            var testFiles = testEval.filterTargetFiles(this.files).length;
+            this.print = new Print('0.9.1.1', typings, testFiles, this.files.length);
+            this.print.printHeader();
 
-                // Now run typing tests
-                this.out.printTypingTestsHeader();
-                this.te.start((testFailedCount, testTotal) => {
+            var count = 0;
+            var executor = () => {
+                var suite = this.suites[count];
+                if (suite) {
+                    suite.testReporter = suite.testReporter || new DefaultTestReporter(this.print);
 
-                    // Get the tests without any typing and simultaneously print their names
-                    var totalTypingsWithoutTest = this.printTypingsWithoutTest();
+                    this.print.printSuiteHeader(suite.testSuiteName);
+                    var targetFiles = suite.filterTargetFiles(this.files);
+                    suite.start(
+                        targetFiles,
+                        (testResult, index) => {
+                            this.testCompleteCallback(testResult, index);
+                        },
+                        suite=> {
+                            this.suiteCompleteCallback(suite);
+                            count++;
+                            executor();
+                        });
+                } else {
+                    this.timer.end();
+                    this.allTestCompleteCallback();
+                }
+            };
+            executor();
+        }
 
-                    // End total timer and print final messages
-                    timer.end();
+        private testCompleteCallback(testResult:TestResult, index:number) {
+            var reporter = testResult.hostedBy.testReporter;
+            if (testResult.success) {
+                reporter.printPositiveCharacter(index, testResult);
+            } else {
+                reporter.printNegativeCharacter(index, testResult);
+            }
+        }
 
-                    this.out.printDiv();
-                    this.out.printTotalMessage();
-                    this.out.printDiv();
+        private suiteCompleteCallback(suite:ITestSuite) {
+            this.print.printBreak();
 
-                    this.out.printElapsedTime(timer.asString, timer.time);
-                    this.out.printSyntaxErrorCount(syntaxFailedCount, syntaxTotal);
-                    this.out.printTestErrorCount(testFailedCount, testTotal);
-                    this.out.printWithoutTestCount(totalTypingsWithoutTest, this.fh.allTypings().length);
+            this.print.printDiv();
+            this.print.printElapsedTime(suite.timer.asString, suite.timer.time);
+            this.print.printSuccessCount(suite.okTests.length, suite.testResults.length);
+            this.print.printFailedCount(suite.ngTests.length, suite.testResults.length);
+        }
 
-                    this.out.printDiv();
+        private allTestCompleteCallback() {
+            var testEval = this.suites.filter(suite=>suite instanceof TestEval)[0];
+            if (testEval) {
+                var existsTestTypings:string[] = testEval.testResults
+                    .map(testResult=>testResult.targetFile.dir)
+                    .reduce((a, b)=> a.indexOf(b) < 0 ? a.concat([b]) : a, []);
+                var typings:string[] = this.files
+                    .map(file=>file.dir)
+                    .reduce((a, b)=> a.indexOf(b) < 0 ? a.concat([b]) : a, []);
+                var withoutTestTypings:string[] = typings
+                    .filter(typing=>existsTestTypings.indexOf(typing) < 0);
+                this.print.printDiv();
+                this.print.printTypingsWithoutTest(withoutTestTypings);
+            }
 
-                    if (syntaxFailedCount > 0 || testFailedCount > 0) {
-                        this.printErrorsDetected();
-                        process.exit(1);
-                    }
+            this.print.printDiv();
+            this.print.printTotalMessage();
+
+            this.print.printDiv();
+            this.print.printElapsedTime(this.timer.asString, this.timer.time);
+            this.suites
+                .filter(suite=>suite.printErrorCount)
+                .forEach(suite=> {
+                    this.print.printSuiteErrorCount(suite.errorHeadline, suite.ngTests.length, suite.testResults.length);
                 });
-            });
+            if (testEval) {
+                this.print.printSuiteErrorCount("Without tests", withoutTestTypings.length, typings.length, '\33[33m\33[1m');
+            }
+
+            this.print.printDiv();
+            if (this.suites.some(suite=>suite.ngTests.length !== 0)) {
+                this.print.printErrorsHeader();
+
+                this.suites
+                    .filter(suite=>suite.ngTests.length !== 0)
+                    .forEach(suite=> {
+                        suite.ngTests.forEach(testResult => {
+                            this.print.printErrorsForFile(testResult);
+                        });
+                        this.print.printBoldDiv();
+                    });
+
+                process.exit(1);
+            }
         }
     }
 }
