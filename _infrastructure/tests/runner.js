@@ -943,11 +943,66 @@ var DefinitelyTyped;
         })(TestSuiteBase);
 
         /////////////////////////////////
+        // Try compile without .tscparams
+        // It may indicate that it is compatible with --noImplicitAny maybe...
+        /////////////////////////////////
+        var FindNotRequiredTscparams = (function (_super) {
+            __extends(FindNotRequiredTscparams, _super);
+            function FindNotRequiredTscparams(print) {
+                var _this = this;
+                _super.call(this, "Find not required .tscparams files", "New arrival!");
+                this.print = print;
+                this.printErrorCount = false;
+
+                this.testReporter = {
+                    printPositiveCharacter: function (index, testResult) {
+                        _this.print.clearCurrentLine().printTypingsWithoutTestName(testResult.targetFile.formatName);
+                    },
+                    printNegativeCharacter: function (index, testResult) {
+                    }
+                };
+            }
+            FindNotRequiredTscparams.prototype.filterTargetFiles = function (files) {
+                return files.filter(function (file) {
+                    return IO.fileExists(file.filePathWithName + '.tscparams');
+                });
+            };
+
+            FindNotRequiredTscparams.prototype.runTest = function (targetFile, callback) {
+                var _this = this;
+                this.print.clearCurrentLine().out(targetFile.formatName);
+                new Test(this, targetFile, { useTscParams: false, checkNoImplicitAny: true }).run(function (result) {
+                    _this.testResults.push(result);
+                    callback(result);
+                });
+            };
+
+            FindNotRequiredTscparams.prototype.finish = function (suiteCallback) {
+                this.print.clearCurrentLine();
+                suiteCallback(this);
+            };
+
+            Object.defineProperty(FindNotRequiredTscparams.prototype, "ngTests", {
+                get: function () {
+                    // Do not show ng test results
+                    return [];
+                },
+                enumerable: true,
+                configurable: true
+            });
+            return FindNotRequiredTscparams;
+        })(TestSuiteBase);
+
+        /////////////////////////////////
         // The main class to kick things off
         /////////////////////////////////
         var TestRunner = (function () {
-            function TestRunner(dtPath) {
+            function TestRunner(dtPath, options) {
+                if (typeof options === "undefined") { options = {}; }
+                this.options = options;
                 this.suites = [];
+                this.options.findNotRequiredTscparams = !!this.options.findNotRequiredTscparams;
+
                 var filesName = IO.dir(dtPath, /.\.ts/g, { recursive: true }).sort();
 
                 // only includes .d.ts or -tests.ts or -test.ts or .ts
@@ -971,13 +1026,19 @@ var DefinitelyTyped;
 
                 var syntaxChecking = new SyntaxChecking();
                 var testEval = new TestEval();
-                this.addSuite(syntaxChecking);
-                this.addSuite(testEval);
+                if (!this.options.findNotRequiredTscparams) {
+                    this.addSuite(syntaxChecking);
+                    this.addSuite(testEval);
+                }
 
                 var typings = syntaxChecking.filterTargetFiles(this.files).length;
                 var testFiles = testEval.filterTargetFiles(this.files).length;
                 this.print = new Print('0.9.1.1', typings, testFiles, this.files.length);
                 this.print.printHeader();
+
+                if (this.options.findNotRequiredTscparams) {
+                    this.addSuite(new FindNotRequiredTscparams(this.print));
+                }
 
                 var count = 0;
                 var executor = function () {
@@ -1083,6 +1144,9 @@ var DefinitelyTyped;
 })(DefinitelyTyped || (DefinitelyTyped = {}));
 
 var dtPath = __dirname + '/../..';
+var findNotRequiredTscparams = process.argv.some(function (arg) {
+    return arg == "--try-without-tscparams";
+});
 
-var runner = new DefinitelyTyped.TestManager.TestRunner(dtPath);
+var runner = new DefinitelyTyped.TestManager.TestRunner(dtPath, { findNotRequiredTscparams: findNotRequiredTscparams });
 runner.run();
