@@ -1,4 +1,4 @@
-﻿# AngularJS Definitions Usage Notes
+# AngularJS Definitions Usage Notes
 
 ## Referencing AngularJS definition files in your code
 
@@ -8,18 +8,20 @@ That will make available to your code all interfaces AngularJS' main module **ng
 
 If you are including other AngularJS' modules in your code, like **ngResource**, just like you needed to include the additional module implementation file in your code, _angular-resource.js_, you will also need to reference the definitions file related to that module. Your code would then have the following definitions files reference:
 
-    /// <reference path="angular-1.0.d.ts" />
-    /// <reference path="angular-resource-1.0.d.ts" />
+    /// <reference path="angular.d.ts" />
+    /// <reference path="angular-resource.d.ts" />
 
 Having these modules in separated files is actually good because they sometimes either augment or modify some of **ng**'s interfaces, and thus those differences should only be available to you when you really need them. Also, it forces you to explicit what you're going to be using.
 
 The following extra definition files are available for referencing:
 
-* angular-resource-1.0.d.ts (for the **ngResource** module)
-* angular-cookies-1.0.d.ts (for the **ngCookies** module)
-* angular-sanitize-1.0.d.ts (for the **ngSanitize** module)
-* angular-mocks-1.0.d.ts (for the **ngMock** and **ngMockE2E** modules)
+* angular-resource.d.ts (for the **ngResource** module)
+* angular-route.d.ts (for the **ngRoute** module)
+* angular-cookies.d.ts (for the **ngCookies** module)
+* angular-sanitize.d.ts (for the **ngSanitize** module)
+* angular-mocks.d.ts (for the **ngMock** and **ngMockE2E** modules)
 
+(postfix with version number for specific verion, eg. angular-resource-1.0.d.ts)
 
 ## The Angular Static
 
@@ -100,6 +102,75 @@ Since you are augmenting the $scope object, you should let the compiler know wha
 ## Examples
 
 ### Working with $resource
+
+    /// <reference path="angular.d.ts" />
+    /// <reference path="angular-resource.d.ts" />
+
+    // We have the option to define arguments for a custom resource
+    interface IArticleParameters {
+        id: number;
+    }
+
+    // Let's define a custom resource
+    interface IArticleResourceClass extends ng.resource.IResourceClass {
+        // Overload get to accept our custom parameters
+        get(): ng.resource.IResource;
+        get(params: IArticleParameters, onSuccess: Function): IArticleResource;
+
+        // Add our custom resource actions
+        publish(): IArticleResource;
+        publish(params: IArticleParameters): IArticleResource;
+        unpublish(params: IArticleParameters): IArticleResource;
+    }
+
+    interface IArticleResource extends ng.resource.IResource {
+        title: string;
+        text: string;
+        date: Date;
+        author: number;
+
+        // Although all actions defined on IArticleResourceClass are avaiable with
+        // the '$' prefix, we have the choice to expose only what we will use
+        $publish(): IArticleResource;
+        $unpublish(): IArticleResource;
+    }
+
+    function MainController($resource: ng.resource.IResourceService) {
+                
+        // IntelliSense will provide IActionDescriptor interface and will validate
+        // your assignment against it
+        var publishDescriptor: ng.resource.IActionDescriptor;
+        publishDescriptor = {
+            method: 'GET',
+            isArray: false
+        };
+
+        // I could still create a descriptor without the interface...
+        var unpublishDescriptor = {
+            method: 'POST'
+        }
+
+        // A call to the $resource service returns a IResourceClass. Since
+        // our own IArticleResourceClass defines 2 more actions, we cast the return
+        // value to make the compiler aware of that
+        var articleResource = <IArticleResourceClass> $resource('/articles/:id', null, {
+            publish : publishDescriptor,
+            unpublish : unpublishDescriptor
+        });
+
+        // Now we can do this
+        articleResource.unpublish({ id: 1 });
+            
+        // IResourceClass.get() will be automatically available here
+        var article: IArticleResource = articleResource.get({id: 1}, function success() {
+            // Again, default + custom action here...
+            article.title = 'New Title';
+            article.$save();
+            article.$publish();
+        });
+    }
+
+### Working with $resource in angular-1.0 definitions
 
     /// <reference path="angular-1.0.d.ts" />
     /// <reference path="angular-resource-1.0.d.ts" />
