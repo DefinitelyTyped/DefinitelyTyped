@@ -390,6 +390,55 @@ module DefinitelyTyped.TestManager {
     }
 
     /////////////////////////////////
+    // Try compile without .tscparams
+    // It may indicate that it is compatible with --noImplicitAny maybe...
+    /////////////////////////////////
+    class FindNotRequiredTscparams extends TestSuiteBase {
+        testReporter:ITestReporter;
+        printErrorCount = false;
+
+        constructor(private print:Print) {
+            super("Find not required .tscparams files", "New arrival!");
+
+            this.testReporter = {
+                printPositiveCharacter: (index:number, testResult:TestResult)=> {
+                    this.print
+                        .clearCurrentLine()
+                        .printTypingsWithoutTestName(testResult.targetFile.formatName);
+                },
+                printNegativeCharacter: (index:number, testResult:TestResult)=> {
+                }
+            }
+        }
+
+        public filterTargetFiles(files:File[]):File[] {
+            return files.filter(file=> IO.fileExists(file.filePathWithName + '.tscparams'));
+        }
+
+        public runTest(targetFile:File, callback:(result:TestResult)=>void):void {
+            this.print.clearCurrentLine().out(targetFile.formatName);
+            new Test(this, targetFile, {useTscParams: false, checkNoImplicitAny: true}).run(result=> {
+                this.testResults.push(result);
+                callback(result);
+            });
+        }
+
+        public finish(suiteCallback:(suite:ITestSuite)=>void) {
+            this.print.clearCurrentLine();
+            suiteCallback(this);
+        }
+
+        public get ngTests():TestResult[] {
+            // Do not show ng test results
+            return [];
+        }
+    }
+
+    export interface ITestRunnerOptions {
+        findNotRequiredTscparams?:boolean;
+    }
+
+    /////////////////////////////////
     // The main class to kick things off
     /////////////////////////////////
     export class TestRunner {
@@ -398,7 +447,9 @@ module DefinitelyTyped.TestManager {
         suites:ITestSuite[] = [];
         private print:Print;
 
-        constructor(dtPath:string) {
+        constructor(dtPath:string, public options:ITestRunnerOptions = {}) {
+            this.options.findNotRequiredTscparams = !!this.options.findNotRequiredTscparams;
+
             var filesName = IO.dir(dtPath, /.\.ts/g, { recursive: true }).sort();
             // only includes .d.ts or -tests.ts or -test.ts or .ts
             filesName = filesName
@@ -417,13 +468,19 @@ module DefinitelyTyped.TestManager {
 
             var syntaxChecking = new SyntaxChecking();
             var testEval = new TestEval();
-            this.addSuite(syntaxChecking);
-            this.addSuite(testEval);
+            if (!this.options.findNotRequiredTscparams) {
+                this.addSuite(syntaxChecking);
+                this.addSuite(testEval);
+            }
 
             var typings = syntaxChecking.filterTargetFiles(this.files).length;
             var testFiles = testEval.filterTargetFiles(this.files).length;
             this.print = new Print('0.9.1.1', typings, testFiles, this.files.length);
             this.print.printHeader();
+
+            if (this.options.findNotRequiredTscparams) {
+                this.addSuite(new FindNotRequiredTscparams(this.print));
+            }
 
             var count = 0;
             var executor = () => {
@@ -518,6 +575,7 @@ module DefinitelyTyped.TestManager {
 }
 
 var dtPath = __dirname + '/../..';
+var findNotRequiredTscparams = process.argv.some(arg=>arg == "--try-without-tscparams");
 
-var runner = new DefinitelyTyped.TestManager.TestRunner(dtPath);
+var runner = new DefinitelyTyped.TestManager.TestRunner(dtPath, {findNotRequiredTscparams: findNotRequiredTscparams});
 runner.run();
