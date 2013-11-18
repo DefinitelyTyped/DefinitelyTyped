@@ -166,31 +166,6 @@ declare module Rx {
 		ensureTrampoline(action: () =>_IDisposable): _IDisposable;
 	}
 
-	// Virtual IScheduler
-	interface IVirtualTimeScheduler extends IScheduler {
-		toRelative(duetime): number;
-		toDateTimeOffset(duetime: number): number;
-
-		clock: number;
-		comparer: (x: number, y: number) =>number;
-		isEnabled: boolean;
-		queue: IPriorityQueue;
-		scheduleRelativeWithState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable): _IDisposable;
-		scheduleRelative(dueTime: number, action: () =>void ): _IDisposable;
-		start(): _IDisposable;
-		stop(): void;
-		advanceTo(time: number);
-		advanceBy(time: number);
-		sleep(time: number);
-		getNext(): IScheduledItem;
-		scheduleAbsolute(dueTime: number, action: () =>void );
-		scheduleAbsoluteWithState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable): _IDisposable;
-	}
-	//export module VirtualTimeScheduler {
-	//    //absract
-	//    function new (initialClock: number, comparer: (x: number, y: number) =>number): IVirtualTimeScheduler;
-	//}
-
 
 	// CatchScheduler
 	interface ICatchScheduler extends IScheduler { }
@@ -379,8 +354,6 @@ declare module Rx {
 	interface Observable {
 		(subscribe: (observer: IObserver<any>) =>_IDisposable): IObservable<any>;
 
-		start<T>(func: () =>T, scheduler?: IScheduler, context?: any): IObservable<T>;
-		toAsync<T>(func: Function, scheduler?: IScheduler, context?: any): (...arguments: any[]) => IObservable<T>;
 		create<T>(subscribe: (observer: IObserver<T>) => void ): IObservable<T>;
 		//create<T>(subscribe: (observer: IObserver<T>) => () => void ): IObservable<T>;
 		createWithDisposable<T>(subscribe: (observer: IObserver<T>) =>_IDisposable): IObservable<T>;
