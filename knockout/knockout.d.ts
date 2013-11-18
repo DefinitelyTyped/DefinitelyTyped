@@ -5,7 +5,7 @@
 
 
 interface KnockoutSubscribableFunctions<T> {
-	notifySubscribers(valueToWrite: T, event?: string): void;
+	notifySubscribers(valueToWrite?: T, event?: string): void;
 }
 
 interface KnockoutComputedFunctions<T> {
