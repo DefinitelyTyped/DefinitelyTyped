@@ -590,7 +590,7 @@ function bivariateAreaChart() {
         });
 
         x.domain(d3.extent(data, function (d) { return d.date; }));
-        y.domain([d3.min<any>(data, function (d) { return d.low; }), d3.max<any>(data, function (d) { return d.high; })]);
+        y.domain([d3.min(data, function (d) { return d.low; }), d3.max(data, function (d) { return d.high; })]);
 
         svg.append("path")
             .datum(data)
@@ -2423,4 +2423,45 @@ function svgDiagonalTest () {
     d.target({x: 0, y: 1});
     d.target(function (d) { return {x: d.x, y: d.y}; });
     d.target(function (d, i) { return {x: d.x * i, y: d.y * i}; });
+}
+
+// Tests for d3.extent
+// Adopted from: https://github.com/mbostock/d3/blob/master/test/arrays/extent-test.js
+function extentTest() {
+    var o = { valueOf: function () { return NaN; } };
+    d3.extent([1]);
+    d3.extent([5, 1, 2, 3, 4]);
+    d3.extent([20, 3]);
+    d3.extent([3, 20]);
+    d3.extent(["c", "a", "b"]);
+    d3.extent(["20", "3"]);
+    d3.extent(["3", "20"]);
+    d3.extent([NaN, 1, 2, 3, 4, 5]);
+    d3.extent([o, 1, 2, 3, 4, 5]);
+    d3.extent([1, 2, 3, 4, 5, NaN]);
+    d3.extent([1, 2, 3, 4, 5, o]);
+    d3.extent([10, null, 3, undefined, 5, NaN]);
+    d3.extent([-1, null, -3, undefined, -5, NaN]);
+    d3.extent([20, "3"]);
+    d3.extent(["20", 3]);
+    d3.extent([3, "20"]);
+    d3.extent(["3", 20]);
+
+    d3.extent([1], (d) => { return d; });
+    d3.extent([5, 1, 2, 3, 4], (d) => { return d; });
+    d3.extent([20, 3], (d) => { return d; });
+    d3.extent([3, 20], (d) => { return d; });
+    d3.extent(["c", "a", "b"], (d) => { return d; });
+    d3.extent(["20", "3"], (d) => { return d; });
+    d3.extent(["3", "20"], (d) => { return d; });
+    d3.extent([NaN, 1, 2, 3, 4, 5], (d) => { return d; });
+    d3.extent([o, 1, 2, 3, 4, 5], (d) => { return d; });
+    d3.extent([1, 2, 3, 4, 5, NaN], (d) => { return d; });
+    d3.extent([1, 2, 3, 4, 5, o], (d) => { return d; });
+    d3.extent([10, null, 3, undefined, 5, NaN], (d) => { return d; });
+    d3.extent([-1, null, -3, undefined, -5, NaN], (d) => { return d; });
+    d3.extent([20, "3"], (d) => { return d; });
+    d3.extent(["20", 3], (d) => { return d; });
+    d3.extent([3, "20"], (d) => { return d; });
+    d3.extent(["3", 20], (d) => { return d; });
 }

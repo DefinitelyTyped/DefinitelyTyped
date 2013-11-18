@@ -88,21 +88,21 @@ declare module D3 {
         * @param arr Array to search
         * @param map Accsessor function
         */
-        min<T>(arr: T[], map?: (v: T) => number): number;
+        min<T, U>(arr: T[], map?: (v: T) => U): U;
         /**
         * Find the maximum value in an array
         *
         * @param arr Array to search
         * @param map Accsessor function
         */
-        max<T>(arr: T[], map?: (v: T) => number): number;
+        max<T, U>(arr: T[], map?: (v: T) => U): U;
         /**
         * Find the minimum and maximum value in an array
         *
         * @param arr Array to search
         * @param map Accsessor function
         */
-        extent<T>(arr: T[], map?: (v: T) => number): number[];
+        extent<T, U>(arr: T[], map?: (v: T) => U): U[];
         /**
         * Compute the sum of an array of numbers
         *
@@ -714,6 +714,7 @@ declare module D3 {
         data: {
             (values: (data: any, index?: number) => any[], key?: (data: any, index?: number) => string): UpdateSelection;
             (values: any[], key?: (data: any, index?: number) => string): UpdateSelection;
+            (): any[];
         };
 
         datum: {
