@@ -2,7 +2,7 @@
 
 ## Referencing AngularJS definition files in your code
 
-To do that, simply add `/// <reference path="angular-1.0.d.ts" />` at the top of your code.
+To do that, simply add `/// <reference path="angular.d.ts" />` at the top of your code.
 
 That will make available to your code all interfaces AngularJS' main module **ng** implements, as well as the **AUTO** module.
 
