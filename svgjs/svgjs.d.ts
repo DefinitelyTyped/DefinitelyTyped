@@ -11,7 +11,7 @@ declare var SVG:svgjs.Library;
 
 declare module svgjs {
 
-    export interface HTMLElement {
+    export interface LinkedHTMLElement extends HTMLElement {
         instance: Element;
     }
 
@@ -22,18 +22,18 @@ declare module svgjs {
         Element:ElementStatic;
         supported:boolean;
         get(id:string):Element;
-        extend(parent:Object, obj:Object);
+        extend(parent:Object, obj:Object):void;
     }
 
     export interface Doc extends Parent {
-        svg(data:string);
-        pattern(w:number, h:number, add:(e:Element)=>void);
+        svg(data:string):any;
+        pattern(w:number, h:number, add:(e:Element)=>void):Element;
         
         defs():Defs;
 
         use(element:Element):Element;
 
-        clear();
+        clear():void;
 
         mask():Mask;
 
@@ -41,7 +41,7 @@ declare module svgjs {
     }    
 
     export interface Element {
-        node:HTMLElement;
+        node:LinkedHTMLElement;
 
         nested():Doc;
 
@@ -52,8 +52,8 @@ declare module svgjs {
         attr(obj:Object):Element;
         attr(name:string):any;
         viewbox():Viewbox;
-        viewbox(obj:Viewbox):Element;
         viewbox(x:number, y:number, w:number, h:number):Element;
+        viewbox(obj:Viewbox):Element;
 
         move(x:number, y:number, anchor?:boolean):Element;
         x(x:number, anchor?:boolean):Element;
@@ -68,11 +68,11 @@ declare module svgjs {
         show():Element;
         hide():Element;
         visible():boolean;
-        remove();
+        remove():void;
 
-        each(iterator:(i?:number, children?:Element[])=>void, deep?:boolean);
+        each(iterator:(i?:number, children?:Element[])=>void, deep?:boolean):void;
 
-        transform(t:Transform);
+        transform(t:Transform):Element;
         
         
         style(name:string, value:string):Element;
@@ -121,9 +121,9 @@ declare module svgjs {
         after(element:Element):Element;
 
 
-        click(cb:Function);
-        on(event:string, cb:Function);
-        off(event:string, cb:Function);
+        click(cb:Function):void;
+        on(event:string, cb:Function):void;
+        off(event:string, cb:Function):void;
     }
 
     export interface Mask extends Element {
@@ -131,9 +131,9 @@ declare module svgjs {
     }
 
     export interface Text extends Element {
-        text(text:string);
+        text(text:string):Text;
         content:string;
-        font(font:{family?:string; size?:number; anchor?:string; leading?:string});
+        font(font:{family?:string; size?:number; anchor?:string; leading?:string}):Text;
         tspan(text:string):Text;
         path(data:string):Text;
         plot(data:string):Text;
@@ -147,12 +147,14 @@ declare module svgjs {
     export interface Defs extends Element {}
 
 
-    export interface Animation extends Element {
-        stop();
+    export interface Animation {
+        stop():Animation;
 
-        attr(name:string, value:any, namespace:string):Animation;
+        attr(name:string, value:any, namespace?:string):Animation;
         attr(obj:Object):Animation;
         attr(name:string):any;
+
+        viewbox(x:number, y:number, w:number, h:number):Animation;
 
         move(x:number, y:number, anchor?:boolean):Animation;
         x(x:number, anchor?:boolean):Animation;
@@ -167,7 +169,7 @@ declare module svgjs {
         to(value:number):Animation;
         after(cb:()=>void):Animation;
 
-        // missing during
+        // TODO style, etc, bbox... 
     }
     
     export interface Parent extends Element {
@@ -202,12 +204,6 @@ declare module svgjs {
     }
 
     export interface RBox extends BBox {}
-
-    export interface Attributes {
-        (name:string, value:any);
-        (obj:Object);
-        (name:string):any;
-    }
 
     export interface Viewbox {
         x: number;
