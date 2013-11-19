@@ -395,9 +395,17 @@ result = <number[]>_.map([1, 2, 3], function(num) { return num * 3; });
 result = <number[]>_.map({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { return num * 3; });
 result = <IStoogesAge[]>_.map(stoogesAges, 'name');
 
+	result = <number[]>_([1, 2, 3]).map(function(num) { return num * 3; }).value();
+	result = <number[]>_({ 'one': 1, 'two': 2, 'three': 3 }).map(function(num) { return num * 3; }).value();
+	result = <IStoogesAge[]>_(stoogesAges).map('name').value();
+
 result = <number[]>_.collect([1, 2, 3], function(num) { return num * 3; });
 result = <number[]>_.collect({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { return num * 3; });
 result = <IStoogesAge[]>_.collect(stoogesAges, 'name');
+
+	result = <number[]>_([1, 2, 3]).collect(function(num) { return num * 3; }).value();
+	result = <number[]>_({ 'one': 1, 'two': 2, 'three': 3 }).collect(function(num) { return num * 3; }).value();
+	result = <IStoogesAge[]>_(stoogesAges).collect('name').value();
 
 result = <number>_.max([4, 2, 8, 6]);
 result = <IStoogesAge>_.max(stoogesAges, function(stooge) { return stooge.age; });
