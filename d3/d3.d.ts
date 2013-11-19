@@ -2438,8 +2438,10 @@ declare module D3 {
             clamp(clamp: boolean): QuantitiveScale;
             /**
             * extend the scale domain to nice round numbers.
+            * 
+            * @param count Optional number of ticks to exactly fit the domain
             */
-            nice(): QuantitiveScale;
+            nice(count?: number): QuantitiveScale;
             /**
             * get representative values from the input domain.
             *
