@@ -1413,42 +1413,42 @@ declare module _ {
 		**/
 		filter<T>(
 			callback: ListIterator<T, boolean>,
-			thisArg?: any): T[];
+			thisArg?: any): LoDashArrayWrapper<T>;
 
 		/**
 		* @see _.filter
 		* @param pluckValue _.pluck style callback
 		**/
 		filter<T>(
-			pluckValue: string): T[];
+			pluckValue: string): LoDashArrayWrapper<T>;
 
 		/**
 		* @see _.filter
 		* @param pluckValue _.pluck style callback
 		**/
 		filter<W, T extends W>(
-			whereValue: W): T[];
+			whereValue: W): LoDashArrayWrapper<T>;
 
 			/**
 			* @see _.filter
 			**/
 			select<T>(
 				callback: ListIterator<T, boolean>,
-				thisArg?: any): T[];
+				thisArg?: any): LoDashArrayWrapper<T>;
 
 			/**
 			* @see _.filter
 			* @param pluckValue _.pluck style callback
 			**/
 			select<T>(
-				pluckValue: string): T[];
+				pluckValue: string): LoDashArrayWrapper<T>;
 
 			/**
 			* @see _.filter
 			* @param pluckValue _.pluck style callback
 			**/
 			select<W, T extends W>(
-				whereValue: W): T[];
+				whereValue: W): LoDashArrayWrapper<T>;
 	}
 
 	//_.find
