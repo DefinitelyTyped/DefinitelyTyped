@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-/// <reference path="angular.d.ts" />
+/// <reference path="angular-1.0.d.ts" />
 
 ///////////////////////////////////////////////////////////////////////////////
 // functions attached to global object (window)
