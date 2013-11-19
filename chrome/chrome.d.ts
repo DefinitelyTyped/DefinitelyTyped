@@ -2273,39 +2273,39 @@ declare module chrome.webRequest {
     }
 
     interface WebRequestCompletedEvent extends chrome.events.Event { 
-        addListener(callback: (details: OnCompletedDetails) => void): void;
+        addListener(callback: (details: OnCompletedDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
     interface WebRequestHeadersReceivedEvent extends chrome.events.Event { 
-        addListener(callback: (details: OnHeadersReceivedDetails) => void): void;
+        addListener(callback: (details: OnHeadersReceivedDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
     interface WebRequestBeforeRedirectEvent extends chrome.events.Event { 
-        addListener(callback: (details: OnBeforeRedirectDetails) => void): void;
+        addListener(callback: (details: OnBeforeRedirectDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
     interface WebRequestAuthRequiredEvent extends chrome.events.Event { 
-        addListener(callback: (details: OnAuthRequiredDetails, callback?: (response: BlockingResponse) => void) => void): void;
+        addListener(callback: (details: OnAuthRequiredDetails, callback?: (response: BlockingResponse) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]) => void): void;
     }
 
     interface WebRequestBeforeSendHeadersEvent extends chrome.events.Event { 
-        addListener(callback: (details: OnBeforeSendHeadersDetails) => void): void;
+        addListener(callback: (details: OnBeforeSendHeadersDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
     interface WebRequestErrorOccurredEvent extends chrome.events.Event { 
-        addListener(callback: (details: OnErrorOccurredDetails) => void): void;
+        addListener(callback: (details: OnErrorOccurredDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
     interface WebRequestResponseStartedEvent extends chrome.events.Event { 
-        addListener(callback: (details: OnResponseStartedDetails) => void): void;
+        addListener(callback: (details: OnResponseStartedDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
     interface WebRequestSendHeadersEvent extends chrome.events.Event { 
-        addListener(callback: (details: OnSendHeadersDetails) => void): void;
+        addListener(callback: (details: OnSendHeadersDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
     interface WebRequestBeforeRequestEvent extends chrome.events.Event { 
-        addListener(callback: (details: OnBeforeRequestDetails) => void): void;
+        addListener(callback: (details: OnBeforeRequestDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
     var MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES: number;
