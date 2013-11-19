@@ -94,6 +94,12 @@ interface JQueryGenericPromise<T> {
     Interface for the JQuery promise, part of callbacks
 */
 interface JQueryPromise<T> {
+    // Generic versions of callbacks
+    always(...alwaysCallbacks: T[]): JQueryPromise<T>;
+    done(...doneCallbacks: T[]): JQueryPromise<T>;
+    fail(...failCallbacks: T[]): JQueryPromise<T>;
+    progress(...progressCallbacks: T[]): JQueryPromise<T>;
+
     always(...alwaysCallbacks: any[]): JQueryPromise<T>;
     done(...doneCallbacks: any[]): JQueryPromise<T>;
     fail(...failCallbacks: any[]): JQueryPromise<T>;
