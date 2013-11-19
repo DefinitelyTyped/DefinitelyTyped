@@ -124,6 +124,12 @@ interface JQueryPromise<T> {
     Interface for the JQuery deferred, part of callbacks
 */
 interface JQueryDeferred<T> extends JQueryPromise<T> {
+    // Generic versions of callbacks
+    always(...alwaysCallbacks: T[]): JQueryDeferred<T>;
+    done(...doneCallbacks: T[]): JQueryDeferred<T>;
+    fail(...failCallbacks: T[]): JQueryDeferred<T>;
+    progress(...progressCallbacks: T[]): JQueryDeferred<T>;
+
     always(...alwaysCallbacks: any[]): JQueryDeferred<T>;
     done(...doneCallbacks: any[]): JQueryDeferred<T>;
     fail(...failCallbacks: any[]): JQueryDeferred<T>;
