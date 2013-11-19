@@ -316,17 +316,17 @@ result = <number[]>_.filter([1, 2, 3, 4, 5, 6], function(num) { return num % 2 =
 result = <IFoodCombined[]>_.filter(foodsCombined, 'organic');
 result = <IFoodCombined[]>_.filter(foodsCombined, { 'type': 'fruit' });
 
-	result = <number[]>_([1, 2, 3, 4, 5, 6]).filter(function(num) { return num % 2 == 0; });
-	result = <IFoodCombined[]>_(foodsCombined).filter('organic');
-	result = <IFoodCombined[]>_(foodsCombined).filter({ 'type': 'fruit' });
+	result = <number[]>_([1, 2, 3, 4, 5, 6]).filter(function(num) { return num % 2 == 0; }).value();
+	result = <IFoodCombined[]>_(foodsCombined).filter('organic').value();
+	result = <IFoodCombined[]>_(foodsCombined).filter({ 'type': 'fruit' }).value();
 
 	result = <number[]>_.select([1, 2, 3, 4, 5, 6], function(num) { return num % 2 == 0; });
 	result = <IFoodCombined[]>_.select(foodsCombined, 'organic');
 	result = <IFoodCombined[]>_.select(foodsCombined, { 'type': 'fruit' });
 
-		result = <number[]>_([1, 2, 3, 4, 5, 6]).select(function(num) { return num % 2 == 0; });
-		result = <IFoodCombined[]>_(foodsCombined).select('organic');
-		result = <IFoodCombined[]>_(foodsCombined).select({ 'type': 'fruit' });
+		result = <number[]>_([1, 2, 3, 4, 5, 6]).select(function(num) { return num % 2 == 0; }).value();
+		result = <IFoodCombined[]>_(foodsCombined).select('organic').value();
+		result = <IFoodCombined[]>_(foodsCombined).select({ 'type': 'fruit' }).value();
 
 result = <number>_.find([1, 2, 3, 4], function(num) {
   return num % 2 == 0;
