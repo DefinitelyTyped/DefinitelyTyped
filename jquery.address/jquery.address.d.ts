@@ -9,6 +9,7 @@ interface JQueryAddressStatic {
     ();
     change(callback: any): void;
     value(url: any): void;
+    update(): void;
 }
 
 interface JQueryAddress {
