@@ -145,7 +145,7 @@ declare module Q {
     export function async<T>(generatorFunction: any): (...args: any[]) => Promise<T>;
     export function nextTick(callback: Function): void;
 
-    export var oneerror: () => void;
+    export var onerror: (reason: any) => void;
     export var longStackSupport: boolean;
 
     export function resolve<T>(object: IPromise<T>): Promise<T>;
