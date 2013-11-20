@@ -220,6 +220,8 @@ declare module "events" {
     }
 
     export class EventEmitter implements NodeEventEmitter {
+        static listenerCount(emitter: EventEmitter, event: string): number;
+
         addListener(event: string, listener: Function): EventEmitter;
         on(event: string, listener: Function): EventEmitter;
         once(event: string, listener: Function): EventEmitter;
@@ -303,22 +305,24 @@ declare module "http" {
 }
 
 declare module "cluster" {
-    import child_process = require("child_process");
+    import child  = require("child_process");
+    import events = require("events");
 
     export interface ClusterSettings {
-        exec: string;
-        args: string[];
-        silent: boolean;
-    }
-    export interface Worker {
-        id: string;
-        process: child_process.ChildProcess;
-        suicide: boolean;
-        send(message: any, sendHandle?: any): void;
-        destroy(): void;
-        disconnect(): void;
+        exec?: string;
+        args?: string[];
+        silent?: boolean;
     }
 
+    export class Worker extends events.EventEmitter {
+        id: string;
+        process: child.ChildProcess;
+        suicide: boolean;
+        send(message: any, sendHandle?: any): void;
+        kill(signal?: string): void;
+        destroy(signal?: string): void;
+        disconnect(): void;
+    }
 
     export var settings: ClusterSettings;
     export var isMaster: boolean;
@@ -326,9 +330,10 @@ declare module "cluster" {
     export function setupMaster(settings?: ClusterSettings): void;
     export function fork(env?: any): Worker;
     export function disconnect(callback?: Function): void;
-    export var workers: any;
+    export var worker: Worker;
+    export var workers: Worker[];
 
-    // Event emitter    
+    // Event emitter
     export function addListener(event: string, listener: Function): void;
     export function on(event: string, listener: Function): any;
     export function once(event: string, listener: Function): void;
