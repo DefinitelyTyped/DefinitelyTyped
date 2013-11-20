@@ -60,6 +60,7 @@ List of Definitions
 * [ember.js](http://emberjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [EpicEditor](http://epiceditor.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [expect.js](https://github.com/LearnBoost/expect.js) (by [Teppei Sato](https://github.com/teppeis))
+* [expectations](https://github.com/spmason/expectations) (by [vvakame](https://github.com/vvakame))
 * [Express](http://expressjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Ext JS](http://www.sencha.com/products/extjs/) (by [Brian Kotek](https://github.com/brian428))
 * [Fabric.js](http://fabricjs.com/) (by [Oliver Klemencic](https://github.com/oklemencic/))
