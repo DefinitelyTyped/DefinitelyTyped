@@ -168,14 +168,14 @@ interface Moment {
 
 	max(date: Date): Moment;
 	max(date: number): Moment;
-	max(date: Array): Moment;
+	max(date: any[]): Moment;
 	max(date: string): Moment;
 	max(date: string, format: string): Moment;
 	max(clone: Moment): Moment;
 	
 	min(date: Date): Moment;
 	min(date: number): Moment;
-	min(date: Array): Moment;
+	min(date: any[]): Moment;
 	min(date: string): Moment;
 	min(date: string, format: string): Moment;
 	min(clone: Moment): Moment;
