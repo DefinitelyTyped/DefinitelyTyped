@@ -816,5 +816,4 @@ declare module ng {
         }
 
     }
-
 }
