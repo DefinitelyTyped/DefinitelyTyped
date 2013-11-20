@@ -1,12 +1,12 @@
-// Type definitions for ChartJS 13.2
+// Type definitions for ChartJS
 // Project: http://chartjs.devexpress.com
-// Definitions by: Developer Express Inc. <https://www.devexpress.com/>
+// Definitions by: DevExpress Inc. <http://devexpress.com/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path="../jquery/jquery.d.ts" />
 
 declare module DevExpress {
-    export function abstract();
+    export function abstract(): void;
     interface Endpoint {
         local?: string;
         production: string;
@@ -42,16 +42,18 @@ declare module DevExpress {
             win8?: boolean;
             tizen?: boolean;
             platform?: string;
+            deviceType?: string;
         }
         export function current(): Device;
         export function current(device: Device): Device;
+        export var real: Device;
     }
 }
 declare module DevExpress.data {
     export interface ErrorHandler { (e: Error): void; }
     export interface EntityOptions { key: any; keyType: any; }
     export interface Getter { (obj: any, options?: any): any; }
-    export interface Setter { (obj: any, value: any, options?: any) }
+    export interface Setter { (obj: any, value: any, options?: any): void; }
     export interface QueryOptions {
         errorHandler?: ErrorHandler;
         requireTotalCount?: boolean;
@@ -127,7 +129,8 @@ declare module DevExpress.data {
         export function normalizeSortingInfo(info: { selector: string; desc?: boolean }): Array<{ selector: string; desc?: boolean }>;
         export function normalizeSortingInfo(info: { selector: string; desc?: boolean }[]): Array<{ selector: string; desc?: boolean }>;
         export function normalizeBinaryCriterion(criteria: Array<any>): Array<any>;
-        export function keysEqual(keyExpr, key1, key2): boolean;
+        export function keysEqual(key1: any, key2: any): boolean;
+        export function keysEqual(keyExpr: any, key1: any, key2: any): boolean;
         export function toComparable(value: Date, caseSensitive?: boolean): number;
         export function toComparable(value: Guid, caseSensitive?: boolean): string;
         export function toComparable(value: string, caseSensitive?: boolean): string;
@@ -138,7 +141,7 @@ declare module DevExpress.data {
         export function compileGetter(expr: Getter): Getter;
         export function compileSetter(expr: string): Setter;
         export module odata {
-            export function sendRequest(request: JQueryXHR, requestOptions?: JQueryAjaxSettings);
+            export function sendRequest(request: JQueryXHR, requestOptions?: JQueryAjaxSettings): any;
             export function serializePropName(propName: EdmLiteral): string;
             export function serializePropName(propName: string): string;
             export function serializeValue(value: Date): string;
@@ -320,15 +323,15 @@ declare module DevExpress.ui {
         allowZoom?: boolean;
     }
     export interface ITemplate {
-        compile(html: string);
-        render(template: JQuery, data: any);
-        render(template: any, data: any);
+        compile(html: string): any;
+        render(template: JQuery, data: any): any;
+        render(template: any, data: any): any;
     }
     class Template {
         constructor(element: HTMLElement);
         constructor(element: JQueryStatic);
-        render(container: HTMLElement);
-        render(container: JQueryStatic);
+        render(container: HTMLElement): any;
+        render(container: JQueryStatic): any;
         dispose(): void;
     }
     interface TemplateStatic {
@@ -427,8 +430,8 @@ declare module DevExpress.ui {
     export class Widget extends Component {
         constructor(element: Element, options?: WidgetOptions);
         constructor(element: JQuery, options?: WidgetOptions);
-        init();
-        repaint();
+        init(): void;
+        repaint(): void;
     }
 }
 declare module DevExpress.viz {
@@ -822,7 +825,7 @@ declare module DevExpress.viz.charts {
             sortingMethod?: any;
         };
         useAggregation?: boolean;
-        argumentAxisClick?: (axis, argument, event: JQueryMouseEventObject) => void;
+        argumentAxisClick?: (axis: any, argument: any, event: JQueryMouseEventObject) => void;
         legend?: ChartLegendOptions;
         argumentAxis?: ArgumentAxisOptions;
         valueAxis?: Array<ValueAxisOptions>;
@@ -1540,7 +1543,7 @@ declare module DevExpress.viz.rangeSelector {
             valueType?: string;
         }
         selectedRange?: SelectedRange;
-        selectedRangeChaged?: (startValue, endValue) => void;
+        selectedRangeChaged?: (startValue: any, endValue: any) => void;
         shutter?: {
             color?: string;
             opacity?: string;
