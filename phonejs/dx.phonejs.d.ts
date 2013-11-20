@@ -422,13 +422,13 @@ declare module DevExpress.framework {
     export interface IStorage {
         getItem(key: string): any;
         setItem(key: string, value: any): void;
-        removeItem(key: string);
+        removeItem(key: string): void;
     }
     export class MemoryKeyValueStorage implements IStorage {
         constructor();
         getItem(key: string): any;
         setItem(key: string, value: any): void;
-        removeItem(key: string);
+        removeItem(key: string): void;
     }
     export interface StateManagerOptions {
         storage?: IStorage;
