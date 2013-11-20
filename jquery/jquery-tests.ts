@@ -898,6 +898,18 @@ function test_dblclick() {
 }
 
 function test_deferred() {
+
+    function returnPromise(): JQueryPromise<(data: { MyString: string; MyNumber: number; }, textStatus: string, jqXHR: JQueryXHR) => any> {
+        return $.ajax("test.php");
+    }
+    var x = returnPromise();
+    x.done((data, textStatus, jqXHR) => {
+        var myNumber: number = data.MyNumber;
+        var myString: string = data.MyString;
+        var theTextStatus: string = textStatus;
+        var thejqXHR: JQueryXHR = jqXHR;
+    });
+
     $.get("test.php").always(function () {
         alert("$.get completed with success or error callback arguments");
     });
@@ -2315,7 +2327,7 @@ function test_EventIsCallable() {
 }
 
 $.when($.ajax("/my/page.json")).then((a,b,c) => a.asdf); // is type JQueryPromise<any>
-$.when("asdf", "jkl;").done(x => x.length, x=> x.length);
+$.when("asdf", "jkl;").done((x,y) => x.length + y.length, (x,y) => x.length + y.length);
 
 var f1 = $.when("fetch"); // Is type JQueryPromise<string>
 var f2: JQueryPromise<string[]> = f1.then(s => [s, s]);
