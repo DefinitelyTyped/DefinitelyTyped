@@ -436,8 +436,9 @@ interface NodeBuffer {
 declare module "ref-array" {
     import ref = require('ref');
 
-    interface ArrayType extends ref.Type {
+    interface ArrayType<T> extends ref.Type {
         BYTES_PER_ELEMENT: number;
+        fixedLength: number;
         /** The reference to the base type. */
         type: ref.Type;
 
@@ -446,22 +447,21 @@ declare module "ref-array" {
          * for the ArrayType. The "length" of the Array is determined by searching
          * through the buffer's contents until an aligned NULL pointer is encountered.
          */
-        untilZeros(buffer: NodeBuffer): { [i: number]: number; length: number;
-                                          buffer: NodeBuffer; ref(): NodeBuffer; };
+        untilZeros(buffer: NodeBuffer): { [i: number]: T; length: number; toArray(): T[];
+            toJSON(): T[]; inspect(): string; buffer: NodeBuffer; ref(): NodeBuffer; };
 
-        new (length?: number): { [i: number]: number; length: number;
-                                 buffer: NodeBuffer; ref(): NodeBuffer; };
-
-        new (data: number[], length?: number): { [i: number]: number; length: number;
-                                                 buffer: NodeBuffer; ref(): NodeBuffer; };
-        new (data: NodeBuffer, length?: number): { [i: number]: number; length: number;
-                                                   buffer: NodeBuffer; ref(): NodeBuffer; };
-        (length?: number): { [i: number]: number; length: number;
-                             buffer: NodeBuffer; ref(): NodeBuffer; };
-        (data: number[], length?: number): { [i: number]: number; length: number;
-                                             buffer: NodeBuffer; ref(): NodeBuffer; };
-        (data: NodeBuffer, length?: number): { [i: number]: number; length: number;
-                                               buffer: NodeBuffer; ref(): NodeBuffer; };
+        new (length?: number): { [i: number]: T; length: number; toArray(): T[];
+            toJSON(): T[]; inspect(): string; buffer: NodeBuffer; ref(): NodeBuffer; };
+        new (data: number[], length?: number): { [i: number]: T; length: number; toArray(): T[];
+            toJSON(): T[]; inspect(): string; buffer: NodeBuffer; ref(): NodeBuffer; };
+        new (data: NodeBuffer, length?: number): { [i: number]: T; length: number; toArray(): T[];
+            toJSON(): T[]; inspect(): string; buffer: NodeBuffer; ref(): NodeBuffer; };
+        (length?: number): { [i: number]: T; length: number; toArray(): T[];
+            toJSON(): T[]; inspect(): string; buffer: NodeBuffer; ref(): NodeBuffer; };
+        (data: number[], length?: number): { [i: number]: T; length: number; toArray(): T[];
+            toJSON(): T[]; inspect(): string; buffer: NodeBuffer; ref(): NodeBuffer; };
+        (data: NodeBuffer, length?: number): { [i: number]: T; length: number; toArray(): T[];
+            toJSON(): T[]; inspect(): string; buffer: NodeBuffer; ref(): NodeBuffer; };
     }
 
     /**
@@ -470,10 +470,10 @@ declare module "ref-array" {
      * TypedArray API.
      */
     var ArrayType: {
-        new (type: ref.Type, length?: number): ArrayType;
-        new (type: string, length?: number): ArrayType;
-        (type: ref.Type, length?: number): ArrayType;
-        (type: string, length?: number): ArrayType;
+        new <T>(type: ref.Type, length?: number): ArrayType<T>;
+        new <T>(type: string, length?: number): ArrayType<T>;
+        <T>(type: ref.Type, length?: number): ArrayType<T>;
+        <T>(type: string, length?: number): ArrayType<T>;
     };
 
     export = ArrayType;
@@ -592,4 +592,3 @@ declare module "ref-union" {
 
     export = UnionType;
 }
-
