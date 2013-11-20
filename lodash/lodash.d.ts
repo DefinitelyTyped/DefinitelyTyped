@@ -494,7 +494,7 @@ declare module _ {
 		* @param shallow If true then only flatten one level, optional, default = false.
 		* @return `array` flattened.
 		**/
-		flatten<T>(array: List<any>, isShallow?: boolean): T[]
+		flatten<T>(array: List<any>, isShallow?: boolean): T[];
 
 		flatten<T>(
 			array: List<any>,
