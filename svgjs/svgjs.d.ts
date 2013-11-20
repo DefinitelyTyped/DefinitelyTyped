@@ -25,7 +25,7 @@ declare module svgjs {
         extend(parent:Object, obj:Object):void;
     }
 
-    export interface Doc extends Parent {
+    export interface Doc extends Element {
         svg(data:string):any;
         pattern(w:number, h:number, add:(e:Element)=>void):Element;
         
@@ -40,7 +40,7 @@ declare module svgjs {
         // TODO gradients
     }    
 
-    export interface Element {
+    export interface Element extends Text, Parent {
         node:LinkedHTMLElement;
 
         nested():Doc;
@@ -130,14 +130,13 @@ declare module svgjs {
         add(element:Element):Mask;
     }
 
-    export interface Text extends Element {
-        text(text:string):Text;
+    export interface Text {
         content:string;
-        font(font:{family?:string; size?:number; anchor?:string; leading?:string}):Text;
-        tspan(text:string):Text;
-        path(data:string):Text;
-        plot(data:string):Text;
-        track:Text;
+        font(font:{family?:string; size?:number; anchor?:string; leading?:string}):Element;
+        tspan(text:string):Element;
+        path(data:string):Element;
+        plot(data:string):Element;
+        track:Element;
     }
 
     export interface ElementStatic extends Parent {
@@ -172,9 +171,9 @@ declare module svgjs {
         // TODO style, etc, bbox... 
     }
     
-    export interface Parent extends Element {
+    export interface Parent {
         put(element:Element, i?:number):Element;
-        add(element:Element, i?:number):Parent;
+        add(element:Element, i?:number):Element;
         children:Element[];
 
         rect(w:number, h:number):Element;
@@ -186,11 +185,11 @@ declare module svgjs {
         polygon(data:string):Element;
         polygon(points:number[][]):Element;
         path(data:string):Element;
-        image(url:string, w:number, h:number):Element;
-        text(text:string):Text;
-        text(adder:(element:Text)=>void):Element;        
+        image(url:string, w?:number, h?:number):Element;
+        text(text:string):Element;
+        text(adder:(element:Element)=>void):Element;        
 
-        group():Parent;
+        group():Element;
     }
 
     export interface BBox {
