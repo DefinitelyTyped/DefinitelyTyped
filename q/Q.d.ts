@@ -52,6 +52,8 @@ declare module Q {
 
         keys(): Promise<string[]>;
         
+        thenResolve<U>(value: U): Promise<U>;
+        thenReject(reason: any): Promise<T>;
         timeout(ms: number, message?: string): Promise<T>;
         delay(ms: number): Promise<T>;
 
