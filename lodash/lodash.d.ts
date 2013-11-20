@@ -1913,6 +1913,51 @@ declare module _ {
 				pluckValue: string): TResult[];
 	}
 
+	interface LoDashArrayWrapper<T> {
+		/**
+		* @see _.map
+		**/
+		map<T, TResult>(
+			callback: ListIterator<T, TResult>,
+			thisArg?: any): LoDashArrayWrapper<T>;
+
+		/**
+		* @see _.map
+		* @param pluckValue _.pluck style callback
+		**/
+		map<T, TResult>(
+			pluckValue: string): LoDashArrayWrapper<T>;
+
+			/**
+			* @see _.map
+			**/
+			collect<T, TResult>(
+				callback: ListIterator<T, TResult>,
+				thisArg?: any): LoDashArrayWrapper<T>;
+
+			/**
+			* @see _.map
+			**/
+			collect<T, TResult>(
+				pluckValue: string): LoDashArrayWrapper<T>;
+	}
+
+	interface LoDashObjectWrapper<T> {
+		/**
+		* @see _.map
+		**/
+		map<T extends {}, TResult>(
+			callback: ObjectIterator<T, TResult>,
+			thisArg?: any): LoDashObjectWrapper<T>;
+
+			/**
+			* @see _.map
+			**/
+			collect<T extends {}, TResult>(
+				callback: ObjectIterator<T, TResult>,
+				thisArg?: any): LoDashObjectWrapper<T>;
+	}
+
 	//_.max
 	interface LoDashStatic {
 		/**
