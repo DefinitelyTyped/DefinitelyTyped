@@ -1,12 +1,12 @@
-// Type definitions for PhoneJS 13.2
+// Type definitions for PhoneJS
 // Project: http://phonejs.devexpress.com
-// Definitions by: Developer Express Inc. <https://www.devexpress.com/>
+// Definitions by: DevExpress Inc. <http://devexpress.com/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path="../jquery/jquery.d.ts" />
 
 declare module DevExpress {
-    export function abstract();
+    export function abstract(): void;
     interface Endpoint {
         local?: string;
         production: string;
@@ -42,16 +42,18 @@ declare module DevExpress {
             win8?: boolean;
             tizen?: boolean;
             platform?: string;
+            deviceType?: string;
         }
         export function current(): Device;
         export function current(device: Device): Device;
+        export var real: Device;
     }
 }
 declare module DevExpress.data {
     export interface ErrorHandler { (e: Error): void; }
     export interface EntityOptions { key: any; keyType: any; }
     export interface Getter { (obj: any, options?: any): any; }
-    export interface Setter { (obj: any, value: any, options?: any) }
+    export interface Setter { (obj: any, value: any, options?: any): void; }
     export interface QueryOptions {
         errorHandler?: ErrorHandler;
         requireTotalCount?: boolean;
@@ -127,7 +129,8 @@ declare module DevExpress.data {
         export function normalizeSortingInfo(info: { selector: string; desc?: boolean }): Array<{ selector: string; desc?: boolean }>;
         export function normalizeSortingInfo(info: { selector: string; desc?: boolean }[]): Array<{ selector: string; desc?: boolean }>;
         export function normalizeBinaryCriterion(criteria: Array<any>): Array<any>;
-        export function keysEqual(keyExpr, key1, key2): boolean;
+        export function keysEqual(key1: any, key2: any): boolean;
+        export function keysEqual(keyExpr: any, key1: any, key2: any): boolean;
         export function toComparable(value: Date, caseSensitive?: boolean): number;
         export function toComparable(value: Guid, caseSensitive?: boolean): string;
         export function toComparable(value: string, caseSensitive?: boolean): string;
@@ -138,7 +141,7 @@ declare module DevExpress.data {
         export function compileGetter(expr: Getter): Getter;
         export function compileSetter(expr: string): Setter;
         export module odata {
-            export function sendRequest(request: JQueryXHR, requestOptions?: JQueryAjaxSettings);
+            export function sendRequest(request: JQueryXHR, requestOptions?: JQueryAjaxSettings): any;
             export function serializePropName(propName: EdmLiteral): string;
             export function serializePropName(propName: string): string;
             export function serializeValue(value: Date): string;
@@ -394,37 +397,37 @@ declare module DevExpress.framework {
         load(config: CommandMap): CommandMapping;
     }
     interface IViewCache {
-        setView(key: string, viewInfo: any);
-        removeView(key: string);
-        hasView(viewInfo: any);
-        getView(key: string);
-        clear();
+        setView(key: string, viewInfo: any): void;
+        removeView(key: string): any;
+        hasView(viewInfo: any): boolean;
+        getView(key: string): any;
+        clear(): void;
     }
     export class ViewCache implements IViewCache {
         constructor();
-        setView(key: string, viewInfo: any);
+        setView(key: string, viewInfo: any): void;
         removeView(key: string): any;
         hasView(viewInfo: any): boolean;
         getView(key: string): any;
-        clear();
+        clear(): void;
     }
     export class NullViewCache implements IViewCache {
         constructor();
-        setView(key: string, viewInfo: any);
+        setView(key: string, viewInfo: any): void;
         removeView(key: string): any;
         hasView(viewInfo: any): boolean;
         getView(key: string): any;
-        clear();
+        clear(): void;
     }
     export interface IStorage {
-        getItem(key: string);
-        setItem(key: string, value: any);
+        getItem(key: string): any;
+        setItem(key: string, value: any): void;
         removeItem(key: string);
     }
     export class MemoryKeyValueStorage implements IStorage {
         constructor();
-        getItem(key: string);
-        setItem(key: string, value: any);
+        getItem(key: string): any;
+        setItem(key: string, value: any): void;
         removeItem(key: string);
     }
     export interface StateManagerOptions {
@@ -489,7 +492,7 @@ declare module DevExpress.framework {
         currentItem(): any;
         back(uri: string): void;
         forward(): void;
-        navigate(uri: string, replaceCurrent?: boolean): any;
+        navigate(uri: any, replaceCurrent?: boolean): any;
         getPreviousItem(): any;
         canBack(): boolean;
         clear(): void;
@@ -511,12 +514,12 @@ declare module DevExpress.framework {
         public navigationCanceled: JQueryCallback;
         public itemRemoved: JQueryCallback;
         constructor(options?: NavigationManagerOptions);
-        navigate(uri, options?: {
+        navigate(uri: any, options?: {
             root?: boolean;
             target?: string;
             direction?: string;
         }): void;
-        back(alternate): void;
+        back(alternate: any): void;
         rootUri(): string;
         canBack(): boolean;
         currentItem(): any;
@@ -532,7 +535,7 @@ declare module DevExpress.framework {
         };
     }
     export module utils {
-        export function mergeCommands(destination: any, source: any);
+        export function mergeCommands(destination: any, source: any): dxCommand[];
     }
     export interface ApplicationOptions {
         router?: MvcRouter;
@@ -561,7 +564,7 @@ declare module DevExpress.framework {
         public navigating: JQueryCallback;
         constructor(options?: ApplicationOptions);
         init(): any;
-        navigate(uri?: string, options?: {
+        navigate(uri?: any, options?: {
             root?: boolean;
             target?: string;
             direction?: string;
@@ -573,7 +576,7 @@ declare module DevExpress.framework {
         restoreState(): void;
     }
     export function createActionExecutors(app: Application): {
-        [key: string]: { execute(e): void; }
+        [key: string]: { execute(e: any): void; }
     };
 }
 declare module DevExpress.framework.html {
@@ -611,18 +614,18 @@ declare module DevExpress.framework.html {
         public globalCommands: framework.dxCommand[];
         public commandMapping: framework.CommandMapping;
         constructor(options?: CommandManagerOptions);
-        layoutCommands($markup: JQuery, extraCommands?: any);
+        layoutCommands($markup: JQuery, extraCommands?: any): void;
     }
     export interface ITemplateEngine {
-        applyTemplate(template: string, model: any);
-        applyTemplate(template: Element, model: any);
-        applyTemplate(template: JQuery, model: any);
+        applyTemplate(template: string, model: any): void;
+        applyTemplate(template: Element, model: any): void;
+        applyTemplate(template: JQuery, model: any): void;
     }
     export class KnockoutJSTemplateEngine implements ITemplateEngine {
         constructor();
-        applyTemplate(template: string, model: any);
-        applyTemplate(template: Element, model: any);
-        applyTemplate(template: JQuery, model: any);
+        applyTemplate(template: string, model: any): void;
+        applyTemplate(template: Element, model: any): void;
+        applyTemplate(template: JQuery, model: any): void;
     }
     export interface TransitionExecutorOptions {
         type: string;
@@ -663,8 +666,6 @@ declare module DevExpress.framework.html {
         constructor(options?: ViewEngineOptions);
         init(): JQueryDeferred<any>;
         findLayoutTemplate(layoutName: string): JQuery;
-        renderBlankView(viewInfo: any, $renderTarget: JQuery);
-        renderCompleteView(viewInfo: any, $renderTarget: JQuery);
     }
     export interface HtmlApplicationBaseOptions extends framework.ApplicationOptions {
         device?: devices.Device;
@@ -694,15 +695,15 @@ declare module DevExpress.ui {
         allowZoom?: boolean;
     }
     export interface ITemplate {
-        compile(html: string);
-        render(template: JQuery, data: any);
-        render(template: any, data: any);
+        compile(html: string): any;
+        render(template: JQuery, data: any): any;
+        render(template: any, data: any): any;
     }
     class Template {
         constructor(element: HTMLElement);
         constructor(element: JQueryStatic);
-        render(container: HTMLElement);
-        render(container: JQueryStatic);
+        render(container: HTMLElement): any;
+        render(container: JQueryStatic): any;
         dispose(): void;
     }
     interface TemplateStatic {
@@ -801,8 +802,8 @@ declare module DevExpress.ui {
     export class Widget extends Component {
         constructor(element: Element, options?: WidgetOptions);
         constructor(element: JQuery, options?: WidgetOptions);
-        init();
-        repaint();
+        init(): void;
+        repaint(): void;
     }
     export interface ActionSheetOptions extends CollectionContainerWidgetOptions {
         usePopover?: boolean;
@@ -938,13 +939,13 @@ declare module DevExpress.ui {
         update(): JQueryDeferred<List>;
         deleteItem(itemElement: JQuery): JQueryDeferred<List>;
         deleteItem(itemElement: Element): JQueryDeferred<List>;
-        clearSelectedItems();
+        clearSelectedItems(): void;
         isItemSelected(itemElement: JQuery): boolean;
         isItemSelected(itemElement: Element): boolean;
-        selectItem(itemElement: JQuery);
-        selectItem(itemElement: Element);
-        unselectItem(itemElement: JQuery);
-        unselectItem(itemElement: Element);
+        selectItem(itemElement: JQuery): void;
+        selectItem(itemElement: Element): void;
+        unselectItem(itemElement: JQuery): void;
+        unselectItem(itemElement: Element): void;
         getSelectedItems(): number[];
     }
     export interface LoadPanelOptions extends OverlayOptions {
