@@ -3201,12 +3201,12 @@ declare module _ {
 		/**
 		* @see _.functions
 		**/
-		functions(): _.LoDashArrayWrapper<string>
+		functions(): _.LoDashArrayWrapper<string>;
 
 			/**
 			* @see _.functions
 			**/
-			methods(): _.LoDashArrayWrapper<string>
+			methods(): _.LoDashArrayWrapper<string>;
 	}
 
 	//_.has
