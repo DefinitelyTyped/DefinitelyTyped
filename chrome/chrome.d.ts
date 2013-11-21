@@ -20,7 +20,7 @@ declare module chrome.alarms {
     }
 
     interface AlarmEvent extends chrome.events.Event { 
-        addListener(callback: (alarm: Alarm) => void);
+        addListener(callback: (alarm: Alarm) => void) : void;
     }
 
     export function create(alarmInfo: AlarmCreateInfo): void;
@@ -71,31 +71,31 @@ declare module chrome.bookmarks {
     }
 
     interface BookmarkRemovedEvent extends chrome.events.Event { 
-        addListener(callback: (id: string, removeInfo: BookmarkRemoveInfo) => void);
+        addListener(callback: (id: string, removeInfo: BookmarkRemoveInfo) => void): void;
     }
 
     interface BookmarkImportEndedEvent extends chrome.events.Event {
-        addListener(callback: Function);
+        addListener(callback: Function): void;
     }
 
     interface BookmarkMovedEvent extends chrome.events.Event {
-        addListener(callback: (id: string, moveInfo: BookmarkMoveInfo) => void);
+        addListener(callback: (id: string, moveInfo: BookmarkMoveInfo) => void): void;
     }
 
     interface BookmarkImportBeganEvent extends chrome.events.Event {
-        addListener(callback: Function);
+        addListener(callback: Function): void;
     }
 
     interface BookmarkChangedEvent extends chrome.events.Event {
-        addListener(callback: (id: string, changeInfo: BookmarkChangeInfo) => void);
+        addListener(callback: (id: string, changeInfo: BookmarkChangeInfo) => void): void;
     }
 
     interface BookmarkCreatedEvent extends chrome.events.Event {
-        addListener(callback: (id: string, bookmark: BookmarkTreeNode) => void);
+        addListener(callback: (id: string, bookmark: BookmarkTreeNode) => void): void;
     }
 
     interface BookmarkChildrenReordered extends chrome.events.Event {
-        addListener(callback: (id: string, reorderInfo: BookmarkReorderInfo) => void);
+        addListener(callback: (id: string, reorderInfo: BookmarkReorderInfo) => void): void;
     }
 
     var MAX_WRITE_OPERATIONS_PER_HOUR: number;
@@ -157,7 +157,7 @@ declare module chrome.browserAction {
     }
 
     interface BrowserClickedEvent extends chrome.events.Event {
-        addListener(callback: (tab: chrome.tabs.Tab) => void);
+        addListener(callback: (tab: chrome.tabs.Tab) => void): void;
     }
 
     export function enable(tabId?: number): void;
@@ -206,19 +206,19 @@ declare module chrome.browsingData {
         history?: boolean;
     }
 
-    export function removePluginData(options: RemovalOptions, callback?: Function);
-    export function removeFormData(options: RemovalOptions, callback?: Function);
-    export function removeFileSystems(options: RemovalOptions, callback?: Function);
-    export function remove(options: RemovalOptions, dataToRemove: DataToRemove, callback?: Function);
-    export function removePasswords(options: RemovalOptions, callback?: Function);
-    export function removeCookies(options: RemovalOptions, callback?: Function);
-    export function removeWebSQL(options: RemovalOptions, callback?: Function);
-    export function removeAppcache(options: RemovalOptions, callback?: Function);
-    export function removeDownloads(options: RemovalOptions, callback?: Function);
-    export function removeLocalStorage(options: RemovalOptions, callback?: Function);
-    export function removeCache(options: RemovalOptions, callback?: Function);
-    export function removeHistory(options: RemovalOptions, callback?: Function);
-    export function removeIndexedDB(options: RemovalOptions, callback?: Function);
+    export function removePluginData(options: RemovalOptions, callback?: Function): void;
+    export function removeFormData(options: RemovalOptions, callback?: Function): void;
+    export function removeFileSystems(options: RemovalOptions, callback?: Function): void;
+    export function remove(options: RemovalOptions, dataToRemove: DataToRemove, callback?: Function): void;
+    export function removePasswords(options: RemovalOptions, callback?: Function): void;
+    export function removeCookies(options: RemovalOptions, callback?: Function): void;
+    export function removeWebSQL(options: RemovalOptions, callback?: Function): void;
+    export function removeAppcache(options: RemovalOptions, callback?: Function): void;
+    export function removeDownloads(options: RemovalOptions, callback?: Function): void;
+    export function removeLocalStorage(options: RemovalOptions, callback?: Function): void;
+    export function removeCache(options: RemovalOptions, callback?: Function): void;
+    export function removeHistory(options: RemovalOptions, callback?: Function): void;
+    export function removeIndexedDB(options: RemovalOptions, callback?: Function): void;
 }
 
 ////////////////////
@@ -226,7 +226,7 @@ declare module chrome.browsingData {
 ////////////////////
 declare module chrome.commands {
     interface CommandEvent extends chrome.events.Event { 
-        addListener(callback: (command: string) => void);
+        addListener(callback: (command: string) => void): void;
     }
         
     var onCommand: CommandEvent;
@@ -617,11 +617,11 @@ declare module chrome.devtools.panels {
     }
 
     interface ButtonClickedEvent extends chrome.events.Event {
-        addListener(callback: Function);
+        addListener(callback: Function): void;
     }
 
     interface Button {
-        update(iconPath?: string, tooltipText?: string, disabled?: boolean);
+        update(iconPath?: string, tooltipText?: string, disabled?: boolean): void;
         onClicked: ButtonClickedEvent;
     }
 
@@ -843,7 +843,7 @@ declare module chrome.extension {
     export function setUpdateUrlData(data: string): void;
     export function getViews(fetchProperties?: FetchProperties): Window[];
     export function isAllowedFileSchemeAccess(callback: (isAllowedAccess: boolean) => void): void;
-    export function isAllowedIncognitoAccess(callback: (isAllowedAccess) => void): void;
+    export function isAllowedIncognitoAccess(callback: (isAllowedAccess: boolean) => void): void;
 }
 
 ////////////////////
