@@ -2685,7 +2685,7 @@ declare module D3 {
             * registering the necessary event listeners to support
             * panning and zooming.
             */
-            (Selection): void;
+            (selection: Selection): void;
 
             /**
             * Registers a listener to receive events
