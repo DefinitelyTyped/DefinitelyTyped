@@ -1400,7 +1400,7 @@ declare module D3 {
             */
             r: number;
             /**
-            * the greeb color channel.
+            * the green color channel.
             */
             g: number;
             /**
