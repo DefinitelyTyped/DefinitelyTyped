@@ -1415,6 +1415,18 @@ declare module D3 {
 
         export interface HSLColor extends Color{
             /**
+            * hue
+            */
+            h: number;
+            /**
+            * saturation
+            */
+            s: number;
+            /**
+            * lightness
+            */
+            l: number;
+            /**
             * convert from HSL to RGB.
             */
             rgb(): RGBColor;
@@ -1422,12 +1434,36 @@ declare module D3 {
 
         export interface LABColor extends Color{
             /**
+            * lightness
+            */
+            l: number;
+            /**
+            * a-dimension
+            */
+            a: number;
+            /**
+            * b-dimension
+            */
+            b: number;
+            /**
             * convert from LAB to RGB.
             */
             rgb(): RGBColor;
         }
 
         export interface HCLColor extends Color{
+            /**
+            * hue
+            */
+            h: number;
+            /**
+            * chroma
+            */
+            c: number;
+            /**
+            * luminance
+            */
+            l: number;
             /**
             * convert from HCL to RGB.
             */
