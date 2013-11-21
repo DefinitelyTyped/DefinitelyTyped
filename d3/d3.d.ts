@@ -2681,9 +2681,11 @@ declare module D3 {
 
         export interface Zoom {
             /**
-            * Execute zoom method
+            * Applies the zoom behavior to the specified selection,
+            * registering the necessary event listeners to support
+            * panning and zooming.
             */
-            (): any;
+            (Selection): void;
 
             /**
             * Registers a listener to receive events
