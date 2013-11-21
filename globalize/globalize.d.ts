@@ -100,7 +100,7 @@ interface GlobalizeCultures {
 
 interface GlobalizeStatic {
     cultures: GlobalizeCultures;
-    init(cultureSelector: string): void;
+    init(cultureSelector: string): GlobalizeStatic;
     cultureSelector: string;
 
     culture(): GlobalizeCulture;
@@ -110,10 +110,10 @@ interface GlobalizeStatic {
     addCultureInfo(cultureName: string, baseCultureName: string, info: Object): void;
     addCultureInfo(cultureName: string, info: Object): void;
     addCultureInfo(info: Object): void;
-    findClosestCulture(cultureSelector: string): void;
+    findClosestCulture(cultureSelector: string): GlobalizeStatic;
     format(value: number, format: string, cultureSelector?: string);
     format(value: Date, format: string, cultureSelector?: string);
-    localize(key: string, cultureSelector?: string): void;
+    localize(key: string, cultureSelector?: string): string;
 
     parseDate(value: string, format?: string, cultureSelector?: string): Date;
     parseDate(value: string, formats?: string[], cultureSelector?: string): Date;
