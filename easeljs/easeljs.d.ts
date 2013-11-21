@@ -382,7 +382,7 @@ declare module createjs {
         // properties
         a: number;
         alpha: number;
-        atx: number;
+        tx: number;
         b: number;
         c: number;
         compositeOperation: string;
