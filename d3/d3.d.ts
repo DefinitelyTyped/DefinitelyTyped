@@ -944,7 +944,18 @@ declare module D3 {
                 iso: TimeFormat;
             };
 
-            scale(): Scale.TimeScale;
+            scale: {
+                /**
+                * Constructs a new time scale with the default domain and range;
+                * the ticks and tick format are configured for local time.
+                */
+                (): Scale.TimeScale;
+                /**
+                * Constructs a new time scale with the default domain and range;
+                * the ticks and tick format are configured for UTC time.
+                */
+                utc(): Scale.TimeScale;
+            };
         }
 
         export interface Range {
