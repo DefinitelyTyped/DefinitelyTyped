@@ -139,7 +139,7 @@ module DefinitelyTyped.TestManager {
         exitCode:number;
 
         public get success():boolean {
-            return this.exitCode !== 1;
+            return this.exitCode === 0;
         }
     }
 
