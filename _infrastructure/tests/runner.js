@@ -59,7 +59,7 @@ var NodeExec = (function () {
         result.exitCode = null;
         var cmdLine = filename + ' ' + cmdLineArgs.join(' ');
 
-        var process = nodeExec(cmdLine, function (error, stdout, stderr) {
+        var process = nodeExec(cmdLine, { maxBuffer: 1 * 1024 * 1024 }, function (error, stdout, stderr) {
             result.stdout = stdout;
             result.stderr = stderr;
             result.exitCode = error ? error.code : 0;
