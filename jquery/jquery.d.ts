@@ -645,8 +645,8 @@ interface JQuery {
     select(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     select(handler: (eventObject: JQueryEventObject) => any): JQuery;
 
-    submit(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     submit(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    submit(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
     trigger(eventType: string, ...extraParameters: any[]): JQuery;
     trigger(event: JQueryEventObject): JQuery;
