@@ -13,7 +13,7 @@ declare module CryptoJS{
             init(...args: any[]): void
             //arguments of create() is same as init(). This is true for all subclasses
             create(...args: any[]): Base
-            mixIn(properties: Object)
+            mixIn(properties: Object): void
             clone(): Base
         }
 
