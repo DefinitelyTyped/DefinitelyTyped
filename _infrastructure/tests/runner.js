@@ -566,6 +566,8 @@ var DefinitelyTyped;
     (function (TestManager) {
         var path = require('path');
 
+        TestManager.DEFAULT_TSC_VERSION = "0.9.1.1";
+
         function endsWith(str, suffix) {
             return str.indexOf(suffix, str.length - suffix.length) !== -1;
         }
@@ -575,6 +577,7 @@ var DefinitelyTyped;
             }
             Tsc.run = function (tsfile, options, callback) {
                 options = options || {};
+                options.tscVersion = options.tscVersion || TestManager.DEFAULT_TSC_VERSION;
                 if (typeof options.checkNoImplicitAny === "undefined") {
                     options.checkNoImplicitAny = true;
                 }
@@ -586,7 +589,11 @@ var DefinitelyTyped;
                     throw new Error(tsfile + " not exists");
                 }
 
-                var command = 'node ./_infrastructure/tests/typescript/tsc.js --module commonjs ';
+                var tscPath = './_infrastructure/tests/typescript/' + options.tscVersion + '/tsc.js';
+                if (!IO.fileExists(tscPath)) {
+                    throw new Error(tscPath + ' is not exists');
+                }
+                var command = 'node ' + tscPath + ' --module commonjs ';
                 if (options.useTscParams && IO.fileExists(tsfile + '.tscparams')) {
                     command += '@' + tsfile + '.tscparams';
                 } else if (options.checkNoImplicitAny) {
@@ -842,7 +849,8 @@ var DefinitelyTyped;
         // Base class for test suite
         /////////////////////////////////
         var TestSuiteBase = (function () {
-            function TestSuiteBase(testSuiteName, errorHeadline) {
+            function TestSuiteBase(options, testSuiteName, errorHeadline) {
+                this.options = options;
                 this.testSuiteName = testSuiteName;
                 this.errorHeadline = errorHeadline;
                 this.timer = new Timer();
@@ -878,7 +886,7 @@ var DefinitelyTyped;
 
             TestSuiteBase.prototype.runTest = function (targetFile, callback) {
                 var _this = this;
-                new Test(this, targetFile, null).run(function (result) {
+                new Test(this, targetFile, { tscVersion: this.options.tscVersion }).run(function (result) {
                     _this.testResults.push(result);
                     callback(result);
                 });
@@ -915,8 +923,8 @@ var DefinitelyTyped;
         /////////////////////////////////
         var SyntaxChecking = (function (_super) {
             __extends(SyntaxChecking, _super);
-            function SyntaxChecking() {
-                _super.call(this, "Syntax checking", "Syntax error");
+            function SyntaxChecking(options) {
+                _super.call(this, options, "Syntax checking", "Syntax error");
             }
             SyntaxChecking.prototype.filterTargetFiles = function (files) {
                 return files.filter(function (file) {
@@ -931,8 +939,8 @@ var DefinitelyTyped;
         /////////////////////////////////
         var TestEval = (function (_super) {
             __extends(TestEval, _super);
-            function TestEval() {
-                _super.call(this, "Typing tests", "Failed tests");
+            function TestEval(options) {
+                _super.call(this, options, "Typing tests", "Failed tests");
             }
             TestEval.prototype.filterTargetFiles = function (files) {
                 return files.filter(function (file) {
@@ -948,9 +956,9 @@ var DefinitelyTyped;
         /////////////////////////////////
         var FindNotRequiredTscparams = (function (_super) {
             __extends(FindNotRequiredTscparams, _super);
-            function FindNotRequiredTscparams(print) {
+            function FindNotRequiredTscparams(options, print) {
                 var _this = this;
-                _super.call(this, "Find not required .tscparams files", "New arrival!");
+                _super.call(this, options, "Find not required .tscparams files", "New arrival!");
                 this.print = print;
                 this.printErrorCount = false;
 
@@ -971,7 +979,7 @@ var DefinitelyTyped;
             FindNotRequiredTscparams.prototype.runTest = function (targetFile, callback) {
                 var _this = this;
                 this.print.clearCurrentLine().out(targetFile.formatName);
-                new Test(this, targetFile, { useTscParams: false, checkNoImplicitAny: true }).run(function (result) {
+                new Test(this, targetFile, { tscVersion: this.options.tscVersion, useTscParams: false, checkNoImplicitAny: true }).run(function (result) {
                     _this.testResults.push(result);
                     callback(result);
                 });
@@ -998,7 +1006,7 @@ var DefinitelyTyped;
         /////////////////////////////////
         var TestRunner = (function () {
             function TestRunner(dtPath, options) {
-                if (typeof options === "undefined") { options = {}; }
+                if (typeof options === "undefined") { options = { tscVersion: TestManager.DEFAULT_TSC_VERSION }; }
                 this.options = options;
                 this.suites = [];
                 this.options.findNotRequiredTscparams = !!this.options.findNotRequiredTscparams;
@@ -1024,8 +1032,8 @@ var DefinitelyTyped;
                 this.timer = new Timer();
                 this.timer.start();
 
-                var syntaxChecking = new SyntaxChecking();
-                var testEval = new TestEval();
+                var syntaxChecking = new SyntaxChecking(this.options);
+                var testEval = new TestEval(this.options);
                 if (!this.options.findNotRequiredTscparams) {
                     this.addSuite(syntaxChecking);
                     this.addSuite(testEval);
@@ -1033,11 +1041,11 @@ var DefinitelyTyped;
 
                 var typings = syntaxChecking.filterTargetFiles(this.files).length;
                 var testFiles = testEval.filterTargetFiles(this.files).length;
-                this.print = new Print('0.9.1.1', typings, testFiles, this.files.length);
+                this.print = new Print(this.options.tscVersion, typings, testFiles, this.files.length);
                 this.print.printHeader();
 
                 if (this.options.findNotRequiredTscparams) {
-                    this.addSuite(new FindNotRequiredTscparams(this.print));
+                    this.addSuite(new FindNotRequiredTscparams(this.options, this.print));
                 }
 
                 var count = 0;
@@ -1147,6 +1155,14 @@ var dtPath = __dirname + '/../..';
 var findNotRequiredTscparams = process.argv.some(function (arg) {
     return arg == "--try-without-tscparams";
 });
+var tscVersionIndex = process.argv.indexOf("--tsc-version");
+var tscVersion = DefinitelyTyped.TestManager.DEFAULT_TSC_VERSION;
+if (-1 < tscVersionIndex) {
+    tscVersion = process.argv[tscVersionIndex + 1];
+}
 
-var runner = new DefinitelyTyped.TestManager.TestRunner(dtPath, { findNotRequiredTscparams: findNotRequiredTscparams });
+var runner = new DefinitelyTyped.TestManager.TestRunner(dtPath, {
+    tscVersion: tscVersion,
+    findNotRequiredTscparams: findNotRequiredTscparams
+});
 runner.run();

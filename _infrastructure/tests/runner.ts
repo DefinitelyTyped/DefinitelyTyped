@@ -6,11 +6,14 @@
 module DefinitelyTyped.TestManager {
     var path = require('path');
 
+    export var DEFAULT_TSC_VERSION = "0.9.1.1";
+
     function endsWith(str:string, suffix:string) {
         return str.indexOf(suffix, str.length - suffix.length) !== -1;
     }
 
     export interface TscExecOptions {
+        tscVersion?:string;
         useTscParams?:boolean;
         checkNoImplicitAny?:boolean;
     }
@@ -18,6 +21,7 @@ module DefinitelyTyped.TestManager {
     class Tsc {
         public static run(tsfile:string, options:TscExecOptions, callback:(result:ExecResult)=>void) {
             options = options || {};
+            options.tscVersion = options.tscVersion || DEFAULT_TSC_VERSION;
             if (typeof options.checkNoImplicitAny === "undefined") {
                 options.checkNoImplicitAny = true;
             }
@@ -29,7 +33,11 @@ module DefinitelyTyped.TestManager {
                 throw new Error(tsfile + " not exists");
             }
 
-            var command = 'node ./_infrastructure/tests/typescript/tsc.js --module commonjs ';
+            var tscPath = './_infrastructure/tests/typescript/' + options.tscVersion + '/tsc.js';
+            if (!IO.fileExists(tscPath)) {
+                throw new Error(tscPath + ' is not exists');
+            }
+            var command = 'node ' + tscPath + ' --module commonjs ';
             if (options.useTscParams && IO.fileExists(tsfile + '.tscparams')) {
                 command += '@' + tsfile + '.tscparams';
             } else if (options.checkNoImplicitAny) {
@@ -313,7 +321,7 @@ module DefinitelyTyped.TestManager {
         testReporter:ITestReporter;
         printErrorCount = true;
 
-        constructor(public testSuiteName:string, public errorHeadline:string) {
+        constructor(public options:ITestRunnerOptions, public testSuiteName:string, public errorHeadline:string) {
         }
 
         public filterTargetFiles(files:File[]):File[] {
@@ -342,7 +350,7 @@ module DefinitelyTyped.TestManager {
         }
 
         public runTest(targetFile:File, callback:(result:TestResult)=>void):void {
-            new Test(this, targetFile, null).run(result=> {
+            new Test(this, targetFile, {tscVersion: this.options.tscVersion}).run(result=> {
                 this.testResults.push(result);
                 callback(result);
             });
@@ -366,8 +374,8 @@ module DefinitelyTyped.TestManager {
     /////////////////////////////////
     class SyntaxChecking extends TestSuiteBase {
 
-        constructor() {
-            super("Syntax checking", "Syntax error");
+        constructor(options:ITestRunnerOptions) {
+            super(options, "Syntax checking", "Syntax error");
         }
 
         public filterTargetFiles(files:File[]):File[] {
@@ -380,8 +388,8 @@ module DefinitelyTyped.TestManager {
     /////////////////////////////////
     class TestEval extends TestSuiteBase {
 
-        constructor() {
-            super("Typing tests", "Failed tests");
+        constructor(options) {
+            super(options, "Typing tests", "Failed tests");
         }
 
         public filterTargetFiles(files:File[]):File[] {
@@ -397,8 +405,8 @@ module DefinitelyTyped.TestManager {
         testReporter:ITestReporter;
         printErrorCount = false;
 
-        constructor(private print:Print) {
-            super("Find not required .tscparams files", "New arrival!");
+        constructor(options:ITestRunnerOptions, private print:Print) {
+            super(options, "Find not required .tscparams files", "New arrival!");
 
             this.testReporter = {
                 printPositiveCharacter: (index:number, testResult:TestResult)=> {
@@ -417,7 +425,7 @@ module DefinitelyTyped.TestManager {
 
         public runTest(targetFile:File, callback:(result:TestResult)=>void):void {
             this.print.clearCurrentLine().out(targetFile.formatName);
-            new Test(this, targetFile, {useTscParams: false, checkNoImplicitAny: true}).run(result=> {
+            new Test(this, targetFile, {tscVersion: this.options.tscVersion, useTscParams: false, checkNoImplicitAny: true}).run(result=> {
                 this.testResults.push(result);
                 callback(result);
             });
@@ -435,6 +443,7 @@ module DefinitelyTyped.TestManager {
     }
 
     export interface ITestRunnerOptions {
+        tscVersion:string;
         findNotRequiredTscparams?:boolean;
     }
 
@@ -447,7 +456,7 @@ module DefinitelyTyped.TestManager {
         suites:ITestSuite[] = [];
         private print:Print;
 
-        constructor(dtPath:string, public options:ITestRunnerOptions = {}) {
+        constructor(dtPath:string, public options:ITestRunnerOptions = {tscVersion: DEFAULT_TSC_VERSION}) {
             this.options.findNotRequiredTscparams = !!this.options.findNotRequiredTscparams;
 
             var filesName = IO.dir(dtPath, /.\.ts/g, { recursive: true }).sort();
@@ -466,8 +475,8 @@ module DefinitelyTyped.TestManager {
             this.timer = new Timer();
             this.timer.start();
 
-            var syntaxChecking = new SyntaxChecking();
-            var testEval = new TestEval();
+            var syntaxChecking = new SyntaxChecking(this.options);
+            var testEval = new TestEval(this.options);
             if (!this.options.findNotRequiredTscparams) {
                 this.addSuite(syntaxChecking);
                 this.addSuite(testEval);
@@ -475,11 +484,11 @@ module DefinitelyTyped.TestManager {
 
             var typings = syntaxChecking.filterTargetFiles(this.files).length;
             var testFiles = testEval.filterTargetFiles(this.files).length;
-            this.print = new Print('0.9.1.1', typings, testFiles, this.files.length);
+            this.print = new Print(this.options.tscVersion, typings, testFiles, this.files.length);
             this.print.printHeader();
 
             if (this.options.findNotRequiredTscparams) {
-                this.addSuite(new FindNotRequiredTscparams(this.print));
+                this.addSuite(new FindNotRequiredTscparams(this.options, this.print));
             }
 
             var count = 0;
@@ -576,6 +585,14 @@ module DefinitelyTyped.TestManager {
 
 var dtPath = __dirname + '/../..';
 var findNotRequiredTscparams = process.argv.some(arg=>arg == "--try-without-tscparams");
+var tscVersionIndex = process.argv.indexOf("--tsc-version");
+var tscVersion = DefinitelyTyped.TestManager.DEFAULT_TSC_VERSION;
+if (-1 < tscVersionIndex) {
+    tscVersion = process.argv[tscVersionIndex + 1];
+}
 
-var runner = new DefinitelyTyped.TestManager.TestRunner(dtPath, {findNotRequiredTscparams: findNotRequiredTscparams});
+var runner = new DefinitelyTyped.TestManager.TestRunner(dtPath, {
+    tscVersion: tscVersion,
+    findNotRequiredTscparams: findNotRequiredTscparams
+});
 runner.run();
