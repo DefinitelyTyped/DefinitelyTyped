@@ -51,7 +51,7 @@ function ObservableValidationTypes() {
         .end();
 
     //array
-    var t6 = ko.observableArray<any>([])
+    var t6 = ko.observableArray<any>(<any[]>[])
         .validate()
         .end();
 }
@@ -67,23 +67,25 @@ function RuleTests() {
     // various values used in rule tests
     var dummyRule: Valerie.IRule = { test: null, defaultOptions: null };
 
+    // valerie supports both value and function arguments in many cases
+
     var stringValue = "";
-    var stringFN = function () { return ""; }
+    var stringFN = function () { return stringValue; }
 
     var numberValue = 1;
-    var numberFN = function () { return 2 }
+    var numberFN = function () { return numberValue; }
 
     var booleanValue = false;
-    var booleanFN = ko.observable(true);
+    var booleanFN = function () { return booleanValue; }
 
     var dateValue = new Date();
-    var dateFN = function () { return new Date(); }
+    var dateFN = function () { return dateValue; }
 
-    var anyValue = {};
-    var anyFN = function () { return {}; }
+    var anyValue = <any>{};
+    var anyFN = function () { return anyValue; }
 
-    var arrayValue = [];
-    var arrayFN = function () { return []; }
+    var arrayValue = <any[]>[];
+    var arrayFN = function () { return arrayValue; }
 
     var regexpValue = /\d+/;
 

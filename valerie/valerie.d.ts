@@ -3,6 +3,8 @@
 // Definitions by: Howard Richards <https://github.com/conficient>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../knockout/knockout.d.ts" />
+
 /**
  *
  * Extensions to KO functions to provide validation 
@@ -19,7 +21,20 @@ interface KnockoutComputed<T> {
 
 interface KnockoutObservableArray<T> {
     validate(validationOptions?: Valerie.ValidationOptions): Valerie.PropertyValidationState<KnockoutObservableArray<T>>;
-    // starts model validation for array
+}
+
+
+interface KnockoutObservableArrayFunctions<T> {
+    /**
+     * Creates and sets a model validation state on a Knockout observable array.<br/>
+     * <i>[fluent]</i>
+     * @name ko.observableArray#validateAsModel
+     * @method
+     * @fluent
+     * @param {valerie.ModelValidationState.options} [validationOptions] the options to use when creating the
+     * validation state
+     * @return {valerie.ModelValidationState} the validation state belonging to the observable array
+     */
     validateAsModel(): Valerie.ValidatableModel<KnockoutObservableArray<T>>;
 }
 
@@ -248,8 +263,7 @@ declare module Valerie {
         // ctor
         new: (model: any, options?: ModelValidationStateOptions) => ModelValidationState;
 
-        addValidationStates(any): void;
-
+        addValidationStates(validationStateOrStates: any): void;
 
         model: any;
         options?: ModelValidationStateOptions
@@ -278,7 +292,14 @@ declare module Valerie {
 
         // fluent methods (can be chanined):
 
-        addRule(IRule): PropertyValidationState<T>;
+        /**
+         * Adds a rule to the chain of rules used to validate the property's value.<br/>
+         * <i>[fluent]</i>
+         * @fluent
+         * @param {valerie.IRule} rule the rule to add
+         * @return {valerie.PropertyValidationState}
+         */
+        addRule(rule: IRule): PropertyValidationState<T>;
         applicable(value: boolean): PropertyValidationState<T>;
         applicable(fn: () => boolean): PropertyValidationState<T>;
         currencyMajor(options?: ValidationOptions): PropertyValidationState<T>;
@@ -365,7 +386,7 @@ declare module Valerie {
         passed: boolean;	//true if the activity passed validation
         pending: boolean;	//true if the activity hasn't yet completed
         message: string;	//a message from the activity
-        new (state: any, message?: string);
+        new: (state: any, message?: string) => ValidationResult;
 
         //TODO: not added static members/methods
         createFailedResult(message: string): ValidationResult;
@@ -390,7 +411,7 @@ declare module Valerie {
     }
 
     interface ValidatableModel<T> {
-        name: (string) => PropertyValidationState<T>;
+        name: (value:string) => PropertyValidationState<T>;
 
         // return original observableArray
         end: () => T;
@@ -431,10 +452,10 @@ declare module Valerie {
             currencyMinorUnitPlaces: number): NumericHelper;
 
         // Informs whether the given numeric string represents a currency value with major units only.
-        isCurrencyMajor(numericString): boolean;
+        isCurrencyMajor(numericString: string): boolean;
 
         // Informs whether the given numeric string represents a currency value with major units and optionally minor units.
-        isCurrencyMajorMinor(numericString): boolean;
+        isCurrencyMajorMinor(numericString: string): boolean;
 
         // Informs whether the given numeric string represents a non-integer numeric value.
         isFloat(numericString: string): boolean;
