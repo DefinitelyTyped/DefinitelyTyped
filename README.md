@@ -230,6 +230,7 @@ List of Definitions
 * [Underscore.js (Typed)](http://underscorejs.org/) (by [Josh Baldwin](https://github.com/jbaldwin/))
 * [Underscore-ko.js](https://github.com/kamranayub/UnderscoreKO) (by [Maurits Elbers](https://github.com/MagicMau))
 * [UUID.js](https://github.com/LiosK/UUID.js) (by [Jason Jarrett](https://github.com/staxmanade))
+* [Valerie](https://github.com/davewatts/valerie) (by [Howard Richards](https://github.com/conficient))
 * [Viewporter](https://github.com/zynga/viewporter) (by [Boris Yankov](https://github.com/borisyankov))
 * [Vimeo](http://developer.vimeo.com/player/js-api) (by [Daz Wilkin](https://github.com/DazWilkin/))
 * [WebRTC](http://dev.w3.org/2011/webrtc/editor/webrtc.html) (by [Ken Smith](https://github.com/smithkl42))
