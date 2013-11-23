@@ -25,18 +25,18 @@ function test_animation() {
         "images": ["./assets/runningGrant.png"]
     });
 
-    ss.getAnimation("run").frequency = 2;
+    ss.getAnimation("run").speed = 2;
     ss.getAnimation("run").next = "jump";
     ss.getAnimation("jump").next = "run";
 
-    var bitmapAnimation = new createjs.BitmapAnimation(ss);
-    bitmapAnimation.scaleY = bitmapAnimation.scaleX = .4;
+    var sprite = new createjs.Sprite(ss);
+    sprite.scaleY = sprite.scaleX = .4;
 
-    bitmapAnimation.gotoAndPlay("run");
+    sprite.gotoAndPlay("run");
 
     createjs.Ticker.setFPS(60);
-    createjs.Ticker.addListener(stage);
-    stage.addChild(bitmapAnimation);
+    createjs.Ticker.addEventListener('tick', stage);
+    stage.addChild(sprite);
 }
 
 function test_graphics() {
