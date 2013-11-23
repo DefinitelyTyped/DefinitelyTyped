@@ -405,6 +405,12 @@ declare module "express" {
             //cookies: { string; remember: boolean; };
             cookies: any;
 
+	    /**
+             * Used to generate an anti-CSRF token.
+             * Placed by the CSRF protection middleware.
+             */
+	    csrfToken(): string;
+
             method: string;
 
             params: any;
@@ -1063,9 +1069,11 @@ declare module "express" {
              *    http.createServer(app).listen(80);
              *    https.createServer({ ... }, app).listen(443);
              */
-            listen(port: number, hostname: string, backlog: number, callback: Function): void;
+            listen(port: number, hostname: string, backlog: number, callback?: Function): void;
 
-            listen(port: number, callback: Function): void;
+            listen(port: number, hostname: string, callback?: Function): void;
+
+            listen(port: number, callback?: Function): void;
 
             listen(path: string, callback?: Function): void;
 
@@ -1471,13 +1479,12 @@ declare module "express" {
         /**
          * Anti CSRF:
          *
-         * CRSF protection middleware.
+         * CSRF protection middleware.
          *
-         * By default this middleware generates a token named "_csrf"
+         * This middleware adds a `req.csrfToken()` function to make a token
          * which should be added to requests which mutate
          * state, within a hidden form field, query-string etc. This
-         * token is validated against the visitor's `req.session._csrf`
-         * property.
+         * token is validated against the visitor's session.
          *
          * The default `value` function checks `req.body` generated
          * by the `bodyParser()` middleware, `req.query` generated
@@ -1488,11 +1495,11 @@ declare module "express" {
          *
          * Options:
          *
-         *    - `value` a function accepting the request, returning the token 
+         *    - `value` a function accepting the request, returning the token
          *
          * @param options
          */
-        export function csrf(options: any): Handler;
+        export function csrf(options?: {value?: Function}): Handler;
 
         /**
          * Directory:
