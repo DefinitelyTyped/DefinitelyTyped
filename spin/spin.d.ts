@@ -41,6 +41,6 @@ declare class Spinner {
      * Stopped spinners may be reused by calling spin() again.
      */
     stop(): Spinner;
-    lines(el, o);
-    opacity(el, i, val);
+    lines(el:HTMLElement, o:SpinnerOptions):HTMLElement;
+    opacity(el:HTMLElement, i:number, val:number, o:SpinnerOptions):void;
 }
