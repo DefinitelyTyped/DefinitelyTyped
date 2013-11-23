@@ -239,7 +239,7 @@ declare module CryptoJS{
         }
 
         interface IFormatter{
-            stringify(cipherParams: lib.CipherParams): string
+            stringify(cipherParams: lib.CipherParamsData): string
             parse(s: string): lib.CipherParams
         }
     }
