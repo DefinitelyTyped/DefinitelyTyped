@@ -333,5 +333,5 @@ declare module Backbone {
     function noConflict(): typeof Backbone;
     function setDomLibrary(jQueryNew: any): any;
 	
-	var $: JQueryStatic;
+    var $: JQueryStatic;
 }
