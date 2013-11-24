@@ -405,11 +405,11 @@ declare module "express" {
             //cookies: { string; remember: boolean; };
             cookies: any;
 
-	    /**
+            /**
              * Used to generate an anti-CSRF token.
              * Placed by the CSRF protection middleware.
              */
-	    csrfToken(): string;
+            csrfToken(): string;
 
             method: string;
 
