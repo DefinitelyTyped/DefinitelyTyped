@@ -95,7 +95,7 @@ interface ReadableStream extends EventEmitter {
     pause(): void;
     resume(): void;
     destroy(): void;
-    pipe(destination: WritableStream, options?: { end?: boolean; }): void;
+    pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
 }
 
 interface NodeProcess extends EventEmitter {
