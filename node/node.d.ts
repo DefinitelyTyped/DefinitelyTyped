@@ -15,11 +15,11 @@ declare var global: any;
 declare var __filename: string;
 declare var __dirname: string;
 
-declare function setTimeout(callback: () => void , ms: number): any;
-declare function clearTimeout(timeoutId: any): void;
-declare function setInterval(callback: () => void , ms: number): any;
-declare function clearInterval(intervalId: any): void;
-declare function setImmediate(callback: () => void ): any;
+declare function setTimeout(callback: (...args: any[]) => void , ms: number , ...args: any[]): Timer;
+declare function clearTimeout(timeoutId: Timer): void;
+declare function setInterval(callback: (...args: any[]) => void , ms: number , ...args: any[]): Timer;
+declare function clearInterval(intervalId: Timer): void;
+declare function setImmediate(callback: (...args: any[]) => void , ...args: any[]): any;
 declare function clearImmediate(immediateId: any): void;
 
 declare var require: {
@@ -193,6 +193,11 @@ interface NodeBuffer {
     writeDoubleBE(value: number, offset: number, noAssert?: boolean): void;
     fill(value: any, offset?: number, end?: number): void;
     INSPECT_MAX_BYTES: number;
+}
+
+interface Timer {
+    ref() : void;
+    unref() : void;
 }
 
 /************************************************
@@ -799,8 +804,8 @@ declare module "fs" {
     export function readSync(fd: string, buffer: NodeBuffer, offset: number, length: number, position: number): any[];
     export function readFile(filename: string, options: { encoding?: string; flag?: string; }, callback: (err: Error, data: any) => void): void;
     export function readFile(filename: string, callback: (err: Error, data: NodeBuffer) => void ): void;
-    export function readFileSync(filename: string): NodeBuffer;
-    export function readFileSync(filename: string, options: { encoding?: string; flag?: string; }): any;
+    export function readFileSync(filename: string, options?: { flag?: string; }): NodeBuffer;
+    export function readFileSync(filename: string, options: { encoding: string; flag?: string; }): string;
     export function writeFile(filename: string, data: any, callback?: (err: Error) => void): void;
     export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: Error) => void): void;
     export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: Error) => void): void;
@@ -811,10 +816,11 @@ declare module "fs" {
     export function appendFile(filename: string, data: any, callback?: (err: Error) => void): void;
     export function appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
     export function appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: string; flag?: string; }): void;
-    export function watchFile(filename: string, listener: { curr: Stats; prev: Stats; }): void;
-    export function watchFile(filename: string, options: { persistent?: boolean; interval?: number; }, listener: { curr: Stats; prev: Stats; }): void;
-    export function unwatchFile(filename: string, listener?: Stats): void;
-    export function watch(filename: string, options?: { persistent?: boolean; }, listener?: (event: string, filename: string) =>any): FSWatcher;
+    export function watchFile(filename: string, listener: (curr: Stats, prev: Stats)=>void): void;
+    export function watchFile(filename: string, options: { persistent?: boolean; interval?: number; }, listener: (curr: Stats, prev: Stats)=>void): void;
+    export function unwatchFile(filename: string, listener?: (curr: Stats, prev: Stats)=>void): void;
+    export function watch(filename: string, listener?: (event: string, filename: string) =>any): FSWatcher;
+    export function watch(filename: string, options: { persistent?: boolean; }, listener?: (event: string, filename: string) =>any): FSWatcher;
     export function exists(path: string, callback?: (exists: boolean) => void): void;
     export function existsSync(path: string): boolean;
     export function createReadStream(path: string, options?: {
@@ -1003,7 +1009,10 @@ declare module "crypto" {
     }
     export function getDiffieHellman(group_name: string): DiffieHellman;
     export function pbkdf2(password: string, salt: string, iterations: number, keylen: number, callback: (err: Error, derivedKey: string) => any): void;
-    export function randomBytes(size: number, callback?: (err: Error, buf: NodeBuffer) =>void ): void;
+    export function randomBytes(size: number): NodeBuffer;
+    export function randomBytes(size: number, callback: (err: Error, buf: NodeBuffer) =>void ): void;
+    export function pseudoRandomBytes(size: number): NodeBuffer;
+    export function pseudoRandomBytes(size: number, callback: (err: Error, buf: NodeBuffer) =>void ): void;
 }
 
 declare module "stream" {

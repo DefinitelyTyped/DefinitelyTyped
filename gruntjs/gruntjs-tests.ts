@@ -3,6 +3,14 @@
 // Official code sample from 
 // http://gruntjs.com/getting-started#an-example-gruntfile
 
+interface MyTaskData {
+    repeat: number;
+}
+
+interface MyOptions {
+    sourceRoot: string;
+}
+
 // exports should work same as module.exports 
 exports = (grunt: IGrunt) => {
 
@@ -25,6 +33,17 @@ exports = (grunt: IGrunt) => {
 
     // Default task(s).
     grunt.registerTask('default', ['uglify']);
+
+    grunt.registerMultiTask('mytask', "short description", function() {
+        var currenttask: grunt.task.IMultiTask<MyTaskData> = this;
+        var options = currenttask.options<MyOptions>({
+            sourceRoot: "default"
+        });
+        var valid = false;
+        valid = valid && options.sourceRoot === "default";
+        valid = valid && currenttask.data.repeat > 0;
+        return valid;
+    });
 
 
     // util methods
