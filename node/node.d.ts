@@ -1075,10 +1075,21 @@ declare module "util" {
 }
 
 declare module "assert" {
-    function internal (booleanValue: boolean, message?: string): void;
+    function internal (value: any, message?: string): void;
     module internal {
-        export function fail(actual: any, expected: any, message: string, operator: string): void;
-        export function assert(value: any, message: string): void;
+        export class AssertionError implements Error {
+            name: string;
+            message: string;
+            actual: any;
+            expected: any;
+            operator: string;
+            generatedMessage: boolean;
+
+            constructor(options?: {message?: string; actual?: any; expected?: any;
+                                  operator?: string; stackStartFunction?: Function});
+        }
+
+        export function fail(actual?: any, expected?: any, message?: string, operator?: string): void;
         export function ok(value: any, message?: string): void;
         export function equal(actual: any, expected: any, message?: string): void;
         export function notEqual(actual: any, expected: any, message?: string): void;
@@ -1086,8 +1097,20 @@ declare module "assert" {
         export function notDeepEqual(acutal: any, expected: any, message?: string): void;
         export function strictEqual(actual: any, expected: any, message?: string): void;
         export function notStrictEqual(actual: any, expected: any, message?: string): void;
-        export function throws(block: any, error?: any, messsage?: string): void;
-        export function doesNotThrow(block: any, error?: any, messsage?: string): void;
+        export var throws: {
+            (block: Function, message?: string): void;
+            (block: Function, error: Function, message?: string): void;
+            (block: Function, error: RegExp, message?: string): void;
+            (block: Function, error: (err: any) => boolean, message?: string): void;
+        }
+
+        export var doesNotThrow: {
+            (block: Function, message?: string): void;
+            (block: Function, error: Function, message?: string): void;
+            (block: Function, error: RegExp, message?: string): void;
+            (block: Function, error: (err: any) => boolean, message?: string): void;
+        }
+
         export function ifError(value: any): void;
     }
     
@@ -1111,13 +1134,20 @@ declare module "tty" {
 declare module "domain" {
     import events = require("events");
 
-    export interface Domain extends events.NodeEventEmitter { }
+    export class Domain extends events.EventEmitter {
+        run(fn: Function): void;
+        add(emitter: events.NodeEventEmitter): void;
+        remove(emitter: events.NodeEventEmitter): void;
+        bind(cb: (err: Error, data: any) => any): any;
+        intercept(cb: (data: any) => any): any;
+        dispose(): void;
+
+        addListener(event: string, listener: Function): Domain;
+        on(event: string, listener: Function): Domain;
+        once(event: string, listener: Function): Domain;
+        removeListener(event: string, listener: Function): Domain;
+        removeAllListeners(event?: string): Domain;
+    }
 
     export function create(): Domain;
-    export function run(fn: Function): void;
-    export function add(emitter: events.NodeEventEmitter): void;
-    export function remove(emitter: events.NodeEventEmitter): void;
-    export function bind(cb: (er: Error, data: any) =>any): any;
-    export function intercept(cb: (data: any) => any): any;
-    export function dispose(): void;
 }
