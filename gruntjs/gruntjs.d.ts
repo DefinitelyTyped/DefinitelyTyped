@@ -760,10 +760,6 @@ declare module grunt {
 
     module task {
 
-        interface TaskFunction extends ITask {
-            (...args: any[]): boolean
-        }
-
         /**
          * {@link http://gruntjs.com/api/grunt.task}
          */
@@ -784,9 +780,9 @@ declare module grunt {
              * Task-specific properties and methods are available inside the task function as properties
              * of the this object. The task function can return false to indicate that the task has failed.
              *
-             * @note taskFunction.apply(scope: grunt.task.IMultiTask, args: any[])
+             * @note taskFunction.apply(scope: grunt.task.ITask, args: any[])
              */
-            registerTask(taskName: string, description: string, taskFunction: TaskFunction): void
+            registerTask(taskName: string, description: string, taskFunction: Function): void
 
             /**
              * Register a "multi task." A multi task is a task that implicitly iterates over all of its
@@ -794,10 +790,10 @@ declare module grunt {
              * In addition to the default properties and methods, extra multi task-specific properties
              * are available inside the task function as properties of the this object.
              *
-             * @note taskFunction.apply(scope: grunt.task.IMultiTask, args: any[])
+             * @note taskFunction.apply(scope: grunt.task.IMultiTask<any>, args: any[])
              */
-            registerMultiTask(taskName: string, taskFunction: grunt.task.ITask): void
-            registerMultiTask(taskName: string, taskDescription: string, taskFunction: TaskFunction): void
+            registerMultiTask(taskName: string, taskFunction: Function): void
+            registerMultiTask(taskName: string, taskDescription: string, taskFunction: Function): void
         }
 
         /**
@@ -917,9 +913,8 @@ declare module grunt {
              * object properties, which will be further overridden in multi tasks by any target-level
              * options object properties.
              */
-            // options<T>(defaultsObj: T): ITaskOptions
-            // options<T>(defaultsObj: T): T
-            options(defaultsObj: any): any
+            options(defaultsObj: any): ITaskOptions
+            options<T>(defaultsObj: T): T
         }
 
         /**
