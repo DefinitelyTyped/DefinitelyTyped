@@ -1097,10 +1097,20 @@ declare module "assert" {
         export function notDeepEqual(acutal: any, expected: any, message?: string): void;
         export function strictEqual(actual: any, expected: any, message?: string): void;
         export function notStrictEqual(actual: any, expected: any, message?: string): void;
-        export function throws(block: Function, error?: Function, message?: string): void;
-        export function throws(block: Function, error?: RegExp, message?: string): void;
-        export function throws(block: Function, error?: (err: any) => boolean, message?: string): void;
-        export function doesNotThrow(block: Function, message?: string): void;
+        export var throws: {
+            (block: Function, message?: string): void;
+            (block: Function, error: Function, message?: string): void;
+            (block: Function, error: RegExp, message?: string): void;
+            (block: Function, error: (err: any) => boolean, message?: string): void;
+        }
+
+        export var doesNotThrow: {
+            (block: Function, message?: string): void;
+            (block: Function, error: Function, message?: string): void;
+            (block: Function, error: RegExp, message?: string): void;
+            (block: Function, error: (err: any) => boolean, message?: string): void;
+        }
+
         export function ifError(value: any): void;
     }
     
