@@ -141,6 +141,9 @@ declare module createjs {
     export class BitmapAnimation extends Sprite {
     }
 
+    /**
+     * Sprite
+     */
     export class Sprite extends DisplayObject {
         // properties
         currentAnimation: string;
@@ -758,7 +761,7 @@ declare module createjs {
         static dispatchEvent(eventObj: Event, target?: Object): boolean;
         static hasEventListener(type: string): boolean;
     }
-    
+
      export class TickerEvent {
         // properties
         target: Object;
