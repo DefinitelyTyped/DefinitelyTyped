@@ -313,7 +313,7 @@ declare module OpenLayers {
          * application. In addition, the units property must also be set.
          * Use <resolutions> instead wherever possible.
          */
-        scales: Array;
+        scales: any[];
 
         /**
          * A list of map resolutions (map units per pixel) in descending
@@ -321,7 +321,7 @@ declare module OpenLayers {
          * based on other resolution related properties (maxExtent,
          * maxResolution, maxScale, etc.).
          */
-        resolutions: Array;
+        resolutions: any[];
 
         /**
          * The maximum extent for the layer.  Defaults to null.
@@ -923,7 +923,7 @@ declare module OpenLayers {
         /**
          * Return a list of all points in this geometry.
          */
-        getVertices(nodes: boolean): Array;
+        getVertices(nodes: boolean): any[];
 
         /**
          * Return whether or not the geometry is at the specified location
@@ -1695,8 +1695,8 @@ declare module OpenLayers {
          * {Array} An array of items where the given property matches the given
          * criteria.
          */
-        getBy(array: string, property: string, match: string): Array;
-        getBy(array: string, property: string, match: Object): Array;
+        getBy(array: string, property: string, match: string): any[];
+        getBy(array: string, property: string, match: Object): any[];
 
         /**
          * APIMethod: getLayersBy
@@ -2865,7 +2865,7 @@ declare module OpenLayers {
             /**
              * Return a list of all points in this geometry.
              */
-            getVertices(nodes: boolean): Array;
+            getVertices(nodes: boolean): any[];
 
             static CLASS_NAME: string;
         }
@@ -2929,7 +2929,7 @@ declare module OpenLayers {
             /**
              * Return a list of all points in this geometry.
              */
-            getVertices(nodes: boolean): Array;
+            getVertices(nodes: boolean): any[];
         }
 
         export class Curve extends Geometry.MultiPoint {
