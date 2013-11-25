@@ -230,7 +230,7 @@ declare module "express" {
              *
              * @param size
              */
-            range(size: number): Array;
+            range(size: number): any[];
 
             /**
              * Return an array of Accepted media types
@@ -247,7 +247,7 @@ declare module "express" {
              *         type: 'text',
              *         subtype: 'html' } ]
              */
-            accepted: Array;
+            accepted: any[];
 
             /**
              * Return an array of Accepted languages
@@ -258,7 +258,7 @@ declare module "express" {
              *     Accept-Language: en;q=.5, en-us
              *     ['en-us', 'en']
              */
-            acceptedLanguages: Array;
+            acceptedLanguages: any[];
 
             /**
              * Return an array of Accepted charsets
@@ -269,7 +269,7 @@ declare module "express" {
              *     Accept-Charset: iso-8859-5;q=.2, unicode-1-1;q=0.8
              *     ['unicode-1-1', 'iso-8859-5']
              */
-            acceptedCharsets: Array;
+            acceptedCharsets: any[];
 
             /**
              * Return the value of param `name` when present or `defaultValue`.
@@ -884,7 +884,7 @@ declare module "express" {
              */
             param(name: string, fn: Function): Application;
 
-            param(name: Array, fn: Function): Application;
+            param(name: any[], fn: Function): Application;
 
             /**
              * Assign `setting` to `val`, or return `setting`'s value.

@@ -62,12 +62,12 @@ declare module breeze.core {
     export function extend(target: Object, source: Object): Object;
     export function propEq(propertyName: string, value: any): (obj: Object) => boolean;
     export function pluck(propertyName: string): (obj: Object) => any;
-    export function arrayEquals(a1:Array, a2:Array, equalsFn: (e1:any, e2:any) => boolean): boolean;
-    export function arrayFirst(a1:Array, predicate: (e:any) => boolean): any;
-    export function arrayIndexOf(a1: Array, predicate: (e: any) => boolean): number;
-    export function arrayRemoveItem(array: Array, item: any, shouldRemoveMultiple: boolean): any;
-    export function arrayRemoveItem(array: Array, predicate: (e: any) => boolean, shouldRemoveMultiple: boolean): any;
-    export function arrayZip(a1: Array, a2: Array, callback: (e1:any, e2:any) => any): Array;
+    export function arrayEquals(a1: any[], a2: any[], equalsFn: (e1:any, e2:any) => boolean): boolean;
+    export function arrayFirst(a1: any[], predicate: (e:any) => boolean): any;
+    export function arrayIndexOf(a1: any[], predicate: (e: any) => boolean): number;
+    export function arrayRemoveItem(array: any[], item: any, shouldRemoveMultiple: boolean): any;
+    export function arrayRemoveItem(array: any[], predicate: (e: any) => boolean, shouldRemoveMultiple: boolean): any;
+    export function arrayZip(a1: any[], a2: any[], callback: (e1:any, e2:any) => any): any[];
 
     export function requireLib(libnames: string, errMessage: string): Object;
     export function using(obj: Object, property: string, tempValue: any, fn: () => any): any;
