@@ -330,12 +330,8 @@ declare module Backbone {
     var emulateJSONBackbone: boolean;
 
     // Utility
-
-    // 0.9 cannot return modules anymore, and "typeof <Module>" is not compiling for some reason
-    // returning "any" until this is fixed
-
-    //function noConflict(): typeof Backbone;
-    function noConflict(): any;
-
+    function noConflict(): typeof Backbone;
     function setDomLibrary(jQueryNew: any): any;
+	
+    var $: JQueryStatic;
 }

@@ -2405,7 +2405,7 @@ declare module D3 {
             /*
             * Construct a threshold scale with a discrete output range.
             */
-            theshold(): ThresholdScale;
+            threshold(): ThresholdScale;
         }
 
         export interface Scale {
