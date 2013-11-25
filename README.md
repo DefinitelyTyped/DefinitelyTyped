@@ -20,7 +20,7 @@ See the section: [How to contribute](https://github.com/borisyankov/DefinitelyTy
 
 Other means to get the definitions
 ----------------------------------
-* [NuGet packages](http://nuget.org/packages?q=Definitelytyped)
+* [NuGet packages](http://nuget.org/packages?q=DefinitelyTyped)
 * [TypeScript definition package manager](https://github.com/Diullei/tsd)
 * [tsdpm](http://www.tsdpm.com/) - Online search
 
