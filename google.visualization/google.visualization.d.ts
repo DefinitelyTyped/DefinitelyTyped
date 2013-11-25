@@ -6,6 +6,46 @@ declare module google {
 
     //https://developers.google.com/chart/interactive/docs/reference
     module visualization {
+
+        export interface ErrorEventObject {
+            id: string;
+            message: string;
+            detailedMessage?: string;
+            options?: any;
+        }
+
+        //#region ChartWrapper
+
+        // https://developers.google.com/chart/interactive/docs/reference#chartwrapperobject
+        export class ChartWrapper {
+            constructor(spec?: any);
+            draw(container_ref?: HTMLElement): void;
+            toJSON(): string;
+            clone():ChartWrapper;
+            getDataSourceUrl(): string;
+            getDataTable(): DataTable;
+            getChartType(): string;
+            getChartName(): string;
+            getChart(): any;
+            getContainerId(): string;
+            getQuery(): string;
+            getRefreshInterval(): number;
+            getOption(key: string, default_val?: string): any;
+            getOptions(): Object;
+            getView(): any;
+            setDataSourceUrl(url: string): void;
+            setDataTable(table: DataTable): void;
+            setChartType(type: string): void;
+            setChartName(name: string): void;
+            setContainerId(id: string): void;
+            setQuery(query: string): void;
+            setRefreshInterval(interval: number): void;
+            setOption(key: string, value: any): void;
+            setOptions(options: Object): void;
+            setView(view_spec: DataView): void;
+        }
+
+        //#endregion
         //#region DataTable
 
         // https://developers.google.com/chart/interactive/docs/reference#DataTable
