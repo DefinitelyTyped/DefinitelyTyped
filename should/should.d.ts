@@ -37,7 +37,7 @@ interface ShouldAssertion {
   property(name: string, val: any, description?: string): ShouldAssertion;
   ownProperty(name: string, description?: string): ShouldAssertion;
   include(obj: any, description?: string): ShouldAssertion;
-  includeEql(obj: Array, description?: string): ShouldAssertion;
+  includeEql(obj: any[], description?: string): ShouldAssertion;
   contain(obj: any): ShouldAssertion;
   keys(...allKeys: string[]): ShouldAssertion;
   keys(allKeys: string[]): ShouldAssertion;

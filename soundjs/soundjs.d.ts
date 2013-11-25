@@ -159,7 +159,7 @@ declare module createjs {
         static PLAY_INITED: string;
         static PLAY_INTERRUPTED: string;
         static PLAY_SUCCEEDED: string;
-		static SUPPORTED_EXTENSIONS: Array;
+		static SUPPORTED_EXTENSIONS: any[];
 		static EXTENSION_MAP: Object;
 		static defaultInterruptBehavior: string;
 
@@ -179,7 +179,7 @@ declare module createjs {
         static registerPlugin(plugin: Object): boolean;
         static registerPlugins(plugins: Object[]): boolean;
 		static registerSound(src: Object, id?: string, data?: Object, preload?: boolean): Object;
-		static registerManifest(manifest: Array);
+		static registerManifest(manifest: any[]);
         static resume(id: string): void;
         static setMasterVolume(value: number): boolean;
         static setMute(isMuted: boolean): boolean;

@@ -92,7 +92,7 @@ interface ModernizrStatic {
     touch: boolean;
     webgl: boolean;
 
-    load(resources: Array): void;
+    load(resources: any[]): void;
     load(resourceObject: any): void;
     load(resourceString: string): void;
 

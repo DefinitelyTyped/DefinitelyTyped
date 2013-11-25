@@ -81,7 +81,7 @@ declare module createjs {
         getResult(value: string, rawResult?: boolean): Object;
         removeAll(): void;
         remove(idsOrUrls: string): void;
-        remove(idsOrUrls: Array): void;
+        remove(idsOrUrls: any[]): void;
         reset(): void;
         setMaxConnections(value: number): void;
         setUseXHR(value: boolean): void;
