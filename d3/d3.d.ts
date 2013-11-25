@@ -710,7 +710,7 @@ declare module D3 {
         insert: (name: string, before: string) => Selection;
         remove: () => Selection;
         empty: () => boolean;
-
+            
         data: {
             (values: (data: any, index?: number) => any[], key?: (data: any, index?: number) => string): UpdateSelection;
             (values: any[], key?: (data: any, index?: number) => string): UpdateSelection;
@@ -734,6 +734,8 @@ declare module D3 {
             (type: string): (data: any, index: number) => any;
             (type: string, listener: (data: any, index: number) => any, capture?: boolean): Selection;
         };
+
+        size(): number;
 
         transition(): Transition.Transition;
         /**
