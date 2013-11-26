@@ -849,11 +849,11 @@ interface JQuery {
 
     dialog(): JQuery;
     dialog(methodName: string): JQuery;
-    dialog(methodName: 'close'): void;
-    dialog(methodName: 'destroy'): void;
+    dialog(methodName: 'close'): JQuery;
+    dialog(methodName: 'destroy'): JQuery;
     dialog(methodName: 'isOpen'): boolean;
-    dialog(methodName: 'moveToTop'): void;
-    dialog(methodName: 'open'): void;
+    dialog(methodName: 'moveToTop'): JQuery;
+    dialog(methodName: 'open'): JQuery;
     dialog(methodName: 'widget'): JQuery;
     dialog(options: JQueryUI.DialogOptions): JQuery;
     dialog(optionLiteral: string, optionName: string): any;
