@@ -16,7 +16,7 @@ interface NotyOptions {
 	timeout?: number;
 	force?: boolean;
 	modal?: boolean;
-	closeWith?: Array;
+	closeWith?: any[];
 	callback?: NotyCallbackOptions;
 	buttons?: any;
 }

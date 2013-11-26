@@ -819,9 +819,9 @@ function test_corefns() {
     f1 = core.propEq("name", "Joe");
     f1 = core.pluck("name");
 
-    var a1: Array;
-    var a2: Array;
-    var a3: Array;
+    var a1: any[];
+    var a2: any[];
+    var a3: any[];
     var b: boolean;
     var n: number;
 

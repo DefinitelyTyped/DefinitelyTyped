@@ -61,10 +61,10 @@ App.todosController = Em.Object.create({
     todos: [
         Em.Object.create({ isDone: false })
     ],
-    remaining: () => {
+    remaining: (() => {
         var todos = this.get('todos');
         return todos.filterProperty('isDone', false).get('length');
-    }.property('todos.@each.isDone')
+    }).property('todos.@each.isDone')
 });
 
 var todos = App.todosController.get('todos');

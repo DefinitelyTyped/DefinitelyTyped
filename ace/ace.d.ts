@@ -624,7 +624,7 @@ declare module AceAjax {
          * Sets a breakpoint on every row number given by `rows`. This function also emites the `'changeBreakpoint'` event.
          * @param rows An array of row indices
         **/
-        setBreakpoints(rows: Array);
+        setBreakpoints(rows: any[]);
 
         /**
          * Removes all breakpoints on the rows. This function also emites the `'changeBreakpoint'` event.
@@ -679,7 +679,7 @@ declare module AceAjax {
          * Returns an array containing the IDs of all the markers, either front or back.
          * @param inFront If `true`, indicates you only want front markers; `false` indicates only back markers
         **/
-        getMarkers(inFront: boolean): Array;
+        getMarkers(inFront: boolean): any[];
 
         /**
          * Sets annotations for the `EditSession`. This functions emits the `'changeAnnotation'` event.
@@ -823,14 +823,14 @@ declare module AceAjax {
          * @param deltas An array of previous changes
          * @param dontSelect [If `true`, doesn't select the range of where the change occured]{: #dontSelect}
         **/
-        undoChanges(deltas: Array, dontSelect: boolean): Range;
+        undoChanges(deltas: any[], dontSelect: boolean): Range;
 
         /**
          * Re-implements a previously undone change to your document.
          * @param deltas An array of previous changes
          * @param dontSelect {:dontSelect}
         **/
-        redoChanges(deltas: Array, dontSelect: boolean): Range;
+        redoChanges(deltas: any[], dontSelect: boolean): Range;
 
         /**
          * Enables or disables highlighting of the range where an undo occured.
@@ -2778,7 +2778,7 @@ declare module AceAjax {
          * Sets annotations for the gutter.
          * @param annotations An array containing annotations
         **/
-        setAnnotations(annotations: Array);
+        setAnnotations(annotations: any[]);
 
         /**
          * Updates the cursor icon.

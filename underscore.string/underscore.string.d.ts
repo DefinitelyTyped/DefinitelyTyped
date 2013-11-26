@@ -30,7 +30,7 @@ declare module 'underscore.string' {
      * @param str String to chop
      * @param step Size of the pieces
      */
-    function chop(str: string, step: number): Array;
+    function chop(str: string, step: number): any[];
 
     /**
      * Compress some whitespaces to one.
@@ -52,7 +52,7 @@ declare module 'underscore.string' {
      * ('Hello') => ['H','e','l','l','o']
      * @param str
      */
-    function chars(str: string): Array;
+    function chars(str: string): any[];
 
     /**
      * Returns a copy of the string in which all the case-based characters have had their case swapped.
@@ -127,7 +127,7 @@ declare module 'underscore.string' {
      * ('Hello\nWorld') => ['Hello', 'World']
      * @param str
      */
-    function lines(str: string): Array;
+    function lines(str: string): any[];
 
     /**
      * Return reversed string.
@@ -279,7 +279,7 @@ declare module 'underscore.string' {
      * @param str
      * @param delimiter
      */
-    function words(str: string, delimiter?: string): Array;
+    function words(str: string, delimiter?: string): any[];
 
     /**
      * Pads a string with characters until the total string length is equal to the passed length parameter.
@@ -435,7 +435,7 @@ declare module 'underscore.string' {
      * @param lastSeparator
      * @param serial
      */
-    function toSentence(array: Array, separator?: string, lastSeparator?: string, serial?: boolean): string;
+    function toSentence(array: any[], separator?: string, lastSeparator?: string, serial?: boolean): string;
 
     /**
      * The same as toSentence, but uses ', ' as default for lastSeparator.
@@ -443,7 +443,7 @@ declare module 'underscore.string' {
      * @param separator
      * @param lastSeparator
      */
-    function toSentenceSerial(array: Array, separator?: string, lastSeparator?: string): string;
+    function toSentenceSerial(array: any[], separator?: string, lastSeparator?: string): string;
 
     /**
      * Transform text into a URL slug. Replaces whitespaces, accentuated, and special characters with a dash.
@@ -523,6 +523,6 @@ declare module 'underscore.string' {
      * @param trueValues
      * @param falseValues
      */
-    function toBoolean(str: string, trueValues?: Array, falseValues?: Array): boolean;
+    function toBoolean(str: string, trueValues?: any[], falseValues?: any[]): boolean;
 
 }

@@ -218,8 +218,8 @@ declare module Flight {
         merge(obj1: Object, obj2: Object, ...args: any[]): Object;
         push(base: Object, extra: Object, protect?: boolean): void;
         throttle(func: Function, wait: number): Function;
-        toArray(obj: Object, from?: number): Array;
-        uniqueArray(array: Array): Array;
+        toArray(obj: Object, from?: number): any[];
+        uniqueArray(array: any[]): any[];
     }
 
     export interface EventData {

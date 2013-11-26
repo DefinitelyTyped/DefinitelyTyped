@@ -31,7 +31,7 @@ interface MochaSetupOptions {
     ui?: string;
 
     //array of accepted globals
-    globals?: Array;
+    globals?: any[];
 
     // reporter instance (function or string), defaults to `mocha.reporters.Dot`
     reporter?: any;

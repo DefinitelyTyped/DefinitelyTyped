@@ -28,7 +28,7 @@ interface RaphaelElement {
     animateWith(el: RaphaelElement, anim: RaphaelAnimation, params: any, ms: number, easing?: string, callback?: Function): RaphaelElement;
     animateWith(el: RaphaelElement, anim: RaphaelAnimation, animation: RaphaelAnimation): RaphaelElement;
     attr(attrName: string, value: any): RaphaelElement;
-    attr(params: { [key: string]: any; }): RaphaelElement;
+    attr(params: any): RaphaelElement;
     attr(attrName: string): any;
     attr(attrNames: string[]): any[];
     click(handler: Function): RaphaelElement;
@@ -228,13 +228,13 @@ interface RaphaelStatic {
     (container: HTMLElement, width: number, height: number, callback?: Function): RaphaelPaper;
     (container: string, width: number, height: number, callback?: Function): RaphaelPaper;
     (x: number, y: number, width: number, height: number, callback?: Function): RaphaelPaper;
-    (all: Array, callback?: Function): RaphaelPaper;
+    (all: any[], callback?: Function): RaphaelPaper;
     (onReadyCallback?: Function): RaphaelPaper;
 
     angle(x1: number, y1: number, x2: number, y2: number, x3?: number, y3?: number): number;
     animation(params: any, ms: number, easing?: string, callback?: Function): RaphaelAnimation;
     bezierBBox(p1x: number, p1y: number, c1x: number, c1y: number, c2x: number, c2y: number, p2x: number, p2y: number): { min: { x: number; y: number; }; max: { x: number; y: number; }; };
-    bezierBBox(bez: Array): { min: { x: number; y: number; }; max: { x: number; y: number; }; };
+    bezierBBox(bez: any[]): { min: { x: number; y: number; }; max: { x: number; y: number; }; };
     color(clr: string): { r: number; g: number; b: number; hex: string; error: boolean; h: number; s: number; v: number; l: number; };
     createUUID(): string;
     deg(deg: number): number;
@@ -269,7 +269,7 @@ interface RaphaelStatic {
     path2curve(pathString: string): string[];
     path2curve(pathString: string[]): string[];
     pathBBox(path: string): BoundingBox;
-    pathIntersection(path1: string, path2: string): { x: number; y: number; t1: number; t2: number; segment1: number; segment2: number; bez1: Array; bez2: Array; }[];
+    pathIntersection(path1: string, path2: string): { x: number; y: number; t1: number; t2: number; segment1: number; segment2: number; bez1: any[]; bez2: any[]; }[];
     pathToRelative(pathString: string): string[];
     pathToRelative(pathString: string[]): string[];
     rad(deg: number): number;
