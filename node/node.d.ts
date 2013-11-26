@@ -153,6 +153,9 @@ interface NodeProcess extends EventEmitter {
     umask(mask?: number): number;
     uptime(): number;
     hrtime(time?:number[]): number[];
+
+    // Worker
+    send?(message: any, sendHandle?: any): void;
 }
 
 // Buffer class
