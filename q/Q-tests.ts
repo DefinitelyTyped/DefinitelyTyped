@@ -79,6 +79,9 @@ declare var jPromise: JQueryPromise<string>;
 Q<string>(jPromise).then(str => str.split(','));
 jPromise.then<number>(returnsNumPromise);
 
+// watch the typing flow through from jQueryPromise to Q.Promise
+Q(jPromise).then(str => str.split(','));
+
 declare var promiseArray: Q.IPromise<number>[];
 var qPromiseArray = promiseArray.map(p => Q<number>(p));
 var myNums: any[] = [2, 3, Q(4), 5, Q(6), Q(7)];
