@@ -130,6 +130,7 @@ List of Definitions
 * [jQuery.payment](http://needim.github.io/noty/) (by [Eric J. Smith](https://github.com/ejsmith/))
 * [jQuery.scrollTo](https://github.com/flesler/jquery.scrollTo) (by [Neil Stalker](https://github.com/nestalk/))
 * [jQuery.simplePagination](https://github.com/flaviusmatis/simplePagination.js) (by [Natan Vivo](https://github.com/nvivo/))
+* [jQuery.splitter](https://github.com/e1ven/jQuery-Splitter) (by [NN](https://github.com/NN---/))
 * [jquery.superLink](http://james.padolsey.com/demos/plugins/jQuery/superLink/superlink.jquery.js) (by [Blake Niemyjski](https://github.com/niemyjski))
 * [jQuery.timeago](http://timeago.yarp.com/) (by [François Guillot](http://fguillot.developpez.com/))
 * [jQuery.Timepicker](http://fgelinas.com/code/timepicker/) (by [Anwar Javed](https://github.com/anwarjaved))
