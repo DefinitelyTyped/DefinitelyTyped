@@ -68,7 +68,7 @@ declare module createjs {
         localToGlobal(x: number, y: number): Point;
         localToLocal(x: number, y: number, target: DisplayObject): Point;
         set(props: Object): DisplayObject;
-        setBounds(x: number, y: number, width: number, height: number);
+        setBounds(x: number, y: number, width: number, height: number): void;
         setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): DisplayObject;
         uncache(): void;
         updateCache(compositeOperation: string): void;
