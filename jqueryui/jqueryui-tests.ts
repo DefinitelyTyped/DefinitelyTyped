@@ -1150,7 +1150,7 @@ function test_dialog() {
         hide: "explode"
     });
     $("#opener").click(function () {
-        $("#dialog").dialog("open");
+        var $el = $("#dialog").dialog("open");
         return false;
     });
     $("#dialog-modal").dialog({
@@ -1163,7 +1163,7 @@ function test_dialog() {
         modal: true,
         buttons: {
             "Delete all items": function () {
-                $(this).dialog("close");
+                var $el = $(this).dialog("close");
             },
             Cancel: function () {
                 $(this).dialog("close");
@@ -1180,6 +1180,7 @@ function test_dialog() {
             $(this).dialog("close");
         },
         close: function () {
+		    var $el = $(this).dialog("destroy");
         }
     });
     $("#dialog-message").dialog({
@@ -1211,6 +1212,8 @@ function test_dialog() {
     $(".selector").dialog({ title: "Dialog Title" });
     $(".selector").dialog({ width: 500 });
     $(".selector").dialog({ zIndex: 20 });
+	var $el = $( ".selector" ).dialog( "moveToTop" );
+	var isOpen = $( ".selector" ).dialog( "isOpen" );
 }
 
 
