@@ -20,7 +20,7 @@ declare module ng {
 
     // All service providers extend this interface
     interface IServiceProvider {
-        $get(...services: any[]): any;
+        $get: any;
     }
 
     ///////////////////////////////////////////////////////////////////////////
