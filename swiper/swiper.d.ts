@@ -90,7 +90,7 @@ interface SwiperOptions {
 
     // Slides Loader
     loader?: {
-        slides?: Array;
+        slides?: any[];
         slidesHTMLType?: string;
         surroundGroups?: number;
         logic?: string;
@@ -178,7 +178,7 @@ declare class Swiper {
     setWrapperTransition(duration): void;
 
     // Slides API
-    slides: Array<SwiperSlide>;
+    slides: SwiperSlide[];
     createSlide(html: string, slideClassList?: string, element?: string): SwiperSlide;
     appendSlide(html: string, slideClassList?: string, element?: string): SwiperSlide;
     appendSlide(slideInstance: HTMLElement): SwiperSlide;

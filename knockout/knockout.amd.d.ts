@@ -77,10 +77,10 @@ declare module 'knockout' {
     export function renderTemplate(template: any, dataOrBindingContext: KnockoutBindingContext, options: Object, targetNodeOrNodeArray: Node[], renderMode: string): any;
     export function renderTemplate(template: Function, dataOrBindingContext: any, options: Object, targetNodeOrNodeArray: Node[], renderMode: string): any;
     export function renderTemplate(template: any, dataOrBindingContext: any, options: Object, targetNodeOrNodeArray: Node[], renderMode: string): any;
-    export function renderTemplateForEach(template: Function, arrayOrObservableArray: Array, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
-    export function renderTemplateForEach(template: any, arrayOrObservableArray: Array, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
-    export function renderTemplateForEach(template: Function, arrayOrObservableArray: KnockoutObservable<Array>, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
-    export function renderTemplateForEach(template: any, arrayOrObservableArray: KnockoutObservable < Array>, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
+    export function renderTemplateForEach(template: Function, arrayOrObservableArray: any[], options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
+    export function renderTemplateForEach(template: any, arrayOrObservableArray: any[], options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
+    export function renderTemplateForEach(template: Function, arrayOrObservableArray: KnockoutObservable<any[]>, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
+    export function renderTemplateForEach(template: any, arrayOrObservableArray: KnockoutObservable <any[]>, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
     export var expressionRewriting: {
         bindingRewriteValidators: any;
     };

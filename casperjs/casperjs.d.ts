@@ -138,7 +138,7 @@ interface ElementInfo {
 }
 
 interface CasperOptions {
-	clientScripts?: Array;
+	clientScripts?: any[];
 	exitOnError?: boolean;
 	httpStatusHandlers?: any;
 	logLevel?: string;
@@ -155,7 +155,7 @@ interface CasperOptions {
 	onWaitTimeout?: Function;
 	page?: WebPage;
 	pageSettings?: any;
-	remoteScripts?: Array;
+	remoteScripts?: any[];
 	safeLogs?: boolean;
 	stepTimeout?: number;
 	timeout?: number;
@@ -205,7 +205,7 @@ interface Tester {
 	assertNot(subject: any, message?: string): any;
 	assertNotEquals(testValue: any, expected: any, message?: string): any;
 	assertNotVisible(selector: string, message?: string): any;
-	assertRaises(fn: Function, args: Array, message?: string): any;
+	assertRaises(fn: Function, args: any[], message?: string): any;
 	assertSelectorDoesntHaveText(selector: string, text: string, message?: string): any;
 	assertSelectorExists(selector: string, message?: string): any;
 	assertSelectorHasText(selector: string, text: string, message?: string): any;
@@ -283,5 +283,5 @@ interface Utils {
 	mergeObjects(origin: any, add: any): any;
 	node(name: string, attributes: any): any;
 	serialize(value: any): any;
-	unique(array: Array): any;
+	unique(array: any[]): any;
 }

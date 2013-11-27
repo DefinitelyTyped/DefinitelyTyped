@@ -3,8 +3,11 @@
 // Definitions by: Barrie Nemetchek, Andrew Gaspar
 // Definitions: https://github.com/borisyankov/DefinitelyTyped  
 
-declare function Q<T>(value: T): Q.Promise<T>;
+/// <reference path="../jquery/jquery.d.ts"/>
+
 declare function Q<T>(promise: Q.IPromise<T>): Q.Promise<T>;
+declare function Q<T>(promise: JQueryPromise<T>): Q.Promise<T>;
+declare function Q<T>(value: T): Q.Promise<T>;
 
 declare module Q {
     interface IPromise<T> {
