@@ -71,7 +71,7 @@ declare module createjs {
         loadManifest(manifest: Object[], loadNow?: boolean, basePath?: string): void;
         loadManifest(manifest: string[], loadNow?: boolean, basePath?: string): void;
         remove(idsOrUrls: string): void;
-        remove(idsOrUrls: string[]): void;
+        remove(idsOrUrls: any[]): void;
         removeAll(): void;
         reset(): void;
         setMaxConnections(value: number): void;
