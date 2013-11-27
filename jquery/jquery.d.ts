@@ -554,74 +554,74 @@ interface JQuery {
     bind(eventType: string, preventBubble: boolean): JQuery;
     bind(...events: any[]): JQuery;
 
-    blur(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     blur(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    blur(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
-    change(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     change(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    change(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
-    click(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     click(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    click(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
-    dblclick(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     dblclick(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    dblclick(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
     delegate(selector: any, eventType: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
-    focus(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     focus(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    focus(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
-    focusin(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
     focusin(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    focusin(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
-    focusout(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
     focusout(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    focusout(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
     hover(handlerIn: (eventObject: JQueryEventObject) => any, handlerOut: (eventObject: JQueryEventObject) => any): JQuery;
     hover(handlerInOut: (eventObject: JQueryEventObject) => any): JQuery;
 
-    keydown(eventData?: any, handler?: (eventObject: JQueryKeyEventObject) => any): JQuery;
     keydown(handler: (eventObject: JQueryKeyEventObject) => any): JQuery;
+    keydown(eventData?: any, handler?: (eventObject: JQueryKeyEventObject) => any): JQuery;
 
-    keypress(eventData?: any, handler?: (eventObject: JQueryKeyEventObject) => any): JQuery;
     keypress(handler: (eventObject: JQueryKeyEventObject) => any): JQuery;
+    keypress(eventData?: any, handler?: (eventObject: JQueryKeyEventObject) => any): JQuery;
 
-    keyup(eventData?: any, handler?: (eventObject: JQueryKeyEventObject) => any): JQuery;
     keyup(handler: (eventObject: JQueryKeyEventObject) => any): JQuery;
+    keyup(eventData?: any, handler?: (eventObject: JQueryKeyEventObject) => any): JQuery;
 
-    load(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     load(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    load(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
     mousedown(): JQuery;
-    mousedown(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
     mousedown(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mousedown(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
-    mouseevent(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
     mouseevent(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseevent(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
     mouseenter(): JQuery;
-    mouseenter(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
     mouseenter(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseenter(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
     mouseleave(): JQuery;
-    mouseleave(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
     mouseleave(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseleave(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
     mousemove(): JQuery;
-    mousemove(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
     mousemove(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mousemove(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
     mouseout(): JQuery;
-    mouseout(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
     mouseout(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseout(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
     mouseover(): JQuery;
-    mouseover(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
     mouseover(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseover(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
     mouseup(): JQuery;
-    mouseup(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
     mouseup(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseup(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
     off(events?: string, selector?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     off(eventsMap: { [key: string]: any; }, selector?: any): JQuery;
@@ -636,14 +636,14 @@ interface JQuery {
 
     ready(handler: any): JQuery;
 
-    resize(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     resize(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    resize(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
-    scroll(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     scroll(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    scroll(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
-    select(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     select(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    select(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
     submit(handler: (eventObject: JQueryEventObject) => any): JQuery;
     submit(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
@@ -662,8 +662,8 @@ interface JQuery {
     undelegate(selector: any, events: any): JQuery;
     undelegate(namespace: string): JQuery;
 
-    unload(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
     unload(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    unload(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
     // Internals
     context: Element;
