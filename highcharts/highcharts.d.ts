@@ -1058,7 +1058,7 @@ interface HighchartsStatic {
     setOptions(options: HighchartsOptions): HighchartsOptions;
     getOptions(): HighchartsOptions;
     
-    map(array: Array, any): Array;
+    map(array: any[], any): any[];
 }
 declare var Highcharts: HighchartsStatic;
 
