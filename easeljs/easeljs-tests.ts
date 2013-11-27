@@ -10,6 +10,7 @@ function test_simple() {
     shape.graphics.beginFill('rgba(255,0,0,1)').drawRoundRect(0, 0, 120, 120, 10);
     stage.addChild(shape);
     stage.update();
+
 }
 
 function test_animation() {
