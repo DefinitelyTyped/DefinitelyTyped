@@ -142,7 +142,7 @@ declare module 'zmq' {
         * @param msg The message
         * @param flags Message flags
         */
-        send(msg: Array, flags?: number): Socket;
+        send(msg: any[], flags?: number): Socket;
 
         /**
          * Close the socket.
