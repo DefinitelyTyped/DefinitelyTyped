@@ -1,4 +1,4 @@
-// Type definitions for SoundJS 0.4
+// Type definitions for SoundJS 0.5.0
 // Project: http://www.createjs.com/#!/SoundJS
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -12,205 +12,205 @@
 
 // Library documentation : http://www.createjs.com/Docs/SoundJS/modules/SoundJS.html
 
+/// <reference path="../createjs/createjs.d.ts" />
+
 declare module createjs {
     export class FlashPlugin {
+        constructor();
+        
         // properties
         static BASE_PATH: string;
+        static buildDate: string;
         static capabilities: Object;
+        flashReady: boolean;
         showOutput: boolean;
-
+        static version: string;
+        
         // methods
         create(src: string): SoundInstance;
-		preload(src: string, instance: Object): void;
-        static generateCapabilities(): void;
-        static isSupported(): boolean;
-		isPreloadStarted(src: string): boolean;
-        register(src: string, instances: Number): Object;
-		setVolume(value: Number): boolean;
-		getVolume(): Number;
-		setMute(isMuted: boolean): Boolean;
-		toString(): string;
-
-		// Flash API
-		unregisterPreloadInstance(flashId: string): void;
-		unregisterSoundInstance(flashId: string): void;
-		flashLog(data: string): void;
-		handleSoundEvent(flashId: string, method: string): void;
-		handlePreloadEvent(flashId: string, method: string): void;
-		handleEvent(method: string): void;
-		handleErrorEvent(error: string): void;
-    }
-
-    export class HTMLAudioPlugin {
-        // properties
-        static capabilities: Object;
-        static MAX_INSTANCES: number;
-		static AUDIO_READY: string;
-		static AUDIO_ENDED: string;
-		static AUDIO_ERROR: string;
-		static AUDIO_STALLED: string;
-		capabilities:Object;
-		defaultNumChannels: number;
-
-        // methods
-        create(src: string): SoundInstance;
-        static generateCapabilities(): void;
-        static isSupported(): boolean;
-        register(src: string, instances: number): Object;
-		isPreloadStarted(src: string): boolean;
-		preload(src: string, instance: Object): void;
-		toString(): string;
-    }
-
-	export class WebAudioPlugin {
-        // properties
-        static capabilities: Object;
-        static MAX_INSTANCES: number;
-		static AUDIO_READY: string;
-		static AUDIO_ENDED: string;
-		static AUDIO_ERROR: string;
-		static AUDIO_STALLED: string;
-		arrayBuffers: ArrayBuffer[];
-		capabilities:Object;
-		defaultNumChannels: number;
-		dynamicsCompressorNode: Object;
-		gainNode: Object;
-		volume: number;
-		context: any;
-		WebAudioLoader(src: string, owner: Object): Function;
-
-        // methods
-        create(src: string): SoundInstance;
-        static generateCapabilities(): void;
-        static isSupported(): boolean;
-		setVolume(value: Number): boolean;
-		getVolume(): number;
-        register(src: string, instances: number): Object;
-		isPreloadStarted(src: string): boolean;
-		preload(src: string, instance: Object): void;
-		isPreloadComplete(src : string): boolean;
-		removeFromPreload(src: string);
-		setMute(value: number): boolean;
-		toString(): string;
-    }
-
-    export class SoundInstance {
-        constructor (src: string, owner: string, flash: string);
-
-        // properties
-        muted: boolean;
-        owner: HTMLAudioPlugin;
-		offset: number;
-        paused: boolean;
-		delay: number;
-		pan: number;
-		duration: number;
-        playState: string;
-		delayTimeoutId: number;
-        src: string;
-        uniqueId: any;   //HERE string or number
-		volume: number;
-
-        // methods
-        getDuration(): number;
-        getPan(): number;
-        getPosition(): number;
+        flashLog(data: string): void;
         getVolume(): number;
-        mute(isMuted: boolean): boolean;
-        pause(): boolean;
-        play(interrupt?: string, delay?: number, offset?: number, loop?: number, volume?: number, pan?: number): void;
-        resume(): boolean;
-        setPan(value: number): number;
-        setPosition(value: number): void;
+        handleErrorEvent(error: string): void;
+        handleEvent(method: string): void;
+        handlePreloadEvent(flashId: string, method: string): void;
+        handleSoundEvent(flashId: string, method: string): void;
+        isPreloadStarted(src: string): boolean;
+        static isSupported(): boolean;
+        preload(src: string, instance: Object, basePath: string): void;
+        register(src: string, instances: number): Object;
+        registerPreloadInstance(flashId: string, instance: any): void;
+        registerSoundInstance(flashId: string, instance: any): void;
+        removeAllSounds (): void;
+        removeSound(src: string): void;
+        setMute(value: boolean): boolean;
         setVolume(value: number): boolean;
-        stop(): boolean;
-
-        // events
-        complete: () => any;
-        loop: () => any;
-        failed: () => any;
-        interrupted: () => any;
-		succeeded: () => any;
-        ready: () => any;
-
-		// EventDispatcher mixins
-		addEventListener(type: string, listener: (eventObj: Object) => boolean): any;
-		removeEventListener(type: string, listener: (eventObj: Function) => boolean): void;
-		removeEventListener(type: string, listener: (eventObj: Object) => boolean): void;
-		removeAllEventListeners(type: string): void;
-		dispatchEvent(eventObj: string, target: Object): boolean;
-		dispatchEvent(eventObj: Object, target: Object): boolean;
-		hasEventListener(type: string): boolean;
+        unregisterPreloadInstance(flashId: string): void;
+        unregisterSoundInstance(flashId: string, instance: any): void;
     }
-
-    // Class documentation : http://www.createjs.com/Docs/SoundJS/classes/Sound.html
-    export class Sound {
+    
+    export class HTMLAudioPlugin {
+        constructor();
+        
+        // properties
+        static AUDIO_ENDED: string;
+        static AUDIO_ERROR: string;
+        static AUDIO_READY: string;
+        static AUDIO_SEEKED: string;
+        static AUDIO_STALLED: string;
+        defaultNumChannels: number;
+        enableIOS: boolean;
+        static MAX_INSTANCES: number;
+        
+        // methods
+        create(src: string): SoundInstance;
+        isPreloadStarted(src: string): boolean;
+        static isSupported(): boolean;
+        preload(src: string, instance: Object, basePath: string): void;
+        register(src: string, instances: number): Object;
+        removeAllSounds(): void;
+        removeSound(src: string): void;
+        toString(): string;
+    }
+    
+    export class Sound extends EventDispatcher {
         // properties
         static activePlugin: Object;
-        static AUDIO_TIMEOUT: number;
+        static defaultInterruptBehavior: string;
         static DELIMITER: string;
+        static EXTENSION_MAP: Object;
         static INTERRUPT_ANY: string;
         static INTERRUPT_EARLY: string;
         static INTERRUPT_LATE: string;
         static INTERRUPT_NONE: string;
-        static muted: boolean;
+        static onLoadComplete: Function; // deprecated
         static PLAY_FAILED: string;
         static PLAY_FINISHED: string;
         static PLAY_INITED: string;
         static PLAY_INTERRUPTED: string;
         static PLAY_SUCCEEDED: string;
-		static SUPPORTED_EXTENSIONS: Array;
-		static EXTENSION_MAP: Object;
-		static defaultInterruptBehavior: string;
+        static SUPPORTED_EXTENSIONS: string[];
+        
+        
+        // methods
+        static createInstance(src: string): SoundInstance;
+        static getCapabilities(): Object;
+        static getCapability(key: string): any;    //HERE can return string | number | bool;
+        static getMute(): boolean;
+        static getVolume(): number;
+        static initializeDefaultPlugins(): boolean;
+        static isReady(): boolean;
+        static loadComplete(src: string): boolean;
+        static mute(value: boolean): void;  // deprecated
+        static play(src: string, interrupt?: any, delay?: number, offset?: number, loop?: number, volume?: number, pan?: number): SoundInstance;
+        static registerManifest(manifest: any[], basePath: string): Object;
+        static registerPlugin(plugin: Object): boolean;
+        static registerPlugins(plugins: any[]): boolean;
+        static registerSound(src: string, id?: string, data?: Object, preload?: boolean, basePath?: string): Object;
+        static registerSound(src: Object, id?: string, data?: Object, preload?: boolean, basePath?: string): Object;
+        static removeAllSounds(): void;
+        static removeManifest(manifest: any[]): Object;
+        static removeSound(src: string): boolean;
+        static removeSound(src: Object): boolean;
+        static setMute(value: boolean): boolean;
+        static setVolume(value: number): void;
+        static stop(): void;
+        static toString(): string;
+        
+        // events
+        /*
+        fileload: () => any;
+        */
+
+        // EventDispatcher mixins
+        static addEventListener(type: string, listener: Function, useCapture?: boolean): any;
+        static addEventListener(type: string, listener: Object, useCapture?: boolean): any;
+        static dispatchEvent(eventObj: Object, target?: Object): boolean;
+        static dispatchEvent(eventObj: string, target?: Object): boolean;
+        static dispatchEvent(eventObj: Event, target?: Object): boolean;
+        static hasEventListener(type: string): boolean;
+        static off(type: string, listener: Function, useCapture?: boolean): void;
+        static off(type: string, listener: Object, useCapture?: boolean): void;
+        static on(type: string, listener, scope?: Function, once?: boolean, data?: any, useCapture?: boolean): Function;
+        static on(type: string, listener, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Function;
+        static removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
+        static removeEventListener(type: string, listener: Object, useCapture?: boolean): void;
+        static removeAllEventListeners(type?: string): void;
+
+    }
+    
+    export class SoundInstance extends EventDispatcher {
+        constructor(src: string, owner: Object);
+        
+        // properties
+        gainNode: any;
+        onComplete: Function; // deprecated
+        onLoop: Function; // deprecated
+        onPlayFailed: Function; // deprecated
+        onPlayInterrupted: Function; // deprecated
+        onPlaySucceeded: Function; // deprecated
+        onReady: Function; // deprecated
+        pan: number;
+        panNode: any;
+        playState: string;
+        sourceNode: any;
+        uniqueId: any;   //HERE string or number
+        volume: number;
 
         // methods
-        static checkPlugin(initializeDefault: boolean): boolean;
-		static createInstance(src: string): SoundInstance;
-        static getCapabilities(): Object;
-        static getCapability(key: string): any;    //HERE can return string | number | bool
-        static getInstanceById(uniqueId: string): SoundInstance;
-		static getMute(): boolean;
-        static getMasterVolume(): number;
-        static getSrcFromId(value: string): string;
-		static getVolume(): number;
-        static isReady(): boolean;
-        static pause(id: string): void;
-        static play(src: string, interrupt?: string, delay?: number, offset?: number, loop?: number, volume?: number, pan?: number): SoundInstance;
-        static registerPlugin(plugin: Object): boolean;
-        static registerPlugins(plugins: Object[]): boolean;
-		static registerSound(src: Object, id?: string, data?: Object, preload?: boolean): Object;
-		static registerManifest(manifest: Array);
-        static resume(id: string): void;
-        static setMasterVolume(value: number): boolean;
-        static setMute(isMuted: boolean): boolean;
-        static setVolume(value: number, id?: string): boolean;
-        static stop(): boolean;
-
-		// events
-	    static loadComplete: () => any;
-
-		// EventDispatcher mixins
-	    static addEventListener(type: string, listener: (eventObj: Object) => boolean): any;
-    	static removeEventListener(type: string, listener: (eventObj: Function) => boolean): void;
-    	static removeEventListener(type: string, listener: (eventObj: Object) => boolean): void;
-    	static removeAllEventListeners(type: string): void;
-    	static dispatchEvent(eventObj: string, target: Object): boolean;
-    	static dispatchEvent(eventObj: Object, target: Object): boolean;
-    	static hasEventListener(type: string): boolean;
+        getDuration(): number;
+        getMute(): boolean;
+        getPan(): number;
+        getPosition(): number;
+        getVolume(): number;
+        mute(value: boolean): boolean // deprecated
+        pause(): boolean;
+        play(interrupt?: string, delay?: number, offset?: number, loop?: number, volume?: number, pan?: number): void;
+        play(interrupt?: Object, delay?: number, offset?: number, loop?: number, volume?: number, pan?: number): void;
+        resume(): boolean;
+        setMute(value: boolean): boolean;
+        setPan(value: number): number;
+        setPosition(value: number): void;
+        setVolume(value: number): boolean;
+        stop(): boolean;
+        toString(): string;
+        
+        // events
+        /*
+        complete: () => any;
+        failed: () => any;
+        interrupted: () => any;
+        loop: () => any;
+        ready: () => any;
+        succeeded: () => any;
+        */
     }
-
-	export class BrowserDetect {
-		// properties
-		static isFirefox: boolean;
-		static isOpera: boolean;
-		static isChrome: boolean;
-		static isIOS: boolean;
-		static isAndroid: boolean;
-		static isBlackberry: boolean;
-
-		// methods
-		static init();
+    
+    export class SoundJS {
+        static buildDate: string;
+        static version: string;
     }
-
-    export function proxy(handler: Function, context: any);
+    
+    export class WebAudioPlugin {
+        constructor();
+        
+        // properties
+        context: any;
+        dynamicsCompressorNode: any;
+        gainNode: any;
+        
+        // methods
+        addPreloadResults(src: string): boolean;
+        create(src: string): SoundInstance;
+        getVolume(): number;
+        isPreloadComplete(src: string): boolean;
+        isPreloadStarted(src: string): boolean;
+        static isSupported(): boolean;
+        playEmptySound(): void;
+        register(src: string, instances: number): Object;
+        removeAllSounds(src: string): void;
+        removeFromPreload(src: string): void;
+        removeSound(src: string): void;
+        setMute(value: boolean): boolean;
+        setVolume(value: Number): boolean;
+    }
 }

@@ -1,4 +1,4 @@
-// Type definitions for PreloadJS 0.3
+// Type definitions for PreloadJS 0.4.0
 // Project: http://www.createjs.com/#!/PreloadJS
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -10,94 +10,106 @@
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+// Library documentation : http://www.createjs.com/Docs/PreloadJS/modules/PreloadJS.html
+
+/// <reference path="../createjs/createjs.d.ts" />
+
 declare module createjs {
-    export class AbstractLoader {
+    export class AbstractLoader extends EventDispatcher {
         // properties
         canceled: boolean;
         loaded: boolean;
+        onComplete: Function; // deprecated
+        onError: Function; // deprecated
+        onLoadStart: Function; // deprecated
+        onProgress: Function; // deprecated
         progress: number;
-
+        
         // methods
+        buildPath(src: string, basePath?: string, data?: Object): string;
         close(): void;
-        getItem(value: string): Object;
         load(): void;
         toString(): string;
-
+        
         // events
+        /*
         complete: (event: Object) => any;
         error: (event: Object) => any;
-        fileload: (event: Object) => any;
-        fileprogress: (event: Object) => any;
         loadStart: (event: Object) => any;
-
-        // EventDispatcher mixins
-        addEventListener(type: string, listener: (eventObj: Object) => boolean): any;
-
-        removeEventListener(type: string, listener: (eventObj: Function) => boolean): void;
-        removeEventListener(type: string, listener: (eventObj: Object) => boolean): void;
-        removeAllEventListeners(type: string): void;
-        dispatchEvent(eventObj: string, target: Object): boolean;
-        dispatchEvent(eventObj: Object, target: Object): boolean;
-        hasEventListener(type: string): boolean;
+        progress: (event: Object) => any;
+        */
     }
-
-    export class PreloadJS {
-        version: string;
-        buildDate: string;
-    }
-
+    
     export class LoadQueue extends AbstractLoader {
-        constructor (useXHR?: boolean);
-
+        constructor(useXHR?: boolean, basePath?: string);
+        
         // properties
         static BINARY: string;
         static CSS: string;
         static IMAGE: string;
         static JAVASCRIPT: string;
         static JSON: string;
-        static SOUND: string;
-        static SVG: string;
-        static TEXT: string;
+        static JSONP: string;
         static LOAD_TIMEOUT: number;
-        static XML: string;
-
         maintainScriptOrder: boolean;
         next: LoadQueue;
+        onFileLoad: Function; // deprecated
+        onFileProgress: Function;  // deprecated
+        static SOUND: string;
         stopOnError: boolean;
+        static SVG: string;
+        static TEXT: string;
         useXHR: boolean;
-
+        static XML: string;
+        
         // methods
-        BrowserDetect(): Object;
-        init(useXHR?: boolean): void;
-        close(): void;
-        initialize(useXHR: boolean): void;
-        installPlugin(plugin: any): void;
-        load(): void;
-        loadFile(file: Object, loadNow?: boolean): void;
-        loadFile(file: string, loadNow?: boolean): void;
-        loadManifest(manifest: Object[], loadNow?: boolean): void;
-        loadManifest(manifest: string[], loadNow?: boolean): void;
         getItem(value: string): Object;
         getResult(value: string, rawResult?: boolean): Object;
-        removeAll(): void;
+        installPlugin(plugin: Function): void;
+        loadFile(file: Object, loadNow?: boolean, basePath?: string): void;
+        loadFile(file: string, loadNow?: boolean, basePath?: string): void;
+        loadManifest(manifest: Object[], loadNow?: boolean, basePath?: string): void;
+        loadManifest(manifest: string[], loadNow?: boolean, basePath?: string): void;
         remove(idsOrUrls: string): void;
-        remove(idsOrUrls: Array): void;
+        remove(idsOrUrls: string[]): void;
+        removeAll(): void;
         reset(): void;
         setMaxConnections(value: number): void;
-        setUseXHR(value: boolean): void;
         setPaused(value: boolean): void;
+        setUseXHR(value: boolean): void;
+        toString(): string;
+        
+        // events
+        /*
+        fileload: (event: Object) => any;
+        fileprogress: (event: Object) => any;
+        filestart: (event: Object) => any;
+        */
     }
-
-
+    
+    export class PreloadJS {
+        static buildDate: string;
+        static version: string;
+    }
+    
     export class TagLoader extends AbstractLoader {
-        constructor (item: Object, srcAttr: string, useXHR: boolean);
-        constructor (item: string, srcAttr: string, useXHR: boolean);
-        getResult(): any; // HTMLImageElement or HTMLAudioElement
+        constructor (item: Object);
+        
+        // properties
+        _isAudio: boolean;
+        
+        // methods
+        getResult(): any;
+        toString(): string;
     }
-
-
+    
     export class XHRLoader extends AbstractLoader {
-        constructor (file: Object);
-        getResult(rawResult?: boolean):any;
+        constructor (item: Object);
+        
+        // methods
+        getAllResponseHeaders(): string;
+        getResponseHeader(header: string): string;
+        getResult (rawResult?: boolean): Object;
+        toString(): string;
     }
 }
