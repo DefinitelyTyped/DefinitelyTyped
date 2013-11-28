@@ -162,7 +162,7 @@ declare module createjs {
         tick(delta: number): void;
         to(props: Object, duration?: number, ease?: (amount: number) => number): Tween;
         toString(): string;
-        wait(duration: number, passive: boolean): Tween;
+        wait(duration: number, passive?: boolean): Tween;
 
         // EventDispatcher mixins
         addEventListener(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): Function;
