@@ -142,7 +142,7 @@ declare module createjs {
         target: Object;
 
         // methods
-        call(callback: Function, params?: any[], scope?: Object): Tween;
+        call(callback: (...params: any[]) => any, params?: any[], scope?: Object): Tween;
         static get(target: Object, props?: Object, pluginData?: Object, override?: boolean): Tween;
         static hasActiveTweens(target?: Object): boolean;
         static installPlugin(plugin: Object, properties: any[]): void;

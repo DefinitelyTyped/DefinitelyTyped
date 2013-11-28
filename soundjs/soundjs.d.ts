@@ -122,19 +122,19 @@ declare module createjs {
         */
 
         // EventDispatcher mixins
-        static addEventListener(type: string, listener: Function, useCapture?: boolean): any;
+        static addEventListener(type: string, listener: (eventObj: Object) => any, useCapture?: boolean): any;
         static addEventListener(type: string, listener: Object, useCapture?: boolean): any;
         static dispatchEvent(eventObj: Object, target?: Object): boolean;
         static dispatchEvent(eventObj: string, target?: Object): boolean;
         static dispatchEvent(eventObj: Event, target?: Object): boolean;
         static hasEventListener(type: string): boolean;
-        static off(type: string, listener: Function, useCapture?: boolean): void;
+        static off(type: string, listener: (eventObj: Object) => any, useCapture?: boolean): void;
         static off(type: string, listener: Object, useCapture?: boolean): void;
-        static on(type: string, listener, scope?: Function, once?: boolean, data?: any, useCapture?: boolean): Function;
-        static on(type: string, listener, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Function;
-        static removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
-        static removeEventListener(type: string, listener: Object, useCapture?: boolean): void;
+        static on(type: string, listener: (eventObj: Object) => any, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Function;
+        static on(type: string, listener: Object, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Function;
         static removeAllEventListeners(type?: string): void;
+        static removeEventListener(type: string, listener: (eventObj: Object) => any, useCapture?: boolean): void;
+        static removeEventListener(type: string, listener: Object, useCapture?: boolean): void;
 
     }
     
@@ -211,6 +211,6 @@ declare module createjs {
         removeFromPreload(src: string): void;
         removeSound(src: string): void;
         setMute(value: boolean): boolean;
-        setVolume(value: Number): boolean;
+        setVolume(value: number): boolean;
     }
 }

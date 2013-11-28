@@ -1,6 +1,7 @@
 ///<reference path="./tweenjs.d.ts"/>
+///<reference path="../easeljs/easeljs.d.ts"/>
 
-declare var target;
+var target: createjs.DisplayObject = new createjs.DisplayObject();
 var Tween = createjs.Tween; 
 
 // source : http://www.createjs.com/Docs/TweenJS/modules/TweenJS.html

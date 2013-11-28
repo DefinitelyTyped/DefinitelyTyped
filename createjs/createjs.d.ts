@@ -65,19 +65,19 @@ declare module createjs {
         constructor();
 
         // methods
-        addEventListener(type: string, listener: Function, useCapture?: boolean): any;
+        addEventListener(type: string, listener: (eventObj: Object) => any, useCapture?: boolean): any;
         addEventListener(type: string, listener: Object, useCapture?: boolean): any;
         dispatchEvent(eventObj: Object, target?: Object): boolean;
         dispatchEvent(eventObj: string, target?: Object): boolean;
         dispatchEvent(eventObj: Event, target?: Object): boolean;
         hasEventListener(type: string): boolean;
         static initialize(target: Object): void;
-        off(type: string, listener: Function, useCapture?: boolean): void;
+        off(type: string, listener: (eventObj: Object) => any, useCapture?: boolean): void;
         off(type: string, listener: Object, useCapture?: boolean): void;
-        on(type: string, listener, scope?: Function, once?: boolean, data?: any, useCapture?: boolean): Function;
-        on(type: string, listener, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Function;
+        on(type: string, listener: (eventObj: Object) => any, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Function;
+        on(type: string, listener: Object, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Function;
         removeAllEventListeners(type?: string): void;
-        removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
+        removeEventListener(type: string, listener: (eventObj: Object) => any, useCapture?: boolean): void;
         removeEventListener(type: string, listener: Object, useCapture?: boolean): void;
         toString(): string;
     }
