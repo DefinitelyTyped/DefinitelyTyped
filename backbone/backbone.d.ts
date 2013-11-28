@@ -319,7 +319,7 @@ declare module Backbone {
         remove(): View;
         make(tagName: any, attributes?: any, content?: any): any;
         delegateEvents(events?: any): any;
-        undelegateEvents();
+        undelegateEvents(): View;
 
         _ensureElement(): void;
     }
