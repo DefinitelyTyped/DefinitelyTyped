@@ -157,8 +157,8 @@ declare module Backbone {
         comparator(element: Model): any;
         comparator(compare: Model, to?: Model): any;
 
-        add(model: Model, options?: AddOptions);
-        add(models: Model[], options?: AddOptions);
+        add(model: Model, options?: AddOptions): Collection;
+        add(models: Model[], options?: AddOptions): Collection;
         at(index: number): Model;
         get(id: any): Model;
         create(attributes: any, options?: ModelSaveOptions): Model;
