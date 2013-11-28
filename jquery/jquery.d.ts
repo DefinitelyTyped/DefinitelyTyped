@@ -656,7 +656,18 @@ interface JQuery {
     blur(handler: (eventObject: JQueryEventObject) => any): JQuery;
     blur(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
+    /**
+     * Bind an event handler to the "change" JavaScript event
+     *
+     * @param handler A function to execute each time the event is triggered.
+     */
     change(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "change" JavaScript event
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     */
     change(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
     /**
@@ -689,25 +700,91 @@ interface JQuery {
 
     delegate(selector: any, eventType: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
+    /**
+     * Bind an event handler to the "focus" JavaScript event
+     *
+     * @param handler A function to execute each time the event is triggered.
+     */
     focus(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "focus" JavaScript event
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     */
     focus(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
+    /**
+     * Bind an event handler to the "focusin" JavaScript event
+     *
+     * @param handler A function to execute each time the event is triggered.
+     */
     focusin(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "focusin" JavaScript event
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     */
     focusin(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
+    /**
+     * Bind an event handler to the "focusout" JavaScript event
+     *
+     * @param handler A function to execute each time the event is triggered.
+     */
     focusout(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "focusout" JavaScript event
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     */
     focusout(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
     hover(handlerIn: (eventObject: JQueryEventObject) => any, handlerOut: (eventObject: JQueryEventObject) => any): JQuery;
     hover(handlerInOut: (eventObject: JQueryEventObject) => any): JQuery;
 
+    /**
+     * Bind an event handler to the "keydown" JavaScript event
+     *
+     * @param handler A function to execute each time the event is triggered.
+     */
     keydown(handler: (eventObject: JQueryKeyEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the keydown"" JavaScript event
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     */
     keydown(eventData?: any, handler?: (eventObject: JQueryKeyEventObject) => any): JQuery;
 
+    /**
+     * Bind an event handler to the "keypress" JavaScript event
+     *
+     * @param handler A function to execute each time the event is triggered.
+     */
     keypress(handler: (eventObject: JQueryKeyEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "keypress" JavaScript event
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     */
     keypress(eventData?: any, handler?: (eventObject: JQueryKeyEventObject) => any): JQuery;
 
+    /**
+     * Bind an event handler to the "keyup" JavaScript event
+     *
+     * @param handler A function to execute each time the event is triggered.
+     */
     keyup(handler: (eventObject: JQueryKeyEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "keyup" JavaScript event
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     */
     keyup(eventData?: any, handler?: (eventObject: JQueryKeyEventObject) => any): JQuery;
 
     load(handler: (eventObject: JQueryEventObject) => any): JQuery;
