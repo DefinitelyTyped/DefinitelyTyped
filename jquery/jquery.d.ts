@@ -659,10 +659,32 @@ interface JQuery {
     change(handler: (eventObject: JQueryEventObject) => any): JQuery;
     change(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
+    /**
+     * Bind an event handler to the "click" JavaScript event
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     */
     click(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "click" JavaScript event
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     */
     click(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
+    /**
+     * Bind an event handler to the "dblclick" JavaScript event
+     *
+     * @param handler A function to execute each time the event is triggered.
+     */
     dblclick(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "dblclick" JavaScript event
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     */
     dblclick(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
     delegate(selector: any, eventType: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
