@@ -30,7 +30,7 @@ function test_animation() {
     ss.getAnimation("run").next = "jump";
     ss.getAnimation("jump").next = "run";
 
-    var sprite = new createjs.Sprite(ss);
+    var sprite:createjs.Sprite = new createjs.Sprite(ss);
     sprite.scaleY = sprite.scaleX = .4;
 
     sprite.gotoAndPlay("run");

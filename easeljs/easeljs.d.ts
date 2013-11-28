@@ -398,7 +398,7 @@ declare module createjs {
 
         // properties
         static BASE_64: Object;
-        static Command: Function;
+        static Command: any;
         static STROKE_CAPS_MAP: string[];
         static STROKE_JOINTS_MAP: string[];
 
@@ -431,7 +431,7 @@ declare module createjs {
         endStroke(): Graphics;
         static getHSL(hue: number, saturation: number, lightness: number, alpha?: number): string;
         static getRGB(r: number, g: number, b: number, alpha?: number): string;
-        inject(callback: Function,  data: Object): Graphics;
+        inject(callback: (data: any) => any,  data: any): Graphics;
         isEmpty(): boolean;
         lineTo(x: number, y: number): Graphics;
         moveTo(x: number, y: number): Graphics;
@@ -540,22 +540,6 @@ declare module createjs {
         clone(): MouseEvent;
         toString(): string;
         
-        // EventDispatcher mixins
-        addEventListener(type: string, listener: Function, useCapture?: boolean): any;
-        addEventListener(type: string, listener: Object, useCapture?: boolean): any;
-        dispatchEvent(eventObj: Object, target?: Object): boolean;
-        dispatchEvent(eventObj: string, target?: Object): boolean;
-        dispatchEvent(eventObj: Event, target?: Object): boolean;
-        hasEventListener(type: string): boolean;
-        static initialize(target: Object): void;
-        off(type: string, listener: Function, useCapture?: boolean): void;
-        off(type: string, listener: Object, useCapture?: boolean): void;
-        on(type: string, listener, scope?: Function, once?: boolean, data?: any, useCapture?: boolean): Function;
-        on(type: string, listener, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Function;
-        removeAllEventListeners(type?: string): void;
-        removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
-        removeEventListener(type: string, listener: Object, useCapture?: boolean): void;
-
         // events
         /*
         mousemove: (event: MouseEvent) => any; // deprecated
@@ -664,8 +648,8 @@ declare module createjs {
 
 
     export class Sprite extends DisplayObject {
-        constructor(spriteSheet: SpriteSheet, frameOrAnimation: string);
-        constructor(spriteSheet: SpriteSheet, frameOrAnimation: number);
+        constructor(spriteSheet: SpriteSheet, frameOrAnimation?: string);
+        constructor(spriteSheet: SpriteSheet, frameOrAnimation?: number);
 
         // properties
         currentAnimation: string;
@@ -861,18 +845,18 @@ declare module createjs {
         static setPaused(value: boolean): void;
 
         // EventDispatcher mixins
-        static addEventListener(type: string, listener: Function, useCapture?: boolean): any;
+        static addEventListener(type: string, listener: (eventObj: Object) => any, useCapture?: boolean): any;
         static addEventListener(type: string, listener: Object, useCapture?: boolean): any;
         static dispatchEvent(eventObj: Object, target?: Object): boolean;
         static dispatchEvent(eventObj: string, target?: Object): boolean;
         static dispatchEvent(eventObj: Event, target?: Object): boolean;
         static hasEventListener(type: string): boolean;
-        static off(type: string, listener: Function, useCapture?: boolean): void;
+        static off(type: string, listener: (eventObj: Object) => any, useCapture?: boolean): void;
         static off(type: string, listener: Object, useCapture?: boolean): void;
-        static on(type: string, listener, scope?: Function, once?: boolean, data?: any, useCapture?: boolean): Function;
-        static on(type: string, listener, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Function;
+        static on(type: string, listener: (eventObj: Object) => any, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Function;
+        static on(type: string, listener: Object, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Function;
         static removeAllEventListeners(type?: string): void;
-        static removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
+        static removeEventListener(type: string, listener: (eventObj: Object) => any, useCapture?: boolean): void;
         static removeEventListener(type: string, listener: Object, useCapture?: boolean): void;
 
         // events

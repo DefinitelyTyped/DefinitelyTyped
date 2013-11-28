@@ -65,7 +65,7 @@ declare module createjs {
         // methods
         getItem(value: string): Object;
         getResult(value: string, rawResult?: boolean): Object;
-        installPlugin(plugin: Function): void;
+        installPlugin(plugin: any): void;
         loadFile(file: Object, loadNow?: boolean, basePath?: string): void;
         loadFile(file: string, loadNow?: boolean, basePath?: string): void;
         loadManifest(manifest: Object[], loadNow?: boolean, basePath?: string): void;
