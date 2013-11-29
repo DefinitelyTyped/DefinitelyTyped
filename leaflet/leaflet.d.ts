@@ -420,7 +420,7 @@ declare module L {
             off(type: string, fn?: (e: LeafletEvent) => void, context?: any): Layers;
             fire(type: string, data?: any): Layers; addEventListener(eventMap: any, context?: any): Layers;
             removeEventListener(eventMap?: any, context?: any): Layers;
-            clearAllEventListeners(): Layers
+            clearAllEventListeners(): Layers;
             on(eventMap: any, context?: any): Layers;
             off(eventMap?: any, context?: any): Layers;
         }
@@ -758,9 +758,9 @@ declare module L {
         once(type: string, fn: (e: LeafletEvent) => void, context?: any): Draggable;
         off(type: string, fn?: (e: LeafletEvent) => void, context?: any): Draggable;
         fire(type: string, data?: any): Draggable;
-		addEventListener(eventMap: any, context?: any): Draggable;
+        addEventListener(eventMap: any, context?: any): Draggable;
         removeEventListener(eventMap?: any, context?: any): Draggable;
-        clearAllEventListeners(): Draggable
+        clearAllEventListeners(): Draggable;
         on(eventMap: any, context?: any): Draggable;
         off(eventMap?: any, context?: any): Draggable;
     }
@@ -835,9 +835,9 @@ declare module L {
         once(type: string, fn: (e: LeafletEvent) => void, context?: any): FeatureGroup;
         off(type: string, fn?: (e: LeafletEvent) => void, context?: any): FeatureGroup;
         fire(type: string, data?: any): FeatureGroup;
-		addEventListener(eventMap: any, context?: any): FeatureGroup;
+        addEventListener(eventMap: any, context?: any): FeatureGroup;
         removeEventListener(eventMap?: any, context?: any): FeatureGroup;
-        clearAllEventListeners(): FeatureGroup
+        clearAllEventListeners(): FeatureGroup;
         on(eventMap: any, context?: any): FeatureGroup;
         off(eventMap?: any, context?: any): FeatureGroup;
     }
@@ -957,7 +957,7 @@ declare module L {
 
         /**
           * Function that will be used for converting GeoJSON coordinates to LatLng points
-          * (if not specified, coords will be assumed to be WGS84 — standard[longitude, latitude]
+          * (if not specified, coords will be assumed to be WGS84 ï¿½ standard[longitude, latitude]
           * values in degrees).
           */
         coordsToLatLng?: (coords: any[]) => LatLng[];
@@ -2299,7 +2299,7 @@ declare module L {
         off(type: string, fn?: (e: LeafletEvent) => void, context?: any): Map;
         fire(type: string, data?: any): Map;addEventListener(eventMap: any, context?: any): Map;
         removeEventListener(eventMap?: any, context?: any): Map;
-        clearAllEventListeners(): Map
+        clearAllEventListeners(): Map;
         on(eventMap: any, context?: any): Map;
         off(eventMap?: any, context?: any): Map;
     }
@@ -2704,9 +2704,9 @@ declare module L {
         once(type: string, fn: (e: LeafletEvent) => void, context?: any): Marker;
         off(type: string, fn?: (e: LeafletEvent) => void, context?: any): Marker;
         fire(type: string, data?: any): Marker;
-		addEventListener(eventMap: any, context?: any): Marker;
+        addEventListener(eventMap: any, context?: any): Marker;
         removeEventListener(eventMap?: any, context?: any): Marker;
-        clearAllEventListeners(): Marker
+        clearAllEventListeners(): Marker;
         on(eventMap: any, context?: any): Marker;
         off(eventMap?: any, context?: any): Marker;
     }
@@ -3010,9 +3010,9 @@ declare module L {
         once(type: string, fn: (e: LeafletEvent) => void, context?: any): Path;
         off(type: string, fn?: (e: LeafletEvent) => void, context?: any): Path;
         fire(type: string, data?: any): Path;
-		addEventListener(eventMap: any, context?: any): Path;
+        addEventListener(eventMap: any, context?: any): Path;
         removeEventListener(eventMap?: any, context?: any): Path;
-        clearAllEventListeners(): Path
+        clearAllEventListeners(): Path;
         on(eventMap: any, context?: any): Path;
         off(eventMap?: any, context?: any): Path;
     }
@@ -3435,9 +3435,9 @@ declare module L {
         once(type: string, fn: (e: LeafletEvent) => void, context?: any): PosAnimation;
         off(type: string, fn?: (e: LeafletEvent) => void, context?: any): PosAnimation;
         fire(type: string, data?: any): PosAnimation;
-		addEventListener(eventMap: any, context?: any): PosAnimation;
+        addEventListener(eventMap: any, context?: any): PosAnimation;
         removeEventListener(eventMap?: any, context?: any): PosAnimation;
-        clearAllEventListeners(): PosAnimation
+        clearAllEventListeners(): PosAnimation;
         on(eventMap: any, context?: any): PosAnimation;
         off(eventMap?: any, context?: any): PosAnimation;
     }
@@ -3609,9 +3609,9 @@ declare module L {
         once(type: string, fn: (e: LeafletEvent) => void, context?: any): TileLayer;
         off(type: string, fn?: (e: LeafletEvent) => void, context?: any): TileLayer;
         fire(type: string, data?: any): TileLayer;
-		addEventListener(eventMap: any, context?: any): TileLayer;
+        addEventListener(eventMap: any, context?: any): TileLayer;
         removeEventListener(eventMap?: any, context?: any): TileLayer;
-        clearAllEventListeners(): TileLayer
+        clearAllEventListeners(): TileLayer;
         on(eventMap: any, context?: any): TileLayer;
         off(eventMap?: any, context?: any): TileLayer;
     }
