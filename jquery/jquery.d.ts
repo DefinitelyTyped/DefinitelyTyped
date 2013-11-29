@@ -13,7 +13,10 @@ See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
 
-// Typing for the jQuery library, version 2.0.x
+// Typing for the jQuery library, version 1.10.x / 2.0.x
+// Project: http://jquery.com/
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Christian Hoffmeister <https://github.com/choffmeister>, Steve Fenton, Diullei Gomes <https://github.com/Diullei>, Tass Iliopoulos <https://github.com/tasoili>, Jason Swearingen, Sean Hill <https://github.com/seanski>, Guus Goossens <https://github.com/Guuz>, Kelly Summerlin <https://github.com/ksummerlin>, Basarat Ali Syed <https://github.com/basarat>, Nicholas Wolverson <https://github.com/nwolverson>, Derek Cicerone <https://github.com/derekcicerone>, Andrew Gaspar <https://github.com/AndrewGaspar>, James Harrison Fisher <https://github.com/jameshfisher>, Seikichi Kondo <https://github.com/seikichi>, Benjamin Jackman <https://github.com/benjaminjackman>, Poul Sorensen <https://github.com/s093294>, Josh Strobl <https://github.com/JoshStrobl>, John Reilly <https://github.com/johnnyreilly/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /*
     Interface for the AJAX setting that will configure the AJAX request
@@ -657,6 +660,10 @@ interface JQuery {
     blur(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
     /**
+     * Trigger the "change" event on an element.
+     */
+    change(): JQuery;
+    /**
      * Bind an event handler to the "change" JavaScript event
      *
      * @param handler A function to execute each time the event is triggered.
@@ -671,6 +678,10 @@ interface JQuery {
     change(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
     /**
+     * Trigger the "click" event on an element.
+     */
+    click(): JQuery;
+    /**
      * Bind an event handler to the "click" JavaScript event
      *
      * @param eventData An object containing data that will be passed to the event handler.
@@ -684,6 +695,10 @@ interface JQuery {
      */
     click(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
+    /**
+     * Trigger the "dblclick" event on an element.
+     */
+    dblclick(): JQuery;
     /**
      * Bind an event handler to the "dblclick" JavaScript event
      *
@@ -700,6 +715,10 @@ interface JQuery {
 
     delegate(selector: any, eventType: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
+    /**
+     * Trigger the "focus" event on an element.
+     */
+    focus(): JQuery;
     /**
      * Bind an event handler to the "focus" JavaScript event
      *
@@ -746,6 +765,10 @@ interface JQuery {
     hover(handlerInOut: (eventObject: JQueryEventObject) => any): JQuery;
 
     /**
+     * Trigger the "keydown" event on an element.
+     */
+    keydown(): JQuery;
+    /**
      * Bind an event handler to the "keydown" JavaScript event
      *
      * @param handler A function to execute each time the event is triggered.
@@ -760,6 +783,10 @@ interface JQuery {
     keydown(eventData?: any, handler?: (eventObject: JQueryKeyEventObject) => any): JQuery;
 
     /**
+     * Trigger the "keypress" event on an element.
+     */
+    keypress(): JQuery;
+    /**
      * Bind an event handler to the "keypress" JavaScript event
      *
      * @param handler A function to execute each time the event is triggered.
@@ -773,6 +800,10 @@ interface JQuery {
      */
     keypress(eventData?: any, handler?: (eventObject: JQueryKeyEventObject) => any): JQuery;
 
+    /**
+     * Trigger the "keyup" event on an element.
+     */
+    keyup(): JQuery;
     /**
      * Bind an event handler to the "keyup" JavaScript event
      *
@@ -843,6 +874,10 @@ interface JQuery {
     select(handler: (eventObject: JQueryEventObject) => any): JQuery;
     select(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
+    /**
+     * Trigger the "submit" event on an element.
+     */
+    submit(): JQuery;
     /**
      * Bind an event handler to the "submit" JavaScript event
      *

@@ -646,6 +646,7 @@ function test_change() {
         $('.target').change();
     });
     $("input[type='text']").change(function () { });
+    $("input[type='text']").change();
 }
 
 function test_children() {
@@ -701,6 +702,13 @@ function test_click() {
         $(this).slideUp();
     });
     $("p").click();
+}
+
+function test_submit() {
+    $("#target").submit(function () {
+        alert("Handler for .submit() called.");
+    });
+    $("#target").submit();
 }
 
 function test_clone() {
@@ -895,6 +903,7 @@ function test_dblclick() {
     divdbl.dblclick(function () {
         divdbl.toggleClass('dbl');
     });
+	$('#target').dblclick();
 }
 
 function test_deferred() {
