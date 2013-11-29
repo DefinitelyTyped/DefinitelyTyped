@@ -761,7 +761,18 @@ interface JQuery {
      */
     focusout(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
+    /**
+     * Bind two handlers to the matched elements, to be executed when the mouse pointer enters and leaves the elements.
+     *
+     * @param handlerIn A function to execute when the mouse pointer enters the element.
+     * @param handlerOut A function to execute when the mouse pointer leaves the element.
+     */
     hover(handlerIn: (eventObject: JQueryEventObject) => any, handlerOut: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Bind a single handler to the matched elements, to be executed when the mouse pointer enters or leaves the elements.
+     *
+     * @param handlerInOut A function to execute when the mouse pointer enters or leaves the element.
+     */
     hover(handlerInOut: (eventObject: JQueryEventObject) => any): JQuery;
 
     /**
@@ -818,52 +829,249 @@ interface JQuery {
      */
     keyup(eventData?: any, handler?: (eventObject: JQueryKeyEventObject) => any): JQuery;
 
+    /**
+     * Bind an event handler to the "load" JavaScript event.
+     *
+     * @param handler A function to execute when the event is triggered.
+     */
     load(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "load" JavaScript event.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute when the event is triggered.
+     */
     load(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
+    /**
+     * Trigger the "mousedown" event on an element.
+     */
     mousedown(): JQuery;
+    /**
+     * Bind an event handler to the "mousedown" JavaScript event.
+     *
+     * @param handler A function to execute when the event is triggered.
+     */
     mousedown(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "mousedown" JavaScript event.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute when the event is triggered.
+     */
     mousedown(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
-    mouseevent(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
-    mouseevent(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
-
+    /**
+     * Trigger the "mouseenter" event on an element.
+     */
     mouseenter(): JQuery;
+    /**
+     * Bind an event handler to be fired when the mouse enters an element.
+     *
+     * @param handler A function to execute when the event is triggered.
+     */
     mouseenter(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to be fired when the mouse enters an element.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute when the event is triggered.
+     */
     mouseenter(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
+    /**
+     * Trigger the "mouseleave" event on an element.
+     */
     mouseleave(): JQuery;
+    /**
+     * Bind an event handler to be fired when the mouse leaves an element.
+     *
+     * @param handler A function to execute when the event is triggered.
+     */
     mouseleave(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to be fired when the mouse leaves an element.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute when the event is triggered.
+     */
     mouseleave(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
+    /**
+     * Trigger the "mousemove" event on an element.
+     */
     mousemove(): JQuery;
+    /**
+     * Bind an event handler to the "mousemove" JavaScript event.
+     *
+     * @param handler A function to execute when the event is triggered.
+     */
     mousemove(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "mousemove" JavaScript event.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute when the event is triggered.
+     */
     mousemove(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
+    /**
+     * Trigger the "mouseout" event on an element.
+     */
     mouseout(): JQuery;
+    /**
+     * Bind an event handler to the "mouseout" JavaScript event.
+     *
+     * @param handler A function to execute when the event is triggered.
+     */
     mouseout(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "mouseout" JavaScript event.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute when the event is triggered.
+     */
     mouseout(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
+    /**
+     * Trigger the "mouseover" event on an element.
+     */
     mouseover(): JQuery;
+    /**
+     * Bind an event handler to the "mouseover" JavaScript event.
+     *
+     * @param handler A function to execute when the event is triggered.
+     */
     mouseover(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "mouseover" JavaScript event.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute when the event is triggered.
+     */
     mouseover(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
+    /**
+     * Trigger the "mouseup" event on an element.
+     */
     mouseup(): JQuery;
+    /**
+     * Bind an event handler to the "mouseup" JavaScript event.
+     *
+     * @param handler A function to execute when the event is triggered.
+     */
     mouseup(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "mouseup" JavaScript event.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute when the event is triggered.
+     */
     mouseup(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
-    off(events?: string, selector?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
-    off(eventsMap: { [key: string]: any; }, selector?: any): JQuery;
+    /**
+     * Remove an event handler.
+     */
+    off(): JQuery;
+    /**
+     * Remove an event handler.
+     *
+     * @param events One or more space-separated event types and optional namespaces, or just namespaces, such as "click", "keydown.myPlugin", or ".myPlugin".
+     * @param selector A selector which should match the one originally passed to .on() when attaching event handlers.
+     * @param handler A handler function previously attached for the event(s), or the special value false.
+     */
+    off(events: string, selector?: string, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Remove an event handler.
+     *
+     * @param events An object where the string keys represent one or more space-separated event types and optional namespaces, and the values represent handler functions previously attached for the event(s).
+     * @param selector A selector which should match the one originally passed to .on() when attaching event handlers.
+     */
+    off(events: { [key: string]: any; }, selector?: string): JQuery;
 
-    on(events: string, selector?: string, data?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
-    on(events: string, selector?: string, handler?: (eventObject: JQueryEventObject) => any): JQuery;
-    on(events: string, handler?: (eventObject: JQueryEventObject) => any): JQuery;
-    on(eventsMap: { [key: string]: any; }, selector?: any, data?: any): JQuery;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
+     */
+    on(events: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the selector is null or omitted, the event is always triggered when it reaches the selected element.
+     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
+     */
+    on(events: string, selector: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the selector is null or omitted, the event is always triggered when it reaches the selected element.
+     * @param data Data to be passed to the handler in event.data when an event is triggered.
+     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
+     */
+    on(events: string, selector: string, data: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional namespaces, and the values represent a handler function to be called for the event(s).
+     * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If the selector is null or omitted, the handler is always called when it reaches the selected element.
+     * @param data Data to be passed to the handler in event.data when an event occurs.
+     */
+    on(events: { [key: string]: any; }, selector?: any, data?: any): JQuery;
 
-    one(events: string, selector?: any, data?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
-    one(eventsMap: { [key: string]: any; }, selector?: any, data?: any): JQuery;
+    /**
+     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+     *
+     * @param events A string containing one or more JavaScript event types, such as "click" or "submit," or custom event names.
+     * @param handler A function to execute at the time the event is triggered.
+     */
+    one(events: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+     *
+     * @param events A string containing one or more JavaScript event types, such as "click" or "submit," or custom event names.
+     * @param data An object containing data that will be passed to the event handler.
+     * @param handler A function to execute at the time the event is triggered.
+     */
+    one(events: string, data: Object, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
-    ready(handler: any): JQuery;
+    /**
+     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+     *
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the selector is null or omitted, the event is always triggered when it reaches the selected element.
+     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
+     */
+    one(events: string, selector: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+     *
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the selector is null or omitted, the event is always triggered when it reaches the selected element.
+     * @param data Data to be passed to the handler in event.data when an event is triggered.
+     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
+     */
+    one(events: string, selector: string, data: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
+
+    /**
+     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional namespaces, and the values represent a handler function to be called for the event(s).
+     * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If the selector is null or omitted, the handler is always called when it reaches the selected element.
+     * @param data Data to be passed to the handler in event.data when an event occurs.
+     */
+    one(events: { [key: string]: any; }, selector?: string, data?: any): JQuery;
+
+
+    /**
+     * Specify a function to execute when the DOM is fully loaded.
+     *
+     * @param handler A function to execute after the DOM is ready.
+     */
+    ready(handler: Function): JQuery;
 
     resize(handler: (eventObject: JQueryEventObject) => any): JQuery;
     resize(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
