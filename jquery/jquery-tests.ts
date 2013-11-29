@@ -646,6 +646,7 @@ function test_change() {
         $('.target').change();
     });
     $("input[type='text']").change(function () { });
+    $("input[type='text']").change();
 }
 
 function test_children() {
