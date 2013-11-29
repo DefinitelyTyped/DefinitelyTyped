@@ -4,16 +4,16 @@ var stage: any;
 var myContext2D: any;
 
 function test_simple() {
-    var canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById('canvas');
-    var stage: createjs.Stage = new createjs.Stage(canvas);
-    var shape: createjs.Shape = new createjs.Shape();
+    var canvas = <HTMLCanvasElement>document.getElementById('canvas');
+    var stage = new createjs.Stage(canvas);
+    var shape = new createjs.Shape();
     shape.graphics.beginFill('rgba(255,0,0,1)').drawRoundRect(0, 0, 120, 120, 10);
     stage.addChild(shape);
     stage.update();
 }
 
 function test_animation() {
-    var ss: createjs.SpriteSheet = new createjs.SpriteSheet({
+    var ss = new createjs.SpriteSheet({
         "frames": {
             "width": 200,
             "numFrames": 64,
@@ -29,7 +29,7 @@ function test_animation() {
     ss.getAnimation("run").next = "jump";
     ss.getAnimation("jump").next = "run";
 
-    var sprite: createjs.Sprite = new createjs.Sprite(ss);
+    var sprite = new createjs.Sprite(ss);
     sprite.scaleY = sprite.scaleX = .4;
 
     sprite.gotoAndPlay("run");
@@ -40,12 +40,12 @@ function test_animation() {
 }
 
 function test_graphics() {
-    var g: createjs.Graphics = new createjs.Graphics();
+    var g = new createjs.Graphics();
     g.setStrokeStyle(1);
     g.beginStroke(createjs.Graphics.getRGB(0, 0, 0));
     g.beginFill(createjs.Graphics.getRGB(255, 0, 0));
     g.drawCircle(0, 0, 3);
-    var s: createjs.Shape = new createjs.Shape(g);
+    var s = new createjs.Shape(g);
     s.x = 100;
     s.y = 100;
     stage.addChild(s);

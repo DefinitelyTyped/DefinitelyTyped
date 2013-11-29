@@ -46,6 +46,7 @@ declare module createjs {
         setVolume(value: number): boolean;
         unregisterPreloadInstance(flashId: string): void;
         unregisterSoundInstance(flashId: string, instance: any): void;
+        toString(): string;
     }
     
     export class HTMLAudioPlugin {
@@ -72,7 +73,7 @@ declare module createjs {
         toString(): string;
     }
     
-    export class Sound extends EventDispatcher {
+    export class Sound {
         // properties
         static activePlugin: Object;
         static defaultInterruptBehavior: string;
@@ -82,7 +83,6 @@ declare module createjs {
         static INTERRUPT_EARLY: string;
         static INTERRUPT_LATE: string;
         static INTERRUPT_NONE: string;
-        static onLoadComplete: Function; // deprecated
         static PLAY_FAILED: string;
         static PLAY_FINISHED: string;
         static PLAY_INITED: string;
@@ -100,7 +100,6 @@ declare module createjs {
         static initializeDefaultPlugins(): boolean;
         static isReady(): boolean;
         static loadComplete(src: string): boolean;
-        static mute(value: boolean): void;  // deprecated
         static play(src: string, interrupt?: any, delay?: number, offset?: number, loop?: number, volume?: number, pan?: number): SoundInstance;
         static registerManifest(manifest: any[], basePath: string): Object;
         static registerPlugin(plugin: Object): boolean;
@@ -116,25 +115,28 @@ declare module createjs {
         static stop(): void;
         static toString(): string;
         
-        // events
-        /*
-        fileload: () => any;
-        */
-
         // EventDispatcher mixins
-        static addEventListener(type: string, listener: (eventObj: Object) => any, useCapture?: boolean): any;
-        static addEventListener(type: string, listener: Object, useCapture?: boolean): any;
+        static addEventListener(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): Function;
+        static addEventListener(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): Function;
+        static addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): Object;
+        static addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): Object;
         static dispatchEvent(eventObj: Object, target?: Object): boolean;
         static dispatchEvent(eventObj: string, target?: Object): boolean;
         static dispatchEvent(eventObj: Event, target?: Object): boolean;
         static hasEventListener(type: string): boolean;
-        static off(type: string, listener: (eventObj: Object) => any, useCapture?: boolean): void;
-        static off(type: string, listener: Object, useCapture?: boolean): void;
-        static on(type: string, listener: (eventObj: Object) => any, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Function;
-        static on(type: string, listener: Object, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Function;
+        static off(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): void;
+        static off(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): void;
+        static off(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): void;
+        static off(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): void;
+        static on(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): Function;
+        static on(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): Function;
+        static on(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): Object;
+        static on(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): Object;
         static removeAllEventListeners(type?: string): void;
-        static removeEventListener(type: string, listener: (eventObj: Object) => any, useCapture?: boolean): void;
-        static removeEventListener(type: string, listener: Object, useCapture?: boolean): void;
+        static removeEventListener(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): void;
+        static removeEventListener(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): void;
+        static removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): void;
+        static removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): void;
 
     }
     
@@ -143,12 +145,6 @@ declare module createjs {
         
         // properties
         gainNode: any;
-        onComplete: Function; // deprecated
-        onLoop: Function; // deprecated
-        onPlayFailed: Function; // deprecated
-        onPlayInterrupted: Function; // deprecated
-        onPlaySucceeded: Function; // deprecated
-        onReady: Function; // deprecated
         pan: number;
         panNode: any;
         playState: string;
@@ -162,7 +158,6 @@ declare module createjs {
         getPan(): number;
         getPosition(): number;
         getVolume(): number;
-        mute(value: boolean): boolean // deprecated
         pause(): boolean;
         play(interrupt?: string, delay?: number, offset?: number, loop?: number, volume?: number, pan?: number): void;
         play(interrupt?: Object, delay?: number, offset?: number, loop?: number, volume?: number, pan?: number): void;
@@ -172,17 +167,7 @@ declare module createjs {
         setPosition(value: number): void;
         setVolume(value: number): boolean;
         stop(): boolean;
-        toString(): string;
         
-        // events
-        /*
-        complete: () => any;
-        failed: () => any;
-        interrupted: () => any;
-        loop: () => any;
-        ready: () => any;
-        succeeded: () => any;
-        */
     }
     
     export class SoundJS {
@@ -208,9 +193,13 @@ declare module createjs {
         playEmptySound(): void;
         register(src: string, instances: number): Object;
         removeAllSounds(src: string): void;
+        /**
+         * @deprecated
+         */
         removeFromPreload(src: string): void;
         removeSound(src: string): void;
         setMute(value: boolean): boolean;
         setVolume(value: number): boolean;
+        toString(): string;
     }
 }

@@ -1,7 +1,7 @@
 ///<reference path="./tweenjs.d.ts"/>
 ///<reference path="../easeljs/easeljs.d.ts"/>
 
-var target: createjs.DisplayObject = new createjs.DisplayObject();
+var target = new createjs.DisplayObject();
 
 // source : http://www.createjs.com/Docs/TweenJS/modules/TweenJS.html
 // Chainable modules : 
