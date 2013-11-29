@@ -761,7 +761,18 @@ interface JQuery {
      */
     focusout(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
+    /**
+     * Bind two handlers to the matched elements, to be executed when the mouse pointer enters and leaves the elements.
+     *
+     * @param handlerIn A function to execute when the mouse pointer enters the element.
+     * @param handlerOut A function to execute when the mouse pointer leaves the element.
+     */
     hover(handlerIn: (eventObject: JQueryEventObject) => any, handlerOut: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Bind a single handler to the matched elements, to be executed when the mouse pointer enters or leaves the elements.
+     *
+     * @param handlerInOut A function to execute when the mouse pointer enters or leaves the element.
+     */
     hover(handlerInOut: (eventObject: JQueryEventObject) => any): JQuery;
 
     /**
@@ -818,7 +829,18 @@ interface JQuery {
      */
     keyup(eventData?: any, handler?: (eventObject: JQueryKeyEventObject) => any): JQuery;
 
+    /**
+     * Bind an event handler to the "load" JavaScript event.
+     *
+     * @param handler A function to execute when the event is triggered.
+     */
     load(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "load" JavaScript event.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute when the event is triggered.
+     */
     load(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
     mousedown(): JQuery;
