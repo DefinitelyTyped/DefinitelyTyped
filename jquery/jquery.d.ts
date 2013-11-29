@@ -678,6 +678,10 @@ interface JQuery {
     change(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
     /**
+     * Trigger the "click" event on an element.
+     */
+    click(): JQuery;
+    /**
      * Bind an event handler to the "click" JavaScript event
      *
      * @param eventData An object containing data that will be passed to the event handler.
@@ -691,6 +695,10 @@ interface JQuery {
      */
     click(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
+    /**
+     * Trigger the "dblclick" event on an element.
+     */
+    dblclick(): JQuery;
     /**
      * Bind an event handler to the "dblclick" JavaScript event
      *
@@ -707,6 +715,10 @@ interface JQuery {
 
     delegate(selector: any, eventType: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
+    /**
+     * Trigger the "focus" event on an element.
+     */
+    focus(): JQuery;
     /**
      * Bind an event handler to the "focus" JavaScript event
      *
@@ -753,6 +765,10 @@ interface JQuery {
     hover(handlerInOut: (eventObject: JQueryEventObject) => any): JQuery;
 
     /**
+     * Trigger the "keydown" event on an element.
+     */
+    keydown(): JQuery;
+    /**
      * Bind an event handler to the "keydown" JavaScript event
      *
      * @param handler A function to execute each time the event is triggered.
@@ -767,6 +783,10 @@ interface JQuery {
     keydown(eventData?: any, handler?: (eventObject: JQueryKeyEventObject) => any): JQuery;
 
     /**
+     * Trigger the "keypress" event on an element.
+     */
+    keypress(): JQuery;
+    /**
      * Bind an event handler to the "keypress" JavaScript event
      *
      * @param handler A function to execute each time the event is triggered.
@@ -780,6 +800,10 @@ interface JQuery {
      */
     keypress(eventData?: any, handler?: (eventObject: JQueryKeyEventObject) => any): JQuery;
 
+    /**
+     * Trigger the "keyup" event on an element.
+     */
+    keyup(): JQuery;
     /**
      * Bind an event handler to the "keyup" JavaScript event
      *
@@ -850,6 +874,10 @@ interface JQuery {
     select(handler: (eventObject: JQueryEventObject) => any): JQuery;
     select(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
+    /**
+     * Trigger the "submit" event on an element.
+     */
+    submit(): JQuery;
     /**
      * Bind an event handler to the "submit" JavaScript event
      *
