@@ -1422,6 +1422,17 @@ declare module google.maps {
             DISTANCE,
             PROMINENCE
         }
+		
+		export class SearchBox {
+			constructor(inputField: HTMLInputElement, opts?: SearchBoxOptions);
+			getBounds(): LatLngBounds;
+			setBounds(bounds: LatLngBounds): void;
+			getPlaces(): PlaceResult[];			
+		}
+
+		export interface SearchBoxOptions {
+			bounds: LatLngBounds;
+		}
 
         export interface TextSearchRequest {
             bounds: LatLngBounds;
