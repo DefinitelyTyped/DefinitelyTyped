@@ -843,12 +843,23 @@ interface JQuery {
      */
     load(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
+    /**
+     * Trigger the "mousedown" event on an element.
+     */
     mousedown(): JQuery;
+    /**
+     * Bind an event handler to the "mousedown" JavaScript event.
+     *
+     * @param handler A function to execute when the event is triggered.
+     */
     mousedown(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "mousedown" JavaScript event.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute when the event is triggered.
+     */
     mousedown(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
-
-    mouseevent(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
-    mouseevent(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
     mouseenter(): JQuery;
     mouseenter(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
