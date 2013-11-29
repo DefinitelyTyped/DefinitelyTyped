@@ -19,10 +19,6 @@ declare module createjs {
         // properties
         canceled: boolean;
         loaded: boolean;
-        onComplete: Function; // deprecated
-        onError: Function; // deprecated
-        onLoadStart: Function; // deprecated
-        onProgress: Function; // deprecated
         progress: number;
         
         // methods
@@ -31,13 +27,6 @@ declare module createjs {
         load(): void;
         toString(): string;
         
-        // events
-        /*
-        complete: (event: Object) => any;
-        error: (event: Object) => any;
-        loadStart: (event: Object) => any;
-        progress: (event: Object) => any;
-        */
     }
     
     export class LoadQueue extends AbstractLoader {
@@ -53,8 +42,6 @@ declare module createjs {
         static LOAD_TIMEOUT: number;
         maintainScriptOrder: boolean;
         next: LoadQueue;
-        onFileLoad: Function; // deprecated
-        onFileProgress: Function;  // deprecated
         static SOUND: string;
         stopOnError: boolean;
         static SVG: string;
@@ -77,14 +64,6 @@ declare module createjs {
         setMaxConnections(value: number): void;
         setPaused(value: boolean): void;
         setUseXHR(value: boolean): void;
-        toString(): string;
-        
-        // events
-        /*
-        fileload: (event: Object) => any;
-        fileprogress: (event: Object) => any;
-        filestart: (event: Object) => any;
-        */
     }
     
     export class PreloadJS {
@@ -100,7 +79,6 @@ declare module createjs {
         
         // methods
         getResult(): any;
-        toString(): string;
     }
     
     export class XHRLoader extends AbstractLoader {
@@ -110,6 +88,5 @@ declare module createjs {
         getAllResponseHeaders(): string;
         getResponseHeader(header: string): string;
         getResult (rawResult?: boolean): Object;
-        toString(): string;
     }
 }

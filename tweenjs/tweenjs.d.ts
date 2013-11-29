@@ -1,6 +1,6 @@
 // Type definitions for TweenJS 0.5.0
 // Project: http://www.createjs.com/#!/TweenJS
-// Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>
+// Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>, Chris Smith <https://github.com/evilangelist>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /*
@@ -27,45 +27,45 @@ declare module createjs {
 
     export class Ease {
         // methods
-        static backIn(t: number): number;
-        static backInOut(t: number): number;
-        static backOut(t: number): number;
-        static bounceIn(t: number): number;
-        static bounceInOut(t: number): number;
-        static bounceOut(t: number): number;
-        static circIn(t: number): number;
-        static circInOut(t: number): number;
-        static circOut(t: number): number;
-        static cubicIn(t: number): number;
-        static cubicInOut(t: number): number;
-        static cubicOut(t: number): number;
-        static elasticIn(t: number): number;
-        static elasticInOut(t: number): number;
-        static elasticOut(t: number): number;
-        static get(amount: number): (t: number) => number;
-        static getBackIn(amount: number): (t: number) => number;
-        static getBackInOut(amount: number): (t: number) => number;
-        static getBackOut(amount: number): (t: number) => number;
-        static getElasticIn(amplitude: number, period: number): (t: number) => number;
-        static getElasticInOut(amplitude: number, period: number): (t: number) => number;
-        static getElasticOut(amplitude: number, period: number): (t: number) => number;
-        static getPowIn(pow: number): (t: number) => number;
-        static getPowInOut(pow: number): (t: number) => number;
-        static getPowOut(pow: number): (t: number) => number;
-        static linear(t: number): number;
-        static none(t: number): number;    // same as linear
-        static quadIn(t: number): number;
-        static quadInOut(t: number): number;
-        static quadOut(t: number): number;
-        static quartIn(t: number): number;
-        static quartInOut(t: number): number;
-        static quartOut(t: number): number;
-        static quintIn(t: number): number;
-        static quintInOut(t: number): number;
-        static quintOut(t: number): number;
-        static sineIn(t: number): number;
-        static sineInOut(t: number): number;
-        static sineOut(t: number): number;
+        static backIn: (amount: number) => number;
+        static backInOut: (amount: number) => number;
+        static backOut: (amount: number) => number;
+        static bounceIn: (amount: number) => number;
+        static bounceInOut: (amount: number) => number;
+        static bounceOut: (amount: number) => number;
+        static circIn: (amount: number) => number;
+        static circInOut: (amount: number) => number;
+        static circOut: (amount: number) => number;
+        static cubicIn: (amount: number) => number;
+        static cubicInOut: (amount: number) => number;
+        static cubicOut: (amount: number) => number;
+        static elasticIn: (amount: number) => number;
+        static elasticInOut: (amount: number) => number;
+        static elasticOut: (amount: number) => number;
+        static get(amount: number): (amount: number) => number;
+        static getBackIn(amount: number): (amount: number) => number;
+        static getBackInOut(amount: number): (amount: number) => number;
+        static getBackOut(amount: number): (amount: number) => number;
+        static getElasticIn(amplitude: number, period: number): (amount: number) => number;
+        static getElasticInOut(amplitude: number, period: number): (amount: number) => number;
+        static getElasticOut(amplitude: number, period: number): (amount: number) => number;
+        static getPowIn(pow: number): (amount: number) => number;
+        static getPowInOut(pow: number): (amount: number) => number;
+        static getPowOut(pow: number): (amount: number) => number;
+        static linear: (amount: number) => number;
+        static none: (amount: number) => number;    // same as linear
+        static quadIn: (amount: number) => number;
+        static quadInOut: (amount: number) => number;
+        static quadOut: (amount: number) => number;
+        static quartIn: (amount: number) => number;
+        static quartInOut: (amount: number) => number;
+        static quartOut: (amount: number) => number;
+        static quintIn: (amount: number) => number;
+        static quintInOut: (amount: number) => number;
+        static quintOut: (amount: number) => number;
+        static sineIn: (amount: number) => number;
+        static sineInOut: (amount: number) => number;
+        static sineOut: (amount: number) => number;
     }
     
     export class MotionGuidePlugin {
@@ -95,7 +95,6 @@ declare module createjs {
         duration: number;
         ignoreGlobalPause: boolean;
         loop: boolean;
-        onChange: Function; // deprecated
         position: Object;
 
         // methods
@@ -114,13 +113,7 @@ declare module createjs {
         setPaused(value: boolean): void;
         setPosition(value: number, actionsMode?: number): boolean;
         tick(delta: number): void;
-        toString(): string;
         updateDuration(): void;
-
-        // events
-        /*
-        change: (instance: Timeline) => any;
-        */
     }
 
 
@@ -137,12 +130,13 @@ declare module createjs {
         onChange: Function; // deprecated
         passive: boolean;
         pluginData: Object;
-        position: Object;
+        position: number;
         static REVERSE: number;
         target: Object;
 
         // methods
-        call(callback: (...params: any[]) => any, params?: any[], scope?: Object): Tween;
+        call(callback: (tweenObject: Tween) => any, params?: any[], scope?: Object): Tween;    // when 'params' isn't given, the callback receives a tweenObject
+        call(callback: (...params: any[]) => any, params?: any[], scope?: Object): Tween; // otherwise, it receives the params only
         static get(target: Object, props?: Object, pluginData?: Object, override?: boolean): Tween;
         static hasActiveTweens(target?: Object): boolean;
         static installPlugin(plugin: Object, properties: any[]): void;
@@ -156,13 +150,8 @@ declare module createjs {
         static tick(delta: number, paused: boolean): void;
         tick(delta: number): void;
         to(props: Object, duration?: number, ease?: (t: number) => number): Tween;
-        toString(): string;
         wait(duration: number, passive?: boolean): Tween;
 
-        // events
-        /*
-        change: (event: any) => any;
-        */
     }
 
     export class TweenJS {
