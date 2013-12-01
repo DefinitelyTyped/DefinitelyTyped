@@ -735,16 +735,38 @@ declare module D3 {
             (type: string, listener: (data: any, index: number) => any, capture?: boolean): Selection;
         };
 
+        /**
+        * Returns the total number of elements in the current selection.
+        */
         size(): number;
 
-        transition(): Transition.Transition;
         /**
-        * sort elements in the document based on data.
+        * Starts a transition for the current selection. Transitions behave much like selections,
+        * except operators animate smoothly over time rather than applying instantaneously.
+        */
+        transition(): Transition.Transition;
+
+        /**
+        * Sorts the elements in the current selection according to the specified comparator
+        * function.
         *
-        * params comparator the specified comparator function
+        * @param comparator a comparison function, which will be passed two data elements a and b
+        * to compare, and should return either a negative, positive, or zero value to indicate
+        * their relative order.
         */
         sort<T>(comparator?: (a: T, b: T) => number): Selection;
+
+        /**
+        * Re-inserts elements into the document such that the document order matches the selection
+        * order. This is equivalent to calling sort() if the data is already sorted, but much
+        * faster.
+        */
         order: () => Selection;
+
+        /**
+        * Returns the first non-null element in the current selection. If the selection is empty,
+        * returns null.
+        */
         node: () => Element;
     }
 
