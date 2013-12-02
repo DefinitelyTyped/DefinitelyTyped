@@ -19,10 +19,10 @@ import http = require('http');
         autoAcceptConnections: false
     });
 
-    function originIsAllowed(origin) { return true; }
+    function originIsAllowed(origin: string) { return true; }
 
     wsServer.on('request', (request: websocket.request) => {
-        if (!originIsAllowed(request.origin)) {
+        if(!originIsAllowed(request.origin)) {
           request.reject();
           console.log((new Date()) + ' Connection from origin ' + request.origin + ' rejected.');
           return;
@@ -30,7 +30,7 @@ import http = require('http');
 
         var connection = request.accept('echo-protocol', request.origin);
         console.log((new Date()) + ' Connection accepted.');
-        connection.on('message', (message) => {
+        connection.on('message', (message: websocket.IMessage) => {
             if (message.type === 'utf8') {
                 console.log('Received Message: ' + message.utf8Data);
                 connection.sendUTF(message.utf8Data);
@@ -41,8 +41,8 @@ import http = require('http');
             }
         });
 
-        connection.on('close', (reasonCode, description) => {
-            console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
+        connection.on('close', (code: number) => {
+            console.log(Date.now() + ' Peer ' + connection.remoteAddress + ' disconnected.');
         });
     });
 }
@@ -57,7 +57,7 @@ import http = require('http');
 
     client.on('connect', (connection: websocket.connection) => {
         console.log('WebSocket client connected');
-        connection.on('error', (error) => {
+        connection.on('error', (error: Error) => {
             console.log("Connection Error: " + error.toString());
         });
 
@@ -65,7 +65,7 @@ import http = require('http');
             console.log('echo-protocol Connection Closed');
         });
 
-        connection.on('message', (message) => {
+        connection.on('message', (message: websocket.IMessage) => {
             if (message.type === 'utf8') {
                 console.log("Received: '" + message.utf8Data + "'");
             }

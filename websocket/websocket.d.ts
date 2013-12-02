@@ -11,7 +11,7 @@ declare module "websocket" {
     import net    = require('net');
     import url    = require('url');
 
-    export interface ServerConfig {
+    export interface IServerConfig {
         /** The http server instance to attach to */
         httpServer: http.Server;
 
@@ -107,29 +107,29 @@ declare module "websocket" {
     }
 
     export class server extends events.EventEmitter {
-        constructor(serverConfig?: ServerConfig);
+        constructor(serverConfig?: IServerConfig);
 
         /** Attach the `server` instance to a Node http.Server instance */
-        mount(serverConfig: ServerConfig);
+        mount(serverConfig: IServerConfig): void;
 
         /**
          * Detach the `server` instance from the Node http.Server instance.
          * All existing connections are left alone and will not be affected,
          * but no new WebSocket connections will be accepted.
          */
-        unmount();
+        unmount(): void;
 
         /** Close all open WebSocket connections */
-        closeAllConnections();
+        closeAllConnections(): void;
         /** Close all open WebSocket connections and unmount the server */
-        shutDown();
+        shutDown(): void;
 
         // Events
-        on(event: string, listener: Function): server;
+        on(event: string, listener: () => void): server;
         on(event: 'request', cb: (request: request) => void): server;
         on(event: 'connect', cb: (connection: connection) => void): server;
         on(event: 'close', cb: (connection: connection, reason: number, desc: string) => void): server;
-        addListener(event: string, listener: Function): server;
+        addListener(event: string, listener: () => void): server;
         addListener(event: 'request', cb: (request: request) => void): server;
         addListener(event: 'connect', cb: (connection: connection) => void): server;
         addListener(event: 'close', cb: (connection: connection, reason: number, desc: string) => void): server;
@@ -172,7 +172,7 @@ declare module "websocket" {
          */
         requestedProtocols: string[];
 
-        constructor(socket: net.NodeSocket, httpRequest: http.ClientRequest, config: ServerConfig);
+        constructor(socket: net.NodeSocket, httpRequest: http.ClientRequest, config: IServerConfig);
 
         /**
          * After inspecting the `request` properties, call this function on the
@@ -189,15 +189,21 @@ declare module "websocket" {
          * description that will be sent to the client in the form of an
          * `X-WebSocket-Reject-Reason` header.
          */
-        reject(httpStatus?: number, reason?: string);
+        reject(httpStatus?: number, reason?: string): void;
 
         // Events
-        on(event: string, listener: Function): request;
+        on(event: string, listener: () => void): request;
         on(event: 'requestAccepted', cb: (connection: connection) => void): request;
         on(event: 'requestRejected', cb: () => void): request;
-        addListener(event: string, listener: Function): request;
+        addListener(event: string, listener: () => void): request;
         addListener(event: 'requestAccepted', cb: (connection: connection) => void): request;
         addListener(event: 'requestRejected', cb: () => void): request;
+    }
+
+    export interface IMessage {
+        type: string;
+        utf8Data?: string;
+        binaryData?: NodeBuffer;
     }
 
     class connection extends events.EventEmitter {
@@ -249,7 +255,7 @@ declare module "websocket" {
         connected: boolean;
 
         constructor(socket: net.NodeSocket, extensions: any[], protocol: string,
-                    maskOutgoingPackets: boolean, config: ServerConfig);
+                    maskOutgoingPackets: boolean, config: IServerConfig);
 
         /**
          * Close the connection. A close frame will be sent to the remote peer indicating
@@ -257,36 +263,35 @@ declare module "websocket" {
          * `config.closeTimeout` milliseconds for an acknowledgment from the remote peer
          * before terminating the underlying socket connection.
          */
-        close();
+        close(): void;
 
         /**
          * Send a close frame to the remote peer and immediately close the socket without
          * waiting for a response. This should generally be used only in error conditions.
          */
-        drop(reasonCode?: number, description?: string);
+        drop(reasonCode?: number, description?: string): void;
 
         /**
          * Immediately sends the specified string as a UTF-8 WebSocket message to the remote
          * peer. If `config.fragmentOutgoingMessages` is true the message may be sent as
          * multiple fragments if it exceeds `config.fragmentationThreshold` bytes.
          */
-        sendUTF(data: {toString: (...args) => string});
-
+        sendUTF(data: {toString: (...args: any[]) => string}): void;
 
         /**
          * Immediately sends the specified Node Buffer object as a Binary WebSocket message
          * to the remote peer. If config.fragmentOutgoingMessages is true the message may be
          * sent as multiple fragments if it exceeds config.fragmentationThreshold bytes.
          */
-        sendBytes(buffer: NodeBuffer);
+        sendBytes(buffer: NodeBuffer): void;
 
         /** Auto-detect the data type and send UTF-8 or Binary message */
-        send(data: NodeBuffer);
-        send(data: {toString: (...args) => string});
+        send(data: NodeBuffer): void;
+        send(data: {toString: (...args: any[]) => string}): void;
 
         /** Sends a ping frame. Ping frames must not exceed 125 bytes in length. */
-        ping(data: NodeBuffer);
-        ping(data: {toString: (...args) => string});
+        ping(data: NodeBuffer): void;
+        ping(data: {toString: (...args: any[]) => string}): void;
 
         /**
          * Sends a pong frame. Pong frames may be sent unsolicited and such pong frames will
@@ -296,25 +301,23 @@ declare module "websocket" {
          * be no need to use this method to respond to pings.
          * Pong frames must not exceed 125 bytes in length.
          */
-        pong(buffer: NodeBuffer);
+        pong(buffer: NodeBuffer): void;
 
         /**
          * Serializes a `frame` object into binary data and immediately sends it to
          * the remote peer. This is an advanced function, requiring you to manually compose
          * your own `frame`. You should probably use sendUTF or sendBytes instead.
          */
-        sendFrame(frame: frame);
+        sendFrame(frame: frame): void;
 
         // Events
-        on(event: string, listener: Function): connection;
-        on(event: 'message', cb: (msg: {type: string; utf8Data?: string;
-                                        binaryData?: NodeBuffer}) => void): connection;
+        on(event: string, listener: () => void): connection;
+        on(event: 'message', cb: (data: IMessage) => void): connection;
         on(event: 'frame', cb: (frame: frame) => void): connection;
         on(event: 'close', cb: (code: number, desc: string) => void): connection;
         on(event: 'error', cb: (err: Error) => void): connection;
-        addListener(event: string, listener: Function): connection;
-        addListener(event: 'message', cb: (msg: {type: string; utf8Data?: string;
-                                                 binaryData?: NodeBuffer}) => void): connection;
+        addListener(event: string, listener: () => void): connection;
+        addListener(event: 'message', cb: (data: IMessage) => void): connection;
         addListener(event: 'frame', cb: (frame: frame) => void): connection;
         addListener(event: 'close', cb: (code: number, desc: string) => void): connection;
         addListener(event: 'error', cb: (err: Error) => void): connection;
@@ -375,7 +378,7 @@ declare module "websocket" {
         binaryPayload: NodeBuffer;
     }
 
-    export interface ClientConfig {
+    export interface IClientConfig {
         /**
          * Which version of the WebSocket protocol to use when making the connection.
          * Currently supported values are 8 and 13. This option will be removed once the
@@ -432,7 +435,7 @@ declare module "websocket" {
     }
 
     class client extends events.EventEmitter {
-        constructor(clientConfig?: ClientConfig);
+        constructor(clientConfig?: IClientConfig);
 
         /**
          * Establish a connection. The remote server will select the best subprotocol that
@@ -442,19 +445,22 @@ declare module "websocket" {
          *                 any scripting content that caused the connection to be requested.
          * @param requestUrl should be a standard websocket url
          */
-        connect(requestUrl: url.Url, protocols?: string[], origin?: string, headers?: any[]);
-        connect(requestUrl: string,  protocols?: string[], origin?: string, headers?: any[]);
-        connect(requestUrl: url.Url, protocols?: string,   origin?: string, headers?: any[]);
-        connect(requestUrl: string,  protocols?: string,   origin?: string, headers?: any[]);
+        connect(requestUrl: url.Url, protocols?: string[], origin?: string, headers?: any[]): void;
+        connect(requestUrl: string,  protocols?: string[], origin?: string, headers?: any[]): void;
+        connect(requestUrl: url.Url, protocols?: string,   origin?: string, headers?: any[]): void;
+        connect(requestUrl: string,  protocols?: string,   origin?: string, headers?: any[]): void;
 
         // Events
-        on(event: string, listener: Function): client;
+        on(event: string, listener: () => void): client;
         on(event: 'connect', cb: (connection: connection) => void): client;
         on(event: 'connectFailed', cb: (err: Error) => void): client;
-        addListener(event: string, listener: Function): client;
+        addListener(event: string, listener: () => void): client;
         addListener(event: 'connect', cb: (connection: connection) => void): client;
         addListener(event: 'connectFailed', cb: (err: Error) => void): client;
     }
 
     export var version: string;
+    export var constants: {
+        DEBUG: boolean;
+    };
 }
