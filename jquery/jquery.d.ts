@@ -342,9 +342,6 @@ interface JQueryParam {
 */
 interface JQueryStatic {
 
-    /****
-     AJAX
-    *****/
     /**
      * Perform an asynchronous HTTP (Ajax) request.
      *
