@@ -5,10 +5,6 @@
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare function Q<T>(promise: Q.IPromise<T>): Q.Promise<T>;
-declare function Q<T>(promise: JQueryPromise<T>): Q.Promise<T>;
-declare function Q<T>(value: T): Q.Promise<T>;
-
 declare module Q {
     interface IPromise<T> {
         then<U>(onFulfill: (value: T) => IPromise<U>, onReject?: (reason: any) => IPromise<U>): IPromise<U>;
@@ -54,7 +50,7 @@ declare module Q {
         fcall<U>(...args: any[]): Promise<U>;
 
         keys(): Promise<string[]>;
-        
+
         thenResolve<U>(value: U): Promise<U>;
         thenReject(reason: any): Promise<T>;
         timeout(ms: number, message?: string): Promise<T>;
@@ -74,88 +70,96 @@ declare module Q {
         value?: T;
         reason?: any;
     }
+}
+
+interface Q {
+    <T>(value: T): Q.Promise<T>;
+    <T>(promise: JQueryPromise<T>): Q.Promise<T>;
+    <T>(promise: Q.IPromise<T>): Q.Promise<T>;
 
     // if no fulfill, reject, or progress provided, returned promise will be of same type
-    export function when<T>(value: IPromise<T>): Promise<T>;
-    export function when<T>(value: T): Promise<T>;
+    when<T>(value: Q.IPromise<T>): Q.Promise<T>;
+    when<T>(value: T): Q.Promise<T>;
 
     // If a non-promise value is provided, it will not reject or progress
-    export function when<T, U>(value: T, onFulfilled: (val: T) => IPromise<U>): Promise<U>;
-    export function when<T, U>(value: T, onFulfilled: (val: T) => U): Promise<U>;
+    when<T, U>(value: T, onFulfilled: (val: T) => Q.IPromise<U>): Q.Promise<U>;
+    when<T, U>(value: T, onFulfilled: (val: T) => U): Q.Promise<U>;
 
-    export function when<T, U>(value: IPromise<T>, onFulfilled: (val: T) => IPromise<U>, onRejected?: (reason: any) => IPromise<U>, onProgress?: (progress: any) => any): Promise<U>;
-    export function when<T, U>(value: IPromise<T>, onFulfilled: (val: T) => IPromise<U>, onRejected?: (reason: any) => U, onProgress?: (progress: any) => any): Promise<U>;
-    export function when<T, U>(value: IPromise<T>, onFulfilled: (val: T) => U, onRejected?: (reason: any) => IPromise<U>, onProgress?: (progress: any) => any): Promise<U>;
-    export function when<T, U>(value: IPromise<T>, onFulfilled: (val: T) => U, onRejected?: (reason: any) => U, onProgress?: (progress: any) => any): Promise<U>;
-    
-    //export function try(method: Function, ...args: any[]): Promise<any>; // <- This is broken currently - not sure how to fix.
+    when<T, U>(value: Q.IPromise<T>, onFulfilled: (val: T) => Q.IPromise<U>, onRejected?: (reason: any) => Q.IPromise<U>, onProgress?: (progress: any) => any): Q.Promise<U>;
+    when<T, U>(value: Q.IPromise<T>, onFulfilled: (val: T) => Q.IPromise<U>, onRejected?: (reason: any) => U, onProgress?: (progress: any) => any): Q.Promise<U>;
+    when<T, U>(value: Q.IPromise<T>, onFulfilled: (val: T) => U, onRejected?: (reason: any) => Q.IPromise<U>, onProgress?: (progress: any) => any): Q.Promise<U>;
+    when<T, U>(value: Q.IPromise<T>, onFulfilled: (val: T) => U, onRejected?: (reason: any) => U, onProgress?: (progress: any) => any): Q.Promise<U>;
 
-    export function fbind<T>(method: (...args: any[]) => IPromise<T>, ...args: any[]): (...args: any[]) => Promise<T>;
-    export function fbind<T>(method: (...args: any[]) => T, ...args: any[]): (...args: any[]) => Promise<T>;
+    //try(method: Function, ...args: any[]): Q.Promise<any>; // <- This is broken currently - not sure how to fix.
 
-    export function fcall<T>(method: (...args: any[]) => T, ...args: any[]): Promise<T>;
+    fbind<T>(method: (...args: any[]) => Q.IPromise<T>, ...args: any[]): (...args: any[]) => Q.Promise<T>;
+    fbind<T>(method: (...args: any[]) => T, ...args: any[]): (...args: any[]) => Q.Promise<T>;
 
-    export function send<T>(obj: any, functionName: string, ...args: any[]): Promise<T>;
-    export function invoke<T>(obj: any, functionName: string, ...args: any[]): Promise<T>;
-    export function mcall<T>(obj: any, functionName: string, ...args: any[]): Promise<T>;
+    fcall<T>(method: (...args: any[]) => T, ...args: any[]): Q.Promise<T>;
 
-    export function nfbind<T>(nodeFunction: Function, ...args: any[]): (...args: any[]) => Promise<T>;
-    export function nfcall<T>(nodeFunction: Function, ...args: any[]): Promise<T>;
+    send<T>(obj: any, functionName: string, ...args: any[]): Q.Promise<T>;
+    invoke<T>(obj: any, functionName: string, ...args: any[]): Q.Promise<T>;
+    mcall<T>(obj: any, functionName: string, ...args: any[]): Q.Promise<T>;
 
-    export function ninvoke<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
-    export function nsend<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
-    export function nmcall<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
+    nfbind<T>(nodeFunction: Function, ...args: any[]): (...args: any[]) => Q.Promise<T>;
+    nfcall<T>(nodeFunction: Function, ...args: any[]): Q.Promise<T>;
 
-    export function all<T>(promises: any[]): Promise<T[]>;
-    export function all<T>(promises: IPromise<T>[]): Promise<T[]>;
-    
-    export function allSettled<T>(promises: any[]): Promise<PromiseState<T>[]>;
-    export function allSettled<T>(promises: IPromise<T>[]): Promise<PromiseState<T>[]>;
+    ninvoke<T>(nodeModule: any, functionName: string, ...args: any[]): Q.Promise<T>;
+    nsend<T>(nodeModule: any, functionName: string, ...args: any[]): Q.Promise<T>;
+    nmcall<T>(nodeModule: any, functionName: string, ...args: any[]): Q.Promise<T>;
 
-    export function allResolved<T>(promises: any[]): Promise<Promise<T>[]>;
-    export function allResolved<T>(promises: IPromise<T>[]): Promise<Promise<T>[]>;
+    all<T>(promises: any[]): Q.Promise<T[]>;
+    all<T>(promises: Q.IPromise<T>[]): Q.Promise<T[]>;
 
-    export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => IPromise<U>, onRejected: (reason: any) => IPromise<U>): Promise<U>;
-    export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => IPromise<U>, onRejected: (reason: any) => U): Promise<U>;
-    export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => U, onRejected: (reason: any) => IPromise<U>): Promise<U>;
-    export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => U, onRejected: (reason: any) => U): Promise<U>;
-    
-    export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => IPromise<U>, onRejected: (reason: any) => IPromise<U>): Promise<U>;
-    export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => IPromise<U>, onRejected: (reason: any) => U): Promise<U>;
-    export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => U, onRejected: (reason: any) => IPromise<U>): Promise<U>;
-    export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => U, onRejected: (reason: any) => U): Promise<U>;
-    
-    export function timeout<T>(promise: Promise<T>, ms: number, message?: string): Promise<T>;
+    allSettled<T>(promises: any[]): Q.Promise<Q.PromiseState<T>[]>;
+    allSettled<T>(promises: Q.IPromise<T>[]): Q.Promise<Q.PromiseState<T>[]>;
 
-    export function delay<T>(promise: Promise<T>, ms: number): Promise<T>;
-    export function delay<T>(value: T, ms: number): Promise<T>;
+    allResolved<T>(promises: any[]): Q.Promise<Q.Promise<T>[]>;
+    allResolved<T>(promises: Q.IPromise<T>[]): Q.Promise<Q.Promise<T>[]>;
 
-    export function isFulfilled(promise: Promise<any>): boolean;
-    export function isRejected(promise: Promise<any>): boolean;
-    export function isPending(promise: Promise<any>): boolean;
+    spread<U>(promises: any[], onFulfilled: (...args: any[]) => Q.IPromise<U>, onRejected: (reason: any) => Q.IPromise<U>): Q.Promise<U>;
+    spread<U>(promises: any[], onFulfilled: (...args: any[]) => Q.IPromise<U>, onRejected: (reason: any) => U): Q.Promise<U>;
+    spread<U>(promises: any[], onFulfilled: (...args: any[]) => U, onRejected: (reason: any) => Q.IPromise<U>): Q.Promise<U>;
+    spread<U>(promises: any[], onFulfilled: (...args: any[]) => U, onRejected: (reason: any) => U): Q.Promise<U>;
 
-    export function defer<T>(): Deferred<T>;
+    spread<T, U>(promises: Q.IPromise<T>[], onFulfilled: (...args: T[]) => Q.IPromise<U>, onRejected: (reason: any) => Q.IPromise<U>): Q.Promise<U>;
+    spread<T, U>(promises: Q.IPromise<T>[], onFulfilled: (...args: T[]) => Q.IPromise<U>, onRejected: (reason: any) => U): Q.Promise<U>;
+    spread<T, U>(promises: Q.IPromise<T>[], onFulfilled: (...args: T[]) => U, onRejected: (reason: any) => Q.IPromise<U>): Q.Promise<U>;
+    spread<T, U>(promises: Q.IPromise<T>[], onFulfilled: (...args: T[]) => U, onRejected: (reason: any) => U): Q.Promise<U>;
 
-    export function reject(reason?: any): Promise<any>;
+    timeout<T>(promise: Q.Promise<T>, ms: number, message?: string): Q.Promise<T>;
 
-    export function promise<T>(resolver: (resolve: (val: IPromise<T>) => void , reject: (reason: any) => void , notify: (progress: any) => void ) => void ): Promise<T>;
-    export function promise<T>(resolver: (resolve: (val: T) => void , reject: (reason: any) => void , notify: (progress: any) => void ) => void ): Promise<T>;
+    delay<T>(promise: Q.Promise<T>, ms: number): Q.Promise<T>;
+    delay<T>(value: T, ms: number): Q.Promise<T>;
 
-    export function promised<T>(callback: (...args: any[]) => T): (...args: any[]) => Promise<T>;
+    isFulfilled(promise: Q.Promise<any>): boolean;
+    isRejected(promise: Q.Promise<any>): boolean;
+    isPending(promise: Q.Promise<any>): boolean;
 
-    export function isPromise(object: any): boolean;
-    export function isPromiseAlike(object: any): boolean;
-    export function isPending(object: any): boolean;
+    defer<T>(): Q.Deferred<T>;
 
-    export function async<T>(generatorFunction: any): (...args: any[]) => Promise<T>;
-    export function nextTick(callback: Function): void;
+    reject(reason?: any): Q.Promise<any>;
 
-    export var onerror: (reason: any) => void;
-    export var longStackSupport: boolean;
+    promise<T>(resolver: (resolve: (val: Q.IPromise<T>) => void, reject: (reason: any) => void, notify: (progress: any) => void) => void): Q.Promise<T>;
+    promise<T>(resolver: (resolve: (val: T) => void, reject: (reason: any) => void, notify: (progress: any) => void) => void): Q.Promise<T>;
 
-    export function resolve<T>(object: IPromise<T>): Promise<T>;
-    export function resolve<T>(object: T): Promise<T>;
+    promised<T>(callback: (...args: any[]) => T): (...args: any[]) => Q.Promise<T>;
+
+    isPromise(object: any): boolean;
+    isPromiseAlike(object: any): boolean;
+    isPending(object: any): boolean;
+
+    async<T>(generatorFunction: any): (...args: any[]) => Q.Promise<T>;
+    nextTick(callback: Function): void;
+
+    onerror: (reason: any) => void;
+    longStackSupport: boolean;
+
+    resolve<T>(object: Q.IPromise<T>): Q.Promise<T>;
+    resolve<T>(object: T): Q.Promise<T>;
 }
+
+declare var Q: Q;
 
 declare module "q" {
     export = Q;
