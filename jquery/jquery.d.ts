@@ -345,11 +345,33 @@ interface JQueryStatic {
     /****
      AJAX
     *****/
+    /**
+     * Perform an asynchronous HTTP (Ajax) request.
+     *
+     * @param settings A set of key/value pairs that configure the Ajax request. All settings are optional. A default can be set for any option with $.ajaxSetup().
+     */
     ajax(settings: JQueryAjaxSettings): JQueryXHR;
+     /**
+      * Perform an asynchronous HTTP (Ajax) request.
+      *
+      * @param url A string containing the URL to which the request is sent.
+      * @param settings A set of key/value pairs that configure the Ajax request. All settings are optional. A default can be set for any option with $.ajaxSetup().
+      */
     ajax(url: string, settings?: JQueryAjaxSettings): JQueryXHR;
 
-    ajaxPrefilter(dataTypes: string, handler: (opts: any, originalOpts: any, jqXHR: JQueryXHR) => any): any;
-    ajaxPrefilter(handler: (opts: any, originalOpts: any, jqXHR: JQueryXHR) => any): any;
+     /**
+      * Handle custom Ajax options or modify existing options before each request is sent and before they are processed by $.ajax().
+      *
+      * @param dataTypes An optional string containing one or more space-separated dataTypes
+      * @param handler A handler to set default values for future Ajax requests.
+      */
+    ajaxPrefilter(dataTypes: string, handler: (opts: any, originalOpts: JQueryAjaxSettings, jqXHR: JQueryXHR) => any): void;
+     /**
+      * Handle custom Ajax options or modify existing options before each request is sent and before they are processed by $.ajax().
+      *
+      * @param handler A handler to set default values for future Ajax requests.
+      */
+    ajaxPrefilter(handler: (opts: any, originalOpts: JQueryAjaxSettings, jqXHR: JQueryXHR) => any): void;
 
     ajaxSettings: JQueryAjaxSettings;
 
@@ -469,8 +491,12 @@ interface JQueryStatic {
 
     parseJSON(json: string): any;
 
-    //FIXME: This should return an XMLDocument
-    parseXML(data: string): any;
+    /**
+     * Parses a string into an XML document.
+     *
+     * @param dataa well-formed XML string to be parsed
+     */
+    parseXML(data: string): XMLDocument;
 
     queue(element: Element, queueName: string, newQueue: any[]): JQuery;
 
@@ -481,12 +507,12 @@ interface JQueryStatic {
     unique(arr: any[]): any[];
 
     /**
-    * Parses a string into an array of DOM nodes.
-    *
-    * @param data HTML string to be parsed
-    * @param context DOM element to serve as the context in which the HTML fragment will be created
-    * @param keepScripts A Boolean indicating whether to include scripts passed in the HTML string
-    */
+     * Parses a string into an array of DOM nodes.
+     *
+     * @param data HTML string to be parsed
+     * @param context DOM element to serve as the context in which the HTML fragment will be created
+     * @param keepScripts A Boolean indicating whether to include scripts passed in the HTML string
+     */
     parseHTML(data: string, context?: HTMLElement, keepScripts?: boolean): any[];
 
     Animation(elem: any, properties: any, options: any): any;
