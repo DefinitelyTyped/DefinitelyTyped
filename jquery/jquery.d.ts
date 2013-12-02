@@ -745,7 +745,7 @@ interface JQuery {
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
      */
-    focusin(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    focusin(eventData: Object, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
     /**
      * Bind an event handler to the "focusout" JavaScript event
@@ -759,7 +759,7 @@ interface JQuery {
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
      */
-    focusout(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    focusout(eventData: Object, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
     /**
      * Bind two handlers to the matched elements, to be executed when the mouse pointer enters and leaves the elements.
@@ -859,7 +859,7 @@ interface JQuery {
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute when the event is triggered.
      */
-    mousedown(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mousedown(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
     /**
      * Trigger the "mouseenter" event on an element.
@@ -877,7 +877,7 @@ interface JQuery {
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute when the event is triggered.
      */
-    mouseenter(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseenter(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
     /**
      * Trigger the "mouseleave" event on an element.
@@ -895,7 +895,7 @@ interface JQuery {
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute when the event is triggered.
      */
-    mouseleave(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseleave(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
     /**
      * Trigger the "mousemove" event on an element.
@@ -913,7 +913,7 @@ interface JQuery {
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute when the event is triggered.
      */
-    mousemove(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mousemove(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
     /**
      * Trigger the "mouseout" event on an element.
@@ -931,7 +931,7 @@ interface JQuery {
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute when the event is triggered.
      */
-    mouseout(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseout(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
     /**
      * Trigger the "mouseover" event on an element.
@@ -949,7 +949,7 @@ interface JQuery {
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute when the event is triggered.
      */
-    mouseover(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseover(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
     /**
      * Trigger the "mouseup" event on an element.
@@ -967,7 +967,7 @@ interface JQuery {
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute when the event is triggered.
      */
-    mouseup(eventData: any, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseup(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
 
     /**
      * Remove an event handler.
@@ -1073,14 +1073,59 @@ interface JQuery {
      */
     ready(handler: Function): JQuery;
 
+    /**
+     * Trigger the "resize" event on an element.
+     */
+    resize(): JQuery;
+    /**
+     * Bind an event handler to the "resize" JavaScript event.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     */
     resize(handler: (eventObject: JQueryEventObject) => any): JQuery;
-    resize(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "resize" JavaScript event.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     */
+    resize(eventData: Object, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
+    /**
+     * Trigger the "scroll" event on an element.
+     */
+    scroll(): JQuery;
+    /**
+     * Bind an event handler to the "scroll" JavaScript event.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     */
     scroll(handler: (eventObject: JQueryEventObject) => any): JQuery;
-    scroll(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "scroll" JavaScript event.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     */
+    scroll(eventData: Object, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
+    /**
+     * Trigger the "select" event on an element.
+     */
+    select(): JQuery;
+    /**
+     * Bind an event handler to the "select" JavaScript event.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     */
     select(handler: (eventObject: JQueryEventObject) => any): JQuery;
-    select(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "select" JavaScript event.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     */
+    select(eventData: Object, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
     /**
      * Trigger the "submit" event on an element.

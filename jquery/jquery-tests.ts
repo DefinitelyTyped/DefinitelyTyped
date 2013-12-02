@@ -2001,6 +2001,36 @@ function test_keyup() {
     });
 }
 
+function test_resize() {
+	$('#other').resize();
+    $('#other').resize(function () {
+        alert('Handler for .resize() called.');
+    });
+    $('#other').resize({ "event": "Data" }, function () {
+        alert('Handler for .resize() called.');
+    });
+}
+
+function test_scroll() {
+	$('#other').scroll();
+    $('#other').scroll(function () {
+        alert('Handler for .scroll() called.');
+    });
+    $('#other').scroll({ "event": "Data" }, function () {
+        alert('Handler for .scroll() called.');
+    });
+}
+
+function test_select() {
+	$('#other').select();
+    $('#other').select(function () {
+        alert('Handler for .select() called.');
+    });
+    $('#other').select({ "event": "Data" }, function () {
+        alert('Handler for .select() called.');
+    });
+}
+
 function test_last() {
     $('li').last().css('background-color', 'red');
     $("p span").last().addClass('highlight');
