@@ -217,9 +217,9 @@ interface JQueryPromise<T> {
 
     // Because JQuery Promises Suck
     then<U>(onFulfill: (...values: any[]) => U, onReject?: (...reasons: any[]) => U, onProgress?: (...progression: any[]) => any): JQueryPromise<U>;
-	then<U>(onFulfill: (...values: any[]) => JQueryGenericPromise<U>, onReject?: (...reasons: any[]) => U, onProgress?: (...progression: any[]) => any): JQueryPromise<U>;
-	then<U>(onFulfill: (...values: any[]) => U, onReject?: (...reasons: any[]) => JQueryGenericPromise<U>, onProgress?: (...progression: any[]) => any): JQueryPromise<U>;
-	then<U>(onFulfill: (...values: any[]) => JQueryGenericPromise<U>, onReject?: (...reasons: any[]) => JQueryGenericPromise<U>, onProgress?: (...progression: any[]) => any): JQueryPromise<U>;
+    then<U>(onFulfill: (...values: any[]) => JQueryGenericPromise<U>, onReject?: (...reasons: any[]) => U, onProgress?: (...progression: any[]) => any): JQueryPromise<U>;
+    then<U>(onFulfill: (...values: any[]) => U, onReject?: (...reasons: any[]) => JQueryGenericPromise<U>, onProgress?: (...progression: any[]) => any): JQueryPromise<U>;
+    then<U>(onFulfill: (...values: any[]) => JQueryGenericPromise<U>, onReject?: (...reasons: any[]) => JQueryGenericPromise<U>, onProgress?: (...progression: any[]) => any): JQueryPromise<U>;
 }
 
 /*
@@ -400,9 +400,9 @@ interface JQueryStatic {
 
     noConflict(removeAll?: boolean): Object;
 
-	when<T>(...deferreds: JQueryGenericPromise<T>[]): JQueryPromise<T>;
-	when<T>(...deferreds: T[]): JQueryPromise<T>;
-	when<T>(...deferreds: any[]): JQueryPromise<T>;
+    when<T>(...deferreds: JQueryGenericPromise<T>[]): JQueryPromise<T>;
+    when<T>(...deferreds: T[]): JQueryPromise<T>;
+    when<T>(...deferreds: any[]): JQueryPromise<T>;
 
     // CSS
     css(e: any, propertyName: string, value?: any): any;
