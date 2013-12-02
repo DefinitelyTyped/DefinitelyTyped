@@ -48,7 +48,7 @@ declare module Ix {
 
 		startWith(...values: T[]): Enumerable<T>;
 
-		scan<TSeed, TAccumulator>(seed: TSeed, accumulate: (acc: TAccumulator, item: T) => TAccumulator): Enumerable<TAccumulator>;
+		scan<TAccumulate>(seed: TAccumulate, accumulate: (acc: TAccumulate, item: T) => TAccumulate): Enumerable<TAccumulate>;
 		scan(accumulate: (acc: T, item: T) => T): Enumerable<T>;
 
 		takeLast(count: number): Enumerable<T>;
