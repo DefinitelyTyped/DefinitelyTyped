@@ -438,13 +438,46 @@ interface JQueryStatic {
 
     param: JQueryParam;
 
-    post(url: string, data?: any, success?: any, dataType?: any): JQueryXHR;
+    /**
+     * Load data from the server using a HTTP POST request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param success A callback function that is executed if the request succeeds. Required if dataType is provided, but can be null in that case.
+     * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
+     */
+    post(url: string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
+    /**
+     * Load data from the server using a HTTP POST request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param data A plain object or string that is sent to the server with the request.
+     * @param success A callback function that is executed if the request succeeds. Required if dataType is provided, but can be null in that case.
+     * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
+     */
+    post(url: string, data?: Object, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
+    /**
+     * Load data from the server using a HTTP POST request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param data A plain object or string that is sent to the server with the request.
+     * @param success A callback function that is executed if the request succeeds. Required if dataType is provided, but can be null in that case.
+     * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
+     */
+    post(url: string, data?: string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
 
-    // Callbacks
+    /**
+     * A multi-purpose callbacks list object that provides a powerful way to manage callback lists.
+     *
+     * @param flags An optional list of space-separated flags that change how the callback list behaves.
+     */
     Callbacks(flags?: string): JQueryCallback;
 
-    // Core
-    holdReady(hold: boolean): any;
+    /**
+     * Holds or releases the execution of jQuery's ready event.
+     *
+     * @param hold Indicates whether the ready hold is being requested or released
+     */
+    holdReady(hold: boolean): void;
 
     (selector: string, context?: any): JQuery;
     (element: Element): JQuery;
@@ -455,6 +488,11 @@ interface JQueryStatic {
     (array: any[]): JQuery;
     (): JQuery;
 
+    /**
+     * Relinquish jQuery's control of the $ variable.
+     *
+     * @param removeAll A Boolean indicating whether to remove all jQuery variables from the global scope (including jQuery itself).
+     */
     noConflict(removeAll?: boolean): Object;
 
     when<T>(...deferreds: JQueryGenericPromise<T>[]): JQueryPromise<T>;
