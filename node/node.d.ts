@@ -599,8 +599,19 @@ declare module "url" {
         slashes: boolean;
     }
 
+    export interface UrlOptions {
+        protocol?: string;
+        auth?: string;
+        hostname?: string;
+        port?: string;
+        host?: string;
+        pathname?: string;
+        search?: string;
+        query?: any;
+    }
+
     export function parse(urlStr: string, parseQueryString?: boolean , slashesDenoteHost?: boolean ): Url;
-    export function format(url: Url): string;
+    export function format(url: UrlOptions): string;
     export function resolve(from: string, to: string): string;
 }
 
