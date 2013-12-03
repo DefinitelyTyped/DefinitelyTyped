@@ -463,8 +463,8 @@ declare module JQueryUI {
     interface SortableOptions {
         appendTo?: any; // jQuery, Element, Selector or string
         axis?: string;
-        cancel?: string;
-        connectWith?: string;
+        cancel?: any; // Selector
+        connectWith?: any; // Selector
         containment?: any; // Element, Selector or string
         cursor?: string;
         cursorAt?: any;
