@@ -4,6 +4,7 @@ import assert = require("assert");
 import fs = require("fs");
 import events = require("events");
 import zlib = require("zlib");
+import url = require('url');
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -38,6 +39,18 @@ class Networker extends events.EventEmitter {
         this.emit("mingling");
     }
 }
+
+url.format(url.parse('http://www.example.com/xyz'));
+
+// https://google.com/search?q=you're%20a%20lizard%2C%20gary
+url.format({
+    protocol: 'https', 
+    host: "google.com", 
+    pathname: 'search', 
+    query: { q: "you're a lizard, gary" }
+});
+
+
 
 ////////////////////////////////////////////////////
 /// Stream tests : http://nodejs.org/api/stream.html
