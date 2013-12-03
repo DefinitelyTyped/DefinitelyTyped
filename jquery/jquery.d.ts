@@ -348,46 +348,136 @@ interface JQueryStatic {
      * @param settings A set of key/value pairs that configure the Ajax request. All settings are optional. A default can be set for any option with $.ajaxSetup().
      */
     ajax(settings: JQueryAjaxSettings): JQueryXHR;
-     /**
-      * Perform an asynchronous HTTP (Ajax) request.
-      *
-      * @param url A string containing the URL to which the request is sent.
-      * @param settings A set of key/value pairs that configure the Ajax request. All settings are optional. A default can be set for any option with $.ajaxSetup().
-      */
+    /**
+     * Perform an asynchronous HTTP (Ajax) request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param settings A set of key/value pairs that configure the Ajax request. All settings are optional. A default can be set for any option with $.ajaxSetup().
+     */
     ajax(url: string, settings?: JQueryAjaxSettings): JQueryXHR;
 
-     /**
-      * Handle custom Ajax options or modify existing options before each request is sent and before they are processed by $.ajax().
-      *
-      * @param dataTypes An optional string containing one or more space-separated dataTypes
-      * @param handler A handler to set default values for future Ajax requests.
-      */
+    /**
+     * Handle custom Ajax options or modify existing options before each request is sent and before they are processed by $.ajax().
+     *
+     * @param dataTypes An optional string containing one or more space-separated dataTypes
+     * @param handler A handler to set default values for future Ajax requests.
+     */
     ajaxPrefilter(dataTypes: string, handler: (opts: any, originalOpts: JQueryAjaxSettings, jqXHR: JQueryXHR) => any): void;
-     /**
-      * Handle custom Ajax options or modify existing options before each request is sent and before they are processed by $.ajax().
-      *
-      * @param handler A handler to set default values for future Ajax requests.
-      */
+    /**
+     * Handle custom Ajax options or modify existing options before each request is sent and before they are processed by $.ajax().
+     *
+     * @param handler A handler to set default values for future Ajax requests.
+     */
     ajaxPrefilter(handler: (opts: any, originalOpts: JQueryAjaxSettings, jqXHR: JQueryXHR) => any): void;
 
     ajaxSettings: JQueryAjaxSettings;
 
-    ajaxSetup(): void;
+     /**
+      * Set default values for future Ajax requests. Its use is not recommended.
+      *
+      * @param options A set of key/value pairs that configure the default Ajax request. All options are optional.
+      */
     ajaxSetup(options: JQueryAjaxSettings): void;
 
-    get(url: string, data?: any, success?: any, dataType?: any): JQueryXHR;
-    getJSON(url: string, data?: any, success?: any): JQueryXHR;
-    getScript(url: string, success?: any): JQueryXHR;
+    /**
+     * Load data from the server using a HTTP GET request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param success A callback function that is executed if the request succeeds.
+     * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, or html).
+     */
+    get(url: string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
+    /**
+     * Load data from the server using a HTTP GET request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param data A plain object or string that is sent to the server with the request.
+     * @param success A callback function that is executed if the request succeeds.
+     * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, or html).
+     */
+    get(url: string, data?: Object, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
+    /**
+     * Load data from the server using a HTTP GET request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param data A plain object or string that is sent to the server with the request.
+     * @param success A callback function that is executed if the request succeeds.
+     * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, or html).
+     */
+    get(url: string, data?: string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
+    /**
+     * Load JSON-encoded data from the server using a GET HTTP request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param success A callback function that is executed if the request succeeds.
+     */
+    getJSON(url: string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any): JQueryXHR;
+    /**
+     * Load JSON-encoded data from the server using a GET HTTP request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param data A plain object or string that is sent to the server with the request.
+     * @param success A callback function that is executed if the request succeeds.
+     */
+    getJSON(url: string, data?: Object, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any): JQueryXHR;
+    /**
+     * Load JSON-encoded data from the server using a GET HTTP request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param data A plain object or string that is sent to the server with the request.
+     * @param success A callback function that is executed if the request succeeds.
+     */
+    getJSON(url: string, data?: string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any): JQueryXHR;
+    /**
+     * Load a JavaScript file from the server using a GET HTTP request, then execute it.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param success A callback function that is executed if the request succeeds.
+     */
+    getScript(url: string, success?: (script: string, textStatus: string, jqXHR: JQueryXHR) => any): JQueryXHR;
 
     param: JQueryParam;
 
-    post(url: string, data?: any, success?: any, dataType?: any): JQueryXHR;
+    /**
+     * Load data from the server using a HTTP POST request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param success A callback function that is executed if the request succeeds. Required if dataType is provided, but can be null in that case.
+     * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
+     */
+    post(url: string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
+    /**
+     * Load data from the server using a HTTP POST request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param data A plain object or string that is sent to the server with the request.
+     * @param success A callback function that is executed if the request succeeds. Required if dataType is provided, but can be null in that case.
+     * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
+     */
+    post(url: string, data?: Object, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
+    /**
+     * Load data from the server using a HTTP POST request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param data A plain object or string that is sent to the server with the request.
+     * @param success A callback function that is executed if the request succeeds. Required if dataType is provided, but can be null in that case.
+     * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
+     */
+    post(url: string, data?: string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
 
-    // Callbacks
+    /**
+     * A multi-purpose callbacks list object that provides a powerful way to manage callback lists.
+     *
+     * @param flags An optional list of space-separated flags that change how the callback list behaves.
+     */
     Callbacks(flags?: string): JQueryCallback;
 
-    // Core
-    holdReady(hold: boolean): any;
+    /**
+     * Holds or releases the execution of jQuery's ready event.
+     *
+     * @param hold Indicates whether the ready hold is being requested or released
+     */
+    holdReady(hold: boolean): void;
 
     (selector: string, context?: any): JQuery;
     (element: Element): JQuery;
@@ -398,6 +488,11 @@ interface JQueryStatic {
     (array: any[]): JQuery;
     (): JQuery;
 
+    /**
+     * Relinquish jQuery's control of the $ variable.
+     *
+     * @param removeAll A Boolean indicating whether to remove all jQuery variables from the global scope (including jQuery itself).
+     */
     noConflict(removeAll?: boolean): Object;
 
     when<T>(...deferreds: JQueryGenericPromise<T>[]): JQueryPromise<T>;
