@@ -383,11 +383,10 @@ interface JQueryStatic {
      * Load data from the server using a HTTP GET request.
      *
      * @param url A string containing the URL to which the request is sent.
-     * @param data A plain object or string that is sent to the server with the request.
      * @param success A callback function that is executed if the request succeeds.
      * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, or html).
      */
-    get(url: string, data?: Object, success?: (data: string, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
+    get(url: string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
     /**
      * Load data from the server using a HTTP GET request.
      *
@@ -396,7 +395,23 @@ interface JQueryStatic {
      * @param success A callback function that is executed if the request succeeds.
      * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, or html).
      */
-    get(url: string, data?: string, success?: (data: string, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
+    get(url: string, data?: Object, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
+    /**
+     * Load data from the server using a HTTP GET request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param data A plain object or string that is sent to the server with the request.
+     * @param success A callback function that is executed if the request succeeds.
+     * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, or html).
+     */
+    get(url: string, data?: string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
+    /**
+     * Load JSON-encoded data from the server using a GET HTTP request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param success A callback function that is executed if the request succeeds.
+     */
+    getJSON(url: string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any): JQueryXHR;
     /**
      * Load JSON-encoded data from the server using a GET HTTP request.
      *
@@ -404,7 +419,7 @@ interface JQueryStatic {
      * @param data A plain object or string that is sent to the server with the request.
      * @param success A callback function that is executed if the request succeeds.
      */
-    getJSON(url: string, data?: Object, success?: (data: string, textStatus: string, jqXHR: JQueryXHR) => any): JQueryXHR;
+    getJSON(url: string, data?: Object, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any): JQueryXHR;
     /**
      * Load JSON-encoded data from the server using a GET HTTP request.
      *
@@ -412,7 +427,7 @@ interface JQueryStatic {
      * @param data A plain object or string that is sent to the server with the request.
      * @param success A callback function that is executed if the request succeeds.
      */
-    getJSON(url: string, data?: string, success?: (data: string, textStatus: string, jqXHR: JQueryXHR) => any): JQueryXHR;
+    getJSON(url: string, data?: string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any): JQueryXHR;
     /**
      * Load a JavaScript file from the server using a GET HTTP request, then execute it.
      *
