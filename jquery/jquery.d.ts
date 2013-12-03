@@ -337,6 +337,18 @@ interface JQueryParam {
     (obj: any, traditional: boolean): string;
 }
 
+/**
+ * The interface used to construct jQuery events (with $.Event). It is
+ * defined separately instead of inline in JQueryStatic to allow
+ * overriding the construction function with specific strings
+ * returning specific event objects.
+ */
+interface JQueryEventConstructor {
+    (name: string, eventProperties?: any): JQueryEventObject;
+    new (name: string, eventProperties?: any): JQueryEventObject;
+}
+
+
 /*
     Static members of jQuery (those on $ and jQuery themselves)
 */
@@ -434,10 +446,7 @@ interface JQueryStatic {
     proxy(fn: (...args: any[]) => any, context: any, ...args: any[]): any;
     proxy(context: any, name: string, ...args: any[]): any;
 
-    Event: {
-        (name: string, eventProperties?: any): JQueryEventObject;
-        new (name: string, eventProperties?: any): JQueryEventObject;
-    };
+    Event: JQueryEventConstructor;
 
     // Internals
     error(message: any): JQuery;
