@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface Route {
-    constructor(path: string, name: string);
+    constructor(path: string, name: string): Route;
     addHandler(fn: Function): void;
     removeHandler(fn: Function): void;
     run(params: any): void;
