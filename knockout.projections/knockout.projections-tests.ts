@@ -1,6 +1,4 @@
-// Type definitions for knockout-projections 1.0.0
-// Project: https://github.com/stevesanderson/knockout-projections
-// Definitions by: John Reilly <https://github.com/johnnyreilly>
+// Tests for knockout.projections.d.ts
 
 /// <reference path="../knockout/knockout.d.ts" />
 /// <reference path="knockout.projections.d.ts" />
