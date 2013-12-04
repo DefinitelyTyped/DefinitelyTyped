@@ -27,6 +27,7 @@ Other means to get the definitions
 List of Definitions
 -------------------
 * [Ace Cloud9 Editor](http://ace.ajax.org/) (by [Diullei Gomes](https://github.com/Diullei))
+* [Add To Home Screen] (http://cubiq.org/add-to-home-screen) (by [James Wilkins] (http://www.codeplex.com/site/users/view/jamesnw))
 * [AmCharts](http://www.amcharts.com/) (by [Covobonomo](https://github.com/covobonomo/))
 * [AngularJS](http://angularjs.org) (by [Diego Vilar](https://github.com/diegovilar)) ([wiki](https://github.com/borisyankov/DefinitelyTyped/wiki/AngularJS-Definitions-Usage-Notes))
 * [Arbiter](http://arbiterjs.com/) (by [Arash Shakery](https://github.com/arash16))
