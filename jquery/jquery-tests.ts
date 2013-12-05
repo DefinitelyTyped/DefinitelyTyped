@@ -889,6 +889,8 @@ function test_data() {
     jQuery.data(div, "test", { first: 16, last: "pizza!" });
     $("span:first").text(jQuery.data(div, "test").first);
     $("span:last").text(jQuery.data(div, "test").last);
+    $.data(document.getElementById("id"), "", 8).toFixed(2);
+    $.data(document.getElementById("id"), "", "8").toUpperCase();
 }
 
 function test_dblclick() {
