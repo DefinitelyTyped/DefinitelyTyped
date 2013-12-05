@@ -715,6 +715,20 @@ interface JQuery {
      * Set one or more CSS properties for the set of matched elements.
      *
      * @param propertyName A CSS property name.
+     * @param value A value to set for the property.
+     */
+    css(propertyName: string, value: string[]): JQuery;
+    /**
+     * Set one or more CSS properties for the set of matched elements.
+     *
+     * @param propertyName A CSS property name.
+     * @param value A value to set for the property.
+     */
+    css(propertyName: string, value: number[]): JQuery;
+    /**
+     * Set one or more CSS properties for the set of matched elements.
+     *
+     * @param propertyName A CSS property name.
      * @param value A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
      */
     css(propertyName: string, value: (index: number, value: string) => string): JQuery;
