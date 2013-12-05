@@ -647,8 +647,8 @@ interface JQuery {
 
     attr(attributeName: string): string;
     attr(attributeName: string, value: any): JQuery;
-    attr(map: { [key: string]: any; }): JQuery;
     attr(attributeName: string, func: (index: any, attr: any) => any): JQuery;
+    attr(map: any): JQuery;
 
     hasClass(className: string): boolean;
 
