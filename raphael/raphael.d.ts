@@ -53,7 +53,7 @@ interface RaphaelElement {
     mouseover(handler: Function): RaphaelElement;
     mouseup(handler: Function): RaphaelElement;
     next: RaphaelElement;
-    node: Element;
+    node: SVGElement;
     onDragOver(f: Function): RaphaelElement;
     paper: RaphaelPaper;
     pause(anim?: RaphaelAnimation): RaphaelElement;
@@ -195,10 +195,10 @@ interface RaphaelMatrix {
 interface RaphaelPaper {
     add(JSON): RaphaelSet;
     bottom: RaphaelElement;
-    canvas: Element;
+    canvas: SVGSVGElement;
     circle(x: number, y: number, r: number): RaphaelElement;
     clear();
-    defs: Element;
+    defs: SVGDefsElement;
     ellipse(x: number, y: number, rx: number, ry: number): RaphaelElement;
     forEach(callback: number, thisArg: any): RaphaelStatic;
     getById(id: number): RaphaelElement;
