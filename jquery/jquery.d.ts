@@ -1111,6 +1111,13 @@ interface JQuery {
     /**
      * Remove an event handler.
      *
+     * @param events One or more space-separated event types and optional namespaces, or just namespaces, such as "click", "keydown.myPlugin", or ".myPlugin".
+     * @param handler A handler function previously attached for the event(s), or the special value false.
+     */
+    off(events: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Remove an event handler.
+     *
      * @param events An object where the string keys represent one or more space-separated event types and optional namespaces, and the values represent handler functions previously attached for the event(s).
      * @param selector A selector which should match the one originally passed to .on() when attaching event handlers.
      */
