@@ -529,9 +529,26 @@ interface JQueryStatic {
     cssHooks: { [key: string]: any; };
     cssNumber: any;
 
-    // Data
-    data(element: Element, key: string, value: any): any;
+    /**
+     * Store arbitrary data associated with the specified element. Returns the value that was set.
+     *
+     * @param element The DOM element to associate with the data.
+     * @param key A string naming the piece of data to set.
+     * @param value The new data value.
+     */
+    data<T>(element: Element, key: string, value: T): T;
+    /**
+     * Returns value at named data store for the element, as set by jQuery.data(element, name, value), or the full data store for the element.
+     *
+     * @param element The DOM element to associate with the data.
+     * @param key A string naming the piece of data to set.
+     */
     data(element: Element, key: string): any;
+    /**
+     * Returns value at named data store for the element, as set by jQuery.data(element, name, value), or the full data store for the element.
+     *
+     * @param element The DOM element to associate with the data.
+     */
     data(element: Element): any;
 
     dequeue(element: Element, queueName?: string): any;
