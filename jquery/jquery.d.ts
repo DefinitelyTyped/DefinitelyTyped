@@ -507,13 +507,25 @@ interface JQueryStatic {
      */
     noConflict(removeAll?: boolean): Object;
 
+    /**
+     * Provides a way to execute callback functions based on one or more objects, usually Deferred objects that represent asynchronous events.
+     *
+     * @param deferreds One or more Deferred objects, or plain JavaScript objects.
+     */
     when<T>(...deferreds: JQueryGenericPromise<T>[]): JQueryPromise<T>;
+    /**
+     * Provides a way to execute callback functions based on one or more objects, usually Deferred objects that represent asynchronous events.
+     *
+     * @param deferreds One or more Deferred objects, or plain JavaScript objects.
+     */
     when<T>(...deferreds: T[]): JQueryPromise<T>;
+    /**
+     * Provides a way to execute callback functions based on one or more objects, usually Deferred objects that represent asynchronous events.
+     *
+     * @param deferreds One or more Deferred objects, or plain JavaScript objects.
+     */
     when<T>(...deferreds: any[]): JQueryPromise<T>;
 
-    // CSS
-    css(e: any, propertyName: string, value?: any): any;
-    css(e: any, propertyName: any, value?: any): any;
     cssHooks: { [key: string]: any; };
     cssNumber: any;
 
@@ -679,12 +691,60 @@ interface JQuery {
     val(value: number): JQuery;
     val(func: (index: any, value: any) => any): JQuery;
 
-    // CSS
+    /**
+     * Get the value of style properties for the first element in the set of matched elements.
+     *
+     * @param propertyName A CSS property.
+     */
     css(propertyName: string): string;
-    css(propertyNames: string[]): string;
-    css(properties: any): JQuery;
-    css(propertyName: string, value: any): JQuery;
-    css(propertyName: any, value: any): JQuery;
+    /**
+     * Set one or more CSS properties for the set of matched elements.
+     *
+     * @param propertyName A CSS property name.
+     * @param value A value to set for the property.
+     */
+    css(propertyName: string, value: string): JQuery;
+    /**
+     * Set one or more CSS properties for the set of matched elements.
+     *
+     * @param propertyName A CSS property name.
+     * @param value A value to set for the property.
+     */
+    css(propertyName: string, value: number): JQuery;
+    /**
+     * Set one or more CSS properties for the set of matched elements.
+     *
+     * @param propertyName A CSS property name.
+     * @param value A value to set for the property.
+     */
+    css(propertyName: string, value: string[]): JQuery;
+    /**
+     * Set one or more CSS properties for the set of matched elements.
+     *
+     * @param propertyName A CSS property name.
+     * @param value A value to set for the property.
+     */
+    css(propertyName: string, value: number[]): JQuery;
+    /**
+     * Set one or more CSS properties for the set of matched elements.
+     *
+     * @param propertyName A CSS property name.
+     * @param value A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+     */
+    css(propertyName: string, value: (index: number, value: string) => string): JQuery;
+    /**
+     * Set one or more CSS properties for the set of matched elements.
+     *
+     * @param propertyName A CSS property name.
+     * @param value A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+     */
+    css(propertyName: string, value: (index: number, value: number) => number): JQuery;
+    /**
+     * Set one or more CSS properties for the set of matched elements.
+     *
+     * @param properties An object of property-value pairs to set.
+     */
+    css(properties: Object): JQuery;
 
     height(): number;
     height(value: number): JQuery;
