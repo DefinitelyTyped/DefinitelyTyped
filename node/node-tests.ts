@@ -5,6 +5,7 @@ import fs = require("fs");
 import events = require("events");
 import zlib = require("zlib");
 import url = require('url');
+import util = require("util");
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -50,7 +51,9 @@ url.format({
     query: { q: "you're a lizard, gary" }
 });
 
-
+// Old and new util.inspect APIs
+util.inspect(["This is nice"], false, 5);
+util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });
 
 ////////////////////////////////////////////////////
 /// Stream tests : http://nodejs.org/api/stream.html
