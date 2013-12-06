@@ -781,56 +781,55 @@ declare module JQueryUI {
 interface JQuery {
 
     accordion(): JQuery;
-    accordion(methodName: string): JQuery;
     accordion(methodName: 'destroy'): void;
     accordion(methodName: 'disable'): void;
     accordion(methodName: 'enable'): void;
     accordion(methodName: 'refresh'): void;
     accordion(methodName: 'widget'): JQuery;
+    accordion(methodName: string): JQuery;
     accordion(options: JQueryUI.AccordionOptions): JQuery;
     accordion(optionLiteral: string, optionName: string): any;
     accordion(optionLiteral: string, options: JQueryUI.AccordionOptions): any;
     accordion(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     autocomplete(): JQuery;
-    autocomplete(methodName: string): JQuery;
     autocomplete(methodName: 'close'): void;
     autocomplete(methodName: 'destroy'): void;
     autocomplete(methodName: 'disable'): void;
     autocomplete(methodName: 'enable'): void;
     autocomplete(methodName: 'search', value?: string): void;
     autocomplete(methodName: 'widget'): JQuery;
+    autocomplete(methodName: string): JQuery;
     autocomplete(options: JQueryUI.AutocompleteOptions): JQuery;
     autocomplete(optionLiteral: string, optionName: string): any;
     autocomplete(optionLiteral: string, options: JQueryUI.AutocompleteOptions): any;
     autocomplete(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     button(): JQuery;
-    button(methodName: string): JQuery;
     button(methodName: 'destroy'): void;
     button(methodName: 'disable'): void;
     button(methodName: 'enable'): void;
     button(methodName: 'refresh'): void;
     button(methodName: 'widget'): JQuery;
+    button(methodName: string): JQuery;
     button(options: JQueryUI.ButtonOptions): JQuery;
     button(optionLiteral: string, optionName: string): any;
     button(optionLiteral: string, options: JQueryUI.ButtonOptions): any;
     button(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     buttonset(): JQuery;
-    buttonset(methodName: string): JQuery;
     buttonset(methodName: 'destroy'): void;
     buttonset(methodName: 'disable'): void;
     buttonset(methodName: 'enable'): void;
     buttonset(methodName: 'refresh'): void;
     buttonset(methodName: 'widget'): JQuery;
+    buttonset(methodName: string): JQuery;
     buttonset(options: JQueryUI.ButtonOptions): JQuery;
     buttonset(optionLiteral: string, optionName: string): any;
     buttonset(optionLiteral: string, options: JQueryUI.ButtonOptions): any;
     buttonset(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     datepicker(): JQuery;
-    datepicker(methodName: string): JQuery;
     datepicker(methodName: 'destroy'): void;
     datepicker(methodName: 'dialog', date?: Date, onSelect?: () => void , pos?: any): void;
     datepicker(methodName: 'dialog', date?: string, onSelect?: () => void , pos?: any): void;
@@ -842,48 +841,48 @@ interface JQuery {
     datepicker(methodName: 'setDate', date: string): void;
     datepicker(methodName: 'show'): void;
     datepicker(methodName: 'widget'): JQuery;
+    datepicker(methodName: string): JQuery;
     datepicker(options: JQueryUI.DatepickerOptions): JQuery;
     datepicker(optionLiteral: string, optionName: string): any;
     datepicker(optionLiteral: string, options: JQueryUI.DatepickerOptions): any;
     datepicker(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     dialog(): JQuery;
-    dialog(methodName: string): JQuery;
     dialog(methodName: 'close'): JQuery;
     dialog(methodName: 'destroy'): JQuery;
     dialog(methodName: 'isOpen'): boolean;
     dialog(methodName: 'moveToTop'): JQuery;
     dialog(methodName: 'open'): JQuery;
     dialog(methodName: 'widget'): JQuery;
+    dialog(methodName: string): JQuery;
     dialog(options: JQueryUI.DialogOptions): JQuery;
     dialog(optionLiteral: string, optionName: string): any;
     dialog(optionLiteral: string, options: JQueryUI.DialogOptions): any;
     dialog(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     draggable(): JQuery;
-    draggable(methodName: string): JQuery;
     draggable(methodName: 'destroy'): void;
     draggable(methodName: 'disable'): void;
     draggable(methodName: 'enable'): void;
     draggable(methodName: 'widget'): JQuery;
+    draggable(methodName: string): JQuery;
     draggable(options: JQueryUI.DraggableOptions): JQuery;
     draggable(optionLiteral: string, optionName: string): any;
     draggable(optionLiteral: string, options: JQueryUI.DraggableOptions): any;
     draggable(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     droppable(): JQuery;
-    droppable(methodName: string): JQuery;
     droppable(methodName: 'destroy'): void;
     droppable(methodName: 'disable'): void;
     droppable(methodName: 'enable'): void;
     droppable(methodName: 'widget'): JQuery;
+    droppable(methodName: string): JQuery;
     droppable(options: JQueryUI.DroppableOptions): JQuery;
     droppable(optionLiteral: string, optionName: string): any;
     droppable(optionLiteral: string, options: JQueryUI.DraggableOptions): any;
     droppable(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     menu(): JQuery;
-    menu(methodName: string): JQuery;
     menu(methodName: 'blur'): void;
     menu(methodName: 'collapse', event?: JQueryEventObject): void;
     menu(methodName: 'collapseAll', event?: JQueryEventObject, all?: boolean): void;
@@ -901,13 +900,13 @@ interface JQuery {
     menu(methodName: 'refresh'): void;
     menu(methodName: 'select', event?: JQueryEventObject): void;
     menu(methodName: 'widget'): JQuery;
+    menu(methodName: string): JQuery;
     menu(options: JQueryUI.MenuOptions): JQuery;
     menu(optionLiteral: string, optionName: string): any;
     menu(optionLiteral: string, options: JQueryUI.MenuOptions): any;
     menu(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     progressbar(): JQuery;
-    progressbar(methodName: string): JQuery;
     progressbar(methodName: 'destroy'): void;
     progressbar(methodName: 'disable'): void;
     progressbar(methodName: 'enable'): void;
@@ -916,35 +915,35 @@ interface JQuery {
     progressbar(methodName: 'value', value: number): void;
     progressbar(methodName: 'value', value: boolean): void;
     progressbar(methodName: 'widget'): JQuery;
+    progressbar(methodName: string): JQuery;
     progressbar(options: JQueryUI.ProgressbarOptions): JQuery;
     progressbar(optionLiteral: string, optionName: string): any;
     progressbar(optionLiteral: string, options: JQueryUI.ProgressbarOptions): any;
     progressbar(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     resizable(): JQuery;
-    resizable(methodName: string): JQuery;
     resizable(methodName: 'destroy'): void;
     resizable(methodName: 'disable'): void;
     resizable(methodName: 'enable'): void;
     resizable(methodName: 'widget'): JQuery;
+    resizable(methodName: string): JQuery;
     resizable(options: JQueryUI.ResizableOptions): JQuery;
     resizable(optionLiteral: string, optionName: string): any;
     resizable(optionLiteral: string, options: JQueryUI.ResizableOptions): any;
     resizable(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     selectable(): JQuery;
-    selectable(methodName: string): JQuery;
     selectable(methodName: 'destroy'): void;
     selectable(methodName: 'disable'): void;
     selectable(methodName: 'enable'): void;
     selectable(methodName: 'widget'): JQuery;
+    selectable(methodName: string): JQuery;
     selectable(options: JQueryUI.SelectableOptions): JQuery;
     selectable(optionLiteral: string, optionName: string): any;
     selectable(optionLiteral: string, options: JQueryUI.SelectableOptions): any;
     selectable(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     slider(): JQuery;
-    slider(methodName: string): JQuery;
     slider(methodName: 'destroy'): void;
     slider(methodName: 'disable'): void;
     slider(methodName: 'enable'): void;
@@ -958,24 +957,24 @@ interface JQuery {
     slider(methodName: string, values: Array<number>): void;
     slider(methodName: 'values', values: Array<number>): void;
     slider(methodName: 'widget'): JQuery;
+    slider(methodName: string): JQuery;
     slider(options: JQueryUI.SliderOptions): JQuery;
     slider(optionLiteral: string, optionName: string): any;
     slider(optionLiteral: string, options: JQueryUI.SliderOptions): any;
     slider(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     sortable(): JQuery;
-    sortable(methodName: string): JQuery;
     sortable(methodName: 'destroy'): void;
     sortable(methodName: 'disable'): void;
     sortable(methodName: 'enable'): void;
     sortable(methodName: 'widget'): JQuery;
+    sortable(methodName: string): JQuery;
     sortable(options: JQueryUI.SortableOptions): JQuery;
     sortable(optionLiteral: string, optionName: string): any;
     sortable(optionLiteral: string, options: JQueryUI.SortableOptions): any;
     sortable(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     spinner(): JQuery;
-    spinner(methodName: string): JQuery;
     spinner(methodName: 'destroy'): void;
     spinner(methodName: 'disable'): void;
     spinner(methodName: 'enable'): void;
@@ -986,32 +985,33 @@ interface JQuery {
     spinner(methodName: 'value'): number;
     spinner(methodName: 'value', value: number): void;
     spinner(methodName: 'widget'): JQuery;
+    spinner(methodName: string): JQuery;
     spinner(options: JQueryUI.SpinnerOptions): JQuery;
     spinner(optionLiteral: string, optionName: string): any;
     spinner(optionLiteral: string, options: JQueryUI.SpinnerOptions): any;
     spinner(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     tabs(): JQuery;
-    tabs(methodName: string): JQuery;
     tabs(methodName: 'destroy'): void;
     tabs(methodName: 'disable'): void;
     tabs(methodName: 'enable'): void;
     tabs(methodName: 'load', index: number): void;
     tabs(methodName: 'refresh'): void;
     tabs(methodName: 'widget'): JQuery;
+    tabs(methodName: string): JQuery;
     tabs(options: JQueryUI.TabsOptions): JQuery;
     tabs(optionLiteral: string, optionName: string): any;
     tabs(optionLiteral: string, options: JQueryUI.TabsOptions): any;
     tabs(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     tooltip(): JQuery;
-    tooltip(methodName: string): JQuery;
     tooltip(methodName: 'destroy'): void;
     tooltip(methodName: 'disable'): void;
     tooltip(methodName: 'enable'): void;
     tooltip(methodName: 'open'): void;
     tooltip(methodName: 'close'): void;
     tooltip(methodName: 'widget'): JQuery;
+    tooltip(methodName: string): JQuery;
     tooltip(options: JQueryUI.TooltipOptions): JQuery;
     tooltip(optionLiteral: string, optionName: string): any;
     tooltip(optionLiteral: string, options: JQueryUI.TooltipOptions): any;
