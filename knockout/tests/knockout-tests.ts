@@ -61,8 +61,8 @@ function test_computed() {
                 return '$' + this.price().toFixed(2);
             },
             write: function (value) {
-                value = parseFloat(value.replace(/[^\.\d]/g, ""));
-                this.price(isNaN(value) ? 0 : value);
+                var num = parseFloat(value.replace(/[^\.\d]/g, ""));
+                this.price(isNaN(num) ? 0 : num);
             },
             owner: this
         });
@@ -107,7 +107,7 @@ function testGetter() {
 }
 
 function test_observableArrays() {
-    var myObservableArray = ko.observableArray();
+    var myObservableArray = ko.observableArray<any>();
     myObservableArray.push('Some value');
     var anotherObservableArray = ko.observableArray([
         { name: "Bungle", type: "Bear" },
@@ -180,8 +180,6 @@ function test_bindings() {
         init: function (element, valueAccessor) {
             var value = ko.utils.unwrapObservable(valueAccessor());
             $(element).toggle(value);
-        },
-        update: function (element, valueAccessor, allBindingsAccessor) {
         }
     };
     ko.bindingHandlers.hasFocus = {
