@@ -42,16 +42,16 @@ declare module Rx {
 		timeout(dueTime: number, other?: IObservable<T>, scheduler?: IScheduler): IObservable<T>;
 
 		delaySubscription(dueTime: number, scheduler?: IScheduler): IObservable<T>;
-		delayWithSelector(delayDurationSelector: (T) => number): IObservable<T>;
-		delayWithSelector(subscriptionDelay: number, delayDurationSelector: (T) => number): IObservable<T>;
+		delayWithSelector(delayDurationSelector: (item: T) => number): IObservable<T>;
+		delayWithSelector(subscriptionDelay: number, delayDurationSelector: (item: T) => number): IObservable<T>;
 
-		timeoutWithSelector<TTimeout>(firstTimeout: IObservable<TTimeout>, timeoutdurationSelector?: (T) => IObservable<TTimeout>, other?: IObservable<T>): IObservable<T>;
-		throttleWithSelector<TTimeout>(throttleDurationSelector: (T) => IObservable<TTimeout>): IObservable<T>;
+		timeoutWithSelector<TTimeout>(firstTimeout: IObservable<TTimeout>, timeoutdurationSelector?: (item: T) => IObservable<TTimeout>, other?: IObservable<T>): IObservable<T>;
+		throttleWithSelector<TTimeout>(throttleDurationSelector: (item: T) => IObservable<TTimeout>): IObservable<T>;
 
 		skipLastWithTime(duration: number, scheduler?: IScheduler): IObservable<T>;
 		takeLastWithTime(duration: number, timerScheduler?: IScheduler, loopScheduler?: IScheduler): IObservable<T>;
 
-		takeLastBufferWithTime(duration: number, scheduler?: IScheduler): IObservable<Array>;
+		takeLastBufferWithTime(duration: number, scheduler?: IScheduler): IObservable<T[]>;
 		takeWithTime(duration: number, scheduler?: IScheduler): IObservable<T>;
 		skipWithTime(duration: number, scheduler?: IScheduler): IObservable<T>;
 
@@ -69,18 +69,18 @@ declare module Rx {
 
 		generateWithAbsoluteTime<TState, TResult>(
 			initialState: TState,
-			condition: (TState) => boolean,
-			iterate: (TState) => TState,
-			resultSelector: (TState) => TResult,
-			timeSelector: (TState) => Date,
+			condition: (state: TState) => boolean,
+			iterate: (state: TState) => TState,
+			resultSelector: (state: TState) => TResult,
+			timeSelector: (state: TState) => Date,
 			scheduler?: IScheduler): IObservable<TResult>;
 
 		generateWithRelativeTime<TState, TResult>(
 			initialState: TState,
-			condition: (TState) => boolean,
-			iterate: (TState) => TState,
-			resultSelector: (TState) => TResult,
-			timeSelector: (TState) => number,
+			condition: (state: TState) => boolean,
+			iterate: (state: TState) => TState,
+			resultSelector: (state: TState) => TResult,
+			timeSelector: (state: TState) => number,
 			scheduler?: IScheduler): IObservable<TResult>;
 	}
 }
