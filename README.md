@@ -208,6 +208,7 @@ List of Definitions
 * [Sencha Touch](http://www.sencha.com/products/touch/) (by [Brian Kotek](https://github.com/brian428))
 * [SharePoint](http://sptypescript.codeplex.com) (by [Stanislav Vyshchepan](http://gandjustas.blogspot.ru) and [Andrey Markeev](http://markeev.com))
 * [SignalR](http://www.asp.net/signalr) (by [Boris Yankov](https://github.com/borisyankov))
+* [simple-cw-node](https://github.com/astronaughts/simple-cw-node) (by [vvakame](https://github.com/vvakame))
 * [Sinon](http://sinonjs.org/) (by [William Sears](https://github.com/mrbigdog2u))
 * [SlickGrid](https://github.com/mleibman/SlickGrid) (by [Josh Baldwin](https://github.com/jbaldwin))
 * [socket.io](http://socket.io) (by [William Orr](https://github.com/worr))
