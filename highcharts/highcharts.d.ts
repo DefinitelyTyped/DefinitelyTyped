@@ -230,7 +230,7 @@ interface HighchartsChartOptions {
     spacingTop?: number;
     style?: HighchartsCSSObject;
     type?: string;
-    whidth?: number;
+    width?: number;
     zoomType?: string;
 }
 
@@ -1020,7 +1020,7 @@ interface HighchartsChartObject {
 
 interface HighchartsChart {
     new (options: HighchartsOptions): HighchartsChartObject;
-    new (options: HighchartsOptions, callback: (event: Event) => void ): HighchartsChartObject;
+    new (options: HighchartsOptions, callback: (chart: HighchartsChartObject) => void ): HighchartsChartObject;
 }
 
 interface HighchartsElementObject {
