@@ -25,3 +25,15 @@ var options4: ngGrid.GridOptions = {
         currentPage: 1
     }
 };
+
+var options5: ngGrid.GridOptions = {
+    plugins: [
+        new ngGridCsvExportPlugin(),
+        new ngGridCsvExportPlugin({}),
+        new ngGridFlexibleHeightPlugin(),
+        new ngGridFlexibleHeightPlugin({}),
+        new ngGridLayoutPlugin(),
+        new ngGridReorderable(),
+        new ngGridWYSIWYGPlugin({})
+    ]
+};

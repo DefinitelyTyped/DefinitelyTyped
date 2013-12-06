@@ -10,11 +10,11 @@ declare class ngGridReorderable {
 }
 
 declare class ngGridCsvExportPlugin {
-    constructor(opts: any);
+    constructor(opts?: any);
 }
 
 declare class ngGridFlexibleHeightPlugin {
-    constructor(opts: any);
+    constructor(opts?: any);
 }
 
 declare class ngGridLayoutPlugin {
@@ -22,7 +22,7 @@ declare class ngGridLayoutPlugin {
 }
 
 declare class ngGridWYSIWYGPlugin {
-    constructor(filter: any);
+    constructor(filter?: any);
 }
 
 declare module ngGrid {
