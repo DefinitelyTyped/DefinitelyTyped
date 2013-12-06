@@ -42,6 +42,7 @@ ax.aggregate("", (acc, i) => acc + i);
 ax.aggregate((acc, i) => acc + i);
 
 //ax.reduce((acc, i) => acc + i, 100);	// bug: https://typescript.codeplex.com/workitem/1960
+ax.reduce<number>((acc, i) => acc + i, 100);
 ax.reduce((acc, i) => acc + i);
 
 ax.all(item => true);
