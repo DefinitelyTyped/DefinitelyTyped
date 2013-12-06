@@ -30,6 +30,7 @@ List of Definitions
 * [Add To Home Screen] (http://cubiq.org/add-to-home-screen) (by [James Wilkins] (http://www.codeplex.com/site/users/view/jamesnw))
 * [AmCharts](http://www.amcharts.com/) (by [Covobonomo](https://github.com/covobonomo/))
 * [AngularJS](http://angularjs.org) (by [Diego Vilar](https://github.com/diegovilar)) ([wiki](https://github.com/borisyankov/DefinitelyTyped/wiki/AngularJS-Definitions-Usage-Notes))
+* [AngularUI](http://angular-ui.github.io/) (by [Michel Salib](https://github.com/michelsalib))
 * [AppFramework](http://app-framework-software.intel.com/) (by [Kyo Ago](https://github.com/kyo-ago))
 * [Arbiter](http://arbiterjs.com/) (by [Arash Shakery](https://github.com/arash16))
 * [async](https://github.com/caolan/async) (by [Boris Yankov](https://github.com/borisyankov))
