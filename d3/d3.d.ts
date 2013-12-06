@@ -200,7 +200,7 @@ declare module D3 {
         *
         * @param map Array of objects to get the key values from
         */
-        keys(map: any[]): any[];
+        keys(map: any): string[];
         /**
         * List the values of an associative array.
         *
@@ -1032,7 +1032,7 @@ declare module D3 {
         }
 
         export interface StackLayout {
-            (layers: any[], index?: number): any[];
+            <T>(layers: T[], index?: number): T[];
             values(accessor?: (d: any) => any): StackLayout;
             offset(offset: string): StackLayout;
         }
