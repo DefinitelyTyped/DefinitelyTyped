@@ -68,11 +68,8 @@ interface KnockoutComputedStatic {
     (options?: any): KnockoutComputed<any>;
 }
 
-interface KnockoutComputed<T> extends KnockoutSubscribable<T>, KnockoutComputedFunctions<T> {
-	(): T;
-	(value: T): void;
-
-	peek(): T;
+interface KnockoutComputed<T> extends KnockoutObservable<T>, KnockoutComputedFunctions<T> {
+	
 	dispose(): void;
 	isActive(): boolean;
 	getDependenciesCount(): number;
@@ -100,8 +97,8 @@ interface KnockoutObservable<T> extends KnockoutSubscribable<T>, KnockoutObserva
 	(value: T): void;
 
 	peek(): T;
-	valueHasMutated(): void;
-	valueWillMutate(): void;
+	valueHasMutated?:{(): void;};
+	valueWillMutate?:{(): void;};
     extend(requestedExtenders: { [key: string]: any; }): KnockoutObservable<T>;
 }
 
