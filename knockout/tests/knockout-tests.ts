@@ -570,4 +570,17 @@ function test_misc() {
     ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
         $(element).datepicker("destroy");
     });
+	
+	this.observableFactory = function(): KnockoutObservable<number>{
+	    if (true) {
+			return ko.computed({
+				read:function(){ 
+					return 3; 
+				}
+			});
+		} else {
+			return ko.observable(3);
+		}
+	}
+	
 }
