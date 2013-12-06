@@ -8,11 +8,13 @@ _.each({ one: 1, two: 2, three: 3 }, (value) => alert(value.toString()));
 _.map([1, 2, 3], (num) => num * 3);
 _.map({ one: 1, two: 2, three: 3 }, (value: number, key?: string) => value * 3);
 
-var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);
-sum = _.reduce([1, 2, 3], (memo, num) => memo + num); // memo is optional #issue 5 github
+//var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);	// https://typescript.codeplex.com/workitem/1960
+var sum = _.reduce<number, number>([1, 2, 3], (memo, num) => memo + num, 0);
+sum = _.reduce<number, number>([1, 2, 3], (memo, num) => memo + num); // memo is optional #issue 5 github
 
 var list = [[0, 1], [2, 3], [4, 5]];
-var flat = _.reduceRight(list, (a, b) => a.concat(b), []);
+//var flat = _.reduceRight(list, (a, b) => a.concat(b), []);	// https://typescript.codeplex.com/workitem/1960
+var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
 var even = _.find([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
@@ -23,7 +25,8 @@ _.where(listOfPlays, { author: "Shakespeare", year: 1611 });
 
 var odds = _.reject([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
-_.every([true, 1, null, 'yes'], _.identity);
+//_.every([true, 1, null, 'yes'], _.identity); // https://typescript.codeplex.com/workitem/1960
+_.every<any>([true, 1, null, 'yes'], _.identity);
 _.every<{}>([true, 1, null, 'yes']);
 
 _.any([null, 0, 'yes', false]);
@@ -279,10 +282,11 @@ _(['test', 'test']).pick(['test2', 'test2']);
 
 //////////////// Chain Tests
 function chain_tests() {
-    var list:number[] = _.chain([1, 2, 3, 4, 5, 6, 7, 8])
+	// https://typescript.codeplex.com/workitem/1960
+    var list:number[] = _.chain<number>([1, 2, 3, 4, 5, 6, 7, 8])
         .filter(n => n % 2 == 0)
         .map(n => n * n)
-        .value();
+        .value<number[]>();
 
     _([1, 2, 3, 4])
         .chain()
