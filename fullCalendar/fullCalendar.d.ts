@@ -69,16 +69,16 @@ declare module FullCalendar {
         dayNamesShort?: Array<string>;
         weekNumberTitle?: number;
 
-        dayClick?: (date: Date, allDay: boolean, jsEvent: Event, view: View) => void;
-        eventClick?: (event: EventObject, jsEvent: Event, view: View) => any; // return type boolean or void
-        eventMouseover?: (event: EventObject, jsEvent: Event, view: View) => void;
-        eventMouseout?: (event: EventObject, jsEvent: Event, view: View) => void;
+        dayClick?: (date: Date, allDay: boolean, jsEvent: MouseEvent, view: View) => void;
+        eventClick?: (event: EventObject, jsEvent: MouseEvent, view: View) => any; // return type boolean or void
+        eventMouseover?: (event: EventObject, jsEvent: MouseEvent, view: View) => void;
+        eventMouseout?: (event: EventObject, jsEvent: MouseEvent, view: View) => void;
 
         selectable?: any; // Boolean/ViewOptionHash
         selectHelper?: any; // Boolean/Function
         unselectAuto?: boolean;
         unselectCancel?: string;
-        select?: (startDate: Date, endDate: Date, allDay: boolean, jsEvent: Event, view: View) => void;
+        select?: (startDate: Date, endDate: Date, allDay: boolean, jsEvent: MouseEvent, view: View) => void;
         unselect?: (view: View, jsEvent: Event) => void;
 
         eventSources?: Array<EventSource>;
@@ -103,16 +103,16 @@ declare module FullCalendar {
         disableResizing?: boolean;
         dragRevertDuration?: number;
         dragOpacity?: any; // Float/ViewOptionHash
-        eventDragStart?: (event: EventObject, jsEvent: Event, ui: any, view: View) => void;
-        eventDragStop?: (event: EventObject, jsEvent: Event, ui: any, view: View) => void;
+        eventDragStart?: (event: EventObject, jsEvent: MouseEvent, ui: any, view: View) => void;
+        eventDragStop?: (event: EventObject, jsEvent: MouseEvent, ui: any, view: View) => void;
         eventDrop?: (event: EventObject, dayDelta: number, minuteDelta: number, revertFunc: Function, jsEvent: Event, ui: any, view: View) => void;
-        eventResizeStart?: (event: EventObject, jsEvent: Event, ui: any, view: View) => void;
-        eventResizeStop?: (event: EventObject, jsEvent: Event, ui: any, view: View) => void;
+        eventResizeStart?: (event: EventObject, jsEvent: MouseEvent, ui: any, view: View) => void;
+        eventResizeStop?: (event: EventObject, jsEvent: MouseEvent, ui: any, view: View) => void;
         eventResize?: (event: EventObject, dayDelta: number, minuteDelta: number, revertFunc: Function, jsEvent: Event, ui: any, view: View) => void;
 
         droppable?: boolean;
         dropAccept?: any; // String/Function
-        drop?: (date: Date, allDay: boolean, jsEvent: Event, ui: any) => void;
+        drop?: (date: Date, allDay: boolean, jsEvent: MouseEvent, ui: any) => void;
     }
 
     export interface View {
@@ -194,14 +194,6 @@ declare module FullCalendar {
 }
 
 interface JQuery {
-    /**
-    * Create calendar object
-    */
-    fullCalendar(options: FullCalendar.Options): JQuery;
-    /**
-    * Generic method function
-    */
-    fullCalendar(method: string, arg1: any, arg2: any, arg3: any): void;
     /**
     * Get/Set option value
     */
@@ -306,6 +298,14 @@ interface JQuery {
     * Rerenders all events on the calendar.
     */
     fullCalendar(method: 'rerenderEvents'): void;
+    /**
+    * Create calendar object
+    */
+    fullCalendar(options: FullCalendar.Options): JQuery;
+    /**
+    * Generic method function
+    */
+    fullCalendar(method: string, arg1: any, arg2: any, arg3: any): void;
 }
 
 interface JQueryStatic {
