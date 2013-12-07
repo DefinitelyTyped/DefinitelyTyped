@@ -86,6 +86,14 @@ moment().weekYear(2);
 moment().weekYear();
 moment().isoWeekYear(3);
 moment().isoWeekYear();
+moment().week();
+moment().week(45);
+moment().weeks();
+moment().weeks(45);
+moment().isoWeek();
+moment().isoWeek(45);
+moment().isoWeeks();
+moment().isoWeeks(45);
 
 var getMilliseconds: number = moment().milliseconds(); 
 var getSeconds: number = moment().seconds(); 
