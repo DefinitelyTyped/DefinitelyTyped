@@ -669,6 +669,13 @@ $('#calendar').fullCalendar({
     eventColor: '#378006'
 });
 
+interface EventWithDescription extends FullCalendar.EventObject {
+    description: string;
+}
+interface JQuery {
+    qtip: any; // dummy plugin interface
+}
+
 $('#calendar').fullCalendar({
     events: [
         {
@@ -678,7 +685,7 @@ $('#calendar').fullCalendar({
         }
         // more events here
     ],
-    eventRender: function (event, element) {
+    eventRender: function (event: EventWithDescription, element) {
         element.qtip({
             content: event.description
         });
