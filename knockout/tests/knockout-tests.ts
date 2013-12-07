@@ -61,8 +61,8 @@ function test_computed() {
                 return '$' + this.price().toFixed(2);
             },
             write: function (value) {
-                value = parseFloat(value.replace(/[^\.\d]/g, ""));
-                this.price(isNaN(value) ? 0 : value);
+                var valueAsInt = parseFloat(value.replace(/[^\.\d]/g, ""));
+                this.price(isNaN(valueAsInt) ? 0 : valueAsInt);
             },
             owner: this
         });
@@ -107,7 +107,7 @@ function testGetter() {
 }
 
 function test_observableArrays() {
-    var myObservableArray = ko.observableArray();
+    var myObservableArray = ko.observableArray<string>();
     myObservableArray.push('Some value');
     var anotherObservableArray = ko.observableArray([
         { name: "Bungle", type: "Bear" },
@@ -124,16 +124,16 @@ function test_observableArrays() {
     myObservableArray.unshift('Some new value');
     myObservableArray.shift();
     myObservableArray.reverse();
-    myObservableArray.sort(function (left, right) { return left.lastName == right.lastName ? 0 : (left.lastName < right.lastName ? -1 : 1) });
+    anotherObservableArray.sort(function (left, right) { return left.name == right.name ? 0 : (left.name < right.name ? -1 : 1) });
     myObservableArray.splice(1, 3);
 
     myObservableArray.remove('Blah');
-    myObservableArray.remove(function (item) { return item.age < 18 });
-    myObservableArray.removeAll(['Chad', 132, undefined]);
+    myObservableArray.remove(function (item) { return item.toLowerCase() === "some value"; });
+    myObservableArray.removeAll(['Chad', '132', undefined]);
     myObservableArray.removeAll();
     myObservableArray.destroy('Blah');
-    myObservableArray.destroy(function (someItem) { return someItem.age < 18 });
-    myObservableArray.destroyAll(['Chad', 132, undefined]);
+    myObservableArray.destroy((someItem) => { var x = someItem.toLowerCase(); });
+    myObservableArray.destroyAll(['Chad', '132', undefined]);
     myObservableArray.destroyAll();
 
     ko.utils.arrayForEach(myObservableArray(), function (item) { });
@@ -180,8 +180,6 @@ function test_bindings() {
         init: function (element, valueAccessor) {
             var value = ko.utils.unwrapObservable(valueAccessor());
             $(element).toggle(value);
-        },
-        update: function (element, valueAccessor, allBindingsAccessor) {
         }
     };
     ko.bindingHandlers.hasFocus = {
