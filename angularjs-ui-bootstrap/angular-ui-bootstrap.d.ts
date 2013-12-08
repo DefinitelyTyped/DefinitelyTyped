@@ -39,4 +39,19 @@ declare module ng.bootstrap {
         closeOnDateSelection: boolean;
         appendToBody: boolean;
     }
+
+    interface IDatepickerConfig {
+        showWeeks: boolean;
+        startingDay: number;
+        min: any;
+        max: any;
+        dateDisabled(date, mode): void;
+        dayFormat: string;
+        monthFormat: string;
+        yearFormat: string;
+        yearRange: string;
+        dayHeaderFormat: string;
+        dayTitleFormat: string;
+        monthTitleFormat: string;
+    }
 }
