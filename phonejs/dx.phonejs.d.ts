@@ -300,7 +300,7 @@ declare module DevExpress.data {
         objectLink(entityAlias: string, key: any): { __metadata: { uri: string }; }
     }
     interface IODataContext extends IODataContextBase {
-        [entitySetName: string]: Store;
+        [entitySetName: string]: any;
     }
     export interface ODataContextOptions {
         url: string;
