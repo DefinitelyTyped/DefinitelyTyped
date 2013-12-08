@@ -300,7 +300,7 @@ declare module DevExpress.data {
         objectLink(entityAlias: string, key: any): { __metadata: { uri: string }; }
     }
     interface IODataContext extends IODataContextBase {
-        [entitySetName: string]: Store;
+        [entitySetName: string]: any;
     }
     export interface ODataContextOptions {
         url: string;
@@ -1030,7 +1030,7 @@ declare module DevExpress.viz.charts.series {
         hoverStyle?: AreaSeriesStyle;
         point?: BasePointOptions;
     }
-    export interface RangeBarSeriesOptions extends z_BaseRangeSeriesOptions, z_BaseBarSeriesOptions { }
+    // export interface RangeBarSeriesOptions extends z_BaseRangeSeriesOptions, z_BaseBarSeriesOptions { }
     export interface SplineSeriesOptions extends LineSeriesOptions { }
     export interface SplineAreaSeries extends AreaSeriesOptions { }
     export interface StackedLineSeries extends LineSeriesOptions { }
@@ -1094,7 +1094,7 @@ declare module DevExpress.viz.charts.series {
         fullstackedline?: FullStackedLineSeriesOptions;
         line?: LineSeriesOptions;
         rangearea?: RangeAreaSeriesOptions;
-        rangebar?: RangeBarSeriesOptions;
+        rangebar?: any; // RangeBarSeriesOptions
         scatter?: ScatterSeriesOptions;
         spline?: SplineSeriesOptions;
         splinearea?: SplineAreaSeries;
