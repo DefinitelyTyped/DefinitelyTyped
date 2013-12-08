@@ -31050,7 +31050,7 @@ declare module Ext.form {
 		/** [Method] Returns the value of scrollable  
 		* @returns Object 
 		*/
-		getScrollable?(): any;
+		getScrollable?(): Ext.scroll.IView;
 		/** [Method] Returns the value of standardSubmit  
 		* @returns Boolean 
 		*/
@@ -31199,7 +31199,7 @@ declare module Ext.form {
 		/** [Method] Returns the value of scrollable  
 		* @returns Object 
 		*/
-		getScrollable?(): any;
+		getScrollable?(): Ext.scroll.IView;
 		/** [Method] Returns the value of standardSubmit  
 		* @returns Boolean 
 		*/
