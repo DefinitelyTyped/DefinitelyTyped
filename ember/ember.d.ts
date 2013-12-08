@@ -58,14 +58,13 @@ interface String {
 
 interface Array {
     constructor(arr: any[]);
-    constructor(arr: Array);
     activate(): void;
-    addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): Array;
-    addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Array;
+    addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): any[];
+    addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): any[];
     any(callback: Function, target?: any): boolean;
     anyBy(key: string, value?: string): boolean;
-    arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): Array;
-    arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): Array;
+    arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): any[];
+    arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): any[];
     someProperty(key: string, value?: any): boolean;
     clear(): any[];
     compact(): any[];
@@ -78,10 +77,10 @@ interface Array {
     enumerableContentDidChange(removing: Ember.Enumerable, adding: number);
     enumerableContentDidChange(removing: number, adding: Ember.Enumerable);
     enumerableContentDidChange(removing: Ember.Enumerable, adding: Ember.Enumerable);
-    enumerableContentWillChange(removing: number, adding: number): Array;
-    enumerableContentWillChange(removing: Ember.Enumerable, adding: number): Array;
-    enumerableContentWillChange(removing: number, adding: Ember.Enumerable): Array;
-    enumerableContentWillChange(removing: Ember.Enumerable, adding: Ember.Enumerable): Array;
+    enumerableContentWillChange(removing: number, adding: number): any[];
+    enumerableContentWillChange(removing: Ember.Enumerable, adding: number): any[];
+    enumerableContentWillChange(removing: number, adding: Ember.Enumerable): any[];
+    enumerableContentWillChange(removing: Ember.Enumerable, adding: Ember.Enumerable): any[];
     every(callback: Function, target?: any): boolean;
     everyBy(key: string, value?: string): boolean;
     everyProperty(key: string, value?: any): boolean;
@@ -92,7 +91,7 @@ interface Array {
     forEach(callback: Function, target?: any): any;
     getEach(key: string): any[];
     indexOf(object: any, startAt: number): number;
-    insertAt(idx: number, object: any): Array;
+    insertAt(idx: number, object: any): any[];
     invoke(methodName: string, ...any): any[];
     lastIndexOf(object: any, startAt: number): number;
     mapBy(key: string): any[];
@@ -101,56 +100,56 @@ interface Array {
     objectsAt(...number): any[];
     popObject(): any;
     pushObject(obj: any): any;
-    pushObjects(...any): Array;
+    pushObjects(...any): any[];
     reduce(callback: ReduceCallback, initialValue: any, reducerProperty: string): any;
     reject: ItemIndexEnumerableCallbackTarget;
     rejectBy(key: string, value?: string): any[];
-    removeArrayObserver(target: any, opts: EnumerableConfigurationOptions): Array;
+    removeArrayObserver(target: any, opts: EnumerableConfigurationOptions): any[];
     removeAt(start: number, len: number): any;
-    removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Array;
+    removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): any[];
     replace(idx: number, amt: number, objects: any[]);
-    reverseObjects(): Array;
+    reverseObjects(): any[];
     setEach(key: string, value?: any): any;
-    setObjects(objects: any[]): Array;
+    setObjects(objects: any[]): any[];
     shiftObject(): any;
     slice(beginIndex?: number, endIndex?: number): any[];
     some(callback: Function, target?: any): boolean;
     toArray(): any[];
-    uniq(): Array;
+    uniq(): any[];
     unshiftObject(object: any): any;
-    unshiftObjects(objects: any[]): Array;
-    without(value: any): Array;
-    '[]': Array;
+    unshiftObjects(objects: any[]): any[];
+    without(value: any): any[];
+    '[]': any[];
     '@each': Ember.EachProxy;
     Boolean: boolean;
     firstObject: any;
     hasEnumerableObservers: boolean;
     lastObject: any;
     addObject(object: any): any;
-    addObjects(objects: Ember.Enumerable): Array;
+    addObjects(objects: Ember.Enumerable): any[];
     removeObject(object: any): any;
-    removeObjects(objects: Ember.Enumerable): Array;
+    removeObjects(objects: Ember.Enumerable): any[];
     addObserver: ModifyObserver;
-    beginPropertyChanges(): Array;
+    beginPropertyChanges(): any[];
     cacheFor(keyName: string): any;
     decrementProperty(keyName: string, decrement?: number): number;
-    endPropertyChanges(): Array;
+    endPropertyChanges(): any[];
     get(keyName: string): any;
     getProperties(...string): {};
     getProperties(keys: string[]): {};
     getWithDefault(keyName: string, defaultValue: any): any;
     hasObserverFor(key: string): boolean;
     incrementProperty(keyName: string, increment?: number): number;
-    notifyPropertyChange(keyName: string): Array;
-    propertyDidChange(keyName: string): Array;
-    propertyWillChange(keyName: string): Array;
+    notifyPropertyChange(keyName: string): any[];
+    propertyDidChange(keyName: string): any[];
+    propertyWillChange(keyName: string): any[];
     removeObserver(key: string, target: any, method: string): Ember.Observable;
     removeObserver(key: string, target: any, method: Function): Ember.Observable;
-    set(keyName: string, value: any): Array;
-    setProperties(hash: {}): Array;
+    set(keyName: string, value: any): any[];
+    setProperties(hash: {}): any[];
     toggleProperty(keyName: string): any;
-    copy(deep: boolean): Array;
-    frozenCopy(): Array;
+    copy(deep: boolean): any[];
+    frozenCopy(): any[];
 }
 
 interface ApplicationCreateArguments {
@@ -389,12 +388,12 @@ declare module Ember {
     Array class as well as other controllers, etc. that want to appear to be arrays.
     **/
     class Array implements Enumerable {
-        addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): Array;
+        addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): any[];
         addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
         any(callback: Function, target?: any): boolean;
         anyBy(key: string, value?: string): boolean;
-        arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): Array;
-        arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): Array;
+        arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): any[];
+        arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): any[];
         someProperty(key: string, value?: string): boolean;
         compact(): any[];
         contains(obj: any): boolean;
@@ -430,7 +429,7 @@ declare module Ember {
         reduce(callback: ReduceCallback, initialValue: any, reducerProperty: string): any;
         reject: ItemIndexEnumerableCallbackTarget;
         rejectBy(key: string, value?: string): any[];
-        removeArrayObserver(target: any, opts: EnumerableConfigurationOptions): Array;
+        removeArrayObserver(target: any, opts: EnumerableConfigurationOptions): any[];
         removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
         setEach(key: string, value?: any): any;
         slice(beginIndex?: number, endIndex?: number): any[];
@@ -440,7 +439,7 @@ declare module Ember {
         without(value: any): Enumerable;
         '@each': EachProxy;
         Boolean: boolean;
-        '[]': Array;
+        '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -742,7 +741,7 @@ declare module Ember {
         destroy(): CollectionView;
         init(): void;
         static CONTAINER_MAP: {};
-        content: Array;
+        content: any[];
         emptyView: View;
         itemViewClass: View;
     }
@@ -1110,7 +1109,7 @@ declare module Ember {
         static reopenClass<T extends EachProxy>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
-        unknownProperty(keyName: string, value: any): Array;
+        unknownProperty(keyName: string, value: any): any[];
     }
     /**
     This mixin defines the common interface implemented by enumerable objects in Ember. Most of these
@@ -1160,7 +1159,7 @@ declare module Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-        '[]': Array;
+        '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -1469,12 +1468,12 @@ declare module Ember {
         reopen<T extends Mixin>(arguments?: {}): T;
     }
     class MutableArray implements Array, MutableEnumberable {
-        addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): Array;
+        addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): any[];
         addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
         any(callback: Function, target?: any): boolean;
         anyBy(key: string, value?: string): boolean;
-        arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): Array;
-        arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): Array;
+        arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): any[];
+        arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): any[];
         someProperty(key: string, value?: string): boolean;
         clear(): any[];
         compact(): any[];
@@ -1515,22 +1514,22 @@ declare module Ember {
         reduce(callback: ReduceCallback, initialValue: any, reducerProperty: string): any;
         reject: ItemIndexEnumerableCallbackTarget;
         rejectBy(key: string, value?: string): any[];
-        removeArrayObserver(target: any, opts: EnumerableConfigurationOptions): Array;
+        removeArrayObserver(target: any, opts: EnumerableConfigurationOptions): any[];
         removeAt(start: number, len: number): any;
         removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
         replace(idx: number, amt: number, objects: any[]);
-        reverseObjects(): Array;
+        reverseObjects(): any[];
         setEach(key: string, value?: any): any;
-        setObjects(objects: any[]): Array;
+        setObjects(objects: any[]): any[];
         shiftObject(): any;
         slice(beginIndex?: number, endIndex?: number): any[];
         some(callback: Function, target?: any): boolean;
         toArray(): any[];
         uniq(): Enumerable;
         unshiftObject(object: any): any;
-        unshiftObjects(objects: any[]): Array;
+        unshiftObjects(objects: any[]): any[];
         without(value: any): Enumerable;
-        '[]': Array;
+        '[]': any[];
         '@each': EachProxy;
         Boolean: boolean;
         firstObject: any;
@@ -1587,7 +1586,7 @@ declare module Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-        '[]': Array;
+        '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -1698,7 +1697,7 @@ declare module Ember {
         unshiftObject(object: any): any;
         unshiftObjects(objects: any[]): NativeArray;
         without(value: any): NativeArray;
-        '[]': Array;
+        '[]': any[];
         '@each': EachProxy;
         Boolean: boolean;
         firstObject: any;
@@ -2173,7 +2172,7 @@ declare module Ember {
         toArray(): any[];
         uniq(): Set;
         without(value: any): Set;
-        '[]': Array;
+        '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -2238,7 +2237,7 @@ declare module Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-        '[]': Array;
+        '[]': any[];
         arrangedContent: any;
         firstObject: any;
         hasEnumerableObservers: boolean;
