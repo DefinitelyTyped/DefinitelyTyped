@@ -11,7 +11,52 @@ declare module "websocket" {
     import net    = require('net');
     import url    = require('url');
 
-    export interface IServerConfig {
+    export interface IStringified {
+        toString: (...args: any[]) => string;
+    }
+
+    export interface IConfig {
+        /**
+         * The maximum allowed received frame size in bytes.
+         * Single frame messages will also be limited to this maximum.
+         */
+        maxReceivedFrameSize?: number;
+
+        /** The maximum allowed aggregate message size (for fragmented messages) in bytes */
+        maxReceivedMessageSize?: number;
+
+        /**
+         * Whether or not to fragment outgoing messages. If true, messages will be
+         * automatically fragmented into chunks of up to `fragmentationThreshold` bytes.
+         * @default true
+         */
+        fragmentOutgoingMessages?: boolean;
+
+        /**
+         * The maximum size of a frame in bytes before it is automatically fragmented.
+         * @default 16KiB
+         */
+        fragmentationThreshold?: number;
+
+        /**
+         * If true, fragmented messages will be automatically assembled and the full
+         * message will be emitted via a `message` event. If false, each frame will be
+         * emitted on the `connection` object via a `frame` event and the application
+         * will be responsible for aggregating multiple fragmented frames. Single-frame
+         * messages will emit a `message` event in addition to the `frame` event.
+         * @default true
+         */
+        assembleFragments?: boolean;
+
+        /**
+         * The number of milliseconds to wait after sending a close frame for an
+         * `acknowledgement` to come back before giving up and just closing the socket.
+         * @default 5000
+         */
+        closeTimeout?: number;
+    }
+
+    export interface IServerConfig extends IConfig {
         /** The http server instance to attach to */
         httpServer: http.Server;
 
@@ -27,19 +72,6 @@ declare module "websocket" {
          * @default 1MiB
          */
         maxReceivedMessageSize?: number;
-
-        /**
-         * Whether or not to fragment outgoing messages. If true, messages will be
-         * automatically fragmented into chunks of up to `fragmentationThreshold` bytes.
-         * @default true
-         */
-        fragmentOutgoingMessages?: boolean;
-
-        /**
-         * The maximum size of a frame in bytes before it is automatically fragmented.
-         * @default 16KiB
-         */
-        fragmentationThreshold?: number;
 
         /**
          * If true, the server will automatically send a ping to all clients every
@@ -73,29 +105,12 @@ declare module "websocket" {
         keepaliveGracePeriod?: number;
 
         /**
-         * If true, fragmented messages will be automatically assembled and the full
-         * message will be emitted via a `message` event. If false, each frame will be
-         * emitted on the `connection` object via a `frame` event and the application
-         * will be responsible for aggregating multiple fragmented frames. Single-frame
-         * messages will emit a `message` event in addition to the `frame` event.
-         * @default true
-         */
-        assembleFragments?: boolean;
-
-        /**
          * If this is true, websocket connections will be accepted regardless of the path
          * and protocol specified by the client. The protocol accepted will be the first 
          * that was requested by the client.
          * @default false
          */
         autoAcceptConnections?: boolean;
-
-        /**
-         * The number of milliseconds to wait after sending a close frame for an
-         * `acknowledgement` to come back before giving up and just closing the socket.
-         * @default 5000
-         */
-        closeTimeout?: number;
 
         /**
          * The Nagle Algorithm makes more efficient use of network resources by introducing a
@@ -107,8 +122,19 @@ declare module "websocket" {
     }
 
     export class server extends events.EventEmitter {
+        config: IServerConfig;
+        connections: connection[];
+
         constructor(serverConfig?: IServerConfig);
 
+        /** Send binary message for each connection */
+        broadcast(data: NodeBuffer): void;
+        /** Send UTF-8 message for each connection */
+        broadcast(data: IStringified): void;
+        /** Send binary message for each connection */
+        broadcastBytes(data: NodeBuffer): void;
+        /** Send UTF-8 message for each connection */
+        broadcastUTF(data: IStringified): void;
         /** Attach the `server` instance to a Node http.Server instance */
         mount(serverConfig: IServerConfig): void;
 
@@ -135,6 +161,22 @@ declare module "websocket" {
         addListener(event: 'close', cb: (connection: connection, reason: number, desc: string) => void): server;
     }
 
+    export interface ICookie {
+        name: string;
+        value: string;
+        path?: string;
+        domain?: string;
+        expires?: Date;
+        maxage?: number;
+        secure?: boolean;
+        httponly?: boolean;
+    }
+
+    export interface IExtension {
+        name: string;
+        value: string;
+    }
+
     export class request extends events.EventEmitter {
         /** A reference to the original Node HTTP request object */
         httpRequest: http.ClientRequest;
@@ -142,6 +184,8 @@ declare module "websocket" {
         host: string;
         /** A string containing the path that was requested by the client */
         resource: string;
+        /** `Sec-WebSocket-Key` */
+        key: string;
         /** Parsed resource, including the query string parameters */
         resourceURL: url.Url;
         
@@ -163,6 +207,9 @@ declare module "websocket" {
         /** An array containing a list of extensions requested by the client */
         requestedExtensions: any[];
 
+        cookies: ICookie[];
+        socket: net.NodeSocket;
+
         /**
          * List of strings that indicate the subprotocols the client would like to speak.
          * The server should select the best one that it can support from the list and
@@ -171,6 +218,7 @@ declare module "websocket" {
          * converted to lower case.
          */
         requestedProtocols: string[];
+        protocolFullCaseMap: {[key: string]: string};
 
         constructor(socket: net.NodeSocket, httpRequest: http.ClientRequest, config: IServerConfig);
 
@@ -181,7 +229,7 @@ declare module "websocket" {
          * 
          * @param [acceptedProtocol] case-insensitive value that was requested by the client
          */
-        accept(acceptedProtocol?: string, allowedOrigin?: string, cookies?: any[]): connection;
+        accept(acceptedProtocol?: string, allowedOrigin?: string, cookies?: ICookie[]): connection;
 
         /**
          * Reject connection.
@@ -204,6 +252,48 @@ declare module "websocket" {
         type: string;
         utf8Data?: string;
         binaryData?: NodeBuffer;
+    }
+
+    export interface IBufferList extends events.EventEmitter {
+        encoding: string;
+        length: number;
+        write(buf: NodeBuffer): boolean;
+        end(buf: NodeBuffer): void;
+
+        /**
+         * For each buffer, perform some action.
+         * If fn's result is a true value, cut out early.
+         */
+        forEach(fn: (buf: NodeBuffer) => boolean): void;
+
+        /** Create a single buffer out of all the chunks */
+        join(start: number, end: number): NodeBuffer;
+
+        /** Join all the chunks to existing buffer */
+        joinInto(buf: NodeBuffer, offset: number, start: number, end: number): NodeBuffer;
+
+        /**
+         * Advance the buffer stream by `n` bytes.
+         * If `n` the aggregate advance offset passes the end of the buffer list,
+         * operations such as `take` will return empty strings until enough data is pushed.
+         */
+        advance(n: number): IBufferList;
+
+        /**
+         * Take `n` bytes from the start of the buffers.
+         * If there are less than `n` bytes in all the buffers or `n` is undefined,
+         * returns the entire concatenated buffer string.
+         */
+        take(n: number, encoding?: string): any;
+        take(encoding?: string): any;
+
+        // Events
+        on(event: string, listener: () => void): IBufferList;
+        on(event: 'advance', cb: (n: number) => void): IBufferList;
+        on(event: 'write', cb: (buf: NodeBuffer) => void): IBufferList;
+        addListener(event: string, listener: () => void): IBufferList;
+        addListener(event: 'advance', cb: (n: number) => void): IBufferList;
+        addListener(event: 'write', cb: (buf: NodeBuffer) => void): IBufferList;
     }
 
     class connection extends events.EventEmitter {
@@ -237,9 +327,26 @@ declare module "websocket" {
          */
         protocol: string;
 
+        config: IConfig;
         socket: net.NodeSocket;
+        maskOutgoingPackets: boolean;
+        maskBytes: NodeBuffer;
+        frameHeader: NodeBuffer;
+        bufferList: IBufferList;
+        currentFrame: frame;
+        fragmentationSize: number;
+        frameQueue: frame[];
+        state: string;
+        waitingForCloseResponse: boolean;
+        closeTimeout: number;
+        assembleFragments: number;
+        maxReceivedMessageSize: number;
+        outputPaused: boolean;
+        bytesWaitingToFlush: number;
+        socketHadError: boolean;
+
         /** An array of extensions that were negotiated for this connection */
-        extensions: any[];
+        extensions: IExtension[];
 
         /**
          * The IP address of the remote peer as a string. In the case of a server,
@@ -254,8 +361,8 @@ declare module "websocket" {
         /** Whether or not the connection is still connected. Read-only */
         connected: boolean;
 
-        constructor(socket: net.NodeSocket, extensions: any[], protocol: string,
-                    maskOutgoingPackets: boolean, config: IServerConfig);
+        constructor(socket: net.NodeSocket, extensions: IExtension[], protocol: string,
+                    maskOutgoingPackets: boolean, config: IConfig);
 
         /**
          * Close the connection. A close frame will be sent to the remote peer indicating
@@ -276,7 +383,7 @@ declare module "websocket" {
          * peer. If `config.fragmentOutgoingMessages` is true the message may be sent as
          * multiple fragments if it exceeds `config.fragmentationThreshold` bytes.
          */
-        sendUTF(data: {toString: (...args: any[]) => string}): void;
+        sendUTF(data: IStringified): void;
 
         /**
          * Immediately sends the specified Node Buffer object as a Binary WebSocket message
@@ -287,11 +394,11 @@ declare module "websocket" {
 
         /** Auto-detect the data type and send UTF-8 or Binary message */
         send(data: NodeBuffer): void;
-        send(data: {toString: (...args: any[]) => string}): void;
+        send(data: IStringified): void;
 
         /** Sends a ping frame. Ping frames must not exceed 125 bytes in length. */
         ping(data: NodeBuffer): void;
-        ping(data: {toString: (...args: any[]) => string}): void;
+        ping(data: IStringified): void;
 
         /**
          * Sends a pong frame. Pong frames may be sent unsolicited and such pong frames will
@@ -309,6 +416,18 @@ declare module "websocket" {
          * your own `frame`. You should probably use sendUTF or sendBytes instead.
          */
         sendFrame(frame: frame): void;
+
+        /** Set or reset the `keepalive` timer when data is received */
+        setKeepaliveTimer(): void;
+        setGracePeriodTimer(): void;
+        setCloseTimer(): void;
+        clearCloseTimer(): void;
+        processFrame(frame: frame): void;
+        fragmentAndSend(frame: frame, cb?: (err: Error) => void): void;
+        sendCloseFrame(reasonCode: number, reasonText: string, force: boolean): void;
+        sendCloseFrame(): void;
+        sendFrame(frame: frame, force: boolean, cb?: (msg: string) => void): void;
+        sendFrame(frame: frame, cb?: (msg: string) => void): void;
 
         // Events
         on(event: string, listener: () => void): connection;
@@ -376,9 +495,22 @@ declare module "websocket" {
          * Even text frames are sent with a Buffer providing the binary payload data.
          */
         binaryPayload: NodeBuffer;
+
+        maskBytes: NodeBuffer;
+        frameHeader: NodeBuffer;
+        config: IConfig;
+        maxReceivedFrameSize: number;
+        protocolError: boolean;
+        frameTooLarge: boolean;
+        invalidCloseFrameLength: boolean;
+        closeStatus: number;
+
+        addData(bufferList: IBufferList): boolean;
+        throwAwayPayload(bufferList: IBufferList): boolean;
+        toBuffer(nullMask: boolean): NodeBuffer;
     }
 
-    export interface IClientConfig {
+    export interface IClientConfig extends IConfig {
         /**
          * Which version of the WebSocket protocol to use when making the connection.
          * Currently supported values are 8 and 13. This option will be removed once the
@@ -387,54 +519,30 @@ declare module "websocket" {
          * the name of the Origin header.
          * @default 13
          */
-        webSocketVersion: number;
+        webSocketVersion?: number;
 
         /**
          * The maximum allowed received frame size in bytes.
          * Single frame messages will also be limited to this maximum.
          * @default 1MiB
          */
-        maxReceivedFrameSize: number;
+        maxReceivedFrameSize?: number;
 
         /**
          * The maximum allowed aggregate message size (for fragmented messages) in bytes.
          * @default 8MiB
          */
-        maxReceivedMessageSize: number;
-
-        /**
-         * Whether or not to fragment outgoing messages. If true, messages will be
-         * automatically fragmented into chunks of up to `fragmentationThreshold` bytes.
-         * @default true
-         */
-        fragmentOutgoingMessages: boolean;
-
-        /**
-         * The maximum size of a frame in bytes before it is automatically fragmented.
-         * @default 16KiB
-         */
-        fragmentationThreshold: number;
-
-        /**
-         * If true, fragmented messages will be automatically assembled and the full message
-         * will be emitted via a `message` event. If false, each frame will be emitted on
-         * the `connection` object via a `frame` event and the application will be responsible
-         * for aggregating multiple fragmented frames. Single-frame messages will emit
-         * a `message` event in addition to the `frame` event. Most users will want to
-         * leave this set to true.
-         * @default true
-         */
-        assembleFragments: boolean;
-
-        /**
-         * The number of milliseconds to wait after sending a close frame for
-         * an acknowledgement to come back before giving up and just closing the socket.
-         * @default 5000
-         */
-        closeTimeout: number;
+        maxReceivedMessageSize?: number;
     }
 
     class client extends events.EventEmitter {
+        protocols: string[];
+        origin: string;
+        url: url.Url;
+        secure: boolean;
+        socket: net.NodeSocket;
+        response: http.ClientResponse;
+
         constructor(clientConfig?: IClientConfig);
 
         /**
