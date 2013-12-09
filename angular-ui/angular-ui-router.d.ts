@@ -8,6 +8,7 @@
 declare module ng.ui {
 
     interface IState {
+        name?: string;
         template?: any;
         templateUrl?: any;
         templateProvider?: () => string;
@@ -75,6 +76,7 @@ declare module ng.ui {
         get(state: string): IState;
         get(): IState[];
         current: IState;
+        params: IStateParamsService;
     }
 
     interface IStateParamsService {
