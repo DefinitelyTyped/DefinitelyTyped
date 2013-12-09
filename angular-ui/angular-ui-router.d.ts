@@ -8,6 +8,7 @@
 declare module ng.ui {
 
     interface IState {
+        name?: string;
         template?: any;
         templateUrl?: any;
         templateProvider?: () => string;
