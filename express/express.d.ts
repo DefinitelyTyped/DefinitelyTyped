@@ -62,6 +62,14 @@ declare module "express" {
             new (method: string, path: string, callbacks: Function[], options: any): Route;
         }
 
+        export class Router {
+          new (options: any): Router;
+
+          middleware (): any;
+
+          get(path: string, ...handlers: RequestFunction[]): Router;
+        }
+
         interface Handler {
             (req: Request, res: Response, next?: Function): void;
         }
