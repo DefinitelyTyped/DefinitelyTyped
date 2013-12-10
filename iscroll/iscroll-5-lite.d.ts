@@ -4,8 +4,12 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface IScrollOptions {
-	hScroll?: boolean;
-	vScroll?: boolean;
+	//hScroll?: boolean;
+	//vScroll?: boolean;
+
+	scrollX?: boolean;
+	scrollY?: boolean;
+
 	x?: number;
 	y?: number;
 	bounce?: boolean;
@@ -13,7 +17,7 @@ interface IScrollOptions {
 	momentum?: boolean;
 	lockDirection?: boolean;
 	useTransform?: boolean;
-	useTransition?: boolean;	
+	useTransition?: boolean;
 }
 
 declare class iScroll {
