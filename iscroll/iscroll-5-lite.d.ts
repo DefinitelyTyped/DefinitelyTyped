@@ -20,7 +20,7 @@ interface IScrollOptions {
 	useTransition?: boolean;
 }
 
-declare class iScroll {
+declare class IScroll {
 
 	constructor (element: string, options?: IScrollOptions);
 	constructor (element: HTMLElement, options?: IScrollOptions);
