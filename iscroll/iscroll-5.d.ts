@@ -4,8 +4,8 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface IScrollOptions {
-	hScroll?: boolean;
-	vScroll?: boolean;
+	//hScroll?: boolean;
+	//vScroll?: boolean;
 	x?: number;
 	y?: number;
 	bounce?: boolean;
@@ -33,9 +33,40 @@ interface IScrollOptions {
 	doubleTapZoom?: number;
 	wheelAction?: string;
 
-	// Snap
+	
+	///String or boolean
 	snap?: any;
 	snapThreshold?: number;
+
+	//new in IScroll 5?
+
+	resizeIndicator?: boolean;
+	mouseWheelSpeed?: number;
+	startX?: number;
+	startY?: number;
+	scrollX?: boolean;
+	scrollY?: boolean;
+	directionLockThreshold?: number;
+
+	bounceTime?: number;
+
+	///String or function
+	bounceEasing?: any;
+	
+	preventDefault?: boolean;
+	preventDefaultException?: boolean;
+
+	HWCompositing?: boolean;
+
+	freeScroll?: boolean;
+
+	resizePolling?: number;
+	tap?: boolean;
+	click?: boolean;
+	invertWheelDirection?: boolean;
+
+	///Boolean or string
+	eventPassthrough?: any;
 }
 
 declare class IScroll {
