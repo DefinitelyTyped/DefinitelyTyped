@@ -63,7 +63,7 @@ declare module "express" {
         }
 
         export class Router {
-          new (options: any): Router;
+          new (options?: any): Router;
 
           middleware (): any;
 
