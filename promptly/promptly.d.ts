@@ -3,6 +3,8 @@
 // Definitions by: Dan Spencer <https://github.com/danrspencer>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+///<reference path="../node/node.d.ts"/>
+
 declare module "promptly" {
 
   interface Callback {
