@@ -125,6 +125,10 @@ declare module Ext {
 	export interface IAjax extends Ext.data.IConnection {
 	}
 	export class Ajax {
+		/** [Property] (Boolean) */
+		static autoAbort: boolean;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Aborts any outstanding request  
 		* @param request Object Defaults to the last request. 
 		*/
@@ -496,6 +500,34 @@ declare module Ext {
 	export interface IAnim extends Ext.IBase {
 	}
 	export class Anim {
+		/** [Config Option] (Function) */
+		static after: any;
+		/** [Config Option] (Boolean) */
+		static autoClear: boolean;
+		/** [Config Option] (Function) */
+		static before: any;
+		/** [Config Option] (Number) */
+		static delay: number;
+		/** [Config Option] (String) */
+		static direction: string;
+		/** [Config Option] (Boolean) */
+		static disableAnimations: boolean;
+		/** [Config Option] (Number) */
+		static duration: number;
+		/** [Config Option] (String) */
+		static easing: string;
+		/** [Config Option] (Object) */
+		static from: any;
+		/** [Config Option] (Boolean) */
+		static out: boolean;
+		/** [Config Option] (Boolean) */
+		static reverse: boolean;
+		/** [Config Option] (Object) */
+		static scope: any;
+		/** [Config Option] (Object) */
+		static to: any;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -540,6 +572,8 @@ declare module Ext {
 	export interface IAnimationQueue extends Ext.IBase {
 	}
 	export class AnimationQueue {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -589,6 +623,18 @@ declare module Ext {
 	export interface IAnims {
 	}
 	export class Anims {
+		/** [Property] (Object) */
+		static cube: any;
+		/** [Property] (Object) */
+		static fade: any;
+		/** [Property] (Object) */
+		static flip: any;
+		/** [Property] (Object) */
+		static pop: any;
+		/** [Property] (Object) */
+		static slide: any;
+		/** [Property] (Object) */
+		static wipe: any;
 	}
 }
 declare module Ext.app {
@@ -1959,6 +2005,22 @@ declare module Ext {
 	export interface IBrowser extends Ext.env.IBrowser {
 	}
 	export class Browser {
+		/** [Property] (String) */
+		static engineName: string;
+		/** [Property] (Ext.Version) */
+		static engineVersion: Ext.IVersion;
+		/** [Property] (Boolean) */
+		static isSecure: boolean;
+		/** [Property] (Boolean) */
+		static isStrict: boolean;
+		/** [Property] (String) */
+		static name: string;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (String) */
+		static userAgent: string;
+		/** [Property] (Ext.Version) */
+		static version: Ext.IVersion;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -6901,6 +6963,8 @@ declare module Ext {
 	export interface IComponentManager extends Ext.IBase {
 	}
 	export class ComponentManager {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -6962,6 +7026,8 @@ declare module Ext {
 	export interface IComponentMgr extends Ext.IBase {
 	}
 	export class ComponentMgr {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -8812,6 +8878,16 @@ declare module Ext.data {
 	export interface IJsonP extends Ext.IBase {
 	}
 	export class JsonP {
+		/** [Property] (String) */
+		static callbackKey: string;
+		/** [Property] (Boolean) */
+		static disableCaching: boolean;
+		/** [Property] (String) */
+		static disableCachingParam: string;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Number) */
+		static timeout: number;
 		/** [Method] Abort a request  
 		* @param request Object/String The request to abort. 
 		*/
@@ -8858,6 +8934,16 @@ declare module Ext.util {
 	export interface IJSONP extends Ext.IBase {
 	}
 	export class JSONP {
+		/** [Property] (String) */
+		static callbackKey: string;
+		/** [Property] (Boolean) */
+		static disableCaching: boolean;
+		/** [Property] (String) */
+		static disableCachingParam: string;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Number) */
+		static timeout: number;
 		/** [Method] Abort a request  
 		* @param request Object/String The request to abort. 
 		*/
@@ -9812,6 +9898,14 @@ declare module Ext.data {
 	export interface IModelManager extends Ext.IAbstractManager {
 	}
 	export class ModelManager {
+		/** [Property] (Ext.util.HashMap) */
+		static all: Ext.util.IHashMap;
+		/** [Property] (Object) */
+		static associationStack: any;
+		/** [Property] (Object) */
+		static defaultProxyType: any;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -9900,6 +9994,14 @@ declare module Ext {
 	export interface IModelMgr extends Ext.IAbstractManager {
 	}
 	export class ModelMgr {
+		/** [Property] (Ext.util.HashMap) */
+		static all: Ext.util.IHashMap;
+		/** [Property] (Object) */
+		static associationStack: any;
+		/** [Property] (Object) */
+		static defaultProxyType: any;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -9988,6 +10090,14 @@ declare module Ext {
 	export interface IModelManager extends Ext.IAbstractManager {
 	}
 	export class ModelManager {
+		/** [Property] (Ext.util.HashMap) */
+		static all: Ext.util.IHashMap;
+		/** [Property] (Object) */
+		static associationStack: any;
+		/** [Property] (Object) */
+		static defaultProxyType: any;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -13613,6 +13723,10 @@ declare module Ext.data {
 	export interface ISortTypes extends Ext.IBase {
 	}
 	export class SortTypes {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (RegExp) */
+		static stripTagsRE: RegExp;
 		/** [Method] Date sorting  
 		* @param value Object The value being converted. 
 		* @returns Number The comparison value. 
@@ -14134,6 +14248,30 @@ declare module Ext.data {
 	export interface IStoreManager extends Ext.util.ICollection {
 	}
 	export class StoreManager {
+		/** [Property] (Array) */
+		static all: any[];
+		/** [Property] (Object) */
+		static currentSortFn: any;
+		/** [Property] (Boolean) */
+		static dirtyFilterFn: boolean;
+		/** [Property] (Boolean) */
+		static dirtySortFn: boolean;
+		/** [Property] (Boolean) */
+		static filtered: boolean;
+		/** [Property] (Object) */
+		static indices: any;
+		/** [Property] (Array) */
+		static items: any[];
+		/** [Property] (Array) */
+		static keys: any[];
+		/** [Property] (Number) */
+		static length: number;
+		/** [Property] (Object) */
+		static map: any;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Boolean) */
+		static sorted: boolean;
 		/** [Method] Adds an item to the collection  
 		* @param key String The key to associate with the item, or the new item. If a getKey implementation was specified for this MixedCollection, or if the key of the stored items is in a property called id, the MixedCollection will be able to derive the key for the new item. In this case just pass the new item in this parameter. 
 		* @param item Object The item to add. 
@@ -14459,6 +14597,30 @@ declare module Ext {
 	export interface IStoreMgr extends Ext.util.ICollection {
 	}
 	export class StoreMgr {
+		/** [Property] (Array) */
+		static all: any[];
+		/** [Property] (Object) */
+		static currentSortFn: any;
+		/** [Property] (Boolean) */
+		static dirtyFilterFn: boolean;
+		/** [Property] (Boolean) */
+		static dirtySortFn: boolean;
+		/** [Property] (Boolean) */
+		static filtered: boolean;
+		/** [Property] (Object) */
+		static indices: any;
+		/** [Property] (Array) */
+		static items: any[];
+		/** [Property] (Array) */
+		static keys: any[];
+		/** [Property] (Number) */
+		static length: number;
+		/** [Property] (Object) */
+		static map: any;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Boolean) */
+		static sorted: boolean;
 		/** [Method] Adds an item to the collection  
 		* @param key String The key to associate with the item, or the new item. If a getKey implementation was specified for this MixedCollection, or if the key of the stored items is in a property called id, the MixedCollection will be able to derive the key for the new item. In this case just pass the new item in this parameter. 
 		* @param item Object The item to add. 
@@ -14784,6 +14946,30 @@ declare module Ext.data {
 	export interface IStoreMgr extends Ext.util.ICollection {
 	}
 	export class StoreMgr {
+		/** [Property] (Array) */
+		static all: any[];
+		/** [Property] (Object) */
+		static currentSortFn: any;
+		/** [Property] (Boolean) */
+		static dirtyFilterFn: boolean;
+		/** [Property] (Boolean) */
+		static dirtySortFn: boolean;
+		/** [Property] (Boolean) */
+		static filtered: boolean;
+		/** [Property] (Object) */
+		static indices: any;
+		/** [Property] (Array) */
+		static items: any[];
+		/** [Property] (Array) */
+		static keys: any[];
+		/** [Property] (Number) */
+		static length: number;
+		/** [Property] (Object) */
+		static map: any;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Boolean) */
+		static sorted: boolean;
 		/** [Method] Adds an item to the collection  
 		* @param key String The key to associate with the item, or the new item. If a getKey implementation was specified for this MixedCollection, or if the key of the stored items is in a property called id, the MixedCollection will be able to derive the key for the new item. In this case just pass the new item in this parameter. 
 		* @param item Object The item to add. 
@@ -15109,6 +15295,30 @@ declare module Ext {
 	export interface IStoreManager extends Ext.util.ICollection {
 	}
 	export class StoreManager {
+		/** [Property] (Array) */
+		static all: any[];
+		/** [Property] (Object) */
+		static currentSortFn: any;
+		/** [Property] (Boolean) */
+		static dirtyFilterFn: boolean;
+		/** [Property] (Boolean) */
+		static dirtySortFn: boolean;
+		/** [Property] (Boolean) */
+		static filtered: boolean;
+		/** [Property] (Object) */
+		static indices: any;
+		/** [Property] (Array) */
+		static items: any[];
+		/** [Property] (Array) */
+		static keys: any[];
+		/** [Property] (Number) */
+		static length: number;
+		/** [Property] (Object) */
+		static map: any;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Boolean) */
+		static sorted: boolean;
 		/** [Method] Adds an item to the collection  
 		* @param key String The key to associate with the item, or the new item. If a getKey implementation was specified for this MixedCollection, or if the key of the stored items is in a property called id, the MixedCollection will be able to derive the key for the new item. In this case just pass the new item in this parameter. 
 		* @param item Object The item to add. 
@@ -15516,6 +15726,28 @@ declare module Ext.data {
 	export interface ITypes extends Ext.IBase {
 	}
 	export class Types {
+		/** [Property] (Object) */
+		static AUTO: any;
+		/** [Property] (Object) */
+		static BOOL: any;
+		/** [Property] (Object) */
+		static BOOLEAN: any;
+		/** [Property] (Object) */
+		static DATE: any;
+		/** [Property] (Object) */
+		static FLOAT: any;
+		/** [Property] (Object) */
+		static INT: any;
+		/** [Property] (Object) */
+		static INTEGER: any;
+		/** [Property] (Object) */
+		static NUMBER: any;
+		/** [Property] (Object) */
+		static STRING: any;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (RegExp) */
+		static stripRe: RegExp;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -15553,6 +15785,22 @@ declare module Ext.data {
 	export interface IValidations extends Ext.IBase {
 	}
 	export class Validations {
+		/** [Property] (String) */
+		static emailMessage: string;
+		/** [Property] (RegExp) */
+		static emailRe: RegExp;
+		/** [Property] (String) */
+		static exclusionMessage: string;
+		/** [Property] (Boolean) */
+		static formatMessage: boolean;
+		/** [Property] (String) */
+		static inclusionMessage: string;
+		/** [Property] (String) */
+		static lengthMessage: string;
+		/** [Property] (String) */
+		static presenceMessage: string;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -17905,6 +18153,38 @@ declare module Ext {
 	export interface IDate extends Ext.IDateExtras {
 	}
 	export class Date {
+		/** [Property] (String) */
+		static DAY: string;
+		/** [Property] (String) */
+		static HOUR: string;
+		/** [Property] (String) */
+		static MILLI: string;
+		/** [Property] (String) */
+		static MINUTE: string;
+		/** [Property] (String) */
+		static MONTH: string;
+		/** [Property] (String) */
+		static SECOND: string;
+		/** [Property] (String) */
+		static YEAR: string;
+		/** [Property] (Array) */
+		static dayNames: any[];
+		/** [Property] (String) */
+		static defaultFormat: string;
+		/** [Property] (Object) */
+		static defaults: any;
+		/** [Property] (Object) */
+		static formatCodes: any;
+		/** [Property] (Object) */
+		static formatFunctions: any;
+		/** [Property] (Array) */
+		static monthNames: any[];
+		/** [Property] (Object) */
+		static monthNumbers: any;
+		/** [Property] (Object) */
+		static parseFunctions: any;
+		/** [Property] (Boolean) */
+		static useStrict: boolean;
 		/** [Method] Provides a convenient method for performing basic date arithmetic  
 		* @param date Date The date to modify. 
 		* @param interval String A valid date interval enum value. 
@@ -18059,6 +18339,38 @@ declare module Ext {
 	export interface IDateExtras {
 	}
 	export class DateExtras {
+		/** [Property] (String) */
+		static DAY: string;
+		/** [Property] (String) */
+		static HOUR: string;
+		/** [Property] (String) */
+		static MILLI: string;
+		/** [Property] (String) */
+		static MINUTE: string;
+		/** [Property] (String) */
+		static MONTH: string;
+		/** [Property] (String) */
+		static SECOND: string;
+		/** [Property] (String) */
+		static YEAR: string;
+		/** [Property] (Array) */
+		static dayNames: any[];
+		/** [Property] (String) */
+		static defaultFormat: string;
+		/** [Property] (Object) */
+		static defaults: any;
+		/** [Property] (Object) */
+		static formatCodes: any;
+		/** [Property] (Object) */
+		static formatFunctions: any;
+		/** [Property] (Array) */
+		static monthNames: any[];
+		/** [Property] (Object) */
+		static monthNumbers: any;
+		/** [Property] (Object) */
+		static parseFunctions: any;
+		/** [Property] (Boolean) */
+		static useStrict: boolean;
 		/** [Method] Provides a convenient method for performing basic date arithmetic  
 		* @param date Date The date to modify. 
 		* @param interval String A valid date interval enum value. 
@@ -18242,6 +18554,8 @@ declare module Ext.device {
 	export interface ICamera extends Ext.IBase,Ext.device.camera.IAbstract {
 	}
 	export class Camera {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -18328,6 +18642,8 @@ declare module Ext.device {
 	export interface ICommunicator extends Ext.IBase {
 	}
 	export class Communicator {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -18580,6 +18896,22 @@ declare module Ext.device {
 	export interface IConnection extends Ext.IBase,Ext.device.connection.IAbstract {
 	}
 	export class Connection {
+		/** [Property] (String) */
+		static CELL_2G: string;
+		/** [Property] (String) */
+		static CELL_3G: string;
+		/** [Property] (String) */
+		static CELL_4G: string;
+		/** [Property] (String) */
+		static ETHERNET: string;
+		/** [Property] (String) */
+		static NONE: string;
+		/** [Property] (String) */
+		static UNKNOWN: string;
+		/** [Property] (String) */
+		static WIFI: string;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Appends an after event handler  
 		* @param eventName String/String[]/Object The name of the event to listen for. 
 		* @param fn Function/String The method the event invokes. 
@@ -19046,6 +19378,8 @@ declare module Ext.device {
 	export interface IContacts extends Ext.IBase,Ext.device.contacts.IAbstract,Ext.device.contacts.ISencha {
 	}
 	export class Contacts {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Appends an after event handler  
 		* @param eventName String/String[]/Object The name of the event to listen for. 
 		* @param fn Function/String The method the event invokes. 
@@ -19497,6 +19831,16 @@ declare module Ext.device {
 	export interface IDevice extends Ext.IBase,Ext.device.device.IAbstract {
 	}
 	export class Device {
+		/** [Property] (String) */
+		static name: string;
+		/** [Property] (String) */
+		static platform: string;
+		/** [Property] (Object/Boolean) */
+		static scheme: any;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (String) */
+		static uuid: string;
 		/** [Method] Appends an after event handler  
 		* @param eventName String/String[]/Object The name of the event to listen for. 
 		* @param fn Function/String The method the event invokes. 
@@ -19787,6 +20131,8 @@ declare module Ext.device {
 	export interface IGeolocation extends Ext.IBase,Ext.device.geolocation.IAbstract {
 	}
 	export class Geolocation {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -19904,6 +20250,8 @@ declare module Ext.device {
 	export interface INotification extends Ext.IBase,Ext.device.notification.IAbstract {
 	}
 	export class Notification {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -20156,6 +20504,8 @@ declare module Ext.device {
 	export interface IOrientation extends Ext.IBase,Ext.device.orientation.IAbstract {
 	}
 	export class Orientation {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Appends an after event handler  
 		* @param eventName String/String[]/Object The name of the event to listen for. 
 		* @param fn Function/String The method the event invokes. 
@@ -20376,6 +20726,8 @@ declare module Ext.device {
 	export interface IPurchases extends Ext.IBase,Ext.device.purchases.ISencha {
 	}
 	export class Purchases {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -20499,6 +20851,14 @@ declare module Ext.device {
 	export interface IPush extends Ext.IBase,Ext.device.push.IAbstract {
 	}
 	export class Push {
+		/** [Property] (Number) */
+		static ALERT: number;
+		/** [Property] (Number) */
+		static BADGE: number;
+		/** [Property] (Number) */
+		static SOUND: number;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -20566,6 +20926,8 @@ declare module Ext.device {
 	export interface ISQLite extends Ext.IBase,Ext.device.sqlite.ISencha {
 	}
 	export class SQLite {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -20765,6 +21127,8 @@ declare module Ext.direct {
 	export interface IManager extends Ext.IBase,Ext.mixin.IObservable {
 	}
 	export class Manager {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Appends an after event handler  
 		* @param eventName String/String[]/Object The name of the event to listen for. 
 		* @param fn Function/String The method the event invokes. 
@@ -21001,6 +21365,8 @@ declare module Ext {
 	export interface IDirect extends Ext.IBase,Ext.mixin.IObservable {
 	}
 	export class Direct {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Appends an after event handler  
 		* @param eventName String/String[]/Object The name of the event to listen for. 
 		* @param fn Function/String The method the event invokes. 
@@ -24969,6 +25335,8 @@ declare module Ext {
 	export interface IDomQuery extends Ext.dom.IQuery {
 	}
 	export class DomQuery {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -25024,6 +25392,8 @@ declare module Ext.core {
 	export interface IDomQuery extends Ext.dom.IQuery {
 	}
 	export class DomQuery {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -25079,6 +25449,8 @@ declare module Ext.draw {
 	export interface IAnimator extends Ext.IBase {
 	}
 	export class Animator {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Adds an animated object to the animation pool  
 		* @param animation Object The animation descriptor to add to the pool. 
 		*/
@@ -25349,6 +25721,8 @@ declare module Ext.draw {
 	export interface IDraw extends Ext.IBase {
 	}
 	export class Draw {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -26772,6 +27146,8 @@ declare module Ext.draw {
 	export interface ISolver extends Ext.IBase {
 	}
 	export class Solver {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -26831,6 +27207,8 @@ declare module Ext.draw.sprite {
 	export interface IAnimationParser extends Ext.IBase {
 	}
 	export class AnimationParser {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -26944,6 +27322,8 @@ declare module Ext.draw.sprite {
 	export interface IAttributeParser extends Ext.IBase {
 	}
 	export class AttributeParser {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -27655,6 +28035,8 @@ declare module Ext.draw {
 	export interface ITextMeasurer extends Ext.IBase {
 	}
 	export class TextMeasurer {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -27704,6 +28086,8 @@ declare module Ext.draw {
 	export interface ITimingFunctions extends Ext.IBase {
 	}
 	export class TimingFunctions {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -28484,6 +28868,8 @@ declare module Ext {
 	export interface IFeature extends Ext.env.IFeature {
 	}
 	export class Feature {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -31047,10 +31433,6 @@ declare module Ext.form {
 		* @returns Ext.data.Model 
 		*/
 		getRecord?(): Ext.data.IModel;
-		/** [Method] Returns the value of scrollable  
-		* @returns Object 
-		*/
-		getScrollable?(): any;
 		/** [Method] Returns the value of standardSubmit  
 		* @returns Boolean 
 		*/
@@ -31196,10 +31578,6 @@ declare module Ext.form {
 		* @returns Ext.data.Model 
 		*/
 		getRecord?(): Ext.data.IModel;
-		/** [Method] Returns the value of scrollable  
-		* @returns Object 
-		*/
-		getScrollable?(): any;
 		/** [Method] Returns the value of standardSubmit  
 		* @returns Boolean 
 		*/
@@ -33609,6 +33987,16 @@ declare module Ext {
 	export interface ILoader {
 	}
 	export class Loader {
+		/** [Config Option] (Boolean) */
+		static disableCaching: boolean;
+		/** [Config Option] (String) */
+		static disableCachingParam: string;
+		/** [Config Option] (Boolean) */
+		static enabled: boolean;
+		/** [Config Option] (Object) */
+		static paths: any;
+		/** [Property] (Array) */
+		static history: any[];
 		/** [Method] Sets a batch of path entries 
 		* @param paths Object a set of className: path mappings 
 		* @returns Ext.Loader this 
@@ -34773,6 +35161,10 @@ declare module Ext {
 	export interface IMsg extends Ext.IMessageBox {
 	}
 	export class Msg {
+		/** [Property] (Ext.util.MixedCollection) */
+		static items: Ext.util.IMixedCollection;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Adds one or more Components to this Container  
 		* @param newItems Object/Object[]/Ext.Component/Ext.Component[] The new items to add to the Container. 
 		* @returns Ext.Component The last item added to the Container from the newItems array. 
@@ -36009,6 +36401,14 @@ declare module Ext {
 	export interface IOs extends Ext.env.IOS {
 	}
 	export class Os {
+		/** [Property] (String) */
+		static deviceType: string;
+		/** [Property] (String) */
+		static name: string;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Ext.Version) */
+		static version: Ext.IVersion;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -38065,6 +38465,8 @@ declare module Ext {
 	export interface ITaskQueue extends Ext.IBase {
 	}
 	export class TaskQueue {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -39651,6 +40053,12 @@ declare module Ext.util {
 	export interface IFormat extends Ext.IBase {
 	}
 	export class Format {
+		/** [Property] (String) */
+		static defaultDateFormat: string;
+		/** [Property] (Array) */
+		static potentialUndefinedKeys: any[];
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -40104,6 +40512,8 @@ declare module Ext.util {
 	export interface IInflector extends Ext.IBase {
 	}
 	export class Inflector {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -41277,6 +41687,12 @@ declare module Ext {
 	export interface IViewport extends Ext.viewport.IDefault {
 	}
 	export class Viewport {
+		/** [Property] (Boolean) */
+		static isReady: boolean;
+		/** [Property] (Ext.util.MixedCollection) */
+		static items: Ext.util.IMixedCollection;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Adds one or more Components to this Container  
 		* @param newItems Object/Object[]/Ext.Component/Ext.Component[] The new items to add to the Container. 
 		* @returns Ext.Component The last item added to the Container from the newItems array. 
