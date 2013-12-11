@@ -405,6 +405,57 @@ declare module google {
         }
 
         //#endregion
+        //#region BarChart
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/barchart#Configuration_Options
+        export interface BarChartOptions {
+            aggregationTarget?: string;
+            animation?: TransitionAnimation;
+            axisTitlesPosition?: string; // in, out, none
+            backgroundColor?: any;
+            bar?: ColumnChartBarOptions;
+            chartArea?: ChartArea;
+            colors?: string[];
+            dataOpacity?: number;
+            enableInteractivity?: boolean;
+            focusTarget?: string;
+            fontSize?: number;
+            fontName?: string;
+            hAxis?: ChartAxis;
+            height?: number;
+            isStacked?: boolean;
+            legend?: ChartLegend;
+            reverseCategories?: boolean;
+            series?: any;
+            theme?: string;
+            title?: string;
+            titlePosition?: string;
+            titleTextStyle?: ChartTextStyle;
+            tooltip?: ChartTooltip;
+            vAxes?: any;
+            vAxis?: ChartAxis;
+            width?: number;
+        }
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/barchart
+        export class BarChart {
+            constructor(element: Element);
+            draw(data: DataTable, options: BarChartOptions): void;
+            draw(data: DataView, options: BarChartOptions): void;
+            getBoundingBox(id: string): ChartBoundingBox;
+            getChartAreaBoundingBox(): ChartBoundingBox;
+            getChartLayoutInterface(): ChartLayoutInterface;
+            getHAxisValue(position: number, axisIndex?: number): number;
+            getVAxisValue(position: number, axisIndex?: number): number;
+            getXLocation(position: number, axisIndex?: number): number;
+            getYLocation(position: number, axisIndex?: number): number;
+            getSelection(): any[];
+            setSelection(selection: any[]): void;
+            clearChart(): void;
+
+        }
+
+        //#endregion
         //#region Events
 
         module events {
