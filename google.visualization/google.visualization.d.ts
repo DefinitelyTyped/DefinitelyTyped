@@ -6,57 +6,6 @@ declare module google {
 
     //https://developers.google.com/chart/interactive/docs/reference
     module visualization {
-
-        export interface ChartSpecs {
-            chartType: string;
-            containerId: string;
-            oprtions?: Object;
-            dataTable?: Object;
-            dataSourceUrl?: string;
-            query?: string;
-            refreshInterval?: number;
-            view?: any;
-        }
-
-        export interface ErrorEventObject {
-            id: string;
-            message: string;
-            detailedMessage?: string;
-            options?: any;
-        }
-
-        //#region ChartWrapper
-
-        // https://developers.google.com/chart/interactive/docs/reference#chartwrapperobject
-        export class ChartWrapper {
-            constructor(spec?: ChartSpecs);
-            draw(container_ref?: HTMLElement): void;
-            toJSON(): string;
-            clone():ChartWrapper;
-            getDataSourceUrl(): string;
-            getDataTable(): DataTable;
-            getChartType(): string;
-            getChartName(): string;
-            getChart(): any;
-            getContainerId(): string;
-            getQuery(): string;
-            getRefreshInterval(): number;
-            getOption(key: string, default_val?: string): any;
-            getOptions(): Object;
-            getView(): any;
-            setDataSourceUrl(url: string): void;
-            setDataTable(table: DataTable): void;
-            setChartType(type: string): void;
-            setChartName(name: string): void;
-            setContainerId(id: string): void;
-            setQuery(query: string): void;
-            setRefreshInterval(interval: number): void;
-            setOption(key: string, value: any): void;
-            setOptions(options: Object): void;
-            setView(view_spec: DataView): void;
-        }
-
-        //#endregion
         //#region DataTable
 
         // https://developers.google.com/chart/interactive/docs/reference#DataTable
@@ -402,6 +351,54 @@ declare module google {
             vAxes?: any;
             vAxis?: ChartAxis;
             width?: number;
+        }
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/barchart#Configuration_Options
+        export interface BarChartOptions {
+            aggregationTarget?: string;
+            animation?: TransitionAnimation;
+            axisTitlesPosition?: string; // in, out, none
+            backgroundColor?: any;
+            bar?: ColumnChartBarOptions;
+            chartArea?: ChartArea;
+            colors?: string[];
+            dataOpacity?: number;
+            enableInteractivity?: boolean;
+            focusTarget?: string;
+            fontSize?: number;
+            fontName?: string;
+            hAxis?: ChartAxis;
+            height?: number;
+            isStacked?: boolean;
+            legend?: ChartLegend;
+            reverseCategories?: boolean;
+            series?: any;
+            theme?: string;
+            title?: string;
+            titlePosition?: string;
+            titleTextStyle?: ChartTextStyle;
+            tooltip?: ChartTooltip;
+            vAxes?: any;
+            vAxis?: ChartAxis;
+            width?: number;
+        }
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/barchart
+        export class BarChart {
+            constructor(element: Element);
+            draw(data: DataTable, options: BarChartOptions): void;
+            draw(data: DataView, options: BarChartOptions): void;
+            getBoundingBox(id: string): ChartBoundingBox;
+            getChartAreaBoundingBox(): ChartBoundingBox;
+            getChartLayoutInterface(): ChartLayoutInterface;
+            getHAxisValue(position: number, axisIndex?: number): number;
+            getVAxisValue(position: number, axisIndex?: number): number;
+            getXLocation(position: number, axisIndex?: number): number;
+            getYLocation(position: number, axisIndex?: number): number;
+            getSelection(): any[];
+            setSelection(selection: any[]): void;
+            clearChart(): void;
+
         }
 
         //#endregion
