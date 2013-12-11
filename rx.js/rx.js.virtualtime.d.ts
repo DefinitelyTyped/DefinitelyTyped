@@ -19,16 +19,16 @@ declare module Rx {
         comparer: (x: number, y: number) =>number;
         isEnabled: boolean;
         queue: IPriorityQueue;
-        scheduleRelativeWithState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable): _IDisposable;
-        scheduleRelative(dueTime: number, action: () =>void ): _IDisposable;
-        start(): _IDisposable;
+        scheduleRelativeWithState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>IDisposable): IDisposable;
+        scheduleRelative(dueTime: number, action: () =>void ): IDisposable;
+        start(): IDisposable;
         stop(): void;
         advanceTo(time: number);
         advanceBy(time: number);
         sleep(time: number);
         getNext(): IScheduledItem;
         scheduleAbsolute(dueTime: number, action: () =>void );
-        scheduleAbsoluteWithState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable): _IDisposable;
+        scheduleAbsoluteWithState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>IDisposable): IDisposable;
     }
     //export module VirtualTimeScheduler {
     //    //absract

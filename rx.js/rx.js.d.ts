@@ -8,7 +8,7 @@ declare module Rx {
 	export module Internals {
 		function inherits(child: Function, parent: Function): Function;
 		function addProperties(obj: Object, ...sourcces: Object[]): void;
-		function addRef<T>(xs: IObservable<T>, r: { getDisposable(): _IDisposable; }): IObservable<T>;
+		function addRef<T>(xs: IObservable<T>, r: { getDisposable(): IDisposable; }): IObservable<T>;
 	}
 
 	//Collections
@@ -34,141 +34,146 @@ declare module Rx {
 		remove(item: IIndexedItem): boolean;
 	}
 
-	interface _IDisposable {
+	interface IDisposable {
 		dispose(): void;
 	}
 
-	export class CompositeDisposable {
-		constructor (...disposables: _IDisposable[]);
+	export class CompositeDisposable implements IDisposable {
+		constructor (...disposables: IDisposable[]);
+		constructor (disposables: IDisposable[]);
 
-		disposables: _IDisposable[];
 		isDisposed: boolean;
 		length: number;
 
 		dispose(): void;
-		add(item: _IDisposable): void;
-		remove(item: _IDisposable): boolean;
+		add(item: IDisposable): void;
+		remove(item: IDisposable): boolean;
 		clear(): void;
-		contains(item: _IDisposable): boolean;
-		toArray(): _IDisposable[];
+		contains(item: IDisposable): boolean;
+		toArray(): IDisposable[];
 	}
 
-	// Main disposable class
-	interface IDisposable {
+	export class Disposable implements IDisposable {
+		constructor(action: () => void);
+
+		static create(action: () => void): IDisposable;
+		static empty: IDisposable;
+
 		isDisposed: boolean;
-		action: () =>void;
+		action: () => void;
 
 		dispose(): void;
-	}
-
-	export interface Disposable {
-		new (action: () =>void ): IDisposable;
-	}
-
-	var Disposable: {
-		create(action: () => void): _IDisposable;
-		empty: _IDisposable;
 	}
 
 	// Single assignment
-	interface ISingleAssignmentDisposable {
-		isDisposed: boolean;
-		current: _IDisposable;
+	export class SingleAssignmentDisposable implements IDisposable {
+		constructor();
 
-		dispose(): void;
-		disposable(value?: _IDisposable): _IDisposable;
-		getDisposable(): _IDisposable;
-		setDisposable(value: _IDisposable): void;
-	}
-	export interface SingleAssignmentDisposable {
-		(): ISingleAssignmentDisposable;
+		isDisposed: boolean;
+		current: IDisposable;
+
+		dispose(): void ;
+		getDisposable(): IDisposable;
+		setDisposable(value: IDisposable): void ;
 	}
 
 	// Multiple assignment disposable
-	export class SerialDisposable {
+	export class SerialDisposable implements IDisposable {
+		constructor();
+
 		isDisposed: boolean;
-		current: _IDisposable;
 
 		dispose(): void;
-		getDisposable(): _IDisposable;
-		setDisposable(value: _IDisposable): void;
-		disposable(value?: _IDisposable): _IDisposable;
+		getDisposable(): IDisposable;
+		setDisposable(value: IDisposable): void;
 	}
 
-	export class RefCountDisposable {
-		constructor(disposable: _IDisposable);
-
-		underlyingDisposable: _IDisposable;
-		isDisposed: boolean;
-		isPrimaryDisposed: boolean;
-		count: number;
+	export class RefCountDisposable implements IDisposable {
+		constructor(disposable: IDisposable);
 
 		dispose(): void;
-		getDisposable(): _IDisposable;
+
+		isDisposed: boolean;
+		getDisposable(): IDisposable;
 	}
 
 	interface IScheduledItem {
 		scheduler: IScheduler;
 		state: any;
-		action: (scheduler: IScheduler, state) => _IDisposable;
+		action: (scheduler: IScheduler, state) => IDisposable;
 		dueTime: number;
 		comparer: (x: number, y: number) =>number;
-		disposable: ISingleAssignmentDisposable;
+		disposable: SingleAssignmentDisposable;
 
 		invoke(): void;
 		compareTo(other: IScheduledItem): number;
 		isCancelled(): boolean;
-		invokeCore(): _IDisposable;
+		invokeCore(): IDisposable;
 	}
 
 	interface IScheduler {
-		_schedule: (state: any, action: (scheduler: IScheduler, state: any) =>_IDisposable) => _IDisposable;
-		_scheduleRelative: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable) =>_IDisposable;
-		_scheduleAbsolute: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable) =>_IDisposable;
-
 		now(): number;
-		scheduleWithState(state: any, action: (scheduler: IScheduler, state: any) =>_IDisposable): _IDisposable;
-		scheduleWithAbsoluteAndState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable): _IDisposable;
-		scheduleWithRelativeAndState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable): _IDisposable;
+		catch(handler: (exception: any) => boolean): IScheduler;
+		catchException(handler: (exception: any) => boolean): IScheduler;
 
-		catchException(handler: (exception: any) =>boolean): ICatchScheduler;
-		schedulePeriodic(period: number, action: () =>void ): _IDisposable;
-		schedulePeriodicWithState(state: any, period: number, action: (state: any) =>any): _IDisposable;//returns {Disposable|SingleAssignmentDisposable}
-		schedule(action: () =>void ): _IDisposable;
-		scheduleWithRelative(dueTime: number, action: () =>void ): _IDisposable;
-		scheduleWithAbsolute(dueTime: number, action: () =>void ): _IDisposable;
-		scheduleRecursive(action: (action: () =>void ) =>void ): _IDisposable;
-		scheduleRecursiveWithState(state: any, action: (state: any, action: (state: any) =>void ) =>void ): _IDisposable;
-		scheduleRecursiveWithRelative(dueTime: number, action: (action: (dueTime: number) =>void ) =>void ): _IDisposable;
-		scheduleRecursiveWithRelativeAndState(state: any, dueTime: number, action: (state: any, action: (state: any, dueTime: number) =>void ) =>void ): _IDisposable;
-		scheduleRecursiveWithAbsolute(dueTime: number, action: (action: (dueTime: number) =>void ) =>void ): _IDisposable;
-		scheduleRecursiveWithAbsoluteAndState(state: any, dueTime: number, action: (state: any, action: (state: any, dueTime: number) =>void ) =>void ): _IDisposable;
+		schedule(action: () => void): IDisposable;
+		scheduleWithState(state: any, action: (scheduler: IScheduler, state: any) => IDisposable): IDisposable;
+		scheduleWithAbsolute(dueTime: number, action: () => void): IDisposable;
+		scheduleWithAbsoluteAndState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>IDisposable): IDisposable;
+		scheduleWithRelative(dueTime: number, action: () => void): IDisposable;
+		scheduleWithRelativeAndState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>IDisposable): IDisposable;
+
+		scheduleRecursive(action: (action: () =>void ) =>void ): IDisposable;
+		scheduleRecursiveWithState(state: any, action: (state: any, action: (state: any) =>void ) =>void ): IDisposable;
+		scheduleRecursiveWithAbsolute(dueTime: number, action: (action: (dueTime: number) => void) => void): IDisposable;
+		scheduleRecursiveWithAbsoluteAndState(state: any, dueTime: number, action: (state: any, action: (state: any, dueTime: number) => void) => void): IDisposable;
+		scheduleRecursiveWithRelative(dueTime: number, action: (action: (dueTime: number) =>void ) =>void ): IDisposable;
+		scheduleRecursiveWithRelativeAndState(state: any, dueTime: number, action: (state: any, action: (state: any, dueTime: number) =>void ) =>void ): IDisposable;
+
+		schedulePeriodic(period: number, action: () => void): IDisposable;
+		schedulePeriodicWithState(state: any, period: number, action: (state: any) => any): IDisposable;
 	}
 
-	var Scheduler: {
-		//(now: () =>number,
-		//	schedule: (state: any, action: (scheduler: IScheduler, state: any) =>_IDisposable) => _IDisposable,
-		//	scheduleRelative: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable) =>_IDisposable,
-		//	scheduleAbsolute: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable) =>_IDisposable
-		//	): IScheduler;
+	export class Scheduler implements IScheduler {
+		constructor(
+			now: () => number,
+			schedule: (state: any, action: (scheduler: IScheduler, state: any) => IDisposable) => IDisposable,
+			scheduleRelative: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) => IDisposable) => IDisposable,
+			scheduleAbsolute: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) => IDisposable) => IDisposable);
+
+		static normalize(timeSpan: number): number;
+
+		static immediate: IScheduler;
+		static currentThread: ICurrentThreadScheduler;
+		static timeout: IScheduler;
 
 		now(): number;
-		normalize(timeSpan: number): number;
+		catch(handler: (exception: any) => boolean): IScheduler;
+		catchException(handler: (exception: any) => boolean): IScheduler;
 
-		immediate: IScheduler;
-		currentThread: ICurrentScheduler;//IScheduler;
-		timeout: IScheduler;
+		schedule(action: () => void): IDisposable;
+		scheduleWithState(state: any, action: (scheduler: IScheduler, state: any) => IDisposable): IDisposable;
+		scheduleWithAbsolute(dueTime: number, action: () => void): IDisposable;
+		scheduleWithAbsoluteAndState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) => IDisposable): IDisposable;
+		scheduleWithRelative(dueTime: number, action: () => void): IDisposable;
+		scheduleWithRelativeAndState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) => IDisposable): IDisposable;
+
+		scheduleRecursive(action: (action: () => void) => void): IDisposable;
+		scheduleRecursiveWithState(state: any, action: (state: any, action: (state: any) => void) => void): IDisposable;
+		scheduleRecursiveWithAbsolute(dueTime: number, action: (action: (dueTime: number) => void) => void): IDisposable;
+		scheduleRecursiveWithAbsoluteAndState(state: any, dueTime: number, action: (state: any, action: (state: any, dueTime: number) => void) => void): IDisposable;
+		scheduleRecursiveWithRelative(dueTime: number, action: (action: (dueTime: number) => void) => void): IDisposable;
+		scheduleRecursiveWithRelativeAndState(state: any, dueTime: number, action: (state: any, action: (state: any, dueTime: number) => void) => void): IDisposable;
+
+		schedulePeriodic(period: number, action: () => void): IDisposable;
+		schedulePeriodicWithState(state: any, period: number, action: (state: any) => any): IDisposable;
 	}
 
 	// Current Thread IScheduler
-	interface ICurrentScheduler extends IScheduler {
+	interface ICurrentThreadScheduler extends IScheduler {
 		scheduleRequired(): boolean;
-		ensureTrampoline(action: () =>_IDisposable): _IDisposable;
+		ensureTrampoline(action: () =>IDisposable): IDisposable;
 	}
-
-
-	// CatchScheduler
-	interface ICatchScheduler extends IScheduler { }
 
 	// Notifications
 	interface INotification<T> {
@@ -283,12 +288,12 @@ declare module Rx {
 	}
 
 	interface IObservable<T> {
-		_subscribe: (observer: IObserver<T>) =>_IDisposable;
+		_subscribe: (observer: IObserver<T>) =>IDisposable;
 
-		subscribe(observer: IObserver<T>): _IDisposable;
+		subscribe(observer: IObserver<T>): IDisposable;
 
 		finalValue(): IObservable<T>;
-		subscribe(onNext?: (value: T) =>void , onError?: (exception: any) =>void , onCompleted?: () =>void ): _IDisposable;
+		subscribe(onNext?: (value: T) =>void , onError?: (exception: any) =>void , onCompleted?: () =>void ): IDisposable;
 		toArray(): IObservable<T>;
 
 		observeOn(scheduler: IScheduler): IObservable<T>;
@@ -352,11 +357,11 @@ declare module Rx {
 	}
 
 	interface Observable {
-		(subscribe: (observer: IObserver<any>) =>_IDisposable): IObservable<any>;
+		(subscribe: (observer: IObserver<any>) =>IDisposable): IObservable<any>;
 
 		create<T>(subscribe: (observer: IObserver<T>) => void ): IObservable<T>;
-		//create<T>(subscribe: (observer: IObserver<T>) => () => void ): IObservable<T>;
-		createWithDisposable<T>(subscribe: (observer: IObserver<T>) =>_IDisposable): IObservable<T>;
+		create<T>(subscribe: (observer: IObserver<T>) => () => void ): IObservable<T>;
+		createWithDisposable<T>(subscribe: (observer: IObserver<T>) =>IDisposable): IObservable<T>;
 		defer<T>(observableFactory: () => IObservable<T>): IObservable<T>;
 		empty<T>(scheduler?: IScheduler): IObservable<T>;
 		fromArray<T>(array: T[], scheduler?: IScheduler): IObservable<T>;
@@ -365,7 +370,11 @@ declare module Rx {
 		never<T>(): IObservable<T>;
 		range(start: number, count: number, scheduler?: IScheduler): IObservable<number>;
 		repeat<T>(value: T, repeatCount?: number, scheduler?: IScheduler): IObservable<T>;
+		return<T>(value: T, scheduler?: IScheduler): IObservable<T>;
 		returnValue<T>(value: T, scheduler?: IScheduler): IObservable<T>;
+		throw<T>(exception: Error, scheduler?: IScheduler): IObservable<T>;
+		throw<T>(exception: any, scheduler?: IScheduler): IObservable<T>;
+		throwException<T>(exception: Error, scheduler?: IScheduler): IObservable<T>;
 		throwException<T>(exception: any, scheduler?: IScheduler): IObservable<T>;
 		using<TSource, TResource>(resourceFactory: () => TResource, observableFactory: (resource: TResource) => IObservable<TSource>): IObservable<TSource>;
 		amb<T>(...sources: IObservable<T>[]): IObservable<T>;
@@ -387,7 +396,7 @@ declare module Rx {
 	export module Internals {
 		interface IAnonymousObservable<T> extends IObservable<T> { }
 		export interface AnonymousObservable<T> {
-			(subscribe: (observer: IObserver<T>) =>_IDisposable): IAnonymousObservable<T>;
+			(subscribe: (observer: IObserver<T>) =>IDisposable): IAnonymousObservable<T>;
 		}
 	}
 

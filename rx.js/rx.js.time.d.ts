@@ -51,7 +51,7 @@ declare module Rx {
 		skipLastWithTime(duration: number, scheduler?: IScheduler): IObservable<T>;
 		takeLastWithTime(duration: number, timerScheduler?: IScheduler, loopScheduler?: IScheduler): IObservable<T>;
 
-		takeLastBufferWithTime(duration: number, scheduler?: IScheduler): IObservable<Array>;
+		takeLastBufferWithTime(duration: number, scheduler?: IScheduler): IObservable<T[]>;
 		takeWithTime(duration: number, scheduler?: IScheduler): IObservable<T>;
 		skipWithTime(duration: number, scheduler?: IScheduler): IObservable<T>;
 

@@ -28,7 +28,7 @@ declare module Rx {
     }
 
 	interface ConnectableObservable<T> extends IObservable<T>{
-		connect(): _IDisposable;
+		connect(): IDisposable;
 		refCount(): IObservable<T>;
     }
 
