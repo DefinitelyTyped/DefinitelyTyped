@@ -2707,7 +2707,7 @@ interface _Chain<T> {
 	* Wrapped type `object`.
 	* @see _.keys
 	**/
-	keys(): _Chain<T>;
+	keys(): _Chain<string>;
 
 	/**
 	* Wrapped type `object`.

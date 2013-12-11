@@ -15,10 +15,10 @@ declare var global: any;
 declare var __filename: string;
 declare var __dirname: string;
 
-declare function setTimeout(callback: (...args: any[]) => void , ms: number , ...args: any[]): Timer;
-declare function clearTimeout(timeoutId: Timer): void;
-declare function setInterval(callback: (...args: any[]) => void , ms: number , ...args: any[]): Timer;
-declare function clearInterval(intervalId: Timer): void;
+declare function setTimeout(callback: (...args: any[]) => void , ms: number , ...args: any[]): NodeTimer;
+declare function clearTimeout(timeoutId: NodeTimer): void;
+declare function setInterval(callback: (...args: any[]) => void , ms: number , ...args: any[]): NodeTimer;
+declare function clearInterval(intervalId: NodeTimer): void;
 declare function setImmediate(callback: (...args: any[]) => void , ...args: any[]): any;
 declare function clearImmediate(immediateId: any): void;
 
@@ -198,7 +198,7 @@ interface NodeBuffer {
     INSPECT_MAX_BYTES: number;
 }
 
-interface Timer {
+interface NodeTimer {
     ref() : void;
     unref() : void;
 }
