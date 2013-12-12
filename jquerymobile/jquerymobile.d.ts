@@ -6,7 +6,7 @@
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-interface JQueryMobileEvent { (event: Event, ui): void; }
+interface JQueryMobileEvent { (event: Event, ui: any): void; }
 
 interface DialogOptions {
     closeBtn?: string;
@@ -208,7 +208,7 @@ interface JQueryMobileOptions {
     ajaxEnabled?: boolean;
     allowCrossDomainPages?: boolean;
     autoInitializePage?: boolean;
-    buttonMarkup;
+    buttonMarkup: any;
     defaultDialogTransition?: string;
     defaultPageTransition?: string;
     getMaxScrollForTransition?: number;
@@ -227,43 +227,43 @@ interface JQueryMobileOptions {
     pushStateEnabled?: boolean;
     subPageUrlKey?: string;
     touchOverflowEnabled?: boolean;
-    transitionFallbacks;
+    transitionFallbacks: any;
 }
 
 interface JQueryMobileEvents {
-    tap;
-    taphold;
-    swipe;
-    swipeleft;
-    swiperight;
+    tap: any;
+    taphold: any;
+    swipe: any;
+    swipeleft: any;
+    swiperight: any;
 
-    vmouseover;
-    vmouseout;
-    vmousedown;
-    vmousemove;
-    vmouseup;
-    vclick;
-    vmousecancel;
+    vmouseover: any;
+    vmouseout: any;
+    vmousedown: any;
+    vmousemove: any;
+    vmouseup: any;
+    vclick: any;
+    vmousecancel: any;
 
-    orientationchange;
-    scrollstart;
-    scrollstop;
+    orientationchange: any;
+    scrollstart: any;
+    scrollstop: any;
 
-    pagebeforeload;
-    pageload;
-    pageloadfailed;
-    pagebeforechange;
-    pagechange;
-    pagechangefailed;
-    pagebeforeshow;
-    pagebeforehide;
-    pageshow;
-    pagehide;
-    pagebeforecreate;
-    pagecreate;
-    pageinit;
-    pageremove;
-    updatelayout;
+    pagebeforeload: any;
+    pageload: any;
+    pageloadfailed: any;
+    pagebeforechange: any;
+    pagechange: any;
+    pagechangefailed: any;
+    pagebeforeshow: any;
+    pagebeforehide: any;
+    pageshow: any;
+    pagehide: any;
+    pagebeforecreate: any;
+    pagecreate: any;
+    pageinit: any;
+    pageremove: any;
+    updatelayout: any;
 }
 
 interface ChangePageOptions {
@@ -307,37 +307,38 @@ interface JQueryMobile extends JQueryMobileOptions {
     loadPage(url: any, options?: LoadPageOptions): void;
     loading(command: string, options?: LoaderOptions): void;
 
-    base;
+    base: any;
     silentScroll(yPos: number): void;
-    activePage;
+    activePage: JQuery;
 
     options: JQueryMobileOptions;
 
-    transitionFallbacks;
-    showPageLoadingMsg();
-    hidePageLoadingMsg();
-    loader;
-    page;
+    transitionFallbacks: any;
+    showPageLoadingMsg(): void;
+    hidePageLoadingMsg(): void;
+    loader: any;
+    page: any;
 
-    touchOverflow;
-    showCategory;
-    path;
+    touchOverflow: any;
+    showCategory: any;
+    path: any;
 
-    dialog;
-    popup;
-    fixedtoolbar;
-    button;
-    collapsible;
-    collapsibleset;
-    textinput;
-    slider;
-    checkboxradio;
-    selectmenu;
-    listview;
+    dialog: any;
+    popup: any;
+    fixedtoolbar: any;
+    button: any;
+    collapsible: any;
+    collapsibleset: any;
+    textinput: any;
+    slider: any;
+    checkboxradio: any;
+    selectmenu: any;
+    listview: any;
+    defaultHomeScroll: number;
 }
 
 interface JQuerySupport {
-    touchOverflow;
+    touchOverflow: any;
 }
 
 interface JQuery {
