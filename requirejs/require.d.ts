@@ -290,6 +290,16 @@ interface RequireDefine {
 	*	callback param deps module dependencies
 	*	callback return module definition
 	**/
+    	(deps: string[], ready: (p1: any) => any): void;
+    	(deps: string[], ready: (p1: any, p2: any) => any): void;
+    	(deps: string[], ready: (p1: any, p2: any, p3: any) => any): void;
+    	(deps: string[], ready: (p1: any, p2: any, p3: any, p4: any) => any): void;
+    	(deps: string[], ready: (p1: any, p2: any, p3: any, p4: any, p5: any) => any): void;
+    	(deps: string[], ready: (p1: any, p2: any, p3: any, p4: any, p5: any, p6: any) => any): void;
+    	(deps: string[], ready: (p1: any, p2: any, p3: any, p4: any, p5: any, p6: any, p7: any) => any): void;
+    	(deps: string[], ready: (p1: any, p2: any, p3: any, p4: any, p5: any, p6: any, p7: any, p8: any) => any): void;
+    	(deps: string[], ready: (p1: any, p2: any, p3: any, p4: any, p5: any, p6: any, p7: any, p8: any, p9: any) => any): void;
+    	(deps: string[], ready: (p1: any, p2: any, p3: any, p4: any, p5: any, p6: any, p7: any, p8: any, p9: any, p10: any) => any): void;
 	(deps: string[], ready: (...deps: any[]) => any): void;
 
 	/**
@@ -310,6 +320,16 @@ interface RequireDefine {
 	*	callback deps module dependencies
 	*	callback return module definition
 	**/
+	(name: string, deps: string[], ready: (p1: any) => any): void;
+	(name: string, deps: string[], ready: (p1: any, p2: any) => any): void;
+	(name: string, deps: string[], ready: (p1: any, p2: any, p3: any) => any): void;
+	(name: string, deps: string[], ready: (p1: any, p2: any, p3: any, p4: any) => any): void;
+	(name: string, deps: string[], ready: (p1: any, p2: any, p3: any, p4: any, p5: any) => any): void;
+	(name: string, deps: string[], ready: (p1: any, p2: any, p3: any, p4: any, p5: any, p6: any) => any): void;
+	(name: string, deps: string[], ready: (p1: any, p2: any, p3: any, p4: any, p5: any, p6: any, p7: any) => any): void;
+	(name: string, deps: string[], ready: (p1: any, p2: any, p3: any, p4: any, p5: any, p6: any, p7: any, p8: any) => any): void;
+	(name: string, deps: string[], ready: (p1: any, p2: any, p3: any, p4: any, p5: any, p6: any, p7: any, p8: any, p9: any) => any): void;
+	(name: string, deps: string[], ready: (p1: any, p2: any, p3: any, p4: any, p5: any, p6: any, p7: any, p8: any, p9: any, p10: any) => any): void;
 	(name: string, deps: string[], ready: (...deps: any[]) => any): void;
 }
 
