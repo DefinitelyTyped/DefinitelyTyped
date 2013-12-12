@@ -21,16 +21,16 @@ declare module "promptly" {
     output?: WritableStream;
   }
 
-  export function prompt(message: string, fn?: Callback);
-  export function prompt(message: string, opts: Options, fn?: Callback);
+  export function prompt(message: string, fn?: Callback):any;
+  export function prompt(message: string, opts: Options, fn?: Callback):any;
 
-  export function password(message: string, fn?: Callback);
-  export function password(message: string, opts: Options, fn?: Callback);
+  export function password(message: string, fn?: Callback):any;
+  export function password(message: string, opts: Options, fn?: Callback):any;
 
-  export function confirm(message: string, fn?: Callback);
-  export function confirm(message: string, opts: Options, fn?: Callback);
+  export function confirm(message: string, fn?: Callback):any;
+  export function confirm(message: string, opts: Options, fn?: Callback):any;
 
-  export function choose(message: string, choices: string[], fn?: Callback);
-  export function choose(message: string, choices: string[], opts: Options, fn?: Callback);
+  export function choose(message: string, choices: string[], fn?: Callback):any;
+  export function choose(message: string, choices: string[], opts: Options, fn?: Callback):any;
 
 }
