@@ -195,7 +195,6 @@ interface NodeBuffer {
     writeDoubleLE(value: number, offset: number, noAssert?: boolean): void;
     writeDoubleBE(value: number, offset: number, noAssert?: boolean): void;
     fill(value: any, offset?: number, end?: number): void;
-    INSPECT_MAX_BYTES: number;
 }
 
 interface NodeTimer {
