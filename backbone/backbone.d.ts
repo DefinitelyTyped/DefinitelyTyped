@@ -10,7 +10,7 @@
 declare module Backbone {
 
     interface AddOptions extends Silenceable {
-        at: number;
+        at?: number;
     }
 
     interface HistoryOptions extends Silenceable {
@@ -19,7 +19,7 @@ declare module Backbone {
     }
 
     interface NavigateOptions {
-        trigger: boolean;
+        trigger?: boolean;
     }
 
     interface RouterOptions {
