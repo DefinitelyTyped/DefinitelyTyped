@@ -11,27 +11,27 @@
 
 declare module Rx {
 
-	interface IObservable<T> {
+	interface Observable<T> {
 		join<T2, TDuration, T2Duration, TResult>(
-			right: IObservable<T2>,
-			leftDurationSelector: (leftItem: T) => IObservable<TDuration>,
-			rightDurationSelector: (rightItem: T2) => IObservable<T2Duration>,
-			resultSelector: (leftItem: T, rightItem: T2) => TResult): IObservable<TResult>;
+			right: Observable<T2>,
+			leftDurationSelector: (leftItem: T) => Observable<TDuration>,
+			rightDurationSelector: (rightItem: T2) => Observable<T2Duration>,
+			resultSelector: (leftItem: T, rightItem: T2) => TResult): Observable<TResult>;
 
 		groupJoin<T2, TDuration, T2Duration, TResult>(
-			right: IObservable<T2>,
-			leftDurationSelector: (leftItem: T) => IObservable<TDuration>,
-			rightDurationSelector: (rightItem: T2) => IObservable<T2Duration>,
-			resultSelector: (leftItem: T, rightItem: IObservable<T2>) => TResult): IObservable<TResult>;
+			right: Observable<T2>,
+			leftDurationSelector: (leftItem: T) => Observable<TDuration>,
+			rightDurationSelector: (rightItem: T2) => Observable<T2Duration>,
+			resultSelector: (leftItem: T, rightItem: Observable<T2>) => TResult): Observable<TResult>;
 
 
 		// lack of documentation to complete the followings...
 
-		buffer<TBufferOpening, TBufferClosing>(bufferOpenings: IObservable<TBufferOpening>,
-			bufferClosingSelector: (opening: TBufferOpening) => IObservable<TBufferClosing>): IObservable<T>;
+		buffer<TBufferOpening, TBufferClosing>(bufferOpenings: Observable<TBufferOpening>,
+			bufferClosingSelector: (opening: TBufferOpening) => Observable<TBufferClosing>): Observable<T>;
 
-		window<TBufferOpening, TBufferClosing>(bufferOpenings: IObservable<TBufferOpening>,
-			bufferClosingSelector: (opening: TBufferOpening) => IObservable<TBufferClosing>): IObservable<T>;
+		window<TBufferOpening, TBufferClosing>(bufferOpenings: Observable<TBufferOpening>,
+			bufferClosingSelector: (opening: TBufferOpening) => Observable<TBufferClosing>): Observable<T>;
 	}
 
 
