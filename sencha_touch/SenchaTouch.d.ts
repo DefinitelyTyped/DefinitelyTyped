@@ -6100,7 +6100,7 @@ declare module Ext {
 		/** [Config Option] (Number/String) */
 		width?: any;
 		/** [Config Option] (String[]) */
-		xtype?: string[];
+		xtype?: string;
 		/** [Config Option] (Number) */
 		zIndex?: number;
 		/** [Method] Adds a CSS class or classes to this Component s rendered element  
@@ -6648,7 +6648,7 @@ declare module Ext.lib {
 		/** [Config Option] (Number/String) */
 		width?: any;
 		/** [Config Option] (String[]) */
-		xtype?: string[];
+		xtype?: string;
 		/** [Config Option] (Number) */
 		zIndex?: number;
 		/** [Method] Adds a CSS class or classes to this Component s rendered element  
