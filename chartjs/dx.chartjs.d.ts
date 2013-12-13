@@ -208,7 +208,7 @@ declare module DevExpress.data {
     }
     export interface StoreOptions {
         key?: any;
-        errorHandler: ErrorHandler;
+        errorHandler?: ErrorHandler;
         loaded?: JQueryCallback;
         loading?: JQueryCallback;
         modified?: JQueryCallback;
@@ -294,14 +294,6 @@ declare module DevExpress.data {
     export class ODataStore extends Store {
         constructor(options?: ODataStoreOptions);
     }
-    interface IODataContextBase {
-        get(operationName: string, params: { [key: string]: any }): JQueryDeferred<Array<any>>;
-        invoke(operationName: string, params: { [key: string]: any }, httpMethod?: string): JQueryDeferred<Array<any>>;
-        objectLink(entityAlias: string, key: any): { __metadata: { uri: string }; }
-    }
-    interface IODataContext extends IODataContextBase {
-        [entitySetName: string]: any;
-    }
     export interface ODataContextOptions {
         url: string;
         jsonp?: boolean;
@@ -310,11 +302,11 @@ declare module DevExpress.data {
         beforeSend?: () => any;
         entities?: Array<any>;
     }
-    export class ODataContext implements IODataContextBase {
+    export class ODataContext {
         constructor(options?: ODataContextOptions);
         get(operationName: string, params: { [key: string]: any }): JQueryDeferred<Array<any>>;
         invoke(operationName: string, params: { [key: string]: any }, httpMethod?: string): JQueryDeferred<Array<any>>;
-        objectLink(entityAlias: string, key: any): { __metadata: { uri: string }; }
+        objectLink(entityAlias: string, key: any): { __metadata: { uri: string }; };
     }
 }
 declare module DevExpress.ui {
@@ -1030,7 +1022,12 @@ declare module DevExpress.viz.charts.series {
         hoverStyle?: AreaSeriesStyle;
         point?: BasePointOptions;
     }
-    // export interface RangeBarSeriesOptions extends z_BaseRangeSeriesOptions, z_BaseBarSeriesOptions { }
+    export interface RangeBarSeriesOptions extends z_BaseBarSeriesOptions {
+        rangeValue1Field?: string;
+        rangeValue2Field?: string;
+        pane?: string;
+        axis?: string;
+    }
     export interface SplineSeriesOptions extends LineSeriesOptions { }
     export interface SplineAreaSeries extends AreaSeriesOptions { }
     export interface StackedLineSeries extends LineSeriesOptions { }
@@ -1094,7 +1091,7 @@ declare module DevExpress.viz.charts.series {
         fullstackedline?: FullStackedLineSeriesOptions;
         line?: LineSeriesOptions;
         rangearea?: RangeAreaSeriesOptions;
-        rangebar?: any; // RangeBarSeriesOptions
+        rangebar?: RangeBarSeriesOptions;
         scatter?: ScatterSeriesOptions;
         spline?: SplineSeriesOptions;
         splinearea?: SplineAreaSeries;
@@ -1373,8 +1370,8 @@ declare module DevExpress.viz.map {
             borderColor?: string;
             color?: string;
         };
-        dataSource?: any;
-        area?: {
+        mapData?: any;
+        areaSettings?: {
             borderColor?: string;
             color?: string;
             hoveredBorderColor?: string;
@@ -1389,8 +1386,8 @@ declare module DevExpress.viz.map {
             click?: (arg: Proxy) => void;
             selectionChanged?: (arg: Proxy) => void;
         };
-        markerDataSource?: any;
-        marker?: {
+        markers?: any;
+        markerSettings?: {
             borderColor?: string;
             color?: string;
             hoveredBorderColor?: string;
@@ -1448,7 +1445,7 @@ declare module DevExpress.viz.map {
     }
     export class Proxy {
         type: string;
-        attr(name: string): any;
+        attribute(name: string): any;
         selected(state: boolean): void;
         selected(): boolean;
     }

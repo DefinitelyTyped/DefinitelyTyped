@@ -19,8 +19,8 @@ declare module ng.ui {
         params?: any[];
         views?: {};
         abstract?: boolean;
-        onEnter?: Function;
-        onExit?: Function;
+        onEnter?: any;
+        onExit?: any;
         data?: any;
     }
 
