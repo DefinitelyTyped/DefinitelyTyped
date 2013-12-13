@@ -56,13 +56,13 @@ function test_computed() {
     function MyViewModel1() {
         this.price = ko.observable(25.99);
 
-        this.formattedPrice = ko.computed({
+        this.formattedPrice = ko.computed<string>({
             read: function () {
                 return '$' + this.price().toFixed(2);
             },
             write: function (value) {
-                value = parseFloat(value.replace(/[^\.\d]/g, ""));
-                this.price(isNaN(value) ? 0 : value);
+                var num = parseFloat(value.replace(/[^\.\d]/g, ""));
+                this.price(isNaN(num) ? 0 : num);
             },
             owner: this
         });
