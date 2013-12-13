@@ -14,8 +14,8 @@ module Test {
         namespace: "global",
         defaultLayout: "slideout",
         navigation: [
-            { title: "Home", action: "#home" },
-            { title: "About", action: "#about" }
+            { id: "first", title: "Home", action: "#home" },
+            { id: "second", title: "About", action: "#about" }
         ]
     });
     application.router.register(":view/:id", { view: "home", id: undefined });
