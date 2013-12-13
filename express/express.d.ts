@@ -62,12 +62,96 @@ declare module "express" {
             new (method: string, path: string, callbacks: Function[], options: any): Route;
         }
 
-        export class Router {
+        interface IRouter {
+            /**
+             * Map the given param placeholder `name`(s) to the given callback(s).
+             *
+             * Parameter mapping is used to provide pre-conditions to routes
+             * which use normalized placeholders. For example a _:user_id_ parameter
+             * could automatically load a user's information from the database without
+             * any additional code,
+             *
+             * The callback uses the samesignature as middleware, the only differencing
+             * being that the value of the placeholder is passed, in this case the _id_
+             * of the user. Once the `next()` function is invoked, just like middleware
+             * it will continue on to execute the route, or subsequent parameter functions.
+             *
+             *      app.param('user_id', function(req, res, next, id){
+             *        User.find(id, function(err, user){
+             *          if (err) {
+             *            next(err);
+             *          } else if (user) {
+             *            req.user = user;
+             *            next();
+             *          } else {
+             *            next(new Error('failed to load user'));
+             *          }
+             *        });
+             *      });
+             *
+             * @param name
+             * @param fn
+             */
+            param(name: string, fn: Function): IRouter;
+
+            param(name: any[], fn: Function): IRouter;
+
+            /**
+             * Special-cased "all" method, applying the given route `path`,
+             * middleware, and callback to _every_ HTTP method.
+             *
+             * @param path
+             * @param fn
+             */
+            all(path: string, fn?: (req: Request, res: Response, next: Function) => any): IRouter;
+
+            all(path: string, ...callbacks: Function[]): void;
+
+            get(name: string, ...handlers: RequestFunction[]): IRouter;
+
+            get(name: RegExp, ...handlers: RequestFunction[]): IRouter;
+
+            post(name: string, ...handlers: RequestFunction[]): IRouter;
+
+            post(name: RegExp, ...handlers: RequestFunction[]): IRouter;
+
+            put(name: string, ...handlers: RequestFunction[]): IRouter;
+
+            put(name: RegExp, ...handlers: RequestFunction[]): IRouter;
+
+            del(name: string, ...handlers: RequestFunction[]): IRouter;
+
+            del(name: RegExp, ...handlers: RequestFunction[]): IRouter;
+        }
+
+        export class Router implements IRouter {
           new (options?: any): Router;
 
           middleware (): any;
 
-          get(path: string, ...handlers: RequestFunction[]): Router;
+          param(name: string, fn: Function): Router;
+
+          param(name: any[], fn: Function): Router;
+
+          all(path: string, fn?: (req: Request, res: Response, next: Function) => any): Router;
+
+          all(path: string, ...callbacks: Function[]): void;
+
+          get(name: string, ...handlers: RequestFunction[]): Router;
+
+          get(name: RegExp, ...handlers: RequestFunction[]): Router;
+
+          post(name: string, ...handlers: RequestFunction[]): Router;
+
+          post(name: RegExp, ...handlers: RequestFunction[]): Router;
+
+          put(name: string, ...handlers: RequestFunction[]): Router;
+
+          put(name: RegExp, ...handlers: RequestFunction[]): Router;
+
+          del(name: string, ...handlers: RequestFunction[]): Router;
+
+          del(name: RegExp, ...handlers: RequestFunction[]): Router;
         }
 
         interface Handler {
@@ -804,7 +888,7 @@ declare module "express" {
             (req: Request, res: Response, next: Function): any;
         }
 
-        interface Application {
+        interface Application extends IRouter {
             /**
              * Initialize the server.
              *
@@ -861,38 +945,6 @@ declare module "express" {
              */
             engine(ext: string, fn: Function): Application;
 
-            /**
-             * Map the given param placeholder `name`(s) to the given callback(s).
-             *
-             * Parameter mapping is used to provide pre-conditions to routes
-             * which use normalized placeholders. For example a _:user_id_ parameter
-             * could automatically load a user's information from the database without
-             * any additional code,
-             *
-             * The callback uses the samesignature as middleware, the only differencing
-             * being that the value of the placeholder is passed, in this case the _id_
-             * of the user. Once the `next()` function is invoked, just like middleware
-             * it will continue on to execute the route, or subsequent parameter functions.
-             *
-             *      app.param('user_id', function(req, res, next, id){
-             *        User.find(id, function(err, user){
-             *          if (err) {
-             *            next(err);
-             *          } else if (user) {
-             *            req.user = user;
-             *            next();
-             *          } else {
-             *            next(new Error('failed to load user'));
-             *          }
-             *        });
-             *      });
-             *
-             * @param name
-             * @param fn
-             */
-            param(name: string, fn: Function): Application;
-
-            param(name: any[], fn: Function): Application;
 
             /**
              * Assign `setting` to `val`, or return `setting`'s value.
@@ -1014,16 +1066,6 @@ declare module "express" {
 
             configure(fn: Function): Application;
 
-            /**
-             * Special-cased "all" method, applying the given route `path`,
-             * middleware, and callback to _every_ HTTP method.
-             *
-             * @param path
-             * @param fn
-             */
-            all(path: string, fn?: (req: Request, res: Response, next: Function) => any): Application;
-
-            all(path: string, ...callbacks: Function[]): void;
 
             /**
              * Render the given view `name` name with `options`
@@ -1044,21 +1086,6 @@ declare module "express" {
             
             render(name: string, callback: (err: Error, html: string) => void): void;
 
-            get(name: string, ...handlers: RequestFunction[]): any;
-            
-            get(name: RegExp, ...handlers: RequestFunction[]): any;
-
-            post(name: string, ...handlers: RequestFunction[]): any;
-            
-            post(name: RegExp, ...handlers: RequestFunction[]): any;
-
-            put(name: string, ...handlers: RequestFunction[]): any;
-            
-            put(name: RegExp, ...handlers: RequestFunction[]): any;
-
-            del(name: string, ...handlers: RequestFunction[]): any;
-            
-            del(name: RegExp, ...handlers: RequestFunction[]): any;
 
             /**
              * Listen for connections.
