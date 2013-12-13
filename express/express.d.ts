@@ -1135,6 +1135,32 @@ declare module "express" {
              * simply by removing them from this object.
              */
             routes: any;
+
+
+            /**
+             * IRouter definition
+             */
+            param(name: string, fn: Function): Application;
+
+            param(name: any[], fn: Function): Application;
+
+            all(path: string, fn?: (req: Request, res: Response, next: Function) => any): Application;
+
+            get(name: string, ...handlers: RequestFunction[]): Application;
+
+            get(name: RegExp, ...handlers: RequestFunction[]): Application;
+
+            post(name: string, ...handlers: RequestFunction[]): Application;
+
+            post(name: RegExp, ...handlers: RequestFunction[]): Application;
+
+            put(name: string, ...handlers: RequestFunction[]): Application;
+
+            put(name: RegExp, ...handlers: RequestFunction[]): Application;
+
+            del(name: string, ...handlers: RequestFunction[]): Application;
+
+            del(name: RegExp, ...handlers: RequestFunction[]): Application;
         }
 
         interface Express extends Application {
@@ -1797,6 +1823,7 @@ declare module "express" {
         function urlencoded(): any;
 
         function multipart(): any;
+
     }
 
     export = e;
