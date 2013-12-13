@@ -124,7 +124,7 @@ function test_observableArrays() {
     myObservableArray.unshift('Some new value');
     myObservableArray.shift();
     myObservableArray.reverse();
-    myObservableArray.sort(function (left, right) { return left.lastName == right.lastName ? 0 : (left.lastName < right.lastName ? -1 : 1) });
+    myObservableArray.sort(function (left, right) { return left == right ? 0 : (left < right ? -1 : 1) });
     myObservableArray.splice(1, 3);
 
     myObservableArray.remove('Blah');
