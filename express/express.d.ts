@@ -62,7 +62,7 @@ declare module "express" {
             new (method: string, path: string, callbacks: Function[], options: any): Route;
         }
 
-        interface IRouter {
+        interface IRouter<T extends IRouter> {
             /**
              * Map the given param placeholder `name`(s) to the given callback(s).
              *
@@ -92,9 +92,9 @@ declare module "express" {
              * @param name
              * @param fn
              */
-            param(name: string, fn: Function): IRouter;
+            param(name: string, fn: Function): T;
 
-            param(name: any[], fn: Function): IRouter;
+            param(name: any[], fn: Function): T;
 
             /**
              * Special-cased "all" method, applying the given route `path`,
@@ -103,28 +103,28 @@ declare module "express" {
              * @param path
              * @param fn
              */
-            all(path: string, fn?: (req: Request, res: Response, next: Function) => any): IRouter;
+            all(path: string, fn?: (req: Request, res: Response, next: Function) => any): T;
 
             all(path: string, ...callbacks: Function[]): void;
 
-            get(name: string, ...handlers: RequestFunction[]): IRouter;
+            get(name: string, ...handlers: RequestFunction[]): T;
 
-            get(name: RegExp, ...handlers: RequestFunction[]): IRouter;
+            get(name: RegExp, ...handlers: RequestFunction[]): T;
 
-            post(name: string, ...handlers: RequestFunction[]): IRouter;
+            post(name: string, ...handlers: RequestFunction[]): T;
 
-            post(name: RegExp, ...handlers: RequestFunction[]): IRouter;
+            post(name: RegExp, ...handlers: RequestFunction[]): T;
 
-            put(name: string, ...handlers: RequestFunction[]): IRouter;
+            put(name: string, ...handlers: RequestFunction[]): T;
 
-            put(name: RegExp, ...handlers: RequestFunction[]): IRouter;
+            put(name: RegExp, ...handlers: RequestFunction[]): T;
 
-            del(name: string, ...handlers: RequestFunction[]): IRouter;
+            del(name: string, ...handlers: RequestFunction[]): T;
 
-            del(name: RegExp, ...handlers: RequestFunction[]): IRouter;
+            del(name: RegExp, ...handlers: RequestFunction[]): T;
         }
 
-        export class Router implements IRouter {
+        export class Router implements IRouter<Router> {
           new (options?: any): Router;
 
           middleware (): any;
@@ -888,7 +888,7 @@ declare module "express" {
             (req: Request, res: Response, next: Function): any;
         }
 
-        interface Application extends IRouter {
+        interface Application extends IRouter<Application> {
             /**
              * Initialize the server.
              *
@@ -1135,32 +1135,6 @@ declare module "express" {
              * simply by removing them from this object.
              */
             routes: any;
-
-
-            /**
-             * IRouter definition
-             */
-            param(name: string, fn: Function): Application;
-
-            param(name: any[], fn: Function): Application;
-
-            all(path: string, fn?: (req: Request, res: Response, next: Function) => any): Application;
-
-            get(name: string, ...handlers: RequestFunction[]): Application;
-
-            get(name: RegExp, ...handlers: RequestFunction[]): Application;
-
-            post(name: string, ...handlers: RequestFunction[]): Application;
-
-            post(name: RegExp, ...handlers: RequestFunction[]): Application;
-
-            put(name: string, ...handlers: RequestFunction[]): Application;
-
-            put(name: RegExp, ...handlers: RequestFunction[]): Application;
-
-            del(name: string, ...handlers: RequestFunction[]): Application;
-
-            del(name: RegExp, ...handlers: RequestFunction[]): Application;
         }
 
         interface Express extends Application {
