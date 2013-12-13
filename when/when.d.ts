@@ -51,6 +51,7 @@ declare module When {
         promise: Promise<T>;
         reject(reason: any): void;
         resolve(value?: T): void;
+        resolve(value?: Promise<T>): void;
     }
 
     interface Promise<T> {

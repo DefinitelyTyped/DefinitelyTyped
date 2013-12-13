@@ -208,7 +208,7 @@ declare module DevExpress.data {
     }
     export interface StoreOptions {
         key?: any;
-        errorHandler: ErrorHandler;
+        errorHandler?: ErrorHandler;
         loaded?: JQueryCallback;
         loading?: JQueryCallback;
         modified?: JQueryCallback;
@@ -294,14 +294,6 @@ declare module DevExpress.data {
     export class ODataStore extends Store {
         constructor(options?: ODataStoreOptions);
     }
-    interface IODataContextBase {
-        get(operationName: string, params: { [key: string]: any }): JQueryDeferred<Array<any>>;
-        invoke(operationName: string, params: { [key: string]: any }, httpMethod?: string): JQueryDeferred<Array<any>>;
-        objectLink(entityAlias: string, key: any): { __metadata: { uri: string }; }
-    }
-    interface IODataContext extends IODataContextBase {
-        [entitySetName: string]: any;
-    }
     export interface ODataContextOptions {
         url: string;
         jsonp?: boolean;
@@ -310,24 +302,18 @@ declare module DevExpress.data {
         beforeSend?: () => any;
         entities?: Array<any>;
     }
-    export class ODataContext implements IODataContextBase {
+    export class ODataContext {
         constructor(options?: ODataContextOptions);
         get(operationName: string, params: { [key: string]: any }): JQueryDeferred<Array<any>>;
         invoke(operationName: string, params: { [key: string]: any }, httpMethod?: string): JQueryDeferred<Array<any>>;
-        objectLink(entityAlias: string, key: any): { __metadata: { uri: string }; }
+        objectLink(entityAlias: string, key: any): { __metadata: { uri: string }; };
     }
 }
 declare module DevExpress.framework {
-    interface NavigationItem {
-        title: string;
-        icon?: string;
-        root?: boolean;
-        action: any;
-    }
     export interface dxViewOptions {
         name: string;
-        title: string;
-        layout: string;
+        title?: string;
+        layout?: string;
     }
     export class dxView extends ui.Component {
         constructor(options?: dxViewOptions);
@@ -365,19 +351,19 @@ declare module DevExpress.framework {
     export class dxContent extends ui.Component {
         constructor(options?: dxLayoutOptions);
     }
-    export interface CommandOptions extends ui.ComponentOptions {
+    export interface dxCommandOptions extends ui.ComponentOptions {
         id: string;
-        action: any;
-        icon: string;
-        title: string;
-        iconSrc: string;
-        visible: boolean;
+        action?: any;
+        icon?: string;
+        title?: string;
+        iconSrc?: string;
+        visible?: boolean;
     }
     export class dxCommand extends ui.Component {
         public beforeExecute: JQueryCallback;
         public afterExecute: JQueryCallback;
-        constructor(element: JQuery, options?: CommandOptions);
-        constructor(element: Element, options?: CommandOptions);
+        constructor(element: JQuery, options?: dxCommandOptions);
+        constructor(element: Element, options?: dxCommandOptions);
         execute(): void;
     }
     export class dxCommandContainer extends ui.Component {
@@ -543,7 +529,7 @@ declare module DevExpress.framework {
         disableViewCache?: boolean;
         stateManager?: StateManager;
         navigationManager?: NavigationManager;
-        navigation?: NavigationItem[];
+        navigation?: dxCommandOptions[];
         commandMapping?: CommandMap;
     }
     export class Application {
@@ -552,7 +538,7 @@ declare module DevExpress.framework {
         public components: any[];
         public stateManager: StateManager;
         public commandMapping: CommandMap;
-        public navigation: NavigationItem[];
+        public navigation: dxCommand[];
         public navigationManager: NavigationManager;
         public beforeViewSetup: JQueryCallback;
         public afterViewSetup: JQueryCallback;
@@ -669,7 +655,7 @@ declare module DevExpress.framework.html {
     }
     export interface HtmlApplicationBaseOptions extends framework.ApplicationOptions {
         device?: devices.Device;
-        defaultLayout?: string;
+        navigationType?: string;
     }
     export class HtmlApplicationBase extends framework.Application {
         public viewRendered: JQueryCallback;
@@ -685,7 +671,6 @@ declare module DevExpress.framework.html {
     }
     export class HtmlApplication extends HtmlApplicationBase {
         public viewEngine: ViewEngineBase;
-        public blankViewRendered: JQueryCallback;
         constructor(options?: HtmlApplicationOptions);
     }
 }
@@ -904,7 +889,7 @@ declare module DevExpress.ui {
         autoPagingEnabled?: boolean;
         scrollingEnabled?: boolean;
         showScrollbar?: boolean;
-        useNative?: boolean;
+        useNativeScrolling?: boolean;
         grouped?: boolean;
         editEnabled?: boolean;
         showNextButton?: boolean;
