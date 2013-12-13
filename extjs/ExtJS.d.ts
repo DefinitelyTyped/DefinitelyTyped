@@ -958,6 +958,26 @@ declare module Ext {
 	export interface IAjax extends Ext.data.IConnection {
 	}
 	export class Ajax {
+		/** [Property] (Boolean) */
+		static autoAbort: boolean;
+		/** [Property] (Object) */
+		static defaultHeaders: any;
+		/** [Property] (Boolean) */
+		static disableCaching: boolean;
+		/** [Property] (Object) */
+		static extraParams: any;
+		/** [Property] (Object) */
+		static hasListeners: any;
+		/** [Property] (Boolean) */
+		static isObservable: boolean;
+		/** [Property] (String) */
+		static method: string;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Number) */
+		static timeout: number;
+		/** [Property] (String) */
+		static url: string;
 		/** [Method] Aborts an active request  
 		* @param request Object Defaults to the last request 
 		*/
@@ -1349,6 +1369,8 @@ declare module Ext.app.domain {
 	export interface IComponent extends Ext.app.IEventDomain {
 	}
 	export class Component {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -1394,6 +1416,10 @@ declare module Ext.app.domain {
 	export interface IController extends Ext.app.IEventDomain {
 	}
 	export class Controller {
+		/** [Config Option] (String) */
+		static idProperty: string;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -1439,6 +1465,10 @@ declare module Ext.app.domain {
 	export interface IDirect extends Ext.app.IEventDomain {
 	}
 	export class Direct {
+		/** [Config Option] (String) */
+		static idProperty: string;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -1484,6 +1514,8 @@ declare module Ext.app.domain {
 	export interface IGlobal extends Ext.app.IEventDomain {
 	}
 	export class Global {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -1527,6 +1559,10 @@ declare module Ext.app.domain {
 	export interface IStore extends Ext.app.IEventDomain {
 	}
 	export class Store {
+		/** [Config Option] (String) */
+		static idProperty: string;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -1572,6 +1608,8 @@ declare module Ext.app {
 	export interface IEventBus extends Ext.IBase {
 	}
 	export class EventBus {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -2421,6 +2459,8 @@ declare module Ext.button {
 	export interface IManager extends Ext.IBase {
 	}
 	export class Manager {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -2456,6 +2496,8 @@ declare module Ext {
 	export interface IButtonToggleManager extends Ext.IBase {
 	}
 	export class ButtonToggleManager {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -3729,6 +3771,8 @@ declare module Ext.chart {
 	export interface IShape extends Ext.IBase {
 	}
 	export class Shape {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -4149,6 +4193,10 @@ declare module Ext {
 	export interface IComponentManager extends Ext.IAbstractManager {
 	}
 	export class ComponentManager {
+		/** [Property] (Ext.util.HashMap) */
+		static all: Ext.util.IHashMap;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -4228,6 +4276,10 @@ declare module Ext {
 	export interface IComponentMgr extends Ext.IAbstractManager {
 	}
 	export class ComponentMgr {
+		/** [Property] (Ext.util.HashMap) */
+		static all: Ext.util.IHashMap;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -4307,6 +4359,8 @@ declare module Ext {
 	export interface IComponentQuery extends Ext.IBase {
 	}
 	export class ComponentQuery {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -5479,6 +5533,16 @@ declare module Ext.data {
 	export interface IJsonP extends Ext.IBase {
 	}
 	export class JsonP {
+		/** [Property] (String) */
+		static callbackKey: string;
+		/** [Property] (Boolean) */
+		static disableCaching: boolean;
+		/** [Property] (String) */
+		static disableCachingParam: string;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Number) */
+		static timeout: number;
 		/** [Method] Abort a request  
 		* @param request Object/String The request to abort 
 		*/
@@ -8237,6 +8301,10 @@ declare module Ext.data {
 	export interface ISortTypes extends Ext.IBase {
 	}
 	export class SortTypes {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (RegExp) */
+		static stripTagsRE: RegExp;
 		/** [Method] Date sorting 
 		* @param s Object The value being converted 
 		* @returns Number The comparison value 
@@ -8653,6 +8721,18 @@ declare module Ext.data {
 	export interface IStoreManager extends Ext.util.IMixedCollection {
 	}
 	export class StoreManager {
+		/** [Property] (Object) */
+		static hasListeners: any;
+		/** [Property] (Boolean) */
+		static isMixedCollection: boolean;
+		/** [Property] (Boolean) */
+		static isObservable: boolean;
+		/** [Property] (Boolean) */
+		static isSortable: boolean;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Ext.util.MixedCollection) */
+		static sorters: Ext.util.IMixedCollection;
 		/** [Method] Adds an item to the collection  
 		* @param key String/Object The key to associate with the item, or the new item. If a getKey implementation was specified for this MixedCollection, or if the key of the stored items is in a property called id, the MixedCollection will be able to derive the key for the new item. In this case just pass the new item in this parameter. 
 		* @param obj Object The item to add. 
@@ -9025,6 +9105,18 @@ declare module Ext {
 	export interface IStoreMgr extends Ext.util.IMixedCollection {
 	}
 	export class StoreMgr {
+		/** [Property] (Object) */
+		static hasListeners: any;
+		/** [Property] (Boolean) */
+		static isMixedCollection: boolean;
+		/** [Property] (Boolean) */
+		static isObservable: boolean;
+		/** [Property] (Boolean) */
+		static isSortable: boolean;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Ext.util.MixedCollection) */
+		static sorters: Ext.util.IMixedCollection;
 		/** [Method] Adds an item to the collection  
 		* @param key String/Object The key to associate with the item, or the new item. If a getKey implementation was specified for this MixedCollection, or if the key of the stored items is in a property called id, the MixedCollection will be able to derive the key for the new item. In this case just pass the new item in this parameter. 
 		* @param obj Object The item to add. 
@@ -9397,6 +9489,18 @@ declare module Ext.data {
 	export interface IStoreMgr extends Ext.util.IMixedCollection {
 	}
 	export class StoreMgr {
+		/** [Property] (Object) */
+		static hasListeners: any;
+		/** [Property] (Boolean) */
+		static isMixedCollection: boolean;
+		/** [Property] (Boolean) */
+		static isObservable: boolean;
+		/** [Property] (Boolean) */
+		static isSortable: boolean;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Ext.util.MixedCollection) */
+		static sorters: Ext.util.IMixedCollection;
 		/** [Method] Adds an item to the collection  
 		* @param key String/Object The key to associate with the item, or the new item. If a getKey implementation was specified for this MixedCollection, or if the key of the stored items is in a property called id, the MixedCollection will be able to derive the key for the new item. In this case just pass the new item in this parameter. 
 		* @param obj Object The item to add. 
@@ -9769,6 +9873,18 @@ declare module Ext {
 	export interface IStoreManager extends Ext.util.IMixedCollection {
 	}
 	export class StoreManager {
+		/** [Property] (Object) */
+		static hasListeners: any;
+		/** [Property] (Boolean) */
+		static isMixedCollection: boolean;
+		/** [Property] (Boolean) */
+		static isObservable: boolean;
+		/** [Property] (Boolean) */
+		static isSortable: boolean;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Ext.util.MixedCollection) */
+		static sorters: Ext.util.IMixedCollection;
 		/** [Method] Adds an item to the collection  
 		* @param key String/Object The key to associate with the item, or the new item. If a getKey implementation was specified for this MixedCollection, or if the key of the stored items is in a property called id, the MixedCollection will be able to derive the key for the new item. In this case just pass the new item in this parameter. 
 		* @param obj Object The item to add. 
@@ -10332,6 +10448,28 @@ declare module Ext.data {
 	export interface ITypes extends Ext.IBase {
 	}
 	export class Types {
+		/** [Property] (Object) */
+		static AUTO: any;
+		/** [Property] (Object) */
+		static BOOL: any;
+		/** [Property] (Object) */
+		static BOOLEAN: any;
+		/** [Property] (Object) */
+		static DATE: any;
+		/** [Property] (Object) */
+		static FLOAT: any;
+		/** [Property] (Object) */
+		static INT: any;
+		/** [Property] (Object) */
+		static INTEGER: any;
+		/** [Property] (Object) */
+		static NUMBER: any;
+		/** [Property] (Object) */
+		static STRING: any;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (RegExp) */
+		static stripRe: RegExp;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -10381,6 +10519,22 @@ declare module Ext.data {
 	export interface IValidations extends Ext.IBase {
 	}
 	export class Validations {
+		/** [Property] (String) */
+		static emailMessage: string;
+		/** [Property] (RegExp) */
+		static emailRe: RegExp;
+		/** [Property] (String) */
+		static exclusionMessage: string;
+		/** [Property] (String) */
+		static formatMessage: string;
+		/** [Property] (String) */
+		static inclusionMessage: string;
+		/** [Property] (String) */
+		static lengthMessage: string;
+		/** [Property] (String) */
+		static presenceMessage: string;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -10581,6 +10735,38 @@ declare module Ext {
 	export interface IDate {
 	}
 	export class Date {
+		/** [Property] (String) */
+		static DAY: string;
+		/** [Property] (String) */
+		static HOUR: string;
+		/** [Property] (String) */
+		static MILLI: string;
+		/** [Property] (String) */
+		static MINUTE: string;
+		/** [Property] (String) */
+		static MONTH: string;
+		/** [Property] (String) */
+		static SECOND: string;
+		/** [Property] (String) */
+		static YEAR: string;
+		/** [Property] (String[]) */
+		static dayNames: string[];
+		/** [Property] (String) */
+		static defaultFormat: string;
+		/** [Property] (Object) */
+		static defaults: any;
+		/** [Property] (Object) */
+		static formatCodes: any;
+		/** [Property] (Object) */
+		static formatFunctions: any;
+		/** [Property] (String[]) */
+		static monthNames: string[];
+		/** [Property] (Object) */
+		static monthNumbers: any;
+		/** [Property] (Object) */
+		static parseFunctions: any;
+		/** [Property] (Boolean) */
+		static useStrict: boolean;
 		/** [Method] Provides a convenient method for performing basic date arithmetic  
 		* @param date Date The date to modify 
 		* @param interval String A valid date interval enum value. 
@@ -11100,6 +11286,28 @@ declare module Ext.dd {
 	export interface IDragDropManager extends Ext.IBase {
 	}
 	export class DragDropManager {
+		/** [Property] (Number) */
+		static INTERSECT: number;
+		/** [Property] (Number) */
+		static POINT: number;
+		/** [Property] (Number) */
+		static clickPixelThresh: number;
+		/** [Property] (Number) */
+		static clickTimeThresh: number;
+		/** [Property] (String) */
+		static dragCls: string;
+		/** [Property] (Number) */
+		static mode: number;
+		/** [Property] (Boolean) */
+		static notifyOccluded: boolean;
+		/** [Property] (Boolean) */
+		static preventDefault: boolean;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Boolean) */
+		static stopPropagation: boolean;
+		/** [Property] (Boolean) */
+		static useCache: boolean;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -11223,6 +11431,28 @@ declare module Ext.dd {
 	export interface IDragDropMgr extends Ext.IBase {
 	}
 	export class DragDropMgr {
+		/** [Property] (Number) */
+		static INTERSECT: number;
+		/** [Property] (Number) */
+		static POINT: number;
+		/** [Property] (Number) */
+		static clickPixelThresh: number;
+		/** [Property] (Number) */
+		static clickTimeThresh: number;
+		/** [Property] (String) */
+		static dragCls: string;
+		/** [Property] (Number) */
+		static mode: number;
+		/** [Property] (Boolean) */
+		static notifyOccluded: boolean;
+		/** [Property] (Boolean) */
+		static preventDefault: boolean;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Boolean) */
+		static stopPropagation: boolean;
+		/** [Property] (Boolean) */
+		static useCache: boolean;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -11346,6 +11576,28 @@ declare module Ext.dd {
 	export interface IDDM extends Ext.IBase {
 	}
 	export class DDM {
+		/** [Property] (Number) */
+		static INTERSECT: number;
+		/** [Property] (Number) */
+		static POINT: number;
+		/** [Property] (Number) */
+		static clickPixelThresh: number;
+		/** [Property] (Number) */
+		static clickTimeThresh: number;
+		/** [Property] (String) */
+		static dragCls: string;
+		/** [Property] (Number) */
+		static mode: number;
+		/** [Property] (Boolean) */
+		static notifyOccluded: boolean;
+		/** [Property] (Boolean) */
+		static preventDefault: boolean;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Boolean) */
+		static stopPropagation: boolean;
+		/** [Property] (Boolean) */
+		static useCache: boolean;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -11893,6 +12145,8 @@ declare module Ext.dd {
 	export interface IRegistry extends Ext.IBase {
 	}
 	export class Registry {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -11957,6 +12211,22 @@ declare module Ext.dd {
 	export interface IScrollManager extends Ext.IBase {
 	}
 	export class ScrollManager {
+		/** [Property] (Number) */
+		static animDuration: number;
+		/** [Property] (Boolean) */
+		static animate: boolean;
+		/** [Property] (String) */
+		static ddGroup: string;
+		/** [Property] (Number) */
+		static frequency: number;
+		/** [Property] (Number) */
+		static hthresh: number;
+		/** [Property] (Number) */
+		static increment: number;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Number) */
+		static vthresh: number;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -12068,6 +12338,14 @@ declare module Ext.direct {
 	export interface IManager extends Ext.IBase,Ext.util.IObservable {
 	}
 	export class Manager {
+		/** [Property] (Object) */
+		static exceptions: any;
+		/** [Property] (Object) */
+		static hasListeners: any;
+		/** [Property] (Boolean) */
+		static isObservable: boolean;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Adds the specified events to the list of events which this Observable may fire  
 		* @param eventNames Object/String... Either an object with event names as properties with a value of true. For example: this.addEvents({  storeloaded: true,  storecleared: true });  Or any number of event names as separate parameters. For example: this.addEvents('storeloaded', 'storecleared'); 
 		*/
@@ -12231,6 +12509,14 @@ declare module Ext {
 	export interface IDirect extends Ext.IBase,Ext.util.IObservable {
 	}
 	export class Direct {
+		/** [Property] (Object) */
+		static exceptions: any;
+		/** [Property] (Object) */
+		static hasListeners: any;
+		/** [Property] (Boolean) */
+		static isObservable: boolean;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Adds the specified events to the list of events which this Observable may fire  
 		* @param eventNames Object/String... Either an object with event names as properties with a value of true. For example: this.addEvents({  storeloaded: true,  storecleared: true });  Or any number of event names as separate parameters. For example: this.addEvents('storeloaded', 'storecleared'); 
 		*/
@@ -15534,6 +15820,12 @@ declare module Ext.dom {
 	export interface IQuery {
 	}
 	export class Query {
+		/** [Property] (Object) */
+		static matchers: any;
+		/** [Property] (Object) */
+		static operators: any;
+		/** [Property] (Object) */
+		static pseudos: any;
 		/** [Method] Compiles a selector xpath query into a reusable function  
 		* @param selector String The selector/xpath query 
 		* @param type String Either "select" or "simple" for a simple selector match 
@@ -15593,6 +15885,12 @@ declare module Ext {
 	export interface IDomQuery {
 	}
 	export class DomQuery {
+		/** [Property] (Object) */
+		static matchers: any;
+		/** [Property] (Object) */
+		static operators: any;
+		/** [Property] (Object) */
+		static pseudos: any;
 		/** [Method] Compiles a selector xpath query into a reusable function  
 		* @param selector String The selector/xpath query 
 		* @param type String Either "select" or "simple" for a simple selector match 
@@ -15652,6 +15950,12 @@ declare module Ext.core {
 	export interface IDomQuery {
 	}
 	export class DomQuery {
+		/** [Property] (Object) */
+		static matchers: any;
+		/** [Property] (Object) */
+		static operators: any;
+		/** [Property] (Object) */
+		static pseudos: any;
 		/** [Method] Compiles a selector xpath query into a reusable function  
 		* @param selector String The selector/xpath query 
 		* @param type String Either "select" or "simple" for a simple selector match 
@@ -15711,6 +16015,10 @@ declare module Ext {
 	export interface IDomHelper extends Ext.dom.IHelper {
 	}
 	export class DomHelper {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Boolean) */
+		static useDom: boolean;
 		/** [Method] Creates new DOM element s and appends them to el  
 		* @param el String/HTMLElement/Ext.Element The context element 
 		* @param o Object/String The DOM object spec (and children) or raw HTML blob 
@@ -15819,6 +16127,10 @@ declare module Ext.core {
 	export interface IDomHelper extends Ext.dom.IHelper {
 	}
 	export class DomHelper {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Boolean) */
+		static useDom: boolean;
 		/** [Method] Creates new DOM element s and appends them to el  
 		* @param el String/HTMLElement/Ext.Element The context element 
 		* @param o Object/String The DOM object spec (and children) or raw HTML blob 
@@ -16128,6 +16440,8 @@ declare module Ext.draw {
 	export interface IDraw extends Ext.IBase {
 	}
 	export class Draw {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -16179,6 +16493,20 @@ declare module Ext.draw.engine {
 	export interface IImageExporter extends Ext.IBase {
 	}
 	export class ImageExporter {
+		/** [Property] (String) */
+		static defaultUrl: string;
+		/** [Property] (String) */
+		static heightParam: string;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Array) */
+		static supportedTypes: any[];
+		/** [Property] (String) */
+		static svgParam: string;
+		/** [Property] (String) */
+		static typeParam: string;
+		/** [Property] (String) */
+		static widthParam: string;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -16264,6 +16592,8 @@ declare module Ext.draw.engine {
 	export interface ISvgExporter extends Ext.IBase {
 	}
 	export class SvgExporter {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -17365,6 +17695,8 @@ declare module Ext {
 	export interface IEventManager {
 	}
 	export class EventManager {
+		/** [Property] (Object) */
+		static idleEvent: any;
 		/** [Method] Appends an event handler to an element  
 		* @param el String/Ext.Element/HTMLElement/Window The html element or id to assign the event handler to. 
 		* @param eventName String The name of the event to listen for. 
@@ -17486,6 +17818,188 @@ declare module Ext {
 	export interface IEventObject {
 	}
 	export class EventObject {
+		/** [Property] (Number) */
+		static A: number;
+		/** [Property] (Number) */
+		static ALT: number;
+		/** [Property] (Number) */
+		static B: number;
+		/** [Property] (Number) */
+		static BACKSPACE: number;
+		/** [Property] (Number) */
+		static C: number;
+		/** [Property] (Number) */
+		static CAPS_LOCK: number;
+		/** [Property] (Number) */
+		static CONTEXT_MENU: number;
+		/** [Property] (Number) */
+		static CTRL: number;
+		/** [Property] (Number) */
+		static D: number;
+		/** [Property] (Number) */
+		static DELETE: number;
+		/** [Property] (Number) */
+		static DOWN: number;
+		/** [Property] (Number) */
+		static E: number;
+		/** [Property] (Number) */
+		static EIGHT: number;
+		/** [Property] (Number) */
+		static END: number;
+		/** [Property] (Number) */
+		static ENTER: number;
+		/** [Property] (Number) */
+		static ESC: number;
+		/** [Property] (Number) */
+		static F: number;
+		/** [Property] (Number) */
+		static F1: number;
+		/** [Property] (Number) */
+		static F10: number;
+		/** [Property] (Number) */
+		static F11: number;
+		/** [Property] (Number) */
+		static F12: number;
+		/** [Property] (Number) */
+		static F2: number;
+		/** [Property] (Number) */
+		static F3: number;
+		/** [Property] (Number) */
+		static F4: number;
+		/** [Property] (Number) */
+		static F5: number;
+		/** [Property] (Number) */
+		static F6: number;
+		/** [Property] (Number) */
+		static F7: number;
+		/** [Property] (Number) */
+		static F8: number;
+		/** [Property] (Number) */
+		static F9: number;
+		/** [Property] (Number) */
+		static FIVE: number;
+		/** [Property] (Number) */
+		static FOUR: number;
+		/** [Property] (Number) */
+		static G: number;
+		/** [Property] (Number) */
+		static H: number;
+		/** [Property] (Number) */
+		static HOME: number;
+		/** [Property] (Number) */
+		static I: number;
+		/** [Property] (Number) */
+		static INSERT: number;
+		/** [Property] (Number) */
+		static J: number;
+		/** [Property] (Number) */
+		static K: number;
+		/** [Property] (Number) */
+		static L: number;
+		/** [Property] (Number) */
+		static LEFT: number;
+		/** [Property] (Number) */
+		static M: number;
+		/** [Property] (Number) */
+		static N: number;
+		/** [Property] (Number) */
+		static NINE: number;
+		/** [Property] (Number) */
+		static NUM_CENTER: number;
+		/** [Property] (Number) */
+		static NUM_DIVISION: number;
+		/** [Property] (Number) */
+		static NUM_EIGHT: number;
+		/** [Property] (Number) */
+		static NUM_FIVE: number;
+		/** [Property] (Number) */
+		static NUM_FOUR: number;
+		/** [Property] (Number) */
+		static NUM_MINUS: number;
+		/** [Property] (Number) */
+		static NUM_MULTIPLY: number;
+		/** [Property] (Number) */
+		static NUM_NINE: number;
+		/** [Property] (Number) */
+		static NUM_ONE: number;
+		/** [Property] (Number) */
+		static NUM_PERIOD: number;
+		/** [Property] (Number) */
+		static NUM_PLUS: number;
+		/** [Property] (Number) */
+		static NUM_SEVEN: number;
+		/** [Property] (Number) */
+		static NUM_SIX: number;
+		/** [Property] (Number) */
+		static NUM_THREE: number;
+		/** [Property] (Number) */
+		static NUM_TWO: number;
+		/** [Property] (Number) */
+		static NUM_ZERO: number;
+		/** [Property] (Number) */
+		static O: number;
+		/** [Property] (Number) */
+		static ONE: number;
+		/** [Property] (Number) */
+		static P: number;
+		/** [Property] (Number) */
+		static PAGE_DOWN: number;
+		/** [Property] (Number) */
+		static PAGE_UP: number;
+		/** [Property] (Number) */
+		static PAUSE: number;
+		/** [Property] (Number) */
+		static PRINT_SCREEN: number;
+		/** [Property] (Number) */
+		static Q: number;
+		/** [Property] (Number) */
+		static R: number;
+		/** [Property] (Number) */
+		static RETURN: number;
+		/** [Property] (Number) */
+		static RIGHT: number;
+		/** [Property] (Number) */
+		static S: number;
+		/** [Property] (Number) */
+		static SEVEN: number;
+		/** [Property] (Number) */
+		static SHIFT: number;
+		/** [Property] (Number) */
+		static SIX: number;
+		/** [Property] (Number) */
+		static SPACE: number;
+		/** [Property] (Number) */
+		static T: number;
+		/** [Property] (Number) */
+		static TAB: number;
+		/** [Property] (Number) */
+		static THREE: number;
+		/** [Property] (Number) */
+		static TWO: number;
+		/** [Property] (Number) */
+		static U: number;
+		/** [Property] (Number) */
+		static UP: number;
+		/** [Property] (Number) */
+		static V: number;
+		/** [Property] (Number) */
+		static W: number;
+		/** [Property] (Number) */
+		static WHEEL_SCALE: number;
+		/** [Property] (Number) */
+		static X: number;
+		/** [Property] (Number) */
+		static Y: number;
+		/** [Property] (Number) */
+		static Z: number;
+		/** [Property] (Number) */
+		static ZERO: number;
+		/** [Property] (Boolean) */
+		static altKey: boolean;
+		/** [Property] (Boolean) */
+		static ctrlKey: boolean;
+		/** [Property] (Boolean) */
+		static shiftKey: boolean;
 		/** [Method] Correctly scales a given wheel delta  
 		* @param delta Number The delta value. 
 		*/
@@ -17655,6 +18169,18 @@ declare module Ext {
 	export interface IFocusManager extends Ext.IBase,Ext.util.IObservable {
 	}
 	export class FocusManager {
+		/** [Property] (Boolean) */
+		static enabled: boolean;
+		/** [Property] (Ext.Component) */
+		static focusedCmp: Ext.IComponent;
+		/** [Property] (Object) */
+		static hasListeners: any;
+		/** [Property] (Boolean) */
+		static isObservable: boolean;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (String[]) */
+		static whitelist: string[];
 		/** [Method] Adds the specified events to the list of events which this Observable may fire  
 		* @param eventNames Object/String... Either an object with event names as properties with a value of true. For example: this.addEvents({  storeloaded: true,  storecleared: true });  Or any number of event names as separate parameters. For example: this.addEvents('storeloaded', 'storecleared'); 
 		*/
@@ -17814,6 +18340,18 @@ declare module Ext {
 	export interface IFocusMgr extends Ext.IBase,Ext.util.IObservable {
 	}
 	export class FocusMgr {
+		/** [Property] (Boolean) */
+		static enabled: boolean;
+		/** [Property] (Ext.Component) */
+		static focusedCmp: Ext.IComponent;
+		/** [Property] (Object) */
+		static hasListeners: any;
+		/** [Property] (Boolean) */
+		static isObservable: boolean;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (String[]) */
+		static whitelist: string[];
 		/** [Method] Adds the specified events to the list of events which this Observable may fire  
 		* @param eventNames Object/String... Either an object with event names as properties with a value of true. For example: this.addEvents({  storeloaded: true,  storecleared: true });  Or any number of event names as separate parameters. For example: this.addEvents('storeloaded', 'storecleared'); 
 		*/
@@ -18483,6 +19021,18 @@ declare module Ext.form {
 	export interface ICheckboxManager extends Ext.util.IMixedCollection {
 	}
 	export class CheckboxManager {
+		/** [Property] (Object) */
+		static hasListeners: any;
+		/** [Property] (Boolean) */
+		static isMixedCollection: boolean;
+		/** [Property] (Boolean) */
+		static isObservable: boolean;
+		/** [Property] (Boolean) */
+		static isSortable: boolean;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Ext.util.MixedCollection) */
+		static sorters: Ext.util.IMixedCollection;
 		/** [Method] Adds an item to the collection  
 		* @param key String/Object The key to associate with the item, or the new item. If a getKey implementation was specified for this MixedCollection, or if the key of the stored items is in a property called id, the MixedCollection will be able to derive the key for the new item. In this case just pass the new item in this parameter. 
 		* @param obj Object The item to add. 
@@ -22519,6 +23069,22 @@ declare module Ext.form.field {
 	export interface IVTypes extends Ext.IBase {
 	}
 	export class VTypes {
+		/** [Property] (RegExp) */
+		static alphaMask: RegExp;
+		/** [Property] (String) */
+		static alphaText: string;
+		/** [Property] (RegExp) */
+		static alphanumMask: RegExp;
+		/** [Property] (String) */
+		static alphanumText: string;
+		/** [Property] (RegExp) */
+		static emailMask: RegExp;
+		/** [Property] (String) */
+		static emailText: string;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (String) */
+		static urlText: string;
 		/** [Method] The function used to validate alpha values 
 		* @param value String The value 
 		* @returns Boolean true if the RegExp test passed, and false if not. 
@@ -22574,6 +23140,22 @@ declare module Ext.form {
 	export interface IVTypes extends Ext.IBase {
 	}
 	export class VTypes {
+		/** [Property] (RegExp) */
+		static alphaMask: RegExp;
+		/** [Property] (String) */
+		static alphaText: string;
+		/** [Property] (RegExp) */
+		static alphanumMask: RegExp;
+		/** [Property] (String) */
+		static alphanumText: string;
+		/** [Property] (RegExp) */
+		static emailMask: RegExp;
+		/** [Property] (String) */
+		static emailText: string;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (String) */
+		static urlText: string;
 		/** [Method] The function used to validate alpha values 
 		* @param value String The value 
 		* @returns Boolean true if the RegExp test passed, and false if not. 
@@ -23225,6 +23807,18 @@ declare module Ext.form {
 	export interface IRadioManager extends Ext.util.IMixedCollection {
 	}
 	export class RadioManager {
+		/** [Property] (Object) */
+		static hasListeners: any;
+		/** [Property] (Boolean) */
+		static isMixedCollection: boolean;
+		/** [Property] (Boolean) */
+		static isObservable: boolean;
+		/** [Property] (Boolean) */
+		static isSortable: boolean;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Ext.util.MixedCollection) */
+		static sorters: Ext.util.IMixedCollection;
 		/** [Method] Adds an item to the collection  
 		* @param key String/Object The key to associate with the item, or the new item. If a getKey implementation was specified for this MixedCollection, or if the key of the stored items is in a property called id, the MixedCollection will be able to derive the key for the new item. In this case just pass the new item in this parameter. 
 		* @param obj Object The item to add. 
@@ -24078,6 +24672,8 @@ declare module Ext.fx {
 	export interface ICubicBezier extends Ext.IBase {
 	}
 	export class CubicBezier {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -24119,6 +24715,12 @@ declare module Ext.fx {
 	export interface IManager extends Ext.IBase,Ext.fx.IQueue {
 	}
 	export class Manager {
+		/** [Config Option] (Boolean) */
+		static forceJS: boolean;
+		/** [Config Option] (Number) */
+		static interval: number;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Add an Anim to the manager  
 		* @param anim Ext.fx.Anim 
 		*/
@@ -25947,6 +26549,32 @@ declare module Ext {
 	export interface IIs {
 	}
 	export class Is {
+		/** [Property] (Boolean) */
+		static Android: boolean;
+		/** [Property] (Boolean) */
+		static Blackberry: boolean;
+		/** [Property] (Boolean) */
+		static Desktop: boolean;
+		/** [Property] (Boolean) */
+		static Linux: boolean;
+		/** [Property] (Boolean) */
+		static Mac: boolean;
+		/** [Property] (Boolean) */
+		static Phone: boolean;
+		/** [Property] (Boolean) */
+		static Standalone: boolean;
+		/** [Property] (Object) */
+		static Tablet: any;
+		/** [Property] (Boolean) */
+		static Windows: boolean;
+		/** [Property] (Boolean) */
+		static iOS: boolean;
+		/** [Property] (Boolean) */
+		static iPad: boolean;
+		/** [Property] (Boolean) */
+		static iPhone: boolean;
+		/** [Property] (Boolean) */
+		static iPod: boolean;
 	}
 }
 declare module Ext {
@@ -28611,6 +29239,24 @@ declare module Ext {
 	export interface ILoader {
 	}
 	export class Loader {
+		/** [Config Option] (Boolean) */
+		static disableCaching: boolean;
+		/** [Config Option] (String) */
+		static disableCachingParam: string;
+		/** [Config Option] (Boolean) */
+		static enabled: boolean;
+		/** [Config Option] (Boolean) */
+		static garbageCollect: boolean;
+		/** [Config Option] (Object) */
+		static paths: any;
+		/** [Config Option] (Boolean) */
+		static preserveScripts: boolean;
+		/** [Config Option] (Boolean) */
+		static scriptChainDelay: boolean;
+		/** [Config Option] (String) */
+		static scriptCharset: string;
+		/** [Property] (Array) */
+		static history: any[];
 		/** [Method] Sets a batch of path entries 
 		* @param paths Object a set of className: path mappings 
 		* @returns Ext.Loader this 
@@ -29056,6 +29702,8 @@ declare module Ext.menu {
 	export interface IManager extends Ext.IBase {
 	}
 	export class Manager {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -29100,6 +29748,8 @@ declare module Ext.menu {
 	export interface IMenuMgr extends Ext.IBase {
 	}
 	export class MenuMgr {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -29206,6 +29856,76 @@ declare module Ext {
 	export interface IMessageBox extends Ext.window.IMessageBox {
 	}
 	export class MessageBox {
+		/** [Property] (Number) */
+		static CANCEL: number;
+		/** [Property] (String) */
+		static ERROR: string;
+		/** [Property] (String) */
+		static INFO: string;
+		/** [Property] (Number) */
+		static NO: number;
+		/** [Property] (Number) */
+		static OK: number;
+		/** [Property] (Number) */
+		static OKCANCEL: number;
+		/** [Property] (String) */
+		static QUESTION: string;
+		/** [Property] (String) */
+		static WARNING: string;
+		/** [Property] (Number) */
+		static YES: number;
+		/** [Property] (Number) */
+		static YESNO: number;
+		/** [Property] (Number) */
+		static YESNOCANCEL: number;
+		/** [Property] (Boolean) */
+		static _isLayoutRoot: boolean;
+		/** [Property] (Ext.dom.Element) */
+		static body: Ext.dom.IElement;
+		/** [Property] (Object) */
+		static buttonText: any;
+		/** [Property] (String) */
+		static contentPaddingProperty: string;
+		/** [Property] (Ext.util.ComponentDragger) */
+		static dd: Ext.util.IComponentDragger;
+		/** [Property] (Number) */
+		static defaultTextHeight: number;
+		/** [Property] (Boolean) */
+		static draggable: boolean;
+		/** [Property] (Ext.Container) */
+		static floatParent: Ext.IContainer;
+		/** [Property] (Object) */
+		static frameSize: any;
+		/** [Property] (Object) */
+		static hasListeners: any;
+		/** [Property] (Boolean) */
+		static isComponent: boolean;
+		/** [Property] (Boolean) */
+		static isObservable: boolean;
+		/** [Property] (Boolean) */
+		static isPanel: boolean;
+		/** [Property] (Boolean) */
+		static isWindow: boolean;
+		/** [Property] (Ext.util.AbstractMixedCollection) */
+		static items: Ext.util.IAbstractMixedCollection;
+		/** [Property] (Boolean) */
+		static maskOnDisable: boolean;
+		/** [Property] (Number) */
+		static minProgressWidth: number;
+		/** [Property] (Number) */
+		static minPromptWidth: number;
+		/** [Property] (Ext.Container) */
+		static ownerCt: Ext.IContainer;
+		/** [Property] (Boolean) */
+		static rendered: boolean;
+		/** [Property] (Object) */
+		static scrollFlags: any;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Ext.ZIndexManager) */
+		static zIndexManager: Ext.IZIndexManager;
+		/** [Property] (Ext.Container) */
+		static zIndexParent: Ext.IContainer;
 		/** [Method] Adds Component s to this Container  
 		* @param component Ext.Component[]|Object[]/Ext.Component.../Object... Either one or more Components to add or an Array of Components to add. See items for additional information. 
 		* @returns Ext.Component[]/Ext.Component The Components that were added. 
@@ -30292,6 +31012,76 @@ declare module Ext {
 	export interface IMsg extends Ext.window.IMessageBox {
 	}
 	export class Msg {
+		/** [Property] (Number) */
+		static CANCEL: number;
+		/** [Property] (String) */
+		static ERROR: string;
+		/** [Property] (String) */
+		static INFO: string;
+		/** [Property] (Number) */
+		static NO: number;
+		/** [Property] (Number) */
+		static OK: number;
+		/** [Property] (Number) */
+		static OKCANCEL: number;
+		/** [Property] (String) */
+		static QUESTION: string;
+		/** [Property] (String) */
+		static WARNING: string;
+		/** [Property] (Number) */
+		static YES: number;
+		/** [Property] (Number) */
+		static YESNO: number;
+		/** [Property] (Number) */
+		static YESNOCANCEL: number;
+		/** [Property] (Boolean) */
+		static _isLayoutRoot: boolean;
+		/** [Property] (Ext.dom.Element) */
+		static body: Ext.dom.IElement;
+		/** [Property] (Object) */
+		static buttonText: any;
+		/** [Property] (String) */
+		static contentPaddingProperty: string;
+		/** [Property] (Ext.util.ComponentDragger) */
+		static dd: Ext.util.IComponentDragger;
+		/** [Property] (Number) */
+		static defaultTextHeight: number;
+		/** [Property] (Boolean) */
+		static draggable: boolean;
+		/** [Property] (Ext.Container) */
+		static floatParent: Ext.IContainer;
+		/** [Property] (Object) */
+		static frameSize: any;
+		/** [Property] (Object) */
+		static hasListeners: any;
+		/** [Property] (Boolean) */
+		static isComponent: boolean;
+		/** [Property] (Boolean) */
+		static isObservable: boolean;
+		/** [Property] (Boolean) */
+		static isPanel: boolean;
+		/** [Property] (Boolean) */
+		static isWindow: boolean;
+		/** [Property] (Ext.util.AbstractMixedCollection) */
+		static items: Ext.util.IAbstractMixedCollection;
+		/** [Property] (Boolean) */
+		static maskOnDisable: boolean;
+		/** [Property] (Number) */
+		static minProgressWidth: number;
+		/** [Property] (Number) */
+		static minPromptWidth: number;
+		/** [Property] (Ext.Container) */
+		static ownerCt: Ext.IContainer;
+		/** [Property] (Boolean) */
+		static rendered: boolean;
+		/** [Property] (Object) */
+		static scrollFlags: any;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Ext.ZIndexManager) */
+		static zIndexManager: Ext.IZIndexManager;
+		/** [Property] (Ext.Container) */
+		static zIndexParent: Ext.IContainer;
 		/** [Method] Adds Component s to this Container  
 		* @param component Ext.Component[]|Object[]/Ext.Component.../Object... Either one or more Components to add or an Array of Components to add. See items for additional information. 
 		* @returns Ext.Component[]/Ext.Component The Components that were added. 
@@ -31378,6 +32168,12 @@ declare module Ext {
 	export interface IModelManager extends Ext.IAbstractManager {
 	}
 	export class ModelManager {
+		/** [Property] (Ext.util.HashMap) */
+		static all: Ext.util.IHashMap;
+		/** [Property] (Ext.data.association.Association[]) */
+		static associationStack: Ext.data.association.IAssociation[];
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -31457,6 +32253,12 @@ declare module Ext {
 	export interface IModelMgr extends Ext.IAbstractManager {
 	}
 	export class ModelMgr {
+		/** [Property] (Ext.util.HashMap) */
+		static all: Ext.util.IHashMap;
+		/** [Property] (Ext.data.association.Association[]) */
+		static associationStack: Ext.data.association.IAssociation[];
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -32385,6 +33187,8 @@ declare module Ext.perf {
 	export interface IMonitor extends Ext.IBase {
 	}
 	export class Monitor {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -32420,6 +33224,8 @@ declare module Ext {
 	export interface IPerf extends Ext.IBase {
 	}
 	export class Perf {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -32909,6 +33715,10 @@ declare module Ext {
 	export interface IPluginManager extends Ext.IAbstractManager {
 	}
 	export class PluginManager {
+		/** [Property] (Ext.util.HashMap) */
+		static all: Ext.util.IHashMap;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -32994,6 +33804,10 @@ declare module Ext {
 	export interface IPluginMgr extends Ext.IAbstractManager {
 	}
 	export class PluginMgr {
+		/** [Property] (Ext.util.HashMap) */
+		static all: Ext.util.IHashMap;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -33976,6 +34790,8 @@ declare module Ext {
 	export interface IShadowPool extends Ext.IBase {
 	}
 	export class ShadowPool {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -34091,13 +34907,6 @@ declare module Ext.slider {
 		* @param readOnly Object 
 		*/
 		setReadOnly?( readOnly?:any ): void;
-		/** [Method] Programmatically sets the value of the Slider  
-		* @param index Number/Number[] Index of the thumb to move. Alternatively, it can be an array of values to set for each thumb in the slider. 
-		* @param value Number The value to set the slider to. (This will be constrained within minValue and maxValue) 
-		* @param animate Boolean Turn on or off animation 
-		* @returns any this 
-		*/
-		setValue?( index?:any, value?:number, animate?:boolean ): any;
 		/** [Method] Synchronizes thumbs position to the proper proportion of the total component width based on the current slider value  */
 		syncThumbs?(): void;
 	}
@@ -34186,13 +34995,6 @@ declare module Ext.slider {
 		* @param readOnly Object 
 		*/
 		setReadOnly?( readOnly?:any ): void;
-		/** [Method] Programmatically sets the value of the Slider  
-		* @param index Number/Number[] Index of the thumb to move. Alternatively, it can be an array of values to set for each thumb in the slider. 
-		* @param value Number The value to set the slider to. (This will be constrained within minValue and maxValue) 
-		* @param animate Boolean Turn on or off animation 
-		* @returns any this 
-		*/
-		setValue?( index?:any, value?:number, animate?:boolean ): any;
 		/** [Method] Synchronizes thumbs position to the proper proportion of the total component width based on the current slider value  */
 		syncThumbs?(): void;
 	}
@@ -34333,6 +35135,8 @@ declare module Ext.state {
 	export interface IManager extends Ext.IBase {
 	}
 	export class Manager {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -34797,6 +35601,82 @@ declare module Ext {
 	export interface ISupports {
 	}
 	export class Supports {
+		/** [Property] (Boolean) */
+		static ArraySort: boolean;
+		/** [Property] (Boolean) */
+		static AudioTag: boolean;
+		/** [Property] (Boolean) */
+		static BoundingClientRect: boolean;
+		/** [Property] (Boolean) */
+		static CSS3BorderRadius: boolean;
+		/** [Property] (Boolean) */
+		static CSS3BoxShadow: boolean;
+		/** [Property] (Boolean) */
+		static CSS3DTransform: boolean;
+		/** [Property] (Boolean) */
+		static CSS3LinearGradient: boolean;
+		/** [Property] (Boolean) */
+		static Canvas: boolean;
+		/** [Property] (Boolean) */
+		static ClassList: boolean;
+		/** [Property] (Boolean) */
+		static ComputedStyle: boolean;
+		/** [Property] (Boolean) */
+		static CreateContextualFragment: boolean;
+		/** [Property] (Boolean) */
+		static DeviceMotion: boolean;
+		/** [Property] (Boolean) */
+		static Direct2DBug: boolean;
+		/** [Property] (Object) */
+		static DisplayChangeInputSelectionBug: any;
+		/** [Property] (Object) */
+		static DisplayChangeTextAreaSelectionBug: any;
+		/** [Property] (Boolean) */
+		static Float: boolean;
+		/** [Property] (Boolean) */
+		static GeoLocation: boolean;
+		/** [Property] (Boolean) */
+		static GetPositionPercentage: boolean;
+		/** [Property] (Boolean) */
+		static History: boolean;
+		/** [Property] (Object) */
+		static LocalStorage: any;
+		/** [Property] (Boolean) */
+		static MouseEnterLeave: boolean;
+		/** [Property] (Boolean) */
+		static MouseWheel: boolean;
+		/** [Property] (Boolean) */
+		static Opacity: boolean;
+		/** [Property] (Boolean) */
+		static OrientationChange: boolean;
+		/** [Property] (Boolean) */
+		static Placeholder: boolean;
+		/** [Property] (Boolean) */
+		static PointerEvents: boolean;
+		/** [Property] (Boolean) */
+		static Range: boolean;
+		/** [Property] (Boolean) */
+		static RightMargin: boolean;
+		/** [Property] (Boolean) */
+		static RotatedBoundingClientRect: boolean;
+		/** [Property] (Boolean) */
+		static ScrollWidthInlinePaddingBug: boolean;
+		/** [Property] (Boolean) */
+		static Svg: boolean;
+		/** [Property] (Boolean) */
+		static TextAreaMaxLength: boolean;
+		/** [Property] (Boolean) */
+		static TimeoutActualLateness: boolean;
+		/** [Property] (Boolean) */
+		static Touch: boolean;
+		/** [Property] (Boolean) */
+		static Transitions: boolean;
+		/** [Property] (Boolean) */
+		static TransparentColor: boolean;
+		/** [Property] (Boolean) */
+		static Vml: boolean;
+		/** [Property] (Boolean) */
+		static WindowOnError: boolean;
 	}
 }
 declare module Ext.tab {
@@ -35119,6 +35999,8 @@ declare module Ext.tip {
 	export interface IQuickTipManager extends Ext.IBase {
 	}
 	export class QuickTipManager {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -35185,6 +36067,8 @@ declare module Ext {
 	export interface IQuickTips extends Ext.IBase {
 	}
 	export class QuickTips {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -36465,6 +37349,8 @@ declare module Ext.util {
 	export interface ICookies extends Ext.IBase {
 	}
 	export class Cookies {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -36519,6 +37405,8 @@ declare module Ext.util {
 	export interface ICSS extends Ext.IBase {
 	}
 	export class CSS {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -36733,6 +37621,16 @@ declare module Ext.util {
 	export interface IFormat {
 	}
 	export class Format {
+		/** [Property] (Boolean) */
+		static currencyAtEnd: boolean;
+		/** [Property] (Number) */
+		static currencyPrecision: number;
+		/** [Property] (String) */
+		static currencySign: string;
+		/** [Property] (String) */
+		static decimalSeparator: string;
+		/** [Property] (String) */
+		static thousandSeparator: string;
 		/** [Method] Formats an object of name value properties as HTML element attribute values suitable for using when creating textual 
 		* @param attributes Object An object containing the HTML attributes as properties eg: {height:40, vAlign:'top'} 
 		*/
@@ -37086,6 +37984,18 @@ declare module Ext.util {
 	export interface IHistory extends Ext.IBase,Ext.util.IObservable {
 	}
 	export class History {
+		/** [Property] (String) */
+		static fieldId: string;
+		/** [Property] (Object) */
+		static hasListeners: any;
+		/** [Property] (String) */
+		static iframeId: string;
+		/** [Property] (Boolean) */
+		static isObservable: boolean;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Boolean) */
+		static useTopWindow: boolean;
 		/** [Method] Add a new token to the history stack  
 		* @param token String The value that defines a particular application-specific history state 
 		* @param preventDuplicates Boolean When true, if the passed token matches the current token it will not save a new history step. Set to false if the same state can be saved more than once at the same history stack location. 
@@ -37249,6 +38159,18 @@ declare module Ext {
 	export interface IHistory extends Ext.IBase,Ext.util.IObservable {
 	}
 	export class History {
+		/** [Property] (String) */
+		static fieldId: string;
+		/** [Property] (Object) */
+		static hasListeners: any;
+		/** [Property] (String) */
+		static iframeId: string;
+		/** [Property] (Boolean) */
+		static isObservable: boolean;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Boolean) */
+		static useTopWindow: boolean;
 		/** [Method] Add a new token to the history stack  
 		* @param token String The value that defines a particular application-specific history state 
 		* @param preventDuplicates Boolean When true, if the passed token matches the current token it will not save a new history step. Set to false if the same state can be saved more than once at the same history stack location. 
@@ -37412,6 +38334,8 @@ declare module Ext.util {
 	export interface IInflector extends Ext.IBase {
 	}
 	export class Inflector {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -38456,6 +39380,8 @@ declare module Ext.util {
 	export interface ITaskManager extends Ext.util.ITaskRunner {
 	}
 	export class TaskManager {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -38509,6 +39435,8 @@ declare module Ext {
 	export interface ITaskManager extends Ext.util.ITaskRunner {
 	}
 	export class TaskManager {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override Ext define My Cat  constructor functi  
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -39692,6 +40620,8 @@ declare module Ext {
 	export interface IWindowManager extends Ext.IZIndexManager {
 	}
 	export class WindowManager {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Brings the specified Component to the front of any other active Components in this ZIndexManager  
 		* @param comp String/Object The id of the Component or a Ext.Component instance 
 		* @returns Boolean True if the dialog was brought to the front, else false if it was already in front 
