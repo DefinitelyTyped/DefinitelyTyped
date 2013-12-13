@@ -10,44 +10,44 @@
 // -> rx.aggregates.js
 
 declare module Rx {
-	interface IObservable<T> {
-		aggregate<TAcc>(accumulator: (acc: TAcc, value: T) => TAcc): IObservable<TAcc>;
-		aggregate<TAcc>(seed: TAcc, accumulator: (acc: TAcc, value: T) => TAcc): IObservable<TAcc>;
+	export interface Observable<T> {
+		aggregate<TAcc>(accumulator: (acc: TAcc, value: T) => TAcc): Observable<TAcc>;
+		aggregate<TAcc>(seed: TAcc, accumulator: (acc: TAcc, value: T) => TAcc): Observable<TAcc>;
 
-		any(): IObservable<boolean>;
-		any(selector: (item: T) => boolean): IObservable<boolean>;
+		any(): Observable<boolean>;
+		any(selector: (item: T) => boolean): Observable<boolean>;
 
-		isEmpty(predicate?: (value: T) => boolean): IObservable<boolean>;
-		all(predicate?: (value: T) => boolean): IObservable<boolean>;
-		contains(value: T, comparer?: (value1: T, value2: T) => boolean): IObservable<boolean>;
-		count(predicate?: (item: T) => boolean): IObservable<number>;
-		sum(keySelector?: (item: T) => number): IObservable<number>;
-		minBy(keySelector: (item: T) => number, comparer?: (value1: T, value2: T) => number): IObservable<T>;
-		min(comparer?: (value1: T, value2: T) => number): IObservable<T>;
-		maxBy(keySelector: (item: T) => number, comparer?: (value1: T, value2: T) => number): IObservable<T>;
-		max(comparer?: (value1: T, value2: T) => number): IObservable<number>;
-		average(keySelector?: (item: T) => number): IObservable<number>;
+		isEmpty(predicate?: (value: T) => boolean): Observable<boolean>;
+		all(predicate?: (value: T) => boolean): Observable<boolean>;
+		contains(value: T, comparer?: (value1: T, value2: T) => boolean): Observable<boolean>;
+		count(predicate?: (item: T) => boolean): Observable<number>;
+		sum(keySelector?: (item: T) => number): Observable<number>;
+		minBy(keySelector: (item: T) => number, comparer?: (value1: T, value2: T) => number): Observable<T>;
+		min(comparer?: (value1: T, value2: T) => number): Observable<T>;
+		maxBy(keySelector: (item: T) => number, comparer?: (value1: T, value2: T) => number): Observable<T>;
+		max(comparer?: (value1: T, value2: T) => number): Observable<number>;
+		average(keySelector?: (item: T) => number): Observable<number>;
 
-		sequenceEqual(second: IObservable<T>, comparer?: (value1: T, value2: T) => number): IObservable<T>;
-		elementAt(index: number): IObservable<T>;
-		elementAtOrDefault(index: number, defaultValue: T): IObservable<T>;
+		sequenceEqual(second: Observable<T>, comparer?: (value1: T, value2: T) => number): Observable<T>;
+		elementAt(index: number): Observable<T>;
+		elementAtOrDefault(index: number, defaultValue: T): Observable<T>;
 
-		single(): IObservable<T>;
-		single(predicate: (T) => boolean): IObservable<T>;
-		singleOrDefault(): IObservable<T>;
-		singleOrDefault(predicate: (T) => boolean): IObservable<T>;
-		singleOrDefault(predicate: (T) => boolean, defaultValue: T): IObservable<T>;
+		single(): Observable<T>;
+		single(predicate: (item: T) => boolean): Observable<T>;
+		singleOrDefault(): Observable<T>;
+		singleOrDefault(predicate: (item: T) => boolean): Observable<T>;
+		singleOrDefault(predicate: (item: T) => boolean, defaultValue: T): Observable<T>;
 
-		first(): IObservable<T>;
-		first(predicate: (T) => boolean): IObservable<T>;
-		firstOrDefault(): IObservable<T>;
-		firstOrDefault(predicate: (T) => boolean): IObservable<T>;
-		firstOrDefault(predicate: (T) => boolean, defaultValue: T): IObservable<T>;
+		first(): Observable<T>;
+		first(predicate: (item: T) => boolean): Observable<T>;
+		firstOrDefault(): Observable<T>;
+		firstOrDefault(predicate: (item: T) => boolean): Observable<T>;
+		firstOrDefault(predicate: (item: T) => boolean, defaultValue: T): Observable<T>;
 
-		last(): IObservable<T>;
-		last(predicate: (T) => boolean): IObservable<T>;
-		lastOrDefault(): IObservable<T>;
-		lastOrDefault(predicate: (T) => boolean): IObservable<T>;
-		lastOrDefault(predicate: (T) => boolean, defaultValue: T): IObservable<T>;
+		last(): Observable<T>;
+		last(predicate: (item: T) => boolean): Observable<T>;
+		lastOrDefault(): Observable<T>;
+		lastOrDefault(predicate: (item: T) => boolean): Observable<T>;
+		lastOrDefault(predicate: (item: T) => boolean, defaultValue: T): Observable<T>;
 	}
 }

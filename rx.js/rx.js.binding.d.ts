@@ -27,25 +27,25 @@ declare module Rx {
         new <T>(initialValue: T): BehaviorSubject<T>;
     }
 
-	interface ConnectableObservable<T> extends IObservable<T>{
+	interface ConnectableObservable<T> extends Observable<T>{
 		connect(): IDisposable;
-		refCount(): IObservable<T>;
+		refCount(): Observable<T>;
     }
 
     var ConnectableObservable: {
         new <T>(): ConnectableObservable<T>;
     }
 
-	interface IObservable<T> {
+	interface Observable<T> {
 
 		publish(): ConnectableObservable<T>;
-		publish<TResult>(selector: (item: T) => IObservable<TResult>): ConnectableObservable<TResult>;
+		publish<TResult>(selector: (item: T) => Observable<TResult>): ConnectableObservable<TResult>;
 		publishLast(): ConnectableObservable<T>;
-		publishLast<TResult>(selector: (item: T) => IObservable<TResult>): ConnectableObservable<TResult>;
+		publishLast<TResult>(selector: (item: T) => Observable<TResult>): ConnectableObservable<TResult>;
 		publishValue(initialValue: T): ConnectableObservable<T>;
 		publishValue<TResult>(selector: (item: T) => TResult, initialValue: TResult): ConnectableObservable<TResult>;
 
-		replay(selector?: (source: IObservable<T>) => ReplaySubject<T>, bufferSize?: number, window?: number, scheduler?: IScheduler): ReplaySubject<T>;
+		replay(selector?: (source: Observable<T>) => ReplaySubject<T>, bufferSize?: number, window?: number, scheduler?: IScheduler): ReplaySubject<T>;
 	}
 
 

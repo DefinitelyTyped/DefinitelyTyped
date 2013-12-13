@@ -11,7 +11,7 @@
 
 declare module Rx {
 
-	//interface IObservable<T> {
+	//interface Observable<T> {
 	//}
 
 
