@@ -62,7 +62,7 @@ declare module "express" {
             new (method: string, path: string, callbacks: Function[], options: any): Route;
         }
 
-        interface IRouter<T extends IRouter> {
+        interface IRouter<T> {
             /**
              * Map the given param placeholder `name`(s) to the given callback(s).
              *
