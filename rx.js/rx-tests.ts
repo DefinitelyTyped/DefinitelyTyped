@@ -108,28 +108,174 @@ bs = Rx.Observable.throwException<boolean>(new Error("error"), Rx.Scheduler.time
 bs = Rx.Observable.using(() => d, d => Rx.Observable.return(true));
 
 ss = Rx.Observable.amb(ss, ss);
-//ss = Rx.Observable.amb([ss, ss]);
+//ss = Rx.Observable.amb([ss, ss]);	// TypeScript bug https://typescript.codeplex.com/workitem/2011
 
 ss = Rx.Observable.catch(ss, ss, ss);
 ss = Rx.Observable.catchException(ss, ss, ss);
-//ss = Rx.Observable.catch([ss, ss, ss]);
-//ss = Rx.Observable.catchException([ss, ss, ss]);
+//ss = Rx.Observable.catch([ss, ss, ss]);	// TypeScript bug https://typescript.codeplex.com/workitem/2011
+//ss = Rx.Observable.catchException([ss, ss, ss]);	// TypeScript bug https://typescript.codeplex.com/workitem/2011
 
 ss = Rx.Observable.concat(ss, ss, ss);
-//ss = Rx.Observable.concat([ss, ss, ss]);
+//ss = Rx.Observable.concat([ss, ss, ss]);	// TypeScript bug https://typescript.codeplex.com/workitem/2011
 
 ss = Rx.Observable.merge(ss, ss, ss);
-//ss = Rx.Observable.merge([ss, ss, ss]);
+//ss = Rx.Observable.merge([ss, ss, ss]);	// TypeScript bug https://typescript.codeplex.com/workitem/2011
 ss = Rx.Observable.merge(s, ss, ss, ss);
-//ss = Rx.Observable.merge(s, [ss, ss, ss]);
+//ss = Rx.Observable.merge(s, [ss, ss, ss]);	// TypeScript bug https://typescript.codeplex.com/workitem/2011
 
 ss = Rx.Observable.onErrorResumeNext(ss, ss, ss);
-//ss = Rx.Observable.onErrorResumeNext([ss, ss, ss]);
+//ss = Rx.Observable.onErrorResumeNext([ss, ss, ss]);	// TypeScript bug https://typescript.codeplex.com/workitem/2011
 
+ns = Rx.Observable.zip(ss, [ss, ss, ss], (s, ss2) => { ss = ss2; return s.charCodeAt(0); });
+ns = Rx.Observable.zip(ss, bs, (s, b) => s.length + (b ? 1 : 0));
 ns = Rx.Observable.zip(ss, bs, ns, (s, b, n) => s.length + (b ? 1 : 0) + n);
+ns = Rx.Observable.zip(ss, bs, ns, ns, (s, b, n, n2) => s.length + (b ? 1 : 0) + n + n2);
+ns = Rx.Observable.zip(ss, bs, ns, ns, ss, (s, b, n, n2, s2) => s.length + (b ? 1 : 0) + n + n2 + s2.charCodeAt(0));
+
+var sas: Rx.Observable<string[]> = Rx.Observable.zipArray(ss, ss);
 
 
 // Observable instance methods
 
+d = ns.subscribe(o);
+d = ns.subscribe(n => n + 1, err => { }, () => { });
+d = ns.subscribe(n => n + 1, err => { });
+d = ns.subscribe();
+
+sas = ss.toArray();
+
+ss.observeOn(s);
+ns.subscribeOn(s);
+
+ss = ss.amb(ss);
+
+ss = ss.catch(err => ss);
+ss = ss.catchException(err => ss);
+ss = ss.catch(ss);
+ss = ss.catchException(ss);
+
+ns = ss.combineLatest([ns, ns, ns], (s, ...ns) => s.charCodeAt(0) + ns[0]);
+ns = ss.combineLatest(ns, (s, n) => s.charCodeAt(0) + n);
+ns = ss.combineLatest(ns, ns, (s, n, n2) => s.charCodeAt(0) + n + n2);
+ns = ss.combineLatest(ns, ns, bs, (s, n, n2, b) => s.charCodeAt(0) + n + n2 + (b ? 1 : 0));
+ns = ss.combineLatest(ns, ns, bs, ss, (s, n, n2, b, s2) => s.charCodeAt(0) + n + n2 + (b ? 1 : 0) + s2.charCodeAt(0));
+
+ss = ss.concat(ss, ss);
+ss = ss.concat([ss, ss]);
+
 var sss: Rx.Observable<Rx.Observable<string>>;
 ss = sss.concatAll();
+ss = sss.concatObservable();
+
+ss = ss.merge(2);
+ss = ss.merge(ss);
+
+ss = sss.mergeAll();
+ss = sss.mergeObservable();
+
+ss = ss.onErrorResumeNext(ss);
+
+ss = ss.skipUntil(ns);
+
+ss = ss.takeUntil(ns);
+
+ss = sss.switchLatest();
+
+ns = ss.zip([ns, ns], (s, ns2) => { ns = ns2; return s.charCodeAt(0); });
+
+ns = ss.zip(ns, (s, n) => s.charCodeAt(0) + n);
+ns = ss.zip(ns, bs, (s, n, b) => s.charCodeAt(0) + n + (b?1:0));
+ns = ss.zip(ns, bs, ss, (s, n, b, s2) => s.charCodeAt(0) + n + (b?1:0) + s2.charCodeAt(0));
+ns = ss.zip(ns, bs, ss, ns, (s, n, b, s2, n2) => s.charCodeAt(0) + n + (b?1:0) + s2.charCodeAt(0) + n2);
+
+ss = ss.asObservable();
+
+sas = ss.bufferWithCount(2);
+sas = ss.bufferWithCount(2, 1);
+
+var notifications: Rx.Observable<Rx.Notification<number>>;
+
+ns = notifications.dematerialize<number>();
+
+ns = ns.distinctUntilChanged();
+ns = ns.distinctUntilChanged(n => (n + 1).toString());
+ns = ns.distinctUntilChanged(n => (n + 1).toString(), (s1, s2) => s1.charCodeAt(0) === s2.charCodeAt(0));
+ns = ns.distinctUntilChanged(undefined, (n1, n2) => (n1 + 1) === (n2 + 1));
+
+ns = ns.do(o);
+ns = ns.doAction(o);
+ns = ns.do(n => n + 1, err => { }, () => { });
+ns = ns.doAction(n => n + 1, err => { }, () => { });
+ns = ns.do(n => n + 1, err => { });
+ns = ns.doAction(n => n + 1, err => { });
+ns = ns.do();
+ns = ns.doAction();
+
+ns = ns.finally(() => { });
+ns = ns.finallyAction(() => { });
+
+ss = ss.ignoreElements();
+
+notifications = ns.materialize();
+
+ss = ss.repeat();
+ss = ss.repeat(10);
+
+ss = ss.retry();
+ss = ss.retry(10);
+
+ns = ss.scan(0, (sum, s) => sum + s.charCodeAt(0));
+ns = ns.scan((sum, n) => sum + n);
+
+ns = ns.skipLast(10);
+
+ns = ns.startWith(10, 20);
+ns = ns.startWith(s, 10, 20);
+
+ns = ns.takeLast(2);
+ns = ns.takeLast(2, s);
+
+sas = ss.takeLastBuffer(5);
+
+sss = ss.windowWithCount(2);
+sss = ss.windowWithCount(2, 3);
+
+ns = ns.defaultIfEmpty();
+ns = ns.defaultIfEmpty(0);
+
+ns = ns.distinct(n => (n + 1), n => (n + 1).toString());
+ns = ns.distinct(undefined, n => (n + 1).toString());
+ns = ns.distinct(n => (n + 1).toString());
+ns = ns.distinct();
+
+var gnss: Observable<GroupedObservable<number, string>>;
+var group: GroupedObservable<number, string>;
+ss = group;
+n = group.key;
+
+gnss = ss.groupBy(s => s.charCodeAt(0));
+gnss = ss.groupBy(s => s.charCodeAt(0), s => s + "!");
+gnss = ss.groupBy(s => s.charCodeAt(0), s => s + "!", k => (k + 1).toString());
+gnss = ss.groupBy(s => s.charCodeAt(0), undefined, k => (k + 1).toString());
+
+gnss = ss.groupByUntil(s => s.charCodeAt(0), s => s + "!", g => ns, k => (k + 1).toString());
+gnss = ss.groupByUntil(s => s.charCodeAt(0), undefined, g => ns, k => (k + 1).toString());
+
+ns = ss.select(s => s.charCodeAt(0), ns);
+ns = ss.map(s => s.charCodeAt(0), ns);
+ns = ss.select(s => s.charCodeAt(0));
+ns = ss.map(s => s.charCodeAt(0));
+ns = ss.select((s, index) => s.charCodeAt(0) + index);
+ns = ss.map((s, index) => s.charCodeAt(0) + index);
+ns = ss.select((s, index) => s.charCodeAt(0) + index, ns);
+ns = ss.map((s, index) => s.charCodeAt(0) + index, ns);
+ns = ss.select((s, index, source) => { ss = source; return; s.charCodeAt(0) + index; });
+ns = ss.map((s, index, source) => { ss = source; return; s.charCodeAt(0) + index; });
+ns = ss.select((s, index, source) => { ss = source; return; s.charCodeAt(0) + index; }, ns);
+ns = ss.map((s, index, source) => { ss = source; return; s.charCodeAt(0) + index; }, ns);
+
+ss = ss.selectMany(s => ns, (s, n) => s + n.toString());
+ns = ss.selectMany(s => ns);
+ns = ss.selectMany(ns);
+
+ns = ns.skip(10);
