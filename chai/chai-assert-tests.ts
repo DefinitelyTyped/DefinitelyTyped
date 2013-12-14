@@ -45,181 +45,181 @@ interface FieldObj {
 	field: any;
 }
 
-suite('assert', function () {
+suite('assert', () => {
 
-	test('assert', function () {
+	test('assert', () => {
 		var foo = 'bar';
 		assert(foo == 'bar', "expected foo to equal `bar`");
 
-		err(function () {
+		err(() => {
 			assert(foo == 'baz', "expected foo to equal `bar`");
 		}, "expected foo to equal `bar`");
 	});
 
-	test('fail', function () {
-		chai.expect(function () {
+	test('fail', () => {
+		chai.expect(() => {
 			assert.fail();
 		}).to.throw(chai.AssertionError);
 	});
 
-	test('isTrue', function () {
+	test('isTrue', () => {
 		assert.isTrue(true);
 
-		err(function () {
+		err(() => {
 			assert.isTrue(false);
 		}, "expected false to be true");
 
-		err(function () {
+		err(() => {
 			assert.isTrue(1);
 		}, "expected 1 to be true");
 
-		err(function () {
+		err(() => {
 			assert.isTrue('test');
 		}, "expected 'test' to be true");
 	});
 
-	test('ok', function () {
+	test('ok', () => {
 		assert.ok(true);
 		assert.ok(1);
 		assert.ok('test');
 
-		err(function () {
+		err(() => {
 			assert.ok(false);
 		}, "expected false to be truthy");
 
-		err(function () {
+		err(() => {
 			assert.ok(0);
 		}, "expected 0 to be truthy");
 
-		err(function () {
+		err(() => {
 			assert.ok('');
 		}, "expected '' to be truthy");
 	});
 
-	test('isFalse', function () {
+	test('isFalse', () => {
 		assert.isFalse(false);
 
-		err(function () {
+		err(() => {
 			assert.isFalse(true);
 		}, "expected true to be false");
 
-		err(function () {
+		err(() => {
 			assert.isFalse(0);
 		}, "expected 0 to be false");
 	});
 
-	test('equal', function () {
+	test('equal', () => {
 		var foo;
 		assert.equal(foo, undefined);
 	});
 
-	test('typeof / notTypeOf', function () {
+	test('typeof / notTypeOf', () => {
 		assert.typeOf('test', 'string');
 		assert.typeOf(true, 'boolean');
 		assert.typeOf(5, 'number');
 
-		err(function () {
+		err(() => {
 			assert.typeOf(5, 'string');
 		}, "expected 5 to be a string");
 
 	});
 
-	test('notTypeOf', function () {
+	test('notTypeOf', () => {
 		assert.notTypeOf('test', 'number');
 
-		err(function () {
+		err(() => {
 			assert.notTypeOf(5, 'number');
 		}, "expected 5 not to be a number");
 	});
 
-	test('instanceOf', function () {
+	test('instanceOf', () => {
 		function Foo() {
 		}
 
 		assert.instanceOf(new Foo(), Foo);
 
-		err(function () {
+		err(() => {
 			assert.instanceOf(5, Foo);
 		}, "expected 5 to be an instance of Foo");
 
 		function CrashyObject() {
 		};
-		CrashyObject.prototype.inspect = function () {
+		CrashyObject.prototype.inspect = () => {
 			throw new Error("Arg's inspect() called even though the test passed");
 		};
 		assert.instanceOf(new CrashyObject(), CrashyObject);
 	});
 
-	test('notInstanceOf', function () {
+	test('notInstanceOf', () => {
 		function Foo() {
 		}
 
 		assert.notInstanceOf(new Foo(), String);
 
-		err(function () {
+		err(() => {
 			assert.notInstanceOf(new Foo(), Foo);
 		}, "expected {} to not be an instance of Foo");
 	});
 
-	test('isObject', function () {
+	test('isObject', () => {
 		function Foo() {
 		}
 
 		assert.isObject({});
 		assert.isObject(new Foo());
 
-		err(function () {
+		err(() => {
 			assert.isObject(true);
 		}, "expected true to be an object");
 
-		err(function () {
+		err(() => {
 			assert.isObject(Foo);
 		}, "expected [Function: Foo] to be an object");
 
-		err(function () {
+		err(() => {
 			assert.isObject('foo');
 		}, "expected 'foo' to be an object");
 	});
 
-	test('isNotObject', function () {
+	test('isNotObject', () => {
 		function Foo() {
 		}
 
 		assert.isNotObject(5);
 
-		err(function () {
+		err(() => {
 			assert.isNotObject({});
 		}, "expected {} not to be an object");
 	});
 
-	test('notEqual', function () {
+	test('notEqual', () => {
 		assert.notEqual(3, 4);
 
-		err(function () {
+		err(() => {
 			assert.notEqual(5, 5);
 		}, "expected 5 to not equal 5");
 	});
 
-	test('strictEqual', function () {
+	test('strictEqual', () => {
 		assert.strictEqual('foo', 'foo');
 
-		err(function () {
+		err(() => {
 			assert.strictEqual('5', 5);
 		}, "expected \'5\' to equal 5");
 	});
 
-	test('notStrictEqual', function () {
+	test('notStrictEqual', () => {
 		assert.notStrictEqual(5, '5');
 
-		err(function () {
+		err(() => {
 			assert.notStrictEqual(5, 5);
 		}, "expected 5 to not equal 5");
 	});
 
-	test('deepEqual', function () {
+	test('deepEqual', () => {
 		assert.deepEqual({tea: 'chai'}, {tea: 'chai'});
 
-		err(function () {
+		err(() => {
 			assert.deepEqual({tea: 'chai'}, {tea: 'black'});
 		}, "expected { tea: \'chai\' } to deeply equal { tea: \'black\' }");
 
@@ -231,18 +231,18 @@ suite('assert', function () {
 		var obj1 = Object.create({tea: 'chai'})
 		, obj2 = Object.create({tea: 'black'});
 
-		err(function () {
+		err(() => {
 			assert.deepEqual(obj1, obj2);
 		}, "expected { tea: \'chai\' } to deeply equal { tea: \'black\' }");
 	});
 
-	test('deepEqual (ordering)', function () {
+	test('deepEqual (ordering)', () => {
 		var a = { a: 'b', c: 'd' }
 		, b = { c: 'd', a: 'b' };
 		assert.deepEqual(a, b);
 	});
 
-	test('deepEqual (circular)', function () {
+	test('deepEqual (circular)', () => {
 		var circularObject:any = {}
 		, secondCircularObject:any = {};
 		circularObject.field = circularObject;
@@ -250,20 +250,20 @@ suite('assert', function () {
 
 		assert.deepEqual(circularObject, secondCircularObject);
 
-		err(function () {
+		err(() => {
 			secondCircularObject.field2 = secondCircularObject;
 			assert.deepEqual(circularObject, secondCircularObject);
 		}, "expected { field: [Circular] } to deeply equal { Object (field, field2) }");
 	});
 
-	test('notDeepEqual', function () {
+	test('notDeepEqual', () => {
 		assert.notDeepEqual({tea: 'jasmine'}, {tea: 'chai'});
-		err(function () {
+		err(() => {
 			assert.notDeepEqual({tea: 'chai'}, {tea: 'chai'});
 		}, "expected { tea: \'chai\' } to not deeply equal { tea: \'chai\' }");
 	});
 
-	test('notDeepEqual (circular)', function () {
+	test('notDeepEqual (circular)', () => {
 		var circularObject:any = {}
 		, secondCircularObject:any = { tea: 'jasmine' };
 		circularObject.field = circularObject;
@@ -271,194 +271,194 @@ suite('assert', function () {
 
 		assert.notDeepEqual(circularObject, secondCircularObject);
 
-		err(function () {
+		err(() => {
 			delete secondCircularObject.tea;
 			assert.notDeepEqual(circularObject, secondCircularObject);
 		}, "expected { field: [Circular] } to not deeply equal { field: [Circular] }");
 	});
 
-	test('isNull', function () {
+	test('isNull', () => {
 		assert.isNull(null);
 
-		err(function () {
+		err(() => {
 			assert.isNull(undefined);
 		}, "expected undefined to equal null");
 	});
 
-	test('isNotNull', function () {
+	test('isNotNull', () => {
 		assert.isNotNull(undefined);
 
-		err(function () {
+		err(() => {
 			assert.isNotNull(null);
 		}, "expected null to not equal null");
 	});
 
-	test('isUndefined', function () {
+	test('isUndefined', () => {
 		assert.isUndefined(undefined);
 
-		err(function () {
+		err(() => {
 			assert.isUndefined(null);
 		}, "expected null to equal undefined");
 	});
 
-	test('isDefined', function () {
+	test('isDefined', () => {
 		assert.isDefined(null);
 
-		err(function () {
+		err(() => {
 			assert.isDefined(undefined);
 		}, "expected undefined to not equal undefined");
 	});
 
-	test('isFunction', function () {
-		var func = function () {
+	test('isFunction', () => {
+		var func = () => {
 		};
 		assert.isFunction(func);
 
-		err(function () {
+		err(() => {
 			assert.isFunction({});
 		}, "expected {} to be a function");
 	});
 
-	test('isNotFunction', function () {
+	test('isNotFunction', () => {
 		assert.isNotFunction(5);
 
-		err(function () {
-			assert.isNotFunction(function () {
+		err(() => {
+			assert.isNotFunction(() => {
 			});
 		}, "expected [Function] not to be a function");
 	});
 
-	test('isArray', function () {
+	test('isArray', () => {
 		assert.isArray([]);
 		assert.isArray(new Array<any>());
 
-		err(function () {
+		err(() => {
 			assert.isArray({});
 		}, "expected {} to be an array");
 	});
 
-	test('isNotArray', function () {
+	test('isNotArray', () => {
 		assert.isNotArray(3);
 
-		err(function () {
+		err(() => {
 			assert.isNotArray([]);
 		}, "expected [] not to be an array");
 
-		err(function () {
+		err(() => {
 			assert.isNotArray(new Array<any>());
 		}, "expected [] not to be an array");
 	});
 
-	test('isString', function () {
+	test('isString', () => {
 		assert.isString('Foo');
 		assert.isString(new String('foo'));
 
-		err(function () {
+		err(() => {
 			assert.isString(1);
 		}, "expected 1 to be a string");
 	});
 
-	test('isNotString', function () {
+	test('isNotString', () => {
 		assert.isNotString(3);
 		assert.isNotString([ 'hello' ]);
 
-		err(function () {
+		err(() => {
 			assert.isNotString('hello');
 		}, "expected 'hello' not to be a string");
 	});
 
-	test('isNumber', function () {
+	test('isNumber', () => {
 		assert.isNumber(1);
 		assert.isNumber(Number('3'));
 
-		err(function () {
+		err(() => {
 			assert.isNumber('1');
 		}, "expected \'1\' to be a number");
 	});
 
-	test('isNotNumber', function () {
+	test('isNotNumber', () => {
 		assert.isNotNumber('hello');
 		assert.isNotNumber([ 5 ]);
 
-		err(function () {
+		err(() => {
 			assert.isNotNumber(4);
 		}, "expected 4 not to be a number");
 	});
 
-	test('isBoolean', function () {
+	test('isBoolean', () => {
 		assert.isBoolean(true);
 		assert.isBoolean(false);
 
-		err(function () {
+		err(() => {
 			assert.isBoolean('1');
 		}, "expected \'1\' to be a boolean");
 	});
 
-	test('isNotBoolean', function () {
+	test('isNotBoolean', () => {
 		assert.isNotBoolean('true');
 
-		err(function () {
+		err(() => {
 			assert.isNotBoolean(true);
 		}, "expected true not to be a boolean");
 
-		err(function () {
+		err(() => {
 			assert.isNotBoolean(false);
 		}, "expected false not to be a boolean");
 	});
 
-	test('include', function () {
+	test('include', () => {
 		assert.include('foobar', 'bar');
 		assert.include([ 1, 2, 3], 3);
 
-		err(function () {
+		err(() => {
 			assert.include('foobar', 'baz');
 		}, "expected \'foobar\' to contain \'baz\'");
 
-		err(function () {
+		err(() => {
 			assert.include(undefined, 'bar');
 		}, "expected an array or string");
 	});
 
-	test('notInclude', function () {
+	test('notInclude', () => {
 		assert.notInclude('foobar', 'baz');
 		assert.notInclude([ 1, 2, 3 ], 4);
 
-		err(function () {
+		err(() => {
 			assert.notInclude('foobar', 'bar');
 		}, "expected \'foobar\' to not contain \'bar\'");
 
-		err(function () {
+		err(() => {
 			assert.notInclude(undefined, 'bar');
 		}, "expected an array or string");
 	});
 
-	test('lengthOf', function () {
+	test('lengthOf', () => {
 		assert.lengthOf([1, 2, 3], 3);
 		assert.lengthOf('foobar', 6);
 
-		err(function () {
+		err(() => {
 			assert.lengthOf('foobar', 5);
 		}, "expected 'foobar' to have a length of 5 but got 6");
 
-		err(function () {
+		err(() => {
 			assert.lengthOf(1, 5);
 		}, "expected 1 to have a property \'length\'");
 	});
 
-	test('match', function () {
+	test('match', () => {
 		assert.match('foobar', /^foo/);
 		assert.notMatch('foobar', /^bar/);
 
-		err(function () {
+		err(() => {
 			assert.match('foobar', /^bar/i);
 		}, "expected 'foobar' to match /^bar/i");
 
-		err(function () {
+		err(() => {
 			assert.notMatch('foobar', /^foo/i);
 		}, "expected 'foobar' not to match /^foo/i");
 	});
 
-	test('property', function () {
+	test('property', () => {
 		var obj = { foo: { bar: 'baz' } };
 		var simpleObj = { foo: 'bar' };
 		assert.property(obj, 'foo');
@@ -469,122 +469,122 @@ suite('assert', function () {
 		assert.deepPropertyVal(obj, 'foo.bar', 'baz');
 		assert.deepPropertyNotVal(obj, 'foo.bar', 'flow');
 
-		err(function () {
+		err(() => {
 			assert.property(obj, 'baz');
 		}, "expected { foo: { bar: 'baz' } } to have a property 'baz'");
 
-		err(function () {
+		err(() => {
 			assert.deepProperty(obj, 'foo.baz');
 		}, "expected { foo: { bar: 'baz' } } to have a deep property 'foo.baz'");
 
-		err(function () {
+		err(() => {
 			assert.notProperty(obj, 'foo');
 		}, "expected { foo: { bar: 'baz' } } to not have property 'foo'");
 
-		err(function () {
+		err(() => {
 			assert.notDeepProperty(obj, 'foo.bar');
 		}, "expected { foo: { bar: 'baz' } } to not have deep property 'foo.bar'");
 
-		err(function () {
+		err(() => {
 			assert.propertyVal(simpleObj, 'foo', 'ball');
 		}, "expected { foo: 'bar' } to have a property 'foo' of 'ball', but got 'bar'");
 
-		err(function () {
+		err(() => {
 			assert.deepPropertyVal(obj, 'foo.bar', 'ball');
 		}, "expected { foo: { bar: 'baz' } } to have a deep property 'foo.bar' of 'ball', but got 'baz'");
 
-		err(function () {
+		err(() => {
 			assert.propertyNotVal(simpleObj, 'foo', 'bar');
 		}, "expected { foo: 'bar' } to not have a property 'foo' of 'bar'");
 
-		err(function () {
+		err(() => {
 			assert.deepPropertyNotVal(obj, 'foo.bar', 'baz');
 		}, "expected { foo: { bar: 'baz' } } to not have a deep property 'foo.bar' of 'baz'");
 	});
 
-	test('throws', function () {
-		assert.throws(function () {
+	test('throws', () => {
+		assert.throws(() => {
 			throw new Error('foo');
 		});
-		assert.throws(function () {
+		assert.throws(() => {
 			throw new Error('bar');
 		}, 'bar');
-		assert.throws(function () {
+		assert.throws(() => {
 			throw new Error('bar');
 		}, /bar/);
-		assert.throws(function () {
+		assert.throws(() => {
 			throw new Error('bar');
 		}, Error);
-		assert.throws(function () {
+		assert.throws(() => {
 			throw new Error('bar');
 		}, Error, 'bar');
 
-		err(function () {
-			assert.throws(function () {
-				throw new Error('foo')
+		err(() => {
+			assert.throws(() => {
+				throw new Error('foo');
 			}, TypeError);
-		}, "expected [Function] to throw 'TypeError' but [Error: foo] was thrown")
+		}, "expected [Function] to throw 'TypeError' but [Error: foo] was thrown");
 
-		err(function () {
-			assert.throws(function () {
-				throw new Error('foo')
+		err(() => {
+			assert.throws(() => {
+				throw new Error('foo');
 			}, 'bar');
-		}, "expected [Function] to throw error including 'bar' but got 'foo'")
+		}, "expected [Function] to throw error including 'bar' but got 'foo'");
 
-		err(function () {
-			assert.throws(function () {
-				throw new Error('foo')
+		err(() => {
+			assert.throws(() => {
+				throw new Error('foo');
 			}, Error, 'bar');
-		}, "expected [Function] to throw error including 'bar' but got 'foo'")
+		}, "expected [Function] to throw error including 'bar' but got 'foo'");
 
-		err(function () {
-			assert.throws(function () {
-				throw new Error('foo')
+		err(() => {
+			assert.throws(() => {
+				throw new Error('foo');
 			}, TypeError, 'bar');
-		}, "expected [Function] to throw 'TypeError' but [Error: foo] was thrown")
+		}, "expected [Function] to throw 'TypeError' but [Error: foo] was thrown");
 
-		err(function () {
-			assert.throws(function () {
+		err(() => {
+			assert.throws(() => {
 			});
 		}, "expected [Function] to throw an error");
 
-		err(function () {
-			assert.throws(function () {
-				throw new Error('')
+		err(() => {
+			assert.throws(() => {
+				throw new Error('');
 			}, 'bar');
 		}, "expected [Function] to throw error including 'bar' but got ''");
 
-		err(function () {
-			assert.throws(function () {
-				throw new Error('')
+		err(() => {
+			assert.throws(() => {
+				throw new Error('');
 			}, /bar/);
 		}, "expected [Function] to throw error matching /bar/ but got ''");
 	});
 
-	test('doesNotThrow', function () {
-		assert.doesNotThrow(function () {
+	test('doesNotThrow', () => {
+		assert.doesNotThrow(() => {
 		});
-		assert.doesNotThrow(function () {
+		assert.doesNotThrow(() => {
 		}, 'foo');
 
-		err(function () {
-			assert.doesNotThrow(function () {
+		err(() => {
+			assert.doesNotThrow(() => {
 				throw new Error('foo');
 			});
 		}, 'expected [Function] to not throw an error but [Error: foo] was thrown');
 	});
 
-	test('ifError', function () {
+	test('ifError', () => {
 		assert.ifError(false);
 		assert.ifError(null);
 		assert.ifError(undefined);
 
-		err(function () {
+		err(() => {
 			assert.ifError('foo');
 		}, "expected \'foo\' to be falsy");
 	});
 
-	test('operator', function () {
+	test('operator', () => {
 		assert.operator(1, '<', 2);
 		assert.operator(2, '>', 1);
 		assert.operator(1, '==', 1);
@@ -593,77 +593,77 @@ suite('assert', function () {
 		assert.operator(1, '!=', 2);
 		assert.operator(1, '!==', 2);
 
-		err(function () {
+		err(() => {
 			assert.operator(1, '=', 2);
 		}, 'Invalid operator "="');
 
-		err(function () {
+		err(() => {
 			assert.operator(2, '<', 1);
 		}, "expected 2 to be < 1");
 
-		err(function () {
+		err(() => {
 			assert.operator(1, '>', 2);
 		}, "expected 1 to be > 2");
 
-		err(function () {
+		err(() => {
 			assert.operator(1, '==', 2);
 		}, "expected 1 to be == 2");
 
-		err(function () {
+		err(() => {
 			assert.operator(2, '<=', 1);
 		}, "expected 2 to be <= 1");
 
-		err(function () {
+		err(() => {
 			assert.operator(1, '>=', 2);
 		}, "expected 1 to be >= 2");
 
-		err(function () {
+		err(() => {
 			assert.operator(1, '!=', 1);
 		}, "expected 1 to be != 1");
 
-		err(function () {
+		err(() => {
 			assert.operator(1, '!==', '1');
 		}, "expected 1 to be !== \'1\'");
 	});
 
-	test('closeTo', function () {
+	test('closeTo', () => {
 		assert.closeTo(1.5, 1.0, 0.5);
 		assert.closeTo(10, 20, 20);
 		assert.closeTo(-10, 20, 30);
 
-		err(function () {
+		err(() => {
 			assert.closeTo(2, 1.0, 0.5);
 		}, "expected 2 to be close to 1 +/- 0.5");
 
-		err(function () {
+		err(() => {
 			assert.closeTo(-10, 20, 29);
 		}, "expected -10 to be close to 20 +/- 29");
 	});
 
-	test('members', function () {
+	test('members', () => {
 		assert.includeMembers([1, 2, 3], [2, 3]);
 		assert.includeMembers([1, 2, 3], []);
 		assert.includeMembers([1, 2, 3], [3]);
 
-		err(function () {
+		err(() => {
 			assert.includeMembers([5, 6], [7, 8]);
 		}, 'expected [ 5, 6 ] to be a superset of [ 7, 8 ]');
 
-		err(function () {
+		err(() => {
 			assert.includeMembers([5, 6], [5, 6, 0]);
 		}, 'expected [ 5, 6 ] to be a superset of [ 5, 6, 0 ]');
 	});
 
-	test('memberEquals', function () {
+	test('memberEquals', () => {
 		assert.sameMembers([], []);
 		assert.sameMembers([1, 2, 3], [3, 2, 1]);
 		assert.sameMembers([4, 2], [4, 2]);
 
-		err(function () {
+		err(() => {
 			assert.sameMembers([], [1, 2]);
 		}, 'expected [] to have the same members as [ 1, 2 ]');
 
-		err(function () {
+		err(() => {
 			assert.sameMembers([1, 54], [6, 1, 54]);
 		}, 'expected [ 1, 54 ] to have the same members as [ 6, 1, 54 ]');
 	});
