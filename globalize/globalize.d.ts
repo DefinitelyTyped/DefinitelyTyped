@@ -111,8 +111,8 @@ interface GlobalizeStatic {
     addCultureInfo(cultureName: string, info: Object): void;
     addCultureInfo(info: Object): void;
     findClosestCulture(cultureSelector: string): GlobalizeStatic;
-    format(value: number, format: string, cultureSelector?: string);
-    format(value: Date, format: string, cultureSelector?: string);
+    format(value: number, format: string, cultureSelector?: string): string;
+    format(value: Date, format: string, cultureSelector?: string): string;
     localize(key: string, cultureSelector?: string): string;
 
     parseDate(value: string, format?: string, cultureSelector?: string): Date;
