@@ -3,35 +3,34 @@
 // Type definitions for RxJS-VirtualTime package 2.2
 // Project: http://rx.codeplex.com/
 // Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>
+// Revision by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-//
-// Dependencies:
-// -> rx.js
-// -> rx.virtualtime.js
 
 declare module Rx {
     // Virtual IScheduler
-    interface IVirtualTimeScheduler extends IScheduler {
-        toRelative(duetime): number;
-        toDateTimeOffset(duetime: number): number;
+	export /*abstract*/ class VirtualTimeScheduler<TAbsolute, TRelative> extends Scheduler {
+		constructor(initialClock: TAbsolute, comparer: (first: TAbsolute, second: TAbsolute) => number);
 
-        clock: number;
-        comparer: (x: number, y: number) =>number;
-        isEnabled: boolean;
-        queue: IPriorityQueue;
-        scheduleRelativeWithState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>IDisposable): IDisposable;
-        scheduleRelative(dueTime: number, action: () =>void ): IDisposable;
-        start(): IDisposable;
-        stop(): void;
-        advanceTo(time: number);
-        advanceBy(time: number);
-        sleep(time: number);
-        getNext(): IScheduledItem;
-        scheduleAbsolute(dueTime: number, action: () =>void );
-        scheduleAbsoluteWithState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>IDisposable): IDisposable;
-    }
-    //export module VirtualTimeScheduler {
-    //    //absract
-    //    function new (initialClock: number, comparer: (x: number, y: number) =>number): IVirtualTimeScheduler;
-    //}
+		advanceBy(time: TRelative);
+		advanceTo(time: TAbsolute);
+		scheduleAbsolute(dueTime: TAbsolute, action: () => void);
+		scheduleAbsoluteWithState<TState>(state: TState, dueTime: TAbsolute, action: (scheduler: IScheduler, state: TState) => IDisposable): IDisposable;
+		scheduleRelative(dueTime: TRelative, action: () => void): IDisposable;
+		scheduleRelativeWithState<TState>(state: TState, dueTime: TRelative, action: (scheduler: IScheduler, state: TState) => IDisposable): IDisposable;
+		sleep(time: TRelative);
+		start(): IDisposable;
+		stop(): void;
+
+		isEnabled: boolean;
+
+		/* protected abstract */ add(from: TAbsolute, by: TRelative): TAbsolute;
+		/* protected abstract */ toDateTimeOffset(duetime: TAbsolute): number;
+		/* protected abstract */ toRelative(duetime: number): TRelative;
+
+		/* protected */ getNext(): Internals.ScheduledItem<TAbsolute>;
+	}
+
+	export class HistoricalScheduler extends VirtualTimeScheduler<number, number> {
+		constructor(initialClock: number, comparer: (first: number, second: number) => number);
+	}
 }

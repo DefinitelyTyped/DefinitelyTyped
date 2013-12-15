@@ -1,37 +1,49 @@
 ﻿// Type definitions for RxJS
 // Project: http://rx.codeplex.com/
 // Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>
+// Revision by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-
 
 declare module Rx {
 	export module Internals {
+		function isEqual(left: any, right: any): boolean;
 		function inherits(child: Function, parent: Function): Function;
 		function addProperties(obj: Object, ...sourcces: Object[]): void;
 		function addRef<T>(xs: Observable<T>, r: { getDisposable(): IDisposable; }): Observable<T>;
-	}
 
-	//Collections
-	interface IIndexedItem {
-		id: number;
-		value: IScheduledItem;
+		// Priority Queue for Scheduling
+		export class PriorityQueue<TTime> {
+			constructor(capacity: number);
 
-		compareTo(other: IIndexedItem): number;
-	}
+			length: number;
 
-	// Priority Queue for Scheduling
-	interface IPriorityQueue {
-		items: IIndexedItem[];
-		length: number;
+			isHigherPriority(left: number, right: number): boolean;
+			percolate(index: number): void;
+			heapify(index: number): void;
+			peek(): ScheduledItem<TTime>;
+			removeAt(index: number): void;
+			dequeue(): ScheduledItem<TTime>;
+			enqueue(item: ScheduledItem<TTime>): void;
+			remove(item: ScheduledItem<TTime>): boolean;
 
-		isHigherPriority(left: number, right: number): boolean;
-		percolate(index: number): void;
-		heapify(index: number): void;
-		peek(): IIndexedItem;
-		removeAt(index: number): void;
-		dequeue(): IIndexedItem;
-		enqueue(item: IIndexedItem): void;
-		remove(item: IIndexedItem): boolean;
+			static count: number;
+		}
+
+		export class ScheduledItem<TTime> {
+			constructor(scheduler: IScheduler, state: any, action: (scheduler: IScheduler, state) => IDisposable, dueTime: TTime, comparer?: (x: TTime, y: TTime) => number);
+
+			scheduler: IScheduler;
+			state: TTime;
+			action: (scheduler: IScheduler, state: any) => IDisposable;
+			dueTime: TTime;
+			comparer: (x: TTime, y: TTime) => number;
+			disposable: SingleAssignmentDisposable;
+
+			invoke(): void;
+			compareTo(other: ScheduledItem<TTime>): number;
+			isCancelled(): boolean;
+			invokeCore(): IDisposable;
+		}
 	}
 
 	export interface IDisposable {
@@ -92,20 +104,6 @@ declare module Rx {
 
 		isDisposed: boolean;
 		getDisposable(): IDisposable;
-	}
-
-	interface IScheduledItem {
-		scheduler: IScheduler;
-		state: any;
-		action: (scheduler: IScheduler, state) => IDisposable;
-		dueTime: number;
-		comparer: (x: number, y: number) =>number;
-		disposable: SingleAssignmentDisposable;
-
-		invoke(): void;
-		compareTo(other: IScheduledItem): number;
-		isCancelled(): boolean;
-		invokeCore(): IDisposable;
 	}
 
 	export interface IScheduler {
@@ -355,22 +353,4 @@ declare module Rx {
 	}
 
 	export var AsyncSubject: AsyncSubjectStatic;
-
-	export interface BehaviorSubject<T> extends Subject<T> {
-	}
-
-	interface BehaviorSubjectStatic {
-		new <T>(initialValue: T): BehaviorSubject<T>;
-	}
-
-	export var BehaviorSubject: BehaviorSubjectStatic;
-
-	export interface ReplaySubject<T> extends Subject<T> {
-	}
-
-	interface ReplaySubjectStatic {
-		new <T>(initialValue: T): ReplaySubject<T>;
-	}
-
-	export var ReplaySubject: ReplaySubjectStatic;
 }

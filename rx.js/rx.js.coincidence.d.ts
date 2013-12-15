@@ -33,8 +33,4 @@ declare module Rx {
 		window<TBufferOpening, TBufferClosing>(bufferOpenings: Observable<TBufferOpening>,
 			bufferClosingSelector: (opening: TBufferOpening) => Observable<TBufferClosing>): Observable<T>;
 	}
-
-
-	interface Observable {
-	}
 }
