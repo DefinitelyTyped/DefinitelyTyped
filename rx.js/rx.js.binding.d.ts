@@ -3,41 +3,40 @@
 // Type definitions for RxJS-Binding package
 // Project: http://rx.codeplex.com/
 // Definitions by: Carl de Billy <http://carl.debilly.net/>
+// Revision by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-//
-// Dependencies:
-// -> rx.js
-// -> rx.binding.js
 
 declare module Rx {
-
-	interface ReplaySubject<T> extends ISubject<T> {
-		new (bufferSize?: number, window?: number, scheduler?: IScheduler): ReplaySubject<T>;
+	export interface BehaviorSubject<T> extends Subject<T> {
 	}
 
-    var ReplaySubject: {
-        new <T>(bufferSize?: number, window?: number, scheduler?: IScheduler): ReplaySubject<T>;
-    }
-
-	interface BehaviorSubject<T> extends ISubject<T> {
-		new (initialValue: T): BehaviorSubject<any>;
+	interface BehaviorSubjectStatic {
+		new <T>(initialValue: T): BehaviorSubject<T>;
 	}
 
-    var BehaviorSubject: {
-        new <T>(initialValue: T): BehaviorSubject<T>;
-    }
+	export var BehaviorSubject: BehaviorSubjectStatic;
 
-	interface ConnectableObservable<T> extends Observable<T>{
+	export interface ReplaySubject<T> extends Subject<T> {
+	}
+
+	interface ReplaySubjectStatic {
+		new <T>(bufferSize?: number, window?: number, scheduler?: IScheduler): ReplaySubject<T>;
+	}
+
+	export var ReplaySubject: ReplaySubjectStatic;
+
+	interface ConnectableObservable<T> extends Observable<T> {
 		connect(): IDisposable;
 		refCount(): Observable<T>;
     }
 
-    var ConnectableObservable: {
+    interface ConnectableObservableStatic {
         new <T>(): ConnectableObservable<T>;
-    }
+	}
 
-	interface Observable<T> {
+	export var ConnectableObservable: ConnectableObservableStatic;
 
+	export interface Observable<T> {
 		publish(): ConnectableObservable<T>;
 		publish<TResult>(selector: (item: T) => Observable<TResult>): ConnectableObservable<TResult>;
 		publishLast(): ConnectableObservable<T>;
@@ -46,9 +45,5 @@ declare module Rx {
 		publishValue<TResult>(selector: (item: T) => TResult, initialValue: TResult): ConnectableObservable<TResult>;
 
 		replay(selector?: (source: Observable<T>) => ReplaySubject<T>, bufferSize?: number, window?: number, scheduler?: IScheduler): ReplaySubject<T>;
-	}
-
-
-	interface Observable {
 	}
 }

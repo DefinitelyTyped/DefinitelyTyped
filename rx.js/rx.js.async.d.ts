@@ -3,14 +3,11 @@
 // Type definitions for RxJS-Async package 2.2
 // Project: http://rx.codeplex.com/
 // Definitions by: zoetrope <https://github.com/zoetrope>
+// Revision by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-//
-// Dependencies:
-// -> rx.js
-// -> rx.async.js
 
 declare module Rx {
-    interface Observable {
+    interface ObservableStatic {
         start<T>(func: () => T, scheduler?: IScheduler, context?: any): Observable<T>;
         toAsync<T>(func: Function, scheduler?: IScheduler, context?: any): (...arguments: any[]) => Observable<T>;
         fromCallback<T>(func: (...arguments: any[]) => void, scheduler?: IScheduler, context?: any, selector?: (...arguments: T[])=>T): () => Observable<T>;

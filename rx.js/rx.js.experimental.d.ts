@@ -60,7 +60,7 @@ declare module Rx {
 		manySelect<TResult>(selector: (item: Observable<T>, index: number, source: Observable<T>) => TResult, scheduler?: IScheduler): Observable<TResult>;
 	}
 
-	interface Observable {
+	interface ObservableStatic {
 		/**
 		 *  Determines whether an observable collection contains values. There is an alias for this method called 'ifThen' for browsers <IE9
 		 *  
