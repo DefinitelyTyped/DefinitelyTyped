@@ -45,5 +45,8 @@ declare module Rx {
 
 		last(predicate?: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>;
 		lastOrDefault(predicate?: (value: T, index: number, source: Observable<T>) => boolean, defaultValue?: T, thisArg?: any): Observable<T>;
+
+		find(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>;
+		findIndex(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<number>;
 	}
 }
