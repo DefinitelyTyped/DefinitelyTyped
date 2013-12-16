@@ -11,13 +11,13 @@ declare module Rx {
 	export /*abstract*/ class VirtualTimeScheduler<TAbsolute, TRelative> extends Scheduler {
 		constructor(initialClock: TAbsolute, comparer: (first: TAbsolute, second: TAbsolute) => number);
 
-		advanceBy(time: TRelative);
-		advanceTo(time: TAbsolute);
-		scheduleAbsolute(dueTime: TAbsolute, action: () => void);
+		advanceBy(time: TRelative): void;
+		advanceTo(time: TAbsolute): void;
+		scheduleAbsolute(dueTime: TAbsolute, action: () => void): IDisposable;
 		scheduleAbsoluteWithState<TState>(state: TState, dueTime: TAbsolute, action: (scheduler: IScheduler, state: TState) => IDisposable): IDisposable;
 		scheduleRelative(dueTime: TRelative, action: () => void): IDisposable;
 		scheduleRelativeWithState<TState>(state: TState, dueTime: TRelative, action: (scheduler: IScheduler, state: TState) => IDisposable): IDisposable;
-		sleep(time: TRelative);
+		sleep(time: TRelative): void;
 		start(): IDisposable;
 		stop(): void;
 
