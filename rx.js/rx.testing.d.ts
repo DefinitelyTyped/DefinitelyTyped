@@ -1,5 +1,5 @@
-///<reference path="rx.js.d.ts" />
-///<reference path="rx.js.virtualtime.d.ts" />
+///<reference path="rx.d.ts" />
+///<reference path="rx.virtualtime.d.ts" />
 
 // Type definitions for RxJS-Testing
 // Project: https://github.com/Reactive-Extensions/RxJS/
