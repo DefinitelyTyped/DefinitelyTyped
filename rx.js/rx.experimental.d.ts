@@ -3,7 +3,7 @@
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="rx.js.d.ts"/>
+/// <reference path="rx.d.ts"/>
 
 declare module Rx {
 

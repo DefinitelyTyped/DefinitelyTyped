@@ -1,4 +1,4 @@
-﻿///<reference path="rx.js.d.ts" />
+﻿///<reference path="rx.d.ts" />
 
 // Type definitions for RxJS-Aggregates package
 // Project: http://rx.codeplex.com/
