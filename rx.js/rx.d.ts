@@ -30,7 +30,7 @@ declare module Rx {
 		}
 
 		export class ScheduledItem<TTime> {
-			constructor(scheduler: IScheduler, state: any, action: (scheduler: IScheduler, state) => IDisposable, dueTime: TTime, comparer?: (x: TTime, y: TTime) => number);
+			constructor(scheduler: IScheduler, state: any, action: (scheduler: IScheduler, state: any) => IDisposable, dueTime: TTime, comparer?: (x: TTime, y: TTime) => number);
 
 			scheduler: IScheduler;
 			state: TTime;
@@ -182,7 +182,7 @@ declare module Rx {
 		exception: any;
 
 		static createOnNext<T>(value: T): Notification<T>;
-		static createOnError<T>(exception): Notification<T>;
+		static createOnError<T>(exception: any): Notification<T>;
 		static createOnCompleted<T>(): Notification<T>;
 	}
 
