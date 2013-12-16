@@ -1,58 +1,10 @@
-﻿///<reference path="../jquery/jquery.d.ts"/>
-///<reference path="rx.js.d.ts"/>
+﻿// Type definitions for bridging RxJS with jQuery.
+// Project: https://github.com/Reactive-Extensions/RxJS-jQuery/
+// Revision by: Igor Oleinikov <https://github.com/Igorbek>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-// Those are the definitions for bridging Rx with jQuery.
-//
-// Using the https://github.com/Reactive-Extensions/rxjs-jquery project
-//
-// Dependencies:
-// -> rx.js
-// -> rx.jquery.js
-// -> jquery.js
-
-declare module JQueryResults {
-
-	export interface eventBase{
-		bubbles: boolean;
-		cancelable: boolean;
-		type: string;
-		preventDefault(): void;
-		isDefaultPrevented(): boolean;
-		stopPropagation(): void;
-		isPropagationStopped(): boolean;
-		data: any;
-		originalEvent: any;
-		eventPhase: number;
-	}
-
-	export interface keyEvent extends eventBase {
-		key: number;
-		keyCode: number;
-		altKey: boolean;
-		ctrlKey: boolean;
-		shiftKey: boolean;
-		char: string;
-		metaKey: boolean;
-	}
-
-	export interface uiEvent extends eventBase{
-		target: any;
-		currentTarget: any;
-	}
-
-	export interface mouseEvent extends keyEvent{
-		clientX: number;
-		clientY: number;
-		screenX: number;
-		screenY: number;
-		offsetX: number;
-		offsetY: number;
-		pageX: number;
-		pageY: number;
-		which: number;
-	}
-}
-
+///<reference path="../jquery/jquery.d.ts"/>
+///<reference path="rx.d.ts"/>
 
 interface JQueryStatic {
 	ajaxAsObservable<T>(settings: JQueryAjaxSettings): Rx.Observable<T>;
@@ -63,29 +15,34 @@ interface JQueryStatic {
 }
 
 interface JQuery {
-	changeAsObservable(eventData?: any): Rx.Observable<JQueryResults.eventBase>;
-	clickAsObservable(eventData?: any): Rx.Observable<JQueryResults.mouseEvent>;
-	dblclickAsObservable(eventData?: any): Rx.Observable<JQueryResults.mouseEvent>;
-	focusAsObservable(eventData?: any): Rx.Observable<JQueryResults.eventBase>;
-	focusinAsObservable(eventData?: any): Rx.Observable<JQueryResults.eventBase>;
-	focusoutAsObservable(eventData?: any): Rx.Observable<JQueryResults.eventBase>;
-	keydownAsObservable(eventData?: any): Rx.Observable<JQueryResults.keyEvent>;
-	keyupAsObservable(eventData?: any): Rx.Observable<JQueryResults.keyEvent>;
-	loadAsObservable(eventData?: any): Rx.Observable<JQueryResults.uiEvent>;
-	mousedownAsObservable(eventData?: any): Rx.Observable<JQueryResults.mouseEvent>;
-	mouseenterAsObservable(eventData?: any): Rx.Observable<JQueryResults.mouseEvent>;
-	mouseleaveAsObservable(eventData?: any): Rx.Observable<JQueryResults.mouseEvent>;
-	mousemoveAsObservable(eventData?: any): Rx.Observable<JQueryResults.mouseEvent>;
-	mouseoutAsObservable(eventData?: any): Rx.Observable<JQueryResults.mouseEvent>;
-	mouseoverAsObservable(eventData?: any): Rx.Observable<JQueryResults.mouseEvent>;
-	mouseupAsObservable(eventData?: any): Rx.Observable<JQueryResults.mouseEvent>;
-	resizeAsObservable(eventData?: any): Rx.Observable<JQueryResults.eventBase>;
-	scrollAsObservable(eventData?: any): Rx.Observable<JQueryResults.eventBase>;
-	selectAsObservable(eventData?: any): Rx.Observable<JQueryResults.eventBase>;
-	submitAsObservable(eventData?: any): Rx.Observable<JQueryResults.eventBase>;
-	unloadAsObservable(eventData?: any): Rx.Observable<JQueryResults.eventBase>;
-	hideAsObservable(duration: number): Rx.Observable<JQueryResults.eventBase>;
-	showAsObservable(duration: number): Rx.Observable<JQueryResults.eventBase>;
+	onAsObservable<T extends BaseJQueryEventObject>(events: string, selector?: string, eventData?: any): Rx.Observable<T>;
+	bindAsObservable<T extends BaseJQueryEventObject>(eventType: string, eventData?: any): Rx.Observable<T>;
+	delegateAsObservable<T extends BaseJQueryEventObject>(selector: string, eventType: string, eventData?: any): Rx.Observable<T>;
+	//liveAsObservable<T extends BaseJQueryEventObject>(eventType: string, eventData?: any): Rx.Observable<T>;	// removed in jquery 1.9
+
+	changeAsObservable(eventData?: any): Rx.Observable<JQueryInputEventObject>;
+	clickAsObservable(eventData?: any): Rx.Observable<JQueryMouseEventObject>;
+	dblclickAsObservable(eventData?: any): Rx.Observable<JQueryMouseEventObject>;
+	focusAsObservable(eventData?: any): Rx.Observable<JQueryInputEventObject>;
+	focusinAsObservable(eventData?: any): Rx.Observable<JQueryInputEventObject>;
+	focusoutAsObservable(eventData?: any): Rx.Observable<JQueryInputEventObject>;
+	keydownAsObservable(eventData?: any): Rx.Observable<JQueryKeyEventObject>;
+	keyupAsObservable(eventData?: any): Rx.Observable<JQueryKeyEventObject>;
+	loadAsObservable(eventData?: any): Rx.Observable<BaseJQueryEventObject>;
+	mousedownAsObservable(eventData?: any): Rx.Observable<JQueryMouseEventObject>;
+	mouseenterAsObservable(eventData?: any): Rx.Observable<JQueryMouseEventObject>;
+	mouseleaveAsObservable(eventData?: any): Rx.Observable<JQueryMouseEventObject>;
+	mousemoveAsObservable(eventData?: any): Rx.Observable<JQueryMouseEventObject>;
+	mouseoutAsObservable(eventData?: any): Rx.Observable<JQueryMouseEventObject>;
+	mouseoverAsObservable(eventData?: any): Rx.Observable<JQueryMouseEventObject>;
+	mouseupAsObservable(eventData?: any): Rx.Observable<JQueryMouseEventObject>;
+	resizeAsObservable(eventData?: any): Rx.Observable<BaseJQueryEventObject>;
+	scrollAsObservable(eventData?: any): Rx.Observable<BaseJQueryEventObject>;
+	selectAsObservable(eventData?: any): Rx.Observable<BaseJQueryEventObject>;
+	submitAsObservable(eventData?: any): Rx.Observable<BaseJQueryEventObject>;
+	unloadAsObservable(eventData?: any): Rx.Observable<BaseJQueryEventObject>;
+	hideAsObservable(duration: number): Rx.Observable<BaseJQueryEventObject>;
+	showAsObservable(duration: number): Rx.Observable<BaseJQueryEventObject>;
 	readyAsObservable(): Rx.Observable<any>;
 	animateAsObservable(properties: any, duration: number, easing?: string): Rx.Observable<any>;
 	fadeInAsObservable(duration: number, easing?: string): Rx.Observable<any>;
