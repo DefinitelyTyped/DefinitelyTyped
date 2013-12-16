@@ -1,4 +1,4 @@
-﻿///<reference path="rx.js.d.ts"/>
+﻿///<reference path="rx.d.ts"/>
 
 // Disposable
 var d: Rx.IDisposable = new Rx.Disposable(() => { });
