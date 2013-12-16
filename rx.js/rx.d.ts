@@ -321,7 +321,7 @@ declare module Rx {
 		zip<T1, T2, T3, T4, TResult>(source1: Observable<T1>, source2: Observable<T2>, source3: Observable<T3>, source4: Observable<T4>, resultSelector: (item1: T1, item2: T2, item3: T3, item4: T4) => TResult): Observable<TResult>;
 		zip<T1, T2, T3, T4, T5, TResult>(source1: Observable<T1>, source2: Observable<T2>, source3: Observable<T3>, source4: Observable<T4>, source5: Observable<T5>, resultSelector: (item1: T1, item2: T2, item3: T3, item4: T4, item5: T5) => TResult): Observable<TResult>;
 		zipArray<T>(...sources: Observable<T>[]): Observable<T[]>;
-		//zipArray<T>(sources: Observable<T>[]): Observable<T[]>;
+		zipArray<T>(sources: Observable<T>[]): Observable<T[]>;
 	}
 
 	export var Observable: ObservableStatic;
