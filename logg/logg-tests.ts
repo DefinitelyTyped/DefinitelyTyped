@@ -1,6 +1,6 @@
 ///<reference path="logg.d.ts"/>
 
-import logging = module("logg");
+import logging = require("logg");
 
 var logger = logging.getLogger('my.class');
 logger = logging.getTransientLogger('my.class');

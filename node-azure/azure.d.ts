@@ -1,6 +1,6 @@
 ﻿// Type definitions for Azure SDK for Node - v0.6.10
 // Project: https://github.com/WindowsAzure/azure-sdk-for-node
-// Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar>
+// Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar> and Anti Veeranna <https://github.com/antiveeranna>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
@@ -139,10 +139,22 @@ declare module "azure" {
 
     export function createSqlManagementService(subscriptionId: string, authentication: string, hostOptions: string): SqlManagementService;
     //#endregion
-    
-    export module RoleEnvironment {
 
+    interface RoleEnvironmentInterface extends events.EventEmitter {
+        getCurrentRoleInstance(callback: (error, instance) => void): void;
+        getDeploymentId(callback: (error, id:string) => void): void;
+        isAvailable(callback: (error, available: boolean) => void): void;
+        isEmulated(callback: (error, emulated: boolean) => void): void;
+        getRoles(callback: (error, roles) => void): void;
+        getConfigurationSettings(callback: (error, settings) => void): void;
+        getLocalResources(callback: (error, resources) => void): void;
+        requestRecycle(callback: (error) => void): void;
+        setStatus(roleInstanceStatus, expirationUtc, callback: (error) => void): void;
+        clearStatus(callback: (error) => void): void;
     }
+
+    export var RoleEnvironment: RoleEnvironmentInterface;
+    
 
     //#region Export of internal classes
     export class WebResource {
@@ -184,7 +196,16 @@ declare module "azure" {
     }
 
     export class TableQuery {
-
+        static select(...fields: string[]): TableQuery;
+        from(table: string): TableQuery;
+        whereKeys(partitionKey: string, rowKey: string): TableQuery;
+        whereNextKeys(partitionKey: string, rowKey: string): TableQuery;
+        where(condition: string, ...values: string[]): TableQuery;
+        and(condition: string, ...arguments: string[]): TableQuery;
+        or(condition: string, ...arguments: string[]): TableQuery;
+        top(integer): TableQuery;
+        toQueryObject(): any;
+        toPath(): string;
     }
 
     export class BatchServiceClient extends StorageServiceClient {
@@ -207,11 +228,17 @@ declare module "azure" {
     }
 
     export class LinearRetryPolicyFilter {
-
+        constructor(retryCount?: number, retryInterval?: number);
+        retryCount: number;
+        retryInterval: number;
     }
 
     export class ExponentialRetryPolicyFilter {
-
+        constructor(retryCount?: number, retryInterval?: number, minRetryInterval?: number, maxRetryInterval?: number);
+        retryCount: number;
+        retryInterval: number;
+        minRetryInterval: number;
+        maxRetryInterval: number;
     }
 
     export class SharedAccessSignature {
@@ -323,6 +350,10 @@ declare module "azure" {
 
     export interface QueryEntitiesResultContinuation extends QueryResultContinuation {
         tableQuery: TableQuery;
+        nextPartitionKey: string;
+        nextRowKey: string;
+        getNextPage(callback?: QueryEntitiesCallback): void;
+        hasNextPage(): boolean;
     }
 
     export interface ModifyEntityCallback {
@@ -361,4 +392,5 @@ declare module "azure" {
     //#endregion
 
     export function isEmulated(): boolean;
+
 }

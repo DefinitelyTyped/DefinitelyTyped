@@ -88,21 +88,21 @@ declare module D3 {
         * @param arr Array to search
         * @param map Accsessor function
         */
-        min<T>(arr: T[], map?: (v: T) => number): number;
+        min<T, U>(arr: T[], map?: (v: T) => U): U;
         /**
         * Find the maximum value in an array
         *
         * @param arr Array to search
         * @param map Accsessor function
         */
-        max<T>(arr: T[], map?: (v: T) => number): number;
+        max<T, U>(arr: T[], map?: (v: T) => U): U;
         /**
         * Find the minimum and maximum value in an array
         *
         * @param arr Array to search
         * @param map Accsessor function
         */
-        extent<T>(arr: T[], map?: (v: T) => number): number[];
+        extent<T, U>(arr: T[], map?: (v: T) => U): U[];
         /**
         * Compute the sum of an array of numbers
         *
@@ -200,7 +200,7 @@ declare module D3 {
         *
         * @param map Array of objects to get the key values from
         */
-        keys(map: any[]): any[];
+        keys(map: any): string[];
         /**
         * List the values of an associative array.
         *
@@ -312,7 +312,7 @@ declare module D3 {
         };
         /**
         * Request an XML document fragment.
-        * 
+        *
         * @param url Url to request
         * @param callback Function to invoke when resource is loaded or the request fails
         */
@@ -563,7 +563,7 @@ declare module D3 {
             (): string;
             /**
             * Set the MIME Type for the request
-            * 
+            *
             * @param type The MIME type for the request
             */
             (type: string): Xhr;
@@ -578,7 +578,7 @@ declare module D3 {
             (): (xhr: XMLHttpRequest) => any;
             /**
             * Set function used to map the response to the associated data value
-            * 
+            *
             * @param value The function used to map the response to a data value
             */
             (value: (xhr: XMLHttpRequest) => any): Xhr;
@@ -643,7 +643,7 @@ declare module D3 {
     export interface Dsv {
         /**
         * Request a delimited values file
-        * 
+        *
         * @param url Url to request
         * @param callback Function to invoke when resource is loaded or the request fails
         */
@@ -656,7 +656,7 @@ declare module D3 {
         parse(string: string): any[];
         /**
         * Parse a delimited string into tuples, ignoring the header row.
-        * 
+        *
         * @param string delimited formatted string to parse
         */
         parseRows(string: string, accessor: (row: any[], index: number) => any): any;
@@ -709,15 +709,18 @@ declare module D3 {
         append: (name: string) => Selection;
         insert: (name: string, before: string) => Selection;
         remove: () => Selection;
-
+        empty: () => boolean;
+            
         data: {
             (values: (data: any, index?: number) => any[], key?: (data: any, index?: number) => string): UpdateSelection;
             (values: any[], key?: (data: any, index?: number) => string): UpdateSelection;
+            (): any[];
         };
 
         datum: {
             (values: (data: any, index: number) => any): UpdateSelection;
             (values: any): UpdateSelection;
+            () : any;
         };
 
         filter: {
@@ -732,15 +735,39 @@ declare module D3 {
             (type: string, listener: (data: any, index: number) => any, capture?: boolean): Selection;
         };
 
-        transition(): Transition.Transition;
         /**
-        * sort elements in the document based on data.
+        * Returns the total number of elements in the current selection.
+        */
+        size(): number;
+
+        /**
+        * Starts a transition for the current selection. Transitions behave much like selections,
+        * except operators animate smoothly over time rather than applying instantaneously.
+        */
+        transition(): Transition.Transition;
+
+        /**
+        * Sorts the elements in the current selection according to the specified comparator
+        * function.
         *
-        * params comparator the specified comparator function
+        * @param comparator a comparison function, which will be passed two data elements a and b
+        * to compare, and should return either a negative, positive, or zero value to indicate
+        * their relative order.
         */
         sort<T>(comparator?: (a: T, b: T) => number): Selection;
+
+        /**
+        * Re-inserts elements into the document such that the document order matches the selection
+        * order. This is equivalent to calling sort() if the data is already sorted, but much
+        * faster.
+        */
         order: () => Selection;
-        node: () => SVGLocatable;
+
+        /**
+        * Returns the first non-null element in the current selection. If the selection is empty,
+        * returns null.
+        */
+        node: () => Element;
     }
 
     export interface EnterSelection {
@@ -748,7 +775,7 @@ declare module D3 {
         insert: (name: string, before: string) => Selection;
         select: (selector: string) => Selection;
         empty: () => boolean;
-        node: () => SVGLocatable;
+        node: () => Element;
     }
 
     export interface UpdateSelection extends Selection {
@@ -941,7 +968,18 @@ declare module D3 {
                 iso: TimeFormat;
             };
 
-            scale(): Scale.TimeScale;
+            scale: {
+                /**
+                * Constructs a new time scale with the default domain and range;
+                * the ticks and tick format are configured for local time.
+                */
+                (): Scale.TimeScale;
+                /**
+                * Constructs a new time scale with the default domain and range;
+                * the ticks and tick format are configured for UTC time.
+                */
+                utc(): Scale.TimeScale;
+            };
         }
 
         export interface Range {
@@ -994,7 +1032,7 @@ declare module D3 {
         }
 
         export interface StackLayout {
-            (layers: any[], index?: number): any[];
+            <T>(layers: T[], index?: number): T[];
             values(accessor?: (d: any) => any): StackLayout;
             offset(offset: string): StackLayout;
         }
@@ -1048,15 +1086,15 @@ declare module D3 {
                 (seperation: (a: GraphNode, b: GraphNode) => number): TreeLayout;
             };
             /**
-            * Gets or sets the available layout size 
+            * Gets or sets the available layout size
             */
             size: {
                 /**
-                * Gets the available layout size 
+                * Gets the available layout size
                 */
                 (): Array<number>;
                 /**
-                * Sets the available layout size 
+                * Sets the available layout size
                 */
                 (size: Array<number>): TreeLayout;
             };
@@ -1335,7 +1373,7 @@ declare module D3 {
                 (size: Array<number>): PackLayout;
             }
         }
-        
+
         export interface TreeMapLayout {
             sort: {
                 (): (a: GraphNode, b: GraphNode) => number;
@@ -1388,10 +1426,22 @@ declare module D3 {
             /**
             * convert the color to a string.
             */
-            toString(): Color;
+            toString(): string;
         }
 
         export interface RGBColor extends Color{
+            /**
+            * the red color channel.
+            */
+            r: number;
+            /**
+            * the green color channel.
+            */
+            g: number;
+            /**
+            * the blue color channel.
+            */
+            b: number;
             /**
             * convert from RGB to HSL.
             */
@@ -1400,6 +1450,18 @@ declare module D3 {
 
         export interface HSLColor extends Color{
             /**
+            * hue
+            */
+            h: number;
+            /**
+            * saturation
+            */
+            s: number;
+            /**
+            * lightness
+            */
+            l: number;
+            /**
             * convert from HSL to RGB.
             */
             rgb(): RGBColor;
@@ -1407,12 +1469,36 @@ declare module D3 {
 
         export interface LABColor extends Color{
             /**
+            * lightness
+            */
+            l: number;
+            /**
+            * a-dimension
+            */
+            a: number;
+            /**
+            * b-dimension
+            */
+            b: number;
+            /**
             * convert from LAB to RGB.
             */
             rgb(): RGBColor;
         }
 
         export interface HCLColor extends Color{
+            /**
+            * hue
+            */
+            h: number;
+            /**
+            * chroma
+            */
+            c: number;
+            /**
+            * luminance
+            */
+            l: number;
             /**
             * convert from HCL to RGB.
             */
@@ -2011,7 +2097,7 @@ declare module D3 {
                 (defined: (data: any) => any): Area;
             };
         }
-        
+
         export interface AreaRadial {
             /**
             * Generate a piecewise linear area, as in an area chart.
@@ -2343,7 +2429,7 @@ declare module D3 {
             /*
             * Construct a threshold scale with a discrete output range.
             */
-            theshold(): ThresholdScale;
+            threshold(): ThresholdScale;
         }
 
         export interface Scale {
@@ -2423,8 +2509,10 @@ declare module D3 {
             clamp(clamp: boolean): QuantitiveScale;
             /**
             * extend the scale domain to nice round numbers.
+            * 
+            * @param count Optional number of ticks to exactly fit the domain
             */
-            nice(): QuantitiveScale;
+            nice(count?: number): QuantitiveScale;
             /**
             * get representative values from the input domain.
             *
@@ -2617,9 +2705,11 @@ declare module D3 {
 
         export interface Zoom {
             /**
-            * Execute zoom method
+            * Applies the zoom behavior to the specified selection,
+            * registering the necessary event listeners to support
+            * panning and zooming.
             */
-            (): any;
+            (selection: Selection): void;
 
             /**
             * Registers a listener to receive events
@@ -2876,15 +2966,15 @@ declare module D3 {
             */
             stream(object: GeoJSON, listener: any): Stream;
             /**
-            * 
+            *
             */
             graticule(): Graticule;
             /**
-            * 
+            *
             */
             greatArc: GreatArc;
             /**
-            * 
+            *
             */
             rotation(rotation: Array<number>): Rotation;
         }

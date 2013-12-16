@@ -4,46 +4,84 @@
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
 
 interface Mocha {
-    setup(options: MochaSetupOptions);
-    run(callback: () => void);
+    // Setup mocha with the given setting options.
+    setup(options: MochaSetupOptions): Mocha;
+
+    //Run tests and invoke `fn()` when complete.
+    run(callback?: () => void): void;
+
+    // Set reporter as function
+    reporter(reporter: () => void): Mocha;
+
+    // Set reporter, defaults to "dot"
+    reporter(reporter: string): Mocha;
+
+    // Enable growl support.
+    growl(): Mocha
 }
 
 interface MochaSetupOptions {
-    slow: number;
-    timeout: number;
-    ui: string;
+    //milliseconds to wait before considering a test slow
+    slow?: number;
+
+    // timeout in milliseconds
+    timeout?: number;
+
+    // ui name "bdd", "tdd", "exports" etc
+    ui?: string;
+
+    //array of accepted globals
+    globals?: any[];
+
+    // reporter instance (function or string), defaults to `mocha.reporters.Dot`
+    reporter?: any;
+
+    // bail on the first test failure
+    bail?: Boolean;
+
+    // ignore global leaks
+    ignoreLeaks?: Boolean;
+
+    // grep string or regexp to filter tests with
+    grep?: any;
+}
+
+declare module mocha {
+    interface Done {
+        (error?: Error): void;
+    }
 }
 
 declare var describe : {
     (description: string, spec: () => void): void;
     only(description: string, spec: () => void): void;
     skip(description: string, spec: () => void): void;
-    timeout(ms: number);
+    timeout(ms: number): void;
 }
 
 declare var it: {
     (expectation: string, assertion?: () => void): void;
-    (expectation: string, assertion?: (done: (error?: Error) => void) => void): void;
+    (expectation: string, assertion?: (done: mocha.Done) => void): void;
     only(expectation: string, assertion?: () => void): void;
-    only(expectation: string, assertion?: (done: (error?: Error) => void) => void): void;
+    only(expectation: string, assertion?: (done: mocha.Done) => void): void;
     skip(expectation: string, assertion?: () => void): void;
-    skip(expectation: string, assertion?: (done: (error?: Error) => void) => void): void;
-    timeout(ms: number);
+    skip(expectation: string, assertion?: (done: mocha.Done) => void): void;
+    timeout(ms: number): void;
 };
 
 declare function before(action: () => void): void;
 
-declare function before(action: (done: (failReason?) => void) => void): void;
+declare function before(action: (done: mocha.Done) => void): void;
 
 declare function after(action: () => void): void;
 
-declare function after(action: (done: (failReason?) => void) => void): void;
+declare function after(action: (done: mocha.Done) => void): void;
 
 declare function beforeEach(action: () => void): void;
 
-declare function beforeEach(action: (done: (failReason?) => void) => void): void;
+declare function beforeEach(action: (done: mocha.Done) => void): void;
 
 declare function afterEach(action: () => void): void;
 
-declare function afterEach(action: (done: (failReason?) => void) => void): void;
+declare function afterEach(action: (done: mocha.Done) => void): void;
 

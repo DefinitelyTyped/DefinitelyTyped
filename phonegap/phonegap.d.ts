@@ -157,6 +157,11 @@ interface CompassError {
     code: number;
 }
 
+declare var CompassError: {
+    COMPASS_INTERNAL_ERR: number;
+    COMPASS_NOT_SUPPORTED: number;
+}
+
 interface Compass {
     getCurrentHeading(compassSuccess: (heading: CompassHeading) => void , compassError: (error: CompassError) => void , compassOptions?: CompassOptions): void;
     watchHeading(compassSuccess: (heading: CompassHeading) => void , compassError: (error: CompassError) => void , compassOptions?: CompassOptions): void;
@@ -238,6 +243,16 @@ interface ContactOrganization {
 
 interface ContactError {
     code: number;
+}
+
+declare var ContactError: {
+    UNKNOWN_ERROR: number;
+    INVALID_ARGUMENT_ERROR: number;
+    TIMEOUT_ERROR: number;
+    PENDING_OPERATION_ERROR: number;
+    IO_ERROR: number;
+    NOT_SUPPORTED_ERROR: number;
+    PERMISSION_DENIED_ERROR: number;
 }
 
 interface Contacts {
@@ -363,6 +378,7 @@ interface LocalFileSystem {
 
 interface LocalFileSystem {
     PERSISTENT: number;
+    TEMPORARY: number;
 }
 declare var LocalFileSystem: LocalFileSystem;
 
@@ -373,12 +389,32 @@ interface Metadata {
 interface FileError {
     code: number;
 }
+declare var FileError: {
+    NOT_FOUND_ERR: number;
+    SECURITY_ERR: number;
+    ABORT_ERR: number;
+    NOT_READABLE_ERR: number;
+    ENCODING_ERR: number;
+    NO_MODIFICATION_ALLOWED_ERR: number;
+    INVALID_STATE_ERR: number;
+    SYNTAX_ERR: number;
+    INVALID_MODIFICATION_ERR: number;
+    QUOTA_EXCEEDED_ERR: number;
+    TYPE_MISMATCH_ERR: number;
+    PATH_EXISTS_ERR: number;
+}
 
 interface FileTransferError {
     code: number;
     source: string;
     target: string;
     http_status: number;
+}
+declare var FileTransferError: {
+    FILE_NOT_FOUND_ERR: number;
+    INVALID_URL_ERR: number;
+    CONNECTION_ERR: number;
+    ABORT_ERR: number;
 }
 
 interface GeolocationOptions {
@@ -390,6 +426,13 @@ interface GeolocationOptions {
 interface GlobalizationError {
     code: number;
     message: string;
+}
+
+declare var GlobalizationError: {
+    UNKNOWN_ERROR: number;
+    FORMATTING_ERROR: number;
+    PARSING_ERROR: number;
+    PATTERN_ERROR: number;
 }
 
 interface Globalization {
@@ -435,6 +478,7 @@ declare var Media: {
 interface Notification {
     alert(message: string, alertCallback: Function, title?: string, buttonName?: string): void;
     confirm(message: string, confirmCallback: Function, title?: string, buttonLabels?: string): void;
+	confirm(message: string, confirmCallback: Function, title?: string, buttonLabels?: string[]): void;
     beep(times: number): void;
     vibrate(milliseconds: number): void;
 }

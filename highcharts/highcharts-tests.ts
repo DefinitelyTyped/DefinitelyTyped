@@ -1,4 +1,5 @@
 ﻿/// <reference path="highcharts.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 
 var animate: HighchartsBoolOrAnimation;
@@ -97,3 +98,20 @@ var div: HTMLDivElement;
 var r = new Highcharts.Renderer(div, 20, 30);
 var box = r.text("Hello", 10, 10).getBBox();
 
+var highChartSettings: HighchartsOptions = {
+    chart: {
+        width: 400,
+        height: 400
+    },
+    xAxis: [{
+    }],
+    series: [{
+        data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+    }]
+};
+
+var container = $("#container").highcharts(highChartSettings);
+
+var options = Highcharts.getOptions();
+
+var options2 = Highcharts.setOptions(options);

@@ -149,7 +149,7 @@ module HttpAndRegularPromiseTests {
     }
 }
 
-// Test for AngularJS Syntac
+// Test for AngularJS Syntax
 
 module My.Namespace {
     export var x; // need to export something for module to kick in    
@@ -181,3 +181,54 @@ mod.constant(My.Namespace);
 mod.value('name', 23);
 mod.value('name', "23");
 mod.value(My.Namespace);
+
+
+// Promise signature tests
+var foo: ng.IPromise<number>;
+foo.then((x) => {
+    // x is inferred to be a number
+    return "asdf";
+}).then((x) => {
+    // x is inferred to be string
+    x.length;
+    return 123;
+}).then((x) => {
+    // x is infered to be a number
+    x.toFixed();
+    return;
+}).then((x) => {
+    // x is infered to be void
+    // Typescript will prevent you to actually use x as a local variable
+    // Try object:
+    return { a: 123 };
+}).then((x) => {
+    // Object is inferred here
+    x.a = 123;
+    //Try a promise 
+    var y: ng.IPromise<number>;
+    return y; 
+}).then((x) => {
+    // x is infered to be a number, which is the resolved value of a promise 
+    x.toFixed();
+});
+
+
+// angular.element() tests
+var element = angular.element("div.myApp");
+var scope: ng.IScope = element.scope();
+
+
+
+function test_IAttributes(attributes: ng.IAttributes){
+    return attributes;
+}
+
+test_IAttributes({
+    $addClass: function (classVal){},
+    $removeClass: function(classVal){},
+    $set: function(key, value){},
+    $observe: function(name, fn){
+        return fn;
+    },
+    $attr: {}
+});

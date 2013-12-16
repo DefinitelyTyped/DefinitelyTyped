@@ -9,7 +9,9 @@
 interface JQueryMobileEvent { (event: Event, ui): void; }
 
 interface DialogOptions {
+    closeBtn?: string;
     closeBtnText?: string;
+    corners?: boolean;
     initSelector?: string;
     overlayTheme?: string;
 }
@@ -105,6 +107,8 @@ interface CollapsibleSetEvents {
 }
 
 interface TextInputOptions {
+    clearBtn?: boolean;
+    clearBtnText?: string;
     disabled?: boolean;
     initSelector?: string;
     mini?: boolean;
@@ -184,6 +188,18 @@ interface ListViewOptions {
 
 interface ListViewEvents {
     create?: JQueryMobileEvent;
+}
+
+interface NavbarOptions {
+    iconpos: string;
+}
+
+interface ControlgroupOptions {
+    corners?: boolean;
+    excludeInvisible?: boolean;
+    mini?: boolean;
+    shadow?: boolean;
+    type?: string;
 }
 
 interface JQueryMobileOptions {
@@ -274,12 +290,22 @@ interface LoadPageOptions {
     type?: string;
 }
 
+interface LoaderOptions {
+    theme?: string;
+    textVisible?: boolean;
+    html?: string;
+    text?: string;
+    textonly?: boolean;
+}
+
 interface JQueryMobile extends JQueryMobileOptions {
+
+    version: string;
 
     changePage(to: any, options?: ChangePageOptions): void;
     initializePage(): void;
     loadPage(url: any, options?: LoadPageOptions): void;
-    loading(command: string, options? ): void;
+    loading(command: string, options?: LoaderOptions): void;
 
     base;
     silentScroll(yPos: number): void;
@@ -335,8 +361,10 @@ interface JQuery {
 
     button(): JQuery;
     button(command: string): JQuery;
-    buttonMarkup(options: ButtonOptions): JQuery;
+    button(options?: ButtonOptions): JQuery;
     button(events: ButtonEvents): JQuery;
+    
+    buttonMarkup(options?: ButtonOptions): JQuery;
 
     collapsible(): JQuery;
     collapsible(command: string): JQuery;
@@ -373,6 +401,15 @@ interface JQuery {
     listview(command: string): JQuery;
     listview(options: ListViewOptions): JQuery;
     listview(events: ListViewEvents): JQuery;
+
+    navbar(options?: NavbarOptions): JQuery;
+
+    table(): JQuery;
+    table(command: string): JQuery;
+
+    controlgroup(): JQuery;
+    controlgroup(command: string): JQuery;
+    controlgroup(options: ControlgroupOptions): JQuery;
 }
 
 

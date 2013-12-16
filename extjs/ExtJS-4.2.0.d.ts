@@ -193,9 +193,9 @@ declare module Ext {
 		* @param callback any The function to call after the animation finishes 
 		*/
 		anchorTo?( element?:any, position?:any, offsets?:any, animate?:any, monitorScroll?:any, callback?:any ): any;
-		anchorTo?( element?:Ext.util.IPositionable, position?:string, offsets?:number[], animate?:any, monitorScroll?:bool, callback?:any ): Ext.util.IPositionable;
-		anchorTo?( element?:HTMLElement, position?:string, offsets?:number[], animate?:any, monitorScroll?:bool, callback?:any ): Ext.util.IPositionable;
-		anchorTo?( element?:string, position?:string, offsets?:number[], animate?:any, monitorScroll?:bool, callback?:any ): Ext.util.IPositionable;
+		anchorTo?( element?:Ext.util.IPositionable, position?:string, offsets?:number[], animate?:any, monitorScroll?:boolean, callback?:any ): Ext.util.IPositionable;
+		anchorTo?( element?:HTMLElement, position?:string, offsets?:number[], animate?:any, monitorScroll?:boolean, callback?:any ): Ext.util.IPositionable;
+		anchorTo?( element?:string, position?:string, offsets?:number[], animate?:any, monitorScroll?:boolean, callback?:any ): Ext.util.IPositionable;
 		anchorTo?( element?:Ext.util.IPositionable, position?:string, offsets?:number[], animate?:any, monitorScroll?:number, callback?:any ): Ext.util.IPositionable;
 		anchorTo?( element?:HTMLElement, position?:string, offsets?:number[], animate?:any, monitorScroll?:number, callback?:any ): Ext.util.IPositionable;
 		anchorTo?( element?:string, position?:string, offsets?:number[], animate?:any, monitorScroll?:number, callback?:any ): Ext.util.IPositionable;
@@ -229,10 +229,10 @@ declare module Ext {
 		* @param proposedSize any A proposed [width, height] size to use when calculating constraints instead of using this Positionable's current size. 
 		*/
 		calculateConstrainedPosition?( constrainTo?:any, proposedPosition?:any, local?:any, proposedSize?:any ): any;
-		calculateConstrainedPosition?( constrainTo?:string, proposedPosition?:number[], local?:bool, proposedSize?:number[] ): number[];
-		calculateConstrainedPosition?( constrainTo?:HTMLElement, proposedPosition?:number[], local?:bool, proposedSize?:number[] ): number[];
-		calculateConstrainedPosition?( constrainTo?:Ext.IElement, proposedPosition?:number[], local?:bool, proposedSize?:number[] ): number[];
-		calculateConstrainedPosition?( constrainTo?:Ext.util.IRegion, proposedPosition?:number[], local?:bool, proposedSize?:number[] ): number[];
+		calculateConstrainedPosition?( constrainTo?:string, proposedPosition?:number[], local?:boolean, proposedSize?:number[] ): number[];
+		calculateConstrainedPosition?( constrainTo?:HTMLElement, proposedPosition?:number[], local?:boolean, proposedSize?:number[] ): number[];
+		calculateConstrainedPosition?( constrainTo?:Ext.IElement, proposedPosition?:number[], local?:boolean, proposedSize?:number[] ): number[];
+		calculateConstrainedPosition?( constrainTo?:Ext.util.IRegion, proposedPosition?:number[], local?:boolean, proposedSize?:number[] ): number[];
 		/** [Method] Removes all listeners for this object including the managed listeners */
 		clearListeners?(): void;
 		/** [Method] Removes all managed listeners for this object  */
@@ -271,9 +271,7 @@ declare module Ext {
 		*/
 		fireEventArgs?( eventName?:string, args?:Object[] ): boolean;
 		/** [Method] Returns the current animation if this object has any effects actively running or queued else returns false  */
-		getActiveAnimation?(): Ext.fx.IAnim;
-		/** [Method] Returns the current animation if this object has any effects actively running or queued else returns false  */
-		getActiveAnimation?(): boolean;
+		getActiveAnimation?(): any;
 		/** [Method] Gets the x y coordinates to align this element with another element  
 		* @param element any The Positionable, HTMLElement, or id of the element to align to. 
 		* @param position any The position to align to 
@@ -288,12 +286,12 @@ declare module Ext {
 		* @param local Boolean True to get the local (element top/left-relative) anchor position instead of page coordinates 
 		* @param size Object An object containing the size to use for calculating anchor position {width: (target width), height: (target height)} (defaults to the element's current size) 
 		*/
-		getAnchorXY?( anchor?:string, local?:bool, size?:any ): number[];
+		getAnchorXY?( anchor?:string, local?:boolean, size?:any ): number[];
 		/** [Method] Return an object defining the area of this Element which can be passed to setBox to set another Element s size locati  
 		* @param contentBox Boolean If true a box for the content of the element is returned. 
 		* @param local Boolean If true the element's left and top relative to its offsetParent are returned instead of page x/y. 
 		*/
-		getBox?( contentBox?:bool, local?:boolean ): any;
+		getBox?( contentBox?:boolean, local?:boolean ): any;
 		/** [Method] Provides the link for Observable s fireEvent method to bubble up the ownership hierarchy  */
 		getBubbleTarget?(): Ext.container.IContainer;
 		/** [Method] Returns the X Y vector by which this Positionable s element must be translated to make a best attempt to constrain  
@@ -302,19 +300,10 @@ declare module Ext {
 		* @param proposedSize any A proposed [width, height] size to constrain instead of using the element's current size 
 		*/
 		getConstrainVector?( constrainTo?:any, proposedPosition?:any, proposedSize?:any ): any;
-		getConstrainVector?( constrainTo?:Ext.util.IPositionable, proposedPosition?:number[], proposedSize?:number[] ): number[];
-		getConstrainVector?( constrainTo?:HTMLElement, proposedPosition?:number[], proposedSize?:number[] ): number[];
-		getConstrainVector?( constrainTo?:string, proposedPosition?:number[], proposedSize?:number[] ): number[];
-		getConstrainVector?( constrainTo?:Ext.util.IRegion, proposedPosition?:number[], proposedSize?:number[] ): number[];
-		/** [Method] Returns the X Y vector by which this Positionable s element must be translated to make a best attempt to constrain  
-		* @param constrainTo Ext.util.IPositionable The Positionable, HTMLElement, element id, or Region into which the element is to be constrained. 
-		* @param proposedPosition Number[] A proposed [X, Y] position to test for validity and to produce a vector for instead of using the element's current position 
-		* @param proposedSize Number[] A proposed [width, height] size to constrain instead of using the element's current size 
-		*/
-		getConstrainVector?( constrainTo?:Ext.util.IPositionable, proposedPosition?:number[], proposedSize?:number[] ): boolean;
-		getConstrainVector?( constrainTo?:HTMLElement, proposedPosition?:number[], proposedSize?:number[] ): boolean;
-		getConstrainVector?( constrainTo?:string, proposedPosition?:number[], proposedSize?:number[] ): boolean;
-		getConstrainVector?( constrainTo?:Ext.util.IRegion, proposedPosition?:number[], proposedSize?:number[] ): boolean;
+		getConstrainVector?( constrainTo?:Ext.util.IPositionable, proposedPosition?:number[], proposedSize?:number[] ): any;
+		getConstrainVector?( constrainTo?:HTMLElement, proposedPosition?:number[], proposedSize?:number[] ): any;
+		getConstrainVector?( constrainTo?:string, proposedPosition?:number[], proposedSize?:number[] ): any;
+		getConstrainVector?( constrainTo?:Ext.util.IRegion, proposedPosition?:number[], proposedSize?:number[] ): any;
 		/** [Method] Retrieves the top level element representing this component  */
 		getEl?(): Ext.dom.IElement;
 		/** [Method] Gets the current height of the component s underlying element  */
@@ -696,7 +685,7 @@ declare module Ext {
 		* @param loadScripts Boolean Only legitimate when using the html configuration. 
 		* @param callback Function Only legitimate when using the html configuration. Callback to execute when scripts have finished loading. 
 		*/
-		update?( htmlOrData?:any, loadScripts?:bool, callback?:any ): void;
+		update?( htmlOrData?:any, loadScripts?:boolean, callback?:any ): void;
 		/** [Method] Updates this component s layout  
 		* @param options Object An object with layout options. 
 		*/
@@ -1539,7 +1528,7 @@ declare module Ext.button {
 		* @param state Boolean Force a particular state 
 		* @param suppressEvent Boolean True to stop events being fired when calling this method. 
 		*/
-		toggle?( state?:bool, suppressEvent?:boolean ): Ext.button.IButton;
+		toggle?( state?:boolean, suppressEvent?:boolean ): Ext.button.IButton;
 	}
 }
 declare module Ext {
@@ -1722,7 +1711,7 @@ declare module Ext {
 		* @param state Boolean Force a particular state 
 		* @param suppressEvent Boolean True to stop events being fired when calling this method. 
 		*/
-		toggle?( state?:bool, suppressEvent?:boolean ): Ext.button.IButton;
+		toggle?( state?:boolean, suppressEvent?:boolean ): Ext.button.IButton;
 	}
 }
 declare module Ext.button {
@@ -2244,7 +2233,7 @@ declare module Ext.chart {
 		* @param animate Boolean A boolean value to set or unset animations for the labels. 
 		* @param index Number The series index. 
 		*/
-		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:bool, animate?:bool, index?:number ): void;
+		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:boolean, animate?:boolean, index?:number ): void;
 	}
 }
 declare module Ext.chart {
@@ -2353,7 +2342,7 @@ declare module Ext.chart.series {
 		* @param animate Boolean A boolean value to set or unset animations for the labels. 
 		* @param index Number The series index. 
 		*/
-		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:bool, animate?:bool, index?:number ): void;
+		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:boolean, animate?:boolean, index?:number ): void;
 		/** [Method] Un highlights the specified item  
 		* @param item Object Info about the item; same format as returned by getItemForPoint 
 		*/
@@ -2408,7 +2397,7 @@ declare module Ext.chart.series {
 		* @param animate Boolean A boolean value to set or unset animations for the labels. 
 		* @param index Number The series index. 
 		*/
-		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:bool, animate?:bool, index?:number ): void;
+		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:boolean, animate?:boolean, index?:number ): void;
 		/** [Method] Un highlight any existing highlights */
 		unHighlightItem?(): void;
 	}
@@ -2457,7 +2446,7 @@ declare module Ext.chart {
 		* @param animate Boolean A boolean value to set or unset animations for the labels. 
 		* @param index Number The series index. 
 		*/
-		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:bool, animate?:bool, index?:number ): void;
+		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:boolean, animate?:boolean, index?:number ): void;
 		/** [Method] Un highlight any existing highlights */
 		unHighlightItem?(): void;
 	}
@@ -2506,7 +2495,7 @@ declare module Ext.chart {
 		* @param animate Boolean A boolean value to set or unset animations for the labels. 
 		* @param index Number The series index. 
 		*/
-		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:bool, animate?:bool, index?:number ): void;
+		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:boolean, animate?:boolean, index?:number ): void;
 		/** [Method] Un highlight any existing highlights */
 		unHighlightItem?(): void;
 	}
@@ -2555,7 +2544,7 @@ declare module Ext.chart {
 		* @param animate Boolean A boolean value to set or unset animations for the labels. 
 		* @param index Number The series index. 
 		*/
-		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:bool, animate?:bool, index?:number ): void;
+		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:boolean, animate?:boolean, index?:number ): void;
 		/** [Method] Un highlight any existing highlights */
 		unHighlightItem?(): void;
 	}
@@ -2726,7 +2715,7 @@ declare module Ext.chart.series {
 		* @param animate Boolean A boolean value to set or unset animations for the labels. 
 		* @param index Number The series index. 
 		*/
-		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:bool, animate?:bool, index?:number ): void;
+		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:boolean, animate?:boolean, index?:number ): void;
 		/** [Method] Sets the Gauge chart to the current specified value  
 		* @param value Object 
 		*/
@@ -2767,7 +2756,7 @@ declare module Ext.chart.series {
 		* @param animate Boolean A boolean value to set or unset animations for the labels. 
 		* @param index Number The series index. 
 		*/
-		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:bool, animate?:bool, index?:number ): void;
+		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:boolean, animate?:boolean, index?:number ): void;
 	}
 }
 declare module Ext.chart {
@@ -2804,7 +2793,7 @@ declare module Ext.chart {
 		* @param animate Boolean A boolean value to set or unset animations for the labels. 
 		* @param index Number The series index. 
 		*/
-		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:bool, animate?:bool, index?:number ): void;
+		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:boolean, animate?:boolean, index?:number ): void;
 	}
 }
 declare module Ext.chart {
@@ -2841,7 +2830,7 @@ declare module Ext.chart {
 		* @param animate Boolean A boolean value to set or unset animations for the labels. 
 		* @param index Number The series index. 
 		*/
-		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:bool, animate?:bool, index?:number ): void;
+		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:boolean, animate?:boolean, index?:number ): void;
 	}
 }
 declare module Ext.chart.series {
@@ -2892,7 +2881,7 @@ declare module Ext.chart.series {
 		* @param animate Boolean A boolean value to set or unset animations for the labels. 
 		* @param index Number The series index. 
 		*/
-		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:bool, animate?:bool, index?:number ): void;
+		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:boolean, animate?:boolean, index?:number ): void;
 		/** [Method] Un highlights the specified item  
 		* @param item Object {Object} Info about the item; same format as returned by getItemForPoint 
 		*/
@@ -2947,7 +2936,7 @@ declare module Ext.chart {
 		* @param animate Boolean A boolean value to set or unset animations for the labels. 
 		* @param index Number The series index. 
 		*/
-		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:bool, animate?:bool, index?:number ): void;
+		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:boolean, animate?:boolean, index?:number ): void;
 		/** [Method] Un highlights the specified item  
 		* @param item Object {Object} Info about the item; same format as returned by getItemForPoint 
 		*/
@@ -3002,7 +2991,7 @@ declare module Ext.chart {
 		* @param animate Boolean A boolean value to set or unset animations for the labels. 
 		* @param index Number The series index. 
 		*/
-		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:bool, animate?:bool, index?:number ): void;
+		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:boolean, animate?:boolean, index?:number ): void;
 		/** [Method] Un highlights the specified item  
 		* @param item Object {Object} Info about the item; same format as returned by getItemForPoint 
 		*/
@@ -3043,7 +3032,7 @@ declare module Ext.chart.series {
 		* @param animate Boolean A boolean value to set or unset animations for the labels. 
 		* @param index Number The series index. 
 		*/
-		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:bool, animate?:bool, index?:number ): void;
+		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:boolean, animate?:boolean, index?:number ): void;
 	}
 }
 declare module Ext.chart.series {
@@ -3072,7 +3061,7 @@ declare module Ext.chart.series {
 		* @param animate Boolean A boolean value to set or unset animations for the labels. 
 		* @param index Number The series index. 
 		*/
-		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:bool, animate?:bool, index?:number ): void;
+		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:boolean, animate?:boolean, index?:number ): void;
 	}
 }
 declare module Ext.chart.series {
@@ -3204,7 +3193,7 @@ declare module Ext.chart.series {
 		* @param animate Boolean A boolean value to set or unset animations for the labels. 
 		* @param index Number The series index. 
 		*/
-		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:bool, animate?:bool, index?:number ): void;
+		onPlaceLabel?( label?:Ext.draw.ISprite, storeItem?:Ext.data.IModel, item?:any, i?:number, display?:boolean, animate?:boolean, index?:number ): void;
 		/** [Method] Relays selected events from the specified Observable as if the events were fired by this  
 		* @param origin Object The Observable whose events this object is to relay. 
 		* @param events String[] Array of event names to relay. 
@@ -3479,8 +3468,8 @@ declare module Ext {
 		* @param delay any Delay the focus this number of milliseconds (true for 10 milliseconds). 
 		*/
 		focus?( selectText?:any, delay?:any ): any;
-		focus?( selectText?:bool, delay?:boolean ): Ext.IComponent;
-		focus?( selectText?:bool, delay?:number ): Ext.IComponent;
+		focus?( selectText?:boolean, delay?:boolean ): Ext.IComponent;
+		focus?( selectText?:boolean, delay?:number ): Ext.IComponent;
 		/** [Method] Implements an upward event bubbling policy  */
 		getBubbleTarget? (): Ext.IContainer;
 		/** [Method] Retrieves the top level element representing this component  */
@@ -3543,7 +3532,7 @@ declare module Ext {
 		* @param active Boolean True to activate the Component, false to deactivate it. 
 		* @param newActive Ext.IComponent The newly active Component which is taking over topmost zIndex position. 
 		*/
-		setActive?( active?:bool, newActive?:Ext.IComponent ): void;
+		setActive?( active?:boolean, newActive?:Ext.IComponent ): void;
 		/** [Method] Sets the overflow on the content element of the component  
 		* @param scroll Boolean True to allow the Component to auto scroll. 
 		*/
@@ -3698,11 +3687,7 @@ declare module Ext.container {
 		/** [Method] Adds Component s to this Container  
 		* @param component any Either one or more Components to add or an Array of Components to add. See items for additional information. 
 		*/
-		add?( component?:any ): Ext.IComponent[];
-		/** [Method] Adds Component s to this Container  
-		* @param component any Either one or more Components to add or an Array of Components to add. See items for additional information. 
-		*/
-		add?( component?:any ): Ext.IComponent;
+		add?( component?:any ): any;
 		/** [Method] Called by the layout system after the Component has been laid out  
 		* @param width Number The width that was set 
 		* @param height Number The height that was set 
@@ -4832,7 +4817,7 @@ declare module Ext.data {
 		* @param silent Boolean Pass true to skip notification of the owning store of the change. 
 		* @param modifiedFieldNames String[] Array of field names changed during sync with server if known. Omit or pass null if unknown. An empty array means that it is known that no fields were modified by the server's response. Defaults to false. 
 		*/
-		commit?( silent?:bool, modifiedFieldNames?:string[] ): void;
+		commit?( silent?:boolean, modifiedFieldNames?:string[] ): void;
 		/** [Method] Creates a copy clone of this Model instance  
 		* @param id String A new id, defaults to the id of the instance being copied. See id. To generate a phantom instance with a new id use: var rec = record.copy(); // clone the record Ext.data.Model.id(rec); // automatically generate a unique sequential id 
 		*/
@@ -4850,7 +4835,7 @@ declare module Ext.data {
 		* @param silent Boolean True to not notify the store of the change 
 		* @param modifiedFieldNames String[] Array of field names changed during edit. 
 		*/
-		endEdit?( silent?:bool, modifiedFieldNames?:string[] ): void;
+		endEdit?( silent?:boolean, modifiedFieldNames?:string[] ): void;
 		/** [Method] Fires the specified event with the passed parameters minus the event name plus the options object passed to addList  
 		* @param eventName String The name of the event to fire. 
 		* @param args Object... Variable number of parameters are passed to handlers. 
@@ -4874,9 +4859,7 @@ declare module Ext.data {
 		*/
 		getData?( includeAssociated?:boolean ): any;
 		/** [Method] Returns the unique ID allocated to this model instance as defined by idProperty  */
-		getId?(): number;
-		/** [Method] Returns the unique ID allocated to this model instance as defined by idProperty  */
-		getId?(): string;
+		getId?(): any;
 		/** [Method] Returns the configured Proxy for this Model  */
 		getProxy?(): Ext.data.proxy.IProxy;
 		/** [Method] Checks to see if this object has any listeners for a specified event or whether the event bubbles  
@@ -5063,7 +5046,7 @@ declare module Ext.data {
 		* @param silent Boolean Pass true to skip notification of the owning store of the change. 
 		* @param modifiedFieldNames String[] Array of field names changed during sync with server if known. Omit or pass null if unknown. An empty array means that it is known that no fields were modified by the server's response. Defaults to false. 
 		*/
-		commit?( silent?:bool, modifiedFieldNames?:string[] ): void;
+		commit?( silent?:boolean, modifiedFieldNames?:string[] ): void;
 		/** [Method] Creates a copy clone of this Model instance  
 		* @param id String A new id, defaults to the id of the instance being copied. See id. To generate a phantom instance with a new id use: var rec = record.copy(); // clone the record Ext.data.Model.id(rec); // automatically generate a unique sequential id 
 		*/
@@ -5081,7 +5064,7 @@ declare module Ext.data {
 		* @param silent Boolean True to not notify the store of the change 
 		* @param modifiedFieldNames String[] Array of field names changed during edit. 
 		*/
-		endEdit?( silent?:bool, modifiedFieldNames?:string[] ): void;
+		endEdit?( silent?:boolean, modifiedFieldNames?:string[] ): void;
 		/** [Method] Fires the specified event with the passed parameters minus the event name plus the options object passed to addList  
 		* @param eventName String The name of the event to fire. 
 		* @param args Object... Variable number of parameters are passed to handlers. 
@@ -5105,9 +5088,7 @@ declare module Ext.data {
 		*/
 		getData?( includeAssociated?:boolean ): any;
 		/** [Method] Returns the unique ID allocated to this model instance as defined by idProperty  */
-		getId?(): number;
-		/** [Method] Returns the unique ID allocated to this model instance as defined by idProperty  */
-		getId?(): string;
+		getId?(): any;
 		/** [Method] Returns the configured Proxy for this Model  */
 		getProxy?(): Ext.data.proxy.IProxy;
 		/** [Method] Checks to see if this object has any listeners for a specified event or whether the event bubbles  
@@ -5308,7 +5289,7 @@ declare module Ext.data {
 		* @param callback Function The function to execute once the collapse completes 
 		* @param scope Object The scope to run the callback in 
 		*/
-		collapse?( recursive?:bool, callback?:any, scope?:any ): void;
+		collapse?( recursive?:boolean, callback?:any, scope?:any ): void;
 		/** [Method] Collapse all the children of this node  
 		* @param recursive Function True to recursively collapse all the children 
 		* @param callback Function The function to execute once all the children are collapsed 
@@ -5343,13 +5324,13 @@ declare module Ext.data {
 		* @param callback Function The function to execute once the expand completes 
 		* @param scope Object The scope to run the callback in 
 		*/
-		expand?( recursive?:bool, callback?:any, scope?:any ): void;
+		expand?( recursive?:boolean, callback?:any, scope?:any ): void;
 		/** [Method] Expand all the children of this node  
 		* @param recursive Boolean True to recursively expand all the children 
 		* @param callback Function The function to execute once all the children are expanded 
 		* @param scope Object The scope to run the callback in 
 		*/
-		expandChildren?( recursive?:bool, callback?:any, scope?:any ): void;
+		expandChildren?( recursive?:boolean, callback?:any, scope?:any ): void;
 		/** [Method] Finds the first child that has the attribute with the specified value  
 		* @param attribute String The attribute name 
 		* @param value Object The value to search for 
@@ -5438,12 +5419,12 @@ declare module Ext.data {
 		* @param recursive Boolean True to apply this sort recursively 
 		* @param suppressEvent Boolean True to not fire a sort event. 
 		*/
-		sort?( fn?:any, recursive?:bool, suppressEvent?:boolean ): void;
+		sort?( fn?:any, recursive?:boolean, suppressEvent?:boolean ): void;
 		/** [Method] Updates general data of this node like isFirst isLast depth  
 		* @param commit Boolean 
 		* @param info Object The info to update. May contain any of the following 
 		*/
-		updateInfo?( commit?:bool, info?:any ): void;
+		updateInfo?( commit?:boolean, info?:any ): void;
 	}
 }
 declare module Ext.data {
@@ -7253,7 +7234,7 @@ declare module Ext.data {
 		* @param grouped Boolean True to perform the operation for each group in the store. The value returned will be an object literal with the key being the group name and the group average being the value. The grouped parameter is only honored if the store has a groupField. 
 		* @param args Array Any arguments to append to the function call 
 		*/
-		aggregate?( fn?:any, scope?:any, grouped?:bool, args?:any[] ): any;
+		aggregate?( fn?:any, scope?:any, grouped?:boolean, args?:any[] ): any;
 		/** [Method] Gets the average value in the store  
 		* @param field String The field in each record 
 		* @param grouped Boolean True to perform the operation for each group in the store. The value returned will be an object literal with the key being the group name and the group average being the value. The grouped parameter is only honored if the store has a groupField. 
@@ -7270,7 +7251,7 @@ declare module Ext.data {
 		* @param allowNull Boolean Pass true to allow null, undefined or empty string values 
 		* @param bypassFilter Boolean Pass true to collect from all records, even ones which are filtered. 
 		*/
-		collect?( dataIndex?:string, allowNull?:bool, bypassFilter?:boolean ): Object[];
+		collect?( dataIndex?:string, allowNull?:boolean, bypassFilter?:boolean ): Object[];
 		/** [Method] Commits all Records with outstanding changes  */
 		commitChanges?(): void;
 		/** [Method] Gets the count of items in the store  
@@ -7301,8 +7282,8 @@ declare module Ext.data {
 		* @param exactMatch any True to force exact match (^ and $ characters added to the regex). 
 		*/
 		find?( fieldName?:any, value?:any, startIndex?:any, anyMatch?:any, caseSensitive?:any, exactMatch?:any ): any;
-		find?( fieldName?:string, value?:string, startIndex?:number, anyMatch?:bool, caseSensitive?:bool, exactMatch?:boolean ): number;
-		find?( fieldName?:string, value?:RegExp, startIndex?:number, anyMatch?:bool, caseSensitive?:bool, exactMatch?:boolean ): number;
+		find?( fieldName?:string, value?:string, startIndex?:number, anyMatch?:boolean, caseSensitive?:boolean, exactMatch?:boolean ): number;
+		find?( fieldName?:string, value?:RegExp, startIndex?:number, anyMatch?:boolean, caseSensitive?:boolean, exactMatch?:boolean ): number;
 		/** [Method] Find the index of the first matching Record in this Store by a function  
 		* @param fn Function The function to be called. It will be passed the following parameters: 
 		* @param scope Object The scope (this reference) in which the function is executed. Defaults to this Store. 
@@ -7324,16 +7305,12 @@ declare module Ext.data {
 		* @param exactMatch any True to force exact match (^ and $ characters added to the regex). 
 		*/
 		findRecord?( fieldName?:any, value?:any, startIndex?:any, anyMatch?:any, caseSensitive?:any, exactMatch?:any ): any;
-		findRecord?( fieldName?:string, value?:string, startIndex?:number, anyMatch?:bool, caseSensitive?:bool, exactMatch?:boolean ): Ext.data.IModel;
-		findRecord?( fieldName?:string, value?:RegExp, startIndex?:number, anyMatch?:bool, caseSensitive?:bool, exactMatch?:boolean ): Ext.data.IModel;
+		findRecord?( fieldName?:string, value?:string, startIndex?:number, anyMatch?:boolean, caseSensitive?:boolean, exactMatch?:boolean ): Ext.data.IModel;
+		findRecord?( fieldName?:string, value?:RegExp, startIndex?:number, anyMatch?:boolean, caseSensitive?:boolean, exactMatch?:boolean ): Ext.data.IModel;
 		/** [Method] Convenience function for getting the first model instance in the store  
 		* @param grouped Boolean True to perform the operation for each group in the store. The value returned will be an object literal with the key being the group name and the first record being the value. The grouped parameter is only honored if the store has a groupField. 
 		*/
-		first?( grouped?:boolean ): Ext.data.IModel;
-		/** [Method] Convenience function for getting the first model instance in the store  
-		* @param grouped Boolean True to perform the operation for each group in the store. The value returned will be an object literal with the key being the group name and the first record being the value. The grouped parameter is only honored if the store has a groupField. 
-		*/
-		first?( grouped?:boolean ): void;
+		first?( grouped?:boolean ): any;
 		/** [Method] Get the Record at the specified index  
 		* @param index Number The index of the Record to find. 
 		*/
@@ -7397,11 +7374,7 @@ declare module Ext.data {
 		/** [Method] Convenience function for getting the last model instance in the store  
 		* @param grouped Boolean True to perform the operation for each group in the store. The value returned will be an object literal with the key being the group name and the last record being the value. The grouped parameter is only honored if the store has a groupField. 
 		*/
-		last?( grouped?:boolean ): Ext.data.IModel;
-		/** [Method] Convenience function for getting the last model instance in the store  
-		* @param grouped Boolean True to perform the operation for each group in the store. The value returned will be an object literal with the key being the group name and the last record being the value. The grouped parameter is only honored if the store has a groupField. 
-		*/
-		last?( grouped?:boolean ): void;
+		last?( grouped?:boolean ): any;
 		/** [Method] Loads data into the Store via the configured proxy  
 		* @param options any config object, passed into the Ext.data.Operation object before loading. Additionally addRecords: true can be specified to add these records to the existing records, default is to remove the Store's existing records first. 
 		*/
@@ -7466,8 +7439,8 @@ declare module Ext.data {
 		* @param exactMatch any true to force exact match (^ and $ characters added to the regex). Ignored if anyMatch is true. 
 		*/
 		query?( property?:any, value?:any, anyMatch?:any, caseSensitive?:any, exactMatch?:any ): any;
-		query?( property?:string, value?:string, anyMatch?:bool, caseSensitive?:bool, exactMatch?:boolean ): Ext.util.IMixedCollection;
-		query?( property?:string, value?:RegExp, anyMatch?:bool, caseSensitive?:bool, exactMatch?:boolean ): Ext.util.IMixedCollection;
+		query?( property?:string, value?:string, anyMatch?:boolean, caseSensitive?:boolean, exactMatch?:boolean ): Ext.util.IMixedCollection;
+		query?( property?:string, value?:RegExp, anyMatch?:boolean, caseSensitive?:boolean, exactMatch?:boolean ): Ext.util.IMixedCollection;
 		/** [Method] Query all the cached records in this Store using a filtering function  
 		* @param fn Function The function to be called. It will be passed the following parameters: 
 		* @param scope Object The scope (this reference) in which the function is executed Defaults to this Store. 
@@ -8187,9 +8160,9 @@ declare module Ext.dd {
 		/** [Method] Overridden and disabled  */
 		endDrag?(): void;
 		/** [Method] Overridden and disabled  */
-		getDragEl?(): void;
+		getDragEl?(): any;
 		/** [Method] Overridden and disabled  */
-		isValidHandleChild?(): void;
+		isValidHandleChild?(): any;
 		/** [Method] Overridden and disabled  */
 		onDrag?(): void;
 		/** [Method] Overridden and disabled  */
@@ -8303,7 +8276,7 @@ declare module Ext.dd {
 		*/
 		endDrag?( e?:Event ): void;
 		/** [Method] Returns a reference to the actual element to drag  */
-		getDragEl?(): HTMLElement;
+		getDragEl?(): any;
 		/** [Method] Returns a reference to the linked element */
 		getEl?(): HTMLElement;
 		/** [Method] Sets up the DragDrop object  
@@ -8323,7 +8296,7 @@ declare module Ext.dd {
 		/** [Method] Checks the tag exclusion list to see if this click should be ignored 
 		* @param node HTMLElement the HTMLElement to evaluate 
 		*/
-		isValidHandleChild?( node?:HTMLElement ): boolean;
+		isValidHandleChild?( node?:HTMLElement ): any;
 		/** [Method] Locks this instance */
 		lock?(): void;
 		/** [Method] Override the onAvailable method to do what is needed after the initial position was determined  */
@@ -9733,12 +9706,7 @@ declare module Ext.dom {
 		* @param selector String The CSS selector 
 		* @param returnDom Boolean True to return the DOM node instead of Ext.dom.Element. 
 		*/
-		child?( selector?:string, returnDom?:boolean ): HTMLElement;
-		/** [Method] Selects a single direct child based on the passed CSS selector the selector should not contain an id 
-		* @param selector String The CSS selector 
-		* @param returnDom Boolean True to return the DOM node instead of Ext.dom.Element. 
-		*/
-		child?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
+		child?( selector?:string, returnDom?:boolean ): any;
 		/** [Method] Returns true if this element is an ancestor of the passed element 
 		* @param el any The element to check 
 		*/
@@ -9757,12 +9725,7 @@ declare module Ext.dom {
 		* @param selector String The CSS selector 
 		* @param returnDom Boolean True to return the DOM node instead of Ext.dom.Element 
 		*/
-		down?( selector?:string, returnDom?:boolean ): HTMLElement;
-		/** [Method] Selects a single child at any depth below this element based on the passed CSS selector the selector should not cont  
-		* @param selector String The CSS selector 
-		* @param returnDom Boolean True to return the DOM node instead of Ext.dom.Element 
-		*/
-		down?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
+		down?( selector?:string, returnDom?:boolean ): any;
 		/** [Method] Looks at this node and then at parent nodes for a match of the passed simple selector e g  
 		* @param selector any The simple selector to test 
 		* @param limit any The max depth to search as a number or an element which causes the upward traversal to stop and is not considered for inclusion as the result. (defaults to 50 || document.documentElement) 
@@ -9787,12 +9750,7 @@ declare module Ext.dom {
 		* @param selector String Find the next sibling that matches the passed simple selector 
 		* @param returnDom Boolean True to return a raw dom node instead of an Ext.dom.Element 
 		*/
-		first?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the first child skipping text nodes Defined in override Ext dom AbstractElement_traversal  
-		* @param selector String Find the next sibling that matches the passed simple selector 
-		* @param returnDom Boolean True to return a raw dom node instead of an Ext.dom.Element 
-		*/
-		first?( selector?:string, returnDom?:boolean ): HTMLElement;
+		first?( selector?:string, returnDom?:boolean ): any;
 		/** [Method] Returns the active element in the DOM  */
 		getActiveElement?(): HTMLElement;
 		/** [Method] Returns the value of an attribute from the element s underlying DOM node  
@@ -9837,11 +9795,7 @@ declare module Ext.dom {
 		/** [Method] Returns the value of the value attribute 
 		* @param asNumber Boolean true to parse the value as a number 
 		*/
-		getValue?( asNumber?:boolean ): string;
-		/** [Method] Returns the value of the value attribute 
-		* @param asNumber Boolean true to parse the value as a number 
-		*/
-		getValue?( asNumber?:boolean ): number;
+		getValue?( asNumber?:boolean ): any;
 		/** [Method] Returns the dimensions of the element available to lay content out in  */
 		getViewSize?(): any;
 		/** [Method] Returns the offset width of the element Defined in override Ext dom AbstractElement_style  
@@ -9879,13 +9833,7 @@ declare module Ext.dom {
 		* @param html String The HTML fragment 
 		* @param returnEl Boolean True to return an Ext.dom.AbstractElement 
 		*/
-		insertHtml?( where?:string, html?:string, returnEl?:boolean ): HTMLElement;
-		/** [Method] Inserts an html fragment into this element Defined in override Ext dom AbstractElement_insertion  
-		* @param where String Where to insert the html in relation to this element - beforeBegin, afterBegin, beforeEnd, afterEnd. See Ext.dom.Helper.insertHtml for details. 
-		* @param html String The HTML fragment 
-		* @param returnEl Boolean True to return an Ext.dom.AbstractElement 
-		*/
-		insertHtml?( where?:string, html?:string, returnEl?:boolean ): Ext.dom.IAbstractElement;
+		insertHtml?( where?:string, html?:string, returnEl?:boolean ): any;
 		/** [Method] Inserts or creates the passed element or DomHelper config as a sibling of this element Defined in override Ext d  
 		* @param el any The id, element to insert or a DomHelper config to create and insert or an array of any of those. 
 		* @param where String 'before' or 'after' 
@@ -9909,12 +9857,7 @@ declare module Ext.dom {
 		* @param selector String Find the previous sibling that matches the passed simple selector 
 		* @param returnDom Boolean True to return a raw dom node instead of an Ext.dom.Element 
 		*/
-		last?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the last child skipping text nodes Defined in override Ext dom AbstractElement_traversal  
-		* @param selector String Find the previous sibling that matches the passed simple selector 
-		* @param returnDom Boolean True to return a raw dom node instead of an Ext.dom.Element 
-		*/
-		last?( selector?:string, returnDom?:boolean ): HTMLElement;
+		last?( selector?:string, returnDom?:boolean ): any;
 		/** [Method] Puts a mask over this element to disable user interaction  
 		* @param msg String A message to display in the mask 
 		* @param msgCls String A css class to apply to the msg element 
@@ -9924,32 +9867,17 @@ declare module Ext.dom {
 		* @param selector String Find the next sibling that matches the passed simple selector 
 		* @param returnDom Boolean True to return a raw dom node instead of an Ext.dom.Element 
 		*/
-		next?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the next sibling skipping text nodes Defined in override Ext dom AbstractElement_traversal  
-		* @param selector String Find the next sibling that matches the passed simple selector 
-		* @param returnDom Boolean True to return a raw dom node instead of an Ext.dom.Element 
-		*/
-		next?( selector?:string, returnDom?:boolean ): HTMLElement;
+		next?( selector?:string, returnDom?:boolean ): any;
 		/** [Method] Gets the parent node for this element optionally chaining up trying to match a selector Defined in override Ext dom  
 		* @param selector String Find a parent node that matches the passed simple selector 
 		* @param returnDom Boolean True to return a raw dom node instead of an Ext.dom.Element 
 		*/
-		parent?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the parent node for this element optionally chaining up trying to match a selector Defined in override Ext dom  
-		* @param selector String Find a parent node that matches the passed simple selector 
-		* @param returnDom Boolean True to return a raw dom node instead of an Ext.dom.Element 
-		*/
-		parent?( selector?:string, returnDom?:boolean ): HTMLElement;
+		parent?( selector?:string, returnDom?:boolean ): any;
 		/** [Method] Gets the previous sibling skipping text nodes Defined in override Ext dom AbstractElement_traversal  
 		* @param selector String Find the previous sibling that matches the passed simple selector 
 		* @param returnDom Boolean True to return a raw dom node instead of an Ext.dom.Element 
 		*/
-		prev?( selector?:string, returnDom?:boolean ): Ext.dom.IElement;
-		/** [Method] Gets the previous sibling skipping text nodes Defined in override Ext dom AbstractElement_traversal  
-		* @param selector String Find the previous sibling that matches the passed simple selector 
-		* @param returnDom Boolean True to return a raw dom node instead of an Ext.dom.Element 
-		*/
-		prev?( selector?:string, returnDom?:boolean ): HTMLElement;
+		prev?( selector?:string, returnDom?:boolean ): any;
 		/** [Method] Selects child nodes based on the passed CSS selector the selector should not contain an id 
 		* @param selector String The CSS selector 
 		*/
@@ -10032,7 +9960,7 @@ declare module Ext.dom {
 		* @param visible Boolean Whether the element is visible 
 		* @param animate any True for the default animation, or a standard Element animation config object 
 		*/
-		setVisible?( visible?:bool, animate?:any ): Ext.dom.IElement;
+		setVisible?( visible?:boolean, animate?:any ): Ext.dom.IElement;
 		/** [Method] Set the width of this Element  
 		* @param width any The new width. This may be one of: A Number specifying the new width in this Element's defaultUnits (by default, pixels). A String used to set the CSS width style. Animation may not be used.  
 		*/
@@ -10068,13 +9996,7 @@ declare module Ext.dom {
 		* @param returnDom Boolean True to return the raw DOM element instead of Ext.dom.AbstractElement 
 		* @param selector String A DomQuery selector to select a descendant node within the created element to use as the wrapping element. 
 		*/
-		wrap?( config?:any, returnDom?:bool, selector?:string ): HTMLElement;
-		/** [Method] Creates and wraps this element with another element Defined in override Ext dom AbstractElement_insertion  
-		* @param config Object DomHelper element config object for the wrapper element or null for an empty div 
-		* @param returnDom Boolean True to return the raw DOM element instead of Ext.dom.AbstractElement 
-		* @param selector String A DomQuery selector to select a descendant node within the created element to use as the wrapping element. 
-		*/
-		wrap?( config?:any, returnDom?:bool, selector?:string ): Ext.dom.IAbstractElement;
+		wrap?( config?:any, returnDom?:boolean, selector?:string ): any;
 	}
 }
 declare module Ext.dom {
@@ -10085,17 +10007,9 @@ declare module Ext.dom {
 		* @param returnElement any true to return a Ext.Element 
 		*/
 		append?( el?:any, o?:any, returnElement?:any ): any;
-		append?( el?:string, o?:any, returnElement?:boolean ): HTMLElement;
-		append?( el?:HTMLElement, o?:any, returnElement?:boolean ): HTMLElement;
-		append?( el?:Ext.IElement, o?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Creates new DOM element s and appends them to el  
-		* @param el String The context element 
-		* @param o any The DOM object spec (and children) or raw HTML blob 
-		* @param returnElement Boolean true to return a Ext.Element 
-		*/
-		append?( el?:string, o?:any, returnElement?:boolean ): Ext.IElement;
-		append?( el?:HTMLElement, o?:any, returnElement?:boolean ): Ext.IElement;
-		append?( el?:Ext.IElement, o?:any, returnElement?:boolean ): Ext.IElement;
+		append?( el?:string, o?:any, returnElement?:boolean ): any;
+		append?( el?:HTMLElement, o?:any, returnElement?:boolean ): any;
+		append?( el?:Ext.IElement, o?:any, returnElement?:boolean ): any;
 		/** [Method] Applies a style specification to an element  
 		* @param el String The element to apply styles to 
 		* @param styles any A style specification string e.g. 'width:100px', or object in the form {width:'100px'}, or a function which returns such a specification. 
@@ -10106,63 +10020,34 @@ declare module Ext.dom {
 		* @param styles Object The object describing the styles. 
 		* @param buffer String[] The output buffer. 
 		*/
-		generateStyles?( styles?:any, buffer?:string[] ): string;
-		/** [Method] Converts the styles from the given object to text  
-		* @param styles Object The object describing the styles. 
-		* @param buffer String[] The output buffer. 
-		*/
-		generateStyles?( styles?:any, buffer?:string[] ): string[];
+		generateStyles?( styles?:any, buffer?:string[] ): any;
 		/** [Method] Creates new DOM element s and inserts them after el  
 		* @param el any The context element 
 		* @param o any The DOM object spec (and children) 
 		* @param returnElement any true to return a Ext.Element 
 		*/
 		insertAfter?( el?:any, o?:any, returnElement?:any ): any;
-		insertAfter?( el?:string, o?:any, returnElement?:boolean ): HTMLElement;
-		insertAfter?( el?:HTMLElement, o?:any, returnElement?:boolean ): HTMLElement;
-		insertAfter?( el?:Ext.IElement, o?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Creates new DOM element s and inserts them after el  
-		* @param el String The context element 
-		* @param o Object The DOM object spec (and children) 
-		* @param returnElement Boolean true to return a Ext.Element 
-		*/
-		insertAfter?( el?:string, o?:any, returnElement?:boolean ): Ext.IElement;
-		insertAfter?( el?:HTMLElement, o?:any, returnElement?:boolean ): Ext.IElement;
-		insertAfter?( el?:Ext.IElement, o?:any, returnElement?:boolean ): Ext.IElement;
+		insertAfter?( el?:string, o?:any, returnElement?:boolean ): any;
+		insertAfter?( el?:HTMLElement, o?:any, returnElement?:boolean ): any;
+		insertAfter?( el?:Ext.IElement, o?:any, returnElement?:boolean ): any;
 		/** [Method] Creates new DOM element s and inserts them before el  
 		* @param el any The context element 
 		* @param o any The DOM object spec (and children) or raw HTML blob 
 		* @param returnElement any true to return a Ext.Element 
 		*/
 		insertBefore?( el?:any, o?:any, returnElement?:any ): any;
-		insertBefore?( el?:string, o?:any, returnElement?:boolean ): HTMLElement;
-		insertBefore?( el?:HTMLElement, o?:any, returnElement?:boolean ): HTMLElement;
-		insertBefore?( el?:Ext.IElement, o?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Creates new DOM element s and inserts them before el  
-		* @param el String The context element 
-		* @param o any The DOM object spec (and children) or raw HTML blob 
-		* @param returnElement Boolean true to return a Ext.Element 
-		*/
-		insertBefore?( el?:string, o?:any, returnElement?:boolean ): Ext.IElement;
-		insertBefore?( el?:HTMLElement, o?:any, returnElement?:boolean ): Ext.IElement;
-		insertBefore?( el?:Ext.IElement, o?:any, returnElement?:boolean ): Ext.IElement;
+		insertBefore?( el?:string, o?:any, returnElement?:boolean ): any;
+		insertBefore?( el?:HTMLElement, o?:any, returnElement?:boolean ): any;
+		insertBefore?( el?:Ext.IElement, o?:any, returnElement?:boolean ): any;
 		/** [Method] Creates new DOM element s and inserts them as the first child of el  
 		* @param el any The context element 
 		* @param o any The DOM object spec (and children) or raw HTML blob 
 		* @param returnElement any true to return a Ext.Element 
 		*/
 		insertFirst?( el?:any, o?:any, returnElement?:any ): any;
-		insertFirst?( el?:string, o?:any, returnElement?:boolean ): HTMLElement;
-		insertFirst?( el?:HTMLElement, o?:any, returnElement?:boolean ): HTMLElement;
-		insertFirst?( el?:Ext.IElement, o?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Creates new DOM element s and inserts them as the first child of el  
-		* @param el String The context element 
-		* @param o any The DOM object spec (and children) or raw HTML blob 
-		* @param returnElement Boolean true to return a Ext.Element 
-		*/
-		insertFirst?( el?:string, o?:any, returnElement?:boolean ): Ext.IElement;
-		insertFirst?( el?:HTMLElement, o?:any, returnElement?:boolean ): Ext.IElement;
-		insertFirst?( el?:Ext.IElement, o?:any, returnElement?:boolean ): Ext.IElement;
+		insertFirst?( el?:string, o?:any, returnElement?:boolean ): any;
+		insertFirst?( el?:HTMLElement, o?:any, returnElement?:boolean ): any;
+		insertFirst?( el?:Ext.IElement, o?:any, returnElement?:boolean ): any;
 		/** [Method] Inserts an HTML fragment into the DOM  
 		* @param where any Where to insert the html in relation to el - beforeBegin, afterBegin, beforeEnd, afterEnd. For example take the following HTML: &lt;div&gt;Contents&lt;/div&gt; Using different where values inserts element to the following places:  beforeBegin: &lt;HERE&gt;&lt;div&gt;Contents&lt;/div&gt; afterBegin: &lt;div&gt;&lt;HERE&gt;Contents&lt;/div&gt; beforeEnd: &lt;div&gt;Contents&lt;HERE&gt;&lt;/div&gt; afterEnd: &lt;div&gt;Contents&lt;/div&gt;&lt;HERE&gt;  
 		* @param el any The context element 
@@ -10181,17 +10066,9 @@ declare module Ext.dom {
 		* @param returnElement any true to return a Ext.Element 
 		*/
 		overwrite?( el?:any, o?:any, returnElement?:any ): any;
-		overwrite?( el?:string, o?:any, returnElement?:boolean ): HTMLElement;
-		overwrite?( el?:HTMLElement, o?:any, returnElement?:boolean ): HTMLElement;
-		overwrite?( el?:Ext.IElement, o?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Creates new DOM element s and overwrites the contents of el with them  
-		* @param el String The context element 
-		* @param o any The DOM object spec (and children) or raw HTML blob 
-		* @param returnElement Boolean true to return a Ext.Element 
-		*/
-		overwrite?( el?:string, o?:any, returnElement?:boolean ): Ext.IElement;
-		overwrite?( el?:HTMLElement, o?:any, returnElement?:boolean ): Ext.IElement;
-		overwrite?( el?:Ext.IElement, o?:any, returnElement?:boolean ): Ext.IElement;
+		overwrite?( el?:string, o?:any, returnElement?:boolean ): any;
+		overwrite?( el?:HTMLElement, o?:any, returnElement?:boolean ): any;
+		overwrite?( el?:Ext.IElement, o?:any, returnElement?:boolean ): any;
 	}
 }
 declare module Ext.dom {
@@ -10699,9 +10576,9 @@ declare module Ext.dom {
 		* @param animate any true for the default animation or a standard Element animation config object 
 		*/
 		scrollIntoView?( container?:any, hscroll?:any, animate?:any ): any;
-		scrollIntoView?( container?:string, hscroll?:bool, animate?:any ): Ext.dom.IElement;
-		scrollIntoView?( container?:HTMLElement, hscroll?:bool, animate?:any ): Ext.dom.IElement;
-		scrollIntoView?( container?:Ext.IElement, hscroll?:bool, animate?:any ): Ext.dom.IElement;
+		scrollIntoView?( container?:string, hscroll?:boolean, animate?:any ): Ext.dom.IElement;
+		scrollIntoView?( container?:HTMLElement, hscroll?:boolean, animate?:any ): Ext.dom.IElement;
+		scrollIntoView?( container?:Ext.IElement, hscroll?:boolean, animate?:any ): Ext.dom.IElement;
 		/** [Method] Scrolls this element the specified scroll point  
 		* @param side String Either "left" for scrollLeft values or "top" for scrollTop values. 
 		* @param value Number The new scroll value 
@@ -10737,7 +10614,7 @@ declare module Ext.dom {
 		* @param visible Boolean Whether the element is visible 
 		* @param animate any True for the default animation, or a standard Element animation config object 
 		*/
-		setVisible?( visible?:bool, animate?:any ): Ext.dom.IElement;
+		setVisible?( visible?:boolean, animate?:any ): Ext.dom.IElement;
 		/** [Method] Show this element  Uses display mode to determine whether to use display or visibility 
 		* @param animate any true for the default animation or a standard Element animation config object 
 		*/
@@ -10784,7 +10661,7 @@ declare module Ext.dom {
 		* @param loadScripts Boolean True to look for and process scripts (defaults to false) 
 		* @param callback Function For async script loading you can be notified when the update completes 
 		*/
-		update?( html?:string, loadScripts?:bool, callback?:any ): Ext.dom.IElement;
+		update?( html?:string, loadScripts?:boolean, callback?:any ): Ext.dom.IElement;
 	}
 }
 declare module Ext {
@@ -11070,9 +10947,9 @@ declare module Ext {
 		* @param animate any true for the default animation or a standard Element animation config object 
 		*/
 		scrollIntoView?( container?:any, hscroll?:any, animate?:any ): any;
-		scrollIntoView?( container?:string, hscroll?:bool, animate?:any ): Ext.dom.IElement;
-		scrollIntoView?( container?:HTMLElement, hscroll?:bool, animate?:any ): Ext.dom.IElement;
-		scrollIntoView?( container?:Ext.IElement, hscroll?:bool, animate?:any ): Ext.dom.IElement;
+		scrollIntoView?( container?:string, hscroll?:boolean, animate?:any ): Ext.dom.IElement;
+		scrollIntoView?( container?:HTMLElement, hscroll?:boolean, animate?:any ): Ext.dom.IElement;
+		scrollIntoView?( container?:Ext.IElement, hscroll?:boolean, animate?:any ): Ext.dom.IElement;
 		/** [Method] Scrolls this element the specified scroll point  
 		* @param side String Either "left" for scrollLeft values or "top" for scrollTop values. 
 		* @param value Number The new scroll value 
@@ -11108,7 +10985,7 @@ declare module Ext {
 		* @param visible Boolean Whether the element is visible 
 		* @param animate any True for the default animation, or a standard Element animation config object 
 		*/
-		setVisible?( visible?:bool, animate?:any ): Ext.dom.IElement;
+		setVisible?( visible?:boolean, animate?:any ): Ext.dom.IElement;
 		/** [Method] Show this element  Uses display mode to determine whether to use display or visibility 
 		* @param animate any true for the default animation or a standard Element animation config object 
 		*/
@@ -11155,7 +11032,7 @@ declare module Ext {
 		* @param loadScripts Boolean True to look for and process scripts (defaults to false) 
 		* @param callback Function For async script loading you can be notified when the update completes 
 		*/
-		update?( html?:string, loadScripts?:bool, callback?:any ): Ext.dom.IElement;
+		update?( html?:string, loadScripts?:boolean, callback?:any ): Ext.dom.IElement;
 	}
 }
 declare module Ext.core {
@@ -11441,9 +11318,9 @@ declare module Ext.core {
 		* @param animate any true for the default animation or a standard Element animation config object 
 		*/
 		scrollIntoView?( container?:any, hscroll?:any, animate?:any ): any;
-		scrollIntoView?( container?:string, hscroll?:bool, animate?:any ): Ext.dom.IElement;
-		scrollIntoView?( container?:HTMLElement, hscroll?:bool, animate?:any ): Ext.dom.IElement;
-		scrollIntoView?( container?:Ext.IElement, hscroll?:bool, animate?:any ): Ext.dom.IElement;
+		scrollIntoView?( container?:string, hscroll?:boolean, animate?:any ): Ext.dom.IElement;
+		scrollIntoView?( container?:HTMLElement, hscroll?:boolean, animate?:any ): Ext.dom.IElement;
+		scrollIntoView?( container?:Ext.IElement, hscroll?:boolean, animate?:any ): Ext.dom.IElement;
 		/** [Method] Scrolls this element the specified scroll point  
 		* @param side String Either "left" for scrollLeft values or "top" for scrollTop values. 
 		* @param value Number The new scroll value 
@@ -11479,7 +11356,7 @@ declare module Ext.core {
 		* @param visible Boolean Whether the element is visible 
 		* @param animate any True for the default animation, or a standard Element animation config object 
 		*/
-		setVisible?( visible?:bool, animate?:any ): Ext.dom.IElement;
+		setVisible?( visible?:boolean, animate?:any ): Ext.dom.IElement;
 		/** [Method] Show this element  Uses display mode to determine whether to use display or visibility 
 		* @param animate any true for the default animation or a standard Element animation config object 
 		*/
@@ -11526,7 +11403,7 @@ declare module Ext.core {
 		* @param loadScripts Boolean True to look for and process scripts (defaults to false) 
 		* @param callback Function For async script loading you can be notified when the update completes 
 		*/
-		update?( html?:string, loadScripts?:bool, callback?:any ): Ext.dom.IElement;
+		update?( html?:string, loadScripts?:boolean, callback?:any ): Ext.dom.IElement;
 	}
 }
 declare module Ext.dom {
@@ -11551,17 +11428,9 @@ declare module Ext.dom {
 		* @param returnElement any true to return an Ext.Element 
 		*/
 		overwrite?( el?:any, o?:any, returnElement?:any ): any;
-		overwrite?( el?:string, o?:any, returnElement?:boolean ): HTMLElement;
-		overwrite?( el?:HTMLElement, o?:any, returnElement?:boolean ): HTMLElement;
-		overwrite?( el?:Ext.IElement, o?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Creates new DOM element s and overwrites the contents of el with them  
-		* @param el String The context element 
-		* @param o any The DOM object spec (and children) or raw HTML blob 
-		* @param returnElement Boolean true to return an Ext.Element 
-		*/
-		overwrite?( el?:string, o?:any, returnElement?:boolean ): Ext.IElement;
-		overwrite?( el?:HTMLElement, o?:any, returnElement?:boolean ): Ext.IElement;
-		overwrite?( el?:Ext.IElement, o?:any, returnElement?:boolean ): Ext.IElement;
+		overwrite?( el?:string, o?:any, returnElement?:boolean ): any;
+		overwrite?( el?:HTMLElement, o?:any, returnElement?:boolean ): any;
+		overwrite?( el?:Ext.IElement, o?:any, returnElement?:boolean ): any;
 	}
 }
 declare module Ext.dom {
@@ -11607,7 +11476,7 @@ declare module Ext.dom {
 		* @param visible Boolean Whether the element is visible 
 		* @param animate any True for the default animation, or a standard Element animation config object 
 		*/
-		setVisible?( visible?:bool, animate?:any ): Ext.dom.IElement;
+		setVisible?( visible?:boolean, animate?:any ): Ext.dom.IElement;
 		/** [Method] overridden Element method Set the width of this Element  
 		* @param width any The new width. This may be one of: A Number specifying the new width in this Element's defaultUnits (by default, pixels). A String used to set the CSS width style. Animation may not be used.  
 		*/
@@ -11663,7 +11532,7 @@ declare module Ext {
 		* @param visible Boolean Whether the element is visible 
 		* @param animate any True for the default animation, or a standard Element animation config object 
 		*/
-		setVisible?( visible?:bool, animate?:any ): Ext.dom.IElement;
+		setVisible?( visible?:boolean, animate?:any ): Ext.dom.IElement;
 		/** [Method] overridden Element method Set the width of this Element  
 		* @param width any The new width. This may be one of: A Number specifying the new width in this Element's defaultUnits (by default, pixels). A String used to set the CSS width style. Animation may not be used.  
 		*/
@@ -11924,9 +11793,7 @@ declare module Ext.draw {
 		/** [Method] Destroys this CompositeSprite  */
 		destroy?(): void;
 		/** [Method] Returns the current animation if this object has any effects actively running or queued else returns false  */
-		getActiveAnimation?(): Ext.fx.IAnim;
-		/** [Method] Returns the current animation if this object has any effects actively running or queued else returns false  */
-		getActiveAnimation?(): boolean;
+		getActiveAnimation?(): any;
 		/** [Method] Returns the group bounding box  */
 		getBBox?(): any;
 		/** [Method] Hides all sprites  
@@ -12186,9 +12053,7 @@ declare module Ext.draw {
 		*/
 		fireEventArgs?( eventName?:string, args?:Object[] ): boolean;
 		/** [Method] Returns the current animation if this object has any effects actively running or queued else returns false  */
-		getActiveAnimation?(): Ext.fx.IAnim;
-		/** [Method] Returns the current animation if this object has any effects actively running or queued else returns false  */
-		getActiveAnimation?(): boolean;
+		getActiveAnimation?(): any;
 		/** [Method] Retrieves the bounding box of the sprite  */
 		getBBox?(): any;
 		/** [Method] Checks to see if this object has any listeners for a specified event or whether the event bubbles  
@@ -12330,13 +12195,8 @@ declare module Ext.draw {
 		* @param args any One or more Sprite objects or configs. 
 		*/
 		add?( args?:any ): any;
-		add?( args?:Ext.draw.ISprite[] ): Ext.draw.ISprite[];
-		add?( args:Ext.draw.ISprite ): Ext.draw.ISprite[];
-		/** [Method] Adds a Sprite to the surface  
-		* @param args Ext.draw.ISprite[] One or more Sprite objects or configs. 
-		*/
-		add?( args?:Ext.draw.ISprite[] ): Ext.draw.ISprite;
-		add?( args:Ext.draw.ISprite ): Ext.draw.ISprite;
+		add?( args?:Ext.draw.ISprite[] ): any;
+		add?( args:Ext.draw.ISprite ): any;
 		/** [Method] Adds one or more CSS classes to the element  
 		* @param sprite Object The sprite to add the class to. 
 		* @param className String The CSS class to add, or an array of classes 
@@ -13254,9 +13114,9 @@ declare module Ext {
 		* @param allowEl any true to also check if the passed element is the target or related target 
 		*/
 		static within( el?:any, related?:any, allowEl?:any ): any;
-		static within( el?:string, related?:bool, allowEl?:boolean ): boolean;
-		static within( el?:HTMLElement, related?:bool, allowEl?:boolean ): boolean;
-		static within( el?:Ext.IElement, related?:bool, allowEl?:boolean ): boolean;
+		static within( el?:string, related?:boolean, allowEl?:boolean ): boolean;
+		static within( el?:HTMLElement, related?:boolean, allowEl?:boolean ): boolean;
+		static within( el?:Ext.IElement, related?:boolean, allowEl?:boolean ): boolean;
 	}
 }
 declare module Ext.flash {
@@ -13788,7 +13648,7 @@ declare module Ext.form {
 		* @param includeEmptyText Boolean If true, the configured emptyText of empty fields will be used. 
 		* @param useDataValues Boolean If true, the getModelData method is used to retrieve values from fields, otherwise the getSubmitData method is used. 
 		*/
-		getValues?( asString?:bool, dirtyOnly?:bool, includeEmptyText?:bool, useDataValues?:boolean ): any;
+		getValues?( asString?:boolean, dirtyOnly?:boolean, includeEmptyText?:boolean, useDataValues?:boolean ): any;
 		/** [Method] Returns true if the form contains any invalid fields  */
 		hasInvalidField?(): void;
 		/** [Method] Returns true if the form contains a file upload field  */
@@ -13900,7 +13760,7 @@ declare module Ext.form {
 		* @param includeEmptyText Boolean If true, the configured emptyText of empty fields will be used. 
 		* @param useDataValues Boolean If true, the getModelData method is used to retrieve values from fields, otherwise the getSubmitData method is used. 
 		*/
-		getValues?( asString?:bool, dirtyOnly?:bool, includeEmptyText?:bool, useDataValues?:boolean ): any;
+		getValues?( asString?:boolean, dirtyOnly?:boolean, includeEmptyText?:boolean, useDataValues?:boolean ): any;
 		/** [Method] Returns true if the form contains any invalid fields  */
 		hasInvalidField?(): void;
 		/** [Method] Returns true if the form contains a file upload field  */
@@ -14104,7 +13964,7 @@ declare module Ext.form.field {
 		/** [Method] Returns the label for the field  */
 		getFieldLabel?(): string;
 		/** [Method] Returns the input id for this field  */
-		getInputId?(): void;
+		getInputId?(): any;
 		/** [Method] Gets the width of the label if visible  */
 		getLabelWidth?(): number;
 		/** [Method] Generates the arguments for the field decorations rendering template  */
@@ -14118,7 +13978,7 @@ declare module Ext.form.field {
 		/** [Method] Creates and returns the data object to be used when rendering the fieldSubTpl  */
 		getSubTplData?(): any;
 		/** [Method] Gets the markup to be inserted into the outer template s bodyEl  */
-		getSubTplMarkup?(): void;
+		getSubTplMarkup?(): any;
 		/** [Method] private override to use getSubmitValue  as a convenience Returns the parameter s that would be included in a stand  */
 		getSubmitData?(): any;
 		/** [Method] Returns the value that would be included in a standard form submit for this field  */
@@ -14902,7 +14762,7 @@ declare module Ext.form.field {
 		* @param forceAll Boolean true to force the query to execute even if there are currently fewer characters in the field than the minimum specified by the minChars config option. It also clears any filter previously saved in the current store. 
 		* @param rawQuery Boolean Pass as true if the raw typed value is being used as the query string. This causes the resulting store load to leave the raw value undisturbed. 
 		*/
-		doQuery?( queryString?:string, forceAll?:bool, rawQuery?:boolean ): boolean;
+		doQuery?( queryString?:string, forceAll?:boolean, rawQuery?:boolean ): boolean;
 		/** [Method] Finds the record by searching for a specific field value combination  
 		* @param field String The name of the field to test. 
 		* @param value Object The value to match the field against. 
@@ -15055,7 +14915,7 @@ declare module Ext.form {
 		* @param forceAll Boolean true to force the query to execute even if there are currently fewer characters in the field than the minimum specified by the minChars config option. It also clears any filter previously saved in the current store. 
 		* @param rawQuery Boolean Pass as true if the raw typed value is being used as the query string. This causes the resulting store load to leave the raw value undisturbed. 
 		*/
-		doQuery?( queryString?:string, forceAll?:bool, rawQuery?:boolean ): boolean;
+		doQuery?( queryString?:string, forceAll?:boolean, rawQuery?:boolean ): boolean;
 		/** [Method] Finds the record by searching for a specific field value combination  
 		* @param field String The name of the field to test. 
 		* @param value Object The value to match the field against. 
@@ -15941,8 +15801,8 @@ declare module Ext.form.field {
 		* @param delay any Delay the focus this number of milliseconds (true for 10 milliseconds). 
 		*/
 		focus?( selectText?:any, delay?:any ): any;
-		focus?( selectText?:bool, delay?:boolean ): Ext.IComponent;
-		focus?( selectText?:bool, delay?:number ): Ext.IComponent;
+		focus?( selectText?:boolean, delay?:boolean ): Ext.IComponent;
+		focus?( selectText?:boolean, delay?:number ): Ext.IComponent;
 		/** [Method] Called when the editor initializes the iframe with HTML contents  */
 		getDocMarkup?(): void;
 		/** [Method] Runs this field s validators and returns an array of error messages for any validation failures  
@@ -16100,8 +15960,8 @@ declare module Ext.form {
 		* @param delay any Delay the focus this number of milliseconds (true for 10 milliseconds). 
 		*/
 		focus?( selectText?:any, delay?:any ): any;
-		focus?( selectText?:bool, delay?:boolean ): Ext.IComponent;
-		focus?( selectText?:bool, delay?:number ): Ext.IComponent;
+		focus?( selectText?:boolean, delay?:boolean ): Ext.IComponent;
+		focus?( selectText?:boolean, delay?:number ): Ext.IComponent;
 		/** [Method] Called when the editor initializes the iframe with HTML contents  */
 		getDocMarkup?(): void;
 		/** [Method] Runs this field s validators and returns an array of error messages for any validation failures  
@@ -17790,13 +17650,13 @@ declare module Ext.form {
 		/** [Method] Returns the label for the field  */
 		getFieldLabel?(): string;
 		/** [Method] Get the input id if any for this component  */
-		getInputId?(): string;
+		getInputId?(): any;
 		/** [Method] Gets the width of the label if visible  */
 		getLabelWidth?(): number;
 		/** [Method] Generates the arguments for the field decorations rendering template  */
 		getLabelableRenderData?(): any;
 		/** [Method] Gets the markup to be inserted into the outer template s bodyEl  */
-		getSubTplMarkup?(): string;
+		getSubTplMarkup?(): any;
 		/** [Method] Tells whether the field currently has an active error message  */
 		hasActiveError?(): boolean;
 		/** [Method] Checks if the field has a visible label */
@@ -17845,7 +17705,7 @@ declare module Ext.form {
 		* @param includeEmptyText Boolean If true, the configured emptyText of empty fields will be used. 
 		* @param useDataValues Boolean If true, the getModelData method is used to retrieve values from fields, otherwise the getSubmitData method is used. 
 		*/
-		getValues?( asString?:bool, dirtyOnly?:bool, includeEmptyText?:bool, useDataValues?:boolean ): any;
+		getValues?( asString?:boolean, dirtyOnly?:boolean, includeEmptyText?:boolean, useDataValues?:boolean ): any;
 		/** [Method] Convenience function to check if the form has any invalid fields  */
 		hasInvalidField?(): void;
 		/** [Method] The initComponent template method is an important initialization step for a Component  */
@@ -17906,7 +17766,7 @@ declare module Ext {
 		* @param includeEmptyText Boolean If true, the configured emptyText of empty fields will be used. 
 		* @param useDataValues Boolean If true, the getModelData method is used to retrieve values from fields, otherwise the getSubmitData method is used. 
 		*/
-		getValues?( asString?:bool, dirtyOnly?:bool, includeEmptyText?:bool, useDataValues?:boolean ): any;
+		getValues?( asString?:boolean, dirtyOnly?:boolean, includeEmptyText?:boolean, useDataValues?:boolean ): any;
 		/** [Method] Convenience function to check if the form has any invalid fields  */
 		hasInvalidField?(): void;
 		/** [Method] The initComponent template method is an important initialization step for a Component  */
@@ -17967,7 +17827,7 @@ declare module Ext.form {
 		* @param includeEmptyText Boolean If true, the configured emptyText of empty fields will be used. 
 		* @param useDataValues Boolean If true, the getModelData method is used to retrieve values from fields, otherwise the getSubmitData method is used. 
 		*/
-		getValues?( asString?:bool, dirtyOnly?:bool, includeEmptyText?:bool, useDataValues?:boolean ): any;
+		getValues?( asString?:boolean, dirtyOnly?:boolean, includeEmptyText?:boolean, useDataValues?:boolean ): any;
 		/** [Method] Convenience function to check if the form has any invalid fields  */
 		hasInvalidField?(): void;
 		/** [Method] The initComponent template method is an important initialization step for a Component  */
@@ -19757,7 +19617,7 @@ declare module Ext.grid.plugin {
 		* @param callback Function A function to call when the row has been scrolled to. 
 		* @param scope Object The scope (this reference) in which to execute the callback. Defaults to this BufferedRenderer. 
 		*/
-		scrollTo?( recordIdx?:number, doSelect?:bool, callback?:any, scope?:any ): void;
+		scrollTo?( recordIdx?:number, doSelect?:boolean, callback?:any, scope?:any ): void;
 	}
 }
 declare module Ext.grid.plugin {
@@ -22142,7 +22002,7 @@ declare module Ext.layout.container {
 		* @param inDom Boolean True if the container size must be in the DOM. 
 		* @param ignoreOverflow Boolean if true scrollbar size will not be subtracted from container size. 
 		*/
-		getContainerSize?( ownerContext?:Ext.layout.IContextItem, inDom?:bool, ignoreOverflow?:boolean ): any;
+		getContainerSize?( ownerContext?:Ext.layout.IContextItem, inDom?:boolean, ignoreOverflow?:boolean ): any;
 		/** [Method] Returns an object describing how this layout manages the size of the given component  
 		* @param item Ext.IComponent 
 		*/
@@ -22199,7 +22059,7 @@ declare module Ext.layout {
 		* @param inDom Boolean True if the container size must be in the DOM. 
 		* @param ignoreOverflow Boolean if true scrollbar size will not be subtracted from container size. 
 		*/
-		getContainerSize?( ownerContext?:Ext.layout.IContextItem, inDom?:bool, ignoreOverflow?:boolean ): any;
+		getContainerSize?( ownerContext?:Ext.layout.IContextItem, inDom?:boolean, ignoreOverflow?:boolean ): any;
 		/** [Method] Returns an object describing how this layout manages the size of the given component  
 		* @param item Ext.IComponent 
 		*/
@@ -22769,7 +22629,7 @@ declare module Ext {
 		* @param active Boolean True to activate the Component, false to deactivate it. 
 		* @param newActive Ext.IComponent The newly active Component which is taking over topmost zIndex position. 
 		*/
-		setActive?( active?:bool, newActive?:Ext.IComponent ): void;
+		setActive?( active?:boolean, newActive?:Ext.IComponent ): void;
 		/** [Method] Shows this Component rendering it first if autoRender or floating are true  
 		* @param animateTarget any only valid for floating Components such as Windows or ToolTips, or regular Components which have been configured with floating: true. The target from which the Component should animate from while opening. 
 		* @param callback any A callback function to call after the Component is displayed. Only necessary if animation was specified. 
@@ -22826,7 +22686,7 @@ declare module Ext.menu {
 		* @param checked Boolean True to check, false to uncheck 
 		* @param suppressEvents Boolean True to prevent firing the checkchange events. 
 		*/
-		setChecked?( checked?:bool, suppressEvents?:boolean ): void;
+		setChecked?( checked?:boolean, suppressEvents?:boolean ): void;
 	}
 }
 declare module Ext.menu {
@@ -23594,9 +23454,7 @@ declare module Ext.panel {
 		*/
 		expand?( animate?:boolean ): Ext.panel.IPanel;
 		/** [Method] Returns the current collapsed state of the panel  */
-		getCollapsed?(): boolean;
-		/** [Method] Returns the current collapsed state of the panel  */
-		getCollapsed?(): string;
+		getCollapsed?(): any;
 		/** [Method] Gets the Header for this panel  */
 		getHeader?(): void;
 		/** [Method] The supplied default state gathering method for the AbstractComponent class  */
@@ -23772,9 +23630,7 @@ declare module Ext {
 		*/
 		expand?( animate?:boolean ): Ext.panel.IPanel;
 		/** [Method] Returns the current collapsed state of the panel  */
-		getCollapsed?(): boolean;
-		/** [Method] Returns the current collapsed state of the panel  */
-		getCollapsed?(): string;
+		getCollapsed?(): any;
 		/** [Method] Gets the Header for this panel  */
 		getHeader?(): void;
 		/** [Method] The supplied default state gathering method for the AbstractComponent class  */
@@ -24692,9 +24548,7 @@ declare module Ext.resizer {
 		/** [Method] Returns the element that was configured with the el or target config property  */
 		getEl?(): Ext.IElement;
 		/** [Method] Returns the element or component that was configured with the target config property  */
-		getTarget?(): Ext.IElement;
-		/** [Method] Returns the element or component that was configured with the target config property  */
-		getTarget?(): Ext.IComponent;
+		getTarget?(): any;
 		/** [Method] Checks to see if this object has any listeners for a specified event or whether the event bubbles  
 		* @param eventName String The name of the event to check for 
 		*/
@@ -24852,9 +24706,7 @@ declare module Ext {
 		/** [Method] Returns the element that was configured with the el or target config property  */
 		getEl?(): Ext.IElement;
 		/** [Method] Returns the element or component that was configured with the target config property  */
-		getTarget?(): Ext.IElement;
-		/** [Method] Returns the element or component that was configured with the target config property  */
-		getTarget?(): Ext.IComponent;
+		getTarget?(): any;
 		/** [Method] Checks to see if this object has any listeners for a specified event or whether the event bubbles  
 		* @param eventName String The name of the event to check for 
 		*/
@@ -25164,8 +25016,8 @@ declare module Ext.selection {
 		* @param keepExisting Boolean True to retain existing selections 
 		* @param suppressEvent Boolean True to not fire a select event 
 		*/
-		select?( records?:Ext.data.IModel[], keepExisting?:bool, suppressEvent?:boolean ): void;
-		select?( records?:number, keepExisting?:bool, suppressEvent?:boolean ): void;
+		select?( records?:Ext.data.IModel[], keepExisting?:boolean, suppressEvent?:boolean ): void;
+		select?( records?:number, keepExisting?:boolean, suppressEvent?:boolean ): void;
 		/** [Method] Selects all records in the view  
 		* @param suppressEvent Boolean True to suppress any select events 
 		*/
@@ -25286,8 +25138,8 @@ declare module Ext {
 		* @param keepExisting Boolean True to retain existing selections 
 		* @param suppressEvent Boolean True to not fire a select event 
 		*/
-		select?( records?:Ext.data.IModel[], keepExisting?:bool, suppressEvent?:boolean ): void;
-		select?( records?:number, keepExisting?:bool, suppressEvent?:boolean ): void;
+		select?( records?:Ext.data.IModel[], keepExisting?:boolean, suppressEvent?:boolean ): void;
+		select?( records?:number, keepExisting?:boolean, suppressEvent?:boolean ): void;
 		/** [Method] Selects all records in the view  
 		* @param suppressEvent Boolean True to suppress any select events 
 		*/
@@ -25331,12 +25183,12 @@ declare module Ext.selection {
 		* @param keepExisting Boolean True to retain existing selections 
 		* @param suppressEvent Boolean Set to false to not fire a select event 
 		*/
-		selectNext?( keepExisting?:bool, suppressEvent?:boolean ): boolean;
+		selectNext?( keepExisting?:boolean, suppressEvent?:boolean ): boolean;
 		/** [Method] Selects the record that precedes the currently selected record  
 		* @param keepExisting Boolean True to retain existing selections 
 		* @param suppressEvent Boolean Set to false to not fire a select event 
 		*/
-		selectPrevious?( keepExisting?:bool, suppressEvent?:boolean ): boolean;
+		selectPrevious?( keepExisting?:boolean, suppressEvent?:boolean ): boolean;
 	}
 }
 declare module Ext.selection {
@@ -26311,17 +26163,9 @@ declare module Ext {
 		* @param returnElement any true to return an Ext.Element. 
 		*/
 		append?( el?:any, values?:any, returnElement?:any ): any;
-		append?( el?:string, values?:any, returnElement?:boolean ): HTMLElement;
-		append?( el?:HTMLElement, values?:any, returnElement?:boolean ): HTMLElement;
-		append?( el?:Ext.IElement, values?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Applies the supplied values to the template and appends the new node s to the specified el  
-		* @param el String The context element 
-		* @param values any The template values. See applyTemplate for details. 
-		* @param returnElement Boolean true to return an Ext.Element. 
-		*/
-		append?( el?:string, values?:any, returnElement?:boolean ): Ext.IElement;
-		append?( el?:HTMLElement, values?:any, returnElement?:boolean ): Ext.IElement;
-		append?( el?:Ext.IElement, values?:any, returnElement?:boolean ): Ext.IElement;
+		append?( el?:string, values?:any, returnElement?:boolean ): any;
+		append?( el?:HTMLElement, values?:any, returnElement?:boolean ): any;
+		append?( el?:Ext.IElement, values?:any, returnElement?:boolean ): any;
 		/** [Method] Returns an HTML fragment of this template with the specified values applied  
 		* @param values any The template values. Can be an array if your params are numeric:  var tpl = new Ext.Template('Name: {0}, Age: {1}'); tpl.apply(['John', 25]); or an object:  var tpl = new Ext.Template('Name: {name}, Age: {age}'); tpl.apply({name: 'John', age: 25});  
 		*/
@@ -26343,68 +26187,36 @@ declare module Ext {
 		* @param returnElement any true to return a Ext.Element. 
 		*/
 		insertAfter?( el?:any, values?:any, returnElement?:any ): any;
-		insertAfter?( el?:string, values?:any, returnElement?:boolean ): HTMLElement;
-		insertAfter?( el?:HTMLElement, values?:any, returnElement?:boolean ): HTMLElement;
-		insertAfter?( el?:Ext.IElement, values?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Applies the supplied values to the template and inserts the new node s after el  
-		* @param el String The context element 
-		* @param values any The template values. See applyTemplate for details. 
-		* @param returnElement Boolean true to return a Ext.Element. 
-		*/
-		insertAfter?( el?:string, values?:any, returnElement?:boolean ): Ext.IElement;
-		insertAfter?( el?:HTMLElement, values?:any, returnElement?:boolean ): Ext.IElement;
-		insertAfter?( el?:Ext.IElement, values?:any, returnElement?:boolean ): Ext.IElement;
+		insertAfter?( el?:string, values?:any, returnElement?:boolean ): any;
+		insertAfter?( el?:HTMLElement, values?:any, returnElement?:boolean ): any;
+		insertAfter?( el?:Ext.IElement, values?:any, returnElement?:boolean ): any;
 		/** [Method] Applies the supplied values to the template and inserts the new node s before el  
 		* @param el any The context element 
 		* @param values any The template values. See applyTemplate for details. 
 		* @param returnElement any true to return a Ext.Element. 
 		*/
 		insertBefore?( el?:any, values?:any, returnElement?:any ): any;
-		insertBefore?( el?:string, values?:any, returnElement?:boolean ): HTMLElement;
-		insertBefore?( el?:HTMLElement, values?:any, returnElement?:boolean ): HTMLElement;
-		insertBefore?( el?:Ext.IElement, values?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Applies the supplied values to the template and inserts the new node s before el  
-		* @param el String The context element 
-		* @param values any The template values. See applyTemplate for details. 
-		* @param returnElement Boolean true to return a Ext.Element. 
-		*/
-		insertBefore?( el?:string, values?:any, returnElement?:boolean ): Ext.IElement;
-		insertBefore?( el?:HTMLElement, values?:any, returnElement?:boolean ): Ext.IElement;
-		insertBefore?( el?:Ext.IElement, values?:any, returnElement?:boolean ): Ext.IElement;
+		insertBefore?( el?:string, values?:any, returnElement?:boolean ): any;
+		insertBefore?( el?:HTMLElement, values?:any, returnElement?:boolean ): any;
+		insertBefore?( el?:Ext.IElement, values?:any, returnElement?:boolean ): any;
 		/** [Method] Applies the supplied values to the template and inserts the new node s as the first child of el  
 		* @param el any The context element 
 		* @param values any The template values. See applyTemplate for details. 
 		* @param returnElement any true to return a Ext.Element. 
 		*/
 		insertFirst?( el?:any, values?:any, returnElement?:any ): any;
-		insertFirst?( el?:string, values?:any, returnElement?:boolean ): HTMLElement;
-		insertFirst?( el?:HTMLElement, values?:any, returnElement?:boolean ): HTMLElement;
-		insertFirst?( el?:Ext.IElement, values?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Applies the supplied values to the template and inserts the new node s as the first child of el  
-		* @param el String The context element 
-		* @param values any The template values. See applyTemplate for details. 
-		* @param returnElement Boolean true to return a Ext.Element. 
-		*/
-		insertFirst?( el?:string, values?:any, returnElement?:boolean ): Ext.IElement;
-		insertFirst?( el?:HTMLElement, values?:any, returnElement?:boolean ): Ext.IElement;
-		insertFirst?( el?:Ext.IElement, values?:any, returnElement?:boolean ): Ext.IElement;
+		insertFirst?( el?:string, values?:any, returnElement?:boolean ): any;
+		insertFirst?( el?:HTMLElement, values?:any, returnElement?:boolean ): any;
+		insertFirst?( el?:Ext.IElement, values?:any, returnElement?:boolean ): any;
 		/** [Method] Applies the supplied values to the template and overwrites the content of el with the new node s 
 		* @param el any The context element 
 		* @param values any The template values. See applyTemplate for details. 
 		* @param returnElement any true to return a Ext.Element. 
 		*/
 		overwrite?( el?:any, values?:any, returnElement?:any ): any;
-		overwrite?( el?:string, values?:any, returnElement?:boolean ): HTMLElement;
-		overwrite?( el?:HTMLElement, values?:any, returnElement?:boolean ): HTMLElement;
-		overwrite?( el?:Ext.IElement, values?:any, returnElement?:boolean ): HTMLElement;
-		/** [Method] Applies the supplied values to the template and overwrites the content of el with the new node s 
-		* @param el String The context element 
-		* @param values any The template values. See applyTemplate for details. 
-		* @param returnElement Boolean true to return a Ext.Element. 
-		*/
-		overwrite?( el?:string, values?:any, returnElement?:boolean ): Ext.IElement;
-		overwrite?( el?:HTMLElement, values?:any, returnElement?:boolean ): Ext.IElement;
-		overwrite?( el?:Ext.IElement, values?:any, returnElement?:boolean ): Ext.IElement;
+		overwrite?( el?:string, values?:any, returnElement?:boolean ): any;
+		overwrite?( el?:HTMLElement, values?:any, returnElement?:boolean ): any;
+		overwrite?( el?:Ext.IElement, values?:any, returnElement?:boolean ): any;
 		/** [Method] Sets the HTML used as the template and optionally compiles it  
 		* @param html String 
 		* @param compile Boolean True to compile the template. 
@@ -26502,7 +26314,7 @@ declare module Ext.tip {
 		* @param autoRender Boolean True to render the QuickTips container immediately to preload images. 
 		* @param config Object config object for the created QuickTip. By default, the QuickTip class is instantiated, but this can be changed by supplying an xtype property or a className property in this object. All other properties on this object are configuration for the created component. 
 		*/
-		static init( autoRender?:bool, config?:any ): void;
+		static init( autoRender?:boolean, config?:any ): void;
 		/** [Method] Returns true if quick tips are enabled else false  */
 		static isEnabled(): boolean;
 		/** [Method] Configures a new quick tip instance and assigns it to a target element  
@@ -26754,8 +26566,8 @@ declare module Ext.toolbar {
 		* @param delay any Delay the focus this number of milliseconds (true for 10 milliseconds). 
 		*/
 		focus?( selectText?:any, delay?:any ): any;
-		focus?( selectText?:bool, delay?:boolean ): Ext.IComponent;
-		focus?( selectText?:bool, delay?:number ): Ext.IComponent;
+		focus?( selectText?:boolean, delay?:boolean ): Ext.IComponent;
+		focus?( selectText?:boolean, delay?:number ): Ext.IComponent;
 	}
 }
 declare module Ext.toolbar {
@@ -26969,11 +26781,7 @@ declare module Ext.toolbar {
 		/** [Method] Adds element s to the toolbar this function takes a variable number of arguments of mixed type and adds them to t  
 		* @param args any The following types of arguments are all valid:  config: A valid button config object HtmlElement: Any standard HTML element Field: Any form field Item: Any subclass of Ext.toolbar.Item String: Any generic string (gets wrapped in a Ext.toolbar.TextItem). Note that there are a few special strings that are treated differently as explained next:  '-': Creates a separator element ' ': Creates a spacer element '-&gt;': Creates a fill element  
 		*/
-		add?( args?:any ): Ext.IComponent[];
-		/** [Method] Adds element s to the toolbar this function takes a variable number of arguments of mixed type and adds them to t  
-		* @param args any The following types of arguments are all valid:  config: A valid button config object HtmlElement: Any standard HTML element Field: Any form field Item: Any subclass of Ext.toolbar.Item String: Any generic string (gets wrapped in a Ext.toolbar.TextItem). Note that there are a few special strings that are treated differently as explained next:  '-': Creates a separator element ' ': Creates a spacer element '-&gt;': Creates a fill element  
-		*/
-		add?( args?:any ): Ext.IComponent;
+		add?( args?:any ): any;
 		/** [Method] Used by ComponentQuery child and down to retrieve all of the items which can potentially be considered a child of th  
 		* @param deep Object 
 		*/
@@ -27022,11 +26830,7 @@ declare module Ext {
 		/** [Method] Adds element s to the toolbar this function takes a variable number of arguments of mixed type and adds them to t  
 		* @param args any The following types of arguments are all valid:  config: A valid button config object HtmlElement: Any standard HTML element Field: Any form field Item: Any subclass of Ext.toolbar.Item String: Any generic string (gets wrapped in a Ext.toolbar.TextItem). Note that there are a few special strings that are treated differently as explained next:  '-': Creates a separator element ' ': Creates a spacer element '-&gt;': Creates a fill element  
 		*/
-		add?( args?:any ): Ext.IComponent[];
-		/** [Method] Adds element s to the toolbar this function takes a variable number of arguments of mixed type and adds them to t  
-		* @param args any The following types of arguments are all valid:  config: A valid button config object HtmlElement: Any standard HTML element Field: Any form field Item: Any subclass of Ext.toolbar.Item String: Any generic string (gets wrapped in a Ext.toolbar.TextItem). Note that there are a few special strings that are treated differently as explained next:  '-': Creates a separator element ' ': Creates a spacer element '-&gt;': Creates a fill element  
-		*/
-		add?( args?:any ): Ext.IComponent;
+		add?( args?:any ): any;
 		/** [Method] Used by ComponentQuery child and down to retrieve all of the items which can potentially be considered a child of th  
 		* @param deep Object 
 		*/
@@ -27109,7 +26913,7 @@ declare module Ext.tree {
 		* @param callback Function The function to run after the collapse is completed 
 		* @param scope Object The scope of the callback function. 
 		*/
-		collapseNode?( record?:Ext.data.IModel, deep?:bool, callback?:any, scope?:any ): void;
+		collapseNode?( record?:Ext.data.IModel, deep?:boolean, callback?:any, scope?:any ): void;
 		/** [Method] Expand all nodes 
 		* @param callback Function A function to execute when the expand finishes. 
 		* @param scope Object The scope of the callback function 
@@ -27121,7 +26925,7 @@ declare module Ext.tree {
 		* @param callback Function The function to run after the expand is completed 
 		* @param scope Object The scope of the callback function. 
 		*/
-		expandNode?( record?:Ext.data.IModel, deep?:bool, callback?:any, scope?:any ): void;
+		expandNode?( record?:Ext.data.IModel, deep?:boolean, callback?:any, scope?:any ): void;
 		/** [Method] Expand the tree to the path of a particular node  
 		* @param path String The path to expand. The path should include a leading separator. 
 		* @param field String The field to get the data from. Defaults to the model idProperty. 
@@ -27191,7 +26995,7 @@ declare module Ext {
 		* @param callback Function The function to run after the collapse is completed 
 		* @param scope Object The scope of the callback function. 
 		*/
-		collapseNode?( record?:Ext.data.IModel, deep?:bool, callback?:any, scope?:any ): void;
+		collapseNode?( record?:Ext.data.IModel, deep?:boolean, callback?:any, scope?:any ): void;
 		/** [Method] Expand all nodes 
 		* @param callback Function A function to execute when the expand finishes. 
 		* @param scope Object The scope of the callback function 
@@ -27203,7 +27007,7 @@ declare module Ext {
 		* @param callback Function The function to run after the expand is completed 
 		* @param scope Object The scope of the callback function. 
 		*/
-		expandNode?( record?:Ext.data.IModel, deep?:bool, callback?:any, scope?:any ): void;
+		expandNode?( record?:Ext.data.IModel, deep?:boolean, callback?:any, scope?:any ): void;
 		/** [Method] Expand the tree to the path of a particular node  
 		* @param path String The path to expand. The path should include a leading separator. 
 		* @param field String The field to get the data from. Defaults to the model idProperty. 
@@ -27273,7 +27077,7 @@ declare module Ext.tree {
 		* @param callback Function The function to run after the collapse is completed 
 		* @param scope Object The scope of the callback function. 
 		*/
-		collapseNode?( record?:Ext.data.IModel, deep?:bool, callback?:any, scope?:any ): void;
+		collapseNode?( record?:Ext.data.IModel, deep?:boolean, callback?:any, scope?:any ): void;
 		/** [Method] Expand all nodes 
 		* @param callback Function A function to execute when the expand finishes. 
 		* @param scope Object The scope of the callback function 
@@ -27285,7 +27089,7 @@ declare module Ext.tree {
 		* @param callback Function The function to run after the expand is completed 
 		* @param scope Object The scope of the callback function. 
 		*/
-		expandNode?( record?:Ext.data.IModel, deep?:bool, callback?:any, scope?:any ): void;
+		expandNode?( record?:Ext.data.IModel, deep?:boolean, callback?:any, scope?:any ): void;
 		/** [Method] Expand the tree to the path of a particular node  
 		* @param path String The path to expand. The path should include a leading separator. 
 		* @param field String The field to get the data from. Defaults to the model idProperty. 
@@ -27390,14 +27194,14 @@ declare module Ext.tree {
 		* @param callback Function The function to run after the collapse is completed 
 		* @param scope Object The scope of the callback function. 
 		*/
-		collapse?( record?:Ext.data.IModel, deep?:bool, callback?:any, scope?:any ): void;
+		collapse?( record?:Ext.data.IModel, deep?:boolean, callback?:any, scope?:any ): void;
 		/** [Method] Expands a record that is loaded in the view  
 		* @param record Ext.data.IModel The record to expand 
 		* @param deep Boolean True to expand nodes all the way down the tree hierarchy. 
 		* @param callback Function The function to run after the expand is completed 
 		* @param scope Object The scope of the callback function. 
 		*/
-		expand?( record?:Ext.data.IModel, deep?:bool, callback?:any, scope?:any ): void;
+		expand?( record?:Ext.data.IModel, deep?:boolean, callback?:any, scope?:any ): void;
 		/** [Method] Gets the listeners to bind to a new store  
 		* @param store Ext.data.IStore The Store which is being bound to for which a listeners object should be returned. 
 		*/
@@ -27422,7 +27226,7 @@ declare module Ext.tree {
 		* @param callback Function The function to run after the expand/collapse is completed 
 		* @param scope Object The scope of the callback function. 
 		*/
-		toggle?( record?:Ext.data.IModel, deep?:bool, callback?:any, scope?:any ): void;
+		toggle?( record?:Ext.data.IModel, deep?:boolean, callback?:any, scope?:any ): void;
 	}
 }
 declare module Ext.tree {
@@ -27547,10 +27351,10 @@ declare module Ext.util {
 		* @param caseSensitive any True for case sensitive comparison. 
 		*/
 		filter?( property?:any, value?:any, anyMatch?:any, caseSensitive?:any ): any;
-		filter?( property?:Ext.util.IFilter[], value?:string, anyMatch?:bool, caseSensitive?:boolean ): Ext.util.IMixedCollection;
-		filter?( property?:string, value?:string, anyMatch?:bool, caseSensitive?:boolean ): Ext.util.IMixedCollection;
-		filter?( property?:Ext.util.IFilter[], value?:RegExp, anyMatch?:bool, caseSensitive?:boolean ): Ext.util.IMixedCollection;
-		filter?( property?:string, value?:RegExp, anyMatch?:bool, caseSensitive?:boolean ): Ext.util.IMixedCollection;
+		filter?( property?:Ext.util.IFilter[], value?:string, anyMatch?:boolean, caseSensitive?:boolean ): Ext.util.IMixedCollection;
+		filter?( property?:string, value?:string, anyMatch?:boolean, caseSensitive?:boolean ): Ext.util.IMixedCollection;
+		filter?( property?:Ext.util.IFilter[], value?:RegExp, anyMatch?:boolean, caseSensitive?:boolean ): Ext.util.IMixedCollection;
+		filter?( property?:string, value?:RegExp, anyMatch?:boolean, caseSensitive?:boolean ): Ext.util.IMixedCollection;
 		/** [Method] Filter by a function  
 		* @param fn Function The function to be called. 
 		* @param scope Object The scope (this reference) in which the function is executed. Defaults to this MixedCollection. 
@@ -27569,8 +27373,8 @@ declare module Ext.util {
 		* @param caseSensitive any True for case sensitive comparison. 
 		*/
 		findIndex?( property?:any, value?:any, start?:any, anyMatch?:any, caseSensitive?:any ): any;
-		findIndex?( property?:string, value?:string, start?:number, anyMatch?:bool, caseSensitive?:boolean ): number;
-		findIndex?( property?:string, value?:RegExp, start?:number, anyMatch?:bool, caseSensitive?:boolean ): number;
+		findIndex?( property?:string, value?:string, start?:number, anyMatch?:boolean, caseSensitive?:boolean ): number;
+		findIndex?( property?:string, value?:RegExp, start?:number, anyMatch?:boolean, caseSensitive?:boolean ): number;
 		/** [Method] Find the index of the first matching object in this collection by a function  
 		* @param fn Function The function to be called. 
 		* @param scope Object The scope (this reference) in which the function is executed. Defaults to this MixedCollection. 
@@ -27746,9 +27550,7 @@ declare module Ext.util {
 		/** [Method] Performs custom animation on this object. ... */
 		animate?: any;
 		/** [Method] Returns the current animation if this object has any effects actively running or queued else returns false  */
-		getActiveAnimation?(): Ext.fx.IAnim;
-		/** [Method] Returns the current animation if this object has any effects actively running or queued else returns false  */
-		getActiveAnimation?(): boolean;
+		getActiveAnimation?(): any;
 		/** [Method] Ensures that all effects queued after sequenceFx is called on this object are run in sequence  */
 		sequenceFx?(): any;
 		/** [Method] Stops any running effects and clears this object s internal effects queue if it contains any additional effects that */
@@ -27995,7 +27797,7 @@ declare module Ext.util {
 		* @param active Boolean True to activate the Component, false to deactivate it. 
 		* @param newActive Ext.IComponent The newly active Component which is taking over topmost zIndex position. 
 		*/
-		setActive?( active?:bool, newActive?:Ext.IComponent ): void;
+		setActive?( active?:boolean, newActive?:Ext.IComponent ): void;
 		/** [Method] Sends this Component to the back of lower z index than any other visible windows */
 		toBack?(): Ext.IComponent;
 		/** [Method] Brings this floating Component to the front of any other visible floating Components managed by the same ZIndexManag  
@@ -28845,13 +28647,13 @@ declare module Ext.util {
 		* @param clear Boolean True to remove the restored properties from this memento or false to keep them (default is true). 
 		* @param target Object The object to which to restore properties. 
 		*/
-		restore?( props?:string, clear?:bool, target?:any ): void;
-		restore?( props?:string[], clear?:bool, target?:any ): void;
+		restore?( props?:string, clear?:boolean, target?:any ): void;
+		restore?( props?:string[], clear?:boolean, target?:any ): void;
 		/** [Method] Restores all captured properties in this memento to the target object  
 		* @param clear Boolean True to remove the restored properties from this memento or false to keep them (default is true). 
 		* @param target Object The object to which to restore properties. 
 		*/
-		restoreAll?( clear?:bool, target?:any ): void;
+		restoreAll?( clear?:boolean, target?:any ): void;
 	}
 }
 declare module Ext.util {
@@ -29067,9 +28869,9 @@ declare module Ext.util {
 		* @param callback any The function to call after the animation finishes 
 		*/
 		anchorTo?( element?:any, position?:any, offsets?:any, animate?:any, monitorScroll?:any, callback?:any ): any;
-		anchorTo?( element?:Ext.util.IPositionable, position?:string, offsets?:number[], animate?:any, monitorScroll?:bool, callback?:any ): Ext.util.IPositionable;
-		anchorTo?( element?:HTMLElement, position?:string, offsets?:number[], animate?:any, monitorScroll?:bool, callback?:any ): Ext.util.IPositionable;
-		anchorTo?( element?:string, position?:string, offsets?:number[], animate?:any, monitorScroll?:bool, callback?:any ): Ext.util.IPositionable;
+		anchorTo?( element?:Ext.util.IPositionable, position?:string, offsets?:number[], animate?:any, monitorScroll?:boolean, callback?:any ): Ext.util.IPositionable;
+		anchorTo?( element?:HTMLElement, position?:string, offsets?:number[], animate?:any, monitorScroll?:boolean, callback?:any ): Ext.util.IPositionable;
+		anchorTo?( element?:string, position?:string, offsets?:number[], animate?:any, monitorScroll?:boolean, callback?:any ): Ext.util.IPositionable;
 		anchorTo?( element?:Ext.util.IPositionable, position?:string, offsets?:number[], animate?:any, monitorScroll?:number, callback?:any ): Ext.util.IPositionable;
 		anchorTo?( element?:HTMLElement, position?:string, offsets?:number[], animate?:any, monitorScroll?:number, callback?:any ): Ext.util.IPositionable;
 		anchorTo?( element?:string, position?:string, offsets?:number[], animate?:any, monitorScroll?:number, callback?:any ): Ext.util.IPositionable;
@@ -29080,10 +28882,10 @@ declare module Ext.util {
 		* @param proposedSize any A proposed [width, height] size to use when calculating constraints instead of using this Positionable's current size. 
 		*/
 		calculateConstrainedPosition?( constrainTo?:any, proposedPosition?:any, local?:any, proposedSize?:any ): any;
-		calculateConstrainedPosition?( constrainTo?:string, proposedPosition?:number[], local?:bool, proposedSize?:number[] ): number[];
-		calculateConstrainedPosition?( constrainTo?:HTMLElement, proposedPosition?:number[], local?:bool, proposedSize?:number[] ): number[];
-		calculateConstrainedPosition?( constrainTo?:Ext.IElement, proposedPosition?:number[], local?:bool, proposedSize?:number[] ): number[];
-		calculateConstrainedPosition?( constrainTo?:Ext.util.IRegion, proposedPosition?:number[], local?:bool, proposedSize?:number[] ): number[];
+		calculateConstrainedPosition?( constrainTo?:string, proposedPosition?:number[], local?:boolean, proposedSize?:number[] ): number[];
+		calculateConstrainedPosition?( constrainTo?:HTMLElement, proposedPosition?:number[], local?:boolean, proposedSize?:number[] ): number[];
+		calculateConstrainedPosition?( constrainTo?:Ext.IElement, proposedPosition?:number[], local?:boolean, proposedSize?:number[] ): number[];
+		calculateConstrainedPosition?( constrainTo?:Ext.util.IRegion, proposedPosition?:number[], local?:boolean, proposedSize?:number[] ): number[];
 		/** [Method] Gets the x y coordinates to align this element with another element  
 		* @param element any The Positionable, HTMLElement, or id of the element to align to. 
 		* @param position any The position to align to 
@@ -29098,12 +28900,12 @@ declare module Ext.util {
 		* @param local Boolean True to get the local (element top/left-relative) anchor position instead of page coordinates 
 		* @param size Object An object containing the size to use for calculating anchor position {width: (target width), height: (target height)} (defaults to the element's current size) 
 		*/
-		getAnchorXY?( anchor?:string, local?:bool, size?:any ): number[];
+		getAnchorXY?( anchor?:string, local?:boolean, size?:any ): number[];
 		/** [Method] Return an object defining the area of this Element which can be passed to setBox to set another Element s size locati  
 		* @param contentBox Boolean If true a box for the content of the element is returned. 
 		* @param local Boolean If true the element's left and top relative to its offsetParent are returned instead of page x/y. 
 		*/
-		getBox?( contentBox?:bool, local?:boolean ): any;
+		getBox?( contentBox?:boolean, local?:boolean ): any;
 		/** [Method] Returns the X Y vector by which this Positionable s element must be translated to make a best attempt to constrain  
 		* @param constrainTo any The Positionable, HTMLElement, element id, or Region into which the element is to be constrained. 
 		* @param proposedPosition any A proposed [X, Y] position to test for validity and to produce a vector for instead of using the element's current position 
@@ -29293,11 +29095,7 @@ declare module Ext.util {
 		/** [Method] Checks if this region intersects the region passed in  
 		* @param region Ext.util.IRegion 
 		*/
-		intersect?( region?:Ext.util.IRegion ): Ext.util.IRegion;
-		/** [Method] Checks if this region intersects the region passed in  
-		* @param region Ext.util.IRegion 
-		*/
-		intersect?( region?:Ext.util.IRegion ): boolean;
+		intersect?( region?:Ext.util.IRegion ): any;
 		/** [Method] Check whether the point  offset is out of bound 
 		* @param axis any 
 		* @param p any the point / offset 
@@ -29982,8 +29780,8 @@ declare module Ext.view {
 		* @param delay any Delay the focus this number of milliseconds (true for 10 milliseconds). 
 		*/
 		focus?( selectText?:any, delay?:any ): any;
-		focus?( selectText?:bool, delay?:boolean ): Ext.IComponent;
-		focus?( selectText?:bool, delay?:number ): Ext.IComponent;
+		focus?( selectText?:boolean, delay?:boolean ): Ext.IComponent;
+		focus?( selectText?:boolean, delay?:number ): Ext.IComponent;
 		/** [Method] Focuses a particular row and brings it into view  
 		* @param rowIdx HTMLElement An HTMLElement template node, index of a template node, the id of a template node or the record associated with the node. 
 		*/
@@ -30226,7 +30024,7 @@ declare module Ext.window {
 		* @param value any Default value of the text input element 
 		*/
 		prompt?( title?:any, msg?:any, fn?:any, scope?:any, multiline?:any, value?:any ): any;
-		prompt?( title?:string, msg?:string, fn?:any, scope?:any, multiline?:bool, value?:string ): Ext.window.IMessageBox;
+		prompt?( title?:string, msg?:string, fn?:any, scope?:any, multiline?:boolean, value?:string ): Ext.window.IMessageBox;
 		prompt?( title?:string, msg?:string, fn?:any, scope?:any, multiline?:number, value?:string ): Ext.window.IMessageBox;
 		/** [Method] Adds the specified icon to the dialog  
 		* @param icon String A CSS classname specifying the icon's background image url, or empty string to clear the icon 

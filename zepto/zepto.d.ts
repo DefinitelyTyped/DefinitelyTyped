@@ -1407,7 +1407,7 @@ interface ZeptoCollection {
 	* Serialize form into an array of objects with name and value properties. Disabled form controls, buttons, and unchecked radio buttons/checkboxes are skipped. The result doesn’t include data from file inputs.
 	* @return Array with name value pairs from the Form.
 	**/
-	serializeArray(): Array;
+	serializeArray(): any[];
 
 	/**
 	* Trigger or attach a handler for the submit event. When no function given, trigger the “submit” event on the current form and have it perform its submit action unless preventDefault() was called for the event.

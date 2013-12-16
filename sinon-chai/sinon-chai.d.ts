@@ -6,28 +6,23 @@
 /// <reference path="../chai/chai.d.ts" />
 
 declare module chai {
-    interface Been {
-        called: boolean;
-        calledOnce: boolean;
-        calledTwice: boolean;
-        calledThrice: boolean;
-        calledBefore(spy: any): boolean;
-        calledAfter(spy: any): boolean;
-        calledOn(context: any): boolean;
-        alwaysCalledOn(context: any): boolean;
-        calledWith(...args: any[]): boolean;
-        alwaysCalledWith(...args: any[]): boolean;
-        calledWithExactly(...args: any[]): boolean;
-        alwaysCalledWithExactly(...args: any[]): boolean;
-        calledWithMatch(...args: any[]): boolean;
-        alwaysCalledWithMatch(...args: any[]): boolean;
-        returned(returnVal: any): boolean;
-        alwaysReturned(returnVal: any): boolean;
-        threw(errorObjOrErrorTypeStringOrNothing: any): boolean;
-        alwaysThrew(errorObjOrErrorTypeStringOrNothing: any): boolean;
+    interface Expect {
+        called: Expect;
+        calledOnce: Expect;
+        calledTwice: Expect;
+        calledThrice: Expect;
+        calledBefore(spy: Function): Expect;
+        calledAfter(spy: Function): Expect;
+        calledWithNew: Expect;
+        calledOn(context: any): Expect;
+        calledWith(...args: any[]): Expect;
+        calledWithExactly(...args: any[]): Expect;
+        calledWithMatch(...args: any[]): Expect;
+        returned(returnVal: any): Expect;
+        thrown(errorObjOrErrorTypeStringOrNothing: any): Expect;
     }
 
-    interface Have {
-        been: Been;
+    interface LanguageChains {
+        always: Expect;
     }
 }

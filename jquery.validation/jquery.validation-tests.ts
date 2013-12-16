@@ -190,6 +190,12 @@ function test_methods() {
     var validator = $("#myform").validate();
     validator.resetForm();
     validator.showErrors({ "firstname": "I know that your firstname is Pete, Pete!" });
+    validator.hideErrors();
+    var isValid: boolean = validator.valid();
+    var size: number = validator.size();
+    var errorMap: Object = validator.errorMap;
+    var errorList: ErrorListItem[] = validator.errorList;
+
     $("#summary").text(validator.numberOfInvalids() + " field(s) are invalid");
     jQuery.validator.setDefaults({
         debug: true

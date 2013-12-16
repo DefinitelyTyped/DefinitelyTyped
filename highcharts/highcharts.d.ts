@@ -3,6 +3,8 @@
 // Definitions by: Damiano Gambarotto <http://github.com/damianog>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../jquery/jquery.d.ts" />
+
 interface HighchartsPosition {
     align?: string;
     verticalAlign?: string;
@@ -173,6 +175,9 @@ interface HighchartsColorOrGradient {
         cx: number; cy: number; r: number;
     };
     stops?: any[][];
+    
+    brighten?(amount: number): HighchartsColorOrGradient;
+    get?(type: string): string;
 }
 
 interface HighchartsBoolOrShadow {
@@ -225,7 +230,7 @@ interface HighchartsChartOptions {
     spacingTop?: number;
     style?: HighchartsCSSObject;
     type?: string;
-    whidth?: number;
+    width?: number;
     zoomType?: string;
 }
 
@@ -1006,7 +1011,7 @@ interface HighchartsChartObject {
     setTitle(title: HighchartsTitleOptions): void;
     setTitle(title: HighchartsTitleOptions, subtitle: HighchartsSubtitleOptions): void;
     showLoading(): void;
-    showLoading(str: string);
+    showLoading(str: string): void;
     xAxis: HighchartsAxisObject[];
     yAxis: HighchartsAxisObject[];
 
@@ -1015,7 +1020,7 @@ interface HighchartsChartObject {
 
 interface HighchartsChart {
     new (options: HighchartsOptions): HighchartsChartObject;
-    new (options: HighchartsOptions, callback: (event: Event) => void ): HighchartsChartObject;
+    new (options: HighchartsOptions, callback: (chart: HighchartsChartObject) => void ): HighchartsChartObject;
 }
 
 interface HighchartsElementObject {
@@ -1046,10 +1051,14 @@ interface HighchartsRenderer {
 interface HighchartsStatic {
     Chart: HighchartsChart;
     Renderer: HighchartsRenderer;
+    Color(color: HighchartsColorOrGradient): HighchartsColorOrGradient;
 
     dateFormat(format: string, time?: number, capitalize?: boolean): string;
     numberFormat(value: number, decimals?: number, decimalPoint?: string, thousandsSep?: string): string;
-    setOptions(options: HighchartsOptions): any;
+    setOptions(options: HighchartsOptions): HighchartsOptions;
+    getOptions(): HighchartsOptions;
+    
+    map(array: any[], fn: Function): any[];
 }
 declare var Highcharts: HighchartsStatic;
 
@@ -1079,16 +1088,16 @@ interface HighchartsPointObject {
 }
 
 interface HighchartsSeriesObject {
-    addPoint(options: any);
-    addPoint(options: any, redraw: boolean, shift: boolean);
-    addPoint(options: any, redraw: boolean, shift: boolean, animation: boolean);
-    addPoint(options: any, redraw: boolean, shift: boolean, animation: HighchartsAnimation);
+    addPoint(options: any): void;
+    addPoint(options: any, redraw: boolean, shift: boolean): void;
+    addPoint(options: any, redraw: boolean, shift: boolean, animation: boolean): void;
+    addPoint(options: any, redraw: boolean, shift: boolean, animation: HighchartsAnimation): void;
     chart: HighchartsChartObject;
     data: HighchartsDataPoint[];
     hide(): void;
     options: HighchartsSeriesOptions;
     remove(): void;
-    remove(redraw: boolean);
+    remove(redraw: boolean): void;
     name: string;
     points: HighchartsPointObject[];
     select(): void;
@@ -1105,4 +1114,14 @@ interface HighchartsSeriesObject {
     visible: boolean;
     xAxis: HighchartsAxisObject;
     yAxis: HighchartsAxisObject;
+}
+
+interface JQuery {
+    /**
+    * Creates a new Highcharts.Chart for the current JQuery selector; usually
+    * a div selected by $('#container')
+    * @param {HighchartsOptions} options Options for this chart
+    * @return current {JQuery} selector the current JQuery selector
+    **/
+    highcharts(options: HighchartsOptions): JQuery;
 }

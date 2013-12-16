@@ -10,7 +10,7 @@
 declare module Backbone {
 
     interface AddOptions extends Silenceable {
-        at: number;
+        at?: number;
     }
 
     interface HistoryOptions extends Silenceable {
@@ -19,7 +19,7 @@ declare module Backbone {
     }
 
     interface NavigateOptions {
-        trigger: boolean;
+        trigger?: boolean;
     }
 
     interface RouterOptions {
@@ -67,61 +67,64 @@ declare module Backbone {
     }
 
     class Events {
-        on(eventName: string, callback: (...args: any[]) => void , context?: any): any;
-        off(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
+        on(eventName: any, callback?: Function, context?: any): any;
+        off(eventName?: string, callback?: Function, context?: any): any;
         trigger(eventName: string, ...args: any[]): any;
-        bind(eventName: string, callback: (...args: any[]) => void , context?: any): any;
-        unbind(eventName?: string, callback?: (...args: any[]) => void , context?: any): any;
+        bind(eventName: string, callback: Function, context?: any): any;
+        unbind(eventName?: string, callback?: Function, context?: any): any;
 
-        once(events: string, callback: (...args: any[]) => void , context?: any): any;
-        listenTo(object: any, events: string, callback: (...args: any[]) => void ): any;
-        listenToOnce(object: any, events: string, callback: (...args: any[]) => void ): any;
-        stopListening(object?: any, events?: string, callback?: (...args: any[]) => void ): any;
+        once(events: string, callback: Function, context?: any): any;
+        listenTo(object: any, events: string, callback: Function): any;
+        listenToOnce(object: any, events: string, callback: Function): any;
+        stopListening(object?: any, events?: string, callback?: Function): any;
     }
 
     class ModelBase extends Events {
         url: any;
-        parse(response, options?: any);
+        parse(response: any, options?: any): any;
         toJSON(options?: any): any;
         sync(...arg: any[]): JQueryXHR;
     }
 
-    class Model extends ModelBase {
+    interface OptionalDefaults {
+        defaults?(): any;
+    }
+
+    class Model extends ModelBase implements OptionalDefaults {
 
         static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
         attributes: any;
         changed: any[];
         cid: string;
-        defaults: any;
         id: any;
         idAttribute: string;
         validationError: any;
         urlRoot: any;
 
         constructor(attributes?: any, options?: any);
-        initialize(attributes?: any);
+        initialize(attributes?: any): void;
 
         fetch(options?: ModelFetchOptions): JQueryXHR;
 
         get(attributeName: string): any;
-        set(attributeName: string, value: any, options?: ModelSetOptions);
-        set(obj: any, options?: ModelSetOptions);
+        set(attributeName: string, value: any, options?: ModelSetOptions): Model;
+        set(obj: any, options?: ModelSetOptions): Model;
 
-        change();
+        change(): any;
         changedAttributes(attributes?: any): any[];
-        clear(options?: Silenceable);
+        clear(options?: Silenceable): any;
         clone(): Model;
-        destroy(options?: ModelDestroyOptions);
-        escape(attribute: string);
+        destroy(options?: ModelDestroyOptions): any;
+        escape(attribute: string): string;
         has(attribute: string): boolean;
         hasChanged(attribute?: string): boolean;
         isNew(): boolean;
         isValid(): boolean;
         previous(attribute: string): any;
         previousAttributes(): any[];
-        save(attributes?: any, options?: ModelSaveOptions);
-        unset(attribute: string, options?: Silenceable);
+        save(attributes?: any, options?: ModelSaveOptions): any;
+        unset(attribute: string, options?: Silenceable): Model;
         validate(attributes: any, options?: any): any;
 
         _validate(attrs: any, options: any): boolean;
@@ -154,20 +157,23 @@ declare module Backbone {
         comparator(element: Model): any;
         comparator(compare: Model, to?: Model): any;
 
-        add(model: Model, options?: AddOptions);
-        add(models: Model[], options?: AddOptions);
+        add(model: Model, options?: AddOptions): Collection;
+        add(model: any, options?: AddOptions): Collection;
+        add(models: Model[], options?: AddOptions): Collection;
+        add(models: any[], options?: AddOptions): Collection;
         at(index: number): Model;
         get(id: any): Model;
         create(attributes: any, options?: ModelSaveOptions): Model;
         pluck(attribute: string): any[];
-        push(model: Model, options?: AddOptions);
-        pop(options?: Silenceable);
-        remove(model: Model, options?: Silenceable);
-        remove(models: Model[], options?: Silenceable);
-        reset(models?: Model[], options?: Silenceable);
-        shift(options?: Silenceable);
-        sort(options?: Silenceable);
-        unshift(model: Model, options?: AddOptions);
+        push(model: Model, options?: AddOptions): Model;
+        pop(options?: Silenceable): Model;
+        remove(model: Model, options?: Silenceable): Model;
+        remove(models: Model[], options?: Silenceable): Model[];
+        reset(models?: Model[], options?: Silenceable): Model[];
+        reset(models?: any[], options?: Silenceable): Model[];
+        shift(options?: Silenceable): Model;
+        sort(options?: Silenceable): Collection;
+        unshift(model: Model, options?: AddOptions): Model;
         where(properies: any): Model[];
 
         _prepareModel(attrs?: any, options?: any): any;
@@ -188,7 +194,7 @@ declare module Backbone {
         difference(...model: Model[]): Model[];
         drop(): Model;
         drop(n: number): Model[];
-        each(iterator: (element: Model, index: number, list?: any) => void , context?: any);
+        each(iterator: (element: Model, index: number, list?: any) => void , context?: any): any;
         every(iterator: (element: Model, index: number) => boolean, context?: any): boolean;
         filter(iterator: (element: Model, index: number) => boolean, context?: any): Model[];
         find(iterator: (element: Model, index: number) => boolean, context?: any): Model;
@@ -196,7 +202,7 @@ declare module Backbone {
         first(n: number): Model[];
         flatten(shallow?: boolean): Model[];
         foldl(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any;
-        forEach(iterator: (element: Model, index: number, list?: any) => void , context?: any);
+        forEach(iterator: (element: Model, index: number, list?: any) => void , context?: any): any;
         include(value: any): boolean;
         indexOf(element: Model, isSorted?: boolean): number;
         initial(): Model;
@@ -204,7 +210,7 @@ declare module Backbone {
         inject(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any;
         intersection(...model: Model[]): Model[];
         isEmpty(object: any): boolean;
-        invoke(methodName: string, arguments?: any[]);
+        invoke(methodName: string, arguments?: any[]): any;
         last(): Model;
         last(n: number): Model[];
         lastIndexOf(element: Model, fromIndex?: number): number;
@@ -220,8 +226,8 @@ declare module Backbone {
         sortBy(iterator: (element: Model, index: number) => number, context?: any): Model[];
         sortBy(attribute: string, context?: any): Model[];
         sortedIndex(element: Model, iterator?: (element: Model, index: number) => number): number;
-        range(stop: number, step?: number);
-        range(start: number, stop: number, step?: number);
+        range(stop: number, step?: number): any;
+        range(start: number, stop: number, step?: number): any;
         reduceRight(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any[];
         reject(iterator: (element: Model, index: number) => boolean, context?: any): Model[];
         rest(): Model;
@@ -235,17 +241,19 @@ declare module Backbone {
         zip(...model: Model[]): Model[];
     }
 
-    class Router extends Events {
+    interface OptionalRoutes {
+        routes?(): any;
+    }
+
+    class Router extends Events implements OptionalRoutes {
 
         static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
-        routes: any;
-
         constructor(options?: RouterOptions);
-        initialize(options?: RouterOptions);
-        route(route: string, name: string, callback?: (...parameter: any[]) => void );
-        navigate(fragment: string, options?: NavigateOptions);
-        navigate(fragment: string, trigger?: boolean);
+        initialize(options?: RouterOptions): void;
+        route(route: string, name: string, callback?: Function): Router;
+        navigate(fragment: string, options?: NavigateOptions): Router;
+        navigate(fragment: string, trigger?: boolean): Router;
 
         _bindRoutes(): void;
         _routeToRegExp(route: string): RegExp;
@@ -259,18 +267,18 @@ declare module Backbone {
         handlers: any[];
         interval: number;
 
-        start(options?: HistoryOptions);
+        start(options?: HistoryOptions): boolean;
 
         getHash(window?: Window): string;
         getFragment(fragment?: string, forcePushState?: boolean): string;
         stop(): void;
-        route(route: string, callback: (...args: any[]) => void );
+        route(route: string, callback: Function): number;
         checkUrl(e?: any): void;
         loadUrl(fragmentOverride: string): boolean;
-        navigate(fragment: string, options?: any);
+        navigate(fragment: string, options?: any): boolean;
         started: boolean;
 
-        _updateHash(location: Location, fragment: string, replace: boolean);
+        _updateHash(location: Location, fragment: string, replace: boolean): void;
     }
 
     interface ViewOptions {
@@ -283,51 +291,50 @@ declare module Backbone {
         attributes?: any[];
     }
 
-    class View extends Events {
+    interface OptionalEvents {
+        events?(): any;
+    }
 
-        static extend(properties: any, classProperties?: any): any;  // do not use, prefer TypeScript's extend functionality
+    class View extends Events implements OptionalEvents {
+
+        static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
         constructor(options?: ViewOptions);
 
         $(selector: string): JQuery;
         model: Model;
         collection: Collection;
-        make(tagName: string, attrs?, opts?): View;
-        setElement(element: HTMLElement, delegate?: boolean);
-        setElement(element: JQuery, delegate?: boolean);
+        make(tagName: string, attrs?: any, opts?: any): View;
+        setElement(element: HTMLElement, delegate?: boolean): View;
+        setElement(element: JQuery, delegate?: boolean): View;
         id: string;
         cid: string;
         className: string;
         tagName: string;
-        events: any;
+        options: any;
 
         el: any;
         $el: JQuery;
-        setElement(element);
-        attributes;
-        $(selector): JQuery;
+        setElement(element: any): View;
+        attributes: any;
+        $(selector: any): JQuery;
         render(): View;
         remove(): View;
-        make(tagName, attributes?, content?);
+        make(tagName: any, attributes?: any, content?: any): any;
         delegateEvents(events?: any): any;
-        undelegateEvents();
+        undelegateEvents(): any;
 
         _ensureElement(): void;
     }
 
     // SYNC
-    function sync(method, model, options?: JQueryAjaxSettings);
+    function sync(method: string, model: Model, options?: JQueryAjaxSettings): any;
     var emulateHTTP: boolean;
     var emulateJSONBackbone: boolean;
 
     // Utility
-
-    // 0.9 cannot return modules anymore, and "typeof <Module>" is not compiling for some reason
-    // returning "any" until this is fixed
-
-    //function noConflict(): typeof Backbone;
-    function noConflict(): any;
-
-    function setDomLibrary(jQueryNew);
+    function noConflict(): typeof Backbone;
+    function setDomLibrary(jQueryNew: any): any;
+	
+    var $: JQueryStatic;
 }
-

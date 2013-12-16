@@ -166,31 +166,6 @@ declare module Rx {
 		ensureTrampoline(action: () =>_IDisposable): _IDisposable;
 	}
 
-	// Virtual IScheduler
-	interface IVirtualTimeScheduler extends IScheduler {
-		toRelative(duetime): number;
-		toDateTimeOffset(duetime: number): number;
-
-		clock: number;
-		comparer: (x: number, y: number) =>number;
-		isEnabled: boolean;
-		queue: IPriorityQueue;
-		scheduleRelativeWithState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable): _IDisposable;
-		scheduleRelative(dueTime: number, action: () =>void ): _IDisposable;
-		start(): _IDisposable;
-		stop(): void;
-		advanceTo(time: number);
-		advanceBy(time: number);
-		sleep(time: number);
-		getNext(): IScheduledItem;
-		scheduleAbsolute(dueTime: number, action: () =>void );
-		scheduleAbsoluteWithState(state: any, dueTime: number, action: (scheduler: IScheduler, state: any) =>_IDisposable): _IDisposable;
-	}
-	//export module VirtualTimeScheduler {
-	//    //absract
-	//    function new (initialClock: number, comparer: (x: number, y: number) =>number): IVirtualTimeScheduler;
-	//}
-
 
 	// CatchScheduler
 	interface ICatchScheduler extends IScheduler { }
@@ -199,7 +174,7 @@ declare module Rx {
 	interface INotification<T> {
 		accept(observer: IObserver<T>): void;
 		accept(onNext: (value: T) =>void , onError?: (exception: any) =>void , onCompleted?: () =>void ): void;
-		toObservable(scheduler?: IScheduler): IObservable;
+		toObservable(scheduler?: IScheduler): IObservable<any>;
 		hasValue: boolean;
 		equals(other: INotification<T>): boolean;
 		kind: string;
@@ -240,7 +215,7 @@ declare module Rx {
 		export interface Enumerable<T> {
 			(getEnumerator: () =>IEnumerator<T>): IEnumerable<T>;
 
-			repeat(value: T, repeatCount?: number): IEnumerable;
+			repeat(value: T, repeatCount?: number): IEnumerable<any>;
 			forEach<T2>(source: T[], selector?: (element: T, index: number) => T2): IEnumerable<T2>;
 			forEach<T2>(source: { length: number; [index: number]: T; }, selector?: (element: T, index: number) => T2): IEnumerable<T2>;
 		}
@@ -254,7 +229,7 @@ declare module Rx {
 
 		toNotifier(): (notification: INotification<T>) =>void;
 		asObserver(): IObserver<T>;
-		checked(): ICheckedObserver;
+		checked(): ICheckedObserver<any>;
 	}
 	export module Observer {
 		//abstract
@@ -332,7 +307,7 @@ declare module Rx {
 		//concatIObservable(): IObservable<T>;
 		merge(maxConcurrent: number): IObservable<T>;
 		merge(other: IObservable<T>): IObservable<T>;
-		//mergeIObservable(): IObservable;
+		//mergeIObservable(): IObservable<any>;
 		onErrorResumeNext(second: IObservable<T>): IObservable<T>;
 		skipUntil<T2>(other: IObservable<T2>): IObservable<T>;
 		switchLatest(): IObservable<T>;
@@ -343,10 +318,10 @@ declare module Rx {
 		zip<T2, T3, T4, T5, TResult>(second: IObservable<T2>, third: IObservable<T3>, fourth: IObservable<T4>, fifth: IObservable<T5>, resultSelector: (v1: T, v2: T2, v3: T3, v4: T4, v5: T5) => TResult): IObservable<TResult>;
 		zip<TResult>(...soucesAndResultSelector: any[]): IObservable<TResult>;
 		zip<TResult>(second: any[], resultSelector: (left: T, right: any) => TResult): IObservable<TResult>;
-		asIObservable(): IObservable;
+		asIObservable(): IObservable<any>;
 		bufferWithCount(count: number, skip?: number): IObservable<T>;
 		dematerialize<TOrigin>(): IObservable<TOrigin>;
-		distinctUntilChanged<TValue>(keySelector?: (value: T) => TValue, comparer?: (x: TValue, y: TValue) =>boolean): IObservable;
+		distinctUntilChanged<TValue>(keySelector?: (value: T) => TValue, comparer?: (x: TValue, y: TValue) =>boolean): IObservable<any>;
 		doAction(observer: IObserver<T>): IObservable<T>;
 		doAction(onNext: (value: T) => void , onError?: (exception: any) =>void , onCompleted?: () =>void ): IObservable<T>;
 		finallyAction(action: () =>void): IObservable<T>;
@@ -377,10 +352,8 @@ declare module Rx {
 	}
 
 	interface Observable {
-		(subscribe: (observer: IObserver<any>) =>_IDisposable): IObservable;
+		(subscribe: (observer: IObserver<any>) =>_IDisposable): IObservable<any>;
 
-		start<T>(func: () =>T, scheduler?: IScheduler, context?: any): IObservable<T>;
-		toAsync<T>(func: Function, scheduler?: IScheduler, context?: any): (...arguments: any[]) => IObservable<T>;
 		create<T>(subscribe: (observer: IObserver<T>) => void ): IObservable<T>;
 		//create<T>(subscribe: (observer: IObserver<T>) => () => void ): IObservable<T>;
 		createWithDisposable<T>(subscribe: (observer: IObserver<T>) =>_IDisposable): IObservable<T>;
@@ -406,6 +379,7 @@ declare module Rx {
 		merge<T>(scheduler: IScheduler, sources: IObservable<T>[]): IObservable<T>;
 		onErrorResumeNext<T>(...sources: IObservable<T>[]): IObservable<T>;
 		onErrorResumeNext<T>(sources: IObservable<T>[]): IObservable<T>;
+		zip<T>(...soucesAndResultSelector: any[]): IObservable<T>;
 	}
 
 	var Observable: Observable;
@@ -430,13 +404,13 @@ declare module Rx {
 		dispose(): void;
 	}
 
-	export interface Subject {
-		create<T>(observer?: IObserver<T>, observable?: IObservable<T>): ISubject<T>;
-	}
+    export interface Subject<T> extends ISubject<T> {
+        create<T>(observer?: IObserver<T>, observable?: IObservable<T>): ISubject<T>;
+    }
 
-	var Subject: {
-		new<T> (): ISubject<T>;
-	}
+    var Subject: {
+        new <T>(): Subject<T>;
+    }
 
 	interface IAsyncSubject<T> extends IObservable<T>, IObserver<T> {
 		isDisposed: boolean;

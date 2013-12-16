@@ -410,6 +410,11 @@ function test_animatedSelector() {
     animateIt();
 }
 
+function test_easing() {
+    var result: number = $.easing.linear(3);
+    var result: number = $.easing.swing(3);
+}
+
 function test_append() {
     $('.inner').append('<p>Test</p>');
     $('.container').append($('h2'));
@@ -646,6 +651,7 @@ function test_change() {
         $('.target').change();
     });
     $("input[type='text']").change(function () { });
+    $("input[type='text']").change();
 }
 
 function test_children() {
@@ -701,6 +707,13 @@ function test_click() {
         $(this).slideUp();
     });
     $("p").click();
+}
+
+function test_submit() {
+    $("#target").submit(function () {
+        alert("Handler for .submit() called.");
+    });
+    $("#target").submit();
 }
 
 function test_clone() {
@@ -881,6 +894,8 @@ function test_data() {
     jQuery.data(div, "test", { first: 16, last: "pizza!" });
     $("span:first").text(jQuery.data(div, "test").first);
     $("span:last").text(jQuery.data(div, "test").last);
+    $.data(document.getElementById("id"), "", 8).toFixed(2);
+    $.data(document.getElementById("id"), "", "8").toUpperCase();
 }
 
 function test_dblclick() {
@@ -895,9 +910,22 @@ function test_dblclick() {
     divdbl.dblclick(function () {
         divdbl.toggleClass('dbl');
     });
+	$('#target').dblclick();
 }
 
 function test_deferred() {
+
+    function returnPromise(): JQueryPromise<(data: { MyString: string; MyNumber: number; }, textStatus: string, jqXHR: JQueryXHR) => any> {
+        return $.ajax("test.php");
+    }
+    var x = returnPromise();
+    x.done((data, textStatus, jqXHR) => {
+        var myNumber: number = data.MyNumber;
+        var myString: string = data.MyString;
+        var theTextStatus: string = textStatus;
+        var thejqXHR: JQueryXHR = jqXHR;
+    });
+
     $.get("test.php").always(function () {
         alert("$.get completed with success or error callback arguments");
     });
@@ -1124,7 +1152,9 @@ function test_error() {
             $(this).hide();
         })
         .attr("src", "missing.png");
-    jQuery.error = console.error;
+    jQuery.error = (message?: string) => {
+        console.error(message); return this;
+    }
 }
 
 function test_eventParams() {
@@ -1978,6 +2008,36 @@ function test_keyup() {
     });
 }
 
+function test_resize() {
+	$('#other').resize();
+    $('#other').resize(function () {
+        alert('Handler for .resize() called.');
+    });
+    $('#other').resize({ "event": "Data" }, function () {
+        alert('Handler for .resize() called.');
+    });
+}
+
+function test_scroll() {
+	$('#other').scroll();
+    $('#other').scroll(function () {
+        alert('Handler for .scroll() called.');
+    });
+    $('#other').scroll({ "event": "Data" }, function () {
+        alert('Handler for .scroll() called.');
+    });
+}
+
+function test_select() {
+	$('#other').select();
+    $('#other').select(function () {
+        alert('Handler for .select() called.');
+    });
+    $('#other').select({ "event": "Data" }, function () {
+        alert('Handler for .select() called.');
+    });
+}
+
 function test_last() {
     $('li').last().css('background-color', 'red');
     $("p span").last().addClass('highlight');
@@ -2313,7 +2373,7 @@ function test_EventIsCallable() {
 }
 
 $.when($.ajax("/my/page.json")).then((a,b,c) => a.asdf); // is type JQueryPromise<any>
-$.when("asdf", "jkl;").done(x => x.length, x=> x.length);
+$.when("asdf", "jkl;").done((x,y) => x.length + y.length, (x,y) => x.length + y.length);
 
 var f1 = $.when("fetch"); // Is type JQueryPromise<string>
 var f2: JQueryPromise<string[]> = f1.then(s => [s, s]);

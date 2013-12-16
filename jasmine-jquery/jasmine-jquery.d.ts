@@ -3,23 +3,28 @@
 // Definitions by: Gregor Stamac <https://github.com/gstamac/>
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../jasmine/jasmine.d.ts"/>
 /// <reference path="../jquery/jquery.d.ts"/>
+
+declare function sandbox(attributes?: any): string;
 
 declare function readFixtures(...uls: string[]): string;
 declare function preloadFixtures(...uls: string[]);
 declare function loadFixtures(...uls: string[]);
 declare function appendLoadFixtures(...uls: string[]);
 declare function setFixtures(html: string): string;
-declare function appendSetFixtures();
-declare function sandbox(attributes): JQuery;
-declare function spyOnEvent(selector: JQuery, eventName: string): any;
-declare function preloadStyleFixtures();
-declare function loadStyleFixtures();
-declare function appendLoadStyleFixtures();
+declare function appendSetFixtures(html: string);
+
+declare function preloadStyleFixtures(...uls: string[]);
+declare function loadStyleFixtures(...uls: string[]);
+declare function appendLoadStyleFixtures(...uls: string[]);
 declare function setStyleFixtures(html: string);
 declare function appendSetStyleFixtures(html: string);
-declare function loadJSONFixtures(): jasmine.JSONFixtures;
+
+declare function loadJSONFixtures(...uls: string[]): jasmine.JSONFixtures;
 declare function getJSONFixture(url: string): any;
+
+declare function spyOnEvent(selector: string, eventName: string): jasmine.JQueryEventSpy;
 
 declare module jasmine {
     function spiedEventsKey(selector: JQuery, eventName: string): string;
@@ -30,6 +35,7 @@ declare module jasmine {
 
     interface Fixtures {
         fixturesPath: string;
+        containerId: string;
         set(html: string): string;
         appendSet(html: string);
         preload(...uls: string[]);
@@ -38,16 +44,17 @@ declare module jasmine {
         read(...uls: string[]): string;
         clearCache();
         cleanUp();
-        sandbox(attributes): JQuery;
+        sandbox(attributes?: any): string;
         createContainer_(html: string);
         addToContainer_(html: string);
         getFixtureHtml_(url: string): string;
         loadFixtureIntoCache_(relativeUrl: string);
         makeFixtureUrl_(relativeUrl: string): string;
-        proxyCallTo_(methodName, passedArguments): any;
+        proxyCallTo_(methodName: string, passedArguments): any;
     }
 
     interface StyleFixtures {
+        fixturesPath: string;
         set(html: string): string;
         appendSet(html: string);
         preload(...uls: string[]);
@@ -60,21 +67,18 @@ declare module jasmine {
         getFixtureHtml_(url: string): string;
         loadFixtureIntoCache_(relativeUrl: string);
         makeFixtureUrl_(relativeUrl: string): string;
-        proxyCallTo_(methodName, passedArguments): any;
+        proxyCallTo_(methodName: string, passedArguments): any;
     }
 
     interface JSONFixtures {
+        fixturesPath: string;
         load(...uls: string[]);
         read(...uls: string[]): string;
         clearCache();
         getFixtureData_(url: string): any;
         loadFixtureIntoCache_(relativeUrl: string);
-        proxyCallTo_(methodName, passedArguments): any;
+        proxyCallTo_(methodName: string, passedArguments): any;
     }
-
-    var Fixtures: Fixtures;
-    var StyleFixtures: StyleFixtures;
-    var JSONFixtures: JSONFixtures;
 
     interface Matchers {
         toHaveClass(className: string): boolean;
@@ -97,25 +101,43 @@ declare module jasmine {
         toHaveData(key, expectedValue): boolean;
         toBe(selector: JQuery): boolean;
         toContain(selector: JQuery): boolean;
-        toBeMatchedBy(selector: JQuery): boolean;
-        toBeDisabled(selector: JQuery): boolean;
-        toBeFocused(selector: JQuery): boolean;
+        toBeMatchedBy(selector: string): boolean;
+        toBeDisabled(): boolean;
+        toBeFocused(): boolean;
         toHandle(event): boolean;
         toHandleWith(eventName: string, eventHandler): boolean;
 
-        toHaveBeenTriggeredOn(selector: JQuery): boolean;
         toHaveBeenTriggered(): boolean;
-        toHaveBeenTriggeredOnAndWith(...args: any[]): boolean;
-        toHaveBeenPreventedOn(selector: JQuery): boolean;
+        toHaveBeenTriggeredOn(selector: string): boolean;
+        toHaveBeenTriggeredOnAndWith(selector: string, ...args: any[]): boolean;
         toHaveBeenPrevented(): boolean;
-        toHaveBeenStoppedOn(selector: JQuery): boolean;
+        toHaveBeenPreventedOn(selector: string): boolean;
         toHaveBeenStopped(): boolean;
+        toHaveBeenStoppedOn(selector: string): boolean;
+    }
+
+    interface JQueryEventSpy {
+        selector: string;
+        eventName: string;
+        handler(eventObject: JQueryEventObject): any;
+        reset(): any;
     }
 
     interface JasmineJQuery {
         browserTagCaseIndependentHtml(html: string): string;
         elementToString(element: JQuery): string;
         matchersClass: any;
+        events: JasmineJQueryEvents;
+    }
+
+    interface JasmineJQueryEvents {
+        spyOn(selector: string, eventName: string): JQueryEventSpy;
+        args(selector: string, eventName: string): any;
+        wasTriggered(selector: string, eventName: string): boolean;
+        wasTriggeredWith(selector: string, eventName: string, expectedArgs: any, env: jasmine.Env): boolean;
+        wasPrevented(selector: string, eventName: string): boolean;
+        wasStopped(selector: string, eventName: string): boolean;
+        cleanUp();
     }
 
     var JQuery: JasmineJQuery;
