@@ -793,6 +793,7 @@ declare module ng {
             annotate(inlineAnnotadedFunction: any[]): string[];
             get (name: string): any;
             instantiate(typeConstructor: Function, locals?: any): any;
+            invoke(inlineAnnotadedFunction: any[]): any;
             invoke(func: Function, context?: any, locals?: any): any;
         }
 
