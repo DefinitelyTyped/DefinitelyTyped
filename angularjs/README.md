@@ -72,7 +72,7 @@ TypeScript allows for static checking. Among other obvious things, that means yo
 
 Consider the following ordinary code:
 
-    function Controller($scope) {        
+    function Controller($scope) {
         $scope.$broadcast('myEvent');
         $scope.title = 'Yabadabadu';
     }
@@ -93,7 +93,7 @@ Since you are augmenting the $scope object, you should let the compiler know wha
     interface ICustomScope extends ng.IScope {
         title: string;
     }
-    
+
     function Controller($scope: ng.ICustomScope) {
         $scope.$broadcast('myEvent');
         $scope.title = 'Yabadabadu';
@@ -102,125 +102,127 @@ Since you are augmenting the $scope object, you should let the compiler know wha
 ## Examples
 
 ### Working with $resource
+```ts
+/// <reference path="angular.d.ts" />
+/// <reference path="angular-resource.d.ts" />
 
-    /// <reference path="angular.d.ts" />
-    /// <reference path="angular-resource.d.ts" />
+// We have the option to define arguments for a custom resource
+interface IArticleParameters {
+    id: number;
+}
 
-    // We have the option to define arguments for a custom resource
-    interface IArticleParameters {
-        id: number;
+interface IArticleResource extends ng.resource.IResource<IArticleResource> {
+    title: string;
+    text: string;
+    date: Date;
+    author: number;
+
+    // Although all actions defined on IArticleResourceClass are avaiable with
+    // the '$' prefix, we have the choice to expose only what we will use
+    $publish(): IArticleResource;
+    $unpublish(): IArticleResource;
+}
+
+// Let's define a custom resource
+interface IArticleResourceClass extends ng.resource.IResourceClass<IArticleResource> {
+    // Overload get to accept our custom parameters
+    get(): ng.resource.IResource;
+    get(params: IArticleParameters, onSuccess: Function): IArticleResource;
+
+    // Add our custom resource actions
+    publish(): IArticleResource;
+    publish(params: IArticleParameters): IArticleResource;
+    unpublish(params: IArticleParameters): IArticleResource;
+}
+
+function MainController($resource: ng.resource.IResourceService) {
+
+    // IntelliSense will provide IActionDescriptor interface and will validate
+    // your assignment against it
+    var publishDescriptor: ng.resource.IActionDescriptor;
+    publishDescriptor = {
+        method: 'GET',
+        isArray: false
+    };
+
+    // I could still create a descriptor without the interface...
+    var unpublishDescriptor = {
+        method: 'POST'
     }
 
-    // Let's define a custom resource
-    interface IArticleResourceClass extends ng.resource.IResourceClass {
-        // Overload get to accept our custom parameters
-        get(): ng.resource.IResource;
-        get(params: IArticleParameters, onSuccess: Function): IArticleResource;
+    // A call to the $resource service returns a IResourceClass. Since
+    // our own IArticleResourceClass defines 2 more actions, we cast the return
+    // value to make the compiler aware of that
+    var articleResource = $resource<IArticleResource, IArticleResourceClass>('/articles/:id', null, {
+        publish : publishDescriptor,
+        unpublish : unpublishDescriptor
+    });
 
-        // Add our custom resource actions
-        publish(): IArticleResource;
-        publish(params: IArticleParameters): IArticleResource;
-        unpublish(params: IArticleParameters): IArticleResource;
-    }
+    // Now we can do this
+    articleResource.unpublish({ id: 1 });
 
-    interface IArticleResource extends ng.resource.IResource {
-        title: string;
-        text: string;
-        date: Date;
-        author: number;
-
-        // Although all actions defined on IArticleResourceClass are avaiable with
-        // the '$' prefix, we have the choice to expose only what we will use
-        $publish(): IArticleResource;
-        $unpublish(): IArticleResource;
-    }
-
-    function MainController($resource: ng.resource.IResourceService) {
-                
-        // IntelliSense will provide IActionDescriptor interface and will validate
-        // your assignment against it
-        var publishDescriptor: ng.resource.IActionDescriptor;
-        publishDescriptor = {
-            method: 'GET',
-            isArray: false
-        };
-
-        // I could still create a descriptor without the interface...
-        var unpublishDescriptor = {
-            method: 'POST'
-        }
-
-        // A call to the $resource service returns a IResourceClass. Since
-        // our own IArticleResourceClass defines 2 more actions, we cast the return
-        // value to make the compiler aware of that
-        var articleResource = <IArticleResourceClass> $resource('/articles/:id', null, {
-            publish : publishDescriptor,
-            unpublish : unpublishDescriptor
-        });
-
-        // Now we can do this
-        articleResource.unpublish({ id: 1 });
-            
-        // IResourceClass.get() will be automatically available here
-        var article: IArticleResource = articleResource.get({id: 1}, function success() {
-            // Again, default + custom action here...
-            article.title = 'New Title';
-            article.$save();
-            article.$publish();
-        });
-    }
-
-### Working with $resource in angular-1.0 definitions
-
-    /// <reference path="angular-1.0.d.ts" />
-    /// <reference path="angular-resource-1.0.d.ts" />
-
-    // Let's define a custom resource
-    interface IArticleResourceClass extends ng.resource.IResourceClass {
-        publish: ng.resource.IActionCall;
-        unpublish: ng.resource.IActionCall;
-    }
-    interface IArticleResource extends ng.resource.IResource {
-        title: string;
-        text: string;
-        date: Date;
-        author: number;
-        $publish: ng.resource.IActionCall;
-        $unpublish: ng.resource.IActionCall;
-    }
-
-    function MainController($resource: ng.resource.IResourceService) {
-                
-        // IntelliSense will provide IActionDescriptor interface and will validate
-        // your assignment against it
-        var publishDescriptor: ng.resource.IActionDescriptor;
-        publishDescriptor = {
-            method: 'GET',
-            isArray: false
-        };
-
-        // I could still create a descriptor without the interface...
-        var unpublishDescriptor = {
-            method: 'POST'
-        }
-
-        // A call to the $resource service returns a IResourceClass. Since
-        // our own IArticleResourceClass defines 2 more actions, we cast the return
-        // value to make the compiler aware of that
-        var articles = <IArticleResourceClass> $resource('/articles/:id', null, {
-            publish : publishDescriptor,
-            unpublish : unpublishDescriptor
-        });     
-
-        // Now we can do this
-        articles.unpublish({ id: 1 });
-            
-        // IResourceClass.get() will be automatically available here
-        var article = <IArticleResource> articles.get({id: 1});
-
+    // IResourceClass.get() will be automatically available here
+    var article: IArticleResource = articleResource.get({id: 1}, function success() {
         // Again, default + custom action here...
         article.title = 'New Title';
         article.$save();
         article.$publish();
-        
+    });
+}
+```
+
+### Working with $resource in angular-1.0 definitions
+```ts
+/// <reference path="angular-1.0.d.ts" />
+/// <reference path="angular-resource-1.0.d.ts" />
+
+// Let's define a custom resource
+interface IArticleResourceClass extends ng.resource.IResourceClass {
+    publish: ng.resource.IActionCall;
+    unpublish: ng.resource.IActionCall;
+}
+interface IArticleResource extends ng.resource.IResource {
+    title: string;
+    text: string;
+    date: Date;
+    author: number;
+    $publish: ng.resource.IActionCall;
+    $unpublish: ng.resource.IActionCall;
+}
+
+function MainController($resource: ng.resource.IResourceService) {
+
+    // IntelliSense will provide IActionDescriptor interface and will validate
+    // your assignment against it
+    var publishDescriptor: ng.resource.IActionDescriptor;
+    publishDescriptor = {
+        method: 'GET',
+        isArray: false
+    };
+
+    // I could still create a descriptor without the interface...
+    var unpublishDescriptor = {
+        method: 'POST'
     }
+
+    // A call to the $resource service returns a IResourceClass. Since
+    // our own IArticleResourceClass defines 2 more actions, we cast the return
+    // value to make the compiler aware of that
+    var articles = <IArticleResourceClass> $resource('/articles/:id', null, {
+        publish : publishDescriptor,
+        unpublish : unpublishDescriptor
+    });
+
+    // Now we can do this
+    articles.unpublish({ id: 1 });
+
+    // IResourceClass.get() will be automatically available here
+    var article = <IArticleResource> articles.get({id: 1});
+
+    // Again, default + custom action here...
+    article.title = 'New Title';
+    article.$save();
+    article.$publish();
+
+}
+```
