@@ -43,11 +43,11 @@ To avoid cluttering the list of suggestions as you type in your IDE, all interfa
 **ngMockE2E** does not define a new namespace, but rather modifies some of **ng**'s interfaces.
 
 Bellow is an example of how to use the interfaces:
-
-    function MainController($scope: ng.IScope, $http: ng.IHttpService) {
-        // code assistance will now be available for $scope and $http
-    }
-
+```ts
+function MainController($scope: ng.IScope, $http: ng.IHttpService) {
+    // code assistance will now be available for $scope and $http
+}
+```
 
 ## Services and other injectables
 
@@ -71,33 +71,35 @@ The **$httpProvider**, thus, is defined by **ng.IHttpProvider**.
 TypeScript allows for static checking. Among other obvious things, that means you're gonna have to extend interfaces when you need to augment an object whose interface has been defined, because otherwise the compiler will see it as an error to try to assign a value to a unspecified member.
 
 Consider the following ordinary code:
-
-    function Controller($scope) {
-        $scope.$broadcast('myEvent');
-        $scope.title = 'Yabadabadu';
-    }
-
+```ts
+function Controller($scope) {
+    $scope.$broadcast('myEvent');
+    $scope.title = 'Yabadabadu';
+}
+```
 That will not produce any compilation error because the compiler does not know the first thing about $scope to do any checking. For that same reason, you will not get any assistance either.
 
 Now consider this:
-
-    function Controller($scope: ng.IScope) {
-        $scope.$broadcast('myEvent');
-        $scope.title = 'Yabadabadu';
-    }
+```ts
+function Controller($scope: ng.IScope) {
+    $scope.$broadcast('myEvent');
+    $scope.title = 'Yabadabadu';
+}
+```
 
 Now we annotated `$scope` with the interface `ng.IScope`. The compiler now knows that, among other members, `$scope` has a method called `$broadcast`. That interface, however, does not define a `title` property. The compiler will complain about it.
 
 Since you are augmenting the $scope object, you should let the compiler know what to expect then:
+```ts
+interface ICustomScope extends ng.IScope {
+    title: string;
+}
 
-    interface ICustomScope extends ng.IScope {
-        title: string;
-    }
-
-    function Controller($scope: ng.ICustomScope) {
-        $scope.$broadcast('myEvent');
-        $scope.title = 'Yabadabadu';
-    }
+function Controller($scope: ng.ICustomScope) {
+    $scope.$broadcast('myEvent');
+    $scope.title = 'Yabadabadu';
+}
+```
 
 ## Examples
 
