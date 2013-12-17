@@ -78,8 +78,10 @@ resourceClass = resourceService('test');
 // IModule
 ///////////////////////////////////////
 var mod: ng.IModule;
-var resourceServiceFactoryFunction: ng.resource.IResourceServiceFactoryFunction<any>;
+var resourceServiceFactoryFunction: ng.resource.IResourceServiceFactoryFunction<IMyResource>;
 var resourceService: ng.resource.IResourceService;
+
+resourceClass = resourceServiceFactoryFunction<IMyResourceClass>(resourceService);
 
 resourceServiceFactoryFunction = function (resourceService) { return resourceClass };
 mod = mod.factory('factory name', resourceServiceFactoryFunction);
