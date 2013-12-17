@@ -1,5 +1,8 @@
 /// <reference path="angular-resource.d.ts" />
 
+interface IMyResource extends ng.resource.IResource<IMyResource> { };
+interface IMyResourceClass extends ng.resource.IResourceClass<IMyResource> { };
+
 ///////////////////////////////////////
 // IActionDescriptor
 ///////////////////////////////////////
@@ -14,9 +17,9 @@ actionDescriptor.params = { key: 'value' };
 ///////////////////////////////////////
 // IResourceClass
 ///////////////////////////////////////
-var resourceClass: ng.resource.IResourceClass;
-var resource: ng.resource.IResource;
-var resourceArray: ng.resource.IResource[];
+var resourceClass: IMyResourceClass;
+var resource: IMyResource;
+var resourceArray: IMyResource[];
 
 resource = resourceClass.delete();
 resource = resourceClass.delete({ key: 'value' });
@@ -63,12 +66,19 @@ resource = resourceClass.save({ key: 'value' }, { key: 'value' });
 resource = resourceClass.save({ key: 'value' }, { key: 'value' }, function () { });
 resource = resourceClass.save({ key: 'value' }, { key: 'value' }, function () { }, function () { });
 
+///////////////////////////////////////
+// IResourceService
+///////////////////////////////////////
+var resourceService: ng.resource.IResourceService;
+resourceClass = resourceService<IMyResource, IMyResourceClass>('test');
+resourceClass = resourceService<IMyResource>('test');
+resourceClass = resourceService('test');
 
 ///////////////////////////////////////
 // IModule
 ///////////////////////////////////////
 var mod: ng.IModule;
-var resourceServiceFactoryFunction: ng.resource.IResourceServiceFactoryFunction;
+var resourceServiceFactoryFunction: ng.resource.IResourceServiceFactoryFunction<any>;
 var resourceService: ng.resource.IResourceService;
 
 resourceServiceFactoryFunction = function (resourceService) { return resourceClass };
