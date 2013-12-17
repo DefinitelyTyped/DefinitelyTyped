@@ -1158,7 +1158,7 @@ declare module 'mapsjs' {
 			 * @param {renderer} r The renderer delegate function with 
 			 * signature renderer(quadview).
 			 */
-            setRenderer(r: any): void;
+            setRenderer(r: tile.renderer): void;
 			
 			/**
 			 * Notifies the tile layer to check for changes to its renderer.
@@ -1548,7 +1548,7 @@ declare module 'mapsjs' {
 			 * This should be called if the data changes or if, due to extent
 			 * changes, the density changes.
 			 */
-            notifyRecompute(extents?: envelope): void;
+            notifyRecompute(): void;
         }
 		
 		/**
@@ -1753,7 +1753,7 @@ declare module 'mapsjs' {
 		 * The bitmap or vector tile requestor using MapDotNet REST services.
 	     * @class requestorMDN
          */
-		export class requestorMDNRest extends requestor {
+		export class requestorMDN extends requestor {
             constructor(endpoint: string, options?: {
                 dataFormat?: string;
                 timeoutMs?: number;
@@ -2249,22 +2249,7 @@ declare module 'mapsjs' {
          * @param {number} [durationMs] Duration in miliseconds.
          * @param {function} [completeAction] Callback to perform on animaton complete.
 		 */
-        setMapCenterToGeolocationAnimate(durationMs?: number, completeAction?: () => void): void;
-
-        /**
-        * Offsets the current map center by the specified deltas in pixels. 
-        * @param {number} [dx] offset x in pixels.
-        * @param {number} [dy] offset y in pixels.
-	    */
-        offsetMapCenterByPixelDelta(dx: number, dy: number): void;
-
-        /**
-        * Offsets the current map center by the specified deltas in pixels - animated version.
-        * @param {number} [dx] offset x in pixels.
-        * @param {number} [dy] offset y in pixels.
-        * @param {number} [durationMs] animation duration in mS.
-        */
-        offsetMapCenterByPixelDeltaAnimate(dx: number, dy: number, durationMs?: number): void;
+		setMapCenterToGeolocationAnimate(durationMs?: number, completeAction?: () => void): void;
         
 		/**
 		 * Gets the current zoom level.
@@ -2397,15 +2382,15 @@ declare module 'mapsjs' {
 		popTileLayer(): tile.layer;
 
 		/**
-        * Removes a tile layer off the display stack by reference
-        * @param {tile.layer} tl A tile layer to remove.
-        */
-        removeTileLayer(tl: tile.layer): void;
+         	* Removes a tile layer off the display stack by reference
+         	* @param {tile.layer} tl - a tile layer
+         	*/
+        	removeTileLayer(tl: tile.layer): void;
 
-        /**
-        * Removes all tile layers off the display stack
-        */
-        removeAllTileLayers(): void;
+        	/**
+         	* Removes all tile layers off the display stack
+         	*/
+        	removeAllTileLayers(): void;
         
 		/**
 		 * Gets the current number of tile layers in the display stack.
