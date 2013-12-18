@@ -84,7 +84,11 @@ declare module Rx {
 		fromEvent<T>(element: Node, eventName: string, selector?: (arguments: any[]) => T): Observable<T>;
         fromEventPattern<T>(addHandler: (handler: Function) => void, removeHandler: (handler: Function) => void, selector?: (arguments: any[])=>T): Observable<T>;
 
-		fromPromise<T>(promise: { then(onFulfill: (value: T) => any, onReject?: (reason: any) => any): any; }): Observable<T>;
+		fromPromise<T>(promise: Promise<T>): Observable<T>;
 		fromPromise<T>(promise: any): Observable<T>;
+	}
+
+	interface Promise<T> {
+		then(onFulfill: (value: T) => any, onReject?: (reason: any) => any): any;
 	}
 }
