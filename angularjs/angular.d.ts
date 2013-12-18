@@ -127,15 +127,15 @@ declare module ng {
     	// this is necessary to be able to access the scoped attributes. it's not very elegant
     	// because you have to use attrs['foo'] instead of attrs.foo but I don't know of a better way
     	// this should really be limited to return string but it creates this problem: http://stackoverflow.com/q/17201854/165656
-    	[name: string]: any; 
-    	
-        // Adds the CSS class value specified by the classVal parameter to the 
-        // element. If animations are enabled then an animation will be triggered 
+    	[name: string]: any;
+
+        // Adds the CSS class value specified by the classVal parameter to the
+        // element. If animations are enabled then an animation will be triggered
         // for the class addition.
         $addClass(classVal: string): void;
 
-        // Removes the CSS class value specified by the classVal parameter from the 
-        // element. If animations are enabled then an animation will be triggered for 
+        // Removes the CSS class value specified by the classVal parameter from the
+        // element. If animations are enabled then an animation will be triggered for
         // the class removal.
         $removeClass(classVal: string): void;
 
@@ -143,12 +143,12 @@ declare module ng {
         $set(key: string, value: any): void;
 
         // Observes an interpolated attribute.
-        // The observer function will be invoked once during the next $digest 
-        // following compilation. The observer is then invoked whenever the 
+        // The observer function will be invoked once during the next $digest
+        // following compilation. The observer is then invoked whenever the
         // interpolated value changes.
         $observe(name: string, fn:(value?:any)=>any): Function;
 
-        // A map of DOM element attribute names to the normalized name. This is needed 
+        // A map of DOM element attribute names to the normalized name. This is needed
         // to do reverse lookup from normalized name back to actual name.
         $attr: Object;
     }
@@ -451,12 +451,12 @@ declare module ng {
         then<TResult>(successCallback: (promiseValue: T) => IHttpPromise<TResult>, errorCallback?: (reason: any) => any, notifyCallback?: (state: any) => any): IPromise<TResult>;
         then<TResult>(successCallback: (promiseValue: T) => IPromise<TResult>, errorCallback?: (reason: any) => any, notifyCallback?: (state: any) => any): IPromise<TResult>;
         then<TResult>(successCallback: (promiseValue: T) => TResult, errorCallback?: (reason: any) => TResult, notifyCallback?: (state: any) => any): IPromise<TResult>;
-        
-        
+
+
         catch<TResult>(onRejected: (reason: any) => IHttpPromise<TResult>): IPromise<TResult>;
         catch<TResult>(onRejected: (reason: any) => IPromise<TResult>): IPromise<TResult>;
         catch<TResult>(onRejected: (reason: any) => TResult): IPromise<TResult>;
-        
+
         finally<TResult>(finallyCallback: ()=>any):IPromise<TResult>;
     }
 
@@ -700,7 +700,7 @@ declare module ng {
         valueOf(value: any): any;
     }
 
-	
+
     ///////////////////////////////////////////////////////////////////////////
     // SCEDelegateProvider
     // see http://docs.angularjs.org/api/ng.$sceDelegateProvider
@@ -709,7 +709,7 @@ declare module ng {
         resourceUrlBlacklist(blacklist: any[]): void;
         resourceUrlWhitelist(whitelist: any[]): void;
     }
-	
+
     ///////////////////////////////////////////////////////////////////////////
     // Directive
     // see http://docs.angularjs.org/api/ng.$compileProvider#directive
@@ -793,6 +793,7 @@ declare module ng {
             annotate(inlineAnnotadedFunction: any[]): string[];
             get (name: string): any;
             instantiate(typeConstructor: Function, locals?: any): any;
+            invoke(inlineAnnotadedFunction: any[]): any;
             invoke(func: Function, context?: any, locals?: any): any;
         }
 
