@@ -56,7 +56,7 @@ function test_computed() {
     function MyViewModel1() {
         this.price = ko.observable(25.99);
 
-        this.formattedPrice = ko.computed({
+        this.formattedPrice = ko.computed<string>({
             read: function () {
                 return '$' + this.price().toFixed(2);
             },
@@ -124,7 +124,7 @@ function test_observableArrays() {
     myObservableArray.unshift('Some new value');
     myObservableArray.shift();
     myObservableArray.reverse();
-    myObservableArray.sort(function (left, right) { return left.lastName == right.lastName ? 0 : (left.lastName < right.lastName ? -1 : 1) });
+    myObservableArray.sort(function (left, right) { return left == right ? 0 : (left < right ? -1 : 1) });
     myObservableArray.splice(1, 3);
 
     myObservableArray.remove('Blah');
