@@ -6,6 +6,7 @@
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="../handlebars/handlebars.d.ts" />
 
+declare var Handlebars: HandlebarsStatic;
 
 declare module EmberStates {
 
@@ -50,7 +51,7 @@ interface String {
     dasherize(): string;
     decamelize(): string;
     fmt(...string): string;
-    htmlSafe(): Handlebars.SafeString;
+    htmlSafe(): typeof Handlebars.SafeString;
     loc(...string): string;
     underscore(): string;
     w(): string[];
@@ -58,14 +59,13 @@ interface String {
 
 interface Array {
     constructor(arr: any[]);
-    constructor(arr: Array);
     activate(): void;
-    addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): Array;
-    addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Array;
+    addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): any[];
+    addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): any[];
     any(callback: Function, target?: any): boolean;
     anyBy(key: string, value?: string): boolean;
-    arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): Array;
-    arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): Array;
+    arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): any[];
+    arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): any[];
     someProperty(key: string, value?: any): boolean;
     clear(): any[];
     compact(): any[];
@@ -78,10 +78,10 @@ interface Array {
     enumerableContentDidChange(removing: Ember.Enumerable, adding: number);
     enumerableContentDidChange(removing: number, adding: Ember.Enumerable);
     enumerableContentDidChange(removing: Ember.Enumerable, adding: Ember.Enumerable);
-    enumerableContentWillChange(removing: number, adding: number): Array;
-    enumerableContentWillChange(removing: Ember.Enumerable, adding: number): Array;
-    enumerableContentWillChange(removing: number, adding: Ember.Enumerable): Array;
-    enumerableContentWillChange(removing: Ember.Enumerable, adding: Ember.Enumerable): Array;
+    enumerableContentWillChange(removing: number, adding: number): any[];
+    enumerableContentWillChange(removing: Ember.Enumerable, adding: number): any[];
+    enumerableContentWillChange(removing: number, adding: Ember.Enumerable): any[];
+    enumerableContentWillChange(removing: Ember.Enumerable, adding: Ember.Enumerable): any[];
     every(callback: Function, target?: any): boolean;
     everyBy(key: string, value?: string): boolean;
     everyProperty(key: string, value?: any): boolean;
@@ -92,7 +92,7 @@ interface Array {
     forEach(callback: Function, target?: any): any;
     getEach(key: string): any[];
     indexOf(object: any, startAt: number): number;
-    insertAt(idx: number, object: any): Array;
+    insertAt(idx: number, object: any): any[];
     invoke(methodName: string, ...any): any[];
     lastIndexOf(object: any, startAt: number): number;
     mapBy(key: string): any[];
@@ -101,56 +101,56 @@ interface Array {
     objectsAt(...number): any[];
     popObject(): any;
     pushObject(obj: any): any;
-    pushObjects(...any): Array;
+    pushObjects(...any): any[];
     reduce(callback: ReduceCallback, initialValue: any, reducerProperty: string): any;
     reject: ItemIndexEnumerableCallbackTarget;
     rejectBy(key: string, value?: string): any[];
-    removeArrayObserver(target: any, opts: EnumerableConfigurationOptions): Array;
+    removeArrayObserver(target: any, opts: EnumerableConfigurationOptions): any[];
     removeAt(start: number, len: number): any;
-    removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Array;
+    removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): any[];
     replace(idx: number, amt: number, objects: any[]);
-    reverseObjects(): Array;
+    reverseObjects(): any[];
     setEach(key: string, value?: any): any;
-    setObjects(objects: any[]): Array;
+    setObjects(objects: any[]): any[];
     shiftObject(): any;
     slice(beginIndex?: number, endIndex?: number): any[];
     some(callback: Function, target?: any): boolean;
     toArray(): any[];
-    uniq(): Array;
+    uniq(): any[];
     unshiftObject(object: any): any;
-    unshiftObjects(objects: any[]): Array;
-    without(value: any): Array;
-    '[]': Array;
+    unshiftObjects(objects: any[]): any[];
+    without(value: any): any[];
+    '[]': any[];
     '@each': Ember.EachProxy;
     Boolean: boolean;
     firstObject: any;
     hasEnumerableObservers: boolean;
     lastObject: any;
     addObject(object: any): any;
-    addObjects(objects: Ember.Enumerable): Array;
+    addObjects(objects: Ember.Enumerable): any[];
     removeObject(object: any): any;
-    removeObjects(objects: Ember.Enumerable): Array;
+    removeObjects(objects: Ember.Enumerable): any[];
     addObserver: ModifyObserver;
-    beginPropertyChanges(): Array;
+    beginPropertyChanges(): any[];
     cacheFor(keyName: string): any;
     decrementProperty(keyName: string, decrement?: number): number;
-    endPropertyChanges(): Array;
+    endPropertyChanges(): any[];
     get(keyName: string): any;
     getProperties(...string): {};
     getProperties(keys: string[]): {};
     getWithDefault(keyName: string, defaultValue: any): any;
     hasObserverFor(key: string): boolean;
     incrementProperty(keyName: string, increment?: number): number;
-    notifyPropertyChange(keyName: string): Array;
-    propertyDidChange(keyName: string): Array;
-    propertyWillChange(keyName: string): Array;
+    notifyPropertyChange(keyName: string): any[];
+    propertyDidChange(keyName: string): any[];
+    propertyWillChange(keyName: string): any[];
     removeObserver(key: string, target: any, method: string): Ember.Observable;
     removeObserver(key: string, target: any, method: Function): Ember.Observable;
-    set(keyName: string, value: any): Array;
-    setProperties(hash: {}): Array;
+    set(keyName: string, value: any): any[];
+    setProperties(hash: {}): any[];
     toggleProperty(keyName: string): any;
-    copy(deep: boolean): Array;
-    frozenCopy(): Array;
+    copy(deep: boolean): any[];
+    frozenCopy(): any[];
 }
 
 interface ApplicationCreateArguments {
@@ -187,20 +187,6 @@ interface CoreObjectArguments {
     Override to implement teardown.
     **/
     willDestroy?: Function;
-}
-
-interface ClassMixin {
-    extend<T>(arguments?: {}): T;
-    create<T extends ClassMixin>(arguments?: {}): T;
-    createWithMixins<T extends ClassMixin>(arguments?: {}): T;
-    detect(obj: any): boolean;
-    detectInstance(obj: any): boolean;
-    eachComputedProperty(callback: Function, binding: {}): void;
-    metaForProperty(key: string): {};
-    reopen<T extends ClassMixin>(arguments?: {}): T;
-    reopenClass<T extends ClassMixin>(arguments?: {}): T;
-    isClass: boolean;
-    isMethod: boolean;
 }
 
 interface EnumerableConfigurationOptions {
@@ -254,6 +240,7 @@ declare module Ember {
     /**
     Alias for jQuery.
     **/
+    // ReSharper disable once DuplicatingLocalDeclaration
     var $: JQueryStatic;
     /**
     Creates an Ember.NativeArray from an Array like object. Does not modify the original object.
@@ -266,20 +253,7 @@ declare module Ember {
     An instance of Ember.Application is the starting point for every Ember application. It helps to
     instantiate, initialize and coordinate the many objects that make up your app.
     **/
-    class Application extends Namespace implements ClassMixin {
-        /**
-        Creates a subclass of the Application class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends Application>(arguments?: ApplicationCreateArguments): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends Application>(arguments?: ApplicationCreateArguments): T;
+    class Application extends Namespace {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -292,17 +266,6 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends Application>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends Application>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
         static initializer(arguments?: ApplicationInitializerArguments): void;
@@ -389,12 +352,12 @@ declare module Ember {
     Array class as well as other controllers, etc. that want to appear to be arrays.
     **/
     class Array implements Enumerable {
-        addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): Array;
+        addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): any[];
         addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
         any(callback: Function, target?: any): boolean;
         anyBy(key: string, value?: string): boolean;
-        arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): Array;
-        arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): Array;
+        arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): any[];
+        arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): any[];
         someProperty(key: string, value?: string): boolean;
         compact(): any[];
         contains(obj: any): boolean;
@@ -430,7 +393,7 @@ declare module Ember {
         reduce(callback: ReduceCallback, initialValue: any, reducerProperty: string): any;
         reject: ItemIndexEnumerableCallbackTarget;
         rejectBy(key: string, value?: string): any[];
-        removeArrayObserver(target: any, opts: EnumerableConfigurationOptions): Array;
+        removeArrayObserver(target: any, opts: EnumerableConfigurationOptions): any[];
         removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
         setEach(key: string, value?: any): any;
         slice(beginIndex?: number, endIndex?: number): any[];
@@ -440,7 +403,7 @@ declare module Ember {
         without(value: any): Enumerable;
         '@each': EachProxy;
         Boolean: boolean;
-        '[]': Array;
+        '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -450,20 +413,7 @@ declare module Ember {
     Provides a way for you to publish a collection of objects so that you can easily bind to the
     collection from a Handlebars #each helper, an Ember.CollectionView, or other controllers.
     **/
-    class ArrayController extends ArrayProxy implements SortableMixin, ControllerMixin, ClassMixin {
-        /**
-        Creates a subclass of the ArrayController class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends ArrayController>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends ArrayController>(arguments?: {}): T;
+    class ArrayController extends ArrayProxy implements SortableMixin, ControllerMixin {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -476,17 +426,6 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends ArrayController>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends ArrayController>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
         lookupItemController(object: any): string;
@@ -514,20 +453,7 @@ declare module Ember {
     forwarding all requests. This makes it very useful for a number of binding use cases or other cases
     where being able to swap out the underlying array is useful.
     **/
-    class ArrayProxy extends Object implements MutableArray, ClassMixin {
-        /**
-        Creates a subclass of the ArrayProxy class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends ArrayProxy>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends ArrayProxy>(arguments?: {}): T;
+    class ArrayProxy extends Object implements MutableArray {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -540,25 +466,14 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends ArrayProxy>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends ArrayProxy>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
-        addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): ArrayProxy;
-        addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): ArrayProxy;
+        addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): any[];
+        addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): any[];
         any(callback: Function, target?: any): boolean;
         anyBy(key: string, value?: string): boolean;
-        arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): ArrayProxy;
-        arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): ArrayProxy;
+        arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): any[];
+        arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): any[];
         someProperty(key: string, value?: string): boolean;
         clear(): any[];
         compact(): any[];
@@ -571,10 +486,10 @@ declare module Ember {
         enumerableContentDidChange(removing: Enumerable, adding: number);
         enumerableContentDidChange(removing: number, adding: Enumerable);
         enumerableContentDidChange(removing: Enumerable, adding: Enumerable);
-        enumerableContentWillChange(removing: number, adding: number): ArrayProxy;
-        enumerableContentWillChange(removing: Enumerable, adding: number): ArrayProxy;
-        enumerableContentWillChange(removing: number, adding: Enumerable): ArrayProxy;
-        enumerableContentWillChange(removing: Enumerable, adding: Enumerable): ArrayProxy;
+        enumerableContentWillChange(removing: number, adding: number): any[];
+        enumerableContentWillChange(removing: Enumerable, adding: number): any[];
+        enumerableContentWillChange(removing: number, adding: Enumerable): any[];
+        enumerableContentWillChange(removing: Enumerable, adding: Enumerable): any[];
         every(callback: Function, target?: any): boolean;
         everyBy(key: string, value?: string): boolean;
         everyProperty(key: string, value?: string): boolean;
@@ -585,7 +500,7 @@ declare module Ember {
         forEach(callback: Function, target?: any): any;
         getEach(key: string): any[];
         indexOf(object: any, startAt: number): number;
-        insertAt(idx: number, object: any): ArrayProxy;
+        insertAt(idx: number, object: any): any[];
         invoke(methodName: string, ...any): any[];
         lastIndexOf(object: any, startAt: number): number;
         map: ItemIndexEnumerableCallbackTarget;
@@ -596,27 +511,27 @@ declare module Ember {
         objectsAt(...number): any[];
         popObject(): any;
         pushObject(obj: any): any;
-        pushObjects(...any): ArrayProxy;
+        pushObjects(...any): any[];
         reduce(callback: ReduceCallback, initialValue: any, reducerProperty: string): any;
         reject: ItemIndexEnumerableCallbackTarget;
         rejectBy(key: string, value?: string): any[];
-        removeArrayObserver(target: any, opts: EnumerableConfigurationOptions): ArrayProxy;
+        removeArrayObserver(target: any, opts: EnumerableConfigurationOptions): any[];
         removeAt(start: number, len: number): any;
-        removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): ArrayProxy;
+        removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): any[];
         replace(idx: number, amt: number, objects: any[]);
         replaceContent(idx: number, amt: number, objects: any[]): void;
-        reverseObjects(): ArrayProxy;
+        reverseObjects(): any[];
         setEach(key: string, value?: any): any;
-        setObjects(objects: any[]): ArrayProxy;
+        setObjects(objects: any[]): any[];
         shiftObject(): any;
         slice(beginIndex?: number, endIndex?: number): any[];
         some(callback: Function, target?: any): boolean;
         toArray(): any[];
-        uniq(): ArrayProxy;
+        uniq(): any[];
         unshiftObject(object: any): any;
-        unshiftObjects(objects: any[]): ArrayProxy;
-        without(value: any): ArrayProxy;
-        '[]': ArrayProxy;
+        unshiftObjects(objects: any[]): any[];
+        without(value: any): any[];
+        '[]': any[];
         '@each': EachProxy;
         Boolean: boolean;
         firstObject: any;
@@ -624,9 +539,9 @@ declare module Ember {
         lastObject: any;
         length: number;
         addObject(object: any): any;
-        addObjects(objects: Enumerable): ArrayProxy;
+        addObjects(objects: Enumerable): any[];
         removeObject(object: any): any;
-        removeObjects(objects: Enumerable): ArrayProxy;
+        removeObjects(objects: Enumerable): any[];
     }
     var BOOTED: boolean;
     /**
@@ -644,20 +559,7 @@ declare module Ember {
         to(pathTuple: any[]): Binding;
         toString(): string;
     }
-    class Button extends View implements TargetActionSupport, ClassMixin {
-        /**
-        Creates a subclass of the Button class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends Button>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends Button>(arguments?: {}): T;
+    class Button extends View implements TargetActionSupport {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -670,17 +572,6 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends Button>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends Button>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
         triggerAction(opts: {}): boolean;
@@ -689,20 +580,7 @@ declare module Ember {
     The internal class used to create text inputs when the {{input}} helper is used
     with type of checkbox. See Handlebars.helpers.input for usage details.
     **/
-    class Checkbox extends View implements ClassMixin {
-        /**
-        Creates a subclass of the Checkbox class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends Checkbox>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends Checkbox>(arguments?: {}): T;
+    class Checkbox extends View {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -715,17 +593,6 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends Checkbox>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends Checkbox>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
     }
@@ -742,7 +609,7 @@ declare module Ember {
         destroy(): CollectionView;
         init(): void;
         static CONTAINER_MAP: {};
-        content: Array;
+        content: any[];
         emptyView: View;
         itemViewClass: View;
     }
@@ -758,20 +625,7 @@ declare module Ember {
     and actions are targeted at the view object. There is no access to the surrounding context or
     outer controller; all contextual information is passed in.
     **/
-    class Component extends View implements ClassMixin {
-        /**
-        Creates a subclass of the Component class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends Component>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends Component>(arguments?: {}): T;
+    class Component extends View {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -784,17 +638,6 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends Component>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends Component>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
         sendAction(action: string, context: any): void;
@@ -813,7 +656,9 @@ declare module Ember {
         property(...string): ComputedProperty;
         readOnly(): ComputedProperty;
         set(keyName: string, newValue: any, oldValue: string): any;
+        // ReSharper disable UsingOfReservedWord
         volatile(): ComputedProperty;
+        // ReSharper restore UsingOfReservedWord
     }
     class Container {
         constructor(parent: Container);
@@ -851,20 +696,7 @@ declare module Ember {
     An Ember.View subclass that implements Ember.MutableArray allowing programatic
     management of its child views.
     **/
-    class ContainerView extends View implements ClassMixin {
-        /**
-        Creates a subclass of the ContainerView class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends ContainerView>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends ContainerView>(arguments?: {}): T;
+    class ContainerView extends View {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -877,17 +709,6 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends ContainerView>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends ContainerView>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
     }
@@ -912,20 +733,7 @@ declare module Ember {
         copy(deep: boolean): Copyable;
         frozenCopy(): Copyable;
     }
-    class CoreObject implements ClassMixin {
-        /**
-        Creates a subclass of the CoreObject class.
-        **/
-        static extend<T>(arguments?: CoreObjectArguments): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends CoreObject>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends CoreObject>(arguments?: {}): T;
+    class CoreObject {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -938,17 +746,6 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends CoreObject>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends CoreObject>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
         /**
@@ -986,20 +783,7 @@ declare module Ember {
     and other classes like Ember._SimpleMetamorphView that don't need the fully functionaltiy of Ember.View.
     Unless you have specific needs for CoreView, you will use Ember.View in your applications.
     **/
-    class CoreView extends Object implements ClassMixin {
-        /**
-        Creates a subclass of the CoreView class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends CoreView>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends CoreView>(arguments?: {}): T;
+    class CoreView extends Object {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -1012,17 +796,6 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends CoreView>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends CoreView>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
         parentView: CoreView;
@@ -1071,20 +844,7 @@ declare module Ember {
     This is the object instance returned when you get the @each property on an array. It uses
     the unknownProperty handler to automatically create EachArray instances for property names.
     **/
-    class EachProxy extends Object implements ClassMixin {
-        /**
-        Creates a subclass of the EachProxy class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends EachProxy>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends EachProxy>(arguments?: {}): T;
+    class EachProxy extends Object {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -1097,20 +857,9 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends EachProxy>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends EachProxy>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
-        unknownProperty(keyName: string, value: any): Array;
+        unknownProperty(keyName: string, value: any): any[];
     }
     /**
     This mixin defines the common interface implemented by enumerable objects in Ember. Most of these
@@ -1160,7 +909,7 @@ declare module Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-        '[]': Array;
+        '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -1169,25 +918,13 @@ declare module Ember {
     /**
     A subclass of the JavaScript Error object for use in Ember.
     **/
+    // ReSharper disable once DuplicatingLocalDeclaration
     var Error: typeof Error;
     /**
     Handles delegating browser events to their corresponding Ember.Views. For example, when you click on
     a view, Ember.EventDispatcher ensures that that view's mouseDown method gets called.
     **/
-    class EventDispatcher extends Object implements ClassMixin {
-        /**
-        Creates a subclass of the EventDispatcher class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends EventDispatcher>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends EventDispatcher>(arguments?: {}): T;
+    class EventDispatcher extends Object {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -1200,17 +937,6 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends EventDispatcher>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends EventDispatcher>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
         events: {};
@@ -1280,20 +1006,7 @@ declare module Ember {
         function log(level, str): void;
         function compile(environment, options?, context?, asObject?);
     }
-    class HashLocation extends Object implements ClassMixin {
-        /**
-        Creates a subclass of the HashLocation class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends HashLocation>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends HashLocation>(arguments?: {}): T;
+    class HashLocation extends Object {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -1306,34 +1019,10 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends HashLocation>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends HashLocation>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
     }
-    class HistoryLocation extends Object implements ClassMixin {
-        /**
-        Creates a subclass of the HistoryLocation class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends HistoryLocation>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends HistoryLocation>(arguments?: {}): T;
+    class HistoryLocation extends Object {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -1346,17 +1035,6 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends HistoryLocation>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends HistoryLocation>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
         rootURL: string;
@@ -1374,20 +1052,7 @@ declare module Ember {
     var LOG_BINDINGS: boolean;
     var LOG_STACKTRACE_ON_DEPRECATION: boolean;
     var LOG_VERSION: boolean;
-    class LinkView extends View implements ClassMixin {
-        /**
-        Creates a subclass of the LinkView class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends LinkView>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends LinkView>(arguments?: {}): T;
+    class LinkView extends View {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -1400,17 +1065,6 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends LinkView>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends LinkView>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
         init(): void;
@@ -1469,12 +1123,12 @@ declare module Ember {
         reopen<T extends Mixin>(arguments?: {}): T;
     }
     class MutableArray implements Array, MutableEnumberable {
-        addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): Array;
+        addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): any[];
         addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
         any(callback: Function, target?: any): boolean;
         anyBy(key: string, value?: string): boolean;
-        arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): Array;
-        arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): Array;
+        arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): any[];
+        arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): any[];
         someProperty(key: string, value?: string): boolean;
         clear(): any[];
         compact(): any[];
@@ -1501,7 +1155,7 @@ declare module Ember {
         forEach(callback: Function, target?: any): any;
         getEach(key: string): any[];
         indexOf(object: any, startAt: number): number;
-        insertAt(idx: number, object: any): MutableArray;
+        insertAt(idx: number, object: any): any[];
         invoke(methodName: string, ...any): any[];
         lastIndexOf(object: any, startAt: number): number;
         map: ItemIndexEnumerableCallbackTarget;
@@ -1511,26 +1165,26 @@ declare module Ember {
         objectsAt(...number): any[];
         popObject(): any;
         pushObject(obj: any): any;
-        pushObjects(...any): MutableArray;
+        pushObjects(...any): any[];
         reduce(callback: ReduceCallback, initialValue: any, reducerProperty: string): any;
         reject: ItemIndexEnumerableCallbackTarget;
         rejectBy(key: string, value?: string): any[];
-        removeArrayObserver(target: any, opts: EnumerableConfigurationOptions): Array;
+        removeArrayObserver(target: any, opts: EnumerableConfigurationOptions): any[];
         removeAt(start: number, len: number): any;
         removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
         replace(idx: number, amt: number, objects: any[]);
-        reverseObjects(): Array;
+        reverseObjects(): any[];
         setEach(key: string, value?: any): any;
-        setObjects(objects: any[]): Array;
+        setObjects(objects: any[]): any[];
         shiftObject(): any;
         slice(beginIndex?: number, endIndex?: number): any[];
         some(callback: Function, target?: any): boolean;
         toArray(): any[];
         uniq(): Enumerable;
         unshiftObject(object: any): any;
-        unshiftObjects(objects: any[]): Array;
+        unshiftObjects(objects: any[]): any[];
         without(value: any): Enumerable;
-        '[]': Array;
+        '[]': any[];
         '@each': EachProxy;
         Boolean: boolean;
         firstObject: any;
@@ -1587,26 +1241,13 @@ declare module Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-        '[]': Array;
+        '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
     }
     var NAME_KEY: string;
-    class Namespace extends Object implements ClassMixin {
-        /**
-        Creates a subclass of the Namespace class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends Namespace>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends Namespace>(arguments?: {}): T;
+    class Namespace extends Object {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -1619,30 +1260,18 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends Namespace>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends Namespace>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
     }
     class NativeArray implements MutableArray, Observable, Copyable {
         constructor(arr: any[]);
-        constructor(arr: NativeArray);
         static activate(): void;
-        addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): NativeArray;
-        addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): NativeArray;
+        addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): any[];
+        addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): any[];
         any(callback: Function, target?: any): boolean;
         anyBy(key: string, value?: string): boolean;
-        arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): NativeArray;
-        arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): NativeArray;
+        arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): any[];
+        arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): any[];
         someProperty(key: string, value?: any): boolean;
         clear(): any[];
         compact(): any[];
@@ -1655,10 +1284,10 @@ declare module Ember {
         enumerableContentDidChange(removing: Enumerable, adding: number);
         enumerableContentDidChange(removing: number, adding: Enumerable);
         enumerableContentDidChange(removing: Enumerable, adding: Enumerable);
-        enumerableContentWillChange(removing: number, adding: number): NativeArray;
-        enumerableContentWillChange(removing: Enumerable, adding: number): NativeArray;
-        enumerableContentWillChange(removing: number, adding: Enumerable): NativeArray;
-        enumerableContentWillChange(removing: Enumerable, adding: Enumerable): NativeArray;
+        enumerableContentWillChange(removing: number, adding: number): any[];
+        enumerableContentWillChange(removing: Enumerable, adding: number): any[];
+        enumerableContentWillChange(removing: number, adding: Enumerable): any[];
+        enumerableContentWillChange(removing: Enumerable, adding: Enumerable): any[];
         every(callback: Function, target?: any): boolean;
         everyBy(key: string, value?: string): boolean;
         everyProperty(key: string, value?: any): boolean;
@@ -1669,7 +1298,7 @@ declare module Ember {
         forEach(callback: Function, target?: any): any;
         getEach(key: string): any[];
         indexOf(object: any, startAt: number): number;
-        insertAt(idx: number, object: any): NativeArray;
+        insertAt(idx: number, object: any): any[];
         invoke(methodName: string, ...any): any[];
         lastIndexOf(object: any, startAt: number): number;
         map: ItemIndexEnumerableCallbackTarget;
@@ -1679,26 +1308,26 @@ declare module Ember {
         objectsAt(...number): any[];
         popObject(): any;
         pushObject(obj: any): any;
-        pushObjects(...any): NativeArray;
+        pushObjects(...any): any[];
         reduce(callback: ReduceCallback, initialValue: any, reducerProperty: string): any;
         reject: ItemIndexEnumerableCallbackTarget;
         rejectBy(key: string, value?: string): any[];
-        removeArrayObserver(target: any, opts: EnumerableConfigurationOptions): NativeArray;
+        removeArrayObserver(target: any, opts: EnumerableConfigurationOptions): any[];
         removeAt(start: number, len: number): any;
-        removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): NativeArray;
+        removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): any[];
         replace(idx: number, amt: number, objects: any[]);
-        reverseObjects(): NativeArray;
+        reverseObjects(): any[];
         setEach(key: string, value?: any): any;
-        setObjects(objects: any[]): NativeArray;
+        setObjects(objects: any[]): any[];
         shiftObject(): any;
         slice(beginIndex?: number, endIndex?: number): any[];
         some(callback: Function, target?: any): boolean;
         toArray(): any[];
-        uniq(): NativeArray;
+        uniq(): any[];
         unshiftObject(object: any): any;
-        unshiftObjects(objects: any[]): NativeArray;
-        without(value: any): NativeArray;
-        '[]': Array;
+        unshiftObjects(objects: any[]): any[];
+        without(value: any): any[];
+        '[]': any[];
         '@each': EachProxy;
         Boolean: boolean;
         firstObject: any;
@@ -1706,45 +1335,32 @@ declare module Ember {
         lastObject: any;
         length: number;
         addObject(object: any): any;
-        addObjects(objects: Enumerable): NativeArray;
+        addObjects(objects: Enumerable): any[];
         removeObject(object: any): any;
-        removeObjects(objects: Enumerable): NativeArray;
+        removeObjects(objects: Enumerable): any[];
         addObserver: ModifyObserver;
-        beginPropertyChanges(): NativeArray;
+        beginPropertyChanges(): any[];
         cacheFor(keyName: string): any;
         decrementProperty(keyName: string, decrement?: number): number;
-        endPropertyChanges(): NativeArray;
+        endPropertyChanges(): any[];
         get(keyName: string): any;
         getProperties(...string): {};
         getProperties(keys: string[]): {};
         getWithDefault(keyName: string, defaultValue: any): any;
         hasObserverFor(key: string): boolean;
         incrementProperty(keyName: string, increment?: number): number;
-        notifyPropertyChange(keyName: string): NativeArray;
-        propertyDidChange(keyName: string): NativeArray;
-        propertyWillChange(keyName: string): NativeArray;
+        notifyPropertyChange(keyName: string): any[];
+        propertyDidChange(keyName: string): any[];
+        propertyWillChange(keyName: string): any[];
         removeObserver(key: string, target: any, method: string): Observable;
         removeObserver(key: string, target: any, method: Function): Observable;
-        set(keyName: string, value: any): NativeArray;
-        setProperties(hash: {}): NativeArray;
+        set(keyName: string, value: any): any[];
+        setProperties(hash: {}): any[];
         toggleProperty(keyName: string): any;
-        copy(deep: boolean): NativeArray;
-        frozenCopy(): NativeArray;
+        copy(deep: boolean): any[];
+        frozenCopy(): any[];
     }
-    class NoneLocation extends Object implements ClassMixin {
-        /**
-        Creates a subclass of the NoneLocation class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends NoneLocation>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends NoneLocation>(arguments?: {}): T;
+    class NoneLocation extends Object {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -1757,22 +1373,11 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends NoneLocation>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends NoneLocation>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
     }
     var ORDER_DEFINITION: string[];
-    class Object extends CoreObject implements Observable, ClassMixin {
+    class Object extends CoreObject implements Observable {
         /**
         Creates a subclass of the Object class.
         **/
@@ -1781,11 +1386,11 @@ declare module Ember {
         Creates an instance of the class.
         @param arguments A hash containing values with which to initialize the newly instantiated object.
         **/
-        static create<T extends Object>(arguments?: {}): T;
+        static create<T extends {}>(arguments?: {}): T;
         /**
         Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
         **/
-        static createWithMixins<T extends Object>(arguments?: {}): T;
+        static createWithMixins<T extends {}>(arguments?: {}): T;
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -1802,13 +1407,13 @@ declare module Ember {
         Augments a constructor's prototype with additional properties and functions.
         To add functions and properties to the constructor itself, see reopenClass.
         **/
-        static reopen<T extends Object>(arguments?: {}): T;
+        static reopen<T extends {}>(arguments?: {}): T;
         /**
         Augments a constructor's own properties and functions.
         To add functions and properties to instances of a constructor by extending the
         constructor's prototype see reopen.
         **/
-        static reopenClass<T extends Object>(arguments?: {}): T;
+        static reopenClass<T extends {}>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
         addObserver: ModifyObserver;
@@ -1838,20 +1443,7 @@ declare module Ember {
         needs: string[];
         target: any;
     }
-    class ObjectProxy extends Object implements ClassMixin {
-        /**
-        Creates a subclass of the ObjectProxy class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends ObjectProxy>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends ObjectProxy>(arguments?: {}): T;
+    class ObjectProxy extends Object {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -1864,17 +1456,6 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends ObjectProxy>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends ObjectProxy>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
         /**
@@ -1938,20 +1519,7 @@ declare module Ember {
         elementTag: string;
         parentBuffer: RenderBuffer;
     }
-    class Route extends Object implements ClassMixin {
-        /**
-        Creates a subclass of the Route class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends Route>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends Route>(arguments?: {}): T;
+    class Route extends Object {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -1964,17 +1532,6 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends Route>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends Route>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
         activate: Function;
@@ -1988,27 +1545,16 @@ declare module Ember {
         modelFor(name: string): {};
         render(name: string, options?: RenderOptions): void;
         renderTemplate(controller: Controller, model: {}): void;
+        // ReSharper disable once InconsistentNaming
         replaceWith(name: string, ...Object): void;
         send(name: string, ...any): void;
         serialize(model: {}, params: string[]): string;
         setupController(controller: Controller, model: {}): void;
+        // ReSharper disable once InconsistentNaming
         transitionTo(name: string, ...Object): void;
         actions: ActionsHash;
     }
-    class Router extends Object implements ClassMixin {
-        /**
-        Creates a subclass of the Router class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends Router>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends Router>(arguments?: {}): T;
+    class Router extends Object {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -2021,37 +1567,13 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends Router>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends Router>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
     }
     var RouterDSL: Function;
     var SHIM_ES5: boolean;
     var STRINGS: boolean;
-    class Select extends View implements ClassMixin {
-        /**
-        Creates a subclass of the View class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends Select>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends Select>(arguments?: {}): T;
+    class Select extends View {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -2064,17 +1586,6 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends Select>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends Select>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
         content: any[];
@@ -2088,20 +1599,7 @@ declare module Ember {
         selection: any;
         value: string;
     }
-    class SelectOption extends View implements ClassMixin {
-        /**
-        Creates a subclass of the SelectOption class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends SelectOption>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends SelectOption>(arguments?: {}): T;
+    class SelectOption extends View {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -2114,17 +1612,6 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends SelectOption>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends SelectOption>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
     }
@@ -2173,7 +1660,7 @@ declare module Ember {
         toArray(): any[];
         uniq(): Set;
         without(value: any): Set;
-        '[]': Array;
+        '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -2238,7 +1725,7 @@ declare module Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-        '[]': Array;
+        '[]': any[];
         arrangedContent: any;
         firstObject: any;
         hasEnumerableObservers: boolean;
@@ -2247,20 +1734,7 @@ declare module Ember {
         sortFunction: Comparable;
         sortProperties: any[];
     }
-    class State extends Object implements Evented, ClassMixin {
-        /**
-        Creates a subclass of the State class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends State>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends State>(arguments?: {}): T;
+    class State extends Object implements Evented {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -2273,17 +1747,6 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends State>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends State>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
         has(name: string): boolean;
@@ -2304,20 +1767,7 @@ declare module Ember {
         exit: Function;
         setup: Function;
     }
-    class StateManager extends State implements ClassMixin {
-        /**
-        Creates a subclass of the StateManager class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends StateManager>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends StateManager>(arguments?: {}): T;
+    class StateManager extends State {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -2330,17 +1780,6 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends StateManager>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends StateManager>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
         contextFreeTransition(currentState: State, path: string): TransitionsHash;
@@ -2395,20 +1834,7 @@ declare module Ember {
         static adapter: Object;
         testHelpers: {};
     }
-    class TextArea extends View implements TextSupport, ClassMixin {
-        /**
-        Creates a subclass of the TextArea class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends TextArea>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends TextArea>(arguments?: {}): T;
+    class TextArea extends View implements TextSupport {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -2421,17 +1847,6 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends TextArea>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends TextArea>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
         cancel(event: Function): void;
@@ -2443,20 +1858,7 @@ declare module Ember {
         bubbles: boolean;
         onEvent: string;
     }
-    class TextField extends View implements TextSupport, ClassMixin {
-        /**
-        Creates a subclass of the TextField class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends TextField>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends TextField>(arguments?: {}): T;
+    class TextField extends View implements TextSupport {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -2469,17 +1871,6 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends TextField>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends TextField>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
         cancel(event: Function): void;
@@ -2506,20 +1897,7 @@ declare module Ember {
         onEvent: string;
     }
     var VERSION: string;
-    class View extends CoreView implements ClassMixin {
-        /**
-        Creates a subclass of the View class.
-        **/
-        static extend<T>(arguments?: {}): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends View>(arguments?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends View>(arguments?: {}): T;
+    class View extends CoreView {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -2532,24 +1910,15 @@ declare module Ember {
         @param key property name
         **/
         static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends View>(arguments?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends View>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
         $(): JQuery;
         append(): View;
+        // ReSharper disable InconsistentNaming
         appendTo(A: string): View;
         appendTo(A: HTMLElement): View;
         appendTo(A: JQuery): View;
+        // ReSharper restore InconsistentNaming
         createChildView(viewClass: {}, attrs?: {}): View;
         createChildView(viewClass: string, attrs?: {}): View;
         createElement(): View;
@@ -2561,9 +1930,11 @@ declare module Ember {
         removeChild(view: View): View;
         removeFromParent(): View;
         render(buffer: RenderBuffer): void;
+        // ReSharper disable InconsistentNaming
         replaceIn(A: string): View;
         replaceIn(A: HTMLElement): View;
         replaceIn(A: JQuery): View;
+        // ReSharper restore InconsistentNaming
         rerender(): void;
         ariaRole: string;
         attributeBindings: any;
@@ -2616,6 +1987,7 @@ declare module Ember {
     function canInvoke(obj: any, methodName: string): boolean;
     function changeProperties(callback: Function, binding?: any): void;
     function compare(v: any, w: any): number;
+    // ReSharper disable once DuplicatingLocalDeclaration
     var computed: {
         (callback: Function): ComputedProperty;
         alias(dependentKey: string): ComputedProperty;
@@ -2637,7 +2009,9 @@ declare module Ember {
         oneWay(dependentKey: string): ComputedProperty;
         or(...string): ComputedProperty;
     };
+    // ReSharper disable DuplicatingLocalDeclaration
     var config: {};
+    // ReSharper restore DuplicatingLocalDeclaration
     function controllerFor(container: Container, controllerName: string, lookupOptions?: {}): Controller;
     function copy(obj: any, deep: boolean): any;
     /**
@@ -2653,8 +2027,10 @@ declare module Ember {
     /**
     Ember.empty is deprecated. Please use Ember.isEmpty instead.
     **/
+    // ReSharper disable once DuplicatingLocalDeclaration
     var empty: typeof deprecateFunc;
     function endPropertyChanges(): void;
+    // ReSharper disable once DuplicatingLocalDeclaration
     var exports: {};
     function finishChains(obj: any): void;
     function flushPendingChains(): void;
@@ -2687,6 +2063,7 @@ declare module Ember {
     function listenersDiff(obj: any, eventName: string, otherActions: any[]): any[];
     function listenersFor(obj: any, eventName: string): any[];
     function listenersUnion(obj: any, eventName: string, otherActions: any[]): void;
+    // ReSharper disable once DuplicatingLocalDeclaration
     var lookup: {}; // TODO: define interface
     function makeArray(obj: any): any[];
     function merge(original: any, updates: any): any;
@@ -2704,6 +2081,7 @@ declare module Ember {
     function oneWay(obj: any, to: string, from: string): Binding;
     var onError: Error;
     function overrideChains(obj: any, keyName: string, m: any): boolean;
+    // ReSharper disable once DuplicatingLocalDeclaration
     var platform: {
         addBeforeObserver: ModifyObserver;
         addObserver: ModifyObserver;
@@ -2772,6 +2150,7 @@ declare module Ember {
     function unwatch(obj: any, keyPath: string): void;
     function unwatchKey(obj: any, keyName: string): void;
     function unwatchPath(obj: any, keyPath: string): void;
+    // ReSharper disable once DuplicatingLocalDeclaration
     var uuid: number;
     function valueOf(): {};
     function warn(message: string, test?: boolean): void;
@@ -2782,6 +2161,7 @@ declare module Ember {
     function wrap(func: Function, superFunc: Function): Function;
 }
 
+// ReSharper disable DuplicatingLocalDeclaration
 declare module Em {
     /**
     Alias for jQuery.

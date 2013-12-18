@@ -97,6 +97,7 @@ List of Definitions
 * [Highcharts](http://www.highcharts.com/) (by [damianog](https://github.com/damianog))
 * [highlight.js](https://github.com/isagalaev/highlight.js) (by [Niklas Mollenhauer](https://github.com/nikeee))
 * [History.js](https://github.com/browserstate/history.js) (by [Boris Yankov](https://github.com/borisyankov))
+* [Html2Canvas.js](https://github.com/niklasvh/html2canvas/) (by [Richard Hepburn](https://github.com/rwhepburn))
 * [Humane.js](http://wavded.github.com/humane-js/) (by [John Vrbanac](https://github.com/jmvrbanac))
 * [i18next](http://i18next.com/) (by [Maarten Docter](https://github.com/mdocter))
 * [iCheck](http://damirfoy.com/iCheck/) (by [Dániel Tar](https://github.com/qcz))

@@ -15,10 +15,10 @@ declare var global: any;
 declare var __filename: string;
 declare var __dirname: string;
 
-declare function setTimeout(callback: (...args: any[]) => void , ms: number , ...args: any[]): Timer;
-declare function clearTimeout(timeoutId: Timer): void;
-declare function setInterval(callback: (...args: any[]) => void , ms: number , ...args: any[]): Timer;
-declare function clearInterval(intervalId: Timer): void;
+declare function setTimeout(callback: (...args: any[]) => void , ms: number , ...args: any[]): NodeTimer;
+declare function clearTimeout(timeoutId: NodeTimer): void;
+declare function setInterval(callback: (...args: any[]) => void , ms: number , ...args: any[]): NodeTimer;
+declare function clearInterval(intervalId: NodeTimer): void;
 declare function setImmediate(callback: (...args: any[]) => void , ...args: any[]): any;
 declare function clearImmediate(immediateId: any): void;
 
@@ -66,6 +66,13 @@ declare var Buffer: {
 *                   INTERFACES                  *
 *                                               *
 ************************************************/
+
+interface ErrnoException extends Error {
+    errno?: any;
+    code?: string;
+    path?: string;
+    syscall?: string;
+}
 
 interface EventEmitter {
     addListener(event: string, listener: Function): EventEmitter;
@@ -195,10 +202,9 @@ interface NodeBuffer {
     writeDoubleLE(value: number, offset: number, noAssert?: boolean): void;
     writeDoubleBE(value: number, offset: number, noAssert?: boolean): void;
     fill(value: any, offset?: number, end?: number): void;
-    INSPECT_MAX_BYTES: number;
 }
 
-interface Timer {
+interface NodeTimer {
     ref() : void;
     unref() : void;
 }
@@ -747,87 +753,87 @@ declare module "fs" {
     export interface ReadStream extends stream.ReadableStream { }
     export interface WriteStream extends stream.WritableStream { }
 
-    export function rename(oldPath: string, newPath: string, callback?: Function): void;
+    export function rename(oldPath: string, newPath: string, callback?: (err?: ErrnoException) => void): void;
     export function renameSync(oldPath: string, newPath: string): void;
-    export function truncate(path: string, callback?: Function): void;
-    export function truncate(path: string, len: number, callback?: Function): void;
+    export function truncate(path: string, callback?: (err?: ErrnoException) => void): void;
+    export function truncate(path: string, len: number, callback?: (err?: ErrnoException) => void): void;
     export function truncateSync(path: string, len?: number): void;
-    export function ftruncate(fd: number, callback?: Function): void;
-    export function ftruncate(fd: number, len: number, callback?: Function): void;
+    export function ftruncate(fd: number, callback?: (err?: ErrnoException) => void): void;
+    export function ftruncate(fd: number, len: number, callback?: (err?: ErrnoException) => void): void;
     export function ftruncateSync(fd: number, len?: number): void;
-    export function chown(path: string, uid: number, gid: number, callback?: Function): void;
+    export function chown(path: string, uid: number, gid: number, callback?: (err?: ErrnoException) => void): void;
     export function chownSync(path: string, uid: number, gid: number): void;
-    export function fchown(fd: number, uid: number, gid: number, callback?: Function): void;
+    export function fchown(fd: number, uid: number, gid: number, callback?: (err?: ErrnoException) => void): void;
     export function fchownSync(fd: number, uid: number, gid: number): void;
-    export function lchown(path: string, uid: number, gid: number, callback?: Function): void;
+    export function lchown(path: string, uid: number, gid: number, callback?: (err?: ErrnoException) => void): void;
     export function lchownSync(path: string, uid: number, gid: number): void;
-    export function chmod(path: string, mode: number, callback?: Function): void;
-    export function chmod(path: string, mode: string, callback?: Function): void;
+    export function chmod(path: string, mode: number, callback?: (err?: ErrnoException) => void): void;
+    export function chmod(path: string, mode: string, callback?: (err?: ErrnoException) => void): void;
     export function chmodSync(path: string, mode: number): void;
     export function chmodSync(path: string, mode: string): void;
-    export function fchmod(fd: number, mode: number, callback?: Function): void;
-    export function fchmod(fd: number, mode: string, callback?: Function): void;
+    export function fchmod(fd: number, mode: number, callback?: (err?: ErrnoException) => void): void;
+    export function fchmod(fd: number, mode: string, callback?: (err?: ErrnoException) => void): void;
     export function fchmodSync(fd: number, mode: number): void;
     export function fchmodSync(fd: number, mode: string): void;
-    export function lchmod(path: string, mode: number, callback?: Function): void;
-    export function lchmod(path: string, mode: string, callback?: Function): void;
+    export function lchmod(path: string, mode: number, callback?: (err?: ErrnoException) => void): void;
+    export function lchmod(path: string, mode: string, callback?: (err?: ErrnoException) => void): void;
     export function lchmodSync(path: string, mode: number): void;
     export function lchmodSync(path: string, mode: string): void;
-    export function stat(path: string, callback?: (err: Error, stats: Stats) => any): void;
-    export function lstat(path: string, callback?: (err: Error, stats: Stats) => any): void;
-    export function fstat(fd: number, callback?: (err: Error, stats: Stats) => any): void;
+    export function stat(path: string, callback?: (err: ErrnoException, stats: Stats) => any): void;
+    export function lstat(path: string, callback?: (err: ErrnoException, stats: Stats) => any): void;
+    export function fstat(fd: number, callback?: (err: ErrnoException, stats: Stats) => any): void;
     export function statSync(path: string): Stats;
     export function lstatSync(path: string): Stats;
     export function fstatSync(fd: number): Stats;
-    export function link(srcpath: string, dstpath: string, callback?: Function): void;
+    export function link(srcpath: string, dstpath: string, callback?: (err?: ErrnoException) => void): void;
     export function linkSync(srcpath: string, dstpath: string): void;
-    export function symlink(srcpath: string, dstpath: string, type?: string, callback?: Function): void;
+    export function symlink(srcpath: string, dstpath: string, type?: string, callback?: (err?: ErrnoException) => void): void;
     export function symlinkSync(srcpath: string, dstpath: string, type?: string): void;
-    export function readlink(path: string, callback?: (err: Error, linkString: string) => any): void;
+    export function readlink(path: string, callback?: (err: ErrnoException, linkString: string) => any): void;
     export function readlinkSync(path: string): string;
-    export function realpath(path: string, callback?: (err: Error, resolvedPath: string) => any): void;
-    export function realpath(path: string, cache: {[path: string]: string}, callback: (err: Error, resolvedPath: string) =>any): void;
+    export function realpath(path: string, callback?: (err: ErrnoException, resolvedPath: string) => any): void;
+    export function realpath(path: string, cache: {[path: string]: string}, callback: (err: ErrnoException, resolvedPath: string) =>any): void;
     export function realpathSync(path: string, cache?: {[path: string]: string}): void;
-    export function unlink(path: string, callback?: Function): void;
+    export function unlink(path: string, callback?: (err?: ErrnoException) => void): void;
     export function unlinkSync(path: string): void;
-    export function rmdir(path: string, callback?: Function): void;
+    export function rmdir(path: string, callback?: (err?: ErrnoException) => void): void;
     export function rmdirSync(path: string): void;
-    export function mkdir(path: string, callback?: Function): void;
-    export function mkdir(path: string, mode: number, callback?: Function): void;
-    export function mkdir(path: string, mode: string, callback?: Function): void;
+    export function mkdir(path: string, callback?: (err?: ErrnoException) => void): void;
+    export function mkdir(path: string, mode: number, callback?: (err?: ErrnoException) => void): void;
+    export function mkdir(path: string, mode: string, callback?: (err?: ErrnoException) => void): void;
     export function mkdirSync(path: string, mode?: number): void;
     export function mkdirSync(path: string, mode?: string): void;
-    export function readdir(path: string, callback?: (err: Error, files: string[]) => void): void;
+    export function readdir(path: string, callback?: (err: ErrnoException, files: string[]) => void): void;
     export function readdirSync(path: string): string[];
-    export function close(fd: number, callback?: Function): void;
+    export function close(fd: number, callback?: (err?: ErrnoException) => void): void;
     export function closeSync(fd: number): void;
-    export function open(path: string, flags: string, callback?: (err: Error, fd: number) => any): void;
-    export function open(path: string, flags: string, mode: number, callback?: (err: Error, fd: number) => any): void;
-    export function open(path: string, flags: string, mode: string, callback?: (err: Error, fd: number) => any): void;
+    export function open(path: string, flags: string, callback?: (err: ErrnoException, fd: number) => any): void;
+    export function open(path: string, flags: string, mode: number, callback?: (err: ErrnoException, fd: number) => any): void;
+    export function open(path: string, flags: string, mode: string, callback?: (err: ErrnoException, fd: number) => any): void;
     export function openSync(path: string, flags: string, mode?: number): number;
     export function openSync(path: string, flags: string, mode?: string): number;
-    export function utimes(path: string, atime: number, mtime: number, callback?: Function): void;
+    export function utimes(path: string, atime: number, mtime: number, callback?: (err?: ErrnoException) => void): void;
     export function utimesSync(path: string, atime: number, mtime: number): void;
-    export function futimes(fd: number, atime: number, mtime: number, callback?: Function): void;
+    export function futimes(fd: number, atime: number, mtime: number, callback?: (err?: ErrnoException) => void): void;
     export function futimesSync(fd: number, atime: number, mtime: number): void;
-    export function fsync(fd: number, callback?: Function): void;
+    export function fsync(fd: number, callback?: (err?: ErrnoException) => void): void;
     export function fsyncSync(fd: number): void;
-    export function write(fd: number, buffer: NodeBuffer, offset: number, length: number, position: number, callback?: (err: Error, written: number, buffer: NodeBuffer) => void): void;
+    export function write(fd: number, buffer: NodeBuffer, offset: number, length: number, position: number, callback?: (err: ErrnoException, written: number, buffer: NodeBuffer) => void): void;
     export function writeSync(fd: number, buffer: NodeBuffer, offset: number, length: number, position: number): number;
-    export function read(fd: number, buffer: NodeBuffer, offset: number, length: number, position: number, callback?: (err: Error, bytesRead: number, buffer: NodeBuffer) => void): void;
+    export function read(fd: number, buffer: NodeBuffer, offset: number, length: number, position: number, callback?: (err: ErrnoException, bytesRead: number, buffer: NodeBuffer) => void): void;
     export function readSync(fd: number, buffer: NodeBuffer, offset: number, length: number, position: number): number;
-    export function readFile(filename: string, options: { encoding?: string; flag?: string; }, callback: (err: Error, data: any) => void): void;
-    export function readFile(filename: string, callback: (err: Error, data: NodeBuffer) => void ): void;
+    export function readFile(filename: string, options: { encoding?: string; flag?: string; }, callback: (err: ErrnoException, data: any) => void): void;
+    export function readFile(filename: string, callback: (err: ErrnoException, data: NodeBuffer) => void ): void;
     export function readFileSync(filename: string, options?: { flag?: string; }): NodeBuffer;
     export function readFileSync(filename: string, options: { encoding: string; flag?: string; }): string;
-    export function writeFile(filename: string, data: any, callback?: (err: Error) => void): void;
-    export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: Error) => void): void;
-    export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: Error) => void): void;
+    export function writeFile(filename: string, data: any, callback?: (err: ErrnoException) => void): void;
+    export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: ErrnoException) => void): void;
+    export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: ErrnoException) => void): void;
     export function writeFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
     export function writeFileSync(filename: string, data: any, options?: { encoding?: string; mode?: string; flag?: string; }): void;
-    export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: Error) => void): void;
-    export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: Error) => void): void;
-    export function appendFile(filename: string, data: any, callback?: (err: Error) => void): void;
+    export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: ErrnoException) => void): void;
+    export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: ErrnoException) => void): void;
+    export function appendFile(filename: string, data: any, callback?: (err: ErrnoException) => void): void;
     export function appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
     export function appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: string; flag?: string; }): void;
     export function watchFile(filename: string, listener: (curr: Stats, prev: Stats) => void): void;

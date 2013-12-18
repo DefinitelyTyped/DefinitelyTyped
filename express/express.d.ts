@@ -94,7 +94,7 @@ declare module "express" {
              */
             param(name: string, fn: Function): T;
 
-            param(name: any[], fn: Function): T;
+            param(name: string[], fn: Function): T;
 
             /**
              * Special-cased "all" method, applying the given route `path`,
@@ -217,6 +217,8 @@ declare module "express" {
             success: string;
 
             views: any;
+
+            count: number;
         }
 
         interface Request {
@@ -247,6 +249,8 @@ declare module "express" {
             get (name: string): string;
 
             header(name: string): string;
+
+            headers: string[];
 
             /**
              * Check if the given `type(s)` is acceptable, returning
@@ -327,19 +331,8 @@ declare module "express" {
             /**
              * Return an array of Accepted media types
              * ordered from highest quality to lowest.
-             *
-             * Examples:
-             *
-             *     [ { value: 'application/json',
-             *         quality: 1,
-             *         type: 'application',
-             *         subtype: 'json' },
-             *       { value: 'text/html',
-             *         quality: 0.5,
-             *         type: 'text',
-             *         subtype: 'html' } ]
              */
-            accepted: any[];
+            accepted: MediaType[];
 
             /**
              * Return an array of Accepted languages
@@ -509,6 +502,8 @@ declare module "express" {
 
             user: any;
 
+            authenticatedUser: any;
+
             files: any;
 
             /**
@@ -526,6 +521,20 @@ declare module "express" {
             signedCookies: any;
 
             originalUrl: string;
+
+            url: string;
+        }
+
+        interface MediaType {
+            value: string;
+            quality: number;
+            type: string;
+            subtype:  string;
+        }
+
+        interface Send {
+            (status: number, body?: any): Response;
+            (body: any): Response;
         }
 
         interface Response extends http.ServerResponse {
@@ -561,11 +570,7 @@ declare module "express" {
              *     res.send(404, 'Sorry, cant find that');
              *     res.send(404);
              */
-            send(status: number): Response;
-
-            send(bodyOrStatus: any): Response;
-
-            send(status: number, body: any): Response;
+            send: Send;
 
             /**
              * Send JSON response.
@@ -577,11 +582,7 @@ declare module "express" {
              *     res.json(500, 'oh noes!');
              *     res.json(404, 'I dont have that');
              */
-            json(status: number): Response;
-
-            json(bodyOrStatus: any): Response;
-
-            json(status: number, body: any): Response;
+            json: Send;
 
             /**
              * Send JSON response with JSONP callback support.
@@ -593,11 +594,7 @@ declare module "express" {
              *     res.jsonp(500, 'oh noes!');
              *     res.jsonp(404, 'I dont have that');
              */
-            jsonp(status: number): Response;
-
-            jsonp(bodyOrStatus: any): Response;
-
-            jsonp(status: number, body: any): Response;
+            jsonp: Send;
 
             /**
              * Transfer the file at the given `path`.
@@ -945,6 +942,9 @@ declare module "express" {
              */
             engine(ext: string, fn: Function): Application;
 
+            param(name: string, fn: Function): Application;
+
+            param(name: string[], fn: Function): Application;
 
             /**
              * Assign `setting` to `val`, or return `setting`'s value.

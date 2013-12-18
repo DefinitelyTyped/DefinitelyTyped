@@ -63,3 +63,6 @@ interface SocketManager {
 	on(ns: string, fn: Function): SocketManager;
 	sockets: SocketNamespace;
 }
+
+// For client side usage declare io: 
+declare var io:any;
