@@ -157,7 +157,7 @@ declare module JQueryUI {
         setDefaults(defaults: DatepickerOptions): void;
         formatDate(format: string, date: Date, settings?: DatepickerFormatDateOptions): string;
         parseDate(format: string, date: string, settings?: DatepickerFormatDateOptions): Date;
-        iso8601Week(date: Date): void;
+        iso8601Week(date: Date): number;
         noWeekends(): void;
     }
 
