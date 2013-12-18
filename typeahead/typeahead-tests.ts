@@ -4,6 +4,7 @@
 //
 // Examples from http://twitter.github.com/typeahead.js/examples
 //
+declare var Hogan: any;
 
 // Countries
 // Prefetches data, stores it in localStorage, and searches it on the client
@@ -15,16 +16,16 @@ $('.example-countries .typeahead').typeahead({
 
 // Open Source Projects by Twitter
 // Defines a custom template and template engine for rendering suggestions
-//$('.example-twitter-oss .typeahead').typeahead({
-//    name: 'twitter-oss',
-//    prefetch: '../data/repos.json',
-//    template: [
-//        '<p class="repo-language">{{language}}</p>',
-//        '<p class="repo-name">{{name}}</p>',
-//        '<p class="repo-description">{{description}}</p>'
-//    ].join(''),
-//    engine: Hogan
-//});
+$('.example-twitter-oss .typeahead').typeahead({
+    name: 'twitter-oss',
+    prefetch: '../data/repos.json',
+    template: [
+        '<p class="repo-language">{{language}}</p>',
+        '<p class="repo-name">{{name}}</p>',
+        '<p class="repo-description">{{description}}</p>'
+    ].join(''),
+    engine: Hogan
+});
 
 // Arabic Phrases
 // Hardcoded list showing Right - To - Left(RTL) support
@@ -61,12 +62,12 @@ $('.example-sports .typeahead').typeahead([
 
 // Best Picture Winners
 // Prefetches some data then relies on remote requests for suggestions when prefetched data is insufficient
-//$('.example-films .typeahead').typeahead([
-//    {
-//        name: 'best-picture-winners',
-//        remote: '../data/films/queries/%QUERY.json',
-//        prefetch: '../data/films/post_1960.json',
-//        template: '<p><strong>{{value}}</strong> – {{year}}</p>',
-//        engine: Hogan
-//    }
-//]);
+$('.example-films .typeahead').typeahead([
+    {
+        name: 'best-picture-winners',
+        remote: '../data/films/queries/%QUERY.json',
+        prefetch: '../data/films/post_1960.json',
+        template: '<p><strong>{{value}}</strong> – {{year}}</p>',
+        engine: Hogan
+    }
+]);
