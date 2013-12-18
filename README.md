@@ -231,7 +231,7 @@ List of Definitions
 * [TweenJS](http://www.createjs.com/#!/TweenJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [tween.js](https://github.com/sole/tween.js/) (by [Adam R. Smith](https://github.com/sunetos))
 * [twitter-bootstrap-wizard](https://github.com/VinceG/twitter-bootstrap-wizard) (by [Blake Niemyjski](https://github.com/niemyjski))
-* [Typeahead.js](http://twitter.github.io/typeahead.js) (by [Ivaylo Gochkov](https://github.com/igochkov))
+* [Twitter Typeahead](http://twitter.github.io/typeahead.js) (by [Ivaylo Gochkov](https://github.com/igochkov))
 * [Ubuntu Unity Web API](https://launchpad.net/libunity-webapps) (by [John Vrbanac](https://github.com/jmvrbanac))
 * [Underscore.js](http://underscorejs.org/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Underscore.js (Typed)](http://underscorejs.org/) (by [Josh Baldwin](https://github.com/jbaldwin/))
