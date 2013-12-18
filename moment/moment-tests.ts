@@ -293,7 +293,7 @@ moment.lang('en', {
 });
 
 moment.lang('en', {
-    weekdays : function (momentToFormat, format) {
+    weekdays : function (momentToFormat: Moment) {
         return this.weekdays[momentToFormat.day()];
     }
 });
@@ -303,7 +303,7 @@ moment.lang('en', {
 });
 
 moment.lang('en', {
-    weekdaysShort : function (momentToFormat, format) {
+    weekdaysShort : function (momentToFormat: Moment) {
         return this.weekdaysShort[momentToFormat.day()];
     }
 });
@@ -313,7 +313,7 @@ moment.lang('en', {
 });
 
 moment.lang('en', {
-    weekdaysMin : function (momentToFormat, format) {
+    weekdaysMin : function (momentToFormat: Moment) {
         return this.weekdaysMin[momentToFormat.day()];
     }
 });
