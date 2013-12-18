@@ -55,8 +55,8 @@ interface SocketManager {
 	set(key: any, value: any): SocketManager;
 	enable(key: any): SocketManager;
 	disable(key: any): SocketManager;
-    enabled(key: any): boolean;
-    disabled(key: any): boolean;
+        enabled(key: any): boolean;
+        disabled(key: any): boolean;
 	configure(env: string, fn: Function): SocketManager;
 	configure(fn: Function): SocketManager;
 	of(nsp: string): SocketNamespace;
@@ -64,5 +64,3 @@ interface SocketManager {
 	sockets: SocketNamespace;
 }
 
-// For client side usage declare io: 
-declare var io:any;
