@@ -290,7 +290,7 @@ interface RequireDefine {
 	*	callback param deps module dependencies
 	*	callback return module definition
 	**/
-	(deps: string[], ready: (...deps: any[]) => any): void;
+    	(deps: string[], ready: Function): void;
 
 	/**
 	*  Define module with simplified CommonJS wrapper.
@@ -310,7 +310,7 @@ interface RequireDefine {
 	*	callback deps module dependencies
 	*	callback return module definition
 	**/
-	(name: string, deps: string[], ready: (...deps: any[]) => any): void;
+	(name: string, deps: string[], ready: Function): void;
 }
 
 // Ambient declarations for 'require' and 'define'
