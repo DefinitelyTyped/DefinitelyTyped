@@ -102,8 +102,8 @@ declare module CrossFilter {
         top(k: number): T[];
         bottom(k: number): T[];
         dispose(): void;
-        group(): Group<T, TDimension, number>;
-        group<TGroup>(groupValue: (data: T) => TGroup): Group<T, TDimension, TGroup>;
+		group(): Group<T, TDimension, TDimension>;
+		group<TGroup>(groupValue: (data: TDimension) => TGroup): Group<T, TDimension, TGroup>;
         groupAll(): GroupAll<T>;
     }
 }
