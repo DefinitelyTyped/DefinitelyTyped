@@ -28,6 +28,6 @@ scheduler.init("scheduler_here", start);
 scheduler.load("/data/events");
 
 //events
-scheduler.attachEvent("onEmptyClick", function (ev: Event) {
+scheduler.attachEvent("onEmptyClick", function (ev?: Event) {
     var date: Date = scheduler.getActionData(ev).date;
 });
