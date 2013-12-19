@@ -17,14 +17,14 @@ declare module Expect {
          *
          * @param fn callback to match error string against
          */
-        throwError(fn?: Function): void;
+		throwError(fn?: (exception: any) => void): void;
 
         /**
          * Assert that the function throws.
          *
          * @param fn callback to match error string against
          */
-        throwException(fn?: Function): void;
+        throwException(fn?: (exception: any) => void): void;
 
         /**
          * Assert that the function throws.
