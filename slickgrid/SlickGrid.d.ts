@@ -1572,11 +1572,11 @@ declare module Slick {
 		}
 
 		export interface RefreshHints {
-			isFilterNarrowing: boolean;
-			isFilterExpanding: boolean;
-			isFilterUnchanged: boolean;
-			ignoreDiffsBefore: boolean;
-			ignoreDiffsAfter: boolean;
+			isFilterNarrowing?: boolean;
+			isFilterExpanding?: boolean;
+			isFilterUnchanged?: boolean;
+			ignoreDiffsBefore?: boolean;
+			ignoreDiffsAfter?: boolean;
 		}
 
 		export interface OnRowCountChangedEventData {
