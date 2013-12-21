@@ -106,14 +106,14 @@ declare module Q {
     export function nsend<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
     export function nmcall<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
 
-    export function all<T>(promises: any[]): Promise<T[]>;
     export function all<T>(promises: IPromise<T>[]): Promise<T[]>;
+    export function all<T>(promises: any[]): Promise<T[]>;
     
-    export function allSettled<T>(promises: any[]): Promise<PromiseState<T>[]>;
     export function allSettled<T>(promises: IPromise<T>[]): Promise<PromiseState<T>[]>;
+    export function allSettled<T>(promises: any[]): Promise<PromiseState<T>[]>;
 
-    export function allResolved<T>(promises: any[]): Promise<Promise<T>[]>;
     export function allResolved<T>(promises: IPromise<T>[]): Promise<Promise<T>[]>;
+    export function allResolved<T>(promises: any[]): Promise<Promise<T>[]>;
 
     export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => IPromise<U>, onRejected: (reason: any) => IPromise<U>): Promise<U>;
     export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => IPromise<U>, onRejected: (reason: any) => U): Promise<U>;
