@@ -17,7 +17,7 @@ declare module "git" {
 
         git(functionName:any, options:any, ...args:any[]):void; // last element is callback
 
-        call_git(prefix:string, command:any, postfix:string, options:any, args:any, callback:Function):void;
+        call_git(prefix:string, command:any, postfix:string, options:any, args:any, callback: (error: any, result: string) => void):void;
 
         rev_list(callback:Function):void;
 
