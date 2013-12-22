@@ -106,8 +106,8 @@ declare module Q {
     export function nsend<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
     export function nmcall<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
 
+	export function all<T>(promises: IPromise<T>[]): Promise<T[]>;
     export function all<T>(promises: any[]): Promise<T[]>;
-    export function all<T>(promises: IPromise<T>[]): Promise<T[]>;
     
     export function allSettled<T>(promises: any[]): Promise<PromiseState<T>[]>;
     export function allSettled<T>(promises: IPromise<T>[]): Promise<PromiseState<T>[]>;
