@@ -2,6 +2,10 @@
 
 var myApp = angular.module('testModule');
 
+interface MyAppScope extends ng.IScope {
+	items: string[];
+	things: string[];
+}
 
 myApp.config((
     $stateProvider: ng.ui.IStateProvider,
@@ -19,7 +23,7 @@ myApp.config((
     .state('state1.list', {
       url: "/list",
       templateUrl: "partials/state1.list.html",
-      controller: function($scope) {
+		controller: function ($scope: MyAppScope) {
         $scope.items = ["A", "List", "Of", "Items"];
       }
     })
@@ -30,7 +34,7 @@ myApp.config((
     .state('state2.list', {
       url: "/list",
         templateUrl: "partials/state2.list.html",
-        controller: function($scope) {
+		controller: function ($scope: MyAppScope) {
           $scope.things = ["A", "Set", "Of", "Things"];
         }
       }).state('index', {
