@@ -153,7 +153,7 @@ $("#e11")
 		.on("change", function (e: Select2JQueryEventObject) { log(JSON.stringify({ val: e.val, added: e.added, removed: e.removed })); })
         .on("open", function () { log("open"); });
 $("#e11_2")
-        .on("change", function (e) { log(JSON.stringify({ val: e.val, added: e.added, removed: e.removed })); })
+		.on("change", function (e: Select2JQueryEventObject) { log(JSON.stringify({ val: e.val, added: e.added, removed: e.removed })); })
         .on("open", function () { log("open"); });
 $("#e12").select2({ tags: ["red", "green", "blue"] });
 $("#e20").select2({
