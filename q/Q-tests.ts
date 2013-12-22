@@ -23,7 +23,7 @@ Q.delay(8, 1000).then(x => x.toExponential());
 Q.delay(Q("asdf"), 1000).then(x => x.length);
 Q.delay("asdf", 1000).then(x => x.length);
 
-var eventualAdd = Q.promised((a: number, b: number) => a + b);
+var eventualAdd = Q.promised((a?: number, b?: number) => a + b);
 eventualAdd(Q(1), Q(2)).then(x => x.toExponential());
 
 var eventually = function (eventually) {
@@ -90,7 +90,7 @@ Q.all(promiseArray).then(nums => nums.map(num => num.toPrecision(2)).join(','));
 
 Q.all<number>(myNums).then(nums => nums.map(Math.round));
 
-Q.fbind((dateString) => new Date(dateString), "11/11/1991")().then(d => d.toLocaleDateString());
+Q.fbind((dateString?) => new Date(dateString), "11/11/1991")().then(d => d.toLocaleDateString());
 
 Q.when(8, num => num + "!");
 Q.when(Q(8), num => num + "!").then(str => str.split(','));
