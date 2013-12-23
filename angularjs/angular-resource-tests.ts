@@ -83,5 +83,5 @@ var resourceService: ng.resource.IResourceService;
 
 resourceClass = resourceServiceFactoryFunction<IMyResourceClass>(resourceService);
 
-resourceServiceFactoryFunction = function (resourceService) { return resourceClass };
+resourceServiceFactoryFunction = function (resourceService: ng.resource.IResourceService) { return <any>resourceClass; };
 mod = mod.factory('factory name', resourceServiceFactoryFunction);

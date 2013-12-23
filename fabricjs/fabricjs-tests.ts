@@ -8,10 +8,10 @@ function sample1() {
 
     canvas.on({
         'object:moving': function (e) {
-            e.target.opacity = 0.5;
+            (<any>e.target).opacity = 0.5;
         },
         'object:modified': function (e) {
-            e.target.opacity = 1;
+			(<any>e.target).opacity = 1;
         }
     });
 

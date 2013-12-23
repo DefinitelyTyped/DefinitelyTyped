@@ -27,7 +27,7 @@ interface PDFPromise<T> {
 	isRejected(): boolean;
 	resolve(value: T): void;
 	reject(reason: string): void;
-	then<T>(onResolve: (promise: T) => void, onReject?: (reason: string) => void): PDFPromise<T>;
+	then(onResolve: (promise: T) => void, onReject?: (reason: string) => void): PDFPromise<T>;
 }
 
 interface PDFTreeNode {
