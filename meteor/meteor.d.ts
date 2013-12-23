@@ -65,12 +65,12 @@ interface IMeteor {
    * ServerConnections *
    *********************/
   status(): {
-    connected: boolean
+    connected: boolean;
     status: string;
     retryCount: number;
     retryTime: number;
     reason: string;
-  }
+  };
   reconnect(): void;
   disconnect(): void;
 
@@ -233,7 +233,7 @@ interface IMeteorManager {
   rendered(callback: Function): void;
   created(callback: Function): void;
   destroyed(callback: Function): void;
-  events(eventMap: {[eventType: string]: Function}): void;
+  events(eventMap: {[eventType: string]: Function;}): void;
   helpers(helpers: Object): any;
   preserve(selector: Object): void;
 }
@@ -284,7 +284,7 @@ interface IMeteorUser {
   emails?: {
     address: string;
     verified: boolean;
-  }
+  };
   profile?: any;
   services?: any;
   createdAt?: number;
@@ -312,7 +312,7 @@ interface IMeteorAccounts {
              requestOfflineToken?: Object;
              passwordSignupFields?: string;
            });
-  }
+  };
   validateNewUser(func: Function): void;
   onCreateUser(func: Function): void;
   createUser(options: {
@@ -324,7 +324,7 @@ interface IMeteorAccounts {
              callback?: Function): void;
   changePassword(oldPassword: string, newPassword: string, callback?: Function): void;
   forgotPassword(options: {
-                     email: string
+                     email: string;
                    },
                  callback?: Function): void;
   resetPassword(token: string, newPassword: string, callback?: Function): void;
@@ -339,12 +339,12 @@ interface IMeteorAccounts {
     resetPassword: IMeteorEmailValues;
     enrollAccount: IMeteorEmailValues;
     verifyEmail: IMeteorEmailValues;
-  }
+  };
   // DA: I didn't see the signature for this, but it appears in the examples
   loginServiceConfiguration: {
     remove(options: Object): void;
     insert(options: Object): void;
-  }
+  };
 }
 
 interface IMeteorEmailValues {
@@ -373,7 +373,7 @@ interface IExternalServiceParams {
     requestPermissions?: string[];
     requestOfflineToken?: boolean;
     forceApprovalPrompt?: boolean;
-  }
+  };
   callback?: Function;
 }
 
