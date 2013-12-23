@@ -140,12 +140,12 @@ function test_validate() {
         }
     });
     $(".selector").validate({
-        highlight: function (element, errorClass, validClass) {
+        highlight: function (element: HTMLInputElement, errorClass, validClass) {
             $(element).addClass(errorClass).removeClass(validClass);
             $((<HTMLInputElement>element).form).find("label[for=" + element.id + "]")
                            .addClass(errorClass);
         },
-        unhighlight: function (element, errorClass, validClass) {
+        unhighlight: function (element: HTMLInputElement, errorClass, validClass) {
             $(element).removeClass(errorClass).addClass(validClass);
             $((<HTMLInputElement>element).form).find("label[for=" + element.id + "]")
                            .removeClass(errorClass);
