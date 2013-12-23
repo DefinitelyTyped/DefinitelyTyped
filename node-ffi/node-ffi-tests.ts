@@ -26,7 +26,7 @@ import TArray = require('ref-array');
 {
     var func = ffi.ForeignFunction(new Buffer(10), 'int', [ 'int' ]);
     func(-5);
-    func.async(-5, function(err, res) {});
+    func.async(-5, function(err: any, res: any) {});
 }
 {
     var printfPointer = ffi.DynamicLibrary().get('printf');

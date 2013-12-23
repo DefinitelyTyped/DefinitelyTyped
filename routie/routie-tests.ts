@@ -25,7 +25,7 @@ routie("users/bob");  // window.location.hash will be #users/bob
 
 // Routie also supports regex style routes, so you can do advanced routing like this:
 
-routie("users/:name", function (name) {
+routie("users/:name", function (name: string) {
     // name == "bob";
 });
 
@@ -33,7 +33,7 @@ routie("users/bob");
 
 // Optional params:
 
-routie("users/?:name", function (name) {
+routie("users/?:name", function (name: string) {
     //name == undefined
     //then
     //name == bob

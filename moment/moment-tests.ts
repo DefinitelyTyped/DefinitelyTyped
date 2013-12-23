@@ -258,7 +258,7 @@ moment.lang('en', {
 });
 
 moment.lang('en', {
-    months : function (momentToFormat, format) {
+    months : function (momentToFormat: Moment, format: string) {
         // momentToFormat is the moment currently being formatted
         // format is the formatting string
         if (/^MMMM/.test(format)) { // if the format starts with 'MMMM'
@@ -277,7 +277,7 @@ moment.lang('en', {
 });
 
 moment.lang('en', {
-    monthsShort : function (momentToFormat, format) {
+    monthsShort : function (momentToFormat: Moment, format: string) {
         if (/^MMMM/.test(format)) {
             return this.nominative[momentToFormat.month()];
         } else {
@@ -293,7 +293,7 @@ moment.lang('en', {
 });
 
 moment.lang('en', {
-    weekdays : function (momentToFormat, format) {
+    weekdays : function (momentToFormat: Moment) {
         return this.weekdays[momentToFormat.day()];
     }
 });
@@ -303,7 +303,7 @@ moment.lang('en', {
 });
 
 moment.lang('en', {
-    weekdaysShort : function (momentToFormat, format) {
+    weekdaysShort : function (momentToFormat: Moment) {
         return this.weekdaysShort[momentToFormat.day()];
     }
 });
@@ -313,7 +313,7 @@ moment.lang('en', {
 });
 
 moment.lang('en', {
-    weekdaysMin : function (momentToFormat, format) {
+    weekdaysMin : function (momentToFormat: Moment) {
         return this.weekdaysMin[momentToFormat.day()];
     }
 });

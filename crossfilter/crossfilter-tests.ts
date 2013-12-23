@@ -44,28 +44,30 @@ paymentsByTotal.filterFunction(d => 0 <= d && d < 10 || 20 <= d && d < 30);
 paymentsByTotal.filterAll();                // selects all payments
 
 var topPayments = paymentsByTotal.top(4);   // the top four payments, by total
-topPayments[0];                             // the biggest payment
+{var p: Payment = topPayments[0];}          // the biggest payment
 topPayments[1];                             // the second-biggest payment
 
 var allPayments = paymentsByTotal.top(Infinity);
 
 var bottomPayments = paymentsByTotal.bottom(4); // the bottom four payments, by total
-bottomPayments[0];                              // the smallest payment
+{var p: Payment = bottomPayments[0];}           // the smallest payment
 bottomPayments[1];                              // the second-smallest payment
 
 var paymentGroupsByTotal = paymentsByTotal.group(total => Math.floor(total / 100));
 
 paymentGroupsByTotal.size();
 
-paymentGroupsByTotal.reduce((p, v) => p + 1, (p, v) => p - 1, () => 0);
+// bug of TS 0.9.5 https://typescript.codeplex.com/discussions/471751
+//paymentGroupsByTotal.reduce((p, v) => p + 1, (p, v) => p - 1, () => 0);
+paymentGroupsByTotal.reduce<number>((p, v) => p + 1, (p, v) => p - 1, () => 0);
 
 paymentGroupsByTotal.reduceCount();
 
 var paymentsByType = payments.dimension(d => d.type),
     paymentVolumeByType = paymentsByType.group().reduceSum(d => d.total),
     topTypes = paymentVolumeByType.top(1);
-topTypes[0].key;   // the top payment type (e.g., "tab")
-topTypes[0].value; // the payment volume for that type (e.g., 900)
+{var s: string = topTypes[0].key;}   // the top payment type (e.g., "tab")
+{var n: number = topTypes[0].value;} // the payment volume for that type (e.g., 900)
 
 interface Group {
     count: number;
@@ -101,7 +103,7 @@ topTotals[0].value; // reduced value for that type (e.g., {count:8, total:920})
 
 paymentGroupsByTotal.orderNatural();
 
-var paymentCountByType = paymentsByType.group();
+var paymentCountByType = paymentsByType.group().reduceCount();
 topTypes = paymentCountByType.top(1);
 topTypes[0].key;   // the top payment type (e.g., "tab")
 topTypes[0].value; // the count of payments of that type (e.g., 8)

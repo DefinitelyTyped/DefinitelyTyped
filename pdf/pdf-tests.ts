@@ -1,7 +1,5 @@
 /// <reference path="pdf.d.ts" />
 
-var pdf: PDFPageProxy;
-
 //
 // Fetch the PDF document from the URL using promises
 //
