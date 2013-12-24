@@ -691,9 +691,11 @@ interface JQuery {
      *
      * @param function A function returning one or more space-separated class names to be added to the existing class name(s). Receives the index position of the element in the set and the existing class name(s) as arguments. Within the function, this refers to the current element in the set.
      */
-    addClass(func: (index: number, currentClass: string) => string): JQuery;
+    addClass(func: (index: number, className: string) => string): JQuery;
 
-    // http://api.jquery.com/addBack/
+    /**
+     * Add the previous set of elements on the stack to the current set, optionally filtered by a selector.
+     */
     addBack(selector?: string): JQuery;
 
 
@@ -702,6 +704,11 @@ interface JQuery {
     attr(attributeName: string, func: (index: any, attr: any) => any): JQuery;
     attr(map: any): JQuery;
 
+    /**
+     * Determine whether any of the matched elements are assigned the given class.
+     *
+     * @param className The class name to search for.
+     */
     hasClass(className: string): boolean;
 
     html(): string;
@@ -716,14 +723,41 @@ interface JQuery {
 
     removeAttr(attributeName: string): JQuery;
 
+    /**
+     * Remove a single class, multiple classes, or all classes from each element in the set of matched elements.
+     *
+     * @param className One or more space-separated classes to be removed from the class attribute of each matched element.
+     */
     removeClass(className?: string): JQuery;
-    removeClass(func: (index: any, cls: any) => any): JQuery;
+    /**
+     * Remove a single class, multiple classes, or all classes from each element in the set of matched elements.
+     *
+     * @param function A function returning one or more space-separated class names to be removed. Receives the index position of the element in the set and the old class value as arguments.
+     */
+    removeClass(func: (index: number, className: string) => string): JQuery;
 
     removeProp(propertyName: string): JQuery;
 
+    /**
+     * Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the switch argument.
+     *
+     * @param className One or more class names (separated by spaces) to be toggled for each element in the matched set.
+     * @param swtch A Boolean (not just truthy/falsy) value to determine whether the class should be added or removed.
+     */
     toggleClass(className: string, swtch?: boolean): JQuery;
+    /**
+     * Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the switch argument.
+     *
+     * @param swtch A boolean value to determine whether the class should be added or removed.
+     */
     toggleClass(swtch?: boolean): JQuery;
-    toggleClass(func: (index: any, cls: any, swtch: any) => any): JQuery;
+    /**
+     * Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the switch argument.
+     *
+     * @param func A function that returns class names to be toggled in the class attribute of each element in the matched set. Receives the index position of the element in the set, the old class value, and the switch as arguments.
+     * @param swtch A boolean value to determine whether the class should be added or removed.
+     */
+    toggleClass(func: (index: number, className: string, swtch: boolean) => string, swtch?: boolean): JQuery;
 
     val(): any;
     val(value: string[]): JQuery;
