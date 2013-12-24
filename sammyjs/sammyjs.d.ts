@@ -6,26 +6,20 @@
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-interface SammyFunc {
-    (): Sammy.Application;
-    (selector: string): Sammy.Application;
-    (handler: Function): Sammy.Application;
-    (selector: string, handler: Function): Sammy.Application;
-}
-
 declare function Sammy(): Sammy.Application;
 declare function Sammy(selector: string): Sammy.Application;
 declare function Sammy(handler: Function): Sammy.Application;
 declare function Sammy(selector: string, handler: Function): Sammy.Application;
 
-interface JQueryStatic {
-    sammy: SammyFunc;
-    log: Function;
-}
-
 declare module Sammy {
+	interface SammyFunc {
+		(): Sammy.Application;
+		(selector: string): Sammy.Application;
+		(handler: Function): Sammy.Application;
+		(selector: string, handler: Function): Sammy.Application;
+	}
 
-    export function Cache(app, options);
+	export function Cache(app, options);
     export function DataCacheProxy(initial, $element);
     export var DataLocationProxy:DataLocationProxy;
     export function DefaultLocationProxy(app, run_interval_every);
@@ -279,5 +273,10 @@ declare module Sammy {
         SessionStorage(name, element);
         isAvailable(type);
         Template(app, method_alias);
-    }
+	}
+}
+
+interface JQueryStatic {
+	sammy: Sammy.SammyFunc;
+	log: Function;
 }

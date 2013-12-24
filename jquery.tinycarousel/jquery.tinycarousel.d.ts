@@ -50,7 +50,7 @@ declare module JQueryTinyCarousel {
         /**
         * Function that executes after every move (default: null)
         */
-        callback? : Function;
+        callback? : (element: HTMLElement, index: number) => void;
     }
 }
 interface JQuery {

@@ -140,7 +140,7 @@ declare module createjs {
         toArray(): number[];
         
         // implements Array interface start
-        concat<ColorMatrix extends number[]>(...items: ColorMatrix[]): number[];
+        concat<ColorMatrix>(...items: ColorMatrix[]): number[];
         join(separator?: string): string;
         pop(): number;
         push(...items: number[]): number;
@@ -162,8 +162,9 @@ declare module createjs {
         reduce(callbackfn: (previousValue: number, currentValue: number, currentIndex: number, array: number[]) => number, initialValue?: number): number;
         reduce<ColorMatrix>(callbackfn: (previousValue: ColorMatrix, currentValue: number, currentIndex: number, array: number[]) => ColorMatrix, initialValue: ColorMatrix): ColorMatrix;
         reduceRight(callbackfn: (previousValue: number, currentValue: number, currentIndex: number, array: number[]) => number, initialValue?: number): number;
-        reduceRight<U>(callbackfn: (previousValue: ColorMatrix, currentValue: number, currentIndex: number, array: number[]) => ColorMatrix, initialValue: ColorMatrix): ColorMatrix;
+        reduceRight<ColorMatrix>(callbackfn: (previousValue: ColorMatrix, currentValue: number, currentIndex: number, array: number[]) => ColorMatrix, initialValue: ColorMatrix): ColorMatrix;
         length: number;
+        [n: number]: number;
         // implements Array interface end
     }
     

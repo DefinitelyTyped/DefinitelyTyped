@@ -33504,7 +33504,7 @@ declare module Ext.form {
 		* @returns Ext.data.Model 
 		*/
 		getRecord?(): Ext.data.IModel;
-		/** [Method] Returns the value of standardSubmit  
+		/** [Method] Returns the value of standardSubmit
 		* @returns Boolean 
 		*/
 		getStandardSubmit?(): boolean;
@@ -33715,7 +33715,7 @@ declare module Ext.form {
 		* @returns Ext.data.Model 
 		*/
 		getRecord?(): Ext.data.IModel;
-		/** [Method] Returns the value of standardSubmit  
+		/** [Method] Returns the value of standardSubmit
 		* @returns Boolean 
 		*/
 		getStandardSubmit?(): boolean;

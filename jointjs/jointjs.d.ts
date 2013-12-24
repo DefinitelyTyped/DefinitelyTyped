@@ -34,7 +34,7 @@ declare module joint {
             embed(cell: Cell);
             unembed(cell: Cell);
             getEmbeddedCells(): Cell[];
-            clone<T>(opt?: any): T;      // @todo: return can either be Cell or Cell[].
+            clone(opt?: any): Backbone.Model;      // @todo: return can either be Cell or Cell[].
             attr(attrs: any): Cell;
         }
 

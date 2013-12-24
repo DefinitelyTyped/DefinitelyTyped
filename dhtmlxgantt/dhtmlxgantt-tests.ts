@@ -28,6 +28,6 @@ gantt.init("scheduler_here", start);
 gantt.load("/data/events");
 
 //events
-gantt.attachEvent("onBeforeLightbox", function (id: string) {
+gantt.attachEvent("onBeforeLightbox", function (id?: string) {
 	gantt.showTask(id);
 });

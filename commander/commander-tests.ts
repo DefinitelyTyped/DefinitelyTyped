@@ -18,7 +18,7 @@ program
 program
   .command('setup [env]')
   .description('run setup commands for all envs')
-  .action(function (env) {
+  .action(function (env?) {
       env = env || 'all';
       console.log('setup for %s env(s)', env);
   });
@@ -27,7 +27,7 @@ program
 // $ deploy production
 program
   .command('*')
-  .action(function (env) {
+  .action(function (env?) {
       console.log('deploying "%s"', env);
   });
 

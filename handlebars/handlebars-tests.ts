@@ -10,7 +10,7 @@ var context = {
         body: 'Me too!'
     }]
 };
-Handlebars.registerHelper('fullName', (person) => {
+Handlebars.registerHelper('fullName', (person: typeof context.author) => {
     return person.firstName + ' ' + person.lastName;
 });
 
@@ -28,17 +28,18 @@ var data = { 'name': 'Alan', 'hometown': 'Somewhere, TX',
              'kids': [{'name': 'Jimmy', 'age': '12'}, {'name': 'Sally', 'age': '4'}]};
 var result = template(data);
 
-Handlebars.registerHelper('link_to', (context) => {
+Handlebars.registerHelper('link_to', (context: typeof post) => {
     return '<a href="' + context.url + '">' + context.body + '</a>';
 });
 
-var context2 = { posts: [{url: '/hello-world', body: 'Hello World!'}] };
+var post = { url: '/hello-world', body: 'Hello World!' };
+var context2 = { posts: [post] };
 var source2 = '<ul>{{#posts}}<li>{{{link_to this}}}</li>{{/posts}}</ul>';
 
 var template2 = Handlebars.compile(source2);
 template2(context2);
 
-Handlebars.registerHelper('link_to', (title, context) => {
+Handlebars.registerHelper('link_to', (title: string, context: typeof post) => {
     return '<a href="/posts' + context.url + '">' + title + '!</a>';
 });
 
@@ -48,7 +49,7 @@ var template3 = Handlebars.compile(source3);
 template3(context3);
 
 var source4 = '<ul>{{#people}}<li>{{#link}}{{name}}{{/link}}</li>{{/people}}</ul>';
-Handlebars.registerHelper('link', function(context) {
+Handlebars.registerHelper('link', function(context: any) {
     return '<a href="/people/' + this.id + '">' + context.fn(this) + '</a>';
 });
 var template4 = Handlebars.compile(source4);
@@ -67,13 +68,13 @@ var data3 = { 'people': [
 ]};
 template5(data3);
 
-Handlebars.registerHelper('list', (items, fn) => {
+Handlebars.registerHelper('list', (items: any, fn: (item: any) => string) => {
     var out = '<ul>';
     for(var i=0, l=items.length; i<l; i++) {
         out = out + '<li>' + fn(items[i]) + '</li>';
     }
     return out + '</ul>';
 });
-Handlebars.registerHelper('fullName', (person) => {
+Handlebars.registerHelper('fullName', (person: typeof context.author) => {
     return person.firstName + ' ' + person.lastName;
 });

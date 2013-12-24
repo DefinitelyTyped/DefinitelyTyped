@@ -107,7 +107,7 @@ function testGetter() {
 }
 
 function test_observableArrays() {
-    var myObservableArray = ko.observableArray();
+    var myObservableArray = ko.observableArray<any>();
     myObservableArray.push('Some value');
     var anotherObservableArray = ko.observableArray([
         { name: "Bungle", type: "Bear" },

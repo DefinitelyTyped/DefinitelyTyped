@@ -59,7 +59,7 @@ query.read().done(printOut);  //Execute query remotly and return data filtered
 
 //testing more complicated Query in composition with previous using function Predicate and Projection
 var minlength = 15; //parameter value for filter Predicate
-query.where(function (len: number) { return this.text != null && this.text.length > len }, minlength) 
+query.where(function (len?: number) { return this.text != null && this.text.length > len }, minlength) 
     .orderByDescending('id').skip(2).take(3) //some other ordering and paging filters
     .select(function () { return { abc: this.text + '|' + this.id }; }) //Projection
     .read().done(printOut); //return 3 object {abd: 'ttttttttttttttt|ID'}
