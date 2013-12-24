@@ -3,11 +3,11 @@
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="rx.js.d.ts"/>
+/// <reference path="rx.d.ts"/>
 
 declare module Rx {
 
-	interface IObservable<T> {
+	interface Observable<T> {
 		/**
 		 *  Returns an observable sequence that is the result of invoking the selector on the source sequence, without sharing subscriptions.
 		 *  This operator allows for a fluent style of writing queries that use the same sequence multiple times.
@@ -15,7 +15,7 @@ declare module Rx {
 		 * @param selector Selector function which can use the source sequence as many times as needed, without sharing subscriptions to the source sequence.
 		 * @returns An observable sequence that contains the elements of a sequence produced by multicasting the source sequence within a selector function.
 		 */
-		let<TResult>(selector: (source: IObservable<T>) => IObservable<TResult>): IObservable<TResult>;
+		let<TResult>(selector: (source: Observable<T>) => Observable<TResult>): Observable<TResult>;
 
 		/**
 		 *  Returns an observable sequence that is the result of invoking the selector on the source sequence, without sharing subscriptions.
@@ -24,14 +24,14 @@ declare module Rx {
 		 * @param selector Selector function which can use the source sequence as many times as needed, without sharing subscriptions to the source sequence.
 		 * @returns An observable sequence that contains the elements of a sequence produced by multicasting the source sequence within a selector function.
 		 */
-		letBind<TResult>(selector: (source: IObservable<T>) => IObservable<TResult>): IObservable<TResult>;
+		letBind<TResult>(selector: (source: Observable<T>) => Observable<TResult>): Observable<TResult>;
 
 		/**
 		 *  Repeats source as long as condition holds emulating a do while loop.
 		 * @param condition The condition which determines if the source will be repeated.
 		 * @returns An observable sequence which is repeated as long as the condition holds. 
 		 */
-		doWhile(condition: () => boolean): IObservable<T>;
+		doWhile(condition: () => boolean): Observable<T>;
 
 		/**
 		 *  Expands an observable sequence by recursively invoking selector.
@@ -40,7 +40,7 @@ declare module Rx {
 		 * @param [scheduler] Scheduler on which to perform the expansion. If not provided, this defaults to the current thread scheduler.
 		 * @returns An observable sequence containing all the elements produced by the recursive expansion.
 		 */
-		expand(selector: (item: T) => IObservable<T>, scheduler?: IScheduler): IObservable<T>;
+		expand(selector: (item: T) => Observable<T>, scheduler?: IScheduler): Observable<T>;
 
 		/**
 		 *  Runs two observable sequences in parallel and combines their last elemenets.
@@ -49,7 +49,7 @@ declare module Rx {
 		 * @param resultSelector Result selector function to invoke with the last elements of both sequences.
 		 * @returns An observable sequence with the result of calling the selector function with the last elements of both input sequences.
 		 */
-		forkJoin<TSecond, TResult>(second: IObservable<TSecond>, resultSelector: (left: T, right: TSecond) => TResult): IObservable<TResult>;
+		forkJoin<TSecond, TResult>(second: Observable<TSecond>, resultSelector: (left: T, right: TSecond) => TResult): Observable<TResult>;
 
 		/**
 		 * Comonadic bind operator.
@@ -57,10 +57,10 @@ declare module Rx {
 		 * @param [scheduler] Scheduler used to execute the operation. If not specified, defaults to the ImmediateScheduler.
 		 * @returns An observable sequence which results from the comonadic bind operation.
 		 */
-		manySelect<TResult>(selector: (item: IObservable<T>, index: number, source: IObservable<T>) => TResult, scheduler?: IScheduler): IObservable<TResult>;
+		manySelect<TResult>(selector: (item: Observable<T>, index: number, source: Observable<T>) => TResult, scheduler?: IScheduler): Observable<TResult>;
 	}
 
-	interface Observable {
+	interface ObservableStatic {
 		/**
 		 *  Determines whether an observable collection contains values. There is an alias for this method called 'ifThen' for browsers <IE9
 		 *  
@@ -71,7 +71,7 @@ declare module Rx {
 		 * @param elseSource The observable sequence that will be run if the condition function returns false.
 		 * @returns An observable sequence which is either the thenSource or elseSource.
 		 */
-		if<T>(condition: () => boolean, thenSource: IObservable<T>, elseSource: IObservable<T>): IObservable<T>;
+		if<T>(condition: () => boolean, thenSource: Observable<T>, elseSource: Observable<T>): Observable<T>;
 
 		/**
 		 *  Determines whether an observable collection contains values. There is an alias for this method called 'ifThen' for browsers <IE9
@@ -83,7 +83,7 @@ declare module Rx {
 		 * @param scheduler Scheduler used to create Rx.Observabe.Empty.
 		 * @returns An observable sequence which is either the thenSource or empty sequence.
 		 */
-		if<T>(condition: () => boolean, thenSource: IObservable<T>, scheduler?: IScheduler): IObservable<T>;
+		if<T>(condition: () => boolean, thenSource: Observable<T>, scheduler?: IScheduler): Observable<T>;
 
 		/**
 		 *  Determines whether an observable collection contains values. There is an alias for this method called 'ifThen' for browsers <IE9
@@ -95,7 +95,7 @@ declare module Rx {
 		 * @param elseSource The observable sequence that will be run if the condition function returns false.
 		 * @returns An observable sequence which is either the thenSource or elseSource.
 		 */
-		ifThen<T>(condition: () => boolean, thenSource: IObservable<T>, elseSource: IObservable<T>): IObservable<T>;
+		ifThen<T>(condition: () => boolean, thenSource: Observable<T>, elseSource: Observable<T>): Observable<T>;
 
 		/**
 		 *  Determines whether an observable collection contains values. There is an alias for this method called 'ifThen' for browsers <IE9
@@ -107,7 +107,7 @@ declare module Rx {
 		 * @param scheduler Scheduler used to create Rx.Observabe.Empty.
 		 * @returns An observable sequence which is either the thenSource or empty sequence.
 		 */
-		ifThen<T>(condition: () => boolean, thenSource: IObservable<T>, scheduler?: IScheduler): IObservable<T>;
+		ifThen<T>(condition: () => boolean, thenSource: Observable<T>, scheduler?: IScheduler): Observable<T>;
 
 		/**
 		 *  Concatenates the observable sequences obtained by running the specified result selector for each element in source.
@@ -116,7 +116,7 @@ declare module Rx {
 		 * @param resultSelector A function to apply to each item in the sources array to turn it into an observable sequence.
 		 * @returns An observable sequence from the concatenated observable sequences.  
 		 */
-		for<T, TResult>(sources: T[], resultSelector: (item: T) => IObservable<TResult>): IObservable<TResult>;
+		for<T, TResult>(sources: T[], resultSelector: (item: T) => Observable<TResult>): Observable<TResult>;
 
 		/**
 		 *  Concatenates the observable sequences obtained by running the specified result selector for each element in source.
@@ -125,7 +125,7 @@ declare module Rx {
 		 * @param resultSelector A function to apply to each item in the sources array to turn it into an observable sequence.
 		 * @returns An observable sequence from the concatenated observable sequences.  
 		 */
-		forIn<T, TResult>(sources: T[], resultSelector: (item: T) => IObservable<TResult>): IObservable<TResult>;
+		forIn<T, TResult>(sources: T[], resultSelector: (item: T) => Observable<TResult>): Observable<TResult>;
 
 		/**
 		 *  Repeats source as long as condition holds emulating a while loop.
@@ -134,7 +134,7 @@ declare module Rx {
 		 * @param source The observable sequence that will be run if the condition function returns true.
 		 * @returns An observable sequence which is repeated as long as the condition holds.  
 		 */
-		while<T>(condition: () => boolean, source: IObservable<T>): IObservable<T>;
+		while<T>(condition: () => boolean, source: Observable<T>): Observable<T>;
 
 		/**
 		 *  Repeats source as long as condition holds emulating a while loop.
@@ -143,7 +143,7 @@ declare module Rx {
 		 * @param source The observable sequence that will be run if the condition function returns true.
 		 * @returns An observable sequence which is repeated as long as the condition holds.  
 		 */
-		whileDo<T>(condition: () => boolean, source: IObservable<T>): IObservable<T>;
+		whileDo<T>(condition: () => boolean, source: Observable<T>): Observable<T>;
 
 		/**
 		 *  Uses selector to determine which source in sources to use.
@@ -157,7 +157,7 @@ declare module Rx {
 		 *       
 		 * @returns An observable sequence which is determined by a case statement.  
 		 */
-		case<T>(selector: () => string, sources: { [key: string]: IObservable<T>; }, elseSource: IObservable<T>): IObservable<T>;
+		case<T>(selector: () => string, sources: { [key: string]: Observable<T>; }, elseSource: Observable<T>): Observable<T>;
 
 		/**
 		 *  Uses selector to determine which source in sources to use.
@@ -173,7 +173,7 @@ declare module Rx {
 		 *       
 		 * @returns An observable sequence which is determined by a case statement.  
 		 */
-		case<T>(selector: () => string, sources: { [key: string]: IObservable<T>; }, scheduler?: IScheduler): IObservable<T>;
+		case<T>(selector: () => string, sources: { [key: string]: Observable<T>; }, scheduler?: IScheduler): Observable<T>;
 
 		/**
 		 *  Uses selector to determine which source in sources to use.
@@ -187,7 +187,7 @@ declare module Rx {
 		 *       
 		 * @returns An observable sequence which is determined by a case statement.  
 		 */
-		case<T>(selector: () => number, sources: { [key: number]: IObservable<T>; }, elseSource: IObservable<T>): IObservable<T>;
+		case<T>(selector: () => number, sources: { [key: number]: Observable<T>; }, elseSource: Observable<T>): Observable<T>;
 
 		/**
 		 *  Uses selector to determine which source in sources to use.
@@ -203,7 +203,7 @@ declare module Rx {
 		 *       
 		 * @returns An observable sequence which is determined by a case statement.  
 		 */
-		case<T>(selector: () => number, sources: { [key: number]: IObservable<T>; }, scheduler?: IScheduler): IObservable<T>;
+		case<T>(selector: () => number, sources: { [key: number]: Observable<T>; }, scheduler?: IScheduler): Observable<T>;
 
 		/**
 		 *  Uses selector to determine which source in sources to use.
@@ -217,7 +217,7 @@ declare module Rx {
 		 *       
 		 * @returns An observable sequence which is determined by a case statement.  
 		 */
-		switchCase<T>(selector: () => string, sources: { [key: string]: IObservable<T>; }, elseSource: IObservable<T>): IObservable<T>;
+		switchCase<T>(selector: () => string, sources: { [key: string]: Observable<T>; }, elseSource: Observable<T>): Observable<T>;
 
 		/**
 		 *  Uses selector to determine which source in sources to use.
@@ -233,7 +233,7 @@ declare module Rx {
 		 *       
 		 * @returns An observable sequence which is determined by a case statement.  
 		 */
-		switchCase<T>(selector: () => string, sources: { [key: string]: IObservable<T>; }, scheduler?: IScheduler): IObservable<T>;
+		switchCase<T>(selector: () => string, sources: { [key: string]: Observable<T>; }, scheduler?: IScheduler): Observable<T>;
 
 		/**
 		 *  Uses selector to determine which source in sources to use.
@@ -247,7 +247,7 @@ declare module Rx {
 		 *       
 		 * @returns An observable sequence which is determined by a case statement.  
 		 */
-		switchCase<T>(selector: () => number, sources: { [key: number]: IObservable<T>; }, elseSource: IObservable<T>): IObservable<T>;
+		switchCase<T>(selector: () => number, sources: { [key: number]: Observable<T>; }, elseSource: Observable<T>): Observable<T>;
 
 		/**
 		 *  Uses selector to determine which source in sources to use.
@@ -263,7 +263,7 @@ declare module Rx {
 		 *       
 		 * @returns An observable sequence which is determined by a case statement.  
 		 */
-		switchCase<T>(selector: () => number, sources: { [key: number]: IObservable<T>; }, scheduler?: IScheduler): IObservable<T>;
+		switchCase<T>(selector: () => number, sources: { [key: number]: Observable<T>; }, scheduler?: IScheduler): Observable<T>;
 
 		/**
 		 *  Runs all observable sequences in parallel and collect their last elements.
@@ -273,7 +273,7 @@ declare module Rx {
 		 * @param sources Array of source sequences.
 		 * @returns An observable sequence with an array collecting the last elements of all the input sequences.
 		 */
-		forkJoin<T>(sources: IObservable<T>[]): IObservable<T[]>;
+		forkJoin<T>(sources: Observable<T>[]): Observable<T[]>;
 
 		/**
 		 *  Runs all observable sequences in parallel and collect their last elements.
@@ -283,6 +283,6 @@ declare module Rx {
 		 * @param args Source sequences.
 		 * @returns An observable sequence with an array collecting the last elements of all the input sequences.
 		 */
-		forkJoin<T>(...args: IObservable<T>[]): IObservable<T[]>;
+		forkJoin<T>(...args: Observable<T>[]): Observable<T[]>;
 	}
 }

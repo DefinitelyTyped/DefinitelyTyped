@@ -18,7 +18,7 @@
     window.requestAnimationFrame(runAnimation);
 };
 
-()=>{
+(()=>{
     window.addEventListener('GamepadConnected', (e: GamepadEvent)=>{
         console.log('Gamepad ' + e.gamepad.index + ' connected!');
     }, false);
@@ -69,4 +69,4 @@
 
         runAnimation();
     }
-}();
+})();

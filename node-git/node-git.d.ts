@@ -17,7 +17,7 @@ declare module "git" {
 
         git(functionName:any, options:any, ...args:any[]):void; // last element is callback
 
-        call_git(prefix:string, command:any, postfix:string, options:any, args:any, callback:Function):void;
+        call_git(prefix:string, command:any, postfix:string, options:any, args:any, callback: (error: any, result: string) => void):void;
 
         rev_list(callback:Function):void;
 
@@ -46,9 +46,9 @@ declare module "git" {
         // not implemented!
         clone(options:any, originalPath:any, targetPath:any, callback:Function):void;
 
-        diff(commit1:any, commit2:any, callback:Function):void;
+        diff(commit1:any, commit2:any, callback: (error: any, patch: string) => void):void;
 
-        diff(commit1:any, commit2:any, options:any, callback:Function):void;
+		diff(commit1: any, commit2: any, options: any, callback: (error: any, patch: string) => void):void;
 
         fs_exist(path:any, callback:Function):void;
 
@@ -488,11 +488,11 @@ declare module "git" {
         fork_bare(path:any, options:any, callback:Function):void;
 
         // buggy?
-        diff(a:string, callback:Function):void;
+		diff(a: string, callback: (error: any, patch: string) => void):void;
 
-        diff(a:string, b:string, callback:Function):void;
+		diff(a: string, b: string, callback: (error: any, patch: string) => void):void;
 
-        diff(a:string, b:string, paths:any, callback:Function):void;
+		diff(a: string, b: string, paths: any, callback: (error: any, patch: string) => void):void;
 
         commit_diff(commit:string, callback:Function):void;
 

@@ -1320,7 +1320,7 @@ declare module Slick {
 	}
 
 	// todo: merge with existing column definition
-	export interface Column {
+	export interface Column<T extends SlickData> {
 		sortCol?: string;
 		sortAsc?: boolean;
 	}

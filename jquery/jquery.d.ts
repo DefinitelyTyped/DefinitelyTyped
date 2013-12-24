@@ -863,7 +863,8 @@ interface JQuery {
     toggle(showOrHide: boolean): JQuery;
 
     // Events
-    bind(eventType: string, eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    bind(eventType: string, eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    bind(eventType: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
     bind(eventType: string, eventData: any, preventBubble: boolean): JQuery;
     bind(eventType: string, preventBubble: boolean): JQuery;
     bind(...events: any[]): JQuery;

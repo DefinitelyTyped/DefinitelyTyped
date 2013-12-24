@@ -1,6 +1,6 @@
 // Type definitions for Grunt 0.4.x
 // Project: http://gruntjs.com
-// Definitions by: Jeff May <https://github.com/jeffmay/>
+// Definitions by: Jeff May <https://github.com/jeffmay/>, Basarat Ali Syed <https://github.com/basarat/>
 // Definitions: https://github.com/jeffmay/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
@@ -117,27 +117,14 @@ declare module minimatch {
 declare module grunt {
 
     module config {
-
+       
         /**
          * {@link http://gruntjs.com/sample-gruntfile}
          */
-        interface IProjectConfig extends IConfigOptionFormat {
-            pkg: string
-        }
-
-        /**
-         * @see IProjectConfig
-         */
-        interface IConfigOptionFormat {
-            [plugin: string]: IConfigPluginFormat
-        }
-
-        /**
-         * A map of plugin task names to config objects.
-         */
-        interface IConfigPluginFormat {
-            [task: string]: grunt.task.ITaskOptions
-        }
+        interface IProjectConfig{
+            [plugin: string]: any
+            pkg: any; // unfortunate. It is actually a string
+        }                
 
         /**
          * {@link http://gruntjs.com/api/grunt.config}

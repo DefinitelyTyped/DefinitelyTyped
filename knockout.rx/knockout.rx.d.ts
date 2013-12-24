@@ -3,7 +3,7 @@
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 
 /// <reference path="../knockout/knockout.d.ts"/>
-/// <reference path="../rx.js/rx.js.d.ts"/>
+/// <reference path="../rx.js/rx.d.ts"/>
 
 interface KnockoutSubscribableFunctions<T> {
 	toObservable(event?: string): Rx.IObservable<T>;

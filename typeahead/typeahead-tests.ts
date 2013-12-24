@@ -4,7 +4,7 @@
 //
 // Examples from http://twitter.github.com/typeahead.js/examples
 //
-declare var Hogan: any;
+declare var Hogan: string;
 
 // Countries
 // Prefetches data, stores it in localStorage, and searches it on the client
