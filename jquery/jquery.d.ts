@@ -669,7 +669,22 @@ interface JQuery {
     ajaxStop(handler: () => any): JQuery;
     ajaxSuccess(handler: (event: any, jqXHR: any, settings: any, exception: any) => any): JQuery;
 
-    load(url: string, data?: any, complete?: any): JQuery;
+    /**
+     * Load data from the server and place the returned HTML into the matched element.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param data A plain object or string that is sent to the server with the request.
+     * @param complete A callback function that is executed when the request completes.
+     */
+    load(url: string, data?: string, complete?: (responseText: string, textStatus: string, XMLHttpRequest: JQueryXHR) => any): JQuery;
+    /**
+     * Load data from the server and place the returned HTML into the matched element.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param data A plain object or string that is sent to the server with the request.
+     * @param complete A callback function that is executed when the request completes.
+     */
+    load(url: string, data?: Object, complete?: (responseText: string, textStatus: string, XMLHttpRequest: JQueryXHR) => any): JQuery;
 
     /**
      * Encode a set of form elements as a string for submission.
@@ -749,6 +764,11 @@ interface JQuery {
     prop(map: any): JQuery;
     prop(propertyName: string, func: (index: any, oldPropertyValue: any) => any): JQuery;
 
+    /**
+     * Remove an attribute from each element in the set of matched elements.
+     *
+     * @param attributeName An attribute to remove; as of version 1.7, it can be a space-separated list of attributes.
+     */
     removeAttr(attributeName: string): JQuery;
 
     /**
