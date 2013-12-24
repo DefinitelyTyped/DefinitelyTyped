@@ -661,8 +661,12 @@ interface JQueryStatic {
  * The jQuery instance members
  */
 interface JQuery {
-    // AJAX
-    ajaxComplete(handler: any): JQuery;
+    /**
+     * Register a handler to be called when Ajax requests complete. This is an AjaxEvent.
+     *
+     * @param handler The function to be invoked.
+     */
+    ajaxComplete(handler: (event: any, XMLHttpRequest: XMLHttpRequest, ajaxOptions: any) => any): JQuery;
     ajaxError(handler: (event: any, jqXHR: any, settings: any, exception: any) => any): JQuery;
     ajaxSend(handler: (event: any, jqXHR: any, settings: any, exception: any) => any): JQuery;
     ajaxStart(handler: () => any): JQuery;
@@ -676,7 +680,7 @@ interface JQuery {
      * @param data A plain object or string that is sent to the server with the request.
      * @param complete A callback function that is executed when the request completes.
      */
-    load(url: string, data?: string, complete?: (responseText: string, textStatus: string, XMLHttpRequest: JQueryXHR) => any): JQuery;
+    load(url: string, data?: string, complete?: (responseText: string, textStatus: string, XMLHttpRequest: XMLHttpRequest) => any): JQuery;
     /**
      * Load data from the server and place the returned HTML into the matched element.
      *
@@ -684,7 +688,7 @@ interface JQuery {
      * @param data A plain object or string that is sent to the server with the request.
      * @param complete A callback function that is executed when the request completes.
      */
-    load(url: string, data?: Object, complete?: (responseText: string, textStatus: string, XMLHttpRequest: JQueryXHR) => any): JQuery;
+    load(url: string, data?: Object, complete?: (responseText: string, textStatus: string, XMLHttpRequest: XMLHttpRequest) => any): JQuery;
 
     /**
      * Encode a set of form elements as a string for submission.
