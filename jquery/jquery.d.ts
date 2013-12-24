@@ -698,12 +698,40 @@ interface JQuery {
      */
     addBack(selector?: string): JQuery;
 
-
+    /**
+     * Get the value of an attribute for the first element in the set of matched elements.
+     *
+     * @param attributeName The name of the attribute to get.
+     */
     attr(attributeName: string): string;
-    attr(attributeName: string, value: any): JQuery;
-    attr(attributeName: string, func: (index: any, attr: any) => any): JQuery;
-    attr(map: any): JQuery;
-
+    /**
+     * Set one or more attributes for the set of matched elements.
+     *
+     * @param attributeName The name of the attribute to set.
+     * @param value A value to set for the attribute.
+     */
+    attr(attributeName: string, value: string): JQuery;
+    /**
+     * Set one or more attributes for the set of matched elements.
+     *
+     * @param attributeName The name of the attribute to set.
+     * @param value A value to set for the attribute.
+     */
+    attr(attributeName: string, value: number): JQuery;
+    /**
+     * Set one or more attributes for the set of matched elements.
+     *
+     * @param attributeName The name of the attribute to set.
+     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old attribute value as arguments.
+     */
+    attr(attributeName: string, func: (index: number, attr: any) => any): JQuery;
+    /**
+     * Set one or more attributes for the set of matched elements.
+     *
+     * @param attributes An object of attribute-value pairs to set.
+     */
+    attr(attributes: Object): JQuery;
+    
     /**
      * Determine whether any of the matched elements are assigned the given class.
      *
