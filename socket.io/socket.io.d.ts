@@ -55,11 +55,12 @@ interface SocketManager {
 	set(key: any, value: any): SocketManager;
 	enable(key: any): SocketManager;
 	disable(key: any): SocketManager;
-    enabled(key: any): boolean;
-    disabled(key: any): boolean;
+        enabled(key: any): boolean;
+        disabled(key: any): boolean;
 	configure(env: string, fn: Function): SocketManager;
 	configure(fn: Function): SocketManager;
 	of(nsp: string): SocketNamespace;
 	on(ns: string, fn: Function): SocketManager;
 	sockets: SocketNamespace;
 }
+
