@@ -657,9 +657,9 @@ interface JQueryStatic {
     easing: JQueryEasing;
 }
 
-/*
-    The jQuery instance members
-*/
+/**
+ * The jQuery instance members
+ */
 interface JQuery {
     // AJAX
     ajaxComplete(handler: any): JQuery;
@@ -674,9 +674,18 @@ interface JQuery {
     serialize(): string;
     serializeArray(): any[];
 
-    // Attributes
-    addClass(classNames: string): JQuery;
-    addClass(func: (index: any, currentClass: any) => string): JQuery;
+    /**
+     * Adds the specified class(es) to each of the set of matched elements.
+     *
+     * @param className One or more space-separated classes to be added to the class attribute of each matched element.
+     */
+    addClass(className: string): JQuery;
+    /**
+     * Adds the specified class(es) to each of the set of matched elements.
+     *
+     * @param function A function returning one or more space-separated class names to be added to the existing class name(s). Receives the index position of the element in the set and the existing class name(s) as arguments. Within the function, this refers to the current element in the set.
+     */
+    addClass(func: (index: number, currentClass: string) => string): JQuery;
 
     // http://api.jquery.com/addBack/
     addBack(selector?: string): JQuery;
