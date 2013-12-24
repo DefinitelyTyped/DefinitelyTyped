@@ -671,8 +671,14 @@ interface JQuery {
 
     load(url: string, data?: any, complete?: any): JQuery;
 
+    /**
+     * Encode a set of form elements as a string for submission.
+     */
     serialize(): string;
-    serializeArray(): any[];
+    /**
+     * Encode a set of form elements as an array of names and values.
+     */
+    serializeArray(): Object[];
 
     /**
      * Adds the specified class(es) to each of the set of matched elements.
