@@ -9,7 +9,7 @@ describe("A suite", function () {
 });
 
 describe("A suite is just a function", function () {
-    var a;
+    var a: boolean;
 
     it("and so is a spec", function () {
         a = true;
@@ -72,7 +72,7 @@ describe("Included matchers:", function () {
         };
 
         expect(a.foo).toBeDefined();
-        expect(a.bar).not.toBeDefined();
+        expect((<any>a).bar).not.toBeDefined();
     });
 
     it("The `toBeUndefined` matcher compares against `undefined`", function () {
@@ -81,11 +81,11 @@ describe("Included matchers:", function () {
         };
 
         expect(a.foo).not.toBeUndefined();
-        expect(a.bar).toBeUndefined();
+        expect((<any>a).bar).toBeUndefined();
     });
 
     it("The 'toBeNull' matcher compares against null", function () {
-        var a = null;
+        var a: string = null;
         var foo = "foo";
 
         expect(null).toBeNull();
@@ -94,14 +94,14 @@ describe("Included matchers:", function () {
     });
 
     it("The 'toBeTruthy' matcher is for boolean casting testing", function () {
-        var a, foo = "foo";
+        var a: string, foo = "foo";
 
         expect(foo).toBeTruthy();
         expect(a).not.toBeTruthy();
     });
 
     it("The 'toBeFalsy' matcher is for boolean casting testing", function () {
-        var a, foo = "foo";
+        var a: string, foo = "foo";
 
         expect(a).toBeFalsy();
         expect(foo).not.toBeFalsy();
@@ -143,6 +143,7 @@ describe("Included matchers:", function () {
             return 1 + 2;
         };
         var bar = function () {
+            var a: any = undefined;
             return a + 1;
         };
 
@@ -169,7 +170,7 @@ describe("A spec", function () {
 });
 
 describe("A spec (with setup and tear-down)", function () {
-    var foo;
+    var foo: number;
 
     beforeEach(function () {
         foo = 0;
@@ -191,7 +192,7 @@ describe("A spec (with setup and tear-down)", function () {
 });
 
 describe("A spec", function () {
-    var foo;
+    var foo: number;
 
     beforeEach(function () {
         foo = 0;
@@ -212,7 +213,7 @@ describe("A spec", function () {
     });
 
     describe("nested inside a second describe", function () {
-        var bar;
+        var bar: number;
 
         beforeEach(function () {
             bar = 1;
@@ -225,7 +226,7 @@ describe("A spec", function () {
 });
 
 xdescribe("A spec", function () {
-    var foo;
+    var foo: number;
 
     beforeEach(function () {
         foo = 0;
@@ -252,11 +253,11 @@ describe("Pending specs", function () {
 });
 
 describe("A spy", function () {
-    var foo, bar = null;
+    var foo: any, bar: any = null;
 
     beforeEach(function () {
         foo = {
-            setBar: function (value) {
+            setBar: function (value: any) {
                 bar = value;
             }
         };
@@ -282,11 +283,11 @@ describe("A spy", function () {
 });
 
 describe("A spy, when configured to call through", function () {
-    var foo, bar, fetchedBar;
+    var foo: any, bar: any, fetchedBar: any;
 
     beforeEach(function () {
         foo = {
-            setBar: function (value) {
+            setBar: function (value: any) {
                 bar = value;
             },
             getBar: function () {
@@ -314,11 +315,11 @@ describe("A spy, when configured to call through", function () {
 });
 
 describe("A spy, when configured to fake a return value", function () {
-    var foo, bar, fetchedBar;
+    var foo: any, bar: any, fetchedBar: any;
 
     beforeEach(function () {
         foo = {
-            setBar: function (value) {
+            setBar: function (value: any) {
                 bar = value;
             },
             getBar: function () {
@@ -346,11 +347,11 @@ describe("A spy, when configured to fake a return value", function () {
 });
 
 describe("A spy, when configured with an alternate implementation", function () {
-    var foo, bar, fetchedBar;
+    var foo: any, bar: any, fetchedBar: any;
 
     beforeEach(function () {
         foo = {
-            setBar: function (value) {
+            setBar: function (value: any) {
                 bar = value;
             },
             getBar: function () {
@@ -380,11 +381,11 @@ describe("A spy, when configured with an alternate implementation", function () 
 });
 
 describe("A spy, when configured to throw a value", function () {
-    var foo, bar;
+    var foo: any, bar: any;
 
     beforeEach(function () {
         foo = {
-            setBar: function (value) {
+            setBar: function (value: any) {
                 bar = value;
             }
         };
@@ -400,11 +401,11 @@ describe("A spy, when configured to throw a value", function () {
 });
 
 describe("A spy", function () {
-    var foo, bar = null;
+    var foo: any, bar: any = null;
 
     beforeEach(function () {
         foo = {
-            setBar: function (value) {
+            setBar: function (value: any) {
                 bar = value;
             }
         };
@@ -425,11 +426,11 @@ describe("A spy", function () {
 });
 
 describe("A spy", function () {
-    var foo, bar = null;
+    var foo: any, bar: any = null;
 
     beforeEach(function () {
         foo = {
-            setBar: function (value) {
+            setBar: function (value: any) {
                 bar = value;
             }
         };
@@ -502,7 +503,7 @@ describe("A spy", function () {
 });
 
 describe("A spy, when created manually", function () {
-    var whatAmI;
+    var whatAmI: any;
 
     beforeEach(function () {
         whatAmI = jasmine.createSpy('whatAmI');
@@ -532,7 +533,7 @@ describe("A spy, when created manually", function () {
 });
 
 describe("Multiple spies, when created manually", function () {
-    var tape;
+    var tape: any;
 
     beforeEach(function () {
         tape = jasmine.createSpyObj('tape', ['play', 'pause', 'stop', 'rewind']);
@@ -580,7 +581,7 @@ describe("jasmine.any", function () {
 });
 
 describe("jasmine.objectContaining", function () {
-    var foo;
+    var foo: any;
 
     beforeEach(function () {
         foo = {
@@ -618,7 +619,7 @@ describe("jasmine.objectContaining", function () {
 });
 
 describe("Manually ticking the Jasmine Clock", function () {
-    var timerCallback;
+    var timerCallback: any;
 
     beforeEach(function () {
         timerCallback = jasmine.createSpy("timerCallback");
@@ -660,7 +661,7 @@ describe("Manually ticking the Jasmine Clock", function () {
 });
 
 describe("Asynchronous specs", function () {
-    var value;
+    var value: number;
     beforeEach(function (done) {
         setTimeout(function () {
             value = 0;
