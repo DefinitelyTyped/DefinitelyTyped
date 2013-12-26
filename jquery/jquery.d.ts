@@ -666,7 +666,7 @@ interface JQuery {
      *
      * @param handler The function to be invoked.
      */
-    ajaxComplete(handler: (event: any, XMLHttpRequest: any, ajaxOptions: any) => any): JQuery;
+    ajaxComplete(handler: (event: any, XMLHttpRequest: XMLHttpRequest, ajaxOptions: any) => any): JQuery;
     ajaxError(handler: (event: any, jqXHR: any, settings: any, exception: any) => any): JQuery;
     ajaxSend(handler: (event: any, jqXHR: any, settings: any, exception: any) => any): JQuery;
     ajaxStart(handler: () => any): JQuery;
