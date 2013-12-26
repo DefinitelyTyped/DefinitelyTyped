@@ -161,7 +161,7 @@ function test_ajaxComplete() {
     });
     $('.log').ajaxComplete(function (e, xhr, settings) {
         if (settings.url == 'ajax/test.html') {
-            $(this).text('Triggered ajaxComplete handler. The result is ' + xhr.responseHTML);
+            $(this).text('Triggered ajaxComplete handler. The result is ' + xhr.responseText);
         }
     });
     $("#msg").ajaxComplete(function (event, request, settings) {
