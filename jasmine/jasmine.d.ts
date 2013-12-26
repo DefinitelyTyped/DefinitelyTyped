@@ -1,21 +1,26 @@
-﻿// Type definitions for Jasmine 1.2
+﻿// Type definitions for Jasmine 2.0
 // Project: http://pivotal.github.com/jasmine/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/> and Theodore Brown <https://github.com/theodorejb>
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
 
 
 declare function describe(description: string, specDefinitions: () => void): void;
 declare function xdescribe(description: string, specDefinitions: () => void): void;
 
-declare function it(expectation: string, assertion: () => void): void;
-declare function it(expectation: string, assertion: (done: (err?: any) => void) => void): void;
-declare function xit(expectation: string, assertion: () => void): void;
+declare function it(expectation: string, assertion?: () => void): void;
+declare function it(expectation: string, assertion?: (done: () => void) => void): void;
+declare function xit(expectation: string, assertion?: () => void): void;
+declare function xit(expectation: string, assertion?: (done: () => void) => void): void;
+
+/** If you call the function pending anywhere in the spec body, no matter the expectations, the spec will be marked pending. */
+declare function pending(): void;
 
 declare function beforeEach(action: () => void): void;
+declare function beforeEach(action: (done: () => void) => void): void;
 declare function afterEach(action: () => void): void;
+declare function afterEach(action: (done: () => void) => void): void;
 
 declare function expect(spy: Function): jasmine.Matchers;
-//declare function expect(spy: jasmine.Spy): jasmine.Matchers;
 declare function expect(actual: any): jasmine.Matchers;
 
 declare function spyOn(object: any, method: string): jasmine.Spy;
@@ -26,7 +31,7 @@ declare function waits(timeout?: number): void;
 
 declare module jasmine {
 
-    var Clock: Clock;
+    var clock: () => Clock;
 
     function any(aclass: any): Any;
     function objectContaining(sample: any): ObjectContaining;
@@ -67,17 +72,10 @@ declare module jasmine {
     }
 
     interface Clock {
-        reset(): void;
-        tick(millis: number): void;
-        runFunctionsWithinRange(oldMillis: number, nowMillis: number): void;
-        scheduleFunction(timeoutKey: any, funcToCall: () => void, millis: number, recurring: boolean): void;
-        useMock(): void;
-        installMock(): void;
-        uninstallMock(): void;
-        real: void;
-        assertInstalled(): void;
-        isInstalled(): boolean;
-        installed: any;
+        install(): void;
+        uninstall(): void;
+        /** Calls to any registered callback are triggered when the clock is ticked forward via the jasmine.clock().tick function, which takes a number of milliseconds. */
+        tick(ms: number): void;
     }
 
     interface Env {
@@ -122,6 +120,10 @@ declare module jasmine {
     }
 
     interface HtmlReporter {
+        new (): any;
+    }
+
+    interface HtmlSpecFilter {
         new (): any;
     }
 
@@ -235,6 +237,7 @@ declare module jasmine {
         toContainHtml(expected: string): boolean;
         toContainText(expected: string): boolean;
         toThrow(expected?: any): boolean;
+        toThrowError(expected?: any): boolean;
         not: Matchers;
 
         Any: Any;
@@ -345,15 +348,25 @@ declare module jasmine {
         (...params: any[]): any;
 
         identity: string;
+        and: SpyAnd;
         calls: any[];
         mostRecentCall: { args: any[]; };
         argsForCall: any[];
         wasCalled: boolean;
         callCount: number;
+    }
 
-        andReturn(value: any): Spy;
-        andCallThrough(): Spy;
-        andCallFake(fakeFunc: Function): Spy;
+    interface SpyAnd {
+        /** By chaining the spy with and.callThrough, the spy will still track all calls to it but in addition it will delegate to the actual implementation. */
+        callThrough(): void;
+        /** By chaining the spy with and.returnValue, all calls to the function will return a specific value. */
+        returnValue(val: any): void;
+        /** By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied function. */
+        callFake(fn: () => any): void;
+        /** By chaining the spy with and.throwError, all calls to the spy will throw the specified value. */
+        throwError(msg: string): void;
+        /** When a calling strategy is used for a spy, the original stubbing behavior can be returned at any time with and.stub. */
+        stub(): void;
     }
 
     interface Util {
@@ -384,9 +397,10 @@ declare module jasmine {
 
     interface Jasmine {
         Spec: Spec;
-        Clock: Clock;
+        clock: Clock;
         util: Util;
     }
 
-    export var HtmlReporter: any;
+    export var HtmlReporter: HtmlReporter;
+    export var HtmlSpecFilter: HtmlSpecFilter;
 }
