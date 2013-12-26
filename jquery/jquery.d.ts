@@ -657,36 +657,105 @@ interface JQueryStatic {
     easing: JQueryEasing;
 }
 
-/*
-    The jQuery instance members
-*/
+/**
+ * The jQuery instance members
+ */
 interface JQuery {
-    // AJAX
-    ajaxComplete(handler: any): JQuery;
+    /**
+     * Register a handler to be called when Ajax requests complete. This is an AjaxEvent.
+     *
+     * @param handler The function to be invoked.
+     */
+    ajaxComplete(handler: (event: any, XMLHttpRequest: XMLHttpRequest, ajaxOptions: any) => any): JQuery;
     ajaxError(handler: (event: any, jqXHR: any, settings: any, exception: any) => any): JQuery;
     ajaxSend(handler: (event: any, jqXHR: any, settings: any, exception: any) => any): JQuery;
     ajaxStart(handler: () => any): JQuery;
     ajaxStop(handler: () => any): JQuery;
     ajaxSuccess(handler: (event: any, jqXHR: any, settings: any, exception: any) => any): JQuery;
 
-    load(url: string, data?: any, complete?: any): JQuery;
+    /**
+     * Load data from the server and place the returned HTML into the matched element.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param data A plain object or string that is sent to the server with the request.
+     * @param complete A callback function that is executed when the request completes.
+     */
+    load(url: string, data?: string, complete?: (responseText: string, textStatus: string, XMLHttpRequest: XMLHttpRequest) => any): JQuery;
+    /**
+     * Load data from the server and place the returned HTML into the matched element.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param data A plain object or string that is sent to the server with the request.
+     * @param complete A callback function that is executed when the request completes.
+     */
+    load(url: string, data?: Object, complete?: (responseText: string, textStatus: string, XMLHttpRequest: XMLHttpRequest) => any): JQuery;
 
+    /**
+     * Encode a set of form elements as a string for submission.
+     */
     serialize(): string;
-    serializeArray(): any[];
+    /**
+     * Encode a set of form elements as an array of names and values.
+     */
+    serializeArray(): Object[];
 
-    // Attributes
-    addClass(classNames: string): JQuery;
-    addClass(func: (index: any, currentClass: any) => string): JQuery;
+    /**
+     * Adds the specified class(es) to each of the set of matched elements.
+     *
+     * @param className One or more space-separated classes to be added to the class attribute of each matched element.
+     */
+    addClass(className: string): JQuery;
+    /**
+     * Adds the specified class(es) to each of the set of matched elements.
+     *
+     * @param function A function returning one or more space-separated class names to be added to the existing class name(s). Receives the index position of the element in the set and the existing class name(s) as arguments. Within the function, this refers to the current element in the set.
+     */
+    addClass(func: (index: number, className: string) => string): JQuery;
 
-    // http://api.jquery.com/addBack/
+    /**
+     * Add the previous set of elements on the stack to the current set, optionally filtered by a selector.
+     */
     addBack(selector?: string): JQuery;
 
-
+    /**
+     * Get the value of an attribute for the first element in the set of matched elements.
+     *
+     * @param attributeName The name of the attribute to get.
+     */
     attr(attributeName: string): string;
-    attr(attributeName: string, value: any): JQuery;
-    attr(attributeName: string, func: (index: any, attr: any) => any): JQuery;
-    attr(map: any): JQuery;
-
+    /**
+     * Set one or more attributes for the set of matched elements.
+     *
+     * @param attributeName The name of the attribute to set.
+     * @param value A value to set for the attribute.
+     */
+    attr(attributeName: string, value: string): JQuery;
+    /**
+     * Set one or more attributes for the set of matched elements.
+     *
+     * @param attributeName The name of the attribute to set.
+     * @param value A value to set for the attribute.
+     */
+    attr(attributeName: string, value: number): JQuery;
+    /**
+     * Set one or more attributes for the set of matched elements.
+     *
+     * @param attributeName The name of the attribute to set.
+     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old attribute value as arguments.
+     */
+    attr(attributeName: string, func: (index: number, attr: any) => any): JQuery;
+    /**
+     * Set one or more attributes for the set of matched elements.
+     *
+     * @param attributes An object of attribute-value pairs to set.
+     */
+    attr(attributes: Object): JQuery;
+    
+    /**
+     * Determine whether any of the matched elements are assigned the given class.
+     *
+     * @param className The class name to search for.
+     */
     hasClass(className: string): boolean;
 
     html(): string;
@@ -699,16 +768,48 @@ interface JQuery {
     prop(map: any): JQuery;
     prop(propertyName: string, func: (index: any, oldPropertyValue: any) => any): JQuery;
 
+    /**
+     * Remove an attribute from each element in the set of matched elements.
+     *
+     * @param attributeName An attribute to remove; as of version 1.7, it can be a space-separated list of attributes.
+     */
     removeAttr(attributeName: string): JQuery;
 
+    /**
+     * Remove a single class, multiple classes, or all classes from each element in the set of matched elements.
+     *
+     * @param className One or more space-separated classes to be removed from the class attribute of each matched element.
+     */
     removeClass(className?: string): JQuery;
-    removeClass(func: (index: any, cls: any) => any): JQuery;
+    /**
+     * Remove a single class, multiple classes, or all classes from each element in the set of matched elements.
+     *
+     * @param function A function returning one or more space-separated class names to be removed. Receives the index position of the element in the set and the old class value as arguments.
+     */
+    removeClass(func: (index: number, className: string) => string): JQuery;
 
     removeProp(propertyName: string): JQuery;
 
+    /**
+     * Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the switch argument.
+     *
+     * @param className One or more class names (separated by spaces) to be toggled for each element in the matched set.
+     * @param swtch A Boolean (not just truthy/falsy) value to determine whether the class should be added or removed.
+     */
     toggleClass(className: string, swtch?: boolean): JQuery;
+    /**
+     * Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the switch argument.
+     *
+     * @param swtch A boolean value to determine whether the class should be added or removed.
+     */
     toggleClass(swtch?: boolean): JQuery;
-    toggleClass(func: (index: any, cls: any, swtch: any) => any): JQuery;
+    /**
+     * Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the switch argument.
+     *
+     * @param func A function that returns class names to be toggled in the class attribute of each element in the matched set. Receives the index position of the element in the set, the old class value, and the switch as arguments.
+     * @param swtch A boolean value to determine whether the class should be added or removed.
+     */
+    toggleClass(func: (index: number, className: string, swtch: boolean) => string, swtch?: boolean): JQuery;
 
     val(): any;
     val(value: string[]): JQuery;
