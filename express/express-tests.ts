@@ -1245,6 +1245,16 @@ if (!module.parent) {
 
 ////// 
 
+var router = new express.Router();
+
+router.get('/', function (req, resp, next?) {
+  resp.send('response from router');
+  resp.end();
+  if (next) {
+    next();
+  }
+});
+
 function test_general() {
 
     app.use((err, req, res: express.Response) => {
@@ -1477,4 +1487,5 @@ function test_middleware() {
     app.use(express.cookieSession());
     app.use(express.directory('public'));
     app.use(express.static('public'));
+    app.use(router.middleware);
 }
