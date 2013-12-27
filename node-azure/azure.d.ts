@@ -48,8 +48,8 @@ declare module "azure" {
         */
         constructor(storageAccount: string, storageAccessKey: string, host?: string, authenticationProvider?: string);
 
-        getServiceProperties(callback?: (error, servicePropertiesResult, response) => void ): void;
-        getServiceProperties(options: TimeoutIntervalOptions, callback?: (error, servicePropertiesResult, response) => void ): void;
+        getServiceProperties(callback?: (error: any, servicePropertiesResult: any, response: any) => void ): void;
+        getServiceProperties(options: TimeoutIntervalOptions, callback?: (error: any, servicePropertiesResult: any, response: any) => void ): void;
 
         setServiceProperties(serviceProperties: any, options: TimeoutIntervalOptions, callback?: Function): void;
 
@@ -141,16 +141,16 @@ declare module "azure" {
     //#endregion
 
     interface RoleEnvironmentInterface extends events.EventEmitter {
-        getCurrentRoleInstance(callback: (error, instance) => void): void;
-        getDeploymentId(callback: (error, id:string) => void): void;
-        isAvailable(callback: (error, available: boolean) => void): void;
-        isEmulated(callback: (error, emulated: boolean) => void): void;
-        getRoles(callback: (error, roles) => void): void;
-        getConfigurationSettings(callback: (error, settings) => void): void;
-        getLocalResources(callback: (error, resources) => void): void;
-        requestRecycle(callback: (error) => void): void;
-        setStatus(roleInstanceStatus, expirationUtc, callback: (error) => void): void;
-        clearStatus(callback: (error) => void): void;
+        getCurrentRoleInstance(callback: (error: any, instance: any) => void): void;
+        getDeploymentId(callback: (error: any, id:string) => void): void;
+        isAvailable(callback: (error: any, available: boolean) => void): void;
+        isEmulated(callback: (error: any, emulated: boolean) => void): void;
+        getRoles(callback: (error: any, roles: any) => void): void;
+        getConfigurationSettings(callback: (error: any, settings: any) => void): void;
+        getLocalResources(callback: (error: any, resources: any) => void): void;
+        requestRecycle(callback: (error: any) => void): void;
+        setStatus(roleInstanceStatus: any, expirationUtc: any, callback: (error: any) => void): void;
+        clearStatus(callback: (error: any) => void): void;
     }
 
     export var RoleEnvironment: RoleEnvironmentInterface;
@@ -162,7 +162,7 @@ declare module "azure" {
     }
 
     export class ServiceClient extends events.EventEmitter {
-        static EnvironmentVariables;
+        static EnvironmentVariables: any;
         static DEVSTORE_STORAGE_ACCOUNT: string;
         static DEVSTORE_STORAGE_ACCESS_KEY: string;
         static DEVSTORE_BLOB_HOST: string;
@@ -179,14 +179,14 @@ declare module "azure" {
         static DEFAULT_WRAP_NAMESPACE_SUFFIX: string;
         static DEFAULT_PROTOCOL: string;
 
-        constructor(host: string, authenticationProvider);
+        constructor(host: string, authenticationProvider: any);
 
         setHost(host: string): void;
-        performRequest(webResource: WebResource, outputData: string, options, callback: Function): void;
-        performRequestOutputStream(webResource: WebResource, outputStream, options, callback: Function): void;
-        performRequestInputStream(webResource: WebResource, outputData: string, inputStream, options, callback: Function): void;
-        withFilter(newFilter: { handle: (requestOptions, next: Function) => void; }): ServiceClient;
-        parseMetadataHeaders(headers): any;
+        performRequest(webResource: WebResource, outputData: string, options: any, callback: Function): void;
+        performRequestOutputStream(webResource: WebResource, outputStream: any, options: any, callback: Function): void;
+        performRequestInputStream(webResource: WebResource, outputData: string, inputStream: any, options: any, callback: Function): void;
+        withFilter(newFilter: { handle: (requestOptions: any, next: Function) => void; }): ServiceClient;
+        parseMetadataHeaders(headers: any): any;
         isEmulated(): boolean;
         setProxy(proxyUrl: string, proxyPort: number): void;
     }
@@ -203,7 +203,7 @@ declare module "azure" {
         where(condition: string, ...values: string[]): TableQuery;
         and(condition: string, ...arguments: string[]): TableQuery;
         or(condition: string, ...arguments: string[]): TableQuery;
-        top(integer): TableQuery;
+        top(integer: number): TableQuery;
         toQueryObject(): any;
         toPath(): string;
     }
@@ -211,15 +211,15 @@ declare module "azure" {
     export class BatchServiceClient extends StorageServiceClient {
         operations: any[];
 
-        constructor(storageAccount: string, storageAccessKey: string, host: string, usePathstyleUri: boolean, authenticationProvider);
+        constructor(storageAccount: string, storageAccessKey: string, host: string, usePathstyleUri: boolean, authenticationProvider: any);
         beginBatch(): void;
         isInBatch(): boolean;
         rollback(): void;
         hasOperations(): boolean;
-        addOperation(webResource: WebResource, outputData): void;
-        commitBatch(callback: (error, operationResponses: any[], response) => void ): void;
-        commitBatch(options, callback: (error, operationResponses: any[], response) => void ): void;
-        processResponse(responseObject, requestOperations: any[]): any[];
+        addOperation(webResource: WebResource, outputData: any): void;
+        commitBatch(callback: (error: any, operationResponses: any[], response: any) => void ): void;
+        commitBatch(options: any, callback: (error: any, operationResponses: any[], response: any) => void ): void;
+        processResponse(responseObject: any, requestOperations: any[]): any[];
         processOperation(webResource: WebResource, rawResponse: string): any;
     }
 
@@ -302,9 +302,21 @@ declare module "azure" {
     export interface WebResponse {
         isSuccessful: boolean;
         statusCode: number;
-        body: { entry: { id: string; title; updated: string; author: { name; }; link; category; content; }; };
-        headers;
-        md5;
+        body: { 
+            entry: { 
+                id: string; 
+                title: any; 
+                updated: string; 
+                author: { 
+                    name: any; 
+                }; 
+                link: any; 
+                category: any; 
+                content: any; 
+            }; 
+        };
+        headers: any;
+        md5: any;
     }
 
     export interface TimeoutIntervalOptions {
@@ -381,13 +393,13 @@ declare module "azure" {
     class StorageServiceClient extends ServiceClient {
         static incorrectStorageAccountErr: string;
         static incorrectStorageAccessKeyErr: string;
-        static getStorageSettings(connectionString: string);
+        static getStorageSettings(connectionString: string) : StorageServiceSettings;
         static getStorageSettings(storageAccount?: string, storageAccessKey?: string, host?: string): StorageServiceSettings;
 
         apiVersion: string;
         usePathStyleUri: string;
 
-        constructor(storageAccount: string, storageAccessKey: string, host: string, usePathStyleUri: boolean, authenticationProvider);
+        constructor(storageAccount: string, storageAccessKey: string, host: string, usePathStyleUri: boolean, authenticationProvider: any);
     }
     //#endregion
 
