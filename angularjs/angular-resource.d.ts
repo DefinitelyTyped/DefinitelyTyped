@@ -104,6 +104,8 @@ declare module ng.resource {
         $delete(dataOrParams: any, success: Function): T;
         $delete(success: Function, error?: Function): T;
         $delete(params: any, data: any, success?: Function, error?: Function): T;
+        $promise: IPromise<IResource>;
+        $resolved: boolean;
     }
 
     /** when creating a resource factory via IModule.factory */
