@@ -245,6 +245,7 @@ List of Definitions
 * [websocket](https://github.com/Worlize/WebSocket-Node) (by [Paul Loyd](https://github.com/loyd))
 * [WinJS](http://msdn.microsoft.com/en-us/library/windows/apps/br229773.aspx) (from TypeScript samples)
 * [WinRT](http://msdn.microsoft.com/en-us/library/windows/apps/br211377.aspx) (from TypeScript samples)
+* [ws](http://einaros.github.io/ws/) (by [Paul Loyd](https://github.com/loyd))
 * [YouTube](https://developers.google.com/youtube/) (by [Daz Wilkin](https://github.com/DazWilkin/))
 * [YouTube Analytics API](https://developers.google.com/youtube/analytics/) (by [Frank M](https://github.com/sgtfrankieboy))
 * [YouTube Data API](https://developers.google.com/youtube/v3/) (by [Frank M](https://github.com/sgtfrankieboy/))
