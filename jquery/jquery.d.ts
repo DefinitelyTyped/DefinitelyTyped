@@ -18,9 +18,9 @@ and limitations under the License.
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Christian Hoffmeister <https://github.com/choffmeister>, Steve Fenton, Diullei Gomes <https://github.com/Diullei>, Tass Iliopoulos <https://github.com/tasoili>, Jason Swearingen, Sean Hill <https://github.com/seanski>, Guus Goossens <https://github.com/Guuz>, Kelly Summerlin <https://github.com/ksummerlin>, Basarat Ali Syed <https://github.com/basarat>, Nicholas Wolverson <https://github.com/nwolverson>, Derek Cicerone <https://github.com/derekcicerone>, Andrew Gaspar <https://github.com/AndrewGaspar>, James Harrison Fisher <https://github.com/jameshfisher>, Seikichi Kondo <https://github.com/seikichi>, Benjamin Jackman <https://github.com/benjaminjackman>, Poul Sorensen <https://github.com/s093294>, Josh Strobl <https://github.com/JoshStrobl>, John Reilly <https://github.com/johnnyreilly/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/*
-    Interface for the AJAX setting that will configure the AJAX request
-*/
+/**
+ * Interface for the AJAX setting that will configure the AJAX request
+ */
 interface JQueryAjaxSettings {
     /**
      * The content type sent in the request header that tells the server what kind of response it will accept in return. If the accepts setting needs modification, it is recommended to do so once in the $.ajaxSetup() method.
@@ -666,12 +666,37 @@ interface JQuery {
      *
      * @param handler The function to be invoked.
      */
-    ajaxComplete(handler: (event: any, XMLHttpRequest: XMLHttpRequest, ajaxOptions: any) => any): JQuery;
-    ajaxError(handler: (event: any, jqXHR: any, settings: any, exception: any) => any): JQuery;
-    ajaxSend(handler: (event: any, jqXHR: any, settings: any, exception: any) => any): JQuery;
+    ajaxComplete(handler: (event: JQueryEventObject, XMLHttpRequest: XMLHttpRequest, ajaxOptions: any) => any): JQuery;
+    /**
+     * Register a handler to be called when Ajax requests complete with an error. This is an Ajax Event.
+     *
+     * @param handler The function to be invoked.
+     */
+    ajaxError(handler: (event: JQueryEventObject, jqXHR: JQueryXHR, ajaxSettings: JQueryAjaxSettings, thrownError: any) => any): JQuery;
+    /**
+     * Attach a function to be executed before an Ajax request is sent. This is an Ajax Event.
+     *
+     * @param handler The function to be invoked.
+     */
+    ajaxSend(handler: (event: JQueryEventObject, jqXHR: JQueryXHR, ajaxOptions: JQueryAjaxSettings) => any): JQuery;
+    /**
+     * Register a handler to be called when the first Ajax request begins. This is an Ajax Event.
+     *
+     * @param handler The function to be invoked.
+     */
     ajaxStart(handler: () => any): JQuery;
+    /**
+     * Register a handler to be called when all Ajax requests have completed. This is an Ajax Event.
+     *
+     * @param handler The function to be invoked.
+     */
     ajaxStop(handler: () => any): JQuery;
-    ajaxSuccess(handler: (event: any, jqXHR: any, settings: any, exception: any) => any): JQuery;
+    /**
+     * Attach a function to be executed whenever an Ajax request completes successfully. This is an Ajax Event.
+     *
+     * @param handler The function to be invoked.
+     */
+    ajaxSuccess(handler: (event: JQueryEventObject, XMLHttpRequest: XMLHttpRequest, ajaxOptions: JQueryAjaxSettings) => any): JQuery;
 
     /**
      * Load data from the server and place the returned HTML into the matched element.
