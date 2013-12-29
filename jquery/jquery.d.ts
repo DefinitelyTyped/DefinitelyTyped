@@ -849,6 +849,11 @@ interface JQuery {
      */
     removeClass(func: (index: number, className: string) => string): JQuery;
 
+    /**
+     * Remove a property for the set of matched elements.
+     *
+     * @param propertyName The name of the property to remove.
+     */
     removeProp(propertyName: string): JQuery;
 
     /**
