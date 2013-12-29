@@ -111,7 +111,7 @@ interface String {
 	*   'hello kitty'.capitalize(true) -> 'Hello Kitty'
 	*
 	**/
-	capitalize(all: boolean): string;
+	capitalize(all?: boolean): string;
 
 	/**
 	* Runs callback [fn] against each character in the string.
