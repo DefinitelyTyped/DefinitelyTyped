@@ -2309,6 +2309,56 @@ function test_prop() {
     var title: string = $('option:selected', this).prop('title');
 }
 
+function test_val() {
+    // Get the value from a dropdown select
+    $("select.foo option:selected").val();
+
+    // Get the value from a dropdown select even easier
+    $("select.foo").val();
+
+    // Get the value from a checked checkbox
+    $("input:checkbox:checked").val();
+
+    // Get the value from a set of radio buttons
+    $("input:radio[name=bar]:checked").val();
+
+    function displayVals() {
+        var singleValues = $("#single").val();
+        var multipleValues = $("#multiple").val() || [];
+        $("p").html("<b>Single:</b> " + singleValues +
+            " <b>Multiple:</b> " + multipleValues.join(", "));
+    }
+
+    $("select").change(displayVals);
+    displayVals();
+
+
+    $("input")
+        .keyup(function () {
+            var value = $(this).val();
+            $("p").text(value);
+        })
+        .keyup();
+
+    $("input:text.items").val(function (index, value) {
+        return value + " " + this.className;
+    });
+
+    $("button").click(function () {
+        var text = $(this).text();
+        $("input").val(text);
+    });
+
+    $("input").on("blur", function () {
+        $(this).val(function (i, val) {
+            return val.toUpperCase();
+        });
+    });
+
+    $("#single").val("Single2");
+    $("#multiple").val(["Multiple2", "Multiple3"]);
+    $("input").val(["check1", "check2", "radio1"]);
+}
 
 function test_selector() {
   var $main = $('#main');
