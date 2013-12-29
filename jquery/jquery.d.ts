@@ -788,10 +788,46 @@ interface JQuery {
     html(htmlContent: (index: number, oldhtml: string) => string): JQuery;
     html(obj: JQuery): JQuery;
 
+    /**
+     * Get the value of a property for the first element in the set of matched elements.
+     *
+     * @param propertyName The name of the property to get.
+     */
     prop(propertyName: string): any;
-    prop(propertyName: string, value: any): JQuery;
-    prop(map: any): JQuery;
-    prop(propertyName: string, func: (index: any, oldPropertyValue: any) => any): JQuery;
+    /**
+     * Set one or more properties for the set of matched elements.
+     *
+     * @param propertyName The name of the property to set.
+     * @param value A value to set for the property.
+     */
+    prop(propertyName: string, value: string): JQuery;
+    /**
+     * Set one or more properties for the set of matched elements.
+     *
+     * @param propertyName The name of the property to set.
+     * @param value A value to set for the property.
+     */
+    prop(propertyName: string, value: number): JQuery;
+    /**
+     * Set one or more properties for the set of matched elements.
+     *
+     * @param propertyName The name of the property to set.
+     * @param value A value to set for the property.
+     */
+    prop(propertyName: string, value: boolean): JQuery;
+    /**
+     * Set one or more properties for the set of matched elements.
+     *
+     * @param properties An object of property-value pairs to set.
+     */
+    prop(properties: Object): JQuery;
+    /**
+     * Set one or more properties for the set of matched elements.
+     *
+     * @param propertyName The name of the property to set.
+     * @param func A function returning the value to set. Receives the index position of the element in the set and the old property value as arguments. Within the function, the keyword this refers to the current element.
+     */
+    prop(propertyName: string, func: (index: number, oldPropertyValue: any) => any): JQuery;
 
     /**
      * Remove an attribute from each element in the set of matched elements.
@@ -813,6 +849,11 @@ interface JQuery {
      */
     removeClass(func: (index: number, className: string) => string): JQuery;
 
+    /**
+     * Remove a property for the set of matched elements.
+     *
+     * @param propertyName The name of the property to remove.
+     */
     removeProp(propertyName: string): JQuery;
 
     /**
@@ -836,11 +877,28 @@ interface JQuery {
      */
     toggleClass(func: (index: number, className: string, swtch: boolean) => string, swtch?: boolean): JQuery;
 
+    /**
+     * Get the current value of the first element in the set of matched elements.
+     */
     val(): any;
-    val(value: string[]): JQuery;
+    /**
+     * Set the value of each element in the set of matched elements.
+     *
+     * @param value A string of text or an array of strings corresponding to the value of each matched element to set as selected/checked.
+     */
     val(value: string): JQuery;
-    val(value: number): JQuery;
-    val(func: (index: any, value: any) => any): JQuery;
+    /**
+     * Set the value of each element in the set of matched elements.
+     *
+     * @param value A string of text or an array of strings corresponding to the value of each matched element to set as selected/checked.
+     */
+    val(value: string[]): JQuery;
+    /**
+     * Set the value of each element in the set of matched elements.
+     *
+     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+     */
+    val(func: (index: number, value: any) => any): JQuery;
 
     /**
      * Get the value of style properties for the first element in the set of matched elements.
