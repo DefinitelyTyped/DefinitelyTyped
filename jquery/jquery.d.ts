@@ -877,11 +877,28 @@ interface JQuery {
      */
     toggleClass(func: (index: number, className: string, swtch: boolean) => string, swtch?: boolean): JQuery;
 
+    /**
+     * Get the current value of the first element in the set of matched elements.
+     */
     val(): any;
-    val(value: string[]): JQuery;
+    /**
+     * Set the value of each element in the set of matched elements.
+     *
+     * @param value A string of text or an array of strings corresponding to the value of each matched element to set as selected/checked.
+     */
     val(value: string): JQuery;
-    val(value: number): JQuery;
-    val(func: (index: any, value: any) => any): JQuery;
+    /**
+     * Set the value of each element in the set of matched elements.
+     *
+     * @param value A string of text or an array of strings corresponding to the value of each matched element to set as selected/checked.
+     */
+    val(value: string[]): JQuery;
+    /**
+     * Set the value of each element in the set of matched elements.
+     *
+     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+     */
+    val(func: (index: number, value: any) => any): JQuery;
 
     /**
      * Get the value of style properties for the first element in the set of matched elements.
