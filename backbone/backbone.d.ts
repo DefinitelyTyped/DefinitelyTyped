@@ -80,8 +80,7 @@ declare module Backbone {
     }
 
     class ModelBase extends Events {
-        url: string;
-        url(): any;
+        url: any;
         parse(response: any, options?: any): any;
         toJSON(options?: any): any;
         sync(...arg: any[]): JQueryXHR;
