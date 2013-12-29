@@ -788,10 +788,46 @@ interface JQuery {
     html(htmlContent: (index: number, oldhtml: string) => string): JQuery;
     html(obj: JQuery): JQuery;
 
+    /**
+     * Get the value of a property for the first element in the set of matched elements.
+     *
+     * @param propertyName The name of the property to get.
+     */
     prop(propertyName: string): any;
-    prop(propertyName: string, value: any): JQuery;
-    prop(map: any): JQuery;
-    prop(propertyName: string, func: (index: any, oldPropertyValue: any) => any): JQuery;
+    /**
+     * Set one or more properties for the set of matched elements.
+     *
+     * @param propertyName The name of the property to set.
+     * @param value A value to set for the property.
+     */
+    prop(propertyName: string, value: string): JQuery;
+    /**
+     * Set one or more properties for the set of matched elements.
+     *
+     * @param propertyName The name of the property to set.
+     * @param value A value to set for the property.
+     */
+    prop(propertyName: string, value: number): JQuery;
+    /**
+     * Set one or more properties for the set of matched elements.
+     *
+     * @param propertyName The name of the property to set.
+     * @param value A value to set for the property.
+     */
+    prop(propertyName: string, value: boolean): JQuery;
+    /**
+     * Set one or more properties for the set of matched elements.
+     *
+     * @param properties An object of property-value pairs to set.
+     */
+    prop(properties: Object): JQuery;
+    /**
+     * Set one or more properties for the set of matched elements.
+     *
+     * @param propertyName The name of the property to set.
+     * @param func A function returning the value to set. Receives the index position of the element in the set and the old property value as arguments. Within the function, the keyword this refers to the current element.
+     */
+    prop(propertyName: string, func: (index: number, oldPropertyValue: any) => any): JQuery;
 
     /**
      * Remove an attribute from each element in the set of matched elements.
