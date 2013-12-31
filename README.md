@@ -129,6 +129,7 @@ List of Definitions
 * [jQuery.Globalize](https://github.com/jquery/globalize) (by [Boris Yankov](https://github.com/borisyankov))
 * [jQuery.gridster](http://gridster.net) (by [Josh Baldwin](https://github.com/jbaldwin/gridster.d.ts))
 * [jQuery.jNotify](http://jnotify.codeplex.com) (by [James Curran](https://github.com/jamescurran/))
+* [jQuery.joyride](http://zurb.com/playground/jquery-joyride-feature-tour-plugin) (by [Vincent Bortone](https://github.com/vbortone))
 * [jQuery.noty](http://needim.github.io/noty/) (by [Aaron King](https://github.com/kingdango/))
 * [jQuery.pickadate](https://github.com/amsul/pickadate.js) (by [Theodore Brown](https://github.com/theodorejb))
 * [jQuery.payment](http://needim.github.io/noty/) (by [Eric J. Smith](https://github.com/ejsmith/))
