@@ -1710,7 +1710,7 @@ function test_html() {
     });
     $('div.demo-container')
         .html('<p>All new content. <em>You bet!</em></p>');
-    $('div.demo-container').html(function () {
+    $('div.demo-container').html(function (index, oldhtml) {
         var emph = '<em>' + $('p').length + ' paragraphs!</em>';
         return '<p>All new content for ' + emph + '</p>';
     });
