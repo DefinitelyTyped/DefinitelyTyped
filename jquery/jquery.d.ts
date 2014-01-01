@@ -1013,11 +1013,15 @@ interface JQuery {
      */
     height(func: (index: number, height: number) => string): JQuery;
 
+    /**
+     * Get the current computed height for the first element in the set of matched elements, including padding but not border.
+     */
     innerHeight(): number;
-    innerHeight(value: number): JQuery;
 
+    /**
+     * Get the current computed width for the first element in the set of matched elements, including padding but not border.
+     */
     innerWidth(): number;
-    innerWidth(value: number): JQuery;
 
     offset(): { left: number; top: number; };
     offset(coordinates: any): JQuery;
