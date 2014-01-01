@@ -972,10 +972,46 @@ interface JQuery {
      */
     css(properties: Object): JQuery;
 
+    /**
+     * Get the current computed height for the first element in the set of matched elements.
+     */
     height(): number;
+    /**
+     * Set the CSS height of every matched element.
+     *
+     * @param value An integer representing the number of pixels, or an integer with an optional unit of measure appended (as a string).
+     */
     height(value: number): JQuery;
+    /**
+     * Set the CSS height of every matched element.
+     *
+     * @param value An integer representing the number of pixels, or an integer with an optional unit of measure appended (as a string).
+     */
     height(value: string): JQuery;
-    height(func: (index: any, height: any) => any): JQuery;
+    /**
+     * Set the CSS height of every matched element.
+     *
+     * @param func A function returning the height to set. Receives the index position of the element in the set and the old height as arguments. Within the function, this refers to the current element in the set.
+     */
+    height(func: (index: number, height: number) => number): JQuery;
+    /**
+     * Set the CSS height of every matched element.
+     *
+     * @param func A function returning the height to set. Receives the index position of the element in the set and the old height as arguments. Within the function, this refers to the current element in the set.
+     */
+    height(func: (index: number, height: string) => string): JQuery;
+    /**
+     * Set the CSS height of every matched element.
+     *
+     * @param func A function returning the height to set. Receives the index position of the element in the set and the old height as arguments. Within the function, this refers to the current element in the set.
+     */
+    height(func: (index: number, height: string) => number): JQuery;
+    /**
+     * Set the CSS height of every matched element.
+     *
+     * @param func A function returning the height to set. Receives the index position of the element in the set and the old height as arguments. Within the function, this refers to the current element in the set.
+     */
+    height(func: (index: number, height: number) => string): JQuery;
 
     innerHeight(): number;
     innerHeight(value: number): JQuery;
