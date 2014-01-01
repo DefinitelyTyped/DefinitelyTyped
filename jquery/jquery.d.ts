@@ -1041,10 +1041,46 @@ interface JQuery {
     scrollTop(): number;
     scrollTop(value: number): JQuery;
 
+    /**
+     * Get the current computed width for the first element in the set of matched elements.
+     */
     width(): number;
+    /**
+     * Set the CSS width of each element in the set of matched elements.
+     *
+     * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
+     */
     width(value: number): JQuery;
+    /**
+     * Set the CSS width of each element in the set of matched elements.
+     *
+     * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
+     */
     width(value: string): JQuery;
-    width(func: (index: any, height: any) => any): JQuery;
+    /**
+     * Set the CSS width of each element in the set of matched elements.
+     *
+     * @param func A function returning the width to set. Receives the index position of the element in the set and the old width as arguments. Within the function, this refers to the current element in the set.
+     */
+    width(func: (index: number, width: number) => number): JQuery;
+    /**
+     * Set the CSS width of each element in the set of matched elements.
+     *
+     * @param func A function returning the width to set. Receives the index position of the element in the set and the old width as arguments. Within the function, this refers to the current element in the set.
+     */
+    width(func: (index: number, width: string) => string): JQuery;
+    /**
+     * Set the CSS width of each element in the set of matched elements.
+     *
+     * @param func A function returning the width to set. Receives the index position of the element in the set and the old width as arguments. Within the function, this refers to the current element in the set.
+     */
+    width(func: (index: number, width: string) => number): JQuery;
+    /**
+     * Set the CSS width of each element in the set of matched elements.
+     *
+     * @param func A function returning the width to set. Receives the index position of the element in the set and the old width as arguments. Within the function, this refers to the current element in the set.
+     */
+    width(func: (index: number, width: number) => string): JQuery;
 
     // Data
     clearQueue(queueName?: string): JQuery;
