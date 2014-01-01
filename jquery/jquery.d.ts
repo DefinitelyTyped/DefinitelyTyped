@@ -349,6 +349,14 @@ interface JQueryEventConstructor {
 }
 
 /**
+ * The interface used to specify coordinates.
+ */
+interface JQueryCoordinates {
+    left: number;
+    top: number;
+}
+
+/**
  * The interface used to specify easing functions.
  */
 interface JQueryEasing {
@@ -1023,9 +1031,22 @@ interface JQuery {
      */
     innerWidth(): number;
 
-    offset(): { left: number; top: number; };
-    offset(coordinates: any): JQuery;
-    offset(func: (index: any, coords: any) => any): JQuery;
+    /**
+     * Get the current coordinates of the first element in the set of matched elements, relative to the document.
+     */
+    offset(): JQueryCoordinates;
+    /**
+     * An object containing the properties top and left, which are integers indicating the new top and left coordinates for the elements.
+     *
+     * @param coordinates An object containing the properties top and left, which are integers indicating the new top and left coordinates for the elements.
+     */
+    offset(coordinates: JQueryCoordinates): JQuery;
+    /**
+     * An object containing the properties top and left, which are integers indicating the new top and left coordinates for the elements.
+     *
+     * @param func A function to return the coordinates to set. Receives the index of the element in the collection as the first argument and the current coordinates as the second argument. The function should return an object with the new top and left properties.
+     */
+    offset(func: (index: number, coords: JQueryCoordinates) => JQueryCoordinates): JQuery;
 
     outerHeight(includeMargin?: boolean): number;
     outerHeight(value: number, includeMargin?: boolean): JQuery;

@@ -1669,6 +1669,21 @@ function test_width() {
     });
 }
 
+function test_coordinates() {
+    var p = $("p:last");
+    var offset = p.offset();
+    p.html("left: " + offset.left + ", top: " + offset.top);
+
+    $("*", document.body).click(function (event) {
+        var offset = $(this).offset();
+        event.stopPropagation();
+        $("#result").text(this.tagName +
+            " coords ( " + offset.left + ", " + offset.top + " )");
+    });
+
+    $("p:last").offset({ top: 10, left: 30 });
+}
+
 function test_hide() {
     $('.target').hide();
     $('#clickme').click(function () {
