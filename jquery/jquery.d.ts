@@ -631,7 +631,7 @@ interface JQueryStatic {
     /**
      * Parses a string into an XML document.
      *
-     * @param dataa well-formed XML string to be parsed
+     * @param data a well-formed XML string to be parsed
      */
     parseXML(data: string): XMLDocument;
 
