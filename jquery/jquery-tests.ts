@@ -1751,13 +1751,11 @@ function test_index() {
 function test_innerHeight() {
     var p = $("p:first");
     $("p:last").text("innerHeight:" + p.innerHeight());
-    p.innerHeight(p.innerHeight() * 2).innerHeight();
 }
 
 function test_innerWidth() {
     var p = $("p:first");
     $("p:last").text("innerWidth:" + p.innerWidth());
-    p.innerWidth(p.innerWidth() * 2).innerWidth();
 }
 
 function test_outerHeight() {
