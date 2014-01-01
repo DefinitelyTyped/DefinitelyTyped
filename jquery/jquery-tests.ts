@@ -1642,6 +1642,33 @@ function test_height() {
     });
 }
 
+function test_width() {
+    // Returns width of browser viewport
+    $(window).width();
+
+    // Returns width of HTML document
+    $(document).width();
+
+    function showWidth(ele, w) {
+        $("div").text("The width for the " + ele + " is " + w + "px.");
+    }
+    $("#getp").click(function () {
+        showWidth("paragraph", $("p").width());
+    });
+    $("#getd").click(function () {
+        showWidth("document", $(document).width());
+    });
+    $("#getw").click(function () {
+        showWidth("window", $(window).width());
+    });
+
+    var modWidth = 50;
+    $("div").one("click", function () {
+        $(this).width(modWidth).addClass("mod");
+        modWidth -= 8;
+    });
+}
+
 function test_hide() {
     $('.target').hide();
     $('#clickme').click(function () {
