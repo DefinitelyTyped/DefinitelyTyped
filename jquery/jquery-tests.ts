@@ -1642,6 +1642,48 @@ function test_height() {
     });
 }
 
+function test_width() {
+    // Returns width of browser viewport
+    $(window).width();
+
+    // Returns width of HTML document
+    $(document).width();
+
+    function showWidth(ele, w) {
+        $("div").text("The width for the " + ele + " is " + w + "px.");
+    }
+    $("#getp").click(function () {
+        showWidth("paragraph", $("p").width());
+    });
+    $("#getd").click(function () {
+        showWidth("document", $(document).width());
+    });
+    $("#getw").click(function () {
+        showWidth("window", $(window).width());
+    });
+
+    var modWidth = 50;
+    $("div").one("click", function () {
+        $(this).width(modWidth).addClass("mod");
+        modWidth -= 8;
+    });
+}
+
+function test_coordinates() {
+    var p = $("p:last");
+    var offset = p.offset();
+    p.html("left: " + offset.left + ", top: " + offset.top);
+
+    $("*", document.body).click(function (event) {
+        var offset = $(this).offset();
+        event.stopPropagation();
+        $("#result").text(this.tagName +
+            " coords ( " + offset.left + ", " + offset.top + " )");
+    });
+
+    $("p:last").offset({ top: 10, left: 30 });
+}
+
 function test_hide() {
     $('.target').hide();
     $('#clickme').click(function () {
@@ -1751,13 +1793,11 @@ function test_index() {
 function test_innerHeight() {
     var p = $("p:first");
     $("p:last").text("innerHeight:" + p.innerHeight());
-    p.innerHeight(p.innerHeight() * 2).innerHeight();
 }
 
 function test_innerWidth() {
     var p = $("p:first");
     $("p:last").text("innerWidth:" + p.innerWidth());
-    p.innerWidth(p.innerWidth() * 2).innerWidth();
 }
 
 function test_outerHeight() {
