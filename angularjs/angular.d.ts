@@ -368,9 +368,18 @@ declare module ng {
     ///////////////////////////////////////////////////////////////////////////
     // ParseService
     // see http://docs.angularjs.org/api/ng.$parse
+    // see http://docs.angularjs.org/api/ng.$parseProvider
     ///////////////////////////////////////////////////////////////////////////
     interface IParseService {
         (expression: string): ICompiledExpression;
+    }
+
+    interface IParseProvider {
+    	logPromiseWarnings(): boolean;
+    	logPromiseWarnings(value: boolean): IParseProvider;
+
+    	unwrapPromises(): boolean;
+    	unwrapPromises(value: boolean): IParseProvider;
     }
 
     interface ICompiledExpression {
