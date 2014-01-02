@@ -111,7 +111,7 @@ function test_validate() {
         submitHandler: function () { alert("Submitted!") }
     });
     $(".selector").validate({
-        showErrors: function (errorMap, errorList) {
+        showErrors: function (errorMap: ErrorDictionary, errorList: ErrorListItem[]) {
             $("#summary").html("Your form contains " + this.numberOfInvalids() + " errors, see details below.");
             this.defaultShowErrors();
         }
@@ -193,7 +193,7 @@ function test_methods() {
     validator.hideErrors();
     var isValid: boolean = validator.valid();
     var size: number = validator.size();
-    var errorMap: Object = validator.errorMap;
+    var errorMap: ErrorDictionary = validator.errorMap;
     var errorList: ErrorListItem[] = validator.errorList;
 
     $("#summary").text(validator.numberOfInvalids() + " field(s) are invalid");
