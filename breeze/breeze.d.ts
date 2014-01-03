@@ -204,9 +204,9 @@ declare module breeze {
     class DataServiceAdapter {
         checkForRecomposition(interfaceInitializedArgs: { interfaceName: string; isDefault: boolean}): void;
         initialize(): void;
-        fetchMetadata(metadataStore: MetadataStore, dataService: DataService): Q.Promise<any>;
-        executeQuery(mappingContext: Object): Q.Promise<any>;
-        saveChanges(saveContext: { resourceName: string }, saveBundle: Object): Q.Promise<SaveResult>;
+        fetchMetadata(metadataStore: MetadataStore, dataService: DataService): QPromise<any>;
+        executeQuery(mappingContext: Object): QPromise<any>;
+        saveChanges(saveContext: { resourceName: string }, saveBundle: Object): QPromise<SaveResult>;
         JsonResultsAdapter: JsonResultsAdapter;
     }
 
@@ -299,8 +299,8 @@ declare module breeze {
         getValidationErrors(property: IProperty): ValidationError[];
         hasValidationErrors: boolean;
 
-        loadNavigationProperty(navigationProperty: string, callback?: Function, errorCallback?: Function): Q.Promise<QueryResult>;
-        loadNavigationProperty(navigationProperty: NavigationProperty, callback?: Function, errorCallback?: Function): Q.Promise<QueryResult>;
+        loadNavigationProperty(navigationProperty: string, callback?: Function, errorCallback?: Function): QPromise<QueryResult>;
+        loadNavigationProperty(navigationProperty: NavigationProperty, callback?: Function, errorCallback?: Function): QPromise<QueryResult>;
 
         rejectChanges(): void;
 
@@ -380,15 +380,15 @@ declare module breeze {
         createEntity(typeName: string, config?: {}, entityState?: EntityStateSymbol) : Entity;
         createEntity(entityType: EntityType, config?: {}, entityState?: EntityStateSymbol): Entity;
         detachEntity(entity: Entity): boolean;
-        executeQuery(query: string, callback?: ExecuteQuerySuccessCallback, errorCallback?: ExecuteQueryErrorCallback): Q.Promise<QueryResult>;
-        executeQuery(query: EntityQuery, callback?: ExecuteQuerySuccessCallback, errorCallback?: ExecuteQueryErrorCallback): Q.Promise<QueryResult>;
+        executeQuery(query: string, callback?: ExecuteQuerySuccessCallback, errorCallback?: ExecuteQueryErrorCallback): QPromise<QueryResult>;
+        executeQuery(query: EntityQuery, callback?: ExecuteQuerySuccessCallback, errorCallback?: ExecuteQueryErrorCallback): QPromise<QueryResult>;
 
         executeQueryLocally(query: EntityQuery): Entity[];
         exportEntities(entities?: Entity[]): string;
-        fetchEntityByKey(typeName: string, keyValue: any, checkLocalCacheFirst?: boolean): Q.Promise<EntityByKeyResult>;
-        fetchEntityByKey(typeName: string, keyValues: any[], checkLocalCacheFirst?: boolean): Q.Promise<EntityByKeyResult>;
-        fetchEntityByKey(entityKey: EntityKey): Q.Promise<EntityByKeyResult>;
-        fetchMetadata(callback?: (schema: any) => void , errorCallback?: breeze.core.ErrorCallback): Q.Promise<any>;
+        fetchEntityByKey(typeName: string, keyValue: any, checkLocalCacheFirst?: boolean): QPromise<EntityByKeyResult>;
+        fetchEntityByKey(typeName: string, keyValues: any[], checkLocalCacheFirst?: boolean): QPromise<EntityByKeyResult>;
+        fetchEntityByKey(entityKey: EntityKey): QPromise<EntityByKeyResult>;
+        fetchMetadata(callback?: (schema: any) => void , errorCallback?: breeze.core.ErrorCallback): QPromise<any>;
         generateTempKeyValue(entity: Entity): any;
         getChanges(): Entity[];
         getChanges(entityTypeName: string): Entity[];
@@ -422,7 +422,7 @@ declare module breeze {
         importEntities(exportedData: Object, config?: { mergeStrategy?: StrategySymbol; }): EntityManager;
 
         rejectChanges(): Entity[];
-        saveChanges(entities?: Entity[], saveOptions?: SaveOptions, callback?: SaveChangesSuccessCallback, errorCallback?: SaveChangesErrorCallback): Q.Promise<SaveResult>;
+        saveChanges(entities?: Entity[], saveOptions?: SaveOptions, callback?: SaveChangesSuccessCallback, errorCallback?: SaveChangesErrorCallback): QPromise<SaveResult>;
         setProperties(config: EntityManagerProperties): void;
     }
 
@@ -493,7 +493,7 @@ declare module breeze {
 
         constructor (resourceName?: string);
 
-        execute(callback?: ExecuteQuerySuccessCallback, errorCallback?: ExecuteQueryErrorCallback): Q.Promise<QueryResult>;
+        execute(callback?: ExecuteQuerySuccessCallback, errorCallback?: ExecuteQueryErrorCallback): QPromise<QueryResult>;
         executeLocally(): Entity[];
         expand(propertyPaths: string[]): EntityQuery;
         expand(propertyPaths: string): EntityQuery;
@@ -645,8 +645,8 @@ declare module breeze {
         addDataService(dataService: DataService): void;
         addEntityType(structuralType: IStructuralType): void;
         exportMetadata(): string;
-        fetchMetadata(dataService: string, callback?: (data) => void , errorCallback?: breeze.core.ErrorCallback): Q.Promise<any>;
-        fetchMetadata(dataService: DataService, callback?: (data) => void , errorCallback?: breeze.core.ErrorCallback): Q.Promise<any>;
+        fetchMetadata(dataService: string, callback?: (data) => void , errorCallback?: breeze.core.ErrorCallback): QPromise<any>;
+        fetchMetadata(dataService: DataService, callback?: (data) => void , errorCallback?: breeze.core.ErrorCallback): QPromise<any>;
         getDataService(serviceName: string): DataService;
         getEntityType(entityTypeName: string, okIfNotFound?: boolean): IStructuralType;
         getEntityTypes(): IStructuralType[];
