@@ -1,8 +1,6 @@
 /// <reference path='../underscore/underscore.d.ts' />
 /// <reference path='underscore.string.d.ts' />
 
-_ = _.string;
-
 _.numberFormat(1000, 2);
 _.numberFormat(123456789.123, 5, '.', ',');
 
