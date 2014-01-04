@@ -502,7 +502,7 @@ declare module Windows {
             then<U>(success?: () => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>;
             done? <U>(success?: () => any, error?: (error: any) => any, progress?: (progress: any) => void): void;
 
-            cancel();
+            cancel(): void;
 
             completed: Windows.Foundation.AsyncActionCompletedHandler;
             getResults(): void;

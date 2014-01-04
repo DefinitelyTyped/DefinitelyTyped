@@ -28,12 +28,12 @@ declare module WinJS {
         function converter(method: any): any;
 
         export var optimizeBindingReferences: boolean;
-        export var mixin;
-        export var bind;
-        export var oneTime;
+        export var mixin: any;
+        export var bind: any;
+        export var oneTime: any;
 
-        export function initializer(customInit): any;
-        export var setAttribute;
+        export function initializer(customInit: any): any;
+        export var setAttribute: any;
 
         class List<T> {
             constructor(data?: T[], options?: { binding: boolean; proxy: boolean; });
@@ -41,29 +41,29 @@ declare module WinJS {
             public indexOf(item: T, fromIndex?: number): number;
             public splice(start: number, howMany?: number, ...items: T[]): T[];
             public createFiltered(predicate: (x: T) => boolean): List<T>;
-            public createGrouped<U>(keySelector: (x: T) => string, dataSelector: (x:T) => U, groupSorter: (left:string, right:string) => number): List<T>;
-            public createSorted(sorter: (left:T, right:T) => number);
+            public createGrouped<U>(keySelector: (x: T) => string, dataSelector: (x:T) => U, groupSorter?: (left:string, right:string) => number): List<T>;
+            public createSorted(sorter: (left:T, right:T) => number): List<T>;
             public groups: List<any>;
             public dataSource: any;
             public getAt(index: number): T;
-            public forEach(callback: (val: T, index: number, array: T[]) => void, thisArg?: any);
+            public forEach(callback: (val: T, index: number, array: T[]) => void, thisArg?: any): void;
             public every(callback: (val: T, index: number, array: T[]) => boolean, thisArg?: any): boolean;
             public join(separator: string): string;
             public map<U>(callback: (val: T, index: number, array: T[]) => U, thisArg?: any): U[];
-            public move(index: number, newIndex: number);
+            public move(index: number, newIndex: number): void;
             public pop(): T;
             public reduce(callback: (previousValue: any, currentValue: any, currentIndex: number, array: any[]) => any, initialValue?: any): any;
             public reduceRight(callback: (previousValue: any, currentValue: any, currentIndex: number, array: any[]) => any, initialValue?: any): any;
-            public reverse();
-            public setAt(index: number, newValue: T);
+            public reverse(): void;
+            public setAt(index: number, newValue: T): void;
             public shift(): T;
             public slice(begin: number, end: number): List<T>;
             public some(callback: (val: T, index: number, array: T[]) => boolean, thisArg?: any): boolean;
-            public sort(sortFunction: (left: T, right: T) => number);
+            public sort(sortFunction: (left: T, right: T) => number): void;
             public filter(callback: (val: T, index: number, array: T[]) => boolean, thisArg?: any): T[];
             public unshift(value: T): number;
             public length: number;
-            public notifyMutated(index: number);          
+            public notifyMutated(index: number): void;          
         }
         class Template {
             public element: HTMLElement;
@@ -79,7 +79,7 @@ declare module WinJS {
                 (dataContext: any, container?: HTMLElement): WinJS.Promise<HTMLElement>;
                 value(href: string, dataContext: any, container?: HTMLElement): WinJS.Promise<HTMLElement>;
             };
-            public renderItem(item: any, recycled?: HTMLElement);
+            public renderItem(item: any, recycled?: HTMLElement): void;
         }
 
         
@@ -143,8 +143,8 @@ declare module WinJS {
         function addEventListener(type: string, listener: EventListener, capture: boolean): void;
 		function back(): void;
 		function forward(): void;
-		function navigate(location: any, initialState: any);
-		function navigate(location: any);	
+		function navigate(location: any, initialState: any): WinJS.Promise<boolean>;
+        function navigate(location: any): WinJS.Promise<boolean>;	
 		function removeEventListener(type: string, listener: EventListener, capture: boolean): void;	
 		var onbeforenavigate: CustomEvent;
 		var onnavigated: CustomEvent;
@@ -280,7 +280,7 @@ declare module WinJS {
         var DOMEventMixin: any;
 
         class Flyout {
-            constructor(element: HTMLElement, options);
+            constructor(element: HTMLElement, options: any);
             element: Element;
         }
 
@@ -298,24 +298,24 @@ declare module WinJS {
 
         interface ISelection {
             clear(): WinJS.Promise<void>;
-            count();
+            count(): number;
             getItems(): WinJS.Promise<IItem[]>;
         }
 
         class ListView {
             element: Element;
-            elementFromIndex(index: number);
-            indexOfElement(element: Element);
+            elementFromIndex(index: number): Element;
+            indexOfElement(element: Element): number;
             selection: ISelection;
         }
 
         class Menu {
-            constructor(element: HTMLElement, options);
+            constructor(element: HTMLElement, options: any);
             element: Element;
         }
 
         export class MenuCommand {
-            constructor(element: HTMLElement, options);
+            constructor(element: HTMLElement, options: any);
         }
 
         export class SettingsFlyout {
