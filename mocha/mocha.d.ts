@@ -73,15 +73,30 @@ declare function before(action: () => void): void;
 
 declare function before(action: (done: mocha.Done) => void): void;
 
+declare function setup(action: () => void): void;
+
+declare function setup(action: (done: mocha.Done) => void): void;
+
 declare function after(action: () => void): void;
 
 declare function after(action: (done: mocha.Done) => void): void;
+
+declare function teardown(action: () => void): void;
+
+declare function teardown(action: (done: mocha.Done) => void): void;
 
 declare function beforeEach(action: () => void): void;
 
 declare function beforeEach(action: (done: mocha.Done) => void): void;
 
+declare function suiteSetup(action: () => void): void;
+
+declare function suiteSetup(action: (done: mocha.Done) => void): void;
+
 declare function afterEach(action: () => void): void;
 
 declare function afterEach(action: (done: mocha.Done) => void): void;
 
+declare function suiteTeardown(action: () => void): void;
+
+declare function suiteTeardown(action: (done: mocha.Done) => void): void;

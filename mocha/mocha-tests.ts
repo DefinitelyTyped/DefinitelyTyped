@@ -35,10 +35,22 @@ function test_before() {
     before((done) => { done(); });
 }
 
+function test_setup() {
+    setup(() => { });
+
+    setup((done) => { done(); });
+}
+
 function test_after() {
     after(() => { });
 
     after((done) => { done(); });
+}
+
+function test_teardown() {
+    teardown(() => { });
+
+    teardown((done) => { done(); });
 }
 
 function test_beforeEach() {
@@ -47,10 +59,22 @@ function test_beforeEach() {
     beforeEach((done) => { done(); });
 }
 
+function test_suiteSetup() {
+    suiteSetup(() => { });
+
+    suiteSetup((done) => { done(); });
+}
+
 function test_afterEach() {
     afterEach(() => { });
 
     afterEach((done) => { done(); });
+}
+
+function test_suiteTeardown() {
+    suiteTeardown(() => { });
+
+    suiteTeardown((done) => { done(); });
 }
 
 function test_reporter_string(){
