@@ -4,6 +4,45 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface UnderscoreStatic {
+    str: UnderscoreStringStatic;
+    string: UnderscoreStringStatic;
+}
+
+interface UnderscoreStringStatic extends UnderscoreStringStaticExports {
+    /**
+     * Tests if string contains a substring.
+     * ('foobar', 'ob') => true
+     * @param str
+     * @param needle
+     */
+    include(str: string, needle: string): boolean;
+
+    /**
+     * Tests if string contains a substring.
+     * ('foobar', 'ob') => true
+     * @param str
+     * @param needle
+     */
+    contains(str: string, needle: string): boolean;
+
+    /**
+     * Return reversed string.
+     * ('foobar') => 'raboof'
+     * @param str
+     */
+    reverse(str: string): string;
+}
+
+/**
+ * Functions exported for mixing with underscore object.
+ *
+ * Usage:
+ *   _.mixin(_.string.exports());
+ *   interface UnderscoreStatic extends UnderscoreStringStaticExports { }
+ */
+interface UnderscoreStringStaticExports {
+
+    exports(): UnderscoreStringStaticExports;
 
     /**
      * Determine if a string is 'blank.'
@@ -99,22 +138,6 @@ interface UnderscoreStatic {
     insert(str: string, i: number, substr: string): string;
 
     /**
-     * Tests if string contains a substring.
-     * ('foobar', 'ob') => true
-     * @param str
-     * @param needle
-     */
-    include(str: string, needle: string): boolean;
-
-    /**
-     * Tests if string contains a substring.
-     * ('foobar', 'ob') => true
-     * @param str
-     * @param needle
-     */
-    contains(str: string, needle: string): boolean;
-
-    /**
      * Joins strings together with given separator.
      * (' ', 'foo', 'bar') => 'foo bar'
      * @param separator
@@ -128,13 +151,6 @@ interface UnderscoreStatic {
      * @param str
      */
     lines(str: string): any[];
-
-    /**
-     * Return reversed string.
-     * ('foobar') => 'raboof'
-     * @param str
-     */
-    reverse(str: string): string;
 
     /**
      * Checks if string starts with another string.
@@ -279,7 +295,27 @@ interface UnderscoreStatic {
      * @param str
      * @param delimiter
      */
-    words(str: string, delimiter?: string): any[];
+    words(str: string): string[];
+    
+    /**
+     * Split string by delimiter (String or RegExp).
+     * /\s+/ by default.
+     * ('   I   love   you   ') => ['I','love','you']
+     * ('I_love_you', '_') => ['I','love','you']
+     * @param str
+     * @param delimiter
+     */
+    words(str: string, delimiter: string): string[];
+
+    /**
+     * Split string by delimiter (String or RegExp).
+     * /\s+/ by default.
+     * ('   I   love   you   ') => ['I','love','you']
+     * ('I_love_you', '_') => ['I','love','you']
+     * @param str
+     * @param delimiter
+     */
+    words(str: string, delimiter: RegExp): string[];
 
     /**
      * Pads a string with characters until the total string length is equal to the passed length parameter.
@@ -295,7 +331,7 @@ interface UnderscoreStatic {
      * @param padStr
      * @param type
      */
-    pad(str: string, length: number, padStr:string, type?: string): string;
+    pad(str: string, length: number, padStr?:string, type?: string): string;
 
     /**
      * Left-pad a string.
@@ -527,4 +563,4 @@ interface UnderscoreStatic {
 
 }
 
-// TODO interface Underscore<T>
+// TODO interface UnderscoreString extends Underscore<string>
