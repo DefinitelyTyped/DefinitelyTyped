@@ -1,14 +1,14 @@
 /// <reference path="../chai/chai.d.ts" />
 /// <reference path="sinon-chai.d.ts" />
 
-declare var expect: chai.ExpectStatic;
+declare var expect: SinonExpectShouldStatic;
+declare var spy: Function;
+declare var anotherSpy: Function;
+declare var context: {};
+declare var match: RegExp;
 
+// ReSharper disable WrongExpressionStatement
 function test() {
-    var spy: Function;
-    var anotherSpy: Function;
-    var context;
-    var match;
-
     expect(spy).to.have.been.called;
     expect(spy).to.have.been.calledOnce;
     expect(spy).to.have.been.calledTwice;

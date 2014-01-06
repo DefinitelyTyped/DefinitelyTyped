@@ -1,5 +1,7 @@
 /// <reference path="sinon.d.ts" />
 
+declare var sinon: SinonStatic;
+
 function once(fn: Function) {
 	var returnValue: any, called = false;
 	return function () {
@@ -15,7 +17,11 @@ function testOne() {
 	var callback = sinon.spy();
 	var proxy = once(callback);
 	proxy();
-	if (callback.calledOnce) { console.log("test1 calledOnce success"); } else { console.log("test1 calledOnce failure"); }
+	if (callback.calledOnce) {
+		console.log("test1 calledOnce success");
+	} else {
+		console.log("test1 calledOnce failure");
+	}
 }
 
 function testTwo() {
@@ -23,7 +29,11 @@ function testTwo() {
 	var proxy = once(callback);
 	proxy();
 	proxy();
-	if (callback.calledOnce) { console.log("test2 calledOnce success"); } else { console.log("test2 calledOnce failure"); }
+	if (callback.calledOnce) {
+		console.log("test2 calledOnce success");
+	} else {
+		console.log("test2 calledOnce failure");
+	}
 }
 
 function testThree() {
@@ -31,8 +41,16 @@ function testThree() {
 	var callback = sinon.spy({}, "method");
 	var proxy = once(callback);
 	proxy.call(obj, callback, 1, 2, 3);
-	if (callback.calledOn(obj)) { console.log("test3 calledOn success"); } else { console.log("test3 calledOn failure"); }
-	if (callback.calledWith(callback, 1, 2, 3)) { console.log("test3 calledWith success"); } else { console.log("test3 calledWith failure"); }
+	if (callback.calledOn(obj)) {
+		console.log("test3 calledOn success");
+	} else {
+		console.log("test3 calledOn failure");
+	}
+	if (callback.calledWith(callback, 1, 2, 3)) {
+		console.log("test3 calledWith success");
+	} else {
+		console.log("test3 calledWith failure");
+	}
 }
 
 function testFour() {
@@ -40,7 +58,11 @@ function testFour() {
 	var callback = sinon.stub().returns(42);
 	var proxy = once(callback);
 	var val = proxy.apply(callback, [1, 2, 3]);
-	if (val == 42) { console.log("test4 returns success"); } else { console.log("test4 returns failure"); }
+	if (val == 42) {
+		console.log("test4 returns success");
+	} else {
+		console.log("test4 returns failure");
+	}
 }
 
 function testFive() {
@@ -48,14 +70,17 @@ function testFive() {
 	var callback = sinon.stub().returnsArg(1);
 	var proxy = once(callback);
 	var val = proxy.apply(callback, [1, 2, 3]);
-	if (val == 2) { console.log("test5 returnsArg success"); } else { console.log("test5 returnsArg failure"); }
+	if (val == 2) {
+		console.log("test5 returnsArg success");
+	} else {
+		console.log("test5 returnsArg failure");
+	}
 }
 
 var objectUnderTest: any = {
-	process: function (obj: any) {
-		// It doesn't really matter what's here because the stub is going to replace this function
-		var dummy = true;
-		if (dummy) { return obj.success(99); } else { obj.failure(99); }
+	process: (obj: any) => {
+		obj.failure(99);
+		return obj.success(99);
 	}
 };
 
@@ -63,14 +88,14 @@ function testSix() {
 	var obj = { thisObj: true };
 	var stub = sinon.stub(objectUnderTest, "process").yieldsTo("success");
 	var val = objectUnderTest.process({
-		success: function () { console.log("test6 yieldsTo success"); },
-		failure: function () { console.log("test6 yieldsTo failure"); }
+		success: () => { console.log("test6 yieldsTo success"); },
+		failure: () => { console.log("test6 yieldsTo failure"); }
 	});
 	stub.restore();
 }
 
 function testSeven() {
-	var obj = { functionToTest : function () { } };
+	var obj = { functionToTest : () => {} };
 	var mockObj = sinon.mock(obj);
 	obj.functionToTest();
 	mockObj.expects('functionToTest').once();

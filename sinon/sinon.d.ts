@@ -91,8 +91,10 @@ interface SinonStub extends SinonSpy {
 	resetBehavior(): void;
 	returns(obj: any): SinonStub;
 	returnsArg(index: number): SinonStub;
+	// ReSharper disable UsingOfReservedWord
 	throws(type?: string): SinonStub;
 	throws(obj: any): SinonStub;
+	// ReSharper restore UsingOfReservedWord
 	callsArg(index: number): SinonStub;
 	callsArgOn(index: number, context: any): SinonStub;
 	callsArgWith(index: number, ...args: any[]): SinonStub;
@@ -389,4 +391,8 @@ interface SinonStatic {
 	log: (message: string) => void;
 }
 
-declare var sinon: SinonStatic;
+declare module "sinon" {
+	export = __sinon;
+}
+
+declare var __sinon: SinonStatic;

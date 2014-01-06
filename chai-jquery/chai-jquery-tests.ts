@@ -1,10 +1,12 @@
-/// <reference path="../chai/chai.d.ts" />
 /// <reference path="chai-jquery.d.ts" />
 
 // tests taken from https://github.com/chaijs/chai-jquery
 
-declare var $;
-var expect = chai.expect;
+// ReSharper disable DuplicatingLocalDeclaration
+declare var expect: ExpectShouldStatic;
+declare var $: ChaiJQueryStatic;
+// ReSharper restore DuplicatingLocalDeclaration
+// ReSharper disable WrongExpressionStatement
 
 function test_attr() {
     expect($('#foo')).to.have.attr('id');
@@ -73,6 +75,7 @@ function test_exist() {
 }
 
 function test_match_selector() {
+    $('').should.match('');
     $('input').should.match('#foo');
 }
 

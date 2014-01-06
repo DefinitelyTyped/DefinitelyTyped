@@ -4,34 +4,40 @@
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../chai/chai.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
-declare module chai {
-    interface NameValueRegexMatcher {
-        match(value: RegExp): boolean;
-    }
+interface ChaiJQuery extends JQuery {
+    should: ChaiJQueryExpectShould;
+}
 
-    interface NameValueMatcher {
-        (name: string, value?: string): boolean;
-    }
+interface ChaiJQueryStatic extends JQueryStatic {
+    (selector: string, context?: any): ChaiJQuery;
+    (element: Element): ChaiJQuery;
+    (object: {}): ChaiJQuery;
+    (elementArray: Element[]): ChaiJQuery;
+    (object: ChaiJQuery): ChaiJQuery;
+    (func: Function): ChaiJQuery;
+    (array: any[]): ChaiJQuery;
+    (): ChaiJQuery;
+}
 
-    interface Have {
-        attr: NameValueMatcher;
-        css: NameValueMatcher;
-        data: NameValueMatcher;
-        class(className: string): boolean;
-        id(id: string): boolean;
-        html(html: string): boolean;
-        text(text: string): boolean;
-        value(text: string): boolean;
-        (selector: string): boolean;
-    }
-
-    interface Be {
-        visible: boolean;
-        hidden: boolean;
-        selected: boolean;
-        checked: boolean;
-        disabled: boolean;
-        (selector: string): boolean;
-    }
+interface ChaiJQueryExpectShould extends ExpectShould {
+    not: ChaiJQueryExpectShould;
+    ok: ChaiJQueryExpectShould;
+    true: ChaiJQueryExpectShould;
+    false: ChaiJQueryExpectShould;
+    null: ChaiJQueryExpectShould;
+    undefined: ChaiJQueryExpectShould;
+    exist: ChaiJQueryExpectShould;
+    empty: ChaiJQueryExpectShould;
+    arguments: ChaiJQueryExpectShould;
+    Arguments: ChaiJQueryExpectShould;
+    match(expression: RegExp, message?: string): ChaiJQueryExpectShould;
+    match(selector: string, message?: string): ChaiJQueryExpectShould;
+    string(string: string, message?: string): ChaiJQueryExpectShould;
+    key(string: string): ChaiJQueryExpectShould;
+    respondTo(method: string, message?: string): ChaiJQueryExpectShould;
+    itself: ChaiJQueryExpectShould;
+    satisfy(matcher: Function, message?: string): ChaiJQueryExpectShould;
+    closeTo(expected: number, delta: number, message?: string): ChaiJQueryExpectShould;
 }

@@ -1,8 +1,11 @@
 /// <reference path="chai.d.ts" />
+import chai = require('chai');
+
 
 var expect = chai.expect;
 declare var err: Function;
 
+// ReSharper disable WrongExpressionStatement
 function chaiVersion() {
     expect(chai).to.have.property('version');
 }
@@ -17,9 +20,9 @@ function _true() {
     expect(false).to.not.be.true;
     expect(1).to.not.be.true;
 
-    err(() => {
+    err(()=> {
         expect('test').to.be.true;
-    }, "expected 'test' to be true")
+    }, "expected 'test' to be true");
 }
 
 function ok() {
@@ -42,33 +45,34 @@ function _false() {
     expect(true).to.not.be.false;
     expect(0).to.not.be.false;
 
-    err(() => {
+    err(()=> {
         expect('').to.be.false;
-    }, "expected '' to be false")
+    }, "expected '' to be false");
 }
 
 function _null() {
     expect(null).to.be.null;
     expect(false).to.not.be.null;
 
-    err(() => {
+    err(()=> {
         expect('').to.be.null;
-    }, "expected '' to be null")
+    }, "expected '' to be null");
 }
 
 function _undefined() {
     expect(undefined).to.be.undefined;
     expect(null).to.not.be.undefined;
 
-    err(() => {
+    err(()=> {
         expect('').to.be.undefined;
-    }, "expected '' to be undefined")
+    }, "expected '' to be undefined");
 }
 
 function exist() {
-    var foo = 'bar'
-        , bar;
+    var foo = 'bar';
+    var bar;
     expect(foo).to.exist;
+    // ReSharper disable once UsageOfPossiblyUnassignedValue
     expect(bar).to.not.exist;
 }
 
@@ -82,6 +86,7 @@ function arguments() {
 
 function equal() {
     var foo;
+    // ReSharper disable once UsageOfPossiblyUnassignedValue
     expect(undefined).to.equal(foo);
 }
 
@@ -102,7 +107,7 @@ function _typeof() {
     expect(new Object()).to.be.a('object');
     expect({}).to.be.a('object');
     expect([]).to.be.a('array');
-    expect(function () { }).to.be.a('function');
+    expect(() => { }).to.be.a('function');
     expect(null).to.be.a('null');
 
     err(() => {
@@ -689,7 +694,7 @@ function _throw() {
 }
 
 function use(){
-    chai.use(function (_chai, utils) {
+    chai.use((_chai, utils) => {
       _chai.can.use.any();
     });
 }

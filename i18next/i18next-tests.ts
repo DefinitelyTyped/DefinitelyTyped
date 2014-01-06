@@ -5,12 +5,14 @@
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="i18next.d.ts" />
 
+declare var sinon: SinonStatic;
+
 declare function done(): void;
  
 describe('i18next', function () {
 
     var i18n = $.i18n
-      , opts: I18nextOptions;
+      , opts: {};
 
     beforeEach(function () {
         opts = {
