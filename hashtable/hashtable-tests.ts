@@ -15,7 +15,7 @@ function pointsEqual(p1: Point, p2: Point) {
 
 var coloursForPoints = new Hashtable<Point, string>({ hashCode: hashPoint, equals: pointsEqual });
 
-function getColourAt(x, y) {
+function getColourAt(x: number, y: number) {
     var point = new Point(x, y);
     return coloursForPoints.get(point);
 }
