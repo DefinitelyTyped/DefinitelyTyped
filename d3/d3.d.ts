@@ -212,7 +212,7 @@ declare module D3 {
         *
         * @param map Array of objects to get the key-value pairs from
         */
-        entries(map: any[]): any[];
+        entries(map: any): any[];
         /**
         * merge multiple arrays into one array
         *
