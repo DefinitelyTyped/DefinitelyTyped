@@ -6,13 +6,13 @@
 interface IHashtable<TKey, TValue>
 {
     put(key: TKey, value: TValue): TValue;
-    putAll(hashtable: IHashtable<TKey, TValue>, conflictCallback?: (key: TKey, thisValue: TValue, value: TValue) => TValue);
+    putAll(hashtable: IHashtable<TKey, TValue>, conflictCallback?: (key: TKey, thisValue: TValue, value: TValue) => TValue): void;
 
     get(key: TKey): TValue;
     containsKey(key: TKey): boolean;
     containsValue(value: TValue): boolean;
 
-    clear();
+    clear(): void;
     isEmpty(): boolean;
 
     keys(): TKey[];
@@ -23,7 +23,7 @@ interface IHashtable<TKey, TValue>
     size(): number;
 
     clone(): IHashtable<TKey, TValue>;
-    each(callback: (key: TKey, value: TValue) => void);
+    each(callback: (key: TKey, value: TValue) => void): void;
 
     equals(hashtable: IHashtable<TKey, TValue>): boolean;
     toQueryString(): string;
