@@ -209,13 +209,14 @@ interface PouchOptions {
 	adapter?: string;
 }
 
-interface Pouch extends PouchApi {
-	(name: string, opts: PouchOptions, callback: (err: PouchError, res: Pouch) => void ): Pouch;
-	(name: string, callback: (err: PouchError, res: Pouch) => void ): Pouch;
+interface PouchDB extends PouchApi {
+    new (name: string, opts: PouchOptions, callback: (err: PouchError, res: PouchDB) => void): PouchDB;
+    new (name: string, callback: (err: PouchError, res: PouchDB) => void): PouchDB;
+    new (name: string): PouchDB;
 	destroy(name: string, callback: (err: PouchError) => void): void;
 }
 
-declare var Pouch: Pouch;
+declare var PouchDB: PouchDB;
 //
 // emit is the function that the PouchFilter.map function should call in order to add a particular item to
 // a filter view.
