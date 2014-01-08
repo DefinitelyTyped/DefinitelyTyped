@@ -760,4 +760,76 @@ declare module ng {
     // angular.element
     // when calling angular.element, angular returns a jQuery object,
     // augmented with additional methods like e.g. scope.
-    // see: http://docs.angularjs.org/api/angula
+    // see: http://docs.angularjs.org/api/angular.element
+    ///////////////////////////////////////////////////////////////////////////
+    interface IAugmentedJQueryStatic extends JQueryStatic {
+        (selector: string, context?: any): IAugmentedJQuery;
+        (element: Element): IAugmentedJQuery;
+        (object: {}): IAugmentedJQuery;
+        (elementArray: Element[]): IAugmentedJQuery;
+        (object: JQuery): IAugmentedJQuery;
+        (func: Function): IAugmentedJQuery;
+        (array: any[]): IAugmentedJQuery;
+        (): IAugmentedJQuery;
+    }
+
+    interface IAugmentedJQuery extends JQuery {
+        // TODO: events, how to define?
+        //$destroy
+
+        find(selector: string): IAugmentedJQuery;
+        find(element: any): IAugmentedJQuery;
+        find(obj: JQuery): IAugmentedJQuery;
+
+        controller(name: string): any;
+        injector(): any;
+        scope(): IScope;
+
+        inheritedData(key: string, value: any): JQuery;
+        inheritedData(obj: { [key: string]: any; }): JQuery;
+        inheritedData(key?: string): any;
+
+
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // AUTO module (angular.js)
+    ///////////////////////////////////////////////////////////////////////////
+    export module auto {
+
+        ///////////////////////////////////////////////////////////////////////
+        // InjectorService
+        // see http://docs.angularjs.org/api/AUTO.$injector
+        ///////////////////////////////////////////////////////////////////////
+        interface IInjectorService {
+            annotate(fn: Function): string[];
+            annotate(inlineAnnotadedFunction: any[]): string[];
+            get (name: string): any;
+            instantiate(typeConstructor: Function, locals?: any): any;
+            invoke(inlineAnnotadedFunction: any[]): any;
+            invoke(func: Function, context?: any, locals?: any): any;
+        }
+
+        ///////////////////////////////////////////////////////////////////////
+        // ProvideService
+        // see http://docs.angularjs.org/api/AUTO.$provide
+        ///////////////////////////////////////////////////////////////////////
+        interface IProvideService {
+            // Documentation says it returns the registered instance, but actual
+            // implementation does not return anything.
+            // constant(name: string, value: any): any;
+            constant(name: string, value: any): void;
+
+            decorator(name: string, decorator: Function): void;
+            decorator(name: string, decoratorInline: any[]): void;
+            factory(name: string, serviceFactoryFunction: Function): ng.IServiceProvider;
+            factory(name: string, inlineAnnotadedFunction: any[]): ng.IServiceProvider;
+            provider(name: string, provider: ng.IServiceProvider): ng.IServiceProvider;
+            provider(name: string, serviceProviderConstructor: Function): ng.IServiceProvider;
+            service(name: string, constructor: Function): ng.IServiceProvider;
+            value(name: string, value: any): ng.IServiceProvider;
+        }
+
+    }
+}
