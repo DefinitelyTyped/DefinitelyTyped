@@ -6,12 +6,12 @@
 
 
 declare module kg {
-    export interface DomUtilityService<EntityType> {
-        UpdateGridLayout(grid: Grid<EntityType>);
-        BuildStyles(grid: Grid<EntityType>);
+    export interface DomUtilityService {
+        UpdateGridLayout(grid: Grid<any>);
+        BuildStyles(grid: Grid<any>);
     }
 
-    var domUtilityService;
+    var domUtilityService: DomUtilityService;
 
     export interface Row<EntityType> {
         selected: KnockoutObservable<boolean>;
