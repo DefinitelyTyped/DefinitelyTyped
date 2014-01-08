@@ -539,7 +539,7 @@ declare module ng {
 
     interface ICloneAttachFunction {
         // Let's hint but not force cloneAttachFn's signature
-        (clonedElement?: JQuery, scope?: IScope): any
+        (clonedElement?: JQuery, scope?: IScope): any;
     }
 
     interface ITemplateLinkingFunction {
