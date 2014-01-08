@@ -884,7 +884,7 @@ declare module breeze.config {
     var interfaceInitialized: Event;
     var interfaceRegistry: Object;
     var objectRegistry: Object;
-    export function registerAdapter(interfaceName: string): void;
+    export function registerAdapter(interfaceName: string, adapterCtor: Object): void;
     export function registerFunction(fn: Function, fnName: string): void;
     export function registerType(ctor: Function, typeName: string): void;
     //static setProperties(config: Object): void; //deprecated
