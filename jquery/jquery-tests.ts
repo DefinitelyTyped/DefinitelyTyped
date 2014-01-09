@@ -1802,16 +1802,22 @@ function test_innerWidth() {
 
 function test_outerHeight() {
     var p = $("p:first");
-    $("p:last").text("outerHeight:" + p.outerHeight(true));
-    p.outerHeight(p.outerHeight() * 2).outerHeight();
-    p.outerHeight(p.outerHeight() * 2, true).outerHeight();
+    $("p:last").text(
+        "outerHeight:" + p.outerHeight() +
+        " , outerHeight( true ):" + p.outerHeight(true));
 }
 
 function test_outerWidth() {
     var p = $("p:first");
-    $("p:last").text("outerWidth:" + p.outerWidth(true));
-    p.outerWidth(p.outerWidth() * 2).outerWidth();
-    p.outerWidth(p.outerWidth() * 2, true).outerWidth();
+    $("p:last").text(
+        "outerWidth:" + p.outerWidth() +
+        " , outerWidth( true ):" + p.outerWidth(true));
+}
+
+function test_position() {
+    var p = $("p:first");
+    var position = p.position();
+    $("p:last").text("left: " + position.left + ", top: " + position.top);
 }
 
 function test_insertAfter() {
