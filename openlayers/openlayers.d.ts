@@ -611,7 +611,7 @@ declare module OpenLayers {
          * openlayers.org homepage:
          * http://trac.openlayers.org/wiki/SettingZoomLevels
          */
-        private initResolutions(): void;
+        initResolutions(): void;
 
         /**
          * Method: resolutionsFromScales
@@ -635,7 +635,7 @@ declare module OpenLayers {
          * Returns:
          * {Array({Number})} Array of resolutions.
          */
-        private calculateResolutions(props: Object): number[];
+        calculateResolutions(props: Object): number[];
 
         /**
          * APIMethod: getResolution
@@ -760,7 +760,7 @@ declare module OpenLayers {
          * Returns:
          * {Integer} the z-index of this layer
          */
-        private getZIndex(): number;
+        getZIndex(): number;
 
         /**
          * Method: setZIndex
@@ -768,7 +768,7 @@ declare module OpenLayers {
          * Parameters:
          * zIndex - {Integer}
          */
-        private setZIndex(zIndex: number): void;
+        setZIndex(zIndex: number): void;
 
         /**
          * Method: adjustBounds
@@ -781,7 +781,7 @@ declare module OpenLayers {
          * Parameters:
          * bounds - {<OpenLayers.Bounds>}
          */
-        private adjustBounds(bounds: Bounds): Bounds;
+        adjustBounds(bounds: Bounds): Bounds;
 
         static CLASS_NAME: string;
     }
