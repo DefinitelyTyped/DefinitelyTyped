@@ -1048,13 +1048,24 @@ interface JQuery {
      */
     offset(func: (index: number, coords: JQueryCoordinates) => JQueryCoordinates): JQuery;
 
+    /**
+     * Get the current computed height for the first element in the set of matched elements, including padding, border, and optionally margin. Returns an integer (without "px") representation of the value or null if called on an empty set of elements.
+     *
+     * @param includeMargin A Boolean indicating whether to include the element's margin in the calculation.
+     */
     outerHeight(includeMargin?: boolean): number;
-    outerHeight(value: number, includeMargin?: boolean): JQuery;
 
+    /**
+     * Get the current computed width for the first element in the set of matched elements, including padding and border.
+     *
+     * @param includeMargin A Boolean indicating whether to include the element's margin in the calculation.
+     */
     outerWidth(includeMargin?: boolean): number;
-    outerWidth(value: number, includeMargin?: boolean): JQuery;
 
-    position(): { top: number; left: number; };
+    /**
+     * Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.
+     */
+    position(): JQueryCoordinates;
 
     scrollLeft(): number;
     scrollLeft(value: number): JQuery;
