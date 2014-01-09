@@ -94,6 +94,8 @@ List of Definitions
 * [Google Url Shortener](https://developers.google.com/url-shortener/) (by [Frank M](https://github.com/sgtfrankieboy))
 * [Hammer.js](http://eightmedia.github.com/hammer.js/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Handlebars](http://handlebarsjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
+* [HashSet](http://www.timdown.co.uk/jshashtable/jshashset.html) (by [Sergey Gerasimov](https://github.com/gerich-home))
+* [Hashtable](http://www.timdown.co.uk/jshashtable/) (by [Sergey Gerasimov](https://github.com/gerich-home))
 * [Highcharts](http://www.highcharts.com/) (by [damianog](https://github.com/damianog))
 * [highlight.js](https://github.com/isagalaev/highlight.js) (by [Niklas Mollenhauer](https://github.com/nikeee))
 * [History.js](https://github.com/browserstate/history.js) (by [Boris Yankov](https://github.com/borisyankov))
