@@ -2635,6 +2635,7 @@ declare module D3 {
                 (): any[];
             };
             copy(): QuantizeScale;
+            invertExtent(y: any): any[];
         }
 
         export interface ThresholdScale extends Scale {
