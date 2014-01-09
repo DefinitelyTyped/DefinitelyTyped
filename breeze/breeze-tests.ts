@@ -867,8 +867,8 @@ function test_config() {
     s = config.interfaceInitialized.type;
     o = config.interfaceRegistry;
     o = config.objectRegistry;
-    config.registerAdapter("myAdapterName");
     var f1: Function;
+    config.registerAdapter("myAdapterName", f1);
     config.registerFunction(f1, "myFunction");
     config.registerType(f1, "myCtor");
     s = config.stringifyPad;
