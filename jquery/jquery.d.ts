@@ -1067,10 +1067,26 @@ interface JQuery {
      */
     position(): JQueryCoordinates;
 
+    /**
+     * Get the current horizontal position of the scroll bar for the first element in the set of matched elements or set the horizontal position of the scroll bar for every matched element.
+     */
     scrollLeft(): number;
+    /**
+     * Set the current horizontal position of the scroll bar for each of the set of matched elements.
+     *
+     * @param value An integer indicating the new position to set the scroll bar to.
+     */
     scrollLeft(value: number): JQuery;
 
+    /**
+     * Get the current vertical position of the scroll bar for the first element in the set of matched elements or set the vertical position of the scroll bar for every matched element.
+     */
     scrollTop(): number;
+    /**
+     * Set the current vertical position of the scroll bar for each of the set of matched elements.
+     *
+     * @param value An integer indicating the new position to set the scroll bar to.
+     */
     scrollTop(value: number): JQuery;
 
     /**
