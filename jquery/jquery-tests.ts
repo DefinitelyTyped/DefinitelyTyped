@@ -1814,6 +1814,20 @@ function test_outerWidth() {
         " , outerWidth( true ):" + p.outerWidth(true));
 }
 
+function test_scrollLeft() {
+    var p = $("p:first");
+    $("p:last").text("scrollLeft:" + p.scrollLeft());
+
+    $("div.demo").scrollLeft(300);
+}
+
+function test_scrollTop() {
+    var p = $("p:first");
+    $("p:last").text("scrollTop:" + p.scrollTop());
+
+    $("div.demo").scrollTop(300);
+}
+
 function test_position() {
     var p = $("p:first");
     var position = p.position();
