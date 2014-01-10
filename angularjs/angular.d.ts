@@ -543,7 +543,9 @@ declare module ng {
     }
 
     interface ITemplateLinkingFunction {
-        (scope?: IScope, cloneAttachFn?: ICloneAttachFunction): JQuery;
+        // If the scope is provided, then the cloneAttachFn must be as well.
+        (scope: IScope, cloneAttachFn: ICloneAttachFunction): JQuery;
+        // If one argument is provided, then it's assumed to be the cloneAttachFn.
         (cloneAttachFn?: ICloneAttachFunction): JQuery;
     }
 
