@@ -13,6 +13,8 @@ See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
 
+///<reference path="../winrt/winrt.d.ts"/>
+
 declare module WinJS {
     function strictProcessing(): void;
 
