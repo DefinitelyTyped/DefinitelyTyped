@@ -1856,6 +1856,39 @@ function test_insertBefore() {
     $("p").insertBefore("#foo");
 }
 
+function test_promise() {
+    var div = $("<div>");
+
+    div.promise().done(function (arg1) {
+        // Will fire right away and alert "true"
+        alert(this === div && arg1 === div);
+    });
+
+    $("button").on("click", function () {
+        $("p").append("Started...");
+
+        $("div").each(function (i) {
+            $(this).fadeIn().fadeOut(1000 * (i + 1));
+        });
+
+        $("div").promise().done(function () {
+            $("p").append(" Finished! ");
+        });
+    });
+
+    var effect = function () {
+        return $("div").fadeIn(800).delay(1200).fadeOut();
+    };
+
+    $("button").on("click", function () {
+        $("p").append(" Started... ");
+
+        $.when(effect()).done(function () {
+            $("p").append(" Finished! ");
+        });
+    });
+}
+
 function test_is() {
     $("ul").click(function (event) {
         var $target = $(event.target);
