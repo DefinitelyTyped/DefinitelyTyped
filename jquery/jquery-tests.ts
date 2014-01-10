@@ -898,6 +898,16 @@ function test_data() {
     $.data(document.getElementById("id"), "", "8").toUpperCase();
 }
 
+function test_removeData() {
+    $("span:eq(0)").text("" + $("div").data("test1"));
+    $("div").data("test1", "VALUE-1");
+    $("div").data("test2", "VALUE-2");
+    $("span:eq(1)").text("" + $("div").data("test1"));
+    $("div").removeData("test1");
+    $("span:eq(2)").text("" + $("div").data("test1"));
+    $("span:eq(3)").text("" + $("div").data("test2"));
+}
+
 function test_dblclick() {
     $('#target').dblclick(function () {
         alert('Handler for .dblclick() called.');
@@ -1814,6 +1824,20 @@ function test_outerWidth() {
         " , outerWidth( true ):" + p.outerWidth(true));
 }
 
+function test_scrollLeft() {
+    var p = $("p:first");
+    $("p:last").text("scrollLeft:" + p.scrollLeft());
+
+    $("div.demo").scrollLeft(300);
+}
+
+function test_scrollTop() {
+    var p = $("p:first");
+    $("p:last").text("scrollTop:" + p.scrollTop());
+
+    $("div.demo").scrollTop(300);
+}
+
 function test_position() {
     var p = $("p:first");
     var position = p.position();
@@ -1830,6 +1854,39 @@ function test_insertBefore() {
     $('<p>Test</p>').insertBefore('.inner');
     $('h2').insertBefore($('.container'));
     $("p").insertBefore("#foo");
+}
+
+function test_promise() {
+    var div = $("<div>");
+
+    div.promise().done(function (arg1) {
+        // Will fire right away and alert "true"
+        alert(this === div && arg1 === div);
+    });
+
+    $("button").on("click", function () {
+        $("p").append("Started...");
+
+        $("div").each(function (i) {
+            $(this).fadeIn().fadeOut(1000 * (i + 1));
+        });
+
+        $("div").promise().done(function () {
+            $("p").append(" Finished! ");
+        });
+    });
+
+    var effect = function () {
+        return $("div").fadeIn(800).delay(1200).fadeOut();
+    };
+
+    $("button").on("click", function () {
+        $("p").append(" Started... ");
+
+        $.when(effect()).done(function () {
+            $("p").append(" Finished! ");
+        });
+    });
 }
 
 function test_is() {
