@@ -898,6 +898,16 @@ function test_data() {
     $.data(document.getElementById("id"), "", "8").toUpperCase();
 }
 
+function test_removeData() {
+    $("span:eq(0)").text("" + $("div").data("test1"));
+    $("div").data("test1", "VALUE-1");
+    $("div").data("test2", "VALUE-2");
+    $("span:eq(1)").text("" + $("div").data("test1"));
+    $("div").removeData("test1");
+    $("span:eq(2)").text("" + $("div").data("test1"));
+    $("span:eq(3)").text("" + $("div").data("test2"));
+}
+
 function test_dblclick() {
     $('#target').dblclick(function () {
         alert('Handler for .dblclick() called.');
