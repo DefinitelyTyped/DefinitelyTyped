@@ -525,9 +525,9 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$compileProvider
     ///////////////////////////////////////////////////////////////////////////
     interface ICompileService {
-        (element: string, transclude?: ITemplateLinkingFunction, maxPriority?: number): ITemplateLinkingFunction;
-        (element: Element, transclude?: ITemplateLinkingFunction, maxPriority?: number): ITemplateLinkingFunction;
-        (element: JQuery, transclude?: ITemplateLinkingFunction, maxPriority?: number): ITemplateLinkingFunction;
+        (element: string, transclude?: ITranscludeFunction, maxPriority?: number): ITemplateLinkingFunction;
+        (element: Element, transclude?: ITranscludeFunction, maxPriority?: number): ITemplateLinkingFunction;
+        (element: JQuery, transclude?: ITranscludeFunction, maxPriority?: number): ITemplateLinkingFunction;
     }
 
     interface ICompileProvider extends IServiceProvider {
@@ -542,11 +542,17 @@ declare module ng {
         (clonedElement?: JQuery, scope?: IScope): any;
     }
 
+    // This corresponds to the "publicLinkFn" returned by $compile.
     interface ITemplateLinkingFunction {
+        (scope: IScope, cloneAttachFn?: ICloneAttachFunction): IAugmentedJQuery;
+    }
+
+    // This corresponds to $transclude (and also the transclude function passed to link).
+    interface ITranscludeFunction {
         // If the scope is provided, then the cloneAttachFn must be as well.
-        (scope: IScope, cloneAttachFn: ICloneAttachFunction): JQuery;
+        (scope: IScope, cloneAttachFn: ICloneAttachFunction): IAugmentedJQuery;
         // If one argument is provided, then it's assumed to be the cloneAttachFn.
-        (cloneAttachFn?: ICloneAttachFunction): JQuery;
+        (cloneAttachFn?: ICloneAttachFunction): IAugmentedJQuery;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -734,17 +740,18 @@ declare module ng {
 
     interface IDirective{
         compile?:
-            (templateElement: any,
+            (templateElement: IAugmentedJQuery,
             templateAttributes: IAttributes,
-            transclude: (scope: IScope, cloneLinkingFn: Function) => void
+            transclude: ITranscludeFunction
             ) => any;
         controller?: any;
         controllerAs?: string;
         link?:
             (scope: IScope,
-            instanceElement: any,
+            instanceElement: IAugmentedJQuery,
             instanceAttributes: IAttributes,
-            controller: any
+            controller: any,
+            transclude: ITranscludeFunction
             ) => void;
         name?: string;
         priority?: number;
