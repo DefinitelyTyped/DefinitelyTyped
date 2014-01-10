@@ -1181,8 +1181,13 @@ interface JQuery {
      */
     removeData(list: string[]): JQuery;
 
-    // Deferred
-    promise(type?: any, target?: any): JQueryPromise<any>;
+    /**
+     * Return a Promise object to observe when all actions of a certain type bound to the collection, queued or not, have finished.
+     *
+     * @param type The type of queue that needs to be observed. (default: fx)
+     * @param target Object onto which the promise methods have to be attached
+     */
+    promise(type?: string, target?: Object): JQueryPromise<any>;
 
     // Effects
     animate(properties: any, duration?: any, complete?: Function): JQuery;
