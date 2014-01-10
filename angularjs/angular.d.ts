@@ -537,9 +537,16 @@ declare module ng {
         directive(directivesMap: any): ICompileProvider;
     }
 
-    interface ITemplateLinkingFunction {
+    interface ICloneAttachFunction {
         // Let's hint but not force cloneAttachFn's signature
-        (scope: IScope, cloneAttachFn?: (clonedElement?: JQuery, scope?: IScope) => any): JQuery;
+        (clonedElement?: JQuery, scope?: IScope): any;
+    }
+
+    interface ITemplateLinkingFunction {
+        // If the scope is provided, then the cloneAttachFn must be as well.
+        (scope: IScope, cloneAttachFn: ICloneAttachFunction): JQuery;
+        // If one argument is provided, then it's assumed to be the cloneAttachFn.
+        (cloneAttachFn?: ICloneAttachFunction): JQuery;
     }
 
     ///////////////////////////////////////////////////////////////////////////
