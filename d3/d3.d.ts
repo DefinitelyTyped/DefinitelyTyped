@@ -2442,6 +2442,7 @@ declare module D3 {
                 (values: any[]): Scale;
                 (): any[];
             };
+            invertExtent(y: any): any[];
             copy(): Scale;
         }
 
