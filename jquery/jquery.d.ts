@@ -1067,10 +1067,26 @@ interface JQuery {
      */
     position(): JQueryCoordinates;
 
+    /**
+     * Get the current horizontal position of the scroll bar for the first element in the set of matched elements or set the horizontal position of the scroll bar for every matched element.
+     */
     scrollLeft(): number;
+    /**
+     * Set the current horizontal position of the scroll bar for each of the set of matched elements.
+     *
+     * @param value An integer indicating the new position to set the scroll bar to.
+     */
     scrollLeft(value: number): JQuery;
 
+    /**
+     * Get the current vertical position of the scroll bar for the first element in the set of matched elements or set the vertical position of the scroll bar for every matched element.
+     */
     scrollTop(): number;
+    /**
+     * Set the current vertical position of the scroll bar for each of the set of matched elements.
+     *
+     * @param value An integer indicating the new position to set the scroll bar to.
+     */
     scrollTop(value: number): JQuery;
 
     /**
@@ -1114,19 +1130,64 @@ interface JQuery {
      */
     width(func: (index: number, width: number) => string): JQuery;
 
-    // Data
+    /**
+     * Remove from the queue all items that have not yet been run.
+     *
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     */
     clearQueue(queueName?: string): JQuery;
 
+    /**
+     * Store arbitrary data associated with the matched elements.
+     *
+     * @param key A string naming the piece of data to set.
+     * @param value The new data value; it can be any Javascript type including Array or Object.
+     */
     data(key: string, value: any): JQuery;
+    /**
+     * Store arbitrary data associated with the matched elements.
+     *
+     * @param obj An object of key-value pairs of data to update.
+     */
     data(obj: { [key: string]: any; }): JQuery;
-    data(key?: string): any;
+    /**
+     * Return the value at the named data store for the first element in the jQuery collection, as set by data(name, value) or by an HTML5 data-* attribute.
+     *
+     * @param key Name of the data stored.
+     */
+    data(key: string): any;
+    /**
+     * Return the value at the named data store for the first element in the jQuery collection, as set by data(name, value) or by an HTML5 data-* attribute.
+     */
+    data(): any;
 
+    /**
+     * Execute the next function on the queue for the matched elements.
+     *
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     */
     dequeue(queueName?: string): JQuery;
 
-    removeData(nameOrList?: any): JQuery;
+    /**
+     * Remove a previously-stored piece of data.
+     *
+     * @param name A string naming the piece of data to delete or space-separated string naming the pieces of data to delete.
+     */
+    removeData(name: string): JQuery;
+    /**
+     * Remove a previously-stored piece of data.
+     *
+     * @param list An array of strings naming the pieces of data to delete.
+     */
+    removeData(list: string[]): JQuery;
 
-    // Deferred
-    promise(type?: any, target?: any): JQueryPromise<any>;
+    /**
+     * Return a Promise object to observe when all actions of a certain type bound to the collection, queued or not, have finished.
+     *
+     * @param type The type of queue that needs to be observed. (default: fx)
+     * @param target Object onto which the promise methods have to be attached
+     */
+    promise(type?: string, target?: Object): JQueryPromise<any>;
 
     // Effects
     animate(properties: any, duration?: any, complete?: Function): JQuery;
