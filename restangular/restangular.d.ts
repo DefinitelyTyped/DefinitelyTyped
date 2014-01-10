@@ -1,4 +1,4 @@
-// Type definitions for Restangular v0.8.0 - 2013-06-03
+// Type definitions for Restangular v1.2.2 - 2014-01-10
 // Project: https://github.com/mgonto/restangular
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -12,6 +12,9 @@ interface Restangular extends RestangularCustom {
     all(route: string): RestangularCollection;
     copy(fromElement: any): RestangularElement;
     withConfig(configurer: (RestangularProvider) => any): Restangular;
+    restangularizeElement(parent: any, element: any, route: string, collection?, reqParams?): RestangularElement;
+    restangularizeCollection(parent: any, element: any, route: string): RestangularCollection;
+    stripRestangular(element: any): any;
 }
 
 interface RestangularElement extends Restangular {
