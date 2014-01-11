@@ -14,7 +14,7 @@ angular.module('http-auth-interceptor', [])
          * Holds all the requests which failed due to 401 response,
          * so they can be re-requested in future, once login is completed.
          */
-        var buffer = [];
+        var buffer: { config: ng.IRequestConfig; deferred: ng.IDeferred<any>; }[] = [];
 
         /**
          * Required by HTTP interceptor.
@@ -55,7 +55,7 @@ angular.module('http-auth-interceptor', [])
  * $http interceptor.
  * On 401 response - it stores the request and broadcasts 'event:angular-auth-loginRequired'.
  */
-    .config(['$httpProvider', 'authServiceProvider', <any>function ($httpProvider: ng.IHttpProvider, authServiceProvider) {
+    .config(['$httpProvider', 'authServiceProvider', <any>function ($httpProvider: ng.IHttpProvider, authServiceProvider: any) {
 
         var interceptor = ['$rootScope', '$q', <any>function ($rootScope: ng.IScope, $q: ng.IQService) {
             function success(response: ng.IHttpPromiseCallbackArg<any>) {
@@ -145,14 +145,14 @@ module HttpAndRegularPromiseTests {
                 .success(callback);
         }
 
-    doFoo((data) => console.log(data));
+    doFoo((data: any) => console.log(data));
     }
 }
 
 // Test for AngularJS Syntax
 
 module My.Namespace {
-    export var x; // need to export something for module to kick in    
+    export var x: any; // need to export something for module to kick in
 }
 
 // IModule Registering Test
