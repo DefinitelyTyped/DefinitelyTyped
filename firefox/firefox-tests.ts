@@ -7,7 +7,7 @@ var log = (data:any) => {
 };
 
 var setupCallback = (src:string, request:DOMRequest<App>) => {
-	request.onsuccess = (data)=> {
+	request.onsuccess = (data: any)=> {
 		if (request.result && request.result.manifest) {
 			log('app is installed ' + request.result.manifest.name + " by " + src);
 		} else if (request.result) {

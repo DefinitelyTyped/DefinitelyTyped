@@ -8,7 +8,7 @@ declare class Tracker {
     _getName(): string;
     _getAccount(): string;
     _getVersion(): string;
-    _getVisitorCustomVar(index: number); string;
+    _getVisitorCustomVar(index: number): string;
     _setAccount(): string;
     _setCustomVar(index: number, name: string, value: string, opt_scope?: number): boolean;
     _setSampleRate(newRate: string): void;
@@ -20,7 +20,7 @@ declare class Tracker {
 
 interface GoogleAnalyticsCode {
     push(commandArray: string[]): void;
-    push(Function): void;
+    push(func: Function): void;
 }
 
 interface GoogleAnalyticsTracker {
