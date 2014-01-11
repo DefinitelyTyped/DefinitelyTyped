@@ -4271,7 +4271,7 @@ declare module Box2D.Dynamics.Joints {
 		* Set the user data pointer.
 		* @param data Your custom data.
 		**/
-		public SetUserData(data: any); void;
+		public SetUserData(data: any): void;
 	}
 }
 
@@ -5377,7 +5377,7 @@ declare module Box2D.Dynamics.Joints {
 		* Set the motor speed in radians per second.
 		* @param speed New motor speed.
 		**/
-		public SetMotorSpeed(speed: number); void;
+		public SetMotorSpeed(speed: number): void;
 	}
 }
 
