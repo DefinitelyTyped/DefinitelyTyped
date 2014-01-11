@@ -26,6 +26,7 @@ Other means to get the definitions
 
 List of Definitions
 -------------------
+* [accounting.js](http://josscrowcroft.github.io/accounting.js/) (by [Sergey Gerasimov](https://github.com/gerich-home))
 * [Ace Cloud9 Editor](http://ace.ajax.org/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Add To Home Screen] (http://cubiq.org/add-to-home-screen) (by [James Wilkins] (http://www.codeplex.com/site/users/view/jamesnw))
 * [AmCharts](http://www.amcharts.com/) (by [Covobonomo](https://github.com/covobonomo/))
