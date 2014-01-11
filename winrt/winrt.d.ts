@@ -496,6 +496,14 @@ declare module Windows {
             close(): void;
         }
         export interface IAsyncAction extends Windows.Foundation.IAsyncInfo {
+            then<U>(success?: () => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>;
+            then<U>(success?: () => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>;
+            then<U>(success?: () => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>;
+            then<U>(success?: () => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>;
+            done? <U>(success?: () => any, error?: (error: any) => any, progress?: (progress: any) => void): void;
+
+            cancel(): void;
+
             completed: Windows.Foundation.AsyncActionCompletedHandler;
             getResults(): void;
         }
@@ -521,7 +529,7 @@ declare module Windows {
         export interface AsyncActionWithProgressCompletedHandler<TProgress> {
             (asyncInfo: Windows.Foundation.IAsyncActionWithProgress<TProgress>, asyncStatus: Windows.Foundation.AsyncStatus): void;
         }
-        export interface IAsyncActionWithProgress<TProgress> extends Windows.Foundation.IAsyncInfo {
+        export interface IAsyncActionWithProgress<TProgress> extends Windows.Foundation.IAsyncInfo, Windows.Foundation.IPromise<void> {
             progress: Windows.Foundation.AsyncActionProgressHandler<TProgress>;
             completed: Windows.Foundation.AsyncActionWithProgressCompletedHandler<TProgress>;
             getResults(): void;
@@ -3301,11 +3309,11 @@ declare module Windows {
                 getResults(): void;
                 cancel(): void;
                 close(): void;
-                then<U>(success: (value: any) => U, error?: (error: any) => U, progress?: (progress: any) => void ): Windows.Foundation.IPromise<U>;
-                then<U>(success: (value: any) => Windows.Foundation.IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void ): Windows.Foundation.IPromise<U>;
-                then<U>(success: (value: any) => U, error?: (error: any) => Windows.Foundation.IPromise<U>, progress?: (progress: any) => void ): Windows.Foundation.IPromise<U>;
-                then<U>(success: (value: any) => Windows.Foundation.IPromise<U>, error?: (error: any) => Windows.Foundation.IPromise<U>, progress?: (progress: any) => void ): Windows.Foundation.IPromise<U>;
-                done<U>(success: (value: any) => any, error?: (error: any) => any, progress?: (progress: any) => void ): void;
+                then<U>(success?: () => Windows.Foundation.IPromise<U>, error?: (error: any) => Windows.Foundation.IPromise<U>, progress?: (progress: any) => void): Windows.Foundation.IPromise<U>;
+                then<U>(success?: () => Windows.Foundation.IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): Windows.Foundation.IPromise<U>;
+                then<U>(success?: () => U, error?: (error: any) => Windows.Foundation.IPromise<U>, progress?: (progress: any) => void): Windows.Foundation.IPromise<U>;
+                then<U>(success?: () => U, error?: (error: any) => U, progress?: (progress: any) => void): Windows.Foundation.IPromise<U>;
+                done<U>(success?: () => any, error?: (error: any) => any, progress?: (progress: any) => void): void ;
                 operation: {
                     completed: Windows.Foundation.AsyncOperationCompletedHandler<any>;
                     getResults(): any;
@@ -8385,11 +8393,11 @@ declare module Windows {
                     getResults(): void;
                     cancel(): void;
                     close(): void;
-                    then<U>(success: (value: any) => U, error?: (error: any) => U, progress?: (progress: any) => void ): Windows.Foundation.IPromise<U>;
-                    then<U>(success: (value: any) => Windows.Foundation.IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void ): Windows.Foundation.IPromise<U>;
-                    then<U>(success: (value: any) => U, error?: (error: any) => Windows.Foundation.IPromise<U>, progress?: (progress: any) => void ): Windows.Foundation.IPromise<U>;
-                    then<U>(success: (value: any) => Windows.Foundation.IPromise<U>, error?: (error: any) => Windows.Foundation.IPromise<U>, progress?: (progress: any) => void ): Windows.Foundation.IPromise<U>;
-                    done<U>(success: (value: any) => any, error?: (error: any) => any, progress?: (progress: any) => void ): void;
+                    then<U>(success?: () => Windows.Foundation.IPromise<U>, error?: (error: any) => Windows.Foundation.IPromise<U>, progress?: (progress: any) => void): Windows.Foundation.IPromise<U>;
+                    then<U>(success?: () => Windows.Foundation.IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): Windows.Foundation.IPromise<U>;
+                    then<U>(success?: () => U, error?: (error: any) => Windows.Foundation.IPromise<U>, progress?: (progress: any) => void): Windows.Foundation.IPromise<U>;
+                    then<U>(success?: () => U, error?: (error: any) => U, progress?: (progress: any) => void): Windows.Foundation.IPromise<U>;
+                    done<U>(success?: () => any, error?: (error: any) => any, progress?: (progress: any) => void): void;
                     operation: {
                         completed: Windows.Foundation.AsyncOperationCompletedHandler<any>;
                         getResults(): any;
@@ -14635,10 +14643,12 @@ declare module Windows {
 }
 declare module Windows.Foundation {
     export interface IPromise<T> {
-        then<U>(success?: (value: T) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void ): Windows.Foundation.IPromise<U>;
-        then<U>(success?: (value: T) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void ): Windows.Foundation.IPromise<U>;
-        then<U>(success?: (value: T) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void ): Windows.Foundation.IPromise<U>;
-        then<U>(success?: (value: T) => U, error?: (error: any) => U, progress?: (progress: any) => void ): Windows.Foundation.IPromise<U>;
-        done?<U>(success?: (value: T) => any, error?: (error: any) => any, progress?: (progress: any) => void ): void;
+        then<U>(success?: (value: T) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void ): IPromise<U>;
+        then<U>(success?: (value: T) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void ): IPromise<U>;
+        then<U>(success?: (value: T) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void ): IPromise<U>;
+        then<U>(success?: (value: T) => U, error?: (error: any) => U, progress?: (progress: any) => void ): IPromise<U>;
+        done?<U>(success?: (value: T) => any, error?: (error: any) => any, progress?: (progress: any) => void): void;
+
+        cancel(): void;
     }
 }
