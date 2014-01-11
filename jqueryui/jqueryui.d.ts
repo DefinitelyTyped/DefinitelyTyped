@@ -185,6 +185,8 @@ declare module JQueryUI {
         title?: string;
         width?: any; // number or string
         zIndex?: number;
+
+        close?: DialogEvent;
     }
 
     interface DialogUIParams {
@@ -561,9 +563,15 @@ declare module JQueryUI {
         heightStyle?: string;
         hide?: any; // boolean, number, string or object
         show?: any; // boolean, number, string or object
+
+        activate?: TabsEvent;
     }
 
     interface TabsUIParams {
+        newTab: JQuery;
+        oldTab: JQuery;
+        newPanel: JQuery;
+        oldPanel: JQuery;
     }
 
     interface TabsEvent {
