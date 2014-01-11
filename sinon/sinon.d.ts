@@ -390,3 +390,7 @@ interface SinonStatic {
 }
 
 declare var sinon: SinonStatic;
+
+declare module "sinon" {
+    export = sinon;
+}
