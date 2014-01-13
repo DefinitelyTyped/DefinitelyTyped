@@ -121,11 +121,12 @@ testApp.controller('TestCtrl', (
     $scope: ng.IScope,
     $log: ng.ILogService,
     $modal: ng.ui.bootstrap.IModalService,
+    $modalStack: ng.ui.bootstrap.IModalStackService,
     $position: ng.ui.bootstrap.IPositionService,
     $transition: ng.ui.bootstrap.ITransitionService)=> {
 
     /**
-     * test the $modal instance
+     * test the $modal service
      */
     var modalInstance = $modal.open({
         backdrop: 'static',
@@ -151,6 +152,17 @@ testApp.controller('TestCtrl', (
     }, dismissResult=> {
         $log.log('modal dismissed', dismissResult);
     });
+
+
+    /**
+     * test the $modalStack service
+     */
+    $modalStack.open(modalInstance, { scope: $scope });
+    $modalStack.close(modalInstance);
+    $modalStack.close(modalInstance, 'with reason');
+    $modalStack.dismiss(modalInstance);
+    $modalStack.dismiss(modalInstance, 'with reason');
+    $modalStack.getTop().key.close();
 
 
     /**
