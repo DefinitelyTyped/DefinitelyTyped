@@ -248,6 +248,33 @@ declare module ng.ui.bootstrap {
         windowClass?: string;
     }
 
+    interface IModalStackService {
+        /**
+         * Opens a new modal instance.
+         */
+        open(modalInstance: IModalServiceInstance, modal: any): void;
+
+        /**
+         * Closes a modal instance with an optional result.
+         */
+        close(modalInstance: IModalServiceInstance, result?: any): void;
+
+        /**
+         * Dismisses a modal instance with an optional reason.
+         */
+        dismiss(modalInstance: IModalServiceInstance, reason?: any): void;
+
+        /**
+         * Gets the topmost modal instance that is open.
+         */
+        getTop(): IModalStackedMapKeyValuePair;
+    }
+
+    interface IModalStackedMapKeyValuePair {
+        key: IModalServiceInstance;
+        value: any;
+    }
+
 
     interface IPaginationConfig {
         /**
