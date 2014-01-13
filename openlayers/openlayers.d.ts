@@ -96,7 +96,181 @@ declare module OpenLayers {
     }
 
     export class Events {
-        // TODO
+        /**
+		 * Method: attachToElement
+		 *
+		 * Parameters:
+		 * element - {HTMLDOMElement} a DOM element to attach browser events to
+		 */
+		attachToElement(element: HTMLElement) : void;
+
+		/**
+		 * APIMethod: on
+		 * Convenience method for registering listeners with a common scope.
+		 *     Internally, this method calls <register> as shown in the examples
+		 *     below.
+		 *
+		 * Example use:
+		 * (code)
+		 * // register a single listener for the "loadstart" event
+		 * events.on({"loadstart": loadStartListener});
+		 *
+		 * // this is equivalent to the following
+		 * events.register("loadstart", undefined, loadStartListener);
+		 *
+		 * // register multiple listeners to be called with the same `this` object
+		 * events.on({
+		 *     "loadstart": loadStartListener,
+		 *     "loadend": loadEndListener,
+		 *     scope: object
+		 * });
+		 *
+		 * // this is equivalent to the following
+		 * events.register("loadstart", object, loadStartListener);
+		 * events.register("loadend", object, loadEndListener);
+		 * (end)
+		 *
+		 * Parameters:
+		 *  object - {Object}     
+		 */
+		on(object: any) : void;
+
+		/**
+		 * APIMethod: register
+		 * Register an event on the events object.
+		 *
+		 * When the event is triggered, the 'func' function will be called, in the
+		 * context of 'obj'. Imagine we were to register an event, specifying an 
+		 * OpenLayers.Bounds Object as 'obj'. When the event is triggered, the 
+		 * context in the callback function will be our Bounds object. This means
+		 * that within our callback function, we can access the properties and 
+		 * methods of the Bounds object through the "this" variable. So our 
+		 * callback could execute something like: 
+		 * :    leftStr = "Left: " + this.left;
+		 *   
+		 *                   or
+		 *  
+		 * :    centerStr = "Center: " + this.getCenterLonLat();
+		 *
+		 * Parameters:
+		 * type - {String} Name of the event to register
+		 * obj - {Object} The object to bind the context to for the callback#.
+		 *     If no object is specified, default is the Events's 'object' property.
+		 * func - {Function} The callback function. If no callback is 
+		 *     specified, this function does nothing.
+		 * priority - {Boolean|Object} If true, adds the new listener to the
+		 *     *front* of the events queue instead of to the end.
+		 *
+		 * Valid options for priority:
+		 * extension - {Boolean} If true, then the event will be registered as
+		 *     extension event. Extension events are handled before all other
+		 *     events.
+		 */
+		register(type: string, obj: any, func: () => void, priority: boolean) : void;
+
+		/**
+		 * APIMethod: registerPriority
+		 * Same as register() but adds the new listener to the *front* of the
+		 *     events queue instead of to the end.
+		 *    
+		 *     TODO: get rid of this in 3.0 - Decide whether listeners should be 
+		 *     called in the order they were registered or in reverse order.
+		 *
+		 *
+		 * Parameters:
+		 * type - {String} Name of the event to register
+		 * obj - {Object} The object to bind the context to for the callback#.
+		 *                If no object is specified, default is the Events's 
+		 *                'object' property.
+		 * func - {Function} The callback function. If no callback is 
+		 *                   specified, this function does nothing.
+		 */
+		registerPriority(type: string, obj: any, func: () => void) : void;
+
+		/**
+		 * APIMethod: un
+		 * Convenience method for unregistering listeners with a common scope.
+		 *     Internally, this method calls <unregister> as shown in the examples
+		 *     below.
+		 *
+		 * Example use:
+		 * (code)
+		 * // unregister a single listener for the "loadstart" event
+		 * events.un({"loadstart": loadStartListener});
+		 *
+		 * // this is equivalent to the following
+		 * events.unregister("loadstart", undefined, loadStartListener);
+		 *
+		 * // unregister multiple listeners with the same `this` object
+		 * events.un({
+		 *     "loadstart": loadStartListener,
+		 *     "loadend": loadEndListener,
+		 *     scope: object
+		 * });
+		 *
+		 * // this is equivalent to the following
+		 * events.unregister("loadstart", object, loadStartListener);
+		 * events.unregister("loadend", object, loadEndListener);
+		 * (end)
+		 */
+		un(object: any) : void;
+
+		/**
+		 * APIMethod: unregister
+		 *
+		 * Parameters:
+		 * type - {String} 
+		 * obj - {Object} If none specified, defaults to this.object
+		 * func - {Function} 
+		 */
+		unregister(type: string, obj: any, func: () => void) : void;
+
+		/** 
+		 * Method: remove
+		 * Remove all listeners for a given event type. If type is not registered,
+		 *     does nothing.
+		 *
+		 * Parameters:
+		 * type - {String} 
+		 */
+		remove(type: string) : void;
+
+		/**
+		 * APIMethod: triggerEvent
+		 * Trigger a specified registered event.  
+		 * 
+		 * Parameters:
+		 * type - {String} 
+		 * evt - {Event || Object} will be passed to the listeners.
+		 *
+		 * Returns:
+		 * {Boolean} The last listener return.  If a listener returns false, the
+		 *     chain of listeners will stop getting called.
+		 */
+		triggerEvent(type: string, evt: Event) : boolean;
+
+		/**
+		 * Method: handleBrowserEvent
+		 * Basically just a wrapper to the triggerEvent() function, but takes 
+		 *     care to set a property 'xy' on the event with the current mouse 
+		 *     position.
+		 *
+		 * Parameters:
+		 * evt - {Event} 
+		 */
+		handleBrowserEvent(evt: Event) : void;
+
+		/**
+		 * Method: getMousePosition
+		 * 
+		 * Parameters:
+		 * evt - {Event} 
+		 * 
+		 * Returns:
+		 * {<OpenLayers.Pixel>} The current xy coordinate of the mouse, adjusted
+		 *                      for offsets
+		 */
+		getMousePosition(evt: Event) : Pixel;
     }
 
     export class Feature {
