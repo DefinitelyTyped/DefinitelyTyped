@@ -1,4 +1,4 @@
-// Type definitions for Angular UI Bootstrap 0.9.0
+// Type definitions for Angular UI Bootstrap 0.10.0
 // Project: https://github.com/angular-ui/bootstrap
 // Definitions by: Brian Surowiec <https://github.com/xt0rted>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -263,6 +263,11 @@ declare module ng.ui.bootstrap {
          * Dismisses a modal instance with an optional reason.
          */
         dismiss(modalInstance: IModalServiceInstance, reason?: any): void;
+
+        /**
+         * Dismiss all open modal instances with an optional reason that will be passed to each instance.
+         */
+        dismissAll(reason?: any): void;
 
         /**
          * Gets the topmost modal instance that is open.
