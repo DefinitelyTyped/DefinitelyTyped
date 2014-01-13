@@ -372,7 +372,7 @@ interface JQueryAnimationOptions {
     /**
      * A function to be called for each animated property of each animated element. This function provides an opportunity to modify the Tween object to change the value of the property before it is set.
      */
-    step?: (now: Number, tween: any) => any; 
+    step?: (now: number, tween: any) => any; 
     /**
      * A function to be called after each step of the animation, only once per animated element regardless of the number of animated properties. (version added: 1.8)
      */
@@ -1236,10 +1236,47 @@ interface JQuery {
      */
     promise(type?: string, target?: Object): JQueryPromise<any>;
 
-    // Effects
-    animate(properties: any, duration?: any, complete?: Function): JQuery;
-    animate(properties: any, duration?: any, easing?: string, complete?: Function): JQuery;
-    animate(properties: any, options: { duration?: any; easing?: string; complete?: Function; step?: Function; queue?: boolean; specialEasing?: any; }): JQuery;
+    /**
+     * Perform a custom animation of a set of CSS properties.
+     *
+     * @param properties An object of CSS properties and values that the animation will move toward.
+     * @param duration A string or number determining how long the animation will run.
+     * @param complete A function to call once the animation is complete.
+     */
+    animate(properties: Object, duration?: string, complete?: Function): JQuery;
+    /**
+     * Perform a custom animation of a set of CSS properties.
+     *
+     * @param properties An object of CSS properties and values that the animation will move toward.
+     * @param duration A string or number determining how long the animation will run.
+     * @param complete A function to call once the animation is complete.
+     */
+    animate(properties: Object, duration?: number, complete?: Function): JQuery;
+    /**
+     * Perform a custom animation of a set of CSS properties.
+     *
+     * @param properties An object of CSS properties and values that the animation will move toward.
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition. (default: swing)
+     * @param complete A function to call once the animation is complete.
+     */
+    animate(properties: Object, duration?: string, easing?: string, complete?: Function): JQuery;
+    /**
+     * Perform a custom animation of a set of CSS properties.
+     *
+     * @param properties An object of CSS properties and values that the animation will move toward.
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition. (default: swing)
+     * @param complete A function to call once the animation is complete.
+     */
+    animate(properties: Object, duration?: number, easing?: string, complete?: Function): JQuery;
+    /**
+     * Perform a custom animation of a set of CSS properties.
+     *
+     * @param properties An object of CSS properties and values that the animation will move toward.
+     * @param options A map of additional options to pass to the method.
+     */
+    animate(properties: Object, options: JQueryAnimationOptions): JQuery;
 
     delay(duration: number, queueName?: string): JQuery;
 
@@ -1280,8 +1317,42 @@ interface JQuery {
      */
     fadeIn(options: JQueryAnimationOptions): JQuery;
 
-    fadeOut(duration?: any, callback?: any): JQuery;
-    fadeOut(duration?: any, easing?: string, callback?: any): JQuery;
+    /**
+     * Hide the matched elements by fading them to transparent.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param complete A function to call once the animation is complete.
+     */
+    fadeOut(duration?: number, complete?: Function): JQuery;
+    /**
+     * Hide the matched elements by fading them to transparent.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param complete A function to call once the animation is complete.
+     */
+    fadeOut(duration?: string, complete?: Function): JQuery;
+    /**
+     * Hide the matched elements by fading them to transparent.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete.
+     */
+    fadeOut(duration?: number, easing?: string, complete?: Function): JQuery;
+    /**
+     * Hide the matched elements by fading them to transparent.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete.
+     */
+    fadeOut(duration?: string, easing?: string, complete?: Function): JQuery;
+    /**
+     * Hide the matched elements by fading them to transparent.
+     *
+     * @param options A map of additional options to pass to the method.
+     */
+    fadeOut(options: JQueryAnimationOptions): JQuery;
 
     fadeTo(duration: any, opacity: number, callback?: any): JQuery;
     fadeTo(duration: any, opacity: number, easing?: string, callback?: any): JQuery;
