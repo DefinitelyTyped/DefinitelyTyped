@@ -1278,6 +1278,12 @@ interface JQuery {
      */
     animate(properties: Object, options: JQueryAnimationOptions): JQuery;
 
+    /**
+     * Set a timer to delay execution of subsequent items in the queue.
+     *
+     * @param duration An integer indicating the number of milliseconds to delay execution of the next item in the queue.
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     */
     delay(duration: number, queueName?: string): JQuery;
 
     /**
@@ -1354,34 +1360,327 @@ interface JQuery {
      */
     fadeOut(options: JQueryAnimationOptions): JQuery;
 
-    fadeTo(duration: any, opacity: number, callback?: any): JQuery;
-    fadeTo(duration: any, opacity: number, easing?: string, callback?: any): JQuery;
+    /**
+     * Adjust the opacity of the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param opacity A number between 0 and 1 denoting the target opacity.
+     * @param complete A function to call once the animation is complete.
+     */
+    fadeTo(duration: string, opacity: number, complete?: Function): JQuery;
+    /**
+     * Adjust the opacity of the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param opacity A number between 0 and 1 denoting the target opacity.
+     * @param complete A function to call once the animation is complete.
+     */
+    fadeTo(duration: number, opacity: number, complete?: Function): JQuery;
+    /**
+     * Adjust the opacity of the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param opacity A number between 0 and 1 denoting the target opacity.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete.
+     */
+    fadeTo(duration: string, opacity: number, easing?: string, complete?: Function): JQuery;
+    /**
+     * Adjust the opacity of the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param opacity A number between 0 and 1 denoting the target opacity.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete.
+     */
+    fadeTo(duration: number, opacity: number, easing?: string, complete?: Function): JQuery;
 
-    fadeToggle(duration?: any, callback?: any): JQuery;
-    fadeToggle(duration?: any, easing?: string, callback?: any): JQuery;
+    /**
+     * Display or hide the matched elements by animating their opacity.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param complete A function to call once the animation is complete.
+     */
+    fadeToggle(duration?: number, complete?: Function): JQuery;
+    /**
+     * Display or hide the matched elements by animating their opacity.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param complete A function to call once the animation is complete.
+     */
+    fadeToggle(duration?: string, complete?: Function): JQuery;
+    /**
+     * Display or hide the matched elements by animating their opacity.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete.
+     */
+    fadeToggle(duration?: number, easing?: string, complete?: Function): JQuery;
+    /**
+     * Display or hide the matched elements by animating their opacity.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete.
+     */
+    fadeToggle(duration?: string, easing?: string, complete?: Function): JQuery;
+    /**
+     * Display or hide the matched elements by animating their opacity.
+     *
+     * @param options A map of additional options to pass to the method.
+     */
+    fadeToggle(options: JQueryAnimationOptions): JQuery;
 
-    finish(): JQuery;
+    /**
+     * Stop the currently-running animation, remove all queued animations, and complete all animations for the matched elements.
+     *
+     * @param queue The name of the queue in which to stop animations.
+     */
+    finish(queue?: string): JQuery;
 
-    hide(duration?: any, callback?: any): JQuery;
-    hide(duration?: any, easing?: string, callback?: any): JQuery;
+    /**
+     * Hide the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param complete A function to call once the animation is complete.
+     */
+    hide(duration?: number, complete?: Function): JQuery;
+    /**
+     * Hide the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param complete A function to call once the animation is complete.
+     */
+    hide(duration?: string, complete?: Function): JQuery;
+    /**
+     * Hide the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete.
+     */
+    hide(duration?: number, easing?: string, complete?: Function): JQuery;
+    /**
+     * Hide the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete.
+     */
+    hide(duration?: string, easing?: string, complete?: Function): JQuery;
+    /**
+     * Hide the matched elements.
+     *
+     * @param options A map of additional options to pass to the method.
+     */
+    hide(options: JQueryAnimationOptions): JQuery;
 
-    show(duration?: any, callback?: any): JQuery;
-    show(duration?: any, easing?: string, callback?: any): JQuery;
+    /**
+     * Display the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param complete A function to call once the animation is complete.
+     */
+    show(duration?: number, complete?: Function): JQuery;
+    /**
+     * Display the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param complete A function to call once the animation is complete.
+     */
+    show(duration?: string, complete?: Function): JQuery;
+    /**
+     * Display the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete.
+     */
+    show(duration?: number, easing?: string, complete?: Function): JQuery;
+    /**
+     * Display the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete.
+     */
+    show(duration?: string, easing?: string, complete?: Function): JQuery;
+    /**
+     * Display the matched elements.
+     *
+     * @param options A map of additional options to pass to the method.
+     */
+    show(options: JQueryAnimationOptions): JQuery;
 
-    slideDown(duration?: any, callback?: any): JQuery;
-    slideDown(duration?: any, easing?: string, callback?: any): JQuery;
+    /**
+     * Display the matched elements with a sliding motion.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param complete A function to call once the animation is complete.
+     */
+    slideDown(duration?: number, complete?: Function): JQuery;
+    /**
+     * Display the matched elements with a sliding motion.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param complete A function to call once the animation is complete.
+     */
+    slideDown(duration?: string, complete?: Function): JQuery;
+    /**
+     * Display the matched elements with a sliding motion.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete.
+     */
+    slideDown(duration?: number, easing?: string, complete?: Function): JQuery;
+    /**
+     * Display the matched elements with a sliding motion.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete.
+     */
+    slideDown(duration?: string, easing?: string, complete?: Function): JQuery;
+    /**
+     * Display the matched elements with a sliding motion.
+     *
+     * @param options A map of additional options to pass to the method.
+     */
+    slideDown(options: JQueryAnimationOptions): JQuery;
 
-    slideToggle(duration?: any, callback?: any): JQuery;
-    slideToggle(duration?: any, easing?: string, callback?: any): JQuery;
+    /**
+     * Display or hide the matched elements with a sliding motion.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param complete A function to call once the animation is complete.
+     */
+    slideToggle(duration?: number, complete?: Function): JQuery;
+    /**
+     * Display or hide the matched elements with a sliding motion.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param complete A function to call once the animation is complete.
+     */
+    slideToggle(duration?: string, complete?: Function): JQuery;
+    /**
+     * Display or hide the matched elements with a sliding motion.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete.
+     */
+    slideToggle(duration?: number, easing?: string, complete?: Function): JQuery;
+    /**
+     * Display or hide the matched elements with a sliding motion.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete.
+     */
+    slideToggle(duration?: string, easing?: string, complete?: Function): JQuery;
+    /**
+     * Display or hide the matched elements with a sliding motion.
+     *
+     * @param options A map of additional options to pass to the method.
+     */
+    slideToggle(options: JQueryAnimationOptions): JQuery;
 
-    slideUp(duration?: any, callback?: any): JQuery;
-    slideUp(duration?: any, easing?: string, callback?: any): JQuery;
+    /**
+     * Hide the matched elements with a sliding motion.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param complete A function to call once the animation is complete.
+     */
+    slideUp(duration?: number, complete?: Function): JQuery;
+    /**
+     * Hide the matched elements with a sliding motion.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param complete A function to call once the animation is complete.
+     */
+    slideUp(duration?: string, complete?: Function): JQuery;
+    /**
+     * Hide the matched elements with a sliding motion.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete.
+     */
+    slideUp(duration?: number, easing?: string, complete?: Function): JQuery;
+    /**
+     * Hide the matched elements with a sliding motion.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete.
+     */
+    slideUp(duration?: string, easing?: string, complete?: Function): JQuery;
+    /**
+     * Hide the matched elements with a sliding motion.
+     *
+     * @param options A map of additional options to pass to the method.
+     */
+    slideUp(options: JQueryAnimationOptions): JQuery;
 
+    /**
+     * Stop the currently-running animation on the matched elements.
+     *
+     * @param clearQueue A Boolean indicating whether to remove queued animation as well. Defaults to false.
+     * @param jumpToEnd A Boolean indicating whether to complete the current animation immediately. Defaults to false.
+     */
     stop(clearQueue?: boolean, jumpToEnd?: boolean): JQuery;
-    stop(queue?: any, clearQueue?: boolean, jumpToEnd?: boolean): JQuery;
+    /**
+     * Stop the currently-running animation on the matched elements.
+     *
+     * @param queue The name of the queue in which to stop animations.
+     * @param clearQueue A Boolean indicating whether to remove queued animation as well. Defaults to false.
+     * @param jumpToEnd A Boolean indicating whether to complete the current animation immediately. Defaults to false.
+     */
+    stop(queue?: string, clearQueue?: boolean, jumpToEnd?: boolean): JQuery;
 
-    toggle(duration?: any, callback?: any): JQuery;
-    toggle(duration?: any, easing?: string, callback?: any): JQuery;
+    /**
+     * Display or hide the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param complete A function to call once the animation is complete.
+     */
+    toggle(duration?: number, complete?: Function): JQuery;
+    /**
+     * Display or hide the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param complete A function to call once the animation is complete.
+     */
+    toggle(duration?: string, complete?: Function): JQuery;
+    /**
+     * Display or hide the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete.
+     */
+    toggle(duration?: number, easing?: string, complete?: Function): JQuery;
+    /**
+     * Display or hide the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete.
+     */
+    toggle(duration?: string, easing?: string, complete?: Function): JQuery;
+    /**
+     * Display or hide the matched elements.
+     *
+     * @param options A map of additional options to pass to the method.
+     */
+    toggle(options: JQueryAnimationOptions): JQuery;
+    /**
+     * Display or hide the matched elements.
+     *
+     * @param showOrHide A Boolean indicating whether to show or hide the elements.
+     */
     toggle(showOrHide: boolean): JQuery;
 
     // Events

@@ -410,6 +410,44 @@ function test_animatedSelector() {
     animateIt();
 }
 
+function test_slideToggle() {
+    $("button").click(function () {
+        $("p").slideToggle("slow");
+    });
+
+    $("#aa").click(function () {
+        $("div:not(.still)").slideToggle("slow", function () {
+            var n = parseInt($("span").text(), 10);
+            $("span").text(n + 1);
+        });
+    });
+}
+
+function test_toggle() {
+    $(".target").toggle();
+
+    $("#clickme").click(function () {
+        $("#book").toggle("slow", function () {
+            // Animation complete.
+        });
+    });
+
+    $("#foo").toggle(true);
+
+    $("button").click(function () {
+        $("p").toggle();
+    });
+
+    $("button").click(function () {
+        $("p").toggle("slow");
+    });
+
+    var flip = 0;
+    $("button").click(function () {
+        $("p").toggle(flip++ % 2 === 0);
+    });
+}
+
 function test_easing() {
     var result: number = $.easing.linear(3);
     var result: number = $.easing.swing(3);
