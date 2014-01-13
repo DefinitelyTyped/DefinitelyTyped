@@ -162,6 +162,8 @@ testApp.controller('TestCtrl', (
     $modalStack.close(modalInstance, 'with reason');
     $modalStack.dismiss(modalInstance);
     $modalStack.dismiss(modalInstance, 'with reason');
+    $modalStack.dismissAll();
+    $modalStack.dismissAll('with reason');
     $modalStack.getTop().key.close();
 
 
