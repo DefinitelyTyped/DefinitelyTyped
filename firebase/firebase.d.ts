@@ -70,4 +70,6 @@ declare class Firebase implements IFirebaseQuery {
 	endAt(priority?: string, name?: string): IFirebaseQuery;
 	endAt(priority?: number, name?: string): IFirebaseQuery;
 	ref(): Firebase;
+	goOffline(): void;
+	goOnline(): void;
 }
