@@ -355,6 +355,7 @@ interface JQueryMobile extends JQueryMobileOptions {
     collapsibleset: any;
     textinput: any;
     slider: any;
+    flipswitch: any;
     checkboxradio: any;
     selectmenu: any;
     listview: any;
@@ -410,6 +411,9 @@ interface JQuery {
     slider(command: string): JQuery;
     slider(options: SliderOptions): JQuery;
     slider(events: SliderEvents): JQuery;
+
+    flipswitch(): JQuery;
+    flipswitch(command: string): JQuery;
 
     checkboxradio(): JQuery;
     checkboxradio(command: string): JQuery;
