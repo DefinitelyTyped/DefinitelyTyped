@@ -10,7 +10,7 @@ interface IFirebaseAuthResult {
 
 interface IFirebaseDataSnapshot {
 	val(): any;
-	child(): IFirebaseDataSnapshot;
+	child(childPath: string): IFirebaseDataSnapshot;
 	forEach(childAction: (childSnapshot: IFirebaseDataSnapshot) => boolean): boolean;
 	hasChild(childPath: string): boolean;
 	hasChildren(): boolean;
