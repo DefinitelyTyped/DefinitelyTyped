@@ -1,4 +1,4 @@
-// Type definitions for Angular UI Bootstrap 0.9.0
+// Type definitions for Angular UI Bootstrap 0.10.0
 // Project: https://github.com/angular-ui/bootstrap
 // Definitions by: Brian Surowiec <https://github.com/xt0rted>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -246,6 +246,38 @@ declare module ng.ui.bootstrap {
          * additional CSS class(es) to be added to a modal window template
          */
         windowClass?: string;
+    }
+
+    interface IModalStackService {
+        /**
+         * Opens a new modal instance.
+         */
+        open(modalInstance: IModalServiceInstance, modal: any): void;
+
+        /**
+         * Closes a modal instance with an optional result.
+         */
+        close(modalInstance: IModalServiceInstance, result?: any): void;
+
+        /**
+         * Dismisses a modal instance with an optional reason.
+         */
+        dismiss(modalInstance: IModalServiceInstance, reason?: any): void;
+
+        /**
+         * Dismiss all open modal instances with an optional reason that will be passed to each instance.
+         */
+        dismissAll(reason?: any): void;
+
+        /**
+         * Gets the topmost modal instance that is open.
+         */
+        getTop(): IModalStackedMapKeyValuePair;
+    }
+
+    interface IModalStackedMapKeyValuePair {
+        key: IModalServiceInstance;
+        value: any;
     }
 
 
