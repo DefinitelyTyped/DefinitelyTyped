@@ -44,7 +44,7 @@ interface IFirebaseQuery {
 
 declare class Firebase implements IFirebaseQuery {
 	constructor(firebaseURL: string);
-	auth(authToken: string, onComplete?: (error: string, result: IFirebaseAuthResult) => void, onCancel?:(error: string) => void): void;
+	auth(authToken: string, onComplete?: (error: any, result: IFirebaseAuthResult) => void, onCancel?:(error: any) => void): void;
 	unauth(): void;
 	child(childPath: string): Firebase;
 	parent(): Firebase;
