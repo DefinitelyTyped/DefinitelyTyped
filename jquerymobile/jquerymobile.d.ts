@@ -366,6 +366,8 @@ interface JQuerySupport {
 
 interface JQuery {
 
+    enhanceWithin(): JQuery;
+
     dialog(): JQuery;
     dialog(command: string): JQuery;
     dialog(options: DialogOptions): JQuery;
