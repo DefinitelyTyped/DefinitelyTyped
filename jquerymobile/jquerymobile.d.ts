@@ -298,6 +298,30 @@ interface LoaderOptions {
     textonly?: boolean;
 }
 
+interface JQueryMobilePath {
+    get(url: string): string;
+    getDocumentBase(asParsedObject?: boolean): any;
+    getDocumentUrl(asParsedObject?: boolean): any;
+    getLocation(): string;
+    isAbsoluteUrl(url: string): boolean;
+    isRelativeUrl(url: string): boolean;
+    makeUrlAbsolute(relUrl: string, absUrl: string): string;
+    parseLocation(): ParsedPath;
+    parseUrl(url): ParsedPath;
+}
+
+interface ParsedPath {
+    hash: string;
+    host: string;
+    hostname: string;
+    href: string;
+    pathname: string;
+    port: string;
+    protocol: string;
+    search: string;
+}
+
+
 interface JQueryMobile extends JQueryMobileOptions {
 
     version: string;
@@ -321,7 +345,7 @@ interface JQueryMobile extends JQueryMobileOptions {
 
     touchOverflow: any;
     showCategory: any;
-    path: any;
+    path: JQueryMobilePath;
 
     dialog: any;
     popup: any;
