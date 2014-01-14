@@ -1,4 +1,4 @@
-// Type definitions for jQuery Mobile 1.2
+// Type definitions for jQuery Mobile 1.4
 // Project: http://jquerymobile.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -338,8 +338,6 @@ interface JQueryMobile extends JQueryMobileOptions {
     options: JQueryMobileOptions;
 
     transitionFallbacks: any;
-    showPageLoadingMsg(): void;
-    hidePageLoadingMsg(): void;
     loader: any;
     page: any;
 
