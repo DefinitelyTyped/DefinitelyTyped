@@ -2103,6 +2103,102 @@ function test_jquery() {
         alert(' b is a jQuery object! ');
     }
     alert('You are running jQuery version: ' + $.fn.jquery);
+
+    $("div.foo");
+
+    $("div.foo").click(function () {
+        $("span", this).addClass("bar");
+    });
+
+    $("div.foo").click(function () {
+        $(this).slideUp();
+    });
+
+    $.post("url.xml", function (data) {
+        var $child = $(data).find("child");
+    });
+
+    // Define a plain object
+    var foo = { foo: "bar", hello: "world" };
+
+    // Pass it to the jQuery function
+    var $foo = $(foo);
+
+    // Test accessing property values
+    var test1 = $foo.prop("foo"); // bar
+
+    // Test setting property values
+    $foo.prop("foo", "foobar");
+    var test2 = $foo.prop("foo"); // foobar
+
+    // Test using .data() as summarized above
+    $foo.data("keyName", "someValue");
+    console.log($foo); // will now contain a jQuery{randomNumber} property
+
+    // Test binding an event name and triggering
+    $foo.on("eventName", function () {
+        console.log("eventName was called");
+    });
+
+    $foo.trigger("eventName"); // Logs "eventName was called"
+
+    $foo.triggerHandler("eventName"); // Also logs "eventName was called"
+
+    $("div > p").css("border", "1px solid gray");
+
+    $("input:radio", document.forms[0]);
+
+    $(document.body).css("background", "black");
+
+    var myForm: HTMLFormElement;
+    $(myForm.elements).hide();
+
+    $("<p id='test'>My <em>new</em> text</p>").appendTo("body");
+
+    $("<a href='http://jquery.com'></a>");
+
+    $("<img>");
+    $("<input>");
+
+    var el = $("1<br>2<br>3"); // returns [<br>, "2", <br>]
+    el = $("1<br>2<br>3 >"); // returns [<br>, "2", <br>, "3 &gt;"]
+
+    $("<div></div>", {
+        "class": "my-div",
+        on: {
+            touchstart: function (event) {
+                // Do something
+            }
+        }
+    }).appendTo("body");
+
+    $("<div></div>")
+        .addClass("my-div")
+        .on({
+            touchstart: function (event) {
+                // Do something
+            }
+        })
+        .appendTo("body");
+
+    $("<div><p>Hello</p></div>").appendTo("body")
+
+    $("<div/>", {
+            "class": "test",
+            text: "Click me!",
+            click: function () {
+                $(this).toggleClass("test");
+            }
+        })
+        .appendTo("body");
+
+    $(function () {
+        // Document is ready
+    });
+
+    jQuery(function ($) {
+        // Your code using failsafe $ alias here...
+    });
 }
 
 function test_keydown() {

@@ -553,14 +553,70 @@ interface JQueryStatic {
      */
     holdReady(hold: boolean): void;
 
-    (selector: string, context?: any): JQuery;
+    /**
+     * Accepts a string containing a CSS selector which is then used to match a set of elements.
+     *
+     * @param selector A string containing a selector expression
+     * @param context A DOM Element, Document, or jQuery to use as context
+     */
+    (selector: string, context?: Element): JQuery;
+    /**
+     * Accepts a string containing a CSS selector which is then used to match a set of elements.
+     *
+     * @param selector A string containing a selector expression
+     * @param context A DOM Element, Document, or jQuery to use as context
+     */
+    (selector: string, context?: JQuery): JQuery;
+    /**
+     * Accepts a string containing a CSS selector which is then used to match a set of elements.
+     *
+     * @param element A DOM element to wrap in a jQuery object.
+     */
     (element: Element): JQuery;
-    (object: {}): JQuery;
+    /**
+     * Accepts a string containing a CSS selector which is then used to match a set of elements.
+     *
+     * @param elementArray An array containing a set of DOM elements to wrap in a jQuery object.
+     */
     (elementArray: Element[]): JQuery;
+    /**
+     * Accepts a string containing a CSS selector which is then used to match a set of elements.
+     *
+     * @param object A plain object to wrap in a jQuery object.
+     */
+    (object: {}): JQuery;
+    /**
+     * Accepts a string containing a CSS selector which is then used to match a set of elements.
+     *
+     * @param object An existing jQuery object to clone.
+     */
     (object: JQuery): JQuery;
-    (func: Function): JQuery;
-    (array: any[]): JQuery;
+    /**
+     * Specify a function to execute when the DOM is fully loaded.
+     */
     (): JQuery;
+
+    /**
+     * Creates DOM elements on the fly from the provided string of raw HTML.
+     *
+     * @param html A string of HTML to create on the fly. Note that this parses HTML, not XML.
+     * @param ownerDocument A document in which the new elements will be created.
+     */
+    (html: string, ownerDocument?: Document): JQuery;
+    /**
+     * Creates DOM elements on the fly from the provided string of raw HTML.
+     *
+     * @param html A string defining a single, standalone, HTML element (e.g. <div/> or <div></div>).
+     * @param attributes An object of attributes, events, and methods to call on the newly-created element.
+     */
+    (html: string, attributes: Object): JQuery;
+
+    /**
+     * Binds a function to be executed when the DOM has finished loading.
+     *
+     * @param callback A function to execute after the DOM is ready.
+     */
+    (callback: Function): JQuery;
 
     /**
      * Relinquish jQuery's control of the $ variable.
