@@ -4,11 +4,12 @@
 
 // These are very definitely preliminary. Please feel free to improve.
 
+/// <reference path="../knockout/knockout.d.ts" />
 
 declare module kg {
     export interface DomUtilityService {
-        UpdateGridLayout(grid: Grid<any>);
-        BuildStyles(grid: Grid<any>);
+        UpdateGridLayout(grid: Grid<any>): void;
+        BuildStyles(grid: Grid<any>): void;
     }
 
     var domUtilityService: DomUtilityService;
@@ -23,7 +24,7 @@ declare module kg {
     }
 
     export interface SelectionService<EntityType>  {
-        setSelection(row: Row<EntityType>, selected: boolean);
+        setSelection(row: Row<EntityType>, selected: boolean): void;
         multi: boolean;
         lastClickedRow: Row<EntityType>;
     }
@@ -42,7 +43,7 @@ declare module kg {
 
     export interface GridOptions<EntityType> {
         /** Callback for when you want to validate something after selection. */
-        afterSelectionChange?(row: Row<EntityType>);
+        afterSelectionChange?(row: Row<EntityType>): void;
 
         /** Callback if you want to inspect something before selection,
         return false if you want to cancel the selection. return true otherwise. 
