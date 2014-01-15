@@ -57,4 +57,8 @@ exports = (grunt: IGrunt) => {
     asyncedTwoArgs(2, "values", (result: string) => {
         console.log(result);
     });
+    var fileMaps = grunt.file.expandMapping([''], '', { ext: '.js' });
+    fileMaps.length;
+    fileMaps[0].src.length;
+    fileMaps[0].dest;
 };
