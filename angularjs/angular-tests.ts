@@ -104,18 +104,12 @@ module HttpAndRegularPromiseTests {
 
         $http.get("http://somewhere/some/resource")
             .then((response: ng.IHttpPromiseCallbackArg<ExpectedResponse>) => {
-                // typing lost, so something like
-                // var i: number = response.data
-                // would type check
                 $scope.person = response.data;
             });
 
         $http.get("http://somewhere/some/resource")
-            .then((response: ng.IHttpPromiseCallbackArg<ExpectedResponse>) => {
-                // typing lost, so something like
-                // var i: number = response.data
-                // would NOT type check
-                $scope.person = response.data;
+            .then((response: ng.IHttpPromiseCallbackArg<number>) => {
+                response.data.toFixed();
             });
 
         var aPromise: ng.IPromise<Person> = $q.when({ firstName: "Jack", lastName: "Sparrow" });
@@ -146,7 +140,64 @@ module HttpAndRegularPromiseTests {
         }
 
     doFoo((data: any) => console.log(data));
-    }
+  }
+
+    // Promise chaining tests
+    var foo: ng.IPromise<number>;
+    foo.then((x) => {
+        // x is inferred to be a number
+        return "asdf";
+    }).then((x) => {
+            // x is inferred to be string
+            x.length;
+            return 123;
+        }).then((x) => {
+            // x is infered to be a number
+            x.toFixed();
+            return;
+        }).then((x) => {
+            // x is infered to be void
+            // Typescript will prevent you to actually use x as a local variable
+            // Try object:
+            return { a: 123 };
+        }).then((x) => {
+            // Object is inferred here
+            x.a = 123;
+            //Try a promise 
+            var y: ng.IPromise<number>;
+            return y;
+        }).then((x) => {
+            // x is infered to be a number, which is the resolved value of a promise 
+            x.toFixed();
+        });
+
+    ///
+    // Chain simple promises and HTTP together
+    ///
+    declare function bar(): ng.IHttpPromise<number>;
+    declare function baz(): ng.IHttpPromise<any>;
+
+    // data should be number 
+    bar().then((resp) => resp.data.toFixed(10));
+    
+    // data should be any: 
+    baz().then((resp) => resp.data.anythingIsOkay);
+
+    // Big chain between IHttpPromise and IPromise
+    baz().then((resp) => {
+        return "string";
+    }).then((astring) => {
+            astring.charAt(0); // we should have a string
+            return bar();
+        }).then((resp) => {
+            resp.data.toFixed(); // we should have data of type number
+            return "string";
+        }).then((resp) => {
+            resp.charAt(0); // we should have a string
+            return baz();
+        }).then((resp) => {
+            resp.data.anythingIsOkay;
+        });
 }
 
 // Test for AngularJS Syntax
@@ -181,36 +232,6 @@ mod.constant(My.Namespace);
 mod.value('name', 23);
 mod.value('name', "23");
 mod.value(My.Namespace);
-
-
-// Promise signature tests
-var foo: ng.IPromise<number>;
-foo.then((x) => {
-    // x is inferred to be a number
-    return "asdf";
-}).then((x) => {
-    // x is inferred to be string
-    x.length;
-    return 123;
-}).then((x) => {
-    // x is infered to be a number
-    x.toFixed();
-    return;
-}).then((x) => {
-    // x is infered to be void
-    // Typescript will prevent you to actually use x as a local variable
-    // Try object:
-    return { a: 123 };
-}).then((x) => {
-    // Object is inferred here
-    x.a = 123;
-    //Try a promise 
-    var y: ng.IPromise<number>;
-    return y; 
-}).then((x) => {
-    // x is infered to be a number, which is the resolved value of a promise 
-    x.toFixed();
-});
 
 
 // angular.element() tests
