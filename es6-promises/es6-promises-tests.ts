@@ -1,3 +1,5 @@
+/// <reference path="promises.d.ts" />
+
 var promiseString: Promise<string>,
  	promiseStringArr: Promise<string[]>,
 	arrayOfPromise: Promise<string>[],

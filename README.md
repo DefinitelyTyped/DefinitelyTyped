@@ -64,6 +64,7 @@ List of Definitions
 * [EaselJS](http://www.createjs.com/#!/EaselJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [ember.js](http://emberjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [EpicEditor](http://epiceditor.com/) (by [Boris Yankov](https://github.com/borisyankov))
+* [ES6-Promises](https://github.com/jakearchibald/ES6-Promises) (by [François de Campredon](https://github.com/fdecampredon/))
 * [expect.js](https://github.com/LearnBoost/expect.js) (by [Teppei Sato](https://github.com/teppeis))
 * [expectations](https://github.com/spmason/expectations) (by [vvakame](https://github.com/vvakame))
 * [Express](http://expressjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
