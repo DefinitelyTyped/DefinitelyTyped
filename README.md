@@ -86,7 +86,7 @@ List of Definitions
 * [GoJS](http://gojs.net/) (by [Barbara Duckworth](https://github.com/barbara42))
 * [Greasemonkey](http://www.greasespot.net/) (by [Kota Saito](https://github.com/kotas))
 * [GreenSock Animation Platform (GSAP)](http://www.greensock.com/get-started-js/) (by [Robert S.](https://github.com/codeBelt))
-* [Grunt JS](http://gruntjs.com/) (by [Jeff May](https://github.com/jeffmay) and [Basarat Ali Syed](https://github.com/basarat))
+* [Grunt JS](http://gruntjs.com/) (by [Jeff May](https://github.com/jeffmay), [Basarat Ali Syed](https://github.com/basarat) and [San Chen](https://github.com/bigsan))
 * [Google API Client](https://code.google.com/p/google-api-javascript-client/) (by [Frank M](https://github.com/sgtfrankieboy))
 * [Google App Engine Channel API](https://developers.google.com/appengine/docs/java/channel/javascript) (by [vvakame](https://github.com/vvakame))
 * [GoogleMaps](https://developers.google.com/maps/) (by [Esben Nepper](https://github.com/eNepper))
