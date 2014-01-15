@@ -1,4 +1,4 @@
-﻿DefinitelyTyped [![Build Status](https://travis-ci.org/borisyankov/DefinitelyTyped.png?branch=master)](https://travis-ci.org/borisyankov/DefinitelyTyped)
+DefinitelyTyped [![Build Status](https://travis-ci.org/borisyankov/DefinitelyTyped.png?branch=master)](https://travis-ci.org/borisyankov/DefinitelyTyped)
 ===============
 
 The repository for *high quality* TypeScript type definitions.
@@ -167,6 +167,7 @@ List of Definitions
 * [Knockout.Viewmodel](http://coderenaissance.github.com/knockout.viewmodel/) (by [Oisin Grehan](https://github.com/oising))
 * [ko.editables](http://romanych.github.com/ko.editables/) (by [Oisin Grehan](https://github.com/oising))
 * [KoLite](https://github.com/CodeSeven/kolite) (by [Boris Yankov](https://github.com/borisyankov))
+* [Lazy.js](http://danieltao.com/lazy.js/) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [Leaflet](https://github.com/Leaflet/Leaflet) (by [Vladimir](https://github.com/rgripper))
 * [Libxmljs](https://github.com/polotek/libxmljs) (by [François de Campredon](https://github.com/fdecampredon))
 * [ladda](https://github.com/hakimel/Ladda) (by [Danil Flores](https://github.com/dflor003))
