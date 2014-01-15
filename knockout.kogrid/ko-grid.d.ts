@@ -1,4 +1,4 @@
-// Type definitions for ng-grid 
+// Type definitions for ko-grid 
 // Project: http://knockout-contrib.github.io/KoGrid/
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
 
