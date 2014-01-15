@@ -1,4 +1,4 @@
-/// <reference path="promises.d.ts" />
+/// <reference path="es6-promises.d.ts" />
 
 var promiseString: Promise<string>,
  	promiseStringArr: Promise<string[]>,
