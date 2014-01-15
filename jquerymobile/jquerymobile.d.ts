@@ -329,7 +329,8 @@ interface JQueryMobile extends JQueryMobileOptions {
     changePage(to: any, options?: ChangePageOptions): void;
     initializePage(): void;
     loadPage(url: any, options?: LoadPageOptions): void;
-    loading(command: string, options?: LoaderOptions): void;
+    loading(): JQuery;
+    loading(command: string, options?: LoaderOptions): JQuery;
 
     pageContainer: any;
     base: any;
