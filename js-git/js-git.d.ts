@@ -40,9 +40,9 @@ declare module JSGit {
 		hostname:string;
 		pathname:string;
 
-		discover(callback:(err:any, refs:StringMap) => void);
-		fetch(repo:Repo, opts:Object, callback:(err:any) => void);
-		close(callback?:(err:any) => void);
+		discover(callback:(err:any, refs:StringMap) => void):void;
+		fetch(repo:Repo, opts:Object, callback:(err:any) => void):void;
+		close(callback?:(err:any) => void):void;
 	}
 
 	interface DB {
