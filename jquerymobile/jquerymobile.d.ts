@@ -307,7 +307,7 @@ interface JQueryMobilePath {
     isRelativeUrl(url: string): boolean;
     makeUrlAbsolute(relUrl: string, absUrl: string): string;
     parseLocation(): ParsedPath;
-    parseUrl(url): ParsedPath;
+    parseUrl(url: string): ParsedPath;
 }
 
 interface ParsedPath {
