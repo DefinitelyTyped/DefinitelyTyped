@@ -34,68 +34,68 @@ declare class Promise<R> implements Thenable<R> {
 	
     
     /**
-     * onFullFill is called when/if "promise" resolves. onRejected is called when/if "promise" rejects. 
+     * onFulFill is called when/if "promise" resolves. onRejected is called when/if "promise" rejects. 
      * Both are optional, if either/both are omitted the next onFulfilled/onRejected in the chain is called. 
      * Both callbacks have a single parameter , the fulfillment value or rejection reason. 
      * "then" returns a new promise equivalent to the value you return from onFulfilled/onRejected after being passed through Promise.resolve. 
      * If an error is thrown in the callback, the returned promise rejects with that error.
      * 
-     * @param onFullFill called when/if "promise" resolves
+     * @param onFulFill called when/if "promise" resolves
      * @param onReject called when/if "promise" rejects
      */
 	then<U>(onFulfill: (value: R) => Thenable<U>,  onReject: (error: any) => Thenable<U>): Promise<U>;
     /**
-     * onFullFill is called when/if "promise" resolves. onRejected is called when/if "promise" rejects. 
+     * onFulFill is called when/if "promise" resolves. onRejected is called when/if "promise" rejects. 
      * Both are optional, if either/both are omitted the next onFulfilled/onRejected in the chain is called. 
      * Both callbacks have a single parameter , the fulfillment value or rejection reason. 
      * "then" returns a new promise equivalent to the value you return from onFulfilled/onRejected after being passed through Promise.resolve. 
      * If an error is thrown in the callback, the returned promise rejects with that error.
      * 
-     * @param onFullFill called when/if "promise" resolves
+     * @param onFulFill called when/if "promise" resolves
      * @param onReject called when/if "promise" rejects
      */
     then<U>(onFulfill: (value: R) => Thenable<U>, onReject: (error: any) => U): Promise<U>;
     /**
-     * onFullFill is called when/if "promise" resolves. onRejected is called when/if "promise" rejects. 
+     * onFulFill is called when/if "promise" resolves. onRejected is called when/if "promise" rejects. 
      * Both are optional, if either/both are omitted the next onFulfilled/onRejected in the chain is called. 
      * Both callbacks have a single parameter , the fulfillment value or rejection reason. 
      * "then" returns a new promise equivalent to the value you return from onFulfilled/onRejected after being passed through Promise.resolve. 
      * If an error is thrown in the callback, the returned promise rejects with that error.
      * 
-     * @param onFullFill called when/if "promise" resolves
+     * @param onFulFill called when/if "promise" resolves
      * @param onReject called when/if "promise" rejects
      */
     then<U>(onFulfill: (value: R) => U, onReject: (error: any) => Thenable<U>): Promise<U>;
     /**
-     * onFullFill is called when/if "promise" resolves. onRejected is called when/if "promise" rejects. 
+     * onFulFill is called when/if "promise" resolves. onRejected is called when/if "promise" rejects. 
      * Both are optional, if either/both are omitted the next onFulfilled/onRejected in the chain is called. 
      * Both callbacks have a single parameter , the fulfillment value or rejection reason. 
      * "then" returns a new promise equivalent to the value you return from onFulfilled/onRejected after being passed through Promise.resolve. 
      * If an error is thrown in the callback, the returned promise rejects with that error.
      * 
-     * @param onFullFill called when/if "promise" resolves
+     * @param onFulFill called when/if "promise" resolves
      * @param onReject called when/if "promise" rejects
      */
     then<U>(onFulfill: (value: R) => U, onReject: (error: any) => U): Promise<U>;
     /**
-     * onFullFill is called when/if "promise" resolves. onRejected is called when/if "promise" rejects. 
+     * onFulFill is called when/if "promise" resolves. onRejected is called when/if "promise" rejects. 
      * Both are optional, if either/both are omitted the next onFulfilled/onRejected in the chain is called. 
      * Both callbacks have a single parameter , the fulfillment value or rejection reason. 
      * "then" returns a new promise equivalent to the value you return from onFulfilled/onRejected after being passed through Promise.resolve. 
      * If an error is thrown in the callback, the returned promise rejects with that error.
      * 
-     * @param onFullFill called when/if "promise" resolves
+     * @param onFulFill called when/if "promise" resolves
      * @param onReject called when/if "promise" rejects
      */
     then<U>(onFulfill: (value: R) => Thenable<U>,  onReject?: (error: any) => void): Promise<U>;
     /**
-     * onFullFill is called when/if "promise" resolves. onRejected is called when/if "promise" rejects. 
+     * onFulFill is called when/if "promise" resolves. onRejected is called when/if "promise" rejects. 
      * Both are optional, if either/both are omitted the next onFulfilled/onRejected in the chain is called. 
      * Both callbacks have a single parameter , the fulfillment value or rejection reason. 
      * "then" returns a new promise equivalent to the value you return from onFulfilled/onRejected after being passed through Promise.resolve. 
      * If an error is thrown in the callback, the returned promise rejects with that error.
      * 
-     * @param onFullFill called when/if "promise" resolves
+     * @param onFulFill called when/if "promise" resolves
      * @param onReject called when/if "promise" rejects
      */
     then<U>(onFulfill?: (value: R) => U,  onReject?: (error: any) => void): Promise<U>;
