@@ -1876,6 +1876,58 @@ function test_scrollTop() {
     $("div.demo").scrollTop(300);
 }
 
+function test_param() {
+
+    function test1() {
+        var myObject = {
+            a: {
+                one: 1,
+                two: 2,
+                three: 3
+            },
+            b: [1, 2, 3]
+        };
+        var recursiveEncoded = $.param(myObject);
+        var recursiveDecoded = decodeURIComponent($.param(myObject));
+
+        alert(recursiveEncoded);
+        alert(recursiveDecoded);
+    }
+
+    function test2() {
+        var myObject = {
+            a: {
+                one: 1,
+                two: 2,
+                three: 3
+            },
+            b: [1, 2, 3]
+        };
+        var shallowEncoded = $.param(myObject, true);
+        var shallowDecoded = decodeURIComponent(shallowEncoded);
+
+        alert(shallowEncoded);
+        alert(shallowDecoded);
+    }
+
+    var params = { width: 1680, height: 1050 };
+    var str = jQuery.param(params);
+    $("#results").text(str);
+
+    // <=1.3.2:
+    $.param({ a: [2, 3, 4] }); // "a=2&a=3&a=4"
+    // >=1.4:
+    $.param({ a: [2, 3, 4] }); // "a[]=2&a[]=3&a[]=4"
+
+    // <=1.3.2:
+    $.param({ a: { b: 1, c: 2 }, d: [3, 4, { e: 5 }] });
+    // "a=[object+Object]&d=3&d=4&d=[object+Object]"
+
+    // >=1.4:
+    $.param({ a: { b: 1, c: 2 }, d: [3, 4, { e: 5 }] });
+    // "a[b]=1&a[c]=2&d[]=3&d[]=4&d[2][e]=5"
+}
+
 function test_position() {
     var p = $("p:first");
     var position = p.position();
