@@ -1,7 +1,8 @@
-// Type definitions for Moment.js 2.4.0
+// Type definitions for Moment.js 2.5.0
 // Project: https://github.com/timrwood/moment
 // Definitions by: Michael Lakerveld <https://github.com/Lakerfield>
 // 		2.4.0 Aaron King <https://github.com/kingdango>
+// 		2.5.0 Hiroki Horiuchi <https://github.com/horiuchi>
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -81,6 +82,7 @@ interface Moment {
 
     year(y: number): Moment;
     year(): number;
+    quarter(): number;
     month(M: number): Moment;
     month(M: string): Moment;
     month(): number;
