@@ -5,25 +5,32 @@
 
 
 interface Thenable<R> {
-	then<U>(onFulfill: (value: R) => Thenable<U>,  onReject?: (error: any) => void): Thenable<U>;
-    then<U>(onFulfill: (value: R) => U,  onReject?: (error: any) => void): Thenable<U>;
-	then<U>(onFulfill: (value: R) => Thenable<U>,  onReject?: (error: any) => Thenable<U>): Thenable<U>;
-    then<U>(onFulfill: (value: R) => Thenable<U>, onReject?: (error: any) => U): Thenable<U>;
-    then<U>(onFulfill: (value: R) => U, onReject?: (error: any) => Thenable<U>): Thenable<U>;
-    then<U>(onFulfill: (value: R) => U, onReject?: (error: any) => U): Thenable<U>;
+	then<U>(onFulfill: (value: R) => Thenable<U>,  onReject: (error: any) => Thenable<U>): Thenable<U>;
+    then<U>(onFulfill: (value: R) => Thenable<U>, onReject: (error: any) => U): Thenable<U>;
+    then<U>(onFulfill: (value: R) => U, onReject: (error: any) => Thenable<U>): Thenable<U>;
+    then<U>(onFulfill: (value: R) => U, onReject: (error: any) => U): Thenable<U>;
+    then<U>(onFulfill: (value: R) => Thenable<U>,  onReject?: (error: any) => void): Thenable<U>;
+    then<U>(onFulfill?: (value: R) => U,  onReject?: (error: any) => void): Thenable<U>;
+	
 }
 
 declare class Promise<R> implements Thenable<R> {
     /**
-     * @param resolve Your promise is fulfilled with obj
-     * @rejectYour promise is rejected with obj. For consistency and debugging (eg stack traces), obj should be an instanceof Error. Any errors thrown in the constructor callback will be implicitly passed to reject().
+     * If you call resolve in the body of the callback passed to the constructor, 
+     * your promise is fulfilled with result object passed to resolve.
+     * If you call reject your promise is rejected with the object passed to resolve. 
+     * For consistency and debugging (eg stack traces), obj should be an instanceof Error. 
+     * Any errors thrown in the constructor callback will be implicitly passed to reject().
      */
 	constructor(callback: (resolve : (result: R) => void, reject: (error: any) => void) => void);
     /**
-     * @param resolve Your promise will be fulfilled/rejected with the outcome of thenable reject(obj)
-     * @rejectYour promise is rejected with obj. For consistency and debugging (eg stack traces), obj should be an instanceof Error. Any errors thrown in the constructor callback will be implicitly passed to reject().
+     * If you call resolve in the body of the callback passed to the constructor, 
+     * your promise will be fulfilled/rejected with the outcome of thenable passed to resolve.
+     * If you call reject your promise is rejected with the object passed to resolve. 
+     * For consistency and debugging (eg stack traces), obj should be an instanceof Error. 
+     * Any errors thrown in the constructor callback will be implicitly passed to reject().
      */
-	constructor(callback: (resolve : (result: Thenable<R>) => void, reject: (error: any) => void) => void);
+	constructor(callback: (resolve : (thenable: Thenable<R>) => void, reject: (error: any) => void) => void);
 	
     
     /**
@@ -36,21 +43,75 @@ declare class Promise<R> implements Thenable<R> {
      * @param onFullFill called when/if "promise" resolves
      * @param onReject called when/if "promise" rejects
      */
+	then<U>(onFulfill: (value: R) => Thenable<U>,  onReject: (error: any) => Thenable<U>): Promise<U>;
+    /**
+     * onFullFill is called when/if "promise" resolves. onRejected is called when/if "promise" rejects. 
+     * Both are optional, if either/both are omitted the next onFulfilled/onRejected in the chain is called. 
+     * Both callbacks have a single parameter , the fulfillment value or rejection reason. 
+     * "then" returns a new promise equivalent to the value you return from onFulfilled/onRejected after being passed through Promise.resolve. 
+     * If an error is thrown in the callback, the returned promise rejects with that error.
+     * 
+     * @param onFullFill called when/if "promise" resolves
+     * @param onReject called when/if "promise" rejects
+     */
+    then<U>(onFulfill: (value: R) => Thenable<U>, onReject: (error: any) => U): Promise<U>;
+    /**
+     * onFullFill is called when/if "promise" resolves. onRejected is called when/if "promise" rejects. 
+     * Both are optional, if either/both are omitted the next onFulfilled/onRejected in the chain is called. 
+     * Both callbacks have a single parameter , the fulfillment value or rejection reason. 
+     * "then" returns a new promise equivalent to the value you return from onFulfilled/onRejected after being passed through Promise.resolve. 
+     * If an error is thrown in the callback, the returned promise rejects with that error.
+     * 
+     * @param onFullFill called when/if "promise" resolves
+     * @param onReject called when/if "promise" rejects
+     */
+    then<U>(onFulfill: (value: R) => U, onReject: (error: any) => Thenable<U>): Promise<U>;
+    /**
+     * onFullFill is called when/if "promise" resolves. onRejected is called when/if "promise" rejects. 
+     * Both are optional, if either/both are omitted the next onFulfilled/onRejected in the chain is called. 
+     * Both callbacks have a single parameter , the fulfillment value or rejection reason. 
+     * "then" returns a new promise equivalent to the value you return from onFulfilled/onRejected after being passed through Promise.resolve. 
+     * If an error is thrown in the callback, the returned promise rejects with that error.
+     * 
+     * @param onFullFill called when/if "promise" resolves
+     * @param onReject called when/if "promise" rejects
+     */
+    then<U>(onFulfill: (value: R) => U, onReject: (error: any) => U): Promise<U>;
+    /**
+     * onFullFill is called when/if "promise" resolves. onRejected is called when/if "promise" rejects. 
+     * Both are optional, if either/both are omitted the next onFulfilled/onRejected in the chain is called. 
+     * Both callbacks have a single parameter , the fulfillment value or rejection reason. 
+     * "then" returns a new promise equivalent to the value you return from onFulfilled/onRejected after being passed through Promise.resolve. 
+     * If an error is thrown in the callback, the returned promise rejects with that error.
+     * 
+     * @param onFullFill called when/if "promise" resolves
+     * @param onReject called when/if "promise" rejects
+     */
     then<U>(onFulfill: (value: R) => Thenable<U>,  onReject?: (error: any) => void): Promise<U>;
-    then<U>(onFulfill: (value: R) => U,  onReject?: (error: any) => void): Promise<U>;
-	then<U>(onFulfill: (value: R) => Thenable<U>,  onReject?: (error: any) => Thenable<U>): Promise<U>;
-    then<U>(onFulfill: (value: R) => Thenable<U>, onReject?: (error: any) => U): Promise<U>;
-    then<U>(onFulfill: (value: R) => U, onReject?: (error: any) => Thenable<U>): Promise<U>;
-    then<U>(onFulfill: (value: R) => U, onReject?: (error: any) => U): Promise<U>;
-	
+    /**
+     * onFullFill is called when/if "promise" resolves. onRejected is called when/if "promise" rejects. 
+     * Both are optional, if either/both are omitted the next onFulfilled/onRejected in the chain is called. 
+     * Both callbacks have a single parameter , the fulfillment value or rejection reason. 
+     * "then" returns a new promise equivalent to the value you return from onFulfilled/onRejected after being passed through Promise.resolve. 
+     * If an error is thrown in the callback, the returned promise rejects with that error.
+     * 
+     * @param onFullFill called when/if "promise" resolves
+     * @param onReject called when/if "promise" rejects
+     */
+    then<U>(onFulfill?: (value: R) => U,  onReject?: (error: any) => void): Promise<U>;
     
     /**
      * Sugar for promise.then(undefined, onRejected)
      * 
      * @param onReject called when/if "promise" rejects
      */
-	catch<U>(onReject?: (error: any) => Thenable<U>): Promise<U>
-	catch<U>(onReject?: (error: any) => U): Promise<U>
+	catch<U>(onReject?: (error: any) => Thenable<U>): Promise<U>;
+    /**
+     * Sugar for promise.then(undefined, onRejected)
+     * 
+     * @param onReject called when/if "promise" rejects
+     */
+	catch<U>(onReject?: (error: any) => U): Promise<U>;
 }
 
 declare module Promise {
@@ -62,7 +123,7 @@ declare module Promise {
     /**
 	 * Make a promise that fulfills to obj.
 	 */
-	function cast<R>(object: R): Promise<R>;
+	function cast<R>(object?: R): Promise<R>;
     
 	
     /**
@@ -74,16 +135,16 @@ declare module Promise {
     /**
      * Make a promise that fulfills to obj. Same as Promise.cast(obj) in this situation.
      */
-	function resolve<R>(object: R): Promise<R>;
+	function resolve<R>(object?: R): Promise<R>;
     
 	/**
 	 * Make a promise that rejects to obj. For consistency and debugging (eg stack traces), obj should be an instanceof Error
 	 */
-	function reject(error: any): Promise<any>;
+	function reject(error?: any): Promise<any>;
 	
     /**
      * Make a promise that fulfills when every item in the array fulfills, and rejects if (and when) any item rejects. 
-     * Eadd array item is passed to Promise.cast, so the array can be a mixture of promise-like objects and other objects. 
+     * the array passed to all can be a mixture of promise-like objects and other objects. 
      * The fulfillment value is an array (in order) of fulfillment values. The rejection value is the first rejection value.
      */
 	function all<R>(promises: Promise<R>[]): Promise<R[]>;
