@@ -1095,6 +1095,68 @@ function test_dequeue() {
     });
 }
 
+function test_queue() {
+
+    $("#show").click(function () {
+        var n = jQuery.queue($("div")[0], "fx");
+        $("span").text("Queue length is: " + n.length);
+    });
+
+    function runIt() {
+        $("div")
+            .show("slow")
+            .animate({
+                left: "+=200"
+            }, 2000)
+            .slideToggle(1000)
+            .slideToggle("fast")
+            .animate({
+                left: "-=200"
+            }, 1500)
+            .hide("slow")
+            .show(1200)
+            .slideUp("normal", runIt);
+    }
+
+    runIt();
+
+    $(document.body).click(function () {
+        var divs = $("div")
+            .show("slow")
+            .animate({ left: "+=200" }, 2000);
+        jQuery.queue(divs[0], "fx", function () {
+            $(this).addClass("newcolor");
+            jQuery.dequeue(this);
+        });
+        divs.animate({ left: "-=200" }, 500);
+        jQuery.queue(divs[0], "fx", function () {
+            $(this).removeClass("newcolor");
+            jQuery.dequeue(this);
+        });
+        divs.slideUp();
+    });
+
+    $("#start").click(function () {
+        var divs = $("div")
+            .show("slow")
+            .animate({ left: "+=200" }, 5000);
+        jQuery.queue(divs[0], "fx", function () {
+            $(this).addClass("newcolor");
+            jQuery.dequeue(this);
+        });
+        divs.animate({ left: "-=200" }, 1500);
+        jQuery.queue(divs[0], "fx", function () {
+            $(this).removeClass("newcolor");
+            jQuery.dequeue(this);
+        });
+        divs.slideUp();
+    });
+    $("#stop").click(function () {
+        jQuery.queue($("div")[0], "fx", []);
+        $("div").stop();
+    });
+}
+
 function test_detach() {
     $("p").click(function () {
         $(this).toggleClass("off");

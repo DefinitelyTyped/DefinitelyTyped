@@ -423,9 +423,9 @@ interface JQueryEasing {
     swing(p: number): number;
 }
 
-/*
-    Static members of jQuery (those on $ and jQuery themselves)
-*/
+/**
+ * Static members of jQuery (those on $ and jQuery themselves)
+ */
 interface JQueryStatic {
 
     /**
@@ -659,6 +659,9 @@ interface JQueryStatic {
      */
     when<T>(...deferreds: any[]): JQueryPromise<T>;
 
+    /**
+     * Hook directly into jQuery to override how particular CSS properties are retrieved or set, normalize CSS property naming, or create custom properties.
+     */
     cssHooks: { [key: string]: any; };
     cssNumber: any;
 
@@ -684,12 +687,44 @@ interface JQueryStatic {
      */
     data(element: Element): any;
 
-    dequeue(element: Element, queueName?: string): any;
+    /**
+     * Execute the next function on the queue for the matched element.
+     *
+     * @param element A DOM element from which to remove and execute a queued function.
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     */
+    dequeue(element: Element, queueName?: string): void;
 
+    /**
+     * Determine whether an element has any jQuery data associated with it.
+     *
+     * @param element A DOM element to be checked for data.
+     */
     hasData(element: Element): boolean;
 
+    /**
+     * Show the queue of functions to be executed on the matched element.
+     *
+     * @param element A DOM element to inspect for an attached queue.
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     */
     queue(element: Element, queueName?: string): any[];
-    queue(element: Element, queueName: string, newQueueOrCallback: any): JQuery;
+    /**
+     * Manipulate the queue of functions to be executed on the matched element.
+     *
+     * @param element A DOM element where the array of queued functions is attached.
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     * @param newQueue An array of functions to replace the current queue contents.
+     */
+    queue(element: Element, queueName: string, newQueue: Function[]): JQuery;
+    /**
+     * Manipulate the queue of functions to be executed on the matched element.
+     *
+     * @param element A DOM element on which to add a queued function.
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     * @param callback The new function to add to the queue.
+     */
+    queue(element: Element, queueName: string, callback: Function): JQuery;
 
     removeData(element: Element, name?: string): JQuery;
 
