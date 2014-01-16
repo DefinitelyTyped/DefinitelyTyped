@@ -726,17 +726,55 @@ interface JQueryStatic {
      */
     queue(element: Element, queueName: string, callback: Function): JQuery;
 
+    /**
+     * Remove a previously-stored piece of data.
+     *
+     * @param element A DOM element from which to remove data.
+     * @param name A string naming the piece of data to remove.
+     */
     removeData(element: Element, name?: string): JQuery;
 
-    // Deferred
+    /**
+     * A constructor function that returns a chainable utility object with methods to register multiple callbacks into callback queues, invoke callback queues, and relay the success or failure state of any synchronous or asynchronous function.
+     *
+     * @param beforeStart A function that is called just before the constructor returns.
+     */
     Deferred<T>(beforeStart?: (deferred: JQueryDeferred<T>) => any): JQueryDeferred<T>;
 
-    // Effects
-    fx: { tick: () => void; interval: number; stop: () => void; speeds: { slow: number; fast: number; }; off: boolean; step: any; };
+    /**
+     * Effects
+     */
+    fx: {
+        tick: () => void;
+        /**
+         * The rate (in milliseconds) at which animations fire.
+         */
+        interval: number;
+        stop: () => void;
+        speeds: { slow: number; fast: number; };
+        /**
+         * Globally disable all animations.
+         */
+        off: boolean;
+        step: any;
+    };
 
-    // Events
-    proxy(fn: (...args: any[]) => any, context: any, ...args: any[]): any;
-    proxy(context: any, name: string, ...args: any[]): any;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fnction The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @param additionalArguments Any number of arguments to be passed to the function referenced in the function argument.
+     */
+    proxy(fnction: (...args: any[]) => any, context: Object, ...additionalArguments: any[]): any;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param context The object to which the context (this) of the function should be set.
+     * @param name The name of the function whose context will be changed (should be a property of the context object).
+     * @param additionalArguments Any number of arguments to be passed to the function named in the name argument.
+     */
+    proxy(context: Object, name: string, ...additionalArguments: any[]): any;
 
     Event: JQueryEventConstructor;
 
