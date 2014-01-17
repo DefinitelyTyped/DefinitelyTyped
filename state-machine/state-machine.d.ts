@@ -11,7 +11,7 @@ interface StateMachineErrorCallback {
 
 interface StateMachineEventDef {
     name: string;
-    from: string;
+    from: any;    // string or string[]
     to: string;
 }
 
