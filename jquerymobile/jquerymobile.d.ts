@@ -143,6 +143,18 @@ interface SliderEvents {
     slidestop?: JQueryMobileEvent;
 }
 
+interface FlipswitchOptions {
+    corners?: boolean;
+    defaults?: boolean;
+    disabled?: boolean;
+    enhanced?: boolean;
+    mini?: boolean;
+    offText?: string;
+    onText?: string;
+    theme?: string;
+    wrapperClass?: string;
+}
+
 interface CheckboxRadioOptions {
     mini?: boolean;
     theme?: string;
@@ -416,6 +428,7 @@ interface JQuery {
 
     flipswitch(): JQuery;
     flipswitch(command: string): JQuery;
+    flipswitch(options: FlipswitchOptions): JQuery;
 
     checkboxradio(): JQuery;
     checkboxradio(command: string): JQuery;
