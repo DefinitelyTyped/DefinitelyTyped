@@ -778,12 +778,33 @@ interface JQueryStatic {
 
     Event: JQueryEventConstructor;
 
-    // Internals
-    error(message: any): JQuery;
+    /**
+     * Takes a string and throws an exception containing it.
+     *
+     * @param message The message to send out.
+     */
+    error(message: string): JQuery;
 
-    // Miscellaneous
     expr: any;
-    fn: any;  //TODO: Decide how we want to type this
+    fn: {
+        /**
+         * A string containing the jQuery version number.
+         */
+        jquery: string;
+
+        /**
+         * The number of elements in the jQuery object.
+         */
+        length: number;
+
+        /**
+         * Merge the contents of an object onto the jQuery prototype to provide new jQuery instance methods.
+         * 
+         * @param object An object to merge onto the jQuery prototype.
+         */
+        extend(object: any): any;
+    }
+
     isReady: boolean;
 
     // Properties
