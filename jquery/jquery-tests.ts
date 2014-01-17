@@ -2316,6 +2316,27 @@ function test_jQuery() {
     });
 }
 
+function test_fn_extend() {
+    jQuery.fn.extend({
+        check: function () {
+            return this.each(function () {
+                this.checked = true;
+            });
+        },
+        uncheck: function () {
+            return this.each(function () {
+                this.checked = false;
+            });
+        }
+    });
+
+    // Use the newly created .check() method
+    //$( "input[type='checkbox']" ).check();
+    // The above test cannot be run as no way that I know of in TypeScript to model the augmentation of jQueryStatic with dynamically added methods
+    // The below would only work at runtime if extend had first been called.
+    $("input[type='checkbox']")["check"]();
+}
+
 function test_jquery() {
     var a = <any>{ what: "A regular JS object" },
     b = $('body');
@@ -2422,6 +2443,16 @@ function test_jquery() {
     jQuery(function ($) {
         // Your code using failsafe $ alias here...
     });
+
+    $(document.body)
+        .click(function () {
+            $(document.body).append($("<div>"));
+            var n = $("div").length;
+            $("span").text("There are " + n + " divs." +
+                "Click to add more.");
+        })
+    // Trigger the click to start
+        .trigger("click");
 }
 
 function test_keydown() {
