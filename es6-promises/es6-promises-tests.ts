@@ -44,14 +44,11 @@ promiseStringArr = allResult;
 //race test
 var raceResult = Promise.race(arrayOfPromise);
 promiseString = raceResult;
-
+ 
 
 //then test
 var thenWithPromiseResult = promiseString.then(word => Promise.resolve(word.length));
 promiseNumber = thenWithPromiseResult;
-
-var thenWithPromiseResultAndVoidReject = promiseString.then(word => Promise.resolve(word.length), error => console.log(error));
-promiseNumber = thenWithPromiseResultAndVoidReject;
 
 var thenWithPromiseResultAndPromiseReject = promiseString.then(word => Promise.resolve(word.length), error => Promise.resolve(10));
 promiseNumber = thenWithPromiseResultAndPromiseReject;	
@@ -61,9 +58,6 @@ promiseNumber = thenWithPromiseResultAndSimpleReject;
 	
 var thenWithSimpleResult = promiseString.then(word => word.length);
 promiseNumber = thenWithSimpleResult;
-
-var thenWithSimpleResultAndVoidReject = promiseString.then(word => word.length, error => console.log(error));
-promiseNumber = thenWithSimpleResultAndVoidReject;
 
 var thenWithSimpleResultAndPromiseReject = promiseString.then(word => word.length, error => Promise.resolve(10));
 promiseNumber = thenWithSimpleResultAndPromiseReject;	
@@ -79,7 +73,6 @@ promiseNumber = thenWithUndefinedFullFillAndPromiseReject;
 
 var thenWithNoResultAndNoReject = promiseString.then<number>();
 promiseNumber = thenWithNoResultAndNoReject;
-
 
 //catch test
 var catchWithSimpleResult = promiseString.catch(error => 10);	
