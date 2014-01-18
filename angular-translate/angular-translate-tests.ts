@@ -19,7 +19,7 @@ app.config(($translateProvider: ng.translate.ITranslateProvider) => {
 });
 
 app.controller('Ctrl', ($scope: ng.IScope, $translate: ng.translate.ITranslateService) => {
-    $scope['changeLanguage'] = function (key) {
+    $scope['changeLanguage'] = function (key: any) {
         $translate.uses(key);
     };
 });
