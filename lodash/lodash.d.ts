@@ -2580,10 +2580,10 @@ declare module _ {
 		* @param options.trailing Specify execution on the trailing edge of the timeout.
 		* @return The new debounced function.
 		**/
-		debounce(
-			func: Function,
+		debounce<T extends Function>(
+			func: T,
 			wait: number,
-			options?: DebounceSettings): Function;			
+			options?: DebounceSettings): T;			
 	}
 
 	interface LoDashObjectWrapper<T> {
@@ -2670,9 +2670,9 @@ declare module _ {
 		* @param resolver Hash function for storing the result of `fn`.
 		* @return Returns the new memoizing function.
 		**/
-		memoize(
-			func: Function,
-			resolver?: (n: any) => string): Function;
+        memoize<T extends Function>(
+			func: T,
+			resolver?: (n: any) => string): T;
 	}
 
 	//_.once
@@ -2684,7 +2684,7 @@ declare module _ {
 		* @param func Function to only execute once.
 		* @return The new restricted function.
 		**/
-		once(func: Function): Function;
+        once<T extends Function>(func: T): T;
 	}
 
 	//_.partial
@@ -2733,10 +2733,10 @@ declare module _ {
 		* @param options.trailing Specify execution on the trailing edge of the timeout.
 		* @return The new throttled function.
 		**/
-		throttle(
-			func: any,
+        throttle<T extends Function>(
+			func: T,
 			wait: number,
-			options?: ThrottleSettings): Function;
+			options?: ThrottleSettings): T;
 	}
 
 	interface ThrottleSettings {
@@ -3764,7 +3764,7 @@ declare module _ {
 		**/
 		times<TResult>(
 			n: number, 
-			callback: Function, 
+			callback: (num: number) => TResult, 
 			context?: any): TResult[];
 	}
 

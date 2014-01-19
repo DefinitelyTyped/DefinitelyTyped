@@ -592,6 +592,9 @@ source.addEventListener('message', <_.LoDashObjectWrapper<Function>>_(function()
   'maxWait': 1000
 }), false);
 
+var returnedDebounce = _.throttle(function (a) { return a * 5; }, 5);
+returnedThrottled(4);
+
 result = <number>_.defer(function() { console.log('deferred'); });
 result = <_.LoDashWrapper<number>>_(function() { console.log('deferred'); }).defer();
 
@@ -608,15 +611,20 @@ var data = {
   'curly': { 'name': 'curly', 'age': 60 }
 };
 
-var stooge = <Function>_.memoize(function(name: string) { return data[name]; }, _.identity);
+var stooge = _.memoize(function(name: string) { return data[name]; }, _.identity);
 stooge('curly');
 
 stooge['cache']['curly'].name = 'jerome';
 stooge('curly');
 
-var initialize = <Function>_.once(function(){ });
+var returnedMemoize = _.throttle(function (a) { return a * 5; }, 5);
+returnedMemoize(4);
+
+var initialize = _.once(function(){ });
 initialize();
-initialize();
+initialize();''
+var returnedOnce = _.throttle(function (a) { return a * 5; }, 5);
+returnedOnce(4);
 
 var greetPartial = function(greeting: string, name: string) { return greeting + ' ' + name; };
 var hi = <Function>_.partial(greetPartial, 'hi');
@@ -637,6 +645,9 @@ jQuery(window).on('scroll', throttled);
 jQuery('.interactive').on('click', _.throttle(function() { }, 300000, {
   'trailing': false
 }));
+
+var returnedThrottled = _.throttle(function (a) { return a*5; }, 5);
+returnedThrottled(4);
 
 var helloWrap = function(name: string) { return 'hello ' + name; };
 var helloWrap2 = _.wrap(helloWrap, function(func) {
@@ -950,9 +961,9 @@ class Mage {
 }
 
 var mage = new Mage(); 
-result = <number[]>_.times(3, _.partial(_.random, 1, 6));
-result = <number[]>_.times(3, function(n: number) { mage.castSpell(n); });
-result = <number[]>_.times(3, function(n: number) { this.cast(n); }, mage);
+result = _.times(3, <() => number>_.partial(_.random, 1, 6));
+result = _.times(3, function(n: number) { mage.castSpell(n); });
+result = _.times(3, function(n: number) { this.cast(n); }, mage);
 
 result = <string>_.unescape('Moe, Larry &amp; Curly');
 
