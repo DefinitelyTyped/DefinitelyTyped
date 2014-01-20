@@ -283,28 +283,30 @@ _(['test', 'test']).pick(['test2', 'test2']);
 //////////////// Chain Tests
 function chain_tests() {
 	// https://typescript.codeplex.com/workitem/1960
-    var numArray: number[] = _.chain([1, 2, 3, 4, 5, 6, 7, 8])
-        .filter(num => num % 2 == 0)
-        .map(num => num * num)
-        .value();
+	var numArray: number[] = _.chain([1, 2, 3, 4, 5, 6, 7, 8])
+		.filter(num => num % 2 == 0)
+		.map(num => num * num)
+		.value();
 
-    var strArray: string[] = _([1, 2, 3, 4])
-        .chain()
-        .filter(num => num % 2 == 0)
-        .tap(alert)
-        .map(num => "string" + num)
-        .value();
+	var strArray: string[] = _([1, 2, 3, 4])
+		.chain()
+		.filter(num => num % 2 == 0)
+		.tap(alert)
+		.map(num => "string" + num)
+		.value();
 
-    var n : number = _.chain([1, 2, 3, 200])
-        .filter(num => num % 2 == 0)
-        .tap(alert)
-        .map(num => num * num)
-        .max()
-        .value();
+	var n : number = _.chain([1, 2, 3, 200])
+		.filter(num => num % 2 == 0)
+		.tap(alert)
+		.map(num => num * num)
+		.max()
+		.value();
 
-    var t2 : number = _([1, 2, 3]).chain()
-        .map(num=> [num, num + 1])
-        .flatten()
-        .find(num => num % 2 == 0)
-        .value();
+	//If using alternate definition of map (~ line 2200), .value returns any
+	//   because.map matches _Chain <number[]> as opposed to _ChainOfArrays <number>, which breaks typing on flatten
+	var hoverOverValueShouldBeNumberNotAny : number = _([1, 2, 3]).chain()
+		.map(num=> [num, num + 1])
+		.flatten()
+		.find(num => num % 2 == 0)
+		.value();
 }
