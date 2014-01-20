@@ -1364,7 +1364,8 @@ interface UnderscoreStatic {
 	* @param obj Object to chain.
 	* @return Wrapped `obj`.
 	**/
-	chain<T>(obj: any): _Chain<T>;
+    chain<T>(obj: T[]): _Chain<T>;
+    chain<T extends {}>(obj: T): _Chain<T>;
 
 	/**
 	* Extracts the value of a wrapped object.
@@ -2194,13 +2195,25 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.map
 	**/
-	map<TResult>(iterator: _.ListIterator<T, TResult>, context?: any): _Chain<T>;
+    map<TArray>(iterator: (value: T, index: number, list: T[]) => TArray[], context?: any): _ChainOfArrays<TArray>;
+    //Not sure why this won't work, might be a TypeScript error? map<TArray>(iterator: _.ListIterator<T, TArray[]>, context?: any): _ChainOfArrays<TArray>;
+	/**
+	* Wrapped type `any[]`.
+	* @see _.map
+	**/
+	map<TResult>(iterator: _.ListIterator<T, TResult>, context?: any): _Chain<TResult>;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.map
 	**/
-	map<TResult>(iterator: _.ObjectIterator<T, TResult>, context?: any): _Chain<T>;
+    map<TArray>(iterator: (element: T, key: string, list: any) => TArray[], context?: any): _ChainOfArrays<TArray>;
+    //Not sure why this won't work, might be a TypeScript error?  //map<TArray>(iterator: _.ObjectIterator<T, TArray[]>, context?: any): _ChainOfArrays<TArray>;
+	/**
+	* Wrapped type `any[]`.
+	* @see _.map
+	**/
+	map<TResult>(iterator: _.ObjectIterator<T, TResult>, context?: any): _Chain<TResult>;
 
 	/**
 	* @see _.map
@@ -2243,7 +2256,7 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.find
 	**/
-	find(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
+	find(iterator: _.ListIterator<T, boolean>, context?: any): _ChainSingle<T>;
 
 	/**
 	* @see _.find
@@ -2271,7 +2284,7 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.findWhere
 	**/
-	findWhere<U extends {}>(properties: U): _Chain<T>;
+	findWhere<U extends {}>(properties: U): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `any[]`.
@@ -2323,43 +2336,43 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.pluck
 	**/
-	pluck(propertyName: string): _Chain<T>;
+	pluck(propertyName: string): _Chain<any>;
 
 	/**
 	* Wrapped type `number[]`.
 	* @see _.max
 	**/
-	max(): _Chain<T>;
+	max(): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.max
 	**/
-	max(iterator: _.ListIterator<T, number>, context?: any): _Chain<T>;
+	max(iterator: _.ListIterator<T, number>, context?: any): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.max
 	**/
-	max(iterator?: _.ListIterator<T, any>, context?: any): _Chain<T>;
+	max(iterator?: _.ListIterator<T, any>, context?: any): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `number[]`.
 	* @see _.min
 	**/
-	min(): _Chain<T>;
+	min(): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.min
 	**/
-	min(iterator: _.ListIterator<T, number>, context?: any): _Chain<T>;
+	min(iterator: _.ListIterator<T, number>, context?: any): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.min
 	**/
-	min(iterator?: _.ListIterator<T, any>, context?: any): _Chain<T>;
+	min(iterator?: _.ListIterator<T, any>, context?: any): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `any[]`.
@@ -2518,7 +2531,7 @@ interface _Chain<T> {
 	* Wrapped type `any`.
 	* @see _.flatten
 	**/
-	flatten(shallow?: boolean): _Chain<T>;
+	flatten(shallow?: boolean): _Chain<any>;
 
 	/**
 	* Wrapped type `any[]`.
@@ -2947,7 +2960,13 @@ interface _Chain<T> {
 	* Wrapped type `any`.
 	* @see _.value
 	**/
-	value<TResult>(): TResult;
+    value<TResult>(): T[];
+}
+interface _ChainSingle<T> {
+    value(): T;
+}
+interface _ChainOfArrays<T> extends _Chain<T[]> {
+    flatten(): _Chain<T>;
 }
 
 declare var _: UnderscoreStatic;
