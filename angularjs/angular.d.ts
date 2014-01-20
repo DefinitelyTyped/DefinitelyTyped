@@ -105,6 +105,7 @@ declare module ng {
         filter(object: Object): IModule;
         provider(name: string, serviceProviderConstructor: Function): IModule;
         provider(name: string, inlineAnnotadedConstructor: any[]): IModule;
+        provider(name: string, providerObject: auto.IProvider): IModule;
         provider(object: Object): IModule;
         run(initializationFunction: Function): IModule;
         run(inlineAnnotadedFunction: any[]): IModule;
@@ -806,6 +807,9 @@ declare module ng {
     // AUTO module (angular.js)
     ///////////////////////////////////////////////////////////////////////////
     export module auto {
+        interface IProvider {
+            $get: any;
+        }
 
         ///////////////////////////////////////////////////////////////////////
         // InjectorService

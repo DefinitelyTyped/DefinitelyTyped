@@ -333,7 +333,19 @@ interface JQuerySupport {
 }
 
 interface JQueryParam {
+    /**
+     * Create a serialized representation of an array or object, suitable for use in a URL query string or Ajax request.
+     * 
+     * @param obj An array or object to serialize.
+     */
     (obj: any): string;
+
+    /**
+     * Create a serialized representation of an array or object, suitable for use in a URL query string or Ajax request.
+     * 
+     * @param obj An array or object to serialize.
+     * @param traditional A Boolean indicating whether to perform a traditional "shallow" serialization.
+     */
     (obj: any, traditional: boolean): string;
 }
 
@@ -411,9 +423,9 @@ interface JQueryEasing {
     swing(p: number): number;
 }
 
-/*
-    Static members of jQuery (those on $ and jQuery themselves)
-*/
+/**
+ * Static members of jQuery (those on $ and jQuery themselves)
+ */
 interface JQueryStatic {
 
     /**
@@ -510,6 +522,9 @@ interface JQueryStatic {
      */
     getScript(url: string, success?: (script: string, textStatus: string, jqXHR: JQueryXHR) => any): JQueryXHR;
 
+    /**
+     * Create a serialized representation of an array or object, suitable for use in a URL query string or Ajax request.
+     */
     param: JQueryParam;
 
     /**
@@ -553,14 +568,70 @@ interface JQueryStatic {
      */
     holdReady(hold: boolean): void;
 
-    (selector: string, context?: any): JQuery;
+    /**
+     * Accepts a string containing a CSS selector which is then used to match a set of elements.
+     *
+     * @param selector A string containing a selector expression
+     * @param context A DOM Element, Document, or jQuery to use as context
+     */
+    (selector: string, context?: Element): JQuery;
+    /**
+     * Accepts a string containing a CSS selector which is then used to match a set of elements.
+     *
+     * @param selector A string containing a selector expression
+     * @param context A DOM Element, Document, or jQuery to use as context
+     */
+    (selector: string, context?: JQuery): JQuery;
+    /**
+     * Accepts a string containing a CSS selector which is then used to match a set of elements.
+     *
+     * @param element A DOM element to wrap in a jQuery object.
+     */
     (element: Element): JQuery;
-    (object: {}): JQuery;
+    /**
+     * Accepts a string containing a CSS selector which is then used to match a set of elements.
+     *
+     * @param elementArray An array containing a set of DOM elements to wrap in a jQuery object.
+     */
     (elementArray: Element[]): JQuery;
+    /**
+     * Accepts a string containing a CSS selector which is then used to match a set of elements.
+     *
+     * @param object A plain object to wrap in a jQuery object.
+     */
+    (object: {}): JQuery;
+    /**
+     * Accepts a string containing a CSS selector which is then used to match a set of elements.
+     *
+     * @param object An existing jQuery object to clone.
+     */
     (object: JQuery): JQuery;
-    (func: Function): JQuery;
-    (array: any[]): JQuery;
+    /**
+     * Specify a function to execute when the DOM is fully loaded.
+     */
     (): JQuery;
+
+    /**
+     * Creates DOM elements on the fly from the provided string of raw HTML.
+     *
+     * @param html A string of HTML to create on the fly. Note that this parses HTML, not XML.
+     * @param ownerDocument A document in which the new elements will be created.
+     */
+    (html: string, ownerDocument?: Document): JQuery;
+    /**
+     * Creates DOM elements on the fly from the provided string of raw HTML.
+     *
+     * @param html A string defining a single, standalone, HTML element (e.g. <div/> or <div></div>).
+     * @param attributes An object of attributes, events, and methods to call on the newly-created element.
+     */
+    (html: string, attributes: Object): JQuery;
+
+    /**
+     * Binds a function to be executed when the DOM has finished loading.
+     *
+     * @param callback A function to execute after the DOM is ready.
+     */
+    (callback: Function): JQuery;
 
     /**
      * Relinquish jQuery's control of the $ variable.
@@ -588,6 +659,9 @@ interface JQueryStatic {
      */
     when<T>(...deferreds: any[]): JQueryPromise<T>;
 
+    /**
+     * Hook directly into jQuery to override how particular CSS properties are retrieved or set, normalize CSS property naming, or create custom properties.
+     */
     cssHooks: { [key: string]: any; };
     cssNumber: any;
 
@@ -613,24 +687,94 @@ interface JQueryStatic {
      */
     data(element: Element): any;
 
-    dequeue(element: Element, queueName?: string): any;
+    /**
+     * Execute the next function on the queue for the matched element.
+     *
+     * @param element A DOM element from which to remove and execute a queued function.
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     */
+    dequeue(element: Element, queueName?: string): void;
 
+    /**
+     * Determine whether an element has any jQuery data associated with it.
+     *
+     * @param element A DOM element to be checked for data.
+     */
     hasData(element: Element): boolean;
 
+    /**
+     * Show the queue of functions to be executed on the matched element.
+     *
+     * @param element A DOM element to inspect for an attached queue.
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     */
     queue(element: Element, queueName?: string): any[];
-    queue(element: Element, queueName: string, newQueueOrCallback: any): JQuery;
+    /**
+     * Manipulate the queue of functions to be executed on the matched element.
+     *
+     * @param element A DOM element where the array of queued functions is attached.
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     * @param newQueue An array of functions to replace the current queue contents.
+     */
+    queue(element: Element, queueName: string, newQueue: Function[]): JQuery;
+    /**
+     * Manipulate the queue of functions to be executed on the matched element.
+     *
+     * @param element A DOM element on which to add a queued function.
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     * @param callback The new function to add to the queue.
+     */
+    queue(element: Element, queueName: string, callback: Function): JQuery;
 
+    /**
+     * Remove a previously-stored piece of data.
+     *
+     * @param element A DOM element from which to remove data.
+     * @param name A string naming the piece of data to remove.
+     */
     removeData(element: Element, name?: string): JQuery;
 
-    // Deferred
+    /**
+     * A constructor function that returns a chainable utility object with methods to register multiple callbacks into callback queues, invoke callback queues, and relay the success or failure state of any synchronous or asynchronous function.
+     *
+     * @param beforeStart A function that is called just before the constructor returns.
+     */
     Deferred<T>(beforeStart?: (deferred: JQueryDeferred<T>) => any): JQueryDeferred<T>;
 
-    // Effects
-    fx: { tick: () => void; interval: number; stop: () => void; speeds: { slow: number; fast: number; }; off: boolean; step: any; };
+    /**
+     * Effects
+     */
+    fx: {
+        tick: () => void;
+        /**
+         * The rate (in milliseconds) at which animations fire.
+         */
+        interval: number;
+        stop: () => void;
+        speeds: { slow: number; fast: number; };
+        /**
+         * Globally disable all animations.
+         */
+        off: boolean;
+        step: any;
+    };
 
-    // Events
-    proxy(fn: (...args: any[]) => any, context: any, ...args: any[]): any;
-    proxy(context: any, name: string, ...args: any[]): any;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fnction The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @param additionalArguments Any number of arguments to be passed to the function referenced in the function argument.
+     */
+    proxy(fnction: (...args: any[]) => any, context: Object, ...additionalArguments: any[]): any;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param context The object to which the context (this) of the function should be set.
+     * @param name The name of the function whose context will be changed (should be a property of the context object).
+     * @param additionalArguments Any number of arguments to be passed to the function named in the name argument.
+     */
+    proxy(context: Object, name: string, ...additionalArguments: any[]): any;
 
     Event: JQueryEventConstructor;
 
