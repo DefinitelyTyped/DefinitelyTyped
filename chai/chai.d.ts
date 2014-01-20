@@ -6,7 +6,7 @@
 
 declare module chai {
 
-    function expect(target: any): Expect;
+    function expect(target: any, message?: string): Expect;
 
     // Provides a way to extend the internals of Chai
     function use(fn: (chai: any, utils: any) => void);
