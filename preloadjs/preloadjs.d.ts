@@ -1,4 +1,4 @@
-// Type definitions for PreloadJS 0.4.0
+// Type definitions for PreloadJS 0.4.1
 // Project: http://www.createjs.com/#!/PreloadJS
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -22,16 +22,15 @@ declare module createjs {
         progress: number;
         
         // methods
-        buildPath(src: string, basePath?: string, data?: Object): string;
+        buildPath(src: string, data?: Object): string;
         close(): void;
         load(): void;
-        toString(): string;
-        
     }
     
     export class LoadQueue extends AbstractLoader {
-        constructor(useXHR?: boolean, basePath?: string);
-        
+        constructor(useXHR?: boolean, basePath?: string, crossOrigin?: string);
+        constructor(useXHR?: boolean, basePath?: string, crossOrigin?: boolean);
+
         // properties
         static BINARY: string;
         static CSS: string;
@@ -39,8 +38,9 @@ declare module createjs {
         static JAVASCRIPT: string;
         static JSON: string;
         static JSONP: string;
-        static LOAD_TIMEOUT: number;
+        static loadTimeout: number;
         maintainScriptOrder: boolean;
+        static MANIFEST: string;
         next: LoadQueue;
         static SOUND: string;
         stopOnError: boolean;
@@ -55,8 +55,9 @@ declare module createjs {
         installPlugin(plugin: any): void;
         loadFile(file: Object, loadNow?: boolean, basePath?: string): void;
         loadFile(file: string, loadNow?: boolean, basePath?: string): void;
-        loadManifest(manifest: Object[], loadNow?: boolean, basePath?: string): void;
-        loadManifest(manifest: string[], loadNow?: boolean, basePath?: string): void;
+        loadManifest(manifest: Object, loadNow?: boolean, basePath?: string): void;
+        loadManifest(manifest: string, loadNow?: boolean, basePath?: string): void;
+        loadManifest(manifest: any[], loadNow?: boolean, basePath?: string): void;
         remove(idsOrUrls: string): void;
         remove(idsOrUrls: any[]): void;
         removeAll(): void;
@@ -71,18 +72,21 @@ declare module createjs {
         static version: string;
     }
     
+    export class SamplePlugin {
+        static fileLoadHandler(event: Object): void;
+        static getPreloadHandlers(): Object;
+        static preloadHandler(src: string, type: string, id: string, data: any, basePath: string, queue: LoadQueue): any;
+    }
+
     export class TagLoader extends AbstractLoader {
         constructor (item: Object);
-        
-        // properties
-        _isAudio: boolean;
         
         // methods
         getResult(): any;
     }
     
     export class XHRLoader extends AbstractLoader {
-        constructor (item: Object);
+        constructor (item: Object, crossOrigin?: string);
         
         // methods
         getAllResponseHeaders(): string;

@@ -257,6 +257,7 @@ interface Contacts {
 }
 
 interface Device {
+    available: boolean;
     name: string;
     cordova: string;
     platform: string;

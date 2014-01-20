@@ -54,3 +54,15 @@ function test_graphics() {
     var myGraphics: createjs.Graphics;
     myGraphics.beginStroke("#F00").beginFill("#00F").drawRect(20, 20, 100, 50).draw(myContext2D);
 }
+
+function colorMatrixTest() {
+    var shape = new createjs.Shape().set({ x: 100, y: 100 });
+    shape.graphics.beginFill("#ff0000").drawCircle(0, 0, 50);
+
+    var matrix = new createjs.ColorMatrix().adjustHue(180).adjustSaturation(100);
+    shape.filters = [
+        new createjs.ColorMatrixFilter(matrix)
+    ];
+
+    shape.cache(-50, -50, 100, 100);
+}
