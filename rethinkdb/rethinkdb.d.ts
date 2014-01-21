@@ -26,6 +26,12 @@ declare module "rethinkdb" {
   export function row(name:string):Expression<any>;
   export function expr(stuff:any):Expression<any>;
 
+  export function now():Time;
+
+  // Control Structures
+  export function branch(test:Expression<boolean>, trueBranch:Expression<any>, falseBranch:Expression<any>):Expression<any>;
+
+
   export class Cursor {
     hasNext():boolean;
     each(cb:(err:Error, row:any)=>void, done?:()=>void);
@@ -83,9 +89,9 @@ declare module "rethinkdb" {
     insert(obj:any[], options?:InsertOptions):Operation<WriteResult>;
     insert(obj:any, options?:InsertOptions):Operation<WriteResult>;
 
-    get(key:string):Expression<any>; // primary key
-    getAll(key:string, index?:Index):Selection; // without index defaults to primary key
-    getAll(...keys:string[]):Selection;
+    get(key:string):Sequence; // primary key
+    getAll(key:string, index?:Index):Sequence; // without index defaults to primary key
+    getAll(...keys:string[]):Sequence;
   }
 
   interface Sequence extends Operation<Cursor>, Writeable {
@@ -123,7 +129,7 @@ declare module "rethinkdb" {
     reduce(r:Reduce, base?:any):Expression<any>;
     count():Expression<number>;
     distinct():Sequence;
-    groupedMapReduce(group:ExpressionFunction<any>, map:ExpressionFunction<any>, reduce:Reduce, base?:any):Expression<any>;
+    groupedMapReduce(group:ExpressionFunction<any>, map:ExpressionFunction<any>, reduce:Reduce, base?:any):Sequence;
     groupBy(...aggregators:Aggregator[]):Expression<Object>; // TODO: reduction object
     contains(prop:string):Expression<boolean>;
 
@@ -178,8 +184,8 @@ declare module "rethinkdb" {
 
   interface Index {
     index: string;
-    left_bound: string; // 'closed'
-    right_bound: string; // 'open'
+    left_bound?: string; // 'closed'
+    right_bound?: string; // 'open'
   }
 
   interface Expression<T> extends Writeable, Operation<T> {
@@ -204,6 +210,10 @@ declare module "rethinkdb" {
       mul(n:number):Expression<number>;
       div(n:number):Expression<number>;
       mod(n:number):Expression<number>;
+
+      hasFields(...fields:string[]):Expression<boolean>;
+
+      default(value:T):Expression<T>;
   }
 
   interface Operation<T> {
@@ -212,6 +222,8 @@ declare module "rethinkdb" {
 
   interface Aggregator {}
   interface Sort {}
+
+  interface Time {}
 
 
   // http://www.rethinkdb.com/api/#js
