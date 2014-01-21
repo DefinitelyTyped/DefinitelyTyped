@@ -1768,16 +1768,31 @@ declare module Windows {
         }
         export interface IPackage {
             dependencies: Windows.Foundation.Collections.IVectorView<Windows.ApplicationModel.Package>;
+			description: string;
+			displayName: string;
             id: Windows.ApplicationModel.PackageId;
             installedLocation: Windows.Storage.StorageFolder;
+			isBundle: boolean;
+			isDevelopmentMode: boolean;
             isFramework: boolean;
+			isResourcePackage: boolean;
+			logo: Windows.Foundation.Uri;
+			publisherDisplayName: string;
         }
         export class Package implements Windows.ApplicationModel.IPackage {
+			static current: Windows.ApplicationModel.Package;
+
             dependencies: Windows.Foundation.Collections.IVectorView<Windows.ApplicationModel.Package>;
+			description: string;
+			displayName: string;
             id: Windows.ApplicationModel.PackageId;
             installedLocation: Windows.Storage.StorageFolder;
+			isBundle: boolean;
+			isDevelopmentMode: boolean;
             isFramework: boolean;
-            static current: Windows.ApplicationModel.Package;
+			isResourcePackage: boolean;
+			logo: Windows.Foundation.Uri;
+			publisherDisplayName: string;
         }
         export interface IPackageStatics {
             current: Windows.ApplicationModel.Package;
@@ -11519,13 +11534,78 @@ declare module Windows {
                 snapped,
                 fullScreenPortrait,
             }
-            export interface IApplicationViewStatics {
-                value: Windows.UI.ViewManagement.ApplicationViewState;
-                tryUnsnap(): boolean;
-            }
+
+			/**
+			 * Defines an instance of a window (app view) and the information that describes it.
+			**/
             export class ApplicationView {
+				/**
+				 * Gets the window (app view) for the current app.
+				**/
+				static getForCurrentView(): ApplicationView;
+				
+				/**
+				 * Attempts to unsnap a previously snapped app. This call will only succeed when the app is running in the foreground.
+				**/
+				static tryUnsnap(): boolean;
+				
+				/**
+				 * Gets the state of the current app view.
+				**/
                 static value: Windows.UI.ViewManagement.ApplicationViewState;
-                static tryUnsnap(): boolean;
+
+				/**
+				 * Indicates whether the app terminates when the last window is closed.
+				**/
+				static terminateAppOnFinalViewClose: boolean;
+
+				/**
+				 * Gets the current orientation of the window (app view) with respect to the display.
+				**/
+				orientation: ApplicationViewOrientation;
+
+				/**
+				 * Gets or sets the displayed title of the window.
+				**/
+				title: string;
+
+				/**
+				 * Gets or sets whether screen capture is enabled for the window (app view).
+				**/
+				isScreenCaptureEnabled: boolean;
+
+				/**
+				 * Gets whether the window (app view) is on the Windows lock screen.
+				**/
+				isOnLockScreen: boolean;
+
+				/**
+				 * Gets whether the window(app view) is full screen or not.
+				**/
+				isFullScreen: boolean;
+
+				/**
+				 * Gets the current ID of the window (app view) .
+				**/
+				id: number;
+
+				/**
+				 * Gets whether the current window (app view) is adjacent to the right edge of the screen.
+				**/
+				adjacentToRightDisplayEdge: boolean;
+
+				/**
+				 * Gets whether the current window (app view) is adjacent to the left edge of the screen.
+				**/
+				adjacentToLeftDisplayEdge: number;
+			}
+
+			/**
+			 * Defines the set of display orientation modes for a window (app view).
+			**/
+			export enum ApplicationViewOrientation {
+				landscape,
+				portrait
             }
             export interface IInputPaneVisibilityEventArgs {
                 ensuredFocusedElementInView: boolean;
