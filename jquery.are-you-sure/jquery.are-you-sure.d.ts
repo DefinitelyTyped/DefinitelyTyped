@@ -21,7 +21,7 @@ interface AreYouSureOptions {
     fieldSelector?: string;
 	
 	/**Make Are-You-Sure "silent" by disabling the warning message*/
-	silent: boolean;
+	silent?: boolean;
 }
 
 interface AreYouSure {
