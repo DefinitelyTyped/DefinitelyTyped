@@ -853,7 +853,7 @@ interface JQueryStatic {
      *
      * @param message The message to send out.
      */
-    error(message: string): JQuery;
+    error(message: any): JQuery;
 
     expr: any;
     fn: any;  //TODO: Decide how we want to type this
