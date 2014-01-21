@@ -668,6 +668,11 @@ function test_callbacksFunctions() {
     callbacks.add(bar);
     callbacks.fire('world');
     callbacks.disable();
+    
+    // Test the disabled state of the list
+    console.log(callbacks.disabled());
+    // Outputs: true
+
     callbacks.empty();
     callbacks.fire('hello');
     console.log(callbacks.fired());
