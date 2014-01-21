@@ -21,6 +21,14 @@ var array = [2010, 1, 14, 15, 25, 50, 125];
 var day11 = moment(Date.UTC.apply({}, array));
 var day12 = moment.unix(1318781876);
 
+moment({ years: 2010, months: 3, days: 5, hours: 15, minutes: 10, seconds: 3, milliseconds: 123 });
+moment("20140101", "YYYYMMDD", true);
+moment("20140101", "YYYYMMDD", "en");
+moment("20140101", "YYYYMMDD", "en", true);
+moment("20140101", ["YYYYMMDD"], true);
+moment("20140101", ["YYYYMMDD"], "en");
+moment("20140101", ["YYYYMMDD"], "en", true);
+
 var a = moment([2012]);
 var b = moment(a);
 a.year(2000);
@@ -29,8 +37,16 @@ b.year(); // 2012
 moment.utc();
 moment.utc(12345);
 moment.utc([12, 34, 56]);
+moment.utc({ years: 2010, months: 3, days: 5, hours: 15, minutes: 10, seconds: 3, milliseconds: 123 });
 moment.utc("1-2-3");
 moment.utc("1-2-3", "3-2-1");
+moment.utc("1-2-3", "3-2-1", true);
+moment.utc("1-2-3", "3-2-1", "en");
+moment.utc("1-2-3", "3-2-1", "en", true);
+moment.utc("01-01-2014", ["DD-MM-YYYY", "MM-DD-YYYY"]);
+moment.utc("01-01-2014", ["DD-MM-YYYY", "MM-DD-YYYY"], true);
+moment.utc("01-01-2014", ["DD-MM-YYYY", "MM-DD-YYYY"], "en");
+moment.utc("01-01-2014", ["DD-MM-YYYY", "MM-DD-YYYY"], "en", true);
 
 var a2 = moment.utc([2011, 0, 1, 8]);
 a.hours();
