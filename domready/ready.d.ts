@@ -1,0 +1,1 @@
+declare function domready(callback: () => any) : void;
