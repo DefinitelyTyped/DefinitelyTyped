@@ -856,24 +856,7 @@ interface JQueryStatic {
     error(message: string): JQuery;
 
     expr: any;
-    fn: {
-        /**
-         * A string containing the jQuery version number.
-         */
-        jquery: string;
-
-        /**
-         * The number of elements in the jQuery object.
-         */
-        length: number;
-
-        /**
-         * Merge the contents of an object onto the jQuery prototype to provide new jQuery instance methods.
-         * 
-         * @param object An object to merge onto the jQuery prototype.
-         */
-        extend(object: any): any;
-    }
+    fn: any;  //TODO: Decide how we want to type this
 
     isReady: boolean;
 
