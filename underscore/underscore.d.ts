@@ -6,66 +6,66 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module _ {
-    /**
-    * underscore.js _.throttle options.
-    **/
-    interface ThrottleSettings {
+	/**
+	* underscore.js _.throttle options.
+	**/
+	interface ThrottleSettings {
 
-        /**
-        * If you'd like to disable the leading-edge call, pass this as false.
-        **/
-        leading?: boolean;
+		/**
+		* If you'd like to disable the leading-edge call, pass this as false.
+		**/
+		leading?: boolean;
 
-        /**
-        * If you'd like to disable the execution on the trailing-edge, pass false.
-        **/
-        trailing?: boolean;
-    }
+		/**
+		* If you'd like to disable the execution on the trailing-edge, pass false.
+		**/
+		trailing?: boolean;
+	}
 
-    /**
-    * underscore.js template settings, set templateSettings or pass as an argument
-    * to 'template()' to overide defaults.
-    **/
-    interface TemplateSettings {
-        /**
-        * Default value is '/<%([\s\S]+?)%>/g'.
-        **/
-        evaluate?: RegExp;
+	/**
+	* underscore.js template settings, set templateSettings or pass as an argument
+	* to 'template()' to overide defaults.
+	**/
+	interface TemplateSettings {
+		/**
+		* Default value is '/<%([\s\S]+?)%>/g'.
+		**/
+		evaluate?: RegExp;
 
-        /**
-        * Default value is '/<%=([\s\S]+?)%>/g'.
-        **/
-        interpolate?: RegExp;
+		/**
+		* Default value is '/<%=([\s\S]+?)%>/g'.
+		**/
+		interpolate?: RegExp;
 
-        /**
-        * Default value is '/<%-([\s\S]+?)%>/g'.
-        **/
-        escape?: RegExp;
-    }
+		/**
+		* Default value is '/<%-([\s\S]+?)%>/g'.
+		**/
+		escape?: RegExp;
+	}
 
-    interface ListIterator<T, TResult> {
-        (value: T, index: number, list: T[]): TResult;
-    }
+	interface ListIterator<T, TResult> {
+		(value: T, index: number, list: T[]): TResult;
+	}
 
-    interface ObjectIterator<T, TResult> {
-        (element: T, key: string, list: any): TResult;
-    }
+	interface ObjectIterator<T, TResult> {
+		(element: T, key: string, list: any): TResult;
+	}
 
-    interface MemoIterator<T, TResult> {
-        (prev: TResult, curr: T, index: number, list: T[]): TResult;
-    }
+	interface MemoIterator<T, TResult> {
+		(prev: TResult, curr: T, index: number, list: T[]): TResult;
+	}
 
-    interface Collection<T> { }
+	interface Collection<T> { }
 
-    // Common interface between Arrays and jQuery objects
-    interface List<T> extends Collection<T> {
-        [index: number]: T;
-        length: number;
-    }
+	// Common interface between Arrays and jQuery objects
+	interface List<T> extends Collection<T> {
+		[index: number]: T;
+		length: number;
+	}
 
-    interface Dictionary<T> extends Collection<T> {
-        [index: string]: T;
-    }
+	interface Dictionary<T> extends Collection<T> {
+		[index: string]: T;
+	}
 }
 
 interface UnderscoreStatic {
@@ -74,10 +74,10 @@ interface UnderscoreStatic {
 	* as the first parameter can be invoked through this function.
 	* @param key First argument to Underscore object functions.
 	**/
-    <T>(value: Array<T>): Underscore<T>;
-    <T>(value: T): Underscore<T>;
+	<T>(value: Array<T>): Underscore<T>;
+	<T>(value: T): Underscore<T>;
 
-    /* *************
+	/* *************
 	 * Collections *
 	 ************* */
 
@@ -285,7 +285,7 @@ interface UnderscoreStatic {
 	* @return The first element in `list` that has all `properties`.
 	**/
 	findWhere<T, U extends {}>(
-        list: _.List<T>,
+		list: _.List<T>,
 		properties: U): T;
 
 	/**
@@ -299,7 +299,7 @@ interface UnderscoreStatic {
 	**/
 	reject<T>(
 		list: _.Collection<T>,
-        iterator: _.ListIterator<T, boolean>,
+		iterator: _.ListIterator<T, boolean>,
 		context?: any): T[];
 
 	/**
@@ -312,7 +312,7 @@ interface UnderscoreStatic {
 	**/
 	every<T>(
 		list: _.Collection<T>,
-        iterator?: _.ListIterator<T, boolean>,
+		iterator?: _.ListIterator<T, boolean>,
 		context?: any): boolean;
 
 	/**
@@ -320,7 +320,7 @@ interface UnderscoreStatic {
 	**/
 	all<T>(
 		list: _.Collection<T>,
-        iterator?: _.ListIterator<T, boolean>,
+		iterator?: _.ListIterator<T, boolean>,
 		context?: any): boolean;
 
 	/**
@@ -333,7 +333,7 @@ interface UnderscoreStatic {
 	**/
 	any<T>(
 		list: _.Collection<T>,
-        iterator?: _.ListIterator<T, boolean>,
+		iterator?: _.ListIterator<T, boolean>,
 		context?: any): boolean;
 
 	/**
@@ -341,7 +341,7 @@ interface UnderscoreStatic {
 	**/
 	some<T>(
 		list: _.Collection<T>,
-        iterator?: _.ListIterator<T, boolean>,
+		iterator?: _.ListIterator<T, boolean>,
 		context?: any): boolean;
 
 	/**
@@ -390,7 +390,7 @@ interface UnderscoreStatic {
 	* @param list Finds the maximum value in this list.
 	* @return Maximum value in `list`.
 	**/
-    max(list: _.List<number>): number;
+	max(list: _.List<number>): number;
 
 	/**
 	* Returns the maximum value in list. If iterator is passed, it will be used on each value to generate
@@ -402,7 +402,7 @@ interface UnderscoreStatic {
 	**/
 	max<T>(
 		list: _.Collection<T>,
-        iterator?: _.ListIterator<T, any>,
+		iterator?: _.ListIterator<T, any>,
 		context?: any): T;
 
 	/**
@@ -410,7 +410,7 @@ interface UnderscoreStatic {
 	* @param list Finds the minimum value in this list.
 	* @return Minimum value in `list`.
 	**/
-    min(list: _.List<number>): number;
+	min(list: _.List<number>): number;
 
 	/**
 	* Returns the minimum value in list. If iterator is passed, it will be used on each value to generate
@@ -422,7 +422,7 @@ interface UnderscoreStatic {
 	**/
 	min<T>(
 		list: _.Collection<T>,
-        iterator?: _.ListIterator<T, any>,
+		iterator?: _.ListIterator<T, any>,
 		context?: any): T;
 
 	/**
@@ -434,8 +434,8 @@ interface UnderscoreStatic {
 	* @return A sorted copy of `list`.
 	**/
 	sortBy<T, TSort>(
-        list: _.List<T>,
-        iterator?: _.ListIterator<T, TSort>,
+		list: _.List<T>,
+		iterator?: _.ListIterator<T, TSort>,
 		context?: any): T[];
 
 	/**
@@ -443,7 +443,7 @@ interface UnderscoreStatic {
 	* @param iterator Sort iterator for each element within `list`.
 	**/
 	sortBy<T>(
-        list: _.List<T>,
+		list: _.List<T>,
 		iterator: string,
 		context?: any): T[];
 
@@ -457,36 +457,36 @@ interface UnderscoreStatic {
 	* @return An object with the group names as properties where each property contains the grouped elements from `list`.
 	**/
 	groupBy<T>(
-        list: _.List<T>,
-        iterator?: _.ListIterator<T, any>,
-        context?: any): _.Dictionary<T[]>;
+		list: _.List<T>,
+		iterator?: _.ListIterator<T, any>,
+		context?: any): _.Dictionary<T[]>;
 
 	/**
 	* @see _.groupBy
 	* @param iterator Property on each object to group them by.
 	**/
 	groupBy<T>(
-        list: _.List<T>,
+		list: _.List<T>,
 		iterator: string,
-        context?: any): _.Dictionary<T[]>;
+		context?: any): _.Dictionary<T[]>;
 
 	/**
 	* Given a `list`, and an `iterator` function that returns a key for each element in the list (or a property name),
 	* returns an object with an index of each item.  Just like _.groupBy, but for when you know your keys are unique.
 	**/
 	indexBy<T>(
-        list: _.List<T>,
-        iterator: _.ListIterator<T, any>,
-        context?: any): _.Dictionary<T>;
+		list: _.List<T>,
+		iterator: _.ListIterator<T, any>,
+		context?: any): _.Dictionary<T>;
 
 	/**
 	* @see _.indexBy
 	* @param iterator Property on each object to index them by.
 	**/
 	indexBy<T>(
-        list: _.List<T>,
+		list: _.List<T>,
 		iterator: string,
-        context?: any): _.Dictionary<T>;
+		context?: any): _.Dictionary<T>;
 
 	/**
 	* Sorts a list into groups and returns a count for the number of objects in each group. Similar
@@ -499,8 +499,8 @@ interface UnderscoreStatic {
 	**/
 	countBy<T>(
 		list: _.Collection<T>,
-        iterator?: _.ListIterator<T, any>,
-        context?: any): _.Dictionary<number[]>;
+		iterator?: _.ListIterator<T, any>,
+		context?: any): _.Dictionary<number[]>;
 
 	/**
 	* @see _.countBy
@@ -509,7 +509,7 @@ interface UnderscoreStatic {
 	countBy<T>(
 		list: _.Collection<T>,
 		iterator: string,
-        context?: any): _.Dictionary<number[]>;
+		context?: any): _.Dictionary<number[]>;
 
 	/**
 	* Returns a shuffled copy of the list, using a version of the Fisher-Yates shuffle.
@@ -554,38 +554,38 @@ interface UnderscoreStatic {
 	* @param array Retrieves the first element of this array.
 	* @return Returns the first element of `array`.
 	**/
-    first<T>(array: _.List<T>): T;
+	first<T>(array: _.List<T>): T;
 
 	/**
 	* @see _.first
 	* @param n Return more than one element from `array`.
 	**/
 	first<T>(
-        array: _.List<T>,
+		array: _.List<T>,
 		n: number): T[];
 
 	/**
 	* @see _.first
 	**/
-    head<T>(array: _.List<T>): T;
+	head<T>(array: _.List<T>): T;
 
 	/**
 	* @see _.first
 	**/
 	head<T>(
-        array: _.List<T>,
+		array: _.List<T>,
 		n: number): T[];
 
 	/**
 	* @see _.first
 	**/
-    take<T>(array: _.List<T>): T;
+	take<T>(array: _.List<T>): T;
 
 	/**
 	* @see _.first
 	**/
 	take<T>(
-        array: _.List<T>,
+		array: _.List<T>,
 		n: number): T[];
 
 	/**
@@ -596,7 +596,7 @@ interface UnderscoreStatic {
 	* @return Returns everything but the last `n` elements of `array`.
 	**/
 	initial<T>(
-        array: _.List<T>,
+		array: _.List<T>,
 		n?: number): T[];
 
 	/**
@@ -604,14 +604,14 @@ interface UnderscoreStatic {
 	* @param array Retrieves the last element of this array.
 	* @return Returns the last element of `array`.
 	**/
-    last<T>(array: _.List<T>): T;
+	last<T>(array: _.List<T>): T;
 
 	/**
 	* @see _.last
 	* @param n Return more than one element from `array`.
 	**/
 	last<T>(
-        array: _.List<T>,
+		array: _.List<T>,
 		n: number): T[];
 
 	/**
@@ -622,21 +622,21 @@ interface UnderscoreStatic {
 	* @return Returns the elements of `array` from `index` to the end of `array`.
 	**/
 	rest<T>(
-        array: _.List<T>,
+		array: _.List<T>,
 		n?: number): T[];
 
 	/**
 	* @see _.rest
 	**/
 	tail<T>(
-        array: _.List<T>,
+		array: _.List<T>,
 		n?: number): T[];
 
 	/**
 	* @see _.rest
 	**/
 	drop<T>(
-        array: _.List<T>,
+		array: _.List<T>,
 		n?: number): T[];
 
 	/**
@@ -645,7 +645,7 @@ interface UnderscoreStatic {
 	* @param array Array to compact.
 	* @return Copy of `array` without false values.
 	**/
-    compact<T>(array: _.List<T>): T[];
+	compact<T>(array: _.List<T>): T[];
 
 	/**
 	* Flattens a nested array (the nesting can be to any depth). If you pass shallow, the array will
@@ -655,7 +655,7 @@ interface UnderscoreStatic {
 	* @return `array` flattened.
 	**/
 	flatten(
-        array: _.List<any>,
+		array: _.List<any>,
 		shallow?: boolean): any[];
 
 	/**
@@ -665,7 +665,7 @@ interface UnderscoreStatic {
 	* @return Copy of `array` without `values`.
 	**/
 	without<T>(
-        array: _.List<T>,
+		array: _.List<T>,
 		...values: T[]): T[];
 
 	/**
@@ -674,7 +674,7 @@ interface UnderscoreStatic {
 	* @param arrays Array of arrays to compute the union of.
 	* @return The union of elements within `arrays`.
 	**/
-    union<T>(...arrays: _.List<T>[]): T[];
+	union<T>(...arrays: _.List<T>[]): T[];
 
 	/**
 	* Computes the list of values that are the intersection of all the arrays. Each value in the result
@@ -682,7 +682,7 @@ interface UnderscoreStatic {
 	* @param arrays Array of arrays to compute the intersection of.
 	* @return The intersection of elements within `arrays`.
 	**/
-    intersection<T>(...arrays: _.List<T>[]): T[];
+	intersection<T>(...arrays: _.List<T>[]): T[];
 
 	/**
 	* Similar to without, but returns the values from array that are not present in the other arrays.
@@ -691,8 +691,8 @@ interface UnderscoreStatic {
 	* @return Copy of `array` with only `others` values.
 	**/
 	difference<T>(
-        array: _.List<T>,
-        ...others: _.List<T>[]): T[];
+		array: _.List<T>,
+		...others: _.List<T>[]): T[];
 
 	/**
 	* Produces a duplicate-free version of the array, using === to test object equality. If you know in
@@ -705,34 +705,34 @@ interface UnderscoreStatic {
 	* @return Copy of `array` where all elements are unique.
 	**/
 	uniq<T, TSort>(
-        array: _.List<T>,
+		array: _.List<T>,
 		isSorted?: boolean,
-        iterator?: _.ListIterator<T, TSort>,
+		iterator?: _.ListIterator<T, TSort>,
 		context?: any): T[];
 
 	/**
 	* @see _.uniq
 	**/
 	uniq<T, TSort>(
-        array: _.List<T>,
-        iterator?: _.ListIterator<T, TSort>,
+		array: _.List<T>,
+		iterator?: _.ListIterator<T, TSort>,
 		context?: any): T[];
 
 	/**
 	* @see _.uniq
 	**/
 	unique<T, TSort>(
-        array: _.List<T>,
-        iterator?: _.ListIterator<T, TSort>,
+		array: _.List<T>,
+		iterator?: _.ListIterator<T, TSort>,
 		context?: any): T[];
 
 	/**
 	* @see _.uniq
 	**/
 	unique<T, TSort>(
-        array: _.List<T>,
+		array: _.List<T>,
 		isSorted?: boolean,
-        iterator?: _.ListIterator<T, TSort>,
+		iterator?: _.ListIterator<T, TSort>,
 		context?: any): T[];
 
 
@@ -758,8 +758,8 @@ interface UnderscoreStatic {
 	* @return An object containing the `keys` as properties and `values` as the property values.
 	**/
 	object<TResult extends {}>(
-        keys: _.List<string>,
-        values: _.List<any>): TResult;
+		keys: _.List<string>,
+		values: _.List<any>): TResult;
 
 	/**
 	* Converts arrays into objects. Pass either a single list of [key, value] pairs, or a
@@ -773,7 +773,7 @@ interface UnderscoreStatic {
 	* @see _.object
 	**/
 	object<TResult extends {}>(
-        list: _.List<any>,
+		list: _.List<any>,
 		values?: any): TResult;
 
 	/**
@@ -787,7 +787,7 @@ interface UnderscoreStatic {
 	* @return The index of `value` within `array`.
 	**/
 	indexOf<T>(
-        array: _.List<T>,
+		array: _.List<T>,
 		value: T,
 		isSorted?: boolean): number;
 
@@ -795,7 +795,7 @@ interface UnderscoreStatic {
 	* @see _indexof
 	**/
 	indexOf<T>(
-        array: _.List<T>,
+		array: _.List<T>,
 		value: T,
 		startFrom: number): number;
 
@@ -808,7 +808,7 @@ interface UnderscoreStatic {
 	* @return The index of the last occurance of `value` within `array`.
 	**/
 	lastIndexOf<T>(
-        array: _.List<T>,
+		array: _.List<T>,
 		value: T,
 		from?: number): number;
 
@@ -822,7 +822,7 @@ interface UnderscoreStatic {
 	* @return The index where `value` should be inserted into `list`.
 	**/
 	sortedIndex<T, TSort>(
-        list: _.List<T>,
+		list: _.List<T>,
 		value: T,
 		iterator?: (x: T) => TSort, context?: any): number;
 
@@ -950,7 +950,7 @@ interface UnderscoreStatic {
 	throttle(
 		func: any,
 		wait: number,
-        options?: _.ThrottleSettings): Function;
+		options?: _.ThrottleSettings): Function;
 
 	/**
 	* Creates and returns a new debounced version of the passed function that will postpone its execution
@@ -1346,13 +1346,13 @@ interface UnderscoreStatic {
 	* @param settings Settings to use while compiling.
 	* @return Returns the compiled Underscore HTML template.
 	**/
-    template(templateString: string, data?: any, settings?: _.TemplateSettings): (...data: any[]) => string;
+	template(templateString: string, data?: any, settings?: _.TemplateSettings): (...data: any[]) => string;
 
 	/**
 	* By default, Underscore uses ERB-style template delimiters, change the
 	* following template settings to use alternative delimiters.
 	**/
-    templateSettings: _.TemplateSettings;
+	templateSettings: _.TemplateSettings;
 
 	/* **********
 	 * Chaining *
@@ -1364,7 +1364,8 @@ interface UnderscoreStatic {
 	* @param obj Object to chain.
 	* @return Wrapped `obj`.
 	**/
-	chain<T>(obj: any): _Chain<T>;
+	chain<T>(obj: T[]): _Chain<T>;
+	chain<T extends {}>(obj: T): _Chain<T>;
 
 	/**
 	* Extracts the value of a wrapped object.
@@ -2194,13 +2195,29 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.map
 	**/
-	map<TResult>(iterator: _.ListIterator<T, TResult>, context?: any): _Chain<T>;
+	map<TArray>(iterator: (value: T, index: number, list: T[]) => TArray[], context?: any): _ChainOfArrays<TArray>;
+	//Not sure why this won't work, might be a TypeScript error? 
+	//map<TArray>(iterator: _.ListIterator<T, TArray[]>, context?: any): _ChainOfArrays<TArray>;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.map
 	**/
-	map<TResult>(iterator: _.ObjectIterator<T, TResult>, context?: any): _Chain<T>;
+	map<TResult>(iterator: _.ListIterator<T, TResult>, context?: any): _Chain<TResult>;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.map
+	**/
+	map<TArray>(iterator: (element: T, key: string, list: any) => TArray[], context?: any): _ChainOfArrays<TArray>;
+	//Not sure why this won't work, might be a TypeScript error?  
+	//map<TArray>(iterator: _.ObjectIterator<T, TArray[]>, context?: any): _ChainOfArrays<TArray>;
+	
+	/**
+	* Wrapped type `any[]`.
+	* @see _.map
+	**/
+	map<TResult>(iterator: _.ObjectIterator<T, TResult>, context?: any): _Chain<TResult>;
 
 	/**
 	* @see _.map
@@ -2243,7 +2260,7 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.find
 	**/
-	find(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
+	find(iterator: _.ListIterator<T, boolean>, context?: any): _ChainSingle<T>;
 
 	/**
 	* @see _.find
@@ -2271,7 +2288,7 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.findWhere
 	**/
-	findWhere<U extends {}>(properties: U): _Chain<T>;
+	findWhere<U extends {}>(properties: U): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `any[]`.
@@ -2323,43 +2340,43 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.pluck
 	**/
-	pluck(propertyName: string): _Chain<T>;
+	pluck(propertyName: string): _Chain<any>;
 
 	/**
 	* Wrapped type `number[]`.
 	* @see _.max
 	**/
-	max(): _Chain<T>;
+	max(): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.max
 	**/
-	max(iterator: _.ListIterator<T, number>, context?: any): _Chain<T>;
+	max(iterator: _.ListIterator<T, number>, context?: any): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.max
 	**/
-	max(iterator?: _.ListIterator<T, any>, context?: any): _Chain<T>;
+	max(iterator?: _.ListIterator<T, any>, context?: any): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `number[]`.
 	* @see _.min
 	**/
-	min(): _Chain<T>;
+	min(): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.min
 	**/
-	min(iterator: _.ListIterator<T, number>, context?: any): _Chain<T>;
+	min(iterator: _.ListIterator<T, number>, context?: any): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.min
 	**/
-	min(iterator?: _.ListIterator<T, any>, context?: any): _Chain<T>;
+	min(iterator?: _.ListIterator<T, any>, context?: any): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `any[]`.
@@ -2518,7 +2535,7 @@ interface _Chain<T> {
 	* Wrapped type `any`.
 	* @see _.flatten
 	**/
-	flatten(shallow?: boolean): _Chain<T>;
+	flatten(shallow?: boolean): _Chain<any>;
 
 	/**
 	* Wrapped type `any[]`.
@@ -2947,7 +2964,13 @@ interface _Chain<T> {
 	* Wrapped type `any`.
 	* @see _.value
 	**/
-	value<TResult>(): TResult;
+	value<TResult>(): T[];
+}
+interface _ChainSingle<T> {
+	value(): T;
+}
+interface _ChainOfArrays<T> extends _Chain<T[]> {
+	flatten(): _Chain<T>;
 }
 
 declare var _: UnderscoreStatic;
