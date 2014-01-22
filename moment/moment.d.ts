@@ -257,24 +257,28 @@ interface MomentRelativeTime {
 interface MomentStatic {
 
     (): Moment;
-	(dateObject: Object, language?: string, strict?: boolean): Moment;
-    (date: number, language?: string, strict?: boolean): Moment;
-    (date: string, language?: string, strict?: boolean): Moment;
-    (date: string, format: string, language?: string, strict?: boolean): Moment;
-	(date: string, formats: string[], language?: string, strict?: boolean): Moment;
-    (date: Date, language?: string, strict?: boolean): Moment;
-    (date: number[], language?: string, strict?: boolean): Moment;
-    (clone: Moment): Moment;
+    (date: number): Moment;
+    (date: number[]): Moment;
+    (date: string, format?: string, strict?: boolean): Moment;
+    (date: string, format?: string, language?: string, strict?: boolean): Moment;
+    (date: string, formats: string[], strict?: boolean): Moment;
+    (date: string, formats: string[], language?: string, strict?: boolean): Moment;
+    (date: Date): Moment;
+    (date: Moment): Moment;
+    (date: Object): Moment;
+
+    utc(): Moment;
+    utc(date: number): Moment;
+    utc(date: number[]): Moment;
+    utc(date: string, format?: string, strict?: boolean): Moment;
+    utc(date: string, format?: string, language?: string, strict?: boolean): Moment;
+    utc(date: string, formats: string[], strict?: boolean): Moment;
+    utc(date: string, formats: string[], language?: string, strict?: boolean): Moment;
+    utc(date: Date): Moment;
+    utc(date: Moment): Moment;
+    utc(date: Object): Moment;
 
     unix(timestamp: number): Moment;
-
-    utc(): Moment; // current date/time in UTC mode
-    utc(Number: number): Moment; // milliseconds since the Unix Epoch in UTC mode
-    utc(array: number[]): Moment; // parse an array of numbers matching Date.UTC() parameters
-    utc(String: string): Moment; // parse string into UTC mode
-    utc(String1: string, String2: string): Moment; // parse a string and format into UTC mode
-	utc(date: Date): Moment;
-	utc(clone: Moment): Moment;
 
     isMoment(): boolean;
     isMoment(m: any): boolean;
