@@ -888,7 +888,10 @@ interface JQueryStatic {
      * @param collection The object or array to iterate over.
      * @param callback The function that will be executed on every object.
      */
-    each(collection: any, callback: (indexInArray: any, valueOfElement: any) => any): any;
+    each(
+        collection: any,
+        callback: (indexInArray: any, valueOfElement: any) => any
+        ): any;
 
     extend(target: any, ...objs: any[]): any;
     extend(deep: boolean, target: any, ...objs: any[]): any;
