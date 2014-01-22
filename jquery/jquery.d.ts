@@ -863,12 +863,35 @@ interface JQueryStatic {
     // Properties
     support: JQuerySupport;
 
-    // Utilities
+    /**
+     * Check to see if a DOM element is a descendant of another DOM element.
+     * 
+     * @param container The DOM element that may contain the other element.
+     * @param contained The DOM element that may be contained by (a descendant of) the other element.
+     */
     contains(container: Element, contained: Element): boolean;
 
-    each(collection: any, callback: (indexInArray: any, valueOfElement: any) => any): any;
-    each(collection: JQuery, callback: (indexInArray: number, valueOfElement: HTMLElement) => any): any;
-    each<T>(collection: T[], callback: (indexInArray: number, valueOfElement: T) => any): any;
+    /**
+     * A generic iterator function, which can be used to seamlessly iterate over both objects and arrays. Arrays and array-like objects with a length property (such as a function's arguments object) are iterated by numeric index, from 0 to length-1. Other objects are iterated via their named properties.
+     * 
+     * @param collection The object or array to iterate over.
+     * @param callback The function that will be executed on every object.
+     */
+    each<T>(
+        collection: T[],
+        callback: (indexInArray: number, valueOfElement: T) => any
+        ): any;
+
+    /**
+     * A generic iterator function, which can be used to seamlessly iterate over both objects and arrays. Arrays and array-like objects with a length property (such as a function's arguments object) are iterated by numeric index, from 0 to length-1. Other objects are iterated via their named properties.
+     * 
+     * @param collection The object or array to iterate over.
+     * @param callback The function that will be executed on every object.
+     */
+    each(
+        collection: any,
+        callback: (indexInArray: any, valueOfElement: any) => any
+        ): any;
 
     extend(target: any, ...objs: any[]): any;
     extend(deep: boolean, target: any, ...objs: any[]): any;
@@ -2479,8 +2502,12 @@ interface JQuery {
     wrapInner(wrappingElement: any): JQuery;
     wrapInner(func: (index: any) => any): JQuery;
 
-    // Miscellaneous
-    each(func: (index: any, elem: Element) => any): JQuery;
+    /**
+     * Iterate over a jQuery object, executing a function for each matched element.
+     * 
+     * @param func A function to execute for each matched element.
+     */
+    each(func: (index: number, elem: Element) => any): JQuery;
 
     get(index?: number): any;
 
