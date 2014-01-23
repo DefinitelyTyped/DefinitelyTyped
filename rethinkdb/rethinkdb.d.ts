@@ -104,8 +104,8 @@ declare module "rethinkdb" {
 
     // Join
     // these return left, right
-    innerJoin(sequence:Sequence, join:ExpressionFunction<boolean>):Sequence;
-    outerJoin(sequence:Sequence, join:ExpressionFunction<boolean>):Sequence;
+    innerJoin(sequence:Sequence, join:JoinFunction<boolean>):Sequence;
+    outerJoin(sequence:Sequence, join:JoinFunction<boolean>):Sequence;
     eqJoin(leftAttribute:string, rightSequence:Sequence, index?:Index):Sequence;
     eqJoin(leftAttribute:ExpressionFunction<any>, rightSequence:Sequence, index?:Index):Sequence;
     zip():Sequence;
@@ -126,10 +126,10 @@ declare module "rethinkdb" {
     sample(n:number):Sequence;
 
     // Aggregate
-    reduce(r:Reduce, base?:any):Expression<any>;
+    reduce(r:ReduceFunction<any>, base?:any):Expression<any>;
     count():Expression<number>;
     distinct():Sequence;
-    groupedMapReduce(group:ExpressionFunction<any>, map:ExpressionFunction<any>, reduce:Reduce, base?:any):Sequence;
+    groupedMapReduce(group:ExpressionFunction<any>, map:ExpressionFunction<any>, reduce:ReduceFunction<any>, base?:any):Sequence;
     groupBy(...aggregators:Aggregator[]):Expression<Object>; // TODO: reduction object
     contains(prop:string):Expression<boolean>;
 
@@ -139,11 +139,15 @@ declare module "rethinkdb" {
   }
 
   interface ExpressionFunction<U> {
-    (...docs:Expression<any>[]):Expression<U>; 
+    (doc:Expression<any>):Expression<U>; 
   }
 
-  interface Reduce {
-    (acc:any, val:any):any;
+  interface JoinFunction<U> {
+    (left:Expression<any>, right:Expression<any>):Expression<U>; 
+  }
+
+  interface ReduceFunction<U> {
+    (acc:Expression<any>, val:Expression<any>):Expression<U>;
   }
 
   interface InsertOptions {
