@@ -1,4 +1,9 @@
-/* 
+// Type definitions for jQuery.gridster 0.1.0
+// Project: https://github.com/jbaldwin/gridster
+// Definitions by: Josh Baldwin <https://github.com/jbaldwin>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/*
 gridster-0.1.0.d.ts may be freely distributed under the MIT license.
 
 Copyright (c) 2013 Josh Baldwin https://github.com/jbaldwin/gridster.d.ts

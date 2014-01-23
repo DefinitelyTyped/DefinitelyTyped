@@ -1,9 +1,9 @@
 ﻿// Type definitions for jsPlumb 1.3.16 jQuery adapter.
 // Project: http://jsplumb.org
-//          https://github.com/sporritt/jsplumb
-//          https://code.google.com/p/jsplumb
-//          
+// Project: https://github.com/sporritt/jsplumb
+// Project: https://code.google.com/p/jsplumb
 // Definitions by: Steve Shearn <https://github.com/shearnie/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
