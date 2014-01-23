@@ -37,6 +37,7 @@ interface IdTextPair {
 
 interface Select2Options {
     width?: string;
+    dropdownAutoWidth?: boolean;
     minimumInputLength?: number;
     minimumResultsForSearch?: number;
     maximumSelectionSize?: number;
@@ -47,9 +48,9 @@ interface Select2Options {
     closeOnSelect?: boolean;
     openOnEnter?: boolean;
     id?: (object: any) => string;
-    matcher?: (term: string, text: string, option: JQuery) => boolean;
-    formatSelection?: (object: any, container: JQuery) => string;
-    formatResult?: (object: any, container: JQuery, query: any) => string;
+    matcher?: (term: string, text: string, option: any) => boolean;
+    formatSelection?: (object: any, container: JQuery, escapeMarkup:(markup: string) => string) => string;
+    formatResult?: (object: any, container: JQuery, query: any, escapeMarkup: (markup: string) => string) => string;
     formatResultCssClass?: (object: any) => string;
     formatNoMatches?: (term: string) => string;
     formatSearching?: () => string;
@@ -71,7 +72,19 @@ interface Select2Options {
     escapeMarkup?: (markup: string) => string;
 }
 
+interface Select2JQueryEventObject extends JQueryEventObject {
+    val: any;
+    added: any;
+    removed: any;
+}
+
 interface JQuery {
+    off(events?: "change", selector?: any, handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+
+    on(events: "change", selector?: string, data?: any, handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "change", selector?: string, handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "change", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+
     select2(): JQuery;
     select2(it: IdTextPair): JQuery;
     select2(options: Select2Options): JQuery;

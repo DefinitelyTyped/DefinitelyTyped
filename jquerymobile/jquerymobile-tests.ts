@@ -25,9 +25,6 @@ function test_api() {
     var isAbs = $.mobile.path.isAbsoluteUrl("//foo.com/a/file.html");
     var dirName = $.mobile.path.get("http://foo.com/a");
     $.mobile.silentScroll(100);
-    
-    $.mobile.showPageLoadingMsg();
-    $.mobile.hidePageLoadingMsg();
 }
 
 function test_pagesDialogs() {
@@ -216,7 +213,7 @@ function test_form() {
     $("input[type='radio']").checkboxradio({ mini: true });
     $("input[type='radio']").checkboxradio({ theme: "a" });
     $("input[type='radio']").checkboxradio('enable');
-    $("input[type='radio']:first").attr("checked", true).checkboxradio("refresh");
+    $("input[type='radio']:first").prop("checked", true).checkboxradio("refresh");
     $("input[type='radio']").checkboxradio({
         create: function (event, ui) { }
     });

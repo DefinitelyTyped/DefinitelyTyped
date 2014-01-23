@@ -134,9 +134,15 @@ interface Config {
 	current: Object;
 	reorder: boolean;
 	requireExpects: boolean;
-    testTimeout: number;
-	urlConfig: Array;
+	testTimeout: number;
+	urlConfig: Array<URLConfigItem>;
 	done: any;
+}
+
+interface URLConfigItem {
+	id: string;
+	label: string;
+	tooltip: string;
 }
 
 interface LifecycleObject {
@@ -169,13 +175,13 @@ interface QUnitAssert {
 	* @param expected Known comparison value
 	* @param message A short description of the assertion
 	*/
-	deepEqual(actual: any, expected: any, message?: string);
+	deepEqual(actual: any, expected: any, message?: string): any;
 
 	/** 
 	* A non-strict comparison assertion, roughly equivalent to JUnit assertEquals.
 	*
 	* The equal assertion uses the simple comparison operator (==) to compare the actual 
-	* and expected arguments. When they are equal, the assertion passes; otherwise, it fails. 
+	* and expected arguments. When they are equal, the assertion passes: any; otherwise, it fails. 
 	* When it fails, both actual and expected values are displayed in the test result, 
 	* in addition to a given message.
 	* 
@@ -183,7 +189,7 @@ interface QUnitAssert {
 	* @param expected Known comparison value
 	* @param message A short description of the assertion
 	*/
-	equal(actual: any, expected: any, message?: string);
+	equal(actual: any, expected: any, message?: string): any;
 
 	/**
 	* An inverted deep recursive comparison assertion, working on primitive types, 
@@ -197,13 +203,13 @@ interface QUnitAssert {
 	* @param expected Known comparison value
 	* @param message A short description of the assertion
 	*/
-	notDeepEqual(actual: any, expected: any, message?: string);
+	notDeepEqual(actual: any, expected: any, message?: string): any;
 
 	/**
 	* A non-strict comparison assertion, checking for inequality.
 	*
 	* The notEqual assertion uses the simple inverted comparison operator (!=) to compare 
-	* the actual and expected arguments. When they aren't equal, the assertion passes; 
+	* the actual and expected arguments. When they aren't equal, the assertion passes: any; 
 	* otherwise, it fails. When it fails, both actual and expected values are displayed 
 	* in the test result, in addition to a given message.
 	* 
@@ -211,25 +217,25 @@ interface QUnitAssert {
 	* @param expected Known comparison value
 	* @param message A short description of the assertion
 	*/
-	notEqual(actual: any, expected: any, message?: string);
+	notEqual(actual: any, expected: any, message?: string): any;
 
-	notPropEqual(actual: any, expected: any, message?: string);
+	notPropEqual(actual: any, expected: any, message?: string): any;
 
-	propEqual(actual: any, expected: any, message?: string);
+	propEqual(actual: any, expected: any, message?: string): any;
 
 	/**
 	* A non-strict comparison assertion, checking for inequality.
 	*
 	* The notStrictEqual assertion uses the strict inverted comparison operator (!==) 
 	* to compare the actual and expected arguments. When they aren't equal, the assertion 
-	* passes; otherwise, it fails. When it fails, both actual and expected values are 
+	* passes: any; otherwise, it fails. When it fails, both actual and expected values are 
 	* displayed in the test result, in addition to a given message.
 	* 
 	* @param actual Expression being tested
 	* @param expected Known comparison value
 	* @param message A short description of the assertion
 	*/
-	notStrictEqual(actual: any, expected: any, message?: string);
+	notStrictEqual(actual: any, expected: any, message?: string): any;
 
 	/**
 	* A boolean assertion, equivalent to CommonJS’s assert.ok() and JUnit’s assertTrue(). 
@@ -242,7 +248,7 @@ interface QUnitAssert {
 	* @param state Expression being tested
 	* @param message A short description of the assertion
 	*/
-	ok(state: any, message?: string);
+	ok(state: any, message?: string): any;
 
 	/**
 	* A strict type and value comparison assertion.
@@ -254,7 +260,7 @@ interface QUnitAssert {
 	* @param expected Known comparison value
 	* @param message A short description of the assertion
 	*/
-	strictEqual(actual: any, expected: any, message?: string);
+	strictEqual(actual: any, expected: any, message?: string): any;
 
 	/**
 	* Assertion to test if a callback throws an exception when run.
@@ -266,13 +272,13 @@ interface QUnitAssert {
 	* @param expected Error Object to compare
 	* @param message A short description of the assertion
 	*/
-	throws(block: () => any, expected: any, message?: string);
+	throws(block: () => any, expected: any, message?: string): any;
 
 	/**
 	* @param block Function to execute
 	* @param message A short description of the assertion
 	*/
-	throws(block: () => any, message?: string);
+	throws(block: () => any, message?: string): any;
 }
 
 interface QUnitStatic extends QUnitAssert{	
@@ -285,7 +291,7 @@ interface QUnitStatic extends QUnitAssert{
 	* 
 	* @param decrement Optional argument to merge multiple start() calls into one. Use with multiple corrsponding stop() calls.
 	*/
-	start(decrement?: number);
+	start(decrement?: number): any;
 
 	/**
 	* Stop the testrunner to wait for async tests to run. Call start() to continue.
@@ -296,7 +302,7 @@ interface QUnitStatic extends QUnitAssert{
 	*
 	* @param decrement Optional argument to merge multiple stop() calls into one. Use with multiple corrsponding start() calls.
 	*/
-	stop(increment? : number);
+	stop(increment? : number): any;
 	
 	/* CALLBACKS */
 
@@ -308,14 +314,14 @@ interface QUnitStatic extends QUnitAssert{
 	*
 	* @param callback Callback to execute
 	*/
-	begin(callback: () => any);
+	begin(callback: () => any): any;
 
 	/**
 	* Register a callback to fire whenever the test suite ends.
 	*
 	* @param callback Callback to execute.
 	*/
-	done(callback: (details: DoneCallbackObject) => any);
+	done(callback: (details: DoneCallbackObject) => any): any;
 
 	/**
 	* Register a callback to fire whenever an assertion completes.
@@ -325,35 +331,35 @@ interface QUnitStatic extends QUnitAssert{
 	*
 	* @param callback Callback to execute.
 	*/
-	log(callback: (details: LogCallbackObject) => any);
+	log(callback: (details: LogCallbackObject) => any): any;
 
 	/**
 	* Register a callback to fire whenever a module ends.
 	*
 	* @param callback Callback to execute.
 	*/
-	moduleDone(callback: (details: ModuleDoneCallbackObject) => any);
+	moduleDone(callback: (details: ModuleDoneCallbackObject) => any): any;
 
 	/**
 	* Register a callback to fire whenever a module begins.
 	*
 	* @param callback Callback to execute.
 	*/
-	moduleStart(callback: (details: ModuleStartCallbackObject) => any);
+	moduleStart(callback: (details: ModuleStartCallbackObject) => any): any;
 
 	/**
 	* Register a callback to fire whenever a test ends.
 	*
 	* @param callback Callback to execute.
 	*/
-	testDone(callback: (details: TestDoneCallbackObject) => any);
+	testDone(callback: (details: TestDoneCallbackObject) => any): any;
 
 	/**
 	* Register a callback to fire whenever a test begins.
 	*
 	* @param callback Callback to execute.
 	*/
-	testStart(callback: (details: TestStartCallbackObject) => any);
+	testStart(callback: (details: TestStartCallbackObject) => any): any;
 	
 	/* CONFIGURATION */
 
@@ -375,7 +381,7 @@ interface QUnitStatic extends QUnitAssert{
 	* @param expected Number of assertions in this test
 	* @param test Function to close over assertions
 	*/
-	asyncTest(name: string, expected: number, test: () => any);
+	asyncTest(name: string, expected: number, test: () => any): any;
 
 	/**
 	* Add an asynchronous test to run. The test must include a call to start().
@@ -386,7 +392,7 @@ interface QUnitStatic extends QUnitAssert{
 	* @param name Title of unit being tested
 	* @param test Function to close over assertions
 	*/
-	asyncTest(name: string, test: () => any);
+	asyncTest(name: string, test: () => any): any;
 
 	/**
 	* Specify how many assertions are expected to run within a test.
@@ -397,7 +403,7 @@ interface QUnitStatic extends QUnitAssert{
 	*
 	* @param amount Number of assertions in this test.
 	*/
-	expect(amount: number);
+	expect(amount: number): any;
 
 	/**
 	* Group related tests under a single label.
@@ -409,7 +415,7 @@ interface QUnitStatic extends QUnitAssert{
 	* @param name Label for this group of tests
 	* @param lifecycle Callbacks to run before and after each test
 	*/
-	module(name: string, lifecycle?: LifecycleObject);
+	module(name: string, lifecycle?: LifecycleObject): any;
 
 	/**
 	* Add a test to run.
@@ -423,18 +429,18 @@ interface QUnitStatic extends QUnitAssert{
 	* @param expected Number of assertions in this test
 	* @param test Function to close over assertions
 	*/
-	test(title: string, expected: number, test: (assert: QUnitAssert) => any);
+	test(title: string, expected: number, test: (assert: QUnitAssert) => any): any;
 
 	/**
 	* @param title Title of unit being tested
 	* @param test Function to close over assertions
 	*/
-	test(title: string, test: (assert: QUnitAssert) => any);
+	test(title: string, test: (assert: QUnitAssert) => any): any;
 
 	/**
 	* https://github.com/jquery/qunit/blob/master/qunit/qunit.js#L1568
 	*/
-	equiv(a: any, b: any);
+	equiv(a: any, b: any): any;
 
 	// https://github.com/jquery/qunit/blob/master/qunit/qunit.js#L661
 	raises: any;
@@ -442,7 +448,7 @@ interface QUnitStatic extends QUnitAssert{
 	/**
 	* https://github.com/jquery/qunit/blob/master/qunit/qunit.js#L897
 	*/
-	push(result, actual, expected, message): any;
+	push(result: any, actual: any, expected: any, message: string): any;
 
 	/**
 	* https://github.com/jquery/qunit/blob/master/qunit/qunit.js#L839
@@ -464,13 +470,13 @@ interface QUnitStatic extends QUnitAssert{
 * @param expected Known comparison value
 * @param message A short description of the assertion
 */
-declare function deepEqual(actual: any, expected: any, message?: string);
+declare function deepEqual(actual: any, expected: any, message?: string): any;
 
 /** 
 * A non-strict comparison assertion, roughly equivalent to JUnit assertEquals.
 *
 * The equal assertion uses the simple comparison operator (==) to compare the actual 
-* and expected arguments. When they are equal, the assertion passes; otherwise, it fails. 
+* and expected arguments. When they are equal, the assertion passes: any; otherwise, it fails. 
 * When it fails, both actual and expected values are displayed in the test result, 
 * in addition to a given message.
 * 
@@ -478,7 +484,7 @@ declare function deepEqual(actual: any, expected: any, message?: string);
 * @param expected Known comparison value
 * @param message A short description of the assertion
 */
-declare function equal(actual: any, expected: any, message?: string);
+declare function equal(actual: any, expected: any, message?: string): any;
 
 /**
 * An inverted deep recursive comparison assertion, working on primitive types, 
@@ -492,7 +498,7 @@ declare function equal(actual: any, expected: any, message?: string);
 * @param expected Known comparison value
 * @param message A short description of the assertion
 */
-declare function notDeepEqual(actual: any, expected: any, message?: string);
+declare function notDeepEqual(actual: any, expected: any, message?: string): any;
 
 /**
 * A non-strict comparison assertion, checking for inequality.
@@ -506,7 +512,7 @@ declare function notDeepEqual(actual: any, expected: any, message?: string);
 * @param expected Known comparison value
 * @param message A short description of the assertion
 */
-declare function notEqual(actual: any, expected: any, message?: string);
+declare function notEqual(actual: any, expected: any, message?: string): any;
 
 /**
 * A non-strict comparison assertion, checking for inequality.
@@ -520,7 +526,7 @@ declare function notEqual(actual: any, expected: any, message?: string);
 * @param expected Known comparison value
 * @param message A short description of the assertion
 */
-declare function notStrictEqual(actual: any, expected: any, message?: string);
+declare function notStrictEqual(actual: any, expected: any, message?: string): any;
 
 /**
 * A boolean assertion, equivalent to CommonJS’s assert.ok() and JUnit’s assertTrue(). 
@@ -533,7 +539,7 @@ declare function notStrictEqual(actual: any, expected: any, message?: string);
 * @param state Expression being tested
 * @param message A short description of the assertion
 */
-declare function ok(state: any, message?: string);
+declare function ok(state: any, message?: string): any;
 
 /**
 * A strict type and value comparison assertion.
@@ -545,7 +551,7 @@ declare function ok(state: any, message?: string);
 * @param expected Known comparison value
 * @param message A short description of the assertion
 */
-declare function strictEqual(actual: any, expected: any, message?: string);
+declare function strictEqual(actual: any, expected: any, message?: string): any;
 
 /**
 * Assertion to test if a callback throws an exception when run.
@@ -557,13 +563,13 @@ declare function strictEqual(actual: any, expected: any, message?: string);
 * @param expected Error Object to compare
 * @param message A short description of the assertion
 */
-declare function throws(block: () => any, expected: any, message?: string);
+declare function throws(block: () => any, expected: any, message?: string): any;
 
 /**
 * @param block Function to execute
 * @param message A short description of the assertion
 */
-declare function throws(block: () => any, message?: string);
+declare function throws(block: () => any, message?: string): any;
 
 /* ASYNC CONTROL */
 
@@ -574,7 +580,7 @@ declare function throws(block: () => any, message?: string);
 * 
 * @param decrement Optional argument to merge multiple start() calls into one. Use with multiple corrsponding stop() calls.
 */
-declare function start(decrement?: number);
+declare function start(decrement?: number): any;
 
 /**
 * Stop the testrunner to wait for async tests to run. Call start() to continue.
@@ -585,7 +591,7 @@ declare function start(decrement?: number);
 *
 * @param decrement Optional argument to merge multiple stop() calls into one. Use with multiple corrsponding start() calls.
 */
-declare function stop(increment? : number);
+declare function stop(increment? : number): any;
 	
 /* CALLBACKS */
 
@@ -597,14 +603,14 @@ declare function stop(increment? : number);
 *
 * @param callback Callback to execute
 */
-declare function begin(callback: () => any);
+declare function begin(callback: () => any): any;
 
 /**
 * Register a callback to fire whenever the test suite ends.
 *
 * @param callback Callback to execute.
 */
-declare function done(callback: (details: DoneCallbackObject) => any);
+declare function done(callback: (details: DoneCallbackObject) => any): any;
 
 /**
 * Register a callback to fire whenever an assertion completes.
@@ -614,35 +620,35 @@ declare function done(callback: (details: DoneCallbackObject) => any);
 *
 * @param callback Callback to execute.
 */
-declare function log(callback: (details: LogCallbackObject) => any);
+declare function log(callback: (details: LogCallbackObject) => any): any;
 
 /**
 * Register a callback to fire whenever a module ends.
 *
 * @param callback Callback to execute.
 */
-declare function moduleDone(callback: (details: ModuleDoneCallbackObject) => any);
+declare function moduleDone(callback: (details: ModuleDoneCallbackObject) => any): any;
 
 /**
 * Register a callback to fire whenever a module begins.
 *
 * @param callback Callback to execute.
 */
-declare function moduleStart(callback: (name: string) => any);
+declare function moduleStart(callback: (name: string) => any): any;
 
 /**
 * Register a callback to fire whenever a test ends.
 *
 * @param callback Callback to execute.
 */
-declare function testDone(callback: (details: TestDoneCallbackObject) => any);
+declare function testDone(callback: (details: TestDoneCallbackObject) => any): any;
 
 /**
 * Register a callback to fire whenever a test begins.
 *
 * @param callback Callback to execute.
 */
-declare function testStart(callback: (details: TestStartCallbackObject) => any);
+declare function testStart(callback: (details: TestStartCallbackObject) => any): any;
 	
 /* TEST */
 
@@ -656,7 +662,7 @@ declare function testStart(callback: (details: TestStartCallbackObject) => any);
 * @param expected Number of assertions in this test
 * @param test Function to close over assertions
 */
-declare function asyncTest(name: string, expected?: any, test?: () => any);
+declare function asyncTest(name: string, expected?: any, test?: () => any): any;
 
 /**
 * Add an asynchronous test to run. The test must include a call to start().
@@ -667,7 +673,7 @@ declare function asyncTest(name: string, expected?: any, test?: () => any);
 * @param name Title of unit being tested
 * @param test Function to close over assertions
 */
-declare function asyncTest(name: string, test: () => any);
+declare function asyncTest(name: string, test: () => any): any;
 
 /**
 * Specify how many assertions are expected to run within a test.
@@ -678,7 +684,7 @@ declare function asyncTest(name: string, test: () => any);
 *
 * @param amount Number of assertions in this test.
 */
-declare function expect(amount: number);
+declare function expect(amount: number): any;
 
 // ** conflict with TypeScript module keyword. Must be used on QUnit namespace
 //declare var module: (name: string, lifecycle?: LifecycleObject) => any;
@@ -695,20 +701,20 @@ declare function expect(amount: number);
 * @param expected Number of assertions in this test
 * @param test Function to close over assertions
 */
-declare function test(title: string, expected: number, test: (assert?: QUnitAssert) => any);
+declare function test(title: string, expected: number, test: (assert?: QUnitAssert) => any): any;
 
 /**
 * @param title Title of unit being tested
 * @param test Function to close over assertions
 */
-declare function test(title: string, test: (assert?: QUnitAssert) => any);
+declare function test(title: string, test: (assert?: QUnitAssert) => any): any;
 
-declare function notPropEqual(actual: any, expected: any, message?: string);
+declare function notPropEqual(actual: any, expected: any, message?: string): any;
 
-declare function propEqual(actual: any, expected: any, message?: string);
+declare function propEqual(actual: any, expected: any, message?: string): any;
 
 // https://github.com/jquery/qunit/blob/master/qunit/qunit.js#L1568
-declare function equiv(a: any, b: any);
+declare function equiv(a: any, b: any): any;
 
 // https://github.com/jquery/qunit/blob/master/qunit/qunit.js#L661
 declare var raises: any;

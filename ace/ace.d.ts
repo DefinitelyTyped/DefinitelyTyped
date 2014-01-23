@@ -50,7 +50,7 @@ declare module AceAjax {
     export interface TokenInfo {
 
         value: string;
-    }    
+    }
 
     export interface Position {
 
@@ -624,7 +624,7 @@ declare module AceAjax {
          * Sets a breakpoint on every row number given by `rows`. This function also emites the `'changeBreakpoint'` event.
          * @param rows An array of row indices
         **/
-        setBreakpoints(rows: Array);
+        setBreakpoints(rows: any[]);
 
         /**
          * Removes all breakpoints on the rows. This function also emites the `'changeBreakpoint'` event.
@@ -679,7 +679,7 @@ declare module AceAjax {
          * Returns an array containing the IDs of all the markers, either front or back.
          * @param inFront If `true`, indicates you only want front markers; `false` indicates only back markers
         **/
-        getMarkers(inFront: boolean): Array;
+        getMarkers(inFront: boolean): any[];
 
         /**
          * Sets annotations for the `EditSession`. This functions emits the `'changeAnnotation'` event.
@@ -823,14 +823,14 @@ declare module AceAjax {
          * @param deltas An array of previous changes
          * @param dontSelect [If `true`, doesn't select the range of where the change occured]{: #dontSelect}
         **/
-        undoChanges(deltas: Array, dontSelect: boolean): Range;
+        undoChanges(deltas: any[], dontSelect: boolean): Range;
 
         /**
          * Re-implements a previously undone change to your document.
          * @param deltas An array of previous changes
          * @param dontSelect {:dontSelect}
         **/
-        redoChanges(deltas: Array, dontSelect: boolean): Range;
+        redoChanges(deltas: any[], dontSelect: boolean): Range;
 
         /**
          * Enables or disables highlighting of the range where an undo occured.
@@ -1023,7 +1023,7 @@ declare module AceAjax {
 
         new (text: string[], mode?: string): IEditSession;
     }
-        
+
     ////////////////////////////////
     /// Editor
     ////////////////////////////////
@@ -1040,7 +1040,7 @@ declare module AceAjax {
         selectMoreLines(n: number);
 
         onTextInput(text: string);
-        
+
         onCommandKey(e, hashId, keyCode);
 
         commands: CommandManager;
@@ -1702,7 +1702,7 @@ declare module AceAjax {
 
     }
 
-    var Editor: {    
+    var Editor: {
         /**
          * Creates a new `Editor` object.
          * @param renderer Associated `VirtualRenderer` that draws everything
@@ -1773,7 +1773,7 @@ declare module AceAjax {
         new (session: Document, length: number, pos: number, others: string, mainClass: string, othersClass: string): PlaceHolder;
 
         new (session: IEditSession, length: number, pos: Position, positions: Position[]): PlaceHolder;
-    }    
+    }
 
     ////////////////
     /// RangeList
@@ -1998,7 +1998,7 @@ declare module AceAjax {
     var Range: {
         fromPoints(pos1: Position, pos2: Position): Range;
         new(startRow: number, startColumn: number, endRow: number, endColumn: number): Range;
-    }    
+    }
 
     ////////////////
     /// RenderLoop
@@ -2157,7 +2157,7 @@ declare module AceAjax {
         /**
          * Gets the current position of the cursor.
         **/
-        getCursor(): number;
+        getCursor(): Position;
 
         /**
          * Sets the row and column position of the anchor. This function also emits the `'changeSelection'` event.
@@ -2377,7 +2377,7 @@ declare module AceAjax {
          * @param session The session to use
         **/
         new(session: IEditSession): Selection;
-    }    
+    }
 
     ////////////////
     /// Split
@@ -2529,7 +2529,7 @@ declare module AceAjax {
          * @param flag Any additional regular expression flags to pass (like "i" for case insensitive)
         **/
         new(rules: any, flag: string): Tokenizer;
-    }    
+    }
 
     //////////////////
     /// UndoManager
@@ -2778,7 +2778,7 @@ declare module AceAjax {
          * Sets annotations for the gutter.
          * @param annotations An array containing annotations
         **/
-        setAnnotations(annotations: Array);
+        setAnnotations(annotations: any[]);
 
         /**
          * Updates the cursor icon.

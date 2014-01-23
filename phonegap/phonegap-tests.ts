@@ -318,7 +318,7 @@ function test_file() {
         var reader = new FileReader();
         reader.onloadend = function (evt) {
             console.log("Read as data URL");
-            console.log(evt.target.result);
+            console.log((<any>evt.target).result);
         };
         reader.readAsDataURL(file);
     }
@@ -326,7 +326,7 @@ function test_file() {
         var reader = new FileReader();
         reader.onloadend = function (evt) {
             console.log("Read as text");
-            console.log(evt.target.result);
+            console.log((<any>evt.target).result);
         };
         reader.readAsText(file);
     }
@@ -655,6 +655,12 @@ function test_notification() {
         onConfirm,
         'Game Over',
         'Restart,Exit'
+    );
+	navigator.notification.confirm(
+        'You are the winner!',
+        onConfirm,
+        'Game Over',
+        ['Restart','Exit']
     );
     navigator.notification.beep(2);
     navigator.notification.vibrate(2500);

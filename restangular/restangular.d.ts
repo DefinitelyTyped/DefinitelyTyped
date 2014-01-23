@@ -1,4 +1,4 @@
-// Type definitions for Restangular v0.8.0 - 2013-06-03
+// Type definitions for Restangular v1.2.2 - 2014-01-10
 // Project: https://github.com/mgonto/restangular
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -11,7 +11,10 @@ interface Restangular extends RestangularCustom {
     one(route: string, id?: string): RestangularElement;
     all(route: string): RestangularCollection;
     copy(fromElement: any): RestangularElement;
-    withConfig(configurer: any): Restangular;
+    withConfig(configurer: (RestangularProvider) => any): Restangular;
+    restangularizeElement(parent: any, element: any, route: string, collection?, reqParams?): RestangularElement;
+    restangularizeCollection(parent: any, element: any, route: string): RestangularCollection;
+    stripRestangular(element: any): any;
 }
 
 interface RestangularElement extends Restangular {
@@ -49,16 +52,36 @@ interface RestangularCustom {
 }
 
 interface RestangularProvider {
-    setBaseUrl(newValue: string): void;
-    setExtraFields(newValues: string[]): void;
-    setDefaultHttpFields(newValue: any): void;
-    setMethodOverriders(newValue: any): void;
-    setResponseExtractor(newValue: any): void;
-    setRequestInterceptor(newValue: any): void;
-    setListTypeIsArray(newValue: boolean): void;
-    setRestangularFields(newValue: any): void;
-    setRequestSuffix(newValue: any): void;
-    addElementTransformer(type, secondArg, thirdArg): void;
+    setBaseUrl(baseUrl: string): void;
+    setExtraFields(fields: string[]): void;
+    setParentless(parentless: boolean, routes: string[]): void;
+    setDefaultHttpFields(httpFields: any): void;
+    addElementTransformer(route: string, transformer: Function): void;
+    addElementTransformer(route: string, isCollection: boolean, transformer: Function): void;
+    setOnElemRestangularized(callback: (elem: any, isCollection: boolean, what: string, restangular: Restangular) => any): void;
+    setResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: RestangularResponse, deferred: ng.IDeferred<any>) => any): void;
+    setResponseExtractor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: RestangularResponse, deferred: ng.IDeferred<any>) => any): void;
+    setRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any);
+    setFullRequestInterceptor(fullRequestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any) => {element: any; headers: any; params: any});
+    setErrorInterceptor(errorInterceptor: (response: RestangularResponse) => any): void;
+    setRestangularFields(fields: {[fieldName: string]: string}): void;
+    setMethodOverriders(overriders: string[]): void;
+    setDefaultRequestParams(params: any): void;
+    setDefaultRequestParams(methods: any, params: any): void;
+    setFullResponse(fullResponse: boolean): void;
+    setDefaultHeaders(headers: any): void;
+    setRequestSuffix(suffix: string): void;
+    setUseCannonicalId(useCannonicalId: boolean): void;
+}
+
+interface RestangularResponse {
+    status: number;
+    data: any;
+    config: {
+        method: string;
+        url: string;
+        params: any;
+    }
 }
 
 declare var Restangular: Restangular;

@@ -819,9 +819,9 @@ function test_corefns() {
     f1 = core.propEq("name", "Joe");
     f1 = core.pluck("name");
 
-    var a1: Array;
-    var a2: Array;
-    var a3: Array;
+    var a1: any[];
+    var a2: any[];
+    var a3: any[];
     var b: boolean;
     var n: number;
 
@@ -867,8 +867,8 @@ function test_config() {
     s = config.interfaceInitialized.type;
     o = config.interfaceRegistry;
     o = config.objectRegistry;
-    config.registerAdapter("myAdapterName");
     var f1: Function;
+    config.registerAdapter("myAdapterName", f1);
     config.registerFunction(f1, "myFunction");
     config.registerType(f1, "myCtor");
     s = config.stringifyPad;

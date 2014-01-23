@@ -1,8 +1,6 @@
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="SlickGrid.d.ts" />
 
-declare var $: any;
-
 interface MyData extends Slick.SlickData {
 	title: string;
 	duration: string;
@@ -157,7 +155,7 @@ grid.getCellCssStyles("test")[0]["number_column"];
 
 grid.getCellEditor();
 
-grid.getCellFromEvent(new Slick.SlickEvent());
+grid.getCellFromEvent(new Slick.Event());
 
 grid.getCellFromPoint(5, 10);
 

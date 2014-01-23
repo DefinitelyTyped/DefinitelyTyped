@@ -1,4 +1,4 @@
-// Type definitions for Angular JS 1.0 (ngSanitize module)
+// Type definitions for Angular JS 1.2 (ngSanitize module)
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -19,4 +19,17 @@ declare module ng.sanitize {
         (html: string): string;
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // Filters included with the ngSanitize
+    // see https://github.com/angular/angular.js/tree/v1.2.0/src/ngSanitize/filter
+    ///////////////////////////////////////////////////////////////////////////
+    export module filter {
+
+        // Finds links in text input and turns them into html links. 
+        // Supports http/https/ftp/mailto and plain email address links.
+        // see http://code.angularjs.org/1.2.0/docs/api/ngSanitize.filter:linky
+        interface ILinky {
+            (text: string, target?: string): string;
+        }
+    }
 }

@@ -21,6 +21,14 @@ var array = [2010, 1, 14, 15, 25, 50, 125];
 var day11 = moment(Date.UTC.apply({}, array));
 var day12 = moment.unix(1318781876);
 
+moment({ years: 2010, months: 3, days: 5, hours: 15, minutes: 10, seconds: 3, milliseconds: 123 });
+moment("20140101", "YYYYMMDD", true);
+moment("20140101", "YYYYMMDD", "en");
+moment("20140101", "YYYYMMDD", "en", true);
+moment("20140101", ["YYYYMMDD"], true);
+moment("20140101", ["YYYYMMDD"], "en");
+moment("20140101", ["YYYYMMDD"], "en", true);
+
 var a = moment([2012]);
 var b = moment(a);
 a.year(2000);
@@ -29,8 +37,16 @@ b.year(); // 2012
 moment.utc();
 moment.utc(12345);
 moment.utc([12, 34, 56]);
+moment.utc({ years: 2010, months: 3, days: 5, hours: 15, minutes: 10, seconds: 3, milliseconds: 123 });
 moment.utc("1-2-3");
 moment.utc("1-2-3", "3-2-1");
+moment.utc("1-2-3", "3-2-1", true);
+moment.utc("1-2-3", "3-2-1", "en");
+moment.utc("1-2-3", "3-2-1", "en", true);
+moment.utc("01-01-2014", ["DD-MM-YYYY", "MM-DD-YYYY"]);
+moment.utc("01-01-2014", ["DD-MM-YYYY", "MM-DD-YYYY"], true);
+moment.utc("01-01-2014", ["DD-MM-YYYY", "MM-DD-YYYY"], "en");
+moment.utc("01-01-2014", ["DD-MM-YYYY", "MM-DD-YYYY"], "en", true);
 
 var a2 = moment.utc([2011, 0, 1, 8]);
 a.hours();
@@ -86,6 +102,14 @@ moment().weekYear(2);
 moment().weekYear();
 moment().isoWeekYear(3);
 moment().isoWeekYear();
+moment().week();
+moment().week(45);
+moment().weeks();
+moment().weeks(45);
+moment().isoWeek();
+moment().isoWeek(45);
+moment().isoWeeks();
+moment().isoWeeks(45);
 
 var getMilliseconds: number = moment().milliseconds(); 
 var getSeconds: number = moment().seconds(); 
@@ -94,6 +118,7 @@ var getHours: number = moment().hours();
 var getDate: number = moment().date();
 var getDay: number = moment().day();
 var getMonth: number = moment().month();
+var getQuater: number = moment().quarter();
 var getYear: number = moment().year();
 
 moment().hours(0).minutes(0).seconds(0).milliseconds(0);
@@ -164,62 +189,6 @@ localLang.lang('fr');
 localLang.format('LLLL'); 
 globalLang.format('LLLL'); 
 
-moment.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-moment.monthsShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-moment.weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-moment.weekdaysShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-moment.weekdaysMin = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
-moment.longDateFormat = {
-    LT: "h:mm A",
-    L: "MM/DD/YYYY",
-    LL: "MMMM D YYYY",
-    LLL: "MMMM D YYYY LT",
-    LLLL: "dddd, MMMM D YYYY LT"
-};
-moment.relativeTime = {
-    future: "in %s",
-    past: "%s ago",
-    s: "seconds",
-    m: "a minute",
-    mm: "%d minutes",
-    h: "an hour",
-    hh: "%d hours",
-    d: "a day",
-    dd: "%d days",
-    M: "a month",
-    MM: "%d months",
-    y: "a year",
-    yy: "%d years"
-};
-moment.meridiem = function (hour, minute, isLower) {
-    if (hour < 9) {
-        return "??";
-    } else if (hour < 11 && minute < 30) {
-        return "??";
-    } else if (hour < 13 && minute < 30) {
-        return "??";
-    } else if (hour < 18) {
-        return "??";
-    } else {
-        return "??";
-    }
-};
-moment.calendar = {
-    lastDay : '[Yesterday at] LT',
-    sameDay : '[Today at] LT',
-    nextDay : '[Tomorrow at] LT',
-    lastWeek : '[last] dddd [at] LT',
-    nextWeek : 'dddd [at] LT',
-    sameElse : 'L'
-};
-moment.ordinal = function (number) {
-    var b = number % 10;
-    return (~~ (number % 100 / 10) === 1) ? 'th' :
-        (b === 1) ? 'st' :
-        (b === 2) ? 'nd' :
-        (b === 3) ? 'rd' : 'th';
-};
-
 moment.duration(100);
 moment.duration(2, 'seconds');
 moment.duration({
@@ -239,6 +208,65 @@ moment.duration(500).asSeconds();
 moment.duration().minutes();
 moment.duration().asMinutes();
 
+// Defining a custom language: 
+moment.lang('en', {
+    months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    weekdays: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    weekdaysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    weekdaysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+    longDateFormat: {
+        LT: "h:mm A",
+        L: "MM/DD/YYYY",
+        LL: "MMMM D YYYY",
+        LLL: "MMMM D YYYY LT",
+        LLLL: "dddd, MMMM D YYYY LT"
+    },
+    relativeTime: {
+        future: "in %s",
+        past: "%s ago",
+        s: "seconds",
+        m: "a minute",
+        mm: "%d minutes",
+        h: "an hour",
+        hh: "%d hours",
+        d: "a day",
+        dd: "%d days",
+        M: "a month",
+        MM: "%d months",
+        y: "a year",
+        yy: "%d years"
+    },
+    meridiem: function (hour, minute, isLower) {
+        if (hour < 9) {
+            return "??";
+        } else if (hour < 11 && minute < 30) {
+            return "??";
+        } else if (hour < 13 && minute < 30) {
+            return "??";
+        } else if (hour < 18) {
+            return "??";
+        } else {
+            return "??";
+        }
+    },
+    calendar: {
+        lastDay: '[Yesterday at] LT',
+        sameDay: '[Today at] LT',
+        nextDay: '[Tomorrow at] LT',
+        lastWeek: '[last] dddd [at] LT',
+        nextWeek: 'dddd [at] LT',
+        sameElse: 'L'
+    },
+    ordinal: function (number) {
+        var b = number % 10;
+        return (~~(number % 100 / 10) === 1) ? 'th' :
+            (b === 1) ? 'st' :
+            (b === 2) ? 'nd' :
+            (b === 3) ? 'rd' : 'th';
+    }
+});
+
 moment.lang('en', {
     months : [
         "January", "February", "March", "April", "May", "June", "July",
@@ -247,7 +275,7 @@ moment.lang('en', {
 });
 
 moment.lang('en', {
-    months : function (momentToFormat, format) {
+    months : function (momentToFormat: Moment, format: string) {
         // momentToFormat is the moment currently being formatted
         // format is the formatting string
         if (/^MMMM/.test(format)) { // if the format starts with 'MMMM'
@@ -266,7 +294,7 @@ moment.lang('en', {
 });
 
 moment.lang('en', {
-    monthsShort : function (momentToFormat, format) {
+    monthsShort : function (momentToFormat: Moment, format: string) {
         if (/^MMMM/.test(format)) {
             return this.nominative[momentToFormat.month()];
         } else {
@@ -282,7 +310,7 @@ moment.lang('en', {
 });
 
 moment.lang('en', {
-    weekdays : function (momentToFormat, format) {
+    weekdays : function (momentToFormat: Moment) {
         return this.weekdays[momentToFormat.day()];
     }
 });
@@ -292,7 +320,7 @@ moment.lang('en', {
 });
 
 moment.lang('en', {
-    weekdaysShort : function (momentToFormat, format) {
+    weekdaysShort : function (momentToFormat: Moment) {
         return this.weekdaysShort[momentToFormat.day()];
     }
 });
@@ -302,7 +330,7 @@ moment.lang('en', {
 });
 
 moment.lang('en', {
-    weekdaysMin : function (momentToFormat, format) {
+    weekdaysMin : function (momentToFormat: Moment) {
         return this.weekdaysMin[momentToFormat.day()];
     }
 });

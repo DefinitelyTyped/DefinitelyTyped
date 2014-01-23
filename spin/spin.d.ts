@@ -34,13 +34,13 @@ declare class Spinner {
      * spinning, it is automatically removed from its previous target by calling
      * stop() internally.
      */
-    spin(target?: any): Spinner;
+    spin(target?: HTMLElement): Spinner;
 
     /**
      * Stops and removes the Spinner.
      * Stopped spinners may be reused by calling spin() again.
      */
     stop(): Spinner;
-    lines(el, o);
-    opacity(el, i, val);
+    lines(el:HTMLElement, o:SpinnerOptions):HTMLElement;
+    opacity(el:HTMLElement, i:number, val:number, o:SpinnerOptions):void;
 }

@@ -32,8 +32,8 @@ interface GridsterDraggable {
 	limit: boolean;
 	offset_left: number;
 	drag: (event: Event, ui: GridsterUi) => void;
-	start: (event: Event, ui: { helper: JQuery }) => void;
-	stop: (event: Event, ui: { helper: JQuery }) => void;
+	start: (event: Event, ui: { helper: JQuery; }) => void;
+	stop: (event: Event, ui: { helper: JQuery; }) => void;
 }
 
 interface GridsterUi {
@@ -138,7 +138,7 @@ interface GridsterOptions {
 	/**
 	* Return the data you want for each widget in the serialization.
 	**/
-	serialize_params?: <T>($w: JQuery, wgd: GridsterCoords) => T;
+	serialize_params?: ($w: JQuery, wgd: GridsterCoords) => any;
 
 	/**
 	* An object with all options for Collision class you want to overwrite.  @see GridsterCollision or docs for more info.

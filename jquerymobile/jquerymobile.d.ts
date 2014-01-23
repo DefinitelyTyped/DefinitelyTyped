@@ -1,4 +1,4 @@
-// Type definitions for jQuery Mobile 1.2
+// Type definitions for jQuery Mobile 1.4
 // Project: http://jquerymobile.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -6,10 +6,12 @@
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-interface JQueryMobileEvent { (event: Event, ui): void; }
+interface JQueryMobileEvent { (event: Event, ui: any): void; }
 
 interface DialogOptions {
+    closeBtn?: string;
     closeBtnText?: string;
+    corners?: boolean;
     initSelector?: string;
     overlayTheme?: string;
 }
@@ -105,6 +107,8 @@ interface CollapsibleSetEvents {
 }
 
 interface TextInputOptions {
+    clearBtn?: boolean;
+    clearBtnText?: string;
     disabled?: boolean;
     initSelector?: string;
     mini?: boolean;
@@ -137,6 +141,18 @@ interface SliderEvents {
     create?: JQueryMobileEvent;
     slidestart?: JQueryMobileEvent;
     slidestop?: JQueryMobileEvent;
+}
+
+interface FlipswitchOptions {
+    corners?: boolean;
+    defaults?: boolean;
+    disabled?: boolean;
+    enhanced?: boolean;
+    mini?: boolean;
+    offText?: string;
+    onText?: string;
+    theme?: string;
+    wrapperClass?: string;
 }
 
 interface CheckboxRadioOptions {
@@ -186,13 +202,25 @@ interface ListViewEvents {
     create?: JQueryMobileEvent;
 }
 
+interface NavbarOptions {
+    iconpos: string;
+}
+
+interface ControlgroupOptions {
+    corners?: boolean;
+    excludeInvisible?: boolean;
+    mini?: boolean;
+    shadow?: boolean;
+    type?: string;
+}
+
 interface JQueryMobileOptions {
     activeBtnClass?: string;
     activePageClass?: string;
     ajaxEnabled?: boolean;
     allowCrossDomainPages?: boolean;
     autoInitializePage?: boolean;
-    buttonMarkup;
+    buttonMarkup: any;
     defaultDialogTransition?: string;
     defaultPageTransition?: string;
     getMaxScrollForTransition?: number;
@@ -211,43 +239,43 @@ interface JQueryMobileOptions {
     pushStateEnabled?: boolean;
     subPageUrlKey?: string;
     touchOverflowEnabled?: boolean;
-    transitionFallbacks;
+    transitionFallbacks: any;
 }
 
 interface JQueryMobileEvents {
-    tap;
-    taphold;
-    swipe;
-    swipeleft;
-    swiperight;
+    tap: any;
+    taphold: any;
+    swipe: any;
+    swipeleft: any;
+    swiperight: any;
 
-    vmouseover;
-    vmouseout;
-    vmousedown;
-    vmousemove;
-    vmouseup;
-    vclick;
-    vmousecancel;
+    vmouseover: any;
+    vmouseout: any;
+    vmousedown: any;
+    vmousemove: any;
+    vmouseup: any;
+    vclick: any;
+    vmousecancel: any;
 
-    orientationchange;
-    scrollstart;
-    scrollstop;
+    orientationchange: any;
+    scrollstart: any;
+    scrollstop: any;
 
-    pagebeforeload;
-    pageload;
-    pageloadfailed;
-    pagebeforechange;
-    pagechange;
-    pagechangefailed;
-    pagebeforeshow;
-    pagebeforehide;
-    pageshow;
-    pagehide;
-    pagebeforecreate;
-    pagecreate;
-    pageinit;
-    pageremove;
-    updatelayout;
+    pagebeforeload: any;
+    pageload: any;
+    pageloadfailed: any;
+    pagebeforechange: any;
+    pagechange: any;
+    pagechangefailed: any;
+    pagebeforeshow: any;
+    pagebeforehide: any;
+    pageshow: any;
+    pagehide: any;
+    pagebeforecreate: any;
+    pagecreate: any;
+    pageinit: any;
+    pageremove: any;
+    updatelayout: any;
 }
 
 interface ChangePageOptions {
@@ -274,47 +302,85 @@ interface LoadPageOptions {
     type?: string;
 }
 
+interface LoaderOptions {
+    theme?: string;
+    textVisible?: boolean;
+    html?: string;
+    text?: string;
+    textonly?: boolean;
+}
+
+interface JQueryMobilePath {
+    get(url: string): string;
+    getDocumentBase(asParsedObject?: boolean): any;
+    getDocumentUrl(asParsedObject?: boolean): any;
+    getLocation(): string;
+    isAbsoluteUrl(url: string): boolean;
+    isRelativeUrl(url: string): boolean;
+    makeUrlAbsolute(relUrl: string, absUrl: string): string;
+    parseLocation(): ParsedPath;
+    parseUrl(url: string): ParsedPath;
+}
+
+interface ParsedPath {
+    hash: string;
+    host: string;
+    hostname: string;
+    href: string;
+    pathname: string;
+    port: string;
+    protocol: string;
+    search: string;
+}
+
+
 interface JQueryMobile extends JQueryMobileOptions {
+
+    version: string;
 
     changePage(to: any, options?: ChangePageOptions): void;
     initializePage(): void;
     loadPage(url: any, options?: LoadPageOptions): void;
-    loading(command: string, options? ): void;
+    loading(): JQuery;
+    loading(command: string, options?: LoaderOptions): JQuery;
 
-    base;
+    pageContainer: any;
+    base: any;
     silentScroll(yPos: number): void;
-    activePage;
+    activePage: JQuery;
 
     options: JQueryMobileOptions;
 
-    transitionFallbacks;
-    showPageLoadingMsg();
-    hidePageLoadingMsg();
-    loader;
-    page;
+    transitionFallbacks: any;
+    loader: any;
+    page: any;
 
-    touchOverflow;
-    showCategory;
-    path;
+    touchOverflow: any;
+    showCategory: any;
+    path: JQueryMobilePath;
 
-    dialog;
-    popup;
-    fixedtoolbar;
-    button;
-    collapsible;
-    collapsibleset;
-    textinput;
-    slider;
-    checkboxradio;
-    selectmenu;
-    listview;
+    dialog: any;
+    popup: any;
+    fixedtoolbar: any;
+    button: any;
+    collapsible: any;
+    collapsibleset: any;
+    textinput: any;
+    slider: any;
+    flipswitch: any;
+    checkboxradio: any;
+    selectmenu: any;
+    listview: any;
+    defaultHomeScroll: number;
 }
 
 interface JQuerySupport {
-    touchOverflow;
+    touchOverflow: any;
 }
 
 interface JQuery {
+
+    enhanceWithin(): JQuery;
 
     dialog(): JQuery;
     dialog(command: string): JQuery;
@@ -335,8 +401,10 @@ interface JQuery {
 
     button(): JQuery;
     button(command: string): JQuery;
-    buttonMarkup(options: ButtonOptions): JQuery;
+    button(options?: ButtonOptions): JQuery;
     button(events: ButtonEvents): JQuery;
+    
+    buttonMarkup(options?: ButtonOptions): JQuery;
 
     collapsible(): JQuery;
     collapsible(command: string): JQuery;
@@ -358,6 +426,10 @@ interface JQuery {
     slider(options: SliderOptions): JQuery;
     slider(events: SliderEvents): JQuery;
 
+    flipswitch(): JQuery;
+    flipswitch(command: string): JQuery;
+    flipswitch(options: FlipswitchOptions): JQuery;
+
     checkboxradio(): JQuery;
     checkboxradio(command: string): JQuery;
     checkboxradio(options: CheckboxRadioOptions): JQuery;
@@ -373,6 +445,15 @@ interface JQuery {
     listview(command: string): JQuery;
     listview(options: ListViewOptions): JQuery;
     listview(events: ListViewEvents): JQuery;
+
+    navbar(options?: NavbarOptions): JQuery;
+
+    table(): JQuery;
+    table(command: string): JQuery;
+
+    controlgroup(): JQuery;
+    controlgroup(command: string): JQuery;
+    controlgroup(options: ControlgroupOptions): JQuery;
 }
 
 

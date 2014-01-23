@@ -688,6 +688,12 @@ function _throw() {
     }, "blah: expected [Function] to throw error including 'hello' but got 'testing'");
 }
 
+function use(){
+    chai.use(function (_chai, utils) {
+      _chai.can.use.any();
+    });
+}
+
 function respondTo() {
     function Foo() {};
     var bar = {};

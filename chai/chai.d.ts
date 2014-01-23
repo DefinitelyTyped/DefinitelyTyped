@@ -6,7 +6,10 @@
 
 declare module chai {
 
-    function expect(target: any): Expect;
+    function expect(target: any, message?: string): Expect;
+
+    // Provides a way to extend the internals of Chai
+    function use(fn: (chai: any, utils: any) => void);
 
     interface ExpectStatic {
         (target: any): Expect;
@@ -143,11 +146,11 @@ declare module chai {
 
     interface Keys {
         (...keys: string[]): Expect;
-        (keys: Array): Expect;
+        (keys: any[]): Expect;
     }
 
     interface Members {
-        (set: Array, message?: string): Expect;
+        (set: any[], message?: string): Expect;
     }
 
     interface Throw {

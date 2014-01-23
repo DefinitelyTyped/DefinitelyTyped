@@ -135,7 +135,7 @@ async.waterfall([
 ], function (err, result) { });
 
 
-var q = async.queue(function (task, callback) {
+var q = async.queue(function (task: any, callback) {
     console.log('hello ' + task.name);
     callback();
 }, 2);

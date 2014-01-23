@@ -8,10 +8,13 @@ _.each({ one: 1, two: 2, three: 3 }, (value) => alert(value.toString()));
 _.map([1, 2, 3], (num) => num * 3);
 _.map({ one: 1, two: 2, three: 3 }, (value: number, key?: string) => value * 3);
 
-var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);
+//var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);	// https://typescript.codeplex.com/workitem/1960
+var sum = _.reduce<number, number>([1, 2, 3], (memo, num) => memo + num, 0);
+sum = _.reduce<number, number>([1, 2, 3], (memo, num) => memo + num); // memo is optional #issue 5 github
 
 var list = [[0, 1], [2, 3], [4, 5]];
-var flat = _.reduceRight(list, (a, b) => a.concat(b), []);
+//var flat = _.reduceRight(list, (a, b) => a.concat(b), []);	// https://typescript.codeplex.com/workitem/1960
+var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
 var even = _.find([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
@@ -22,7 +25,9 @@ _.where(listOfPlays, { author: "Shakespeare", year: 1611 });
 
 var odds = _.reject([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
-_.all([true, 1, null, 'yes'], _.identity);
+//_.every([true, 1, null, 'yes'], _.identity); // https://typescript.codeplex.com/workitem/1960
+_.every<any>([true, 1, null, 'yes'], _.identity);
+_.every<{}>([true, 1, null, 'yes']);
 
 _.any([null, 0, 'yes', false]);
 
@@ -46,6 +51,13 @@ _.sortBy([1, 2, 3, 4, 5, 6], (num) => Math.sin(num));
 _([1.3, 2.1, 2.4]).groupBy((e) => Math.floor(e));
 _.groupBy([1.3, 2.1, 2.4], (num: number) => Math.floor(num).toString());
 _.groupBy(['one', 'two', 'three'], 'length');
+
+_.indexBy(stooges, 'age')['40'].age;
+_(stooges).indexBy('age')['40'].name;
+_(stooges)
+	.chain()
+	.indexBy('age')
+	.value()['40'].age;
 
 _.countBy<number>([1, 2, 3, 4, 5], (num) => (num % 2 == 0) ? 'even' : 'odd');
 
@@ -267,3 +279,34 @@ _.template("Using 'with': <%= data.answer %>", { answer: 'no' }, { variable: 'da
 
 
 _(['test', 'test']).pick(['test2', 'test2']);
+
+//////////////// Chain Tests
+function chain_tests() {
+	// https://typescript.codeplex.com/workitem/1960
+	var numArray: number[] = _.chain([1, 2, 3, 4, 5, 6, 7, 8])
+		.filter(num => num % 2 == 0)
+		.map(num => num * num)
+		.value();
+
+	var strArray: string[] = _([1, 2, 3, 4])
+		.chain()
+		.filter(num => num % 2 == 0)
+		.tap(alert)
+		.map(num => "string" + num)
+		.value();
+
+	var n : number = _.chain([1, 2, 3, 200])
+		.filter(num => num % 2 == 0)
+		.tap(alert)
+		.map(num => num * num)
+		.max()
+		.value();
+
+	//If using alternate definition of map (~ line 2200), .value returns any
+	//   because.map matches _Chain <number[]> as opposed to _ChainOfArrays <number>, which breaks typing on flatten
+	var hoverOverValueShouldBeNumberNotAny : number = _([1, 2, 3]).chain()
+		.map(num=> [num, num + 1])
+		.flatten()
+		.find(num => num % 2 == 0)
+		.value();
+}

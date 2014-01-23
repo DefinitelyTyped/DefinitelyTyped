@@ -79,12 +79,12 @@ interface I18nextStatic {
             remove: (name: string) => void;
         };
         detectLanguage(): string;
-        log(message: string);
+        log(message: string): void;
         toLanguages(language: string): string[];
         regexEscape(str: string): string;
     };
-    init(callback?: (t: (key: string, options?: any) => string) => void ): JQueryDeferred;
-    init(options?: I18nextOptions, callback?: (t: (key: string, options?: any) => string) => void ): JQueryDeferred;
+    init(callback?: (t: (key: string, options?: any) => string) => void ): JQueryDeferred<any>;
+    init(options?: I18nextOptions, callback?: (t: (key: string, options?: any) => string) => void ): JQueryDeferred<any>;
     lng(): string;
     loadNamespace(namespace: string, callback?: () => void ): void;
     loadNamespaces(namespaces: string[], callback?: () => void ): void;
@@ -93,7 +93,7 @@ interface I18nextStatic {
             name: string;
             numbers: number[];
             plurals: (n: number) => number;
-        });
+        }): void;
         get (language: string, count: number): number;
         rules: any;
         setCurrentLng: (language: string) => void;

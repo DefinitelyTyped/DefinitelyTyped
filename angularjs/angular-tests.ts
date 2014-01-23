@@ -14,13 +14,13 @@ angular.module('http-auth-interceptor', [])
          * Holds all the requests which failed due to 401 response,
          * so they can be re-requested in future, once login is completed.
          */
-        var buffer = [];
+        var buffer: { config: ng.IRequestConfig; deferred: ng.IDeferred<any>; }[] = [];
 
         /**
          * Required by HTTP interceptor.
          * Function is attached to provider to be invisible for regular users of this service.
          */
-        this.pushToBuffer = function (config: ng.IRequestConfig, deferred: ng.IDeferred) {
+        this.pushToBuffer = function (config: ng.IRequestConfig, deferred: ng.IDeferred<any>) {
             buffer.push({
                 config: config,
                 deferred: deferred
@@ -55,7 +55,7 @@ angular.module('http-auth-interceptor', [])
  * $http interceptor.
  * On 401 response - it stores the request and broadcasts 'event:angular-auth-loginRequired'.
  */
-    .config(['$httpProvider', 'authServiceProvider', <any>function ($httpProvider: ng.IHttpProvider, authServiceProvider) {
+    .config(['$httpProvider', 'authServiceProvider', <any>function ($httpProvider: ng.IHttpProvider, authServiceProvider: any) {
 
         var interceptor = ['$rootScope', '$q', <any>function ($rootScope: ng.IScope, $q: ng.IQService) {
             function success(response: ng.IHttpPromiseCallbackArg<any>) {
@@ -145,14 +145,14 @@ module HttpAndRegularPromiseTests {
                 .success(callback);
         }
 
-    doFoo((data) => console.log(data));
+    doFoo((data: any) => console.log(data));
     }
 }
 
-// Test for AngularJS Syntac
+// Test for AngularJS Syntax
 
 module My.Namespace {
-    export var x; // need to export something for module to kick in    
+    export var x: any; // need to export something for module to kick in
 }
 
 // IModule Registering Test
@@ -182,6 +182,7 @@ mod.value('name', 23);
 mod.value('name', "23");
 mod.value(My.Namespace);
 
+
 // Promise signature tests
 var foo: ng.IPromise<number>;
 foo.then((x) => {
@@ -209,4 +210,25 @@ foo.then((x) => {
 }).then((x) => {
     // x is infered to be a number, which is the resolved value of a promise 
     x.toFixed();
+});
+
+
+// angular.element() tests
+var element = angular.element("div.myApp");
+var scope: ng.IScope = element.scope();
+
+
+
+function test_IAttributes(attributes: ng.IAttributes){
+    return attributes;
+}
+
+test_IAttributes({
+    $addClass: function (classVal){},
+    $removeClass: function(classVal){},
+    $set: function(key, value){},
+    $observe: function(name, fn){
+        return fn;
+    },
+    $attr: {}
 });

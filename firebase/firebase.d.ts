@@ -10,7 +10,7 @@ interface IFirebaseAuthResult {
 
 interface IFirebaseDataSnapshot {
 	val(): any;
-	child(): IFirebaseDataSnapshot;
+	child(childPath: string): IFirebaseDataSnapshot;
 	forEach(childAction: (childSnapshot: IFirebaseDataSnapshot) => boolean): boolean;
 	hasChild(childPath: string): boolean;
 	hasChildren(): boolean;
@@ -44,7 +44,7 @@ interface IFirebaseQuery {
 
 declare class Firebase implements IFirebaseQuery {
 	constructor(firebaseURL: string);
-	auth(authToken: string, onComplete?: (error: string, result: IFirebaseAuthResult) => void, onCancel?:(error: string) => void): void;
+	auth(authToken: string, onComplete?: (error: any, result: IFirebaseAuthResult) => void, onCancel?:(error: any) => void): void;
 	unauth(): void;
 	child(childPath: string): Firebase;
 	parent(): Firebase;
@@ -70,4 +70,6 @@ declare class Firebase implements IFirebaseQuery {
 	endAt(priority?: string, name?: string): IFirebaseQuery;
 	endAt(priority?: number, name?: string): IFirebaseQuery;
 	ref(): Firebase;
+	goOffline(): void;
+	goOnline(): void;
 }
