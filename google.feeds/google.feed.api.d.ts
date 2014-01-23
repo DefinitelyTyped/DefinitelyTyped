@@ -1,6 +1,7 @@
-//Project Google Feed Apis 
+// Type definitions for Google Feed Apis
 // Project: https://developers.google.com/feed/
-// Definitions by: https://github.com/RodneyJT
+// Definitions by: RodneyJT <https://github.com/RodneyJT>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module google.feeds {
     export class feed {

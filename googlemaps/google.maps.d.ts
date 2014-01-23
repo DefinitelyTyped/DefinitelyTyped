@@ -1,3 +1,8 @@
+// Type definitions for Google Geolocation 0.4.8
+// Project: https://developers.google.com/maps/
+// Definitions by: Folia A/S <http://www.folia.dk>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /*
 The MIT License
 
