@@ -1,14 +1,14 @@
 // Test file for GoJS.d.ts
 // This is taken from http://gojs.net/latest/samples/basic.html
 
-/*  Copyright (C) 1998 - 2013 by Northwoods Software Corporation. */
+/*  Copyright (C) 1998-2014 by Northwoods Software Corporation. */
 
 /// <reference path="GoJS.d.ts" />
 
 function init() {
   var $ = go.GraphObject.make;  // for conciseness in defining templates
 
-  var myDiagram =
+  var myDiagram : go.Diagram =
     $(go.Diagram, "myDiagram",  // create a Diagram for the DIV HTML element
       {
         // position the graph in the middle of the diagram
@@ -26,8 +26,8 @@ function init() {
   // First, define the shared context menu for all Nodes, Links, and Groups.
 
   // To simplify this code we define a function for creating a context menu button:
-  function makeButton(text: string, action, visiblePredicate?) {
-    if (visiblePredicate === undefined) visiblePredicate = function() { return true; };
+  function makeButton(text: string, action: (e: go.InputEvent, obj: go.GraphObject) => void, visiblePredicate?: (obj: go.GraphObject) => boolean) {
+    if (visiblePredicate === undefined) visiblePredicate = function(o) { return true; };
     return $("ContextMenuButton",
       $(go.TextBlock, text),
       { click: action },
@@ -39,7 +39,7 @@ function init() {
     $(go.Adornment, "Vertical",
       makeButton("Properties",
         function(e, obj) {  // the OBJ is this Button
-          var contextmenu = obj.part;  // the Button is in the context menu Adornment
+          var contextmenu = <go.Adornment>obj.part;  // the Button is in the context menu Adornment
           var part = contextmenu.adornedPart;  // the adornedPart is the Part that the context menu adorns
           // now can do something with PART, or with its data, or with the Adornment (the context menu)
           if (part instanceof go.Link) alert(linkInfo(part.data));
