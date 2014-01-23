@@ -3825,3 +3825,7 @@ declare module _ {
 		[index: string]: T;
 	}
 }
+
+declare module "lodash" {
+	export = _;
+}
