@@ -991,9 +991,9 @@ declare module L {
         export class Default extends Icon {
 
             /**
-              * Creates an icon instance with default options.
+              * Creates a default icon instance with the given options.
               */
-            constructor(options: IconOptions);
+            constructor(options?: IconOptions);
 
             static imagePath: string;
         }
