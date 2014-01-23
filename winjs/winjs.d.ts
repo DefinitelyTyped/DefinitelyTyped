@@ -109,7 +109,7 @@ declare module WinJS.Application {
 	/**
 	 * An object used for storing app information that can be used to restore the app's state after it has been suspended and then resumed. Data that can usefully be contained in this object includes the current navigation page or any information the user has added to the input controls on the page. You should not add information about customization (for example colors) or user-defined lists of content.
 	**/
-	var sessionState: Object;
+	var sessionState: any;
 
 	/**
 	 * The temp storage of the application.
@@ -159,7 +159,7 @@ declare module WinJS.Application {
 	 * Informs the application object that asynchronous work is being performed, and that this event handler should not be considered complete until the promise completes. This function can be set inside the handlers for all WinJS.Application events: onactivated oncheckpoint onerror onloaded onready onsettings onunload.
 	 * @param promise The promise that should complete before processing is complete.
 	**/
-	function setPromise(promise: Promise<Object>): void;
+	function setPromise(promise: Promise<any>): void;
 
 	//#endregion Methods
 
@@ -182,7 +182,7 @@ declare module WinJS.Application {
 	 * Queues an event to be processed by the WinJS.Application event queue.
 	 * @param eventRecord The event object is expected to have a type property that is used as the event name when dispatching on the WinJS.Application event queue. The entire object is provided to event listeners in the detail property of the event.
 	**/
-	function queueEvent(eventRecord: Object): void;
+	function queueEvent(eventRecord: any): void;
 
 	/**
 	 * Removes an event listener from the control.
@@ -190,7 +190,7 @@ declare module WinJS.Application {
 	 * @param listener The listener to remove.
 	 * @param useCapture Specifies whether or not to initiate capture.
 	**/
-	function removeEventListener(type: string, listener: Function, useCapture?: Object): void;
+	function removeEventListener(type: string, listener: Function, useCapture?: any): void;
 
 	/**
 	 * Starts dispatching application events (the activated, checkpoint, error, loaded, ready, settings, and unload events).
@@ -277,7 +277,7 @@ declare module WinJS.Binding {
 		 * @param name The name of the property to add.
 		 * @param value This object is returned.
 		**/
-		addProperty(name: string, value: Object): void;
+		addProperty(name: string, value: any): void;
 
 		/**
 		 * Links the specified action to the property specified in the name parameter. This function is invoked when the value of the property may have changed. It is not guaranteed that the action will be called only when a value has actually changed, nor is it guaranteed that the action will be called for every value change. The implementation of this function coalesces change notifications, such that multiple updates to a property value may result in only a single call to the specified action.
@@ -285,14 +285,14 @@ declare module WinJS.Binding {
 		 * @param action The function to invoke asynchronously when the property may have changed.
 		 * @returns This object is returned.
 		**/
-		bind(name: string, action: Object): Function;
+		bind(name: string, action: any): Function;
 
 		/**
 		 * Gets a property value by name.
 		 * @param name The name of the property to get.
 		 * @returns The value of the property as an observable object.
 		**/
-		getProperty(name: string): Object;
+		getProperty(name: string): any;
 
 		/**
 		 * Notifies listeners that a property value was updated.
@@ -301,14 +301,14 @@ declare module WinJS.Binding {
 		 * @param oldValue The old value for the property.
 		 * @returns A promise that is completed when the notifications are complete.
 		**/
-		notify(name: string, newValue: string, oldValue: string): Promise<Object>;
+		notify(name: string, newValue: string, oldValue: string): Promise<any>;
 
 		/**
 		 * Removes a property value.
 		 * @param name The name of the property to remove.
 		 * @returns This object is returned.
 		**/
-		removeProperty(name: string): Object;
+		removeProperty(name: string): any;
 
 		/**
 		 * Updates a property value and notifies any listeners.
@@ -316,7 +316,7 @@ declare module WinJS.Binding {
 		 * @param value The new value of the property.
 		 * @returns This object is returned.
 		**/
-		setProperty(name: string, value: Object): Object;
+		setProperty(name: string, value: any): any;
 
 		/**
 		 * Removes one or more listeners from the notification list for a given property.
@@ -324,7 +324,7 @@ declare module WinJS.Binding {
 		 * @param action The function to remove from the listener list for the specified property. If this parameter is omitted, all listeners are removed for the specific property.
 		 * @returns This object is returned.
 		**/
-		unbind(name: string, action: Function): Object;
+		unbind(name: string, action: Function): any;
 
 		/**
 		 * Updates a property value and notifies any listeners.
@@ -332,7 +332,7 @@ declare module WinJS.Binding {
 		 * @param value The new value of the property.
 		 * @returns A promise that completes when the notifications for this property change have been processed. If multiple notifications are coalesced, the promise may be canceled or the value of the promise may be updated. The fulfilled value of the promise is the new value of the property for which the notifications have been completed.
 		**/
-		updateProperty(name: string, value: Object): Promise<Object>;
+		updateProperty(name: string, value: any): Promise<any>;
 
 		//#endregion Methods
 
@@ -467,7 +467,7 @@ declare module WinJS.Binding {
 		 * @param list The array containing the elements to initalize the list.
 		 * @param options You can set two Boolean options: binding and proxy. If options.binding is true, the list contains the result of calling as on the element values. If options.proxy is true, the list specified as the first parameter is used as the storage for the List. This option should be used with care, because uncoordinated edits to the data storage may result in errors.
 		**/
-		constructor(list?: T[], options?: Object);
+		constructor(list?: T[], options?: any);
 
 		//#endregion Constructors
 
@@ -543,7 +543,7 @@ declare module WinJS.Binding {
 		 * @param groupSorter A function that accepts two arguments. The function is called with pairs of group keys found in the list. It must return one of the following numeric values: negative if the first argument is less than the second (sorted before), zero if the two arguments are equivalent, positive if the first argument is greater than the second (sorted after).
 		 * @returns A grouped projection over the list.
 		**/
-		createGrouped(groupKey: (x: T) => string, groupData: (x: T) => Object, groupSorter: (left: string, right: string) => number): GroupedSortedListProjection<T>;
+		createGrouped(groupKey: (x: T) => string, groupData: (x: T) => any, groupSorter: (left: string, right: string) => number): GroupedSortedListProjection<T>;
 
 		/**
 		 * Creates a live sorted projection over this list. As the list changes, the sorted projection reacts to those changes and may also change.
@@ -558,7 +558,7 @@ declare module WinJS.Binding {
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
 		 * @returns true if preventDefault was called on the event, otherwise false.
 		**/
-		dispatchEvent(type: string, eventProperties: Object): boolean;
+		dispatchEvent(type: string, eventProperties: any): boolean;
 
 		/**
 		 * Disconnects a WinJS.Binding.List projection from its underlying WinJS.Binding.List. It's only important to call this method when the WinJS.Binding.List projection and the WinJS.Binding.List have different lifetimes. (Call this method on the WinJS.Binding.List projection, not the underlying WinJS.Binding.List.)
@@ -571,7 +571,7 @@ declare module WinJS.Binding {
 		 * @param thisArg An object to which the this keyword can refer in the callback function. If thisArg is omitted, undefined is used.
 		 * @returns true if the callback returns true for all elements in the list.
 		**/
-		every(callback: (value: T, index: number, array: T[]) => boolean, thisArg?: Object): boolean;
+		every(callback: (value: T, index: number, array: T[]) => boolean, thisArg?: any): boolean;
 
 		/**
 		 * Returns the elements of a list that meet the condition specified in a callback function.
@@ -579,14 +579,14 @@ declare module WinJS.Binding {
 		 * @param thisArg An object to which the this keyword can refer in the callback function. If thisArg is omitted, undefined is used.
 		 * @returns An array containing the elements that meet the condition specified in the callback function.
 		**/
-		filter(callback: (value: T, index: number, array: T[]) => any, thisArg?: Object): T[];
+		filter(callback: (value: T, index: number, array: T[]) => any, thisArg?: any): T[];
 
 		/**
 		 * Calls the specified callback function for each element in a list.
 		 * @param callback A function that accepts up to three arguments. The function is called for each element in the list. The arguments are as follows: value, index, array.
 		 * @param thisArg An object to which the this keyword can refer in the callback function. If thisArg is omitted, undefined is used.
 		**/
-		forEach(callback: (value: T, index: number, array: T[]) => void, thisArg?: Object): void;
+		forEach(callback: (value: T, index: number, array: T[]) => void, thisArg?: any): void;
 
 		/**
 		 * Gets the value at the specified index.
@@ -615,7 +615,7 @@ declare module WinJS.Binding {
 		 * @param fromIndex The index at which to begin the search. If fromIndex is omitted, the search starts at index 0.
 		 * @returns The index of the first occurrence of a value in a list or -1 if not found.
 		**/
-		indexOf(searchElement: Object, fromIndex?: number): number;
+		indexOf(searchElement: any, fromIndex?: number): number;
 
 		/**
 		 * Gets the index of the first occurrence of a key in a list.
@@ -645,7 +645,7 @@ declare module WinJS.Binding {
 		 * @param thisArg n object to which the this keyword can refer in the callback function. If thisArg is omitted, undefined is used.
 		 * @returns An array containing the result of calling the callback function on each element in the list.
 		**/
-		map<G>(callback: (value: T, index: number, array: T[]) => G, thisArg?: Object): G[];
+		map<G>(callback: (value: T, index: number, array: T[]) => G, thisArg?: any): G[];
 
 		/**
 		 * Moves the value at index to the specified position.
@@ -678,7 +678,7 @@ declare module WinJS.Binding {
 		 * Removes the last element from a list and returns it.
 		 * @returns The last element from the list.
 		**/
-		pop(): Object;
+		pop(): T;
 
 		/**
 		 * Appends new element(s) to a list, and returns the new length of the list.
@@ -693,7 +693,7 @@ declare module WinJS.Binding {
 		 * @param initiallValue If initialValue is specified, it is used as the value with which to start the accumulation. The first call to the function provides this value as an argument instead of a list value.
 		 * @returns The return value from the last call to the callback function.
 		**/
-		reduce(callback: (previousValue: any, currentValue: any, currentIndex: number, array: T[]) => any, initiallValue?: Object): Object;
+		reduce(callback: (previousValue: any, currentValue: any, currentIndex: number, array: T[]) => T, initiallValue?: T): T;
 
 		/**
 		 * Accumulates a single result by calling the specified callback function for all elements in a list, starting with the last member of the list. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
@@ -701,7 +701,7 @@ declare module WinJS.Binding {
 		 * @param initialValue If initialValue is specified, it is used as the value with which to start the accumulation. The first call to the callback function provides this value as an argument instead of a list value.
 		 * @returns The return value from the last call to callback function.
 		**/
-		reduceRight(callback: (previousValue: any, currentValue: any, currentIndex: number, array: T[]) => any, initialValue?: Object): Object;
+		reduceRight(callback: (previousValue: any, currentValue: any, currentIndex: number, array: T[]) => T, initialValue?: T): T;
 
 		/**
 		 * Removes an event listener.
@@ -726,7 +726,7 @@ declare module WinJS.Binding {
 		 * Removes the first element from a list and returns it.
 		 * @returns The first element from the list.
 		**/
-		shift(): Object;
+		shift(): T;
 
 		/**
 		 * Extracts a section of a list and returns a new list.
@@ -742,7 +742,7 @@ declare module WinJS.Binding {
 		 * @param thisArg An object to which the this keyword can refer in the callback function. If thisArg is omitted, undefined is used.
 		 * @returns true if callback returns true for any element in the list.
 		**/
-		some(callback: (value: T, index: number, array: T[]) => boolean, thisArg?: Object): boolean;
+		some(callback: (value: T, index: number, array: T[]) => boolean, thisArg?: any): boolean;
 
 		/**
 		 * Returns a list with the elements sorted. This method sorts the elements of a list object in place. It does not create a new list object during execution.
@@ -765,7 +765,7 @@ declare module WinJS.Binding {
 		 * @param action The function to remove from the listener list for the specified property. If this parameter is omitted, all listeners are removed for the specific property.
 		 * @returns This object is returned.
 		**/
-		unbind(name: string, action?: Function): Object;
+		unbind(name: string, action?: Function): List<T>;
 
 		/**
 		 * Appends new element(s) to a list, and returns the new length of the list.
@@ -809,7 +809,7 @@ declare module WinJS.Binding {
 		 * @param value The value of the property.
 		 * @returns This object is returned.
 		**/
-		addProperty(name: string, value: Object): Object;
+		addProperty(name: string, value: any): any;
 
 		/**
 		 * Links the specified action to the property specified in the name parameter. This function is invoked when the value of the property may have changed. It is not guaranteed that the action will be called only when a value has actually changed, nor is it guaranteed that the action will be called for every value change. The implementation of this function coalesces change notifications, such that multiple updates to a property value may result in only a single call to the specified action.
@@ -817,14 +817,14 @@ declare module WinJS.Binding {
 		 * @param action The function to invoke asynchronously when the property may have changed.
 		 * @returns This object is returned.
 		**/
-		bind(name: string, action: Object): Function;
+		bind(name: string, action: any): Function;
 
 		/**
 		 * Gets a property value by name.
 		 * @param name The name of the property to get.
 		 * @returns The value of the property as an observable object.
 		**/
-		getProperty(name: string): Object;
+		getProperty(name: string): any;
 
 		/**
 		 * Notifies listeners that a property value was updated.
@@ -833,14 +833,14 @@ declare module WinJS.Binding {
 		 * @param oldValue The old value for the property.
 		 * @returns A promise that is completed when the notifications are complete.
 		**/
-		notify(name: string, newValue: string, oldValue: string): Promise<Object>;
+		notify(name: string, newValue: string, oldValue: string): Promise<any>;
 
 		/**
 		 * Removes a property value.
 		 * @param name The name of the property to remove.
 		 * @returns This object is returned.
 		**/
-		removeProperty(name: string): Object;
+		removeProperty(name: string): any;
 
 		/**
 		 * Updates a property value and notifies any listeners.
@@ -848,7 +848,7 @@ declare module WinJS.Binding {
 		 * @param value The new value of the property.
 		 * @returns This object is returned.
 		**/
-		setProperty(name: string, value: Object): Object;
+		setProperty(name: string, value: any): any;
 
 		/**
 		 * Removes one or more listeners from the notification list for a given property.
@@ -856,7 +856,7 @@ declare module WinJS.Binding {
 		 * @param action The function to remove from the listener list for the specified property. If this parameter is omitted, all listeners are removed for the specific property.
 		 * @returns This object is returned.
 		**/
-		unbind(name: string, action: Function): Object;
+		unbind(name: string, action: Function): any;
 
 		/**
 		 * Updates a property value and notifies any listeners.
@@ -864,7 +864,7 @@ declare module WinJS.Binding {
 		 * @param value The new value of the property.
 		 * @returns A promise that completes when the notifications for this property change have been processed. If multiple notifications are coalesced, the promise may be canceled or the value of the promise may be updated. The fulfilled value of the promise is the new value of the property for which the notifications have been completed.
 		**/
-		updateProperty(name: string, value: Object): Promise<Object>;
+		updateProperty(name: string, value: any): Promise<any>;
 
 		//#endregion Methods
 
@@ -882,7 +882,7 @@ declare module WinJS.Binding {
 		 * @param action The function to invoke asynchronously when the property may have changed.
 		 * @returns A reference to this observableMixin object.
 		**/
-		bind(name: string, action: Function): Object;
+		bind(name: string, action: Function): any;
 
 		/**
 		 * Notifies listeners that a property value was updated.
@@ -891,7 +891,7 @@ declare module WinJS.Binding {
 		 * @param oldValue The old value for the property.
 		 * @returns A promise that is completed when the notifications are complete.
 		**/
-		notify(name: string, newValue: Object, oldValue: Object): Promise<Object>;
+		notify(name: string, newValue: any, oldValue: any): Promise<any>;
 
 		/**
 		 * Removes one or more listeners from the notification list for a given property.
@@ -899,7 +899,7 @@ declare module WinJS.Binding {
 		 * @param action The function to remove from the listener list for the specified property. If this parameter is omitted, all listeners are removed for the specific property.
 		 * @returns This object is returned.
 		**/
-		unbind(name: string, action: Function): Object;
+		unbind(name: string, action: Function): any;
 
 		//#endregion Methods
 
@@ -976,7 +976,7 @@ declare module WinJS.Binding {
 			 * @param container The element to which to add this rendered template. If this parameter is omitted, a new DIV is created.
 			 * @returns A Promise that will be completed after binding has finished. The value is either container or the created DIV. promise that is completed after binding has finished.
 			**/
-			(dataContext: Object, container?: HTMLElement): Promise<HTMLElement>;
+			(dataContext: any, container?: HTMLElement): Promise<HTMLElement>;
 
 			/**
 			 * Renders a template based on the specified URI (static method).
@@ -985,7 +985,7 @@ declare module WinJS.Binding {
 			 * @param container The element to which to add this rendered template. If this parameter is omitted, a new DIV is created.
 			 * @returns A promise that is completed after binding has finished. The value is either the object in the container parameter or the created DIV.
 			**/
-			value(href: string, dataContext: Object, container?: HTMLElement): Promise<HTMLElement>;
+			value(href: string, dataContext: any, container?: HTMLElement): Promise<HTMLElement>;
 		};
 
 		//#endregion Methods
@@ -995,7 +995,7 @@ declare module WinJS.Binding {
 		/**
 		 * Gets or sets the default binding initializer for the template.
 		**/
-		bindingInitializer: Object;
+		bindingInitializer: any;
 
 		/**
 		 * Gets or sets a value that specifies whether a debug break is inserted into the first rendering of each template. This property only has an effect when the app is in debug mode.
@@ -1036,22 +1036,22 @@ declare module WinJS.Binding {
 	 * @param sourceProperties The path on the source object to the source class.
 	 * @param dest The destination object.
 	**/
-	function addClassOneTime(source: Object, sourceProperties: Object[], dest: HTMLElement): void;
+	function addClassOneTime(source: any, sourceProperties: any[], dest: HTMLElement): void;
 
 	/**
 	 * Returns an observable object. This may be an observable proxy for the specified object, an existing proxy, or the specified object itself if it directly supports observation.
 	 * @param data The object to observe.
 	 * @returns The observable object.
 	**/
-	function as(data: Object): Object;
+	function as<U>(data: U): U;
 
 	/**
-	 * Binds one or properties of a complex, observable object for child values of the object to specific functions.
-	 * @param name The observable object to bind to.
-	 * @param action An object that contains functions to invoke asynchronously when the specified properties in the observable object have changed.
-	 * @returns This object is returned.
+	 * Binds to one or more properties on the observable object or or on child values of that object.
+	 * @param observable The object to bind to.
+	 * @param bindingDescriptor An object literal containing the binding declarations. Binding declarations take the form: { propertyName: (function | bindingDeclaration), ... }.
+	 * @returns An object that contains at least a "cancel" field, which is a function that removes all bindings associated with this bind request.
 	**/
-	function bind(name: string, action: Object): Object;
+	function bind(observable: any, bindingDescriptor: any): any;
 
 	/**
 	 * Creates a default binding initializer for binding between a source property and a destination property with the specified converter function that is executed on the value of the source property.
@@ -1068,21 +1068,21 @@ declare module WinJS.Binding {
 	 * @param destProperties The path on the destination object to the destination property.
 	 * @returns An object with a cancel method that is used to coalesce bindings.
 	**/
-	function defaultBind(source: Object, sourceProperties: Object, dest: Object, destProperties: Object): Object;
+	function defaultBind(source: any, sourceProperties: any, dest: any, destProperties: any): any;
 
 	/**
 	 * Creates a new constructor function that supports observability with the specified set of properties.
 	 * @param data The object to use as the pattern for defining the set of properties.
 	 * @returns A constructor function with 1 optional argument that is the initial state of the properties.
 	**/
-	function define(data: Object): Object;
+	function define(data: any): Function;
 
 	/**
 	 * Wraps the specified object so that all its properties are instrumented for binding. This is meant to be used in conjunction with the binding mixin.
 	 * @param shape The specification for the bindable object.
 	 * @returns An object with a set of properties all of which are wired for binding.
 	**/
-	function expandProperties(shape: Object): Object;
+	function expandProperties(shape: any): any;
 
 	/**
 	 * Marks a custom initializer function as being compatible with declarative data binding.
@@ -1098,7 +1098,7 @@ declare module WinJS.Binding {
 	 * @param oldValue The old value for the property.
 	 * @returns A promise that is completed when the notifications are complete.
 	**/
-	function notify(name: string, newValue: string, oldValue: string): Promise<Object>;
+	function notify(name: string, newValue: string, oldValue: string): Promise<any>;
 
 	/**
 	 * Sets the destination property to the value of the source property.
@@ -1108,7 +1108,7 @@ declare module WinJS.Binding {
 	 * @param destProperties The path on the destination object to the destination property.
 	 * @returns An object with a cancel method that is used to coalesce bindings.
 	**/
-	function oneTime(source: Object, sourceProperties: Object, dest: Object, destProperties: Object): Object;
+	function oneTime(source: any, sourceProperties: any, dest: any, destProperties: any): any;
 
 	/**
 	 * Binds the values of an object to the values of a DOM element that has the data-win-bind attribute. If multiple DOM elements are to be bound, you must set the attribute on all of them. See the example below for details.
@@ -1119,7 +1119,7 @@ declare module WinJS.Binding {
 	 * @param defaultInitializer The binding initializer to use in the case that one is not specified in a binding expression. If not provided, the behavior is the same as Binding.defaultBind.
 	 * @returns A Promise that completes when every item that contains the data-win-bind attribute has been processed and the update has started.
 	**/
-	function processAll(rootElement?: Element, dataContext?: Object, skipRoot?: boolean, bindingCache?: Object, defaultInitializer?: Function): Promise<void>;
+	function processAll(rootElement?: Element, dataContext?: any, skipRoot?: boolean, bindingCache?: any, defaultInitializer?: Function): Promise<void>;
 
 	/**
 	 * Creates a one-way binding between the source object and an attribute on the destination element.
@@ -1129,7 +1129,7 @@ declare module WinJS.Binding {
 	 * @param destProperties The path on the destination object to the destination property. This must be a single name.
 	 * @returns An object with a cancel() method that is used to coalesce bindings.
 	**/
-	function setAttribute(source: Object, sourceProperties: Object[], dest: Element, destProperties: Object[]): Object;
+	function setAttribute(source: any, sourceProperties: any[], dest: Element, destProperties: any[]): any;
 
 	/**
 	 * Sets an attribute on the destination element to the value of the source property.
@@ -1138,14 +1138,14 @@ declare module WinJS.Binding {
 	 * @param dest The destination object.
 	 * @param destProperties The path on the destination object to the destination property. This must be a single name.
 	**/
-	function setAttributeOneTime(source: Object, sourceProperties: Object[], dest: Element, destProperties: Object[]): void;
+	function setAttributeOneTime(source: any, sourceProperties: any[], dest: Element, destProperties: any[]): void;
 
 	/**
 	 * Returns the original (non-observable) object is returned if the specified object is an observable proxy,
 	 * @param data The object for which to retrieve the original value.
 	 * @returns If the specified object is an observable proxy, the original object is returned, otherwise the same object is returned.
 	**/
-	function unwrap(data: Object): Object;
+	function unwrap(data: any): any;
 
 	//#endregion Functions
 
@@ -1172,7 +1172,7 @@ declare module WinJS.Class {
 	 * @param staticMembers The set of static fields, properties, and methods made available on the type.
 	 * @returns The newly-defined type.
 	**/
-	function define(constructor: Function, instanceMembers?: Object, staticMembers?: any): Object;
+	function define(constructor: Function, instanceMembers?: any, staticMembers?: any): any;
 
 	/**
 	 * Creates a sub-class based on the specified baseClass parameter, using prototype inheritance.
@@ -1182,7 +1182,7 @@ declare module WinJS.Class {
 	 * @param staticMembers The set of static fields, properties, and methods to be made available on the type.
 	 * @returns The newly-defined type.
 	**/
-	function derive(baseClass: Object, constructor: Function, instanceMembers?: Object, staticMembers?: Object): Object;
+	function derive(baseClass: any, constructor: Function, instanceMembers?: any, staticMembers?: any): any;
 
 	/**
 	 * Defines a class using the given constructor and the union of the set of instance members specified by all the mixin objects. The mixin parameter list is of variable length. For more information, see Adding functionality with WinJS mixins.
@@ -1190,7 +1190,7 @@ declare module WinJS.Class {
 	 * @param mixin An object declaring the set of instance members. The mixin parameter list is of variable length.
 	 * @returns The newly defined class.
 	**/
-	function mix(constructor: Function, ...mixin: any[]): Object;
+	function mix(constructor: Function, ...mixin: any[]): any;
 
 	//#endregion Functions
 
@@ -1289,7 +1289,7 @@ declare module WinJS {
 		 * @param details The set of additional properties to be attached to the event object.
 		 * @returns true if preventDefault was called on the event; otherwise, false.
 		**/
-		dispatchEvent(type: string, details: Object): boolean;
+		dispatchEvent(type: string, details: any): boolean;
 
 		/**
 		 * Allows you to specify the work to be done on the fulfillment of the promised value, the error handling to be performed if the promise fails to fulfill a value, and the handling of progress notifications along the way. After the handlers have finished executing, this function throws any error that would have been returned from then as a promise in the error state. For more information about the differences between then and done, see the following topics: Quickstart: using promises in JavaScript How to handle errors when using promises in JavaScript Chaining promises in JavaScript.
@@ -1304,14 +1304,14 @@ declare module WinJS {
 		 * @param value A value that may be a promise.
 		 * @returns true if the object conforms to the promise contract (has a then function), otherwise false.
 		**/
-		static is(value: Object): boolean;
+		static is(value: any): boolean;
 
 		/**
 		 * Creates a Promise that is fulfilled when all the values are fulfilled.
 		 * @param values An object whose members contain values, some of which may be promises.
 		 * @returns A Promise whose value is an object with the same field names as those of the object in the values parameter, where each field value is the fulfilled value of a promise.
 		**/
-		static join(values: Object): Promise<Object>;
+		static join(values: any): Promise<any>;
 
 		/**
 		 * Removes an event listener from the control.
@@ -1365,7 +1365,7 @@ declare module WinJS {
 		 * @param progress The function to be called if the promise reports progress. This function takes a single argument, which is the data about the progress of the promise. Promises are not required to support progress.
 		 * @returns A Promise that is the result of calling join on the values parameter.
 		**/
-		static thenEach(values: Object, complete?: (value: any) => void, error?: (error: any) => void, progress?: (progress: any) => void): Promise<Object>;
+		static thenEach(values: any, complete?: (value: any) => void, error?: (error: any) => void, progress?: (progress: any) => void): Promise<any>;
 
 		/**
 		 * This method has two forms: WinJS.Promise.timeout(timeout) and WinJS.Promise.timeout(timeout, promise). WinJS.Promise.timeout(timeout) creates a promise that is completed asynchronously after the specified timeout, essentially wrapping a call to setTimeout within a promise. WinJS.Promise.timeout(timeout, promise) sets a timeout period for completion of the specified promise, automatically canceling the promise if it is not completed within the timeout period.
@@ -1373,7 +1373,7 @@ declare module WinJS {
 		 * @param promise Optional. A promise that will be canceled if it doesn't complete within the timeout period.
 		 * @returns If the promise parameter is omitted, returns a promise that will be fulfilled after the timeout period. If the promise paramater is provided, the same promise is returned.
 		**/
-		static timeout(timeout: number, promise?: Promise<Object>): Promise<Object>;
+		static timeout(timeout: number, promise?: Promise<any>): Promise<any>;
 
 		/**
 		 * Wraps a non-promise value in a promise. This method is like wrapError, which allows you to produce a Promise in error conditions, in that it allows you to return a Promise in success conditions.
@@ -1445,7 +1445,7 @@ declare module WinJS.Namespace {
 	 * @param members The members of the new namespace.
 	 * @returns The newly-defined namespace.
 	**/
-	function define(name: string, members: Object): Object;
+	function define(name?: string, members?: any): any;
 
 	/**
 	 * Defines a new namespace with the specified name under the specified parent namespace. For more information, see Organizing your code with WinJS.Namespace.
@@ -1454,7 +1454,7 @@ declare module WinJS.Namespace {
 	 * @param members The members of the new namespace.
 	 * @returns The newly-defined namespace.
 	**/
-	function defineWithParent(parentNamespace: Object, name: string, members: Object): Object;
+	function defineWithParent(parentNamespace?: any, name?: string, members?: any): any;
 
 	//#endregion Functions
 
@@ -1478,7 +1478,7 @@ declare module WinJS.Navigation {
 	/**
 	 * Gets or sets the navigation history.
 	**/
-	var history: Object;
+	var history: any;
 
 	/**
 	 * Gets or sets the current location.
@@ -1488,7 +1488,7 @@ declare module WinJS.Navigation {
 	/**
 	 * Gets or sets a user-defined object that represents the state associated with the current location.
 	**/
-	var state: Object;
+	var state: any;
 
 	//#endregion Properties
 
@@ -1522,7 +1522,7 @@ declare module WinJS.Navigation {
 	 * @param initialState A user-defined object that represents the navigation state that may be accessed through state.
 	 * @returns A promise that is completed with a value that indicates whether or not the navigation was successful (true if successful, otherwise false).
 	**/
-	function navigate(location: Object, initialState?: Object): Promise<boolean>;
+	function navigate(location: any, initialState?: any): Promise<boolean>;
 
 	/**
 	 * Removes an event listener from the control.
@@ -1576,14 +1576,14 @@ declare module WinJS.Resources {
 	 * @param type The name of the event to raise.
 	 * @param details The set of additional properties to attach to the event object.
 	**/
-	function dispatchEvent(type: string, details: Object): void;
+	function dispatchEvent(type: string, details: any): void;
 
 	/**
 	 * Retrieves the resource string that has the specified resource identifier.
 	 * @param resourceId The resource ID of the string to retrieve.
 	 * @returns An object that can contain these properties: value, empty, lang.
 	**/
-	function getString(resourceId: string): Object;
+	function getString(resourceId: string): { value: string; empty?: boolean; lang?: string; };
 
 	/**
 	 * Processes data-win-res attributes on elements and replaces attributes and properties with resource strings.
@@ -1624,7 +1624,7 @@ declare module WinJS.UI.Animation {
 	 * @param affected Element or elements affected by the added items.
 	 * @returns An object whose execute method is used to execute the animation. The execute method returns a Promise that completes when the animation is finished.
 	**/
-	function createAddToListAnimation(added: Object, affected: Object): IAnimationMethodResponse;
+	function createAddToListAnimation(added: any, affected: any): IAnimationMethodResponse;
 
 	/**
 	 * Creates an object that performs an animation that adds an item or items to a list of search results.
@@ -1632,7 +1632,7 @@ declare module WinJS.UI.Animation {
 	 * @param affected Element or elements affected by the added items.
 	 * @returns An object whose execute method is used to execute the animation. The execute method returns a Promise that completes when the animation is finished.
 	**/
-	function createAddToSearchListAnimation(added: Object, affected: Object): IAnimationMethodResponse;
+	function createAddToSearchListAnimation(added: any, affected: any): IAnimationMethodResponse;
 
 	/**
 	 * Creates an object that performs an animation that collapses a list.
@@ -1640,7 +1640,7 @@ declare module WinJS.UI.Animation {
 	 * @param affected Element or elements affected by the hidden items.
 	 * @returns An object whose execute method is used to execute the animation. The execute method returns a Promise that completes when the animation is finished.
 	**/
-	function createCollapseAnimation(hidden: Object, affected: Object): IAnimationMethodResponse;
+	function createCollapseAnimation(hidden: any, affected: any): IAnimationMethodResponse;
 
 	/**
 	 * Creates an object that performs an animation that removes an item or items from a list.
@@ -1648,7 +1648,7 @@ declare module WinJS.UI.Animation {
 	 * @param remaining Element or elements affected by the removal of the deleted items.
 	 * @returns An object whose execute method is used to execute the animation. The execute method returns a Promise that completes when the animation is finished.
 	**/
-	function createDeleteFromListAnimation(deleted: Object, remaining: Object): IAnimationMethodResponse;
+	function createDeleteFromListAnimation(deleted: any, remaining: any): IAnimationMethodResponse;
 
 	/**
 	 * Creates an object that performs an animation that removes an item or items from a list of search results.
@@ -1656,7 +1656,7 @@ declare module WinJS.UI.Animation {
 	 * @param remaining Element or elements affected by the removal of the deleted items.
 	 * @returns An object whose execute method is used to execute the animation. The execute method returns a Promise that completes when the animation is finished.
 	**/
-	function createDeleteFromSearchListAnimation(deleted: Object, remaining: Object): IAnimationMethodResponse;
+	function createDeleteFromSearchListAnimation(deleted: any, remaining: any): IAnimationMethodResponse;
 
 	/**
 	 * Creates an object that performs an animation that expands a list.
@@ -1664,21 +1664,21 @@ declare module WinJS.UI.Animation {
 	 * @param affected Element or elements affected by the newly revealed items.
 	 * @returns An object whose execute method is used to execute the animation. The execute method returns a Promise that completes when the animation is finished.
 	**/
-	function createExpandAnimation(revealed: Object, affected: Object): IAnimationMethodResponse;
+	function createExpandAnimation(revealed: any, affected: any): IAnimationMethodResponse;
 
 	/**
 	 * Creates an object that performs a peek animation.
 	 * @param element Element or elements involved in the peek.
 	 * @returns An object whose execute method is used to execute the animation. The execute method returns a Promise that completes when the animation is finished.
 	**/
-	function createPeekAnimation(element: Object): IAnimationMethodResponse;
+	function createPeekAnimation(element: any): IAnimationMethodResponse;
 
 	/**
 	 * Creates an object that performs an animation that moves an item or items.
 	 * @param element Element or elements involved in the reposition.
 	 * @returns An object whose execute method is used to execute the animation. The execute method returns a Promise object that completes when the animation is finished.
 	**/
-	function createRepositionAnimation(element: Object): IAnimationMethodResponse;
+	function createRepositionAnimation(element: any): IAnimationMethodResponse;
 
 	/**
 	 * Performs an animation that fades an item or items in, fading out existing items that occupy the same space.
@@ -1686,7 +1686,7 @@ declare module WinJS.UI.Animation {
 	 * @param outgoing Element or elements being replaced.
 	 * @returns An object that completes when the animation has finished.
 	**/
-	function crossFade(incoming: Object, outgoing: Object): Promise<Object>;
+	function crossFade(incoming: any, outgoing: any): Promise<any>;
 
 	/**
 	 * Performs an animation when a dragged object is moved such that dropping it in that position would move other items. The potentially affected items are animated out of the way to show where the object would be dropped.
@@ -1694,14 +1694,14 @@ declare module WinJS.UI.Animation {
 	 * @param offset Initial offsets where the animated objects begin relative to their final position at the end of the animation. Set this parameter to null to use the recommended default offset. Note When the incoming parameter specifies an array of elements, the offset parameter can specify an offset array with each item specified for its corresponding element array item. If the array of offsets is smaller than the array of elements, the last offset is applied to all remaining elements.
 	 * @returns An object that completes when the animation is finished.
 	**/
-	function dragBetweenEnter(target: Object, offset: Object): Promise<Object>;
+	function dragBetweenEnter(target: any, offset: any): Promise<any>;
 
 	/**
 	 * Performs an animation when a dragged object is moved away from items that it had previously involved in a dragBetweenEnter animation. The affected objects are animated back to their original positions.
 	 * @param target Element or elements that the dragged object would no longer cause to be displaced, due to its moving away. This should be the same element or element collection passed as the target parameter in the dragBetweenEnter animation.
 	 * @returns An object that completes when the animation is finished.
 	**/
-	function dragBetweenLeave(target: Object): Promise<Object>;
+	function dragBetweenLeave(target: any): Promise<any>;
 
 	/**
 	 * Performs an animation when the user finishes dragging an object.
@@ -1710,7 +1710,7 @@ declare module WinJS.UI.Animation {
 	 * @param affected Element or elements whose position the dropped object affects. Typically, this is all other items in a reorderable list. This should be the same element or element collection passed as the affected parameter in the dragSourceStart animation.
 	 * @returns An object that completes when the animation is finished.
 	**/
-	function dragSourceEnd(dragSource: Object, offset: Object, affected?: Object): Promise<Object>;
+	function dragSourceEnd(dragSource: any, offset: any, affected?: any): Promise<any>;
 
 	/**
 	 * Performs an animation when the user begins to drag an object.
@@ -1718,7 +1718,7 @@ declare module WinJS.UI.Animation {
 	 * @param affected Element or elements whose position is affected by the movement of the dragged object. Typically, this is all other items in a reorderable list.
 	 * @returns An object that completes when the animation is finished.
 	**/
-	function dragSourceStart(dragSource: Object, affected?: Object): Promise<Object>;
+	function dragSourceStart(dragSource: any, affected?: any): Promise<any>;
 
 	/**
 	 * Performs an animation that displays one or more elements on a page.
@@ -1727,7 +1727,7 @@ declare module WinJS.UI.Animation {
 	 * @param options Optional. Set this value to { mechanism: "transition" } to play the animation using CSS transitions instead of the default CSS animations. In some cases this can result in improved performance.
 	 * @returns An object that completes when the animation is finished.
 	**/
-	function enterContent(incoming: Object, offset: Object, options: Object): Promise<Object>;
+	function enterContent(incoming: any, offset: any, options: any): Promise<any>;
 
 	/**
 	 * Performs an animation that shows a new page of content, either when transitioning between pages in a running app or when displaying the first content in a newly launched app.
@@ -1735,7 +1735,7 @@ declare module WinJS.UI.Animation {
 	 * @param offset An initial offset where the element or elements begin relative to their final position at the end of the animation. Set this parameter to null to use the recommended default offset. Note When the element parameter specifies an array of elements, the offset parameter can specify an offset array with each item specified for its corresponding element array item. If the array of offsets is smaller than the array of elements, the last offset is applied to all remaining elements.
 	 * @returns An object that completes when the animation is finished.
 	**/
-	function enterPage(element: Object, offset: Object): Promise<Object>;
+	function enterPage(element: any, offset: any): Promise<any>;
 
 	/**
 	 * Performs an animation that hides one or more elements on a page.
@@ -1743,7 +1743,7 @@ declare module WinJS.UI.Animation {
 	 * @param offset Initial offsets where the animated objects begin relative to their final position at the end of the animation. Set this parameter to null to use the recommended default offset. Note When the incoming parameter specifies an array of elements, the offset parameter can specify an offset array with each item specified for its corresponding element array item. If the array of offsets is smaller than the array of elements, the last offset is applied to all remaining elements.
 	 * @returns An object that completes when the animation is finished.
 	**/
-	function exitContent(outgoing: Object, offset: Object): Promise<Object>;
+	function exitContent(outgoing: any, offset: any): Promise<any>;
 
 	/**
 	 * Performs an animation that dismisses the current page when transitioning between pages in an app.
@@ -1751,21 +1751,21 @@ declare module WinJS.UI.Animation {
 	 * @param offset Initial offsets where the animated objects begin relative to their final position at the end of the animation. Set this parameter to null to use the recommended default offset. Note When the incoming parameter specifies an array of elements, the offset parameter can specify an offset array with each item specified for its corresponding element array item. If the array of offsets is smaller than the array of elements, the last offset is applied to all remaining elements.
 	 * @returns An object that completes when the animation is finished.
 	**/
-	function exitPage(outgoing: Object, offset: Object): Promise<Object>;
+	function exitPage(outgoing: any, offset: any): Promise<any>;
 
 	/**
 	 * Performs an animation that fades an item or set of items into view.
 	 * @param shown Element or elements being faded in.
 	 * @returns An object that completes when the animation has finished. Use this object when subsequent actions need this animation to finish before they take place.
 	**/
-	function fadeIn(shown: Object): Promise<Object>;
+	function fadeIn(shown: any): Promise<any>;
 
 	/**
 	 * Performs an animation that fades an item or set of items out of view.
 	 * @param hidden Element or elements being faded out.
 	 * @returns An object that completes when the animation is finished.
 	**/
-	function fadeOut(hidden: Object): Promise<Object>;
+	function fadeOut(hidden: any): Promise<any>;
 
 	/**
 	 * Performs an animation that hides edge-based user interface (UI).
@@ -1774,7 +1774,7 @@ declare module WinJS.UI.Animation {
 	 * @param options Optional. Set this value to { mechanism: "transition" } to play the animation using CSS transitions instead of the default CSS animations. In some cases this can result in improved performance.
 	 * @returns An object that completes when the animation is finished.
 	**/
-	function hideEdgeUI(element: Object, offset: Object, options: Object): Promise<Object>;
+	function hideEdgeUI(element: any, offset: any, options?: any): Promise<any>;
 
 	/**
 	 * Performs an animation that hides a panel.
@@ -1782,28 +1782,28 @@ declare module WinJS.UI.Animation {
 	 * @param offset Initial offsets where the animated objects begin relative to their final position at the end of the animation. Offsets should be the chosen so that the elements end the animation just off-screen. Note When the element parameter specifies an array of elements, the offset parameter can specify an offset array with each item specified for its corresponding element array item. If the array of offsets is smaller than the array of elements, the last offset is applied to all remaining elements.
 	 * @returns An object that completes when the animation is finished.
 	**/
-	function hidePanel(element: Object, offset: Object): Promise<Object>;
+	function hidePanel(element: any, offset: any): Promise<any>;
 
 	/**
 	 * Performs an animation that removes pop-up user interface (UI).
 	 * @param element Element or elements that are being hidden.
 	 * @returns An object that completes when the animation is finished.
 	**/
-	function hidePopup(element: Object): Promise<Object>;
+	function hidePopup(element: any): Promise<any>;
 
 	/**
 	 * Performs an animation when a pointer is pressed on an object.
 	 * @param element Element or elements on which the pointer is pressed.
 	 * @returns An object that completes when the animation is finished.
 	**/
-	function pointerDown(element: Object): Promise<Object>;
+	function pointerDown(element: any): Promise<any>;
 
 	/**
 	 * Performs an animation when a pointer is released.
 	 * @param element Element or elements that the pointer was pressed on.
 	 * @returns An object that completes when the animation is finished.
 	**/
-	function pointerUp(element: Object): Promise<Object>;
+	function pointerUp(element: any): Promise<any>;
 
 	/**
 	 * Performs an animation that slides a narrow, edge-based user interface (UI) into view.
@@ -1812,7 +1812,7 @@ declare module WinJS.UI.Animation {
 	 * @param options Optional. Set this value to { mechanism: "transition" } to play the animation using CSS transitions instead of the default CSS animations. In some cases this can result in improved performance.
 	 * @returns An object that completes when the animation is finished.
 	**/
-	function showEdgeUI(element: Object, offset: Object, options: Object): Promise<Object>;
+	function showEdgeUI(element: any, offset: any, options?: any): Promise<any>;
 
 	/**
 	 * Performs an animation that slides a large panel user interface (UI) into view.
@@ -1820,7 +1820,7 @@ declare module WinJS.UI.Animation {
 	 * @param offset Initial offsets where the animated objects begin relative to their final position at the end of the animation. Offsets should be the chosen so that the elements begin the animation from just off-screen. Note When the element parameter specifies an array of elements, the offset parameter can specify an offset array with each item specified for its corresponding element array item. If the array of offsets is smaller than the array of elements, the last offset is applied to all remaining elements.
 	 * @returns An object that completes when the animation is finished.
 	**/
-	function showPanel(element: Object, offset: Object): Promise<Object>;
+	function showPanel(element: any, offset: any): Promise<any>;
 
 	/**
 	 * Performs an animation that displays a pop-up user interface (UI).
@@ -1828,7 +1828,7 @@ declare module WinJS.UI.Animation {
 	 * @param offset Initial offsets where the animated objects begin relative to their final position at the end of the animation. Offsets should be the chosen so that the elements begin the animation from just off-screen. Set this parameter to null to use the recommended default offset. Note When the element parameter specifies an array of elements, the offset parameter can specify an offset array with each item specified for its corresponding element array item. If the array of offsets is smaller than the array of elements, the last offset is applied to all remaining elements.
 	 * @returns An object that completes when the animation is finished.
 	**/
-	function showPopup(element: Object, offset: Object): Promise<Object>;
+	function showPopup(element: any, offset: any): Promise<any>;
 
 	/**
 	 * Performs a deselection animation in response to a swipe interaction.
@@ -1836,7 +1836,7 @@ declare module WinJS.UI.Animation {
 	 * @param selection Element or elements that represent the selection, typically a check mark.
 	 * @returns An object that completes when the animation is finished.
 	**/
-	function swipeDeselect(deselected: Object, selection: Object): Promise<Object>;
+	function swipeDeselect(deselected: any, selection: any): Promise<any>;
 
 	/**
 	 * Performs an animation that reveals an item or items in response to a swipe interaction.
@@ -1844,7 +1844,7 @@ declare module WinJS.UI.Animation {
 	 * @param offset An initial offset where the animated objects begin relative to their final position at the end of the animation. Set this parameter to null to use the recommended default offset. Note When the incoming parameter specifies an array of elements, the offset parameter can specify an offset array with each item specified for its corresponding element array item. If the array of offsets is smaller than the array of elements, the last offset is applied to all remaining elements.
 	 * @returns An object that completes when the animation is finished.
 	**/
-	function swipeReveal(target: Object, offset: Object): Promise<Object>;
+	function swipeReveal(target: any, offset: any): Promise<any>;
 
 	/**
 	 * Performs a selection animation in response to a swipe interaction.
@@ -1852,7 +1852,7 @@ declare module WinJS.UI.Animation {
 	 * @param selection Element or elements that show that something is selected, typically a check mark.
 	 * @returns An object that completes when the animation is finished.
 	**/
-	function swipeSelect(selected: Object, selection: Object): Promise<Object>;
+	function swipeSelect(selected: any, selection: any): Promise<any>;
 
 	/**
 	 * Performs an animation that updates a badge.
@@ -1860,14 +1860,14 @@ declare module WinJS.UI.Animation {
 	 * @param offset Initial offsets where incoming animated objects begin relative to their final position at the end of the animation. Set this parameter to null to use the recommended default offset. Note When the incoming parameter specifies an array of elements, the offset parameter can specify an offset array with each item specified for its corresponding element array item. If the array of offsets is smaller than the array of elements, the last offset is applied to all remaining elements.
 	 * @returns An object that completes when the animation is finished.
 	**/
-	function updateBadge(incoming: Object, offset: Object): Promise<Object>;
+	function updateBadge(incoming: any, offset: any): Promise<any>;
 
 	//#endregion Functions
 
 	//#region Interfaces
 
 	interface IAnimationMethodResponse {
-		execute(): Promise<Object>;
+		execute(): Promise<any>;
 	}
 
 	//#endregion Interfaces
@@ -2381,7 +2381,7 @@ declare module WinJS.UI {
 		 * @param onError The function to be called if the promise is fulfilled with an error. The error is passed as the single argument. If it is null, the error is forwarded. The value returned from the function is the fulfilled value of the promise returned by then.
 		 * @param onProgress The function to be called if the promise reports progress. Data about the progress is passed as the single argument. Promises are not required to support progress.
 		**/
-		done(onComplete: (item: T) => void, onError?: (error: Error) => void, onProgress?: (progressData: Object) => void): void;
+		done(onComplete: (item: T) => void, onError?: (error: Error) => void, onProgress?: (progressData: any) => void): void;
 
 		/**
 		 * Stops change notification tracking for the IItem that fulfills this IItemPromise.
@@ -2400,7 +2400,7 @@ declare module WinJS.UI {
 		 * @param onProgress The function to be called if the promise reports progress. Data about the progress is passed as the single argument. Promises are not required to support progress.
 		 * @returns The promise whose value is the result of executing the complete or error function.
 		**/
-		then(onComplete: (item: T) => void, onError?: (error: Error) => void, onProgress?: (progressData: Object) => void): IItemPromise<T>;
+		then(onComplete: (item: T) => void, onError?: (error: Error) => void, onProgress?: (progressData: any) => void): IItemPromise<T>;
 
 		//#endregion Methods
 
@@ -2432,7 +2432,7 @@ declare module WinJS.UI {
 		 * @param wholeItem true if the item must be completely visible; otherwise, false if its ok for the item to be partially visible. Promise.
 		 * @returns A Promise for the index of the first visible item at the specified point.
 		**/
-		calculateFirstVisible(beginScrollPosition: number, wholeItem: boolean): Promise<Object>;
+		calculateFirstVisible(beginScrollPosition: number, wholeItem: boolean): Promise<any>;
 
 		/**
 		 * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
@@ -2440,20 +2440,20 @@ declare module WinJS.UI {
 		 * @param wholeItem true if the item must be completely visible; otherwise, false if its ok for the item to be partially visible. Promise.
 		 * @returns A Promise for the index of the last visible item at the specified point.
 		**/
-		calculateLastVisible(endScrollPosition: number, wholeItem: boolean): Promise<Object>;
+		calculateLastVisible(endScrollPosition: number, wholeItem: boolean): Promise<any>;
 
 		/**
 		 * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
 		 * @returns A object that has these properties: animationPromise, newEndIndex.
 		**/
-		endLayout(): Object;
+		endLayout(): any;
 
 		/**
 		 * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
 		 * @param itemIndex The index of the item.
 		 * @returns A Promise that returns an object with these properties: left, top, contentWidth, contentHeight, totalWidth, totalHeight.
 		**/
-		getItemPosition(itemIndex: number): Promise<Object>;
+		getItemPosition(itemIndex: number): Promise<any>;
 
 		/**
 		 * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
@@ -2468,7 +2468,7 @@ declare module WinJS.UI {
 		 * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
 		 * @returns A Promise that returns an object that has these properties: beginScrollPosition, endScrollPosition.
 		**/
-		getScrollBarRange(): Promise<Object>;
+		getScrollBarRange(): Promise<any>;
 
 		/**
 		 * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
@@ -2544,7 +2544,7 @@ declare module WinJS.UI {
 		 * @param count The upper bound of the number of items to render.
 		 * @returns A Promise that returns an object that has these properties: beginIndex, endIndex.
 		**/
-		startLayout(beginScrollPosition: number, endScrollPosition: number, count: number): Promise<Object>;
+		startLayout(beginScrollPosition: number, endScrollPosition: number, count: number): Promise<any>;
 
 		//#endregion Methods
 
@@ -2589,7 +2589,7 @@ declare module WinJS.UI {
 		 * @param pressedKey The key that was pressed.
 		 * @returns An object that describes the next item that should receive focus. It has these properties: index, type.
 		**/
-		getAdjacent(currentItem: Object, pressedKey: WinJS.Utilities.Key): Object;
+		getAdjacent(currentItem: any, pressedKey: WinJS.Utilities.Key): any;
 
 		/**
 		 * Gets the item at the specified hit-test coordinates. These coordinates are absolute coordinates (they are not relative to the layout's content area).
@@ -2597,7 +2597,7 @@ declare module WinJS.UI {
 		 * @param y The y-coordinate to test for.
 		 * @returns An object that describes the item at the hit test coordinates. It has these properties: type, index.
 		**/
-		hitTest(x: number, y: number): Object;
+		hitTest(x: number, y: number): any;
 
 		/**
 		 * Sets the rendering site and specifies whether the layout supports groups. This method is called by the ListView to initialize the layout.
@@ -2621,7 +2621,7 @@ declare module WinJS.UI {
 		 * @param modifiedGroups An object that contains the old and new indexes of the group elements that have been modified in the tree.
 		 * @returns A Promise that executes after layout is complete, or an object that contains two Promise objects: realizedRangeComplete, layoutComplete.
 		**/
-		layout(tree: Object, changedRange: Object, modifiedItems: Object, modifiedGroups: Object): Object;
+		layout(tree: any, changedRange: any, modifiedItems: any, modifiedGroups: any): any;
 
 		/**
 		 * Called when the ListView requests that the ILayout2 set up animations.
@@ -2685,7 +2685,7 @@ declare module WinJS.UI {
 		/**
 		 * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use a the ILayoutSite2 interface.
 		**/
-		viewportSize: Object;
+		viewportSize: any;
 
 		//#endregion Properties
 
@@ -2710,12 +2710,12 @@ declare module WinJS.UI {
 		/**
 		 * Gets the pixel range of the realization area.
 		**/
-		realizedRange: Object;
+		realizedRange: any;
 
 		/**
 		 * Gets the tree for use by an object that implements the ILayout2 interface.
 		**/
-		tree: Object;
+		tree: any;
 
 		/**
 		 * Gets the pixel range of visible items in the site.
@@ -2764,7 +2764,7 @@ declare module WinJS.UI {
 		 * @param hints Domain-specific information that provides additional information to the IListDataAdapter to improve retrieval time.
 		 * @returns An IItemPromise that contains the requested IItem. If they item couldn't be found, the promise completes with a value of null.
 		**/
-		fromKey(key: string, hints?: Object): IItemPromise<IItem<T>>;
+		fromKey(key: string, hints?: any): IItemPromise<IItem<T>>;
 
 		/**
 		 * Makes the specified IItem or IItemPromise the current item.
@@ -2919,7 +2919,7 @@ declare module WinJS.UI {
 		 * @param previousIndexHint The index to move the item after, if known.
 		 * @returns A Promise that contains the IItem that was added or an EditError if an error was encountered.
 		**/
-		moveAfter(key: string, previousKey: Object, indexHint: string, previousIndexHint: number): Promise<IItem<T>>;
+		moveAfter(key: string, previousKey: any, indexHint: string, previousIndexHint: number): Promise<IItem<T>>;
 
 		/**
 		 * Moves the specified item to just before another item.
@@ -2929,7 +2929,7 @@ declare module WinJS.UI {
 		 * @param nextIndexHint The index to move the item before, if known.
 		 * @returns A Promise that contains the IItem that was added or an EditError if an error was encountered.
 		**/
-		moveBefore(key: string, nextKey: Object, indexHint: string, nextIndexHint: number): Promise<IItem<T>>;
+		moveBefore(key: string, nextKey: any, indexHint: string, nextIndexHint: number): Promise<IItem<T>>;
 
 		/**
 		 * Moves the specified item to the end of the IListDataAdapter object's data source.
@@ -3010,7 +3010,7 @@ declare module WinJS.UI {
 		 * Indicates that all previous data obtained from the IListDataAdapter is invalid and should be refreshed.
 		 * @returns A Promise that completes when the data has been completely refreshed and all change notifications have been sent.
 		**/
-		invalidateAll(): Promise<void>;
+		invalidateAll(): Promise<any>;
 
 		/**
 		 * Raises a notification that an item was moved within the IListDataAdapter object's data source.
@@ -3123,14 +3123,14 @@ declare module WinJS.UI {
 		 * Indicates that all previous data obtained from the IListDataAdapter is invalid and should be refreshed.
 		 * @returns A Promise that completes when the data has been completely refreshed and all notifications have been sent.
 		**/
-		invalidateAll(): Promise<void>;
+		invalidateAll(): Promise<any>;
 
 		/**
 		 * Retrieves the item that has the specified description.
 		 * @param description Domain-specific information, to be interpreted by the IListDataAdapter, that describes the item to retrieve.
 		 * @returns A Promise that provides an IItem that contains the requested item or a FetchError if an error was encountered. If the item wasn't found, the promise completes with a value of null.
 		**/
-		itemFromDescription(description: Object): Promise<IItem<T>>;
+		itemFromDescription(description: any): Promise<IItem<T>>;
 
 		/**
 		 * Retrieves the item at the specified index.
@@ -3145,7 +3145,7 @@ declare module WinJS.UI {
 		 * @param description Domain-specific information that IListDataAdapter can use to improve the retrieval time.
 		 * @returns A Promise that provides an IItem that contains the requested item or a FetchError if an error was encountered. If the item was not found, the promise completes with a null value.
 		**/
-		itemFromKey(key: string, description?: Object): Promise<IItem<T>>;
+		itemFromKey(key: string, description?: any): Promise<IItem<T>>;
 
 		/**
 		 * Moves an item to just after another item.
@@ -3270,13 +3270,13 @@ declare module WinJS.UI {
 		 * @param items The indexes or keys of the items to add. You can provide different types of objects for the items parameter: you can specify an index, a key, or a range of indexes. It can also be an array that contains one or more of these objects. For more info, see the Remarks section.
 		 * @returns A Promise that is fulfilled when the operation completes.
 		**/
-		add(items: Object): Promise<void>;
+		add(items: any): Promise<any>;
 
 		/**
 		 * Clears the selection.
 		 * @returns A Promise that is fulfilled when the clear operation completes.
 		**/
-		clear(): Promise<void>;
+		clear(): Promise<any>;
 
 		/**
 		 * Returns the number of items in the selection.
@@ -3313,7 +3313,7 @@ declare module WinJS.UI {
 		 * @param items The indexes or keys of the items to remove. You can provide different types of objects for the items parameter: you can specify an index, a key, or a range of indexes. It can also be an array that contains one or more of these objects. For more info, see the Remarks section.
 		 * @returns A Promise that is fulfilled when the operation completes.
 		**/
-		remove(items: Object): Promise<void>;
+		remove(items: any): Promise<any>;
 
 		/**
 		 * Adds all the items in the ListView to the selection.
@@ -3325,7 +3325,7 @@ declare module WinJS.UI {
 		 * @param items The indexes or keys of the items that make up the selection. You can provide different types of objects for the items parameter: you can specify an index, a key, or a range of indexes. It can also be an array that contains one or more of these objects. For more info, see the Remarks section.
 		 * @returns A Promise that is fulfilled when the operation completes.
 		**/
-		set(items: Object): Promise<void>;
+		set(items: any): Promise<any>;
 
 		//#endregion Methods
 
@@ -3345,7 +3345,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets the key of the first item in the range.
 		**/
-		firstKey: Object;
+		firstKey: any;
 
 		/**
 		 * Gets or sets the index of the last item in the range.
@@ -3355,7 +3355,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets of the key of the last item in the range.
 		**/
-		lastKey: Object;
+		lastKey: any;
 
 		//#endregion Properties
 
@@ -3439,7 +3439,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the control.
 		 * @param options The set of properties and values to apply to the new AppBar.
 		**/
-		constructor(element: Object, options?: Object);
+		constructor(element: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -3487,7 +3487,7 @@ declare module WinJS.UI {
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
 		 * @returns true if preventDefault was called on the event, otherwise false.
 		**/
-		dispatchEvent(type: string, eventProperties: Object): boolean;
+		dispatchEvent(type: string, eventProperties: any): boolean;
 
 		/**
 		 * Releases resources held by this AppBar. Call this method when the AppBar is no longer needed. After calling this method, the AppBar becomes unusable.
@@ -3511,7 +3511,7 @@ declare module WinJS.UI {
 		 * @param commands The commands to hide. The array elements may be AppBarCommand objects, or the string identifiers (IDs) of commands.
 		 * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to hide the commands immediately, without animating them; otherwise, false.
 		**/
-		hideCommands(commands: Object[], immediate: boolean): void;
+		hideCommands(commands: any[], immediate: boolean): void;
 
 		/**
 		 * Removes an event handler that the addEventListener method registered.
@@ -3531,14 +3531,14 @@ declare module WinJS.UI {
 		 * @param commands The commands to show. The array elements may be AppBarCommand objects, or the string identifiers (IDs) of commands.
 		 * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to show the commands immediately, without animating them; otherwise, false.
 		**/
-		showCommands(commands: Object[], immediate: boolean): void;
+		showCommands(commands: any[], immediate: boolean): void;
 
 		/**
 		 * Shows the specified commands of the AppBar while hiding all other commands.
 		 * @param commands The commands to show. The array elements may be AppBarCommand objects, or the string identifiers (IDs) of commands.
 		 * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to show the specified commands (and hide the others) immediately, without animating them; otherwise, false.
 		**/
-		showOnlyCommands(commands: Object[], immediate: boolean): void;
+		showOnlyCommands(commands: any[], immediate: boolean): void;
 
 		//#endregion Methods
 
@@ -3595,7 +3595,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the control.
 		 * @param options The set of properties and values to apply to the new AppBarCommand.
 		**/
-		constructor(element: Object, options?: Object);
+		constructor(element: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -3717,7 +3717,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element hosts the new BackButton.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
 		**/
-		constructor(element: Object, options: Object);
+		constructor(element: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -3737,7 +3737,7 @@ declare module WinJS.UI {
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
 		 * @returns true if preventDefault was called on the event, otherwise false.
 		**/
-		dispatchEvent(type: string, eventProperties: Object): boolean;
+		dispatchEvent(type: string, eventProperties: any): boolean;
 
 		/**
 		 * Releases resources held by this BackButton. Call this method when the BackButton is no longer needed. After calling this method, the BackButton becomes unusable.
@@ -3781,7 +3781,7 @@ declare module WinJS.UI {
 		 * @constructor 
 		 * @param options An object that contains one or more property/value pairs to apply to the new CellSpanningLayout. Each property of the options object corresponds to one of the object's properties or events. Event names must begin with "on".
 		**/
-		constructor(options: Object);
+		constructor(options?: any);
 
 		//#endregion Constructors
 
@@ -3808,7 +3808,7 @@ declare module WinJS.UI {
 		 * @param pressedKey The key that was pressed.
 		 * @returns An object that describes the next item that should receive focus. It has these properties: index, type.
 		**/
-		getAdjacent(currentItem: Object, pressedKey: WinJS.Utilities.Key): Object;
+		getAdjacent(currentItem: any, pressedKey: WinJS.Utilities.Key): any;
 
 		/**
 		 * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
@@ -3838,7 +3838,7 @@ declare module WinJS.UI {
 		 * @param modifiedItems 
 		 * @param modifiedGroups 
 		**/
-		layout(tree: ILayoutSite2, changedRange: Object, modifiedItems: Object, modifiedGroups: Object): void;
+		layout(tree: ILayoutSite2, changedRange: any, modifiedItems: any, modifiedGroups: any): void;
 
 		/**
 		 * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
@@ -3900,7 +3900,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element associated with the DatePicker control.
 		 * @param options The set of options to be applied initially to the DatePicker control. The options are the following: calendar, current, datePattern, disabled, maxYear, minYear, monthPattern, yearPattern.
 		**/
-		constructor(element: HTMLElement, options: Object);
+		constructor(element: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -3930,7 +3930,7 @@ declare module WinJS.UI {
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
 		 * @returns true if preventDefault was called on the event, otherwise false.
 		**/
-		dispatchEvent(type: string, eventProperties: Object): boolean;
+		dispatchEvent(type: string, eventProperties: any): boolean;
 
 		/**
 		 * Releases resources held by this DatePicker. Call this method when the DatePicker is no longer needed. After calling this method, the DatePicker becomes unusable.
@@ -3943,7 +3943,7 @@ declare module WinJS.UI {
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
 		 * @returns true if preventDefault was called on the event, otherwise false.
 		**/
-		raiseEvent(type: string, eventProperties: Object): boolean;
+		raiseEvent(type: string, eventProperties: any): boolean;
 
 		/**
 		 * Removes a listener for the specified event.
@@ -3951,7 +3951,7 @@ declare module WinJS.UI {
 		 * @param listener The listener.
 		 * @param useCapture Optional. The same value that was passed to addEventListener for this listener. It may be omitted if it was omitted when calling addEventListener.
 		**/
-		removeEventListener(type: string, listener: Function, useCapture?: Object): void;
+		removeEventListener(type: string, listener: Function, useCapture?: any): void;
 
 		//#endregion Methods
 
@@ -3960,7 +3960,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets the calendar to use.
 		**/
-		calendar: Object;
+		calendar: any;
 
 		/**
 		 * Gets or sets the current date of the DatePicker. You can use either a date string or a Date object to set this property.
@@ -4026,7 +4026,7 @@ declare module WinJS.UI {
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
 		 * @returns true if preventDefault was called on the event, otherwise false.
 		**/
-		dispatchEvent(type: string, eventProperties: Object): boolean;
+		dispatchEvent(type: string, eventProperties: any): boolean;
 
 		/**
 		 * Removes an event listener from the control.
@@ -4041,7 +4041,7 @@ declare module WinJS.UI {
 		 * @param control The control on which the properties and events are to be applied.
 		 * @param options The set of options that are specified declaratively.
 		**/
-		setOptions(control: Object, options: Object): void;
+		setOptions(control: any, options: any): void;
 
 		//#endregion Methods
 
@@ -4059,7 +4059,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that hosts the control.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the pageselected event, add a property named "onpageselected" and set its value to the event handler.
 		**/
-		constructor(element: Object, options?: Object);
+		constructor(element: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -4113,7 +4113,7 @@ declare module WinJS.UI {
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
 		 * @returns true if preventDefault was called on the event, otherwise false.
 		**/
-		dispatchEvent(type: string, eventProperties: Object): boolean;
+		dispatchEvent(type: string, eventProperties: any): boolean;
 
 		/**
 		 * Releases resources held by this FlipView. Call this method when the FlipView is no longer needed. After calling this method, the FlipView becomes unusable.
@@ -4149,7 +4149,7 @@ declare module WinJS.UI {
 		 * Sets custom animations for the FlipView to use when navigating between pages.
 		 * @param animations An object that contains up to three fields, one for each navigation action: next, previous, and jump. Each of those fields must be a function with this signature: function (outgoingPage, incomingPage) Each function must return a WinJS.Promise that completes once the animations are finished. If a field is null or undefined, the FlipView reverts to its default animation for that action.
 		**/
-		setCustomAnimations(animations: Object): void;
+		setCustomAnimations(animations: any): void;
 
 		//#endregion Methods
 
@@ -4201,7 +4201,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the control.
 		 * @param options The set of properties and values to apply to the new Flyout.
 		**/
-		constructor(element: HTMLElement, options?: Object);
+		constructor(element: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -4267,7 +4267,7 @@ declare module WinJS.UI {
 		 * @param placement The placement of the Flyout to the anchor: the string literal "top", "bottom", "left", or "right".
 		 * @param alignment For "top" or "bottom" placement, the alignment of the Flyout to the anchor's edge: the string literal "center", "left", or "right".
 		**/
-		show(anchor: HTMLElement, placement: Object, alignment: Object): void;
+		show(anchor: HTMLElement, placement: string, alignment: string): void;
 
 		//#endregion Methods
 
@@ -4276,7 +4276,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets the default alignment to be used for this Flyout.
 		**/
-		alignment: Object;
+		alignment: string;
 
 		/**
 		 * Gets or sets the default anchor to be used for this Flyout.
@@ -4296,7 +4296,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets the default placement to be used for this Flyout.
 		**/
-		placement: Object;
+		placement: string;
 
 		//#endregion Properties
 
@@ -4313,7 +4313,7 @@ declare module WinJS.UI {
 		 * @constructor 
 		 * @param options The set of properties and values to apply to the new GridLayout.
 		**/
-		constructor(options?: Object);
+		constructor(options?: any);
 
 		//#endregion Constructors
 
@@ -4365,7 +4365,7 @@ declare module WinJS.UI {
 		 * @param element 
 		 * @param keyPressed 
 		**/
-		getKeyboardNavigatedItem(itemIndex: number, element: Object, keyPressed: Object): void;
+		getKeyboardNavigatedItem(itemIndex: number, element: any, keyPressed: any): void;
 
 		/**
 		 * This method is no longer supported.
@@ -4397,7 +4397,7 @@ declare module WinJS.UI {
 		 * This method is no longer supported.
 		 * @param elements 
 		**/
-		itemsAdded(elements: Object): void;
+		itemsAdded(elements: any): void;
 
 		/**
 		 * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
@@ -4415,7 +4415,7 @@ declare module WinJS.UI {
 		 * This method is no longer supported.
 		 * @param elements 
 		**/
-		itemsRemoved(elements: Object): void;
+		itemsRemoved(elements: any): void;
 
 		/**
 		 * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
@@ -4424,21 +4424,21 @@ declare module WinJS.UI {
 		 * @param modifiedItems 
 		 * @param modifiedGroups 
 		**/
-		layout(tree: Object, changedRange: Object, modifiedItems: Object, modifiedGroups: Object): void;
+		layout(tree: any, changedRange: any, modifiedItems: any, modifiedGroups: any): void;
 
 		/**
 		 * This method is no longer supported.
 		 * @param groupIndex 
 		 * @param element A DOM element.
 		**/
-		layoutHeader(groupIndex: number, element: Object): void;
+		layoutHeader(groupIndex: number, element: any): void;
 
 		/**
 		 * This method is no longer supported.
 		 * @param itemIndex 
 		 * @param element A DOM element.
 		**/
-		layoutItem(itemIndex: number, element: Object): void;
+		layoutItem(itemIndex: number, element: any): void;
 
 		/**
 		 * This method is no longer supported.
@@ -4451,14 +4451,14 @@ declare module WinJS.UI {
 		 * @param itemIndex 
 		 * @param element A DOM element.
 		**/
-		prepareItem(itemIndex: number, element: Object): void;
+		prepareItem(itemIndex: number, element: any): void;
 
 		/**
 		 * This method is no longer supported.
 		 * @param item 
 		 * @param newItem 
 		**/
-		releaseItem(item: Object, newItem: Object): void;
+		releaseItem(item: any, newItem: any): void;
 
 		/**
 		 * This method is no longer supported.
@@ -4469,7 +4469,7 @@ declare module WinJS.UI {
 		 * This method is no longer supported.
 		 * @param layoutSite 
 		**/
-		setSite(layoutSite: Object): void;
+		setSite(layoutSite: any): void;
 
 		/**
 		 * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
@@ -4564,7 +4564,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the Hub control.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the contentanimating event, add a property named "oncontentanimating" to the options object and set its value to the event handler.
 		**/
-		constructor(element: HTMLElement, options?: Object);
+		constructor(element: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -4606,7 +4606,7 @@ declare module WinJS.UI {
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
 		 * @returns true if preventDefault was called on the event, otherwise false.
 		**/
-		dispatchEvent(type: string, eventProperties: Object): boolean;
+		dispatchEvent(type: string, eventProperties: any): boolean;
 
 		/**
 		 * Releases resources held by this Hub. Call this method when the Hub is no longer needed. After calling this method, the Hub becomes unusable.
@@ -4691,7 +4691,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element hosts the new HubSection.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
 		**/
-		constructor(element: Object, options?: Object);
+		constructor(element: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -4734,16 +4734,17 @@ declare module WinJS.UI {
 	 * Enables you to include an HTML page dynamically. As part of the constructor, you must include an option indicating the URI of the page.
 	**/
 	class HtmlControl {
-		//#region Methods
+		//#region Constructors
 
 		/**
 		 * Initializes a new instance of HtmlControl to define a new page control.
+		 * @constructor
 		 * @param element The element that hosts the HtmlControl.
 		 * @param options The options for configuring the page. The uri option is required in order to specify the source document for the content of the page. Other options are the ones used by the WinJS.Pages.render method.
 		**/
-		HtmlControl(element: HTMLElement, options: Object): void;
+		constructor(element: HTMLElement, options?: any);
 
-		//#endregion Methods
+		//#endregion Constructors
 
 	}
 
@@ -4759,7 +4760,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element hosts the new ItemContainer. For the ItemContainer to be accessible, this element must have its role attribute set to "list" or "listbox". If tapBehavior is set to none and selectionDisabled is true, then use the "list" role; otherwise, use the "listbox" role.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
 		**/
-		constructor(element: Object, options: Object);
+		constructor(element: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -4801,7 +4802,7 @@ declare module WinJS.UI {
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
 		 * @returns true if preventDefault was called on the event, otherwise false.
 		**/
-		dispatchEvent(type: string, eventProperties: Object): boolean;
+		dispatchEvent(type: string, eventProperties: any): boolean;
 
 		/**
 		 * Releases resources held by this ItemContainer. Call this method when the ItemContainer is no longer needed. After calling this method, the ItemContainer becomes unusable.
@@ -4881,7 +4882,7 @@ declare module WinJS.UI {
 		 * @constructor 
 		 * @param options An object that contains one or more property/value pairs to apply to the new ListLayout. Each property of the options object corresponds to one of the object's properties or events. Event names must begin with "on".
 		**/
-		constructor(options?: Object);
+		constructor(options?: any);
 
 		//#endregion Constructors
 
@@ -4933,7 +4934,7 @@ declare module WinJS.UI {
 		 * @param element 
 		 * @param keyPressed 
 		**/
-		getKeyboardNavigatedItem(itemIndex: number, element: Object, keyPressed: Object): void;
+		getKeyboardNavigatedItem(itemIndex: number, element: HTMLElement, keyPressed: any): void;
 
 		/**
 		 * This method is no longer supported.
@@ -4963,7 +4964,7 @@ declare module WinJS.UI {
 		 * This method is no longer supported.
 		 * @param elements 
 		**/
-		itemsAdded(elements: Object): void;
+		itemsAdded(elements: any): void;
 
 		/**
 		 * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
@@ -4981,7 +4982,7 @@ declare module WinJS.UI {
 		 * This method is no longer supported.
 		 * @param elements 
 		**/
-		itemsRemoved(elements: Object): void;
+		itemsRemoved(elements: any): void;
 
 		/**
 		 * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
@@ -4990,21 +4991,21 @@ declare module WinJS.UI {
 		 * @param modifiedItems 
 		 * @param modifiedGroups 
 		**/
-		layout(tree: Object, changedRange: Object, modifiedItems: Object, modifiedGroups: Object): void;
+		layout(tree: any, changedRange: any, modifiedItems: any, modifiedGroups: any): void;
 
 		/**
 		 * This method is no longer supported.
 		 * @param groupIndex 
 		 * @param element A DOM element.
 		**/
-		layoutHeader(groupIndex: number, element: Object): void;
+		layoutHeader(groupIndex: number, element: any): void;
 
 		/**
 		 * This method is no longer supported.
 		 * @param itemIndex 
 		 * @param element A DOM element.
 		**/
-		layoutItem(itemIndex: number, element: Object): void;
+		layoutItem(itemIndex: number, element: any): void;
 
 		/**
 		 * This method is no longer supported.
@@ -5017,14 +5018,14 @@ declare module WinJS.UI {
 		 * @param itemIndex 
 		 * @param element A DOM element.
 		**/
-		prepareItem(itemIndex: number, element: Object): void;
+		prepareItem(itemIndex: number, element: any): void;
 
 		/**
 		 * This method is no longer supported.
 		 * @param item 
 		 * @param newItem 
 		**/
-		releaseItem(item: Object, newItem: Object): void;
+		releaseItem(item: any, newItem: any): void;
 
 		/**
 		 * This method is no longer supported.
@@ -5035,7 +5036,7 @@ declare module WinJS.UI {
 		 * This method is no longer supported.
 		 * @param layoutSite 
 		**/
-		setSite(layoutSite: Object): void;
+		setSite(layoutSite: any): void;
 
 		/**
 		 * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
@@ -5120,7 +5121,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that hosts the ListView control.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the selectionchanged event, add a property named "onselectionchanged" to the options object and set its value to the event handler.
 		**/
-		constructor(element: Object, options?: Object);
+		constructor(element: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -5228,7 +5229,7 @@ declare module WinJS.UI {
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
 		 * @returns true if preventDefault was called on the event, otherwise false.
 		**/
-		dispatchEvent(type: string, eventProperties: Object): boolean;
+		dispatchEvent(type: string, eventProperties: any): boolean;
 
 		/**
 		 * Releases resources held by this object. Call this method when the object is no longer needed. After calling this method, the object becomes unusable.
@@ -5380,7 +5381,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets the function that is called when the ListView discards or recycles the element representation of a group header.
 		**/
-		resetGroupHeader: (header: Object, element: HTMLElement) => void;
+		resetGroupHeader: (header: any, element: HTMLElement) => void;
 
 		/**
 		 * Gets or sets the function that is called when an item is removed, an item is changed, or an item falls outside of the realized range of the ListView.
@@ -5433,7 +5434,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the control.
 		 * @param options The set of properties and values to apply to the new Menu.
 		**/
-		constructor(element: Object, options?: Object);
+		constructor(element: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -5497,7 +5498,7 @@ declare module WinJS.UI {
 		 * @param commands The commands to hide. The array elements may be MenuCommand objects, or the string identifiers (IDs) of commands.
 		 * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to hide the commands immediately, without animating them; otherwise, false.
 		**/
-		hideCommands(commands: Object[], immediate: boolean): void;
+		hideCommands(commands: any[], immediate: boolean): void;
 
 		/**
 		 * Removes an event handler that the addEventListener method registered.
@@ -5513,21 +5514,21 @@ declare module WinJS.UI {
 		 * @param placement The placement of the Menu to the anchor: top, bottom, left, or right.
 		 * @param alignment For top or bottom placement, the alignment of the Menu to the anchor's edge: center, left, or right.
 		**/
-		show(anchor: HTMLElement, placement: Object, alignment: Object): void;
+		show(anchor: HTMLElement, placement: string, alignment: string): void;
 
 		/**
 		 * Shows the specified commands of the Menu.
 		 * @param commands The commands to show. The array elements may be Menu objects, or the string identifiers (IDs) of commands.
 		 * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to show the commands immediately, without animating them; otherwise, false.
 		**/
-		showCommands(commands: Object[], immediate: boolean): void;
+		showCommands(commands: any[], immediate: boolean): void;
 
 		/**
 		 * Shows the specified commands of the Menu while hiding all other commands.
 		 * @param commands The commands to show. The array elements may be MenuCommand objects, or the string identifiers (IDs) of commands.
 		 * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to show the specified commands (and hide the others) immediately, without animating them; otherwise, false.
 		**/
-		showOnlyCommands(commands: Object[], immediate: boolean): void;
+		showOnlyCommands(commands: any[], immediate: boolean): void;
 
 		//#endregion Methods
 
@@ -5536,7 +5537,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets the default alignment to be used for this Menu.
 		**/
-		alignment: Object;
+		alignment: string;
 
 		/**
 		 * Gets or sets the default anchor to be used for this Menu.
@@ -5561,7 +5562,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets the default placement to be used for this Menu.
 		**/
-		placement: Object;
+		placement: string;
 
 		//#endregion Properties
 
@@ -5579,7 +5580,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the control.
 		 * @param options The set of properties and values to apply to the new MenuCommand.
 		**/
-		constructor(element: Object, options?: Object);
+		constructor(element: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -5676,7 +5677,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the new NavBar.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
 		**/
-		constructor(element: Object, options?: Object);
+		constructor(element: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -5730,7 +5731,7 @@ declare module WinJS.UI {
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
 		 * @returns true if preventDefault was called on the event, otherwise false.
 		**/
-		dispatchEvent(type: string, eventProperties: Object): boolean;
+		dispatchEvent(type: string, eventProperties: any): boolean;
 
 		/**
 		 * Releases resources held by this NavBar. Call this method when the NavBar is no longer needed. After calling this method, the NavBar becomes unusable.
@@ -5747,7 +5748,7 @@ declare module WinJS.UI {
 		 * @param commands The commands to hide. The array elements may be NavBarCommand objects, or the string identifiers (IDs) of commands.
 		 * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to hide the commands immediately, without animating them; otherwise, false.
 		**/
-		hideCommands(commands: Object[], immediate: boolean): void;
+		hideCommands(commands: any[], immediate: boolean): void;
 
 		/**
 		 * Removes an event handler that the addEventListener method registered.
@@ -5767,14 +5768,14 @@ declare module WinJS.UI {
 		 * @param commands The commands to show. The array elements may be NavBarCommand objects, or the string identifiers (IDs) of commands.
 		 * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to show the commands immediately, without animating them; otherwise, false.
 		**/
-		showCommands(commands: Object[], immediate: boolean): void;
+		showCommands(commands: any[], immediate: boolean): void;
 
 		/**
 		 * Shows the specified commands of the NavBar while hiding all other commands.
 		 * @param commands The commands to show. The array elements may be NavBarCommand objects, or the string identifiers (IDs) of commands.
 		 * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to show the specified commands (and hide the others) immediately, without animating them; otherwise, false.
 		**/
-		showOnlyCommands(commands: Object[], immediate: boolean): void;
+		showOnlyCommands(commands: any[], immediate: boolean): void;
 
 		//#endregion Methods
 
@@ -5831,7 +5832,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element hosts the new NavBarCommand.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
 		**/
-		constructor(element: Object, options?: Object);
+		constructor(element: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -5851,7 +5852,7 @@ declare module WinJS.UI {
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
 		 * @returns true if preventDefault was called on the event, otherwise false.
 		**/
-		dispatchEvent(type: string, eventProperties: Object): boolean;
+		dispatchEvent(type: string, eventProperties: any): boolean;
 
 		/**
 		 * Releases resources held by this NavBarCommand. Call this method when the NavBarCommand is no longer needed. After calling this method, the NavBarCommand becomes unusable.
@@ -5888,7 +5889,7 @@ declare module WinJS.UI {
 		/**
 		 * Get or sets the location to navigate to when this command is invoked.
 		**/
-		location: Object;
+		location: any;
 
 		/**
 		 * Gets or sets a value that specifies whether to show the split tab stop.
@@ -5903,7 +5904,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets a user-defined object that represents the state associated with the command's location.
 		**/
-		state: Object;
+		state: any;
 
 		/**
 		 * Gets or sets the tooltip of the command.
@@ -5926,7 +5927,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element hosts the new NavBarContainer.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
 		**/
-		constructor(element: Object, options: Object);
+		constructor(element: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -5962,7 +5963,7 @@ declare module WinJS.UI {
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
 		 * @returns true if preventDefault was called on the event, otherwise false.
 		**/
-		dispatchEvent(type: string, eventProperties: Object): boolean;
+		dispatchEvent(type: string, eventProperties: any): boolean;
 
 		/**
 		 * Releases resources held by this NavBarCommand. Call this method when the NavBarCommand is no longer needed. After calling this method, the NavBarCommand becomes unusable.
@@ -6037,7 +6038,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element hosts the new Rating.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the cancel event, add a property named "oncancel" to the options object and set its value to the event handler.
 		**/
-		constructor(element: Object, options?: Object);
+		constructor(element: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -6140,7 +6141,7 @@ declare module WinJS.UI {
 		 * @constructor 
 		 * @param options An object that contains one or more property/value pairs to apply to the new Repeater. Each property of the options object corresponds to one of the object's properties or events. Event names must begin with "on".
 		**/
-		constructor(options?: Object);
+		constructor(options?: any);
 
 		//#endregion Constructors
 
@@ -6230,7 +6231,7 @@ declare module WinJS.UI {
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
 		 * @returns true if preventDefault was called on the event, otherwise false.
 		**/
-		dispatchEvent(type: string, eventProperties: Object): boolean;
+		dispatchEvent(type: string, eventProperties: any): boolean;
 
 		/**
 		 * Releases resources held by this Repeater. Call this method when the Repeater is no longer needed. After calling this method, the Repeater becomes unusable.
@@ -6259,7 +6260,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets the List that provides the Repeater with items to display.
 		**/
-		data: WinJS.Binding.List<Object>;
+		data: WinJS.Binding.List<any>;
 
 		/**
 		 * Gets the DOM element that hosts the Repeater.
@@ -6292,7 +6293,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element hosts the new SearchBox.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
 		**/
-		constructor(element: Object, options: Object);
+		constructor(element: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -6346,7 +6347,7 @@ declare module WinJS.UI {
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
 		 * @returns true if preventDefault was called on the event, otherwise false.
 		**/
-		dispatchEvent(type: string, eventProperties: Object): boolean;
+		dispatchEvent(type: string, eventProperties: any): boolean;
 
 		/**
 		 * Releases resources held by this SearchBox. Call this method when the SearchBox is no longer needed. After calling this method, the SearchBox becomes unusable.
@@ -6427,7 +6428,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that hosts the SemanticZoom.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. This object can contain these properties: initiallyZoomedOut Boolean, zoomFactor 0.2–0.85.
 		**/
-		constructor(element: HTMLElement, options?: Object);
+		constructor(element: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -6457,7 +6458,7 @@ declare module WinJS.UI {
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
 		 * @returns true if preventDefault was called on the event, otherwise false.
 		**/
-		dispatchEvent(type: string, eventProperties: Object): boolean;
+		dispatchEvent(type: string, eventProperties: any): boolean;
 
 		/**
 		 * Releases resources held by this SemanticZoom. Call this method when the SemanticZoom is no longer needed. After calling this method, the SemanticZoom becomes unusable.
@@ -6527,7 +6528,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the control.
 		 * @param options The set of properties and values to apply to the new SettingsFlyout.
 		**/
-		constructor(element: Object, options?: Object);
+		constructor(element: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -6575,7 +6576,7 @@ declare module WinJS.UI {
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
 		 * @returns true if preventDefault was called on the event, otherwise false.
 		**/
-		dispatchEvent(type: string, eventProperties: Object): boolean;
+		dispatchEvent(type: string, eventProperties: any): boolean;
 
 		/**
 		 * Releases resources held by this SettingsFlyout. Call this method when the SettingsFlyout is no longer needed. After calling this method, the SettingsFlyout becomes unusable.
@@ -6611,7 +6612,7 @@ declare module WinJS.UI {
 		 * @param id The ID of the Settings element.
 		 * @param path The path of the page that contains the Settings element.
 		**/
-		showSettings(id: string, path: Object): void;
+		showSettings(id: string, path: any): void;
 
 		//#endregion Methods
 
@@ -6645,6 +6646,18 @@ declare module WinJS.UI {
 	 * A type of IListDataSource that provides read-access to an object that implements the IStorageQueryResultBase interface. A StorageDataSource enables you to query and bind to items in the data source.
 	**/
 	class StorageDataSource<T> {
+		//#region Constructors
+
+		/**
+		 * Creates a new StorageDataSource object.
+		 * @constructor
+		 * @param query The IStorageQueryResultBase that the StorageDataSource obtains its items from. Instead of IStorageQueryResultBase, you can also pass one of these string values: Music, Pictures, Videos, Documents.
+		 * @param options The set of properties and values to apply to the new StorageDataSource. Properties on this object may include: mode , requestedThumbnailSize , thumbnailOptions , synchronous .
+		**/
+		constructor(query: Windows.Storage.Search.IStorageQueryResultBase, options?: any);
+
+		//#endregion Constructors
+
 		//#region Methods
 
 		/**
@@ -6654,13 +6667,6 @@ declare module WinJS.UI {
 		 * @returns A Promise that completes when the full-quality thumbnail is visible.
 		**/
 		loadThumbnail(item: IItem<T>, image: HTMLElement): Promise<void>;
-
-		/**
-		 * Creates a new StorageDataSource object.
-		 * @param query The IStorageQueryResultBase that the StorageDataSource obtains its items from. Instead of IStorageQueryResultBase, you can also pass one of these string values: Music, Pictures, Videos, Documents.
-		 * @param options The set of properties and values to apply to the new StorageDataSource. Properties on this object may include: mode , requestedThumbnailSize , thumbnailOptions , synchronous .
-		**/
-		StorageDataSource(query: Windows.Storage.Search.IStorageQueryResultBase, options: Object): void;
 
 		//#endregion Methods
 
@@ -6678,7 +6684,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that hosts the TabContainer control.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties.
 		**/
-		constructor(element: Object, options?: Object);
+		constructor(element: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -6719,7 +6725,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element associated with the TimePicker control.
 		 * @param options The set of options to be applied initially to the TimePicker control. The options are the following: clock.
 		**/
-		constructor(element: HTMLElement, options: Object);
+		constructor(element: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -6749,7 +6755,7 @@ declare module WinJS.UI {
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
 		 * @returns true if preventDefault was called on the event, otherwise false.
 		**/
-		dispatchEvent(type: string, eventProperties: Object): boolean;
+		dispatchEvent(type: string, eventProperties: any): boolean;
 
 		/**
 		 * Releases resources held by this TimePicker. Call this method when the TimePicker is no longer needed. After calling this method, the TimePicker becomes unusable.
@@ -6762,7 +6768,7 @@ declare module WinJS.UI {
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
 		 * @returns true if preventDefault was called on the event, otherwise false.
 		**/
-		raiseEvent(type: string, eventProperties: Object): boolean;
+		raiseEvent(type: string, eventProperties: any): boolean;
 
 		/**
 		 * Removes a listener for the specified event.
@@ -6770,7 +6776,7 @@ declare module WinJS.UI {
 		 * @param listener The listener.
 		 * @param useCapture Optional. The same value that was passed to addEventListener for this listener. It may be omitted if it was omitted when calling addEventListener.
 		**/
-		removeEventListener(type: string, listener: Function, useCapture?: Object): void;
+		removeEventListener(type: string, listener: Function, useCapture?: any): void;
 
 		//#endregion Methods
 
@@ -6832,7 +6838,7 @@ declare module WinJS.UI {
 		 * @param element The DOM that hosts the control.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the change event, add a property named "onchange" to the options object and set its value to the event handler.
 		**/
-		constructor(element: Object, options: Object);
+		constructor(element: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -6862,7 +6868,7 @@ declare module WinJS.UI {
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
 		 * @returns true if preventDefault was called on the event, otherwise false.
 		**/
-		dispatchEvent(type: string, eventProperties: Object): boolean;
+		dispatchEvent(type: string, eventProperties: any): boolean;
 
 		/**
 		 * Releases resources held by this ToggleSwitch. Call this method when the ToggleSwitch is no longer needed. After calling this method, the ToggleSwitch becomes unusable.
@@ -6881,7 +6887,7 @@ declare module WinJS.UI {
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
 		 * @returns true if preventDefault was called on the event, otherwise false.
 		**/
-		raiseEvent(type: string, eventProperties: Object): boolean;
+		raiseEvent(type: string, eventProperties: any): boolean;
 
 		/**
 		 * Removes an event handler that the addEventListener method registered.
@@ -6933,6 +6939,18 @@ declare module WinJS.UI {
 	 * Displays a tooltip that can contain images and formatting.
 	**/
 	class Tooltip {
+		//#region Constructors
+
+		/**
+		 * Creates a new Tooltip.
+		 * @constructor
+		 * @param element The DOM element associated that hosts the Tooltip.
+		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the opened event, add a property named "onopened" to the options object and set its value to the event handler.
+		**/
+		constructor(element: HTMLElement, options?: any);
+
+		//#endregion Constructors
+
 		//#region Events
 
 		/**
@@ -6995,13 +7013,6 @@ declare module WinJS.UI {
 		**/
 		removeEventListener(eventName: string, eventCallback: Function, useCapture?: boolean): void;
 
-		/**
-		 * Creates a new Tooltip.
-		 * @param element The DOM element associated that hosts the Tooltip.
-		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the opened event, add a property named "onopened" to the options object and set its value to the event handler.
-		**/
-		Tooltip(element: Object, options: Object): void;
-
 		//#endregion Methods
 
 		//#region Properties
@@ -7044,6 +7055,18 @@ declare module WinJS.UI {
 	 * Scales a single child element to fill the available space without resizing it. This control reacts to changes in the size of the container as well as changes in size of the child element. For example, a media query may result in a change in aspect ratio.
 	**/
 	class ViewBox {
+		//#region Constructors
+
+		/**
+		 * Initializes a new instance of the ViewBox control.
+		 * @constructor
+		 * @param element The DOM element that functions as the scaling box. This element fills 100% of the width and height allotted to it.
+		 * @param options The set of options to be applied initially to the ViewBox control. There are currently no options on this control, and any options included in this parameter are ignored.
+		**/
+		constructor(element: HTMLElement, options?: any);
+
+		//#endregion Constructors
+
 		//#region Methods
 
 		/**
@@ -7072,13 +7095,6 @@ declare module WinJS.UI {
 		**/
 		removeEventListener(eventName: string, eventCallback: Function, useCapture?: boolean): void;
 
-		/**
-		 * Initializes a new instance of the ViewBox control.
-		 * @param element The DOM element that functions as the scaling box. This element fills 100% of the width and height allotted to it.
-		 * @param options The set of options to be applied initially to the ViewBox control. There are currently no options on this control, and any options included in this parameter are ignored.
-		**/
-		ViewBox(element: HTMLElement, options: Object): void;
-
 		//#endregion Methods
 
 		//#region Properties
@@ -7086,7 +7102,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets the DOM element that functions as the scaling box.
 		**/
-		element: Object;
+		element: HTMLElement;
 
 		//#endregion Properties
 
@@ -7104,7 +7120,7 @@ declare module WinJS.UI {
 		 * @param listDataAdapter The object that supplies data to the VirtualizedDataSource.
 		 * @param options An object that can contain properties that specify additional options for the VirtualizedDataSource. It supports these properties: cacheSize.
 		**/
-		constructor(listDataAdapter: IListDataAdapter<T>, options?: Object);
+		constructor(listDataAdapter: IListDataAdapter<T>, options?: any);
 
 		//#endregion Constructors
 
@@ -7134,7 +7150,7 @@ declare module WinJS.UI {
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
 		 * @returns true if preventDefault was called on the event, otherwise false.
 		**/
-		dispatchEvent(type: string, eventProperties: Object): boolean;
+		dispatchEvent(type: string, eventProperties: any): boolean;
 
 		/**
 		 * Removes an event handler that the addEventListener method registered.
@@ -7160,7 +7176,7 @@ declare module WinJS.UI {
 	 * @param options An object that can contain properties that specify additional options: groupCountEstimate, batchSize.
 	 * @returns An IListDataSource that contains the items in the original data source and provides additional group information in the form of a "groups" property. The "groups" property returns another IListDataSource that enumerates the different groups in the list.
 	**/
-	function computeDataSourceGroups<T>(listDataSource: IListDataSource<T>, groupKey: Function, groupData: Function, options?: Object): IListDataSource<T>;
+	function computeDataSourceGroups<T>(listDataSource: IListDataSource<T>, groupKey: Function, groupData: Function, options?: any): IListDataSource<T>;
 
 	/**
 	 * Used to disables all Animations Library and ListView animations. Calling this function does not guarantee that the animations will be disabled, as the determination is made based on several factors.
@@ -7177,7 +7193,7 @@ declare module WinJS.UI {
 	 * @param handler The handler to be marked as compatible with declarative processing.
 	 * @returns The handler, marked as compatible with declarative processing.
 	**/
-	function eventHandler(handler: Object): Object;
+	function eventHandler(handler: any): any;
 
 	/**
 	 * Asynchronously executes a collection of CSS animations on a collection of elements. This is the underlying animation mechanism used by the Animations Library. Apps are encouraged to use the Animations Library to conform with the standard look and feel of the rest of the system, rather than calling this function directly.
@@ -7185,7 +7201,7 @@ declare module WinJS.UI {
 	 * @param animation The animation description or an array of animation descriptions to apply to element. An animation description is a JavaScript object with specific properties, listed below. There are two types of animation descriptions: one for keyframe-based animations and one for explicit animations. These types are distinguished by whether the keyframe property has a defined value. The following properties are required for both types of animation descriptions: property (string), delay (number), duration (number), timing (string). If an animation has a keyframe property with a defined, non-null value, then the animation is a keyframe-based animation. A keyframe-based animation description requires the following property in addition to those mentioned above: keyframe (string). If an animation does not have a keyframe property, or if the value of the property is null or undefined, then the animation is an explicit animation. An explicit animation description requires the following properties in addition to the common properties mentioned above: from, to. The values given in the from and to properties must be valid for the CSS property specified by the property property. For example, if the CSS property is "opacity", then the from and to properties must be numbers between 0 and 1 (inclusive).
 	 * @returns Returns a Promise object that completes when the CSS animation is complete.
 	**/
-	function executeAnimation(element: Object, animation: Object): Promise<void>;
+	function executeAnimation(element: HTMLElement, animation: any): Promise<any>;
 
 	/**
 	 * Asynchronously executes a collection of CSS transitions on a collection of elements. This is the underlying animation mechanism used by the Animations Library. Apps are encouraged to use the Animations Library to conform with the standard look and feel of the rest of the system, rather than calling this function directly.
@@ -7193,7 +7209,7 @@ declare module WinJS.UI {
 	 * @param transition The transition description or an array of transition descriptions to apply to element. A transition description is a JavaScript object with these properties: property (string), delay (number), duration (number), timing (string), from (optional), to. The values given in the from and to properties must be valid for the CSS property specified by the property property. For example, if the CSS property is "opacity", then the from and to properties must be numbers between 0 and 1 (inclusive).
 	 * @returns Returns a Promise that completes when the transition is finished.
 	**/
-	function executeTransition(element: Object, transition: Object): Promise<void>;
+	function executeTransition(element: HTMLElement, transition: any): Promise<any>;
 
 	/**
 	 * Retrieves the items in the specified index range.
@@ -7213,7 +7229,7 @@ declare module WinJS.UI {
 	 * Applies declarative control binding to all elements, starting at the specified root element.
 	 * @param rootElement The element at which to start applying the binding. If this parameter is not specified, the binding is applied to the entire document.
 	**/
-	function processAll(rootElement: Element): void;
+	function processAll(rootElement?: Element): void;
 
 	/**
 	 * Applies declarative control binding to the specified element.
@@ -7234,14 +7250,14 @@ declare module WinJS.UI {
 	 * @param element Element to associate with the control.
 	 * @param control The control to attach to the element.
 	**/
-	function setControl(element: HTMLElement, control: Object): void;
+	function setControl(element: HTMLElement, control: any): void;
 
 	/**
 	 * Adds the set of declaratively specified options (properties and events) to the specified control. If name of the options property begins with "on", the property value is a function and the control supports addEventListener. setControl calls addEventListener on the control.
 	 * @param control The control on which the properties and events are to be applied.
 	 * @param options The set of options that are specified declaratively.
 	**/
-	function setOptions(control: Object, options: Object): void;
+	function setOptions(control: any, options?: any): void;
 
 	//#endregion Functions
 
@@ -7257,7 +7273,7 @@ declare module WinJS.UI.Fragments {
 	 * @param href The URI that contains the fragment to be copied.
 	 * @returns A promise that is fulfilled when the fragment has been prepared for copying.
 	**/
-	function cache(href: string): Promise<void>;
+	function cache(href: string): Promise<any>;
 
 	/**
 	 * Removes any cached information about the specified fragment. This method does not unload any scripts or styles that are referenced by the fragment.
@@ -7301,7 +7317,7 @@ declare module WinJS.UI.Pages {
 		 * @param err The error that occurred.
 		 * @returns Nothing if the error was handled, or an error promise if the error was not handled.
 		**/
-		error?(err: Object): Promise<Object>;
+		error?(err: any): Promise<any>;
 
 		/**
 		 * Initializes the control before the content of the control is set. Use the processed method for any initialization that should be done after the content of the control has been set.
@@ -7309,14 +7325,14 @@ declare module WinJS.UI.Pages {
 		 * @param options The options passed to the constructor of the page.
 		 * @returns A promise that is fulfilled when initialization is complete, if asynchronous processing is necessary. If not, returns nothing.
 		**/
-		init?(element: HTMLElement, options: Object): Promise<Object>;
+		init?(element: HTMLElement, options?: any): Promise<any>;
 
 		/**
 		 * Creates DOM objects from the content in the specified URI. This method is called after the PageControl is defined and before the init method is called.
 		 * @param uri The URI from which to create DOM objects.
 		 * @returns A promise whose fulfilled value is the set of unparented DOM objects.
 		**/
-		load?(uri: string): Promise<Object>;
+		load?(uri: string): Promise<any>;
 
 		/**
 		 * Initializes the control after the content of the control is set.
@@ -7324,7 +7340,7 @@ declare module WinJS.UI.Pages {
 		 * @param options The options that are to be passed to the constructor of the page.
 		 * @returns A promise that is fulfilled when initialization is complete, if asynchronous processing is necessary. If not, returns nothing.
 		**/
-		processed?(element: HTMLElement, options: Object): Promise<Object>;
+		processed?(element: HTMLElement, options?: any): Promise<any>;
 
 		/**
 		 * Called after all initialization and rendering is complete. At this time, the element is ready for use.
@@ -7332,7 +7348,7 @@ declare module WinJS.UI.Pages {
 		 * @param options An object that contains one or more property/value pairs to apply to the PageControl. How these property/value pairs are used (or not used) depends on the implementation of that particular PageControl.
 		 * @returns A promise that is fulfilled when the element is ready for use, if asynchronous processing is necessary. If not, returns nothing.
 		**/
-		ready?(element: HTMLElement, options: Object): Promise<Object>;
+		ready?(element: HTMLElement, options?: any): Promise<any>;
 
 		/**
 		 * Takes the elements returned by the load method and attaches them to the specified element.
@@ -7340,7 +7356,7 @@ declare module WinJS.UI.Pages {
 		 * @param options An object that contains one or more property/value pairs to apply to the PageControl. How these property/value pairs are used (or not used) depends on the implementation of that particular PageControl.
 		 * @param loadResult A Promise that contains the elements returned from the load method.
 		**/
-		render?(element: HTMLElement, options: Object, loadResult: Promise<Object>): void;
+		render?(element: HTMLElement, options: any, loadResult: Promise<any>): void;
 
 		//#endregion Methods
 
@@ -7383,7 +7399,7 @@ declare module WinJS.UI.Pages {
 	 * @param parentedPromise A Promise that is fulfilled when the new PageControl is done rendering and its contents becomes the child of element.
 	 * @returns A promise that is fulfilled when rendering is complete, if asynchronous processing is necessary. If not, returns nothing.
 	**/
-	function render(uri: string, element: HTMLElement, options?: Object, parentedPromise?: Promise<Object>): Promise<void>;
+	function render(uri: string, element: HTMLElement, options?: any, parentedPromise?: Promise<any>): Promise<void>;
 
 	//#endregion Functions
 
@@ -7850,7 +7866,7 @@ declare module WinJS.Utilities {
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
 		 * @returns true if preventDefault was called on the event.
 		**/
-		dispatchEvent(type: string, eventProperties: Object): boolean;
+		dispatchEvent(type: string, eventProperties: any): boolean;
 
 		/**
 		 * Removes an event listener from the control.
@@ -7908,7 +7924,7 @@ declare module WinJS.Utilities {
 		 * @param options The options passed to the newly-created controls.
 		 * @returns This QueryCollection object.
 		**/
-		control(ctor: any, options?: Object): QueryCollection<T>;
+		control(ctor: any, options?: any): QueryCollection<T>;
 
 		/**
 		 * Performs an action on each item in the QueryCollection.
@@ -7916,7 +7932,7 @@ declare module WinJS.Utilities {
 		 * @param thisArg The argument to bind to callbackFn.
 		 * @returns The QueryCollection.
 		**/
-		forEach(callbackFn: (value: T, index: number, array: T[]) => void, thisArg?: Object): QueryCollection<T>;
+		forEach(callbackFn: (value: T, index: number, array: T[]) => void, thisArg?: any): QueryCollection<T>;
 
 		/**
 		 * Gets an item from the QueryCollection.
@@ -7930,7 +7946,7 @@ declare module WinJS.Utilities {
 		 * @param name The name of the attribute.
 		 * @returns The value of the attribute.
 		**/
-		getAttribute(name: string): Object;
+		getAttribute(name: string): any;
 
 		/**
 		 * Determines whether the specified class exists on the first element of the collection.
@@ -7995,7 +8011,7 @@ declare module WinJS.Utilities {
 		 * @param value The value of the attribute to be set.
 		 * @returns This QueryCollection object.
 		**/
-		setAttribute(name: string, value: Object): QueryCollection<T>;
+		setAttribute(name: string, value: any): QueryCollection<T>;
 
 		/**
 		 * Sets the specified style property for all the elements in the collection.
@@ -8003,7 +8019,7 @@ declare module WinJS.Utilities {
 		 * @param value The value for the property.
 		 * @returns This QueryCollection object.
 		**/
-		setStyle(name: string, value: Object): QueryCollection<T>;
+		setStyle(name: string, value: any): QueryCollection<T>;
 
 		/**
 		 * Renders a template that is bound to the given data and parented to the elements included in the QueryCollection. If the QueryCollection contains multiple elements, the template is rendered multiple times, once at each element in the QueryCollection per item of data passed.
@@ -8012,7 +8028,7 @@ declare module WinJS.Utilities {
 		 * @param renderDonePromiseCallback If supplied, this function is called each time the template gets rendered, and is passed a promise that is fulfilled when the template rendering is complete.
 		 * @returns The QueryCollection.
 		**/
-		template(templateElement: HTMLElement, data: Object, renderDonePromiseCallback: Function): QueryCollection<T>;
+		template(templateElement: HTMLElement, data: any, renderDonePromiseCallback: Function): QueryCollection<T>;
 
 		/**
 		 * Toggles (adds or removes) the specified class on all the elements in the collection. If the class is present, it is removed; if it is absent, it is added.
@@ -8057,14 +8073,14 @@ declare module WinJS.Utilities {
 	 * @param events A variable list of property names.
 	 * @returns The object with the specified properties. The names of the properties are prefixed with 'on'.
 	**/
-	function createEventProperties(...events: string[]): Object;
+	function createEventProperties(...events: string[]): any;
 
 	/**
 	 * Gets the data value associated with the specified element.
 	 * @param element The element.
 	 * @returns The value associated with the element.
 	**/
-	function data(element: HTMLElement): Object;
+	function data(element: HTMLElement): any;
 
 	/**
 	 * Disposes all first-generation disposable elements that are descendents of the specified element. The specified element itself is not disposed.
@@ -8116,7 +8132,7 @@ declare module WinJS.Utilities {
 	 * @param root The root to start in. Defaults to the global object.
 	 * @returns The leaf-level type or namespace in the specified parent namespace.
 	**/
-	function getMember(name: string, root: Object): Object;
+	function getMember(name: string, root?: any): any;
 
 	/**
 	 * Gets the position of the specified element.
@@ -8198,7 +8214,7 @@ declare module WinJS.Utilities {
 	 * @param func The function to be marked as compatible with declarative processing.
 	 * @returns The input function, marked as compatible with declarative processing.
 	**/
-	function markSupportedForProcessing(func: Function): Function;
+	function markSupportedForProcessing<U>(func: U): U;
 
 	/**
 	 * Returns a QueryCollection with zero or one elements matching the specified selector query.
@@ -8214,7 +8230,7 @@ declare module WinJS.Utilities {
 	 * @param async If true, the callback should be executed asynchronously.
 	 * @returns A promise that completes after the DOMContentLoaded event has occurred.
 	**/
-	function ready(callback?: Function, async?: boolean): Promise<Object>;
+	function ready(callback?: Function, async?: boolean): Promise<any>;
 
 	/**
 	 * Removes the specified class from the specified element.
@@ -8229,7 +8245,7 @@ declare module WinJS.Utilities {
 	 * @param value The value to be tested for compatibility with declarative processing. If the value is a function it must be marked with a property supportedForProcessing with a value of true when strictProcessing is on. For more information, see WinJS.Utilities.markSupportedForProcessing.
 	 * @returns The input value.
 	**/
-	function requireSupportedForProcessing(value: Object): Object;
+	function requireSupportedForProcessing(value: any): any;
 
 	/**
 	 * Sets the innerHTML property of the specified element to the specified text.
@@ -8263,7 +8279,7 @@ declare module WinJS.Utilities {
 	 * Configures a logger that writes messages containing the specified tags to the JavaScript console.
 	 * @param options The tags for messages to log. Multiple tags should be separated by spaces. May contain type, tags, excludeTags and action properties.
 	**/
-	function startLog(options: Object): void;
+	function startLog(options?: any): void;
 
 	/**
 	 * Removes the WinJS logger that had previously been set up.
@@ -8400,7 +8416,7 @@ declare module WinJS.Utilities.Scheduler {
 		 * Uses a Promise to determine how long the scheduler should wait before rescheduling the job after it yields.
 		 * @param promise Once the work item yields, the scheduler will wait for this Promise to complete before rescheduling the job.
 		**/
-		setPromise(promise: Promise<Object>): void;
+		setPromise(promise: Promise<any>): void;
 
 		/**
 		 * Specifies the next unit of work to run once this job yields.
@@ -8470,7 +8486,7 @@ declare module WinJS.Utilities.Scheduler {
 	 * @param name An optional description of the drain request for diagnostics.
 	 * @returns A Promise which completes when the drain has finished. Canceling this Promise cancels the drain request. This Promise will never enter an error state.
 	**/
-	function requestDrain(priority?: Priority, name?: string): Promise<Object>;
+	function requestDrain(priority?: Priority, name?: string): Promise<any>;
 
 	/**
 	 * Schedules the specified function to execute asynchronously.
@@ -8480,7 +8496,7 @@ declare module WinJS.Utilities.Scheduler {
 	 * @param name A description of the work item for diagnostics. The default value is an empty string.
 	 * @returns The job instance that represents this work item.
 	**/
-	function schedule(work: (jobInfo: IJobInfo) => void, priority?: Priority, thisArg?: Object, name?: string): IJob;
+	function schedule(work: (jobInfo: IJobInfo) => void, priority?: Priority, thisArg?: any, name?: string): IJob;
 
 	/**
 	 * Schedules a job to complete the returned Promise at WinJS.Utilities.Scheduler.Priority.aboveNormal priority.
