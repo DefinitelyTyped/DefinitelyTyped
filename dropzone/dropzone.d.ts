@@ -1,5 +1,6 @@
 // Type definitions for Dropzone 3.7.1
 // Project: http://www.dropzonejs.com/
+// Definitions by: Natan Vivo <https://github.com/nvivo>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
