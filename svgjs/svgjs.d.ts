@@ -77,9 +77,10 @@ declare module svgjs {
         animate(duration?:number, ease?:string, delay?:number):Animation;
         animate(info:{ease?:string; duration?:number; delay?:number}):Animation;
 
-        attr(name:string, value:any, namespace?:string):Element;
-        attr(obj:Object):Element;
         attr(name:string):any;
+        attr(obj:Object):Element;
+        attr(name:string, value:any, namespace?:string):Element;
+
         viewbox():Viewbox;
         viewbox(x:number, y:number, w:number, h:number):Element;
         viewbox(obj:Viewbox):Element;
