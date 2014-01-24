@@ -1,4 +1,8 @@
-// GreenSock Animation Platform (GSAP) - http://www.greensock.com/get-started-js/
+// Type definitions for GreenSock Animation Platform 1.1
+// Project: http://www.greensock.com/get-started-js/
+// Definitions by: Robert S <https://github.com/codebelt>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 // JavaScript Docs http://api.greensock.com/js/
 // Version 1.1 (TypeScript 0.9)
 
