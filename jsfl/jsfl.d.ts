@@ -1,3 +1,8 @@
+// Type definitions for JSFL
+// Project: https://adobe.com
+// Definitions by: soywiz <https://github.com/soywiz/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 interface FlashPoint {
 	x: number;
 	y: number;
@@ -169,7 +174,7 @@ interface FlashDocument {
 	/** Exports the currently active profile to an XML */
 	exportPublishProfile(fileURI: string): void;
 
-	/** returns a string that specifies, in XML format, the specified profile. If you don’t pass a value for profileName, the current profile is exported. */
+	/** returns a string that specifies, in XML format, the specified profile. If you don't pass a value for profileName, the current profile is exported. */
 	exportPublishProfileString(profileName?: string): string;
 
 	/** Exports the document in the Flash SWF format. */
@@ -1030,7 +1035,7 @@ interface FlashTimeline {
     /** Creates a new motion object at a designated start and end frame. */
     createMotionObject(startFrameIndex?: number, endFrameIndex?: number): void;
     
-    /** Sets the frame.tweenType property to motion for each selected keyframe on the current layer, and converts each frame’s contents to a single symbol instance if necessary. */
+    /** Sets the frame.tweenType property to motion for each selected keyframe on the current layer, and converts each frame's contents to a single symbol instance if necessary. */
     createMotionTween(startFrameIndex?: number, endFrameIndex?: number): void;
         
     /** Cuts a range of frames on the current layer from the timeline and saves them to the clipboard. */
@@ -1051,13 +1056,13 @@ interface FlashTimeline {
     /** Finds an array of indexes for the layers with the given name. */
     findLayerIndex(name: string): number[];
         
-    /** Retrieves the specified property’s value for the selected frames. */
+    /** Retrieves the specified property's value for the selected frames. */
     getFrameProperty(property: string, startframeIndex?: number, endFrameIndex?: number): any;
         
     /** Returns an XML string that represents the current positions of the horizontal and vertical guide lines for a timeline(View > Guides > Show Guides). */
     getGuidelines(): string;
         
-    /** Retrieves the specified property’s value for the selected layers. */
+    /** Retrieves the specified property's value for the selected layers. */
     getLayerProperty(property: string): any;
         
     /** Retrieves the currently selected frames in an array. */
@@ -1144,9 +1149,9 @@ interface FlashTimeline {
 }
 
 interface FlashPath {
-	/// Appends a cubic Bézier curve segment to the path.
+	/// Appends a cubic BÃ©zier curve segment to the path.
 	addCubicCurve(xAnchor: number, yAnchor: number, x2: number, y2: number, x3: number, y3: number, x4: number, y4: number): void;
-	/// Appends a quadratic Bézier segment to the path.
+	/// Appends a quadratic BÃ©zier segment to the path.
 	addCurve(xAnchor: number, yAnchor: number, x2: number, y2: number, x3: number, y3: number): void;
 	/// Adds a point to the path.
 	addPoint(x: number, y: number): void;
