@@ -1,4 +1,4 @@
-﻿// Type definitions for jsPlumb 1.3.16 jQuery adapter.
+// Type definitions for jsPlumb 1.3.16 jQuery adapter.
 // Project: http://jsplumb.org
 // Project: https://github.com/sporritt/jsplumb
 // Project: https://code.google.com/p/jsplumb

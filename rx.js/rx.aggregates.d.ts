@@ -1,4 +1,4 @@
-﻿// Type definitions for RxJS-Aggregates package
+// Type definitions for RxJS-Aggregates package
 // Project: http://rx.codeplex.com/
 // Definitions by: Carl de Billy <http://carl.debilly.net/>
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>

@@ -1,4 +1,4 @@
-﻿// Type definitions for RxJS
+// Type definitions for RxJS
 // Project: http://rx.codeplex.com/
 // Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
