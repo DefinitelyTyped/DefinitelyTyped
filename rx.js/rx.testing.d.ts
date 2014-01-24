@@ -1,10 +1,10 @@
-///<reference path="rx.d.ts" />
-///<reference path="rx.virtualtime.d.ts" />
-
 // Type definitions for RxJS-Testing
 // Project: https://github.com/Reactive-Extensions/RxJS/
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+///<reference path="rx.d.ts" />
+///<reference path="rx.virtualtime.d.ts" />
 
 declare module Rx {
 	export class TestScheduler extends VirtualTimeScheduler<number, number> {

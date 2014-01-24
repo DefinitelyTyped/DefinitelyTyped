@@ -1,4 +1,8 @@
-﻿/* 
+﻿// Type definitions for Sugar 1.3.9
+// Project: http://http://sugarjs.com/
+// Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+/*
 sugar-1.3.9.d.ts may be freely distributed under the MIT license.
 
 Copyright (c) 2013 Josh Baldwin https://github.com/jbaldwin/sugar.d.ts
