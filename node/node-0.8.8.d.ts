@@ -1,3 +1,7 @@
+// Type definitions for Node.js v0.8.8
+// Project: http://nodejs.org/
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /************************************************
 *                                               *
 *               Node.js v0.8.8 API              *
