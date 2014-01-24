@@ -1,3 +1,8 @@
+// Type definitions for WebGL
+// Project: https://www.khronos.org/webgl/
+// Definitions by: xperiments <http://github.com/xperiments/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 interface WebGLContextAttributes {
 	alpha : boolean;
 	depth : boolean;
