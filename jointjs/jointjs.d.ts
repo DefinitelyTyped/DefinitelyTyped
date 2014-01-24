@@ -1,4 +1,4 @@
-﻿// Type definitions for Joint JS 0.6
+// Type definitions for Joint JS 0.6
 // Project: http://www.jointjs.com/
 // Definitions by: Aidan Reel <http://github.com/areel>, David Durman <http://github.com/DavidDurman>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
