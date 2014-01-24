@@ -1,8 +1,7 @@
 // Type definitions for Underscore 1.5.2
 // Project: http://underscorejs.org/
-// Definitions by:
-// Boris Yankov <https://github.com/borisyankov/>
-// Josh Baldwin <https://github.com/jbaldwin/underscore.d.ts>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module _ {

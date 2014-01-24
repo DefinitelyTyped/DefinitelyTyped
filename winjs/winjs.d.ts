@@ -1,3 +1,8 @@
+// Type definitions for WinJS
+// Project: http://msdn.microsoft.com/en-us/library/windows/apps/br229773.aspx
+// Definitions by: TypeScript samples <https://http://www.typescriptlang.org/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /* *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved. 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use

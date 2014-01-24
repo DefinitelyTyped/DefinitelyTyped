@@ -1,5 +1,6 @@
 // Type definitions for When 2.4.0
 // Project: https://github.com/cujojs/when
+// Definitions by: Derek Cicerone <https://github.com/derekcicerone>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module When {
