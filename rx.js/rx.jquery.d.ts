@@ -1,6 +1,6 @@
 ﻿// Type definitions for bridging RxJS with jQuery.
 // Project: https://github.com/Reactive-Extensions/RxJS-jQuery/
-// Revision by: Igor Oleinikov <https://github.com/Igorbek>
+// Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path="../jquery/jquery.d.ts"/>
