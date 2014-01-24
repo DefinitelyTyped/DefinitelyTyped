@@ -47,6 +47,7 @@ declare module ng.translate {
         translationNotFoundIndicatorRight(indicator: string): ITranslateProvider;
         fallbackLanguage(): string;
         fallbackLanguage(language: string): ITranslateProvider;
+        fallbackLanguage(languages: string[]): ITranslateProvider;
         uses(): string;
         uses(key: string): ITranslateProvider;
         useUrlLoader(url: string): ITranslateProvider;
