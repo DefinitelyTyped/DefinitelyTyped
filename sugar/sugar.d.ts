@@ -2358,16 +2358,14 @@ interface Array<T> {
 	*   [{age:35,name:'ken'},{age:15,name:'bob'}].groupBy(function(n) {
 	*     return n.age;
 	*   });                                  -> { 35: [{age:35,name:'ken'}], 15: [{age:15,name:'bob'}] }
-	* todo: return should be : { [key: U]: any }
 	**/
-	groupBy<U>(map: string, fn?: (group: T) => void ): { [key: string]: any };
+	groupBy<U>(map: string, fn?: (key: string, items: T[]) => void): { [key: string]: T };
 
 	/**
 	* @see groupBy
 	* @param map Callback function for each element, returns the key for the group the element should be in.
-	* todo: return should be : { [key: U]: any }
 	**/
-	groupBy<U>(map: (element: T) => U, fn?: (group: T) => void ): { [key: string]: any };
+	groupBy<U>(map: (element: T) => U, fn?: (key: string, items: T[]) => void): { [key: string]: T[] };
 
 	/**
 	* Groups the array into <num> arrays.
