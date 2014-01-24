@@ -1,7 +1,7 @@
 // Type definitions for Sammy.js
 // Project: http://sammyjs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// - Updated for TypeScript 0.9.x by: Oisin Grehan <https://github.com/oising>
+// Definitions by: Oisin Grehan <https://github.com/oising>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
