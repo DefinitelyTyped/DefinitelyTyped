@@ -1,5 +1,5 @@
 // Type definitions for Firebase API
-// Project: https://www.firebase.com/docs/javascript/firebase/index.html
+// Project: https://www.firebase.com/docs/javascript/firebase
 // Definitions by: Vincent Botone <https://github.com/vbortone/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 

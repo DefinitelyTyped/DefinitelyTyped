@@ -1,9 +1,9 @@
-﻿/// <reference path="../jquery/jquery.d.ts" />
-
-// Type definitions for Flight 1.1.1
+﻿// Type definitions for Flight 1.1.1
 // Project: http://flightjs.github.com/flight/
 // Definitions by: Jonathan Hedrén <https://github.com/jonathanhedren/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// <reference path="../jquery/jquery.d.ts" />
 
 declare module Flight {
 
