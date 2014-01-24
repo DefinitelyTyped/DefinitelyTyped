@@ -1,7 +1,7 @@
 // Type definitions for YouTube
 // Project: https://developers.google.com/youtube/
 // Definitions by: Daz Wilkin <https://github.com/DazWilkin/>
-// Updated by: Ian Obermiller <http://ianobermiller.com>
+// Definitions by: Ian Obermiller <http://ianobermiller.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module YT {

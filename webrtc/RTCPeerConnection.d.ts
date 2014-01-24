@@ -1,10 +1,11 @@
-﻿/// <reference path="MediaStream.d.ts" />
+﻿// Type definitions for WebRTC
+// Project: http://dev.w3.org/2011/webrtc/
+// Definitions by: Ken Smith <https://github.com/smithkl42/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-// These are TypeScript definitions to support static typing in TypeScript when interacting with WebRtc.
 // Definitions taken from http://dev.w3.org/2011/webrtc/editor/webrtc.html
 
-// These are TypeScript definitions to support static typing in TypeScript when interacting with WebRtc.
-// Definitions taken from http://dev.w3.org/2011/webrtc/editor/webrtc.html
+/// <reference path="MediaStream.d.ts" />
 
 interface RTCConfiguration {
 	iceServers: RTCIceServer[];
