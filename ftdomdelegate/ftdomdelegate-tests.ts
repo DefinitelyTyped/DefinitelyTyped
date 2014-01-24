@@ -1,19 +1,15 @@
 /// <reference path="ftdomdelegate.d.ts" />
 
-function handleButtonClicks(event) {
-  // Do some things
-}
-
-function handleTouchMove(event) {
-  // Do some other things
-}
-
 window.addEventListener('load', function() {
   var delegate = new Delegate(document.body);
-  delegate.on('click', 'button', handleButtonClicks);
+  delegate.on('click', 'button', function(event) {
+  		// Do some things
+	}
+);
 
   // Listen to all touch move
   // events that reach the body
-  delegate.on('touchmove', handleTouchMove);
-
+  delegate.on('touchmove', function(event) {
+  		// Do some other things
+	});
 }, false);

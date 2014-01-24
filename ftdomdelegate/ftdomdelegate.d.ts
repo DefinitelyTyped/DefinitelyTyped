@@ -8,7 +8,7 @@ declare class Delegate
 {
     constructor(element: HTMLElement);
 
-    on(eventType: string, selector: string, callback : () => any) : void;
+    on(eventType: string, selector: string, callback : (event : any) => any) : void;
 
-    on(eventType: string, callback:() => any) : void;
+    on(eventType: string, callback:(event : any) => any) : void;
 }
