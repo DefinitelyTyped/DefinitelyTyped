@@ -1,6 +1,7 @@
 // Type definitions for knockout.rx 0.1
 // Project: https://github.com/Igorbek/knockout.rx
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../knockout/knockout.d.ts"/>
 /// <reference path="../rx.js/rx.d.ts"/>

@@ -1,6 +1,9 @@
-// Project : https://github.com/mongodb/node-mongodb-native
-// Documentation : http://mongodb.github.io/node-mongodb-native/
+// Type definitions for MongoDB
+// Project: https://github.com/mongodb/node-mongodb-native
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+// Documentation : http://mongodb.github.io/node-mongodb-native/
 
 /// <reference path='../node/node.d.ts' />
 
