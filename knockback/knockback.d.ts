@@ -1,4 +1,4 @@
-﻿// Type definitions for Knockback.js
+// Type definitions for Knockback.js
 // Project: http://kmalakoff.github.io/knockback/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

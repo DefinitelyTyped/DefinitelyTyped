@@ -1,4 +1,4 @@
-﻿// Type definitions for OpenLayers.js 2.10
+// Type definitions for OpenLayers.js 2.10
 // Project: https://github.com/openlayers/openlayers
 // Definitions by: Ilya Bolkhovsky <https://github.com/bolhovsky>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

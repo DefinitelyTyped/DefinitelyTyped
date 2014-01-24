@@ -1,4 +1,4 @@
-﻿// Type definitions for Azure SDK for Node - v0.6.10
+// Type definitions for Azure SDK for Node - v0.6.10
 // Project: https://github.com/WindowsAzure/azure-sdk-for-node
 // Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar>, Anti Veeranna <https://github.com/antiveeranna>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
