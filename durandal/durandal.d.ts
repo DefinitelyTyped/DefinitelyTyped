@@ -1,3 +1,8 @@
+// Type definitions for Durandal 2.0.1
+// Project: http://durandaljs.com
+// Definitions by: Evan Larsen <https://github.com/evanlarsen/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /**
  * Durandal 2.0.1 Copyright (c) 2012 Blue Spire Consulting, Inc. All Rights Reserved.
  * Available via the MIT license.
