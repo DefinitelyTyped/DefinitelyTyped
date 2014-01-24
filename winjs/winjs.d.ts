@@ -1,6 +1,6 @@
 // Type definitions for WinJS
 // Project: http://msdn.microsoft.com/en-us/library/windows/apps/br229773.aspx
-// Definitions by: TypeScript samples <https://http://www.typescriptlang.org/>
+// Definitions by: TypeScript samples <https://www.typescriptlang.org/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /* *****************************************************************************
