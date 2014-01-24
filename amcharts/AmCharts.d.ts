@@ -1,4 +1,4 @@
-﻿// Type definitions for amCharts
+// Type definitions for amCharts
 // Project: http://www.amcharts.com/
 // Definitions by: aleksey-bykov <https://github.com/aleksey-bykov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

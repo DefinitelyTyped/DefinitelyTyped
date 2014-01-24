@@ -1,4 +1,4 @@
-﻿// Type definitions for sptypescript
+// Type definitions for sptypescript
 // Project: http://sptypescript.codeplex.com
 // Definitions by: Stanislav Vyshchepan <http://gandjustas.blogspot.ru>, Andrey Markeev <http://markeev.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
