@@ -14730,5 +14730,10 @@ declare module Windows.Foundation {
         done?<U>(success?: (value: T) => any, error?: (error: any) => any, progress?: (progress: any) => void): void;
 
         cancel(): void;
+
+        onerror?(eventInfo: CustomEvent): void;
+        addEventListener?(type: string, listener: Function, capture?: boolean): void;
+        dispatchEvent?(type: string, details: any): boolean;
+        removeEventListener?(eventType: string, listener: Function, capture?: boolean): void;
     }
 }

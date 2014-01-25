@@ -341,7 +341,7 @@ declare module WinJS.Binding {
 	/**
 	 * Do not instantiate. A list returned by the createFiltered method.
 	**/
-	class FilteredListProjection<T> {
+	class FilteredListProjection<T> extends ListProjection<T> {
 		//#region Methods
 
 		/**
@@ -387,7 +387,7 @@ declare module WinJS.Binding {
 	/**
 	 * Do not instantiate. A list of groups.
 	**/
-	class GroupsListProjection<T> {
+	class GroupsListProjection<T> extends ListBase<T> {
 		//#region Methods
 
 		/**
@@ -427,29 +427,13 @@ declare module WinJS.Binding {
 	/**
 	 * Do not instantiate. Sorts the underlying list by group key and within a group respects the position of the item in the underlying list. Returned by createGrouped.
 	**/
-	class GroupedSortedListProjection<T> {
-		//#region Methods
-
-		/**
-		 * Gets a key/data pair for the specified item key.
-		 * @param key The key of the value to retrieve.
-		 * @returns An object that has two properties: key and data.
-		**/
-		getItem(key: string): IKeyDataPair<T>;
-
-		//#endregion Methods
-
+	class GroupedSortedListProjection<T> extends SortedListProjection<T> {
 		//#region Properties
 
 		/**
 		 * Gets a List, which is a projection of the groups that were identified in this list.
 		**/
-		groups: List<T>;
-
-		/**
-		 * Gets the IListDataSource for the list. The only purpose of this property is to adapt a List to the data model that is used by ListView and FlipView.
-		**/
-		dataSource: WinJS.UI.IListDataSource<T>;
+		groups: GroupsListProjection<T>;
 
 		//#endregion Properties
 
@@ -458,7 +442,7 @@ declare module WinJS.Binding {
 	/**
 	 * Represents a list of objects that can be accessed by index or by a string key. Provides methods to search, sort, filter, and manipulate the data.
 	**/
-	class List<T> {
+	class List<T> extends ListBaseWithMutators<T> {
 		//#region Constructors
 
 		/**
@@ -471,6 +455,86 @@ declare module WinJS.Binding {
 
 		//#endregion Constructors
 
+		//#region Methods
+
+		/**
+		 * Gets a key/data pair for the specified list index.
+		 * @param index The index of value to retrieve.
+		 * @returns An object with .key and .data properties.
+		**/
+		getItem(index: number): IKeyDataPair<T>;
+
+		/**
+		 * Gets a key/data pair for the list item key specified.
+		 * @param key The key of the value to retrieve.
+		 * @returns An object with .key and .data properties.
+		**/
+		getItemFromKey(key: string): IKeyDataPair<T>;
+
+		/**
+		 * Gets the index of the first occurrence of a key in a list.
+		 * @param key The key to locate in the list.
+		 * @returns The index of the first occurrence of a key in a list, or -1 if not found.
+		**/
+		indexOfKey(key: string): number;
+
+		/**
+		 * Moves the value at index to the specified position.
+		 * @param index The original index of the value.
+		 * @param newIndex The index of the value after the move.
+		**/
+		move(index: number, newIndex: number): void;
+
+		/**
+		 * Forces the list to send a itemmutated notification to any listeners for the value at the specified index.
+		 * @param index The index of the value that was mutated.
+		**/
+		notifyMutated(index: number): void;
+
+		/**
+		 * Returns a list with the elements reversed. This method reverses the elements of a list object in place. It does not create a new list object during execution.
+		**/
+		reverse(): void;
+
+		/**
+		 * Replaces the value at the specified index with a new value.
+		 * @param index The index of the value that was replaced.
+		 * @param newValue The new value.
+		**/
+		setAt(index: number, newValue: T): void;
+
+		/**
+		 * Returns a list with the elements sorted. This method sorts the elements of a list object in place. It does not create a new list object during execution.
+		 * @param sortFunction The function used to determine the order of the elements. If omitted, the elements are sorted in ascending, ASCII character order. This function must always return the same results, given the same inputs. The results should not depend on values that are subject to change. You must call notifyMutated each time an item changes. Do not batch change notifications.
+		**/
+		sort(sortFunction: (left: T, right: T) => number): void;
+
+		/**
+		 * Removes elements from a list and, if necessary, inserts new elements in their place, returning the deleted elements.
+		 * @param start The zero-based location in the list from which to start removing elements.
+		 * @param howMany The number of elements to remove.
+		 * @param item The elements to insert into the list in place of the deleted elements.
+		 * @returns The deleted elements.
+		**/
+		splice(start: number, howMany?: number, ...item: T[]): T[];
+
+		//#endregion Methods
+
+		//#region Properties
+
+		/**
+		 * Gets or sets the length of the list, which is an integer value one higher than the highest element defined in the list.
+		**/
+		length: number;
+
+		//#endregion Properties
+
+	}
+
+	/**
+	 * Represents a base class for lists.
+	**/
+	class ListBase<T> {
 		//#region Events
 
 		/**
@@ -484,6 +548,12 @@ declare module WinJS.Binding {
 		 * @param eventInfo An object that contains information about the event. The detail contains the following information: index, key, value.
 		**/
 		oniteminserted(eventInfo: CustomEvent): void;
+
+		/**
+		 * An item has been changed locations in the list.
+		 * @param eventInfo An object that contains information about the event. The detail contains the following information: index, key, value.
+		**/
+		onitemmoved(eventInfo: CustomEvent): void;
 
 		/**
 		 * An item has been mutated. This event occurs as a result of calling the notifyMutated method.
@@ -508,19 +578,20 @@ declare module WinJS.Binding {
 		//#region Methods
 
 		/**
-		 * Adds an event listener.
-		 * @param eventName The event name.
-		 * @param eventCallback The event handler function to associate with this event.
+		 * Adds an event listener to the control.
+		 * @param type The type (name) of the event.
+		 * @param listener The listener to invoke when the event gets raised.
+		 * @param useCapture If true, initiates capture, otherwise false.
 		**/
-		addEventListener(eventName: string, eventCallback: Function): void;
+		addEventListener(type: string, listener: Function, useCapture?: boolean): void;
 
 		/**
 		 * Links the specified action to the property specified in the name parameter. This function is invoked when the value of the property may have changed. It is not guaranteed that the action will be called only when a value has actually changed, nor is it guaranteed that the action will be called for every value change. The implementation of this function coalesces change notifications, such that multiple updates to a property value may result in only a single call to the specified action.
 		 * @param name The name of the property to which to bind the action.
 		 * @param action The function to invoke asynchronously when the property may have changed.
-		 * @returns A reference to this List object.
+		 * @returns A reference to this observableMixin object.
 		**/
-		bind(name: string, action: Function): List<T>;
+		bind(name: string, action: Function): any;
 
 		/**
 		 * Returns a new list consisting of a combination of two arrays.
@@ -553,17 +624,12 @@ declare module WinJS.Binding {
 		createSorted(sorter: (left: T, right: T) => number): SortedListProjection<T>;
 
 		/**
-		 * Raises an event of the specified type and with additional properties.
+		 * Raises an event of the specified type and with the specified additional properties.
 		 * @param type The type (name) of the event.
 		 * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
-		 * @returns true if preventDefault was called on the event, otherwise false.
+		 * @returns true if preventDefault was called on the event.
 		**/
 		dispatchEvent(type: string, eventProperties: any): boolean;
-
-		/**
-		 * Disconnects a WinJS.Binding.List projection from its underlying WinJS.Binding.List. It's only important to call this method when the WinJS.Binding.List projection and the WinJS.Binding.List have different lifetimes. (Call this method on the WinJS.Binding.List projection, not the underlying WinJS.Binding.List.)
-		**/
-		dispose(): void;
 
 		/**
 		 * Checks whether the specified callback function returns true for all elements in a list.
@@ -596,33 +662,12 @@ declare module WinJS.Binding {
 		getAt(index: number): T;
 
 		/**
-		 * Gets a key/data pair for the specified list index.
-		 * @param index The index of value to retrieve.
-		 * @returns An object with .key and .data properties.
-		**/
-		getItem(index: number): IKeyDataPair<T>;
-
-		/**
-		 * Gets a key/data pair for the list item key specified.
-		 * @param key The key of the value to retrieve.
-		 * @returns An object with .key and .data properties.
-		**/
-		getItemFromKey(key: string): IKeyDataPair<T>;
-
-		/**
 		 * Gets the index of the first occurrence of the specified value in a list.
 		 * @param searchElement The value to locate in the list.
 		 * @param fromIndex The index at which to begin the search. If fromIndex is omitted, the search starts at index 0.
 		 * @returns The index of the first occurrence of a value in a list or -1 if not found.
 		**/
-		indexOf(searchElement: any, fromIndex?: number): number;
-
-		/**
-		 * Gets the index of the first occurrence of a key in a list.
-		 * @param key The key to locate in the list.
-		 * @returns The index of the first occurrence of a key in a list, or -1 if not found.
-		**/
-		indexOfKey(key: string): number;
+		indexOf(searchElement: T, fromIndex?: number): number;
 
 		/**
 		 * Returns a string consisting of all the elements of a list separated by the specified separator string.
@@ -648,44 +693,18 @@ declare module WinJS.Binding {
 		map<G>(callback: (value: T, index: number, array: T[]) => G, thisArg?: any): G[];
 
 		/**
-		 * Moves the value at index to the specified position.
-		 * @param index The original index of the value.
-		 * @param newIndex The index of the value after the move.
-		**/
-		move(index: number, newIndex: number): void;
-
-		/**
 		 * Notifies listeners that a property value was updated.
 		 * @param name The name of the property that is being updated.
 		 * @param newValue The new value for the property.
 		 * @param oldValue The old value for the property.
 		 * @returns A promise that is completed when the notifications are complete.
 		**/
-		notify(name: string, newValue: T, oldValue: T): Promise<T>;
-
-		/**
-		 * Forces the list to send a itemmutated notification to any listeners for the value at the specified index.
-		 * @param index The index of the value that was mutated.
-		**/
-		notifyMutated(index: number): void;
+		notify(name: string, newValue: any, oldValue: any): Promise<any>;
 
 		/**
 		 * Forces the list to send a reload notification to any listeners.
 		**/
 		notifyReload(): void;
-
-		/**
-		 * Removes the last element from a list and returns it.
-		 * @returns The last element from the list.
-		**/
-		pop(): T;
-
-		/**
-		 * Appends new element(s) to a list, and returns the new length of the list.
-		 * @param value The element to insert at the end of the list.
-		 * @returns The new length of the list.
-		**/
-		push(value: T): number;
 
 		/**
 		 * Accumulates a single result by calling the specified callback function for all elements in a list. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
@@ -704,29 +723,12 @@ declare module WinJS.Binding {
 		reduceRight(callback: (previousValue: any, currentValue: any, currentIndex: number, array: T[]) => T, initialValue?: T): T;
 
 		/**
-		 * Removes an event listener.
-		 * @param eventName The event name.
-		 * @param eventCallback The event handler function to associate with this event.
+		 * Removes an event listener from the control.
+		 * @param type The type (name) of the event.
+		 * @param listener The listener to remove.
+		 * @param useCapture true if capture is to be initiated, otherwise false.
 		**/
-		removeEventListener(eventName: string, eventCallback: Function): void;
-
-		/**
-		 * Returns a list with the elements reversed. This method reverses the elements of a list object in place. It does not create a new list object during execution.
-		**/
-		reverse(): void;
-
-		/**
-		 * Replaces the value at the specified index with a new value.
-		 * @param index The index of the value that was replaced.
-		 * @param newValue The new value.
-		**/
-		setAt(index: number, newValue: T): void;
-
-		/**
-		 * Removes the first element from a list and returns it.
-		 * @returns The first element from the list.
-		**/
-		shift(): T;
+		removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
 
 		/**
 		 * Extracts a section of a list and returns a new list.
@@ -734,7 +736,7 @@ declare module WinJS.Binding {
 		 * @param end The index that specifies the end of the section.
 		 * @returns Returns a section of list.
 		**/
-		slice(begin: number, end: number): List<T>;
+		slice(begin: number, end: number): T[];
 
 		/**
 		 * Checks whether the specified callback function returns true for any element of a list.
@@ -745,34 +747,12 @@ declare module WinJS.Binding {
 		some(callback: (value: T, index: number, array: T[]) => boolean, thisArg?: any): boolean;
 
 		/**
-		 * Returns a list with the elements sorted. This method sorts the elements of a list object in place. It does not create a new list object during execution.
-		 * @param sortFunction The function used to determine the order of the elements. If omitted, the elements are sorted in ascending, ASCII character order. This function must always return the same results, given the same inputs. The results should not depend on values that are subject to change. You must call notifyMutated each time an item changes. Do not batch change notifications.
-		**/
-		sort(sortFunction: (left: T, right: T) => number): void;
-
-		/**
-		 * Removes elements from a list and, if necessary, inserts new elements in their place, returning the deleted elements.
-		 * @param start The zero-based location in the list from which to start removing elements.
-		 * @param howMany The number of elements to remove.
-		 * @param item The elements to insert into the list in place of the deleted elements.
-		 * @returns The deleted elements.
-		**/
-		splice(start: number, howMany?: number, item?: T[]): T[];
-
-		/**
 		 * Removes one or more listeners from the notification list for a given property.
 		 * @param name The name of the property to unbind. If this parameter is omitted, all listeners for all events are removed.
 		 * @param action The function to remove from the listener list for the specified property. If this parameter is omitted, all listeners are removed for the specific property.
 		 * @returns This object is returned.
 		**/
-		unbind(name: string, action?: Function): List<T>;
-
-		/**
-		 * Appends new element(s) to a list, and returns the new length of the list.
-		 * @param value The element to insert at the start of the list.
-		 * @returns The new length of the list.
-		**/
-		unshift(value: T): number;
+		unbind(name: string, action: Function): any;
 
 		//#endregion Methods
 
@@ -784,17 +764,83 @@ declare module WinJS.Binding {
 		dataSource: WinJS.UI.IListDataSource<T>;
 
 		/**
-		 * Gets a List that is a projection of the groups that were identified in this list. This property is available only for GroupsListProjection objects.
+		 * Indicates that the object is compatibile with declarative processing.
 		**/
-		groups: List<T>;
-
-		/**
-		 * Gets or sets the length of the list, which is an integer value one higher than the highest element defined in the list.
-		**/
-		length: number;
+		static supportedForProcessing: boolean;
 
 		//#endregion Properties
+	}
 
+	/**
+	 * Represents a base class for normal list modifying operations.
+	**/
+	class ListBaseWithMutators<T> extends ListBase<T> {
+		//#region Methods
+
+		/**
+		 * Removes the last element from a list and returns it.
+		 * @returns The last element from the list.
+		**/
+		pop(): T;
+
+		/**
+		 * Appends new element(s) to a list, and returns the new length of the list.
+		 * @param value The element to insert at the end of the list.
+		 * @returns The new length of the list.
+		**/
+		push(value: T): number;
+
+		/**
+		 * Removes the first element from a list and returns it.
+		 * @returns The first element from the list.
+		**/
+		shift(): T;
+
+		/**
+		 * Appends new element(s) to a list, and returns the new length of the list.
+		 * @param value The element to insert at the start of the list.
+		 * @returns The new length of the list.
+		**/
+		unshift(value: T): number;
+
+		//#endregion Methods
+	}
+
+	/**
+	 * Represents a base class for list projections.
+	**/
+	class ListProjection<T> extends ListBaseWithMutators<T> {
+		//#region Methods
+
+		/**
+		 * Disconnects a WinJS.Binding.List projection from its underlying WinJS.Binding.List. It's only important to call this method when the WinJS.Binding.List projection and the WinJS.Binding.List have different lifetimes. (Call this method on the WinJS.Binding.List projection, not the underlying WinJS.Binding.List.)
+		**/
+		dispose(): void;
+
+		/**
+		 * Gets a key/data pair for the specified key.
+		 * @param key The key of the value to retrieve.
+		 * @returns An object with two properties: key and data.
+		**/
+		getItemFromKey(key: string): IKeyDataPair<T>;
+
+		/**
+		 * Moves the value at index to position newIndex.
+		 * @param index The original index of the value.
+		 * @param newIndex The index of the value after the move.
+		**/
+		move(index: number, newIndex: number): void;
+
+		/**
+		 * Removes elements from a list and, if necessary, inserts new elements in their place, returning the deleted elements.
+		 * @param start The zero-based location in the list from which to start removing elements.
+		 * @param howMany The number of elements to remove.
+		 * @param item The elements to insert into the list in place of the deleted elements.
+		 * @returns The deleted elements.
+		**/
+		splice(start: number, howMany?: number, ...item: T[]): T[];
+
+		//#endregion Methods
 	}
 
 	/**
@@ -908,7 +954,7 @@ declare module WinJS.Binding {
 	/**
 	 * Do not instantiate. Returned by the createSorted method.
 	**/
-	class SortedListProjection<T> {
+	class SortedListProjection<T> extends ListProjection<T> {
 		//#region Methods
 
 		/**
@@ -1727,7 +1773,7 @@ declare module WinJS.UI.Animation {
 	 * @param options Optional. Set this value to { mechanism: "transition" } to play the animation using CSS transitions instead of the default CSS animations. In some cases this can result in improved performance.
 	 * @returns An object that completes when the animation is finished.
 	**/
-	function enterContent(incoming: any, offset: any, options: any): Promise<any>;
+	function enterContent(incoming: any, offset: any, options?: any): Promise<any>;
 
 	/**
 	 * Performs an animation that shows a new page of content, either when transitioning between pages in a running app or when displaying the first content in a newly launched app.
@@ -6592,7 +6638,7 @@ declare module WinJS.UI {
 		 * Loads a fragment of the SettingsFlyout. Your app calls this when the user invokes a settings command and the WinJS.Application.onsettings event occurs.
 		 * @param e An object that contains information about the event, received from the WinJS.Application.onsettings event. The detail property of this object contains the applicationcommands sub-property that you set to an array of settings commands. You then populate the SettingsFlyout with these commands by a call to populateSettings.
 		**/
-		populateSettings(e: CustomEvent): void;
+		static populateSettings(e: CustomEvent): void;
 
 		/**
 		 * Removes an event handler that the addEventListener method registered.
@@ -6603,16 +6649,21 @@ declare module WinJS.UI {
 		removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
 
 		/**
-		 * Shows the SettingsPane UI, if hidden, regardless of other state.
+		 * Shows the SettingsPane UI, if hidden.
 		**/
 		show(): void;
+
+		/**
+		 * Shows the SettingsPane UI, if hidden, regardless of other state.
+		**/
+		static show(): void;
 
 		/**
 		 * Show the Settings flyout using the Settings element identifier (ID) and the path of the page that contains the Settings element.
 		 * @param id The ID of the Settings element.
 		 * @param path The path of the page that contains the Settings element.
 		**/
-		showSettings(id: string, path: any): void;
+		static showSettings(id: string, path: any): void;
 
 		//#endregion Methods
 
@@ -7228,14 +7279,17 @@ declare module WinJS.UI {
 	/**
 	 * Applies declarative control binding to all elements, starting at the specified root element.
 	 * @param rootElement The element at which to start applying the binding. If this parameter is not specified, the binding is applied to the entire document.
+	 * @param skipRoot If true, the elements to be bound skip the specified root element and include only the children.
+	 * @returns A promise that is fulfilled when binding has been applied to all the controls.
 	**/
-	function processAll(rootElement?: Element): void;
+	function processAll(rootElement?: Element, skipRoot?: boolean): Promise<any>;
 
 	/**
 	 * Applies declarative control binding to the specified element.
 	 * @param element The element to bind.
+	 * @returns A promise that is fulfilled after the control is activated. The value of the promise is the control that is attached to element.
 	**/
-	function process(element: Element): void;
+	function process(element: Element): Promise<any>;
 
 	/**
 	 * Walks the DOM tree from the given element to the root of the document. Whenever a selector scope is encountered, this method performs a lookup within that scope for the specified selector string. The first matching element is returned.
