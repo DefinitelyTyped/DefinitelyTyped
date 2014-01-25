@@ -1,5 +1,5 @@
-// Type definitions for Sugar 1.3.9
-// Project: http://http://sugarjs.com/
+﻿// Type definitions for Sugar 1.3.9
+// Project: http://sugarjs.com/
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 /*
