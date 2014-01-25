@@ -1,6 +1,6 @@
 // Type definitions for Angular Scenario Testing
-// Project: [http://angularjs.org]
-// Definitions by: [RomanoLindano]
+// Project: http://angularjs.org
+// Definitions by: RomanoLindano
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module ng {

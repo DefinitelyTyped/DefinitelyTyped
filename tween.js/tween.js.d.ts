@@ -1,6 +1,6 @@
 // Type definitions for tween.js r12
 // Project: https://github.com/sole/tween.js/
-// Definitions by: https://github.com/sunetos and https://github.com/jzarnikov
+// Definitions by: sunetos <https://github.com/sunetos>, jzarnikov <https://github.com/jzarnikov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module TWEEN {

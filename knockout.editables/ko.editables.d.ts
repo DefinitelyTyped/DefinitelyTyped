@@ -1,5 +1,6 @@
 ﻿// Type definitions for knockout-editables 0.9
 // Project:http://romanych.github.com/ko.editables/
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../knockout/knockout.d.ts" />
