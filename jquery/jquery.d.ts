@@ -893,21 +893,90 @@ interface JQueryStatic {
         callback: (indexInArray: any, valueOfElement: any) => any
         ): any;
 
-    extend(target: any, ...objs: any[]): any;
-    extend(deep: boolean, target: any, ...objs: any[]): any;
+    /**
+     * Merge the contents of two or more objects together into the first object.
+     *
+     * @param target An object that will receive the new properties if additional objects are passed in or that will extend the jQuery namespace if it is the sole argument.
+     * @param object1 An object containing additional properties to merge in.
+     * @param objectN Additional objects containing properties to merge in.
+     */
+    extend(target: any, object1?: any, ...objectN: any[]): any;
+    /**
+     * Merge the contents of two or more objects together into the first object.
+     *
+     * @param deep If true, the merge becomes recursive (aka. deep copy).
+     * @param target The object to extend. It will receive the new properties.
+     * @param object1 An object containing additional properties to merge in.
+     * @param objectN Additional objects containing properties to merge in.
+     */
+    extend(deep: boolean, target: any, object1?: any, ...objectN: any[]): any;
 
+    /**
+     * Execute some JavaScript code globally.
+     *
+     * @param code The JavaScript code to execute.
+     */
     globalEval(code: string): any;
 
+    /**
+     * Finds the elements of an array which satisfy a filter function. The original array is not affected.
+     *
+     * @param array The array to search through.
+     * @param func The function to process each item against. The first argument to the function is the item, and the second argument is the index. The function should return a Boolean value.  this will be the global window object.
+     * @param invert If "invert" is false, or not provided, then the function returns an array consisting of all elements for which "callback" returns true. If "invert" is true, then the function returns an array consisting of all elements for which "callback" returns false.
+     */
     grep<T>(array: T[], func: (elementOfArray: T, indexInArray: number) => boolean, invert?: boolean): T[];
 
+    /**
+     * Search for a specified value within an array and return its index (or -1 if not found).
+     *
+     * @param value The value to search for.
+     * @param array An array through which to search.
+     * @param fromIndex he index of the array at which to begin the search. The default is 0, which will search the whole array.
+     */
     inArray<T>(value: T, array: T[], fromIndex?: number): number;
 
+    /**
+     * Determine whether the argument is an array.
+     *
+     * @param obj Object to test whether or not it is an array.
+     */
     isArray(obj: any): boolean;
+    /**
+     * Check to see if an object is empty (contains no enumerable properties).
+     *
+     * @param obj The object that will be checked to see if it's empty.
+     */
     isEmptyObject(obj: any): boolean;
+    /**
+     * Determine if the argument passed is a Javascript function object.
+     *
+     * @param obj Object to test whether or not it is a function.
+     */
     isFunction(obj: any): boolean;
+    /**
+     * Determines whether its argument is a number.
+     *
+     * @param obj The value to be tested.
+     */
     isNumeric(value: any): boolean;
+    /**
+     * Check to see if an object is a plain object (created using "{}" or "new Object").
+     *
+     * @param obj The object that will be checked to see if it's a plain object.
+     */
     isPlainObject(obj: any): boolean;
+    /**
+     * Determine whether the argument is a window.
+     *
+     * @param obj Object to test whether or not it is a window.
+     */
     isWindow(obj: any): boolean;
+    /**
+     * Check to see if a DOM node is within an XML document (or is an XML document).
+     *
+     * @param node he DOM node that will be checked to see if it's in an XML document.
+     */
     isXMLDoc(node: Node): boolean;
 
     makeArray(obj: any): any[];
