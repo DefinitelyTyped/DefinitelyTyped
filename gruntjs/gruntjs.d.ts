@@ -1155,7 +1155,13 @@ declare module grunt {
             /**
              * Additional options for the Node.js child_process spawn method.
              */
-            opts?: ISpawnOptions
+            opts?: {
+                cwd?: string
+                stdio?: any
+                custom?: any
+                env?: any
+                detached?: boolean
+            }
 
             /**
              * If this value is set and an error occurs, it will be used as the value
