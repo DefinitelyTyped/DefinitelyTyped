@@ -936,12 +936,47 @@ interface JQueryStatic {
      */
     inArray<T>(value: T, array: T[], fromIndex?: number): number;
 
+    /**
+     * Determine whether the argument is an array.
+     *
+     * @param obj Object to test whether or not it is an array.
+     */
     isArray(obj: any): boolean;
+    /**
+     * Check to see if an object is empty (contains no enumerable properties).
+     *
+     * @param obj The object that will be checked to see if it's empty.
+     */
     isEmptyObject(obj: any): boolean;
+    /**
+     * Determine if the argument passed is a Javascript function object.
+     *
+     * @param obj Object to test whether or not it is a function.
+     */
     isFunction(obj: any): boolean;
+    /**
+     * Determines whether its argument is a number.
+     *
+     * @param obj The value to be tested.
+     */
     isNumeric(value: any): boolean;
+    /**
+     * Check to see if an object is a plain object (created using "{}" or "new Object").
+     *
+     * @param obj The object that will be checked to see if it's a plain object.
+     */
     isPlainObject(obj: any): boolean;
+    /**
+     * Determine whether the argument is a window.
+     *
+     * @param obj Object to test whether or not it is a window.
+     */
     isWindow(obj: any): boolean;
+    /**
+     * Check to see if a DOM node is within an XML document (or is an XML document).
+     *
+     * @param node he DOM node that will be checked to see if it's in an XML document.
+     */
     isXMLDoc(node: Node): boolean;
 
     makeArray(obj: any): any[];

@@ -2218,7 +2218,7 @@ function test_isEmptyObject() {
     jQuery.isEmptyObject({ foo: "bar" });
 }
 
-function test_isFuction() {
+function test_isFunction() {
     function stub() { };
     var objs: any[] = [
           function () { },
