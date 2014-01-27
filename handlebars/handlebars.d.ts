@@ -16,7 +16,7 @@ interface HandlebarsStatic {
     parse(input: string): boolean;
     logger: Logger;
     log(level: number, obj: any): void;
-    compile(input: any, options?: any): (context: any, options?: any) => string;
+    compile(input: any, options?: any): (context?: any, options?: any) => string;
     Logger: typeof Logger;
 }
 
