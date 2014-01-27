@@ -494,35 +494,35 @@ declare module _ {
 		* @param shallow If true then only flatten one level, optional, default = false.
 		* @return `array` flattened.
 		**/
-		flatten<T>(array: List<any>, isShallow?: boolean): T[];
+		flatten<T>(array: List<T[]>, isShallow?: boolean): T[];
 
 		flatten<T>(
-			array: List<any>,
+			array: List<T[]>,
 			isShallow: boolean,
 			callback: ListIterator<any, T>,
 			thisArg?: any): T[];			
 
 		flatten<T>(
-			array: List<any>,
+			array: List<T[]>,
 			callback: ListIterator<any, T>,
 			thisArg?: any): T[];			
 
 		flatten<W, T extends W>(
-			array: List<any>,
+			array: List<T[]>,
 			isShallow: boolean,
 			whereValue: W): T[];			
 
 		flatten<W, T extends W>(
-			array: List<any>,
+			array: List<T[]>,
 			whereValue: W): T[];			
 
 		flatten<T>(
-			array: List<any>,
+			array: List<T[]>,
 			isShallow: boolean,
 			pluckValue: string): T[];			
 
 		flatten<T>(
-			array: List<any>,
+			array: List<T[]>,
 			pluckValue: string): T[];			
 	}
 
@@ -2672,7 +2672,7 @@ declare module _ {
 		**/
         memoize<T extends Function>(
 			func: T,
-			resolver?: (n: any) => string): T;
+			resolver?: Function): T;
 	}
 
 	//_.once
@@ -2853,6 +2853,11 @@ declare module _ {
             s4: S4,
 			callback?: (objectValue: Value, sourceValue: Value) => Value,
             thisArg?: any): Result;
+            
+            extend(
+            	object: any,
+            	...sources: any[]): any;
+            
 	}
 
 	interface LoDashObjectWrapper<T> {
@@ -3300,6 +3305,11 @@ declare module _ {
 		* @see _.isEmpty
 		**/
 		isEmpty(value: string): boolean;
+		
+		/**
+        	* @see _.isEmpty
+        	**/
+        	isEmpty(value: any): boolean;
 	}
 
 	//_.isEqual
