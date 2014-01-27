@@ -452,6 +452,7 @@ declare module ng {
     ///////////////////////////////////////////////////////////////////////////
     interface IQService {
         all(promises: IPromise<any>[]): IPromise<any[]>;
+        all(promises: {[id: string]: IPromise<any>;}): IPromise<{[id: string]: any}>;
         defer<T>(): IDeferred<T>;
         reject(reason?: any): IPromise<void>;
         when<T>(value: T): IPromise<T>;
