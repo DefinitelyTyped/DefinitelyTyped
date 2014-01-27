@@ -58,6 +58,7 @@ List of Definitions
 * [Crossfilter](https://github.com/square/crossfilter) (by [Schmulik Raskin](https://github.com/schmuli))
 * [crypto-js](https://code.google.com/p/crypto-js/) (by [Gia Bảo @ Sân Đình](https://github.com/giabao)). @see [cryptojs.d.ts repo](https://github.com/giabao/cryptojs.d.ts)
 * [d3.js](http://d3js.org/) (from TypeScript samples)
+* [Date-Utils](https://github.com/JerrySievert/node-date-utils/) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [dhtmlxGantt](http://dhtmlx.com/docs/products/dhtmlxGantt) (by [Maksim Kozhukh](http://github.com/mkozhukh))
 * [dhtmlxScheduler](http://dhtmlx.com/docs/products/dhtmlxScheduler) (by [Maksim Kozhukh](http://github.com/mkozhukh))
 * [docCookies](https://developer.mozilla.org/en-US/docs/Web/API/document.cookie) (by [Jon Egerton](https://github.com/jonegerton))
