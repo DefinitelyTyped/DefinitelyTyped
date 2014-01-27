@@ -219,6 +219,7 @@ List of Definitions
 * [require.js](http://requirejs.org/) (by [Josh Baldwin](https://github.com/jbaldwin/))
 * [Sammy.js](http://sammyjs.org/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Select2](http://ivaynberg.github.com/select2/) (by [Boris Yankov](https://github.com/borisyankov))
+* [Semver](https://github.com/isaacs/node-semver) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [Sencha Touch](http://www.sencha.com/products/touch/) (by [Brian Kotek](https://github.com/brian428))
 * [SharePoint](http://sptypescript.codeplex.com) (by [Stanislav Vyshchepan](http://gandjustas.blogspot.ru) and [Andrey Markeev](http://markeev.com))
 * [SignalR](http://www.asp.net/signalr) (by [Boris Yankov](https://github.com/borisyankov))
