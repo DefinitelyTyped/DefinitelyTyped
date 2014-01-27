@@ -207,6 +207,8 @@ List of Definitions
 * [Platform](https://github.com/bestiejs/platform.js) (by [Jake Hickman](https://github.com/JakeH))
 * [PouchDB](http://pouchdb.com) (by [Bill Sears](https://github.com/MrBigDog2U/))
 * [PreloadJS](http://www.createjs.com/#!/PreloadJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
+* [Q](https://github.com/kriskowal/q) (by Barrie Nemetchek, Andrew Gaspar)
+* [Q-io](https://github.com/kriskowal/q-io) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [QUnit](http://qunitjs.com/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Raven.js](https://github.com/getsentry/raven-js) (by [Santi Albo](https://github.com/santialbo))
 * [Rickshaw](http://code.shutterstock.com/rickshaw/) (by [Blake Niemyjski](https://github.com/niemyjski))
