@@ -235,6 +235,7 @@ List of Definitions
 * [Sugar](http://sugarjs.com/) (by [Josh Baldwin](https://github.com/jbaldwin/))
 * [Swiper](http://www.idangero.us/sliders/swiper) (by [Sebastián Galiano](https://github.com/sgaliano))
 * [SwipeView](http://cubiq.org/swipeview) (by [Boris Yankov](https://github.com/borisyankov))
+* [TV4](https://github.com/geraintluff/tv4) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [Tags Manager](http://welldonethings.com/tags/manager) (by [Vincent Bortone](https://github.com/vbortone))
 * [Teechart](http://www.steema.com) (by [Steema](http://www.steema.com))
 * [three.js](http://mrdoob.github.com/three.js/) (by [Kon](http://phyzkit.net/))
