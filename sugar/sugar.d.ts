@@ -2551,7 +2551,7 @@ interface Array<T> {
 	*     return n['a'];
 	*   });                              -> {a:3}
 	**/
-	max(map: string): T;
+	max(map?: string): T;
 
 	/**
 	* @see max
@@ -2587,7 +2587,7 @@ interface Array<T> {
 	*     return n['a'];
 	*   });                              -> [{a:2}]
 	**/
-	min(map: string): T;
+	min(map?: string): T;
 
 	/**
 	* @see min If true return all min values in the array, default = false.
@@ -2619,7 +2619,7 @@ interface Array<T> {
 	*     return n.age;
 	*   });                              -> [{age:12,name:'bob'},{age:12,name:'ted'}]
 	**/
-	most(map: string): T[];
+	most(map?: string): T[];
 
 	/**
 	* @see most
