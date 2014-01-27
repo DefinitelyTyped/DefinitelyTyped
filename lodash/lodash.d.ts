@@ -2854,9 +2854,9 @@ declare module _ {
 			callback?: (objectValue: Value, sourceValue: Value) => Value,
             thisArg?: any): Result;
             
-            extend(
-            	object: any,
-            	...sources: any[]): any;
+        extend(
+            object: any,
+            ...sources: any[]): any;
             
 	}
 
@@ -3307,9 +3307,9 @@ declare module _ {
 		isEmpty(value: string): boolean;
 		
 		/**
-        	* @see _.isEmpty
-        	**/
-        	isEmpty(value: any): boolean;
+		* @see _.isEmpty
+		**/
+		isEmpty(value: any): boolean;
 	}
 
 	//_.isEqual
