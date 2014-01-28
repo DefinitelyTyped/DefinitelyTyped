@@ -136,3 +136,10 @@ function test_config() {
         });
     });
 }
+
+function test_withHttpConfig() {
+    var $scope;
+    Restangular.one('accounts', 123).withHttpConfig({timeout: 100}).getList('buildings');
+    $scope.account = Restangular.one('accounts', 123);
+    $scope.account.withHttpConfig({timeout: 100}).put();
+}
