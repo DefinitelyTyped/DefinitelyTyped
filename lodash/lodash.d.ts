@@ -2826,9 +2826,19 @@ declare module _ {
 		/**
 		* @see _.assign
 		**/
+	extend<P, T extends P, S1 extends P, Value, Result extends P>(
+            object: T,
+            s1: S1,
+			callback?: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg?: any): Result;
+
+		/**
+		* @see _.assign
+		**/
         extend<P, T extends P, S1 extends P, S2 extends P, Value, Result extends P>(
             object: T,
             s1: S1,
+            s2: S2,
 			callback?: (objectValue: Value, sourceValue: Value) => Value,
             thisArg?: any): Result;
 
@@ -2839,6 +2849,7 @@ declare module _ {
             object: T,
             s1: S1,
             s2: S2,
+            s3: S3,
 			callback?: (objectValue: Value, sourceValue: Value) => Value,
             thisArg?: any): Result;
 
