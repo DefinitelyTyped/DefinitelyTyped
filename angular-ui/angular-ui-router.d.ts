@@ -42,12 +42,20 @@ declare module ng.ui {
     }
 
     interface IUrlRouterProvider extends IServiceProvider {
-        when(whenPath: string, toPath: any): IUrlRouterProvider;
-        when(whenPath: RegExp, toPath: any): IUrlRouterProvider;
-        when(whenPath: IUrlMatcher, toPath: any): IUrlRouterProvider;
+        when(whenPath: string, toPath: string): IUrlRouterProvider;
+        when(whenPath: RegExp, toPath: string): IUrlRouterProvider;
+        when(whenPath: IUrlMatcher, toPath: string): IUrlRouterProvider;
+        when(whenPath: string, handler: ($injector?: ng.auto.IInjectorService, $location?: ng.ILocationService) => any): IUrlRouterProvider;
+        when(whenPath: RegExp, handler: ($injector?: ng.auto.IInjectorService, $location?: ng.ILocationService) => any): IUrlRouterProvider;
+        when(whenPath: IUrlMatcher, hanlder: ($injector?: ng.auto.IInjectorService, $location?: ng.ILocationService) => any): IUrlRouterProvider;
+        when(whenPath: string, handler: any[]): IUrlRouterProvider;
+        when(whenPath: RegExp, handler: any[]): IUrlRouterProvider;
+        when(whenPath: IUrlMatcher, handler: any[]): IUrlRouterProvider;
         otherwise(path: string): IUrlRouterProvider;
-        otherwise(path: Function): IUrlRouterProvider;
-        rule(handler: Function): IUrlRouterProvider;
+        otherwise(handler: ($injector?: ng.auto.IInjectorService, $location?: ng.ILocationService) => any): IUrlRouterProvider;
+        otherwise(handler: any[]): IUrlRouterProvider;
+        rule(handler: ($injector?: ng.auto.IInjectorService, $location?: ng.ILocationService) => any): IUrlRouterProvider;
+        rule(handler: any[]): IUrlRouterProvider;
     }
 
     interface IStateOptions {
