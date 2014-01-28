@@ -979,19 +979,52 @@ interface JQueryStatic {
      */
     isXMLDoc(node: Node): boolean;
 
+    /**
+     * Convert an array-like object into a true JavaScript array.
+     * 
+     * @param obj Any object to turn into a native Array.
+     */
     makeArray(obj: any): any[];
 
+    /**
+     * Translate all items in an array or object to new array of items.
+     * 
+     * @param array The Array to translate.
+     * @param callback The function to process each item against. The first argument to the function is the array item, the second argument is the index in array The function can return any value. Within the function, this refers to the global (window) object.
+     */
     map<T, U>(array: T[], callback: (elementOfArray: T, indexInArray: number) => U): U[];
-    map(array: any, callback: (elementOfArray: any, indexInArray: any) => any): any;
+    /**
+     * Translate all items in an array or object to new array of items.
+     * 
+     * @param arrayOrObject The Array or Object to translate.
+     * @param callback The function to process each item against. The first argument to the function is the value; the second argument is the index or key of the array or object property. The function can return any value to add to the array. A returned array will be flattened into the resulting array. Within the function, this refers to the global (window) object.
+     */
+    map(arrayOrObject: any, callback: (value: any, indexOrKey: any) => any): any;
 
+    /**
+     * Merge the contents of two arrays together into the first array.
+     * 
+     * @param first The first array to merge, the elements of second added.
+     * @param second The second array to merge into the first, unaltered.
+     */
     merge<T>(first: T[], second: T[]): T[];
-    merge<T,U>(first: T[], second: U[]): any[];
 
+    /**
+     * An empty function.
+     */
     noop(): any;
 
+    /**
+     * Return a number representing the current time.
+     */
     now(): number;
 
-    parseJSON(json: string): any;
+    /**
+     * Takes a well-formed JSON string and returns the resulting JavaScript object.
+     * 
+     * @param json The JSON string to parse.
+     */
+    parseJSON(json: string): Object;
 
     /**
      * Parses a string into an XML document.
