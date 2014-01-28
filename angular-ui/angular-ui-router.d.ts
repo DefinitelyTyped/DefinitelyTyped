@@ -42,9 +42,9 @@ declare module ng.ui {
     }
 
     interface IUrlRouterProvider extends IServiceProvider {
-        when(whenPath: string, toPath: string): IUrlRouterProvider;
-        when(whenPath: RegExp, toPath: string): IUrlRouterProvider;
-        when(whenPath: IUrlMatcher, toPath: string): IUrlRouterProvider;
+        when(whenPath: string, toPath: any): IUrlRouterProvider;
+        when(whenPath: RegExp, toPath: any): IUrlRouterProvider;
+        when(whenPath: IUrlMatcher, toPath: any): IUrlRouterProvider;
         otherwise(path: string): IUrlRouterProvider;
         otherwise(path: Function): IUrlRouterProvider;
         rule(handler: Function): IUrlRouterProvider;
