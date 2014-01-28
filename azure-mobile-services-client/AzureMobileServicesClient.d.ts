@@ -91,4 +91,8 @@ declare module Microsoft.WindowsAzure {
     }
 }
 
+declare module "WindowsAzure" {
+    export = WindowsAzure;
+}
+
 declare var WindowsAzure: Microsoft.WindowsAzure.WindowsAzureStatic;
