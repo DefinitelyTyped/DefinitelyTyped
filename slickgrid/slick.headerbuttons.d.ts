@@ -24,11 +24,18 @@ declare module Slick {
         tooltip?: string;
     }
 
+    export interface OnCommandEventData<T extends SlickData> {
+        grid: Grid<T>;
+        column: Column<T>;
+        command: string;
+        button: HeaderButton;
+    }
+
     export module Plugins {
 
         export class HeaderButtons<T extends SlickData> extends Plugin<T> {
             constructor();
-            public onCommand: Event<any>;
+            public onCommand: Event<OnCommandEventData<T>>;
         }
     }
 }
