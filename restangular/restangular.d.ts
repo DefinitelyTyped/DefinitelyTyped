@@ -6,6 +6,17 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
+interface RestangularRequestConfig {
+    params?: any;
+    headers?: any;
+    cache?: any;
+    withCredentials?: boolean;
+    data?: any;
+    transformRequest?: any;
+    transformResponse?: any;
+    timeout?: any; // number | promise
+}
+
 interface Restangular extends RestangularCustom {
     one(route: string, id?: number): RestangularElement;
     one(route: string, id?: string): RestangularElement;
@@ -29,7 +40,7 @@ interface RestangularElement extends Restangular {
     trace(queryParams?, headers?): ng.IPromise<any>;
     options(queryParams?, headers?): ng.IPromise<any>;
     patch(queryParams?, headers?): ng.IPromise<any>;
-    withHttpConfig(httpConfig: ng.IRequestConfig): RestangularElement;
+    withHttpConfig(httpConfig: RestangularRequestConfig): RestangularElement;
     getRestangularUrl(): string;
 }
 
@@ -41,7 +52,7 @@ interface RestangularCollection extends Restangular {
     options(queryParams?, headers?): ng.IPromise<any>;
     patch(queryParams?, headers?): ng.IPromise<any>;
     putElement(idx, params, headers): ng.IPromise<any>;
-    withHttpConfig(httpConfig: ng.IRequestConfig): RestangularCollection;
+    withHttpConfig(httpConfig: RestangularRequestConfig): RestangularCollection;
     getRestangularUrl(): string;
 }
 
