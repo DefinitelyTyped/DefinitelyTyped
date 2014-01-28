@@ -10,7 +10,7 @@ var params:Object;
 var x:any;
 
 var client:UniversalAnalytics.Client = ui('UA-123-00');
-client = ui.debug();
+client = client.debug();
 client.send();
 
 client = client.pageview(str);
