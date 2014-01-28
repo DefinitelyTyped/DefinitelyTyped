@@ -5,12 +5,12 @@
 
 interface UniversalAnalytics {
     (accountID:string, uuid?:string, opts?:Object):UniversalAnalytics.Client;
-    debug():UniversalAnalytics.Client;
 }
 
 declare module UniversalAnalytics {
 
     interface Client {
+        debug():UniversalAnalytics.Client;
 
         send():void;
 
