@@ -1033,13 +1033,26 @@ interface JQueryStatic {
      */
     parseXML(data: string): XMLDocument;
 
-    queue(element: Element, queueName: string, newQueue: any[]): JQuery;
-
+    /**
+     * Remove the whitespace from the beginning and end of a string.
+     * 
+     * @param str Remove the whitespace from the beginning and end of a string.
+     */
     trim(str: string): string;
 
+    /**
+     * Determine the internal JavaScript [[Class]] of an object.
+     * 
+     * @param obj Object to get the internal JavaScript [[Class]] of.
+     */
     type(obj: any): string;
 
-    unique(arr: any[]): any[];
+    /**
+     * Sorts an array of DOM elements, in place, with the duplicates removed. Note that this only works on arrays of DOM elements, not strings or numbers.
+     * 
+     * @param array The Array of DOM elements.
+     */
+    unique(array: Element[]): Element[];
 
     /**
      * Parses a string into an array of DOM nodes.
