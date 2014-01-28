@@ -1,4 +1,4 @@
-/// <reference path="jquery.simulate-tests.d.ts"/>
+/// <reference path="jquery.simulate.d.ts"/>
 
 var $element = $("body");
 
