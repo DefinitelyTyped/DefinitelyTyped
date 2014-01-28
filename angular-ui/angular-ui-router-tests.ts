@@ -15,14 +15,16 @@ myApp.config((
   var matcher: ng.ui.IUrlMatcher = $urlMatcherFactory.compile("/foo/:bar?param1");
   
   $urlRouterProvider
-    .when('/test', '/list')
-    .when(/\/test\d/, ($injector: ng.auto.IInjectorService, $location: ng.ILocationService) => {
-      return '/list';
-    })
-    .when(matcher, ['$injector', '$location', ($injector: ng.auto.IInjectorService, $location: ng.ILocationService) => {
-      return false;
-    }])
-    .otherwise("/state1");
+      .when('/test', '/list')
+      .when('/test', '/list')
+      .when('/test', '/list')
+      .when(/\/test\d/, '/list')
+      .when(/\/test\d/, ($injector: ng.auto.IInjectorService, $location: ng.ILocationService) => '/list')
+      .when(/\/test\d/,['$injector', '$location', ($injector: ng.auto.IInjectorService, $location: ng.ILocationService) => '/list'])
+      .when(matcher, '/list')
+      .when(matcher, ($injector: ng.auto.IInjectorService, $location: ng.ILocationService) => '/list')
+      .when(matcher, ['$injector', '$location', ($injector: ng.auto.IInjectorService, $location: ng.ILocationService) => '/list'])
+      .otherwise("/state1");
 
   // Now set up the states
   $stateProvider
