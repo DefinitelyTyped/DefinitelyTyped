@@ -1247,7 +1247,7 @@ declare module google.maps {
     /***** Geometry Library *****/
     export module geometry {
         export class encoding {
-            static decodePath(encodedPath: string): LatLng;
+            static decodePath(encodedPath: string): LatLng[];
             static encodePath(path: any[]): string;
         }
 
