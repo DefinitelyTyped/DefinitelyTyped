@@ -204,7 +204,36 @@ declare module Vega {
   }
 
   export interface Axis {
-    // TODO
+    // TODO docs
+    type: string;
+    scale: string;
+    orient?: string;
+    title?: string;
+    titleOffset?: number;
+    format?: string;
+    ticks?: number;
+    values?: any[];
+    subdivide?: number;
+    tickPadding?: number;
+    tickSize?: number;
+    tickSizeMajor?: number;
+    tickSizeMinor?: number;
+    tickSizeEnd?: number;
+    offset?: any;
+    layer?: string;
+    grid?: boolean;
+    properties?: Axis.Properties
+  }
+
+  export module Axis {
+    export interface Properties {
+      majorTicks?: Mark.PropertySet;
+      minorTicks?: Mark.PropertySet;
+      grid?: Mark.PropertySet;
+      labels?: Mark.PropertySet;
+      title?: Mark.PropertySet;
+      axis?: Mark.PropertySet;
+    }
   }
 
   export interface Legend {
