@@ -138,7 +138,7 @@ declare module breeze {
         shortName: string;
         unmappedProperties: DataProperty[];
         validators: Validator[];
-        addProperty(dataProperty: DataProperty);
+        addProperty(dataProperty: DataProperty): ComplexType;
         getProperties(): DataProperty[];
     }
 
@@ -643,8 +643,8 @@ declare module breeze {
         addDataService(dataService: DataService): void;
         addEntityType(structuralType: IStructuralType): void;
         exportMetadata(): string;
-        fetchMetadata(dataService: string, callback?: (data) => void , errorCallback?: breeze.core.ErrorCallback): Q.Promise<any>;
-        fetchMetadata(dataService: DataService, callback?: (data) => void , errorCallback?: breeze.core.ErrorCallback): Q.Promise<any>;
+        fetchMetadata(dataService: string, callback?: (data: any) => void , errorCallback?: breeze.core.ErrorCallback): Q.Promise<any>;
+        fetchMetadata(dataService: DataService, callback?: (data: any) => void , errorCallback?: breeze.core.ErrorCallback): Q.Promise<any>;
         getDataService(serviceName: string): DataService;
         getEntityType(entityTypeName: string, okIfNotFound?: boolean): IStructuralType;
         getEntityTypes(): IStructuralType[];
@@ -653,7 +653,7 @@ declare module breeze {
         importMetadata(exportedString: string): MetadataStore;
         isEmpty(): boolean;
         registerEntityTypeCtor(entityTypeName: string, entityCtor: Function, initializationFn?: (entity: Entity) =>void ): void;
-        trackUnmappedType(entityCtor: Function, interceptor?: Function);
+        trackUnmappedType(entityCtor: Function, interceptor?: Function): void;
         setEntityTypeForResourceName(resourceName: string, entityType: EntityType): void;
         setEntityTypeForResourceName(resourceName: string, entityTypeName: string): void;
         getEntityTypeNameForResourceName(resourceName: string): string;
@@ -677,7 +677,7 @@ declare module breeze {
         serverPropertyNameToClient(serverPropertyName: string): string;
         serverPropertyNameToClient(serverPropertyName: string, property: IProperty): string;
 
-        setAsDefault();
+        setAsDefault(): NamingConvention;
     }
 
     interface NamingConventionOptions {
@@ -846,8 +846,8 @@ declare module breeze {
         static string(): Validator;
         static stringLength(context: { maxLength: number; minLength: number; }): Validator;
         
-        static register(validator: Validator);
-        static registerFactory(fn: () => Validator, name: string);
+        static register(validator: Validator): void;
+        static registerFactory(fn: () => Validator, name: string): void;
 
         validate(value: any, context?: any): ValidationError;
         getMessage(): string;
