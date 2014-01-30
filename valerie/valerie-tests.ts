@@ -286,3 +286,13 @@ function RuleTests() {
         .end();
 
 }
+
+function ModelValidation() {
+
+    var model = {};
+
+    var validatedModel = valerie.validatableModel(model)
+        .validateAll()
+        .end();
+    
+}
