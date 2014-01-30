@@ -452,6 +452,7 @@ declare module ng {
     ///////////////////////////////////////////////////////////////////////////
     interface IQService {
         all(promises: IPromise<any>[]): IPromise<any[]>;
+        all(promises: {[id: string]: IPromise<any>;}): IPromise<{[id: string]: any}>;
         defer<T>(): IDeferred<T>;
         reject(reason?: any): IPromise<void>;
         when<T>(value: T): IPromise<T>;
@@ -747,12 +748,14 @@ declare module ng {
             ) => any;
         controller?: any;
         controllerAs?: string;
+        // A link function with no arguments is perfectly valid; the norm seems
+        // to be passing the scope, element and attributes.
         link?:
-            (scope: IScope,
-            instanceElement: IAugmentedJQuery,
-            instanceAttributes: IAttributes,
-            controller: any,
-            transclude: ITranscludeFunction
+            (scope?: IScope,
+            instanceElement?: IAugmentedJQuery,
+            instanceAttributes?: IAttributes,
+            controller?: any,
+            transclude?: ITranscludeFunction
             ) => void;
         name?: string;
         priority?: number;

@@ -448,11 +448,6 @@ function test_toggle() {
     });
 }
 
-function test_easing() {
-    var result: number = $.easing.linear(3);
-    var result: number = $.easing.swing(3);
-}
-
 function test_append() {
     $('.inner').append('<p>Test</p>');
     $('.container').append($('h2'));

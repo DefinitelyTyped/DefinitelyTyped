@@ -250,6 +250,12 @@ interface Require {
 	(modules: string[], ready: Function): void;
 
 	/**
+	* @see http://requirejs.org/docs/api.html#errbacks
+	* @param ready Called when required modules are ready.
+	**/
+	(modules: string[], ready: Function, errback: Function): void;
+
+	/**
 	* Generate URLs from require module
 	* @param module Module to URL
 	* @return URL string

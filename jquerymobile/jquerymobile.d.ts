@@ -202,6 +202,18 @@ interface ListViewEvents {
     create?: JQueryMobileEvent;
 }
 
+interface FilterableOptions {
+    children?: any;
+    defaults?: boolean;
+    disabled?: boolean;
+    enhanced?: boolean;
+    filterCallback?: {(index: number, searchValue?: string): boolean; };
+    filterPlaceholder?: string;
+    filterReveal?: boolean;
+    filterTheme?: string;
+    input: any;
+}
+
 interface NavbarOptions {
     iconpos: string;
 }
@@ -371,6 +383,7 @@ interface JQueryMobile extends JQueryMobileOptions {
     checkboxradio: any;
     selectmenu: any;
     listview: any;
+    filterable: any;
     defaultHomeScroll: number;
 }
 
@@ -445,6 +458,10 @@ interface JQuery {
     listview(command: string): JQuery;
     listview(options: ListViewOptions): JQuery;
     listview(events: ListViewEvents): JQuery;
+
+    filterable(): JQuery;
+    filterable(command: string): JQuery;
+    filterable(options: FilterableOptions): JQuery;
 
     navbar(options?: NavbarOptions): JQuery;
 
