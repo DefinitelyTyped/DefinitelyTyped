@@ -7,7 +7,10 @@
 
 /**
  *
- * Extensions to KO functions to provide validation 
+ * Extensions to KO functions to provide validation
+ *
+ * Version 1.1 - added missing methods to ModelValidationState
+ *
  */
 interface KnockoutObservable<T> {
     // starts validation for observable
@@ -22,7 +25,6 @@ interface KnockoutComputed<T> {
 interface KnockoutObservableArray<T> {
     validate(validationOptions?: Valerie.ValidationOptions): Valerie.PropertyValidationState<KnockoutObservableArray<T>>;
 }
-
 
 interface KnockoutObservableArrayFunctions<T> {
     /**
@@ -198,8 +200,6 @@ interface KnockoutBindingHandlers {
     visibleWhenValid: KnockoutBindingHandler;
 }
 
-
-
 //
 // root valerie namespace - static methods
 //
@@ -208,12 +208,10 @@ declare var valerie: Valerie.Static;
 // additional types for Valerie (all inside this namespace)
 
 declare module Valerie {
-
     //
     // Static methods on valerie namespace
     //
     interface Static {
-
         /**
          * Maps a source model to a destination model, including only applicable properties
          * @param {Object|Array} sourceModel the source model
@@ -263,10 +261,128 @@ declare module Valerie {
         // ctor
         new: (model: any, options?: ModelValidationStateOptions) => ModelValidationState;
 
-        addValidationStates(validationStateOrStates: any): void;
-
         model: any;
         options?: ModelValidationStateOptions
+
+        // methods
+
+         /**
+         * Adds validation states to this validation state.<br/>
+         * <i>[fluent]</i>
+         * @name valerie.ModelValidationState#addValidationStates
+         * @fluent
+         * @param {object|array.<valerie.IValidationState>} validationStateOrStates the validation states to add
+         * @return {valerie.ModelValidationState}
+         */
+        addValidationStates(validationStateOrStates: any): ModelValidationState;
+
+        /**
+         * Sets the value or function used to determine if the model is applicable.<br/>
+         * <i>[fluent]</i>
+         * @name valerie.ModelValidationState#applicable
+         * @fluent
+         * @param {boolean|function} [valueOrFunction = true] the value or function to use
+         * @return {valerie.ModelValidationState}
+         */
+        applicable(valueOrFunction: any): ModelValidationState;
+
+        /**
+         * Clears the static summary of validation states that are in a failure state.<br/>
+         * <i>[fluent]</i>
+         * @name valerie.ModelValidationState#clearSummary
+         * @fluent
+         * @param {boolean} [clearSubModelSummaries = false] whether to clear the static summaries for sub-models
+         * @return {valerie.ModelValidationState}
+         */
+        clearSummary(valueOrFunction: any): ModelValidationState;
+
+        /**
+         * Includes any validation failures for this model in a validation summary.<br/>
+         * <i>[fluent]</i>
+         * @fluent
+         * @return {valerie.ModelValidationState}
+         */
+        includeInSummary(): ModelValidationState;
+
+        /**
+         * Sets the value or function used to determine the name of the model.<br/>
+         * <i>[fluent]</i>
+         * @fluent
+         * @param {string|function} valueOrFunction the value or function to use
+         * @return {valerie.ModelValidationState}
+         */
+        name(valueOrFunction: any): ModelValidationState;
+
+        /**
+         * Removes validation states.<br/>
+         * <i>[fluent]</i>
+         * @fluent
+         * @param {object|array.<valerie.IValidationState>} validationStateOrStates the validation states to remove
+         * @return {valerie.ModelValidationState}
+         */
+        removeValidationStates(validationStateOrStates: any): ModelValidationState;
+
+        /**
+         * Stops validating the given sub-model by adding the validation state that belongs to it.
+         * @param {*} validatableSubModel the sub - model to start validating
+         * @return {valerie.ModelValidationState }
+         */
+        startValidatingSubModel(validatableSubModel: any): ModelValidationState;
+
+        /**
+         * Stops validating the given sub-model by removing the validation state that belongs to it.
+         * @param {*} validatableSubModel the sub-model to stop validating
+         * @return {valerie.ModelValidationState}
+         */
+        stopValidatingSubModel(validatableSubModel: any): ModelValidationState;
+
+        /**
+        * Updates the static summary of validation states that are in a failure state.<br/>
+        * <i>[fluent]</i>
+        * @fluent
+        * @param {boolean} [updateSubModelSummaries = false] whether to update the static summaries for sub-models
+        * @return {valerie.ModelValidationState}
+        */
+        updateSummary(updateSubModelSummaries: boolean): ModelValidationState;
+
+        /**
+        * Adds the validation states for all the descendant properties and sub-models that belong to the model.<br/>
+        * <i>[fluent]</i>
+        * @fluent
+        * @return {valerie.ModelValidationState}
+        */
+        validateAll(): ModelValidationState;
+
+        /**
+         * Adds the validation states for all the descendant properties that belong to the model.<br/>
+         * <i>[fluent]</i>
+         * @fluent
+         * @return {valerie.ModelValidationState}
+         */
+        validateAllProperties(): ModelValidationState;
+
+        /**
+         * Adds the validation states for all the child properties that belong to the model.<br/>
+         * <i>[fluent]</i>
+         * @fluent
+         * @return {valerie.ModelValidationState}
+         */
+        validateChildProperties(): ModelValidationState;
+
+        /**
+         * Adds the validation states for all the child properties and sub-models that belong to the model.<br/>
+         * <i>[fluent]</i>
+         * @fluent
+         * @return {valerie.ModelValidationState}
+         */
+        validateChildPropertiesAndSubModels(): ModelValidationState;
+
+
+        /**
+         * Ends a chain of fluent method calls on this model validation state.
+         * @return {function} the model the validation state is for
+         */
+        end(): any;
     }
 
     // Construction options for a model validation state.
@@ -282,7 +398,6 @@ declare module Valerie {
     // PropertyValidationState
     //
     interface PropertyValidationState<T> {
-
         // properties:
 
         // the observable or computed the validation state is for
@@ -310,12 +425,12 @@ declare module Valerie {
         during(earliest: () => Date, latest: Date, options?: ValidationOptions): PropertyValidationState<T>; // dateFN + date
         during(earliest: Date, latest: () => Date, options?: ValidationOptions): PropertyValidationState<T>; // date + dateFN
         during(earliest: () => Date, latest: () => Date, options?: ValidationOptions): PropertyValidationState<T>; // dateFN + dateFN
-        earliest(earliest: Date, options?: ValidationOptions): PropertyValidationState<T>; // date value 
+        earliest(earliest: Date, options?: ValidationOptions): PropertyValidationState<T>; // date value
         earliest(earliest: () => Date, options?: ValidationOptions): PropertyValidationState<T>; // date function
         email(): PropertyValidationState<T>;
         entryFormat(format: string): PropertyValidationState<T>;
         excludeFromSummary(): PropertyValidationState<T>;
-        expression(regularExpression: RegExp, options?: ValidationOptions): PropertyValidationState<T>; // regex 
+        expression(regularExpression: RegExp, options?: ValidationOptions): PropertyValidationState<T>; // regex
         expression(regularExpressionString: string, options?: ValidationOptions): PropertyValidationState<T>; // regex string
         float(options?: ValidationOptions): PropertyValidationState<T>;
         integer(options?: ValidationOptions): PropertyValidationState<T>;
@@ -377,7 +492,6 @@ declare module Valerie {
         touched(): boolean;               // get touched state
         touched(value: boolean): boolean; // set touched state
         result(): ValidationResult;
-
     }
 
     interface ValidationResult {
@@ -390,7 +504,6 @@ declare module Valerie {
 
         //TODO: not added static members/methods
         createFailedResult(message: string): ValidationResult;
-
     }
 
     interface IRule {
@@ -411,7 +524,7 @@ declare module Valerie {
     }
 
     interface ValidatableModel<T> {
-        name: (value:string) => PropertyValidationState<T>;
+        name: (value: string) => PropertyValidationState<T>;
 
         // return original observableArray
         end: () => T;
@@ -438,7 +551,6 @@ declare module Valerie {
 
     // A helper for parsing and formatting numeric values.
     interface NumericHelper {
-
         // Adds thousands separators to the given numeric string.
         addThousandsSeparator(numericString: string): string;
 
@@ -468,13 +580,10 @@ declare module Valerie {
 
         // Unformats a numeric string; removes currency signs, thousands separators and normalises decimal separators.
         unformat(numericString: string): string;
-
     }
 
-
     interface ValidationState {
-
-        // Finds and returns the validation states 
+        // Finds and returns the validation states
         findIn(model: any,
             includeSubModels?: boolean,
             recurse?: boolean,
@@ -486,15 +595,12 @@ declare module Valerie {
         // nforms if the given model, observable or computed has a validation state.
         has(modelOrObservableOrComputed: any): boolean;
 
-
         // Sets the validation state for the given model, observable or computed.
         setFor(modelOrObservableOrComputed: any, state: IValidationState): void;
-
     }
 }
 
 declare module Valerie.Rules {
-
     /*
 
       Todo: add classes in valerie.rules namespace
