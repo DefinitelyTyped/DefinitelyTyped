@@ -748,14 +748,12 @@ declare module ng {
             ) => any;
         controller?: any;
         controllerAs?: string;
-        // A link function with no arguments is perfectly valid; the norm seems
-        // to be passing the scope, element and attributes.
         link?:
-            (scope?: IScope,
-            instanceElement?: IAugmentedJQuery,
-            instanceAttributes?: IAttributes,
-            controller?: any,
-            transclude?: ITranscludeFunction
+            (scope: IScope,
+            instanceElement: IAugmentedJQuery,
+            instanceAttributes: IAttributes,
+            controller: any,
+            transclude: ITranscludeFunction
             ) => void;
         name?: string;
         priority?: number;
