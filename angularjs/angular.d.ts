@@ -819,7 +819,8 @@ declare module ng {
         interface IInjectorService {
             annotate(fn: Function): string[];
             annotate(inlineAnnotadedFunction: any[]): string[];
-            get (name: string): any;
+            get(name: string): any;
+            has(name: string): boolean; 
             instantiate(typeConstructor: Function, locals?: any): any;
             invoke(inlineAnnotadedFunction: any[]): any;
             invoke(func: Function, context?: any, locals?: any): any;
