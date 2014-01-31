@@ -175,6 +175,7 @@ declare module Backbone {
         sort(options?: Silenceable): Collection;
         unshift(model: Model, options?: AddOptions): Model;
         where(properies: any): Model[];
+        findWhere(properties: any): Model;
 
         _prepareModel(attrs?: any, options?: any): any;
         _removeReference(model: Model): void;
