@@ -1,3 +1,8 @@
+// Type definitions for SlickGrid 2.1.0
+// Project: https://github.com/mleibman/SlickGrid
+// Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /*
 SlickGrid-2.1.d.ts may be freely distributed under the MIT license.
 

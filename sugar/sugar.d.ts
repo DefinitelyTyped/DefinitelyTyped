@@ -1,4 +1,8 @@
-﻿/* 
+﻿// Type definitions for Sugar 1.3.9
+// Project: http://sugarjs.com/
+// Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+/*
 sugar-1.3.9.d.ts may be freely distributed under the MIT license.
 
 Copyright (c) 2013 Josh Baldwin https://github.com/jbaldwin/sugar.d.ts
@@ -2354,16 +2358,14 @@ interface Array<T> {
 	*   [{age:35,name:'ken'},{age:15,name:'bob'}].groupBy(function(n) {
 	*     return n.age;
 	*   });                                  -> { 35: [{age:35,name:'ken'}], 15: [{age:15,name:'bob'}] }
-	* todo: return should be : { [key: U]: any }
 	**/
-	groupBy<U>(map: string, fn?: (group: T) => void ): { [key: string]: any };
+	groupBy<U>(map: string, fn?: (key: string, items: T[]) => void): { [key: string]: T };
 
 	/**
 	* @see groupBy
 	* @param map Callback function for each element, returns the key for the group the element should be in.
-	* todo: return should be : { [key: U]: any }
 	**/
-	groupBy<U>(map: (element: T) => U, fn?: (group: T) => void ): { [key: string]: any };
+	groupBy<U>(map: (element: T) => U, fn?: (key: string, items: T[]) => void): { [key: string]: T[] };
 
 	/**
 	* Groups the array into <num> arrays.
@@ -2549,7 +2551,7 @@ interface Array<T> {
 	*     return n['a'];
 	*   });                              -> {a:3}
 	**/
-	max(map: string): T;
+	max(map?: string): T;
 
 	/**
 	* @see max
@@ -2585,7 +2587,7 @@ interface Array<T> {
 	*     return n['a'];
 	*   });                              -> [{a:2}]
 	**/
-	min(map: string): T;
+	min(map?: string): T;
 
 	/**
 	* @see min If true return all min values in the array, default = false.
@@ -2617,7 +2619,7 @@ interface Array<T> {
 	*     return n.age;
 	*   });                              -> [{age:12,name:'bob'},{age:12,name:'ted'}]
 	**/
-	most(map: string): T[];
+	most(map?: string): T[];
 
 	/**
 	* @see most

@@ -1,4 +1,4 @@
-// Type definitions for Backbone 0.8.5
+// Type definitions for Backbone-relational 0.8.5
 // Project: http://backbonerelational.org/
 // Definitions by: Eirik Hoem <https://github.com/eirikhm/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

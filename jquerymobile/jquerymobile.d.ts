@@ -1,4 +1,4 @@
-// Type definitions for jQuery Mobile 1.2
+// Type definitions for jQuery Mobile 1.4
 // Project: http://jquerymobile.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -143,6 +143,18 @@ interface SliderEvents {
     slidestop?: JQueryMobileEvent;
 }
 
+interface FlipswitchOptions {
+    corners?: boolean;
+    defaults?: boolean;
+    disabled?: boolean;
+    enhanced?: boolean;
+    mini?: boolean;
+    offText?: string;
+    onText?: string;
+    theme?: string;
+    wrapperClass?: string;
+}
+
 interface CheckboxRadioOptions {
     mini?: boolean;
     theme?: string;
@@ -188,6 +200,18 @@ interface ListViewOptions {
 
 interface ListViewEvents {
     create?: JQueryMobileEvent;
+}
+
+interface FilterableOptions {
+    children?: any;
+    defaults?: boolean;
+    disabled?: boolean;
+    enhanced?: boolean;
+    filterCallback?: {(index: number, searchValue?: string): boolean; };
+    filterPlaceholder?: string;
+    filterReveal?: boolean;
+    filterTheme?: string;
+    input: any;
 }
 
 interface NavbarOptions {
@@ -298,6 +322,30 @@ interface LoaderOptions {
     textonly?: boolean;
 }
 
+interface JQueryMobilePath {
+    get(url: string): string;
+    getDocumentBase(asParsedObject?: boolean): any;
+    getDocumentUrl(asParsedObject?: boolean): any;
+    getLocation(): string;
+    isAbsoluteUrl(url: string): boolean;
+    isRelativeUrl(url: string): boolean;
+    makeUrlAbsolute(relUrl: string, absUrl: string): string;
+    parseLocation(): ParsedPath;
+    parseUrl(url: string): ParsedPath;
+}
+
+interface ParsedPath {
+    hash: string;
+    host: string;
+    hostname: string;
+    href: string;
+    pathname: string;
+    port: string;
+    protocol: string;
+    search: string;
+}
+
+
 interface JQueryMobile extends JQueryMobileOptions {
 
     version: string;
@@ -305,8 +353,10 @@ interface JQueryMobile extends JQueryMobileOptions {
     changePage(to: any, options?: ChangePageOptions): void;
     initializePage(): void;
     loadPage(url: any, options?: LoadPageOptions): void;
-    loading(command: string, options?: LoaderOptions): void;
+    loading(): JQuery;
+    loading(command: string, options?: LoaderOptions): JQuery;
 
+    pageContainer: any;
     base: any;
     silentScroll(yPos: number): void;
     activePage: JQuery;
@@ -314,14 +364,12 @@ interface JQueryMobile extends JQueryMobileOptions {
     options: JQueryMobileOptions;
 
     transitionFallbacks: any;
-    showPageLoadingMsg(): void;
-    hidePageLoadingMsg(): void;
     loader: any;
     page: any;
 
     touchOverflow: any;
     showCategory: any;
-    path: any;
+    path: JQueryMobilePath;
 
     dialog: any;
     popup: any;
@@ -331,9 +379,11 @@ interface JQueryMobile extends JQueryMobileOptions {
     collapsibleset: any;
     textinput: any;
     slider: any;
+    flipswitch: any;
     checkboxradio: any;
     selectmenu: any;
     listview: any;
+    filterable: any;
     defaultHomeScroll: number;
 }
 
@@ -342,6 +392,8 @@ interface JQuerySupport {
 }
 
 interface JQuery {
+
+    enhanceWithin(): JQuery;
 
     dialog(): JQuery;
     dialog(command: string): JQuery;
@@ -387,6 +439,10 @@ interface JQuery {
     slider(options: SliderOptions): JQuery;
     slider(events: SliderEvents): JQuery;
 
+    flipswitch(): JQuery;
+    flipswitch(command: string): JQuery;
+    flipswitch(options: FlipswitchOptions): JQuery;
+
     checkboxradio(): JQuery;
     checkboxradio(command: string): JQuery;
     checkboxradio(options: CheckboxRadioOptions): JQuery;
@@ -402,6 +458,10 @@ interface JQuery {
     listview(command: string): JQuery;
     listview(options: ListViewOptions): JQuery;
     listview(events: ListViewEvents): JQuery;
+
+    filterable(): JQuery;
+    filterable(command: string): JQuery;
+    filterable(options: FilterableOptions): JQuery;
 
     navbar(options?: NavbarOptions): JQuery;
 

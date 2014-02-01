@@ -1,3 +1,8 @@
+// Type definitions for express-validator
+// Project: https://github.com/ctavan/express-validator
+// Definitions by: Nathan Ridley <https://github.com/axefrog/>
+// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+
 declare module ExpressValidator {
 	export interface ValidationError {
 		msg: string;

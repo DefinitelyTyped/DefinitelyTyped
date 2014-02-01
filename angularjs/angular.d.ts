@@ -105,6 +105,7 @@ declare module ng {
         filter(object: Object): IModule;
         provider(name: string, serviceProviderConstructor: Function): IModule;
         provider(name: string, inlineAnnotadedConstructor: any[]): IModule;
+        provider(name: string, providerObject: auto.IProvider): IModule;
         provider(object: Object): IModule;
         run(initializationFunction: Function): IModule;
         run(inlineAnnotadedFunction: any[]): IModule;
@@ -451,6 +452,7 @@ declare module ng {
     ///////////////////////////////////////////////////////////////////////////
     interface IQService {
         all(promises: IPromise<any>[]): IPromise<any[]>;
+        all(promises: {[id: string]: IPromise<any>;}): IPromise<{[id: string]: any}>;
         defer<T>(): IDeferred<T>;
         reject(reason?: any): IPromise<void>;
         when<T>(value: T): IPromise<T>;
@@ -806,6 +808,9 @@ declare module ng {
     // AUTO module (angular.js)
     ///////////////////////////////////////////////////////////////////////////
     export module auto {
+        interface IProvider {
+            $get: any;
+        }
 
         ///////////////////////////////////////////////////////////////////////
         // InjectorService
@@ -814,7 +819,8 @@ declare module ng {
         interface IInjectorService {
             annotate(fn: Function): string[];
             annotate(inlineAnnotadedFunction: any[]): string[];
-            get (name: string): any;
+            get(name: string): any;
+            has(name: string): boolean; 
             instantiate(typeConstructor: Function, locals?: any): any;
             invoke(inlineAnnotadedFunction: any[]): any;
             invoke(func: Function, context?: any, locals?: any): any;
