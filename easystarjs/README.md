@@ -32,7 +32,7 @@ Change Log
 License
 =======
 
-easystarjs.d.ts Copyright (c) 2014 Magnus Gustafsson http://github.com/borundin/easystarjs.d.ts
+easystarjs.d.ts Copyright (c) 2014 Magnus Gustafsson
 This definitions file is for EasyStar.js ->
   https://github.com/prettymuchbryce/easystarjs
 
