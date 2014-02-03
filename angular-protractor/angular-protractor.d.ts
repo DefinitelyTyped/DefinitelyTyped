@@ -1,4 +1,4 @@
-// Type definitions for Angular Protractor
+// Type definitions for Angular Protractor 0.17.0
 // Project: https://github.com/angular/protractor
 // Definitions by: Bill Armstrong <https://github.com/BillArmstrong>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

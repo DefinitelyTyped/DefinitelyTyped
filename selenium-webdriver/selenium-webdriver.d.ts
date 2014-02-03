@@ -1,4 +1,4 @@
-// Type definitions for Selenium WebDriverJS
+// Type definitions for Selenium WebDriverJS 2.39.0
 // Project: https://code.google.com/p/selenium/
 // Definitions by: Bill Armstrong <https://github.com/BillArmstrong>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
