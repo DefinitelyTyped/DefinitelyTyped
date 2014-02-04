@@ -1919,27 +1919,27 @@ declare module _ {
 		**/
 		map<T, TResult>(
 			callback: ListIterator<T, TResult>,
-			thisArg?: any): LoDashArrayWrapper<T>;
+			thisArg?: any): LoDashArrayWrapper<TResult>;
 
 		/**
 		* @see _.map
 		* @param pluckValue _.pluck style callback
 		**/
 		map<T, TResult>(
-			pluckValue: string): LoDashArrayWrapper<T>;
+			pluckValue: string): LoDashArrayWrapper<TResult>;
 
 			/**
 			* @see _.map
 			**/
 			collect<T, TResult>(
 				callback: ListIterator<T, TResult>,
-				thisArg?: any): LoDashArrayWrapper<T>;
+				thisArg?: any): LoDashArrayWrapper<TResult>;
 
 			/**
 			* @see _.map
 			**/
 			collect<T, TResult>(
-				pluckValue: string): LoDashArrayWrapper<T>;
+				pluckValue: string): LoDashArrayWrapper<TResult>;
 	}
 
 	interface LoDashObjectWrapper<T> {
@@ -1948,14 +1948,14 @@ declare module _ {
 		**/
 		map<T extends {}, TResult>(
 			callback: ObjectIterator<T, TResult>,
-			thisArg?: any): LoDashObjectWrapper<T>;
+			thisArg?: any): LoDashObjectWrapper<TResult>;
 
 			/**
 			* @see _.map
 			**/
 			collect<T extends {}, TResult>(
 				callback: ObjectIterator<T, TResult>,
-				thisArg?: any): LoDashObjectWrapper<T>;
+				thisArg?: any): LoDashObjectWrapper<TResult>;
 	}
 
 	//_.max
