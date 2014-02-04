@@ -3,10 +3,10 @@ declare var React: ReactStatic;
 interface ReactStatic {
 	DOM: ReactDOM;
 	initializeTouchEvents(shouldUseTouch: boolean): void;
-	createClass(specification: ReactSpecification): (Object) => ReactComponent;
+	createClass(specification: ReactSpecification): (props: Object) => ReactComponent;
 	renderComponent(component: ReactComponent, container: HTMLElement, callback?: () => void): ReactComponent;
 	unmountComponentAtNode(container: HTMLElement): boolean;
-	renderComponentToString(component: ReactComponent, callback?: (string) => void): string;
+	renderComponentToString(component: ReactComponent, callback?: (text: string) => void): string;
 }
 
 interface ReactDOM {
