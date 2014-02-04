@@ -109,7 +109,7 @@ interface QStatic
     nsend<T>(nodeModule: any, functionName: string, ...args: any[]): Q.Promise<T>;
     nmcall<T>(nodeModule: any, functionName: string, ...args: any[]): Q.Promise<T>;
 
-    all<T>(promises: Q.IPromise<T>[]): Q.Promise<T[]>;
+    all<T>(promises: Q.Promise<T>[]): Q.Promise<T[]>;
     all<T>(promises: any[]): Q.Promise<T[]>;
 
     allSettled<T>(promises: Q.IPromise<T>[]): Q.Promise<Q.PromiseState<T>[]>;

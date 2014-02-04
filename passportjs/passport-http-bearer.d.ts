@@ -1,8 +1,8 @@
 ///<reference path='./passport.d.ts'/>
 
-declare module "passport-http-bearer"
+declare module passport_http_bearer
 {
-    export class Strategy implements passport.IStrategy
+    export class Strategy implements passport_module.IStrategy
     {
         constructor(options:Object, verify:Function);
         constructor(verify:Function);

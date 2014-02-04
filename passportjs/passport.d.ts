@@ -1,4 +1,4 @@
-declare module passport
+declare module passport_module
 {
     export interface IStrategy {
         authenticate(req, options?:Object);
