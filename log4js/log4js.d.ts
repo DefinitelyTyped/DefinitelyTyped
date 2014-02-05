@@ -1,6 +1,7 @@
 declare module log4js_module
 {
-    export class Logger {
+    export class Logger
+    {
         constructor(name?:string, level?:string);
         setLevel(level:string);
         removeLevel(level:string);
@@ -15,7 +16,7 @@ declare module log4js_module
     }
 }
 
-interface _log4js
+interface Log4jsStatic
 {
     getLogger(categoryName:string):log4js_module.Logger;
     getDefaultLogger():log4js_module.Logger;
@@ -23,9 +24,9 @@ interface _log4js
     configure(configurationFileOrObject?:any, options?:any);
 }
 
-declare var log4js:_log4js;
+declare var log4js:Log4jsStatic;
 
 declare module "log4js"
 {
-    export = _log4js;
+    export = log4js;
 }
