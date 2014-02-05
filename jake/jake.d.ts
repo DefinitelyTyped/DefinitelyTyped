@@ -124,7 +124,7 @@ declare module jake{
 	 * @event stderr When the stderr for the child-process recieves data. This streams the stderr data. Passes one arg, the chunk of data.
 	 * @event error When a shell-command
 	 */
-	export interface Exec extends EventEmitter{
+	export interface Exec extends NodeEventEmitter {
 		constructor(cmds:string[], callback?:()=>void, opts?:ExecOptions);
 		constructor(cmds:string[], opts?:ExecOptions,  callback?:()=>void);
 		constructor(cmds:string,   callback?:()=>void, opts?:ExecOptions);
@@ -182,7 +182,7 @@ declare module jake{
 	 *
 	 * @event complete
 	 */
-	export class Task implements EventEmitter {
+	export class Task implements NodeEventEmitter {
 		/**
 		 * @name name The name of the Task
 		 * @param prereqs Prerequisites to be run before this task
@@ -201,11 +201,11 @@ declare module jake{
 		 */
 		reenable(): void;
 
-		addListener(event: string, listener: Function): EventEmitter;
-        on(event: string, listener: Function): EventEmitter;
-        once(event: string, listener: Function): EventEmitter;
-        removeListener(event: string, listener: Function): EventEmitter;
-        removeAllListeners(event?: string): EventEmitter;
+		addListener(event: string, listener: Function): NodeEventEmitter;
+        on(event: string, listener: Function): NodeEventEmitter;
+        once(event: string, listener: Function): NodeEventEmitter;
+        removeListener(event: string, listener: Function): NodeEventEmitter;
+        removeAllListeners(event?: string): NodeEventEmitter;
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
         emit(event: string, arg1?: any, arg2?: any): boolean;
