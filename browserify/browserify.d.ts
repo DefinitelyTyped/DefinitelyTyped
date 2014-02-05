@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-interface BrowserifyObject extends EventEmitter {
+interface BrowserifyObject extends NodeEventEmitter {
 	add(file: string): BrowserifyObject;
 	require(file: string, opts?: {
 		expose: string;
@@ -31,6 +31,6 @@ declare module "browserify" {
 		entries?: string[];
 		noParse?: string[];
 	}): BrowserifyObject;
-	
+
 	export = browserify;
 }
