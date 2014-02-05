@@ -15,7 +15,7 @@ declare module "through" {
 		}): through.ThroughStream;
 
 	module through {
-		export interface ThroughStream extends Stream.ReadWriteStream {
+		export interface ThroughStream extends ReadWriteStream {
 			autoDestroy: boolean;
 		}
 	}
