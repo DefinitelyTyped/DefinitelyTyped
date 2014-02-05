@@ -346,6 +346,10 @@ declare module Ember {
         The call will be delayed until the DOM has become ready.
         **/
         ready: Function;
+        /**
+        Application's router.
+        **/
+        Router: Router;
     }
     /**
     This module implements Observer-friendly Array-like behavior. This mixin is picked up by the
@@ -1569,8 +1573,13 @@ declare module Ember {
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
+        map(callback: Function): Router;
     }
-    var RouterDSL: Function;
+    class RouterDSL {
+        resource(name: string, options?: {}, callback?: Function): void;
+        resource(name: string, callback: Function): void;
+        route(name: string, options?: {}): void;
+    }
     var SHIM_ES5: boolean;
     var STRINGS: boolean;
     class Select extends View {
@@ -2261,7 +2270,7 @@ declare module Em {
     class RenderBuffer extends Ember.RenderBuffer { }
     class Route extends Ember.Route { }
     class Router extends Ember.Router { }
-    var RouterDSL: typeof Ember.RouterDSL;
+    class RouterDSL extends Ember.RouterDSL { }
     var SHIM_ES5: typeof Ember.SHIM_ES5;
     var STRINGS: typeof Ember.STRINGS;
     class Select extends Ember.Select { }
