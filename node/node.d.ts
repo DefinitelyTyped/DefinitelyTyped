@@ -91,11 +91,13 @@ interface EventEmitter {
 
 interface WritableStream extends EventEmitter {
     writable: boolean;
-    write(str: string, encoding?: string, fd?: string): boolean;
-    write(buffer: NodeBuffer): boolean;
+    write(buffer: NodeBuffer, cb?: Function): boolean;
+    write(str: string, cb?: Function): boolean;
+    write(str: string, encoding?: string, cb?: Function): boolean;
     end(): void;
-    end(str: string, enconding: string): void;
-    end(buffer: NodeBuffer): void;
+    end(buffer: NodeBuffer, cb?: Function): void;
+    end(str: string, cb?: Function): void;
+    end(str: string, encoding?: string, cb?: Function): void;
     destroy(): void;
     destroySoon(): void;
 }
