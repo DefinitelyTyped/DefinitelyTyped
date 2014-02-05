@@ -3300,6 +3300,11 @@ declare module _ {
 		* @see _.isEmpty
 		**/
 		isEmpty(value: string): boolean;
+		
+		/**
+		* @see _.isEmpty
+		**/
+		isEmpty(value: any): boolean;
 	}
 
 	//_.isEqual
