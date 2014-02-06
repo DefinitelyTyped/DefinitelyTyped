@@ -64,6 +64,7 @@ List of Definitions
 * [domo](http://domo-js.com/) (by [Steve Fenton](https://github.com/Steve-Fenton))
 * [dust](http://linkedin.github.com/dustjs) (by [Marcelo Dezem](https://github.com/mdezem))
 * [EaselJS](http://www.createjs.com/#!/EaselJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
+* [EasyStar](http://easystarjs.com/) (by [Magnus Gustafsson](https://github.com/Borundin))
 * [ember.js](http://emberjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [EpicEditor](http://epiceditor.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [ES6-Promises](https://github.com/jakearchibald/ES6-Promises) (by [François de Campredon](https://github.com/fdecampredon/))
