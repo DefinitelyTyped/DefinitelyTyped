@@ -131,6 +131,7 @@ List of Definitions
 * [jQuery.Cookie](https://github.com/carhartl/jquery-cookie) (by [Roy Goode](https://github.com/RoyGoode))
 * [jQuery.Cycle](http://jquery.malsup.com/cycle/) (by [François Guillot](http://fguillot.developpez.com/))
 * [jQuery.dataTables](http://www.datatables.net) (by [Armin Sander](https://github.com/pragmatrix))
+* [jQuery.dialog2](https://github.com/Nikku/jquery-bootstrap-scripting) (by [Thomas Ardal](http://thomasardal.com))
 * [jQuery.dynatree](http://code.google.com/p/dynatree/) (by [François de Campredon](https://github.com/fdecampredon))
 * [jQuery.Flot](http://www.flotcharts.org/) (by [Matt Burland](https://github.com/burlandm))
 * [jQuery.form](http://malsup.com/jquery/form/) (by [François Guillot](http://fguillot.developpez.com/))
