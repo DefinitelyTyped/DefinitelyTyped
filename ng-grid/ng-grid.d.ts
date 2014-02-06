@@ -9,6 +9,22 @@ declare class ngGridReorderable {
     constructor();
 }
 
+declare class ngGridCsvExportPlugin {
+    constructor(opts?: any);
+}
+
+declare class ngGridFlexibleHeightPlugin {
+    constructor(opts?: any);
+}
+
+declare class ngGridLayoutPlugin {
+    constructor();
+}
+
+declare class ngGridWYSIWYGPlugin {
+    constructor(filter?: any);
+}
+
 declare module ngGrid {
 
     export interface GridOptions {
@@ -37,7 +53,7 @@ declare module ngGrid {
         columnDefs?: ColumnDef[];
 
         /** Data being displayed in the grid. Each item in the array is mapped to a row being displayed. */
-        data?: any[];
+        data?: any;
 
         /** Data updated callback, fires every time the data is modified from outside the grid. */
         dataUpdated?: Function;
