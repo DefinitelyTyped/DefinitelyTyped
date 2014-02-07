@@ -1,20 +1,31 @@
-declare module oauth2orize_module
+declare module "oauth2orize"
 {
-    export var grant:Object;
+    export function createServer():Server;
+
+    export class grant
+    {
+        static code(options:Function);
+        static code(options:any, issue:Function);
+    }
+
+    export class exchange
+    {
+        static code(options:Function);
+        static code(options:any, issue:Function);
+    }
 
     export class Server
     {
-        grant(type, phase, fn);
+        grant(mod:any);
+        grant(type:string, mod:any);
+        grant(type:string, fn:Function);
+
+        exchange(type:string, fn:Function);
+        exchange(fn:Function);
+
         authorization(fn:Function);
         decision();
         serializeClient(fn:Function);
         deserializeClient(fn:Function);
     }
 }
-
-interface oauth2orize
-{
-    createServer():oauth2orize_module.Server;
-}
-
-declare var oauth2orize:oauth2orize;
