@@ -1,11 +1,9 @@
-interface connect_ensure_login
+declare module "connect-ensure-login"
 {
-    ensureAuthenticated(options?:Object)
-    ensureLoggedIn(options?:Object)
-    ensureUnauthenticated(options?:Object)
-    ensureNotAuthenticated(options?:Object)
-    ensureLoggedOut(options?:Object)
-    ensureNotLoggedIn(options?:Object)
+    export function ensureAuthenticated(options?:Object)
+    export function ensureLoggedIn(options?:Object)
+    export function ensureUnauthenticated(options?:Object)
+    export function ensureNotAuthenticated(options?:Object)
+    export function ensureLoggedOut(options?:Object)
+    export function ensureNotLoggedIn(options?:Object)
 }
-
-declare var connect_ensure_login:connect_ensure_login;
