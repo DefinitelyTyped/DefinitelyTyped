@@ -1,5 +1,16 @@
-declare module passport_module
+declare module "passport"
 {
+    export function use(name:any, strategy:any);
+    export function unuse(name:string);
+    export function framework(fw:string);
+    export function initialize(options?:Object);
+    export function session(options:Object);
+    export function authenticate(strategy:any, options?:Object, callback?:Function);
+    export function authorize(strategy, options, callback);
+    export function serializeUser(fn:Function);
+    export function deserializeUser(fn:Function);
+    export function transformAuthInfo(fn, done);
+
     export interface IStrategy {
         authenticate(req, options?:Object);
     }
@@ -10,19 +21,3 @@ declare module passport_module
     };
 
 }
-
-interface passport
-{
-    use(name:any, strategy:any);
-    unuse(name:string);
-    framework(fw:string);
-    initialize(options?:Object);
-    session(options:Object);
-    authenticate(strategy:any, options?:Object, callback?:Function);
-    authorize(strategy, options, callback);
-    serializeUser(fn:Function);
-    deserializeUser(fn:Function);
-    transformAuthInfo(fn, done);
-}
-
-declare var passport:passport;

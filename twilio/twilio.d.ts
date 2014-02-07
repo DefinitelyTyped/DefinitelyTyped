@@ -1,17 +1,9 @@
-declare module twilio
-{
-
-}
-
-interface TwilioStatic
-{
-    sendMessage(options:Object, callback?:Function):Q.Promise<any>
-    makeCall(options:Object, callback?:Function):Q.Promise<any>
-}
-
-declare var twilio:TwilioStatic;
+///<reference path='../q/Q.d.ts'/>
 
 declare module "twilio"
 {
-    export = twilio;
+    import q            = require('q');
+
+    export function sendMessage(options:Object, callback?:Function):q.Promise<any>
+    export function makeCall(options:Object, callback?:Function):q.Promise<any>
 }

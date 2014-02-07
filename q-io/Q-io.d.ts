@@ -15,61 +15,61 @@
 declare module QioFS {
 
 	//TODO how to define the multiple return types? use any for now?
-	export function open(path:string, options?:any):Q.Promise<any>;
-	//export function open(path:string, options?:any):Q.Promise<Qio.Reader>;
-	//export function open(path:string, options?:any):Q.Promise<Qio.Writer>;
-	//export function open(path:string, options?:any):Q.Promise<NodeBuffer>;
+	export function open(path:string, options?:any):q.Promise<any>;
+	//export function open(path:string, options?:any):q.Promise<Qio.Reader>;
+	//export function open(path:string, options?:any):q.Promise<Qio.Writer>;
+	//export function open(path:string, options?:any):q.Promise<NodeBuffer>;
 
 	//TODO how to define the multiple return types? use any for now?
-	export function read(path:string, options?:any):Q.Promise<any>;
-	//export function read(path:string, options?:any):Q.Promise<string>;
-	//export function read(path:string, options?:any):Q.Promise<NodeBuffer>;
+	export function read(path:string, options?:any):q.Promise<any>;
+	//export function read(path:string, options?:any):q.Promise<string>;
+	//export function read(path:string, options?:any):q.Promise<NodeBuffer>;
 
-	export function write(path:string, content:NodeBuffer, options?:any):Q.Promise<void>;
-	export function write(path:string, content:string, options?:any):Q.Promise<void>;
+	export function write(path:string, content:NodeBuffer, options?:any):q.Promise<void>;
+	export function write(path:string, content:string, options?:any):q.Promise<void>;
 
-	export function append(path:string, content:NodeBuffer, options?:any):Q.Promise<void>;
-	export function append(path:string, content:string, options?:any):Q.Promise<void>;
+	export function append(path:string, content:NodeBuffer, options?:any):q.Promise<void>;
+	export function append(path:string, content:string, options?:any):q.Promise<void>;
 
-	export function copy(source:string, target:string):Q.Promise<void>;
-	export function copyTree(source:string, target:string):Q.Promise<void>;
+	export function copy(source:string, target:string):q.Promise<void>;
+	export function copyTree(source:string, target:string):q.Promise<void>;
 
-	export function list(path:string):Q.Promise<string[]>;
-	export function listTree(path:string, guard?:(path:string, stat:any) => boolean):Q.Promise<string[]>;
-	export function listDirectoryTree(path:string):Q.Promise<string[]>;
+	export function list(path:string):q.Promise<string[]>;
+	export function listTree(path:string, guard?:(path:string, stat:any) => boolean):q.Promise<string[]>;
+	export function listDirectoryTree(path:string):q.Promise<string[]>;
 
-	export function makeDirectory(path:string, mode?:string):Q.Promise<void>;
-	export function makeDirectory(path:string, mode?:number):Q.Promise<void>;
-	export function makeTree(path:string, mode?:string):Q.Promise<void>;
-	export function makeTree(path:string, mode?:number):Q.Promise<void>;
+	export function makeDirectory(path:string, mode?:string):q.Promise<void>;
+	export function makeDirectory(path:string, mode?:number):q.Promise<void>;
+	export function makeTree(path:string, mode?:string):q.Promise<void>;
+	export function makeTree(path:string, mode?:number):q.Promise<void>;
 
-	export function remove(path:string):Q.Promise<void>;
-	export function removeTree(path:string):Q.Promise<void>;
+	export function remove(path:string):q.Promise<void>;
+	export function removeTree(path:string):q.Promise<void>;
 
-	export function rename(source:string, target:string):Q.Promise<void>;
-	export function move(source:string, target:string):Q.Promise<void>;
+	export function rename(source:string, target:string):q.Promise<void>;
+	export function move(source:string, target:string):q.Promise<void>;
 
-	export function link(source:string, target:any):Q.Promise<void>;
+	export function link(source:string, target:any):q.Promise<void>;
 
-	export function symbolicCopy(source:string, target:string, type:string):Q.Promise<void>;
-	export function symbolicLink(target:string, link:string, type:string):Q.Promise<void>;
+	export function symbolicCopy(source:string, target:string, type:string):q.Promise<void>;
+	export function symbolicLink(target:string, link:string, type:string):q.Promise<void>;
 
-	export function chown(path:string, uid:number, gid:number):Q.Promise<void>;
-	export function chmod(path:string, mode?:string):Q.Promise<void>;
-	export function chmod(path:string, mode?:number):Q.Promise<void>;
+	export function chown(path:string, uid:number, gid:number):q.Promise<void>;
+	export function chmod(path:string, mode?:string):q.Promise<void>;
+	export function chmod(path:string, mode?:number):q.Promise<void>;
 
-	export function stat(path:string):Q.Promise<Stats>;
-	export function statLink(path:string):Q.Promise<Stats>;
-	export function statFd(fd:number):Q.Promise<Stats>;
+	export function stat(path:string):q.Promise<Stats>;
+	export function statLink(path:string):q.Promise<Stats>;
+	export function statFd(fd:number):q.Promise<Stats>;
 
-	export function exists(path:string):Q.Promise<boolean>;
+	export function exists(path:string):q.Promise<boolean>;
 
-	export function isFile(path:string):Q.Promise<boolean>;
-	export function isDirectory(path:string):Q.Promise<boolean>;
-	export function isSymbolicLink(path:string):Q.Promise<boolean>;
+	export function isFile(path:string):q.Promise<boolean>;
+	export function isDirectory(path:string):q.Promise<boolean>;
+	export function isSymbolicLink(path:string):q.Promise<boolean>;
 
-	export function lastModified(path:string):Q.Promise<Date>;
-	export function lastAccessed(path:string):Q.Promise<Date>;
+	export function lastModified(path:string):q.Promise<Date>;
+	export function lastAccessed(path:string):q.Promise<Date>;
 
 	export function split(path:string):string[];
 	export function join(...paths:string[]):string;
@@ -80,12 +80,12 @@ declare module QioFS {
 	export function normal(paths:string[]):string;
 	export function absolute(path:string):string;
 
-	export function canonical(path:string):Q.Promise<string>;
-	export function readLink(path:string):Q.Promise<string>;
+	export function canonical(path:string):q.Promise<string>;
+	export function readLink(path:string):q.Promise<string>;
 
 	export function contains(parent:string, child:string):boolean;
 
-	export function relative(source:string, target:string):Q.Promise<string>;
+	export function relative(source:string, target:string):q.Promise<string>;
 
 	export function relativeFromFile(source:string, target:string):string;
 	export function relativeFromDirectory(source:string, target:string):string;
@@ -105,8 +105,8 @@ declare module QioFS {
 	export function toObject(path:string):{[path:string]:NodeBuffer};
 
 	//listed but not implemented by Q-io
-	//export function glob(pattern):Q.Promise<string[]>;
-	//export function match(pattern, path:string):Q.Promise<string[]>;
+	//export function glob(pattern):q.Promise<string[]>;
+	//export function match(pattern, path:string):q.Promise<string[]>;
 
 	//TODO link this to node.js FS module (no lazy clones)
 	interface Stats {
@@ -139,11 +139,11 @@ declare module QioFS {
 }
 
 declare module QioHTTP {
-	export function request(request:Request):Q.Promise<Response>;
-	export function request(url:string):Q.Promise<Response>;
+	export function request(request:Request):q.Promise<Response>;
+	export function request(url:string):q.Promise<Response>;
 
-	export function read(request:Request):Q.Promise<string>;
-	export function read(url:string):Q.Promise<string >;
+	export function read(request:Request):q.Promise<string>;
+	export function read(url:string):q.Promise<string >;
 
 	export function normalizeRequest(request:Request):Request;
 	export function normalizeRequest(url:string):Request;
@@ -183,40 +183,40 @@ declare module QioHTTP {
 
 	}
 	interface Application {
-		(req:Request):Q.Promise<any>;
+		(req:Request):q.Promise<any>;
 	}
 }
 
 declare module Qio {
 	interface ForEachCallback {
-		(chunk:NodeBuffer):Q.Promise<any>;
-		(chunk:string):Q.Promise<any>;
+		(chunk:NodeBuffer):q.Promise<any>;
+		(chunk:string):q.Promise<any>;
 	}
 	interface ForEach {
-		forEach(callback:ForEachCallback):Q.Promise<void>;
+		forEach(callback:ForEachCallback):q.Promise<void>;
 	}
 
 	interface Reader extends ForEach {
-		read(charset:string):Q.Promise<string>;
-		read():Q.Promise<NodeBuffer>;
+		read(charset:string):q.Promise<string>;
+		read():q.Promise<NodeBuffer>;
 		close():void;
 		node:ReadableStream;
 	}
 	interface Writer {
 		write(content:string):void;
 		write(content:NodeBuffer):void;
-		flush():Q.Promise<void>;
+		flush():q.Promise<void>;
 		close():void;
 		destroy():void;
 		node:WritableStream;
 	}
 
 	interface Stream {
-        read(charset:string):Q.Promise<string>;
-        read():Q.Promise<NodeBuffer>;
+        read(charset:string):q.Promise<string>;
+        read():q.Promise<NodeBuffer>;
         write(content:string):void;
         write(content:NodeBuffer):void;
-        flush():Q.Promise<void>;
+        flush():q.Promise<void>;
         close():void;
         destroy():void;
         node:any;

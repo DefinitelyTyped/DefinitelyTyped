@@ -1,8 +1,10 @@
 ///<reference path='./passport.d.ts'/>
 
-declare module passport_facebook
+declare module "passport-facebook"
 {
-    export class Strategy implements passport_module.IStrategy
+    import passport                                      = require('passport');
+
+    export class Strategy implements passport.IStrategy
     {
         constructor(options:Object, verify:Function);
         constructor(verify:Function);

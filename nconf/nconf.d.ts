@@ -1,5 +1,33 @@
-declare module nconf_module
+declare module "nconf"
 {
+    export function clear(key:string, callback?:ICallbackFunction): any;
+    export function get (key:string, callback?:ICallbackFunction): any;
+    export function merge(key:string, value:any, callback?:ICallbackFunction): any;
+    export function set (key:string, value:any, callback?:ICallbackFunction): any;
+    export function reset(callback?:ICallbackFunction): any;
+
+    export function load(callback?:ICallbackFunction): any;
+    export function mergeSources(data:any): void;
+    export function loadSources(): any;
+    export function save(value:any, callback?:ICallbackFunction): any;
+
+    export function add(name:string, options?:IOptions): Provider;
+    export function argv(options?:IOptions): Provider;
+    export function env(options?:IOptions): Provider;
+    export function file(name:string, options?:IFileOptions): Provider;
+    export function file(options:IFileOptions): Provider;
+    export function use(name:string, options?:IOptions): Provider;
+    export function defaults(options?:IOptions): Provider;
+    export function init(options?:IOptions): void;
+    export function overrides(options?:IOptions): Provider;
+    export function remove(name:string): void;
+    export function create(name:string, options:IOptions): IStore;
+
+    export function key(...values:any[]): string;
+    export function path(key:any): any[];
+    export function loadFiles(files:any, callback?:ICallbackFunction);
+    export function loadFilesSync(files:any, callback?:ICallbackFunction);
+    
     enum formats {
         json,
         ini
@@ -80,36 +108,3 @@ declare module nconf_module
         reset(callback?:ICallbackFunction): boolean;
     }
 }
-
-interface NconfStatic
-{
-    clear(key:string, callback?:nconf_module.ICallbackFunction): any;
-    get (key:string, callback?:nconf_module.ICallbackFunction): any;
-    merge(key:string, value:any, callback?:nconf_module.ICallbackFunction): any;
-    set (key:string, value:any, callback?:nconf_module.ICallbackFunction): any;
-    reset(callback?:nconf_module.ICallbackFunction): any;
-
-    load(callback?:nconf_module.ICallbackFunction): any;
-    mergeSources(data:any): void;
-    loadSources(): any;
-    save(value:any, callback?:nconf_module.ICallbackFunction): any;
-
-    add(name:string, options?:nconf_module.IOptions): nconf_module.Provider;
-    argv(options?:nconf_module.IOptions): nconf_module.Provider;
-    env(options?:nconf_module.IOptions): nconf_module.Provider;
-    file(name:string, options?:nconf_module.IFileOptions): nconf_module.Provider;
-    file(options:nconf_module.IFileOptions): nconf_module.Provider;
-    use(name:string, options?:nconf_module.IOptions): nconf_module.Provider;
-    defaults(options?:nconf_module.IOptions): nconf_module.Provider;
-    init(options?:nconf_module.IOptions): void;
-    overrides(options?:nconf_module.IOptions): nconf_module.Provider;
-    remove(name:string): void;
-    create(name:string, options:nconf_module.IOptions): nconf_module.IStore;
-
-    key(...values:any[]): string;
-    path(key:any): any[];
-    loadFiles(files:any, callback?:nconf_module.ICallbackFunction);
-    loadFilesSync(files:any, callback?:nconf_module.ICallbackFunction);
-}
-
-declare var nconf:NconfStatic;

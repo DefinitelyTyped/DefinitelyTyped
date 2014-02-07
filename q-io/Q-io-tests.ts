@@ -16,17 +16,17 @@ var target:string;
 var type:string;
 
 var options:any;
-var strArrQ:Q.Promise<string[]>;
-var voidQ:Q.Promise<void>;
-var anyQ:Q.Promise<any>;
-var strQ:Q.Promise<string>;
-var boolQ:Q.Promise<boolean>;
-var dateQ:Q.Promise<Date>;
-var bufferQ:Q.Promise<NodeBuffer>;
+var strArrQ:q.Promise<string[]>;
+var voidQ:q.Promise<void>;
+var anyQ:q.Promise<any>;
+var strQ:q.Promise<string>;
+var boolQ:q.Promise<boolean>;
+var dateQ:q.Promise<Date>;
+var bufferQ:q.Promise<NodeBuffer>;
 
-var statsQ:Q.Promise<QioFS.Stats>;
-var readQ:Q.Promise<Qio.Reader>;
-var writeQ:Q.Promise<Qio.Writer>;
+var statsQ:q.Promise<QioFS.Stats>;
+var readQ:q.Promise<Qio.Reader>;
+var writeQ:q.Promise<Qio.Writer>;
 
 var headers:QioHTTP.Headers;
 var reader:Qio.Reader;
@@ -37,14 +37,14 @@ var stream:Qio.Stream;
 
 fs.open(path, options).then((x) => {
 });
-//fs.open(path, options):Q.Promise<Qio.Reader>;
-//fs.open(path, options):Q.Promise<Qio.Writer>;
-//fs.open(path, options):Q.Promise<NodeBuffer>;
+//fs.open(path, options):q.Promise<Qio.Reader>;
+//fs.open(path, options):q.Promise<Qio.Writer>;
+//fs.open(path, options):q.Promise<NodeBuffer>;
 
 //TODO how to define the multiple return types? use any for now?
 anyQ = fs.read(path, options);
 //strQ = fs.read(path, options);
-//fs.read(path, options):Q.Promise<NodeBuffer>;
+//fs.read(path, options):q.Promise<NodeBuffer>;
 
 voidQ = fs.write(path, buffer, options);
 voidQ = fs.write(path, str, options);
@@ -152,7 +152,7 @@ x = request.node;
 str = headers['foo'];
 
 var response:QioHTTP.Response;
-var responseQ:Q.Promise<QioHTTP.Response>;
+var responseQ:q.Promise<QioHTTP.Response>;
 
 responseQ = http.request(request);
 responseQ = http.request(str);

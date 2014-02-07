@@ -5,11 +5,13 @@
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare function Q<T>(promise:Q.IPromise<T>):Q.Promise<T>;
-declare function Q<T>(promise:JQueryPromise<T>):Q.Promise<T>;
-declare function Q<T>(value:T):Q.Promise<T>;
+/*
+declare function Q<T>(promise:Q.IPromise<T>):q.Promise<T>;
+declare function Q<T>(promise:JQueryPromise<T>):q.Promise<T>;
+declare function Q<T>(value:T):q.Promise<T>;
+*/
 
-declare module Q
+declare module "q"
 {
     interface IPromise<T>
     {
@@ -33,8 +35,8 @@ declare module Q
         fin(finallyCallback:() => any): Promise<T>;
         finally(finallyCallback:() => any): Promise<T>;
 
-        then<U>(onFulfill:(value:T) => IPromise<U>, onReject?:(reason:any) => IPromise<U>, onProgress?:Function): Promise<U>;
-        then<U>(onFulfill:(value:T) => IPromise<U>, onReject?:(reason:any) => U, onProgress?:Function): Promise<U>;
+        then<U>(onFulfill:(value:T) => Promise<U>, onReject?:(reason:any) => IPromise<U>, onProgress?:Function): Promise<U>;
+        then<U>(onFulfill:(value:T) => Promise<U>, onReject?:(reason:any) => U, onProgress?:Function): Promise<U>;
         then<U>(onFulfill:(value:T) => U, onReject?:(reason:any) => IPromise<U>, onProgress?:Function): Promise<U>;
         then<U>(onFulfill:(value:T) => U, onReject?:(reason:any) => U, onProgress?:Function): Promise<U>;
 
@@ -189,9 +191,4 @@ declare module Q
     export function resolve<T>(object:IPromise<T>):Promise<T>;
 
     export function resolve<T>(object:T):Promise<T>;
-}
-
-declare module "q"
-{
-export = Q;
 }

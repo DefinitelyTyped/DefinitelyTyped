@@ -1,5 +1,10 @@
-declare module log4js_module
+declare module "log4js"
 {
+    export function getLogger(categoryName:string):Logger;
+    export function getDefaultLogger():Logger;
+    export function addAppender();
+    export function configure(configurationFileOrObject?:any, options?:any);
+
     export class Logger
     {
         constructor(name?:string, level?:string);
@@ -14,19 +19,4 @@ declare module log4js_module
         error(...args: any[]);
         fatal(...args: any[]);
     }
-}
-
-interface Log4jsStatic
-{
-    getLogger(categoryName:string):log4js_module.Logger;
-    getDefaultLogger():log4js_module.Logger;
-    addAppender();
-    configure(configurationFileOrObject?:any, options?:any);
-}
-
-declare var log4js:Log4jsStatic;
-
-declare module "log4js"
-{
-    export = log4js;
 }

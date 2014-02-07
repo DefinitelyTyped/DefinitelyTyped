@@ -1,8 +1,6 @@
-interface mysql
+declare module "mysql"
 {
-    createConnection(config);
-    createPool(config);
-    createPoolCluster(config);
+    export function createConnection(config);
+    export function createPool(config);
+    export function createPoolCluster(config);
 }
-
-declare var mysql:mysql;

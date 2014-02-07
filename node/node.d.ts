@@ -225,7 +225,8 @@ declare module "querystring" {
     export function unescape(): any;
 }
 
-declare module "events" {
+declare module events
+{
     export interface NodeEventEmitter {
         addListener(event: string, listener: Function): NodeEventEmitter;
         on(event: string, listener: Function): NodeEventEmitter;
@@ -248,14 +249,15 @@ declare module "events" {
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
-   }
+    }
+}
+declare module "events"
+{
+    export = events;
 }
 
-declare module "http" {
-    import events = require("events");
-    import net = require("net");
-    import stream = require("stream");
-
+declare module http
+{
     export interface Server extends events.NodeEventEmitter {
         listen(port: number, hostname?: string, backlog?: number, callback?: Function): void;
         listen(path: string, callback?: Function): void;
@@ -314,12 +316,18 @@ declare module "http" {
     }
     export interface Agent { maxSockets: number; sockets: any; requests: any; }
 
+
     export var STATUS_CODES: any;
+    export var globalAgent: Agent;
+
     export function createServer(requestListener?: (request: ServerRequest, response: ServerResponse) =>void ): Server;
     export function createClient(port?: number, host?: string): any;
     export function request(options: any, callback?: Function): ClientRequest;
     export function get(options: any, callback?: Function): ClientRequest;
-    export var globalAgent: Agent;
+}
+declare module "http"
+{
+    export = http;
 }
 
 declare module "cluster" {
@@ -653,9 +661,8 @@ declare module "dns" {
     export function reverse(ip: string, callback: (err: Error, domains: string[]) =>void ): string[];
 }
 
-declare module "net" {
-    import stream = require("stream");
-
+declare module net
+{
     export interface NodeSocket extends stream.ReadWriteStream {
         // Extended base methods
         write(str: string, encoding?: string, fd?: string): boolean;
@@ -705,6 +712,7 @@ declare module "net" {
     export function isIPv4(input: string): boolean;
     export function isIPv6(input: string): boolean;
 }
+declare module "net" { export = net }
 
 declare module "dgram" {
     import events = require("events");
@@ -1039,9 +1047,7 @@ declare module "crypto" {
     export function pseudoRandomBytes(size: number, callback: (err: Error, buf: NodeBuffer) =>void ): void;
 }
 
-declare module "stream" {
-    import events = require("events");
-
+declare module stream {
     export interface WritableStream extends events.NodeEventEmitter {
         writable: boolean;
         write(str: string, encoding?: string, fd?: string): boolean;
@@ -1082,6 +1088,7 @@ declare module "stream" {
 
     export interface ReadWriteStream extends ReadableStream, WritableStream { }
 }
+declare module "stream" { export = stream }
 
 declare module "util" {
     export interface InspectOptions {

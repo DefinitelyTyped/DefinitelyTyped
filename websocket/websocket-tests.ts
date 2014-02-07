@@ -4,7 +4,7 @@ import websocket = require('websocket');
 import http = require('http');
 
 {
-    var server = http.createServer((req, res) => {
+    var server = http.createServer((req:express.Request, res:express.Response) => {
         console.log((new Date()) + ' Received request for ' + req.url);
         res.writeHead(404);
         res.end();

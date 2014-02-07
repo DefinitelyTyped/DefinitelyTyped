@@ -6,10 +6,11 @@ import q = require('q');
 Q(8).then(x => console.log(x.toExponential()));
 
 var delay = function (delay: number) {
-    var d = Q.defer<void>();
+    var d = q.defer<void>();
     setTimeout(d.resolve, delay);
     return d.promise;
 };
+
 
 Q.when(delay(1000), function (val: void) {
     console.log('Hello, World!');
@@ -23,19 +24,19 @@ Q.delay(8, 1000).then(x => x.toExponential());
 Q.delay(Q("asdf"), 1000).then(x => x.length);
 Q.delay("asdf", 1000).then(x => x.length);
 
-var eventualAdd = Q.promised((a?: number, b?: number) => a + b);
+var eventualAdd = q.Promised((a?: number, b?: number) => a + b);
 eventualAdd(Q(1), Q(2)).then(x => x.toExponential());
 
 var eventually = function (eventually) {
     return Q.delay(eventually, 1000);
 };
 
-var x = Q.all([1, 2, 3].map(eventually));
+var x = q.all([1, 2, 3].map(eventually));
 Q.when(x, function (x) {
     console.log(x);
 });
 
-Q.all([
+q.all([
     eventually(10),
     eventually(20)
 ]).spread(function (x, y) {
@@ -53,8 +54,8 @@ Q.fcall(function () { })
         // Handle any error from step1 through step4
     }).done();
 
-Q.allResolved([])
-.then(function (promises: Q.Promise<any>[]) {
+q.allResolved([])
+.then(function (promises: q.Promise<any>[]) {
     promises.forEach(function (promise) {
         if (promise.isFulfilled()) {
             var value = promise.valueOf();
@@ -66,7 +67,7 @@ Q.allResolved([])
 
 declare var arrayPromise: Q.IPromise<number[]>;
 declare var stringPromise: Q.IPromise<string>;
-declare function returnsNumPromise(text: string): Q.Promise<number>;
+declare function returnsNumPromise(text: string): q.Promise<number>;
 
 Q<number[]>(arrayPromise) // type specification required
     .then(arr => arr.join(','))
@@ -79,25 +80,25 @@ declare var jPromise: JQueryPromise<string>;
 Q<string>(jPromise).then(str => str.split(','));
 jPromise.then<number>(returnsNumPromise);
 
-// watch the typing flow through from jQueryPromise to Q.Promise
+// watch the typing flow through from jQueryPromise to q.Promise
 Q(jPromise).then(str => str.split(','));
 
 declare var promiseArray: Q.IPromise<number>[];
 var qPromiseArray = promiseArray.map(p => Q<number>(p));
 var myNums: any[] = [2, 3, Q(4), 5, Q(6), Q(7)];
 
-Q.all(promiseArray).then(nums => nums.map(num => num.toPrecision(2)).join(','));
+q.all(promiseArray).then(nums => nums.map(num => num.toPrecision(2)).join(','));
 
-Q.all<number>(myNums).then(nums => nums.map(Math.round));
+q.all<number>(myNums).then(nums => nums.map(Math.round));
 
 Q.fbind((dateString?: string) => new Date(dateString), "11/11/1991")().then(d => d.toLocaleDateString());
 
 Q.when(8, num => num + "!");
 Q.when(Q(8), num => num + "!").then(str => str.split(','));
 
-declare function saveToDisk(): Q.Promise<any>;
-declare function saveToCloud(): Q.Promise<any>;
-Q.allSettled([saveToDisk(), saveToCloud()]).spread(function (disk, cloud) {
+declare function saveToDisk(): q.Promise<any>;
+declare function saveToCloud(): q.Promise<any>;
+q.allSettled([saveToDisk(), saveToCloud()]).spread(function (disk, cloud) {
     console.log("saved to disk:", disk.state === "fulfilled");
     console.log("saved to cloud:", cloud.state === "fulfilled");
 

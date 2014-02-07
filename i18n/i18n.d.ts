@@ -1,13 +1,11 @@
-interface i18n
+declare module "i18n"
 {
-    configure(options:Object);
-    init(request, response, next);
-    __(phrase:any);
-    __n(singular:string, plural:string, count:number);
-    setLocale(locale_or_request, locale?);
-    getLocale(request);
-    getCatalog(locale_or_request, locale);
-    overrideLocaleFromQuery(req);
+    export function configure(options:Object);
+    export function init(request, response, next);
+    export function __(phrase:any);
+    export function __n(singular:string, plural:string, count:number);
+    export function setLocale(locale_or_request, locale?);
+    export function getLocale(request);
+    export function getCatalog(locale_or_request, locale);
+    export function overrideLocaleFromQuery(req);
 }
-
-declare var i18n:i18n;
