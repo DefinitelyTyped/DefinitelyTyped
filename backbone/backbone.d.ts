@@ -339,3 +339,7 @@ declare module Backbone {
 	
     var $: JQueryStatic;
 }
+
+declare module "backbone" {
+    export = Backbone;
+}
