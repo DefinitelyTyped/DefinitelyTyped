@@ -174,7 +174,7 @@ declare module jake{
 		 * Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
 		 * @default false
 		 */
-		asyc?: boolean;
+		async?: boolean;
 	}
 
 	/**
@@ -225,7 +225,7 @@ declare module jake{
 		 * Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
 		 * @default false
 		 */
-		asyc?: boolean;
+		async?: boolean;
 	}
 
 	export class FileTask{
