@@ -255,6 +255,35 @@ declare module ng {
         // Available only events that were $emit-ted
         stopPropagation?: Function;
     }
+    
+    ///////////////////////////////////////////////////////////////////////////
+    // KeyEvent
+    // see http://docs.angularjs.org/api/ng.directive:ngKeypress
+    ///////////////////////////////////////////////////////////////////////////
+    interface IAngularKeyEvent {
+        altKey: boolean;
+        char: string;
+        charCode: number;
+        ctrlKey: boolean;
+        currentTarget: HTMLElement;
+        data: any;
+        delegateTarget: HTMLElement;
+        key: string;
+        keyCode: number;
+        metaKey: boolean;
+        originalEvent: KeyboardEvent;
+        shiftKey: boolean;
+        target: HTMLElement;
+        timeStamp: number;
+        type: string;
+        which: number;
+
+        isDefaultPrevented: Function;
+        preventDefault: Function;
+
+        // Available only events that were $emit-ted
+        stopPropagation?: Function;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // WindowService
