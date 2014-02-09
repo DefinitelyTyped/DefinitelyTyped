@@ -163,3 +163,7 @@ declare module chai {
         (constructor: Function, expected?: RegExp, message?: string): Expect;
     }
 }
+
+declare module "chai" { 
+     export = chai;
+}
