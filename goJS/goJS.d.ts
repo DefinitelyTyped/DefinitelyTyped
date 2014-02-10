@@ -64,6 +64,9 @@ declare module go {
     /**Gets or sets the predicate that determines whether or not a node may become a member of a group.*/
     memberValidation: (g: Group, p: Part) => boolean;
 
+    /**Gets or sets the Diagram#scale set by #resetZoom; default is 1.*/
+    defaultScale: number;
+
     /**Gets or sets the amount by which #decreaseZoom and #increaseZoom change the Diagram#scale; default is 1.05.*/
     zoomFactor: number;
 
@@ -5424,7 +5427,7 @@ declare module go {
     /**Gets or sets whether #commitNodes should move all of the nodes so that the nodes all fit with the top-left corner at the Layout#arrangementOrigin.*/
     arrangesToOrigin: boolean;
 
-    /**Gets or sets whether this layout should find all Nodes whose category is "Comment" and whose anchors are nodes represented in the network, and add ForceDirectedVertexes representing those balloon comments as nodes in the network.*/
+    /**Gets or sets whether to call #addComments.*/
     comments: boolean;
 
     /**Gets the current iteration count, valid during a call to #doLayout.*/
@@ -5459,6 +5462,12 @@ declare module go {
 
     /**Gets or sets whether the fromSpot and the toSpot of every Link should be set to Spot#Default.*/
     setsPortSpots: boolean;
+
+    /**
+    * Find associated objects to be positioned along with the vertex.
+    * @param {LayoutVertex} v
+    */
+    addComments(v: LayoutVertex);
 
     /**
     * Position the Nodes according to the Vertex positions.
@@ -6306,6 +6315,9 @@ declare module go {
 
     /**Gets or sets how closely to pack the child nodes of a subtree.*/
     compaction: EnumValue;
+
+    /**Gets or sets whether to call #addComments.*/
+    comments: boolean;
 
     /**Gets or sets the default comparison function used for sorting.*/
     comparer: (a: TreeVertex, b: TreeVertex) => number;
