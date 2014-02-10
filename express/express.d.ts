@@ -617,7 +617,7 @@ declare module "express" {
              *  dynamic situations. The code backing `res.sendfile()` is actually
              *  the same code, so HTTP cache support etc is identical.
              *
-             *     app.get('/user/:uid/photos/:file', function(req:express.Request, res:express.Response){
+             *     app.get('/user/:uid/photos/:file', function(req, res){
              *       var uid = req.params.uid
              *         , file = req.params.file;
              *
@@ -1180,7 +1180,7 @@ declare module "express" {
          *
          *      connect()
          *        .use(connect.bodyParser())
-         *        .use(function(req:express.Request, res:express.Response) {
+         *        .use(function(req, res) {
          *          res.end('viewing user ' + req.body.user.name);
          *        });
          *
@@ -1465,7 +1465,7 @@ declare module "express" {
          *  A `filter` callback function may be passed to
          *  replace the default logic of:
          *
-         *     exports.filter = function(req:express.Request, res:express.Response){
+         *     exports.filter = function(req, res){
          *       return /json|text|javascript/.test(res.getHeader('Content-Type'));
          *     };
          *
@@ -1668,7 +1668,7 @@ declare module "express" {
          *   name and a callback function. The value returned is then available
          *   as ":type" in this case.
          *
-         *      connect.logger.token('type', function(req:express.Request, res:express.Response){ return req.headers['content-type']; })
+         *      connect.logger.token('type', function(req, res){ return req.headers['content-type']; })
          *
          * Defining Formats:
          *
@@ -1691,7 +1691,7 @@ declare module "express" {
 
         /**
          * Define a token function with the given `name`,
-         * and callback `fn(req:express.Request, res:express.Response)`.
+         * and callback `fn(req, res)`.
          *
          * @param name
          * @param fn
@@ -1715,8 +1715,7 @@ declare module "express" {
          *
          *     connect()
          *       .use(connect.query())
-         *       .use(function(req:express.Request, res:express.Response){
-         *         res.end(JSON.stringify(req.query));
+         *       .use(function(req, res){
          *       });
          *
          *  The `options` passed are provided to qs.parse function.
