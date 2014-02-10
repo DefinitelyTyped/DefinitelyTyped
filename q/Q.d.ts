@@ -35,7 +35,7 @@ declare module "q"
         fin(finallyCallback:() => any): Promise<T>;
         finally(finallyCallback:() => any): Promise<T>;
 
-        then<U>(onFulfill:(value:T) => Promise<U>, onReject?:(reason:any) => IPromise<U>, onProgress?:Function): Promise<U>;
+        then<U>(onFulfill:(value:T) => Promise<U>, onReject?:(reason:any) => Promise<U>, onProgress?:Function): Promise<U>;
         then<U>(onFulfill:(value:T) => Promise<U>, onReject?:(reason:any) => U, onProgress?:Function): Promise<U>;
         then<U>(onFulfill:(value:T) => U, onReject?:(reason:any) => IPromise<U>, onProgress?:Function): Promise<U>;
         then<U>(onFulfill:(value:T) => U, onReject?:(reason:any) => U, onProgress?:Function): Promise<U>;
