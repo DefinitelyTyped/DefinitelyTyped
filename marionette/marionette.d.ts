@@ -307,3 +307,9 @@ declare module Marionette {
         addDefinition(moduleDefinition, customArgs);
     }
 }
+
+declare module 'backbone.marionette' {
+	import Backbone = require('backbone');
+	
+	export = Marionette;
+}
