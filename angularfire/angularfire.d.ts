@@ -21,6 +21,7 @@ interface AngularFireAuthService {
 
 interface AngularFireAuth {
 	$getCurrentUser(): ng.IPromise<any>;
+	$login(provider: string, options?: Object): ng.IPromise<any>;
 	$logout(): void;
 	$createUser(email: string, password: string, noLogin?: boolean): ng.IPromise<any>;
 	$changePassword(email: string, oldPassword: string, newPassword: string): ng.IPromise<any>;
