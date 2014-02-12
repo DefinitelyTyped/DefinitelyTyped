@@ -2,6 +2,7 @@
 // Project: https://github.com/marionettejs/
 // Definitions by: Zeeshan Hamid <https://github.com/zhamid>
 // Definitions by: Natan Vivo <https://github.com/nvivo>
+// Definitions by: Sven Tschui <https://github.com/sventschui>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../backbone/backbone.d.ts" />
@@ -288,6 +289,7 @@ declare module Marionette {
         start(options?);
         addRegions(regions);
         removeRegion(region: Region);
+        getRegion(regionName: string): Region;
         module(moduleNames, moduleDefinition);
     }
 
@@ -305,4 +307,10 @@ declare module Marionette {
         stopvoid;
         addDefinition(moduleDefinition, customArgs);
     }
+}
+
+declare module 'backbone.marionette' {
+	import Backbone = require('backbone');
+	
+	export = Marionette;
 }
