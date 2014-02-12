@@ -486,14 +486,6 @@ interface JQueryAnimationOptions {
 }
 
 /**
- * The interface used to specify easing functions.
- */
-interface JQueryEasing {
-    linear(p: number): number;
-    swing(p: number): number;
-}
-
-/**
  * Static members of jQuery (those on $ and jQuery themselves)
  */
 interface JQueryStatic {
