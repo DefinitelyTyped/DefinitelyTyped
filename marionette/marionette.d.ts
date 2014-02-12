@@ -112,8 +112,8 @@ declare module Marionette {
     function unbindEntityEvents(target, entity, bindings);
 
     class Callbacks {
-        add(callback, contextOverride): void;
-        run(options, context): void;
+        add(callback:Function, contextOverride:any): void;
+        run(options:any, context:any): void;
         reset(): void;
     }
 
