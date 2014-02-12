@@ -806,11 +806,11 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$animate
     ///////////////////////////////////////////////////////////////////////
     interface IAnimateService {
-        addClass(element: JQuery, className: string, done?: Function);
-        enter(element: JQuery, parent: JQuery, after: JQuery, done?: Function);
-        leave(element: JQuery, done?: Function);
-        move(element: JQuery, parent: JQuery, after: JQuery, done?: Function);
-        removeClass(element: JQuery, className: string, done?: Function);
+        addClass(element: JQuery, className: string, done?: Function): void;
+        enter(element: JQuery, parent: JQuery, after: JQuery, done?: Function): void;
+        leave(element: JQuery, done?: Function): void;
+        move(element: JQuery, parent: JQuery, after: JQuery, done?: Function): void;
+        removeClass(element: JQuery, className: string, done?: Function): void;
     }
 
     ///////////////////////////////////////////////////////////////////////////
