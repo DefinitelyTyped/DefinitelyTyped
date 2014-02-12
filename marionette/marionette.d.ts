@@ -288,6 +288,7 @@ declare module Marionette {
         addInitializer(initializer);
         start(options?);
         addRegions(regions);
+        closeRegions(): void;
         removeRegion(region: Region);
         getRegion(regionName: string): Region;
         module(moduleNames, moduleDefinition);
