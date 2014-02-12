@@ -25,12 +25,12 @@ declare module Rx {
 
 		delay(dueTime: number, scheduler?: IScheduler): Observable<T>;
 		throttle(dueTime: number, scheduler?: IScheduler): Observable<T>;
-		windowWithTime(timeSpan: number, timeShift: number, scheduler?: IScheduler): Observable<T>;
-		windowWithTime(timeSpan: number, scheduler?: IScheduler): Observable<T>;
-		windowWithTimeOrCount(timeSpan: number, count: number, scheduler?: IScheduler): Observable<T>;
-		bufferWithTime(timeSpan: number, timeShift: number, scheduler?: IScheduler): Observable<T>;
-		bufferWithTime(timeSpan: number, scheduler?: IScheduler): Observable<T>;
-		bufferWithTimeOrCount(timeSpan: number, count: number, scheduler?: IScheduler): Observable<T>;
+		windowWithTime(timeSpan: number, timeShift: number, scheduler?: IScheduler): Observable<Observable<T>>;
+		windowWithTime(timeSpan: number, scheduler?: IScheduler): Observable<Observable<T>>;
+		windowWithTimeOrCount(timeSpan: number, count: number, scheduler?: IScheduler): Observable<Observable<T>>;
+		bufferWithTime(timeSpan: number, timeShift: number, scheduler?: IScheduler): Observable<T[]>;
+		bufferWithTime(timeSpan: number, scheduler?: IScheduler): Observable<T[]>;
+		bufferWithTimeOrCount(timeSpan: number, count: number, scheduler?: IScheduler): Observable<T[]>;
 		timeInterval(scheduler?: IScheduler): Observable<TimeInterval<T>>;
 		timestamp(scheduler?: IScheduler): Observable<Timestamp<T>>;
 		sample(interval: number, scheduler?: IScheduler): Observable<T>;
