@@ -269,11 +269,18 @@ declare module Marionette {
 		render(): Layout;
         removeRegion(name: string);
     }
+    
+    interface AppRouterOptions extends Backbone.RouterOptions {
+    	appRoutes: any;
+    	controller: any;
+    }
 
     class AppRouter extends Backbone.Router {
 
-        constructor(options?: any);
-        processAppRoutes(controller: Controller, appRoutes: any);
+        constructor(options?: AppRouterOptions);
+        processAppRoutes(controller: any, appRoutes: any);
+        appRoute(route:string, methodName:string):void;
+        
     }
 
     class Application extends Backbone.Events {
