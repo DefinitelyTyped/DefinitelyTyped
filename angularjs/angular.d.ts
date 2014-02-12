@@ -799,10 +799,19 @@ declare module ng {
         inheritedData(key: string, value: any): JQuery;
         inheritedData(obj: { [key: string]: any; }): JQuery;
         inheritedData(key?: string): any;
-
-
     }
 
+    ///////////////////////////////////////////////////////////////////////
+    // AnimateService
+    // see http://docs.angularjs.org/api/ng.$animate
+    ///////////////////////////////////////////////////////////////////////
+    interface IAnimateService {
+        addClass(element: JQuery, className: string, done?: Function);
+        enter(element: JQuery, parent: JQuery, after: JQuery, done?: Function);
+        leave(element: JQuery, done?: Function);
+        move(element: JQuery, parent: JQuery, after: JQuery, done?: Function);
+        removeClass(element: JQuery, className: string, done?: Function);
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // AUTO module (angular.js)
