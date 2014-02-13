@@ -18,6 +18,7 @@ See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
 
+
 /**
  * Interface for the AJAX setting that will configure the AJAX request
  */
