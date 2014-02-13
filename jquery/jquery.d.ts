@@ -18,6 +18,7 @@ See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
 
+
 /**
  * Interface for the AJAX setting that will configure the AJAX request
  */
@@ -483,14 +484,6 @@ interface JQueryAnimationOptions {
      * A map of one or more of the CSS properties defined by the properties argument and their corresponding easing functions. (version added: 1.4)
      */
     specialEasing?: Object;
-}
-
-/**
- * The interface used to specify easing functions.
- */
-interface JQueryEasing {
-    linear(p: number): number;
-    swing(p: number): number;
 }
 
 /**
