@@ -761,9 +761,9 @@ function test_trigger() {
     });
     $("#foo").trigger("click");
 
-    //$("#foo").on("custom", function (event, param1, param2) {
-    //    alert(param1 + "\n" + param2);
-    //});
+    $("#foo").on("custom", function (event, param1?, param2?) {
+        alert(param1 + "\n" + param2);
+    });
     $("#foo").trigger("custom", ["Custom", "Event"]);
 
     $("button:first").click(function () {
