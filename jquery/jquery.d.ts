@@ -2531,8 +2531,34 @@ interface JQuery {
      */
     submit(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
-    trigger(eventType: string, ...extraParameters: any[]): JQuery;
-    trigger(event: JQueryEventObject): JQuery;
+    /**
+     * Execute all handlers and behaviors attached to the matched elements for the given event type.
+     * 
+     * @param eventType A string containing a JavaScript event type, such as click or submit.
+     * @param extraParameters Additional parameters to pass along to the event handler.
+     */
+    trigger(eventType: string, extraParameters?: any[]): JQuery;
+    /**
+     * Execute all handlers and behaviors attached to the matched elements for the given event type.
+     * 
+     * @param eventType A string containing a JavaScript event type, such as click or submit.
+     * @param extraParameters Additional parameters to pass along to the event handler.
+     */
+    trigger(eventType: string, extraParameters?: Object): JQuery;
+    /**
+     * Execute all handlers and behaviors attached to the matched elements for the given event type.
+     * 
+     * @param event A jQuery.Event object.
+     * @param extraParameters Additional parameters to pass along to the event handler.
+     */
+    trigger(event: JQueryEventObject, extraParameters?: any[]): JQuery;
+    /**
+     * Execute all handlers and behaviors attached to the matched elements for the given event type.
+     * 
+     * @param event A jQuery.Event object.
+     * @param extraParameters Additional parameters to pass along to the event handler.
+     */
+    trigger(event: JQueryEventObject, extraParameters?: Object): JQuery;
 
     triggerHandler(eventType: string, ...extraParameters: any[]): Object;
 
