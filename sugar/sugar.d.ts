@@ -2133,7 +2133,7 @@ interface Array<T> {
 	*   }, 2, true);
 	**/
 	each(
-		fn: (element: T, index: number, array: T[]) => boolean,
+		fn: (element: T, index?: number, array?: T[]) => any,
 		index?: number,
 		loop?: boolean): T[];
 
@@ -3386,7 +3386,7 @@ interface ObjectStatic {
 	*   });
 	*
 	**/
-	watch(obj: any, prop: string, fn: (prop: string, oldVal: any, newVal: any) => any): void;
+	watch(obj: any, prop: string, fn: (prop?: string, oldVal?: any, newVal?: any) => any): void;
 }
 
 interface Object {
@@ -3836,7 +3836,7 @@ interface Object {
 	*   });
 	*
 	**/
-	watch(prop: string, fn: (prop: string, oldVal: any, newVal: any) => any): void;
+	watch(prop: string, fn: (prop?: string, oldVal?: any, newVal?: any) => any): void;
 }
 
 interface Function {
