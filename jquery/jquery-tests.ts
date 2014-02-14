@@ -754,6 +754,61 @@ function test_submit() {
     $("#target").submit();
 }
 
+function test_trigger() {
+
+    $("#foo").on("click", function () {
+        alert($(this).text());
+    });
+    $("#foo").trigger("click");
+
+    //$("#foo").on("custom", function (event, param1, param2) {
+    //    alert(param1 + "\n" + param2);
+    //});
+    $("#foo").trigger("custom", ["Custom", "Event"]);
+
+    $("button:first").click(function () {
+        update($("span:first"));
+    });
+
+    $("button:last").click(function () {
+        $("button:first").trigger("click");
+        update($("span:last"));
+    });
+
+    function update(j) {
+        var n = parseInt(j.text(), 10);
+        j.text(n + 1);
+    }
+
+    $("form:first").trigger("submit");
+
+    var event = jQuery.Event("submit");
+    $("form:first").trigger(event);
+    if (event.isDefaultPrevented()) {
+        // Perform an action...
+    }
+
+    $("p")
+        .click(function (event, a, b) {
+            // When a normal click fires, a and b are undefined
+            // for a trigger like below a refers to "foo" and b refers to "bar"
+        })
+        .trigger("click", ["foo", "bar"]);
+
+    var event = jQuery.Event("logged");
+    (<any>event).user = "foo";
+    (<any>event).pass = "bar";
+    $("body").trigger(event);
+
+    // Adapted from jQuery documentation which may be wrong on this occasion
+    var event2 = jQuery.Event("logged");
+    $("body").trigger(event2, {
+        type: "logged",
+        user: "foo",
+        pass: "bar"
+    });
+}
+
 function test_clone() {
     $('.hello').clone().appendTo('.goodbye');
     var $elem = $('#elem').data({ "arr": [1] }),
