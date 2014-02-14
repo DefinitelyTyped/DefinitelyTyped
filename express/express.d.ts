@@ -1451,6 +1451,8 @@ declare module "express" {
          * @param callback or username
          * @param realm
          */
+        export function basicAuth(callback: (user: string, pass: string, fn : Function) => void, realm?: string): Handler;
+
         export function basicAuth(callback: (user: string, pass: string) => boolean, realm?: string): Handler;
 
         export function basicAuth(user: string, pass: string, realm?: string): Handler;
