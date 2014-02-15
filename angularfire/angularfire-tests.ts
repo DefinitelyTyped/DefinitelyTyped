@@ -1,58 +1,62 @@
 /// <reference path="angularfire.d.ts"/>
 
-// Based on https://www.firebase.com/docs/angular/index.html
-
 var myapp = angular.module("myapp", ["firebase"]);
 
-interface AngularFireScope {
+interface AngularFireScope extends ng.IScope {
     items: AngularFire;
+    remoteItems: RemoteItems;
 }
+
+interface RemoteItems {
+    bar: string;
+}
+
+var url = "https://myapp.firebaseio.com";
 
 myapp.controller("MyController", ["$scope", "$firebase",
     function($scope: AngularFireScope, $firebase: AngularFireService) {
-        $scope.items = $firebase(new Firebase(URL));
+        $scope.items = $firebase(new Firebase(url));
         $scope.items.$add({ foo: "bar" });
-        $scope.items.$remove("foo"); // Removes child named "foo".
-        $scope.items.$remove();      // Removes the entire object.
-        $scope.items.foo = "baz";
-        $scope.items.$save("foo");  // new Firebase(URL + "/foo") now contains "baz".
+        $scope.items.$remove("foo");
+        $scope.items.$remove();
+        $scope.items.$save();
         var child = $scope.items.$child("foo");
-        child.$remove();            // Same as calling $scope.items.$remove("foo");
-        $scope.items.$set({ bar: "baz" });  // new Firebase(URL + "/foo") is now null.
+        child.$remove();
+        $scope.items.$set({ bar: "baz" }); 
         var keys = $scope.items.$getIndex();
         keys.forEach(function(key, i) {
-            console.log(i, $scope.items[key]); // prints items in order they appear in Firebase
+            console.log(i, $scope.items[key]);
         });
-        $scope.items.foo.$priority = 20;
-        $scope.items.$save("foo");  // new Firebase(URL + "foo")'s priority is now 20.
         $scope.items.$on("loaded", function() {
             console.log("Initial data received!");
         });
         $scope.items.$on("change", function() {
             console.log("A remote change was applied locally!");
         });
-        // Detaches all `loaded` event handlers.
         $scope.items.$off('loaded');
-        // Stops synchronization on `$scope.items` completely.
         function stopSync() {
             $scope.items.$off();
         }
         $scope.items.$bind($scope, "remoteItems");
-        $scope.remoteItems.bar = "foo";  // new Firebase(URL + "/bar") is now "foo".
+        $scope.remoteItems.bar = "foo";
         $scope.items.$bind($scope, "remote").then(function(unbind) {
             unbind();
-            $scope.remote.bar = "foo";    // No changes have been made to the remote data.
+            $scope.remoteItems.bar = "foo";
         });
     }
 ]);
 
-interface AngularFireAuthScope {
+var foo: AngularFireObject = {
+    $priority: 0
+};
+
+interface AngularFireAuthScope extends ng.IScope {
     loginObj: AngularFireAuth;
 }
 
 myapp.controller("MyAuthController", ["$scope", "$firebaseSimpleLogin",
-    function($scope: AngularFireAuthScope, $firebaseSimpleLogin) {
-        var dataRef = new Firebase("https://myapp.firebaseio.com");
+    function($scope: AngularFireAuthScope, $firebaseSimpleLogin: AngularFireAuthService) {
+        var dataRef = new Firebase(url);
         $scope.loginObj = $firebaseSimpleLogin(dataRef);
         $scope.loginObj.$getCurrentUser().then(_ => {
         });
