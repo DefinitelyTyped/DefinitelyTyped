@@ -1,3 +1,8 @@
+// Type definitions for AngularFire 0.6.0
+// Project: http://angularfire.com
+// Definitions by: Dénes Harmath <http://github.com/thSoft>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 interface AngularFireService {
 	(firebase: Firebase): AngularFire;
 }
