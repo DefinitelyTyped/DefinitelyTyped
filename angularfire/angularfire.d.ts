@@ -3,6 +3,9 @@
 // Definitions by: Dénes Harmath <http://github.com/thSoft>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../angularjs/angular.d.ts"/>
+/// <reference path="../firebase/firebase.d.ts"/>
+
 interface AngularFireService {
 	(firebase: Firebase): AngularFire;
 }
@@ -13,11 +16,14 @@ interface AngularFire {
 	$save(key?: string): void;
 	$child(key: string): AngularFire;
 	$set(value: any): void;
-	$getIndex(): number;
-	$priority: number;
+	$getIndex(): string[];
 	$on(eventType: string, callback: (dataSnapshot: IFirebaseDataSnapshot, prevChildName?: string) => void, cancelCallback?: ()=> void, context?: Object): (dataSnapshot: IFirebaseDataSnapshot, prevChildName?: string) => void;
-	$off(eventType: string, callback: (dataSnapshot: IFirebaseDataSnapshot, prevChildName?: string) => void, cancelCallback?: ()=> void, context?: Object): (dataSnapshot: IFirebaseDataSnapshot, prevChildName?: string) => void;
+	$off(eventType?: string, callback?: (dataSnapshot: IFirebaseDataSnapshot, prevChildName?: string) => void, cancelCallback?: ()=> void, context?: Object): (dataSnapshot: IFirebaseDataSnapshot, prevChildName?: string) => void;
 	$bind($scope: ng.IScope, modelName: string): ng.IPromise<any>;
+}
+
+interface AngularFireObject {
+    $priority: number;
 }
 
 interface AngularFireAuthService {
