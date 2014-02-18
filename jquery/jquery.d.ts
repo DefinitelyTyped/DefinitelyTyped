@@ -2065,7 +2065,22 @@ interface JQuery {
      */
     bind(events: any): JQuery;
 
+    /**
+     * Trigger the "blur" event on an element
+     */
+    blur(): JQuery;
+    /**
+     * Bind an event handler to the "blur" JavaScript event
+     *
+     * @param handler A function to execute each time the event is triggered.
+     */
     blur(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "blur" JavaScript event
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     */
     blur(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
     /**
