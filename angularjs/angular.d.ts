@@ -79,7 +79,7 @@ declare module ng {
     ///////////////////////////////////////////////////////////////////////////
     interface IModule {
         animation(name: string, animationFactory: Function): IModule;
-        animation(name: string, inlineAnnotadedFunction: any[]): IModule;
+        animation(name: string, inlineAnnotatedFunction: any[]): IModule;
         animation(object: Object): IModule;
         /** configure existing services.
 		Use this method to register work which needs to be performed on module loading
@@ -88,29 +88,29 @@ declare module ng {
         /** configure existing services.
 		Use this method to register work which needs to be performed on module loading
 		 */
-        config(inlineAnnotadedFunction: any[]): IModule;
+        config(inlineAnnotatedFunction: any[]): IModule;
         constant(name: string, value: any): IModule;
         constant(object: Object): IModule;
         controller(name: string, controllerConstructor: Function): IModule;
-        controller(name: string, inlineAnnotadedConstructor: any[]): IModule;
+        controller(name: string, inlineAnnotatedConstructor: any[]): IModule;
         controller(object : Object): IModule;
         directive(name: string, directiveFactory: Function): IModule;
-        directive(name: string, inlineAnnotadedFunction: any[]): IModule;
+        directive(name: string, inlineAnnotatedFunction: any[]): IModule;
         directive(object: Object): IModule;
         factory(name: string, serviceFactoryFunction: Function): IModule;
-        factory(name: string, inlineAnnotadedFunction: any[]): IModule;
+        factory(name: string, inlineAnnotatedFunction: any[]): IModule;
         factory(object: Object): IModule;
         filter(name: string, filterFactoryFunction: Function): IModule;
-        filter(name: string, inlineAnnotadedFunction: any[]): IModule;
+        filter(name: string, inlineAnnotatedFunction: any[]): IModule;
         filter(object: Object): IModule;
         provider(name: string, serviceProviderConstructor: Function): IModule;
-        provider(name: string, inlineAnnotadedConstructor: any[]): IModule;
+        provider(name: string, inlineAnnotatedConstructor: any[]): IModule;
         provider(name: string, providerObject: auto.IProvider): IModule;
         provider(object: Object): IModule;
         run(initializationFunction: Function): IModule;
-        run(inlineAnnotadedFunction: any[]): IModule;
+        run(inlineAnnotatedFunction: any[]): IModule;
         service(name: string, serviceConstructor: Function): IModule;
-        service(name: string, inlineAnnotadedConstructor: any[]): IModule;
+        service(name: string, inlineAnnotatedConstructor: any[]): IModule;
         service(object: Object): IModule;
         value(name: string, value: any): IModule;
         value(object: Object): IModule;
@@ -570,7 +570,7 @@ declare module ng {
 
     interface IControllerProvider extends IServiceProvider {
         register(name: string, controllerConstructor: Function): void;
-        register(name: string, dependencyAnnotadedConstructor: any[]): void;
+        register(name: string, dependencyAnnotatedConstructor: any[]): void;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -799,10 +799,19 @@ declare module ng {
         inheritedData(key: string, value: any): JQuery;
         inheritedData(obj: { [key: string]: any; }): JQuery;
         inheritedData(key?: string): any;
-
-
     }
 
+    ///////////////////////////////////////////////////////////////////////
+    // AnimateService
+    // see http://docs.angularjs.org/api/ng.$animate
+    ///////////////////////////////////////////////////////////////////////
+    interface IAnimateService {
+        addClass(element: JQuery, className: string, done?: Function): void;
+        enter(element: JQuery, parent: JQuery, after: JQuery, done?: Function): void;
+        leave(element: JQuery, done?: Function): void;
+        move(element: JQuery, parent: JQuery, after: JQuery, done?: Function): void;
+        removeClass(element: JQuery, className: string, done?: Function): void;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // AUTO module (angular.js)
@@ -818,11 +827,11 @@ declare module ng {
         ///////////////////////////////////////////////////////////////////////
         interface IInjectorService {
             annotate(fn: Function): string[];
-            annotate(inlineAnnotadedFunction: any[]): string[];
+            annotate(inlineAnnotatedFunction: any[]): string[];
             get(name: string): any;
             has(name: string): boolean; 
             instantiate(typeConstructor: Function, locals?: any): any;
-            invoke(inlineAnnotadedFunction: any[]): any;
+            invoke(inlineAnnotatedFunction: any[]): any;
             invoke(func: Function, context?: any, locals?: any): any;
         }
 
@@ -839,7 +848,7 @@ declare module ng {
             decorator(name: string, decorator: Function): void;
             decorator(name: string, decoratorInline: any[]): void;
             factory(name: string, serviceFactoryFunction: Function): ng.IServiceProvider;
-            factory(name: string, inlineAnnotadedFunction: any[]): ng.IServiceProvider;
+            factory(name: string, inlineAnnotatedFunction: any[]): ng.IServiceProvider;
             provider(name: string, provider: ng.IServiceProvider): ng.IServiceProvider;
             provider(name: string, serviceProviderConstructor: Function): ng.IServiceProvider;
             service(name: string, constructor: Function): ng.IServiceProvider;

@@ -105,6 +105,10 @@ declare module ng.resource {
         $delete(dataOrParams: any, success: Function): T;
         $delete(success: Function, error?: Function): T;
         $delete(params: any, data: any, success?: Function, error?: Function): T;
+        
+        /** the promise of the original server interaction that created this instance. **/
+        $promise : ng.IPromise<T>;
+        $resolved : boolean;
     }
 
     /** when creating a resource factory via IModule.factory */
@@ -121,4 +125,11 @@ declare module ng {
         /** creating a resource service factory */
         factory(name: string, resourceServiceFactoryFunction: ng.resource.IResourceServiceFactoryFunction<any>): IModule;
     }
+}
+
+interface Array<T extends ng.resource.IResource<T>>
+{
+    /** the promise of the original server interaction that created this collection. **/
+    $promise : ng.IPromise<Array<T>>;
+    $resolved : boolean;
 }

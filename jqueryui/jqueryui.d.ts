@@ -714,7 +714,7 @@ declare module JQueryUI {
         distance?: number;
     }
 
-    interface keyCode {
+    interface KeyCode {
         BACKSPACE: number;
         COMMA: number;
         DELETE: number;
@@ -751,7 +751,7 @@ declare module JQueryUI {
         buttonset: Button;
         datepicker: Datepicker;
         dialog: Dialog;
-        keyCode: keyCode;
+        keyCode: KeyCode;
         menu: Menu;
         progressbar: Progressbar;
         slider: Slider;
