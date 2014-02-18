@@ -14,42 +14,50 @@ declare module dc {
   // helper for get/set situation
   interface IGetSet<T, V> {
     (): T;
-    (T): V;
+    (t:T): V;
   }
-
+export interface ILegendwidget {
+    x: IGetSet<number, number>;
+    y: IGetSet<number, number>;
+    gap: IGetSet<number, number>;
+    itemHeight: IGetSet<number, number>;
+    horizontal: IGetSet<boolean, boolean>;
+    legendWidth: IGetSet<number, number>;
+    itemWidth: IGetSet<number, number>;
+  }
   export interface IBaseChart<T> {
     width: IGetSet<number, T>;
     height: IGetSet<number, T>;
     minWidth: IGetSet<number, T>;
     minHeight: IGetSet<number, T>;
-    dimension: IGetSet<number, T>;
-    group: IGetSet<string, T>; // not sure here
+    dimension: IGetSet<any, T>;
+    group: IGetSet<any, T>; // not sure here
     transitionDuration: IGetSet<number, T>;
     colors: IGetSet<string[], T>;
-    keyAccessor: IGetSet<(d) => number, T>;
-    valueAccessor: IGetSet<(d) => number, T>;
-    label: IGetSet<(any) => string, T>;
+    keyAccessor: IGetSet<(d:any) => number, T>;
+    valueAccessor: IGetSet<(d:any) => number, T>;
+    label: IGetSet<(l:any) => string, T>;
     renderLabel: IGetSet<boolean, T>;
-    renderlet: (fnctn: (T) => void) => T;
-    title: IGetSet<(any) => string, T>;
+    renderlet: (fnctn: (t:T) => void) => T;
+    title: IGetSet<(t:string) => string, T>;
     filter: IGetSet<any, T>;
     filterAll: () => void;
     expireCache: () => void;
-    legend: (ILegendwidget) => T;
+    legend: (l:ILegendwidget) => T;
     chartID: () => number;
-    options: (Object)=>void ;
+    options: (o:Object)=>void ;
     select: (selector: D3.Selection) => D3.Selection;
     selectAll: (selector: D3.Selection) => D3.Selection;
   }
 
   export interface IEvents {
-    trigger(fnctn: () => void, delay?: number);
+    trigger(fnctn: () => void, delay?: number):void;
   }
 
   export var events: IEvents;
 
   export interface IListener<T> {
-    on: (eventName: string, fnctn: (IChart) => void) => T;
+    on: (eventName: string, fnctn: (c:T) => void) => T;
   }
 
   export interface ImarginObj {
@@ -69,7 +77,7 @@ declare module dc {
     colorDomain: IGetSet<number[], T>;
   }
   export interface IAbstractStackableChart<T> {
-    stack: (group, name?, retriever?) => T;
+    stack: (group: IChartGroup, name?:string, retriever?: (d:Object)=>number) => T;
   }
 
   export interface IAbstractCoordinateGridChart<T> {
@@ -85,18 +93,18 @@ declare module dc {
   }
 
   export interface IAbstractBubblechart<T> {
-    r: IGetSet<number, T>;
-    radiusValueAccessor: IGetSet<(d) => number, T>;
+    r: IGetSet<any, T>;
+    radiusValueAccessor: IGetSet<(d:any) => number, T>;
   }
 
 
 
   // function interfaces
   export interface columnFunction {
-    (any): any;
+    (rowinfo:any): string;
   }
   export interface sortbyFunction {
-    (any): any;
+    (rowinfo:any): any;
   }
   export interface orderFunction {
     <T>(a: T, b: T): number;
@@ -104,15 +112,7 @@ declare module dc {
 
 
   // chart interfaces  
-  export interface ILegendwidget {
-    x: IGetSet<number, number>;
-    y: IGetSet<number, number>;
-    gap: IGetSet<number, number>;
-    itemHeight: IGetSet<number, number>;
-    horizontal: IGetSet<boolean, boolean>;
-    legendWidth: IGetSet<number, number>;
-    itemWidth: IGetSet<number, number>;
-  }
+  
 
   export interface IBubblechart extends
   IBaseChart<IBubblechart>,
@@ -141,7 +141,7 @@ declare module dc {
   IAbstractCoordinateGridChart<IBarchart>,
   IMarginable<IBarchart>,
   IListener<IBarchart> {
-    centerBar: (boolean) => IBarchart;
+    centerBar: (b:boolean) => IBarchart;
     gap: (gapBetweenBars: number) => IBarchart;
   }
 
@@ -162,8 +162,8 @@ declare module dc {
   IListener<IDatachart> {
     size: IGetSet<number, IDatachart>;
     columns: IGetSet<columnFunction[], IDatachart>;
-    sortBy: IGetSet<sortbyFunction[], IDatachart>;
-    order: IGetSet<orderFunction[], IDatachart>;
+    sortBy: IGetSet<sortbyFunction, IDatachart>;
+    order: IGetSet<orderFunction, IDatachart>;
   }
 
 
@@ -183,8 +183,8 @@ declare module dc {
   export interface IChartGroup { }
 
   export function filterAll(chartGroup?: IChartGroup): void;
-  export function renderAll(chartGroup?: IChartGroup);
-  export function redrawAll(chartGroup?: IChartGroup);
+  export function renderAll(chartGroup?: IChartGroup): void;
+  export function redrawAll(chartGroup?: IChartGroup): void;
 
 
   export function bubbleChart(cssSel: string): IBubblechart;

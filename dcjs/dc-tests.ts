@@ -2,7 +2,6 @@
 ///<reference path="../crossfilter/crossfilter.d.ts" />
 ///<reference path="dc.d.ts" />
 
-
 interface IYelpData {
   city: string;
   review_count: number;
@@ -18,7 +17,6 @@ interface IYelpData {
   open: boolean;
   categories: string[]
 }
-
 
 interface IYelpDataExtended {
   count: number;
@@ -221,7 +219,7 @@ rowChart.width(340)
 
 dataTable.width(800).height(800)
   .dimension(businessDimension)
-  .group(function(d) { return "List of all Selected Businesses"
+  .group(function(d:Object) { return "List of all Selected Businesses"
    })
   .size(100)
     .columns([
