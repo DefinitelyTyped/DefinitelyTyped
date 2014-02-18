@@ -113,7 +113,8 @@ declare module google.maps {
         scaleControl?: boolean;
         scaleControlOptions?: ScaleControlOptions;
         scrollwheel?: boolean;
-        streetView?: boolean;
+        streetView?: StreetViewPanorama;
+        streetViewControl?: boolean;
         streetViewControlOptions?: StreetViewControlOptions;
         styles?: MapTypeStyle[];
         tilt?: number;
