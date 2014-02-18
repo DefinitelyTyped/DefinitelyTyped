@@ -18,6 +18,7 @@ See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
 
+
 /**
  * Interface for the AJAX setting that will configure the AJAX request
  */
@@ -483,14 +484,6 @@ interface JQueryAnimationOptions {
      * A map of one or more of the CSS properties defined by the properties argument and their corresponding easing functions. (version added: 1.4)
      */
     specialEasing?: Object;
-}
-
-/**
- * The interface used to specify easing functions.
- */
-interface JQueryEasing {
-    linear(p: number): number;
-    swing(p: number): number;
 }
 
 /**
@@ -2538,8 +2531,34 @@ interface JQuery {
      */
     submit(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
-    trigger(eventType: string, ...extraParameters: any[]): JQuery;
-    trigger(event: JQueryEventObject): JQuery;
+    /**
+     * Execute all handlers and behaviors attached to the matched elements for the given event type.
+     * 
+     * @param eventType A string containing a JavaScript event type, such as click or submit.
+     * @param extraParameters Additional parameters to pass along to the event handler.
+     */
+    trigger(eventType: string, extraParameters?: any[]): JQuery;
+    /**
+     * Execute all handlers and behaviors attached to the matched elements for the given event type.
+     * 
+     * @param eventType A string containing a JavaScript event type, such as click or submit.
+     * @param extraParameters Additional parameters to pass along to the event handler.
+     */
+    trigger(eventType: string, extraParameters?: Object): JQuery;
+    /**
+     * Execute all handlers and behaviors attached to the matched elements for the given event type.
+     * 
+     * @param event A jQuery.Event object.
+     * @param extraParameters Additional parameters to pass along to the event handler.
+     */
+    trigger(event: JQueryEventObject, extraParameters?: any[]): JQuery;
+    /**
+     * Execute all handlers and behaviors attached to the matched elements for the given event type.
+     * 
+     * @param event A jQuery.Event object.
+     * @param extraParameters Additional parameters to pass along to the event handler.
+     */
+    trigger(event: JQueryEventObject, extraParameters?: Object): JQuery;
 
     triggerHandler(eventType: string, ...extraParameters: any[]): Object;
 
