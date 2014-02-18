@@ -112,8 +112,8 @@ declare module Marionette {
     function unbindEntityEvents(target, entity, bindings);
 
     class Callbacks {
-        add(callback, contextOverride): void;
-        run(options, context): void;
+        add(callback:Function, contextOverride:any): void;
+        run(options:any, context:any): void;
         reset(): void;
     }
 
@@ -269,11 +269,18 @@ declare module Marionette {
 		render(): Layout;
         removeRegion(name: string);
     }
+    
+    interface AppRouterOptions extends Backbone.RouterOptions {
+    	appRoutes: any;
+    	controller: any;
+    }
 
     class AppRouter extends Backbone.Router {
 
-        constructor(options?: any);
-        processAppRoutes(controller: Controller, appRoutes: any);
+        constructor(options?: AppRouterOptions);
+        processAppRoutes(controller: any, appRoutes: any);
+        appRoute(route:string, methodName:string):void;
+        
     }
 
     class Application extends Backbone.Events {
@@ -288,6 +295,7 @@ declare module Marionette {
         addInitializer(initializer);
         start(options?);
         addRegions(regions);
+        closeRegions(): void;
         removeRegion(region: Region);
         getRegion(regionName: string): Region;
         module(moduleNames, moduleDefinition);
