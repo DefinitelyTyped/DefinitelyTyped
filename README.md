@@ -235,6 +235,7 @@ List of Definitions
 * [SlickGrid](https://github.com/mleibman/SlickGrid) (by [Josh Baldwin](https://github.com/jbaldwin))
 * [smoothie](https://github.com/joewalnes/smoothie) (by [Mike H. Hawley](https://github.com/mikehhawley))
 * [socket.io](http://socket.io) (by [William Orr](https://github.com/worr))
+* [socket.io-client](http://socket.io) (by [Maido Kaara](https://github.com/v3rm0n))
 * [SockJS](https://github.com/sockjs/sockjs-client) (by [Emil Ivanov](https://github.com/vladev))
 * [SoundJS](http://www.createjs.com/#!/SoundJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [Spin](http://fgnass.github.com/spin.js/) (by [Boris Yankov](https://github.com/borisyankov))
