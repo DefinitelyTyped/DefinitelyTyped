@@ -64,6 +64,7 @@ List of Definitions
 * [dhtmlxScheduler](http://dhtmlx.com/docs/products/dhtmlxScheduler) (by [Maksim Kozhukh](http://github.com/mkozhukh))
 * [docCookies](https://developer.mozilla.org/en-US/docs/Web/API/document.cookie) (by [Jon Egerton](https://github.com/jonegerton))
 * [domo](http://domo-js.com/) (by [Steve Fenton](https://github.com/Steve-Fenton))
+* [doT](https://github.com/olado/doT) (by [ZombieHunter](https://github.com/ZombieHunter))
 * [dust](http://linkedin.github.com/dustjs) (by [Marcelo Dezem](https://github.com/mdezem))
 * [EaselJS](http://www.createjs.com/#!/EaselJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [EasyStar](http://easystarjs.com/) (by [Magnus Gustafsson](https://github.com/Borundin))
