@@ -847,7 +847,7 @@ declare module D3 {
 
     export interface Set{
         has(value: any): boolean;
-        Add(value: any): any;
+        add(value: any): any;
         remove(value: any): boolean;
         values(): Array<any>;
         forEach(func: (value: any) => void ): void;
