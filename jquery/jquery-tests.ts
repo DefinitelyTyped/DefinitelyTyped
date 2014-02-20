@@ -568,7 +568,7 @@ function test_bind() {
     $("form").bind("submit", function (event) {
         event.stopPropagation();
     });
-    $("p").bind("myCustomEvent", function (e, myName, myValue) {
+    $("p").bind("myCustomEvent", function (e, myName?, myValue?) {
         $(this).text(myName + ", hi there!");
         $("span").stop().css("opacity", 1)
         .text("myName = " + myName)
