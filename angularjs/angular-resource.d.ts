@@ -100,11 +100,11 @@ declare module ng.resource {
         $remove(dataOrParams: any, success: Function): T;
         $remove(success: Function, error?: Function): T;
         $remove(params: any, data: any, success?: Function, error?: Function): T;
-        $delete(): T;
-        $delete(dataOrParams: any): T;
-        $delete(dataOrParams: any, success: Function): T;
-        $delete(success: Function, error?: Function): T;
-        $delete(params: any, data: any, success?: Function, error?: Function): T;
+        $delete(): ng.IPromise<T>;
+        $delete(dataOrParams: any): ng.IPromise<T>;
+        $delete(dataOrParams: any, success: Function): ng.IPromise<T>;
+        $delete(success: Function, error?: Function): ng.IPromise<T>;
+        $delete(params: any, data: any, success?: Function, error?: Function): ng.IPromise<T>;
         
         /** the promise of the original server interaction that created this instance. **/
         $promise : ng.IPromise<T>;
