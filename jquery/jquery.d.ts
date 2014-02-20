@@ -2028,14 +2028,59 @@ interface JQuery {
      */
     toggle(showOrHide: boolean): JQuery;
 
-    // Events
+    /**
+     * Attach a handler to an event for the elements.
+     * 
+     * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     */
     bind(eventType: string, eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Attach a handler to an event for the elements.
+     * 
+     * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
+     * @param handler A function to execute each time the event is triggered.
+     */
     bind(eventType: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Attach a handler to an event for the elements.
+     * 
+     * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param preventBubble Setting the third argument to false will attach a function that prevents the default action from occurring and stops the event from bubbling. The default is true.
+     */
     bind(eventType: string, eventData: any, preventBubble: boolean): JQuery;
+    /**
+     * Attach a handler to an event for the elements.
+     * 
+     * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
+     * @param preventBubble Setting the third argument to false will attach a function that prevents the default action from occurring and stops the event from bubbling. The default is true.
+     */
     bind(eventType: string, preventBubble: boolean): JQuery;
-    bind(...events: any[]): JQuery;
+    /**
+     * Attach a handler to an event for the elements.
+     * 
+     * @param events An object containing one or more DOM event types and functions to execute for them.
+     */
+    bind(events: any): JQuery;
 
+    /**
+     * Trigger the "blur" event on an element
+     */
+    blur(): JQuery;
+    /**
+     * Bind an event handler to the "blur" JavaScript event
+     *
+     * @param handler A function to execute each time the event is triggered.
+     */
     blur(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "blur" JavaScript event
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     */
     blur(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
     /**
