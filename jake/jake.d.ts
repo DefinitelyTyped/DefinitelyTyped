@@ -114,7 +114,7 @@ declare module jake{
 		 */
 		breakOnError?:boolean;
 	}
-	export function exec(cmds:string[], callback?:()=>void, opts?:ExecOptions);
+	export function exec(cmds:string[], callback?:()=>void, opts?:ExecOptions):void;
 
 
 	/**
@@ -125,10 +125,6 @@ declare module jake{
 	 * @event error When a shell-command
 	 */
 	export interface Exec extends NodeEventEmitter {
-		constructor(cmds:string[], callback?:()=>void, opts?:ExecOptions);
-		constructor(cmds:string[], opts?:ExecOptions,  callback?:()=>void);
-		constructor(cmds:string,   callback?:()=>void, opts?:ExecOptions);
-		constructor(cmds:string,   opts?:ExecOptions,  callback?:()=>void);
 		append(cmd:string): void;
 		run(): void;
 	}
@@ -208,10 +204,8 @@ declare module jake{
         removeAllListeners(event?: string): NodeEventEmitter;
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
-        emit(event: string, arg1?: any, arg2?: any): boolean;
+        emit(event: string, ...args: any[]): boolean;
 	}
-
-
 
 	export class DirectoryTask{
 		/**
@@ -274,7 +268,6 @@ declare module jake{
 		exclude(...file:RegExp[]): void;
 		exclude(file:FileFilter[]): void;
 		exclude(...file:FileFilter[]): void;
-
 
 		/**
 		 * Populates the FileList from the include/exclude rules with a list of
@@ -377,12 +370,12 @@ declare module jake{
 		constructor(name:string, packageFiles:string[]);
 	}
 
-	export function addListener(event: string, listener: Function);
-	export function on(event: string, listener: Function);
-	export function once(event: string, listener: Function): void;
-	export function removeListener(event: string, listener: Function): void;
-	export function removeAllListener(event: string): void;
+	export function addListener(event: string, listener: Function): NodeEventEmitter;
+	export function on(event: string, listener: Function): NodeEventEmitter;
+	export function once(event: string, listener: Function): NodeEventEmitter;
+	export function removeListener(event: string, listener: Function): NodeEventEmitter;
+	export function removeAllListener(event: string): NodeEventEmitter;
 	export function setMaxListeners(n: number): void;
-	export function listeners(event: string): { Function; }[];
-	export function emit(event: string, arg1?: any, arg2?: any): void;
+	export function listeners(event: string): Function[];
+	export function emit(event: string, ...args: any[]): boolean;
 }
