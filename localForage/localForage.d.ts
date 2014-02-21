@@ -8,11 +8,11 @@ declare module lf {
         clear(): void
         key(index: number): T
         length: number
-        getItem(key: string, callback: ICallback<T>)
+        getItem(key: string, callback: ICallback<T>): void
         getItem(key: string): IPromise<T>
-        setItem(key: string, value: T, callback: ICallback<T>)
+        setItem(key: string, value: T, callback: ICallback<T>): void
         setItem(key: string, value: T): IPromise<T>
-        removeItem(key: string, callback: ICallback<T>)
+        removeItem(key: string, callback: ICallback<T>): void
         removeItem(key: string): IPromise<T>
     }
 
