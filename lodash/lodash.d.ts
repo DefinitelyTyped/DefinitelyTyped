@@ -2672,7 +2672,28 @@ declare module _ {
 		**/
         memoize<T extends Function>(
 			func: T,
-			resolver?: (n: any) => string): T;
+			resolver?: (a: any) => string): T;
+			
+		/**
+		* @see _.memoize
+		**/
+	memoize<T extends Function>(
+			func: T,
+			resolver?: (a: any, b: any) => string): T;
+			
+		/**
+		* @see _.memoize
+		**/
+	memoize<T extends Function>(
+			func: T,
+			resolver?: (a: any, b: any, c: any) => string): T;
+			
+		/**
+		* @see _.memoize
+		**/
+	memoize<T extends Function>(
+			func: T,
+			resolver?: (a: any, b: any, c: any, d: any) => string): T;
 	}
 
 	//_.once
