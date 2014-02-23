@@ -7,20 +7,20 @@
 /// <reference path="../rx.js/rx.d.ts"/>
 
 interface KnockoutSubscribableFunctions<T> {
-	toObservable(event?: string): Rx.IObservable<T>;
-	toObservable<TEvent>(event: string): Rx.IObservable<TEvent>;
+	toObservable(event?: string): Rx.Observable<T>;
+	toObservable<TEvent>(event: string): Rx.Observable<TEvent>;
 }
 
 interface KnockoutObservableFunctions<T> {
-	toObservableWithReplyLatest(): Rx.IObservable<T>;
+	toObservableWithReplyLatest(): Rx.Observable<T>;
 }
 
 interface KnockoutComputedFunctions<T> {
-	toObservableWithReplyLatest(): Rx.IObservable<T>;
+	toObservableWithReplyLatest(): Rx.Observable<T>;
 }
 
 declare module Rx {
-	interface IObservable<T> {
+	interface Observable<T> {
 		toKoSubscribable(): KnockoutSubscribable<T>;
 		toKoObservable(initialValue?: T): KnockoutObservable<T>;
 	}
