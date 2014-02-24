@@ -6,12 +6,18 @@
 ///<reference path="../jquery/jquery.d.ts"/>
 ///<reference path="rx.d.ts"/>
 
+interface RxJQueryAjaxResult<T> {
+	data: T;
+	textStatus: string;
+	jqXHR: JQueryXHR;
+}
+
 interface JQueryStatic {
-	ajaxAsObservable<T>(settings: JQueryAjaxSettings): Rx.Observable<T>;
-	getAsObservable<T>(url: string, data: any, dataType: string): Rx.Observable<T>;
-	getJSONAsObservable<T>(url: string, data: any): Rx.Observable<T>;
-	getScriptAsObservable<T>(url: string, data: any): Rx.Observable<T>;
-	postAsObservable<T>(url: string, data: any, dataType: string): Rx.Observable<T>;
+	ajaxAsObservable<T>(settings: JQueryAjaxSettings): Rx.Observable<RxJQueryAjaxResult<T>>;
+	getAsObservable<T>(url: string, data: any, dataType: string): Rx.Observable<RxJQueryAjaxResult<T>>;
+	getJSONAsObservable<T>(url: string, data: any): Rx.Observable<RxJQueryAjaxResult<T>>;
+	getScriptAsObservable<T>(url: string, data: any): Rx.Observable<RxJQueryAjaxResult<T>>;
+	postAsObservable<T>(url: string, data: any, dataType: string): Rx.Observable<RxJQueryAjaxResult<T>>;
 }
 
 interface JQuery {
