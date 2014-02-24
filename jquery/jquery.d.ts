@@ -2605,10 +2605,33 @@ interface JQuery {
      */
     trigger(event: JQueryEventObject, extraParameters?: Object): JQuery;
 
+    /**
+     * Execute all handlers attached to an element for an event.
+     * 
+     * @param eventType A string containing a JavaScript event type, such as click or submit.
+     * @param extraParameters An array of additional parameters to pass along to the event handler.
+     */
     triggerHandler(eventType: string, ...extraParameters: any[]): Object;
 
+    /**
+     * Remove a previously-attached event handler from the elements.
+     * 
+     * @param eventType A string containing a JavaScript event type, such as click or submit.
+     * @param handler The function that is to be no longer executed.
+     */
     unbind(eventType?: string, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Remove a previously-attached event handler from the elements.
+     * 
+     * @param eventType A string containing a JavaScript event type, such as click or submit.
+     * @param fls Unbinds the corresponding 'return false' function that was bound using .bind( eventType, false ).
+     */
     unbind(eventType: string, fls: boolean): JQuery;
+    /**
+     * Remove a previously-attached event handler from the elements.
+     * 
+     * @param evt A JavaScript event object as passed to an event handler.
+     */
     unbind(evt: any): JQuery;
 
     undelegate(): JQuery;

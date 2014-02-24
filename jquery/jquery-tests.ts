@@ -590,6 +590,70 @@ function test_bind() {
     });
 }
 
+function test_unbind() {
+    $("#foo").unbind();
+
+    $("#foo").unbind("click");
+
+    var handler = function () {
+        alert("The quick brown fox jumps over the lazy dog.");
+    };
+    $("#foo").bind("click", handler);
+    $("#foo").unbind("click", handler);
+
+    $("#foo").bind("click", function () {
+        alert("The quick brown fox jumps over the lazy dog.");
+    });
+
+    // Will NOT work
+    $("#foo").unbind("click", function () {
+        alert("The quick brown fox jumps over the lazy dog.");
+    });
+
+    $("#foo").bind("click.myEvents", handler);
+
+    $("#foo").unbind("click");
+
+    $("#foo").unbind("click.myEvents");
+
+    $("#foo").unbind(".myEvents");
+
+    var timesClicked = 0;
+    $("#foo").bind("click", function (event) {
+        alert("The quick brown fox jumps over the lazy dog.");
+        timesClicked++;
+        if (timesClicked >= 3) {
+            $(this).unbind(event);
+        }
+    });
+
+    function aClick() {
+        $("div").show().fadeOut("slow");
+    }
+    $("#bind").click(function () {
+        $("#theone")
+            .bind("click", aClick)
+            .text("Can Click!");
+    });
+    $("#unbind").click(function () {
+        $("#theone")
+            .unbind("click", aClick)
+            .text("Does nothing...");
+    });
+
+    $("p").unbind();
+
+    $("p").unbind("click");
+
+    var foo = function () {
+        // Code to handle some kind of event
+    };
+
+    $("p").bind("click", foo); // ... Now foo will be called when paragraphs are clicked ...
+
+    $("p").unbind("click", foo); // ... foo will no longer be called.
+}
+
 function test_blur() {
     $('#target').blur(function () {
         alert('Handler for .blur() called.');
