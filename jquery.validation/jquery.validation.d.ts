@@ -51,7 +51,7 @@ interface Validator
 {
 	addClassRules(name: string, rules: any): void;
 	addClassRules(rules: any): void;
-	addMethod(name: string, method: (value: any, element: any, params: any[]) => any, message?: any): void;
+	addMethod(name: string, method: (value: any, element: any, params: any) => any, message?: any): void;
 	element(element: any): boolean;
 	form(): boolean;
 	format(template: string, ...arguments: string[]): string;
