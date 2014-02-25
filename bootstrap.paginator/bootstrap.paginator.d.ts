@@ -18,6 +18,7 @@ interface PaginatorOptions{
     tooltipTitles?: (type, page, current) => string;
     useBootstrapTooltip?: boolean;
     bootstrapTooltipOptions?: {};
+    bootstrapMajorVersion?: number;
     onPageClicked?: (event, originalEvent, type, page) => void;
     onPageChanged?: (event, originalEvent, type, page) => void;
 }
