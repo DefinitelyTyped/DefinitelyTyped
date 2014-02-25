@@ -105,6 +105,7 @@ List of Definitions
 * [HashSet](http://www.timdown.co.uk/jshashtable/jshashset.html) (by [Sergey Gerasimov](https://github.com/gerich-home))
 * [Hashtable](http://www.timdown.co.uk/jshashtable/) (by [Sergey Gerasimov](https://github.com/gerich-home))
 * [Highcharts](http://www.highcharts.com/) (by [damianog](https://github.com/damianog))
+* [Highland](http://highlandjs.org/) (by [Bart van der Schoor](https://github.com/Bartvds/))
 * [highlight.js](https://github.com/isagalaev/highlight.js) (by [Niklas Mollenhauer](https://github.com/nikeee))
 * [History.js](https://github.com/browserstate/history.js) (by [Boris Yankov](https://github.com/borisyankov))
 * [Html2Canvas.js](https://github.com/niklasvh/html2canvas/) (by [Richard Hepburn](https://github.com/rwhepburn))
