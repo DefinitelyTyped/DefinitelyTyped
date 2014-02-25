@@ -1448,11 +1448,25 @@ interface JQuery {
     outerHeight(includeMargin?: boolean): number;
 
     /**
+     * Sets the outer height on elements in the set of matched elements, including padding and border.
+     *
+     * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
+     */
+    outerHeight(height: number): JQuery;
+
+    /**
      * Get the current computed width for the first element in the set of matched elements, including padding and border.
      *
      * @param includeMargin A Boolean indicating whether to include the element's margin in the calculation.
      */
     outerWidth(includeMargin?: boolean): number;
+
+  /**
+   * Sets the outer width on elements in the set of matched elements, including padding and border.
+   *
+   * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
+   */
+    outerWidth(width: number): JQuery;
 
     /**
      * Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.
