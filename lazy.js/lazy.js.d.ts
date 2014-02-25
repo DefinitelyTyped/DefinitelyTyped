@@ -242,3 +242,7 @@ declare module LazyJS {
 
 declare var Lazy:LazyJS.LazyStatic;
 
+declare module 'lazy.js' {
+export = Lazy;
+}
+
