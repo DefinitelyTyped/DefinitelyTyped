@@ -2178,6 +2178,8 @@ function test_outerHeight() {
     $("p:last").text(
         "outerHeight:" + p.outerHeight() +
         " , outerHeight( true ):" + p.outerHeight(true));
+
+    p.outerHeight(123);
 }
 
 function test_outerWidth() {
@@ -2185,6 +2187,8 @@ function test_outerWidth() {
     $("p:last").text(
         "outerWidth:" + p.outerWidth() +
         " , outerWidth( true ):" + p.outerWidth(true));
+
+    p.outerWidth(123);
 }
 
 function test_scrollLeft() {
