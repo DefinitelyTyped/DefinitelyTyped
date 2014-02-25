@@ -1877,15 +1877,10 @@ function test_has() {
 }
 
 function test_hasClass() {
-    $("div#result1").append($("p:first").hasClass("selected"));
-    $("div#result2").append($("p:last").hasClass("selected"));
-    $("div#result3").append($("p").hasClass("selected"));
-
     $('#mydiv').hasClass('foo');
-    // typescript has a bug to (boolean).toString() - I'll comment this code until typescript team solve this problem.
-    //$("div#result1").append($("p:first").hasClass("selected").toString());
-    //$("div#result2").append($("p:last").hasClass("selected").toString());
-    //$("div#result3").append($("p").hasClass("selected").toString());
+    $("div#result1").append($("p:first").hasClass("selected").toString());
+    $("div#result2").append($("p:last").hasClass("selected").toString());
+    $("div#result3").append($("p").hasClass("selected").toString());
 }
 
 function test_hasData() {
