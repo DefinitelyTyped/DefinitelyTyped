@@ -40,6 +40,7 @@ List of Definitions
 * [async](https://github.com/caolan/async) (by [Boris Yankov](https://github.com/borisyankov))
 * [Backbone.js](http://backbonejs.org/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Backbone Relational](http://backbonerelational.org/) (by [Eirik Hoem](https://github.com/eirikhm))
+* [BigScreen](http://brad.is/coding/BigScreen/) (by [Douglas Eichelberger](https://github.com/dduugg))
 * [Bluebird](https://github.com/petkaantonov/bluebird) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [Bootbox](https://github.com/makeusabrew/bootbox) (by [Vincent Bortone](https://github.com/vbortone/))
 * [Bootstrap](http://twitter.github.com/bootstrap/) (by [Boris Yankov](https://github.com/borisyankov))
