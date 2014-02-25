@@ -2028,14 +2028,59 @@ interface JQuery {
      */
     toggle(showOrHide: boolean): JQuery;
 
-    // Events
+    /**
+     * Attach a handler to an event for the elements.
+     * 
+     * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     */
     bind(eventType: string, eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Attach a handler to an event for the elements.
+     * 
+     * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
+     * @param handler A function to execute each time the event is triggered.
+     */
     bind(eventType: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Attach a handler to an event for the elements.
+     * 
+     * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param preventBubble Setting the third argument to false will attach a function that prevents the default action from occurring and stops the event from bubbling. The default is true.
+     */
     bind(eventType: string, eventData: any, preventBubble: boolean): JQuery;
+    /**
+     * Attach a handler to an event for the elements.
+     * 
+     * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
+     * @param preventBubble Setting the third argument to false will attach a function that prevents the default action from occurring and stops the event from bubbling. The default is true.
+     */
     bind(eventType: string, preventBubble: boolean): JQuery;
-    bind(...events: any[]): JQuery;
+    /**
+     * Attach a handler to an event for the elements.
+     * 
+     * @param events An object containing one or more DOM event types and functions to execute for them.
+     */
+    bind(events: any): JQuery;
 
+    /**
+     * Trigger the "blur" event on an element
+     */
+    blur(): JQuery;
+    /**
+     * Bind an event handler to the "blur" JavaScript event
+     *
+     * @param handler A function to execute each time the event is triggered.
+     */
     blur(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "blur" JavaScript event
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     */
     blur(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
     /**
@@ -2560,15 +2605,59 @@ interface JQuery {
      */
     trigger(event: JQueryEventObject, extraParameters?: Object): JQuery;
 
+    /**
+     * Execute all handlers attached to an element for an event.
+     * 
+     * @param eventType A string containing a JavaScript event type, such as click or submit.
+     * @param extraParameters An array of additional parameters to pass along to the event handler.
+     */
     triggerHandler(eventType: string, ...extraParameters: any[]): Object;
 
+    /**
+     * Remove a previously-attached event handler from the elements.
+     * 
+     * @param eventType A string containing a JavaScript event type, such as click or submit.
+     * @param handler The function that is to be no longer executed.
+     */
     unbind(eventType?: string, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Remove a previously-attached event handler from the elements.
+     * 
+     * @param eventType A string containing a JavaScript event type, such as click or submit.
+     * @param fls Unbinds the corresponding 'return false' function that was bound using .bind( eventType, false ).
+     */
     unbind(eventType: string, fls: boolean): JQuery;
+    /**
+     * Remove a previously-attached event handler from the elements.
+     * 
+     * @param evt A JavaScript event object as passed to an event handler.
+     */
     unbind(evt: any): JQuery;
 
+    /**
+     * Remove a handler from the event for all elements which match the current selector, based upon a specific set of root elements.
+     */
     undelegate(): JQuery;
-    undelegate(selector: any, eventType: string, handler?: (eventObject: JQueryEventObject) => any): JQuery;
-    undelegate(selector: any, events: any): JQuery;
+    /**
+     * Remove a handler from the event for all elements which match the current selector, based upon a specific set of root elements.
+     * 
+     * @param selector A selector which will be used to filter the event results.
+     * @param eventType A string containing a JavaScript event type, such as "click" or "keydown"
+     * @param handler A function to execute at the time the event is triggered.
+     */
+    undelegate(selector: string, eventType: string, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Remove a handler from the event for all elements which match the current selector, based upon a specific set of root elements.
+     * 
+     * @param selector A selector which will be used to filter the event results.
+     * @param events An object of one or more event types and previously bound functions to unbind from them.
+     */
+    undelegate(selector: string, events: Object): JQuery;
+    /**
+     * Remove a handler from the event for all elements which match the current selector, based upon a specific set of root elements.
+     * 
+     * @param namespace A string containing a namespace to unbind all events from.
+     */
     undelegate(namespace: string): JQuery;
 
     unload(handler: (eventObject: JQueryEventObject) => any): JQuery;

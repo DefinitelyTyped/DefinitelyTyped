@@ -21,8 +21,7 @@ See the section: [How to contribute](https://github.com/borisyankov/DefinitelyTy
 Other means to get the definitions
 ----------------------------------
 * [NuGet packages](http://nuget.org/packages?q=DefinitelyTyped)
-* [TypeScript definition package manager](https://github.com/Diullei/tsd)
-* [tsdpm](http://www.tsdpm.com/) - Online search
+* [TypeScript Definition package manager](https://github.com/DefinitelyTyped/tsd)
 
 List of Definitions
 -------------------
@@ -133,6 +132,7 @@ List of Definitions
 * [jQuery.contextMenu](http://medialize.github.com/jQuery-contextMenu/) (by [Natan Vivo](https://github.com/nvivo/))
 * [jQuery.Cookie](https://github.com/carhartl/jquery-cookie) (by [Roy Goode](https://github.com/RoyGoode))
 * [jQuery.Cycle](http://jquery.malsup.com/cycle/) (by [François Guillot](http://fguillot.developpez.com/))
+* [jQuery.Cycle2](http://jquery.malsup.com/cycle2/) (by [Donny Nadolny](https://github.com/dnadolny))
 * [jQuery.dataTables](http://www.datatables.net) (by [Armin Sander](https://github.com/pragmatrix))
 * [jQuery.dynatree](http://code.google.com/p/dynatree/) (by [François de Campredon](https://github.com/fdecampredon))
 * [jQuery.Flot](http://www.flotcharts.org/) (by [Matt Burland](https://github.com/burlandm))
@@ -182,6 +182,7 @@ List of Definitions
 * [Levelup](https://github.com/rvagg/node-levelup) (by [Bret Little](https://github.com/blittle))
 * [linq.js](http://linqjs.codeplex.com/) (by [Marcin Najder](https://github.com/marcinnajder))
 * [Livestamp.js](https://github.com/mattbradley/livestampjs) (by [Vincent Bortone](https://github.com/vbortone))
+* [localForage](https://github.com/mozilla/localForage) (by [david pichsenmeister](https://github.com/3x14159265))
 * [Lodash](http://lodash.com/) (by [Brian Zengel](https://github.com/bczengel))
 * [Logg](https://github.com/dpup/node-logg) (by [Bret Little](https://github.com/blittle))
 * [Marked](https://github.com/chjj/marked) (by [William Orr](https://github.com/worr))
