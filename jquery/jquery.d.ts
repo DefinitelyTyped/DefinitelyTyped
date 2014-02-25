@@ -1419,9 +1419,37 @@ interface JQuery {
     innerHeight(): number;
 
     /**
+     * Sets the inner height on elements in the set of matched elements, including padding but not border.
+     *
+     * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
+     */
+    innerHeight(height: number): JQuery;
+
+    /**
+     * Sets the inner height on elements in the set of matched elements, including padding but not border.
+     *
+     * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
+     */
+    innerHeight(height: string): JQuery;
+
+    /**
      * Get the current computed width for the first element in the set of matched elements, including padding but not border.
      */
     innerWidth(): number;
+
+    /**
+     * Sets the inner width on elements in the set of matched elements, including padding but not border.
+     *
+     * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
+     */
+    innerWidth(width: number): JQuery;
+
+    /**
+     * Sets the inner width on elements in the set of matched elements, including padding but not border.
+     *
+     * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
+     */
+    innerWidth(width: string): JQuery;
 
     /**
      * Get the current coordinates of the first element in the set of matched elements, relative to the document.
@@ -1448,11 +1476,39 @@ interface JQuery {
     outerHeight(includeMargin?: boolean): number;
 
     /**
+     * Sets the outer height on elements in the set of matched elements, including padding and border.
+     *
+     * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
+     */
+    outerHeight(height: number): JQuery;
+
+    /**
+     * Sets the outer height on elements in the set of matched elements, including padding and border.
+     *
+     * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
+     */
+    outerHeight(height: string): JQuery;
+
+    /**
      * Get the current computed width for the first element in the set of matched elements, including padding and border.
      *
      * @param includeMargin A Boolean indicating whether to include the element's margin in the calculation.
      */
     outerWidth(includeMargin?: boolean): number;
+
+    /**
+     * Sets the outer width on elements in the set of matched elements, including padding and border.
+     *
+     * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
+     */
+    outerWidth(width: number): JQuery;
+
+    /**
+     * Sets the outer width on elements in the set of matched elements, including padding and border.
+     *
+     * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
+     */
+    outerWidth(width: string): JQuery;
 
     /**
      * Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.
