@@ -14,7 +14,7 @@ interface PaginatorOptions{
     totalPages?: number;
     pageUrl?: (type, page, current) => string;
     shouldShowPage?: boolean;
-    itemText?: (type, page, current) => any;
+    itemTexts?: (type:string, page:number, current:number) => string;
     tooltipTitles?: (type, page, current) => string;
     useBootstrapTooltip?: boolean;
     bootstrapTooltipOptions?: {};
