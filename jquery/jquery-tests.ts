@@ -568,7 +568,7 @@ function test_bind() {
     $("form").bind("submit", function (event) {
         event.stopPropagation();
     });
-    $("p").bind("myCustomEvent", function (e, myName, myValue) {
+    $("p").bind("myCustomEvent", function (e, myName?, myValue?) {
         $(this).text(myName + ", hi there!");
         $("span").stop().css("opacity", 1)
         .text("myName = " + myName)
@@ -588,6 +588,70 @@ function test_bind() {
             $(this).removeClass("inside");
         }
     });
+}
+
+function test_unbind() {
+    $("#foo").unbind();
+
+    $("#foo").unbind("click");
+
+    var handler = function () {
+        alert("The quick brown fox jumps over the lazy dog.");
+    };
+    $("#foo").bind("click", handler);
+    $("#foo").unbind("click", handler);
+
+    $("#foo").bind("click", function () {
+        alert("The quick brown fox jumps over the lazy dog.");
+    });
+
+    // Will NOT work
+    $("#foo").unbind("click", function () {
+        alert("The quick brown fox jumps over the lazy dog.");
+    });
+
+    $("#foo").bind("click.myEvents", handler);
+
+    $("#foo").unbind("click");
+
+    $("#foo").unbind("click.myEvents");
+
+    $("#foo").unbind(".myEvents");
+
+    var timesClicked = 0;
+    $("#foo").bind("click", function (event) {
+        alert("The quick brown fox jumps over the lazy dog.");
+        timesClicked++;
+        if (timesClicked >= 3) {
+            $(this).unbind(event);
+        }
+    });
+
+    function aClick() {
+        $("div").show().fadeOut("slow");
+    }
+    $("#bind").click(function () {
+        $("#theone")
+            .bind("click", aClick)
+            .text("Can Click!");
+    });
+    $("#unbind").click(function () {
+        $("#theone")
+            .unbind("click", aClick)
+            .text("Does nothing...");
+    });
+
+    $("p").unbind();
+
+    $("p").unbind("click");
+
+    var foo = function () {
+        // Code to handle some kind of event
+    };
+
+    $("p").bind("click", foo); // ... Now foo will be called when paragraphs are clicked ...
+
+    $("p").unbind("click", foo); // ... foo will no longer be called.
 }
 
 function test_blur() {
@@ -1119,7 +1183,6 @@ function test_delay() {
     });
 }
 
-/* Not existing, but not recommended either
 function test_delegate() {
     $("table").delegate("td", "click", function () {
         $(this).toggleClass("chosen");
@@ -1137,7 +1200,7 @@ function test_delegate() {
     $("body").delegate("a", "click", function (event) {
         event.preventDefault();
     });
-    $("body").delegate("p", "myCustomEvent", function (e, myName, myValue) {
+    $("body").delegate("p", "myCustomEvent", function (e, myName?, myValue?) {
         $(this).text("Hi there!");
         $("span").stop().css("opacity", 1)
                  .text("myName = " + myName)
@@ -1147,7 +1210,48 @@ function test_delegate() {
         $("p").trigger("myCustomEvent");
     });
 }
-*/
+
+function test_undelegate() {
+    function aClick() {
+        $("div").show().fadeOut("slow");
+    }
+    $("#bind").click(function () {
+        $("body")
+            .delegate("#theone", "click", aClick)
+            .find("#theone").text("Can Click!");
+    });
+    $("#unbind").click(function () {
+        $("body")
+            .undelegate("#theone", "click", aClick)
+            .find("#theone").text("Does nothing...");
+    });
+
+    $("p").undelegate();
+
+    $("p").undelegate("click");
+
+    var foo = function () {
+        // Code to handle some kind of event
+    };
+
+    // ... Now foo will be called when paragraphs are clicked ...
+    $("body").delegate("p", "click", foo);
+
+    // ... foo will no longer be called.
+    $("body").undelegate("p", "click", foo);
+
+    var foo = function () {
+        // Code to handle some kind of event
+    };
+
+    // Delegate events under the ".whatever" namespace
+    $("form").delegate(":button", "click.whatever", foo);
+
+    $("form").delegate("input[type='text'] ", "keypress.whatever", foo);
+
+    // Unbind all events delegated under the ".whatever" namespace
+    $("form").undelegate(".whatever");
+}
 
 function test_dequeue() {
     $("button").click(function () {

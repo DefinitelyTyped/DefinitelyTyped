@@ -1856,6 +1856,12 @@ declare module THREE {
 
         static defaultEulerOrder: string;
         // static defaultEulerOrder:EulerOrder;
+        
+        /**
+         * An object that can be used to store custom data about the Object3d. 
+         * It should not hold references to functions as these will not be cloned.
+         */
+         userData: any;
     }
 
     var Object3DIdCount: number;

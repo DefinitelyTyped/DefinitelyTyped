@@ -100,7 +100,7 @@ interface UnderscoreStatic {
 	* @param iterator Iterator function for each property on `obj`.
 	* @param context 'this' object in `iterator`, optional.
 	**/
-	each<T extends {}>(
+	each<T>(
 		object: _.Dictionary<T>,
 		iterator: _.ObjectIterator<T, void>,
 		context?: any): void;
@@ -116,7 +116,7 @@ interface UnderscoreStatic {
 	/**
 	* @see _.each
 	**/
-	forEach<T extends {}>(
+	forEach<T>(
 		object: _.Dictionary<T>,
 		iterator: _.ObjectIterator<T, void >,
 		context?: any): void;
@@ -142,7 +142,7 @@ interface UnderscoreStatic {
 	* @param context `this` object in `iterator`, optional.
 	* @return The mapped object result.
 	**/
-	map<T extends {}, TResult>(
+	map<T, TResult>(
 		object: _.Dictionary<T>,
 		iterator: _.ObjectIterator<T, TResult>,
 		context?: any): TResult[];
@@ -158,7 +158,7 @@ interface UnderscoreStatic {
 	/**
 	* @see _.map
 	**/
-	collect<T extends {}, TResult>(
+	collect<T, TResult>(
 		object: _.Dictionary<T>,
 		iterator: _.ObjectIterator<T, TResult>,
 		context?: any): TResult[];

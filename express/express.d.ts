@@ -122,6 +122,10 @@ declare module "express" {
             del(name: string, ...handlers: RequestFunction[]): T;
 
             del(name: RegExp, ...handlers: RequestFunction[]): T;
+            
+            patch(name: string, ...handlers: RequestFunction[]): T;
+ 
+            patch(name: RegExp, ...handlers: RequestFunction[]): T;
         }
 
         export class Router implements IRouter<Router> {
@@ -152,6 +156,10 @@ declare module "express" {
           del(name: string, ...handlers: RequestFunction[]): Router;
 
           del(name: RegExp, ...handlers: RequestFunction[]): Router;
+          
+          patch(name: string, ...handlers: RequestFunction[]): Router;
+ 
+          patch(name: RegExp, ...handlers: RequestFunction[]): Router;
         }
 
         interface Handler {
