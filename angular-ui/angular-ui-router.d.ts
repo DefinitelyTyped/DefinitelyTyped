@@ -84,6 +84,7 @@ declare module ng.ui {
         get(state: string): IState;
         get(): IState[];
         current: IState;
+        $current: IState;
         params: IStateParamsService;
     }
 
