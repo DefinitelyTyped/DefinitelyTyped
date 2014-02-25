@@ -4,16 +4,16 @@
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-import _ = require('highland');
+var _: HighlandStatic;
 
 var obj: Object;
 var err: Error;
 var bool: boolean;
-var num;
+var num: number;
 var str: string;
 var x: any;
 var f: Function;
-var fn;
+var fn: Function;
 var func: Function;
 var arr: any[];
 var exp: RegExp;
@@ -21,6 +21,10 @@ var anyArr: any[];
 var strArr: string[];
 var numArr: string[];
 var funcArr: Function[];
+
+var readable: ReadableStream;
+var writable: WritableStream;
+var emitter: NodeEventEmitter;
 
 // - - - - - - - - - - - - - - - - -
 
@@ -81,13 +85,25 @@ var barStreamArr: Highland.Stream<Bar>[];
 var strFooArrMapStream: Highland.Stream<StrFooArrMap>;
 var strBarArrMapStream: Highland.Stream<StrBarArrMap>;
 
+var fooThen: Highland.Thenable<Foo>;
+var barThen: Highland.Thenable<Bar>;
+
+var fooArrThen: Highland.Thenable<Foo[]>;
+var barArrThen: Highland.Thenable<Bar[]>;
+
+var fooThenArr: Highland.Thenable<Foo>[];
+var barThenArr: Highland.Thenable<Bar>[];
+
+var fooStreamThen: Highland.Thenable<Highland.Stream<Foo>>;
+var barStreamThen: Highland.Thenable<Highland.Stream<Bar>>;
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // curries
 var objCurStr: (obj: Object) => string;
 var objCurObj: (obj: Object) => Object;
 var objCurAny: (obj: Object) => any;
-var numCurNum: (num) => number;
+var numCurNum: (num: number) => number;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -95,24 +111,35 @@ var steamError: Highland.StreamError;
 var streamRedirect: Highland.StreamRedirect<Foo>;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/*
- interface Highland {
 
- (xs: R[]): Highland.Stream<number>;
- (xs: (push: (err:Error, x?:R) => void, next:() => void) => void): Highland.Stream<number>;
- (xs: Highland.Stream<number>): Highland.Stream<number>;
+steamError = new Highland.StreamError(err);
+err = steamError.error;
 
- <R>(xs: ReadableStream): Highland.Stream<number>;
- <R>(xs: NodeEventEmitter): Highland.Stream<number>;
+streamRedirect = new Highland.StreamRedirect(fooStream);
+fooStream = streamRedirect.to;
 
- (xs: Thenable<R[]>): Highland.Stream<number>;
- (xs: Thenable<Highland.Stream<number>>): Highland.Stream<number>;
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
- <R>(): Highland.Stream<number>;
- }
+// top-level module
 
- fooStream = _([1, 2, 3]);
- */
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+fooStream = _<Foo>();
+fooStream = _(fooArr);
+fooStream = _<Foo>((push, next) => {
+	push(null, foo);
+	push(err);
+	next();
+});
+
+fooStream = _(fooStream);
+fooStream = _<Foo>(readable);
+fooStream = _<Foo>(emitter);
+
+fooStream = _(fooStreamThen);
+fooStream = _(fooArrThen);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 obj = _.nil;
 
@@ -138,14 +165,6 @@ f = _.seq(f, f);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-steamError = new Highland.StreamError(err);
-err = steamError.error;
-
-streamRedirect = new Highland.StreamRedirect(fooStream);
-fooStream = streamRedirect.to;
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 bool = _.isStream(x);
 bool = _.isStream(fooStream);
 
@@ -157,6 +176,51 @@ bool = _.isStreamRedirect(fooStream);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+anyStream = _.values(obj);
+fooStream = _.values(fooArr);
+
+strStream = _.keys(obj);
+
+anyArrStream = _.pairs(obj);
+anyArrStream = _.pairs(fooArr);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+obj = _.extend(obj, obj);
+
+objCurObj = _.extend(obj);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+x = _.get(str, obj);
+
+objCurObj = _.get(str);
+
+obj = _.set(str, foo, obj);
+
+objCurAny = _.set(str, foo);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+_.log(str);
+_.log(str, num, foo);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+f = _.wrapCallback(func);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+num = _.add(num, num);
+
+numCurNum = _.add(num);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// instance methods
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 fooStream.pause();
 fooStream.resume();
 
@@ -165,6 +229,7 @@ fooStream.resume();
 fooStream.end();
 
 fooStream = fooStream.pipe(fooStream);
+barStream = fooStream.pipe(barStream);
 
 fooStream.destroy();
 
@@ -176,7 +241,19 @@ barStream = fooStream.consume((err: Error, x: Foo, push: (err: Error, value?: Ba
 	next();
 });
 
+barStream = fooStream.consume<Bar>((err, x, push, next) => {
+	push(err);
+	push(null, bar);
+	next();
+});
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 fooStream.pull((err: Error, x: Foo) => {
+
+});
+
+fooStream.pull((err, x) => {
 
 });
 
@@ -193,6 +270,12 @@ fooStream = fooStream.observe();
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 fooStream = fooStream.errors((err: Error, push: (e: Error, x?: Foo) => void) => {
+	push(err);
+	push(null, x);
+	push(null, foo);
+});
+
+fooStream = fooStream.errors((err, push) => {
 	push(err);
 	push(null, x);
 	push(null, foo);
@@ -309,46 +392,5 @@ fooStream = fooStream.debounce(num);
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 fooStream = fooStream.latest();
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-anyStream = _.values(obj);
-fooStream = _.values(fooArr);
-
-strStream = _.keys(obj);
-
-anyArrStream = _.pairs(obj);
-anyArrStream = _.pairs(fooArr);
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-obj = _.extend(obj, obj);
-
-objCurObj = _.extend(obj);
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-x = _.get(str, obj);
-
-objCurObj = _.get(str);
-
-obj = _.set(str, foo, obj);
-
-objCurAny = _.set(str, foo);
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-_.log(str);
-_.log(str, num, foo);
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-f = _.wrapCallback(func);
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-num = _.add(num, num);
-
-numCurNum = _.add(num);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
