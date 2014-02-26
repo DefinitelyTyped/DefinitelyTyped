@@ -1877,15 +1877,10 @@ function test_has() {
 }
 
 function test_hasClass() {
-    $("div#result1").append($("p:first").hasClass("selected"));
-    $("div#result2").append($("p:last").hasClass("selected"));
-    $("div#result3").append($("p").hasClass("selected"));
-
     $('#mydiv').hasClass('foo');
-    // typescript has a bug to (boolean).toString() - I'll comment this code until typescript team solve this problem.
-    //$("div#result1").append($("p:first").hasClass("selected").toString());
-    //$("div#result2").append($("p:last").hasClass("selected").toString());
-    //$("div#result3").append($("p").hasClass("selected").toString());
+    $("div#result1").append($("p:first").hasClass("selected").toString());
+    $("div#result2").append($("p:last").hasClass("selected").toString());
+    $("div#result3").append($("p").hasClass("selected").toString());
 }
 
 function test_hasData() {
@@ -2171,11 +2166,17 @@ function test_index() {
 function test_innerHeight() {
     var p = $("p:first");
     $("p:last").text("innerHeight:" + p.innerHeight());
+
+    p.innerHeight(123);
+    p.innerHeight('123px');
 }
 
 function test_innerWidth() {
     var p = $("p:first");
     $("p:last").text("innerWidth:" + p.innerWidth());
+
+    p.innerWidth(123);
+    p.innerWidth('123px');
 }
 
 function test_outerHeight() {
@@ -2183,6 +2184,9 @@ function test_outerHeight() {
     $("p:last").text(
         "outerHeight:" + p.outerHeight() +
         " , outerHeight( true ):" + p.outerHeight(true));
+
+    p.outerHeight(123);
+    p.outerHeight('123px');
 }
 
 function test_outerWidth() {
@@ -2190,6 +2194,9 @@ function test_outerWidth() {
     $("p:last").text(
         "outerWidth:" + p.outerWidth() +
         " , outerWidth( true ):" + p.outerWidth(true));
+
+    p.outerWidth(123);
+    p.outerWidth('123px');
 }
 
 function test_scrollLeft() {
