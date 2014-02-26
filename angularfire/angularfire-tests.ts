@@ -25,7 +25,7 @@ myapp.controller("MyController", ["$scope", "$firebase",
         $scope.items.$set({ bar: "baz" }); 
         var keys = $scope.items.$getIndex();
         keys.forEach(function(key, i) {
-            console.log(i, $scope.items[key]);
+            console.log(i, (<any>$scope.items)[key]);
         });
         $scope.items.$on("loaded", function() {
             console.log("Initial data received!");
