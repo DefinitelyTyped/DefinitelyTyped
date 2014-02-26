@@ -38,7 +38,7 @@ function test_computed() {
         this.firstName = ko.observable('Planet');
         this.lastName = ko.observable('Earth');
 
-        this.fullName = ko.computed({
+        this.fullName = ko.computed<string>({
             read: function () {
                 return this.firstName() + " " + this.lastName();
             },
@@ -257,7 +257,7 @@ interface KnockoutExtenders {
     required(target, overrideMessage);
 }
 
-interface KnockoutObservableArrayFunctions {
+interface KnockoutObservableArrayFunctions<T> {
     filterByProperty(propName, matchValue): KnockoutComputed<any>;
 }
 
@@ -491,7 +491,7 @@ function test_mappingplugin() {
 }
 
 // Define your own functions
-interface KnockoutSubscribableFunctions {
+interface KnockoutSubscribableFunctions<T> {
     publishOn(topic: string): any;
     subscribeTo(topic: string): any;
 }
