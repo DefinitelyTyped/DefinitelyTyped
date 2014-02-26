@@ -31,15 +31,15 @@ declare module "nodemailer"
         options:Object;
         transportType:string;
 
-        sendMailWithTransport(emailMessage:MailComposer, callback?:(err:Error) => any):any;
+        sendMailWithTransport(emailMessage:MailComposer, callback?:(err:Error, response:any) => any):any;
 
         useDKIM(dkim:DKIMOptions);
 
         close(callback?:(err:Error) => any);
 
-        sendMail(message:MailComposer, callback?:(err:Error) => any):any;
+        sendMail(message:MailComposer, callback?:(err:Error, response:any) => any):any;
 
-        send_mail(message:MailComposer, callback?:(err:Error) => any):any;
+        send_mail(message:MailComposer, callback?:(err:Error, response:any) => any):any;
     }
 
     export interface NodeMailerAttachment
