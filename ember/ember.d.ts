@@ -57,7 +57,7 @@ interface String {
     w(): string[];
 }
 
-interface Array {
+interface Array<T> {
     constructor(arr: any[]);
     activate(): void;
     addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): any[];
