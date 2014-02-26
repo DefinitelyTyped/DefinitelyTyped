@@ -1,5 +1,7 @@
 /// <reference path="bluebird.d.ts" />
 
+// Note: try to maintain the ordering and separators
+
 var obj:Object;
 var bool:boolean;
 var num:number;
@@ -15,29 +17,22 @@ var numArr:string[];
 var value:any = null;
 var reason:any = null;
 
-var Promise:Bluebird.PromiseStatic;
+var promise:Promise;
+var p:Promise;
 
-var promise:Bluebird.Promise;
-var p:Bluebird.Promise;
-
-var resolver:Bluebird.PromiseResolver;
-var inspection:Bluebird.PromiseInspection;
-var arrLike:Bluebird.ArrayLike;
+var resolver:Promise.Resolver;
+var inspection:Promise.Inspection;
 
 // - - - - - - - - - - - - - - - - - - - - - - - -
 
 var promise = new Promise((resolve:(value:any) => void, reject:(reason:any) => void) => {
-    if(true) {
-        resolve(123);
-    }
-    else {
-        reject(new Error('nope'));
-    }
+	if(true) {
+		resolve(123);
+	}
+	else {
+		reject(new Error('nope'));
+	}
 });
-
-// - - - - - - - - - - - - - - - - - - - - - - - -
-
-num = arrLike.length;
 
 // - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -89,12 +84,12 @@ p = promise.caught((reason:any) => {
 
 });
 p = promise.catch((reason:any) => {
-    return true;
+	return true;
 }, (reason:any) => {
 
 });
 p = promise.caught((reason:any) => {
-    return true;
+	return true;
 }, (reason:any) => {
 
 });
@@ -219,43 +214,40 @@ p = promise.spread((value:any) => {
 });
 
 p = promise.map((item:any, index:number, arrayLength:number) => {
-    return x;
+	return x;
 });
 
 p = promise.reduce((total:number, memo:any, index:number, arrayLength:number) => {
-    return memo;
+	return memo;
 });
 p = promise.reduce((total:number, memo:any, index:number, arrayLength:number) => {
-    return memo;
+	return memo;
 }, x);
 
 p = promise.filter((item:any, index?:number, arrayLength?:number) => {
-    return true;
+	return true;
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - -
 
 p = new Promise((resolve:(value:any) => any, reject:(reason:any) => any) => {
-    if(true) {
-        resolve(value);
-    }
-    else {
-        reject(new Error('xyz'));
-    }
+	if(true) {
+		resolve(value);
+	}
+	else {
+		reject(new Error('xyz'));
+	}
 });
 
-p = Promise.try(() => {});
-p = Promise.try(() => {}, arr);
-p = Promise.try(() => {}, arr, x);
-p = Promise.try(() => {}, arrLike);
-p = Promise.try(() => {}, arrLike, x);
-
+/*
+ p = Promise.try(() => {});
+ p = Promise.try(() => {}, arr);
+ p = Promise.try(() => {}, arr, x);
+ */
 
 p = Promise.attempt(() => {});
 p = Promise.attempt(() => {}, arr);
 p = Promise.attempt(() => {}, arr, x);
-p = Promise.attempt(() => {}, arrLike);
-p = Promise.attempt(() => {}, arrLike, x);
 
 f = Promise.method(function() {
 
@@ -312,16 +304,16 @@ p = Promise.some(arr, x);
 p = Promise.join(1, 2, 3);
 
 p = Promise.map(arr, (item:any, index:number, arrayLength:number) => {
-    return x;
+	return x;
 });
 
 p = Promise.reduce(arr, (total:number, memo:any, index:number, arrayLength:number) => {
-    return memo;
+	return memo;
 });
 p = Promise.reduce(arr, (total:number, memo:any, index:number, arrayLength:number) => {
-    return memo;
+	return memo;
 }, x);
 
 p = Promise.filter(arr, (item:any, index?:number, arrayLength?:number) => {
-    return true;
+	return true;
 });
