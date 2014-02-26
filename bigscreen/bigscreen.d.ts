@@ -4,9 +4,11 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface BigScreenStatic {
-    element: any;
+    // Properties
+    element: Element;
     enabled: boolean;
 
+    // Methods
     exit(): void;
     onchange(element: Element): void;
     onenter(element: Element): void;
@@ -17,4 +19,8 @@ interface BigScreenStatic {
     videoEnabled(video: HTMLVideoElement): boolean;
 }
 
-declare var BigScreen: BigScreenStatic;
+declare var bigscreen: BigScreenStatic;
+
+declare module "bigscreen" {
+    export = bigscreen;
+}
