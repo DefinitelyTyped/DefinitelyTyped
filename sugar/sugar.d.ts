@@ -2569,7 +2569,7 @@ interface Array<T> {
 	/**
 	* @see max
 	**/
-	max<U>(map: (n: T) => U): T[];
+	max<U>(map: (n: T) => U, all: boolean): T[];
 
 	/***
 	* Returns the element in the array with the lowest value.
