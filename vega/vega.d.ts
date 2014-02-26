@@ -173,7 +173,7 @@ declare module Vega {
 
     // group members
     scales?: {[name: string]: any};
-    axisItems?: any[];
+    axisItems?: Node[];
   }
 
   export interface Defs {
