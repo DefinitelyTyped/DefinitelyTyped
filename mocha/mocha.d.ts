@@ -57,7 +57,7 @@ declare var describe : {
     only(description: string, spec: () => void): void;
     skip(description: string, spec: () => void): void;
     timeout(ms: number): void;
-}
+};
 
 declare var it: {
     (expectation: string, assertion?: () => void): void;

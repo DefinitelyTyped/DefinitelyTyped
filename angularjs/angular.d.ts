@@ -740,7 +740,7 @@ declare module ng {
     // and http://docs.angularjs.org/guide/directive
     ///////////////////////////////////////////////////////////////////////////
 
-    interface IDirective{
+    interface IDirective {
         compile?:
             (templateElement: IAugmentedJQuery,
             templateAttributes: IAttributes,
