@@ -97,6 +97,7 @@ List of Definitions
 * [Google API Client](https://code.google.com/p/google-api-javascript-client/) (by [Frank M](https://github.com/sgtfrankieboy))
 * [Google App Engine Channel API](https://developers.google.com/appengine/docs/java/channel/javascript) (by [vvakame](https://github.com/vvakame))
 * [GoogleMaps](https://developers.google.com/maps/) (by [Esben Nepper](https://github.com/eNepper))
+* [GoogleMaps InfoBubble](http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobubble/) (by [Johan Nilsson](https://github.com/dashue))
 * [Google Geolocation](https://code.google.com/p/geo-location-javascript/) (by [Vincent Bortone](https://github.com/vbortone))
 * [Google Page Speed Online API](https://developers.google.com/speed/pagespeed/) (by [Frank M](https://github.com/sgtfrankieboy))
 * [Google Translate API](https://developers.google.com/translate/) (by [Frank M](https://github.com/sgtfrankieboy))
