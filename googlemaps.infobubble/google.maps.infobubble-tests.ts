@@ -1,3 +1,6 @@
+/// <reference path="../googlemaps/google.maps.d.ts" />
+/// <reference path="google.maps.infobubble.d.ts" />
+
 function test_options() {
     var options: google.maps.infobubble.InfoBubbleOptions;
     options = {};
