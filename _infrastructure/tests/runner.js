@@ -811,17 +811,19 @@ var DT;
         TestRunner.prototype.doGetReferences = function () {
             var _this = this;
             this.index.parseFiles(this.files, function () {
+                /*
+                // nice but too verbose
                 console.log('');
                 console.log('files:');
                 console.log('---');
-                _this.files.forEach(function (file) {
-                    console.log(file.filePathWithName);
-                    file.references.forEach(function (file) {
-                        console.log('  - %s', file.filePathWithName);
-                    });
+                this.files.forEach((file) => {
+                console.log(file.filePathWithName);
+                file.references.forEach((file) => {
+                console.log('  - %s', file.filePathWithName);
+                });
                 });
                 console.log('---');
-
+                */
                 // chain
                 _this.doCollectTargets();
             });
@@ -1031,7 +1033,6 @@ var DT;
     console.log('   tscVersion %s', tscVersion);
     console.log('   findNotRequiredTscparams %s', findNotRequiredTscparams);
     console.log('--');
-    console.log('');
 
     var runner = new TestRunner(dtPath, {
         tscVersion: tscVersion,

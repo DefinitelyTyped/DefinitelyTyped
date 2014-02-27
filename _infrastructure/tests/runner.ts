@@ -144,6 +144,8 @@ module DT {
 
 		private doGetReferences(): void {
 			this.index.parseFiles(this.files, () => {
+				/*
+				// nice but too verbose
 				console.log('');
 				console.log('files:');
 				console.log('---');
@@ -154,6 +156,7 @@ module DT {
 					});
 				});
 				console.log('---');
+				*/
 
 				// chain
 				this.doCollectTargets();
@@ -360,7 +363,6 @@ module DT {
 	console.log('   tscVersion %s', tscVersion);
 	console.log('   findNotRequiredTscparams %s', findNotRequiredTscparams);
 	console.log('--');
-	console.log('');
 
 	var runner = new TestRunner(dtPath, {
 		tscVersion: tscVersion,
