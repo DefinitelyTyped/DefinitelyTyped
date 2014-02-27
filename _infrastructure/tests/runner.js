@@ -47,6 +47,8 @@ var Exec = function () {
 /// <reference path="../_ref.d.ts" />
 var DT;
 (function (DT) {
+    'use-strict';
+
     var path = require('path');
 
     /////////////////////////////////
@@ -55,30 +57,17 @@ var DT;
     /////////////////////////////////
     var File = (function () {
         function File(baseDir, filePathWithName) {
+            this.references = [];
             this.baseDir = baseDir;
             this.filePathWithName = filePathWithName;
-            this.references = [];
             this.ext = path.extname(this.filePathWithName);
             this.file = path.basename(this.filePathWithName, this.ext);
             this.dir = path.dirname(this.filePathWithName);
+            this.formatName = path.join(this.dir, this.file + this.ext);
+            this.fullPath = path.join(this.baseDir, this.dir, this.file + this.ext);
+            // lock it (shallow)
+            // Object.freeze(this);
         }
-        Object.defineProperty(File.prototype, "formatName", {
-            // From '/complete/path/to/file' to 'specfolder/specfile.d.ts'
-            get: function () {
-                return path.join(this.dir, this.file + this.ext);
-            },
-            enumerable: true,
-            configurable: true
-        });
-
-        Object.defineProperty(File.prototype, "fullPath", {
-            get: function () {
-                return path.join(this.baseDir, this.dir, this.file + this.ext);
-            },
-            enumerable: true,
-            configurable: true
-        });
-
         File.prototype.toString = function () {
             return '[File ' + this.filePathWithName + ']';
         };
@@ -91,6 +80,7 @@ var DT;
 /// <reference path="host/exec.ts" />
 var DT;
 (function (DT) {
+    'use-strict';
     var fs = require('fs');
 
     var Tsc = (function () {
@@ -132,6 +122,8 @@ var DT;
 /// <reference path="../runner.ts" />
 var DT;
 (function (DT) {
+    'use-strict';
+
     /////////////////////////////////
     // Timer.start starts a timer
     // Timer.end stops the timer and sets asString to the pretty print value
@@ -171,6 +163,8 @@ var DT;
 /// <reference path="../_ref.d.ts" />
 var DT;
 (function (DT) {
+    'use-strict';
+
     var referenceTagExp = /<reference[ \t]*path=["']?([\w\.\/_-]*)["']?[ \t]*\/>/g;
 
     function endsWith(str, suffix) {
@@ -201,6 +195,8 @@ var DT;
 /// <reference path="util.ts" />
 var DT;
 (function (DT) {
+    'use-strict';
+
     var fs = require('fs');
     var path = require('path');
 
@@ -217,6 +213,17 @@ var DT;
             this.loadReferences(files, function () {
                 callback();
             });
+        };
+
+        FileIndex.prototype.hasFile = function (target) {
+            return target in this.fileMap;
+        };
+
+        FileIndex.prototype.getFile = function (target) {
+            if (target in this.fileMap) {
+                return this.fileMap[target];
+            }
+            return null;
         };
 
         FileIndex.prototype.loadReferences = function (files, callback) {
@@ -276,6 +283,8 @@ var DT;
 /// <reference path="../_ref.d.ts" />
 var DT;
 (function (DT) {
+    'use-strict';
+
     var fs = require('fs');
     var path = require('path');
     var Git = require('git-wrapper');
@@ -283,7 +292,8 @@ var DT;
     var GitChanges = (function () {
         function GitChanges(baseDir) {
             this.baseDir = baseDir;
-            this.options = [];
+            this.options = {};
+            this.paths = [];
             var dir = path.join(baseDir, '.git');
             if (!fs.existsSync(dir)) {
                 throw new Error('cannot locate git-dir: ' + dir);
@@ -291,19 +301,20 @@ var DT;
             this.options['git-dir'] = dir;
         }
         GitChanges.prototype.getChanges = function (callback) {
+            var _this = this;
             //git diff --name-only HEAD~1
             var git = new Git(this.options);
             var opts = {};
             var args = ['--name-only HEAD~1'];
             git.exec('diff', opts, args, function (err, msg) {
                 if (err) {
-                    callback(err, null);
+                    callback(err);
                     return;
                 }
-                var paths = msg.replace(/^\s+/, '').replace(/\s+$/, '').split(/\r?\n/g);
+                _this.paths = msg.replace(/^\s+/, '').replace(/\s+$/, '').split(/\r?\n/g);
 
                 // console.log(paths);
-                callback(null, paths);
+                callback(null);
             });
         };
         return GitChanges;
@@ -314,6 +325,8 @@ var DT;
 /// <reference path="../runner.ts" />
 var DT;
 (function (DT) {
+    'use-strict';
+
     /////////////////////////////////
     // All the common things that we pring are functions of this class
     /////////////////////////////////
@@ -430,6 +443,8 @@ var DT;
 /// <reference path="../printer.ts" />
 var DT;
 (function (DT) {
+    'use-strict';
+
     
 
     /////////////////////////////////
@@ -463,6 +478,8 @@ var DT;
 /// <reference path="../../runner.ts" />
 var DT;
 (function (DT) {
+    'use-strict';
+
     
 
     /////////////////////////////////
@@ -549,6 +566,8 @@ var __extends = this.__extends || function (d, b) {
 };
 var DT;
 (function (DT) {
+    'use-strict';
+
     /////////////////////////////////
     // .d.ts syntax inspection
     /////////////////////////////////
@@ -570,6 +589,8 @@ var DT;
 /// <reference path="../util.ts" />
 var DT;
 (function (DT) {
+    'use-strict';
+
     /////////////////////////////////
     // Compile with *-tests.ts
     /////////////////////////////////
@@ -591,6 +612,8 @@ var DT;
 /// <reference path="../file.ts" />
 var DT;
 (function (DT) {
+    'use-strict';
+
     var fs = require('fs');
 
     /////////////////////////////////
@@ -665,6 +688,8 @@ var DT;
 /// <reference path="src/suite/tscParams.ts" />
 var DT;
 (function (DT) {
+    'use-strict';
+
     require('source-map-support').install();
 
     var fs = require('fs');
@@ -673,17 +698,6 @@ var DT;
 
     var tsExp = /\.ts$/;
 
-    // TOD0 remove this after dev!
-    var testNames = [
-        'async/',
-        'jquery/jquery.d',
-        'angularjs/angular.d',
-        'pixi/'
-    ];
-
-    /* if (process.env.TRAVIS) {
-    testNames = null;
-    } */
     DT.DEFAULT_TSC_VERSION = "0.9.1.1";
 
     var Test = (function () {
@@ -731,6 +745,8 @@ var DT;
     /////////////////////////////////
     // The main class to kick things off
     /////////////////////////////////
+    // TODO move to bluebird (Promises)
+    // TODO move to lazy.js (functional)
     var TestRunner = (function () {
         function TestRunner(dtPath, options) {
             if (typeof options === "undefined") { options = { tscVersion: DT.DEFAULT_TSC_VERSION }; }
@@ -741,8 +757,9 @@ var DT;
             this.options.findNotRequiredTscparams = !!this.options.findNotRequiredTscparams;
 
             this.index = new DT.FileIndex(this.options);
+            this.changes = new DT.GitChanges(this.dtPath);
 
-            // should be async
+            // should be async (way faster)
             // only includes .d.ts or -tests.ts or -test.ts or .ts
             var filesName = glob.sync('**/*.ts', { cwd: dtPath });
             this.files = filesName.filter(function (fileName) {
@@ -751,29 +768,50 @@ var DT;
                 return new DT.File(dtPath, fileName);
             });
         }
-        TestRunner.prototype.checkAcceptFile = function (fileName) {
-            var ok = tsExp.test(fileName);
-            ok = ok && fileName.indexOf('_infrastructure') < 0;
-            ok = ok && fileName.indexOf('node_modules/') < 0;
-            ok = ok && /^[a-z]/i.test(fileName);
-
-            //TODO remove this dev code
-            ok = ok && (!testNames || testNames.some(function (pattern) {
-                return fileName.indexOf(pattern) > -1;
-            }));
-            return ok;
-        };
-
         TestRunner.prototype.addSuite = function (suite) {
             this.suites.push(suite);
         };
 
         TestRunner.prototype.run = function () {
-            var _this = this;
             this.timer = new DT.Timer();
             this.timer.start();
 
+            // we need promises
+            this.doGetChanges();
+        };
+
+        TestRunner.prototype.checkAcceptFile = function (fileName) {
+            var ok = tsExp.test(fileName);
+            ok = ok && fileName.indexOf('_infrastructure') < 0;
+            ok = ok && fileName.indexOf('node_modules/') < 0;
+            ok = ok && /^[a-z]/i.test(fileName);
+            return ok;
+        };
+
+        TestRunner.prototype.doGetChanges = function () {
+            var _this = this;
+            this.changes.getChanges(function (err) {
+                if (err) {
+                    throw err;
+                }
+                console.log('');
+                console.log('changes:');
+                console.log('---');
+
+                _this.changes.paths.forEach(function (file) {
+                    console.log(file);
+                });
+                console.log('---');
+
+                // chain
+                _this.doGetReferences();
+            });
+        };
+
+        TestRunner.prototype.doGetReferences = function () {
+            var _this = this;
             this.index.parseFiles(this.files, function () {
+                console.log('');
                 console.log('files:');
                 console.log('---');
                 _this.files.forEach(function (file) {
@@ -783,29 +821,80 @@ var DT;
                     });
                 });
                 console.log('---');
-                _this.getChanges();
+
+                // chain
+                _this.doCollectTargets();
             });
         };
 
-        TestRunner.prototype.getChanges = function () {
+        TestRunner.prototype.doCollectTargets = function () {
+            // TODO clean this up when functional (do we need changeMap?)
             var _this = this;
-            var changes = new DT.GitChanges(this.dtPath);
-            changes.getChanges(function (err, changes) {
-                if (err) {
-                    throw err;
+            // bake map for lookup
+            var changeMap = this.changes.paths.filter(function (full) {
+                return _this.checkAcceptFile(full);
+            }).map(function (local) {
+                return path.resolve(_this.dtPath, local);
+            }).reduce(function (memo, full) {
+                var file = _this.index.getFile(full);
+                if (!file) {
+                    // what does it mean? deleted?
+                    console.log('not in index: ' + full);
+                    return memo;
                 }
-                console.log('changes:');
-                console.log('---');
-                changes.forEach(function (file) {
-                    console.log(file);
-                });
-                console.log('---');
+                memo[full] = file;
+                return memo;
+            }, Object.create(null));
 
-                _this.runTests();
+            // collect referring files (and also log)
+            var touched = Object.create(null);
+            console.log('');
+            console.log('relevant changes:');
+            console.log('---');
+            Object.keys(changeMap).sort().forEach(function (src) {
+                touched[src] = changeMap[src];
+                console.log(changeMap[src].formatName);
             });
+            console.log('---');
+
+            // terrible loop (whatever)
+            // just add stuff until there is nothing new added
+            // TODO improve it
+            var added;
+            do {
+                added = 0;
+                this.files.forEach(function (file) {
+                    // lol getter
+                    if (file.fullPath in touched) {
+                        return;
+                    }
+
+                    // check if one of our references is touched
+                    file.references.some(function (ref) {
+                        if (ref.fullPath in touched) {
+                            // add us
+                            touched[file.fullPath] = file;
+                            added++;
+                            return true;
+                        }
+                        return false;
+                    });
+                });
+            } while(added > 0);
+
+            console.log('');
+            console.log('touched:');
+            console.log('---');
+            var files = Object.keys(touched).sort().map(function (src) {
+                console.log(touched[src].formatName);
+                return touched[src];
+            });
+            console.log('---');
+
+            this.runTests(files);
         };
 
-        TestRunner.prototype.runTests = function () {
+        TestRunner.prototype.runTests = function (files) {
             var _this = this;
             var syntaxChecking = new DT.SyntaxChecking(this.options);
             var testEval = new DT.TestEval(this.options);
@@ -814,9 +903,10 @@ var DT;
                 this.addSuite(testEval);
             }
 
-            var typings = syntaxChecking.filterTargetFiles(this.files).length;
-            var testFiles = testEval.filterTargetFiles(this.files).length;
-            this.print = new DT.Print(this.options.tscVersion, typings, testFiles, this.files.length);
+            var typings = syntaxChecking.filterTargetFiles(files).length;
+            var testFiles = testEval.filterTargetFiles(files).length;
+
+            this.print = new DT.Print(this.options.tscVersion, typings, testFiles, files.length);
             this.print.printHeader();
 
             if (this.options.findNotRequiredTscparams) {
@@ -830,7 +920,7 @@ var DT;
                     suite.testReporter = suite.testReporter || new DT.DefaultTestReporter(_this.print);
 
                     _this.print.printSuiteHeader(suite.testSuiteName);
-                    var targetFiles = suite.filterTargetFiles(_this.files);
+                    var targetFiles = suite.filterTargetFiles(files);
                     suite.start(targetFiles, function (testResult, index) {
                         _this.testCompleteCallback(testResult, index);
                     }, function (suite) {
@@ -840,7 +930,7 @@ var DT;
                     });
                 } else {
                     _this.timer.end();
-                    _this.allTestCompleteCallback();
+                    _this.allTestCompleteCallback(files);
                 }
             };
             executor();
@@ -864,7 +954,7 @@ var DT;
             this.print.printFailedCount(suite.ngTests.length, suite.testResults.length);
         };
 
-        TestRunner.prototype.allTestCompleteCallback = function () {
+        TestRunner.prototype.allTestCompleteCallback = function (files) {
             var _this = this;
             var testEval = this.suites.filter(function (suite) {
                 return suite instanceof DT.TestEval;
@@ -875,11 +965,13 @@ var DT;
                 }).reduce(function (a, b) {
                     return a.indexOf(b) < 0 ? a.concat([b]) : a;
                 }, []);
-                var typings = this.files.map(function (file) {
+
+                var typings = files.map(function (file) {
                     return file.dir;
                 }).reduce(function (a, b) {
                     return a.indexOf(b) < 0 ? a.concat([b]) : a;
                 }, []);
+
                 var withoutTestTypings = typings.filter(function (typing) {
                     return existsTestTypings.indexOf(typing) < 0;
                 });
@@ -892,6 +984,7 @@ var DT;
 
             this.print.printDiv();
             this.print.printElapsedTime(this.timer.asString, this.timer.time);
+
             this.suites.filter(function (suite) {
                 return suite.printErrorCount;
             }).forEach(function (suite) {

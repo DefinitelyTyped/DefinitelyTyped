@@ -2,19 +2,21 @@
 /// <reference path="../util.ts" />
 
 module DT {
-    /////////////////////////////////
-    // .d.ts syntax inspection
-    /////////////////////////////////
-    export class SyntaxChecking extends TestSuiteBase {
+	'use-strict';
 
-        constructor(options: ITestRunnerOptions) {
-            super(options, "Syntax checking", "Syntax error");
-        }
+	/////////////////////////////////
+	// .d.ts syntax inspection
+	/////////////////////////////////
+	export class SyntaxChecking extends TestSuiteBase {
 
-        public filterTargetFiles(files: File[]): File[] {
-            return files.filter((file) => {
-                return DT.endsWith(file.formatName.toUpperCase(), '.D.TS');
-            });
-        }
-    }
+		constructor(options: ITestRunnerOptions) {
+			super(options, "Syntax checking", "Syntax error");
+		}
+
+		public filterTargetFiles(files: File[]): File[] {
+			return files.filter((file) => {
+				return DT.endsWith(file.formatName.toUpperCase(), '.D.TS');
+			});
+		}
+	}
 }
