@@ -1,27 +1,42 @@
-/// <reference path='../../node/node.d.ts' />
+/// <reference path="_ref.d.ts" />
 
-/// <reference path='src/host/exec.ts' />
+/// <reference path="src/host/exec.ts" />
 
-/// <reference path='src/file.ts' />
-/// <reference path='src/tsc.ts' />
-/// <reference path='src/timer.ts' />
+/// <reference path="src/file.ts" />
+/// <reference path="src/tsc.ts" />
+/// <reference path="src/timer.ts" />
 /// <reference path="src/util.ts" />
-/// <reference path="src/references.ts" />
 
-/// <reference path='src/printer.ts' />
-/// <reference path='src/reporter/reporter.ts' />
+/// <reference path="src/index.ts" />
+/// <reference path="src/changes.ts" />
 
-/// <reference path='src/suite/suite.ts' />
-/// <reference path='src/suite/syntax.ts' />
-/// <reference path='src/suite/testEval.ts' />
-/// <reference path='src/suite/tscParams.ts' />
+/// <reference path="src/printer.ts" />
+/// <reference path="src/reporter/reporter.ts" />
+
+/// <reference path="src/suite/suite.ts" />
+/// <reference path="src/suite/syntax.ts" />
+/// <reference path="src/suite/testEval.ts" />
+/// <reference path="src/suite/tscParams.ts" />
 
 module DT {
-    require('source-map-support');
+    require('source-map-support').install();
 
     var fs = require('fs');
     var path = require('path');
     var glob = require('glob');
+
+    var tsExp = /\.ts$/;
+
+    // TOD0 remove this after dev!
+    var testNames = [
+        'async/',
+        'jquery/jquery.d',
+        'angularjs/angular.d',
+        'pixi/'
+    ];
+    /* if (process.env.TRAVIS) {
+        testNames = null;
+    } */
 
     export var DEFAULT_TSC_VERSION = "0.9.1.1";
 
@@ -72,40 +87,21 @@ module DT {
         files: File[];
         timer: Timer;
         suites: ITestSuite[] = [];
+        private index: FileIndex;
         private print: Print;
 
-        constructor(dtPath: string, public options: ITestRunnerOptions = {tscVersion: DT.DEFAULT_TSC_VERSION}) {
+        constructor(public dtPath: string, public options: ITestRunnerOptions = {tscVersion: DT.DEFAULT_TSC_VERSION}) {
             this.options.findNotRequiredTscparams = !!this.options.findNotRequiredTscparams;
 
-            // TOD0 remove this after dev!
-            var testNames = [
-                'async/',
-                'jquery/jquery.d',
-                'angularjs/angular.d',
-                'pixi/'
-            ];
-            if (process.env.TRAVIS) {
-                testNames = null;
-            }
+
+            this.index = new FileIndex(this.options);
 
             // should be async
             // only includes .d.ts or -tests.ts or -test.ts or .ts
             var filesName = glob.sync('**/*.ts', { cwd: dtPath });
             this.files = filesName
                 .filter((fileName) => {
-                    return fileName.indexOf('_infrastructure') < 0;
-                })
-                .filter((fileName) => {
-                    return fileName.indexOf('node_modules/') < 0;
-                })
-                .filter((fileName) => {
-                    // TOD0 remove this after dev!
-                    return !testNames || testNames.some((pattern) => {
-                        return fileName.indexOf(pattern) > -1;
-                    });
-                })
-                .filter((fileName) => {
-                    return /^[a-z]/i.test(fileName);
+                    return this.checkAcceptFile(fileName);
                 })
                 .sort()
                 .map((fileName) => {
@@ -113,26 +109,59 @@ module DT {
                 });
         }
 
-        public addSuite(suite: ITestSuite) {
+        public checkAcceptFile(fileName: string): boolean {
+            var ok = tsExp.test(fileName);
+            ok = ok && fileName.indexOf('_infrastructure') < 0;
+            ok = ok && fileName.indexOf('node_modules/') < 0;
+            ok = ok && /^[a-z]/i.test(fileName);
+
+            //TODO remove this dev code
+            ok = ok && (!testNames || testNames.some((pattern) => {
+                return fileName.indexOf(pattern) > -1;
+            }));
+            return ok;
+        }
+
+        public addSuite(suite: ITestSuite):void {
             this.suites.push(suite);
         }
 
-        public run() {
+        public run():void {
             this.timer = new Timer();
             this.timer.start();
 
-            var index = new ReferenceIndex(this.options);
-            index.collectReferences(this.files, () => {
+            this.index.parseFiles(this.files, () => {
+                console.log('files:');
+                console.log('---');
                 this.files.forEach((file) => {
                     console.log(file.filePathWithName);
                     file.references.forEach((file) => {
-                       console.log('  - %s', file.filePathWithName);
+                        console.log('  - %s', file.filePathWithName);
                     });
                 });
+                console.log('---');
+                this.getChanges();
+            });
+        }
+
+        public getChanges():void {
+            var changes = new GitChanges(this.dtPath);
+            changes.getChanges((err, changes: string[]) => {
+                if (err) {
+                    throw err;
+                }
+                console.log('changes:');
+                console.log('---');
+                changes.forEach((file) => {
+                    console.log(file);
+                });
+                console.log('---');
+
                 this.runTests();
             });
         }
-        public runTests() {
+
+        public runTests():void {
 
             var syntaxChecking = new SyntaxChecking(this.options);
             var testEval = new TestEval(this.options);

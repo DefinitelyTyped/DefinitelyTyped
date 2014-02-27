@@ -1,3 +1,6 @@
+/// <reference path="../../_ref.d.ts" />
+/// <reference path="../printer.ts" />
+
 module DT {
     /////////////////////////////////
     // Test reporter interface

@@ -1,3 +1,5 @@
+/// <reference path="../_ref.d.ts" />
+
 module DT {
 
     var referenceTagExp = /<reference[ \t]*path=["']?([\w\.\/_-]*)["']?[ \t]*\/>/g;
