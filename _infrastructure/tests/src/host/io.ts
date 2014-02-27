@@ -27,7 +27,8 @@ interface IIO {
     writeFile(path: string, contents: string): void;
     createFile(path: string, useUTF8?: boolean): ITextWriter;
     deleteFile(path: string): void;
-    dir(path: string, re?: RegExp, options?: { recursive?: boolean; deep?: number; }): string[];
+    dir(path: string, re?: RegExp, options?: { recursive?: boolean; deep?: number;
+    }): string[];
     fileExists(path: string): boolean;
     directoryExists(path: string): boolean;
     createDirectory(path: string): void;
@@ -39,7 +40,7 @@ interface IIO {
     arguments: string[];
     stderr: ITextWriter;
     stdout: ITextWriter;
-    watchFile(filename: string, callback: (string) => void ): IFileWatcher;
+    watchFile(filename: string, callback: (string) => void): IFileWatcher;
     run(source: string, filename: string): void;
     getExecutingFilePath(): string;
     quit(exitCode?: number);
@@ -79,9 +80,12 @@ module IOUtils {
 // Declare dependencies needed for all supported hosts
 declare class Enumerator {
     public atEnd(): boolean;
+
     public moveNext();
+
     public item(): any;
-    constructor (o: any);
+
+    constructor(o: any);
 }
 
 // Missing in node definitions, but called in code below.
@@ -91,7 +95,7 @@ interface NodeProcess {
     }
 }
 
-var IO = (function() {
+var IO = (function () {
 
     // Create an IO object for use inside WindowsScriptHost hosts
     // Depends on WSCript and FileSystemObject
@@ -99,15 +103,15 @@ var IO = (function() {
         var fso = new ActiveXObject("Scripting.FileSystemObject");
         var streamObjectPool = [];
 
-        function getStreamObject(): any { 
+        function getStreamObject(): any {
             if (streamObjectPool.length > 0) {
                 return streamObjectPool.pop();
-            }  else {
+            } else {
                 return new ActiveXObject("ADODB.Stream");
             }
         }
 
-        function releaseStreamObject(obj: any) { 
+        function releaseStreamObject(obj: any) {
             streamObjectPool.push(obj);
         }
 
@@ -117,7 +121,7 @@ var IO = (function() {
         }
 
         return {
-            readFile: function(path) {
+            readFile: function (path) {
                 try {
                     var streamObj = getStreamObject();
                     streamObj.Open();
@@ -130,7 +134,7 @@ var IO = (function() {
                         || (bomChar.charCodeAt(0) == 0xFF && bomChar.charCodeAt(1) == 0xFE)) {
                         streamObj.Charset = 'unicode';
                     } else if (bomChar.charCodeAt(0) == 0xEF && bomChar.charCodeAt(1) == 0xBB) {
-                        streamObj.Charset = 'utf-8'; 
+                        streamObj.Charset = 'utf-8';
                     }
 
                     // Read the whole file
@@ -144,25 +148,25 @@ var IO = (function() {
                 }
             },
 
-            writeFile: function(path, contents) {
+            writeFile: function (path, contents) {
                 var file = this.createFile(path);
                 file.Write(contents);
                 file.Close();
             },
 
-            fileExists: function(path: string): boolean {
+            fileExists: function (path: string): boolean {
                 return fso.FileExists(path);
             },
 
-            resolvePath: function(path: string): string {
+            resolvePath: function (path: string): string {
                 return fso.GetAbsolutePathName(path);
             },
 
-            dirName: function(path: string): string {
+            dirName: function (path: string): string {
                 return fso.GetParentFolderName(path);
             },
 
-            findFile: function(rootPath: string, partialFilePath: string): IResolvedFile {
+            findFile: function (rootPath: string, partialFilePath: string): IResolvedFile {
                 var path = fso.GetAbsolutePathName(rootPath) + "/" + partialFilePath;
 
                 while (true) {
@@ -188,7 +192,7 @@ var IO = (function() {
                 }
             },
 
-            deleteFile: function(path: string): void {
+            deleteFile: function (path: string): void {
                 try {
                     if (fso.FileExists(path)) {
                         fso.DeleteFile(path, true); // true: delete read-only files
@@ -204,9 +208,13 @@ var IO = (function() {
                     streamObj.Charset = useUTF8 ? 'utf-8' : 'x-ansi';
                     streamObj.Open();
                     return {
-                        Write: function (str) { streamObj.WriteText(str, 0); },
-                        WriteLine: function (str) { streamObj.WriteText(str, 1); },
-                        Close: function() {
+                        Write: function (str) {
+                            streamObj.WriteText(str, 0);
+                        },
+                        WriteLine: function (str) {
+                            streamObj.WriteText(str, 1);
+                        },
+                        Close: function () {
                             try {
                                 streamObj.SaveToFile(path, 2);
                             } catch (saveError) {
@@ -225,11 +233,11 @@ var IO = (function() {
                 }
             },
 
-            directoryExists: function(path) {
+            directoryExists: function (path) {
                 return <boolean>fso.FolderExists(path);
             },
 
-            createDirectory: function(path) {
+            createDirectory: function (path) {
                 try {
                     if (!this.directoryExists(path)) {
                         fso.CreateFolder(path);
@@ -239,23 +247,24 @@ var IO = (function() {
                 }
             },
 
-            dir: function(path, spec?, options?) {
-                options = options || <{ recursive?: boolean; deep?: number; }>{};
-                function filesInFolder(folder, root): string[]{
+            dir: function (path, spec?, options?) {
+                options = options || <{ recursive?: boolean; deep?: number;
+                }>{};
+                function filesInFolder(folder, root): string[] {
                     var paths = [];
                     var fc: Enumerator;
 
                     if (options.recursive) {
                         fc = new Enumerator(folder.subfolders);
 
-                        for (; !fc.atEnd() ; fc.moveNext()) {
+                        for (; !fc.atEnd(); fc.moveNext()) {
                             paths = paths.concat(filesInFolder(fc.item(), root + "/" + fc.item().Name));
                         }
                     }
 
                     fc = new Enumerator(folder.files);
 
-                    for (; !fc.atEnd() ; fc.moveNext()) {
+                    for (; !fc.atEnd(); fc.moveNext()) {
                         if (!spec || fc.item().Name.match(spec)) {
                             paths.push(root + "/" + fc.item().Name);
                         }
@@ -270,11 +279,11 @@ var IO = (function() {
                 return filesInFolder(folder, path);
             },
 
-            print: function(str) {
+            print: function (str) {
                 WScript.StdOut.Write(str);
             },
 
-            printLine: function(str) {
+            printLine: function (str) {
                 WScript.Echo(str);
             },
 
@@ -282,7 +291,7 @@ var IO = (function() {
             stderr: WScript.StdErr,
             stdout: WScript.StdOut,
             watchFile: null,
-            run: function(source, filename) {
+            run: function (source, filename) {
                 try {
                     eval(source);
                 } catch (e) {
@@ -292,7 +301,7 @@ var IO = (function() {
             getExecutingFilePath: function () {
                 return WScript.ScriptFullName;
             },
-            quit: function (exitCode : number = 0) {
+            quit: function (exitCode: number = 0) {
                 try {
                     WScript.Quit(exitCode);
                 } catch (e) {
@@ -311,7 +320,7 @@ var IO = (function() {
         var _module = require('module');
 
         return {
-            readFile: function(file) {
+            readFile: function (file) {
                 try {
                     var buffer = _fs.readFileSync(file);
                     switch (buffer[0]) {
@@ -348,17 +357,17 @@ var IO = (function() {
                 }
             },
             writeFile: <(path: string, contents: string) => void >_fs.writeFileSync,
-            deleteFile: function(path) {
+            deleteFile: function (path) {
                 try {
                     _fs.unlinkSync(path);
                 } catch (e) {
                     IOUtils.throwIOError("Couldn't delete file '" + path + "'.", e);
                 }
             },
-            fileExists: function(path): boolean {
+            fileExists: function (path): boolean {
                 return _fs.existsSync(path);
             },
-            createFile: function(path, useUTF8?) {
+            createFile: function (path, useUTF8?) {
                 function mkdirRecursiveSync(path) {
                     var stats = _fs.statSync(path);
                     if (stats.isFile()) {
@@ -367,7 +376,7 @@ var IO = (function() {
                         return;
                     } else {
                         mkdirRecursiveSync(_path.dirname(path));
-                        _fs.mkdirSync(path, 0775);
+                        _fs.mkdirSync(path, parseInt('0775', 8));
                     }
                 }
 
@@ -379,15 +388,23 @@ var IO = (function() {
                     IOUtils.throwIOError("Couldn't write to file '" + path + "'.", e);
                 }
                 return {
-                    Write: function(str) { _fs.writeSync(fd, str); },
-                    WriteLine: function(str) { _fs.writeSync(fd, str + '\r\n'); },
-                    Close: function() { _fs.closeSync(fd); fd = null; }
+                    Write: function (str) {
+                        _fs.writeSync(fd, str);
+                    },
+                    WriteLine: function (str) {
+                        _fs.writeSync(fd, str + '\r\n');
+                    },
+                    Close: function () {
+                        _fs.closeSync(fd);
+                        fd = null;
+                    }
                 };
             },
             dir: function dir(path, spec?, options?) {
-                options = options || <{ recursive?: boolean; deep?: number; }>{};
+                options = options || <{ recursive?: boolean; deep?: number;
+                }>{};
 
-                function filesInFolder(folder: string, deep?: number): string[]{
+                function filesInFolder(folder: string, deep?: number): string[] {
                     var paths = [];
 
                     var files = _fs.readdirSync(folder);
@@ -407,7 +424,7 @@ var IO = (function() {
 
                 return filesInFolder(path, 0);
             },
-            createDirectory: function(path: string): void {
+            createDirectory: function (path: string): void {
                 try {
                     if (!this.directoryExists(path)) {
                         _fs.mkdirSync(path);
@@ -417,16 +434,16 @@ var IO = (function() {
                 }
             },
 
-            directoryExists: function(path: string): boolean {
+            directoryExists: function (path: string): boolean {
                 return _fs.existsSync(path) && _fs.lstatSync(path).isDirectory();
             },
-            resolvePath: function(path: string): string {
+            resolvePath: function (path: string): string {
                 return _path.resolve(path);
             },
-            dirName: function(path: string): string {
+            dirName: function (path: string): string {
                 return _path.dirname(path);
             },
-            findFile: function(rootPath: string, partialFilePath): IResolvedFile {
+            findFile: function (rootPath: string, partialFilePath): IResolvedFile {
                 var path = rootPath + "/" + partialFilePath;
 
                 while (true) {
@@ -452,24 +469,38 @@ var IO = (function() {
                     }
                 }
             },
-            print: function(str) { process.stdout.write(str) },
-            printLine: function(str) { process.stdout.write(str + '\n') },
+            print: function (str) {
+                process.stdout.write(str)
+            },
+            printLine: function (str) {
+                process.stdout.write(str + '\n')
+            },
             arguments: process.argv.slice(2),
             stderr: {
-                Write: function(str) { process.stderr.write(str); },
-                WriteLine: function(str) { process.stderr.write(str + '\n'); },
-                Close: function() { }
+                Write: function (str) {
+                    process.stderr.write(str);
+                },
+                WriteLine: function (str) {
+                    process.stderr.write(str + '\n');
+                },
+                Close: function () {
+                }
             },
             stdout: {
-                Write: function(str) { process.stdout.write(str); },
-                WriteLine: function(str) { process.stdout.write(str + '\n'); },
-                Close: function() { }
+                Write: function (str) {
+                    process.stdout.write(str);
+                },
+                WriteLine: function (str) {
+                    process.stdout.write(str + '\n');
+                },
+                Close: function () {
+                }
             },
-            watchFile: function(filename: string, callback: (string) => void ): IFileWatcher {
+            watchFile: function (filename: string, callback: (string) => void): IFileWatcher {
                 var firstRun = true;
                 var processingChange = false;
 
-                var fileChanged: any = function(curr, prev) {
+                var fileChanged: any = function (curr, prev) {
                     if (!firstRun) {
                         if (curr.mtime < prev.mtime) {
                             return;
@@ -479,7 +510,9 @@ var IO = (function() {
                         if (!processingChange) {
                             processingChange = true;
                             callback(filename);
-                            setTimeout(function() { processingChange = false; }, 100);
+                            setTimeout(function () {
+                                processingChange = false;
+                            }, 100);
                         }
                     }
                     firstRun = false;
@@ -489,16 +522,16 @@ var IO = (function() {
                 fileChanged();
                 return {
                     filename: filename,
-                    close: function() {
+                    close: function () {
                         _fs.unwatchFile(filename, fileChanged);
                     }
                 };
             },
-            run: function(source, filename) {
+            run: function (source, filename) {
                 require.main.filename = filename;
                 require.main.paths = _module._nodeModulePaths(_path.dirname(_fs.realpathSync(filename)));
                 require.main._compile(source, filename);
-            }, 
+            },
             getExecutingFilePath: function () {
                 return process.mainModule.filename;
             },
