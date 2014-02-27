@@ -19,19 +19,18 @@ declare module ng.resource {
     // that deeply.
     ///////////////////////////////////////////////////////////////////////////
     interface IResourceService {
-
-        <T extends IResource<T>, U extends IResourceClass<T>>(url: string, paramDefaults?: any,
-                                                              /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
-                                                               where deleteDescriptor : IActionDescriptor */
-                                                              actionDescriptors?: any): U;
-        <T extends IResource<T>>(url: string, paramDefaults?: any,
-                                 /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
-                                  where deleteDescriptor : IActionDescriptor */
-                                 actionDescriptors?: any): IResourceClass<T>;
         (url: string, paramDefaults?: any,
                                  /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
                                   where deleteDescriptor : IActionDescriptor */
                                  actionDescriptors?: any): IResourceClass<IResource<any>>;
+        <T, U>(url: string, paramDefaults?: any,
+                                 /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
+                                  where deleteDescriptor : IActionDescriptor */
+                                 actionDescriptors?: any): U;
+        <T>(url: string, paramDefaults?: any,
+                                 /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
+                                  where deleteDescriptor : IActionDescriptor */
+                                 actionDescriptors?: any): IResourceClass<T>;
     }
 
     // Just a reference to facilitate describing new actions
@@ -51,7 +50,7 @@ declare module ng.resource {
     // PATCH (in other words, methods with body). Otherwise, it's going
     // to be considered as parameters to the request.
     // https://github.com/angular/angular.js/blob/v1.2.0/src/ngResource/resource.js#L461-L465
-    interface IResourceClass<T extends IResource<T>> {
+    interface IResourceClass<T> {
         get(): T;
         get(dataOrParams: any): T;
         get(dataOrParams: any, success: Function): T;
@@ -79,7 +78,7 @@ declare module ng.resource {
         delete(params: any, data: any, success?: Function, error?: Function): T;
     }
 
-    interface IResource<T extends IResource<T>> {
+    interface IResource<T> {
         $get(): T;
         $get(dataOrParams: any): T;
         $get(dataOrParams: any, success: Function): T;
@@ -112,7 +111,7 @@ declare module ng.resource {
     }
 
     /** when creating a resource factory via IModule.factory */
-    interface IResourceServiceFactoryFunction<T extends IResource<T>> {
+    interface IResourceServiceFactoryFunction<T> {
         ($resource: ng.resource.IResourceService): IResourceClass<T>;
         <U extends IResourceClass<T>>($resource: ng.resource.IResourceService): U;
     }
@@ -127,7 +126,7 @@ declare module ng {
     }
 }
 
-interface Array<T extends ng.resource.IResource<T>>
+interface Array<T>
 {
     /** the promise of the original server interaction that created this collection. **/
     $promise : ng.IPromise<Array<T>>;
