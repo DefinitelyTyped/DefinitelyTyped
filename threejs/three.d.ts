@@ -4488,7 +4488,7 @@ declare module THREE {
         /**
          * Resizes the output canvas to (width, height), and also sets the viewport to fit that size, starting in (0, 0).
          */
-        setSize(width: number, height: number): void;
+        setSize(width: number, height: number, updateStyle?: boolean): void;
 
         /**
          * Sets the viewport to render from (x, y) to (x + width, y + height).
