@@ -177,7 +177,7 @@ declare module QioHTTP {
 	}
 	interface Headers {
 		[name:string]:any;
-		[name:string]:any[];
+		// [name:string]:any[];
 	}
 	interface Body extends Qio.Stream {
 

@@ -16,14 +16,14 @@ var list = [[0, 1], [2, 3], [4, 5]];
 //var flat = _.reduceRight(list, (a, b) => a.concat(b), []);	// https://typescript.codeplex.com/workitem/1960
 var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
-var even = _.find([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
+var even = _.find<number>([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
-var evens = _.filter([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
+var evens = _.filter<number>([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
 var listOfPlays = [{ title: "Cymbeline", author: "Shakespeare", year: 1611 }, { title: "The Tempest", author: "Shakespeare", year: 1611 }, { title: "Other", author: "Not Shakespeare", year: 2012 }];
 _.where(listOfPlays, { author: "Shakespeare", year: 1611 });
 
-var odds = _.reject([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
+var odds = _.reject<number>([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
 //_.every([true, 1, null, 'yes'], _.identity); // https://typescript.codeplex.com/workitem/1960
 _.every<any>([true, 1, null, 'yes'], _.identity);
@@ -38,7 +38,7 @@ _.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
 var stooges = [{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }];
 _.pluck(stooges, 'name');
 
-_.max(stooges, (stooge) => stooge.age);
+_.max<{ name: string; age: number }>(stooges, (stooge) => stooge.age);
 
 _.max([1, 2, 3, 4, 5]);
 
