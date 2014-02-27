@@ -92,6 +92,7 @@ module DT {
 
 			this.index = new FileIndex(this.options);
 			this.changes = new GitChanges(this.dtPath);
+			this.print = new Print(this.options.tscVersion);
 
 			// should be async (way faster)
 			// only includes .d.ts or -tests.ts or -test.ts or .ts
@@ -107,14 +108,6 @@ module DT {
 			this.suites.push(suite);
 		}
 
-		public run(): void {
-			this.timer = new Timer();
-			this.timer.start();
-
-			// we need promises
-			this.doGetChanges();
-		}
-
 		private checkAcceptFile(fileName: string): boolean {
 			var ok = tsExp.test(fileName);
 			ok = ok && fileName.indexOf('_infrastructure') < 0;
@@ -123,38 +116,43 @@ module DT {
 			return ok;
 		}
 
+		public run(): void {
+			this.timer = new Timer();
+			this.timer.start();
+
+			// we need promises
+			this.doParseFiles();
+		}
+
+		private doParseFiles(): void {
+			this.print.printChangeHeader();
+			this.index.parseFiles(this.files, () => {
+				/*
+				this.print.printSubHeader('Files:');
+				this.print.printDiv();
+				this.files.forEach((file) => {
+					this.print.printLine(file.filePathWithName);
+					file.references.forEach((file) => {
+						this.print.printElement(file.filePathWithName);
+					});
+				});
+				this.print.printBreak();*/
+				// chain
+				this.doGetChanges();
+			});
+		}
+
 		private doGetChanges(): void {
 			this.changes.getChanges((err) => {
 				if (err) {
 					throw err;
 				}
-				console.log('');
-				console.log('changes:');
-				console.log('---');
+				this.print.printSubHeader('All changes');
+				this.print.printDiv();
 
 				this.changes.paths.forEach((file) => {
-					console.log(file);
+					this.print.printLine(file);
 				});
-				console.log('---');
-
-				// chain
-				this.doGetReferences();
-			});
-		}
-
-		private doGetReferences(): void {
-			this.index.parseFiles(this.files, () => {
-				console.log('');
-				console.log('files:');
-				console.log('---');
-				this.files.forEach((file) => {
-					console.log(file.filePathWithName);
-					file.references.forEach((file) => {
-						console.log('  - %s', file.filePathWithName);
-					});
-				});
-				console.log('---');
-
 				// chain
 				this.doCollectTargets();
 			});
@@ -180,16 +178,17 @@ module DT {
 				return memo;
 			}, Object.create(null));
 
+			this.print.printDiv();
+			this.print.printSubHeader('Relevant changes');
+			this.print.printDiv();
+
 			// collect referring files (and also log)
 			var touched = Object.create(null);
-			console.log('');
-			console.log('relevant changes:');
-			console.log('---');
+
 			Object.keys(changeMap).sort().forEach((src) => {
 				touched[src] = changeMap[src];
-				console.log(changeMap[src].formatName);
+				this.print.printLine(changeMap[src].formatName);
 			});
-			console.log('---');
 
 			// terrible loop (whatever)
 			// just add stuff until there is nothing new added
@@ -216,14 +215,14 @@ module DT {
 			}
 			while(added > 0);
 
-			console.log('');
-			console.log('touched:');
-			console.log('---');
+			this.print.printDiv();
+			this.print.printSubHeader('Reference mapped');
+			this.print.printDiv();
+
 			var files: File[] = Object.keys(touched).sort().map((src) => {
-				console.log(touched[src].formatName);
+				this.print.printLine(touched[src].formatName);
 				return touched[src];
 			});
-			console.log('---');
 
 			this.runTests(files);
 		}
@@ -240,7 +239,7 @@ module DT {
 			var typings = syntaxChecking.filterTargetFiles(files).length;
 			var testFiles = testEval.filterTargetFiles(files).length;
 
-			this.print = new Print(this.options.tscVersion, typings, testFiles, files.length);
+			this.print.init( typings, testFiles, files.length);
 			this.print.printHeader();
 
 			if (this.options.findNotRequiredTscparams) {
@@ -354,13 +353,6 @@ module DT {
 	if (-1 < tscVersionIndex) {
 		tscVersion = process.argv[tscVersionIndex + 1];
 	}
-
-	console.log('--');
-	console.log('   dtPath %s', dtPath);
-	console.log('   tscVersion %s', tscVersion);
-	console.log('   findNotRequiredTscparams %s', findNotRequiredTscparams);
-	console.log('--');
-	console.log('');
 
 	var runner = new TestRunner(dtPath, {
 		tscVersion: tscVersion,

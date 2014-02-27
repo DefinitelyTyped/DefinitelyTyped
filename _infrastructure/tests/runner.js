@@ -331,13 +331,16 @@ var DT;
     // All the common things that we pring are functions of this class
     /////////////////////////////////
     var Print = (function () {
-        function Print(version, typings, tests, tsFiles) {
+        function Print(version) {
             this.version = version;
+            this.WIDTH = 77;
+        }
+        Print.prototype.init = function (typings, tests, tsFiles) {
             this.typings = typings;
             this.tests = tests;
             this.tsFiles = tsFiles;
-            this.WIDTH = 77;
-        }
+        };
+
         Print.prototype.out = function (s) {
             process.stdout.write(s);
             return this;
@@ -347,9 +350,15 @@ var DT;
             return new Array(times + 1).join(s);
         };
 
+        Print.prototype.printChangeHeader = function () {
+            this.out('=============================================================================\n');
+            this.out('                   \33[36m\33[1mDefinitelyTyped Diff Detector 0.1.0\33[0m \n');
+            this.out('=============================================================================\n');
+        };
+
         Print.prototype.printHeader = function () {
             this.out('=============================================================================\n');
-            this.out('                    \33[36m\33[1mDefinitelyTyped test runner 0.4.0\33[0m\n');
+            this.out('                    \33[36m\33[1mDefinitelyTyped Test Runner 0.5.0\33[0m\n');
             this.out('=============================================================================\n');
             this.out(' \33[36m\33[1mTypescript version:\33[0m ' + this.version + '\n');
             this.out(' \33[36m\33[1mTypings           :\33[0m ' + this.typings + '\n');
@@ -418,6 +427,22 @@ var DT;
             if (typeof valuesColor === "undefined") { valuesColor = '\33[31m\33[1m'; }
             this.out(' \33[36m\33[1m').out(errorHeadline).out(this.repeat(' ', 16 - errorHeadline.length));
             this.out(':\33[0m ' + valuesColor + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
+        };
+
+        Print.prototype.printSubHeader = function (file) {
+            this.out(' \33[36m\33[1m' + file + '\33[0m\n');
+        };
+
+        Print.prototype.printLine = function (file) {
+            this.out(file + '\n');
+        };
+
+        Print.prototype.printElement = function (file) {
+            this.out(' - ' + file + '\n');
+        };
+
+        Print.prototype.printElement2 = function (file) {
+            this.out('    - ' + file + '\n');
         };
 
         Print.prototype.printTypingsWithoutTestName = function (file) {
@@ -758,6 +783,7 @@ var DT;
 
             this.index = new DT.FileIndex(this.options);
             this.changes = new DT.GitChanges(this.dtPath);
+            this.print = new DT.Print(this.options.tscVersion);
 
             // should be async (way faster)
             // only includes .d.ts or -tests.ts or -test.ts or .ts
@@ -772,14 +798,6 @@ var DT;
             this.suites.push(suite);
         };
 
-        TestRunner.prototype.run = function () {
-            this.timer = new DT.Timer();
-            this.timer.start();
-
-            // we need promises
-            this.doGetChanges();
-        };
-
         TestRunner.prototype.checkAcceptFile = function (fileName) {
             var ok = tsExp.test(fileName);
             ok = ok && fileName.indexOf('_infrastructure') < 0;
@@ -788,39 +806,45 @@ var DT;
             return ok;
         };
 
+        TestRunner.prototype.run = function () {
+            this.timer = new DT.Timer();
+            this.timer.start();
+
+            // we need promises
+            this.doParseFiles();
+        };
+
+        TestRunner.prototype.doParseFiles = function () {
+            var _this = this;
+            this.print.printChangeHeader();
+            this.index.parseFiles(this.files, function () {
+                /*
+                this.print.printSubHeader('Files:');
+                this.print.printDiv();
+                this.files.forEach((file) => {
+                this.print.printLine(file.filePathWithName);
+                file.references.forEach((file) => {
+                this.print.printElement(file.filePathWithName);
+                });
+                });
+                this.print.printBreak();*/
+                // chain
+                _this.doGetChanges();
+            });
+        };
+
         TestRunner.prototype.doGetChanges = function () {
             var _this = this;
             this.changes.getChanges(function (err) {
                 if (err) {
                     throw err;
                 }
-                console.log('');
-                console.log('changes:');
-                console.log('---');
+                _this.print.printSubHeader('All changes');
+                _this.print.printDiv();
 
                 _this.changes.paths.forEach(function (file) {
-                    console.log(file);
+                    _this.print.printLine(file);
                 });
-                console.log('---');
-
-                // chain
-                _this.doGetReferences();
-            });
-        };
-
-        TestRunner.prototype.doGetReferences = function () {
-            var _this = this;
-            this.index.parseFiles(this.files, function () {
-                console.log('');
-                console.log('files:');
-                console.log('---');
-                _this.files.forEach(function (file) {
-                    console.log(file.filePathWithName);
-                    file.references.forEach(function (file) {
-                        console.log('  - %s', file.filePathWithName);
-                    });
-                });
-                console.log('---');
 
                 // chain
                 _this.doCollectTargets();
@@ -846,16 +870,17 @@ var DT;
                 return memo;
             }, Object.create(null));
 
+            this.print.printDiv();
+            this.print.printSubHeader('Relevant changes');
+            this.print.printDiv();
+
             // collect referring files (and also log)
             var touched = Object.create(null);
-            console.log('');
-            console.log('relevant changes:');
-            console.log('---');
+
             Object.keys(changeMap).sort().forEach(function (src) {
                 touched[src] = changeMap[src];
-                console.log(changeMap[src].formatName);
+                _this.print.printLine(changeMap[src].formatName);
             });
-            console.log('---');
 
             // terrible loop (whatever)
             // just add stuff until there is nothing new added
@@ -882,14 +907,14 @@ var DT;
                 });
             } while(added > 0);
 
-            console.log('');
-            console.log('touched:');
-            console.log('---');
+            this.print.printDiv();
+            this.print.printSubHeader('Reference mapped');
+            this.print.printDiv();
+
             var files = Object.keys(touched).sort().map(function (src) {
-                console.log(touched[src].formatName);
+                _this.print.printLine(touched[src].formatName);
                 return touched[src];
             });
-            console.log('---');
 
             this.runTests(files);
         };
@@ -906,7 +931,7 @@ var DT;
             var typings = syntaxChecking.filterTargetFiles(files).length;
             var testFiles = testEval.filterTargetFiles(files).length;
 
-            this.print = new DT.Print(this.options.tscVersion, typings, testFiles, files.length);
+            this.print.init(typings, testFiles, files.length);
             this.print.printHeader();
 
             if (this.options.findNotRequiredTscparams) {
@@ -1025,13 +1050,6 @@ var DT;
     if (-1 < tscVersionIndex) {
         tscVersion = process.argv[tscVersionIndex + 1];
     }
-
-    console.log('--');
-    console.log('   dtPath %s', dtPath);
-    console.log('   tscVersion %s', tscVersion);
-    console.log('   findNotRequiredTscparams %s', findNotRequiredTscparams);
-    console.log('--');
-    console.log('');
 
     var runner = new TestRunner(dtPath, {
         tscVersion: tscVersion,

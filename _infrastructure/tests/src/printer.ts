@@ -11,7 +11,18 @@ module DT {
 
 		WIDTH = 77;
 
-		constructor(public version: string, public typings: number, public tests: number, public tsFiles: number) {
+		typings: number;
+		tests: number;
+		tsFiles: number
+
+		constructor(public version: string){
+
+		}
+
+		public init(typings: number, tests: number, tsFiles: number) {
+			this.typings = typings;
+			this.tests = tests;
+			this.tsFiles = tsFiles;
 		}
 
 		public out(s: any): Print {
@@ -23,9 +34,15 @@ module DT {
 			return new Array(times + 1).join(s);
 		}
 
+		public printChangeHeader() {
+			this.out('=============================================================================\n');
+			this.out('                   \33[36m\33[1mDefinitelyTyped Diff Detector 0.1.0\33[0m \n');
+			this.out('=============================================================================\n');
+		}
+
 		public printHeader() {
 			this.out('=============================================================================\n');
-			this.out('                    \33[36m\33[1mDefinitelyTyped test runner 0.4.0\33[0m\n');
+			this.out('                    \33[36m\33[1mDefinitelyTyped Test Runner 0.5.0\33[0m\n');
 			this.out('=============================================================================\n');
 			this.out(' \33[36m\33[1mTypescript version:\33[0m ' + this.version + '\n');
 			this.out(' \33[36m\33[1mTypings           :\33[0m ' + this.typings + '\n');
@@ -93,6 +110,22 @@ module DT {
 		public printSuiteErrorCount(errorHeadline: string, current: number, total: number, valuesColor = '\33[31m\33[1m') {
 			this.out(' \33[36m\33[1m').out(errorHeadline).out(this.repeat(' ', 16 - errorHeadline.length));
 			this.out(':\33[0m ' + valuesColor + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
+		}
+
+		public printSubHeader(file: string) {
+			this.out(' \33[36m\33[1m' + file + '\33[0m\n');
+		}
+
+		public printLine(file: string) {
+			this.out(file + '\n');
+		}
+
+		public printElement(file: string) {
+			this.out(' - ' + file + '\n');
+		}
+
+		public printElement2(file: string) {
+			this.out('    - ' + file + '\n');
 		}
 
 		public printTypingsWithoutTestName(file: string) {
