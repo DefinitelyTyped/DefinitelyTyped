@@ -10961,7 +10961,9 @@ declare var ballPosition: THREE.Vector3;
         object.receiveShadow = true;
         scene.add( object );
 
-        object.customDepthMaterial = new THREE.ShaderMaterial( { uniforms: uniforms, vertexShader: vertexShader, fragmentShader: fragmentShader } );
+		// TS bug: https://typescript.codeplex.com/workitem/2036
+        //object.customDepthMaterial = new THREE.ShaderMaterial( { uniforms: uniforms, vertexShader: vertexShader, fragmentShader: fragmentShader } );
+        object.customDepthMaterial = new THREE.ShaderMaterial( { uniforms: <THREE.Uniforms><any>uniforms, vertexShader: vertexShader, fragmentShader: fragmentShader } );
 
         // sphere
 
@@ -13205,7 +13207,9 @@ declare var ballPosition: THREE.Vector3;
                       color:     { type: "c", value: new THREE.Color( 0xffffff ) }
                     };
 
-        var material = new THREE.ShaderMaterial( { uniforms: uniforms, attributes: attributes, vertexShader: vertexShader, fragmentShader: fragmentShader, side: THREE.DoubleSide } );
+		//TS bug: https://typescript.codeplex.com/workitem/2036
+        //var material = new THREE.ShaderMaterial( { uniforms: uniforms, attributes: attributes, vertexShader: vertexShader, fragmentShader: fragmentShader, side: THREE.DoubleSide } );
+        var material = new THREE.ShaderMaterial( { uniforms: <THREE.Uniforms><any>uniforms, attributes: attributes, vertexShader: vertexShader, fragmentShader: fragmentShader, side: THREE.DoubleSide } );
 
         var position2 = attributes.position2.value;
         var colors = attributes.customColor.value;
@@ -16435,19 +16439,19 @@ function render() {
                     new THREE.Vector3(0,0,-100),
                     new THREE.Vector3(0,50,-50),
                     new THREE.Vector3(0,10,0),
-                    new THREE.Vector3(0,50,050),
+                    new THREE.Vector3(0,50,50),
                     new THREE.Vector3(0,0,100) ] ]},
                 { type: 'LatheGeometry', args: [ [
                     new THREE.Vector3(0,0,-100),
                     new THREE.Vector3(0,50,-50),
                     new THREE.Vector3(0,10,0),
-                    new THREE.Vector3(0,50,050),
+                    new THREE.Vector3(0,50,50),
                     new THREE.Vector3(0,100,100) ], 12, 0, Math.PI ] },
                 { type: 'LatheGeometry', args: [ [
                     new THREE.Vector3(0,10,-100),
                     new THREE.Vector3(0,50,-50),
                     new THREE.Vector3(0,10,0),
-                    new THREE.Vector3(0,50,050),
+                    new THREE.Vector3(0,50,50),
                     new THREE.Vector3(0,0,100) ], 12, Math.PI*2/3, Math.PI*3/2 ] },
                 { type: 'TextGeometry', args: ['&', {
                                         size: 200,
@@ -19452,7 +19456,9 @@ function render() {
                 scene.fog.color.copy( uniforms.bottomColor.value );
 
                 var skyGeo = new THREE.SphereGeometry( 4000, 32, 15 );
-                var skyMat = new THREE.ShaderMaterial( { vertexShader: vertexShader, fragmentShader: fragmentShader, uniforms: uniforms, side: THREE.BackSide } );
+                //TS bug: https://typescript.codeplex.com/workitem/2036
+				//var skyMat = new THREE.ShaderMaterial( { vertexShader: vertexShader, fragmentShader: fragmentShader, uniforms: uniforms, side: THREE.BackSide } );
+                var skyMat = new THREE.ShaderMaterial( { vertexShader: vertexShader, fragmentShader: fragmentShader, uniforms: <THREE.Uniforms><any>uniforms, side: THREE.BackSide } );
 
                 var sky = new THREE.Mesh( skyGeo, skyMat );
                 scene.add( sky );

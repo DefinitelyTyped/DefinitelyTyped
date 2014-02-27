@@ -1,4 +1,4 @@
-// Type definitions for EaselJS 0.7.0
+// Type definitions for EaselJS 0.7.1
 // Project: http://www.createjs.com/#!/EaselJS
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>, Chris Smith <https://github.com/evilangelist>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -55,6 +55,8 @@ declare module createjs {
 
         // methods
         clone(): Bitmap;
+        set(props: Object): Bitmap;
+        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): Bitmap;
     }
     
     /**
@@ -73,6 +75,9 @@ declare module createjs {
         spriteSheet: SpriteSheet;
         text: string;
 
+        // methods
+        set(props: Object): BitmapText;
+        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): BitmapText;
     }
     
     export class BlurFilter extends Filter {
@@ -120,12 +125,8 @@ declare module createjs {
         clone(): ColorFilter;
     }
 
-    export class ColorMatrix implements Array<number> {
-        constructor(brightness: number, contrast: number, saturation: number, hue: number);
-        
-        static DELTA_INDEX: number[];
-        static IDENTITY_MATRIX: number[];
-        static LENGTH: number;
+    export class ColorMatrix {
+        constructor(brightness?: number, contrast?: number, saturation?: number, hue?: number);
 
         // methods
         adjustBrightness(value: number): ColorMatrix;
@@ -135,40 +136,17 @@ declare module createjs {
         adjustSaturation(value: number): ColorMatrix;
         clone(): ColorMatrix;
         concat(...matrix: number[]): ColorMatrix;
-        copyMatrix(...matrix: ColorMatrix[]): ColorMatrix;
+        concat(matrix: ColorMatrix): ColorMatrix;
+        copyMatrix(...matrix: number[]): ColorMatrix;
+        copyMatrix(matrix: ColorMatrix): ColorMatrix;
         reset(): ColorMatrix;
         toArray(): number[];
-        
-        // implements Array interface start
-        concat<ColorMatrix extends number[]>(...items: ColorMatrix[]): number[];
-        join(separator?: string): string;
-        pop(): number;
-        push(...items: number[]): number;
-        reverse(): number[];
-        shift(): number;
-        slice(start: number, end?: number): number[];
-        sort(compareFn?: (a: number, b: number) => number): number[];
-        splice(start: number): number[];
-        unshift(...items: number[]): number;
-        indexOf(searchElement: number, fromIndex?: number): number;
-
-        lastIndexOf(searchElement: number, fromIndex?: number): number;
-        every(callbackfn: (value: number, index: number, array: number[]) => boolean, thisArg?: any): boolean;
-        some(callbackfn: (value: number, index: number, array: number[]) => boolean, thisArg?: any): boolean;
-        forEach(callbackfn: (value: number, index: number, array: number[]) => void, thisArg?: any): void;
-        map<ColorMatrix>(callbackfn: (value: number, index: number, array: number[]) => ColorMatrix, thisArg?: any): ColorMatrix[];
-
-        filter(callbackfn: (value: number, index: number, array: number[]) => boolean, thisArg?: any): number[];
-        reduce(callbackfn: (previousValue: number, currentValue: number, currentIndex: number, array: number[]) => number, initialValue?: number): number;
-        reduce<ColorMatrix>(callbackfn: (previousValue: ColorMatrix, currentValue: number, currentIndex: number, array: number[]) => ColorMatrix, initialValue: ColorMatrix): ColorMatrix;
-        reduceRight(callbackfn: (previousValue: number, currentValue: number, currentIndex: number, array: number[]) => number, initialValue?: number): number;
-        reduceRight<U>(callbackfn: (previousValue: ColorMatrix, currentValue: number, currentIndex: number, array: number[]) => ColorMatrix, initialValue: ColorMatrix): ColorMatrix;
-        length: number;
-        // implements Array interface end
+        toString(): string;
     }
     
     export class ColorMatrixFilter extends Filter {
         constructor(matrix: number[]);
+        constructor(matrix: ColorMatrix);
 
         // methods
         clone(): ColorMatrixFilter;
@@ -176,7 +154,7 @@ declare module createjs {
     
     export class Command {
         // methods
-        constructor(f: any, params: any, path: any);
+        constructor(f: any, params: any, path?: any);
         exec(scope: any): void;
     }
     
@@ -186,6 +164,7 @@ declare module createjs {
         // properties
         children: DisplayObject[];
         mouseChildren: boolean;
+        tickChildren: boolean;
 
         // methods
         addChild(...child: DisplayObject[]): DisplayObject;
@@ -202,7 +181,9 @@ declare module createjs {
         removeAllChildren(): void;
         removeChild(...child: DisplayObject[]): boolean;
         removeChildAt(...index: number[]): boolean;
+        set(props: Object): Container;
         setChildIndex(child: DisplayObject, index: number): void;
+        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): Container;
         sortChildren(sortFunction: (a: DisplayObject, b: DisplayObject) => number): void;
         swapChildren(child1: DisplayObject, child2: DisplayObject): void;
         swapChildrenAt(index1: number, index2: number): void;
@@ -213,7 +194,7 @@ declare module createjs {
 
         // properties
         alpha: number;
-        cacheCanvas: HTMLCanvasElement; // HTMLCanvasElement or Object
+        cacheCanvas: any; // HTMLCanvasElement or Object
         cacheID: number;
         compositeOperation: string;
         cursor: string;
@@ -237,6 +218,7 @@ declare module createjs {
          */
         snapToPixel: boolean;
         static suppressCrossDomainErrors: boolean;
+        tickEnabled: boolean;
         visible: boolean;
         x: number;
         y: number;
@@ -273,7 +255,8 @@ declare module createjs {
         
         // methods
         clone(): DisplayObject; // throw error
-        
+        set(props: Object): DOMElement;
+        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): DOMElement;
     }
 
 
@@ -424,6 +407,8 @@ declare module createjs {
         constructor(type: string, bubbles: boolean, cancelable: boolean, stageX: number, stageY: number, nativeEvent: NativeMouseEvent, pointerID: number, primary: boolean, rawX: number, rawY: number);
         
         // properties
+        localX: number;
+        localY: number;
         nativeEvent: NativeMouseEvent;
         pointerID: number;
         primary: boolean;
@@ -431,7 +416,6 @@ declare module createjs {
         rawY: number;
         stageX: number;
         stageY: number;
-        target: DisplayObject;
         
         // methods
         clone(): MouseEvent;
@@ -441,23 +425,27 @@ declare module createjs {
         addEventListener(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): Function;
         addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): Object;
         addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): Object;
-        on(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): Function;
-        on(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): Function;
-        on(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): Object;
-        on(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): Object;
-        removeEventListener(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): void;
-        removeEventListener(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): void;
-        removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): void;
-        removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): void;
+        dispatchEvent(eventObj: Object, target?: Object): boolean;
+        dispatchEvent(eventObj: string, target?: Object): boolean;
+        dispatchEvent(eventObj: Event, target?: Object): boolean;
+        hasEventListener(type: string): boolean;
         off(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): void;
         off(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): void;
         off(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): void;
         off(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): void;
+        off(type: string, listener: Function, useCapture?: boolean): void; // It is necessary for "arguments.callee"
+        on(type: string, listener: (eventObj: Object) => boolean, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Function;
+        on(type: string, listener: (eventObj: Object) => void, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Function;
+        on(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Object;
+        on(type: string, listener: { handleEvent: (eventObj: Object) => void; }, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Object;
         removeAllEventListeners(type?: string): void;
-        dispatchEvent(eventObj: string, target?: Object): boolean;
-        dispatchEvent(eventObj: Object, target?: Object): boolean;
-        dispatchEvent(eventObj: Event, target?: Object): boolean;
-        hasEventListener(type: string): boolean;
+        removeEventListener(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): void;
+        removeEventListener(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): void;
+        removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): void;
+        removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): void;
+        removeEventListener(type: string, listener: Function, useCapture?: boolean): void; // It is necessary for "arguments.callee"
+        toString(): string;
+        willTrigger(type: string): boolean;
     }
 
 
@@ -554,6 +542,8 @@ declare module createjs {
 
         // methods
         clone(recursive?: boolean): Shape;
+        set(props: Object): Shape;
+        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): Shape;
     }
 
 
@@ -582,6 +572,8 @@ declare module createjs {
         gotoAndStop(frameOrAnimation: string): void;
         gotoAndStop(frameOrAnimation: number): void;
         play(): void;
+        set(props: Object): Sprite;
+        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): Sprite;
         stop(): void;
         
     }
@@ -618,6 +610,8 @@ declare module createjs {
 
 
     export class SpriteSheetBuilder extends EventDispatcher {
+        constructor();
+
         // properties
         maxHeight: number;
         maxWidth: number;
@@ -633,9 +627,9 @@ declare module createjs {
         addMovieClip(source: MovieClip, sourceRect?: Rectangle, scale?: number): void;
         build(): SpriteSheet;
         buildAsync(timeSlice?: number): void;
-        clone(): DisplayObject; // throw error
+        clone(): void; // throw error
         stopAsync(): void;
-        toString(): string;
+
 
     }
 
@@ -659,7 +653,8 @@ declare module createjs {
 
         // properties
         autoClear: boolean;
-        canvas: HTMLCanvasElement;
+        canvas: any; // HTMLCanvasElement or Object
+        handleEvent: Function;
         mouseInBounds: boolean;
         mouseMoveOutside: boolean;
         mouseX: number;
@@ -676,7 +671,6 @@ declare module createjs {
         clone(): Stage;
         enableDOMEvents(enable?: boolean): void;
         enableMouseOver(frequency?: number): void;
-        handleEvent(evt: Object): void;
         toDataURL(backgroundColor: string, mimeType: string): string;
         update(...arg: any[]): void;
         
@@ -702,6 +696,8 @@ declare module createjs {
         getMeasuredHeight(): number;
         getMeasuredLineHeight(): number;
         getMeasuredWidth(): number;
+        set(props: Object): Text;
+        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): Text;
     }
 
     export class Ticker {
@@ -730,7 +726,6 @@ declare module createjs {
         static setFPS(value: number): void;
         static setInterval(interval: number): void;
         static setPaused(value: boolean): void;
-        static toString(): string;
 
         // EventDispatcher mixins
         static addEventListener(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): Function;
@@ -745,16 +740,19 @@ declare module createjs {
         static off(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): void;
         static off(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): void;
         static off(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): void;
-        static on(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): Function;
-        static on(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): Function;
-        static on(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): Object;
-        static on(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): Object;
+        static off(type: string, listener: Function, useCapture?: boolean): void; // It is necessary for "arguments.callee"
+        static on(type: string, listener: (eventObj: Object) => boolean, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Function;
+        static on(type: string, listener: (eventObj: Object) => void, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Function;
+        static on(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Object;
+        static on(type: string, listener: { handleEvent: (eventObj: Object) => void; }, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Object;
         static removeAllEventListeners(type?: string): void;
         static removeEventListener(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): void;
         static removeEventListener(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): void;
         static removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): void;
         static removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): void;
-
+        static removeEventListener(type: string, listener: Function, useCapture?: boolean): void; // It is necessary for "arguments.callee"
+        static toString(): string;
+        static willTrigger(type: string): boolean;
     }
 
     export class TickerEvent {

@@ -63,9 +63,9 @@ YUI.add('algo-rabbit-legacy-test', function (Y) {
 
             // Replace random method with one that returns a predictable value
             C.lib.WordArray.random = function (nBytes) {
-                var words = [];
+                var words: number[] = [];
                 for (var i = 0; i < nBytes; i += 4) {
-                    words.push([0x11223344]);
+                    words.push(0x11223344);
                 }
 
                 return C.lib.WordArray.create(words, nBytes);

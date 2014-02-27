@@ -1,9 +1,9 @@
-// Type definitions for Moment.js 2.4.0
+// Type definitions for Moment.js 2.5.0
 // Project: https://github.com/timrwood/moment
 // Definitions by: Michael Lakerveld <https://github.com/Lakerfield>
-// 		2.4.0 Aaron King <https://github.com/kingdango>
+// Definitions by: Aaron King <https://github.com/kingdango> (2.4.0)
+// Definitions by: Hiroki Horiuchi <https://github.com/horiuchi> (2.5.0)
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
-
 
 interface MomentInput {
     years?: number;
@@ -81,6 +81,7 @@ interface Moment {
 
     year(y: number): Moment;
     year(): number;
+    quarter(): number;
     month(M: number): Moment;
     month(M: string): Moment;
     month(): number;
@@ -255,24 +256,28 @@ interface MomentRelativeTime {
 interface MomentStatic {
 
     (): Moment;
-	(dateObject: Object, language?: string, strict?: boolean): Moment;
-    (date: number, language?: string, strict?: boolean): Moment;
-    (date: string, language?: string, strict?: boolean): Moment;
-    (date: string, format: string, language?: string, strict?: boolean): Moment;
-	(date: string, formats: string[], language?: string, strict?: boolean): Moment;
-    (date: Date, language?: string, strict?: boolean): Moment;
-    (date: number[], language?: string, strict?: boolean): Moment;
-    (clone: Moment): Moment;
+    (date: number): Moment;
+    (date: number[]): Moment;
+    (date: string, format?: string, strict?: boolean): Moment;
+    (date: string, format?: string, language?: string, strict?: boolean): Moment;
+    (date: string, formats: string[], strict?: boolean): Moment;
+    (date: string, formats: string[], language?: string, strict?: boolean): Moment;
+    (date: Date): Moment;
+    (date: Moment): Moment;
+    (date: Object): Moment;
+
+    utc(): Moment;
+    utc(date: number): Moment;
+    utc(date: number[]): Moment;
+    utc(date: string, format?: string, strict?: boolean): Moment;
+    utc(date: string, format?: string, language?: string, strict?: boolean): Moment;
+    utc(date: string, formats: string[], strict?: boolean): Moment;
+    utc(date: string, formats: string[], language?: string, strict?: boolean): Moment;
+    utc(date: Date): Moment;
+    utc(date: Moment): Moment;
+    utc(date: Object): Moment;
 
     unix(timestamp: number): Moment;
-
-    utc(): Moment; // current date/time in UTC mode
-    utc(Number: number): Moment; // milliseconds since the Unix Epoch in UTC mode
-    utc(array: number[]): Moment; // parse an array of numbers matching Date.UTC() parameters
-    utc(String: string): Moment; // parse string into UTC mode
-    utc(String1: string, String2: string): Moment; // parse a string and format into UTC mode
-	utc(date: Date): Moment;
-	utc(clone: Moment): Moment;
 
     isMoment(): boolean;
     isMoment(m: any): boolean;
@@ -319,3 +324,7 @@ interface MomentStatic {
 }
 
 declare var moment: MomentStatic;
+
+declare module "moment" {
+    export = moment;
+}

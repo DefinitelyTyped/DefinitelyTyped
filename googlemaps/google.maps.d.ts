@@ -1,3 +1,8 @@
+// Type definitions for Google Geolocation 0.4.8
+// Project: https://developers.google.com/maps/
+// Definitions by: Folia A/S <http://www.folia.dk>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /*
 The MIT License
 
@@ -108,7 +113,8 @@ declare module google.maps {
         scaleControl?: boolean;
         scaleControlOptions?: ScaleControlOptions;
         scrollwheel?: boolean;
-        streetView?: boolean;
+        streetView?: StreetViewPanorama;
+        streetViewControl?: boolean;
         streetViewControlOptions?: StreetViewControlOptions;
         styles?: MapTypeStyle[];
         tilt?: number;
@@ -1242,7 +1248,7 @@ declare module google.maps {
     /***** Geometry Library *****/
     export module geometry {
         export class encoding {
-            static decodePath(encodedPath: string): LatLng;
+            static decodePath(encodedPath: string): LatLng[];
             static encodePath(path: any[]): string;
         }
 

@@ -1,3 +1,8 @@
+// Type definitions for SlickGrid 2.1.0
+// Project: https://github.com/mleibman/SlickGrid
+// Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /*
 SlickGrid-2.1.d.ts may be freely distributed under the MIT license.
 
@@ -470,7 +475,7 @@ declare module Slick {
 		/**
 		* If set to true, whenever this column is resized, the entire table view will rerender.
 		**/
-		rerenderOnReize?: boolean;
+		rerenderOnResize?: boolean;
 
 		/**
 		* If false, column can no longer be resized.
@@ -1320,7 +1325,7 @@ declare module Slick {
 	}
 
 	// todo: merge with existing column definition
-	export interface Column {
+	export interface Column<T extends SlickData> {
 		sortCol?: string;
 		sortAsc?: boolean;
 	}
@@ -1572,11 +1577,11 @@ declare module Slick {
 		}
 
 		export interface RefreshHints {
-			isFilterNarrowing: boolean;
-			isFilterExpanding: boolean;
-			isFilterUnchanged: boolean;
-			ignoreDiffsBefore: boolean;
-			ignoreDiffsAfter: boolean;
+			isFilterNarrowing?: boolean;
+			isFilterExpanding?: boolean;
+			isFilterUnchanged?: boolean;
+			ignoreDiffsBefore?: boolean;
+			ignoreDiffsAfter?: boolean;
 		}
 
 		export interface OnRowCountChangedEventData {

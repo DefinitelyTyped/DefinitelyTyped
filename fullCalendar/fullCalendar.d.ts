@@ -1,5 +1,5 @@
 // Type definitions for FullCalendar 1.6.1
-// Project: http://arshaw.com/fullcalendar/ (http://arshaw.com/fullcalendar/)
+// Project: http://arshaw.com/fullcalendar/
 // Definitions by: Neil Stalker <https://github.com/nestalk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 

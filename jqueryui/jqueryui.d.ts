@@ -157,7 +157,7 @@ declare module JQueryUI {
         setDefaults(defaults: DatepickerOptions): void;
         formatDate(format: string, date: Date, settings?: DatepickerFormatDateOptions): string;
         parseDate(format: string, date: string, settings?: DatepickerFormatDateOptions): Date;
-        iso8601Week(date: Date): void;
+        iso8601Week(date: Date): number;
         noWeekends(): void;
     }
 
@@ -185,6 +185,8 @@ declare module JQueryUI {
         title?: string;
         width?: any; // number or string
         zIndex?: number;
+
+        close?: DialogEvent;
     }
 
     interface DialogUIParams {
@@ -561,9 +563,15 @@ declare module JQueryUI {
         heightStyle?: string;
         hide?: any; // boolean, number, string or object
         show?: any; // boolean, number, string or object
+
+        activate?: TabsEvent;
     }
 
     interface TabsUIParams {
+        newTab: JQuery;
+        oldTab: JQuery;
+        newPanel: JQuery;
+        oldPanel: JQuery;
     }
 
     interface TabsEvent {
@@ -706,7 +714,7 @@ declare module JQueryUI {
         distance?: number;
     }
 
-    interface keyCode {
+    interface KeyCode {
         BACKSPACE: number;
         COMMA: number;
         DELETE: number;
@@ -743,7 +751,7 @@ declare module JQueryUI {
         buttonset: Button;
         datepicker: Datepicker;
         dialog: Dialog;
-        keyCode: keyCode;
+        keyCode: KeyCode;
         menu: Menu;
         progressbar: Progressbar;
         slider: Slider;

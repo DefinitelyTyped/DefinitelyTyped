@@ -1,4 +1,4 @@
-﻿// Type definitions for chai 1.7.2
+// Type definitions for chai 1.7.2
 // Project: http://chaijs.com/
 // Definitions by: Jed Hunsaker <https://github.com/jedhunsaker/>
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
@@ -6,7 +6,7 @@
 
 declare module chai {
 
-    function expect(target: any): Expect;
+    function expect(target: any, message?: string): Expect;
 
     // Provides a way to extend the internals of Chai
     function use(fn: (chai: any, utils: any) => void);

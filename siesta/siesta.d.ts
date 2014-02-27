@@ -1,3 +1,8 @@
+// Type definitions for Siesta
+// Project: http://www.bryntum.com/products/siesta/
+// Definitions by: bquarmby <https://github.com/bquarmby>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 declare module Siesta {
     /**
      * @abstract
@@ -770,7 +775,7 @@ declare module Siesta {
 
             elementFromPoint(x: number, y: number, shallow?: boolean): HTMLElement;
 
-            firesAtLeastNTimes(observable: any, event: string, n: number, desc: string);
+            firesAtLeastNTimes(observable: any, event: string, n: number, desc: string): void;
 
             firesOk(options: any): void;
 

@@ -1,4 +1,9 @@
-/* 
+// Type definitions for jQuery.gridster 0.1.0
+// Project: https://github.com/jbaldwin/gridster
+// Definitions by: Josh Baldwin <https://github.com/jbaldwin>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/*
 gridster-0.1.0.d.ts may be freely distributed under the MIT license.
 
 Copyright (c) 2013 Josh Baldwin https://github.com/jbaldwin/gridster.d.ts
@@ -138,7 +143,7 @@ interface GridsterOptions {
 	/**
 	* Return the data you want for each widget in the serialization.
 	**/
-	serialize_params?: <T>($w: JQuery, wgd: GridsterCoords) => T;
+	serialize_params?: ($w: JQuery, wgd: GridsterCoords) => any;
 
 	/**
 	* An object with all options for Collision class you want to overwrite.  @see GridsterCollision or docs for more info.

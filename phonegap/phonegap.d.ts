@@ -3,10 +3,6 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-interface EventTarget {
-    result: any;
-}
-
 interface GeolocationError {
     code: number;
     message: string;
@@ -54,7 +50,7 @@ interface CameraOptions {
     mediaType?: number;
     correctOrientation?: boolean;
     saveToPhotoAlbum?: boolean;
-    popoverOptions?: number;
+    popoverOptions?: CameraPopoverOptions;
 }
 
 interface CameraPictureSourceTypeObject {
@@ -261,6 +257,7 @@ interface Contacts {
 }
 
 interface Device {
+    available: boolean;
     name: string;
     cordova: string;
     platform: string;

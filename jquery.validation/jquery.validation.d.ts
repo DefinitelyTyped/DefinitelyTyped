@@ -28,12 +28,17 @@ interface ValidationOptions
 	onkeyup?: boolean;
 	onsubmit?: boolean;
 	rules?: Object;
-	showErrors?: (errorMap: Object, errorList: ErrorListItem[]) => void;
+   	showErrors?: (errorMap: ErrorDictionary, errorList: ErrorListItem[]) => void;
 	submitHandler?: (form: HTMLFormElement) => void;
 	success?: any;
 	unhighlight?: (element: HTMLElement, errorClass: string, validClass: string) => void;
 	validClass?: string;
 	wrapper?: string;
+}
+
+interface ErrorDictionary
+{
+	[name: string]: string;
 }
 
 interface ErrorListItem
@@ -59,7 +64,7 @@ interface Validator
 	valid(): boolean;
 	size(): number;
 
-	errorMap: Object;
+   	errorMap: ErrorDictionary;
 	errorList: ErrorListItem[];
 }
 

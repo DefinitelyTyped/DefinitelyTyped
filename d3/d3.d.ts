@@ -1,6 +1,6 @@
 // Type definitions for d3JS
 // Project: http://d3js.org/
-// Definitions by: TypeScript samples
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module D3 {
@@ -88,42 +88,78 @@ declare module D3 {
         * @param arr Array to search
         * @param map Accsessor function
         */
-        min<T, U>(arr: T[], map?: (v: T) => U): U;
+        min<T, U>(arr: T[], map: (v: T) => U): U;
+        /**
+        * Find the minimum value in an array
+        *
+        * @param arr Array to search
+        */
+        min<T>(arr: T[]): T;
         /**
         * Find the maximum value in an array
         *
         * @param arr Array to search
         * @param map Accsessor function
         */
-        max<T, U>(arr: T[], map?: (v: T) => U): U;
+        max<T, U>(arr: T[], map: (v: T) => U): U;
+        /**
+        * Find the maximum value in an array
+        *
+        * @param arr Array to search
+        */
+        max<T>(arr: T[]): T;
         /**
         * Find the minimum and maximum value in an array
         *
         * @param arr Array to search
         * @param map Accsessor function
         */
-        extent<T, U>(arr: T[], map?: (v: T) => U): U[];
+        extent<T, U>(arr: T[], map: (v: T) => U): U[];
+        /**
+        * Find the minimum and maximum value in an array
+        *
+        * @param arr Array to search
+        */
+        extent<T>(arr: T[]): T[];
         /**
         * Compute the sum of an array of numbers
         *
         * @param arr Array to search
         * @param map Accsessor function
         */
-        sum<T>(arr: T[], map?: (v: T) => number): number;
+        sum<T>(arr: T[], map: (v: T) => number): number;
+        /**
+        * Compute the sum of an array of numbers
+        *
+        * @param arr Array to search
+        */
+        sum(arr: number[]): number;
         /**
         * Compute the arithmetic mean of an array of numbers
         *
         * @param arr Array to search
         * @param map Accsessor function
         */
-        mean<T>(arr: T[], map?: (v: T) => number): number;
+        mean<T>(arr: T[], map: (v: T) => number): number;
+        /**
+        * Compute the arithmetic mean of an array of numbers
+        *
+        * @param arr Array to search
+        */
+        mean(arr: number[]): number;
         /**
         * Compute the median of an array of numbers (the 0.5-quantile).
         *
         * @param arr Array to search
         * @param map Accsessor function
         */
-        median<T>(arr: T[], map?: (v: T) => number): number;
+        median<T>(arr: T[], map: (v: T) => number): number;
+        /**
+        * Compute the median of an array of numbers (the 0.5-quantile).
+        *
+        * @param arr Array to search
+        */
+        median(arr: number[]): number;
         /**
         * Compute a quantile for a sorted array of numbers.
         *
@@ -135,7 +171,7 @@ declare module D3 {
         * Locate the insertion point for x in array to maintain sorted order
         *
         * @param arr Array to search
-        * @param x Value to serch for insertion point
+        * @param x Value to search for insertion point
         * @param low Minimum value of array subset
         * @param hihg Maximum value of array subset
         */
@@ -212,7 +248,7 @@ declare module D3 {
         *
         * @param map Array of objects to get the key-value pairs from
         */
-        entries(map: any[]): any[];
+        entries(map: any): any[];
         /**
         * merge multiple arrays into one array
         *
@@ -811,7 +847,7 @@ declare module D3 {
 
     export interface Set{
         has(value: any): boolean;
-        Add(value: any): any;
+        add(value: any): any;
         remove(value: any): boolean;
         values(): Array<any>;
         forEach(func: (value: any) => void ): void;
@@ -2442,6 +2478,7 @@ declare module D3 {
                 (values: any[]): Scale;
                 (): any[];
             };
+            invertExtent(y: any): any[];
             copy(): Scale;
         }
 

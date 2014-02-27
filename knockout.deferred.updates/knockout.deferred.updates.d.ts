@@ -21,7 +21,7 @@ interface KnockoutStatic {
 }
 
 // Observables
-interface KnockoutSubscribableFunctions {
+interface KnockoutSubscribableFunctions<T> {
     deferUpdates: boolean;
 }
 

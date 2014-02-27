@@ -120,7 +120,7 @@ declare module Backbone {
         has(attribute: string): boolean;
         hasChanged(attribute?: string): boolean;
         isNew(): boolean;
-        isValid(): boolean;
+        isValid(options?:any): boolean;
         previous(attribute: string): any;
         previousAttributes(): any[];
         save(attributes?: any, options?: ModelSaveOptions): any;
@@ -175,6 +175,7 @@ declare module Backbone {
         sort(options?: Silenceable): Collection;
         unshift(model: Model, options?: AddOptions): Model;
         where(properies: any): Model[];
+        findWhere(properties: any): Model;
 
         _prepareModel(attrs?: any, options?: any): any;
         _removeReference(model: Model): void;
@@ -337,4 +338,8 @@ declare module Backbone {
     function setDomLibrary(jQueryNew: any): any;
 	
     var $: JQueryStatic;
+}
+
+declare module "backbone" {
+    export = Backbone;
 }

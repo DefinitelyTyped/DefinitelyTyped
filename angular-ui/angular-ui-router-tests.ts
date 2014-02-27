@@ -2,14 +2,30 @@
 
 var myApp = angular.module('testModule');
 
+interface MyAppScope extends ng.IScope {
+	items: string[];
+	things: string[];
+}
 
 myApp.config((
     $stateProvider: ng.ui.IStateProvider,
-    $urlRouterProvider: ng.ui.IUrlRouterProvider) => {
-  //
-  // For any unmatched url, redirect to /state1
-  $urlRouterProvider.otherwise("/state1");
-  //
+    $urlRouterProvider: ng.ui.IUrlRouterProvider,
+    $urlMatcherFactory: ng.ui.IUrlMatcherFactory) => {
+
+  var matcher: ng.ui.IUrlMatcher = $urlMatcherFactory.compile("/foo/:bar?param1");
+  
+  $urlRouterProvider
+      .when('/test', '/list')
+      .when('/test', '/list')
+      .when('/test', '/list')
+      .when(/\/test\d/, '/list')
+      .when(/\/test\d/, ($injector: ng.auto.IInjectorService, $location: ng.ILocationService) => '/list')
+      .when(/\/test\d/,['$injector', '$location', ($injector: ng.auto.IInjectorService, $location: ng.ILocationService) => '/list'])
+      .when(matcher, '/list')
+      .when(matcher, ($injector: ng.auto.IInjectorService, $location: ng.ILocationService) => '/list')
+      .when(matcher, ['$injector', '$location', ($injector: ng.auto.IInjectorService, $location: ng.ILocationService) => '/list'])
+      .otherwise("/state1");
+
   // Now set up the states
   $stateProvider
     .state('state1', {
@@ -19,7 +35,7 @@ myApp.config((
     .state('state1.list', {
       url: "/list",
       templateUrl: "partials/state1.list.html",
-      controller: function($scope) {
+		controller: function ($scope: MyAppScope) {
         $scope.items = ["A", "List", "Of", "Items"];
       }
     })
@@ -30,7 +46,7 @@ myApp.config((
     .state('state2.list', {
       url: "/list",
         templateUrl: "partials/state2.list.html",
-        controller: function($scope) {
+		controller: function ($scope: MyAppScope) {
           $scope.things = ["A", "Set", "Of", "Things"];
         }
       }).state('index', {

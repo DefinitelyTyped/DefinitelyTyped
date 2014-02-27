@@ -1,10 +1,7 @@
-/*
-	highlight.js definition by Niklas Mollenhauer
-	Last Update: 10.09.2013
-	Source Code: https://github.com/isagalaev/highlight.js
-	Project Page: http://softwaremaniacs.org/soft/highlight/en/
-*/
-
+// Type definitions for highlight.js
+// Project: https://github.com/isagalaev/highlight.js
+// Definitions by:  Niklas Mollenhauer <https://github.com/nikeee/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 declare module "highlight.js"
 {
 	module hljs
