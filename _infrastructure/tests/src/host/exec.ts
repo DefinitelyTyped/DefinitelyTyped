@@ -24,30 +24,6 @@ class ExecResult {
     public exitCode: number;
 }
 
-class WindowsScriptHostExec implements IExec {
-    public exec(filename: string, cmdLineArgs: string[], handleResult: (ExecResult) => void): void {
-        var result = new ExecResult();
-        var shell = new ActiveXObject('WScript.Shell');
-        try {
-            var process = shell.Exec(filename + ' ' + cmdLineArgs.join(' '));
-        } catch (e) {
-            result.stderr = e.message;
-            result.exitCode = 1
-            handleResult(result);
-            return;
-        }
-        // Wait for it to finish running
-        while (process.Status != 0) { /* todo: sleep? */
-        }
-
-        result.exitCode = process.ExitCode;
-        if (!process.StdOut.AtEndOfStream) result.stdout = process.StdOut.ReadAll();
-        if (!process.StdErr.AtEndOfStream) result.stderr = process.StdErr.ReadAll();
-
-        handleResult(result);
-    }
-}
-
 class NodeExec implements IExec {
     public exec(filename: string, cmdLineArgs: string[], handleResult: (ExecResult) => void): void {
         var nodeExec = require('child_process').exec;
@@ -66,10 +42,5 @@ class NodeExec implements IExec {
 }
 
 var Exec: IExec = function (): IExec {
-    var global = <any>Function("return this;").call(null);
-    if (typeof global.ActiveXObject !== "undefined") {
-        return new WindowsScriptHostExec();
-    } else {
-        return new NodeExec();
-    }
+    return new NodeExec();
 }();

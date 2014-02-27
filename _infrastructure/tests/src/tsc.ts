@@ -4,6 +4,8 @@
 /// <reference path='host/exec.ts' />
 
 module DT {
+    var fs = require('fs');
+
     export interface TscExecOptions {
         tscVersion?:string;
         useTscParams?:boolean;
@@ -21,16 +23,16 @@ module DT {
                 options.useTscParams = true;
             }
 
-            if (!IO.fileExists(tsfile)) {
+            if (!fs.existsSync(tsfile)) {
                 throw new Error(tsfile + " not exists");
             }
 
             var tscPath = './_infrastructure/tests/typescript/' + options.tscVersion + '/tsc.js';
-            if (!IO.fileExists(tscPath)) {
+            if (!fs.existsSync(tscPath)) {
                 throw new Error(tscPath + ' is not exists');
             }
             var command = 'node ' + tscPath + ' --module commonjs ';
-            if (options.useTscParams && IO.fileExists(tsfile + '.tscparams')) {
+            if (options.useTscParams && fs.existsSync(tsfile + '.tscparams')) {
                 command += '@' + tsfile + '.tscparams';
             } else if (options.checkNoImplicitAny) {
                 command += '--noImplicitAny';

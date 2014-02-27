@@ -2,6 +2,8 @@
 /// <reference path="../file.ts" />
 
 module DT {
+    var fs = require('fs');
+
     /////////////////////////////////
     // Try compile without .tscparams
     // It may indicate that it is compatible with --noImplicitAny maybe...
@@ -25,12 +27,18 @@ module DT {
         }
 
         public filterTargetFiles(files: File[]): File[] {
-            return files.filter(file=> IO.fileExists(file.filePathWithName + '.tscparams'));
+            return files.filter((file) => {
+                return fs.existsSync(file.filePathWithName + '.tscparams');
+            });
         }
 
         public runTest(targetFile: File, callback: (result: TestResult) => void): void {
             this.print.clearCurrentLine().out(targetFile.formatName);
-            new Test(this, targetFile, {tscVersion: this.options.tscVersion, useTscParams: false, checkNoImplicitAny: true}).run(result=> {
+            new Test(this, targetFile, {
+                tscVersion: this.options.tscVersion,
+                useTscParams: false,
+                checkNoImplicitAny: true
+            }).run(result=> {
                 this.testResults.push(result);
                 callback(result);
             });
