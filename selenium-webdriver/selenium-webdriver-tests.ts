@@ -7,7 +7,7 @@ function TestAbstractBuilder() {
     url = builder.getServerUrl();
     var otherBuilder: webdriver.AbstractBuilder = builder.usingServer(url);
     otherBuilder = builder.withCapabilities(webdriver.Capabilities.android());
-    var objCapabilities = {};
+    var objCapabilities: { [index: string]: string; } = {};
     objCapabilities[webdriver.Capability.BROWSER_NAME] = webdriver.Browser.PHANTOM_JS;
     otherBuilder = builder.withCapabilities(objCapabilities);
     var url: string = webdriver.AbstractBuilder.DEFAULT_SERVER_URL;

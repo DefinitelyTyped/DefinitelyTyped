@@ -271,8 +271,11 @@ declare module "http" {
     }
     export interface ServerResponse extends NodeEventEmitter, WritableStream {
         // Extended base methods
-        write(str: string, encoding?: string, fd?: string): boolean;
         write(buffer: NodeBuffer): boolean;
+        write(buffer: NodeBuffer, cb?: Function): boolean;
+        write(str: string, cb?: Function): boolean;
+        write(str: string, encoding?: string, cb?: Function): boolean;
+        write(str: string, encoding?: string, fd?: string): boolean;
 
         writeContinue(): void;
         writeHead(statusCode: number, reasonPhrase?: string, headers?: any): void;
@@ -284,19 +287,34 @@ declare module "http" {
         removeHeader(name: string): void;
         write(chunk: any, encoding?: string): any;
         addTrailers(headers: any): void;
+
+        // Extended base methods
+        end(): void;
+        end(buffer: NodeBuffer, cb?: Function): void;
+        end(str: string, cb?: Function): void;
+        end(str: string, encoding?: string, cb?: Function): void;
         end(data?: any, encoding?: string): void;
     }
     export interface ClientRequest extends NodeEventEmitter, WritableStream {
         // Extended base methods
-        write(str: string, encoding?: string, fd?: string): boolean;
         write(buffer: NodeBuffer): boolean;
+        write(buffer: NodeBuffer, cb?: Function): boolean;
+        write(str: string, cb?: Function): boolean;
+        write(str: string, encoding?: string, cb?: Function): boolean;
+        write(str: string, encoding?: string, fd?: string): boolean;
 
         write(chunk: any, encoding?: string): void;
-        end(data?: any, encoding?: string): void;
         abort(): void;
         setTimeout(timeout: number, callback?: Function): void;
         setNoDelay(noDelay?: Function): void;
         setSocketKeepAlive(enable?: boolean, initialDelay?: number): void;
+
+        // Extended base methods
+        end(): void;
+        end(buffer: NodeBuffer, cb?: Function): void;
+        end(str: string, cb?: Function): void;
+        end(str: string, encoding?: string, cb?: Function): void;
+        end(data?: any, encoding?: string): void;
     }
     export interface ClientResponse extends NodeEventEmitter, ReadableStream {
         statusCode: number;
@@ -653,15 +671,17 @@ declare module "net" {
 
     export interface NodeSocket extends ReadWriteStream {
         // Extended base methods
-        write(str: string, encoding?: string, fd?: string): boolean;
         write(buffer: NodeBuffer): boolean;
+        write(buffer: NodeBuffer, cb?: Function): boolean;
+        write(str: string, cb?: Function): boolean;
+        write(str: string, encoding?: string, cb?: Function): boolean;
+        write(str: string, encoding?: string, fd?: string): boolean;
 
         connect(port: number, host?: string, connectionListener?: Function): void;
         connect(path: string, connectionListener?: Function): void;
         bufferSize: number;
         setEncoding(encoding?: string): void;
         write(data: any, encoding?: string, callback?: Function): void;
-        end(data?: any, encoding?: string): void;
         destroy(): void;
         pause(): void;
         resume(): void;
@@ -673,6 +693,13 @@ declare module "net" {
         remotePort: number;
         bytesRead: number;
         bytesWritten: number;
+
+        // Extended base methods
+        end(): void;
+        end(buffer: NodeBuffer, cb?: Function): void;
+        end(str: string, cb?: Function): void;
+        end(str: string, encoding?: string, cb?: Function): void;
+        end(data?: any, encoding?: string): void;
     }
 
     export var Socket: {
