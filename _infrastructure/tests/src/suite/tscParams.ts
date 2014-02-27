@@ -2,56 +2,58 @@
 /// <reference path="../file.ts" />
 
 module DT {
-    var fs = require('fs');
+	'use-strict';
 
-    /////////////////////////////////
-    // Try compile without .tscparams
-    // It may indicate that it is compatible with --noImplicitAny maybe...
-    /////////////////////////////////
-    export class FindNotRequiredTscparams extends TestSuiteBase {
-        testReporter: ITestReporter;
-        printErrorCount = false;
+	var fs = require('fs');
 
-        constructor(options: ITestRunnerOptions, private print: Print) {
-            super(options, "Find not required .tscparams files", "New arrival!");
+	/////////////////////////////////
+	// Try compile without .tscparams
+	// It may indicate that it is compatible with --noImplicitAny maybe...
+	/////////////////////////////////
+	export class FindNotRequiredTscparams extends TestSuiteBase {
+		testReporter: ITestReporter;
+		printErrorCount = false;
 
-            this.testReporter = {
-                printPositiveCharacter: (index: number, testResult: TestResult) => {
-                    this.print
-                        .clearCurrentLine()
-                        .printTypingsWithoutTestName(testResult.targetFile.formatName);
-                },
-                printNegativeCharacter: (index: number, testResult: TestResult) => {
-                }
-            }
-        }
+		constructor(options: ITestRunnerOptions, private print: Print) {
+			super(options, "Find not required .tscparams files", "New arrival!");
 
-        public filterTargetFiles(files: File[]): File[] {
-            return files.filter((file) => {
-                return fs.existsSync(file.filePathWithName + '.tscparams');
-            });
-        }
+			this.testReporter = {
+				printPositiveCharacter: (index: number, testResult: TestResult) => {
+					this.print
+					.clearCurrentLine()
+					.printTypingsWithoutTestName(testResult.targetFile.formatName);
+				},
+				printNegativeCharacter: (index: number, testResult: TestResult) => {
+				}
+			}
+		}
 
-        public runTest(targetFile: File, callback: (result: TestResult) => void): void {
-            this.print.clearCurrentLine().out(targetFile.formatName);
-            new Test(this, targetFile, {
-                tscVersion: this.options.tscVersion,
-                useTscParams: false,
-                checkNoImplicitAny: true
-            }).run(result=> {
-                this.testResults.push(result);
-                callback(result);
-            });
-        }
+		public filterTargetFiles(files: File[]): File[] {
+			return files.filter((file) => {
+				return fs.existsSync(file.filePathWithName + '.tscparams');
+			});
+		}
 
-        public finish(suiteCallback: (suite: ITestSuite)=>void) {
-            this.print.clearCurrentLine();
-            suiteCallback(this);
-        }
+		public runTest(targetFile: File, callback: (result: TestResult) => void): void {
+			this.print.clearCurrentLine().out(targetFile.formatName);
+			new Test(this, targetFile, {
+				tscVersion: this.options.tscVersion,
+				useTscParams: false,
+				checkNoImplicitAny: true
+			}).run(result=> {
+				this.testResults.push(result);
+				callback(result);
+			});
+		}
 
-        public get ngTests(): TestResult[] {
-            // Do not show ng test results
-            return [];
-        }
-    }
+		public finish(suiteCallback: (suite: ITestSuite)=>void) {
+			this.print.clearCurrentLine();
+			suiteCallback(this);
+		}
+
+		public get ngTests(): TestResult[] {
+			// Do not show ng test results
+			return [];
+		}
+	}
 }

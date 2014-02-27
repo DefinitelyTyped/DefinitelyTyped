@@ -2,20 +2,21 @@
 /// <reference path="../util.ts" />
 
 module DT {
-    /////////////////////////////////
-    // Compile with *-tests.ts
-    /////////////////////////////////
-    export class TestEval extends TestSuiteBase {
+	'use-strict';
+	/////////////////////////////////
+	// Compile with *-tests.ts
+	/////////////////////////////////
+	export class TestEval extends TestSuiteBase {
 
-        constructor(options) {
-            super(options, "Typing tests", "Failed tests");
-        }
+		constructor(options) {
+			super(options, "Typing tests", "Failed tests");
+		}
 
-        public filterTargetFiles(files: File[]): File[] {
-            return files.filter((file) => {
-                return DT.endsWith(file.formatName.toUpperCase(), '-TESTS.TS')
-            });
-        }
-    }
+		public filterTargetFiles(files: File[]): File[] {
+			return files.filter((file) => {
+				return DT.endsWith(file.formatName.toUpperCase(), '-TESTS.TS')
+			});
+		}
+	}
 
 }
