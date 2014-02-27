@@ -1,7 +1,6 @@
-/// <reference path='../../../node/node.d.ts' />
-/// <reference path='../runner.ts' />
-
-/// <reference path='host/exec.ts' />
+/// <reference path="../_ref.d.ts" />
+/// <reference path="../runner.ts" />
+/// <reference path="host/exec.ts" />
 
 module DT {
     var fs = require('fs');

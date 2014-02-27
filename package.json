@@ -1,8 +1,13 @@
 {
-	"private": true,
-	"name": "DefinitelyTyped",
-	"version": "0.0.0",
-	"scripts": {
-		"test": "node ./_infrastructure/tests/runner.js --tsc-version 0.9.7"
-	}
+  "private": true,
+  "name": "DefinitelyTyped",
+  "version": "0.0.0",
+  "scripts": {
+    "test": "node ./_infrastructure/tests/runner.js --tsc-version 0.9.7"
+  },
+  "dependencies": {
+    "git-wrapper": "~0.1.1",
+    "glob": "~3.2.9",
+    "source-map-support": "~0.2.5"
+  }
 }
