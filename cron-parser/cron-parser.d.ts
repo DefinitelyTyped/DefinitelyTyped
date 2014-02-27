@@ -1,7 +1,12 @@
-declare module "cron-parser" {
+declare module "cron-parser"
+{
+    export function parseExpressionSync(expression, options?:Options);
+    export function parseExpression(expression, options:Options, callback:Function);
+    export function parseString(data, callback:Function);
+    export function parseFile(filePath:string, callback:Function);
 
-    export function  parseExpressionSync(expression, options);
-    export function   parseExpression(expression, options, callback:Function);
-    export function  parseString(data, callback:Function);
-    export function   parseFile(filePath:string, callback:Function);
+    interface Options {
+        currentDate?:number;
+        endDate?:number;
+    }
 }
