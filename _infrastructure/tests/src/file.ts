@@ -9,18 +9,25 @@ module DT {
         dir: string;
         file: string;
         ext: string;
+        references: File[] = [];
 
         constructor(public baseDir: string, public filePathWithName: string) {
-            var dirName = path.dirname(this.filePathWithName.substr(this.baseDir.length + 1)).replace('\\', '/');
-            this.dir = dirName.split('/')[0];
-            this.file = path.basename(this.filePathWithName, '.ts');
             this.ext = path.extname(this.filePathWithName);
+            this.file = path.basename(this.filePathWithName, this.ext);
+            this.dir = path.dirname(this.filePathWithName);
         }
 
         // From '/complete/path/to/file' to 'specfolder/specfile.d.ts'
         public get formatName(): string {
-            var dirName = path.dirname(this.filePathWithName.substr(this.baseDir.length + 1)).replace('\\', '/');
-            return this.dir + ((dirName.split('/').length > 1) ? '/-/' : '/') + this.file + this.ext;
+            return path.join(this.dir, this.file + this.ext);
+        }
+
+        public get fullPath(): string {
+            return path.join(this.baseDir, this.dir, this.file + this.ext);
+        }
+
+        toString() {
+            return '[File ' + this.filePathWithName + ']';
         }
     }
 }

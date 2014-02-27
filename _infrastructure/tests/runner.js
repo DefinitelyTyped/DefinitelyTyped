@@ -21,35 +21,6 @@ var ExecResult = (function () {
     return ExecResult;
 })();
 
-var WindowsScriptHostExec = (function () {
-    function WindowsScriptHostExec() {
-    }
-    WindowsScriptHostExec.prototype.exec = function (filename, cmdLineArgs, handleResult) {
-        var result = new ExecResult();
-        var shell = new ActiveXObject('WScript.Shell');
-        try  {
-            var process = shell.Exec(filename + ' ' + cmdLineArgs.join(' '));
-        } catch (e) {
-            result.stderr = e.message;
-            result.exitCode = 1;
-            handleResult(result);
-            return;
-        }
-
-        while (process.Status != 0) {
-        }
-
-        result.exitCode = process.ExitCode;
-        if (!process.StdOut.AtEndOfStream)
-            result.stdout = process.StdOut.ReadAll();
-        if (!process.StdErr.AtEndOfStream)
-            result.stderr = process.StdErr.ReadAll();
-
-        handleResult(result);
-    };
-    return WindowsScriptHostExec;
-})();
-
 var NodeExec = (function () {
     function NodeExec() {
     }
@@ -71,492 +42,8 @@ var NodeExec = (function () {
 })();
 
 var Exec = function () {
-    var global = Function("return this;").call(null);
-    if (typeof global.ActiveXObject !== "undefined") {
-        return new WindowsScriptHostExec();
-    } else {
-        return new NodeExec();
-    }
+    return new NodeExec();
 }();
-//
-// Copyright (c) Microsoft Corporation.  All rights reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//   http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-
-var IOUtils;
-(function (IOUtils) {
-    // Creates the directory including its parent if not already present
-    function createDirectoryStructure(ioHost, dirName) {
-        if (ioHost.directoryExists(dirName)) {
-            return;
-        }
-
-        var parentDirectory = ioHost.dirName(dirName);
-        if (parentDirectory != "") {
-            createDirectoryStructure(ioHost, parentDirectory);
-        }
-        ioHost.createDirectory(dirName);
-    }
-
-    // Creates a file including its directory structure if not already present
-    function createFileAndFolderStructure(ioHost, fileName, useUTF8) {
-        var path = ioHost.resolvePath(fileName);
-        var dirName = ioHost.dirName(path);
-        createDirectoryStructure(ioHost, dirName);
-        return ioHost.createFile(path, useUTF8);
-    }
-    IOUtils.createFileAndFolderStructure = createFileAndFolderStructure;
-
-    function throwIOError(message, error) {
-        var errorMessage = message;
-        if (error && error.message) {
-            errorMessage += (" " + error.message);
-        }
-        throw new Error(errorMessage);
-    }
-    IOUtils.throwIOError = throwIOError;
-})(IOUtils || (IOUtils = {}));
-
-
-
-var IO = (function () {
-    // Create an IO object for use inside WindowsScriptHost hosts
-    // Depends on WSCript and FileSystemObject
-    function getWindowsScriptHostIO() {
-        var fso = new ActiveXObject("Scripting.FileSystemObject");
-        var streamObjectPool = [];
-
-        function getStreamObject() {
-            if (streamObjectPool.length > 0) {
-                return streamObjectPool.pop();
-            } else {
-                return new ActiveXObject("ADODB.Stream");
-            }
-        }
-
-        function releaseStreamObject(obj) {
-            streamObjectPool.push(obj);
-        }
-
-        var args = [];
-        for (var i = 0; i < WScript.Arguments.length; i++) {
-            args[i] = WScript.Arguments.Item(i);
-        }
-
-        return {
-            readFile: function (path) {
-                try  {
-                    var streamObj = getStreamObject();
-                    streamObj.Open();
-                    streamObj.Type = 2; // Text data
-                    streamObj.Charset = 'x-ansi'; // Assume we are reading ansi text
-                    streamObj.LoadFromFile(path);
-                    var bomChar = streamObj.ReadText(2);
-                    streamObj.Position = 0; // Position has to be at 0 before changing the encoding
-                    if ((bomChar.charCodeAt(0) == 0xFE && bomChar.charCodeAt(1) == 0xFF) || (bomChar.charCodeAt(0) == 0xFF && bomChar.charCodeAt(1) == 0xFE)) {
-                        streamObj.Charset = 'unicode';
-                    } else if (bomChar.charCodeAt(0) == 0xEF && bomChar.charCodeAt(1) == 0xBB) {
-                        streamObj.Charset = 'utf-8';
-                    }
-
-                    // Read the whole file
-                    var str = streamObj.ReadText(-1);
-                    streamObj.Close();
-                    releaseStreamObject(streamObj);
-                    return str;
-                } catch (err) {
-                    IOUtils.throwIOError("Error reading file \"" + path + "\".", err);
-                }
-            },
-            writeFile: function (path, contents) {
-                var file = this.createFile(path);
-                file.Write(contents);
-                file.Close();
-            },
-            fileExists: function (path) {
-                return fso.FileExists(path);
-            },
-            resolvePath: function (path) {
-                return fso.GetAbsolutePathName(path);
-            },
-            dirName: function (path) {
-                return fso.GetParentFolderName(path);
-            },
-            findFile: function (rootPath, partialFilePath) {
-                var path = fso.GetAbsolutePathName(rootPath) + "/" + partialFilePath;
-
-                while (true) {
-                    if (fso.FileExists(path)) {
-                        try  {
-                            var content = this.readFile(path);
-                            return { content: content, path: path };
-                        } catch (err) {
-                            //Tools.CompilerDiagnostics.debugPrint("Could not find " + path + ", trying parent");
-                        }
-                    } else {
-                        rootPath = fso.GetParentFolderName(fso.GetAbsolutePathName(rootPath));
-
-                        if (rootPath == "") {
-                            return null;
-                        } else {
-                            path = fso.BuildPath(rootPath, partialFilePath);
-                        }
-                    }
-                }
-            },
-            deleteFile: function (path) {
-                try  {
-                    if (fso.FileExists(path)) {
-                        fso.DeleteFile(path, true); // true: delete read-only files
-                    }
-                } catch (e) {
-                    IOUtils.throwIOError("Couldn't delete file '" + path + "'.", e);
-                }
-            },
-            createFile: function (path, useUTF8) {
-                try  {
-                    var streamObj = getStreamObject();
-                    streamObj.Charset = useUTF8 ? 'utf-8' : 'x-ansi';
-                    streamObj.Open();
-                    return {
-                        Write: function (str) {
-                            streamObj.WriteText(str, 0);
-                        },
-                        WriteLine: function (str) {
-                            streamObj.WriteText(str, 1);
-                        },
-                        Close: function () {
-                            try  {
-                                streamObj.SaveToFile(path, 2);
-                            } catch (saveError) {
-                                IOUtils.throwIOError("Couldn't write to file '" + path + "'.", saveError);
-                            } finally {
-                                if (streamObj.State != 0) {
-                                    streamObj.Close();
-                                }
-                                releaseStreamObject(streamObj);
-                            }
-                        }
-                    };
-                } catch (creationError) {
-                    IOUtils.throwIOError("Couldn't write to file '" + path + "'.", creationError);
-                }
-            },
-            directoryExists: function (path) {
-                return fso.FolderExists(path);
-            },
-            createDirectory: function (path) {
-                try  {
-                    if (!this.directoryExists(path)) {
-                        fso.CreateFolder(path);
-                    }
-                } catch (e) {
-                    IOUtils.throwIOError("Couldn't create directory '" + path + "'.", e);
-                }
-            },
-            dir: function (path, spec, options) {
-                options = options || {};
-                function filesInFolder(folder, root) {
-                    var paths = [];
-                    var fc;
-
-                    if (options.recursive) {
-                        fc = new Enumerator(folder.subfolders);
-
-                        for (; !fc.atEnd(); fc.moveNext()) {
-                            paths = paths.concat(filesInFolder(fc.item(), root + "/" + fc.item().Name));
-                        }
-                    }
-
-                    fc = new Enumerator(folder.files);
-
-                    for (; !fc.atEnd(); fc.moveNext()) {
-                        if (!spec || fc.item().Name.match(spec)) {
-                            paths.push(root + "/" + fc.item().Name);
-                        }
-                    }
-
-                    return paths;
-                }
-
-                var folder = fso.GetFolder(path);
-                var paths = [];
-
-                return filesInFolder(folder, path);
-            },
-            print: function (str) {
-                WScript.StdOut.Write(str);
-            },
-            printLine: function (str) {
-                WScript.Echo(str);
-            },
-            arguments: args,
-            stderr: WScript.StdErr,
-            stdout: WScript.StdOut,
-            watchFile: null,
-            run: function (source, filename) {
-                try  {
-                    eval(source);
-                } catch (e) {
-                    IOUtils.throwIOError("Error while executing file '" + filename + "'.", e);
-                }
-            },
-            getExecutingFilePath: function () {
-                return WScript.ScriptFullName;
-            },
-            quit: function (exitCode) {
-                if (typeof exitCode === "undefined") { exitCode = 0; }
-                try  {
-                    WScript.Quit(exitCode);
-                } catch (e) {
-                }
-            }
-        };
-    }
-    ;
-
-    // Create an IO object for use inside Node.js hosts
-    // Depends on 'fs' and 'path' modules
-    function getNodeIO() {
-        var _fs = require('fs');
-        var _path = require('path');
-        var _module = require('module');
-
-        return {
-            readFile: function (file) {
-                try  {
-                    var buffer = _fs.readFileSync(file);
-                    switch (buffer[0]) {
-                        case 0xFE:
-                            if (buffer[1] == 0xFF) {
-                                // utf16-be. Reading the buffer as big endian is not supported, so convert it to
-                                // Little Endian first
-                                var i = 0;
-                                while ((i + 1) < buffer.length) {
-                                    var temp = buffer[i];
-                                    buffer[i] = buffer[i + 1];
-                                    buffer[i + 1] = temp;
-                                    i += 2;
-                                }
-                                return buffer.toString("ucs2", 2);
-                            }
-                            break;
-                        case 0xFF:
-                            if (buffer[1] == 0xFE) {
-                                // utf16-le
-                                return buffer.toString("ucs2", 2);
-                            }
-                            break;
-                        case 0xEF:
-                            if (buffer[1] == 0xBB) {
-                                // utf-8
-                                return buffer.toString("utf8", 3);
-                            }
-                    }
-
-                    // Default behaviour
-                    return buffer.toString();
-                } catch (e) {
-                    IOUtils.throwIOError("Error reading file \"" + file + "\".", e);
-                }
-            },
-            writeFile: _fs.writeFileSync,
-            deleteFile: function (path) {
-                try  {
-                    _fs.unlinkSync(path);
-                } catch (e) {
-                    IOUtils.throwIOError("Couldn't delete file '" + path + "'.", e);
-                }
-            },
-            fileExists: function (path) {
-                return _fs.existsSync(path);
-            },
-            createFile: function (path, useUTF8) {
-                function mkdirRecursiveSync(path) {
-                    var stats = _fs.statSync(path);
-                    if (stats.isFile()) {
-                        IOUtils.throwIOError("\"" + path + "\" exists but isn't a directory.", null);
-                    } else if (stats.isDirectory()) {
-                        return;
-                    } else {
-                        mkdirRecursiveSync(_path.dirname(path));
-                        _fs.mkdirSync(path, parseInt('0775', 8));
-                    }
-                }
-
-                mkdirRecursiveSync(_path.dirname(path));
-
-                try  {
-                    var fd = _fs.openSync(path, 'w');
-                } catch (e) {
-                    IOUtils.throwIOError("Couldn't write to file '" + path + "'.", e);
-                }
-                return {
-                    Write: function (str) {
-                        _fs.writeSync(fd, str);
-                    },
-                    WriteLine: function (str) {
-                        _fs.writeSync(fd, str + '\r\n');
-                    },
-                    Close: function () {
-                        _fs.closeSync(fd);
-                        fd = null;
-                    }
-                };
-            },
-            dir: function dir(path, spec, options) {
-                options = options || {};
-
-                function filesInFolder(folder, deep) {
-                    var paths = [];
-
-                    var files = _fs.readdirSync(folder);
-                    for (var i = 0; i < files.length; i++) {
-                        var stat = _fs.statSync(folder + "/" + files[i]);
-                        if (options.recursive && stat.isDirectory()) {
-                            if (deep < (options.deep || 100)) {
-                                paths = paths.concat(filesInFolder(folder + "/" + files[i], 1));
-                            }
-                        } else if (stat.isFile() && (!spec || files[i].match(spec))) {
-                            paths.push(folder + "/" + files[i]);
-                        }
-                    }
-
-                    return paths;
-                }
-
-                return filesInFolder(path, 0);
-            },
-            createDirectory: function (path) {
-                try  {
-                    if (!this.directoryExists(path)) {
-                        _fs.mkdirSync(path);
-                    }
-                } catch (e) {
-                    IOUtils.throwIOError("Couldn't create directory '" + path + "'.", e);
-                }
-            },
-            directoryExists: function (path) {
-                return _fs.existsSync(path) && _fs.lstatSync(path).isDirectory();
-            },
-            resolvePath: function (path) {
-                return _path.resolve(path);
-            },
-            dirName: function (path) {
-                return _path.dirname(path);
-            },
-            findFile: function (rootPath, partialFilePath) {
-                var path = rootPath + "/" + partialFilePath;
-
-                while (true) {
-                    if (_fs.existsSync(path)) {
-                        try  {
-                            var content = this.readFile(path);
-                            return { content: content, path: path };
-                        } catch (err) {
-                            //Tools.CompilerDiagnostics.debugPrint(("Could not find " + path) + ", trying parent");
-                        }
-                    } else {
-                        var parentPath = _path.resolve(rootPath, "..");
-
-                        // Node will just continue to repeat the root path, rather than return null
-                        if (rootPath === parentPath) {
-                            return null;
-                        } else {
-                            rootPath = parentPath;
-                            path = _path.resolve(rootPath, partialFilePath);
-                        }
-                    }
-                }
-            },
-            print: function (str) {
-                process.stdout.write(str);
-            },
-            printLine: function (str) {
-                process.stdout.write(str + '\n');
-            },
-            arguments: process.argv.slice(2),
-            stderr: {
-                Write: function (str) {
-                    process.stderr.write(str);
-                },
-                WriteLine: function (str) {
-                    process.stderr.write(str + '\n');
-                },
-                Close: function () {
-                }
-            },
-            stdout: {
-                Write: function (str) {
-                    process.stdout.write(str);
-                },
-                WriteLine: function (str) {
-                    process.stdout.write(str + '\n');
-                },
-                Close: function () {
-                }
-            },
-            watchFile: function (filename, callback) {
-                var firstRun = true;
-                var processingChange = false;
-
-                var fileChanged = function (curr, prev) {
-                    if (!firstRun) {
-                        if (curr.mtime < prev.mtime) {
-                            return;
-                        }
-
-                        _fs.unwatchFile(filename, fileChanged);
-                        if (!processingChange) {
-                            processingChange = true;
-                            callback(filename);
-                            setTimeout(function () {
-                                processingChange = false;
-                            }, 100);
-                        }
-                    }
-                    firstRun = false;
-                    _fs.watchFile(filename, { persistent: true, interval: 500 }, fileChanged);
-                };
-
-                fileChanged();
-                return {
-                    filename: filename,
-                    close: function () {
-                        _fs.unwatchFile(filename, fileChanged);
-                    }
-                };
-            },
-            run: function (source, filename) {
-                require.main.filename = filename;
-                require.main.paths = _module._nodeModulePaths(_path.dirname(_fs.realpathSync(filename)));
-                require.main._compile(source, filename);
-            },
-            getExecutingFilePath: function () {
-                return process.mainModule.filename;
-            },
-            quit: process.exit
-        };
-    }
-    ;
-
-    if (typeof ActiveXObject === "function")
-        return getWindowsScriptHostIO();
-    else if (typeof require === "function")
-        return getNodeIO();
-    else
-        return null;
-})();
 var DT;
 (function (DT) {
     var path = require('path');
@@ -569,20 +56,31 @@ var DT;
         function File(baseDir, filePathWithName) {
             this.baseDir = baseDir;
             this.filePathWithName = filePathWithName;
-            var dirName = path.dirname(this.filePathWithName.substr(this.baseDir.length + 1)).replace('\\', '/');
-            this.dir = dirName.split('/')[0];
-            this.file = path.basename(this.filePathWithName, '.ts');
+            this.references = [];
             this.ext = path.extname(this.filePathWithName);
+            this.file = path.basename(this.filePathWithName, this.ext);
+            this.dir = path.dirname(this.filePathWithName);
         }
         Object.defineProperty(File.prototype, "formatName", {
             // From '/complete/path/to/file' to 'specfolder/specfile.d.ts'
             get: function () {
-                var dirName = path.dirname(this.filePathWithName.substr(this.baseDir.length + 1)).replace('\\', '/');
-                return this.dir + ((dirName.split('/').length > 1) ? '/-/' : '/') + this.file + this.ext;
+                return path.join(this.dir, this.file + this.ext);
             },
             enumerable: true,
             configurable: true
         });
+
+        Object.defineProperty(File.prototype, "fullPath", {
+            get: function () {
+                return path.join(this.baseDir, this.dir, this.file + this.ext);
+            },
+            enumerable: true,
+            configurable: true
+        });
+
+        File.prototype.toString = function () {
+            return '[File ' + this.filePathWithName + ']';
+        };
         return File;
     })();
     DT.File = File;
@@ -592,6 +90,8 @@ var DT;
 /// <reference path='host/exec.ts' />
 var DT;
 (function (DT) {
+    var fs = require('fs');
+
     var Tsc = (function () {
         function Tsc() {
         }
@@ -605,16 +105,16 @@ var DT;
                 options.useTscParams = true;
             }
 
-            if (!IO.fileExists(tsfile)) {
+            if (!fs.existsSync(tsfile)) {
                 throw new Error(tsfile + " not exists");
             }
 
             var tscPath = './_infrastructure/tests/typescript/' + options.tscVersion + '/tsc.js';
-            if (!IO.fileExists(tscPath)) {
+            if (!fs.existsSync(tscPath)) {
                 throw new Error(tscPath + ' is not exists');
             }
             var command = 'node ' + tscPath + ' --module commonjs ';
-            if (options.useTscParams && IO.fileExists(tsfile + '.tscparams')) {
+            if (options.useTscParams && fs.existsSync(tsfile + '.tscparams')) {
                 command += '@' + tsfile + '.tscparams';
             } else if (options.checkNoImplicitAny) {
                 command += '--noImplicitAny';
@@ -654,10 +154,12 @@ var DT;
         };
 
         Timer.prettyDate = function (date1, date2) {
-            var diff = ((date2 - date1) / 1000), day_diff = Math.floor(diff / 86400);
+            var diff = ((date2 - date1) / 1000);
+            var day_diff = Math.floor(diff / 86400);
 
-            if (isNaN(day_diff) || day_diff < 0 || day_diff >= 31)
-                return;
+            if (isNaN(day_diff) || day_diff < 0 || day_diff >= 31) {
+                return null;
+            }
 
             return (day_diff == 0 && (diff < 60 && (diff + " seconds") || diff < 120 && "1 minute" || diff < 3600 && Math.floor(diff / 60) + " minutes" || diff < 7200 && "1 hour" || diff < 86400 && Math.floor(diff / 3600) + " hours") || day_diff == 1 && "Yesterday" || day_diff < 7 && day_diff + " days" || day_diff < 31 && Math.ceil(day_diff / 7) + " weeks");
         };
@@ -667,10 +169,107 @@ var DT;
 })(DT || (DT = {}));
 var DT;
 (function (DT) {
+    var referenceTagExp = /<reference[ \t]*path=["']?([\w\.\/_-]*)["']?[ \t]*\/>/g;
+
     function endsWith(str, suffix) {
         return str.indexOf(suffix, str.length - suffix.length) !== -1;
     }
     DT.endsWith = endsWith;
+
+    function extractReferenceTags(source) {
+        var ret = [];
+        var match;
+
+        if (!referenceTagExp.global) {
+            throw new Error('referenceTagExp RegExp must have global flag');
+        }
+        referenceTagExp.lastIndex = 0;
+
+        while ((match = referenceTagExp.exec(source))) {
+            if (match.length > 0 && match[1].length > 0) {
+                ret.push(match[1]);
+            }
+        }
+        return ret;
+    }
+    DT.extractReferenceTags = extractReferenceTags;
+})(DT || (DT = {}));
+/// <reference path='../../../node/node.d.ts' />
+/// <reference path='../runner.ts' />
+/// <reference path='util.ts' />
+var DT;
+(function (DT) {
+    var fs = require('fs');
+    var path = require('path');
+
+    var ReferenceIndex = (function () {
+        function ReferenceIndex(options) {
+            this.options = options;
+        }
+        ReferenceIndex.prototype.collectReferences = function (files, callback) {
+            var _this = this;
+            this.fileMap = Object.create(null);
+            files.forEach(function (file) {
+                _this.fileMap[file.fullPath] = file;
+            });
+            this.loadReferences(files, function () {
+                callback();
+            });
+        };
+
+        ReferenceIndex.prototype.loadReferences = function (files, callback) {
+            var _this = this;
+            var queue = files.slice(0);
+            var active = [];
+            var max = 50;
+            var next = function () {
+                if (queue.length === 0 && active.length === 0) {
+                    callback();
+                    return;
+                }
+
+                while (queue.length > 0 && active.length < max) {
+                    var file = queue.pop();
+                    active.push(file);
+                    _this.parseFile(file, function (file) {
+                        active.splice(active.indexOf(file), 1);
+                        next();
+                    });
+                }
+            };
+            process.nextTick(next);
+        };
+
+        ReferenceIndex.prototype.parseFile = function (file, callback) {
+            var _this = this;
+            fs.readFile(file.filePathWithName, {
+                encoding: 'utf8',
+                flag: 'r'
+            }, function (err, content) {
+                if (err) {
+                    throw err;
+                }
+
+                // console.log('----');
+                // console.log(file.filePathWithName);
+                file.references = DT.extractReferenceTags(content).map(function (ref) {
+                    return path.resolve(path.dirname(file.fullPath), ref);
+                }).reduce(function (memo, ref) {
+                    if (ref in _this.fileMap) {
+                        memo.push(_this.fileMap[ref]);
+                    } else {
+                        console.log('not mapped? -> ' + ref);
+                    }
+                    return memo;
+                }, []);
+
+                // console.log(file.references);
+                callback(file);
+            });
+        };
+        return ReferenceIndex;
+    })();
+    DT.ReferenceIndex = ReferenceIndex;
 })(DT || (DT = {}));
 /// <reference path='../../../node/node.d.ts' />
 /// <reference path='../runner.ts' />
@@ -951,6 +550,8 @@ var DT;
 /// <reference path="../file.ts" />
 var DT;
 (function (DT) {
+    var fs = require('fs');
+
     /////////////////////////////////
     // Try compile without .tscparams
     // It may indicate that it is compatible with --noImplicitAny maybe...
@@ -973,14 +574,18 @@ var DT;
         }
         FindNotRequiredTscparams.prototype.filterTargetFiles = function (files) {
             return files.filter(function (file) {
-                return IO.fileExists(file.filePathWithName + '.tscparams');
+                return fs.existsSync(file.filePathWithName + '.tscparams');
             });
         };
 
         FindNotRequiredTscparams.prototype.runTest = function (targetFile, callback) {
             var _this = this;
             this.print.clearCurrentLine().out(targetFile.formatName);
-            new DT.Test(this, targetFile, { tscVersion: this.options.tscVersion, useTscParams: false, checkNoImplicitAny: true }).run(function (result) {
+            new DT.Test(this, targetFile, {
+                tscVersion: this.options.tscVersion,
+                useTscParams: false,
+                checkNoImplicitAny: true
+            }).run(function (result) {
                 _this.testResults.push(result);
                 callback(result);
             });
@@ -1005,11 +610,11 @@ var DT;
 })(DT || (DT = {}));
 /// <reference path='../../node/node.d.ts' />
 /// <reference path='src/host/exec.ts' />
-/// <reference path='src/host/io.ts' />
 /// <reference path='src/file.ts' />
 /// <reference path='src/tsc.ts' />
 /// <reference path='src/timer.ts' />
 /// <reference path="src/util.ts" />
+/// <reference path="src/references.ts" />
 /// <reference path='src/printer.ts' />
 /// <reference path='src/reporter/reporter.ts' />
 /// <reference path='src/suite/suite.ts' />
@@ -1018,8 +623,11 @@ var DT;
 /// <reference path='src/suite/tscParams.ts' />
 var DT;
 (function (DT) {
+    require('source-map-support');
+
     var fs = require('fs');
     var path = require('path');
+    var glob = require('glob');
 
     DT.DEFAULT_TSC_VERSION = "0.9.1.1";
 
@@ -1075,16 +683,32 @@ var DT;
             this.suites = [];
             this.options.findNotRequiredTscparams = !!this.options.findNotRequiredTscparams;
 
-            var filesName = IO.dir(dtPath, /.\.ts/g, { recursive: true }).sort();
+            // TOD0 remove this after dev!
+            var testNames = [
+                'async/',
+                'jquery/jquery.d',
+                'angularjs/angular.d',
+                'pixi/'
+            ];
+            if (process.env.TRAVIS) {
+                testNames = null;
+            }
 
+            // should be async
             // only includes .d.ts or -tests.ts or -test.ts or .ts
+            var filesName = glob.sync('**/*.ts', { cwd: dtPath });
             this.files = filesName.filter(function (fileName) {
-                return fileName.indexOf('../_infrastructure') < 0;
+                return fileName.indexOf('_infrastructure') < 0;
             }).filter(function (fileName) {
-                return fileName.indexOf('../node_modules') < 0;
+                return fileName.indexOf('node_modules/') < 0;
             }).filter(function (fileName) {
-                return !DT.endsWith(fileName, ".tscparams");
-            }).map(function (fileName) {
+                // TOD0 remove this after dev!
+                return !testNames || testNames.some(function (pattern) {
+                    return fileName.indexOf(pattern) > -1;
+                });
+            }).filter(function (fileName) {
+                return /^[a-z]/i.test(fileName);
+            }).sort().map(function (fileName) {
                 return new DT.File(dtPath, fileName);
             });
         }
@@ -1097,6 +721,19 @@ var DT;
             this.timer = new DT.Timer();
             this.timer.start();
 
+            var index = new DT.ReferenceIndex(this.options);
+            index.collectReferences(this.files, function () {
+                _this.files.forEach(function (file) {
+                    console.log(file.filePathWithName);
+                    file.references.forEach(function (file) {
+                        console.log('  - %s', file.filePathWithName);
+                    });
+                });
+                _this.runTests();
+            });
+        };
+        TestRunner.prototype.runTests = function () {
+            var _this = this;
             var syntaxChecking = new DT.SyntaxChecking(this.options);
             var testEval = new DT.TestEval(this.options);
             if (!this.options.findNotRequiredTscparams) {
@@ -1213,7 +850,7 @@ var DT;
     })();
     DT.TestRunner = TestRunner;
 
-    var dtPath = __dirname + '/../..';
+    var dtPath = path.resolve(path.dirname((module).filename), '..', '..');
     var findNotRequiredTscparams = process.argv.some(function (arg) {
         return arg == "--try-without-tscparams";
     });
@@ -1222,6 +859,13 @@ var DT;
     if (-1 < tscVersionIndex) {
         tscVersion = process.argv[tscVersionIndex + 1];
     }
+
+    console.log('--');
+    console.log('   dtPath %s', dtPath);
+    console.log('   tscVersion %s', tscVersion);
+    console.log('   findNotRequiredTscparams %s', findNotRequiredTscparams);
+    console.log('--');
+    console.log('');
 
     var runner = new TestRunner(dtPath, {
         tscVersion: tscVersion,

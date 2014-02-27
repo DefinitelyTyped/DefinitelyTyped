@@ -1,12 +1,12 @@
 /// <reference path='../../node/node.d.ts' />
 
 /// <reference path='src/host/exec.ts' />
-/// <reference path='src/host/io.ts' />
 
 /// <reference path='src/file.ts' />
 /// <reference path='src/tsc.ts' />
 /// <reference path='src/timer.ts' />
 /// <reference path="src/util.ts" />
+/// <reference path="src/references.ts" />
 
 /// <reference path='src/printer.ts' />
 /// <reference path='src/reporter/reporter.ts' />
@@ -17,8 +17,11 @@
 /// <reference path='src/suite/tscParams.ts' />
 
 module DT {
+    require('source-map-support');
+
     var fs = require('fs');
     var path = require('path');
+    var glob = require('glob');
 
     export var DEFAULT_TSC_VERSION = "0.9.1.1";
 
@@ -74,18 +77,38 @@ module DT {
         constructor(dtPath: string, public options: ITestRunnerOptions = {tscVersion: DT.DEFAULT_TSC_VERSION}) {
             this.options.findNotRequiredTscparams = !!this.options.findNotRequiredTscparams;
 
-            var filesName = IO.dir(dtPath, /.\.ts/g, { recursive: true }).sort();
+            // TOD0 remove this after dev!
+            var testNames = [
+                'async/',
+                'jquery/jquery.d',
+                'angularjs/angular.d',
+                'pixi/'
+            ];
+            if (process.env.TRAVIS) {
+                testNames = null;
+            }
+
+            // should be async
             // only includes .d.ts or -tests.ts or -test.ts or .ts
+            var filesName = glob.sync('**/*.ts', { cwd: dtPath });
             this.files = filesName
                 .filter((fileName) => {
-                    return fileName.indexOf('../_infrastructure') < 0;
+                    return fileName.indexOf('_infrastructure') < 0;
                 })
                 .filter((fileName) => {
-                    return fileName.indexOf('../node_modules') < 0;
+                    return fileName.indexOf('node_modules/') < 0;
                 })
                 .filter((fileName) => {
-                    return !DT.endsWith(fileName, ".tscparams");
-                }).map((fileName) => {
+                    // TOD0 remove this after dev!
+                    return !testNames || testNames.some((pattern) => {
+                        return fileName.indexOf(pattern) > -1;
+                    });
+                })
+                .filter((fileName) => {
+                    return /^[a-z]/i.test(fileName);
+                })
+                .sort()
+                .map((fileName) => {
                     return new File(dtPath, fileName);
                 });
         }
@@ -97,6 +120,19 @@ module DT {
         public run() {
             this.timer = new Timer();
             this.timer.start();
+
+            var index = new ReferenceIndex(this.options);
+            index.collectReferences(this.files, () => {
+                this.files.forEach((file) => {
+                    console.log(file.filePathWithName);
+                    file.references.forEach((file) => {
+                       console.log('  - %s', file.filePathWithName);
+                    });
+                });
+                this.runTests();
+            });
+        }
+        public runTests() {
 
             var syntaxChecking = new SyntaxChecking(this.options);
             var testEval = new TestEval(this.options);
@@ -221,13 +257,20 @@ module DT {
         }
     }
 
-    var dtPath = __dirname + '/../..';
+    var dtPath = path.resolve(path.dirname((module).filename), '..', '..');
     var findNotRequiredTscparams = process.argv.some(arg => arg == "--try-without-tscparams");
     var tscVersionIndex = process.argv.indexOf("--tsc-version");
     var tscVersion = DEFAULT_TSC_VERSION;
     if (-1 < tscVersionIndex) {
         tscVersion = process.argv[tscVersionIndex + 1];
     }
+
+    console.log('--');
+    console.log('   dtPath %s', dtPath);
+    console.log('   tscVersion %s', tscVersion);
+    console.log('   findNotRequiredTscparams %s', findNotRequiredTscparams);
+    console.log('--');
+    console.log('');
 
     var runner = new TestRunner(dtPath, {
         tscVersion: tscVersion,
