@@ -57,6 +57,8 @@ function test_after() {
     $("p").after($("b"));
 }
 
+
+
 function test_ajax() {
     $.ajax({
         url: "test.html",
