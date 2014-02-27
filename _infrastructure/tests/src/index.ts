@@ -1,13 +1,12 @@
-/// <reference path='../../../node/node.d.ts' />
-/// <reference path='../runner.ts' />
-
-/// <reference path='util.ts' />
+/// <reference path="../_ref.d.ts" />
+/// <reference path="../runner.ts" />
+/// <reference path="util.ts" />
 
 module DT {
     var fs = require('fs');
     var path = require('path');
 
-    export class ReferenceIndex {
+    export class FileIndex {
 
         fileMap: {[path:string]:File};
 
@@ -15,7 +14,7 @@ module DT {
 
         }
 
-        collectReferences(files: File[], callback: () => void): void {
+        parseFiles(files: File[], callback: () => void): void {
             this.fileMap = Object.create(null);
             files.forEach((file) => {
                 this.fileMap[file.fullPath] = file;

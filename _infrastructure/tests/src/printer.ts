@@ -1,5 +1,5 @@
-/// <reference path='../../../node/node.d.ts' />
-/// <reference path='../runner.ts' />
+/// <reference path="../_ref.d.ts" />
+/// <reference path="../runner.ts" />
 
 module DT {
     /////////////////////////////////

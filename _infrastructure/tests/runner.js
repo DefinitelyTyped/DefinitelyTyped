@@ -44,6 +44,7 @@ var NodeExec = (function () {
 var Exec = function () {
     return new NodeExec();
 }();
+/// <reference path="../_ref.d.ts" />
 var DT;
 (function (DT) {
     var path = require('path');
@@ -85,9 +86,9 @@ var DT;
     })();
     DT.File = File;
 })(DT || (DT = {}));
-/// <reference path='../../../node/node.d.ts' />
-/// <reference path='../runner.ts' />
-/// <reference path='host/exec.ts' />
+/// <reference path="../_ref.d.ts" />
+/// <reference path="../runner.ts" />
+/// <reference path="host/exec.ts" />
 var DT;
 (function (DT) {
     var fs = require('fs');
@@ -127,8 +128,8 @@ var DT;
     })();
     DT.Tsc = Tsc;
 })(DT || (DT = {}));
-/// <reference path='../../../node/node.d.ts' />
-/// <reference path='../runner.ts' />
+/// <reference path="../_ref.d.ts" />
+/// <reference path="../runner.ts" />
 var DT;
 (function (DT) {
     /////////////////////////////////
@@ -167,6 +168,7 @@ var DT;
     })();
     DT.Timer = Timer;
 })(DT || (DT = {}));
+/// <reference path="../_ref.d.ts" />
 var DT;
 (function (DT) {
     var referenceTagExp = /<reference[ \t]*path=["']?([\w\.\/_-]*)["']?[ \t]*\/>/g;
@@ -194,19 +196,19 @@ var DT;
     }
     DT.extractReferenceTags = extractReferenceTags;
 })(DT || (DT = {}));
-/// <reference path='../../../node/node.d.ts' />
-/// <reference path='../runner.ts' />
-/// <reference path='util.ts' />
+/// <reference path="../_ref.d.ts" />
+/// <reference path="../runner.ts" />
+/// <reference path="util.ts" />
 var DT;
 (function (DT) {
     var fs = require('fs');
     var path = require('path');
 
-    var ReferenceIndex = (function () {
-        function ReferenceIndex(options) {
+    var FileIndex = (function () {
+        function FileIndex(options) {
             this.options = options;
         }
-        ReferenceIndex.prototype.collectReferences = function (files, callback) {
+        FileIndex.prototype.parseFiles = function (files, callback) {
             var _this = this;
             this.fileMap = Object.create(null);
             files.forEach(function (file) {
@@ -217,7 +219,7 @@ var DT;
             });
         };
 
-        ReferenceIndex.prototype.loadReferences = function (files, callback) {
+        FileIndex.prototype.loadReferences = function (files, callback) {
             var _this = this;
             var queue = files.slice(0);
             var active = [];
@@ -240,7 +242,7 @@ var DT;
             process.nextTick(next);
         };
 
-        ReferenceIndex.prototype.parseFile = function (file, callback) {
+        FileIndex.prototype.parseFile = function (file, callback) {
             var _this = this;
             fs.readFile(file.filePathWithName, {
                 encoding: 'utf8',
@@ -267,12 +269,49 @@ var DT;
                 callback(file);
             });
         };
-        return ReferenceIndex;
+        return FileIndex;
     })();
-    DT.ReferenceIndex = ReferenceIndex;
+    DT.FileIndex = FileIndex;
 })(DT || (DT = {}));
-/// <reference path='../../../node/node.d.ts' />
-/// <reference path='../runner.ts' />
+/// <reference path="../_ref.d.ts" />
+var DT;
+(function (DT) {
+    var fs = require('fs');
+    var path = require('path');
+    var Git = require('git-wrapper');
+
+    var GitChanges = (function () {
+        function GitChanges(baseDir) {
+            this.baseDir = baseDir;
+            this.options = [];
+            var dir = path.join(baseDir, '.git');
+            if (!fs.existsSync(dir)) {
+                throw new Error('cannot locate git-dir: ' + dir);
+            }
+            this.options['git-dir'] = dir;
+        }
+        GitChanges.prototype.getChanges = function (callback) {
+            //git diff --name-only HEAD~1
+            var git = new Git(this.options);
+            var opts = {};
+            var args = ['--name-only HEAD~1'];
+            git.exec('diff', opts, args, function (err, msg) {
+                if (err) {
+                    callback(err, null);
+                    return;
+                }
+                var paths = msg.replace(/^\s+/, '').replace(/\s+$/, '').split(/\r?\n/g);
+
+                // console.log(paths);
+                callback(null, paths);
+            });
+        };
+        return GitChanges;
+    })();
+    DT.GitChanges = GitChanges;
+})(DT || (DT = {}));
+/// <reference path="../_ref.d.ts" />
+/// <reference path="../runner.ts" />
 var DT;
 (function (DT) {
     /////////////////////////////////
@@ -387,6 +426,8 @@ var DT;
     })();
     DT.Print = Print;
 })(DT || (DT = {}));
+/// <reference path="../../_ref.d.ts" />
+/// <reference path="../printer.ts" />
 var DT;
 (function (DT) {
     
@@ -608,27 +649,41 @@ var DT;
     })(DT.TestSuiteBase);
     DT.FindNotRequiredTscparams = FindNotRequiredTscparams;
 })(DT || (DT = {}));
-/// <reference path='../../node/node.d.ts' />
-/// <reference path='src/host/exec.ts' />
-/// <reference path='src/file.ts' />
-/// <reference path='src/tsc.ts' />
-/// <reference path='src/timer.ts' />
+/// <reference path="_ref.d.ts" />
+/// <reference path="src/host/exec.ts" />
+/// <reference path="src/file.ts" />
+/// <reference path="src/tsc.ts" />
+/// <reference path="src/timer.ts" />
 /// <reference path="src/util.ts" />
-/// <reference path="src/references.ts" />
-/// <reference path='src/printer.ts' />
-/// <reference path='src/reporter/reporter.ts' />
-/// <reference path='src/suite/suite.ts' />
-/// <reference path='src/suite/syntax.ts' />
-/// <reference path='src/suite/testEval.ts' />
-/// <reference path='src/suite/tscParams.ts' />
+/// <reference path="src/index.ts" />
+/// <reference path="src/changes.ts" />
+/// <reference path="src/printer.ts" />
+/// <reference path="src/reporter/reporter.ts" />
+/// <reference path="src/suite/suite.ts" />
+/// <reference path="src/suite/syntax.ts" />
+/// <reference path="src/suite/testEval.ts" />
+/// <reference path="src/suite/tscParams.ts" />
 var DT;
 (function (DT) {
-    require('source-map-support');
+    require('source-map-support').install();
 
     var fs = require('fs');
     var path = require('path');
     var glob = require('glob');
 
+    var tsExp = /\.ts$/;
+
+    // TOD0 remove this after dev!
+    var testNames = [
+        'async/',
+        'jquery/jquery.d',
+        'angularjs/angular.d',
+        'pixi/'
+    ];
+
+    /* if (process.env.TRAVIS) {
+    testNames = null;
+    } */
     DT.DEFAULT_TSC_VERSION = "0.9.1.1";
 
     var Test = (function () {
@@ -679,39 +734,36 @@ var DT;
     var TestRunner = (function () {
         function TestRunner(dtPath, options) {
             if (typeof options === "undefined") { options = { tscVersion: DT.DEFAULT_TSC_VERSION }; }
+            var _this = this;
+            this.dtPath = dtPath;
             this.options = options;
             this.suites = [];
             this.options.findNotRequiredTscparams = !!this.options.findNotRequiredTscparams;
 
-            // TOD0 remove this after dev!
-            var testNames = [
-                'async/',
-                'jquery/jquery.d',
-                'angularjs/angular.d',
-                'pixi/'
-            ];
-            if (process.env.TRAVIS) {
-                testNames = null;
-            }
+            this.index = new DT.FileIndex(this.options);
 
             // should be async
             // only includes .d.ts or -tests.ts or -test.ts or .ts
             var filesName = glob.sync('**/*.ts', { cwd: dtPath });
             this.files = filesName.filter(function (fileName) {
-                return fileName.indexOf('_infrastructure') < 0;
-            }).filter(function (fileName) {
-                return fileName.indexOf('node_modules/') < 0;
-            }).filter(function (fileName) {
-                // TOD0 remove this after dev!
-                return !testNames || testNames.some(function (pattern) {
-                    return fileName.indexOf(pattern) > -1;
-                });
-            }).filter(function (fileName) {
-                return /^[a-z]/i.test(fileName);
+                return _this.checkAcceptFile(fileName);
             }).sort().map(function (fileName) {
                 return new DT.File(dtPath, fileName);
             });
         }
+        TestRunner.prototype.checkAcceptFile = function (fileName) {
+            var ok = tsExp.test(fileName);
+            ok = ok && fileName.indexOf('_infrastructure') < 0;
+            ok = ok && fileName.indexOf('node_modules/') < 0;
+            ok = ok && /^[a-z]/i.test(fileName);
+
+            //TODO remove this dev code
+            ok = ok && (!testNames || testNames.some(function (pattern) {
+                return fileName.indexOf(pattern) > -1;
+            }));
+            return ok;
+        };
+
         TestRunner.prototype.addSuite = function (suite) {
             this.suites.push(suite);
         };
@@ -721,17 +773,38 @@ var DT;
             this.timer = new DT.Timer();
             this.timer.start();
 
-            var index = new DT.ReferenceIndex(this.options);
-            index.collectReferences(this.files, function () {
+            this.index.parseFiles(this.files, function () {
+                console.log('files:');
+                console.log('---');
                 _this.files.forEach(function (file) {
                     console.log(file.filePathWithName);
                     file.references.forEach(function (file) {
                         console.log('  - %s', file.filePathWithName);
                     });
                 });
+                console.log('---');
+                _this.getChanges();
+            });
+        };
+
+        TestRunner.prototype.getChanges = function () {
+            var _this = this;
+            var changes = new DT.GitChanges(this.dtPath);
+            changes.getChanges(function (err, changes) {
+                if (err) {
+                    throw err;
+                }
+                console.log('changes:');
+                console.log('---');
+                changes.forEach(function (file) {
+                    console.log(file);
+                });
+                console.log('---');
+
                 _this.runTests();
             });
         };
+
         TestRunner.prototype.runTests = function () {
             var _this = this;
             var syntaxChecking = new DT.SyntaxChecking(this.options);
