@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
+
 var ExecResult = (function () {
     function ExecResult() {
         this.stdout = "";
@@ -69,14 +70,14 @@ var NodeExec = (function () {
     return NodeExec;
 })();
 
-var Exec = (function () {
+var Exec = function () {
     var global = Function("return this;").call(null);
     if (typeof global.ActiveXObject !== "undefined") {
         return new WindowsScriptHostExec();
     } else {
         return new NodeExec();
     }
-})();
+}();
 //
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //
@@ -91,6 +92,7 @@ var Exec = (function () {
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
+
 var IOUtils;
 (function (IOUtils) {
     // Creates the directory including its parent if not already present
@@ -125,6 +127,8 @@ var IOUtils;
     IOUtils.throwIOError = throwIOError;
 })(IOUtils || (IOUtils = {}));
 
+
+
 var IO = (function () {
     // Create an IO object for use inside WindowsScriptHost hosts
     // Depends on WSCript and FileSystemObject
@@ -154,11 +158,11 @@ var IO = (function () {
                 try  {
                     var streamObj = getStreamObject();
                     streamObj.Open();
-                    streamObj.Type = 2;
-                    streamObj.Charset = 'x-ansi';
+                    streamObj.Type = 2; // Text data
+                    streamObj.Charset = 'x-ansi'; // Assume we are reading ansi text
                     streamObj.LoadFromFile(path);
                     var bomChar = streamObj.ReadText(2);
-                    streamObj.Position = 0;
+                    streamObj.Position = 0; // Position has to be at 0 before changing the encoding
                     if ((bomChar.charCodeAt(0) == 0xFE && bomChar.charCodeAt(1) == 0xFF) || (bomChar.charCodeAt(0) == 0xFF && bomChar.charCodeAt(1) == 0xFE)) {
                         streamObj.Charset = 'unicode';
                     } else if (bomChar.charCodeAt(0) == 0xEF && bomChar.charCodeAt(1) == 0xBB) {
@@ -213,7 +217,7 @@ var IO = (function () {
             deleteFile: function (path) {
                 try  {
                     if (fso.FileExists(path)) {
-                        fso.DeleteFile(path, true);
+                        fso.DeleteFile(path, true); // true: delete read-only files
                     }
                 } catch (e) {
                     IOUtils.throwIOError("Couldn't delete file '" + path + "'.", e);
@@ -386,7 +390,7 @@ var IO = (function () {
                         return;
                     } else {
                         mkdirRecursiveSync(_path.dirname(path));
-                        _fs.mkdirSync(path, 0775);
+                        _fs.mkdirSync(path, parseInt('0775', 8));
                     }
                 }
 
@@ -465,6 +469,7 @@ var IO = (function () {
                     } else {
                         var parentPath = _path.resolve(rootPath, "..");
 
+                        // Node will just continue to repeat the root path, rather than return null
                         if (rootPath === parentPath) {
                             return null;
                         } else {
@@ -547,622 +552,681 @@ var IO = (function () {
 
     if (typeof ActiveXObject === "function")
         return getWindowsScriptHostIO();
-else if (typeof require === "function")
+    else if (typeof require === "function")
         return getNodeIO();
-else
+    else
         return null;
 })();
+var DT;
+(function (DT) {
+    var path = require('path');
+
+    /////////////////////////////////
+    // Given a document root + ts file pattern this class returns:
+    //         all the TS files OR just tests OR just definition files
+    /////////////////////////////////
+    var File = (function () {
+        function File(baseDir, filePathWithName) {
+            this.baseDir = baseDir;
+            this.filePathWithName = filePathWithName;
+            var dirName = path.dirname(this.filePathWithName.substr(this.baseDir.length + 1)).replace('\\', '/');
+            this.dir = dirName.split('/')[0];
+            this.file = path.basename(this.filePathWithName, '.ts');
+            this.ext = path.extname(this.filePathWithName);
+        }
+        Object.defineProperty(File.prototype, "formatName", {
+            // From '/complete/path/to/file' to 'specfolder/specfile.d.ts'
+            get: function () {
+                var dirName = path.dirname(this.filePathWithName.substr(this.baseDir.length + 1)).replace('\\', '/');
+                return this.dir + ((dirName.split('/').length > 1) ? '/-/' : '/') + this.file + this.ext;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return File;
+    })();
+    DT.File = File;
+})(DT || (DT = {}));
+/// <reference path='../../../node/node.d.ts' />
+/// <reference path='../runner.ts' />
+/// <reference path='host/exec.ts' />
+var DT;
+(function (DT) {
+    var Tsc = (function () {
+        function Tsc() {
+        }
+        Tsc.run = function (tsfile, options, callback) {
+            options = options || {};
+            options.tscVersion = options.tscVersion || DT.DEFAULT_TSC_VERSION;
+            if (typeof options.checkNoImplicitAny === "undefined") {
+                options.checkNoImplicitAny = true;
+            }
+            if (typeof options.useTscParams === "undefined") {
+                options.useTscParams = true;
+            }
+
+            if (!IO.fileExists(tsfile)) {
+                throw new Error(tsfile + " not exists");
+            }
+
+            var tscPath = './_infrastructure/tests/typescript/' + options.tscVersion + '/tsc.js';
+            if (!IO.fileExists(tscPath)) {
+                throw new Error(tscPath + ' is not exists');
+            }
+            var command = 'node ' + tscPath + ' --module commonjs ';
+            if (options.useTscParams && IO.fileExists(tsfile + '.tscparams')) {
+                command += '@' + tsfile + '.tscparams';
+            } else if (options.checkNoImplicitAny) {
+                command += '--noImplicitAny';
+            }
+            Exec.exec(command, [tsfile], function (execResult) {
+                callback(execResult);
+            });
+        };
+        return Tsc;
+    })();
+    DT.Tsc = Tsc;
+})(DT || (DT = {}));
+/// <reference path='../../../node/node.d.ts' />
+/// <reference path='../runner.ts' />
+var DT;
+(function (DT) {
+    /////////////////////////////////
+    // Timer.start starts a timer
+    // Timer.end stops the timer and sets asString to the pretty print value
+    /////////////////////////////////
+    var Timer = (function () {
+        function Timer() {
+            this.time = 0;
+        }
+        Timer.prototype.start = function () {
+            this.time = 0;
+            this.startTime = this.now();
+        };
+
+        Timer.prototype.now = function () {
+            return Date.now();
+        };
+
+        Timer.prototype.end = function () {
+            this.time = (this.now() - this.startTime) / 1000;
+            this.asString = Timer.prettyDate(this.startTime, this.now());
+        };
+
+        Timer.prettyDate = function (date1, date2) {
+            var diff = ((date2 - date1) / 1000), day_diff = Math.floor(diff / 86400);
+
+            if (isNaN(day_diff) || day_diff < 0 || day_diff >= 31)
+                return;
+
+            return (day_diff == 0 && (diff < 60 && (diff + " seconds") || diff < 120 && "1 minute" || diff < 3600 && Math.floor(diff / 60) + " minutes" || diff < 7200 && "1 hour" || diff < 86400 && Math.floor(diff / 3600) + " hours") || day_diff == 1 && "Yesterday" || day_diff < 7 && day_diff + " days" || day_diff < 31 && Math.ceil(day_diff / 7) + " weeks");
+        };
+        return Timer;
+    })();
+    DT.Timer = Timer;
+})(DT || (DT = {}));
+var DT;
+(function (DT) {
+    function endsWith(str, suffix) {
+        return str.indexOf(suffix, str.length - suffix.length) !== -1;
+    }
+    DT.endsWith = endsWith;
+})(DT || (DT = {}));
+/// <reference path='../../../node/node.d.ts' />
+/// <reference path='../runner.ts' />
+var DT;
+(function (DT) {
+    /////////////////////////////////
+    // All the common things that we pring are functions of this class
+    /////////////////////////////////
+    var Print = (function () {
+        function Print(version, typings, tests, tsFiles) {
+            this.version = version;
+            this.typings = typings;
+            this.tests = tests;
+            this.tsFiles = tsFiles;
+            this.WIDTH = 77;
+        }
+        Print.prototype.out = function (s) {
+            process.stdout.write(s);
+            return this;
+        };
+
+        Print.prototype.repeat = function (s, times) {
+            return new Array(times + 1).join(s);
+        };
+
+        Print.prototype.printHeader = function () {
+            this.out('=============================================================================\n');
+            this.out('                    \33[36m\33[1mDefinitelyTyped test runner 0.4.0\33[0m\n');
+            this.out('=============================================================================\n');
+            this.out(' \33[36m\33[1mTypescript version:\33[0m ' + this.version + '\n');
+            this.out(' \33[36m\33[1mTypings           :\33[0m ' + this.typings + '\n');
+            this.out(' \33[36m\33[1mTests             :\33[0m ' + this.tests + '\n');
+            this.out(' \33[36m\33[1mTypeScript files  :\33[0m ' + this.tsFiles + '\n');
+        };
+
+        Print.prototype.printSuiteHeader = function (title) {
+            var left = Math.floor((this.WIDTH - title.length) / 2) - 1;
+            var right = Math.ceil((this.WIDTH - title.length) / 2) - 1;
+            this.out(this.repeat("=", left)).out(" \33[34m\33[1m");
+            this.out(title);
+            this.out("\33[0m ").out(this.repeat("=", right)).printBreak();
+        };
+
+        Print.prototype.printDiv = function () {
+            this.out('-----------------------------------------------------------------------------\n');
+        };
+
+        Print.prototype.printBoldDiv = function () {
+            this.out('=============================================================================\n');
+        };
+
+        Print.prototype.printErrorsHeader = function () {
+            this.out('=============================================================================\n');
+            this.out('                    \33[34m\33[1mErrors in files\33[0m \n');
+            this.out('=============================================================================\n');
+        };
+
+        Print.prototype.printErrorsForFile = function (testResult) {
+            this.out('----------------- For file:' + testResult.targetFile.formatName);
+            this.printBreak().out(testResult.stderr).printBreak();
+        };
+
+        Print.prototype.printBreak = function () {
+            this.out('\n');
+            return this;
+        };
+
+        Print.prototype.clearCurrentLine = function () {
+            this.out("\r\33[K");
+            return this;
+        };
+
+        Print.prototype.printSuccessCount = function (current, total) {
+            this.out(' \33[36m\33[1mSuccessful      :\33[0m \33[32m\33[1m' + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
+        };
+
+        Print.prototype.printFailedCount = function (current, total) {
+            this.out(' \33[36m\33[1mFailure         :\33[0m \33[31m\33[1m' + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
+        };
+
+        Print.prototype.printTypingsWithoutTestsMessage = function () {
+            this.out(' \33[36m\33[1mTyping without tests\33[0m\n');
+        };
+
+        Print.prototype.printTotalMessage = function () {
+            this.out(' \33[36m\33[1mTotal\33[0m\n');
+        };
+
+        Print.prototype.printElapsedTime = function (time, s) {
+            this.out(' \33[36m\33[1mElapsed time    :\33[0m ~' + time + ' (' + s + 's)\n');
+        };
+
+        Print.prototype.printSuiteErrorCount = function (errorHeadline, current, total, valuesColor) {
+            if (typeof valuesColor === "undefined") { valuesColor = '\33[31m\33[1m'; }
+            this.out(' \33[36m\33[1m').out(errorHeadline).out(this.repeat(' ', 16 - errorHeadline.length));
+            this.out(':\33[0m ' + valuesColor + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
+        };
+
+        Print.prototype.printTypingsWithoutTestName = function (file) {
+            this.out(' - \33[33m\33[1m' + file + '\33[0m\n');
+        };
+
+        Print.prototype.printTypingsWithoutTest = function (withoutTestTypings) {
+            var _this = this;
+            if (withoutTestTypings.length > 0) {
+                this.printTypingsWithoutTestsMessage();
+
+                this.printDiv();
+                withoutTestTypings.forEach(function (t) {
+                    _this.printTypingsWithoutTestName(t);
+                });
+            }
+        };
+        return Print;
+    })();
+    DT.Print = Print;
+})(DT || (DT = {}));
+var DT;
+(function (DT) {
+    
+
+    /////////////////////////////////
+    // Default test reporter
+    /////////////////////////////////
+    var DefaultTestReporter = (function () {
+        function DefaultTestReporter(print) {
+            this.print = print;
+        }
+        DefaultTestReporter.prototype.printPositiveCharacter = function (index, testResult) {
+            this.print.out('\33[36m\33[1m' + '.' + '\33[0m');
+
+            this.printBreakIfNeeded(index);
+        };
+
+        DefaultTestReporter.prototype.printNegativeCharacter = function (index, testResult) {
+            this.print.out("x");
+
+            this.printBreakIfNeeded(index);
+        };
+
+        DefaultTestReporter.prototype.printBreakIfNeeded = function (index) {
+            if (index % this.print.WIDTH === 0) {
+                this.print.printBreak();
+            }
+        };
+        return DefaultTestReporter;
+    })();
+    DT.DefaultTestReporter = DefaultTestReporter;
+})(DT || (DT = {}));
+/// <reference path="../../runner.ts" />
+var DT;
+(function (DT) {
+    
+
+    /////////////////////////////////
+    // Base class for test suite
+    /////////////////////////////////
+    var TestSuiteBase = (function () {
+        function TestSuiteBase(options, testSuiteName, errorHeadline) {
+            this.options = options;
+            this.testSuiteName = testSuiteName;
+            this.errorHeadline = errorHeadline;
+            this.timer = new DT.Timer();
+            this.testResults = [];
+            this.printErrorCount = true;
+        }
+        TestSuiteBase.prototype.filterTargetFiles = function (files) {
+            throw new Error("please implement this method");
+        };
+
+        TestSuiteBase.prototype.start = function (targetFiles, testCallback, suiteCallback) {
+            var _this = this;
+            targetFiles = this.filterTargetFiles(targetFiles);
+            this.timer.start();
+            var count = 0;
+
+            // exec test is async process. serialize.
+            var executor = function () {
+                var targetFile = targetFiles[count];
+                if (targetFile) {
+                    _this.runTest(targetFile, function (result) {
+                        testCallback(result, count + 1);
+                        count++;
+                        executor();
+                    });
+                } else {
+                    _this.timer.end();
+                    _this.finish(suiteCallback);
+                }
+            };
+            executor();
+        };
+
+        TestSuiteBase.prototype.runTest = function (targetFile, callback) {
+            var _this = this;
+            new DT.Test(this, targetFile, { tscVersion: this.options.tscVersion }).run(function (result) {
+                _this.testResults.push(result);
+                callback(result);
+            });
+        };
+
+        TestSuiteBase.prototype.finish = function (suiteCallback) {
+            suiteCallback(this);
+        };
+
+        Object.defineProperty(TestSuiteBase.prototype, "okTests", {
+            get: function () {
+                return this.testResults.filter(function (r) {
+                    return r.success;
+                });
+            },
+            enumerable: true,
+            configurable: true
+        });
+
+        Object.defineProperty(TestSuiteBase.prototype, "ngTests", {
+            get: function () {
+                return this.testResults.filter(function (r) {
+                    return !r.success;
+                });
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return TestSuiteBase;
+    })();
+    DT.TestSuiteBase = TestSuiteBase;
+})(DT || (DT = {}));
+/// <reference path="../../runner.ts" />
+/// <reference path="../util.ts" />
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-var DefinitelyTyped;
-(function (DefinitelyTyped) {
-    /// <reference path='../../node/node.d.ts' />
-    /// <reference path='src/exec.ts' />
-    /// <reference path='src/io.ts' />
-    (function (TestManager) {
-        var path = require('path');
-
-        TestManager.DEFAULT_TSC_VERSION = "0.9.1.1";
-
-        function endsWith(str, suffix) {
-            return str.indexOf(suffix, str.length - suffix.length) !== -1;
+var DT;
+(function (DT) {
+    /////////////////////////////////
+    // .d.ts syntax inspection
+    /////////////////////////////////
+    var SyntaxChecking = (function (_super) {
+        __extends(SyntaxChecking, _super);
+        function SyntaxChecking(options) {
+            _super.call(this, options, "Syntax checking", "Syntax error");
         }
-
-        var Tsc = (function () {
-            function Tsc() {
-            }
-            Tsc.run = function (tsfile, options, callback) {
-                options = options || {};
-                options.tscVersion = options.tscVersion || TestManager.DEFAULT_TSC_VERSION;
-                if (typeof options.checkNoImplicitAny === "undefined") {
-                    options.checkNoImplicitAny = true;
-                }
-                if (typeof options.useTscParams === "undefined") {
-                    options.useTscParams = true;
-                }
-
-                if (!IO.fileExists(tsfile)) {
-                    throw new Error(tsfile + " not exists");
-                }
-
-                var tscPath = './_infrastructure/tests/typescript/' + options.tscVersion + '/tsc.js';
-                if (!IO.fileExists(tscPath)) {
-                    throw new Error(tscPath + ' is not exists');
-                }
-                var command = 'node ' + tscPath + ' --module commonjs ';
-                if (options.useTscParams && IO.fileExists(tsfile + '.tscparams')) {
-                    command += '@' + tsfile + '.tscparams';
-                } else if (options.checkNoImplicitAny) {
-                    command += '--noImplicitAny';
-                }
-                Exec.exec(command, [tsfile], function (execResult) {
-                    callback(execResult);
-                });
-            };
-            return Tsc;
-        })();
-
-        var Test = (function () {
-            function Test(suite, tsfile, options) {
-                this.suite = suite;
-                this.tsfile = tsfile;
-                this.options = options;
-            }
-            Test.prototype.run = function (callback) {
-                var _this = this;
-                Tsc.run(this.tsfile.filePathWithName, this.options, function (execResult) {
-                    var testResult = new TestResult();
-                    testResult.hostedBy = _this.suite;
-                    testResult.targetFile = _this.tsfile;
-                    testResult.options = _this.options;
-
-                    testResult.stdout = execResult.stdout;
-                    testResult.stderr = execResult.stderr;
-                    testResult.exitCode = execResult.exitCode;
-
-                    callback(testResult);
-                });
-            };
-            return Test;
-        })();
-
-        /////////////////////////////////
-        // Timer.start starts a timer
-        // Timer.end stops the timer and sets asString to the pretty print value
-        /////////////////////////////////
-        var Timer = (function () {
-            function Timer() {
-                this.time = 0;
-            }
-            Timer.prototype.start = function () {
-                this.time = 0;
-                this.startTime = this.now();
-            };
-
-            Timer.prototype.now = function () {
-                return Date.now();
-            };
-
-            Timer.prototype.end = function () {
-                this.time = (this.now() - this.startTime) / 1000;
-                this.asString = Timer.prettyDate(this.startTime, this.now());
-            };
-
-            Timer.prettyDate = function (date1, date2) {
-                var diff = ((date2 - date1) / 1000), day_diff = Math.floor(diff / 86400);
-
-                if (isNaN(day_diff) || day_diff < 0 || day_diff >= 31)
-                    return;
-
-                return (day_diff == 0 && (diff < 60 && (diff + " seconds") || diff < 120 && "1 minute" || diff < 3600 && Math.floor(diff / 60) + " minutes" || diff < 7200 && "1 hour" || diff < 86400 && Math.floor(diff / 3600) + " hours") || day_diff == 1 && "Yesterday" || day_diff < 7 && day_diff + " days" || day_diff < 31 && Math.ceil(day_diff / 7) + " weeks");
-            };
-            return Timer;
-        })();
-        TestManager.Timer = Timer;
-
-        /////////////////////////////////
-        // Given a document root + ts file pattern this class returns:
-        //         all the TS files OR just tests OR just definition files
-        /////////////////////////////////
-        var File = (function () {
-            function File(baseDir, filePathWithName) {
-                this.baseDir = baseDir;
-                this.filePathWithName = filePathWithName;
-                var dirName = path.dirname(this.filePathWithName.substr(this.baseDir.length + 1)).replace('\\', '/');
-                this.dir = dirName.split('/')[0];
-                this.file = path.basename(this.filePathWithName, '.ts');
-                this.ext = path.extname(this.filePathWithName);
-            }
-            Object.defineProperty(File.prototype, "formatName", {
-                get: // From '/complete/path/to/file' to 'specfolder/specfile.d.ts'
-                function () {
-                    var dirName = path.dirname(this.filePathWithName.substr(this.baseDir.length + 1)).replace('\\', '/');
-                    return this.dir + ((dirName.split('/').length > 1) ? '/-/' : '/') + this.file + this.ext;
-                },
-                enumerable: true,
-                configurable: true
+        SyntaxChecking.prototype.filterTargetFiles = function (files) {
+            return files.filter(function (file) {
+                return DT.endsWith(file.formatName.toUpperCase(), '.D.TS');
             });
-            return File;
-        })();
-        TestManager.File = File;
-
-        /////////////////////////////////
-        // Test results
-        /////////////////////////////////
-        var TestResult = (function () {
-            function TestResult() {
-            }
-            Object.defineProperty(TestResult.prototype, "success", {
-                get: function () {
-                    return this.exitCode === 0;
-                },
-                enumerable: true,
-                configurable: true
+        };
+        return SyntaxChecking;
+    })(DT.TestSuiteBase);
+    DT.SyntaxChecking = SyntaxChecking;
+})(DT || (DT = {}));
+/// <reference path="../../runner.ts" />
+/// <reference path="../util.ts" />
+var DT;
+(function (DT) {
+    /////////////////////////////////
+    // Compile with *-tests.ts
+    /////////////////////////////////
+    var TestEval = (function (_super) {
+        __extends(TestEval, _super);
+        function TestEval(options) {
+            _super.call(this, options, "Typing tests", "Failed tests");
+        }
+        TestEval.prototype.filterTargetFiles = function (files) {
+            return files.filter(function (file) {
+                return DT.endsWith(file.formatName.toUpperCase(), '-TESTS.TS');
             });
-            return TestResult;
-        })();
-        TestManager.TestResult = TestResult;
+        };
+        return TestEval;
+    })(DT.TestSuiteBase);
+    DT.TestEval = TestEval;
+})(DT || (DT = {}));
+/// <reference path="../../runner.ts" />
+/// <reference path="../file.ts" />
+var DT;
+(function (DT) {
+    /////////////////////////////////
+    // Try compile without .tscparams
+    // It may indicate that it is compatible with --noImplicitAny maybe...
+    /////////////////////////////////
+    var FindNotRequiredTscparams = (function (_super) {
+        __extends(FindNotRequiredTscparams, _super);
+        function FindNotRequiredTscparams(options, print) {
+            var _this = this;
+            _super.call(this, options, "Find not required .tscparams files", "New arrival!");
+            this.print = print;
+            this.printErrorCount = false;
 
-        /////////////////////////////////
-        // Default test reporter
-        /////////////////////////////////
-        var DefaultTestReporter = (function () {
-            function DefaultTestReporter(print) {
-                this.print = print;
-            }
-            DefaultTestReporter.prototype.printPositiveCharacter = function (index, testResult) {
-                this.print.out('\33[36m\33[1m' + '.' + '\33[0m');
-
-                this.printBreakIfNeeded(index);
-            };
-
-            DefaultTestReporter.prototype.printNegativeCharacter = function (index, testResult) {
-                this.print.out("x");
-
-                this.printBreakIfNeeded(index);
-            };
-
-            DefaultTestReporter.prototype.printBreakIfNeeded = function (index) {
-                if (index % this.print.WIDTH === 0) {
-                    this.print.printBreak();
+            this.testReporter = {
+                printPositiveCharacter: function (index, testResult) {
+                    _this.print.clearCurrentLine().printTypingsWithoutTestName(testResult.targetFile.formatName);
+                },
+                printNegativeCharacter: function (index, testResult) {
                 }
             };
-            return DefaultTestReporter;
-        })();
+        }
+        FindNotRequiredTscparams.prototype.filterTargetFiles = function (files) {
+            return files.filter(function (file) {
+                return IO.fileExists(file.filePathWithName + '.tscparams');
+            });
+        };
 
-        /////////////////////////////////
-        // All the common things that we pring are functions of this class
-        /////////////////////////////////
-        var Print = (function () {
-            function Print(version, typings, tests, tsFiles) {
-                this.version = version;
-                this.typings = typings;
-                this.tests = tests;
-                this.tsFiles = tsFiles;
-                this.WIDTH = 77;
+        FindNotRequiredTscparams.prototype.runTest = function (targetFile, callback) {
+            var _this = this;
+            this.print.clearCurrentLine().out(targetFile.formatName);
+            new DT.Test(this, targetFile, { tscVersion: this.options.tscVersion, useTscParams: false, checkNoImplicitAny: true }).run(function (result) {
+                _this.testResults.push(result);
+                callback(result);
+            });
+        };
+
+        FindNotRequiredTscparams.prototype.finish = function (suiteCallback) {
+            this.print.clearCurrentLine();
+            suiteCallback(this);
+        };
+
+        Object.defineProperty(FindNotRequiredTscparams.prototype, "ngTests", {
+            get: function () {
+                // Do not show ng test results
+                return [];
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return FindNotRequiredTscparams;
+    })(DT.TestSuiteBase);
+    DT.FindNotRequiredTscparams = FindNotRequiredTscparams;
+})(DT || (DT = {}));
+/// <reference path='../../node/node.d.ts' />
+/// <reference path='src/host/exec.ts' />
+/// <reference path='src/host/io.ts' />
+/// <reference path='src/file.ts' />
+/// <reference path='src/tsc.ts' />
+/// <reference path='src/timer.ts' />
+/// <reference path="src/util.ts" />
+/// <reference path='src/printer.ts' />
+/// <reference path='src/reporter/reporter.ts' />
+/// <reference path='src/suite/suite.ts' />
+/// <reference path='src/suite/syntax.ts' />
+/// <reference path='src/suite/testEval.ts' />
+/// <reference path='src/suite/tscParams.ts' />
+var DT;
+(function (DT) {
+    var fs = require('fs');
+    var path = require('path');
+
+    DT.DEFAULT_TSC_VERSION = "0.9.1.1";
+
+    var Test = (function () {
+        function Test(suite, tsfile, options) {
+            this.suite = suite;
+            this.tsfile = tsfile;
+            this.options = options;
+        }
+        Test.prototype.run = function (callback) {
+            var _this = this;
+            DT.Tsc.run(this.tsfile.filePathWithName, this.options, function (execResult) {
+                var testResult = new TestResult();
+                testResult.hostedBy = _this.suite;
+                testResult.targetFile = _this.tsfile;
+                testResult.options = _this.options;
+
+                testResult.stdout = execResult.stdout;
+                testResult.stderr = execResult.stderr;
+                testResult.exitCode = execResult.exitCode;
+
+                callback(testResult);
+            });
+        };
+        return Test;
+    })();
+    DT.Test = Test;
+
+    /////////////////////////////////
+    // Test results
+    /////////////////////////////////
+    var TestResult = (function () {
+        function TestResult() {
+        }
+        Object.defineProperty(TestResult.prototype, "success", {
+            get: function () {
+                return this.exitCode === 0;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return TestResult;
+    })();
+    DT.TestResult = TestResult;
+
+    /////////////////////////////////
+    // The main class to kick things off
+    /////////////////////////////////
+    var TestRunner = (function () {
+        function TestRunner(dtPath, options) {
+            if (typeof options === "undefined") { options = { tscVersion: DT.DEFAULT_TSC_VERSION }; }
+            this.options = options;
+            this.suites = [];
+            this.options.findNotRequiredTscparams = !!this.options.findNotRequiredTscparams;
+
+            var filesName = IO.dir(dtPath, /.\.ts/g, { recursive: true }).sort();
+
+            // only includes .d.ts or -tests.ts or -test.ts or .ts
+            this.files = filesName.filter(function (fileName) {
+                return fileName.indexOf('../_infrastructure') < 0;
+            }).filter(function (fileName) {
+                return fileName.indexOf('../node_modules') < 0;
+            }).filter(function (fileName) {
+                return !DT.endsWith(fileName, ".tscparams");
+            }).map(function (fileName) {
+                return new DT.File(dtPath, fileName);
+            });
+        }
+        TestRunner.prototype.addSuite = function (suite) {
+            this.suites.push(suite);
+        };
+
+        TestRunner.prototype.run = function () {
+            var _this = this;
+            this.timer = new DT.Timer();
+            this.timer.start();
+
+            var syntaxChecking = new DT.SyntaxChecking(this.options);
+            var testEval = new DT.TestEval(this.options);
+            if (!this.options.findNotRequiredTscparams) {
+                this.addSuite(syntaxChecking);
+                this.addSuite(testEval);
             }
-            Print.prototype.out = function (s) {
-                process.stdout.write(s);
-                return this;
-            };
 
-            Print.prototype.repeat = function (s, times) {
-                return new Array(times + 1).join(s);
-            };
+            var typings = syntaxChecking.filterTargetFiles(this.files).length;
+            var testFiles = testEval.filterTargetFiles(this.files).length;
+            this.print = new DT.Print(this.options.tscVersion, typings, testFiles, this.files.length);
+            this.print.printHeader();
 
-            Print.prototype.printHeader = function () {
-                this.out('=============================================================================\n');
-                this.out('                    \33[36m\33[1mDefinitelyTyped test runner 0.4.0\33[0m\n');
-                this.out('=============================================================================\n');
-                this.out(' \33[36m\33[1mTypescript version:\33[0m ' + this.version + '\n');
-                this.out(' \33[36m\33[1mTypings           :\33[0m ' + this.typings + '\n');
-                this.out(' \33[36m\33[1mTests             :\33[0m ' + this.tests + '\n');
-                this.out(' \33[36m\33[1mTypeScript files  :\33[0m ' + this.tsFiles + '\n');
-            };
+            if (this.options.findNotRequiredTscparams) {
+                this.addSuite(new DT.FindNotRequiredTscparams(this.options, this.print));
+            }
 
-            Print.prototype.printSuiteHeader = function (title) {
-                var left = Math.floor((this.WIDTH - title.length) / 2) - 1;
-                var right = Math.ceil((this.WIDTH - title.length) / 2) - 1;
-                this.out(this.repeat("=", left)).out(" \33[34m\33[1m");
-                this.out(title);
-                this.out("\33[0m ").out(this.repeat("=", right)).printBreak();
-            };
+            var count = 0;
+            var executor = function () {
+                var suite = _this.suites[count];
+                if (suite) {
+                    suite.testReporter = suite.testReporter || new DT.DefaultTestReporter(_this.print);
 
-            Print.prototype.printDiv = function () {
-                this.out('-----------------------------------------------------------------------------\n');
-            };
-
-            Print.prototype.printBoldDiv = function () {
-                this.out('=============================================================================\n');
-            };
-
-            Print.prototype.printErrorsHeader = function () {
-                this.out('=============================================================================\n');
-                this.out('                    \33[34m\33[1mErrors in files\33[0m \n');
-                this.out('=============================================================================\n');
-            };
-
-            Print.prototype.printErrorsForFile = function (testResult) {
-                this.out('----------------- For file:' + testResult.targetFile.formatName);
-                this.printBreak().out(testResult.stderr).printBreak();
-            };
-
-            Print.prototype.printBreak = function () {
-                this.out('\n');
-                return this;
-            };
-
-            Print.prototype.clearCurrentLine = function () {
-                this.out("\r\33[K");
-                return this;
-            };
-
-            Print.prototype.printSuccessCount = function (current, total) {
-                this.out(' \33[36m\33[1mSuccessful      :\33[0m \33[32m\33[1m' + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
-            };
-
-            Print.prototype.printFailedCount = function (current, total) {
-                this.out(' \33[36m\33[1mFailure         :\33[0m \33[31m\33[1m' + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
-            };
-
-            Print.prototype.printTypingsWithoutTestsMessage = function () {
-                this.out(' \33[36m\33[1mTyping without tests\33[0m\n');
-            };
-
-            Print.prototype.printTotalMessage = function () {
-                this.out(' \33[36m\33[1mTotal\33[0m\n');
-            };
-
-            Print.prototype.printElapsedTime = function (time, s) {
-                this.out(' \33[36m\33[1mElapsed time    :\33[0m ~' + time + ' (' + s + 's)\n');
-            };
-
-            Print.prototype.printSuiteErrorCount = function (errorHeadline, current, total, valuesColor) {
-                if (typeof valuesColor === "undefined") { valuesColor = '\33[31m\33[1m'; }
-                this.out(' \33[36m\33[1m').out(errorHeadline).out(this.repeat(' ', 16 - errorHeadline.length));
-                this.out(':\33[0m ' + valuesColor + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
-            };
-
-            Print.prototype.printTypingsWithoutTestName = function (file) {
-                this.out(' - \33[33m\33[1m' + file + '\33[0m\n');
-            };
-
-            Print.prototype.printTypingsWithoutTest = function (withoutTestTypings) {
-                var _this = this;
-                if (withoutTestTypings.length > 0) {
-                    this.printTypingsWithoutTestsMessage();
-
-                    this.printDiv();
-                    withoutTestTypings.forEach(function (t) {
-                        _this.printTypingsWithoutTestName(t);
+                    _this.print.printSuiteHeader(suite.testSuiteName);
+                    var targetFiles = suite.filterTargetFiles(_this.files);
+                    suite.start(targetFiles, function (testResult, index) {
+                        _this.testCompleteCallback(testResult, index);
+                    }, function (suite) {
+                        _this.suiteCompleteCallback(suite);
+                        count++;
+                        executor();
                     });
-                }
-            };
-            return Print;
-        })();
-
-        /////////////////////////////////
-        // Base class for test suite
-        /////////////////////////////////
-        var TestSuiteBase = (function () {
-            function TestSuiteBase(options, testSuiteName, errorHeadline) {
-                this.options = options;
-                this.testSuiteName = testSuiteName;
-                this.errorHeadline = errorHeadline;
-                this.timer = new Timer();
-                this.testResults = [];
-                this.printErrorCount = true;
-            }
-            TestSuiteBase.prototype.filterTargetFiles = function (files) {
-                throw new Error("please implement this method");
-            };
-
-            TestSuiteBase.prototype.start = function (targetFiles, testCallback, suiteCallback) {
-                var _this = this;
-                targetFiles = this.filterTargetFiles(targetFiles);
-                this.timer.start();
-                var count = 0;
-
-                // exec test is async process. serialize.
-                var executor = function () {
-                    var targetFile = targetFiles[count];
-                    if (targetFile) {
-                        _this.runTest(targetFile, function (result) {
-                            testCallback(result, count + 1);
-                            count++;
-                            executor();
-                        });
-                    } else {
-                        _this.timer.end();
-                        _this.finish(suiteCallback);
-                    }
-                };
-                executor();
-            };
-
-            TestSuiteBase.prototype.runTest = function (targetFile, callback) {
-                var _this = this;
-                new Test(this, targetFile, { tscVersion: this.options.tscVersion }).run(function (result) {
-                    _this.testResults.push(result);
-                    callback(result);
-                });
-            };
-
-            TestSuiteBase.prototype.finish = function (suiteCallback) {
-                suiteCallback(this);
-            };
-
-            Object.defineProperty(TestSuiteBase.prototype, "okTests", {
-                get: function () {
-                    return this.testResults.filter(function (r) {
-                        return r.success;
-                    });
-                },
-                enumerable: true,
-                configurable: true
-            });
-
-            Object.defineProperty(TestSuiteBase.prototype, "ngTests", {
-                get: function () {
-                    return this.testResults.filter(function (r) {
-                        return !r.success;
-                    });
-                },
-                enumerable: true,
-                configurable: true
-            });
-            return TestSuiteBase;
-        })();
-
-        /////////////////////////////////
-        // .d.ts syntax inspection
-        /////////////////////////////////
-        var SyntaxChecking = (function (_super) {
-            __extends(SyntaxChecking, _super);
-            function SyntaxChecking(options) {
-                _super.call(this, options, "Syntax checking", "Syntax error");
-            }
-            SyntaxChecking.prototype.filterTargetFiles = function (files) {
-                return files.filter(function (file) {
-                    return endsWith(file.formatName.toUpperCase(), '.D.TS');
-                });
-            };
-            return SyntaxChecking;
-        })(TestSuiteBase);
-
-        /////////////////////////////////
-        // Compile with *-tests.ts
-        /////////////////////////////////
-        var TestEval = (function (_super) {
-            __extends(TestEval, _super);
-            function TestEval(options) {
-                _super.call(this, options, "Typing tests", "Failed tests");
-            }
-            TestEval.prototype.filterTargetFiles = function (files) {
-                return files.filter(function (file) {
-                    return endsWith(file.formatName.toUpperCase(), '-TESTS.TS');
-                });
-            };
-            return TestEval;
-        })(TestSuiteBase);
-
-        /////////////////////////////////
-        // Try compile without .tscparams
-        // It may indicate that it is compatible with --noImplicitAny maybe...
-        /////////////////////////////////
-        var FindNotRequiredTscparams = (function (_super) {
-            __extends(FindNotRequiredTscparams, _super);
-            function FindNotRequiredTscparams(options, print) {
-                var _this = this;
-                _super.call(this, options, "Find not required .tscparams files", "New arrival!");
-                this.print = print;
-                this.printErrorCount = false;
-
-                this.testReporter = {
-                    printPositiveCharacter: function (index, testResult) {
-                        _this.print.clearCurrentLine().printTypingsWithoutTestName(testResult.targetFile.formatName);
-                    },
-                    printNegativeCharacter: function (index, testResult) {
-                    }
-                };
-            }
-            FindNotRequiredTscparams.prototype.filterTargetFiles = function (files) {
-                return files.filter(function (file) {
-                    return IO.fileExists(file.filePathWithName + '.tscparams');
-                });
-            };
-
-            FindNotRequiredTscparams.prototype.runTest = function (targetFile, callback) {
-                var _this = this;
-                this.print.clearCurrentLine().out(targetFile.formatName);
-                new Test(this, targetFile, { tscVersion: this.options.tscVersion, useTscParams: false, checkNoImplicitAny: true }).run(function (result) {
-                    _this.testResults.push(result);
-                    callback(result);
-                });
-            };
-
-            FindNotRequiredTscparams.prototype.finish = function (suiteCallback) {
-                this.print.clearCurrentLine();
-                suiteCallback(this);
-            };
-
-            Object.defineProperty(FindNotRequiredTscparams.prototype, "ngTests", {
-                get: function () {
-                    // Do not show ng test results
-                    return [];
-                },
-                enumerable: true,
-                configurable: true
-            });
-            return FindNotRequiredTscparams;
-        })(TestSuiteBase);
-
-        /////////////////////////////////
-        // The main class to kick things off
-        /////////////////////////////////
-        var TestRunner = (function () {
-            function TestRunner(dtPath, options) {
-                if (typeof options === "undefined") { options = { tscVersion: TestManager.DEFAULT_TSC_VERSION }; }
-                this.options = options;
-                this.suites = [];
-                this.options.findNotRequiredTscparams = !!this.options.findNotRequiredTscparams;
-
-                var filesName = IO.dir(dtPath, /.\.ts/g, { recursive: true }).sort();
-
-                // only includes .d.ts or -tests.ts or -test.ts or .ts
-                filesName = filesName.filter(function (fileName) {
-                    return fileName.indexOf('../_infrastructure') < 0;
-                }).filter(function (fileName) {
-                    return !endsWith(fileName, ".tscparams");
-                });
-                this.files = filesName.map(function (fileName) {
-                    return new File(dtPath, fileName);
-                });
-            }
-            TestRunner.prototype.addSuite = function (suite) {
-                this.suites.push(suite);
-            };
-
-            TestRunner.prototype.run = function () {
-                var _this = this;
-                this.timer = new Timer();
-                this.timer.start();
-
-                var syntaxChecking = new SyntaxChecking(this.options);
-                var testEval = new TestEval(this.options);
-                if (!this.options.findNotRequiredTscparams) {
-                    this.addSuite(syntaxChecking);
-                    this.addSuite(testEval);
-                }
-
-                var typings = syntaxChecking.filterTargetFiles(this.files).length;
-                var testFiles = testEval.filterTargetFiles(this.files).length;
-                this.print = new Print(this.options.tscVersion, typings, testFiles, this.files.length);
-                this.print.printHeader();
-
-                if (this.options.findNotRequiredTscparams) {
-                    this.addSuite(new FindNotRequiredTscparams(this.options, this.print));
-                }
-
-                var count = 0;
-                var executor = function () {
-                    var suite = _this.suites[count];
-                    if (suite) {
-                        suite.testReporter = suite.testReporter || new DefaultTestReporter(_this.print);
-
-                        _this.print.printSuiteHeader(suite.testSuiteName);
-                        var targetFiles = suite.filterTargetFiles(_this.files);
-                        suite.start(targetFiles, function (testResult, index) {
-                            _this.testCompleteCallback(testResult, index);
-                        }, function (suite) {
-                            _this.suiteCompleteCallback(suite);
-                            count++;
-                            executor();
-                        });
-                    } else {
-                        _this.timer.end();
-                        _this.allTestCompleteCallback();
-                    }
-                };
-                executor();
-            };
-
-            TestRunner.prototype.testCompleteCallback = function (testResult, index) {
-                var reporter = testResult.hostedBy.testReporter;
-                if (testResult.success) {
-                    reporter.printPositiveCharacter(index, testResult);
                 } else {
-                    reporter.printNegativeCharacter(index, testResult);
+                    _this.timer.end();
+                    _this.allTestCompleteCallback();
                 }
             };
+            executor();
+        };
 
-            TestRunner.prototype.suiteCompleteCallback = function (suite) {
-                this.print.printBreak();
+        TestRunner.prototype.testCompleteCallback = function (testResult, index) {
+            var reporter = testResult.hostedBy.testReporter;
+            if (testResult.success) {
+                reporter.printPositiveCharacter(index, testResult);
+            } else {
+                reporter.printNegativeCharacter(index, testResult);
+            }
+        };
 
-                this.print.printDiv();
-                this.print.printElapsedTime(suite.timer.asString, suite.timer.time);
-                this.print.printSuccessCount(suite.okTests.length, suite.testResults.length);
-                this.print.printFailedCount(suite.ngTests.length, suite.testResults.length);
-            };
+        TestRunner.prototype.suiteCompleteCallback = function (suite) {
+            this.print.printBreak();
 
-            TestRunner.prototype.allTestCompleteCallback = function () {
-                var _this = this;
-                var testEval = this.suites.filter(function (suite) {
-                    return suite instanceof TestEval;
-                })[0];
-                if (testEval) {
-                    var existsTestTypings = testEval.testResults.map(function (testResult) {
-                        return testResult.targetFile.dir;
-                    }).reduce(function (a, b) {
-                        return a.indexOf(b) < 0 ? a.concat([b]) : a;
-                    }, []);
-                    var typings = this.files.map(function (file) {
-                        return file.dir;
-                    }).reduce(function (a, b) {
-                        return a.indexOf(b) < 0 ? a.concat([b]) : a;
-                    }, []);
-                    var withoutTestTypings = typings.filter(function (typing) {
-                        return existsTestTypings.indexOf(typing) < 0;
-                    });
-                    this.print.printDiv();
-                    this.print.printTypingsWithoutTest(withoutTestTypings);
-                }
+            this.print.printDiv();
+            this.print.printElapsedTime(suite.timer.asString, suite.timer.time);
+            this.print.printSuccessCount(suite.okTests.length, suite.testResults.length);
+            this.print.printFailedCount(suite.ngTests.length, suite.testResults.length);
+        };
 
-                this.print.printDiv();
-                this.print.printTotalMessage();
-
-                this.print.printDiv();
-                this.print.printElapsedTime(this.timer.asString, this.timer.time);
-                this.suites.filter(function (suite) {
-                    return suite.printErrorCount;
-                }).forEach(function (suite) {
-                    _this.print.printSuiteErrorCount(suite.errorHeadline, suite.ngTests.length, suite.testResults.length);
+        TestRunner.prototype.allTestCompleteCallback = function () {
+            var _this = this;
+            var testEval = this.suites.filter(function (suite) {
+                return suite instanceof DT.TestEval;
+            })[0];
+            if (testEval) {
+                var existsTestTypings = testEval.testResults.map(function (testResult) {
+                    return testResult.targetFile.dir;
+                }).reduce(function (a, b) {
+                    return a.indexOf(b) < 0 ? a.concat([b]) : a;
+                }, []);
+                var typings = this.files.map(function (file) {
+                    return file.dir;
+                }).reduce(function (a, b) {
+                    return a.indexOf(b) < 0 ? a.concat([b]) : a;
+                }, []);
+                var withoutTestTypings = typings.filter(function (typing) {
+                    return existsTestTypings.indexOf(typing) < 0;
                 });
-                if (testEval) {
-                    this.print.printSuiteErrorCount("Without tests", withoutTestTypings.length, typings.length, '\33[33m\33[1m');
-                }
-
                 this.print.printDiv();
-                if (this.suites.some(function (suite) {
+                this.print.printTypingsWithoutTest(withoutTestTypings);
+            }
+
+            this.print.printDiv();
+            this.print.printTotalMessage();
+
+            this.print.printDiv();
+            this.print.printElapsedTime(this.timer.asString, this.timer.time);
+            this.suites.filter(function (suite) {
+                return suite.printErrorCount;
+            }).forEach(function (suite) {
+                _this.print.printSuiteErrorCount(suite.errorHeadline, suite.ngTests.length, suite.testResults.length);
+            });
+            if (testEval) {
+                this.print.printSuiteErrorCount("Without tests", withoutTestTypings.length, typings.length, '\33[33m\33[1m');
+            }
+
+            this.print.printDiv();
+            if (this.suites.some(function (suite) {
+                return suite.ngTests.length !== 0;
+            })) {
+                this.print.printErrorsHeader();
+
+                this.suites.filter(function (suite) {
                     return suite.ngTests.length !== 0;
-                })) {
-                    this.print.printErrorsHeader();
-
-                    this.suites.filter(function (suite) {
-                        return suite.ngTests.length !== 0;
-                    }).forEach(function (suite) {
-                        suite.ngTests.forEach(function (testResult) {
-                            _this.print.printErrorsForFile(testResult);
-                        });
-                        _this.print.printBoldDiv();
+                }).forEach(function (suite) {
+                    suite.ngTests.forEach(function (testResult) {
+                        _this.print.printErrorsForFile(testResult);
                     });
+                    _this.print.printBoldDiv();
+                });
 
-                    process.exit(1);
-                }
-            };
-            return TestRunner;
-        })();
-        TestManager.TestRunner = TestRunner;
-    })(DefinitelyTyped.TestManager || (DefinitelyTyped.TestManager = {}));
-    var TestManager = DefinitelyTyped.TestManager;
-})(DefinitelyTyped || (DefinitelyTyped = {}));
+                process.exit(1);
+            }
+        };
+        return TestRunner;
+    })();
+    DT.TestRunner = TestRunner;
 
-var dtPath = __dirname + '/../..';
-var findNotRequiredTscparams = process.argv.some(function (arg) {
-    return arg == "--try-without-tscparams";
-});
-var tscVersionIndex = process.argv.indexOf("--tsc-version");
-var tscVersion = DefinitelyTyped.TestManager.DEFAULT_TSC_VERSION;
-if (-1 < tscVersionIndex) {
-    tscVersion = process.argv[tscVersionIndex + 1];
-}
+    var dtPath = __dirname + '/../..';
+    var findNotRequiredTscparams = process.argv.some(function (arg) {
+        return arg == "--try-without-tscparams";
+    });
+    var tscVersionIndex = process.argv.indexOf("--tsc-version");
+    var tscVersion = DT.DEFAULT_TSC_VERSION;
+    if (-1 < tscVersionIndex) {
+        tscVersion = process.argv[tscVersionIndex + 1];
+    }
 
-var runner = new DefinitelyTyped.TestManager.TestRunner(dtPath, {
-    tscVersion: tscVersion,
-    findNotRequiredTscparams: findNotRequiredTscparams
-});
-runner.run();
+    var runner = new TestRunner(dtPath, {
+        tscVersion: tscVersion,
+        findNotRequiredTscparams: findNotRequiredTscparams
+    });
+    runner.run();
+})(DT || (DT = {}));
+//# sourceMappingURL=runner.js.map
