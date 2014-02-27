@@ -245,6 +245,7 @@ interface SinonFakeServer {
 	autoRespondAfter: number;
 	fakeHTTPMethods: boolean;
 	getHTTPMethod: (request: SinonFakeXMLHttpRequest) => string;
+	requests: SinonFakeXMLHttpRequest[];
 
 	// Methods
 	respondWith(body: string): void;
