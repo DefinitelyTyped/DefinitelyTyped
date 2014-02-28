@@ -825,12 +825,15 @@ var DT;
 
                 _this.print.printChangeHeader();
 
-                return Promise.all([
-                    _this.doParseFiles(),
-                    _this.doGetChanges()
-                ]);
+                return _this.changes.getChanges().then(function () {
+                    _this.printAllChanges(_this.changes.paths);
+                });
             }).then(function () {
-                return _this.doCollectTargets();
+                return _this.index.parseFiles(_this.files).then(function () {
+                    // this.printFiles(this.files);
+                });
+            }).then(function () {
+                return _this.collectTargets(_this.files, _this.changes.paths);
             }).then(function (files) {
                 return _this.runTests(files);
             }).then(function () {
@@ -840,41 +843,13 @@ var DT;
             });
         };
 
-        TestRunner.prototype.doParseFiles = function () {
-            return this.index.parseFiles(this.files).then(function () {
-                /*
-                this.print.printSubHeader('Files:');
-                this.print.printDiv();
-                this.files.forEach((file) => {
-                this.print.printLine(file.filePathWithName);
-                file.references.forEach((file) => {
-                this.print.printElement(file.filePathWithName);
-                });
-                });
-                this.print.printBreak();*/
-                // chain
-            }).thenReturn();
-        };
-
-        TestRunner.prototype.doGetChanges = function () {
-            var _this = this;
-            return this.changes.getChanges().then(function () {
-                _this.print.printSubHeader('All changes');
-                _this.print.printDiv();
-
-                Lazy(_this.changes.paths).each(function (file) {
-                    _this.print.printLine(file);
-                });
-            }).thenReturn();
-        };
-
-        TestRunner.prototype.doCollectTargets = function () {
+        TestRunner.prototype.collectTargets = function (files, changes) {
             var _this = this;
             return new Promise(function (resolve) {
-                // bake map for lookup
+                // filter changes and bake map for easy lookup
                 var changeMap = Object.create(null);
 
-                Lazy(_this.changes.paths).filter(function (full) {
+                Lazy(changes).filter(function (full) {
                     return _this.checkAcceptFile(full);
                 }).map(function (local) {
                     return path.resolve(_this.dtPath, local);
@@ -889,51 +864,50 @@ var DT;
                     changeMap[full] = file;
                 });
 
-                _this.print.printDiv();
-                _this.print.printSubHeader('Relevant changes');
-                _this.print.printDiv();
+                _this.printRelChanges(changeMap);
 
-                Object.keys(changeMap).sort().forEach(function (src) {
-                    _this.print.printLine(changeMap[src].formatName);
+                // bake reverse reference map (referenced to referrers)
+                var refMap = Object.create(null);
+
+                Lazy(files).each(function (file) {
+                    Lazy(file.references).each(function (ref) {
+                        if (ref.fullPath in refMap) {
+                            refMap[ref.fullPath].push(file);
+                        } else {
+                            refMap[ref.fullPath] = [file];
+                        }
+                    });
                 });
 
-                // terrible loop (whatever)
-                // just add stuff until there is nothing new added
-                // TODO improve it
-                var added;
-                var files = _this.files.slice(0);
-                do {
-                    added = 0;
+                // this.printRefMap(refMap);
+                // map out files linked to changes
+                // - queue holds files touched by a change
+                // - pre-fill with actually changed files
+                // - loop queue, if current not seen:
+                //    - add to result
+                //    - from refMap queue all files referring to current
+                var adding = Object.create(null);
+                var queue = Lazy(changeMap).values().toArray();
 
-                    for (var i = files.length - 1; i >= 0; i--) {
-                        var file = files[i];
-                        if (file.fullPath in changeMap) {
-                            _this.files.splice(i, 1);
-                            continue;
-                        }
-
-                        for (var j = 0, jj = file.references.length; j < jj; j++) {
-                            if (file.references[j].fullPath in changeMap) {
-                                // add us
-                                changeMap[file.fullPath] = file;
-                                added++;
-                                break;
-                            }
+                while (queue.length > 0) {
+                    var next = queue.shift();
+                    var fp = next.fullPath;
+                    if (adding[fp]) {
+                        continue;
+                    }
+                    adding[fp] = next;
+                    if (fp in refMap) {
+                        var arr = refMap[fp];
+                        for (var i = 0, ii = arr.length; i < ii; i++) {
+                            // just add it and skip expensive checks
+                            queue.push(arr[i]);
                         }
                     }
-                } while(added > 0);
+                }
 
-                _this.print.printDiv();
-                _this.print.printSubHeader('Reference mapped');
-                _this.print.printDiv();
+                _this.printTests(adding);
 
-                var result = Object.keys(changeMap).sort().map(function (src) {
-                    _this.print.printLine(changeMap[src].formatName);
-                    changeMap[src].references.forEach(function (file) {
-                        _this.print.printElement(file.formatName);
-                    });
-                    return changeMap[src];
-                });
+                var result = Lazy(adding).values().toArray();
                 resolve(result);
             });
         };
@@ -967,6 +941,7 @@ var DT;
                     suite.testReporter = suite.testReporter || new DT.DefaultTestReporter(_this.print);
 
                     _this.print.printSuiteHeader(suite.testSuiteName);
+
                     return suite.filterTargetFiles(files).then(function (targetFiles) {
                         return suite.start(targetFiles, function (testResult, index) {
                             _this.printTestComplete(testResult, index);
@@ -979,6 +954,67 @@ var DT;
             }).then(function (count) {
                 _this.timer.end();
                 _this.finaliseTests(files);
+            });
+        };
+
+        TestRunner.prototype.printTests = function (adding) {
+            var _this = this;
+            this.print.printDiv();
+            this.print.printSubHeader('Testing');
+            this.print.printDiv();
+
+            Object.keys(adding).sort().map(function (src) {
+                _this.print.printLine(adding[src].formatName);
+                return adding[src];
+            });
+        };
+        TestRunner.prototype.printFiles = function (files) {
+            var _this = this;
+            this.print.printDiv();
+            this.print.printSubHeader('Files:');
+            this.print.printDiv();
+
+            files.forEach(function (file) {
+                _this.print.printLine(file.filePathWithName);
+                file.references.forEach(function (file) {
+                    _this.print.printElement(file.filePathWithName);
+                });
+            });
+        };
+
+        TestRunner.prototype.printAllChanges = function (paths) {
+            var _this = this;
+            this.print.printSubHeader('All changes');
+            this.print.printDiv();
+
+            paths.sort().forEach(function (line) {
+                _this.print.printLine(line);
+            });
+        };
+
+        TestRunner.prototype.printRelChanges = function (changeMap) {
+            var _this = this;
+            this.print.printDiv();
+            this.print.printSubHeader('Relevant changes');
+            this.print.printDiv();
+
+            Object.keys(changeMap).sort().forEach(function (src) {
+                _this.print.printLine(changeMap[src].formatName);
+            });
+        };
+
+        TestRunner.prototype.printRefMap = function (refMap) {
+            var _this = this;
+            this.print.printDiv();
+            this.print.printSubHeader('Referring');
+            this.print.printDiv();
+
+            Object.keys(refMap).sort().forEach(function (src) {
+                var ref = _this.index.getFile(src);
+                _this.print.printLine(ref.formatName);
+                refMap[src].forEach(function (file) {
+                    _this.print.printLine(' - ' + file.formatName);
+                });
             });
         };
 
