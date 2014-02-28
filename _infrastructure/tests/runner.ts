@@ -79,6 +79,14 @@ module DT {
 		findNotRequiredTscparams?:boolean;
 	}
 
+	export interface FileDict {
+		[fullPath:string]: File;
+	}
+
+	export interface FileArrDict {
+		[fullPath:string]: File[];
+	}
+
 	/////////////////////////////////
 	// The main class to kick things off
 	/////////////////////////////////
@@ -127,12 +135,15 @@ module DT {
 
 				this.print.printChangeHeader();
 
-				return Promise.all([
-					this.doParseFiles(),
-					this.doGetChanges()
-				]);
+				return this.changes.getChanges().then(() => {
+					this.printAllChanges(this.changes.paths);
+				});
 			}).then(() => {
-				return this.doCollectTargets();
+				return this.index.parseFiles(this.files).then(() => {
+					// this.printFiles(this.files);
+				});
+			}).then(() => {
+				return this.collectTargets(this.files, this.changes.paths);
 			}).then((files) => {
 				return this.runTests(files);
 			}).then(() => {
@@ -142,40 +153,13 @@ module DT {
 			});
 		}
 
-		private doParseFiles(): Promise<void> {
-			return this.index.parseFiles(this.files).then(() => {
-				/*
-				 this.print.printSubHeader('Files:');
-				 this.print.printDiv();
-				 this.files.forEach((file) => {
-				 this.print.printLine(file.filePathWithName);
-				 file.references.forEach((file) => {
-				 this.print.printElement(file.filePathWithName);
-				 });
-				 });
-				 this.print.printBreak();*/
-				// chain
-			}).thenReturn();
-		}
-
-		private doGetChanges(): Promise<void> {
-			return this.changes.getChanges().then(() => {
-				this.print.printSubHeader('All changes');
-				this.print.printDiv();
-
-				Lazy(this.changes.paths).each((file) => {
-					this.print.printLine(file);
-				});
-			}).thenReturn();
-		}
-
-		private doCollectTargets(): Promise<File[]> {
+		private collectTargets(files: File[], changes: string[]): Promise<File[]> {
 			return new Promise((resolve) => {
 
-				// bake map for lookup
-				var changeMap = Object.create(null);
+				// filter changes and bake map for easy lookup
+				var changeMap: FileDict = Object.create(null);
 
-				Lazy(this.changes.paths).filter((full) => {
+				Lazy(changes).filter((full) => {
 					return this.checkAcceptFile(full);
 				}).map((local) => {
 					return path.resolve(this.dtPath, local);
@@ -190,52 +174,52 @@ module DT {
 					changeMap[full] = file;
 				});
 
-				this.print.printDiv();
-				this.print.printSubHeader('Relevant changes');
-				this.print.printDiv();
+				this.printRelChanges(changeMap);
 
-				Object.keys(changeMap).sort().forEach((src) => {
-					this.print.printLine(changeMap[src].formatName);
+				// bake reverse reference map (referenced to referrers)
+				var refMap: FileArrDict = Object.create(null);
+
+				Lazy(files).each((file) => {
+					Lazy(file.references).each((ref) => {
+						if (ref.fullPath in refMap) {
+							refMap[ref.fullPath].push(file);
+						}
+						else {
+							refMap[ref.fullPath] = [file];
+						}
+					});
 				});
 
-				// terrible loop (whatever)
-				// just add stuff until there is nothing new added
-				// TODO improve it
-				var added: number;
-				var files = this.files.slice(0);
-				do {
-					added = 0;
+				// this.printRefMap(refMap);
 
-					for (var i = files.length - 1; i >= 0; i--) {
-						var file = files[i];
-						if (file.fullPath in changeMap) {
-							this.files.splice(i, 1);
-							continue;
-						}
-						// check if one of our references is touched
-						for (var j = 0, jj = file.references.length; j < jj; j++) {
-							if (file.references[j].fullPath in changeMap) {
-								// add us
-								changeMap[file.fullPath] = file;
-								added++;
-								break;
-							}
+				// map out files linked to changes
+				// - queue holds files touched by a change
+				// - pre-fill with actually changed files
+				// - loop queue, if current not seen:
+				//    - add to result
+				//    - from refMap queue all files referring to current
+				var adding: FileDict = Object.create(null);
+				var queue = Lazy<File>(changeMap).values().toArray();
+
+				while (queue.length > 0) {
+					var next = queue.shift();
+					var fp = next.fullPath;
+					if (adding[fp]) {
+						continue;
+					}
+					adding[fp] = next;
+					if (fp in refMap) {
+						var arr = refMap[fp];
+						for (var i = 0, ii = arr.length; i < ii; i++) {
+							// just add it and skip expensive checks
+							queue.push(arr[i]);
 						}
 					}
 				}
-				while (added > 0);
 
-				this.print.printDiv();
-				this.print.printSubHeader('Reference mapped');
-				this.print.printDiv();
+				this.printTests(adding);
 
-				var result: File[] = Object.keys(changeMap).sort().map((src) => {
-					this.print.printLine(changeMap[src].formatName);
-					changeMap[src].references.forEach((file: File) => {
-						this.print.printElement(file.formatName);
-					});
-					return changeMap[src];
-				});
+				var result: File[] = Lazy<File>(adding).values().toArray();
 				resolve(result);
 			});
 		}
@@ -268,6 +252,7 @@ module DT {
 					suite.testReporter = suite.testReporter || new DefaultTestReporter(this.print);
 
 					this.print.printSuiteHeader(suite.testSuiteName);
+
 					return suite.filterTargetFiles(files).then((targetFiles) => {
 						return suite.start(targetFiles, (testResult, index) => {
 							this.printTestComplete(testResult, index);
@@ -280,6 +265,62 @@ module DT {
 			}).then((count) => {
 				this.timer.end();
 				this.finaliseTests(files);
+			});
+		}
+
+		private printTests(adding: FileDict): void {
+			this.print.printDiv();
+			this.print.printSubHeader('Testing');
+			this.print.printDiv();
+
+			Object.keys(adding).sort().map((src) => {
+				this.print.printLine(adding[src].formatName);
+				return adding[src];
+			});
+		}
+		private printFiles(files: File[]): void {
+			this.print.printDiv();
+			this.print.printSubHeader('Files:');
+			this.print.printDiv();
+
+			files.forEach((file) => {
+				this.print.printLine(file.filePathWithName);
+				file.references.forEach((file) => {
+					this.print.printElement(file.filePathWithName);
+				});
+			});
+		}
+
+		private printAllChanges(paths: string[]): void {
+			this.print.printSubHeader('All changes');
+			this.print.printDiv();
+
+			paths.sort().forEach((line) => {
+				this.print.printLine(line);
+			});
+		}
+
+		private printRelChanges(changeMap: FileDict): void {
+			this.print.printDiv();
+			this.print.printSubHeader('Relevant changes');
+			this.print.printDiv();
+
+			Object.keys(changeMap).sort().forEach((src) => {
+				this.print.printLine(changeMap[src].formatName);
+			});
+		}
+
+		private printRefMap(refMap: FileArrDict): void {
+			this.print.printDiv();
+			this.print.printSubHeader('Referring');
+			this.print.printDiv();
+
+			Object.keys(refMap).sort().forEach((src) => {
+				var ref = this.index.getFile(src);
+				this.print.printLine(ref.formatName);
+				refMap[src].forEach((file) => {
+					this.print.printLine(' - ' + file.formatName);
+				});
 			});
 		}
 
