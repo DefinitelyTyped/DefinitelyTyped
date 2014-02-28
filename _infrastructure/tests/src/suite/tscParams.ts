@@ -1,10 +1,11 @@
-/// <reference path="../../runner.ts" />
-/// <reference path="../file.ts" />
+/// <reference path='../../runner.ts' />
+/// <reference path='../file.ts' />
 
 module DT {
-	'use-strict';
+	'use strict';
 
 	var fs = require('fs');
+	var Promise: typeof Promise = require('bluebird');
 
 	/////////////////////////////////
 	// Try compile without .tscparams
@@ -15,7 +16,7 @@ module DT {
 		printErrorCount = false;
 
 		constructor(options: ITestRunnerOptions, private print: Print) {
-			super(options, "Find not required .tscparams files", "New arrival!");
+			super(options, 'Find not required .tscparams files', 'New arrival!');
 
 			this.testReporter = {
 				printPositiveCharacter: (index: number, testResult: TestResult) => {
@@ -28,27 +29,26 @@ module DT {
 			}
 		}
 
-		public filterTargetFiles(files: File[]): File[] {
-			return files.filter((file) => {
-				return fs.existsSync(file.filePathWithName + '.tscparams');
+		public filterTargetFiles(files: File[]): Promise<File[]> {
+			return Promise.filter(files, (file) => {
+				return new Promise((resolve) => {
+					fs.exists(file.filePathWithName + '.tscparams', resolve);
+				});
 			});
 		}
 
-		public runTest(targetFile: File, callback: (result: TestResult) => void): void {
+		public runTest(targetFile: File): Promise<TestResult> {
 			this.print.clearCurrentLine().out(targetFile.formatName);
-			new Test(this, targetFile, {
+
+			return new Test(this, targetFile, {
 				tscVersion: this.options.tscVersion,
 				useTscParams: false,
 				checkNoImplicitAny: true
-			}).run(result=> {
+			}).run().then((result: TestResult) => {
 				this.testResults.push(result);
-				callback(result);
+				this.print.clearCurrentLine();
+				return result
 			});
-		}
-
-		public finish(suiteCallback: (suite: ITestSuite)=>void) {
-			this.print.clearCurrentLine();
-			suiteCallback(this);
 		}
 
 		public get ngTests(): TestResult[] {

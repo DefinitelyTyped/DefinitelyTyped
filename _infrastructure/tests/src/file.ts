@@ -1,7 +1,7 @@
 /// <reference path="../_ref.d.ts" />
 
 module DT {
-	'use-strict';
+	'use strict';
 
 	var path = require('path');
 
@@ -20,6 +20,7 @@ module DT {
 		references: File[] = [];
 
 		constructor(baseDir: string, filePathWithName: string) {
+			// why choose?
 			this.baseDir = baseDir;
 			this.filePathWithName = filePathWithName;
 			this.ext = path.extname(this.filePathWithName);
@@ -28,7 +29,7 @@ module DT {
 			this.formatName =  path.join(this.dir, this.file + this.ext);
 			this.fullPath = path.join(this.baseDir, this.dir, this.file + this.ext);
 
-			// lock it (shallow)
+			// lock it (shallow) (needs `use strict` in each file to work)
 			// Object.freeze(this);
 		}
 

@@ -2,8 +2,6 @@
 /// <reference path="../printer.ts" />
 
 module DT {
-	'use-strict';
-
 	/////////////////////////////////
 	// Test reporter interface
 	// for example, . and x
@@ -27,7 +25,7 @@ module DT {
 		}
 
 		public printNegativeCharacter(index: number, testResult: TestResult) {
-			this.print.out("x");
+			this.print.out('x');
 
 			this.printBreakIfNeeded(index);
 		}

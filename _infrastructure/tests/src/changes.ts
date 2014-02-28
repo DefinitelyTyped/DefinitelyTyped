@@ -1,14 +1,16 @@
 /// <reference path="../_ref.d.ts" />
 
 module DT {
-	'use-strict';
+	'use strict';
 
 	var fs = require('fs');
 	var path = require('path');
 	var Git = require('git-wrapper');
+	var Promise: typeof Promise = require('bluebird');
 
 	export class GitChanges {
 
+		git;
 		options = {};
 		paths: string[] = [];
 
@@ -18,21 +20,16 @@ module DT {
 				throw new Error('cannot locate git-dir: ' + dir);
 			}
 			this.options['git-dir'] = dir;
+
+			this.git = new Git(this.options);
+			this.git.exec = Promise.promisify(this.git.exec);
 		}
 
-		getChanges(callback: (err) => void): void {
-			//git diff --name-only HEAD~1
-			var git = new Git(this.options);
+		getChanges(): Promise<void> {
 			var opts = {};
 			var args = ['--name-only HEAD~1'];
-			git.exec('diff', opts, args, (err, msg: string) => {
-				if (err) {
-					callback(err);
-					return;
-				}
+			return this.git.exec('diff', opts, args).then((msg: string) => {
 				this.paths = msg.replace(/^\s+/, '').replace(/\s+$/, '').split(/\r?\n/g);
-				// console.log(paths);
-				callback(null);
 			});
 		}
 	}

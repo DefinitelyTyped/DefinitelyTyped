@@ -1,7 +1,9 @@
 /// <reference path="../../runner.ts" />
 
 module DT {
-	'use-strict';
+	'use strict';
+
+	var Promise: typeof Promise = require('bluebird');
 
 	/////////////////////////////////
 	// The interface for test suite
@@ -9,9 +11,9 @@ module DT {
 	export interface ITestSuite {
 		testSuiteName:string;
 		errorHeadline:string;
-		filterTargetFiles(files: File[]):File[];
+		filterTargetFiles(files: File[]): Promise<File[]>;
 
-		start(targetFiles: File[], testCallback: (result: TestResult, index: number) => void, suiteCallback: (suite: ITestSuite) => void):void;
+		start(targetFiles: File[], testCallback: (result: TestResult, index: number) => void): Promise<ITestSuite>;
 
 		testResults:TestResult[];
 		okTests:TestResult[];
@@ -34,41 +36,30 @@ module DT {
 		constructor(public options: ITestRunnerOptions, public testSuiteName: string, public errorHeadline: string) {
 		}
 
-		public filterTargetFiles(files: File[]): File[] {
-			throw new Error("please implement this method");
+		public filterTargetFiles(files: File[]): Promise<File[]> {
+			throw new Error('please implement this method');
 		}
 
-		public start(targetFiles: File[], testCallback: (result: TestResult, index: number) => void, suiteCallback: (suite: ITestSuite) => void): void {
-			targetFiles = this.filterTargetFiles(targetFiles);
+		public start(targetFiles: File[], testCallback: (result: TestResult, index: number) => void): Promise<ITestSuite> {
 			this.timer.start();
-			var count = 0;
-			// exec test is async process. serialize.
-			var executor = () => {
-				var targetFile = targetFiles[count];
-				if (targetFile) {
-					this.runTest(targetFile, (result) => {
+			return this.filterTargetFiles(targetFiles).then((targetFiles) => {
+				return Promise.reduce(targetFiles, (count, targetFile) => {
+					return this.runTest(targetFile).then((result) => {
 						testCallback(result, count + 1);
-						count++;
-						executor();
+						return count++;
 					});
-				}
-				else {
-					this.timer.end();
-					this.finish(suiteCallback);
-				}
-			};
-			executor();
-		}
-
-		public runTest(targetFile: File, callback: (result: TestResult) => void): void {
-			new Test(this, targetFile, {tscVersion: this.options.tscVersion}).run((result) => {
-				this.testResults.push(result);
-				callback(result);
+				}, 0);
+			}).then((count: number) => {
+				this.timer.end();
+				return this;
 			});
 		}
 
-		public finish(suiteCallback: (suite: ITestSuite) => void) {
-			suiteCallback(this);
+		public runTest(targetFile: File): Promise<TestResult> {
+			return new Test(this, targetFile, {tscVersion: this.options.tscVersion}).run().then((result) => {
+				this.testResults.push(result);
+				return result;
+			});
 		}
 
 		public get okTests(): TestResult[] {

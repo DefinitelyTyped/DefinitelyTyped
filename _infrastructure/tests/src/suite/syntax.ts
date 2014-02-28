@@ -2,7 +2,11 @@
 /// <reference path="../util.ts" />
 
 module DT {
-	'use-strict';
+	'use strict';
+
+	var Promise: typeof Promise = require('bluebird');
+
+	var endDts = /.ts$/i;
 
 	/////////////////////////////////
 	// .d.ts syntax inspection
@@ -10,13 +14,13 @@ module DT {
 	export class SyntaxChecking extends TestSuiteBase {
 
 		constructor(options: ITestRunnerOptions) {
-			super(options, "Syntax checking", "Syntax error");
+			super(options, 'Syntax checking', 'Syntax error');
 		}
 
-		public filterTargetFiles(files: File[]): File[] {
-			return files.filter((file) => {
-				return DT.endsWith(file.formatName.toUpperCase(), '.D.TS');
-			});
+		public filterTargetFiles(files: File[]): Promise<File[]> {
+			return Promise.cast(files.filter((file) => {
+				return endDts.test(file.formatName);
+			}));
 		}
 	}
 }

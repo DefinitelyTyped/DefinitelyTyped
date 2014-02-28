@@ -1,53 +1,41 @@
-﻿//
-// Copyright (c) Microsoft Corporation.  All rights reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//   http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
+﻿var DT;
+(function (DT) {
+    'use strict';
 
-var ExecResult = (function () {
-    function ExecResult() {
-        this.stdout = "";
-        this.stderr = "";
-    }
-    return ExecResult;
-})();
+    var Promise = require('bluebird');
+    var nodeExec = require('child_process').exec;
 
-var NodeExec = (function () {
-    function NodeExec() {
-    }
-    NodeExec.prototype.exec = function (filename, cmdLineArgs, handleResult) {
-        var nodeExec = require('child_process').exec;
+    var ExecResult = (function () {
+        function ExecResult() {
+            this.stdout = '';
+            this.stderr = '';
+        }
+        return ExecResult;
+    })();
+    DT.ExecResult = ExecResult;
 
-        var result = new ExecResult();
-        result.exitCode = null;
-        var cmdLine = filename + ' ' + cmdLineArgs.join(' ');
+    function exec(filename, cmdLineArgs) {
+        return new Promise(function (resolve) {
+            var result = new ExecResult();
+            result.exitCode = null;
 
-        var process = nodeExec(cmdLine, { maxBuffer: 1 * 1024 * 1024 }, function (error, stdout, stderr) {
-            result.stdout = stdout;
-            result.stderr = stderr;
-            result.exitCode = error ? error.code : 0;
-            handleResult(result);
+            var cmdLine = filename + ' ' + cmdLineArgs.join(' ');
+
+            nodeExec(cmdLine, { maxBuffer: 1 * 1024 * 1024 }, function (error, stdout, stderr) {
+                result.error = error;
+                result.stdout = stdout;
+                result.stderr = stderr;
+                result.exitCode = error ? error.code : 0;
+                resolve(result);
+            });
         });
-    };
-    return NodeExec;
-})();
-
-var Exec = function () {
-    return new NodeExec();
-}();
+    }
+    DT.exec = exec;
+})(DT || (DT = {}));
 /// <reference path="../_ref.d.ts" />
 var DT;
 (function (DT) {
-    'use-strict';
+    'use strict';
 
     var path = require('path');
 
@@ -58,6 +46,7 @@ var DT;
     var File = (function () {
         function File(baseDir, filePathWithName) {
             this.references = [];
+            // why choose?
             this.baseDir = baseDir;
             this.filePathWithName = filePathWithName;
             this.ext = path.extname(this.filePathWithName);
@@ -65,7 +54,7 @@ var DT;
             this.dir = path.dirname(this.filePathWithName);
             this.formatName = path.join(this.dir, this.file + this.ext);
             this.fullPath = path.join(this.baseDir, this.dir, this.file + this.ext);
-            // lock it (shallow)
+            // lock it (shallow) (needs `use strict` in each file to work)
             // Object.freeze(this);
         }
         File.prototype.toString = function () {
@@ -75,43 +64,44 @@ var DT;
     })();
     DT.File = File;
 })(DT || (DT = {}));
-/// <reference path="../_ref.d.ts" />
-/// <reference path="../runner.ts" />
-/// <reference path="host/exec.ts" />
+/// <reference path='../_ref.d.ts' />
+/// <reference path='../runner.ts' />
+/// <reference path='exec.ts' />
 var DT;
 (function (DT) {
-    'use-strict';
+    'use strict';
+
     var fs = require('fs');
+
+    var Promise = require('bluebird');
 
     var Tsc = (function () {
         function Tsc() {
         }
-        Tsc.run = function (tsfile, options, callback) {
-            options = options || {};
-            options.tscVersion = options.tscVersion || DT.DEFAULT_TSC_VERSION;
-            if (typeof options.checkNoImplicitAny === "undefined") {
-                options.checkNoImplicitAny = true;
-            }
-            if (typeof options.useTscParams === "undefined") {
-                options.useTscParams = true;
-            }
-
-            if (!fs.existsSync(tsfile)) {
-                throw new Error(tsfile + " not exists");
-            }
-
-            var tscPath = './_infrastructure/tests/typescript/' + options.tscVersion + '/tsc.js';
-            if (!fs.existsSync(tscPath)) {
-                throw new Error(tscPath + ' is not exists');
-            }
-            var command = 'node ' + tscPath + ' --module commonjs ';
-            if (options.useTscParams && fs.existsSync(tsfile + '.tscparams')) {
-                command += '@' + tsfile + '.tscparams';
-            } else if (options.checkNoImplicitAny) {
-                command += '--noImplicitAny';
-            }
-            Exec.exec(command, [tsfile], function (execResult) {
-                callback(execResult);
+        Tsc.run = function (tsfile, options) {
+            return Promise.attempt(function () {
+                options = options || {};
+                options.tscVersion = options.tscVersion || DT.DEFAULT_TSC_VERSION;
+                if (typeof options.checkNoImplicitAny === 'undefined') {
+                    options.checkNoImplicitAny = true;
+                }
+                if (typeof options.useTscParams === 'undefined') {
+                    options.useTscParams = true;
+                }
+                if (!fs.existsSync(tsfile)) {
+                    throw new Error(tsfile + ' not exists');
+                }
+                var tscPath = './_infrastructure/tests/typescript/' + options.tscVersion + '/tsc.js';
+                if (!fs.existsSync(tscPath)) {
+                    throw new Error(tscPath + ' is not exists');
+                }
+                var command = 'node ' + tscPath + ' --module commonjs ';
+                if (options.useTscParams && fs.existsSync(tsfile + '.tscparams')) {
+                    command += '@' + tsfile + '.tscparams';
+                } else if (options.checkNoImplicitAny) {
+                    command += '--noImplicitAny';
+                }
+                return DT.exec(command, [tsfile]);
             });
         };
         return Tsc;
@@ -122,7 +112,7 @@ var DT;
 /// <reference path="../runner.ts" />
 var DT;
 (function (DT) {
-    'use-strict';
+    'use strict';
 
     /////////////////////////////////
     // Timer.start starts a timer
@@ -154,7 +144,7 @@ var DT;
                 return null;
             }
 
-            return (day_diff == 0 && (diff < 60 && (diff + " seconds") || diff < 120 && "1 minute" || diff < 3600 && Math.floor(diff / 60) + " minutes" || diff < 7200 && "1 hour" || diff < 86400 && Math.floor(diff / 3600) + " hours") || day_diff == 1 && "Yesterday" || day_diff < 7 && day_diff + " days" || day_diff < 31 && Math.ceil(day_diff / 7) + " weeks");
+            return (day_diff == 0 && (diff < 60 && (diff + ' seconds') || diff < 120 && '1 minute' || diff < 3600 && Math.floor(diff / 60) + ' minutes' || diff < 7200 && '1 hour' || diff < 86400 && Math.floor(diff / 3600) + ' hours') || day_diff == 1 && 'Yesterday' || day_diff < 7 && day_diff + ' days' || day_diff < 31 && Math.ceil(day_diff / 7) + ' weeks');
         };
         return Timer;
     })();
@@ -163,7 +153,11 @@ var DT;
 /// <reference path="../_ref.d.ts" />
 var DT;
 (function (DT) {
-    'use-strict';
+    'use strict';
+
+    var fs = require('fs');
+    var Lazy = require('lazy.js');
+    var Promise = require('bluebird');
 
     var referenceTagExp = /<reference[ \t]*path=["']?([\w\.\/_-]*)["']?[ \t]*\/>/g;
 
@@ -189,32 +183,37 @@ var DT;
         return ret;
     }
     DT.extractReferenceTags = extractReferenceTags;
+
+    function fileExists(target) {
+        return new Promise(function (resolve, reject) {
+            fs.exists(target, function (bool) {
+                resolve(bool);
+            });
+        });
+    }
+    DT.fileExists = fileExists;
 })(DT || (DT = {}));
 /// <reference path="../_ref.d.ts" />
 /// <reference path="../runner.ts" />
 /// <reference path="util.ts" />
 var DT;
 (function (DT) {
-    'use-strict';
+    'use strict';
 
     var fs = require('fs');
     var path = require('path');
+    var Lazy = require('lazy.js');
+    var Promise = require('bluebird');
 
+    var readFile = Promise.promisify(fs.readFile);
+
+    /////////////////////////////////
+    // Track all files in the repo: map full path to File objects
+    /////////////////////////////////
     var FileIndex = (function () {
         function FileIndex(options) {
             this.options = options;
         }
-        FileIndex.prototype.parseFiles = function (files, callback) {
-            var _this = this;
-            this.fileMap = Object.create(null);
-            files.forEach(function (file) {
-                _this.fileMap[file.fullPath] = file;
-            });
-            this.loadReferences(files, function () {
-                callback();
-            });
-        };
-
         FileIndex.prototype.hasFile = function (target) {
             return target in this.fileMap;
         };
@@ -226,42 +225,54 @@ var DT;
             return null;
         };
 
-        FileIndex.prototype.loadReferences = function (files, callback) {
+        FileIndex.prototype.parseFiles = function (files) {
             var _this = this;
-            var queue = files.slice(0);
-            var active = [];
-            var max = 50;
-            var next = function () {
-                if (queue.length === 0 && active.length === 0) {
-                    callback();
-                    return;
-                }
-
-                while (queue.length > 0 && active.length < max) {
-                    var file = queue.pop();
-                    active.push(file);
-                    _this.parseFile(file, function (file) {
-                        active.splice(active.indexOf(file), 1);
-                        next();
-                    });
-                }
-            };
-            process.nextTick(next);
+            return Promise.attempt(function () {
+                _this.fileMap = Object.create(null);
+                files.forEach(function (file) {
+                    _this.fileMap[file.fullPath] = file;
+                });
+                return _this.loadReferences(files);
+            });
         };
 
-        FileIndex.prototype.parseFile = function (file, callback) {
+        FileIndex.prototype.loadReferences = function (files) {
             var _this = this;
-            fs.readFile(file.filePathWithName, {
+            return new Promise(function (resolve, reject) {
+                var queue = files.slice(0);
+                var active = [];
+                var max = 50;
+                var next = function () {
+                    if (queue.length === 0 && active.length === 0) {
+                        resolve();
+                        return;
+                    }
+
+                    while (queue.length > 0 && active.length < max) {
+                        var file = queue.pop();
+                        active.push(file);
+                        _this.parseFile(file).then(function (file) {
+                            active.splice(active.indexOf(file), 1);
+                            next();
+                        }).catch(function (err) {
+                            queue = [];
+                            active = [];
+                            reject(err);
+                        });
+                    }
+                };
+                next();
+            });
+        };
+
+        // TODO replace with a stream?
+        FileIndex.prototype.parseFile = function (file) {
+            var _this = this;
+            return readFile(file.filePathWithName, {
                 encoding: 'utf8',
                 flag: 'r'
-            }, function (err, content) {
-                if (err) {
-                    throw err;
-                }
-
-                // console.log('----');
-                // console.log(file.filePathWithName);
-                file.references = DT.extractReferenceTags(content).map(function (ref) {
+            }).then(function (content) {
+                file.references = Lazy(DT.extractReferenceTags(content)).map(function (ref) {
                     return path.resolve(path.dirname(file.fullPath), ref);
                 }).reduce(function (memo, ref) {
                     if (ref in _this.fileMap) {
@@ -272,8 +283,8 @@ var DT;
                     return memo;
                 }, []);
 
-                // console.log(file.references);
-                callback(file);
+                // return the object
+                return file;
             });
         };
         return FileIndex;
@@ -283,11 +294,12 @@ var DT;
 /// <reference path="../_ref.d.ts" />
 var DT;
 (function (DT) {
-    'use-strict';
+    'use strict';
 
     var fs = require('fs');
     var path = require('path');
     var Git = require('git-wrapper');
+    var Promise = require('bluebird');
 
     var GitChanges = (function () {
         function GitChanges(baseDir) {
@@ -299,22 +311,16 @@ var DT;
                 throw new Error('cannot locate git-dir: ' + dir);
             }
             this.options['git-dir'] = dir;
+
+            this.git = new Git(this.options);
+            this.git.exec = Promise.promisify(this.git.exec);
         }
-        GitChanges.prototype.getChanges = function (callback) {
+        GitChanges.prototype.getChanges = function () {
             var _this = this;
-            //git diff --name-only HEAD~1
-            var git = new Git(this.options);
             var opts = {};
             var args = ['--name-only HEAD~1'];
-            git.exec('diff', opts, args, function (err, msg) {
-                if (err) {
-                    callback(err);
-                    return;
-                }
+            return this.git.exec('diff', opts, args).then(function (msg) {
                 _this.paths = msg.replace(/^\s+/, '').replace(/\s+$/, '').split(/\r?\n/g);
-
-                // console.log(paths);
-                callback(null);
             });
         };
         return GitChanges;
@@ -325,19 +331,20 @@ var DT;
 /// <reference path="../runner.ts" />
 var DT;
 (function (DT) {
-    'use-strict';
-
     /////////////////////////////////
-    // All the common things that we pring are functions of this class
+    // All the common things that we print are functions of this class
     /////////////////////////////////
     var Print = (function () {
-        function Print(version, typings, tests, tsFiles) {
+        function Print(version) {
             this.version = version;
+            this.WIDTH = 77;
+        }
+        Print.prototype.init = function (typings, tests, tsFiles) {
             this.typings = typings;
             this.tests = tests;
             this.tsFiles = tsFiles;
-            this.WIDTH = 77;
-        }
+        };
+
         Print.prototype.out = function (s) {
             process.stdout.write(s);
             return this;
@@ -347,9 +354,15 @@ var DT;
             return new Array(times + 1).join(s);
         };
 
+        Print.prototype.printChangeHeader = function () {
+            this.out('=============================================================================\n');
+            this.out('                   \33[36m\33[1mDefinitelyTyped Diff Detector 0.1.0\33[0m \n');
+            this.out('=============================================================================\n');
+        };
+
         Print.prototype.printHeader = function () {
             this.out('=============================================================================\n');
-            this.out('                    \33[36m\33[1mDefinitelyTyped test runner 0.4.0\33[0m\n');
+            this.out('                    \33[36m\33[1mDefinitelyTyped Test Runner 0.5.0\33[0m\n');
             this.out('=============================================================================\n');
             this.out(' \33[36m\33[1mTypescript version:\33[0m ' + this.version + '\n');
             this.out(' \33[36m\33[1mTypings           :\33[0m ' + this.typings + '\n');
@@ -360,9 +373,9 @@ var DT;
         Print.prototype.printSuiteHeader = function (title) {
             var left = Math.floor((this.WIDTH - title.length) / 2) - 1;
             var right = Math.ceil((this.WIDTH - title.length) / 2) - 1;
-            this.out(this.repeat("=", left)).out(" \33[34m\33[1m");
+            this.out(this.repeat('=', left)).out(' \33[34m\33[1m');
             this.out(title);
-            this.out("\33[0m ").out(this.repeat("=", right)).printBreak();
+            this.out('\33[0m ').out(this.repeat('=', right)).printBreak();
         };
 
         Print.prototype.printDiv = function () {
@@ -390,16 +403,18 @@ var DT;
         };
 
         Print.prototype.clearCurrentLine = function () {
-            this.out("\r\33[K");
+            this.out('\r\33[K');
             return this;
         };
 
         Print.prototype.printSuccessCount = function (current, total) {
-            this.out(' \33[36m\33[1mSuccessful      :\33[0m \33[32m\33[1m' + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
+            var arb = (total === 0) ? 0 : (current / total);
+            this.out(' \33[36m\33[1mSuccessful      :\33[0m \33[32m\33[1m' + (arb * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
         };
 
         Print.prototype.printFailedCount = function (current, total) {
-            this.out(' \33[36m\33[1mFailure         :\33[0m \33[31m\33[1m' + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
+            var arb = (total === 0) ? 0 : (current / total);
+            this.out(' \33[36m\33[1mFailure         :\33[0m \33[31m\33[1m' + (arb * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
         };
 
         Print.prototype.printTypingsWithoutTestsMessage = function () {
@@ -414,10 +429,31 @@ var DT;
             this.out(' \33[36m\33[1mElapsed time    :\33[0m ~' + time + ' (' + s + 's)\n');
         };
 
-        Print.prototype.printSuiteErrorCount = function (errorHeadline, current, total, valuesColor) {
-            if (typeof valuesColor === "undefined") { valuesColor = '\33[31m\33[1m'; }
+        Print.prototype.printSuiteErrorCount = function (errorHeadline, current, total, warn) {
+            if (typeof warn === "undefined") { warn = false; }
+            var arb = (total === 0) ? 0 : (current / total);
             this.out(' \33[36m\33[1m').out(errorHeadline).out(this.repeat(' ', 16 - errorHeadline.length));
-            this.out(':\33[0m ' + valuesColor + ((current / total) * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
+            if (warn) {
+                this.out(': \33[31m\33[1m' + (arb * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
+            } else {
+                this.out(': \33[33m\33[1m' + (arb * 100).toFixed(2) + '% (' + current + '/' + total + ')\33[0m\n');
+            }
+        };
+
+        Print.prototype.printSubHeader = function (file) {
+            this.out(' \33[36m\33[1m' + file + '\33[0m\n');
+        };
+
+        Print.prototype.printLine = function (file) {
+            this.out(file + '\n');
+        };
+
+        Print.prototype.printElement = function (file) {
+            this.out(' - ' + file + '\n');
+        };
+
+        Print.prototype.printElement2 = function (file) {
+            this.out('    - ' + file + '\n');
         };
 
         Print.prototype.printTypingsWithoutTestName = function (file) {
@@ -443,8 +479,6 @@ var DT;
 /// <reference path="../printer.ts" />
 var DT;
 (function (DT) {
-    'use-strict';
-
     
 
     /////////////////////////////////
@@ -461,7 +495,7 @@ var DT;
         };
 
         DefaultTestReporter.prototype.printNegativeCharacter = function (index, testResult) {
-            this.print.out("x");
+            this.print.out('x');
 
             this.printBreakIfNeeded(index);
         };
@@ -478,7 +512,9 @@ var DT;
 /// <reference path="../../runner.ts" />
 var DT;
 (function (DT) {
-    'use-strict';
+    'use strict';
+
+    var Promise = require('bluebird');
 
     
 
@@ -495,42 +531,31 @@ var DT;
             this.printErrorCount = true;
         }
         TestSuiteBase.prototype.filterTargetFiles = function (files) {
-            throw new Error("please implement this method");
+            throw new Error('please implement this method');
         };
 
-        TestSuiteBase.prototype.start = function (targetFiles, testCallback, suiteCallback) {
+        TestSuiteBase.prototype.start = function (targetFiles, testCallback) {
             var _this = this;
-            targetFiles = this.filterTargetFiles(targetFiles);
             this.timer.start();
-            var count = 0;
-
-            // exec test is async process. serialize.
-            var executor = function () {
-                var targetFile = targetFiles[count];
-                if (targetFile) {
-                    _this.runTest(targetFile, function (result) {
+            return this.filterTargetFiles(targetFiles).then(function (targetFiles) {
+                return Promise.reduce(targetFiles, function (count, targetFile) {
+                    return _this.runTest(targetFile).then(function (result) {
                         testCallback(result, count + 1);
-                        count++;
-                        executor();
+                        return count++;
                     });
-                } else {
-                    _this.timer.end();
-                    _this.finish(suiteCallback);
-                }
-            };
-            executor();
-        };
-
-        TestSuiteBase.prototype.runTest = function (targetFile, callback) {
-            var _this = this;
-            new DT.Test(this, targetFile, { tscVersion: this.options.tscVersion }).run(function (result) {
-                _this.testResults.push(result);
-                callback(result);
+                }, 0);
+            }).then(function (count) {
+                _this.timer.end();
+                return _this;
             });
         };
 
-        TestSuiteBase.prototype.finish = function (suiteCallback) {
-            suiteCallback(this);
+        TestSuiteBase.prototype.runTest = function (targetFile) {
+            var _this = this;
+            return new DT.Test(this, targetFile, { tscVersion: this.options.tscVersion }).run().then(function (result) {
+                _this.testResults.push(result);
+                return result;
+            });
         };
 
         Object.defineProperty(TestSuiteBase.prototype, "okTests", {
@@ -566,7 +591,11 @@ var __extends = this.__extends || function (d, b) {
 };
 var DT;
 (function (DT) {
-    'use-strict';
+    'use strict';
+
+    var Promise = require('bluebird');
+
+    var endDts = /.ts$/i;
 
     /////////////////////////////////
     // .d.ts syntax inspection
@@ -574,12 +603,12 @@ var DT;
     var SyntaxChecking = (function (_super) {
         __extends(SyntaxChecking, _super);
         function SyntaxChecking(options) {
-            _super.call(this, options, "Syntax checking", "Syntax error");
+            _super.call(this, options, 'Syntax checking', 'Syntax error');
         }
         SyntaxChecking.prototype.filterTargetFiles = function (files) {
-            return files.filter(function (file) {
-                return DT.endsWith(file.formatName.toUpperCase(), '.D.TS');
-            });
+            return Promise.cast(files.filter(function (file) {
+                return endDts.test(file.formatName);
+            }));
         };
         return SyntaxChecking;
     })(DT.TestSuiteBase);
@@ -589,7 +618,11 @@ var DT;
 /// <reference path="../util.ts" />
 var DT;
 (function (DT) {
-    'use-strict';
+    'use strict';
+
+    var Promise = require('bluebird');
+
+    var endTestDts = /-test.ts$/i;
 
     /////////////////////////////////
     // Compile with *-tests.ts
@@ -597,24 +630,25 @@ var DT;
     var TestEval = (function (_super) {
         __extends(TestEval, _super);
         function TestEval(options) {
-            _super.call(this, options, "Typing tests", "Failed tests");
+            _super.call(this, options, 'Typing tests', 'Failed tests');
         }
         TestEval.prototype.filterTargetFiles = function (files) {
-            return files.filter(function (file) {
-                return DT.endsWith(file.formatName.toUpperCase(), '-TESTS.TS');
-            });
+            return Promise.cast(files.filter(function (file) {
+                return endTestDts.test(file.formatName);
+            }));
         };
         return TestEval;
     })(DT.TestSuiteBase);
     DT.TestEval = TestEval;
 })(DT || (DT = {}));
-/// <reference path="../../runner.ts" />
-/// <reference path="../file.ts" />
+/// <reference path='../../runner.ts' />
+/// <reference path='../file.ts' />
 var DT;
 (function (DT) {
-    'use-strict';
+    'use strict';
 
     var fs = require('fs');
+    var Promise = require('bluebird');
 
     /////////////////////////////////
     // Try compile without .tscparams
@@ -624,7 +658,7 @@ var DT;
         __extends(FindNotRequiredTscparams, _super);
         function FindNotRequiredTscparams(options, print) {
             var _this = this;
-            _super.call(this, options, "Find not required .tscparams files", "New arrival!");
+            _super.call(this, options, 'Find not required .tscparams files', 'New arrival!');
             this.print = print;
             this.printErrorCount = false;
 
@@ -637,27 +671,26 @@ var DT;
             };
         }
         FindNotRequiredTscparams.prototype.filterTargetFiles = function (files) {
-            return files.filter(function (file) {
-                return fs.existsSync(file.filePathWithName + '.tscparams');
+            return Promise.filter(files, function (file) {
+                return new Promise(function (resolve) {
+                    fs.exists(file.filePathWithName + '.tscparams', resolve);
+                });
             });
         };
 
-        FindNotRequiredTscparams.prototype.runTest = function (targetFile, callback) {
+        FindNotRequiredTscparams.prototype.runTest = function (targetFile) {
             var _this = this;
             this.print.clearCurrentLine().out(targetFile.formatName);
-            new DT.Test(this, targetFile, {
+
+            return new DT.Test(this, targetFile, {
                 tscVersion: this.options.tscVersion,
                 useTscParams: false,
                 checkNoImplicitAny: true
-            }).run(function (result) {
+            }).run().then(function (result) {
                 _this.testResults.push(result);
-                callback(result);
+                _this.print.clearCurrentLine();
+                return result;
             });
-        };
-
-        FindNotRequiredTscparams.prototype.finish = function (suiteCallback) {
-            this.print.clearCurrentLine();
-            suiteCallback(this);
         };
 
         Object.defineProperty(FindNotRequiredTscparams.prototype, "ngTests", {
@@ -672,8 +705,8 @@ var DT;
     })(DT.TestSuiteBase);
     DT.FindNotRequiredTscparams = FindNotRequiredTscparams;
 })(DT || (DT = {}));
-/// <reference path="_ref.d.ts" />
-/// <reference path="src/host/exec.ts" />
+/// <reference path="typings/tsd.d.ts" />
+/// <reference path="src/exec.ts" />
 /// <reference path="src/file.ts" />
 /// <reference path="src/tsc.ts" />
 /// <reference path="src/timer.ts" />
@@ -688,27 +721,33 @@ var DT;
 /// <reference path="src/suite/tscParams.ts" />
 var DT;
 (function (DT) {
-    'use-strict';
-
     require('source-map-support').install();
+
+    // hacky typing
+    var Lazy = require('lazy.js');
+    var Promise = require('bluebird');
 
     var fs = require('fs');
     var path = require('path');
     var glob = require('glob');
+    var assert = require('assert');
 
     var tsExp = /\.ts$/;
 
-    DT.DEFAULT_TSC_VERSION = "0.9.1.1";
+    DT.DEFAULT_TSC_VERSION = '0.9.1.1';
 
+    /////////////////////////////////
+    // Single test
+    /////////////////////////////////
     var Test = (function () {
         function Test(suite, tsfile, options) {
             this.suite = suite;
             this.tsfile = tsfile;
             this.options = options;
         }
-        Test.prototype.run = function (callback) {
+        Test.prototype.run = function () {
             var _this = this;
-            DT.Tsc.run(this.tsfile.filePathWithName, this.options, function (execResult) {
+            return DT.Tsc.run(this.tsfile.filePathWithName, this.options).then(function (execResult) {
                 var testResult = new TestResult();
                 testResult.hostedBy = _this.suite;
                 testResult.targetFile = _this.tsfile;
@@ -718,7 +757,7 @@ var DT;
                 testResult.stderr = execResult.stderr;
                 testResult.exitCode = execResult.exitCode;
 
-                callback(testResult);
+                return testResult;
             });
         };
         return Test;
@@ -745,12 +784,9 @@ var DT;
     /////////////////////////////////
     // The main class to kick things off
     /////////////////////////////////
-    // TODO move to bluebird (Promises)
-    // TODO move to lazy.js (functional)
     var TestRunner = (function () {
         function TestRunner(dtPath, options) {
             if (typeof options === "undefined") { options = { tscVersion: DT.DEFAULT_TSC_VERSION }; }
-            var _this = this;
             this.dtPath = dtPath;
             this.options = options;
             this.suites = [];
@@ -758,26 +794,10 @@ var DT;
 
             this.index = new DT.FileIndex(this.options);
             this.changes = new DT.GitChanges(this.dtPath);
-
-            // should be async (way faster)
-            // only includes .d.ts or -tests.ts or -test.ts or .ts
-            var filesName = glob.sync('**/*.ts', { cwd: dtPath });
-            this.files = filesName.filter(function (fileName) {
-                return _this.checkAcceptFile(fileName);
-            }).sort().map(function (fileName) {
-                return new DT.File(dtPath, fileName);
-            });
+            this.print = new DT.Print(this.options.tscVersion);
         }
         TestRunner.prototype.addSuite = function (suite) {
             this.suites.push(suite);
-        };
-
-        TestRunner.prototype.run = function () {
-            this.timer = new DT.Timer();
-            this.timer.start();
-
-            // we need promises
-            this.doGetChanges();
         };
 
         TestRunner.prototype.checkAcceptFile = function (fileName) {
@@ -788,155 +808,181 @@ var DT;
             return ok;
         };
 
-        TestRunner.prototype.doGetChanges = function () {
+        TestRunner.prototype.run = function () {
             var _this = this;
-            this.changes.getChanges(function (err) {
-                if (err) {
-                    throw err;
-                }
-                console.log('');
-                console.log('changes:');
-                console.log('---');
+            this.timer = new DT.Timer();
+            this.timer.start();
 
-                _this.changes.paths.forEach(function (file) {
-                    console.log(file);
+            // only includes .d.ts or -tests.ts or -test.ts or .ts
+            return Promise.promisify(glob).call(glob, '**/*.ts', {
+                cwd: dtPath
+            }).then(function (filesNames) {
+                _this.files = Lazy(filesNames).filter(function (fileName) {
+                    return _this.checkAcceptFile(fileName);
+                }).map(function (fileName) {
+                    return new DT.File(dtPath, fileName);
+                }).toArray();
+
+                _this.print.printChangeHeader();
+
+                return Promise.all([
+                    _this.doParseFiles(),
+                    _this.doGetChanges()
+                ]);
+            }).then(function () {
+                return _this.doCollectTargets();
+            }).then(function (files) {
+                return _this.runTests(files);
+            }).then(function () {
+                return !_this.suites.some(function (suite) {
+                    return suite.ngTests.length !== 0;
                 });
-                console.log('---');
-
-                // chain
-                _this.doGetReferences();
             });
         };
 
-        TestRunner.prototype.doGetReferences = function () {
-            var _this = this;
-            this.index.parseFiles(this.files, function () {
-                console.log('');
-                console.log('files:');
-                console.log('---');
-                _this.files.forEach(function (file) {
-                    console.log(file.filePathWithName);
-                    file.references.forEach(function (file) {
-                        console.log('  - %s', file.filePathWithName);
-                    });
+        TestRunner.prototype.doParseFiles = function () {
+            return this.index.parseFiles(this.files).then(function () {
+                /*
+                this.print.printSubHeader('Files:');
+                this.print.printDiv();
+                this.files.forEach((file) => {
+                this.print.printLine(file.filePathWithName);
+                file.references.forEach((file) => {
+                this.print.printElement(file.filePathWithName);
                 });
-                console.log('---');
-
+                });
+                this.print.printBreak();*/
                 // chain
-                _this.doCollectTargets();
-            });
+            }).thenReturn();
+        };
+
+        TestRunner.prototype.doGetChanges = function () {
+            var _this = this;
+            return this.changes.getChanges().then(function () {
+                _this.print.printSubHeader('All changes');
+                _this.print.printDiv();
+
+                Lazy(_this.changes.paths).each(function (file) {
+                    _this.print.printLine(file);
+                });
+            }).thenReturn();
         };
 
         TestRunner.prototype.doCollectTargets = function () {
-            // TODO clean this up when functional (do we need changeMap?)
             var _this = this;
-            // bake map for lookup
-            var changeMap = this.changes.paths.filter(function (full) {
-                return _this.checkAcceptFile(full);
-            }).map(function (local) {
-                return path.resolve(_this.dtPath, local);
-            }).reduce(function (memo, full) {
-                var file = _this.index.getFile(full);
-                if (!file) {
-                    // what does it mean? deleted?
-                    console.log('not in index: ' + full);
-                    return memo;
-                }
-                memo[full] = file;
-                return memo;
-            }, Object.create(null));
+            return new Promise(function (resolve) {
+                // bake map for lookup
+                var changeMap = Object.create(null);
 
-            // collect referring files (and also log)
-            var touched = Object.create(null);
-            console.log('');
-            console.log('relevant changes:');
-            console.log('---');
-            Object.keys(changeMap).sort().forEach(function (src) {
-                touched[src] = changeMap[src];
-                console.log(changeMap[src].formatName);
-            });
-            console.log('---');
-
-            // terrible loop (whatever)
-            // just add stuff until there is nothing new added
-            // TODO improve it
-            var added;
-            do {
-                added = 0;
-                this.files.forEach(function (file) {
-                    // lol getter
-                    if (file.fullPath in touched) {
+                Lazy(_this.changes.paths).filter(function (full) {
+                    return _this.checkAcceptFile(full);
+                }).map(function (local) {
+                    return path.resolve(_this.dtPath, local);
+                }).each(function (full) {
+                    var file = _this.index.getFile(full);
+                    if (!file) {
+                        // TODO figure out what to do here
+                        // what does it mean? deleted?
+                        console.log('not in index: ' + full);
                         return;
                     }
-
-                    // check if one of our references is touched
-                    file.references.some(function (ref) {
-                        if (ref.fullPath in touched) {
-                            // add us
-                            touched[file.fullPath] = file;
-                            added++;
-                            return true;
-                        }
-                        return false;
-                    });
+                    changeMap[full] = file;
                 });
-            } while(added > 0);
 
-            console.log('');
-            console.log('touched:');
-            console.log('---');
-            var files = Object.keys(touched).sort().map(function (src) {
-                console.log(touched[src].formatName);
-                return touched[src];
+                _this.print.printDiv();
+                _this.print.printSubHeader('Relevant changes');
+                _this.print.printDiv();
+
+                Object.keys(changeMap).sort().forEach(function (src) {
+                    _this.print.printLine(changeMap[src].formatName);
+                });
+
+                // terrible loop (whatever)
+                // just add stuff until there is nothing new added
+                // TODO improve it
+                var added;
+                var files = _this.files.slice(0);
+                do {
+                    added = 0;
+
+                    for (var i = files.length - 1; i >= 0; i--) {
+                        var file = files[i];
+                        if (file.fullPath in changeMap) {
+                            _this.files.splice(i, 1);
+                            continue;
+                        }
+
+                        for (var j = 0, jj = file.references.length; j < jj; j++) {
+                            if (file.references[j].fullPath in changeMap) {
+                                // add us
+                                changeMap[file.fullPath] = file;
+                                added++;
+                                break;
+                            }
+                        }
+                    }
+                } while(added > 0);
+
+                _this.print.printDiv();
+                _this.print.printSubHeader('Reference mapped');
+                _this.print.printDiv();
+
+                var result = Object.keys(changeMap).sort().map(function (src) {
+                    _this.print.printLine(changeMap[src].formatName);
+                    changeMap[src].references.forEach(function (file) {
+                        _this.print.printElement(file.formatName);
+                    });
+                    return changeMap[src];
+                });
+                resolve(result);
             });
-            console.log('---');
-
-            this.runTests(files);
         };
 
         TestRunner.prototype.runTests = function (files) {
             var _this = this;
-            var syntaxChecking = new DT.SyntaxChecking(this.options);
-            var testEval = new DT.TestEval(this.options);
-            if (!this.options.findNotRequiredTscparams) {
-                this.addSuite(syntaxChecking);
-                this.addSuite(testEval);
-            }
+            return Promise.attempt(function () {
+                assert(Array.isArray(files), 'files must be array');
 
-            var typings = syntaxChecking.filterTargetFiles(files).length;
-            var testFiles = testEval.filterTargetFiles(files).length;
+                var syntaxChecking = new DT.SyntaxChecking(_this.options);
+                var testEval = new DT.TestEval(_this.options);
 
-            this.print = new DT.Print(this.options.tscVersion, typings, testFiles, files.length);
-            this.print.printHeader();
+                if (!_this.options.findNotRequiredTscparams) {
+                    _this.addSuite(syntaxChecking);
+                    _this.addSuite(testEval);
+                }
 
-            if (this.options.findNotRequiredTscparams) {
-                this.addSuite(new DT.FindNotRequiredTscparams(this.options, this.print));
-            }
+                return Promise.all([
+                    syntaxChecking.filterTargetFiles(files),
+                    testEval.filterTargetFiles(files)
+                ]);
+            }).spread(function (syntaxFiles, testFiles) {
+                _this.print.init(syntaxFiles.length, testFiles.length, files.length);
+                _this.print.printHeader();
 
-            var count = 0;
-            var executor = function () {
-                var suite = _this.suites[count];
-                if (suite) {
+                if (_this.options.findNotRequiredTscparams) {
+                    _this.addSuite(new DT.FindNotRequiredTscparams(_this.options, _this.print));
+                }
+
+                return Promise.reduce(_this.suites, function (count, suite) {
                     suite.testReporter = suite.testReporter || new DT.DefaultTestReporter(_this.print);
 
                     _this.print.printSuiteHeader(suite.testSuiteName);
-                    var targetFiles = suite.filterTargetFiles(files);
-                    suite.start(targetFiles, function (testResult, index) {
-                        _this.testCompleteCallback(testResult, index);
-                    }, function (suite) {
-                        _this.suiteCompleteCallback(suite);
-                        count++;
-                        executor();
+                    return suite.filterTargetFiles(files).then(function (targetFiles) {
+                        return suite.start(targetFiles, function (testResult, index) {
+                            _this.printTestComplete(testResult, index);
+                        });
+                    }).then(function (suite) {
+                        _this.printSuiteComplete(suite);
+                        return count++;
                     });
-                } else {
-                    _this.timer.end();
-                    _this.allTestCompleteCallback(files);
-                }
-            };
-            executor();
+                }, 0);
+            }).then(function (count) {
+                _this.timer.end();
+                _this.finaliseTests(files);
+            });
         };
 
-        TestRunner.prototype.testCompleteCallback = function (testResult, index) {
+        TestRunner.prototype.printTestComplete = function (testResult, index) {
             var reporter = testResult.hostedBy.testReporter;
             if (testResult.success) {
                 reporter.printPositiveCharacter(index, testResult);
@@ -945,7 +991,7 @@ var DT;
             }
         };
 
-        TestRunner.prototype.suiteCompleteCallback = function (suite) {
+        TestRunner.prototype.printSuiteComplete = function (suite) {
             this.print.printBreak();
 
             this.print.printDiv();
@@ -954,19 +1000,20 @@ var DT;
             this.print.printFailedCount(suite.ngTests.length, suite.testResults.length);
         };
 
-        TestRunner.prototype.allTestCompleteCallback = function (files) {
+        TestRunner.prototype.finaliseTests = function (files) {
             var _this = this;
-            var testEval = this.suites.filter(function (suite) {
+            var testEval = Lazy(this.suites).filter(function (suite) {
                 return suite instanceof DT.TestEval;
-            })[0];
+            }).first();
+
             if (testEval) {
-                var existsTestTypings = testEval.testResults.map(function (testResult) {
+                var existsTestTypings = Lazy(testEval.testResults).map(function (testResult) {
                     return testResult.targetFile.dir;
                 }).reduce(function (a, b) {
                     return a.indexOf(b) < 0 ? a.concat([b]) : a;
                 }, []);
 
-                var typings = files.map(function (file) {
+                var typings = Lazy(files).map(function (file) {
                     return file.dir;
                 }).reduce(function (a, b) {
                     return a.indexOf(b) < 0 ? a.concat([b]) : a;
@@ -975,6 +1022,7 @@ var DT;
                 var withoutTestTypings = typings.filter(function (typing) {
                     return existsTestTypings.indexOf(typing) < 0;
                 });
+
                 this.print.printDiv();
                 this.print.printTypingsWithoutTest(withoutTestTypings);
             }
@@ -991,10 +1039,11 @@ var DT;
                 _this.print.printSuiteErrorCount(suite.errorHeadline, suite.ngTests.length, suite.testResults.length);
             });
             if (testEval) {
-                this.print.printSuiteErrorCount("Without tests", withoutTestTypings.length, typings.length, '\33[33m\33[1m');
+                this.print.printSuiteErrorCount('Without tests', withoutTestTypings.length, typings.length, true);
             }
 
             this.print.printDiv();
+
             if (this.suites.some(function (suite) {
                 return suite.ngTests.length !== 0;
             })) {
@@ -1008,8 +1057,6 @@ var DT;
                     });
                     _this.print.printBoldDiv();
                 });
-
-                process.exit(1);
             }
         };
         return TestRunner;
@@ -1018,25 +1065,26 @@ var DT;
 
     var dtPath = path.resolve(path.dirname((module).filename), '..', '..');
     var findNotRequiredTscparams = process.argv.some(function (arg) {
-        return arg == "--try-without-tscparams";
+        return arg == '--try-without-tscparams';
     });
-    var tscVersionIndex = process.argv.indexOf("--tsc-version");
+    var tscVersionIndex = process.argv.indexOf('--tsc-version');
     var tscVersion = DT.DEFAULT_TSC_VERSION;
-    if (-1 < tscVersionIndex) {
+
+    if (tscVersionIndex > -1) {
         tscVersion = process.argv[tscVersionIndex + 1];
     }
-
-    console.log('--');
-    console.log('   dtPath %s', dtPath);
-    console.log('   tscVersion %s', tscVersion);
-    console.log('   findNotRequiredTscparams %s', findNotRequiredTscparams);
-    console.log('--');
-    console.log('');
 
     var runner = new TestRunner(dtPath, {
         tscVersion: tscVersion,
         findNotRequiredTscparams: findNotRequiredTscparams
     });
-    runner.run();
+    runner.run().then(function (success) {
+        if (!success) {
+            process.exit(1);
+        }
+    }).catch(function (err) {
+        throw err;
+        process.exit(2);
+    });
 })(DT || (DT = {}));
 //# sourceMappingURL=runner.js.map
