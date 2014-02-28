@@ -2,20 +2,25 @@
 /// <reference path="../util.ts" />
 
 module DT {
-	'use-strict';
+	'use strict';
+
+	var Promise: typeof Promise = require('bluebird');
+
+	var endTestDts = /-test.ts$/i;
+
 	/////////////////////////////////
 	// Compile with *-tests.ts
 	/////////////////////////////////
 	export class TestEval extends TestSuiteBase {
 
 		constructor(options) {
-			super(options, "Typing tests", "Failed tests");
+			super(options, 'Typing tests', 'Failed tests');
 		}
 
-		public filterTargetFiles(files: File[]): File[] {
-			return files.filter((file) => {
-				return DT.endsWith(file.formatName.toUpperCase(), '-TESTS.TS')
-			});
+		public filterTargetFiles(files: File[]): Promise<File[]> {
+			return Promise.cast(files.filter((file) => {
+				return endTestDts.test(file.formatName);
+			}));
 		}
 	}
 

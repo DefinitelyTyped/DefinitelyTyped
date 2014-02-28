@@ -1,7 +1,11 @@
 /// <reference path="../_ref.d.ts" />
 
 module DT {
-	'use-strict';
+	'use strict';
+
+	var fs = require('fs');
+	var Lazy: LazyJS.LazyStatic = require('lazy.js');
+	var Promise: typeof Promise = require('bluebird');
 
 	var referenceTagExp = /<reference[ \t]*path=["']?([\w\.\/_-]*)["']?[ \t]*\/>/g;
 
@@ -24,5 +28,13 @@ module DT {
 			}
 		}
 		return ret;
+	}
+
+	export function fileExists(target: string): Promise<boolean> {
+		return new Promise((resolve, reject) => {
+			fs.exists(target, (bool: boolean) => {
+				resolve(bool);
+			});
+		});
 	}
 }
