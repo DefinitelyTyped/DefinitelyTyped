@@ -1613,7 +1613,7 @@ THE SOFTWARE.
     });
 
     var orders = [ 'XYZ', 'YXZ', 'ZXY', 'ZYX', 'YZX', 'XZY' ];
-    var eulerAngles = new THREE.Vector3( 0.1, -0.3, 0.25 );
+    var eulerAngles = new THREE.Euler( 0.1, -0.3, 0.25 );
 
 
 
@@ -1699,16 +1699,19 @@ THE SOFTWARE.
     });
 
 
-    test( "setFromEuler/setEulerFromQuaternion", function() {
+    test( "setFromEuler/setFromQuaternion", function() {
 
         var angles = [ new THREE.Vector3( 1, 0, 0 ), new THREE.Vector3( 0, 1, 0 ), new THREE.Vector3( 0, 0, 1 ) ];
 
         // ensure euler conversion to/from Quaternion matches.
         for( var i = 0; i < orders.length; i ++ ) {
             for( var j = 0; j < angles.length; j ++ ) {
-                var eulers2 = new THREE.Vector3().setEulerFromQuaternion( new THREE.Quaternion().setFromEuler( angles[j], orders[i] ), orders[i] );
-
-                ok( eulers2.distanceTo( angles[j] ) < 0.001, "Passed!" );
+                var eulers2 = new THREE.Euler().setFromQuaternion(
+                    new THREE.Quaternion().setFromEuler(new THREE.Euler(angles[j].x, angles[j].y, angles[j].z, orders[i])),
+                    orders[i]
+                );
+                var v = new THREE.Vector3().applyEuler(eulers2);
+                ok( v.distanceTo( angles[j] ) < 0.001, "Passed!" );
             }
         }
 
@@ -1718,8 +1721,8 @@ THE SOFTWARE.
 
         // ensure euler conversion for Quaternion matches that of Matrix4
         for( var i = 0; i < orders.length; i ++ ) {
-            var q = new THREE.Quaternion().setFromEuler( eulerAngles, orders[i] );
-            var m = new THREE.Matrix4().setRotationFromEuler( eulerAngles, orders[i] );
+            var q = new THREE.Quaternion().setFromEuler( eulerAngles );
+            var m = new THREE.Matrix4().makeRotationFromEuler( eulerAngles );
             var q2 = new THREE.Quaternion().setFromRotationMatrix( m );
 
             ok( qSub( q, q2 ).length() < 0.001, "Passed!" );
@@ -1763,15 +1766,15 @@ THE SOFTWARE.
 
         var angles = [ new THREE.Vector3( 1, 0, 0 ), new THREE.Vector3( 0, 1, 0 ), new THREE.Vector3( 0, 0, 1 ) ];
 
-        var q1 = new THREE.Quaternion().setFromEuler( angles[0], "XYZ" );
-        var q2 = new THREE.Quaternion().setFromEuler( angles[1], "XYZ" );
-        var q3 = new THREE.Quaternion().setFromEuler( angles[2], "XYZ" );
+        var q1 = new THREE.Quaternion().setFromEuler( new THREE.Euler(angles[0].x, angles[0].y, angles[0].z) );
+        var q2 = new THREE.Quaternion().setFromEuler( new THREE.Euler(angles[1].x, angles[1].y, angles[1].z) );
+        var q3 = new THREE.Quaternion().setFromEuler( new THREE.Euler(angles[2].x, angles[2].y, angles[2].z) );
 
         var q = new THREE.Quaternion().multiplyQuaternions( q1, q2 ).multiply( q3 );
 
-        var m1 = new THREE.Matrix4().setRotationFromEuler( angles[0], "XYZ" );
-        var m2 = new THREE.Matrix4().setRotationFromEuler( angles[1], "XYZ" );
-        var m3 = new THREE.Matrix4().setRotationFromEuler( angles[2], "XYZ" );
+        var m1 = new THREE.Matrix4().makeRotationFromEuler( new THREE.Euler(angles[0].x, angles[0].y, angles[0].z) );
+        var m2 = new THREE.Matrix4().makeRotationFromEuler( new THREE.Euler(angles[1].x, angles[1].y, angles[1].z) );
+        var m3 = new THREE.Matrix4().makeRotationFromEuler( new THREE.Euler(angles[2].x, angles[2].y, angles[2].z) );
 
         var m = new THREE.Matrix4().multiplyMatrices( m1, m2 ).multiply( m3 );
 
@@ -1787,8 +1790,8 @@ THE SOFTWARE.
         // ensure euler conversion for Quaternion matches that of Matrix4
         for( var i = 0; i < orders.length; i ++ ) {
             for( var j = 0; j < angles.length; j ++ ) {
-                var q = new THREE.Quaternion().setFromEuler( angles[j], orders[i] );
-                var m = new THREE.Matrix4().setRotationFromEuler( angles[j], orders[i] );
+                var q = new THREE.Quaternion().setFromEuler( new THREE.Euler(angles[j].x, angles[j].y, angles[j].z, orders[i]) );
+                var m = new THREE.Matrix4().makeRotationFromEuler( new THREE.Euler(angles[j].x, angles[j].y, angles[j].z, orders[i]) );
 
                 var v0 = new THREE.Vector3(1, 0, 0);
                 var qv = v0.clone().applyQuaternion( q );
@@ -1971,10 +1974,10 @@ THE SOFTWARE.
         ok( a.clone().applyMatrix4( m ).equals( a ), "Passed!" );
 
         a = new THREE.Ray( zero3.clone(), new THREE.Vector3( 0, 0, 1 ) );
-        m.rotateByAxis( new THREE.Vector3( 0, 0, 1 ), Math.PI );
+        m.makeRotationAxis( new THREE.Vector3( 0, 0, 1 ), Math.PI );
         ok( a.clone().applyMatrix4( m ).equals( a ), "Passed!" );
 
-        m.identity().rotateX( Math.PI );
+        m.identity().makeRotationX( Math.PI );
         var b = a.clone();
         b.direction.negate();
         var a2 = a.clone().applyMatrix4( m );
@@ -4467,7 +4470,7 @@ var container, stats;
         }
 
         var PI2 = Math.PI * 2;
-        particleMaterial = new THREE.ParticleCanvasMaterial( {
+        particleMaterial = new THREE.ParticleSystemMaterial( {
 
             color: 0x000000,
             program: function ( context ) {
@@ -4527,7 +4530,8 @@ var container, stats;
             var mat = <THREE.MeshBasicMaterial>mesh.material;
             mat.color.setHex( Math.random() * 0xffffff );
 
-            var particle = new THREE.Particle( particleMaterial );
+            var geometry = new THREE.Geometry();
+            var particle = new THREE.ParticleSystem(geometry, particleMaterial );
             particle.position = intersects[ 0 ].point;
             particle.scale.x = particle.scale.y = 8;
             scene.add( particle );
@@ -4623,8 +4627,8 @@ var container, stats;
         scene = new THREE.Scene();
 
         for ( var i = 0; i < 100; i ++ ) {
-
-            var particle = new THREE.Particle( new THREE.ParticleCanvasMaterial( { color: Math.random() * 0x808080 + 0x808080, program: programStroke } ) );
+            var geometry = new THREE.Geometry();
+            var particle = new THREE.ParticleSystem(geometry, new THREE.ParticleSystemMaterial( { color: Math.random() * 0x808080 + 0x808080, program: programStroke } ) );
             particle.position.x = Math.random() * 800 - 400;
             particle.position.y = Math.random() * 800 - 400;
             particle.position.z = Math.random() * 800 - 400;
@@ -5154,15 +5158,16 @@ var container, stats;
 
         }
 
-        particle1 = new THREE.Particle( new THREE.ParticleCanvasMaterial( { color: 0xff0040, program: program } ) );
+        var geometry = new THREE.Geometry();
+        particle1 = new THREE.ParticleSystem(geometry, new THREE.ParticleSystemMaterial( { color: 0xff0040, program: program } ) );
         particle1.scale.x = particle1.scale.y = particle1.scale.z = 0.5;
         scene.add( particle1 );
 
-        particle2 = new THREE.Particle( new THREE.ParticleCanvasMaterial( { color: 0x0040ff, program: program } ) );
+        particle2 = new THREE.ParticleSystem(geometry, new THREE.ParticleSystemMaterial( { color: 0x0040ff, program: program } ) );
         particle2.scale.x = particle2.scale.y = particle2.scale.z = 0.5;
         scene.add( particle2 );
 
-        particle3 = new THREE.Particle( new THREE.ParticleCanvasMaterial( { color: 0x80ff80, program: program } ) );
+        particle3 = new THREE.ParticleSystem(geometry, new THREE.ParticleSystemMaterial( { color: 0x80ff80, program: program } ) );
         particle3.scale.x = particle3.scale.y = particle3.scale.z = 0.5;
         scene.add( particle3 );
 
@@ -5277,15 +5282,16 @@ var container, stats;
 
         }
 
-        particle1 = new THREE.Particle( new THREE.ParticleCanvasMaterial( { color: 0xff0040, program: program } ) );
+        var geometry = new THREE.Geometry();
+        particle1 = new THREE.ParticleSystem(geometry, new THREE.ParticleSystemMaterial( { color: 0xff0040, program: program } ) );
         particle1.scale.x = particle1.scale.y = particle1.scale.z = 0.5;
         scene.add( particle1 );
 
-        particle2 = new THREE.Particle( new THREE.ParticleCanvasMaterial( { color: 0x0040ff, program: program } ) );
+        particle2 = new THREE.ParticleSystem(geometry, new THREE.ParticleSystemMaterial( { color: 0x0040ff, program: program } ) );
         particle2.scale.x = particle2.scale.y = particle2.scale.z = 0.5;
         scene.add( particle2 );
 
-        particle3 = new THREE.Particle( new THREE.ParticleCanvasMaterial( { color: 0x80ff80, program: program } ) );
+        particle3 = new THREE.ParticleSystem(geometry, new THREE.ParticleSystemMaterial( { color: 0x80ff80, program: program } ) );
         particle3.scale.x = particle3.scale.y = particle3.scale.z = 0.5;
         scene.add( particle3 );
 
@@ -5401,7 +5407,7 @@ var container, stats;
         // particles
 
         var PI2 = Math.PI * 2;
-        var material = new THREE.ParticleCanvasMaterial( {
+        var material = new THREE.ParticleSystemMaterial( {
 
             color: 0xffffff,
             program: function ( context ) {
@@ -5419,7 +5425,7 @@ var container, stats;
 
         for ( var i = 0; i < 100; i ++ ) {
 
-            particle = new THREE.Particle( material );
+            particle = new THREE.ParticleSystem(geometry, material );
             particle.position.x = Math.random() * 2 - 1;
             particle.position.y = Math.random() * 2 - 1;
             particle.position.z = Math.random() * 2 - 1;
@@ -5556,7 +5562,7 @@ var container, stats;
         // particles
 
         var PI2 = Math.PI * 2;
-        var material = new THREE.ParticleCanvasMaterial( {
+        var material = new THREE.ParticleSystemMaterial( {
 
             color: 0xffffff,
             program: function ( context ) {
@@ -5570,9 +5576,10 @@ var container, stats;
 
         } );
 
+        var geometry = new THREE.Geometry();
         for ( var i = 0; i < 1000; i ++ ) {
 
-            particle = new THREE.Particle( material );
+            particle = new THREE.ParticleSystem(geometry, material );
             particle.position.x = Math.random() * 2 - 1;
             particle.position.y = Math.random() * 2 - 1;
             particle.position.z = Math.random() * 2 - 1;
@@ -5780,7 +5787,8 @@ var container, stats;
 
         }
 
-        particleLight = new THREE.Particle( new THREE.ParticleCanvasMaterial( { color: 0xffffff, program: program } ) );
+        var geometry = new THREE.Geometry();
+        particleLight = new THREE.ParticleSystem(geometry, new THREE.ParticleSystemMaterial( { color: 0xffffff, program: program } ) );
         particleLight.scale.x = particleLight.scale.y = particleLight.scale.z = 4;
         scene.add( particleLight );
 
@@ -6344,7 +6352,7 @@ var container, stats;
         var amounty = 10;
 
         var PI2 = Math.PI * 2;
-        var materialParticle = new THREE.ParticleCanvasMaterial( {
+        var materialParticle = new THREE.ParticleSystemMaterial( {
 
             color: 0x0808080,
             program: function ( context ) {
@@ -6358,11 +6366,10 @@ var container, stats;
 
         } );
 
+        var geometry = new THREE.Geometry();
         for ( var ix = 0; ix < amountx; ix++ ) {
-
             for ( var iy = 0; iy < amounty; iy++ ) {
-
-                var particle = new THREE.Particle( materialParticle );
+                var particle = new THREE.ParticleSystem(geometry, materialParticle );
                 particle.position.x = ix * separation - ( ( amountx * separation ) / 2 );
                 particle.position.y = -153
                 particle.position.z = iy * separation - ( ( amounty * separation ) / 2 );
@@ -6472,13 +6479,13 @@ var container, stats;
 
         scene = new THREE.Scene();
 
-        var material = new THREE.ParticleBasicMaterial();
-
+        var material = new THREE.ParticleSystemMaterial();
+        var geometry = new THREE.Geometry();
         for ( var ix = 0; ix < AMOUNTX; ix++ ) {
 
             for ( var iy = 0; iy < AMOUNTY; iy++ ) {
 
-                particle = new THREE.Particle( material );
+                particle = new THREE.ParticleSystem(geometry, material );
                 particle.scale.y = 4;
                 particle.position.x = ix * SEPARATION - ( ( AMOUNTX * SEPARATION ) / 2 );
                 particle.position.z = iy * SEPARATION - ( ( AMOUNTY * SEPARATION ) / 2 );
@@ -6607,9 +6614,10 @@ var container, stats;
         group = new THREE.Object3D();
         scene.add( group );
 
+        var geometry = new THREE.Geometry();
         for ( var i = 0; i < 1000; i++ ) {
 
-            particle = new THREE.Particle( new THREE.ParticleCanvasMaterial( { color: Math.random() * 0x808008 + 0x808080, program: program } ) );
+            particle = new THREE.ParticleSystem(geometry, new THREE.ParticleSystemMaterial( { color: Math.random() * 0x808008 + 0x808080, program: program } ) );
             particle.position.x = Math.random() * 2000 - 1000;
             particle.position.y = Math.random() * 2000 - 1000;
             particle.position.z = Math.random() * 2000 - 1000;
@@ -6730,11 +6738,11 @@ var container, stats;
 
         scene = new THREE.Scene();
 
-        var material = new THREE.ParticleBasicMaterial({ map: new THREE.Texture(generateSprite()), blending: THREE.AdditiveBlending });
-
+        var material = new THREE.ParticleSystemMaterial({ map: new THREE.Texture(generateSprite()), blending: THREE.AdditiveBlending });
+        var geometry = new THREE.Geometry();
         for (var i = 0; i < 1000; i++) {
 
-            particle = new THREE.Particle(material);
+            particle = new THREE.ParticleSystem(geometry, material);
 
             initParticle(particle, i * 10);
 
@@ -6796,7 +6804,7 @@ var container, stats;
 
     function initParticle(particle, delay) {
 
-        var particle = this instanceof THREE.Particle ? this : particle;
+        var particle = this instanceof THREE.ParticleSystem ? this : particle;
         var delay = delay !== undefined ? delay : 0;
 
         particle.position.x = 0;
@@ -6900,11 +6908,11 @@ var container, stats;
 
         scene = new THREE.Scene();
 
-        var material = new THREE.ParticleBasicMaterial( { map: new THREE.Texture( generateSprite() ), blending: THREE.AdditiveBlending } );
-
+        var material = new THREE.ParticleSystemMaterial( { map: new THREE.Texture( generateSprite() ), blending: THREE.AdditiveBlending } );
+        var geometry = new THREE.Geometry();
         for ( var i = 0; i < 1000; i++ ) {
 
-            particle = new THREE.Particle( material );
+            particle = new THREE.ParticleSystem(geometry, material );
 
             initParticle( particle, i * 10 );
 
@@ -6966,7 +6974,7 @@ var container, stats;
 
     function initParticle( particle, delay ) {
 
-        var particle = this instanceof THREE.Particle ? this : particle;
+        var particle = this instanceof THREE.ParticleSystem ? this : particle;
         var delay = delay !== undefined ? delay : 0;
 
         particle.position.x = 0;
@@ -7083,7 +7091,7 @@ var container, stats;
         particles = new Array();
 
         var PI2 = Math.PI * 2;
-        var material = new THREE.ParticleCanvasMaterial( {
+        var material = new THREE.ParticleSystemMaterial( {
 
             color: 0xffffff,
             program: function ( context ) {
@@ -7097,12 +7105,12 @@ var container, stats;
         } );
 
         var i = 0;
-
+        var geometry = new THREE.Geometry();
         for ( var ix = 0; ix < AMOUNTX; ix ++ ) {
 
             for ( var iy = 0; iy < AMOUNTY; iy ++ ) {
 
-                particle = particles[ i ++ ] = new THREE.Particle( material );
+                particle = particles[ i ++ ] = new THREE.ParticleSystem(geometry, material );
                 particle.position.x = ix * SEPARATION - ( ( AMOUNTX * SEPARATION ) / 2 );
                 particle.position.z = iy * SEPARATION - ( ( AMOUNTY * SEPARATION ) / 2 );
                 scene.add( particle );
@@ -7948,8 +7956,8 @@ var container, stats;
                 joint.position.copy( start );
                 joint.position.lerp( end, 0.5 );
 
-                joint.matrix.copy( objMatrix );
-                joint.rotation.setEulerFromRotationMatrix( joint.matrix, joint.eulerOrder );
+                joint.matrix.copy(objMatrix);
+                joint.rotation = new THREE.Euler().setFromRotationMatrix(joint.matrix, joint.eulerOrder);
 
                 joint.matrixAutoUpdate = false;
                 joint.updateMatrix();
@@ -9086,12 +9094,12 @@ var container, stats;
 
         var stars;
         var starsMaterials = [
-            new THREE.ParticleBasicMaterial( { color: 0x555555, size: 2, sizeAttenuation: false } ),
-            new THREE.ParticleBasicMaterial( { color: 0x555555, size: 1, sizeAttenuation: false } ),
-            new THREE.ParticleBasicMaterial( { color: 0x333333, size: 2, sizeAttenuation: false } ),
-            new THREE.ParticleBasicMaterial( { color: 0x3a3a3a, size: 1, sizeAttenuation: false } ),
-            new THREE.ParticleBasicMaterial( { color: 0x1a1a1a, size: 2, sizeAttenuation: false } ),
-            new THREE.ParticleBasicMaterial( { color: 0x1a1a1a, size: 1, sizeAttenuation: false } )
+            new THREE.ParticleSystemMaterial( { color: 0x555555, size: 2, sizeAttenuation: false } ),
+            new THREE.ParticleSystemMaterial( { color: 0x555555, size: 1, sizeAttenuation: false } ),
+            new THREE.ParticleSystemMaterial( { color: 0x333333, size: 2, sizeAttenuation: false } ),
+            new THREE.ParticleSystemMaterial( { color: 0x3a3a3a, size: 1, sizeAttenuation: false } ),
+            new THREE.ParticleSystemMaterial( { color: 0x1a1a1a, size: 2, sizeAttenuation: false } ),
+            new THREE.ParticleSystemMaterial( { color: 0x1a1a1a, size: 1, sizeAttenuation: false } )
         ];
 
         for ( i = 10; i < 30; i ++ ) {
@@ -10185,8 +10193,9 @@ var container, stats;
         sphere = new THREE.Mesh( new THREE.SphereGeometry( 100, 20, 20 ), new THREE.MeshNormalMaterial( { shading: THREE.SmoothShading } ) );
         scene.add( sphere );
 
-        var geometry = new THREE.CylinderGeometry( 0, 10, 100, 3 );
-        geometry.applyMatrix( new THREE.Matrix4().setRotationFromEuler( new THREE.Vector3( Math.PI / 2, Math.PI, 0 ) ) );
+        var geometry = new THREE.CylinderGeometry(0, 10, 100, 3);
+        var v = new THREE.Vector3(Math.PI / 2, Math.PI, 0);
+        geometry.applyMatrix(new THREE.Matrix4().makeRotationFromEuler(new THREE.Euler(v.x, v.y, v.z) ) );
 
         var material = new THREE.MeshNormalMaterial();
 
@@ -11536,7 +11545,6 @@ declare var ballPosition: THREE.Vector3;
         mesh.receiveShadow = true;
 
         var animation = new THREE.Animation( mesh, geometry.animation.name );
-        animation.JITCompile = false;
         animation.interpolationType = THREE.AnimationHandler.LINEAR;
 
         animation.play();
@@ -12079,7 +12087,7 @@ declare var ballPosition: THREE.Vector3;
 
         //
 
-        var material = new THREE.ParticleBasicMaterial( { size: 15, vertexColors: true } );
+        var material = new THREE.ParticleSystemMaterial( { size: 15, vertexColors: true } );
 
         particleSystem = new THREE.ParticleSystem( geometry, material );
         scene.add( particleSystem );
@@ -12225,7 +12233,7 @@ declare var ballPosition: THREE.Vector3;
 
         }
 
-        var particles = new THREE.ParticleSystem( geometry, new THREE.ParticleBasicMaterial( { color: 0x888888 } ) );
+        var particles = new THREE.ParticleSystem( geometry, new THREE.ParticleSystemMaterial( { color: 0x888888 } ) );
         scene.add( particles );
 
         //
@@ -13249,30 +13257,6 @@ declare var ballPosition: THREE.Vector3;
             geometry.vertices.push( new THREE.Vector3( x1, y1, z1 ) );
 
         }
-
-        var ribbon = new THREE.Ribbon( geometry, material );
-        scene.add( ribbon );
-
-        materials.push( ribbon.material );
-
-        var ribbon = new THREE.Ribbon( geometry, material.clone() );
-        ribbon.position.y = 250;
-        ribbon.position.x = 250;
-        scene.add( ribbon );
-
-        var ribbonMaterial = <THREE.ShaderMaterial>ribbon.material;
-
-        ribbonMaterial.uniforms.color.value.setHSL( 0, 0.75, 1 );
-        materials.push( ribbon.material );
-
-        var ribbon = new THREE.Ribbon( geometry, material.clone() );
-        ribbon.position.y = -250;
-        ribbon.position.x = 250;
-        scene.add( ribbon );
-
-        ribbonMaterial.uniforms.color.value.setHSL( 0.1, 0.75, 1 );
-        materials.push( ribbon.material );
-
         //
 
         renderer = new THREE.WebGLRenderer( { antialias: true } );
@@ -14289,8 +14273,8 @@ declare var ballPosition: THREE.Vector3;
 
         }
 
-        var extrudeSettings: { amount: number;  bevelEnabled: boolean; bevelSegments: number; steps: number; extrudePath?: THREE.SplineCurve3; };
-        extrudeSettings = { amount: 200,  bevelEnabled: true, bevelSegments: 2, steps: 150 }; // bevelSegments: 2, steps: 2 , bevelSegments: 5, bevelSize: 8, bevelThickness:5,
+        var extrudeSettings: { amount: number; bevelEnabled: boolean; bevelSegments: number; steps: number; extrudePath: THREE.Path; };
+        extrudeSettings = { amount: 200,  bevelEnabled: true, bevelSegments: 2, steps: 150, extrudePath: new THREE.Path() }; // bevelSegments: 2, steps: 2 , bevelSegments: 5, bevelSize: 8, bevelThickness:5,
 
         // var extrudePath = new THREE.Path();
 
@@ -14301,41 +14285,6 @@ declare var ballPosition: THREE.Vector3;
 
 
         extrudeSettings.bevelEnabled = false;
-
-        var extrudeBend = new THREE.SplineCurve3( //Closed
-        [
-
-          new THREE.Vector3( 30, 12, 83),
-          new THREE.Vector3( 40, 20, 67),
-          new THREE.Vector3( 60, 40, 99),
-          new THREE.Vector3( 10, 60, 49),
-          new THREE.Vector3( 25, 80, 40)
-
-        ]);
-
-    var pipeSpline = new THREE.SplineCurve3([
-        new THREE.Vector3(0, 10, -10), new THREE.Vector3(10, 0, -10), new THREE.Vector3(20, 0, 0), new THREE.Vector3(30, 0, 10), new THREE.Vector3(30, 0, 20), new THREE.Vector3(20, 0, 30), new THREE.Vector3(10, 0, 30), new THREE.Vector3(0, 0, 30), new THREE.Vector3(-10, 10, 30), new THREE.Vector3(-10, 20, 30), new THREE.Vector3(0, 30, 30), new THREE.Vector3(10, 30, 30), new THREE.Vector3(20, 30, 15), new THREE.Vector3(10, 30, 10), new THREE.Vector3(0, 30, 10), new THREE.Vector3(-10, 20, 10), new THREE.Vector3(-10, 10, 10), new THREE.Vector3(0, 0, 10), new THREE.Vector3(10, -10, 10), new THREE.Vector3(20, -15, 10), new THREE.Vector3(30, -15, 10), new THREE.Vector3(40, -15, 10), new THREE.Vector3(50, -15, 10), new THREE.Vector3(60, 0, 10), new THREE.Vector3(70, 0, 0), new THREE.Vector3(80, 0, 0), new THREE.Vector3(90, 0, 0), new THREE.Vector3(100, 0, 0)]
-    );
-
-    var sampleClosedSpline = new THREE.ClosedSplineCurve3([
-        new THREE.Vector3(0, -40, -40),
-        new THREE.Vector3(0, 40, -40),
-        new THREE.Vector3(0, 140, -40),
-        new THREE.Vector3(0, 40, 40),
-        new THREE.Vector3(0, -40, 40),
-    ]);
-
-    var randomPoints = [];
-
-    for ( var i = 0; i < 10; i ++ ) {
-
-        randomPoints.push( new THREE.Vector3(Math.random() * 200,Math.random() * 200,Math.random() * 200 ) );
-
-    }
-
-    var randomSpline =  new THREE.SplineCurve3( randomPoints );
-
-    extrudeSettings.extrudePath = randomSpline; // extrudeBend sampleClosedSpline pipeSpline randomSpline
 
     // Circle
 
@@ -14360,7 +14309,7 @@ declare var ballPosition: THREE.Vector3;
 
     var pts = [], starPoints = 5, l;
 
-    for ( i = 0; i < starPoints * 2; i ++ ) {
+    for ( var i = 0; i < starPoints * 2; i ++ ) {
 
         if ( i % 2 == 1 ) {
 
@@ -14408,7 +14357,7 @@ declare var ballPosition: THREE.Vector3;
     var circle3d = starShape.extrude( extrudeSettings ); //circleShape rectShape smileyShape starShape
     // var circle3d = new THREE.ExtrudeGeometry(circleShape, extrudeBend, extrudeSettings );
 
-    var tube = new THREE.TubeGeometry(extrudeSettings.extrudePath, 150, 4, 5, false, true);
+    var tube = new THREE.TubeGeometry(extrudeSettings.extrudePath, 150, 4, 5, false);
     // new THREE.TubeGeometry(extrudePath, segments, 2, radiusSegments, closed2, debug);
 
 
@@ -14556,18 +14505,6 @@ function render() {
     var binormal = new THREE.Vector3();
     var normal = new THREE.Vector3();
 
-
-    var pipeSpline = new THREE.SplineCurve3([
-            new THREE.Vector3(0, 10, -10), new THREE.Vector3(10, 0, -10), new THREE.Vector3(20, 0, 0), new THREE.Vector3(30, 0, 10), new THREE.Vector3(30, 0, 20), new THREE.Vector3(20, 0, 30), new THREE.Vector3(10, 0, 30), new THREE.Vector3(0, 0, 30), new THREE.Vector3(-10, 10, 30), new THREE.Vector3(-10, 20, 30), new THREE.Vector3(0, 30, 30), new THREE.Vector3(10, 30, 30), new THREE.Vector3(20, 30, 15), new THREE.Vector3(10, 30, 10), new THREE.Vector3(0, 30, 10), new THREE.Vector3(-10, 20, 10), new THREE.Vector3(-10, 10, 10), new THREE.Vector3(0, 0, 10), new THREE.Vector3(10, -10, 10), new THREE.Vector3(20, -15, 10), new THREE.Vector3(30, -15, 10), new THREE.Vector3(40, -15, 10), new THREE.Vector3(50, -15, 10), new THREE.Vector3(60, 0, 10), new THREE.Vector3(70, 0, 0), new THREE.Vector3(80, 0, 0), new THREE.Vector3(90, 0, 0), new THREE.Vector3(100, 0, 0)]);
-
-    var sampleClosedSpline = new THREE.ClosedSplineCurve3([
-        new THREE.Vector3(0, -40, -40),
-        new THREE.Vector3(0, 40, -40),
-        new THREE.Vector3(0, 140, -40),
-        new THREE.Vector3(0, 40, 40),
-        new THREE.Vector3(0, -40, 40),
-    ]);
-
     // Keep a dictionary of Curve instances
     var splines = {
         GrannyKnot: new THREE.Curves.GrannyKnot(),
@@ -14583,9 +14520,7 @@ function render() {
         DecoratedTorusKnot4a: new THREE.Curves.DecoratedTorusKnot4a(),
         DecoratedTorusKnot4b: new THREE.Curves.DecoratedTorusKnot4b(),
         DecoratedTorusKnot5a: new THREE.Curves.DecoratedTorusKnot5a(),
-        DecoratedTorusKnot5c: new THREE.Curves.DecoratedTorusKnot5c(),
-        PipeSpline: pipeSpline,
-        SampleClosedSpline: sampleClosedSpline
+        DecoratedTorusKnot5c: new THREE.Curves.DecoratedTorusKnot5c()
     };
 
 
@@ -14626,7 +14561,7 @@ function render() {
 
         extrudePath = splines[value];
 
-        tube = new THREE.TubeGeometry(extrudePath, segments, 2, radiusSegments, closed2, debug);
+        tube = new THREE.TubeGeometry(extrudePath, segments, 2, radiusSegments, closed2);
 
         addGeometry(tube, 0xff00ff);
         setScale();
@@ -16872,7 +16807,7 @@ function render() {
                     // vertices from real points
 
                     var pgeo = points.clone();
-                    var particles = new THREE.ParticleSystem( pgeo, new THREE.ParticleBasicMaterial( { color: color, size: 2, opacity: 0.75 } ) );
+                    var particles = new THREE.ParticleSystem( pgeo, new THREE.ParticleSystemMaterial( { color: color, size: 2, opacity: 0.75 } ) );
                     particles.position.set( x, y, z + 75 );
                     particles.rotation.set( rx, ry, rz );
                     particles.scale.set( s, s, s );
@@ -16889,7 +16824,7 @@ function render() {
                     // equidistance sampled points
 
                     var pgeo = spacedPoints.clone();
-                    var particles2 = new THREE.ParticleSystem( pgeo, new THREE.ParticleBasicMaterial( { color: color, size: 2, opacity: 0.5 } ) );
+                    var particles2 = new THREE.ParticleSystem( pgeo, new THREE.ParticleSystemMaterial( { color: color, size: 2, opacity: 0.5 } ) );
                     particles2.position.set( x, y, z + 125 );
                     particles2.rotation.set( rx, ry, rz );
                     particles2.scale.set( s, s, s );
@@ -17083,12 +17018,6 @@ function render() {
 
                 // TODO 3d path?
 
-                var apath = new THREE.SplineCurve3();
-                apath.points.push(new THREE.Vector3(-50, 150, 10));
-                apath.points.push(new THREE.Vector3(-20, 180, 20));
-                apath.points.push(new THREE.Vector3(40, 220, 50));
-                apath.points.push(new THREE.Vector3(200, 290, 100));
-
 
                 var extrudeSettings:any = { amount: 20 }; // bevelSegments: 2, steps: 2 , bevelSegments: 5, bevelSize: 8, bevelThickness:5
 
@@ -17109,7 +17038,6 @@ function render() {
                 addShape( smileyShape, extrudeSettings, 0xee00ff, -200, 250, 0, 0, 0, Math.PI, 1 );
                 addShape( arcShape, extrudeSettings, 0xbb4422, 150, 0, 0, 0, 0, 0, 1 );
 
-                extrudeSettings.extrudePath = apath;
                 extrudeSettings.bevelEnabled = false;
                 extrudeSettings.steps = 20;
 
@@ -17494,10 +17422,9 @@ function render() {
                     }
 
                     for ( var i = 0; i < smooth.vertices.length; i++ ) {
-
-                        var particle = new THREE.Particle( new THREE.ParticleCanvasMaterial( { color: Math.random() * 0x808008 + 0x808080, program: program } ) );
+                        var geometry = new THREE.Geometry();
+                        var particle = new THREE.ParticleSystem(geometry, new THREE.ParticleSystemMaterial( { color: Math.random() * 0x808008 + 0x808080, program: program } ) );
                         particle.position = smooth.vertices[ i ];
-                        var pos = smooth.vertices.position
                         particle.scale.x = particle.scale.y = 5;
                         group.add( particle );
                     }
@@ -17523,10 +17450,9 @@ function render() {
                     }
 
                     for ( var i = 0; i < geometry.vertices.length; i++ ) {
-
-                        particle = new THREE.Particle( new THREE.ParticleCanvasMaterial( { color: Math.random() * 0x808008 + 0x808080, program: drawText(i) } ) );
+                        var geometry = new THREE.Geometry();
+                        particle = new THREE.ParticleSystem(geometry, new THREE.ParticleSystemMaterial( { color: Math.random() * 0x808008 + 0x808080, program: drawText(i) } ) );
                         particle.position = smooth.vertices[ i ];
-                        var pos = geometry.vertices.position
                         particle.scale.x = particle.scale.y = 30;
                         group.add( particle );
                     }
@@ -20226,7 +20152,6 @@ function render() {
                                 THREE.AnimationHandler.add( object.geometry.animation );
 
                                 var animation = new THREE.Animation( object, object.geometry.animation.name );
-                                animation.JITCompile = false;
                                 animation.interpolationType = THREE.AnimationHandler.LINEAR;
 
                                 animation.play();
@@ -22628,62 +22553,6 @@ function render() {
                     geometry2.colors.push( color );
 
                 }
-
-                var tmpRot = new THREE.Matrix4();
-                tmpRot.makeRotationAxis( new THREE.Vector3( 1, 0, 0 ), Math.PI/2 );
-
-                var xgrid = 34;
-                var ygrid = 15;
-                var nribbons = xgrid * ygrid;
-
-                var c = 0;
-                for (var i = 0; i < xgrid; i ++ )
-                for (var  j = 0; j < ygrid; j ++ ) {
-
-                    var material = new THREE.MeshBasicMaterial( { color: 0xffffff, vertexColors: THREE.VertexColors, side: THREE.DoubleSide } );
-
-                    ribbon = new THREE.Ribbon( i % 2 ? geometry : geometry2, material );
-                    ribbon.rotation.x = 0;
-                    ribbon.rotation.y = Math.PI / 2;
-                    ribbon.rotation.z = Math.PI;
-
-                    x = 40 * ( i - xgrid/2 );
-                    y = 40 * ( j - ygrid/2 );
-                    z = 0;
-
-                    ribbon.position.set( x, y, z );
-
-                    ribbon.matrixAutoUpdate = false;
-
-                    // manually create local matrix
-
-                    ribbon.matrix.setPosition( ribbon.position );
-                    ribbon.matrixRotationWorld.setRotationFromEuler( ribbon.rotation );
-
-                    ribbon.matrix.elements[ 0 ] = ribbon.matrixRotationWorld.elements[ 0 ];
-                    ribbon.matrix.elements[ 4 ] = ribbon.matrixRotationWorld.elements[ 4 ];
-                    ribbon.matrix.elements[ 8 ] = ribbon.matrixRotationWorld.elements[ 8 ];
-
-                    ribbon.matrix.elements[ 1 ] = ribbon.matrixRotationWorld.elements[ 1 ];
-                    ribbon.matrix.elements[ 5 ] = ribbon.matrixRotationWorld.elements[ 5 ];
-                    ribbon.matrix.elements[ 9 ] = ribbon.matrixRotationWorld.elements[ 9 ];
-
-                    ribbon.matrix.elements[ 2 ] = ribbon.matrixRotationWorld.elements[ 2 ];
-                    ribbon.matrix.elements[ 6 ] = ribbon.matrixRotationWorld.elements[ 6 ];
-                    ribbon.matrix.elements[ 10 ] = ribbon.matrixRotationWorld.elements[ 10 ];
-
-                    ribbon.matrix.multiply( tmpRot );
-
-                    ribbon.matrix.scale( ribbon.scale );
-
-                    ribbons.push( ribbon );
-                    scene.add( ribbon );
-
-                    c ++;
-
-                }
-
-                scene.matrixAutoUpdate = false;
 
                 //
 
