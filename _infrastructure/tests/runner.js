@@ -608,10 +608,20 @@ var DT;
             });
         };
 
+        Print.prototype.printQueue = function (files) {
+            var _this = this;
+            this.printDiv();
+            this.printSubHeader('Queued for testing');
+            this.printDiv();
+
+            files.forEach(function (file) {
+                _this.printLine(file.filePathWithName);
+            });
+        };
         Print.prototype.printFiles = function (files) {
             var _this = this;
             this.printDiv();
-            this.printSubHeader('Files:');
+            this.printSubHeader('Files');
             this.printDiv();
 
             files.forEach(function (file) {
@@ -650,7 +660,18 @@ var DT;
         Print.prototype.printRelChanges = function (changeMap) {
             var _this = this;
             this.printDiv();
-            this.printSubHeader('Relevant changes');
+            this.printSubHeader('Interesting files');
+            this.printDiv();
+
+            Object.keys(changeMap).sort().forEach(function (src) {
+                _this.printLine(changeMap[src].filePathWithName);
+            });
+        };
+
+        Print.prototype.printRemovals = function (changeMap) {
+            var _this = this;
+            this.printDiv();
+            this.printSubHeader('Removed files');
             this.printDiv();
 
             Object.keys(changeMap).sort().forEach(function (src) {
@@ -823,7 +844,7 @@ var DT;
 
     var Promise = require('bluebird');
 
-    var endTestDts = /-test.ts$/i;
+    var endTestDts = /-tests?.ts$/i;
 
     /////////////////////////////////
     // Compile with *-tests.ts
@@ -1023,6 +1044,8 @@ var DT;
                 _this.print.printAllChanges(changes);
                 return _this.index.collectDiff(changes);
             }).then(function () {
+                _this.print.printRemovals(_this.index.removed);
+                _this.print.printRelChanges(_this.index.changed);
                 return _this.index.parseFiles();
             }).then(function () {
                 // this.print.printRefMap(this.index, this.index.refMap);
@@ -1033,12 +1056,13 @@ var DT;
                     _this.print.printBoldDiv();
 
                     // bail
-                    return Promise.delay(500).return(false);
+                    return Promise.cast(false);
                 }
 
                 // this.print.printFiles(this.files);
                 return _this.index.collectTargets().then(function (files) {
-                    // this.print.printTests(files);
+                    _this.print.printQueue(files);
+
                     return _this.runTests(files);
                 }).then(function () {
                     return !_this.suites.some(function (suite) {
