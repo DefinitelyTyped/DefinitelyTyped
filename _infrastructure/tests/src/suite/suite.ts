@@ -50,7 +50,7 @@ module DT {
 				return Promise.all(targetFiles.map((targetFile) => {
 					return this.runTest(targetFile).then((result) => {
 						testCallback(result);
-					})
+					});
 				}));
 			}).then(() => {
 				this.timer.end();

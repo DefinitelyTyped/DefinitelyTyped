@@ -6,7 +6,7 @@ module DT {
 
 	var Promise: typeof Promise = require('bluebird');
 
-	var endDts = /.ts$/i;
+	var endDts = /\w\.ts$/i;
 
 	/////////////////////////////////
 	// .d.ts syntax inspection

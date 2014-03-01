@@ -11,11 +11,12 @@ module DT {
 	export class Timer {
 		startTime: number;
 		time = 0;
-		asString: string;
+		asString: string = '<not-started>'
 
 		public start() {
 			this.time = 0;
 			this.startTime = this.now();
+			this.asString = '<started>';
 		}
 
 		public now(): number {
