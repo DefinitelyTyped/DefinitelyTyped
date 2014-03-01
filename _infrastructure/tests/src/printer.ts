@@ -180,9 +180,19 @@ module DT {
 			});
 		}
 
+		public printQueue(files: File[]): void {
+			this.printDiv();
+			this.printSubHeader('Queued for testing');
+			this.printDiv();
+
+			files.forEach((file) => {
+				this.printLine(file.filePathWithName);
+			});
+
+		}
 		public printFiles(files: File[]): void {
 			this.printDiv();
-			this.printSubHeader('Files:');
+			this.printSubHeader('Files');
 			this.printDiv();
 
 			files.forEach((file) => {
@@ -218,7 +228,17 @@ module DT {
 
 		public printRelChanges(changeMap: FileDict): void {
 			this.printDiv();
-			this.printSubHeader('Relevant changes');
+			this.printSubHeader('Interesting files');
+			this.printDiv();
+
+			Object.keys(changeMap).sort().forEach((src) => {
+				this.printLine(changeMap[src].filePathWithName);
+			});
+		}
+
+		public printRemovals(changeMap: FileDict): void {
+			this.printDiv();
+			this.printSubHeader('Removed files');
 			this.printDiv();
 
 			Object.keys(changeMap).sort().forEach((src) => {

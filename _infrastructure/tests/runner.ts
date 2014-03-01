@@ -123,6 +123,8 @@ module DT {
 				this.print.printAllChanges(changes);
 				return this.index.collectDiff(changes);
 			}).then(() => {
+				this.print.printRemovals(this.index.removed);
+				this.print.printRelChanges(this.index.changed);
 				return this.index.parseFiles();
 			}).then(() => {
 				// this.print.printRefMap(this.index, this.index.refMap);
@@ -131,11 +133,11 @@ module DT {
 					this.print.printMissing(this.index, this.index.missing);
 					this.print.printBoldDiv();
 					// bail
-					return Promise.delay(500).return(false);
+					return Promise.cast(false);
 				}
 				// this.print.printFiles(this.files);
 				return this.index.collectTargets().then((files) => {
-					// this.print.printTests(files);
+					this.print.printQueue(files);
 
 					return this.runTests(files);
 				}).then(() => {
