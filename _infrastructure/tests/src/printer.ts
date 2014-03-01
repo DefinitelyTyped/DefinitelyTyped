@@ -132,6 +132,10 @@ module DT {
 			this.out(' \33[36m\33[1m' + file + '\33[0m\n');
 		}
 
+		public printWarnCode(str: string) {
+			this.out(' \33[31m\33[1m<' + str.toLowerCase().replace(/ +/g, '-') + '>\33[0m\n');
+		}
+
 		public printLine(file: string) {
 			this.out(file + '\n');
 		}
@@ -197,8 +201,13 @@ module DT {
 			files.forEach((file) => {
 				this.printLine(file.filePathWithName);
 			});
-
 		}
+
+		public printTestAll(): void {
+			this.printDiv();
+			this.printSubHeader('Ignoring changes, testing all files');
+		}
+
 		public printFiles(files: File[]): void {
 			this.printDiv();
 			this.printSubHeader('Files');

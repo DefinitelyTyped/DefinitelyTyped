@@ -32,7 +32,7 @@ module DT {
 
 	var tsExp = /\.ts$/;
 
-	export var DEFAULT_TSC_VERSION = '0.9.1.1';
+	export var DEFAULT_TSC_VERSION = '0.9.7';
 
 	/////////////////////////////////
 	// Single test
@@ -123,6 +123,10 @@ module DT {
 	export interface ITestRunnerOptions {
 		tscVersion:string;
 		concurrent?:number;
+		testChanges?:boolean;
+		skipTests?:boolean;
+		printFiles?:boolean;
+		printRefMap?:boolean;
 		findNotRequiredTscparams?:boolean;
 	}
 
@@ -175,19 +179,27 @@ module DT {
 				this.print.printRelChanges(this.index.changed);
 				return this.index.parseFiles();
 			}).then(() => {
-				// this.print.printRefMap(this.index, this.index.refMap);
-
+				if (this.options.printRefMap) {
+					this.print.printRefMap(this.index, this.index.refMap);
+				}
 				if (Lazy(this.index.missing).some((arr: any[]) => arr.length > 0)) {
 					this.print.printMissing(this.index, this.index.missing);
 					this.print.printBoldDiv();
 					// bail
 					return Promise.cast(false);
 				}
-				// this.print.printFiles(this.files);
+				if (this.options.printFiles) {
+					this.print.printFiles(this.index.files);
+				}
 				return this.index.collectTargets().then((files) => {
-					this.print.printQueue(files);
-
-					return this.runTests(files);
+					if (this.options.testChanges) {
+						this.print.printQueue(files);
+						return this.runTests(files);
+					}
+					else {
+						this.print.printTestAll();
+						return this.runTests(this.index.files)
+					}
 				}).then(() => {
 					return !this.suites.some((suite) => {
 						return suite.ngTests.length !== 0
@@ -224,6 +236,11 @@ module DT {
 					suite.testReporter = suite.testReporter || new DefaultTestReporter(this.print);
 
 					this.print.printSuiteHeader(suite.testSuiteName);
+
+					if (this.options.skipTests) {
+						this.print.printWarnCode('skipped test');
+						return Promise.cast(count++);
+					}
 
 					return suite.start(files, (testResult) => {
 						this.print.printTestComplete(testResult);
@@ -298,21 +315,39 @@ module DT {
 		}
 	}
 
+	var optimist: Optimist = require('optimist')(process.argv);
+	optimist.default('try-without-tscparams', false);
+	optimist.default('single-thread', false);
+	optimist.default('tsc-version', DEFAULT_TSC_VERSION);
+
+	optimist.default('test-changes', false);
+	optimist.default('skip-tests', false);
+	optimist.default('print-files', false);
+	optimist.default('print-refmap', false);
+
+	optimist.boolean('help');
+	optimist.describe('help', 'print help');
+	optimist.alias('h', 'help');
+
+	var argv: any = optimist.argv;
+
 	var dtPath = path.resolve(path.dirname((module).filename), '..', '..');
-	var findNotRequiredTscparams = process.argv.some(arg => arg == '--try-without-tscparams');
-	var tscVersionIndex = process.argv.indexOf('--tsc-version');
-	var tscVersion = DEFAULT_TSC_VERSION;
 	var cpuCores = os.cpus().length;
 
-	if (tscVersionIndex > -1) {
-		tscVersion = process.argv[tscVersionIndex + 1];
+	if (argv.help) {
+		optimist.showHelp();
+		process.exit(0);
 	}
-	var runner = new TestRunner(dtPath, {
-		concurrent: Math.max(cpuCores, 2),
-		tscVersion: tscVersion,
-		findNotRequiredTscparams: findNotRequiredTscparams
-	});
-	runner.run().then((success) => {
+
+	new TestRunner(dtPath, {
+		concurrent: argv['single-thread'] ? 1 : Math.max(cpuCores, 2),
+		tscVersion: argv['tsc-version'],
+		testChanges: argv['test-changes'],
+		skipTests: argv['skip-tests'],
+		printFiles: argv['print-files'],
+		printRefMap: argv['print-refmap'],
+		findNotRequiredTscparams: argv['try-without-tscparam']
+	}).run().then((success) => {
 		if (!success) {
 			process.exit(1);
 		}

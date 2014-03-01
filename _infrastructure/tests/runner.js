@@ -127,10 +127,12 @@ var DT;
     var Timer = (function () {
         function Timer() {
             this.time = 0;
+            this.asString = '<not-started>';
         }
         Timer.prototype.start = function () {
             this.time = 0;
             this.startTime = this.now();
+            this.asString = '<started>';
         };
 
         Timer.prototype.now = function () {
@@ -566,6 +568,10 @@ var DT;
             this.out(' \33[36m\33[1m' + file + '\33[0m\n');
         };
 
+        Print.prototype.printWarnCode = function (str) {
+            this.out(' \33[31m\33[1m<' + str.toLowerCase().replace(/ +/g, '-') + '>\33[0m\n');
+        };
+
         Print.prototype.printLine = function (file) {
             this.out(file + '\n');
         };
@@ -634,6 +640,12 @@ var DT;
                 _this.printLine(file.filePathWithName);
             });
         };
+
+        Print.prototype.printTestAll = function () {
+            this.printDiv();
+            this.printSubHeader('Ignoring changes, testing all files');
+        };
+
         Print.prototype.printFiles = function (files) {
             var _this = this;
             this.printDiv();
@@ -838,7 +850,7 @@ var DT;
 
     var Promise = require('bluebird');
 
-    var endDts = /.ts$/i;
+    var endDts = /\w\.ts$/i;
 
     /////////////////////////////////
     // .d.ts syntax inspection
@@ -865,7 +877,7 @@ var DT;
 
     var Promise = require('bluebird');
 
-    var endTestDts = /-tests?.ts$/i;
+    var endTestDts = /\w-tests?\.ts$/i;
 
     /////////////////////////////////
     // Compile with *-tests.ts
@@ -977,7 +989,7 @@ var DT;
 
     var tsExp = /\.ts$/;
 
-    DT.DEFAULT_TSC_VERSION = '0.9.1.1';
+    DT.DEFAULT_TSC_VERSION = '0.9.7';
 
     /////////////////////////////////
     // Single test
@@ -1119,7 +1131,9 @@ var DT;
                 _this.print.printRelChanges(_this.index.changed);
                 return _this.index.parseFiles();
             }).then(function () {
-                // this.print.printRefMap(this.index, this.index.refMap);
+                if (_this.options.printRefMap) {
+                    _this.print.printRefMap(_this.index, _this.index.refMap);
+                }
                 if (Lazy(_this.index.missing).some(function (arr) {
                     return arr.length > 0;
                 })) {
@@ -1129,12 +1143,17 @@ var DT;
                     // bail
                     return Promise.cast(false);
                 }
-
-                // this.print.printFiles(this.files);
+                if (_this.options.printFiles) {
+                    _this.print.printFiles(_this.index.files);
+                }
                 return _this.index.collectTargets().then(function (files) {
-                    _this.print.printQueue(files);
-
-                    return _this.runTests(files);
+                    if (_this.options.testChanges) {
+                        _this.print.printQueue(files);
+                        return _this.runTests(files);
+                    } else {
+                        _this.print.printTestAll();
+                        return _this.runTests(_this.index.files);
+                    }
                 }).then(function () {
                     return !_this.suites.some(function (suite) {
                         return suite.ngTests.length !== 0;
@@ -1172,6 +1191,11 @@ var DT;
                     suite.testReporter = suite.testReporter || new DT.DefaultTestReporter(_this.print);
 
                     _this.print.printSuiteHeader(suite.testSuiteName);
+
+                    if (_this.options.skipTests) {
+                        _this.print.printWarnCode('skipped test');
+                        return Promise.cast(count++);
+                    }
 
                     return suite.start(files, function (testResult) {
                         _this.print.printTestComplete(testResult);
@@ -1249,23 +1273,39 @@ var DT;
     })();
     DT.TestRunner = TestRunner;
 
+    var optimist = require('optimist')(process.argv);
+    optimist.default('try-without-tscparams', false);
+    optimist.default('single-thread', false);
+    optimist.default('tsc-version', DT.DEFAULT_TSC_VERSION);
+
+    optimist.default('test-changes', false);
+    optimist.default('skip-tests', false);
+    optimist.default('print-files', false);
+    optimist.default('print-refmap', false);
+
+    optimist.boolean('help');
+    optimist.describe('help', 'print help');
+    optimist.alias('h', 'help');
+
+    var argv = optimist.argv;
+
     var dtPath = path.resolve(path.dirname((module).filename), '..', '..');
-    var findNotRequiredTscparams = process.argv.some(function (arg) {
-        return arg == '--try-without-tscparams';
-    });
-    var tscVersionIndex = process.argv.indexOf('--tsc-version');
-    var tscVersion = DT.DEFAULT_TSC_VERSION;
     var cpuCores = os.cpus().length;
 
-    if (tscVersionIndex > -1) {
-        tscVersion = process.argv[tscVersionIndex + 1];
+    if (argv.help) {
+        optimist.showHelp();
+        process.exit(0);
     }
-    var runner = new TestRunner(dtPath, {
-        concurrent: Math.max(cpuCores, 2),
-        tscVersion: tscVersion,
-        findNotRequiredTscparams: findNotRequiredTscparams
-    });
-    runner.run().then(function (success) {
+
+    new TestRunner(dtPath, {
+        concurrent: argv['single-thread'] ? 1 : Math.max(cpuCores, 2),
+        tscVersion: argv['tsc-version'],
+        testChanges: argv['test-changes'],
+        skipTests: argv['skip-tests'],
+        printFiles: argv['print-files'],
+        printRefMap: argv['print-refmap'],
+        findNotRequiredTscparams: argv['try-without-tscparam']
+    }).run().then(function (success) {
         if (!success) {
             process.exit(1);
         }
