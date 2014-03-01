@@ -19,12 +19,12 @@ module DT {
 			super(options, 'Find not required .tscparams files', 'New arrival!');
 
 			this.testReporter = {
-				printPositiveCharacter: (index: number, testResult: TestResult) => {
+				printPositiveCharacter: (testResult: TestResult) => {
 					this.print
 					.clearCurrentLine()
 					.printTypingsWithoutTestName(testResult.targetFile.filePathWithName);
 				},
-				printNegativeCharacter: (index: number, testResult: TestResult) => {
+				printNegativeCharacter: (testResult: TestResult) => {
 				}
 			}
 		}
@@ -40,11 +40,11 @@ module DT {
 		public runTest(targetFile: File): Promise<TestResult> {
 			this.print.clearCurrentLine().out(targetFile.filePathWithName);
 
-			return new Test(this, targetFile, {
+			return this.queue.run(new Test(this, targetFile, {
 				tscVersion: this.options.tscVersion,
 				useTscParams: false,
 				checkNoImplicitAny: true
-			}).run().then((result: TestResult) => {
+			})).then((result) => {
 				this.testResults.push(result);
 				this.print.clearCurrentLine();
 				return result

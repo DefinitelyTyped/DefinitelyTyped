@@ -32,31 +32,36 @@ module DT {
 		testResults: TestResult[] = [];
 		testReporter: ITestReporter;
 		printErrorCount = true;
+		queue: TestQueue;
 
 		constructor(public options: ITestRunnerOptions, public testSuiteName: string, public errorHeadline: string) {
+			this.queue = new TestQueue(options.concurrent);
 		}
 
 		public filterTargetFiles(files: File[]): Promise<File[]> {
 			throw new Error('please implement this method');
 		}
 
-		public start(targetFiles: File[], testCallback: (result: TestResult, index: number) => void): Promise<ITestSuite> {
+		public start(targetFiles: File[], testCallback: (result: TestResult) => void): Promise<ITestSuite> {
 			this.timer.start();
+
 			return this.filterTargetFiles(targetFiles).then((targetFiles) => {
-				return Promise.reduce(targetFiles, (count, targetFile) => {
+				// tests get queued for multi-threading
+				return Promise.all(targetFiles.map((targetFile) => {
 					return this.runTest(targetFile).then((result) => {
-						testCallback(result, count + 1);
-						return count++;
-					});
-				}, 0);
-			}).then((count: number) => {
+						testCallback(result);
+					})
+				}));
+			}).then(() => {
 				this.timer.end();
 				return this;
 			});
 		}
 
 		public runTest(targetFile: File): Promise<TestResult> {
-			return new Test(this, targetFile, {tscVersion: this.options.tscVersion}).run().then((result) => {
+			return this.queue.run(new Test(this, targetFile, {
+				tscVersion: this.options.tscVersion
+			})).then((result) => {
 				this.testResults.push(result);
 				return result;
 			});
