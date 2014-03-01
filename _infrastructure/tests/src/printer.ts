@@ -72,7 +72,7 @@ module DT {
 		}
 
 		public printErrorsForFile(testResult: TestResult) {
-			this.out('----------------- For file:' + testResult.targetFile.formatName);
+			this.out('----------------- For file:' + testResult.targetFile.filePathWithName);
 			this.printBreak().out(testResult.stderr).printBreak();
 		}
 
@@ -148,6 +148,96 @@ module DT {
 					this.printTypingsWithoutTestName(t);
 				});
 			}
+		}
+
+		public printTestComplete(testResult: TestResult, index: number): void {
+			var reporter = testResult.hostedBy.testReporter;
+			if (testResult.success) {
+				reporter.printPositiveCharacter(index, testResult);
+			}
+			else {
+				reporter.printNegativeCharacter(index, testResult);
+			}
+		}
+
+		public printSuiteComplete(suite: ITestSuite): void {
+			this.printBreak();
+
+			this.printDiv();
+			this.printElapsedTime(suite.timer.asString, suite.timer.time);
+			this.printSuccessCount(suite.okTests.length, suite.testResults.length);
+			this.printFailedCount(suite.ngTests.length, suite.testResults.length);
+		}
+
+		public printTests(adding: FileDict): void {
+			this.printDiv();
+			this.printSubHeader('Testing');
+			this.printDiv();
+
+			Object.keys(adding).sort().map((src) => {
+				this.printLine(adding[src].filePathWithName);
+				return adding[src];
+			});
+		}
+
+		public printFiles(files: File[]): void {
+			this.printDiv();
+			this.printSubHeader('Files:');
+			this.printDiv();
+
+			files.forEach((file) => {
+				this.printLine(file.filePathWithName);
+				file.references.forEach((file) => {
+					this.printElement(file.filePathWithName);
+				});
+			});
+		}
+
+		public printMissing(index: FileIndex, refMap: FileArrDict): void {
+			this.printDiv();
+			this.printSubHeader('Missing references');
+			this.printDiv();
+
+			Object.keys(refMap).sort().forEach((src) => {
+				var ref = index.getFile(src);
+				this.printLine('\33[31m\33[1m' + ref.filePathWithName + '\33[0m');
+				refMap[src].forEach((file) => {
+					this.printElement(file.filePathWithName);
+				});
+			});
+		}
+
+		public printAllChanges(paths: string[]): void {
+			this.printSubHeader('All changes');
+			this.printDiv();
+
+			paths.sort().forEach((line) => {
+				this.printLine(line);
+			});
+		}
+
+		public printRelChanges(changeMap: FileDict): void {
+			this.printDiv();
+			this.printSubHeader('Relevant changes');
+			this.printDiv();
+
+			Object.keys(changeMap).sort().forEach((src) => {
+				this.printLine(changeMap[src].filePathWithName);
+			});
+		}
+
+		public printRefMap(index: FileIndex, refMap: FileArrDict): void {
+			this.printDiv();
+			this.printSubHeader('Referring');
+			this.printDiv();
+
+			Object.keys(refMap).sort().forEach((src) => {
+				var ref = index.getFile(src);
+				this.printLine(ref.filePathWithName);
+				refMap[src].forEach((file) => {
+					this.printLine(' - ' + file.filePathWithName);
+				});
+			});
 		}
 	}
 }

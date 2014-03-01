@@ -22,7 +22,7 @@ module DT {
 				printPositiveCharacter: (index: number, testResult: TestResult) => {
 					this.print
 					.clearCurrentLine()
-					.printTypingsWithoutTestName(testResult.targetFile.formatName);
+					.printTypingsWithoutTestName(testResult.targetFile.filePathWithName);
 				},
 				printNegativeCharacter: (index: number, testResult: TestResult) => {
 				}
@@ -38,7 +38,7 @@ module DT {
 		}
 
 		public runTest(targetFile: File): Promise<TestResult> {
-			this.print.clearCurrentLine().out(targetFile.formatName);
+			this.print.clearCurrentLine().out(targetFile.filePathWithName);
 
 			return new Test(this, targetFile, {
 				tscVersion: this.options.tscVersion,

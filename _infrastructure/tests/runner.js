@@ -52,7 +52,6 @@ var DT;
             this.ext = path.extname(this.filePathWithName);
             this.file = path.basename(this.filePathWithName, this.ext);
             this.dir = path.dirname(this.filePathWithName);
-            this.formatName = path.join(this.dir, this.file + this.ext);
             this.fullPath = path.join(this.baseDir, this.dir, this.file + this.ext);
             // lock it (shallow) (needs `use strict` in each file to work)
             // Object.freeze(this);
@@ -202,6 +201,7 @@ var DT;
 
     var fs = require('fs');
     var path = require('path');
+    var glob = require('glob');
     var Lazy = require('lazy.js');
     var Promise = require('bluebird');
 
@@ -211,7 +211,8 @@ var DT;
     // Track all files in the repo: map full path to File objects
     /////////////////////////////////
     var FileIndex = (function () {
-        function FileIndex(options) {
+        function FileIndex(runner, options) {
+            this.runner = runner;
             this.options = options;
         }
         FileIndex.prototype.hasFile = function (target) {
@@ -225,14 +226,76 @@ var DT;
             return null;
         };
 
-        FileIndex.prototype.parseFiles = function (files) {
+        FileIndex.prototype.setFile = function (file) {
+            if (file.fullPath in this.fileMap) {
+                throw new Error('cannot overwrite file');
+            }
+            this.fileMap[file.fullPath] = file;
+        };
+
+        FileIndex.prototype.readIndex = function () {
+            var _this = this;
+            this.fileMap = Object.create(null);
+
+            return Promise.promisify(glob).call(glob, '**/*.ts', {
+                cwd: this.runner.dtPath
+            }).then(function (filesNames) {
+                _this.files = Lazy(filesNames).filter(function (fileName) {
+                    return _this.runner.checkAcceptFile(fileName);
+                }).map(function (fileName) {
+                    var file = new DT.File(_this.runner.dtPath, fileName);
+                    _this.fileMap[file.fullPath] = file;
+                    return file;
+                }).toArray();
+            });
+        };
+
+        FileIndex.prototype.collectDiff = function (changes) {
+            var _this = this;
+            return new Promise(function (resolve) {
+                // filter changes and bake map for easy lookup
+                _this.changed = Object.create(null);
+                _this.removed = Object.create(null);
+
+                Lazy(changes).filter(function (full) {
+                    return _this.runner.checkAcceptFile(full);
+                }).uniq().each(function (local) {
+                    var full = path.resolve(_this.runner.dtPath, local);
+                    var file = _this.getFile(full);
+                    if (!file) {
+                        // TODO figure out what to do here
+                        // what does it mean? deleted?ss
+                        file = new DT.File(_this.runner.dtPath, local);
+                        _this.setFile(file);
+                        _this.removed[full] = file;
+                        // console.log('not in index? %', file.fullPath);
+                    } else {
+                        _this.changed[full] = file;
+                    }
+                });
+
+                // console.log('changed:\n' + Object.keys(this.changed).join('\n'));
+                // console.log('removed:\n' + Object.keys(this.removed).join('\n'));
+                resolve();
+            });
+        };
+
+        FileIndex.prototype.parseFiles = function () {
+            var _this = this;
+            return this.loadReferences(this.files).then(function () {
+                return _this.getMissingReferences();
+            });
+        };
+
+        FileIndex.prototype.getMissingReferences = function () {
             var _this = this;
             return Promise.attempt(function () {
-                _this.fileMap = Object.create(null);
-                files.forEach(function (file) {
-                    _this.fileMap[file.fullPath] = file;
+                _this.missing = Object.create(null);
+                Lazy(_this.removed).keys().each(function (removed) {
+                    if (removed in _this.refMap) {
+                        _this.missing[removed] = _this.refMap[removed];
+                    }
                 });
-                return _this.loadReferences(files);
             });
         };
 
@@ -262,6 +325,19 @@ var DT;
                     }
                 };
                 next();
+            }).then(function () {
+                // bake reverse reference map (referenced to referrers)
+                _this.refMap = Object.create(null);
+
+                Lazy(files).each(function (file) {
+                    Lazy(file.references).each(function (ref) {
+                        if (ref.fullPath in _this.refMap) {
+                            _this.refMap[ref.fullPath].push(file);
+                        } else {
+                            _this.refMap[ref.fullPath] = [file];
+                        }
+                    });
+                });
             });
         };
 
@@ -287,11 +363,43 @@ var DT;
                 return file;
             });
         };
+
+        FileIndex.prototype.collectTargets = function () {
+            var _this = this;
+            return new Promise(function (resolve) {
+                // map out files linked to changes
+                // - queue holds files touched by a change
+                // - pre-fill with actually changed files
+                // - loop queue, if current not seen:
+                //    - add to result
+                //    - from refMap queue all files referring to current
+                var result = Object.create(null);
+                var queue = Lazy(_this.changed).values().toArray();
+
+                while (queue.length > 0) {
+                    var next = queue.shift();
+                    var fp = next.fullPath;
+                    if (result[fp]) {
+                        continue;
+                    }
+                    result[fp] = next;
+                    if (fp in _this.refMap) {
+                        var arr = _this.refMap[fp];
+                        for (var i = 0, ii = arr.length; i < ii; i++) {
+                            // just add it and skip expensive checks
+                            queue.push(arr[i]);
+                        }
+                    }
+                }
+                resolve(Lazy(result).values().toArray());
+            });
+        };
         return FileIndex;
     })();
     DT.FileIndex = FileIndex;
 })(DT || (DT = {}));
 /// <reference path="../_ref.d.ts" />
+/// <reference path="../runner.ts" />
 var DT;
 (function (DT) {
     'use strict';
@@ -302,11 +410,10 @@ var DT;
     var Promise = require('bluebird');
 
     var GitChanges = (function () {
-        function GitChanges(baseDir) {
-            this.baseDir = baseDir;
+        function GitChanges(runner) {
+            this.runner = runner;
             this.options = {};
-            this.paths = [];
-            var dir = path.join(baseDir, '.git');
+            var dir = path.join(this.runner.dtPath, '.git');
             if (!fs.existsSync(dir)) {
                 throw new Error('cannot locate git-dir: ' + dir);
             }
@@ -315,12 +422,11 @@ var DT;
             this.git = new Git(this.options);
             this.git.exec = Promise.promisify(this.git.exec);
         }
-        GitChanges.prototype.getChanges = function () {
-            var _this = this;
+        GitChanges.prototype.readChanges = function () {
             var opts = {};
             var args = ['--name-only HEAD~1'];
             return this.git.exec('diff', opts, args).then(function (msg) {
-                _this.paths = msg.replace(/^\s+/, '').replace(/\s+$/, '').split(/\r?\n/g);
+                return msg.replace(/^\s+/, '').replace(/\s+$/, '').split(/\r?\n/g);
             });
         };
         return GitChanges;
@@ -393,7 +499,7 @@ var DT;
         };
 
         Print.prototype.printErrorsForFile = function (testResult) {
-            this.out('----------------- For file:' + testResult.targetFile.formatName);
+            this.out('----------------- For file:' + testResult.targetFile.filePathWithName);
             this.printBreak().out(testResult.stderr).printBreak();
         };
 
@@ -470,6 +576,101 @@ var DT;
                     _this.printTypingsWithoutTestName(t);
                 });
             }
+        };
+
+        Print.prototype.printTestComplete = function (testResult, index) {
+            var reporter = testResult.hostedBy.testReporter;
+            if (testResult.success) {
+                reporter.printPositiveCharacter(index, testResult);
+            } else {
+                reporter.printNegativeCharacter(index, testResult);
+            }
+        };
+
+        Print.prototype.printSuiteComplete = function (suite) {
+            this.printBreak();
+
+            this.printDiv();
+            this.printElapsedTime(suite.timer.asString, suite.timer.time);
+            this.printSuccessCount(suite.okTests.length, suite.testResults.length);
+            this.printFailedCount(suite.ngTests.length, suite.testResults.length);
+        };
+
+        Print.prototype.printTests = function (adding) {
+            var _this = this;
+            this.printDiv();
+            this.printSubHeader('Testing');
+            this.printDiv();
+
+            Object.keys(adding).sort().map(function (src) {
+                _this.printLine(adding[src].filePathWithName);
+                return adding[src];
+            });
+        };
+
+        Print.prototype.printFiles = function (files) {
+            var _this = this;
+            this.printDiv();
+            this.printSubHeader('Files:');
+            this.printDiv();
+
+            files.forEach(function (file) {
+                _this.printLine(file.filePathWithName);
+                file.references.forEach(function (file) {
+                    _this.printElement(file.filePathWithName);
+                });
+            });
+        };
+
+        Print.prototype.printMissing = function (index, refMap) {
+            var _this = this;
+            this.printDiv();
+            this.printSubHeader('Missing references');
+            this.printDiv();
+
+            Object.keys(refMap).sort().forEach(function (src) {
+                var ref = index.getFile(src);
+                _this.printLine('\33[31m\33[1m' + ref.filePathWithName + '\33[0m');
+                refMap[src].forEach(function (file) {
+                    _this.printElement(file.filePathWithName);
+                });
+            });
+        };
+
+        Print.prototype.printAllChanges = function (paths) {
+            var _this = this;
+            this.printSubHeader('All changes');
+            this.printDiv();
+
+            paths.sort().forEach(function (line) {
+                _this.printLine(line);
+            });
+        };
+
+        Print.prototype.printRelChanges = function (changeMap) {
+            var _this = this;
+            this.printDiv();
+            this.printSubHeader('Relevant changes');
+            this.printDiv();
+
+            Object.keys(changeMap).sort().forEach(function (src) {
+                _this.printLine(changeMap[src].filePathWithName);
+            });
+        };
+
+        Print.prototype.printRefMap = function (index, refMap) {
+            var _this = this;
+            this.printDiv();
+            this.printSubHeader('Referring');
+            this.printDiv();
+
+            Object.keys(refMap).sort().forEach(function (src) {
+                var ref = index.getFile(src);
+                _this.printLine(ref.filePathWithName);
+                refMap[src].forEach(function (file) {
+                    _this.printLine(' - ' + file.filePathWithName);
+                });
+            });
         };
         return Print;
     })();
@@ -607,7 +808,7 @@ var DT;
         }
         SyntaxChecking.prototype.filterTargetFiles = function (files) {
             return Promise.cast(files.filter(function (file) {
-                return endDts.test(file.formatName);
+                return endDts.test(file.filePathWithName);
             }));
         };
         return SyntaxChecking;
@@ -634,7 +835,7 @@ var DT;
         }
         TestEval.prototype.filterTargetFiles = function (files) {
             return Promise.cast(files.filter(function (file) {
-                return endTestDts.test(file.formatName);
+                return endTestDts.test(file.filePathWithName);
             }));
         };
         return TestEval;
@@ -664,7 +865,7 @@ var DT;
 
             this.testReporter = {
                 printPositiveCharacter: function (index, testResult) {
-                    _this.print.clearCurrentLine().printTypingsWithoutTestName(testResult.targetFile.formatName);
+                    _this.print.clearCurrentLine().printTypingsWithoutTestName(testResult.targetFile.filePathWithName);
                 },
                 printNegativeCharacter: function (index, testResult) {
                 }
@@ -680,7 +881,7 @@ var DT;
 
         FindNotRequiredTscparams.prototype.runTest = function (targetFile) {
             var _this = this;
-            this.print.clearCurrentLine().out(targetFile.formatName);
+            this.print.clearCurrentLine().out(targetFile.filePathWithName);
 
             return new DT.Test(this, targetFile, {
                 tscVersion: this.options.tscVersion,
@@ -729,7 +930,6 @@ var DT;
 
     var fs = require('fs');
     var path = require('path');
-    var glob = require('glob');
     var assert = require('assert');
 
     var tsExp = /\.ts$/;
@@ -792,8 +992,9 @@ var DT;
             this.suites = [];
             this.options.findNotRequiredTscparams = !!this.options.findNotRequiredTscparams;
 
-            this.index = new DT.FileIndex(this.options);
-            this.changes = new DT.GitChanges(this.dtPath);
+            this.index = new DT.FileIndex(this, this.options);
+            this.changes = new DT.GitChanges(this);
+
             this.print = new DT.Print(this.options.tscVersion);
         }
         TestRunner.prototype.addSuite = function (suite) {
@@ -813,102 +1014,37 @@ var DT;
             this.timer = new DT.Timer();
             this.timer.start();
 
+            this.print.printChangeHeader();
+
             // only includes .d.ts or -tests.ts or -test.ts or .ts
-            return Promise.promisify(glob).call(glob, '**/*.ts', {
-                cwd: dtPath
-            }).then(function (filesNames) {
-                _this.files = Lazy(filesNames).filter(function (fileName) {
-                    return _this.checkAcceptFile(fileName);
-                }).map(function (fileName) {
-                    return new DT.File(dtPath, fileName);
-                }).toArray();
-
-                _this.print.printChangeHeader();
-
-                return _this.changes.getChanges().then(function () {
-                    _this.printAllChanges(_this.changes.paths);
-                });
+            return this.index.readIndex().then(function () {
+                return _this.changes.readChanges();
+            }).then(function (changes) {
+                _this.print.printAllChanges(changes);
+                return _this.index.collectDiff(changes);
             }).then(function () {
-                return _this.index.parseFiles(_this.files).then(function () {
-                    // this.printFiles(this.files);
-                });
+                return _this.index.parseFiles();
             }).then(function () {
-                return _this.collectTargets(_this.files, _this.changes.paths);
-            }).then(function (files) {
-                return _this.runTests(files);
-            }).then(function () {
-                return !_this.suites.some(function (suite) {
-                    return suite.ngTests.length !== 0;
-                });
-            });
-        };
+                // this.print.printRefMap(this.index, this.index.refMap);
+                if (Lazy(_this.index.missing).some(function (arr) {
+                    return arr.length > 0;
+                })) {
+                    _this.print.printMissing(_this.index, _this.index.missing);
+                    _this.print.printBoldDiv();
 
-        TestRunner.prototype.collectTargets = function (files, changes) {
-            var _this = this;
-            return new Promise(function (resolve) {
-                // filter changes and bake map for easy lookup
-                var changeMap = Object.create(null);
-
-                Lazy(changes).filter(function (full) {
-                    return _this.checkAcceptFile(full);
-                }).map(function (local) {
-                    return path.resolve(_this.dtPath, local);
-                }).each(function (full) {
-                    var file = _this.index.getFile(full);
-                    if (!file) {
-                        // TODO figure out what to do here
-                        // what does it mean? deleted?
-                        console.log('not in index: ' + full);
-                        return;
-                    }
-                    changeMap[full] = file;
-                });
-
-                _this.printRelChanges(changeMap);
-
-                // bake reverse reference map (referenced to referrers)
-                var refMap = Object.create(null);
-
-                Lazy(files).each(function (file) {
-                    Lazy(file.references).each(function (ref) {
-                        if (ref.fullPath in refMap) {
-                            refMap[ref.fullPath].push(file);
-                        } else {
-                            refMap[ref.fullPath] = [file];
-                        }
-                    });
-                });
-
-                // this.printRefMap(refMap);
-                // map out files linked to changes
-                // - queue holds files touched by a change
-                // - pre-fill with actually changed files
-                // - loop queue, if current not seen:
-                //    - add to result
-                //    - from refMap queue all files referring to current
-                var adding = Object.create(null);
-                var queue = Lazy(changeMap).values().toArray();
-
-                while (queue.length > 0) {
-                    var next = queue.shift();
-                    var fp = next.fullPath;
-                    if (adding[fp]) {
-                        continue;
-                    }
-                    adding[fp] = next;
-                    if (fp in refMap) {
-                        var arr = refMap[fp];
-                        for (var i = 0, ii = arr.length; i < ii; i++) {
-                            // just add it and skip expensive checks
-                            queue.push(arr[i]);
-                        }
-                    }
+                    // bail
+                    return Promise.delay(500).return(false);
                 }
 
-                _this.printTests(adding);
-
-                var result = Lazy(adding).values().toArray();
-                resolve(result);
+                // this.print.printFiles(this.files);
+                return _this.index.collectTargets().then(function (files) {
+                    // this.print.printTests(files);
+                    return _this.runTests(files);
+                }).then(function () {
+                    return !_this.suites.some(function (suite) {
+                        return suite.ngTests.length !== 0;
+                    });
+                });
             });
         };
 
@@ -944,10 +1080,10 @@ var DT;
 
                     return suite.filterTargetFiles(files).then(function (targetFiles) {
                         return suite.start(targetFiles, function (testResult, index) {
-                            _this.printTestComplete(testResult, index);
+                            _this.print.printTestComplete(testResult, index);
                         });
                     }).then(function (suite) {
-                        _this.printSuiteComplete(suite);
+                        _this.print.printSuiteComplete(suite);
                         return count++;
                     });
                 }, 0);
@@ -955,85 +1091,6 @@ var DT;
                 _this.timer.end();
                 _this.finaliseTests(files);
             });
-        };
-
-        TestRunner.prototype.printTests = function (adding) {
-            var _this = this;
-            this.print.printDiv();
-            this.print.printSubHeader('Testing');
-            this.print.printDiv();
-
-            Object.keys(adding).sort().map(function (src) {
-                _this.print.printLine(adding[src].formatName);
-                return adding[src];
-            });
-        };
-        TestRunner.prototype.printFiles = function (files) {
-            var _this = this;
-            this.print.printDiv();
-            this.print.printSubHeader('Files:');
-            this.print.printDiv();
-
-            files.forEach(function (file) {
-                _this.print.printLine(file.filePathWithName);
-                file.references.forEach(function (file) {
-                    _this.print.printElement(file.filePathWithName);
-                });
-            });
-        };
-
-        TestRunner.prototype.printAllChanges = function (paths) {
-            var _this = this;
-            this.print.printSubHeader('All changes');
-            this.print.printDiv();
-
-            paths.sort().forEach(function (line) {
-                _this.print.printLine(line);
-            });
-        };
-
-        TestRunner.prototype.printRelChanges = function (changeMap) {
-            var _this = this;
-            this.print.printDiv();
-            this.print.printSubHeader('Relevant changes');
-            this.print.printDiv();
-
-            Object.keys(changeMap).sort().forEach(function (src) {
-                _this.print.printLine(changeMap[src].formatName);
-            });
-        };
-
-        TestRunner.prototype.printRefMap = function (refMap) {
-            var _this = this;
-            this.print.printDiv();
-            this.print.printSubHeader('Referring');
-            this.print.printDiv();
-
-            Object.keys(refMap).sort().forEach(function (src) {
-                var ref = _this.index.getFile(src);
-                _this.print.printLine(ref.formatName);
-                refMap[src].forEach(function (file) {
-                    _this.print.printLine(' - ' + file.formatName);
-                });
-            });
-        };
-
-        TestRunner.prototype.printTestComplete = function (testResult, index) {
-            var reporter = testResult.hostedBy.testReporter;
-            if (testResult.success) {
-                reporter.printPositiveCharacter(index, testResult);
-            } else {
-                reporter.printNegativeCharacter(index, testResult);
-            }
-        };
-
-        TestRunner.prototype.printSuiteComplete = function (suite) {
-            this.print.printBreak();
-
-            this.print.printDiv();
-            this.print.printElapsedTime(suite.timer.asString, suite.timer.time);
-            this.print.printSuccessCount(suite.okTests.length, suite.testResults.length);
-            this.print.printFailedCount(suite.ngTests.length, suite.testResults.length);
         };
 
         TestRunner.prototype.finaliseTests = function (files) {

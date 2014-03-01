@@ -1,4 +1,5 @@
 /// <reference path="../_ref.d.ts" />
+/// <reference path="../runner.ts" />
 
 module DT {
 	'use strict';
@@ -12,10 +13,9 @@ module DT {
 
 		git;
 		options = {};
-		paths: string[] = [];
 
-		constructor(public baseDir: string) {
-			var dir = path.join(baseDir, '.git');
+		constructor(private runner: TestRunner) {
+			var dir = path.join(this.runner.dtPath, '.git');
 			if (!fs.existsSync(dir)) {
 				throw new Error('cannot locate git-dir: ' + dir);
 			}
@@ -25,11 +25,11 @@ module DT {
 			this.git.exec = Promise.promisify(this.git.exec);
 		}
 
-		getChanges(): Promise<void> {
+		public readChanges(): Promise<string[]> {
 			var opts = {};
 			var args = ['--name-only HEAD~1'];
 			return this.git.exec('diff', opts, args).then((msg: string) => {
-				this.paths = msg.replace(/^\s+/, '').replace(/\s+$/, '').split(/\r?\n/g);
+				return msg.replace(/^\s+/, '').replace(/\s+$/, '').split(/\r?\n/g);
 			});
 		}
 	}

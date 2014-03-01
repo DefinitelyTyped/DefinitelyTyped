@@ -27,7 +27,6 @@ module DT {
 
 	var fs = require('fs');
 	var path = require('path');
-	var glob = require('glob');
 	var assert = require('assert');
 
 	var tsExp = /\.ts$/;
@@ -79,31 +78,23 @@ module DT {
 		findNotRequiredTscparams?:boolean;
 	}
 
-	export interface FileDict {
-		[fullPath:string]: File;
-	}
-
-	export interface FileArrDict {
-		[fullPath:string]: File[];
-	}
-
 	/////////////////////////////////
 	// The main class to kick things off
 	/////////////////////////////////
 	export class TestRunner {
-		private files: File[];
 		private timer: Timer;
 		private suites: ITestSuite[] = [];
 
-		private index: FileIndex;
-		private changes: GitChanges;
-		private print: Print;
+		public changes: GitChanges;
+		public index: FileIndex;
+		public print: Print;
 
 		constructor(public dtPath: string, public options: ITestRunnerOptions = {tscVersion: DT.DEFAULT_TSC_VERSION}) {
 			this.options.findNotRequiredTscparams = !!this.options.findNotRequiredTscparams;
 
-			this.index = new FileIndex(this.options);
-			this.changes = new GitChanges(this.dtPath);
+			this.index = new FileIndex(this, this.options);
+			this.changes = new GitChanges(this);
+
 			this.print = new Print(this.options.tscVersion);
 		}
 
@@ -111,7 +102,7 @@ module DT {
 			this.suites.push(suite);
 		}
 
-		private checkAcceptFile(fileName: string): boolean {
+		public checkAcceptFile(fileName: string): boolean {
 			var ok = tsExp.test(fileName);
 			ok = ok && fileName.indexOf('_infrastructure') < 0;
 			ok = ok && fileName.indexOf('node_modules/') < 0;
@@ -123,104 +114,35 @@ module DT {
 			this.timer = new Timer();
 			this.timer.start();
 
+			this.print.printChangeHeader();
+
 			// only includes .d.ts or -tests.ts or -test.ts or .ts
-			return Promise.promisify(glob).call(glob, '**/*.ts', {
-				cwd: dtPath
-			}).then((filesNames: string[]) => {
-				this.files = Lazy(filesNames).filter((fileName) => {
-					return this.checkAcceptFile(fileName);
-				}).map((fileName: string) => {
-					return new File(dtPath, fileName);
-				}).toArray();
-
-				this.print.printChangeHeader();
-
-				return this.changes.getChanges().then(() => {
-					this.printAllChanges(this.changes.paths);
-				});
+			return this.index.readIndex().then(() => {
+				return this.changes.readChanges();
+			}).then((changes: string[]) => {
+				this.print.printAllChanges(changes);
+				return this.index.collectDiff(changes);
 			}).then(() => {
-				return this.index.parseFiles(this.files).then(() => {
-					// this.printFiles(this.files);
-				});
+				return this.index.parseFiles();
 			}).then(() => {
-				return this.collectTargets(this.files, this.changes.paths);
-			}).then((files) => {
-				return this.runTests(files);
-			}).then(() => {
-				return !this.suites.some((suite) => {
-					return suite.ngTests.length !== 0
-				});
-			});
-		}
+				// this.print.printRefMap(this.index, this.index.refMap);
 
-		private collectTargets(files: File[], changes: string[]): Promise<File[]> {
-			return new Promise((resolve) => {
+				if (Lazy(this.index.missing).some((arr: any[]) => arr.length > 0)) {
+					this.print.printMissing(this.index, this.index.missing);
+					this.print.printBoldDiv();
+					// bail
+					return Promise.delay(500).return(false);
+				}
+				// this.print.printFiles(this.files);
+				return this.index.collectTargets().then((files) => {
+					// this.print.printTests(files);
 
-				// filter changes and bake map for easy lookup
-				var changeMap: FileDict = Object.create(null);
-
-				Lazy(changes).filter((full) => {
-					return this.checkAcceptFile(full);
-				}).map((local) => {
-					return path.resolve(this.dtPath, local);
-				}).each((full) => {
-					var file = this.index.getFile(full);
-					if (!file) {
-						// TODO figure out what to do here
-						// what does it mean? deleted?
-						console.log('not in index: ' + full);
-						return;
-					}
-					changeMap[full] = file;
-				});
-
-				this.printRelChanges(changeMap);
-
-				// bake reverse reference map (referenced to referrers)
-				var refMap: FileArrDict = Object.create(null);
-
-				Lazy(files).each((file) => {
-					Lazy(file.references).each((ref) => {
-						if (ref.fullPath in refMap) {
-							refMap[ref.fullPath].push(file);
-						}
-						else {
-							refMap[ref.fullPath] = [file];
-						}
+					return this.runTests(files);
+				}).then(() => {
+					return !this.suites.some((suite) => {
+						return suite.ngTests.length !== 0
 					});
 				});
-
-				// this.printRefMap(refMap);
-
-				// map out files linked to changes
-				// - queue holds files touched by a change
-				// - pre-fill with actually changed files
-				// - loop queue, if current not seen:
-				//    - add to result
-				//    - from refMap queue all files referring to current
-				var adding: FileDict = Object.create(null);
-				var queue = Lazy<File>(changeMap).values().toArray();
-
-				while (queue.length > 0) {
-					var next = queue.shift();
-					var fp = next.fullPath;
-					if (adding[fp]) {
-						continue;
-					}
-					adding[fp] = next;
-					if (fp in refMap) {
-						var arr = refMap[fp];
-						for (var i = 0, ii = arr.length; i < ii; i++) {
-							// just add it and skip expensive checks
-							queue.push(arr[i]);
-						}
-					}
-				}
-
-				this.printTests(adding);
-
-				var result: File[] = Lazy<File>(adding).values().toArray();
-				resolve(result);
 			});
 		}
 
@@ -255,10 +177,10 @@ module DT {
 
 					return suite.filterTargetFiles(files).then((targetFiles) => {
 						return suite.start(targetFiles, (testResult, index) => {
-							this.printTestComplete(testResult, index);
+							this.print.printTestComplete(testResult, index);
 						});
 					}).then((suite) => {
-						this.printSuiteComplete(suite);
+						this.print.printSuiteComplete(suite);
 						return count++;
 					});
 				}, 0);
@@ -266,81 +188,6 @@ module DT {
 				this.timer.end();
 				this.finaliseTests(files);
 			});
-		}
-
-		private printTests(adding: FileDict): void {
-			this.print.printDiv();
-			this.print.printSubHeader('Testing');
-			this.print.printDiv();
-
-			Object.keys(adding).sort().map((src) => {
-				this.print.printLine(adding[src].formatName);
-				return adding[src];
-			});
-		}
-		private printFiles(files: File[]): void {
-			this.print.printDiv();
-			this.print.printSubHeader('Files:');
-			this.print.printDiv();
-
-			files.forEach((file) => {
-				this.print.printLine(file.filePathWithName);
-				file.references.forEach((file) => {
-					this.print.printElement(file.filePathWithName);
-				});
-			});
-		}
-
-		private printAllChanges(paths: string[]): void {
-			this.print.printSubHeader('All changes');
-			this.print.printDiv();
-
-			paths.sort().forEach((line) => {
-				this.print.printLine(line);
-			});
-		}
-
-		private printRelChanges(changeMap: FileDict): void {
-			this.print.printDiv();
-			this.print.printSubHeader('Relevant changes');
-			this.print.printDiv();
-
-			Object.keys(changeMap).sort().forEach((src) => {
-				this.print.printLine(changeMap[src].formatName);
-			});
-		}
-
-		private printRefMap(refMap: FileArrDict): void {
-			this.print.printDiv();
-			this.print.printSubHeader('Referring');
-			this.print.printDiv();
-
-			Object.keys(refMap).sort().forEach((src) => {
-				var ref = this.index.getFile(src);
-				this.print.printLine(ref.formatName);
-				refMap[src].forEach((file) => {
-					this.print.printLine(' - ' + file.formatName);
-				});
-			});
-		}
-
-		private printTestComplete(testResult: TestResult, index: number): void {
-			var reporter = testResult.hostedBy.testReporter;
-			if (testResult.success) {
-				reporter.printPositiveCharacter(index, testResult);
-			}
-			else {
-				reporter.printNegativeCharacter(index, testResult);
-			}
-		}
-
-		private printSuiteComplete(suite: ITestSuite): void {
-			this.print.printBreak();
-
-			this.print.printDiv();
-			this.print.printElapsedTime(suite.timer.asString, suite.timer.time);
-			this.print.printSuccessCount(suite.okTests.length, suite.testResults.length);
-			this.print.printFailedCount(suite.ngTests.length, suite.testResults.length);
 		}
 
 		private finaliseTests(files: File[]): void {
