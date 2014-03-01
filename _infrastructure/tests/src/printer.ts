@@ -3,6 +3,8 @@
 
 module DT {
 
+	var os = require('os');
+
 	/////////////////////////////////
 	// All the common things that we print are functions of this class
 	/////////////////////////////////
@@ -35,11 +37,14 @@ module DT {
 
 		public printChangeHeader() {
 			this.out('=============================================================================\n');
-			this.out('                   \33[36m\33[1mDefinitelyTyped Diff Detector 0.1.0\33[0m \n');
+			this.out('                    \33[36m\33[1mDefinitelyTyped Diff Detector 0.1.0\33[0m \n');
 			this.out('=============================================================================\n');
 		}
 
-		public printHeader() {
+		public printHeader(options: ITestRunnerOptions) {
+			var totalMem = Math.round(os.totalmem() / 1024 / 1024)  + ' mb';
+			var freemem = Math.round(os.freemem() / 1024 / 1024)  + ' mb';
+
 			this.out('=============================================================================\n');
 			this.out('                    \33[36m\33[1mDefinitelyTyped Test Runner 0.5.0\33[0m\n');
 			this.out('=============================================================================\n');
@@ -47,6 +52,10 @@ module DT {
 			this.out(' \33[36m\33[1mTypings           :\33[0m ' + this.typings + '\n');
 			this.out(' \33[36m\33[1mTests             :\33[0m ' + this.tests + '\n');
 			this.out(' \33[36m\33[1mTypeScript files  :\33[0m ' + this.tsFiles + '\n');
+			this.out(' \33[36m\33[1mTotal Memory      :\33[0m ' + totalMem + '\n');
+			this.out(' \33[36m\33[1mFree Memory       :\33[0m ' + freemem + '\n');
+			this.out(' \33[36m\33[1mCores             :\33[0m ' + os.cpus().length + '\n');
+			this.out(' \33[36m\33[1mConcurrent        :\33[0m ' + options.concurrent + '\n');
 		}
 
 		public printSuiteHeader(title: string) {
@@ -150,13 +159,13 @@ module DT {
 			}
 		}
 
-		public printTestComplete(testResult: TestResult, index: number): void {
+		public printTestComplete(testResult: TestResult): void {
 			var reporter = testResult.hostedBy.testReporter;
 			if (testResult.success) {
-				reporter.printPositiveCharacter(index, testResult);
+				reporter.printPositiveCharacter(testResult);
 			}
 			else {
-				reporter.printNegativeCharacter(index, testResult);
+				reporter.printNegativeCharacter(testResult);
 			}
 		}
 

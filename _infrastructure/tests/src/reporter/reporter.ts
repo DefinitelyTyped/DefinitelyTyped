@@ -7,27 +7,30 @@ module DT {
 	// for example, . and x
 	/////////////////////////////////
 	export interface ITestReporter {
-		printPositiveCharacter(index: number, testResult: TestResult):void;
-		printNegativeCharacter(index: number, testResult: TestResult):void;
+		printPositiveCharacter(testResult: TestResult):void;
+		printNegativeCharacter(testResult: TestResult):void;
 	}
 
 	/////////////////////////////////
 	// Default test reporter
 	/////////////////////////////////
 	export class DefaultTestReporter implements ITestReporter {
+
+		index = 0;
+
 		constructor(public print: Print) {
 		}
 
-		public printPositiveCharacter(index: number, testResult: TestResult) {
+		public printPositiveCharacter(testResult: TestResult) {
 			this.print.out('\33[36m\33[1m' + '.' + '\33[0m');
-
-			this.printBreakIfNeeded(index);
+			this.index++;
+			this.printBreakIfNeeded(this.index);
 		}
 
-		public printNegativeCharacter(index: number, testResult: TestResult) {
+		public printNegativeCharacter( testResult: TestResult) {
 			this.print.out('x');
-
-			this.printBreakIfNeeded(index);
+			this.index++;
+			this.printBreakIfNeeded(this.index);
 		}
 
 		private printBreakIfNeeded(index: number) {

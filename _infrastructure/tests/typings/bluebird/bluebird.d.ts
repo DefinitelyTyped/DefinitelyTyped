@@ -75,6 +75,7 @@ declare class Promise<R> implements Promise.Thenable<R> {
 	 */
 	finally(handler: (value: R) => Promise.Thenable<R>): Promise<R>;
 	finally(handler: (value: R) => R): Promise<R>;
+	finally(handler: (value: R) => void): Promise<void>;
 
 	lastly(handler: (value: R) => Promise.Thenable<R>): Promise<R>;
 	lastly(handler: (value: R) => R): Promise<R>;

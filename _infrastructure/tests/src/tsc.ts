@@ -17,7 +17,8 @@ module DT {
 
 	export class Tsc {
 		public static run(tsfile: string, options: TscExecOptions): Promise<ExecResult> {
-			return Promise.attempt(() => {
+			var tscPath;
+			return new Promise.attempt(() => {
 				options = options || {};
 				options.tscVersion = options.tscVersion || DEFAULT_TSC_VERSION;
 				if (typeof options.checkNoImplicitAny === 'undefined') {
@@ -26,15 +27,21 @@ module DT {
 				if (typeof options.useTscParams === 'undefined') {
 					options.useTscParams = true;
 				}
-				if (!fs.existsSync(tsfile)) {
+				return fileExists(tsfile);
+			}).then((exists) => {
+				if (!exists) {
 					throw new Error(tsfile + ' not exists');
 				}
-				var tscPath = './_infrastructure/tests/typescript/' + options.tscVersion + '/tsc.js';
-				if (!fs.existsSync(tscPath)) {
+				tscPath = './_infrastructure/tests/typescript/' + options.tscVersion + '/tsc.js';
+				return fileExists(tscPath);
+			}).then((exists) => {
+				if (!exists) {
 					throw new Error(tscPath + ' is not exists');
 				}
+				return fileExists(tsfile + '.tscparams');
+			}).then((exists) => {
 				var command = 'node ' + tscPath + ' --module commonjs ';
-				if (options.useTscParams && fs.existsSync(tsfile + '.tscparams')) {
+				if (options.useTscParams && exists) {
 					command += '@' + tsfile + '.tscparams';
 				}
 				else if (options.checkNoImplicitAny) {

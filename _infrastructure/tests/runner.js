@@ -78,7 +78,8 @@ var DT;
         function Tsc() {
         }
         Tsc.run = function (tsfile, options) {
-            return Promise.attempt(function () {
+            var tscPath;
+            return new Promise.attempt(function () {
                 options = options || {};
                 options.tscVersion = options.tscVersion || DT.DEFAULT_TSC_VERSION;
                 if (typeof options.checkNoImplicitAny === 'undefined') {
@@ -87,15 +88,21 @@ var DT;
                 if (typeof options.useTscParams === 'undefined') {
                     options.useTscParams = true;
                 }
-                if (!fs.existsSync(tsfile)) {
+                return DT.fileExists(tsfile);
+            }).then(function (exists) {
+                if (!exists) {
                     throw new Error(tsfile + ' not exists');
                 }
-                var tscPath = './_infrastructure/tests/typescript/' + options.tscVersion + '/tsc.js';
-                if (!fs.existsSync(tscPath)) {
+                tscPath = './_infrastructure/tests/typescript/' + options.tscVersion + '/tsc.js';
+                return DT.fileExists(tscPath);
+            }).then(function (exists) {
+                if (!exists) {
                     throw new Error(tscPath + ' is not exists');
                 }
+                return DT.fileExists(tsfile + '.tscparams');
+            }).then(function (exists) {
                 var command = 'node ' + tscPath + ' --module commonjs ';
-                if (options.useTscParams && fs.existsSync(tsfile + '.tscparams')) {
+                if (options.useTscParams && exists) {
                     command += '@' + tsfile + '.tscparams';
                 } else if (options.checkNoImplicitAny) {
                     command += '--noImplicitAny';
@@ -437,6 +444,8 @@ var DT;
 /// <reference path="../runner.ts" />
 var DT;
 (function (DT) {
+    var os = require('os');
+
     /////////////////////////////////
     // All the common things that we print are functions of this class
     /////////////////////////////////
@@ -462,11 +471,14 @@ var DT;
 
         Print.prototype.printChangeHeader = function () {
             this.out('=============================================================================\n');
-            this.out('                   \33[36m\33[1mDefinitelyTyped Diff Detector 0.1.0\33[0m \n');
+            this.out('                    \33[36m\33[1mDefinitelyTyped Diff Detector 0.1.0\33[0m \n');
             this.out('=============================================================================\n');
         };
 
-        Print.prototype.printHeader = function () {
+        Print.prototype.printHeader = function (options) {
+            var totalMem = Math.round(os.totalmem() / 1024 / 1024) + ' mb';
+            var freemem = Math.round(os.freemem() / 1024 / 1024) + ' mb';
+
             this.out('=============================================================================\n');
             this.out('                    \33[36m\33[1mDefinitelyTyped Test Runner 0.5.0\33[0m\n');
             this.out('=============================================================================\n');
@@ -474,6 +486,10 @@ var DT;
             this.out(' \33[36m\33[1mTypings           :\33[0m ' + this.typings + '\n');
             this.out(' \33[36m\33[1mTests             :\33[0m ' + this.tests + '\n');
             this.out(' \33[36m\33[1mTypeScript files  :\33[0m ' + this.tsFiles + '\n');
+            this.out(' \33[36m\33[1mTotal Memory      :\33[0m ' + totalMem + '\n');
+            this.out(' \33[36m\33[1mFree Memory       :\33[0m ' + freemem + '\n');
+            this.out(' \33[36m\33[1mCores             :\33[0m ' + os.cpus().length + '\n');
+            this.out(' \33[36m\33[1mConcurrent        :\33[0m ' + options.concurrent + '\n');
         };
 
         Print.prototype.printSuiteHeader = function (title) {
@@ -578,12 +594,12 @@ var DT;
             }
         };
 
-        Print.prototype.printTestComplete = function (testResult, index) {
+        Print.prototype.printTestComplete = function (testResult) {
             var reporter = testResult.hostedBy.testReporter;
             if (testResult.success) {
-                reporter.printPositiveCharacter(index, testResult);
+                reporter.printPositiveCharacter(testResult);
             } else {
-                reporter.printNegativeCharacter(index, testResult);
+                reporter.printNegativeCharacter(testResult);
             }
         };
 
@@ -709,17 +725,18 @@ var DT;
     var DefaultTestReporter = (function () {
         function DefaultTestReporter(print) {
             this.print = print;
+            this.index = 0;
         }
-        DefaultTestReporter.prototype.printPositiveCharacter = function (index, testResult) {
+        DefaultTestReporter.prototype.printPositiveCharacter = function (testResult) {
             this.print.out('\33[36m\33[1m' + '.' + '\33[0m');
-
-            this.printBreakIfNeeded(index);
+            this.index++;
+            this.printBreakIfNeeded(this.index);
         };
 
-        DefaultTestReporter.prototype.printNegativeCharacter = function (index, testResult) {
+        DefaultTestReporter.prototype.printNegativeCharacter = function (testResult) {
             this.print.out('x');
-
-            this.printBreakIfNeeded(index);
+            this.index++;
+            this.printBreakIfNeeded(this.index);
         };
 
         DefaultTestReporter.prototype.printBreakIfNeeded = function (index) {
@@ -751,6 +768,7 @@ var DT;
             this.timer = new DT.Timer();
             this.testResults = [];
             this.printErrorCount = true;
+            this.queue = new DT.TestQueue(options.concurrent);
         }
         TestSuiteBase.prototype.filterTargetFiles = function (files) {
             throw new Error('please implement this method');
@@ -759,14 +777,15 @@ var DT;
         TestSuiteBase.prototype.start = function (targetFiles, testCallback) {
             var _this = this;
             this.timer.start();
+
             return this.filterTargetFiles(targetFiles).then(function (targetFiles) {
-                return Promise.reduce(targetFiles, function (count, targetFile) {
+                // tests get queued for multi-threading
+                return Promise.all(targetFiles.map(function (targetFile) {
                     return _this.runTest(targetFile).then(function (result) {
-                        testCallback(result, count + 1);
-                        return count++;
+                        testCallback(result);
                     });
-                }, 0);
-            }).then(function (count) {
+                }));
+            }).then(function () {
                 _this.timer.end();
                 return _this;
             });
@@ -774,7 +793,9 @@ var DT;
 
         TestSuiteBase.prototype.runTest = function (targetFile) {
             var _this = this;
-            return new DT.Test(this, targetFile, { tscVersion: this.options.tscVersion }).run().then(function (result) {
+            return this.queue.run(new DT.Test(this, targetFile, {
+                tscVersion: this.options.tscVersion
+            })).then(function (result) {
                 _this.testResults.push(result);
                 return result;
             });
@@ -885,10 +906,10 @@ var DT;
             this.printErrorCount = false;
 
             this.testReporter = {
-                printPositiveCharacter: function (index, testResult) {
+                printPositiveCharacter: function (testResult) {
                     _this.print.clearCurrentLine().printTypingsWithoutTestName(testResult.targetFile.filePathWithName);
                 },
-                printNegativeCharacter: function (index, testResult) {
+                printNegativeCharacter: function (testResult) {
                 }
             };
         }
@@ -904,11 +925,11 @@ var DT;
             var _this = this;
             this.print.clearCurrentLine().out(targetFile.filePathWithName);
 
-            return new DT.Test(this, targetFile, {
+            return this.queue.run(new DT.Test(this, targetFile, {
                 tscVersion: this.options.tscVersion,
                 useTscParams: false,
                 checkNoImplicitAny: true
-            }).run().then(function (result) {
+            })).then(function (result) {
                 _this.testResults.push(result);
                 _this.print.clearCurrentLine();
                 return result;
@@ -949,6 +970,7 @@ var DT;
     var Lazy = require('lazy.js');
     var Promise = require('bluebird');
 
+    var os = require('os');
     var fs = require('fs');
     var path = require('path');
     var assert = require('assert');
@@ -984,6 +1006,55 @@ var DT;
         return Test;
     })();
     DT.Test = Test;
+
+    /////////////////////////////////
+    // Parallel execute Tests
+    /////////////////////////////////
+    var TestQueue = (function () {
+        function TestQueue(concurrent) {
+            this.queue = [];
+            this.active = [];
+            this.concurrent = Math.max(1, concurrent);
+        }
+        // add to queue and return a promise
+        TestQueue.prototype.run = function (test) {
+            var _this = this;
+            var defer = Promise.defer();
+
+            // add a closure to queue
+            this.queue.push(function () {
+                // when activate, add test to active list
+                _this.active.push(test);
+
+                // run it
+                var p = test.run();
+                p.then(defer.resolve.bind(defer), defer.reject.bind(defer));
+                p.finally(function () {
+                    var i = _this.active.indexOf(test);
+                    if (i > -1) {
+                        _this.active.splice(i, 1);
+                    }
+                    _this.step();
+                });
+            });
+            this.step();
+
+            // defer it
+            return defer.promise;
+        };
+
+        TestQueue.prototype.step = function () {
+            var _this = this;
+            // setTimeout to make it flush
+            setTimeout(function () {
+                while (_this.queue.length > 0 && _this.active.length < _this.concurrent) {
+                    _this.queue.pop().call(null);
+                }
+            }, 1);
+        };
+        return TestQueue;
+    })();
+    DT.TestQueue = TestQueue;
 
     /////////////////////////////////
     // Test results
@@ -1091,7 +1162,7 @@ var DT;
                 ]);
             }).spread(function (syntaxFiles, testFiles) {
                 _this.print.init(syntaxFiles.length, testFiles.length, files.length);
-                _this.print.printHeader();
+                _this.print.printHeader(_this.options);
 
                 if (_this.options.findNotRequiredTscparams) {
                     _this.addSuite(new DT.FindNotRequiredTscparams(_this.options, _this.print));
@@ -1102,10 +1173,8 @@ var DT;
 
                     _this.print.printSuiteHeader(suite.testSuiteName);
 
-                    return suite.filterTargetFiles(files).then(function (targetFiles) {
-                        return suite.start(targetFiles, function (testResult, index) {
-                            _this.print.printTestComplete(testResult, index);
-                        });
+                    return suite.start(files, function (testResult) {
+                        _this.print.printTestComplete(testResult);
                     }).then(function (suite) {
                         _this.print.printSuiteComplete(suite);
                         return count++;
@@ -1186,12 +1255,13 @@ var DT;
     });
     var tscVersionIndex = process.argv.indexOf('--tsc-version');
     var tscVersion = DT.DEFAULT_TSC_VERSION;
+    var cpuCores = os.cpus().length;
 
     if (tscVersionIndex > -1) {
         tscVersion = process.argv[tscVersionIndex + 1];
     }
-
     var runner = new TestRunner(dtPath, {
+        concurrent: Math.max(cpuCores, 2),
         tscVersion: tscVersion,
         findNotRequiredTscparams: findNotRequiredTscparams
     });
