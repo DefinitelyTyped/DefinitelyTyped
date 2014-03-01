@@ -19,7 +19,7 @@ module DT {
 
 		public filterTargetFiles(files: File[]): Promise<File[]> {
 			return Promise.cast(files.filter((file) => {
-				return endTestDts.test(file.formatName);
+				return endTestDts.test(file.filePathWithName);
 			}));
 		}
 	}
