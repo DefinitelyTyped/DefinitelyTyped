@@ -57,6 +57,11 @@ declare module google.maps.infobubble {
           * @marker The marker used for anchoring the infobubble to
           */
         open(map: google.maps.Map, marker: google.maps.Marker) : void;
+		
+		/**
+          * Returns the position of the InfoBubble
+          */
+        getPosition(): google.maps.LatLng; 
     }
 
     export interface InfoBubbleOptions {
