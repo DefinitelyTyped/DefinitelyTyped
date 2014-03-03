@@ -121,9 +121,9 @@ interface CaptureError {
 }
 
 interface Capture {
-    captureAudio(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureAudioOptions);
-    captureImage(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureImageOptions);
-    captureVideo(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureImageOptions);
+    captureAudio(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureAudioOptions): void;
+    captureImage(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureImageOptions): void;
+    captureVideo(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureImageOptions): void;
 }
 
 interface Connection {
@@ -204,9 +204,9 @@ interface Contact {
     categories: ContactField[];
     urls: ContactField[];
 
-    save(onSuccess?: (contacts: Contacts) => any, onError?: (contactError: ContactError) => any);
-    remove(onSuccess?: (contacts: Contacts) => any, onError?: (contactError: ContactError) => any);
-    clone(): Contact; 
+    save(onSuccess?: (contacts: Contacts) => void, onError?: (contactError: ContactError) => void): void;
+    remove(onSuccess?: (contacts: Contacts) => void, onError?: (contactError: ContactError) => void): void;
+    clone(): Contact;
 }
 
 interface ContactFindOptions {
@@ -289,10 +289,10 @@ interface FileWriter {
     onerror: Function;
     onwriteend: Function;
 
-    abort();
-    seek();
-    truncate();
-    write();
+    abort(): void;
+    seek(arg: number): void;
+    truncate(arg: number): void;
+    write(arg: any): void;
 }
 
 interface FileSystem {
@@ -310,29 +310,29 @@ interface FileSystemEntry {
     fullPath: string;
     filesystem: FileSystem;
 
-    getMetadata(onSuccess?: (arg) => any, onError?: (arg) => any);
-    setMetadata(onSuccess?: (arg) => any, onError?: (arg) => any, options?);
-    toURL();
-    remove(onSuccess?: (arg) => any, onError?: (arg) => any);
-    getParent(onSuccess?: (arg) => any, onError?: (arg) => any);
+    getMetadata(onSuccess?: (arg: Metadata) => void, onError?: (arg: FileError) => void): void;
+    setMetadata(onSuccess?: (arg: Metadata) => void, onError?: (arg: FileError) => void, options?: any): void;
+    toURL(): string;
+    remove(onSuccess?: () => void, onError?: (arg: FileError) => void): void;
+    getParent(onSuccess?: (arg: DirectoryEntry) => void, onError?: (arg: FileError) => void): void;
 }
 
 interface FileEntry extends FileSystemEntry {
-    moveTo(parentEntry: DirectoryEntry, file: string, onSuccess: (arg) => any, onError: (arg) => any);
-    copyTo(parentEntry: DirectoryEntry, file: string, onSuccess: (arg) => any, onError: (arg) => any);
-    createWriter(onSuccess?: (arg) => any, onError?: (arg) => any);
-    file(onSuccess?: (arg) => any, onError?: (arg) => any);
+    moveTo(parentEntry: DirectoryEntry, file: string, onSuccess: (arg: DirectoryEntry) => void, onError: (arg: FileError) => void): void;
+    copyTo(parentEntry: DirectoryEntry, file: string, onSuccess: (arg: DirectoryEntry) => void, onError: (arg: FileError) => void): void;
+    createWriter(onSuccess?: (arg: FileWriter) => void, onError?: (arg: FileError) => void): void;
+    file(onSuccess?: (arg: File) => void, onError?: (arg: FileError) => void): void;
 }
 
 interface DirectoryEntry extends FileSystemEntry {
-    createReader();
-    getDirectory();
-    getFile();
-    removeRecursively();
+    createReader(): DirectoryReader;
+    getDirectory(path: string, options: Flags, successCallback: (result: DirectoryEntry) => void, errorCallback: (error: FileError) => void): void;
+    getFile(path: string, options: Flags, successCallback: (result: FileEntry) => void, errorCallback: (error: FileError) => void): void;
+    removeRecursively(successCallback: () => void, errorCallback: (error: FileError) => void): void;
 }
 
 interface DirectoryReader {
-    readEntries(successCallback: (entries: FileSystemEntry) => void , errorCallback: (error: FileError) => void );
+    readEntries(successCallback: (entries: FileSystemEntry) => void, errorCallback: (error: FileError) => void): void;
 }
 
 interface FileTransfer {
@@ -365,7 +365,10 @@ interface FileUploadResult {
     response: string;
 }
 
-// TODO Flags
+interface Flags {
+    create: boolean;
+    exclusive: boolean;
+}
 
 /*
 interface LocalFileSystem {
@@ -432,19 +435,70 @@ declare var GlobalizationError: {
     PATTERN_ERROR: number;
 }
 
+interface GlobalizationDate {
+    year: number;
+    month: number;
+    day: number;
+    hour: number;
+    minute: number;
+    second: number;
+    millisecond: number;
+}
+
+interface GlobalizationDateOptions {
+    formatLength?: string;
+    selector?: string;
+}
+
+interface GlobalizationDatePattern {
+    pattern: string;
+    timezone: string;
+    utc_offset: number;
+    dst_offset: number;
+}
+
+interface GlobalizationDateNameOptions {
+    type?: string;
+    item?: string;
+}
+
+interface GlobalizationNumberOptions {
+    type?: string;
+}
+
+interface GlobalizationNumberPattern {
+    pattern: string;
+    symbol: string;
+    fraction: number;
+    rounding: number;
+    positive: string;
+    negative: string;
+    decimal: string;
+    grouping: string;
+}
+
+interface GlobalizationCurrencyPattern {
+    pattern: string;
+    code: string;
+    fraction: number;
+    rounding: number;
+    decimal: string;
+    grouping: string;
+}
+
 interface Globalization {
-    getPreferredLanguage(successCB, errorCB): void;
-    getLocaleName(successCB, errorCB): void;
-    dateToString(date, successCB, errorCB, options): void;
-    stringToDate(dateString, successCB, errorCB, options): void;
-    getDatePattern(successCB, errorCB, options): void;
-    getDateNames(successCB, errorCB, options): void;
-    isDayLightSavingsTime(date, successCB, errorCB): void;
-    getFirstDayOfWeek(successCB, errorCB): void;
-    numberToString(number, successCB, errorCB, options): void;
-    stringToNumber(string, successCB, errorCB, options): void;
-    getNumberPattern(successCB, errorCB, options): void;
-    getCurrencyPattern(currencyCode, successCB, errorCB): void;
+    getPreferredLanguage(successCallback: (properties: {value: string}) => void, errorCallback: (error: GlobalizationError) => void): void;
+    getLocaleName(successCallback: (properties: {value: string}) => void, errorCallback: (error: GlobalizationError) => void): void;
+    dateToString(date: Date, successCallback: (properties: {value: string}) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationDateOptions): void;
+    stringToDate(dateString: string, successCallback: (properties: GlobalizationDate) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationDateOptions): void;
+    getDatePattern(successCallback: (properties: GlobalizationDatePattern) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationDateOptions): void;
+    getDateNames(successCallback: (properties: {value: string[]}) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationDateNameOptions): void;
+    isDayLightSavingsTime(date: Date, successCallback: (properties: {dst: boolean}) => void, errorCallback: (error: GlobalizationError) => void): void;
+    getFirstDayOfWeek(successCallback: (properties: {value: number}) => void, errorCallback: (error: GlobalizationError) => void): void;
+    numberToString(number: number, successCallback: (properties: {value: string}) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationNumberOptions): void;
+    stringToNumber(string: string, successCallback: (properties: {value: number}) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationNumberOptions): void;
+    getNumberPattern(successCallback: (parameters: GlobalizationNumberPattern) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationNumberOptions): void;
+    getCurrencyPattern(currencyCode: string, successCallback: (parameters: GlobalizationCurrencyPattern) => void, errorCallback: (error: GlobalizationError) => void): void;
 }
 
 /*
@@ -457,7 +511,7 @@ interface InAppBrowser {
 */
 
 interface Media {
-    new (src: string, mediaSuccess: Function, mediaError?: (mediaError: MediaError) => any, mediaStatus?: Function);
+    new (src: string, mediaSuccess: Function, mediaError?: (mediaError: MediaError) => any, mediaStatus?: Function): Media;
     getCurrentPosition(mediaSuccess: Function, mediaError?: (mediaError: MediaError) => any): void;
     getDuration(): any;
     play(): void;
@@ -469,7 +523,7 @@ interface Media {
     stop(): void;
 }
 declare var Media: {
-    new(src: string, onSuccess: (arg) => any, onError: (arg) => any): Media;
+    new(src: string, onSuccess: (arg: any) => any, onError: (error: any) => any): Media;
 }
 
 interface Notification {
@@ -486,8 +540,8 @@ interface Splashscreen {
 }
 
 interface Database {
-    transaction(populateDB?: (tx: SQLTransaction) => any, errorCB?: (err) => any, successCB?: () => any);
-    changeVersion(var1: string, var2: string);
+    transaction(populateDB?: (tx: SQLTransaction) => any, errorCB?: (err: any) => any, successCB?: () => any): void;
+    changeVersion(var1: string, var2: string): void;
 }
 
 interface SQLResultSetRowList {
