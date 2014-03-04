@@ -85,6 +85,7 @@ interface KnockoutValidationRuleDefinitions {
     required: KnockoutValidationRuleDefinition;
     step: KnockoutValidationRuleDefinition;
     unique: KnockoutValidationRuleDefinition;
+    [name: string]: KnockoutValidationRuleDefinition;
 }
 
 interface KnockoutValidationRule {
