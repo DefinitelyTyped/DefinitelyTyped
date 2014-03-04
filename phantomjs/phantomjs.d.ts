@@ -3,7 +3,9 @@
 // Definitions by: Jed Hunsaker <https://github.com/jedhunsaker> and Mike Keesey <https://github.com/keesey>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-interface Phantom {
+declare function require(module: string): any;
+
+declare var phantom: {
 
 	// Properties
 	args: string[];  // DEPRECATED
@@ -26,7 +28,7 @@ interface Phantom {
 
 	// Callbacks
 	onError: (msg: string, trace: string[]) => any;
-}
+};
 
 interface System {
 	pid: number;
@@ -100,8 +102,8 @@ interface WebPage {
 	reload(): void;
 	render(filename: string): void;
 	renderBase64(format: string): string;
-	sendEvent(mouseEventType: string, mouseX?: number, mouseY?: number, button?: string);
-	sendEvent(keyboardEventType: string, keyOrKeys: any, aNull?: any, bNull?: any, modifier?: number);
+	sendEvent(mouseEventType: string, mouseX?: number, mouseY?: number, button?: string): void;
+	sendEvent(keyboardEventType: string, keyOrKeys: any, aNull?: any, bNull?: any, modifier?: number): void;
 	setContent(content: string, url: string): void;
 	stop(): void;
 	switchToFocusedFrame(): void;
@@ -143,7 +145,7 @@ interface WebPage {
 	rawPageCreated(newPage: WebPage): void;
 	resourceReceived(response: ResourceResponse): void;
 	resourceRequested(requestData: ResourceRequest, networkRequest: NetworkRequest): void;
-	urlChanged(targetUrl: string);
+	urlChanged(targetUrl: string): void;
 }
 
 interface ResourceError {
@@ -177,7 +179,7 @@ interface ResourceRequest {
 interface NetworkRequest {
 	abort(): void;
 	changeUrl(url: string): void;
-	setHeader(name: string, value: string);
+	setHeader(name: string, value: string): void;
 }
 
 interface PaperSize {
@@ -270,12 +272,12 @@ interface WebServerRequest {
 
 interface WebServerResponse {
 	headers: { [name: string]: string; };
-	setHeader(name: string, value: string);
+	setHeader(name: string, value: string): void;
 	header(name: string): string;
 	statusCode: number;
-	setEncoding(encoding: string);
-	write(data: string);
-	writeHead(statusCode: number, headers?: { [name: string]: string; });
+	setEncoding(encoding: string): void;
+	write(data: string): void;
+	writeHead(statusCode: number, headers?: { [name: string]: string; }): void;
 	close(): void;
 	closeGracefully(): void;
 }
