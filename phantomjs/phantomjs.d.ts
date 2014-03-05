@@ -5,7 +5,9 @@
 
 declare function require(module: string): any;
 
-declare var phantom: {
+declare var phantom: Phantom;
+
+interface Phantom {
 
 	// Properties
 	args: string[];  // DEPRECATED
@@ -28,7 +30,7 @@ declare var phantom: {
 
 	// Callbacks
 	onError: (msg: string, trace: string[]) => any;
-};
+}
 
 interface System {
 	pid: number;
