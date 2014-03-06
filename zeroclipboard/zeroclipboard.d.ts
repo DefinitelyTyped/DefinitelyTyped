@@ -27,7 +27,7 @@ declare class ZeroClipboard {
     receiveEvent(eventName: string, args: any): void;
     glue(elements: any): void;
     unglue(elements: any): void;
-    static setDefaults(options: ZeroClipboardOptions): void;
+    static config(options: ZeroClipboardOptions): void;
     static destroy(): void;
     static detectFlashSupport(): boolean;
     static dispatch(eventName: string, args: any): void;
