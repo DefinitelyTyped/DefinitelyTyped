@@ -32,5 +32,6 @@ Properties
 
 .idea
 *.iml
+*.js.map
 
 node_modules
