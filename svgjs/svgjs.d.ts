@@ -88,6 +88,8 @@ declare module svgjs {
         move(x:number, y:number, anchor?:boolean):Element;
         x(x:number, anchor?:boolean):Element;
         y(y:number, anchor?:boolean):Element;
+        x(): number;
+        y(): number;
         
         center(x:number, y:number, anchor?:boolean):Element;
         cx(x:number, anchor?:boolean):Element;
