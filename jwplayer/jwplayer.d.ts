@@ -54,6 +54,7 @@ interface JWPlayer {
 	pause(): void;
 	play(): void;
 	playlistItem(index: number): void;
+	registerPlugin(id: string, target: string, jsPlugin: () => void, swfURL: string): void;
 	remove(): void;
 	removeButton(id: string): void;
 	resize(width: number, height: number): void;
