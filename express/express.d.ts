@@ -397,6 +397,10 @@ declare module "express" {
              */
             is(type: string): boolean;
 
+            flash(level:string, message:string):void;
+            flash(level:string):string;
+            flash():any[];
+
             /**
              * Return the protocol string "http" or "https"
              * when requested with TLS. When the "trust proxy"
