@@ -156,6 +156,7 @@ List of Definitions
 * [jQuery.Timer](http://jchavannes.com/jquery-timer/demo) (by [Joshua Strobl](https://github.com/JoshStrobl))
 * [jQuery.TinyCarousel](http://baijs.nl/tinycarousel/) (by [Christiaan Rakowski](https://github.com/csrakowski))
 * [jQuery.TinyScrollbar](http://baijs.nl/tinyscrollbar/) (by [Christiaan Rakowski](https://github.com/csrakowski))
+* [jQuery.tooltipster] (https://github.com/iamceege/tooltipster) (by [Patrick Magee](https://github.com/pjmagee))
 * [jQuery.Transit](http://ricostacruz.com/jquery.transit/) (by [MrBigDog2U](https://github.com/MrBigDog2U))
 * [jQuery.Validation](http://bassistance.de/jquery-plugins/jquery-plugin-validation/) (by [Boris Yankov](https://github.com/borisyankov))
 * [jQuery.Watermark](http://jquery-watermark.googlecode.com) (by [Anwar Javed](https://github.com/anwarjaved))
