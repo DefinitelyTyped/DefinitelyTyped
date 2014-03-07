@@ -264,6 +264,12 @@ fooProm = fooProm.finally((value: Foo) => {
 	// return is ignored
 	return fooThen;
 });
+fooProm = fooProm.finally((value: Foo) => {
+	// return is ignored
+});
+fooProm = fooProm.finally(() => {
+	// return is ignored
+});
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -274,6 +280,12 @@ fooProm = fooProm.lastly((value: Foo) => {
 fooProm = fooProm.lastly((value: Foo) => {
 	// return is ignored
 	return fooThen;
+});
+fooProm = fooProm.lastly((value: Foo) => {
+	// return is ignored
+});
+fooProm = fooProm.lastly(() => {
+	// return is ignored
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -407,6 +419,9 @@ anyProm = fooProm.call(str, 1, 2, 3);
 
 barProm = fooProm.return(bar);
 barProm = fooProm.thenReturn(bar);
+
+voidProm = fooProm.return();
+voidProm = fooProm.thenReturn();
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
