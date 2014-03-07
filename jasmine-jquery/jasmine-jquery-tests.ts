@@ -16,7 +16,9 @@ describe("Jasmine jQuery extension", () => {
         expect($('<span></span>').addClass('js-something')).toBeMatchedBy('.js-something');
         expect($('<span></span>')).toExist();
         expect($('<div id="some-id"></div>')).toHaveAttr('id', 'some-id');
+        expect($('<input type="checkbox" checked="checked"/>')).toHaveAttr('type');
         expect($('<div id="some-id"></div>')).toHaveProp('id', 'some-id');
+        expect($('<input type="checkbox" checked="checked"/>')).toHaveProp('checked');
         expect($('')).toHaveBeenTriggered();
         expect($('')).toHaveBeenTriggeredOn('#some-id');
         expect($('')).toHaveBeenTriggeredOnAndWith('#some-id', 'eventParam');
@@ -132,4 +134,4 @@ describe("Jasmine jQuery extension", () => {
             expect(spyEvent).toHaveBeenStopped();
         });
     });
-})
+});
