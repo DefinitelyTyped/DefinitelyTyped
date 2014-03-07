@@ -6,8 +6,8 @@
 declare module LazyJS {
 
 	interface LazyStatic {
-		(value: string):StringLikeSequence;
 
+		(value: string):StringLikeSequence;
 		<T>(value: T[]):ArrayLikeSequence<T>;
 		(value: any[]):ArrayLikeSequence<any>;
 		<T>(value: Object):ObjectLikeSequence<T>;
@@ -141,7 +141,7 @@ declare module LazyJS {
 		invoke(methodName: string): Sequence<T>;
 		isEmpty(): boolean;
 		join(delimiter?: string): string;
-		map<U>(mapFn: MapCallback<T, U>): Sequence<T>;
+		map<U>(mapFn: MapCallback<T, U>): Sequence<U>;
 
 		max(valueFn?: NumberCallback<T>): T;
 		min(valueFn?: NumberCallback<T>): T;
@@ -200,7 +200,7 @@ declare module LazyJS {
 		functions(): Sequence<T>;
 		get(property: string): ObjectLikeSequence<T>;
 		invert(): ObjectLikeSequence<T>;
-		keys(): StringLikeSequence;
+		keys(): Sequence<string>;
 		omit(properties: string[]): ObjectLikeSequence<T>;
 		pairs(): Sequence<T>;
 		pick(properties: string[]): ObjectLikeSequence<T>;
