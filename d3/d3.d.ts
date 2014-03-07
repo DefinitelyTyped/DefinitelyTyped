@@ -1148,17 +1148,17 @@ declare module D3 {
             };
             startAngle: {
                 (): number;
-                (angle: number): D3.Svg.Arc;
-                (angle: () => number): D3.Svg.Arc;
-                (angle: (d : any) => number): D3.Svg.Arc;
-                (angle: (d : any, i: number) => number): D3.Svg.Arc;
+                (angle: number): PieLayout;
+                (angle: () => number): PieLayout;
+                (angle: (d : any) => number): PieLayout;
+                (angle: (d : any, i: number) => number): PieLayout;
             };
             endAngle: {
                 (): number;
-                (angle: number): D3.Svg.Arc;
-                (angle: () => number): D3.Svg.Arc;
-                (angle: (d : any) => number): D3.Svg.Arc;
-                (angle: (d : any, i: number) => number): D3.Svg.Arc;
+                (angle: number): PieLayout;
+                (angle: () => number): PieLayout;
+                (angle: (d : any) => number): PieLayout
+                (angle: (d : any, i: number) => number): PieLayout;
             };
         }
 
