@@ -27,6 +27,7 @@ var fooObjectSeq: LazyJS.ObjectLikeSequence<Foo>;
 var anyObjectSeq: LazyJS.ObjectLikeSequence<any>;
 var fooAsyncSeq: LazyJS.AsyncSequence<Foo>;
 
+var strSequence: LazyJS.Sequence<string>;
 var stringSeq: LazyJS.StringLikeSequence;
 
 var obj: Object;
@@ -124,7 +125,7 @@ foo = fooSequence.last();
 fooSequence = fooSequence.last(num);
 
 fooSequence = fooSequence.lastIndexOf(foo);
-fooSequence = fooSequence.map(fnMapCallback);
+barSequence = fooSequence.map(fnMapCallback);
 foo = fooSequence.max();
 foo = fooSequence.max(fnNumberCallback);
 foo = fooSequence.min();
@@ -175,7 +176,7 @@ fooObjectSeq = fooObjectSeq.defaults(obj);
 fooSequence = fooObjectSeq.functions();
 fooObjectSeq = fooObjectSeq.get(str);
 fooObjectSeq = fooObjectSeq.invert();
-stringSeq = fooObjectSeq.keys();
+strSequence = fooObjectSeq.keys();
 fooObjectSeq = fooObjectSeq.omit(strArr);
 fooSequence = fooObjectSeq.pairs();
 fooObjectSeq = fooObjectSeq.pick(strArr);
