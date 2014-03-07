@@ -38,7 +38,36 @@ declare module svgjs {
         mask():Mask;
 
         // TODO gradients
-    }    
+    }
+
+
+    // https://github.com/wout/svg.filter.js
+    export interface Filter {
+        gaussianBlur(values:string):Filter;
+        colorMatrix(name:string, value:number):Filter;
+        colorMatrix(name:string, matrix:number[]):Filter;
+        componentTransfer(components:{rgb?: FilterComponentTransfer; g?: FilterComponentTransfer;}):Filter;
+        offset(x:number, y:number):Filter;
+        blend():Filter;
+        in(source:FilterSource):Filter;
+        sourceAlpha:FilterSource;
+        source:FilterSource;
+    } 
+
+    export interface FilterSource {
+
+    }
+
+
+    export interface FilterComponentTransfer {
+        type: string;
+        tableValues?: string;
+        slope?: number;
+        intercept: number;
+        amplitude: number;
+        exponent: number;
+        offset: number;
+    }
 
     export interface Element extends Text, Parent {
         node:LinkedHTMLElement;
@@ -48,9 +77,10 @@ declare module svgjs {
         animate(duration?:number, ease?:string, delay?:number):Animation;
         animate(info:{ease?:string; duration?:number; delay?:number}):Animation;
 
-        attr(name:string, value:any, namespace?:string):Element;
-        attr(obj:Object):Element;
         attr(name:string):any;
+        attr(obj:Object):Element;
+        attr(name:string, value:any, namespace?:string):Element;
+
         viewbox():Viewbox;
         viewbox(x:number, y:number, w:number, h:number):Element;
         viewbox(obj:Viewbox):Element;
@@ -71,6 +101,7 @@ declare module svgjs {
         remove():void;
 
         each(iterator:(i?:number, children?:Element[])=>void, deep?:boolean):void;
+        filter(adder:(filter:Filter)=>void):Element;        
 
         transform(t:Transform):Element;
         
@@ -203,6 +234,12 @@ declare module svgjs {
     }
 
     export interface RBox extends BBox {}
+
+    export interface Attributes {
+        (name:string, value:any):void;
+        (obj:Object):void;
+        (name:string):any;
+    }
 
     export interface Viewbox {
         x: number;

@@ -448,11 +448,6 @@ function test_toggle() {
     });
 }
 
-function test_easing() {
-    var result: number = $.easing.linear(3);
-    var result: number = $.easing.swing(3);
-}
-
 function test_append() {
     $('.inner').append('<p>Test</p>');
     $('.container').append($('h2'));
@@ -573,7 +568,7 @@ function test_bind() {
     $("form").bind("submit", function (event) {
         event.stopPropagation();
     });
-    $("p").bind("myCustomEvent", function (e, myName, myValue) {
+    $("p").bind("myCustomEvent", function (e, myName?, myValue?) {
         $(this).text(myName + ", hi there!");
         $("span").stop().css("opacity", 1)
         .text("myName = " + myName)
@@ -593,6 +588,70 @@ function test_bind() {
             $(this).removeClass("inside");
         }
     });
+}
+
+function test_unbind() {
+    $("#foo").unbind();
+
+    $("#foo").unbind("click");
+
+    var handler = function () {
+        alert("The quick brown fox jumps over the lazy dog.");
+    };
+    $("#foo").bind("click", handler);
+    $("#foo").unbind("click", handler);
+
+    $("#foo").bind("click", function () {
+        alert("The quick brown fox jumps over the lazy dog.");
+    });
+
+    // Will NOT work
+    $("#foo").unbind("click", function () {
+        alert("The quick brown fox jumps over the lazy dog.");
+    });
+
+    $("#foo").bind("click.myEvents", handler);
+
+    $("#foo").unbind("click");
+
+    $("#foo").unbind("click.myEvents");
+
+    $("#foo").unbind(".myEvents");
+
+    var timesClicked = 0;
+    $("#foo").bind("click", function (event) {
+        alert("The quick brown fox jumps over the lazy dog.");
+        timesClicked++;
+        if (timesClicked >= 3) {
+            $(this).unbind(event);
+        }
+    });
+
+    function aClick() {
+        $("div").show().fadeOut("slow");
+    }
+    $("#bind").click(function () {
+        $("#theone")
+            .bind("click", aClick)
+            .text("Can Click!");
+    });
+    $("#unbind").click(function () {
+        $("#theone")
+            .unbind("click", aClick)
+            .text("Does nothing...");
+    });
+
+    $("p").unbind();
+
+    $("p").unbind("click");
+
+    var foo = function () {
+        // Code to handle some kind of event
+    };
+
+    $("p").bind("click", foo); // ... Now foo will be called when paragraphs are clicked ...
+
+    $("p").unbind("click", foo); // ... foo will no longer be called.
 }
 
 function test_blur() {
@@ -668,6 +727,11 @@ function test_callbacksFunctions() {
     callbacks.add(bar);
     callbacks.fire('world');
     callbacks.disable();
+    
+    // Test the disabled state of the list
+    console.log(callbacks.disabled());
+    // Outputs: true
+
     callbacks.empty();
     callbacks.fire('hello');
     console.log(callbacks.fired());
@@ -752,6 +816,61 @@ function test_submit() {
         alert("Handler for .submit() called.");
     });
     $("#target").submit();
+}
+
+function test_trigger() {
+
+    $("#foo").on("click", function () {
+        alert($(this).text());
+    });
+    $("#foo").trigger("click");
+
+    $("#foo").on("custom", function (event, param1?, param2?) {
+        alert(param1 + "\n" + param2);
+    });
+    $("#foo").trigger("custom", ["Custom", "Event"]);
+
+    $("button:first").click(function () {
+        update($("span:first"));
+    });
+
+    $("button:last").click(function () {
+        $("button:first").trigger("click");
+        update($("span:last"));
+    });
+
+    function update(j) {
+        var n = parseInt(j.text(), 10);
+        j.text(n + 1);
+    }
+
+    $("form:first").trigger("submit");
+
+    var event = jQuery.Event("submit");
+    $("form:first").trigger(event);
+    if (event.isDefaultPrevented()) {
+        // Perform an action...
+    }
+
+    $("p")
+        .click(function (event, a, b) {
+            // When a normal click fires, a and b are undefined
+            // for a trigger like below a refers to "foo" and b refers to "bar"
+        })
+        .trigger("click", ["foo", "bar"]);
+
+    var event = jQuery.Event("logged");
+    (<any>event).user = "foo";
+    (<any>event).pass = "bar";
+    $("body").trigger(event);
+
+    // Adapted from jQuery documentation which may be wrong on this occasion
+    var event2 = jQuery.Event("logged");
+    $("body").trigger(event2, {
+        type: "logged",
+        user: "foo",
+        pass: "bar"
+    });
 }
 
 function test_clone() {
@@ -1064,7 +1183,6 @@ function test_delay() {
     });
 }
 
-/* Not existing, but not recommended either
 function test_delegate() {
     $("table").delegate("td", "click", function () {
         $(this).toggleClass("chosen");
@@ -1082,7 +1200,7 @@ function test_delegate() {
     $("body").delegate("a", "click", function (event) {
         event.preventDefault();
     });
-    $("body").delegate("p", "myCustomEvent", function (e, myName, myValue) {
+    $("body").delegate("p", "myCustomEvent", function (e, myName?, myValue?) {
         $(this).text("Hi there!");
         $("span").stop().css("opacity", 1)
                  .text("myName = " + myName)
@@ -1092,7 +1210,48 @@ function test_delegate() {
         $("p").trigger("myCustomEvent");
     });
 }
-*/
+
+function test_undelegate() {
+    function aClick() {
+        $("div").show().fadeOut("slow");
+    }
+    $("#bind").click(function () {
+        $("body")
+            .delegate("#theone", "click", aClick)
+            .find("#theone").text("Can Click!");
+    });
+    $("#unbind").click(function () {
+        $("body")
+            .undelegate("#theone", "click", aClick)
+            .find("#theone").text("Does nothing...");
+    });
+
+    $("p").undelegate();
+
+    $("p").undelegate("click");
+
+    var foo = function () {
+        // Code to handle some kind of event
+    };
+
+    // ... Now foo will be called when paragraphs are clicked ...
+    $("body").delegate("p", "click", foo);
+
+    // ... foo will no longer be called.
+    $("body").undelegate("p", "click", foo);
+
+    var foo = function () {
+        // Code to handle some kind of event
+    };
+
+    // Delegate events under the ".whatever" namespace
+    $("form").delegate(":button", "click.whatever", foo);
+
+    $("form").delegate("input[type='text'] ", "keypress.whatever", foo);
+
+    // Unbind all events delegated under the ".whatever" namespace
+    $("form").undelegate(".whatever");
+}
 
 function test_dequeue() {
     $("button").click(function () {
@@ -1718,15 +1877,10 @@ function test_has() {
 }
 
 function test_hasClass() {
-    $("div#result1").append($("p:first").hasClass("selected"));
-    $("div#result2").append($("p:last").hasClass("selected"));
-    $("div#result3").append($("p").hasClass("selected"));
-
     $('#mydiv').hasClass('foo');
-    // typescript has a bug to (boolean).toString() - I'll comment this code until typescript team solve this problem.
-    //$("div#result1").append($("p:first").hasClass("selected").toString());
-    //$("div#result2").append($("p:last").hasClass("selected").toString());
-    //$("div#result3").append($("p").hasClass("selected").toString());
+    $("div#result1").append($("p:first").hasClass("selected").toString());
+    $("div#result2").append($("p:last").hasClass("selected").toString());
+    $("div#result3").append($("p").hasClass("selected").toString());
 }
 
 function test_hasData() {
@@ -2012,11 +2166,17 @@ function test_index() {
 function test_innerHeight() {
     var p = $("p:first");
     $("p:last").text("innerHeight:" + p.innerHeight());
+
+    p.innerHeight(123);
+    p.innerHeight('123px');
 }
 
 function test_innerWidth() {
     var p = $("p:first");
     $("p:last").text("innerWidth:" + p.innerWidth());
+
+    p.innerWidth(123);
+    p.innerWidth('123px');
 }
 
 function test_outerHeight() {
@@ -2024,6 +2184,9 @@ function test_outerHeight() {
     $("p:last").text(
         "outerHeight:" + p.outerHeight() +
         " , outerHeight( true ):" + p.outerHeight(true));
+
+    p.outerHeight(123);
+    p.outerHeight('123px');
 }
 
 function test_outerWidth() {
@@ -2031,6 +2194,9 @@ function test_outerWidth() {
     $("p:last").text(
         "outerWidth:" + p.outerWidth() +
         " , outerWidth( true ):" + p.outerWidth(true));
+
+    p.outerWidth(123);
+    p.outerWidth('123px');
 }
 
 function test_scrollLeft() {
@@ -2213,7 +2379,7 @@ function test_isEmptyObject() {
     jQuery.isEmptyObject({ foo: "bar" });
 }
 
-function test_isFuction() {
+function test_isFunction() {
     function stub() { };
     var objs: any[] = [
           function () { },
@@ -2314,6 +2480,27 @@ function test_jQuery() {
     }).appendTo("body");
     jQuery(function ($) {
     });
+}
+
+function test_fn_extend() {
+    jQuery.fn.extend({
+        check: function () {
+            return this.each(function () {
+                this.checked = true;
+            });
+        },
+        uncheck: function () {
+            return this.each(function () {
+                this.checked = false;
+            });
+        }
+    });
+
+    // Use the newly created .check() method
+    //$( "input[type='checkbox']" ).check();
+    // The above test cannot be run as no way that I know of in TypeScript to model the augmentation of jQueryStatic with dynamically added methods
+    // The below would only work at runtime if extend had first been called.
+    $("input[type='checkbox']")["check"]();
 }
 
 function test_jquery() {
@@ -2422,6 +2609,16 @@ function test_jquery() {
     jQuery(function ($) {
         // Your code using failsafe $ alias here...
     });
+
+    $(document.body)
+        .click(function () {
+            $(document.body).append($("<div>"));
+            var n = $("div").length;
+            $("span").text("There are " + n + " divs." +
+                "Click to add more.");
+        })
+    // Trigger the click to start
+        .trigger("click");
 }
 
 function test_keydown() {

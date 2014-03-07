@@ -1,10 +1,10 @@
-///<reference path="rx.d.ts" />
-
 // Type definitions for RxJS-VirtualTime package 2.2
 // Project: http://rx.codeplex.com/
 // Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>
-// Revision by: Igor Oleinikov <https://github.com/Igorbek>
+// Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+///<reference path="rx.d.ts" />
 
 declare module Rx {
     // Virtual IScheduler

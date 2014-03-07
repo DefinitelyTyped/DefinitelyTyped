@@ -5,10 +5,10 @@
 
 
 interface Thenable<R> {
-	then<U>(onFulfill: (value: R) => Thenable<U>,  onReject: (error: any) => Thenable<U>): Thenable<U>;
-    then<U>(onFulfill: (value: R) => Thenable<U>, onReject?: (error: any) => U): Thenable<U>;
-    then<U>(onFulfill: (value: R) => U, onReject: (error: any) => Thenable<U>): Thenable<U>;
-    then<U>(onFulfill?: (value: R) => U, onReject?: (error: any) => U): Thenable<U>;
+    then<U>(onFulfilled: (value: R) => Thenable<U>,  onRejected: (error: any) => Thenable<U>): Thenable<U>;
+    then<U>(onFulfilled: (value: R) => Thenable<U>, onRejected?: (error: any) => U): Thenable<U>;
+    then<U>(onFulfilled: (value: R) => U, onRejected: (error: any) => Thenable<U>): Thenable<U>;
+    then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U): Thenable<U>;
 	
 }
 

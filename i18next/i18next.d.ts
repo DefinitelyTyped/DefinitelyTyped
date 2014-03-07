@@ -1,10 +1,11 @@
-/// <reference path="../jquery/jquery.d.ts" />
-
 // Type definitions for i18next (v1.5.10 incl. jQuery)
 // Project: http://i18next.com
-// Sources: https://github.com/jamuhl/i18next/
 // Definitions by: Maarten Docter <https://github.com/mdocter> - Blog: http://www.maartendocter.nl
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+// Sources: https://github.com/jamuhl/i18next/
+
+/// <reference path="../jquery/jquery.d.ts" />
 
 interface IResourceStore {
     [language: string]: IResourceStoreLanguage;

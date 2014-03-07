@@ -816,9 +816,10 @@ declare module grunt {
              * Either false or an Error object may be passed to the done function
              * to instruct Grunt that the task has failed.
              */
-            done(success: boolean): void;
-            done(error: Error): void;
-            done(result: any): void;
+            (success: boolean): void;
+            (error: Error): void;
+            (result: any): void;
+            (): void;
         }
 
         /**
@@ -1155,7 +1156,13 @@ declare module grunt {
             /**
              * Additional options for the Node.js child_process spawn method.
              */
-            opts?: ISpawnOptions
+            opts?: {
+                cwd?: string
+                stdio?: any
+                custom?: any
+                env?: any
+                detached?: boolean
+            }
 
             /**
              * If this value is set and an error occurs, it will be used as the value

@@ -1,4 +1,4 @@
-﻿// Type definitions for Jasmine 1.3
+// Type definitions for Jasmine 1.3
 // Project: http://pivotal.github.com/jasmine/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped

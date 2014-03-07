@@ -1,7 +1,8 @@
-// Typescript type definitions for jQuery.noty v2.0 by Nedim Carter <http://needim.github.io>
+// Type definitions for jQuery.noty v2.0
 // Project: http://needim.github.io/noty/
 // Definitions by: Aaron King <https://github.com/kingdango/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Project by: Nedim Carter <http://needim.github.io>
 
 /// <reference path='../jquery/jquery.d.ts'/>
 

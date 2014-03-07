@@ -95,7 +95,7 @@ interface ICustomScope extends ng.IScope {
     title: string;
 }
 
-function Controller($scope: ng.ICustomScope) {
+function Controller($scope: ICustomScope) {
     $scope.$broadcast('myEvent');
     $scope.title = 'Yabadabadu';
 }

@@ -55,5 +55,5 @@ declare module "msnodesql" {
         close(immediately: boolean, callback?: ErrorCallback);
     }
 
-    interface StreamEvents extends EventEmitter { }
+    interface StreamEvents extends NodeEventEmitter { }
 }
