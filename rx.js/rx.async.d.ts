@@ -104,9 +104,9 @@ declare module Rx {
 	 * Promise A+
 	 */
 	export interface IPromise<T> {
-		then<R>(onFulfilled?: (value: T) => IPromise<R>, onRejected?: (reason: any) => IPromise<R>): IPromise<R>;
-		then<R>(onFulfilled?: (value: T) => IPromise<R>, onRejected?: (reason: any) => R): IPromise<R>;
-		then<R>(onFulfilled?: (value: T) => R, onRejected?: (reason: any) => IPromise<R>): IPromise<R>;
+		then<R>(onFulfilled: (value: T) => IPromise<R>, onRejected: (reason: any) => IPromise<R>): IPromise<R>;
+		then<R>(onFulfilled: (value: T) => IPromise<R>, onRejected?: (reason: any) => R): IPromise<R>;
+		then<R>(onFulfilled: (value: T) => R, onRejected: (reason: any) => IPromise<R>): IPromise<R>;
 		then<R>(onFulfilled?: (value: T) => R, onRejected?: (reason: any) => R): IPromise<R>;
 	}
 }
