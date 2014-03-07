@@ -7,7 +7,7 @@
 
 interface JQuery {
 
-	placeholder();
+	placeholder() : void;
 
 }
 
