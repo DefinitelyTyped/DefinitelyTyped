@@ -1168,6 +1168,9 @@ function voroniTesselation() {
         return [Math.random() * width, Math.random() * height];
     } );
 
+    var voronoi = d3.geom.voronoi()
+        .clipExtent([[0, 0], [width, height]]);
+
     var svg = d3.select("body").append("svg")
         .attr("width", width)
         .attr("height", height)
@@ -1185,7 +1188,7 @@ function voroniTesselation() {
     redraw();
     
     function redraw() {
-        path = path.data(d3.geom.voronoi(vertices).map(function (d) { return "M" + d.join("L") + "Z"; } ), String);
+        path = path.data(voronoi(vertices).map(function (d) { return "M" + d.join("L") + "Z"; } ), String);
         path.exit().remove();
         path.enter().append("path").attr("class", function (d, i) { return "q" + (i % 9) + "-9"; } ).attr("d", String);
         path.order();
