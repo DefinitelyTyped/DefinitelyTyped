@@ -1,7 +1,9 @@
 // Type definitions for Angular Scenario Testing
-// Project: [http://angularjs.org]
-// Definitions by: [RomanoLindano]
+// Project: http://angularjs.org
+// Definitions by: RomanoLindano
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// <reference path="../jquery/jquery.d.ts" />
 
 declare module ng {
     export interface IAngularStatic {
@@ -100,7 +102,11 @@ declare module angularScenario {
     export interface Element {
         count(): Future;
         click(): any;
-        query(callback: (selectedDOMElements: any[], callbackWhenDone: (objNull: any, futureValue: any) => any) => any): any;
+        dblclick(): any;
+        mouseover(): any;
+        mousedown(): any;
+        mouseup(): any;
+        query(callback: (selectedDOMElements: JQuery, callbackWhenDone: (objNull: any, futureValue: any) => any) => any): any;
         val(): Future;
         text(): Future;
         html(): Future;

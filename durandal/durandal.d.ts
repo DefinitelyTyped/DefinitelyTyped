@@ -1,3 +1,8 @@
+// Type definitions for Durandal 2.0.1
+// Project: http://durandaljs.com
+// Definitions by: Evan Larsen <https://github.com/evanlarsen/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /**
  * Durandal 2.0.1 Copyright (c) 2012 Blue Spire Consulting, Inc. All Rights Reserved.
  * Available via the MIT license.
@@ -13,193 +18,8 @@
  * @requires jquery
  */
 declare module 'durandal/system' {
-    /**
-     * Durandal's version.
-     */
-    export var version: string;
-
-    /**
-     * A noop function.
-     */
-    export var noop: Function;
-
-    /**
-     * Gets the module id for the specified object.
-     * @param {object} obj The object whose module id you wish to determine.
-     * @returns {string} The module id.
-     */
-    export function getModuleId(obj: any): string;
-
-    /**
-     * Sets the module id for the specified object.
-     * @param {object} obj The object whose module id you wish to set.
-     * @param {string} id The id to set for the specified object.
-     */
-    export function setModuleId(obj, id: string): void;
-
-    /**
-     * Resolves the default object instance for a module. If the module is an object, the module is returned. If the module is a function, that function is called with `new` and it's result is returned.
-     * @param {object} module The module to use to get/create the default object for.
-     * @returns {object} The default object for the module.
-     */
-    export function resolveObject(module: any): any;
-
-    /**
-     * Gets/Sets whether or not Durandal is in debug mode.
-     * @param {boolean} [enable] Turns on/off debugging.
-     * @returns {boolean} Whether or not Durandal is current debugging.
-     */
-    export function debug(enable?: boolean): boolean;
-
-    /**
-     * Logs data to the console. Pass any number of parameters to be logged. Log output is not processed if the framework is not running in debug mode.
-     * @param {object} info* The objects to log.
-     */
-    export function log(...msgs: any[]): void;
-
-    /**
-     * Logs an error.
-     * @param {string} obj The error to report.
-     */
-    export function error(error: string): void;
-
-    /**
-     * Logs an error.
-     * @param {Error} obj The error to report.
-     */
-    export function error(error: Error): void;
-
-    /**
-     * Asserts a condition by throwing an error if the condition fails.
-     * @param {boolean} condition The condition to check.
-     * @param {string} message The message to report in the error if the condition check fails.
-     */
-    export function assert(condition: boolean, message: string): void;
-
-    /**
-     * Creates a deferred object which can be used to create a promise. Optionally pass a function action to perform which will be passed an object used in resolving the promise.
-     * @param {function} [action] The action to defer. You will be passed the deferred object as a paramter.
-     * @returns {JQueryDeferred} The deferred object.
-     */
-    export function defer<T>(action?: (dfd: JQueryDeferred<T>) => void ): JQueryDeferred<T>;
-
-    /**
-     * Creates a simple V4 UUID. This should not be used as a PK in your database. It can be used to generate internal, unique ids. For a more robust solution see [node-uuid](https://github.com/broofa/node-uuid).
-     * @returns {string} The guid.
-     */
-    export function guid(): string;
-
-    /**
-     * Uses require.js to obtain a module. This function returns a promise which resolves with the module instance.
-     * @param {string} moduleId The id of the module to load.
-     * @returns {JQueryPromise} A promise for the loaded module.
-     */
-    export function acquire(moduleId: string): JQueryPromise<any>;
-
-    /**
-     * Uses require.js to obtain an array of modules. This function returns a promise which resolves with the modules instances in an array.
-     * @param {string[]} moduleIds The ids of the modules to load.
-     * @returns {JQueryPromise} A promise for the loaded module.
-     */
-    export function acquire(modules: string[]): JQueryPromise<any[]>;
-
-    /**
-     * Uses require.js to obtain multiple modules. This function returns a promise which resolves with the module instances in an array.
-     * @param {string} moduleIds* The ids of the modules to load.
-     * @returns {JQueryPromise} A promise for the loaded module.
-     */
-    export function acquire(...moduleIds: string[]): JQueryPromise<any[]>;
-
-    /**
-     * Extends the first object with the properties of the following objects.
-     * @param {object} obj The target object to extend.
-     * @param {object} extension* Uses to extend the target object.
-    */
-    export function extend(obj: any, ...extensions: any[]): any;
-    
-    /**
-     * Uses a setTimeout to wait the specified milliseconds.
-     * @param {number} milliseconds The number of milliseconds to wait.
-     * @returns {JQueryPromise}
-    */
-    export function wait(milliseconds: number): JQueryPromise<any>;
-
-    /**
-     * Gets all the owned keys of the specified object.
-     * @param {object} object The object whose owned keys should be returned.
-     * @returns {string[]} The keys.
-     */
-    export function keys(obj: any): string[];
-
-    /**
-     * Determines if the specified object is an html element.
-     * @param {object} object The object to check.
-     * @returns {boolean} True if matches the type, false otherwise.
-     */
-    export function isElement(obj: any): boolean;
-
-    /**
-     * Determines if the specified object is an array.
-     * @param {object} object The object to check.
-     * @returns {boolean} True if matches the type, false otherwise.
-     */
-    export function isArray(obj: any): boolean;
-
-    /**
-     * Determines if the specified object is a boolean.
-     * @param {object} object The object to check.
-     * @returns {boolean} True if matches the type, false otherwise.
-     */
-    export function isObject(obj: any): boolean;
-
-    /**
-     * Determines if the specified object is a promise.
-     * @param {object} object The object to check.
-     * @returns {boolean} True if matches the type, false otherwise.
-     */
-    export function isPromise(obj: any): boolean;
-
-    /**
-     * Determines if the specified object is a function arguments object.
-     * @param {object} object The object to check.
-     * @returns {boolean} True if matches the type, false otherwise.
-     */
-    export function isArguments(obj: any): boolean;
-
-    /**
-     * Determines if the specified object is a function.
-     * @param {object} object The object to check.
-     * @returns {boolean} True if matches the type, false otherwise.
-     */
-    export function isFunction(obj: any): boolean;
-
-    /**
-     * Determines if the specified object is a string.
-     * @param {object} object The object to check.
-     * @returns {boolean} True if matches the type, false otherwise.
-     */
-    export function isString(obj: any): boolean;
-
-    /**
-     * Determines if the specified object is a number.
-     * @param {object} object The object to check.
-     * @returns {boolean} True if matches the type, false otherwise.
-     */
-    export function isNumber(obj: any): boolean;
-
-    /**
-     * Determines if the specified object is a date.
-     * @param {object} object The object to check.
-     * @returns {boolean} True if matches the type, false otherwise.
-     */
-    export function isDate(obj: any): boolean;
-
-    /**
-     * Determines if the specified object is a boolean.
-     * @param {object} object The object to check.
-     * @returns {boolean} True if matches the type, false otherwise.
-     */
-    export function isBoolean(obj: any): boolean;
+    var theModule: DurandalSystemModule;
+    export = theModule;
 }
 
 /**
@@ -208,75 +28,8 @@ declare module 'durandal/system' {
  * @requires jquery
  */
 declare module 'durandal/viewEngine' {
-    /**
-     * The file extension that view source files are expected to have.
-     * @default .html
-    */
-    export var viewExtension: string;
-
-    /**
-     * The name of the RequireJS loader plugin used by the viewLocator to obtain the view source. (Use requirejs to map the plugin's full path).
-     * @default text
-    */
-    export var viewPlugin: string;
-
-    /**
-     * Determines if the url is a url for a view, according to the view engine.
-     * @param {string} url The potential view url.
-     * @returns {boolean} True if the url is a view url, false otherwise.
-    */
-    export function isViewUrl(url: string):boolean;
-    
-    /**
-     * Converts a view url into a view id.
-     * @param {string} url The url to convert.
-     * @returns {string} The view id.
-    */
-    export function convertViewUrlToViewId(url: string): string;
-
-    /**
-     * Converts a view id into a full RequireJS path.
-     * @param {string} viewId The view id to convert.
-     * @returns {string} The require path.
-    */
-    export function convertViewIdToRequirePath(viewId: string): string;
-
-    /**
-     * Parses the view engine recognized markup and returns DOM elements.
-     * @param {string} markup The markup to parse.
-     * @returns {HTMLElement[]} The elements.
-    */
-    export function parseMarkup(markup: string):Node[];
-
-    /**
-     * Calls `parseMarkup` and then pipes the results through `ensureSingleElement`.
-     * @param {string} markup The markup to process.
-     * @returns {HTMLElement} The view.
-    */
-    export function processMarkup(markup: string): HTMLElement;
-
-    /**
-     * Converts an array of elements into a single element. White space and comments are removed. If a single element does not remain, then the elements are wrapped.
-     * @param {HTMLElement[]} allElements The elements.
-     * @returns {HTMLElement} A single element.
-    */
-    export function ensureSingleElement(allElements: Node[]): HTMLElement;
-
-    /**
-     * Creates the view associated with the view id.
-     * @param {string} viewId The view id whose view should be created.
-     * @returns {JQueryPromise<HTMLElement>} A promise of the view.
-    */
-    export function createView(viewId: string): JQueryPromise<HTMLElement>;
-
-    /**
-     * Called when a view cannot be found to provide the opportunity to locate or generate a fallback view. Mainly used to ease development.
-     * @param {string} viewId The view id whose view should be created.
-     * @param {string} requirePath The require path that was attempted.
-     * @param {Error} requirePath The error that was returned from the attempt to locate the default view.
-     * @returns {Promise} A promise for the fallback view.
-    */
-    export function createFallbackView(viewId: string, requirePath: string, err: Error): JQueryPromise<HTMLElement>;
+    var theModule: DurandalViewEngineModule;
+    export = theModule;
 }
 
 /**
@@ -305,7 +58,7 @@ declare module 'durandal/binder' {
      * @param {DOMElement} view The view that is about to be bound.
      * @param {object} instruction The object that carries the binding instructions.
     */
-    export var binding: (data:any, view:HTMLElement, instruction:BindingInstruction) => void;
+    export var binding: (data: any, view: HTMLElement, instruction: BindingInstruction) => void;
 
     /**
      * Called after every binding operation. Does nothing by default.
@@ -335,7 +88,7 @@ declare module 'durandal/binder' {
      * @param {object} [obj] The data to bind to, causing the creation of a child binding context if present.
     */
     export function bindContext(bindingContext: KnockoutBindingContext, view: HTMLElement, obj?: any): BindingInstruction;
-    
+
     /**
      * Binds the view, preserving the existing binding context. Optionally, a new context can be created, parented to the previous context.
      * @param {object} obj The data to bind to.
@@ -358,7 +111,7 @@ declare module 'durandal/activator' {
      * @property {ActivatorSettings} defaults
     */
     export var defaults: DurandalActivatorSettings;
-    
+
     /**
     * Creates a new activator.
      * @method create
@@ -383,62 +136,8 @@ declare module 'durandal/activator' {
  * @requires viewEngine
  */
 declare module 'durandal/viewLocator' {
-    /**
-     * Allows you to set up a convention for mapping module folders to view folders. It is a convenience method that customizes `convertModuleIdToViewId` and `translateViewIdToArea` under the covers.
-     * @param {string} [modulesPath] A string to match in the path and replace with the viewsPath. If not specified, the match is 'viewmodels'.
-     * @param {string} [viewsPath] The replacement for the modulesPath. If not specified, the replacement is 'views'.
-     * @param {string} [areasPath] Partial views are mapped to the "views" folder if not specified. Use this parameter to change their location.
-    */
-    export function useConvention(modulesPath?: string, viewsPath?: string, areasPath?: string): void;
-    
-    /**
-     * Maps an object instance to a view instance.
-     * @param {object} obj The object to locate the view for.
-     * @param {string} [area] The area to translate the view to.
-     * @param {DOMElement[]} [elementsToSearch] An existing set of elements to search first.
-     * @returns {Promise} A promise of the view.
-    */
-    export function locateViewForObject(obj: any, area:string, elementsToSearch?: HTMLElement[]): JQueryPromise<HTMLElement>;
-    
-    /**
-     * Converts a module id into a view id. By default the ids are the same.
-     * @param {string} moduleId The module id.
-     * @returns {string} The view id.
-    */
-    export function convertModuleIdToViewId(moduleId: string): string;
-
-    /**
-     * If no view id can be determined, this function is called to genreate one. By default it attempts to determine the object's type and use that.
-     * @param {object} obj The object to determine the fallback id for.
-     * @returns {string} The view id.
-    */
-    export function determineFallbackViewId(obj: any): string;
-
-    /**
-     * Takes a view id and translates it into a particular area. By default, no translation occurs.
-     * @param {string} viewId The view id.
-     * @param {string} area The area to translate the view to.
-     * @returns {string} The translated view id.
-    */
-    export function translateViewIdToArea(viewId: string, area: string): string;
-    
-    /**
-     * Locates the specified view.
-     * @param {string|DOMElement} view A view. It will be immediately returned.
-     * @param {string} [area] The area to translate the view to.
-     * @param {DOMElement[]} [elementsToSearch] An existing set of elements to search first.
-     * @returns {Promise} A promise of the view.
-    */
-    export function locateView(view: HTMLElement, area?: string, elementsToSearch?: HTMLElement[]): JQueryPromise<HTMLElement>;
-    
-    /**
-     * Locates the specified view.
-     * @param {string|DOMElement} viewUrlOrId A view url or view id to locate.
-     * @param {string} [area] The area to translate the view to.
-     * @param {DOMElement[]} [elementsToSearch] An existing set of elements to search first.
-     * @returns {Promise} A promise of the view.
-    */
-    export function locateView(viewUrlOrId: string, area?: string, elementsToSearch?: HTMLElement[]): JQueryPromise<HTMLElement>;
+    var theModule: DurandalViewLocatorModule;
+    export = theModule;
 }
 
 /**
@@ -608,7 +307,7 @@ declare module 'plugins/dialog' {
          * @param {string} viewUrl The view url relative to the base url which the view locator will use to find the message box's view.
          * @static
          */
-        static setViewUrl(url:string):void;
+        static setViewUrl(url: string): void;
     }
 
     interface DialogContext {
@@ -676,7 +375,7 @@ declare module 'plugins/dialog' {
      * @param {DialogContext} dialogContext The context to add.
     */
     export function addContext(name: string, modalContext: DialogContext): void;
-    
+
     /**
      * Gets the dialog model that is associated with the specified object.
      * @param {object} obj The object for whom to retrieve the dialog.
@@ -815,7 +514,7 @@ declare module 'plugins/http' {
      * @default callback
     */
     export var callbackParam: string;
-    
+
     /**
      * Makes an HTTP GET request.
      * @param {string} url The url to send the get request to.
@@ -832,7 +531,7 @@ declare module 'plugins/http' {
      * @returns {Promise} A promise of the response data.
     */
     export function jsonp(url: string, query?: Object, callbackParam?: string): JQueryPromise<any>;
-    
+
     /**
      * Makes an HTTP POST request.
      * @param {string} url The url to send the post request to.
@@ -1093,6 +792,329 @@ declare module 'plugins/router' {
     export = theModule;
 }
 
+interface DurandalSystemModule {
+    /**
+    * Durandal's version.
+    */
+    version: string;
+
+    /**
+     * A noop function.
+     */
+    noop: Function;
+
+    /**
+     * Gets the module id for the specified object.
+     * @param {object} obj The object whose module id you wish to determine.
+     * @returns {string} The module id.
+     */
+    getModuleId(obj: any): string;
+
+    /**
+     * Sets the module id for the specified object.
+     * @param {object} obj The object whose module id you wish to set.
+     * @param {string} id The id to set for the specified object.
+     */
+    setModuleId(obj, id: string): void;
+
+    /**
+     * Resolves the default object instance for a module. If the module is an object, the module is returned. If the module is a function, that function is called with `new` and it's result is returned.
+     * @param {object} module The module to use to get/create the default object for.
+     * @returns {object} The default object for the module.
+     */
+    resolveObject(module: any): any;
+
+    /**
+     * Gets/Sets whether or not Durandal is in debug mode.
+     * @param {boolean} [enable] Turns on/off debugging.
+     * @returns {boolean} Whether or not Durandal is current debugging.
+     */
+    debug(enable?: boolean): boolean;
+
+    /**
+     * Logs data to the console. Pass any number of parameters to be logged. Log output is not processed if the framework is not running in debug mode.
+     * @param {object} info* The objects to log.
+     */
+    log(...msgs: any[]): void;
+
+    /**
+     * Logs an error.
+     * @param {string} obj The error to report.
+     */
+    error(error: string): void;
+
+    /**
+     * Logs an error.
+     * @param {Error} obj The error to report.
+     */
+    error(error: Error): void;
+
+    /**
+     * Asserts a condition by throwing an error if the condition fails.
+     * @param {boolean} condition The condition to check.
+     * @param {string} message The message to report in the error if the condition check fails.
+     */
+    assert(condition: boolean, message: string): void;
+
+    /**
+     * Creates a deferred object which can be used to create a promise. Optionally pass a function action to perform which will be passed an object used in resolving the promise.
+     * @param {function} [action] The action to defer. You will be passed the deferred object as a paramter.
+     * @returns {JQueryDeferred} The deferred object.
+     */
+    defer<T>(action?: (dfd: JQueryDeferred<T>) => void): JQueryDeferred<T>;
+
+    /**
+     * Creates a simple V4 UUID. This should not be used as a PK in your database. It can be used to generate internal, unique ids. For a more robust solution see [node-uuid](https://github.com/broofa/node-uuid).
+     * @returns {string} The guid.
+     */
+    guid(): string;
+
+    /**
+     * Uses require.js to obtain a module. This function returns a promise which resolves with the module instance.
+     * @param {string} moduleId The id of the module to load.
+     * @returns {JQueryPromise} A promise for the loaded module.
+     */
+    acquire(moduleId: string): JQueryPromise<any>;
+
+    /**
+     * Uses require.js to obtain an array of modules. This function returns a promise which resolves with the modules instances in an array.
+     * @param {string[]} moduleIds The ids of the modules to load.
+     * @returns {JQueryPromise} A promise for the loaded module.
+     */
+    acquire(modules: string[]): JQueryPromise<any[]>;
+
+    /**
+     * Uses require.js to obtain multiple modules. This function returns a promise which resolves with the module instances in an array.
+     * @param {string} moduleIds* The ids of the modules to load.
+     * @returns {JQueryPromise} A promise for the loaded module.
+     */
+    acquire(...moduleIds: string[]): JQueryPromise<any[]>;
+
+    /**
+     * Extends the first object with the properties of the following objects.
+     * @param {object} obj The target object to extend.
+     * @param {object} extension* Uses to extend the target object.
+    */
+    extend(obj: any, ...extensions: any[]): any;
+
+    /**
+     * Uses a setTimeout to wait the specified milliseconds.
+     * @param {number} milliseconds The number of milliseconds to wait.
+     * @returns {JQueryPromise}
+    */
+    wait(milliseconds: number): JQueryPromise<any>;
+
+    /**
+     * Gets all the owned keys of the specified object.
+     * @param {object} object The object whose owned keys should be returned.
+     * @returns {string[]} The keys.
+     */
+    keys(obj: any): string[];
+
+    /**
+     * Determines if the specified object is an html element.
+     * @param {object} object The object to check.
+     * @returns {boolean} True if matches the type, false otherwise.
+     */
+    isElement(obj: any): boolean;
+
+    /**
+     * Determines if the specified object is an array.
+     * @param {object} object The object to check.
+     * @returns {boolean} True if matches the type, false otherwise.
+     */
+    isArray(obj: any): boolean;
+
+    /**
+     * Determines if the specified object is a boolean.
+     * @param {object} object The object to check.
+     * @returns {boolean} True if matches the type, false otherwise.
+     */
+    isObject(obj: any): boolean;
+
+    /**
+     * Determines if the specified object is a promise.
+     * @param {object} object The object to check.
+     * @returns {boolean} True if matches the type, false otherwise.
+     */
+    isPromise(obj: any): boolean;
+
+    /**
+     * Determines if the specified object is a function arguments object.
+     * @param {object} object The object to check.
+     * @returns {boolean} True if matches the type, false otherwise.
+     */
+    isArguments(obj: any): boolean;
+
+    /**
+     * Determines if the specified object is a function.
+     * @param {object} object The object to check.
+     * @returns {boolean} True if matches the type, false otherwise.
+     */
+    isFunction(obj: any): boolean;
+
+    /**
+     * Determines if the specified object is a string.
+     * @param {object} object The object to check.
+     * @returns {boolean} True if matches the type, false otherwise.
+     */
+    isString(obj: any): boolean;
+
+    /**
+     * Determines if the specified object is a number.
+     * @param {object} object The object to check.
+     * @returns {boolean} True if matches the type, false otherwise.
+     */
+    isNumber(obj: any): boolean;
+
+    /**
+     * Determines if the specified object is a date.
+     * @param {object} object The object to check.
+     * @returns {boolean} True if matches the type, false otherwise.
+     */
+    isDate(obj: any): boolean;
+
+    /**
+     * Determines if the specified object is a boolean.
+     * @param {object} object The object to check.
+     * @returns {boolean} True if matches the type, false otherwise.
+     */
+    isBoolean(obj: any): boolean;
+}
+
+interface DurandalViewEngineModule {
+
+    /**
+    * The file extension that view source files are expected to have.
+    * @default .html
+    */
+    viewExtension: string;
+
+    /**
+     * The name of the RequireJS loader plugin used by the viewLocator to obtain the view source. (Use requirejs to map the plugin's full path).
+     * @default text
+    */
+    viewPlugin: string;
+
+    /**
+     * Determines if the url is a url for a view, according to the view engine.
+     * @param {string} url The potential view url.
+     * @returns {boolean} True if the url is a view url, false otherwise.
+    */
+    isViewUrl(url: string): boolean;
+
+    /**
+     * Converts a view url into a view id.
+     * @param {string} url The url to convert.
+     * @returns {string} The view id.
+    */
+    convertViewUrlToViewId(url: string): string;
+
+    /**
+     * Converts a view id into a full RequireJS path.
+     * @param {string} viewId The view id to convert.
+     * @returns {string} The require path.
+    */
+    convertViewIdToRequirePath(viewId: string): string;
+
+    /**
+     * Parses the view engine recognized markup and returns DOM elements.
+     * @param {string} markup The markup to parse.
+     * @returns {HTMLElement[]} The elements.
+    */
+    parseMarkup(markup: string): Node[];
+
+    /**
+     * Calls `parseMarkup` and then pipes the results through `ensureSingleElement`.
+     * @param {string} markup The markup to process.
+     * @returns {HTMLElement} The view.
+    */
+    processMarkup(markup: string): HTMLElement;
+
+    /**
+     * Converts an array of elements into a single element. White space and comments are removed. If a single element does not remain, then the elements are wrapped.
+     * @param {HTMLElement[]} allElements The elements.
+     * @returns {HTMLElement} A single element.
+    */
+    ensureSingleElement(allElements: Node[]): HTMLElement;
+
+    /**
+     * Creates the view associated with the view id.
+     * @param {string} viewId The view id whose view should be created.
+     * @returns {JQueryPromise<HTMLElement>} A promise of the view.
+    */
+    createView(viewId: string): JQueryPromise<HTMLElement>;
+
+    /**
+     * Called when a view cannot be found to provide the opportunity to locate or generate a fallback view. Mainly used to ease development.
+     * @param {string} viewId The view id whose view should be created.
+     * @param {string} requirePath The require path that was attempted.
+     * @param {Error} requirePath The error that was returned from the attempt to locate the default view.
+     * @returns {Promise} A promise for the fallback view.
+    */
+    createFallbackView(viewId: string, requirePath: string, err: Error): JQueryPromise<HTMLElement>;
+}
+
+interface DurandalViewLocatorModule {
+
+    /**
+    * Allows you to set up a convention for mapping module folders to view folders. It is a convenience method that customizes `convertModuleIdToViewId` and `translateViewIdToArea` under the covers.
+    * @param {string} [modulesPath] A string to match in the path and replace with the viewsPath. If not specified, the match is 'viewmodels'.
+    * @param {string} [viewsPath] The replacement for the modulesPath. If not specified, the replacement is 'views'.
+    * @param {string} [areasPath] Partial views are mapped to the "views" folder if not specified. Use this parameter to change their location.
+    */
+    useConvention(modulesPath?: string, viewsPath?: string, areasPath?: string): void;
+
+    /**
+     * Maps an object instance to a view instance.
+     * @param {object} obj The object to locate the view for.
+     * @param {string} [area] The area to translate the view to.
+     * @param {DOMElement[]} [elementsToSearch] An existing set of elements to search first.
+     * @returns {Promise} A promise of the view.
+    */
+    locateViewForObject(obj: any, area: string, elementsToSearch?: HTMLElement[]): JQueryPromise<HTMLElement>;
+
+    /**
+     * Converts a module id into a view id. By default the ids are the same.
+     * @param {string} moduleId The module id.
+     * @returns {string} The view id.
+    */
+    convertModuleIdToViewId(moduleId: string): string;
+
+    /**
+     * If no view id can be determined, this function is called to genreate one. By default it attempts to determine the object's type and use that.
+     * @param {object} obj The object to determine the fallback id for.
+     * @returns {string} The view id.
+    */
+    determineFallbackViewId(obj: any): string;
+
+    /**
+     * Takes a view id and translates it into a particular area. By default, no translation occurs.
+     * @param {string} viewId The view id.
+     * @param {string} area The area to translate the view to.
+     * @returns {string} The translated view id.
+    */
+    translateViewIdToArea(viewId: string, area: string): string;
+
+    /**
+     * Locates the specified view.
+     * @param {string|DOMElement} view A view. It will be immediately returned.
+     * @param {string} [area] The area to translate the view to.
+     * @param {DOMElement[]} [elementsToSearch] An existing set of elements to search first.
+     * @returns {Promise} A promise of the view.
+    */
+    locateView(view: HTMLElement, area?: string, elementsToSearch?: HTMLElement[]): JQueryPromise<HTMLElement>;
+
+    /**
+     * Locates the specified view.
+     * @param {string|DOMElement} viewUrlOrId A view url or view id to locate.
+     * @param {string} [area] The area to translate the view to.
+     * @param {DOMElement[]} [elementsToSearch] An existing set of elements to search first.
+     * @returns {Promise} A promise of the view.
+    */
+    locateView(viewUrlOrId: string, area?: string, elementsToSearch?: HTMLElement[]): JQueryPromise<HTMLElement>;
+}
+
 interface DurandalEventSubscription {
     /**
      * Attaches a callback to the event subscription.
@@ -1346,7 +1368,7 @@ interface DurandalHistoryOptions {
     /**
      * The function that will be called back when the fragment changes.
      */
-    routeHandler: (fragment: string) => void;
+    routeHandler?: (fragment: string) => void;
 
     /**
      * The url root used to extract the fragment when using push state.
@@ -1384,7 +1406,7 @@ interface DurandalRouteConfiguration {
     route?: string;
     routePattern?: RegExp;
     isActive?: KnockoutComputed<boolean>;
-    nav:any;
+    nav: any;
 }
 
 interface DurandalRouteInstruction {

@@ -1,5 +1,6 @@
 // Type definitions for Angular JS 1.2 (ngResource module)
 // Project: http://angularjs.org
+// Definitions by: Diego Vilar <http://github.com/diegovilar>
 // Definitions: https://github.com/daptiv/DefinitelyTyped
 
 /// <reference path="angular.d.ts" />
@@ -18,19 +19,18 @@ declare module ng.resource {
     // that deeply.
     ///////////////////////////////////////////////////////////////////////////
     interface IResourceService {
-
-        <T extends IResource<T>, U extends IResourceClass<T>>(url: string, paramDefaults?: any,
-                                                              /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
-                                                               where deleteDescriptor : IActionDescriptor */
-                                                              actionDescriptors?: any): U;
-        <T extends IResource<T>>(url: string, paramDefaults?: any,
-                                 /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
-                                  where deleteDescriptor : IActionDescriptor */
-                                 actionDescriptors?: any): IResourceClass<T>;
         (url: string, paramDefaults?: any,
                                  /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
                                   where deleteDescriptor : IActionDescriptor */
                                  actionDescriptors?: any): IResourceClass<IResource<any>>;
+        <T, U>(url: string, paramDefaults?: any,
+                                 /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
+                                  where deleteDescriptor : IActionDescriptor */
+                                 actionDescriptors?: any): U;
+        <T>(url: string, paramDefaults?: any,
+                                 /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
+                                  where deleteDescriptor : IActionDescriptor */
+                                 actionDescriptors?: any): IResourceClass<T>;
     }
 
     // Just a reference to facilitate describing new actions
@@ -50,7 +50,7 @@ declare module ng.resource {
     // PATCH (in other words, methods with body). Otherwise, it's going
     // to be considered as parameters to the request.
     // https://github.com/angular/angular.js/blob/v1.2.0/src/ngResource/resource.js#L461-L465
-    interface IResourceClass<T extends IResource<T>> {
+    interface IResourceClass<T> {
         get(): T;
         get(dataOrParams: any): T;
         get(dataOrParams: any, success: Function): T;
@@ -78,7 +78,7 @@ declare module ng.resource {
         delete(params: any, data: any, success?: Function, error?: Function): T;
     }
 
-    interface IResource<T extends IResource<T>> {
+    interface IResource<T> {
         $get(): T;
         $get(dataOrParams: any): T;
         $get(dataOrParams: any, success: Function): T;
@@ -104,10 +104,14 @@ declare module ng.resource {
         $delete(dataOrParams: any, success: Function): T;
         $delete(success: Function, error?: Function): T;
         $delete(params: any, data: any, success?: Function, error?: Function): T;
+        
+        /** the promise of the original server interaction that created this instance. **/
+        $promise : ng.IPromise<T>;
+        $resolved : boolean;
     }
 
     /** when creating a resource factory via IModule.factory */
-    interface IResourceServiceFactoryFunction<T extends IResource<T>> {
+    interface IResourceServiceFactoryFunction<T> {
         ($resource: ng.resource.IResourceService): IResourceClass<T>;
         <U extends IResourceClass<T>>($resource: ng.resource.IResourceService): U;
     }
@@ -120,4 +124,11 @@ declare module ng {
         /** creating a resource service factory */
         factory(name: string, resourceServiceFactoryFunction: ng.resource.IResourceServiceFactoryFunction<any>): IModule;
     }
+}
+
+interface Array<T>
+{
+    /** the promise of the original server interaction that created this collection. **/
+    $promise : ng.IPromise<Array<T>>;
+    $resolved : boolean;
 }

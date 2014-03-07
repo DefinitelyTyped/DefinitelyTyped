@@ -1,4 +1,9 @@
-﻿/// <reference path="../backbone/backbone.d.ts" />
+// Type definitions for Knockback.js
+// Project: http://kmalakoff.github.io/knockback/
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// <reference path="../backbone/backbone.d.ts" />
 /// <reference path="../knockout/knockout.d.ts" />
 
 declare module Knockback {

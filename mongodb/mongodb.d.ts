@@ -1,6 +1,9 @@
-// Project : https://github.com/mongodb/node-mongodb-native
-// Documentation : http://mongodb.github.io/node-mongodb-native/
+// Type definitions for MongoDB
+// Project: https://github.com/mongodb/node-mongodb-native
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+// Documentation : http://mongodb.github.io/node-mongodb-native/
 
 /// <reference path='../node/node.d.ts' />
 
@@ -106,7 +109,7 @@ declare module "mongodb" {
   // Class documentation : http://mongodb.github.io/node-mongodb-native/api-bson-generated/objectid.html
   // Last update: doc. version 1.3.13 (28.08.2013)
   export class ObjectID {
-    constructor (s: string);
+    constructor (s?: string);
 
     // Returns the ObjectID id as a 24 byte hex string representation
     public toHexString() : string;

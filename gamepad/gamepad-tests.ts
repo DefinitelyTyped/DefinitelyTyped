@@ -38,7 +38,7 @@
         console.log('Gamepad ' + e.gamepad.index + ' disconnected!');
     }, false);
 
-    var requestAnimationFrame = window.requestAnimationFrame || window["mozRequestAnimationFrame"];
+    var requestAnimationFrame = window.requestAnimationFrame || (<any>window).mozRequestAnimationFrame;
     var getGamepads = navigator.getGamepads || navigator.webkitGetGamepads;
     if(getGamepads){
         function runAnimation()

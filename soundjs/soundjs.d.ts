@@ -1,4 +1,4 @@
-// Type definitions for SoundJS 0.5.0
+// Type definitions for SoundJS 0.5.2
 // Project: http://www.createjs.com/#!/SoundJS
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -19,45 +19,29 @@ declare module createjs {
         constructor();
         
         // properties
-        static BASE_PATH: string;
         static buildDate: string;
-        static capabilities: Object;
         flashReady: boolean;
         showOutput: boolean;
+        static swfPath: string;
         static version: string;
         
         // methods
         create(src: string): SoundInstance;
-        flashLog(data: string): void;
         getVolume(): number;
-        handleErrorEvent(error: string): void;
-        handleEvent(method: string): void;
-        handlePreloadEvent(flashId: string, method: string): void;
-        handleSoundEvent(flashId: string, method: string): void;
         isPreloadStarted(src: string): boolean;
         static isSupported(): boolean;
-        preload(src: string, instance: Object, basePath: string): void;
+        preload(src: string, instance: Object): void;
         register(src: string, instances: number): Object;
-        registerPreloadInstance(flashId: string, instance: any): void;
-        registerSoundInstance(flashId: string, instance: any): void;
         removeAllSounds (): void;
         removeSound(src: string): void;
         setMute(value: boolean): boolean;
         setVolume(value: number): boolean;
-        unregisterPreloadInstance(flashId: string): void;
-        unregisterSoundInstance(flashId: string, instance: any): void;
-        toString(): string;
     }
     
     export class HTMLAudioPlugin {
         constructor();
         
         // properties
-        static AUDIO_ENDED: string;
-        static AUDIO_ERROR: string;
-        static AUDIO_READY: string;
-        static AUDIO_SEEKED: string;
-        static AUDIO_STALLED: string;
         defaultNumChannels: number;
         enableIOS: boolean;
         static MAX_INSTANCES: number;
@@ -66,18 +50,17 @@ declare module createjs {
         create(src: string): SoundInstance;
         isPreloadStarted(src: string): boolean;
         static isSupported(): boolean;
-        preload(src: string, instance: Object, basePath: string): void;
+        preload(src: string, instance: Object): void;
         register(src: string, instances: number): Object;
         removeAllSounds(): void;
         removeSound(src: string): void;
-        toString(): string;
     }
     
     export class Sound {
         // properties
         static activePlugin: Object;
+        static alternateExtensions: any[];
         static defaultInterruptBehavior: string;
-        static DELIMITER: string;
         static EXTENSION_MAP: Object;
         static INTERRUPT_ANY: string;
         static INTERRUPT_EARLY: string;
@@ -102,18 +85,18 @@ declare module createjs {
         static loadComplete(src: string): boolean;
         static play(src: string, interrupt?: any, delay?: number, offset?: number, loop?: number, volume?: number, pan?: number): SoundInstance;
         static registerManifest(manifest: any[], basePath: string): Object;
-        static registerPlugin(plugin: Object): boolean;
         static registerPlugins(plugins: any[]): boolean;
+        static registerSound(src: string, id?: string, data?: number, preload?: boolean, basePath?: string): Object;
         static registerSound(src: string, id?: string, data?: Object, preload?: boolean, basePath?: string): Object;
+        static registerSound(src: Object, id?: string, data?: number, preload?: boolean, basePath?: string): Object;
         static registerSound(src: Object, id?: string, data?: Object, preload?: boolean, basePath?: string): Object;
         static removeAllSounds(): void;
-        static removeManifest(manifest: any[]): Object;
-        static removeSound(src: string): boolean;
-        static removeSound(src: Object): boolean;
+        static removeManifest(manifest: any[], basePath: string): Object;
+        static removeSound(src: string, basePath: string): boolean;
+        static removeSound(src: Object, basePath: string): boolean;
         static setMute(value: boolean): boolean;
         static setVolume(value: number): void;
         static stop(): void;
-        static toString(): string;
         
         // EventDispatcher mixins
         static addEventListener(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): Function;
@@ -128,16 +111,19 @@ declare module createjs {
         static off(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): void;
         static off(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): void;
         static off(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): void;
-        static on(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): Function;
-        static on(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): Function;
-        static on(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): Object;
-        static on(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): Object;
+        static off(type: string, listener: Function, useCapture?: boolean): void; // It is necessary for "arguments.callee"
+        static on(type: string, listener: (eventObj: Object) => boolean, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Function;
+        static on(type: string, listener: (eventObj: Object) => void, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Function;
+        static on(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Object;
+        static on(type: string, listener: { handleEvent: (eventObj: Object) => void; }, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Object;
         static removeAllEventListeners(type?: string): void;
         static removeEventListener(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): void;
         static removeEventListener(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): void;
         static removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): void;
         static removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): void;
-
+        static removeEventListener(type: string, listener: Function, useCapture?: boolean): void; // It is necessary for "arguments.callee"
+        static toString(): string;
+        static willTrigger(type: string): boolean;
     }
     
     export class SoundInstance extends EventDispatcher {
@@ -149,6 +135,7 @@ declare module createjs {
         panNode: any;
         playState: string;
         sourceNode: any;
+        src: string;
         uniqueId: any;   //HERE string or number
         volume: number;
 
@@ -191,15 +178,11 @@ declare module createjs {
         isPreloadStarted(src: string): boolean;
         static isSupported(): boolean;
         playEmptySound(): void;
+        preload(src: string, instance: Object): void;
         register(src: string, instances: number): Object;
         removeAllSounds(src: string): void;
-        /**
-         * @deprecated
-         */
-        removeFromPreload(src: string): void;
         removeSound(src: string): void;
         setMute(value: boolean): boolean;
         setVolume(value: number): boolean;
-        toString(): string;
     }
 }

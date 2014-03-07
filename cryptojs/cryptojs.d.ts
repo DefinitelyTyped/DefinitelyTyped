@@ -1,7 +1,6 @@
 // Type definitions for CryptoJS 3.1.2
 // Project: https://code.google.com/p/crypto-js/
-// Definitions by:
-// Gia Bảo @ Sân Đình <https://github.com/giabao>
+// Definitions by: Gia Bảo @ Sân Đình <https://github.com/giabao>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare var CryptoJS: CryptoJS.CryptoJSStatic;
@@ -107,6 +106,8 @@ declare module CryptoJS{
         interface Cipher extends ICipher<Object>{}
 
         interface IStreamCipher<C> extends ICipher<C>{
+            drop?: number;
+
             createEncryptor(key: WordArray, cfg?: C): IStreamCipher<C>
             createDecryptor(key: WordArray, cfg?: C): IStreamCipher<C>
 
@@ -339,10 +340,7 @@ declare module CryptoJS{
 
         interface PBKDF2 extends EvpKDF{} //PBKDF2 is same as EvpKDF
 
-        interface RC4Drop extends RC4, lib.ICipher<IRC4DropCfg>{}
-        interface IRC4DropCfg{
-            drop?: number //default 192
-        }
+        interface RC4Drop extends RC4 { }
     }
 
     module mode{
@@ -439,7 +437,7 @@ declare module CryptoJS{
         RabbitLegacy: CryptoJS.lib.CipherHelper
         Rabbit: CryptoJS.lib.CipherHelper
         RC4: CryptoJS.lib.CipherHelper
-        RC4Drop: CryptoJS.lib.ICipherHelper<CryptoJS.algo.IRC4DropCfg>
+        RC4Drop: CryptoJS.lib.ICipherHelper<Object>
 
         MD5: CryptoJS.lib.HasherHelper
         HmacMD5: CryptoJS.lib.IHasherHmacHelper

@@ -1,5 +1,5 @@
 // Type definitions for Firebase API
-// Project: https://www.firebase.com/docs/javascript/firebase/index.html
+// Project: https://www.firebase.com/docs/javascript/firebase
 // Definitions by: Vincent Botone <https://github.com/vbortone/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
@@ -53,7 +53,7 @@ declare class Firebase implements IFirebaseQuery {
 	toString(): string;
 	set(value: any, onComplete?: (error: any) => void): void;
 	update(value: any, onComplete?: (error: any) => void): void;
-	remove(onComplete?: (error: any) => void);
+	remove(onComplete?: (error: any) => void): void;
 	push(value: any, onComplete?: (error: any) => void): Firebase;
 	setWithPriority(value: any, priority: string, onComplete?: (error: any) => void): void;
 	setWithPriority(value: any, priority: number, onComplete?: (error: any) => void): void;

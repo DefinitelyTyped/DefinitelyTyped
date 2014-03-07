@@ -1,4 +1,4 @@
-// Type definitions for Twitter's typeahead.js 0.9.3
+// Type definitions for typeahead.js 0.9.3
 // Project: http://twitter.github.io/typeahead.js/
 // Definitions by: Ivaylo Gochkov <https://github.com/igochkov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

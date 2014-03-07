@@ -1,3 +1,8 @@
+// Type definitions for Google Visualisation Apis
+// Project: https://developers.google.com/chart/
+// Definitions by: Dan Ludwig <https://github.com/danludwig>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 declare module google {
 
     function load(visualization: string, version: string, packages: any): void;
@@ -71,6 +76,7 @@ declare module google {
             addRows(array: any[]): number;
             getFilteredRows(filters: DataTableCellFilter[]): number[];
             getFormattedValue(rowIndex: number, columnIndex: number): string;
+            getValue(rowIndex: number, columnIndex: number): any;
             getNumberOfColumns(): number;
             getNumberOfRows(): number;
             removeRow(rowIndex: number): void;

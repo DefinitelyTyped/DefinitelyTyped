@@ -9,11 +9,23 @@ interface MyAppScope extends ng.IScope {
 
 myApp.config((
     $stateProvider: ng.ui.IStateProvider,
-    $urlRouterProvider: ng.ui.IUrlRouterProvider) => {
-  //
-  // For any unmatched url, redirect to /state1
-  $urlRouterProvider.otherwise("/state1");
-  //
+    $urlRouterProvider: ng.ui.IUrlRouterProvider,
+    $urlMatcherFactory: ng.ui.IUrlMatcherFactory) => {
+
+  var matcher: ng.ui.IUrlMatcher = $urlMatcherFactory.compile("/foo/:bar?param1");
+  
+  $urlRouterProvider
+      .when('/test', '/list')
+      .when('/test', '/list')
+      .when('/test', '/list')
+      .when(/\/test\d/, '/list')
+      .when(/\/test\d/, ($injector: ng.auto.IInjectorService, $location: ng.ILocationService) => '/list')
+      .when(/\/test\d/,['$injector', '$location', ($injector: ng.auto.IInjectorService, $location: ng.ILocationService) => '/list'])
+      .when(matcher, '/list')
+      .when(matcher, ($injector: ng.auto.IInjectorService, $location: ng.ILocationService) => '/list')
+      .when(matcher, ['$injector', '$location', ($injector: ng.auto.IInjectorService, $location: ng.ILocationService) => '/list'])
+      .otherwise("/state1");
+
   // Now set up the states
   $stateProvider
     .state('state1', {

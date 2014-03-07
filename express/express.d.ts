@@ -122,6 +122,10 @@ declare module "express" {
             del(name: string, ...handlers: RequestFunction[]): T;
 
             del(name: RegExp, ...handlers: RequestFunction[]): T;
+            
+            patch(name: string, ...handlers: RequestFunction[]): T;
+ 
+            patch(name: RegExp, ...handlers: RequestFunction[]): T;
         }
 
         export class Router implements IRouter<Router> {
@@ -152,6 +156,10 @@ declare module "express" {
           del(name: string, ...handlers: RequestFunction[]): Router;
 
           del(name: RegExp, ...handlers: RequestFunction[]): Router;
+          
+          patch(name: string, ...handlers: RequestFunction[]): Router;
+ 
+          patch(name: RegExp, ...handlers: RequestFunction[]): Router;
         }
 
         interface Handler {
@@ -1451,6 +1459,8 @@ declare module "express" {
          * @param callback or username
          * @param realm
          */
+        export function basicAuth(callback: (user: string, pass: string, fn : Function) => void, realm?: string): Handler;
+
         export function basicAuth(callback: (user: string, pass: string) => boolean, realm?: string): Handler;
 
         export function basicAuth(user: string, pass: string, realm?: string): Handler;

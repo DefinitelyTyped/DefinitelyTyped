@@ -1,6 +1,6 @@
 // Type definitions for ng-grid 
 // Project: http://angular-ui.github.io/ng-grid/
-// Initial definitions by: Ken Smith <https://github.com/smithkl42>
+// Definitions by: Ken Smith <https://github.com/smithkl42>
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
 
 // These are very definitely preliminary. Please feel free to improve.
