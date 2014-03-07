@@ -3211,10 +3211,11 @@ declare module D3 {
     // Geometry
     export module Geom {
         export interface Geom {
+            voronoi(): Voronoi;
             /**
             * compute the Voronoi diagram for the specified points.
             */
-            voronoi: Voronoi
+            voronoi(vertices?: Array<Vertice>): Array<Polygon>;
             /**
             * compute the Delaunay triangulation for the specified points.
             */
@@ -3296,14 +3297,59 @@ declare module D3 {
         }
 
         export interface Voronoi {
+            /**
+            * compute the Voronoi diagram for the specified points.
+            */
             (vertices?: Array<Vertice>): Array<Polygon>;
             x: {
-                (): (d: any) => any;
-                (accesor: (d: any) => any): any;
+                /**
+                * Get the x-coordinate accessor.
+                */
+                (): (data: any, index ?: number) => number;
+                /**
+                * Set the x-coordinate accessor.
+                *
+                * @param accessor The new accessor function
+                */
+                (accessor: (data: any) => number): Voronoi;
+                (accessor: (data: any, index: number) => number): Voronoi;
+                /**
+                * Set the x-coordinate to a constant.
+                *
+                * @param cnst The new constant value.
+                */
+                (cnst: number): Voronoi;
             }
             y: {
-                (): (d: any) => any;
-                (accesor: (d: any) => any): any;
+                /**
+                * Get the y-coordinate accessor.
+                */
+                (): (data: any, index ?: number) => number;
+                /**
+                * Set the y-coordinate accessor.
+                *
+                * @param accessor The new accessor function.
+                */
+                (accessor: (data: any) => number): Voronoi;
+                (accessor: (data: any, index: number) => number): Voronoi;
+                /**
+                * Set the y-coordinate to a constant.
+                *
+                * @param cnst The new constant value.
+                */
+                (cnst: number): Voronoi;
+            }
+            clipExtent: {
+                /**
+                * Get the clip extent.
+                */
+                (): Array<Array<number>>;
+                /**
+                * Set the clip extent.
+                *
+                * @param extent The new clip extent.
+                */
+                (extent: Array<Array<number>>): Voronoi;
             }
         }
 
