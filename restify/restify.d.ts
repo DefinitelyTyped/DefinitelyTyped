@@ -52,12 +52,12 @@ declare module "restify" {
 
   interface Server extends http.Server {
     use: (... handler: any[]) => any;
-    post: (route: any, routeCallBack: RequestHadler) => any;
-    patch: (route: any, routeCallBack: RequestHadler) => any;
-    put: (route: any, routeCallBack: RequestHadler) => any;
-    del: (route: any, routeCallBack: RequestHadler) => any;
-    get: (route: any, routeCallBack: RequestHadler) => any;
-    head: (route: any, routeCallBack: RequestHadler) => any;
+    post: (route: any, routeCallBack: RequestHandler) => any;
+    patch: (route: any, routeCallBack: RequestHandler) => any;
+    put: (route: any, routeCallBack: RequestHandler) => any;
+    del: (route: any, routeCallBack: RequestHandler) => any;
+    get: (route: any, routeCallBack: RequestHandler) => any;
+    head: (route: any, routeCallBack: RequestHandler) => any;
     name: string;
     version: string;
     log: Object;
@@ -66,7 +66,7 @@ declare module "restify" {
     address: () => addressInterface;
     listen: (... args: any[]) => any;
     close: (... args: any[]) => any;
-    pre: (routeCallBack: RequestHadler) => any;
+    pre: (routeCallBack: RequestHandler) => any;
 
   }
 
@@ -124,7 +124,7 @@ declare module "restify" {
     overrides?: Object;
   }
 
-  interface RequestHadler {
+  interface RequestHandler {
     (req: Request, res: Response, next: Function): any;
   }
 
@@ -152,19 +152,19 @@ declare module "restify" {
   export class ResourceNotFoundError { constructor(message: any); }
   export class WrongAcceptError { constructor(message: any); }
 
-  export function acceptParser(parser: any): RequestHadler;
-  export function authorizationParser(): RequestHadler;
-  export function dateParser(skew?: number): RequestHadler;
-  export function queryParser(options?: Object): RequestHadler;
-  export function urlEncodedBodyParser(options?: Object): RequestHadler[];
-  export function jsonp(): RequestHadler;
-  export function gzipResponse(options?: Object): RequestHadler;
-  export function bodyParser(options?: Object): RequestHadler[];
-  export function requestLogger(options?: Object): RequestHadler;
-  export function serveStatic(options?: Object): RequestHadler;
-  export function throttle(options?: ThrottleOptions): RequestHadler;
-  export function conditionalRequest(): RequestHadler[];
+  export function acceptParser(parser: any): RequestHandler;
+  export function authorizationParser(): RequestHandler;
+  export function dateParser(skew?: number): RequestHandler;
+  export function queryParser(options?: Object): RequestHandler;
+  export function urlEncodedBodyParser(options?: Object): RequestHandler[];
+  export function jsonp(): RequestHandler;
+  export function gzipResponse(options?: Object): RequestHandler;
+  export function bodyParser(options?: Object): RequestHandler[];
+  export function requestLogger(options?: Object): RequestHandler;
+  export function serveStatic(options?: Object): RequestHandler;
+  export function throttle(options?: ThrottleOptions): RequestHandler;
+  export function conditionalRequest(): RequestHandler[];
   export function auditLogger(options?: Object): Function;
-  export function fullResponse(): RequestHadler;
+  export function fullResponse(): RequestHandler;
   export var defaultResponseHeaders : any;
 }
