@@ -1982,6 +1982,27 @@ declare module _ {
 			thisArg?: any): T;
 
 		/**
+		* Retrieves the maximum value of a collection. If the collection is empty or falsey -Infinity is 
+		* returned. If a callback is provided it will be executed for each value in the collection to 
+		* generate the criterion by which the value is ranked. The callback is bound to thisArg and invoked 
+		* with three arguments; (value, index, collection).
+		* 
+		* If a property name is provided for callback the created "_.pluck" style callback will return the 
+		* property value of the given element.
+		*
+		* If an object is provided for callback the created "_.where" style callback will return true for 
+		* elements that have the properties of the given object, else false.
+		* @param collection The collection to iterate over.
+		* @param callback The function called per iteration.
+		* @param thisArg The this binding of callback.
+		* @return Returns the maximum value.
+		**/
+		max<T>(
+			collection: T[],
+			callback?: ListIterator<T, any>,
+			thisArg?: any): T;
+
+		/**
 		* @see _.max
 		* @param pluckValue _.pluck style callback
 		**/
@@ -1991,10 +2012,26 @@ declare module _ {
 
 		/**
 		* @see _.max
+		* @param pluckValue _.pluck style callback
+		**/
+		max<T>(
+			collection: T[],
+			pluckValue: string): T;
+
+		/**
+		* @see _.max
 		* @param whereValue _.where style callback
 		**/
 		max<W, T>(
 			collection: Collection<T>,
+			whereValue: W): T;
+
+		/**
+		* @see _.max
+		* @param whereValue _.where style callback
+		**/
+		max<W, T>(
+			collection: T[],
 			whereValue: W): T;
 	}
 
