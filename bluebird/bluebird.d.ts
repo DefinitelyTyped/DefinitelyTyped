@@ -6,9 +6,8 @@
 // ES6 model with generics overload was sourced and trans-multiplied from es6-promises.d.ts
 // By: Campredon <https://github.com/fdecampredon/>
 
-// Warning: recommended to use `tsc > v1.0.0` (critical bugs in generic code:
+// Warning: recommended to use `tsc > v0.9.7` (critical bugs in earlier generic code):
 // - https://github.com/borisyankov/DefinitelyTyped/issues/1563
-// - https://github.com/borisyankov/DefinitelyTyped/tree/def/bluebird
 
 // Note: replicate changes to all overloads in both definition and test file
 // Note: keep both static and instance members inline (so similar)
@@ -75,9 +74,11 @@ declare class Promise<R> implements Promise.Thenable<R> {
 	 */
 	finally(handler: (value: R) => Promise.Thenable<R>): Promise<R>;
 	finally(handler: (value: R) => R): Promise<R>;
+	finally(handler: (value: R) => void): Promise<R>;
 
 	lastly(handler: (value: R) => Promise.Thenable<R>): Promise<R>;
 	lastly(handler: (value: R) => R): Promise<R>;
+	lastly(handler: (value: R) => void): Promise<R>;
 
 	/**
 	 * Create a promise that follows this promise, but is bound to the given `thisArg` value. A bound promise will call its handlers with the bound value set to `this`. Additionally promises derived from a bound promise will also be bound promises with the same `thisArg` binding as the original promise.
@@ -212,8 +213,10 @@ declare class Promise<R> implements Promise.Thenable<R> {
 	 *
 	 * Alias `.thenReturn();` for compatibility with earlier ECMAScript version.
 	 */
-	return<U>(value?: U): Promise<U>;
-	thenReturn<U>(value?: U): Promise<U>;
+	return<U>(value: U): Promise<U>;
+	thenReturn<U>(value: U): Promise<U>;
+	return(): Promise<void>;
+	thenReturn(): Promise<void>;
 
 	/**
 	 * Convenience method for:
@@ -341,7 +344,7 @@ declare module Promise {
 		 *
 		 * If the the callback is called with multiple success values, the resolver fullfills its promise with an array of the values.
 		 */
-			// TODO specify resolver callback
+		// TODO specify resolver callback
 		callback: Function;
 	}
 
