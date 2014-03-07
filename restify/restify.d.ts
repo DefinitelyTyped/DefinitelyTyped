@@ -27,7 +27,7 @@ declare module "restify" {
     log: Object;
     id: string;
     path: () => string;
-    query: string;
+    query: any;
     secure: boolean;
     time: number;
     params: any;
