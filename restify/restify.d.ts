@@ -52,12 +52,37 @@ declare module "restify" {
 
   interface Server extends http.Server {
     use: (... handler: any[]) => any;
-    post: (route: any, routeCallBack: RequestHandler) => any;
-    patch: (route: any, routeCallBack: RequestHandler) => any;
-    put: (route: any, routeCallBack: RequestHandler) => any;
-    del: (route: any, routeCallBack: RequestHandler) => any;
-    get: (route: any, routeCallBack: RequestHandler) => any;
-    head: (route: any, routeCallBack: RequestHandler) => any;
+
+    post(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): any;
+    post(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): any;
+    post(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): any;
+    post(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): any;
+
+    patch(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): any;
+    patch(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): any;
+    patch(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): any;
+    patch(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): any;
+
+    put(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): any;
+    put(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): any;
+    put(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): any;
+    put(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): any;
+
+    del(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): any;
+    del(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): any;
+    del(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): any;
+    del(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): any;
+
+    get(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): any;
+    get(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): any;
+    get(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): any;
+    get(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): any;
+
+    head(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): any;
+    head(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): any;
+    head(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): any;
+    head(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): any;
+
     name: string;
     version: string;
     log: Object;
@@ -124,8 +149,12 @@ declare module "restify" {
     overrides?: Object;
   }
 
+  interface next {
+    (err?: any): any;
+  }
+
   interface RequestHandler {
-    (req: Request, res: Response, next: Function): any;
+    (req: Request, res: Response, next: next): any;
   }
 
   export function createServer(options?: ServerOptions): Server;
