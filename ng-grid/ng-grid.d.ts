@@ -14,10 +14,10 @@ declare module ngGrid {
     export interface GridOptions {
 
         /** Define an aggregate template to customize the rows when grouped. See github wiki for more details. */
-        aggregateTemplate?: any;
+        aggregateTemplate?: string;
 
         /** Callback for when you want to validate something after selection. */
-        afterSelectionChange?: Function;
+        afterSelectionChange?: (rowItem?, event?) => void ;
 
         /** Callback if you want to inspect something before selection,
         return false if you want to cancel the selection. return true otherwise. 
@@ -25,13 +25,13 @@ declare module ngGrid {
         use rowItem.changeSelection(event) method after returning false initially. 
         Note: when shift+ Selecting multiple items in the grid this will only get called
         once and the rowItem will be an array of items that are queued to be selected. */
-        beforeSelectionChange?: Function;
+        beforeSelectionChange?: (rowItem?, event?) => boolean ;
 
         /** checkbox templates. */
-        checkboxCellTemplate?: any;
+        checkboxCellTemplate?: string;
 
         /** checkbox templates. */
-        checkboxHeaderTemplate?: any;
+        checkboxHeaderTemplate?: string;
 
         /** definitions of columns as an array [], if not defined columns are auto-generated. See github wiki for more details. */
         columnDefs?: ColumnDef[];
@@ -91,7 +91,7 @@ declare module ngGrid {
         headerRowHeight?: number;
 
         /** Define a header row template for further customization. See github wiki for more details. */
-        headerRowTemplate?: any;
+        headerRowTemplate?: string;
 
         /** Enables the use of jquery UI reaggable/droppable plugin. requires jqueryUI to work if enabled. 
         Useful if you want drag + drop but your users insist on crappy browsers. */
@@ -105,7 +105,7 @@ declare module ngGrid {
 
         /** Maintains the column widths while resizing. 
         Defaults to true when using *'s or undefined widths. Can be ovverriden by setting to false. */
-        maintainColumnRatios?: any;
+        maintainColumnRatios?: boolean;
 
         /** Set this to false if you only want one item selected at a time */
         multiSelect?: boolean;
@@ -123,7 +123,7 @@ declare module ngGrid {
         rowHeight?: number;
 
         /** Define a row template to customize output. See github wiki for more details. */
-        rowTemplate?: any;
+        rowTemplate?: string;
 
         /** all of the items selected in the grid. In single select mode there will only be one item in the array. */
         selectedItems?: any[];
@@ -170,7 +170,12 @@ declare module ngGrid {
         enableHighlighting?: boolean;
     }
 
-    export interface ColumnDef {
+    export interface rowDef {
+        field?: string;
+        width?: any;  //**this can be a string containing a relatively, absolute size units or a number: '30%','54px',45 /*
+        displayName?: string;
+        cellTemplate?: string;
+        enableCellEdit?: boolean;
     }
 
     export interface FilterOptions {
