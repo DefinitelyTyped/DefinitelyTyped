@@ -11,7 +11,7 @@ declare class ngGridReorderable {
 
 declare module ngGrid {
 
-    export interface GridOptions {
+    export interface IGridOptions {
 
         /** Define an aggregate template to customize the rows when grouped. See github wiki for more details. */
         aggregateTemplate?: string;
@@ -34,7 +34,7 @@ declare module ngGrid {
         checkboxHeaderTemplate?: string;
 
         /** definitions of columns as an array [], if not defined columns are auto-generated. See github wiki for more details. */
-        columnDefs?: ColumnDef[];
+        columnDefs?: IColumnDef[];
 
         /** Data being displayed in the grid. Each item in the array is mapped to a row being displayed. */
         data?: any[];
@@ -79,7 +79,7 @@ declare module ngGrid {
         filterText: The text bound to the built-in search box. 
         useExternalFilter: Bypass internal filtering if you want to roll your own filtering mechanism but want to use builtin search box.
         */
-        filterOptions?: FilterOptions;
+        filterOptions?: IFilterOptions;
 
         /** Defining the height of the footer in pixels. */
         footerRowHeight?: number;
@@ -111,7 +111,7 @@ declare module ngGrid {
         multiSelect?: boolean;
 
         /**  pagingOptions - */
-        pagingOptions?: PagingOptions;
+        pagingOptions?: IPagingOptions;
 
         /** Array of plugin functions to register in ng-grid */
         pinSelectionCheckbox?: boolean;
@@ -170,7 +170,7 @@ declare module ngGrid {
         enableHighlighting?: boolean;
     }
 
-    export interface columnDef {
+    export interface IColumnDef {
         field?: string;
         width?: any;  //**this can be a string containing a relatively, absolute size units or a number: '30%','54px',45 /*
         displayName?: string;
@@ -178,12 +178,12 @@ declare module ngGrid {
         enableCellEdit?: boolean;
     }
 
-    export interface FilterOptions {
+    export interface IFilterOptions {
         filterText?: string;
         useExternalFilter?: boolean;
     }
 
-    export interface PagingOptions {
+    export interface IPagingOptions {
         /**  pageSizes: list of available page sizes.  */
         pageSizes?: number[];
         /** pageSize: currently selected page size.  */
