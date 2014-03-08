@@ -51,7 +51,10 @@ declare module "restify" {
   }
 
   interface Server extends http.Server {
-    use: (... handler: any[]) => any;
+    use(handler: RequestHandler, ...handlers: RequestHandler[]): any;
+    use(handler: RequestHandler[], ...handlers: RequestHandler[]): any;
+    use(handler: RequestHandler, ...handlers: RequestHandler[][]): any;
+    use(handler: RequestHandler[], ...handlers: RequestHandler[][]): any;
 
     post(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): any;
     post(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): any;
@@ -89,9 +92,9 @@ declare module "restify" {
     acceptable: string[];
     url: string;
     address: () => addressInterface;
-    listen: (... args: any[]) => any;
-    close: (... args: any[]) => any;
-    pre: (routeCallBack: RequestHandler) => any;
+    listen(... args: any[]): any;
+    close(... args: any[]): any;
+    pre(routeCallBack: RequestHandler): any;
 
   }
 
