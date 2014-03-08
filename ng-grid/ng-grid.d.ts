@@ -17,7 +17,7 @@ declare module ngGrid {
         aggregateTemplate?: string;
 
         /** Callback for when you want to validate something after selection. */
-        afterSelectionChange?: (rowItem?, event?) => void ;
+        afterSelectionChange?: (rowItem?: any, event?: any) => void ;
 
         /** Callback if you want to inspect something before selection,
         return false if you want to cancel the selection. return true otherwise. 
@@ -25,7 +25,7 @@ declare module ngGrid {
         use rowItem.changeSelection(event) method after returning false initially. 
         Note: when shift+ Selecting multiple items in the grid this will only get called
         once and the rowItem will be an array of items that are queued to be selected. */
-        beforeSelectionChange?: (rowItem?, event?) => boolean ;
+        beforeSelectionChange?: (rowItem?: any, event?: any) => boolean ;
 
         /** checkbox templates. */
         checkboxCellTemplate?: string;
