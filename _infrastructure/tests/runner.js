@@ -850,7 +850,7 @@ var DT;
 
     var Promise = require('bluebird');
 
-    var endDts = /\w\.ts$/i;
+    var endDts = /\w\.d\.ts$/i;
 
     /////////////////////////////////
     // .d.ts syntax inspection
