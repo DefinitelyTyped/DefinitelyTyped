@@ -75,8 +75,6 @@ module DT {
 			var defer = Promise.defer();
 			// add a closure to queue
 			this.queue.push(() => {
-				// when activate, add test to active list
-				this.active.push(test);
 				// run it
 				var p = test.run();
 				p.then(defer.resolve.bind(defer), defer.reject.bind(defer));
@@ -87,6 +85,8 @@ module DT {
 					}
 					this.step();
 				});
+				// return it
+				return test;
 			});
 			this.step();
 			// defer it
@@ -94,12 +94,9 @@ module DT {
 		}
 
 		private step(): void {
-			// setTimeout to make it flush
-			setTimeout(() => {
-				while (this.queue.length > 0 && this.active.length < this.concurrent) {
-					this.queue.pop().call(null);
-				}
-			}, 1);
+			while (this.queue.length > 0 && this.active.length < this.concurrent) {
+				this.active.push(this.queue.pop().call(null));
+			}
 		}
 	}
 
