@@ -6,7 +6,7 @@ var options1: ngGrid.IGridOptions = {
 
 var options2: ngGrid.IGridOptions = {
     afterSelectionChange: () => { },
-    beforeSelectionChange: () => { },
+    beforeSelectionChange: () => {return true; },
     dataUpdated: () => { }
 };
 
