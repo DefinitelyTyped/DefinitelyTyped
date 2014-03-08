@@ -170,7 +170,7 @@ declare module ngGrid {
         enableHighlighting?: boolean;
     }
 
-    export interface rowDef {
+    export interface columnDef {
         field?: string;
         width?: any;  //**this can be a string containing a relatively, absolute size units or a number: '30%','54px',45 /*
         displayName?: string;
