@@ -3211,11 +3211,11 @@ declare module D3 {
     // Geometry
     export module Geom {
         export interface Geom {
-            voronoi(): Voronoi;
+            voronoi<T>(): Voronoi<T>;
             /**
             * compute the Voronoi diagram for the specified points.
             */
-            voronoi(vertices?: Array<Vertice>): Array<Polygon>;
+            voronoi(vertices: Array<Vertice>): Array<Polygon>;
             /**
             * compute the Delaunay triangulation for the specified points.
             */
@@ -3296,48 +3296,58 @@ declare module D3 {
             y: number;
         }
 
-        export interface Voronoi {
+        export interface Voronoi<T> {
             /**
-            * compute the Voronoi diagram for the specified points.
+            * Compute the Voronoi diagram for the specified data.
             */
-            (vertices?: Array<Vertice>): Array<Polygon>;
+            (data: Array<T>): Array<Polygon>;
+            /**
+            * Compute the graph links for the Voronoi diagram for the specified data.
+            */
+            links(data: Array<T>): Array<Layout.GraphLink>;
+            /**
+            * Compute the triangles for the Voronoi diagram for the specified data.
+            */
+            triangles(data: Array<T>): Array<Array<number>>;
             x: {
                 /**
                 * Get the x-coordinate accessor.
                 */
-                (): (data: any, index ?: number) => number;
+                (): (data: T, index ?: number) => number;
+
                 /**
                 * Set the x-coordinate accessor.
                 *
                 * @param accessor The new accessor function
                 */
-                (accessor: (data: any) => number): Voronoi;
-                (accessor: (data: any, index: number) => number): Voronoi;
+                (accessor: (data: T, index: number) => number): Voronoi<T>;
+
                 /**
                 * Set the x-coordinate to a constant.
                 *
-                * @param cnst The new constant value.
+                * @param constant The new constant value.
                 */
-                (cnst: number): Voronoi;
+                (constant: number): Voronoi<T>;
             }
             y: {
                 /**
                 * Get the y-coordinate accessor.
                 */
-                (): (data: any, index ?: number) => number;
+                (): (data: T, index ?: number) => number;
+
                 /**
                 * Set the y-coordinate accessor.
                 *
-                * @param accessor The new accessor function.
+                * @param accessor The new accessor function
                 */
-                (accessor: (data: any) => number): Voronoi;
-                (accessor: (data: any, index: number) => number): Voronoi;
+                (accessor: (data: T, index: number) => number): Voronoi<T>;
+
                 /**
                 * Set the y-coordinate to a constant.
                 *
-                * @param cnst The new constant value.
+                * @param constant The new constant value.
                 */
-                (cnst: number): Voronoi;
+                (constant: number): Voronoi<T>;   
             }
             clipExtent: {
                 /**
@@ -3349,7 +3359,19 @@ declare module D3 {
                 *
                 * @param extent The new clip extent.
                 */
-                (extent: Array<Array<number>>): Voronoi;
+                (extent: Array<Array<number>>): Voronoi<T>;
+            }
+            size: {
+                /**
+                * Get the size.
+                */
+                (): Array<number>;
+                /**
+                * Set the size, equivalent to a clip extent starting from (0,0).
+                *
+                * @param size The new size.
+                */
+                (size: Array<number>): Voronoi<T>;
             }
         }
 
