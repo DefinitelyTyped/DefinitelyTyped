@@ -889,6 +889,184 @@ declare module Sys {
 
     //#endregion
 
+    //#region Sys.WebForms Namespace
+
+    module WebForms {
+
+        /**
+        * Used by the beginRequest event of the PageRequestManager class to pass argument information to event handlers.
+        */ 
+        class BeginRequestEventArgs extends EventArgs {
+
+        }
+
+        /**
+        * Used by the endRequest event of the PageRequestManager class to pass argument information to event handlers.
+        */ 
+        class EndRequestEventArgs extends EventArgs {
+
+        }
+
+        /**
+        * Used by the initializeRequest event of the PageRequestManager class to pass argument information to event handlers.
+        */ 
+        class InitializeRequestEventArgs extends EventArgs {
+                    
+        }
+
+        /**
+        * Used by the pageLoaded event of the PageRequestManager class to send event data that represents the UpdatePanel controls that were updated and created in the most recent postback.
+        */ 
+        class PageLoadedEventArgs extends EventArgs {
+
+        
+        }
+
+        /**
+        * Used by the pageLoading event of the PageRequestManager class to send event data that represents the UpdatePanel controls that are being updated and deleted as a result of the most recent postback.
+        */ 
+        class PageLoadingEventArgs extends EventArgs {
+
+        }
+
+        /**
+        * Manages client partial-page updates of server UpdatePanel controls. In addition, defines properties, events, and methods that can be used to customize a Web page with client script.
+        */ 
+        class PageRequestManager extends EventArgs {
+
+            //#region Constructors 
+
+            /**
+            * Initializes a new instance of the Sys.WebForms.PageRequestManager Class.
+            */
+            constructor();
+
+            //#endregion
+
+            //#region Events
+
+            /**
+            * Raised before the processing of an asynchronous postback starts and the postback request is sent to the server.
+            * @param beginRequestHandler
+            *               The name of the handler method that will be called.
+            */
+            add_beginRequest(beginRequestHandler: (sender, args) => void): void;
+
+            /**
+            * Raised before the processing of an asynchronous postback starts and the postback request is sent to the server.
+            *  @param beginRequestHandler
+            *               The handler method that will be removed.
+            */
+            remove_beginRequest(beginRequestHandler: Function): void;
+
+
+            /**
+            * Raised after an asynchronous postback is finished and control has been returned to the browser.
+            * @param endRequestHandler
+            *               The name of the handler method that will be called.
+            */ 
+            add_endRequest(endRequestHandler: (sender, args) => void): void;
+
+            /**
+            * Raised after an asynchronous postback is finished and control has been returned to the browser.
+            * @param endRequestHandler
+            *               The name of the handler method that will be removed.
+            */
+            remove_endRequest(endRequestHandler: (sender, args) => void): void;
+
+            /**
+            * Raised during the initialization of the asynchronous postback.
+            * @param initializeRequestHandler
+            *               The name of the handler method that will be called.
+            */
+            add_initializeRequest(initializeRequestHandler: (sender, args) => void): void;
+
+            /**
+            * Raised during the initialization of the asynchronous postback.
+            * @param initializeRequestHandler
+            *               The name of the handler method that will be called.
+            */
+            remove_initializeRequest(initializeRequestHandler: (sender, args) => void): void;
+
+            /**
+            * Raised after all content on the page is refreshed as a result of either a synchronous or an asynchronous postback.
+            * @param pageLoadedHandler
+            *               The name of the handler method that will be called.
+            */
+            add_pageLoaded(pageLoadedHandler: (sender, args) => void): void;
+
+            /**
+            * Raised after all content on the page is refreshed as a result of either a synchronous or an asynchronous postback.
+            * @param pageLoadedHandler
+            *               The name of the handler method that will be called.
+            */
+            remove_pageLoaded(pageLoadedHandler: (sender, args) => void): void;
+
+            /**
+            * Raised after the response from the server to an asynchronous postback is received but before any content on the page is updated.
+            * @param pageLoadedHandler
+            *               The name of the handler method that will be called.
+            */
+            add_pageLoading(pageLoadingHandler: (sender, args) => void): void;
+
+            /**
+            * Raised after the response from the server to an asynchronous postback is received but before any content on the page is updated.
+            * @param pageLoadedHandler
+            *               The name of the handler method that will be called.
+            */
+            remove_pageLoading(pageLoadingHandler: (sender, args) => void): void;
+
+            //#endregion
+
+            //#region Methods
+
+            /**
+            * Returns the instance of the PageRequestManager class for the page.
+            * @return The current instance of the PageRequestManager class. You do not create a new instance of the PageRequestManager class directly. Instead, an instance is available when partial-page rendering is enabled.
+            */
+            getInstance(): PageRequestManager;
+
+            /**
+            * Stops all updates that would occur as a result of an asynchronous postback.
+            * The abortPostBack method stops the currently executing postback. To cancel a new postback, provide an event handler for the initializeRequest event and use the cancel event of the Sys.CancelEventArgs class.
+            */
+            abortPostBack(): void;
+
+            /**
+            * Begins an asynchronous postback.
+            * @param updatePanelsToUpdate (Optional) An array of UniqueID values or ClientID values for UpdatePanel controls that must be re-rendered.
+            * @param eventTarget (Optional) A string that contains the target of the event.
+            * @param eventArgument (Optional) A string that contains an argument for the event.
+            * @param causesValidation (Optional) true to cause validation.
+            * @param validationGroup (Optional) A string that contains the name of the validation group.
+            */
+            beginAsyncPostBack(updatePanelsToUpdate?: string[], eventTarget?: string, eventArgument?: string, causesValidation?: boolean, validationGroup?: string): void;
+
+            /**
+            * Releases ECMAScript (JavaScript) resources and detaches events.
+            * the dispose method to free client resources. The PageRequestManager instance calls the dispose method during the window.unload event of the browser. 
+            * If you call the dispose method and then reference members of the PageRequestManager class, an error occurs. In typical page developer scenarios, you do not have to call the dispose method.
+            */
+            dispose(): void;
+
+            //#endregion
+
+            //#region Properties           
+
+            //#endregion
+        }
+
+        //#region Exceptions 
+
+
+
+        //#endregion
+
+
+    }
+
+    //#endregion
+
 }
 
 //#endregion
