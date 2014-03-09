@@ -171,6 +171,7 @@ declare module THREE {
          * @param vector point to look at
          */
         lookAt(vector: Vector3): void;
+        clone(camera?: Camera): Camera;
     }
 
     /**
@@ -227,6 +228,8 @@ declare module THREE {
          * Updates the camera projection matrix. Must be called after change of parameters.
          */
         updateProjectionMatrix(): void;
+
+        clone(): OrthographicCamera;
     }
 
     /**
@@ -318,6 +321,7 @@ declare module THREE {
          * Updates the camera projection matrix. Must be called after change of parameters.
          */
         updateProjectionMatrix(): void;
+        clone(): PerspectiveCamera;
     }
 
     // Core ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -383,6 +387,8 @@ declare module THREE {
         morphTargets: any[];
         hasTangents: boolean;
 
+        addAttribute(name: string, type: Function, numItems: number, itemSize: number): any;
+
         /**
          * Bakes matrix transform directly into vertex coordinates.
          */
@@ -419,6 +425,8 @@ declare module THREE {
         dispose(): void;
 
         normalizeNormals(): void;
+
+        clone(): BufferGeometry;
     }
 
     /**
@@ -914,6 +922,13 @@ declare module THREE {
         computeLineDistances(): void;
     }
 
+    export class Geometry2 extends BufferGeometry {
+        vertices: Float32Array;
+        normals: Float32Array;
+        uvs: Float32Array;
+
+    }
+
     /**
      * Base class for scene graph objects
      */
@@ -1109,11 +1124,6 @@ declare module THREE {
         clone(object?: Object3D, recursive?: boolean): Object3D;
 
         /**
-         * Creates a new clone of this object and all descendants.
-         */
-        clone(object?: Object3D): Object3D;
-
-        /**
          * Searches through the object's children and returns the first with a matching name, optionally recursive.
          * @param name  String to match to the children's Object3d.name property.
          * @param recursive  Boolean whether to search through the children's children. Default is false.
@@ -1198,6 +1208,8 @@ declare module THREE {
     export class Light extends Object3D {
         constructor(hex?: number);
         color: Color;
+
+        clone(light?: Light): Light;
     }
 
     /**
@@ -1215,6 +1227,8 @@ declare module THREE {
          * @param hex Numeric value of the RGB component of the color.
          */
         constructor(hex?: number);
+
+        clone(): AmbientLight;
     }
 
     export class AreaLight extends Light{
@@ -1405,6 +1419,8 @@ declare module THREE {
          * Default — null.
          */
         shadowMatrix: Matrix4;
+
+        clone(): DirectionalLight;
     }
 
     export class HemisphereLight extends Light {
@@ -1413,6 +1429,8 @@ declare module THREE {
         position: Vector3;
         groundColor: Color;
         intensity: number;
+
+        clone(): HemisphereLight;
     }
 
     /**
@@ -1443,6 +1461,8 @@ declare module THREE {
          * Default — 0.0.
          */
         distance: number;
+
+        clone(): PointLight;
     }
 
     /**
@@ -1563,6 +1583,8 @@ declare module THREE {
         shadowMapSize: Vector2;
         shadowCamera: Camera;
         shadowMap: RenderTarget;
+
+        clone(): SpotLight;
     }
 
     // Loaders //////////////////////////////////////////////////////////////////////////////////
@@ -1630,19 +1652,36 @@ declare module THREE {
         addStatusElement(): HTMLElement;
     }
 
+    export class BufferGeometryLoader {
+        constructor(manager?: LoadingManager);
+
+        load(url: string, onLoad: (bufferGeometry: BufferGeometry) => void): void;
+        setCrossOrigin(crossOrigin: string): void;
+        parse(json: any): BufferGeometry;
+        
+    }
+
+    export class Geometry2Loader {
+        constructor(manager?: LoadingManager);
+
+        load(url: string, onLoad: (geometry2: Geometry2) => void): void;
+        setCrossOrigin(crossOrigin: string): void;
+        parse(json: any): Geometry2;
+    }
+
     /**
      * A loader for loading an image.
      * Unlike other loaders, this one emits events instead of using predefined callbacks. So if you're interested in getting notified when things happen, you need to add listeners to the object.
      */
-    export class ImageLoader extends EventDispatcher {
-        constructor();
+    export class ImageLoader {
+        constructor(manager?: LoadingManager);
         crossOrigin: string;
 
         /**
          * Begin loading from url
          * @param url
          */
-        load(url: string, onLoad?: (event: any) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): HTMLImageElement;
+        load(url: string, onLoad?: (image: HTMLImageElement) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): HTMLImageElement;
         setCrossOrigin(crossOrigin: string): void;
     }
 
@@ -1669,7 +1708,7 @@ declare module THREE {
      * Handles and keeps track of loaded and pending data.
      */
     export class LoadingManager {
-        constructor(onLoad?: (event: any) => void, onProgress?: (event: any) => void, onError?: (event: any) => void);
+        constructor(onLoad?: () => void, onProgress?: (url: string, loaded: number, total: number) => void, onError?: () => void);
 
         /**
          * Will be called when load starts.
@@ -1687,11 +1726,30 @@ declare module THREE {
          * Will be called when each element in the scene completes loading.
          * The default is a function with empty body.
          */
-        onError: (event: () => void) => void;
+        onError: () => void;
 
         itemStart(url: string): void;
         itemEnd(url: string): void;
 
+    }
+
+    export class MaterialLoader extends EventDispatcher {
+        constructor(manager?: LoadingManager);
+
+        load(url: string, onLoad: (material: Material) => void): void;
+        setCrossOrigin(crossOrigin: string): void;
+        parse(json: any): Material;
+    }
+    
+    export class ObjectLoader extends EventDispatcher {
+        constructor(manager?: LoadingManager);
+
+        load(url: string, onLoad: (object: Object3D) => void): void;
+        setCrossOrigin(crossOrigin: string): void;
+        parse<T extends Object3D>(json: any): T;
+        parseGeometries(json: any): any[]; // Array of BufferGeometry or Geometry or Geometry2.
+        parseMaterials(json: any): Material[]; // Array of Classes that inherits from Matrial.
+        parseObject<T extends Object3D>(data: any, geometries: any[], materials: Material[]): T;
     }
 
     interface SceneLoaderResult{
@@ -1739,7 +1797,6 @@ declare module THREE {
          */
         onLoadComplete: () => void;
 
-
         /**
          * Will be called when load completes.
          * The default is a function with empty body.
@@ -1751,17 +1808,18 @@ declare module THREE {
          * The default is a function with empty body.
          */
         callbackProgress: (progress: SceneLoaderProgress, result: SceneLoaderResult) => void;
-        hierarchyHandlerMap: any;
-        geometryHandlerMap: any;
+        hierarchyHandlers: any;
+        geometryHandlers: any;
 
         /**
          * @param url
          * @param callbackFinished This function will be called with the loaded model as an instance of scene when the load is completed.
          */
-        load(url: string, callbackFinished: (scene: Scene) => void ): void;
-        addHierarchyHandler(typeID: string, loaderClass: Object): void;
+        load(url: string, onLoad: (result: SceneLoaderResult) => void): void;
+        setCrossOrigin(crossOrigin: string): void;
+        addHierarchyHandler(typeID: string, loaderClass: any): void;
         parse(json: any, callbackFinished: (result: SceneLoaderResult) => void, url: string): void;
-        addGeometryHandler(typeID: string, loaderClass: Object): void;
+        addGeometryHandler(typeID: string, loaderClass: any): void;
     }
 
     /**
@@ -1769,14 +1827,28 @@ declare module THREE {
      * Unlike other loaders, this one emits events instead of using predefined callbacks. So if you're interested in getting notified when things happen, you need to add listeners to the object.
      */
     export class TextureLoader extends EventDispatcher {
-        constructor();
+        constructor(manager?: LoadingManager);
         crossOrigin: string;
         /**
          * Begin loading from url
          *
          * @param url
          */
-        load(url: string): void;
+        load(url: string, onLoad: (texture: Texture) => void): void;
+        setCrossOrigin(crossOrigin: string): void;
+    }
+
+    export class XHRLoader extends EventDispatcher {
+        constructor(manager?: LoadingManager);
+        crossOrigin: string;
+        /**
+         * Begin loading from url
+         *
+         * @param url
+         */
+        constructor(onLoad?: (responseText: string) => void, onProgress?: (event: any) => void, onError?: (event: any) => void);
+        load(onLoad?: (responseText: string) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
+        setCrossOrigin(crossOrigin: string): void;
     }
 
     // Materials //////////////////////////////////////////////////////////////////////////////////
@@ -1881,7 +1953,7 @@ declare module THREE {
          */
         needsUpdate: boolean;
 
-        clone(): Material;
+        clone(material?:Material): Material;
 
         dispose(): void;
         setValues(values: Object): void;
@@ -2325,12 +2397,10 @@ declare module THREE {
      * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Color.js">src/math/Color.js</a>
      */
     export class Color {
-        constructor(hex?: string);
-
-        /**
-         * @param hex initial color in hexadecimal
-         */
-        constructor(hex?: number);
+        constructor(color?: Color);
+        constructor(color?: string);
+        constructor(color?: number);
+        constructor(r: number, g: number, b: number);
 
         /**
          * Red channel value between 0 and 1. Default is 1.
@@ -2346,6 +2416,10 @@ declare module THREE {
          * Blue channel value between 0 and 1. Default is 1.
          */
         b: number;
+
+        set(color: Color): Color;
+        set(color: number): Color;
+        set(color: string): Color;
 
         /**
          * Copies given color.
@@ -2433,9 +2507,6 @@ declare module THREE {
          * Clones this color.
          */
         clone(): Color;
-
-        set(value: number): void;
-        set(value: string): void;
     }
 
     export class Euler {
@@ -3851,6 +3922,8 @@ declare module THREE {
         render(scene: Scene, camera: Camera): void;
         clear(): void;
         setClearColor(color: Color, opacity?: number): void;
+        setClearColor(color: string, opacity?: number): void;
+        setClearColor(color: number, opacity?: number): void;
         setFaceCulling(): void;
         supportsVertexTextures(): void;
         setSize(width: number, height: number, updateStyle?: boolean): void;
@@ -4068,7 +4141,7 @@ declare module THREE {
         /**
          * Resizes the output canvas to (width, height), and also sets the viewport to fit that size, starting in (0, 0).
          */
-        setSize(width: number, height: number): void;
+        setSize(width: number, height: number, updateStyle?: boolean): void;
 
         /**
          * Sets the viewport to render from (x, y) to (x + width, y + height).
@@ -4088,7 +4161,9 @@ declare module THREE {
         /**
          * Sets the clear color, using color for the color and alpha for the opacity.
          */
-        setClearColor(color: Color, alpha: number): void;
+        setClearColor(color: Color, alpha?: number): void;
+        setClearColor(color: string, alpha?: number): void;
+        setClearColor(color: number, alpha?: number): void;
 
         /**
          * Returns a THREE.Color instance with the current clear color.
@@ -4249,7 +4324,7 @@ declare module THREE {
         id: number;
     }
 
-    export class RenderableParticle {
+    export class RenderableSprite {
         constructor();
 
         scale: Vector2;
@@ -4663,22 +4738,18 @@ declare module THREE {
         addToUpdate(animation: Animation): void;
     };
 
-    export class AnimationMorphTarget {
-        constructor(root: Bone, data: any);
-        
-        root: Bone;
-        data: Object;
-        hierarchy: KeyFrames[];
-        currentTime: number;
-        timeScale: number;
-        isPlaying: boolean;
-        isPaused: boolean;
-        loop: boolean;
-        influence: number;
+    export class MorphAnimation {
+        constructor(mesh: Mesh);
 
-        play(loop?: boolean, startTimeMS?: number): void;
+        mesh: Mesh;
+        frames: number;
+        currentTime: number;
+        duration: number;
+        loop: boolean;
+        isPlaying: boolean;
+
+        play(): void;
         pause(): void;
-        stop(): void;
         update(deltaTimeMS: number): void;
     }
 
@@ -4963,15 +5034,6 @@ declare module THREE {
 
 
     // Extras / Geomerties /////////////////////////////////////////////////////////////////////
-
-    export class CircleGeometry extends Geometry {
-        constructor(radius?: number, segments?: number, thetaStart?: number, thetaLength?: number);
-    }
-
-    export class ConvexGeometry extends Geometry {
-        constructor(vertices: Vector3[]);
-    }
-
     /**
      * CubeGeometry is the quadrilateral primitive geometry class. It is typically used for creating a cube or irregular quadrilateral of the dimensions provided within the (optional) 'width', 'height', & 'depth' constructor arguments.
      */
@@ -4985,6 +5047,22 @@ declare module THREE {
          * @param depthSegments — Number of segmented faces along the depth of the sides.
          */
         constructor(width: number, height: number, depth: number, widthSegments?: number, heightSegments?: number, depthSegments?: number);
+    }
+
+    export class BoxGeometry2 extends Geometry2 {
+        /**
+         * @param width — Width of the sides on the X axis.
+         * @param height — Height of the sides on the Y axis.
+         * @param depth — Depth of the sides on the Z axis.
+         * @param widthSegments — Number of segmented faces along the width of the sides.
+         * @param heightSegments — Number of segmented faces along the height of the sides.
+         * @param depthSegments — Number of segmented faces along the depth of the sides.
+         */
+        constructor(width: number, height: number, depth: number, widthSegments?: number, heightSegments?: number, depthSegments?: number);
+    }
+
+    export class CircleGeometry extends Geometry {
+        constructor(radius?: number, segments?: number, thetaStart?: number, thetaLength?: number);
     }
 
     export class CubeGeometry extends BoxGeometry {
@@ -5027,6 +5105,10 @@ declare module THREE {
     }
 
     export class PlaneGeometry extends Geometry {
+        constructor(width: number, height: number, widthSegments?: number, heightSegments?: number);
+    }
+
+    export class PlaneGeometry2 extends Geometry2 {
         constructor(width: number, height: number, widthSegments?: number, heightSegments?: number);
     }
 
@@ -5128,10 +5210,20 @@ declare module THREE {
         constructor(object: Object3D, hex: number);
 
         object: Object3D;
-        box: Box3;
+        vertices: Vector3[];
 
         update(): void;
     }
+
+    export class BoxHelper extends Line {
+        constructor(object: Object3D);
+
+        object: Object3D;
+        box: Box3;
+
+        update(object?: Object3D): void;
+    }
+
     export class CameraHelper extends Line {
         constructor(camera: Camera);
 
@@ -5149,6 +5241,23 @@ declare module THREE {
         targetLine: Line;
 
         update(): void;
+    }
+
+    export class EdgesHelper extends Line {
+        constructor(object: Object3D, hex?: number);
+
+        matrixAutoUpdate: boolean;
+        matrixWorld: Matrix4;
+    }
+
+    export class FaceNormalsHelper extends Line {
+        constructor(object: Object3D, size?: number, hex?: number, linewidth?: number);
+
+        size: number;
+        matrixAutoUpdate: boolean;
+        normalMatrix: Matrix3;
+
+        update(object?: Object3D): void;
     }
 
     export class GridHelper extends Line {
@@ -5182,6 +5291,32 @@ declare module THREE {
         lightCone: Mesh;
 
         update(): void;
+    }
+
+    export class VertexNormalsHelper extends Line {
+        constructor(object: Object3D, size?: number, hex?: number, linewidth?: number);
+
+        size: number;
+        matrixAutoUpdate: boolean;
+        normalMatrix: Matrix3;
+
+        update(object?: Object3D): void;
+    }
+
+    export class VertexTangentsHelper extends Line {
+        constructor(object: Object3D, size?: number, hex?: number, linewidth?: number);
+
+        size: number;
+        matrixAutoUpdate: boolean;
+
+        update(object?: Object3D): void;
+    }
+
+    export class WireframeHelper extends Line {
+        constructor(object: Object3D, hex?: number);
+
+        matrixAutoUpdate: boolean;
+        matrixWorld: Matrix4;
     }
 
     // Extras / Objects /////////////////////////////////////////////////////////////////////
