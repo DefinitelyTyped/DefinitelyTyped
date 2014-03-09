@@ -152,12 +152,12 @@ declare module "restify" {
     overrides?: Object;
   }
 
-  interface next {
+  interface Next {
     (err?: any): any;
   }
 
   interface RequestHandler {
-    (req: Request, res: Response, next: next): any;
+    (req: Request, res: Response, next: Next): any;
   }
 
   export function createServer(options?: ServerOptions): Server;
