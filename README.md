@@ -193,6 +193,7 @@ List of Definitions
 * [Marked](https://github.com/chjj/marked) (by [William Orr](https://github.com/worr))
 * [mCustomScrollbar](https://github.com/malihu/malihu-custom-scrollbar-plugin) (by [Sarah Williams](https://github.com/flurg))
 * [Meteor](https://www.meteor.com) (by [Dave Allen](https://github.com/fullflavedave))
+* [Microsoft Ajax] (http://msdn.microsoft.com/en-us/library/bb397536(v=vs.100).aspx) (by [Patrick Magee] (https://github.com/pjmagee))
 * [Microsoft Live Connect](http://msdn.microsoft.com/en-us/library/live/hh243643.aspx) (by [John Vilk](https://github.com/jvilk))
 * [Modernizr](http://modernizr.com/) (by [Boris Yankov](https://github.com/borisyankov) and [Theodore Brown](https://github.com/theodorejb/))
 * [Moment.js](https://github.com/timrwood/moment) (by [Michael Lakerveld](https://github.com/Lakerfield))
