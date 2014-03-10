@@ -47,7 +47,7 @@ interface SocketNamespace {
 	send(data: any): any;
 	emit(ev: any, ...data:any[]): Socket;
 	socket(sid: any, readable: boolean): Socket;
-	authorization(fn: Function);
+	authorization(fn: Function): SocketNamespace;
 }
 
 interface SocketManager {
