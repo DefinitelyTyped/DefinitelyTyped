@@ -321,7 +321,7 @@ declare module _ {
 		/**
 		* @see _.findIndex
 		**/
-		findIndex<W, T extends W>(
+		findIndex<W, T>(
 			array: List<T>,
 			whereDictionary: W): number;
 	}
@@ -404,7 +404,7 @@ declare module _ {
 		* @see _.first
 		* @param whereValue "_.where" style callback value
 		**/
-		first<W, T extends W>(
+		first<W, T>(
 			array: List<T>,
 			whereValue: W): T[];
 
@@ -438,7 +438,7 @@ declare module _ {
 			/**
 			* @see _.first
 			**/
-			head<W, T extends W>(
+			head<W, T>(
 				array: List<T>,
 				whereValue: W): T[];
 
@@ -472,7 +472,7 @@ declare module _ {
 			/**
 			* @see _.first
 			**/
-			take<W, T extends W>(
+			take<W, T>(
 				array: List<T>,
 				whereValue: W): T[];
 	}
@@ -494,7 +494,7 @@ declare module _ {
 		* @param shallow If true then only flatten one level, optional, default = false.
 		* @return `array` flattened.
 		**/
-		flatten<T>(array: List<any>, isShallow?: boolean): T[]
+		flatten<T>(array: List<any>, isShallow?: boolean): T[];
 
 		flatten<T>(
 			array: List<any>,
@@ -507,12 +507,12 @@ declare module _ {
 			callback: ListIterator<any, T>,
 			thisArg?: any): T[];			
 
-		flatten<W, T extends W>(
+		flatten<W, T>(
 			array: List<any>,
 			isShallow: boolean,
 			whereValue: W): T[];			
 
-		flatten<W, T extends W>(
+		flatten<W, T>(
 			array: List<any>,
 			whereValue: W): T[];			
 
@@ -548,11 +548,11 @@ declare module _ {
         flatten<Flat>(
 			pluckValue: string): LoDashArrayWrapper<Flat>;
 
-        flatten<Flat, W extends Flat>(
+        flatten<Flat, W>(
 			isShallow: boolean,
 			whereValue: W): LoDashArrayWrapper<Flat>;
 
-        flatten<Flat, W extends Flat>(
+        flatten<Flat, W>(
 			whereValue: W): LoDashArrayWrapper<Flat>;
 	}
 
@@ -638,7 +638,7 @@ declare module _ {
 		* @see _.initial
 		* @param whereValue _.where style callback
 		**/
-		initial<W, T extends W>(
+		initial<W, T>(
 			array: List<T>,
 			whereValue: W): T[];
 	}
@@ -700,7 +700,7 @@ declare module _ {
 		* @see _.last
 		* @param whereValue _.where style callback
 		**/
-		last<W, T extends W>(
+		last<W, T>(
 			array: List<T>,
 			whereValue: W): T[];
 	}
@@ -848,7 +848,7 @@ declare module _ {
 		/**
 		* @see _.rest
 		**/
-        rest<W, T extends W>(
+        rest<W, T>(
 			array: List<T>,
 			whereValue: W): T[];
 
@@ -882,7 +882,7 @@ declare module _ {
             /**
             * @see _.rest
             **/
-            drop<W, T extends W>(
+            drop<W, T>(
                 array: List<T>,
                 whereValue: W): T[];
 
@@ -916,7 +916,7 @@ declare module _ {
                 /**
                 * @see _.rest
                 **/
-                tail<W, T extends W>(
+                tail<W, T>(
                     array: List<T>,
                     whereValue: W): T[];
 	}
@@ -958,7 +958,7 @@ declare module _ {
 		* @see _.sortedIndex
 		* @param pluckValue the _.where style callback
 		**/
-		sortedIndex<W, T extends W>(
+		sortedIndex<W, T>(
 			array: List<T>,
 			value: T,
 			whereValue: W): number;
@@ -1028,12 +1028,12 @@ declare module _ {
 		* @see _.uniq
 		* @param whereValue _.where style callback
 		**/
-		uniq<W, T extends W>(
+		uniq<W, T>(
 			array: List<T>,
 			isSorted: boolean,
 			whereValue: W): T[];
 
-		uniq<W, T extends W>(
+		uniq<W, T>(
 			array: List<T>,
 			whereValue: W): T[];
 
@@ -1073,11 +1073,11 @@ declare module _ {
 			* @see _.uniq
 			* @param whereValue _.where style callback
 			**/
-			unique<W, T extends W>(
+			unique<W, T>(
 				array: List<T>,
 				whereValue?: W): T[];
 
-			unique<W, T extends W>(
+			unique<W, T>(
 				array: List<T>,
 				isSorted: boolean,
 				whereValue?: W): T[];
@@ -1315,7 +1315,7 @@ declare module _ {
 		* @see _.every
 		* @param whereValue _.where style callback
 		**/
-		every<W, T extends W>(
+		every<W, T>(
 			collection: Collection<T>,
 			whereValue: W): boolean;
 
@@ -1339,7 +1339,7 @@ declare module _ {
 			* @see _.every
 			* @param whereValue _.where style callback
 			**/
-			all<W, T extends W>(
+			all<W, T>(
 				collection: Collection<T>,
 				whereValue: W): boolean;
 	}
@@ -1378,7 +1378,7 @@ declare module _ {
 		* @see _.filter
 		* @param pluckValue _.pluck style callback
 		**/
-        filter<W, T extends W>(
+        filter<W, T>(
 			collection: Collection<T>,
             whereValue: W): T[];
 
@@ -1402,7 +1402,7 @@ declare module _ {
 			* @see _.filter
 			* @param pluckValue _.pluck style callback
 			**/
-			select<W, T extends W>(
+			select<W, T>(
 				collection: Collection<T>,
 				whereValue: W): T[];
 	}
@@ -1413,42 +1413,42 @@ declare module _ {
 		**/
 		filter<T>(
 			callback: ListIterator<T, boolean>,
-			thisArg?: any): T[];
+			thisArg?: any): LoDashArrayWrapper<T>;
 
 		/**
 		* @see _.filter
 		* @param pluckValue _.pluck style callback
 		**/
 		filter<T>(
-			pluckValue: string): T[];
+			pluckValue: string): LoDashArrayWrapper<T>;
 
 		/**
 		* @see _.filter
 		* @param pluckValue _.pluck style callback
 		**/
-		filter<W, T extends W>(
-			whereValue: W): T[];
+		filter<W, T>(
+			whereValue: W): LoDashArrayWrapper<T>;
 
 			/**
 			* @see _.filter
 			**/
 			select<T>(
 				callback: ListIterator<T, boolean>,
-				thisArg?: any): T[];
+				thisArg?: any): LoDashArrayWrapper<T>;
 
 			/**
 			* @see _.filter
 			* @param pluckValue _.pluck style callback
 			**/
 			select<T>(
-				pluckValue: string): T[];
+				pluckValue: string): LoDashArrayWrapper<T>;
 
 			/**
 			* @see _.filter
 			* @param pluckValue _.pluck style callback
 			**/
-			select<W, T extends W>(
-				whereValue: W): T[];
+			select<W, T>(
+				whereValue: W): LoDashArrayWrapper<T>;
 	}
 
 	//_.find
@@ -1477,7 +1477,7 @@ declare module _ {
 		* @see _.find
 		* @param _.pluck style callback
 		**/
-		find<W, T extends W>(
+		find<W, T>(
 			collection: Collection<T>,
 			whereValue: W): T;
 
@@ -1501,7 +1501,7 @@ declare module _ {
 			* @see _.find
 			* @param _.pluck style callback
 			**/
-			detect<W, T extends W>(
+			detect<W, T>(
 				collection: Collection<T>,
 				whereValue: W): T;
 
@@ -1525,7 +1525,7 @@ declare module _ {
 			* @see _.find
 			* @param _.pluck style callback
 			**/
-			findWhere<W, T extends W>(
+			findWhere<W, T>(
 				collection: Collection<T>,
 				whereValue: W): T;
 
@@ -1557,7 +1557,7 @@ declare module _ {
 		* @see _.find
 		* @param _.pluck style callback
 		**/
-		findLast<W, T extends W>(
+		findLast<W, T>(
 			collection: Collection<T>,
 			whereValue: W): T;
 
@@ -1756,12 +1756,12 @@ declare module _ {
 		* @see _.groupBy
 		* @param whereValue _.where style callback
 		**/
-		groupBy<W, T extends W>(
+		groupBy<W, T>(
 			collection: List<T>,
 			whereValue: W): Dictionary<T[]>;
 	}
 
-	interface LoDashArrayWrapper {
+    interface LoDashArrayWrapper<T> {
 		/**
 		* @see _.groupBy
 		**/
@@ -1778,7 +1778,7 @@ declare module _ {
 		/**
 		* @see _.groupBy
 		**/
-		groupBy<W, T extends W>(
+		groupBy<W, T>(
 			whereValue: W): _.LoDashObjectWrapper<Dictionary<T[]>>;
 	}
 
@@ -1817,7 +1817,7 @@ declare module _ {
 		* @see _.indexBy
 		* @param whereValue _.where style callback
 		**/
-		indexBy<W, T extends W>(
+		indexBy<W, T>(
 			collection: List<T>,
 			whereValue: W): Dictionary<T>;
 	}
@@ -1913,6 +1913,51 @@ declare module _ {
 				pluckValue: string): TResult[];
 	}
 
+	interface LoDashArrayWrapper<T> {
+		/**
+		* @see _.map
+		**/
+		map<T, TResult>(
+			callback: ListIterator<T, TResult>,
+			thisArg?: any): LoDashArrayWrapper<TResult>;
+
+		/**
+		* @see _.map
+		* @param pluckValue _.pluck style callback
+		**/
+		map<T, TResult>(
+			pluckValue: string): LoDashArrayWrapper<TResult>;
+
+			/**
+			* @see _.map
+			**/
+			collect<T, TResult>(
+				callback: ListIterator<T, TResult>,
+				thisArg?: any): LoDashArrayWrapper<TResult>;
+
+			/**
+			* @see _.map
+			**/
+			collect<T, TResult>(
+				pluckValue: string): LoDashArrayWrapper<TResult>;
+	}
+
+	interface LoDashObjectWrapper<T> {
+		/**
+		* @see _.map
+		**/
+		map<T extends {}, TResult>(
+			callback: ObjectIterator<T, TResult>,
+			thisArg?: any): LoDashObjectWrapper<TResult>;
+
+			/**
+			* @see _.map
+			**/
+			collect<T extends {}, TResult>(
+				callback: ObjectIterator<T, TResult>,
+				thisArg?: any): LoDashObjectWrapper<TResult>;
+	}
+
 	//_.max
 	interface LoDashStatic {
 		/**
@@ -1948,7 +1993,7 @@ declare module _ {
 		* @see _.max
 		* @param whereValue _.where style callback
 		**/
-		max<W, T extends W>(
+		max<W, T>(
 			collection: Collection<T>,
 			whereValue: W): T;
 	}
@@ -1988,7 +2033,7 @@ declare module _ {
 		* @see _.min
 		* @param whereValue _.where style callback
 		**/
-		min<W, T extends W>(
+		min<W, T>(
 			collection: Collection<T>,
 			whereValue: W): T;
 	}
@@ -2145,7 +2190,7 @@ declare module _ {
 		* @see _.reject
 		* @param whereValue _.where style callback
 		**/
-		reject<W, T extends W>(
+		reject<W, T>(
 			collection: Collection<T>,
 			whereValue: W): T[];
 	}
@@ -2236,7 +2281,7 @@ declare module _ {
 		* @see _.some
 		* @param whereValue _.where style callback
 		**/
-		some<W, T extends W>(
+		some<W, T>(
 			collection: Collection<T>,
 			whereValue: W): boolean;
 
@@ -2260,7 +2305,7 @@ declare module _ {
 			* @see _.some
 			* @param whereValue _.where style callback
 			**/
-			any<W, T extends W>(
+			any<W, T>(
 				collection: Collection<T>,
 				whereValue: W): boolean;
 	}
@@ -2300,7 +2345,7 @@ declare module _ {
 		* @see _.sortBy
 		* @param whereValue _.where style callback
 		**/
-		sortBy<W, T extends W>(
+		sortBy<W, T>(
 			collection: List<T>,
 			whereValue: W): T[];
 	}
@@ -2535,10 +2580,10 @@ declare module _ {
 		* @param options.trailing Specify execution on the trailing edge of the timeout.
 		* @return The new debounced function.
 		**/
-		debounce(
-			func: Function,
+		debounce<T extends Function>(
+			func: T,
 			wait: number,
-			options?: DebounceSettings): Function;			
+			options?: DebounceSettings): T;			
 	}
 
 	interface LoDashObjectWrapper<T> {
@@ -2625,9 +2670,9 @@ declare module _ {
 		* @param resolver Hash function for storing the result of `fn`.
 		* @return Returns the new memoizing function.
 		**/
-		memoize(
-			func: Function,
-			resolver?: (n: any) => string): Function;
+        memoize<T extends Function>(
+			func: T,
+			resolver?: Function): T;
 	}
 
 	//_.once
@@ -2639,7 +2684,7 @@ declare module _ {
 		* @param func Function to only execute once.
 		* @return The new restricted function.
 		**/
-		once(func: Function): Function;
+        once<T extends Function>(func: T): T;
 	}
 
 	//_.partial
@@ -2688,10 +2733,10 @@ declare module _ {
 		* @param options.trailing Specify execution on the trailing edge of the timeout.
 		* @return The new throttled function.
 		**/
-		throttle(
-			func: any,
+        throttle<T extends Function>(
+			func: T,
 			wait: number,
-			options?: ThrottleSettings): Function;
+			options?: ThrottleSettings): T;
 	}
 
 	interface ThrottleSettings {
@@ -2739,7 +2784,7 @@ declare module _ {
 		* @param thisArg The this binding of callback.
 		* @return The destination object.
 		**/
-        assign<P, T extends P, S1 extends P, Value, Result extends P>(
+        assign<P, T, S1, Value, Result>(
             object: T,
             s1: S1,
 			callback?: (objectValue: Value, sourceValue: Value) => Value,
@@ -2748,7 +2793,7 @@ declare module _ {
 		/**
 		* @see _.assign
 		**/
-        assign<P, T extends P, S1 extends P, S2 extends P, Value, Result extends P>(
+        assign<P, T, S1, S2, Value, Result>(
             object: T,
             s1: S1,
             s2: S2,
@@ -2758,7 +2803,7 @@ declare module _ {
 		/**
 		* @see _.assign
 		**/
-        assign<P, T extends P, S1 extends P, S2 extends P, S3 extends P, Value, Result extends P>(
+        assign<P, T, S1, S2, S3, Value, Result>(
             object: T,
             s1: S1,
             s2: S2,
@@ -2769,7 +2814,7 @@ declare module _ {
 		/**
 		* @see _.assign
 		**/
-        assign<P, T extends P, S1 extends P, S2 extends P, S3 extends P, S4 extends P, Value, Result extends P>(
+        assign<P, T, S1, S2, S3, S4, Value, Result>(
             object: T,
             s1: S1,
             s2: S2,
@@ -2781,7 +2826,7 @@ declare module _ {
 		/**
 		* @see _.assign
 		**/
-        extend<P, T extends P, S1 extends P, S2 extends P, Value, Result extends P>(
+	extend<P, T, S1, Value, Result>(
             object: T,
             s1: S1,
 			callback?: (objectValue: Value, sourceValue: Value) => Value,
@@ -2790,7 +2835,7 @@ declare module _ {
 		/**
 		* @see _.assign
 		**/
-        extend<P, T extends P, S1 extends P, S2 extends P, S3 extends P, Value, Result extends P>(
+        extend<P, T, S1, S2, Value, Result>(
             object: T,
             s1: S1,
             s2: S2,
@@ -2800,7 +2845,18 @@ declare module _ {
 		/**
 		* @see _.assign
 		**/
-        extend<P, T extends P, S1 extends P, S2 extends P, S3 extends P, S4 extends P, Value, Result extends P>(
+        extend<P, T, S1, S2, S3, Value, Result>(
+            object: T,
+            s1: S1,
+            s2: S2,
+            s3: S3,
+			callback?: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg?: any): Result;
+
+		/**
+		* @see _.assign
+		**/
+        extend<P, T, S1, S2, S3, S4, Value, Result>(
             object: T,
             s1: S1,
             s2: S2,
@@ -2998,7 +3054,7 @@ declare module _ {
 		* @see _.findKey
 		* @param whereValue _.where style callback
 		**/
-        findKey<W extends Dictionary<any>, T extends W>(
+        findKey<W extends Dictionary<any>, T>(
 			object: T,
 			whereValue: W): string;
 	}
@@ -3029,7 +3085,7 @@ declare module _ {
 		* @see _.findLastKey
 		* @param whereValue _.where style callback
 		**/
-        findLastKey<W extends Dictionary<any>, T extends W>(
+        findLastKey<W extends Dictionary<any>, T>(
 			object: T,
 			whereValue: W): string;
 	}
@@ -3051,7 +3107,7 @@ declare module _ {
 			thisArg?: any): Dictionary<T>;
 	}
 
-	interface LoDashObjectWrapper {
+    interface LoDashObjectWrapper<T> {
 		/**
 		* @see _.forIn
 		**/
@@ -3076,7 +3132,7 @@ declare module _ {
 			thisArg?: any): Dictionary<T>;
 	}
 
-	interface LoDashObjectWrapper {
+    interface LoDashObjectWrapper<T> {
 		/**
 		* @see _.forInRight
 		**/
@@ -3102,7 +3158,7 @@ declare module _ {
 			thisArg?: any): Dictionary<T>;
 	}
 
-	interface LoDashObjectWrapper {
+    interface LoDashObjectWrapper<T> {
 		/**
 		* @see _.forOwn
 		**/
@@ -3127,7 +3183,7 @@ declare module _ {
 			thisArg?: any): Dictionary<T>;
 	}
 
-	interface LoDashObjectWrapper {
+    interface LoDashObjectWrapper<T> {
 		/**
 		* @see _.forOwnRight
 		**/
@@ -3152,16 +3208,16 @@ declare module _ {
 			methods(object: any): string[];
 	}
 
-	interface LoDashObjectWrapper {
+    interface LoDashObjectWrapper<T> {
 		/**
 		* @see _.functions
 		**/
-		functions(): _.LoDashArrayWrapper<string>
+		functions(): _.LoDashArrayWrapper<string>;
 
 			/**
 			* @see _.functions
 			**/
-			methods(): _.LoDashArrayWrapper<string>
+			methods(): _.LoDashArrayWrapper<string>;
 	}
 
 	//_.has
@@ -3255,6 +3311,11 @@ declare module _ {
 		* @see _.isEmpty
 		**/
 		isEmpty(value: string): boolean;
+		
+		/**
+		* @see _.isEmpty
+		**/
+		isEmpty(value: any): boolean;
 	}
 
 	//_.isEqual
@@ -3411,7 +3472,7 @@ declare module _ {
 		* @param thisArg The this binding of callback.
 		* @return The destination object.
 		**/
-        merge<P, T extends P, S1 extends P, Value, Result extends P>(
+        merge<P, T, S1, Value, Result>(
             object: T,
             s1: S1,
 			callback?: (objectValue: Value, sourceValue: Value) => Value,
@@ -3420,7 +3481,7 @@ declare module _ {
 		/**
 		* @see _.merge
 		**/
-        merge<P, T extends P, S1 extends P, S2 extends P, Value, Result extends P>(
+        merge<P, T, S1, S2, Value, Result>(
             object: T,
             s1: S1,
             s2: S2,
@@ -3430,7 +3491,7 @@ declare module _ {
 		/**
 		* @see _.merge
 		**/
-        merge<P, T extends P, S1 extends P, S2 extends P, S3 extends P, Value, Result extends P>(
+        merge<P, T, S1, S2, S3, Value, Result>(
             object: T,
             s1: S1,
             s2: S2,
@@ -3441,7 +3502,7 @@ declare module _ {
 		/**
 		* @see _.merge
 		**/
-        merge<P, T extends P, S1 extends P, S2 extends P, S3 extends P, S4 extends P, Value, Result extends P>(
+        merge<P, T, S1, S2, S3, S4, Value, Result>(
             object: T,
             s1: S1,
             s2: S2,
@@ -3463,21 +3524,21 @@ declare module _ {
 		* @param keys The properties to omit.
 		* @return An object without the omitted properties.
 		**/
-        omit<Omitted, T extends Omitted>(
+        omit<Omitted, T>(
 			object: T,
 			...keys: string[]): Omitted;
 
 		/**
 		* @see _.omit
 		**/
-		omit<Omitted, T extends Omitted>(
+		omit<Omitted, T>(
 			object: T,
 			keys: string[]): Omitted;
 
 		/**
 		* @see _.omit
 		**/
-		omit<Omitted, T extends Omitted>(
+		omit<Omitted, T>(
 			object: T,
 			callback: ObjectIterator<any, boolean>,
 			thisArg?: any): Omitted;
@@ -3506,21 +3567,21 @@ declare module _ {
 		* @param keys Property names to pick
 		* @return An object composed of the picked properties.
 		**/
-        pick<Picked, T extends Picked>(
+        pick<Picked, T>(
 			object: T,
 			...keys: string[]): Picked;
 
 		/**
 		* @see _.pick
 		**/
-		pick<Picked, T extends Picked>(
+		pick<Picked, T>(
 			object: T,
 			keys: string[]): Picked;
 
 		/**
 		* @see _.pick
 		**/
-		pick<Picked, T extends Picked>(
+		pick<Picked, T>(
 			object: T,
 			callback: ObjectIterator<any, boolean>,
 			thisArg?: any): Picked;
@@ -3719,7 +3780,7 @@ declare module _ {
 		**/
 		times<TResult>(
 			n: number, 
-			callback: Function, 
+			callback: (num: number) => TResult, 
 			context?: any): TResult[];
 	}
 
@@ -3779,4 +3840,8 @@ declare module _ {
 	interface Dictionary<T> extends Collection<T> {
 		[index: string]: T;
 	}
+}
+
+declare module "lodash" {
+	export = _;
 }

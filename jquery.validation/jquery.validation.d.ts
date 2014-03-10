@@ -10,30 +10,35 @@ interface ValidationOptions
 {
 	debug?: boolean;
 	errorClass?: string;
-	errorContainer?: any;
+	errorContainer?: string;
 	errorElement?: string;
-	errorLabelContainer?: any;
-	errorPlacement?: Function;
+	errorLabelContainer?: string;
+	errorPlacement?: (error: JQuery, element: JQuery) => void;
 	focusCleanup?: boolean;
 	focusInvalid?: boolean;
-	groups?: any;
-	highlight?: Function;
-	ignore?: any;
+	groups?: Object;
+	highlight?: (element: HTMLElement, errorClass: string, validClass: string) => void;
+	ignore?: string;
 	ignoreTitle?: boolean;
-	invalidHandler?: Function;
-	messages?: any;
+	invalidHandler?: (event: JQueryEventObject, validator: Validator) => void;
+	messages?: Object;
 	meta?: string;
 	onclick?: boolean;
 	onfocusout?: boolean;
 	onkeyup?: boolean;
 	onsubmit?: boolean;
-	rules?: any;
-	showErrors?: Function;
-	submitHandler?: Function;
+	rules?: Object;
+   	showErrors?: (errorMap: ErrorDictionary, errorList: ErrorListItem[]) => void;
+	submitHandler?: (form: HTMLFormElement) => void;
 	success?: any;
-	unhighlight?: Function;
+	unhighlight?: (element: HTMLElement, errorClass: string, validClass: string) => void;
 	validClass?: string;
 	wrapper?: string;
+}
+
+interface ErrorDictionary
+{
+	[name: string]: string;
 }
 
 interface ErrorListItem
@@ -59,7 +64,7 @@ interface Validator
 	valid(): boolean;
 	size(): number;
 
-	errorMap: Object;
+   	errorMap: ErrorDictionary;
 	errorList: ErrorListItem[];
 }
 

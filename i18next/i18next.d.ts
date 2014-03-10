@@ -1,10 +1,11 @@
-/// <reference path="../jquery/jquery.d.ts" />
-
 // Type definitions for i18next (v1.5.10 incl. jQuery)
 // Project: http://i18next.com
-// Sources: https://github.com/jamuhl/i18next/
 // Definitions by: Maarten Docter <https://github.com/mdocter> - Blog: http://www.maartendocter.nl
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+// Sources: https://github.com/jamuhl/i18next/
+
+/// <reference path="../jquery/jquery.d.ts" />
 
 interface IResourceStore {
     [language: string]: IResourceStoreLanguage;
@@ -79,7 +80,7 @@ interface I18nextStatic {
             remove: (name: string) => void;
         };
         detectLanguage(): string;
-        log(message: string);
+        log(message: string): void;
         toLanguages(language: string): string[];
         regexEscape(str: string): string;
     };
@@ -93,7 +94,7 @@ interface I18nextStatic {
             name: string;
             numbers: number[];
             plurals: (n: number) => number;
-        });
+        }): void;
         get (language: string, count: number): number;
         rules: any;
         setCurrentLng: (language: string) => void;

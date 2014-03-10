@@ -1,9 +1,9 @@
-﻿/// <reference path="../jquery/jquery.d.ts" />
-
 // Type definitions for Flight 1.1.1
 // Project: http://flightjs.github.com/flight/
 // Definitions by: Jonathan Hedrén <https://github.com/jonathanhedren/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// <reference path="../jquery/jquery.d.ts" />
 
 declare module Flight {
 
@@ -218,8 +218,8 @@ declare module Flight {
         merge(obj1: Object, obj2: Object, ...args: any[]): Object;
         push(base: Object, extra: Object, protect?: boolean): void;
         throttle(func: Function, wait: number): Function;
-        toArray(obj: Object, from?: number): Array;
-        uniqueArray(array: Array): Array;
+        toArray(obj: Object, from?: number): any[];
+        uniqueArray(array: any[]): any[];
     }
 
     export interface EventData {

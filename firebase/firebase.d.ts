@@ -1,5 +1,5 @@
 // Type definitions for Firebase API
-// Project: https://www.firebase.com/docs/javascript/firebase/index.html
+// Project: https://www.firebase.com/docs/javascript/firebase
 // Definitions by: Vincent Botone <https://github.com/vbortone/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
@@ -10,7 +10,7 @@ interface IFirebaseAuthResult {
 
 interface IFirebaseDataSnapshot {
 	val(): any;
-	child(): IFirebaseDataSnapshot;
+	child(childPath: string): IFirebaseDataSnapshot;
 	forEach(childAction: (childSnapshot: IFirebaseDataSnapshot) => boolean): boolean;
 	hasChild(childPath: string): boolean;
 	hasChildren(): boolean;
@@ -44,7 +44,7 @@ interface IFirebaseQuery {
 
 declare class Firebase implements IFirebaseQuery {
 	constructor(firebaseURL: string);
-	auth(authToken: string, onComplete?: (error: string, result: IFirebaseAuthResult) => void, onCancel?:(error: string) => void): void;
+	auth(authToken: string, onComplete?: (error: any, result: IFirebaseAuthResult) => void, onCancel?:(error: any) => void): void;
 	unauth(): void;
 	child(childPath: string): Firebase;
 	parent(): Firebase;
@@ -53,7 +53,7 @@ declare class Firebase implements IFirebaseQuery {
 	toString(): string;
 	set(value: any, onComplete?: (error: any) => void): void;
 	update(value: any, onComplete?: (error: any) => void): void;
-	remove(onComplete?: (error: any) => void);
+	remove(onComplete?: (error: any) => void): void;
 	push(value: any, onComplete?: (error: any) => void): Firebase;
 	setWithPriority(value: any, priority: string, onComplete?: (error: any) => void): void;
 	setWithPriority(value: any, priority: number, onComplete?: (error: any) => void): void;
@@ -70,4 +70,6 @@ declare class Firebase implements IFirebaseQuery {
 	endAt(priority?: string, name?: string): IFirebaseQuery;
 	endAt(priority?: number, name?: string): IFirebaseQuery;
 	ref(): Firebase;
+	goOffline(): void;
+	goOnline(): void;
 }

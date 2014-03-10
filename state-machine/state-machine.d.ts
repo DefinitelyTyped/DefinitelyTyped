@@ -1,9 +1,9 @@
 // Type definitions for Finite State Machine 2.2
 // Project: https://github.com/jakesgordon/javascript-state-machine
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Maarten Docter <https://github.com/mdocter> (2013/01/22)
+// Definitions by: William Sears <https://github.com/MrBigDog2U> (2013/01/25)
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// Updated: 2013/01/22 by Maarten Docter <https://github.com/mdocter>
-// Updated: 2013/01/25 by William Sears <https://github.com/MrBigDog2U>
 
 interface StateMachineErrorCallback {
     (eventName?: string, from?: string, to?: string, args?: any[], errorCode?: number, errorMessage?: string, ex?: Error): void; // NB. errorCode? See: StateMachine.Error
@@ -11,7 +11,7 @@ interface StateMachineErrorCallback {
 
 interface StateMachineEventDef {
     name: string;
-    from: string;
+    from: any;    // string or string[]
     to: string;
 }
 

@@ -1,6 +1,6 @@
 // Type definitions for Humane 3.0
 // Project: http://wavded.github.com/humane-js/
-// Definitions by: https://github.com/jmvrbanac 
+// Definitions by: jmvrbanac <https://github.com/jmvrbanac>
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -33,7 +33,7 @@ interface Humane {
     log(message: string, options: HumaneOptions): Humane;
     log(message: string, callback: Function, options: HumaneOptions): Humane;
 
-    log(listOfMessages: Array): Humane;
+    log(listOfMessages: any[]): Humane;
 }
 
 declare var humane: Humane;

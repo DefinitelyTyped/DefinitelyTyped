@@ -1,3 +1,8 @@
+// Type definitions for bootstrap.timepicker
+// Project: http://code.google.com/p/box2dweb/
+// Definitions by: jbaldwin <https://github.com/jbaldwin/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /**
 * Box2DWeb-2.1.d.ts Copyright (c) 2012-2013 Josh Baldwin http://github.com/jbaldwin/box2dweb.d.ts
 * There are a few competing javascript Box2D ports.
@@ -4271,7 +4276,7 @@ declare module Box2D.Dynamics.Joints {
 		* Set the user data pointer.
 		* @param data Your custom data.
 		**/
-		public SetUserData(data: any); void;
+		public SetUserData(data: any): void;
 	}
 }
 
@@ -5377,7 +5382,7 @@ declare module Box2D.Dynamics.Joints {
 		* Set the motor speed in radians per second.
 		* @param speed New motor speed.
 		**/
-		public SetMotorSpeed(speed: number); void;
+		public SetMotorSpeed(speed: number): void;
 	}
 }
 

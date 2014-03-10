@@ -1,3 +1,8 @@
+// Type definitions for SlickGrid 2.1.0
+// Project: https://github.com/mleibman/SlickGrid
+// Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /*
 SlickGrid-2.1.d.ts may be freely distributed under the MIT license.
 
@@ -394,7 +399,7 @@ declare module Slick {
 		* @param colDef
 		* @return
 		**/
-		asyncPostRender?: (cellNode, row, dataContext, colDef) => void;
+		asyncPostRender?: (cellNode:any, row:any, dataContext:any, colDef:any) => void;
 
 		/**
 		* Used by the the slick.rowMoveManager.js plugin for moving rows. Has no effect without the plugin installed.
@@ -470,7 +475,7 @@ declare module Slick {
 		/**
 		* If set to true, whenever this column is resized, the entire table view will rerender.
 		**/
-		rerenderOnReize?: boolean;
+		rerenderOnResize?: boolean;
 
 		/**
 		* If false, column can no longer be resized.
@@ -1320,7 +1325,7 @@ declare module Slick {
 	}
 
 	// todo: merge with existing column definition
-	export interface Column {
+	export interface Column<T extends SlickData> {
 		sortCol?: string;
 		sortAsc?: boolean;
 	}
@@ -1390,8 +1395,8 @@ declare module Slick {
 			public init(): void;
 			public destroy(): void;
 			public focus(): void;
-			public loadValue(item): void; // todo: typeof(item)
-			public applyValue(item, state: string): void; // todo: typeof(item)
+			public loadValue(item:any): void; // todo: typeof(item)
+			public applyValue(item:any, state: string): void; // todo: typeof(item)
 			public isValueChanged(): boolean;
 			public serializeValue(): any;
 			public validate(): ValidateResults;
@@ -1483,7 +1488,7 @@ declare module Slick {
 			public getPagingInfo(): PagingOptions;
 			public getItems(): T[];
 			public setItems(data: T[], objectIdProperty?: string): void;
-			public setFilter(filterFn: (item: T, args) => boolean): void;	// todo: typeof(args)
+			public setFilter(filterFn: (item: T, args:any) => boolean): void;	// todo: typeof(args)
 			public sort(comparer: Function, ascending: boolean): void;		// todo: typeof(comparer), should be the same callback as Array.sort
 			public fastSort(field: string, ascending: boolean): void;
 			public fastSort(field: Function, ascending: boolean): void;		// todo: typeof(field), should be the same callback as Array.sort
@@ -1494,12 +1499,12 @@ declare module Slick {
 			/**
 			* @deprecated
 			**/
-			public groupBy(valueGetter, valueFormatter, sortComparer): void;
+			public groupBy(valueGetter:any, valueFormatter:any, sortComparer:any): void;
 
 			/**
 			* @deprecated
 			**/
-			public setAggregators(groupAggregators, includeCollapsed): void;
+			public setAggregators(groupAggregators:any, includeCollapsed:any): void;
 
 			/**
 			* @param level Optional level to collapse.  If not specified, applies to all levels.
@@ -1554,7 +1559,7 @@ declare module Slick {
 		export interface GroupingOptions<T> {
 			getter: Function;	// todo
 			formatter: Formatter<T>;
-			comparer: (a, b) => any;	// todo
+			comparer: (a:any, b:any) => any;	// todo
 			predefinedValues: any[];	// todo
 			aggregators: Aggregators.Aggregator<T>[];
 			aggregateEmpty: boolean;
@@ -1572,11 +1577,11 @@ declare module Slick {
 		}
 
 		export interface RefreshHints {
-			isFilterNarrowing: boolean;
-			isFilterExpanding: boolean;
-			isFilterUnchanged: boolean;
-			ignoreDiffsBefore: boolean;
-			ignoreDiffsAfter: boolean;
+			isFilterNarrowing?: boolean;
+			isFilterExpanding?: boolean;
+			isFilterUnchanged?: boolean;
+			ignoreDiffsBefore?: boolean;
+			ignoreDiffsAfter?: boolean;
 		}
 
 		export interface OnRowCountChangedEventData {

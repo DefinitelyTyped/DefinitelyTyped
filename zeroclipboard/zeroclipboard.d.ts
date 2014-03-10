@@ -1,7 +1,7 @@
 // Type definitions for ZeroClipboard
 // Project: https://github.com/jonrohan/ZeroClipboard
 // Definitions by: Eric J. Smith <https://github.com/ejsmith>
-// Updated by: Blake Niemyjski <https://github.com/niemyjski>
+// Definitions by: Blake Niemyjski <https://github.com/niemyjski>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare class ZeroClipboard {
@@ -27,7 +27,7 @@ declare class ZeroClipboard {
     receiveEvent(eventName: string, args: any): void;
     glue(elements: any): void;
     unglue(elements: any): void;
-    static setDefaults(options: ZeroClipboardOptions): void;
+    static config(options: ZeroClipboardOptions): void;
     static destroy(): void;
     static detectFlashSupport(): boolean;
     static dispatch(eventName: string, args: any): void;

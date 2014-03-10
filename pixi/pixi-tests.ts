@@ -1,6 +1,8 @@
 ///<reference path="pixi.d.ts"/>
 ///<reference path="webgl.d.ts"/>
 
+function PixiTests()
+{
 
 var stage = new PIXI.Stage(0xFFFFFF, true);
 
@@ -1187,4 +1189,6 @@ function update22()
 	renderer.render(stage);
 
 	requestAnimFrame(update);
+}
+
 }

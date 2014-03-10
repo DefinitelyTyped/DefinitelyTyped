@@ -8,22 +8,25 @@ _.each({ one: 1, two: 2, three: 3 }, (value) => alert(value.toString()));
 _.map([1, 2, 3], (num) => num * 3);
 _.map({ one: 1, two: 2, three: 3 }, (value: number, key?: string) => value * 3);
 
-var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);
-sum = _.reduce([1, 2, 3], (memo, num) => memo + num); // memo is optional #issue 5 github
+//var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);	// https://typescript.codeplex.com/workitem/1960
+var sum = _.reduce<number, number>([1, 2, 3], (memo, num) => memo + num, 0);
+sum = _.reduce<number, number>([1, 2, 3], (memo, num) => memo + num); // memo is optional #issue 5 github
 
 var list = [[0, 1], [2, 3], [4, 5]];
-var flat = _.reduceRight(list, (a, b) => a.concat(b), []);
+//var flat = _.reduceRight(list, (a, b) => a.concat(b), []);	// https://typescript.codeplex.com/workitem/1960
+var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
-var even = _.find([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
+var even = _.find<number>([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
-var evens = _.filter([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
+var evens = _.filter<number>([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
 var listOfPlays = [{ title: "Cymbeline", author: "Shakespeare", year: 1611 }, { title: "The Tempest", author: "Shakespeare", year: 1611 }, { title: "Other", author: "Not Shakespeare", year: 2012 }];
 _.where(listOfPlays, { author: "Shakespeare", year: 1611 });
 
-var odds = _.reject([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
+var odds = _.reject<number>([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
-_.every([true, 1, null, 'yes'], _.identity);
+//_.every([true, 1, null, 'yes'], _.identity); // https://typescript.codeplex.com/workitem/1960
+_.every<any>([true, 1, null, 'yes'], _.identity);
 _.every<{}>([true, 1, null, 'yes']);
 
 _.any([null, 0, 'yes', false]);
@@ -35,7 +38,7 @@ _.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
 var stooges = [{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }];
 _.pluck(stooges, 'name');
 
-_.max(stooges, (stooge) => stooge.age);
+_.max<{ name: string; age: number }>(stooges, (stooge) => stooge.age);
 
 _.max([1, 2, 3, 4, 5]);
 
@@ -279,24 +282,31 @@ _(['test', 'test']).pick(['test2', 'test2']);
 
 //////////////// Chain Tests
 function chain_tests() {
-    var list:number[] = _.chain([1, 2, 3, 4, 5, 6, 7, 8])
-        .filter(n => n % 2 == 0)
-        .map(n => n * n)
-        .value();
+	// https://typescript.codeplex.com/workitem/1960
+	var numArray: number[] = _.chain([1, 2, 3, 4, 5, 6, 7, 8])
+		.filter(num => num % 2 == 0)
+		.map(num => num * num)
+		.value();
 
-    _([1, 2, 3, 4])
-        .chain()
-        .filter((num: number) => {
-            return num % 2 == 0;
-        }).tap(alert)
-        .map((num: number) => {
-            return num * num;
-        })
-        .value();
+	var strArray: string[] = _([1, 2, 3, 4])
+		.chain()
+		.filter(num => num % 2 == 0)
+		.tap(alert)
+		.map(num => "string" + num)
+		.value();
 
-    _.chain([1, 2, 3, 200])
-        .filter(function (num: number) { return num % 2 == 0; })
-        .tap(alert)
-        .map(function (num: number) { return num * num })
-        .value();
+	var n : number = _.chain([1, 2, 3, 200])
+		.filter(num => num % 2 == 0)
+		.tap(alert)
+		.map(num => num * num)
+		.max()
+		.value();
+
+	//If using alternate definition of map (~ line 2200), .value returns any
+	//   because.map matches _Chain <number[]> as opposed to _ChainOfArrays <number>, which breaks typing on flatten
+	var hoverOverValueShouldBeNumberNotAny : number = _([1, 2, 3]).chain()
+		.map(num=> [num, num + 1])
+		.flatten()
+		.find(num => num % 2 == 0)
+		.value();
 }

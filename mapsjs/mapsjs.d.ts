@@ -1,3 +1,8 @@
+// Type definitions for Mapsjs 9.6.0
+// Project: https://github.com/mapsjs
+// Definitions by: Matthew James Davis <https://github.com/davismj/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /**
  * Mapsjs 9.6.0 Copyright (c) 2013 ISC. All Rights Reserved.
 */
@@ -423,7 +428,7 @@ declare module 'mapsjs' {
 			 * @param {number} [idx] Index of the line for which to compute the distance.
 			 * @returns {number} Distance in meters of the line.
 			 */
-            getActualDistance(idx: number): number;
+            getActualDistance(idx?: number): number;
 			
 			/**
 			 * Determines whether this polyline intersects a given geometry.
@@ -504,7 +509,7 @@ declare module 'mapsjs' {
 			 * @param {number} [idx] Index of the ring for which to compute the area.
 			 * @returns {number} Area in square meters of the ring.
 			 */
-            getActualArea(idx: number): number;
+            getActualArea(idx?: number): number;
 			
 			/**
 			 * Calculates perimeter of a ring in a polygon by index according 
@@ -513,7 +518,7 @@ declare module 'mapsjs' {
 			 * @param {number} [idx] Index of the ring for which to compute the perimeter.
 			 * @returns {number} Length in meters of the perimeter of the ring.
 			 */
-            getActualPerimeter(idx: number): number;
+            getActualPerimeter(idx?: number): number;
 			
 			/**
 			 * Determines whether this polygon intersects a given geometry.
@@ -543,7 +548,7 @@ declare module 'mapsjs' {
 	 * @class geometryStyle
 	 */
     export class geometryStyle {
-        constructor();
+        constructor(options?: styleObj);
 		
 		/**
 		 * Gets path outline thickness in pixels.
@@ -894,8 +899,14 @@ declare module 'mapsjs' {
 	 * @class styledGeometry
 	 */
     export class styledGeometry {
-        constructor(geom: geometry, gStyle: geometryStyle);
+        constructor(geom: geometry, gStyle?: geometryStyle);
 		
+        /**
+         * Set this styledGeometry's geometry.
+         * @param {geometry} g A new Geometry.
+         */
+        setGeometry(g: geometry): void;
+
 		/**
 		 * Set this styledGeometry's geometryStyle.
 		 * @param {geometryStyle} gs A new styledGeometry.
@@ -907,6 +918,12 @@ declare module 'mapsjs' {
 		 * @returns {geometry} The underlying geometry.
 		 */
         getGeometry(): geometry;
+
+        /**
+         * Gets the styledGeometry's underlying geometryStyle object.
+         * @returns {geometryStyle} The underlying geometry style.
+         */
+        getGeometryStyle(): geometryStyle;
 		
 		/**
 		 * Gets path outline thickness in pixels.
@@ -928,7 +945,7 @@ declare module 'mapsjs' {
 		
 		/**
 		 * Gets path outline opacity in decimal format.
-		 * @returns {number} Outline opacity.
+		 * @param {number} Outline opacity.
 		 */
         setOutlineColor(c: string): void;
 		
@@ -1158,7 +1175,7 @@ declare module 'mapsjs' {
 			 * @param {renderer} r The renderer delegate function with 
 			 * signature renderer(quadview).
 			 */
-            setRenderer(r: tile.renderer): void;
+            setRenderer(r: any): void;
 			
 			/**
 			 * Notifies the tile layer to check for changes to its renderer.
@@ -1317,6 +1334,11 @@ declare module 'mapsjs' {
             	ulX: number;
             	ulY: number;
             };
+
+            /**
+            * Unbind all associations with this tile layer to facilitate garbage collection
+            */
+            dispose(): void;
         }
         
 		/**
@@ -1548,7 +1570,7 @@ declare module 'mapsjs' {
 			 * This should be called if the data changes or if, due to extent
 			 * changes, the density changes.
 			 */
-            notifyRecompute(): void;
+            notifyRecompute(extents?: envelope): void;
         }
 		
 		/**
@@ -1753,7 +1775,7 @@ declare module 'mapsjs' {
 		 * The bitmap or vector tile requestor using MapDotNet REST services.
 	     * @class requestorMDN
          */
-		export class requestorMDN extends requestor {
+		export class requestorMDNRest extends requestor {
             constructor(endpoint: string, options?: {
                 dataFormat?: string;
                 timeoutMs?: number;
@@ -2216,8 +2238,53 @@ declare module 'mapsjs' {
 		 * @returns {number} maxY coord as integer
 		 */
 		maxY: number;
-	}
-	
+    }
+   
+    interface extentChangeStatsObj {
+
+        centerX: number;
+        centerY: number;
+        centerLat: number;
+        centerLon: number;
+        zoomLevel: number;
+        mapScale: number;
+        mapScaleProjected: number;
+        mapUnitsPerPixel: number;
+        extents: envelope;
+    }
+
+    interface repositionStatsObj {
+
+        centerX: number;
+        centerY: number;
+        zoomLevel: number;
+        mapUnitsPerPixel: number;
+    }
+
+    interface beginDigitizeOptions {
+        key?: string;
+        shapeType: string;
+        geometryStyle?: geometryStyle;
+        styledGeometry?: styledGeometry;
+        nodeTapAndHoldAction?: (setIdx: number, idx: number) => boolean;
+        nodeMoveAction?: (x: number, y: number, actionType: string) => any;
+        shapeChangeAction?: () => void;
+        envelopeEndAction?: (env: envelope) => void;
+        circleEndAction?: (circle: geometry.polygon) => void;
+        suppressNodeAdd?: boolean;
+        leavePath?: boolean;
+    }
+
+
+    interface styleObj {
+        fillColor?: string;
+        fillOpacity?: number;
+        outlineColor?: string;
+        outlineOpacity?: number;
+        outlineThicknessPix?: number
+        dashArray?: string;
+    }
+
     interface mapsjsWidget {
         
 		/**
@@ -2249,7 +2316,22 @@ declare module 'mapsjs' {
          * @param {number} [durationMs] Duration in miliseconds.
          * @param {function} [completeAction] Callback to perform on animaton complete.
 		 */
-		setMapCenterToGeolocationAnimate(durationMs?: number, completeAction?: () => void): void;
+        setMapCenterToGeolocationAnimate(durationMs?: number, completeAction?: () => void): void;
+
+        /**
+        * Offsets the current map center by the specified deltas in pixels. 
+        * @param {number} [dx] offset x in pixels.
+        * @param {number} [dy] offset y in pixels.
+	    */
+        offsetMapCenterByPixelDelta(dx: number, dy: number): void;
+
+        /**
+        * Offsets the current map center by the specified deltas in pixels - animated version.
+        * @param {number} [dx] offset x in pixels.
+        * @param {number} [dy] offset y in pixels.
+        * @param {number} [durationMs] animation duration in mS.
+        */
+        offsetMapCenterByPixelDeltaAnimate(dx: number, dy: number, durationMs?: number): void;
         
 		/**
 		 * Gets the current zoom level.
@@ -2382,15 +2464,15 @@ declare module 'mapsjs' {
 		popTileLayer(): tile.layer;
 
 		/**
-         	* Removes a tile layer off the display stack by reference
-         	* @param {tile.layer} tl - a tile layer
-         	*/
-        	removeTileLayer(tl: tile.layer): void;
+        * Removes a tile layer off the display stack by reference
+        * @param {tile.layer} tl A tile layer to remove.
+        */
+        removeTileLayer(tl: tile.layer): void;
 
-        	/**
-         	* Removes all tile layers off the display stack
-         	*/
-        	removeAllTileLayers(): void;
+        /**
+        * Removes all tile layers off the display stack
+        */
+        removeAllTileLayers(): void;
         
 		/**
 		 * Gets the current number of tile layers in the display stack.
@@ -2492,12 +2574,18 @@ declare module 'mapsjs' {
 		 * content area DOM. If an attempt to add a geometry is made with the same 
 		 * key, the geometry is swapped out. You must remove using removePathGeometry 
 		 * for resource cleanup.
-		 * @param {styleGeometry} styledGeom THe styledGeometry to render.
-		 * @param {string} key String used to tie a geometry to its SVG 
+		 * @param {styleGeometry} styledGeom The styledGeometry to render.
+		 * @param {string} key String used to tie a geometry to its SVG
+         * @param {function} addAction optional function that is called when mapsjs adds an svg element to the DOM representing this styledGeometry.
+         * @param {function} removeAction optional function that is called when mapsjs adds an svg element to the DOM representing this styledGeometry.
 		 * rendering in the DOM.
 		 * @returns {element} The SVG element which was added to the DOM.
 		 */
-		addPathGeometry(styledGeom: styledGeometry, key: string): void;
+        addPathGeometry(
+            styledGeom: styledGeometry,
+            key: string,
+            addAction?: (svg: SVGElement) => void,
+            removeAction?: (svg: SVGElement) => void): SVGElement;
         
 		/**
 		 * Updates an existing path geometry to reflect a style change.
@@ -2509,41 +2597,34 @@ declare module 'mapsjs' {
 		/**
 		 * Removes a styledGeometry from display.
 		 * @param {string} key The key of the geometry to remove.
+         * @returns {element} The SVG element which was removed from the DOM.
 		 */
-		removePathGeometry(key: string): void;
+        removePathGeometry(key?: string): SVGElement;
 
 		/**
 		 * Initiates digitization on the map control. This creates a new
 		 * geometry and adds verticies to the geometry accord to mouse
 		 * click locations.
 		 * @param {object} options JavaScript object of the form { key,
-		 * shapeType, geometryStyle, nodeTapAndHoldAction, nodeMoveAction,
-		 * shapeChangeAction, envelopeEndAction, supressNodeAdd, leavePath }
+		 * shapeType, geometryStyle, styledGeometry, nodeTapAndHoldAction, nodeMoveAction,
+		 * shapeChangeAction, envelopeEndAction, circleEndAction, supressNodeAdd, leavePath }
 		 * where key is a a string associated with this geometry, shapeType
-		 * is the type of shape this geometry is, one of 'point', 'path', or
-		 * 'polygon', geometryStyle is a geometryStyle which should be applied
-		 * to the digitized geometry, nodeTapAndHoldAction is a callback invoked
+		 * is the type of shape this geometry is, one of 'polygon', 'polyline', 'multipoint', 'envelope' or 'circle', 
+         * geometryStyle is a geometryStyle which should be applied
+		 * to the digitized geometry, styledGeometry is an optional styledGeometry for existing paths to edit, set this to enter edit mode,
+         * nodeTapAndHoldAction is a callback invoked
 		 * when any point in the geometry is clicked and held and has the
 		 * signature nodeTapAndHoldAction(setIdx, idx), nodeMoveAction is a
 		 * callback invoked after any node is dragged to a new location and
 		 * has signature nodeMoveAction(x, y, actionType), shapeChangeAction
 		 * is a callback that is invoked after the geometry shape changes and,
-		 * has signature shapeChangeAction(), envelopeEndAction is a callback 
+		 * has signature shapeChangeAction(shape), envelopeEndAction is a callback 
 		 * invoked after an envelope is created and has signature envelopeEndAction(envelope), 
+         * circleEndAction is similar to envelopeEndAction but takes a geometry.polygon representing the circle,
 		 * and leavePath is a flag that indicates whether the digitized shape
 		 * should be left on the map after digitization is complete.
 		 */
-		beginDigitize(options: {
-           	key?: string;
-            shapeType: string;
-            geometryStyle?: geometryStyle;
-            nodeTapAndHoldAction?: (setIdx: number, idx: number) => boolean;
-            nodeMoveAction?: (x: number, y: number, actionType: string) => any;
-            shapeChangeAction?: () => void;
-            envelopeEndAction?: (env: envelope) => void;
-            suppressNodeAdd?: boolean;
-            leavePath?: boolean;
-        }): void;
+        beginDigitize(options: beginDigitizeOptions): void;
         endDigitize(): void;
         
 		/**
@@ -2586,7 +2667,7 @@ declare module 'mapsjs' {
 		 * the form { centerX, centerY, centerLat, centerLon, zoomLevel, mapScale,
 		 * mapScaleProjected, mapUnitsPerPixel, extents }.
 		 */
-		setExtentChangeCompleteAction(action: (vals: {}) => void): void;
+        setExtentChangeCompleteAction(action: (vals: extentChangeStatsObj) => void): void;
         
 		/**
 		 * Set the function called when map content (map tiles and fixed elements) are 
@@ -2596,7 +2677,7 @@ declare module 'mapsjs' {
 		 * completes repositioning with signature action(object) where object
 		 * is of the form { centerX, centerY, zoomLevel, mapUnitsPerPixel }.
 		 */
-		setContentRepositionAction(action: (vals: {}) => void): void;
+        setContentRepositionAction(action: (vals: repositionStatsObj) => void): void;
         
 		/**
 		 * Sets function called when map is clicked or tapped.

@@ -230,7 +230,7 @@ interface HighchartsChartOptions {
     spacingTop?: number;
     style?: HighchartsCSSObject;
     type?: string;
-    whidth?: number;
+    width?: number;
     zoomType?: string;
 }
 
@@ -1004,14 +1004,14 @@ interface HighchartsChartObject {
     options: HighchartsChartOptions;
     print(): void;
     redraw(): void;
-    series: HighchartsSeriesChart[];
+    series: HighchartsSeriesObject[];
     setSize(width: number, height: number): void;
     setSize(width: number, height: number, anumation: boolean): void;
     setSize(width: number, height: number, anumation: HighchartsAnimation): void;
     setTitle(title: HighchartsTitleOptions): void;
     setTitle(title: HighchartsTitleOptions, subtitle: HighchartsSubtitleOptions): void;
     showLoading(): void;
-    showLoading(str: string);
+    showLoading(str: string): void;
     xAxis: HighchartsAxisObject[];
     yAxis: HighchartsAxisObject[];
 
@@ -1020,7 +1020,7 @@ interface HighchartsChartObject {
 
 interface HighchartsChart {
     new (options: HighchartsOptions): HighchartsChartObject;
-    new (options: HighchartsOptions, callback: (event: Event) => void ): HighchartsChartObject;
+    new (options: HighchartsOptions, callback: (chart: HighchartsChartObject) => void ): HighchartsChartObject;
 }
 
 interface HighchartsElementObject {
@@ -1058,7 +1058,7 @@ interface HighchartsStatic {
     setOptions(options: HighchartsOptions): HighchartsOptions;
     getOptions(): HighchartsOptions;
     
-    map(array: Array, any): Array;
+    map(array: any[], fn: Function): any[];
 }
 declare var Highcharts: HighchartsStatic;
 
@@ -1088,16 +1088,16 @@ interface HighchartsPointObject {
 }
 
 interface HighchartsSeriesObject {
-    addPoint(options: any);
-    addPoint(options: any, redraw: boolean, shift: boolean);
-    addPoint(options: any, redraw: boolean, shift: boolean, animation: boolean);
-    addPoint(options: any, redraw: boolean, shift: boolean, animation: HighchartsAnimation);
+    addPoint(options: any): void;
+    addPoint(options: any, redraw: boolean, shift: boolean): void;
+    addPoint(options: any, redraw: boolean, shift: boolean, animation: boolean): void;
+    addPoint(options: any, redraw: boolean, shift: boolean, animation: HighchartsAnimation): void;
     chart: HighchartsChartObject;
     data: HighchartsDataPoint[];
     hide(): void;
     options: HighchartsSeriesOptions;
     remove(): void;
-    remove(redraw: boolean);
+    remove(redraw: boolean): void;
     name: string;
     points: HighchartsPointObject[];
     select(): void;
@@ -1109,6 +1109,8 @@ interface HighchartsSeriesObject {
     setData(data: number[][], redraw: boolean): void;
     setData(data: HighchartsDataPoint[]): void; // HighchartsDataPoint[]
     setData(data: HighchartsDataPoint[], redraw: boolean): void;
+    setVisible(visible: boolean): void;
+    setVisible(visible: boolean, redraw: boolean): void;
     show(): void;
     type: string;
     visible: boolean;
@@ -1124,4 +1126,12 @@ interface JQuery {
     * @return current {JQuery} selector the current JQuery selector
     **/
     highcharts(options: HighchartsOptions): JQuery;
+    /**
+    * Creates a new Highcharts.Chart for the current JQuery selector; usually
+    * a div selected by $('#container')
+    * @param {HighchartsOptions} options Options for this chart
+    * @param callback Callback function used to manipulate the constructed chart instance
+    * @return current {JQuery} selector the current JQuery selector
+    **/
+    highcharts(options: HighchartsOptions, callback: (chart: HighchartsChartObject) => void): JQuery;
 }

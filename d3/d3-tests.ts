@@ -48,6 +48,10 @@ function testPieChart() {
 }
 
 //Example from http://bl.ocks.org/3887051
+interface GroupedData {
+    State: string;
+    ages: Array<{ name: string; value: number;}>;
+}
 function groupedBarChart() {
     var margin = { top: 20, right: 20, bottom: 30, left: 40 },
     width = 960 - margin.left - margin.right,
@@ -79,7 +83,7 @@ function groupedBarChart() {
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.csv("data.csv", function (error, data) {
+    d3.csv("data.csv", function (error, data: Array<GroupedData>) {
         var ageNames = d3.keys(data[0]).filter(function (key) { return key !== "State"; });
 
         data.forEach(function (d) {
@@ -590,7 +594,7 @@ function bivariateAreaChart() {
         });
 
         x.domain(d3.extent(data, function (d) { return d.date; }));
-        y.domain([d3.min<any>(data, function (d) { return d.low; }), d3.max<any>(data, function (d) { return d.high; })]);
+        y.domain([d3.min(data, function (d) { return d.low; }), d3.max(data, function (d) { return d.high; })]);
 
         svg.append("path")
             .datum(data)
@@ -731,6 +735,11 @@ function chainedTransitions() {
 }
 
 //Example from http://bl.ocks.org/mbostock/4062085
+interface PyramidData {
+    people: number;
+    year: number;
+    age: number;
+}
 function populationPyramid() {
     var margin = { top: 20, right: 40, bottom: 30, left: 20 },
         width = 960 - margin.left - margin.right,
@@ -766,7 +775,7 @@ function populationPyramid() {
         .attr("dy", ".71em")
         .text(2000);
 
-    d3.csv("population.csv", function (error, data) {
+    d3.csv("population.csv", function (error, data: Array<PyramidData>) {
 
         // Convert strings to numbers.
         data.forEach(function (d) {
@@ -1470,8 +1479,8 @@ function streamGraph() {
     var n = 20, // number of layers
         m = 200, // number of samples per layer
         stack = d3.layout.stack().offset("wiggle"),
-        layers0 = stack(d3.range(n).map(function () { return bumpLayer(m); } )),
-        layers1 = stack(d3.range(n).map(function () { return bumpLayer(m); } ));
+        layers0 = stack(d3.range(n).map(function () { return bumpLayer(m); })),
+        layers1 = stack(d3.range(n).map(function () { return bumpLayer(m); }));
 
     var width = 960,
         height = 500;
@@ -1481,16 +1490,16 @@ function streamGraph() {
         .range([0, width]);
 
     var y = d3.scale.linear()
-        .domain([0, d3.max(layers0.concat(layers1), function (layer) { return d3.max(layer, function (d) { return d.y0 + d.y; } ); } )])
+        .domain([0, d3.max(layers0.concat(layers1), function (layer) { return d3.max(layer, function (d) { return d.y0 + d.y; }); })])
         .range([height, 0]);
 
     var color = d3.scale.linear()
         .range(["#aad", "#556"]);
 
     var area = d3.svg.area()
-        .x(function (d) { return x(d.x); } )
-        .y0(function (d) { return y(d.y0); } )
-        .y1(function (d) { return y(d.y0 + d.y); } );
+        .x(function (d) { return x(d.x); })
+        .y0(function (d) { return y(d.y0); })
+        .y1(function (d) { return y(d.y0 + d.y); });
 
     var svg = d3.select("body").append("svg")
         .attr("width", width)
@@ -1500,7 +1509,7 @@ function streamGraph() {
         .data(layers0)
         .enter().append("path")
         .attr("d", area)
-        .style("fill", function () { return color(Math.random()); } );
+        .style("fill", function () { return color(Math.random()); });
 
     function transition() {
         d3.selectAll("path")
@@ -1508,14 +1517,14 @@ function streamGraph() {
                 var d = layers1;
                 layers1 = layers0;
                 return layers0 = d;
-            } )
+            })
             .transition()
             .duration(2500)
             .attr("d", area);
     }
 
     // Inspired by Lee Byron's test data generator.
-    function bumpLayer(n) {
+    function bumpLayer(n): Array<{x: number; y: number;y0?:number;}> {
 
         function bump(a) {
             var x = 1 / (.1 + Math.random()),
@@ -2123,7 +2132,7 @@ function nestTest () {
 
     entries = d3.nest()
         .key(function(d) { return d.foo; })
-        .rollup(function(values) { return d3.sum(values, function(d) { return d.bar; }); })
+        .rollup(function(values) { return d3.sum<any>(values, function(d) { return d.bar; }); })
         .entries([{foo: 1, bar: 2}, {foo: 1, bar: 0}, {foo: 1, bar: 1}, {foo: 2}]);
 
     entries = d3.nest()
@@ -2423,4 +2432,45 @@ function svgDiagonalTest () {
     d.target({x: 0, y: 1});
     d.target(function (d) { return {x: d.x, y: d.y}; });
     d.target(function (d, i) { return {x: d.x * i, y: d.y * i}; });
+}
+
+// Tests for d3.extent
+// Adopted from: https://github.com/mbostock/d3/blob/master/test/arrays/extent-test.js
+function extentTest() {
+    var o = { valueOf: function () { return NaN; } };
+    d3.extent([1]);
+    d3.extent([5, 1, 2, 3, 4]);
+    d3.extent([20, 3]);
+    d3.extent([3, 20]);
+    d3.extent(["c", "a", "b"]);
+    d3.extent(["20", "3"]);
+    d3.extent(["3", "20"]);
+    d3.extent([NaN, 1, 2, 3, 4, 5]);
+    d3.extent([o, 1, 2, 3, 4, 5]);
+    d3.extent([1, 2, 3, 4, 5, NaN]);
+    d3.extent([1, 2, 3, 4, 5, o]);
+    d3.extent([10, null, 3, undefined, 5, NaN]);
+    d3.extent([-1, null, -3, undefined, -5, NaN]);
+    d3.extent([20, "3"]);
+    d3.extent(["20", 3]);
+    d3.extent([3, "20"]);
+    d3.extent(["3", 20]);
+
+    d3.extent([1], (d) => { return d; });
+    d3.extent([5, 1, 2, 3, 4], (d) => { return d; });
+    d3.extent([20, 3], (d) => { return d; });
+    d3.extent([3, 20], (d) => { return d; });
+    d3.extent(["c", "a", "b"], (d) => { return d; });
+    d3.extent(["20", "3"], (d) => { return d; });
+    d3.extent(["3", "20"], (d) => { return d; });
+    d3.extent([NaN, 1, 2, 3, 4, 5], (d) => { return d; });
+    d3.extent([o, 1, 2, 3, 4, 5], (d) => { return d; });
+    d3.extent([1, 2, 3, 4, 5, NaN], (d) => { return d; });
+    d3.extent([1, 2, 3, 4, 5, o], (d) => { return d; });
+    d3.extent([10, null, 3, undefined, 5, NaN], (d) => { return d; });
+    d3.extent([-1, null, -3, undefined, -5, NaN], (d) => { return d; });
+    d3.extent([20, "3"], (d) => { return d; });
+    d3.extent(["20", 3], (d) => { return d; });
+    d3.extent([3, "20"], (d) => { return d; });
+    d3.extent(["3", 20], (d) => { return d; });
 }

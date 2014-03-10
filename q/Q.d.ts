@@ -3,8 +3,11 @@
 // Definitions by: Barrie Nemetchek, Andrew Gaspar
 // Definitions: https://github.com/borisyankov/DefinitelyTyped  
 
-declare function Q<T>(value: T): Q.Promise<T>;
+/// <reference path="../jquery/jquery.d.ts"/>
+
 declare function Q<T>(promise: Q.IPromise<T>): Q.Promise<T>;
+declare function Q<T>(promise: JQueryPromise<T>): Q.Promise<T>;
+declare function Q<T>(value: T): Q.Promise<T>;
 
 declare module Q {
     interface IPromise<T> {
@@ -52,6 +55,8 @@ declare module Q {
 
         keys(): Promise<string[]>;
         
+        thenResolve<U>(value: U): Promise<U>;
+        thenReject(reason: any): Promise<T>;
         timeout(ms: number, message?: string): Promise<T>;
         delay(ms: number): Promise<T>;
 
@@ -101,14 +106,14 @@ declare module Q {
     export function nsend<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
     export function nmcall<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
 
-    export function all<T>(promises: any[]): Promise<T[]>;
     export function all<T>(promises: IPromise<T>[]): Promise<T[]>;
+    export function all<T>(promises: any[]): Promise<T[]>;
     
-    export function allSettled<T>(promises: any[]): Promise<PromiseState<T>[]>;
     export function allSettled<T>(promises: IPromise<T>[]): Promise<PromiseState<T>[]>;
+    export function allSettled<T>(promises: any[]): Promise<PromiseState<T>[]>;
 
-    export function allResolved<T>(promises: any[]): Promise<Promise<T>[]>;
     export function allResolved<T>(promises: IPromise<T>[]): Promise<Promise<T>[]>;
+    export function allResolved<T>(promises: any[]): Promise<Promise<T>[]>;
 
     export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => IPromise<U>, onRejected: (reason: any) => IPromise<U>): Promise<U>;
     export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => IPromise<U>, onRejected: (reason: any) => U): Promise<U>;
@@ -145,7 +150,7 @@ declare module Q {
     export function async<T>(generatorFunction: any): (...args: any[]) => Promise<T>;
     export function nextTick(callback: Function): void;
 
-    export var oneerror: () => void;
+    export var onerror: (reason: any) => void;
     export var longStackSupport: boolean;
 
     export function resolve<T>(object: IPromise<T>): Promise<T>;

@@ -1,6 +1,6 @@
 /// <reference path="knockout.rx.d.ts"/>
 
-var ax: Rx.IObservable<number>;
+var ax: Rx.Observable<number>;
 
 var ao = ax.toKoObservable();
 

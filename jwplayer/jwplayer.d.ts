@@ -1,8 +1,9 @@
 // Type definitions for JW Player
-// JW Player is the leading HTML5 & Flash video player, optimized for mobile and the desktop. Easy enough for beginners, advanced enough for pros.
 // Project: http://developer.longtailvideo.com/trac/
 // Definitions by: Martin Duparc <https://github.com/martinduparc/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+// JW Player is the leading HTML5 & Flash video player, optimized for mobile and the desktop. Easy enough for beginners, advanced enough for pros.
 
 interface JWPlayer {
 	addButton(icon: string, label: string, handler: () => void, id: string): void;
@@ -16,6 +17,7 @@ interface JWPlayer {
 	getFullscreen(): boolean;
 	getMute(): boolean;
 	getPlaylist(): any[];
+	getPlaylistIndex(): number;
 	getPlaylistItem(index: number): any;
 	getPosition(): number;
 	getQualityLevels(): any[];

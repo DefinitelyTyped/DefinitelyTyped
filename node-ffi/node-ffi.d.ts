@@ -140,10 +140,10 @@ declare module "ffi" {
      * accept C callback functions.
      */
     export var Callback: {
-        new (retType, argTypes: any[], abi: number, fn: Function): NodeBuffer;
-        new (retType, argTypes: any[], fn: Function): NodeBuffer;
-        (retType, argTypes: any[], abi: number, fn: Function): NodeBuffer;
-        (retType, argTypes: any[], fn: Function): NodeBuffer;
+        new (retType: any, argTypes: any[], abi: number, fn: Function): NodeBuffer;
+        new (retType: any, argTypes: any[], fn: Function): NodeBuffer;
+        (retType: any, argTypes: any[], abi: number, fn: Function): NodeBuffer;
+        (retType: any, argTypes: any[], fn: Function): NodeBuffer;
     }
 
     export var ffiType: {
@@ -200,7 +200,7 @@ declare module "ref" {
         /** To invoke when `ref.get` is invoked on a buffer of this type. */
         get(buffer: NodeBuffer, offset: number): any;
         /** To invoke when `ref.set` is invoked on a buffer of this type. */
-        set(buffer: NodeBuffer, offset: number, value): void;
+        set(buffer: NodeBuffer, offset: number, value: any): void;
         /** The name to use during debugging for this datatype. */
         name?: string;
         /** The alignment of this datatype when placed inside a struct. */
@@ -214,9 +214,9 @@ declare module "ref" {
     /** Get the memory address of buffer. */
     export function address(buffer: NodeBuffer): number;
     /** Allocate the memory with the given value written to it. */
-    export function alloc(type: Type, value?): NodeBuffer;
+    export function alloc(type: Type, value?: any): NodeBuffer;
     /** Allocate the memory with the given value written to it. */
-    export function alloc(type: string, value?): NodeBuffer;
+    export function alloc(type: string, value?: any): NodeBuffer;
 
     /**
      * Allocate the memory with the given string written to it with the given
@@ -310,9 +310,9 @@ declare module "ref" {
                                           offset?: number): NodeBuffer;
     
     /** Write pointer if the indirection is 1, otherwise write value. */
-    export function set(buffer: NodeBuffer, offset: number, value, type?: Type): void;
+    export function set(buffer: NodeBuffer, offset: number, value: any, type?: Type): void;
     /** Write pointer if the indirection is 1, otherwise write value. */
-    export function set(buffer: NodeBuffer, offset: number, value, type?: string): void;
+    export function set(buffer: NodeBuffer, offset: number, value: any, type?: string): void;
     /** Write the string as a NULL terminated. Default encoding is utf8. */
     export function writeCString(buffer: NodeBuffer, offset: number,
                                  string: string, encoding?: string): void;
@@ -347,7 +347,7 @@ declare module "ref" {
      * Attach object to buffer such.
      * It prevents object from being garbage collected until buffer does.
      */
-    export function _attach(buffer: NodeBuffer, object: Object);
+    export function _attach(buffer: NodeBuffer, object: Object): void;
 
     /** Same as ref.reinterpret, except that this version does not attach buffer. */
     export function _reinterpret(buffer: NodeBuffer, size: number,
@@ -436,8 +436,9 @@ interface NodeBuffer {
 declare module "ref-array" {
     import ref = require('ref');
 
-    interface ArrayType extends ref.Type {
+    interface ArrayType<T> extends ref.Type {
         BYTES_PER_ELEMENT: number;
+        fixedLength: number;
         /** The reference to the base type. */
         type: ref.Type;
 
@@ -446,22 +447,21 @@ declare module "ref-array" {
          * for the ArrayType. The "length" of the Array is determined by searching
          * through the buffer's contents until an aligned NULL pointer is encountered.
          */
-        untilZeros(buffer: NodeBuffer): { [i: number]: number; length: number;
-                                          buffer: NodeBuffer; ref(): NodeBuffer; };
+        untilZeros(buffer: NodeBuffer): { [i: number]: T; length: number; toArray(): T[];
+            toJSON(): T[]; inspect(): string; buffer: NodeBuffer; ref(): NodeBuffer; };
 
-        new (length?: number): { [i: number]: number; length: number;
-                                 buffer: NodeBuffer; ref(): NodeBuffer; };
-
-        new (data: number[], length?: number): { [i: number]: number; length: number;
-                                                 buffer: NodeBuffer; ref(): NodeBuffer; };
-        new (data: NodeBuffer, length?: number): { [i: number]: number; length: number;
-                                                   buffer: NodeBuffer; ref(): NodeBuffer; };
-        (length?: number): { [i: number]: number; length: number;
-                             buffer: NodeBuffer; ref(): NodeBuffer; };
-        (data: number[], length?: number): { [i: number]: number; length: number;
-                                             buffer: NodeBuffer; ref(): NodeBuffer; };
-        (data: NodeBuffer, length?: number): { [i: number]: number; length: number;
-                                               buffer: NodeBuffer; ref(): NodeBuffer; };
+        new (length?: number): { [i: number]: T; length: number; toArray(): T[];
+            toJSON(): T[]; inspect(): string; buffer: NodeBuffer; ref(): NodeBuffer; };
+        new (data: number[], length?: number): { [i: number]: T; length: number; toArray(): T[];
+            toJSON(): T[]; inspect(): string; buffer: NodeBuffer; ref(): NodeBuffer; };
+        new (data: NodeBuffer, length?: number): { [i: number]: T; length: number; toArray(): T[];
+            toJSON(): T[]; inspect(): string; buffer: NodeBuffer; ref(): NodeBuffer; };
+        (length?: number): { [i: number]: T; length: number; toArray(): T[];
+            toJSON(): T[]; inspect(): string; buffer: NodeBuffer; ref(): NodeBuffer; };
+        (data: number[], length?: number): { [i: number]: T; length: number; toArray(): T[];
+            toJSON(): T[]; inspect(): string; buffer: NodeBuffer; ref(): NodeBuffer; };
+        (data: NodeBuffer, length?: number): { [i: number]: T; length: number; toArray(): T[];
+            toJSON(): T[]; inspect(): string; buffer: NodeBuffer; ref(): NodeBuffer; };
     }
 
     /**
@@ -470,10 +470,10 @@ declare module "ref-array" {
      * TypedArray API.
      */
     var ArrayType: {
-        new (type: ref.Type, length?: number): ArrayType;
-        new (type: string, length?: number): ArrayType;
-        (type: ref.Type, length?: number): ArrayType;
-        (type: string, length?: number): ArrayType;
+        new <T>(type: ref.Type, length?: number): ArrayType<T>;
+        new <T>(type: string, length?: number): ArrayType<T>;
+        <T>(type: ref.Type, length?: number): ArrayType<T>;
+        <T>(type: string, length?: number): ArrayType<T>;
     };
 
     export = ArrayType;
@@ -592,4 +592,3 @@ declare module "ref-union" {
 
     export = UnionType;
 }
-

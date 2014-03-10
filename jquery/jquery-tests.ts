@@ -161,7 +161,7 @@ function test_ajaxComplete() {
     });
     $('.log').ajaxComplete(function (e, xhr, settings) {
         if (settings.url == 'ajax/test.html') {
-            $(this).text('Triggered ajaxComplete handler. The result is ' + xhr.responseHTML);
+            $(this).text('Triggered ajaxComplete handler. The result is ' + xhr.responseText);
         }
     });
     $("#msg").ajaxComplete(function (event, request, settings) {
@@ -410,6 +410,44 @@ function test_animatedSelector() {
     animateIt();
 }
 
+function test_slideToggle() {
+    $("button").click(function () {
+        $("p").slideToggle("slow");
+    });
+
+    $("#aa").click(function () {
+        $("div:not(.still)").slideToggle("slow", function () {
+            var n = parseInt($("span").text(), 10);
+            $("span").text(n + 1);
+        });
+    });
+}
+
+function test_toggle() {
+    $(".target").toggle();
+
+    $("#clickme").click(function () {
+        $("#book").toggle("slow", function () {
+            // Animation complete.
+        });
+    });
+
+    $("#foo").toggle(true);
+
+    $("button").click(function () {
+        $("p").toggle();
+    });
+
+    $("button").click(function () {
+        $("p").toggle("slow");
+    });
+
+    var flip = 0;
+    $("button").click(function () {
+        $("p").toggle(flip++ % 2 === 0);
+    });
+}
+
 function test_append() {
     $('.inner').append('<p>Test</p>');
     $('.container').append($('h2'));
@@ -530,7 +568,7 @@ function test_bind() {
     $("form").bind("submit", function (event) {
         event.stopPropagation();
     });
-    $("p").bind("myCustomEvent", function (e, myName, myValue) {
+    $("p").bind("myCustomEvent", function (e, myName?, myValue?) {
         $(this).text(myName + ", hi there!");
         $("span").stop().css("opacity", 1)
         .text("myName = " + myName)
@@ -550,6 +588,70 @@ function test_bind() {
             $(this).removeClass("inside");
         }
     });
+}
+
+function test_unbind() {
+    $("#foo").unbind();
+
+    $("#foo").unbind("click");
+
+    var handler = function () {
+        alert("The quick brown fox jumps over the lazy dog.");
+    };
+    $("#foo").bind("click", handler);
+    $("#foo").unbind("click", handler);
+
+    $("#foo").bind("click", function () {
+        alert("The quick brown fox jumps over the lazy dog.");
+    });
+
+    // Will NOT work
+    $("#foo").unbind("click", function () {
+        alert("The quick brown fox jumps over the lazy dog.");
+    });
+
+    $("#foo").bind("click.myEvents", handler);
+
+    $("#foo").unbind("click");
+
+    $("#foo").unbind("click.myEvents");
+
+    $("#foo").unbind(".myEvents");
+
+    var timesClicked = 0;
+    $("#foo").bind("click", function (event) {
+        alert("The quick brown fox jumps over the lazy dog.");
+        timesClicked++;
+        if (timesClicked >= 3) {
+            $(this).unbind(event);
+        }
+    });
+
+    function aClick() {
+        $("div").show().fadeOut("slow");
+    }
+    $("#bind").click(function () {
+        $("#theone")
+            .bind("click", aClick)
+            .text("Can Click!");
+    });
+    $("#unbind").click(function () {
+        $("#theone")
+            .unbind("click", aClick)
+            .text("Does nothing...");
+    });
+
+    $("p").unbind();
+
+    $("p").unbind("click");
+
+    var foo = function () {
+        // Code to handle some kind of event
+    };
+
+    $("p").bind("click", foo); // ... Now foo will be called when paragraphs are clicked ...
+
+    $("p").unbind("click", foo); // ... foo will no longer be called.
 }
 
 function test_blur() {
@@ -625,6 +727,11 @@ function test_callbacksFunctions() {
     callbacks.add(bar);
     callbacks.fire('world');
     callbacks.disable();
+    
+    // Test the disabled state of the list
+    console.log(callbacks.disabled());
+    // Outputs: true
+
     callbacks.empty();
     callbacks.fire('hello');
     console.log(callbacks.fired());
@@ -646,6 +753,7 @@ function test_change() {
         $('.target').change();
     });
     $("input[type='text']").change(function () { });
+    $("input[type='text']").change();
 }
 
 function test_children() {
@@ -701,6 +809,68 @@ function test_click() {
         $(this).slideUp();
     });
     $("p").click();
+}
+
+function test_submit() {
+    $("#target").submit(function () {
+        alert("Handler for .submit() called.");
+    });
+    $("#target").submit();
+}
+
+function test_trigger() {
+
+    $("#foo").on("click", function () {
+        alert($(this).text());
+    });
+    $("#foo").trigger("click");
+
+    $("#foo").on("custom", function (event, param1?, param2?) {
+        alert(param1 + "\n" + param2);
+    });
+    $("#foo").trigger("custom", ["Custom", "Event"]);
+
+    $("button:first").click(function () {
+        update($("span:first"));
+    });
+
+    $("button:last").click(function () {
+        $("button:first").trigger("click");
+        update($("span:last"));
+    });
+
+    function update(j) {
+        var n = parseInt(j.text(), 10);
+        j.text(n + 1);
+    }
+
+    $("form:first").trigger("submit");
+
+    var event = jQuery.Event("submit");
+    $("form:first").trigger(event);
+    if (event.isDefaultPrevented()) {
+        // Perform an action...
+    }
+
+    $("p")
+        .click(function (event, a, b) {
+            // When a normal click fires, a and b are undefined
+            // for a trigger like below a refers to "foo" and b refers to "bar"
+        })
+        .trigger("click", ["foo", "bar"]);
+
+    var event = jQuery.Event("logged");
+    (<any>event).user = "foo";
+    (<any>event).pass = "bar";
+    $("body").trigger(event);
+
+    // Adapted from jQuery documentation which may be wrong on this occasion
+    var event2 = jQuery.Event("logged");
+    $("body").trigger(event2, {
+        type: "logged",
+        user: "foo",
+        pass: "bar"
+    });
 }
 
 function test_clone() {
@@ -881,6 +1051,29 @@ function test_data() {
     jQuery.data(div, "test", { first: 16, last: "pizza!" });
     $("span:first").text(jQuery.data(div, "test").first);
     $("span:last").text(jQuery.data(div, "test").last);
+    $.data(document.getElementById("id"), "", 8).toFixed(2);
+    $.data(document.getElementById("id"), "", "8").toUpperCase();
+}
+
+function test_removeData() {
+    $("span:eq(0)").text("" + $("div").data("test1"));
+    $("div").data("test1", "VALUE-1");
+    $("div").data("test2", "VALUE-2");
+    $("span:eq(1)").text("" + $("div").data("test1"));
+    $("div").removeData("test1");
+    $("span:eq(2)").text("" + $("div").data("test1"));
+    $("span:eq(3)").text("" + $("div").data("test2"));
+}
+
+function test_jQuery_removeData() {
+    var div = $("div")[0];
+    $("span:eq(0)").text("" + $("div").data("test1"));
+    jQuery.data(div, "test1", "VALUE-1");
+    jQuery.data(div, "test2", "VALUE-2");
+    $("span:eq(1)").text("" + jQuery.data(div, "test1"));
+    jQuery.removeData(div, "test1");
+    $("span:eq(2)").text("" + jQuery.data(div, "test1"));
+    $("span:eq(3)").text("" + jQuery.data(div, "test2"));
 }
 
 function test_dblclick() {
@@ -895,9 +1088,22 @@ function test_dblclick() {
     divdbl.dblclick(function () {
         divdbl.toggleClass('dbl');
     });
+	$('#target').dblclick();
 }
 
 function test_deferred() {
+
+    function returnPromise(): JQueryPromise<(data: { MyString: string; MyNumber: number; }, textStatus: string, jqXHR: JQueryXHR) => any> {
+        return $.ajax("test.php");
+    }
+    var x = returnPromise();
+    x.done((data, textStatus, jqXHR) => {
+        var myNumber: number = data.MyNumber;
+        var myString: string = data.MyString;
+        var theTextStatus: string = textStatus;
+        var thejqXHR: JQueryXHR = jqXHR;
+    });
+
     $.get("test.php").always(function () {
         alert("$.get completed with success or error callback arguments");
     });
@@ -977,7 +1183,6 @@ function test_delay() {
     });
 }
 
-/* Not existing, but not recommended either
 function test_delegate() {
     $("table").delegate("td", "click", function () {
         $(this).toggleClass("chosen");
@@ -995,7 +1200,7 @@ function test_delegate() {
     $("body").delegate("a", "click", function (event) {
         event.preventDefault();
     });
-    $("body").delegate("p", "myCustomEvent", function (e, myName, myValue) {
+    $("body").delegate("p", "myCustomEvent", function (e, myName?, myValue?) {
         $(this).text("Hi there!");
         $("span").stop().css("opacity", 1)
                  .text("myName = " + myName)
@@ -1005,7 +1210,48 @@ function test_delegate() {
         $("p").trigger("myCustomEvent");
     });
 }
-*/
+
+function test_undelegate() {
+    function aClick() {
+        $("div").show().fadeOut("slow");
+    }
+    $("#bind").click(function () {
+        $("body")
+            .delegate("#theone", "click", aClick)
+            .find("#theone").text("Can Click!");
+    });
+    $("#unbind").click(function () {
+        $("body")
+            .undelegate("#theone", "click", aClick)
+            .find("#theone").text("Does nothing...");
+    });
+
+    $("p").undelegate();
+
+    $("p").undelegate("click");
+
+    var foo = function () {
+        // Code to handle some kind of event
+    };
+
+    // ... Now foo will be called when paragraphs are clicked ...
+    $("body").delegate("p", "click", foo);
+
+    // ... foo will no longer be called.
+    $("body").undelegate("p", "click", foo);
+
+    var foo = function () {
+        // Code to handle some kind of event
+    };
+
+    // Delegate events under the ".whatever" namespace
+    $("form").delegate(":button", "click.whatever", foo);
+
+    $("form").delegate("input[type='text'] ", "keypress.whatever", foo);
+
+    // Unbind all events delegated under the ".whatever" namespace
+    $("form").undelegate(".whatever");
+}
 
 function test_dequeue() {
     $("button").click(function () {
@@ -1016,6 +1262,68 @@ function test_dequeue() {
             $(this).dequeue();
         });
         $("div").animate({ left: '10px', top: '30px' }, 700);
+    });
+}
+
+function test_queue() {
+
+    $("#show").click(function () {
+        var n = jQuery.queue($("div")[0], "fx");
+        $("span").text("Queue length is: " + n.length);
+    });
+
+    function runIt() {
+        $("div")
+            .show("slow")
+            .animate({
+                left: "+=200"
+            }, 2000)
+            .slideToggle(1000)
+            .slideToggle("fast")
+            .animate({
+                left: "-=200"
+            }, 1500)
+            .hide("slow")
+            .show(1200)
+            .slideUp("normal", runIt);
+    }
+
+    runIt();
+
+    $(document.body).click(function () {
+        var divs = $("div")
+            .show("slow")
+            .animate({ left: "+=200" }, 2000);
+        jQuery.queue(divs[0], "fx", function () {
+            $(this).addClass("newcolor");
+            jQuery.dequeue(this);
+        });
+        divs.animate({ left: "-=200" }, 500);
+        jQuery.queue(divs[0], "fx", function () {
+            $(this).removeClass("newcolor");
+            jQuery.dequeue(this);
+        });
+        divs.slideUp();
+    });
+
+    $("#start").click(function () {
+        var divs = $("div")
+            .show("slow")
+            .animate({ left: "+=200" }, 5000);
+        jQuery.queue(divs[0], "fx", function () {
+            $(this).addClass("newcolor");
+            jQuery.dequeue(this);
+        });
+        divs.animate({ left: "-=200" }, 1500);
+        jQuery.queue(divs[0], "fx", function () {
+            $(this).removeClass("newcolor");
+            jQuery.dequeue(this);
+        });
+        divs.slideUp();
+    });
+    $("#stop").click(function () {
+        jQuery.queue($("div")[0], "fx", []);
+        $("div").stop();
     });
 }
 
@@ -1569,15 +1877,10 @@ function test_has() {
 }
 
 function test_hasClass() {
-    $("div#result1").append($("p:first").hasClass("selected"));
-    $("div#result2").append($("p:last").hasClass("selected"));
-    $("div#result3").append($("p").hasClass("selected"));
-
     $('#mydiv').hasClass('foo');
-    // typescript has a bug to (boolean).toString() - I'll comment this code until typescript team solve this problem.
-    //$("div#result1").append($("p:first").hasClass("selected").toString());
-    //$("div#result2").append($("p:last").hasClass("selected").toString());
-    //$("div#result3").append($("p").hasClass("selected").toString());
+    $("div#result1").append($("p:first").hasClass("selected").toString());
+    $("div#result2").append($("p:last").hasClass("selected").toString());
+    $("div#result3").append($("p").hasClass("selected").toString());
 }
 
 function test_hasData() {
@@ -1591,6 +1894,104 @@ function test_hasData() {
     $p.append(jQuery.hasData(p) + " ");
     $p.off('click');
     $p.append(jQuery.hasData(p) + " ");
+}
+
+function test_jQuery_proxy() {
+
+    function test1() {
+        var me = {
+            type: "zombie",
+            test: function (event?) {
+                // Without proxy, `this` would refer to the event target
+                // use event.target to reference that element.
+                var element = event.target;
+                $(element).css("background-color", "red");
+
+                // With proxy, `this` refers to the me object encapsulating
+                // this function.
+                $("#log").append("Hello " + this.type + "<br>");
+                $("#test").off("click", this.test);
+            }
+        };
+
+        var you = {
+            type: "person",
+            test: function (event?) {
+                $("#log").append(this.type + " ");
+            }
+        };
+
+        // Execute you.test() in the context of the `you` object
+        // no matter where it is called
+        // i.e. the `this` keyword will refer to `you`
+        var youClick = $.proxy(you.test, you);
+
+        // attach click handlers to #test
+        $("#test")
+        // this === "zombie"; handler unbound after first click
+            .on("click", $.proxy(me.test, me))
+
+        // this === "person"
+            .on("click", youClick)
+
+        // this === "zombie"
+            .on("click", $.proxy(you.test, me))
+
+        // this === "<button> element"
+            .on("click", you.test);
+    }
+
+    function test2() {
+        var obj = {
+            name: "John",
+            test: function () {
+                $("#log").append(this.name);
+                $("#test").off("click", obj.test);
+            }
+        };
+        $("#test").on("click", jQuery.proxy(obj, "test"));
+    }
+
+    function test3() {
+        var me = {
+            // I'm a dog
+            type: "dog",
+
+            // Note that event comes *after* one and two
+            test: function (one?, two?, event?) {
+                $("#log")
+
+                // `one` maps to `you`, the 1st additional
+                // argument in the $.proxy function call
+                    .append("<h3>Hello " + one.type + ":</h3>")
+
+                // The `this` keyword refers to `me`
+                // (the 2nd, context, argument of $.proxy)
+                    .append("I am a " + this.type + ", ")
+
+                // `two` maps to `they`, the 2nd additional
+                // argument in the $.proxy function call
+                    .append("and they are " + two.type + ".<br>")
+
+                // The event type is "click"
+                    .append("Thanks for " + event.type + "ing.")
+
+                // The clicked element is `event.target`,
+                // and its type is "button"
+                    .append("the " + event.target.type + ".");
+            }
+        };
+
+        var you = { type: "cat" };
+        var they = { type: "fish" };
+
+        // Set up handler to execute me.test() in the context
+        // of `me`, with `you` and `they` as additional arguments
+        var proxy = $.proxy(me.test, me, you, they);
+
+        $("#test")
+            .on("click", proxy);
+    }
 }
 
 function test_height() {
@@ -1612,6 +2013,48 @@ function test_height() {
         $(this).height(30)
                .css({ cursor: "auto", backgroundColor: "green" });
     });
+}
+
+function test_width() {
+    // Returns width of browser viewport
+    $(window).width();
+
+    // Returns width of HTML document
+    $(document).width();
+
+    function showWidth(ele, w) {
+        $("div").text("The width for the " + ele + " is " + w + "px.");
+    }
+    $("#getp").click(function () {
+        showWidth("paragraph", $("p").width());
+    });
+    $("#getd").click(function () {
+        showWidth("document", $(document).width());
+    });
+    $("#getw").click(function () {
+        showWidth("window", $(window).width());
+    });
+
+    var modWidth = 50;
+    $("div").one("click", function () {
+        $(this).width(modWidth).addClass("mod");
+        modWidth -= 8;
+    });
+}
+
+function test_coordinates() {
+    var p = $("p:last");
+    var offset = p.offset();
+    p.html("left: " + offset.left + ", top: " + offset.top);
+
+    $("*", document.body).click(function (event) {
+        var offset = $(this).offset();
+        event.stopPropagation();
+        $("#result").text(this.tagName +
+            " coords ( " + offset.left + ", " + offset.top + " )");
+    });
+
+    $("p:last").offset({ top: 10, left: 30 });
 }
 
 function test_hide() {
@@ -1682,7 +2125,7 @@ function test_html() {
     });
     $('div.demo-container')
         .html('<p>All new content. <em>You bet!</em></p>');
-    $('div.demo-container').html(function () {
+    $('div.demo-container').html(function (index, oldhtml) {
         var emph = '<em>' + $('p').length + ' paragraphs!</em>';
         return '<p>All new content for ' + emph + '</p>';
     });
@@ -1723,27 +2166,109 @@ function test_index() {
 function test_innerHeight() {
     var p = $("p:first");
     $("p:last").text("innerHeight:" + p.innerHeight());
-    p.innerHeight(p.innerHeight() * 2).innerHeight();
+
+    p.innerHeight(123);
+    p.innerHeight('123px');
 }
 
 function test_innerWidth() {
     var p = $("p:first");
     $("p:last").text("innerWidth:" + p.innerWidth());
-    p.innerWidth(p.innerWidth() * 2).innerWidth();
+
+    p.innerWidth(123);
+    p.innerWidth('123px');
 }
 
 function test_outerHeight() {
     var p = $("p:first");
-    $("p:last").text("outerHeight:" + p.outerHeight(true));
-    p.outerHeight(p.outerHeight() * 2).outerHeight();
-    p.outerHeight(p.outerHeight() * 2, true).outerHeight();
+    $("p:last").text(
+        "outerHeight:" + p.outerHeight() +
+        " , outerHeight( true ):" + p.outerHeight(true));
+
+    p.outerHeight(123);
+    p.outerHeight('123px');
 }
 
 function test_outerWidth() {
     var p = $("p:first");
-    $("p:last").text("outerWidth:" + p.outerWidth(true));
-    p.outerWidth(p.outerWidth() * 2).outerWidth();
-    p.outerWidth(p.outerWidth() * 2, true).outerWidth();
+    $("p:last").text(
+        "outerWidth:" + p.outerWidth() +
+        " , outerWidth( true ):" + p.outerWidth(true));
+
+    p.outerWidth(123);
+    p.outerWidth('123px');
+}
+
+function test_scrollLeft() {
+    var p = $("p:first");
+    $("p:last").text("scrollLeft:" + p.scrollLeft());
+
+    $("div.demo").scrollLeft(300);
+}
+
+function test_scrollTop() {
+    var p = $("p:first");
+    $("p:last").text("scrollTop:" + p.scrollTop());
+
+    $("div.demo").scrollTop(300);
+}
+
+function test_param() {
+
+    function test1() {
+        var myObject = {
+            a: {
+                one: 1,
+                two: 2,
+                three: 3
+            },
+            b: [1, 2, 3]
+        };
+        var recursiveEncoded = $.param(myObject);
+        var recursiveDecoded = decodeURIComponent($.param(myObject));
+
+        alert(recursiveEncoded);
+        alert(recursiveDecoded);
+    }
+
+    function test2() {
+        var myObject = {
+            a: {
+                one: 1,
+                two: 2,
+                three: 3
+            },
+            b: [1, 2, 3]
+        };
+        var shallowEncoded = $.param(myObject, true);
+        var shallowDecoded = decodeURIComponent(shallowEncoded);
+
+        alert(shallowEncoded);
+        alert(shallowDecoded);
+    }
+
+    var params = { width: 1680, height: 1050 };
+    var str = jQuery.param(params);
+    $("#results").text(str);
+
+    // <=1.3.2:
+    $.param({ a: [2, 3, 4] }); // "a=2&a=3&a=4"
+    // >=1.4:
+    $.param({ a: [2, 3, 4] }); // "a[]=2&a[]=3&a[]=4"
+
+    // <=1.3.2:
+    $.param({ a: { b: 1, c: 2 }, d: [3, 4, { e: 5 }] });
+    // "a=[object+Object]&d=3&d=4&d=[object+Object]"
+
+    // >=1.4:
+    $.param({ a: { b: 1, c: 2 }, d: [3, 4, { e: 5 }] });
+    // "a[b]=1&a[c]=2&d[]=3&d[]=4&d[2][e]=5"
+}
+
+function test_position() {
+    var p = $("p:first");
+    var position = p.position();
+    $("p:last").text("left: " + position.left + ", top: " + position.top);
 }
 
 function test_insertAfter() {
@@ -1756,6 +2281,39 @@ function test_insertBefore() {
     $('<p>Test</p>').insertBefore('.inner');
     $('h2').insertBefore($('.container'));
     $("p").insertBefore("#foo");
+}
+
+function test_promise() {
+    var div = $("<div>");
+
+    div.promise().done(function (arg1) {
+        // Will fire right away and alert "true"
+        alert(this === div && arg1 === div);
+    });
+
+    $("button").on("click", function () {
+        $("p").append("Started...");
+
+        $("div").each(function (i) {
+            $(this).fadeIn().fadeOut(1000 * (i + 1));
+        });
+
+        $("div").promise().done(function () {
+            $("p").append(" Finished! ");
+        });
+    });
+
+    var effect = function () {
+        return $("div").fadeIn(800).delay(1200).fadeOut();
+    };
+
+    $("button").on("click", function () {
+        $("p").append(" Started... ");
+
+        $.when(effect()).done(function () {
+            $("p").append(" Finished! ");
+        });
+    });
 }
 
 function test_is() {
@@ -1821,7 +2379,7 @@ function test_isEmptyObject() {
     jQuery.isEmptyObject({ foo: "bar" });
 }
 
-function test_isFuction() {
+function test_isFunction() {
     function stub() { };
     var objs: any[] = [
           function () { },
@@ -1924,6 +2482,27 @@ function test_jQuery() {
     });
 }
 
+function test_fn_extend() {
+    jQuery.fn.extend({
+        check: function () {
+            return this.each(function () {
+                this.checked = true;
+            });
+        },
+        uncheck: function () {
+            return this.each(function () {
+                this.checked = false;
+            });
+        }
+    });
+
+    // Use the newly created .check() method
+    //$( "input[type='checkbox']" ).check();
+    // The above test cannot be run as no way that I know of in TypeScript to model the augmentation of jQueryStatic with dynamically added methods
+    // The below would only work at runtime if extend had first been called.
+    $("input[type='checkbox']")["check"]();
+}
+
 function test_jquery() {
     var a = <any>{ what: "A regular JS object" },
     b = $('body');
@@ -1934,6 +2513,112 @@ function test_jquery() {
         alert(' b is a jQuery object! ');
     }
     alert('You are running jQuery version: ' + $.fn.jquery);
+
+    $("div.foo");
+
+    $("div.foo").click(function () {
+        $("span", this).addClass("bar");
+    });
+
+    $("div.foo").click(function () {
+        $(this).slideUp();
+    });
+
+    $.post("url.xml", function (data) {
+        var $child = $(data).find("child");
+    });
+
+    // Define a plain object
+    var foo = { foo: "bar", hello: "world" };
+
+    // Pass it to the jQuery function
+    var $foo = $(foo);
+
+    // Test accessing property values
+    var test1 = $foo.prop("foo"); // bar
+
+    // Test setting property values
+    $foo.prop("foo", "foobar");
+    var test2 = $foo.prop("foo"); // foobar
+
+    // Test using .data() as summarized above
+    $foo.data("keyName", "someValue");
+    console.log($foo); // will now contain a jQuery{randomNumber} property
+
+    // Test binding an event name and triggering
+    $foo.on("eventName", function () {
+        console.log("eventName was called");
+    });
+
+    $foo.trigger("eventName"); // Logs "eventName was called"
+
+    $foo.triggerHandler("eventName"); // Also logs "eventName was called"
+
+    $("div > p").css("border", "1px solid gray");
+
+    $("input:radio", document.forms[0]);
+
+    $(document.body).css("background", "black");
+
+    var myForm: HTMLFormElement;
+    $(myForm.elements).hide();
+
+    $("<p id='test'>My <em>new</em> text</p>").appendTo("body");
+
+    $("<a href='http://jquery.com'></a>");
+
+    $("<img>");
+    $("<input>");
+
+    var el = $("1<br>2<br>3"); // returns [<br>, "2", <br>]
+    el = $("1<br>2<br>3 >"); // returns [<br>, "2", <br>, "3 &gt;"]
+
+    $("<div></div>", {
+        "class": "my-div",
+        on: {
+            touchstart: function (event) {
+                // Do something
+            }
+        }
+    }).appendTo("body");
+
+    $("<div></div>")
+        .addClass("my-div")
+        .on({
+            touchstart: function (event) {
+                // Do something
+            }
+        })
+        .appendTo("body");
+
+    $("<div><p>Hello</p></div>").appendTo("body")
+
+    $("<div/>", {
+            "class": "test",
+            text: "Click me!",
+            click: function () {
+                $(this).toggleClass("test");
+            }
+        })
+        .appendTo("body");
+
+    $(function () {
+        // Document is ready
+    });
+
+    jQuery(function ($) {
+        // Your code using failsafe $ alias here...
+    });
+
+    $(document.body)
+        .click(function () {
+            $(document.body).append($("<div>"));
+            var n = $("div").length;
+            $("span").text("There are " + n + " divs." +
+                "Click to add more.");
+        })
+    // Trigger the click to start
+        .trigger("click");
 }
 
 function test_keydown() {
@@ -1977,6 +2662,36 @@ function test_keyup() {
     });
     $('#other').click(function () {
         $('#target').keyup();
+    });
+}
+
+function test_resize() {
+	$('#other').resize();
+    $('#other').resize(function () {
+        alert('Handler for .resize() called.');
+    });
+    $('#other').resize({ "event": "Data" }, function () {
+        alert('Handler for .resize() called.');
+    });
+}
+
+function test_scroll() {
+	$('#other').scroll();
+    $('#other').scroll(function () {
+        alert('Handler for .scroll() called.');
+    });
+    $('#other').scroll({ "event": "Data" }, function () {
+        alert('Handler for .scroll() called.');
+    });
+}
+
+function test_select() {
+	$('#other').select();
+    $('#other').select(function () {
+        alert('Handler for .select() called.');
+    });
+    $('#other').select({ "event": "Data" }, function () {
+        alert('Handler for .select() called.');
     });
 }
 
@@ -2251,6 +2966,56 @@ function test_prop() {
     var title: string = $('option:selected', this).prop('title');
 }
 
+function test_val() {
+    // Get the value from a dropdown select
+    $("select.foo option:selected").val();
+
+    // Get the value from a dropdown select even easier
+    $("select.foo").val();
+
+    // Get the value from a checked checkbox
+    $("input:checkbox:checked").val();
+
+    // Get the value from a set of radio buttons
+    $("input:radio[name=bar]:checked").val();
+
+    function displayVals() {
+        var singleValues = $("#single").val();
+        var multipleValues = $("#multiple").val() || [];
+        $("p").html("<b>Single:</b> " + singleValues +
+            " <b>Multiple:</b> " + multipleValues.join(", "));
+    }
+
+    $("select").change(displayVals);
+    displayVals();
+
+
+    $("input")
+        .keyup(function () {
+            var value = $(this).val();
+            $("p").text(value);
+        })
+        .keyup();
+
+    $("input:text.items").val(function (index, value) {
+        return value + " " + this.className;
+    });
+
+    $("button").click(function () {
+        var text = $(this).text();
+        $("input").val(text);
+    });
+
+    $("input").on("blur", function () {
+        $(this).val(function (i, val) {
+            return val.toUpperCase();
+        });
+    });
+
+    $("#single").val("Single2");
+    $("#multiple").val(["Multiple2", "Multiple3"]);
+    $("input").val(["check1", "check2", "radio1"]);
+}
 
 function test_selector() {
   var $main = $('#main');
@@ -2314,8 +3079,9 @@ function test_EventIsCallable() {
     var ev = jQuery.Event('click');
 }
 
-$.when($.ajax("/my/page.json")).then((a,b,c) => a.asdf); // is type JQueryPromise<any>
-$.when("asdf", "jkl;").done(x => x.length, x=> x.length);
+$.when<any>($.ajax("/my/page.json")).then(a => a.asdf); // is type JQueryPromise<any>
+$.when($.ajax("/my/page.json")).then((a?,b?,c?) => a.asdf); // is type JQueryPromise<any>
+$.when("asdf", "jkl;").done((x,y) => x.length + y.length, (x,y) => x.length + y.length);
 
 var f1 = $.when("fetch"); // Is type JQueryPromise<string>
 var f2: JQueryPromise<string[]> = f1.then(s => [s, s]);

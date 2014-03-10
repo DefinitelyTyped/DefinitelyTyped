@@ -1,4 +1,9 @@
-﻿/* 
+// Type definitions for Zepto 1.0-rc.1
+// Project: http://zeptojs.com/
+// Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/*
 zepto-1.0rc1.d.ts may be freely distributed under the MIT license.
 
 Copyright (c) 2013 Josh Baldwin https://github.com/jbaldwin/zepto.d.ts
@@ -1407,7 +1412,7 @@ interface ZeptoCollection {
 	* Serialize form into an array of objects with name and value properties. Disabled form controls, buttons, and unchecked radio buttons/checkboxes are skipped. The result doesn’t include data from file inputs.
 	* @return Array with name value pairs from the Form.
 	**/
-	serializeArray(): Array;
+	serializeArray(): any[];
 
 	/**
 	* Trigger or attach a handler for the submit event. When no function given, trigger the “submit” event on the current form and have it perform its submit action unless preventDefault() was called for the event.

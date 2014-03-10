@@ -1,6 +1,6 @@
-﻿// Type definitions for Joint JS 0.6
+// Type definitions for Joint JS 0.6
 // Project: http://www.jointjs.com/
-// Definitions by: Aidan Reel <http://github.com/areel> with help from David Durman <http://github.com/DavidDurman>
+// Definitions by: Aidan Reel <http://github.com/areel>, David Durman <http://github.com/DavidDurman>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../backbone/backbone.d.ts" />
@@ -34,7 +34,7 @@ declare module joint {
             embed(cell: Cell);
             unembed(cell: Cell);
             getEmbeddedCells(): Cell[];
-            clone<T>(opt?: any): T;      // @todo: return can either be Cell or Cell[].
+            clone(opt?: any): Backbone.Model;      // @todo: return can either be Cell or Cell[].
             attr(attrs: any): Cell;
         }
 
