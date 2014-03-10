@@ -951,64 +951,54 @@ declare module Sys {
             *               The name of the handler method that will be called.
             */
             add_beginRequest(beginRequestHandler: (sender, args) => void): void;
-
             /**
             * Raised before the processing of an asynchronous postback starts and the postback request is sent to the server.
             *  @param beginRequestHandler
             *               The handler method that will be removed.
             */
             remove_beginRequest(beginRequestHandler: Function): void;
-
-
             /**
             * Raised after an asynchronous postback is finished and control has been returned to the browser.
             * @param endRequestHandler
             *               The name of the handler method that will be called.
             */ 
             add_endRequest(endRequestHandler: (sender, args) => void): void;
-
             /**
             * Raised after an asynchronous postback is finished and control has been returned to the browser.
             * @param endRequestHandler
             *               The name of the handler method that will be removed.
             */
             remove_endRequest(endRequestHandler: (sender, args) => void): void;
-
             /**
             * Raised during the initialization of the asynchronous postback.
             * @param initializeRequestHandler
             *               The name of the handler method that will be called.
             */
             add_initializeRequest(initializeRequestHandler: (sender, args) => void): void;
-
             /**
             * Raised during the initialization of the asynchronous postback.
             * @param initializeRequestHandler
             *               The name of the handler method that will be called.
             */
             remove_initializeRequest(initializeRequestHandler: (sender, args) => void): void;
-
             /**
             * Raised after all content on the page is refreshed as a result of either a synchronous or an asynchronous postback.
             * @param pageLoadedHandler
             *               The name of the handler method that will be called.
             */
             add_pageLoaded(pageLoadedHandler: (sender, args) => void): void;
-
             /**
             * Raised after all content on the page is refreshed as a result of either a synchronous or an asynchronous postback.
             * @param pageLoadedHandler
             *               The name of the handler method that will be called.
             */
             remove_pageLoaded(pageLoadedHandler: (sender, args) => void): void;
-
             /**
             * Raised after the response from the server to an asynchronous postback is received but before any content on the page is updated.
             * @param pageLoadedHandler
             *               The name of the handler method that will be called.
             */
             add_pageLoading(pageLoadingHandler: (sender, args) => void): void;
-
             /**
             * Raised after the response from the server to an asynchronous postback is received but before any content on the page is updated.
             * @param pageLoadedHandler
@@ -1034,11 +1024,16 @@ declare module Sys {
 
             /**
             * Begins an asynchronous postback.
-            * @param updatePanelsToUpdate (Optional) An array of UniqueID values or ClientID values for UpdatePanel controls that must be re-rendered.
-            * @param eventTarget (Optional) A string that contains the target of the event.
-            * @param eventArgument (Optional) A string that contains an argument for the event.
-            * @param causesValidation (Optional) true to cause validation.
-            * @param validationGroup (Optional) A string that contains the name of the validation group.
+            * @param updatePanelsToUpdate 
+            *                   (Optional) An array of UniqueID values or ClientID values for UpdatePanel controls that must be re-rendered.
+            * @param eventTarget 
+            *                   (Optional) A string that contains the target of the event.
+            * @param eventArgument 
+            *                   (Optional) A string that contains an argument for the event.
+            * @param causesValidation 
+            *                   (Optional) true to cause validation.
+            * @param validationGroup 
+            *                   (Optional) A string that contains the name of the validation group.
             */
             beginAsyncPostBack(updatePanelsToUpdate?: string[], eventTarget?: string, eventArgument?: string, causesValidation?: boolean, validationGroup?: string): void;
 
