@@ -1,5 +1,8 @@
 /// <reference path="promises-a-plus.d.ts"/>
 /// <reference path="../rx.js/rx.async.d.ts"/>
+/// <reference path="../es6-promises/es6-promises.d.ts"/>
+/// <reference path="../q/q.d.ts"/>
+/// <reference path="../when/when.d.ts"/>
 
 var thenNum: PromisesAPlus.Thenable<number>; 
 var thenStr: PromisesAPlus.Thenable<string>; 
@@ -35,7 +38,44 @@ function testCompatibleWithRxJS() {
 
 	var obsNum: Rx.Observable<number>;
 
+	// implementation usage
 	thenNum = obsNum.toPromise<PromisesAPlus.Thenable<number>>(impl);
 	thenNum = obsNum.toPromise(impl);
 	obsNum.toPromise(PromiseImpl);
+}
+
+function testCompatibleWithES6Promises() {
+	// from spec to ES6
+	var es6ThenNum: Thenable<number> = thenNum;
+	var es6ThenStr: Thenable<string> = thenStr;
+
+	// from ES6 to spec
+	thenNum = es6ThenNum;
+	thenStr = es6ThenStr;
+
+	// implementation
+	impl = Promise;
+}
+
+function testCompatibleWithQ() {
+	// from spec to ES6
+	var qThenNum: Q.IPromise<number> = thenNum;
+	var qThenStr: Q.IPromise<string> = thenStr;
+
+	// from ES6 to spec
+	thenNum = qThenNum;
+	thenStr = qThenStr;
+
+	// there's no standart implementation with constructor behaviour
+}
+
+function testCompatibleWithWhen() {
+	var whenPromiseNum: When.Promise<number>;
+	var whenPromiseStr: When.Promise<string>;
+
+	// from ES6 to spec
+	thenNum = whenPromiseNum;
+	thenStr = whenPromiseStr;
+
+	// there's no standart implementation with constructor behaviour
 }
