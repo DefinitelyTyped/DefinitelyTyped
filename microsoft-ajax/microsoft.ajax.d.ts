@@ -297,6 +297,8 @@ declare function $create(type: Type, properties?: any, events?: any, references?
 */
 declare function $find(id: string, parent?: Sys.Component): Sys.Component;
 
+
+
 //#endregion
 
 //#endregion
@@ -381,11 +383,11 @@ declare module Sys {
         * Returns the specified Component object. This member is static and can be invoked without creating an instance of the class.
         * @return A Component object that contains the component requested by ID, if found; otherwise, null.
         */
-        findComponent(id: string, parent?: Component): Component;
+        findComponent(id: string, parent?: Sys.Component): Sys.Component;
         /**
         * Returns an array of all components that have been registered with the application by using the addComponent method. This member is static and can be invoked without creating an instance of the class.
         */
-        getComponents(): Component[];
+        getComponents(): Sys.Component[];
         /**
         * This function supports the client-script infrastructure and is not intended to be used directly from your code.
         */
@@ -525,7 +527,7 @@ declare module Sys {
         *
         * @returns A new instance of a component that uses the specified parameters.
         */
-        create(type: Type, properties?: any, events?: any, references?: any, element?: HTMLElement): Component;
+        create(type: Type, properties?: any, events?: any, references?: any, element?: HTMLElement): Sys.Component;
 
         //#endregion
 
@@ -883,7 +885,168 @@ declare module Sys {
 
     //#region Sys.UI Namespace
 
+    /**
+    * Contains types related to the user interface (UI), such as controls, events, and UI properties in the Microsoft Ajax Library.
+    * @see {@link http://msdn.microsoft.com/en-us/library/bb397431(v=vs.100).aspx}
+    */
     module UI {
+
+        /**
+        * Provides a base class for all ASP.NET AJAX clientbehaviors.
+        */
+        class Behavior extends Sys.Component {
+
+            //#region Methods
+            
+            /**
+            * Gets a Sys.UI.Behavior instance with the specified name property from the specified HTML Document Object Model (DOM) element. This member a static member and can be invoked without creating an instance of the class.
+            * @return The specified Behavior object, if found; otherwise, null.
+            */
+            static getBehaviorByName(element: Sys.UI.DomElement, name: string): Behavior;
+            /**
+            * Gets an array of Sys.UI.Behavior objects that are of the specified type from the specified HTML Document Object Model (DOM) element. This method is static and can be invoked without creating an instance of the class.
+            * @return An array of all Behavior objects of the specified type that are associated with the specified DOM element, if found; otherwise, an empty array.
+            */
+            static getBehaviorsByType(element: Sys.UI.DomElement, type: Sys.UI.Behavior): Behavior[];
+            /**
+            * Gets the Sys.UI.Behavior objects that are associated with the specified HTML Document Object Model (DOM) element. This member is static and can be invoked without creating an instance of the class.
+            * @param element
+            *           The Sys.UI.DomElement object to search.
+            * @return An array of references to Behavior objects, or null if no references exist.
+            */
+            static getBehaviors(element: DomElement): Behavior[];
+
+            /**
+            * Removes the current Behavior object from the application.
+            * The dispose method releases all resources from the Sys.UI.Behavior object, unbinds it from its associated HTML Document Object Model (DOM) element, and unregisters it from the application.
+            */
+            dispose(): void;
+            
+            //#endregion
+
+            //#region Properties
+
+            /**
+            * Gets the HTML Document Object Model (DOM) element that the current Sys.UI.Behavior object is associated with.
+            * @return The DOM element that the current Behavior object is associated with.
+            */
+            get_element(): Sys.UI.DomElement;
+
+            /**
+            * Gets or sets the identifier for the Sys.UI.Behavior object.
+            * A generated identifier that consists of the ID of the associated Sys.UI.DomElement, the "$" character, and the name value of the Behavior object.
+            */
+            get_id(): string;
+
+            /**
+            * Gets or sets the identifier for the Sys.UI.Behavior object.
+            * @param value
+            *           The string value to use as the identifier.
+            */
+            set_id(value: string): void;
+
+            /*
+            * Gets or sets the name of the Sys.UI.Behavior object.
+            * If you do not explicitly set the name property, getting the property value sets it to its default value, which is equal to the type of the Behavior object. The name property remains null until it is accessed.
+            * @param value
+            *           A string value to use as the name.
+            */
+            set_name(value: string): void;
+
+            /**
+            * Gets or sets the name of the Sys.UI.Behavior object. 
+            */
+            get_name(): string;
+
+            //#endregion
+
+        }
+        /**
+        * Creates an object that contains a set of integer coordinates representing position, width, and height.
+        * @see {@link http://msdn.microsoft.com/en-us/library/bb397698(v=vs.100).aspx}
+        */
+        class Bounds {
+            
+            //#region Constructors
+
+            /**
+            * Initializes a new instance of the Sys.UI.Bounds class.
+            */
+            constructor();
+
+            //#endregion
+
+            //#region Fields
+
+            /**
+            * Gets the height of an object in pixels. This property is read-only.
+            * @return A number that represents the height of an object in pixels.
+            */
+            height: number;
+
+            /**
+            * Gets the width of an object in pixels. This property is read-only.
+            * @return A number that represents the width of an object in pixels.
+            */
+            width: number;
+
+            /**
+            * Gets the x-coordinate of an object in pixels.
+            * @return A number that represents the x-coordinate of an object in pixels.
+            */
+            x: number;
+
+            /**
+            * Gets the y-coordinate of anobject in pixels.
+            * @return A number that represents the y-coordinate of an object in pixels.  
+            */
+            y: number;
+
+            //#endregion
+
+        }
+        /**
+        * Provides the base class for all all ASP.NET AJAX client controls.
+        */
+        class Control extends Sys.Component {
+            
+        }
+        /**
+        * Defines static methods and properties that provide helper APIs for manipulating and inspecting DOM elements.
+        */
+        class DomElement {
+            
+        }
+        /**
+        * Provides cross-browser access to DOM event properties and helper APIs that are used to attach handlers to DOM element events.
+        */
+        class DomEvent {
+            
+        }
+        /**
+        * Describes key codes.
+        */
+        enum Key {
+            
+        }
+        /**
+        * Describes mouse button locations.
+        */
+        enum MouseButton {
+            
+        }
+        /**
+        * Creates an object that contains a set of integer coordinates that represent a position.
+        */
+        class Point {
+            
+        }
+        /**
+        * Describes the layout of a DOM element in the page when the element's visible property is set to false.
+        */
+        enum VisibilityMode {
+            
+        }
 
     }
 
