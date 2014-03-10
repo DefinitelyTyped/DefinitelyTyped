@@ -1,7 +1,7 @@
 /// <reference path="promises-a-plus.d.ts"/>
 /// <reference path="../rx.js/rx.async.d.ts"/>
 /// <reference path="../es6-promises/es6-promises.d.ts"/>
-/// <reference path="../q/q.d.ts"/>
+/// <reference path="../q/Q.d.ts"/>
 /// <reference path="../when/when.d.ts"/>
 
 var thenNum: PromisesAPlus.Thenable<number>; 
