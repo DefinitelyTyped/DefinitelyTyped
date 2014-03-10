@@ -3457,6 +3457,18 @@ declare module _ {
 		keys(object: any): string[];
 	}
 
+    //_.mapValues
+    interface LodashStatic {
+        mapValues<Mapped, T>(
+            object: any,
+            callback: ObjectIterator<any, any>,
+            thisArg?: any): Mapped;
+
+        mapValues<Mapped, T>(
+            object: any,
+            pluckValue: string): Mapped;
+    }
+
 	//_.merge
 	interface LoDashStatic {
 		/**
