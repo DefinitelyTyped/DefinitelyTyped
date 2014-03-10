@@ -38,9 +38,19 @@ declare var IceState: {
 	new (): IceState;
 }
 
+// For Chrome, look at the code here: https://code.google.com/p/chromium/codesearch#chromium/src/third_party/libjingle/source/talk/app/webrtc/webrtcsession.cc&sq=package:chromium&dr=C&l=63
+interface OptionalMediaConstraint {
+	// When true, will use DTLS/SCTP data channels
+	DtlsSrtpKeyAgreement?: boolean;
+	// When true will use Rtp-based data channels (depreicated)
+	RtpDataChannels?: boolean;
+}
+
 // ks 12/20/12 - There's more here that doesn't seem to be documented very well yet.
+// http://www.w3.org/TR/2013/WD-webrtc-20130910/
 interface MediaConstraints {
-	mandatory: MediaOfferConstraints;
+	mandatory?: MediaOfferConstraints;
+	optional?: OptionalMediaConstraint[]
 }
 
 interface MediaOfferConstraints {
