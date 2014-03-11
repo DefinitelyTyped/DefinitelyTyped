@@ -1684,19 +1684,35 @@ declare module D3 {
                 (...arguments: any[]): Axis;
             };
 
+            tickValues: {
+                (): any[];
+                (...arguments: any[]): Axis;
+            };
+
+            tickSize: {
+                (): number;
+                (inner: number, outer?: number): Axis;
+            }
+
+            innerTickSize: {
+                (): number;
+                (value: number): Axis;
+            }
+
+            outerTickSize: {
+                (): number;
+                (value: number): Axis;
+            }
+
             tickPadding: {
                 (): number;
                 (padding: number): Axis;
             };
 
-            tickValues: {
-                (): any[];
-                (values: any[]): Axis;
+            tickFormat: {
+                (): (value: any) => string;
+                (formatter: (value: any) => string): Axis;
             };
-
-            tickSubdivide(count: number): Axis;
-            tickSize(major?: number, minor?: number, end?: number): Axis;
-            tickFormat(formatter: (value: any) => string): Axis;
         }
 
         export interface Arc {
