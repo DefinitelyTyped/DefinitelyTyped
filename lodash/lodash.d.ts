@@ -3476,12 +3476,12 @@ declare module _ {
 		* @return Returns a new object with values of the results of each callback execution.
 		*/
 		mapValues<Mapped, T>(
-			object: any,
+			object: T,
 			callback: ObjectIterator<any, any>,
 			thisArg?: any): Mapped;
 
 		mapValues<Mapped, T>(
-			object: any,
+			object: T,
 			pluckValue: string): Mapped;
 	}
 
