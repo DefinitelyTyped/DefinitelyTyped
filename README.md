@@ -138,6 +138,7 @@ List of Definitions
 * [jQuery.Cycle](http://jquery.malsup.com/cycle/) (by [François Guillot](http://fguillot.developpez.com/))
 * [jQuery.Cycle2](http://jquery.malsup.com/cycle2/) (by [Donny Nadolny](https://github.com/dnadolny))
 * [jQuery.dataTables](http://www.datatables.net) (by [Armin Sander](https://github.com/pragmatrix))
+* [jQuery.datetimepicker](http://trentrichardson.com/examples/timepicker/) (by [Doug McDonald](https://github.com/dougajmcdonald))
 * [jQuery.dynatree](http://code.google.com/p/dynatree/) (by [François de Campredon](https://github.com/fdecampredon))
 * [jQuery.Flot](http://www.flotcharts.org/) (by [Matt Burland](https://github.com/burlandm))
 * [jQuery.form](http://malsup.com/jquery/form/) (by [François Guillot](http://fguillot.developpez.com/))
