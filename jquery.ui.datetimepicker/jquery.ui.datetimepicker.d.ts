@@ -32,13 +32,6 @@ interface DateTimePickerOptions extends JQueryUI.DatepickerOptions {
     altTimeFormat?: string;      //Default: (timeFormat option) - The time format to use with the altField.
 
     // Localization options
-    localizationOptions?: DateTimePickerLocalizationOptions;
-    // Timezone options
-    timezoneList?: Array<TimezoneOptions> //Default: [generated timezones] - An array of timezones used to populate the timezone select.Can be an array of values or an array of objects: { label: "EDT", value: -240 }. The value should be the offset number in minutes.So "-0400" which is the format "-hhmm", would equate to - 240 minutes.
-}
-
-interface DateTimePickerLocalizationOptions {
-    // Localization options
     currentText?: string;    //Default: "Now", A Localization Setting - Text for the Now button.
     closeText?: string;      //Default: "Done", A Localization Setting - Text for the Close button.
     amNames?: string;        //Default: ['AM', 'A'], A Localization Setting - Array of strings to try and parse against to determine AM.
@@ -53,7 +46,46 @@ interface DateTimePickerLocalizationOptions {
     millisecText?: string;   //Default: "Millisecond", A Localization Setting - Label used to identify the millisecond slider.
     microsecText?: string;   //Default: "Microsecond", A Localization Setting - Label used to identify the microsecond slider.
     timezoneText?: string;   //Default: "Timezone", A Localization Setting - Label used to identify the timezone slider.
-    isRTL?: boolean;         //Default: false, A Localization Setting - Right to Left support.  
+    isRTL?: boolean;         //Default: false, A Localization Setting - Right to Left support. 
+
+    // Timefield options
+    controlType?: string;    //Default: 'slider' - Whether to use 'slider' or 'select'.If 'slider' is unavailable through jQueryUI, 'select' will be used.For advanced usage you may pass an object which implements "create", "options", "value" methods to use controls other than sliders or selects.See the _controls property in the source code for more details.
+    showHour?: boolean;     //Default: null - Whether to show the hour control. The default of null will use detection from timeFormat.
+    showMinute?: boolean;   //Default: null - Whether to show the minute control. The default of null will use detection from timeFormat.
+    showSecond?: boolean;   //Default: null - Whether to show the second control. The default of null will use detection from timeFormat.
+    showMillisec?: boolean; //Default: null - Whether to show the millisecond control. The default of null will use detection from timeFormat.
+    showMicrosec?: boolean; //Default: null - Whether to show the microsecond control. The default of null will use detection from timeFormat.
+    showTimezone?: boolean; //Default: null - Whether to show the timezone select.
+    showTime?: boolean;      //Default: true - Whether to show the time selected within the datetimepicker.
+    stepHour?: number;       //Default: 1 - Hours per step the slider makes.
+    stepMinute?: number;     //Default: 1 - Minutes per step the slider makes.
+    stepSecond?: number;     //Default: 1 - Seconds per step the slider makes.
+    stepMillisec?: number;   //Default: 1 - Milliseconds per step the slider makes.
+    stepMicrosec?: number;   //Default: 1 - Microseconds per step the slider makes.
+    hour?: number;           //Default: 0 - Initial hour set.
+    minute?: number;         //Default: 0 - Initial minute set.
+    second?: number;         //Default: 0 - Initial second set.
+    millisec?: number;       //Default: 0 - Initial millisecond set.
+    microsec?: number;       //Default: 0 - Initial microsecond set. Note: Javascript's native Date object does not natively support microseconds. Timepicker adds ability to simply Date.setMicroseconds(m) and Date.getMicroseconds(). Date comparisons will not acknowledge microseconds. Use this only for display purposes.
+    timezone?: number;      //Default: null - Initial timezone set.This is the offset in minutes.If null the browser's local timezone will be used. If you're timezone is "-0400" you would use - 240. For backwards compatibility you may pass "-0400", however the timezone is stored in minutes and more reliable.
+    hourMin?: number;        //Default: 0 - The minimum hour allowed for all dates.
+    minuteMin?: number;      //Default: 0 - The minimum minute allowed for all dates.
+    secondMin?: number;      //Default: 0 - The minimum second allowed for all dates.
+    millisecMin?: number;    //Default: 0 - The minimum millisecond allowed for all dates.
+    microsecMin?: number;    //Default: 0 - The minimum microsecond allowed for all dates.
+    hourMax?: number;        //Default: 23 - The maximum hour allowed for all dates.
+    minuteMax?: number;      //Default: 59 - The maximum minute allowed for all dates.
+    secondMax?: number;      //Default: 59 - The maximum second allowed for all dates.
+    millisecMax?: number;    //Default: 999 - The maximum millisecond allowed for all dates.
+    microsecMax?: number;    //Default: 999 - The maximum microsecond allowed for all dates.
+    hourGrid?: number;       //Default: 0 - When greater than 0 a label grid will be generated under the slider.This number represents the units (in hours) between labels.
+    minuteGrid?: number;     //Default: 0 - When greater than 0 a label grid will be generated under the slider.This number represents the units (in minutes) between labels.
+    secondGrid?: number;     //Default: 0 - When greater than 0 a label grid will be genereated under the slider.This number represents the units (in seconds) between labels.
+    millisecGrid?: number;   //Default: 0 - When greater than 0 a label grid will be genereated under the slider.This number represents the units (in milliseconds) between labels.
+    microsecGrid?: number;   //Default: 0 - When greater than 0 a label grid will be genereated under the slider.This number represents the units (in microseconds) between labels.
+
+    // Timezone options
+    timezoneList?: Array<TimezoneOptions> //Default: [generated timezones] - An array of timezones used to populate the timezone select.Can be an array of values or an array of objects: { label: "EDT", value: -240 }. The value should be the offset number in minutes.So "-0400" which is the format "-hhmm", would equate to - 240 minutes.
 }
 
 interface TimezoneOptions {
@@ -69,53 +101,16 @@ interface Time {
     timezone?: string;
 }
 
-interface TimeFieldOptions {
-    controlType: string;    //Default: 'slider' - Whether to use 'slider' or 'select'.If 'slider' is unavailable through jQueryUI, 'select' will be used.For advanced usage you may pass an object which implements "create", "options", "value" methods to use controls other than sliders or selects.See the _controls property in the source code for more details.
-    showHour?: boolean;     //Default: null - Whether to show the hour control. The default of null will use detection from timeFormat.
-    showMinute?: boolean;   //Default: null - Whether to show the minute control. The default of null will use detection from timeFormat.
-    showSecond?: boolean;   //Default: null - Whether to show the second control. The default of null will use detection from timeFormat.
-    showMillisec?: boolean; //Default: null - Whether to show the millisecond control. The default of null will use detection from timeFormat.
-    showMicrosec?: boolean; //Default: null - Whether to show the microsecond control. The default of null will use detection from timeFormat.
-    showTimezone?: boolean; //Default: null - Whether to show the timezone select.
-    showTime: boolean;      //Default: true - Whether to show the time selected within the datetimepicker.
-    stepHour: number;       //Default: 1 - Hours per step the slider makes.
-    stepMinute: number;     //Default: 1 - Minutes per step the slider makes.
-    stepSecond: number;     //Default: 1 - Seconds per step the slider makes.
-    stepMillisec: number;   //Default: 1 - Milliseconds per step the slider makes.
-    stepMicrosec: number;   //Default: 1 - Microseconds per step the slider makes.
-    hour: number;           //Default: 0 - Initial hour set.
-    minute: number;         //Default: 0 - Initial minute set.
-    second: number;         //Default: 0 - Initial second set.
-    millisec: number;       //Default: 0 - Initial millisecond set.
-    microsec: number;       //Default: 0 - Initial microsecond set. Note: Javascript's native Date object does not natively support microseconds. Timepicker adds ability to simply Date.setMicroseconds(m) and Date.getMicroseconds(). Date comparisons will not acknowledge microseconds. Use this only for display purposes.
-    timezone?: number;      //Default: null - Initial timezone set.This is the offset in minutes.If null the browser's local timezone will be used. If you're timezone is "-0400" you would use - 240. For backwards compatibility you may pass "-0400", however the timezone is stored in minutes and more reliable.
-    hourMin: number;        //Default: 0 - The minimum hour allowed for all dates.
-    minuteMin: number;      //Default: 0 - The minimum minute allowed for all dates.
-    secondMin: number;      //Default: 0 - The minimum second allowed for all dates.
-    millisecMin: number;    //Default: 0 - The minimum millisecond allowed for all dates.
-    microsecMin: number;    //Default: 0 - The minimum microsecond allowed for all dates.
-    hourMax: number;        //Default: 23 - The maximum hour allowed for all dates.
-    minuteMax: number;      //Default: 59 - The maximum minute allowed for all dates.
-    secondMax: number;      //Default: 59 - The maximum second allowed for all dates.
-    millisecMax: number;    //Default: 999 - The maximum millisecond allowed for all dates.
-    microsecMax: number;    //Default: 999 - The maximum microsecond allowed for all dates.
-    hourGrid: number;       //Default: 0 - When greater than 0 a label grid will be generated under the slider.This number represents the units (in hours) between labels.
-    minuteGrid: number;     //Default: 0 - When greater than 0 a label grid will be generated under the slider.This number represents the units (in minutes) between labels.
-    secondGrid: number;     //Default: 0 - When greater than 0 a label grid will be genereated under the slider.This number represents the units (in seconds) between labels.
-    millisecGrid: number;   //Default: 0 - When greater than 0 a label grid will be genereated under the slider.This number represents the units (in milliseconds) between labels.
-    microsecGrid: number;   //Default: 0 - When greater than 0 a label grid will be genereated under the slider.This number represents the units (in microseconds) between labels.
-}
-
 interface formatTimeOptions {
     format: string;
     time: Time;
-    options?: DateTimePickerLocalizationOptions;
+    options?: DateTimePickerOptions;
 }
 
 interface parseTimeOptions {
     format: string;
     time: string;
-    options?: DateTimePickerLocalizationOptions;
+    options?: DateTimePickerOptions;
 }
 
 interface parseDateTimeOptions {
@@ -129,12 +124,9 @@ interface parseDateTimeOptions {
 interface JQuery {
     datetimepicker(): JQuery;
     datetimepicker(options?: DateTimePickerOptions): JQuery;            
-
-    //datetimepicker(method: string): any;
     datetimepicker(method: string, methodParameter: any): any;
     datetimepicker(method: 'formatTime', methodParameter: formatTimeOptions): string;
     datetimepicker(method: 'parseTime', methodParameter: parseTimeOptions): Time;
     datetimepicker(method: 'parseDateTime', methodParameter: parseDateTimeOptions): Date;
-
 }
 
