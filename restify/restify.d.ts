@@ -167,7 +167,7 @@ declare module "restify" {
   export function createClient(options?: ClientOptions): HttpClient;
 
   export class ConflictError { constructor(message?: any); }
-  export class InvalidArguementError { constructor(message?: any); }
+  export class InvalidArgumentError { constructor(message?: any); }
   export class RestError { constructor(message?: any); }
   export class BadDigestError { constructor(message: any); }
   export class BadMethodError { constructor(message: any); }
