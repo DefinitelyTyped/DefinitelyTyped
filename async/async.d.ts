@@ -35,11 +35,11 @@ interface Async {
     selectSeries<T, R>(arr: T[], iterator: AsyncIterator<T, boolean>, callback: AsyncMultipleResultsCallback<T>);
     reject<T>(arr: T[], iterator: AsyncIterator<T, boolean>, callback: AsyncMultipleResultsCallback<T>);
     rejectSeries<T>(arr: T[], iterator: AsyncIterator<T, boolean>, callback: AsyncMultipleResultsCallback<T>);
-    reduce<T, R>(arr: T[], memo: T, iterator: AsyncMemoIterator<T, R>, callback: AsyncSingleResultCallback<R>);
-    inject<T, R>(arr: T[], memo: T, iterator: AsyncMemoIterator<T, R>, callback: AsyncSingleResultCallback<R>);
-    foldl<T, R>(arr: T[], memo: T, iterator: AsyncMemoIterator<T, R>, callback: AsyncSingleResultCallback<R>);
-    reduceRight<T, R>(arr: T[], memo: T, iterator: AsyncMemoIterator<T, R>, callback: AsyncSingleResultCallback<R>);
-    foldr<T, R>(arr: T[], memo: T, iterator: AsyncMemoIterator<T, R>, callback: AsyncSingleResultCallback<R>);
+    reduce<T, R>(arr: T[], memo: R, iterator: AsyncMemoIterator<T, R>, callback: AsyncSingleResultCallback<R>);
+    inject<T, R>(arr: T[], memo: R, iterator: AsyncMemoIterator<T, R>, callback: AsyncSingleResultCallback<R>);
+    foldl<T, R>(arr: T[], memo: R, iterator: AsyncMemoIterator<T, R>, callback: AsyncSingleResultCallback<R>);
+    reduceRight<T, R>(arr: T[], memo: R, iterator: AsyncMemoIterator<T, R>, callback: AsyncSingleResultCallback<R>);
+    foldr<T, R>(arr: T[], memo: R, iterator: AsyncMemoIterator<T, R>, callback: AsyncSingleResultCallback<R>);
     detect<T>(arr: T[], iterator: AsyncIterator<T, boolean>, callback: AsyncMultipleResultsCallback<T>);
     detectSeries<T>(arr: T[], iterator: AsyncIterator<T, boolean>, callback: AsyncMultipleResultsCallback<T>);
     sortBy<T, V>(arr: T[], iterator: AsyncIterator<T, V>, callback: AsyncMultipleResultsCallback<T>);
