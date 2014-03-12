@@ -887,6 +887,12 @@ function test_clone() {
           .clone());
 }
 
+function test_prependTo() {
+    $("<p>Test</p>").prependTo(".inner");
+    $("h2").prependTo($(".container"));
+    $("span").prependTo("#foo");
+}
+
 function test_closest() {
     $('li.item-a').closest('ul')
         .css('background-color', 'red');
