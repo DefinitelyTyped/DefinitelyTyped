@@ -1,4 +1,4 @@
-// Type definitions for microsoft asp.net ajax client side library
+micro// Type definitions for microsoft asp.net ajax client side library
 // Project: http://msdn.microsoft.com/en-us/library/ee341002(v=vs.100).aspx
 // Definitions by: Patrick Magee <https://github.com/pjmagee/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -667,14 +667,18 @@ declare module Sys {
         * Raised when the dispose method is called for a component.
         */
         add_disposing(handler: Function): void;
-
+        /**
+        * Raised when the dispose method is called for a component.
+        */
         remove_disposing(handler: Function): void;
 
         /**
         * Raised when the raisePropertyChanged method of the current Component object is called.
         */
         add_propertyChanged(handler: Function): void;
-
+        /**
+        * Raised when the raisePropertyChanged method of the current Component object is called.
+        */
         remove_propertyChanged(handler: Function): void;
 
         //#endregion
@@ -685,7 +689,6 @@ declare module Sys {
         * Called by the create method to indicate that the process of setting properties of a component instance has begun.
         */
         beginUpdate(): void;
-
         /**
         * Creates and initializes a component of the specified type. This method is static and can be called without creating an instance of the class.
         * @param type
@@ -701,11 +704,94 @@ declare module Sys {
         *
         * @returns A new instance of a component that uses the specified parameters.
         */
-        create(type: Type, properties?: any, events?: any, references?: any, element?: HTMLElement): Sys.Component;
+        static create(type: Type, properties?: any, events?: any, references?: any, element?: HTMLElement): Sys.Component;
+        /**
+        * Called by the create method to indicate that the process of setting properties of a component instance has finished.        
+        * This method is called by the create method ($create).   
+        * Sets the isUpdating property of the current Component object to false, calls the initialize method if it has not already been called, and then calls the updated method.
+        */
+        endUpdate(): void;
+        /**
+        * Initializes the current Component object.
+        * The initialize method sets the isInitialized property of the current Component object to true. This function is called by the create method ($create) and overridden in derived classes to initialize the component.
+        */
+        initialize(): void;
+        /** 
+        * Raises the propertyChanged event for the specified property.
+        * @param propertyName
+        *               The name of the property that changed.
+        */
+        raisePropertyChanged(propertyName: string): void; 
+        /**
+        * Called by the endUpdate method as a placeholder for additional logic in derived classes.  
+        * Override the updated method in a derived class to add custom post-update logic.
+        */
+        updated(): void;
+        /**
+        * Raises the disposing event of the current Component and removes the component from the application.
+        */
+        dispose(): void;
 
         //#endregion
 
         //#region Properties
+
+        //#endregion
+    }
+
+    /**
+    * Represents a culture definition that can be applied to objects that accept a culture-related setting.
+    */ 
+    class CultureInfo {
+
+        //#region Constructors
+
+        /**
+        * Initializes a new instance of the Sys.CultureInfo class.   
+        * @param name
+        *           The culture value (locale) that represents a language and region.
+        * @param numberFormat
+        *           A culture-sensitive numeric formatting string.
+        * @param dateTimeFormat
+        *           A culture-sensitive date formatting string.
+        */
+        constructor(name: string, numberFormat: string, dateTimeFormat: string);
+
+        //#endregion
+
+        //#region Properties
+
+        /**
+        * Gets an object that contains an array of culture-sensitive formatting and parsing strings values that can be applied to Number type extensions. 
+        * Use the numberFormat field to retrieve an object that contains an array of formatting strings that are based on the current culture or on the invariant culture. 
+        * Each formatting string can be used to specify how to format Number type extensions.
+        * @return An object that contains an array of culture-sensitive formatting strings.  
+        */
+        numberFormat: string[];
+        /**
+        * Gets the culture value (locale) that represents a language and region.
+        * @return The culture value (locale) that represents a language and region.
+        */
+        name: string;
+        /**
+        * Gets the globalization values of the invariant culture as sent by the server. This member is static and can be invoked without creating an instance of the class.
+        * The InvariantCulture field contains the following fields associated with the invariant (culture-independent) culture: name, dateTimeFormat, and numberFormat.
+        * @return A CultureInfo object.  
+        */
+        static InvariantCulture: CultureInfo;
+        /**
+        * Gets the globalization values of the current culture as sent by the server. This member is static and can be invoked without creating an instance of the class.
+        * The CurrentCulture field contains the following fields associated with the current culture: name, dateTimeFormat, and numberFormat.
+        * @return A Sys.CultureInfo object.
+        */
+        static CurrentCulture: CultureInfo;
+        /**
+        * Gets an object that contains an array of culture-sensitive formatting and parsing string values that can be applied to Date type extensions.
+        * Use the dateTimeFormat field to retrieve an object that contains an array of formatting strings that are based on the current culture or on the invariant culture. 
+        * Each formatting string can be used to specify how to format Date type extensions.
+        * @return An object that contains an array of culture-sensitive formatting strings.
+        */
+        dateTimeFormat: string[];
 
         //#endregion
     }
