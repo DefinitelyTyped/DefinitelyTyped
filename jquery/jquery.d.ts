@@ -3086,9 +3086,21 @@ interface JQuery {
     /**
      * Set the content of each element in the set of matched elements to the specified text.
      * 
-     * @param textString A string of text to set as the content of each matched element.
+     * @param text The text to set as the content of each matched element.
      */
-    text(textString: string): JQuery;
+    text(text: string): JQuery;
+    /**
+     * Set the content of each element in the set of matched elements to the specified text.
+     * 
+     * @param text The text to set as the content of each matched element.
+     */
+    text(text: number): JQuery;
+    /**
+     * Set the content of each element in the set of matched elements to the specified text.
+     * 
+     * @param text The text to set as the content of each matched element.
+     */
+    text(text: boolean): JQuery;
     /**
      * Set the content of each element in the set of matched elements to the specified text.
      * 
