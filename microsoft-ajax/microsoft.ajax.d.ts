@@ -1,4 +1,4 @@
-micro// Type definitions for microsoft asp.net ajax client side library
+// Type definitions for microsoft asp.net ajax client side library
 // Project: http://msdn.microsoft.com/en-us/library/ee341002(v=vs.100).aspx
 // Definitions by: Patrick Magee <https://github.com/pjmagee/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -472,7 +472,6 @@ declare function $create(type: Type, properties?: any, events?: any, references?
 declare function $find(id: string, parent?: Sys.Component): Sys.Component;
 
 
-
 //#endregion
 
 //#endregion
@@ -484,6 +483,9 @@ declare function $find(id: string, parent?: Sys.Component): Sys.Component;
 * @see {@link http://msdn.microsoft.com/en-us/library/bb397702(v=vs.100).aspx}
 */
 declare module Sys {
+
+    //#region Classes   
+
     /**
     * @see {@link http://msdn.microsoft.com/en-us/library/bb384161(v=vs.100).aspx}
     */
@@ -501,16 +503,25 @@ declare module Sys {
         * Raised after all scripts have been loaded but before objects are created.
         */
         add_init(handler: Function): void;
+        /**
+        * Raised after all scripts have been loaded but before objects are created.
+        */
         remove_init(handler: Function): void;
         /**
         * Raised after all scripts have been loaded and after the objects in the application have been created and initialized.
         */
         add_load(handler: Function): void;
+         /**
+        * Raised after all scripts have been loaded and after the objects in the application have been created and initialized.
+        */
         remove_load(handler: Function): void;
         /**
         * Occurs when the user clicks the browser's Back or Forward button.
         */
         add_navigate(handler: Function): void;
+        /**
+        * Occurs when the user clicks the browser's Back or Forward button.
+        */
         remove_navigate(handler: Function): void;
 
         //#endregion
@@ -653,10 +664,16 @@ declare module Sys {
         //#endregion
     }
 
+    /**
+    * Provides the base class for the Control and Behavior classes, and for any other object whose lifetime should be managed by the ASP.NET AJAX client library.
+    */
     class Component {
 
         //#region Constructors
 
+        /**
+        * When overridden in a derived class, initializes an instance of that class and registers it with the application as a disposable object.
+        */
         constructor();
 
         //#endregion
@@ -841,6 +858,74 @@ declare module Sys {
 
         //#endregion
     }
+    
+    /**
+    * Describes a change in a collection.
+    */
+    class CollectionChange {
+        // to define
+    }
+
+     //#endregion
+
+    //#region Interfaces
+
+    /**
+    * Provides a common interface for all components that can contain other components.
+    */
+    interface IContainer {
+        
+        /**
+        * Adds a Component object to the current container.
+        * Implement this method for an object that will contain one or more component objects in order to programmatically add components to that container.
+        * @param component
+        *           The Component object to add. 
+        */
+        addComponent(component: Component): void;
+        /**
+        * Returns the specified Component instance.
+        * Implement this method for an object that will contain one or more component objects to access components within that container.
+        * @param id
+        *           The ID of the Component object to search for.
+        * @return The Component instance with the specified ID.
+        */
+        findComponent(id: string): Component;
+        /**
+        * Returns an array of all objects in the current container that inherit from Component.
+        * Implement this method for an object that will contain one or more component objects so that the components in that container are available. Types that implement this method should return a copy of the list of components so that modifying the array does not change the contents of the container.
+        * @return An array of all objects in the current container that inherit from Component.
+        */
+        getComponents(): Component[];
+        /**
+        * Removes a Component object from the current container.
+        * @param component
+        *               The Component object to remove.
+        */
+        removeComponent(component: Component): void;
+    }
+
+    /**
+    * Provides a common interface for the application-defined tasks of closing, releasing, or resetting resources held by instances of a registered Microsoft Ajax Library class.
+    */ 
+    interface IDisposable {
+        // to define
+    }
+
+    /**
+    * Indicates that the type that implements the interface provides disposing notifications.
+    */
+    interface INotifyDisposing {
+        // to define
+    }
+
+    /**
+    * Defines the propertyChanged event.
+    */
+    interface INotifyPropertyChange {
+        // to define
+    }
+
+    //#endregion
 
     //#region Event Args
 
@@ -868,6 +953,7 @@ declare module Sys {
 
     /**
     * Provides a class for command events.
+    * Event handlers can use the cancel property to cancel the operation in progress. The semantics of canceling an event depend on the event source.
     */
     class CommandEventArgs extends EventArgs {
 
@@ -902,6 +988,15 @@ declare module Sys {
     */
     class CancelEventArgs extends EventArgs {
 
+        //#region Constructors
+
+        /**
+        * Initializes a new instance of the CancelEventArgs class.
+        */ 
+        constructor();
+
+        //#endregion
+
         //#region Properties
 
         /**
@@ -911,10 +1006,18 @@ declare module Sys {
 
         /*
         * true to request that the event be canceled; otherwise, false. The default is false.
+        * @return if the event is to be canceled; otherwise, false.
         */
         get_cancel(): boolean;
 
         //#endregion
+
+    }
+
+    /**
+    * This class is used by the Sys.Application Class to hold event arguments for the navigate event.
+    */
+    class HistoryEventArgs extends EventArgs {
 
     }
 
@@ -951,7 +1054,7 @@ declare module Sys {
     */
     class ArgumentUndefinedException {
 
-    }
+    }    
     /**
     * 
     */
@@ -1142,7 +1245,6 @@ declare module Sys {
 
     //#endregion
 
-
     //#region Sys.UI Namespace
 
     /**
@@ -1307,7 +1409,6 @@ declare module Sys {
         enum VisibilityMode {
             
         }
-
     }
 
     //#endregion
