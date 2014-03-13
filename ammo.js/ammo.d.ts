@@ -1,4 +1,4 @@
-// Type definitions for ammo.js
+// Type definitions for ammo.js generated using C2T <https://github.com/ameentj/c2t> and manually tuned.
 // Project: https://github.com/kripken/ammo.js/
 // Definitions by: Ameen Tayyebi <http://ameentj.github.io/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
