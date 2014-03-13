@@ -10,6 +10,13 @@ interface JQueryAddressStatic {
     change(callback: any): void;
     value(url: any): void;
     update(): void;
+    path(): string;
+    path(value: string): void;
+    internalChange(eventhandler: Function): void;
+    externalChange(eventhandler: Function): void;
+    parameter(name: string, value?: string): string;
+    value(): string;
+    history(value: boolean): void;    
 }
 
 interface JQueryAddress {
