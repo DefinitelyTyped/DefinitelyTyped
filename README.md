@@ -29,6 +29,7 @@ List of Definitions
 * [Ace Cloud9 Editor](http://ace.ajax.org/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Add To Home Screen] (http://cubiq.org/add-to-home-screen) (by [James Wilkins] (http://www.codeplex.com/site/users/view/jamesnw))
 * [AmCharts](http://www.amcharts.com/) (by [Covobonomo](https://github.com/covobonomo/))
+* [Ammo.js](https://github.com/kripken/ammo.js/) (by [Ameen Tayyebi](http://ameentj.github.io))
 * [AngularFire](https://www.firebase.com/docs/angular/reference.html) (by [Dénes Harmath](https://github.com/thSoft))
 * [AngularJS](http://angularjs.org) (by [Diego Vilar](https://github.com/diegovilar)) ([wiki](https://github.com/borisyankov/DefinitelyTyped/wiki/AngularJS-Definitions-Usage-Notes))
 * [AngularUI](http://angular-ui.github.io/) (by [Michel Salib](https://github.com/michelsalib))
