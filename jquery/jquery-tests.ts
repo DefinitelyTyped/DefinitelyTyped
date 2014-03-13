@@ -418,7 +418,7 @@ function test_slideToggle() {
     $("#aa").click(function () {
         $("div:not(.still)").slideToggle("slow", function () {
             var n = parseInt($("span").text(), 10);
-            $("span").text(n + 1);
+            $("span").text((n + 1).toString());
         });
     });
 }
@@ -2143,13 +2143,13 @@ function test_html() {
 function test_inArray() {
     var arr: any[] = [4, "Pete", 8, "John"];
     var $spans = $("span");
-    $spans.eq(0).text(jQuery.inArray("John", arr));
-    $spans.eq(1).text(jQuery.inArray(4, arr));
-    $spans.eq(2).text(jQuery.inArray("Karl", arr));
-    $spans.eq(3).text(jQuery.inArray("Pete", arr, 2));
+    $spans.eq(0).text(jQuery.inArray("John", arr).toString());
+    $spans.eq(1).text(jQuery.inArray(4, arr).toString());
+    $spans.eq(2).text(jQuery.inArray("Karl", arr).toString());
+    $spans.eq(3).text(jQuery.inArray("Pete", arr, 2).toString());
 
     var arr2: number[] = [1, 2, 3, 4];
-    $spans.eq(1).text(jQuery.inArray(4, arr2));
+    $spans.eq(1).text(jQuery.inArray(4, arr2).toString());
 }
 
 function test_index() {
@@ -2384,7 +2384,7 @@ function test_isFunction() {
     ];
     jQuery.each(objs, function (i) {
         var isFunc = jQuery.isFunction(objs[i]);
-        $("span").eq(i).text(isFunc);
+        $("span").eq(i).text(isFunc.toString());
     });
     $.isFunction(function () { });
 }
@@ -2749,7 +2749,7 @@ function test_mouseenter() {
     var n = 0;
     $("div.enterleave").mouseenter(function () {
         $("p:first", this).text("mouse enter");
-        $("p:last", this).text(++n);
+        $("p:last", this).text((++n).toString());
     }).mouseleave(function () {
         $("p:first", this).text("mouse leave");
     });
@@ -2767,14 +2767,14 @@ function test_mouseleave() {
         $("p:first", this).text("mouse over");
     }).mouseout(function () {
         $("p:first", this).text("mouse out");
-        $("p:last", this).text(++i);
+        $("p:last", this).text((++i).toString());
     });
     var n = 0;
     $("div.enterleave").mouseenter(function () {
         $("p:first", this).text("mouse enter");
     }).mouseleave(function () {
         $("p:first", this).text("mouse leave");
-        $("p:last", this).text(++n);
+        $("p:last", this).text((++n).toString());
     });
 }
 
@@ -2805,7 +2805,7 @@ function test_mouseout() {
     var i = 0;
     $("div.overout").mouseout(function () {
         $("p:first", this).text("mouse out");
-        $("p:last", this).text(++i);
+        $("p:last", this).text((++i).toString());
     }).mouseover(function () {
         $("p:first", this).text("mouse over");
     });
@@ -2814,7 +2814,7 @@ function test_mouseout() {
         $("p:first", this).text("mouse enter");
     }).bind("mouseleave", function () {
         $("p:first", this).text("mouse leave");
-        $("p:last", this).text(++n);
+        $("p:last", this).text((++n).toString());
     });
 }
 
@@ -2847,7 +2847,7 @@ function test_mouseover() {
     var i = 0;
     $("div.overout").mouseover(function () {
         $("p:first", this).text("mouse over");
-        $("p:last", this).text(++i);
+        $("p:last", this).text((++i).toString());
     }).mouseout(function () {
         $("p:first", this).text("mouse out");
     });
@@ -2868,6 +2868,36 @@ function test_makeArray() {
     var obj = $('li');
     var arr = $.makeArray(obj);
     jQuery.isArray(arr) === true;
+}
+
+function test_replaceAll() {
+    $("<h2>New heading</h2>").replaceAll(".inner");
+    $(".first").replaceAll(".third");
+    $("<b>Paragraph. </b>").replaceAll("p");
+}
+
+function test_replaceWith() {
+    $("div.second").replaceWith("<h2>New heading</h2>");
+    $("div.inner").replaceWith("<h2>New heading</h2>");
+    $("div.third").replaceWith($(".first"));
+
+    $("button").click(function () {
+        $(this).replaceWith("<div>" + $(this).text() + "</div>");
+    });
+
+    $("p").replaceWith("<b>Paragraph. </b>");
+
+    $("p").click(function () {
+        $(this).replaceWith($("div"));
+    });
+
+    $("button").on("click", function () {
+        var $container = $("div.container").replaceWith(function () {
+            return $(this).contents();
+        });
+
+        $("p").append($container.attr("class"));
+    });
 }
 
 function test_map() {
