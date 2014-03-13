@@ -763,7 +763,7 @@ function test_children() {
         var $kids = $(e.target).children();
         var len = $kids.addClass("hilite").length;
 
-        $("#results span:first").text(len.toString());
+        $("#results span:first").text(len);
         //$("#results span:last").text(e.target.tagName);
 
         e.preventDefault();
@@ -2880,6 +2880,36 @@ function test_makeArray() {
     var obj = $('li');
     var arr = $.makeArray(obj);
     jQuery.isArray(arr) === true;
+}
+
+function test_replaceAll() {
+    $("<h2>New heading</h2>").replaceAll(".inner");
+    $(".first").replaceAll(".third");
+    $("<b>Paragraph. </b>").replaceAll("p");
+}
+
+function test_replaceWith() {
+    $("div.second").replaceWith("<h2>New heading</h2>");
+    $("div.inner").replaceWith("<h2>New heading</h2>");
+    $("div.third").replaceWith($(".first"));
+
+    $("button").click(function () {
+        $(this).replaceWith("<div>" + $(this).text() + "</div>");
+    });
+
+    $("p").replaceWith("<b>Paragraph. </b>");
+
+    $("p").click(function () {
+        $(this).replaceWith($("div"));
+    });
+
+    $("button").on("click", function () {
+        var $container = $("div.container").replaceWith(function () {
+            return $(this).contents();
+        });
+
+        $("p").append($container.attr("class"));
+    });
 }
 
 function test_map() {

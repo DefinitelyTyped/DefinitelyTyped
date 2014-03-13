@@ -3073,14 +3073,100 @@ interface JQuery {
      */
     remove(selector?: string): JQuery;
 
-    replaceAll(target: any): JQuery;
+    /**
+     * Replace each target element with the set of matched elements.
+     * 
+     * @param target A selector string, jQuery object, DOM element, or array of elements indicating which element(s) to replace.
+     */
+    replaceAll(target: JQuery): JQuery;
+    /**
+     * Replace each target element with the set of matched elements.
+     * 
+     * @param target A selector string, jQuery object, DOM element, or array of elements indicating which element(s) to replace.
+     */
+    replaceAll(target: any[]): JQuery;
+    /**
+     * Replace each target element with the set of matched elements.
+     * 
+     * @param target A selector string, jQuery object, DOM element, or array of elements indicating which element(s) to replace.
+     */
+    replaceAll(target: Element): JQuery;
+    /**
+     * Replace each target element with the set of matched elements.
+     * 
+     * @param target A selector string, jQuery object, DOM element, or array of elements indicating which element(s) to replace.
+     */
+    replaceAll(target: string): JQuery;
 
-    replaceWith(func: any): JQuery;
+    /**
+     * Replace each element in the set of matched elements with the provided new content and return the set of elements that was removed.
+     * 
+     * param newContent The content to insert. May be an HTML string, DOM element, array of DOM elements, or jQuery object.
+     */
+    replaceWith(newContent: JQuery): JQuery;
+    /**
+     * Replace each element in the set of matched elements with the provided new content and return the set of elements that was removed.
+     * 
+     * param newContent The content to insert. May be an HTML string, DOM element, array of DOM elements, or jQuery object.
+     */
+    replaceWith(newContent: any[]): JQuery;
+    /**
+     * Replace each element in the set of matched elements with the provided new content and return the set of elements that was removed.
+     * 
+     * param newContent The content to insert. May be an HTML string, DOM element, array of DOM elements, or jQuery object.
+     */
+    replaceWith(newContent: Element): JQuery;
+    /**
+     * Replace each element in the set of matched elements with the provided new content and return the set of elements that was removed.
+     * 
+     * param newContent The content to insert. May be an HTML string, DOM element, array of DOM elements, or jQuery object.
+     */
+    replaceWith(newContent: Text): JQuery;
+    /**
+     * Replace each element in the set of matched elements with the provided new content and return the set of elements that was removed.
+     * 
+     * param newContent The content to insert. May be an HTML string, DOM element, array of DOM elements, or jQuery object.
+     */
+    replaceWith(newContent: string): JQuery;
+    /**
+     * Replace each element in the set of matched elements with the provided new content and return the set of elements that was removed.
+     * 
+     * param func A function that returns content with which to replace the set of matched elements.
+     */
+    replaceWith(func: () => any): JQuery;
 
+    /**
+     * Get the combined text contents of each element in the set of matched elements, including their descendants.
+     */
     text(): string;
-    text(textString: any): JQuery;
-    text(textString: (index: number, text: string) => string): JQuery;
+    /**
+     * Set the content of each element in the set of matched elements to the specified text.
+     * 
+     * @param text The text to set as the content of each matched element.
+     */
+    text(text: string): JQuery;
+    /**
+     * Set the content of each element in the set of matched elements to the specified text.
+     * 
+     * @param text The text to set as the content of each matched element.
+     */
+    text(text: number): JQuery;
+    /**
+     * Set the content of each element in the set of matched elements to the specified text.
+     * 
+     * @param text The text to set as the content of each matched element.
+     */
+    text(text: boolean): JQuery;
+    /**
+     * Set the content of each element in the set of matched elements to the specified text.
+     * 
+     * @param func A function returning the text content to set. Receives the index position of the element in the set and the old text value as arguments.
+     */
+    text(func: (index: number, text: string) => string): JQuery;
 
+    /**
+     * Retrieve all the elements contained in the jQuery set, as an array.
+     */
     toArray(): any[];
 
     unwrap(): JQuery;
