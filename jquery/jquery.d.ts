@@ -3333,6 +3333,12 @@ interface JQuery {
      * For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
      * 
      * @param selector A string containing a selector expression to match elements against.
+     */
+    closest(selector: string): JQuery;
+    /**
+     * For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
      * @param context A DOM element within which a matching element may be found. If no context is passed in then the context of the jQuery set will be used instead.
      */
     closest(selector: string, context?: Element): JQuery;
