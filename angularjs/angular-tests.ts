@@ -94,7 +94,7 @@ module HttpAndRegularPromiseTests {
         person: Person;
         theAnswer: number;
         letters: string[];
-		snack: string;
+        snack: string;
     }
 
     var someController: Function = ($scope: SomeControllerScope, $http: ng.IHttpService, $q: ng.IQService) => {
@@ -134,11 +134,11 @@ module HttpAndRegularPromiseTests {
             $scope.letters = letters;
         });
 
-		// When $q.when is passed an IPromise<T>, it returns an IPromise<T>
-		var dPromise: ng.IPromise<string> = $q.when($q.when("ALBATROSS!"));
-		dPromise.then((snack: string) => {
-			$scope.snack = snack;
-		});
+        // When $q.when is passed an IPromise<T>, it returns an IPromise<T>
+        var dPromise: ng.IPromise<string> = $q.when($q.when("ALBATROSS!"));
+        dPromise.then((snack: string) => {
+            $scope.snack = snack;
+        });
     }
 
   // Test that we can pass around a type-checked success/error Promise Callback
