@@ -1857,6 +1857,26 @@ function test_getScript() {
     });
 }
 
+function test_jQueryget() {
+    console.log($("li").get(0));
+    console.log($("li")[0]);
+    console.log($("li").get(-1));
+    $("*", document.body).click(function (event) {
+        event.stopPropagation();
+        var domElement = $(this).get(0);
+        $("span:first").text("Clicked on - " + domElement.nodeName);
+    });
+
+    function display(divs) {
+        var a = [];
+        for (var i = 0; i < divs.length; i++) {
+            a.push(divs[i].innerHTML);
+        }
+        $("span").text(a.join(" "));
+    }
+    display($("div").get().reverse());
+}
+
 function test_globalEval() {
     jQuery.globalEval("var newVar = true;");
 }
@@ -2021,6 +2041,38 @@ function test_height() {
     });
 }
 
+function test_wrap() {
+    $(".inner").wrap("<div class='new'></div>");
+    $(".inner").wrap(function () {
+        return "<div class='" + $(this).text() + "'></div>";
+    });
+    $("span").wrap("<div><div><p><em><b></b></em></p></div></div>");
+    $("p").wrap(document.createElement("div"));
+    $("p").wrap($(".doublediv"));
+}
+
+function test_wrapAll() {
+    $(".inner").wrapAll("<div class='new' />");
+    $("p").wrapAll("<div></div>");
+    $("span").wrapAll("<div><div><p><em><b></b></em></p></div></div>");
+    $("p").wrapAll(document.createElement("div"));
+    $("p").wrapAll($(".doublediv"));
+}
+
+function test_wrapInner() {
+    $(".inner").wrapInner("<div class='new'></div>");
+    $(".inner").wrapInner(function () {
+        return "<div class='" + this.nodeValue + "'></div>";
+    });
+    var elem: Element;
+    $(elem).wrapInner("<div class='test'></div>");
+    $(elem).wrapInner("<div class=\"test\"></div>");
+    $("p").wrapInner("<b></b>");
+    $("body").wrapInner("<div><div><p><em><b></b></em></p></div></div>");
+    $("p").wrapInner(document.createElement("b"));
+    $("p").wrapInner($("<span class='red'></span>"));
+}
+
 function test_width() {
     // Returns width of browser viewport
     $(window).width();
@@ -2172,17 +2224,11 @@ function test_index() {
 function test_innerHeight() {
     var p = $("p:first");
     $("p:last").text("innerHeight:" + p.innerHeight());
-
-    p.innerHeight(123);
-    p.innerHeight('123px');
 }
 
 function test_innerWidth() {
     var p = $("p:first");
     $("p:last").text("innerWidth:" + p.innerWidth());
-
-    p.innerWidth(123);
-    p.innerWidth('123px');
 }
 
 function test_outerHeight() {
@@ -2190,9 +2236,6 @@ function test_outerHeight() {
     $("p:last").text(
         "outerHeight:" + p.outerHeight() +
         " , outerHeight( true ):" + p.outerHeight(true));
-
-    p.outerHeight(123);
-    p.outerHeight('123px');
 }
 
 function test_outerWidth() {
@@ -2200,9 +2243,6 @@ function test_outerWidth() {
     $("p:last").text(
         "outerWidth:" + p.outerWidth() +
         " , outerWidth( true ):" + p.outerWidth(true));
-
-    p.outerWidth(123);
-    p.outerWidth('123px');
 }
 
 function test_scrollLeft() {
@@ -2920,16 +2960,25 @@ function test_map() {
         return $(this).val();
     }).get().join(", "));
     var mappedItems = $("li").map(function (index) {
-        var replacement = $("<li>").text($(this).text()).get(0);
-        if (index == 0) {
+        var replacement:any = $("<li>").text($(this).text()).get(0);
+        if (index === 0) {
+
+            // Make the first item all caps
             $(replacement).text($(replacement).text().toUpperCase());
-        } else if (index == 1 || index == 3) {
+        } else if (index === 1 || index === 3) {
+
+            // Delete the second and fourth items
             replacement = null;
-        } else if (index == 2) {
+        } else if (index === 2) {
+
+            // Make two of the third item and add some text
             replacement = [replacement, $("<li>").get(0)];
             $(replacement[0]).append("<b> - A</b>");
             $(replacement[1]).append("Extra <b> - B</b>");
         }
+
+        // Replacement will be a dom element, null,
+        // or an array of dom elements
         return replacement;
     });
     $("#results").append(mappedItems);
