@@ -4166,6 +4166,16 @@ declare module THREE {
         setClearColor(color: number, alpha?: number): void;
 
         /**
+         * Sets the clear color, using color for the color and alpha for the opacity.
+         */
+        setClearColor(color: number, alpha: number): void;
+
+        /**
+         * Sets the clear color, using color for the color and alpha for the opacity.
+         */
+        setClearColor(color: string, alpha: number): void;
+
+        /**
          * Returns a THREE.Color instance with the current clear color.
          */
         getClearColor(): Color;
