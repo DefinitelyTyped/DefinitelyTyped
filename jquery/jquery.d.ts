@@ -3329,10 +3329,38 @@ interface JQuery {
      */
     children(selector?: string): JQuery;
 
+    /**
+     * For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     closest(selector: string): JQuery;
+    /**
+     * For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     * @param context A DOM element within which a matching element may be found. If no context is passed in then the context of the jQuery set will be used instead.
+     */
     closest(selector: string, context?: Element): JQuery;
+    /**
+     * For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
+     * 
+     * @param obj A jQuery object to match elements against.
+     */
     closest(obj: JQuery): JQuery;
-    closest(element: any): JQuery;
+    /**
+     * For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
+     * 
+     * @param element An element to match elements against.
+     */
+    closest(element: Element): JQuery;
+
+    /**
+     * Get an array of all the elements and selectors matched against the current element up through the DOM tree.
+     * 
+     * @param selectors An array or string containing a selector expression to match elements against (can also be a jQuery object).
+     * @param context A DOM element within which a matching element may be found. If no context is passed in then the context of the jQuery set will be used instead.
+     */
     closest(selectors: any, context?: Element): any[];
 
     contents(): JQuery;
