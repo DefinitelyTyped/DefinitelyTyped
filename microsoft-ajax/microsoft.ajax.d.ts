@@ -487,6 +487,9 @@ declare module Sys {
     //#region Classes   
 
     /**
+    * Provides a run-time object that exposes client events and manages client components that are registered with the application. 
+    * The members of this object are available globally after the client application has been initialized. 
+    * The members can be invoked without creating an instance of the class.
     * @see {@link http://msdn.microsoft.com/en-us/library/bb384161(v=vs.100).aspx}
     */
     class Application {
@@ -666,6 +669,7 @@ declare module Sys {
 
     /**
     * Provides the base class for the Control and Behavior classes, and for any other object whose lifetime should be managed by the ASP.NET AJAX client library.
+    * @see {@link http://msdn.microsoft.com/en-us/library/bb397516(v=vs.100).aspx}
     */
     class Component {
 
@@ -758,6 +762,7 @@ declare module Sys {
 
     /**
     * Represents a culture definition that can be applied to objects that accept a culture-related setting.
+    * @see {@link http://msdn.microsoft.com/en-us/library/bb384004(v=vs.100).aspx}
     */ 
     class CultureInfo {
 
@@ -815,6 +820,7 @@ declare module Sys {
 
     /**
     * Provides debugging and tracing functionality for client ECMAScript (JavaScript) code. This class is static and can be invoked directly without creating an instance of the class.
+    * @see {@link http://msdn.microsoft.com/en-us/library/bb397422(v=vs.100).aspx}
     */
     class Debug {
 
@@ -861,12 +867,237 @@ declare module Sys {
     
     /**
     * Describes a change in a collection.
+    * @see {@link http://msdn.microsoft.com/en-us/library/dd393798(v=vs.100).aspx}
     */
     class CollectionChange {
-        // to define
+        
+        //#region Constructors
+
+        /**
+        * Creates a CollectionChange object based on the supplied parameters.
+        * @param action
+        *           A NotifyCollectionChangedAction enumeration value.
+        * @param newItems
+        *           (Optional) The items that were added when the action is add or replace.   
+        * @param newStartingIndex
+        *           (Optional) An integer that represents the index where new items have been inserted.
+        * @param oldItems
+        *           (Optional) The items that were removed when the action is remove or replace.
+        *  @param oldStartingIndex
+        *           (Optional) An integer that represents the index where old items have been removed.
+        */
+        constructor(action: NotifyCollectionChangedAction, newItems: any[], newStartingIndex: number, oldItems: any[], oldStartingIndex: number);
+
+        //#endregion
+
+        //#region Fields
+
+        /**
+        * Gets a NotifyCollectionChangedAction object that contains the change action enumeration value.
+        * @return A NotifyCollectionChangedAction object.
+        */
+        action: NotifyCollectionChangedAction;
+        /**
+        * @return An array of items that were added.
+        */
+        newItems: any[];
+        /**
+        * The index where new items have been inserted.
+        * @return An integer that represents the index where new items have been inserted.
+        */
+        newStartingIndex: number;
+        /**
+        * The items that were removed when the NotifyCollectionChangedAction object is set to remove.
+        * @return An array containing the items that were removed.
+        */
+        oldItems: any[];
+        /**
+        * Gets the index where old items have been removed.
+        * @return An integer that represents the index where old items have been removed.
+        */
+        oldStartingIndex: number;
+
+        //#endregion  
     }
 
+    /**
+    * Adds update and management functionality to target objects such as arrays, DOM elements, and objects.
+    * The Sys.Observer class is based on the Observer pattern. The Sys.Observer class maintains a list of interested dependents (observers) in a separate object (the subject). 
+    * All methods that are contained in the Sys.Observer class are static.
+    * In order to be used with the Sys.Observer class, an object must be an object, array, or DOM element.
+    * @see {@link http://msdn.microsoft.com/en-us/library/dd393710(v=vs.100).aspx}
+    */
+    class Observer {
+
+        //#region Methods
+
+        /**
+        * Adds an item to the collection in an observable manner.
+        * @param target
+        *           The array to which an item will be added.
+        * @param item
+        *           The item to add.
+        */ 
+        static add(target: any[], item): void;
+
+        /**
+        * Adds an event handler to the target.
+        * @param target The array to which an event handler will be added.
+        * @param handler The event handler.
+        */
+        static addCollectionChanged(target, handler: Function): void;
+
+        /**
+        * Adds an observable event handler to the target.
+        * @param eventName A string that contains the event name.
+        * @param handler The added function.
+        */
+        static addEventHandler(target, eventName: string, handler: Function): void;
+
+        /**
+        * Adds a propertyChanged event handler to the target.
+        * @param target The object to observe.
+        * @param handler The function handler to add.
+        */
+        static addPropertyChanged(target, handler: Function): void;
+
+        /**
+        * Adds items to the collection in an observable manner.
+        * @param target The array to which items will be added.
+        * @param items The array of items to add.
+        */ 
+        static addRange(target: any[], items: any[]): void;
+        
+        /**
+        * Begins the process of updating the target object.
+        * @param target The object to update.
+        */
+        static beginUpdate(target: any): void;
+
+        /**
+        * Clears the array of its elements in an observable manner. 
+        * @param target The array to clear.
+        */
+        static clear(target: any): void;
+
+        /**
+        * Ends the process of updating the target object.
+        * @param target The object being updated.
+        */
+        static endUpdate(target: any): void;
+
+        /**
+        * Inserts an item at the specified index in an observable manner.
+        * @param target The array to which the item is inserted.
+        * @param index A number that represents the index where the item will be inserted.
+        * @param item The item to insert.
+        */
+        static insert(target: any, index: number, item: any): void;
+
+        /**
+        * Indicates that the target is being updated.
+        * @param target The target object to update.
+        * @return true if given target argument is currently updating; otherwise false.
+        */ 
+        static isUpdating(target: any): boolean;
+
+        /**
+        * Makes an object directly observable by adding observable methods to it.
+        * @param target The object, array, or DOM element to make observable.
+        * @return The observable object.
+        * @see {@link http://msdn.microsoft.com/en-us/library/dd393633(v=vs.100).aspx}
+        */
+        static makeObservable(target: any): any;
+
+        /**
+        * Raises the collectionChanged event.
+        * @param target The collection to which an event is raised.
+        * @param changes A Sys.CollectionChange object that contains the list of changes that were performed on the collection since the last event.
+        */ 
+        static raiseCollectionChanged(target: any[], changes: Sys.CollectionChange): void;
+
+        /**
+        * Raises an observable event on the target.
+        * @param target The target object.
+        * @param eventName A string that contains the event name.
+        * @param eventArgs A Sys.EventArgs object used to pass event argument information.
+        */ 
+        static raiseEvent(target: any, eventName: string, eventArgs: Sys.EventArgs): void;
+        
+        /**
+        * Raises a propertyChanged notification event.  
+        * @param target The object to which an event is raised.
+        * @param propertyName The name of the property that changed.
+        */
+        static raisePropertyChanged(target: any, propertyName: string): void;
+
+        /**
+        * Removes the first occurrence of an item from the array in an observable manner.
+        * @param target The array to which the item will be removed.
+        * @param item The item to remove.
+        * @return true if the item is found in the array. Otherwise false.
+        */
+        static remove(target: any[], item: any): boolean;
+
+        /**
+        * Removes the item at the specified index from the array in an observable manner.
+        * @param target The array to which an item is removed.
+        * @param index A number that represents the index of the item to remove.
+        */
+        static removeAt(target: any[], index: number): void;
+        
+        /**
+        * Removes the collectionChanged event handler from the target.
+        * @param target The array from which the collectionChanged event handler is removed.
+        * @param handler The function to remove.
+        */
+        static removeCollectionChanged(target: any, handler: Function): void;
+
+        /**
+        * Removes a propertyChanged event handler from the target.
+        * @param target The object to observe.
+        * @param handler The event handler to remove.  
+        */
+        static removeEventHandler(target: any, handler: Function): void;
+
+        /**
+        * Sets a property or field on the target in an observable manner.
+        * The raisePropertyChanged method is called after the setValue method set the value of the target object property.
+        * @param target The object to which the property is set.
+        * @param propertyName A string that contains the name of the property or field to set.
+        * @param value The value to set.
+        */
+        static setValue(target, propertyName, value): void;
+
+        //#endregion
+
+    }
+    
+
      //#endregion
+
+    //#region Enumerations
+
+    /**
+    * Describes how a collection has changed.
+    * @see {@link http://msdn.microsoft.com/en-us/library/dd393774(v=vs.100).aspx}
+    */
+    enum NotifyCollectionChangedAction {
+        /**
+        * The integer 0, indicating the changed action to the collection is add.
+        */
+        add = 0,
+        /**
+        * The integer 1, indicating the changed action to the collection is remove.
+        */
+        remove = 1,
+        /**
+        * The integer 2, indicating the changed action to the collection is reset.
+        */
+        reset = 2
+    }
+
+    //#endregion
 
     //#region Interfaces
 
@@ -875,6 +1106,8 @@ declare module Sys {
     */
     interface IContainer {
         
+        //#region Methods
+
         /**
         * Adds a Component object to the current container.
         * Implement this method for an object that will contain one or more component objects in order to programmatically add components to that container.
@@ -902,28 +1135,59 @@ declare module Sys {
         *               The Component object to remove.
         */
         removeComponent(component: Component): void;
+
+        //#endregion
     }
 
     /**
     * Provides a common interface for the application-defined tasks of closing, releasing, or resetting resources held by instances of a registered Microsoft Ajax Library class.
+    * Implement the IDisposable interface to provide a common interface for closing or releasing resources held by instances of your registered Microsoft Ajax Library class. 
+    * You register an interface by when you register the class by calling the Type.registerClass method. You specify IDisposable in the interfaceTypes parameter when you call Type.registerClass.
     */ 
     interface IDisposable {
-        // to define
+        /**
+        * Releases resources held by an object that implements the Sys.IDisposable interface.
+        * Implement the dispose method to close or release resources held by an object, or to prepare an object for reuse.
+        */
+        dispose(): void;
     }
 
     /**
     * Indicates that the type that implements the interface provides disposing notifications.
+    * Implement this interface if the class must notify other objects when it is releasing resources. The base component class already implements this interface. Therefore, typically this interface is already available.
     */
     interface INotifyDisposing {
-        // to define
+        /**
+        * Occurs when an object's resources are released.
+        * @param handler
+        *       The name of the event handler for the disposing event.
+        */
+        add_disposing(handler: Function): void;
+        /**
+        * Occurs when an object's resources are released.
+        * @param handler
+        *       The name of the event handler for the disposing event.
+        */
+        remove_disposing(handler: Function): void;
     }
 
     /**
     * Defines the propertyChanged event.
     */
     interface INotifyPropertyChange {
-        // to define
-    }
+        /**
+        * Occurs when a component property is set to a new value.
+        * @param handler
+        *       The name of the event handler for the propertyChanged event.
+        */
+        add_propertyChanged(handler: Function): void;
+        /**
+        * Occurs when a component property is set to a new value.
+        * @param handler
+        *       The name of the event handler for the propertyChanged event.
+        */
+        remove_propertyChanged(handler: Function): void;
+    }    
 
     //#endregion
 
@@ -1019,6 +1283,35 @@ declare module Sys {
     */
     class HistoryEventArgs extends EventArgs {
 
+    }
+
+    /**
+    * Describes how the collection was changed.
+    */
+    class NotifyCollectionChangedEventArgs extends EventArgs {
+
+        //#region Constructors
+
+        /**
+        * Initializes a new instance of the CancelEventArgs class.
+        * @param changes
+        *           A CollectionChange object that contains an array of changes that were performed on the collection since the last event.
+        */
+        constructor(changes: CollectionChange);
+
+        //#endregion
+
+
+        //#region Properties
+
+        /**
+        * Gets an array of changes that were performed on the collection since the last event.
+        * @return An array of CollectionChange objects that were performed on the collection since the last event.
+        */
+        get_changes(): CollectionChange[];
+
+        //#endregion
+        
     }
 
     //#endregion
@@ -1254,7 +1547,7 @@ declare module Sys {
     module UI {
 
         /**
-        * Provides a base class for all ASP.NET AJAX clientbehaviors.
+        * Provides a base class for all ASP.NET AJAX client behaviors.
         */
         class Behavior extends Sys.Component {
 
