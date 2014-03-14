@@ -367,7 +367,7 @@ declare module jasmine {
         /** By chaining the spy with and.returnValue, all calls to the function will return a specific value. */
         returnValue(val: any): void;
         /** By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied function. */
-        callFake(fn: () => any): void;
+        callFake(fn: Function): void;
         /** By chaining the spy with and.throwError, all calls to the spy will throw the specified value. */
         throwError(msg: string): void;
         /** When a calling strategy is used for a spy, the original stubbing behavior can be returned at any time with and.stub. */
