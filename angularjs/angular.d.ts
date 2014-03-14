@@ -455,6 +455,7 @@ declare module ng {
         all(promises: {[id: string]: IPromise<any>;}): IPromise<{[id: string]: any}>;
         defer<T>(): IDeferred<T>;
         reject(reason?: any): IPromise<void>;
+        when<T>(value: IPromise<T>): IPromise<T>;
         when<T>(value: T): IPromise<T>;
     }
 
