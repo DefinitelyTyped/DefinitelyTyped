@@ -294,9 +294,9 @@ interface MomentStatic {
     duration(input: MomentInput): Duration;
     duration(object: any): Duration;
     duration(): Duration;
-	
+
 	parseZone(date: string): Moment;
-	
+
 	months(): string[];
 	months(index: number): string;
 	months(format: string): string[];
@@ -317,10 +317,15 @@ interface MomentStatic {
 	weekdaysMin(index: number): string;
 	weekdaysMin(format: string): string[];
 	weekdaysMin(format: string, index: number): string;
-	
+
 	normalizeUnits(unit: string): string;
-	
+
 	invalid(parsingFlags?: Object): Moment;
 }
 
 declare var moment: MomentStatic;
+
+declare module "moment"
+{
+    export = moment;
+}
