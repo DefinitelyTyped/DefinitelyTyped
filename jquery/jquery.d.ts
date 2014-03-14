@@ -3113,15 +3113,79 @@ interface JQuery {
      */
     toArray(): any[];
 
+    /**
+     * Remove the parents of the set of matched elements from the DOM, leaving the matched elements in their place.
+     */
     unwrap(): JQuery;
 
-    wrap(wrappingElement: any): JQuery;
-    wrap(func: (index: any) => any): JQuery;
+    /**
+     * Wrap an HTML structure around each element in the set of matched elements.
+     * 
+     * @param wrappingElement A selector, element, HTML string, or jQuery object specifying the structure to wrap around the matched elements.
+     */
+    wrap(wrappingElement: JQuery): JQuery;
+    /**
+     * Wrap an HTML structure around each element in the set of matched elements.
+     * 
+     * @param wrappingElement A selector, element, HTML string, or jQuery object specifying the structure to wrap around the matched elements.
+     */
+    wrap(wrappingElement: Element): JQuery;
+    /**
+     * Wrap an HTML structure around each element in the set of matched elements.
+     * 
+     * @param wrappingElement A selector, element, HTML string, or jQuery object specifying the structure to wrap around the matched elements.
+     */
+    wrap(wrappingElement: string): JQuery;
+    /**
+     * Wrap an HTML structure around each element in the set of matched elements.
+     * 
+     * @param func A callback function returning the HTML content or jQuery object to wrap around the matched elements. Receives the index position of the element in the set as an argument. Within the function, this refers to the current element in the set.
+     */
+    wrap(func: (index: number) => any): JQuery;
 
-    wrapAll(wrappingElement: any): JQuery;
+    /**
+     * Wrap an HTML structure around all elements in the set of matched elements.
+     * 
+     * @param wrappingElement A selector, element, HTML string, or jQuery object specifying the structure to wrap around the matched elements.
+     */
+    wrapAll(wrappingElement: JQuery): JQuery;
+    /**
+     * Wrap an HTML structure around all elements in the set of matched elements.
+     * 
+     * @param wrappingElement A selector, element, HTML string, or jQuery object specifying the structure to wrap around the matched elements.
+     */
+    wrapAll(wrappingElement: Element): JQuery;
+    /**
+     * Wrap an HTML structure around all elements in the set of matched elements.
+     * 
+     * @param wrappingElement A selector, element, HTML string, or jQuery object specifying the structure to wrap around the matched elements.
+     */
+    wrapAll(wrappingElement: string): JQuery;
 
-    wrapInner(wrappingElement: any): JQuery;
-    wrapInner(func: (index: any) => any): JQuery;
+    /**
+     * Wrap an HTML structure around the content of each element in the set of matched elements.
+     * 
+     * @param wrappingElement An HTML snippet, selector expression, jQuery object, or DOM element specifying the structure to wrap around the content of the matched elements.
+     */
+    wrapInner(wrappingElement: JQuery): JQuery;
+    /**
+     * Wrap an HTML structure around the content of each element in the set of matched elements.
+     * 
+     * @param wrappingElement An HTML snippet, selector expression, jQuery object, or DOM element specifying the structure to wrap around the content of the matched elements.
+     */
+    wrapInner(wrappingElement: Element): JQuery;
+    /**
+     * Wrap an HTML structure around the content of each element in the set of matched elements.
+     * 
+     * @param wrappingElement An HTML snippet, selector expression, jQuery object, or DOM element specifying the structure to wrap around the content of the matched elements.
+     */
+    wrapInner(wrappingElement: string): JQuery;
+    /**
+     * Wrap an HTML structure around the content of each element in the set of matched elements.
+     * 
+     * @param func A callback function which generates a structure to wrap around the content of the matched elements. Receives the index position of the element in the set as an argument. Within the function, this refers to the current element in the set.
+     */
+    wrapInner(func: (index: number) => any): JQuery;
 
     /**
      * Iterate over a jQuery object, executing a function for each matched element.
@@ -3130,17 +3194,51 @@ interface JQuery {
      */
     each(func: (index: number, elem: Element) => any): JQuery;
 
-    get(index?: number): any;
+    /**
+     * Retrieve one of the elements matched by the jQuery object.
+     * 
+     * @param index A zero-based integer indicating which element to retrieve.
+     */
+    get(index: number): Element;
+    /**
+     * Retrieve the elements matched by the jQuery object.
+     */
+    get(): any[];
 
+    /**
+     * Search for a given element from among the matched elements.
+     */
     index(): number;
+    /**
+     * Search for a given element from among the matched elements.
+     * 
+     * @param selector A selector representing a jQuery collection in which to look for an element.
+     */
     index(selector: string): number;
-    index(element: any): number;
+    /**
+     * Search for a given element from among the matched elements.
+     * 
+     * @param element The DOM element or first element within the jQuery object to look for.
+     */
+    index(element: JQuery): number;
+    /**
+     * Search for a given element from among the matched elements.
+     * 
+     * @param element The DOM element or first element within the jQuery object to look for.
+     */
+    index(element: Element): number;
 
-    // Properties
+    /**
+     * The number of elements in the jQuery object.
+     */
     length: number;
+    /**
+     * A selector representing selector passed to jQuery(), if any, when creating the original set.
+     * version deprecated: 1.7, removed: 1.9
+     */
     selector: string;
-    [x: string]: any;
-    [x: number]: HTMLElement;
+    [index: string]: any;
+    [index: number]: HTMLElement;
 
     // Traversing
     add(selector: string, context?: any): JQuery;
