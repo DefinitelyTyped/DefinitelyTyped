@@ -270,11 +270,3 @@ declare module svgjs {
         f?: number;
     }
 }
-interface JQuery {
-    /**
-     * Retrieve one of the elements matched by the jQuery object.
-     * 
-     * @param index A zero-based integer indicating which element to retrieve.
-     */
-    get(index: number): svgjs.LinkedHTMLElement;
-}

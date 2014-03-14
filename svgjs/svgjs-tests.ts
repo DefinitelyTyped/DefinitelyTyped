@@ -1,5 +1,5 @@
-/// <reference path='svgjs.d.ts' />
 /// <reference path='../jquery/jquery.d.ts' />
+/// <reference path='svgjs.d.ts' />
  
 // create svg drawing paper
 
@@ -46,7 +46,7 @@ function renderSVG(data:string) {
     var container = SVG(div) // this creates an SVG tag inside
     container.svg(data) // this creates an SVG inside the SVG
     var $inner = $(div).find("svg svg")
-    var inner:svgjs.Element = $inner.get(0).instance
+    var inner:svgjs.Element = (<svgjs.LinkedHTMLElement>$inner.get(0)).instance
 
     // Copy in the important attributes
     root.attr('x', inner.attr('x'))
@@ -61,8 +61,8 @@ function renderSVG(data:string) {
     // Activate and Label all child paths
     var index = 0
     el.find("rect, path, circle, ellipse").each(function() {
-        var $path = $(this)
-        var path = $path.get(0).instance
+        var $path: JQuery = $(this)
+        var path = (<svgjs.LinkedHTMLElement>$path.get(0)).instance
         var uniqueId = "path"+index++
         path.attr({"path-id": uniqueId})
     })
