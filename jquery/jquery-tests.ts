@@ -2224,11 +2224,18 @@ function test_index() {
 function test_innerHeight() {
     var p = $("p:first");
     $("p:last").text("innerHeight:" + p.innerHeight());
+
+    p.innerHeight(123);
+    p.innerHeight('123px');
 }
 
 function test_innerWidth() {
     var p = $("p:first");
     $("p:last").text("innerWidth:" + p.innerWidth());
+
+
+    p.innerWidth(123);
+    p.innerWidth('123px');
 }
 
 function test_outerHeight() {
@@ -2236,6 +2243,9 @@ function test_outerHeight() {
     $("p:last").text(
         "outerHeight:" + p.outerHeight() +
         " , outerHeight( true ):" + p.outerHeight(true));
+
+    p.outerHeight(123);
+    p.outerHeight('123px');
 }
 
 function test_outerWidth() {
@@ -2243,6 +2253,9 @@ function test_outerWidth() {
     $("p:last").text(
         "outerWidth:" + p.outerWidth() +
         " , outerWidth( true ):" + p.outerWidth(true));
+
+    p.outerWidth(123);
+    p.outerWidth('123px');
 }
 
 function test_scrollLeft() {
