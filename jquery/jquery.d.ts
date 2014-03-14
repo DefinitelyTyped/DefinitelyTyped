@@ -3199,7 +3199,7 @@ interface JQuery {
      * 
      * @param index A zero-based integer indicating which element to retrieve.
      */
-    get(index: number): Element;
+    get(index: number): HTMLElement;
     /**
      * Retrieve the elements matched by the jQuery object.
      */
@@ -3240,13 +3240,38 @@ interface JQuery {
     [index: string]: any;
     [index: number]: HTMLElement;
 
-    // Traversing
-    add(selector: string, context?: any): JQuery;
-    add(...elements: any[]): JQuery;
+    /**
+     * Add elements to the set of matched elements.
+     * 
+     * @param selector A string representing a selector expression to find additional elements to add to the set of matched elements.
+     * @param context The point in the document at which the selector should begin matching; similar to the context argument of the $(selector, context) method.
+     */
+    add(selector: string, context?: Element): JQuery;
+    /**
+     * Add elements to the set of matched elements.
+     * 
+     * @param elements One or more elements to add to the set of matched elements.
+     */
+    add(...elements: Element[]): JQuery;
+    /**
+     * Add elements to the set of matched elements.
+     * 
+     * @param html An HTML fragment to add to the set of matched elements.
+     */
     add(html: string): JQuery;
+    /**
+     * Add elements to the set of matched elements.
+     * 
+     * @param obj An existing jQuery object to add to the set of matched elements.
+     */
     add(obj: JQuery): JQuery;
 
-    children(selector?: any): JQuery;
+    /**
+     * Get the children of each element in the set of matched elements, optionally filtered by a selector.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
+    children(selector?: string): JQuery;
 
     closest(selector: string): JQuery;
     closest(selector: string, context?: Element): JQuery;
