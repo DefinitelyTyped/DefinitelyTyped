@@ -98,7 +98,7 @@ server.get( /(.*)/, send);
 server.head(/(.*)/, send);
 
 new restify.ConflictError("test");
-new restify.InvalidArguementError("message");
+new restify.InvalidArgumentError("message");
 new restify.RestError("message");
 new restify.BadDigestError("message");
 new restify.BadMethodError("message");
