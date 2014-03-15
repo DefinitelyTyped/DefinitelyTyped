@@ -809,6 +809,12 @@ declare module grunt {
              * This method is used internally by the multi task system this.files / grunt.task.current.files property.
              */
             normalizeMultiTaskFiles(data: grunt.config.IProjectConfig, targetname?: string): Array<grunt.file.IFileMap>
+
+            /**
+             * The currently running task or multitask.
+             * @see http://gruntjs.com/api/inside-tasks
+             */
+            current: grunt.task.IMultiTask<any>
         }
 
         interface AsyncResultCatcher {
@@ -1232,13 +1238,6 @@ declare module grunt {
     }
 
     interface ITaskComponents extends grunt.task.CommonTaskModule {
-
-        /**
-         * The currently running task or multitask.
-         * @see IMultiTask for when to cast
-         */
-        current: grunt.task.ITask
-
         /**
          * Load task-related files from the specified directory, relative to the Gruntfile.
          * This method can be used to load task-related files from a local Grunt plugin by
