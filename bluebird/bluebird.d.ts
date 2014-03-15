@@ -213,10 +213,10 @@ declare class Promise<R> implements Promise.Thenable<R> {
 	 *
 	 * Alias `.thenReturn();` for compatibility with earlier ECMAScript version.
 	 */
+	return(): Promise<any>;
+	thenReturn(): Promise<any>;
 	return<U>(value: U): Promise<U>;
 	thenReturn<U>(value: U): Promise<U>;
-	return(): Promise<void>;
-	thenReturn(): Promise<void>;
 
 	/**
 	 * Convenience method for:
@@ -250,12 +250,12 @@ declare class Promise<R> implements Promise.Thenable<R> {
 	spread<U>(onFulfill: Function, onReject?: (reason: any) => Promise.Thenable<U>): Promise<U>;
 	spread<U>(onFulfill: Function, onReject?: (reason: any) => U): Promise<U>;
 	/*
-	// TODO or something like this?
-	spread<U, W>(onFulfill: (...values: W[]) => Promise.Thenable<U>, onReject?: (reason: any) => Promise.Thenable<U>): Promise<U>;
-	spread<U, W>(onFulfill: (...values: W[]) => Promise.Thenable<U>, onReject?: (reason: any) => U): Promise<U>;
-	spread<U, W>(onFulfill: (...values: W[]) => U, onReject?: (reason: any) => Promise.Thenable<U>): Promise<U>;
-	spread<U, W>(onFulfill: (...values: W[]) => U, onReject?: (reason: any) => U): Promise<U>;
-	*/
+	 // TODO or something like this?
+	 spread<U, W>(onFulfill: (...values: W[]) => Promise.Thenable<U>, onReject?: (reason: any) => Promise.Thenable<U>): Promise<U>;
+	 spread<U, W>(onFulfill: (...values: W[]) => Promise.Thenable<U>, onReject?: (reason: any) => U): Promise<U>;
+	 spread<U, W>(onFulfill: (...values: W[]) => U, onReject?: (reason: any) => Promise.Thenable<U>): Promise<U>;
+	 spread<U, W>(onFulfill: (...values: W[]) => U, onReject?: (reason: any) => U): Promise<U>;
+	 */
 	/**
 	 * Same as calling `Promise.all(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
 	 */
@@ -312,9 +312,288 @@ declare class Promise<R> implements Promise.Thenable<R> {
 	// TODO type inference from array-resolving promise?
 	filter<U>(filterer: (item: U, index: number, arrayLength: number) => Promise.Thenable<boolean>): Promise<U>;
 	filter<U>(filterer: (item: U, index: number, arrayLength: number) => boolean): Promise<U>;
+
+	/**
+	 * Start the chain of promises with `Promise.try`. Any synchronous exceptions will be turned into rejections on the returned promise.
+	 *
+	 * Note about second argument: if it's specifically a true array, its values become respective arguments for the function call. Otherwise it is passed as is as the first argument for the function call.
+	 *
+	 * Alias for `attempt();` for compatibility with earlier ECMAScript version.
+	 */
+	static try<R>(fn: () => Promise.Thenable<R>, args?: any[], ctx?: any): Promise<R>;
+	static try<R>(fn: () => R, args?: any[], ctx?: any): Promise<R>;
+
+	static attempt<R>(fn: () => Promise.Thenable<R>, args?: any[], ctx?: any): Promise<R>;
+	static attempt<R>(fn: () => R, args?: any[], ctx?: any): Promise<R>;
+
+	/**
+	 * Returns a new function that wraps the given function `fn`. The new function will always return a promise that is fulfilled with the original functions return values or rejected with thrown exceptions from the original function.
+	 * This method is convenient when a function can sometimes return synchronously or throw synchronously.
+	 */
+	static method(fn: Function): Function;
+
+	/**
+	 * Create a promise that is resolved with the given `value`. If `value` is a thenable or promise, the returned promise will assume its state.
+	 */
+	static resolve(): Promise<void>;
+	static resolve<R>(value: Promise.Thenable<R>): Promise<R>;
+	static resolve<R>(value: R): Promise<R>;
+
+	/**
+	 * Create a promise that is rejected with the given `reason`.
+	 */
+	static reject(reason: any): Promise<any>;
+	static reject<R>(reason: any): Promise<R>;
+
+	/**
+	 * Create a promise with undecided fate and return a `PromiseResolver` to control it. See resolution?: Promise(#promise-resolution).
+	 */
+	static defer<R>(): Promise.Resolver<R>;
+
+	/**
+	 * Cast the given `value` to a trusted promise. If `value` is already a trusted `Promise`, it is returned as is. If `value` is not a thenable, a fulfilled is: Promise returned with `value` as its fulfillment value. If `value` is a thenable (Promise-like object, like those returned by jQuery's `$.ajax`), returns a trusted that: Promise assimilates the state of the thenable.
+	 */
+	static cast<R>(value: Promise.Thenable<R>): Promise<R>;
+	static cast<R>(value: R): Promise<R>;
+
+	/**
+	 * Sugar for `Promise.resolve(undefined).bind(thisArg);`. See `.bind()`.
+	 */
+	static bind(thisArg: any): Promise<void>;
+
+	/**
+	 * See if `value` is a trusted Promise.
+	 */
+	static is(value: any): boolean;
+
+	/**
+	 * Call this right after the library is loaded to enabled long stack traces. Long stack traces cannot be disabled after being enabled, and cannot be enabled after promises have alread been created. Long stack traces imply a substantial performance penalty, around 4-5x for throughput and 0.5x for latency.
+	 */
+	static longStackTraces(): void;
+
+	/**
+	 * Returns a promise that will be fulfilled with `value` (or `undefined`) after given `ms` milliseconds. If `value` is a promise, the delay will start counting down when it is fulfilled and the returned promise will be fulfilled with the fulfillment value of the `value` promise.
+	 */
+	// TODO enable more overloads
+	static delay<R>(value: Promise.Thenable<R>, ms: number): Promise<R>;
+	static delay<R>(value: R, ms: number): Promise<R>;
+	static delay(ms: number): Promise<void>;
+
+	/**
+	 * Returns a function that will wrap the given `nodeFunction`. Instead of taking a callback, the returned function will return a promise whose fate is decided by the callback behavior of the given node function. The node function should conform to node.js convention of accepting a callback as last argument and calling that callback with error as the first argument and success value on the second argument.
+	 *
+	 * If the `nodeFunction` calls its callback with multiple success values, the fulfillment value will be an array of them.
+	 *
+	 * If you pass a `receiver`, the `nodeFunction` will be called as a method on the `receiver`.
+	 */
+	// TODO how to model promisify?
+	static promisify(nodeFunction: Function, receiver?: any): Function;
+
+	/**
+	 * Promisifies the entire object by going through the object's properties and creating an async equivalent of each function on the object and its prototype chain. The promisified method name will be the original method name postfixed with `Async`. Returns the input object.
+	 *
+	 * Note that the original methods on the object are not overwritten but new methods are created with the `Async`-postfix. For example, if you `promisifyAll()` the node.js `fs` object use `fs.statAsync()` to call the promisified `stat` method.
+	 */
+	// TODO how to model promisifyAll?
+	static promisifyAll(target: Object): Object;
+
+	/**
+	 * Returns a function that can use `yield` to run asynchronous code synchronously. This feature requires the support of generators which are drafted in the next version of the language. Node version greater than `0.11.2` is required and needs to be executed with the `--harmony-generators` (or `--harmony`) command-line switch.
+	 */
+	// TODO fix coroutine GeneratorFunction
+	static coroutine<R>(generatorFunction: Function): Function;
+
+	/**
+	 * Spawn a coroutine which may yield promises to run asynchronous code synchronously. This feature requires the support of generators which are drafted in the next version of the language. Node version greater than `0.11.2` is required and needs to be executed with the `--harmony-generators` (or `--harmony`) command-line switch.
+	 */
+	// TODO fix spawn GeneratorFunction
+	static spawn<R>(generatorFunction: Function): Promise<R>;
+
+	/**
+	 * This is relevant to browser environments with no module loader.
+	 *
+	 * Release control of the `Promise` namespace to whatever it was before this library was loaded. Returns a reference to the library namespace so you can attach it to something else.
+	 */
+	static noConflict(): typeof Promise;
+
+	/**
+	 * Add `handler` as the handler to call when there is a possibly unhandled rejection. The default handler logs the error stack to stderr or `console.error` in browsers.
+	 *
+	 * Passing no value or a non-function will have the effect of removing any kind of handling for possibly unhandled rejections.
+	 */
+	static onPossiblyUnhandledRejection(handler: (reason: any) => any): void;
+
+	/**
+	 * Given an array, or a promise of an array, which contains promises (or a mix of promises and values) return a promise that is fulfilled when all the items in the array are fulfilled. The promise's fulfillment value is an array with fulfillment values at respective positions to the original array. If any promise in the array rejects, the returned promise is rejected with the rejection reason.
+	 */
+	// TODO enable more overloads
+	// promise of array with promises of value
+	static all<R>(values: Promise.Thenable<Promise.Thenable<R>[]>): Promise<R[]>;
+	// promise of array with values
+	static all<R>(values: Promise.Thenable<R[]>): Promise<R[]>;
+	// array with promises of value
+	static all<R>(values: Promise.Thenable<R>[]): Promise<R[]>;
+	// array with values
+	static all<R>(values: R[]): Promise<R[]>;
+
+	/**
+	 * Like ``Promise.all`` but for object properties instead of array items. Returns a promise that is fulfilled when all the properties of the object are fulfilled. The promise's fulfillment value is an object with fulfillment values at respective keys to the original object. If any promise in the object rejects, the returned promise is rejected with the rejection reason.
+	 *
+	 * If `object` is a trusted `Promise`, then it will be treated as a promise for object rather than for its properties. All other objects are treated for their properties as is returned by `Object.keys` - the object's own enumerable properties.
+	 *
+	 * *The original object is not modified.*
+	 */
+	// TODO verify this is correct
+	// trusted promise for object
+	static props(object: Promise<Object>): Promise<Object>;
+	// object
+	static props(object: Object): Promise<Object>;
+
+	/**
+	 * Given an array, or a promise of an array, which contains promises (or a mix of promises and values) return a promise that is fulfilled when all the items in the array are either fulfilled or rejected. The fulfillment value is an array of ``PromiseInspection`` instances at respective positions in relation to the input array.
+	 *
+	 * *original: The array is not modified. The input array sparsity is retained in the resulting array.*
+	 */
+	// promise of array with promises of value
+	static settle<R>(values: Promise.Thenable<Promise.Thenable<R>[]>): Promise<Promise.Inspection<R>[]>;
+	// promise of array with values
+	static settle<R>(values: Promise.Thenable<R[]>): Promise<Promise.Inspection<R>[]>;
+	// array with promises of value
+	static settle<R>(values: Promise.Thenable<R>[]): Promise<Promise.Inspection<R>[]>;
+	// array with values
+	static settle<R>(values: R[]): Promise<Promise.Inspection<R>[]>;
+
+	/**
+	 * Like `Promise.some()`, with 1 as `count`. However, if the promise fulfills, the fulfillment value is not an array of 1 but the value directly.
+	 */
+	// promise of array with promises of value
+	static any<R>(values: Promise.Thenable<Promise.Thenable<R>[]>): Promise<R>;
+	// promise of array with values
+	static any<R>(values: Promise.Thenable<R[]>): Promise<R>;
+	// array with promises of value
+	static any<R>(values: Promise.Thenable<R>[]): Promise<R>;
+	// array with values
+	static any<R>(values: R[]): Promise<R>;
+
+	/**
+	 * Given an array, or a promise of an array, which contains promises (or a mix of promises and values) return a promise that is fulfilled or rejected as soon as a promise in the array is fulfilled or rejected with the respective rejection reason or fulfillment value.
+	 *
+	 * **Note** If you pass empty array or a sparse array with no values, or a promise/thenable for such, it will be forever pending.
+	 */
+	// promise of array with promises of value
+	static race<R>(values: Promise.Thenable<Promise.Thenable<R>[]>): Promise<R>;
+	// promise of array with values
+	static race<R>(values: Promise.Thenable<R[]>): Promise<R>;
+	// array with promises of value
+	static race<R>(values: Promise.Thenable<R>[]): Promise<R>;
+	// array with values
+	static race<R>(values: R[]): Promise<R>;
+
+	/**
+	 * Initiate a competetive race between multiple promises or values (values will become immediately fulfilled promises). When `count` amount of promises have been fulfilled, the returned promise is fulfilled with an array that contains the fulfillment values of the winners in order of resolution.
+	 *
+	 * If too many promises are rejected so that the promise can never become fulfilled, it will be immediately rejected with an array of rejection reasons in the order they were thrown in.
+	 *
+	 * *The original array is not modified.*
+	 */
+	// promise of array with promises of value
+	static some<R>(values: Promise.Thenable<Promise.Thenable<R>[]>, count: number): Promise<R[]>;
+	// promise of array with values
+	static some<R>(values: Promise.Thenable<R[]>, count: number): Promise<R[]>;
+	// array with promises of value
+	static some<R>(values: Promise.Thenable<R>[], count: number): Promise<R[]>;
+	// array with values
+	static some<R>(values: R[], count: number): Promise<R[]>;
+
+	/**
+	 * Like `Promise.all()` but instead of having to pass an array, the array is generated from the passed variadic arguments.
+	 */
+	// variadic array with promises of value
+	static join<R>(...values: Promise.Thenable<R>[]): Promise<R[]>;
+	// variadic array with values
+	static join<R>(...values: R[]): Promise<R[]>;
+
+	/**
+	 * Map an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `mapper` function with the signature `(item, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
+	 *
+	 * If the `mapper` function returns promises or thenables, the returned promise will wait for all the mapped results to be resolved as well.
+	 *
+	 * *The original array is not modified.*
+	 */
+	// promise of array with promises of value
+	static map<R, U>(values: Promise.Thenable<Promise.Thenable<R>[]>, mapper: (item: R, index: number, arrayLength: number) => Promise.Thenable<U>): Promise<U[]>;
+	static map<R, U>(values: Promise.Thenable<Promise.Thenable<R>[]>, mapper: (item: R, index: number, arrayLength: number) => U): Promise<U[]>;
+
+	// promise of array with values
+	static map<R, U>(values: Promise.Thenable<R[]>, mapper: (item: R, index: number, arrayLength: number) => Promise.Thenable<U>): Promise<U[]>;
+	static map<R, U>(values: Promise.Thenable<R[]>, mapper: (item: R, index: number, arrayLength: number) => U): Promise<U[]>;
+
+	// array with promises of value
+	static map<R, U>(values: Promise.Thenable<R>[], mapper: (item: R, index: number, arrayLength: number) => Promise.Thenable<U>): Promise<U[]>;
+	static map<R, U>(values: Promise.Thenable<R>[], mapper: (item: R, index: number, arrayLength: number) => U): Promise<U[]>;
+
+	// array with values
+	static map<R, U>(values: R[], mapper: (item: R, index: number, arrayLength: number) => Promise.Thenable<U>): Promise<U[]>;
+	static map<R, U>(values: R[], mapper: (item: R, index: number, arrayLength: number) => U): Promise<U[]>;
+
+	/**
+	 * Reduce an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `reducer` function with the signature `(total, current, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
+	 *
+	 * If the reducer function returns a promise or a thenable, the result for the promise is awaited for before continuing with next iteration.
+	 *
+	 * *The original array is not modified. If no `intialValue` is given and the array doesn't contain at least 2 items, the callback will not be called and `undefined` is returned. If `initialValue` is given and the array doesn't have at least 1 item, `initialValue` is returned.*
+	 */
+	// promise of array with promises of value
+	static reduce<R, U>(values: Promise.Thenable<Promise.Thenable<R>[]>, reducer: (total: U, current: R, index: number, arrayLength: number) => Promise.Thenable<U>, initialValue?: U): Promise<U>;
+	static reduce<R, U>(values: Promise.Thenable<Promise.Thenable<R>[]>, reducer: (total: U, current: R, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
+
+	// promise of array with values
+	static reduce<R, U>(values: Promise.Thenable<R[]>, reducer: (total: U, current: R, index: number, arrayLength: number) => Promise.Thenable<U>, initialValue?: U): Promise<U>;
+	static reduce<R, U>(values: Promise.Thenable<R[]>, reducer: (total: U, current: R, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
+
+	// array with promises of value
+	static reduce<R, U>(values: Promise.Thenable<R>[], reducer: (total: U, current: R, index: number, arrayLength: number) => Promise.Thenable<U>, initialValue?: U): Promise<U>;
+	static reduce<R, U>(values: Promise.Thenable<R>[], reducer: (total: U, current: R, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
+
+	// array with values
+	static reduce<R, U>(values: R[], reducer: (total: U, current: R, index: number, arrayLength: number) => Promise.Thenable<U>, initialValue?: U): Promise<U>;
+	static reduce<R, U>(values: R[], reducer: (total: U, current: R, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
+
+	/**
+	 * Filter an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `filterer` function with the signature `(item, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
+	 *
+	 * The return values from the filtered functions are coerced to booleans, with the exception of promises and thenables which are awaited for their eventual result.
+	 *
+	 * *The original array is not modified.
+	 */
+	// promise of array with promises of value
+	static filter<R>(values: Promise.Thenable<Promise.Thenable<R>[]>, filterer: (item: R, index: number, arrayLength: number) => Promise.Thenable<boolean>): Promise<R[]>;
+	static filter<R>(values: Promise.Thenable<Promise.Thenable<R>[]>, filterer: (item: R, index: number, arrayLength: number) => boolean): Promise<R[]>;
+
+	// promise of array with values
+	static filter<R>(values: Promise.Thenable<R[]>, filterer: (item: R, index: number, arrayLength: number) => Promise.Thenable<boolean>): Promise<R[]>;
+	static filter<R>(values: Promise.Thenable<R[]>, filterer: (item: R, index: number, arrayLength: number) => boolean): Promise<R[]>;
+
+	// array with promises of value
+	static filter<R>(values: Promise.Thenable<R>[], filterer: (item: R, index: number, arrayLength: number) => Promise.Thenable<boolean>): Promise<R[]>;
+	static filter<R>(values: Promise.Thenable<R>[], filterer: (item: R, index: number, arrayLength: number) => boolean): Promise<R[]>;
+
+	// array with values
+	static filter<R>(values: R[], filterer: (item: R, index: number, arrayLength: number) => Promise.Thenable<boolean>): Promise<R[]>;
+	static filter<R>(values: R[], filterer: (item: R, index: number, arrayLength: number) => boolean): Promise<R[]>;
 }
 
 declare module Promise {
+	export interface RangeError extends Error {
+	}
+	export interface CancellationError extends Error {
+	}
+	export interface TimeoutError extends Error {
+	}
+	export interface TypeError extends Error {
+	}
+	export interface RejectionError extends Error {
+	}
 
 	export interface Thenable<R> {
 		then<U>(onFulfilled: (value: R) => Thenable<U>, onRejected: (error: any) => Thenable<U>): Thenable<U>;
@@ -325,9 +604,15 @@ declare module Promise {
 
 	export interface Resolver<R> {
 		/**
+		 * Returns a reference to the controlled promise that can be passed to clients.
+		 */
+		promise: Promise<R>;
+
+		/**
 		 * Resolve the underlying promise with `value` as the resolution value. If `value` is a thenable or a promise, the underlying promise will assume its state.
 		 */
 		resolve(value: R): void;
+		resolve(): void;
 
 		/**
 		 * Reject the underlying promise with `reason` as the rejection reason.
@@ -345,7 +630,7 @@ declare module Promise {
 		 * If the the callback is called with multiple success values, the resolver fullfills its promise with an array of the values.
 		 */
 		// TODO specify resolver callback
-		callback: Function;
+		callback: (err: any, value: R, ...values: R[]) => void;
 	}
 
 	export interface Inspection<R> {
@@ -378,277 +663,6 @@ declare module Promise {
 		 */
 		error(): any;
 	}
-
-	/**
-	 * Start the chain of promises with `Promise.try`. Any synchronous exceptions will be turned into rejections on the returned promise.
-	 *
-	 * Note about second argument: if it's specifically a true array, its values become respective arguments for the function call. Otherwise it is passed as is as the first argument for the function call.
-	 *
-	 * Alias for `attempt();` for compatibility with earlier ECMAScript version.
-	 */
-	// TODO find way to enable try() without tsc borking
-	// see also: https://typescript.codeplex.com/workitem/2194
-	/*
-	export function try<R>(fn: () => Promise.Thenable<R>, args?: any[], ctx?: any): Promise<R>;
-	export function try<R>(fn: () => R, args?: any[], ctx?: any): Promise<R>;
-	*/
-
-	export function attempt<R>(fn: () => Promise.Thenable<R>, args?: any[], ctx?: any): Promise<R>;
-	export function attempt<R>(fn: () => R, args?: any[], ctx?: any): Promise<R>;
-
-	/**
-	 * Returns a new function that wraps the given function `fn`. The new function will always return a promise that is fulfilled with the original functions return values or rejected with thrown exceptions from the original function.
-	 * This method is convenient when a function can sometimes return synchronously or throw synchronously.
-	 */
-	export function method(fn: Function): Function;
-
-	/**
-	 * Create a promise that is resolved with the given `value`. If `value` is a thenable or promise, the returned promise will assume its state.
-	 */
-	export function resolve<R>(value: Promise.Thenable<R>): Promise<R>;
-	export function resolve<R>(value: R): Promise<R>;
-
-	/**
-	 * Create a promise that is rejected with the given `reason`.
-	 */
-	export function reject(reason: any): Promise<void>;
-
-	/**
-	 * Create a promise with undecided fate and return a `PromiseResolver` to control it. See resolution?: Promise(#promise-resolution).
-	 */
-	export function defer<R>(): Promise.Resolver<R>;
-
-	/**
-	 * Cast the given `value` to a trusted promise. If `value` is already a trusted `Promise`, it is returned as is. If `value` is not a thenable, a fulfilled is: Promise returned with `value` as its fulfillment value. If `value` is a thenable (Promise-like object, like those returned by jQuery's `$.ajax`), returns a trusted that: Promise assimilates the state of the thenable.
-	 */
-	export function cast<R>(value: Promise.Thenable<R>): Promise<R>;
-	export function cast<R>(value: R): Promise<R>;
-
-	/**
-	 * Sugar for `Promise.resolve(undefined).bind(thisArg);`. See `.bind()`.
-	 */
-	export function bind(thisArg: any): Promise<void>;
-
-	/**
-	 * See if `value` is a trusted Promise.
-	 */
-	export function is(value: any): boolean;
-
-	/**
-	 * Call this right after the library is loaded to enabled long stack traces. Long stack traces cannot be disabled after being enabled, and cannot be enabled after promises have alread been created. Long stack traces imply a substantial performance penalty, around 4-5x for throughput and 0.5x for latency.
-	 */
-	export function longStackTraces(): void;
-
-	/**
-	 * Returns a promise that will be fulfilled with `value` (or `undefined`) after given `ms` milliseconds. If `value` is a promise, the delay will start counting down when it is fulfilled and the returned promise will be fulfilled with the fulfillment value of the `value` promise.
-	 */
-	// TODO enable more overloads
-	export function delay<R>(value: Promise.Thenable<R>, ms: number): Promise<R>;
-	export function delay<R>(value: R, ms: number): Promise<R>;
-	export function delay(ms: number): Promise<void>;
-
-	/**
-	 * Returns a function that will wrap the given `nodeFunction`. Instead of taking a callback, the returned function will return a promise whose fate is decided by the callback behavior of the given node function. The node function should conform to node.js convention of accepting a callback as last argument and calling that callback with error as the first argument and success value on the second argument.
-	 *
-	 * If the `nodeFunction` calls its callback with multiple success values, the fulfillment value will be an array of them.
-	 *
-	 * If you pass a `receiver`, the `nodeFunction` will be called as a method on the `receiver`.
-	 */
-	// TODO how to model promisify?
-	export function promisify(nodeFunction: Function, receiver?: any): Function;
-
-	/**
-	 * Promisifies the entire object by going through the object's properties and creating an async equivalent of each function on the object and its prototype chain. The promisified method name will be the original method name postfixed with `Async`. Returns the input object.
-	 *
-	 * Note that the original methods on the object are not overwritten but new methods are created with the `Async`-postfix. For example, if you `promisifyAll()` the node.js `fs` object use `fs.statAsync()` to call the promisified `stat` method.
-	 */
-	// TODO how to model promisifyAll?
-	export function promisifyAll(target: Object): Object;
-
-	/**
-	 * Returns a function that can use `yield` to run asynchronous code synchronously. This feature requires the support of generators which are drafted in the next version of the language. Node version greater than `0.11.2` is required and needs to be executed with the `--harmony-generators` (or `--harmony`) command-line switch.
-	 */
-	// TODO fix coroutine GeneratorFunction
-	export function coroutine<R>(generatorFunction: Function): Function;
-
-	/**
-	 * Spawn a coroutine which may yield promises to run asynchronous code synchronously. This feature requires the support of generators which are drafted in the next version of the language. Node version greater than `0.11.2` is required and needs to be executed with the `--harmony-generators` (or `--harmony`) command-line switch.
-	 */
-	// TODO fix spawn GeneratorFunction
-	export function spawn<R>(generatorFunction: Function): Promise<R>;
-
-	/**
-	 * This is relevant to browser environments with no module loader.
-	 *
-	 * Release control of the `Promise` namespace to whatever it was before this library was loaded. Returns a reference to the library namespace so you can attach it to something else.
-	 */
-	export function noConflict(): typeof Promise;
-
-	/**
-	 * Add `handler` as the handler to call when there is a possibly unhandled rejection. The default handler logs the error stack to stderr or `console.error` in browsers.
-	 *
-	 * Passing no value or a non-function will have the effect of removing any kind of handling for possibly unhandled rejections.
-	 */
-	export function onPossiblyUnhandledRejection(handler: (reason: any) => any): void;
-
-	/**
-	 * Given an array, or a promise of an array, which contains promises (or a mix of promises and values) return a promise that is fulfilled when all the items in the array are fulfilled. The promise's fulfillment value is an array with fulfillment values at respective positions to the original array. If any promise in the array rejects, the returned promise is rejected with the rejection reason.
-	 */
-	// TODO enable more overloads
-	// promise of array with promises of value
-	export function all<R>(values: Thenable<Thenable<R>[]>): Promise<R[]>;
-	// promise of array with values
-	export function all<R>(values: Thenable<R[]>): Promise<R[]>;
-	// array with promises of value
-	export function all<R>(values: Thenable<R>[]): Promise<R[]>;
-	// array with values
-	export function all<R>(values: R[]): Promise<R[]>;
-
-	/**
-	 * Like ``Promise.all`` but for object properties instead of array items. Returns a promise that is fulfilled when all the properties of the object are fulfilled. The promise's fulfillment value is an object with fulfillment values at respective keys to the original object. If any promise in the object rejects, the returned promise is rejected with the rejection reason.
-	 *
-	 * If `object` is a trusted `Promise`, then it will be treated as a promise for object rather than for its properties. All other objects are treated for their properties as is returned by `Object.keys` - the object's own enumerable properties.
-	 *
-	 * *The original object is not modified.*
-	 */
-	// TODO verify this is correct
-	// trusted promise for object
-	export function props(object: Promise<Object>): Promise<Object>;
-	// object
-	export function props(object: Object): Promise<Object>;
-
-	/**
-	 * Given an array, or a promise of an array, which contains promises (or a mix of promises and values) return a promise that is fulfilled when all the items in the array are either fulfilled or rejected. The fulfillment value is an array of ``PromiseInspection`` instances at respective positions in relation to the input array.
-	 *
-	 * *original: The array is not modified. The input array sparsity is retained in the resulting array.*
-	 */
-		// promise of array with promises of value
-	export function settle<R>(values: Thenable<Thenable<R>[]>): Promise<Promise.Inspection<R>[]>;
-	// promise of array with values
-	export function settle<R>(values: Thenable<R[]>): Promise<Promise.Inspection<R>[]>;
-	// array with promises of value
-	export function settle<R>(values: Thenable<R>[]): Promise<Promise.Inspection<R>[]>;
-	// array with values
-	export function settle<R>(values: R[]): Promise<Promise.Inspection<R>[]>;
-
-	/**
-	 * Like `Promise.some()`, with 1 as `count`. However, if the promise fulfills, the fulfillment value is not an array of 1 but the value directly.
-	 */
-	// promise of array with promises of value
-	export function any<R>(values: Thenable<Thenable<R>[]>): Promise<R>;
-	// promise of array with values
-	export function any<R>(values: Thenable<R[]>): Promise<R>;
-	// array with promises of value
-	export function any<R>(values: Thenable<R>[]): Promise<R>;
-	// array with values
-	export function any<R>(values: R[]): Promise<R>;
-
-	/**
-	 * Given an array, or a promise of an array, which contains promises (or a mix of promises and values) return a promise that is fulfilled or rejected as soon as a promise in the array is fulfilled or rejected with the respective rejection reason or fulfillment value.
-	 *
-	 * **Note** If you pass empty array or a sparse array with no values, or a promise/thenable for such, it will be forever pending.
-	 */
-	// promise of array with promises of value
-	export function race<R>(values: Thenable<Thenable<R>[]>): Promise<R>;
-	// promise of array with values
-	export function race<R>(values: Thenable<R[]>): Promise<R>;
-	// array with promises of value
-	export function race<R>(values: Thenable<R>[]): Promise<R>;
-	// array with values
-	export function race<R>(values: R[]): Promise<R>;
-
-	/**
-	 * Initiate a competetive race between multiple promises or values (values will become immediately fulfilled promises). When `count` amount of promises have been fulfilled, the returned promise is fulfilled with an array that contains the fulfillment values of the winners in order of resolution.
-	 *
-	 * If too many promises are rejected so that the promise can never become fulfilled, it will be immediately rejected with an array of rejection reasons in the order they were thrown in.
-	 *
-	 * *The original array is not modified.*
-	 */
-	// promise of array with promises of value
-	export function some<R>(values: Thenable<Thenable<R>[]>, count: number): Promise<R[]>;
-	// promise of array with values
-	export function some<R>(values: Thenable<R[]>, count: number): Promise<R[]>;
-	// array with promises of value
-	export function some<R>(values: Thenable<R>[], count: number): Promise<R[]>;
-	// array with values
-	export function some<R>(values: R[], count: number): Promise<R[]>;
-
-	/**
-	 * Like `Promise.all()` but instead of having to pass an array, the array is generated from the passed variadic arguments.
-	 */
-	// variadic array with promises of value
-	export function join<R>(...values: Thenable<R>[]): Promise<R[]>;
-	// variadic array with values
-	export function join<R>(...values: R[]): Promise<R[]>;
-
-	/**
-	 * Map an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `mapper` function with the signature `(item, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
-	 *
-	 * If the `mapper` function returns promises or thenables, the returned promise will wait for all the mapped results to be resolved as well.
-	 *
-	 * *The original array is not modified.*
-	 */
-	// promise of array with promises of value
-	export function map<R, U>(values: Thenable<Thenable<R>[]>, mapper: (item: R, index: number, arrayLength: number) => Thenable<U>): Promise<U[]>;
-	export function map<R, U>(values: Thenable<Thenable<R>[]>, mapper: (item: R, index: number, arrayLength: number) => U): Promise<U[]>;
-
-	// promise of array with values
-	export function map<R, U>(values: Thenable<R[]>, mapper: (item: R, index: number, arrayLength: number) => Thenable<U>): Promise<U[]>;
-	export function map<R, U>(values: Thenable<R[]>, mapper: (item: R, index: number, arrayLength: number) => U): Promise<U[]>;
-
-	// array with promises of value
-	export function map<R, U>(values: Thenable<R>[], mapper: (item: R, index: number, arrayLength: number) => Thenable<U>): Promise<U[]>;
-	export function map<R, U>(values: Thenable<R>[], mapper: (item: R, index: number, arrayLength: number) => U): Promise<U[]>;
-
-	// array with values
-	export function map<R, U>(values: R[], mapper: (item: R, index: number, arrayLength: number) => Thenable<U>): Promise<U[]>;
-	export function map<R, U>(values: R[], mapper: (item: R, index: number, arrayLength: number) => U): Promise<U[]>;
-
-	/**
-	 * Reduce an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `reducer` function with the signature `(total, current, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
-	 *
-	 * If the reducer function returns a promise or a thenable, the result for the promise is awaited for before continuing with next iteration.
-	 *
-	 * *The original array is not modified. If no `intialValue` is given and the array doesn't contain at least 2 items, the callback will not be called and `undefined` is returned. If `initialValue` is given and the array doesn't have at least 1 item, `initialValue` is returned.*
-	 */
-	// promise of array with promises of value
-	export function reduce<R, U>(values: Thenable<Thenable<R>[]>, reducer: (total: U, current: R, index: number, arrayLength: number) => Thenable<U>, initialValue?: U): Promise<U>;
-	export function reduce<R, U>(values: Thenable<Thenable<R>[]>, reducer: (total: U, current: R, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
-
-	// promise of array with values
-	export function reduce<R, U>(values: Thenable<R[]>, reducer: (total: U, current: R, index: number, arrayLength: number) => Thenable<U>, initialValue?: U): Promise<U>;
-	export function reduce<R, U>(values: Thenable<R[]>, reducer: (total: U, current: R, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
-
-	// array with promises of value
-	export function reduce<R, U>(values: Thenable<R>[], reducer: (total: U, current: R, index: number, arrayLength: number) => Thenable<U>, initialValue?: U): Promise<U>;
-	export function reduce<R, U>(values: Thenable<R>[], reducer: (total: U, current: R, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
-
-	// array with values
-	export function reduce<R, U>(values: R[], reducer: (total: U, current: R, index: number, arrayLength: number) => Thenable<U>, initialValue?: U): Promise<U>;
-	export function reduce<R, U>(values: R[], reducer: (total: U, current: R, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
-
-	/**
-	 * Filter an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `filterer` function with the signature `(item, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
-	 *
-	 * The return values from the filtered functions are coerced to booleans, with the exception of promises and thenables which are awaited for their eventual result.
-	 *
-	 * *The original array is not modified.
-	 */
-	// promise of array with promises of value
-	export function filter<R>(values: Thenable<Thenable<R>[]>, filterer: (item: R, index: number, arrayLength: number) => Thenable<boolean>): Promise<R[]>;
-	export function filter<R>(values: Thenable<Thenable<R>[]>, filterer: (item: R, index: number, arrayLength: number) => boolean): Promise<R[]>;
-
-	// promise of array with values
-	export function filter<R>(values: Thenable<R[]>, filterer: (item: R, index: number, arrayLength: number) => Thenable<boolean>): Promise<R[]>;
-	export function filter<R>(values: Thenable<R[]>, filterer: (item: R, index: number, arrayLength: number) => boolean): Promise<R[]>;
-
-	// array with promises of value
-	export function filter<R>(values: Thenable<R>[], filterer: (item: R, index: number, arrayLength: number) => Thenable<boolean>): Promise<R[]>;
-	export function filter<R>(values: Thenable<R>[], filterer: (item: R, index: number, arrayLength: number) => boolean): Promise<R[]>;
-
-	// array with values
-	export function filter<R>(values: R[], filterer: (item: R, index: number, arrayLength: number) => Thenable<boolean>): Promise<R[]>;
-	export function filter<R>(values: R[], filterer: (item: R, index: number, arrayLength: number) => boolean): Promise<R[]>;
 }
 
 declare module 'bluebird' {
