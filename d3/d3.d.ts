@@ -812,6 +812,8 @@ declare module D3 {
         select: (selector: string) => Selection;
         empty: () => boolean;
         node: () => Element;
+        call: (callback: (selection: EnterSelection) => void) => EnterSelection;
+        size: () => number;
     }
 
     export interface UpdateSelection extends Selection {
