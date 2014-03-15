@@ -393,7 +393,8 @@ declare module grunt {
              * @param contents If `contents` is a Buffer, encoding is ignored.
              * @param options If an encoding is not specified, default to grunt.file.defaultEncoding.
              */
-            write(filepath: string, contents: NodeBuffer, options?: IFileEncodedOption): void
+            write(filepath: string, contents: string, options?: IFileEncodedOption): void
+            write(filepath: string, contents: NodeBuffer): void
 
             /**
              * Copy a source file to a destination path, creating intermediate directories if necessary.
