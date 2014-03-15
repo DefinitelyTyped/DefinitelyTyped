@@ -242,7 +242,7 @@ List of Definitions
 * [simple-cw-node](https://github.com/astronaughts/simple-cw-node) (by [vvakame](https://github.com/vvakame))
 * [Sinon](http://sinonjs.org/) (by [William Sears](https://github.com/mrbigdog2u))
 * [SlickGrid](https://github.com/mleibman/SlickGrid) (by [Josh Baldwin](https://github.com/jbaldwin))
-* [smoothie](https://github.com/joewalnes/smoothie) (by [Mike H. Hawley](https://github.com/mikehhawley))
+* [smoothie](https://github.com/joewalnes/smoothie) (by [Mike H. Hawley](https://github.com/mikehhawley) and [Drew Noakes](https://drewnoakes.com))
 * [socket.io](http://socket.io) (by [William Orr](https://github.com/worr))
 * [socket.io-client](http://socket.io) (by [Maido Kaara](https://github.com/v3rm0n))
 * [SockJS](https://github.com/sockjs/sockjs-client) (by [Emil Ivanov](https://github.com/vladev))
