@@ -140,10 +140,10 @@ declare module "ffi" {
      * accept C callback functions.
      */
     export var Callback: {
-        new (retType: any, argTypes: any[], abi: number, fn: Function): NodeBuffer;
-        new (retType: any, argTypes: any[], fn: Function): NodeBuffer;
-        (retType: any, argTypes: any[], abi: number, fn: Function): NodeBuffer;
-        (retType: any, argTypes: any[], fn: Function): NodeBuffer;
+        new (retType: any, argTypes: any[], abi: number, fn: any): NodeBuffer;
+        new (retType: any, argTypes: any[], fn: any): NodeBuffer;
+        (retType: any, argTypes: any[], abi: number, fn: any): NodeBuffer;
+        (retType: any, argTypes: any[], fn: any): NodeBuffer;
     }
 
     export var ffiType: {
@@ -154,8 +154,8 @@ declare module "ffi" {
         FFI_TYPE: StructType;
     }
 
-    export var CIF: Function;
-    export var CIF_var: Function;
+    export var CIF: (retType: any, types: any[], abi?: any) => NodeBuffer
+    export var CIF_var: (retType: any, types: any[], numFixedArgs: number, abi?: any) => NodeBuffer;
     export var HAS_OBJC: boolean;
     export var FFI_TYPES: {[key: string]: NodeBuffer};
     export var FFI_OK: number;
