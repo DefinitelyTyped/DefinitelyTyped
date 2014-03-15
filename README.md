@@ -268,6 +268,7 @@ List of Definitions
 * [Underscore.js (Typed)](http://underscorejs.org/) (by [Josh Baldwin](https://github.com/jbaldwin/))
 * [Underscore-ko.js](https://github.com/kamranayub/UnderscoreKO) (by [Maurits Elbers](https://github.com/MagicMau))
 * [universal-analytics](https://github.com/peaksandpies/universal-analytics) (by [Bart van der Schoor](https://github.com/Bartvds))
+* [urlrouter](https://github.com/fengmk2/urlrouter) (by [Carlos Ballesteros Velasco](https://github.com/soywiz))
 * [UUID.js](https://github.com/LiosK/UUID.js) (by [Jason Jarrett](https://github.com/staxmanade))
 * [Valerie](https://github.com/davewatts/valerie) (by [Howard Richards](https://github.com/conficient))
 * [Viewporter](https://github.com/zynga/viewporter) (by [Boris Yankov](https://github.com/borisyankov))
