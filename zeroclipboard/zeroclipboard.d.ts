@@ -2,6 +2,7 @@
 // Project: https://github.com/jonrohan/ZeroClipboard
 // Definitions by: Eric J. Smith <https://github.com/ejsmith>
 // Definitions by: Blake Niemyjski <https://github.com/niemyjski>
+// Definitions by: György Balássy <https://github.com/balassy>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare class ZeroClipboard {
@@ -35,3 +36,6 @@ interface ZeroClipboardOptions {
     hoverClass?: string;
     activeClass?: string;
 }
+
+// Support AMD.
+declare module "zeroclipboard" { export = ZeroClipboard; }
