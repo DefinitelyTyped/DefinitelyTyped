@@ -3430,17 +3430,55 @@ interface JQuery {
      */
     first(): JQuery;
 
+    /**
+     * Reduce the set of matched elements to those that have a descendant that matches the selector or DOM element.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     has(selector: string): JQuery;
+    /**
+     * Reduce the set of matched elements to those that have a descendant that matches the selector or DOM element.
+     * 
+     * @param contained A DOM element to match elements against.
+     */
     has(contained: Element): JQuery;
 
+    /**
+     * Check the current matched set of elements against a selector, element, or jQuery object and return true if at least one of these elements matches the given arguments.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     is(selector: string): boolean;
-    is(func: (index: any) => any): boolean;
-    is(element: any): boolean;
+    /**
+     * Check the current matched set of elements against a selector, element, or jQuery object and return true if at least one of these elements matches the given arguments.
+     * 
+     * @param func A function used as a test for the set of elements. It accepts one argument, index, which is the element's index in the jQuery collection.Within the function, this refers to the current DOM element.
+     */
+    is(func: (index: number) => any): boolean;
+    /**
+     * Check the current matched set of elements against a selector, element, or jQuery object and return true if at least one of these elements matches the given arguments.
+     * 
+     * @param obj An existing jQuery object to match the current set of elements against.
+     */
     is(obj: JQuery): boolean;
+    /**
+     * Check the current matched set of elements against a selector, element, or jQuery object and return true if at least one of these elements matches the given arguments.
+     * 
+     * @param elements One or more elements to match the current set of elements against.
+     */
+    is(elements: any): boolean;
 
+    /**
+     * Reduce the set of matched elements to the final one in the set.
+     */
     last(): JQuery;
 
-    map(callback: (index: any, domElement: Element) => any): JQuery;
+    /**
+     * Pass each element in the current matched set through a function, producing a new jQuery object containing the return values.
+     * 
+     * @param callback A function object that will be invoked for each element in the current set.
+     */
+    map(callback: (index: number, domElement: Element) => any): JQuery;
 
     next(selector?: string): JQuery;
 
