@@ -848,10 +848,13 @@ declare module "fs" {
     export function writeSync(fd: number, buffer: NodeBuffer, offset: number, length: number, position: number): number;
     export function read(fd: number, buffer: NodeBuffer, offset: number, length: number, position: number, callback?: (err: ErrnoException, bytesRead: number, buffer: NodeBuffer) => void): void;
     export function readSync(fd: number, buffer: NodeBuffer, offset: number, length: number, position: number): number;
-    export function readFile(filename: string, options: { encoding?: string; flag?: string; }, callback: (err: ErrnoException, data: any) => void): void;
+    export function readFile(filename: string, encoding: string, callback: (err: ErrnoException, data: string) => void): void;
+    export function readFile(filename: string, options: { encoding: string; flag?: string; }, callback: (err: ErrnoException, data: string) => void): void;
+    export function readFile(filename: string, options: { flag?: string; }, callback: (err: ErrnoException, data: NodeBuffer) => void): void;
     export function readFile(filename: string, callback: (err: ErrnoException, data: NodeBuffer) => void ): void;
-    export function readFileSync(filename: string, options?: { flag?: string; }): NodeBuffer;
+    export function readFileSync(filename: string, encoding: string): string;
     export function readFileSync(filename: string, options: { encoding: string; flag?: string; }): string;
+    export function readFileSync(filename: string, options?: { flag?: string; }): NodeBuffer;
     export function writeFile(filename: string, data: any, callback?: (err: ErrnoException) => void): void;
     export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: ErrnoException) => void): void;
     export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: ErrnoException) => void): void;
