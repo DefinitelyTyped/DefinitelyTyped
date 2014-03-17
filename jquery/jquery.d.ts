@@ -3541,33 +3541,130 @@ interface JQuery {
      */
     not(obj: JQuery): JQuery;
 
+    /**
+     * Get the closest ancestor element that is positioned.
+     */
     offsetParent(): JQuery;
 
+    /**
+     * Get the parent of each element in the current set of matched elements, optionally filtered by a selector.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     parent(selector?: string): JQuery;
 
+    /**
+     * Get the ancestors of each element in the current set of matched elements, optionally filtered by a selector.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     parents(selector?: string): JQuery;
 
+    /**
+     * Get the ancestors of each element in the current set of matched elements, up to but not including the element matched by the selector, DOM node, or jQuery object.
+     * 
+     * @param selector A string containing a selector expression to indicate where to stop matching ancestor elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     parentsUntil(selector?: string, filter?: string): JQuery;
+    /**
+     * Get the ancestors of each element in the current set of matched elements, up to but not including the element matched by the selector, DOM node, or jQuery object.
+     * 
+     * @param element A DOM node or jQuery object indicating where to stop matching ancestor elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     parentsUntil(element?: Element, filter?: string): JQuery;
+    /**
+     * Get the ancestors of each element in the current set of matched elements, up to but not including the element matched by the selector, DOM node, or jQuery object.
+     * 
+     * @param obj A DOM node or jQuery object indicating where to stop matching ancestor elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     parentsUntil(obj?: JQuery, filter?: string): JQuery;
 
+    /**
+     * Get the immediately preceding sibling of each element in the set of matched elements, optionally filtered by a selector.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     prev(selector?: string): JQuery;
 
+    /**
+     * Get all preceding siblings of each element in the set of matched elements, optionally filtered by a selector.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     prevAll(selector?: string): JQuery;
 
+    /**
+     * Get all preceding siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object.
+     * 
+     * @param selector A string containing a selector expression to indicate where to stop matching preceding sibling elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     prevUntil(selector?: string, filter?: string): JQuery;
+    /**
+     * Get all preceding siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object.
+     * 
+     * @param element A DOM node or jQuery object indicating where to stop matching preceding sibling elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     prevUntil(element?: Element, filter?: string): JQuery;
+    /**
+     * Get all preceding siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object.
+     * 
+     * @param obj A DOM node or jQuery object indicating where to stop matching preceding sibling elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     prevUntil(obj?: JQuery, filter?: string): JQuery;
 
+    /**
+     * Get the siblings of each element in the set of matched elements, optionally filtered by a selector.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     siblings(selector?: string): JQuery;
 
+    /**
+     * Reduce the set of matched elements to a subset specified by a range of indices.
+     * 
+     * @param start An integer indicating the 0-based position at which the elements begin to be selected. If negative, it indicates an offset from the end of the set.
+     * @param end An integer indicating the 0-based position at which the elements stop being selected. If negative, it indicates an offset from the end of the set. If omitted, the range continues until the end of the set.
+     */
     slice(start: number, end?: number): JQuery;
 
-    // Utilities
-
+    /**
+     * Show the queue of functions to be executed on the matched elements.
+     * 
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     */
     queue(queueName?: string): any[];
-    queue(queueName: string, newQueueOrCallback: any): JQuery;
-    queue(newQueueOrCallback: any): JQuery;
+    /**
+     * Manipulate the queue of functions to be executed, once for each matched element.
+     * 
+     * @param newQueue An array of functions to replace the current queue contents.
+     */
+    queue(newQueue: Function[]): JQuery;
+    /**
+     * Manipulate the queue of functions to be executed, once for each matched element.
+     * 
+     * @param callback The new function to add to the queue, with a function to call that will dequeue the next item.
+     */
+    queue(callback: Function): JQuery;
+    /**
+     * Manipulate the queue of functions to be executed, once for each matched element.
+     * 
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     * @param newQueue An array of functions to replace the current queue contents.
+     */
+    queue(queueName: string, newQueue: Function[]): JQuery;
+    /**
+     * Manipulate the queue of functions to be executed, once for each matched element.
+     * 
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     * @param callback The new function to add to the queue, with a function to call that will dequeue the next item.
+     */
+    queue(queueName: string, callback: Function): JQuery;
 }
 declare module "jquery" {
     export = $;
