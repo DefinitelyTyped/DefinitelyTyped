@@ -3363,75 +3363,308 @@ interface JQuery {
      */
     closest(selectors: any, context?: Element): any[];
 
+    /**
+     * Get the children of each element in the set of matched elements, including text and comment nodes.
+     */
     contents(): JQuery;
 
+    /**
+     * End the most recent filtering operation in the current chain and return the set of matched elements to its previous state.
+     */
     end(): JQuery;
 
+    /**
+     * Reduce the set of matched elements to the one at the specified index.
+     * 
+     * @param index An integer indicating the 0-based position of the element. OR An integer indicating the position of the element, counting backwards from the last element in the set.
+     *  
+     */
     eq(index: number): JQuery;
 
+    /**
+     * Reduce the set of matched elements to those that match the selector or pass the function's test.
+     * 
+     * @param selector A string containing a selector expression to match the current set of elements against.
+     */
     filter(selector: string): JQuery;
-    filter(func: (index: any) => any): JQuery;
-    filter(element: any): JQuery;
+    /**
+     * Reduce the set of matched elements to those that match the selector or pass the function's test.
+     * 
+     * @param func A function used as a test for each element in the set. this is the current DOM element.
+     */
+    filter(func: (index: number) => any): JQuery;
+    /**
+     * Reduce the set of matched elements to those that match the selector or pass the function's test.
+     * 
+     * @param element An element to match the current set of elements against.
+     */
+    filter(element: Element): JQuery;
+    /**
+     * Reduce the set of matched elements to those that match the selector or pass the function's test.
+     * 
+     * @param obj An existing jQuery object to match the current set of elements against.
+     */
     filter(obj: JQuery): JQuery;
 
+    /**
+     * Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     find(selector: string): JQuery;
-    find(element: any): JQuery;
+    /**
+     * Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element.
+     * 
+     * @param element An element to match elements against.
+     */
+    find(element: Element): JQuery;
+    /**
+     * Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element.
+     * 
+     * @param obj A jQuery object to match elements against.
+     */
     find(obj: JQuery): JQuery;
 
+    /**
+     * Reduce the set of matched elements to the first in the set.
+     */
     first(): JQuery;
 
+    /**
+     * Reduce the set of matched elements to those that have a descendant that matches the selector or DOM element.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     has(selector: string): JQuery;
+    /**
+     * Reduce the set of matched elements to those that have a descendant that matches the selector or DOM element.
+     * 
+     * @param contained A DOM element to match elements against.
+     */
     has(contained: Element): JQuery;
 
+    /**
+     * Check the current matched set of elements against a selector, element, or jQuery object and return true if at least one of these elements matches the given arguments.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     is(selector: string): boolean;
-    is(func: (index: any) => any): boolean;
-    is(element: any): boolean;
+    /**
+     * Check the current matched set of elements against a selector, element, or jQuery object and return true if at least one of these elements matches the given arguments.
+     * 
+     * @param func A function used as a test for the set of elements. It accepts one argument, index, which is the element's index in the jQuery collection.Within the function, this refers to the current DOM element.
+     */
+    is(func: (index: number) => any): boolean;
+    /**
+     * Check the current matched set of elements against a selector, element, or jQuery object and return true if at least one of these elements matches the given arguments.
+     * 
+     * @param obj An existing jQuery object to match the current set of elements against.
+     */
     is(obj: JQuery): boolean;
+    /**
+     * Check the current matched set of elements against a selector, element, or jQuery object and return true if at least one of these elements matches the given arguments.
+     * 
+     * @param elements One or more elements to match the current set of elements against.
+     */
+    is(elements: any): boolean;
 
+    /**
+     * Reduce the set of matched elements to the final one in the set.
+     */
     last(): JQuery;
 
-    map(callback: (index: any, domElement: Element) => any): JQuery;
+    /**
+     * Pass each element in the current matched set through a function, producing a new jQuery object containing the return values.
+     * 
+     * @param callback A function object that will be invoked for each element in the current set.
+     */
+    map(callback: (index: number, domElement: Element) => any): JQuery;
 
+    /**
+     * Get the immediately following sibling of each element in the set of matched elements. If a selector is provided, it retrieves the next sibling only if it matches that selector.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     next(selector?: string): JQuery;
 
+    /**
+     * Get all following siblings of each element in the set of matched elements, optionally filtered by a selector.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     nextAll(selector?: string): JQuery;
 
+    /**
+     * Get all following siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object passed.
+     * 
+     * @param selector A string containing a selector expression to indicate where to stop matching following sibling elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     nextUntil(selector?: string, filter?: string): JQuery;
+    /**
+     * Get all following siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object passed.
+     * 
+     * @param element A DOM node or jQuery object indicating where to stop matching following sibling elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     nextUntil(element?: Element, filter?: string): JQuery;
+    /**
+     * Get all following siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object passed.
+     * 
+     * @param obj A DOM node or jQuery object indicating where to stop matching following sibling elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     nextUntil(obj?: JQuery, filter?: string): JQuery;
 
+    /**
+     * Remove elements from the set of matched elements.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     not(selector: string): JQuery;
-    not(func: (index: any) => any): JQuery;
-    not(element: any): JQuery;
+    /**
+     * Remove elements from the set of matched elements.
+     * 
+     * @param func A function used as a test for each element in the set. this is the current DOM element.
+     */
+    not(func: (index: number) => any): JQuery;
+    /**
+     * Remove elements from the set of matched elements.
+     * 
+     * @param elements One or more DOM elements to remove from the matched set.
+     */
+    not(...elements: Element[]): JQuery;
+    /**
+     * Remove elements from the set of matched elements.
+     * 
+     * @param obj An existing jQuery object to match the current set of elements against.
+     */
     not(obj: JQuery): JQuery;
 
+    /**
+     * Get the closest ancestor element that is positioned.
+     */
     offsetParent(): JQuery;
 
+    /**
+     * Get the parent of each element in the current set of matched elements, optionally filtered by a selector.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     parent(selector?: string): JQuery;
 
+    /**
+     * Get the ancestors of each element in the current set of matched elements, optionally filtered by a selector.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     parents(selector?: string): JQuery;
 
+    /**
+     * Get the ancestors of each element in the current set of matched elements, up to but not including the element matched by the selector, DOM node, or jQuery object.
+     * 
+     * @param selector A string containing a selector expression to indicate where to stop matching ancestor elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     parentsUntil(selector?: string, filter?: string): JQuery;
+    /**
+     * Get the ancestors of each element in the current set of matched elements, up to but not including the element matched by the selector, DOM node, or jQuery object.
+     * 
+     * @param element A DOM node or jQuery object indicating where to stop matching ancestor elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     parentsUntil(element?: Element, filter?: string): JQuery;
+    /**
+     * Get the ancestors of each element in the current set of matched elements, up to but not including the element matched by the selector, DOM node, or jQuery object.
+     * 
+     * @param obj A DOM node or jQuery object indicating where to stop matching ancestor elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     parentsUntil(obj?: JQuery, filter?: string): JQuery;
 
+    /**
+     * Get the immediately preceding sibling of each element in the set of matched elements, optionally filtered by a selector.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     prev(selector?: string): JQuery;
 
+    /**
+     * Get all preceding siblings of each element in the set of matched elements, optionally filtered by a selector.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     prevAll(selector?: string): JQuery;
 
+    /**
+     * Get all preceding siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object.
+     * 
+     * @param selector A string containing a selector expression to indicate where to stop matching preceding sibling elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     prevUntil(selector?: string, filter?: string): JQuery;
+    /**
+     * Get all preceding siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object.
+     * 
+     * @param element A DOM node or jQuery object indicating where to stop matching preceding sibling elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     prevUntil(element?: Element, filter?: string): JQuery;
+    /**
+     * Get all preceding siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object.
+     * 
+     * @param obj A DOM node or jQuery object indicating where to stop matching preceding sibling elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     prevUntil(obj?: JQuery, filter?: string): JQuery;
 
+    /**
+     * Get the siblings of each element in the set of matched elements, optionally filtered by a selector.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     siblings(selector?: string): JQuery;
 
+    /**
+     * Reduce the set of matched elements to a subset specified by a range of indices.
+     * 
+     * @param start An integer indicating the 0-based position at which the elements begin to be selected. If negative, it indicates an offset from the end of the set.
+     * @param end An integer indicating the 0-based position at which the elements stop being selected. If negative, it indicates an offset from the end of the set. If omitted, the range continues until the end of the set.
+     */
     slice(start: number, end?: number): JQuery;
 
-    // Utilities
-
+    /**
+     * Show the queue of functions to be executed on the matched elements.
+     * 
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     */
     queue(queueName?: string): any[];
-    queue(queueName: string, newQueueOrCallback: any): JQuery;
-    queue(newQueueOrCallback: any): JQuery;
+    /**
+     * Manipulate the queue of functions to be executed, once for each matched element.
+     * 
+     * @param newQueue An array of functions to replace the current queue contents.
+     */
+    queue(newQueue: Function[]): JQuery;
+    /**
+     * Manipulate the queue of functions to be executed, once for each matched element.
+     * 
+     * @param callback The new function to add to the queue, with a function to call that will dequeue the next item.
+     */
+    queue(callback: Function): JQuery;
+    /**
+     * Manipulate the queue of functions to be executed, once for each matched element.
+     * 
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     * @param newQueue An array of functions to replace the current queue contents.
+     */
+    queue(queueName: string, newQueue: Function[]): JQuery;
+    /**
+     * Manipulate the queue of functions to be executed, once for each matched element.
+     * 
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     * @param callback The new function to add to the queue, with a function to call that will dequeue the next item.
+     */
+    queue(queueName: string, callback: Function): JQuery;
 }
 declare module "jquery" {
     export = $;
