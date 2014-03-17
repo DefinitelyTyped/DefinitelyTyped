@@ -162,7 +162,7 @@ declare module "smoothie"
          * Instructs the <code>SmoothieChart</code> to start rendering to the provided canvas, with specified delay.
          *
          * @param canvas the target canvas element
-         * @param [delayMillis] an amount of time to wait before a data point is shown. This can prevent the end of the series
+         * @param delayMillis an amount of time to wait before a data point is shown. This can prevent the end of the series
          * from appearing on screen, with new values flashing into view, at the expense of some latency.
          */
         streamTo(canvas: HTMLCanvasElement, delayMillis?: number): void;
