@@ -2272,6 +2272,37 @@ function test_scrollTop() {
     $("div.demo").scrollTop(300);
 }
 
+function test_parent() {
+    $("*", document.body).each(function () {
+        var parentTag = $(this).parent().get(0).tagName;
+        $(this).prepend(document.createTextNode(parentTag + " > "));
+    });
+    $("p").parent(".selected").css("background", "yellow");
+}
+
+function test_parents() {
+    var parentEls = $("b").parents()
+        .map(function () {
+            return this.tagName;
+        })
+        .get()
+        .join(", ");
+    $("b").append("<strong>" + parentEls + "</strong>");
+
+    function showParents() {
+        $("div").css("border-color", "white");
+        var len = $("span.selected")
+            .parents("div")
+            .css("border", "2px red solid")
+            .length;
+        $("b").text("Unique div parents: " + len);
+    }
+    $("span").click(function () {
+        $(this).toggleClass("selected");
+        showParents();
+    });
+}
+
 function test_param() {
 
     function test1() {
