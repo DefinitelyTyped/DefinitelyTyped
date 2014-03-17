@@ -3363,21 +3363,71 @@ interface JQuery {
      */
     closest(selectors: any, context?: Element): any[];
 
+    /**
+     * Get the children of each element in the set of matched elements, including text and comment nodes.
+     */
     contents(): JQuery;
 
+    /**
+     * End the most recent filtering operation in the current chain and return the set of matched elements to its previous state.
+     */
     end(): JQuery;
 
+    /**
+     * Reduce the set of matched elements to the one at the specified index.
+     * 
+     * @param index An integer indicating the 0-based position of the element. OR An integer indicating the position of the element, counting backwards from the last element in the set.
+     *  
+     */
     eq(index: number): JQuery;
 
+    /**
+     * Reduce the set of matched elements to those that match the selector or pass the function's test.
+     * 
+     * @param selector A string containing a selector expression to match the current set of elements against.
+     */
     filter(selector: string): JQuery;
-    filter(func: (index: any) => any): JQuery;
-    filter(element: any): JQuery;
+    /**
+     * Reduce the set of matched elements to those that match the selector or pass the function's test.
+     * 
+     * @param func A function used as a test for each element in the set. this is the current DOM element.
+     */
+    filter(func: (index: number) => any): JQuery;
+    /**
+     * Reduce the set of matched elements to those that match the selector or pass the function's test.
+     * 
+     * @param element An element to match the current set of elements against.
+     */
+    filter(element: Element): JQuery;
+    /**
+     * Reduce the set of matched elements to those that match the selector or pass the function's test.
+     * 
+     * @param obj An existing jQuery object to match the current set of elements against.
+     */
     filter(obj: JQuery): JQuery;
 
+    /**
+     * Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     find(selector: string): JQuery;
-    find(element: any): JQuery;
+    /**
+     * Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element.
+     * 
+     * @param element An element to match elements against.
+     */
+    find(element: Element): JQuery;
+    /**
+     * Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element.
+     * 
+     * @param obj A jQuery object to match elements against.
+     */
     find(obj: JQuery): JQuery;
 
+    /**
+     * Reduce the set of matched elements to the first in the set.
+     */
     first(): JQuery;
 
     has(selector: string): JQuery;
