@@ -297,35 +297,93 @@ interface JQueryPromise<T> {
     Interface for the JQuery deferred, part of callbacks
 */
 interface JQueryDeferred<T> extends JQueryPromise<T> {
-    // Generic versions of callbacks
-    always(...alwaysCallbacks: T[]): JQueryDeferred<T>;
-    done(...doneCallbacks: T[]): JQueryDeferred<T>;
-    fail(...failCallbacks: T[]): JQueryDeferred<T>;
+    /**
+     * Add handlers to be called when the Deferred object is either resolved or rejected.
+     * 
+     * @param alwaysCallbacks1 A function, or array of functions, that is called when the Deferred is resolved or rejected.
+     * @param alwaysCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
+     */
+    always(alwaysCallbacks1: T, ...alwaysCallbacks2: T[]): JQueryDeferred<T>;
+    /**
+     * Add handlers to be called when the Deferred object is resolved.
+     * 
+     * @param doneCallbacks1 A function, or array of functions, that are called when the Deferred is resolved.
+     * @param doneCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
+     */
+    done(doneCallbacks1: T, ...doneCallbacks2: T[]): JQueryDeferred<T>;
+    /**
+     * Add handlers to be called when the Deferred object is rejected.
+     * 
+     * @param failCallbacks1 A function, or array of functions, that are called when the Deferred is rejected.
+     * @param failCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
+     */
+    fail(failCallbacks1: T, ...failCallbacks2: T[]): JQueryDeferred<T>;
+    /**
+     * Add handlers to be called when the Deferred object generates progress notifications.
+     * 
+     * @param progressCallbacks A function, or array of functions, to be called when the Deferred generates progress notifications.
+     */
     progress(...progressCallbacks: T[]): JQueryDeferred<T>;
 
-    always(...alwaysCallbacks: any[]): JQueryDeferred<T>;
-    done(...doneCallbacks: any[]): JQueryDeferred<T>;
-    fail(...failCallbacks: any[]): JQueryDeferred<T>;
-    progress(...progressCallbacks: any[]): JQueryDeferred<T>;
-
+    /**
+     * Call the progressCallbacks on a Deferred object with the given args.
+     * 
+     * @param args Optional arguments that are passed to the progressCallbacks.
+     */
     notify(...args: any[]): JQueryDeferred<T>;
+
+    /**
+     * Call the progressCallbacks on a Deferred object with the given context and args.
+     * 
+     * @param context Context passed to the progressCallbacks as the this object.
+     * @param args Optional arguments that are passed to the progressCallbacks.
+     */
     notifyWith(context: any, ...args: any[]): JQueryDeferred<T>;
 
+    /**
+     * Reject a Deferred object and call any failCallbacks with the given args.
+     * 
+     * @param args Optional arguments that are passed to the failCallbacks.
+     */
     reject(...args: any[]): JQueryDeferred<T>;
+    /**
+     * Reject a Deferred object and call any failCallbacks with the given context and args.
+     * 
+     * @param context Context passed to the failCallbacks as the this object.
+     * @param args An optional array of arguments that are passed to the failCallbacks.
+     */
     rejectWith(context: any, ...args: any[]): JQueryDeferred<T>;
 
-    resolve(val: T): JQueryDeferred<T>;
+    /**
+     * Resolve a Deferred object and call any doneCallbacks with the given args.
+     * 
+     * @param args Optional arguments that are passed to the doneCallbacks.
+     */
     resolve(...args: any[]): JQueryDeferred<T>;
+
+    /**
+     * Resolve a Deferred object and call any doneCallbacks with the given context and args.
+     * 
+     * @param context Context passed to the doneCallbacks as the this object.
+     * @param args An optional array of arguments that are passed to the doneCallbacks.
+     */
     resolveWith(context: any, ...args: any[]): JQueryDeferred<T>;
+    /**
+     * Determine the current state of a Deferred object.
+     */
     state(): string;
 
+    /**
+     * Return a Deferred's Promise object.
+     * 
+     * @param target Object onto which the promise methods have to be attached
+     */
     promise(target?: any): JQueryPromise<T>;
 }
 
-/*
-    Interface of the JQuery extension of the W3C event object
-*/
-
+/**
+ * Interface of the JQuery extension of the W3C event object
+ */
 interface BaseJQueryEventObject extends Event {
     data: any;
     delegateTarget: Element;
