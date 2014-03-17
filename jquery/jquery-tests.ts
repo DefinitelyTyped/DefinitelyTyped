@@ -3169,6 +3169,22 @@ function test_parseHTML() {
 	  .appendTo( $log );
 }
 
+function test_not() {
+    $("li").not(":even").css("background-color", "red");
+
+    $("li").not(document.getElementById("notli"))
+        .css("background-color", "red");
+
+    $("div").not(".green, #blueone")
+        .css("border-color", "red");
+
+    $("p").not($("#selected")[0]);
+
+    $("p").not("#selected");
+
+    $("p").not($("div p.selected"));
+}
+
 function test_EventIsNewable() {
     var ev = new jQuery.Event('click');
 }

@@ -3480,17 +3480,65 @@ interface JQuery {
      */
     map(callback: (index: number, domElement: Element) => any): JQuery;
 
+    /**
+     * Get the immediately following sibling of each element in the set of matched elements. If a selector is provided, it retrieves the next sibling only if it matches that selector.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     next(selector?: string): JQuery;
 
+    /**
+     * Get all following siblings of each element in the set of matched elements, optionally filtered by a selector.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     nextAll(selector?: string): JQuery;
 
+    /**
+     * Get all following siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object passed.
+     * 
+     * @param selector A string containing a selector expression to indicate where to stop matching following sibling elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     nextUntil(selector?: string, filter?: string): JQuery;
+    /**
+     * Get all following siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object passed.
+     * 
+     * @param element A DOM node or jQuery object indicating where to stop matching following sibling elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     nextUntil(element?: Element, filter?: string): JQuery;
+    /**
+     * Get all following siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object passed.
+     * 
+     * @param obj A DOM node or jQuery object indicating where to stop matching following sibling elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     nextUntil(obj?: JQuery, filter?: string): JQuery;
 
+    /**
+     * Remove elements from the set of matched elements.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     not(selector: string): JQuery;
-    not(func: (index: any) => any): JQuery;
-    not(element: any): JQuery;
+    /**
+     * Remove elements from the set of matched elements.
+     * 
+     * @param func A function used as a test for each element in the set. this is the current DOM element.
+     */
+    not(func: (index: number) => any): JQuery;
+    /**
+     * Remove elements from the set of matched elements.
+     * 
+     * @param elements One or more DOM elements to remove from the matched set.
+     */
+    not(...elements: Element[]): JQuery;
+    /**
+     * Remove elements from the set of matched elements.
+     * 
+     * @param obj An existing jQuery object to match the current set of elements against.
+     */
     not(obj: JQuery): JQuery;
 
     offsetParent(): JQuery;
