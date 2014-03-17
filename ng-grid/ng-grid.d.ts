@@ -36,8 +36,10 @@ declare module ngGrid {
         /** definitions of columns as an array [], if not defined columns are auto-generated. See github wiki for more details. */
         columnDefs?: IColumnDef[];
 
-        /** Data being displayed in the grid. Each item in the array is mapped to a row being displayed. */
-        data?: any[];
+        /** Data being displayed in the grid. This can be either a string of object ID or object reference.
+            Using string is preferred, as this turns on change tracking in ng-grid
+        */
+        data?: any;
 
         /** Data updated callback, fires every time the data is modified from outside the grid. */
         dataUpdated?: Function;
