@@ -441,7 +441,7 @@ declare module CKEDITOR {
             getTarget(): node;
             getPhase(): number;
             getPhaseOffset(): position;
-            on(eventName: string, listenerFunction: Function, scopeObj?: Object, listenerData?: Object, priority?: number): Object;
+            on(eventName: string, listenerFunction: (eventInfo: eventInfo) => void, scopeObj?: Object, listenerData?: Object, priority?: number): Object;
         }
 
 
@@ -575,7 +575,7 @@ declare module CKEDITOR {
     class menu {
         constructor();
         add(item: any): void;
-        addListener(listenerFn: (startElement: dom.element, selection: dom.selection, path: dom.elementPath) => any);
+        addListener(listenerFn: (startElement: dom.element, selection: dom.selection, path: dom.elementPath) => any): void;
         hide(returnFocus?: boolean): void;
         removeAll(): void;
         show(offsetParent: dom.element, corner?: number, offsetX?: number, offsetY?: number): void;
@@ -587,7 +587,7 @@ declare module CKEDITOR {
         class contextMenu extends menu {
             constructor(editor: editor);
             addTarget(element: dom.element, nativeContextMenuOnCtrl?: boolean): void;
-            open(offsetParent: dom.element, corner?: number, offsetX?: number, offsetY?: number);
+            open(offsetParent: dom.element, corner?: number, offsetX?: number, offsetY?: number): void;
         }
 
 
@@ -740,14 +740,14 @@ declare module CKEDITOR {
         constructor();
         useCapture: boolean;
         capture(): void;
-        define(name: string, meta: Object);
+        define(name: string, meta: Object): void;
         fire(eventName: string, data?: Object, editor?: editor): any;
         fireOnce(eventName: string, data?: Object, editor?: editor): any;
         hasListeners(eventName: string): boolean;
         on(eventName: string, listenerFunction: (eventInfo: eventInfo) => void, scopeObj?: Object, listenerData?: Object, priority?: number): void;
-        once(eventName: string, listenerFunction: Function, scopeObj?: Object, listenerData?: Object, priority?: number): void;
+        once(eventName: string, listenerFunction: (eventInfo: eventInfo) => void, scopeObj?: Object, listenerData?: Object, priority?: number): void;
         removeAllListeners(): void;
-        removeListener(eventName: string, listenerFunction: Function): void;
+        removeListener(eventName: string, listenerFunction: (eventInfo: eventInfo) => void): void;
         static implementOn(targetObject: Object): void;
     }
 
