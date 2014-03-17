@@ -1971,19 +1971,63 @@ declare module Sys {
 
     //#region Sys.WebForms Namespace
 
+    /**
+    * The Sys.WebForms namespace contains classes related to partial-page rendering in the Microsoft Ajax Library.
+    */
     module WebForms {
 
         /**
         * Used by the beginRequest event of the PageRequestManager class to pass argument information to event handlers.
+        * @see {@link http://msdn.microsoft.com/en-us/library/bb384003(v=vs.100).aspx}
         */ 
         class BeginRequestEventArgs extends EventArgs {
 
+            //#region Constructors
+
+            /**
+            * Initializes a new instance of the BeginRequestEventArgs class.  
+            * @param request
+            *           A Sys.Net.WebRequest representing the web request for the EventArgs.
+            * @param postBackElement
+            *           The postback element that initiated the async postback.
+            * @param updatePanelsToUpdate
+            *           (Optional) A list of UniqueIDs for UpdatePanel controls that are requested to update their rendering by the client. Server-side processing may update additional UpdatePanels.
+            */
+            constructor(request: Sys.Net.WebRequest, postBackElement: any, updatePanelsToUpdate: string[]);
+
+            //#endregion
+
+            //#region Properties
+
+            /**
+            * Gets the postback element that initiated the asynchronous postback. This property is read-only.
+            * @readonly
+            * @return An HTML DOM element.
+            */
+            get_postBackElement(): HTMLElement;
+
+            /**
+            * Gets the request object that represents the current postback.
+            * @return An instance of the Sys.Net.WebRequest class.
+            */
+            get_request(): Sys.Net.WebRequest;
+
+            /**
+            * Gets a list of UniqueID values for UpdatePanel controls that should re-render their content, as requested by the client.
+            * Server-side processing might update additional UpdatePanel controls.
+            * @return An array of UniqueID values for UpdatePanel controls.
+            */
+            get_updatePanelsToUpdate(): string[];
+
+            //#endregion
         }
 
         /**
         * Used by the endRequest event of the PageRequestManager class to pass argument information to event handlers.
         */ 
         class EndRequestEventArgs extends EventArgs {
+
+           
 
         }
 
