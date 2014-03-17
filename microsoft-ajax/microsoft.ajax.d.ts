@@ -1072,7 +1072,217 @@ declare module Sys {
         //#endregion
 
     }
-    
+
+    /**
+    * Provides static, culture-neutral exception messages that are used by the Microsoft Ajax Library framework. 
+    * @see {@link http://msdn.microsoft.com/en-us/library/bb397705(v=vs.100).aspx}
+    * This type supports the .NET Framework infrastructure and is not intended to be used directly from your code.
+    */
+    class Res {
+
+        //#region Fields
+
+        /**
+        * @return "Actual value was {0}." 
+        */ 
+        actualValue: string;
+        /**
+        * @return "The application failed to load within the specified time out period."
+        */ 
+        appLoadTimedout: string;
+        /**
+        * @return "Value does not fall within the expected range."
+        */ 
+        argument: string;
+        /**
+        * @return "Value cannot be null."
+        */ 
+        argumentNull: string;
+        /**
+        * @return "Specified argument was out of the range of valid values.
+        */
+        argumentOutOfRange: string;
+        /**
+        * @return "Object cannot be converted to the required type."
+        */ 
+        argumentType: string;
+        /**
+        * @return "Object of type '{0}' cannot be converted to type '{1}'."
+        */ 
+        argumentTypeWithTypes: string;
+        /**
+        * @return "Value cannot be undefined."
+        */ 
+        argumentUndefined: string; 
+        /**
+        * @return "Assertion Failed: {0}"
+        */ 
+        assertFailed: string;
+        /**
+        * @return "Assertion Failed: {0}\r\nat {1}"
+        */ 
+        assetFailedCaller: string;
+        /**
+        * @return "Base URL does not contain ://."
+        */ 
+        badBaseUrl1: string;
+        /**
+        * @return "Base URL does not contain another /."
+        */
+        badBaseUrl2: string;
+        /**
+        * @return "Cannot find last / in base URL."
+        */
+        badBaseUrl3: string;
+        /**
+        * @return "{0}\r\n\r\nBreak into debugger?"
+        */
+        breakIntoDebugger: string;
+        /**
+        * @return "Cannot abort when executor has not started."
+        */
+        cannotAbortBeforeStart: string;
+        /**
+        * @return "Cannot call {0} when responseAvailable is false."
+        */
+        cannotCallBeforeResponse: string;
+        /**
+        * @return "Cannot call {0} once started."
+        */
+        cannotCallOnceStarted: string;
+        /**
+        * @return "Cannot call {0} outside of a completed event handler."
+        */
+        cannotCallOutsideHandler: string;
+        /**
+        * @return "Cannot deserialize empty string."
+        */
+        cannotDeserializeEmptyString: string;
+        /**
+        * @return "Cannot serialize non-finite numbers."
+        */
+        cannotSerializeNonFiniteNumbers: string;
+        /**
+        * @return "The id property can't be set on a control."
+        */
+        controlCantSetId: string;
+        /**
+        * @return "'{0}' is not a valid value for enum {1}."
+        */
+        enumInvalidValue: string;
+        /**
+        * @return "Handler was not added through the Sys.UI.DomEvent.addHandler method.
+        */
+        eventHandlerInvalid: string;
+        /**
+        * @return "One of the identified items was in an invalid format."
+        */
+        format: string;
+        /**
+        * @return "The string was not recognized as a valid Date."
+        */
+        formatBadDate: string;
+        /**
+        * @return "Format specifier was invalid."
+        */
+        formatBadFormatSpecifier: string;
+        /**
+        * @return "Input string was not in a correct format."
+        */
+        formatInvalidString: string;
+        /**
+        * @return "Could not create a valid Sys.Net.WebRequestExecutor from: {0}."
+        */
+        invalidExecutorType: string;
+        /**
+        * @return "httpVerb cannot be set to an empty or null string."
+        */
+        invalidHttpVerb: string;
+        /**
+        * @return "Operation is not valid due to the current state of the object."
+        */
+        invalidOperation: string;
+        /**
+        * @return "Value must be greater than or equal to zero."
+        */
+        invalidTimeout: string;
+        /**
+        * @return "Cannot call invoke more than once."
+        */
+        invokeCalledTwice: string;
+        /**
+        * @return "The method or operation is not implemented."
+        */
+        notImplemented: string;
+        /**
+        * @return "Cannot call executeRequest with a null webRequest."
+        */
+        nullWebRequest: string;
+
+        //#endregion
+    }
+
+    /**
+    * Provides a mechanism to concatenate strings.
+    * The StringBuilder class represents a mutable string of characters and provides a mechanism to concatenate a sequence of strings.
+    * @see {@link http://msdn.microsoft.com/en-us/library/bb310852(v=vs.100).aspx}
+    */
+    class StringBuilder {
+
+        //#region Constructors
+
+        /**
+        * Creates a new instance of StringBuilder and optionally accepts initial text to concatenate. You can specify a string in the optional initialText parameter to initialize the value of the StringBuilder instance.
+        * @param initialText
+        *           (Optional) The string that is used to initialize the value of the instance. If the value is null, the new StringBuilder instance will contain an empty string ("").
+        */
+        constructor(initialText?: string);
+
+        //#endregion
+
+        //#region Methods
+
+        /**
+        * Appends a copy of a specified string to the end of the Sys.StringBuilder instance.
+        * Use the append method to append a copy of a specified string to the end of a StringBuilder instance. If text is an empty string, null, or undefined, the StringBuilder instance remains unchanged.
+        * @param text
+        *             The string to append to the end of the StringBuilder instance.
+        */
+        append(text: string): void;
+
+        /**
+        * Appends a string with a line terminator to the end of the Sys.StringBuilder instance. 
+        * Use the appendLine method to append a specified string and a line terminator to the end of a Stringbuilder instance. The line terminator is a combination of a carriage return and a newline character. If no string is specified in text, only the line terminator is appended.
+        * @param text
+        *           (Optional) The string to append with a line terminator to the end of the StringBuilder instance.
+        */
+        appendLine(text: string): void;
+
+        /**
+        * Clears the contents of the Sys.StringBuilder instance.  
+        * Use the clear method to clear the StringBuilder instance of its current contents.
+        */
+        clear(): void;
+
+        /**
+        * Determines whether the Sys.StringBuilder object has content.
+        * Use the isEmpty method to determine whether a StringBuilder instance has any content. If you append an empty string, null, or an undefined value to an empty StringBuilder instance, the instance remains empty and unchanged.
+        * @return true if the StringBuilder instance contains no elements; otherwise, false.
+        */ 
+        isEmpty(): boolean;
+
+        /**
+        * Creates a string from the contents of a Sys.StringBuilder instance, and optionally inserts a delimiter between each element of the created string.  
+        * Use the toString method to create a string from the contents of a StringBuilder instance. Use the toString method with the optional separator parameter to insert a specified string delimiter between each element of the created string.
+        * @param separator
+        *           (Optional) A string to append between each element of the string that is returned.  
+        * @return A string representation of the StringBuilder instance. If separator is specified, the delimiter string is inserted between each element of the returned string.
+        */
+        toString(separator: string): string;
+        toString(): string;
+
+        //#endregion
+    }
 
      //#endregion
 
@@ -1195,6 +1405,7 @@ declare module Sys {
 
     /**
     * Provides a base class for classes that are used by event sources to pass event argument information.
+    * @see {@link http://msdn.microsoft.com/en-us/library/bb383795(v=vs.100).aspx}
     */
     class EventArgs {
 
@@ -1218,6 +1429,7 @@ declare module Sys {
     /**
     * Provides a class for command events.
     * Event handlers can use the cancel property to cancel the operation in progress. The semantics of canceling an event depend on the event source.
+    * @see {@link http://msdn.microsoft.com/en-us/library/dd393715(v=vs.100).aspx
     */
     class CommandEventArgs extends EventArgs {
 
@@ -1249,6 +1461,7 @@ declare module Sys {
 
     /**
     * Provides the base class for events that can be canceled.
+    * @see {@link http://msdn.microsoft.com/en-us/library/bb311009(v=vs.100).aspx}
     */
     class CancelEventArgs extends EventArgs {
 
@@ -1280,13 +1493,35 @@ declare module Sys {
 
     /**
     * This class is used by the Sys.Application Class to hold event arguments for the navigate event.
+    * @see {@link http://msdn.microsoft.com/en-us/library/cc488008(v=vs.100).aspx}
     */
     class HistoryEventArgs extends EventArgs {
 
+        //#region Constructors
+
+        /**
+        * For a live code example that demonstrates this event in action, and for a view of how this event is used in code, see Managing Browser History Using Client Script.  
+        * @param state Object. A collection of key/value pairs that represent the state data. This data will be added to the main state to form the global state of the new history point.
+        */
+        constructor(state: any);
+
+        //#endregion
+
+        //#region Methods
+
+        /**
+        * Object. A collection of name/value pairs that represent the state of a Web page.  
+        * The state object stores the data that is required in order to restore a Web page to a specified application state.
+        * @return Object. A collection of name/value pairs that represent the state of a Web page.
+        */
+        get_State(): any;
+
+        //#endregion
     }
 
     /**
     * Describes how the collection was changed.
+    * @see {@link http://msdn.microsoft.com/en-us/library/dd393665(v=vs.100).aspx}
     */
     class NotifyCollectionChangedEventArgs extends EventArgs {
 
@@ -1301,7 +1536,6 @@ declare module Sys {
 
         //#endregion
 
-
         //#region Properties
 
         /**
@@ -1311,7 +1545,36 @@ declare module Sys {
         get_changes(): CollectionChange[];
 
         //#endregion
-        
+    }
+
+    /**
+    * Used by the propertyChanged event to indicate which property has changed.
+    * @see {@link http://msdn.microsoft.com/en-us/library/bb310957(v=vs.100).aspx}
+    */
+    class PropertyChangedEventArgs extends EventArgs {
+           
+        //#region Constructors
+
+        /**
+        * Initializes a new instance of the PropertyChangedEventArgs class.
+        * @param propertyName 
+        *           The name of the property that changed.  
+        */
+        constructor(propertyName: string);
+
+        //#endregion
+
+        //#region Methods
+
+        /**
+        * Gets the name of the property that changed.
+        * Use the propertyName property to determine the name of the property that changed.
+        * @return A string that contains the name of the property that changed. 
+        */
+        propertyName(): string;
+
+
+        //#endregion
     }
 
     //#endregion
