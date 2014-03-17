@@ -1761,7 +1761,7 @@ declare module _ {
 			whereValue: T): Dictionary<T[]>;
 	}
 
-	interface LoDashArrayWrapper {
+    interface LoDashArrayWrapper<T> {
 		/**
 		* @see _.groupBy
 		**/
