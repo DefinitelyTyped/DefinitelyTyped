@@ -459,7 +459,7 @@ declare module THREE {
 
         /**
          * When the clock is running, It holds the time elapsed btween the start of the clock to the previous update.
-         * This counted from the number of milliseconds elapsed since 1 January 1970 00:00:00 UTC.
+         * This parameter is in seconds of three decimal places.
          */
         elapsedTime: number;
 
