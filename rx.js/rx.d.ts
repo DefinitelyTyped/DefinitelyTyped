@@ -47,7 +47,7 @@ declare module Rx {
 	}
 
 	export module config {
-		
+		export var Promise: { new <T>(resolve: (value: T) => void, reject: (reason: any) => void): IPromise<T>; };
 	}
 
 	export interface IDisposable {
@@ -189,6 +189,16 @@ declare module Rx {
 		static createOnCompleted<T>(): Notification<T>;
 	}
 
+	/**
+	 * Promise A+
+	 */
+	export interface IPromise<T> {
+		then<R>(onFulfilled: (value: T) => IPromise<R>, onRejected: (reason: any) => IPromise<R>): IPromise<R>;
+		then<R>(onFulfilled: (value: T) => IPromise<R>, onRejected?: (reason: any) => R): IPromise<R>;
+		then<R>(onFulfilled: (value: T) => R, onRejected: (reason: any) => IPromise<R>): IPromise<R>;
+		then<R>(onFulfilled?: (value: T) => R, onRejected?: (reason: any) => R): IPromise<R>;
+	}
+
 	// Observer
 	export class Observer<T> {
 		onNext(value: T): void;
@@ -283,6 +293,27 @@ declare module Rx {
 		takeWhile(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>;
 		where(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>;
 		filter(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>; // alias for where
+
+		/**
+		* Converts an existing observable sequence to an ES6 Compatible Promise
+		* @example
+		* var promise = Rx.Observable.return(42).toPromise(RSVP.Promise);
+		* @param promiseCtor The constructor of the promise.
+		* @returns An ES6 compatible promise with the last value from the observable sequence.
+		*/
+		toPromise<TPromise extends IPromise<T>>(promiseCtor: { new (resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): TPromise; }): TPromise;
+		/**
+		* Converts an existing observable sequence to an ES6 Compatible Promise
+		* @example
+		* var promise = Rx.Observable.return(42).toPromise(RSVP.Promise);
+		* 
+		* // With config
+		* Rx.config.Promise = RSVP.Promise;
+		* var promise = Rx.Observable.return(42).toPromise();
+		* @param [promiseCtor] The constructor of the promise. If not provided, it looks for it in Rx.config.Promise.
+		* @returns An ES6 compatible promise with the last value from the observable sequence.
+		*/
+		toPromise(promiseCtor?: { new (resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): IPromise<T>; }): IPromise<T>;
 	}
 
 	interface ObservableStatic {
@@ -325,6 +356,13 @@ declare module Rx {
 		zip<T1, T2, T3, T4, T5, TResult>(source1: Observable<T1>, source2: Observable<T2>, source3: Observable<T3>, source4: Observable<T4>, source5: Observable<T5>, resultSelector: (item1: T1, item2: T2, item3: T3, item4: T4, item5: T5) => TResult): Observable<TResult>;
 		zipArray<T>(...sources: Observable<T>[]): Observable<T[]>;
 		zipArray<T>(sources: Observable<T>[]): Observable<T[]>;
+
+		/**
+		* Converts a Promise to an Observable sequence
+		* @param promise An ES6 Compliant promise.
+		* @returns An Observable sequence which wraps the existing promise success and failure.
+		*/
+		fromPromise<T>(promise: IPromise<T>): Observable<T>;
 	}
 
 	export var Observable: ObservableStatic;
