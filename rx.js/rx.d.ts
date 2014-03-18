@@ -1,11 +1,11 @@
-﻿// Type definitions for RxJS v2.2.13
+﻿// Type definitions for RxJS v2.2.15
 // Project: http://rx.codeplex.com/
 // Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module Rx {
-	export module Internals {
+	export module internals {
 		function isEqual(left: any, right: any): boolean;
 		function inherits(child: Function, parent: Function): Function;
 		function addProperties(obj: Object, ...sourcces: Object[]): void;
@@ -44,6 +44,10 @@ declare module Rx {
 			isCancelled(): boolean;
 			invokeCore(): IDisposable;
 		}
+	}
+
+	export module config {
+		
 	}
 
 	export interface IDisposable {
