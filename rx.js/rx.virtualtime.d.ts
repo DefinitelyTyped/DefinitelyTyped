@@ -27,7 +27,7 @@ declare module Rx {
 		/* protected abstract */ toDateTimeOffset(duetime: TAbsolute): number;
 		/* protected abstract */ toRelative(duetime: number): TRelative;
 
-		/* protected */ getNext(): Internals.ScheduledItem<TAbsolute>;
+		/* protected */ getNext(): internals.ScheduledItem<TAbsolute>;
 	}
 
 	export class HistoricalScheduler extends VirtualTimeScheduler<number, number> {
