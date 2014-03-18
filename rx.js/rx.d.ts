@@ -47,7 +47,7 @@ declare module Rx {
 	}
 
 	export module config {
-		export var Promise: { new <T>(resolve: (value: T) => void, reject: (reason: any) => void): IPromise<T>; };
+		export var Promise: { new <T>(resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): IPromise<T>; };
 	}
 
 	export interface IDisposable {
