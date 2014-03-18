@@ -233,11 +233,14 @@ declare module Rx {
 		combineLatest<T2, T3, T4, T5, TResult>(second: Observable<T2>, third: Observable<T3>, fourth: Observable<T4>, fifth: Observable<T5>, resultSelector: (v1: T, v2: T2, v3: T3, v4: T4, v5: T5) => TResult): Observable<TResult>;
 		combineLatest<TOther, TResult>(souces: Observable<TOther>[], resultSelector: (firstValue: T, ...otherValues: TOther[]) => TResult): Observable<TResult>;
 		concat(...sources: Observable<T>[]): Observable<T>;
+		concat(...sources: IPromise<T>[]): Observable<T>;
 		concat(sources: Observable<T>[]): Observable<T>;
+		concat(sources: IPromise<T>[]): Observable<T>;
 		concatAll(): T;
 		concatObservable(): T;	// alias for concatAll
-		merge(maxConcurrent: number): Observable<T>;
+		merge(maxConcurrent: number): T;
 		merge(other: Observable<T>): Observable<T>;
+		merge(other: IPromise<T>): Observable<T>;
 		mergeAll(): T;
 		mergeObservable(): T;	// alias for mergeAll
 		onErrorResumeNext(second: Observable<T>): Observable<T>;
@@ -342,11 +345,17 @@ declare module Rx {
 		catch<T>(...sources: Observable<T>[]): Observable<T>;
 		catchException<T>(...sources: Observable<T>[]): Observable<T>;	// alias for catch
 		concat<T>(...sources: Observable<T>[]): Observable<T>;
+		concat<T>(...sources: IPromise<T>[]): Observable<T>;
 		concat<T>(sources: Observable<T>[]): Observable<T>;
+		concat<T>(sources: IPromise<T>[]): Observable<T>;
 		merge<T>(...sources: Observable<T>[]): Observable<T>;
+		merge<T>(...sources: IPromise<T>[]): Observable<T>;
 		merge<T>(sources: Observable<T>[]): Observable<T>;
+		merge<T>(sources: IPromise<T>[]): Observable<T>;
 		merge<T>(scheduler: IScheduler, ...sources: Observable<T>[]): Observable<T>;
+		merge<T>(scheduler: IScheduler, ...sources: IPromise<T>[]): Observable<T>;
 		merge<T>(scheduler: IScheduler, sources: Observable<T>[]): Observable<T>;
+		merge<T>(scheduler: IScheduler, sources: IPromise<T>[]): Observable<T>;
 		onErrorResumeNext<T>(...sources: Observable<T>[]): Observable<T>;
 		onErrorResumeNext<T>(sources: Observable<T>[]): Observable<T>;
 		zip<T1, T2, TResult>(first: Observable<T1>, sources: Observable<T2>[], resultSelector: (item1: T1, right: Observable<T2>) => TResult): Observable<TResult>;
