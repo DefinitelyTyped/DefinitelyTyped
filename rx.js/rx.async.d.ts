@@ -83,30 +83,5 @@ declare module Rx {
 		fromEvent<T>(element: NodeList, eventName: string, selector?: (arguments: any[]) => T): Observable<T>;
 		fromEvent<T>(element: Node, eventName: string, selector?: (arguments: any[]) => T): Observable<T>;
         fromEventPattern<T>(addHandler: (handler: Function) => void, removeHandler: (handler: Function) => void, selector?: (arguments: any[])=>T): Observable<T>;
-
-		fromPromise<T>(promise: IPromise<T>): Observable<T>;
-		fromPromise<T>(promise: any): Observable<T>;
-	}
-
-	interface Observable<T> {
-		/**
-		 * Converts an existing observable sequence to an ES6 Compatible Promise
-		 * @example
-		 * var promise = Rx.Observable.return(42).toPromise(RSVP.Promise);
-		 * @param The constructor of the promise
-		 * @returns An ES6 compatible promise with the last value from the observable sequence.
-		 */
-		toPromise<TPromise extends IPromise<T>>(promiseCtor: { new (resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): TPromise; }): TPromise;
-		toPromise(promiseCtor: { new (resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): IPromise<T>; }): IPromise<T>;
-	}
-
-	/**
-	 * Promise A+
-	 */
-	export interface IPromise<T> {
-		then<R>(onFulfilled: (value: T) => IPromise<R>, onRejected: (reason: any) => IPromise<R>): IPromise<R>;
-		then<R>(onFulfilled: (value: T) => IPromise<R>, onRejected?: (reason: any) => R): IPromise<R>;
-		then<R>(onFulfilled: (value: T) => R, onRejected: (reason: any) => IPromise<R>): IPromise<R>;
-		then<R>(onFulfilled?: (value: T) => R, onRejected?: (reason: any) => R): IPromise<R>;
 	}
 }
