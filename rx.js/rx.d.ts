@@ -245,7 +245,8 @@ declare module Rx {
 		mergeObservable(): T;	// alias for mergeAll
 		onErrorResumeNext(second: Observable<T>): Observable<T>;
 		skipUntil<T2>(other: Observable<T2>): Observable<T>;
-		switchLatest(): T;
+		switch(): T;
+		switchLatest(): T;	// alias for switch
 		takeUntil<T2>(other: Observable<T2>): Observable<T>;
 		zip<T2, TResult>(second: Observable<T2>, resultSelector: (v1: T, v2: T2) => TResult): Observable<TResult>;
 		zip<T2, T3, TResult>(second: Observable<T2>, third: Observable<T3>, resultSelector: (v1: T, v2: T2, v3: T3) => TResult): Observable<TResult>;
@@ -285,11 +286,17 @@ declare module Rx {
 		select<TResult>(selector: (value: T, index: number, source: Observable<T>) => TResult, thisArg?: any): Observable<TResult>;
 		map<TResult>(selector: (value: T, index: number, source: Observable<T>) => TResult, thisArg?: any): Observable<TResult>;	// alias for select
 		selectMany<TOther, TResult>(selector: (value: T) => Observable<TOther>, resultSelector: (item: T, other: TOther) => TResult): Observable<TResult>;
+		selectMany<TOther, TResult>(selector: (value: T) => IPromise<TOther>, resultSelector: (item: T, other: TOther) => TResult): Observable<TResult>;
 		selectMany<TResult>(selector: (value: T) => Observable<TResult>): Observable<TResult>;
+		selectMany<TResult>(selector: (value: T) => IPromise<TResult>): Observable<TResult>;
 		selectMany<TResult>(other: Observable<TResult>): Observable<TResult>;
+		selectMany<TResult>(other: IPromise<TResult>): Observable<TResult>;
 		flatMap<TOther, TResult>(selector: (value: T) => Observable<TOther>, resultSelector: (item: T, other: TOther) => TResult): Observable<TResult>;	// alias for selectMany
+		flatMap<TOther, TResult>(selector: (value: T) => IPromise<TOther>, resultSelector: (item: T, other: TOther) => TResult): Observable<TResult>;	// alias for selectMany
 		flatMap<TResult>(selector: (value: T) => Observable<TResult>): Observable<TResult>;	// alias for selectMany
+		flatMap<TResult>(selector: (value: T) => IPromise<TResult>): Observable<TResult>;	// alias for selectMany
 		flatMap<TResult>(other: Observable<TResult>): Observable<TResult>;	// alias for selectMany
+		flatMap<TResult>(other: IPromise<TResult>): Observable<TResult>;	// alias for selectMany
 		skip(count: number): Observable<T>;
 		skipWhile(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>;
 		take(count: number, scheduler?: IScheduler): Observable<T>;
