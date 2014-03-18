@@ -211,4 +211,10 @@ declare module "restify" {
   export function fullResponse(): RequestHandler;
   export var defaultResponseHeaders : any;
   export var CORS: CORS;
+  
+  export module pre {
+      export function pause(): RequestHandler;
+      export function sanitizePath(options?: any): RequestHandler;
+      export function userAgentConnection(options?: any): RequestHandler;
+  }
 }
