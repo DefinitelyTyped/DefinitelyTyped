@@ -1767,17 +1767,172 @@ declare module Sys {
 
         /**
         * Provides the client proxy class for the authentication service.
+        * The AuthenticationService class is a singleton; it has only one instance with a global point of access. 
+        * It is always available to your application and you do not have to instantiate it.
+        * The AuthenticationService class provides script access to user authentication. 
+        * It calls methods of the authentication service through the same infrastructure used to call any other Web service method.
         * @see {@link http://msdn.microsoft.com/en-us/library/bb310861(v=vs.100).aspx}
         */
         class AuthenticationService {
 
+            //#region Constructors
+
+            /**
+            * Initializes a new instance of the Sys.Services.AuthenticationService class.  
+            */ 
+            constructor();
+
+            //#endregion
+
+            //#region Fields
+
+            /**
+            * Specifies the path of the default authentication service.
+            */ 
+            DefaultWebServicePath: string;
+
+            //#endregion
+
+            //#region Methods
+
+            /**
+            * Authenticates the user's credentials.
+            * @param userName (required) The user name to authenticate.
+            * @param password 
+            *           The user's password. The default is null.
+            * @param isPersistent 
+            *           true if the issued authentication ticket should be persistent across browser sessions; otherwise, false. The default is false.
+            * @param redirctUrl
+            *           The URL to redirect the browser to on successful login. The default is null.
+            * @param customInfo
+            *           
+            * @param loginCompletedCallback
+            *           The function to call when the login has finished successfully. The default is null.
+            * @param failedCallback
+            *           The function to call if the login fails. The default is null.
+            * @param userContext
+            *           User context information that you are passing to the callback functions.
+            * @exception Sys.ArgumentNullException - username is null.     
+            */
+            login(userName: string, password: string, isPersistent: boolean, customInfo: any, redirectUrl: string, loginCompletedCallback: Function, failedCallback: Function, userContext: any): void;
+
+            /**
+            * Logs out the currently authenticated user.  
+            * 
+            * If redirectUrl is null or is an empty string, the page is redirected to itself after the call to the authentication Web service finishes and the completed callback function is called. 
+            * This makes sure that any user-related data is cleared from the page. If redirectUrl is not null or is a non-empty string, the page is redirected to the specified URL after a successful call to the Web service. 
+            * This URL can be an absolute virtual path, a relative virtual path, or a fully qualified domain name and a path.
+            * If the call to the Web service fails, the page is not redirected or refreshed. Instead, the failed callback function is called.
+            *
+            * @param redirectUrl 
+            *           The URL to redirect the browser to on successful logout. The default is null.
+            * @param logoutCompletedCallback
+            *           The function that is called when the logout has finished. The default is null.
+            * @param failedCallback
+            *           The function that is called if the logout has failed. The default is null.
+            * @param userContext
+            *            User context information that you are passing to the callback functions.
+            */ 
+            logout(redirectUrl: string, logoutCompletedCallback: Function, failedCallback: Function, userContext: any): void;
+
+            //#endregion
+
+            //#region Properties
+
+            /**
+            * Gets or sets the name of the default failure callback function.  
+            */
+            get_defaultFailedCallback(): Function;
+
+            /**
+            * Gets or sets the name of the default failure callback function.
+            * @param value
+            *           A string that contains the name of the default failure callback function.
+            */
+            set_defaultFailedCallback(value: string): void;
+
+            /**
+            * Gets or sets the default succeeded callback function for the service.
+            * @return A reference to the succeeded callback function for the service.  
+            */
+            defaultSucceededCallback(): Function;
+
+            /**
+            * Gets or sets the default succeeded callback function for the service.
+            * @param value 
+            *           A reference to the succeeded callback function for the service.
+            */
+            defaultSucceededCallback(value: Function): void;
+
+            /**
+            * Gets or sets the default user context for the service.
+            * @return A reference to the user context for the service.  
+            */
+            defaultUserContext(): Object
+
+            /**
+            * Gets or sets the default user context for the service.
+            * @param value
+            *       A reference to the user context for the service.  
+            */
+            defaultUserContext(value: Object): void;
+            
+            /**
+            * Gets the authentication state of the current user.  
+            * The value of this property is set by the ScriptManager object during a page request.
+            * @return true if the current user is logged in; otherwise, false.
+            */
+            get_isLoggedIn(): boolean;
+
+
+            /**
+            * Gets or sets the authentication service path.
+            * You usually set the path property in declarative markup. This value can be an absolute virtual path, a relative virtual path, or a fully qualified domain name and a path.
+            * By default, the path property is set to an empty string. If you do not set the path property, the internal default path is used, which points to the built-in authentication service.
+            * @param value
+            *           The authentication service path.
+            */
+            set_path(value: string);
+
+            /**
+            * Gets or sets the authentication service path.  
+            * By default, the path property is set to an empty string. If you do not set the path property, the internal default path is used, which points to the built-in authentication service.
+            */
+            get_path(): string;
+
+            /**
+            * Gets or sets the authentication service time-out value.
+            * The timeout property represents the time in milliseconds that the current instance of the Sys.Net.WebRequestExecutor class should wait before timing out the request.
+            * By setting a time-out interval, you can make sure that a pending request returns based on a time interval that you specify, instead of waiting for the asynchronous communication layer to time out.
+            * @param value
+            *           The time-out value in milliseconds.
+            */
+            set_timeout(value): void;
+
+            /**
+            * Gets or sets the authentication service time-out value. 
+            * The timeout property represents the time in milliseconds that the current instance of the Sys.Net.WebRequestExecutor class should wait before timing out the request.
+            * The timeout in milliseconds 
+            */
+            get_timeout(): number;
+
+            //#endregion
         }
 
         /**
         * Defines a profile group.
+        * The ProfileGroup class defines the type of an element as a group in the properties collection of the Sys.Services.ProfileService class. 
+        * Profile group properties are accessed as subproperties of the related group, as shown in the following ECMAScript (JavaScript) example:
         * @see {@link http://msdn.microsoft.com/en-us/library/bb310801(v=vs.100).aspx}
         */ 
         class ProfileGroup {
+
+            /**
+            * Initializes a new instance of the Sys.Services.ProfileGroup class.
+            * @param properties
+            *           (Optional) An object that contains the settings for this profile group. This parameter can be null.
+            */
+            constructor(properties: Object);
 
         }
 
@@ -1791,7 +1946,7 @@ declare module Sys {
 
         /**
         * Provides the client proxy class for the profile service.
-        * 
+        * @see {@link http://msdn.microsoft.com/en-us/library/bb383800(v=vs.100).aspx}
         */ 
         class ProfileService {
 
@@ -1973,6 +2128,7 @@ declare module Sys {
 
     /**
     * The Sys.WebForms namespace contains classes related to partial-page rendering in the Microsoft Ajax Library.
+    * @see {@link http://msdn.microsoft.com/en-us/library/bb397566(v=vs.100).aspx}
     */
     module WebForms {
 
@@ -2024,11 +2180,59 @@ declare module Sys {
 
         /**
         * Used by the endRequest event of the PageRequestManager class to pass argument information to event handlers.
+        * @see {@link http://msdn.microsoft.com/en-us/library/bb397499.aspx}
         */ 
         class EndRequestEventArgs extends EventArgs {
 
-           
+            /**
+            * Initializes a new instance of the EndRequestEventArgs class.
+            * @param error
+            *           An error object.
+            * @param dataItems
+            *           An object containing data items.
+            * @param response
+            *           An object of type Sys.Net.WebRequestExecutor.
+            */
+            constructor(error: Error, dataItems: any, response: Sys.Net.WebRequestExecutor);
 
+
+            //#region Properties
+
+            /**
+            * Gets a JSON data structure that contains data items that were registered by using the RegisterDataItem method of the ScriptManager class.
+            * The JavaScript Error object exposes several properties that define the error. The Microsoft Ajax Library provides additional functions for the Error object.
+            * @return A JSON data structure that contains name/value pairs that were registered as data items by using the RegisterDataItem method of the ScriptManager class.
+            */
+            get_dataItems(): any;
+
+            /**
+            * Gets the Error object.
+            * @return A base ECMAScript (JavaScript) Error object.
+            */
+            get_error(): Error;
+
+            /**
+            * Get or sets a value that indicates whether the error has been handled.
+            * Use this property to determine whether an asynchronous postback error has already been handled. If it has not and if you want to take action on the error, you can set the error as handled.
+            * @return true if the error has been handled; otherwise false.  
+            */
+            get_errorHandled(): boolean;
+
+            /**
+            * Get or sets a value that indicates whether the error has been handled.
+            * Use this property to determine whether an asynchronous postback error has already been handled. If it has not and if you want to take action on the error, you can set the error as handled.
+            * @param value
+            *         true or false.             
+            */
+            set_errorHandled(value: boolean): void;
+
+            /**
+            * Gets a response object that is represented by the Sys.Net.WebRequestExecutor class.
+            * @return A response object that is represented by the WebRequestExecutor class.  
+            */
+            get_response(): any; // todo
+
+            //#endregion
         }
 
         /**
@@ -2175,9 +2379,39 @@ declare module Sys {
             //#endregion
         }
 
-        //#region Exceptions 
+        //#region Exceptions: Defines exceptions that can occur during partial-page updates.
 
+        /**
+        * Raised when an error occurs while processing the response from the server.
+        * If the response to an asynchronous postback returns without an error but there is an error processing the response in the client, the Sys.WebForms.PageRequestManagerParserErrorException is raised. 
+        * For information about how to handle this error condition, see Debugging and Tracing Ajax Applications Overview.
+        * @see {@link http://msdn.microsoft.com/en-us/library/bb397466(v=vs.100).aspx}
+        */
+        class PageRequestManagerParserErrorException {
 
+        }
+
+        /**
+        * Raised when an error occurs on the server.
+        * If an error occurs on the server while the request is being processed, an error response is returned to the browser and the Sys.WebForms.PageRequestManagerServerErrorException exception is raised.
+        * To customize error handling and to display more information about the server error, handle the AsyncPostBackError event and use the AsyncPostBackErrorMessage and AllowCustomErrorsRedirect properties. 
+        * For an example of how to provide custom error handling during partial-page updates, see Customizing Error Handling for ASP.NET UpdatePanel Controls.
+        * @see {@link http://msdn.microsoft.com/en-us/library/bb397466(v=vs.100).aspx}        *
+        */ 
+        class PageRequestManagerServerErrorException {
+
+        }
+
+        /**
+        * Raised when the request times out.
+        * A partial-page update is initiated by a client request (an asynchronous postback) to the server. The server processes the request and returns a response to the client.
+        * If the browser does not receive a response in a specified time, the Sys.WebForms.PageRequestManagerTimeoutException is raised.
+        * To change the interval that elapses before asynchronous postbacks time out, set the AsyncPostBackTimeout property of the ScriptManager control.
+        * @see {@link http://msdn.microsoft.com/en-us/library/bb397466(v=vs.100).aspx}
+        */
+        class PageRequestManagerTimeoutException {
+
+        }
 
         //#endregion
 
