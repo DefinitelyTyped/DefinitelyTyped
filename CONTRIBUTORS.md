@@ -286,6 +286,7 @@ All definitions files include a header with the author and editors, so at some p
 * [socket.io](http://socket.io) (by [William Orr](https://github.com/worr))
 * [socket.io-client](http://socket.io) (by [Maido Kaara](https://github.com/v3rm0n))
 * [SockJS](https://github.com/sockjs/sockjs-client) (by [Emil Ivanov](https://github.com/vladev))
+* [sockjs-node](https://github.com/sockjs/sockjs-node) (by [Phil McCloghry-Laing](https://github.com/pmccloghrylaing))
 * [SoundJS](http://www.createjs.com/#!/SoundJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [Spin](http://fgnass.github.com/spin.js/) (by [Boris Yankov](https://github.com/borisyankov))
 * [sqlite3](https://github.com/mapbox/node-sqlite3) (by [Nick Malaguti](https://github.com/nmalaguti))
