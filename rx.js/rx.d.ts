@@ -1,11 +1,11 @@
-﻿// Type definitions for RxJS v2.2.13
+﻿// Type definitions for RxJS v2.2.15
 // Project: http://rx.codeplex.com/
 // Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module Rx {
-	export module Internals {
+	export module internals {
 		function isEqual(left: any, right: any): boolean;
 		function inherits(child: Function, parent: Function): Function;
 		function addProperties(obj: Object, ...sourcces: Object[]): void;
@@ -44,6 +44,10 @@ declare module Rx {
 			isCancelled(): boolean;
 			invokeCore(): IDisposable;
 		}
+	}
+
+	export module config {
+		export var Promise: { new <T>(resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): IPromise<T>; };
 	}
 
 	export interface IDisposable {
@@ -185,6 +189,16 @@ declare module Rx {
 		static createOnCompleted<T>(): Notification<T>;
 	}
 
+	/**
+	 * Promise A+
+	 */
+	export interface IPromise<T> {
+		then<R>(onFulfilled: (value: T) => IPromise<R>, onRejected: (reason: any) => IPromise<R>): IPromise<R>;
+		then<R>(onFulfilled: (value: T) => IPromise<R>, onRejected?: (reason: any) => R): IPromise<R>;
+		then<R>(onFulfilled: (value: T) => R, onRejected: (reason: any) => IPromise<R>): IPromise<R>;
+		then<R>(onFulfilled?: (value: T) => R, onRejected?: (reason: any) => R): IPromise<R>;
+	}
+
 	// Observer
 	export class Observer<T> {
 		onNext(value: T): void;
@@ -219,16 +233,20 @@ declare module Rx {
 		combineLatest<T2, T3, T4, T5, TResult>(second: Observable<T2>, third: Observable<T3>, fourth: Observable<T4>, fifth: Observable<T5>, resultSelector: (v1: T, v2: T2, v3: T3, v4: T4, v5: T5) => TResult): Observable<TResult>;
 		combineLatest<TOther, TResult>(souces: Observable<TOther>[], resultSelector: (firstValue: T, ...otherValues: TOther[]) => TResult): Observable<TResult>;
 		concat(...sources: Observable<T>[]): Observable<T>;
+		concat(...sources: IPromise<T>[]): Observable<T>;
 		concat(sources: Observable<T>[]): Observable<T>;
+		concat(sources: IPromise<T>[]): Observable<T>;
 		concatAll(): T;
 		concatObservable(): T;	// alias for concatAll
-		merge(maxConcurrent: number): Observable<T>;
+		merge(maxConcurrent: number): T;
 		merge(other: Observable<T>): Observable<T>;
+		merge(other: IPromise<T>): Observable<T>;
 		mergeAll(): T;
 		mergeObservable(): T;	// alias for mergeAll
 		onErrorResumeNext(second: Observable<T>): Observable<T>;
 		skipUntil<T2>(other: Observable<T2>): Observable<T>;
-		switchLatest(): T;
+		switch(): T;
+		switchLatest(): T;	// alias for switch
 		takeUntil<T2>(other: Observable<T2>): Observable<T>;
 		zip<T2, TResult>(second: Observable<T2>, resultSelector: (v1: T, v2: T2) => TResult): Observable<TResult>;
 		zip<T2, T3, TResult>(second: Observable<T2>, third: Observable<T3>, resultSelector: (v1: T, v2: T2, v3: T3) => TResult): Observable<TResult>;
@@ -268,17 +286,44 @@ declare module Rx {
 		select<TResult>(selector: (value: T, index: number, source: Observable<T>) => TResult, thisArg?: any): Observable<TResult>;
 		map<TResult>(selector: (value: T, index: number, source: Observable<T>) => TResult, thisArg?: any): Observable<TResult>;	// alias for select
 		selectMany<TOther, TResult>(selector: (value: T) => Observable<TOther>, resultSelector: (item: T, other: TOther) => TResult): Observable<TResult>;
+		selectMany<TOther, TResult>(selector: (value: T) => IPromise<TOther>, resultSelector: (item: T, other: TOther) => TResult): Observable<TResult>;
 		selectMany<TResult>(selector: (value: T) => Observable<TResult>): Observable<TResult>;
+		selectMany<TResult>(selector: (value: T) => IPromise<TResult>): Observable<TResult>;
 		selectMany<TResult>(other: Observable<TResult>): Observable<TResult>;
+		selectMany<TResult>(other: IPromise<TResult>): Observable<TResult>;
 		flatMap<TOther, TResult>(selector: (value: T) => Observable<TOther>, resultSelector: (item: T, other: TOther) => TResult): Observable<TResult>;	// alias for selectMany
+		flatMap<TOther, TResult>(selector: (value: T) => IPromise<TOther>, resultSelector: (item: T, other: TOther) => TResult): Observable<TResult>;	// alias for selectMany
 		flatMap<TResult>(selector: (value: T) => Observable<TResult>): Observable<TResult>;	// alias for selectMany
+		flatMap<TResult>(selector: (value: T) => IPromise<TResult>): Observable<TResult>;	// alias for selectMany
 		flatMap<TResult>(other: Observable<TResult>): Observable<TResult>;	// alias for selectMany
+		flatMap<TResult>(other: IPromise<TResult>): Observable<TResult>;	// alias for selectMany
 		skip(count: number): Observable<T>;
 		skipWhile(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>;
 		take(count: number, scheduler?: IScheduler): Observable<T>;
 		takeWhile(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>;
 		where(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>;
 		filter(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>; // alias for where
+
+		/**
+		* Converts an existing observable sequence to an ES6 Compatible Promise
+		* @example
+		* var promise = Rx.Observable.return(42).toPromise(RSVP.Promise);
+		* @param promiseCtor The constructor of the promise.
+		* @returns An ES6 compatible promise with the last value from the observable sequence.
+		*/
+		toPromise<TPromise extends IPromise<T>>(promiseCtor: { new (resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): TPromise; }): TPromise;
+		/**
+		* Converts an existing observable sequence to an ES6 Compatible Promise
+		* @example
+		* var promise = Rx.Observable.return(42).toPromise(RSVP.Promise);
+		* 
+		* // With config
+		* Rx.config.Promise = RSVP.Promise;
+		* var promise = Rx.Observable.return(42).toPromise();
+		* @param [promiseCtor] The constructor of the promise. If not provided, it looks for it in Rx.config.Promise.
+		* @returns An ES6 compatible promise with the last value from the observable sequence.
+		*/
+		toPromise(promiseCtor?: { new (resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): IPromise<T>; }): IPromise<T>;
 	}
 
 	interface ObservableStatic {
@@ -307,11 +352,17 @@ declare module Rx {
 		catch<T>(...sources: Observable<T>[]): Observable<T>;
 		catchException<T>(...sources: Observable<T>[]): Observable<T>;	// alias for catch
 		concat<T>(...sources: Observable<T>[]): Observable<T>;
+		concat<T>(...sources: IPromise<T>[]): Observable<T>;
 		concat<T>(sources: Observable<T>[]): Observable<T>;
+		concat<T>(sources: IPromise<T>[]): Observable<T>;
 		merge<T>(...sources: Observable<T>[]): Observable<T>;
+		merge<T>(...sources: IPromise<T>[]): Observable<T>;
 		merge<T>(sources: Observable<T>[]): Observable<T>;
+		merge<T>(sources: IPromise<T>[]): Observable<T>;
 		merge<T>(scheduler: IScheduler, ...sources: Observable<T>[]): Observable<T>;
+		merge<T>(scheduler: IScheduler, ...sources: IPromise<T>[]): Observable<T>;
 		merge<T>(scheduler: IScheduler, sources: Observable<T>[]): Observable<T>;
+		merge<T>(scheduler: IScheduler, sources: IPromise<T>[]): Observable<T>;
 		onErrorResumeNext<T>(...sources: Observable<T>[]): Observable<T>;
 		onErrorResumeNext<T>(sources: Observable<T>[]): Observable<T>;
 		zip<T1, T2, TResult>(first: Observable<T1>, sources: Observable<T2>[], resultSelector: (item1: T1, right: Observable<T2>) => TResult): Observable<TResult>;
@@ -321,6 +372,26 @@ declare module Rx {
 		zip<T1, T2, T3, T4, T5, TResult>(source1: Observable<T1>, source2: Observable<T2>, source3: Observable<T3>, source4: Observable<T4>, source5: Observable<T5>, resultSelector: (item1: T1, item2: T2, item3: T3, item4: T4, item5: T5) => TResult): Observable<TResult>;
 		zipArray<T>(...sources: Observable<T>[]): Observable<T[]>;
 		zipArray<T>(sources: Observable<T>[]): Observable<T[]>;
+
+		/**
+		* Converts a Promise to an Observable sequence
+		* @param promise An ES6 Compliant promise.
+		* @returns An Observable sequence which wraps the existing promise success and failure.
+		*/
+		fromPromise<T>(promise: IPromise<T>): Observable<T>;
+
+		/**
+		* Converts a generator function to an observable sequence, using an optional scheduler to enumerate the generator.
+		* BUG: it have been defined for Observable instance.
+		*  
+		* @example
+		*  var res = Rx.Observable.fromGenerator(function* () { yield 42; });
+		*  var res = Rx.Observable.fromArray(function* () { yield 42; }, Rx.Scheduler.timeout);
+		* @param genFn Generator function.
+		* @param [scheduler] Scheduler to run the enumeration of the input sequence on.
+		* @returns The observable sequence whose elements are pulled from the given generator sequence.
+		*/
+		fromGenerator<T>(genFn: () => { next(): { done: boolean; value?: T; }; }, scheduler?: IScheduler): Observable<T>;
 	}
 
 	export var Observable: ObservableStatic;
