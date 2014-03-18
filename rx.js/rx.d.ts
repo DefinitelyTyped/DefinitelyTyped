@@ -363,6 +363,19 @@ declare module Rx {
 		* @returns An Observable sequence which wraps the existing promise success and failure.
 		*/
 		fromPromise<T>(promise: IPromise<T>): Observable<T>;
+
+		/**
+		* Converts a generator function to an observable sequence, using an optional scheduler to enumerate the generator.
+		* BUG: it have been defined for Observable instance.
+		*  
+		* @example
+		*  var res = Rx.Observable.fromGenerator(function* () { yield 42; });
+		*  var res = Rx.Observable.fromArray(function* () { yield 42; }, Rx.Scheduler.timeout);
+		* @param genFn Generator function.
+		* @param [scheduler] Scheduler to run the enumeration of the input sequence on.
+		* @returns The observable sequence whose elements are pulled from the given generator sequence.
+		*/
+		fromGenerator<T>(genFn: () => { next(): { done: boolean; value?: T; }; }, scheduler?: IScheduler): Observable<T>;
 	}
 
 	export var Observable: ObservableStatic;
