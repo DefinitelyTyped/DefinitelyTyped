@@ -53,6 +53,8 @@ interface Async {
     series<T>(tasks: T, callback?: AsyncMultipleResultsCallback<T>): void;
     parallel<T>(tasks: T[], callback?: AsyncMultipleResultsCallback<T>): void;
     parallel<T>(tasks: T, callback?: AsyncMultipleResultsCallback<T>): void;
+    parallelLimit<T>(tasks: T[], limit: number, callback?: AsyncMultipleResultsCallback<T>): void;
+    parallelLimit<T>(tasks: T, limit: number, callback?: AsyncMultipleResultsCallback<T>): void;
     whilst(test: Function, fn: Function, callback: Function): void;
     until(test: Function, fn: Function, callback: Function): void;
     waterfall<T>(tasks: T[], callback?: AsyncMultipleResultsCallback<T>): void;
