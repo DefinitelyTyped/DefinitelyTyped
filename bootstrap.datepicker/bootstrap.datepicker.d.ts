@@ -12,7 +12,7 @@ interface DatepickerOptions {
     endDate?: any;
     autoclose?: boolean;
     startView?: number;
-    todayBtn?: boolean;
+    todayBtn?: any;
     todayHighlight?: boolean;
     keyboardNavigation?: boolean;
     language?: string;
