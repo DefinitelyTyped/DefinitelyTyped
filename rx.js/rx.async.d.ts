@@ -1,4 +1,4 @@
-// Type definitions for RxJS-Async package 2.2.11
+// Type definitions for RxJS-Async package 2.2.15
 // Project: http://rx.codeplex.com/
 // Definitions by: zoetrope <https://github.com/zoetrope>
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
@@ -9,6 +9,13 @@
 declare module Rx {
     interface ObservableStatic {
 		start<T>(func: () => T, scheduler?: IScheduler, context?: any): Observable<T>;
+
+		/**
+		* Invokes the asynchronous function, surfacing the result through an observable sequence.
+		* @param functionAsync Asynchronous function which returns a Promise to run.
+		* @returns An observable sequence exposing the function's result value, or an exception.
+		*/
+		startAsync<T>(functionAsync: () => IPromise<T>): Observable<T>;
 
         toAsync<TResult>(func: () => TResult, scheduler?: IScheduler, context?: any): () => Observable<TResult>;
 		toAsync<T1, TResult>(func: (arg1: T1) => TResult, scheduler?: IScheduler, context?: any): (arg1: T1) => Observable<TResult>;
