@@ -28,6 +28,8 @@ server = restify.createServer({
     responseTimeFormatter : (durationInMilliseconds: number) => {}
 });
 
+server.pre(restify.pre.sanitizePath());
+
 server.on('someEvent', ()=>{});
 
 
