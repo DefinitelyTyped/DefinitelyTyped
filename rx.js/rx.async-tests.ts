@@ -81,4 +81,8 @@ module Rx.Tests.Async {
 		ps = p.then(x=> "");
 		ps = p.then(x=> ps);
 	}
+
+	function startAsync() {
+		var o: Rx.Observable<string> = Rx.Observable.startAsync(() => <Rx.IPromise<string>>null);
+	}
 }
