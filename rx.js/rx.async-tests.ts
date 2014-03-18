@@ -66,7 +66,11 @@ module Rx.Tests.Async {
 			new<T>(resolver: (resolvePromise: (value: T)=> void, rejectPromise: (reason: any)=> void)=> void): Rx.IPromise<T>;
 		};
 
+		Rx.config.Promise = promiseImpl;
+
 		var p: IPromise<number> = obsNum.toPromise(promiseImpl);
+
+		p = obsNum.toPromise();
 
 		p = p.then(x=> x);
 		p = p.then(x=> p);
