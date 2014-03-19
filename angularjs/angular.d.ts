@@ -430,7 +430,7 @@ declare module ng {
     // DocumentService
     // see http://docs.angularjs.org/api/ng.$document
     ///////////////////////////////////////////////////////////////////////////
-    interface IDocumentService extends Document {}
+    interface IDocumentService extends IAugmentedJQuery {}
 
     ///////////////////////////////////////////////////////////////////////////
     // ExceptionHandlerService
