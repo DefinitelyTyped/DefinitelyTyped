@@ -7,8 +7,6 @@
 declare module Rx {
 	export module internals {
 		function isEqual(left: any, right: any): boolean;
-		function inherits(child: Function, parent: Function): Function;
-		function addProperties(obj: Object, ...sourcces: Object[]): void;
 		function addRef<T>(xs: Observable<T>, r: { getDisposable(): IDisposable; }): Observable<T>;
 
 		// Priority Queue for Scheduling
