@@ -1097,90 +1097,6 @@ function test_dblclick() {
 	$('#target').dblclick();
 }
 
-function test_deferred() {
-
-    function returnPromise(): JQueryPromise<(data: { MyString: string; MyNumber: number; }, textStatus: string, jqXHR: JQueryXHR) => any> {
-        return $.ajax("test.php");
-    }
-    var x = returnPromise();
-    x.done((data, textStatus, jqXHR) => {
-        var myNumber: number = data.MyNumber;
-        var myString: string = data.MyString;
-        var theTextStatus: string = textStatus;
-        var thejqXHR: JQueryXHR = jqXHR;
-    });
-
-    $.get("test.php").always(function () {
-        alert("$.get completed with success or error callback arguments");
-    });
-    $.get("test.php").done(function () {
-        alert("$.get succeeded");
-    });
-    function fn1() {
-        $("p").append(" 1 ");
-    }
-    function fn2() {
-        $("p").append(" 2 ");
-    }
-    function fn3(n) {
-        $("p").append(n + " 3 " + n);
-    }
-    var dfd = $.Deferred();
-    dfd
-        .done([fn1, fn2], fn3, [fn2, fn1])
-        .done(function (n) {
-            $("p").append(n + " we're done.");
-        });
-    $("button").bind("click", function () {
-        dfd.resolve("and");
-    });
-    $.get("test.php")
-        .done(function () { alert("$.get succeeded"); })
-        .fail(function () { alert("$.get failed!"); });
-    dfd.state();
-    var defer = $.Deferred(),
-    filtered = defer.pipe(function (value) {
-        return value * 2;
-    });
-    defer.resolve(5);
-    filtered.done(function (value) {
-        alert("Value is ( 2*5 = ) 10: " + value);
-    });
-    filtered.fail(function (value) {
-        alert("Value is ( 3*6 = ) 18: " + value);
-    });
-    filtered.done(function (data) { });
-
-    function asyncEvent() {
-        var dfd: JQueryDeferred<string> = $.Deferred<string>();
-        setTimeout(function () {
-            dfd.resolve("hurray");
-        }, Math.floor(400 + Math.random() * 2000));
-        setTimeout(function () {
-            dfd.reject("sorry");
-        }, Math.floor(400 + Math.random() * 2000));
-        setTimeout(function working() {
-            if (dfd.state() === "pending") {
-                dfd.notify("working... ");
-                setTimeout(null, 500);
-            }
-        }, 1);
-        return dfd.promise();
-    }
-    var obj = {
-        hello: function (name) {
-            alert("Hello " + name);
-        }
-    },
-    defer = $.Deferred();
-    defer.promise(obj);
-    defer.resolve("John");
-    $.get("test.php").then(
-        function () { alert("$.get succeeded"); },
-        function () { alert("$.get failed!"); }
-    );
-}
-
 function test_delay() {
     $('#foo').slideUp(300).delay(800).fadeIn(400);
     $("button").click(function () {
@@ -3245,3 +3161,113 @@ $.ajax({
         alert(data);
     }
 });
+
+function test_deferred() {
+
+    function returnPromise(): JQueryPromise<(data: { MyString: string; MyNumber: number; }, textStatus: string, jqXHR: JQueryXHR) => any> {
+        return $.ajax("test.php");
+    }
+    var x = returnPromise();
+    x.done((data, textStatus, jqXHR) => {
+        var myNumber: number = data.MyNumber;
+        var myString: string = data.MyString;
+        var theTextStatus: string = textStatus;
+        var thejqXHR: JQueryXHR = jqXHR;
+    });
+
+    $.get("test.php").always(function () {
+        alert("$.get completed with success or error callback arguments");
+    });
+    $.get("test.php").done(function () {
+        alert("$.get succeeded");
+    });
+    function fn1() {
+        $("p").append(" 1 ");
+    }
+    function fn2() {
+        $("p").append(" 2 ");
+    }
+    function fn3(n) {
+        $("p").append(n + " 3 " + n);
+    }
+    var dfd = $.Deferred();
+    dfd
+        .done([fn1, fn2], fn3, [fn2, fn1])
+        .done(function (n) {
+            $("p").append(n + " we're done.");
+        });
+    $("button").bind("click", function () {
+        dfd.resolve("and");
+    });
+    $.get("test.php")
+        .done(function () { alert("$.get succeeded"); })
+        .fail(function () { alert("$.get failed!"); });
+    dfd.state();
+    var defer = $.Deferred(),
+        filtered = defer.pipe(function (value) {
+            return value * 2;
+        });
+    defer.resolve(5);
+    filtered.done(function (value) {
+        alert("Value is ( 2*5 = ) 10: " + value);
+    });
+    filtered.fail(function (value) {
+        alert("Value is ( 3*6 = ) 18: " + value);
+    });
+    filtered.done(function (data) { });
+
+    var obj = {
+        hello: function (name) {
+            alert("Hello " + name);
+        }
+    },
+        defer = $.Deferred();
+    defer.promise(obj);
+    defer.resolve("John");
+    $.get("test.php").then(
+        function () { alert("$.get succeeded"); },
+        function () { alert("$.get failed!"); }
+        );
+}
+
+function test_deferred_promise() {
+
+    function asyncEvent() {
+        var dfd = $.Deferred<string>();
+
+        // Resolve after a random interval
+        setTimeout(function () {
+            dfd.resolve("hurray");
+        }, Math.floor(400 + Math.random() * 2000));
+
+        // Reject after a random interval
+        setTimeout(function () {
+            dfd.reject("sorry");
+        }, Math.floor(400 + Math.random() * 2000));
+
+        // Show a "working..." message every half-second
+        setTimeout(function working() {
+            if (dfd.state() === "pending") {
+                dfd.notify("working... ");
+                setTimeout(working, 500);
+            }
+        }, 1);
+
+        // Return the Promise so caller can't change the Deferred
+        return dfd.promise();
+    }
+
+    // Attach a done, fail, and progress handler for the asyncEvent
+    $.when(asyncEvent()).then(
+        function (status) {
+            alert(status + ", things are going well");
+        },
+        function (status) {
+            alert(status + ", you fail this time");
+        },
+        function (status) {
+            $("body").append(status);
+        }
+        );
+}
+

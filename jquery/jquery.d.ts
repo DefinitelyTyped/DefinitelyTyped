@@ -297,21 +297,21 @@ interface JQueryPromise<T> {
      * @param alwaysCallbacks1 A function, or array of functions, that is called when the Deferred is resolved or rejected.
      * @param alwaysCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
      */
-    always(alwaysCallbacks1: T, ...alwaysCallbacks2: T[]): JQueryDeferred<T>;
+    always(alwaysCallbacks1?: T, ...alwaysCallbacks2: T[]): JQueryDeferred<T>;
     /**
      * Add handlers to be called when the Deferred object is resolved.
      * 
      * @param doneCallbacks1 A function, or array of functions, that are called when the Deferred is resolved.
      * @param doneCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
      */
-    done(doneCallbacks1: T, ...doneCallbacks2: T[]): JQueryDeferred<T>;
+    done(doneCallbacks1?: T, ...doneCallbacks2: T[]): JQueryDeferred<T>;
     /**
      * Add handlers to be called when the Deferred object is rejected.
      * 
      * @param failCallbacks1 A function, or array of functions, that are called when the Deferred is rejected.
      * @param failCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
      */
-    fail(failCallbacks1: T, ...failCallbacks2: T[]): JQueryDeferred<T>;
+    fail(failCallbacks1?: T, ...failCallbacks2: T[]): JQueryDeferred<T>;
     /**
      * Add handlers to be called when the Deferred object generates progress notifications.
      * 
@@ -425,21 +425,21 @@ interface JQueryDeferred<T> extends JQueryPromise<T> {
      * @param alwaysCallbacks1 A function, or array of functions, that is called when the Deferred is resolved or rejected.
      * @param alwaysCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
      */
-    always(alwaysCallbacks1: T, ...alwaysCallbacks2: T[]): JQueryDeferred<T>;
+    always(alwaysCallbacks1?: T, ...alwaysCallbacks2: T[]): JQueryDeferred<T>;
     /**
      * Add handlers to be called when the Deferred object is resolved.
      * 
      * @param doneCallbacks1 A function, or array of functions, that are called when the Deferred is resolved.
      * @param doneCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
      */
-    done(doneCallbacks1: T, ...doneCallbacks2: T[]): JQueryDeferred<T>;
+    done(doneCallbacks1?: T, ...doneCallbacks2: T[]): JQueryDeferred<T>;
     /**
      * Add handlers to be called when the Deferred object is rejected.
      * 
      * @param failCallbacks1 A function, or array of functions, that are called when the Deferred is rejected.
      * @param failCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
      */
-    fail(failCallbacks1: T, ...failCallbacks2: T[]): JQueryDeferred<T>;
+    fail(failCallbacks1?: T, ...failCallbacks2: T[]): JQueryDeferred<T>;
     /**
      * Add handlers to be called when the Deferred object generates progress notifications.
      * 
@@ -479,9 +479,18 @@ interface JQueryDeferred<T> extends JQueryPromise<T> {
     /**
      * Resolve a Deferred object and call any doneCallbacks with the given args.
      * 
+     * @param value First argument passed to doneCallbacks.
+     * @param args Optional subsequent arguments that are passed to the doneCallbacks.
+     */
+    resolve(value: T, ...args: any[]): JQueryDeferred<T>;
+
+    // COMMENTED OUT AS MAKES resolve LESS USEFUL - PERHAPS REMOVE ENTIRELY LATER
+    /**
+     * Resolve a Deferred object and call any doneCallbacks with the given args.
+     * 
      * @param args Optional arguments that are passed to the doneCallbacks.
      */
-    resolve(...args: any[]): JQueryDeferred<T>;
+    //resolve(...args: any[]): JQueryDeferred<T>;
 
     /**
      * Resolve a Deferred object and call any doneCallbacks with the given context and args.
