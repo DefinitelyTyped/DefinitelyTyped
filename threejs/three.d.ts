@@ -458,7 +458,7 @@ declare module THREE {
         oldTime: number;
 
         /**
-         * When the clock is running, It holds the time elapsed btween the start of the clock to the previous update.
+         * When the clock is running, It holds the time elapsed between the start of the clock to the previous update.
          * This parameter is in seconds of three decimal places.
          */
         elapsedTime: number;
@@ -479,12 +479,12 @@ declare module THREE {
         stop(): void;
 
         /**
-         * Get milliseconds passed since the clock started.
+         * Get the seconds passed since the clock started.
          */
         getElapsedTime(): number;
 
         /**
-         * Get the milliseconds passed since the last call to this method.
+         * Get the seconds passed since the last call to this method.
          */
         getDelta(): number;
     }
