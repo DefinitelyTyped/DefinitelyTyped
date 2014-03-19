@@ -31,18 +31,30 @@ declare module Rx {
     }
 
     interface ConnectableObservableStatic {
-        new <T>(): ConnectableObservable<T>;
+        new <T>(source: Observable<T>, subject: ISubject<T>): ConnectableObservable<T>;
 	}
 
 	export var ConnectableObservable: ConnectableObservableStatic;
 
 	export interface Observable<T> {
+		multicast(subject: Observable<T>): ConnectableObservable<T>;
+		multicast<TResult>(subjectSelector: () => ISubject<T>, selector: (source: ConnectableObservable<T>) => Observable<T>): Observable<T>;
 		publish(): ConnectableObservable<T>;
-		publish<TResult>(selector: (item: T) => Observable<TResult>): ConnectableObservable<TResult>;
+		publish<TResult>(selector: (source: ConnectableObservable<T>) => Observable<TResult>): Observable<TResult>;
+		/**
+		* Returns an observable sequence that shares a single subscription to the underlying sequence.
+		* This operator is a specialization of publish which creates a subscription when the number of observers goes from zero to one, then shares that subscription with all subsequent observers until the number of observers returns to zero, at which point the subscription is disposed.
+		* 
+		* @example
+		* var res = source.share();
+		* 
+		* @returns An observable sequence that contains the elements of a sequence produced by multicasting the source sequence.
+		*/
+		share(): Observable<T>;
 		publishLast(): ConnectableObservable<T>;
-		publishLast<TResult>(selector: (item: T) => Observable<TResult>): ConnectableObservable<TResult>;
+		publishLast<TResult>(selector: (source: ConnectableObservable<T>) => Observable<TResult>): Observable<TResult>;
 		publishValue(initialValue: T): ConnectableObservable<T>;
-		publishValue<TResult>(selector: (item: T) => TResult, initialValue: TResult): ConnectableObservable<TResult>;
+		publishValue<TResult>(selector: (source: ConnectableObservable<T>) => Observable<TResult>, initialValue: TResult): Observable<TResult>;
 
 		replay(selector?: (source: Observable<T>) => ReplaySubject<T>, bufferSize?: number, window?: number, scheduler?: IScheduler): ReplaySubject<T>;
 	}
