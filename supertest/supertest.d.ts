@@ -46,6 +46,8 @@ declare module "supertest" {
       unsubscribe(url: string): Test;
       patch(url: string): Test;
     }
+
+    function agent(): superagent.Agent;
   }
 
   function supertest(app: any): supertest.SuperTest;
