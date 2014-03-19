@@ -165,7 +165,7 @@ declare module "smoothie"
          * @param delayMillis an amount of time to wait before a data point is shown. This can prevent the end of the series
          * from appearing on screen, with new values flashing into view, at the expense of some latency.
          */
-        streamTo(canvas: HTMLCanvasElement, delayMillis: number): void;
+        streamTo(canvas: HTMLCanvasElement, delayMillis?: number): void;
 
         /**
          * Starts the animation of this chart. Called by <code>streamTo</code>.
