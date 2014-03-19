@@ -266,6 +266,27 @@ declare module Rx {
 		takeWhile(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>;
 		where(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>;
 		filter(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>; // alias for where
+
+		/**
+		* Converts an existing observable sequence to an ES6 Compatible Promise
+		* @example
+		* var promise = Rx.Observable.return(42).toPromise(RSVP.Promise);
+		* @param promiseCtor The constructor of the promise.
+		* @returns An ES6 compatible promise with the last value from the observable sequence.
+		*/
+		toPromise<TPromise extends IPromise<T>>(promiseCtor: { new (resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): TPromise; }): TPromise;
+		/**
+		* Converts an existing observable sequence to an ES6 Compatible Promise
+		* @example
+		* var promise = Rx.Observable.return(42).toPromise(RSVP.Promise);
+		* 
+		* // With config
+		* Rx.config.Promise = RSVP.Promise;
+		* var promise = Rx.Observable.return(42).toPromise();
+		* @param [promiseCtor] The constructor of the promise. If not provided, it looks for it in Rx.config.Promise.
+		* @returns An ES6 compatible promise with the last value from the observable sequence.
+		*/
+		toPromise(promiseCtor?: { new (resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): IPromise<T>; }): IPromise<T>;
 	}
 
 	interface ObservableStatic {
