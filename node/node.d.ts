@@ -1017,8 +1017,8 @@ declare module "crypto" {
         digest(encoding?: string): string;
     }
     interface Hmac {
-        update(data: any): void;
-        digest(encoding?: string): void;
+        update(data: any, input_encoding?: string): Hmac;
+        digest(encoding?: string): string;
     }
     export function createCipher(algorithm: string, password: any): Cipher;
     export function createCipheriv(algorithm: string, key: any, iv: any): Cipher;
