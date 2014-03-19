@@ -54,6 +54,7 @@ List of Definitions
 * [Chosen](http://harvesthq.github.com/chosen/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Chrome](http://developer.chrome.com/extensions/) (by [Matthew Kimber](https://github.com/matthewkimber))
 * [Chrome App](http://developer.chrome.com/apps/) (by [Adam Lay](https://github.com/AdamLay))
+* [CKEditor](https://github.com/ckeditor/ckeditor-dev) (by [Ondrej Sevcik](https://github.com/ondrejsevcik))
 * [CodeMirror](http://codemirror.net) (by [François de Campredon](https://github.com/fdecampredon))
 * [Commander](http://github.com/visionmedia/commander.js) (by [Marcelo Dezem](https://github.com/mdezem))
 * [Couchbase / Couchnode](https://github.com/couchbase/couchnode) (by [Basarat Ali Syed](https://github.com/basarat))
@@ -284,7 +285,6 @@ List of Definitions
 * [Zepto.js](http://zeptojs.com/) (by [Josh Baldwin](https://github.com/jbaldwin))
 * [Zynga Scroller](https://github.com/zynga/scroller) (by [Boris Yankov](https://github.com/borisyankov))
 * [ZeroClipboard](https://github.com/jonrohan/ZeroClipboard) (by [Eric J. Smith](https://github.com/ejsmith))
-* [CKEditor](https://github.com/ckeditor/ckeditor-dev) (by [Ondrej Sevcik](https://github.com/ondrejsevcik))
 
 Requested Definitions
 ---------------------
