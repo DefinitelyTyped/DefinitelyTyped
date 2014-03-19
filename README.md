@@ -284,6 +284,7 @@ List of Definitions
 * [Zepto.js](http://zeptojs.com/) (by [Josh Baldwin](https://github.com/jbaldwin))
 * [Zynga Scroller](https://github.com/zynga/scroller) (by [Boris Yankov](https://github.com/borisyankov))
 * [ZeroClipboard](https://github.com/jonrohan/ZeroClipboard) (by [Eric J. Smith](https://github.com/ejsmith))
+* [CKEditor](https://github.com/ckeditor/ckeditor-dev) (by [Ondrej Sevcik](https://github.com/ondrejsevcik))
 
 Requested Definitions
 ---------------------
