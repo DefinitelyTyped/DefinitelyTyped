@@ -133,7 +133,7 @@ declare module Rx {
 
 	// Notifications
 	export class Notification<T> {
-		accept(observer: Observer<T>): void;
+		accept(observer: IObserver<T>): void;
 		accept<TResult>(onNext: (value: T) => TResult, onError?: (exception: any) => TResult, onCompleted?: () => TResult): TResult;
 		toObservable(scheduler?: IScheduler): Observable<T>;
 		hasValue: boolean;
@@ -163,6 +163,18 @@ declare module Rx {
 		onError(exception: any): void;
 		onCompleted(): void;
 	}
+
+	export interface Observer<T> extends IObserver<T> {
+		toNotifier(): (notification: Notification<T>) => void;
+		asObserver(): Observer<T>;
+	}
+
+	interface ObserverStatic {
+		create<T>(onNext?: (value: T) => void, onError?: (exception: any) => void, onCompleted?: () => void): Observer<T>;
+		fromNotifier<T>(handler: (notification: Notification<T>) => void): Observer<T>;
+	}
+
+	export var Observer: ObserverStatic;
 
 	export interface IObservable<T> {
 		subscribe(observer: Observer<T>): IDisposable;

@@ -48,24 +48,17 @@ declare module Rx {
 	}
 
 	// Observer
-	export class Observer<T> implements IObserver<T> {
-		onNext(value: T): void;
-		onError(exception: any): void;
-		onCompleted(): void;
-
-		toNotifier(): (notification: Notification<T>) =>void;
-		asObserver(): Observer<T>;
+	export interface Observer<T> {
 		checked(): Observer<any>;
+	}
 
-		static create<T>(onNext?: (value: T) => void, onError?: (exception: any) => void, onCompleted?: () => void): Observer<T>;
-		static fromNotifier<T>(handler: (notification: Notification<T>) => void): Observer<T>;
-		
+	interface ObserverStatic {
 		/**
 		* Schedules the invocation of observer methods on the given scheduler.
 		* @param scheduler Scheduler to schedule observer messages on.
 		* @returns Observer whose messages are scheduled on the given scheduler.
 		*/
-		static notifyOn<T>(scheduler: IScheduler): Observer<T>;
+		notifyOn<T>(scheduler: IScheduler): Observer<T>;
 	}
 
 	export interface Observable<T> {
