@@ -178,6 +178,7 @@ declare module ngGrid {
         displayName?: string;
         cellTemplate?: string;
         enableCellEdit?: boolean;
+        pinned?: boolean;
     }
 
     export interface IFilterOptions {
