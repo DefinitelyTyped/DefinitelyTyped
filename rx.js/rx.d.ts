@@ -436,3 +436,7 @@ declare module Rx {
 
 	export var AsyncSubject: AsyncSubjectStatic;
 }
+
+declare module "rx" {
+    export = Rx
+}

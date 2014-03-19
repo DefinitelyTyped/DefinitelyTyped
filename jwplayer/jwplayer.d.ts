@@ -17,6 +17,7 @@ interface JWPlayer {
 	getFullscreen(): boolean;
 	getMute(): boolean;
 	getPlaylist(): any[];
+	getPlaylistIndex(): number;
 	getPlaylistItem(index: number): any;
 	getPosition(): number;
 	getQualityLevels(): any[];
