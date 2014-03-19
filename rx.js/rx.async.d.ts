@@ -5,7 +5,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path="rx.d.ts" />
-///<reference path="rx.async-lite.d.ts" />
+///<reference path="rx.async-lite.ts" />
 
 declare module Rx {
     interface ObservableStatic {
