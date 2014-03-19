@@ -310,7 +310,7 @@ skyDriveProps = {
 WL.ui(skyDriveProps);
 
 function onDownloadFileCompleted(response: Microsoft.Live.IFilePickerResult) {
-    var msg = "", folder, file;
+    var msg = "", folder: number, file: number;
     // For each folder selected...
     if (response.data.folders.length > 0) {
         for (folder = 0; folder < response.data.folders.length; folder++) {
@@ -536,7 +536,7 @@ var errorObj: Microsoft.Live.IError = {
     }
 };
 
-var event: Microsoft.Live.IEvent = {
+var eventI: Microsoft.Live.IEvent = {
     "id": "event.611afb17fa9448f28cdb8277e8ffeb77.e9f015000d0249ce847c5306a25d7d75",
     "name": "Global Project Risk Management Meeting",
     "description": "Generate and assess risks for the project",
@@ -854,7 +854,7 @@ var videoCollection: Microsoft.Live.IObjectCollection<Microsoft.Live.IVideo> = {
  * already exercised above.
  */
 
-function log(message) {
+function log(message: string) {
     var child = document.createTextNode(message);
     var parent = document.getElementById('JsOutputDiv') || document.body;
     parent.appendChild(child);
@@ -974,7 +974,7 @@ function showUserContactInfo() {
     );
 }
 
-function enablePurchase(response) {
+function enablePurchase() {
     var date = new Date();
     var year = date.getFullYear();
 

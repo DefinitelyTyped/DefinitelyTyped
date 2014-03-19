@@ -367,7 +367,7 @@ declare module google.maps {
         getEditable(): boolean;
         getMap(): Map;
         getPath(): MVCArray;
-        getPaths(): MVCArray[];
+        getPaths(): MVCArray;
         getVisible(): boolean;
         setDraggable(draggable: boolean): void;
         setEditable(editable: boolean): void;
