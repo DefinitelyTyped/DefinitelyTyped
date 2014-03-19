@@ -1,4 +1,4 @@
-// Type definitions for RxJS-Time v2.2.15
+// Type definitions for RxJS-Time v2.2.17
 // Project: http://rx.codeplex.com/
 // Definitions by: Carl de Billy <http://carl.debilly.net/>
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
@@ -19,10 +19,6 @@ declare module Rx {
 	}
 
 	export interface Observable<T> {
-		ifThen(condition: () => boolean, thenSource: Observable<T>): Observable<T>;
-		ifThen(condition: () => boolean, thenSource: Observable<T>, elseSource: Observable<T>): Observable<T>;
-		ifThen(condition: () => boolean, thenSource: Observable<T>, scheduler: IScheduler): Observable<T>;
-
 		delay(dueTime: number, scheduler?: IScheduler): Observable<T>;
 		throttle(dueTime: number, scheduler?: IScheduler): Observable<T>;
 		windowWithTime(timeSpan: number, timeShift: number, scheduler?: IScheduler): Observable<Observable<T>>;
