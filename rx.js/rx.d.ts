@@ -1,4 +1,4 @@
-﻿// Type definitions for RxJS v2.2.15
+﻿// Type definitions for RxJS v2.2.17
 // Project: http://rx.codeplex.com/
 // Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
@@ -381,17 +381,29 @@ declare module Rx {
 		fromPromise<T>(promise: IPromise<T>): Observable<T>;
 
 		/**
-		* Converts a generator function to an observable sequence, using an optional scheduler to enumerate the generator.
-		* BUG: it have been defined for Observable instance.
+		*  Converts an iterable into an Observable sequence
 		*  
 		* @example
-		*  var res = Rx.Observable.fromGenerator(function* () { yield 42; });
-		*  var res = Rx.Observable.fromArray(function* () { yield 42; }, Rx.Scheduler.timeout);
-		* @param genFn Generator function.
+		*  var res = Rx.Observable.fromIterable(new Map());
+		*  var res = Rx.Observable.fromIterable(function* () { yield 42; });
+		*  var res = Rx.Observable.fromIterable(new Set(), Rx.Scheduler.timeout);
+		* @param generator Generator to convert from.
 		* @param [scheduler] Scheduler to run the enumeration of the input sequence on.
 		* @returns The observable sequence whose elements are pulled from the given generator sequence.
 		*/
-		fromGenerator<T>(genFn: () => { next(): { done: boolean; value?: T; }; }, scheduler?: IScheduler): Observable<T>;
+		fromItreable<T>(generator: () => { next(): { done: boolean; value?: T; }; }, scheduler?: IScheduler): Observable<T>;
+
+		/**
+		*  Converts an iterable into an Observable sequence
+		*  
+		* @example
+		*  var res = Rx.Observable.fromIterable(new Map());
+		*  var res = Rx.Observable.fromIterable(new Set(), Rx.Scheduler.timeout);
+		* @param iterable Iterable to convert from.
+		* @param [scheduler] Scheduler to run the enumeration of the input sequence on.
+		* @returns The observable sequence whose elements are pulled from the given generator sequence.
+		*/
+		fromItreable<T>(iterable: {}, scheduler?: IScheduler): Observable<T>;	// todo: can't describe ES6 Iterable via TypeScript type system
 	}
 
 	export var Observable: ObservableStatic;
