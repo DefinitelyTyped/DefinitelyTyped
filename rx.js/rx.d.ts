@@ -4,7 +4,7 @@
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-///<reference path="rx-lite.d.ts"/>
+///<reference path="rx-lite.ts"/>
 
 declare module Rx {
 	export interface IScheduler {
