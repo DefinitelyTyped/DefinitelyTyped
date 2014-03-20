@@ -20,6 +20,7 @@ declare module "socket.io" {
     log: any;
     volatile: any;
     broadcast: any;
+    handshake: any;
     in(room: string): Socket;
     to(room: string): Socket;
     join(name: string, fn: Function): Socket;
