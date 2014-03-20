@@ -6,8 +6,8 @@
 
 // copy from assert external module in node.d.ts
 
-function assert(value:any, message?:string):void;
-module assert {
+declare function assert(value:any, message?:string):void;
+declare module assert {
     export class AssertionError implements Error {
         name:string;
         message:string;
