@@ -28,13 +28,5 @@ declare module Rx {
 			resultSelector: (state: TState) => TResult,
 			timeSelector: (state: TState) => Date,
 			scheduler?: IScheduler): Observable<TResult>;
-
-		generateWithRelativeTime<TState, TResult>(
-			initialState: TState,
-			condition: (state: TState) => boolean,
-			iterate: (state: TState) => TState,
-			resultSelector: (state: TState) => TResult,
-			timeSelector: (state: TState) => number,
-			scheduler?: IScheduler): Observable<TResult>;
 	}
 }

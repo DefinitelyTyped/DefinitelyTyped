@@ -47,14 +47,4 @@ declare module Rx {
 	export interface Observable<T> {
 		shareReplay(bufferSize?: number, window?: number, scheduler?: IScheduler): Observable<T>;	// same as replayWhileObserved in rx.binding.d.ts
 	}
-
-	export interface ObservableStatic {
-		generateWithTime<TState, TResult>(
-			initialState: TState,
-			condition: (state: TState) => boolean,
-			iterate: (state: TState) => TState,
-			resultSelector: (state: TState) => TResult,
-			timeSelector: (state: TState) => number,
-			scheduler?: IScheduler): Observable<TResult>;
-	}
 }

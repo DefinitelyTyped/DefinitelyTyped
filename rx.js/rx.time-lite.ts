@@ -47,5 +47,12 @@ declare module Rx {
 		interval(dutTime: number, period: number, scheduler?: IScheduler): Observable<number>;
 		timer(dueTime: number, period: number, scheduler: IScheduler): Observable<number>;
 		timer(dueTime: number, scheduler: IScheduler): Observable<number>;
+		generateWithRelativeTime<TState, TResult>(
+			initialState: TState,
+			condition: (state: TState) => boolean,
+			iterate: (state: TState) => TState,
+			resultSelector: (state: TState) => TResult,
+			timeSelector: (state: TState) => number,
+			scheduler?: IScheduler): Observable<TResult>;
 	}
 }
