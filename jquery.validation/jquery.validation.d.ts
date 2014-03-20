@@ -70,11 +70,50 @@ interface Validator
 
 interface JQuery
 {
-	removeAttrs(attributes: string): any;
+    /**
+     * Remove the specified attributes from the first matched element and return them.
+     * 
+     * @param attributes A space-seperated list of attribute names to remove.
+     */
+    removeAttrs(attributes: string): any;
+
+    /**
+     * Returns the validations rules for the first selected element
+     */
 	rules(): any;
-	rules(methodName: string): any;
-	rules(methodName: string, rules: any): any;
-	valid(): boolean;
+
+    /**
+     * Removes the specified rules and returns all rules for the first matched element.
+     * 
+     * @param command "remove"
+     * @param rules Removes and returns all rules. Manipulates only rules specified via rules-option or via rules("add").
+     */
+    rules(command: string): any;
+    /**
+     * Removes the specified rules and returns all rules for the first matched element.
+     * 
+     * @param command "remove"
+     * @param rules The space-separated names of rules to remove and return. Manipulates only rules specified via rules-option or via rules("add").
+     */
+    rules(command: string, rules: string): any;
+    /**
+     * Adds the specified rules and returns all rules for the first matched element. Requires that the parent form is validated, that is, $("form").validate() is called first 
+     * 
+     * @param command "add"
+     * @param rules The rules to add. Accepts the same format as the rules-option of the validate-method.
+     */
+    rules(command: string, rules: Object): any;
+
+    /**
+     * Checks whether the selected form is valid or whether all selected elements are valid.
+     */
+    valid(): boolean;
+
+    /**
+     * Validates the selected form.
+     * 
+     * @param options options for validation
+     */
 	validate(options?: ValidationOptions): Validator;
 }
 
