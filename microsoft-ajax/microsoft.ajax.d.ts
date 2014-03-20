@@ -2296,6 +2296,8 @@ declare module Sys {
         */ 
         class EndRequestEventArgs extends EventArgs {
 
+            //#region Constructors
+
             /**
             * Initializes a new instance of the EndRequestEventArgs class.
             * @param error
@@ -2307,6 +2309,7 @@ declare module Sys {
             */
             constructor(error: Error, dataItems: any, response: Sys.Net.WebRequestExecutor);
 
+            //#endregion
 
             //#region Properties
 
@@ -2349,23 +2352,139 @@ declare module Sys {
 
         /**
         * Used by the initializeRequest event of the PageRequestManager class to pass argument information to event handlers.
+        * This class contains private members that support the client-script infrastructure and are not intended to be used directly from your code. Names of private members begin with an underscore ( _ ).
+        * @see {@link http://msdn.microsoft.com/en-us/library/bb311030(v=vs.100).aspx}
         */ 
         class InitializeRequestEventArgs extends EventArgs {
                     
+            //#region Constructors
+
+            /**
+            * Initializes a new instance of the EndRequestEventArgs class.
+            * @param request
+            *           A Sys.Net.WebRequest object that represents the Web request for the EventArgs object.
+            * @param datapostBackElementItems
+            *           The postback element that initiated the asynchronous postback.
+            * @param updatePanelsToUpdate
+            *           (Optional) A list of UniqueID values for UpdatePanel controls that are being requested to update their rendering by the client. Server-side processing might update additional UpdatePanel controls.
+            */
+            constructor(request: Sys.Net.WebRequest, postBackElement: any, updatePanelsToUpdate: string[]);
+
+            //#endregion
+
+            //#region Properties
+
+            /**
+            * Gets the postback element that initiated the asynchronous postback.
+            * @return An HTML DOM element.
+            */
+            get_postBackElement(): HTMLElement;
+
+            /**
+            * Gets the request object that represents the current postback.
+            * @return A request object that is represented by the Sys.Net.WebRequestExecutor class.  
+            */
+            get_request(): Sys.Net.WebRequestExecutor;
+
+            /**
+            * Gets or sets a list of UniqueID values for UpdatePanel controls that should re-render their content, as requested by the client.
+            * The returned array can be modified by a client event handler to add or remove UpdatePanel controls that should re-render their content dynamically. Server processing can also modify the array.
+            * @return An array of UniqueID values for UpdatePanel controls.
+            */
+            get_updatePanelsToUpdate(): string[];
+
+            //#endregion
+
         }
 
         /**
         * Used by the pageLoaded event of the PageRequestManager class to send event data that represents the UpdatePanel controls that were updated and created in the most recent postback.
+        * @see {@link http://msdn.microsoft.com/en-us/library/bb397476(v=vs.100).aspx}
         */ 
         class PageLoadedEventArgs extends EventArgs {
 
-        
+            //#region Constructors
+
+            /**
+            * Initializes a new instance of the PageLoadedEventArgs class.
+            */
+            constructor();
+
+            //#endregion
+
+            //#region Properties
+
+            /**
+            * Gets a JSON data structure that contains data items that were registered by using the RegisterDataItem method of the ScriptManager class.
+            * A page or control must be in partial-page rendering mode to register data items that use the RegisterDataItem method of the ScriptManager class
+            * Use the IsInAsyncPostBack property to check whether the page is in partial-page rendering mode.The dataItems property returns a JSON data structure that contains name/value pairs. 
+            * The name is the unique ID of the control that is used in the control parameter of the RegisterDataItem method. The value is the dataItem parameter of the RegisterDataItem method.
+            *
+            * @return A JSON data structure that contains name/value pairs that were registered as data items that use the RegisterDataItem method of the ScriptManager class.  
+            */
+            get_dataItems(): any;
+            /**
+            * Gets an array of HTML div elements that represent UpdatePanel controls that were created when the DOM was updated during the last asynchronous postback.
+            * If an UpdatePanel control is updated as a result of a partial-page update, the array referenced in the panelsCreated property of the PageLoadedEventArgs class contains a reference to the corresponding div element. 
+            * The pageLoaded event of the Sys.WebForms.PageRequestManager class uses a PageLoadedEventArgs object to return its event data.
+            * @return An array of div elements that were created during the DOM manipulation that was caused by the last asynchronous postback. If no elements were created, the property returns null.
+            */
+            get_panelsCreated(): HTMLDivElement[];
+            /**
+            * Gets an array of HTML <div> elements that represent UpdatePanel controls that were updated when the DOM was updated during the last asynchronous postback.
+            * If an UpdatePanel control is updated as a result of a partial-page update, the array referenced in the panelsUpdated property of the PageLoadedEventArgs class contains a reference to the corresponding <div> element.
+            * The pageLoaded event of the Sys.WebForms.PageRequestManager class uses a PageLoadedEventArgs object to return its event data.
+            * @return An array of <div> elements that were updated during the DOM manipulation that was the result of the last asynchronous postback. If no elements were created, the property returns null.
+            */
+            get_panelsUpdated(): HTMLDivElement[];
+
+            //#endregion
         }
 
         /**
         * Used by the pageLoading event of the PageRequestManager class to send event data that represents the UpdatePanel controls that are being updated and deleted as a result of the most recent postback.
+        * @see {@link http://msdn.microsoft.com/en-us/library/bb310960(v=vs.100).aspx}
         */ 
         class PageLoadingEventArgs extends EventArgs {
+
+            //#region Constructors
+
+            /**
+            * Initializes a new instance of the PageLoadingEventArgs class.
+            */
+            constructor();
+
+            //#endregion
+
+            //#region Properties
+
+            /**
+            * Gets a JSON data structure that contains data items that were registered by using the RegisterDataItem method of the ScriptManager class.
+            * page or control must be in partial-page rendering mode to register data items that use the RegisterDataItem method of the ScriptManager class. 
+            * Use the IsInAsyncPostBack property to check whether the page is in partial-page rendering mode.
+            * The dataItems property returns a JSON data structure that contains name/value pairs. 
+            * The name is the unique ID of the control that is used in the control parameter of the RegisterDataItem method. The value is the dataItem parameter of the RegisterDataItem method.
+            * @return A JSON data structure that contains name/value pairs that were registered as data items by using the RegisterDataItem method of the ScriptManager class.
+            */
+            get_dataItems(): any;
+
+            /**
+            * Gets an array of HTML <div> elements that represent UpdatePanel controls that will be deleted from the DOM as a result of the current asynchronous postback. 
+            * If the contents of an UpdatePanel control will be deleted as the result of a partial-page update, the array that is referenced in the panelsDeleting property of the PageLoadingEventArgs class contains a reference to the corresponding <div> element. 
+            * The pageLoading event of the Sys.WebForms.PageRequestManager class uses a PageLoadingEventArgs object to return its event data.
+            * @return An array of <div> elements that will be deleted from the DOM. If no elements will be deleted, the property returns null.
+            */
+            get_panelsDeleted(): HTMLDivElement[];
+
+            /**
+            * Gets an array of HTML <div> elements that represent UpdatePanel controls that will be updated in the DOM as a result of the current asynchronous postback.
+            * If the contents of any UpdatePanel controls will be updated as the result of a partial-page update, the panelsUpdating property contains an array that references the corresponding <div> elements. 
+            * The pageLoading event of the Sys.WebForms.PageRequestManager class uses a PageLoadingEventArgs object to return its event data.
+            * @return An array of <div> elements that will be updated in the DOM. If no elements will be updated, the property returns null.
+            */
+            get_panelsUpdating(): HTMLDivElement[];
+
+            //#endregion
 
         }
 
