@@ -73,22 +73,22 @@ declare class FirebaseSimpleLogin {
 
     constructor(firebase: Firebase, callback: (err: IFirebaseSimpleLoginError, user: IFirebaseSimpleLoginUser) => any);
 
-    login(loginType: string, options?: IFirebaseSimpleLoginOptions);
-    logout();
+    login(loginType: string, options?: IFirebaseSimpleLoginOptions): void;
+    logout(): void;
 
     createUser(email: string,
                password: string,
-               callback?: (err: IFirebaseSimpleLoginError, user: IFirebaseSimpleLoginUser) => any);
+               callback?: (err: IFirebaseSimpleLoginError, user: IFirebaseSimpleLoginUser) => any): void;
 
     changePassword(email: string,
                    oldPassword: string,
                    newPassword: string,
-                   callback?: (err: IFirebaseSimpleLoginError, success: boolean) => any);
+                   callback?: (err: IFirebaseSimpleLoginError, success: boolean) => any): void;
 
     sendPasswordResetEmail(email: string,
-                           callback: (err: IFirebaseSimpleLoginError, success: boolean) => any);
+                           callback: (err: IFirebaseSimpleLoginError, success: boolean) => any): void;
 
     removeUser(email: string,
                password: string,
-               callback: (err: IFirebaseSimpleLoginError, success: boolean) => any);
+               callback: (err: IFirebaseSimpleLoginError, success: boolean) => any): void;
 }
