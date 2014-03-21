@@ -49,16 +49,62 @@ interface ErrorListItem
 
 interface Validator
 {
-	addClassRules(name: string, rules: any): void;
-	addClassRules(rules: any): void;
+    /**
+     * Add a compound class method - useful to refactor common combinations of rules into a single class.
+     * 
+     * @param name The name of the class rule to add
+     * @param rules The compound rules
+     */
+	addClassRules(name: string, rules: Object): void;
+    /**
+     * Add a compound class method - useful to refactor common combinations of rules into a single class.
+     * 
+     * @param rules A map of className-rules pairs
+     */
+	addClassRules(rules: Object): void;
+    /**
+     * Add a custom validation method. It must consist of a name (must be a legal javascript identifier), a javascript based function and a default string message.
+     * 
+     * @param name The name of the method used to identify it and referencing it; this must be a valid JavaScript identifier
+     * @param method The actual method implementation, returning true if an element is valid. First argument: Current value. Second argument: Validated element. Third argument: Parameters.
+     */
 	addMethod(name: string, method: (value: any, element: any, params: any) => any, message?: any): void;
+    /**
+     * Validates a single element, returns true if it is valid, false otherwise.
+     * 
+     * @param element An element to validate, must be inside the validated form. eg "#myselect"
+     */
 	element(element: any): boolean;
+    /**
+     * Validates the form, returns true if it is valid, false otherwise.
+     */
 	form(): boolean;
+    /**
+     * Replaces {n} placeholders with arguments.
+     * 
+     * @param template The string to format.
+     */
 	format(template: string, ...arguments: string[]): string;
+    /**
+     * Returns the number of invalid fields.
+     */
 	numberOfInvalids(): number;
+    /**
+     * Resets the controlled form.
+     */
 	resetForm(): void;
+    /**
+     * Modify default settings for validation.
+     * 
+     * @param options Options to set as default.
+     */
 	setDefaults(defaults: ValidationOptions): void;
 	settings: ValidationOptions;
+    /**
+     * Show the specified messages.
+     * 
+     * @param errors One or more key/value pairs of input names and messages.
+     */
 	showErrors(errors: any): void;
 	hideErrors(): void;
 	valid(): boolean;
@@ -119,6 +165,11 @@ interface JQuery
 
 interface JQueryStatic
 {
+    /**
+     * Replaces {n} placeholders with arguments.
+     * 
+     * @param template The string to format.
+     */
 	format(template: string, ...arguments: string[]): string;
 	validator: Validator;
 }
