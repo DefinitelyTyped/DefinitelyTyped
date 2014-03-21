@@ -55,13 +55,13 @@ interface Validator
      * @param name The name of the class rule to add
      * @param rules The compound rules
      */
-	addClassRules(name: string, rules: Object): ): void;
+	addClassRules(name: string, rules: Object): void;
     /**
      * Add a compound class method - useful to refactor common combinations of rules into a single class.
      * 
      * @param rules A map of className-rules pairs
      */
-	addClassRules(rules: any): void;
+	addClassRules(rules: Object): void;
     /**
      * Add a custom validation method. It must consist of a name (must be a legal javascript identifier), a javascript based function and a default string message.
      * 
