@@ -172,6 +172,7 @@ List of Definitions
 * [jStorage](http://www.jstorage.info/) (by [Danil Flores](https://github.com/dflor003/))
 * [JWPlayer](http://developer.longtailvideo.com/trac/) (by [Martin Duparc](https://github.com/martinduparc/))
 * [KeyboardJS](https://github.com/RobertWHurst/KeyboardJS) (by [Vincent Bortone](https://github.com/vbortone/))
+* [KineticJS](http://kineticjs.com/) (by [Basarat Ali Syed](https://github.com/basarat))
 * [Knockback](http://kmalakoff.github.com/knockback/) (by [Marcel Binot](https://github.com/docgit))
 * [Knockout.js](http://knockoutjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Knockout.DeferredUpdates](https://github.com/mbest/knockout-deferred-updates) (by [Sebastián Galiano](https://github.com/sgaliano))
