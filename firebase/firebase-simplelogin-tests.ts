@@ -59,11 +59,15 @@ auth.createUser(email, password, function(error, user) {
     }
 });
 
+auth.createUser(email, password);
+
 auth.changePassword(email, oldPassword, newPassword, function(error, success) {
     if (!error) {
         console.log('Password changed successfully');
     }
 });
+
+auth.changePassword(email, oldPassword, newPassword);
 
 auth.sendPasswordResetEmail(email, function(error, success) {
     if (!error) {
@@ -71,8 +75,12 @@ auth.sendPasswordResetEmail(email, function(error, success) {
     }
 });
 
+auth.sendPasswordResetEmail(email);
+
 auth.removeUser(email, password, function(error, success) {
     if (!error) {
         console.log('User deleted successfully');
     }
 });
+
+auth.removeUser(email, password);
