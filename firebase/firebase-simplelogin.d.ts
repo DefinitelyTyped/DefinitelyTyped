@@ -86,9 +86,9 @@ declare class FirebaseSimpleLogin {
                    callback?: (err: IFirebaseSimpleLoginError, success: boolean) => any): void;
 
     sendPasswordResetEmail(email: string,
-                           callback: (err: IFirebaseSimpleLoginError, success: boolean) => any): void;
+                           callback?: (err: IFirebaseSimpleLoginError, success: boolean) => any): void;
 
     removeUser(email: string,
                password: string,
-               callback: (err: IFirebaseSimpleLoginError, success: boolean) => any): void;
+               callback?: (err: IFirebaseSimpleLoginError, success: boolean) => any): void;
 }
