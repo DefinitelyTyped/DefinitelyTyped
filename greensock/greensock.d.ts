@@ -129,6 +129,7 @@ declare class TimelineLite extends SimpleTimeline {
     progress(value:number):any;
     remove(value:any):any;
     removeLabel(label:string):any;
+    set(target: Object, vars: Object, position?:any):any;
     seek(position:any, suppressEvents?:boolean):any;
     shiftChildren(amount:number, adjustLabels?:boolean, ignoreBeforeTime?:number):any;
     staggerFrom(targets:any[], duration:number, vars:Object, stagger?:number, position?:any, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteScope?:any):any;
