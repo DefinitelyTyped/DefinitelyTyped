@@ -267,7 +267,7 @@ declare module "http" {
         setEncoding(encoding?: string): void;
         pause(): void;
         resume(): void;
-        connection: net.NodeSocket;
+        connection: net.Socket;
     }
     export interface ServerResponse extends NodeEventEmitter, WritableStream {
         // Extended base methods
@@ -491,19 +491,19 @@ declare module "https" {
         rejectUnauthorized?: boolean;
     }
 
-    export interface NodeAgent {
+    export interface Agent {
         maxSockets: number;
         sockets: any;
         requests: any;
     }
     export var Agent: {
-        new (options?: RequestOptions): NodeAgent;
+        new (options?: RequestOptions): Agent;
     };
     export interface Server extends tls.Server { }
     export function createServer(options: ServerOptions, requestListener?: Function): Server;
     export function request(options: RequestOptions, callback?: (res: NodeEventEmitter) =>void ): http.ClientRequest;
     export function get(options: RequestOptions, callback?: (res: NodeEventEmitter) =>void ): http.ClientRequest;
-    export var globalAgent: NodeAgent;
+    export var globalAgent: Agent;
 }
 
 declare module "punycode" {
@@ -669,7 +669,7 @@ declare module "dns" {
 declare module "net" {
     import stream = require("stream");
 
-    export interface NodeSocket extends ReadWriteStream {
+    export interface Socket extends ReadWriteStream {
         // Extended base methods
         write(buffer: NodeBuffer): boolean;
         write(buffer: NodeBuffer, cb?: Function): boolean;
@@ -703,10 +703,10 @@ declare module "net" {
     }
 
     export var Socket: {
-        new (options?: { fd?: string; type?: string; allowHalfOpen?: boolean; }): NodeSocket;
+        new (options?: { fd?: string; type?: string; allowHalfOpen?: boolean; }): Socket;
     };
 
-    export interface Server extends NodeSocket {
+    export interface Server extends Socket {
         listen(port: number, host?: string, backlog?: number, listeningListener?: Function): void;
         listen(path: string, listeningListener?: Function): void;
         listen(handle: any, listeningListener?: Function): void;
@@ -715,14 +715,14 @@ declare module "net" {
         maxConnections: number;
         connections: number;
     }
-    export function createServer(connectionListener?: (socket: NodeSocket) =>void ): Server;
-    export function createServer(options?: { allowHalfOpen?: boolean; }, connectionListener?: (socket: NodeSocket) =>void ): Server;
-    export function connect(options: { allowHalfOpen?: boolean; }, connectionListener?: Function): NodeSocket;
-    export function connect(port: number, host?: string, connectionListener?: Function): NodeSocket;
-    export function connect(path: string, connectionListener?: Function): NodeSocket;
-    export function createConnection(options: { allowHalfOpen?: boolean; }, connectionListener?: Function): NodeSocket;
-    export function createConnection(port: number, host?: string, connectionListener?: Function): NodeSocket;
-    export function createConnection(path: string, connectionListener?: Function): NodeSocket;
+    export function createServer(connectionListener?: (socket: Socket) =>void ): Server;
+    export function createServer(options?: { allowHalfOpen?: boolean; }, connectionListener?: (socket: Socket) =>void ): Server;
+    export function connect(options: { allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
+    export function connect(port: number, host?: string, connectionListener?: Function): Socket;
+    export function connect(path: string, connectionListener?: Function): Socket;
+    export function createConnection(options: { allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
+    export function createConnection(port: number, host?: string, connectionListener?: Function): Socket;
+    export function createConnection(path: string, connectionListener?: Function): Socket;
     export function isIP(input: string): number;
     export function isIPv4(input: string): boolean;
     export function isIPv6(input: string): boolean;
@@ -940,7 +940,7 @@ declare module "tls" {
     export interface ConnectionOptions {
         host?: string;
         port?: number;
-        socket?: net.NodeSocket;
+        socket?: net.Socket;
         pfx?: any;   //string | Buffer
         key?: any;   //string | Buffer
         passphrase?: string;
@@ -1229,11 +1229,11 @@ declare module "tty" {
     import net = require("net");
 
     export function isatty(fd: number): boolean;
-    export interface ReadStream extends net.NodeSocket {
+    export interface ReadStream extends net.Socket {
         isRaw: boolean;
         setRawMode(mode: boolean): void;
     }
-    export interface WriteStream extends net.NodeSocket {
+    export interface WriteStream extends net.Socket {
         columns: number;
         rows: number;
     }
