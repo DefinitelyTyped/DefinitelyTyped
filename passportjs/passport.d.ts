@@ -1,6 +1,6 @@
 declare module "passport"
 {
-    export function use(name:any, strategy:any);
+    export function use(name:any, strategy:Strategy);
     export function unuse(name:string);
     export function framework(fw:string);
     export function initialize(options?:Object);
@@ -10,6 +10,11 @@ declare module "passport"
     export function serializeUser(fn:Function);
     export function deserializeUser(fn:Function);
     export function transformAuthInfo(fn, done);
+
+    export class Strategy
+    {
+
+    }
 
     export interface IStrategy {
         authenticate(req, options?:Object);
