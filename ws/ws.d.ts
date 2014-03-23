@@ -109,7 +109,7 @@ declare module "ws" {
             constructor(options?: IServerOptions, callback?: Function);
 
             close(): void;
-            handleUpgrade(request: http.ClientRequest, socket: net.NodeSocket,
+            handleUpgrade(request: http.ClientRequest, socket: net.Socket,
                           upgradeHead: NodeBuffer, callback: (client: WebSocket) => void): void;
 
             // Events
