@@ -51,3 +51,12 @@ declare module assert {
 
     export function ifError(value:any):void;
 }
+
+// duplicate to node.d.ts
+// declare module "assert" {
+//     export = assert;
+// }
+
+declare module "power-assert" {
+    export = assert;
+}
