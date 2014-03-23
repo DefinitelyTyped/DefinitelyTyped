@@ -11,10 +11,10 @@ interface JQuery {
     dynatree(option?: string, ...rest: any[]): any;
 }
 
-interface JQueryStatic {
-    ui: {
+declare module JQueryUI {
+    interface UI {
         dynatree: DynatreeNamespace;
-    };
+    }
 }
 
 interface DynaTree {
