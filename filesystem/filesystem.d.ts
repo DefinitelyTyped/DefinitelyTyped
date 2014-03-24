@@ -110,7 +110,7 @@ interface FileSystem{
      * The root directory of the file system.
      * @readonly
      */
-    root:any;
+    root: DirectoryEntry;
 }
 
 interface Entry {
