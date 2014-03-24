@@ -484,14 +484,6 @@ interface JQueryDeferred<T> extends JQueryPromise<T> {
      */
     resolve(value?: T, ...args: any[]): JQueryDeferred<T>;
 
-    // COMMENTED OUT AS MAKES resolve LESS USEFUL - PERHAPS REMOVE ENTIRELY LATER
-    /**
-     * Resolve a Deferred object and call any doneCallbacks with the given args.
-     * 
-     * @param args Optional arguments that are passed to the doneCallbacks.
-     */
-    //resolve(...args: any[]): JQueryDeferred<T>;
-
     /**
      * Resolve a Deferred object and call any doneCallbacks with the given context and args.
      * 
