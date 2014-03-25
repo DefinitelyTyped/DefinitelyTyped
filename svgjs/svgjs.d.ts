@@ -31,8 +31,6 @@ declare module svgjs {
         
         defs():Defs;
 
-        use(element:Element):Element;
-
         clear():void;
 
         mask():Mask;
@@ -220,7 +218,8 @@ declare module svgjs {
         path(data:string):Element;
         image(url:string, w?:number, h?:number):Element;
         text(text:string):Element;
-        text(adder:(element:Element)=>void):Element;        
+        text(adder:(element:Element)=>void):Element;
+        use(element:Element):Element;
 
         group():Element;
     }
