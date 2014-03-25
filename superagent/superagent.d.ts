@@ -79,6 +79,8 @@ declare module "superagent" {
     unsubscribe(url: string, callback?: (err: Error, res: Response) => void): Request;
     patch(url: string, callback?: (err: Error, res: Response) => void): Request;
     parse(fn: Function): Request;
+    saveCookies(res: Response): void;
+    attachCookies(req: Request): void;
   }
 
   export function agent(): Agent;
