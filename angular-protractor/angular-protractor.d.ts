@@ -772,7 +772,7 @@ declare module protractor {
         /**
          * Returns the current absolute url from AngularJS.
          */
-        getLocationAbsUrl(): string;
+        getLocationAbsUrl(): webdriver.promise.Promise;
 
         /**
          * Pauses the test and injects some helper functions into the browser, so that
