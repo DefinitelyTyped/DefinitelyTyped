@@ -72,15 +72,16 @@ $('.example-films .typeahead').typeahead([
     }
 ]);
 
-//Basic substring search
-//Specifies options along with datasets. In this case the dataset uses a custom substring matcher function as its source
-$('#the-basics .typeahead').typeahead({
+// Countries - Modified the first test here to add options
+// Specifies options to display hint with a highlight and adds a minimum length restriction for search
+// Prefetches data, stores it in localStorage, and searches it on the client
+$('.example-countries .typeahead').typeahead({
   hint: true,
   highlight: true,
-  minLength: 1
+  minLength: 2
 },
 {
-  name: 'states',
-  displayKey: 'value',
-  source: substringMatcher(states)
+  name: 'countries',
+  prefetch: '../data/countries.json',
+  limit: 10
 });
