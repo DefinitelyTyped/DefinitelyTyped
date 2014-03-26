@@ -3164,8 +3164,11 @@ $.ajax({
 
 function test_deferred() {
 
-    function returnPromise(): JQueryPromise<(data: { MyString: string; MyNumber: number; }, textStatus: string, jqXHR: JQueryXHR) => any> {
-        return $.ajax("test.php");
+    function returnPromise(): JQueryPromise<{ MyString: string; MyNumber: number; }> {
+        return $.Deferred<{ MyString: string; MyNumber: number; }>().resolve({
+            MyString: "MyString",
+            MyNumber: 5
+        }, "failed", null);
     }
     var x = returnPromise();
     x.done((data, textStatus, jqXHR) => {
@@ -3190,7 +3193,7 @@ function test_deferred() {
     function fn3(n) {
         $("p").append(n + " 3 " + n);
     }
-    var dfd = $.Deferred();
+    var dfd = $.Deferred<string>();
     dfd
         .done([fn1, fn2], fn3, [fn2, fn1])
         .done(function (n) {
