@@ -175,23 +175,23 @@ interface Moment {
     lang(reset: boolean): void;
     lang(): string;
 
-	max(date: Date): Moment;
-	max(date: number): Moment;
-	max(date: any[]): Moment;
-	max(date: string): Moment;
-	max(date: string, format: string): Moment;
-	max(clone: Moment): Moment;
-	
-	min(date: Date): Moment;
-	min(date: number): Moment;
-	min(date: any[]): Moment;
-	min(date: string): Moment;
-	min(date: string, format: string): Moment;
-	min(clone: Moment): Moment;
-	
-	get(unit: string): number;
-	set(unit: string, value: number): Moment;
-	
+    max(date: Date): Moment;
+    max(date: number): Moment;
+    max(date: any[]): Moment;
+    max(date: string): Moment;
+    max(date: string, format: string): Moment;
+    max(clone: Moment): Moment;
+    
+    min(date: Date): Moment;
+    min(date: number): Moment;
+    min(date: any[]): Moment;
+    min(date: string): Moment;
+    min(date: string, format: string): Moment;
+    min(clone: Moment): Moment;
+    
+    get(unit: string): number;
+    set(unit: string, value: number): Moment;
+    
 }
 
 interface MomentCalendar {
@@ -294,37 +294,38 @@ interface MomentStatic {
     duration(input: MomentInput): Duration;
     duration(object: any): Duration;
     duration(): Duration;
-	
-	parseZone(date: string): Moment;
-	
-	months(): string[];
-	months(index: number): string;
-	months(format: string): string[];
-	months(format: string, index: number): string;
-	monthsShort(): string[];
-	monthsShort(index: number): string;
-	monthsShort(format: string): string[];
-	monthsShort(format: string, index: number): string;
-	weekdays(): string[];
-	weekdays(index: number): string;
-	weekdays(format: string): string[];
-	weekdays(format: string, index: number): string;
-	weekdaysShort(): string[];
-	weekdaysShort(index: number): string;
-	weekdaysShort(format: string): string[];
-	weekdaysShort(format: string, index: number): string;
-	weekdaysMin(): string[];
-	weekdaysMin(index: number): string;
-	weekdaysMin(format: string): string[];
-	weekdaysMin(format: string, index: number): string;
-	
-	normalizeUnits(unit: string): string;
-	
-	invalid(parsingFlags?: Object): Moment;
+    
+    parseZone(date: string): Moment;
+    
+    months(): string[];
+    months(index: number): string;
+    months(format: string): string[];
+    months(format: string, index: number): string;
+    monthsShort(): string[];
+    monthsShort(index: number): string;
+    monthsShort(format: string): string[];
+    monthsShort(format: string, index: number): string;
+    version: string;
+    weekdays(): string[];
+    weekdays(index: number): string;
+    weekdays(format: string): string[];
+    weekdays(format: string, index: number): string;
+    weekdaysShort(): string[];
+    weekdaysShort(index: number): string;
+    weekdaysShort(format: string): string[];
+    weekdaysShort(format: string, index: number): string;
+    weekdaysMin(): string[];
+    weekdaysMin(index: number): string;
+    weekdaysMin(format: string): string[];
+    weekdaysMin(format: string, index: number): string;
+    
+    normalizeUnits(unit: string): string;
+    
+    invalid(parsingFlags?: Object): Moment;
 }
 
 declare var moment: MomentStatic;
 
-declare module "moment" {
+declare module 'moment' {
     export = moment;
 }

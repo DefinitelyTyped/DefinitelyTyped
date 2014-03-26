@@ -46,8 +46,13 @@ declare module Rx {
 		equals(other: Subscription): boolean;
 	}
 
-	export class MockObserver<T> extends Observer<T> {
-		constructor(scheduler: IScheduler);
+	export interface MockObserver<T> extends Observer<T> {
 		messages: Recorded[];
 	}
+
+	interface MockObserverStatic extends ObserverStatic {
+		new <T>(scheduler: IScheduler): MockObserver<T>;
+	}
+
+	export var MockObserver: MockObserverStatic;
 }

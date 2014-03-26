@@ -31,8 +31,6 @@ declare module svgjs {
         
         defs():Defs;
 
-        use(element:Element):Element;
-
         clear():void;
 
         mask():Mask;
@@ -88,6 +86,8 @@ declare module svgjs {
         move(x:number, y:number, anchor?:boolean):Element;
         x(x:number, anchor?:boolean):Element;
         y(y:number, anchor?:boolean):Element;
+        x(): number;
+        y(): number;
         
         center(x:number, y:number, anchor?:boolean):Element;
         cx(x:number, anchor?:boolean):Element;
@@ -218,7 +218,8 @@ declare module svgjs {
         path(data:string):Element;
         image(url:string, w?:number, h?:number):Element;
         text(text:string):Element;
-        text(adder:(element:Element)=>void):Element;        
+        text(adder:(element:Element)=>void):Element;
+        use(element:Element):Element;
 
         group():Element;
     }

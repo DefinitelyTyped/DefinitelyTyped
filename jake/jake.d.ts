@@ -22,7 +22,6 @@ declare function desc(description:string): void;
  */
 declare function directory(name:string): jake.DirectoryTask;
 
-
 /**
  * Causes Jake execution to abort with an error. Allows passing an optional error code, which will be used to set the exit-code of exiting process.
  * @param err The error to thow when aborting execution. If this argument is an Error object, it will simply be thrown. If a String, it will be used as the error-message. (If it is a multi-line String, the first line will be used as the Error message, and the remaining lines will be used as the error-stack.)
@@ -56,6 +55,15 @@ declare function namespace(name:string, scope:()=>void): void;
 declare function task(name:string, prereqs?:string[], action?:(...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
 declare function task(name:string, action?:(...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
 declare function task(name:string, opts?:jake.TaskOptions, action?:(...params:any[])=>any): jake.Task;
+
+/**
+ * @param name The name of the NpmPublishTask
+ * @param packageFiles The files to include in the package
+ * @param definition A function that creates the package definition
+ */
+declare function npmPublishTask(name:string, packageFiles:string[]): jake.NpmPublishTask;
+declare function npmPublishTask(name:string, definition?:()=>void): jake.NpmPublishTask;
+
 
 declare module jake{
 
@@ -368,6 +376,7 @@ declare module jake{
 
 	export class NpmPublishTask{
 		constructor(name:string, packageFiles:string[]);
+		constructor(name:string, definition?:()=>void);
 	}
 
 	export function addListener(event: string, listener: Function): NodeEventEmitter;

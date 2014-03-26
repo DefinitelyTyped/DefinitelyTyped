@@ -21,7 +21,9 @@ assert.doesNotThrow(() => {
     if (false) { throw "a hammer at your face"; }
 }, undefined, "What the...*crunch*");
 
-
+////////////////////////////////////////////////////
+/// File system tests : http://nodejs.org/api/fs.html
+////////////////////////////////////////////////////
 fs.writeFile("thebible.txt",
     "Do unto others as you would have them do unto you.",
     assert.ifError);
@@ -32,6 +34,18 @@ fs.writeFile("Harry Potter",
         encoding: "ascii"
     },
     assert.ifError);
+
+var content: string,
+    buffer: NodeBuffer;
+
+content = fs.readFileSync('testfile', 'utf8');
+content = fs.readFileSync('testfile', {encoding : 'utf8'});
+buffer = fs.readFileSync('testfile');
+buffer = fs.readFileSync('testfile', {flag : 'r'});
+fs.readFile('testfile', 'utf8', (err, data) => content = data);
+fs.readFile('testfile', {encoding : 'utf8'}, (err, data) => content = data);
+fs.readFile('testfile', (err, data) => buffer = data);
+fs.readFile('testfile', {flag : 'r'}, (err, data) => buffer = data);
 
 class Networker extends events.EventEmitter {
     constructor() {

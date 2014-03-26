@@ -310,7 +310,7 @@ interface KnockoutUtils {
 
     parseJson(jsonString: string): any;
 
-    stringifyJson(data: any, replacer: Function, space: string): string;
+    stringifyJson(data: any, replacer?: Function, space?: string): string;
 
     postJson(urlOrForm: any, data: any, options: any): void;
 

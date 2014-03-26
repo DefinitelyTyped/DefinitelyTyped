@@ -1,14 +1,14 @@
 /// <reference path="smoothie.d.ts" />
 
 // Smoothie supports browserify
-import Smoothie = require('smoothie');
+import smoothie = require('smoothie');
 
 var canvas: HTMLCanvasElement = document.createElement('canvas');
 
 document.body.appendChild(canvas);
 
-var series: Smoothie.TimeSeries   = new Smoothie.TimeSeries(),
-	chart: Smoothie.SmoothieChart = new Smoothie.SmoothieChart({
+var series: smoothie.TimeSeries   = new smoothie.TimeSeries(),
+	chart: smoothie.SmoothieChart = new smoothie.SmoothieChart({
     grid : {
         strokeStyle : '#404040'
     },

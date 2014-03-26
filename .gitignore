@@ -34,4 +34,7 @@ Properties
 *.iml
 *.js.map
 
+#rx.js
+!rx.js
+
 node_modules
