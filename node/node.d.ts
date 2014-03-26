@@ -252,10 +252,11 @@ declare module "http" {
     import stream = require("stream");
 
     export interface Server extends NodeEventEmitter {
-        listen(port: number, hostname?: string, backlog?: number, callback?: Function): void;
-        listen(path: string, callback?: Function): void;
-        listen(handle: any, listeningListener?: Function): void;
-        close(cb?: any): void;
+        listen(port: number, hostname?: string, backlog?: number, callback?: Function): Server;
+        listen(path: string, callback?: Function): Server;
+        listen(handle: any, listeningListener?: Function): Server;
+        close(cb?: any): Server;
+        address(): { port: number; family: string; address: string; };
         maxHeadersCount: number;
     }
     export interface ServerRequest extends NodeEventEmitter, ReadableStream {
@@ -707,10 +708,10 @@ declare module "net" {
     };
 
     export interface Server extends Socket {
-        listen(port: number, host?: string, backlog?: number, listeningListener?: Function): void;
-        listen(path: string, listeningListener?: Function): void;
-        listen(handle: any, listeningListener?: Function): void;
-        close(callback?: Function): void;
+        listen(port: number, host?: string, backlog?: number, listeningListener?: Function): Server;
+        listen(path: string, listeningListener?: Function): Server;
+        listen(handle: any, listeningListener?: Function): Server;
+        close(callback?: Function): Server;
         address(): { port: number; family: string; address: string; };
         maxConnections: number;
         connections: number;
@@ -953,12 +954,12 @@ declare module "tls" {
 
     export interface Server extends net.Server {
         // Extended base methods
-        listen(port: number, host?: string, backlog?: number, listeningListener?: Function): void;
-        listen(path: string, listeningListener?: Function): void;
-        listen(handle: any, listeningListener?: Function): void;
+        listen(port: number, host?: string, backlog?: number, listeningListener?: Function): Server;
+        listen(path: string, listeningListener?: Function): Server;
+        listen(handle: any, listeningListener?: Function): Server;
 
-        listen(port: number, host?: string, callback?: Function): void;
-        close(): void;
+        listen(port: number, host?: string, callback?: Function): Server;
+        close(): Server;
         address(): { port: number; family: string; address: string; };
         addContext(hostName: string, credentials: {
             key: string;
