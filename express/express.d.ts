@@ -12,14 +12,11 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "express" {
-    import http = require('http');
+declare module "express" { export = ExpressStatic; }
+declare function ExpressStatic(): ExpressStatic.Express
+declare module ExpressStatic {
 
-    // Merged declaration, e is both a callable function and a namespace
-    function e(): e.Express;
-
-    module e {
-        interface IRoute {
+        export interface IRoute {
             path: string;
 
             method: string;
@@ -35,7 +32,7 @@ declare module "express" {
             match(path: string): boolean;
         }
 
-        class Route implements IRoute {
+        export class Route implements IRoute {
             path: string;
 
             method: string;
@@ -62,7 +59,7 @@ declare module "express" {
             new (method: string, path: string, callbacks: Function[], options: any): Route;
         }
 
-        interface IRouter<T> {
+        export interface IRouter<T> {
             /**
              * Map the given param placeholder `name`(s) to the given callback(s).
              *
@@ -107,6 +104,8 @@ declare module "express" {
 
             all(path: string, ...callbacks: Function[]): void;
 
+            get(name: string): string;
+
             get(name: string, ...handlers: RequestFunction[]): T;
 
             get(name: RegExp, ...handlers: RequestFunction[]): T;
@@ -141,6 +140,8 @@ declare module "express" {
 
           all(path: string, ...callbacks: Function[]): void;
 
+          get(name: string): string;
+
           get(name: string, ...handlers: RequestFunction[]): Router;
 
           get(name: RegExp, ...handlers: RequestFunction[]): Router;
@@ -162,11 +163,11 @@ declare module "express" {
           patch(name: RegExp, ...handlers: RequestFunction[]): Router;
         }
 
-        interface Handler {
+        export interface Handler {
             (req: Request, res: Response, next?: Function): void;
         }
 
-        interface CookieOptions {
+        export interface CookieOptions {
             maxAge?: number;
             signed?: boolean;
             expires?: Date;
@@ -176,9 +177,9 @@ declare module "express" {
             secure?: boolean;
         }
 
-        interface Errback { (err: Error): void; }
+        export interface Errback { (err: Error): void; }
 
-        interface Session {
+        export interface Session {
             /**
              * Update reset `.cookie.maxAge` to prevent
              * the cookie from expiring when the
@@ -229,7 +230,7 @@ declare module "express" {
             count: number;
         }
 
-        interface Request {
+        export interface Request {
 
             session: Session;
 
@@ -533,19 +534,19 @@ declare module "express" {
             url: string;
         }
 
-        interface MediaType {
+        export interface MediaType {
             value: string;
             quality: number;
             type: string;
             subtype:  string;
         }
 
-        interface Send {
+        export interface Send {
             (status: number, body?: any): Response;
             (body: any): Response;
         }
 
-        interface Response extends http.ServerResponse {
+        export interface Response extends NodeHttp.ServerResponse {
             /**
              * Set status `code`.
              *
@@ -889,11 +890,11 @@ declare module "express" {
             charset: string;
         }
 
-        interface RequestFunction {
+        export interface RequestFunction {
             (req: Request, res: Response, next: Function): any;
         }
 
-        interface Application extends IRouter<Application> {
+        export interface Application extends IRouter<Application> {
             /**
              * Initialize the server.
              *
@@ -1145,7 +1146,7 @@ declare module "express" {
             routes: any;
         }
 
-        interface Express extends Application {
+        export interface Express extends Application {
             /**
              * Framework version.
              */
@@ -1199,7 +1200,7 @@ declare module "express" {
          *
          * @param options
          */
-        function bodyParser(options?: any): Handler;
+        export function bodyParser(options?: any): Handler;
 
         /**
          * Error handler:
@@ -1222,7 +1223,7 @@ declare module "express" {
          *
          *   When accepted connect will output a nice html stack trace.
          */
-        function errorHandler(opts?: any): Handler;
+        export function errorHandler(opts?: any): Handler;
 
         /**
          * Method Override:
@@ -1235,7 +1236,7 @@ declare module "express" {
          *
          * @param key
          */
-        function methodOverride(key?: string): Handler;
+        export function methodOverride(key?: string): Handler;
 
         /**
          * Cookie parser:
@@ -1256,7 +1257,7 @@ declare module "express" {
          *
          * @param secret
          */
-        function cookieParser(secret?: string): Handler;
+        export function cookieParser(secret?: string): Handler;
 
         /**
          * Session:
@@ -1393,7 +1394,7 @@ declare module "express" {
          *
          * @param options
          */
-        function session(options?: any): Handler;
+        export function session(options?: any): Handler;
 
         /**
          * Hash the given `sess` object omitting changes
@@ -1401,7 +1402,7 @@ declare module "express" {
          *
          * @param sess
          */
-        function hash(sess: string): string;
+        export function hash(sess: string): string;
 
         /**
          * Static:
@@ -1427,7 +1428,7 @@ declare module "express" {
          * @param root
          * @param options
          */
-        function static(root: string, options?: any): Handler;
+        export function static(root: string, options?: any): Handler;
 
         /**
          * Basic Auth:
@@ -1492,7 +1493,7 @@ declare module "express" {
          *
          * @param options
          */
-        function compress(options?: any): Handler;
+        export function compress(options?: any): Handler;
 
         /**
          * Cookie Session:
@@ -1519,7 +1520,7 @@ declare module "express" {
          *
          * @param options
          */
-        function cookieSession(options?: any): Handler;
+        export function cookieSession(options?: any): Handler;
 
         /**
          * Anti CSRF:
@@ -1560,7 +1561,7 @@ declare module "express" {
          * @param root
          * @param options
          */
-        function directory(root: string, options?: any): Handler;
+        export function directory(root: string, options?: any): Handler;
 
         /**
          * Favicon:
@@ -1609,7 +1610,7 @@ declare module "express" {
          *
          * @param options
          */
-        function json(options?: any): Handler;
+        export function json(options?: any): Handler;
 
         /**
          * Limit:
@@ -1623,9 +1624,9 @@ declare module "express" {
          *       .use(connect.limit('5.5mb'))
          *       .use(handleImageUpload)
          */
-        function limit(bytes: number): Handler;
+        export function limit(bytes: number): Handler;
 
-        function limit(bytes: string): Handler;
+        export function limit(bytes: string): Handler;
 
         /**
          * Logger:
@@ -1686,18 +1687,18 @@ declare module "express" {
          *
          *       connect.logger.format('name', 'string or function')
          */
-        function logger(options: string): Handler;
+        export function logger(options: string): Handler;
 
-        function logger(options: Function): Handler;
+        export function logger(options: Function): Handler;
 
-        function logger(options?: any): Handler;
+        export function logger(options?: any): Handler;
 
         /**
          * Compile `fmt` into a function.
          *
          * @param fmt
          */
-        function compile(fmt: string): Handler;
+        export function compile(fmt: string): Handler;
 
         /**
          * Define a token function with the given `name`,
@@ -1706,14 +1707,14 @@ declare module "express" {
          * @param name
          * @param fn
          */
-        function token(name: string, fn: Function): any;
+        export function token(name: string, fn: Function): any;
 
         /**
          * Define a `fmt` with the given `name`.
          */
-        function format(name: string, str: string): any;
+        export function format(name: string, str: string): any;
 
-        function format(name: string, str: Function): any;
+        export function format(name: string, str: Function): any;
 
         /**
          * Query:
@@ -1731,7 +1732,7 @@ declare module "express" {
          *
          *  The `options` passed are provided to qs.parse function.
          */
-        function query(options: any): Handler;
+        export function query(options: any): Handler;
 
         /**
          * Reponse time:
@@ -1739,7 +1740,7 @@ declare module "express" {
          * Adds the `X-Response-Time` header displaying the response
          * duration in milliseconds.
          */
-        function responseTime(): Handler;
+        export function responseTime(): Handler;
 
         /**
          * Static cache:
@@ -1771,7 +1772,7 @@ declare module "express" {
          *   - `maxObjects`  max cache objects [128]
          *   - `maxLength`  max cache object length 256kb
          */
-        function staticCache(options: any): Handler;
+        export function staticCache(options: any): Handler;
 
         /**
          * Timeout:
@@ -1784,7 +1785,7 @@ declare module "express" {
          * the response behaviour. This error has the `.timeout` property as
          * well as `.status == 408`.
          */
-        function timeout(ms: number): Handler;
+        export function timeout(ms: number): Handler;
 
         /**
          * Vhost:
@@ -1802,14 +1803,10 @@ declare module "express" {
          * @param hostname
          * @param server
          */
-        function vhost(hostname: string, server: any): Handler;
+        export function vhost(hostname: string, server: any): Handler;
 
-        function urlencoded(): any;
+        export function urlencoded(): any;
 
-        function multipart(): any;
-
-    }
-
-    export = e;
+        export function multipart(): any;
 }
 
