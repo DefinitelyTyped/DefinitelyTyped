@@ -1489,3 +1489,10 @@ function test_middleware() {
     app.use(express.static('public'));
     app.use(router.middleware);
 }
+
+////////////////////
+
+// make sure server can be shut down
+var testShutdownServer = app.listen(0);
+console.log('listening on port ' + testShutdownServer.address().port);
+testShutdownServer.close();
