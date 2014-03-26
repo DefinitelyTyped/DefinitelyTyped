@@ -6,6 +6,8 @@ import events = require("events");
 import zlib = require("zlib");
 import url = require('url');
 import util = require("util");
+import http = require("http");
+import net = require("net");
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -80,3 +82,9 @@ function stream_readable_pipe_test() {
     var w = fs.createWriteStream('file.txt.gz');
     r.pipe(z).pipe(w);
 }
+
+////////////////////////////////////////////////////
+
+// Make sure .listen() and .close() retuern a Server instance
+http.createServer().listen(0).close().address();
+net.createServer().listen(0).close().address();
