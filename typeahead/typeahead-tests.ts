@@ -71,3 +71,16 @@ $('.example-films .typeahead').typeahead([
         engine: Hogan
     }
 ]);
+
+//Basic substring search
+//Specifies options along with datasets. In this case the dataset uses a custom substring matcher function as its source
+$('#the-basics .typeahead').typeahead({
+  hint: true,
+  highlight: true,
+  minLength: 1
+},
+{
+  name: 'states',
+  displayKey: 'value',
+  source: substringMatcher(states)
+});
