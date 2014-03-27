@@ -224,6 +224,7 @@ interface FoundationStatic {
     global: {
         namespace: string;
     };
+    init(scope: JQuery): JQuery;
     init(scope: JQuery, libraries: FoundationOptions): JQuery;
     init(scope: JQuery, libraries: string, method: FoundationOptions): JQuery;
     init(scope: JQuery, libraries: string, method: string, options: Object): JQuery;
@@ -245,6 +246,7 @@ interface FoundationStatic {
 }
 
 interface JQuery {
+    foundation(): JQuery;
     foundation(libraries: FoundationOptions): JQuery;
     foundation(libraries: string, method: FoundationOptions): JQuery;
     foundation(libraries: string, method: string, options: Object): JQuery;
