@@ -11,10 +11,10 @@ declare module svgjs {
 		draggable(): Element
 		draggable(obj: Object):Element
 		fixed(): Element
-		beforedrag: (e) => any
-		dragstart: (delta: draggable.DragDelta, e) => any
-		dragmove: (delta: draggable.DragDelta, e) => any
-		dragend: (delta: draggable.DragDelta, e) => any
+		beforedrag: (event: MouseEvent) => any
+		dragstart: (delta: draggable.DragDelta, event: MouseEvent) => any
+		dragmove: (delta: draggable.DragDelta, event: MouseEvent) => any
+		dragend: (delta: draggable.DragDelta, event: MouseEvent) => any
 
 	}
 }
