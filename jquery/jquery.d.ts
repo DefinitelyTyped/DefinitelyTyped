@@ -288,7 +288,7 @@ interface JQueryGenericPromise<T> {
 }
 
 /**
- * Interface for the JQuery promise/deffered callbacks
+ * Interface for the JQuery promise/deferred callbacks
  */
 interface JQueryPromiseCallback<T> {
     (value?: T, ...args: any[]): void;
