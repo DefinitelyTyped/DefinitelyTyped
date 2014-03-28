@@ -12,8 +12,10 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "express" { export = ExpressStatic; }
-declare function ExpressStatic(): ExpressStatic.Express
+declare module "express" { var _: ExpressStatic; export = _; }
+interface ExpressStatic{
+    (): ExpressStatic.Express
+}
 declare module ExpressStatic {
 
         export interface IRoute {
@@ -546,7 +548,7 @@ declare module ExpressStatic {
             (body: any): Response;
         }
 
-        export interface Response extends NodeHttp.ServerResponse {
+        export interface Response extends NodeJs.Http.ServerResponse {
             /**
              * Set status `code`.
              *
