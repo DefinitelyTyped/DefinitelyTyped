@@ -452,7 +452,7 @@ interface ZeptoCollection {
 	/**
 	* @see ZeptoCollection.after
 	**/
-	after(content: HTMLElement[]): ZeptoCollection;
+	after(content: ZeptoCollection): ZeptoCollection;
 
 	/**
 	* Append content to the DOM inside each individual element in the collection. The content can be an HTML string, a DOM node or an array of nodes.
