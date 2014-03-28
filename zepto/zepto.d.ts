@@ -964,6 +964,12 @@ interface ZeptoCollection {
 	prepend(content: HTMLElement[]): ZeptoCollection;
 
 	/**
+	* @see ZeptoCollection.prepend
+	* @param content
+	**/
+	prepend(content: ZeptoCollection): ZeptoCollection;
+
+	/**
 	* Prepend elements of the current collection inside each of the target elements. This is like prepend, only with reversed operands.
 	* @param content
 	* @return
