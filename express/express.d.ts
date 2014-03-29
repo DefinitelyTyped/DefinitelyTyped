@@ -12,13 +12,15 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "express" { var _: ExpressStatic; export = _; }
-interface ExpressStatic{
-    (): ExpressStatic.Express
+declare module "express" {
+    import _ = Express.Static;
+    export = _;
 }
-declare module ExpressStatic {
+declare module Express {
+    export var Static: Static;
+    export module Static {
 
-        export interface IRoute {
+        export interface Route {
             path: string;
 
             method: string;
@@ -31,17 +33,6 @@ declare module ExpressStatic {
             * Check if this route matches `path`, if so
             * populate `.params`.
             */
-            match(path: string): boolean;
-        }
-
-        export class Route implements IRoute {
-            path: string;
-
-            method: string;
-
-            callbacks: Function[];
-
-            regexp: any;
             match(path: string): boolean;
 
             /**
@@ -129,40 +120,10 @@ declare module ExpressStatic {
             patch(name: RegExp, ...handlers: RequestFunction[]): T;
         }
 
-        export class Router implements IRouter<Router> {
-          new (options?: any): Router;
+        export interface Router extends IRouter<Router> {
+            new (options?: any): Router;
 
-          middleware (): any;
-
-          param(name: string, fn: Function): Router;
-
-          param(name: any[], fn: Function): Router;
-
-          all(path: string, fn?: (req: Request, res: Response, next: Function) => any): Router;
-
-          all(path: string, ...callbacks: Function[]): void;
-
-          get(name: string): string;
-
-          get(name: string, ...handlers: RequestFunction[]): Router;
-
-          get(name: RegExp, ...handlers: RequestFunction[]): Router;
-
-          post(name: string, ...handlers: RequestFunction[]): Router;
-
-          post(name: RegExp, ...handlers: RequestFunction[]): Router;
-
-          put(name: string, ...handlers: RequestFunction[]): Router;
-
-          put(name: RegExp, ...handlers: RequestFunction[]): Router;
-
-          del(name: string, ...handlers: RequestFunction[]): Router;
-
-          del(name: RegExp, ...handlers: RequestFunction[]): Router;
-          
-          patch(name: string, ...handlers: RequestFunction[]): Router;
- 
-          patch(name: RegExp, ...handlers: RequestFunction[]): Router;
+            middleware (): any;
         }
 
         export interface Handler {
@@ -1125,7 +1086,7 @@ declare module ExpressStatic {
 
             listen(handle: any, listeningListener?: Function): void;
 
-            route: IRoute;
+            route: Route;
 
             router: string;
 
@@ -1174,6 +1135,9 @@ declare module ExpressStatic {
 
             response: Response;
         }
+    }
+    interface Static {
+        (): Express.Static.Express;
 
         /**
          * Body parser:
@@ -1202,7 +1166,7 @@ declare module ExpressStatic {
          *
          * @param options
          */
-        export function bodyParser(options?: any): Handler;
+        bodyParser(options?: any): Express.Static.Handler;
 
         /**
          * Error handler:
@@ -1225,7 +1189,7 @@ declare module ExpressStatic {
          *
          *   When accepted connect will output a nice html stack trace.
          */
-        export function errorHandler(opts?: any): Handler;
+        errorHandler(opts?: any): Express.Static.Handler;
 
         /**
          * Method Override:
@@ -1238,7 +1202,7 @@ declare module ExpressStatic {
          *
          * @param key
          */
-        export function methodOverride(key?: string): Handler;
+        methodOverride(key?: string): Express.Static.Handler;
 
         /**
          * Cookie parser:
@@ -1259,7 +1223,7 @@ declare module ExpressStatic {
          *
          * @param secret
          */
-        export function cookieParser(secret?: string): Handler;
+        cookieParser(secret?: string): Express.Static.Handler;
 
         /**
          * Session:
@@ -1396,7 +1360,7 @@ declare module ExpressStatic {
          *
          * @param options
          */
-        export function session(options?: any): Handler;
+        session(options?: any): Express.Static.Handler;
 
         /**
          * Hash the given `sess` object omitting changes
@@ -1404,7 +1368,7 @@ declare module ExpressStatic {
          *
          * @param sess
          */
-        export function hash(sess: string): string;
+        hash(sess: string): string;
 
         /**
          * Static:
@@ -1430,7 +1394,7 @@ declare module ExpressStatic {
          * @param root
          * @param options
          */
-        export function static(root: string, options?: any): Handler;
+        static(root: string, options?: any): Express.Static.Handler;
 
         /**
          * Basic Auth:
@@ -1462,11 +1426,11 @@ declare module ExpressStatic {
          * @param callback or username
          * @param realm
          */
-        export function basicAuth(callback: (user: string, pass: string, fn : Function) => void, realm?: string): Handler;
+        basicAuth(callback: (user: string, pass: string, fn : Function) => void, realm?: string): Express.Static.Handler;
 
-        export function basicAuth(callback: (user: string, pass: string) => boolean, realm?: string): Handler;
+        basicAuth(callback: (user: string, pass: string) => boolean, realm?: string): Express.Static.Handler;
 
-        export function basicAuth(user: string, pass: string, realm?: string): Handler;
+        basicAuth(user: string, pass: string, realm?: string): Express.Static.Handler;
 
         /**
          * Compress:
@@ -1495,7 +1459,7 @@ declare module ExpressStatic {
          *
          * @param options
          */
-        export function compress(options?: any): Handler;
+        compress(options?: any): Express.Static.Handler;
 
         /**
          * Cookie Session:
@@ -1522,7 +1486,7 @@ declare module ExpressStatic {
          *
          * @param options
          */
-        export function cookieSession(options?: any): Handler;
+        cookieSession(options?: any): Express.Static.Handler;
 
         /**
          * Anti CSRF:
@@ -1547,7 +1511,7 @@ declare module ExpressStatic {
          *
          * @param options
          */
-        export function csrf(options?: {value?: Function}): Handler;
+        csrf(options?: {value?: Function}): Express.Static.Handler;
 
         /**
          * Directory:
@@ -1563,7 +1527,7 @@ declare module ExpressStatic {
          * @param root
          * @param options
          */
-        export function directory(root: string, options?: any): Handler;
+        directory(root: string, options?: any): Express.Static.Handler;
 
         /**
          * Favicon:
@@ -1596,7 +1560,7 @@ declare module ExpressStatic {
          * @param path
          * @param options
          */
-        export function favicon(path?: string, options?: any): Handler;
+        favicon(path?: string, options?: any): Express.Static.Handler;
 
         /**
          * JSON:
@@ -1612,7 +1576,7 @@ declare module ExpressStatic {
          *
          * @param options
          */
-        export function json(options?: any): Handler;
+        json(options?: any): Express.Static.Handler;
 
         /**
          * Limit:
@@ -1626,9 +1590,9 @@ declare module ExpressStatic {
          *       .use(connect.limit('5.5mb'))
          *       .use(handleImageUpload)
          */
-        export function limit(bytes: number): Handler;
+        limit(bytes: number): Express.Static.Handler;
 
-        export function limit(bytes: string): Handler;
+        limit(bytes: string): Express.Static.Handler;
 
         /**
          * Logger:
@@ -1689,18 +1653,18 @@ declare module ExpressStatic {
          *
          *       connect.logger.format('name', 'string or function')
          */
-        export function logger(options: string): Handler;
+        logger(options: string): Express.Static.Handler;
 
-        export function logger(options: Function): Handler;
+        logger(options: Function): Express.Static.Handler;
 
-        export function logger(options?: any): Handler;
+        logger(options?: any): Express.Static.Handler;
 
         /**
          * Compile `fmt` into a function.
          *
          * @param fmt
          */
-        export function compile(fmt: string): Handler;
+        compile(fmt: string): Express.Static.Handler;
 
         /**
          * Define a token function with the given `name`,
@@ -1709,14 +1673,14 @@ declare module ExpressStatic {
          * @param name
          * @param fn
          */
-        export function token(name: string, fn: Function): any;
+        token(name: string, fn: Function): any;
 
         /**
          * Define a `fmt` with the given `name`.
          */
-        export function format(name: string, str: string): any;
+        format(name: string, str: string): any;
 
-        export function format(name: string, str: Function): any;
+        format(name: string, str: Function): any;
 
         /**
          * Query:
@@ -1734,7 +1698,7 @@ declare module ExpressStatic {
          *
          *  The `options` passed are provided to qs.parse function.
          */
-        export function query(options: any): Handler;
+        query(options: any): Express.Static.Handler;
 
         /**
          * Reponse time:
@@ -1742,7 +1706,7 @@ declare module ExpressStatic {
          * Adds the `X-Response-Time` header displaying the response
          * duration in milliseconds.
          */
-        export function responseTime(): Handler;
+        responseTime(): Express.Static.Handler;
 
         /**
          * Static cache:
@@ -1774,7 +1738,7 @@ declare module ExpressStatic {
          *   - `maxObjects`  max cache objects [128]
          *   - `maxLength`  max cache object length 256kb
          */
-        export function staticCache(options: any): Handler;
+        staticCache(options: any): Express.Static.Handler;
 
         /**
          * Timeout:
@@ -1787,7 +1751,7 @@ declare module ExpressStatic {
          * the response behaviour. This error has the `.timeout` property as
          * well as `.status == 408`.
          */
-        export function timeout(ms: number): Handler;
+        timeout(ms: number): Express.Static.Handler;
 
         /**
          * Vhost:
@@ -1805,10 +1769,10 @@ declare module ExpressStatic {
          * @param hostname
          * @param server
          */
-        export function vhost(hostname: string, server: any): Handler;
+        vhost(hostname: string, server: any): Express.Static.Handler;
 
-        export function urlencoded(): any;
+        urlencoded(): any;
 
-        export function multipart(): any;
+        multipart(): any;
+    }
 }
-
