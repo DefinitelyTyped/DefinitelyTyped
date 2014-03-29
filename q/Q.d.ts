@@ -209,6 +209,7 @@ declare module Q {
 
     export function nfbind<T>(nodeFunction: Function, ...args: any[]): (...args: any[]) => Promise<T>;
     export function nfcall<T>(nodeFunction: Function, ...args: any[]): Promise<T>;
+    export function nfapply<T>(nodeFunction: Function, args: any[]): Promise<T>;
 
     export function ninvoke<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
     export function nsend<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
