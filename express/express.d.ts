@@ -17,7 +17,19 @@ declare module "express" {
     export = _;
 }
 declare module Express {
-    export function Static(): Static.Express;
+    // NB: All typings in Express.Static are exposed in dual declaration spaces
+    // (i.e. as 'types' and as 'members' - see TypeScript Language Spec section 2.3)
+    // so that type information is available in both of the following scenarios:
+    //
+    //          // Normal import:
+    //          import express = require('express');
+    //          var app = express();
+    //          app.use(express.urlencoded());
+    //
+    //          // Typed variable:
+    //          var express: Express.Static = someExpr() // a wrapped, mocked or otherwise obtained ref
+    //          var app = express();
+    //          app.use(express.urlencoded());
     export interface Static {
         (): Static.Express;
         Route: new (method: string, path: string, callbacks: Function[], options: any) => Static.Route;
@@ -55,6 +67,7 @@ declare module Express {
         urlencoded(): any;
         multipart(): any;
     }
+    export function Static(): Static.Express;
     export module Static {
 
         interface IRoute {
