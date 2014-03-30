@@ -967,6 +967,12 @@ declare module "express" {
              * @param val
              */
             set (setting: string, val: string): Application;
+            
+            get(name: string): string;
+
+            get(name: string, ...handlers: RequestFunction[]): Application;
+
+            get(name: RegExp, ...handlers: RequestFunction[]): Application;
 
             /**
              * Return the app's absolute pathname
