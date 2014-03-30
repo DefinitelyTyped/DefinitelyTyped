@@ -273,15 +273,15 @@ declare module NodeJs {
 
 
     // ---------- "events" module ----------
-    export var Events: Events;
     export interface Events {
-        EventEmitter: Events.EventEmitterStatic;
+        EventEmitter: {
+            (): any // Correctly reflect the fact that this is a (constructor) function, without suggesting that instances can be obtained this way
+            listenerCount(emitter: Events.EventEmitter, event: string): number;
+        }
     }
     export module Events {
-        export interface EventEmitterStatic {
-            listenerCount(emitter: EventEmitter, event: string): number;
-        }
-        export interface EventEmitter extends NodeEventEmitter {
+        export class EventEmitter implements NodeEventEmitter {
+            static listenerCount(emitter: EventEmitter, event: string): number;
             addListener(event: string, listener: Function): EventEmitter;
             on(event: string, listener: Function): EventEmitter;
             once(event: string, listener: Function): EventEmitter;
@@ -386,8 +386,10 @@ declare module NodeJs {
 
 
     // ---------- "cluster" module ----------
-    export var Cluster: Cluster;
     export interface Cluster {
+        // NB: This is necessary duplicataion of the definitions in the Cluster module below. It is required
+        // so that type information is available both through pure types (eg NodeJs.Cluster),
+        // as well as through typed variables (eg var cluster)
         settings: Cluster.ClusterSettings;
         isMaster: boolean;
         isWorker: boolean;
@@ -406,14 +408,37 @@ declare module NodeJs {
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
+
+        Worker: {
+            (): any // Correctly reflect the fact that this is a (constructor) function, without suggesting that instances can be obtained this way
+        }
     }
     export module Cluster {
+        export var settings: Cluster.ClusterSettings;
+        export var isMaster: boolean;
+        export var isWorker: boolean;
+        export function setupMaster(settings?: Cluster.ClusterSettings): void;
+        export function fork(env?: any): Worker;
+        export function disconnect(callback?: Function): void;
+        export var worker: Worker;
+        export var workers: Worker[];
+
+        // Event emitter
+        export function addListener(event: string, listener: Function): void;
+        export function on(event: string, listener: Function): any;
+        export function once(event: string, listener: Function): void;
+        export function removeListener(event: string, listener: Function): void;
+        export function removeAllListeners(event?: string): void;
+        export function setMaxListeners(n: number): void;
+        export function listeners(event: string): Function[];
+        export function emit(event: string, ...args: any[]): boolean;
+
         export interface ClusterSettings {
             exec?: string;
             args?: string[];
             silent?: boolean;
         }
-        export interface Worker extends Events.EventEmitter {
+        export class Worker extends Events.EventEmitter {
             id: string;
             process: ChildProcess.ChildProcess;
             suicide: boolean;
@@ -1149,7 +1174,6 @@ declare module NodeJs {
 
 
     // ---------- "stream" module ----------
-    export var Stream: Stream;
     export interface Stream {
         Readable: new(opts?: Stream.ReadableOptions) => Stream.Readable;
         Writable: new(opts?: Stream.WritableOptions) => Stream.Writable;
@@ -1162,7 +1186,8 @@ declare module NodeJs {
             encoding?: string;
             objectMode?: boolean;
         }
-        export interface Readable extends Events.EventEmitter, ReadableStream {
+        export class Readable extends Events.EventEmitter implements ReadableStream {
+            constructor(opts?: ReadableOptions);
             readable: boolean;
             _read(size: number): void;
             read(size?: number): any;
@@ -1180,7 +1205,8 @@ declare module NodeJs {
             highWaterMark?: number;
             decodeStrings?: boolean;
         }
-        export interface Writable extends Events.EventEmitter, WritableStream {
+        export class Writable extends Events.EventEmitter implements WritableStream {
+            constructor(opts?: WritableOptions);
             writable: boolean;
             _write(data: NodeBuffer, encoding: string, callback: Function): void;
             _write(data: string, encoding: string, callback: Function): void;
@@ -1197,7 +1223,8 @@ declare module NodeJs {
         }
 
         // Note: Duplex extends both Readable and Writable.
-        export interface Duplex extends Readable, ReadWriteStream {
+        export class Duplex extends Readable implements ReadWriteStream {
+            constructor(opts?: DuplexOptions);
             writable: boolean;
             _write(data: NodeBuffer, encoding: string, callback: Function): void;
             _write(data: string, encoding: string, callback: Function): void;
@@ -1212,7 +1239,8 @@ declare module NodeJs {
         export interface TransformOptions extends ReadableOptions, WritableOptions {}
 
         // Note: Transform lacks the _read and _write methods of Readable/Writable.
-        export interface Transform extends Events.EventEmitter, ReadWriteStream {
+        export class Transform extends Events.EventEmitter implements ReadWriteStream {
+            constructor(opts?: TransformOptions);
             readable: boolean;
             writable: boolean;
             _transform(chunk: NodeBuffer, encoding: string, callback: Function): void;
@@ -1236,7 +1264,7 @@ declare module NodeJs {
             end(str: string, cb?: Function): void;
             end(str: string, encoding?: string, cb?: Function): void;
         }
-        export interface PassThrough extends Transform {}
+        export class PassThrough extends Transform {}
     }
 
 
@@ -1268,7 +1296,6 @@ declare module NodeJs {
 
 
     // ---------- "assert" module ----------
-    export var Assert: Assert;
     export interface Assert {
         (value: any, message?: string): void;
         AssertionError: new(options?: Assert.AssertionErrorOptions) => Assert.AssertionError;
@@ -1303,8 +1330,8 @@ declare module NodeJs {
             operator?: string;
             stackStartFunction?: Function
         }
-        export interface AssertionError extends Error {
-            new(options?: AssertionErrorOptions): AssertionError;
+        export class AssertionError implements Error {
+            constructor(options?: AssertionErrorOptions);
             name: string;
             message: string;
             actual: any;
@@ -1335,13 +1362,12 @@ declare module NodeJs {
 
 
     // ---------- "domain" module ----------
-    export var Domain: Domain;
     export interface Domain {
         Domain: new() => Domain.Domain;
         create(): Domain.Domain;
     }
     export module Domain {
-        export interface Domain extends Events.EventEmitter {
+        export class Domain extends Events.EventEmitter {
             run(fn: Function): void;
             add(emitter: NodeEventEmitter): void;
             remove(emitter: NodeEventEmitter): void;
