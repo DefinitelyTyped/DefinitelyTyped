@@ -58,6 +58,7 @@ List of Definitions
 * [CKEditor](https://github.com/ckeditor/ckeditor-dev) (by [Ondrej Sevcik](https://github.com/ondrejsevcik))
 * [CodeMirror](http://codemirror.net) (by [François de Campredon](https://github.com/fdecampredon))
 * [Commander](http://github.com/visionmedia/commander.js) (by [Marcelo Dezem](https://github.com/mdezem))
+* [configstore](http://github.com/yeoman/configstore) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [Couchbase / Couchnode](https://github.com/couchbase/couchnode) (by [Basarat Ali Syed](https://github.com/basarat))
 * [Crossfilter](https://github.com/square/crossfilter) (by [Schmulik Raskin](https://github.com/schmuli))
 * [crypto-js](https://code.google.com/p/crypto-js/) (by [Gia Bảo @ Sân Đình](https://github.com/giabao)). @see [cryptojs.d.ts repo](https://github.com/giabao/cryptojs.d.ts)
