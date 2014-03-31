@@ -644,6 +644,8 @@ declare module "url" {
         pathname?: string;
         search?: string;
         query?: any;
+        hash?: string;
+        path?: string;
     }
 
     export function parse(urlStr: string, parseQueryString?: boolean , slashesDenoteHost?: boolean ): Url;
