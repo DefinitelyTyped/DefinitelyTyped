@@ -285,8 +285,7 @@ declare module NodeJs {
     // ---------- "events" module ----------
     export interface Events {
         EventEmitter: {
-            (): any // Correctly reflect the fact that this is a (constructor) function,
-                    // without suggesting that instances can be obtained this way
+            new(): Events.EventEmitter;
             listenerCount(emitter: Events.EventEmitter, event: string): number;
         }
     }
@@ -418,7 +417,8 @@ declare module NodeJs {
         emit(event: string, ...args: any[]): boolean;
 
         Worker: {
-            (): any // Correctly reflect the fact that this is a (constructor) function, without suggesting that instances can be obtained this way
+            (): any;    // Correctly reflect the fact that this is a (constructor) function,
+                        // without suggesting that instances can be obtained this way
         }
     }
     export module Cluster {
