@@ -2960,21 +2960,21 @@ declare module D3 {
             */
             conicConformal: {
                 (): Projection;
-                raw: RawProjection;
+                raw(phi1:number, phi2:number): RawProjection;
             }
             /**
             * the conic equidistant projection.
             */
             conicEquidistant: {
                 (): Projection;
-                raw: RawProjection;
+                raw(phi1:number, phi2:number): RawProjection;
             }
             /**
             * the conic equal-area (a.k.a. Albers) projection.
             */
             conicEqualArea: {
                 (): Projection;
-                raw: RawProjection;
+                raw(phi1:number, phi2:number): RawProjection;
             }
             /**
             * the equirectangular (plate carreé) projection.
