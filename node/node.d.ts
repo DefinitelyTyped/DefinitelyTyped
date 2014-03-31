@@ -819,7 +819,7 @@ declare module "fs" {
     export function readlinkSync(path: string): string;
     export function realpath(path: string, callback?: (err: ErrnoException, resolvedPath: string) => any): void;
     export function realpath(path: string, cache: {[path: string]: string}, callback: (err: ErrnoException, resolvedPath: string) =>any): void;
-    export function realpathSync(path: string, cache?: {[path: string]: string}): void;
+    export function realpathSync(path: string, cache?: {[path: string]: string}): string;
     export function unlink(path: string, callback?: (err?: ErrnoException) => void): void;
     export function unlinkSync(path: string): void;
     export function rmdir(path: string, callback?: (err?: ErrnoException) => void): void;
