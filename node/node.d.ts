@@ -219,38 +219,106 @@ interface NodeTimer {
     unref() : void;
 }
 
+
 /************************************************
 *                                               *
 *              MODULES - EXTERNAL               *
 *                                               *
 ************************************************/
 
-declare module "querystring"    { import _ = NodeJs.QueryString;    export = _; }
-declare module "events"         { import _ = NodeJs.Events;         export = _; }
-declare module "http"           { import _ = NodeJs.Http;           export = _; }
-declare module "cluster"        { import _ = NodeJs.Cluster;        export = _; }
-declare module "zlib"           { import _ = NodeJs.Zlib;           export = _; }
-declare module "os"             { import _ = NodeJs.Os;             export = _; }
-declare module "https"          { import _ = NodeJs.Https;          export = _; }
-declare module "punycode"       { import _ = NodeJs.PunyCode;       export = _; }
-declare module "repl"           { import _ = NodeJs.Repl;           export = _; }
-declare module "readline"       { import _ = NodeJs.ReadLine;       export = _; }
-declare module "vm"             { import _ = NodeJs.Vm;             export = _; }
-declare module "child_process"  { import _ = NodeJs.ChildProcess;   export = _; }
-declare module "url"            { import _ = NodeJs.Url;            export = _; }
-declare module "dns"            { import _ = NodeJs.Dns;            export = _; }
-declare module "net"            { import _ = NodeJs.Net;            export = _; }
-declare module "dgram"          { import _ = NodeJs.Dgram;          export = _; }
-declare module "fs"             { import _ = NodeJs.Fs;             export = _; }
-declare module "path"           { import _ = NodeJs.Path;           export = _; }
-declare module "string_decoder" { import _ = NodeJs.StringDecoder;  export = _; }
-declare module "tls"            { import _ = NodeJs.Tls;            export = _; }
-declare module "crypto"         { import _ = NodeJs.Crypto;         export = _; }
-declare module "stream"         { import _ = NodeJs.Stream;         export = _; }
-declare module "util"           { import _ = NodeJs.Util;           export = _; }
-declare module "assert"         { import _ = NodeJs.Assert;         export = _; }
-declare module "tty"            { import _ = NodeJs.Tty;            export = _; }
-declare module "domain"         { import _ = NodeJs.Domain;         export = _; }
+declare module "events"         { import M = _ExternalShim_._NodeJs_.Events;    export = M; }
+declare module "http"           { import M = _ExternalShim_._NodeJs_.Http;      export = M; }
+declare module "url"            { import M = _ExternalShim_._NodeJs_.Url;       export = M; }
+declare module "net"            { import M = _ExternalShim_._NodeJs_.Net;       export = M; }
+declare module "querystring"    { var M: NodeJs.QueryString;    export = M; }
+declare module "cluster"        { var M: NodeJs.Cluster;        export = M; }
+declare module "zlib"           { var M: NodeJs.Zlib;           export = M; }
+declare module "os"             { var M: NodeJs.Os;             export = M; }
+declare module "https"          { var M: NodeJs.Https;          export = M; }
+declare module "punycode"       { var M: NodeJs.PunyCode;       export = M; }
+declare module "repl"           { var M: NodeJs.Repl;           export = M; }
+declare module "readline"       { var M: NodeJs.ReadLine;       export = M; }
+declare module "vm"             { var M: NodeJs.Vm;             export = M; }
+declare module "child_process"  { var M: NodeJs.ChildProcess;   export = M; }
+declare module "dns"            { var M: NodeJs.Dns;            export = M; }
+declare module "dgram"          { var M: NodeJs.Dgram;          export = M; }
+declare module "fs"             { var M: NodeJs.Fs;             export = M; }
+declare module "path"           { var M: NodeJs.Path;           export = M; }
+declare module "string_decoder" { var M: NodeJs.StringDecoder;  export = M; }
+declare module "tls"            { var M: NodeJs.Tls;            export = M; }
+declare module "crypto"         { var M: NodeJs.Crypto;         export = M; }
+declare module "stream"         { var M: NodeJs.Stream;         export = M; }
+declare module "util"           { var M: NodeJs.Util;           export = M; }
+declare module "assert"         { var M: NodeJs.Assert;         export = M; }
+declare module "tty"            { var M: NodeJs.Tty;            export = M; }
+declare module "domain"         { var M: NodeJs.Domain;         export = M; }
+
+
+/************************************************
+*                                               *
+*           EXTERNAL - INTERNAL SHIM            *
+*                                               *
+************************************************/
+
+// NB: This module exists so that 'pure' (ie non-instantiated) internal modules may
+// be declared in parallel with external modules, without breaking code that relies
+// on certain behaviours of external modules. It's a shim to support type definitions
+// that are already out there which use the pattern exemplified below:
+//
+//      declare module "mymodule" {
+//          import http   = require('http');
+//          ...
+//          server?: http.Server;
+//
+// Note that the type 'Server' is accessed via the variable 'http', meaning that
+// Server must be not just a type, but also a property on 'http'. The 'pure' typings
+// declared in the NodeJs module below don't support this usage. With the _ExternalTypes_
+// shim, the above code will continue working unchanged. New type definitions should
+// prefer something like:
+//
+//      declare module "mymodule" {
+//          ...
+//          server?: NodeJs.Http.Server;
+//
+// If all typings switch to using the pure internal types in NodeJs, this shim can be removed.
+
+declare module _ExternalShim_ {
+    export module _NodeJs_ {
+        export module Events {
+            export class EventEmitter implements NodeEventEmitter {
+                static listenerCount(emitter: EventEmitter, event: string): number;
+                addListener(event: string, listener: Function): EventEmitter;
+                on(event: string, listener: Function): EventEmitter;
+                once(event: string, listener: Function): EventEmitter;
+                removeListener(event: string, listener: Function): EventEmitter;
+                removeAllListeners(event?: string): EventEmitter;
+                setMaxListeners(n: number): void;
+                listeners(event: string): Function[];
+                emit(event: string, ...args: any[]): boolean;
+            }
+        }
+        export var Http: NodeJs.Http;
+        export module Http {
+            export interface Server extends NodeJs.Http.Server { }
+            export interface ServerRequest extends NodeJs.Http.ServerRequest { }
+            export interface ServerResponse extends NodeJs.Http.ServerResponse { }
+            export interface ClientRequest extends NodeJs.Http.ClientRequest { }
+            export interface ClientResponse extends NodeJs.Http.ClientResponse { }
+            export interface Agent extends NodeJs.Http.Agent { }
+        }
+        export var Net: NodeJs.Net;
+        export module Net {
+            export interface Socket extends NodeJs.Net.Socket { }
+            export interface Server extends NodeJs.Net.Server { }
+        }
+        export var Url: NodeJs.Url;
+        export module Url {
+            export interface Url extends NodeJs.Url.Url { }
+            export interface UrlOptions extends NodeJs.Url.UrlOptions { }
+        }
+    }
+}
+
 
 /************************************************
 *                                               *
@@ -259,17 +327,6 @@ declare module "domain"         { import _ = NodeJs.Domain;         export = _; 
 ************************************************/
 
 declare module NodeJs {
-    // NB: All typings in this namespace are exposed in dual declaration spaces
-    // (i.e. as 'types' and as 'members' - see TypeScript Language Spec section 2.3)
-    // so that type information is available in both of the following scenarios:
-    //
-    //          // Normal import:
-    //          import http = require('http');
-    //          http.createServer((req, res) => {...})
-    //
-    //          // Typed variable:
-    //          var http: NodeJs.Http = someExpr() // a wrapped, mocked or otherwise obtained ref
-    //          http.createServer((req, res) => {...})
 
 
     // ---------- "querystring" module ----------
@@ -279,7 +336,6 @@ declare module NodeJs {
         escape(): any;
         unescape(): any;
     }
-    export var QueryString: QueryString;
 
 
     // ---------- "events" module ----------
@@ -290,8 +346,7 @@ declare module NodeJs {
         }
     }
     export module Events {
-        export class EventEmitter implements NodeEventEmitter {
-            static listenerCount(emitter: EventEmitter, event: string): number;
+        export interface EventEmitter extends NodeEventEmitter {
             addListener(event: string, listener: Function): EventEmitter;
             on(event: string, listener: Function): EventEmitter;
             once(event: string, listener: Function): EventEmitter;
@@ -313,7 +368,6 @@ declare module NodeJs {
         get(options: any, callback?: Function): Http.ClientRequest;
         globalAgent: Http.Agent;
     }
-    export var Http: Http;
     export module Http {
         export interface Server extends NodeEventEmitter {
             listen(port: number, hostname?: string, backlog?: number, callback?: Function): void;
@@ -422,31 +476,12 @@ declare module NodeJs {
         }
     }
     export module Cluster {
-        export var settings: Cluster.ClusterSettings;
-        export var isMaster: boolean;
-        export var isWorker: boolean;
-        export function setupMaster(settings?: Cluster.ClusterSettings): void;
-        export function fork(env?: any): Worker;
-        export function disconnect(callback?: Function): void;
-        export var worker: Worker;
-        export var workers: Worker[];
-
-        // Event emitter
-        export function addListener(event: string, listener: Function): void;
-        export function on(event: string, listener: Function): any;
-        export function once(event: string, listener: Function): void;
-        export function removeListener(event: string, listener: Function): void;
-        export function removeAllListeners(event?: string): void;
-        export function setMaxListeners(n: number): void;
-        export function listeners(event: string): Function[];
-        export function emit(event: string, ...args: any[]): boolean;
-
         export interface ClusterSettings {
             exec?: string;
             args?: string[];
             silent?: boolean;
         }
-        export class Worker extends Events.EventEmitter {
+        export interface Worker extends Events.EventEmitter {
             id: string;
             process: ChildProcess.ChildProcess;
             suicide: boolean;
@@ -509,7 +544,6 @@ declare module NodeJs {
         Z_DEFLATED: number;
         Z_NULL: number;
     }
-    export var Zlib: Zlib;
     export module Zlib {
         export interface ZlibOptions { chunkSize?: number; windowBits?: number; level?: number; memLevel?: number; strategy?: number; dictionary?: any; }
         export interface Gzip extends ReadWriteStream { }
@@ -538,7 +572,6 @@ declare module NodeJs {
         networkInterfaces(): any;
         EOL: string;
     }
-    export var Os: Os;
 
 
     // ---------- "https" module ----------
@@ -550,7 +583,6 @@ declare module NodeJs {
         get(options: Https.RequestOptions, callback?: (res: NodeEventEmitter) => void): Http.ClientRequest;
         globalAgent: Https.Agent;
     }
-    export var Https: Https;
     export module Https {
         export interface ServerOptions {
             pfx?: any;
@@ -604,14 +636,12 @@ declare module NodeJs {
         }
         version: any;
     }
-    export var PunyCode: PunyCode;
 
 
     // ---------- "repl" module ----------
     export interface Repl {
         start(options: Repl.ReplOptions): NodeEventEmitter;
     }
-    export var Repl: Repl;
     export module Repl {
         export interface ReplOptions {
             prompt?: string;
@@ -631,7 +661,6 @@ declare module NodeJs {
     export interface ReadLine {
         createInterface(options: ReadLine.ReadLineOptions): ReadLine.ReadLine;
     }
-    export var ReadLine: ReadLine;
     export module ReadLine {
         export interface ReadLine extends NodeEventEmitter {
             setPrompt(prompt: string, length: number): void;
@@ -659,7 +688,6 @@ declare module NodeJs {
         createContext(initSandbox?: Vm.Context): Vm.Context;
         createScript(code: string, filename?: string): Vm.Script;
     }
-    export var Vm: Vm;
     export module Vm {
         export interface Context { }
         export interface Script {
@@ -705,7 +733,6 @@ declare module NodeJs {
             encoding?: string;
         }): ChildProcess.ChildProcess;
     }
-    export var ChildProcess: ChildProcess;
     export module ChildProcess {
         export interface ChildProcess extends NodeEventEmitter {
             stdin: WritableStream;
@@ -725,7 +752,6 @@ declare module NodeJs {
         format(url: Url.UrlOptions): string;
         resolve(from: string, to: string): string;
     }
-    export var Url: Url;
     export module Url {
         export interface Url {
             href: string;
@@ -767,7 +793,6 @@ declare module NodeJs {
         resolveCname(domain: string, callback: (err: Error, addresses: string[]) =>void ): string[];
         reverse(ip: string, callback: (err: Error, domains: string[]) =>void ): string[];
     }
-    export var Dns: Dns;
 
 
     // ---------- "net" module ----------
@@ -786,7 +811,6 @@ declare module NodeJs {
         isIPv4(input: string): boolean;
         isIPv6(input: string): boolean;
     }
-    export var Net: Net;
     export module Net {
         export interface Socket extends ReadWriteStream {
 
@@ -837,7 +861,6 @@ declare module NodeJs {
     export interface Dgram {
         createSocket(type: string, callback?: Function): Dgram.Socket;
     }
-    export var Dgram: Dgram;
     export module Dgram {
         interface Socket extends NodeEventEmitter {
             send(buf: NodeBuffer, offset: number, length: number, port: number, address: string, callback?: Function): void;
@@ -968,7 +991,6 @@ declare module NodeJs {
             string?: string;
         }): Fs.WriteStream;
     }
-    export var Fs: Fs;
     export module Fs {
         export interface Stats {
             isFile(): boolean;
@@ -1011,14 +1033,12 @@ declare module NodeJs {
         extname(p: string): string;
         sep: string;
     }
-    export var Path: Path;
 
 
     // ---------- "string_decoder" module ----------
     export interface StringDecoder {
         StringDecoder: new(encoding: string) => StringDecoder.StringDecoder;
     }
-    export var StringDecoder: StringDecoder;
     export module StringDecoder {
         export interface StringDecoder {
             write(buffer: NodeBuffer): string;
@@ -1037,7 +1057,6 @@ declare module NodeJs {
         connect(port: number, options?: Tls.ConnectionOptions, secureConnectListener?: () =>void ): Tls.ClearTextStream;
         createSecurePair(credentials?: Crypto.Credentials, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): Tls.SecurePair;
     }
-    export var Tls: Tls;
     export module Tls {
         export interface TlsOptions {
             pfx?: any;   //string or buffer
@@ -1124,7 +1143,6 @@ declare module NodeJs {
         pseudoRandomBytes(size: number): NodeBuffer;
         pseudoRandomBytes(size: number, callback: (err: Error, buf: NodeBuffer) =>void ): void;
     }
-    export var Crypto: Crypto;
     export module Crypto {
         export interface CredentialDetails {
             pfx: string;
@@ -1190,8 +1208,7 @@ declare module NodeJs {
             encoding?: string;
             objectMode?: boolean;
         }
-        export class Readable extends Events.EventEmitter implements ReadableStream {
-            constructor(opts?: ReadableOptions);
+        export interface Readable extends Events.EventEmitter, ReadableStream {
             readable: boolean;
             _read(size: number): void;
             read(size?: number): any;
@@ -1209,8 +1226,7 @@ declare module NodeJs {
             highWaterMark?: number;
             decodeStrings?: boolean;
         }
-        export class Writable extends Events.EventEmitter implements WritableStream {
-            constructor(opts?: WritableOptions);
+        export interface Writable extends Events.EventEmitter, WritableStream {
             writable: boolean;
             _write(data: NodeBuffer, encoding: string, callback: Function): void;
             _write(data: string, encoding: string, callback: Function): void;
@@ -1227,8 +1243,7 @@ declare module NodeJs {
         }
 
         // Note: Duplex extends both Readable and Writable.
-        export class Duplex extends Readable implements ReadWriteStream {
-            constructor(opts?: DuplexOptions);
+        export interface Duplex extends Readable, ReadWriteStream {
             writable: boolean;
             _write(data: NodeBuffer, encoding: string, callback: Function): void;
             _write(data: string, encoding: string, callback: Function): void;
@@ -1243,8 +1258,7 @@ declare module NodeJs {
         export interface TransformOptions extends ReadableOptions, WritableOptions {}
 
         // Note: Transform lacks the _read and _write methods of Readable/Writable.
-        export class Transform extends Events.EventEmitter implements ReadWriteStream {
-            constructor(opts?: TransformOptions);
+        export interface Transform extends Events.EventEmitter, ReadWriteStream {
             readable: boolean;
             writable: boolean;
             _transform(chunk: NodeBuffer, encoding: string, callback: Function): void;
@@ -1268,7 +1282,7 @@ declare module NodeJs {
             end(str: string, cb?: Function): void;
             end(str: string, encoding?: string, cb?: Function): void;
         }
-        export class PassThrough extends Transform {}
+        export interface PassThrough extends Transform {}
     }
 
 
@@ -1288,7 +1302,6 @@ declare module NodeJs {
         isError(object: any): boolean;
         inherits(constructor: any, superConstructor: any): void;
     }
-    export var Util: Util;
     export module Util {
         export interface InspectOptions {
             showHidden?: boolean;
@@ -1326,30 +1339,7 @@ declare module NodeJs {
         }
         ifError(value: any): void;
     }
-    export function Assert(value: any, message?: string): void;
     export module Assert {
-        export function fail(actual?: any, expected?: any, message?: string, operator?: string): void;
-        export function ok(value: any, message?: string): void;
-        export function equal(actual: any, expected: any, message?: string): void;
-        export function notEqual(actual: any, expected: any, message?: string): void;
-        export function deepEqual(actual: any, expected: any, message?: string): void;
-        export function notDeepEqual(acutal: any, expected: any, message?: string): void;
-        export function strictEqual(actual: any, expected: any, message?: string): void;
-        export function notStrictEqual(actual: any, expected: any, message?: string): void;
-        export var throws: {
-            (block: Function, message?: string): void;
-            (block: Function, error: Function, message?: string): void;
-            (block: Function, error: RegExp, message?: string): void;
-            (block: Function, error: (err: any) => boolean, message?: string): void;
-        }
-        export var doesNotThrow: {
-            (block: Function, message?: string): void;
-            (block: Function, error: Function, message?: string): void;
-            (block: Function, error: RegExp, message?: string): void;
-            (block: Function, error: (err: any) => boolean, message?: string): void;
-        }
-        export function ifError(value: any): void;
-
         export interface AssertionErrorOptions {
             message?: string;
             actual?: any;
@@ -1357,8 +1347,7 @@ declare module NodeJs {
             operator?: string;
             stackStartFunction?: Function
         }
-        export class AssertionError implements Error {
-            constructor(options?: AssertionErrorOptions);
+        export interface AssertionError extends Error {
             name: string;
             message: string;
             actual: any;
@@ -1375,7 +1364,6 @@ declare module NodeJs {
         WriteStream: new() => Tty.WriteStream;
         isatty(fd: number): boolean;
     }
-    export var Tty: Tty;
     export module Tty {
         export interface ReadStream extends Net.Socket {
             isRaw: boolean;
@@ -1394,7 +1382,7 @@ declare module NodeJs {
         create(): Domain.Domain;
     }
     export module Domain {
-        export class Domain extends Events.EventEmitter {
+        export interface Domain extends Events.EventEmitter {
             run(fn: Function): void;
             add(emitter: NodeEventEmitter): void;
             remove(emitter: NodeEventEmitter): void;
