@@ -1141,7 +1141,6 @@ declare module NodeJs {
             objectMode?: boolean;
         }
         export interface Readable extends Events.EventEmitter, ReadableStream {
-            new(opts?: ReadableOptions): Readable;
             readable: boolean;
             _read(size: number): void;
             read(size?: number): any;
@@ -1160,7 +1159,6 @@ declare module NodeJs {
             decodeStrings?: boolean;
         }
         export interface Writable extends Events.EventEmitter, WritableStream {
-            new(opts?: WritableOptions): Writable;
             writable: boolean;
             _write(data: NodeBuffer, encoding: string, callback: Function): void;
             _write(data: string, encoding: string, callback: Function): void;
@@ -1178,7 +1176,6 @@ declare module NodeJs {
 
         // Note: Duplex extends both Readable and Writable.
         export interface Duplex extends Readable, ReadWriteStream {
-            new(opts?: DuplexOptions): Duplex;
             writable: boolean;
             _write(data: NodeBuffer, encoding: string, callback: Function): void;
             _write(data: string, encoding: string, callback: Function): void;
@@ -1194,7 +1191,6 @@ declare module NodeJs {
 
         // Note: Transform lacks the _read and _write methods of Readable/Writable.
         export interface Transform extends Events.EventEmitter, ReadWriteStream {
-            new(opts?: TransformOptions): Transform;
             readable: boolean;
             writable: boolean;
             _transform(chunk: NodeBuffer, encoding: string, callback: Function): void;
@@ -1284,7 +1280,6 @@ declare module NodeJs {
             stackStartFunction?: Function
         }
         export interface AssertionError extends Error {
-            new(options?: AssertionErrorOptions): AssertionError;
             name: string;
             message: string;
             actual: any;
