@@ -2447,7 +2447,7 @@ interface JQuery {
      */
     keydown(handler: (eventObject: JQueryKeyEventObject) => any): JQuery;
     /**
-     * Bind an event handler to the keydown"" JavaScript event
+     * Bind an event handler to the "keydown" JavaScript event
      *
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
