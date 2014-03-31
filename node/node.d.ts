@@ -272,7 +272,7 @@ declare module "domain"         { var M: NodeJs.Domain;         export = M; }
 //
 // Note that the type 'Server' is accessed via the variable 'http', meaning that
 // Server must be not just a type, but also a property on 'http'. The 'pure' typings
-// declared in the NodeJs module below don't support this usage. With the _ExternalTypes_
+// declared in the NodeJs module below don't support this usage. With the _ExternalShim_
 // shim, the above code will continue working unchanged. New type definitions should
 // prefer something like:
 //
@@ -764,6 +764,7 @@ declare module NodeJs {
             search: string;
             query: string;
             slashes: boolean;
+            hash: string;
         }
         export interface UrlOptions {
             protocol?: string;
