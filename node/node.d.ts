@@ -633,6 +633,8 @@ declare module "url" {
         search: string;
         query: string;
         slashes: boolean;
+        hash?: string;
+        path?: string;
     }
 
     export interface UrlOptions {
