@@ -202,6 +202,7 @@ List of Definitions
 * [mCustomScrollbar](https://github.com/malihu/malihu-custom-scrollbar-plugin) (by [Sarah Williams](https://github.com/flurg))
 * [Meteor](https://www.meteor.com) (by [Dave Allen](https://github.com/fullflavedave))
 * [Microsoft Live Connect](http://msdn.microsoft.com/en-us/library/live/hh243643.aspx) (by [John Vilk](https://github.com/jvilk))
+* [minimist](https://github.com/substack/minimist) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [Modernizr](http://modernizr.com/) (by [Boris Yankov](https://github.com/borisyankov) and [Theodore Brown](https://github.com/theodorejb/))
 * [Moment.js](https://github.com/timrwood/moment) (by [Michael Lakerveld](https://github.com/Lakerfield))
 * [MongoDB](http://mongodb.github.io/node-mongodb-native/) (from TypeScript samples, updated by [Niklas Mollenhauer](https://github.com/nikeee))
