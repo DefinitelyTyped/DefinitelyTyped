@@ -44,22 +44,6 @@ declare module Express {
 
         regexp: any;
         match(path: string): boolean;
-
-        /**
-            * Initialize `Route` with the given HTTP `method`, `path`,
-            * and an array of `callbacks` and `options`.
-            *
-            * Options:
-            *
-            *   - `sensitive`    enable case-sensitive routes
-            *   - `strict`       enable strict matching for trailing slashes
-            *
-            * @param method
-            * @param path
-            * @param callbacks
-            * @param options
-            */
-        new(method: string, path: string, callbacks: Function[], options: any): Route;
     }
 
     interface IRouter<T> {
@@ -129,8 +113,6 @@ declare module Express {
     }
 
     export interface Router extends IRouter<Router> {
-        new(options?: any): Router;
-
         middleware(): any;
 
         param(name: string, fn: Function): Router;
@@ -1174,6 +1156,24 @@ declare module Express {
 }
 interface Express {
     (): Express.Express;
+
+    /**
+        * Initialize `Route` with the given HTTP `method`, `path`,
+        * and an array of `callbacks` and `options`.
+        *
+        * Options:
+        *
+        *   - `sensitive`    enable case-sensitive routes
+        *   - `strict`       enable strict matching for trailing slashes
+        *
+        * @param method
+        * @param path
+        * @param callbacks
+        * @param options
+        */
+    Route: new (method: string, path: string, callbacks: Function[], options: any) => Express.Route;
+
+    Router: new (options?: any) => Express.Router;
 
     /**
         * Body parser:

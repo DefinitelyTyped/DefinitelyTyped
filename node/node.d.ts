@@ -225,8 +225,23 @@ interface NodeTimer {
 *                                               *
 ************************************************/
 
+declare module "events" {
+    // It's normal practice for client code to define classes that extend EventEmitter,
+    // so we support this by exposing EventEmitter as a class on "events".EventEmitter.
+    export class EventEmitter implements NodeJs.Events.EventEmitter {
+        constructor();
+        static listenerCount(emitter: EventEmitter, event: string): number;
+        addListener(event: string, listener: Function): EventEmitter;
+        on(event: string, listener: Function): EventEmitter;
+        once(event: string, listener: Function): EventEmitter;
+        removeListener(event: string, listener: Function): EventEmitter;
+        removeAllListeners(event?: string): EventEmitter;
+        setMaxListeners(n: number): void;
+        listeners(event: string): Function[];
+        emit(event: string, ...args: any[]): boolean;
+    }
+}
 declare module "querystring"    { var m: NodeJs.QueryString;    export = m; }
-declare module "events"         { var m: NodeJs.Events;         export = m; }
 declare module "http"           { var m: NodeJs.Http;           export = m; }
 declare module "cluster"        { var m: NodeJs.Cluster;        export = m; }
 declare module "zlib"           { var m: NodeJs.Zlib;           export = m; }
