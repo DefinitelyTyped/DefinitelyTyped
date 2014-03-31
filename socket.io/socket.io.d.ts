@@ -7,10 +7,9 @@
 ///<reference path='../node/node.d.ts' />
 
 declare module "socket.io" {
-	import http = require('http');
 
-	export function listen(server: http.Server, options: any, fn: Function): SocketManager;
-	export function listen(server: http.Server, fn?: Function): SocketManager;
+	export function listen(server: NodeJs.Http.Server, options: any, fn: Function): SocketManager;
+	export function listen(server: NodeJs.Http.Server, fn?: Function): SocketManager;
 	export function listen(port: Number): SocketManager;
 
 

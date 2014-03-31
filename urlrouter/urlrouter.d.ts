@@ -6,13 +6,12 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module "_UrlRouterInternal" {
-    import http = require("http");
 
-    export interface ServerRequest extends http.ServerRequest {
+    export interface ServerRequest extends NodeJs.Http.ServerRequest {
         params: any;
     }
 
-    export interface ServerResponse extends http.ServerResponse {
+    export interface ServerResponse extends NodeJs.Http.ServerResponse {
 
     }
 

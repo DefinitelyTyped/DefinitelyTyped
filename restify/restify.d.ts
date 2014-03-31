@@ -7,7 +7,6 @@
 
 
 declare module "restify" {
-  import http = require('http');
 
 
   interface addressInterface {
@@ -16,7 +15,7 @@ declare module "restify" {
     address: string;
   }
 
-  interface Request extends http.ServerRequest {
+  interface Request extends NodeJs.Http.ServerRequest {
     header: (key: string, defaultValue?: string) => any;
     accepts: (type: string) => boolean;
     is: (type: string) => boolean;
@@ -35,7 +34,7 @@ declare module "restify" {
     body?: any; //available when bodyParser plugin is used
   }
 
-  interface Response extends http.ServerResponse {
+  interface Response extends NodeJs.Http.ServerResponse {
     header: (key: string, value ?: any) => any;
     cache: (type?: any, options?: Object) => any;
     status: (code: number) => any;
@@ -50,7 +49,7 @@ declare module "restify" {
     id: string;
   }
 
-  interface Server extends http.Server {
+  interface Server extends NodeJs.Http.Server {
     use(handler: RequestHandler, ...handlers: RequestHandler[]): any;
     use(handler: RequestHandler[], ...handlers: RequestHandler[]): any;
     use(handler: RequestHandler, ...handlers: RequestHandler[][]): any;

@@ -6,11 +6,8 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module "ws" {
-    import events = require('events');
-    import http   = require('http');
-    import net    = require('net');
 
-    class WebSocket extends events.EventEmitter {
+    class WebSocket implements NodeJs.Events.EventEmitter {
         static CONNECTING: number;
         static OPEN: number;
         static CLOSING: number;
@@ -34,7 +31,7 @@ declare module "ws" {
 
         constructor(address: string, options?: {
             protocol?: string;
-            agent?: http.Agent;
+            agent?: NodeJs.Http.Agent;
             headers?: {[key: string]: string};
             protocolVersion?: any;
             host?: string;
@@ -82,16 +79,24 @@ declare module "ws" {
         addListener(event: 'ping', cb: (data: any, flags: {binary: boolean}) => void): WebSocket;
         addListener(event: 'pong', cb: (data: any, flags: {binary: boolean}) => void): WebSocket;
         addListener(event: 'open', cb: () => void): WebSocket;
+
+        // from NodeJs.Events.EventEmitter:
+        once(event: string, listener: Function): WebSocket;
+        removeListener(event: string, listener: Function): WebSocket;
+        removeAllListeners(event?: string): WebSocket;
+        setMaxListeners(n: number): void;
+        listeners(event: string): Function[];
+        emit(event: string, ...args: any[]): boolean;
     }
 
     module WebSocket {
         export interface IServerOptions {
             host?: string;
             port?: number;
-            server?: http.Server;
+            server?: NodeJs.Http.Server;
             verifyClient?: {
-                (info: {origin: string; secure: boolean; req: http.ClientRequest}): boolean;
-                (info: {origin: string; secure: boolean; req: http.ClientRequest},
+                (info: {origin: string; secure: boolean; req: NodeJs.Http.ClientRequest}): boolean;
+                (info: {origin: string; secure: boolean; req: NodeJs.Http.ClientRequest},
                                                  callback: (res: boolean) => void): void;
             };
             handleProtocols?: any;
@@ -101,7 +106,7 @@ declare module "ws" {
             clientTracking?: boolean;
         }
 
-        export class Server extends events.EventEmitter {
+        export class Server implements NodeJs.Events.EventEmitter {
             options: IServerOptions;
             path: string;
             clients: WebSocket[];
@@ -109,7 +114,7 @@ declare module "ws" {
             constructor(options?: IServerOptions, callback?: Function);
 
             close(): void;
-            handleUpgrade(request: http.ClientRequest, socket: net.Socket,
+            handleUpgrade(request: NodeJs.Http.ClientRequest, socket: NodeJs.Net.Socket,
                           upgradeHead: NodeBuffer, callback: (client: WebSocket) => void): void;
 
             // Events
@@ -121,6 +126,14 @@ declare module "ws" {
             addListener(event: 'error', cb: (err: Error) => void): Server;
             addListener(event: 'headers', cb: (headers: string[]) => void): Server;
             addListener(event: 'connection', cb: (client: WebSocket) => void): Server;
+
+            // from NodeJs.Events.EventEmitter:
+            once(event: string, listener: Function): Server;
+            removeListener(event: string, listener: Function): Server;
+            removeAllListeners(event?: string): Server;
+            setMaxListeners(n: number): void;
+            listeners(event: string): Function[];
+            emit(event: string, ...args: any[]): boolean;
         }
 
         export function createServer(options?: IServerOptions,
