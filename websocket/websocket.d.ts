@@ -6,10 +6,6 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module "websocket" {
-    import events = require('events');
-    import http   = require('http');
-    import net    = require('net');
-    import url    = require('url');
 
     export interface IStringified {
         toString: (...args: any[]) => string;
@@ -58,7 +54,7 @@ declare module "websocket" {
 
     export interface IServerConfig extends IConfig {
         /** The http server instance to attach to */
-        httpServer: http.Server;
+        httpServer: NodeJs.Http.Server;
 
         /**
          * The maximum allowed received frame size in bytes.
@@ -121,7 +117,7 @@ declare module "websocket" {
         disableNagleAlgorithm?: boolean; 
     }
 
-    export class server extends events.EventEmitter {
+    export class server implements NodeJs.Events.EventEmitter {
         config: IServerConfig;
         connections: connection[];
 
@@ -159,6 +155,14 @@ declare module "websocket" {
         addListener(event: 'request', cb: (request: request) => void): server;
         addListener(event: 'connect', cb: (connection: connection) => void): server;
         addListener(event: 'close', cb: (connection: connection, reason: number, desc: string) => void): server;
+
+        // from NodeJs.Events.EventEmitter:
+        once(event: string, listener: Function): server;
+        removeListener(event: string, listener: Function): server;
+        removeAllListeners(event?: string): server;
+        setMaxListeners(n: number): void;
+        listeners(event: string): Function[];
+        emit(event: string, ...args: any[]): boolean;
     }
 
     export interface ICookie {
@@ -177,9 +181,9 @@ declare module "websocket" {
         value: string;
     }
 
-    export class request extends events.EventEmitter {
+    export class request implements NodeJs.Events.EventEmitter {
         /** A reference to the original Node HTTP request object */
-        httpRequest: http.ClientRequest;
+        httpRequest: NodeJs.Http.ClientRequest;
         /** This will include the port number if a non-standard port is used */
         host: string;
         /** A string containing the path that was requested by the client */
@@ -187,7 +191,7 @@ declare module "websocket" {
         /** `Sec-WebSocket-Key` */
         key: string;
         /** Parsed resource, including the query string parameters */
-        resourceURL: url.Url;
+        resourceURL: NodeJs.Url.Url;
         
         /**
          * Client's IP. If an `X-Forwarded-For` header is present, the value will be taken
@@ -208,7 +212,7 @@ declare module "websocket" {
         requestedExtensions: any[];
 
         cookies: ICookie[];
-        socket: net.Socket;
+        socket: NodeJs.Net.Socket;
 
         /**
          * List of strings that indicate the subprotocols the client would like to speak.
@@ -220,7 +224,7 @@ declare module "websocket" {
         requestedProtocols: string[];
         protocolFullCaseMap: {[key: string]: string};
 
-        constructor(socket: net.Socket, httpRequest: http.ClientRequest, config: IServerConfig);
+        constructor(socket: NodeJs.Net.Socket, httpRequest: NodeJs.Http.ClientRequest, config: IServerConfig);
 
         /**
          * After inspecting the `request` properties, call this function on the
@@ -246,6 +250,14 @@ declare module "websocket" {
         addListener(event: string, listener: () => void): request;
         addListener(event: 'requestAccepted', cb: (connection: connection) => void): request;
         addListener(event: 'requestRejected', cb: () => void): request;
+
+        // from NodeJs.Events.EventEmitter:
+        once(event: string, listener: Function): request;
+        removeListener(event: string, listener: Function): request;
+        removeAllListeners(event?: string): request;
+        setMaxListeners(n: number): void;
+        listeners(event: string): Function[];
+        emit(event: string, ...args: any[]): boolean;
     }
 
     export interface IMessage {
@@ -254,7 +266,7 @@ declare module "websocket" {
         binaryData?: NodeBuffer;
     }
 
-    export interface IBufferList extends events.EventEmitter {
+    export interface IBufferList extends NodeJs.Events.EventEmitter {
         encoding: string;
         length: number;
         write(buf: NodeBuffer): boolean;
@@ -296,7 +308,7 @@ declare module "websocket" {
         addListener(event: 'write', cb: (buf: NodeBuffer) => void): IBufferList;
     }
 
-    class connection extends events.EventEmitter {
+    class connection implements NodeJs.Events.EventEmitter {
         static CLOSE_REASON_NORMAL: number;
         static CLOSE_REASON_GOING_AWAY: number;
         static CLOSE_REASON_PROTOCOL_ERROR: number;
@@ -328,7 +340,7 @@ declare module "websocket" {
         protocol: string;
 
         config: IConfig;
-        socket: net.Socket;
+        socket: NodeJs.Net.Socket;
         maskOutgoingPackets: boolean;
         maskBytes: NodeBuffer;
         frameHeader: NodeBuffer;
@@ -361,7 +373,7 @@ declare module "websocket" {
         /** Whether or not the connection is still connected. Read-only */
         connected: boolean;
 
-        constructor(socket: net.Socket, extensions: IExtension[], protocol: string,
+        constructor(socket: NodeJs.Net.Socket, extensions: IExtension[], protocol: string,
                     maskOutgoingPackets: boolean, config: IConfig);
 
         /**
@@ -440,6 +452,14 @@ declare module "websocket" {
         addListener(event: 'frame', cb: (frame: frame) => void): connection;
         addListener(event: 'close', cb: (code: number, desc: string) => void): connection;
         addListener(event: 'error', cb: (err: Error) => void): connection;
+
+        // from NodeJs.Events.EventEmitter:
+        once(event: string, listener: Function): connection;
+        removeListener(event: string, listener: Function): connection;
+        removeAllListeners(event?: string): connection;
+        setMaxListeners(n: number): void;
+        listeners(event: string): Function[];
+        emit(event: string, ...args: any[]): boolean;
     }
 
     class frame {
@@ -535,13 +555,13 @@ declare module "websocket" {
         maxReceivedMessageSize?: number;
     }
 
-    class client extends events.EventEmitter {
+    class client implements NodeJs.Events.EventEmitter {
         protocols: string[];
         origin: string;
-        url: url.Url;
+        url: NodeJs.Url.Url;
         secure: boolean;
-        socket: net.Socket;
-        response: http.ClientResponse;
+        socket: NodeJs.Net.Socket;
+        response: NodeJs.Http.ClientResponse;
 
         constructor(clientConfig?: IClientConfig);
 
@@ -553,9 +573,9 @@ declare module "websocket" {
          *                 any scripting content that caused the connection to be requested.
          * @param requestUrl should be a standard websocket url
          */
-        connect(requestUrl: url.Url, protocols?: string[], origin?: string, headers?: any[]): void;
+        connect(requestUrl: NodeJs.Url.Url, protocols?: string[], origin?: string, headers?: any[]): void;
         connect(requestUrl: string,  protocols?: string[], origin?: string, headers?: any[]): void;
-        connect(requestUrl: url.Url, protocols?: string,   origin?: string, headers?: any[]): void;
+        connect(requestUrl: NodeJs.Url.Url, protocols?: string,   origin?: string, headers?: any[]): void;
         connect(requestUrl: string,  protocols?: string,   origin?: string, headers?: any[]): void;
 
         // Events
@@ -565,6 +585,14 @@ declare module "websocket" {
         addListener(event: string, listener: () => void): client;
         addListener(event: 'connect', cb: (connection: connection) => void): client;
         addListener(event: 'connectFailed', cb: (err: Error) => void): client;
+
+        // from NodeJs.Events.EventEmitter:
+        once(event: string, listener: Function): client;
+        removeListener(event: string, listener: Function): client;
+        removeAllListeners(event?: string): client;
+        setMaxListeners(n: number): void;
+        listeners(event: string): Function[];
+        emit(event: string, ...args: any[]): boolean;
     }
 
     export var version: string;

@@ -9,7 +9,6 @@
 * TODO
 */
 declare module "azure" {
-    import events = require("events");
 
     //#region Services
     export class TableService extends BatchServiceClient {
@@ -140,7 +139,7 @@ declare module "azure" {
     export function createSqlManagementService(subscriptionId: string, authentication: string, hostOptions: string): SqlManagementService;
     //#endregion
 
-    interface RoleEnvironmentInterface extends events.EventEmitter {
+    interface RoleEnvironmentInterface extends NodeJs.Events.EventEmitter {
         getCurrentRoleInstance(callback: (error: any, instance: any) => void): void;
         getDeploymentId(callback: (error: any, id:string) => void): void;
         isAvailable(callback: (error: any, available: boolean) => void): void;
@@ -161,7 +160,7 @@ declare module "azure" {
 
     }
 
-    export class ServiceClient extends events.EventEmitter {
+    export class ServiceClient implements NodeJs.Events.EventEmitter {
         static EnvironmentVariables: any;
         static DEVSTORE_STORAGE_ACCOUNT: string;
         static DEVSTORE_STORAGE_ACCESS_KEY: string;
@@ -189,6 +188,16 @@ declare module "azure" {
         parseMetadataHeaders(headers: any): any;
         isEmulated(): boolean;
         setProxy(proxyUrl: string, proxyPort: number): void;
+
+        // from NodeJs.Events.EventEmitter:
+        addListener(event: string, listener: Function): ServiceClient;
+        on(event: string, listener: Function): ServiceClient;
+        once(event: string, listener: Function): ServiceClient;
+        removeListener(event: string, listener: Function): ServiceClient;
+        removeAllListeners(event?: string): ServiceClient;
+        setMaxListeners(n: number): void;
+        listeners(event: string): Function[];
+        emit(event: string, ...args: any[]): boolean;
     }
 
     export class ServiceManagementClient {

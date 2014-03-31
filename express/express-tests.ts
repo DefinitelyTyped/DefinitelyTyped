@@ -20,7 +20,7 @@ app.use(express.session());
 
 // Session-persisted message middleware
 
-app.use((req: express.Request, res: express.Response, next) => {
+app.use((req: Express.Request, res: Express.Response, next) => {
     var err = req.session.error
       , msg = req.session.success;
     delete req.session.error;
@@ -65,7 +65,7 @@ function authenticate(name, pass, fn) {
     });
 }
 
-function restrict(req: express.Request, res: express.Response, next?: Function) {
+function restrict(req: Express.Request, res: Express.Response, next?: Function) {
     if (req.session.user) {
         next();
     } else {
@@ -74,15 +74,15 @@ function restrict(req: express.Request, res: express.Response, next?: Function) 
     }
 }
 
-app.get('/', (req: express.Request, res: express.Response) => {
+app.get('/', (req: Express.Request, res: Express.Response) => {
     res.redirect('login');
 });
 
-app.get('/restricted', restrict, (req: express.Request, res: express.Response) => {
+app.get('/restricted', restrict, (req: Express.Request, res: Express.Response) => {
     res.send('Wahoo! restricted area, click to <a href="/logout">logout</a>');
 });
 
-app.get('/logout', (req: express.Request, res: express.Response) => {
+app.get('/logout', (req: Express.Request, res: Express.Response) => {
     // destroy the user's session to log them out
     // will be re-created next request
     req.session.destroy(() => {
@@ -90,11 +90,11 @@ app.get('/logout', (req: express.Request, res: express.Response) => {
     });
 });
 
-app.get('/login', (req: express.Request, res: express.Response) => {
+app.get('/login', (req: Express.Request, res: Express.Response) => {
     res.render('login');
 });
 
-app.post('/login', (req: express.Request, res: express.Response) => {
+app.post('/login', (req: Express.Request, res: Express.Response) => {
     authenticate(req.body.username, req.body.password, (err, user) => {
         if (user) {
             // Regenerate session when signing in
@@ -139,7 +139,7 @@ while (n--) {
 
 app.use(express.logger('dev'));
 
-app.get('/', (req: express.Request, res: express.Response) => {
+app.get('/', (req: Express.Request, res: Express.Response) => {
     res.render('pets', { pets: pets });
 });
 
@@ -148,7 +148,7 @@ console.log('Express listening on port 3000');
 
 /////////////
 
-app.get('/', (req: express.Request, res: express.Response) => {
+app.get('/', (req: Express.Request, res: Express.Response) => {
     res.format({
         html: () => {
             res.send('<ul>' + users.map(user => {
@@ -173,7 +173,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
 
 function format(mod) {
     var obj = require(mod);
-    return (req: express.Request, res: express.Response) => {
+    return (req: Express.Request, res: Express.Response) => {
         res.format(obj);
     };
 }
@@ -207,7 +207,7 @@ app.use(express.cookieParser('my secret here'));
 // parses json, x-www-form-urlencoded, and multipart/form-data
 app.use(express.bodyParser());
 
-app.get('/', (req: express.Request, res: express.Response) => {
+app.get('/', (req: Express.Request, res: Express.Response) => {
     if (req.cookies.remember) {
         res.send('Remembered :). Click to <a href="/forget">forget</a>!.');
     } else {
@@ -217,12 +217,12 @@ app.get('/', (req: express.Request, res: express.Response) => {
     }
 });
 
-app.get('/forget', (req: express.Request, res: express.Response) => {
+app.get('/forget', (req: Express.Request, res: Express.Response) => {
     res.clearCookie('remember');
     res.redirect('back');
 });
 
-app.post('/', (req: express.Request, res: express.Response) => {
+app.post('/', (req: Express.Request, res: Express.Response) => {
     var minute = 60000;
     if (req.body.remember) res.cookie('remember', 1, { maxAge: minute });
     res.redirect('back');
@@ -248,7 +248,7 @@ app.use(express.cookieSession());
 app.use(count);
 
 // custom middleware
-function count(req: express.Request, res: express.Response) {
+function count(req: Express.Request, res: Express.Response) {
     req.session.count = req.session.count || 0;
     var n = req.session.count++;
     res.send('viewed ' + n + ' times\n');
@@ -274,7 +274,7 @@ api.use(express.bodyParser());
  * CORS support.
  */
 
-api.all('*', (req: express.Request, res: express.Response, next) => {
+api.all('*', (req: Express.Request, res: Express.Response, next) => {
     if (!req.get('Origin')) return next();
     // use "*" here to accept any origin
     res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
@@ -289,7 +289,7 @@ api.all('*', (req: express.Request, res: express.Response, next) => {
  * POST a user.
  */
 
-api.post('/user', (req: express.Request, res: express.Response) => {
+api.post('/user', (req: Express.Request, res: Express.Response) => {
     console.log(req.body);
     res.send(201);
 });
@@ -302,7 +302,7 @@ console.log('api listening on 3001');
 
 ////////////////////
 
-app.get('/', (req: express.Request, res: express.Response) => {
+app.get('/', (req: Express.Request, res: Express.Response) => {
     res.send('<ul>'
       + '<li>Download <a href="/files/amazing.txt">amazing.txt</a>.</li>'
       + '<li>Download <a href="/files/missing.txt">missing.txt</a>.</li>'
@@ -311,7 +311,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
 
 // /files/* is accessed via req.params[0]
 // but here we name it :file
-app.get('/files/:file(*)', (req: express.Request, res: express.Response) => {
+app.get('/files/:file(*)', (req: Express.Request, res: Express.Response) => {
     var file = req.params.file
       , path = __dirname + '/files/' + file;
 
@@ -322,7 +322,7 @@ app.get('/files/:file(*)', (req: express.Request, res: express.Response) => {
 // below our routes, you will be able to
 // "intercept" errors, otherwise Connect
 // will respond with 500 "Internal Server Error".
-app.use((err, req, res: express.Response, next) => {
+app.use((err, req, res: Express.Response, next) => {
     // special-case 404s,
     // remember you could
     // render a 404 template here
@@ -363,7 +363,7 @@ app.set('views', __dirname + '/views');
 // ex: res.render('users.html').
 app.set('view engine', 'html');
 
-app.get('/', (req: express.Request, res: express.Response) => {
+app.get('/', (req: Express.Request, res: Express.Response) => {
     res.render('users', {
         users: users,
         title: "EJS example",
@@ -390,12 +390,12 @@ app.use(app.router);
 app.use(error);
 
 // error handling middleware have an arity of 4
-// instead of the typical (req: express.Request, res: express.Response, next),
+// instead of the typical (req: Express.Request, res: Express.Response, next),
 // otherwise they behave exactly like regular
 // middleware, you may have several of them,
 // in different orders etc.
 
-function error(err, req, res: express.Response, next) {
+function error(err, req, res: Express.Response, next) {
     // log it
     if (!test) console.error(err.stack);
 
@@ -408,7 +408,7 @@ app.get('/', () => {
     throw new Error('something broke!');
 });
 
-app.get('/next', (req: express.Request, res: express.Response, next) => {
+app.get('/next', (req: Express.Request, res: Express.Response, next) => {
     // We can also pass exceptions to next()
     process.nextTick(() => {
         next(new Error('oh no!'));
@@ -460,7 +460,7 @@ app.use(app.router);
 // $ curl http://localhost:3000/notfound -H "Accept: application/json"
 // $ curl http://localhost:3000/notfound -H "Accept: text/plain"
 
-app.use((req: express.Request, res: express.Response) => {
+app.use((req: Express.Request, res: Express.Response) => {
     res.status(404);
 
     // respond with html page
@@ -481,7 +481,7 @@ app.use((req: express.Request, res: express.Response) => {
 
 // error-handling middleware, take the same form
 // as regular middleware, however they require an
-// arity of 4, aka the signature (err, req, res: express.Response, next).
+// arity of 4, aka the signature (err, req, res: Express.Response, next).
 // when connect has an error, it will invoke ONLY error-handling
 // middleware.
 
@@ -491,7 +491,7 @@ app.use((req: express.Request, res: express.Response) => {
 // would remain being executed, however here
 // we simply respond with an error page.
 
-app.use((err, req, res: express.Response) => {
+app.use((err, req, res: Express.Response) => {
     // we may use properties of the error object
     // here and next(err) appropriately, or if
     // we possibly recovered from the error, simply next().
@@ -501,25 +501,25 @@ app.use((err, req, res: express.Response) => {
 
 // Routes
 
-app.get('/', (req: express.Request, res: express.Response) => {
+app.get('/', (req: Express.Request, res: Express.Response) => {
     res.render('index.jade');
 });
 
-app.get('/404', (req: express.Request, res: express.Response, next) => {
+app.get('/404', (req: Express.Request, res: Express.Response, next) => {
     // trigger a 404 since no other middleware
     // will match /404 after this one, and we're not
     // responding here
     next();
 });
 
-app.get('/403', (req: express.Request, res: express.Response, next) => {
+app.get('/403', (req: Express.Request, res: Express.Response, next) => {
     // trigger a 403 error
     var err = <any>new Error('not allowed!');
     err.status = 403;
     next(err);
 });
 
-app.get('/500', (req: express.Request, res: express.Response, next) => {
+app.get('/500', (req: Express.Request, res: Express.Response, next) => {
     // trigger a generic (500) error
     next(new Error('keyboard cat!'));
 });
@@ -563,7 +563,7 @@ app.use(express.logger('dev'));
 // to the templates, so "expose" will
 // be present.
 
-app.use((req: express.Request, res: express.Response, next) => {
+app.use((req: Express.Request, res: Express.Response, next) => {
     res.locals.expose = {};
     // you could alias this as req or res.expose
     // to make it shorter and less annoying
@@ -572,16 +572,16 @@ app.use((req: express.Request, res: express.Response, next) => {
 
 // pretend we loaded a user
 
-app.use((req: express.Request, res: express.Response, next) => {
+app.use((req: Express.Request, res: Express.Response, next) => {
     req.user = new User('Tobi');
     next();
 });
 
-app.get('/', (req: express.Request, res: express.Response) => {
+app.get('/', (req: Express.Request, res: Express.Response) => {
     res.redirect('/user');
 });
 
-app.get('/user', (req: express.Request, res: express.Response) => {
+app.get('/user', (req: Express.Request, res: Express.Response) => {
     // we only want to expose the user
     // to the client for this route:
     res.locals.expose.user = req.user;
@@ -593,7 +593,7 @@ console.log('app listening on port 3000');
 
 ///////////////////////
 
-app.get('/', (req: express.Request, res: express.Response) => {
+app.get('/', (req: Express.Request, res: Express.Response) => {
     res.send('Hello World');
 });
 
@@ -624,11 +624,11 @@ app.set('views', __dirname + '/views');
 // make it the default so we dont need .md
 app.set('view engine', 'md');
 
-app.get('/', (req: express.Request, res: express.Response) => {
+app.get('/', (req: Express.Request, res: Express.Response) => {
     res.render('index', { title: 'Markdown Example' });
 });
 
-app.get('/fail', (req: express.Request, res: express.Response) => {
+app.get('/fail', (req: Express.Request, res: Express.Response) => {
     res.render('missing', { title: 'Markdown Example' });
 });
 
@@ -645,7 +645,7 @@ var mformat: any;
 // the multipart form data.
 app.use(express.bodyParser());
 
-app.get('/', (req: express.Request, res: express.Response) => {
+app.get('/', (req: Express.Request, res: Express.Response) => {
     res.send('<form method="post" enctype="multipart/form-data">'
       + '<p>Title: <input type="text" name="title" /></p>'
       + '<p>Image: <input type="file" name="image" /></p>'
@@ -653,7 +653,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
       + '</form>');
 });
 
-app.post('/', (req: express.Request, res: express.Response) => {
+app.post('/', (req: Express.Request, res: Express.Response) => {
     // the uploaded file can be found as `req.files.image` and the
     // title field as `req.body.title`
     res.send(mformat('\nuploaded %s (%d Kb) to %s as %s'
@@ -689,7 +689,7 @@ online = online(db);
 // activity tracking, in this case using
 // the UA string, you would use req.user.id etc
 
-app.use((req: express.Request, res: express.Response, next) => {
+app.use((req: Express.Request, res: Express.Response, next) => {
     // fire-and-forget
     online.add(req.headers['user-agent']);
     next();
@@ -709,7 +709,7 @@ function list(ids) {
  * GET users online.
  */
 
-app.get('/', (req: express.Request, res: express.Response, next) => {
+app.get('/', (req: Express.Request, res: Express.Response, next) => {
     online.last(5, (err, ids) => {
         if (err) return next(err);
         res.send('<p>Users online: ' + ids.length + '</p>' + list(ids));
@@ -723,7 +723,7 @@ console.log('listening on port 3000');
 
 // Convert :to and :from to integers
 
-app.param(['to', 'from'], (req: express.Request, res: express.Response, next, num, name) => {
+app.param(['to', 'from'], (req: Express.Request, res: Express.Response, next, num, name) => {
     req.params[name] = num = parseInt(num, 10);
     if (isNaN(num)) {
         next(new Error('failed to parseInt ' + num));
@@ -734,7 +734,7 @@ app.param(['to', 'from'], (req: express.Request, res: express.Response, next, nu
 
 // Load user by id
 
-app.param('user', (req: express.Request, res: express.Response, next, id) => {
+app.param('user', (req: Express.Request, res: Express.Response, next, id) => {
     if (req.user = users[id]) {
         next();
     } else {
@@ -746,7 +746,7 @@ app.param('user', (req: express.Request, res: express.Response, next, id) => {
  * GET index.
  */
 
-app.get('/', (req: express.Request, res: express.Response) => {
+app.get('/', (req: Express.Request, res: Express.Response) => {
     res.send('Visit /user/0 or /users/0-2');
 });
 
@@ -754,7 +754,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
  * GET :user.
  */
 
-app.get('/user/:user', (req: express.Request, res: express.Response) => {
+app.get('/user/:user', (req: Express.Request, res: Express.Response) => {
     res.send('user ' + req.user.name);
 });
 
@@ -762,7 +762,7 @@ app.get('/user/:user', (req: express.Request, res: express.Response) => {
  * GET users :from - :to.
  */
 
-app.get('/users/:from-:to', (req: express.Request, res: express.Response) => {
+app.get('/users/:from-:to', (req: Express.Request, res: Express.Response) => {
     var from = req.params.from
       , to = req.params.to
       , names = users.map(user => { return user.name; });
@@ -780,7 +780,7 @@ if (!module.parent) {
 
 app.resource = function (path, obj) {
     this.get(path, obj.index);
-    this.get(path + '/:a..:b.:format?', (req: express.Request, res: express.Response) => {
+    this.get(path + '/:a..:b.:format?', (req: Express.Request, res: Express.Response) => {
         var a = parseInt(req.params.a, 10)
           , b = parseInt(req.params.b, 10)
           , format = req.params.format;
@@ -793,19 +793,19 @@ app.resource = function (path, obj) {
 // Fake controller.
 
 var FUser = {
-    index: (req: express.Request, res: express.Response) => {
+    index: (req: Express.Request, res: Express.Response) => {
         res.send(users);
     },
-    show: (req: express.Request, res: express.Response) => {
+    show: (req: Express.Request, res: Express.Response) => {
         res.send(users[req.params.id] || { error: 'Cannot find user' });
     },
-    destroy: (req: express.Request, res: express.Response) => {
+    destroy: (req: Express.Request, res: Express.Response) => {
         var id = req.params.id;
         var destroyed = id in users;
         delete users[id];
         res.send(destroyed ? 'destroyed' : 'Cannot find user');
     },
-    range: (req: express.Request, res: express.Response, a, b, format) => {
+    range: (req: Express.Request, res: Express.Response, a, b, format) => {
         var range = users.slice(a, b + 1);
         switch (format) {
             case 'json':
@@ -830,7 +830,7 @@ var FUser = {
 
 app.resource('/users', FUser);
 
-app.get('/', (req: express.Request, res: express.Response) => {
+app.get('/', (req: Express.Request, res: Express.Response) => {
     res.send([
         '<h1>Examples:</h1> <ul>'
       , '<li>GET /users</li>'
@@ -871,25 +871,25 @@ app.map = (a, route) => {
 };
 
 var users2 = {
-    list: (req: express.Request, res: express.Response) => {
+    list: (req: Express.Request, res: Express.Response) => {
         res.send('user list');
     },
 
-    get: (req: express.Request, res: express.Response) => {
+    get: (req: Express.Request, res: Express.Response) => {
         res.send('user ' + req.params.uid);
     },
 
-    del: (req: express.Request, res: express.Response) => {
+    del: (req: Express.Request, res: Express.Response) => {
         res.send('delete users');
     }
 };
 
 var pets2 = {
-    list: (req: express.Request, res: express.Response) => {
+    list: (req: Express.Request, res: Express.Response) => {
         res.send('user ' + req.params.uid + '\'s pets');
     },
 
-    del: (req: express.Request, res: express.Response) => {
+    del: (req: Express.Request, res: Express.Response) => {
         res.send('delete ' + req.params.uid + '\'s pet ' + req.params.pid);
     }
 };
@@ -921,7 +921,7 @@ app.listen(3000);
 //     curl http://localhost:3000/user/1/edit (unauthorized since this is not you)
 //     curl -X DELETE http://localhost:3000/user/0 (unauthorized since you are not an admin)
 
-function loadUser(req: express.Request, res: express.Response, next) {
+function loadUser(req: Express.Request, res: Express.Response, next) {
     // You would fetch your user from the db
     var user = users[req.params.id];
     if (user) {
@@ -932,7 +932,7 @@ function loadUser(req: express.Request, res: express.Response, next) {
     }
 }
 
-function andRestrictToSelf(req: express.Request, res: express.Response, next) {
+function andRestrictToSelf(req: Express.Request, res: Express.Response, next) {
     // If our authenticated user is the user we are viewing
     // then everything is fine :)
     if (req.authenticatedUser.id == req.user.id) {
@@ -947,7 +947,7 @@ function andRestrictToSelf(req: express.Request, res: express.Response, next) {
 }
 
 function andRestrictTo(role) {
-    return (req: express.Request, res: express.Response, next) => {
+    return (req: Express.Request, res: Express.Response, next) => {
         if (req.authenticatedUser.role == role) {
             next();
         } else {
@@ -961,24 +961,24 @@ function andRestrictTo(role) {
 // but this illustrates how an authenticated user
 // may interact with middleware
 
-app.use((req: express.Request, res: express.Response, next) => {
+app.use((req: Express.Request, res: Express.Response, next) => {
     req.authenticatedUser = users[0];
     next();
 });
 
-app.get('/', (req: express.Request, res: express.Response) => {
+app.get('/', (req: Express.Request, res: Express.Response) => {
     res.redirect('/user/0');
 });
 
-app.get('/user/:id', loadUser, (req: express.Request, res: express.Response) => {
+app.get('/user/:id', loadUser, (req: Express.Request, res: Express.Response) => {
     res.send('Viewing user ' + req.user.name);
 });
 
-app.get('/user/:id/edit', loadUser, andRestrictToSelf, (req: express.Request, res: express.Response) => {
+app.get('/user/:id/edit', loadUser, andRestrictToSelf, (req: Express.Request, res: Express.Response) => {
     res.send('Editing user ' + req.user.name);
 });
 
-app.del('/user/:id', loadUser, andRestrictTo('admin'), (req: express.Request, res: express.Response) => {
+app.del('/user/:id', loadUser, andRestrictTo('admin'), (req: Express.Request, res: Express.Response) => {
     res.send('Deleted user ' + req.user.name);
 });
 
@@ -1002,7 +1002,7 @@ db.sadd('cat', 'luna');
  * GET the search page.
  */
 
-app.get('/', (req: express.Request, res: express.Response) => {
+app.get('/', (req: Express.Request, res: Express.Response) => {
     res.render('search');
 });
 
@@ -1010,7 +1010,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
  * GET search for :query.
  */
 
-app.get('/search/:query?', (req: express.Request, res: express.Response) => {
+app.get('/search/:query?', (req: Express.Request, res: Express.Response) => {
     var query = req.params.query;
     db.smembers(query, (err, vals) => {
         if (err) return res.send(500);
@@ -1025,7 +1025,7 @@ app.get('/search/:query?', (req: express.Request, res: express.Response) => {
  * template.
  */
 
-app.get('/client.js', (req: express.Request, res: express.Response) => {
+app.get('/client.js', (req: Express.Request, res: Express.Response) => {
     res.sendfile(__dirname + '/client.js');
 });
 
@@ -1044,7 +1044,7 @@ app.use(express.cookieParser('keyboard cat'));
 // Populates req.session
 app.use(express.session());
 
-app.get('/', (req: express.Request, res: express.Response) => {
+app.get('/', (req: Express.Request, res: Express.Response) => {
     var body = '';
     if (req.session.views) {
         ++req.session.views;
@@ -1117,11 +1117,11 @@ var main = express();
 
 main.use(express.logger('dev'));
 
-main.get('/', (req: express.Request, res: express.Response) => {
+main.get('/', (req: Express.Request, res: Express.Response) => {
     res.send('Hello from main app!');
 });
 
-main.get('/:sub', (req: express.Request, res: express.Response) => {
+main.get('/:sub', (req: Express.Request, res: Express.Response) => {
     res.send('requsted ' + req.params.sub);
 });
 
@@ -1129,7 +1129,7 @@ main.get('/:sub', (req: express.Request, res: express.Response) => {
 
 var redirect = express();
 
-redirect.all('*', (req: express.Request, res: express.Response) => {
+redirect.all('*', (req: Express.Request, res: Express.Response) => {
     console.log(req.subdomains);
     res.redirect('http://example.com:3000/' + req.subdomains[0]);
 });
@@ -1161,7 +1161,7 @@ function merror(status, msg) {
 // meaning only paths prefixed with "/api"
 // will cause this middleware to be invoked
 
-app.use('/api', (req, res: express.Response, next) => {
+app.use('/api', (req, res: Express.Response, next) => {
     var key = req.query['api-key'];
 
     // key isnt present
@@ -1185,7 +1185,7 @@ app.use(app.router);
 // it will be passed through the defined middleware
 // in order, but ONLY those with an arity of 4, ignoring
 // regular middleware.
-app.use((err, req, res: express.Response) => {
+app.use((err, req, res: Express.Response) => {
     // whatever you want here, feel free to populate
     // properties on `err` to treat it differently in here.
     res.send(err.status || 500, { error: err.message });
@@ -1194,7 +1194,7 @@ app.use((err, req, res: express.Response) => {
 // our custom JSON 404 middleware. Since it's placed last
 // it will be the last middleware called, if all others
 // invoke next() and do not respond.
-app.use((req: express.Request, res: express.Response) => {
+app.use((req: Express.Request, res: Express.Response) => {
     res.send(404, { error: "Lame, can't find that" });
 });
 
@@ -1222,15 +1222,15 @@ var userRepos = {
 // we now can assume the api key is valid,
 // and simply expose the data
 
-app.get('/api/users', (req: express.Request, res: express.Response) => {
+app.get('/api/users', (req: Express.Request, res: Express.Response) => {
     res.send(users);
 });
 
-app.get('/api/repos', (req: express.Request, res: express.Response) => {
+app.get('/api/repos', (req: Express.Request, res: Express.Response) => {
     res.send(repos);
 });
 
-app.get('/api/user/:name/repos', (req: express.Request, res: express.Response, next) => {
+app.get('/api/user/:name/repos', (req: Express.Request, res: Express.Response, next) => {
     var name = req.params.name
       , user = userRepos[name];
 
@@ -1257,7 +1257,7 @@ router.get('/', function (req, resp, next?) {
 
 function test_general() {
 
-    app.use((err, req, res: express.Response) => {
+    app.use((err, req, res: Express.Response) => {
         console.error(err.stack);
         res.send(500, 'Something broke!');
     });
@@ -1269,7 +1269,7 @@ function test_general() {
     app.use(express.methodOverride());
     app.use(app.router);
 
-    app.get('/', (req: express.Request, res: express.Response) => {
+    app.get('/', (req: Express.Request, res: Express.Response) => {
         res.send('hello world');
     });
 
@@ -1298,14 +1298,14 @@ function test_general() {
 
     app.configure('1', '2', '3', () => {});
 
-    app.use((req: express.Request, res: express.Response) => {
+    app.use((req: Express.Request, res: Express.Response) => {
         res.send('Hello World');
     });
 
     app.engine('jade', require('jade').__express);
 
     var User;
-    app.param('user', (req: express.Request, res: express.Response, next, id) => {
+    app.param('user', (req: Express.Request, res: Express.Response, next, id) => {
         User.find(id, (err, user) =>{
             if (err) {
                 next(err);
@@ -1318,7 +1318,7 @@ function test_general() {
         });
     });
 
-    app.get(/^\/commits\/(\d+)(?:\.\.(\d+))?$/, (req: express.Request, res: express.Response) => {
+    app.get(/^\/commits\/(\d+)(?:\.\.(\d+))?$/, (req: Express.Request, res: Express.Response) => {
         var from = req.params[0];
         var to = req.params[1] || 'HEAD';
         res.send('commit range ' + from + '..' + to);
@@ -1346,7 +1346,7 @@ function test_general() {
 }
 
 function test_request() {
-    var req: express.Request;
+    var req: Express.Request;
     req.params.name;
     req.params[0];
     req.query.q;
@@ -1379,7 +1379,7 @@ function test_request() {
 }
 
 function test_response() {
-    var res: express.Response;
+    var res: Express.Response;
     res.status(404).sendfile('path/to/404.png');
     res.set('Content-Type', 'text/plain');
     res.set({
@@ -1435,7 +1435,7 @@ function test_response() {
 
     res.attachment();
     res.attachment('path/to/logo.png');
-    app.get('/user/:uid/photos/:file', (req: express.Request, res: express.Response) => {
+    app.get('/user/:uid/photos/:file', (req: Express.Request, res: Express.Response) => {
         var uid = req.params.uid
             , file = req.params.file;
 
@@ -1459,7 +1459,7 @@ function test_response() {
         last: 'http://api.example.com/users?page=5'
     });
 
-    app.use((req: express.Request, res: express.Response, next) => {
+    app.use((req: Express.Request, res: Express.Response, next) => {
         res.locals.user = req.user;
         res.locals.authenticated = !req.user.anonymous;
         next();
