@@ -143,8 +143,6 @@ declare module Express {
 
         all(path: string, ...callbacks: Function[]): void;
 
-        get(name: string): string;
-
         get(name: string, ...handlers: RequestFunction[]): T;
 
         get(name: RegExp, ...handlers: RequestFunction[]): T;
@@ -176,8 +174,6 @@ declare module Express {
         all(path: string, fn?: (req: Request, res: Response, next: Function) => any): Router;
 
         all(path: string, ...callbacks: Function[]): void;
-
-        get(name: string): string;
 
         get(name: string, ...handlers: RequestFunction[]): Router;
 
@@ -1005,6 +1001,12 @@ declare module Express {
             * @param val
             */
         set (setting: string, val: string): Application;
+
+        get(name: string): string;
+
+        get(name: string, ...handlers: RequestFunction[]): Application;
+
+        get(name: RegExp, ...handlers: RequestFunction[]): Application;
 
         /**
             * Return the app's absolute pathname
