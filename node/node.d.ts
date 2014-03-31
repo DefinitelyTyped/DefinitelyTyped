@@ -919,7 +919,7 @@ declare module NodeJs {
         readlinkSync(path: string): string;
         realpath(path: string, callback?: (err: ErrnoException, resolvedPath: string) => any): void;
         realpath(path: string, cache: {[path: string]: string}, callback: (err: ErrnoException, resolvedPath: string) =>any): void;
-        realpathSync(path: string, cache?: {[path: string]: string}): void;
+        realpathSync(path: string, cache?: {[path: string]: string}): string;
         unlink(path: string, callback?: (err?: ErrnoException) => void): void;
         unlinkSync(path: string): void;
         rmdir(path: string, callback?: (err?: ErrnoException) => void): void;
