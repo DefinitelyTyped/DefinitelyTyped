@@ -273,8 +273,7 @@ declare module NodeJs {
     // ---------- "events" module ----------
     export interface Events {
         EventEmitter: {
-            (): any // Correctly reflect the fact that this is a (constructor) function,
-                    // without suggesting that instances can be obtained this way
+            new(): Events.EventEmitter;
             listenerCount(emitter: Events.EventEmitter, event: string): number;
         }
     }
