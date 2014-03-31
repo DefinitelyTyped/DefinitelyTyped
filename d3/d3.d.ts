@@ -3021,7 +3021,7 @@ declare module D3 {
             /**
             * convert a GeoJSON object to a geometry stream.
             */
-            stream(object: GeoJSON, listener: Stream);
+            stream(object: GeoJSON, listener: Stream): void;
             /**
             *
             */
@@ -3329,8 +3329,8 @@ declare module D3 {
             /**
             * Adds a new point to the quadtree.
             */
-            add(point: Point);
-            visit(callback: any);
+            add(point: Point): void;
+            visit(callback: any): void;
         }
 
         export interface Point {
