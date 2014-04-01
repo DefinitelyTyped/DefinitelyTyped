@@ -104,7 +104,7 @@ declare module svgjs {
         filter(adder:(filter:Filter)=>void):Element;        
 
         transform(t:Transform):Element;
-        
+        transform(): Transform;
         
         style(name:string, value:string):Element;
         style(obj:Object):Element;

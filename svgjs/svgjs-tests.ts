@@ -67,3 +67,22 @@ function renderSVG(data:string) {
         path.attr({"path-id": uniqueId})
     })
 }
+
+//Test if svgjs.Element.transform() correctly return an svgjs.Element.Transform
+function elementTransformShouldReturnTransformObject() {
+    /* create an svg drawing */
+    var div = document.createElement('div')
+    var draw = SVG(div)
+
+    /* draw a rectangle scale, rotate and skew it */
+    var rect = draw.rect(50,50).move(100,100).scale(0.5, 0.3).rotate(35).skew(10,25)
+    
+    /* first try to cast it */
+    var trans:svgjs.Transform = rect.transform()
+    /* then check values if they are correct */
+    if (trans.scaleX != 0.5) { throw "scaleX value is not correct" }
+    if (trans.scaleY != 0.3) { throw "scaleY value is not correct" }
+    if (trans.rotation != 35) { throw "rotation value is not correct" }
+    if (trans.skewX != 10) { throw "skewX value is not correct" }
+    if (trans.skewY != 25) { throw "skewY value is not correct" }
+}
