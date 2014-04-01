@@ -10,6 +10,6 @@ function foo () {
 }
 
 e = new AssertionError(str);
-e = new AssertionError(str, {a:1, b2});
-e = new AssertionError(str, {a:1, b2}, foo);
+e = new AssertionError(str, {a:1, b:2});
+e = new AssertionError(str, {a:1, b:2}, foo);
 

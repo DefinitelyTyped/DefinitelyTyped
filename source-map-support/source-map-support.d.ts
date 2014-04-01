@@ -4,5 +4,5 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module 'source-map-support' {
-	export function install();
+	export function install(): any;
 }
