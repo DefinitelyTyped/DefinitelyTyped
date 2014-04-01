@@ -634,6 +634,8 @@ declare module "url" {
         search: string;
         query: string;
         slashes: boolean;
+        hash?: string;
+        path?: string;
     }
 
     export interface UrlOptions {
@@ -645,6 +647,8 @@ declare module "url" {
         pathname?: string;
         search?: string;
         query?: any;
+        hash?: string;
+        path?: string;
     }
 
     export function parse(urlStr: string, parseQueryString?: boolean , slashesDenoteHost?: boolean ): Url;
@@ -820,7 +824,7 @@ declare module "fs" {
     export function readlinkSync(path: string): string;
     export function realpath(path: string, callback?: (err: ErrnoException, resolvedPath: string) => any): void;
     export function realpath(path: string, cache: {[path: string]: string}, callback: (err: ErrnoException, resolvedPath: string) =>any): void;
-    export function realpathSync(path: string, cache?: {[path: string]: string}): void;
+    export function realpathSync(path: string, cache?: {[path: string]: string}): string;
     export function unlink(path: string, callback?: (err?: ErrnoException) => void): void;
     export function unlinkSync(path: string): void;
     export function rmdir(path: string, callback?: (err?: ErrnoException) => void): void;
@@ -1018,8 +1022,8 @@ declare module "crypto" {
         digest(encoding?: string): string;
     }
     interface Hmac {
-        update(data: any): void;
-        digest(encoding?: string): void;
+        update(data: any, input_encoding?: string): Hmac;
+        digest(encoding?: string): string;
     }
     export function createCipher(algorithm: string, password: any): Cipher;
     export function createCipheriv(algorithm: string, key: any, iv: any): Cipher;

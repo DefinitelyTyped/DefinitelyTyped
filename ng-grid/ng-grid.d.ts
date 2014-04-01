@@ -130,6 +130,9 @@ declare module ngGrid {
         /** all of the items selected in the grid. In single select mode there will only be one item in the array. */
         selectedItems?: any[];
 
+        /** Select deselect an item by index. */
+        selectItem?: (idx:number, state:boolean) =>any;
+
         /** Disable row selections by clicking on the row and only when the checkbox is clicked. */
         selectWithCheckboxOnly?: boolean;
 
