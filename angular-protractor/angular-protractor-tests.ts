@@ -167,7 +167,7 @@ function TestProtractor() {
 
     var webElement: webdriver.WebElement = ptor.wrapWebElement(new webdriver.WebElement(driver, 'id'));
 
-    var locationAbsUrl: string = ptor.getLocationAbsUrl();
+    var locationAbsUrl: webdriver.promise.Promise = ptor.getLocationAbsUrl();
 }
 
 function TestElement() {
