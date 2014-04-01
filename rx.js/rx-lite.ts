@@ -45,6 +45,19 @@ declare module Rx {
 		export var Promise: { new <T>(resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): IPromise<T>; };
 	}
 
+	export module helpers {
+		function noop(): void;
+		function identity<T>(value: T): T;
+		function defaultNow(): number;
+		function defaultComparer(left: any, right: any): boolean;
+		function defaultSubComparer(left: any, right: any): number;
+		function defaultKeySerializer(key: any): string;
+		function defaultError(err: any): void;
+		function isPromise(p: any): boolean;
+		function asArray<T>(...args: T[]): T[];
+		function not(value: any): boolean;
+	}
+
 	export interface IDisposable {
 		dispose(): void;
 	}
