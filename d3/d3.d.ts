@@ -3172,6 +3172,10 @@ declare module D3 {
                 (): Array<number>;
                 (location: Array<number>): Projection;
             };
+            parallels: {
+                (): Array<number>;
+                (location: Array<number>): Projection;
+            };
             translate: {
                 (): Array<number>;
                 (point: Array<number>): Projection;

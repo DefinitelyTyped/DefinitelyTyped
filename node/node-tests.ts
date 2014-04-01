@@ -6,6 +6,7 @@ import events = require("events");
 import zlib = require("zlib");
 import url = require('url');
 import util = require("util");
+import crypto = require("crypto");
 import http = require("http");
 import net = require("net");
 
@@ -82,6 +83,12 @@ function stream_readable_pipe_test() {
     var w = fs.createWriteStream('file.txt.gz');
     r.pipe(z).pipe(w);
 }
+
+////////////////////////////////////////////////////
+/// Crypto tests : http://nodejs.org/api/crypto.html
+////////////////////////////////////////////////////
+
+var hmacResult: string = crypto.createHmac('md5', 'hello').update('world').digest('hex');
 
 ////////////////////////////////////////////////////
 
