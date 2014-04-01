@@ -1,4 +1,4 @@
-// Type definitions for RxJS-Async v2.2.17
+// Type definitions for RxJS-Async v2.2.18
 // Project: http://rx.codeplex.com/
 // Definitions by: zoetrope <https://github.com/zoetrope>
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
