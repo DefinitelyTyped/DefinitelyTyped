@@ -272,7 +272,7 @@ List of Definitions
 * [Underscore-ko.js](https://github.com/kamranayub/UnderscoreKO) (by [Maurits Elbers](https://github.com/MagicMau))
 * [universal-analytics](https://github.com/peaksandpies/universal-analytics) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [update-notifier](https://github.com/yeoman/update-notifier) (by [vvakame](https://github.com/vvakame))
-* [uri-templates](https://github.com/geraintluff/uri-variables) (by [Bart van der Schoor](https://github.com/Bartvds))
+* [uri-templates](https://github.com/geraintluff/uri-templates) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [urlrouter](https://github.com/fengmk2/urlrouter) (by [Carlos Ballesteros Velasco](https://github.com/soywiz))
 * [UUID.js](https://github.com/LiosK/UUID.js) (by [Jason Jarrett](https://github.com/staxmanade))
 * [Valerie](https://github.com/davewatts/valerie) (by [Howard Richards](https://github.com/conficient))
