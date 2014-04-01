@@ -4,7 +4,7 @@
 
 /************************************************
 *                                               *
-*               Node.js v0.10.1 API              *
+*               Node.js v0.10.1 API             *
 *                                               *
 ************************************************/
 
@@ -247,85 +247,18 @@ declare module "events" {
 }
 
 declare module "http" {
-    import events = require("events");
-    import net = require("net");
-    import stream = require("stream");
 
-    export interface Server extends NodeEventEmitter {
-        listen(port: number, hostname?: string, backlog?: number, callback?: Function): void;
-        listen(path: string, callback?: Function): void;
-        listen(handle: any, listeningListener?: Function): void;
-        close(cb?: any): void;
-        maxHeadersCount: number;
-    }
-    export interface ServerRequest extends NodeEventEmitter, ReadableStream {
-        method: string;
-        url: string;
-        headers: any;
-        trailers: string;
-        httpVersion: string;
-        setEncoding(encoding?: string): void;
-        pause(): void;
-        resume(): void;
-        connection: net.Socket;
-    }
-    export interface ServerResponse extends NodeEventEmitter, WritableStream {
-        // Extended base methods
-        write(buffer: NodeBuffer): boolean;
-        write(buffer: NodeBuffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, fd?: string): boolean;
+    export interface Server extends NodeJs.Http.Server { }
 
-        writeContinue(): void;
-        writeHead(statusCode: number, reasonPhrase?: string, headers?: any): void;
-        writeHead(statusCode: number, headers?: any): void;
-        statusCode: number;
-        setHeader(name: string, value: string): void;
-        sendDate: boolean;
-        getHeader(name: string): string;
-        removeHeader(name: string): void;
-        write(chunk: any, encoding?: string): any;
-        addTrailers(headers: any): void;
+    export interface ServerRequest extends NodeJs.Http.ServerRequest { }
 
-        // Extended base methods
-        end(): void;
-        end(buffer: NodeBuffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
-        end(data?: any, encoding?: string): void;
-    }
-    export interface ClientRequest extends NodeEventEmitter, WritableStream {
-        // Extended base methods
-        write(buffer: NodeBuffer): boolean;
-        write(buffer: NodeBuffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, fd?: string): boolean;
+    export interface ServerResponse extends NodeJs.Http.ServerResponse { }
 
-        write(chunk: any, encoding?: string): void;
-        abort(): void;
-        setTimeout(timeout: number, callback?: Function): void;
-        setNoDelay(noDelay?: Function): void;
-        setSocketKeepAlive(enable?: boolean, initialDelay?: number): void;
+    export interface ClientRequest extends NodeJs.Http.ClientRequest { }
 
-        // Extended base methods
-        end(): void;
-        end(buffer: NodeBuffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
-        end(data?: any, encoding?: string): void;
-    }
-    export interface ClientResponse extends NodeEventEmitter, ReadableStream {
-        statusCode: number;
-        httpVersion: string;
-        headers: any;
-        trailers: any;
-        setEncoding(encoding?: string): void;
-        pause(): void;
-        resume(): void;
-    }
-    export interface Agent { maxSockets: number; sockets: any; requests: any; }
+    export interface ClientResponse extends NodeJs.Http.ClientResponse { }
+
+    export interface Agent extends NodeJs.Http.Agent { }
 
     export var STATUS_CODES: any;
     export function createServer(requestListener?: (request: ServerRequest, response: ServerResponse) =>void ): Server;
@@ -671,54 +604,15 @@ declare module "dns" {
 }
 
 declare module "net" {
-    import stream = require("stream");
 
-    export interface Socket extends ReadWriteStream {
-        // Extended base methods
-        write(buffer: NodeBuffer): boolean;
-        write(buffer: NodeBuffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, fd?: string): boolean;
-
-        connect(port: number, host?: string, connectionListener?: Function): void;
-        connect(path: string, connectionListener?: Function): void;
-        bufferSize: number;
-        setEncoding(encoding?: string): void;
-        write(data: any, encoding?: string, callback?: Function): void;
-        destroy(): void;
-        pause(): void;
-        resume(): void;
-        setTimeout(timeout: number, callback?: Function): void;
-        setNoDelay(noDelay?: boolean): void;
-        setKeepAlive(enable?: boolean, initialDelay?: number): void;
-        address(): { port: number; family: string; address: string; };
-        remoteAddress: string;
-        remotePort: number;
-        bytesRead: number;
-        bytesWritten: number;
-
-        // Extended base methods
-        end(): void;
-        end(buffer: NodeBuffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
-        end(data?: any, encoding?: string): void;
-    }
+    export interface Socket extends NodeJs.Net.Socket { }
 
     export var Socket: {
         new (options?: { fd?: string; type?: string; allowHalfOpen?: boolean; }): Socket;
     };
 
-    export interface Server extends Socket {
-        listen(port: number, host?: string, backlog?: number, listeningListener?: Function): void;
-        listen(path: string, listeningListener?: Function): void;
-        listen(handle: any, listeningListener?: Function): void;
-        close(callback?: Function): void;
-        address(): { port: number; family: string; address: string; };
-        maxConnections: number;
-        connections: number;
-    }
+    export interface Server extends NodeJs.Net.Server { }
+
     export function createServer(connectionListener?: (socket: Socket) =>void ): Server;
     export function createServer(options?: { allowHalfOpen?: boolean; }, connectionListener?: (socket: Socket) =>void ): Server;
     export function connect(options: { allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
@@ -1262,4 +1156,133 @@ declare module "domain" {
     }
 
     export function create(): Domain;
+}
+
+
+declare module NodeJs {
+
+    // ---------- "http" module ----------
+    export module Http {
+        export interface Server extends NodeEventEmitter {
+            listen(port: number, hostname?: string, backlog?: number, callback?: Function): void;
+            listen(path: string, callback?: Function): void;
+            listen(handle: any, listeningListener?: Function): void;
+            close(cb?: any): void;
+            maxHeadersCount: number;
+        }
+        export interface ServerRequest extends NodeEventEmitter, ReadableStream {
+            method: string;
+            url: string;
+            headers: any;
+            trailers: string;
+            httpVersion: string;
+            setEncoding(encoding?: string): void;
+            pause(): void;
+            resume(): void;
+            connection: Net.Socket;
+        }
+        export interface ServerResponse extends NodeEventEmitter, WritableStream {
+            // Extended base methods
+            write(buffer: NodeBuffer): boolean;
+            write(buffer: NodeBuffer, cb?: Function): boolean;
+            write(str: string, cb?: Function): boolean;
+            write(str: string, encoding?: string, cb?: Function): boolean;
+            write(str: string, encoding?: string, fd?: string): boolean;
+
+            writeContinue(): void;
+            writeHead(statusCode: number, reasonPhrase?: string, headers?: any): void;
+            writeHead(statusCode: number, headers?: any): void;
+            statusCode: number;
+            setHeader(name: string, value: string): void;
+            sendDate: boolean;
+            getHeader(name: string): string;
+            removeHeader(name: string): void;
+            write(chunk: any, encoding?: string): any;
+            addTrailers(headers: any): void;
+
+            // Extended base methods
+            end(): void;
+            end(buffer: NodeBuffer, cb?: Function): void;
+            end(str: string, cb?: Function): void;
+            end(str: string, encoding?: string, cb?: Function): void;
+            end(data?: any, encoding?: string): void;
+        }
+        export interface ClientRequest extends NodeEventEmitter, WritableStream {
+            // Extended base methods
+            write(buffer: NodeBuffer): boolean;
+            write(buffer: NodeBuffer, cb?: Function): boolean;
+            write(str: string, cb?: Function): boolean;
+            write(str: string, encoding?: string, cb?: Function): boolean;
+            write(str: string, encoding?: string, fd?: string): boolean;
+
+            write(chunk: any, encoding?: string): void;
+            abort(): void;
+            setTimeout(timeout: number, callback?: Function): void;
+            setNoDelay(noDelay?: Function): void;
+            setSocketKeepAlive(enable?: boolean, initialDelay?: number): void;
+
+            // Extended base methods
+            end(): void;
+            end(buffer: NodeBuffer, cb?: Function): void;
+            end(str: string, cb?: Function): void;
+            end(str: string, encoding?: string, cb?: Function): void;
+            end(data?: any, encoding?: string): void;
+        }
+        export interface ClientResponse extends NodeEventEmitter, ReadableStream {
+            statusCode: number;
+            httpVersion: string;
+            headers: any;
+            trailers: any;
+            setEncoding(encoding?: string): void;
+            pause(): void;
+            resume(): void;
+        }
+        export interface Agent { maxSockets: number; sockets: any; requests: any; }
+    }
+
+
+    // ---------- "net" module ----------
+    export module Net {
+        export interface Socket extends ReadWriteStream {
+            // Extended base methods
+            write(buffer: NodeBuffer): boolean;
+            write(buffer: NodeBuffer, cb?: Function): boolean;
+            write(str: string, cb?: Function): boolean;
+            write(str: string, encoding?: string, cb?: Function): boolean;
+            write(str: string, encoding?: string, fd?: string): boolean;
+
+            connect(port: number, host?: string, connectionListener?: Function): void;
+            connect(path: string, connectionListener?: Function): void;
+            bufferSize: number;
+            setEncoding(encoding?: string): void;
+            write(data: any, encoding?: string, callback?: Function): void;
+            destroy(): void;
+            pause(): void;
+            resume(): void;
+            setTimeout(timeout: number, callback?: Function): void;
+            setNoDelay(noDelay?: boolean): void;
+            setKeepAlive(enable?: boolean, initialDelay?: number): void;
+            address(): { port: number; family: string; address: string; };
+            remoteAddress: string;
+            remotePort: number;
+            bytesRead: number;
+            bytesWritten: number;
+
+            // Extended base methods
+            end(): void;
+            end(buffer: NodeBuffer, cb?: Function): void;
+            end(str: string, cb?: Function): void;
+            end(str: string, encoding?: string, cb?: Function): void;
+            end(data?: any, encoding?: string): void;
+        }
+        export interface Server extends Socket {
+            listen(port: number, host?: string, backlog?: number, listeningListener?: Function): void;
+            listen(path: string, listeningListener?: Function): void;
+            listen(handle: any, listeningListener?: Function): void;
+            close(callback?: Function): void;
+            address(): { port: number; family: string; address: string; };
+            maxConnections: number;
+            connections: number;
+        }
+    }
 }
