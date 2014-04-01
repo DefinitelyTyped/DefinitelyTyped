@@ -1,4 +1,4 @@
-// Type definitions for RxJS-Time v2.2.17
+// Type definitions for RxJS-Time v2.2.18
 // Project: http://rx.codeplex.com/
 // Definitions by: Carl de Billy <http://carl.debilly.net/>
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
@@ -27,14 +27,6 @@ declare module Rx {
 			iterate: (state: TState) => TState,
 			resultSelector: (state: TState) => TResult,
 			timeSelector: (state: TState) => Date,
-			scheduler?: IScheduler): Observable<TResult>;
-
-		generateWithRelativeTime<TState, TResult>(
-			initialState: TState,
-			condition: (state: TState) => boolean,
-			iterate: (state: TState) => TState,
-			resultSelector: (state: TState) => TResult,
-			timeSelector: (state: TState) => number,
 			scheduler?: IScheduler): Observable<TResult>;
 	}
 }
