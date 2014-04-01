@@ -1,4 +1,4 @@
-/// <reference path="detect-indent-tests.d.ts" />
+/// <reference path="detect-indent.d.ts" />
 
 import di = require('detect-indent');
 
