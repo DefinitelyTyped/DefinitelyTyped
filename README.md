@@ -219,6 +219,7 @@ List of Definitions
 * [Numeral.js](https://github.com/adamwdraper/Numeral-js) (by [Vincent Bortone](https://github.com/vbortone/))
 * [OpenLayers](https://github.com/openlayers/openlayers) (by [Ilya Bolkhovsky](https://github.com/bolhovsky/))
 * [Parallel.js](https://github.com/adambom/parallel.js) (by [Josh Baldwin](https://github.com/jbaldwin))
+* [Parsimmon](https://github.com/jayferd/parsimmon) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [PDF.js](https://github.com/mozilla/pdf.js) (by [Josh Baldwin](https://github.com/jbaldwin))
 * [Persona](http://www.mozilla.org/en-US/persona) (by [James Frasca](https://github.com/Nycto))
 * [PhantomJS](http://phantomjs.org) (by [Jed Hunsaker](https://github.com/jedhunsaker))
