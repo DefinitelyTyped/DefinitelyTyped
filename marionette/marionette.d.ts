@@ -186,7 +186,7 @@ declare module Marionette {
     }
 
     class Renderer {
-        static render(template, data): void;
+        static render(template: any, data: any): string;
     }
 
     class View extends Backbone.View {
