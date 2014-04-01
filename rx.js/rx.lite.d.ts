@@ -1,4 +1,4 @@
-﻿// Type definitions for RxJS-Lite v2.2.17
+﻿// Type definitions for RxJS-Lite v2.2.18
 // Project: http://rx.codeplex.com/
 // Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
@@ -46,15 +46,5 @@ declare module Rx {
 
 	export interface Observable<T> {
 		shareReplay(bufferSize?: number, window?: number, scheduler?: IScheduler): Observable<T>;	// same as replayWhileObserved in rx.binding.d.ts
-	}
-
-	export interface ObservableStatic {
-		generateWithTime<TState, TResult>(
-			initialState: TState,
-			condition: (state: TState) => boolean,
-			iterate: (state: TState) => TState,
-			resultSelector: (state: TState) => TResult,
-			timeSelector: (state: TState) => number,
-			scheduler?: IScheduler): Observable<TResult>;
 	}
 }
