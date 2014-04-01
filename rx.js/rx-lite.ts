@@ -45,6 +45,19 @@ declare module Rx {
 		export var Promise: { new <T>(resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): IPromise<T>; };
 	}
 
+	export module helpers {
+		function noop(): void;
+		function identity<T>(value: T): T;
+		function defaultNow(): number;
+		function defaultComparer(left: any, right: any): boolean;
+		function defaultSubComparer(left: any, right: any): number;
+		function defaultKeySerializer(key: any): string;
+		function defaultError(err: any): void;
+		function isPromise(p: any): boolean;
+		function asArray<T>(...args: T[]): T[];
+		function not(value: any): boolean;
+	}
+
 	export interface IDisposable {
 		dispose(): void;
 	}
@@ -307,6 +320,7 @@ declare module Rx {
 		create<T>(subscribe: (observer: Observer<T>) => IDisposable): Observable<T>;
 		createWithDisposable<T>(subscribe: (observer: Observer<T>) => IDisposable): Observable<T>;
 		defer<T>(observableFactory: () => Observable<T>): Observable<T>;
+		defer<T>(observableFactory: () => IPromise<T>): Observable<T>;
 		empty<T>(scheduler?: IScheduler): Observable<T>;
 		fromArray<T>(array: T[], scheduler?: IScheduler): Observable<T>;
 		fromArray<T>(array: { length: number;[index: number]: T; }, scheduler?: IScheduler): Observable<T>;
@@ -347,9 +361,13 @@ declare module Rx {
 		throwException<T>(exception: any, scheduler?: IScheduler): Observable<T>;	// alias for throw
 
 		catch<T>(sources: Observable<T>[]): Observable<T>;
+		catch<T>(sources: IPromise<T>[]): Observable<T>;
 		catchException<T>(sources: Observable<T>[]): Observable<T>;	// alias for catch
+		catchException<T>(sources: IPromise<T>[]): Observable<T>;	// alias for catch
 		catch<T>(...sources: Observable<T>[]): Observable<T>;
+		catch<T>(...sources: IPromise<T>[]): Observable<T>;
 		catchException<T>(...sources: Observable<T>[]): Observable<T>;	// alias for catch
+		catchException<T>(...sources: IPromise<T>[]): Observable<T>;	// alias for catch
 		concat<T>(...sources: Observable<T>[]): Observable<T>;
 		concat<T>(...sources: IPromise<T>[]): Observable<T>;
 		concat<T>(sources: Observable<T>[]): Observable<T>;
