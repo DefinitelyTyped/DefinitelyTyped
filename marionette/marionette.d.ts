@@ -15,10 +15,10 @@ declare module Backbone {
 
         constructor(initialViews?: any[]);
 
-        add(view: View, customIndex?: number);
+        add(view: View, customIndex?: any);
         findByModel(model): View;
         findByModelCid(modelCid): View;
-        findByCustom(index: number): View;
+        findByCustom(index: any): View;
         findByIndex(index: number): View;
         findByCid(cid): View;
         remove(view: View);
@@ -122,6 +122,8 @@ declare module Marionette {
     }
 
     class Region extends Backbone.Events {
+
+        constructor(options?: any);
 
         static buildRegion(regionConfig, defaultRegionType): Region;
 
@@ -304,15 +306,16 @@ declare module Marionette {
     // modules mapped for convenience, but you should probably use TypeScript modules instead
     class Module extends Backbone.Events {
 
-        constructor(moduleName: string, app: Application);
+        constructor(moduleName: string, app: Application, options?: any);
 
+        startWithParent: Boolean;
         submodules: any;
         triggerMethod(name, ...args: any[]): any;
 
         addInitializer(callback): void;
         addFinalizer(callback): void;
         start(options?: any): void;
-        stopvoid;
+        stop(): void;
         addDefinition(moduleDefinition, customArgs);
     }
 }
