@@ -1078,7 +1078,12 @@ declare module "stream" {
         objectMode?: boolean;
     }
 
-    export class Readable extends events.EventEmitter implements ReadableStream {
+    export class Stream extends events.EventEmitter {
+        pipe<T extends WritableStream>(destination: T): T;
+        pipe<T extends WritableStream>(destination: T, options: { end?: boolean; }): T;
+    }
+
+    export class Readable extends Stream implements ReadableStream {
         readable: boolean;
         constructor(opts?: ReadableOptions);
         _read(size: number): void;
@@ -1086,7 +1091,6 @@ declare module "stream" {
         setEncoding(encoding: string): void;
         pause(): void;
         resume(): void;
-        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe<T extends WritableStream>(destination?: T): void;
         unshift(chunk: string): void;
         unshift(chunk: NodeBuffer): void;
@@ -1099,7 +1103,7 @@ declare module "stream" {
         decodeStrings?: boolean;
     }
 
-    export class Writable extends events.EventEmitter implements WritableStream {
+    export class Writable extends Stream implements WritableStream {
         writable: boolean;
         constructor(opts?: WritableOptions);
         _write(data: NodeBuffer, encoding: string, callback: Function): void;
@@ -1135,7 +1139,7 @@ declare module "stream" {
     export interface TransformOptions extends ReadableOptions, WritableOptions {}
 
     // Note: Transform lacks the _read and _write methods of Readable/Writable.
-    export class Transform extends events.EventEmitter implements ReadWriteStream {
+    export class Transform extends Stream implements ReadWriteStream {
         readable: boolean;
         writable: boolean;
         constructor(opts?: TransformOptions);
@@ -1146,7 +1150,6 @@ declare module "stream" {
         setEncoding(encoding: string): void;
         pause(): void;
         resume(): void;
-        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe<T extends WritableStream>(destination?: T): void;
         unshift(chunk: string): void;
         unshift(chunk: NodeBuffer): void;
