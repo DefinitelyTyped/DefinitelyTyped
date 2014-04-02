@@ -41,16 +41,16 @@ interface IKey {
 
 var foodsOrganic: IFoodOrganic[] = [
 	{ name: 'banana', organic: true },
-	{ name: 'beet',   organic: false },
+	{ name: 'beet', organic: false },
 ];
 var foodsType: IFoodType[] = [
-	{ name: 'apple',  type: 'fruit' },
+	{ name: 'apple', type: 'fruit' },
 	{ name: 'banana', type: 'fruit' },
-	{ name: 'beet',   type: 'vegetable' }
+	{ name: 'beet', type: 'vegetable' }
 ];
 var foodsCombined: IFoodCombined[] = [
-  { 'name': 'apple',  'organic': false, 'type': 'fruit' },
-  { 'name': 'carrot', 'organic': true,  'type': 'vegetable' }
+	{ 'name': 'apple', 'organic': false, 'type': 'fruit' },
+	{ 'name': 'carrot', 'organic': true, 'type': 'vegetable' }
 ];
 
 var stoogesQuotes: IStoogesQuote[] = [
@@ -63,24 +63,24 @@ var stoogesAges: IStoogesAge[] = [
 ];
 
 var stoogesCombined: IStoogesCombined[] = [
-  { 'name': 'curly', 'age': 30, 'quotes': ['Oh, a wise guy, eh?', 'Poifect!'] },
-  { 'name': 'moe', 'age': 40, 'quotes': ['Spread out!', 'You knucklehead!'] }
+	{ 'name': 'curly', 'age': 30, 'quotes': ['Oh, a wise guy, eh?', 'Poifect!'] },
+	{ 'name': 'moe', 'age': 40, 'quotes': ['Spread out!', 'You knucklehead!'] }
 ];
 
 var keys: IKey[] = [
-  { 'dir': 'left', 'code': 97 },
-  { 'dir': 'right', 'code': 100 }
+	{ 'dir': 'left', 'code': 97 },
+	{ 'dir': 'right', 'code': 100 }
 ];
 
 class Dog {
-	constructor(public name: string) {}
+	constructor(public name: string) { }
 
 	public bark() {
-	  console.log('Woof, woof!');
+		console.log('Woof, woof!');
 	}
 }
 
-var result : any;
+var result: any;
 
 /*************
  * Chaining *
@@ -89,7 +89,10 @@ result = <_.LoDashWrapper<string>>_('test');
 result = <_.LoDashWrapper<number>>_(1);
 result = <_.LoDashWrapper<boolean>>_(true);
 result = <_.LoDashArrayWrapper<string>>_(['test1', 'test2']);
-result = <_.LoDashObjectWrapper<_.Dictionary<string>>>_({'key1': 'test1', 'key2': 'test2'});
+// Appears to be a change in the compiler, if the type explicity implements the object indexer.
+// Looking at: https://typescript.codeplex.com/wikipage?title=Known%20breaking%20changes%20between%200.8%20and%200.9&referringTitle=Documentation
+// "The ‘noimplicitany’ option now warns on the use of the hidden default indexer"
+result = <_.LoDashObjectWrapper<_.Dictionary<string>>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' });
 
 result = <_.LoDashWrapper<string>>_.chain('test');
 result = <_.LoDashWrapper<string>>_('test').chain();
@@ -99,8 +102,8 @@ result = <_.LoDashWrapper<boolean>>_.chain(true);
 result = <_.LoDashWrapper<boolean>>_(true).chain();
 result = <_.LoDashArrayWrapper<string>>_.chain(['test1', 'test2']);
 result = <_.LoDashArrayWrapper<string>>_(['test1', 'test2']).chain();
-result = <_.LoDashObjectWrapper<_.Dictionary<string>>>_.chain({'key1': 'test1', 'key2': 'test2'});
-result = <_.LoDashObjectWrapper<_.Dictionary<string>>>_({'key1': 'test1', 'key2': 'test2'}).chain();
+result = <_.LoDashObjectWrapper<_.Dictionary<string>>>_.chain(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' });
+result = <_.LoDashObjectWrapper<_.Dictionary<string>>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).chain();
 
 //Wrapped array shortcut methods
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).concat(5, 6);
@@ -116,31 +119,31 @@ result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).splice(1);
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).splice(1, 2, 5, 6);
 result = <_.LoDashWrapper<number>>_([1, 2, 3, 4]).unshift(5, 6);
 
-result = <number[]>_.tap([1, 2, 3, 4], function(array) { console.log(array); });
-result = <_.LoDashWrapper<string>>_('test').tap(function(value) { console.log(value); });
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).tap(function(array) { console.log(array); });
-result = <_.LoDashObjectWrapper<_.Dictionary<string>>>_({'key1': 'test1', 'key2': 'test2'}).tap(function(array) { console.log(array); });
+result = <number[]>_.tap([1, 2, 3, 4], function (array) { console.log(array); });
+result = <_.LoDashWrapper<string>>_('test').tap(function (value) { console.log(value); });
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).tap(function (array) { console.log(array); });
+result = <_.LoDashObjectWrapper<_.Dictionary<string>>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).tap(function (array) { console.log(array); });
 
 result = <string>_('test').toString();
 result = <string>_([1, 2, 3]).toString();
-result = <string>_({'key1': 'test1', 'key2': 'test2'}).toString();
+result = <string>_({ 'key1': 'test1', 'key2': 'test2' }).toString();
 
 result = <string>_('test').valueOf();
 result = <number[]>_([1, 2, 3]).valueOf();
-result = <_.Dictionary<string>>_({'key1': 'test1', 'key2': 'test2'}).valueOf();
+result = <_.Dictionary<string>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).valueOf();
 
 result = <string>_('test').value();
 result = <number[]>_([1, 2, 3]).value();
-result = <_.Dictionary<string>>_({'key1': 'test1', 'key2': 'test2'}).value();
+result = <_.Dictionary<string>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).value();
 
 // /*************
 //  * Arrays *
 //  *************/
 result = <any[]>_.compact([0, 1, false, 2, '', 3]);
-	result = <_.LoDashArrayWrapper<any>>_([0, 1, false, 2, '', 3]).compact();
+result = <_.LoDashArrayWrapper<any>>_([0, 1, false, 2, '', 3]).compact();
 
 result = <number[]>_.difference([1, 2, 3, 4, 5], [5, 2, 10]);
-	result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4, 5]).difference([5, 2, 10]);
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4, 5]).difference([5, 2, 10]);
 
 result = <number[]>_.rest([1, 2, 3]);
 result = <number[]>_.rest([1, 2, 3], 2);
@@ -160,48 +163,48 @@ result = <number[]>_.tail([1, 2, 3], (num) => num < 3)
 result = <IFoodOrganic[]>_.tail(foodsOrganic, 'test')
 result = <IFoodType[]> _.tail(foodsType, { 'type': 'value' })
 
-result = <number>_.findIndex(['apple', 'banana', 'beet'], function(f) {
-  return /^b/.test(f);
+result = <number>_.findIndex(['apple', 'banana', 'beet'], function (f) {
+	return /^b/.test(f);
 });
 result = <number>_.findIndex(['apple', 'banana', 'beet'], 'apple');
-result = <number>_.findIndex([{ food: 'apple' }, { food: 'banana' }, { food: 'beet' }], { food: 'apple'});
+result = <number>_.findIndex([{ food: 'apple' }, { food: 'banana' }, { food: 'beet' }], { food: 'apple' });
 
-result = <number>_.findLastIndex(['apple', 'banana', 'beet'], function(f: string) {
-  return /^b/.test(f);
+result = <number>_.findLastIndex(['apple', 'banana', 'beet'], function (f: string) {
+	return /^b/.test(f);
 });
 result = <number>_.findLastIndex(['apple', 'banana', 'beet'], 'apple');
-result = <number>_.findLastIndex([{ food: 'apple' }, { food: 'banana' }, { food: 'beet' }], { food: 'apple'});
+result = <number>_.findLastIndex([{ food: 'apple' }, { food: 'banana' }, { food: 'beet' }], { food: 'apple' });
 
 result = <number>_.first([1, 2, 3]);
 result = <number[]>_.first([1, 2, 3], 2);
-result = <number[]>_.first([1, 2, 3], function(num) {
-  return num < 3;
+result = <number[]>_.first([1, 2, 3], function (num) {
+	return num < 3;
 });
 result = <IFoodOrganic[]>_.first(foodsOrganic, 'organic');
 result = <IFoodType[]>_.first(foodsType, { 'type': 'fruit' });
 
-	result = <number>_.head([1, 2, 3]);
-	result = <number[]>_.head([1, 2, 3], 2);
-	result = <number[]>_.head([1, 2, 3], function(num) {
-	  return num < 3;
-	});
-	result = <IFoodOrganic[]>_.head(foodsOrganic, 'organic');
-	result = <IFoodType[]>_.head(foodsType, { 'type': 'fruit' });
+result = <number>_.head([1, 2, 3]);
+result = <number[]>_.head([1, 2, 3], 2);
+result = <number[]>_.head([1, 2, 3], function (num) {
+	return num < 3;
+});
+result = <IFoodOrganic[]>_.head(foodsOrganic, 'organic');
+result = <IFoodType[]>_.head(foodsType, { 'type': 'fruit' });
 
-	result = <number>_.take([1, 2, 3]);
-	result = <number[]>_.take([1, 2, 3], 2);
-    result = <number[]>_.take([1, 2, 3], (num) => num < 3);
-	result = <IFoodOrganic[]>_.take(foodsOrganic, 'organic');
-	result = <IFoodType[]>_.take(foodsType, { 'type': 'fruit' });
+result = <number>_.take([1, 2, 3]);
+result = <number[]>_.take([1, 2, 3], 2);
+result = <number[]>_.take([1, 2, 3], (num) => num < 3);
+result = <IFoodOrganic[]>_.take(foodsOrganic, 'organic');
+result = <IFoodType[]>_.take(foodsType, { 'type': 'fruit' });
 
 result = <number[]>_.flatten([1, [2], [3, [[4]]]]);
 result = <any[]>_.flatten([1, [2], [3, [[4]]]], true);
 var result: any
 result = <string[]>_.flatten(stoogesQuotes, 'quotes');
 
-	result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten();
-	result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten(true);
-	result = <_.LoDashArrayWrapper<string>>_(stoogesQuotes).flatten('quotes');
+result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten();
+result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten(true);
+result = <_.LoDashArrayWrapper<string>>_(stoogesQuotes).flatten('quotes');
 
 result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2);
 result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2, 3);
@@ -209,8 +212,8 @@ result = <number>_.indexOf([1, 1, 2, 2, 3, 3], 2, true);
 
 result = <number[]>_.initial([1, 2, 3]);
 result = <number[]>_.initial([1, 2, 3], 2);
-result = <number[]>_.initial([1, 2, 3], function(num) {
-  return num > 1;
+result = <number[]>_.initial([1, 2, 3], function (num) {
+	return num > 1;
 });
 result = <IFoodOrganic[]>_.initial(foodsOrganic, 'organic');
 result = <IFoodType[]>_.initial(foodsType, { 'type': 'vegetable' });
@@ -219,8 +222,8 @@ result = <number[]>_.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1]);
 
 result = <number>_.last([1, 2, 3]);
 result = <number[]>_.last([1, 2, 3], 2);
-result = <number[]>_.last([1, 2, 3], function(num) {
-  return num > 1;
+result = <number[]>_.last([1, 2, 3], function (num) {
+	return num > 1;
 });
 result = <IFoodOrganic[]>_.last(foodsOrganic, 'organic');
 result = <IFoodType[]>_.last(foodsType, { 'type': 'vegetable' });
@@ -228,8 +231,8 @@ result = <IFoodType[]>_.last(foodsType, { 'type': 'vegetable' });
 result = <number>_.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
 result = <number>_.lastIndexOf([1, 2, 3, 1, 2, 3], 2, 3);
 
-result = <{[key: string]: any}>_.zipObject(['moe', 'larry'], [30, 40]);
-result = <{[key: string]: any}>_.object(['moe', 'larry'], [30, 40]);
+result = <{ [key: string]: any }>_.zipObject(['moe', 'larry'], [30, 40]);
+result = <{ [key: string]: any }>_.object(['moe', 'larry'], [30, 40]);
 
 result = <number[]>_.pull([1, 2, 3, 1, 2, 3], 2, 3);
 
@@ -240,39 +243,39 @@ result = <number[]>_.range(0, -10, -1);
 result = <number[]>_.range(1, 4, 0);
 result = <number[]>_.range(0);
 
-result = <number[]>_.remove([1, 2, 3, 4, 5, 6], function(num: number) { return num % 2 == 0; });
+result = <number[]>_.remove([1, 2, 3, 4, 5, 6], function (num: number) { return num % 2 == 0; });
 result = <IFoodOrganic[]>_.remove(foodsOrganic, 'organic');
-result = <IFoodType[]>_.remove(foodsType, { 'type': 'vegetable'});
+result = <IFoodType[]>_.remove(foodsType, { 'type': 'vegetable' });
 
 result = <number>_.sortedIndex([20, 30, 50], 40);
 result = <number>_.sortedIndex([{ 'x': 20 }, { 'x': 30 }, { 'x': 50 }], { 'x': 40 }, 'x');
 var sortedIndexDict = {
-  'wordToNumber': { 'twenty': 20, 'thirty': 30, 'fourty': 40, 'fifty': 50 }
+	'wordToNumber': { 'twenty': 20, 'thirty': 30, 'fourty': 40, 'fifty': 50 }
 };
-result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function(word) {
-  return sortedIndexDict.wordToNumber[word];
+result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function (word) {
+	return sortedIndexDict.wordToNumber[word];
 });
-result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function(word) {
-  return this.wordToNumber[word];
+result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function (word) {
+	return this.wordToNumber[word];
 }, sortedIndexDict);
 
 result = <number[]>_.union([1, 2, 3], [101, 2, 1, 10], [2, 1]);
 
 result = <number[]>_.uniq([1, 2, 1, 3, 1]);
 result = <number[]>_.uniq([1, 1, 2, 2, 3], true);
-result = <string[]>_.uniq(['A', 'b', 'C', 'a', 'B', 'c'], function(letter) { 
-	return letter.toLowerCase(); 
+result = <string[]>_.uniq(['A', 'b', 'C', 'a', 'B', 'c'], function (letter) {
+	return letter.toLowerCase();
 });
-result = <number[]>_.uniq([1, 2.5, 3, 1.5, 2, 3.5], function(num) { return this.floor(num); }, Math);
-result = <{x: number;}[]>_.uniq([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
+result = <number[]>_.uniq([1, 2.5, 3, 1.5, 2, 3.5], function (num) { return this.floor(num); }, Math);
+result = <{ x: number; }[]>_.uniq([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
 
-	result = <number[]>_.unique([1, 2, 1, 3, 1]);
-	result = <number[]>_.unique([1, 1, 2, 2, 3], true);
-	result = <string[]>_.unique(['A', 'b', 'C', 'a', 'B', 'c'], function(letter) { 
-		return letter.toLowerCase(); 
-	});
-	result = <number[]>_.unique([1, 2.5, 3, 1.5, 2, 3.5], function(num) { return this.floor(num); }, Math);
-	result = <{x: number;}[]>_.unique([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
+result = <number[]>_.unique([1, 2, 1, 3, 1]);
+result = <number[]>_.unique([1, 1, 2, 2, 3], true);
+result = <string[]>_.unique(['A', 'b', 'C', 'a', 'B', 'c'], function (letter) {
+	return letter.toLowerCase();
+});
+result = <number[]>_.unique([1, 2.5, 3, 1.5, 2, 3.5], function (num) { return this.floor(num); }, Math);
+result = <{ x: number; }[]>_.unique([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
 
 result = <number[]>_.without([1, 2, 1, 0, 3, 1, 4], 0, 1);
 
@@ -291,165 +294,165 @@ result = <boolean>_.contains([1, 2, 3], 1, 2);
 result = <boolean>_.contains({ 'name': 'moe', 'age': 40 }, 'moe');
 result = <boolean>_.contains('curly', 'ur');
 
-	result = <boolean>_.include([1, 2, 3], 1);
-	result = <boolean>_.include([1, 2, 3], 1, 2);
-	result = <boolean>_.include({ 'name': 'moe', 'age': 40 }, 'moe');
-	result = <boolean>_.include('curly', 'ur');
+result = <boolean>_.include([1, 2, 3], 1);
+result = <boolean>_.include([1, 2, 3], 1, 2);
+result = <boolean>_.include({ 'name': 'moe', 'age': 40 }, 'moe');
+result = <boolean>_.include('curly', 'ur');
 
-result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function(num) { return Math.floor(num); });
-result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function(num) { return this.floor(num); }, Math);
+result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function (num) { return Math.floor(num); });
+result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function (num) { return this.floor(num); }, Math);
 result = <_.Dictionary<number>>_.countBy(['one', 'two', 'three'], 'length');
 
-	result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_([4.3, 6.1, 6.4]).countBy(function(num) { return Math.floor(num); });
-	result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_([4.3, 6.1, 6.4]).countBy(function(num) { return this.floor(num); }, Math);
-	result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_(['one', 'two', 'three']).countBy('length');
+result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_([4.3, 6.1, 6.4]).countBy(function (num) { return Math.floor(num); });
+result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_([4.3, 6.1, 6.4]).countBy(function (num) { return this.floor(num); }, Math);
+result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_(['one', 'two', 'three']).countBy('length');
 
 result = <boolean>_.every([true, 1, null, 'yes'], Boolean);
 result = <boolean>_.every(stoogesAges, 'age');
 result = <boolean>_.every(stoogesAges, { 'age': 50 });
 
-	result = <boolean>_.all([true, 1, null, 'yes'], Boolean);
-	result = <boolean>_.all(stoogesAges, 'age');
-	result = <boolean>_.all(stoogesAges, { 'age': 50 });
+result = <boolean>_.all([true, 1, null, 'yes'], Boolean);
+result = <boolean>_.all(stoogesAges, 'age');
+result = <boolean>_.all(stoogesAges, { 'age': 50 });
 
-result = <number[]>_.filter([1, 2, 3, 4, 5, 6], function(num) { return num % 2 == 0; });
+result = <number[]>_.filter([1, 2, 3, 4, 5, 6], function (num) { return num % 2 == 0; });
 result = <IFoodCombined[]>_.filter(foodsCombined, 'organic');
 result = <IFoodCombined[]>_.filter(foodsCombined, { 'type': 'fruit' });
 
-	result = <number[]>_([1, 2, 3, 4, 5, 6]).filter(function(num) { return num % 2 == 0; }).value();
-	result = <IFoodCombined[]>_(foodsCombined).filter('organic').value();
-	result = <IFoodCombined[]>_(foodsCombined).filter({ 'type': 'fruit' }).value();
+result = <number[]>_([1, 2, 3, 4, 5, 6]).filter(function (num) { return num % 2 == 0; }).value();
+result = <IFoodCombined[]>_(foodsCombined).filter('organic').value();
+result = <IFoodCombined[]>_(foodsCombined).filter({ 'type': 'fruit' }).value();
 
-	result = <number[]>_.select([1, 2, 3, 4, 5, 6], function(num) { return num % 2 == 0; });
-	result = <IFoodCombined[]>_.select(foodsCombined, 'organic');
-	result = <IFoodCombined[]>_.select(foodsCombined, { 'type': 'fruit' });
+result = <number[]>_.select([1, 2, 3, 4, 5, 6], function (num) { return num % 2 == 0; });
+result = <IFoodCombined[]>_.select(foodsCombined, 'organic');
+result = <IFoodCombined[]>_.select(foodsCombined, { 'type': 'fruit' });
 
-		result = <number[]>_([1, 2, 3, 4, 5, 6]).select(function(num) { return num % 2 == 0; }).value();
-		result = <IFoodCombined[]>_(foodsCombined).select('organic').value();
-		result = <IFoodCombined[]>_(foodsCombined).select({ 'type': 'fruit' }).value();
+result = <number[]>_([1, 2, 3, 4, 5, 6]).select(function (num) { return num % 2 == 0; }).value();
+result = <IFoodCombined[]>_(foodsCombined).select('organic').value();
+result = <IFoodCombined[]>_(foodsCombined).select({ 'type': 'fruit' }).value();
 
-result = <number>_.find([1, 2, 3, 4], function(num) {
-  return num % 2 == 0;
+result = <number>_.find([1, 2, 3, 4], function (num) {
+	return num % 2 == 0;
 });
 result = <IFoodCombined>_.find(foodsCombined, { 'type': 'vegetable' });
 result = <IFoodCombined>_.find(foodsCombined, 'organic');
 
-	result = <number>_.detect([1, 2, 3, 4], function(num) {
-	  return num % 2 == 0;
-	});
-	result = <IFoodCombined>_.detect(foodsCombined, { 'type': 'vegetable' });
-	result = <IFoodCombined>_.detect(foodsCombined, 'organic');
+result = <number>_.detect([1, 2, 3, 4], function (num) {
+	return num % 2 == 0;
+});
+result = <IFoodCombined>_.detect(foodsCombined, { 'type': 'vegetable' });
+result = <IFoodCombined>_.detect(foodsCombined, 'organic');
 
-	result = <number>_.findWhere([1, 2, 3, 4], function(num) {
-	  return num % 2 == 0;
-	});
-	result = <IFoodCombined>_.findWhere(foodsCombined, { 'type': 'vegetable' });
-	result = <IFoodCombined>_.findWhere(foodsCombined, 'organic');
+result = <number>_.findWhere([1, 2, 3, 4], function (num) {
+	return num % 2 == 0;
+});
+result = <IFoodCombined>_.findWhere(foodsCombined, { 'type': 'vegetable' });
+result = <IFoodCombined>_.findWhere(foodsCombined, 'organic');
 
-result = <number>_.findLast([1, 2, 3, 4], function(num) {
-  return num % 2 == 0;
+result = <number>_.findLast([1, 2, 3, 4], function (num) {
+	return num % 2 == 0;
 });
 result = <IFoodCombined>_.findLast(foodsCombined, { 'type': 'vegetable' });
 result = <IFoodCombined>_.findLast(foodsCombined, 'organic');
 
-result = <number[]>_.forEach([1, 2, 3], function(num) { console.log(num); });
-result = <_.Dictionary<number>>_.forEach({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { console.log(num); });
+result = <number[]>_.forEach([1, 2, 3], function (num) { console.log(num); });
+result = <_.Dictionary<number>>_.forEach({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { console.log(num); });
 
-	result = <number[]>_.each([1, 2, 3], function(num) { console.log(num); });
-	result = <_.Dictionary<number>>_.each({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { console.log(num); });
+result = <number[]>_.each([1, 2, 3], function (num) { console.log(num); });
+result = <_.Dictionary<number>>_.each({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { console.log(num); });
 
-	result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).forEach(function(num) { console.log(num); });
-	result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_({ 'one': 1, 'two': 2, 'three': 3 }).forEach(function(num) { console.log(num); });	
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).forEach(function (num) { console.log(num); });
+result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_(<{ [index: string]: number; }>{ 'one': 1, 'two': 2, 'three': 3 }).forEach(function (num) { console.log(num); });
 
-		result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).each(function(num) { console.log(num); });
-		result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_({ 'one': 1, 'two': 2, 'three': 3 }).each(function(num) { console.log(num); });	
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).each(function (num) { console.log(num); });
+result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_(<{ [index: string]: number; }>{ 'one': 1, 'two': 2, 'three': 3 }).each(function (num) { console.log(num); });
 
-result = <number[]>_.forEachRight([1, 2, 3], function(num) { console.log(num); });
-result = <_.Dictionary<number>>_.forEachRight({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { console.log(num); });
+result = <number[]>_.forEachRight([1, 2, 3], function (num) { console.log(num); });
+result = <_.Dictionary<number>>_.forEachRight({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { console.log(num); });
 
-	result = <number[]>_.eachRight([1, 2, 3], function(num) { console.log(num); });
-	result = <_.Dictionary<number>>_.eachRight({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { console.log(num); });
+result = <number[]>_.eachRight([1, 2, 3], function (num) { console.log(num); });
+result = <_.Dictionary<number>>_.eachRight({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { console.log(num); });
 
-	result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).forEachRight(function(num) { console.log(num); });
-	result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_({ 'one': 1, 'two': 2, 'three': 3 }).forEachRight(function(num) { console.log(num); });
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).forEachRight(function (num) { console.log(num); });
+result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_(<{ [index: string]: number; }>{ 'one': 1, 'two': 2, 'three': 3 }).forEachRight(function (num) { console.log(num); });
 
-		result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).eachRight(function(num) { console.log(num); });
-		result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_({ 'one': 1, 'two': 2, 'three': 3 }).eachRight(function(num) { console.log(num); });
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).eachRight(function (num) { console.log(num); });
+result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_(<{ [index: string]: number; }>{ 'one': 1, 'two': 2, 'three': 3 }).eachRight(function (num) { console.log(num); });
 
-result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function(num) { return Math.floor(num); });
-result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function(num) { return this.floor(num); }, Math);
+result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function (num) { return Math.floor(num); });
+result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function (num) { return this.floor(num); }, Math);
 result = <_.Dictionary<string[]>>_.groupBy(['one', 'two', 'three'], 'length');
 
-	result = <_.LoDashObjectWrapper<_.Dictionary<number[]>>>_([4.2, 6.1, 6.4]).groupBy(function(num) { return Math.floor(num); });
-	result = <_.LoDashObjectWrapper<_.Dictionary<number[]>>>_([4.2, 6.1, 6.4]).groupBy(function(num) { return this.floor(num); }, Math);
-	result = <_.LoDashObjectWrapper<_.Dictionary<string[]>>>_(['one', 'two', 'three']).groupBy('length');
+result = <_.LoDashObjectWrapper<_.Dictionary<number[]>>>_([4.2, 6.1, 6.4]).groupBy(function (num) { return Math.floor(num); });
+result = <_.LoDashObjectWrapper<_.Dictionary<number[]>>>_([4.2, 6.1, 6.4]).groupBy(function (num) { return this.floor(num); }, Math);
+result = <_.LoDashObjectWrapper<_.Dictionary<string[]>>>_(['one', 'two', 'three']).groupBy('length');
 
 result = <_.Dictionary<IKey>>_.indexBy(keys, 'dir');
-result = <_.Dictionary<IKey>>_.indexBy(keys, function(key) { return String.fromCharCode(key.code); });
-result = <_.Dictionary<IKey>>_.indexBy(keys, function(key) { this.fromCharCode(key.code); }, String);
+result = <_.Dictionary<IKey>>_.indexBy(keys, function (key) { return String.fromCharCode(key.code); });
+result = <_.Dictionary<IKey>>_.indexBy(keys, function (key) { this.fromCharCode(key.code); }, String);
 
 result = <number[][]>_.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
 result = <string[][]>_.invoke([123, 456], String.prototype.split, '');
 
-result = <number[]>_.map([1, 2, 3], function(num) { return num * 3; });
-result = <number[]>_.map({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { return num * 3; });
+result = <number[]>_.map([1, 2, 3], function (num) { return num * 3; });
+result = <number[]>_.map({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { return num * 3; });
 result = <IStoogesAge[]>_.map(stoogesAges, 'name');
 
-	result = <number[]>_([1, 2, 3]).map(function(num) { return num * 3; }).value();
-	result = <number[]>_({ 'one': 1, 'two': 2, 'three': 3 }).map(function(num) { return num * 3; }).value();
-	result = <IStoogesAge[]>_(stoogesAges).map('name').value();
+result = <number[]>_([1, 2, 3]).map(function (num) { return num * 3; }).value();
+result = <number[]>_({ 'one': 1, 'two': 2, 'three': 3 }).map(function (num) { return num * 3; }).value();
+result = <IStoogesAge[]>_(stoogesAges).map('name').value();
 
-result = <number[]>_.collect([1, 2, 3], function(num) { return num * 3; });
-result = <number[]>_.collect({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { return num * 3; });
+result = <number[]>_.collect([1, 2, 3], function (num) { return num * 3; });
+result = <number[]>_.collect({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { return num * 3; });
 result = <IStoogesAge[]>_.collect(stoogesAges, 'name');
 
-	result = <number[]>_([1, 2, 3]).collect(function(num) { return num * 3; }).value();
-	result = <number[]>_({ 'one': 1, 'two': 2, 'three': 3 }).collect(function(num) { return num * 3; }).value();
-	result = <IStoogesAge[]>_(stoogesAges).collect('name').value();
+result = <number[]>_([1, 2, 3]).collect(function (num) { return num * 3; }).value();
+result = <number[]>_({ 'one': 1, 'two': 2, 'three': 3 }).collect(function (num) { return num * 3; }).value();
+result = <IStoogesAge[]>_(stoogesAges).collect('name').value();
 
 result = <number>_.max([4, 2, 8, 6]);
-result = <IStoogesAge>_.max(stoogesAges, function(stooge) { return stooge.age; });
+result = <IStoogesAge>_.max(stoogesAges, function (stooge) { return stooge.age; });
 result = <IStoogesAge>_.max(stoogesAges, 'age');
 
 result = <number>_.min([4, 2, 8, 6]);
-result = <IStoogesAge>_.min(stoogesAges, function(stooge) { return stooge.age; });
+result = <IStoogesAge>_.min(stoogesAges, function (stooge) { return stooge.age; });
 result = <IStoogesAge>_.min(stoogesAges, 'age');
 
 result = <string[]>_.pluck(stoogesAges, 'name');
 
-result = <number>_.reduce<number, number>([1, 2, 3], function(sum: number, num: number) {
-  return sum + num;
+result = <number>_.reduce<number, number>([1, 2, 3], function (sum: number, num: number) {
+	return sum + num;
 });
 interface ABC {
-  a: number;
-  b: number;
-  c: number;
+	a: number;
+	b: number;
+	c: number;
 }
-result = <ABC>_.reduce({ 'a': 1, 'b': 2, 'c': 3 }, function(r: ABC, num, key) {
-  r[key] = num * 3;
-  return r;
+result = <ABC>_.reduce({ 'a': 1, 'b': 2, 'c': 3 }, function (r: ABC, num, key) {
+	r[key] = num * 3;
+	return r;
 }, {});
 
-result = <number>_.foldl([1, 2, 3], function(sum, num) {
-  return sum + num;
+result = <number>_.foldl([1, 2, 3], function (sum, num) {
+	return sum + num;
 });
-result = <ABC>_.foldl({ 'a': 1, 'b': 2, 'c': 3 }, function(r: ABC, num, key) {
-  r[key] = num * 3;
-  return r;
+result = <ABC>_.foldl({ 'a': 1, 'b': 2, 'c': 3 }, function (r: ABC, num, key) {
+	r[key] = num * 3;
+	return r;
 }, {});
 
-result = <number>_.inject([1, 2, 3], function(sum, num) {
-  return sum + num;
+result = <number>_.inject([1, 2, 3], function (sum, num) {
+	return sum + num;
 });
-result = <ABC>_.inject({ 'a': 1, 'b': 2, 'c': 3 }, function(r: ABC, num, key) {
-  r[key] = num * 3;
-  return r;
+result = <ABC>_.inject({ 'a': 1, 'b': 2, 'c': 3 }, function (r: ABC, num, key) {
+	r[key] = num * 3;
+	return r;
 }, {});
 
-result = <number[]>_.reduceRight([[0, 1], [2, 3], [4, 5]], function(a: number[], b: number[]) { return a.concat(b); }, <number[]>[]);
-result = <number[]>_.foldr([[0, 1], [2, 3], [4, 5]], function(a: number[], b: number[]) { return a.concat(b); }, <number[]>[]);
+result = <number[]>_.reduceRight([[0, 1], [2, 3], [4, 5]], function (a: number[], b: number[]) { return a.concat(b); }, <number[]>[]);
+result = <number[]>_.foldr([[0, 1], [2, 3], [4, 5]], function (a: number[], b: number[]) { return a.concat(b); }, <number[]>[]);
 
-result = <number[]>_.reject([1, 2, 3, 4, 5, 6], function(num) { return num % 2 == 0; });
+result = <number[]>_.reject([1, 2, 3, 4, 5, 6], function (num) { return num % 2 == 0; });
 result = <IFoodCombined[]>_.reject(foodsCombined, 'organic');
 result = <IFoodCombined[]>_.reject(foodsCombined, { 'type': 'fruit' });
 
@@ -465,20 +468,20 @@ result = <number>_.size('curly');
 result = <boolean>_.some([null, 0, 'yes', false], Boolean);
 result = <boolean>_.some(foodsCombined, 'organic');
 result = <boolean>_.some(foodsCombined, { 'type': 'meat' });
-	
+
 result = <boolean>_.any([null, 0, 'yes', false], Boolean);
 result = <boolean>_.any(foodsCombined, 'organic');
 result = <boolean>_.any(foodsCombined, { 'type': 'meat' });
-	
-result = <number[]>_.sortBy([1, 2, 3], function(num) { return Math.sin(num); });
-result = <number[]>_.sortBy([1, 2, 3], function(num) { return this.sin(num); }, Math);
+
+result = <number[]>_.sortBy([1, 2, 3], function (num) { return Math.sin(num); });
+result = <number[]>_.sortBy([1, 2, 3], function (num) { return this.sin(num); }, Math);
 result = <string[]>_.sortBy(['banana', 'strawberry', 'apple'], 'length');
 
-(function(a: number, b: number, c: number, d: number){ return _.toArray(arguments).slice(1); })(1, 2, 3, 4);
+(function (a: number, b: number, c: number, d: number) { return _.toArray(arguments).slice(1); })(1, 2, 3, 4);
 
 result = <IStoogesCombined[]>_.where(stoogesCombined, { 'age': 40 });
 result = <IStoogesCombined[]>_.where(stoogesCombined, { 'quotes': ['Poifect!'] });
-	
+
 /*************
  * Functions *
  *************/
@@ -486,20 +489,20 @@ var saves = ['profile', 'settings'];
 var asyncSave = (obj: any) => obj.done();
 var done: Function;
 
-done = _.after(saves.length, function() {
-  console.log('Done saving!');
+done = _.after(saves.length, function () {
+	console.log('Done saving!');
 });
 
-_.forEach(saves, function(type) {
-  asyncSave({ 'type': type, 'complete': done });
+_.forEach(saves, function (type) {
+	asyncSave({ 'type': type, 'complete': done });
 });
 
-done = _(saves.length).after(function() {
-  console.log('Done saving!');
+done = _(saves.length).after(function () {
+	console.log('Done saving!');
 }).value();
 
-_.forEach(saves, function(type) {
-  asyncSave({ 'type': type, 'complete': done });
+_.forEach(saves, function (type) {
+	asyncSave({ 'type': type, 'complete': done });
 });
 
 var funcBind = function (greeting: string) { return greeting + ' ' + this.name };
@@ -510,8 +513,8 @@ var funcBind3: () => any = _(funcBind).bind({ 'name': 'moe' }, 'hi').value();
 funcBind3();
 
 var view = {
- 'label': 'docs',
- 'onClick': function() { console.log('clicked ' + this.label); }
+	'label': 'docs',
+	'onClick': function () { console.log('clicked ' + this.label); }
 };
 
 view = _.bindAll(view);
@@ -521,17 +524,17 @@ view = _(view).bindAll().value();
 jQuery('#docs').on('click', view.onClick);
 
 var objectBindKey = {
-  'name': 'moe',
-  'greet': function(greeting: string) {
-    return greeting + ' ' + this.name;
-  }
+	'name': 'moe',
+	'greet': function (greeting: string) {
+		return greeting + ' ' + this.name;
+	}
 };
 
 var funcBindKey: Function = _.bindKey(objectBindKey, 'greet', 'hi');
 funcBindKey();
 
-objectBindKey.greet = function(greeting) {
-  return greeting + ', ' + this.name + '!';
+objectBindKey.greet = function (greeting) {
+	return greeting + ', ' + this.name + '!';
 };
 
 funcBindKey();
@@ -540,78 +543,78 @@ funcBindKey = _(objectBindKey).bindKey('greet', 'hi').value();
 funcBindKey();
 
 var realNameMap = {
-  'curly': 'jerome'
+	'curly': 'jerome'
 };
 
-var format = function(name: string) {
-  name = realNameMap[name.toLowerCase()] || name;
-  return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+var format = function (name: string) {
+	name = realNameMap[name.toLowerCase()] || name;
+	return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
 };
 
-var greet = function(formatted: string) {
-  return 'Hiya ' + formatted + '!';
+var greet = function (formatted: string) {
+	return 'Hiya ' + formatted + '!';
 };
 
 result = <Function>_.compose(greet, format);
 result = <_.LoDashObjectWrapper<Function>>_(greet).compose(format);
 
-var createCallbackObj = { name: 'Joe' };
+var createCallbackObj: { [index: string]: string; } = { name: 'Joe' };
 result = <() => any>_.createCallback('name');
 result = <() => boolean>_.createCallback(createCallbackObj);
 result = <_.LoDashObjectWrapper<() => any>>_('name').createCallback();
 result = <_.LoDashObjectWrapper<() => boolean>>_(createCallbackObj).createCallback();
 
-result = <Function>_.curry(function(a, b, c) {
-  	console.log(a + b + c);
+result = <Function>_.curry(function (a, b, c) {
+	console.log(a + b + c);
 });
 
-result = <_.LoDashObjectWrapper<Function>>_(function(a, b, c) {
-  	console.log(a + b + c);
+result = <_.LoDashObjectWrapper<Function>>_(function (a, b, c) {
+	console.log(a + b + c);
 }).curry();
 
 declare var source: any;
-result = <Function>_.debounce(function() {}, 150);
+result = <Function>_.debounce(function () { }, 150);
 
-jQuery('#postbox').on('click', <Function>_.debounce(function() {}, 300, {
-  'leading': true,
-  'trailing': false
+jQuery('#postbox').on('click', <Function>_.debounce(function () { }, 300, {
+	'leading': true,
+	'trailing': false
 }));
 
-source.addEventListener('message', <Function>_.debounce(function() {}, 250, {
-  'maxWait': 1000
+source.addEventListener('message', <Function>_.debounce(function () { }, 250, {
+	'maxWait': 1000
 }), false);
 
-result = <_.LoDashObjectWrapper<Function>>_(function() {}).debounce(150);
+result = <_.LoDashObjectWrapper<Function>>_(function () { }).debounce(150);
 
-jQuery('#postbox').on('click', <_.LoDashObjectWrapper<Function>>_(function() {}).debounce(300, {
-  'leading': true,
-  'trailing': false
+jQuery('#postbox').on('click', <_.LoDashObjectWrapper<Function>>_(function () { }).debounce(300, {
+	'leading': true,
+	'trailing': false
 }));
 
-source.addEventListener('message', <_.LoDashObjectWrapper<Function>>_(function() {}).debounce(250, {
-  'maxWait': 1000
+source.addEventListener('message', <_.LoDashObjectWrapper<Function>>_(function () { }).debounce(250, {
+	'maxWait': 1000
 }), false);
 
 var returnedDebounce = _.throttle(function (a) { return a * 5; }, 5);
 returnedThrottled(4);
 
-result = <number>_.defer(function() { console.log('deferred'); });
-result = <_.LoDashWrapper<number>>_(function() { console.log('deferred'); }).defer();
+result = <number>_.defer(function () { console.log('deferred'); });
+result = <_.LoDashWrapper<number>>_(function () { console.log('deferred'); }).defer();
 
 var log = _.bind(console.log, console);
 result = <number>_.delay(log, 1000, 'logged later');
 result = <_.LoDashWrapper<number>>_(log).delay(1000, 'logged later');
 
-var fibonacci = <Function>_.memoize(function(n) {
-  return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
+var fibonacci = <Function>_.memoize(function (n) {
+	return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
 });
 
 var data = {
-  'moe': { 'name': 'moe', 'age': 40 },
-  'curly': { 'name': 'curly', 'age': 60 }
+	'moe': { 'name': 'moe', 'age': 40 },
+	'curly': { 'name': 'curly', 'age': 60 }
 };
 
-var stooge = _.memoize(function(name: string) { return data[name]; }, _.identity);
+var stooge = _.memoize(function (name: string) { return data[name]; }, _.identity);
 stooge('curly');
 
 stooge['cache']['curly'].name = 'jerome';
@@ -620,21 +623,21 @@ stooge('curly');
 var returnedMemoize = _.throttle(function (a) { return a * 5; }, 5);
 returnedMemoize(4);
 
-var initialize = _.once(function(){ });
+var initialize = _.once(function () { });
 initialize();
 initialize();''
 var returnedOnce = _.throttle(function (a) { return a * 5; }, 5);
 returnedOnce(4);
 
-var greetPartial = function(greeting: string, name: string) { return greeting + ' ' + name; };
+var greetPartial = function (greeting: string, name: string) { return greeting + ' ' + name; };
 var hi = <Function>_.partial(greetPartial, 'hi');
 hi('moe');
 
 var defaultsDeep = <Function>_.partialRight(_.merge, _.defaults);
 
 var optionsPartialRight = {
-  'variable': 'data',
-  'imports': { 'jq': $ }
+	'variable': 'data',
+	'imports': { 'jq': $ }
 };
 
 defaultsDeep(optionsPartialRight, _.templateSettings);
@@ -642,16 +645,16 @@ defaultsDeep(optionsPartialRight, _.templateSettings);
 var throttled = _.throttle(function () { }, 100);
 jQuery(window).on('scroll', throttled);
 
-jQuery('.interactive').on('click', _.throttle(function() { }, 300000, {
-  'trailing': false
+jQuery('.interactive').on('click', _.throttle(function () { }, 300000, {
+	'trailing': false
 }));
 
-var returnedThrottled = _.throttle(function (a) { return a*5; }, 5);
+var returnedThrottled = _.throttle(function (a) { return a * 5; }, 5);
 returnedThrottled(4);
 
-var helloWrap = function(name: string) { return 'hello ' + name; };
-var helloWrap2 = _.wrap(helloWrap, function(func) {
-  return 'before, ' + func('moe') + ', after';
+var helloWrap = function (name: string) { return 'hello ' + name; };
+var helloWrap2 = _.wrap(helloWrap, function (func) {
+	return 'before, ' + func('moe') + ', after';
 });
 helloWrap2();
 
@@ -659,93 +662,93 @@ helloWrap2();
 * Objects *
 ***********/
 interface NameAge {
-  name: string;
-  age: number;
+	name: string;
+	age: number;
 }
 result = <NameAge>_.assign({ 'name': 'moe' }, { 'age': 40 });
-result = <NameAge>_.assign({ 'name': 'moe' }, { 'age': 40 }, function(a, b) {
-  return typeof a == 'undefined' ? b : a;
+result = <NameAge>_.assign({ 'name': 'moe' }, { 'age': 40 }, function (a, b) {
+	return typeof a == 'undefined' ? b : a;
 });
 
 result = <_.LoDashObjectWrapper<NameAge>>_({ 'name': 'moe' }).assign({ 'age': 40 });
-result = <_.LoDashObjectWrapper<NameAge>>_({ 'name': 'moe' }).assign({ 'age': 40 }, function(a, b) {
-  return typeof a == 'undefined' ? b : a;
+result = <_.LoDashObjectWrapper<NameAge>>_({ 'name': 'moe' }).assign({ 'age': 40 }, function (a, b) {
+	return typeof a == 'undefined' ? b : a;
 });
 
 result = <NameAge>_.extend({ 'name': 'moe' }, { 'age': 40 });
-result = <NameAge>_.extend({ 'name': 'moe' }, { 'age': 40 }, function(a, b) {
-  return typeof a == 'undefined' ? b : a;
+result = <NameAge>_.extend({ 'name': 'moe' }, { 'age': 40 }, function (a, b) {
+	return typeof a == 'undefined' ? b : a;
 });
 
 result = <_.LoDashObjectWrapper<NameAge>>_({ 'name': 'moe' }).extend({ 'age': 40 });
-result = <_.LoDashObjectWrapper<NameAge>>_({ 'name': 'moe' }).extend({ 'age': 40 }, function(a, b) {
-  return typeof a == 'undefined' ? b : a;
+result = <_.LoDashObjectWrapper<NameAge>>_({ 'name': 'moe' }).extend({ 'age': 40 }, function (a, b) {
+	return typeof a == 'undefined' ? b : a;
 });
 
 result = <IStoogesAge[]>_.clone(stoogesAges);
 result = <IStoogesAge[]>_.clone(stoogesAges, true);
-result = <any>_.clone(stoogesAges, true, function(value) {
-    return _.isElement(value) ? value.cloneNode(false) : undefined;
+result = <any>_.clone(stoogesAges, true, function (value) {
+	return _.isElement(value) ? value.cloneNode(false) : undefined;
 });
 
 result = <IStoogesAge[]>_.cloneDeep(stoogesAges);
-result = <IStoogesAge[]>_.cloneDeep(stoogesAges, function(value) {
-    return _.isElement(value) ? value.cloneNode(false) : undefined;
+result = <IStoogesAge[]>_.cloneDeep(stoogesAges, function (value) {
+	return _.isElement(value) ? value.cloneNode(false) : undefined;
 });
 
 interface Food {
-  name: string;
-  type: string;
+	name: string;
+	type: string;
 }
 var foodDefaults = { 'name': 'apple' };
 result = <Food>_.defaults(foodDefaults, { 'name': 'banana', 'type': 'fruit' });
-  result = <_.LoDashObjectWrapper<Food>>_(foodDefaults).defaults({ 'name': 'banana', 'type': 'fruit' });
+result = <_.LoDashObjectWrapper<Food>>_(foodDefaults).defaults({ 'name': 'banana', 'type': 'fruit' });
 
-result = <string>_.findKey({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, function(num) {
-  return num % 2 == 0;
+result = <string>_.findKey({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, function (num) {
+	return num % 2 == 0;
 });
 
-result = <string>_.findLastKey({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, function(num) {
-  return num % 2 == 1;
+result = <string>_.findLastKey({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, function (num) {
+	return num % 2 == 1;
 });
 
-result = <Dog>_.forIn(new Dog('Dagny'), function(value, key) {
-  console.log(key);
+result = <Dog>_.forIn(new Dog('Dagny'), function (value, key) {
+	console.log(key);
 });
 
-result = <_.LoDashObjectWrapper<Dog>>_(new Dog('Dagny')).forIn(function(value, key) {
-  console.log(key);
+result = <_.LoDashObjectWrapper<Dog>>_(new Dog('Dagny')).forIn(function (value, key) {
+	console.log(key);
 });
 
-result = <Dog>_.forInRight(new Dog('Dagny'), function(value, key) {
-  console.log(key);
+result = <Dog>_.forInRight(new Dog('Dagny'), function (value, key) {
+	console.log(key);
 });
 
-result = <_.LoDashObjectWrapper<Dog>>_(new Dog('Dagny')).forInRight(function(value, key) {
-  console.log(key);
+result = <_.LoDashObjectWrapper<Dog>>_(new Dog('Dagny')).forInRight(function (value, key) {
+	console.log(key);
 });
 
 interface ZeroOne {
-  0: string;
-  1: string;
-  one: string;
+	0: string;
+	1: string;
+	one: string;
 }
 
-result = <ZeroOne>_.forOwn({ '0': 'zero', '1': 'one', 'length': 2 }, function(num, key) {
-  console.log(key);
+result = <ZeroOne>_.forOwn({ '0': 'zero', '1': 'one', 'length': 2 }, function (num, key) {
+	console.log(key);
 });
 
-	result = <_.LoDashObjectWrapper<ZeroOne>>_({ '0': 'zero', '1': 'one', 'length': 2 }).forOwn(function(num, key) {
-	  console.log(key);
-	});
-
-result = <any>_.forOwnRight({ '0': 'zero', '1': 'one', 'length': 2 }, function(num, key) {
-  console.log(key);
+result = <_.LoDashObjectWrapper<ZeroOne>>_({ '0': 'zero', '1': 'one', 'length': 2 }).forOwn(function (num, key) {
+	console.log(key);
 });
 
-	result = <_.LoDashObjectWrapper<ZeroOne>>_({ '0': 'zero', '1': 'one', 'length': 2 }).forOwnRight(function(num, key) {
-	  console.log(key);
-	});
+result = <any>_.forOwnRight({ '0': 'zero', '1': 'one', 'length': 2 }, function (num, key) {
+	console.log(key);
+});
+
+result = <_.LoDashObjectWrapper<ZeroOne>>_({ '0': 'zero', '1': 'one', 'length': 2 }).forOwnRight(function (num, key) {
+	console.log(key);
+});
 
 result = <string[]>_.functions(_);
 result = <string[]>_.methods(_);
@@ -756,12 +759,12 @@ result = <_.LoDashArrayWrapper<string>>_(_).methods();
 result = <boolean>_.has({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
 
 interface FirstSecond {
-  first: string;
-  second: string;
+	first: string;
+	second: string;
 }
 result = <FirstSecond>_.invert({ 'first': 'moe', 'second': 'larry' });
 
-(function(...args: any[]) { return <boolean>_.isArguments(arguments); })(1, 2, 3);
+(function (...args: any[]) { return <boolean>_.isArguments(arguments); })(1, 2, 3);
 
 (function () { return <boolean>_.isArray(arguments); })();
 result = <boolean>_.isArray([1, 2, 3]);
@@ -784,12 +787,12 @@ result = <boolean>_.isEqual(moe, copy);
 var words = ['hello', 'goodbye'];
 var otherWords = ['hi', 'goodbye'];
 
-result = <boolean>_.isEqual(words, otherWords, function(a, b) {
-  var reGreet = /^(?:hello|hi)$/i,
-      aGreet = _.isString(a) && reGreet.test(a),
-      bGreet = _.isString(b) && reGreet.test(b);
+result = <boolean>_.isEqual(words, otherWords, function (a, b) {
+	var reGreet = /^(?:hello|hi)$/i,
+		aGreet = _.isString(a) && reGreet.test(a),
+		bGreet = _.isString(b) && reGreet.test(b);
 
-  return (aGreet || bGreet) ? (aGreet == bGreet) : undefined;
+	return (aGreet || bGreet) ? (aGreet == bGreet) : undefined;
 });
 
 result = <boolean>_.isFinite(-101);
@@ -817,7 +820,7 @@ class Stooge {
 	constructor(
 		public name: string,
 		public age: number
-	) {}
+		) { }
 }
 
 result = <boolean>_.isPlainObject(new Stooge('moe', 40));
@@ -833,67 +836,67 @@ result = <boolean>_.isUndefined(void 0);
 result = <string[]>_.keys({ 'one': 1, 'two': 2, 'three': 3 });
 
 var mergeNames = {
-  'stooges': [
-    { 'name': 'moe' },
-    { 'name': 'larry' }
-  ]
+	'stooges': [
+		{ 'name': 'moe' },
+		{ 'name': 'larry' }
+	]
 };
 
 var mergeAges = {
-  'stooges': [
-    { 'age': 40 },
-    { 'age': 50 }
-  ]
+	'stooges': [
+		{ 'age': 40 },
+		{ 'age': 50 }
+	]
 };
 
 result = <NameAge>_.merge(mergeNames, mergeAges);
 
 var mergeFood = {
-  'fruits': ['apple'],
-  'vegetables': ['beet']
+	'fruits': ['apple'],
+	'vegetables': ['beet']
 };
 
 var mergeOtherFood = {
-  'fruits': ['banana'],
-  'vegetables': ['carrot']
+	'fruits': ['banana'],
+	'vegetables': ['carrot']
 };
 
 interface FruitVeg {
-  fruits: string[];
-  vegetables: string[]
+	fruits: string[];
+	vegetables: string[]
 };
 
-result = <FruitVeg[]>_.merge(mergeFood, mergeOtherFood, function(a, b) {
-  return _.isArray(a) ? a.concat(b) : undefined;
+result = <FruitVeg[]>_.merge(mergeFood, mergeOtherFood, function (a, b) {
+	return _.isArray(a) ? a.concat(b) : undefined;
 });
 
 interface HasName {
-  name: string;
+	name: string;
 }
 result = <HasName>_.omit({ 'name': 'moe', 'age': 40 }, 'age');
 result = <HasName>_.omit({ 'name': 'moe', 'age': 40 }, ['age']);
-result = <HasName>_.omit({ 'name': 'moe', 'age': 40 }, function(value) {
-  return typeof value == 'number';
+result = <HasName>_.omit({ 'name': 'moe', 'age': 40 }, function (value) {
+	return typeof value == 'number';
 });
 
 result = <any[][]>_.pairs({ 'moe': 30, 'larry': 40 });
 
 result = <HasName>_.pick({ 'name': 'moe', '_userid': 'moe1' }, 'name');
 result = <HasName>_.pick({ 'name': 'moe', '_userid': 'moe1' }, ['name']);
-result = <HasName>_.pick({ 'name': 'moe', '_userid': 'moe1' }, function(value, key) {
-  return key.charAt(0) != '_';
+result = <HasName>_.pick({ 'name': 'moe', '_userid': 'moe1' }, function (value, key) {
+	return key.charAt(0) != '_';
 });
 
-result = <number[]>_.transform([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], function(r, num) {
-  num *= num;
-  if (num % 2) {
-    return r.push(num) < 3;
-  }
+result = <number[]>_.transform([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], function (r, num) {
+	num *= num;
+	if (num % 2) {
+		return r.push(num) < 3;
+	}
 });
 // → [1, 9, 25]
 
-result = <{a:number;b:number;c:number;}>_.transform({ 'a': 1, 'b': 2, 'c': 3 }, function(r, num, key) {
-  r[key] = num * 3;
+result = <{ a: number; b: number; c: number; }>_.transform({ 'a': 1, 'b': 2, 'c': 3 }, function (r, num, key) {
+	r[key] = num * 3;
 });
 
 result = <number[]>_.values({ 'one': 1, 'two': 2, 'three': 3 });
@@ -907,9 +910,9 @@ result = <string>_.escape('Moe, Larry & Curly');
 result = <{ name: string }>_.identity({ 'name': 'moe' });
 
 _.mixin({
-  'capitalize': function(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  }
+	'capitalize': function (string) {
+		return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+	}
 });
 
 var lodash = <typeof _>_.noConflict();
@@ -923,10 +926,10 @@ result = <number>_.random(1.2, 5.2);
 result = <number>_.random(0, 5, true);
 
 var object = {
-  'cheese': 'crumpets',
-  'stuff': function() {
-    return 'nonsense';
-  }
+	'cheese': 'crumpets',
+	'stuff': function () {
+		return 'nonsense';
+	}
 };
 
 result = <string>_.result(object, 'cheese');
@@ -960,10 +963,10 @@ class Mage {
 	}
 }
 
-var mage = new Mage(); 
+var mage = new Mage();
 result = _.times(3, <() => number>_.partial(_.random, 1, 6));
-result = _.times(3, function(n: number) { mage.castSpell(n); });
-result = _.times(3, function(n: number) { this.cast(n); }, mage);
+result = _.times(3, function (n: number) { mage.castSpell(n); });
+result = _.times(3, function (n: number) { this.cast(n); }, mage);
 
 result = <string>_.unescape('Moe, Larry &amp; Curly');
 
