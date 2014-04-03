@@ -104,9 +104,8 @@ function elementTransformShouldReturnTransformObject() {
     /* first try to cast it */
     var result:svgjs.Element[] = group.children()
     /* then check values if they are correct */
-    if (!(result[0] instanceof svgjs.Element)) { throw "Element.children() is not working" }
-    if (!(result[1] instanceof svgjs.Element)) { throw "Element.children() is not working" }
-    if (!(result[2] instanceof svgjs.Element)) { throw "Element.children() is not working" }
-    if (!(result[3] instanceof svgjs.Element)) { throw "Element.children() is not working" }
-    if (!(result[4] instanceof svgjs.Element)) { throw "Element.children() is not working" }
+    for (var i = 0; i < 5; i++) {
+        var elem: svgjs.Element = result[i];
+        if (elem == null) { throw "Element.children() is not working" }
+	}
 }
