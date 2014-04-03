@@ -45,8 +45,8 @@ interface RestangularCustom {
     customGET(path, params?, headers?): ng.IPromise<any>;
     customGETLIST(path, params?, headers?): ng.IPromise<any>;
     customDELETE(path, params?, headers?): ng.IPromise<any>;
-    customPOST(path, params?, headers?, elem?): ng.IPromise<any>;
-    customPUT(path, params?, headers?, elem?): ng.IPromise<any>;
+    customPOST(params, path, headers?, elem?): ng.IPromise<any>;
+    customPUT(params, path, headers?, elem?): ng.IPromise<any>;
     customOperation(operation, path, params?, headers?, elem?): ng.IPromise<any>;
     addRestangularMethod(name, operation, path?, params?, headers?, elem?): ng.IPromise<any>;
 }
