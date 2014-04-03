@@ -5,7 +5,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path="rx.d.ts" />
-///<reference path="rx.binding-lite.ts" />
+///<reference path="rx.binding-lite.d.ts" />
 
 declare module Rx {
 	export interface Observable<T> {
