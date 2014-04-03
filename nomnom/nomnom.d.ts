@@ -3,7 +3,10 @@
 // Definitions by: Paul Vick <https://github.com/panopticoncentral>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module "nomnom"
+// NOTE: Extra identifier's been published is a work-around for the TypeScript 1.0.0.
+// original is here -> https://github.com/borisyankov/DefinitelyTyped/commit/9aef1ad84dc006e3d25f5e57709198e33996ba84#diff-0d78c90325d4bfb40327dcc36dcd939a
+
+declare module NomnomInternal
 {
     /**
      * The command-line parser.
@@ -137,7 +140,7 @@ declare module "nomnom"
     /**
      * The command-line parser.
      */
-    interface Parser
+    export interface Parser
     {
         /**
          * Returns the parser.
@@ -220,6 +223,9 @@ declare module "nomnom"
          */
         parse(argv?: string[]): any;
     }
+}
 
-    export = Parser;
+declare var _nomnom: NomnomInternal.Parser;
+declare module "nomnom" {
+    export = _nomnom;
 }
