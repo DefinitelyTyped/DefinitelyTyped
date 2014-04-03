@@ -20,7 +20,7 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "test": "npm run all",
+    "test": "npm run changes",
     "changes": "node ./_infrastructure/tests/runner.js --tsc-version 1.0.0 --test-changes",
     "all": "node ./_infrastructure/tests/runner.js --tsc-version 1.0.0",
     "dry": "node ./_infrastructure/tests/runner.js --tsc-version 1.0.0 --skip-tests --test-changes",
