@@ -4,4 +4,4 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path="rx.d.ts" />
-///<reference path="rx.backpressure-lite.ts" />
+///<reference path="rx.backpressure-lite.d.ts" />
