@@ -20,10 +20,11 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "test": "node ./_infrastructure/tests/runner.js --tsc-version 0.9.7 --test-changes",
-    "all": "node ./_infrastructure/tests/runner.js --tsc-version 0.9.7",
-    "dry": "node ./_infrastructure/tests/runner.js --tsc-version 0.9.7 --skip-tests --test-changes",
-    "list": "node ./_infrastructure/tests/runner.js --tsc-version 0.9.7 --skip-tests --print-files --print-refmap",
+    "test": "npm run changes",
+    "changes": "node ./_infrastructure/tests/runner.js --tsc-version 1.0.0 --test-changes",
+    "all": "node ./_infrastructure/tests/runner.js --tsc-version 1.0.0",
+    "dry": "node ./_infrastructure/tests/runner.js --tsc-version 1.0.0 --skip-tests --test-changes",
+    "list": "node ./_infrastructure/tests/runner.js --tsc-version 1.0.0 --skip-tests --print-files --print-refmap",
     "help": "node ./_infrastructure/tests/runner.js -h"
   },
   "dependencies": {
