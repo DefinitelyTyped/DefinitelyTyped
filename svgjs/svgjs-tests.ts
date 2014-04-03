@@ -93,7 +93,7 @@ function elementTransformShouldReturnTransformObject() {
     var div = document.createElement('div')
     var draw = SVG(div)
 
-    /* draw a rectangle scale, rotate and skew it */
+    /* draw some rectangle inside a group */
     var group = draw.group()
     group.rect(10,10)
     group.rect(20,20)
@@ -107,5 +107,5 @@ function elementTransformShouldReturnTransformObject() {
     for (var i = 0; i < 5; i++) {
         var elem: svgjs.Element = result[i];
         if (elem == null) { throw "Element.children() is not working" }
-	}
+    }
 }
