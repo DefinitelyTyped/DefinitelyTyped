@@ -26,6 +26,7 @@ declare module ng.ui {
 
     interface IStateProvider extends IServiceProvider {
         state(name:string, config:IState): IStateProvider;
+        state(config:IState): IStateProvider;
         decorator(name?: string, decorator?: (state: IState, parent: Function) => any): any;
     }
 
