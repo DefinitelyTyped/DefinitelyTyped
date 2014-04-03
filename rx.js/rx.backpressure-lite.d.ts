@@ -1,6 +1,8 @@
 ﻿// This file contains common part of defintions for rx.backpressure.d.ts and rx.lite.d.ts
 // Do not include the file separately.
 
+///<reference path="rx-lite.d.ts"/>
+
 declare module Rx {
 	export interface Observable<T> {
 		/**

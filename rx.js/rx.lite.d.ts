@@ -4,11 +4,11 @@
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-///<reference path="rx-lite.ts"/>
-///<reference path="rx.async-lite.ts" />
-///<reference path="rx.binding-lite.ts" />
-///<reference path="rx.time-lite.ts" />
-///<reference path="rx.backpressure-lite.ts" />
+///<reference path="rx-lite.d.ts"/>
+///<reference path="rx.async-lite.d.ts" />
+///<reference path="rx.binding-lite.d.ts" />
+///<reference path="rx.time-lite.d.ts" />
+///<reference path="rx.backpressure-lite.d.ts" />
 
 declare module Rx {
 	export class Scheduler implements IScheduler {
