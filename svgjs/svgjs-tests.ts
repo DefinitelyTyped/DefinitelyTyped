@@ -86,3 +86,27 @@ function elementTransformShouldReturnTransformObject() {
     if (trans.skewX != 10) { throw "skewX value is not correct" }
     if (trans.skewY != 25) { throw "skewY value is not correct" }
 }
+
+//Test if svgjs.Element.children() correctly return an svgjs.Element[]
+function elementTransformShouldReturnTransformObject() {
+    /* create an svg drawing */
+    var div = document.createElement('div')
+    var draw = SVG(div)
+
+    /* draw a rectangle scale, rotate and skew it */
+    var group = draw.group()
+    group.rect(10,10)
+    group.rect(20,20)
+    group.rect(30,30)
+    group.rect(40,40)
+    group.rect(50,50)
+    
+    /* first try to cast it */
+    var result:svgjs.Element[] = group.children()
+    /* then check values if they are correct */
+    if (!(result[0] instanceof svgjs.Element)) { throw "Element.children() is not working" }
+    if (!(result[1] instanceof svgjs.Element)) { throw "Element.children() is not working" }
+    if (!(result[2] instanceof svgjs.Element)) { throw "Element.children() is not working" }
+    if (!(result[3] instanceof svgjs.Element)) { throw "Element.children() is not working" }
+    if (!(result[4] instanceof svgjs.Element)) { throw "Element.children() is not working" }
+}
