@@ -3,7 +3,7 @@
 // Definitions by: Paul Vick <https://github.com/panopticoncentral>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module "nomnom"
+declare module nomnom_internal
 {
     /**
      * The command-line parser.
@@ -137,7 +137,7 @@ declare module "nomnom"
     /**
      * The command-line parser.
      */
-    interface Parser
+    export interface Parser
     {
         /**
          * Returns the parser.
@@ -220,6 +220,9 @@ declare module "nomnom"
          */
         parse(argv?: string[]): any;
     }
+}
 
-    export = Parser;
+declare var nomnom: nomnom_internal.Parser;
+declare module "nomnom" {
+    export = nomnom;
 }
