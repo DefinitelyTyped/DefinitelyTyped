@@ -3475,14 +3475,10 @@ declare module _ {
 		* @param thisArg `this` object in `iterator`, optional.
 		* @return Returns a new object with values of the results of each callback execution.
 		*/
-		mapValues<Mapped, T>(
-			object: T,
-			callback: ObjectIterator<any, any>,
-			thisArg?: any): Mapped;
-
-		mapValues<Mapped, T>(
-			object: T,
-			pluckValue: string): Mapped;
+		mapValues<T, TResult>(obj: Dictionary<T>, callback: ObjectIterator<T, TResult>, thisArg?: any): Dictionary<TResult>;
+		mapValues<T>(obj: Dictionary<T>, where: Dictionary<T>): Dictionary<boolean>;
+		mapValues<T, TMapped>(obj: T, pluck: string): TMapped;
+		mapValues<T>(obj: T, callback: ObjectIterator<any, any>, thisArg?: any): T;
 	}
 
 	//_.merge
