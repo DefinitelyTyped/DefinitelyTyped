@@ -11,7 +11,6 @@ declare class ZeroClipboard {
     setText(newText: string): void;
     title(newTitle: string): void;
     setSize(width: number, height: number): void;
-    forceHandCursor(enabled: boolean): void;
     version: string;
     moviePath: string;
     trustedDomains: any;
