@@ -88,7 +88,7 @@ function elementTransformShouldReturnTransformObject() {
 }
 
 //Test if svgjs.Element.children() correctly return an svgjs.Element[]
-function elementTransformShouldReturnTransformObject() {
+function elementChildrenShouldReturnElementArray() {
     /* create an svg drawing */
     var div = document.createElement('div')
     var draw = SVG(div)
