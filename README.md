@@ -172,6 +172,7 @@ List of Definitions
 * [JSDeferred](http://cho45.stfuawsc.com/jsdeferred/) (by [Daisuke Mino](https://github.com/minodisk))
 * [JSONEditorOnline](https://github.com/josdejong/jsoneditoronline) (by [Vincent Bortone](https://github.com/vbortone/))
 * [JSON-Pointer](https://www.npmjs.org/package/json-pointer) (by [Bart van der Schoor](https://github.com/Bartvds))
+* [JsRender](http://www.jsviews.com/#jsrender) (by [Kensuke MATSUZAKI](https://github.com/zakki))
 * [jStorage](http://www.jstorage.info/) (by [Danil Flores](https://github.com/dflor003/))
 * [JWPlayer](http://developer.longtailvideo.com/trac/) (by [Martin Duparc](https://github.com/martinduparc/))
 * [KeyboardJS](https://github.com/RobertWHurst/KeyboardJS) (by [Vincent Bortone](https://github.com/vbortone/))
