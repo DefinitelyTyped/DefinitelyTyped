@@ -12,6 +12,17 @@
 
 /// <reference path="../node/node.d.ts" />
 
+
+declare module Express {
+
+    // These open interfaces may be extended in an application-specific manner via declaration merging.
+    // See for example passport.d.ts (https://github.com/borisyankov/DefinitelyTyped/blob/master/passport/passport.d.ts)
+    export interface Request { }
+    export interface Response { }
+    export interface Application { }
+}
+
+
 declare module "express" {
     import http = require('http');
 
@@ -229,7 +240,7 @@ declare module "express" {
             count: number;
         }
 
-        interface Request {
+        interface Request extends Express.Request {
 
             session: Session;
 
@@ -545,7 +556,7 @@ declare module "express" {
             (body: any): Response;
         }
 
-        interface Response extends http.ServerResponse {
+        interface Response extends http.ServerResponse, Express.Response {
             /**
              * Set status `code`.
              *
@@ -893,7 +904,7 @@ declare module "express" {
             (req: Request, res: Response, next: Function): any;
         }
 
-        interface Application extends IRouter<Application> {
+        interface Application extends IRouter<Application>, Express.Application {
             /**
              * Initialize the server.
              *
