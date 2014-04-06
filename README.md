@@ -53,7 +53,7 @@ List of Definitions
 * [CasperJS](http://casperjs.org) (by [Jed Hunsaker](https://github.com/jedhunsaker))
 * [Cheerio](https://github.com/MatthewMueller/cheerio) (by [Bret Little](https://github.com/blittle))
 * [Chosen](http://harvesthq.github.com/chosen/) (by [Boris Yankov](https://github.com/borisyankov))
-* [Chrome](http://developer.chrome.com/extensions/) (by [Matthew Kimber](https://github.com/matthewkimber))
+* [Chrome](http://developer.chrome.com/extensions/) (by [Matthew Kimber](https://github.com/matthewkimber) and [otiai10](https://github.com/otiai10))
 * [Chrome App](http://developer.chrome.com/apps/) (by [Adam Lay](https://github.com/AdamLay))
 * [CKEditor](https://github.com/ckeditor/ckeditor-dev) (by [Ondrej Sevcik](https://github.com/ondrejsevcik))
 * [CodeMirror](http://codemirror.net) (by [François de Campredon](https://github.com/fdecampredon))
