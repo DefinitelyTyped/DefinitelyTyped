@@ -6,6 +6,6 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module 'buffer-equal' {
-	function bufferEqual(actual:NodeBuffer, expected:NodeBuffer): boolean;
+	function bufferEqual(actual:Buffer, expected:Buffer): boolean;
 	export = bufferEqual;
 }
