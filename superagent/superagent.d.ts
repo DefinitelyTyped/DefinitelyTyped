@@ -43,7 +43,7 @@ declare module "superagent" {
     send(data: string): Request;
     send(data: Object): Request;
     write(data: string, encoding: string): boolean;
-    write(data: NodeBuffer, encoding: string): boolean;
+    write(data: Buffer, encoding: string): boolean;
     pipe(stream: WritableStream, options?: Object): WritableStream;
     buffer(val: boolean): Request;
     timeout(ms: number): Request;
