@@ -1,6 +1,6 @@
 // Type definitions for Chrome extension development.
 // Project: http://developer.chrome.com/extensions/
-// Definitions by: Matthew Kimber <https://github.com/matthewkimber>
+// Definitions by: Matthew Kimber <https://github.com/matthewkimber> and otiai10 <https://github.com/otiai10>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ////////////////////
