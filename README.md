@@ -153,6 +153,7 @@ List of Definitions
 * [jQuery.noty](http://needim.github.io/noty/) (by [Aaron King](https://github.com/kingdango/))
 * [jQuery.pickadate](https://github.com/amsul/pickadate.js) (by [Theodore Brown](https://github.com/theodorejb))
 * [jQuery.payment](http://needim.github.io/noty/) (by [Eric J. Smith](https://github.com/ejsmith/))
+* [jQuery.pnotify](http://sciactive.github.io/pnotify/ (by [David Sichau](https://github.com/DavidSichau/))
 * [jQuery.scrollTo](https://github.com/flesler/jquery.scrollTo) (by [Neil Stalker](https://github.com/nestalk/))
 * [jQuery.simplePagination](https://github.com/flaviusmatis/simplePagination.js) (by [Natan Vivo](https://github.com/nvivo/))
 * [jquery.superLink](http://james.padolsey.com/demos/plugins/jQuery/superLink/superlink.jquery.js) (by [Blake Niemyjski](https://github.com/niemyjski))
