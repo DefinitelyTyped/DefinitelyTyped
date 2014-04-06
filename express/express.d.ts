@@ -258,7 +258,7 @@ declare module "express" {
 
             header(name: string): string;
 
-            headers: string[];
+            headers: { [key: string]: string; };
 
             /**
              * Check if the given `type(s)` is acceptable, returning
