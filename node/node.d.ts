@@ -4,7 +4,7 @@
 
 /************************************************
 *                                               *
-*               Node.js v0.10.1 API              *
+*               Node.js v0.10.1 API             *
 *                                               *
 ************************************************/
 
@@ -256,7 +256,7 @@ declare module "http" {
     import net = require("net");
     import stream = require("stream");
 
-    export interface Server extends NodeEventEmitter {
+    export interface Server extends events.EventEmitter {
         listen(port: number, hostname?: string, backlog?: number, callback?: Function): Server;
         listen(path: string, callback?: Function): Server;
         listen(handle: any, listeningListener?: Function): Server;
@@ -264,7 +264,7 @@ declare module "http" {
         address(): { port: number; family: string; address: string; };
         maxHeadersCount: number;
     }
-    export interface ServerRequest extends NodeEventEmitter, ReadableStream {
+    export interface ServerRequest extends events.EventEmitter, ReadableStream {
         method: string;
         url: string;
         headers: any;
@@ -275,7 +275,7 @@ declare module "http" {
         resume(): void;
         connection: net.Socket;
     }
-    export interface ServerResponse extends NodeEventEmitter, WritableStream {
+    export interface ServerResponse extends events.EventEmitter, WritableStream {
         // Extended base methods
         write(buffer: Buffer): boolean;
         write(buffer: Buffer, cb?: Function): boolean;
@@ -301,7 +301,7 @@ declare module "http" {
         end(str: string, encoding?: string, cb?: Function): void;
         end(data?: any, encoding?: string): void;
     }
-    export interface ClientRequest extends NodeEventEmitter, WritableStream {
+    export interface ClientRequest extends events.EventEmitter, WritableStream {
         // Extended base methods
         write(buffer: Buffer): boolean;
         write(buffer: Buffer, cb?: Function): boolean;
@@ -322,7 +322,7 @@ declare module "http" {
         end(str: string, encoding?: string, cb?: Function): void;
         end(data?: any, encoding?: string): void;
     }
-    export interface ClientResponse extends NodeEventEmitter, ReadableStream {
+    export interface ClientResponse extends events.EventEmitter, ReadableStream {
         statusCode: number;
         httpVersion: string;
         headers: any;
@@ -507,8 +507,8 @@ declare module "https" {
     };
     export interface Server extends tls.Server { }
     export function createServer(options: ServerOptions, requestListener?: Function): Server;
-    export function request(options: RequestOptions, callback?: (res: NodeEventEmitter) =>void ): http.ClientRequest;
-    export function get(options: RequestOptions, callback?: (res: NodeEventEmitter) =>void ): http.ClientRequest;
+    export function request(options: RequestOptions, callback?: (res: events.EventEmitter) =>void ): http.ClientRequest;
+    export function get(options: RequestOptions, callback?: (res: events.EventEmitter) =>void ): http.ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -540,14 +540,14 @@ declare module "repl" {
         ignoreUndefined?: boolean;
         writer?: Function;
     }
-    export function start(options: ReplOptions): NodeEventEmitter;
+    export function start(options: ReplOptions): events.EventEmitter;
 }
 
 declare module "readline" {
     import events = require("events");
     import stream = require("stream");
 
-    export interface ReadLine extends NodeEventEmitter {
+    export interface ReadLine extends events.EventEmitter {
         setPrompt(prompt: string, length: number): void;
         prompt(preserveCursor?: boolean): void;
         question(query: string, callback: Function): void;
@@ -582,7 +582,7 @@ declare module "child_process" {
     import events = require("events");
     import stream = require("stream");
 
-    export interface ChildProcess extends NodeEventEmitter {
+    export interface ChildProcess extends events.EventEmitter {
         stdin: WritableStream;
         stdout: ReadableStream;
         stderr: ReadableStream;
@@ -743,7 +743,7 @@ declare module "dgram" {
 
     export function createSocket(type: string, callback?: Function): Socket;
 
-    interface Socket extends NodeEventEmitter {
+    interface Socket extends events.EventEmitter {
         send(buf: Buffer, offset: number, length: number, port: number, address: string, callback?: Function): void;
         bind(port: number, address?: string): void;
         close(): void;
@@ -758,6 +758,7 @@ declare module "dgram" {
 
 declare module "fs" {
     import stream = require("stream");
+    import events = require("events");
 
     interface Stats {
         isFile(): boolean;
@@ -782,7 +783,7 @@ declare module "fs" {
         ctime: Date;
     }
 
-    interface FSWatcher extends NodeEventEmitter {
+    interface FSWatcher extends events.EventEmitter {
         close(): void;
     }
 
@@ -1255,8 +1256,8 @@ declare module "domain" {
 
     export class Domain extends events.EventEmitter {
         run(fn: Function): void;
-        add(emitter: NodeEventEmitter): void;
-        remove(emitter: NodeEventEmitter): void;
+        add(emitter: events.EventEmitter): void;
+        remove(emitter: events.EventEmitter): void;
         bind(cb: (err: Error, data: any) => any): any;
         intercept(cb: (data: any) => any): any;
         dispose(): void;
