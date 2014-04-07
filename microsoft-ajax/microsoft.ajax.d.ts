@@ -1,4 +1,4 @@
-// Type definitions for microsoft asp.net ajax client side library
+// Type definitions for Microsoft ASP.NET Ajax client side library
 // Project: http://msdn.microsoft.com/en-us/library/ee341002(v=vs.100).aspx
 // Definitions by: Patrick Magee <https://github.com/pjmagee/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -18,15 +18,29 @@
 * Array Type Extensions
 * @see {@link http://msdn.microsoft.com/en-us/library/bb383786(v=vs.100).aspx}
 */
-interface Array<T> {
+interface ArrayStatic {
+
+    new (arrayLength?: number): any[];
+    new <T>(arrayLength: number): T[];
+    new <T>(...items: T[]): T[];
+    (arrayLength?: number): any[];
+    <T>(arrayLength: number): T[];
+    <T>(...items: T[]): T[];
+    isArray(arg: any): boolean;
+    prototype: Array<any>;
+
     /**
-    * Adds an element to the end of an Array object.
+    * Adds an element to the end of an Array object. This function is static and is invoked without creating an instance of the object.
+    * @param array
+    *       The array to add the item to.
+    * @param item
+    *       
     */
-    add(element: T): void;
+    add(array: any[], element: any): void;
     /**
     * Copies all the elements of the specified array to the end of an Array object.
     */
-    addRange(array: T, items: T): void;
+    addRange(array: any, items: any): void;
     /**
     * Removes all elements from an Array object.
     */
@@ -34,31 +48,31 @@ interface Array<T> {
     /**
     * Creates a shallow copy of an Array object.
     */
-    clone(): Array<T>;
+    clone(): any[];
     /**
     * Determines whether an element is in an Array object.
     */
-    contains(element: T): boolean;
+    contains(element: any): boolean;
     /**
     * Removes the first element from an Array object.
     */
-    dequeue(): T;
+    dequeue(): any;
     /**
     * Adds an element to the end of an Array object. Use the add function instead of the Array.enqueue function.
     */
-    enqueue(element: T): void;
+    enqueue(element: any): void;
     /**
     * Performs a specified action on each element of an Array object.
     */
-    forEach(array: T[], method: Function, instance: T[]): void;
+    forEach(array: any[], method: Function, instance: any[]): void;
     /**
     * Searches for the specified element of an Array object and returns its index.
     */
-    indexOf(array: T[], item: T, startIndex?: number): number;
+    indexOf(array: any[], item: any, startIndex?: number): number;
     /**
     * Inserts a value at the specified location in an Array object.
     */
-    insert(array: T[], index: number, item: T);
+    insert(array: any[], index: number, item: any);
     /**
     * Creates an Array object from a string representation.
     */
@@ -66,11 +80,11 @@ interface Array<T> {
     /**
     * Removes the first occurrence of an element in an Array object.
     */
-    remove(array: T[], item: T): boolean;
+    remove(array: any[], item: any): boolean;
     /**
     * Removes an element at the specified location in an Array object.
     */
-    removeAt(array: T[], index: number): void;
+    removeAt(array: any[], index: number): void;
 }
 
 /**
@@ -356,20 +370,20 @@ declare class Type {
     *           The type to test.
     * @return true if the type is an enumeration; otherwise, false.
     */
-    static isEnum(type: any): boolean;    
+    static isEnum(type: any): boolean;
     /**
     * Get a value that indicates whether the specified type is an integer of flags.
     * @param
     *      The type to test.
     * @return true if the type is an integer of flags; otherwise, false.  
     */
-    static isFlags(type: any): boolean;    
+    static isFlags(type: any): boolean;
     /**
     * Determines whether an instance implements an interface.
     * @param typeInstanceVar
     *           The instance on which the interface is tested.   
     * @return 
-    */ 
+    */
     isImplementedBy(typeInstanceVar: any): boolean;
     /**
     * Returns a value that indicates whether an object is an instance of a specified class or of one of its derived classes.
@@ -440,7 +454,7 @@ declare class Type {
     * The resolveInheritance method copies members from the base class to the prototype associated with the derived class, and continues this process up the inheritance chain. 
     * If the derived type overrides a base type member, the base type member is not copied to the derived type's prototype. 
     * After invoking a derived type's resolveInheritance method, you can examine the members of the derived type to discover all members, which includes inherited members.  
-    */ 
+    */
     resolveInheritance(): void;
 }
 
@@ -450,6 +464,8 @@ declare class Type {
 
 /**
 * Creates and initializes a component of the specified type. This method is static and can be called without creating an instance of the class.
+* @see {@link http://msdn.microsoft.com/en-us/library/bb397487(v=vs.100).aspx}
+*
 * @param type
 *           The type of the component to create.
 * @param properties
@@ -460,17 +476,63 @@ declare class Type {
 *           (Optional) A JSON object that describes the properties that are references to other components.
 * @param element
 *           (Optional) The DOM element that the component should be attached to.
-*
 * @returns A new instance of a component that uses the specified parameters.
 */
 declare function $create(type: Type, properties?: any, events?: any, references?: any, element?: HTMLElement): Sys.Component;
 
 /**
 * Returns the specified Component object. This member is static and can be invoked without creating an instance of the class.
+* @see {@link http://msdn.microsoft.com/en-us/library/bb397441(v=vs.100).aspx}
+* @param id A string that contains the ID of the component to find.
+* @param parent (Optional) The component or element that contains the component to find.
 * @return A Component object that contains the component requested by ID, if found; otherwise, null.
 */
 declare function $find(id: string, parent?: Sys.Component): Sys.Component;
 
+/*
+* Provides a shortcut to the addHandler method of the Sys.UI.DomEvent class. This member is static and can be invoked without creating an instance of the class.
+* @see {@link http://msdn.microsoft.com/en-us/library/bb311019(v=vs.100).aspx}
+* @param element The DOM element that exposes the event.
+* @param eventName The name of the event.
+* @param handler The event handler to add.
+* @param autoRemove (Optional) A boolean value that determines whether the handler should be removed automatically when the element is disposed.
+*/
+declare function $addHandler(element: Element, eventName: string, handler: Function, autoRemove?: boolean);
+
+/**
+* Provides a shortcut to the addHandlers method of the Sys.UI.DomEvent class. This member is static and can be invoked without creating an instance of the class.
+* @see {@link http://msdn.microsoft.com/en-us/library/bb384012(v=vs.100).aspx}
+* @param element The DOM element that exposes the event.
+* @param events A dictionary of events and their handlers.
+* @param handlerOwner (Optional) The object instance that is the context for the delegates that should be created from the handlers.
+* @param autoRemove (Optional) A boolean value that determines whether the handler should be removed automatically when the element is disposed.
+*/
+declare function $addHandlers(element: Element, events: any, handlerOwner?: any, autoRemove?: boolean);
+
+/**
+* Provides a shortcut to the clearHandlers method of the Sys.UI.DomEvent class. This member is static and can be invoked without creating an instance of the class.
+* For details about the method that this shortcut represents, see Sys.UI.DomEvent clearHandlers Method.
+* @see {@link http://msdn.microsoft.com/en-us/library/bb310959(v=vs.100).aspx}
+* @param The DOM element that exposes the events.
+*/
+declare function $clearHandlers(element: Element);
+
+/**
+* Provides a shortcut to the getElementById method of the Sys.UI.DomElement class. This member is static and can be invoked without creating an instance of the class.
+* @see {@link http://msdn.microsoft.com/en-us/library/bb397717(v=vs.100).aspx}
+* @param id The ID of the DOM element to find.
+* @param element The parent element to search. The default is the document element.
+*/
+declare function $get(id: string, element?: Element);
+
+/**
+* Provides a shortcut to the removeHandler method of the Sys.UI.DomEvent class. This member is static and can be invoked without creating an instance of the class.
+* @see {@link http://msdn.microsoft.com/en-us/library/bb397510(v=vs.100).aspx}
+* @param element The DOM element that exposes the event.
+* @param eventName The name of the DOM event.
+* @param handler The event handler to remove.
+*/
+declare function $removeHandler(element, eventName, handler);
 
 //#endregion
 
@@ -514,9 +576,9 @@ declare module Sys {
         * Raised after all scripts have been loaded and after the objects in the application have been created and initialized.
         */
         add_load(handler: Function): void;
-         /**
-        * Raised after all scripts have been loaded and after the objects in the application have been created and initialized.
-        */
+        /**
+       * Raised after all scripts have been loaded and after the objects in the application have been created and initialized.
+       */
         remove_load(handler: Function): void;
         /**
         * Occurs when the user clicks the browser's Back or Forward button.
@@ -742,7 +804,7 @@ declare module Sys {
         * @param propertyName
         *               The name of the property that changed.
         */
-        raisePropertyChanged(propertyName: string): void; 
+        raisePropertyChanged(propertyName: string): void;
         /**
         * Called by the endUpdate method as a placeholder for additional logic in derived classes.  
         * Override the updated method in a derived class to add custom post-update logic.
@@ -763,7 +825,7 @@ declare module Sys {
     /**
     * Represents a culture definition that can be applied to objects that accept a culture-related setting.
     * @see {@link http://msdn.microsoft.com/en-us/library/bb384004(v=vs.100).aspx}
-    */ 
+    */
     class CultureInfo {
 
         //#region Constructors
@@ -864,13 +926,13 @@ declare module Sys {
 
         //#endregion
     }
-    
+
     /**
     * Describes a change in a collection.
     * @see {@link http://msdn.microsoft.com/en-us/library/dd393798(v=vs.100).aspx}
     */
     class CollectionChange {
-        
+
         //#region Constructors
 
         /**
@@ -937,7 +999,7 @@ declare module Sys {
         *           The array to which an item will be added.
         * @param item
         *           The item to add.
-        */ 
+        */
         static add(target: any[], item): void;
 
         /**
@@ -965,9 +1027,9 @@ declare module Sys {
         * Adds items to the collection in an observable manner.
         * @param target The array to which items will be added.
         * @param items The array of items to add.
-        */ 
+        */
         static addRange(target: any[], items: any[]): void;
-        
+
         /**
         * Begins the process of updating the target object.
         * @param target The object to update.
@@ -998,7 +1060,7 @@ declare module Sys {
         * Indicates that the target is being updated.
         * @param target The target object to update.
         * @return true if given target argument is currently updating; otherwise false.
-        */ 
+        */
         static isUpdating(target: any): boolean;
 
         /**
@@ -1013,7 +1075,7 @@ declare module Sys {
         * Raises the collectionChanged event.
         * @param target The collection to which an event is raised.
         * @param changes A Sys.CollectionChange object that contains the list of changes that were performed on the collection since the last event.
-        */ 
+        */
         static raiseCollectionChanged(target: any[], changes: Sys.CollectionChange): void;
 
         /**
@@ -1021,9 +1083,9 @@ declare module Sys {
         * @param target The target object.
         * @param eventName A string that contains the event name.
         * @param eventArgs A Sys.EventArgs object used to pass event argument information.
-        */ 
+        */
         static raiseEvent(target: any, eventName: string, eventArgs: Sys.EventArgs): void;
-        
+
         /**
         * Raises a propertyChanged notification event.  
         * @param target The object to which an event is raised.
@@ -1045,7 +1107,7 @@ declare module Sys {
         * @param index A number that represents the index of the item to remove.
         */
         static removeAt(target: any[], index: number): void;
-        
+
         /**
         * Removes the collectionChanged event handler from the target.
         * @param target The array from which the collectionChanged event handler is removed.
@@ -1084,19 +1146,19 @@ declare module Sys {
 
         /**
         * @return "Actual value was {0}." 
-        */ 
+        */
         actualValue: string;
         /**
         * @return "The application failed to load within the specified time out period."
-        */ 
+        */
         appLoadTimedout: string;
         /**
         * @return "Value does not fall within the expected range."
-        */ 
+        */
         argument: string;
         /**
         * @return "Value cannot be null."
-        */ 
+        */
         argumentNull: string;
         /**
         * @return "Specified argument was out of the range of valid values.
@@ -1104,27 +1166,27 @@ declare module Sys {
         argumentOutOfRange: string;
         /**
         * @return "Object cannot be converted to the required type."
-        */ 
+        */
         argumentType: string;
         /**
         * @return "Object of type '{0}' cannot be converted to type '{1}'."
-        */ 
+        */
         argumentTypeWithTypes: string;
         /**
         * @return "Value cannot be undefined."
-        */ 
-        argumentUndefined: string; 
+        */
+        argumentUndefined: string;
         /**
         * @return "Assertion Failed: {0}"
-        */ 
+        */
         assertFailed: string;
         /**
         * @return "Assertion Failed: {0}\r\nat {1}"
-        */ 
+        */
         assetFailedCaller: string;
         /**
         * @return "Base URL does not contain ://."
-        */ 
+        */
         badBaseUrl1: string;
         /**
         * @return "Base URL does not contain another /."
@@ -1268,7 +1330,7 @@ declare module Sys {
         * Determines whether the Sys.StringBuilder object has content.
         * Use the isEmpty method to determine whether a StringBuilder instance has any content. If you append an empty string, null, or an undefined value to an empty StringBuilder instance, the instance remains empty and unchanged.
         * @return true if the StringBuilder instance contains no elements; otherwise, false.
-        */ 
+        */
         isEmpty(): boolean;
 
         /**
@@ -1284,7 +1346,7 @@ declare module Sys {
         //#endregion
     }
 
-     //#endregion
+    //#endregion
 
     //#region Enumerations
 
@@ -1315,7 +1377,7 @@ declare module Sys {
     * Provides a common interface for all components that can contain other components.
     */
     interface IContainer {
-        
+
         //#region Methods
 
         /**
@@ -1353,7 +1415,7 @@ declare module Sys {
     * Provides a common interface for the application-defined tasks of closing, releasing, or resetting resources held by instances of a registered Microsoft Ajax Library class.
     * Implement the IDisposable interface to provide a common interface for closing or releasing resources held by instances of your registered Microsoft Ajax Library class. 
     * You register an interface by when you register the class by calling the Type.registerClass method. You specify IDisposable in the interfaceTypes parameter when you call Type.registerClass.
-    */ 
+    */
     interface IDisposable {
         /**
         * Releases resources held by an object that implements the Sys.IDisposable interface.
@@ -1397,7 +1459,7 @@ declare module Sys {
         *       The name of the event handler for the propertyChanged event.
         */
         remove_propertyChanged(handler: Function): void;
-    }    
+    }
 
     //#endregion
 
@@ -1469,7 +1531,7 @@ declare module Sys {
 
         /**
         * Initializes a new instance of the CancelEventArgs class.
-        */ 
+        */
         constructor();
 
         //#endregion
@@ -1552,7 +1614,7 @@ declare module Sys {
     * @see {@link http://msdn.microsoft.com/en-us/library/bb310957(v=vs.100).aspx}
     */
     class PropertyChangedEventArgs extends EventArgs {
-           
+
         //#region Constructors
 
         /**
@@ -1610,7 +1672,7 @@ declare module Sys {
     */
     class ArgumentUndefinedException {
 
-    }    
+    }
     /**
     * 
     */
@@ -1643,7 +1705,7 @@ declare module Sys {
     }
 
     //#endregion
-    
+
     //#region Sys.Net Namespace
 
     /**
@@ -1678,7 +1740,7 @@ declare module Sys {
             /**
             * Removes the event handler added by the add_completed method.
             * @see {@link http://msdn.microsoft.com/en-us/library/bb397454(v=vs.100).aspx}
-            */ 
+            */
             remove_completed(handler: (reference: any, eventArgs: Sys.EventArgs) => void): void;
 
             /**
@@ -1697,7 +1759,7 @@ declare module Sys {
             * @param eventArgs
             *           The value to pass to the Web request completed event handler.
             */
-            completed(eventArgs: Sys.EventArgs): void;            
+            completed(eventArgs: Sys.EventArgs): void;
 
             //#endregion
 
@@ -1739,7 +1801,7 @@ declare module Sys {
             * If a request finished successfully and with valid response data, this method returns all the response headers.  
             * @return All the response headers
             * @see {@link http://msdn.microsoft.com/en-us/library/bb310805(v=vs.100).aspx}
-            */ 
+            */
             getAllResponseHeaders(): string;
             /**
             * Gets the value of the specified response header.
@@ -1842,7 +1904,7 @@ declare module Sys {
             //#endregion
 
             //#region Methods 
-            
+
             /**
             * Converts an ECMAScript (JavaScript) object graph into a JSON string. This member is static and can be invoked without creating an instance of the class.
             * @static
@@ -1891,7 +1953,7 @@ declare module Sys {
 
             /**
             * Initializes a new instance of the Sys.Services.AuthenticationService class.  
-            */ 
+            */
             constructor();
 
             //#endregion
@@ -1900,7 +1962,7 @@ declare module Sys {
 
             /**
             * Specifies the path of the default authentication service.
-            */ 
+            */
             DefaultWebServicePath: string;
 
             //#endregion
@@ -1944,7 +2006,7 @@ declare module Sys {
             *           The function that is called if the logout has failed. The default is null.
             * @param userContext
             *            User context information that you are passing to the callback functions.
-            */ 
+            */
             logout(redirectUrl: string, logoutCompletedCallback: Function, failedCallback: Function, userContext: any): void;
 
             //#endregion
@@ -1988,7 +2050,7 @@ declare module Sys {
             *       A reference to the user context for the service.  
             */
             defaultUserContext(value: Object): void;
-            
+
             /**
             * Gets the authentication state of the current user.  
             * The value of this property is set by the ScriptManager object during a page request.
@@ -2036,7 +2098,7 @@ declare module Sys {
         * The ProfileGroup class defines the type of an element as a group in the properties collection of the Sys.Services.ProfileService class. 
         * Profile group properties are accessed as subproperties of the related group, as shown in the following ECMAScript (JavaScript) example:
         * @see {@link http://msdn.microsoft.com/en-us/library/bb310801(v=vs.100).aspx}
-        */ 
+        */
         class ProfileGroup {
 
             /**
@@ -2059,7 +2121,7 @@ declare module Sys {
         /**
         * Provides the client proxy class for the profile service.
         * @see {@link http://msdn.microsoft.com/en-us/library/bb383800(v=vs.100).aspx}
-        */ 
+        */
         class ProfileService {
 
         }
@@ -2082,7 +2144,7 @@ declare module Sys {
         class Behavior extends Sys.Component {
 
             //#region Methods
-            
+
             /**
             * Gets a Sys.UI.Behavior instance with the specified name property from the specified HTML Document Object Model (DOM) element. This member a static member and can be invoked without creating an instance of the class.
             * @return The specified Behavior object, if found; otherwise, null.
@@ -2106,7 +2168,7 @@ declare module Sys {
             * The dispose method releases all resources from the Sys.UI.Behavior object, unbinds it from its associated HTML Document Object Model (DOM) element, and unregisters it from the application.
             */
             dispose(): void;
-            
+
             //#endregion
 
             //#region Properties
@@ -2151,7 +2213,7 @@ declare module Sys {
         * @see {@link http://msdn.microsoft.com/en-us/library/bb397698(v=vs.100).aspx}
         */
         class Bounds {
-            
+
             //#region Constructors
 
             /**
@@ -2194,43 +2256,43 @@ declare module Sys {
         * Provides the base class for all all ASP.NET AJAX client controls.
         */
         class Control extends Sys.Component {
-            
+
         }
         /**
         * Defines static methods and properties that provide helper APIs for manipulating and inspecting DOM elements.
         */
         class DomElement {
-            
+
         }
         /**
         * Provides cross-browser access to DOM event properties and helper APIs that are used to attach handlers to DOM element events.
         */
         class DomEvent {
-            
+
         }
         /**
         * Describes key codes.
         */
         enum Key {
-            
+
         }
         /**
         * Describes mouse button locations.
         */
         enum MouseButton {
-            
+
         }
         /**
         * Creates an object that contains a set of integer coordinates that represent a position.
         */
         class Point {
-            
+
         }
         /**
         * Describes the layout of a DOM element in the page when the element's visible property is set to false.
         */
         enum VisibilityMode {
-            
+
         }
     }
 
@@ -2247,7 +2309,7 @@ declare module Sys {
         /**
         * Used by the beginRequest event of the PageRequestManager class to pass argument information to event handlers.
         * @see {@link http://msdn.microsoft.com/en-us/library/bb384003(v=vs.100).aspx}
-        */ 
+        */
         class BeginRequestEventArgs extends EventArgs {
 
             //#region Constructors
@@ -2293,7 +2355,7 @@ declare module Sys {
         /**
         * Used by the endRequest event of the PageRequestManager class to pass argument information to event handlers.
         * @see {@link http://msdn.microsoft.com/en-us/library/bb397499.aspx}
-        */ 
+        */
         class EndRequestEventArgs extends EventArgs {
 
             //#region Constructors
@@ -2354,9 +2416,9 @@ declare module Sys {
         * Used by the initializeRequest event of the PageRequestManager class to pass argument information to event handlers.
         * This class contains private members that support the client-script infrastructure and are not intended to be used directly from your code. Names of private members begin with an underscore ( _ ).
         * @see {@link http://msdn.microsoft.com/en-us/library/bb311030(v=vs.100).aspx}
-        */ 
+        */
         class InitializeRequestEventArgs extends EventArgs {
-                    
+
             //#region Constructors
 
             /**
@@ -2400,7 +2462,7 @@ declare module Sys {
         /**
         * Used by the pageLoaded event of the PageRequestManager class to send event data that represents the UpdatePanel controls that were updated and created in the most recent postback.
         * @see {@link http://msdn.microsoft.com/en-us/library/bb397476(v=vs.100).aspx}
-        */ 
+        */
         class PageLoadedEventArgs extends EventArgs {
 
             //#region Constructors
@@ -2444,7 +2506,7 @@ declare module Sys {
         /**
         * Used by the pageLoading event of the PageRequestManager class to send event data that represents the UpdatePanel controls that are being updated and deleted as a result of the most recent postback.
         * @see {@link http://msdn.microsoft.com/en-us/library/bb310960(v=vs.100).aspx}
-        */ 
+        */
         class PageLoadingEventArgs extends EventArgs {
 
             //#region Constructors
@@ -2490,7 +2552,7 @@ declare module Sys {
 
         /**
         * Manages client partial-page updates of server UpdatePanel controls. In addition, defines properties, events, and methods that can be used to customize a Web page with client script.
-        */ 
+        */
         class PageRequestManager extends EventArgs {
 
             //#region Constructors 
@@ -2520,7 +2582,7 @@ declare module Sys {
             * Raised after an asynchronous postback is finished and control has been returned to the browser.
             * @param endRequestHandler
             *               The name of the handler method that will be called.
-            */ 
+            */
             add_endRequest(endRequestHandler: (sender, args) => void): void;
             /**
             * Raised after an asynchronous postback is finished and control has been returned to the browser.
@@ -2628,7 +2690,7 @@ declare module Sys {
         * To customize error handling and to display more information about the server error, handle the AsyncPostBackError event and use the AsyncPostBackErrorMessage and AllowCustomErrorsRedirect properties. 
         * For an example of how to provide custom error handling during partial-page updates, see Customizing Error Handling for ASP.NET UpdatePanel Controls.
         * @see {@link http://msdn.microsoft.com/en-us/library/bb397466(v=vs.100).aspx}        *
-        */ 
+        */
         class PageRequestManagerServerErrorException {
 
         }
