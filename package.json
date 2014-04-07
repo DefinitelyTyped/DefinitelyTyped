@@ -25,7 +25,8 @@
     "all": "node ./_infrastructure/tests/runner.js --tsc-version 1.0.0",
     "dry": "node ./_infrastructure/tests/runner.js --tsc-version 1.0.0 --skip-tests --test-changes",
     "list": "node ./_infrastructure/tests/runner.js --tsc-version 1.0.0 --skip-tests --print-files --print-refmap",
-    "help": "node ./_infrastructure/tests/runner.js -h"
+    "help": "node ./_infrastructure/tests/runner.js -h",
+    "tsc_runner": "node ./_infrastructure/tests/typescript/1.0.0/tsc ./_infrastructure/tests/runner.ts --target ES5 --out ./_infrastructure/tests/runner.js --module commonjs --sourcemap"
   },
   "dependencies": {
     "source-map-support": "~0.2.5",
