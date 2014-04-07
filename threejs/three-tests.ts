@@ -13896,51 +13896,6 @@ declare var ballPosition: THREE.Vector3;
             new THREE.MeshBasicMaterial( { color: 0xffffff, wireframe: true, transparent: true, opacity: 0.1 } )
         ];
 
-
-        // tetrahedron
-
-        var points = [
-            new THREE.Vector3( 100, 0, 0 ),
-            new THREE.Vector3( 0, 100, 0 ),
-            new THREE.Vector3( 0, 0, 100 ),
-            new THREE.Vector3( 0, 0, 0 )
-        ];
-
-        object = THREE.SceneUtils.createMultiMaterialObject( new THREE.ConvexGeometry( points ), materials );
-        object.position.set( 0, 0, 0 );
-        scene.add( object );
-
-        // cube
-
-        var points = [
-            new THREE.Vector3( 50, 50, 50 ),
-            new THREE.Vector3( 50, 50, -50 ),
-            new THREE.Vector3( -50, 50, -50 ),
-            new THREE.Vector3( -50, 50, 50 ),
-            new THREE.Vector3( 50, -50, 50 ),
-            new THREE.Vector3( 50, -50, -50 ),
-            new THREE.Vector3( -50, -50, -50 ),
-            new THREE.Vector3( -50, -50, 50 ),
-        ];
-
-        object = THREE.SceneUtils.createMultiMaterialObject( new THREE.ConvexGeometry( points ), materials );
-        object.position.set( -200, 0, -200 );
-        scene.add( object );
-
-        // random convex
-
-        points = [];
-        for ( var i = 0; i < 30; i ++ ) {
-
-            points.push( randomPointInSphere( 50 ) );
-
-        }
-
-        object = THREE.SceneUtils.createMultiMaterialObject( new THREE.ConvexGeometry( points ), materials );
-        object.position.set( -200, 0, 200 );
-        scene.add( object );
-
-
         object = new THREE.AxisHelper( 50 );
         object.position.set( 200, 0, -200 );
         scene.add( object );

@@ -5,10 +5,13 @@
 
 
 declare function describe(description: string, specDefinitions: () => void): void;
+declare function ddescribe(description: string, specDefinitions: () => void): void;
 declare function xdescribe(description: string, specDefinitions: () => void): void;
 
 declare function it(expectation: string, assertion?: () => void): void;
 declare function it(expectation: string, assertion?: (done: () => void) => void): void;
+declare function iit(expectation: string, assertion?: () => void): void;
+declare function iit(expectation: string, assertion?: (done: () => void) => void): void;
 declare function xit(expectation: string, assertion?: () => void): void;
 declare function xit(expectation: string, assertion?: (done: () => void) => void): void;
 
@@ -95,11 +98,13 @@ declare module jasmine {
         addReporter(reporter: Reporter): void;
         execute(): void;
         describe(description: string, specDefinitions: () => void): Suite;
+        ddescribe(description: string, specDefinitions: () => void): Suite;
         beforeEach(beforeEachFunction: () => void): void;
         currentRunner(): Runner;
         afterEach(afterEachFunction: () => void): void;
         xdescribe(desc: string, specDefinitions: () => void): XSuite;
         it(description: string, func: () => void): Spec;
+        iit(description: string, func: () => void): Spec;
         xit(desc: string, func: () => void): XSpec;
         compareRegExps_(a: RegExp, b: RegExp, mismatchKeys: string[], mismatchValues: string[]): boolean;
         compareObjects_(a: any, b: any, mismatchKeys: string[], mismatchValues: string[]): boolean;
@@ -349,7 +354,7 @@ declare module jasmine {
 
         identity: string;
         and: SpyAnd;
-        calls: any[];
+        calls: any;
         mostRecentCall: { args: any[]; };
         argsForCall: any[];
         wasCalled: boolean;
@@ -362,7 +367,7 @@ declare module jasmine {
         /** By chaining the spy with and.returnValue, all calls to the function will return a specific value. */
         returnValue(val: any): void;
         /** By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied function. */
-        callFake(fn: () => any): void;
+        callFake(fn: Function): void;
         /** By chaining the spy with and.throwError, all calls to the spy will throw the specified value. */
         throwError(msg: string): void;
         /** When a calling strategy is used for a spy, the original stubbing behavior can be returned at any time with and.stub. */

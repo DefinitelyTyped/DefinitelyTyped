@@ -8,11 +8,11 @@
 interface DatepickerOptions {
     format?: string;
     weekStart?: number;
-    startDate?: Date;
-    endDate?: Date;
+    startDate?: any;
+    endDate?: any;
     autoclose?: boolean;
     startView?: number;
-    todayBtn?: boolean;
+    todayBtn?: any;
     todayHighlight?: boolean;
     keyboardNavigation?: boolean;
     language?: string;

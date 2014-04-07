@@ -7,8 +7,9 @@
 
 /**
  * Complets an asynchronous task, allowing Jake's execution to proceed to the next task
+ * @param value A value to return from the task.
  */
-declare function complete(): void;
+declare function complete(value?: any): void;
 
 /**
  * Creates a description for a Jake Task (or FileTask, DirectoryTask). When invoked, the description that iscreated will be associated with whatever Task is created next.
@@ -21,7 +22,6 @@ declare function desc(description:string): void;
  * @param name The name of the DiretoryTask
  */
 declare function directory(name:string): jake.DirectoryTask;
-
 
 /**
  * Causes Jake execution to abort with an error. Allows passing an optional error code, which will be used to set the exit-code of exiting process.
@@ -56,6 +56,15 @@ declare function namespace(name:string, scope:()=>void): void;
 declare function task(name:string, prereqs?:string[], action?:(...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
 declare function task(name:string, action?:(...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
 declare function task(name:string, opts?:jake.TaskOptions, action?:(...params:any[])=>any): jake.Task;
+
+/**
+ * @param name The name of the NpmPublishTask
+ * @param packageFiles The files to include in the package
+ * @param definition A function that creates the package definition
+ */
+declare function npmPublishTask(name:string, packageFiles:string[]): jake.NpmPublishTask;
+declare function npmPublishTask(name:string, definition?:()=>void): jake.NpmPublishTask;
+
 
 declare module jake{
 
@@ -368,6 +377,7 @@ declare module jake{
 
 	export class NpmPublishTask{
 		constructor(name:string, packageFiles:string[]);
+		constructor(name:string, definition?:()=>void);
 	}
 
 	export function addListener(event: string, listener: Function): NodeEventEmitter;

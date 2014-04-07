@@ -208,7 +208,7 @@ declare module "websocket" {
         requestedExtensions: any[];
 
         cookies: ICookie[];
-        socket: net.NodeSocket;
+        socket: net.Socket;
 
         /**
          * List of strings that indicate the subprotocols the client would like to speak.
@@ -220,7 +220,7 @@ declare module "websocket" {
         requestedProtocols: string[];
         protocolFullCaseMap: {[key: string]: string};
 
-        constructor(socket: net.NodeSocket, httpRequest: http.ClientRequest, config: IServerConfig);
+        constructor(socket: net.Socket, httpRequest: http.ClientRequest, config: IServerConfig);
 
         /**
          * After inspecting the `request` properties, call this function on the
@@ -328,7 +328,7 @@ declare module "websocket" {
         protocol: string;
 
         config: IConfig;
-        socket: net.NodeSocket;
+        socket: net.Socket;
         maskOutgoingPackets: boolean;
         maskBytes: NodeBuffer;
         frameHeader: NodeBuffer;
@@ -361,7 +361,7 @@ declare module "websocket" {
         /** Whether or not the connection is still connected. Read-only */
         connected: boolean;
 
-        constructor(socket: net.NodeSocket, extensions: IExtension[], protocol: string,
+        constructor(socket: net.Socket, extensions: IExtension[], protocol: string,
                     maskOutgoingPackets: boolean, config: IConfig);
 
         /**
@@ -540,7 +540,7 @@ declare module "websocket" {
         origin: string;
         url: url.Url;
         secure: boolean;
-        socket: net.NodeSocket;
+        socket: net.Socket;
         response: http.ClientResponse;
 
         constructor(clientConfig?: IClientConfig);

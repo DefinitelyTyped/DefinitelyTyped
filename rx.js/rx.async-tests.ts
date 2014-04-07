@@ -66,7 +66,11 @@ module Rx.Tests.Async {
 			new<T>(resolver: (resolvePromise: (value: T)=> void, rejectPromise: (reason: any)=> void)=> void): Rx.IPromise<T>;
 		};
 
+		Rx.config.Promise = promiseImpl;
+
 		var p: IPromise<number> = obsNum.toPromise(promiseImpl);
+
+		p = obsNum.toPromise();
 
 		p = p.then(x=> x);
 		p = p.then(x=> p);
@@ -76,5 +80,9 @@ module Rx.Tests.Async {
 		var ps: IPromise<string> = p.then(undefined, reason=> "error");
 		ps = p.then(x=> "");
 		ps = p.then(x=> ps);
+	}
+
+	function startAsync() {
+		var o: Rx.Observable<string> = Rx.Observable.startAsync(() => <Rx.IPromise<string>>null);
 	}
 }

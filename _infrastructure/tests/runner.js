@@ -850,7 +850,7 @@ var DT;
 
     var Promise = require('bluebird');
 
-    var endDts = /\w\.ts$/i;
+    var endDts = /\w\.d\.ts$/i;
 
     /////////////////////////////////
     // .d.ts syntax inspection
@@ -1035,9 +1035,6 @@ var DT;
 
             // add a closure to queue
             this.queue.push(function () {
-                // when activate, add test to active list
-                _this.active.push(test);
-
                 // run it
                 var p = test.run();
                 p.then(defer.resolve.bind(defer), defer.reject.bind(defer));
@@ -1048,6 +1045,9 @@ var DT;
                     }
                     _this.step();
                 });
+
+                // return it
+                return test;
             });
             this.step();
 
@@ -1056,13 +1056,9 @@ var DT;
         };
 
         TestQueue.prototype.step = function () {
-            var _this = this;
-            // setTimeout to make it flush
-            setTimeout(function () {
-                while (_this.queue.length > 0 && _this.active.length < _this.concurrent) {
-                    _this.queue.pop().call(null);
-                }
-            }, 1);
+            while (this.queue.length > 0 && this.active.length < this.concurrent) {
+                this.active.push(this.queue.pop().call(null));
+            }
         };
         return TestQueue;
     })();
@@ -1294,13 +1290,21 @@ var DT;
 
     if (argv.help) {
         optimist.showHelp();
+        var pkg = require('../../package.json');
+        console.log('Scripts:');
+        console.log('');
+        Lazy(pkg.scripts).keys().each(function (key) {
+            console.log('   $ npm run ' + key);
+        });
         process.exit(0);
     }
 
+    var testFull = process.env['TRAVIS_BRANCH'] ? /\w\/full$/.test(process.env['TRAVIS_BRANCH']) : false;
+
     new TestRunner(dtPath, {
-        concurrent: argv['single-thread'] ? 1 : Math.max(cpuCores, 2),
+        concurrent: argv['single-thread'] ? 1 : Math.max(Math.min(24, cpuCores), 2),
         tscVersion: argv['tsc-version'],
-        testChanges: argv['test-changes'],
+        testChanges: testFull ? false : argv['test-changes'],
         skipTests: argv['skip-tests'],
         printFiles: argv['print-files'],
         printRefMap: argv['print-refmap'],
