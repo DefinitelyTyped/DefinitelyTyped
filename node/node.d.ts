@@ -55,6 +55,7 @@ declare var SlowBuffer: {
     byteLength(string: string, encoding?: string): number;
     concat(list: Buffer[], totalLength?: number): Buffer;
 };
+
 declare var Buffer: {
     new (str: string, encoding?: string): Buffer;
     new (size: number): Buffer;
@@ -89,20 +90,20 @@ interface NodeEventEmitter {
     emit(event: string, ...args: any[]): boolean;
 }
 
-interface ReadableStream extends NodeEventEmitter {
+interface NodeReadableStream extends NodeEventEmitter {
     readable: boolean;
     read(size?: number): any;
     setEncoding(encoding: string): void;
     pause(): void;
     resume(): void;
-    pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
-    unpipe<T extends WritableStream>(destination?: T): void;
+    pipe<T extends NodeWritableStream>(destination: T, options?: { end?: boolean; }): T;
+    unpipe<T extends NodeWritableStream>(destination?: T): void;
     unshift(chunk: string): void;
     unshift(chunk: Buffer): void;
-    wrap(oldStream: ReadableStream): ReadableStream;
+    wrap(oldStream: NodeReadableStream): NodeReadableStream;
 }
 
-interface WritableStream extends NodeEventEmitter {
+interface NodeWritableStream extends NodeEventEmitter {
     writable: boolean;
     write(buffer: Buffer, cb?: Function): boolean;
     write(str: string, cb?: Function): boolean;
@@ -113,12 +114,12 @@ interface WritableStream extends NodeEventEmitter {
     end(str: string, encoding?: string, cb?: Function): void;
 }
 
-interface ReadWriteStream extends ReadableStream, WritableStream { }
+interface NodeReadWriteStream extends NodeReadableStream, NodeWritableStream {}
 
 interface NodeProcess extends NodeEventEmitter {
-    stdout: WritableStream;
-    stderr: WritableStream;
-    stdin: ReadableStream;
+    stdout: NodeWritableStream;
+    stderr: NodeWritableStream;
+    stdin: NodeReadableStream;
     argv: string[];
     execPath: string;
     abort(): void;
@@ -264,7 +265,7 @@ declare module "http" {
         address(): { port: number; family: string; address: string; };
         maxHeadersCount: number;
     }
-    export interface ServerRequest extends events.EventEmitter, ReadableStream {
+    export interface ServerRequest extends events.EventEmitter, stream.Readable {
         method: string;
         url: string;
         headers: any;
@@ -275,7 +276,7 @@ declare module "http" {
         resume(): void;
         connection: net.Socket;
     }
-    export interface ServerResponse extends events.EventEmitter, WritableStream {
+    export interface ServerResponse extends events.EventEmitter, stream.Writable {
         // Extended base methods
         write(buffer: Buffer): boolean;
         write(buffer: Buffer, cb?: Function): boolean;
@@ -301,7 +302,7 @@ declare module "http" {
         end(str: string, encoding?: string, cb?: Function): void;
         end(data?: any, encoding?: string): void;
     }
-    export interface ClientRequest extends events.EventEmitter, WritableStream {
+    export interface ClientRequest extends events.EventEmitter, stream.Writable {
         // Extended base methods
         write(buffer: Buffer): boolean;
         write(buffer: Buffer, cb?: Function): boolean;
@@ -322,7 +323,7 @@ declare module "http" {
         end(str: string, encoding?: string, cb?: Function): void;
         end(data?: any, encoding?: string): void;
     }
-    export interface ClientResponse extends events.EventEmitter, ReadableStream {
+    export interface ClientResponse extends events.EventEmitter, stream.Readable {
         statusCode: number;
         httpVersion: string;
         headers: any;
@@ -385,13 +386,13 @@ declare module "zlib" {
     import stream = require("stream");
     export interface ZlibOptions { chunkSize?: number; windowBits?: number; level?: number; memLevel?: number; strategy?: number; dictionary?: any; }
 
-    export interface Gzip extends ReadWriteStream { }
-    export interface Gunzip extends ReadWriteStream { }
-    export interface Deflate extends ReadWriteStream { }
-    export interface Inflate extends ReadWriteStream { }
-    export interface DeflateRaw extends ReadWriteStream { }
-    export interface InflateRaw extends ReadWriteStream { }
-    export interface Unzip extends ReadWriteStream { }
+    export interface Gzip extends stream.Transform { }
+    export interface Gunzip extends stream.Transform { }
+    export interface Deflate extends stream.Transform { }
+    export interface Inflate extends stream.Transform { }
+    export interface DeflateRaw extends stream.Transform { }
+    export interface InflateRaw extends stream.Transform { }
+    export interface Unzip extends stream.Transform { }
 
     export function createGzip(options?: ZlibOptions): Gzip;
     export function createGunzip(options?: ZlibOptions): Gunzip;
@@ -531,8 +532,8 @@ declare module "repl" {
 
     export interface ReplOptions {
         prompt?: string;
-        input?: ReadableStream;
-        output?: WritableStream;
+        input?: NodeReadableStream;
+        output?: NodeWritableStream;
         terminal?: boolean;
         eval?: Function;
         useColors?: boolean;
@@ -557,8 +558,8 @@ declare module "readline" {
         write(data: any, key?: any): void;
     }
     export interface ReadLineOptions {
-        input: ReadableStream;
-        output: WritableStream;
+        input: NodeReadableStream;
+        output: NodeWritableStream;
         completer?: Function;
         terminal?: boolean;
     }
@@ -583,9 +584,9 @@ declare module "child_process" {
     import stream = require("stream");
 
     export interface ChildProcess extends events.EventEmitter {
-        stdin: WritableStream;
-        stdout: ReadableStream;
-        stderr: ReadableStream;
+        stdin:  stream.Writable;
+        stdout: stream.Readable;
+        stderr: stream.Readable;
         pid: number;
         kill(signal?: string): void;
         send(message: any, sendHandle: any): void;
@@ -679,7 +680,7 @@ declare module "dns" {
 declare module "net" {
     import stream = require("stream");
 
-    export interface Socket extends ReadWriteStream {
+    export interface Socket extends stream.Duplex {
         // Extended base methods
         write(buffer: Buffer): boolean;
         write(buffer: Buffer, cb?: Function): boolean;
@@ -787,8 +788,8 @@ declare module "fs" {
         close(): void;
     }
 
-    export interface ReadStream extends ReadableStream { }
-    export interface WriteStream extends WritableStream { }
+    export interface ReadStream extends stream.Readable {}
+    export interface WriteStream extends stream.Writable {}
 
     export function rename(oldPath: string, newPath: string, callback?: (err?: NodeErrnoException) => void): void;
     export function renameSync(oldPath: string, newPath: string): void;
@@ -980,7 +981,7 @@ declare module "tls" {
         connections: number;
     }
 
-    export interface ClearTextStream extends ReadWriteStream {
+    export interface ClearTextStream extends stream.Duplex {
         authorized: boolean;
         authorizationError: Error;
         getPeerCertificate(): any;
@@ -1085,7 +1086,7 @@ declare module "stream" {
         objectMode?: boolean;
     }
 
-    export class Readable extends events.EventEmitter implements ReadableStream {
+    export class Readable extends events.EventEmitter implements NodeReadableStream {
         readable: boolean;
         constructor(opts?: ReadableOptions);
         _read(size: number): void;
@@ -1093,11 +1094,11 @@ declare module "stream" {
         setEncoding(encoding: string): void;
         pause(): void;
         resume(): void;
-        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
-        unpipe<T extends WritableStream>(destination?: T): void;
+        pipe<T extends NodeWritableStream>(destination: T, options?: { end?: boolean; }): T;
+        unpipe<T extends NodeWritableStream>(destination?: T): void;
         unshift(chunk: string): void;
         unshift(chunk: Buffer): void;
-        wrap(oldStream: ReadableStream): ReadableStream;
+        wrap(oldStream: NodeReadableStream): NodeReadableStream;
         push(chunk: any, encoding?: string): boolean;
     }
 
@@ -1106,7 +1107,7 @@ declare module "stream" {
         decodeStrings?: boolean;
     }
 
-    export class Writable extends events.EventEmitter implements WritableStream {
+    export class Writable extends events.EventEmitter implements NodeWritableStream {
         writable: boolean;
         constructor(opts?: WritableOptions);
         _write(data: Buffer, encoding: string, callback: Function): void;
@@ -1125,7 +1126,7 @@ declare module "stream" {
     }
 
     // Note: Duplex extends both Readable and Writable.
-    export class Duplex extends Readable implements ReadWriteStream {
+    export class Duplex extends Readable implements NodeReadWriteStream {
         writable: boolean;
         constructor(opts?: DuplexOptions);
         _write(data: Buffer, encoding: string, callback: Function): void;
@@ -1142,7 +1143,7 @@ declare module "stream" {
     export interface TransformOptions extends ReadableOptions, WritableOptions {}
 
     // Note: Transform lacks the _read and _write methods of Readable/Writable.
-    export class Transform extends events.EventEmitter implements ReadWriteStream {
+    export class Transform extends events.EventEmitter implements NodeReadWriteStream {
         readable: boolean;
         writable: boolean;
         constructor(opts?: TransformOptions);
@@ -1153,11 +1154,11 @@ declare module "stream" {
         setEncoding(encoding: string): void;
         pause(): void;
         resume(): void;
-        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
-        unpipe<T extends WritableStream>(destination?: T): void;
+        pipe<T extends NodeWritableStream>(destination: T, options?: { end?: boolean; }): T;
+        unpipe<T extends NodeWritableStream>(destination?: T): void;
         unshift(chunk: string): void;
         unshift(chunk: Buffer): void;
-        wrap(oldStream: ReadableStream): ReadableStream;
+        wrap(oldStream: NodeReadableStream): NodeReadableStream;
         push(chunk: any, encoding?: string): boolean;
         write(buffer: Buffer, cb?: Function): boolean;
         write(str: string, cb?: Function): boolean;
