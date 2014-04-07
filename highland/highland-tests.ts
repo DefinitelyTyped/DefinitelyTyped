@@ -22,8 +22,8 @@ var strArr: string[];
 var numArr: string[];
 var funcArr: Function[];
 
-var readable: ReadableStream;
-var writable: WritableStream;
+var readable: NodeReadableStream;
+var writable: NodeWritableStream;
 var emitter: NodeEventEmitter;
 
 // - - - - - - - - - - - - - - - - -
