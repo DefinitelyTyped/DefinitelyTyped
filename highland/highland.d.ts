@@ -62,7 +62,7 @@ interface HighlandStatic {
 	<R>(xs: (push: (err: Error, x?: R) => void, next: () => void) => void): Highland.Stream<R>;
 
 	<R>(xs: Highland.Stream<R>): Highland.Stream<R>;
-	<R>(xs: ReadableStream): Highland.Stream<R>;
+	<R>(xs: NodeReadableStream): Highland.Stream<R>;
 	<R>(xs: NodeEventEmitter): Highland.Stream<R>;
 
 	// moar (promise for everything?)
@@ -419,8 +419,8 @@ declare module Highland {
 		 * @api public
 		 */
 		pipe<U>(dest: Stream<U>): Stream<U>;
-		pipe<U>(dest: ReadWriteStream): Stream<U>;
-		pipe(dest: WritableStream): void;
+		pipe<U>(dest: NodeReadWriteStream): Stream<U>;
+		pipe(dest: NodeWritableStream): void;
 
 		/**
 		 * Destroys a stream by unlinking it from any consumers and sources. This will

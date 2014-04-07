@@ -6,6 +6,7 @@
 /// <reference path='../node/node.d.ts' />
 
 declare module "superagent" {
+    import stream = require('stream');
   export interface Response {
     text: string;
     body: any;
@@ -44,7 +45,7 @@ declare module "superagent" {
     send(data: Object): Request;
     write(data: string, encoding: string): boolean;
     write(data: Buffer, encoding: string): boolean;
-    pipe(stream: WritableStream, options?: Object): WritableStream;
+    pipe(stream: NodeWritableStream, options?: Object): stream.Writable;
     buffer(val: boolean): Request;
     timeout(ms: number): Request;
     clearTimeout(): Request;

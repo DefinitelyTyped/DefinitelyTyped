@@ -200,7 +200,7 @@ declare module Qio {
 		read(charset:string):Q.Promise<string>;
 		read():Q.Promise<Buffer>;
 		close():void;
-		node:ReadableStream;
+		node: NodeReadableStream;
 	}
 	interface Writer {
 		write(content:string):void;
@@ -208,7 +208,7 @@ declare module Qio {
 		flush():Q.Promise<void>;
 		close():void;
 		destroy():void;
-		node:WritableStream;
+		node: NodeWritableStream;
 	}
 
 	interface Stream {
