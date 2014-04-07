@@ -37,7 +37,7 @@ List of Definitions
 * [Angular UI Bootstrap](http://angular-ui.github.io/bootstrap) (by [Brian Surowiec](https://github.com/xt0rted))
 * [AppFramework](http://app-framework-software.intel.com/) (by [Kyo Ago](https://github.com/kyo-ago))
 * [Arbiter](http://arbiterjs.com/) (by [Arash Shakery](https://github.com/arash16))
-* [asciify](https://www.npmjs.org/package/asciify/) (by [Alan](http://alan.norbauer.com))
+* [asciify](https://github.com/olizilla/asciify) (by [Alan](http://alan.norbauer.com))
 * [assert](https://github.com/Jxck/assert) (by [vvakame](https://github.com/vvakame))
 * [async](https://github.com/caolan/async) (by [Boris Yankov](https://github.com/borisyankov))
 * [Backbone.js](http://backbonejs.org/) (by [Boris Yankov](https://github.com/borisyankov))
