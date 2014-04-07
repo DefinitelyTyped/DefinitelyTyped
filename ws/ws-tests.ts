@@ -5,7 +5,7 @@ var WebSocketServer = WebSocket.Server;
 
 {
     var ws = new WebSocket('ws://www.host.com/path');
-    ws.on('open', () => ws.send('something'));
+    ws.on('open', () => ws.composeAndSend('something'));
     ws.on('message', (data, flags) => {});
 }
 
@@ -14,7 +14,7 @@ var WebSocketServer = WebSocket.Server;
     ws.on('open', () => {
         var array = new Float32Array(5);
         for (var i = 0; i < array.length; ++i) array[i] = i / 2;
-        ws.send(array, {binary: true, mask: true});
+        ws.composeAndSend(array, {binary: true, mask: true});
     });
 }
 
@@ -41,13 +41,13 @@ var WebSocketServer = WebSocket.Server;
         origin: 'http://websocket.org'
     });
 
-    wsc.on('open',  () => wsc.send(Date.now().toString(), {mask: true}));
+    wsc.on('open',  () => wsc.composeAndSend(Date.now().toString(), {mask: true}));
     wsc.on('close', () => console.log('disconnected'));
 
     wsc.on('message', (data, flags) => {
         console.log('Roundtrip time: ' + (Date.now() - parseInt(data)) + 'ms', flags);
         setTimeout(() => {
-            wsc.send(Date.now().toString(), {mask: true});
+            wsc.composeAndSend(Date.now().toString(), {mask: true});
         }, 500);
     });
 }

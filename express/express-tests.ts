@@ -1248,7 +1248,7 @@ if (!module.parent) {
 var router = new express.Router();
 
 router.get('/', function (req, resp, next?) {
-  resp.send('response from router');
+  resp.composeAndSend('response from router');
   resp.end();
   if (next) {
     next();

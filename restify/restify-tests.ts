@@ -66,9 +66,9 @@ function send(req, res, next) {
 
     res.status(344);
 
-    res.send({hello: 'world'});
-    res.send(201, {hello: 'world'});
-    res.send(new restify.BadRequestError('meh'));
+    res.composeAndSend({hello: 'world'});
+    res.composeAndSend(201, {hello: 'world'});
+    res.composeAndSend(new restify.BadRequestError('meh'));
 
     res.json(201, {hello: 'world'});
     res.json({hello: 'world'});
@@ -80,7 +80,7 @@ function send(req, res, next) {
     res.headers;
     res.id === 'test';
 
-    res.send('hello ' + req.params.name);
+    res.composeAndSend('hello ' + req.params.name);
     return next();
 }
 
