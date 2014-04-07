@@ -1,9 +1,33 @@
 /// <reference path="lazy.js.d.ts" />
 
-var sequence: LazyJS.Sequence;
-var arraySeq: LazyJS.ArrayLikeSequence;
-var objectSeq: LazyJS.ObjectLikeSequence;
-var asyncSeq: LazyJS.AsyncSequence;
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+interface Foo {
+	foo(): string;
+}
+interface Bar {
+	bar(): string;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+var foo: Foo;
+var bar: Bar;
+
+var fooArr: Foo[];
+var barArr: Bar[];
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+var fooSequence: LazyJS.Sequence<Foo>;
+var barSequence: LazyJS.Sequence<Bar>;
+var fooArraySeq: LazyJS.ArrayLikeSequence<Foo>;
+var barArraySeq: LazyJS.ArrayLikeSequence<Bar>;
+var fooObjectSeq: LazyJS.ObjectLikeSequence<Foo>;
+var anyObjectSeq: LazyJS.ObjectLikeSequence<any>;
+var fooAsyncSeq: LazyJS.AsyncSequence<Foo>;
+
+var strSequence: LazyJS.Sequence<string>;
 var stringSeq: LazyJS.StringLikeSequence;
 
 var obj: Object;
@@ -23,141 +47,142 @@ function fnErrorCallback(error: any): void {
 
 }
 
-function fnValueCallback(value: any): void {
+function fnValueCallback(value: Foo): void {
 }
 
-function fnGetKeyCallback(value: any): string {
-	return '';
+function fnGetKeyCallback(value: Foo): string {
+	return str;
 }
 
-function fnTestCallback(value: any): boolean {
-	return false;
+function fnTestCallback(value: Foo): boolean {
+	return bool;
 }
 
-function fnMapCallback(value: any): any {
-	return null;
+function fnMapCallback(value: Foo): Bar {
+	return bar;
 }
 
 function fnMapStringCallback(value: string): string {
-	return '';
+	return str;
 }
 
-function fnNumberCallback(value: any): number {
-	return 0;
+function fnNumberCallback(value: Foo): number {
+	return num;
 }
 
-function fnMemoCallback(memo: any, value: any): any {
-	return null;
+function fnMemoCallback(memo: Bar, value: Foo): Bar {
+	return bar;
 }
 
-function fnGeneratorCallback(index: number): any {
-	return null;
+function fnGeneratorCallback(index: number): Foo {
+	return foo;
 }
 
 // Lazy
 
-arraySeq = Lazy([]);
-objectSeq = Lazy({});
-stringSeq = Lazy('');
+fooArraySeq = Lazy(fooArr);
+fooObjectSeq = Lazy<Foo>({a:foo, b:foo});
+anyObjectSeq = Lazy<any>({a:num, b:str});
+stringSeq = Lazy(str);
 
 // Strict
 
 var Strict = Lazy.strict();
-arraySeq = Strict([1, 2, num]).pop();
+fooArraySeq = Strict([foo, foo]).pop();
 
 // Sequence
 
-asyncSeq = sequence.async(num);
-sequence = sequence.chunk(num);
-sequence = sequence.compact();
-sequence = sequence.concat(arr);
-sequence = sequence.consecutive(num);
-bool = sequence.contains(x);
-sequence = sequence.countBy(str);
-sequence = sequence.countBy(fnGetKeyCallback);
-sequence = sequence.dropWhile(fnTestCallback);
-sequence = sequence.each(fnValueCallback);
-bool = sequence.every(fnTestCallback);
-sequence = sequence.filter(fnTestCallback);
-sequence = sequence.find(fnTestCallback);
-sequence = sequence.findWhere(obj);
+fooAsyncSeq = fooSequence.async(num);
+fooSequence = fooSequence.chunk(num);
+fooSequence = fooSequence.compact();
+fooSequence = fooSequence.concat(arr);
+fooSequence = fooSequence.consecutive(num);
+bool = fooSequence.contains(foo);
+fooSequence = fooSequence.countBy(str);
+fooObjectSeq = fooSequence.countBy(fnGetKeyCallback);
+fooSequence = fooSequence.dropWhile(fnTestCallback);
+fooSequence = fooSequence.each(fnValueCallback);
+bool = fooSequence.every(fnTestCallback);
+fooSequence = fooSequence.filter(fnTestCallback);
+fooSequence = fooSequence.find(fnTestCallback);
+fooSequence = fooSequence.findWhere(obj);
 
-x = sequence.first();
-sequence = sequence.first(num);
+x = fooSequence.first();
+fooSequence = fooSequence.first(num);
 
-sequence = sequence.flatten();
-objectSeq = sequence.groupBy(fnGetKeyCallback);
-sequence = sequence.indexOf(x);
-sequence = sequence.initial();
-sequence = sequence.initial(num);
-sequence = sequence.intersection(arr);
-sequence = sequence.invoke(str);
-bool = sequence.isEmpty();
-str = sequence.join();
-str = sequence.join(str);
+fooSequence = fooSequence.flatten();
+fooObjectSeq = fooSequence.groupBy(fnGetKeyCallback);
+fooSequence = fooSequence.indexOf(x);
+fooSequence = fooSequence.initial();
+fooSequence = fooSequence.initial(num);
+fooSequence = fooSequence.intersection(arr);
+fooSequence = fooSequence.invoke(str);
+bool = fooSequence.isEmpty();
+str = fooSequence.join();
+str = fooSequence.join(str);
 
-x = sequence.last();
-sequence = sequence.last(num);
+foo = fooSequence.last();
+fooSequence = fooSequence.last(num);
 
-sequence = sequence.lastIndexOf(x);
-sequence = sequence.map(fnMapCallback);
-x = sequence.max();
-x = sequence.max(fnNumberCallback);
-x = sequence.min();
-x = sequence.min(fnNumberCallback);
-sequence = sequence.pluck(str);
-x = sequence.reduce(fnMemoCallback);
-x = sequence.reduce(fnMemoCallback, x);
-x = sequence.reduceRight(fnMemoCallback, x);
-sequence = sequence.reject(fnTestCallback);
-sequence = sequence.rest(num);
-sequence = sequence.reverse();
-sequence = sequence.shuffle();
-bool = sequence.some();
-bool = sequence.some(fnTestCallback);
-sequence = sequence.sortBy(fnNumberCallback);
-sequence = sequence.sortedIndex(x);
-sequence = sequence.sum();
-sequence = sequence.sum(fnNumberCallback);
-sequence = sequence.takeWhile(fnTestCallback);
-sequence = sequence.union(arr);
-sequence = sequence.uniq();
-sequence = sequence.where(obj);
-sequence = sequence.without(arr);
-sequence = sequence.zip(arr);
+fooSequence = fooSequence.lastIndexOf(foo);
+barSequence = fooSequence.map(fnMapCallback);
+foo = fooSequence.max();
+foo = fooSequence.max(fnNumberCallback);
+foo = fooSequence.min();
+foo = fooSequence.min(fnNumberCallback);
+fooSequence = fooSequence.pluck(str);
+bar = fooSequence.reduce(fnMemoCallback);
+bar = fooSequence.reduce(fnMemoCallback, bar);
+bar = fooSequence.reduceRight(fnMemoCallback, bar);
+fooSequence = fooSequence.reject(fnTestCallback);
+fooSequence = fooSequence.rest(num);
+fooSequence = fooSequence.reverse();
+fooSequence = fooSequence.shuffle();
+bool = fooSequence.some();
+bool = fooSequence.some(fnTestCallback);
+fooSequence = fooSequence.sortBy(fnNumberCallback);
+fooSequence = fooSequence.sortedIndex(foo);
+fooSequence = fooSequence.sum();
+fooSequence = fooSequence.sum(fnNumberCallback);
+fooSequence = fooSequence.takeWhile(fnTestCallback);
+fooSequence = fooSequence.union(fooArr);
+fooSequence = fooSequence.uniq();
+fooSequence = fooSequence.where(obj);
+fooSequence = fooSequence.without(fooArr);
+fooSequence = fooSequence.zip(arr);
 
-arr = sequence.toArray();
-obj = sequence.toObject();
+fooArr = fooSequence.toArray();
+obj = fooSequence.toObject();
 
 // ArrayLikeSequence
 
-arraySeq = arraySeq.concat();
-arraySeq = arraySeq.first();
-arraySeq = arraySeq.first(num);
-x = arraySeq.get(num);
-num = arraySeq.length();
-arraySeq = arraySeq.map(fnMapCallback);
-arraySeq = arraySeq.pop();
-arraySeq = arraySeq.rest();
-arraySeq = arraySeq.rest(num);
-arraySeq = arraySeq.reverse();
-arraySeq = arraySeq.shift();
-arraySeq = arraySeq.slice(num);
-arraySeq = arraySeq.slice(num, num);
+fooArraySeq = fooArraySeq.concat();
+fooArraySeq = fooArraySeq.first();
+fooArraySeq = fooArraySeq.first(num);
+foo = fooArraySeq.get(num);
+num = fooArraySeq.length();
+barArraySeq = fooArraySeq.map(fnMapCallback);
+fooArraySeq = fooArraySeq.pop();
+fooArraySeq = fooArraySeq.rest();
+fooArraySeq = fooArraySeq.rest(num);
+fooArraySeq = fooArraySeq.reverse();
+fooArraySeq = fooArraySeq.shift();
+fooArraySeq = fooArraySeq.slice(num);
+fooArraySeq = fooArraySeq.slice(num, num);
 
 // ObjectLikeSequence
 
-objectSeq = objectSeq.defaults(obj);
-sequence = objectSeq.functions();
-objectSeq = objectSeq.get(str);
-objectSeq = objectSeq.invert();
-sequence = objectSeq.keys();
-objectSeq = objectSeq.omit(strArr);
-sequence = objectSeq.pairs();
-objectSeq = objectSeq.pick(strArr);
-arr = objectSeq.toArray();
-obj = objectSeq.toObject();
-sequence = objectSeq.values();
+fooObjectSeq = fooObjectSeq.defaults(obj);
+fooSequence = fooObjectSeq.functions();
+fooObjectSeq = fooObjectSeq.get(str);
+fooObjectSeq = fooObjectSeq.invert();
+strSequence = fooObjectSeq.keys();
+fooObjectSeq = fooObjectSeq.omit(strArr);
+fooSequence = fooObjectSeq.pairs();
+fooObjectSeq = fooObjectSeq.pick(strArr);
+arr = fooObjectSeq.toArray();
+obj = fooObjectSeq.toObject();
+fooSequence = fooObjectSeq.values();
 
 // StringLikeSequence
 
@@ -181,8 +206,8 @@ stringSeq = stringSeq.mapString(fnMapStringCallback);
 stringSeq = stringSeq.match(exp);
 stringSeq = stringSeq.reverse();
 
-sequence = stringSeq.split(str);
-sequence = stringSeq.split(exp);
+stringSeq = stringSeq.split(str);
+stringSeq = stringSeq.split(exp);
 
 bool = stringSeq.startsWith(str);
 stringSeq = stringSeq.substring(num);

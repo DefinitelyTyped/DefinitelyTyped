@@ -109,3 +109,9 @@ Q.allSettled([saveToDisk(), saveToCloud()]).spread(function (disk, cloud) {
     }
 }).done();
 
+var nodeStyle = (input: string, cb: Function) => {
+        cb(null, input);
+};
+
+Q.nfapply(nodeStyle, ["foo"]).done((result: string) => {});
+Q.nfcall(nodeStyle, "foo").done((result: string) => {});

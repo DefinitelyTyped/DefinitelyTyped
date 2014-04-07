@@ -763,7 +763,7 @@ function test_children() {
         var $kids = $(e.target).children();
         var len = $kids.addClass("hilite").length;
 
-        $("#results span:first").text(len.toString());
+        $("#results span:first").text(len);
         //$("#results span:last").text(e.target.tagName);
 
         e.preventDefault();
@@ -885,6 +885,12 @@ function test_clone() {
           .prepend('foo - ')
           .parent()
           .clone());
+}
+
+function test_prependTo() {
+    $("<p>Test</p>").prependTo(".inner");
+    $("h2").prependTo($(".container"));
+    $("span").prependTo("#foo");
 }
 
 function test_closest() {
@@ -1089,90 +1095,6 @@ function test_dblclick() {
         divdbl.toggleClass('dbl');
     });
 	$('#target').dblclick();
-}
-
-function test_deferred() {
-
-    function returnPromise(): JQueryPromise<(data: { MyString: string; MyNumber: number; }, textStatus: string, jqXHR: JQueryXHR) => any> {
-        return $.ajax("test.php");
-    }
-    var x = returnPromise();
-    x.done((data, textStatus, jqXHR) => {
-        var myNumber: number = data.MyNumber;
-        var myString: string = data.MyString;
-        var theTextStatus: string = textStatus;
-        var thejqXHR: JQueryXHR = jqXHR;
-    });
-
-    $.get("test.php").always(function () {
-        alert("$.get completed with success or error callback arguments");
-    });
-    $.get("test.php").done(function () {
-        alert("$.get succeeded");
-    });
-    function fn1() {
-        $("p").append(" 1 ");
-    }
-    function fn2() {
-        $("p").append(" 2 ");
-    }
-    function fn3(n) {
-        $("p").append(n + " 3 " + n);
-    }
-    var dfd = $.Deferred();
-    dfd
-        .done([fn1, fn2], fn3, [fn2, fn1])
-        .done(function (n) {
-            $("p").append(n + " we're done.");
-        });
-    $("button").bind("click", function () {
-        dfd.resolve("and");
-    });
-    $.get("test.php")
-        .done(function () { alert("$.get succeeded"); })
-        .fail(function () { alert("$.get failed!"); });
-    dfd.state();
-    var defer = $.Deferred(),
-    filtered = defer.pipe(function (value) {
-        return value * 2;
-    });
-    defer.resolve(5);
-    filtered.done(function (value) {
-        alert("Value is ( 2*5 = ) 10: " + value);
-    });
-    filtered.fail(function (value) {
-        alert("Value is ( 3*6 = ) 18: " + value);
-    });
-    filtered.done(function (data) { });
-
-    function asyncEvent() {
-        var dfd: JQueryDeferred<string> = $.Deferred<string>();
-        setTimeout(function () {
-            dfd.resolve("hurray");
-        }, Math.floor(400 + Math.random() * 2000));
-        setTimeout(function () {
-            dfd.reject("sorry");
-        }, Math.floor(400 + Math.random() * 2000));
-        setTimeout(function working() {
-            if (dfd.state() === "pending") {
-                dfd.notify("working... ");
-                setTimeout(null, 500);
-            }
-        }, 1);
-        return dfd.promise();
-    }
-    var obj = {
-        hello: function (name) {
-            alert("Hello " + name);
-        }
-    },
-    defer = $.Deferred();
-    defer.promise(obj);
-    defer.resolve("John");
-    $.get("test.php").then(
-        function () { alert("$.get succeeded"); },
-        function () { alert("$.get failed!"); }
-    );
 }
 
 function test_delay() {
@@ -1851,6 +1773,26 @@ function test_getScript() {
     });
 }
 
+function test_jQueryget() {
+    console.log($("li").get(0));
+    console.log($("li")[0]);
+    console.log($("li").get(-1));
+    $("*", document.body).click(function (event) {
+        event.stopPropagation();
+        var domElement = $(this).get(0);
+        $("span:first").text("Clicked on - " + domElement.nodeName);
+    });
+
+    function display(divs) {
+        var a = [];
+        for (var i = 0; i < divs.length; i++) {
+            a.push(divs[i].innerHTML);
+        }
+        $("span").text(a.join(" "));
+    }
+    display($("div").get().reverse());
+}
+
 function test_globalEval() {
     jQuery.globalEval("var newVar = true;");
 }
@@ -2015,6 +1957,38 @@ function test_height() {
     });
 }
 
+function test_wrap() {
+    $(".inner").wrap("<div class='new'></div>");
+    $(".inner").wrap(function () {
+        return "<div class='" + $(this).text() + "'></div>";
+    });
+    $("span").wrap("<div><div><p><em><b></b></em></p></div></div>");
+    $("p").wrap(document.createElement("div"));
+    $("p").wrap($(".doublediv"));
+}
+
+function test_wrapAll() {
+    $(".inner").wrapAll("<div class='new' />");
+    $("p").wrapAll("<div></div>");
+    $("span").wrapAll("<div><div><p><em><b></b></em></p></div></div>");
+    $("p").wrapAll(document.createElement("div"));
+    $("p").wrapAll($(".doublediv"));
+}
+
+function test_wrapInner() {
+    $(".inner").wrapInner("<div class='new'></div>");
+    $(".inner").wrapInner(function () {
+        return "<div class='" + this.nodeValue + "'></div>";
+    });
+    var elem: Element;
+    $(elem).wrapInner("<div class='test'></div>");
+    $(elem).wrapInner("<div class=\"test\"></div>");
+    $("p").wrapInner("<b></b>");
+    $("body").wrapInner("<div><div><p><em><b></b></em></p></div></div>");
+    $("p").wrapInner(document.createElement("b"));
+    $("p").wrapInner($("<span class='red'></span>"));
+}
+
 function test_width() {
     // Returns width of browser viewport
     $(window).width();
@@ -2175,6 +2149,7 @@ function test_innerWidth() {
     var p = $("p:first");
     $("p:last").text("innerWidth:" + p.innerWidth());
 
+
     p.innerWidth(123);
     p.innerWidth('123px');
 }
@@ -2211,6 +2186,37 @@ function test_scrollTop() {
     $("p:last").text("scrollTop:" + p.scrollTop());
 
     $("div.demo").scrollTop(300);
+}
+
+function test_parent() {
+    $("*", document.body).each(function () {
+        var parentTag = $(this).parent().get(0).tagName;
+        $(this).prepend(document.createTextNode(parentTag + " > "));
+    });
+    $("p").parent(".selected").css("background", "yellow");
+}
+
+function test_parents() {
+    var parentEls = $("b").parents()
+        .map(function () {
+            return this.tagName;
+        })
+        .get()
+        .join(", ");
+    $("b").append("<strong>" + parentEls + "</strong>");
+
+    function showParents() {
+        $("div").css("border-color", "white");
+        var len = $("span.selected")
+            .parents("div")
+            .css("border", "2px red solid")
+            .length;
+        $("b").text("Unique div parents: " + len);
+    }
+    $("span").click(function () {
+        $(this).toggleClass("selected");
+        showParents();
+    });
 }
 
 function test_param() {
@@ -2876,6 +2882,36 @@ function test_makeArray() {
     jQuery.isArray(arr) === true;
 }
 
+function test_replaceAll() {
+    $("<h2>New heading</h2>").replaceAll(".inner");
+    $(".first").replaceAll(".third");
+    $("<b>Paragraph. </b>").replaceAll("p");
+}
+
+function test_replaceWith() {
+    $("div.second").replaceWith("<h2>New heading</h2>");
+    $("div.inner").replaceWith("<h2>New heading</h2>");
+    $("div.third").replaceWith($(".first"));
+
+    $("button").click(function () {
+        $(this).replaceWith("<div>" + $(this).text() + "</div>");
+    });
+
+    $("p").replaceWith("<b>Paragraph. </b>");
+
+    $("p").click(function () {
+        $(this).replaceWith($("div"));
+    });
+
+    $("button").on("click", function () {
+        var $container = $("div.container").replaceWith(function () {
+            return $(this).contents();
+        });
+
+        $("p").append($container.attr("class"));
+    });
+}
+
 function test_map() {
     $(':checkbox').map(function () {
         return this.id;
@@ -2884,16 +2920,25 @@ function test_map() {
         return $(this).val();
     }).get().join(", "));
     var mappedItems = $("li").map(function (index) {
-        var replacement = $("<li>").text($(this).text()).get(0);
-        if (index == 0) {
+        var replacement:any = $("<li>").text($(this).text()).get(0);
+        if (index === 0) {
+
+            // Make the first item all caps
             $(replacement).text($(replacement).text().toUpperCase());
-        } else if (index == 1 || index == 3) {
+        } else if (index === 1 || index === 3) {
+
+            // Delete the second and fourth items
             replacement = null;
-        } else if (index == 2) {
+        } else if (index === 2) {
+
+            // Make two of the third item and add some text
             replacement = [replacement, $("<li>").get(0)];
             $(replacement[0]).append("<b> - A</b>");
             $(replacement[1]).append("Extra <b> - B</b>");
         }
+
+        // Replacement will be a dom element, null,
+        // or an array of dom elements
         return replacement;
     });
     $("#results").append(mappedItems);
@@ -3071,6 +3116,22 @@ function test_parseHTML() {
 	  .appendTo( $log );
 }
 
+function test_not() {
+    $("li").not(":even").css("background-color", "red");
+
+    $("li").not(document.getElementById("notli"))
+        .css("background-color", "red");
+
+    $("div").not(".green, #blueone")
+        .css("border-color", "red");
+
+    $("p").not($("#selected")[0]);
+
+    $("p").not("#selected");
+
+    $("p").not($("div p.selected"));
+}
+
 function test_EventIsNewable() {
     var ev = new jQuery.Event('click');
 }
@@ -3100,3 +3161,116 @@ $.ajax({
         alert(data);
     }
 });
+
+function test_deferred() {
+
+    function returnPromise(): JQueryPromise<{ MyString: string; MyNumber: number; }> {
+        return $.Deferred<{ MyString: string; MyNumber: number; }>().resolve({
+            MyString: "MyString",
+            MyNumber: 5
+        }, "failed", null);
+    }
+    var x = returnPromise();
+    x.done((data, textStatus, jqXHR) => {
+        var myNumber: number = data.MyNumber;
+        var myString: string = data.MyString;
+        var theTextStatus: string = textStatus;
+        var thejqXHR: JQueryXHR = jqXHR;
+    });
+
+    $.get("test.php").always(function () {
+        alert("$.get completed with success or error callback arguments");
+    });
+    $.get("test.php").done(function () {
+        alert("$.get succeeded");
+    });
+    function fn1() {
+        $("p").append(" 1 ");
+    }
+    function fn2() {
+        $("p").append(" 2 ");
+    }
+    function fn3(n) {
+        $("p").append(n + " 3 " + n);
+    }
+    var dfd = $.Deferred<string>();
+    dfd
+        .done([fn1, fn2], fn3, [fn2, fn1])
+        .done(function (n) {
+            $("p").append(n + " we're done.");
+        });
+    $("button").bind("click", function () {
+        dfd.resolve("and");
+    });
+    $.get("test.php")
+        .done(function () { alert("$.get succeeded"); })
+        .fail(function () { alert("$.get failed!"); });
+    dfd.state();
+    var defer = $.Deferred(),
+        filtered = defer.pipe(function (value) {
+            return value * 2;
+        });
+    defer.resolve(5);
+    filtered.done(function (value) {
+        alert("Value is ( 2*5 = ) 10: " + value);
+    });
+    filtered.fail(function (value) {
+        alert("Value is ( 3*6 = ) 18: " + value);
+    });
+    filtered.done(function (data) { });
+
+    var obj = {
+        hello: function (name) {
+            alert("Hello " + name);
+        }
+    },
+        defer = $.Deferred();
+    defer.promise(obj);
+    defer.resolve("John");
+    $.get("test.php").then(
+        function () { alert("$.get succeeded"); },
+        function () { alert("$.get failed!"); }
+        );
+}
+
+function test_deferred_promise() {
+
+    function asyncEvent() {
+        var dfd = $.Deferred<string>();
+
+        // Resolve after a random interval
+        setTimeout(function () {
+            dfd.resolve("hurray");
+        }, Math.floor(400 + Math.random() * 2000));
+
+        // Reject after a random interval
+        setTimeout(function () {
+            dfd.reject("sorry");
+        }, Math.floor(400 + Math.random() * 2000));
+
+        // Show a "working..." message every half-second
+        setTimeout(function working() {
+            if (dfd.state() === "pending") {
+                dfd.notify("working... ");
+                setTimeout(working, 500);
+            }
+        }, 1);
+
+        // Return the Promise so caller can't change the Deferred
+        return dfd.promise();
+    }
+
+    // Attach a done, fail, and progress handler for the asyncEvent
+    $.when(asyncEvent()).then(
+        function (status) {
+            alert(status + ", things are going well");
+        },
+        function (status) {
+            alert(status + ", you fail this time");
+        },
+        function (status) {
+            $("body").append(status);
+        }
+        );
+}
+

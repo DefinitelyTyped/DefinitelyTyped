@@ -28,6 +28,8 @@ server = restify.createServer({
     responseTimeFormatter : (durationInMilliseconds: number) => {}
 });
 
+server.pre(restify.pre.sanitizePath());
+
 server.on('someEvent', ()=>{});
 
 
@@ -98,7 +100,7 @@ server.get( /(.*)/, send);
 server.head(/(.*)/, send);
 
 new restify.ConflictError("test");
-new restify.InvalidArguementError("message");
+new restify.InvalidArgumentError("message");
 new restify.RestError("message");
 new restify.BadDigestError("message");
 new restify.BadMethodError("message");

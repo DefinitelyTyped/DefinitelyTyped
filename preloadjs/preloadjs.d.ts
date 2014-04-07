@@ -72,11 +72,18 @@ declare module createjs {
         static version: string;
     }
     
+    /*
+        NOTE: It is commented out because it conflicts with SamplePlugin class of TweenJS.
+              this class is mainly for documentation purposes.
+              http://www.createjs.com/Docs/PreloadJS/classes/SamplePlugin.html
+    */
+    /*
     export class SamplePlugin {
         static fileLoadHandler(event: Object): void;
         static getPreloadHandlers(): Object;
         static preloadHandler(src: string, type: string, id: string, data: any, basePath: string, queue: LoadQueue): any;
     }
+    */
 
     export class TagLoader extends AbstractLoader {
         constructor (item: Object);
