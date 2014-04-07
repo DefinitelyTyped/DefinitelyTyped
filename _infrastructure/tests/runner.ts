@@ -34,6 +34,10 @@ module DT {
 
 	export var DEFAULT_TSC_VERSION = '0.9.7';
 
+	interface PackageJSON {
+		scripts: {[key:string]: string};
+	}
+
 	/////////////////////////////////
 	// Single test
 	/////////////////////////////////
@@ -333,13 +337,19 @@ module DT {
 
 	if (argv.help) {
 		optimist.showHelp();
+		var pkg: PackageJSON = require('../../package.json');
+		console.log('Scripts:');
+		console.log('');
+		Lazy(pkg.scripts).keys().each((key) => {
+			console.log('   $ npm run ' + key);
+		});
 		process.exit(0);
 	}
 
 	var testFull = process.env['TRAVIS_BRANCH'] ? /\w\/full$/.test(process.env['TRAVIS_BRANCH']) : false;
 
 	new TestRunner(dtPath, {
-		concurrent: argv['single-thread'] ? 1 : Math.max(cpuCores, 2),
+		concurrent: argv['single-thread'] ? 1 : Math.max(Math.min(24, cpuCores), 2),
 		tscVersion: argv['tsc-version'],
 		testChanges: testFull ? false : argv['test-changes'], // allow magic branch
 		skipTests: argv['skip-tests'],
