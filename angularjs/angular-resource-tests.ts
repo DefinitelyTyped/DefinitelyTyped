@@ -79,45 +79,35 @@ promise = resource.$delete({ key: 'value' });
 promise = resource.$delete({ key: 'value' }, function () { });
 promise = resource.$delete(function () { });
 promise = resource.$delete(function () { }, function () { });
-promise = resource.$delete({ key: 'value' }, { key: 'value' });
-promise = resource.$delete({ key: 'value' }, { key: 'value' }, function () { });
-promise = resource.$delete({ key: 'value' }, { key: 'value' }, function () { }, function () { });
+promise = resource.$delete({ key: 'value' }, function () { }, function () { });
 
 promise = resource.$get();
 promise = resource.$get({ key: 'value' });
 promise = resource.$get({ key: 'value' }, function () { });
 promise = resource.$get(function () { });
 promise = resource.$get(function () { }, function () { });
-promise = resource.$get({ key: 'value' }, { key: 'value' });
-promise = resource.$get({ key: 'value' }, { key: 'value' }, function () { });
-promise = resource.$get({ key: 'value' }, { key: 'value' }, function () { }, function () { });
+promise = resource.$get({ key: 'value' }, function () { }, function () { });
 
 arrayPromise = resourceArray[0].$query();
 arrayPromise = resourceArray[0].$query({ key: 'value' });
 arrayPromise = resourceArray[0].$query({ key: 'value' }, function () { });
 arrayPromise = resourceArray[0].$query(function () { });
 arrayPromise = resourceArray[0].$query(function () { }, function () { });
-arrayPromise = resourceArray[0].$query({ key: 'value' }, { key: 'value' });
-arrayPromise = resourceArray[0].$query({ key: 'value' }, { key: 'value' }, function () { });
-arrayPromise = resourceArray[0].$query({ key: 'value' }, { key: 'value' }, function () { }, function () { });
+arrayPromise = resourceArray[0].$query({ key: 'value' }, function () { }, function () { });
 
 promise = resource.$remove();
 promise = resource.$remove({ key: 'value' });
 promise = resource.$remove({ key: 'value' }, function () { });
 promise = resource.$remove(function () { });
 promise = resource.$remove(function () { }, function () { });
-promise = resource.$remove({ key: 'value' }, { key: 'value' });
-promise = resource.$remove({ key: 'value' }, { key: 'value' }, function () { });
-promise = resource.$remove({ key: 'value' }, { key: 'value' }, function () { }, function () { });
+promise = resource.$remove({ key: 'value' }, function () { }, function () { });
 
 promise = resource.$save();
 promise = resource.$save({ key: 'value' });
 promise = resource.$save({ key: 'value' }, function () { });
 promise = resource.$save(function () { });
 promise = resource.$save(function () { }, function () { });
-promise = resource.$save({ key: 'value' }, { key: 'value' });
-promise = resource.$save({ key: 'value' }, { key: 'value' }, function () { });
-promise = resource.$save({ key: 'value' }, { key: 'value' }, function () { }, function () { });
+promise = resource.$save({ key: 'value' }, function () { }, function () { });
 
 ///////////////////////////////////////
 // IResourceService
