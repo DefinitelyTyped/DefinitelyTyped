@@ -1,4 +1,3 @@
-definitelytyped.github.io
-=========================
+# definitelytyped.github.io
 
-Website content for definitelytyped.github.io
+Website content for http://definitelytyped.github.io/
