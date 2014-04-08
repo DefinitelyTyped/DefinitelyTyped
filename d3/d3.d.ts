@@ -54,6 +54,7 @@ declare module D3 {
         y: number;
         keyCode: number;
         altKey: any;
+        type: string;
     }
 
     export interface Base extends Selectors {
