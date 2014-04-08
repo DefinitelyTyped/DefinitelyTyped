@@ -1,6 +1,6 @@
 // Type definitions for Angular JS 1.2 (ngResource module)
 // Project: http://angularjs.org
-// Definitions by: Diego Vilar <http://github.com/diegovilar>
+// Definitions by: Diego Vilar <http://github.com/diegovilar>, Michael Jess <http://github.com/miffels> (minor enhancements)
 // Definitions: https://github.com/daptiv/DefinitelyTyped
 
 /// <reference path="angular.d.ts" />
@@ -129,11 +129,12 @@ declare module ng.resource {
         $resolved : boolean;
     }
 
-    interface Array {}
-
-    interface IResourceArray<T> extends Array {
+    /**
+     * Really just a regular Array object with $promise and $resolve attached to it
+     */
+    interface IResourceArray<T> extends Array<T> {
         /** the promise of the original server interaction that created this collection. **/
-        $promise : ng.IPromise<T>;
+        $promise : ng.IPromise<T[]>;
         $resolved : boolean;
     }
 
