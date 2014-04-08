@@ -98,9 +98,9 @@ declare module ng.resource {
         $get(params?: Object, success?: Function, error?: Function): ng.IPromise<T>;
         $get(success: Function, error?: Function): ng.IPromise<T>;
 
-        $query(): ng.IPromise<T[]>;
-        $query(params?: Object, success?: Function, error?: Function): ng.IPromise<T[]>;
-        $query(success: Function, error?: Function): ng.IPromise<T[]>;
+        $query(): ng.IPromise<IResourceArray<T>>;
+        $query(params?: Object, success?: Function, error?: Function): ng.IPromise<IResourceArray<T>>;
+        $query(success: Function, error?: Function): ng.IPromise<IResourceArray<T>>;
 
         $save(): ng.IPromise<T>;
         $save(params?: Object, success?: Function, error?: Function): ng.IPromise<T>;
@@ -124,7 +124,7 @@ declare module ng.resource {
      */
     interface IResourceArray<T> extends Array<T> {
         /** the promise of the original server interaction that created this collection. **/
-        $promise : ng.IPromise<T[]>;
+        $promise : ng.IPromise<IResourceArray<T>>;
         $resolved : boolean;
     }
 
