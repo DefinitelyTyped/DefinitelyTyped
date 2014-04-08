@@ -29,6 +29,7 @@ resource = resourceClass.delete(function () { }, function () { });
 resource = resourceClass.delete({ key: 'value' }, { key: 'value' });
 resource = resourceClass.delete({ key: 'value' }, { key: 'value' }, function () { });
 resource = resourceClass.delete({ key: 'value' }, { key: 'value' }, function () { }, function () { });
+resource.$promise.then(function(data: IMyResource) {});
 
 resource = resourceClass.get();
 resource = resourceClass.get({ key: 'value' });
@@ -48,6 +49,7 @@ resourceArray = resourceClass.query({ key: 'value' }, { key: 'value' });
 resourceArray = resourceClass.query({ key: 'value' }, { key: 'value' }, function () { });
 resourceArray = resourceClass.query({ key: 'value' }, { key: 'value' }, function () { }, function () { });
 resourceArray.push(resource);
+resourceArray.$promise.then(function(data: ng.resource.IResourceArray<IMyResource>) {});
 
 resource = resourceClass.remove();
 resource = resourceClass.remove({ key: 'value' });
@@ -80,6 +82,7 @@ promise = resource.$delete({ key: 'value' }, function () { });
 promise = resource.$delete(function () { });
 promise = resource.$delete(function () { }, function () { });
 promise = resource.$delete({ key: 'value' }, function () { }, function () { });
+promise.then(function(data: IMyResource) {});
 
 promise = resource.$get();
 promise = resource.$get({ key: 'value' });
@@ -94,6 +97,7 @@ arrayPromise = resourceArray[0].$query({ key: 'value' }, function () { });
 arrayPromise = resourceArray[0].$query(function () { });
 arrayPromise = resourceArray[0].$query(function () { }, function () { });
 arrayPromise = resourceArray[0].$query({ key: 'value' }, function () { }, function () { });
+arrayPromise.then(function(data: ng.resource.IResourceArray<IMyResource>) {});
 
 promise = resource.$remove();
 promise = resource.$remove({ key: 'value' });
