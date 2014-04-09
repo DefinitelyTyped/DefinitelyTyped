@@ -371,7 +371,7 @@ interface HighchartsLegendOptions {
     style?: HighchartsCSSObject;
     symbolPadding?: number;
     symbolWidth?: number;
-    useHTML?: number;
+    useHTML?: boolean;
     width?: number;
     x?: number;
     y?: number;
