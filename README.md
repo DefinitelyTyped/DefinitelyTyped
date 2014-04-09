@@ -237,6 +237,7 @@ List of Definitions
 * [Q-io](https://github.com/kriskowal/q-io) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [QUnit](http://qunitjs.com/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Raven.js](https://github.com/getsentry/raven-js) (by [Santi Albo](https://github.com/santialbo))
+* [React](http://facebook.github.io/react) (by [Dénes Harmath](https://github.com/thSoft))
 * [Rickshaw](http://code.shutterstock.com/rickshaw/) (by [Blake Niemyjski](https://github.com/niemyjski))
 * [Riot.js](https://github.com/moot/riotjs) (by [vvakame](https://github.com/vvakame))
 * [Restify](https://github.com/mcavage/node-restify) (by [Bret Little](https://github.com/blittle))
