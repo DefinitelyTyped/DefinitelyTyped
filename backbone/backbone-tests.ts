@@ -18,48 +18,44 @@ function test_events() {
     object.off();
 }
 
-function test_models() {
+class Sidebar extends Backbone.Model {
+    promptColor() {
+        var cssColor = prompt("Please enter a CSS color:");
+        this.set({ color: cssColor });
+    }
+}
 
-    var Sidebar = Backbone.Model.extend({
-        promptColor: function () {
-            var cssColor = prompt("Please enter a CSS color:");
-            this.set({ color: cssColor });
-        }
-    });
+class Note extends Backbone.Model {
+    initialize() { }
+    author() { }
+    coordinates() { }
+    allowedToEdit(account) {
+        return true;
+    }
+}
+
+class PrivateNote extends Note {
+    allowedToEdit(account) {
+        return account.owns(this);
+    }
+
+    set(attributes: any, options?): Backbone.Model {
+        return Backbone.Model.prototype.set.call(this, attributes, options);
+    }
+}
+
+function test_models() {
 
     var sidebar = new Sidebar();
     sidebar.on('change:color', (model, color) => $('#sidebar').css({ background: color }));
     sidebar.set({ color: 'white' });
     sidebar.promptColor();
 
-    ////////
-
-    var Note = Backbone.Model.extend({
-        initialize: () => { },
-        author: () => { },
-        coordinates: () => { },
-        allowedToEdit: (account) => {
-            return true;
-        }
-    });
-
-    var PrivateNote = Note.extend({
-
-        allowedToEdit: function (account) {
-            return account.owns(this);
-        }
-
-    });
-
     //////////
 
-    var note = Backbone.Model.extend({
-        set: function (attributes, options) {
-            Backbone.Model.prototype.set.call(this, attributes, options);
-        }
-    });
+    var note = new PrivateNote();
 
-    note.get("title")
+    note.get("title");
 
     note.set({ title: "March 20", content: "In his eyes she eclipses..." });
 
@@ -80,29 +76,38 @@ class Employee extends Backbone.Model {
     }
 }
 
-class EmployeeCollection extends Backbone.Collection {
+class EmployeeCollection extends Backbone.Collection<Employee> {
     findByName(key) { }
 }
+
+class Book extends Backbone.Model {
+    title: string;
+    author: string;
+}
+
+class Library extends Backbone.Collection<Book> {
+    model: typeof Book;
+}
+
+class Books extends Backbone.Collection<Book> { }
+
 function test_collection() {
-    var Book: Backbone.Model;
-    var Library = Backbone.Collection.extend({
-        model: Book
+
+    var books = new Library();
+
+    books.each(book => {
+        book.get("title");
     });
 
-    var Books: Backbone.Collection;
-
-    Books.each(function (book) {
-    });
-
-    var titles = Books.map(function (book) {
+    var titles = books.map(book => {
         return book.get("title");
     });
 
-    var publishedBooks = Books.filter(function (book) {
+    var publishedBooks = books.filter(book => {
         return book.get("published") === true;
     });
 
-    var alphabetical = Books.sortBy(function (book) {
+    var alphabetical = books.sortBy(book => {
         return null;
     });
 }
@@ -121,26 +126,26 @@ module v1Changes {
 
         function test_listenTo() {
             var model = new Employee;
-            var view = new Backbone.View;
+            var view = new Backbone.View<Employee>();
             view.listenTo(model, 'invalid', () => { });
         }
 
         function test_listenToOnce() {
             var model = new Employee;
-            var view = new Backbone.View;
+            var view = new Backbone.View<Employee>();
             view.listenToOnce(model, 'invalid', () => { });
         }
 
         function test_stopListening() {
             var model = new Employee;
-            var view = new Backbone.View;
+            var view = new Backbone.View<Employee>();
             view.stopListening(model, 'invalid', () => { });
             view.stopListening(model, 'invalid');
             view.stopListening(model);
         }
     }
 
-    module modelandcollection {
+    module ModelAndCollection {
         function test_url() {
             Employee.prototype.url = () => '/employees';
             EmployeeCollection.prototype.url = () => '/employees';
@@ -168,7 +173,7 @@ module v1Changes {
         }
     }
 
-    module model {
+    module Model {
         function test_validationError() {
             var model = new Employee;
             if (model.validationError) {
@@ -240,7 +245,7 @@ module v1Changes {
         }
     }
 
-    module collection {
+    module Collection {
         function test_fetch() {
             var collection = new EmployeeCollection;
             collection.fetch({ reset: true });
@@ -256,7 +261,7 @@ module v1Changes {
         }
     }
 
-    module router {
+    module Router {
         function test_navigate() {
             var router = new Backbone.Router;
 
