@@ -8596,7 +8596,7 @@ declare module WinJS.Utilities.Scheduler {
 	 * @param name A description of the work item for diagnostics. The default value is an empty string.
 	 * @returns The job instance that represents this work item.
 	**/
-	function schedule(work: (jobInfo: IJobInfo) => void, priority?: Priority, thisArg?: any, name?: string): IJob;
+	function schedule(work: (jobInfo: IJobInfo) => any, priority?: Priority, thisArg?: any, name?: string): IJob;
 
 	/**
 	 * Schedules a job to complete the returned Promise at WinJS.Utilities.Scheduler.Priority.aboveNormal priority.
@@ -8604,7 +8604,7 @@ declare module WinJS.Utilities.Scheduler {
 	 * @param jobName A string that describes the job for diagnostic purposes.
 	 * @returns A Promise that completes within a job of aboveNormal priority.
 	**/
-	function schedulePromiseAboveNormal<U>(promiseValue?: Promise<U>, jobName?: string): Promise<U>;
+	function schedulePromiseAboveNormal<U>(promiseValue?: U, jobName?: string): Promise<U>;
 
 	/**
 	 * Schedules a job to complete the returned Promise at WinJS.Utilities.Scheduler.Priority.belowNormal priority.
@@ -8612,7 +8612,7 @@ declare module WinJS.Utilities.Scheduler {
 	 * @param jobName A string that describes the job for diagnostic purposes.
 	 * @returns A Promise that completes within a job of belowNormal priority.
 	**/
-	function schedulePromiseBelowNormal<U>(promiseValue?: Promise<U>, jobName?: string): Promise<U>;
+	function schedulePromiseBelowNormal<U>(promiseValue?: U, jobName?: string): Promise<U>;
 
 	/**
 	 * Schedules a job to complete the returned Promise at WinJS.Utilities.Scheduler.Priority.high priority.
@@ -8620,7 +8620,7 @@ declare module WinJS.Utilities.Scheduler {
 	 * @param jobName A string that describes the job for diagnostic purposes.
 	 * @returns A Promise that completes within a job of high priority.
 	**/
-	function schedulePromiseHigh<U>(promiseValue?: Promise<U>, jobName?: string): Promise<U>;
+	function schedulePromiseHigh<U>(promiseValue?: U, jobName?: string): Promise<U>;
 
 	/**
 	 * Schedules a job to complete the returned Promise at WinJS.Utilities.Scheduler.Priority.Idle priority.
@@ -8628,7 +8628,7 @@ declare module WinJS.Utilities.Scheduler {
 	 * @param jobName A string that describes the job for diagnostic purposes.
 	 * @returns A Promise that completes within a job of idle priority.
 	**/
-	function schedulePromiseIdle<U>(promiseValue?: Promise<U>, jobName?: string): Promise<U>;
+	function schedulePromiseIdle<U>(promiseValue?: U, jobName?: string): Promise<U>;
 
 	/**
 	 * Schedules a job to complete the returned Promise at WinJS.Utilities.Scheduler.Priority.normal priority.
@@ -8636,7 +8636,7 @@ declare module WinJS.Utilities.Scheduler {
 	 * @param jobName A string that describes the job for diagnostic purposes.
 	 * @returns A Promise that completes within a job of normal priority.
 	**/
-	function schedulePromiseNormal<U>(promiseValue?: Promise<U>, jobName?: string): Promise<U>;
+	function schedulePromiseNormal<U>(promiseValue?: U, jobName?: string): Promise<U>;
 
 	//#endregion Functions
 
