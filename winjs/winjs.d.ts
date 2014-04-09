@@ -4011,7 +4011,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets the calendar to use.
 		**/
-		calendar: any;
+		calendar: string;
 
 		/**
 		 * Gets or sets the current date of the DatePicker. You can use either a date string or a Date object to set this property.
