@@ -3695,7 +3695,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets the HTMLElement with a 'content' type AppBarCommand that should receive focus whenever focus moves by the user pressing HOME or the arrow keys, from the previous AppBarCommand to this AppBarCommand.
 		**/
-		firstElementFocus: any;
+		firstElementFocus: HTMLElement;
 
 		/**
 		 * Gets or sets the Flyout object displayed by this command. The specified flyout is shown when the AppBarCommand's button is invoked.
@@ -3725,7 +3725,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets the HTMLElement with a 'content' type AppBarCommand that should receive focus whenever focus moves by the user pressing END or the arrow keys, from the previous AppBarCommand to this AppBarCommand.
 		**/
-		lastElementFocus: any;
+		lastElementFocus: HTMLElement;
 
 		/**
 		 * Gets or sets the function to be invoked when the command is clicked.
