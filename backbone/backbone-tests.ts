@@ -4,7 +4,7 @@
 function test_events() {
 
     var object = new Backbone.Events();
-    object.on("alert", (msg) => alert("Triggered " + msg));
+    object.on("alert", (eventName: string) => alert("Triggered " + eventName));
 
     object.trigger("alert", "an event");
 
@@ -29,17 +29,17 @@ class Note extends Backbone.Model {
     initialize() { }
     author() { }
     coordinates() { }
-    allowedToEdit(account) {
+    allowedToEdit(account: any) {
         return true;
     }
 }
 
 class PrivateNote extends Note {
-    allowedToEdit(account) {
+    allowedToEdit(account: any) {
         return account.owns(this);
     }
 
-    set(attributes: any, options?): Backbone.Model {
+    set(attributes: any, options?: any): Backbone.Model {
         return Backbone.Model.prototype.set.call(this, attributes, options);
     }
 }
@@ -47,7 +47,7 @@ class PrivateNote extends Note {
 function test_models() {
 
     var sidebar = new Sidebar();
-    sidebar.on('change:color', (model, color) => $('#sidebar').css({ background: color }));
+    sidebar.on('change:color', (model: {}, color: string) => $('#sidebar').css({ background: color }));
     sidebar.set({ color: 'white' });
     sidebar.promptColor();
 
@@ -65,7 +65,7 @@ function test_models() {
 class Employee extends Backbone.Model {
     reports: EmployeeCollection;
 
-    constructor (options? ) {
+    constructor(attributes?: any, options?: any) {
         super(options);
         this.reports = new EmployeeCollection();
         this.reports.url = '../api/employees/' + this.id + '/reports';
@@ -77,7 +77,7 @@ class Employee extends Backbone.Model {
 }
 
 class EmployeeCollection extends Backbone.Collection<Employee> {
-    findByName(key) { }
+    findByName(key: any) { }
 }
 
 class Book extends Backbone.Model {
@@ -107,7 +107,7 @@ function test_collection() {
         return book.get("published") === true;
     });
 
-    var alphabetical = books.sortBy(book => {
+    var alphabetical = books.sortBy((book: Book): number => {
         return null;
     });
 }
@@ -200,17 +200,17 @@ module v1Changes {
             model.destroy({
                 wait: true,
                 success: (m?, response?, options?) => { },
-                error: (m?, jqxhr?: JQueryXHR, options?) => { }
+                error: (m?, jqxhr?, options?) => { }
             });
 
             model.destroy({
                 success: (m?, response?, options?) => { },
-                error: (m?, jqxhr?: JQueryXHR) => { }
+                error: (m?, jqxhr?) => { }
             });
 
             model.destroy({
                 success: () => { },
-                error: (m?, jqxhr?: JQueryXHR) => { }
+                error: (m?, jqxhr?) => { }
             });
         }
 
@@ -225,7 +225,7 @@ module v1Changes {
                     wait: true,
                     validate: false,
                     success: (m?, response?, options?) => { },
-                    error: (m?, jqxhr?: JQueryXHR, options?) => { }
+                    error: (m?, jqxhr?, options?) => { }
                 });
 
             model.save({
@@ -234,7 +234,7 @@ module v1Changes {
                 },
                 {
                     success: () => { },
-                    error: (m?, jqxhr?: JQueryXHR) => { }
+                    error: (m?, jqxhr?) => { }
                 });
         }
 
