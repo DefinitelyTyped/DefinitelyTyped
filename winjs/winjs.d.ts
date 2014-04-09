@@ -8380,6 +8380,15 @@ declare module WinJS.Utilities {
 
 	//#endregion Functions
 
+    //#region Properties
+
+    /**
+     * Gets whether the current script context has access to WinRT APIs.
+    **/
+    var hasWinRT: boolean;
+
+    //#endregion Properties
+
 	//#region Interfaces
 
     interface ILogOptions {
