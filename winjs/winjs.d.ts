@@ -4714,7 +4714,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets the index of the first visible HubSection.
 		**/
-		sectionOnScreen: any;
+		sectionOnScreen: number;
 
 		/**
 		 * Gets or sets the List that contains the HubSection objects that belong to this Hub.
@@ -4724,7 +4724,7 @@ declare module WinJS.UI {
 		/**
 		 * This API supports the SemanticZoom infrastructure and is not intended to be used directly from your code.
 		**/
-		zoomableView: any;
+		zoomableView: IZoomableView<Hub>;
 
 		//#endregion Properties
 
@@ -4905,12 +4905,12 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets the orientation of swipe gestures.
 		**/
-		swipeOrientation: any;
+		swipeOrientation: Orientation;
 
 		/**
 		 * Gets or sets how the ItemContainer reacts when the user taps or clicks an item.
 		**/
-		tapBehavior: any;
+		tapBehavior: TapBehavior;
 
 		//#endregion Properties
 
@@ -5402,7 +5402,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets an object that controls the layout of the ListView.
 		**/
-		layout: any;
+		layout: ILayout2;
 
 		/**
 		 * Gets or sets a value that specifies how the ListView fetches items and adds and removes them to the DOM. Don't change the value of this property after the ListView has begun loading data.
@@ -6763,7 +6763,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets the tab index of this container.
 		**/
-		tabIndex: any;
+		tabIndex: number;
 
 		//#endregion Properties
 
