@@ -1,9 +1,4 @@
-interface Validator
-{
-    isEmail(val:string):boolean;
-}
-
 declare module "validator"
 {
-    export = Validator
+    export function isEmail(val:string):boolean;
 }
