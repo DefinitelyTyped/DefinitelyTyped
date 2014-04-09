@@ -206,6 +206,8 @@ declare module Backbone {
         flatten(shallow?: boolean): TModel[];
         foldl(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any;
         forEach(iterator: (element: TModel, index: number, list?: any) => void, context?: any): any;
+        groupBy(iterator: (element: TModel, index: number) => string, context?: any): any[];
+        groupBy(attribute: string, context?: any): any[];
         include(value: any): boolean;
         indexOf(element: TModel, isSorted?: boolean): number;
         initial(): TModel;
