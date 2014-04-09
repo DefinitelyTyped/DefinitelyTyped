@@ -32,8 +32,8 @@ declare module createjs {
         target: any; // It is 'Object' type officially, but 'any' is easier to use.
         timeStamp: number;
         type: string;
-		
-		// other event payloads
+
+        // other event payloads
         data: any;
         delta: number;
         error: string;
@@ -51,7 +51,7 @@ declare module createjs {
         src: string;
         time: number;
         total: number;
-		
+
         // methods
         clone(): Event;
         preventDefault(): void;
@@ -92,7 +92,7 @@ declare module createjs {
         toString(): string;
         willTrigger(type: string): boolean;
     }
-    
+
     export function indexOf(array: any[], searchElement: Object): number;
 
     export function proxy(method: (eventObj: Object) => boolean, scope: Object, ...arg: any[]): (eventObj: Object) => any;
