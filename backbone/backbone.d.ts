@@ -6,6 +6,7 @@
 
 
 /// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="../underscore/underscore.d.ts" />
 
 declare module Backbone {
 
@@ -191,8 +192,8 @@ declare module Backbone {
         chain(): any;
         compact(): TModel[];
         contains(value: any): boolean;
-        countBy(iterator: (element: TModel, index: number) => any): any[];
-        countBy(attribute: string): any[];
+        countBy(iterator: (element: TModel, index: number) => any): _.Dictionary<number>;
+        countBy(attribute: string): _.Dictionary<number>;
         detect(iterator: (item: any) => boolean, context?: any): any; // ???
         difference(...model: TModel[]): TModel[];
         drop(): TModel;
@@ -206,8 +207,8 @@ declare module Backbone {
         flatten(shallow?: boolean): TModel[];
         foldl(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any;
         forEach(iterator: (element: TModel, index: number, list?: any) => void, context?: any): any;
-        groupBy(iterator: (element: TModel, index: number) => string, context?: any): any[];
-        groupBy(attribute: string, context?: any): any[];
+        groupBy(iterator: (element: TModel, index: number) => string, context?: any): _.Dictionary<TModel[]>;
+        groupBy(attribute: string, context?: any): _.Dictionary<TModel[]>;
         include(value: any): boolean;
         indexOf(element: TModel, isSorted?: boolean): number;
         initial(): TModel;
