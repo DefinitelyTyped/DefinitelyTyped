@@ -3598,7 +3598,7 @@ declare module WinJS.UI {
 		/**
 		 * Sets the AppBarCommand objects that appear in the app bar.
 		**/
-		commands: AppBarCommand;
+		commands: AppBarCommand[];
 
 		/**
 		 * Gets or sets a value that indicates whether the AppBar is disabled.
@@ -5598,7 +5598,7 @@ declare module WinJS.UI {
 		/**
 		 * Sets the MenuCommand objects that appear in the menu.
 		**/
-		commands: MenuCommand;
+		commands: MenuCommand[];
 
 		/**
 		 * Gets the DOM element that hosts the Menu.
