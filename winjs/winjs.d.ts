@@ -6747,7 +6747,7 @@ declare module WinJS.UI {
 		 * @param image The img element that will display the thumbnail.
 		 * @returns A Promise that completes when the full-quality thumbnail is visible.
 		**/
-		loadThumbnail(item: IItem<T>, image: HTMLElement): Promise<void>;
+		loadThumbnail(item: IItem<T>, image: HTMLImageElement): Promise<void>;
 
 		//#endregion Methods
 
