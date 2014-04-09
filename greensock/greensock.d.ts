@@ -24,6 +24,7 @@ declare class Animation {
     duration(value:number):any;
     eventCallback(type:string, callback?:Function, params?:any[], scope?:any):any;
     invalidate():any;
+    isActive():boolean;
     kill(vars?:Object, target?:Object):any;
     pause(atTime?:any, suppressEvents?:boolean):any;
     paused(value?:boolean):any;
