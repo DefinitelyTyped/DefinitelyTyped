@@ -3490,7 +3490,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the control.
 		 * @param options The set of properties and values to apply to the new AppBar.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -3646,7 +3646,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the control.
 		 * @param options The set of properties and values to apply to the new AppBarCommand.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -3768,7 +3768,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element hosts the new BackButton.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -3951,7 +3951,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element associated with the DatePicker control.
 		 * @param options The set of options to be applied initially to the DatePicker control. The options are the following: calendar, current, datePattern, disabled, maxYear, minYear, monthPattern, yearPattern.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -4110,7 +4110,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that hosts the control.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the pageselected event, add a property named "onpageselected" and set its value to the event handler.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -4252,7 +4252,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the control.
 		 * @param options The set of properties and values to apply to the new Flyout.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -4615,7 +4615,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the Hub control.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the contentanimating event, add a property named "oncontentanimating" to the options object and set its value to the event handler.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -4742,7 +4742,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element hosts the new HubSection.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -4793,7 +4793,7 @@ declare module WinJS.UI {
 		 * @param element The element that hosts the HtmlControl.
 		 * @param options The options for configuring the page. The uri option is required in order to specify the source document for the content of the page. Other options are the ones used by the WinJS.Pages.render method.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -4811,7 +4811,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element hosts the new ItemContainer. For the ItemContainer to be accessible, this element must have its role attribute set to "list" or "listbox". If tapBehavior is set to none and selectionDisabled is true, then use the "list" role; otherwise, use the "listbox" role.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -5163,7 +5163,7 @@ declare module WinJS.UI {
 	/**
 	 * Displays data items in a customizable list or grid.
 	**/
-	class ListView<T> {
+    class ListView<T> {
 		//#region Constructors
 
 		/**
@@ -5172,7 +5172,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that hosts the ListView control.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the selectionchanged event, add a property named "onselectionchanged" to the options object and set its value to the event handler.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -5485,7 +5485,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the control.
 		 * @param options The set of properties and values to apply to the new Menu.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -5631,7 +5631,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the control.
 		 * @param options The set of properties and values to apply to the new MenuCommand.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -5728,7 +5728,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the new NavBar.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -5883,7 +5883,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element hosts the new NavBarCommand.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -5978,7 +5978,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element hosts the new NavBarContainer.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -6089,7 +6089,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element hosts the new Rating.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the cancel event, add a property named "oncancel" to the options object and set its value to the event handler.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -6344,7 +6344,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element hosts the new SearchBox.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -6479,7 +6479,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that hosts the SemanticZoom.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. This object can contain these properties: initiallyZoomedOut Boolean, zoomFactor 0.2–0.85.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -6579,7 +6579,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the control.
 		 * @param options The set of properties and values to apply to the new SettingsFlyout.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -6781,7 +6781,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element associated with the TimePicker control.
 		 * @param options The set of options to be applied initially to the TimePicker control. The options are the following: clock.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -6894,7 +6894,7 @@ declare module WinJS.UI {
 		 * @param element The DOM that hosts the control.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the change event, add a property named "onchange" to the options object and set its value to the event handler.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -7003,7 +7003,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element associated that hosts the Tooltip.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the opened event, add a property named "onopened" to the options object and set its value to the event handler.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -7119,7 +7119,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that functions as the scaling box. This element fills 100% of the width and height allotted to it.
 		 * @param options The set of options to be applied initially to the ViewBox control. There are currently no options on this control, and any options included in this parameter are ignored.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
