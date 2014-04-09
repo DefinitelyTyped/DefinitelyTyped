@@ -3310,6 +3310,31 @@ declare module WinJS.UI {
 
 	}
 
+    /**
+     * Used by ListView's currentItem API
+    **/
+    interface IListViewItem {
+        /**
+		 * Gets or sets index of the ListView item.
+		**/
+        index?: number;
+
+        /**
+		 * Gets or sets key of the ListView item.
+		**/
+        key?: string;
+
+        /**
+		 * Gets or sets whether the ListView item is focused.
+		**/
+        hasFocus?: boolean;
+
+        /**
+		 * Gets or sets whether the ListView item is focused and is showing its focus visual.
+		**/
+        showFocus?: boolean;
+    }
+
 	/**
 	 * Represents a selection of ListView items.
 	**/
@@ -5330,10 +5355,10 @@ declare module WinJS.UI {
 		**/
 		removeEventListener(eventName: string, eventCallback: Function, useCapture?: boolean): void;
 
-		/**
-		 * Triggers the ListView disposal service manually.
-		**/
-		triggerDispose(): void;
+        /**
+         * Triggers the ListView disposal service manually.
+        **/
+        static triggerDispose(): void;
 
 		//#endregion Methods
 
@@ -5344,10 +5369,10 @@ declare module WinJS.UI {
 		**/
 		automaticallyLoadPages: boolean;
 
-		/**
-		 * Gets or sets an object that indicates which item should have keyboard focus and the focus state of that item.
-		**/
-		currentItem: { index: number; key: string; hasFocus: boolean; showFocus: boolean };
+        /**
+         * Gets or sets an IListViewItem that indicates which item should have keyboard focus and the focus state of that item.
+        **/
+        currentItem: IListViewItem;
 
 		/**
 		 * Gets the HTML element that hosts this ListView.
@@ -5467,7 +5492,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets a ZoomableView that supports semantic zoom functionality. This API supports the SemanticZoom infrastructure and is not intended to be used directly from your code.
 		**/
-		zoomableView: IZoomableView<T>;
+		zoomableView: IZoomableView<ListView<T>>;
 
 		//#endregion Properties
 
