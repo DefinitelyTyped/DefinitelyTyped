@@ -8135,7 +8135,7 @@ declare module WinJS.Utilities {
 	 * @param name The name of the class to add.
 	 * @returns The element.
 	**/
-	function addClass(e: HTMLElement, name: string): HTMLElement;
+	function addClass<T extends HTMLElement>(e: T, name: string): T;
 
 	/**
 	 * Gets a collection of elements that are the direct children of the specified element.
@@ -8177,7 +8177,7 @@ declare module WinJS.Utilities {
 	 * @param element The element.
 	 * @returns The element.
 	**/
-	function empty(element: HTMLElement): HTMLElement;
+	function empty<T extends HTMLElement>(element: T): T;
 
 	/**
 	 * Determines whether the specified event occurred within the specified element.
@@ -8322,7 +8322,7 @@ declare module WinJS.Utilities {
 	 * @param name The name of the class to remove.
 	 * @returns The element.
 	**/
-	function removeClass(e: HTMLElement, name: string): HTMLElement;
+	function removeClass<T extends HTMLElement>(e: T, name: string): T;
 
 	/**
 	 * Asserts that the value is compatible with declarative processing. Declarative processing is performed by WinJS.UI.processAll or WinJS.Binding.processAll. If the value is not compatible, and strictProcessing is on, an exception is thrown. All functions that have been declared using WinJS.Class.define, WinJS.Class.derive, WinJS.UI.Pages.define, or WinJS.Binding.converter are automatically marked as supported for declarative processing. Any other function that you use from a declarative context (that is, a context in which an HTML element has a data-win-control or data-win-options attribute) must be marked manually by calling this function. When you mark a function as supported for declarative processing, you are guaranteeing that the code in the function is secure from injection of third-party content.
@@ -8376,7 +8376,7 @@ declare module WinJS.Utilities {
 	 * @param name The name of the class to toggle.
 	 * @returns The element.
 	**/
-	function toggleClass(e: HTMLElement, name: string): HTMLElement;
+	function toggleClass<T extends HTMLElement>(e: T, name: string): T;
 
 	//#endregion Functions
 
