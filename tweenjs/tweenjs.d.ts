@@ -12,7 +12,7 @@
 
 // Library documentation : http://www.createjs.com/Docs/TweenJS/modules/TweenJS.html
 
-/// <reference path="../createjs/createjs.d.ts" />
+/// <reference path="../createjs/createjs-lib.d.ts" />
 
 declare module createjs {
     export class CSSPlugin {
