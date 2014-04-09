@@ -13,13 +13,9 @@
 	<meta name="keywords" content="typescript, type, definition, declaration, repository, typing" />
 
 	<meta name="generator" content="DocPad v6.63.8" />
-	<style >html.wait {
-	cursor: wait !important;
-	opacity: 0;
-	transition: opacity 0.5s ease;
-}</style><link  rel="stylesheet" href="/vendor/normalize.css" /><link  rel="stylesheet" href="/vendor/h5bp.css" /><link  rel="stylesheet" href="/styles/style.css" />
+	<link  rel="stylesheet" href="/vendor/normalize.css" /><link  rel="stylesheet" href="/vendor/h5bp.css" /><link  rel="stylesheet" href="/styles/style.css" />
 
-	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="/favicon.ico" >
 </head>
 <body>
 	<!--[if lt IE 7]>
@@ -30,52 +26,7 @@
 	<p>DefinitelyTyped</p>
 	<p><small>The <a href="https://github.com/borisyankov/DefinitelyTyped">repository</a> for high quality <a href="http://typescriptlang.org/">TypeScript</a> type definitions.</small></p>
 </div>
-	<script >(function(){
-	/* Did we just livereload? */
-var log = !!(localStorage && console && console.log && true);
-if ( log && localStorage.getItem('/docpad-livereload/reloaded') === 'yes' ) {
-	localStorage.removeItem('/docpad-livereload/reloaded');
-	console.log('LiveReload completed at', new Date())
-}
-
-/* Listen for the regenerated event and perform a reload of the page when the event occurs */
-var listen = function(){
-	var primus = new Primus('/docpad-livereload');
-	primus.on('data', function(data){
-		if ( data && data.message ) {
-			if ( data.message === 'generateBefore' ) {
-				if ( log ) {
-					console.log('LiveReload started at', new Date());
-				}
-				if ( typeof document.getElementsByTagName !== 'undefined' ) {
-	document.getElementsByTagName('html')[0].className += ' wait';
-}
-			}
-			else if ( data.message === 'generateAfter' ) {
-				if ( log ) {
-					localStorage.setItem('/docpad-livereload/reloaded', 'yes');
-				}
-				document.location.reload();
-			}
-		}
-	});
-};
-	/* Inject socket into our page */
-var inject = function(){
-	var t = document.createElement('script');
-	t.type = 'text/javascript';
-	t.async = 'async';
-	t.src = '/primus/primus.js';
-	t.onload = listen;
-	var s = document.getElementsByTagName('script')[0];
-	s.parentNode.insertBefore(t, s);
-};
-	if ( typeof Primus !== 'undefined' ) {
-		listen();
-	} else {
-		inject();
-	}
-})();</script><script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="/vendor/jquery.js"><\/script>')</script><script defer="defer"  src="/vendor/log.js"></script><script defer="defer"  src="/vendor/modernizr.js"></script><script defer="defer"  src="/scripts/script.js"></script>
 </body>
 </html>

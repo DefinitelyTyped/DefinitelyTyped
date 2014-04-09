@@ -1,18 +1,1 @@
-html,
-body {
-  background-color: white;
-  color: #888;
-}
-.col {
-  font-family: sans-serif;
-  margin-top: 10em;
-  text-align: center;
-}
-a,
-a:visited {
-  color: #0785e2;
-}
-a,
-a:active {
-  color: #0086e9;
-}
+html,body{background-color:white;color:#888}.col{font-family:sans-serif;margin-top:10em;text-align:center}a,a:visited{color:#0785e2}a,a:active{color:#0086e9}
