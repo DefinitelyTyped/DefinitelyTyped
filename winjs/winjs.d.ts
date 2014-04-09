@@ -3562,7 +3562,7 @@ declare module WinJS.UI {
 		 * @param commands The commands to hide. The array elements may be AppBarCommand objects, or the string identifiers (IDs) of commands.
 		 * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to hide the commands immediately, without animating them; otherwise, false.
 		**/
-		hideCommands(commands: any[], immediate: boolean): void;
+		hideCommands(commands: any[], immediate?: boolean): void;
 
 		/**
 		 * Removes an event handler that the addEventListener method registered.
@@ -3582,14 +3582,14 @@ declare module WinJS.UI {
 		 * @param commands The commands to show. The array elements may be AppBarCommand objects, or the string identifiers (IDs) of commands.
 		 * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to show the commands immediately, without animating them; otherwise, false.
 		**/
-		showCommands(commands: any[], immediate: boolean): void;
+		showCommands(commands: any[], immediate?: boolean): void;
 
 		/**
 		 * Shows the specified commands of the AppBar while hiding all other commands.
 		 * @param commands The commands to show. The array elements may be AppBarCommand objects, or the string identifiers (IDs) of commands.
 		 * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to show the specified commands (and hide the others) immediately, without animating them; otherwise, false.
 		**/
-		showOnlyCommands(commands: any[], immediate: boolean): void;
+		showOnlyCommands(commands: any[], immediate?: boolean): void;
 
 		//#endregion Methods
 
