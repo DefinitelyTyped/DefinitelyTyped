@@ -8298,7 +8298,7 @@ declare module WinJS.Utilities {
 	 * @param func The function to be marked as compatible with declarative processing.
 	 * @returns The input function, marked as compatible with declarative processing.
 	**/
-	function markSupportedForProcessing<U>(func: U): U;
+	function markSupportedForProcessing<U extends Function>(func: U): U;
 
 	/**
 	 * Returns a QueryCollection with zero or one elements matching the specified selector query.
@@ -8329,7 +8329,7 @@ declare module WinJS.Utilities {
 	 * @param value The value to be tested for compatibility with declarative processing. If the value is a function it must be marked with a property supportedForProcessing with a value of true when strictProcessing is on. For more information, see WinJS.Utilities.markSupportedForProcessing.
 	 * @returns The input value.
 	**/
-	function requireSupportedForProcessing(value: any): any;
+	function requireSupportedForProcessing<T>(value: T): T;
 
 	/**
 	 * Sets the innerHTML property of the specified element to the specified text.
@@ -8363,7 +8363,7 @@ declare module WinJS.Utilities {
 	 * Configures a logger that writes messages containing the specified tags to the JavaScript console.
 	 * @param options The tags for messages to log. Multiple tags should be separated by spaces. May contain type, tags, excludeTags and action properties.
 	**/
-	function startLog(options?: any): void;
+    function startLog(options?: ILogOptions): void;
 
 	/**
 	 * Removes the WinJS logger that had previously been set up.
@@ -8381,6 +8381,13 @@ declare module WinJS.Utilities {
 	//#endregion Functions
 
 	//#region Interfaces
+
+    interface ILogOptions {
+        type: string;
+        action?: (message: string, tags: string, type: string) => void;
+        excludeTags: string;
+        tags: string;
+    }
 
 	interface IPosition {
 		left: number;
