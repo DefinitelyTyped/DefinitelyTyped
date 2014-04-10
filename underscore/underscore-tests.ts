@@ -3,10 +3,10 @@
 declare var $;
 
 _.each([1, 2, 3], (num) => alert(num.toString()));
-_.each({ one: 1, two: 2, three: 3 }, (value) => alert(value.toString()));
+_.each({ one: 1, two: 2, three: 3 }, (value, key) => alert(value.toString()));
 
 _.map([1, 2, 3], (num) => num * 3);
-_.map({ one: 1, two: 2, three: 3 }, (value: number, key?: string) => value * 3);
+_.map({ one: 1, two: 2, three: 3 }, (value, key) => value * 3);
 
 //var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);	// https://typescript.codeplex.com/workitem/1960
 var sum = _.reduce<number, number>([1, 2, 3], (memo, num) => memo + num, 0);
@@ -16,9 +16,13 @@ var list = [[0, 1], [2, 3], [4, 5]];
 //var flat = _.reduceRight(list, (a, b) => a.concat(b), []);	// https://typescript.codeplex.com/workitem/1960
 var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
-var even = _.find<number>([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
+var even = _.find([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
-var evens = _.filter<number>([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
+var firstCapitalLetter = _.find({ a: 'a', b: 'B', c: 'C', d: 'd' }, function (l) { return l.toUpperCase() === l; });
+
+var evens = _.filter([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
+
+var capitalLetters = _.filter({ a: 'a', b: 'B', c: 'C', d: 'd' }, function (l) { return l.toUpperCase() === l; });
 
 var listOfPlays = [{ title: "Cymbeline", author: "Shakespeare", year: 1611 }, { title: "The Tempest", author: "Shakespeare", year: 1611 }, { title: "Other", author: "Not Shakespeare", year: 2012 }];
 _.where(listOfPlays, { author: "Shakespeare", year: 1611 });

@@ -233,7 +233,15 @@ interface UnderscoreStatic {
 	* @return The first acceptable found element in `list`, if nothing is found undefined/null is returned.
 	**/
 	find<T>(
-		list: _.Collection<T>,
+		list: _.List<T>,
+		iterator: _.ListIterator<T, boolean>,
+		context?: any): T;
+
+	/**
+	* @see _.find
+	**/
+	find<T>(
+		list: _.Dictionary<T>,
 		iterator: _.ListIterator<T, boolean>,
 		context?: any): T;
 
@@ -254,7 +262,15 @@ interface UnderscoreStatic {
 	* @return The filtered list of elements.
 	**/
 	filter<T>(
-		list: _.Collection<T>,
+		list: _.List<T>,
+		iterator: _.ListIterator<T, boolean>,
+		context?: any): T[];
+
+	/**
+	* @see _.filter
+	**/
+	filter<T>(
+		list: _.Dictionary<T>,
 		iterator: _.ListIterator<T, boolean>,
 		context?: any): T[];
 
