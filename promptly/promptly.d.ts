@@ -18,8 +18,8 @@ declare module "promptly" {
     validator?: any;
     retry?: boolean;
     silent?: boolean;
-    input?: NodeReadableStream;
-    output?: NodeWritableStream;
+    input?: NodeJS.ReadableStream;
+    output?: NodeJS.WritableStream;
   }
 
   export function prompt(message: string, fn?: Callback):any;
