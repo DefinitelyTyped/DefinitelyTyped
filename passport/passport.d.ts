@@ -38,7 +38,16 @@ declare module 'passport' {
         transformAuthInfo(fn: (info: any, done: (err: any, info: any) => void) => void): void;
     }
 
-    interface Request extends express.Request {
+    interface Strategy {
+        name?: string;
+        authenticate(req: express.Request, options?: Object): void;
+    }
+}
+
+declare module Express {
+    export interface Request {
+
+        // These declarations are merged into express's Request type
         login(user: any, done: (err: any) => void): void;
         login(user: any, options: Object, done: (err: any) => void): void;
         logIn(user: any, done: (err: any) => void): void;
@@ -50,11 +59,4 @@ declare module 'passport' {
         isAuthenticated(): boolean;
         isUnauthenticated(): boolean;
     }
-    interface Response extends express.Response {}
-
-    interface Strategy {
-        name?: string;
-        authenticate(req: Request, options?: Object): void;
-    }
 }
-
