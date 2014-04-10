@@ -10,6 +10,15 @@ var arrayVar = new Array("Saturn", "Mars", "Jupiter");
 
 //#endregion
 
+//#region Global Shortcut Methods
+
+$addHandler($get("Button1"), "click", () => { });
+$addHandlers($get("Button1"), {});
+$removeHandler($get("Button1"), "click", () => { });
+$find('MyComponent');
+$find('MyComponent', $find('#test'));
+
+//#endregion
 
 //#region Sys.Application Tests
 
@@ -65,6 +74,127 @@ Sys.Application.get_isDisposing();
 
 //#endregion 
 
+//#region Sys.ApplicationLoadEventArgs Tests
+
+var a = new Sys.ApplicationLoadEventArgs(new Array<Sys.Component>(), true);
+
+var components = a.get_components();
+var isPartialReload = a.get_isPartialLoad();
+
+//#endregion
+
+//#region Sys.Browser Tests
+
+var browser = Sys.Browser();
+
+//#endregion
+
+//#region Sys.CancelEventArgs Tests
+
+var args = new Sys.CancelEventArgs();
+
+var divElem = 'AlertDiv';
+var messageElem = 'AlertMessage';
+
+Sys.WebForms.PageRequestManager.getInstance().add_initializeRequest(CheckStatus);
+
+function CheckStatus(sender, args) {
+
+    var prm = Sys.WebForms.PageRequestManager.getInstance();
+
+    if (prm.get_isInAsyncPostBack() && args.get_postBackElement().id == 'CancelRefresh') {
+        prm.abortPostBack();
+    }
+    else if (prm.get_isInAsyncPostBack() && args.get_postBackElement().id == 'RefreshButton') {
+
+        args.set_cancel(true);
+        ActivateAlertDiv('visible', 'Still working on previous request.');
+    }
+    else if (!prm.get_isInAsyncPostBack() && args.get_postBackElement().id == 'RefreshButton') {
+        ActivateAlertDiv('visible', 'Processing....');
+    }
+}
+
+function ActivateAlertDiv(visString, msg) {
+    var adiv = $get(divElem);
+    var aspan = $get(messageElem);
+    adiv.style.visibility = visString;
+    aspan.innerHTML = msg;
+}
+
+//#endregion
+
+//#region Sys.CollectionChange Tests
+
+var action = Sys.NotifyCollectionChangedAction.add;
+var newItems = [];
+var newStartingIndex = 1;
+var oldItems = [];
+var oldStartingIndex = 2;
+
+var MyCChg = new Sys.CollectionChange(action, newItems, newStartingIndex, oldItems, oldStartingIndex);
+
+action = MyCChg.action;
+newItems = MyCChg.newItems;
+newStartingIndex = MyCChg.newStartingIndex;
+oldItems = MyCChg.oldItems;
+oldStartingIndex = MyCChg.oldStartingIndex;
+
+//#endregion
+
+//#region Sys.CommandEventArg Tests
+
+var commandName = "command name";
+var commandArgument = "command argument";
+var commandSource = "command source";
+var argsObj = new Sys.CommandEventArgs(commandName, commandArgument, commandSource);
+var empty = argsObj.Empty;
+commandName = argsObj.get_commandName();
+commandArgument = argsObj.get_commandArgument();
+
+//#endregion
+
+//#region Sys.Component Tests
+
+var aComponent = new Sys.Component();
+
+aComponent.add_disposing(() => { });
+aComponent.remove_disposing(() => { });
+
+aComponent.add_propertyChanged(() => { });
+aComponent.remove_propertyChanged(() => { });
+
+aComponent.beginUpdate();
+
+aComponent.create(type, properties, events, references, element);
+
+aComponent.dispose();
+
+aComponent.endUpdate();
+
+aComponent.initialize();
+
+aComponent.raisePropertyChanged("propertyName");
+
+aComponent.updated();
+
+//#endregion
+
+//#region Sys.CultureInfo Tests
+
+var currentCultureInfoObj = Sys.CultureInfo.CurrentCulture;
+var dtfCCObject = currentCultureInfoObj.dateTimeFormat;
+var invariantCultureInfoObj = Sys.CultureInfo.InvariantCulture;
+var dtfICObject = invariantCultureInfoObj.dateTimeFormat;
+
+var newCulture = new Sys.CultureInfo("name", "numberFormat", "dateTimeFormat");
+
+var format = newCulture.dateTimeFormat;
+var name = newCulture.name;
+var numberFormat = newCulture.numberFormat;
+
+//#endregion
+
 //#region ASP.NET Types Tests
 
 Type.registerNamespace("Samples");
@@ -102,12 +232,3 @@ alert(implementsInterface);
 
 //#endregion
 
-//#region Global Shortcut Methods
-
-$addHandler($get("Button1"), "click", () => { });
-$addHandlers($get("Button1"), { });
-$removeHandler($get("Button1"), "click", () => { });
-$find('MyComponent');
-$find('MyComponent', $find('#test'));
-
-//#endregion
