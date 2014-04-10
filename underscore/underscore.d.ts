@@ -23,7 +23,7 @@ declare module _ {
 
 	/**
 	* underscore.js template settings, set templateSettings or pass as an argument
-	* to 'template()' to overide defaults.
+	* to 'template()' to override defaults.
 	**/
 	interface TemplateSettings {
 		/**
@@ -200,7 +200,7 @@ interface UnderscoreStatic {
 
 	/**
 	* The right-associative version of reduce. Delegates to the JavaScript 1.8 version of
-	* reduceRight, if it exists. Foldr is not as useful in JavaScript as it would be in a
+	* reduceRight, if it exists. `foldr` is not as useful in JavaScript as it would be in a
 	* language with lazy evaluation.
 	* @param list Reduces the elements of this array.
 	* @param iterator Reduce iterator function for each element in `list`.
@@ -233,7 +233,15 @@ interface UnderscoreStatic {
 	* @return The first acceptable found element in `list`, if nothing is found undefined/null is returned.
 	**/
 	find<T>(
-		list: _.Collection<T>,
+		list: _.List<T>,
+		iterator: _.ListIterator<T, boolean>,
+		context?: any): T;
+
+	/**
+	* @see _.find
+	**/
+	find<T>(
+		list: _.Dictionary<T>,
 		iterator: _.ListIterator<T, boolean>,
 		context?: any): T;
 
@@ -254,7 +262,15 @@ interface UnderscoreStatic {
 	* @return The filtered list of elements.
 	**/
 	filter<T>(
-		list: _.Collection<T>,
+		list: _.List<T>,
+		iterator: _.ListIterator<T, boolean>,
+		context?: any): T[];
+
+	/**
+	* @see _.filter
+	**/
+	filter<T>(
+		list: _.Dictionary<T>,
 		iterator: _.ListIterator<T, boolean>,
 		context?: any): T[];
 
@@ -297,7 +313,15 @@ interface UnderscoreStatic {
 	* @return The rejected list of elements.
 	**/
 	reject<T>(
-		list: _.Collection<T>,
+		list: _.List<T>,
+		iterator: _.ListIterator<T, boolean>,
+		context?: any): T[];
+
+	/**
+	* @see _.reject
+	**/
+	reject<T>(
+		list: _.Dictionary<T>,
 		iterator: _.ListIterator<T, boolean>,
 		context?: any): T[];
 
@@ -497,7 +521,7 @@ interface UnderscoreStatic {
 	* @return An object with the group names as properties where each property contains the number of elements in that group.
 	**/
 	countBy<T>(
-		list: _.Collection<T>,
+		list: _.List<T>,
 		iterator?: _.ListIterator<T, any>,
 		context?: any): _.Dictionary<number>;
 
@@ -506,7 +530,7 @@ interface UnderscoreStatic {
 	* @param iterator Function name
 	**/
 	countBy<T>(
-		list: _.Collection<T>,
+		list: _.Dictionary<T>,
 		iterator: string,
 		context?: any): _.Dictionary<number>;
 
@@ -603,7 +627,7 @@ interface UnderscoreStatic {
 	/**
 	* Returns everything but the last entry of the array. Especially useful on the arguments object.
 	* Pass n to exclude the last n elements from the result.
-	* @param array Retreive all elements except the last `n`.
+	* @param array Retrieve all elements except the last `n`.
 	* @param n Leaves this many elements behind, optional.
 	* @return Returns everything but the last `n` elements of `array`.
 	**/
@@ -711,7 +735,7 @@ interface UnderscoreStatic {
 	* advance that the array is sorted, passing true for isSorted will run a much faster algorithm. If
 	* you want to compute unique items based on a transformation, pass an iterator function.
 	* @param array Array to remove duplicates from.
-	* @param isSorted True if `array` is already sorted, optiona, default = false.
+	* @param isSorted True if `array` is already sorted, optional, default = false.
 	* @param iterator Transform the elements of `array` before comparisons for uniqueness.
 	* @param context 'this' object in `iterator`, optional.
 	* @return Copy of `array` where all elements are unique.
@@ -817,7 +841,7 @@ interface UnderscoreStatic {
 	* @param array The array to search for the last index of `value`.
 	* @param value The value to search for within `array`.
 	* @param from The starting index for the search, optional.
-	* @return The index of the last occurance of `value` within `array`.
+	* @return The index of the last occurrence of `value` within `array`.
 	**/
 	lastIndexOf<T>(
 		array: _.List<T>,
@@ -918,7 +942,7 @@ interface UnderscoreStatic {
 	/**
 	* Much like setTimeout, invokes function after wait milliseconds. If you pass the optional arguments,
 	* they will be forwarded on to the function when it is invoked.
-	* @param fn Function to delay `waitMS` amount of ms.
+	* @param func Function to delay `waitMS` amount of ms.
 	* @param wait The amount of milliseconds to delay `fn`.
 	* @arguments Additional arguments to pass to `fn`.
 	**/
@@ -954,7 +978,7 @@ interface UnderscoreStatic {
 	* if you call it again any number of times during the wait period, as soon as that period is over.
 	* If you'd like to disable the leading-edge call, pass {leading: false}, and if you'd like to disable
 	* the execution on the trailing-edge, pass {trailing: false}.
-	* @param fn Function to throttle `waitMS` ms.
+	* @param func Function to throttle `waitMS` ms.
 	* @param wait The number of milliseconds to wait before `fn` can be invoked again.
 	* @param options Allows for disabling execution of the throttled function on either the leading or trailing edge.
 	* @return `fn` with a throttle of `wait`.
@@ -1030,14 +1054,14 @@ interface UnderscoreStatic {
 
 	/**
 	* Retrieve all the names of the object's properties.
-	* @param object Retreive the key or property names from this object.
+	* @param object Retrieve the key or property names from this object.
 	* @return List of all the property names on `object`.
 	**/
 	keys(object: any): string[];
 
 	/**
 	* Return all of the values of the object's properties.
-	* @param object Retreive the values of all the properties on this object.
+	* @param object Retrieve the values of all the properties on this object.
 	* @return List of all the values on `object`.
 	**/
 	values(object: any): any[];
@@ -2233,9 +2257,7 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.map
 	**/
-	map<TArray>(iterator: (value: T, index: number, list: T[]) => TArray[], context?: any): _ChainOfArrays<TArray>;
-	//Not sure why this won't work, might be a TypeScript error? 
-	//map<TArray>(iterator: _.ListIterator<T, TArray[]>, context?: any): _ChainOfArrays<TArray>;
+	map<TArray>(iterator: _.ListIterator<T, TArray[]>, context?: any): _ChainOfArrays<TArray>;
 
 	/**
 	* Wrapped type `any[]`.
@@ -2247,9 +2269,7 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.map
 	**/
-	map<TArray>(iterator: (element: T, key: string, list: any) => TArray[], context?: any): _ChainOfArrays<TArray>;
-	//Not sure why this won't work, might be a TypeScript error?  
-	//map<TArray>(iterator: _.ObjectIterator<T, TArray[]>, context?: any): _ChainOfArrays<TArray>;
+	map<TArray>(iterator: _.ObjectIterator<T, TArray[]>, context?: any): _ChainOfArrays<TArray>;
 	
 	/**
 	* Wrapped type `any[]`.
