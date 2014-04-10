@@ -313,7 +313,15 @@ interface UnderscoreStatic {
 	* @return The rejected list of elements.
 	**/
 	reject<T>(
-		list: _.Collection<T>,
+		list: _.List<T>,
+		iterator: _.ListIterator<T, boolean>,
+		context?: any): T[];
+
+	/**
+	* @see _.reject
+	**/
+	reject<T>(
+		list: _.Dictionary<T>,
 		iterator: _.ListIterator<T, boolean>,
 		context?: any): T[];
 
@@ -513,7 +521,7 @@ interface UnderscoreStatic {
 	* @return An object with the group names as properties where each property contains the number of elements in that group.
 	**/
 	countBy<T>(
-		list: _.Collection<T>,
+		list: _.List<T>,
 		iterator?: _.ListIterator<T, any>,
 		context?: any): _.Dictionary<number>;
 
@@ -522,7 +530,7 @@ interface UnderscoreStatic {
 	* @param iterator Function name
 	**/
 	countBy<T>(
-		list: _.Collection<T>,
+		list: _.Dictionary<T>,
 		iterator: string,
 		context?: any): _.Dictionary<number>;
 
@@ -2225,8 +2233,6 @@ interface _Chain<T> {
 	* @see _.map
 	**/
 	map<TArray>(iterator: (element: T, key: string, list: any) => TArray[], context?: any): _ChainOfArrays<TArray>;
-	//Not sure why this won't work, might be a TypeScript error?  
-	//map<TArray>(iterator: _.ObjectIterator<T, TArray[]>, context?: any): _ChainOfArrays<TArray>;
 	
 	/**
 	* Wrapped type `any[]`.
