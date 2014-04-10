@@ -7,6 +7,8 @@
 ///<reference path='../node/node.d.ts' />
 
 declare module "msnodesql" {
+    import events = require('events');
+
     export function open(connectionString: string, callback?: OpenCallback): Connection;
 
     export function query(connectionString: string, query: string, callback?: QueryCallback): StreamEvents;
@@ -55,5 +57,5 @@ declare module "msnodesql" {
         close(immediately: boolean, callback?: ErrorCallback);
     }
 
-    interface StreamEvents extends NodeEventEmitter { }
+    interface StreamEvents extends events.EventEmitter {}
 }

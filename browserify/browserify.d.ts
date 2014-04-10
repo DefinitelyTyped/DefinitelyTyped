@@ -16,7 +16,7 @@ interface BrowserifyObject extends NodeEventEmitter {
 		debug?: boolean;
 		standalone?: string;
 		insertGlobalVars?: any;
-	}, cb?: (err: any, src: any) => void): ReadableStream;
+	}, cb?: (err: any, src: any) => void): NodeReadableStream;
 
 	external(file: string): BrowserifyObject;
 	ignore(file: string): BrowserifyObject;

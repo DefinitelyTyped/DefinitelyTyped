@@ -39,7 +39,7 @@ fs.writeFile("Harry Potter",
     assert.ifError);
 
 var content: string,
-    buffer: NodeBuffer;
+    buffer: Buffer;
 
 content = fs.readFileSync('testfile', 'utf8');
 content = fs.readFileSync('testfile', {encoding : 'utf8'});
