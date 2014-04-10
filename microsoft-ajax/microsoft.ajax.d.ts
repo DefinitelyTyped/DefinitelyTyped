@@ -554,7 +554,7 @@ declare module Sys {
     * The members can be invoked without creating an instance of the class.
     * @see {@link http://msdn.microsoft.com/en-us/library/bb384161(v=vs.100).aspx}
     */
-    class Application {
+    interface Application {
 
         //#region Constructors
 
@@ -697,11 +697,14 @@ declare module Sys {
         //#endregion
     }
 
+    var Application: Application;
+
     /**
     * Provides information about the current Web browser.
+    * The Sys.Browser object determines which browser is being used and provides some information about it. You can use this object to help customize your code to the unique requirements or capabilities of the browser.
     * @see {@link http://msdn.microsoft.com/en-us/library/cc679064(v=vs.100).aspx}
     */
-    class Browser {
+    interface IBrowser {
 
         //#region Fields
 
@@ -728,6 +731,8 @@ declare module Sys {
 
         //#endregion
     }
+
+    export function Browser(): Sys.IBrowser;
 
     /**
     * Provides the base class for the Control and Behavior classes, and for any other object whose lifetime should be managed by the ASP.NET AJAX client library.
@@ -1464,6 +1469,42 @@ declare module Sys {
     //#endregion
 
     //#region Event Args
+
+    /*
+    * Used by the Application class to hold event arguments for the load event.
+    * @see {@link http://msdn.microsoft.com/en-us/library/bb383787(v=vs.100).aspx}
+    */
+    class ApplicationLoadEventArgs {
+
+        //#region Constructors
+
+        /**
+        * Initializes a new instance of the ApplicationLoadEventArgs class.  
+        * @param components
+        *           The list of components that were created since the last time the load event was raised.
+        * @param isPartialLoad 
+        *           true to indicate that the event is a partial-page update.
+        */
+        constructor(components: any, isPartialLoad: boolean);
+
+        //#endregion
+
+        //#region Properties
+
+        /**
+        * Gets an array of all the components that were created since the last time the load event was raised.
+        * @return An array of all the components that were created since the last time the load event was raised.
+        */
+        get_components(): Component[];
+
+        /**
+        * Returns a value that indicates whether the page is engaged in a partial-page update.
+        * @return true if the page is engaged in a partial-page update; otherwise, false.
+        */
+        get_isPartialLoad(): boolean;
+
+        //#endregion
+    }
 
     /**
     * Provides a base class for classes that are used by event sources to pass event argument information.
@@ -2635,7 +2676,7 @@ declare module Sys {
             * Returns the instance of the PageRequestManager class for the page.
             * @return The current instance of the PageRequestManager class. You do not create a new instance of the PageRequestManager class directly. Instead, an instance is available when partial-page rendering is enabled.
             */
-            getInstance(): PageRequestManager;
+            static getInstance(): PageRequestManager;
 
             /**
             * Stops all updates that would occur as a result of an asynchronous postback.
@@ -2667,7 +2708,9 @@ declare module Sys {
 
             //#endregion
 
-            //#region Properties           
+            //#region Properties       
+
+            get_isInAsyncPostBack(): boolean;    
 
             //#endregion
         }
