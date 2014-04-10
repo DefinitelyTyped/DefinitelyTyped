@@ -8,7 +8,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Pull Requests | DefinitelyTyped</title>
+	<title>Best practices | DefinitelyTyped</title>
 	<meta name="description" content="The repository for high quality TypeScript type definitions." />
 	<meta name="keywords" content="typescript, type, definition, declaration, repository, typing" />
 
@@ -51,31 +51,26 @@
 
 
 			<div class="ui vertical segment">
-	<h1>Pull Requests</h1>
+	<h1>Best practices</h1>
 </div>
 
 <div class="ui vertical segment">
-	<h2 id="getting-latest-upstream-changes">Getting latest upstream changes</h2>
-<p>You don&#39;t need to do this unless we request you to do so.</p>
-<p>Initially make sure you have DT added as an upstream remote in your fork. Do this by :</p>
-<pre><code>git remote <span class="hljs-keyword">add</span> upstream https://github<span class="hljs-preprocessor">.com</span>/borisyankov/DefinitelyTyped<span class="hljs-preprocessor">.git</span>
-</code></pre><p>Now whenever you want the latest changes from DT added to your local branch just run these two commands :</p>
-<pre><code>git fetch upstream
-<span class="hljs-preprocessor"># Fetches any new changes from DefinitelyTyped</span>
-git merge upstream/master
-<span class="hljs-preprocessor"># Merges any changes fetched into your working files</span>
-</code></pre><h2 id="broken-build">Broken Build</h2>
-<p>If tests fail and you know how to fix them, just add a commit to fix that error in your local branch and push it to your DT fork. If the Pull Request uses the same branch it will be update automatically and the tests will run again.</p>
-<p>If you need multiple tries to make it work then please flatten your commits so the history is moderately clean (please also minimise the commit message). You could <code>git push --force</code> (<em>careful!</em>) the flat commit over your earlier commits in the same branch and the PR will be automatically updated.</p>
-<h2 id="multiple-contributions">Multiple contributions</h2>
-<p>It is recommended to split your contributions for different JS packages into their own git branches so you can have multiple pending PR&#39;s.</p>
-<h2 id="travis-ci-for-your-dt-fork">Travis CI for your DT fork</h2>
-<p>You can enable Travis for your own DT fork if you like: go to <a href="https://travis-ci.org/">Travis</a> and sign-up for free if you haven&#39;t yet. Then go to your <a href="https://travis-ci.org/profile">account</a> and enable your DT fork. This will run Travis same as on DT and allows you to experiment freely. You can review your fork&#39;s build status via the menu on the left side of the <a href="https://travis-ci.org/">Travis homepage</a> after you enabled the hook AND pushed some code to the repo.</p>
-<h2 id="large-contributions-and-changes">Large contributions and changes</h2>
-<p>If you plan to start a new definition make sure to check the issues first and/or leave a message that you are working on it so you&#39;re not do duplicating work. Coordination with fellow users is always recommended.</p>
-<p>If you think you need to make big changes to a existing definition it could be handy to review the git history and create a new Issue where you @mention previous authors and see if they agree and/or want to get involved again.</p>
-<h2 id="merging">Merging</h2>
-<p>DefinitelyTyped is managed by a group of enthusiasts who volunteer their free time to review and merge the contributions. This means it can potentially take a few days or up to a week before someone has the focus+time to look at a PR and merge it. If your contributions stays pending and get buried then feel free to politely ping/bump.</p>
+	<p>Ghostin&#39; modules:</p>
+<pre><code class="lang-typescript"><span class="hljs-comment">// this pattern has 3 name in top level.</span>
+<span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">NodeFoo</span> {</span>}
+<span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">NodeBar</span> {</span>}
+<span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">NodeBuzz</span> {</span>}
+
+<span class="hljs-comment">// this pattern has 1 name in top level. Non instantiable module</span>
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">module</span> NodeJS {
+    <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Foo</span> {</span>}
+    <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Bar</span> {</span>}
+    <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Buzz</span> {</span>}
+}
+
+<span class="hljs-comment">// safety!</span>
+<span class="hljs-keyword">var</span> n = NodeJS; <span class="hljs-comment">// TS Error : Could not find symbol NodeJS</span>
+</code></pre>
 
 </div>
 
