@@ -66,6 +66,7 @@ List of Definitions
 * [d3.js](http://d3js.org/) (from TypeScript samples)
 * [dhtmlxGantt](http://dhtmlx.com/docs/products/dhtmlxGantt) (by [Maksim Kozhukh](http://github.com/mkozhukh))
 * [dhtmlxScheduler](http://dhtmlx.com/docs/products/dhtmlxScheduler) (by [Maksim Kozhukh](http://github.com/mkozhukh))
+* [diff](https://github.com/kpdecker/jsdiff) (by [vvakame](http://github.com/vvakame))
 * [Dock Spawn](http://dockspawn.com) (by [Drew Noakes](https://drewnoakes.com))
 * [docCookies](https://developer.mozilla.org/en-US/docs/Web/API/document.cookie) (by [Jon Egerton](https://github.com/jonegerton))
 * [domo](http://domo-js.com/) (by [Steve Fenton](https://github.com/Steve-Fenton))
