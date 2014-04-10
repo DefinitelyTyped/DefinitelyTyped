@@ -93,7 +93,10 @@ declare module Backbone {
 
     class Model extends ModelBase implements OptionalDefaults {
 
-        private static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
+        /**
+        * Do not use, prefer TypeScript's extend functionality.
+        **/
+        private static extend(properties: any, classProperties?: any): any;
 
         attributes: any;
         changed: any[];
@@ -144,7 +147,10 @@ declare module Backbone {
 
     class Collection<TModel extends Model> extends ModelBase {
 
-        private static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
+        /**
+        * Do not use, prefer TypeScript's extend functionality.
+        **/
+        private static extend(properties: any, classProperties?: any): any;
 
         // TODO: this really has to be typeof TModel
         //model: typeof TModel;
@@ -253,7 +259,10 @@ declare module Backbone {
 
     class Router extends Events implements OptionalRoutes {
 
-        private static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
+        /**
+        * Do not use, prefer TypeScript's extend functionality.
+        **/
+        private static extend(properties: any, classProperties?: any): any;
 
         constructor(options?: RouterOptions);
         initialize(options?: RouterOptions): void;
@@ -303,7 +312,10 @@ declare module Backbone {
 
     class View<TModel extends Model> extends Events implements OptionalEvents {
 
-        private static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
+        /**
+        * Do not use, prefer TypeScript's extend functionality.
+        **/
+        private static extend(properties: any, classProperties?: any): any;
 
         constructor(options?: ViewOptions<TModel>);
 
@@ -342,8 +354,6 @@ declare module Backbone {
     // Utility
     function noConflict(): typeof Backbone;
     function setDomLibrary(jQueryNew: any): any;
-	
-    //var $: JQueryStatic;
 }
 
 declare module "backbone" {
