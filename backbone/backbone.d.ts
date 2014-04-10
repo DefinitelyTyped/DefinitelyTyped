@@ -87,11 +87,7 @@ declare module Backbone {
         sync(...arg: any[]): JQueryXHR;
     }
 
-    interface OptionalDefaults {
-        defaults?(): any;
-    }
-
-    class Model extends ModelBase implements OptionalDefaults {
+    class Model extends ModelBase {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
@@ -101,6 +97,10 @@ declare module Backbone {
         attributes: any;
         changed: any[];
         cid: string;
+        /**
+        * Default attributes for the model. It can be an object hash or a method returning an object hash.
+        **/
+        defaults: any;
         id: any;
         idAttribute: string;
         validationError: any;
@@ -253,16 +253,17 @@ declare module Backbone {
         zip(...model: TModel[]): TModel[];
     }
 
-    interface OptionalRoutes {
-        routes?(): any;
-    }
-
-    class Router extends Events implements OptionalRoutes {
+    class Router extends Events {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
         private static extend(properties: any, classProperties?: any): any;
+
+        /**
+        * Routes hash or a method returning the routes hash that maps URLs with parameters to methods on your Router.
+        **/
+        routes: any;
 
         constructor(options?: RouterOptions);
         initialize(options?: RouterOptions): void;
@@ -306,11 +307,7 @@ declare module Backbone {
         attributes?: any[];
     }
 
-    interface OptionalEvents {
-        events?(): any;
-    }
-
-    class View<TModel extends Model> extends Events implements OptionalEvents {
+    class View<TModel extends Model> extends Events {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
@@ -318,6 +315,11 @@ declare module Backbone {
         private static extend(properties: any, classProperties?: any): any;
 
         constructor(options?: ViewOptions<TModel>);
+
+        /**
+        * Events hash or a method returning the events hash that maps events/selectors to methods on your View.
+        **/
+        events: any;
 
         $(selector: string): JQuery;
         model: TModel;
@@ -330,7 +332,6 @@ declare module Backbone {
         cid: string;
         className: string;
         tagName: string;
-        options: any;
 
         el: any;
         $el: JQuery;
