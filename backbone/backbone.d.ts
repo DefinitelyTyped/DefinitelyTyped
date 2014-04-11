@@ -171,7 +171,8 @@ declare module Backbone {
         remove(models: Model[], options?: Silenceable): Model[];
         reset(models?: Model[], options?: Silenceable): Model[];
         reset(models?: any[], options?: Silenceable): Model[];
-        shift(options?: Silenceable): Model;
+        set(models?: any[], options?: Silenceable): Model[];
+		shift(options?: Silenceable): Model;
         sort(options?: Silenceable): Collection;
         unshift(model: Model, options?: AddOptions): Model;
         where(properies: any): Model[];
