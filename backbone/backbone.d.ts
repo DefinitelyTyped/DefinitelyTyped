@@ -330,7 +330,8 @@ declare module Backbone {
 
     // SYNC
     function sync(method: string, model: Model, options?: JQueryAjaxSettings): any;
-    var emulateHTTP: boolean;
+    function ajax(options?: JQueryAjaxSettings): JQueryXHR;
+	var emulateHTTP: boolean;
     var emulateJSONBackbone: boolean;
 
     // Utility
