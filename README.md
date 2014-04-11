@@ -60,6 +60,7 @@ List of Definitions
 * [CodeMirror](http://codemirror.net) (by [François de Campredon](https://github.com/fdecampredon))
 * [Commander](http://github.com/visionmedia/commander.js) (by [Marcelo Dezem](https://github.com/mdezem))
 * [configstore](http://github.com/yeoman/configstore) (by [Bart van der Schoor](https://github.com/Bartvds))
+* [Cordova](http://cordova.apache.org) (by [Microsoft Open Technologies, Inc.](http://msopentech.com/))
 * [Couchbase / Couchnode](https://github.com/couchbase/couchnode) (by [Basarat Ali Syed](https://github.com/basarat))
 * [Crossfilter](https://github.com/square/crossfilter) (by [Schmulik Raskin](https://github.com/schmuli))
 * [crypto-js](https://code.google.com/p/crypto-js/) (by [Gia Bảo @ Sân Đình](https://github.com/giabao)). @see [cryptojs.d.ts repo](https://github.com/giabao/cryptojs.d.ts)
