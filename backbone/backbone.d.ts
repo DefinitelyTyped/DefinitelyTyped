@@ -278,7 +278,8 @@ declare module Backbone {
         loadUrl(fragmentOverride: string): boolean;
         navigate(fragment: string, options?: any): boolean;
         started: boolean;
-
+		options: any;
+		
         _updateHash(location: Location, fragment: string, replace: boolean): void;
     }
 
