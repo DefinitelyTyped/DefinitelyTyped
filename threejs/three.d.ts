@@ -4968,7 +4968,7 @@ declare module THREE {
     /**
      * Defines a 2d shape plane using paths.
      */
-    export class Shape implements Path {
+    export class Shape extends Path {
         constructor(points?: Vector2[]);
 
         holes: Path[];
