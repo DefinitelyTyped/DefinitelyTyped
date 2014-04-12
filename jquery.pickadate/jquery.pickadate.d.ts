@@ -297,6 +297,7 @@ interface DatePickerObject extends PickerObject {
 
     /** Bind callbacks to get fired off when the relative picker method is called. */
     on(methodName, callback: () => void ): DatePickerObject;
+    on(methodName, callback: (event: any) => void): DatePickerObject;
 
     /** Bind multiple callbacks at once to get fired off when the relative picker method is called. */
     on(callbackObject: CallbackObject): DatePickerObject;
