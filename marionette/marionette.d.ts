@@ -223,6 +223,7 @@ declare module Marionette {
         constructor(options?: any);
 
         itemView: any;
+        children: any;
 
         //_initialEvents();
         addChildView(item: View, collection: View, options?: any);
