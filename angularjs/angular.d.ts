@@ -238,7 +238,7 @@ declare module ng {
 
         $parent: IScope;
 
-        $id: number;
+        $id: string;
 
         // Hidden members
         $$isolateBindings: any;
