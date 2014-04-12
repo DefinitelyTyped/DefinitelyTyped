@@ -200,6 +200,9 @@ interface Tester {
 	assertExists(selector: string, message?: string): any;
 	assertFalsy(subject: any, message?: string): any;
 	assertField(inputName: string, expected: string, message?: string): any;
+	assertFieldName(inputName: string, expected: string, message?: string, options?: any): any;
+	assertFieldCSS(cssSelector: string, expected: string, message?: string): any;
+	assertFieldXPath(xpathSelector: string, expected: string, message?: string): any;
 	assertHttpStatus(status: number, message?: string): any;
 	assertMatch(subject: any, pattern: RegExp, message?: string): any;
 	assertNot(subject: any, message?: string): any;
@@ -216,6 +219,7 @@ interface Tester {
 	assertTitleMatch(pattern: RegExp, message?: string): any;
 	assertTruthy(subject: any, message?: string): any;
 	assertType(input: any, type: string, message?: string): any;
+	assertInstanceOf(input: any, ctor: Function, message?: string): any;
 	assertUrlMatch(pattern: string, message?: string): any;
 	assertUrlMatch(pattern: RegExp, message?: string): any;
 	assertVisible(selector: string, message?: string): any;
@@ -237,6 +241,10 @@ interface Tester {
 	info(message: string): any;
 	pass(message: string): any;
 	renderResults(exit: boolean, status: number, save: string): any;
+
+	setup(fn: Function);
+	skip(nb: number, message: string);
+	tearDown(fn: Function);
 }
 
 interface Cases {
