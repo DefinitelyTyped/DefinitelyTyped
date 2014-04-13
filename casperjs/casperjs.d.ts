@@ -27,7 +27,7 @@ interface Casper extends EventEmitter {
 	// Methods
 	back(): Casper;
 	base64encode(url: string, method?: string, data?: any): string;
-	bypass(nb: number)
+	bypass(nb: number): any;
 	click(selector: string): boolean;
 	clickLabel(label: string, tag?: string): boolean;
 	capture(targetFilePath: string, clipRect: ClipRect): Casper;
@@ -72,7 +72,7 @@ interface Casper extends EventEmitter {
 	resourceExists(test: Function): boolean;
 	resourceExists(test: string): boolean;
 	run(onComplete: Function, time?: number): Casper;
-	scrollTo(x: number, y, number): Casper;
+	scrollTo(x: number, y: number): Casper;
 	scrollToBottom(): Casper;
 	sendKeys(selector: string, keys: string, options?: any): Casper;
 	setHttpAuth(username: string, password: string): Casper;
@@ -259,9 +259,9 @@ interface Tester {
 	pass(message: string): any;
 	renderResults(exit: boolean, status: number, save: string): any;
 
-	setup(fn: Function);
-	skip(nb: number, message: string);
-	tearDown(fn: Function);
+	setup(fn: Function): any;
+	skip(nb: number, message: string): any;
+	tearDown(fn: Function): any;
 }
 
 interface Cases {
