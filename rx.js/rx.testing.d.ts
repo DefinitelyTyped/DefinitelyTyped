@@ -1,4 +1,4 @@
-// Type definitions for RxJS-Testing
+// Type definitions for RxJS-Testing v2.2.20
 // Project: https://github.com/Reactive-Extensions/RxJS/
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
