@@ -57,6 +57,7 @@ List of Definitions
 * [Chrome](http://developer.chrome.com/extensions/) (by [Matthew Kimber](https://github.com/matthewkimber) and [otiai10](https://github.com/otiai10))
 * [Chrome App](http://developer.chrome.com/apps/) (by [Adam Lay](https://github.com/AdamLay))
 * [CKEditor](https://github.com/ckeditor/ckeditor-dev) (by [Ondrej Sevcik](https://github.com/ondrejsevcik))
+* [Clone](https://github.com/pvorb/node-clone) (by [Kieran Simpson](https://github.com/kierans))
 * [CodeMirror](http://codemirror.net) (by [François de Campredon](https://github.com/fdecampredon))
 * [Commander](http://github.com/visionmedia/commander.js) (by [Marcelo Dezem](https://github.com/mdezem))
 * [configstore](http://github.com/yeoman/configstore) (by [Bart van der Schoor](https://github.com/Bartvds))
