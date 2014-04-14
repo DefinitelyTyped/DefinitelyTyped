@@ -1,4 +1,4 @@
-// Type definitions for RxJS-Aggregates package
+// Type definitions for RxJS-Aggregates v2.2.20
 // Project: http://rx.codeplex.com/
 // Definitions by: Carl de Billy <http://carl.debilly.net/>
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
@@ -33,7 +33,9 @@ declare module Rx {
 		average(keySelector?: (value: T, index: number, source: Observable<T>) => number, thisArg?: any): Observable<number>;
 
 		sequenceEqual<TOther>(second: Observable<TOther>, comparer: (value1: T, value2: TOther) => number): Observable<boolean>;
+		sequenceEqual<TOther>(second: IPromise<TOther>, comparer: (value1: T, value2: TOther) => number): Observable<boolean>;
 		sequenceEqual(second: Observable<T>): Observable<boolean>;
+		sequenceEqual(second: IPromise<T>): Observable<boolean>;
 		sequenceEqual<TOther>(second: TOther[], comparer: (value1: T, value2: TOther) => number): Observable<boolean>;
 		sequenceEqual(second: T[]): Observable<boolean>;
 
