@@ -390,7 +390,7 @@ declare module _ {
 		first<T>(
 			array: List<T>,
 			callback: ListIterator<T, boolean>,
-			thisArg?: any): T[];
+			thisArg?: any): T;
 
 		/**
 		* @see _.first
@@ -398,7 +398,7 @@ declare module _ {
 		**/
 		first<T>(
 			array: List<T>,
-			pluckValue: string): T[];
+			pluckValue: string): T;
 
 		/**
 		* @see _.first
@@ -406,7 +406,7 @@ declare module _ {
 		**/
 		first<W, T>(
 			array: List<T>,
-			whereValue: W): T[];
+			whereValue: W): T;
 
 			/**
 			* @see _.first
@@ -426,21 +426,21 @@ declare module _ {
 			head<T>(
 				array: List<T>,
 				callback: ListIterator<T, boolean>,
-				thisArg?: any): T[];
+				thisArg?: any): T;
 
 			/**
 			* @see _.first
 			**/
 			head<T>(
 				array: List<T>,
-				pluckValue: string): T[];
+				pluckValue: string): T;
 
 			/**
 			* @see _.first
 			**/
 			head<W, T>(
 				array: List<T>,
-				whereValue: W): T[];
+				whereValue: W): T;
 
 			/**
 			* @see _.first
@@ -460,21 +460,21 @@ declare module _ {
 			take<T>(
 				array: List<T>,
 				callback: ListIterator<T, boolean>,
-				thisArg?: any): T[];
+				thisArg?: any): T;
 
 			/**
 			* @see _.first
 			**/
 			take<T>(
 				array: List<T>,
-				pluckValue: string): T[];
+				pluckValue: string): T;
 
 			/**
 			* @see _.first
 			**/
 			take<W, T>(
 				array: List<T>,
-				whereValue: W): T[];
+				whereValue: W): T;
 	}
 
 	//_.flatten
@@ -686,7 +686,7 @@ declare module _ {
 		last<T>(
 			array: List<T>,
 			callback: ListIterator<T, boolean>,
-			thisArg?: any): T[];
+			thisArg?: any): T;
 
 		/**
 		* @see _.last
@@ -694,7 +694,7 @@ declare module _ {
 		**/
 		last<T>(
 			array: List<T>,
-			pluckValue: string): T[];
+			pluckValue: string): T;
 
 		/**
 		* @see _.last
@@ -702,7 +702,7 @@ declare module _ {
 		**/
 		last<W, T>(
 			array: List<T>,
-			whereValue: W): T[];
+			whereValue: W): T;
 	}
 
 	//_.lastIndexOf
