@@ -1,9 +1,17 @@
 declare module "connect-ensure-login"
 {
-    export function ensureAuthenticated(options?:Object)
-    export function ensureLoggedIn(options?:Object)
-    export function ensureUnauthenticated(options?:Object)
-    export function ensureNotAuthenticated(options?:Object)
-    export function ensureLoggedOut(options?:Object)
-    export function ensureNotLoggedIn(options?:Object)
+    export function ensureLoggedIn(redirectTo?:string)
+    export function ensureLoggedIn(options?:LoginOptions)
+
+    export function ensureLoggedOut(redirectTo?:string)
+    export function ensureLoggedOut(options?:LogoutOptions)
+
+    interface LoginOptions {
+        setReturnTo?:boolean;
+        redirectTo?:string;
+    }
+
+    interface LogoutOptions {
+        redirectTo?:string;
+    }
 }
