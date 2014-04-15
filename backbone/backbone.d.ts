@@ -322,7 +322,7 @@ declare module Backbone {
 
         /**
         * Events hash or a method returning the events hash that maps events/selectors to methods on your View.
-        * For assigning events as object hash, do it like this: this.events = <any>{ 'event:selector': callback, ... };
+        * For assigning events as object hash, do it like this: this.events = <any>{ "event:selector": callback, ... };
         * That works only if you set it in the constructor or the initialize method.
         **/
         events(): any;

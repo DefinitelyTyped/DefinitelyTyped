@@ -18,7 +18,7 @@ function test_events() {
     object.off();
 }
 
-class DefaultAttributes extends Backbone.Model {
+class SettingDefaults extends Backbone.Model {
 
     // `defaults` could be set in one of the following ways:
 
