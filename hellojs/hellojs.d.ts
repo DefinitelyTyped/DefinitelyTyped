@@ -1,5 +1,5 @@
 // Type definitions for hello.js 0.2.1 
-// Project: http://adodson.com/hello.js
+// Project: http://knockoutjs.com
 // Definitions by: Pavel Zika <https://github.com/PavelPZ>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
@@ -20,21 +20,21 @@ interface HelloJSEventArgument {
 }
 
 interface HelloJSStatic {
-  init(serviceAppIds: { [id: string]: string; }, defaultOptions?: HelloJSLoginOptions);
-  login(network: string, option?: HelloJSLoginOptions, callback?: () => void);
-  logout(network: string, callback?: () => void);
+  init(serviceAppIds: { [id: string]: string; }, defaultOptions?: HelloJSLoginOptions):void;
+  login(network: string, option?: HelloJSLoginOptions, callback?: () => void): void;
+  logout(network: string, callback?: () => void): void;
   on(eventName: string, event: (auth: HelloJSEventArgument) => void): HelloJSStatic;
   off(eventName: string, event: (auth: HelloJSEventArgument) => void): HelloJSStatic;
   getAuthResponse(network: string): any;
-  service(network: string): any;
+  service(network: string): HelloJSServiceDef;
   settings: HelloJSLoginOptions;
   (network: string): HelloJSStaticNamed;
-  init(servicesDef: { [id: string]: HelloJSServiceDef; });
+  init(servicesDef: { [id: string]: HelloJSServiceDef; }): void;
 }
 
 interface HelloJSStaticNamed {
-  login(option?: HelloJSLoginOptions, callback?: () => void);
-  logout(callback?: () => void);
+  login(option?: HelloJSLoginOptions, callback?: () => void): void;
+  logout(callback?: () => void): void;
   getAuthResponse(): any;
 }
 
