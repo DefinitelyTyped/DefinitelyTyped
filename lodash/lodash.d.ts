@@ -181,15 +181,15 @@ declare module _ {
 		**/
 		valueOf(): T;
 
-		/**
-		* @see valueOf
-		**/
-		value(): T;
-	}
+			/**
+			* @see valueOf
+			**/
+			value(): T;
+	} 
 
-	interface LoDashWrapper<T> extends LoDashWrapperBase<T, LoDashWrapper<T>> { }
+	interface LoDashWrapper<T> extends LoDashWrapperBase<T, LoDashWrapper<T>> {}
 
-	interface LoDashObjectWrapper<T> extends LoDashWrapperBase<T, LoDashObjectWrapper<T>> { }
+	interface LoDashObjectWrapper<T> extends LoDashWrapperBase<T, LoDashObjectWrapper<T>> {}
 
 	interface LoDashArrayWrapper<T> extends LoDashWrapperBase<T[], LoDashArrayWrapper<T>> {
 		concat(...items: T[]): LoDashArrayWrapper<T>;
