@@ -1,3 +1,5 @@
+/// <reference path="hellojs.d.ts" />
+
 hello.init(
   {
     'facebook': '<app key>',
