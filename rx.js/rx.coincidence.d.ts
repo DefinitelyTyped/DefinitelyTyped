@@ -1,4 +1,4 @@
-// Type definitions for RxJS-Coincidence package
+// Type definitions for RxJS-Coincidence v2.2.20
 // Project: http://rx.codeplex.com/
 // Definitions by: Carl de Billy <http://carl.debilly.net/>
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>

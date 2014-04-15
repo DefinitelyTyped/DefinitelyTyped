@@ -111,8 +111,8 @@ interface Internal extends ShouldInternal {
   inspect(value: any, obj: any): any;
 }
 
-declare module "should" {
-  export = Internal;
-}
-
 declare var should: Internal;
+
+declare module "should" {
+  export = should;
+}

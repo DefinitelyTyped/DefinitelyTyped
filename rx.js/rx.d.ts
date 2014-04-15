@@ -1,10 +1,10 @@
-﻿// Type definitions for RxJS v2.2.18
+﻿// Type definitions for RxJS v2.2.20
 // Project: http://rx.codeplex.com/
 // Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-///<reference path="rx-lite.ts"/>
+///<reference path="rx-lite.d.ts"/>
 
 declare module Rx {
 	export interface IScheduler {
@@ -66,7 +66,9 @@ declare module Rx {
 		subscribeOn(scheduler: IScheduler): Observable<T>;
 
 		amb(rightSource: Observable<T>): Observable<T>;
+		amb(rightSource: IPromise<T>): Observable<T>;
 		onErrorResumeNext(second: Observable<T>): Observable<T>;
+		onErrorResumeNext(second: IPromise<T>): Observable<T>;
 		bufferWithCount(count: number, skip?: number): Observable<T[]>;
 		windowWithCount(count: number, skip?: number): Observable<Observable<T>>;
 		defaultIfEmpty(defaultValue?: T): Observable<T>;
@@ -81,9 +83,13 @@ declare module Rx {
 	interface ObservableStatic {
 		using<TSource, TResource extends IDisposable>(resourceFactory: () => TResource, observableFactory: (resource: TResource) => Observable<TSource>): Observable<TSource>;
 		amb<T>(...sources: Observable<T>[]): Observable<T>;
+		amb<T>(...sources: IPromise<T>[]): Observable<T>;
 		amb<T>(sources: Observable<T>[]): Observable<T>;
+		amb<T>(sources: IPromise<T>[]): Observable<T>;
 		onErrorResumeNext<T>(...sources: Observable<T>[]): Observable<T>;
+		onErrorResumeNext<T>(...sources: IPromise<T>[]): Observable<T>;
 		onErrorResumeNext<T>(sources: Observable<T>[]): Observable<T>;
+		onErrorResumeNext<T>(sources: IPromise<T>[]): Observable<T>;
 	}
 
 	interface GroupedObservable<TKey, TElement> extends Observable<TElement> {

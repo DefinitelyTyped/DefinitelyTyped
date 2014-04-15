@@ -48,5 +48,6 @@ interface KnockoutStatic {
 }
 
 declare module "knockout.mapping" {
-    export = KnockoutMapping;
+    export = mapping;
 }
+declare var mapping: KnockoutMapping;

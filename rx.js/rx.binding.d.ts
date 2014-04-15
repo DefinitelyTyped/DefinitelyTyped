@@ -1,11 +1,11 @@
-// Type definitions for RxJS-Binding v2.2.18
+// Type definitions for RxJS-Binding v2.2.20
 // Project: http://rx.codeplex.com/
 // Definitions by: Carl de Billy <http://carl.debilly.net/>
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path="rx.d.ts" />
-///<reference path="rx.binding-lite.ts" />
+///<reference path="rx.binding-lite.d.ts" />
 
 declare module Rx {
 	export interface Observable<T> {

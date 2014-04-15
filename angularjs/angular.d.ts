@@ -10,7 +10,7 @@ declare var angular: ng.IAngularStatic;
 
 // Support for painless dependency injection
 interface Function {
-    $inject:string[];
+    $inject?: string[];
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -238,7 +238,7 @@ declare module ng {
 
         $parent: IScope;
 
-        $id: number;
+        $id: string;
 
         // Hidden members
         $$isolateBindings: any;

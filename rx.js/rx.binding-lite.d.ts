@@ -1,7 +1,7 @@
 // This file contains common part of defintions for rx.binding.d.ts and rx.lite.d.ts
 // Do not include the file separately.
 
-///<reference path="rx-lite.ts"/>
+///<reference path="rx-lite.d.ts"/>
 
 declare module Rx {
 	export interface BehaviorSubject<T> extends Subject<T> {
