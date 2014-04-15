@@ -50,4 +50,4 @@ interface VideoJSStatic {
 	(id: any, options?: VideoJSOptions, ready?: () => void): VideoJSPlayer;
 }
 
-declare var _V_:VideoJSStatic;
+declare var videojs:VideoJSStatic;
