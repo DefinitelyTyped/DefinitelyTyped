@@ -20,12 +20,14 @@ interface Casper extends EventEmitter {
 
 	constructor (options: CasperOptions): Casper;
 
+	options: CasperOptions;
 	// Properties
 	__utils__: ClientUtils;
 
 	// Methods
 	back(): Casper;
 	base64encode(url: string, method?: string, data?: any): string;
+	bypass(nb: number): any;
 	click(selector: string): boolean;
 	clickLabel(label: string, tag?: string): boolean;
 	capture(targetFilePath: string, clipRect: ClipRect): Casper;
@@ -49,11 +51,15 @@ interface Casper extends EventEmitter {
 	forward(): Casper;
 	log(message: string, level?: string, space?: string): Casper;
 	fill(selector: string, values: any, submit?: boolean): void;
+	fillSelectors(selector: string, values: any, submit?: boolean): void;
+	fillXPath(selector: string, values: any, submit?: boolean): void;
 	getCurrentUrl(): string;
 	getElementAttribute(selector: string, attribute: string): string;
+	getElementsAttribute(selector: string, attribute: string): string;
 	getElementBounds(selector: string): ElementBounds;
 	getElementsBounds(selector: string): ElementBounds[];
 	getElementInfo(selector: string): ElementInfo;
+	getElementsInfo(selector: string): ElementInfo;
 	getFormValues(selector: string): any;
 	getGlobal(name: string): any;
 	getHTML(selector?: string, outer?: boolean): string;
@@ -66,24 +72,33 @@ interface Casper extends EventEmitter {
 	resourceExists(test: Function): boolean;
 	resourceExists(test: string): boolean;
 	run(onComplete: Function, time?: number): Casper;
+	scrollTo(x: number, y: number): Casper;
+	scrollToBottom(): Casper;
 	sendKeys(selector: string, keys: string, options?: any): Casper;
 	setHttpAuth(username: string, password: string): Casper;
 	start(url?: string, then?: (response: HttpResponse) => void): Casper;
 	status(asString: boolean): any;
 	then(fn: (self?: Casper) => void): Casper;
+	thenBypass(nb: number): Casper;
+	thenBypassIf(condition: any, nb: number): Casper;
+	thenBypassUnless(condition: any, nb: number): Casper;
 	thenClick(selector: string): Casper;
     thenEvaluate(fn: () => any, ...args: any[]): Casper;
 	thenOpen(location: string, then?: (response: HttpResponse) => void): Casper;
 	thenOpen(location: string, options?: OpenSettings, then?: (response: HttpResponse) => void): Casper;
 	thenOpenAndEvaluate(location: string, then?: Function, ...args: any[]): Casper;
 	toString(): string;
+	unwait(): Casper;
 	userAgent(agent: string): string;
 	viewport(width: number, height: number): Casper;
 	visible(selector: string): boolean;
 	wait(timeout: number, then?: Function): Casper;
 	waitFor(testFx: Function, then?: Function, onTimeout?: Function, timeout?: number): Casper;
+	waitForAlert(then: Function, onTimeout?: Function, timeout?: number): Casper;
 	waitForPopup(urlPattern: string, then?: Function, onTimeout?: Function, timeout?: number): Casper;
 	waitForPopup(urlPattern: RegExp, then?: Function, onTimeout?: Function, timeout?: number): Casper;
+	waitForUrl(url: string, then?: Function, onTimeout?: Function, timeout?: number): Casper;
+	waitForUrl(url: RegExp, then?: Function, onTimeout?: Function, timeout?: number): Casper;
 	waitForSelector(selector: string, then?: Function, onTimeout?: Function, timeout?: number): Casper;
 	waitWhileSelector(selector: string, then?: Function, onTimeout?: Function, timeout?: number): Casper;
 	waitForResource(testFx: Function, then?: Function, onTimeout?: Function, timeout?: number): Casper;
@@ -157,10 +172,12 @@ interface CasperOptions {
 	pageSettings?: any;
 	remoteScripts?: any[];
 	safeLogs?: boolean;
+	silentErrors?: boolean;
 	stepTimeout?: number;
 	timeout?: number;
 	verbose?: boolean;
 	viewportSize?: any;
+	retryTimeout?: number;
 	waitTimeout?: number;
 }
 
@@ -200,6 +217,9 @@ interface Tester {
 	assertExists(selector: string, message?: string): any;
 	assertFalsy(subject: any, message?: string): any;
 	assertField(inputName: string, expected: string, message?: string): any;
+	assertFieldName(inputName: string, expected: string, message?: string, options?: any): any;
+	assertFieldCSS(cssSelector: string, expected: string, message?: string): any;
+	assertFieldXPath(xpathSelector: string, expected: string, message?: string): any;
 	assertHttpStatus(status: number, message?: string): any;
 	assertMatch(subject: any, pattern: RegExp, message?: string): any;
 	assertNot(subject: any, message?: string): any;
@@ -216,6 +236,7 @@ interface Tester {
 	assertTitleMatch(pattern: RegExp, message?: string): any;
 	assertTruthy(subject: any, message?: string): any;
 	assertType(input: any, type: string, message?: string): any;
+	assertInstanceOf(input: any, ctor: Function, message?: string): any;
 	assertUrlMatch(pattern: string, message?: string): any;
 	assertUrlMatch(pattern: RegExp, message?: string): any;
 	assertVisible(selector: string, message?: string): any;
@@ -237,6 +258,10 @@ interface Tester {
 	info(message: string): any;
 	pass(message: string): any;
 	renderResults(exit: boolean, status: number, save: string): any;
+
+	setup(fn: Function): any;
+	skip(nb: number, message: string): any;
+	tearDown(fn: Function): any;
 }
 
 interface Cases {

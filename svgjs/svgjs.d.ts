@@ -205,7 +205,7 @@ declare module svgjs {
     export interface Parent {
         put(element:Element, i?:number):Element;
         add(element:Element, i?:number):Element;
-        children:Element[];
+        children():Element[];
 
         rect(w:number, h:number):Element;
         ellipse(w:number, h:number):Element;

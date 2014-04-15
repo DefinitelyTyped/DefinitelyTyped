@@ -1,11 +1,11 @@
-// Type definitions for RxJS-Async v2.2.18
+// Type definitions for RxJS-Async v2.2.20
 // Project: http://rx.codeplex.com/
 // Definitions by: zoetrope <https://github.com/zoetrope>
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path="rx.d.ts" />
-///<reference path="rx.async-lite.ts" />
+///<reference path="rx.async-lite.d.ts" />
 
 declare module Rx {
     interface ObservableStatic {

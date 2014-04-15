@@ -4968,7 +4968,7 @@ declare module THREE {
     /**
      * Defines a 2d shape plane using paths.
      */
-    export class Shape implements Path {
+    export class Shape extends Path {
         constructor(points?: Vector2[]);
 
         holes: Path[];
@@ -4986,49 +4986,6 @@ declare module THREE {
         };
         getPointsHoles(divisions: number): Vector2[][];
         getSpacedPointsHoles(divisions: number): Vector2[][];
-
-        getCurveLengths(): number;
-        // trick for TypeScript 0.9.5 compile passed
-        // from Path
-        actions: PathActions[];
-        fromPoints(vectors: Vector2[]): void;
-        moveTo(x: number, y: number): void;
-        lineTo(x: number, y: number): void;
-        quadraticCurveTo(aCPx: number, aCPy: number, aX: number, aY: number): void;
-        bezierCurveTo(aCP1x: number, aCP1y: number, aCP2x: number, aCP2y: number, aX: number, aY: number): void;
-        splineThru(pts: Vector2[]): void;
-        arc(aX: number, aY: number, aRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean): void;
-        absarc(aX: number, aY: number, aRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean): void;
-        ellipse(aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean): void;
-        absellipse(aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean): void;
-        toShapes(): Shape[];
-        // from CurvePath
-        curves: Curve[];
-        bends: Path[];
-        autoClose: boolean;
-        add(curve: Curve): void;
-        checkConnection(): boolean;
-        closePath(): void;
-        getBoundingBox(): BoundingBox;
-        createPointsGeometry(divisions: number): Geometry;
-        createSpacedPointsGeometry(divisions: number): Geometry;
-        createGeometry(points: Vector2[]): Geometry;
-        addWrapPath(bendpath: Path): void;
-        getTransformedPoints(segments: number, bends?: Path): Vector2[];
-        getTransformedSpacedPoints(segments: number, bends?: Path[]): Vector2[];
-        getWrapPoints(oldPts: Vector2[], path: Path): Vector2[];
-        getPoint(t: number): Vector;
-        getPointAt(u: number): Vector;
-        getPoints(divisions?: number): Vector[];
-        getSpacedPoints(divisions?: number): Vector[];
-        getLength(): number;
-        getLengths(divisions?: number): number[];
-        needsUpdate: boolean;
-        updateArcLengths(): void;
-        getUtoTmapping(u: number, distance: number): number;
-        getNormalVector(t: number): Vector;
-        getTangent(t: number): Vector;
-        getTangentAt(u: number): Vector;
     }
 
 

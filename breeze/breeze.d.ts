@@ -502,6 +502,7 @@ declare module breeze {
         static fromEntityKey(entityKey: EntityKey): EntityQuery;
         static fromEntityNavigation(entity: Entity, navigationProperty: NavigationProperty): EntityQuery;
         inlineCount(enabled?: boolean): EntityQuery;
+        noTracking(enabled: boolean): EntityQuery;
         orderBy(propertyPaths: string): EntityQuery;
         orderBy(propertyPaths: string[]): EntityQuery;
         orderByDesc(propertyPaths: string): EntityQuery;

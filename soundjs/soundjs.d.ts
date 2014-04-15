@@ -12,7 +12,7 @@
 
 // Library documentation : http://www.createjs.com/Docs/SoundJS/modules/SoundJS.html
 
-/// <reference path="../createjs/createjs.d.ts" />
+/// <reference path="../createjs-lib/createjs-lib.d.ts" />
 
 declare module createjs {
     export class FlashPlugin {
