@@ -99,8 +99,10 @@ declare module Backbone {
         cid: string;
         /**
         * Default attributes for the model. It can be an object hash or a method returning an object hash.
+        * For assigning an object hash, do it like this: this.defaults = <any>{ attribute: value, ... };
+        * That works only if you set it in the constructor or the initialize method.
         **/
-        defaults: any;
+        defaults(): any;
         id: any;
         idAttribute: string;
         validationError: any;
@@ -262,8 +264,10 @@ declare module Backbone {
 
         /**
         * Routes hash or a method returning the routes hash that maps URLs with parameters to methods on your Router.
+        * For assigning routes as object hash, do it like this: this.routes = <any>{ "route": callback, ... };
+        * That works only if you set it in the constructor or the initialize method.
         **/
-        routes: any;
+        routes(): any;
 
         constructor(options?: RouterOptions);
         initialize(options?: RouterOptions): void;
@@ -318,8 +322,10 @@ declare module Backbone {
 
         /**
         * Events hash or a method returning the events hash that maps events/selectors to methods on your View.
+        * For assigning events as object hash, do it like this: this.events = <any>{ 'event:selector': callback, ... };
+        * That works only if you set it in the constructor or the initialize method.
         **/
-        events: any;
+        events(): any;
 
         $(selector: string): JQuery;
         model: TModel;

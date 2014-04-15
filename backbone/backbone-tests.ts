@@ -18,7 +18,36 @@ function test_events() {
     object.off();
 }
 
+class DefaultAttributes extends Backbone.Model {
+
+    // `defaults` could be set in one of the following ways:
+
+    defaults() {
+        return {
+            name: "Joe"
+        }
+    }
+
+    constructor(attributes?: any, options?: any) {
+        this.defaults = <any>{
+            name: "Joe"
+        }
+        // super has to come last
+        super();
+    }
+
+    // or set it like this
+    initialize() {
+        this.defaults = <any>{
+            name: "Joe"
+        }        
+    }
+
+    // same patterns could be used for setting Router.routes and View.events
+}
+
 class Sidebar extends Backbone.Model {
+
     promptColor() {
         var cssColor = prompt("Please enter a CSS color:");
         this.set({ color: cssColor });
