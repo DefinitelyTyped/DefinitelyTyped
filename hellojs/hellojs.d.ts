@@ -1,5 +1,5 @@
 // Type definitions for hello.js 0.2.1 
-// Project: http://knockoutjs.com
+// Project: http://adodson.com/hello.js/
 // Definitions by: Pavel Zika <https://github.com/PavelPZ>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
