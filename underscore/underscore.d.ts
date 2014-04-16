@@ -2218,9 +2218,7 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.map
 	**/
-	map<TArray>(iterator: (value: T, index: number, list: T[]) => TArray[], context?: any): _ChainOfArrays<TArray>;
-	//Not sure why this won't work, might be a TypeScript error? 
-	//map<TArray>(iterator: _.ListIterator<T, TArray[]>, context?: any): _ChainOfArrays<TArray>;
+	map<TArray>(iterator: _.ListIterator<T, TArray[]>, context?: any): _ChainOfArrays<TArray>;
 
 	/**
 	* Wrapped type `any[]`.
@@ -2232,7 +2230,7 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.map
 	**/
-	map<TArray>(iterator: (element: T, key: string, list: any) => TArray[], context?: any): _ChainOfArrays<TArray>;
+	map<TArray>(iterator: _.ObjectIterator<T, TArray[]>, context?: any): _ChainOfArrays<TArray>;
 	
 	/**
 	* Wrapped type `any[]`.
