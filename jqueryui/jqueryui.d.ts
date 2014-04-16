@@ -987,6 +987,38 @@ interface JQuery {
     datepicker(methodName: 'option', optionName: 'altFormat', altFormatValue: string): JQuery;
 
     /**
+     * Get the appendText option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'appendText'
+     */
+    datepicker(methodName: 'option', optionName: 'appendText'): string;
+    /**
+     * Set the appendText option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'appendText'
+     * @param appendTextValue The text to display after each date field, e.g., to show the required format.
+     */
+    datepicker(methodName: 'option', optionName: 'appendText', appendTextValue: string): JQuery;
+
+    /**
+     * Get the autoSize option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'autoSize'
+     */
+    datepicker(methodName: 'option', optionName: 'autoSize'): boolean;
+    /**
+     * Set the autoSize option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'autoSize'
+     * @param autoSizeValue Set to true to automatically resize the input field to accommodate dates in the current dateFormat.
+     */
+    datepicker(methodName: 'option', optionName: 'autoSize', autoSizeValue: string): JQuery;
+
+    /**
      * Gets the value currently associated with the specified optionName.
      *
      * @param methodName 'option'
