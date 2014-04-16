@@ -906,13 +906,6 @@ interface JQuery {
      */
     datepicker(methodName: 'isDisabled'): boolean;
     /**
-     * Gets the value currently associated with the specified optionName.
-     *
-     * @param methodName 'option'
-     * @param optionName The name of the option to get.
-     */
-    datepicker(methodName: 'option', optionName: string): any;
-    /**
      * Redraw the date picker, after having made some external modifications.
      *
      * @param methodName 'refresh'
@@ -944,6 +937,48 @@ interface JQuery {
      * @param methodName 'widget'
      */
     datepicker(methodName: 'widget'): JQuery;
+
+    /**
+     * Get the altField option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'altField'
+     */
+    datepicker(methodName: 'option', optionName: 'altField'): any;
+    /**
+     * Set the altField option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'altField'
+     * @param altFieldValue An input element that is to be updated with the selected date from the datepicker. Use the altFormat option to change the format of the date within this field. Leave as blank for no alternate field.
+     */
+    datepicker(methodName: 'option', optionName: 'altField', altFieldValue: string): any;
+    /**
+     * Set the altField option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'altField'
+     * @param altFieldValue An input element that is to be updated with the selected date from the datepicker. Use the altFormat option to change the format of the date within this field. Leave as blank for no alternate field.
+     */
+    datepicker(methodName: 'option', optionName: 'altField', altFieldValue: JQuery): any;
+    /**
+     * Set the altField option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'altField'
+     * @param altFieldValue An input element that is to be updated with the selected date from the datepicker. Use the altFormat option to change the format of the date within this field. Leave as blank for no alternate field.
+     */
+    datepicker(methodName: 'option', optionName: 'altField', altFieldValue: Element): any;
+
+    /**
+     * Gets the value currently associated with the specified optionName.
+     *
+     * @param methodName 'option'
+     * @param optionName The name of the option to get.
+     */
+    datepicker(methodName: 'option', optionName: string): any;
+
+    datepicker(methodName: 'option', optionName: string, ...otherParams: any[]): any; // Used for getting and setting options
 
     datepicker(methodName: string, ...otherParams: any[]): any;
 

@@ -1153,6 +1153,18 @@ function test_datepicker() {
     var $setDate2: JQuery = $(".selector").datepicker("setDate", new Date());
     var $shown: JQuery = $(".selector").datepicker("show");
     var $widget: JQuery = $(".selector").datepicker("widget");
+
+    // Options
+    function altField() {
+        $(".selector").datepicker({ altField: "#actualDate" });
+
+        // getter
+        var altField = $(".selector").datepicker("option", "altField");
+
+        // setter
+        $(".selector").datepicker("option", "altField", "#actualDate");
+    }
+
 }
 
 
