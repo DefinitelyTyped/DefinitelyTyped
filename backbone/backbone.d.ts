@@ -182,6 +182,7 @@ declare module Backbone {
         remove(models: TModel[], options?: Silenceable): TModel[];
         reset(models?: TModel[], options?: Silenceable): TModel[];
         reset(models?: any[], options?: Silenceable): TModel[];
+        set(models?: any[], options?: Silenceable): TModel[];
         shift(options?: Silenceable): TModel;
         sort(options?: Silenceable): Collection<TModel>;
         unshift(model: TModel, options?: AddOptions): TModel;
@@ -297,6 +298,7 @@ declare module Backbone {
         loadUrl(fragmentOverride: string): boolean;
         navigate(fragment: string, options?: any): boolean;
         started: boolean;
+        options: any;
 
         private _updateHash(location: Location, fragment: string, replace: boolean): void;
     }
@@ -355,6 +357,7 @@ declare module Backbone {
 
     // SYNC
     function sync(method: string, model: Model, options?: JQueryAjaxSettings): any;
+    function ajax(options?: JQueryAjaxSettings): JQueryXHR;
     var emulateHTTP: boolean;
     var emulateJSONBackbone: boolean;
 
