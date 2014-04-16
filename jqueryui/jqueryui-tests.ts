@@ -1153,6 +1153,29 @@ function test_datepicker() {
     var $setDate2: JQuery = $(".selector").datepicker("setDate", new Date());
     var $shown: JQuery = $(".selector").datepicker("show");
     var $widget: JQuery = $(".selector").datepicker("widget");
+
+    // Options
+    function altField() {
+        $(".selector").datepicker({ altField: "#actualDate" });
+
+        // getter
+        var altField: any = $(".selector").datepicker("option", "altField");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "altField", "#actualDate");
+    }
+
+    // Options
+    function altFormat() {
+        $(".selector").datepicker({ altFormat: "yy-mm-dd" });
+
+        // getter
+        var altFormat: string = $(".selector").datepicker("option", "altFormat");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "altFormat", "yy-mm-dd");
+    }
+
 }
 
 
