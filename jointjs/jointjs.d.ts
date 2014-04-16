@@ -50,7 +50,7 @@ declare module joint {
         }
 
         class Link extends Cell {
-            defaults: IDefaults;
+            defaults(): IDefaults;
             disconnect(): Link;
             label(idx?: number, value?: any): any;   // @todo: returns either a label under idx or Link if both idx and value were passed
         }
