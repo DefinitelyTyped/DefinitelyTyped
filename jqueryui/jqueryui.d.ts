@@ -462,7 +462,7 @@ declare module JQueryUI {
 
     // Sortable //////////////////////////////////////////////////
 
-    interface SortableOptions {
+    interface SortableOptions extends SortableEvents {
         appendTo?: any; // jQuery, Element, Selector or string
         axis?: string;
         cancel?: any; // Selector
