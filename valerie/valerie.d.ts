@@ -3,13 +3,13 @@
 // Definitions by: Howard Richards <https://github.com/conficient>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../knockout/knockout.d.ts" />
+
 
 /**
  *
  * Extensions to KO functions to provide validation
  *
- * Version 1.1 - added missing methods to ModelValidationState
+ * Version 1.2 - added more static methods to valerie object
  *
  */
 interface KnockoutObservable<T> {
@@ -246,9 +246,78 @@ declare module Valerie {
         // (value should be observable or computed)
         validatableProperty<T>(value: T, options?: ValidationOptions): PropertyValidationState<T>;
 
+        // Validation result class
+        ValidationResult: ValidationResultStatic;
+
         // additional namespaces for static methods:
 
+        converters: ConvertersStatic;
+
+        /*
+        //TODO: additional namespaces/statics not yet used
+        dom: DomStatic; 
+        formatting: FormattingStatic;
+        koBindingsHelper: KoBindingsHelperStatic;
+        koExtras: KoExtrasStatic;
+        rules: RulesStatic;
+        */
+
+        utils: UtilsStatic;
+
         validationState: ValidationState;
+
+    }
+
+    interface ValidationResultStatic {
+
+        passedInstance: ValidationResult;
+
+        // static method to create validatio failed message
+        createFailedResult(message: string): ValidationResult;
+    }
+
+    // Contains converters, always singletons.
+    interface ConvertersStatic {
+        
+        //TODO: other converters to be added
+
+        passThrough: Valerie.IConverter;
+    }
+
+
+    interface UtilsStatic {
+
+        // Creates a function that returns the given value as an array of one item, or simply returns the given value if it is already an array.
+        asArray<T>(value: any): any[];
+
+        // Creates a function that returns the given value, or simply returns the given value if it is already a function
+        asFunction<T>(value: T): () => T;
+        asFunction<T>(fn: () => T): () => T;
+
+        // Tests whether the given value is an array
+        isArray(value: any): boolean;
+
+        // Tests whether the given value is an array or object.
+        isArrayOrObject(value: any): boolean;
+
+        // Tests whether the given value is a function.
+        isFunction(value: any): boolean;
+
+        // Tests whether the given value is "missing".undefined, null, an empty string or an empty array are considered to be "missing".
+        isMissing(value: any): boolean;
+
+        // Tests whether the given value is an object.
+        isObject(value: any): boolean;
+
+        // Tests whether the give value is a string.
+        isString(value: any): boolean;
+
+        //Merges the given default options with the given options.
+        //  - either parameter can be omitted and a clone of the other parameter will be returned
+        //  - the merge is shallow
+        //  - array properties are shallow cloned
+        mergeOptions(defaultOptions: ValidationOptions, options): ValidationOptions;
+
     }
 
     // callback interface (see mapModel above)
@@ -295,6 +364,53 @@ declare module Valerie {
          * @return {valerie.ModelValidationState}
          */
         clearSummary(valueOrFunction: any): ModelValidationState;
+
+        /*** 
+         * Gets whether the model has failed validation.
+         * @return {boolean}
+         */
+        failed(): boolean;
+
+        /*** 
+         * Gets the validation states that belong to the model that are in a failure state.
+         * @return {Valerie.IValidationState[]}
+         */
+        failedStates(): Valerie.IValidationState[];
+
+        /*** 
+         * Gets the name of the model.
+         * @return {string}
+         */
+        getName(): string;
+
+        isApplicable(): boolean;
+        message(): string;
+        passed(): boolean;
+
+        /*** 
+         * Gets or sets whether the computation that updates the validation result has been paused.
+         * @param {boolean} [value = false] true if the computation should be paused, false if the computation should not be paused
+         * @return {boolean} true if computation is paused, false otherwise
+         */
+        paused(value: boolean): boolean;
+
+        pending(): boolean;
+
+        pendingStates(): IValidationState[];
+
+        refresh(): void;
+
+        result(): ValidationResult;
+
+        summary(): summaryItem[]
+
+        /***
+         * Gets or sets whether the model has been 'touched' by user action
+         */
+        touched(value: boolean): boolean;
+
+
+        validationStates(): IValidationState[];
 
         /**
          * Includes any validation failures for this model in a validation summary.<br/>
@@ -501,9 +617,6 @@ declare module Valerie {
         pending: boolean;	//true if the activity hasn't yet completed
         message: string;	//a message from the activity
         new: (state: any, message?: string) => ValidationResult;
-
-        //TODO: not added static members/methods
-        createFailedResult(message: string): ValidationResult;
     }
 
     interface IRule {
@@ -597,6 +710,11 @@ declare module Valerie {
 
         // Sets the validation state for the given model, observable or computed.
         setFor(modelOrObservableOrComputed: any, state: IValidationState): void;
+    }
+
+    interface summaryItem {
+        name: string;
+        message: string;
     }
 }
 
