@@ -1016,7 +1016,55 @@ interface JQuery {
      * @param optionName 'autoSize'
      * @param autoSizeValue Set to true to automatically resize the input field to accommodate dates in the current dateFormat.
      */
-    datepicker(methodName: 'option', optionName: 'autoSize', autoSizeValue: string): JQuery;
+    datepicker(methodName: 'option', optionName: 'autoSize', autoSizeValue: boolean): JQuery;
+
+    /**
+     * Get the buttonImage option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonImage'
+     */
+    datepicker(methodName: 'option', optionName: 'buttonImage'): string;
+    /**
+     * Set the buttonImage option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonImage'
+     * @param buttonImageValue A URL of an image to use to display the datepicker when the showOn option is set to "button" or "both". If set, the buttonText option becomes the alt value and is not directly displayed.
+     */
+    datepicker(methodName: 'option', optionName: 'buttonImage', buttonImageValue: string): JQuery;
+
+    /**
+     * Get the buttonImageOnly option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonImageOnly'
+     */
+    datepicker(methodName: 'option', optionName: 'buttonImageOnly'): boolean;
+    /**
+     * Set the buttonImageOnly option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonImageOnly'
+     * @param buttonImageOnlyValue Whether the button image should be rendered by itself instead of inside a button element. This option is only relevant if the buttonImage option has also been set.
+     */
+    datepicker(methodName: 'option', optionName: 'buttonImageOnly', buttonImageOnlyValue: boolean): JQuery;
+
+    /**
+     * Get the buttonText option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     */
+    datepicker(methodName: 'option', optionName: 'buttonText'): string;
+    /**
+     * Set the buttonText option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     * @param buttonTextValue The text to display on the trigger button. Use in conjunction with the showOn option set to "button" or "both".
+     */
+    datepicker(methodName: 'option', optionName: 'buttonText', buttonTextValue: string): JQuery;
 
     /**
      * Gets the value currently associated with the specified optionName.

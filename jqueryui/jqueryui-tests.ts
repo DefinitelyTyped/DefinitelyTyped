@@ -1194,6 +1194,35 @@ function test_datepicker() {
         // setter
         var $set: JQuery = $(".selector").datepicker("option", "autoSize", true);
     }
+
+    function buttonImage() {
+        $(".selector").datepicker({ buttonImage: "/images/datepicker.gif" });
+
+        // getter
+        var buttonImage: string = $(".selector").datepicker("option", "buttonImage");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "buttonImage", "/images/datepicker.gif");
+    }
+
+    function buttonImageOnly() {
+        $(".selector").datepicker({ buttonImageOnly: true });
+
+        // getter
+        var buttonImageOnly: boolean = $(".selector").datepicker("option", "buttonImageOnly");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "buttonImageOnly", true);
+    }
+
+    function buttonText() {
+        $(".selector").datepicker({ buttonText: "Choose" });
+
+        var buttonText: string = $(".selector").datepicker("option", "buttonText");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "buttonText", "Choose");
+    }
 }
 
 
