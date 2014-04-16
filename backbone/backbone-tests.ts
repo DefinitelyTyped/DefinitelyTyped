@@ -33,7 +33,7 @@ class SettingDefaults extends Backbone.Model {
             name: "Joe"
         }
         // super has to come last
-        super();
+        super(attributes, options);
     }
 
     // or set it like this
