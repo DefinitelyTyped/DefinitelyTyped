@@ -44,15 +44,6 @@ function test_draggable() {
         helper: (event) => { return $("<div class='ui-widget-header'>I'm a custom helper</div>"); }
     });
     $("#set div").draggable({ stack: "#set div" });
-    $.datepicker.formatDate('yy-mm-dd', new Date(2007, 1 - 1, 26));
-    $.datepicker.formatDate('DD, MM d, yy', new Date(2007, 7 - 1, 14), {
-        dayNamesShort: $.datepicker.regional['fr'].dayNamesShort,
-        dayNames: $.datepicker.regional['fr'].dayNames,
-        monthNamesShort: $.datepicker.regional['fr'].monthNamesShort,
-        monthNames: $.datepicker.regional['fr'].monthNames
-    });
-    $("#datepicker").datepicker({ beforeShowDay: $.datepicker.noWeekends });
-    $("selector").datepicker($.datepicker.regional['fr']);
 }
 
 function test_droppable() {
@@ -1067,6 +1058,16 @@ function test_button() {
 
 
 function test_datepicker() {
+    $.datepicker.formatDate('yy-mm-dd', new Date(2007, 1 - 1, 26));
+    $.datepicker.formatDate('DD, MM d, yy', new Date(2007, 7 - 1, 14), {
+        dayNamesShort: $.datepicker.regional['fr'].dayNamesShort,
+        dayNames: $.datepicker.regional['fr'].dayNames,
+        monthNamesShort: $.datepicker.regional['fr'].monthNamesShort,
+        monthNames: $.datepicker.regional['fr'].monthNames
+    });
+    $("#datepicker").datepicker({ beforeShowDay: $.datepicker.noWeekends });
+    $("selector").datepicker($.datepicker.regional['fr']);
+
     $("#datepicker").datepicker();
     $("#datepicker").datepicker("option", "showAnim", $(this).val());
     $("#datepicker").datepicker({
@@ -1139,6 +1140,89 @@ function test_datepicker() {
 
     $.datepicker.setDefaults($.datepicker.regional[<string>""]);
     $(".selector").datepicker($.datepicker.regional["fr"]);
+
+    // Methods
+    var $destroyed: JQuery = $(".selector").datepicker("destroy");
+    var $dialog: JQuery = $(".selector").datepicker("dialog", "10/12/2012");
+    var currentDate: Date = $(".selector").datepicker("getDate");
+    var $hidden: JQuery = $(".selector").datepicker("hide");
+    var isDisabled: boolean = $(".selector").datepicker("isDisabled");
+    var option: any = $(".selector").datepicker("option", "disabled");
+    var $refreshed: JQuery = $(".selector").datepicker("refresh");
+    var $setDate1: JQuery = $(".selector").datepicker("setDate", "10/12/2012");
+    var $setDate2: JQuery = $(".selector").datepicker("setDate", new Date());
+    var $shown: JQuery = $(".selector").datepicker("show");
+    var $widget: JQuery = $(".selector").datepicker("widget");
+
+    // Options
+    function altField() {
+        $(".selector").datepicker({ altField: "#actualDate" });
+
+        // getter
+        var altField: any = $(".selector").datepicker("option", "altField");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "altField", "#actualDate");
+    }
+
+    function altFormat() {
+        $(".selector").datepicker({ altFormat: "yy-mm-dd" });
+
+        // getter
+        var altFormat: string = $(".selector").datepicker("option", "altFormat");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "altFormat", "yy-mm-dd");
+    }
+
+    function appendText() {
+        $(".selector").datepicker({ appendText: "(yyyy-mm-dd)" });
+
+        // getter
+        var appendText: string = $(".selector").datepicker("option", "appendText");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "appendText", "(yyyy-mm-dd)");
+    }
+
+    function autoSize() {
+        $(".selector").datepicker({ autoSize: true });
+
+        // getter
+        var autoSize: boolean = $(".selector").datepicker("option", "autoSize");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "autoSize", true);
+    }
+
+    function buttonImage() {
+        $(".selector").datepicker({ buttonImage: "/images/datepicker.gif" });
+
+        // getter
+        var buttonImage: string = $(".selector").datepicker("option", "buttonImage");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "buttonImage", "/images/datepicker.gif");
+    }
+
+    function buttonImageOnly() {
+        $(".selector").datepicker({ buttonImageOnly: true });
+
+        // getter
+        var buttonImageOnly: boolean = $(".selector").datepicker("option", "buttonImageOnly");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "buttonImageOnly", true);
+    }
+
+    function buttonText() {
+        $(".selector").datepicker({ buttonText: "Choose" });
+
+        var buttonText: string = $(".selector").datepicker("option", "buttonText");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "buttonText", "Choose");
+    }
 }
 
 

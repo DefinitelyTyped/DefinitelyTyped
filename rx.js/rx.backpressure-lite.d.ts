@@ -14,6 +14,7 @@ declare module Rx {
 		* @returns The observable sequence which is paused based upon the pauser.
 		*/
 		pausable(pauser: Observable<boolean>): Observable<T>;
+		pausable(pauser?: ISubject<boolean>): PausableObservable<T>;
 
 		/**
 		* Pauses the underlying observable sequence based upon the observable sequence which yields true/false,
@@ -24,7 +25,7 @@ declare module Rx {
 		* @param pauser The observable sequence used to pause the underlying sequence.
 		* @returns The observable sequence which is paused based upon the pauser.
 		*/
-		pausableBuffered(pauser: Observable<boolean>): Observable<T>;
+		pausableBuffered(pauser?: ISubject<boolean>): PausableObservable<T>;
 
 		/**
 		* Attaches a controller to the observable sequence with the ability to queue.
@@ -37,5 +38,10 @@ declare module Rx {
 
 	export interface ControlledObservable<T> extends Observable<T> {
 		request(numberOfItems?: number): IDisposable;
+	}
+
+	export interface PausableObservable<T> extends Observable<T> {
+		pause(): void;
+		resume(): void;
 	}
 }

@@ -462,7 +462,7 @@ declare module JQueryUI {
 
     // Sortable //////////////////////////////////////////////////
 
-    interface SortableOptions {
+    interface SortableOptions extends SortableEvents {
         appendTo?: any; // jQuery, Element, Selector or string
         axis?: string;
         cancel?: any; // Selector
@@ -837,23 +837,251 @@ interface JQuery {
     buttonset(optionLiteral: string, options: JQueryUI.ButtonOptions): any;
     buttonset(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
+    /**
+     * Initialize a datepicker
+     */
     datepicker(): JQuery;
-    datepicker(methodName: 'destroy'): void;
-    datepicker(methodName: 'dialog', date?: Date, onSelect?: () => void , pos?: any): void;
-    datepicker(methodName: 'dialog', date?: string, onSelect?: () => void , pos?: any): void;
+    /**
+     * Removes the datepicker functionality completely. This will return the element back to its pre-init state.
+     *
+     * @param methodName 'destroy'
+     */
+    datepicker(methodName: 'destroy'): JQuery;
+    /**
+     * Opens the datepicker in a dialog box.
+     *
+     * @param methodName 'dialog'
+     * @param date The initial date.
+     * @param onSelect A callback function when a date is selected. The function receives the date text and date picker instance as parameters.
+     * @param settings The new settings for the date picker.
+     * @param pos The position of the top/left of the dialog as [x, y] or a MouseEvent that contains the coordinates. If not specified the dialog is centered on the screen.
+     */
+    datepicker(methodName: 'dialog', date: Date, onSelect?: () => void, settings?: JQueryUI.DatepickerOptions, pos?: number[]): JQuery;
+    /**
+     * Opens the datepicker in a dialog box.
+     *
+     * @param methodName 'dialog'
+     * @param date The initial date.
+     * @param onSelect A callback function when a date is selected. The function receives the date text and date picker instance as parameters.
+     * @param settings The new settings for the date picker.
+     * @param pos The position of the top/left of the dialog as [x, y] or a MouseEvent that contains the coordinates. If not specified the dialog is centered on the screen.
+     */
+    datepicker(methodName: 'dialog', date: Date, onSelect?: () => void, settings?: JQueryUI.DatepickerOptions, pos?: MouseEvent): JQuery;
+    /**
+     * Opens the datepicker in a dialog box.
+     *
+     * @param methodName 'dialog'
+     * @param date The initial date.
+     * @param onSelect A callback function when a date is selected. The function receives the date text and date picker instance as parameters.
+     * @param settings The new settings for the date picker.
+     * @param pos The position of the top/left of the dialog as [x, y] or a MouseEvent that contains the coordinates. If not specified the dialog is centered on the screen.
+     */
+    datepicker(methodName: 'dialog', date: string, onSelect?: () => void, settings?: JQueryUI.DatepickerOptions, pos?: number[]): JQuery;
+    /**
+     * Opens the datepicker in a dialog box.
+     *
+     * @param methodName 'dialog'
+     * @param date The initial date.
+     * @param onSelect A callback function when a date is selected. The function receives the date text and date picker instance as parameters.
+     * @param settings The new settings for the date picker.
+     * @param pos The position of the top/left of the dialog as [x, y] or a MouseEvent that contains the coordinates. If not specified the dialog is centered on the screen.
+     */
+    datepicker(methodName: 'dialog', date: string, onSelect?: () => void, settings?: JQueryUI.DatepickerOptions, pos?: MouseEvent): JQuery;
+    /**
+     * Returns the current date for the datepicker or null if no date has been selected.
+     *
+     * @param methodName 'getDate'
+     */
     datepicker(methodName: 'getDate'): Date;
-    datepicker(methodName: 'hide'): void;
+    /**
+     * Close a previously opened date picker.
+     *
+     * @param methodName 'hide'
+     */
+    datepicker(methodName: 'hide'): JQuery;
+    /**
+     * Determine whether a date picker has been disabled.
+     *
+     * @param methodName 'isDisabled'
+     */
     datepicker(methodName: 'isDisabled'): boolean;
-    datepicker(methodName: 'refresh'): void;
-    datepicker(methodName: 'setDate', date: Date): void;
-    datepicker(methodName: 'setDate', date: string): void;
-    datepicker(methodName: 'show'): void;
+    /**
+     * Redraw the date picker, after having made some external modifications.
+     *
+     * @param methodName 'refresh'
+     */
+    datepicker(methodName: 'refresh'): JQuery;
+    /**
+     * Sets the date for the datepicker. The new date may be a Date object or a string in the current date format (e.g., "01/26/2009"), a number of days from today (e.g., +7) or a string of values and periods ("y" for years, "m" for months, "w" for weeks, "d" for days, e.g., "+1m +7d"), or null to clear the selected date.
+     *
+     * @param methodName 'setDate'
+     * @param date The new date.
+     */
+    datepicker(methodName: 'setDate', date: Date): JQuery;
+    /**
+     * Sets the date for the datepicker. The new date may be a Date object or a string in the current date format (e.g., "01/26/2009"), a number of days from today (e.g., +7) or a string of values and periods ("y" for years, "m" for months, "w" for weeks, "d" for days, e.g., "+1m +7d"), or null to clear the selected date.
+     *
+     * @param methodName 'setDate'
+     * @param date The new date.
+     */
+    datepicker(methodName: 'setDate', date: string): JQuery;
+    /**
+     * Open the date picker. If the datepicker is attached to an input, the input must be visible for the datepicker to be shown.
+     *
+     * @param methodName 'show'
+     */
+    datepicker(methodName: 'show'): JQuery;
+    /**
+     * Returns a jQuery object containing the datepicker.
+     *
+     * @param methodName 'widget'
+     */
     datepicker(methodName: 'widget'): JQuery;
-    datepicker(methodName: string): JQuery;
+
+    /**
+     * Get the altField option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'altField'
+     */
+    datepicker(methodName: 'option', optionName: 'altField'): any;
+    /**
+     * Set the altField option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'altField'
+     * @param altFieldValue An input element that is to be updated with the selected date from the datepicker. Use the altFormat option to change the format of the date within this field. Leave as blank for no alternate field.
+     */
+    datepicker(methodName: 'option', optionName: 'altField', altFieldValue: string): JQuery;
+    /**
+     * Set the altField option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'altField'
+     * @param altFieldValue An input element that is to be updated with the selected date from the datepicker. Use the altFormat option to change the format of the date within this field. Leave as blank for no alternate field.
+     */
+    datepicker(methodName: 'option', optionName: 'altField', altFieldValue: JQuery): JQuery;
+    /**
+     * Set the altField option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'altField'
+     * @param altFieldValue An input element that is to be updated with the selected date from the datepicker. Use the altFormat option to change the format of the date within this field. Leave as blank for no alternate field.
+     */
+    datepicker(methodName: 'option', optionName: 'altField', altFieldValue: Element): JQuery;
+
+    /**
+     * Get the altFormat option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'altFormat'
+     */
+    datepicker(methodName: 'option', optionName: 'altFormat'): string;
+    /**
+     * Set the altFormat option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'altFormat'
+     * @param altFormatValue An input element that is to be updated with the selected date from the datepicker. Use the altFormat option to change the format of the date within this field. Leave as blank for no alternate field.
+     */
+    datepicker(methodName: 'option', optionName: 'altFormat', altFormatValue: string): JQuery;
+
+    /**
+     * Get the appendText option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'appendText'
+     */
+    datepicker(methodName: 'option', optionName: 'appendText'): string;
+    /**
+     * Set the appendText option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'appendText'
+     * @param appendTextValue The text to display after each date field, e.g., to show the required format.
+     */
+    datepicker(methodName: 'option', optionName: 'appendText', appendTextValue: string): JQuery;
+
+    /**
+     * Get the autoSize option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'autoSize'
+     */
+    datepicker(methodName: 'option', optionName: 'autoSize'): boolean;
+    /**
+     * Set the autoSize option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'autoSize'
+     * @param autoSizeValue Set to true to automatically resize the input field to accommodate dates in the current dateFormat.
+     */
+    datepicker(methodName: 'option', optionName: 'autoSize', autoSizeValue: boolean): JQuery;
+
+    /**
+     * Get the buttonImage option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonImage'
+     */
+    datepicker(methodName: 'option', optionName: 'buttonImage'): string;
+    /**
+     * Set the buttonImage option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonImage'
+     * @param buttonImageValue A URL of an image to use to display the datepicker when the showOn option is set to "button" or "both". If set, the buttonText option becomes the alt value and is not directly displayed.
+     */
+    datepicker(methodName: 'option', optionName: 'buttonImage', buttonImageValue: string): JQuery;
+
+    /**
+     * Get the buttonImageOnly option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonImageOnly'
+     */
+    datepicker(methodName: 'option', optionName: 'buttonImageOnly'): boolean;
+    /**
+     * Set the buttonImageOnly option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonImageOnly'
+     * @param buttonImageOnlyValue Whether the button image should be rendered by itself instead of inside a button element. This option is only relevant if the buttonImage option has also been set.
+     */
+    datepicker(methodName: 'option', optionName: 'buttonImageOnly', buttonImageOnlyValue: boolean): JQuery;
+
+    /**
+     * Get the buttonText option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     */
+    datepicker(methodName: 'option', optionName: 'buttonText'): string;
+    /**
+     * Set the buttonText option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     * @param buttonTextValue The text to display on the trigger button. Use in conjunction with the showOn option set to "button" or "both".
+     */
+    datepicker(methodName: 'option', optionName: 'buttonText', buttonTextValue: string): JQuery;
+
+    /**
+     * Gets the value currently associated with the specified optionName.
+     *
+     * @param methodName 'option'
+     * @param optionName The name of the option to get.
+     */
+    datepicker(methodName: 'option', optionName: string): any;
+
+    datepicker(methodName: 'option', optionName: string, ...otherParams: any[]): any; // Used for getting and setting options
+
+    datepicker(methodName: string, ...otherParams: any[]): any;
+
+    /**
+     * Initialize a datepicker with the given options
+     */
     datepicker(options: JQueryUI.DatepickerOptions): JQuery;
-    datepicker(optionLiteral: string, optionName: string): any;
-    datepicker(optionLiteral: string, options: JQueryUI.DatepickerOptions): any;
-    datepicker(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     dialog(): JQuery;
     dialog(methodName: 'close'): JQuery;
