@@ -169,9 +169,7 @@ declare module Backbone {
         comparator(compare: TModel, to?: TModel): number;
 
         add(model: TModel, options?: AddOptions): Collection<TModel>;
-        add(model: any, options?: AddOptions): Collection<TModel>;
         add(models: TModel[], options?: AddOptions): Collection<TModel>;
-        add(models: any[], options?: AddOptions): Collection<TModel>;
         at(index: number): TModel;
         get(id: string): TModel;
         create(attributes: any, options?: ModelSaveOptions): TModel;
@@ -181,8 +179,7 @@ declare module Backbone {
         remove(model: TModel, options?: Silenceable): TModel;
         remove(models: TModel[], options?: Silenceable): TModel[];
         reset(models?: TModel[], options?: Silenceable): TModel[];
-        reset(models?: any[], options?: Silenceable): TModel[];
-        set(models?: any[], options?: Silenceable): TModel[];
+        set(models?: TModel[], options?: Silenceable): TModel[];
         shift(options?: Silenceable): TModel;
         sort(options?: Silenceable): Collection<TModel>;
         unshift(model: TModel, options?: AddOptions): TModel;

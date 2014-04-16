@@ -20,7 +20,7 @@ function test_events() {
 
 class SettingDefaults extends Backbone.Model {
 
-    // `defaults` could be set in one of the following ways:
+    // 'defaults' could be set in one of the following ways:
 
     defaults() {
         return {
@@ -40,10 +40,11 @@ class SettingDefaults extends Backbone.Model {
     initialize() {
         this.defaults = <any>{
             name: "Joe"
-        }        
+        }
+
     }
 
-    // same patterns could be used for setting Router.routes and View.events
+    // same patterns could be used for setting 'Router.routes' and 'View.events'
 }
 
 class Sidebar extends Backbone.Model {
