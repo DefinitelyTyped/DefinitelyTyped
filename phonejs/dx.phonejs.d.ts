@@ -7,6 +7,7 @@
 
 declare module DevExpress {
     export function abstract(): void;
+    export var hardwareBackButton: JQueryCallback;
     interface Endpoint {
         local?: string;
         production: string;
@@ -65,14 +66,14 @@ declare module DevExpress.data {
         enumerate(): JQueryDeferred<Array<any>>;
         count(): JQueryDeferred<number>;
         slice(skip: number, take?: number): IQuery;
-        sortBy(field: string[]): IQuery;
-        sortBy(field: Getter[]): IQuery;
-        sortBy(field: { field: string; desc?: boolean }[]): IQuery;
-        sortBy(field: { field: Getter; desc?: boolean }[]): IQuery;
-        thenBy(field: string[]): IQuery;
-        thenBy(field: Getter[]): IQuery;
-        thenBy(field: { field: string; desc?: boolean }[]): IQuery;
-        thenBy(field: { field: Getter; desc?: boolean }[]): IQuery;
+        sortBy(field: string): IQuery;
+        sortBy(field: Getter): IQuery;
+        sortBy(field: { field: string; desc?: boolean }): IQuery;
+        sortBy(field: { field: Getter; desc?: boolean }): IQuery;
+        thenBy(field: string): IQuery;
+        thenBy(field: Getter): IQuery;
+        thenBy(field: { field: string; desc?: boolean }): IQuery;
+        thenBy(field: { field: Getter; desc?: boolean }): IQuery;
         filter(field: string, operator: string, value: any): IQuery;
         filter(field: string, value: any): IQuery;
         filter(criteria: any[]): IQuery;
@@ -548,6 +549,8 @@ declare module DevExpress.framework {
         public viewDisposing: JQueryCallback;
         public viewDisposed: JQueryCallback;
         public navigating: JQueryCallback;
+        public navigatingBack: JQueryCallback;
+        public resolveLayoutController: JQueryCallback;
         constructor(options?: ApplicationOptions);
         init(): any;
         navigate(uri?: any, options?: {
@@ -647,8 +650,6 @@ declare module DevExpress.framework.html {
     }
     export class ViewEngine extends ViewEngineBase {
         public layoutSelecting: JQueryCallback;
-        public layoutApplying: JQueryCallback;
-        public layoutApplied: JQueryCallback;
         constructor(options?: ViewEngineOptions);
         init(): JQueryDeferred<any>;
         findLayoutTemplate(layoutName: string): JQuery;
