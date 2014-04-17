@@ -1065,7 +1065,6 @@ function test_datepicker() {
         monthNamesShort: $.datepicker.regional['fr'].monthNamesShort,
         monthNames: $.datepicker.regional['fr'].monthNames
     });
-    $("#datepicker").datepicker({ beforeShowDay: $.datepicker.noWeekends });
     $("selector").datepicker($.datepicker.regional['fr']);
 
     $("#datepicker").datepicker();
@@ -1195,6 +1194,30 @@ function test_datepicker() {
         var $set: JQuery = $(".selector").datepicker("option", "autoSize", true);
     }
 
+    function beforeShow() {
+        function myFunction(input, inst) {
+            return null;
+        }
+
+        $(".selector").datepicker({ beforeShow: myFunction });
+
+        // getter
+        var beforeShow: (input: Element, inst: any) => JQueryUI.DatepickerOptions = $(".selector").datepicker("option", "beforeShow");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "beforeShow", myFunction);
+    }
+
+    function beforeShowDay() {
+        $("#datepicker").datepicker({ beforeShowDay: $.datepicker.noWeekends });
+
+        // getter
+        var beforeShowDay: (date: Date) => any[] = $(".selector").datepicker("option", "beforeShowDay");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "beforeShowDay", $.datepicker.noWeekends);
+    }
+
     function buttonImage() {
         $(".selector").datepicker({ buttonImage: "/images/datepicker.gif" });
 
@@ -1222,6 +1245,30 @@ function test_datepicker() {
 
         // setter
         var $set: JQuery = $(".selector").datepicker("option", "buttonText", "Choose");
+    }
+
+    function calculateWeek() {
+
+        function myWeekCalc(date: Date) {
+            var checkDate = new Date(date.getTime());
+            checkDate.setDate(checkDate.getDate() + 4 - (checkDate.getDay() || 7));
+            var time = checkDate.getTime();
+            checkDate.setMonth(7);
+            checkDate.setDate(28);
+            var week = (Math.floor(Math.round((time - checkDate.getTime()) / 86400000) / 7) + 2);
+            if (week < 1) {
+                week = 52 + week;
+            }
+            return 'FW: '+week;
+        }
+
+        $(".selector").datepicker({ calculateWeek: myWeekCalc });
+
+        // getter
+        var calculateWeek: (date: Date) => string = $(".selector").datepicker("option", "calculateWeek");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "calculateWeek", myWeekCalc);
     }
 }
 
