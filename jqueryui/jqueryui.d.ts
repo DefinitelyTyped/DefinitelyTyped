@@ -1,6 +1,6 @@
 // Type definitions for jQueryUI 1.9
 // Project: http://jqueryui.com/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -137,45 +137,183 @@ declare module JQueryUI {
          * A function to calculate the week of the year for a given date. The default implementation uses the ISO 8601 definition: weeks start on a Monday; the first week of the year contains the first Thursday of the year.
          */
         calculateWeek?: (date: Date) => string;
+        /**
+         * Whether the month should be rendered as a dropdown instead of text.
+         */
         changeMonth?: boolean;
+        /**
+         * Whether the year should be rendered as a dropdown instead of text. Use the yearRange option to control which years are made available for selection.
+         */
         changeYear?: boolean;
+        /**
+         * The text to display for the close link. Use the showButtonPanel option to display this button.
+         */
         closeText?: string;
+        /**
+         * When true, entry in the input field is constrained to those characters allowed by the current dateFormat option.
+         */
         constrainInput?: boolean;
+        /**
+         * The text to display for the current day link. Use the showButtonPanel option to display this button.
+         */
         currentText?: string;
+        /**
+         * The format for parsed and displayed dates. For a full list of the possible formats see the formatDate function.
+         */
         dateFormat?: string;
+        /**
+         * The list of long day names, starting from Sunday, for use as requested via the dateFormat option.
+         */
         dayNames?: string[];
+        /**
+         * The list of minimised day names, starting from Sunday, for use as column headers within the datepicker.
+         */
         dayNamesMin?: string[];
+        /**
+         * The list of abbreviated day names, starting from Sunday, for use as requested via the dateFormat option.
+         */
         dayNamesShort?: string[];
+        /**
+         * Set the date to highlight on first opening if the field is blank. Specify either an actual date via a Date object or as a string in the current dateFormat, or a number of days from today (e.g. +7) or a string of values and periods ('y' for years, 'm' for months, 'w' for weeks, 'd' for days, e.g. '+1m +7d'), or null for today.
+         * Multiple types supported:
+         * Date: A date object containing the default date.
+         * Number: A number of days from today. For example 2 represents two days from today and -1 represents yesterday.
+         * String: A string in the format defined by the dateFormat option, or a relative date. Relative dates must contain value and period pairs; valid periods are "y" for years, "m" for months, "w" for weeks, and "d" for days. For example, "+1m +7d" represents one month and seven days from today.
+         */
         defaultDateType?: any; // Date, number or string
+        /**
+         * Control the speed at which the datepicker appears, it may be a time in milliseconds or a string representing one of the three predefined speeds ("slow", "normal", "fast").
+         */
         duration?: string;
+        /**
+         * Set the first day of the week: Sunday is 0, Monday is 1, etc.
+         */
         firstDay?: number;
+        /**
+         * When true, the current day link moves to the currently selected date instead of today.
+         */
         gotoCurrent?: boolean;
+        /**
+         * Normally the previous and next links are disabled when not applicable (see the minDate and maxDate options). You can hide them altogether by setting this attribute to true.
+         */
         hideIfNoPrevNext?: boolean;
+        /**
+         * Whether the current language is drawn from right to left.
+         */
         isRTL?: boolean;
+        /**
+         * The maximum selectable date. When set to null, there is no maximum.
+         * Multiple types supported:
+         * Date: A date object containing the maximum date.
+         * Number: A number of days from today. For example 2 represents two days from today and -1 represents yesterday.
+         * String: A string in the format defined by the dateFormat option, or a relative date. Relative dates must contain value and period pairs; valid periods are "y" for years, "m" for months, "w" for weeks, and "d" for days. For example, "+1m +7d" represents one month and seven days from today.
+         */
         maxDate?: any; // Date, number or string
+        /**
+         * The minimum selectable date. When set to null, there is no minimum.
+         * Multiple types supported:
+         * Date: A date object containing the minimum date.
+         * Number: A number of days from today. For example 2 represents two days from today and -1 represents yesterday.
+         * String: A string in the format defined by the dateFormat option, or a relative date. Relative dates must contain value and period pairs; valid periods are "y" for years, "m" for months, "w" for weeks, and "d" for days. For example, "+1m +7d" represents one month and seven days from today.
+         */
         minDate?: any; // Date, number or string
+        /**
+         * The list of full month names, for use as requested via the dateFormat option.
+         */
         monthNames?: string[];
+        /**
+         * The list of abbreviated month names, as used in the month header on each datepicker and as requested via the dateFormat option.
+         */
         monthNamesShort?: string[];
+        /**
+         * Whether the prevText and nextText options should be parsed as dates by the formatDate function, allowing them to display the target month names for example.
+         */
         navigationAsDateFormat?: boolean;
+        /**
+         * The text to display for the next month link. With the standard ThemeRoller styling, this value is replaced by an icon.
+         */
         nextText?: string;
-        numberOfMonths?: any; // number or []
+        /**
+         * The number of months to show at once.
+         * Multiple types supported:
+         * Number: The number of months to display in a single row.
+         * Array: An array defining the number of rows and columns to display.
+         */
+        numberOfMonths?: any; // number or number[]
+        /**
+         * Called when the datepicker moves to a new month and/or year. The function receives the selected year, month (1-12), and the datepicker instance as parameters. this refers to the associated input field.
+         */
         onChangeMonthYear?: (year: number, month: number, inst: any) => void;
+        /**
+         * Called when the datepicker is closed, whether or not a date is selected. The function receives the selected date as text ("" if none) and the datepicker instance as parameters. this refers to the associated input field.
+         */
         onClose?: (dateText: string, inst: any) => void;
+        /**
+         * Called when the datepicker is selected. The function receives the selected date as text and the datepicker instance as parameters. this refers to the associated input field.
+         */
         onSelect?: (dateText: string, inst: any) => void;
+        /**
+         * The text to display for the previous month link. With the standard ThemeRoller styling, this value is replaced by an icon.
+         */
         prevText?: string;
+        /**
+         * Whether days in other months shown before or after the current month are selectable. This only applies if the showOtherMonths option is set to true.
+         */
         selectOtherMonths?: boolean;
+        /**
+         * The cutoff year for determining the century for a date (used in conjunction with dateFormat 'y'). Any dates entered with a year value less than or equal to the cutoff year are considered to be in the current century, while those greater than it are deemed to be in the previous century.
+         * Multiple types supported:
+         * Number: A value between 0 and 99 indicating the cutoff year.
+         * String: A relative number of years from the current year, e.g., "+3" or "-5".
+         */
         shortYearCutoff?: any; // number or string
+        /**
+         * The name of the animation used to show and hide the datepicker. Use "show" (the default), "slideDown", "fadeIn", any of the jQuery UI effects. Set to an empty string to disable animation.
+         */
         showAnim?: string;
+        /**
+         * Whether to display a button pane underneath the calendar. The button pane contains two buttons, a Today button that links to the current day, and a Done button that closes the datepicker. The buttons' text can be customized using the currentText and closeText options respectively.
+         */
         showButtonPanel?: boolean;
+        /**
+         * When displaying multiple months via the numberOfMonths option, the showCurrentAtPos option defines which position to display the current month in.
+         */
         showCurrentAtPos?: number;
+        /**
+         * Whether to show the month after the year in the header.
+         */
         showMonthAfterYear?: boolean;
+        /**
+         * When the datepicker should appear. The datepicker can appear when the field receives focus ("focus"), when a button is clicked ("button"), or when either event occurs ("both").
+         */
         showOn?: string;
+        /**
+         * If using one of the jQuery UI effects for the showAnim option, you can provide additional settings for that animation via this option.
+         */
         showOptions?: any; // TODO
+        /**
+         * Whether to display dates in other months (non-selectable) at the start or end of the current month. To make these days selectable use the selectOtherMonths option.
+         */
         showOtherMonths?: boolean;
+        /**
+         * When true, a column is added to show the week of the year. The calculateWeek option determines how the week of the year is calculated. You may also want to change the firstDay option.
+         */
         showWeek?: boolean;
+        /**
+         * Set how many months to move when clicking the previous/next links.
+         */
         stepMonths?: number;
+        /**
+         * The text to display for the week of the year column heading. Use the showWeek option to display this column.
+         */
         weekHeader?: string;
+        /**
+         * The range of years displayed in the year drop-down: either relative to today's year ("-nn:+nn"), relative to the currently selected year ("c-nn:c+nn"), absolute ("nnnn:nnnn"), or combinations of these formats ("nnnn:-nn"). Note that this option only affects what appears in the drop-down, to restrict which dates may be selected use the minDate and/or maxDate options.
+         */
         yearRange?: string;
+        /**
+         * Additional text to display after the year in the month headers.
+         */
         yearSuffix?: string;
     }
 
