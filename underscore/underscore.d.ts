@@ -1,4 +1,4 @@
-// Type definitions for Underscore 1.5.2
+// Type definitions for Underscore 1.6.0
 // Project: http://underscorejs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
@@ -543,6 +543,19 @@ interface UnderscoreStatic {
 	* @return Number of values in `list`.
 	**/
 	size<T>(list: _.Collection<T>): number;
+	
+	/**
+	* Split array into two arrays: 
+	* one whose elements all satisfy predicate and one whose elements all do not satisfy predicate.
+	* @param array Array to split in two
+	* @param iterator Filter iterator function for each element in `array`.
+	* @param context `this` object in `iterator`, optional.
+	* @return Array where Array[0] are the elements in `array` that satisfies the predicate, and Array[1] the elements that did not.
+	**/
+	partition<T>(
+		array: Array<T>,
+		iterator: _.ListIterator<T, boolean>,
+		context?: any): T[][];
 
 	/*********
 	* Arrays *
@@ -1135,6 +1148,20 @@ interface UnderscoreStatic {
 	has(object: any, key: string): boolean;
 
 	/**
+	* Returns a function that will itself return the key property of any passed-in object
+	* @param key Property of the object
+	* @return Function which accept an object an returns the value of key in that object
+	**/
+	property(key: string): (object: Object)=> any;
+
+	/**
+	* Returns a predicate function that will tell you if a passed in object contains all of the key/value properties present in attrs.
+	* @param attrs Object with key values pair
+	* @return Predicate function
+	**/
+	matches<T, TResult>(attrs: T): _.ListIterator<T, TResult>;
+
+	/**
 	* Performs an optimized deep comparison between the two objects,
 	* to determine if they should be considered equal.
 	* @param object Compare to `other`.
@@ -1271,6 +1298,13 @@ interface UnderscoreStatic {
 	identity<T>(value: T): T;
 
 	/**
+	* Creates a function that returns the same value that is used as the argument of _.constant
+	* @param value Identity of this object.
+	* @return Function that return value.
+	**/
+	constant<T>(value: T): () => T;
+
+	/**
 	* Invokes the given iterator function n times.
 	* Each invocation of iterator is called with an index argument
 	* @param n Number of times to invoke `iterator`.
@@ -1352,6 +1386,11 @@ interface UnderscoreStatic {
 	* following template settings to use alternative delimiters.
 	**/
 	templateSettings: _.TemplateSettings;
+
+	/**
+	* Returns an integer timestamp for the current time, using the fastest method available in the runtime. Useful for implementing timing/animation functions.
+	**/
+	now(): number;
 
 	/* **********
 	 * Chaining *
