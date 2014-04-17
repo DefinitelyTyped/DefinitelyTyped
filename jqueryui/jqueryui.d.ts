@@ -93,16 +93,50 @@ declare module JQueryUI {
     // Datepicker //////////////////////////////////////////////////
 
     interface DatepickerOptions {
-        altFieldType?: any; // Selecotr, jQuery or Element
+        /**
+         * An input element that is to be updated with the selected date from the datepicker. Use the altFormat option to change the format of the date within this field. Leave as blank for no alternate field.
+         */
+        altField?: any; // Selector, jQuery or Element
+        /**
+         * The dateFormat to be used for the altField option. This allows one date format to be shown to the user for selection purposes, while a different format is actually sent behind the scenes. For a full list of the possible formats see the formatDate function
+         */
         altFormat?: string;
+        /**
+         * The text to display after each date field, e.g., to show the required format.
+         */
         appendText?: string;
+        /**
+         * Set to true to automatically resize the input field to accommodate dates in the current dateFormat.
+         */
         autoSize?: boolean;
-        beforeShow?: (input: Element, inst: any) => void;
-        beforeShowDay?: (date: Date) => void;
+        /**
+         * A function that takes an input field and current datepicker instance and returns an options object to update the datepicker with. It is called just before the datepicker is displayed.
+         */
+        beforeShow?: (input: Element, inst: any) => JQueryUI.DatepickerOptions;
+        /**
+         * A function that takes a date as a parameter and must return an array with:
+         * [0]: true/false indicating whether or not this date is selectable
+         * [1]: a CSS class name to add to the date's cell or "" for the default presentation
+         * [2]: an optional popup tooltip for this date
+         * The function is called for each day in the datepicker before it is displayed.
+         */
+        beforeShowDay?: (date: Date) => any[];
+        /**
+         * A URL of an image to use to display the datepicker when the showOn option is set to "button" or "both". If set, the buttonText option becomes the alt value and is not directly displayed.
+         */
         buttonImage?: string;
+        /**
+         * Whether the button image should be rendered by itself instead of inside a button element. This option is only relevant if the buttonImage option has also been set.
+         */
         buttonImageOnly?: boolean;
+        /**
+         * The text to display on the trigger button. Use in conjunction with the showOn option set to "button" or "both".
+         */
         buttonText?: string;
-        calculateWeek?: () => any;
+        /**
+         * A function to calculate the week of the year for a given date. The default implementation uses the ISO 8601 definition: weeks start on a Monday; the first week of the year contains the first Thursday of the year.
+         */
+        calculateWeek?: (date: Date) => string;
         changeMonth?: boolean;
         changeYear?: boolean;
         closeText?: string;
@@ -158,7 +192,7 @@ declare module JQueryUI {
         formatDate(format: string, date: Date, settings?: DatepickerFormatDateOptions): string;
         parseDate(format: string, date: string, settings?: DatepickerFormatDateOptions): Date;
         iso8601Week(date: Date): number;
-        noWeekends(): void;
+        noWeekends(date: Date): any[];
     }
 
 
@@ -982,7 +1016,7 @@ interface JQuery {
      *
      * @param methodName 'option'
      * @param optionName 'altFormat'
-     * @param altFormatValue An input element that is to be updated with the selected date from the datepicker. Use the altFormat option to change the format of the date within this field. Leave as blank for no alternate field.
+     * @param altFormatValue The dateFormat to be used for the altField option. This allows one date format to be shown to the user for selection purposes, while a different format is actually sent behind the scenes. For a full list of the possible formats see the formatDate function
      */
     datepicker(methodName: 'option', optionName: 'altFormat', altFormatValue: string): JQuery;
 
@@ -1017,6 +1051,42 @@ interface JQuery {
      * @param autoSizeValue Set to true to automatically resize the input field to accommodate dates in the current dateFormat.
      */
     datepicker(methodName: 'option', optionName: 'autoSize', autoSizeValue: boolean): JQuery;
+
+    /**
+     * Get the beforeShow option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'beforeShow'
+     */
+    datepicker(methodName: 'option', optionName: 'beforeShow'): (input: Element, inst: any) => JQueryUI.DatepickerOptions;
+    /**
+     * Set the beforeShow option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'beforeShow'
+     * @param beforeShowValue A function that takes an input field and current datepicker instance and returns an options object to update the datepicker with. It is called just before the datepicker is displayed.
+     */
+    datepicker(methodName: 'option', optionName: 'beforeShow', beforeShowValue: (input: Element, inst: any) => JQueryUI.DatepickerOptions): JQuery;
+
+    /**
+     * Get the beforeShow option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'beforeShowDay'
+     */
+    datepicker(methodName: 'option', optionName: 'beforeShowDay'): (date: Date) => any[];
+    /**
+     * Set the beforeShow option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'beforeShowDay'
+     * @param beforeShowDayValue A function that takes a date as a parameter and must return an array with:
+     * [0]: true/false indicating whether or not this date is selectable
+     * [1]: a CSS class name to add to the date's cell or "" for the default presentation
+     * [2]: an optional popup tooltip for this date
+     * The function is called for each day in the datepicker before it is displayed.
+     */
+    datepicker(methodName: 'option', optionName: 'beforeShowDay', beforeShowDayValue: (date: Date) => any[]): JQuery;
 
     /**
      * Get the buttonImage option, after initialization
@@ -1065,6 +1135,23 @@ interface JQuery {
      * @param buttonTextValue The text to display on the trigger button. Use in conjunction with the showOn option set to "button" or "both".
      */
     datepicker(methodName: 'option', optionName: 'buttonText', buttonTextValue: string): JQuery;
+
+    /**
+     * Get the calculateWeek option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     */
+    datepicker(methodName: 'option', optionName: 'calculateWeek'): (date: Date) => string;
+    /**
+     * Set the calculateWeek option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     * @param calculateWeekValue A function to calculate the week of the year for a given date. The default implementation uses the ISO 8601 definition: weeks start on a Monday; the first week of the year contains the first Thursday of the year.
+
+     */
+    datepicker(methodName: 'option', optionName: 'calculateWeek', calculateWeekValue: (date: Date) => string): JQuery;
 
     /**
      * Gets the value currently associated with the specified optionName.
