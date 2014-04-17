@@ -87,9 +87,7 @@ interface JQuery {
 
     select2(): JQuery;
     select2(it: IdTextPair): JQuery;
-    select2(options: Select2Options): JQuery;
-    select2(method: string): any;
-    select2(method: string, value: any, trigger?: boolean): any;
+
     /**
     * Get the id value of the current selection
     */
@@ -144,4 +142,8 @@ interface JQuery {
     * Notifies Select2 that a drag and drop sorting operation has finished
     */
     select2(method: 'onSortEnd'): void;
+
+    select2(method: string): any;
+    select2(method: string, value: any, trigger?: boolean): any;
+    select2(options: Select2Options): JQuery;
 }

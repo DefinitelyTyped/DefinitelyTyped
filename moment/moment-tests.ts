@@ -416,3 +416,5 @@ moment.lang('en', {
         return number + output;
     }
 });
+
+console.log(moment.version);

@@ -71,3 +71,17 @@ $('.example-films .typeahead').typeahead([
         engine: Hogan
     }
 ]);
+
+// Countries - Modified the first test here to add options
+// Specifies options to display hint with a highlight and adds a minimum length restriction for search
+// Prefetches data, stores it in localStorage, and searches it on the client
+$('.example-countries .typeahead').typeahead({
+  hint: true,
+  highlight: true,
+  minLength: 2
+},
+{
+  name: 'countries',
+  prefetch: '../data/countries.json',
+  limit: 10
+});

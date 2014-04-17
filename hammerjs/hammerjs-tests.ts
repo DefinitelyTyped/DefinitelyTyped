@@ -1,32 +1,49 @@
 /// <reference path="../jquery/jquery.d.ts"/>
 /// <reference path="hammerjs.d.ts" />
 
-var hammer = new Hammer(document.getElementById("container"));
-hammer.ondragstart = function (ev) { };
-hammer.ondrag = function (ev) { };
-hammer.ondragend = function (ev) { };
-hammer.onswipe = function (ev) { };
+// plugin check
+if (!Hammer.HAS_TOUCHEVENTS && !Hammer.HAS_POINTEREVENTS) {
+    Hammer.plugins.fakeMultitouch();
+    Hammer.plugins.showTouches();
+}
 
-hammer.ontap = function (ev) { };
-hammer.ondoubletap = function (ev) { };
-hammer.onhold = function (ev) { };
+// instance method check
+var el = document.getElementById("container");
 
-hammer.ontransformstart = function (ev) { };
-hammer.ontransform = function (ev) { };
-hammer.ontransformend = function (ev) { };
+Hammer(el).on("doubletap", function () {
+    alert('you doubletapped me!');
+});
 
-hammer.onrelease = function (ev) { };
+var hammertime = Hammer(el, {
+    drag: false,
+    transform: false
+}).off("tap", function (event:HammerEvent) {
+    alert('hello!');
+});
 
+hammertime.enable(false);
+
+hammertime.on("touch drag transform", function (ev: HammerEvent) {
+    if (!ev.gesture) {
+        return;
+    }
+
+    if (ev.gesture.deltaX >= 20) {
+        hammertime.trigger("swipe", ev.gesture);
+    }
+});
+
+// jQuery check
 $("#element")
    .hammer({
        // Options
    })
-   .bind("tap", function (ev) {
+   .on("tap", function (ev) {
        console.log(ev);
    });
 
 $("#container").hammer({
     prevent_default: false,
-    drag_vertical: false
-}).bind("hold tap doubletap transformstart transform transformend dragstart drag dragend release swipe", function (ev) {
+    drag_block_vertical: false
+}).on("hold tap doubletap transformstart transform transformend dragstart drag dragend release swipe", function (ev) {
 });

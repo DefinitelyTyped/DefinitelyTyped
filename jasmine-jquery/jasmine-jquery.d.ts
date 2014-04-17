@@ -90,8 +90,8 @@ declare module jasmine {
         toBeEmpty(): boolean;
         toExist(): boolean;
         toHaveLength(length: number): boolean;
-        toHaveAttr(attributeName: string, expectedAttributeValue): boolean;
-        toHaveProp(propertyName: string, expectedPropertyValue): boolean;
+        toHaveAttr(attributeName: string, expectedAttributeValue?): boolean;
+        toHaveProp(propertyName: string, expectedPropertyValue?): boolean;
         toHaveId(id: string): boolean;
         toHaveHtml(html: string): boolean;
         //toContainHtml(html: string): boolean;

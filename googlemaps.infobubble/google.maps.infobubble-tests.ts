@@ -26,8 +26,11 @@ function test_bubble() {
     var map: google.maps.Map;
     var marker: google.maps.Marker;
     var bubble: google.maps.infobubble.InfoBubble;
+    var position: google.maps.LatLng;
 
     bubble.open(map, marker);
     var isOpen = bubble.isOpen();
     bubble.close();
+    
+    position = bubble.getPosition();
 }

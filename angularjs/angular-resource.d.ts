@@ -51,6 +51,7 @@ declare module ng.resource {
     // to be considered as parameters to the request.
     // https://github.com/angular/angular.js/blob/v1.2.0/src/ngResource/resource.js#L461-L465
     interface IResourceClass<T> {
+        new(dataOrParams? : any) : T;
         get(): T;
         get(dataOrParams: any): T;
         get(dataOrParams: any, success: Function): T;

@@ -10,7 +10,7 @@ declare var angular: ng.IAngularStatic;
 
 // Support for painless dependency injection
 interface Function {
-    $inject:string[];
+    $inject?: string[];
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -238,7 +238,7 @@ declare module ng {
 
         $parent: IScope;
 
-        $id: number;
+        $id: string;
 
         // Hidden members
         $$isolateBindings: any;
@@ -430,7 +430,7 @@ declare module ng {
     // DocumentService
     // see http://docs.angularjs.org/api/ng.$document
     ///////////////////////////////////////////////////////////////////////////
-    interface IDocumentService extends Document {}
+    interface IDocumentService extends IAugmentedJQuery {}
 
     ///////////////////////////////////////////////////////////////////////////
     // ExceptionHandlerService
@@ -455,6 +455,7 @@ declare module ng {
         all(promises: {[id: string]: IPromise<any>;}): IPromise<{[id: string]: any}>;
         defer<T>(): IDeferred<T>;
         reject(reason?: any): IPromise<void>;
+        when<T>(value: IPromise<T>): IPromise<T>;
         when<T>(value: T): IPromise<T>;
     }
 

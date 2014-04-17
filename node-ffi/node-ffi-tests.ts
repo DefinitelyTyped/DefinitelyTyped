@@ -29,6 +29,10 @@ import TArray = require('ref-array');
     func.async(-5, function(err: any, res: any) {});
 }
 {
+    var funcPtr = ffi.Callback('int', [ 'int' ], Math.abs);
+    var func    = ffi.ForeignFunction(funcPtr, 'int', [ 'int' ]);
+}
+{
     var printfPointer = ffi.DynamicLibrary().get('printf');
     var printfGen = ffi.VariadicForeignFunction(printfPointer, 'void', [ 'string' ]);
     printfGen()('Hello World!\n');

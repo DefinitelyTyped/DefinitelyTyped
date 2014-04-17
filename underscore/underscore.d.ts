@@ -499,7 +499,7 @@ interface UnderscoreStatic {
 	countBy<T>(
 		list: _.Collection<T>,
 		iterator?: _.ListIterator<T, any>,
-		context?: any): _.Dictionary<number[]>;
+		context?: any): _.Dictionary<number>;
 
 	/**
 	* @see _.countBy
@@ -508,7 +508,7 @@ interface UnderscoreStatic {
 	countBy<T>(
 		list: _.Collection<T>,
 		iterator: string,
-		context?: any): _.Dictionary<number[]>;
+		context?: any): _.Dictionary<number>;
 
 	/**
 	* Returns a shuffled copy of the list, using a version of the Fisher-Yates shuffle.
@@ -1612,13 +1612,13 @@ interface Underscore<T> {
 	* Wrapped type `any[]`.
 	* @see _.countBy
 	**/
-	countBy(iterator?: _.ListIterator<T, any>, context?: any): _.Dictionary<number[]>;
+	countBy(iterator?: _.ListIterator<T, any>, context?: any): _.Dictionary<number>;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.countBy
 	**/
-	countBy(iterator: string, context?: any): _.Dictionary<number[]>;
+	countBy(iterator: string, context?: any): _.Dictionary<number>;
 
 	/**
 	* Wrapped type `any[]`.
