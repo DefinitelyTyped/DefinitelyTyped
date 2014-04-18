@@ -18,10 +18,6 @@ declare module 'passport-facebook' {
         profileUrl:string;
     }
 
-    interface User<T> {
-
-    }
-
     class Strategy implements passport.Strategy{
         constructor(options:{clientID:string; clientSecret:string; callbackURL:string},
                     verify:(accessToken:string, refreshToken:string, profile:Profile, done:(error:any, user?:any) => void) => void);
