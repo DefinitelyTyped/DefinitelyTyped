@@ -30,7 +30,7 @@ declare module JQueryFinger {
         flickDuration: number;
 
         /**
-          * The number of pixel the user will have to move in order to fire motion
+          * The number of pixels the user will have to move in order to fire motion
           * events (drag or flick). If this time is not reached, no motion will
           * be handled and tap, doubletap or press event will be fired.
           *     Default: 5(px).
@@ -46,13 +46,47 @@ declare module JQueryFinger {
 }
 
 interface JQueryFingerEventObject extends JQueryEventObject {
+    /**
+      * The x page coordinate.
+      */
     x: number;
+    
+    /**
+      * The y page coordinate.
+      */
     y: number;
+    
+    /**
+      * The x delta since the last event.
+      */
     dx: number;
+    
+    /**
+      * The y delta since the last event.
+      */
     dy: number;
+    
+    /**
+      * The absolute x delta since the last event.
+      */
     adx: number;
+    
+    /**
+      * The absolute y delta since the last event.
+      */
     ady: number;
+    
+    /**
+      * The orientation of the motion. Adjusted by $.Finger.motionThreshhold.
+      * Value is 'horizontal' or 'vertical'.
+      */
     orientation: string;
+    
+    /**
+      * The direction of the motion. Value is 1 if the motion is 'positive'
+      * (left-to-right or top-to-bottom) or -1 if 'negative'(right-to-left or
+      * bottom-to-top).
+      */
     direction: number;
 }
 
