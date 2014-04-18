@@ -1,5 +1,8 @@
 /// <reference path="../chai/chai.d.ts" />
+/// <reference path="../chai/chai-assert.d.ts" />
 /// <reference path="chai-datetime.d.ts" />
+
+var expect = chai.expect;
 
 function test_equalTime(){
     var date: Date = new Date(2014, 1, 1);
