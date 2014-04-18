@@ -214,6 +214,7 @@ declare module jake{
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
+        value: any;
 	}
 
 	export class DirectoryTask{
