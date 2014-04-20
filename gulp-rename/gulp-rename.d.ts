@@ -5,11 +5,7 @@
 
 interface IGulpRename {
     (rename: (dir: string, base: string, ext: string) => string): any;
-    (hash: {
-        prefix?: string;
-        suffix?: string;
-        ext?: string;
-    }: any;
+    (hash: { prefix?: string; suffix?: string; ext?: string; }): any;
 }
 
 declare var __IGulpRename: IGulpRename;
