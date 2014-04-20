@@ -1,6 +1,6 @@
 # definitelytyped.github.io
 
-Website content for [definitelytyped.github.io](http://definitelytyped.github.io/).
+Website content for [definitelytyped.org](http://definitelytyped.org) (hosted at [definitelytyped.github.io](http://definitelytyped.github.io/)).
 
 The [master](https://github.com/DefinitelyTyped/definitelytyped.github.io/tree/master) branch holds live github.io content generated from the [source](https://github.com/DefinitelyTyped/definitelytyped.github.io/tree/source) branch.
 
@@ -32,7 +32,7 @@ Work in the project
 
 	1. Run `grunt build` - regenerate the site for production environment .
 
-	1. Run `grunt publish` - build and push to github `master` (live at [definitelytyped.github.io](http://definitelytyped.github.io/)). This will ask for your github credentials. You need commit access to the repository. Don't forget to push your `source` branch too!
+	1. Run `grunt publish` - build and push to github `master` (live at [definitelytyped.org](http://definitelytyped.org/)). This will ask for your github credentials. You need commit access to the repository. Don't forget to push your `source` branch too!
 
 	1. See `grunt -h` or the `Gruntfile.js` for additional commands.
 
