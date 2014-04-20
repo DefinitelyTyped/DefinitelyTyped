@@ -197,6 +197,6 @@ interface BigIntegerStatic {
 
 declare var bigInt: BigIntegerStatic;
 
-declare module "BigInteger" {
+declare module "big-integer" {
     export = bigInt;
 }
