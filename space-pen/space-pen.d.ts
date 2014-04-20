@@ -1,3 +1,8 @@
+// Type definitions for SpacePen
+// Project: https://github.com/atom/space-pen
+// Definitions by: vvakame <https://github.com/vvakame>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /// <reference path="../jquery/jquery.d.ts" />
 
 // http://atom.github.io/space-pen/
