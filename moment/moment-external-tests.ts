@@ -210,6 +210,12 @@ moment.duration(500).asSeconds();
 moment.duration().minutes();
 moment.duration().asMinutes();
 
+var adur = moment.duration(3, 'd');
+var bdur = moment.duration(2, 'd');
+adur.subtract(bdur).days();
+adur.subtract(1).days();
+adur.subtract(1, 'd').days();
+
 // Defining a custom language: 
 moment.lang('en', {
     months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
