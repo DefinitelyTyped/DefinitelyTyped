@@ -8,7 +8,7 @@ declare module "minimatch" {
 	function M(target:string, pattern:string, options?:M.IOptions):void;
 
 	module M {
-		function match(filename:string, pattern:string, options:IOptions):boolean;
+		function match(filenames:string[], pattern:string, options:IOptions):string[];
 
 		var Minimatch:IMinimatchStatic;
 

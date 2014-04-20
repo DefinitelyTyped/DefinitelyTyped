@@ -9,5 +9,5 @@ var options = {
 var m = new mm.Minimatch(pattern, options);
 var r = m.makeRe();
 
-var f = "test.ts";
+var f = ["test.ts"];
 mm.match(f, pattern, options);
