@@ -4,20 +4,20 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-interface Audioboolean {
+interface AudioFlags {
     ogg: boolean;
     mp3: boolean;
     wav: boolean;
     m4a: boolean;
 }
 
-interface Videoboolean {
+interface VideoFlags {
     ogg: boolean;
     h264: boolean;
     webm: boolean;
 }
 
-interface Inputboolean {
+interface InputFlags {
     autocomplete: boolean;
     autofocus: boolean;
     list: boolean;
@@ -30,7 +30,7 @@ interface Inputboolean {
     step: boolean;
 }
 
-interface InputTypesboolean {
+interface InputTypesFlags {
     search: boolean;
     tel: boolean;
     url: boolean;
@@ -73,11 +73,11 @@ interface ModernizrStatic {
     draganddrop: boolean;
     hashchange: boolean;
     history: boolean;
-    audio: Audioboolean;
-    video: Videoboolean;
+    audio: AudioFlags;
+    video: VideoFlags;
     indexeddb: boolean;
-    input: Inputboolean;
-    inputtypes: InputTypesboolean;
+    input: InputFlags;
+    inputtypes: InputTypesFlags;
     localstorage: boolean;
     postmessage: boolean;
     sessionstorage: boolean;

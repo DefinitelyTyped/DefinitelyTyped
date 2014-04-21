@@ -125,14 +125,14 @@ declare module Knockback {
         filters?: any;              // filters can be individual ids (observable or simple) or arrays of ids, functions, or arrays of functions.
     }
 
-    interface CollectionObservable extends KnockoutObservableArray<any> {
-        collection(colleciton: Backbone.Collection);
-        collection(): Backbone.Collection;
+    interface CollectionObservable<TModel extends Backbone.Model> extends KnockoutObservableArray<any> {
+        collection(colleciton: Backbone.Collection<TModel>);
+        collection(): Backbone.Collection<TModel>;
         destroy();
         shareOptions():  CollectionOptions;
         filters(id: any) : Backbone.Model;
-        filters(ids: any[]): CollectionObservable;
-        filters(iterator: (element: Backbone.Model) => boolean): CollectionObservable;
+        filters(ids: any[]): CollectionObservable<TModel>;
+        filters(iterator: (element: Backbone.Model) => boolean): CollectionObservable<TModel>;
         comparator(comparatorFunction: any);
         sortAttribute(attr: string);
         viewModelByModel(model: Backbone.Model): ViewModel;
@@ -162,23 +162,23 @@ declare module Knockback {
         hasCollectionSignature(obj: any): boolean;
     }
 
-    interface Static extends Utils {
-    	collectionObservable(model?: Backbone.Collection, options?: CollectionOptions): CollectionObservable;
-    	/** Base class for observing model attributes. */
-    	observable(
-			/** the model to observe (can be null) */
-			model: Backbone.Model,
-			/** the create options. String is a single attribute name, Array is an array of attribute names. */
-				options: IObservableOptions,
-			/** the viewModel */
-			vm?: ViewModel): KnockoutObservable<any>;
+    interface Static<TModel extends Backbone.Model> extends Utils {
+        collectionObservable(model?: Backbone.Collection<TModel>, options?: CollectionOptions): CollectionObservable<TModel>;
+        /** Base class for observing model attributes. */
         observable(
-			/** the model to observe (can be null) */
-        	model: Backbone.Model,
-    		/** the create options. String is a single attribute name, Array is an array of attribute names. */
-        	options_attributeName: string,
-			/** the viewModel */
-			vm?: ViewModel): KnockoutObservable<any>;
+            /** the model to observe (can be null) */
+            model: Backbone.Model,
+            /** the create options. String is a single attribute name, Array is an array of attribute names. */
+                options: IObservableOptions,
+            /** the viewModel */
+            vm?: ViewModel): KnockoutObservable<any>;
+        observable(
+            /** the model to observe (can be null) */
+            model: Backbone.Model,
+            /** the create options. String is a single attribute name, Array is an array of attribute names. */
+            options_attributeName: string,
+            /** the viewModel */
+            vm?: ViewModel): KnockoutObservable<any>;
         viewModel(model?: Backbone.Model, options?: any): KnockoutObservable<any>;
         defaultObservable(targetObservable: KnockoutObservable<any>, defaultValue: any): KnockoutObservable<any>;
         formattedObservable(format: string, args: any[]): KnockoutObservable<any>;
@@ -192,32 +192,32 @@ declare module Knockback {
         applyBindings(viewModel: ViewModel, node?: Element);
     }
 
-	/** parameter of ko.observable constructor
-	Options Hash: (option):
-	key (String) — the name of the attribute.
-	read (Function) — a function used to provide transform the attribute value before passing it to the caller. Signature: read()
-	write (Function) — a function used to provide transform the value before passing it to the model set function. Signature: write(value)
-	args (Array) — arguments to pass to the read and write functions (they can be ko.observables). Can be useful for passing arguments to a locale manager.
-	localizer (Constructor) — a concrete kb.LocalizedObservable constructor for localization.
-	default (Data|ko.observable) — the default value. Can be a value, string or ko.observable.
-	path (String) — the path to the value (used to create related observables from the factory).
-	store (kb.Store) — a store used to cache and share view models.
-	factory (kb.Factory) — a factory used to create view models.
-	options (Object) — a set of options merge into these options using _.defaults. Useful for extending options when deriving classes rather than merging them by hand.
-	*/
+    /** parameter of ko.observable constructor
+    Options Hash: (option):
+    key (String) — the name of the attribute.
+    read (Function) — a function used to provide transform the attribute value before passing it to the caller. Signature: read()
+    write (Function) — a function used to provide transform the value before passing it to the model set function. Signature: write(value)
+    args (Array) — arguments to pass to the read and write functions (they can be ko.observables). Can be useful for passing arguments to a locale manager.
+    localizer (Constructor) — a concrete kb.LocalizedObservable constructor for localization.
+    default (Data|ko.observable) — the default value. Can be a value, string or ko.observable.
+    path (String) — the path to the value (used to create related observables from the factory).
+    store (kb.Store) — a store used to cache and share view models.
+    factory (kb.Factory) — a factory used to create view models.
+    options (Object) — a set of options merge into these options using _.defaults. Useful for extending options when deriving classes rather than merging them by hand.
+    */
     interface IObservableOptions {
-    	key: string;
-    	read?: () => any;
-    	write?: (value: any) => void;
-    	args?: KnockoutObservable<any>[];
-    	localizer?: LocalizedObservable;
-    	default?: any;
-    	path?: string;
-    	store?: any;
-    	factory?: any;
-    	options?: any;
+        key: string;
+        read?: () => any;
+        write?: (value: any) => void;
+        args?: KnockoutObservable<any>[];
+        localizer?: LocalizedObservable;
+        default?: any;
+        path?: string;
+        store?: any;
+        factory?: any;
+        options?: any;
     }
 
 }
 
-declare var kb: Knockback.Static;
+declare var kb: Knockback.Static<Backbone.Model>;
