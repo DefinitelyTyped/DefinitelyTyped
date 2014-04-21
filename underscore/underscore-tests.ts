@@ -67,6 +67,17 @@ _.shuffle([1, 2, 3, 4, 5, 6]);
 
 _.size({ one: 1, two: 2, three: 3 });
 
+_.partition<number>([0, 1, 2, 3, 4, 5], (num)=>{return num % 2 ==0});
+
+interface Family {
+	name: string;
+	relation : string;
+}
+var isUncleMoe = _.matches<Family, boolean>({name : 'moe', relation : 'uncle'});
+_.filter([{name: 'larry', relation : 'father'}, {name : 'moe', relation : 'uncle'}], isUncleMoe);
+
+
+
 ///////////////////////////////////////////////////////////////////////////////////////
 
 _.first([5, 4, 3, 2, 1]);
@@ -204,6 +215,8 @@ _.isArray([1, 2, 3]);
 _.isObject({});
 _.isObject(1);
 
+_.property('name')(moe);
+
 
 // (() => { return _.isArguments(arguments); })(1, 2, 3);
 _.isArguments([1, 2, 3]);
@@ -234,6 +247,11 @@ _.isNull(undefined);
 _.isUndefined((<any>window).missingVariable);
 
 ///////////////////////////////////////////////////////////////////////////////////////
+
+var UncleMoe = {name: 'moe'};
+_.constant(UncleMoe)();
+
+typeof _.now() === "number";
 
 var underscore = _.noConflict();
 
