@@ -385,7 +385,7 @@ declare module breeze {
         exportEntities(entities?: Entity[]): string;
         fetchEntityByKey(typeName: string, keyValue: any, checkLocalCacheFirst?: boolean): Q.Promise<EntityByKeyResult>;
         fetchEntityByKey(typeName: string, keyValues: any[], checkLocalCacheFirst?: boolean): Q.Promise<EntityByKeyResult>;
-        fetchEntityByKey(entityKey: EntityKey): Q.Promise<EntityByKeyResult>;
+        fetchEntityByKey(entityKey: EntityKey, checkLocalCacheFirst?: boolean): Q.Promise<EntityByKeyResult>;
         fetchMetadata(callback?: (schema: any) => void , errorCallback?: breeze.core.ErrorCallback): Q.Promise<any>;
         generateTempKeyValue(entity: Entity): any;
         getChanges(): Entity[];
@@ -502,6 +502,7 @@ declare module breeze {
         static fromEntityKey(entityKey: EntityKey): EntityQuery;
         static fromEntityNavigation(entity: Entity, navigationProperty: NavigationProperty): EntityQuery;
         inlineCount(enabled?: boolean): EntityQuery;
+        noTracking(enabled: boolean): EntityQuery;
         orderBy(propertyPaths: string): EntityQuery;
         orderBy(propertyPaths: string[]): EntityQuery;
         orderByDesc(propertyPaths: string): EntityQuery;

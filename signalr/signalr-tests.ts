@@ -60,7 +60,7 @@ interface MyHubConnection extends HubConnection {
 	};
 	// My Hubs Server function: 
 	server: {
-		send(message: string);
+		send(message: string): any;
 	};
 }
 
@@ -107,7 +107,7 @@ function test_hubs() {
     proxy.invoke('send', msg);
     proxy.invoke('send', msg, room);
     proxy.invoke('add', 1, 2)
-        .done(function (result) {
+        .done(function (result: any) {
             console.log('The result is ' + result);
         });
     proxy.on('addMessage', function (msg?) {

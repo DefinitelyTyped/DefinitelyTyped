@@ -1,29 +1,40 @@
-DefinitelyTyped [![Build Status](https://travis-ci.org/borisyankov/DefinitelyTyped.png?branch=master)](https://travis-ci.org/borisyankov/DefinitelyTyped)
-===============
+# DefinitelyTyped [![Build Status](https://travis-ci.org/borisyankov/DefinitelyTyped.png?branch=master)](https://travis-ci.org/borisyankov/DefinitelyTyped)
 
-The repository for *high quality* TypeScript type definitions.
+> The repository for *high quality* TypeScript type definitions.
 
-Usage
------
+For more information see the [definitelytyped.org](http://definitelytyped.org) website.
+
+## Usage
+
 Include a line like this:
 
-```
+```typescript
 /// <reference path="jquery.d.ts" />
 ```
 
-[TypeScript Directory: tools, libraries, projects and learning resources](https://github.com/DefinitelyTyped/typescript-directory)
+## Contributions
 
-Contributor Guidelines
-----------------------
+DefinitelyTyped only works because of contributions by users like you! 
 
-See the section: [How to contribute](https://github.com/borisyankov/DefinitelyTyped/wiki/How-to-contribute)
+Please see the [contribution guide](http://definitelytyped.org/guides/contributing.html) on how to contribute to DefinitelyTyped.
 
-Other means to get the definitions
-----------------------------------
+## How to get the definitions
+
+* Directly from the Github repos
 * [NuGet packages](http://nuget.org/packages?q=DefinitelyTyped)
-* [TypeScript definition package manager](https://github.com/Diullei/tsd)
-* [tsdpm](http://www.tsdpm.com/) - Online search
+* [TypeScript Definition manager](https://github.com/DefinitelyTyped/tsd)
 
+## List of definitions
+
+* See [CONTRIBUTORS.md](CONTRIBUTORS.md)
+
+## Requested definitions
+
+Here is an updated list of [definitions people have requested](https://github.com/borisyankov/DefinitelyTyped/issues?labels=Definition%3ARequest).
+
+## Licence
+
+<<<<<<< HEAD
 List of Definitions
 -------------------
 * [accounting.js](http://josscrowcroft.github.io/accounting.js/) (by [Sergey Gerasimov](https://github.com/gerich-home))
@@ -269,7 +280,8 @@ List of Definitions
 * [Zepto.js](http://zeptojs.com/) (by [Josh Baldwin](https://github.com/jbaldwin))
 * [Zynga Scroller](https://github.com/zynga/scroller) (by [Boris Yankov](https://github.com/borisyankov))
 * [ZeroClipboard](https://github.com/jonrohan/ZeroClipboard) (by [Eric J. Smith](https://github.com/ejsmith))
+=======
+This project is licensed under the MIT license.
+>>>>>>> 52aa7177e1641a15d1b314c1a4c2c54f003ed989
 
-Requested Definitions
----------------------
-Here is an updated list of [definitions people have requested](https://github.com/borisyankov/DefinitelyTyped/issues?labels=Definition%3ARequest)
+Copyrights on the definition files are respective of each contributor listed at the beginning of each definition file.

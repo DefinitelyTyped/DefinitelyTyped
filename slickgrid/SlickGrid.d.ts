@@ -475,7 +475,7 @@ declare module Slick {
 		/**
 		* If set to true, whenever this column is resized, the entire table view will rerender.
 		**/
-		rerenderOnReize?: boolean;
+		rerenderOnResize?: boolean;
 
 		/**
 		* If false, column can no longer be resized.

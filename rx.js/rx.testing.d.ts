@@ -1,4 +1,4 @@
-// Type definitions for RxJS-Testing
+// Type definitions for RxJS-Testing v2.2.20
 // Project: https://github.com/Reactive-Extensions/RxJS/
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -46,8 +46,13 @@ declare module Rx {
 		equals(other: Subscription): boolean;
 	}
 
-	export class MockObserver<T> extends Observer<T> {
-		constructor(scheduler: IScheduler);
+	export interface MockObserver<T> extends Observer<T> {
 		messages: Recorded[];
 	}
+
+	interface MockObserverStatic extends ObserverStatic {
+		new <T>(scheduler: IScheduler): MockObserver<T>;
+	}
+
+	export var MockObserver: MockObserverStatic;
 }

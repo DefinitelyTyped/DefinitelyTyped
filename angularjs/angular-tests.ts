@@ -1,7 +1,7 @@
 /// <reference path="angular.d.ts" />
 
 // issue: https://github.com/borisyankov/DefinitelyTyped/issues/369
-https://github.com/witoldsz/angular-http-auth/blob/master/src/angular-http-auth.js
+// https://github.com/witoldsz/angular-http-auth/blob/master/src/angular-http-auth.js
 /**
  * @license HTTP Auth Interceptor Module for AngularJS
  * (c) 2012 Witold Szczerba
@@ -94,6 +94,7 @@ module HttpAndRegularPromiseTests {
         person: Person;
         theAnswer: number;
         letters: string[];
+        snack: string;
     }
 
     var someController: Function = ($scope: SomeControllerScope, $http: ng.IHttpService, $q: ng.IQService) => {
@@ -131,6 +132,12 @@ module HttpAndRegularPromiseTests {
         var cPromise: ng.IPromise<string[]> = $q.when(["a", "b", "c"]);
         cPromise.then((letters: string[]) => {
             $scope.letters = letters;
+        });
+
+        // When $q.when is passed an IPromise<T>, it returns an IPromise<T>
+        var dPromise: ng.IPromise<string> = $q.when($q.when("ALBATROSS!"));
+        dPromise.then((snack: string) => {
+            $scope.snack = snack;
         });
     }
 

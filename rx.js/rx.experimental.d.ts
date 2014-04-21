@@ -1,4 +1,4 @@
-// Type definitions for RxJS/Experimental
+// Type definitions for RxJS-Experimental v2.2.20
 // Project: https://github.com/Reactive-Extensions/RxJS/
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -45,11 +45,12 @@ declare module Rx {
 		/**
 		 *  Runs two observable sequences in parallel and combines their last elemenets.
 		 *
-		 * @param second Second observable sequence.
+		 * @param second Second observable sequence or promise.
 		 * @param resultSelector Result selector function to invoke with the last elements of both sequences.
 		 * @returns An observable sequence with the result of calling the selector function with the last elements of both input sequences.
 		 */
 		forkJoin<TSecond, TResult>(second: Observable<TSecond>, resultSelector: (left: T, right: TSecond) => TResult): Observable<TResult>;
+		forkJoin<TSecond, TResult>(second: IPromise<TSecond>, resultSelector: (left: T, right: TSecond) => TResult): Observable<TResult>;
 
 		/**
 		 * Comonadic bind operator.
@@ -67,11 +68,14 @@ declare module Rx {
 		 * @example
 		 * res = Rx.Observable.if(condition, obs1, obs2);
 		 * @param condition The condition which determines if the thenSource or elseSource will be run.
-		 * @param thenSource The observable sequence that will be run if the condition function returns true.
-		 * @param elseSource The observable sequence that will be run if the condition function returns false.
+		 * @param thenSource The observable sequence or promise that will be run if the condition function returns true.
+		 * @param elseSource The observable sequence or promise that will be run if the condition function returns false.
 		 * @returns An observable sequence which is either the thenSource or elseSource.
 		 */
 		if<T>(condition: () => boolean, thenSource: Observable<T>, elseSource: Observable<T>): Observable<T>;
+		if<T>(condition: () => boolean, thenSource: Observable<T>, elseSource: IPromise<T>): Observable<T>;
+		if<T>(condition: () => boolean, thenSource: IPromise<T>, elseSource: Observable<T>): Observable<T>;
+		if<T>(condition: () => boolean, thenSource: IPromise<T>, elseSource: IPromise<T>): Observable<T>;
 
 		/**
 		 *  Determines whether an observable collection contains values. There is an alias for this method called 'ifThen' for browsers <IE9
@@ -79,11 +83,12 @@ declare module Rx {
 		 * @example
 		 * res = Rx.Observable.if(condition, obs1, scheduler);
 		 * @param condition The condition which determines if the thenSource or empty sequence will be run.
-		 * @param thenSource The observable sequence that will be run if the condition function returns true.
+		 * @param thenSource The observable sequence or promise that will be run if the condition function returns true.
 		 * @param scheduler Scheduler used to create Rx.Observabe.Empty.
 		 * @returns An observable sequence which is either the thenSource or empty sequence.
 		 */
 		if<T>(condition: () => boolean, thenSource: Observable<T>, scheduler?: IScheduler): Observable<T>;
+		if<T>(condition: () => boolean, thenSource: IPromise<T>, scheduler?: IScheduler): Observable<T>;
 
 		/**
 		 *  Determines whether an observable collection contains values. There is an alias for this method called 'ifThen' for browsers <IE9
@@ -91,11 +96,14 @@ declare module Rx {
 		 * @example
 		 * res = Rx.Observable.if(condition, obs1, obs2);
 		 * @param condition The condition which determines if the thenSource or elseSource will be run.
-		 * @param thenSource The observable sequence that will be run if the condition function returns true.
-		 * @param elseSource The observable sequence that will be run if the condition function returns false.
+		 * @param thenSource The observable sequence or promise that will be run if the condition function returns true.
+		 * @param elseSource The observable sequence or promise that will be run if the condition function returns false.
 		 * @returns An observable sequence which is either the thenSource or elseSource.
 		 */
 		ifThen<T>(condition: () => boolean, thenSource: Observable<T>, elseSource: Observable<T>): Observable<T>;
+		ifThen<T>(condition: () => boolean, thenSource: Observable<T>, elseSource: IPromise<T>): Observable<T>;
+		ifThen<T>(condition: () => boolean, thenSource: IPromise<T>, elseSource: Observable<T>): Observable<T>;
+		ifThen<T>(condition: () => boolean, thenSource: IPromise<T>, elseSource: IPromise<T>): Observable<T>;
 
 		/**
 		 *  Determines whether an observable collection contains values. There is an alias for this method called 'ifThen' for browsers <IE9
@@ -103,11 +111,12 @@ declare module Rx {
 		 * @example
 		 * res = Rx.Observable.if(condition, obs1, scheduler);
 		 * @param condition The condition which determines if the thenSource or empty sequence will be run.
-		 * @param thenSource The observable sequence that will be run if the condition function returns true.
+		 * @param thenSource The observable sequence or promise that will be run if the condition function returns true.
 		 * @param scheduler Scheduler used to create Rx.Observabe.Empty.
 		 * @returns An observable sequence which is either the thenSource or empty sequence.
 		 */
 		ifThen<T>(condition: () => boolean, thenSource: Observable<T>, scheduler?: IScheduler): Observable<T>;
+		ifThen<T>(condition: () => boolean, thenSource: IPromise<T>, scheduler?: IScheduler): Observable<T>;
 
 		/**
 		 *  Concatenates the observable sequences obtained by running the specified result selector for each element in source.
@@ -131,19 +140,21 @@ declare module Rx {
 		 *  Repeats source as long as condition holds emulating a while loop.
 		 * There is an alias for this method called 'whileDo' for browsers <IE9
 		 * @param condition The condition which determines if the source will be repeated.
-		 * @param source The observable sequence that will be run if the condition function returns true.
+		 * @param source The observable sequence or promise that will be run if the condition function returns true.
 		 * @returns An observable sequence which is repeated as long as the condition holds.  
 		 */
 		while<T>(condition: () => boolean, source: Observable<T>): Observable<T>;
+		while<T>(condition: () => boolean, source: IPromise<T>): Observable<T>;
 
 		/**
 		 *  Repeats source as long as condition holds emulating a while loop.
 		 * There is an alias for this method called 'whileDo' for browsers <IE9
 		 * @param condition The condition which determines if the source will be repeated.
-		 * @param source The observable sequence that will be run if the condition function returns true.
+		 * @param source The observable sequence or promise that will be run if the condition function returns true.
 		 * @returns An observable sequence which is repeated as long as the condition holds.  
 		 */
 		whileDo<T>(condition: () => boolean, source: Observable<T>): Observable<T>;
+		whileDo<T>(condition: () => boolean, source: IPromise<T>): Observable<T>;
 
 		/**
 		 *  Uses selector to determine which source in sources to use.
@@ -153,11 +164,14 @@ declare module Rx {
 		 *  res = Rx.Observable.case(selector, { '1': obs1, '2': obs2 }, obs0);
 		 * @param selector The function which extracts the value for to test in a case statement.
 		 * @param sources A object which has keys which correspond to the case statement labels.
-		 * @param elseSource The observable sequence that will be run if the sources are not matched.
+		 * @param elseSource The observable sequence or promise that will be run if the sources are not matched.
 		 *       
 		 * @returns An observable sequence which is determined by a case statement.  
 		 */
 		case<T>(selector: () => string, sources: { [key: string]: Observable<T>; }, elseSource: Observable<T>): Observable<T>;
+		case<T>(selector: () => string, sources: { [key: string]: IPromise<T>; }, elseSource: Observable<T>): Observable<T>;
+		case<T>(selector: () => string, sources: { [key: string]: Observable<T>; }, elseSource: IPromise<T>): Observable<T>;
+		case<T>(selector: () => string, sources: { [key: string]: IPromise<T>; }, elseSource: IPromise<T>): Observable<T>;
 
 		/**
 		 *  Uses selector to determine which source in sources to use.
@@ -174,6 +188,7 @@ declare module Rx {
 		 * @returns An observable sequence which is determined by a case statement.  
 		 */
 		case<T>(selector: () => string, sources: { [key: string]: Observable<T>; }, scheduler?: IScheduler): Observable<T>;
+		case<T>(selector: () => string, sources: { [key: string]: IPromise<T>; }, scheduler?: IScheduler): Observable<T>;
 
 		/**
 		 *  Uses selector to determine which source in sources to use.
@@ -183,11 +198,14 @@ declare module Rx {
 		 *  res = Rx.Observable.case(selector, { '1': obs1, '2': obs2 }, obs0);
 		 * @param selector The function which extracts the value for to test in a case statement.
 		 * @param sources A object which has keys which correspond to the case statement labels.
-		 * @param elseSource The observable sequence that will be run if the sources are not matched.
+		 * @param elseSource The observable sequence or promise that will be run if the sources are not matched.
 		 *       
 		 * @returns An observable sequence which is determined by a case statement.  
 		 */
 		case<T>(selector: () => number, sources: { [key: number]: Observable<T>; }, elseSource: Observable<T>): Observable<T>;
+		case<T>(selector: () => number, sources: { [key: number]: IPromise<T>; }, elseSource: Observable<T>): Observable<T>;
+		case<T>(selector: () => number, sources: { [key: number]: Observable<T>; }, elseSource: IPromise<T>): Observable<T>;
+		case<T>(selector: () => number, sources: { [key: number]: IPromise<T>; }, elseSource: IPromise<T>): Observable<T>;
 
 		/**
 		 *  Uses selector to determine which source in sources to use.
@@ -204,6 +222,7 @@ declare module Rx {
 		 * @returns An observable sequence which is determined by a case statement.  
 		 */
 		case<T>(selector: () => number, sources: { [key: number]: Observable<T>; }, scheduler?: IScheduler): Observable<T>;
+		case<T>(selector: () => number, sources: { [key: number]: IPromise<T>; }, scheduler?: IScheduler): Observable<T>;
 
 		/**
 		 *  Uses selector to determine which source in sources to use.
@@ -213,11 +232,14 @@ declare module Rx {
 		 *  res = Rx.Observable.case(selector, { '1': obs1, '2': obs2 }, obs0);
 		 * @param selector The function which extracts the value for to test in a case statement.
 		 * @param sources A object which has keys which correspond to the case statement labels.
-		 * @param elseSource The observable sequence that will be run if the sources are not matched.
+		 * @param elseSource The observable sequence or promise that will be run if the sources are not matched.
 		 *       
 		 * @returns An observable sequence which is determined by a case statement.  
 		 */
 		switchCase<T>(selector: () => string, sources: { [key: string]: Observable<T>; }, elseSource: Observable<T>): Observable<T>;
+		switchCase<T>(selector: () => string, sources: { [key: string]: IPromise<T>; }, elseSource: Observable<T>): Observable<T>;
+		switchCase<T>(selector: () => string, sources: { [key: string]: Observable<T>; }, elseSource: IPromise<T>): Observable<T>;
+		switchCase<T>(selector: () => string, sources: { [key: string]: IPromise<T>; }, elseSource: IPromise<T>): Observable<T>;
 
 		/**
 		 *  Uses selector to determine which source in sources to use.
@@ -234,6 +256,7 @@ declare module Rx {
 		 * @returns An observable sequence which is determined by a case statement.  
 		 */
 		switchCase<T>(selector: () => string, sources: { [key: string]: Observable<T>; }, scheduler?: IScheduler): Observable<T>;
+		switchCase<T>(selector: () => string, sources: { [key: string]: IPromise<T>; }, scheduler?: IScheduler): Observable<T>;
 
 		/**
 		 *  Uses selector to determine which source in sources to use.
@@ -243,11 +266,14 @@ declare module Rx {
 		 *  res = Rx.Observable.case(selector, { '1': obs1, '2': obs2 }, obs0);
 		 * @param selector The function which extracts the value for to test in a case statement.
 		 * @param sources A object which has keys which correspond to the case statement labels.
-		 * @param elseSource The observable sequence that will be run if the sources are not matched.
+		 * @param elseSource The observable sequence or promise that will be run if the sources are not matched.
 		 *       
 		 * @returns An observable sequence which is determined by a case statement.  
 		 */
 		switchCase<T>(selector: () => number, sources: { [key: number]: Observable<T>; }, elseSource: Observable<T>): Observable<T>;
+		switchCase<T>(selector: () => number, sources: { [key: number]: IPromise<T>; }, elseSource: Observable<T>): Observable<T>;
+		switchCase<T>(selector: () => number, sources: { [key: number]: Observable<T>; }, elseSource: IPromise<T>): Observable<T>;
+		switchCase<T>(selector: () => number, sources: { [key: number]: IPromise<T>; }, elseSource: IPromise<T>): Observable<T>;
 
 		/**
 		 *  Uses selector to determine which source in sources to use.
@@ -264,25 +290,28 @@ declare module Rx {
 		 * @returns An observable sequence which is determined by a case statement.  
 		 */
 		switchCase<T>(selector: () => number, sources: { [key: number]: Observable<T>; }, scheduler?: IScheduler): Observable<T>;
+		switchCase<T>(selector: () => number, sources: { [key: number]: IPromise<T>; }, scheduler?: IScheduler): Observable<T>;
 
 		/**
 		 *  Runs all observable sequences in parallel and collect their last elements.
 		 *  
 		 * @example
 		 * res = Rx.Observable.forkJoin([obs1, obs2]);
-		 * @param sources Array of source sequences.
+		 * @param sources Array of source sequences or promises.
 		 * @returns An observable sequence with an array collecting the last elements of all the input sequences.
 		 */
 		forkJoin<T>(sources: Observable<T>[]): Observable<T[]>;
+		forkJoin<T>(sources: IPromise<T>[]): Observable<T[]>;
 
 		/**
 		 *  Runs all observable sequences in parallel and collect their last elements.
 		 *  
 		 * @example
 		 * res = Rx.Observable.forkJoin(obs1, obs2, ...);
-		 * @param args Source sequences.
+		 * @param args Source sequences or promises.
 		 * @returns An observable sequence with an array collecting the last elements of all the input sequences.
 		 */
 		forkJoin<T>(...args: Observable<T>[]): Observable<T[]>;
+		forkJoin<T>(...args: IPromise<T>[]): Observable<T[]>;
 	}
 }

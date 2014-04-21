@@ -18,9 +18,9 @@ module Rx.Tests.Async {
 	function toAsync() {
 		obsNum = Rx.Observable.toAsync(()=> 1, sch)();
 		obsNum = Rx.Observable.toAsync((a1: number)=> a1)(1);
-		obsStr = Rx.Observable.toAsync((a1: string, a2: number)=> a1 + a2.toFixed(0))("", 1);
-		obsStr = Rx.Observable.toAsync((a1: string, a2: number, a3: Date)=> a1 + a2.toFixed(0) + a3.toDateString())("", 1, new Date());
-		obsStr = Rx.Observable.toAsync((a1: string, a2: number, a3: Date, a4: boolean)=> a1 + a2.toFixed(0) + a3.toDateString() + (a4 ? 1 : 0))("", 1, new Date(), false);
+        obsStr = <any>Rx.Observable.toAsync((a1: string, a2: number)=> a1 + a2.toFixed(0))("", 1);
+		obsStr = <any>Rx.Observable.toAsync((a1: string, a2: number, a3: Date)=> a1 + a2.toFixed(0) + a3.toDateString())("", 1, new Date());
+        obsStr = <any>Rx.Observable.toAsync((a1: string, a2: number, a3: Date, a4: boolean)=> a1 + a2.toFixed(0) + a3.toDateString() + (a4 ? 1 : 0))("", 1, new Date(), false);
 	}
 
 	function fromCallback() {
@@ -66,7 +66,11 @@ module Rx.Tests.Async {
 			new<T>(resolver: (resolvePromise: (value: T)=> void, rejectPromise: (reason: any)=> void)=> void): Rx.IPromise<T>;
 		};
 
+		Rx.config.Promise = promiseImpl;
+
 		var p: IPromise<number> = obsNum.toPromise(promiseImpl);
+
+		p = obsNum.toPromise();
 
 		p = p.then(x=> x);
 		p = p.then(x=> p);
@@ -76,5 +80,9 @@ module Rx.Tests.Async {
 		var ps: IPromise<string> = p.then(undefined, reason=> "error");
 		ps = p.then(x=> "");
 		ps = p.then(x=> ps);
+	}
+
+	function startAsync() {
+		var o: Rx.Observable<string> = Rx.Observable.startAsync(() => <Rx.IPromise<string>>null);
 	}
 }

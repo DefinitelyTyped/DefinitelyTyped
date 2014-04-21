@@ -171,10 +171,12 @@ declare module Backbone {
         remove(models: Model[], options?: Silenceable): Model[];
         reset(models?: Model[], options?: Silenceable): Model[];
         reset(models?: any[], options?: Silenceable): Model[];
-        shift(options?: Silenceable): Model;
+        set(models?: any[], options?: Silenceable): Model[];
+		shift(options?: Silenceable): Model;
         sort(options?: Silenceable): Collection;
         unshift(model: Model, options?: AddOptions): Model;
         where(properies: any): Model[];
+        findWhere(properties: any): Model;
 
         _prepareModel(attrs?: any, options?: any): any;
         _removeReference(model: Model): void;
@@ -277,7 +279,8 @@ declare module Backbone {
         loadUrl(fragmentOverride: string): boolean;
         navigate(fragment: string, options?: any): boolean;
         started: boolean;
-
+		options: any;
+		
         _updateHash(location: Location, fragment: string, replace: boolean): void;
     }
 
@@ -329,7 +332,8 @@ declare module Backbone {
 
     // SYNC
     function sync(method: string, model: Model, options?: JQueryAjaxSettings): any;
-    var emulateHTTP: boolean;
+    function ajax(options?: JQueryAjaxSettings): JQueryXHR;
+	var emulateHTTP: boolean;
     var emulateJSONBackbone: boolean;
 
     // Utility
@@ -337,4 +341,8 @@ declare module Backbone {
     function setDomLibrary(jQueryNew: any): any;
 	
     var $: JQueryStatic;
+}
+
+declare module "backbone" {
+    export = Backbone;
 }
