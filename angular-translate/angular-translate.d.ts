@@ -29,8 +29,11 @@ declare module ng.translate {
         refresh(lankKey: string): ng.IPromise<void>;
         storage(): IStorage;
         storageKey(): string;
-        uses(): string;
-        uses(key: string): ng.IPromise<string>;
+        use(): string;
+        use(key: string): ng.IPromise<string>;
+        cloakClassName(): string;
+        cloakClassName(name: string): ITranslateProvider;
+        useFallbackLanguage(): void;
     }
 
     interface ITranslateProvider extends  ng.IServiceProvider {
@@ -48,8 +51,8 @@ declare module ng.translate {
         fallbackLanguage(): string;
         fallbackLanguage(language: string): ITranslateProvider;
         fallbackLanguage(languages: string[]): ITranslateProvider;
-        uses(): string;
-        uses(key: string): ITranslateProvider;
+        use(): string;
+        use(key: string): ITranslateProvider;
         useUrlLoader(url: string): ITranslateProvider;
         useStaticFilesLoader(options: ISTaticFilesLoaderOptions): ITranslateProvider;
         useLoader(loaderFactory: string, options: any): ITranslateProvider;
@@ -60,5 +63,8 @@ declare module ng.translate {
         storagePrefix(prefix: string): ITranslateProvider;
         useMissingTranslationHandlerLog(): ITranslateProvider;
         useMissingTranslationHandler(factory: string): ITranslateProvider;
+        determinePreferredLanguage(): ITranslateProvider;
+        cloakClassName(): string;
+        cloakClassName(name: string): ITranslateProvider;
     }
 }
