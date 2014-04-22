@@ -238,6 +238,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Riot.js](https://github.com/moot/riotjs) (by [vvakame](https://github.com/vvakame))
 * [Restify](https://github.com/mcavage/node-restify) (by [Bret Little](https://github.com/blittle))
 * [Redis](https://github.com/mranney/node_redis) (by [Carlos Ballesteros Velasco](https://github.com/soywiz))
+* [Request](https://github.com/mikeal/request) (by [Carlos Ballesteros Velasco](https://github.com/soywiz))
 * [Royalslider](http://dimsemenov.com/plugins/royal-slider/) (by [Christiaan Rakowski](https://github.com/csrakowski))
 * [Rx.js](http://rx.codeplex.com/) (by [gsino](http://www.codeplex.com/site/users/view/gsino), [Igor Oleinikov](https://github.com/Igorbek), [Carl de Billy](http://carl.debilly.net/), [zoetrope](https://github.com/zoetrope))
 * [Raphael](http://raphaeljs.com/) (by [CheCoxshall](https://github.com/CheCoxshall))
