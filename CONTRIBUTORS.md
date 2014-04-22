@@ -200,6 +200,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Mousetrap](http://craig.is/killing/mice) (by [Dániel Tar](https://github.com/qcz))
 * [msgpack.js](https://github.com/uupaa/msgpack.js) (by [Shinya Mochizuki](https://github.com/enrapt-mochizuki))
 * [Mustache.js](https://github.com/janl/mustache.js) (by [Boris Yankov](https://github.com/borisyankov))
+* [noble](https://github.com/sandeepmistry/noble) (by [Seon-Wook Park](https://github.com/swook))
 * [Node.js](http://nodejs.org/) (from TypeScript samples)
 * [node_redis](https://github.com/mranney/node_redis) (by [Boris Yankov](https://github.com/borisyankov))
 * [node-ffi](https://github.com/rbranson/node-ffi) (by [Paul Loyd](https://github.com/loyd))
