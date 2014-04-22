@@ -207,6 +207,7 @@ All definitions files include a header with the author and editors, so at some p
 * [node-git](https://github.com/christkv/node-git) (by [vvakame](https://github.com/vvakame))
 * [node_zeromq](https://github.com/JustinTulloss/zeromq.node) (by [Dave McKeown](https://github.com/davemckeown))
 * [node-sqlserver](https://github.com/WindowsAzure/node-sqlserver) (by [Boris Yankov](https://github.com/borisyankov))
+* [node-uuid](https://github.com/broofa/node-uuid) (by [Jeff May](https://github.com/jeffmay))
 * [notify.js](https://github.com/alexgibson/notify.js) (by [soundTricker](https://github.com/soundTricker))
 * [NProgress](https://github.com/rstacruz/nprogress) (by [Judah Gabriel Himango](https://github.com/judahgabriel))
 * [Numeral.js](https://github.com/adamwdraper/Numeral-js) (by [Vincent Bortone](https://github.com/vbortone/))
