@@ -1323,6 +1323,54 @@ interface JQuery {
     datepicker(methodName: 'option', optionName: 'changeYear', changeYearValue: boolean): JQuery;
 
     /**
+     * Get the closeText option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     */
+    datepicker(methodName: 'option', optionName: 'closeText'): string;
+    /**
+     * Set the closeText option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     * @param closeTextValue The text to display for the close link. Use the showButtonPanel option to display this button.
+     */
+    datepicker(methodName: 'option', optionName: 'closeText', closeTextValue: string): JQuery;
+
+    /**
+     * Get the constrainInput option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     */
+    datepicker(methodName: 'option', optionName: 'constrainInput'): boolean;
+    /**
+     * Set the constrainInput option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     * @param constrainInputValue When true, entry in the input field is constrained to those characters allowed by the current dateFormat option.
+     */
+    datepicker(methodName: 'option', optionName: 'constrainInput', constrainInputValue: boolean): JQuery;
+
+    /**
+     * Get the currentText option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     */
+    datepicker(methodName: 'option', optionName: 'currentText'): string;
+    /**
+     * Set the currentText option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     * @param currentTextValue The text to display for the current day link. Use the showButtonPanel option to display this button.
+     */
+    datepicker(methodName: 'option', optionName: 'currentText', currentTextValue: string): JQuery;
+
+    /**
      * Gets the value currently associated with the specified optionName.
      *
      * @param methodName 'option'
