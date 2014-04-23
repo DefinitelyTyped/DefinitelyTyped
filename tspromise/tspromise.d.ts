@@ -1,4 +1,9 @@
-﻿/// <reference path="../node/node.d.ts" />
+﻿// Type definitions for tspromise 0.0.4
+// Project: https://github.com/soywiz/tspromise
+// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// <reference path="../node/node.d.ts" />
 declare class Thenable<T> {
 	then<TR>(onFulfilled: (value: T) => Thenable<TR>, onRejected?: (error: Error) => TR): Thenable<TR>;
 	then<TR>(onFulfilled: (value: T) => Thenable<TR>, onRejected?: (error: Error) => void): Thenable<TR>;
