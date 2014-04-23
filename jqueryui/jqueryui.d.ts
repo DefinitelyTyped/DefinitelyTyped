@@ -1287,9 +1287,40 @@ interface JQuery {
      * @param methodName 'option'
      * @param optionName 'buttonText'
      * @param calculateWeekValue A function to calculate the week of the year for a given date. The default implementation uses the ISO 8601 definition: weeks start on a Monday; the first week of the year contains the first Thursday of the year.
-
      */
     datepicker(methodName: 'option', optionName: 'calculateWeek', calculateWeekValue: (date: Date) => string): JQuery;
+
+    /**
+     * Get the changeMonth option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     */
+    datepicker(methodName: 'option', optionName: 'changeMonth'): boolean;
+    /**
+     * Set the changeMonth option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     * @param changeMonthValue Whether the month should be rendered as a dropdown instead of text.
+     */
+    datepicker(methodName: 'option', optionName: 'changeMonth', changeMonthValue: boolean): JQuery;
+
+    /**
+     * Get the changeYear option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     */
+    datepicker(methodName: 'option', optionName: 'changeYear'): boolean;
+    /**
+     * Set the changeYear option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     * @param changeYearValue Whether the year should be rendered as a dropdown instead of text. Use the yearRange option to control which years are made available for selection.
+     */
+    datepicker(methodName: 'option', optionName: 'changeYear', changeYearValue: boolean): JQuery;
 
     /**
      * Gets the value currently associated with the specified optionName.

@@ -1270,6 +1270,24 @@ function test_datepicker() {
         // setter
         var $set: JQuery = $(".selector").datepicker("option", "calculateWeek", myWeekCalc);
     }
+
+    function changeMonth() {
+        $(".selector").datepicker({ changeMonth: true });
+
+        var changeMonth: boolean = $(".selector").datepicker("option", "changeMonth");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "changeMonth", true);
+    }
+
+    function changeYear() {
+        $(".selector").datepicker({ changeYear: true });
+
+        var changeYear: boolean = $(".selector").datepicker("option", "changeYear");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "changeYear", true);
+    }
 }
 
 
