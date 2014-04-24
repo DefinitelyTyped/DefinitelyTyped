@@ -180,7 +180,7 @@ declare module JQueryUI {
          * Number: A number of days from today. For example 2 represents two days from today and -1 represents yesterday.
          * String: A string in the format defined by the dateFormat option, or a relative date. Relative dates must contain value and period pairs; valid periods are "y" for years, "m" for months, "w" for weeks, and "d" for days. For example, "+1m +7d" represents one month and seven days from today.
          */
-        defaultDateType?: any; // Date, number or string
+        defaultDate?: any; // Date, number or string
         /**
          * Control the speed at which the datepicker appears, it may be a time in milliseconds or a string representing one of the three predefined speeds ("slow", "normal", "fast").
          */
@@ -1369,6 +1369,102 @@ interface JQuery {
      * @param currentTextValue The text to display for the current day link. Use the showButtonPanel option to display this button.
      */
     datepicker(methodName: 'option', optionName: 'currentText', currentTextValue: string): JQuery;
+
+    /**
+     * Get the dateFormat option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     */
+    datepicker(methodName: 'option', optionName: 'dateFormat'): string;
+    /**
+     * Set the dateFormat option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     * @param dateFormatValue The format for parsed and displayed dates. For a full list of the possible formats see the formatDate function.
+     */
+    datepicker(methodName: 'option', optionName: 'dateFormat', dateFormatValue: string): JQuery;
+
+    /**
+     * Get the dayNames option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     */
+    datepicker(methodName: 'option', optionName: 'dayNames'): string[];
+    /**
+     * Set the dayNames option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     * @param dayNamesValue The list of long day names, starting from Sunday, for use as requested via the dateFormat option.
+     */
+    datepicker(methodName: 'option', optionName: 'dayNames', dayNamesValue: string[]): JQuery;
+
+    /**
+     * Get the dayNamesMin option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     */
+    datepicker(methodName: 'option', optionName: 'dayNamesMin'): string[];
+    /**
+     * Set the dayNamesMin option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     * @param dayNamesMinValue The list of minimised day names, starting from Sunday, for use as column headers within the datepicker.
+     */
+    datepicker(methodName: 'option', optionName: 'dayNamesMin', dayNamesMinValue: string[]): JQuery;
+
+    /**
+     * Get the dayNamesShort option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     */
+    datepicker(methodName: 'option', optionName: 'dayNamesShort'): string[];
+    /**
+     * Set the dayNamesShort option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     * @param dayNamesShortValue The list of abbreviated day names, starting from Sunday, for use as requested via the dateFormat option.
+     */
+    datepicker(methodName: 'option', optionName: 'dayNamesShort', dayNamesShortValue: string[]): JQuery;
+
+    /**
+     * Get the defaultDate option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'defaultDate'
+     */
+    datepicker(methodName: 'option', optionName: 'defaultDate'): any;
+    /**
+     * Set the defaultDate option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'defaultDate'
+     * @param defaultDateValue A date object containing the default date.
+     */
+    datepicker(methodName: 'option', optionName: 'defaultDate', defaultDateValue: Date): JQuery;
+    /**
+     * Set the defaultDate option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'defaultDate'
+     * @param defaultDateValue A number of days from today. For example 2 represents two days from today and -1 represents yesterday.
+     */
+    datepicker(methodName: 'option', optionName: 'defaultDate', defaultDateValue: number): JQuery;
+    /**
+     * Set the defaultDate option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'defaultDate'
+     * @param defaultDateValue A string in the format defined by the dateFormat option, or a relative date. Relative dates must contain value and period pairs; valid periods are "y" for years, "m" for months, "w" for weeks, and "d" for days. For example, "+1m +7d" represents one month and seven days from today.
+     */
+    datepicker(methodName: 'option', optionName: 'defaultDate', defaultDateValue: string): JQuery;
 
     /**
      * Gets the value currently associated with the specified optionName.
