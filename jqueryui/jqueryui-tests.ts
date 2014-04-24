@@ -1270,6 +1270,51 @@ function test_datepicker() {
         // setter
         var $set: JQuery = $(".selector").datepicker("option", "calculateWeek", myWeekCalc);
     }
+
+    function changeMonth() {
+        $(".selector").datepicker({ changeMonth: true });
+
+        var changeMonth: boolean = $(".selector").datepicker("option", "changeMonth");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "changeMonth", true);
+    }
+
+    function changeYear() {
+        $(".selector").datepicker({ changeYear: true });
+
+        var changeYear: boolean = $(".selector").datepicker("option", "changeYear");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "changeYear", true);
+    }
+
+    function closeText() {
+        $(".selector").datepicker({ closeText: "Close" });
+
+        var closeText: string = $(".selector").datepicker("option", "closeText");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "closeText", "Close");
+    }
+
+    function constrainInput() {
+        $(".selector").datepicker({ constrainInput: false });
+
+        var constrainInput: boolean = $(".selector").datepicker("option", "constrainInput");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "constrainInput", false);
+    }
+
+    function currentText() {
+        $(".selector").datepicker({ currentText: "Now" });
+
+        var currentText: string = $(".selector").datepicker("option", "currentText");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "currentText", "Now");
+    }
 }
 
 

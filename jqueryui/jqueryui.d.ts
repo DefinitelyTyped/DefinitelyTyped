@@ -1287,9 +1287,88 @@ interface JQuery {
      * @param methodName 'option'
      * @param optionName 'buttonText'
      * @param calculateWeekValue A function to calculate the week of the year for a given date. The default implementation uses the ISO 8601 definition: weeks start on a Monday; the first week of the year contains the first Thursday of the year.
-
      */
     datepicker(methodName: 'option', optionName: 'calculateWeek', calculateWeekValue: (date: Date) => string): JQuery;
+
+    /**
+     * Get the changeMonth option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     */
+    datepicker(methodName: 'option', optionName: 'changeMonth'): boolean;
+    /**
+     * Set the changeMonth option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     * @param changeMonthValue Whether the month should be rendered as a dropdown instead of text.
+     */
+    datepicker(methodName: 'option', optionName: 'changeMonth', changeMonthValue: boolean): JQuery;
+
+    /**
+     * Get the changeYear option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     */
+    datepicker(methodName: 'option', optionName: 'changeYear'): boolean;
+    /**
+     * Set the changeYear option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     * @param changeYearValue Whether the year should be rendered as a dropdown instead of text. Use the yearRange option to control which years are made available for selection.
+     */
+    datepicker(methodName: 'option', optionName: 'changeYear', changeYearValue: boolean): JQuery;
+
+    /**
+     * Get the closeText option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     */
+    datepicker(methodName: 'option', optionName: 'closeText'): string;
+    /**
+     * Set the closeText option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     * @param closeTextValue The text to display for the close link. Use the showButtonPanel option to display this button.
+     */
+    datepicker(methodName: 'option', optionName: 'closeText', closeTextValue: string): JQuery;
+
+    /**
+     * Get the constrainInput option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     */
+    datepicker(methodName: 'option', optionName: 'constrainInput'): boolean;
+    /**
+     * Set the constrainInput option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     * @param constrainInputValue When true, entry in the input field is constrained to those characters allowed by the current dateFormat option.
+     */
+    datepicker(methodName: 'option', optionName: 'constrainInput', constrainInputValue: boolean): JQuery;
+
+    /**
+     * Get the currentText option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     */
+    datepicker(methodName: 'option', optionName: 'currentText'): string;
+    /**
+     * Set the currentText option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'buttonText'
+     * @param currentTextValue The text to display for the current day link. Use the showButtonPanel option to display this button.
+     */
+    datepicker(methodName: 'option', optionName: 'currentText', currentTextValue: string): JQuery;
 
     /**
      * Gets the value currently associated with the specified optionName.

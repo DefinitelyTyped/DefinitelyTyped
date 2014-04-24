@@ -1,0 +1,13 @@
+/// <reference path="./minimatch.d.ts" />
+
+import mm = require("minimatch");
+
+var pattern = "**/*.ts";
+var options = {
+	debug: true
+};
+var m = new mm.Minimatch(pattern, options);
+var r = m.makeRe();
+
+var f = ["test.ts"];
+mm.match(f, pattern, options);
