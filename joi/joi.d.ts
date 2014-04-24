@@ -1,4 +1,4 @@
-// Type definitions for joi v3.1.0
+// Type definitions for joi v4.0.0
 // Project: https://github.com/spumko/joi
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
