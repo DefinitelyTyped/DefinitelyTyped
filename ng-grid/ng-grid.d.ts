@@ -1,9 +1,14 @@
 // Type definitions for ng-grid 
 // Project: http://angular-ui.github.io/ng-grid/
-// Definitions by: Ken Smith <https://github.com/smithkl42>
+// Definitions by: Ken Smith <https://github.com/smithkl42> and Roland Zwaga <https://github.com/rolandzwaga>
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
 
 // These are very definitely preliminary. Please feel free to improve.
+
+// Changelog:
+// 25/4/2014: Added interfaces for all classes and services
+
+/// <reference path='../angularjs/angular.d.ts' />
 
 declare class ngGridReorderable {
     constructor();
@@ -11,13 +16,304 @@ declare class ngGridReorderable {
 
 declare module ngGrid {
 
+    export interface IDomAccessProvider {
+        new(grid:IGridInstance):IDomAccessProvider;
+        previousColumn:IColumn;
+        grid:IGridInstance;
+        changeUserSelect(elm:ng.IAugmentedJQuery, value:string);
+        focusCellElement($scope:IGridScope, index:number);
+        selectionHandlers($scope:IGridScope, elm:ng.IAugmentedJQuery);
+    }
+
+    export interface IStyleProvider {
+        new($scope:IGridScope, grid:IGridInstance):IStyleProvider;
+    }
+
+    export interface ISearchProvider {
+        new($scope:IGridScope, grid:IGridInstance, $filter:ng.IFilterService):ISearchProvider;
+        fieldMap:any;
+        extFilter:boolean;
+        evalFilter();
+    }
+
+    export interface ISelectionProvider {
+        new(grid:IGridInstance, $scope:IGridScope, $parse:ng.IParseService):ISelectionProvider;
+        multi:boolean;
+        selectedItems:any[];
+        selectedIndex:number;
+        lastClickedRow:any;
+        ignoreSelectedItemChanges:boolean;
+        pKeyParser:ng.ICompiledExpression;
+        ChangeSelection(rowItem:any, event:any)
+        getSelection(entity:any):number;
+        getSelectionIndex(entity:any):number;
+        setSelection(rowItem:IRow, isSelected:boolean);
+        toggleSelectAll(checkAll:boolean, bypass:boolean, selectFiltered:boolean);
+    }
+
+    export interface IEventProvider {
+        new(grid:IGridInstance, $scope:IGridScope, domUtilityService:any, $timeout:ng.ITimeoutService):IEventProvider;
+        colToMove:IColumn;
+        groupToMove:any;
+        assignEvents();
+        assignGridEventHandlers();
+        dragStart(event:any);
+        dragOver(event:any);
+        setDraggables();
+        onGroupMouseDown(event:any);
+        onGroupDrop(event:any);
+        onHeaderMouseDown(event:any);
+        onHeaderDrop(event:any);
+    }
+
+
+    export interface IAggregate {
+        new(aggEntity:any, rowFactory:IRowFactory, rowHeight:number, groupInitState:boolean):IAggregate;
+        rowIndex:number;
+        offsetTop:number;
+        entity:any;
+        label:string;
+        field:string;
+        depth:number;
+        parent:any;
+        children:any[];
+        aggChildren:any[];
+        aggIndex:number;
+        collapsed:boolean;
+        groupInitState:boolean;
+        rowFactory:IRowFactory;
+        rowHeight:number;
+        isAggRow:boolean;
+        offsetLeft:number;
+        aggLabelFilter:any;
+    }
+
+    export interface IRowConfig {
+        enableCellSelection:boolean;
+        enableRowSelection:boolean;
+        jqueryUITheme:boolean;
+        rowClasses:string[];
+        rowHeight:number;
+        selectWithCheckboxOnly:boolean;
+        selectedItems:any[];
+
+        afterSelectionChangeCallback();
+        beforeSelectionChangeCallback();
+    }
+
+    export interface IRenderedRange {
+        new(top:number, bottom:number):IRenderedRange;
+        bottomRow:number;
+        topRow:number;
+    }
+
+    export interface IRowFactory {
+        aggCache:any;
+        dataChanged:boolean;
+        groupedData:any;
+        numberOfAggregates:number;
+        parentCache:any[];
+        parsedData:any[];
+        renderedRange:IRenderedRange;
+        rowConfig:IRowConfig;
+        rowHeight:number;
+        selectionProvider:ISelectionProvider;
+
+        UpdateViewableRange(newRange:IRenderedRange);
+        buildAggregateRow(aggEntity:any, rowIndex:number):IAggregate;
+        buildEntityRow(entity:any, rowIndex:number):IRow;
+        filteredRowsChanged();
+        fixRowCache();
+        getGrouping(groups:any);
+        parseGroupData(groupData:any);
+        renderedChange();
+        renderedChangeNoGroups();
+    }
+
+    export interface IDimension {
+        new(options:any):IDimension;
+        outerHeight?:number;
+        outerWidth?:number;
+        autoFitHeight?:boolean;
+    }
+
+    export interface IElementDimension {
+        rootMaxH?:number;
+        rootMaxW?:number;
+        rowIndexCellW?:number;
+        rowSelectedCellW?:number;
+        scrollH?:number;
+        scrollW?:number;
+    }
+
+    export interface IRow {
+        new(entity:any, config:IRowConfig, selectionProvider:ISelectionProvider, rowIndex:number, $utils:any):IRow;
+        entity:any;
+        config:IRowConfig;
+        selectionProvider:ISelectionProvider;
+        rowIndex:number;
+        utils:any;
+        selected:boolean;
+        cursor:string;
+        offsetTop:number;
+        rowDisplayIndex:number;
+        afterSelectionChange();
+        beforeSelectionChange();
+        setSelection(isSelected:boolean);
+        continueSelection(event:any);
+        ensureEntity(expected:any);
+        toggleSelected(event:any):boolean;
+        alternatingRowClass();
+        getProperty(path:string):any;
+        copy():IRow;
+        setVars(fromRow:IRow);
+    }
+
+    export interface IColumn {
+        new(config:IGridOptions, $scope:IGridScope, grid:IGridInstance, domUtilityService:any, $templateCache:ng.ITemplateCacheService, $utils:any):IColumn;
+        colDef:IColumnDef;
+        width:number;
+        groupIndex:number;
+        isGroupedBy:boolean;
+        minWidth:number;
+        maxWidth:number
+        enableCellEdit:boolean;
+        cellEditableCondition:any;
+        headerRowHeight:number;
+        displayName:string;
+        index:number;
+        isAggCol:boolean;
+        cellClass:string;
+        sortPriority:number;
+        cellFilter:any;
+        field:string;
+        aggLabelFilter:any;
+        visible:boolean;
+        sortable:boolean;
+        resizable:boolean;
+        pinnable:boolean;
+        pinned:boolean;
+        originalIndex:number;
+        groupable:boolean;
+        sortDirection:string;
+        sortingAlgorithm:Function;
+        headerClass:string;
+        cursor:string;
+        headerCellTemplate:string;
+        cellTemplate:string;
+        groupedByClass():string;
+        toggleVisible();
+        showSortButtonUp():boolean;
+        showSortButtonDown():boolean;
+        noSortVisible():boolean;
+        sort(event:any):boolean;
+        gripClick():any;
+        gripOnMouseDown(event:any):any;
+        onMouseMove(event:any);
+        gripOnMouseUp(event:any);
+        copy():IColumn;
+        setVars(fromCol:IColumn):void;
+    }
+
+    export interface IGridScope extends ng.IScope {
+        elementsNeedMeasuring:boolean;
+        columns:any[];
+        renderedRows:any[];
+        renderedColumns:any[];
+        headerRow:any;
+        rowHeight:number;
+        jqueryUITheme:any;
+        showSelectionCheckboxboolean;
+        enableCellSelection:boolean;
+        enableCellEditOnFocus:boolean;
+        footer:IFooter;
+        selectedItems:any[];
+        multiSelect:boolean;
+        showFooter:boolean;
+        footerRowHeight:number;
+        showColumnMenu:boolean;
+        forceSyncScrolling:boolean;
+        showMenu:boolean;
+        configGroups:any[];
+        gridId:string;
+        enablePaging:boolean;
+        pagingOptions:IPagingOptions;
+        i18n:any;
+        selectionProvider:ISelectionProvider;
+        adjustScrollLeft(scrollLeft:number);
+        adjustScrollTop(scrollTop:number, force:boolean);
+        toggleShowMenu();
+        toggleSelectAll();
+        totalFilteredItemsLength():number;
+        showGroupPanel():any;
+        topPanelHeight():number;
+        viewportDimHeight():number;
+        groupBy(col:IColumn);
+        removeGroup(index:number);
+        togglePin(col:IColumn);
+        totalRowWidth():number;
+        headerScrollerDim():any;
+    }
+
+    export interface IGridInstance {
+        $canvas:ng.IAugmentedJQuery;
+        $viewport:ng.IAugmentedJQuery;
+        $groupPanel:ng.IAugmentedJQuery;
+        $footerPanel:ng.IAugmentedJQuery;
+        $headerScroller:ng.IAugmentedJQuery;
+        $headerContainer:ng.IAugmentedJQuery;
+        $headers:ng.IAugmentedJQuery;
+        $topPanel:ng.IAugmentedJQuery;
+        $root:ng.IAugmentedJQuery;
+        config:IGridOptions;
+        data:any;
+        elementDims:IElementDimension;
+        eventProvider:IEventProvider;
+        filteredRows:IRow[];
+        footerController:any;
+        gridId:string;
+        lastSortedColumns:IColumn[];
+        lateBindColumns:boolean;
+        maxCanvasHt:number;
+        prevScrollIndex:number;
+        prevScrollTop:number;
+        rootDim:IDimension;
+        rowCache:IRow[];
+        rowFactory:IRowFactory;
+        rowMap:IRow[];
+        searchProvider:ISearchProvider;
+        styleProvider:IStyleProvider;
+
+        buildColumnDefsFromData();
+        buildColumns();
+        calcMaxCanvasHeight();
+        clearSortingData();
+        configureColumnWidths();
+        fixColumnIndexes();
+        fixGroupIndexes();
+        getTemplate(key:string):ng.IPromise<any>;
+        init():ng.IPromise<any>;
+        initTemplates():ng.IPromise<any>;
+        minRowsToRender();
+        refreshDomSizes();
+        resizeOnData(col:IColumn);
+        setRenderedRows(e);
+        sortActual();
+        sortColumnsInit();
+        sortData(col:IColumn, event:any);
+    }
+
+    export interface IFooter {
+        new($scope:IGridScope, grid:IGridInstance):IFooter;
+    }
+
     export interface IGridOptions {
 
         /** Define an aggregate template to customize the rows when grouped. See github wiki for more details. */
         aggregateTemplate?: string;
 
         /** Callback for when you want to validate something after selection. */
-        afterSelectionChange?: (rowItem?: any, event?: any) => void ;
+        afterSelectionChange?: (rowItem?: IRow, event?: any) => void ;
 
         /** Callback if you want to inspect something before selection,
         return false if you want to cancel the selection. return true otherwise. 
@@ -25,7 +321,7 @@ declare module ngGrid {
         use rowItem.changeSelection(event) method after returning false initially. 
         Note: when shift+ Selecting multiple items in the grid this will only get called
         once and the rowItem will be an array of items that are queued to be selected. */
-        beforeSelectionChange?: (rowItem?: any, event?: any) => boolean ;
+        beforeSelectionChange?: (rowItem?: IRow, event?: any) => boolean ;
 
         /** checkbox templates. */
         checkboxCellTemplate?: string;
@@ -198,5 +494,61 @@ declare module ngGrid {
         totalServerItems?: number;
         /** currentPage: the uhm... current page. */
         currentPage?: number;
+    }
+
+    export interface IPlugin {
+        init(childScope:IGridScope, gridInstance:IGridInstance, services:any);
+    }
+
+    export module service {
+
+        export interface IDomUtilityService {
+            eventStorage:any;
+            numberOfGrids:number;
+            immediate:number;
+            AssignGridContainers($scope:IGridScope, rootel:ng.IAugmentedJQuery, grid:IGridInstance);
+            getRealWidth(obj:IDimension):number;
+            UpdateGridLayout($scope:IGridScope, grid:IGridInstance);
+            setStyleText(grid:IGridInstance, css:string);
+            BuildStyles($scope:IGridScope, grid:IGridInstance, digest:boolean);
+            setColLeft(col:IColumn, colLeft:number, grid:IGridInstance);
+            RebuildGrid($scope:IGridScope, grid:IGridInstance);
+            digest($scope:IGridScope);
+            ScrollH:number;
+            ScrollW:number;
+            LetterW:number;
+        }
+
+        export interface ISortInfo {
+            fields:string[];
+        }
+
+        export interface ISortService {
+            colSortFnCache:any;
+            isCustomSort:boolean;
+            isSorting:boolean;
+            guessSortFn(item:any):(a:any, b:any)=>number;
+            basicSort(a:any, b:any):number;
+            sortNumber(a:number, b:number):number;
+            sortNumberStr(a:string, b:string):number;
+            sortAlpha(a:string, b:string):number;
+            sortDate(a:Date, b:Date):number;
+            sortBool(a:boolean, b:boolean):number;
+            sortData(sortInfo:ISortInfo, data:any);
+            Sort(sortInfo:ISortInfo, data:any);
+            getSortFn(col:IColumn, data:any):(a:any, b:any)=>number;
+        }
+
+        export interface IUtilityService {
+            visualLength(node:any):number;
+            forIn(obj:any, action:(value:any, property:string)=>{});
+            evalProperty(entity:any, path:string):any;
+            endsWith(str:string, suffix:string):boolean;
+            isNullOrUndefined(obj:any):boolean;
+            getElementsByClassName(cl:string):any[];
+            newId():string;
+            seti18n($scope:IGridScope, language:string)
+            getInstanceType(o:any):string;
+        }
     }
 }
