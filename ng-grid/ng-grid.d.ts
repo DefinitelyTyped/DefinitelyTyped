@@ -20,9 +20,9 @@ declare module ngGrid {
         new(grid:IGridInstance):IDomAccessProvider;
         previousColumn:IColumn;
         grid:IGridInstance;
-        changeUserSelect(elm:ng.IAugmentedJQuery, value:string);
-        focusCellElement($scope:IGridScope, index:number);
-        selectionHandlers($scope:IGridScope, elm:ng.IAugmentedJQuery);
+        changeUserSelect(elm:ng.IAugmentedJQuery, value:string):void;
+        focusCellElement($scope:IGridScope, index:number):void;
+        selectionHandlers($scope:IGridScope, elm:ng.IAugmentedJQuery):void;
     }
 
     export interface IStyleProvider {
@@ -33,7 +33,7 @@ declare module ngGrid {
         new($scope:IGridScope, grid:IGridInstance, $filter:ng.IFilterService):ISearchProvider;
         fieldMap:any;
         extFilter:boolean;
-        evalFilter();
+        evalFilter():void;
     }
 
     export interface ISelectionProvider {
@@ -44,26 +44,26 @@ declare module ngGrid {
         lastClickedRow:any;
         ignoreSelectedItemChanges:boolean;
         pKeyParser:ng.ICompiledExpression;
-        ChangeSelection(rowItem:any, event:any)
+        ChangeSelection(rowItem:any, event:any):void;
         getSelection(entity:any):number;
         getSelectionIndex(entity:any):number;
-        setSelection(rowItem:IRow, isSelected:boolean);
-        toggleSelectAll(checkAll:boolean, bypass:boolean, selectFiltered:boolean);
+        setSelection(rowItem:IRow, isSelected:boolean):void;
+        toggleSelectAll(checkAll:boolean, bypass:boolean, selectFiltered:boolean):void;
     }
 
     export interface IEventProvider {
         new(grid:IGridInstance, $scope:IGridScope, domUtilityService:any, $timeout:ng.ITimeoutService):IEventProvider;
         colToMove:IColumn;
         groupToMove:any;
-        assignEvents();
-        assignGridEventHandlers();
-        dragStart(event:any);
-        dragOver(event:any);
-        setDraggables();
-        onGroupMouseDown(event:any);
-        onGroupDrop(event:any);
-        onHeaderMouseDown(event:any);
-        onHeaderDrop(event:any);
+        assignEvents():void;
+        assignGridEventHandlers():void;
+        dragStart(event:any):void;
+        dragOver(event:any):void;
+        setDraggables():void;
+        onGroupMouseDown(event:any):void;
+        onGroupDrop(event:any):void;
+        onHeaderMouseDown(event:any):void;
+        onHeaderDrop(event:any):void;
     }
 
 
@@ -97,8 +97,8 @@ declare module ngGrid {
         selectWithCheckboxOnly:boolean;
         selectedItems:any[];
 
-        afterSelectionChangeCallback();
-        beforeSelectionChangeCallback();
+        afterSelectionChangeCallback():void;
+        beforeSelectionChangeCallback():void;
     }
 
     export interface IRenderedRange {
@@ -119,15 +119,15 @@ declare module ngGrid {
         rowHeight:number;
         selectionProvider:ISelectionProvider;
 
-        UpdateViewableRange(newRange:IRenderedRange);
+        UpdateViewableRange(newRange:IRenderedRange):void;
         buildAggregateRow(aggEntity:any, rowIndex:number):IAggregate;
         buildEntityRow(entity:any, rowIndex:number):IRow;
-        filteredRowsChanged();
-        fixRowCache();
-        getGrouping(groups:any);
-        parseGroupData(groupData:any);
-        renderedChange();
-        renderedChangeNoGroups();
+        filteredRowsChanged():void;
+        fixRowCache():void;
+        getGrouping(groups:any):void;
+        parseGroupData(groupData:any):void;
+        renderedChange():void;
+        renderedChangeNoGroups():void;
     }
 
     export interface IDimension {
@@ -157,16 +157,16 @@ declare module ngGrid {
         cursor:string;
         offsetTop:number;
         rowDisplayIndex:number;
-        afterSelectionChange();
-        beforeSelectionChange();
-        setSelection(isSelected:boolean);
-        continueSelection(event:any);
-        ensureEntity(expected:any);
+        afterSelectionChange():void;
+        beforeSelectionChange():void;
+        setSelection(isSelected:boolean):void;
+        continueSelection(event:any):void;
+        ensureEntity(expected:any):void;
         toggleSelected(event:any):boolean;
-        alternatingRowClass();
+        alternatingRowClass():void;
         getProperty(path:string):any;
         copy():IRow;
-        setVars(fromRow:IRow);
+        setVars(fromRow:IRow):void;
     }
 
     export interface IColumn {
@@ -202,15 +202,15 @@ declare module ngGrid {
         headerCellTemplate:string;
         cellTemplate:string;
         groupedByClass():string;
-        toggleVisible();
+        toggleVisible():void;
         showSortButtonUp():boolean;
         showSortButtonDown():boolean;
         noSortVisible():boolean;
         sort(event:any):boolean;
         gripClick():any;
         gripOnMouseDown(event:any):any;
-        onMouseMove(event:any);
-        gripOnMouseUp(event:any);
+        onMouseMove(event:any):void;
+        gripOnMouseUp(event:any):void;
         copy():IColumn;
         setVars(fromCol:IColumn):void;
     }
@@ -223,7 +223,7 @@ declare module ngGrid {
         headerRow:any;
         rowHeight:number;
         jqueryUITheme:any;
-        showSelectionCheckboxboolean;
+        showSelectionCheckbox:boolean;
         enableCellSelection:boolean;
         enableCellEditOnFocus:boolean;
         footer:IFooter;
@@ -240,17 +240,17 @@ declare module ngGrid {
         pagingOptions:IPagingOptions;
         i18n:any;
         selectionProvider:ISelectionProvider;
-        adjustScrollLeft(scrollLeft:number);
-        adjustScrollTop(scrollTop:number, force:boolean);
-        toggleShowMenu();
-        toggleSelectAll();
+        adjustScrollLeft(scrollLeft:number):void;
+        adjustScrollTop(scrollTop:number, force:boolean):void;
+        toggleShowMenu():void;
+        toggleSelectAll():void;
         totalFilteredItemsLength():number;
         showGroupPanel():any;
         topPanelHeight():number;
         viewportDimHeight():number;
-        groupBy(col:IColumn);
-        removeGroup(index:number);
-        togglePin(col:IColumn);
+        groupBy(col:IColumn):void;
+        removeGroup(index:number):void;
+        togglePin(col:IColumn):void;
         totalRowWidth():number;
         headerScrollerDim():any;
     }
@@ -284,23 +284,23 @@ declare module ngGrid {
         searchProvider:ISearchProvider;
         styleProvider:IStyleProvider;
 
-        buildColumnDefsFromData();
-        buildColumns();
-        calcMaxCanvasHeight();
-        clearSortingData();
-        configureColumnWidths();
-        fixColumnIndexes();
-        fixGroupIndexes();
+        buildColumnDefsFromData():void;
+        buildColumns():void;
+        calcMaxCanvasHeight():void;
+        clearSortingData():void;
+        configureColumnWidths():void;
+        fixColumnIndexes():void;
+        fixGroupIndexes():void;
         getTemplate(key:string):ng.IPromise<any>;
         init():ng.IPromise<any>;
         initTemplates():ng.IPromise<any>;
-        minRowsToRender();
-        refreshDomSizes();
-        resizeOnData(col:IColumn);
-        setRenderedRows(e);
-        sortActual();
-        sortColumnsInit();
-        sortData(col:IColumn, event:any);
+        minRowsToRender():void;
+        refreshDomSizes():void;
+        resizeOnData(col:IColumn):void;
+        setRenderedRows(newRows:IRow[]):void;
+        sortActual():void;
+        sortColumnsInit():void;
+        sortData(col:IColumn, event:any):void;
     }
 
     export interface IFooter {
@@ -497,7 +497,7 @@ declare module ngGrid {
     }
 
     export interface IPlugin {
-        init(childScope:IGridScope, gridInstance:IGridInstance, services:any);
+        init(childScope:IGridScope, gridInstance:IGridInstance, services:any):void;
     }
 
     export module service {
@@ -506,14 +506,14 @@ declare module ngGrid {
             eventStorage:any;
             numberOfGrids:number;
             immediate:number;
-            AssignGridContainers($scope:IGridScope, rootel:ng.IAugmentedJQuery, grid:IGridInstance);
+            AssignGridContainers($scope:IGridScope, rootel:ng.IAugmentedJQuery, grid:IGridInstance):void;
             getRealWidth(obj:IDimension):number;
-            UpdateGridLayout($scope:IGridScope, grid:IGridInstance);
-            setStyleText(grid:IGridInstance, css:string);
-            BuildStyles($scope:IGridScope, grid:IGridInstance, digest:boolean);
-            setColLeft(col:IColumn, colLeft:number, grid:IGridInstance);
-            RebuildGrid($scope:IGridScope, grid:IGridInstance);
-            digest($scope:IGridScope);
+            UpdateGridLayout($scope:IGridScope, grid:IGridInstance):void;
+            setStyleText(grid:IGridInstance, css:string):void;
+            BuildStyles($scope:IGridScope, grid:IGridInstance, digest:boolean):void;
+            setColLeft(col:IColumn, colLeft:number, grid:IGridInstance):void;
+            RebuildGrid($scope:IGridScope, grid:IGridInstance):void;
+            digest($scope:IGridScope):void;
             ScrollH:number;
             ScrollW:number;
             LetterW:number;
@@ -534,20 +534,20 @@ declare module ngGrid {
             sortAlpha(a:string, b:string):number;
             sortDate(a:Date, b:Date):number;
             sortBool(a:boolean, b:boolean):number;
-            sortData(sortInfo:ISortInfo, data:any);
-            Sort(sortInfo:ISortInfo, data:any);
+            sortData(sortInfo:ISortInfo, data:any):void;
+            Sort(sortInfo:ISortInfo, data:any):void;
             getSortFn(col:IColumn, data:any):(a:any, b:any)=>number;
         }
 
         export interface IUtilityService {
             visualLength(node:any):number;
-            forIn(obj:any, action:(value:any, property:string)=>{});
+            forIn(obj:any, action:(value:any, property:string)=>{}):void;
             evalProperty(entity:any, path:string):any;
             endsWith(str:string, suffix:string):boolean;
             isNullOrUndefined(obj:any):boolean;
             getElementsByClassName(cl:string):any[];
             newId():string;
-            seti18n($scope:IGridScope, language:string)
+            seti18n($scope:IGridScope, language:string):void;
             getInstanceType(o:any):string;
         }
     }
