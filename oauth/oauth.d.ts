@@ -1,5 +1,3 @@
-///<reference path='./oauth.d.ts'/>
-
 declare module "oauth"
 {
     import oauth                                      = require('oauth');
