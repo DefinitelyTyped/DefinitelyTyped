@@ -1293,3 +1293,8 @@ interface IGrunt extends grunt.IConfigComponents, grunt.fail.FailModule, grunt.I
      */
     version: string
 }
+
+// NodeJS Support
+declare module 'grunt' {
+    export = IGrunt;
+}
