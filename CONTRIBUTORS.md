@@ -274,6 +274,7 @@ All definitions files include a header with the author and editors, so at some p
 * [universal-analytics](https://github.com/peaksandpies/universal-analytics) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [update-notifier](https://github.com/yeoman/update-notifier) (by [vvakame](https://github.com/vvakame))
 * [uri-templates](https://github.com/geraintluff/uri-templates) (by [Bart van der Schoor](https://github.com/Bartvds))
+* [url](https://github.com/websanova/js-url) (by [MIZUNE Pine](https://github.com/pine613))
 * [urlrouter](https://github.com/fengmk2/urlrouter) (by [Carlos Ballesteros Velasco](https://github.com/soywiz))
 * [UUID.js](https://github.com/LiosK/UUID.js) (by [Jason Jarrett](https://github.com/staxmanade))
 * [Valerie](https://github.com/davewatts/valerie) (by [Howard Richards](https://github.com/conficient))
