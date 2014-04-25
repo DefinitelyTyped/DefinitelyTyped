@@ -17,6 +17,17 @@ interface RestangularRequestConfig {
     timeout?: any; // number | promise
 }
 
+interface EnhancedPromise extends ng.IPromise {
+    call(methodName: string, params?: any): EnhancedPromise;
+    get(fieldName: string): EnhancedPromise;
+    $object: any;
+}
+
+interface EnhancedCollectionPromise extends EnhancedPromise {
+    push(object: any): EnhancedCollectionPromise;
+    $object: any[];
+}
+
 interface Restangular extends RestangularCustom {
     one(route: string, id?: number): RestangularElement;
     one(route: string, id?: string): RestangularElement;
@@ -31,39 +42,39 @@ interface Restangular extends RestangularCustom {
 }
 
 interface RestangularElement extends Restangular {
-    get(queryParams?: any, headers?: any): ng.IPromise<any>;
-    getList(subElement: any, queryParams?: any, headers?: any): ng.IPromise<any>;
-    put(queryParams?: any, headers?: any): ng.IPromise<any>;
-    post(subElement: any, elementToPost: any, queryParams?: any, headers?: any): ng.IPromise<any>;
-    remove(queryParams?: any, headers?: any): ng.IPromise<any>;
-    head(queryParams?: any, headers?: any): ng.IPromise<any>;
-    trace(queryParams?: any, headers?: any): ng.IPromise<any>;
-    options(queryParams?: any, headers?: any): ng.IPromise<any>;
-    patch(queryParams?: any, headers?: any): ng.IPromise<any>;
+    get(queryParams?: any, headers?: any): EnhancedPromise<any>;
+    getList(subElement: any, queryParams?: any, headers?: any): EnhancedCollectionPromise<any>;
+    put(queryParams?: any, headers?: any): EnhancedPromise<any>;
+    post(subElement: any, elementToPost: any, queryParams?: any, headers?: any): EnhancedPromise<any>;
+    remove(queryParams?: any, headers?: any): EnhancedPromise<any>;
+    head(queryParams?: any, headers?: any): EnhancedPromise<any>;
+    trace(queryParams?: any, headers?: any): EnhancedPromise<any>;
+    options(queryParams?: any, headers?: any): EnhancedPromise<any>;
+    patch(queryParams?: any, headers?: any): EnhancedPromise<any>;
     withHttpConfig(httpConfig: RestangularRequestConfig): RestangularElement;
     getRestangularUrl(): string;
 }
 
 interface RestangularCollection extends Restangular {
-    getList(queryParams?: any, headers?: any): ng.IPromise<any>;
-    post(elementToPost: any, queryParams?: any, headers?: any): ng.IPromise<any>;
-    head(queryParams?: any, headers?: any): ng.IPromise<any>;
-    trace(queryParams?: any, headers?: any): ng.IPromise<any>;
-    options(queryParams?: any, headers?: any): ng.IPromise<any>;
-    patch(queryParams?: any, headers?: any): ng.IPromise<any>;
-    putElement(idx: any, params: any, headers: any): ng.IPromise<any>;
+    getList(queryParams?: any, headers?: any): EnhancedCollectionPromise<any>;
+    post(elementToPost: any, queryParams?: any, headers?: any): EnhancedCollectionPromise<any>;
+    head(queryParams?: any, headers?: any): EnhancedCollectionPromise<any>;
+    trace(queryParams?: any, headers?: any): EnhancedCollectionPromise<any>;
+    options(queryParams?: any, headers?: any): EnhancedCollectionPromise<any>;
+    patch(queryParams?: any, headers?: any): EnhancedCollectionPromise<any>;
+    putElement(idx: any, params: any, headers: any): EnhancedCollectionPromise<any>;
     withHttpConfig(httpConfig: RestangularRequestConfig): RestangularCollection;
     getRestangularUrl(): string;
 }
 
 interface RestangularCustom {
-    customGET(path: string, params?: any, headers?: any): ng.IPromise<any>;
-    customGETLIST(path: string, params?: any, headers?: any): ng.IPromise<any>;
-    customDELETE(path: string, params?: any, headers?: any): ng.IPromise<any>;
-    customPOST(elem?: any, path?: string, params?: any, headers?: any): ng.IPromise<any>;
-    customPUT(elem?: any, path?: string, params?: any, headers?: any): ng.IPromise<any>;
-    customOperation(operation: string, path: string, params?: any, headers?: any, elem?: any): ng.IPromise<any>;
-    addRestangularMethod(name: string, operation: string, path?: string, params?: any, headers?: any, elem?: any): ng.IPromise<any>;
+    customGET(path: string, params?: any, headers?: any): EnhancedPromise<any>;
+    customGETLIST(path: string, params?: any, headers?: any): EnhancedPromise<any>;
+    customDELETE(path: string, params?: any, headers?: any): EnhancedPromise<any>;
+    customPOST(path: string, params?: any, headers?: any, elem?: any): EnhancedPromise<any>;
+    customPUT(path: string, params?: any, headers?: any, elem?: any): EnhancedPromise<any>;
+    customOperation(operation: string, path: string, params?: any, headers?: any, elem?: any): EnhancedPromise<any>;
+    addRestangularMethod(name: string, operation: string, path?: string, params?: any, headers?: any, elem?: any): EnhancedPromise<any>;
 }
 
 interface RestangularProvider {
