@@ -354,7 +354,7 @@ declare module jasmine {
 
         identity: string;
         and: SpyAnd;
-        calls: any;
+        calls: Calls;
         mostRecentCall: { args: any[]; };
         argsForCall: any[];
         wasCalled: boolean;
@@ -372,6 +372,25 @@ declare module jasmine {
         throwError(msg: string): void;
         /** When a calling strategy is used for a spy, the original stubbing behavior can be returned at any time with and.stub. */
         stub(): void;
+    }
+
+    interface Calls {
+        /** By chaining the spy with calls.any(), will return false if the spy has not been called at all, and then true once at least one call happens. **/
+        any(): boolean;
+        /** By chaining the spy with calls.count(), will return the number of times the spy was called **/
+        count(): number;
+        /** By chaining the spy with calls.argsFor(), will return the arguments passed to call number index **/
+        argsFor(index: number): any[];
+        /** By chaining the spy with calls.allArgs(), will return the arguments to all calls **/
+        allArgs(): any[];
+        /** By chaining the spy with calls.all(), will return the context (the this) and arguments passed all calls **/
+        all(): any;
+        /** By chaining the spy with calls.mostRecent(), will return the context (the this) and arguments for the most recent call **/
+        mostRecent(): any;
+        /** By chaining the spy with calls.first(), will return the context (the this) and arguments for the first call **/
+        first(): any;
+        /** By chaining the spy with calls.reset(), will clears all tracking for a spy **/
+        reset(): void;
     }
 
     interface Util {
