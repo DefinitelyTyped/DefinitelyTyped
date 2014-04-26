@@ -38,6 +38,14 @@ declare module When {
     function join<T>(...promises: any[]): Promise<T[]>;
 
     /**
+     * Maps an array of promises or values into a single returned promise.
+     * @return a promise that will fulfill when the map function returns a fulfilled
+     * promise or a value for every item of the array, or will reject when *any*
+     * return value of the map function is a rejected promise.
+     */
+    function map<T>(promisesOrValues: any[], mapFunction: Function): Promise<T>;
+
+    /**
      * Returns a resolved promise. The returned promise will be
      *  - fulfilled with promiseOrValue if it is a value, or
      *  - if promiseOrValue is a promise
