@@ -1,4 +1,4 @@
-/// <reference path="url.d.ts" />
+/// <reference path="js-url.d.ts" />
 
 url();
 
