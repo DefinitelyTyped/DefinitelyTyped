@@ -156,6 +156,7 @@ All definitions files include a header with the author and editors, so at some p
 * [jQuery.Watermark](http://jquery-watermark.googlecode.com) (by [Anwar Javed](https://github.com/anwarjaved))
 * [jQuery.base64](https://github.com/yatt/jquery.base64) (by [Shinya Mochizuki](https://github.com/enrapt-mochizuki))
 * [js-git](https://github.com/creationix/js-git) (by [Bart van der Schoor](https://github.com/Bartvds))
+* [js-url](https://github.com/websanova/js-url) (by [MIZUNE Pine](https://github.com/pine613))
 * [js-yaml](https://github.com/nodeca/js-yaml) (by [Bart van der Schoor](https://github.com/Bartvds/))
 * [jScrollPane](http://jscrollpane.kelvinluck.com) (by [Dániel Tar](https://github.com/qcz))
 * [JSDeferred](http://cho45.stfuawsc.com/jsdeferred/) (by [Daisuke Mino](https://github.com/minodisk))
