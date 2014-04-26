@@ -1,6 +1,6 @@
 // Type definitions for Chrome extension development.
 // Project: http://developer.chrome.com/extensions/
-// Definitions by: Matthew Kimber <https://github.com/matthewkimber>
+// Definitions by: Matthew Kimber <https://github.com/matthewkimber> and otiai10 <https://github.com/otiai10>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ////////////////////
@@ -775,6 +775,14 @@ declare module chrome.downloads {
     export function resume(downloadId: number, callback?: Function): void;
     export function cancel(downloadId: number, callback?: Function): void;
     export function download(options: DownloadOptions, callback?: (downloadId: number) => void): void;
+    export function open(downloadId: number): void;
+    export function show(downloadId: number): void;
+    export function showDefaultFolder(): void;
+    export function erase(query: DownloadQuery, callback: (results: DownloadItem[]) => void): void;
+    export function removeFile(downloadId: number, callback: () => void): void;
+    export function acceptDanger(downloadId: number, callback: () => void): void;
+    export function drag(downloadId: number): void;
+    export function setShelfEnabled(enabled: boolean): void;
 
     var onChanged: DownloadChangedEvent;
     var onCreated: DownloadCreatedEvent;

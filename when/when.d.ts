@@ -86,3 +86,5 @@ declare module When {
         reason?: any;
     }
 }
+
+export = When;

@@ -200,7 +200,7 @@ interface RaphaelPaper {
     clear(): void;
     defs: SVGDefsElement;
     ellipse(x: number, y: number, rx: number, ry: number): RaphaelElement;
-    forEach(callback: number, thisArg: any): RaphaelStatic;
+    forEach(callback: (el: RaphaelElement) => boolean, thisArg?: any): RaphaelPaper;
     getById(id: number): RaphaelElement;
     getElementByPoint(x: number, y: number): RaphaelElement;
     getElementsByPoint(x: number, y: number): RaphaelSet;

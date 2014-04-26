@@ -75,7 +75,7 @@ function test_basic() {
 
     $scope.account = account.get({ single: true });
 
-    account.customPOST("messages", { param: "myParam" }, {}, { name: "My Message" })
+    account.customPOST({ name: "My Message" }, "messages", { param: "myParam" }, {})
 }
 
 function test_config() {
@@ -135,4 +135,11 @@ function test_config() {
             return elem;
         });
     });
+}
+
+function test_withHttpConfig() {
+    var $scope;
+    Restangular.one('accounts', 123).withHttpConfig({timeout: 100}).getList('buildings');
+    $scope.account = Restangular.one('accounts', 123);
+    $scope.account.withHttpConfig({timeout: 100}).put();
 }

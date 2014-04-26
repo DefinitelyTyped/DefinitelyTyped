@@ -562,5 +562,8 @@ interface UnderscoreStringStaticExports {
     toBoolean(str: string, trueValues?: any[], falseValues?: any[]): boolean;
 
 }
-
+declare module 'underscore.string' {
+    var underscoreString: UnderscoreStringStatic;
+    export = underscoreString;
+}
 // TODO interface UnderscoreString extends Underscore<string>

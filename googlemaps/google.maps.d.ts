@@ -113,7 +113,8 @@ declare module google.maps {
         scaleControl?: boolean;
         scaleControlOptions?: ScaleControlOptions;
         scrollwheel?: boolean;
-        streetView?: boolean;
+        streetView?: StreetViewPanorama;
+        streetViewControl?: boolean;
         streetViewControlOptions?: StreetViewControlOptions;
         styles?: MapTypeStyle[];
         tilt?: number;
@@ -366,7 +367,7 @@ declare module google.maps {
         getEditable(): boolean;
         getMap(): Map;
         getPath(): MVCArray;
-        getPaths(): MVCArray[];
+        getPaths(): MVCArray;
         getVisible(): boolean;
         setDraggable(draggable: boolean): void;
         setEditable(editable: boolean): void;
@@ -1355,9 +1356,9 @@ declare module google.maps {
         }
 
         export interface AutocompleteOptions {
-            bounds: LatLngBounds;
-            componentRestrictions: ComponentRestrictions;
-            types: string[];
+            bounds?: LatLngBounds;
+            componentRestrictions?: ComponentRestrictions;
+            types?: string[];
         }
 
         export interface ComponentRestrictions {

@@ -79,3 +79,7 @@ interface StateMachine {
 }
 
 declare var StateMachine: StateMachineStatic;
+
+declare module "state-machine" { 
+    export = StateMachineStatic; 
+}

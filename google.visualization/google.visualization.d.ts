@@ -76,6 +76,7 @@ declare module google {
             addRows(array: any[]): number;
             getFilteredRows(filters: DataTableCellFilter[]): number[];
             getFormattedValue(rowIndex: number, columnIndex: number): string;
+            getValue(rowIndex: number, columnIndex: number): any;
             getNumberOfColumns(): number;
             getNumberOfRows(): number;
             removeRow(rowIndex: number): void;

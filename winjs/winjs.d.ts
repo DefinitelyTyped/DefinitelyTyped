@@ -3310,6 +3310,31 @@ declare module WinJS.UI {
 
 	}
 
+    /**
+     * Used by ListView's currentItem API
+    **/
+    interface IListViewItem {
+        /**
+		 * Gets or sets index of the ListView item.
+		**/
+        index?: number;
+
+        /**
+		 * Gets or sets key of the ListView item.
+		**/
+        key?: string;
+
+        /**
+		 * Gets or sets whether the ListView item is focused.
+		**/
+        hasFocus?: boolean;
+
+        /**
+		 * Gets or sets whether the ListView item is focused and is showing its focus visual.
+		**/
+        showFocus?: boolean;
+    }
+
 	/**
 	 * Represents a selection of ListView items.
 	**/
@@ -3490,7 +3515,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the control.
 		 * @param options The set of properties and values to apply to the new AppBar.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -3562,7 +3587,7 @@ declare module WinJS.UI {
 		 * @param commands The commands to hide. The array elements may be AppBarCommand objects, or the string identifiers (IDs) of commands.
 		 * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to hide the commands immediately, without animating them; otherwise, false.
 		**/
-		hideCommands(commands: any[], immediate: boolean): void;
+		hideCommands(commands: any[], immediate?: boolean): void;
 
 		/**
 		 * Removes an event handler that the addEventListener method registered.
@@ -3582,14 +3607,14 @@ declare module WinJS.UI {
 		 * @param commands The commands to show. The array elements may be AppBarCommand objects, or the string identifiers (IDs) of commands.
 		 * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to show the commands immediately, without animating them; otherwise, false.
 		**/
-		showCommands(commands: any[], immediate: boolean): void;
+		showCommands(commands: any[], immediate?: boolean): void;
 
 		/**
 		 * Shows the specified commands of the AppBar while hiding all other commands.
 		 * @param commands The commands to show. The array elements may be AppBarCommand objects, or the string identifiers (IDs) of commands.
 		 * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to show the specified commands (and hide the others) immediately, without animating them; otherwise, false.
 		**/
-		showOnlyCommands(commands: any[], immediate: boolean): void;
+		showOnlyCommands(commands: any[], immediate?: boolean): void;
 
 		//#endregion Methods
 
@@ -3598,7 +3623,7 @@ declare module WinJS.UI {
 		/**
 		 * Sets the AppBarCommand objects that appear in the app bar.
 		**/
-		commands: AppBarCommand;
+		commands: AppBarCommand[];
 
 		/**
 		 * Gets or sets a value that indicates whether the AppBar is disabled.
@@ -3646,7 +3671,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the control.
 		 * @param options The set of properties and values to apply to the new AppBarCommand.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -3695,7 +3720,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets the HTMLElement with a 'content' type AppBarCommand that should receive focus whenever focus moves by the user pressing HOME or the arrow keys, from the previous AppBarCommand to this AppBarCommand.
 		**/
-		firstElementFocus: any;
+		firstElementFocus: HTMLElement;
 
 		/**
 		 * Gets or sets the Flyout object displayed by this command. The specified flyout is shown when the AppBarCommand's button is invoked.
@@ -3725,7 +3750,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets the HTMLElement with a 'content' type AppBarCommand that should receive focus whenever focus moves by the user pressing END or the arrow keys, from the previous AppBarCommand to this AppBarCommand.
 		**/
-		lastElementFocus: any;
+		lastElementFocus: HTMLElement;
 
 		/**
 		 * Gets or sets the function to be invoked when the command is clicked.
@@ -3768,7 +3793,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element hosts the new BackButton.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -3951,7 +3976,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element associated with the DatePicker control.
 		 * @param options The set of options to be applied initially to the DatePicker control. The options are the following: calendar, current, datePattern, disabled, maxYear, minYear, monthPattern, yearPattern.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -4011,7 +4036,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets the calendar to use.
 		**/
-		calendar: any;
+		calendar: string;
 
 		/**
 		 * Gets or sets the current date of the DatePicker. You can use either a date string or a Date object to set this property.
@@ -4110,7 +4135,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that hosts the control.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the pageselected event, add a property named "onpageselected" and set its value to the event handler.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -4252,7 +4277,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the control.
 		 * @param options The set of properties and values to apply to the new Flyout.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -4615,7 +4640,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the Hub control.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the contentanimating event, add a property named "oncontentanimating" to the options object and set its value to the event handler.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -4714,7 +4739,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets the index of the first visible HubSection.
 		**/
-		sectionOnScreen: any;
+		sectionOnScreen: number;
 
 		/**
 		 * Gets or sets the List that contains the HubSection objects that belong to this Hub.
@@ -4724,7 +4749,7 @@ declare module WinJS.UI {
 		/**
 		 * This API supports the SemanticZoom infrastructure and is not intended to be used directly from your code.
 		**/
-		zoomableView: any;
+		zoomableView: IZoomableView<Hub>;
 
 		//#endregion Properties
 
@@ -4742,7 +4767,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element hosts the new HubSection.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -4793,7 +4818,7 @@ declare module WinJS.UI {
 		 * @param element The element that hosts the HtmlControl.
 		 * @param options The options for configuring the page. The uri option is required in order to specify the source document for the content of the page. Other options are the ones used by the WinJS.Pages.render method.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -4811,7 +4836,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element hosts the new ItemContainer. For the ItemContainer to be accessible, this element must have its role attribute set to "list" or "listbox". If tapBehavior is set to none and selectionDisabled is true, then use the "list" role; otherwise, use the "listbox" role.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -4905,12 +4930,12 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets the orientation of swipe gestures.
 		**/
-		swipeOrientation: any;
+		swipeOrientation: Orientation;
 
 		/**
 		 * Gets or sets how the ItemContainer reacts when the user taps or clicks an item.
 		**/
-		tapBehavior: any;
+		tapBehavior: TapBehavior;
 
 		//#endregion Properties
 
@@ -5163,7 +5188,7 @@ declare module WinJS.UI {
 	/**
 	 * Displays data items in a customizable list or grid.
 	**/
-	class ListView<T> {
+    class ListView<T> {
 		//#region Constructors
 
 		/**
@@ -5172,7 +5197,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that hosts the ListView control.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the selectionchanged event, add a property named "onselectionchanged" to the options object and set its value to the event handler.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -5330,10 +5355,10 @@ declare module WinJS.UI {
 		**/
 		removeEventListener(eventName: string, eventCallback: Function, useCapture?: boolean): void;
 
-		/**
-		 * Triggers the ListView disposal service manually.
-		**/
-		triggerDispose(): void;
+        /**
+         * Triggers the ListView disposal service manually.
+        **/
+        static triggerDispose(): void;
 
 		//#endregion Methods
 
@@ -5344,10 +5369,10 @@ declare module WinJS.UI {
 		**/
 		automaticallyLoadPages: boolean;
 
-		/**
-		 * Gets or sets an object that indicates which item should have keyboard focus and the focus state of that item.
-		**/
-		currentItem: { index: number; key: string; hasFocus: boolean; showFocus: boolean };
+        /**
+         * Gets or sets an IListViewItem that indicates which item should have keyboard focus and the focus state of that item.
+        **/
+        currentItem: IListViewItem;
 
 		/**
 		 * Gets the HTML element that hosts this ListView.
@@ -5402,7 +5427,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets an object that controls the layout of the ListView.
 		**/
-		layout: any;
+		layout: ILayout2;
 
 		/**
 		 * Gets or sets a value that specifies how the ListView fetches items and adds and removes them to the DOM. Don't change the value of this property after the ListView has begun loading data.
@@ -5467,7 +5492,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets a ZoomableView that supports semantic zoom functionality. This API supports the SemanticZoom infrastructure and is not intended to be used directly from your code.
 		**/
-		zoomableView: IZoomableView<T>;
+		zoomableView: IZoomableView<ListView<T>>;
 
 		//#endregion Properties
 
@@ -5485,7 +5510,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the control.
 		 * @param options The set of properties and values to apply to the new Menu.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -5598,7 +5623,7 @@ declare module WinJS.UI {
 		/**
 		 * Sets the MenuCommand objects that appear in the menu.
 		**/
-		commands: MenuCommand;
+		commands: MenuCommand[];
 
 		/**
 		 * Gets the DOM element that hosts the Menu.
@@ -5631,7 +5656,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the control.
 		 * @param options The set of properties and values to apply to the new MenuCommand.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -5728,7 +5753,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the new NavBar.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -5883,7 +5908,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element hosts the new NavBarCommand.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -5978,7 +6003,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element hosts the new NavBarContainer.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -6089,7 +6114,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element hosts the new Rating.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the cancel event, add a property named "oncancel" to the options object and set its value to the event handler.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -6344,7 +6369,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element hosts the new SearchBox.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -6479,7 +6504,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that hosts the SemanticZoom.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. This object can contain these properties: initiallyZoomedOut Boolean, zoomFactor 0.2–0.85.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -6579,7 +6604,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that will host the control.
 		 * @param options The set of properties and values to apply to the new SettingsFlyout.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -6722,7 +6747,7 @@ declare module WinJS.UI {
 		 * @param image The img element that will display the thumbnail.
 		 * @returns A Promise that completes when the full-quality thumbnail is visible.
 		**/
-		loadThumbnail(item: IItem<T>, image: HTMLElement): Promise<void>;
+		loadThumbnail(item: IItem<T>, image: HTMLImageElement): Promise<void>;
 
 		//#endregion Methods
 
@@ -6763,7 +6788,7 @@ declare module WinJS.UI {
 		/**
 		 * Gets or sets the tab index of this container.
 		**/
-		tabIndex: any;
+		tabIndex: number;
 
 		//#endregion Properties
 
@@ -6781,7 +6806,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element associated with the TimePicker control.
 		 * @param options The set of options to be applied initially to the TimePicker control. The options are the following: clock.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -6894,7 +6919,7 @@ declare module WinJS.UI {
 		 * @param element The DOM that hosts the control.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the change event, add a property named "onchange" to the options object and set its value to the event handler.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -7003,7 +7028,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element associated that hosts the Tooltip.
 		 * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the opened event, add a property named "onopened" to the options object and set its value to the event handler.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -7119,7 +7144,7 @@ declare module WinJS.UI {
 		 * @param element The DOM element that functions as the scaling box. This element fills 100% of the width and height allotted to it.
 		 * @param options The set of options to be applied initially to the ViewBox control. There are currently no options on this control, and any options included in this parameter are ignored.
 		**/
-		constructor(element: HTMLElement, options?: any);
+		constructor(element?: HTMLElement, options?: any);
 
 		//#endregion Constructors
 
@@ -7346,7 +7371,7 @@ declare module WinJS.UI.Fragments {
 	 * @param element Optional. The element to which the fragment is appended.
 	 * @returns A promise that is fulfilled when the fragment has been loaded. If a target element is not specified, the copied fragment is the completed value. The element is not added to the cache. See also rendercopy, where the element is added to the cache.
 	**/
-	function render(href: string, element: HTMLElement): Promise<HTMLElement>;
+	function render(href: string, element?: HTMLElement): Promise<HTMLElement>;
 
 	/**
 	 * Loads and copies the contents of the specified URI into the specified element.
@@ -7354,7 +7379,7 @@ declare module WinJS.UI.Fragments {
 	 * @param target The element to which the fragment is appended.
 	 * @returns A promise that is fulfilled when the fragment has been loaded. If a target element is not specified, the copied fragment is the completed value. The fragment is added to the cache. See also render, where the element is not added to the cache.
 	**/
-	function renderCopy(href: string, target: HTMLElement): Promise<HTMLElement>;
+	function renderCopy(href: string, target?: HTMLElement): Promise<HTMLElement>;
 
 	//#endregion Functions
 
@@ -8110,7 +8135,7 @@ declare module WinJS.Utilities {
 	 * @param name The name of the class to add.
 	 * @returns The element.
 	**/
-	function addClass(e: HTMLElement, name: string): HTMLElement;
+	function addClass<T extends HTMLElement>(e: T, name: string): T;
 
 	/**
 	 * Gets a collection of elements that are the direct children of the specified element.
@@ -8152,7 +8177,7 @@ declare module WinJS.Utilities {
 	 * @param element The element.
 	 * @returns The element.
 	**/
-	function empty(element: HTMLElement): HTMLElement;
+	function empty<T extends HTMLElement>(element: T): T;
 
 	/**
 	 * Determines whether the specified event occurred within the specified element.
@@ -8273,7 +8298,7 @@ declare module WinJS.Utilities {
 	 * @param func The function to be marked as compatible with declarative processing.
 	 * @returns The input function, marked as compatible with declarative processing.
 	**/
-	function markSupportedForProcessing<U>(func: U): U;
+	function markSupportedForProcessing<U extends Function>(func: U): U;
 
 	/**
 	 * Returns a QueryCollection with zero or one elements matching the specified selector query.
@@ -8297,14 +8322,14 @@ declare module WinJS.Utilities {
 	 * @param name The name of the class to remove.
 	 * @returns The element.
 	**/
-	function removeClass(e: HTMLElement, name: string): HTMLElement;
+	function removeClass<T extends HTMLElement>(e: T, name: string): T;
 
 	/**
 	 * Asserts that the value is compatible with declarative processing. Declarative processing is performed by WinJS.UI.processAll or WinJS.Binding.processAll. If the value is not compatible, and strictProcessing is on, an exception is thrown. All functions that have been declared using WinJS.Class.define, WinJS.Class.derive, WinJS.UI.Pages.define, or WinJS.Binding.converter are automatically marked as supported for declarative processing. Any other function that you use from a declarative context (that is, a context in which an HTML element has a data-win-control or data-win-options attribute) must be marked manually by calling this function. When you mark a function as supported for declarative processing, you are guaranteeing that the code in the function is secure from injection of third-party content.
 	 * @param value The value to be tested for compatibility with declarative processing. If the value is a function it must be marked with a property supportedForProcessing with a value of true when strictProcessing is on. For more information, see WinJS.Utilities.markSupportedForProcessing.
 	 * @returns The input value.
 	**/
-	function requireSupportedForProcessing(value: any): any;
+	function requireSupportedForProcessing<T>(value: T): T;
 
 	/**
 	 * Sets the innerHTML property of the specified element to the specified text.
@@ -8338,7 +8363,7 @@ declare module WinJS.Utilities {
 	 * Configures a logger that writes messages containing the specified tags to the JavaScript console.
 	 * @param options The tags for messages to log. Multiple tags should be separated by spaces. May contain type, tags, excludeTags and action properties.
 	**/
-	function startLog(options?: any): void;
+    function startLog(options?: ILogOptions): void;
 
 	/**
 	 * Removes the WinJS logger that had previously been set up.
@@ -8351,11 +8376,27 @@ declare module WinJS.Utilities {
 	 * @param name The name of the class to toggle.
 	 * @returns The element.
 	**/
-	function toggleClass(e: HTMLElement, name: string): HTMLElement;
+	function toggleClass<T extends HTMLElement>(e: T, name: string): T;
 
 	//#endregion Functions
 
+    //#region Properties
+
+    /**
+     * Gets whether the current script context has access to WinRT APIs.
+    **/
+    var hasWinRT: boolean;
+
+    //#endregion Properties
+
 	//#region Interfaces
+
+    interface ILogOptions {
+        type: string;
+        action?: (message: string, tags: string, type: string) => void;
+        excludeTags: string;
+        tags: string;
+    }
 
 	interface IPosition {
 		left: number;
@@ -8555,7 +8596,7 @@ declare module WinJS.Utilities.Scheduler {
 	 * @param name A description of the work item for diagnostics. The default value is an empty string.
 	 * @returns The job instance that represents this work item.
 	**/
-	function schedule(work: (jobInfo: IJobInfo) => void, priority?: Priority, thisArg?: any, name?: string): IJob;
+	function schedule(work: (jobInfo: IJobInfo) => any, priority?: Priority, thisArg?: any, name?: string): IJob;
 
 	/**
 	 * Schedules a job to complete the returned Promise at WinJS.Utilities.Scheduler.Priority.aboveNormal priority.
@@ -8563,7 +8604,7 @@ declare module WinJS.Utilities.Scheduler {
 	 * @param jobName A string that describes the job for diagnostic purposes.
 	 * @returns A Promise that completes within a job of aboveNormal priority.
 	**/
-	function schedulePromiseAboveNormal<U>(promiseValue?: Promise<U>, jobName?: string): Promise<U>;
+	function schedulePromiseAboveNormal<U>(promiseValue?: U, jobName?: string): Promise<U>;
 
 	/**
 	 * Schedules a job to complete the returned Promise at WinJS.Utilities.Scheduler.Priority.belowNormal priority.
@@ -8571,7 +8612,7 @@ declare module WinJS.Utilities.Scheduler {
 	 * @param jobName A string that describes the job for diagnostic purposes.
 	 * @returns A Promise that completes within a job of belowNormal priority.
 	**/
-	function schedulePromiseBelowNormal<U>(promiseValue?: Promise<U>, jobName?: string): Promise<U>;
+	function schedulePromiseBelowNormal<U>(promiseValue?: U, jobName?: string): Promise<U>;
 
 	/**
 	 * Schedules a job to complete the returned Promise at WinJS.Utilities.Scheduler.Priority.high priority.
@@ -8579,7 +8620,7 @@ declare module WinJS.Utilities.Scheduler {
 	 * @param jobName A string that describes the job for diagnostic purposes.
 	 * @returns A Promise that completes within a job of high priority.
 	**/
-	function schedulePromiseHigh<U>(promiseValue?: Promise<U>, jobName?: string): Promise<U>;
+	function schedulePromiseHigh<U>(promiseValue?: U, jobName?: string): Promise<U>;
 
 	/**
 	 * Schedules a job to complete the returned Promise at WinJS.Utilities.Scheduler.Priority.Idle priority.
@@ -8587,7 +8628,7 @@ declare module WinJS.Utilities.Scheduler {
 	 * @param jobName A string that describes the job for diagnostic purposes.
 	 * @returns A Promise that completes within a job of idle priority.
 	**/
-	function schedulePromiseIdle<U>(promiseValue?: Promise<U>, jobName?: string): Promise<U>;
+	function schedulePromiseIdle<U>(promiseValue?: U, jobName?: string): Promise<U>;
 
 	/**
 	 * Schedules a job to complete the returned Promise at WinJS.Utilities.Scheduler.Priority.normal priority.
@@ -8595,7 +8636,7 @@ declare module WinJS.Utilities.Scheduler {
 	 * @param jobName A string that describes the job for diagnostic purposes.
 	 * @returns A Promise that completes within a job of normal priority.
 	**/
-	function schedulePromiseNormal<U>(promiseValue?: Promise<U>, jobName?: string): Promise<U>;
+	function schedulePromiseNormal<U>(promiseValue?: U, jobName?: string): Promise<U>;
 
 	//#endregion Functions
 
