@@ -10550,7 +10550,6 @@ var container, stats;
         }
 
         geometry.computeFaceNormals();
-        geometry.computeCentroids();
 
         group = new THREE.Object3D();
         group.scale.x = group.scale.y = group.scale.z = 2;
@@ -16481,13 +16480,13 @@ function render() {
                 var normalLength = 15;
 
                 var fl: number;
-                var face: THREE.Face;
+                var face: THREE.Face3;
 
                 for( f = 0, fl = geometry.faces.length; f < fl; f ++ ) {
                     face = geometry.faces[ f ];
                     var arrow = new THREE.ArrowHelper( 
                             face.normal,
-                            face.centroid,
+                            face.normal,
                             normalLength,
                             0x3333FF );
                     mesh.add( arrow );
@@ -17321,7 +17320,6 @@ function render() {
                 // mergeVertices(); is run in case of duplicated vertices
                 smooth.mergeVertices();
 
-                smooth.computeCentroids();
                 smooth.computeFaceNormals();
                 smooth.computeVertexNormals();
 
