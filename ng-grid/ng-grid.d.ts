@@ -1,6 +1,6 @@
 // Type definitions for ng-grid 
 // Project: http://angular-ui.github.io/ng-grid/
-// Definitions by: Ken Smith <https://github.com/smithkl42> and Roland Zwaga <https://github.com/rolandzwaga>
+// Definitions by: Ken Smith <https://github.com/smithkl42> and Roland Zwaga <https://github.com/rolandzwaga> and Kent Cooper <https://github.com/kentcooper>
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
 
 // These are very definitely preliminary. Please feel free to improve.
@@ -471,11 +471,68 @@ declare module ngGrid {
     }
 
     export interface IColumnDef {
+        /**
+         * This can be an absolute numberor it can also be defined in percentages (20%, 30%), 
+         * in weighted *s, or "auto" (which sizes the column based on data length) 
+         * (much like WPF/Silverlight)/ note: "auto" only works in single page apps currently because the re-size 
+         * happens on "document.ready
+         */
+        width?: any;
+
+        /** The minum width the column is allowed to be. See width for the different options */
+        minWidth?: any;
+
+        /** Set the default visiblity of the column */
+        visible?: boolean;
+
+        /** Can also be a property path on your data model. "foo.bar.myField", "Name.First", etc..*/
         field?: string;
-        width?: any;  //**this can be a string containing a relatively, absolute size units or a number: '30%','54px',45 /*
+
+        /** What to display in the column header */
         displayName?: string;
-        cellTemplate?: string;
+
+        /** Restrict or allow the column to be sorted */
+        sortable?: boolean;
+
+        /** Restrict or allow the column to be resized */
+        resizable?: boolean;
+
+        /** Allows the column to be grouped with drag and drop, but has no effect on gridOptions.groups */
+        groupable?: boolean;
+
+        /** Allows the column to be pinned when enablePinning is set to true */
+        pinnable?: boolean;
+
+        /** The template to use while editing */
+        editableCellTemplate?: string;
+    
+        /** Allows the cell to use an edit template when focused (grid option enableCellSelection must be enabled)*/
         enableCellEdit?: boolean;
+        
+        /** Controls when to use the edit template on per-row basis using an angular expression (enableCellEdit must also be true for editing)*/
+        cellEditableCondition?: string;
+
+        /** The funtion to use when filtering values in this column */
+        sortFn?: (a: any, b: any) => number;
+
+        /** Html template used to render the cell */
+        cellTemplate?: string;
+
+        /** User defined CSS class name */
+        cellClass?: string;
+
+        /** User defined CSS class name for the header cell */
+        headerClass?: string;
+
+        /** Html template used to render the header cell */
+        headerCellTemplate?: string;
+
+        /** string name for filter to use on the cell ('currency', 'date', etc..) */
+        cellFilter?: string;
+        
+        /** String name for filter to use on the aggregate label ('currency', 'date', etc..) defaults to cellFilter if not set. */
+        aggLabelFilter?: string;
+
         pinned?: boolean;
     }
 
