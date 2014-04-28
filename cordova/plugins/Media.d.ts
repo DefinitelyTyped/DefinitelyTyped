@@ -28,19 +28,6 @@ declare var Media: {
  */
 interface Media {
     /**
-     * Constructor for Media object.
-     * @param  src          A URI containing the audio content.
-     * @param  mediaSuccess The callback that executes after a Media object has completed
-     *                      the current play, record, or stop action.
-     * @param  mediaError   The callback that executes if an error occurs.
-     * @param  mediaStatus  The callback that executes to indicate status changes.
-     */
-    new (
-        src: string,
-        mediaSuccess: () => void,
-        mediaError?: (error: MediaError) => any,
-        mediaStatus?: (status: number) => void): Media;
-    /**
      * Returns the current position within an audio file. Also updates the Media object's position parameter.
      * @param mediaSuccess The callback that is passed the current position in seconds.
      * @param mediaError   The callback to execute if an error occurs.
