@@ -1,3 +1,8 @@
+// Type definitions for jsTree v3.0.0
+// Project: http://www.jstree.com/
+// Definitions by: Adam Pluciñski <https://github.com/adaskothebeast>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 ///<reference path="../jquery/jquery.d.ts" />
 
 interface JQueryStatic {
@@ -48,10 +53,44 @@ interface JSTreeStatic {
 
     /**
     * get a reference to an existing instance
-    * @param needle <DOMElement, jQuery, String>
-    * @returns {JSTree} the instance or `null` if not found
+    * 
+    * __Examples__
+    *
+    * $.jstree.reference('tree');
+    * $.jstree.reference('#tree');
+    * $.jstree.reference('branch');
+    * $.jstree.reference('#branch');
+    *
+    * @param {String} selector 
+    * @returns {JSTree|null} the instance or `null` if not found
     */
-    reference(needle: any): JSTree;
+    reference(selector: string): JSTree;
+
+    /**
+    * get a reference to an existing instance
+    * 
+    * __Examples__
+    *
+    * $.jstree.reference(document.getElementByID('tree'));
+    * $.jstree.reference(document.getElementByID('branch'));
+    *
+    * @param {HTMLElement} element 
+    * @returns {JSTree|null} the instance or `null` if not found
+    */
+    reference(element: HTMLElement): JSTree;
+
+    /**
+    * get a reference to an existing instance
+    * 
+    * __Examples__
+    *
+    * $.jstree.reference($('#tree'));
+    * $.jstree.reference($('#branch'));
+    *
+    * @param {JQuery} object 
+    * @returns {JSTree|null} the instance or `null` if not found
+    */
+    reference(object: JQuery): JSTree;
 }
 
 interface JSTreeStaticDefaults {
@@ -121,10 +160,18 @@ interface JSTreeStaticDefaultsCore {
     * configure the various strings used throughout the tree
     */
     strings?: any;
+    
     /**
-    *     
+    *
     */
-    check_callback?: (operation: string, node: any, node_parent: any, node_position: any) => void;
+    check_callback?: (operation: string, node: any, node_parent: any, node_position: any) => boolean;
+
+    /**
+    * a callback called with a single object parameter in the instance's scope 
+    * when something goes wrong (operation prevented, ajax failed, etc)
+    */
+    error: () => any;
+
     /**
     * the open / close animation duration in milliseconds
     * set this to false to disable the animation (default is 200)
@@ -137,7 +184,12 @@ interface JSTreeStaticDefaultsCore {
     /**
     * theme configuration object
     */
-    themes?:JSTreeStaticDefaultsCoreThemes;
+    themes?: JSTreeStaticDefaultsCoreThemes;
+    /**
+    * if left as true all parents of all selected nodes will be opened 
+    * once the tree loads (so that all selected nodes are visible to the user)
+    */
+    expand_selected_onload?: boolean;
 }
 
 interface JSTreeStaticDefaultsCoreThemes {
@@ -177,11 +229,6 @@ interface JSTreeStaticDefaultsCoreThemes {
     * in on smaller screens (if the theme supports it). Defaults to true.
     */
     responsive?: boolean;
-    /**
-    * if left as true all parents of all selected nodes will be opened 
-    * once the tree loads (so that all selected nodes are visible to the user)
-    */
-    expand_selected_onload?:boolean;
 
 }
 
@@ -236,7 +283,7 @@ interface JSTreeStaticDefaultsContextMenu {
 interface JSTreeStaticDefaultsDragNDrop {
     /**
     * a boolean indicating if a copy should be possible 
-    * while dragging (by pressint the meta key or Ctrl). Defaults to true.
+    * while dragging (by pressint the meta key or Ctrl). Defaults to 'true'.
     */
     copy: boolean;
     /**
@@ -244,6 +291,26 @@ interface JSTreeStaticDefaultsDragNDrop {
     * while dragging to be opened. Defaults to 500.
     */
     open_timeout: number;
+
+    /**
+    * a function invoked each time a node is about to be dragged, 
+    * invoked in the tree's scope and receives the nodes about to be dragged 
+    * as an argument (array) - return `false` to prevent dragging
+    */
+    is_draggable: boolean;
+
+    /**
+    * a boolean indicating if checks should constantly be made 
+    * while the user is dragging the node (as opposed to checking only on drop), 
+    * default is `true`
+    */
+    check_while_dragging: boolean;
+
+    /**
+    * a boolean indicating if nodes from this tree should only be copied 
+    * with dnd (as opposed to moved), default is `false`
+    */
+    always_copy: boolean;
 }
 
 interface JSTreeStaticDefaultsSearch {
@@ -274,6 +341,11 @@ interface JSTreeStaticDefaultsSearch {
     * should be closed when the search is cleared or a new search is performed. Default is true.
     */
     close_opened_onclear: boolean;
+
+    /**
+    * Indicates if only leaf nodes should be included in search results. Default is `false`.
+    */
+    search_leaves_only: boolean;
 }
 
 interface JSTreeStaticDefaultsState {
@@ -287,6 +359,20 @@ interface JSTreeStaticDefaultsState {
     * Defaults to changed.jstree open_node.jstree close_node.jstree.
     */
     events: string;
+
+    /**
+    * Time in milliseconds after which the state will expire.
+    * Defaults to 'false' meaning - no expire.
+    */
+    ttl: any;
+
+    /**
+    * A function that will be executed prior to restoring state 
+    * with one argument - the state object. Can be used 
+    * to clear unwanted parts of the state.
+    */
+    filter: any;
+
 }
 
 interface JQuery {
@@ -612,6 +698,11 @@ interface JSTree extends JQuery {
     * show the icon on an individual node
     */
     show_icon: (obj: any) => void;
+    /**
+    */
+    redraw_node: (obj: any, deep:boolean, is_callback:boolean) => any;
+    activate_node: (obj: any, e: any) => any;
+
     /*
     * checkbox plugin: show the node checkbox icons
     */
@@ -624,6 +715,10 @@ interface JSTree extends JQuery {
     * checkbox plugin: toggle the node icons
     */
     toggle_checkboxes: () => void;
+    /**
+    * context menu plugin
+    */
+    teardown: () => void;
     /**
     * context menu plugin:  show the context menu for a node
     * @param obj the node

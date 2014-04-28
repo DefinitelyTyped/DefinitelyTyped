@@ -168,6 +168,7 @@ All definitions files include a header with the author and editors, so at some p
 * [JSON-Pointer](https://www.npmjs.org/package/json-pointer) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [JsRender](http://www.jsviews.com/#jsrender) (by [Kensuke MATSUZAKI](https://github.com/zakki))
 * [jStorage](http://www.jstorage.info/) (by [Danil Flores](https://github.com/dflor003/))
+* [jsTree](http://www.jstree.com/) (by [Adam Pluciński](https://github.com/adaskothebeast))
 * [JWPlayer](http://developer.longtailvideo.com/trac/) (by [Martin Duparc](https://github.com/martinduparc/))
 * [KeyboardJS](https://github.com/RobertWHurst/KeyboardJS) (by [Vincent Bortone](https://github.com/vbortone/))
 * [KineticJS](http://kineticjs.com/) (by [Basarat Ali Syed](https://github.com/basarat))
