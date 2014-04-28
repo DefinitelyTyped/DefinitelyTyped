@@ -7905,17 +7905,6 @@ declare module WinJS.Utilities {
 	 * Represents the result of a query selector, and provides various operations that perform actions over the elements of the collection.
 	**/
 	interface QueryCollection<T> extends Array<T> {
-		//#region Constructors
-
-		/**
-		 * Initializes a new instance of a QueryCollection.
-		 * @constructor 
-		 * @param items The items resulting from the query.
-		**/
-		constructor(items: T[]);
-
-		//#endregion Constructors
-
 		//#region Methods
 
 		/**
@@ -8060,6 +8049,14 @@ declare module WinJS.Utilities {
 
 		//#endregion Methods
 
+	}
+
+	/**
+	 * Constructor support for QueryCollection interface
+	**/
+	export var QueryCollection: {
+		new <T>(items: T[]): QueryCollection<T>;
+		prototype: QueryCollection<any>;
 	}
 
 	//#endregion Objects
