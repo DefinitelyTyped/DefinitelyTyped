@@ -442,6 +442,9 @@ declare module JQueryUI {
     }
 
     interface SliderUIParams {
+        value: number;
+        values?: number[];
+        handle: JQuery;
     }
 
     interface SliderEvent {
@@ -537,6 +540,7 @@ declare module JQueryUI {
     }
 
     interface SpinnerUIParams {
+        value: number;
     }
 
     interface SpinnerEvent {
