@@ -10,7 +10,7 @@
 declare module "mu2" {
 	export var root: string;
 
-	export function compileAndRender(templateName: string, view: any): ReadableStream;
+	export function compileAndRender(templateName: string, view: any): NodeJS.ReadableStream;
 
 	export function compile(filename: string, callback: (err: Error, parsed: IParsed) => void): void;
 
@@ -18,10 +18,10 @@ declare module "mu2" {
 	export function compileText(name: string, template: string): IParsed;
 	export function compileText(template: string): IParsed;
 
-	export function render(filenameOrParsed: string, view: any): ReadableStream;
-	export function render(filenameOrParsed: IParsed, view: any): ReadableStream;
+	export function render(filenameOrParsed: string, view: any): NodeJS.ReadableStream;
+	export function render(filenameOrParsed: IParsed, view: any): NodeJS.ReadableStream;
 
-	export function renderText(template: string, view: any, partials?: any): ReadableStream;
+	export function renderText(template: string, view: any, partials?: any): NodeJS.ReadableStream;
 
 	export function clearCache(templateName?: string): void;
 
