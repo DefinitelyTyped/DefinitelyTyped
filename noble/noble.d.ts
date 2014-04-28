@@ -104,4 +104,3 @@ declare module "noble" {
     }
 }
 
-// vim expandtab shiftwidth=4

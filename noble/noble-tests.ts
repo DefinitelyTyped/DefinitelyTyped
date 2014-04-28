@@ -80,4 +80,3 @@ descriptor.writeValue(new Buffer(1), (error: string): void => {});
 descriptor.on("valueRead", (error: string, data: NodeBuffer): void => {});
 descriptor.on("valueWrite", (error: string): void => {});
 
-// vim expandtab shiftwidth=4
