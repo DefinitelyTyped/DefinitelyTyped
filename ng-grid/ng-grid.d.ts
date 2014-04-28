@@ -175,7 +175,7 @@ declare module ngGrid {
         groupIndex:number;
         isGroupedBy:boolean;
         minWidth:number;
-        maxWidth:number
+        maxWidth:number;
         enableCellEdit:boolean;
         cellEditableCondition:any;
         headerRowHeight:number;
