@@ -8243,7 +8243,7 @@ declare module WinJS.Utilities {
 	 * @param element Optional. The root element at which to start the query. If this parameter is omitted, the scope of the query is the entire document.
 	 * @returns A QueryCollection with zero or one elements matching the specified selector query.
 	**/
-	function query(query: any, element: HTMLElement): QueryCollection<HTMLElement>;
+	function query(query: any, element?: HTMLElement): QueryCollection<HTMLElement>;
 
 	/**
 	 * Ensures that the specified function executes only after the DOMContentLoaded event has fired for the current page. The DOMContentLoaded event occurs after the page has been parsed but before all the resources are loaded.
