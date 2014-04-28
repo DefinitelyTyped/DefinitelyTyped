@@ -1,5 +1,7 @@
 /// <reference path="node-uuid.d.ts" />
 
+import uuid = require('node-uuid');
+
 var uid1: string = uuid.v1()
 var uid2: string = uuid.v2()
 var uid3: string = uuid.v3()
