@@ -75,7 +75,7 @@ function test_basic() {
 
     $scope.account = account.get({ single: true });
 
-    account.customPOST("messages", { param: "myParam" }, {}, { name: "My Message" })
+    account.customPOST({ name: "My Message" }, "messages", { param: "myParam" }, {})
 }
 
 function test_config() {

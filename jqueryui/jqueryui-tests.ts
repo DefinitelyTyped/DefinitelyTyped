@@ -1362,6 +1362,33 @@ function test_datepicker() {
         $set = $(".selector").datepicker("option", "defaultDate", new Date());
         $set = $(".selector").datepicker("option", "defaultDate", "+1m +7d");
     }
+
+    function duration() {
+        $(".selector").datepicker({ duration: "slow" });
+
+        var duration: string = $(".selector").datepicker("option", "duration");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "duration", "slow");
+    }
+
+    function firstDay() {
+        $(".selector").datepicker({ firstDay: 1 });
+
+        var firstDay: number = $(".selector").datepicker("option", "firstDay");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "firstDay", 1);
+    }
+
+    function gotoCurrent() {
+        $(".selector").datepicker({ gotoCurrent: true });
+
+        var gotoCurrent: boolean = $(".selector").datepicker("option", "gotoCurrent");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "gotoCurrent", true);
+    }
 }
 
 
