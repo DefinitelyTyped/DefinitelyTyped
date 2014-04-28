@@ -12,7 +12,9 @@
 //TODO find solution for overloaded return types (QioFS.open/QioFS.read)
 //     for some ideas see https://typescript.codeplex.com/discussions/461587#post1105930
 
-declare module Qio {
+/*declare module Qio {
+
+    export function huha();
 
     interface ForEachCallback {
 		(chunk:NodeBuffer):q.Promise<any>;
@@ -48,27 +50,22 @@ declare module Qio {
         node:any;
 	}
 
-    export interface BufferReader extends QioBufferReader {
+	interface BufferReader extends QioBufferReader {
 
 	}
-
-    export interface QioBufferReader {
-        new ():Reader;
-        read(stream:Reader, charset:string):string;
-        read(stream:Reader):NodeBuffer;
-        join(buffers:NodeBuffer[]):NodeBuffer;
-    }
-    export interface QioBufferWriter {
-        (writer:NodeBuffer):Writer;
-        Writer:Qio.Writer;
-    }
-    export interface QioBufferStream {
-        (buffer:NodeBuffer, encoding:string):Stream
-    }
 }
+interface QioBufferReader {
 
+}
+interface QioBufferWriter {
+	(writer:NodeBuffer):Qio.Writer;
+	Writer:Qio.Writer;
+}
+interface QioBufferStream {
+	(buffer:NodeBuffer, encoding:string):Qio.Stream
+}*/
 
-declare module "q-io/http" {
+/*declare module "q-io/http" {
     import q                                       = require('q');
 
     export function request(request:Request):q.Promise<Response>;
@@ -116,7 +113,7 @@ declare module "q-io/http" {
     interface Application {
         (req:Request):q.Promise<any>;
     }
-}
+}*/
 
 declare module "q-io/fs" {
     import q = require('q');
@@ -244,12 +241,19 @@ declare module "q-io/fs" {
         ctime:Date;
     }
 }
+
+/*
 declare module "q-io/reader" {
-export = Qio.QioBufferReader;
+    //new ():Qio.Reader;
+    export function read(stream:Qio.Reader, charset:string):string;
+    export function read(stream:Qio.Reader):NodeBuffer;
+    export function join(buffers:NodeBuffer[]):NodeBuffer;
 }
 declare module "q-io/writer" {
-export = Qio.QioBufferWriter;
+    //export function (writer:NodeBuffer):Qio.Writer;
+    Writer:Qio.Writer;
 }
 declare module "q-io/buffer-stream" {
-export = Qio.QioBufferStream;
+export = QioBufferStream;
 }
+*/
