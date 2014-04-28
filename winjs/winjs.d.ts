@@ -76,17 +76,17 @@ declare module WinJS.Application {
 	/**
 	 * The local storage of the application.
 	**/
-    	var local: IOHelper;
+	var local: IOHelper;
 
 	/**
 	 * The roaming storage of the application.
 	**/
-		var roaming: IOHelper;
+	var roaming: IOHelper;
 
 	/**
 	 * The temp storage of the application.
 	**/
-		var temp: IOHelper;
+	var temp: IOHelper;
 
 	/**
 	 * An object used for storing app information that can be used to restore the app's state after it has been suspended and then resumed. Data that can usefully be contained in this object includes the current navigation page or any information the user has added to the input controls on the page. You should not add information about customization (for example colors) or user-defined lists of content.
@@ -7904,7 +7904,7 @@ declare module WinJS.Utilities {
 	/**
 	 * Represents the result of a query selector, and provides various operations that perform actions over the elements of the collection.
 	**/
-	class QueryCollection<T> {
+	interface QueryCollection<T> extends Array<T> {
 		//#region Constructors
 
 		/**
