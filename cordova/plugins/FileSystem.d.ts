@@ -25,17 +25,7 @@ interface Window {
 
 /** This interface represents a file system. */
 interface FileSystem {
-    /**
-     * Constructor for FileSystem object
-     * @param name This is the name of the file system. The specifics of naming filesystems
-     *             is unspecified, but a name must be unique across the list of exposed file systems.
-     * @param root The root directory of the file system.
-     */
-    new (name: string, root: DirectoryEntry)
-    /**
-     * This is the name of the file system. The specifics of naming filesystems
-     * is unspecified, but a name must be unique across the list of exposed file systems.
-     */
+    /* The name of the file system, unique across the list of exposed file systems. */
     name: string;
     /** The root directory of the file system. */
     root: DirectoryEntry;
@@ -46,8 +36,6 @@ interface FileSystem {
  * each of which may be a File or DirectoryEntry.
  */
 interface Entry {
-    /** Constructor for Entry object */
-    new ( isFile: boolean, isDirectory: boolean, name: string, fullPath: string, fileSystem: FileSystem, nativeURL: string) ;
     /** Entry is a file. */
     isFile: boolean;
     /** Entry is a directory. */
@@ -265,13 +253,13 @@ interface FileSaver extends EventTarget {
  */
 interface FileWriter extends FileSaver {
     /**
-     * The byte offset at which the next write to the file will occur. This must be no greater than length.
-     * A newly-created FileWriter must have position set to 0.
+     * The byte offset at which the next write to the file will occur. This always less or equal than length.
+     * A newly-created FileWriter will have position set to 0.
      */
     position: number;
     /**
      * The length of the file. If the user does not have read access to the file,
-     * this must be the highest byte offset at which the user has written.
+     * this will be the highest byte offset at which the user has written.
      */
     length: number;
     /**
@@ -287,7 +275,7 @@ interface FileWriter extends FileSaver {
     seek(offset: number): void;
     /**
      * Changes the length of the file to that specified. If shortening the file, data beyond the new length
-     * must be discarded. If extending the file, the existing data must be zero-padded up to the new length.
+     * will be discarded. If extending the file, the existing data will be zero-padded up to the new length.
      * @param size The size to which the length of the file is to be adjusted, measured in bytes.
      */
     truncate(size: number): void;
