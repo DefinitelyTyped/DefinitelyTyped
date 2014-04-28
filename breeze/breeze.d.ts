@@ -382,7 +382,7 @@ declare module breeze {
         executeQuery(query: EntityQuery, callback?: ExecuteQuerySuccessCallback, errorCallback?: ExecuteQueryErrorCallback): Q.Promise<QueryResult>;
 
         executeQueryLocally(query: EntityQuery): Entity[];
-        exportEntities(entities?: Entity[]): string;
+        exportEntities(entities?: Entity[], includeMetadata?: boolean): string;
         fetchEntityByKey(typeName: string, keyValue: any, checkLocalCacheFirst?: boolean): Q.Promise<EntityByKeyResult>;
         fetchEntityByKey(typeName: string, keyValues: any[], checkLocalCacheFirst?: boolean): Q.Promise<EntityByKeyResult>;
         fetchEntityByKey(entityKey: EntityKey, checkLocalCacheFirst?: boolean): Q.Promise<EntityByKeyResult>;
