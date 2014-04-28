@@ -6,7 +6,7 @@ import stream = require('stream');
 
 var str: string;
 var value: any;
-var read: ReadableStream;
+var read: NodeJS.ReadableStream;
 var parsed: mu2.IParsed;
 
 str = mu2.root;
