@@ -877,7 +877,7 @@ declare module breeze.config {
     var dataService: string;
     var functionRegistry: Object;
     export function getAdapter(interfaceName: string, adapterName: string): Object;
-    export function getAdapterInstance(interfaceName: string, adapterName: string): Object;
+    export function getAdapterInstance(interfaceName: string, adapterName?: string): Object;
     export function initializeAdapterInstance(interfaceName: string, adapterName: string, isDefault: boolean): void;
     export function initializeAdapterInstances(config: Object): void;
     var interfaceInitialized: Event;
