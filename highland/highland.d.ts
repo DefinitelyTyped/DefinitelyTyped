@@ -62,8 +62,8 @@ interface HighlandStatic {
 	<R>(xs: (push: (err: Error, x?: R) => void, next: () => void) => void): Highland.Stream<R>;
 
 	<R>(xs: Highland.Stream<R>): Highland.Stream<R>;
-	<R>(xs: ReadableStream): Highland.Stream<R>;
-	<R>(xs: NodeEventEmitter): Highland.Stream<R>;
+	<R>(xs: NodeJS.ReadableStream): Highland.Stream<R>;
+	<R>(xs: NodeJS.EventEmitter): Highland.Stream<R>;
 
 	// moar (promise for everything?)
 	<R>(xs: Highland.Thenable<Highland.Stream<R>>): Highland.Stream<R>;
@@ -365,7 +365,7 @@ declare module Highland {
 	/**
 	 * Actual Stream constructor wrapped the the main exported function
 	 */
-	interface Stream<R> extends NodeEventEmitter {
+	interface Stream<R> extends NodeJS.EventEmitter {
 
 		/**
 		 * Pauses the stream. All Highland Streams start in the paused state.
@@ -419,8 +419,8 @@ declare module Highland {
 		 * @api public
 		 */
 		pipe<U>(dest: Stream<U>): Stream<U>;
-		pipe<U>(dest: ReadWriteStream): Stream<U>;
-		pipe(dest: WritableStream): void;
+		pipe<U>(dest: NodeJS.ReadWriteStream): Stream<U>;
+		pipe(dest: NodeJS.WritableStream): void;
 
 		/**
 		 * Destroys a stream by unlinking it from any consumers and sources. This will

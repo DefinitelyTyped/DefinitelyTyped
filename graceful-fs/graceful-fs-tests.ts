@@ -3,6 +3,6 @@
 import fs = require('graceful-fs');
 
 var str: string;
-var buf: NodeBuffer;
+var buf: Buffer;
 
 fs.renameSync(str, str);

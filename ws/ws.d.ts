@@ -110,7 +110,7 @@ declare module "ws" {
 
             close(): void;
             handleUpgrade(request: http.ClientRequest, socket: net.Socket,
-                          upgradeHead: NodeBuffer, callback: (client: WebSocket) => void): void;
+                          upgradeHead: Buffer, callback: (client: WebSocket) => void): void;
 
             // Events
             on(event: string, listener: () => void): Server;
