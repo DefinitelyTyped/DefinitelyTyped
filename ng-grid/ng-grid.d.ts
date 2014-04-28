@@ -17,7 +17,6 @@ declare class ngGridReorderable {
 declare module ngGrid {
 
     export interface IDomAccessProvider {
-        new(grid:IGridInstance):IDomAccessProvider;
         previousColumn:IColumn;
         grid:IGridInstance;
         changeUserSelect(elm:ng.IAugmentedJQuery, value:string):void;

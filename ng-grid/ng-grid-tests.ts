@@ -1,4 +1,5 @@
-﻿/// <reference path="ng-grid.d.ts" />
+/// <reference path="ng-grid.d.ts" />
+/// <reference path="../angularjs/angular.d.ts" />
 
 var options1: ngGrid.IGridOptions = {
     data: [{ 'Name': 'Bob' }, { 'Name': 'Jane' }]
@@ -25,3 +26,14 @@ var options4: ngGrid.IGridOptions = {
         currentPage: 1
     }
 };
+
+class SearchProvider implements ngGrid.ISearchProvider {
+    fieldMap: any;
+    extFilter: boolean;
+    
+    constructor($scope:ngGrid.IGridScope, grid:ngGrid.IGridInstance, $filter:ng.IFilterService) {
+    }
+    
+    evalFilter():void {
+    }
+}
