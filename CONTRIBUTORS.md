@@ -58,6 +58,7 @@ All definitions files include a header with the author and editors, so at some p
 * [dust](http://linkedin.github.com/dustjs) (by [Marcelo Dezem](https://github.com/mdezem))
 * [EaselJS](http://www.createjs.com/#!/EaselJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [EasyStar](http://easystarjs.com/) (by [Magnus Gustafsson](https://github.com/Borundin))
+* [Elm](http://elm-lang.org) (by [Dénes Harmath](https://github.com/thSoft))
 * [ember.js](http://emberjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [emissary](https://github.com/atom/emissary) (by [vvakame](https://github.com/vvakame))
 * [EpicEditor](http://epiceditor.com/) (by [Boris Yankov](https://github.com/borisyankov))
