@@ -2286,6 +2286,21 @@ function attrObjTest () {
         .attr({"xlink:href": function(d, i) { return d + "-" + i + ".png"; }});
 }
 
+// Test for setting styles as an object
+// From https://github.com/mbostock/d3/blob/master/test/selection/style-test.js
+function styleObjTest () {
+    d3.select('body')
+        .style({"background-color": "white", opacity: .42});
+}
+
+// Test for setting styles as an object
+// From https://github.com/mbostock/d3/blob/master/test/selection/property-test.js
+function propertyObjTest () {
+    d3.select('body')
+        .property({bgcolor: "purple", opacity: .41});
+}
+
+
 // Test for brushes
 // This triggers a bug (shown below) in the 0.9.0 compiler, but works with
 // 0.9.1 compiler.
