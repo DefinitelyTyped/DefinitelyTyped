@@ -504,7 +504,7 @@ declare module "less" {
             value: string;
 
             toCSS(env?: Options): string;
-            genCSS(env?: Options, output): string;
+            genCSS(env: Options, output): string;
             eval(): Attribute;
         }
 
