@@ -497,6 +497,16 @@ declare module "less" {
             toCSS(env?: Options): string;
             eval(): UnicodeDescriptor;
         }
+        
+        export class Attribute implements IInjectable {
+            constructor(value: string);
+
+            value: string;
+
+            toCSS(env?: Options): string;
+            genCSS(env: Options, output): string;
+            eval(): Attribute;
+        }
 
         export var debugInfo: DebugInfoFunction;
         export function find(obj: any[], fun: Function): any;
