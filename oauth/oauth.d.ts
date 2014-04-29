@@ -1,9 +1,7 @@
 declare module "oauth"
 {
-    import oauth                                      = require('oauth');
-
     export class OAuth
     {
-        constructor(requestUrl, accessUrl, consumerKey, consumerSecret, version, authorize_callback, signatureMethod, nonceSize, customHeaders);
+        constructor(requestUrl, accessUrl, consumerKey, consumerSecret, version, authorize_callback, signatureMethod, nonceSize?, customHeaders?);
     }
 }
