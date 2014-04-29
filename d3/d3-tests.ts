@@ -2286,62 +2286,57 @@ function attrObjTest () {
         .attr({"xlink:href": function(d, i) { return d + "-" + i + ".png"; }});
 }
 
+// Test for setting styles as an object
+// From https://github.com/mbostock/d3/blob/master/test/selection/style-test.js
+function styleObjTest () {
+    d3.select('body')
+        .style({"background-color": "white", opacity: .42});
+}
+
+// Test for setting styles as an object
+// From https://github.com/mbostock/d3/blob/master/test/selection/property-test.js
+function propertyObjTest () {
+    d3.select('body')
+        .property({bgcolor: "purple", opacity: .41});
+}
+
+
 // Test for brushes
-// This triggers a bug (shown below) in the 0.9.0 compiler, but works with
-// 0.9.1 compiler.
+function brushTest() {
+    var xScale = d3.scale.linear(),
+        yScale = d3.scale.linear();
 
-// Stack trace:
-// /usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:38215
-//      return (type === this.semanticInfoChain.anyTypeSymbol) || type.isError();
-//                                                                     ^
-// TypeError: Cannot call method 'isError' of null
-//     at PullTypeResolver.isAnyOrEquivalent (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:38215:76)
-//     at PullTypeResolver.resolveNameExpression (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:39953:39)
-//     at PullTypeResolver.resolveAST (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:39758:37)
-//     at PullTypeResolver.computeIndexExpressionSymbol (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:40933:37)
-//     at PullTypeResolver.resolveIndexExpression (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:40925:45)
-//     at PullTypeResolver.resolveAST (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:39870:33)
-//     at PullTypeResolver.resolveOverloads (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:42917:43)
-//     at PullTypeResolver.computeCallExpressionSymbol (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:41373:34)
-//     at PullTypeResolver.resolveCallExpression (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:41175:29)
-//     at PullTypeChecker.typeCheckCallExpression (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:45111:58)
-//     at PullTypeChecker.typeCheckAST (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:43786:33)
+    var xMin = 0, xMax = 1,
+        yMin = 0, yMax = 1;
 
-// function brushTest() {
-//     var xScale = d3.scale.linear(),
-//         yScale = d3.scale.linear();
-//
-//     var xMin = 0, xMax = 1,
-//         yMin = 0, yMax = 1;
-//
-//     // Setting only x scale.
-//     var brush1 = d3.svg.brush()
-//                     .x(xScale)
-//                     .on('brush', function () {
-//                         var extent = brush1.extent();
-//                         xMin = Math.max(extent[0], 0);
-//                         xMax = Math.min(extent[1], 1);
-//                         brush1.extent([xMin, xMax]);
-//                     });
-//
-//     // Setting both the x and y scale
-//     var brush2 = d3.svg.brush()
-//                     .x(xScale)
-//                     .y(yScale)
-//                     .on('brush', function () {
-//                         var extent = brush2.extent();
-//                         var xExtent = extent[0],
-//                             yExtent = extent[1];
-//
-//                         xMin = Math.max(xExtent[0], 0);
-//                         xMax = Math.min(xExtent[1], 1);
-//
-//                         yMin = Math.max(yExtent[0], 0);
-//                         yMax = Math.min(yExtent[1], 1);
-//
-//                         brush1.extent([[xMin, xMax], [yMin, yMax]]);
-//                     });
-// }
+    // Setting only x scale.
+    var brush1 = d3.svg.brush()
+                    .x(xScale)
+                    .on('brush', function () {
+                        var extent = brush1.extent();
+                        xMin = Math.max(extent[0], 0);
+                        xMax = Math.min(extent[1], 1);
+                        brush1.extent([xMin, xMax]);
+                    });
+
+    // Setting both the x and y scale
+    var brush2 = d3.svg.brush()
+                    .x(xScale)
+                    .y(yScale)
+                    .on('brush', function () {
+                        var extent = brush2.extent();
+                        var xExtent = extent[0],
+                            yExtent = extent[1];
+
+                        xMin = Math.max(xExtent[0], 0);
+                        xMax = Math.min(xExtent[1], 1);
+
+                        yMin = Math.max(yExtent[0], 0);
+                        yMax = Math.min(yExtent[1], 1);
+
+                        brush1.extent([[xMin, xMax], [yMin, yMax]]);
+                    });
+}
 
 
 // Tests for area
