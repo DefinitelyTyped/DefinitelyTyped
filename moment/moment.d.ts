@@ -258,16 +258,16 @@ interface MomentRelativeTime {
 
 interface MomentStatic {
 
-    (): Moment;
-    (date: number): Moment;
-    (date: number[]): Moment;
-    (date: string, format?: string, strict?: boolean): Moment;
-    (date: string, format?: string, language?: string, strict?: boolean): Moment;
-    (date: string, formats: string[], strict?: boolean): Moment;
-    (date: string, formats: string[], language?: string, strict?: boolean): Moment;
-    (date: Date): Moment;
-    (date: Moment): Moment;
-    (date: Object): Moment;
+    new();
+    new(date: number);
+    new(date: number[]);
+    new(date: string, format?: string, strict?: boolean);
+    new(date: string, format?: string, language?: string, strict?: boolean);
+    new(date: string, formats: string[], strict?: boolean);
+    new(date: string, formats: string[], language?: string, strict?: boolean);
+    new(date: Date);
+    new(date: Moment);
+    new(date: Object);
 
     utc(): Moment;
     utc(date: number): Moment;
