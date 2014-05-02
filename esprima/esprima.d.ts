@@ -271,4 +271,6 @@ declare module esprima {
     }
 }
 
-export = esprima
+declare module "esprima" {
+    export = esprima
+}
