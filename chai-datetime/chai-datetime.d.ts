@@ -18,13 +18,19 @@ declare module chai {
 	}
 
 	interface Assert {
-		afterDate(leftDate: Date, rightDate: Date): boolean;
-		beforeDate(leftDate: Date, rightDate: Date): boolean;
-		equalDate(leftDate: Date, rightDate: Date): boolean;
-
-		afterTime(leftDate: Date, rightDate: Date): boolean;
-		beforeTime(leftDate: Date, rightDate: Date): boolean;
-		equalTime(leftDate: Date, rightDate: Date): boolean;
+	        equalTime(val: Date, exp: Date, msg?: string): boolean;
+	        notEqualTime(val: Date, exp: Date, msg?: string): boolean;
+	        beforeTime(val: Date, exp: Date, msg?: string): boolean;
+	        notBeforeTime(val: Date, exp: Date, msg?: string): boolean;
+	        afterTime(val: Date, exp: Date, msg?: string): boolean;
+	        notAfterTime(val: Date, exp: Date, msg?: string): boolean;
+	        
+	        equalDate(val: Date, exp: Date, msg?: string): boolean;
+	        notEqualDate(val: Date, exp: Date, msg?: string): boolean;
+	        beforeDate(val: Date, exp: Date, msg?: string): boolean;
+	        notBeforeDate(val: Date, exp: Date, msg?: string): boolean;
+	        afterDate(val: Date, exp: Date, msg?: string): boolean;
+	        notAfterDate(val: Date, exp: Date, msg?: string): boolean;
 	}
 }
 
