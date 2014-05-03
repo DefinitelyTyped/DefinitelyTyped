@@ -746,11 +746,49 @@ declare module AtomCore {
 	}
 
 	interface IPointStatic {
-		new(row:any, column:any):IPoint;
+		new (row?:number, column?:number):IPoint;
+
+		fromObject(point:IPoint, copy?:boolean):IPoint;
+		fromObject(object:number[]):IPoint;
+		fromObject(object:{row:number; col:number;}):IPoint;
+
+		min(point1:IPoint, point2:IPoint):IPoint;
+		min(point1:number[], point2:IPoint):IPoint;
+		min(point1:{row:number; col:number;}, point2:IPoint):IPoint;
+
+		min(point1:IPoint, point2:number[]):IPoint;
+		min(point1:number[], point2:number[]):IPoint;
+		min(point1:{row:number; col:number;}, point2:number[]):IPoint;
+
+		min(point1:IPoint, point2:{row:number; col:number;}):IPoint;
+		min(point1:number[], point2:{row:number; col:number;}):IPoint;
+		min(point1:{row:number; col:number;}, point2:{row:number; col:number;}):IPoint;
 	}
 
 	interface IPoint {
-		// TBD
+		row:number;
+		column:number;
+
+		copy():IPoint;
+		freeze():IPoint;
+
+		translate(delta:IPoint):IPoint;
+		translate(delta:number[]):IPoint;
+		translate(delta:{row:number; col:number;}):IPoint;
+
+		add(other:IPoint):IPoint;
+		add(other:number[]):IPoint;
+		add(other:{row:number; col:number;}):IPoint;
+
+		splitAt(column:number):IPoint[];
+		compare(other:IPoint):number;
+		isEqual(other:IPoint):boolean;
+		isLessThan(other:IPoint):boolean;
+		isLessThanOrEqual(other:IPoint):boolean;
+		isGreaterThan(other:IPoint):boolean;
+		isGreaterThanOrEqual(other:IPoint):boolean;
+		toArray():number[];
+		serialize():number[];
 	}
 
 	interface IRangeStatic {
