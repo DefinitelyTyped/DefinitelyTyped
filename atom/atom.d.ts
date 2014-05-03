@@ -52,9 +52,201 @@ declare module AtomCore {
 		// TBD
 	}
 
-	interface IDisplayBuffer {
+	interface IDisplayBufferStatic {
+		new(_arg?:any):IDisplayBuffer;
+	}
+
+	interface IDisplayBuffer /* extends Theorist.Model */ {
+		// Serializable.includeInto(Editor);
+
+		constructor:IDisplayBufferStatic;
+
+		verticalScrollMargin:number;
+		horizontalScrollMargin:number;
+
+		declaredPropertyValues:any;
+		tokenizedBuffer: ITokenizedBuffer;
 		buffer: ITextBuffer;
-		// TBD
+		charWidthsByScope:any;
+		markers:{ [index:number]:IDisplayBufferMarker; };
+		foldsByMarkerId:any;
+		maxLineLength:number;
+		screenLines:ITokenizedLine[];
+		rowMap:any; // return type are RowMap
+		longestScreenRow:number;
+		subscriptions:ISubscription[];
+		subscriptionsByObject:any; // return type are WeakMap
+		behaviors:any;
+		subscriptionCounts:any;
+		eventHandlersByEventName:any;
+		pendingChangeEvent:any;
+
+		softWrap:boolean;
+
+		serializeParams():{id:number; softWrap:boolean; editorWidthInChars: number; scrollTop: number; scrollLeft: number; tokenizedBuffer: any; };
+		deserializeParams(params:any):any;
+		copy():IDisplayBuffer;
+		updateAllScreenLines():any;
+		emitChanged(eventProperties:any, refreshMarkers?:boolean):any;
+		updateWrappedScreenLines():any;
+		setVisible(visible:any):any;
+		getVerticalScrollMargin():number;
+		setVerticalScrollMargin(verticalScrollMargin:number):number;
+		getHorizontalScrollMargin():number;
+		setHorizontalScrollMargin(horizontalScrollMargin:number):number;
+		getHeight():any;
+		setHeight(height:any):any;
+		getWidth():any;
+		setWidth(newWidth:any):any;
+		getScrollTop():number;
+		setScrollTop(scrollTop:number):number;
+		getScrollBottom():number;
+		setScrollBottom(scrollBottom:number):number;
+		getScrollLeft():number;
+		setScrollLeft(scrollLeft:number):number;
+		getScrollRight():number;
+		setScrollRight(scrollRight:number):number;
+		getLineHeight():any;
+		setLineHeight(lineHeight:any):any;
+		getDefaultCharWidth():any;
+		setDefaultCharWidth(defaultCharWidth:any):any;
+		getScopedCharWidth(scopeNames:any, char:any):any;
+		getScopedCharWidths(scopeNames:any):any;
+		setScopedCharWidth(scopeNames:any, char:any, width:any):any;
+		setScopedCharWidths(scopeNames:any, charWidths:any):any;
+		clearScopedCharWidths():any;
+		getScrollHeight():number;
+		getScrollWidth():number;
+		getVisibleRowRange():number[];
+		intersectsVisibleRowRange(startRow:any, endRow:any):any;
+		selectionIntersectsVisibleRowRange(selection:any):any;
+		scrollToScreenRange(screenRange:any):any;
+		scrollToScreenPosition(screenPosition:any):any;
+		scrollToBufferPosition(bufferPosition:any):any;
+		pixelRectForScreenRange(screenRange:IRange):any;
+		getTabLength():number;
+		setTabLength(tabLength:number):any;
+		setSoftWrap(softWrap:boolean):boolean;
+		getSoftWrap():boolean;
+		setEditorWidthInChars(editorWidthInChars:number):any;
+		getEditorWidthInChars():number;
+		getSoftWrapColumn():number;
+		lineForRow(row:number):any;
+		linesForRows(startRow:number, endRow:number):any;
+		getLines():any[];
+		indentLevelForLine(line:any):any;
+		bufferRowsForScreenRows(startScreenRow:any, endScreenRow:any):any;
+		createFold(startRow:number, endRow:number):IFold;
+		isFoldedAtBufferRow(bufferRow:number):boolean;
+		isFoldedAtScreenRow(screenRow:number):boolean;
+		destroyFoldWithId(id:number):any;
+		unfoldBufferRow(bufferRow:number):any[];
+		largestFoldStartingAtBufferRow(bufferRow:number):any;
+		foldsStartingAtBufferRow(bufferRow:number):any;
+		largestFoldStartingAtScreenRow(screenRow:any):any;
+		largestFoldContainingBufferRow(bufferRow:any):any;
+		outermostFoldsInBufferRowRange(startRow:any, endRow:any):any[];
+		foldsContainingBufferRow(bufferRow:any):any[];
+		screenRowForBufferRow(bufferRow:number):number;
+		lastScreenRowForBufferRow(bufferRow:number):number;
+		bufferRowForScreenRow(screenRow:number):number;
+
+		screenRangeForBufferRange(bufferRange:IPoint[]):IRange;
+
+		screenRangeForBufferRange(bufferRange:IRange):IRange;
+
+		screenRangeForBufferRange(bufferRange:{start: IPoint; end: IPoint}):IRange;
+		screenRangeForBufferRange(bufferRange:{start: number[]; end: IPoint}):IRange;
+		screenRangeForBufferRange(bufferRange:{start: {row:number; col:number;}; end: IPoint}):IRange;
+
+		screenRangeForBufferRange(bufferRange:{start: IPoint; end: number[]}):IRange;
+		screenRangeForBufferRange(bufferRange:{start: number[]; end: number[]}):IRange;
+		screenRangeForBufferRange(bufferRange:{start: {row:number; col:number;}; end: number[]}):IRange;
+
+		screenRangeForBufferRange(bufferRange:{start: IPoint; end: {row:number; col:number;}}):IRange;
+		screenRangeForBufferRange(bufferRange:{start: number[]; end: {row:number; col:number;}}):IRange;
+		screenRangeForBufferRange(bufferRange:{start: {row:number; col:number;}; end: {row:number; col:number;}}):IRange;
+
+		bufferRangeForScreenRange(screenRange:IPoint[]):IRange;
+
+		bufferRangeForScreenRange(screenRange:IRange):IRange;
+
+		bufferRangeForScreenRange(screenRange:{start: IPoint; end: IPoint}):IRange;
+		bufferRangeForScreenRange(screenRange:{start: number[]; end: IPoint}):IRange;
+		bufferRangeForScreenRange(screenRange:{start: {row:number; col:number;}; end: IPoint}):IRange;
+
+		bufferRangeForScreenRange(screenRange:{start: IPoint; end: number[]}):IRange;
+		bufferRangeForScreenRange(screenRange:{start: number[]; end: number[]}):IRange;
+		bufferRangeForScreenRange(screenRange:{start: {row:number; col:number;}; end: number[]}):IRange;
+
+		bufferRangeForScreenRange(screenRange:{start: IPoint; end: {row:number; col:number;}}):IRange;
+		bufferRangeForScreenRange(screenRange:{start: number[]; end: {row:number; col:number;}}):IRange;
+		bufferRangeForScreenRange(screenRange:{start: {row:number; col:number;}; end: {row:number; col:number;}}):IRange;
+
+		pixelRangeForScreenRange(screenRange:IPoint[], clip?:boolean):IRange;
+
+		pixelRangeForScreenRange(screenRange:IRange, clip?:boolean):IRange;
+
+		pixelRangeForScreenRange(screenRange:{start: IPoint; end: IPoint}, clip?:boolean):IRange;
+		pixelRangeForScreenRange(screenRange:{start: number[]; end: IPoint}, clip?:boolean):IRange;
+		pixelRangeForScreenRange(screenRange:{start: {row:number; col:number;}; end: IPoint}, clip?:boolean):IRange;
+
+		pixelRangeForScreenRange(screenRange:{start: IPoint; end: number[]}, clip?:boolean):IRange;
+		pixelRangeForScreenRange(screenRange:{start: number[]; end: number[]}, clip?:boolean):IRange;
+		pixelRangeForScreenRange(screenRange:{start: {row:number; col:number;}; end: number[]}, clip?:boolean):IRange;
+
+		pixelRangeForScreenRange(screenRange:{start: IPoint; end: {row:number; col:number;}}, clip?:boolean):IRange;
+		pixelRangeForScreenRange(screenRange:{start: number[]; end: {row:number; col:number;}}, clip?:boolean):IRange;
+		pixelRangeForScreenRange(screenRange:{start: {row:number; col:number;}; end: {row:number; col:number;}}, clip?:boolean):IRange;
+
+		pixelPositionForScreenPosition(screenPosition:IPoint, clip?:boolean):IPoint;
+		pixelPositionForScreenPosition(screenPosition:number[], clip?:boolean):IPoint;
+		pixelPositionForScreenPosition(screenPosition:{row:number; col:number;}, clip?:boolean):IPoint;
+
+		screenPositionForPixelPosition(pixelPosition:any):IPoint;
+
+		pixelPositionForBufferPosition(bufferPosition:any):any;
+		getLineCount():number;
+		getLastRow():number;
+		getMaxLineLength():number;
+		screenPositionForBufferPosition(bufferPosition:any, options:any):any;
+		bufferPositionForScreenPosition(bufferPosition:any, options:any):any;
+		scopesForBufferPosition(bufferPosition:any):any;
+		bufferRangeForScopeAtPosition(selector:any, position:any):any;
+		tokenForBufferPosition(bufferPosition:any):any;
+		getGrammar():IGrammar;
+		setGrammar(grammar:IGrammar):any;
+		reloadGrammar():any;
+		clipScreenPosition(screenPosition:any, options:any):any;
+		findWrapColumn(line:any, softWrapColumn:any):any;
+		rangeForAllLines():IRange;
+		getMarker(id:number):IDisplayBufferMarker;
+		getMarkers():IDisplayBufferMarker[];
+		getMarkerCount():number;
+		markScreenRange(range:IRange, ...args:any[]):IDisplayBufferMarker;
+		markBufferRange(range:IRange, options?:any):IDisplayBufferMarker;
+		markScreenPosition(screenPosition:IPoint, options?:any):IDisplayBufferMarker;
+		markBufferPosition(bufferPosition:IPoint, options?:any):IDisplayBufferMarker;
+		destroyMarker(id:number):any;
+		findMarker(params?:any):IDisplayBufferMarker;
+		findMarkers(params?:any):IDisplayBufferMarker[];
+		translateToBufferMarkerParams(params?:any):any;
+		findFoldMarker(attributes:any):IMarker;
+		findFoldMarkers(attributes:any):IMarker[];
+		getFoldMarkerAttributes(attributes?:any):any;
+		pauseMarkerObservers():any;
+		resumeMarkerObservers():any;
+		refreshMarkerScreenPositions():any;
+		destroy():any;
+		logLines(start:number, end:number):any[];
+		handleTokenizedBufferChange(tokenizedBufferChange:any):any;
+		updateScreenLines(startBufferRow:any, endBufferRow:any, bufferDelta?:number, options?:any):any;
+		buildScreenLines(startBufferRow:any, endBufferRow:any):any;
+		findMaxLineLength(startScreenRow:any, endScreenRow:any, newScreenLines:any):any;
+		handleBufferMarkersUpdated():any;
+		handleBufferMarkerCreated(marker:any):any;
+		createFoldForMarker(maker:any):IFold;
+		foldForMarker(marker:any):any;
 	}
 
 	interface ICursor {
@@ -896,6 +1088,10 @@ declare module AtomCore {
 		getRows():number[];
 	}
 
+	interface ITokenizedBuffer {
+		// TBD
+	}
+
 	interface ITokenizedLine {
 		// TBD
 	}
@@ -904,7 +1100,16 @@ declare module AtomCore {
 		// TBD
 	}
 
+	interface IFoldStatic {
+		new (displayBuffer:IDisplayBuffer, marker:IMarker):IFold;
+		// TBD
+	}
+
 	interface IFold {
+		id:number;
+		displayBuffer:IDisplayBuffer;
+		marker:IMarker;
+
 		// TBD
 	}
 
@@ -967,7 +1172,10 @@ declare module AtomCore {
 		// TBD
 	}
 
-	interface IMarker {
+	interface IMarker extends Emissary.IEmitter {
+		// Serializable.includeInto(Editor);
+		// Delegator.includeInto(Editor);
+
 		// TBD
 	}
 
