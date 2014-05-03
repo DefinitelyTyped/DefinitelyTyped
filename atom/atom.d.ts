@@ -40,7 +40,7 @@ declare module AtomCore {
 		// TBD
 	}
 
-	interface TreeView {
+	interface ITreeView {
 		// TBD
 	}
 
@@ -65,8 +65,82 @@ declare module AtomCore {
 		// TBD
 	}
 
-	interface ISelection {
-		// TBD
+	interface ISelection /* extends Theorist.Model */ {
+		cursor:ICursor;
+		marker:IDisplayBufferMarker;
+		editor:IEditor;
+		initialScreenRange:any;
+		wordwise:boolean;
+		needsAutoscroll:boolean;
+		retainSelection:boolean;
+		subscriptionCounts:any;
+
+		destroy():any;
+		finalize():any;
+		clearAutoscroll():any;
+		isEmpty():boolean;
+		isReversed():boolean;
+		isSingleScreenLine():boolean;
+		getScreenRange():IRange;
+		setScreenRange(screenRange:any, options:any):any;
+		getBufferRange():IRange;
+		setBufferRange(bufferRange:any, options:any):any;
+		getBufferRowRange():number[];
+		autoscroll():void;
+		getText():string;
+		clear():boolean;
+		selectWord():IRange;
+		expandOverWord():any;
+		selectLine(row?:any):IRange;
+		expandOverLine():boolean;
+		selectToScreenPosition(position:any):any;
+		selectToBufferPosition(position:any):any;
+		selectRight():boolean;
+		selectLeft():boolean;
+		selectUp(rowCount?:any):boolean;
+		selectDown(rowCount?:any):boolean;
+		selectToTop():any;
+		selectToBottom():any;
+		selectAll():any;
+		selectToBeginningOfLine():any;
+		selectToFirstCharacterOfLine():any;
+		selectToEndOfLine():any;
+		selectToBeginningOfWord():any;
+		selectToEndOfWord():any;
+		selectToBeginningOfNextWord():any;
+		selectToPreviousWordBoundary():any;
+		selectToNextWordBoundary():any;
+		addSelectionBelow():any;
+		getGoalBufferRange():any;
+		addSelectionAbove():any[];
+		insertText(text:string, options?:any):any;
+		normalizeIndents(text:string, indentBasis:number):any;
+		indent(_arg?:any):any;
+		indentSelectedRows():IRange[];
+		setIndentationForLine(line:string, indentLevel:number):any;
+		backspace():any;
+		backspaceToBeginningOfWord():any;
+		backspaceToBeginningOfLine():any;
+		delete():any;
+		deleteToEndOfWord():any;
+		deleteSelectedText():any;
+		deleteLine():any;
+		joinLines():any;
+		outdentSelectedRows():any[];
+		autoIndentSelectedRows():any;
+		toggleLineComments():any;
+		cutToEndOfLine(maintainClipboard:any):any;
+		cut(maintainClipboard:any):any;
+		copy(maintainClipboard:any):any;
+		fold():any;
+		modifySelection(fn:()=>any):any;
+		plantTail():any;
+		intersectsBufferRange(bufferRange:any):any;
+		intersectsWith(otherSelection:any):any;
+		merge(otherSelection:any, options:any):any;
+		compare(otherSelection:any):any;
+		getRegionRects():any[];
+		screenRangeChanged():any;
 	}
 
 	interface ISubscription {
