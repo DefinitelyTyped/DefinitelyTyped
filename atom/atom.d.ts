@@ -908,11 +908,66 @@ declare module AtomCore {
 		// TBD
 	}
 
-	interface IDisplayBufferMarker {
-		// TBD
+	interface IDisplayBufferMarkerStatic {
+		new (_arg:{bufferMarker:IMarker; displayBuffer: IDisplayBuffer}):IDisplayBufferMarker;
+	}
+
+	interface IDisplayBufferMarker extends Emissary.IEmitter, Emissary.ISubscriber {
+		constructor:IDisplayBufferMarkerStatic;
+
+		id: number;
+
+		bufferMarkerSubscription:any;
+		oldHeadBufferPosition:IPoint;
+		oldHeadScreenPosition:IPoint;
+		oldTailBufferPosition:IPoint;
+		oldTailScreenPosition:IPoint;
+		wasValid:boolean;
+
+		bufferMarker: IMarker;
+		displayBuffer: IDisplayBuffer;
+		globalPauseCount:number;
+		globalQueuedEvents:any;
+
+		subscriptions:ISubscription[];
+		subscriptionsByObject:any; // WeakMap
+
+		copy(attributes?:any /* maybe IMarker */):IDisplayBufferMarker;
+		getScreenRange():IRange;
+		setScreenRange(screenRange:any, options:any):any;
+		getBufferRange():IRange;
+		setBufferRange(bufferRange:any, options:any):any;
+		getPixelRange():any;
+		getHeadScreenPosition():IPoint;
+		setHeadScreenPosition(screenPosition:any, options:any):any;
+		getHeadBufferPosition():IPoint;
+		setHeadBufferPosition(bufferPosition:any):any;
+		getTailScreenPosition():IPoint;
+		setTailScreenPosition(screenPosition:any, options:any):any;
+		getTailBufferPosition():IPoint;
+		setTailBufferPosition(bufferPosition:any):any;
+		plantTail():boolean;
+		clearTail():boolean;
+		hasTail():boolean;
+		isReversed():boolean;
+		isValid():boolean;
+		isDestroyed():boolean;
+		getAttributes():any;
+		setAttributes(attributes:any):any;
+		matchesAttributes(attributes:any):any;
+		destroy():any;
+		isEqual(other:IDisplayBufferMarker):boolean;
+		compare(other:IDisplayBufferMarker):boolean;
+		inspect():string;
+		destroyed():any;
+		notifyObservers(_arg:any):any;
 	}
 
 	interface ITransaction {
+		// TBD
+	}
+
+	interface IMarker {
 		// TBD
 	}
 
