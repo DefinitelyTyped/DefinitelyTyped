@@ -766,6 +766,8 @@ declare module AtomCore {
 	}
 
 	interface IPoint {
+		constructor: IPointStatic;
+
 		row:number;
 		column:number;
 
@@ -792,11 +794,106 @@ declare module AtomCore {
 	}
 
 	interface IRangeStatic {
-		new(pointA:IPoint, pointB:IPoint):IRange;
+		deserialize(array:IPoint[]):IRange;
+
+		fromObject(object:IPoint[]):IRange;
+
+		fromObject(object:IRange, copy?:boolean):IRange;
+
+		fromObject(object:{start: IPoint; end: IPoint}):IRange;
+		fromObject(object:{start: number[]; end: IPoint}):IRange;
+		fromObject(object:{start: {row:number; col:number;}; end: IPoint}):IRange;
+
+		fromObject(object:{start: IPoint; end: number[]}):IRange;
+		fromObject(object:{start: number[]; end: number[]}):IRange;
+		fromObject(object:{start: {row:number; col:number;}; end: number[]}):IRange;
+
+		fromObject(object:{start: IPoint; end: {row:number; col:number;}}):IRange;
+		fromObject(object:{start: number[]; end: {row:number; col:number;}}):IRange;
+		fromObject(object:{start: {row:number; col:number;}; end: {row:number; col:number;}}):IRange;
+
+		fromText(point:IPoint, text:string):IRange;
+		fromText(point:number[], text:string):IRange;
+		fromText(point:{row:number; col:number;}, text:string):IRange;
+		fromText(text:string):IRange;
+
+		fromPointWithDelta(startPoint:IPoint, rowDelta:number, columnDelta:number):IRange;
+		fromPointWithDelta(startPoint:number[], rowDelta:number, columnDelta:number):IRange;
+		fromPointWithDelta(startPoint:{row:number; col:number;}, rowDelta:number, columnDelta:number):IRange;
+
+		new(point1:IPoint, point2:IPoint):IRange;
+		new(point1:number[], point2:IPoint):IRange;
+		new(point1:{row:number; col:number;}, point2:IPoint):IRange;
+
+		new(point1:IPoint, point2:number[]):IRange;
+		new(point1:number[], point2:number[]):IRange;
+		new(point1:{row:number; col:number;}, point2:number[]):IRange;
+
+		new(point1:IPoint, point2:{row:number; col:number;}):IRange;
+		new(point1:number[], point2:{row:number; col:number;}):IRange;
+		new(point1:{row:number; col:number;}, point2:{row:number; col:number;}):IRange;
 	}
 
 	interface IRange {
-		// TBD
+		constructor:IRangeStatic;
+
+		start: IPoint;
+		end: IPoint;
+
+		serialize():number[][];
+		copy():IRange;
+		freeze():IRange;
+		isEqual(other:IRange):boolean;
+		isEqual(other:IPoint[]):boolean;
+
+		compare(object:IPoint[]):number;
+
+		compare(object:{start: IPoint; end: IPoint}):number;
+		compare(object:{start: number[]; end: IPoint}):number;
+		compare(object:{start: {row:number; col:number;}; end: IPoint}):number;
+
+		compare(object:{start: IPoint; end: number[]}):number;
+		compare(object:{start: number[]; end: number[]}):number;
+		compare(object:{start: {row:number; col:number;}; end: number[]}):number;
+
+		compare(object:{start: IPoint; end: {row:number; col:number;}}):number;
+		compare(object:{start: number[]; end: {row:number; col:number;}}):number;
+		compare(object:{start: {row:number; col:number;}; end: {row:number; col:number;}}):number;
+
+		isSingleLine():boolean;
+		coversSameRows(other:IRange):boolean;
+
+		add(object:IPoint[]):IRange;
+
+		add(object:{start: IPoint; end: IPoint}):IRange;
+		add(object:{start: number[]; end: IPoint}):IRange;
+		add(object:{start: {row:number; col:number;}; end: IPoint}):IRange;
+
+		add(object:{start: IPoint; end: number[]}):IRange;
+		add(object:{start: number[]; end: number[]}):IRange;
+		add(object:{start: {row:number; col:number;}; end: number[]}):IRange;
+
+		add(object:{start: IPoint; end: {row:number; col:number;}}):IRange;
+		add(object:{start: number[]; end: {row:number; col:number;}}):IRange;
+		add(object:{start: {row:number; col:number;}; end: {row:number; col:number;}}):IRange;
+
+		translate(startPoint:IPoint, endPoint:IPoint):IRange;
+		translate(startPoint:IPoint):IRange;
+
+		intersectsWith(otherRange:IRange):boolean;
+		containsRange(otherRange:IRange, exclusive:boolean):boolean;
+
+		containsPoint(point:IPoint, exclusive:boolean):boolean;
+		containsPoint(point:number[], exclusive:boolean):boolean;
+		containsPoint(point:{row:number; col:number;}, exclusive:boolean):boolean;
+
+		intersectsRow(row:number):boolean;
+		intersectsRowRange(startRow:number, endRow:number):boolean;
+		union(otherRange:IRange):IRange;
+		isEmpty():boolean;
+		toDelta():IPoint;
+		getRowCount():number;
+		getRows():number[];
 	}
 
 	interface ITokenizedLine {
