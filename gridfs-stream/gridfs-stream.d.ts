@@ -33,9 +33,16 @@ declare module GridFSStream {
     }
 
     export interface WriteStream extends NodeJS.WritableStream {
+        writable: boolean;
+        name: string;
+        id: string;
+        options: Options;
+        mode: string;
     }
 
     export interface ReadStream extends NodeJS.ReadableStream {
+        readable: boolean;
+        paused: boolean;
     }
 }
 
