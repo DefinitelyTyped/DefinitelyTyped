@@ -351,6 +351,7 @@ declare module ng {
     ///////////////////////////////////////////////////////////////////////////
     // LogService
     // see http://docs.angularjs.org/api/ng.$log
+    // see http://docs.angularjs.org/api/ng.$logProvider
     ///////////////////////////////////////////////////////////////////////////
     interface ILogService {
         debug: ILogCall;
@@ -358,6 +359,11 @@ declare module ng {
         info: ILogCall;
         log: ILogCall;
         warn: ILogCall;
+    }
+
+    interface ILogProvider {
+        debugEnabled(enabled: boolean): ILogProvider;
+        debugEnabled(): boolean;
     }
 
     // We define this as separete interface so we can reopen it later for
