@@ -124,7 +124,7 @@ interface FBSDK{
 	Canvas : FBSDKCanvas;
 }
 
-interface FBWindow extends Window {
+interface Window{
 	fbAsyncInit() : any;
 }
 
@@ -133,4 +133,3 @@ declare module "FB" {
 }
 
 declare var FB : FBSDK;
-declare var window : FBWindow;
