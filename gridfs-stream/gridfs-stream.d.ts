@@ -51,13 +51,13 @@ declare module "gridfs-stream" {
             files: mongo.Collection;
             collection: mongo.Collection;
 
-            createWriteStream(options?: GridFSStream.Options) : GridFSStream.WriteStream;
-            createReadStream(options?: GridFSStream.Options) : GridFSStream.ReadStream;
-            createWriteStream(options?: string) : GridFSStream.WriteStream;
-            createReadStream(options?: string) : GridFSStream.ReadStream;
+            createWriteStream(options?: GridFSStream.Options): GridFSStream.WriteStream;
+            createReadStream(options?: GridFSStream.Options): GridFSStream.ReadStream;
+            createWriteStream(options?: string): GridFSStream.WriteStream;
+            createReadStream(options?: string): GridFSStream.ReadStream;
 
-            remove(options: GridFSStream.Options, callback: (err: Error) => void);
-            exist(options: GridFSStream.Options, callback: (err: Error, found: boolean) => void);
+            remove(options: GridFSStream.Options, callback: (err: Error) => void): void;
+            exist(options: GridFSStream.Options, callback: (err: Error, found: boolean) => void): void;
         }
     }
 
