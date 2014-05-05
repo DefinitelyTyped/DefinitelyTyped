@@ -84,7 +84,7 @@ declare module FullCalendar {
         monthNamesShort?: Array<string>;
         dayNames?: Array<string>;
         dayNamesShort?: Array<string>;
-        weekNumberTitle?: number;
+        weekNumberTitle?: string;
 
         // Clicking & Hovering - http://arshaw.com/fullcalendar/docs/mouse/
 
