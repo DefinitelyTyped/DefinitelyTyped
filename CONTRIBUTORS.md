@@ -117,6 +117,7 @@ All definitions files include a header with the author and editors, so at some p
 * [jake](https://github.com/mde/jake) (by [Kon](http://phyzkit.net/))
 * [Jasmine](http://pivotal.github.com/jasmine/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Jasmine-jQuery](https://github.com/velesin/jasmine-jquery) (by [Gregor Stamac](https://github.com/gstamac))
+* [jDataView](https://github.com/jDataView/jDataView) (by [Ingvar Stepanyan](https://github.com/RReverser))
 * [JointJS](http://www.jointjs.com/) (by [Aidan Reel](http://github.com/areel))
 * [jQRangeSlider](http://ghusse.github.com/jQRangeSlider) (by [Dániel Tar](https://github.com/qcz))
 * [jQuery](http://jquery.com/) (from TypeScript samples)
