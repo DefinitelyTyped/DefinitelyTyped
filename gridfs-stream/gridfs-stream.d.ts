@@ -55,8 +55,9 @@ declare module "gridfs-stream" {
     module g {
 
         export class Grid {
+
             files: mongo.Collection;
-            collection: mongo.Collection;
+            collection(name?: string): mongo.Collection;
 
             createWriteStream(options?: GridFSStream.Options): GridFSStream.WriteStream;
             createReadStream(options?: GridFSStream.Options): GridFSStream.ReadStream;
