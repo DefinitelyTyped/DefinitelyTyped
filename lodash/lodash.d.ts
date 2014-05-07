@@ -321,7 +321,7 @@ declare module _ {
 		/**
 		* @see _.findIndex
 		**/
-		findIndex<W, T>(
+		findIndex<W, T extends W>(
 			array: List<T>,
 			whereDictionary: W): number;
 	}
@@ -404,7 +404,7 @@ declare module _ {
 		* @see _.first
 		* @param whereValue "_.where" style callback value
 		**/
-		first<W, T>(
+		first<W, T extends W>(
 			array: List<T>,
 			whereValue: W): T[];
 
@@ -438,7 +438,7 @@ declare module _ {
 			/**
 			* @see _.first
 			**/
-			head<W, T>(
+			head<W, T extends W>(
 				array: List<T>,
 				whereValue: W): T[];
 
@@ -472,7 +472,7 @@ declare module _ {
 			/**
 			* @see _.first
 			**/
-			take<W, T>(
+			take<W, T extends W>(
 				array: List<T>,
 				whereValue: W): T[];
 	}
@@ -507,12 +507,12 @@ declare module _ {
 			callback: ListIterator<any, T>,
 			thisArg?: any): T[];			
 
-		flatten<W, T>(
+		flatten<W, T extends W>(
 			array: List<any>,
 			isShallow: boolean,
 			whereValue: W): T[];			
 
-		flatten<W, T>(
+		flatten<W, T extends W>(
 			array: List<any>,
 			whereValue: W): T[];			
 
@@ -548,11 +548,11 @@ declare module _ {
         flatten<Flat>(
 			pluckValue: string): LoDashArrayWrapper<Flat>;
 
-        flatten<Flat, W>(
+        flatten<Flat, W extends Flat>(
 			isShallow: boolean,
 			whereValue: W): LoDashArrayWrapper<Flat>;
 
-        flatten<Flat, W>(
+        flatten<Flat, W extends Flat>(
 			whereValue: W): LoDashArrayWrapper<Flat>;
 	}
 
@@ -638,7 +638,7 @@ declare module _ {
 		* @see _.initial
 		* @param whereValue _.where style callback
 		**/
-		initial<W, T>(
+		initial<W, T extends W>(
 			array: List<T>,
 			whereValue: W): T[];
 	}
@@ -700,7 +700,7 @@ declare module _ {
 		* @see _.last
 		* @param whereValue _.where style callback
 		**/
-		last<W, T>(
+		last<W, T extends W>(
 			array: List<T>,
 			whereValue: W): T[];
 	}
@@ -848,7 +848,7 @@ declare module _ {
 		/**
 		* @see _.rest
 		**/
-        rest<W, T>(
+        rest<W, T extends W>(
 			array: List<T>,
 			whereValue: W): T[];
 
@@ -882,7 +882,7 @@ declare module _ {
             /**
             * @see _.rest
             **/
-            drop<W, T>(
+            drop<W, T extends W>(
                 array: List<T>,
                 whereValue: W): T[];
 
@@ -916,7 +916,7 @@ declare module _ {
                 /**
                 * @see _.rest
                 **/
-                tail<W, T>(
+                tail<W, T extends W>(
                     array: List<T>,
                     whereValue: W): T[];
 	}
@@ -958,7 +958,7 @@ declare module _ {
 		* @see _.sortedIndex
 		* @param pluckValue the _.where style callback
 		**/
-		sortedIndex<W, T>(
+		sortedIndex<W, T extends W>(
 			array: List<T>,
 			value: T,
 			whereValue: W): number;
@@ -1028,12 +1028,12 @@ declare module _ {
 		* @see _.uniq
 		* @param whereValue _.where style callback
 		**/
-		uniq<W, T>(
+		uniq<W, T extends W>(
 			array: List<T>,
 			isSorted: boolean,
 			whereValue: W): T[];
 
-		uniq<W, T>(
+		uniq<W, T extends W>(
 			array: List<T>,
 			whereValue: W): T[];
 
@@ -1073,11 +1073,11 @@ declare module _ {
 			* @see _.uniq
 			* @param whereValue _.where style callback
 			**/
-			unique<W, T>(
+			unique<W, T extends W>(
 				array: List<T>,
 				whereValue?: W): T[];
 
-			unique<W, T>(
+			unique<W, T extends W>(
 				array: List<T>,
 				isSorted: boolean,
 				whereValue?: W): T[];
@@ -1315,7 +1315,7 @@ declare module _ {
 		* @see _.every
 		* @param whereValue _.where style callback
 		**/
-		every<W, T>(
+		every<W, T extends W>(
 			collection: Collection<T>,
 			whereValue: W): boolean;
 
@@ -1339,7 +1339,7 @@ declare module _ {
 			* @see _.every
 			* @param whereValue _.where style callback
 			**/
-			all<W, T>(
+			all<W, T extends W>(
 				collection: Collection<T>,
 				whereValue: W): boolean;
 	}
@@ -1378,7 +1378,7 @@ declare module _ {
 		* @see _.filter
 		* @param pluckValue _.pluck style callback
 		**/
-        filter<W, T>(
+        filter<W, T extends W>(
 			collection: Collection<T>,
             whereValue: W): T[];
 
@@ -1402,7 +1402,7 @@ declare module _ {
 			* @see _.filter
 			* @param pluckValue _.pluck style callback
 			**/
-			select<W, T>(
+			select<W, T extends W>(
 				collection: Collection<T>,
 				whereValue: W): T[];
 	}
@@ -1426,7 +1426,7 @@ declare module _ {
 		* @see _.filter
 		* @param pluckValue _.pluck style callback
 		**/
-		filter<W, T>(
+		filter<W, T extends W>(
 			whereValue: W): LoDashArrayWrapper<T>;
 
 			/**
@@ -1447,7 +1447,7 @@ declare module _ {
 			* @see _.filter
 			* @param pluckValue _.pluck style callback
 			**/
-			select<W, T>(
+			select<W, T extends W>(
 				whereValue: W): LoDashArrayWrapper<T>;
 	}
 
@@ -1477,7 +1477,7 @@ declare module _ {
 		* @see _.find
 		* @param _.pluck style callback
 		**/
-		find<W, T>(
+		find<W, T extends W>(
 			collection: Collection<T>,
 			whereValue: W): T;
 
@@ -1501,7 +1501,7 @@ declare module _ {
 			* @see _.find
 			* @param _.pluck style callback
 			**/
-			detect<W, T>(
+			detect<W, T extends W>(
 				collection: Collection<T>,
 				whereValue: W): T;
 
@@ -1525,7 +1525,7 @@ declare module _ {
 			* @see _.find
 			* @param _.pluck style callback
 			**/
-			findWhere<W, T>(
+			findWhere<W, T extends W>(
 				collection: Collection<T>,
 				whereValue: W): T;
 
@@ -1557,7 +1557,7 @@ declare module _ {
 		* @see _.find
 		* @param _.pluck style callback
 		**/
-		findLast<W, T>(
+		findLast<W, T extends W>(
 			collection: Collection<T>,
 			whereValue: W): T;
 
@@ -1756,12 +1756,12 @@ declare module _ {
 		* @see _.groupBy
 		* @param whereValue _.where style callback
 		**/
-		groupBy<W, T>(
+		groupBy<W, T extends W>(
 			collection: List<T>,
 			whereValue: W): Dictionary<T[]>;
 	}
 
-    interface LoDashArrayWrapper<T> {
+	interface LoDashArrayWrapper {
 		/**
 		* @see _.groupBy
 		**/
@@ -1778,7 +1778,7 @@ declare module _ {
 		/**
 		* @see _.groupBy
 		**/
-		groupBy<W, T>(
+		groupBy<W, T extends W>(
 			whereValue: W): _.LoDashObjectWrapper<Dictionary<T[]>>;
 	}
 
@@ -1817,7 +1817,7 @@ declare module _ {
 		* @see _.indexBy
 		* @param whereValue _.where style callback
 		**/
-		indexBy<W, T>(
+		indexBy<W, T extends W>(
 			collection: List<T>,
 			whereValue: W): Dictionary<T>;
 	}
@@ -1993,7 +1993,7 @@ declare module _ {
 		* @see _.max
 		* @param whereValue _.where style callback
 		**/
-		max<W, T>(
+		max<W, T extends W>(
 			collection: Collection<T>,
 			whereValue: W): T;
 	}
@@ -2033,7 +2033,7 @@ declare module _ {
 		* @see _.min
 		* @param whereValue _.where style callback
 		**/
-		min<W, T>(
+		min<W, T extends W>(
 			collection: Collection<T>,
 			whereValue: W): T;
 	}
@@ -2190,7 +2190,7 @@ declare module _ {
 		* @see _.reject
 		* @param whereValue _.where style callback
 		**/
-		reject<W, T>(
+		reject<W, T extends W>(
 			collection: Collection<T>,
 			whereValue: W): T[];
 	}
@@ -2281,7 +2281,7 @@ declare module _ {
 		* @see _.some
 		* @param whereValue _.where style callback
 		**/
-		some<W, T>(
+		some<W, T extends W>(
 			collection: Collection<T>,
 			whereValue: W): boolean;
 
@@ -2305,7 +2305,7 @@ declare module _ {
 			* @see _.some
 			* @param whereValue _.where style callback
 			**/
-			any<W, T>(
+			any<W, T extends W>(
 				collection: Collection<T>,
 				whereValue: W): boolean;
 	}
@@ -2345,7 +2345,7 @@ declare module _ {
 		* @see _.sortBy
 		* @param whereValue _.where style callback
 		**/
-		sortBy<W, T>(
+		sortBy<W, T extends W>(
 			collection: List<T>,
 			whereValue: W): T[];
 	}
@@ -2784,7 +2784,7 @@ declare module _ {
 		* @param thisArg The this binding of callback.
 		* @return The destination object.
 		**/
-        assign<P, T, S1, Value, Result>(
+        assign<P, T extends P, S1 extends P, Value, Result extends P>(
             object: T,
             s1: S1,
 			callback?: (objectValue: Value, sourceValue: Value) => Value,
@@ -2793,7 +2793,7 @@ declare module _ {
 		/**
 		* @see _.assign
 		**/
-        assign<P, T, S1, S2, Value, Result>(
+        assign<P, T extends P, S1 extends P, S2 extends P, Value, Result extends P>(
             object: T,
             s1: S1,
             s2: S2,
@@ -2803,7 +2803,7 @@ declare module _ {
 		/**
 		* @see _.assign
 		**/
-        assign<P, T, S1, S2, S3, Value, Result>(
+        assign<P, T extends P, S1 extends P, S2 extends P, S3 extends P, Value, Result extends P>(
             object: T,
             s1: S1,
             s2: S2,
@@ -2814,7 +2814,7 @@ declare module _ {
 		/**
 		* @see _.assign
 		**/
-        assign<P, T, S1, S2, S3, S4, Value, Result>(
+        assign<P, T extends P, S1 extends P, S2 extends P, S3 extends P, S4 extends P, Value, Result extends P>(
             object: T,
             s1: S1,
             s2: S2,
@@ -2826,7 +2826,7 @@ declare module _ {
 		/**
 		* @see _.assign
 		**/
-	extend<P, T, S1, Value, Result>(
+	extend<P, T extends P, S1 extends P, Value, Result extends P>(
             object: T,
             s1: S1,
 			callback?: (objectValue: Value, sourceValue: Value) => Value,
@@ -2835,7 +2835,7 @@ declare module _ {
 		/**
 		* @see _.assign
 		**/
-        extend<P, T, S1, S2, Value, Result>(
+        extend<P, T extends P, S1 extends P, S2 extends P, Value, Result extends P>(
             object: T,
             s1: S1,
             s2: S2,
@@ -2845,7 +2845,7 @@ declare module _ {
 		/**
 		* @see _.assign
 		**/
-        extend<P, T, S1, S2, S3, Value, Result>(
+        extend<P, T extends P, S1 extends P, S2 extends P, S3 extends P, Value, Result extends P>(
             object: T,
             s1: S1,
             s2: S2,
@@ -2856,7 +2856,7 @@ declare module _ {
 		/**
 		* @see _.assign
 		**/
-        extend<P, T, S1, S2, S3, S4, Value, Result>(
+        extend<P, T extends P, S1 extends P, S2 extends P, S3 extends P, S4 extends P, Value, Result extends P>(
             object: T,
             s1: S1,
             s2: S2,
@@ -3054,7 +3054,7 @@ declare module _ {
 		* @see _.findKey
 		* @param whereValue _.where style callback
 		**/
-        findKey<W extends Dictionary<any>, T>(
+        findKey<W extends Dictionary<any>, T extends W>(
 			object: T,
 			whereValue: W): string;
 	}
@@ -3085,7 +3085,7 @@ declare module _ {
 		* @see _.findLastKey
 		* @param whereValue _.where style callback
 		**/
-        findLastKey<W extends Dictionary<any>, T>(
+        findLastKey<W extends Dictionary<any>, T extends W>(
 			object: T,
 			whereValue: W): string;
 	}
@@ -3107,7 +3107,7 @@ declare module _ {
 			thisArg?: any): Dictionary<T>;
 	}
 
-    interface LoDashObjectWrapper<T> {
+	interface LoDashObjectWrapper {
 		/**
 		* @see _.forIn
 		**/
@@ -3132,7 +3132,7 @@ declare module _ {
 			thisArg?: any): Dictionary<T>;
 	}
 
-    interface LoDashObjectWrapper<T> {
+	interface LoDashObjectWrapper {
 		/**
 		* @see _.forInRight
 		**/
@@ -3158,7 +3158,7 @@ declare module _ {
 			thisArg?: any): Dictionary<T>;
 	}
 
-    interface LoDashObjectWrapper<T> {
+	interface LoDashObjectWrapper {
 		/**
 		* @see _.forOwn
 		**/
@@ -3183,7 +3183,7 @@ declare module _ {
 			thisArg?: any): Dictionary<T>;
 	}
 
-    interface LoDashObjectWrapper<T> {
+	interface LoDashObjectWrapper {
 		/**
 		* @see _.forOwnRight
 		**/
@@ -3208,7 +3208,7 @@ declare module _ {
 			methods(object: any): string[];
 	}
 
-    interface LoDashObjectWrapper<T> {
+	interface LoDashObjectWrapper {
 		/**
 		* @see _.functions
 		**/
@@ -3496,7 +3496,7 @@ declare module _ {
 		* @param thisArg The this binding of callback.
 		* @return The destination object.
 		**/
-        merge<P, T, S1, Value, Result>(
+        merge<P, T extends P, S1 extends P, Value, Result extends P>(
             object: T,
             s1: S1,
 			callback?: (objectValue: Value, sourceValue: Value) => Value,
@@ -3505,7 +3505,7 @@ declare module _ {
 		/**
 		* @see _.merge
 		**/
-        merge<P, T, S1, S2, Value, Result>(
+        merge<P, T extends P, S1 extends P, S2 extends P, Value, Result extends P>(
             object: T,
             s1: S1,
             s2: S2,
@@ -3515,7 +3515,7 @@ declare module _ {
 		/**
 		* @see _.merge
 		**/
-        merge<P, T, S1, S2, S3, Value, Result>(
+        merge<P, T extends P, S1 extends P, S2 extends P, S3 extends P, Value, Result extends P>(
             object: T,
             s1: S1,
             s2: S2,
@@ -3526,7 +3526,7 @@ declare module _ {
 		/**
 		* @see _.merge
 		**/
-        merge<P, T, S1, S2, S3, S4, Value, Result>(
+        merge<P, T extends P, S1 extends P, S2 extends P, S3 extends P, S4 extends P, Value, Result extends P>(
             object: T,
             s1: S1,
             s2: S2,
@@ -3548,21 +3548,21 @@ declare module _ {
 		* @param keys The properties to omit.
 		* @return An object without the omitted properties.
 		**/
-        omit<Omitted, T>(
+        omit<Omitted, T extends Omitted>(
 			object: T,
 			...keys: string[]): Omitted;
 
 		/**
 		* @see _.omit
 		**/
-		omit<Omitted, T>(
+		omit<Omitted, T extends Omitted>(
 			object: T,
 			keys: string[]): Omitted;
 
 		/**
 		* @see _.omit
 		**/
-		omit<Omitted, T>(
+		omit<Omitted, T extends Omitted>(
 			object: T,
 			callback: ObjectIterator<any, boolean>,
 			thisArg?: any): Omitted;
@@ -3591,21 +3591,21 @@ declare module _ {
 		* @param keys Property names to pick
 		* @return An object composed of the picked properties.
 		**/
-        pick<Picked, T>(
+        pick<Picked, T extends Picked>(
 			object: T,
 			...keys: string[]): Picked;
 
 		/**
 		* @see _.pick
 		**/
-		pick<Picked, T>(
+		pick<Picked, T extends Picked>(
 			object: T,
 			keys: string[]): Picked;
 
 		/**
 		* @see _.pick
 		**/
-		pick<Picked, T>(
+		pick<Picked, T extends Picked>(
 			object: T,
 			callback: ObjectIterator<any, boolean>,
 			thisArg?: any): Picked;

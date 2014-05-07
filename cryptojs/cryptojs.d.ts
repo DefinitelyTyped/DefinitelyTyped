@@ -106,8 +106,6 @@ declare module CryptoJS{
         interface Cipher extends ICipher<Object>{}
 
         interface IStreamCipher<C> extends ICipher<C>{
-            drop?: number;
-
             createEncryptor(key: WordArray, cfg?: C): IStreamCipher<C>
             createDecryptor(key: WordArray, cfg?: C): IStreamCipher<C>
 
@@ -340,7 +338,10 @@ declare module CryptoJS{
 
         interface PBKDF2 extends EvpKDF{} //PBKDF2 is same as EvpKDF
 
-        interface RC4Drop extends RC4 { }
+        interface RC4Drop extends RC4, lib.ICipher<IRC4DropCfg>{}
+        interface IRC4DropCfg{
+            drop?: number //default 192
+        }
     }
 
     module mode{
@@ -437,7 +438,7 @@ declare module CryptoJS{
         RabbitLegacy: CryptoJS.lib.CipherHelper
         Rabbit: CryptoJS.lib.CipherHelper
         RC4: CryptoJS.lib.CipherHelper
-        RC4Drop: CryptoJS.lib.ICipherHelper<Object>
+        RC4Drop: CryptoJS.lib.ICipherHelper<CryptoJS.algo.IRC4DropCfg>
 
         MD5: CryptoJS.lib.HasherHelper
         HmacMD5: CryptoJS.lib.IHasherHmacHelper
