@@ -749,7 +749,6 @@ declare module D3 {
         insert: (name: string, before: string) => Selection;
         remove: () => Selection;
         empty: () => boolean;
-            
         data: {
             (values: (data: any, index?: number) => any[], key?: (data: any, index?: number) => string): UpdateSelection;
             (values: any[], key?: (data: any, index?: number) => string): UpdateSelection;
@@ -1690,19 +1689,35 @@ declare module D3 {
                 (...arguments: any[]): Axis;
             };
 
+            tickValues: {
+                (): any[];
+                (...arguments: any[]): Axis;
+            };
+
+            tickSize: {
+                (): number;
+                (inner: number, outer?: number): Axis;
+            }
+
+            innerTickSize: {
+                (): number;
+                (value: number): Axis;
+            }
+
+            outerTickSize: {
+                (): number;
+                (value: number): Axis;
+            }
+
             tickPadding: {
                 (): number;
                 (padding: number): Axis;
             };
 
-            tickValues: {
-                (): any[];
-                (values: any[]): Axis;
+            tickFormat: {
+                (): (value: any) => string;
+                (formatter: (value: any) => string): Axis;
             };
-
-            tickSubdivide(count: number): Axis;
-            tickSize(major?: number, minor?: number, end?: number): Axis;
-            tickFormat(formatter: (value: any) => string): Axis;
         }
 
         export interface Arc {
@@ -2544,31 +2559,32 @@ declare module D3 {
                 (factory: D3.Transition.Interpolate): QuantitiveScale;
             };
             /**
-            * enable or disable clamping of the output range.
+            * Enable or disable clamping of the output range, or query clamp status.
             *
-            * @param clamp Enable or disable
+            * @param clamp Enable or disable. If not supplied, gets current clamp status instead.
             */
-            clamp(clamp: boolean): QuantitiveScale;
+            clamp(clamp?: boolean): QuantitiveScale;
             /**
             * extend the scale domain to nice round numbers.
-            * 
+            *
             * @param count Optional number of ticks to exactly fit the domain
             */
             nice(count?: number): QuantitiveScale;
             /**
             * get representative values from the input domain.
             *
-            * @param count Aproximate representative values to return.
+            * @param count Aproximate representative values to return. Defaults to 10.
             */
-            ticks(count: number): any[];
+            ticks(count?: number): any[];
             /**
             * get a formatter for displaying tick values
             *
-            * @param count Aproximate representative values to return
+            * @param count Aproximate representative values to return.
+            * @param format? The format specifier to use.
             */
-            tickFormat(count: number): (n: number) => string;
+            tickFormat(count: number, format?: string): (n: number) => string;
             /**
-            * create a new scale from an existing scale..
+            * create a new scale from an existing scale.
             */
             copy(): QuantitiveScale;
         }
@@ -2740,7 +2756,7 @@ declare module D3 {
                 (): D3.Transition.Interpolate;
                 (factory: D3.Transition.InterpolateFactory): TimeScale;
             };
-            clamp(clamp: boolean): TimeScale;
+            clamp(clamp?: boolean): TimeScale;
             ticks: {
                 (count: number): any[];
                 (range: Range, count: number): any[];
