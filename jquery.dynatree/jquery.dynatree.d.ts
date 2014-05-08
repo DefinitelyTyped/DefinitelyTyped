@@ -5,16 +5,17 @@
 
 
 /// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="../jqueryui/jqueryui.d.ts"/>
 
 interface JQuery {
     dynatree(options?: DynatreeOptions): DynaTree;
     dynatree(option?: string, ...rest: any[]): any;
 }
 
-interface JQueryStatic {
-    ui: {
+declare module JQueryUI {
+    interface UI {
         dynatree: DynatreeNamespace;
-    };
+    }
 }
 
 interface DynaTree {
