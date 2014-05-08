@@ -25,7 +25,49 @@ and limitations under the License.
 **/
 interface Element {
 	winControl: any; // TODO: This should be control?
-}/**
+}
+
+/**
+ * Utility class for easy access to operations on application folders
+**/
+interface IOHelper {
+	/**
+	 * Instance of the currently wrapped application folder
+	**/
+	folder: Windows.Storage.StorageFolder;
+
+	/**
+	 * Determines whether the specified file exists in the folder.
+	 * @param filename The name of the file.
+	 * @returns A promise that completes with a value of either true (if the file exists) or false.
+	**/
+	exists(filename: string): WinJS.Promise<boolean>;
+
+	/**
+	 * Reads the specified file. If the file doesn't exist, the specified default value is returned.
+	 * @param fileName The file to read from.
+	 * @param def The default value to be returned if the file failed to open.
+	 * @returns A promise that completes with a value that is either the contents of the file, or the specified default value.
+	 **/
+	readText(fileName: string, def?: string): WinJS.Promise<string>;
+
+	/**
+	 * Deletes a file from the folder.
+	 * @param fileName The file to be deleted.
+	 * @returns A promise that is fulfilled when the file has been deleted.
+	**/
+	remove(fileName: string): WinJS.Promise<void>;
+
+	/**
+	 * Writes the specified text to the specified file.
+	 * @param fileName The name of the file.
+	 * @param text The content to be written to the file.
+	 * @returns A promise that completes with a value that is the number of characters written.
+	 **/
+	writeText(fileName: string, text: string): WinJS.Promise<number>;
+}
+
+/**
  * Provides application-level functionality, for example activation, storage, and application events.
 **/
 declare module WinJS.Application {
@@ -34,127 +76,22 @@ declare module WinJS.Application {
 	/**
 	 * The local storage of the application.
 	**/
-	var local: {
-		//#region Methods
-
-		/**
-		 * Determines whether the specified file exists in the folder.
-		 * @param filename The name of the file.
-		 * @returns A promise that completes with a value of either true (if the file exists) or false.
-		**/
-		exists(filename: string): Promise<boolean>;
-
-		/**
-		 * Reads the specified file. If the file doesn't exist, the specified default value is returned.
-		 * @param fileName The file to read from.
-		 * @param def The default value to be returned if the file failed to open.
-		 * @returns A promise that completes with a value that is either the contents of the file, or the specified default value.
-		**/
-		readText(fileName: string, def?: string): Promise<string>;
-
-		/**
-		 * Deletes a file from the folder.
-		 * @param fileName The file to be deleted.
-		 * @returns A promise that is fulfilled when the file has been deleted.
-		**/
-		remove(fileName: string): Promise<void>;
-
-		/**
-		 * Writes the specified text to the specified file.
-		 * @param fileName The name of the file.
-		 * @param text The content to be written to the file.
-		 * @returns A promise that completes with a value that is the number of characters written.
-		**/
-		writeText(fileName: string, text: string): Promise<void>;
-
-		//#endregion Methods
-
-	};
+	var local: IOHelper;
 
 	/**
 	 * The roaming storage of the application.
 	**/
-	var roaming: {
-		//#region Methods
+	var roaming: IOHelper;
 
-		/**
-		 * Determines whether the specified file exists in the folder.
-		 * @param filename The name of the file.
-		 * @returns A promise that completes with a value of either true (if the file exists) or false.
-		**/
-		exists(filename: string): Promise<boolean>;
-
-		/**
-		 * Reads the specified file. If the file doesn't exist, the specified default value is returned.
-		 * @param fileName The file to read from.
-		 * @param def The default value to be returned if the file failed to open.
-		 * @returns A promise that completes with a value that is either the contents of the file, or the specified default value.
-		**/
-		readText(fileName: string, def?: string): Promise<string>;
-
-		/**
-		 * Deletes a file from the folder.
-		 * @param fileName The file to be deleted.
-		 * @returns A promise that is fulfilled when the file has been deleted.
-		**/
-		remove(fileName: string): Promise<void>;
-
-		/**
-		 * Writes the specified text to the specified file.
-		 * @param fileName The name of the file.
-		 * @param text The content to be written to the file.
-		 * @returns A promise that completes with a value that is the number of characters written.
-		**/
-		writeText(fileName: string, text: string): Promise<void>;
-
-		//#endregion Methods
-
-	};
+	/**
+	 * The temp storage of the application.
+	**/
+	var temp: IOHelper;
 
 	/**
 	 * An object used for storing app information that can be used to restore the app's state after it has been suspended and then resumed. Data that can usefully be contained in this object includes the current navigation page or any information the user has added to the input controls on the page. You should not add information about customization (for example colors) or user-defined lists of content.
 	**/
 	var sessionState: any;
-
-	/**
-	 * The temp storage of the application.
-	**/
-	var temp: {
-		//#region Methods
-
-		/**
-		 * Determines whether the specified file exists in the folder.
-		 * @param filename The name of the file.
-		 * @returns A promise that completes with a value of either true (if the file exists) or false.
-		**/
-		exists(filename: string): Promise<boolean>;
-
-		/**
-		 * Reads the specified file. If the file doesn't exist, the specified default value is returned.
-		 * @param fileName The file to read from.
-		 * @param def The default value to be returned if the file failed to open.
-		 * @returns A promise that completes with a value that is either the contents of the file, or the specified default value.
-		**/
-		readText(fileName: string, def?: string): Promise<string>;
-
-		/**
-		 * Deletes a file from the folder.
-		 * @param fileName The file to be deleted.
-		 * @returns A promise that is fulfilled when the file has been deleted.
-		**/
-		remove(fileName: string): Promise<void>;
-
-		/**
-		 * Writes the specified text to the specified file.
-		 * @param fileName The name of the file.
-		 * @param text The text to write.
-		 * @returns A Promise that completes with the number of bytes successfully written to the file.
-		**/
-		writeText(fileName: string, text: string): Promise<void>;
-
-		//#endregion Methods
-
-	};
 
 	//#endregion Objects
 
@@ -7967,18 +7904,7 @@ declare module WinJS.Utilities {
 	/**
 	 * Represents the result of a query selector, and provides various operations that perform actions over the elements of the collection.
 	**/
-	class QueryCollection<T> {
-		//#region Constructors
-
-		/**
-		 * Initializes a new instance of a QueryCollection.
-		 * @constructor 
-		 * @param items The items resulting from the query.
-		**/
-		constructor(items: T[]);
-
-		//#endregion Constructors
-
+	interface QueryCollection<T> extends Array<T> {
 		//#region Methods
 
 		/**
@@ -8123,6 +8049,14 @@ declare module WinJS.Utilities {
 
 		//#endregion Methods
 
+	}
+
+	/**
+	 * Constructor support for QueryCollection interface
+	**/
+	export var QueryCollection: {
+		new <T>(items: T[]): QueryCollection<T>;
+		prototype: QueryCollection<any>;
 	}
 
 	//#endregion Objects
@@ -8306,7 +8240,7 @@ declare module WinJS.Utilities {
 	 * @param element Optional. The root element at which to start the query. If this parameter is omitted, the scope of the query is the entire document.
 	 * @returns A QueryCollection with zero or one elements matching the specified selector query.
 	**/
-	function query(query: any, element: HTMLElement): QueryCollection<HTMLElement>;
+	function query(query: any, element?: HTMLElement): QueryCollection<HTMLElement>;
 
 	/**
 	 * Ensures that the specified function executes only after the DOMContentLoaded event has fired for the current page. The DOMContentLoaded event occurs after the page has been parsed but before all the resources are loaded.
