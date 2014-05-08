@@ -3107,7 +3107,7 @@ declare module _ {
 			thisArg?: any): Dictionary<T>;
 	}
 
-	interface LoDashObjectWrapper {
+    interface LoDashObjectWrapper<T> {
 		/**
 		* @see _.forIn
 		**/
@@ -3132,7 +3132,7 @@ declare module _ {
 			thisArg?: any): Dictionary<T>;
 	}
 
-	interface LoDashObjectWrapper {
+    interface LoDashObjectWrapper<T> {
 		/**
 		* @see _.forInRight
 		**/
@@ -3158,7 +3158,7 @@ declare module _ {
 			thisArg?: any): Dictionary<T>;
 	}
 
-	interface LoDashObjectWrapper {
+    interface LoDashObjectWrapper<T> {
 		/**
 		* @see _.forOwn
 		**/
@@ -3183,7 +3183,7 @@ declare module _ {
 			thisArg?: any): Dictionary<T>;
 	}
 
-	interface LoDashObjectWrapper {
+    interface LoDashObjectWrapper<T> {
 		/**
 		* @see _.forOwnRight
 		**/
@@ -3208,7 +3208,7 @@ declare module _ {
 			methods(object: any): string[];
 	}
 
-	interface LoDashObjectWrapper {
+    interface LoDashObjectWrapper<T> {
 		/**
 		* @see _.functions
 		**/
