@@ -1,13 +1,7 @@
 // Type definitions for gridfs-stream 0.5.0
 // Project: https://github.com/aheckmann/gridfs-stream
 // Definitions by: Lior Mualem <https://github.com/liorm/>
-
-/* =================== USAGE ===================
-
- import express = require('express');
- var app = express();
-
- =============================================== */
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../mongodb/mongodb.d.ts" />
