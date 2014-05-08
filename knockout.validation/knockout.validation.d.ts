@@ -142,6 +142,7 @@ interface KnockoutSubscribableFunctions<T> {
     isValid: KnockoutComputed<boolean>;
     isValidating: KnockoutObservable<boolean>;
     rules: KnockoutObservableArray<KnockoutValidationRule>;
+    isModified(val: boolean): void;
 }
 
 declare module "knockout.validation" {

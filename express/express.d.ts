@@ -240,7 +240,7 @@ declare module "express" {
             count: number;
         }
 
-        interface Request extends Express.Request {
+        interface Request extends http.ServerRequest, Express.Request {
 
             session: Session;
 
