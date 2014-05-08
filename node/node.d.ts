@@ -200,6 +200,7 @@ interface NodeBuffer {
     [index: number]: number;
     write(string: string, offset?: number, length?: number, encoding?: string): number;
     toString(encoding?: string, start?: number, end?: number): string;
+    toJSON(): any;
     length: number;
     copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
     slice(start?: number, end?: number): Buffer;
@@ -232,6 +233,7 @@ interface NodeBuffer {
     writeDoubleLE(value: number, offset: number, noAssert?: boolean): void;
     writeDoubleBE(value: number, offset: number, noAssert?: boolean): void;
     fill(value: any, offset?: number, end?: number): void;
+    INSPECT_MAX_BYTES: number;
 }
 
 /************************************************
