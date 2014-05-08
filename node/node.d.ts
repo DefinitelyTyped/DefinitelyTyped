@@ -233,7 +233,6 @@ interface NodeBuffer {
     writeDoubleLE(value: number, offset: number, noAssert?: boolean): void;
     writeDoubleBE(value: number, offset: number, noAssert?: boolean): void;
     fill(value: any, offset?: number, end?: number): void;
-    INSPECT_MAX_BYTES: number;
 }
 
 /************************************************
@@ -241,6 +240,10 @@ interface NodeBuffer {
 *                   MODULES                     *
 *                                               *
 ************************************************/
+declare module "buffer" {
+    export var INSPECT_MAX_BYTES: number;
+}
+
 declare module "querystring" {
     export function stringify(obj: any, sep?: string, eq?: string): string;
     export function parse(str: string, sep?: string, eq?: string, options?: { maxKeys?: number; }): any;
