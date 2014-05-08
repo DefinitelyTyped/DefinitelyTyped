@@ -521,6 +521,21 @@ interface AudioBufferSourceNode extends AudioSourceNode {
     loop: boolean;
 
     /**
+     * An optional value in seconds where looping should begin if the loop attribute is true. Its default value is 0, and it may usefully be set to any value between 0 and the duration of the buffer.
+     */
+    loopStart: number;
+
+    /**
+     * An optional value in seconds where looping should end if the loop attribute is true. Its default value is 0, and it may usefully be set to any value between 0 and the duration of the buffer.
+     */
+    loopEnd: number;
+
+    /**
+     * A property used to set the EventHandler for the ended event that is dispatched to AudioBufferSourceNode node types. When the playback of the buffer for an AudioBufferSourceNode is finished, an event of type Event will be dispatched to the event handler.
+     */
+    onended: EventListener;
+
+    /**
      * Schedules a sound to playback at an exact time.
      *  
      * @param when time (in seconds) the sound should start playing. It is in the same time coordinate system as AudioContext.currentTime. If 0 is passed in for this value or if the value is less than currentTime, then the sound will start playing immediately. start may only be called one time and must be called before stop is called or an exception will be thrown.
