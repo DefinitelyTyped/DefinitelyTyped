@@ -1,10 +1,12 @@
 ﻿// Type definitions for jDataView
-// Project: https://github.com/jDataView/jBinary
+// Project: https://github.com/jDataView/jDataView
 // Definitions by: Ingvar Stepanyan <https://github.com/RReverser>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare class jDataView implements DataView {
-	constructor(buffer: any, offset?: number, length?: number, littleEndian?: boolean)
+	constructor(byteCount: number, offset?: number, length?: number, littleEndian?: boolean)
+	constructor(buffer: string, offset?: number, length?: number, littleEndian?: boolean)
+	constructor(buffer: jDataView.Bytes, offset?: number, length?: number, littleEndian?: boolean)
 	buffer: any
 	byteOffset: number
 	byteLength: number
@@ -26,8 +28,10 @@ declare class jDataView implements DataView {
 	writeUnsigned(value: number, bitLength: number): void
 
 	// Internal utilities
-	wrapBuffer(string_or_bytes_or_byteCount: any): number[]
-	createBuffer(...bytes: number[]): number[]
+	wrapBuffer(string: string): jDataView.Buffer
+	wrapBuffer(bytes: jDataView.Bytes): jDataView.Buffer
+	wrapBuffer(byteCount: number): jDataView.Buffer
+	createBuffer(...bytes: number[]): jDataView.Buffer
 
 	// Operation control
 	seek(byteOffset: number): number
@@ -78,19 +82,24 @@ declare class jDataView implements DataView {
 }
 
 declare module jDataView {
-	class Number64 {
+	interface Bytes {
+		length: number;
+		[index: number]: number;
+	}
+
+	interface Buffer extends Bytes {
+		byteLength: number;
+	}
+
+	class Uint64 {
 		lo: number
 		hi: number
 		constructor(lo: number, hi: number)
 		valueOf(): number
-		static fromNumber(number: number): Number64
-	}
-
-	class Uint64 extends Number64 {
 		static fromNumber(number: number): Uint64
 	}
 
-	class Int64 extends Number64 {
+	class Int64 extends Uint64 {
 		static fromNumber(number: number): Int64
 	}
 }
