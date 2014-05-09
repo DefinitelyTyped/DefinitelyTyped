@@ -23,20 +23,80 @@ interface Window {
 declare module AtomCore {
 
 // https://atom.io/docs/v0.84.0/advanced/view-system
-	interface IWorkspaceView {
-		prependToBottom:any;
-		prependToTop:any;
-		prependToLeft:any;
-		prependToRight:any;
-		appendToBottom:any;
-		appendToTop:any;
-		appendToLeft:any;
-		appendToRight:any;
+	interface IWorkspaceViewStatic {
+		new ():IWorkspaceView;
 
-		command: Function;
+		version: number;
+		configDefaults:any;
+		content():any;
+	}
+
+	interface IWorkspaceView extends View {
+		// Delegator.includeInto(WorkspaceView);
+
+		// delegate to model property's property
+		fullScreen:boolean;
+
+		// delegate to model property's method
+		open(uri:string, options:any):Q.Promise<View>;
+		openSync(uri:string, options:any):any;
+		saveActivePaneItem():any;
+		saveActivePaneItemAs():any;
+		saveAll():void;
+		destroyActivePaneItem():any;
+		destroyActivePane():any;
+		increaseFontSize():void;
+		decreaseFontSize():void;
+
+		// own property & methods
+		initialize(model:IWorkspace):any;
+		initialize(view:View, args:any):void; // do not use
+		model:IWorkspace;
+		panes: IPaneContainerView;
+		getModel():IWorkspace;
+		installShellCommands():any;
+		handleFocus():any;
+		afterAttach(onDom?:any):any;
+		confirmClose():boolean;
+		updateTitle():any;
+		setTitle(title:string):any;
+		getEditorViews():any[]; // atom.EditorView
+		prependToTop(element:any):any;
+		appendToTop(element:any):any;
+		prependToBottom(element:any):any;
+		appendToBottom(element:any):any;
+		prependToLeft(element:any):any;
+		appendToLeft(element:any):any;
+		prependToRight(element:any):any;
+		appendToRight(element:any):any;
+		getActivePaneView():IPaneView;
+		getActiveView():View;
+		focusPreviousPaneView():any;
+		focusNextPaneView():any;
+		focusPaneViewAbove():any;
+		focusPaneViewBelow():any;
+		focusPaneViewOnLeft():any;
+		focusPaneViewOnRight():any;
+		eachPaneView(callback:(paneView:IPaneView)=>any):{ off():any; };
+		getPaneViews():IPaneView[];
+		eachEditorView(callback:(editorView:any /* EditorView */)=>any):{ off():any; };
+		beforeRemove():any;
+
+		command(eventName:string, handler:Function):any;
+		command(eventName:string, selector:Function, handler:Function):any;
+		command(eventName:string, options:any, handler:Function):any;
+		command(eventName:string, selector:Function, options:any, handler:Function):any;
 	}
 
 	interface IPanes {
+		// TBD
+	}
+
+	interface IPaneView {
+		// TBD
+	}
+
+	interface IPaneContainerView {
 		// TBD
 	}
 
@@ -74,7 +134,7 @@ declare module AtomCore {
 		screenLines:ITokenizedLine[];
 		rowMap:any; // return type are RowMap
 		longestScreenRow:number;
-		subscriptions:ISubscription[];
+		subscriptions:Emissary.ISubscription[];
 		subscriptionsByObject:any; // return type are WeakMap
 		behaviors:any;
 		subscriptionCounts:any;
@@ -335,10 +395,6 @@ declare module AtomCore {
 		screenRangeChanged():any;
 	}
 
-	interface ISubscription {
-		// TBD
-	}
-
 	interface IEditor {
 		// Serializable.includeInto(Editor);
 		// Delegator.includeInto(Editor);
@@ -362,7 +418,7 @@ declare module AtomCore {
 		lastOpened: number;
 		subscriptionCounts: any;
 		subscriptionsByObject: any; /* WeakMap */
-		subscriptions: ISubscription[];
+		subscriptions: Emissary.ISubscription[];
 
 		serializeParams():{id:number; softTabs:boolean; scrollTop:number; scrollLeft:number; displayBuffer:any;};
 		deserializeParams(params:any):any;
@@ -568,7 +624,7 @@ declare module AtomCore {
 		expandSelectionsBackward(fn:(selection:ISelection)=>any):ISelection[];
 		finalizeSelections():boolean[];
 		mergeIntersectingSelections():any;
-		preserveCursorPositionOnBufferReload():ISubscription;
+		preserveCursorPositionOnBufferReload():Emissary.ISubscription;
 		getGrammar(): IGrammar;
 		setGrammar(grammer:IGrammar):void;
 		reloadGrammar():any;
@@ -1134,7 +1190,7 @@ declare module AtomCore {
 		globalPauseCount:number;
 		globalQueuedEvents:any;
 
-		subscriptions:ISubscription[];
+		subscriptions:Emissary.ISubscription[];
 		subscriptionsByObject:any; // WeakMap
 
 		copy(attributes?:any /* maybe IMarker */):IDisplayBufferMarker;
@@ -1246,6 +1302,16 @@ declare module "atom" {
 
 		id:number;
 
+		gutter:any/* GutterView */;
+		overlayer:JQuery;
+		scrollView:JQuery;
+		renderedLines:JQuery;
+		underlayer:JQuery;
+		hiddenInput:JQuery;
+		verticalScrollbar:JQuery;
+		verticalScrollbarContent:JQuery;
+
+		constructor(editor:AtomCore.IEditor);
 
 		initialize(editorOrOptions:AtomCore.IEditor):void; // return type are same as editor method.
 		initialize(editorOrOptions?:{editor: AtomCore.IEditor; mini:any; placeholderText:any}):void;
@@ -1284,7 +1350,7 @@ declare module "atom" {
 
 		checkoutHead():boolean;
 
-		configure():AtomCore.ISubscription;
+		configure():Emissary.ISubscription;
 
 		handleEvents():void;
 
@@ -1511,9 +1577,7 @@ declare module "atom" {
 		// TBD
 	}
 
-	class WorkspaceView extends View {
-		// TBD
-	}
+	var WorkspaceView:AtomCore.IWorkspaceViewStatic;
 
 	var Task:AtomCore.ITaskStatic;
 	var Workspace:AtomCore.IWorkspaceStatic;
