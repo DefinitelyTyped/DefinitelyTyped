@@ -30,15 +30,25 @@ declare module Emissary {
 	}
 
 	interface ISubscriber {
-		subscribeWith(eventEmitter:any, methodName:string, args:any):any;
+		subscribeWith(eventEmitter:any, methodName:string, args:any):ISubscription;
 
-		addSubscription(subscription:any):any;
+		addSubscription(subscription:any):ISubscription;
 
-		subscribe(eventEmitterOrSubscription:any, ...args:any[]):any;
+		subscribe(eventEmitterOrSubscription:any, ...args:any[]):ISubscription;
 
-		subscribeToCommand(eventEmitter:any, ...args:any[]):any;
+		subscribeToCommand(eventEmitter:any, ...args:any[]):ISubscription;
 
 		unsubscribe(object?:any):any;
+	}
+
+	interface ISubscriptionStatic {
+		new (emitter: any, eventNames:string, handler:Function):ISubscription;
+	}
+
+	interface ISubscription extends IEmitter {
+		cancelled:boolean;
+
+		off():any;
 	}
 }
 
