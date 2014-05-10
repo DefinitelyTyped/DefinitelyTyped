@@ -30,7 +30,6 @@ interface HandlebarsCommon {
 
     logger: Logger;
     log(level: number, obj: any): void;
-    Logger: typeof Logger;
 }
 
 interface HandlebarsStatic extends HandlebarsCommon {
