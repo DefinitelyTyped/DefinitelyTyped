@@ -5,7 +5,7 @@
 
 /// <reference path="../atom/atom.d.ts" />
 /// <reference path="../emissary/emissary.d.ts" />
-/// <reference path="../Q/Q.d.ts" />
+/// <reference path="../q/Q.d.ts" />
 
 
 declare module TextBuffer {
