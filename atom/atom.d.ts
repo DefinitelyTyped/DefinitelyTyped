@@ -118,8 +118,7 @@ declare module AtomCore {
 		afterAttach(onDom?:any):any;
 		beforeRemove():any;
 		handleMouseEvents(e:JQueryMouseEventObject):any;
-		getEditorView():any /* EditorView */
-		;
+		getEditorView():any; /* EditorView */
 		getEditor():IEditor;
 		getLineNumberElements():HTMLCollection;
 		getLineNumberElementsForClass(klass:string):NodeList;
@@ -341,8 +340,75 @@ declare module AtomCore {
 		foldForMarker(marker:any):any;
 	}
 
-	interface ICursor {
-		// TBD
+	interface ICursorStatic {
+		new (arg:{editor:IEditor; marker:IDisplayBufferMarker; id: number;}):ICursor;
+	}
+
+	interface ICursor /* extends Theorist.Model */ {
+		screenPosition:any;
+		bufferPosition:any;
+		goalColumn:any;
+		visible:boolean;
+		needsAutoscroll:boolean;
+
+		editor:IEditor;
+		marker:IDisplayBufferMarker;
+		id: number;
+
+		destroy():any;
+		changePosition(options:any, fn:Function):any;
+		getPixelRect():any;
+		setScreenPosition(screenPosition:any, options?:any):any;
+		getScreenPosition():TextBuffer.IPoint;
+		getScreenRange():TextBuffer.IRange;
+		setBufferPosition(bufferPosition:any, options?:any):any;
+		getBufferPosition():TextBuffer.IPoint;
+		autoscroll():any;
+		updateVisibility():any;
+		setVisible(visible:boolean):any;
+		isVisible():boolean;
+		wordRegExp(arg?:any):any;
+		isLastCursor():boolean;
+		isSurroundedByWhitespace():boolean;
+		isBetweenWordAndNonWord():boolean;
+		isInsideWord():boolean;
+		clearAutoscroll():void;
+		clearSelection():void;
+		getScreenRow():number;
+		getScreenColumn():number;
+		getBufferRow():number;
+		getBufferColumn():number;
+		getCurrentBufferLine():string;
+		moveUp(rowCount:number, arg?:any):any;
+		moveDown(rowCount:number, arg?:any):any;
+		moveLeft(arg?:any):any;
+		moveRight(arg?:any):any;
+		moveToTop():any;
+		moveToBottom():void;
+		moveToBeginningOfScreenLine():void;
+		moveToBeginningOfLine():void;
+		moveToFirstCharacterOfLine():void;
+		moveToEndOfScreenLine():void;
+		moveToEndOfLine():void;
+		moveToBeginningOfWord():void;
+		moveToEndOfWord():void;
+		moveToBeginningOfNextWord():void;
+		moveToPreviousWordBoundary():void;
+		moveToNextWordBoundary():void;
+		getBeginningOfCurrentWordBufferPosition(options?:any):TextBuffer.IPoint;
+		getPreviousWordBoundaryBufferPosition(options?:any):TextBuffer.IPoint;
+		getMoveNextWordBoundaryBufferPosition(options?:any):TextBuffer.IPoint;
+		getEndOfCurrentWordBufferPosition(options?:any):TextBuffer.IPoint;
+		getBeginningOfNextWordBufferPosition(options?:any):TextBuffer.IPoint;
+		getCurrentWordBufferRange(options?:any):TextBuffer.IPoint;
+		getCurrentLineBufferRange(options?:any):TextBuffer.IPoint;
+		getCurrentParagraphBufferRange():any;
+		getCurrentWordPrefix():string;
+		isAtBeginningOfLine():boolean;
+		getIndentLevel():number;
+		isAtEndOfLine():boolean;
+		getScopes():string[];
+		hasPrecedingCharactersOnLine():boolean;
 	}
 
 	interface ILanguageMode {
@@ -568,12 +634,12 @@ declare module AtomCore {
 		replaceSelectedText(options:any, fn:(selection:string)=>any):any;
 		getMarker(id:number):IDisplayBufferMarker;
 		getMarkers():IDisplayBufferMarker[];
-		findMarkers(properties:any):IDisplayBufferMarker[];
-		markScreenRange(value:number):IDisplayBufferMarker;
-		markBufferRange(value:number):IDisplayBufferMarker;
-		markScreenPosition(value:number):IDisplayBufferMarker;
-		markBufferPosition():IDisplayBufferMarker;
-		destroyMarker():boolean;
+		findMarkers(...args:any[]):IDisplayBufferMarker[];
+		markScreenRange(...args:any[]):IDisplayBufferMarker;
+		markBufferRange(...args:any[]):IDisplayBufferMarker;
+		markScreenPosition(...args:any[]):IDisplayBufferMarker;
+		markBufferPosition(...args:any[]):IDisplayBufferMarker;
+		destroyMarker(...args:any[]):boolean;
 		getMarkerCount():number;
 		hasMultipleCursors():boolean;
 		getCursors():ICursor[];
