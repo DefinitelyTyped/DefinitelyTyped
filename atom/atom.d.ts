@@ -7,6 +7,7 @@
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="../space-pen/space-pen.d.ts" />
 /// <reference path="../emissary/emissary.d.ts" />
+/// <reference path="../pathwatcher/pathwatcher.d.ts" />
 /// <reference path="../text-buffer/text-buffer.d.ts" />
 /// <reference path="../status-bar/status-bar.d.ts" />
 
@@ -41,7 +42,7 @@ declare module AtomCore {
 
 		// delegate to model property's method
 		open(uri:string, options:any):Q.Promise<View>;
-		openSync(uri:string, options:any):any;
+		openSync(uri:string, options?:any):any;
 		saveActivePaneItem():any;
 		saveActivePaneItemAs():any;
 		saveAll():void;
@@ -823,8 +824,46 @@ declare module AtomCore {
 		height:number;
 	}
 
-	interface IProject {
-		// TBD
+	interface IProjectStatic {
+		pathForRepositoryUrl(repoUrl:string):string;
+
+		new (arg?:{path:any; buffers:any[];}):IProject;
+	}
+
+	interface IProject /* extends Theorist.Model */ {
+		// Serializable.includeInto(Project);
+
+		path:string;
+		rootDirectory:PathWatcher.IDirectory;
+
+		serializeParams():any;
+		deserializeParams(params:any):any;
+		destroyed():any;
+		destroyRepo():any;
+		destroyUnretainedBuffers():any;
+		getRepo():IGit;
+		getPath():string;
+		setPath(projectPath:string):any;
+		getRootDirectory():PathWatcher.IDirectory;
+		resolve(uri:string):string;
+		relativize(fullPath:string):string;
+		contains(pathToCheck:string):boolean;
+		open(filePath:string, options?:any):Q.Promise<IEditor>;
+		openSync(filePath:string, options?:any):IEditor;
+		getBuffers():TextBuffer.ITextBuffer;
+		isPathModified(filePath:string):boolean;
+		findBufferForPath(filePath:string):TextBuffer.ITextBuffer;
+		bufferForPathSync(filePath:string):TextBuffer.ITextBuffer;
+		bufferForPath(filePath:string):Q.Promise<TextBuffer.ITextBuffer>;
+		bufferForId(id:any):TextBuffer.ITextBuffer;
+		buildBufferSync(absoluteFilePath:string):TextBuffer.ITextBuffer;
+		buildBuffer(absoluteFilePath:string):Q.Promise<TextBuffer.ITextBuffer>;
+		addBuffer(buffer:TextBuffer.ITextBuffer, options?:any):any;
+		addBufferAtIndex(buffer:TextBuffer.ITextBuffer, index:number, options?:any):any;
+		scan(regex:any, options:any, iterator:any):Q.Promise<any>;
+		replace(regex:any, replacementText:any, filePaths:any, iterator:any):Q.Promise<any>;
+		buildEditorForBuffer(buffer:any, editorOptions:any):IEditor;
+		eachBuffer(...args:any[]):any;
 	}
 
 	interface IWorkspaceStatic {
