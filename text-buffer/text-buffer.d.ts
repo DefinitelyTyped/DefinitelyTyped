@@ -1,4 +1,4 @@
-// Type definitions for Atom
+// Type definitions for text-buffer
 // Project: https://github.com/atom/text-buffer
 // Definitions by: vvakame <https://github.com/vvakame/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
