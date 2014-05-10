@@ -6,25 +6,7 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../q/Q.d.ts" />
 
-declare module "pathwatcher" {
-
-	import events = require("events");
-
-	interface IHandleWatcher extends events.EventEmitter {
-		onEvent(event:any, filePath:any, oldFilePath:any):any;
-		start():void;
-		closeIfNoListener():void;
-		close():void;
-	}
-
-	interface IPathWatcher {
-		isWatchingParent:boolean;
-		path:any;
-		handleWatcher:IHandleWatcher;
-
-		close():void;
-	}
-
+declare module PathWatcher {
 	interface IFileStatic {
 		new (path:string, symlink?:boolean):IFile;
 	}
@@ -75,6 +57,26 @@ declare module "pathwatcher" {
 		unsubscribeFromNativeChangeEvents():void;
 		isPathPrefixOf(prefix:string, fullPath:string):boolean;
 	}
+}
+
+declare module "pathwatcher" {
+
+	import events = require("events");
+
+	interface IHandleWatcher extends events.EventEmitter {
+		onEvent(event:any, filePath:any, oldFilePath:any):any;
+		start():void;
+		closeIfNoListener():void;
+		close():void;
+	}
+
+	interface IPathWatcher {
+		isWatchingParent:boolean;
+		path:any;
+		handleWatcher:IHandleWatcher;
+
+		close():void;
+	}
 
 	function watch(path:string, callback:Function):IPathWatcher;
 
@@ -82,6 +84,6 @@ declare module "pathwatcher" {
 
 	function getWatchedPaths():string[];
 
-	var File:IFileStatic;
-	var Directory:IDirectoryStatic;
+	var File:PathWatcher.IFileStatic;
+	var Directory:PathWatcher.IDirectoryStatic;
 }
