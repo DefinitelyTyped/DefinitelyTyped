@@ -256,7 +256,7 @@ declare module Siesta {
 
                     target?: any;
 
-                    el?: typeof target;
+                    el?: any;
                 }
             }
 
