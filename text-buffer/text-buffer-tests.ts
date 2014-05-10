@@ -6,7 +6,7 @@ var pointA = new Point(1, 2);
 pointA.row;
 pointA.column;
 
-var pointB = Point.fromObject({row: 2, col: 3});
+var pointB = Point.fromObject({row: 2, column: 3});
 var pointC = Point.min(pointA, pointB);
 
 declare var TRange: TextBuffer.IRangeStatic;
