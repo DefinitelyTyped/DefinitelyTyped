@@ -586,7 +586,11 @@ declare module "space-pen" {
 
 		end():any;
 
-		command(commandName:any, selector:any, options:any, handler:any):any;
+		command(eventName:string, handler:any):any;
+
+		command(eventName:string, selector:any, handler:any):any;
+
+		command(eventName:string, selector:any, options:any, handler:any):any;
 
 		preempt(eventName:any, handler:any):any;
 	}
