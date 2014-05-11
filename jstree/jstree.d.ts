@@ -1,6 +1,6 @@
-// Type definitions for jsTree v3.0.0
+﻿// Type definitions for jsTree v3.0.0
 // Project: http://www.jstree.com/
-// Definitions by: Adam Pluci�ski <https://github.com/adaskothebeast>
+// Definitions by: Adam Pluciński <https://github.com/adaskothebeast>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path="../jquery/jquery.d.ts" />
@@ -508,7 +508,7 @@ interface JSTree extends JQuery {
     * @name destroy()
     * @param  {Boolean} keep_html if not set to `true` the container will be emptied, otherwise the current DOM elements will be kept intact
     */
-    destroy: (keep_html: boolean) => void;
+    destroy: (keep_html?: boolean) => void;
     /**
     * returns the jQuery extended instance container
     * @name get_container()
