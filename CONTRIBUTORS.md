@@ -195,6 +195,7 @@ All definitions files include a header with the author and editors, so at some p
 * [localForage](https://github.com/mozilla/localForage) (by [david pichsenmeister](https://github.com/3x14159265))
 * [Lodash](http://lodash.com/) (by [Brian Zengel](https://github.com/bczengel))
 * [Logg](https://github.com/dpup/node-logg) (by [Bret Little](https://github.com/blittle))
+* [lz-string](https://github.com/pieroxy/lz-string) (by [Roman Nikitin](https://github.com/M0ns1gn0r))
 * [Marked](https://github.com/chjj/marked) (by [William Orr](https://github.com/worr))
 * [mCustomScrollbar](https://github.com/malihu/malihu-custom-scrollbar-plugin) (by [Sarah Williams](https://github.com/flurg))
 * [Meteor](https://www.meteor.com) (by [Dave Allen](https://github.com/fullflavedave))
