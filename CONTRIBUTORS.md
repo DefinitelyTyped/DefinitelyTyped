@@ -153,6 +153,7 @@ All definitions files include a header with the author and editors, so at some p
 * [jQuery.scrollTo](https://github.com/flesler/jquery.scrollTo) (by [Neil Stalker](https://github.com/nestalk/))
 * [jQuery.simplePagination](https://github.com/flaviusmatis/simplePagination.js) (by [Natan Vivo](https://github.com/nvivo/))
 * [jquery.superLink](http://james.padolsey.com/demos/plugins/jQuery/superLink/superlink.jquery.js) (by [Blake Niemyjski](https://github.com/niemyjski))
+* [jQuery.tile](https://github.com/urin/jquery.tile.js) (by [Shunsuke Ohtani](https://github.com/zaneli))
 * [jQuery.timeago](http://timeago.yarp.com/) (by [François Guillot](http://fguillot.developpez.com/))
 * [jQuery.Timepicker](http://fgelinas.com/code/timepicker/) (by [Anwar Javed](https://github.com/anwarjaved))
 * [jQuery.Timer](http://jchavannes.com/jquery-timer/demo) (by [Joshua Strobl](https://github.com/JoshStrobl))
