@@ -665,10 +665,10 @@ declare module AtomCore {
 		getSelectionsOrderedByBufferPosition():ISelection[];
 		getLastSelectionInBuffer():ISelection;
 		selectionIntersectsBufferRange(bufferRange:any):any;
-		setCursorScreenPosition(position:any, options?:any):any;
+		setCursorScreenPosition(position:TextBuffer.IPoint, options?:any):any;
 		getCursorScreenPosition():TextBuffer.IPoint;
 		getCursorScreenRow():number;
-		setCursorBufferPosition(position:any, options:any):any;
+		setCursorBufferPosition(position:any, options?:any):any;
 		getCursorBufferPosition():TextBuffer.IPoint;
 		getSelectedScreenRange():TextBuffer.IRange;
 		getSelectedBufferRange():TextBuffer.IRange;
@@ -1239,6 +1239,7 @@ declare module "atom" {
 	import spacePen = require("space-pen");
 
 	var $:typeof spacePen.$;
+	var $$:typeof spacePen.$$;
 	var $$$:typeof spacePen.$$$;
 
 	var BufferedNodeProcess:AtomCore.IBufferedNodeProcessStatic;
@@ -1563,8 +1564,70 @@ declare module "atom" {
 		// TBD
 	}
 
+	interface ISelectListItem {
+		/** e.g. application:about */
+		eventName:string;
+		/** e.g. Application: About */
+		eventDescription:string;
+	}
+
 	class SelectListView extends View {
-		// TBD
+		static content():any;
+
+		maxItems:number;
+		scheduleTimeout:any;
+		inputThrottle:number;
+		cancelling:boolean;
+		items:any[];
+		list:JQuery;
+
+		previouslyFocusedElement:JQuery;
+
+		initialize():any;
+
+		schedulePopulateList():number;
+
+		setItems(items:any[]):any;
+
+		setError(message?:string):any;
+
+		setLoading(message?:string):any;
+
+		getFilterQuery():string;
+
+		populateList():any;
+
+		getEmptyMessage(itemCount?:any, filteredItemCount?:any):string;
+
+		setMaxItems(maxItems:number):void;
+
+		selectPreviousItemView():any;
+
+		selectNextItemView():any;
+
+		selectItemView(view:any):any;
+
+		scrollToItemView(view:any):any;
+
+		getSelectedItemView():any;
+
+		getSelectedItem():any;
+
+		confirmSelection():any;
+
+		viewForItem(item:any):JQuery; // You must override this method!
+		confirmed(item:any):any; // You must override this method!
+		getFilterKey():any;
+
+		focusFilterEditor():any;
+
+		storeFocusedElement():any;
+
+		restoreFocus():any;
+
+		cancelled():any;
+
+		cancel():any;
 	}
 
 	var WorkspaceView:AtomCore.IWorkspaceViewStatic;
