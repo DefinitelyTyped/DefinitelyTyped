@@ -221,7 +221,6 @@ All definitions files include a header with the author and editors, so at some p
 * [notify.js](https://github.com/alexgibson/notify.js) (by [soundTricker](https://github.com/soundTricker))
 * [NProgress](https://github.com/rstacruz/nprogress) (by [Judah Gabriel Himango](https://github.com/judahgabriel))
 * [Numeral.js](https://github.com/adamwdraper/Numeral-js) (by [Vincent Bortone](https://github.com/vbortone/))
-* [ocLazyLoad](https://github.com/ocombe/ocLazyLoad) (by [Roland Zwaga](https://github.com/rolandzwaga/))
 * [OpenLayers](https://github.com/openlayers/openlayers) (by [Ilya Bolkhovsky](https://github.com/bolhovsky/))
 * [Optimist](https://github.com/substack/node-optimist) (by [Carlos Ballesteros Velasco](https://github.com/soywiz))
 * [Passport](http://passportjs.org/) (by [Hiroki Horiuchi](https://github.com/horiuchi/))
