@@ -1824,6 +1824,10 @@ declare module chrome.tabs {
         addListener(callback: (activeInfo: TabActiveInfo) => void): void;
     }
 
+    interface TabReplacedEvent extends chrome.events.Event {
+        addListener(callback: (addedTabId: number, removedTabId: number) => void): void;
+    }
+
     export function executeScript(details: InjectDetails, callback?: (result: any[]) => void): void;
     export function executeScript(tabId: number, details: InjectDetails, callback?: (result: any[]) => void): void;
     export function get(tabId: number, callback: (tab: Tab) => void): void;
@@ -1857,6 +1861,7 @@ declare module chrome.tabs {
     var onDetached: TabDetachedEvent;
     var onCreated: TabCreatedEvent;
     var onActivated: TabActivatedEvent;
+    var onReplaced: TabReplacedEvent;
 }
 
 ////////////////////
