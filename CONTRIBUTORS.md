@@ -10,6 +10,7 @@ All definitions files include a header with the author and editors, so at some p
 * [AmCharts](http://www.amcharts.com/) (by [Covobonomo](https://github.com/covobonomo/))
 * [AngularFire](https://www.firebase.com/docs/angular/reference.html) (by [Dénes Harmath](https://github.com/thSoft))
 * [AngularJS](http://angularjs.org) (by [Diego Vilar](https://github.com/diegovilar)) ([wiki](https://github.com/borisyankov/DefinitelyTyped/wiki/AngularJS-Definitions-Usage-Notes))
+* [angularLocalStorage](https://github.com/agrublev/angularLocalStorage) (by [Hiroki Horiuchi](https://github.com/horiuchi/))
 * [AngularUI](http://angular-ui.github.io/) (by [Michel Salib](https://github.com/michelsalib))
 * [Angular Protractor](https://github.com/angular/protractor) (by [Bill Armstrong](https://github.com/BillArmstrong))
 * [Angular Translate](http://pascalprecht.github.io/angular-translate/) (by [Michel Salib](https://github.com/michelsalib))
