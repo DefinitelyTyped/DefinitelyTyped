@@ -325,23 +325,44 @@ declare module THREE {
     }
 
     // Core ///////////////////////////////////////////////////////////////////////////////////////////////
+    export class BufferAttribute {
+        constructor();
 
-    interface BufferGeometryAttributeArray extends ArrayBufferView{
-        length: number;
+        set(value: number): void;
+        setX(index: number, x: number): void;
+        setY(index: number, y: number): void;
+        setZ(index: number, z: number): void;
+        setXY(index: number, x: number, y: number): void;
+        setXYZ(index: number, x: number, y: number, z: number): void;
+        setXYZW(index: number, x: number, y: number, z: number, w: number): void;
     }
 
-    interface BufferGeometryAttribute{
-        itemSize: number;
-        array: BufferGeometryAttributeArray;
-        numItems: number;
+    export class Int8Attribute extends BufferAttribute{
+        constructor(size: number, itemSize: number);
     }
-
-    interface BufferGeometryAttributes{
-        [name: string]: BufferGeometryAttribute;
-        index?: BufferGeometryAttribute;
-        position?: BufferGeometryAttribute;
-        normal?: BufferGeometryAttribute;
-        color?: BufferGeometryAttribute;
+    export class Uint8Attribute extends BufferAttribute {
+        constructor(size: number, itemSize: number);
+    }
+    export class Uint8ClampedAttribute extends BufferAttribute {
+        constructor(size: number, itemSize: number);
+    }
+    export class Int16Attribute extends BufferAttribute {
+        constructor(size: number, itemSize: number);
+    }
+    export class Uint16Attribute extends BufferAttribute {
+        constructor(size: number, itemSize: number);
+    }
+    export class Int32Attribute extends BufferAttribute {
+        constructor(size: number, itemSize: number);
+    }
+    export class Uint32Attribute extends BufferAttribute {
+        constructor(size: number, itemSize: number);
+    }
+    export class Float32Attribute extends BufferAttribute {
+        constructor(size: number, itemSize: number);
+    }
+    export class Float64Attribute extends BufferAttribute {
+        constructor(size: number, itemSize: number);
     }
 
     /**
@@ -361,50 +382,24 @@ declare module THREE {
          * Unique number of this buffergeometry instance
          */
         id: number;
-
-        /**
-         * This hashmap has as id the name of the attribute to be set and as value the buffer to set it to.
-         */
-        attributes: BufferGeometryAttributes;
-
-        /**
-         * When set, it holds certain buffers in memory to have faster updates for this object. When unset, it deletes those buffers and saves memory.
-         */
-        dynamic: boolean;
-
+        
+        uuid: number;
+        name: string;
+        attributes: BufferAttribute[];
+        drawcalls: { start: number; count: number; index: number; }[];
         offsets: { start: number; count: number; index: number; }[];
-
-        /**
-         * Bounding box.
-         */
         boundingBox: BoundingBox3D;
-
-        /**
-         * Bounding sphere.
-         */
         boundingSphere: BoundingSphere;
 
-        morphTargets: any[];
-        hasTangents: boolean;
-
-        addAttribute(name: string, type: Function, numItems: number, itemSize: number): any;
+        addAttribute(name: string, attribute: BufferAttribute): any;
+        addAttribute(name: string, array: any, itemSize: number): any;
+        getAttribute(name: string): any;
+        addDrawCall(start: number, count: number, index: number): void;
 
         /**
          * Bakes matrix transform directly into vertex coordinates.
          */
         applyMatrix(matrix: Matrix4): void;
-
-        /**
-         * Computes vertex normals by averaging face normals.
-         */
-        computeVertexNormals(): void;
-
-        /**
-         * Computes vertex tangents.
-         * Based on http://www.terathon.com/code/tangent.html
-         * Geometry must have vertex UVs (layer 0 will be used).
-         */
-        computeTangents(): void;
 
         /**
          * Computes bounding box of the geometry, updating Geometry.boundingBox attribute.
@@ -419,14 +414,29 @@ declare module THREE {
         computeBoundingSphere(): void;
 
         /**
+         * Computes vertex normals by averaging face normals.
+         */
+        computeVertexNormals(): void;
+
+        /**
+         * Computes vertex tangents.
+         * Based on http://www.terathon.com/code/tangent.html
+         * Geometry must have vertex UVs (layer 0 will be used).
+         */
+        computeTangents(): void;
+
+        computeOffsets(indexBufferSize: number): void;
+        merge(): void;
+        normalizeNormals(): void;
+        reorderBuffers(indexBuffer: number, indexMap: number[], vertexCount: number): void;
+        clone(): BufferGeometry;
+
+        /**
          * Disposes the object from memory.
          * You need to call this when you want the bufferGeometry removed while the application is running.
          */
         dispose(): void;
 
-        normalizeNormals(): void;
-
-        clone(): BufferGeometry;
     }
 
     /**
@@ -2180,19 +2190,13 @@ declare module THREE {
         clone(): ParticleSystemMaterial;
     }
 
-    export interface Uniforms {
-        [name: string]: { type: string; value: any; };
-
-        color?: { type: string; value: THREE.Color; };
-    }
-
     export class RawShaderMaterial extends ShaderMaterial {
         constructor(parameters?: ShaderMaterialParameters);
 
     }
 
     export interface ShaderMaterialParameters {
-        uniforms?: Uniforms;
+        uniforms?: any;
         fragmentShader?: string;
         vertexShader?: string;
         morphTargets?: boolean;
@@ -2212,7 +2216,7 @@ declare module THREE {
     export class ShaderMaterial extends Material {
         constructor(parameters?: ShaderMaterialParameters);
 
-        uniforms: Uniforms;
+        uniforms: any;
         fragmentShader: string;
         vertexShader: string;
         morphTargets: boolean;
@@ -4368,24 +4372,22 @@ declare module THREE {
     export var ShaderChunk: ShaderChunk;
 
     export var UniformsUtils: {
-        merge(uniforms: Object[]): Uniforms;
-        merge(uniforms: Uniforms[]): Uniforms;
-        clone(uniforms_src: Uniforms): Uniforms;
+        merge(uniforms: any[]): any;
+        clone(uniforms_src: any): any;
     };
 
     export var UniformsLib: {
-        common: Uniforms;
-        bump: Uniforms;
-        normalmap: Uniforms;
-        fog: Uniforms;
-        lights: Uniforms;
-        particle: Uniforms;
-        shadowmap: Uniforms;
+        common: any;
+        bump: any;
+        normalmap: any;
+        fog: any;
+        lights: any;
+        particle: any;
+        shadowmap: any;
     };
 
-
     export interface Shader {
-        uniforms: Uniforms;
+        uniforms: any;
         vertexShader: string;
         fragmentShader: string;
     }
@@ -4403,6 +4405,8 @@ declare module THREE {
         cube: Shader;
         depthRGBA: Shader;
     };
+
+
 
     // Renderers / WebGL /////////////////////////////////////////////////////////////////////
     export class WebGLProgram{
@@ -4573,7 +4577,7 @@ declare module THREE {
             anisotropy?: number
             );
 
-        image: Object; // HTMLImageElement or ImageData ;
+        image: any; // HTMLImageElement or ImageData ;
         mapping: Mapping;
         wrapS: Wrapping;
         wrapT: Wrapping;
