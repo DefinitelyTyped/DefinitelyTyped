@@ -1,8 +1,8 @@
 ﻿// Type definitions for jQuery postMessage
 // Project: http://benalman.com/projects/jquery-postmessage-plugin/
 // Definitions by: Junle Li <https://github.com/lijunle>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 // Official docs: http://benalman.com/code/projects/jquery-postmessage/docs/files/jquery-ba-postmessage-js.html
-// License: MIT license http://mit-license.org/
 
 interface JQueryStatic {
 
