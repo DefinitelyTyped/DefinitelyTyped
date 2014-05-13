@@ -3860,7 +3860,8 @@ declare module THREE {
     export class Sprite extends Object3D {
         constructor(material?: Material);
 
-        material: Material;
+        geometry: BufferGeometry;
+        material: SpriteMaterial;
 
         updateMatrix(): void;
         clone(object?: Sprite): Sprite;
