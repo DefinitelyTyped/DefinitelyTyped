@@ -1,4 +1,4 @@
-# Contributors
+﻿# Contributors
 
 This is a non-exhaustive list of definitions and their creators. If you created a definition but are not listed then feel free to send a pull request on this file with your name and url.
 
@@ -22,6 +22,8 @@ All definitions files include a header with the author and editors, so at some p
 * [assert](https://github.com/Jxck/assert) (by [vvakame](https://github.com/vvakame))
 * [async](https://github.com/caolan/async) (by [Boris Yankov](https://github.com/borisyankov))
 * [Atom](https://atom.io/) (by [vvakame](https://github.com/vvakame))
+* [Auth0](https://auth0.com/) (by [Robert McLaws](https://github.com/advancedrei))
+* [Auth0.Widget](https://auth0.com/) (by [Robert McLaws](https://github.com/advancedrei))
 * [aws-sdk-js](https://github.com/aws/aws-sdk-js) (by [midknight41](https://github.com/midknight41))
 * [Backbone.js](http://backbonejs.org/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Backbone Relational](http://backbonerelational.org/) (by [Eirik Hoem](https://github.com/eirikhm))
