@@ -8,7 +8,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Best practices | DefinitelyTyped</title>
+	<title>Language issues | DefinitelyTyped</title>
 	<meta name="description" content="The repository for high quality TypeScript type definitions" />
 	<meta name="keywords" content="typescript, type, definition, declaration, repository, typing" />
 
@@ -52,47 +52,66 @@
 
 
 			<div class="ui vertical segment">
-	<h1>Best practices</h1>
+	<h1>Language issues</h1>
 </div>
 
 <div class="ui vertical segment">
-	<p>This is a guide to the best practices to follow when creating typing files.  There are a variety of different ways that typing files can be constructed.  Different approaches can be used - this is intended as a guide to what approaches make sense in certain scenarios.  </p>
-<p>Also, it&#39;s a steer on how to deal with limitations in TypeScript.  As much as it hurts to say it, TypeScript v1.0 is not flawless.  There are certain minor flaws / shortcomings in the language which have implicatations for how typings are created.  Here we will detail those limitations, how they can be worked around at present and how you can best vote for improvements in the language on the <a href="//typescript.codeplex.com">TypeScript site</a>.</p>
-<h3 id="ghostin-modules-">Ghostin&#39; modules:</h3>
-<pre><code class="lang-typescript"><span class="hljs-comment">// this pattern has 3 name in top level.</span>
-<span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">NodeFoo</span> {</span>}
-<span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">NodeBar</span> {</span>}
-<span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">NodeBuzz</span> {</span>}
+	<p>There are a few problems in TypeScript that limit the expressiveness of the type declarations. This page tracks the known issues that we submitted or found on the TypeScript <a href="https://typescript.codeplex.com/workitem/list/basic">codeplex bugtracker</a>.</p>
+<p>If you know of a typing related issue not linked here please leave and issue in this <a href="https://github.com/DefinitelyTyped/definitelytyped.github.io">repos</a> or make a PR on the <em>source</em>-branch.</p>
+<h3 id="-260-https-typescript-codeplex-com-workitem-260-"><a href="https://typescript.codeplex.com/workitem/260">260</a></h3>
+<blockquote>
+<p>Get/set accessors in interfaces</p>
+</blockquote>
+<h3 id="-482-https-typescript-codeplex-com-workitem-482-and-1085-https-typescript-codeplex-com-workitem-1085-"><a href="https://typescript.codeplex.com/workitem/482">482</a> and <a href="https://typescript.codeplex.com/workitem/1085">1085</a></h3>
+<blockquote>
+<p>Allow to extend global variables like Date or Object to support libs like sugar.js</p>
+<p>Use Static interfaces for ambient declarations in lib.d.ts</p>
+</blockquote>
+<h3 id="-507-https-typescript-codeplex-com-workitem-507-and-2364-https-typescript-codeplex-com-workitem-2364-"><a href="https://typescript.codeplex.com/workitem/507">507</a> and <a href="https://typescript.codeplex.com/workitem/2364">2364</a></h3>
+<blockquote>
+<p>Support optional ambient &quot;this&quot; pointer typing in callback/function signatures</p>
+<p>declaring callback scope members</p>
+</blockquote>
+<h3 id="-1124-https-typescript-codeplex-com-workitem-1124-"><a href="https://typescript.codeplex.com/workitem/1124">1124</a></h3>
+<blockquote>
+<p>Allow additional parameters after ..rest in declarations</p>
+</blockquote>
+<h3 id="-1364-https-typescript-codeplex-com-workitem-1364-"><a href="https://typescript.codeplex.com/workitem/1364">1364</a></h3>
+<blockquote>
+<p>Add support for type unions</p>
+</blockquote>
+<h3 id="-2194-https-typescript-codeplex-com-workitem-2194-"><a href="https://typescript.codeplex.com/workitem/2194">2194</a></h3>
+<blockquote>
+<p>declarations cannot describe function &#39;try&#39; on module</p>
+</blockquote>
+<h3 id="-2323-https-typescript-codeplex-com-workitem-2323-"><a href="https://typescript.codeplex.com/workitem/2323">2323</a></h3>
+<blockquote>
+<p>decaring types for array-based tuples</p>
+</blockquote>
+<h3 id="-2333-https-typescript-codeplex-com-workitem-2333-pending-"><a href="https://typescript.codeplex.com/workitem/2333">2333</a> (pending)</h3>
+<blockquote>
+<p>Cleanup or select lib.d.ts global namespace</p>
+</blockquote>
+<h3 id="-2387-https-typescript-codeplex-com-workitem-2387-closed-"><a href="https://typescript.codeplex.com/workitem/2387">2387</a> (closed)</h3>
+<blockquote>
+<p><code>export =</code> not usable without claiming a name in the global namespace</p>
+</blockquote>
+<h3 id="-2451-https-typescript-codeplex-com-workitem-2451-"><a href="https://typescript.codeplex.com/workitem/2451">2451</a></h3>
+<blockquote>
+<p>Allow operators to work on custom types (via valueOf)</p>
+</blockquote>
 
-<span class="hljs-comment">// this pattern has 1 name in top level. Non instantiable module</span>
-<span class="hljs-keyword">declare</span> <span class="hljs-keyword">module</span> NodeJS {
-    <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Foo</span> {</span>}
-    <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Bar</span> {</span>}
-    <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Buzz</span> {</span>}
-}
-
-<span class="hljs-comment">// safety!</span>
-<span class="hljs-keyword">var</span> n = NodeJS; <span class="hljs-comment">// TS Error : Could not find symbol NodeJS</span>
-</code></pre>
-
-</div>
-
-<div class="ui segment">
-	Updates and fixes for the guides are welcome via the <a href="/pages/website-contributions.html">website contribution guide</a>.
 </div>
 
 <ul class="ui list">
 	
-	<a class="item" href="/guides/contributing.html"><i class="right triangle icon"></i> Contribution guide</a>
+	<a class="item" href="/pages/website-contributions.html"><i class="right triangle icon"></i> Website contributions</a>
 	
 	
-	<a class="item" href="/guides/best-practices.html"><i class="right triangle icon"></i> Best practices</a>
+	<a class="item" href="/pages/badges.html"><i class="right triangle icon"></i> Badges</a>
 	
 	
-	<a class="item" href="/guides/pull-request.html"><i class="right triangle icon"></i> Pull Requests</a>
-	
-	
-	<a class="item" href="/guides/creating.html"><i class="right triangle icon"></i> Creating a definition file</a>
+	<a class="item" href="/pages/language-issues.html"><i class="right triangle icon"></i> Language issues</a>
 	
 	
 </ul>

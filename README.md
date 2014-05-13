@@ -16,15 +16,19 @@ Prerequisites:
 
 1. Have the global grunt cli command: run `npm install grunt-cli -g` in your command line.
 
+1. You do *not* need a global docpad install; it comes as local dependency.
+
 Get the project
 
 1. Checkout and update the `source` branch.
 
 1. Run `npm install` to pull all local dependencies. (this can take a minute)
 
-Work in the project
+Do some work in the project.
 
-1. Use grunt to execute tasks. The main command are:
+Use grunt run run various commands.
+
+1. Use grunt to execute tasks. The main commands are:
 
 	1. Run `grunt clean` - drop all generated content.
 
@@ -32,17 +36,21 @@ Work in the project
 
 	1. Run `grunt build` - regenerate the site for production environment .
 
-	1. Run `grunt publish` - build and push to github `master` (live at [definitelytyped.org](http://definitelytyped.org/)). This will ask for your github credentials. You need commit access to the repository. Don't forget to push your `source` branch too!
+	1. Run `grunt publish` - build and push to github `master` (live at [definitelytyped.org](http://definitelytyped.org/)). This will ask for your github credentials so you need commit access to the repository. Don't forget to push your `source` branch too!
 
 	1. See `grunt -h` or the `Gruntfile.js` for additional commands.
 
-:warning: Direct changes to `master` branch will be overwritten or discarded so always edit through `source`!
+Publish the changes.
+
+1. Commit your chnages and push then to the `source` branch. If you like so feedback first then use a fork (or branch) and send a pull request.
+
+1. Users with commit access on the repository can run `grunt publish` to build the site and publish it to the live `master` branch.
 
 Notes:
 
-1. You don't need a global docpad install, it comes as local dependency.
+1. If you build or watch the content then you might get some yellow `warning`'s in the console. These can usually be ignored when docpad telling us that some transforms didn't have any effect: this is correct if you use a template transform (`.eco`) but have no template fields in the file (*yet*).
 
-1. If you build or watch the content then you might get some yellow `warning`'s in the console. These can usually be ignored as it is docpad telling us that some transforms didn't have any effect: this is correct if you use a template transform (`.eco`) but have no template fields in the file (*yet*).
+2. :warning: Direct changes to `master` branch will be overwritten or discarded so always edit through `source`!
 
 ## Contributions
 
