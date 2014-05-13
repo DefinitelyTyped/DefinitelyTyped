@@ -180,9 +180,12 @@ interface OfflineRenderSuccessCallback{
  *     var offlineContext = new OfflineAudioContext(unsigned long numberOfChannels, unsigned long length, float sampleRate);
  */
 interface OfflineAudioContext extends AudioContext{
-    constructor();
     startRendering(): void;
     oncomplete: OfflineRenderSuccessCallback;
+}
+
+declare var webkitOfflineAudioContext: {
+    new (numberOfChannels: number, length: number, sampleRate: number): OfflineAudioContext;
 }
 
 /**
