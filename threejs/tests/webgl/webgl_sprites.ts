@@ -5,7 +5,7 @@
 
 () => {
     // ------- variable definitions that does not exist in the original code. These are for typescript.
-    var material: any;
+    var material: THREE.SpriteMaterial;
     // -------
 
     var camera, scene, renderer;

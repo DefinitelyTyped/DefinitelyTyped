@@ -1,4 +1,5 @@
 ﻿/// <reference path="../../three.d.ts" />
+/// <reference path="../../../tween.js/tween.js.d.ts" />
 /// <reference path="../three-tests-setup.ts" />
 
 // https://github.com/mrdoob/three.js/blob/master/examples/css3d_periodictable.html
@@ -316,7 +317,6 @@
                 .start();
 
         }
-
         new TWEEN.Tween(this)
             .to({}, duration * 2)
             .onUpdate(render)
