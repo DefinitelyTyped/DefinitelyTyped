@@ -7,20 +7,20 @@
 interface Auth0Static {
     
     new(options: Auth0ClientOptions): Auth0Static;
-    changePassword(options: any, callback?: Function);
+    changePassword(options: any, callback?: Function): void;
     decodeJwt(jwt: string): any;
-    login(options: any, callback: (error, profile?, id_token?, access_token?, state?) => any);
-    loginWithPopup(options: Auth0LoginOptions, callback: (error, profile?, id_token?, access_token?, state?) => any);
-    loginWithResourceOwner(options: Auth0LoginOptions, callback: (error?: Auth0Error, profile?, id_token?, access_token?, state?) => any);
-    loginWithUsernamePassword(options: Auth0LoginOptions, callback: (error?: Auth0Error, profile?, id_token?, access_token?, state?) => any);
+    login(options: any, callback: (error?: Auth0Error, profile?: Auth0UserProfile, id_token?: string, access_token?: string, state?: string) => any): void;
+    loginWithPopup(options: Auth0LoginOptions, callback: (error?: Auth0Error, profile?: Auth0UserProfile, id_token?: string, access_token?: string, state?: string) => any);
+    loginWithResourceOwner(options: Auth0LoginOptions, callback: (error?: Auth0Error, profile?: Auth0UserProfile, id_token?: string, access_token?: string, state?: any) => any): void;
+    loginWithUsernamePassword(options: Auth0LoginOptions, callback: (error?: Auth0Error, profile?: Auth0UserProfile, id_token?: string, access_token?: string, state?: string) => any): void;
     logout(query: string): void;
-    getConnections(callback?: Function)
+    getConnections(callback?: Function): void;
     getDelegationToken(targetClientId, id_token: string, options: any, callback: (error?: Auth0Error, delegationResult?: Auth0DelegationToken) => any): void;
     getProfile(id_token: string, callback?: Function): Auth0UserProfile;
-    getSSOData(withActiveDirectories: any, callback?: Function);
+    getSSOData(withActiveDirectories: any, callback?: Function): void;
     parseHash(hash: string): Auth0DecodedHash;
-    signup(options: Auth0SignupOptions, callback: Function);
-    validateUser(options: any, callback: (error?: Auth0Error, valid?) => any);
+    signup(options: Auth0SignupOptions, callback: Function): void;
+    validateUser(options: any, callback: (error?: Auth0Error, valid?: any) => any): void;
 }
 
 /** Represents constructor options for the Auth0 client. */

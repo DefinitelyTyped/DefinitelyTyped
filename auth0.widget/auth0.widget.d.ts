@@ -14,7 +14,7 @@ interface Auth0WidgetStatic {
     parseHash(hash: string): Auth0DecodedHash;
     reset(options: Auth0Options, callback?: Function): Auth0WidgetStatic;
     signin(options: Auth0Options, widgetLoadedCallback?: Function, popupCallback?: Function): Auth0WidgetStatic;
-    signup(options: Auth0Options, callback: (error?: Auth0Error, profile?, id_token?, access_token?, state?) => any): Auth0WidgetStatic;
+    signup(options: Auth0Options, callback: (error?: Auth0Error, profile?: Auth0UserProfile, id_token?: string, access_token?: string, state?: string) => any): Auth0WidgetStatic;
  }
 
 interface Auth0Constructor extends Auth0ClientOptions {
