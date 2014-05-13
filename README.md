@@ -26,25 +26,25 @@ Get the project
 
 Do some work in the project.
 
-Use grunt run run various commands.
+Use grunt to run various commands.
 
-1. Use grunt to execute tasks. The main commands are:
+1. The main tasks are:
 
-	1. Run `grunt clean` - drop all generated content.
+	1. Run `grunt clean` - remove all generated content.
 
 	1. Run `grunt watch` - regenerate and start a watch with LiveReload server at [http://localhost:9778/](http://localhost:9778/)
 
-	1. Run `grunt build` - regenerate the site for production environment .
+	1. Run `grunt build` - regenerate the site for production environment (best to stop the watch if you have it active).
 
-	1. Run `grunt publish` - build and push to github `master` (live at [definitelytyped.org](http://definitelytyped.org/)). This will ask for your github credentials so you need commit access to the repository. Don't forget to push your `source` branch too!
+	1. Run `grunt publish` - build and push to github `master` (live at [definitelytyped.org](http://definitelytyped.org/)). This will ask for your github credentials so you need commit access to the repository (otherwise send a PR with the your source).
 
 	1. See `grunt -h` or the `Gruntfile.js` for additional commands.
 
 Publish the changes.
 
-1. Commit your chnages and push then to the `source` branch. If you like so feedback first then use a fork (or branch) and send a pull request.
+1. Commit your changes and push them to the `source` branch. If you like some feedback first then use a fork (or branch) and send a pull request.
 
-1. Users with commit access on the repository can run `grunt publish` to build the site and publish it to the live `master` branch.
+1. Users with commit access on the repository can run `grunt publish` to build the site and publish it to the live `master` branch. Don't forget to push your `source` branch too!
 
 Notes:
 
@@ -54,10 +54,10 @@ Notes:
 
 ## Contributions
 
-At some point we'll take contributions; it will probably involve sending a Pull Request on the `source` branch.
+Conntributions are welcome! Check the wesite [for more info](http://definitelytyped.org/pages/website-contributions.html) and then return here and follow the instructions above.
 
 ## License
 
-Copyright (c) 2014 [DefinitelyTyped](https://github.com/DefinitelyTyped)
+Copyright (c) 2014 DefinitelyTyped
 
 Licensed under the MIT license.
