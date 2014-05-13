@@ -10,12 +10,12 @@ interface Auth0Static {
     changePassword(options: any, callback?: Function): void;
     decodeJwt(jwt: string): any;
     login(options: any, callback: (error?: Auth0Error, profile?: Auth0UserProfile, id_token?: string, access_token?: string, state?: string) => any): void;
-    loginWithPopup(options: Auth0LoginOptions, callback: (error?: Auth0Error, profile?: Auth0UserProfile, id_token?: string, access_token?: string, state?: string) => any);
+    loginWithPopup(options: Auth0LoginOptions, callback: (error?: Auth0Error, profile?: Auth0UserProfile, id_token?: string, access_token?: string, state?: string) => any): void;
     loginWithResourceOwner(options: Auth0LoginOptions, callback: (error?: Auth0Error, profile?: Auth0UserProfile, id_token?: string, access_token?: string, state?: any) => any): void;
     loginWithUsernamePassword(options: Auth0LoginOptions, callback: (error?: Auth0Error, profile?: Auth0UserProfile, id_token?: string, access_token?: string, state?: string) => any): void;
     logout(query: string): void;
     getConnections(callback?: Function): void;
-    getDelegationToken(targetClientId, id_token: string, options: any, callback: (error?: Auth0Error, delegationResult?: Auth0DelegationToken) => any): void;
+    getDelegationToken(targetClientId: string, id_token: string, options: any, callback: (error?: Auth0Error, delegationResult?: Auth0DelegationToken) => any): void;
     getProfile(id_token: string, callback?: Function): Auth0UserProfile;
     getSSOData(withActiveDirectories: any, callback?: Function): void;
     parseHash(hash: string): Auth0DecodedHash;
