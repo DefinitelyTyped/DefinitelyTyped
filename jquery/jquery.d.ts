@@ -1359,6 +1359,13 @@ interface JQuery {
      * @param value A value to set for the attribute.
      */
     attr(attributeName: string, value: number): JQuery;
+        /**
+     * Set one or more attributes for the set of matched elements.
+     *
+     * @param attributeName The name of the attribute to set.
+     * @param value A value to set for the attribute.
+     */
+    attr(attributeName: string, value: boolean): JQuery;
     /**
      * Set one or more attributes for the set of matched elements.
      *
