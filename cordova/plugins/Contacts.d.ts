@@ -143,9 +143,9 @@ interface ContactName {
     /** The contact's middle name. */
     middleName?: string;
     /** The contact's prefix (example Mr. or Dr.) */
-    honorifixPrefix?: string;
+    honorificPrefix?: string;
     /** The contact's suffix (example Esq.). */
-    honorifixSuffix?: string;
+    honorificSuffix?: string;
 }
 
 declare var ContactName: {
@@ -154,8 +154,8 @@ declare var ContactName: {
         familyName?: string,
         givenName?: string,
         middleName?: string,
-        honorifixPrefix?: string,
-        honorifixSuffix?: string): ContactName
+        honorificPrefix?: string,
+        honorificSuffix?: string): ContactName
 };
 
 /**
@@ -171,19 +171,19 @@ declare var ContactName: {
  * contains a base64-encoded image string.
  */
 interface ContactField {
-    /** Set to true if this ContactField contains the user's preferred value. */
-    pref: boolean;
     /** A string that indicates what type of field this is, home for example. */
     type: string;
     /** The value of the field, such as a phone number or email address. */
     value: string;
+    /** Set to true if this ContactField contains the user's preferred value. */
+    pref: boolean;
 }
 
 declare var ContactField: {
     /** Constructor for ContactField object */
     new(type?: string,
-        pref?: boolean,
-        value?: string): ContactField
+        value?: string,
+        pref?: boolean): ContactField
 };
 
 /**

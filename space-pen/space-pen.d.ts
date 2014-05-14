@@ -65,7 +65,7 @@ declare class View /* implements JQuery */ {
 
 	static popBuilder():Builder;
 
-	static buildHtml(fn:()=>void):any[];
+	static buildHtml(fn:()=>void):string[];
 
 	static render(fn:()=>void):JQuery;
 
@@ -348,7 +348,7 @@ declare module "space-pen" {
 
 		static popBuilder():Builder;
 
-		static buildHtml(fn:()=>void):any[];
+		static buildHtml(fn:()=>void):string[];
 
 		static render(fn:()=>void):JQuery;
 
@@ -586,7 +586,11 @@ declare module "space-pen" {
 
 		end():any;
 
-		command(commandName:any, selector:any, options:any, handler:any):any;
+		command(eventName:string, handler:any):any;
+
+		command(eventName:string, selector:any, handler:any):any;
+
+		command(eventName:string, selector:any, options:any, handler:any):any;
 
 		preempt(eventName:any, handler:any):any;
 	}

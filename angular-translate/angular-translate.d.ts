@@ -22,7 +22,7 @@ declare module ng.translate {
     }
 
     interface ITranslateService {
-        (key: string, ...params: string[]): string;
+        (key: string, ...params: string[]): ng.IPromise<string>;
         fallbackLanguage(): string;
         preferredLanguage(): string;
         proposedLanguage(): string;
