@@ -629,6 +629,7 @@ declare module ng {
         status?: number;
         headers?: (headerName: string) => string;
         config?: IRequestConfig;
+        statusText?: string;
     }
 
     interface IHttpPromise<T> extends IPromise<T> {
