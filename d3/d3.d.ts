@@ -710,7 +710,7 @@ declare module D3 {
             (name: string): string;
             (name: string, value: any): Selection;
             (name: string, valueFunction: (data: any, index: number) => any): Selection;
-            (attrValueMap : any): Selection;
+            (attrValueMap : Object): Selection;
         };
 
         classed: {
@@ -723,12 +723,14 @@ declare module D3 {
             (name: string): string;
             (name: string, value: any, priority?: string): Selection;
             (name: string, valueFunction: (data: any, index: number) => any, priority?: string): Selection;
+            (styleValueMap : Object): Selection;
         };
 
         property: {
             (name: string): void;
             (name: string, value: any): Selection;
             (name: string, valueFunction: (data: any, index: number) => any): Selection;
+            (propertyValueMap : Object): Selection;
         };
 
         text: {
@@ -809,7 +811,7 @@ declare module D3 {
 
     export interface EnterSelection {
         append: (name: string) => Selection;
-        insert: (name: string, before: string) => Selection;
+        insert: (name: string, before?: string) => Selection;
         select: (selector: string) => Selection;
         empty: () => boolean;
         node: () => Element;

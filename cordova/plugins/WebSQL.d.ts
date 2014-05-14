@@ -1,5 +1,5 @@
 // Type definitions for Apache Cordova WebSQL plugin.
-// Project: https://github.com/sgrebnov/cordova-plugin-websql
+// Project: https://github.com/MSOpenTech/cordova-plugin-websql
 // Definitions by: Microsoft Open Technologies, Inc. <http://msopentech.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // 
@@ -43,7 +43,7 @@ interface Database {
         successCallback?: () => void): void;
     name: string;
     version: string;
-    displayname: string;
+    displayName: string;
     size: number;
 }
 

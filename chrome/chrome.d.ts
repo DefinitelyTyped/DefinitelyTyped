@@ -1824,6 +1824,10 @@ declare module chrome.tabs {
         addListener(callback: (activeInfo: TabActiveInfo) => void): void;
     }
 
+    interface TabReplacedEvent extends chrome.events.Event {
+        addListener(callback: (addedTabId: number, removedTabId: number) => void): void;
+    }
+
     export function executeScript(details: InjectDetails, callback?: (result: any[]) => void): void;
     export function executeScript(tabId: number, details: InjectDetails, callback?: (result: any[]) => void): void;
     export function get(tabId: number, callback: (tab: Tab) => void): void;
@@ -1831,6 +1835,7 @@ declare module chrome.tabs {
     export function create(createProperties: CreateProperties, callback?: (tab: Tab) => void): void;
     export function move(tabId: number, moveProperties: MoveProperties, callback?: (tab: Tab) => void): void;
     export function move(tabIds: number[], moveProperties: MoveProperties, callback?: (tabs: Tab[]) => void): void;
+    export function update(updateProperties: UpdateProperties, callback?: (tab?: Tab) => void): void;
     export function update(tabId: number, updateProperties: UpdateProperties, callback?: (tab?: Tab) => void): void;
     export function remove(tabId: number, callback?: Function): void;
     export function remove(tabIds: number[], callback?: Function): void;
@@ -1856,6 +1861,7 @@ declare module chrome.tabs {
     var onDetached: TabDetachedEvent;
     var onCreated: TabCreatedEvent;
     var onActivated: TabActivatedEvent;
+    var onReplaced: TabReplacedEvent;
 }
 
 ////////////////////

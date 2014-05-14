@@ -37,3 +37,5 @@ Here is an updated list of [definitions people have requested](https://github.co
 This project is licensed under the MIT license.
 
 Copyrights on the definition files are respective of each contributor listed at the beginning of each definition file.
+
+[![Analytics](https://ga-beacon.appspot.com/UA-47495295-4/borisyankov/DefinitelyTyped)](https://github.com/igrigorik/ga-beacon)
