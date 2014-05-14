@@ -115,7 +115,7 @@ declare module GeoJSON {
         properties: any;
     }
 	
-	export interface NamedCoordinateReferenceSystem extends CoordinateReferenceSystem
+    export interface NamedCoordinateReferenceSystem extends CoordinateReferenceSystem
     {
         properties: { name: string }
     }
