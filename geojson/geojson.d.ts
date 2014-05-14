@@ -5,7 +5,7 @@
 
 declare module GeoJSON {
 
-	/***
+    /***
     * http://geojson.org/geojson-spec.html#geojson-objects
     */
     export interface GeoJsonObject
