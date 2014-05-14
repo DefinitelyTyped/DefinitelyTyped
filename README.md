@@ -1,13 +1,13 @@
 # definitelytyped.github.io
 
-Website content for [definitelytyped.org](http://definitelytyped.org) (hosted at [definitelytyped.github.io](http://definitelytyped.github.io/)).
+Website content for [definitelytyped.github.io](http://definitelytyped.github.io/) (hosted at [definitelytyped.org](http://definitelytyped.org)).
 
 The [master](https://github.com/DefinitelyTyped/definitelytyped.github.io/tree/master) branch holds live github.io content generated from the [source](https://github.com/DefinitelyTyped/definitelytyped.github.io/tree/source) branch.
 
 The site build with [Grunt](http://www.gruntjs.com) and generated using [docpad](http://docpad.org), a static site generator complete with watch tasks, development server with LiveReload and [many plugins](http://docpad.org/docs/plugins). Publishing happens using [grunt-gh-pages](https://github.com/tschaub/grunt-gh-pages).
 
 
-## Adding content
+## Adding simple content
 
 To add new links to the TypeScript directory or update the guides follow these steps:
 
@@ -23,9 +23,12 @@ To add new links to the TypeScript directory or update the guides follow these s
 
 1. Push to your changes to your fork.
 
-1. Send a pull request, after review a committer will merge and republish the website.
+1. Send a pull request to the `source` branch
+
+1. After review a committer will merge and Travis-CI will republish the website.
 
 1. See below for the steps to get a local preview (this is not essential for simple markdown edits).
+
 
 ## Edit the site
 
@@ -34,7 +37,7 @@ To do structural authoring with a build-preview you can follow the development f
 Working with the site is done using your commandline terminal and should work on any platform. So it can be bash, shell, cmd.exe or anything else (like WebStorm embedded terminal).
 
 
-Prerequisites:
+### Prerequisites
 
 1. Get [node.js](http://nodejs.org/) (`> 0.10.0`) for your local platform, it comes with the `npm` package manager.
 
@@ -43,7 +46,7 @@ Prerequisites:
 1. You *dont* need a global docpad install; it comes as local dependency.
 
 
-Get the project
+### Get the project
 
 1. Fork the repository (or just clone if you got commit access).
 
@@ -52,8 +55,7 @@ Get the project
 1. Run `npm install` to pull all local dependencies. (this can take a minute)
 
 
-Do some work in the project.
-
+### Do some work in the project
 
 Use grunt to run various commands.
 
@@ -65,17 +67,22 @@ Use grunt to run various commands.
 
 	1. Run `grunt build` - regenerate the site for production environment (best to stop the watch if you have it active).
 
-	1. Run `grunt publish` - build and push to github `master` (live at [definitelytyped.org](http://definitelytyped.org/)). This will ask for your github credentials so you need commit access to the repository (otherwise send a PR with the your source).
+	1. Run `grunt publish` - build and push to github `master` (live at [definitelytyped.org](http://definitelytyped.org/)). This will ask for your github credentials so you need commit access to the repository (otherwise send a PR with the your source). Make sure you also push the changes to `source`.
 
 	1. See `grunt -h` or the `Gruntfile.js` for additional commands.
 
 
-Publish the changes.
+### Publish the changes
 
-1. Commit your changes and push them to the `source` branch. If you like some feedback first then use a fork (or branch) and send a pull request.
+1. Push your changes to the `source` branch (or send a pull request).
 
-1. Users with commit access on the repository can run `grunt publish` to build the site and publish it to the live `master` branch. Don't forget to push your `source` branch too!
+1. If you like some feedback first then use a fork (or branch).
 
+1. The every commit that lands on `source` site will automatically be rebuild and deployed via Travis-CI.
+
+1. Give Travis a minute or two to deploy the site, then verify your changes.
+
+1. Optional: Fix some typos.
 
 Notes:
 
