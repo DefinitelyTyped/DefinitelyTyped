@@ -1,6 +1,6 @@
-# definitelytyped.github.io
+# definitelytyped.github.io [![Build Status](https://travis-ci.org/DefinitelyTyped/definitelytyped.github.io.svg?branch=source)](https://travis-ci.org/DefinitelyTyped/definitelytyped.github.io)
 
-Website content for [definitelytyped.github.io](http://definitelytyped.github.io/) (hosted at [definitelytyped.org](http://definitelytyped.org)).
+> Website content for [definitelytyped.github.io](http://definitelytyped.github.io/) (hosted at [definitelytyped.org](http://definitelytyped.org)).
 
 The [master](https://github.com/DefinitelyTyped/definitelytyped.github.io/tree/master) branch holds live github.io content generated from the [source](https://github.com/DefinitelyTyped/definitelytyped.github.io/tree/source) branch.
 
@@ -17,15 +17,15 @@ To add new links to the TypeScript directory or update the guides follow these s
 
 1. If you already have a checkout make sure you pull the latest revision. 
 
-1. Locate the source file in `./src/documents`. Most of the editable content is in markdown format (some with a `.eco` template filter).
+1. Locate the content your want to change in `./src/documents`. Most of the editable content is in markdown format (some with a `.eco` template filter).
 
 1. Make your edits and commit your changes. A flat commit with sensible commit-note is appreciated.
 
 1. Push to your changes to your fork.
 
-1. Send a pull request to the `source` branch
+1. Send a pull request to the `source` branch.
 
-1. After review a committer will merge and Travis-CI will republish the website.
+1. After review a committer will merge and Travis-CI will republish the site.
 
 1. See below for the steps to get a local preview (this is not essential for simple markdown edits).
 
