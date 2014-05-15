@@ -1,15 +1,21 @@
 # definitelytyped.github.io [![Build Status](https://travis-ci.org/DefinitelyTyped/definitelytyped.github.io.svg?branch=source)](https://travis-ci.org/DefinitelyTyped/definitelytyped.github.io)
 
-> Website content for [definitelytyped.github.io](http://definitelytyped.github.io/) (hosted at [definitelytyped.org](http://definitelytyped.org)).
+> Website content for [definitelytyped.org](http://definitelytyped.org).
 
 The [master](https://github.com/DefinitelyTyped/definitelytyped.github.io/tree/master) branch holds live github.io content generated from the [source](https://github.com/DefinitelyTyped/definitelytyped.github.io/tree/source) branch.
 
 The site build with [Grunt](http://www.gruntjs.com) and generated using [docpad](http://docpad.org), a static site generator complete with watch tasks, development server with LiveReload and [many plugins](http://docpad.org/docs/plugins). Publishing happens using [grunt-gh-pages](https://github.com/tschaub/grunt-gh-pages).
 
 
-## Adding simple content
+## Edit online
 
-To add new links to the TypeScript directory or update the guides follow these steps:
+1. Use the github website interface to quickly to minimal text edits in like updating the [guides](/guides.html) and the [directory](/directory.html). It will create a fork and allow to modify content without leaving your browser.
+
+1. The content is mostly markdown and located in `./src/documents`.
+
+## Bulk editing
+
+If you like to use your own tool you can follow these steps:
 
 1. Fork the repository.
 
