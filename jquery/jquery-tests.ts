@@ -3116,6 +3116,22 @@ function test_parseHTML() {
 	  .appendTo( $log );
 }
 
+// http://api.jquery.com/jQuery.parseJSON/
+function test_parseJSON() {
+    // Return type should be any, not Object
+    var i = $.parseJSON('1');
+    var a = $.parseJSON('[1]');
+    var o = $.parseJSON('{"foo":"bar"}');
+    var s = $.parseJSON('"string"');
+    var n = $.parseJSON('null');
+
+    i instanceof Object; // false
+    a instanceof Object; // true
+    o instanceof Object; // true
+    s instanceof Object; // false
+    n instanceof Object; // false
+}
+
 function test_not() {
     $("li").not(":even").css("background-color", "red");
 
