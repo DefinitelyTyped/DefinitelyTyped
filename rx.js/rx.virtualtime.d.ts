@@ -1,4 +1,4 @@
-// Type definitions for RxJS-VirtualTime package 2.2.18
+// Type definitions for RxJS-VirtualTime v2.2.20
 // Project: http://rx.codeplex.com/
 // Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>

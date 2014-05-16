@@ -43,10 +43,11 @@ interface VideoJSPlayer {
 	ready(callback: () => void ): void;
 	on(eventName: string, callback: () => void ): void;
 	off(eventName: string, callback: () => void ): void;
+	dispose(): void;
 }
 
 interface VideoJSStatic {
 	(id: any, options?: VideoJSOptions, ready?: () => void): VideoJSPlayer;
 }
 
-declare var _V_:VideoJSStatic;
+declare var videojs:VideoJSStatic;
