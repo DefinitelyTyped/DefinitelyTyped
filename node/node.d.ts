@@ -327,7 +327,7 @@ declare module "http" {
         write(chunk: any, encoding?: string): void;
         abort(): void;
         setTimeout(timeout: number, callback?: Function): void;
-        setNoDelay(noDelay?: Function): void;
+        setNoDelay(noDelay?: boolean): void;
         setSocketKeepAlive(enable?: boolean, initialDelay?: number): void;
 
         // Extended base methods
