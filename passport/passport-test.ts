@@ -7,7 +7,7 @@ import passport = require('passport');
 class TestStrategy implements passport.Strategy {
   public name: string = 'test';
   constructor() {}
-  authenticate(req: passport.Request) {}
+  authenticate(req: express.Request) {}
 }
 
 passport.use(new TestStrategy());
@@ -33,7 +33,7 @@ app.post('/login',
     res.redirect('/');
   });
 
-app.post('/login', function(req: passport.Request, res: passport.Response, next: (err?: any) => void) {
+app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) { return next(err) }
     if (!user) {
@@ -47,12 +47,12 @@ app.post('/login', function(req: passport.Request, res: passport.Response, next:
   })(req, res, next);
 });
 
-app.get('/logout', function(req: passport.Request, res: passport.Response) {
+app.get('/logout', function(req, res) {
   req.logout();
   res.redirect('/');
 });
 
-function ensureAuthenticated(req: passport.Request, res: passport.Response, next: (err?: any) => void) {
+function ensureAuthenticated(req: express.Request, res: express.Response, next: (err?: any) => void) {
   if (req.isAuthenticated()) { return next(); }
   if (req.isUnauthenticated()) {
     res.redirect('/login');

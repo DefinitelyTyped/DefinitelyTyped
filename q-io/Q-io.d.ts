@@ -18,17 +18,17 @@ declare module QioFS {
 	export function open(path:string, options?:any):Q.Promise<any>;
 	//export function open(path:string, options?:any):Q.Promise<Qio.Reader>;
 	//export function open(path:string, options?:any):Q.Promise<Qio.Writer>;
-	//export function open(path:string, options?:any):Q.Promise<NodeBuffer>;
+	//export function open(path:string, options?:any):Q.Promise<Buffer>;
 
 	//TODO how to define the multiple return types? use any for now?
 	export function read(path:string, options?:any):Q.Promise<any>;
 	//export function read(path:string, options?:any):Q.Promise<string>;
-	//export function read(path:string, options?:any):Q.Promise<NodeBuffer>;
+	//export function read(path:string, options?:any):Q.Promise<Buffer>;
 
-	export function write(path:string, content:NodeBuffer, options?:any):Q.Promise<void>;
+	export function write(path:string, content:Buffer, options?:any):Q.Promise<void>;
 	export function write(path:string, content:string, options?:any):Q.Promise<void>;
 
-	export function append(path:string, content:NodeBuffer, options?:any):Q.Promise<void>;
+	export function append(path:string, content:Buffer, options?:any):Q.Promise<void>;
 	export function append(path:string, content:string, options?:any):Q.Promise<void>;
 
 	export function copy(source:string, target:string):Q.Promise<void>;
@@ -102,7 +102,7 @@ declare module QioFS {
 	//this should return a q-io/fs-mock MockFS
 	export function reroot(path:string):typeof QioFS;
 
-	export function toObject(path:string):{[path:string]:NodeBuffer};
+	export function toObject(path:string):{[path:string]:Buffer};
 
 	//listed but not implemented by Q-io
 	//export function glob(pattern):Q.Promise<string[]>;
@@ -189,7 +189,7 @@ declare module QioHTTP {
 
 declare module Qio {
 	interface ForEachCallback {
-		(chunk:NodeBuffer):Q.Promise<any>;
+		(chunk:Buffer):Q.Promise<any>;
 		(chunk:string):Q.Promise<any>;
 	}
 	interface ForEach {
@@ -198,24 +198,24 @@ declare module Qio {
 
 	interface Reader extends ForEach {
 		read(charset:string):Q.Promise<string>;
-		read():Q.Promise<NodeBuffer>;
+		read():Q.Promise<Buffer>;
 		close():void;
-		node:ReadableStream;
+		node: NodeJS.ReadableStream;
 	}
 	interface Writer {
 		write(content:string):void;
-		write(content:NodeBuffer):void;
+		write(content:Buffer):void;
 		flush():Q.Promise<void>;
 		close():void;
 		destroy():void;
-		node:WritableStream;
+		node: NodeJS.WritableStream;
 	}
 
 	interface Stream {
         read(charset:string):Q.Promise<string>;
-        read():Q.Promise<NodeBuffer>;
+        read():Q.Promise<Buffer>;
         write(content:string):void;
-        write(content:NodeBuffer):void;
+        write(content:Buffer):void;
         flush():Q.Promise<void>;
         close():void;
         destroy():void;
@@ -229,15 +229,15 @@ declare module Qio {
 interface QioBufferReader {
 	new ():Qio.Reader;
 	read(stream:Qio.Reader, charset:string):string;
-	read(stream:Qio.Reader):NodeBuffer;
-	join(buffers:NodeBuffer[]):NodeBuffer;
+	read(stream:Qio.Reader):Buffer;
+	join(buffers:Buffer[]):Buffer;
 }
 interface QioBufferWriter {
-	(writer:NodeBuffer):Qio.Writer;
+	(writer:Buffer):Qio.Writer;
 	Writer:Qio.Writer;
 }
 interface QioBufferStream {
-	(buffer:NodeBuffer, encoding:string):Qio.Stream
+	(buffer:Buffer, encoding:string):Qio.Stream
 }
 
 declare module "q-io/http" {

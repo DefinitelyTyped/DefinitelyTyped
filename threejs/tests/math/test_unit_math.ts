@@ -1,0 +1,3084 @@
+﻿/// <reference path="../../three.d.ts" />
+/// <reference path="../../../qunit/qunit.d.ts" />
+/// <reference path="../three-tests-setup.ts" />
+
+
+// https://github.com/mrdoob/three.js/tree/master/test/unit/math
+
+()=>{
+    var x = 2;
+    var y = 3;
+    var z = 4;
+    var w = 5;
+
+    var negInf2 = new THREE.Vector2( -Infinity, -Infinity );
+    var posInf2 = new THREE.Vector2( Infinity, Infinity );
+
+    var zero2 = new THREE.Vector2();
+    var one2 = new THREE.Vector2( 1, 1 );
+    var two2 = new THREE.Vector2( 2, 2 );
+
+    var negInf3 = new THREE.Vector3( -Infinity, -Infinity, -Infinity );
+    var posInf3 = new THREE.Vector3( Infinity, Infinity, Infinity );
+
+    var zero3 = new THREE.Vector3();
+    var one3 = new THREE.Vector3( 1, 1, 1 );
+    var two3 = new THREE.Vector3( 2, 2, 2 );
+
+    (QUnit.module)( "Box2" );
+
+    test( "constructor", function() {
+        var a = new THREE.Box2();
+        ok( a.min.equals( posInf2 ), "Passed!" );
+        ok( a.max.equals( negInf2 ), "Passed!" );
+
+        a = new THREE.Box2( zero2.clone(), zero2.clone() );
+        ok( a.min.equals( zero2 ), "Passed!" );
+        ok( a.max.equals( zero2 ), "Passed!" );
+
+        a = new THREE.Box2( zero2.clone(), one2.clone() );
+        ok( a.min.equals( zero2 ), "Passed!" );
+        ok( a.max.equals( one2 ), "Passed!" );
+    });
+
+    test( "copy", function() {
+        var a = new THREE.Box2( zero2.clone(), one2.clone() );
+        var b = new THREE.Box2().copy( a );
+        ok( b.min.equals( zero2 ), "Passed!" );
+        ok( b.max.equals( one2 ), "Passed!" );
+
+        // ensure that it is a true copy
+        a.min = zero2;
+        a.max = one2;
+        ok( b.min.equals( zero2 ), "Passed!" );
+        ok( b.max.equals( one2 ), "Passed!" );
+    });
+
+    test( "set", function() {
+        var a = new THREE.Box2();
+
+        a.set( zero2, one2 );
+        ok( a.min.equals( zero2 ), "Passed!" );
+        ok( a.max.equals( one2 ), "Passed!" );
+    });
+
+    test( "empty/makeEmpty", function() {
+        var a = new THREE.Box2();
+
+        ok( a.empty(), "Passed!" );
+
+        var a = new THREE.Box2( zero2.clone(), one2.clone() );
+        ok( ! a.empty(), "Passed!" );
+
+        a.makeEmpty();
+        ok( a.empty(), "Passed!" );
+    });
+
+    test( "center", function() {
+        var a = new THREE.Box2( zero2.clone(), zero2.clone() );
+
+        ok( a.center().equals( zero2 ), "Passed!" );
+
+        a = new THREE.Box2( zero2, one2 );
+        var midpoint = one2.clone().multiplyScalar( 0.5 );
+        ok( a.center().equals( midpoint ), "Passed!" );
+    });
+
+    test( "size", function() {
+        var a = new THREE.Box2( zero2.clone(), zero2.clone() );
+
+        ok( a.size().equals( zero2 ), "Passed!" );
+
+        a = new THREE.Box2( zero2.clone(), one2.clone() );
+        ok( a.size().equals( one2 ), "Passed!" );
+    });
+
+    test( "expandByPoint", function() {
+        var a = new THREE.Box2( zero2.clone(), zero2.clone() );
+
+        a.expandByPoint( zero2 );
+        ok( a.size().equals( zero2 ), "Passed!" );
+
+        a.expandByPoint( one2 );
+        ok( a.size().equals( one2 ), "Passed!" );
+
+        a.expandByPoint( one2.clone().negate() );
+        ok( a.size().equals( one2.clone().multiplyScalar( 2 ) ), "Passed!" );
+        ok( a.center().equals( zero2 ), "Passed!" );
+    });
+
+    test( "expandByVector", function() {
+        var a = new THREE.Box2( zero2.clone(), zero2.clone() );
+
+        a.expandByVector( zero2 );
+        ok( a.size().equals( zero2 ), "Passed!" );
+
+        a.expandByVector( one2 );
+        ok( a.size().equals( one2.clone().multiplyScalar( 2 ) ), "Passed!" );
+        ok( a.center().equals( zero2 ), "Passed!" );
+    });
+
+    test( "expandByScalar", function() {
+        var a = new THREE.Box2( zero2.clone(), zero2.clone() );
+
+        a.expandByScalar( 0 );
+        ok( a.size().equals( zero2 ), "Passed!" );
+
+        a.expandByScalar( 1 );
+        ok( a.size().equals( one2.clone().multiplyScalar( 2 ) ), "Passed!" );
+        ok( a.center().equals( zero2 ), "Passed!" );
+    });
+
+    test( "containsPoint", function() {
+        var a = new THREE.Box2( zero2.clone(), zero2.clone() );
+
+        ok( a.containsPoint( zero2 ), "Passed!" );
+        ok( ! a.containsPoint( one2 ), "Passed!" );
+
+        a.expandByScalar( 1 );
+        ok( a.containsPoint( zero2 ), "Passed!" );
+        ok( a.containsPoint( one2 ), "Passed!" );
+        ok( a.containsPoint( one2.clone().negate() ), "Passed!" );
+    });
+
+    test( "containsBox", function() {
+        var a = new THREE.Box2( zero2.clone(), zero2.clone() );
+        var b = new THREE.Box2( zero2.clone(), one2.clone() );
+        var c = new THREE.Box2( one2.clone().negate(), one2.clone() );
+
+        ok( a.containsBox( a ), "Passed!" );
+        ok( ! a.containsBox( b ), "Passed!" );
+        ok( ! a.containsBox( c ), "Passed!" );
+
+        ok( b.containsBox( a ), "Passed!" );
+        ok( c.containsBox( a ), "Passed!" );
+        ok( ! b.containsBox( c ), "Passed!" );
+    });
+
+    test( "getParameter", function() {
+        var a = new THREE.Box2( zero2.clone(), one2.clone() );
+        var b = new THREE.Box2( one2.clone().negate(), one2.clone() );
+
+        ok( a.getParameter( new THREE.Vector2( 0, 0 ) ).equals( new THREE.Vector2( 0, 0 ) ), "Passed!" );
+        ok( a.getParameter( new THREE.Vector2( 1, 1 ) ).equals( new THREE.Vector2( 1, 1 ) ), "Passed!" );
+
+        ok( b.getParameter( new THREE.Vector2( -1, -1 ) ).equals( new THREE.Vector2( 0, 0 ) ), "Passed!" );
+        ok( b.getParameter( new THREE.Vector2( 0, 0 ) ).equals( new THREE.Vector2( 0.5, 0.5 ) ), "Passed!" );
+        ok( b.getParameter( new THREE.Vector2( 1, 1 ) ).equals( new THREE.Vector2( 1, 1 ) ), "Passed!" );
+    });
+
+    test( "clampPoint", function() {
+        var a = new THREE.Box2( zero2.clone(), zero2.clone() );
+        var b = new THREE.Box2( one2.clone().negate(), one2.clone() );
+
+        ok( a.clampPoint( new THREE.Vector2( 0, 0 ) ).equals( new THREE.Vector2( 0, 0 ) ), "Passed!" );
+        ok( a.clampPoint( new THREE.Vector2( 1, 1 ) ).equals( new THREE.Vector2( 0, 0 ) ), "Passed!" );
+        ok( a.clampPoint( new THREE.Vector2( -1, -1 ) ).equals( new THREE.Vector2( 0, 0 ) ), "Passed!" );
+
+        ok( b.clampPoint( new THREE.Vector2( 2, 2 ) ).equals( new THREE.Vector2( 1, 1 ) ), "Passed!" );
+        ok( b.clampPoint( new THREE.Vector2( 1, 1 ) ).equals( new THREE.Vector2( 1, 1 ) ), "Passed!" );
+        ok( b.clampPoint( new THREE.Vector2( 0, 0 ) ).equals( new THREE.Vector2( 0, 0 ) ), "Passed!" );
+        ok( b.clampPoint( new THREE.Vector2( -1, -1 ) ).equals( new THREE.Vector2( -1, -1 ) ), "Passed!" );
+        ok( b.clampPoint( new THREE.Vector2( -2, -2 ) ).equals( new THREE.Vector2( -1, -1 ) ), "Passed!" );
+    });
+
+    test( "distanceToPoint", function() {
+        var a = new THREE.Box2( zero2.clone(), zero2.clone() );
+        var b = new THREE.Box2( one2.clone().negate(), one2.clone() );
+
+        ok( a.distanceToPoint( new THREE.Vector2( 0, 0 ) ) == 0, "Passed!" );
+        ok( a.distanceToPoint( new THREE.Vector2( 1, 1 ) ) == Math.sqrt( 2 ), "Passed!" );
+        ok( a.distanceToPoint( new THREE.Vector2( -1, -1 ) ) == Math.sqrt( 2 ), "Passed!" );
+
+        ok( b.distanceToPoint( new THREE.Vector2( 2, 2 ) ) == Math.sqrt( 2 ), "Passed!" );
+        ok( b.distanceToPoint( new THREE.Vector2( 1, 1 ) ) == 0, "Passed!" );
+        ok( b.distanceToPoint( new THREE.Vector2( 0, 0 ) ) == 0, "Passed!" );
+        ok( b.distanceToPoint( new THREE.Vector2( -1, -1 ) ) == 0, "Passed!" );
+        ok( b.distanceToPoint( new THREE.Vector2( -2, -2 ) ) == Math.sqrt( 2 ), "Passed!" );
+    });
+
+    test( "distanceToPoint", function() {
+        var a = new THREE.Box2( zero2.clone(), zero2.clone() );
+        var b = new THREE.Box2( one2.clone().negate(), one2.clone() );
+
+        ok( a.distanceToPoint( new THREE.Vector2( 0, 0 ) ) == 0, "Passed!" );
+        ok( a.distanceToPoint( new THREE.Vector2( 1, 1 ) ) == Math.sqrt( 2 ), "Passed!" );
+        ok( a.distanceToPoint( new THREE.Vector2( -1, -1 ) ) == Math.sqrt( 2 ), "Passed!" );
+
+        ok( b.distanceToPoint( new THREE.Vector2( 2, 2 ) ) == Math.sqrt( 2 ), "Passed!" );
+        ok( b.distanceToPoint( new THREE.Vector2( 1, 1 ) ) == 0, "Passed!" );
+        ok( b.distanceToPoint( new THREE.Vector2( 0, 0 ) ) == 0, "Passed!" );
+        ok( b.distanceToPoint( new THREE.Vector2( -1, -1 ) ) == 0, "Passed!" );
+        ok( b.distanceToPoint( new THREE.Vector2( -2, -2 ) ) == Math.sqrt( 2 ), "Passed!" );
+    });
+
+    test( "isIntersectionBox", function() {
+        var a = new THREE.Box2( zero2.clone(), zero2.clone() );
+        var b = new THREE.Box2( zero2.clone(), one2.clone() );
+        var c = new THREE.Box2( one2.clone().negate(), one2.clone() );
+
+        ok( a.isIntersectionBox( a ), "Passed!" );
+        ok( a.isIntersectionBox( b ), "Passed!" );
+        ok( a.isIntersectionBox( c ), "Passed!" );
+
+        ok( b.isIntersectionBox( a ), "Passed!" );
+        ok( c.isIntersectionBox( a ), "Passed!" );
+        ok( b.isIntersectionBox( c ), "Passed!" );
+
+        b.translate( new THREE.Vector2( 2, 2 ) );
+        ok( ! a.isIntersectionBox( b ), "Passed!" );
+        ok( ! b.isIntersectionBox( a ), "Passed!" );
+        ok( ! b.isIntersectionBox( c ), "Passed!" );
+    });
+
+    test( "intersect", function() {
+        var a = new THREE.Box2( zero2.clone(), zero2.clone() );
+        var b = new THREE.Box2( zero2.clone(), one2.clone() );
+        var c = new THREE.Box2( one2.clone().negate(), one2.clone() );
+
+        ok( a.clone().intersect( a ).equals( a ), "Passed!" );
+        ok( a.clone().intersect( b ).equals( a ), "Passed!" );
+        ok( b.clone().intersect( b ).equals( b ), "Passed!" );
+        ok( a.clone().intersect( c ).equals( a ), "Passed!" );
+        ok( b.clone().intersect( c ).equals( b ), "Passed!" );
+        ok( c.clone().intersect( c ).equals( c ), "Passed!" );
+    });
+
+    test( "union", function() {
+        var a = new THREE.Box2( zero2.clone(), zero2.clone() );
+        var b = new THREE.Box2( zero2.clone(), one2.clone() );
+        var c = new THREE.Box2( one2.clone().negate(), one2.clone() );
+
+        ok( a.clone().union( a ).equals( a ), "Passed!" );
+        ok( a.clone().union( b ).equals( b ), "Passed!" );
+        ok( a.clone().union( c ).equals( c ), "Passed!" );
+        ok( b.clone().union( c ).equals( c ), "Passed!" );
+    });
+
+    test( "translate", function() {
+        var a = new THREE.Box2( zero2.clone(), zero2.clone() );
+        var b = new THREE.Box2( zero2.clone(), one2.clone() );
+        var c = new THREE.Box2( one2.clone().negate(), one2.clone() );
+        var d = new THREE.Box2( one2.clone().negate(), zero2.clone() );
+
+        ok( a.clone().translate( one2 ).equals( new THREE.Box2( one2, one2 ) ), "Passed!" );
+        ok( a.clone().translate( one2 ).translate( one2.clone().negate() ).equals( a ), "Passed!" );
+        ok( d.clone().translate( one2 ).equals( b ), "Passed!" );
+        ok( b.clone().translate( one2.clone().negate() ).equals( d ), "Passed!" );
+    });
+
+    test( "constructor", function() {
+        var a = new THREE.Box3();
+        ok( a.min.equals( posInf3 ), "Passed!" );
+        ok( a.max.equals( negInf3 ), "Passed!" );
+
+        a = new THREE.Box3( zero3.clone(), zero3.clone() );
+        ok( a.min.equals( zero3 ), "Passed!" );
+        ok( a.max.equals( zero3 ), "Passed!" );
+
+        a = new THREE.Box3( zero3.clone(), one3.clone() );
+        ok( a.min.equals( zero3 ), "Passed!" );
+        ok( a.max.equals( one3 ), "Passed!" );
+    });
+
+    test( "copy", function() {
+        var a = new THREE.Box3( zero3.clone(), one3.clone() );
+        var b = new THREE.Box3().copy( a );
+        ok( b.min.equals( zero3 ), "Passed!" );
+        ok( b.max.equals( one3 ), "Passed!" );
+
+        // ensure that it is a true copy
+        a.min = zero3;
+        a.max = one3;
+        ok( b.min.equals( zero3 ), "Passed!" );
+        ok( b.max.equals( one3 ), "Passed!" );
+    });
+
+    test( "set", function() {
+        var a = new THREE.Box3();
+
+        a.set( zero3, one3 );
+        ok( a.min.equals( zero3 ), "Passed!" );
+        ok( a.max.equals( one3 ), "Passed!" );
+    });
+
+    test( "empty/makeEmpty", function() {
+        var a = new THREE.Box3();
+
+        ok( a.empty(), "Passed!" );
+
+        var a = new THREE.Box3( zero3.clone(), one3.clone() );
+        ok( ! a.empty(), "Passed!" );
+
+        a.makeEmpty();
+        ok( a.empty(), "Passed!" );
+    });
+
+    test( "center", function() {
+        var a = new THREE.Box3( zero3.clone(), zero3.clone() );
+
+        ok( a.center().equals( zero3 ), "Passed!" );
+
+        a = new THREE.Box3( zero3.clone(), one3.clone() );
+        var midpoint = one3.clone().multiplyScalar( 0.5 );
+        ok( a.center().equals( midpoint ), "Passed!" );
+    });
+
+    test( "size", function() {
+        var a = new THREE.Box3( zero3.clone(), zero3.clone() );
+
+        ok( a.size().equals( zero3 ), "Passed!" );
+
+        a = new THREE.Box3( zero3.clone(), one3.clone() );
+        ok( a.size().equals( one3 ), "Passed!" );
+    });
+
+    test( "expandByPoint", function() {
+        var a = new THREE.Box3( zero3.clone(), zero3.clone() );
+
+        a.expandByPoint( zero3 );
+        ok( a.size().equals( zero3 ), "Passed!" );
+
+        a.expandByPoint( one3 );
+        ok( a.size().equals( one3 ), "Passed!" );
+
+        a.expandByPoint( one3.clone().negate() );
+        ok( a.size().equals( one3.clone().multiplyScalar( 2 ) ), "Passed!" );
+        ok( a.center().equals( zero3 ), "Passed!" );
+    });
+
+    test( "expandByVector", function() {
+        var a = new THREE.Box3( zero3.clone(), zero3.clone() );
+
+        a.expandByVector( zero3 );
+        ok( a.size().equals( zero3 ), "Passed!" );
+
+        a.expandByVector( one3 );
+        ok( a.size().equals( one3.clone().multiplyScalar( 2 ) ), "Passed!" );
+        ok( a.center().equals( zero3 ), "Passed!" );
+    });
+
+    test( "expandByScalar", function() {
+        var a = new THREE.Box3( zero3.clone(), zero3.clone() );
+
+        a.expandByScalar( 0 );
+        ok( a.size().equals( zero3 ), "Passed!" );
+
+        a.expandByScalar( 1 );
+        ok( a.size().equals( one3.clone().multiplyScalar( 2 ) ), "Passed!" );
+        ok( a.center().equals( zero3 ), "Passed!" );
+    });
+
+    test( "containsPoint", function() {
+        var a = new THREE.Box3( zero3.clone(), zero3.clone() );
+
+        ok( a.containsPoint( zero3 ), "Passed!" );
+        ok( ! a.containsPoint( one3 ), "Passed!" );
+
+        a.expandByScalar( 1 );
+        ok( a.containsPoint( zero3 ), "Passed!" );
+        ok( a.containsPoint( one3 ), "Passed!" );
+        ok( a.containsPoint( one3.clone().negate() ), "Passed!" );
+    });
+
+    test( "containsBox", function() {
+        var a = new THREE.Box3( zero3.clone(), zero3.clone() );
+        var b = new THREE.Box3( zero3.clone(), one3.clone() );
+        var c = new THREE.Box3( one3.clone().negate(), one3.clone() );
+
+        ok( a.containsBox( a ), "Passed!" );
+        ok( ! a.containsBox( b ), "Passed!" );
+        ok( ! a.containsBox( c ), "Passed!" );
+
+        ok( b.containsBox( a ), "Passed!" );
+        ok( c.containsBox( a ), "Passed!" );
+        ok( ! b.containsBox( c ), "Passed!" );
+    });
+
+    test( "getParameter", function() {
+        var a = new THREE.Box3( zero3.clone(), one3.clone() );
+        var b = new THREE.Box3( one3.clone().negate(), one3.clone() );
+
+        ok( a.getParameter( new THREE.Vector3( 0, 0, 0 ) ).equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
+        ok( a.getParameter( new THREE.Vector3( 1, 1, 1 ) ).equals( new THREE.Vector3( 1, 1, 1 ) ), "Passed!" );
+
+        ok( b.getParameter( new THREE.Vector3( -1, -1, -1 ) ).equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
+        ok( b.getParameter( new THREE.Vector3( 0, 0, 0 ) ).equals( new THREE.Vector3( 0.5, 0.5, 0.5 ) ), "Passed!" );
+        ok( b.getParameter( new THREE.Vector3( 1, 1, 1 ) ).equals( new THREE.Vector3( 1, 1, 1 ) ), "Passed!" );
+    });
+
+    test( "clampPoint", function() {
+        var a = new THREE.Box3( zero3.clone(), zero3.clone() );
+        var b = new THREE.Box3( one3.clone().negate(), one3.clone() );
+
+        ok( a.clampPoint( new THREE.Vector3( 0, 0, 0 ) ).equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
+        ok( a.clampPoint( new THREE.Vector3( 1, 1, 1 ) ).equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
+        ok( a.clampPoint( new THREE.Vector3( -1, -1, -1 ) ).equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
+
+        ok( b.clampPoint( new THREE.Vector3( 2, 2, 2 ) ).equals( new THREE.Vector3( 1, 1, 1 ) ), "Passed!" );
+        ok( b.clampPoint( new THREE.Vector3( 1, 1, 1 ) ).equals( new THREE.Vector3( 1, 1, 1 ) ), "Passed!" );
+        ok( b.clampPoint( new THREE.Vector3( 0, 0, 0 ) ).equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
+        ok( b.clampPoint( new THREE.Vector3( -1, -1, -1 ) ).equals( new THREE.Vector3( -1, -1, -1 ) ), "Passed!" );
+        ok( b.clampPoint( new THREE.Vector3( -2, -2, -2 ) ).equals( new THREE.Vector3( -1, -1, -1 ) ), "Passed!" );
+    });
+
+    test( "distanceToPoint", function() {
+        var a = new THREE.Box3( zero3.clone(), zero3.clone() );
+        var b = new THREE.Box3( one3.clone().negate(), one3.clone() );
+
+        ok( a.distanceToPoint( new THREE.Vector3( 0, 0, 0 ) ) == 0, "Passed!" );
+        ok( a.distanceToPoint( new THREE.Vector3( 1, 1, 1 ) ) == Math.sqrt( 3 ), "Passed!" );
+        ok( a.distanceToPoint( new THREE.Vector3( -1, -1, -1 ) ) == Math.sqrt( 3 ), "Passed!" );
+
+        ok( b.distanceToPoint( new THREE.Vector3( 2, 2, 2 ) ) == Math.sqrt( 3 ), "Passed!" );
+        ok( b.distanceToPoint( new THREE.Vector3( 1, 1, 1 ) ) == 0, "Passed!" );
+        ok( b.distanceToPoint( new THREE.Vector3( 0, 0, 0 ) ) == 0, "Passed!" );
+        ok( b.distanceToPoint( new THREE.Vector3( -1, -1, -1 ) ) == 0, "Passed!" );
+        ok( b.distanceToPoint( new THREE.Vector3( -2, -2, -2 ) ) == Math.sqrt( 3 ), "Passed!" );
+    });
+
+    test( "distanceToPoint", function() {
+        var a = new THREE.Box3( zero3.clone(), zero3.clone() );
+        var b = new THREE.Box3( one3.clone().negate(), one3.clone() );
+
+        ok( a.distanceToPoint( new THREE.Vector3( 0, 0, 0 ) ) == 0, "Passed!" );
+        ok( a.distanceToPoint( new THREE.Vector3( 1, 1, 1 ) ) == Math.sqrt( 3 ), "Passed!" );
+        ok( a.distanceToPoint( new THREE.Vector3( -1, -1, -1 ) ) == Math.sqrt( 3 ), "Passed!" );
+
+        ok( b.distanceToPoint( new THREE.Vector3( 2, 2, 2 ) ) == Math.sqrt( 3 ), "Passed!" );
+        ok( b.distanceToPoint( new THREE.Vector3( 1, 1, 1 ) ) == 0, "Passed!" );
+        ok( b.distanceToPoint( new THREE.Vector3( 0, 0, 0 ) ) == 0, "Passed!" );
+        ok( b.distanceToPoint( new THREE.Vector3( -1, -1, -1 ) ) == 0, "Passed!" );
+        ok( b.distanceToPoint( new THREE.Vector3( -2, -2, -2 ) ) == Math.sqrt( 3 ), "Passed!" );
+    });
+
+    test( "isIntersectionBox", function() {
+        var a = new THREE.Box3( zero3.clone(), zero3.clone() );
+        var b = new THREE.Box3( zero3.clone(), one3.clone() );
+        var c = new THREE.Box3( one3.clone().negate(), one3.clone() );
+
+        ok( a.isIntersectionBox( a ), "Passed!" );
+        ok( a.isIntersectionBox( b ), "Passed!" );
+        ok( a.isIntersectionBox( c ), "Passed!" );
+
+        ok( b.isIntersectionBox( a ), "Passed!" );
+        ok( c.isIntersectionBox( a ), "Passed!" );
+        ok( b.isIntersectionBox( c ), "Passed!" );
+
+        b.translate( new THREE.Vector3( 2, 2, 2 ) );
+        ok( ! a.isIntersectionBox( b ), "Passed!" );
+        ok( ! b.isIntersectionBox( a ), "Passed!" );
+        ok( ! b.isIntersectionBox( c ), "Passed!" );
+    });
+
+    test( "getBoundingSphere", function() {
+        var a = new THREE.Box3( zero3.clone(), zero3.clone() );
+        var b = new THREE.Box3( zero3.clone(), one3.clone() );
+        var c = new THREE.Box3( one3.clone().negate(), one3.clone() );
+
+        ok( a.getBoundingSphere().equals( new THREE.Sphere( zero3, 0 ) ), "Passed!" );
+        ok( b.getBoundingSphere().equals( new THREE.Sphere( one3.clone().multiplyScalar( 0.5 ), Math.sqrt( 3 ) * 0.5 ) ), "Passed!" );
+        ok( c.getBoundingSphere().equals( new THREE.Sphere( zero3, Math.sqrt( 12 ) * 0.5 ) ), "Passed!" );
+    });
+
+    test( "intersect", function() {
+        var a = new THREE.Box3( zero3.clone(), zero3.clone() );
+        var b = new THREE.Box3( zero3.clone(), one3.clone() );
+        var c = new THREE.Box3( one3.clone().negate(), one3.clone() );
+
+        ok( a.clone().intersect( a ).equals( a ), "Passed!" );
+        ok( a.clone().intersect( b ).equals( a ), "Passed!" );
+        ok( b.clone().intersect( b ).equals( b ), "Passed!" );
+        ok( a.clone().intersect( c ).equals( a ), "Passed!" );
+        ok( b.clone().intersect( c ).equals( b ), "Passed!" );
+        ok( c.clone().intersect( c ).equals( c ), "Passed!" );
+    });
+
+    test( "union", function() {
+        var a = new THREE.Box3( zero3.clone(), zero3.clone() );
+        var b = new THREE.Box3( zero3.clone(), one3.clone() );
+        var c = new THREE.Box3( one3.clone().negate(), one3.clone() );
+
+        ok( a.clone().union( a ).equals( a ), "Passed!" );
+        ok( a.clone().union( b ).equals( b ), "Passed!" );
+        ok( a.clone().union( c ).equals( c ), "Passed!" );
+        ok( b.clone().union( c ).equals( c ), "Passed!" );
+    });
+
+    var compareBox = function ( a, b, threshold? ) {
+        threshold = threshold || 0.0001;
+        return ( a.min.distanceTo( b.min ) < threshold &&
+        a.max.distanceTo( b.max ) < threshold );
+    };
+
+    test( "applyMatrix4", function() {
+        var a = new THREE.Box3( zero3.clone(), zero3.clone() );
+        var b = new THREE.Box3( zero3.clone(), one3.clone() );
+        var c = new THREE.Box3( one3.clone().negate(), one3.clone() );
+        var d = new THREE.Box3( one3.clone().negate(), zero3.clone() );
+
+        var m = new THREE.Matrix4().makeTranslation( 1, -2, 1 );
+        var t1 = new THREE.Vector3( 1, -2, 1 );
+
+        ok( compareBox( a.clone().applyMatrix4( m ), a.clone().translate( t1 ) ), "Passed!" );
+        ok( compareBox( b.clone().applyMatrix4( m ), b.clone().translate( t1 ) ), "Passed!" );
+        ok( compareBox( c.clone().applyMatrix4( m ), c.clone().translate( t1 ) ), "Passed!" );
+        ok( compareBox( d.clone().applyMatrix4( m ), d.clone().translate( t1 ) ), "Passed!" );
+    });
+
+    test( "translate", function() {
+        var a = new THREE.Box3( zero3.clone(), zero3.clone() );
+        var b = new THREE.Box3( zero3.clone(), one3.clone() );
+        var c = new THREE.Box3( one3.clone().negate(), one3.clone() );
+        var d = new THREE.Box3( one3.clone().negate(), zero3.clone() );
+
+        ok( a.clone().translate( one3 ).equals( new THREE.Box3( one3, one3 ) ), "Passed!" );
+        ok( a.clone().translate( one3 ).translate( one3.clone().negate() ).equals( a ), "Passed!" );
+        ok( d.clone().translate( one3 ).equals( b ), "Passed!" );
+        ok( b.clone().translate( one3.clone().negate() ).equals( d ), "Passed!" );
+    });
+
+    test( "constructor", function(){
+        var c = new THREE.Color();
+        ok( c.r, "Red: " + c.r );
+        ok( c.g, "Green: " + c.g );
+        ok( c.b, "Blue: " + c.g );
+    });
+
+    test( "copyHex", function(){
+        var c = new THREE.Color();
+        var c2 = new THREE.Color(0xF5FFFA);
+        c.copy(c2);
+        ok(c.getHex() == c2.getHex(), "Hex c: " + c.getHex() + " Hex c2: " + c2.getHex());
+    });
+
+    test( "copyColorString", function(){
+        var c = new THREE.Color();
+        var c2 = new THREE.Color('ivory');
+        c.copy(c2);
+        ok(c.getHex() == c2.getHex(), "Hex c: " + c.getHex() + " Hex c2: " + c2.getHex());
+    });
+
+    test( "setRGB", function(){
+        var c = new THREE.Color()
+        c.setRGB(255, 2, 1);
+        ok( c.r == 255, "Red: " + c.r );
+        ok( c.g == 2, "Green: " + c.g );
+        ok( c.b == 1, "Blue: " + c.b );
+    });
+
+    test( "copyGammaToLinear", function(){
+        var c = new THREE.Color();
+        var c2 = new THREE.Color();
+        c2.setRGB(2, 4, 8)
+        c.copyGammaToLinear(c2)
+        ok( c.r == 4, "Red c: " + c.r + " Red c2: " + c2.r);
+        ok( c.g == 16, "Green c: " + c.g + " Green c2: " + c2.g);
+        ok( c.b == 64, "Blue c: " + c.b + " Blue c2: " + c2.b);
+    });
+
+    test( "copyLinearToGamma", function(){
+        var c = new THREE.Color();
+        var c2 = new THREE.Color();
+        c2.setRGB(4, 9, 16)
+        c.copyLinearToGamma(c2)
+        ok( c.r == 2, "Red c: " + c.r + " Red c2: " + c2.r);
+        ok( c.g == 3, "Green c: " + c.g + " Green c2: " + c2.g);
+        ok( c.b == 4, "Blue c: " + c.b + " Blue c2: " + c2.b);
+    });
+
+
+    test( "convertGammaToLinear", function(){
+        var c = new THREE.Color();
+        c.setRGB(2, 4, 8)
+        c.convertGammaToLinear()
+        ok( c.r == 4, "Red: " + c.r );
+        ok( c.g == 16, "Green: " + c.g );
+        ok( c.b == 64, "Blue: " + c.b );
+    });
+
+
+    test( "convertLinearToGamma", function(){
+        var c = new THREE.Color();
+        c.setRGB(4, 9, 16)
+        c.convertLinearToGamma()
+        ok( c.r == 2, "Red: " + c.r );
+        ok( c.g == 3, "Green: " + c.g );
+        ok( c.b == 4, "Blue: " + c.b );
+    });
+
+    test("setWithNum", function(){
+        var c = new THREE.Color();
+        c.set(0xFF0000);
+        ok( c.r == 1, "Red: " + c.r );
+        ok( c.g == 0, "Green: " + c.g );
+        ok( c.b == 0, "Blue: " + c.b );
+    });
+
+
+    test( "setWithString", function(){
+        var c = new THREE.Color();
+        c.set('silver');
+        ok(c.getHex() == 0xC0C0C0, "Hex c: " + c.getHex());
+    });
+
+
+    test( "clone", function(){
+        var c = new THREE.Color('teal');
+        var c2 = c.clone();
+        ok(c2.getHex() == 0x008080, "Hex c2: " + c2.getHex());
+    });
+
+    test( "lerp", function(){
+        var c = new THREE.Color();
+        var c2 = new THREE.Color();
+        c.setRGB(0, 0, 0);
+        c.lerp(c2, 2);
+        ok( c.r == 2, "Red: " + c.r );
+        ok( c.g == 2, "Green: " + c.g );
+        ok( c.b == 2, "Blue: " + c.b );
+        
+    });
+
+
+    test( "setStyleRGBRed", function(){
+        var c = new THREE.Color();
+        c.setStyle('rgb(255,0,0)');
+        ok( c.r == 1, "Red: " + c.r );
+        ok( c.g == 0, "Green: " + c.g );
+        ok( c.b == 0, "Blue: " + c.b );
+    });
+
+    test( "setStyleRGBPercent", function(){
+        var c = new THREE.Color();
+        c.setStyle('rgb(100%,50%,10%)');
+        ok( c.r == 1, "Red: " + c.r );
+        ok( c.g == 0.5, "Green: " + c.g );
+        ok( c.b == 0.1, "Blue: " + c.b );
+    });
+
+    test( "setStyleHexSkyBlue", function(){
+        var c = new THREE.Color();
+        c.setStyle('#87CEEB');
+        ok(c.getHex() == 0x87CEEB, "Hex c: " + c.getHex());
+    });
+
+    test( "setStyleHex2Olive", function(){
+        var c = new THREE.Color();
+        c.setStyle('#F00');
+        ok(c.getHex() == 0xFF0000, "Hex c: " + c.getHex());
+    });
+
+    test( "setStyleColorName", function(){
+        var c = new THREE.Color();
+        c.setStyle('powderblue');
+        ok(c.getHex() == 0xB0E0E6, "Hex c: " + c.getHex());
+    });
+
+
+    test( "getHex", function(){
+        var c = new THREE.Color('red');
+        var res = c.getHex();
+        ok( res == 0xFF0000, "Hex: " + res );
+    });
+
+    test( "setHex", function(){
+        var c = new THREE.Color();
+        c.setHex(0xFA8072);
+        ok( c.getHex() == 0xFA8072, "Hex: " + c.getHex());
+    });
+
+    test( "getHexString", function(){
+        var c = new THREE.Color('tomato');
+        var res = c.getHexString();
+        ok( res == 'ff6347', "Hex: " + res );
+    });
+
+    test( "getStyle", function(){
+        var c = new THREE.Color('plum');
+        var res = c.getStyle();
+        ok( res == 'rgb(221,160,221)', "style: " + res );
+    });
+
+    test( "getHSL", function () {
+        var c = new THREE.Color( 0x80ffff );
+        var hsl = c.getHSL();
+
+        ok( hsl.h == 0.5, "hue: " + hsl.h );
+        ok( hsl.s == 1.0, "saturation: " + hsl.s );
+
+
+        //ok( (Math.round(parseFloat(hsl.l)*100)/100) == 0.75, "lightness: " + hsl.l );
+        ok( (Math.round(hsl.l*100)/100) == 0.75, "lightness: " + hsl.l );
+    });
+
+    test( "setHSL", function () {
+        var c = new THREE.Color();
+        c.setHSL(0.75, 1.0, 0.25);
+        var hsl = c.getHSL();
+
+        ok( hsl.h == 0.75, "hue: " + hsl.h );
+        ok( hsl.s == 1.00, "saturation: " + hsl.s );
+        ok( hsl.l == 0.25, "lightness: " + hsl.l );
+    });
+
+    var unit3 = new THREE.Vector3( 1, 0, 0 );
+
+    var planeEquals = function ( a, b, tolerance ) {
+        tolerance = tolerance || 0.0001;
+        if( a.normal.distanceTo( b.normal ) > tolerance ) {
+            return false;
+        }
+        if( Math.abs( a.constant - b.constant ) > tolerance ) {
+            return false;
+        }
+        return true;
+    };
+
+    test( "constructor", function() {
+        var a = new THREE.Frustum();
+
+        ok( a.planes !== undefined, "Passed!" );
+        ok( a.planes.length === 6, "Passed!" );
+
+        var pDefault = new THREE.Plane();
+        for( var i = 0; i < 6; i ++ ) {
+            ok( a.planes[i].equals( pDefault ), "Passed!" );
+        }
+
+        var p0 = new THREE.Plane( unit3, -1 );
+        var p1 = new THREE.Plane( unit3, 1 );
+        var p2 = new THREE.Plane( unit3, 2 );
+        var p3 = new THREE.Plane( unit3, 3 );
+        var p4 = new THREE.Plane( unit3, 4 );
+        var p5 = new THREE.Plane( unit3, 5 );
+
+        a = new THREE.Frustum( p0, p1, p2, p3, p4, p5 );
+        ok( a.planes[0].equals( p0 ), "Passed!" );
+        ok( a.planes[1].equals( p1 ), "Passed!" );
+        ok( a.planes[2].equals( p2 ), "Passed!" );
+        ok( a.planes[3].equals( p3 ), "Passed!" );
+        ok( a.planes[4].equals( p4 ), "Passed!" );
+        ok( a.planes[5].equals( p5 ), "Passed!" );
+    });
+
+    test( "copy", function() {
+
+        var p0 = new THREE.Plane( unit3, -1 );
+        var p1 = new THREE.Plane( unit3, 1 );
+        var p2 = new THREE.Plane( unit3, 2 );
+        var p3 = new THREE.Plane( unit3, 3 );
+        var p4 = new THREE.Plane( unit3, 4 );
+        var p5 = new THREE.Plane( unit3, 5 );
+
+        var b = new THREE.Frustum( p0, p1, p2, p3, p4, p5 );
+        var a = new THREE.Frustum().copy( b );
+        ok( a.planes[0].equals( p0 ), "Passed!" );
+        ok( a.planes[1].equals( p1 ), "Passed!" );
+        ok( a.planes[2].equals( p2 ), "Passed!" );
+        ok( a.planes[3].equals( p3 ), "Passed!" );
+        ok( a.planes[4].equals( p4 ), "Passed!" );
+        ok( a.planes[5].equals( p5 ), "Passed!" );
+
+        // ensure it is a true copy by modifying source
+        b.planes[0] = p1;
+        ok( a.planes[0].equals( p0 ), "Passed!" );
+    });
+
+    test( "setFromMatrix/makeOrthographic/containsPoint", function() {
+        var m = new THREE.Matrix4().makeOrthographic( -1, 1, -1, 1, 1, 100 )
+        var a = new THREE.Frustum().setFromMatrix( m );
+
+        ok( ! a.containsPoint( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
+        ok( a.containsPoint( new THREE.Vector3( 0, 0, -50 ) ), "Passed!" );
+        ok( a.containsPoint( new THREE.Vector3( 0, 0, -1.001 ) ), "Passed!" );
+        ok( a.containsPoint( new THREE.Vector3( -1, -1, -1.001 ) ), "Passed!" );
+        ok( ! a.containsPoint( new THREE.Vector3( -1.1, -1.1, -1.001 ) ), "Passed!" );
+        ok( a.containsPoint( new THREE.Vector3( 1, 1, -1.001 ) ), "Passed!" );
+        ok( ! a.containsPoint( new THREE.Vector3( 1.1, 1.1, -1.001 ) ), "Passed!" );
+        ok( a.containsPoint( new THREE.Vector3( 0, 0, -100 ) ), "Passed!" );
+        ok( a.containsPoint( new THREE.Vector3( -1, -1, -100 ) ), "Passed!" );
+        ok( ! a.containsPoint( new THREE.Vector3( -1.1, -1.1, -100.1 ) ), "Passed!" );
+        ok( a.containsPoint( new THREE.Vector3( 1, 1, -100 ) ), "Passed!" );
+        ok( ! a.containsPoint( new THREE.Vector3( 1.1, 1.1, -100.1 ) ), "Passed!" );
+        ok( ! a.containsPoint( new THREE.Vector3( 0, 0, -101 ) ), "Passed!" );
+
+    });
+
+    test( "setFromMatrix/makeFrustum/containsPoint", function() {
+        var m = new THREE.Matrix4().makeFrustum( -1, 1, -1, 1, 1, 100 )
+        var a = new THREE.Frustum().setFromMatrix( m );
+
+        ok( ! a.containsPoint( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
+        ok( a.containsPoint( new THREE.Vector3( 0, 0, -50 ) ), "Passed!" );
+        ok( a.containsPoint( new THREE.Vector3( 0, 0, -1.001 ) ), "Passed!" );
+        ok( a.containsPoint( new THREE.Vector3( -1, -1, -1.001 ) ), "Passed!" );
+        ok( ! a.containsPoint( new THREE.Vector3( -1.1, -1.1, -1.001 ) ), "Passed!" );
+        ok( a.containsPoint( new THREE.Vector3( 1, 1, -1.001 ) ), "Passed!" );
+        ok( ! a.containsPoint( new THREE.Vector3( 1.1, 1.1, -1.001 ) ), "Passed!" );
+        ok( a.containsPoint( new THREE.Vector3( 0, 0, -99.999 ) ), "Passed!" );
+        ok( a.containsPoint( new THREE.Vector3( -99.999, -99.999, -99.999 ) ), "Passed!" );
+        ok( ! a.containsPoint( new THREE.Vector3( -100.1, -100.1, -100.1 ) ), "Passed!" );
+        ok( a.containsPoint( new THREE.Vector3( 99.999, 99.999, -99.999 ) ), "Passed!" );
+        ok( ! a.containsPoint( new THREE.Vector3( 100.1, 100.1, -100.1 ) ), "Passed!" );
+        ok( ! a.containsPoint( new THREE.Vector3( 0, 0, -101 ) ), "Passed!" );
+    });
+
+    test( "setFromMatrix/makeFrustum/intersectsSphere", function() {
+        var m = new THREE.Matrix4().makeFrustum( -1, 1, -1, 1, 1, 100 )
+        var a = new THREE.Frustum().setFromMatrix( m );
+
+        ok( ! a.intersectsSphere( new THREE.Sphere( new THREE.Vector3( 0, 0, 0 ), 0 ) ), "Passed!" );
+        ok( ! a.intersectsSphere( new THREE.Sphere( new THREE.Vector3( 0, 0, 0 ), 0.9 ) ), "Passed!" );
+        ok( a.intersectsSphere( new THREE.Sphere( new THREE.Vector3( 0, 0, 0 ), 1.1 ) ), "Passed!" );
+        ok( a.intersectsSphere( new THREE.Sphere( new THREE.Vector3( 0, 0, -50 ), 0 ) ), "Passed!" );
+        ok( a.intersectsSphere( new THREE.Sphere( new THREE.Vector3( 0, 0, -1.001 ), 0 ) ), "Passed!" );
+        ok( a.intersectsSphere( new THREE.Sphere( new THREE.Vector3( -1, -1, -1.001 ), 0 ) ), "Passed!" );
+        ok( ! a.intersectsSphere( new THREE.Sphere( new THREE.Vector3( -1.1, -1.1, -1.001 ), 0 ) ), "Passed!" );
+        ok( a.intersectsSphere( new THREE.Sphere( new THREE.Vector3( -1.1, -1.1, -1.001 ), 0.5 ) ), "Passed!" );
+        ok( a.intersectsSphere( new THREE.Sphere( new THREE.Vector3( 1, 1, -1.001 ), 0 ) ), "Passed!" );
+        ok( ! a.intersectsSphere( new THREE.Sphere( new THREE.Vector3( 1.1, 1.1, -1.001 ), 0 ) ), "Passed!" );
+        ok( a.intersectsSphere( new THREE.Sphere( new THREE.Vector3( 1.1, 1.1, -1.001 ), 0.5 ) ), "Passed!" );
+        ok( a.intersectsSphere( new THREE.Sphere( new THREE.Vector3( 0, 0, -99.999 ), 0 ) ), "Passed!" );
+        ok( a.intersectsSphere( new THREE.Sphere( new THREE.Vector3( -99.999, -99.999, -99.999 ), 0 ) ), "Passed!" );
+        ok( ! a.intersectsSphere( new THREE.Sphere( new THREE.Vector3( -100.1, -100.1, -100.1 ), 0 ) ), "Passed!" );
+        ok( a.intersectsSphere( new THREE.Sphere( new THREE.Vector3( -100.1, -100.1, -100.1 ), 0.5 ) ), "Passed!" );
+        ok( a.intersectsSphere( new THREE.Sphere( new THREE.Vector3( 99.999, 99.999, -99.999 ), 0 ) ), "Passed!" );
+        ok( ! a.intersectsSphere( new THREE.Sphere( new THREE.Vector3( 100.1, 100.1, -100.1 ), 0 ) ), "Passed!" );
+        ok( a.intersectsSphere( new THREE.Sphere( new THREE.Vector3( 100.1, 100.1, -100.1 ), 0.2 ) ), "Passed!" );
+        ok( ! a.intersectsSphere( new THREE.Sphere( new THREE.Vector3( 0, 0, -101 ), 0 ) ), "Passed!" );
+        ok( a.intersectsSphere( new THREE.Sphere( new THREE.Vector3( 0, 0, -101 ), 1.1 ) ), "Passed!" );
+    });
+
+    test( "clone", function() {
+
+        var p0 = new THREE.Plane( unit3, -1 );
+        var p1 = new THREE.Plane( unit3, 1 );
+        var p2 = new THREE.Plane( unit3, 2 );
+        var p3 = new THREE.Plane( unit3, 3 );
+        var p4 = new THREE.Plane( unit3, 4 );
+        var p5 = new THREE.Plane( unit3, 5 );
+
+        var b = new THREE.Frustum( p0, p1, p2, p3, p4, p5 );
+        var a = b.clone();
+        ok( a.planes[0].equals( p0 ), "Passed!" );
+        ok( a.planes[1].equals( p1 ), "Passed!" );
+        ok( a.planes[2].equals( p2 ), "Passed!" );
+        ok( a.planes[3].equals( p3 ), "Passed!" );
+        ok( a.planes[4].equals( p4 ), "Passed!" );
+        ok( a.planes[5].equals( p5 ), "Passed!" );
+
+        // ensure it is a true copy by modifying source
+        a.planes[0].copy( p1 );
+        ok( b.planes[0].equals( p0 ), "Passed!" );
+    });
+
+
+    test( "constructor/equals", function() {
+        var a = new THREE.Line3();
+        ok( a.start.equals( zero3 ), "Passed!" );
+        ok( a.end.equals( zero3 ), "Passed!" );
+
+        a = new THREE.Line3( two3.clone(), one3.clone() );
+        ok( a.start.equals( two3 ), "Passed!" );
+        ok( a.end.equals( one3 ), "Passed!" );
+    });
+
+    test( "copy/equals", function() {
+        var a = new THREE.Line3( zero3.clone(), one3.clone() );
+        var b = new THREE.Line3().copy( a );
+        ok( b.start.equals( zero3 ), "Passed!" );
+        ok( b.end.equals( one3 ), "Passed!" );
+
+        // ensure that it is a true copy
+        a.start = zero3;
+        a.end = one3;
+        ok( b.start.equals( zero3 ), "Passed!" );
+        ok( b.end.equals( one3 ), "Passed!" );
+    });
+
+    test( "set", function() {
+        var a = new THREE.Line3();
+
+        a.set( one3, one3 );
+        ok( a.start.equals( one3 ), "Passed!" );
+        ok( a.end.equals( one3 ), "Passed!" );
+    });
+
+    test( "at", function() {
+        var a = new THREE.Line3( one3.clone(), new THREE.Vector3( 1, 1, 2 ) );
+
+        ok( a.at( -1 ).distanceTo( new THREE.Vector3( 1, 1, 0 ) ) < 0.0001, "Passed!" );
+        ok( a.at( 0 ).distanceTo( one3.clone() ) < 0.0001, "Passed!" );
+        ok( a.at( 1 ).distanceTo( new THREE.Vector3( 1, 1, 2 ) ) < 0.0001, "Passed!" );
+        ok( a.at( 2 ).distanceTo( new THREE.Vector3( 1, 1, 3 ) ) < 0.0001, "Passed!" );
+    });
+
+    test( "closestPointToPoint/closestPointToPointParameter", function() {
+        var a = new THREE.Line3( one3.clone(), new THREE.Vector3( 1, 1, 2 ) );
+
+        // nearby the ray
+        ok( a.closestPointToPointParameter( zero3.clone(), true ) == 0, "Passed!" );
+        var b1 = a.closestPointToPoint( zero3.clone(), true );
+        ok( b1.distanceTo( new THREE.Vector3( 1, 1, 1 ) ) < 0.0001, "Passed!" );
+
+        // nearby the ray
+        ok( a.closestPointToPointParameter( zero3.clone(), false ) == -1, "Passed!" );
+        var b2 = a.closestPointToPoint( zero3.clone(), false );
+        console.log( b2 );
+        ok( b2.distanceTo( new THREE.Vector3( 1, 1, 0 ) ) < 0.0001, "Passed!" );
+
+        // nearby the ray
+        ok( a.closestPointToPointParameter( new THREE.Vector3( 1, 1, 5 ), true ) == 1, "Passed!" );
+        var b = a.closestPointToPoint( new THREE.Vector3( 1, 1, 5 ), true );
+        ok( b.distanceTo( new THREE.Vector3( 1, 1, 2 ) ) < 0.0001, "Passed!" );
+
+        // exactly on the ray
+        ok( a.closestPointToPointParameter( one3.clone(), true ) == 0, "Passed!" );
+        var c = a.closestPointToPoint( one3.clone(), true );
+        ok( c.distanceTo( one3.clone() ) < 0.0001, "Passed!" );
+    });
+
+
+
+    var matrixEquals3 = function( a, b, tolerance? ) {
+        tolerance = tolerance || 0.0001;
+        if( a.elements.length != b.elements.length ) {
+            return false;
+        }
+        for( var i = 0, il = a.elements.length; i < il; i ++ ) {
+            var delta = a.elements[i] - b.elements[i];
+            if( delta > tolerance ) {
+                return false;
+            }
+        }
+        return true;
+    };
+
+
+    var toMatrix4 = function( m3 ) {
+        var result = new THREE.Matrix4();
+        var re = result.elements;
+        var me = m3.elements;
+        re[0] = me[0];
+        re[1] = me[1];
+        re[2] = me[2];
+        re[4] = me[3];
+        re[5] = me[4];
+        re[6] = me[5];
+        re[8] = me[6];
+        re[9] = me[7];
+        re[10] = me[8];
+
+        return result;
+    };
+
+    test( "constructor", function() {
+        var a = new THREE.Matrix3();
+        ok( a.determinant() == 1, "Passed!" );
+
+        var b = new THREE.Matrix3( 0, 1, 2, 3, 4, 5, 6, 7, 8 );
+        ok( b.elements[0] == 0 );
+        ok( b.elements[1] == 3 );
+        ok( b.elements[2] == 6 );
+        ok( b.elements[3] == 1 );
+        ok( b.elements[4] == 4 );
+        ok( b.elements[5] == 7 );
+        ok( b.elements[6] == 2 );
+        ok( b.elements[7] == 5 );
+        ok( b.elements[8] == 8 );
+
+        ok( ! matrixEquals3( a, b ), "Passed!" );
+    });
+
+    test( "copy", function() {
+        var a = new THREE.Matrix3( 0, 1, 2, 3, 4, 5, 6, 7, 8 );
+        var b = new THREE.Matrix3().copy( a );
+
+        ok( matrixEquals3( a, b ), "Passed!" );
+
+        // ensure that it is a true copy
+        a.elements[0] = 2;
+        ok( ! matrixEquals3( a, b ), "Passed!" );
+    });
+
+    test( "set", function() {
+        var b = new THREE.Matrix3();
+        ok( b.determinant() == 1, "Passed!" );
+
+        b.set( 0, 1, 2, 3, 4, 5, 6, 7, 8 );
+        ok( b.elements[0] == 0 );
+        ok( b.elements[1] == 3 );
+        ok( b.elements[2] == 6 );
+        ok( b.elements[3] == 1 );
+        ok( b.elements[4] == 4 );
+        ok( b.elements[5] == 7 );
+        ok( b.elements[6] == 2 );
+        ok( b.elements[7] == 5 );
+        ok( b.elements[8] == 8 );
+    });
+
+    test( "identity", function() {
+        var b = new THREE.Matrix3( 0, 1, 2, 3, 4, 5, 6, 7, 8 );
+        ok( b.elements[0] == 0 );
+        ok( b.elements[1] == 3 );
+        ok( b.elements[2] == 6 );
+        ok( b.elements[3] == 1 );
+        ok( b.elements[4] == 4 );
+        ok( b.elements[5] == 7 );
+        ok( b.elements[6] == 2 );
+        ok( b.elements[7] == 5 );
+        ok( b.elements[8] == 8 );
+
+        var a = new THREE.Matrix3();
+        ok( ! matrixEquals3( a, b ), "Passed!" );
+
+        b.identity();
+        ok( matrixEquals3( a, b ), "Passed!" );
+    });
+
+    test( "multiplyScalar", function() {
+        var b = new THREE.Matrix3( 0, 1, 2, 3, 4, 5, 6, 7, 8 );
+        ok( b.elements[0] == 0 );
+        ok( b.elements[1] == 3 );
+        ok( b.elements[2] == 6 );
+        ok( b.elements[3] == 1 );
+        ok( b.elements[4] == 4 );
+        ok( b.elements[5] == 7 );
+        ok( b.elements[6] == 2 );
+        ok( b.elements[7] == 5 );
+        ok( b.elements[8] == 8 );
+
+        b.multiplyScalar( 2 );
+        ok( b.elements[0] == 0*2 );
+        ok( b.elements[1] == 3*2 );
+        ok( b.elements[2] == 6*2 );
+        ok( b.elements[3] == 1*2 );
+        ok( b.elements[4] == 4*2 );
+        ok( b.elements[5] == 7*2 );
+        ok( b.elements[6] == 2*2 );
+        ok( b.elements[7] == 5*2 );
+        ok( b.elements[8] == 8*2 );
+    });
+
+    test( "determinant", function() {
+        var a = new THREE.Matrix3();
+        ok( a.determinant() == 1, "Passed!" );
+
+        a.elements[0] = 2;
+        ok( a.determinant() == 2, "Passed!" );
+
+        a.elements[0] = 0;
+        ok( a.determinant() == 0, "Passed!" );
+
+        // calculated via http://www.euclideanspace.com/maths/algebra/matrix/functions/determinant/threeD/index.htm
+        a.set( 2, 3, 4, 5, 13, 7, 8, 9, 11 );
+        ok( a.determinant() == -73, "Passed!" );
+    });
+
+
+    test( "getInverse", function() {
+        var identity = new THREE.Matrix4();
+        var a = new THREE.Matrix4();
+        var b = new THREE.Matrix3( 0, 0, 0, 0, 0, 0, 0, 0, 0 );
+
+        //var c = new THREE.Matrix4( 0, 0, 0, 0, 0, 0, 0, 0, 0 );
+        var c = new THREE.Matrix4( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
+
+        ok( ! matrixEquals3( a, b ), "Passed!" );
+        b.getInverse( a, false );
+        ok( matrixEquals3( b, new THREE.Matrix3() ), "Passed!" );
+
+        try { 
+            b.getInverse( c, true );
+            ok( false, "Passed!" ); // should never get here.
+        }
+        catch( err ) {
+            ok( true, "Passed!" );
+        }
+
+        var testMatrices = [
+            new THREE.Matrix4().makeRotationX( 0.3 ),
+            new THREE.Matrix4().makeRotationX( -0.3 ),
+            new THREE.Matrix4().makeRotationY( 0.3 ),
+            new THREE.Matrix4().makeRotationY( -0.3 ),
+            new THREE.Matrix4().makeRotationZ( 0.3 ),
+            new THREE.Matrix4().makeRotationZ( -0.3 ),
+            new THREE.Matrix4().makeScale( 1, 2, 3 ),
+            new THREE.Matrix4().makeScale( 1/8, 1/2, 1/3 )
+            ];
+
+        for( var i = 0, il = testMatrices.length; i < il; i ++ ) {
+            var m = testMatrices[i];
+            var mInverse3 = new THREE.Matrix3().getInverse( m );
+
+            var mInverse = toMatrix4( mInverse3 );
+
+            // the determinant of the inverse should be the reciprocal
+            ok( Math.abs( m.determinant() * mInverse3.determinant() - 1 ) < 0.0001, "Passed!" );
+            ok( Math.abs( m.determinant() * mInverse.determinant() - 1 ) < 0.0001, "Passed!" );
+
+            var mProduct = new THREE.Matrix4().multiplyMatrices( m, mInverse );
+            ok( Math.abs( mProduct.determinant() - 1 ) < 0.0001, "Passed!" );
+            ok( matrixEquals3( mProduct, identity ), "Passed!" );
+        }
+    });
+
+    test( "transpose", function() {
+        var a = new THREE.Matrix3();
+        var b = a.clone().transpose();
+        ok( matrixEquals3( a, b ), "Passed!" );
+
+        b = new THREE.Matrix3( 0, 1, 2, 3, 4, 5, 6, 7, 8 );
+        var c = b.clone().transpose();
+        ok( ! matrixEquals3( b, c ), "Passed!" ); 
+        c.transpose();
+        ok( matrixEquals3( b, c ), "Passed!" ); 
+    });
+
+    test( "clone", function() {
+        var a = new THREE.Matrix3( 0, 1, 2, 3, 4, 5, 6, 7, 8 );
+        var b = a.clone();
+
+        ok( matrixEquals3( a, b ), "Passed!" );
+
+        // ensure that it is a true copy
+        a.elements[0] = 2;
+        ok( ! matrixEquals3( a, b ), "Passed!" );
+    });
+
+    var matrixEquals4 = function( a, b, tolerance? ) {
+        tolerance = tolerance || 0.0001;
+        if( a.elements.length != b.elements.length ) {
+            return false;
+        }
+        for( var i = 0, il = a.elements.length; i < il; i ++ ) {
+            var delta = a.elements[i] - b.elements[i];
+            if( delta > tolerance ) {
+                return false;
+            }
+        }
+        return true;
+    };
+
+    test( "constructor", function() {
+        var a = new THREE.Matrix4();
+        ok( a.determinant() == 1, "Passed!" );
+
+        var b = new THREE.Matrix4( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 );
+        ok( b.elements[0] == 0 );
+        ok( b.elements[1] == 4 );
+        ok( b.elements[2] == 8 );
+        ok( b.elements[3] == 12 );
+        ok( b.elements[4] == 1 );
+        ok( b.elements[5] == 5 );
+        ok( b.elements[6] == 9 );
+        ok( b.elements[7] == 13 );
+        ok( b.elements[8] == 2 );
+        ok( b.elements[9] == 6 );
+        ok( b.elements[10] == 10 );
+        ok( b.elements[11] == 14 );
+        ok( b.elements[12] == 3 );
+        ok( b.elements[13] == 7 );
+        ok( b.elements[14] == 11 );
+        ok( b.elements[15] == 15 );
+
+        ok( ! matrixEquals4( a, b ), "Passed!" );
+    });
+
+    test( "copy", function() {
+        var a = new THREE.Matrix4( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 );
+        var b = new THREE.Matrix4().copy( a );
+
+        ok( matrixEquals4( a, b ), "Passed!" );
+
+        // ensure that it is a true copy
+        a.elements[0] = 2;
+        ok( ! matrixEquals4( a, b ), "Passed!" );
+    });
+
+    test( "set", function() {
+        var b = new THREE.Matrix4();
+        ok( b.determinant() == 1, "Passed!" );
+
+        b.set( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 );
+        ok( b.elements[0] == 0 );
+        ok( b.elements[1] == 4 );
+        ok( b.elements[2] == 8 );
+        ok( b.elements[3] == 12 );
+        ok( b.elements[4] == 1 );
+        ok( b.elements[5] == 5 );
+        ok( b.elements[6] == 9 );
+        ok( b.elements[7] == 13 );
+        ok( b.elements[8] == 2 );
+        ok( b.elements[9] == 6 );
+        ok( b.elements[10] == 10 );
+        ok( b.elements[11] == 14 );
+        ok( b.elements[12] == 3 );
+        ok( b.elements[13] == 7 );
+        ok( b.elements[14] == 11 );
+        ok( b.elements[15] == 15 );
+    });
+
+    test( "identity", function() {
+        var b = new THREE.Matrix4( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 );
+        ok( b.elements[0] == 0 );
+        ok( b.elements[1] == 4 );
+        ok( b.elements[2] == 8 );
+        ok( b.elements[3] == 12 );
+        ok( b.elements[4] == 1 );
+        ok( b.elements[5] == 5 );
+        ok( b.elements[6] == 9 );
+        ok( b.elements[7] == 13 );
+        ok( b.elements[8] == 2 );
+        ok( b.elements[9] == 6 );
+        ok( b.elements[10] == 10 );
+        ok( b.elements[11] == 14 );
+        ok( b.elements[12] == 3 );
+        ok( b.elements[13] == 7 );
+        ok( b.elements[14] == 11 );
+        ok( b.elements[15] == 15 );
+
+        var a = new THREE.Matrix4();
+        ok( ! matrixEquals4( a, b ), "Passed!" );
+
+        b.identity();
+        ok( matrixEquals4( a, b ), "Passed!" );
+    });
+
+    test( "multiplyScalar", function() {
+        var b = new THREE.Matrix4( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 );
+        ok( b.elements[0] == 0 );
+        ok( b.elements[1] == 4 );
+        ok( b.elements[2] == 8 );
+        ok( b.elements[3] == 12 );
+        ok( b.elements[4] == 1 );
+        ok( b.elements[5] == 5 );
+        ok( b.elements[6] == 9 );
+        ok( b.elements[7] == 13 );
+        ok( b.elements[8] == 2 );
+        ok( b.elements[9] == 6 );
+        ok( b.elements[10] == 10 );
+        ok( b.elements[11] == 14 );
+        ok( b.elements[12] == 3 );
+        ok( b.elements[13] == 7 );
+        ok( b.elements[14] == 11 );
+        ok( b.elements[15] == 15 );
+
+        b.multiplyScalar( 2 );
+        ok( b.elements[0] == 0*2 );
+        ok( b.elements[1] == 4*2 );
+        ok( b.elements[2] == 8*2 );
+        ok( b.elements[3] == 12*2 );
+        ok( b.elements[4] == 1*2 );
+        ok( b.elements[5] == 5*2 );
+        ok( b.elements[6] == 9*2 );
+        ok( b.elements[7] == 13*2 );
+        ok( b.elements[8] == 2*2 );
+        ok( b.elements[9] == 6*2 );
+        ok( b.elements[10] == 10*2 );
+        ok( b.elements[11] == 14*2 );
+        ok( b.elements[12] == 3*2 );
+        ok( b.elements[13] == 7*2 );
+        ok( b.elements[14] == 11*2 );
+        ok( b.elements[15] == 15*2 );
+    });
+
+    test( "determinant", function() {
+        var a = new THREE.Matrix4();
+        ok( a.determinant() == 1, "Passed!" );
+
+        a.elements[0] = 2;
+        ok( a.determinant() == 2, "Passed!" );
+
+        a.elements[0] = 0;
+        ok( a.determinant() == 0, "Passed!" );
+
+        // calculated via http://www.euclideanspace.com/maths/algebra/matrix/functions/determinant/fourD/index.htm
+        a.set( 2, 3, 4, 5, -1, -21, -3, -4, 6, 7, 8, 10, -8, -9, -10, -12 );
+        ok( a.determinant() == 76, "Passed!" );
+    });
+
+    test( "getInverse", function() {
+        var identity = new THREE.Matrix4();
+
+        var a = new THREE.Matrix4();
+        var b = new THREE.Matrix4( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
+        var c = new THREE.Matrix4( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
+
+        ok( ! matrixEquals4( a, b ), "Passed!" );
+        b.getInverse( a, false );
+        ok( matrixEquals4( b, new THREE.Matrix4() ), "Passed!" );
+
+        try { 
+            b.getInverse( c, true );
+            ok( false, "Passed!" ); // should never get here.
+        }
+        catch( err ) {
+            ok( true, "Passed!" );
+        }
+
+        var testMatrices = [
+            new THREE.Matrix4().makeRotationX( 0.3 ),
+            new THREE.Matrix4().makeRotationX( -0.3 ),
+            new THREE.Matrix4().makeRotationY( 0.3 ),
+            new THREE.Matrix4().makeRotationY( -0.3 ),
+            new THREE.Matrix4().makeRotationZ( 0.3 ),
+            new THREE.Matrix4().makeRotationZ( -0.3 ),
+            new THREE.Matrix4().makeScale( 1, 2, 3 ),
+            new THREE.Matrix4().makeScale( 1/8, 1/2, 1/3 ),
+            new THREE.Matrix4().makeFrustum( -1, 1, -1, 1, 1, 1000 ),
+            new THREE.Matrix4().makeFrustum( -16, 16, -9, 9, 0.1, 10000 ),
+            new THREE.Matrix4().makeTranslation( 1, 2, 3 )
+            ];
+
+        for( var i = 0, il = testMatrices.length; i < il; i ++ ) {
+            var m = testMatrices[i];
+
+            var mInverse = new THREE.Matrix4().getInverse( m );
+
+            // the determinant of the inverse should be the reciprocal
+            ok( Math.abs( m.determinant() * mInverse.determinant() - 1  ) < 0.0001, "Passed!" );
+
+            var mProduct = new THREE.Matrix4().multiplyMatrices( m, mInverse );
+
+            // the determinant of the identity matrix is 1
+            ok( Math.abs( mProduct.determinant() - 1 ) < 0.0001, "Passed!" );
+            ok( matrixEquals4( mProduct, identity ), "Passed!" );
+        }
+    });
+
+    test( "transpose", function() {
+        var a = new THREE.Matrix4();
+        var b = a.clone().transpose();
+        ok( matrixEquals4( a, b ), "Passed!" );
+
+        b = new THREE.Matrix4( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 );
+        var c = b.clone().transpose();
+        ok( ! matrixEquals4( b, c ), "Passed!" ); 
+        c.transpose();
+        ok( matrixEquals4( b, c ), "Passed!" ); 
+    });
+
+    test( "clone", function() {
+        var a = new THREE.Matrix4( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 );
+        var b = a.clone();
+
+        ok( matrixEquals4( a, b ), "Passed!" );
+
+        // ensure that it is a true copy
+        a.elements[0] = 2;
+        ok( ! matrixEquals4( a, b ), "Passed!" );
+    });
+
+
+    var comparePlane = function ( a, b, threshold? ) {
+        threshold = threshold || 0.0001;
+        return ( a.normal.distanceTo( b.normal ) < threshold &&
+        Math.abs( a.constant - b.constant ) < threshold );
+    };
+
+
+    test( "constructor", function() {
+        var a = new THREE.Plane();
+        ok( a.normal.x == 1, "Passed!" );
+        ok( a.normal.y == 0, "Passed!" );
+        ok( a.normal.z == 0, "Passed!" );
+        ok( a.constant == 0, "Passed!" );
+
+        a = new THREE.Plane( one3.clone(), 0 );
+        ok( a.normal.x == 1, "Passed!" );
+        ok( a.normal.y == 1, "Passed!" );
+        ok( a.normal.z == 1, "Passed!" );
+        ok( a.constant == 0, "Passed!" );
+
+        a = new THREE.Plane( one3.clone(), 1 );
+        ok( a.normal.x == 1, "Passed!" );
+        ok( a.normal.y == 1, "Passed!" );
+        ok( a.normal.z == 1, "Passed!" );
+        ok( a.constant == 1, "Passed!" );
+    });
+
+    test( "copy", function() {
+        var a = new THREE.Plane( new THREE.Vector3( x, y, z ), w );
+        var b = new THREE.Plane().copy( a );
+        ok( b.normal.x == x, "Passed!" );
+        ok( b.normal.y == y, "Passed!" );
+        ok( b.normal.z == z, "Passed!" );
+        ok( b.constant == w, "Passed!" );
+
+        // ensure that it is a true copy
+        a.normal.x = 0;
+        a.normal.y = -1;
+        a.normal.z = -2;
+        a.constant = -3;
+        ok( b.normal.x == x, "Passed!" );
+        ok( b.normal.y == y, "Passed!" );
+        ok( b.normal.z == z, "Passed!" );
+        ok( b.constant == w, "Passed!" );
+    });
+
+    test( "set", function() {
+        var a = new THREE.Plane();
+        ok( a.normal.x == 1, "Passed!" );
+        ok( a.normal.y == 0, "Passed!" );
+        ok( a.normal.z == 0, "Passed!" );
+        ok( a.constant == 0, "Passed!" );
+
+        var b = a.clone().set( new THREE.Vector3( x, y, z ), w );
+        ok( b.normal.x == x, "Passed!" );
+        ok( b.normal.y == y, "Passed!" );
+        ok( b.normal.z == z, "Passed!" );
+        ok( b.constant == w, "Passed!" );
+    });
+
+    test( "setComponents", function() {
+        var a = new THREE.Plane();
+        ok( a.normal.x == 1, "Passed!" );
+        ok( a.normal.y == 0, "Passed!" );
+        ok( a.normal.z == 0, "Passed!" );
+        ok( a.constant == 0, "Passed!" );
+
+        var b = a.clone().setComponents( x, y, z , w );
+        ok( b.normal.x == x, "Passed!" );
+        ok( b.normal.y == y, "Passed!" );
+        ok( b.normal.z == z, "Passed!" );
+        ok( b.constant == w, "Passed!" );
+    });
+
+    test( "setFromNormalAndCoplanarPoint", function() {
+        var normal = one3.clone().normalize();
+        var a = new THREE.Plane().setFromNormalAndCoplanarPoint( normal, zero3 );
+
+        ok( a.normal.equals( normal ), "Passed!" );
+        ok( a.constant == 0, "Passed!" );
+    });
+
+    test( "normalize", function() {
+        var a = new THREE.Plane( new THREE.Vector3( 2, 0, 0 ), 2 );
+
+        a.normalize();
+        ok( a.normal.length() == 1, "Passed!" );
+        ok( a.normal.equals( new THREE.Vector3( 1, 0, 0 ) ), "Passed!" );
+        ok( a.constant == 1, "Passed!" );
+    });
+
+    test( "negate/distanceToPoint", function() {
+        var a = new THREE.Plane( new THREE.Vector3( 2, 0, 0 ), -2 );
+
+        a.normalize();
+        ok( a.distanceToPoint( new THREE.Vector3( 4, 0, 0 ) ) === 3, "Passed!" );
+        ok( a.distanceToPoint( new THREE.Vector3( 1, 0, 0 ) ) === 0, "Passed!" );
+
+        a.negate();
+        ok( a.distanceToPoint( new THREE.Vector3( 4, 0, 0 ) ) === -3, "Passed!" );
+        ok( a.distanceToPoint( new THREE.Vector3( 1, 0, 0 ) ) === 0, "Passed!" );
+    });
+
+    test( "distanceToPoint", function() {
+        var a = new THREE.Plane( new THREE.Vector3( 2, 0, 0 ), -2 );
+
+        a.normalize();
+        ok( a.distanceToPoint( a.projectPoint( zero3.clone() ) ) === 0, "Passed!" );
+        ok( a.distanceToPoint( new THREE.Vector3( 4, 0, 0 ) ) === 3, "Passed!" );
+    });
+
+    test( "distanceToSphere", function() {
+        var a = new THREE.Plane( new THREE.Vector3( 1, 0, 0 ), 0 );
+
+        var b = new THREE.Sphere( new THREE.Vector3( 2, 0, 0 ), 1 );
+
+        ok( a.distanceToSphere( b ) === 1, "Passed!" );
+
+        a.set( new THREE.Vector3( 1, 0, 0 ), 2 );
+        ok( a.distanceToSphere( b ) === 3, "Passed!" );
+        a.set( new THREE.Vector3( 1, 0, 0 ), -2 );
+        ok( a.distanceToSphere( b ) === -1, "Passed!" );
+    });
+
+    test( "isInterestionLine/intersectLine", function() {
+        var a = new THREE.Plane( new THREE.Vector3( 1, 0, 0 ), 0 );
+
+        var l1 = new THREE.Line3( new THREE.Vector3( -10, 0, 0 ), new THREE.Vector3( 10, 0, 0 ) );
+        ok( a.isIntersectionLine( l1 ), "Passed!" );
+        ok( a.intersectLine( l1 ).equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
+
+        a = new THREE.Plane( new THREE.Vector3( 1, 0, 0 ), -3 );
+
+        ok( a.isIntersectionLine( l1 ), "Passed!" );
+        ok( a.intersectLine( l1 ).equals( new THREE.Vector3( 3, 0, 0 ) ), "Passed!" );
+
+
+        a = new THREE.Plane( new THREE.Vector3( 1, 0, 0 ), -11 );
+
+        ok( ! a.isIntersectionLine( l1 ), "Passed!" );
+        ok( a.intersectLine( l1 ) === undefined, "Passed!" );
+
+        a = new THREE.Plane( new THREE.Vector3( 1, 0, 0 ), 11 );
+
+        ok( ! a.isIntersectionLine( l1 ), "Passed!" );
+        ok( a.intersectLine( l1 ) === undefined, "Passed!" );
+
+    });
+
+    test( "projectPoint", function() {
+        var a = new THREE.Plane( new THREE.Vector3( 1, 0, 0 ), 0 );
+
+        ok( a.projectPoint( new THREE.Vector3( 10, 0, 0 ) ).equals( zero3 ), "Passed!" );
+        ok( a.projectPoint( new THREE.Vector3( -10, 0, 0 ) ).equals( zero3 ), "Passed!" );
+
+        a = new THREE.Plane( new THREE.Vector3( 0, 1, 0 ), -1 );
+        ok( a.projectPoint( new THREE.Vector3( 0, 0, 0 ) ).equals( new THREE.Vector3( 0, 1, 0 ) ), "Passed!" );
+        ok( a.projectPoint( new THREE.Vector3( 0, 1, 0 ) ).equals( new THREE.Vector3( 0, 1, 0 ) ), "Passed!" );
+
+    });
+
+    test( "orthoPoint", function() {
+        var a = new THREE.Plane( new THREE.Vector3( 1, 0, 0 ), 0 );
+
+        ok( a.orthoPoint( new THREE.Vector3( 10, 0, 0 ) ).equals( new THREE.Vector3( 10, 0, 0 ) ), "Passed!" );
+        ok( a.orthoPoint( new THREE.Vector3( -10, 0, 0 ) ).equals( new THREE.Vector3( -10, 0, 0 ) ), "Passed!" );
+    });
+
+    test( "coplanarPoint", function() {
+        var a = new THREE.Plane( new THREE.Vector3( 1, 0, 0 ), 0 );
+        ok( a.distanceToPoint( a.coplanarPoint() ) === 0, "Passed!" );
+
+        a = new THREE.Plane( new THREE.Vector3( 0, 1, 0 ), -1 );
+        ok( a.distanceToPoint( a.coplanarPoint() ) === 0, "Passed!" );
+    });
+
+    test( "applyMatrix4/translate", function() {
+
+        var a = new THREE.Plane( new THREE.Vector3( 1, 0, 0 ), 0 );
+
+        var m = new THREE.Matrix4();
+        m.makeRotationZ( Math.PI * 0.5 );
+
+        ok( comparePlane( a.clone().applyMatrix4( m ), new THREE.Plane( new THREE.Vector3( 0, 1, 0 ), 0 ) ), "Passed!" );
+
+        a = new THREE.Plane( new THREE.Vector3( 0, 1, 0 ), -1 );
+        ok( comparePlane( a.clone().applyMatrix4( m ), new THREE.Plane( new THREE.Vector3( -1, 0, 0 ), -1 ) ), "Passed!" );
+
+        m.makeTranslation( 1, 1, 1 );
+        ok( comparePlane( a.clone().applyMatrix4( m ), a.clone().translate( new THREE.Vector3( 1, 1, 1 ) ) ), "Passed!" );
+    });
+
+    var orders = [ 'XYZ', 'YXZ', 'ZXY', 'ZYX', 'YZX', 'XZY' ];
+    var eulerAngles = new THREE.Euler( 0.1, -0.3, 0.25 );
+
+
+
+    var qSub = function ( a, b ) {
+        var result = new THREE.Quaternion();
+        result.copy( a );
+
+        result.x -= b.x;
+        result.y -= b.y;
+        result.z -= b.z;
+        result.w -= b.w;
+
+        return result;
+
+    };
+
+    test( "constructor", function() {
+        var a = new THREE.Quaternion();
+        ok( a.x == 0, "Passed!" );
+        ok( a.y == 0, "Passed!" );
+        ok( a.z == 0, "Passed!" );
+        ok( a.w == 1, "Passed!" );
+
+        a = new THREE.Quaternion( x, y, z, w );
+        ok( a.x === x, "Passed!" );
+        ok( a.y === y, "Passed!" );
+        ok( a.z === z, "Passed!" );
+        ok( a.w === w, "Passed!" );
+    });
+
+    test( "copy", function() {
+        var a = new THREE.Quaternion( x, y, z, w );
+        var b = new THREE.Quaternion().copy( a );
+        ok( b.x == x, "Passed!" );
+        ok( b.y == y, "Passed!" );
+        ok( b.z == z, "Passed!" );
+        ok( b.w == w, "Passed!" );
+
+        // ensure that it is a true copy
+        a.x = 0;
+        a.y = -1;
+        a.z = 0;
+        a.w = -1;
+        ok( b.x == x, "Passed!" );
+        ok( b.y == y, "Passed!" );
+    });
+
+    test( "set", function() {
+        var a = new THREE.Quaternion();
+        ok( a.x == 0, "Passed!" );
+        ok( a.y == 0, "Passed!" );
+        ok( a.z == 0, "Passed!" );
+        ok( a.w == 1, "Passed!" );
+
+        a.set( x, y, z, w );
+        ok( a.x == x, "Passed!" );
+        ok( a.y == y, "Passed!" );
+        ok( a.z === z, "Passed!" );
+        ok( a.w === w, "Passed!" );
+    });
+
+    test( "setFromAxisAngle", function() {
+
+        // TODO: find cases to validate.
+        ok( true, "Passed!" );
+
+        var zero = new THREE.Quaternion();
+
+        var a = new THREE.Quaternion().setFromAxisAngle( new THREE.Vector3( 1, 0, 0 ), 0 );
+        ok( a.equals( zero ), "Passed!" );
+        a = new THREE.Quaternion().setFromAxisAngle( new THREE.Vector3( 0, 1, 0 ), 0 );
+        ok( a.equals( zero ), "Passed!" );
+        a = new THREE.Quaternion().setFromAxisAngle( new THREE.Vector3( 0, 0, 1 ), 0 );
+        ok( a.equals( zero ), "Passed!" );
+
+        var b1 = new THREE.Quaternion().setFromAxisAngle( new THREE.Vector3( 1, 0, 0 ), Math.PI );
+        ok( ! a.equals( b1 ), "Passed!" );
+        var b2 = new THREE.Quaternion().setFromAxisAngle( new THREE.Vector3( 1, 0, 0 ), -Math.PI );
+        ok( ! a.equals( b2 ), "Passed!" );
+
+        b1.multiply( b2 );
+        ok( a.equals( b1 ), "Passed!" );
+    });
+
+
+    test( "setFromEuler/setFromQuaternion", function() {
+
+        var angles = [ new THREE.Vector3( 1, 0, 0 ), new THREE.Vector3( 0, 1, 0 ), new THREE.Vector3( 0, 0, 1 ) ];
+
+        // ensure euler conversion to/from Quaternion matches.
+        for( var i = 0; i < orders.length; i ++ ) {
+            for( var j = 0; j < angles.length; j ++ ) {
+                var eulers2 = new THREE.Euler().setFromQuaternion(
+                    new THREE.Quaternion().setFromEuler(new THREE.Euler(angles[j].x, angles[j].y, angles[j].z, orders[i])),
+                    orders[i]
+                );
+                var v = new THREE.Vector3().applyEuler(eulers2);
+                ok( v.distanceTo( angles[j] ) < 0.001, "Passed!" );
+            }
+        }
+
+    });
+
+    test( "setFromEuler/setFromRotationMatrix", function() {
+
+        // ensure euler conversion for Quaternion matches that of Matrix4
+        for( var i = 0; i < orders.length; i ++ ) {
+            var q = new THREE.Quaternion().setFromEuler( eulerAngles );
+            var m = new THREE.Matrix4().makeRotationFromEuler( eulerAngles );
+            var q2 = new THREE.Quaternion().setFromRotationMatrix( m );
+
+            ok( qSub( q, q2 ).length() < 0.001, "Passed!" );
+        }
+
+    });
+
+    test( "normalize/length/lengthSq", function() {
+        var a = new THREE.Quaternion( x, y, z, w );
+        var b = new THREE.Quaternion( -x, -y, -z, -w );
+
+        ok( a.length() != 1, "Passed!");
+        ok( a.lengthSq() != 1, "Passed!");
+        a.normalize();
+        ok( a.length() == 1, "Passed!");
+        ok( a.lengthSq() == 1, "Passed!");
+
+        a.set( 0, 0, 0, 0 );
+        ok( a.lengthSq() == 0, "Passed!");
+        ok( a.length() == 0, "Passed!");
+        a.normalize();
+        ok( a.lengthSq() == 1, "Passed!");
+        ok( a.length() == 1, "Passed!");
+    });
+
+    test( "inverse/conjugate", function() {
+        var a = new THREE.Quaternion( x, y, z, w );
+
+        // TODO: add better validation here.
+
+        var b = a.clone().conjugate();
+
+        ok( a.x == -b.x, "Passed!" );
+        ok( a.y == -b.y, "Passed!" );
+        ok( a.z == -b.z, "Passed!" );
+        ok( a.w == b.w, "Passed!" );
+    });
+
+
+    test( "multiplyQuaternions/multiply", function() {
+
+        var angles = [ new THREE.Vector3( 1, 0, 0 ), new THREE.Vector3( 0, 1, 0 ), new THREE.Vector3( 0, 0, 1 ) ];
+
+        var q1 = new THREE.Quaternion().setFromEuler( new THREE.Euler(angles[0].x, angles[0].y, angles[0].z) );
+        var q2 = new THREE.Quaternion().setFromEuler( new THREE.Euler(angles[1].x, angles[1].y, angles[1].z) );
+        var q3 = new THREE.Quaternion().setFromEuler( new THREE.Euler(angles[2].x, angles[2].y, angles[2].z) );
+
+        var q = new THREE.Quaternion().multiplyQuaternions( q1, q2 ).multiply( q3 );
+
+        var m1 = new THREE.Matrix4().makeRotationFromEuler( new THREE.Euler(angles[0].x, angles[0].y, angles[0].z) );
+        var m2 = new THREE.Matrix4().makeRotationFromEuler( new THREE.Euler(angles[1].x, angles[1].y, angles[1].z) );
+        var m3 = new THREE.Matrix4().makeRotationFromEuler( new THREE.Euler(angles[2].x, angles[2].y, angles[2].z) );
+
+        var m = new THREE.Matrix4().multiplyMatrices( m1, m2 ).multiply( m3 );
+
+        var qFromM = new THREE.Quaternion().setFromRotationMatrix( m );
+
+        ok( qSub( q, qFromM ).length() < 0.001, "Passed!" );
+    });
+
+    test( "multiplyVector3", function() {
+
+        var angles = [ new THREE.Vector3( 1, 0, 0 ), new THREE.Vector3( 0, 1, 0 ), new THREE.Vector3( 0, 0, 1 ) ];
+
+        // ensure euler conversion for Quaternion matches that of Matrix4
+        for( var i = 0; i < orders.length; i ++ ) {
+            for( var j = 0; j < angles.length; j ++ ) {
+                var q = new THREE.Quaternion().setFromEuler( new THREE.Euler(angles[j].x, angles[j].y, angles[j].z, orders[i]) );
+                var m = new THREE.Matrix4().makeRotationFromEuler( new THREE.Euler(angles[j].x, angles[j].y, angles[j].z, orders[i]) );
+
+                var v0 = new THREE.Vector3(1, 0, 0);
+                var qv = v0.clone().applyQuaternion( q );
+                var mv = v0.clone().applyMatrix4( m );
+
+                ok( qv.distanceTo( mv ) < 0.001, "Passed!" );
+            }
+        }
+
+    });
+
+    test( "equals", function() {
+        var a = new THREE.Quaternion( x, y, z, w );
+        var b = new THREE.Quaternion( -x, -y, -z, -w );
+
+        ok( a.x != b.x, "Passed!" );
+        ok( a.y != b.y, "Passed!" );
+
+        ok( ! a.equals( b ), "Passed!" );
+        ok( ! b.equals( a ), "Passed!" );
+
+        a.copy( b );
+        ok( a.x == b.x, "Passed!" );
+        ok( a.y == b.y, "Passed!" );
+
+        ok( a.equals( b ), "Passed!" );
+        ok( b.equals( a ), "Passed!" );
+    });
+
+
+    test( "constructor/equals", function() {
+        var a = new THREE.Ray();
+        ok( a.origin.equals( zero3 ), "Passed!" );
+        ok( a.direction.equals( zero3 ), "Passed!" );
+
+        a = new THREE.Ray( two3.clone(), one3.clone() );
+        ok( a.origin.equals( two3 ), "Passed!" );
+        ok( a.direction.equals( one3 ), "Passed!" );
+    });
+
+    test( "copy/equals", function() {
+        var a = new THREE.Ray( zero3.clone(), one3.clone() );
+        var b = new THREE.Ray().copy( a );
+        ok( b.origin.equals( zero3 ), "Passed!" );
+        ok( b.direction.equals( one3 ), "Passed!" );
+
+        // ensure that it is a true copy
+        a.origin = zero3;
+        a.direction = one3;
+        ok( b.origin.equals( zero3 ), "Passed!" );
+        ok( b.direction.equals( one3 ), "Passed!" );
+    });
+
+    test( "set", function() {
+        var a = new THREE.Ray();
+
+        a.set( one3, one3 );
+        ok( a.origin.equals( one3 ), "Passed!" );
+        ok( a.direction.equals( one3 ), "Passed!" );
+    });
+
+    test( "at", function() {
+        var a = new THREE.Ray( one3.clone(), new THREE.Vector3( 0, 0, 1 ) );
+
+        ok( a.at( 0 ).equals( one3 ), "Passed!" );
+        ok( a.at( -1 ).equals( new THREE.Vector3( 1, 1, 0 ) ), "Passed!" );
+        ok( a.at( 1 ).equals( new THREE.Vector3( 1, 1, 2 ) ), "Passed!" );
+    });
+
+    test( "recast/clone", function() {
+        var a = new THREE.Ray( one3.clone(), new THREE.Vector3( 0, 0, 1 ) );
+
+        ok( a.recast( 0 ).equals( a ), "Passed!" );
+
+        var b = a.clone();
+        ok( b.recast( -1 ).equals( new THREE.Ray( new THREE.Vector3( 1, 1, 0 ), new THREE.Vector3( 0, 0, 1 ) ) ), "Passed!" );
+
+        var c = a.clone();
+        ok( c.recast( 1 ).equals( new THREE.Ray( new THREE.Vector3( 1, 1, 2 ), new THREE.Vector3( 0, 0, 1 ) ) ), "Passed!" );
+
+        var d = a.clone();
+        var e = d.clone().recast( 1 );
+        ok( d.equals( a ), "Passed!" );
+        ok( ! e.equals( d ), "Passed!" );
+        ok( e.equals( c ), "Passed!" );
+    });
+
+    test( "closestPointToPoint", function() {
+        var a = new THREE.Ray( one3.clone(), new THREE.Vector3( 0, 0, 1 ) );
+
+        // nearby the ray
+        var b = a.closestPointToPoint( zero3 );
+        ok( b.equals( new THREE.Vector3( 1, 1, 0 ) ), "Passed!" );
+
+        // exactly on the ray
+        var c = a.closestPointToPoint( one3 );
+        ok( c.equals( one3 ), "Passed!" );
+    });
+
+    test( "distanceToPoint", function() {
+        var a = new THREE.Ray( one3.clone(), new THREE.Vector3( 0, 0, 1 ) );
+
+        // nearby the ray
+        var b = a.distanceToPoint( zero3 );
+        ok( b == Math.sqrt( 2 ), "Passed!" );
+
+        // exactly on the ray
+        var c = a.distanceToPoint( one3 );
+        ok( c == 0, "Passed!" );
+    });
+
+    test( "isIntersectionSphere", function() {
+        var a = new THREE.Ray( one3.clone(), new THREE.Vector3( 0, 0, 1 ) );
+        var b = new THREE.Sphere( zero3, 0.5 );
+        var c = new THREE.Sphere( zero3, 1.5 );
+        var d = new THREE.Sphere( one3, 0.1 );
+        var e = new THREE.Sphere( two3, 0.1 );
+        var f = new THREE.Sphere( two3, 1 );
+
+        ok( ! a.isIntersectionSphere( b ), "Passed!" );
+        ok( a.isIntersectionSphere( c ), "Passed!" );
+        ok( a.isIntersectionSphere( d ), "Passed!" );
+        ok( ! a.isIntersectionSphere( e ), "Passed!" );
+        ok( ! a.isIntersectionSphere( f ), "Passed!" );
+    });
+
+    test( "isIntersectionPlane", function() {
+        var a = new THREE.Ray( one3.clone(), new THREE.Vector3( 0, 0, 1 ) );
+
+        // parallel plane behind
+        var b = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 0, 0, 1 ), one3.clone().sub( new THREE.Vector3( 0, 0, -1 ) ) );
+        ok( a.isIntersectionPlane( b ), "Passed!" );
+
+        // parallel plane coincident with origin
+        var c = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 0, 0, 1 ), one3.clone().sub( new THREE.Vector3( 0, 0, 0 ) ) );
+        ok( a.isIntersectionPlane( c ), "Passed!" );
+
+        // parallel plane infront
+        var d = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 0, 0, 1 ), one3.clone().sub( new THREE.Vector3( 0, 0, 1 ) ) );
+        ok( a.isIntersectionPlane( d ), "Passed!" );
+
+        // perpendical ray that overlaps exactly
+        var e = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 1, 0, 0 ), one3 );
+        ok( a.isIntersectionPlane( e ), "Passed!" );
+
+        // perpendical ray that doesn't overlap
+        var f = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 1, 0, 0 ), zero3 );
+        ok( ! a.isIntersectionPlane( f ), "Passed!" );
+    });
+
+    test( "intersectPlane", function() {
+        var a = new THREE.Ray( one3.clone(), new THREE.Vector3( 0, 0, 1 ) );
+
+        // parallel plane behind
+        var b = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 0, 0, 1 ), new THREE.Vector3( 1, 1, -1 ) );
+        ok( a.intersectPlane( b ).equals( new THREE.Vector3( 1, 1, -1 ) ), "Passed!" );
+
+        // parallel plane coincident with origin
+        var c = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 0, 0, 1 ), new THREE.Vector3( 1, 1, 0 ) );
+        ok( a.intersectPlane( c ).equals( new THREE.Vector3( 1, 1, 0 ) ), "Passed!" );
+
+        // parallel plane infront
+        var d = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 0, 0, 1 ), new THREE.Vector3( 1, 1, 1 ) );
+        ok( a.intersectPlane( d ).equals( new THREE.Vector3( 1, 1, 1 ) ), "Passed!" );
+
+        // perpendical ray that overlaps exactly
+        var e = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 1, 0, 0 ), one3 );
+        ok( a.intersectPlane( e ).equals( a.origin ), "Passed!" );
+
+        // perpendical ray that doesn't overlap
+        var f = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 1, 0, 0 ), zero3 );
+        ok( a.intersectPlane( f ) === undefined, "Passed!" );
+    });
+
+
+    test( "applyMatrix4", function() {
+        var a = new THREE.Ray( one3.clone(), new THREE.Vector3( 0, 0, 1 ) );
+        var m = new THREE.Matrix4().identity();
+
+        ok( a.clone().applyMatrix4( m ).equals( a ), "Passed!" );
+
+        a = new THREE.Ray( zero3.clone(), new THREE.Vector3( 0, 0, 1 ) );
+        m.makeRotationAxis( new THREE.Vector3( 0, 0, 1 ), Math.PI );
+        ok( a.clone().applyMatrix4( m ).equals( a ), "Passed!" );
+
+        m.identity().makeRotationX( Math.PI );
+        var b = a.clone();
+        b.direction.negate();
+        var a2 = a.clone().applyMatrix4( m );
+        ok( a2.origin.distanceTo( b.origin ) < 0.0001, "Passed!" );
+        ok( a2.direction.distanceTo( b.direction ) < 0.0001, "Passed!" );
+
+        a.origin = new THREE.Vector3( 0, 0, 1 );
+        b.origin = new THREE.Vector3( 0, 0, -1 );
+        var a2 = a.clone().applyMatrix4( m );
+        ok( a2.origin.distanceTo( b.origin ) < 0.0001, "Passed!" );
+        ok( a2.direction.distanceTo( b.direction ) < 0.0001, "Passed!" );
+    });
+
+
+    test( "constructor", function() {
+        var a = new THREE.Sphere();
+        ok( a.center.equals( zero3 ), "Passed!" );
+        ok( a.radius == 0, "Passed!" );
+
+        a = new THREE.Sphere( one3.clone(), 1 );
+        ok( a.center.equals( one3 ), "Passed!" );
+        ok( a.radius == 1, "Passed!" );
+    });
+
+    test( "copy", function() {
+        var a = new THREE.Sphere( one3.clone(), 1 );
+        var b = new THREE.Sphere().copy( a );
+
+        ok( b.center.equals( one3 ), "Passed!" );
+        ok( b.radius == 1, "Passed!" );
+
+        // ensure that it is a true copy
+        a.center = zero3;
+        a.radius = 0;
+        ok( b.center.equals( one3 ), "Passed!" );
+        ok( b.radius == 1, "Passed!" );
+    });
+
+    test( "set", function() {
+        var a = new THREE.Sphere();
+        ok( a.center.equals( zero3 ), "Passed!" );
+        ok( a.radius == 0, "Passed!" );
+
+        a.set( one3, 1 );
+        ok( a.center.equals( one3 ), "Passed!" );
+        ok( a.radius == 1, "Passed!" );
+    });
+
+    test( "empty", function() {
+        var a = new THREE.Sphere();
+        ok( a.empty(), "Passed!" );
+
+        a.set( one3, 1 );
+        ok( ! a.empty(), "Passed!" );
+    });
+
+    test( "containsPoint", function() {
+        var a = new THREE.Sphere( one3.clone(), 1 );
+
+        ok( ! a.containsPoint( zero3 ), "Passed!" );
+        ok( a.containsPoint( one3 ), "Passed!" );
+    });
+
+    test( "distanceToPoint", function() {
+        var a = new THREE.Sphere( one3.clone(), 1 );
+
+        ok( ( a.distanceToPoint( zero3 ) - 0.7320 ) < 0.001, "Passed!" );
+        ok( a.distanceToPoint( one3 ) === -1, "Passed!" );
+    });
+
+    test( "intersectsSphere", function() {
+        var a = new THREE.Sphere( one3.clone(), 1 );
+        var b = new THREE.Sphere( zero3.clone(), 1 );
+        var c = new THREE.Sphere( zero3.clone(), 0.25 );
+
+        ok( a.intersectsSphere( b ) , "Passed!" );
+        ok( ! a.intersectsSphere( c ) , "Passed!" );
+    });
+
+    test( "clampPoint", function() {
+        var a = new THREE.Sphere( one3.clone(), 1 );
+
+        ok( a.clampPoint( new THREE.Vector3( 1, 1, 3 ) ).equals( new THREE.Vector3( 1, 1, 2 ) ), "Passed!" );
+        ok( a.clampPoint( new THREE.Vector3( 1, 1, -3 ) ).equals( new THREE.Vector3( 1, 1, 0 ) ), "Passed!" );
+    });
+
+    test( "getBoundingBox", function() {
+        var a = new THREE.Sphere( one3.clone(), 1 );
+
+        ok( a.getBoundingBox().equals( new THREE.Box3( zero3, two3 ) ), "Passed!" );
+
+        a.set( zero3, 0 )
+        ok( a.getBoundingBox().equals( new THREE.Box3( zero3, zero3 ) ), "Passed!" );
+    });
+
+    test( "applyMatrix4", function() {
+        var a = new THREE.Sphere( one3.clone(), 1 );
+
+        var m = new THREE.Matrix4().makeTranslation( 1, -2, 1 );
+
+        ok( a.clone().applyMatrix4( m ).getBoundingBox().equals( a.getBoundingBox().applyMatrix4( m ) ), "Passed!" );
+    });
+
+    test( "translate", function() {
+        var a = new THREE.Sphere( one3.clone(), 1 );
+
+        a.translate( one3.clone().negate() );
+        ok( a.center.equals( zero3 ), "Passed!" );
+    });
+
+    test( "constructor", function() {
+        var a = new THREE.Triangle();
+        ok( a.a.equals( zero3 ), "Passed!" );
+        ok( a.b.equals( zero3 ), "Passed!" );
+        ok( a.c.equals( zero3 ), "Passed!" );
+
+        a = new THREE.Triangle( one3.clone().negate(), one3.clone(), two3.clone() );
+        ok( a.a.equals( one3.clone().negate() ), "Passed!" );
+        ok( a.b.equals( one3 ), "Passed!" );
+        ok( a.c.equals( two3 ), "Passed!" );
+    });
+
+    test( "copy", function() {
+        var a = new THREE.Triangle( one3.clone().negate(), one3.clone(), two3.clone() );
+        var b = new THREE.Triangle().copy( a );
+        ok( b.a.equals( one3.clone().negate() ), "Passed!" );
+        ok( b.b.equals( one3 ), "Passed!" );
+        ok( b.c.equals( two3 ), "Passed!" );
+
+        // ensure that it is a true copy
+        a.a = one3;
+        a.b = zero3;
+        a.c = zero3;
+        ok( b.a.equals( one3.clone().negate() ), "Passed!" );
+        ok( b.b.equals( one3 ), "Passed!" );
+        ok( b.c.equals( two3 ), "Passed!" );
+    });
+
+    test( "setFromPointsAndIndices", function() {
+        var a = new THREE.Triangle();
+
+        var points = [ one3, one3.clone().negate(), two3 ];
+        a.setFromPointsAndIndices( points, 1, 0, 2 );
+        ok( a.a.equals( one3.clone().negate() ), "Passed!" );
+        ok( a.b.equals( one3 ), "Passed!" );
+        ok( a.c.equals( two3 ), "Passed!" );
+
+    });
+
+    test( "set", function() {
+        var a = new THREE.Triangle();
+
+        a.set( one3.clone().negate(), one3, two3 );
+        ok( a.a.equals( one3.clone().negate() ), "Passed!" );
+        ok( a.b.equals( one3 ), "Passed!" );
+        ok( a.c.equals( two3 ), "Passed!" );
+
+    });
+
+    test( "area", function() {
+        var a = new THREE.Triangle();
+
+        ok( a.area() == 0, "Passed!" );
+
+        a = new THREE.Triangle( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 1, 0, 0 ), new THREE.Vector3( 0, 1, 0 ) );
+        ok( a.area() == 0.5, "Passed!" );
+
+        a = new THREE.Triangle( new THREE.Vector3( 2, 0, 0 ), new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, 2 ) );
+        ok( a.area() == 2, "Passed!" );
+
+        // colinear triangle.
+        a = new THREE.Triangle( new THREE.Vector3( 2, 0, 0 ), new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 3, 0, 0 ) );
+        ok( a.area() == 0, "Passed!" );
+    });
+
+    test( "midpoint", function() {
+        var a = new THREE.Triangle();
+
+        ok( a.midpoint().equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
+
+        a = new THREE.Triangle( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 1, 0, 0 ), new THREE.Vector3( 0, 1, 0 ) );
+        ok( a.midpoint().equals( new THREE.Vector3( 1/3, 1/3, 0 ) ), "Passed!" );
+
+        a = new THREE.Triangle( new THREE.Vector3( 2, 0, 0 ), new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, 2 ) );
+        ok( a.midpoint().equals( new THREE.Vector3( 2/3, 0, 2/3 ) ), "Passed!" );
+    });
+
+    test( "normal", function() {
+        var a = new THREE.Triangle();
+
+        ok( a.normal().equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
+
+        a = new THREE.Triangle( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 1, 0, 0 ), new THREE.Vector3( 0, 1, 0 ) );
+        ok( a.normal().equals( new THREE.Vector3( 0, 0, 1 ) ), "Passed!" );
+
+        a = new THREE.Triangle( new THREE.Vector3( 2, 0, 0 ), new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, 2 ) );
+        ok( a.normal().equals( new THREE.Vector3( 0, 1, 0 ) ), "Passed!" );
+    });
+
+    test( "plane", function() {
+        var a = new THREE.Triangle();
+
+        // artificial normal is created in this case.
+        ok( a.plane().distanceToPoint( a.a ) == 0, "Passed!" );
+        ok( a.plane().distanceToPoint( a.b ) == 0, "Passed!" );
+        ok( a.plane().distanceToPoint( a.c ) == 0, "Passed!" );
+        ok( a.plane().normal.equals( a.normal() ), "Passed!" );
+
+        a = new THREE.Triangle( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 1, 0, 0 ), new THREE.Vector3( 0, 1, 0 ) );
+        ok( a.plane().distanceToPoint( a.a ) == 0, "Passed!" );
+        ok( a.plane().distanceToPoint( a.b ) == 0, "Passed!" );
+        ok( a.plane().distanceToPoint( a.c ) == 0, "Passed!" );
+        ok( a.plane().normal.equals( a.normal() ), "Passed!" );
+
+        a = new THREE.Triangle( new THREE.Vector3( 2, 0, 0 ), new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, 2 ) );
+        ok( a.plane().distanceToPoint( a.a ) == 0, "Passed!" );
+        ok( a.plane().distanceToPoint( a.b ) == 0, "Passed!" );
+        ok( a.plane().distanceToPoint( a.c ) == 0, "Passed!" );
+        ok( a.plane().normal.clone().normalize().equals( a.normal() ), "Passed!" );
+    });
+
+    test( "barycoordFromPoint", function() {
+        var a = new THREE.Triangle();
+
+        var bad = new THREE.Vector3( -2, -1, -1 );
+
+        ok( a.barycoordFromPoint( a.a ).equals( bad ), "Passed!" );
+        ok( a.barycoordFromPoint( a.b ).equals( bad ), "Passed!" );
+        ok( a.barycoordFromPoint( a.c ).equals( bad ), "Passed!" );
+
+        a = new THREE.Triangle( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 1, 0, 0 ), new THREE.Vector3( 0, 1, 0 ) );
+        ok( a.barycoordFromPoint( a.a ).equals( new THREE.Vector3( 1, 0, 0 ) ), "Passed!" );
+        ok( a.barycoordFromPoint( a.b ).equals( new THREE.Vector3( 0, 1, 0 ) ), "Passed!" );
+        ok( a.barycoordFromPoint( a.c ).equals( new THREE.Vector3( 0, 0, 1 ) ), "Passed!" );
+        ok( a.barycoordFromPoint( a.midpoint() ).distanceTo( new THREE.Vector3( 1/3, 1/3, 1/3 ) ) < 0.0001, "Passed!" );
+
+        a = new THREE.Triangle( new THREE.Vector3( 2, 0, 0 ), new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, 2 ) );
+        ok( a.barycoordFromPoint( a.a ).equals( new THREE.Vector3( 1, 0, 0 ) ), "Passed!" );
+        ok( a.barycoordFromPoint( a.b ).equals( new THREE.Vector3( 0, 1, 0 ) ), "Passed!" );
+        ok( a.barycoordFromPoint( a.c ).equals( new THREE.Vector3( 0, 0, 1 ) ), "Passed!" );
+        ok( a.barycoordFromPoint( a.midpoint() ).distanceTo( new THREE.Vector3( 1/3, 1/3, 1/3 ) ) < 0.0001, "Passed!" );
+    });
+
+    test( "containsPoint", function() {
+        var a = new THREE.Triangle();
+
+        ok( ! a.containsPoint( a.a ), "Passed!" );
+        ok( ! a.containsPoint( a.b ), "Passed!" );
+        ok( ! a.containsPoint( a.c ), "Passed!" );
+
+        a = new THREE.Triangle( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 1, 0, 0 ), new THREE.Vector3( 0, 1, 0 ) );
+        ok( a.containsPoint( a.a ), "Passed!" );
+        ok( a.containsPoint( a.b ), "Passed!" );
+        ok( a.containsPoint( a.c ), "Passed!" );
+        ok( a.containsPoint( a.midpoint() ), "Passed!" );
+        ok( ! a.containsPoint( new THREE.Vector3( -1, -1, -1 ) ), "Passed!" );
+
+        a = new THREE.Triangle( new THREE.Vector3( 2, 0, 0 ), new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, 2 ) );
+        ok( a.containsPoint( a.a ), "Passed!" );
+        ok( a.containsPoint( a.b ), "Passed!" );
+        ok( a.containsPoint( a.c ), "Passed!" );
+        ok( a.containsPoint( a.midpoint() ), "Passed!" );
+        ok( ! a.containsPoint( new THREE.Vector3( -1, -1, -1 ) ), "Passed!" );
+    });
+
+
+    test( "constructor", function() {
+        var a = new THREE.Vector2();
+        ok( a.x == 0, "Passed!" );
+        ok( a.y == 0, "Passed!" );
+
+        a = new THREE.Vector2( x, y );
+        ok( a.x === x, "Passed!" );
+        ok( a.y === y, "Passed!" );
+    });
+
+    test( "copy", function() {
+        var a = new THREE.Vector2( x, y );
+        var b = new THREE.Vector2().copy( a );
+        ok( b.x == x, "Passed!" );
+        ok( b.y == y, "Passed!" );
+
+        // ensure that it is a true copy
+        a.x = 0;
+        a.y = -1;
+        ok( b.x == x, "Passed!" );
+        ok( b.y == y, "Passed!" );
+    });
+
+    test( "set", function() {
+        var a = new THREE.Vector2();
+        ok( a.x == 0, "Passed!" );
+        ok( a.y == 0, "Passed!" );
+
+        a.set( x, y );
+        ok( a.x == x, "Passed!" );
+        ok( a.y == y, "Passed!" );
+    });
+
+    test( "setX,setY", function() {
+        var a = new THREE.Vector2();
+        ok( a.x == 0, "Passed!" );
+        ok( a.y == 0, "Passed!" );
+
+        a.setX( x );
+        a.setY( y );
+        ok( a.x == x, "Passed!" );
+        ok( a.y == y, "Passed!" );
+    });
+
+    test( "setComponent,getComponent", function() {
+        var a = new THREE.Vector2();
+        ok( a.x == 0, "Passed!" );
+        ok( a.y == 0, "Passed!" );
+
+        a.setComponent( 0, 1 );
+        a.setComponent( 1, 2 );
+        ok( a.getComponent( 0 ) == 1, "Passed!" );
+        ok( a.getComponent( 1 ) == 2, "Passed!" );
+    });
+
+    test( "add", function() {
+        var a = new THREE.Vector2( x, y );
+        var b = new THREE.Vector2( -x, -y );
+
+        a.add( b );
+        ok( a.x == 0, "Passed!" );
+        ok( a.y == 0, "Passed!" );
+
+        var c = new THREE.Vector2().addVectors( b, b );
+        ok( c.x == -2*x, "Passed!" );
+        ok( c.y == -2*y, "Passed!" );
+    });
+
+    test( "sub", function() {
+        var a = new THREE.Vector2( x, y );
+        var b = new THREE.Vector2( -x, -y );
+
+        a.sub( b );
+        ok( a.x == 2*x, "Passed!" );
+        ok( a.y == 2*y, "Passed!" );
+
+        var c = new THREE.Vector2().subVectors( a, a );
+        ok( c.x == 0, "Passed!" );
+        ok( c.y == 0, "Passed!" );
+    });
+
+    test( "multiply/divide", function() {
+        var a = new THREE.Vector2( x, y );
+        var b = new THREE.Vector2( -x, -y );
+
+        a.multiplyScalar( -2 );
+        ok( a.x == x*-2, "Passed!" );
+        ok( a.y == y*-2, "Passed!" );
+
+        b.multiplyScalar( -2 );
+        ok( b.x == 2*x, "Passed!" );
+        ok( b.y == 2*y, "Passed!" );
+
+        a.divideScalar( -2 );
+        ok( a.x == x, "Passed!" );
+        ok( a.y == y, "Passed!" );
+
+        b.divideScalar( -2 );
+        ok( b.x == -x, "Passed!" );
+        ok( b.y == -y, "Passed!" );
+    });
+
+
+    test( "min/max/clamp", function() {
+        var a = new THREE.Vector2( x, y );
+        var b = new THREE.Vector2( -x, -y );
+        var c = new THREE.Vector2();
+
+        c.copy( a ).min( b );
+        ok( c.x == -x, "Passed!" );
+        ok( c.y == -y, "Passed!" );
+
+        c.copy( a ).max( b );
+        ok( c.x == x, "Passed!" );
+        ok( c.y == y, "Passed!" );
+
+        c.set( -2*x, 2*y );
+        c.clamp( b, a );
+        ok( c.x == -x, "Passed!" );
+        ok( c.y == y, "Passed!" );
+    });
+
+    test( "negate", function() {
+        var a = new THREE.Vector2( x, y );
+
+        a.negate();
+        ok( a.x == -x, "Passed!" );
+        ok( a.y == -y, "Passed!" );
+    });
+
+    test( "dot", function() {
+        var a = new THREE.Vector2( x, y );
+        var b = new THREE.Vector2( -x, -y );
+        var c = new THREE.Vector2();
+
+        var result = a.dot( b );
+        ok( result == (-x*x-y*y), "Passed!" );
+
+        result = a.dot( c );
+        ok( result == 0, "Passed!" );
+    });
+
+    test( "length/lengthSq", function() {
+        var a = new THREE.Vector2( x, 0 );
+        var b = new THREE.Vector2( 0, -y );
+        var c = new THREE.Vector2();
+
+        ok( a.length() == x, "Passed!" );
+        ok( a.lengthSq() == x*x, "Passed!" );
+        ok( b.length() == y, "Passed!" );
+        ok( b.lengthSq() == y*y, "Passed!" );
+        ok( c.length() == 0, "Passed!" );
+        ok( c.lengthSq() == 0, "Passed!" );
+
+        a.set( x, y );
+        ok( a.length() == Math.sqrt( x*x + y*y ), "Passed!" );
+        ok( a.lengthSq() == ( x*x + y*y ), "Passed!" );
+    });
+
+    test( "normalize", function() {
+        var a = new THREE.Vector2( x, 0 );
+        var b = new THREE.Vector2( 0, -y );
+        var c = new THREE.Vector2();
+
+        a.normalize();
+        ok( a.length() == 1, "Passed!" );
+        ok( a.x == 1, "Passed!" );
+
+        b.normalize();
+        ok( b.length() == 1, "Passed!" );
+        ok( b.y == -1, "Passed!" );
+    });
+
+    test( "distanceTo/distanceToSquared", function() {
+        var a = new THREE.Vector2( x, 0 );
+        var b = new THREE.Vector2( 0, -y );
+        var c = new THREE.Vector2();
+
+        ok( a.distanceTo( c ) == x, "Passed!" );
+        ok( a.distanceToSquared( c ) == x*x, "Passed!" );
+
+        ok( b.distanceTo( c ) == y, "Passed!" );
+        ok( b.distanceToSquared( c ) == y*y, "Passed!" );
+    });
+
+    test( "setLength", function() {
+        var a = new THREE.Vector2( x, 0 );
+
+        ok( a.length() == x, "Passed!" );
+        a.setLength( y );
+        ok( a.length() == y, "Passed!" );
+
+        a = new THREE.Vector2( 0, 0 );
+        ok( a.length() == 0, "Passed!" );
+        a.setLength( y );
+        ok( a.length() == 0, "Passed!" );
+    });
+
+    test( "lerp/clone", function() {
+        var a = new THREE.Vector2( x, 0 );
+        var b = new THREE.Vector2( 0, -y );
+
+        ok( a.lerp( a, 0 ).equals( a.lerp( a, 0.5 ) ), "Passed!" );
+        ok( a.lerp( a, 0 ).equals( a.lerp( a, 1 ) ), "Passed!" );
+
+        ok( a.clone().lerp( b, 0 ).equals( a ), "Passed!" );
+
+        ok( a.clone().lerp( b, 0.5 ).x == x*0.5, "Passed!" );
+        ok( a.clone().lerp( b, 0.5 ).y == -y*0.5, "Passed!" );
+
+        ok( a.clone().lerp( b, 1 ).equals( b ), "Passed!" );
+    });
+
+    test( "equals", function() {
+        var a = new THREE.Vector2( x, 0 );
+        var b = new THREE.Vector2( 0, -y );
+
+        ok( a.x != b.x, "Passed!" );
+        ok( a.y != b.y, "Passed!" );
+
+        ok( ! a.equals( b ), "Passed!" );
+        ok( ! b.equals( a ), "Passed!" );
+
+        a.copy( b );
+        ok( a.x == b.x, "Passed!" );
+        ok( a.y == b.y, "Passed!" );
+
+        ok( a.equals( b ), "Passed!" );
+        ok( b.equals( a ), "Passed!" );
+    });
+
+
+    test( "constructor", function() {
+        var a = new THREE.Vector3();
+        ok( a.x == 0, "Passed!" );
+        ok( a.y == 0, "Passed!" );
+        ok( a.z == 0, "Passed!" );
+
+        a = new THREE.Vector3( x, y, z );
+        ok( a.x === x, "Passed!" );
+        ok( a.y === y, "Passed!" );
+        ok( a.z === z, "Passed!" );
+    });
+
+    test( "copy", function() {
+        var a = new THREE.Vector3( x, y, z );
+        var b = new THREE.Vector3().copy( a );
+        ok( b.x == x, "Passed!" );
+        ok( b.y == y, "Passed!" );
+        ok( b.z == z, "Passed!" );
+
+        // ensure that it is a true copy
+        a.x = 0;
+        a.y = -1;
+        a.z = -2;
+        ok( b.x == x, "Passed!" );
+        ok( b.y == y, "Passed!" );
+        ok( b.z == z, "Passed!" );
+    });
+
+    test( "set", function() {
+        var a = new THREE.Vector3();
+        ok( a.x == 0, "Passed!" );
+        ok( a.y == 0, "Passed!" );
+        ok( a.z == 0, "Passed!" );
+
+        a.set( x, y, z );
+        ok( a.x == x, "Passed!" );
+        ok( a.y == y, "Passed!" );
+        ok( a.z == z, "Passed!" );
+    });
+
+    test( "setX,setY,setZ", function() {
+        var a = new THREE.Vector3();
+        ok( a.x == 0, "Passed!" );
+        ok( a.y == 0, "Passed!" );
+        ok( a.z == 0, "Passed!" );
+
+        a.setX( x );
+        a.setY( y );
+        a.setZ( z );
+
+        ok( a.x == x, "Passed!" );
+        ok( a.y == y, "Passed!" );
+        ok( a.z == z, "Passed!" );
+    });
+
+    test( "setComponent,getComponent", function() {
+        var a = new THREE.Vector3();
+        ok( a.x == 0, "Passed!" );
+        ok( a.y == 0, "Passed!" );
+        ok( a.z == 0, "Passed!" );
+
+        a.setComponent( 0, 1 );
+        a.setComponent( 1, 2 );
+        a.setComponent( 2, 3 );
+        ok( a.getComponent( 0 ) == 1, "Passed!" );
+        ok( a.getComponent( 1 ) == 2, "Passed!" );
+        ok( a.getComponent( 2 ) == 3, "Passed!" );
+    });
+
+    test( "add", function() {
+        var a = new THREE.Vector3( x, y, z );
+        var b = new THREE.Vector3( -x, -y, -z );
+
+        a.add( b );
+        ok( a.x == 0, "Passed!" );
+        ok( a.y == 0, "Passed!" );
+        ok( a.z == 0, "Passed!" );
+
+        var c = new THREE.Vector3().addVectors( b, b );
+        ok( c.x == -2*x, "Passed!" );
+        ok( c.y == -2*y, "Passed!" );
+        ok( c.z == -2*z, "Passed!" );
+    });
+
+    test( "sub", function() {
+        var a = new THREE.Vector3( x, y, z );
+        var b = new THREE.Vector3( -x, -y, -z );
+
+        a.sub( b );
+        ok( a.x == 2*x, "Passed!" );
+        ok( a.y == 2*y, "Passed!" );
+        ok( a.z == 2*z, "Passed!" );
+
+        var c = new THREE.Vector3().subVectors( a, a );
+        ok( c.x == 0, "Passed!" );
+        ok( c.y == 0, "Passed!" );
+        ok( c.z == 0, "Passed!" );
+    });
+
+    test( "multiply/divide", function() {
+        var a = new THREE.Vector3( x, y, z );
+        var b = new THREE.Vector3( -x, -y, -z );
+
+        a.multiplyScalar( -2 );
+        ok( a.x == x*-2, "Passed!" );
+        ok( a.y == y*-2, "Passed!" );
+        ok( a.z == z*-2, "Passed!" );
+
+        b.multiplyScalar( -2 );
+        ok( b.x == 2*x, "Passed!" );
+        ok( b.y == 2*y, "Passed!" );
+        ok( b.z == 2*z, "Passed!" );
+
+        a.divideScalar( -2 );
+        ok( a.x == x, "Passed!" );
+        ok( a.y == y, "Passed!" );
+        ok( a.z == z, "Passed!" );
+
+        b.divideScalar( -2 );
+        ok( b.x == -x, "Passed!" );
+        ok( b.y == -y, "Passed!" );
+        ok( b.z == -z, "Passed!" );
+    });
+
+    test( "min/max/clamp", function() {
+        var a = new THREE.Vector3( x, y, z );
+        var b = new THREE.Vector3( -x, -y, -z );
+        var c = new THREE.Vector3();
+
+        c.copy( a ).min( b );
+        ok( c.x == -x, "Passed!" );
+        ok( c.y == -y, "Passed!" );
+        ok( c.z == -z, "Passed!" );
+
+        c.copy( a ).max( b );
+        ok( c.x == x, "Passed!" );
+        ok( c.y == y, "Passed!" );
+        ok( c.z == z, "Passed!" );
+
+        c.set( -2*x, 2*y, -2*z );
+        c.clamp( b, a );
+        ok( c.x == -x, "Passed!" );
+        ok( c.y == y, "Passed!" );
+        ok( c.z == -z, "Passed!" );
+    });
+
+    test( "negate", function() {
+        var a = new THREE.Vector3( x, y, z );
+
+        a.negate();
+        ok( a.x == -x, "Passed!" );
+        ok( a.y == -y, "Passed!" );
+        ok( a.z == -z, "Passed!" );
+    });
+
+    test( "dot", function() {
+        var a = new THREE.Vector3( x, y, z );
+        var b = new THREE.Vector3( -x, -y, -z );
+        var c = new THREE.Vector3();
+
+        var result = a.dot( b );
+        ok( result == (-x*x-y*y-z*z), "Passed!" );
+
+        result = a.dot( c );
+        ok( result == 0, "Passed!" );
+    });
+
+    test( "length/lengthSq", function() {
+        var a = new THREE.Vector3( x, 0, 0 );
+        var b = new THREE.Vector3( 0, -y, 0 );
+        var c = new THREE.Vector3( 0, 0, z );
+        var d = new THREE.Vector3();
+
+        ok( a.length() == x, "Passed!" );
+        ok( a.lengthSq() == x*x, "Passed!" );
+        ok( b.length() == y, "Passed!" );
+        ok( b.lengthSq() == y*y, "Passed!" );
+        ok( c.length() == z, "Passed!" );
+        ok( c.lengthSq() == z*z, "Passed!" );
+        ok( d.length() == 0, "Passed!" );
+        ok( d.lengthSq() == 0, "Passed!" );
+
+        a.set( x, y, z );
+        ok( a.length() == Math.sqrt( x*x + y*y + z*z ), "Passed!" );
+        ok( a.lengthSq() == ( x*x + y*y + z*z ), "Passed!" );
+    });
+
+    test( "normalize", function() {
+        var a = new THREE.Vector3( x, 0, 0 );
+        var b = new THREE.Vector3( 0, -y, 0 );
+        var c = new THREE.Vector3( 0, 0, z );
+
+        a.normalize();
+        ok( a.length() == 1, "Passed!" );
+        ok( a.x == 1, "Passed!" );
+
+        b.normalize();
+        ok( b.length() == 1, "Passed!" );
+        ok( b.y == -1, "Passed!" );
+
+        c.normalize();
+        ok( c.length() == 1, "Passed!" );
+        ok( c.z == 1, "Passed!" );
+    });
+
+    test( "distanceTo/distanceToSquared", function() {
+        var a = new THREE.Vector3( x, 0, 0 );
+        var b = new THREE.Vector3( 0, -y, 0 );
+        var c = new THREE.Vector3( 0, 0, z );
+        var d = new THREE.Vector3();
+
+        ok( a.distanceTo( d ) == x, "Passed!" );
+        ok( a.distanceToSquared( d ) == x*x, "Passed!" );
+
+        ok( b.distanceTo( d ) == y, "Passed!" );
+        ok( b.distanceToSquared( d ) == y*y, "Passed!" );
+
+        ok( c.distanceTo( d ) == z, "Passed!" );
+        ok( c.distanceToSquared( d ) == z*z, "Passed!" );
+    });
+
+    test( "setLength", function() {
+        var a = new THREE.Vector3( x, 0, 0 );
+
+        ok( a.length() == x, "Passed!" );
+        a.setLength( y );
+        ok( a.length() == y, "Passed!" );
+
+        a = new THREE.Vector3( 0, 0, 0 );
+        ok( a.length() == 0, "Passed!" );
+        a.setLength( y );
+        ok( a.length() == 0, "Passed!" );
+
+    });
+
+    test( "projectOnVector", function() {
+        var a = new THREE.Vector3( 1, 0, 0 );
+        var b = new THREE.Vector3();
+        var normal = new THREE.Vector3( 10, 0, 0 );
+
+        ok( b.copy( a ).projectOnVector( normal ).equals( new THREE.Vector3( 1, 0, 0 ) ), "Passed!" );
+
+        a.set( 0, 1, 0 );
+        ok( b.copy( a ).projectOnVector( normal ).equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
+
+        a.set( 0, 0, -1 );
+        ok( b.copy( a ).projectOnVector( normal ).equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
+
+        a.set( -1, 0, 0 );
+        ok( b.copy( a ).projectOnVector( normal ).equals( new THREE.Vector3( -1, 0, 0 ) ), "Passed!" );
+
+    });
+
+    test( "projectOnPlane", function() {
+        var a = new THREE.Vector3( 1, 0, 0 );
+        var b = new THREE.Vector3();
+        var normal = new THREE.Vector3( 1, 0, 0 );
+
+        ok( b.copy( a ).projectOnPlane( normal ).equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
+
+        a.set( 0, 1, 0 );
+        ok( b.copy( a ).projectOnPlane( normal ).equals( new THREE.Vector3( 0, 1, 0 ) ), "Passed!" );
+
+        a.set( 0, 0, -1 );
+        ok( b.copy( a ).projectOnPlane( normal ).equals( new THREE.Vector3( 0, 0, -1 ) ), "Passed!" );
+
+        a.set( -1, 0, 0 );
+        ok( b.copy( a ).projectOnPlane( normal ).equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
+
+    });
+
+    test( "reflect", function() {
+        var a = new THREE.Vector3( 1, 0, 0 );
+        var normal = new THREE.Vector3( 1, 0, 0 );
+        var b = new THREE.Vector3( 0, 0, 0 );
+
+        ok( b.copy( a ).reflect( normal ).equals( new THREE.Vector3( 1, 0, 0 ) ), "Passed!" );
+
+        a.set( 1, -1, 0 );
+        ok( b.copy( a ).reflect( normal ).equals( new THREE.Vector3( 1, 1, 0 ) ), "Passed!" );
+
+        a.set( 1, -1, 0 );
+        normal.set( 0, -1, 0 );
+        ok( b.copy( a ).reflect(  normal ).equals( new THREE.Vector3( -1, -1, 0 ) ), "Passed!" );
+    });
+
+    test( "angleTo", function() {
+        var a = new THREE.Vector3( 0, -0.18851655680720186, 0.9820700116639124 );
+        var b = new THREE.Vector3( 0, 0.18851655680720186, -0.9820700116639124 );
+
+        equal( a.angleTo( a ), 0 );
+        equal( a.angleTo( b ), Math.PI );
+
+        var x = new THREE.Vector3( 1, 0, 0 );
+        var y = new THREE.Vector3( 0, 1, 0 );
+        var z = new THREE.Vector3( 0, 0, 1 );
+
+        equal( x.angleTo( y ), Math.PI / 2 );
+        equal( x.angleTo( z ), Math.PI / 2 );
+        equal( z.angleTo( x ), Math.PI / 2 );
+
+        ok( Math.abs( x.angleTo( new THREE.Vector3( 1, 1, 0 ) ) - ( Math.PI / 4 ) ) < 0.0000001 );
+    });
+
+    test( "lerp/clone", function() {
+        var a = new THREE.Vector3( x, 0, z );
+        var b = new THREE.Vector3( 0, -y, 0 );
+
+        ok( a.lerp( a, 0 ).equals( a.lerp( a, 0.5 ) ), "Passed!" );
+        ok( a.lerp( a, 0 ).equals( a.lerp( a, 1 ) ), "Passed!" );
+
+        ok( a.clone().lerp( b, 0 ).equals( a ), "Passed!" );
+
+        ok( a.clone().lerp( b, 0.5 ).x == x*0.5, "Passed!" );
+        ok( a.clone().lerp( b, 0.5 ).y == -y*0.5, "Passed!" );
+        ok( a.clone().lerp( b, 0.5 ).z == z*0.5, "Passed!" );
+
+        ok( a.clone().lerp( b, 1 ).equals( b ), "Passed!" );
+    });
+
+    test( "equals", function() {
+        var a = new THREE.Vector3( x, 0, z );
+        var b = new THREE.Vector3( 0, -y, 0 );
+
+        ok( a.x != b.x, "Passed!" );
+        ok( a.y != b.y, "Passed!" );
+        ok( a.z != b.z, "Passed!" );
+
+        ok( ! a.equals( b ), "Passed!" );
+        ok( ! b.equals( a ), "Passed!" );
+
+        a.copy( b );
+        ok( a.x == b.x, "Passed!" );
+        ok( a.y == b.y, "Passed!" );
+        ok( a.z == b.z, "Passed!" );
+
+        ok( a.equals( b ), "Passed!" );
+        ok( b.equals( a ), "Passed!" );
+    });
+
+
+    test( "constructor", function() {
+        var a = new THREE.Vector4();
+        ok( a.x == 0, "Passed!" );
+        ok( a.y == 0, "Passed!" );
+        ok( a.z == 0, "Passed!" );
+        ok( a.w == 1, "Passed!" );
+
+        a = new THREE.Vector4( x, y, z, w );
+        ok( a.x === x, "Passed!" );
+        ok( a.y === y, "Passed!" );
+        ok( a.z === z, "Passed!" );
+        ok( a.w === w, "Passed!" );
+    });
+
+    test( "copy", function() {
+        var a = new THREE.Vector4( x, y, z, w );
+        var b = new THREE.Vector4().copy( a );
+        ok( b.x == x, "Passed!" );
+        ok( b.y == y, "Passed!" );
+        ok( b.z == z, "Passed!" );
+        ok( b.w == w, "Passed!" );
+
+        // ensure that it is a true copy
+        a.x = 0;
+        a.y = -1;
+        a.z = -2;
+        a.w = -3;
+        ok( b.x == x, "Passed!" );
+        ok( b.y == y, "Passed!" );
+        ok( b.z == z, "Passed!" );
+        ok( b.w == w, "Passed!" );
+    });
+
+    test( "set", function() {
+        var a = new THREE.Vector4();
+        ok( a.x == 0, "Passed!" );
+        ok( a.y == 0, "Passed!" );
+        ok( a.z == 0, "Passed!" );
+        ok( a.w == 1, "Passed!" );
+
+        a.set( x, y, z, w );
+        ok( a.x == x, "Passed!" );
+        ok( a.y == y, "Passed!" );
+        ok( a.z == z, "Passed!" );
+        ok( a.w == w, "Passed!" );
+    });
+
+    test( "setX,setY,setZ,setW", function() {
+        var a = new THREE.Vector4();
+        ok( a.x == 0, "Passed!" );
+        ok( a.y == 0, "Passed!" );
+        ok( a.z == 0, "Passed!" );
+        ok( a.w == 1, "Passed!" );
+
+        a.setX( x );
+        a.setY( y );
+        a.setZ( z );
+        a.setW( w );
+
+        ok( a.x == x, "Passed!" );
+        ok( a.y == y, "Passed!" );
+        ok( a.z == z, "Passed!" );
+        ok( a.w == w, "Passed!" );
+    });
+
+    test( "setComponent,getComponent", function() {
+        var a = new THREE.Vector4();
+        ok( a.x == 0, "Passed!" );
+        ok( a.y == 0, "Passed!" );
+        ok( a.z == 0, "Passed!" );
+        ok( a.w == 1, "Passed!" );
+
+        a.setComponent( 0, 1 );
+        a.setComponent( 1, 2 );
+        a.setComponent( 2, 3 );
+        a.setComponent( 3, 4 );
+        ok( a.getComponent( 0 ) == 1, "Passed!" );
+        ok( a.getComponent( 1 ) == 2, "Passed!" );
+        ok( a.getComponent( 2 ) == 3, "Passed!" );
+        ok( a.getComponent( 3 ) == 4, "Passed!" );
+    });
+
+    test( "add", function() {
+        var a = new THREE.Vector4( x, y, z, w );
+        var b = new THREE.Vector4( -x, -y, -z, -w );
+
+        a.add( b );
+        ok( a.x == 0, "Passed!" );
+        ok( a.y == 0, "Passed!" );
+        ok( a.z == 0, "Passed!" );
+        ok( a.w == 0, "Passed!" );
+
+        var c = new THREE.Vector4().addVectors( b, b );
+        ok( c.x == -2*x, "Passed!" );
+        ok( c.y == -2*y, "Passed!" );
+        ok( c.z == -2*z, "Passed!" );
+        ok( c.w == -2*w, "Passed!" );
+    });
+
+    test( "sub", function() {
+        var a = new THREE.Vector4( x, y, z, w );
+        var b = new THREE.Vector4( -x, -y, -z, -w );
+
+        a.sub( b );
+        ok( a.x == 2*x, "Passed!" );
+        ok( a.y == 2*y, "Passed!" );
+        ok( a.z == 2*z, "Passed!" );
+        ok( a.w == 2*w, "Passed!" );
+
+        var c = new THREE.Vector4().subVectors( a, a );
+        ok( c.x == 0, "Passed!" );
+        ok( c.y == 0, "Passed!" );
+        ok( c.z == 0, "Passed!" );
+        ok( c.w == 0, "Passed!" );
+    });
+
+    test( "multiply/divide", function() {
+        var a = new THREE.Vector4( x, y, z, w );
+        var b = new THREE.Vector4( -x, -y, -z, -w );
+
+        a.multiplyScalar( -2 );
+        ok( a.x == x*-2, "Passed!" );
+        ok( a.y == y*-2, "Passed!" );
+        ok( a.z == z*-2, "Passed!" );
+        ok( a.w == w*-2, "Passed!" );
+
+        b.multiplyScalar( -2 );
+        ok( b.x == 2*x, "Passed!" );
+        ok( b.y == 2*y, "Passed!" );    
+        ok( b.z == 2*z, "Passed!" );    
+        ok( b.w == 2*w, "Passed!" );    
+
+        a.divideScalar( -2 );
+        ok( a.x == x, "Passed!" );
+        ok( a.y == y, "Passed!" );
+        ok( a.z == z, "Passed!" );
+        ok( a.w == w, "Passed!" );
+
+        b.divideScalar( -2 );
+        ok( b.x == -x, "Passed!" );
+        ok( b.y == -y, "Passed!" );
+        ok( b.z == -z, "Passed!" );
+        ok( b.w == -w, "Passed!" );
+    });
+
+    test( "min/max/clamp", function() {
+        var a = new THREE.Vector4( x, y, z, w );
+        var b = new THREE.Vector4( -x, -y, -z, -w );
+        var c = new THREE.Vector4();
+
+        c.copy( a ).min( b );
+        ok( c.x == -x, "Passed!" );
+        ok( c.y == -y, "Passed!" );
+        ok( c.z == -z, "Passed!" );
+        ok( c.w == -w, "Passed!" );
+
+        c.copy( a ).max( b );
+        ok( c.x == x, "Passed!" );
+        ok( c.y == y, "Passed!" );
+        ok( c.z == z, "Passed!" );
+        ok( c.w == w, "Passed!" );
+
+        c.set( -2*x, 2*y, -2*z, 2*w );
+        c.clamp( b, a );
+        ok( c.x == -x, "Passed!" );
+        ok( c.y == y, "Passed!" );
+        ok( c.z == -z, "Passed!" );
+        ok( c.w == w, "Passed!" );
+    });
+
+    test( "negate", function() {
+        var a = new THREE.Vector4( x, y, z, w );
+
+        a.negate();
+        ok( a.x == -x, "Passed!" );
+        ok( a.y == -y, "Passed!" );
+        ok( a.z == -z, "Passed!" );
+        ok( a.w == -w, "Passed!" );
+    });
+
+    test( "dot", function() {
+        var a = new THREE.Vector4( x, y, z, w );
+        var b = new THREE.Vector4( -x, -y, -z, -w );
+        var c = new THREE.Vector4( 0, 0, 0, 0 );
+
+        var result = a.dot( b );
+        ok( result == (-x*x-y*y-z*z-w*w), "Passed!" );
+
+        result = a.dot( c );
+        ok( result == 0, "Passed!" );
+    });
+
+    test( "length/lengthSq", function() {
+        var a = new THREE.Vector4( x, 0, 0, 0 );
+        var b = new THREE.Vector4( 0, -y, 0, 0 );
+        var c = new THREE.Vector4( 0, 0, z, 0 );
+        var d = new THREE.Vector4( 0, 0, 0, w );
+        var e = new THREE.Vector4( 0, 0, 0, 0 );
+
+        ok( a.length() == x, "Passed!" );
+        ok( a.lengthSq() == x*x, "Passed!" );
+        ok( b.length() == y, "Passed!" );
+        ok( b.lengthSq() == y*y, "Passed!" );
+        ok( c.length() == z, "Passed!" );
+        ok( c.lengthSq() == z*z, "Passed!" );
+        ok( d.length() == w, "Passed!" );
+        ok( d.lengthSq() == w*w, "Passed!" );
+        ok( e.length() == 0, "Passed!" );
+        ok( e.lengthSq() == 0, "Passed!" );
+
+        a.set( x, y, z, w );
+        ok( a.length() == Math.sqrt( x*x + y*y + z*z + w*w ), "Passed!" );
+        ok( a.lengthSq() == ( x*x + y*y + z*z + w*w ), "Passed!" );
+    });
+
+    test( "normalize", function() {
+        var a = new THREE.Vector4( x, 0, 0, 0 );
+        var b = new THREE.Vector4( 0, -y, 0, 0 );
+        var c = new THREE.Vector4( 0, 0, z, 0 );
+        var d = new THREE.Vector4( 0, 0, 0, -w );
+
+        a.normalize();
+        ok( a.length() == 1, "Passed!" );
+        ok( a.x == 1, "Passed!" );
+
+        b.normalize();
+        ok( b.length() == 1, "Passed!" );
+        ok( b.y == -1, "Passed!" );
+
+        c.normalize();
+        ok( c.length() == 1, "Passed!" );
+        ok( c.z == 1, "Passed!" );
+
+        d.normalize();
+        ok( d.length() == 1, "Passed!" );
+        ok( d.w == -1, "Passed!" );
+    });
+
+    /*
+    test( "distanceTo/distanceToSquared", function() {
+        var a = new THREE.Vector4( x, 0, 0, 0 );
+        var b = new THREE.Vector4( 0, -y, 0, 0 );
+        var c = new THREE.Vector4( 0, 0, z, 0 );
+        var d = new THREE.Vector4( 0, 0, 0, -w );
+        var e = new THREE.Vector4();
+        
+        ok( a.distanceTo( e ) == x, "Passed!" );
+        ok( a.distanceToSquared( e ) == x*x, "Passed!" );
+
+        ok( b.distanceTo( e ) == y, "Passed!" );
+        ok( b.distanceToSquared( e ) == y*y, "Passed!" );
+
+        ok( c.distanceTo( e ) == z, "Passed!" );
+        ok( c.distanceToSquared( e ) == z*z, "Passed!" );
+
+        ok( d.distanceTo( e ) == w, "Passed!" );
+        ok( d.distanceToSquared( e ) == w*w, "Passed!" );
+    });
+    */
+
+
+    test( "setLength", function() {
+        var a = new THREE.Vector4( x, 0, 0, 0 );
+
+        ok( a.length() == x, "Passed!" );
+        a.setLength( y );
+        ok( a.length() == y, "Passed!" );
+
+        a = new THREE.Vector4( 0, 0, 0, 0 );
+        ok( a.length() == 0, "Passed!" );
+        a.setLength( y );
+        ok( a.length() == 0, "Passed!" );
+    });
+
+    test( "lerp/clone", function() {
+        var a = new THREE.Vector4( x, 0, z, 0 );
+        var b = new THREE.Vector4( 0, -y, 0, -w );
+
+        ok( a.lerp( a, 0 ).equals( a.lerp( a, 0.5 ) ), "Passed!" );
+        ok( a.lerp( a, 0 ).equals( a.lerp( a, 1 ) ), "Passed!" );
+
+        ok( a.clone().lerp( b, 0 ).equals( a ), "Passed!" );
+
+        ok( a.clone().lerp( b, 0.5 ).x == x*0.5, "Passed!" );
+        ok( a.clone().lerp( b, 0.5 ).y == -y*0.5, "Passed!" );
+        ok( a.clone().lerp( b, 0.5 ).z == z*0.5, "Passed!" );
+        ok( a.clone().lerp( b, 0.5 ).w == -w*0.5, "Passed!" );
+
+        ok( a.clone().lerp( b, 1 ).equals( b ), "Passed!" );
+    });
+
+    test( "equals", function() {
+        var a = new THREE.Vector4( x, 0, z, 0 );
+        var b = new THREE.Vector4( 0, -y, 0, -w );
+
+        ok( a.x != b.x, "Passed!" );
+        ok( a.y != b.y, "Passed!" );
+        ok( a.z != b.z, "Passed!" );
+        ok( a.w != b.w, "Passed!" );
+
+        ok( ! a.equals( b ), "Passed!" );
+        ok( ! b.equals( a ), "Passed!" );
+
+        a.copy( b );
+        ok( a.x == b.x, "Passed!" );
+        ok( a.y == b.y, "Passed!" );
+        ok( a.z == b.z, "Passed!" );
+        ok( a.w == b.w, "Passed!" );
+
+        ok( a.equals( b ), "Passed!" );
+        ok( b.equals( a ), "Passed!" );
+    });
+};

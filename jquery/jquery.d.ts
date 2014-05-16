@@ -1512,7 +1512,37 @@ interface JQuery {
      *
      * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
      */
-    val(func: (index: number, value: any) => any): JQuery;
+    val(func: (index: number, value: string) => string): JQuery;
+    /**
+     * Set the value of each element in the set of matched elements.
+     *
+     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+     */
+    val(func: (index: number, value: string[]) => string): JQuery;
+    /**
+     * Set the value of each element in the set of matched elements.
+     *
+     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+     */
+    val(func: (index: number, value: number) => string): JQuery;
+    /**
+     * Set the value of each element in the set of matched elements.
+     *
+     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+     */
+    val(func: (index: number, value: string) => string[]): JQuery;
+    /**
+     * Set the value of each element in the set of matched elements.
+     *
+     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+     */
+    val(func: (index: number, value: string[]) => string[]): JQuery;
+    /**
+     * Set the value of each element in the set of matched elements.
+     *
+     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+     */
+    val(func: (index: number, value: number) => string[]): JQuery;
 
     /**
      * Get the value of style properties for the first element in the set of matched elements.
@@ -2680,6 +2710,14 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false. Rest parameter args is for optional parameters passed to jQuery.trigger(). Note that the actual parameters on the event handler function must be marked as optional (? syntax).
      */
     on(events: string, handler: (eventObject: JQueryEventObject, ...args: any[]) => any): JQuery;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param data Data to be passed to the handler in event.data when an event is triggered.
+     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
+    */
+    on(events: string, data : any, handler: (eventObject: JQueryEventObject, ...args: any[]) => any): JQuery;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *

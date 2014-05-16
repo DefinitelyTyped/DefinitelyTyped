@@ -4,3 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare function domready(callback: () => any) : void;
+
+declare module "domready" {
+    export = domready;
+}
