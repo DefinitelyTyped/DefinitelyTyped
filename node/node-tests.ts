@@ -95,3 +95,8 @@ var hmacResult: string = crypto.createHmac('md5', 'hello').update('world').diges
 // Make sure .listen() and .close() retuern a Server instance
 http.createServer().listen(0).close().address();
 net.createServer().listen(0).close().address();
+
+var request = http.request('http://0.0.0.0');
+request.once('error', function () {});
+request.setNoDelay(true);
+request.abort();
