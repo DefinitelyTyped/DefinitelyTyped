@@ -21,7 +21,7 @@ interface HelloJSLogoutOptions {
 interface HelloJSEvent {
     on(event: string, callback: (auth: HelloJSEventArgument) => void): HelloJSStatic;
     off(event: string, callback: (auth: HelloJSEventArgument) => void): HelloJSStatic;
-    findEvents(event, callback): void;
+    findEvents(event: string, callback: (name: string, index: number) => void): void;
     emit(event: string, data: any): HelloJSStatic;
     emitAfter(): HelloJSStatic;
     success(callback: (json?: any) => void): HelloJSStatic;
