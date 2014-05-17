@@ -269,6 +269,46 @@ interface String {
 
 //#endregion
 
+declare module MicrosoftAjaxBaseTypeExtensions {
+    /**
+    * Provides static functions that extend the built-in ECMAScript (JavaScript) Function type by including exception
+    * details and support for application-compilation modes (debug or release).
+    * @see {@link http://msdn.microsoft.com/en-us/library/dd409270(v=vs.100).aspx}
+    */
+    interface Function {
+        /** 
+          * Creates a new function.
+          * @param args A list of arguments the function accepts.
+          */
+        new (...args: string[]): Function;
+        (...args: string[]): Function;
+        prototype: Function;
+         
+        /**
+          * Creates a delegate function that retains the context first used during an objects creation.
+          * @see {@link http://msdn.microsoft.com/en-us/library/dd393582(v=vs.100).aspx }
+          */
+        createCallback(method: Function, ...context: any[]): Function;
+        /**
+          * Creates a callback function that retains the parameter initially used during an object's creation.
+          * @see {@link http://msdn.microsoft.com/en-us/library/dd409287(v=vs.100).aspx }
+          */
+        createDelegate(instance: any, method: Function): Function;
+
+        /**
+          * A function that does nothing.
+          * @see {@link http://msdn.microsoft.com/en-us/library/dd393667(v=vs.100).aspx }
+          */
+        emptyMethod(): Function;
+
+        /**
+          * Validates the parameters to a method are as expected.
+          * @see {@link http://msdn.microsoft.com/en-us/library/dd393712(v=vs.100).aspx }
+          */
+        validateParameters(parameters: any, expectedParameters: Object[], validateParameterCount?: boolean): any;
+    }
+}
+
 //#region ASP.NET Types
 
 /**
@@ -489,6 +529,15 @@ declare function $create(type: Type, properties?: any, events?: any, references?
 */
 declare function $find(id: string, parent?: Sys.Component): Sys.Component;
 
+/**
+* Returns the specified Component object. This member is static and can be invoked without creating an instance of the class.
+* @see {@link http://msdn.microsoft.com/en-us/library/bb397441(v=vs.100).aspx}
+* @param id A string that contains the ID of the component to find.
+* @param parent (Optional) The component or element that contains the component to find.
+* @return A Component object that contains the component requested by ID, if found; otherwise, null.
+*/
+declare function $find(id: string, parent?: HTMLElement): Sys.Component;
+
 /*
 * Provides a shortcut to the addHandler method of the Sys.UI.DomEvent class. This member is static and can be invoked without creating an instance of the class.
 * @see {@link http://msdn.microsoft.com/en-us/library/bb311019(v=vs.100).aspx}
@@ -589,6 +638,16 @@ declare module Sys {
         */
         remove_navigate(handler: Function): void;
 
+        /** 
+        * Raised before all objects in the client application are disposed, typically when the DOM window.unload event is raised.
+        */
+        add_unload(handler: Function): void;
+
+        /** 
+        * Raised before all objects in the client application are disposed, typically when the DOM window.unload event is raised.
+        */
+        remove_unload(handler: Function): void;
+
         //#endregion
 
         //#region Methods
@@ -634,6 +693,11 @@ declare module Sys {
         * @return A Component object that contains the component requested by ID, if found; otherwise, null.
         */
         findComponent(id: string, parent?: Sys.Component): Sys.Component;
+        /**
+        * Returns the specified Component object. This member is static and can be invoked without creating an instance of the class.
+        * @return A Component object that contains the component requested by ID, if found; otherwise, null.
+        */
+        findComponent(id: string, parent?: HTMLElement): Sys.Component;
         /**
         * Returns an array of all components that have been registered with the application by using the addComponent method. This member is static and can be invoked without creating an instance of the class.
         */
@@ -759,6 +823,16 @@ declare module Sys {
         * Raised when the dispose method is called for a component.
         */
         remove_disposing(handler: Function): void;
+
+        /**
+        * Gets the ID of the current Component object.
+        */
+        get_id(): string;
+        /**
+        * Sets the ID of the current Component object.
+        * @param value A string that contains the ID of the component.
+        */
+        set_id(value: string): void;
 
         /**
         * Raised when the raisePropertyChanged method of the current Component object is called.
@@ -1522,6 +1596,11 @@ declare module Sys {
 
         /**
         * A static object of type EventArgs that is used as a convenient way to specify an empty EventArgs instance.
+        */
+        static Empty: EventArgs;
+
+        /**
+        * An object of type EventArgs that is used as a convenient way to specify an empty EventArgs instance.
         */
         Empty: EventArgs;
 
