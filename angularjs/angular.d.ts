@@ -546,10 +546,10 @@ declare module ng {
         directive(directivesMap: any): ICompileProvider;
 
         aHrefSanitizationWhitelist(): RegExp;
-        aHrefSanitizationWhitelist(regexp: RegExp): ICompileService;
+        aHrefSanitizationWhitelist(regexp: RegExp): ICompileProvider;
         
         imgSrcSanitizationWhitelist(): RegExp;
-        imgSrcSanitizationWhitelist(regexp: RegExp): ICompileService;
+        imgSrcSanitizationWhitelist(regexp: RegExp): ICompileProvider;
     }
 
     interface ICloneAttachFunction {
