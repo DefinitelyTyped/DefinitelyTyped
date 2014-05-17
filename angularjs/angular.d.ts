@@ -544,6 +544,12 @@ declare module ng {
 
         // Undocumented, but it is there...
         directive(directivesMap: any): ICompileProvider;
+
+        aHrefSanitizationWhitelist(): RegExp;
+        aHrefSanitizationWhitelist(regexp: RegExp): ICompileService;
+        
+        imgSrcSanitizationWhitelist(): RegExp;
+        imgSrcSanitizationWhitelist(regexp: RegExp): ICompileService;
     }
 
     interface ICloneAttachFunction {
