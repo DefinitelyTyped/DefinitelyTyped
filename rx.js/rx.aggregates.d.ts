@@ -8,6 +8,7 @@
 
 declare module Rx {
 	export interface Observable<T> {
+		finalValue(): Observable<T>;
 		aggregate(accumulator: (acc: T, value: T) => T): Observable<T>;
 		aggregate<TAcc>(seed: TAcc, accumulator: (acc: TAcc, value: T) => TAcc): Observable<TAcc>;
 

@@ -196,7 +196,6 @@ declare module Rx {
 
 	export interface Observable<T> extends IObservable<T> {
 		forEach(onNext?: (value: T) => void, onError?: (exception: any) => void, onCompleted?: () => void): IDisposable;	// alias for subscribe
-		finalValue(): Observable<T>;
 		toArray(): Observable<T[]>;
 
 		catch(handler: (exception: any) => Observable<T>): Observable<T>;
@@ -234,9 +233,11 @@ declare module Rx {
 		mergeAll(): T;
 		mergeObservable(): T;	// alias for mergeAll
 		skipUntil<T2>(other: Observable<T2>): Observable<T>;
+		skipUntil<T2>(other: IPromise<T2>): Observable<T>;
 		switch(): T;
 		switchLatest(): T;	// alias for switch
 		takeUntil<T2>(other: Observable<T2>): Observable<T>;
+		takeUntil<T2>(other: IPromise<T2>): Observable<T>;
 		zip<T2, TResult>(second: Observable<T2>, resultSelector: (v1: T, v2: T2) => TResult): Observable<TResult>;
 		zip<T2, TResult>(second: IPromise<T2>, resultSelector: (v1: T, v2: T2) => TResult): Observable<TResult>;
 		zip<T2, T3, TResult>(second: Observable<T2>, third: Observable<T3>, resultSelector: (v1: T, v2: T2, v3: T3) => TResult): Observable<TResult>;
