@@ -9,7 +9,7 @@ The site build with [Grunt](http://www.gruntjs.com) and generated using [docpad]
 
 ## Edit online
 
-1. Use the github web interface to quickly make text edits like updating the [guides](/guides.html) and the [directory](/directory.html). It will create a fork and allows to modify content without leaving your browser. 
+1. Use the github web interface to quickly make text edits like updating the [guides](/guides.html) and the [directory](/directory.html). It will create a fork and allows to modify content without leaving your browser.
 
 1. The content is saved as markdown and located in `./src/documents`.
 

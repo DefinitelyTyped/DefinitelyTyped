@@ -62,20 +62,20 @@
 </div>
 
 
-<h2 id="quality-criteria">Quality Criteria</h2>
+<h2 id="quality-criteria"  class="ui header">Quality Criteria</h2>
 <p>To ensure the quality of <code>DefinitelyTyped</code> repository, the typings must meet the following criteria:</p>
-<h2 id="naming-the-file">Naming the file</h2>
+<h2 id="naming-the-file"  class="ui header">Naming the file</h2>
 <p>Try to use a simple lowercase identifier as name of the definition file, like <code>library.d.ts</code> or <code>node-hoge.d.ts</code>. To keep naming conflicts to a minimum please use the package name as used in the <a href="https://www.npmjs.org/">npm</a> package registry. The only exception here should be NuGet / Windows oriented code as they use a camel-case convention.</p>
 <p>If the library is published to multiple package managers (npm, bower, yam, NuGet, component etc) but under different names then also use the npm name.</p>
 <p>If the library is not published on npm use a new identifier, as long as it doesn&#39;t shadow an existing npm name.</p>
-<h3 id="version">Version</h3>
+<h3 id="version"  class="ui header">Version</h3>
 <p>In case there are multiple versions supported, the latest one will be without a version number in the file name. Older versions will be in the form of <code>library-1.2.0.d.ts</code> where the postfix should resemble a valid <a href="http://semver.org/">semantic version</a> number (semver).</p>
-<h3 id="location">Location</h3>
+<h3 id="location"  class="ui header">Location</h3>
 <p>The typing must be placed in a folder. The folder name must be similar to library name.</p>
 <p>Example: <code>qunit.d.ts</code> in in a folder named <code>qunit</code></p>
 <p>In general the definition should be a single <code>.d.ts</code> file, but exceptions can be made for large libraries (~ &gt;1000 LOC).</p>
-<h2 id="content">Content</h2>
-<h3 id="header">Header</h3>
+<h2 id="content"  class="ui header">Content</h2>
+<h3 id="header"  class="ui header">Header</h3>
 <p>The typing must have a header with the following format:</p>
 <pre><code><span class="hljs-comment">// Type definitions for [LIBRARY NAME]</span>
 <span class="hljs-comment">// Project: [LIBRARY URL]</span>
@@ -86,11 +86,9 @@
 <span class="hljs-comment">// Project: http://backbonejs.org/</span>
 <span class="hljs-comment">// Definitions by: Boris Yankov &lt;https://github.com/borisyankov/&gt;</span>
 <span class="hljs-comment">// Definitions: https://github.com/borisyankov/DefinitelyTyped</span>
-</code></pre><h3 id="namespacing">Namespacing</h3>
-<ul>
-<li>Be careful to use a module to avoid conflicts to your internal interfaces and the interfaces from another typings. See <a href="/guides/best-practices.html">best practices</a> and <a href="https://typescript.codeplex.com/wikipage?title=Writing%20Definition%20%28.d.ts%29%20Files">the TypeScript wiki</a> for some tips.</li>
-</ul>
-<blockquote>
+</code></pre><h3 id="namespacing"  class="ui header">Namespacing</h3>
+<div class="ui list"><div class="ui item">Be careful to use a module to avoid conflicts to your internal interfaces and the interfaces from another typings. See <a href="/guides/best-practices.html">best practices</a> and <a href="https://typescript.codeplex.com/wikipage?title=Writing%20Definition%20%28.d.ts%29%20Files">the TypeScript wiki</a> for some tips.</div>
+</div><blockquote>
 <p>The <a href="https://github.com/borisyankov/DefinitelyTyped/blob/master/jquery.bbq/jquery.bbq.d.ts"><code>jQuery.bbq</code> typing</a> has the interfaces in a module named <code>JQueryBbq</code></p>
 </blockquote>
 <p>Example:</p>
@@ -106,62 +104,50 @@
 }
 </code></pre>
 <p>See the <a href="/guides/best-practices.html">best practices</a> for more info on how to structure a definition file.</p>
-<h3 id="documentation">Documentation</h3>
+<h3 id="documentation"  class="ui header">Documentation</h3>
 <p>Take advantage of TypeScript <a href="http://blogs.msdn.com/b/typescript/archive/2013/01/21/announcing-typescript-0-8-2.aspx">JSDoc support</a>.</p>
-<h2 id="tests">Tests</h2>
+<h2 id="tests"  class="ui header">Tests</h2>
 <p>The typing must have tests in a files called <code>library-tests.ts</code>. The tests are not runnable in the TDD way but contain code that should compile with no errors, usually taken from the documentation samples of the library.</p>
 <p>Example: <code>backbone.d.ts</code> has a test file named <code>backbone-tests.ts</code>, with this <a href="https://github.com/borisyankov/DefinitelyTyped/blob/master/backbone/backbone-tests.ts">example of a real test file</a>.</p>
 <p>There are a few ways to test changes:</p>
-<ol>
-<li>Simply compile the test file:<ul>
-<li><code>tsc --noImplicitAny your/code.-tests.ts</code></li>
-<li><code>tsc --noImplicitAny --module commonjs your/code-tests.ts</code></li>
-</ul>
-</li>
-<li>Run <code>npm test</code> before sending your pull request.<ul>
-<li>If you created new files add them to git so the tester picks them as changes.</li>
-<li>Tests must be run from the DefinitelyTyped project&#39;s root directory.</li>
-<li>You&#39;ll need to run <code>npm update</code> once to download the packages required by the test suite.</li>
-</ul>
-</li>
-<li>Enable Travis on your DT fork and test online.<ul>
-<li>See note below on how to enable this.</li>
-<li>This takes a few steps to do but is faster for big cascading changes (like changing JQuery)</li>
-</ul>
-</li>
-<li>Depend on the automated test on Travis that runs after you send a PR.<ul>
-<li>If you need many attempts to fix errors then please flatten the history and clean the commit message.</li>
-</ul>
-</li>
-</ol>
-<p>If you need to use <code>tscparams</code> note that the contents of tscparams should be quoted. i.e. &quot;&quot; e.g. <a href="https://github.com/borisyankov/DefinitelyTyped/blob/master/ace/all-tests.ts.tscparams">ace/all-tests.ts.tscparams</a></p>
-<h2 id="code-style">Code style</h2>
-<ul>
-<li>At this point we do not enforce a specific <em>general</em> code style, but we do like idiomatic code in each <em>individual</em> file.</li>
-<li>When creating a new definition file the author is free to choose either tabs or 4-space indentation (<a href="https://github.com/borisyankov/DefinitelyTyped/issues/1709">discussion</a> on github).</li>
-<li>Choice between Unix or Windows linebreaks is not enforced, as node.js doesn&#39;t care for it either way. Try to keep it idiomatic per file.</li>
-<li>When editing an existing file please maintain the existing style as much as possible, this includes indenting, separator whitespace, bracing etc..</li>
-<li>Do not use fancy code alignments or smart-tabs; instead keep things plain and simple.</li>
-<li>It is discouraged to reformat existing code (as it breaks git attribution).</li>
-<li>When preparing a Pull Request please check git diff (locally or on github) for unnecessary changes.</li>
-<li>Regard the typing folder in your project as external resource and exclude it from your linter/formatter workflow, just like any library file.</li>
-</ul>
-<h2 id="contributors-link">Contributors link</h2>
+<div class="ui ordered list"><div class="ui item">Simply compile the test file:<div class="ui list"><div class="ui item"><code>tsc --noImplicitAny your/code.-tests.ts</code></div>
+<div class="ui item"><code>tsc --noImplicitAny --module commonjs your/code-tests.ts</code></div>
+</div></div>
+<div class="ui item">Run <code>npm test</code> before sending your pull request.<div class="ui list"><div class="ui item">If you created new files add them to git so the tester picks them as changes.</div>
+<div class="ui item">Tests must be run from the DefinitelyTyped project&#39;s root directory.</div>
+<div class="ui item">You&#39;ll need to run <code>npm update</code> once to download the packages required by the test suite.</div>
+</div></div>
+<div class="ui item">Enable Travis on your DT fork and test online.<div class="ui list"><div class="ui item">See note below on how to enable this.</div>
+<div class="ui item">This takes a few steps to do but is faster for big cascading changes (like changing JQuery)</div>
+</div></div>
+<div class="ui item">Depend on the automated test on Travis that runs after you send a PR.<div class="ui list"><div class="ui item">If you need many attempts to fix errors then please flatten the history and clean the commit message.</div>
+</div></div>
+</div><p>If you need to use <code>tscparams</code> note that the contents of tscparams should be quoted. i.e. &quot;&quot; e.g. <a href="https://github.com/borisyankov/DefinitelyTyped/blob/master/ace/all-tests.ts.tscparams">ace/all-tests.ts.tscparams</a></p>
+<h2 id="code-style"  class="ui header">Code style</h2>
+<div class="ui list"><div class="ui item">At this point we do not enforce a specific <em>general</em> code style, but we do like idiomatic code in each <em>individual</em> file.</div>
+<div class="ui item">When creating a new definition file the author is free to choose either tabs or 4-space indentation (<a href="https://github.com/borisyankov/DefinitelyTyped/issues/1709">discussion</a> on github).</div>
+<div class="ui item">Choice between Unix or Windows linebreaks is not enforced, as node.js doesn&#39;t care for it either way. Try to keep it idiomatic per file.</div>
+<div class="ui item">When editing an existing file please maintain the existing style as much as possible, this includes indenting, separator whitespace, bracing etc..</div>
+<div class="ui item">Do not use fancy code alignments or smart-tabs; instead keep things plain and simple.</div>
+<div class="ui item">It is discouraged to reformat existing code (as it breaks git attribution).</div>
+<div class="ui item">When preparing a Pull Request please check git diff (locally or on github) for unnecessary changes.</div>
+<div class="ui item">Regard the typing folder in your project as external resource and exclude it from your linter/formatter workflow, just like any library file.</div>
+</div><h2 id="contributors-link"  class="ui header">Contributors link</h2>
 <p>Update the <a href="https://github.com/borisyankov/DefinitelyTyped/blob/master/CONTRIBUTORS.md">CONTRIBUTORS.md</a> file to put a reference to your definition with the following style:</p>
 <p><code>* &lt;LIBRARY NAME WITH LINK&gt; (by &lt;AUTHOR NAME WITH LINK&gt;)</code></p>
 <p>Example: <a href="http://ace.ajax.org/">Ace Cloud9 Editor</a> (by <a href="https://github.com/Diullei">Diullei Gomes</a>)</p>
 <p>This is recommended for significant contributions but not essential for small definitions. At some point we might generate this list from the headers and github data.</p>
-<h3 id="note">Note</h3>
+<h3 id="note"  class="ui header">Note</h3>
 <p>Keep in mind the repos is a community project with a wide range on quality in contributions and moderation; so there may be the occasional rule violation or historical artifact.</p>
 
 
 	<div class="ui small segment">
-	Contribute to the site via <a href="/pages/website-contributions.html">website contribution guide</a>.
+	Contribute to the site via the <a href="/pages/website-contributions.html">contribution guide</a>.
 </div>
 
 </div>
 
-<ul class="ui list">
+<div class="ui list">
 	
 	<a class="item" href="/guides/best-practices.html">Best practices</a>
 	
@@ -175,7 +161,7 @@
 	<a class="item" href="/guides/pull-request.html">Pull Requests</a>
 	
 	
-</ul>
+</div>
 
 			<div class="ui horizontal icon divider">
 	<i class="heart icon"></i>
