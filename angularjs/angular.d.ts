@@ -6,6 +6,11 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
+declare module 'angular'{
+    export var angular:ng.IAngularStatic;
+}
+
+
 declare var angular: ng.IAngularStatic;
 
 // Support for painless dependency injection
