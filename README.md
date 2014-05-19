@@ -9,14 +9,14 @@ The site build with [Grunt](http://www.gruntjs.com) and generated using [docpad]
 
 ## Edit online
 
-1. Use the github web interface to quickly make text edits like updating the [guides](/guides.html) and the [directory](/directory.html). It will create a fork and allows to modify content without leaving your browser.
+1. Use the github web interface to quickly make text edits like updating the [guides](/guides.html) and the [directory](/directory.html). Github will create a fork and you can modify content without leaving your browser.
 
 1. The content is saved as markdown and located in `./src/documents`.
 
 
 ## Bulk editing
 
-If you like to use your own tool you can follow these steps:
+If you like to use your own tools you can follow these steps:
 
 1. Fork the repository.
 
@@ -85,7 +85,7 @@ Use grunt to run various commands.
 
 1. If you like some feedback first then use a fork (or branch).
 
-1. The every commit that lands on `source` site will automatically be rebuild and deployed via Travis-CI.
+1. The every commit that lands on `source` will automatically be rebuild and deployed via Travis-CI.
 
 1. Give Travis a minute or two to deploy the site, then verify your changes.
 
