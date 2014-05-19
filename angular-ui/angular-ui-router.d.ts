@@ -91,4 +91,8 @@ declare module ng.ui {
     interface IStateParamsService {
         [key: string]: any;
     }
+
+    interface IUrlRouter {
+        sync(): void;
+    }
 }
