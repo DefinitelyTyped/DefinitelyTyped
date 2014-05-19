@@ -7,9 +7,9 @@
 /// <reference path="../jquery/jquery.d.ts" />
 
 declare module 'angular'{
-    export var angular:ng.IAngularStatic;
+    var angular:ng.IAngularStatic;
+    export = angular;
 }
-
 
 declare var angular: ng.IAngularStatic;
 
