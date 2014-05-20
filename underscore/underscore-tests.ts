@@ -33,6 +33,10 @@ _.every([true, 1, null, 'yes'], _.identity);
 
 _.any([null, 0, 'yes', false]);
 
+_.some([1, 2, 3, 4], l => l % 3 === 0);
+
+_.some({ a: 'a', b: 'B', c: 'C', d: 'd' }, l => l === l.toUpperCase());
+
 _.contains([1, 2, 3], 3);
 
 _.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
@@ -40,11 +44,11 @@ _.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
 var stooges = [{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }];
 _.pluck(stooges, 'name');
 
-_.max<{ name: string; age: number }>(stooges, (stooge) => stooge.age);
-
-_.max([1, 2, 3, 4, 5]);
+_.max(stooges, (stooge) => stooge.age);
+_.min(stooges, (stooge) => stooge.age);
 
 var numbers = [10, 5, 100, 2, 1000];
+_.max(numbers);
 _.min(numbers);
 
 _.sortBy([1, 2, 3, 4, 5, 6], (num) => Math.sin(num));
