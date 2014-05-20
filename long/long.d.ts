@@ -4,6 +4,8 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface LongStatic {
+    new(low:number, high:number, unsigned?:boolean):Long;
+
     MAX_SIGNED_VALUE:Long;
     MAX_UNSIGNED_VALUE:Long;
     MAX_VALUE:Long;
@@ -24,8 +26,6 @@ interface LongStatic {
 }
 
 interface Long {
-    new(low:number, high:number, unsigned?:boolean):Long;
-
     high:number;
     low:number;
     unsigned:boolean;
@@ -73,8 +73,8 @@ declare module dcodeIO {
 }
 
 // for node, commonjs
-declare var Long:LongStatic;
-
 declare module "long" {
-export = Long;
+    export = Long;
 }
+
+declare var Long:LongStatic;

@@ -10,7 +10,7 @@ var n:number;
 var b:boolean;
 var s:string;
 
-val = new (<any>Long)(0xFFFFFFFF, 0x7FFFFFFF);
+val = new Long(0xFFFFFFFF, 0x7FFFFFFF);
 
 val = Long.from28Bits(0xFFFFFFF, 0xFFFFFFF, 0xFF);
 
