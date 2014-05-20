@@ -1463,7 +1463,7 @@ declare module D3 {
             /**
             * decrease lightness by some exponential factor (gamma)
             */
-            darker(k: number): Color;
+            darker(k?: number): Color;
             /**
             * convert the color to a string.
             */
