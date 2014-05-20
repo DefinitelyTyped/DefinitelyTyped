@@ -21,6 +21,7 @@ All definitions files include a header with the author and editors, so at some p
 * [asciify](https://github.com/olizilla/asciify) (by [Alan](http://alan.norbauer.com))
 * [assert](https://github.com/Jxck/assert) (by [vvakame](https://github.com/vvakame))
 * [async](https://github.com/caolan/async) (by [Boris Yankov](https://github.com/borisyankov))
+* [atmosphere](https://github.com/Atmosphere/atmosphere-javascript) (by [Kai Toedter](https://github.com/toedter))
 * [Atom](https://atom.io/) (by [vvakame](https://github.com/vvakame))
 * [aws-sdk-js](https://github.com/aws/aws-sdk-js) (by [midknight41](https://github.com/midknight41))
 * [Backbone.js](http://backbonejs.org/) (by [Boris Yankov](https://github.com/borisyankov))
