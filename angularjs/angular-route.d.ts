@@ -55,7 +55,7 @@ declare module ng.route {
     }
 
     interface IRouteProvider extends IServiceProvider {
-        otherwise(params: any): IRouteProvider;
+        otherwise(params: IRoute): IRouteProvider;
         /**
          * This is a description
          *
