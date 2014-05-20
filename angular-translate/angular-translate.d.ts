@@ -10,6 +10,10 @@ declare module ng.translate {
         [key: string]: string;
     }
 
+    interface ILanguageKeyAlias {
+        [key: string]: string;
+    }
+    
     interface IStorage {
         get(name: string): string;
         set(name: string, value: string): void;
@@ -23,21 +27,31 @@ declare module ng.translate {
 
     interface ITranslateService {
         (key: string, ...params: string[]): ng.IPromise<string>;
-        fallbackLanguage(): string;
+        cloakClassName(): string;
+        fallbackLanguage(langKey?: string): string;
+        fallbackLanguage(langKey?: string[]): string;
+        instant(translationId: string, interpolateParams?: any, interpolationId?: string): string;
+        instant(translationId: string[], interpolateParams?: any, interpolationId?: string): string;
+        isPostCompilingEnabled(): boolean;
         preferredLanguage(): string;
         proposedLanguage(): string;
-        refresh(lankKey: string): ng.IPromise<void>;
+        refresh(langKey?: string): ng.IPromise<void>;
         storage(): IStorage;
         storageKey(): string;
-        uses(): string;
-        uses(key: string): ng.IPromise<string>;
+        use(): string;
+        use(key: string): ng.IPromise<string>;
+        useFallbackLanguage(langKey?: string): void;
     }
 
-    interface ITranslateProvider extends  ng.IServiceProvider {
+    interface ITranslateProvider extends ng.IServiceProvider {
+        translations(): ITranslationTable;
         translations(key: string, translationTable: ITranslationTable): ITranslateProvider;
+        cloakClassName(): string;
+        cloakClassName(name: string): ITranslateProvider;
         addInterpolation(factory: any): ITranslateProvider;
         useMessageFormatInterpolation(): ITranslateProvider;
         useInterpolation(factory: string): ITranslateProvider;
+        useSanitizeValueStrategy(value: string): ITranslateProvider;
         preferredLanguage(): string;
         preferredLanguage(language: string): ITranslateProvider;
         translationNotFoundIndicator(indicator: string): ITranslateProvider;
@@ -48,8 +62,10 @@ declare module ng.translate {
         fallbackLanguage(): string;
         fallbackLanguage(language: string): ITranslateProvider;
         fallbackLanguage(languages: string[]): ITranslateProvider;
-        uses(): string;
-        uses(key: string): ITranslateProvider;
+        use(): string;
+        use(key: string): ITranslateProvider;
+        storageKey(): string;
+        storageKey(key: string): void; // JeroMiya - the library should probably return ITranslateProvider but it doesn't here
         useUrlLoader(url: string): ITranslateProvider;
         useStaticFilesLoader(options: ISTaticFilesLoaderOptions): ITranslateProvider;
         useLoader(loaderFactory: string, options: any): ITranslateProvider;
@@ -60,5 +76,9 @@ declare module ng.translate {
         storagePrefix(prefix: string): ITranslateProvider;
         useMissingTranslationHandlerLog(): ITranslateProvider;
         useMissingTranslationHandler(factory: string): ITranslateProvider;
+        usePostCompiling(value: boolean): ITranslateProvider;
+        determinePreferredLanguage(fn?: () => void): ITranslateProvider;
+        registerAvailableLanguageKeys(): string[];
+        registerAvailableLanguageKeys(languageKeys: string[], aliases?: ILanguageKeyAlias[]): ITranslateProvider;
     }
 }
