@@ -92,7 +92,7 @@ interface UnderscoreStatic {
 	each<T>(
 		list: _.List<T>,
 		iterator: _.ListIterator<T, void>,
-		context?: any): void;
+		context?: any): _.List<T>;
 
 	/**
 	* @see _.each
@@ -103,23 +103,23 @@ interface UnderscoreStatic {
 	each<T>(
 		object: _.Dictionary<T>,
 		iterator: _.ObjectIterator<T, void>,
-		context?: any): void;
+		context?: any): _.Dictionary<T>;
 
 	/**
 	* @see _.each
 	**/
 	forEach<T>(
 		list: _.List<T>,
-		iterator: _.ListIterator<T, void >,
-		context?: any): void;
+		iterator: _.ListIterator<T, void>,
+		context?: any): _.List<T>;
 
 	/**
 	* @see _.each
 	**/
 	forEach<T>(
 		object: _.Dictionary<T>,
-		iterator: _.ObjectIterator<T, void >,
-		context?: any): void;
+		iterator: _.ObjectIterator<T, void>,
+		context?: any): _.Dictionary<T>;
 
 	/**
 	* Produces a new array of values by mapping each value in list through a transformation function
@@ -629,11 +629,11 @@ interface UnderscoreStatic {
 	* @return Number of values in `list`.
 	**/
 	size<T>(list: _.Collection<T>): number;
-	
+
 	/**
 	* Split array into two arrays: 
 	* one whose elements all satisfy predicate and one whose elements all do not satisfy predicate.
-	* @param array Array to split in two
+	* @param array Array to split in two.
 	* @param iterator Filter iterator function for each element in `array`.
 	* @param context `this` object in `iterator`, optional.
 	* @return Array where Array[0] are the elements in `array` that satisfies the predicate, and Array[1] the elements that did not.
@@ -979,7 +979,8 @@ interface UnderscoreStatic {
 
 	/**
 	* Partially apply a function by filling in any number of its arguments, without changing its dynamic this value.
-	* A close cousin of bind.
+	* A close cousin of bind.  You may pass _ in your list of arguments to specify an argument that should not be 
+	* pre-filled, but left open to supply at call-time. 
 	* @param fn Function to partially fill in arguments.
 	* @param arguments The partial arguments.
 	* @return `fn` with partially filled in arguments.
@@ -1234,18 +1235,18 @@ interface UnderscoreStatic {
 	has(object: any, key: string): boolean;
 
 	/**
-	* Returns a function that will itself return the key property of any passed-in object
-	* @param key Property of the object
-	* @return Function which accept an object an returns the value of key in that object
-	**/
-	property(key: string): (object: Object)=> any;
-
-	/**
 	* Returns a predicate function that will tell you if a passed in object contains all of the key/value properties present in attrs.
 	* @param attrs Object with key values pair
 	* @return Predicate function
 	**/
 	matches<T, TResult>(attrs: T): _.ListIterator<T, TResult>;
+
+	/**
+	* Returns a function that will itself return the key property of any passed-in object.
+	* @param key Property of the object.
+	* @return Function which accept an object an returns the value of key in that object.
+	**/
+	property(key: string): (object: Object) => any;
 
 	/**
 	* Performs an optimized deep comparison between the two objects,
@@ -1509,22 +1510,22 @@ interface Underscore<T> {
 	* Wrapped type `any[]`.
 	* @see _.each
 	**/
-	each(iterator: _.ListIterator<T, void>, context?: any): void;
+	each(iterator: _.ListIterator<T, void>, context?: any): T[];
 
 	/**
 	* @see _.each
 	**/
-	each(iterator: _.ObjectIterator<T, void>, context?: any): void;
+	each(iterator: _.ObjectIterator<T, void>, context?: any): T[];
 
 	/**
 	* @see _.each
 	**/
-	forEach(iterator: _.ListIterator<T, void>, context?: any): void;
+	forEach(iterator: _.ListIterator<T, void>, context?: any): T[];
 
 	/**
 	* @see _.each
 	**/
-	forEach(iterator: _.ObjectIterator<T, void>, context?: any): void;
+	forEach(iterator: _.ObjectIterator<T, void>, context?: any): T[];
 
 	/**
 	* Wrapped type `any[]`.
@@ -1863,6 +1864,12 @@ interface Underscore<T> {
 	without(...values: T[]): T[];
 
 	/**
+	* Wrapped type `any[]`.
+	* @see _.partition
+	**/
+	partition(iterator: _.ListIterator<T, boolean>, context?: any): T[][];
+
+	/**
 	* Wrapped type `any[][]`.
 	* @see _.union
 	**/
@@ -2119,6 +2126,18 @@ interface Underscore<T> {
 	has(key: string): boolean;
 
 	/**
+	* Wrapped type `any[]`.
+	* @see _.matches
+	**/
+	matches<TResult>(): _.ListIterator<T, TResult>;
+
+	/**
+	* Wrapped type `string`.
+	* @see _.property
+	**/
+	property(): (object: Object) => any;
+
+	/**
 	* Wrapped type `object`.
 	* @see _.isEqual
 	**/
@@ -2225,6 +2244,12 @@ interface Underscore<T> {
 	identity(): any;
 
 	/**
+	* Wrapped type `any`.
+	* @see _.constant
+	**/
+	constant(): () => T;
+
+	/**
 	* Wrapped type `number`.
 	* @see _.times
 	**/
@@ -2298,22 +2323,22 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.each
 	**/
-	each(iterator: _.ListIterator<T, void >, context?: any): _Chain<T>;
+	each(iterator: _.ListIterator<T, void>, context?: any): _Chain<T>;
 
 	/**
 	* @see _.each
 	**/
-	each(iterator: _.ObjectIterator<T, void >, context?: any): _Chain<T>;
+	each(iterator: _.ObjectIterator<T, void>, context?: any): _Chain<T>;
 
 	/**
 	* @see _.each
 	**/
-	forEach(iterator: _.ListIterator<T, void >, context?: any): _Chain<T>;
+	forEach(iterator: _.ListIterator<T, void>, context?: any): _Chain<T>;
 
 	/**
 	* @see _.each
 	**/
-	forEach(iterator: _.ObjectIterator<T, void >, context?: any): _Chain<T>;
+	forEach(iterator: _.ObjectIterator<T, void>, context?: any): _Chain<T>;
 
 	/**
 	* Wrapped type `any[]`.
@@ -2332,7 +2357,7 @@ interface _Chain<T> {
 	* @see _.map
 	**/
 	map<TArray>(iterator: _.ObjectIterator<T, TArray[]>, context?: any): _ChainOfArrays<TArray>;
-	
+
 	/**
 	* Wrapped type `any[]`.
 	* @see _.map
@@ -2664,6 +2689,12 @@ interface _Chain<T> {
 	without(...values: T[]): _Chain<T>;
 
 	/**
+	* Wrapped type `any[]`.
+	* @see _.partition
+	**/
+	partition(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T[][]>;
+
+	/**
 	* Wrapped type `any[][]`.
 	* @see _.union
 	**/
@@ -2918,6 +2949,18 @@ interface _Chain<T> {
 	has(key: string): _Chain<T>;
 
 	/**
+	* Wrapped type `any[]`.
+	* @see _.matches
+	**/
+	matches<TResult>(): _Chain<T>;
+
+	/**
+	* Wrapped type `string`.
+	* @see _.property
+	**/
+	property(): _Chain<T>;
+
+	/**
 	* Wrapped type `object`.
 	* @see _.isEqual
 	**/
@@ -3022,6 +3065,12 @@ interface _Chain<T> {
 	* @see _.identity
 	**/
 	identity(): _Chain<T>;
+
+	/**
+	* Wrapped type `any`.
+	* @see _.constant
+	**/
+	constant(): _Chain<T>;
 
 	/**
 	* Wrapped type `number`.
