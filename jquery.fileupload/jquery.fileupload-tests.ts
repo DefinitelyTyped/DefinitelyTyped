@@ -4,7 +4,7 @@
 * Handle the event of adding a file to the jQuery Upload plugin.
 *
 */
-var __handleAddingFile = function (event, data) 
+var __handleAddingFile = function (event:any, data:any) 
 {
     event.preventDefault();
 
