@@ -1214,7 +1214,7 @@ interface JQueryStatic {
      * 
      * @param json The JSON string to parse.
      */
-    parseJSON(json: string): Object;
+    parseJSON(json: string): any;
 
     /**
      * Parses a string into an XML document.
