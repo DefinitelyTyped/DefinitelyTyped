@@ -302,8 +302,12 @@ declare module "mongodb" {
     findOne(selector: Object, fields: any, skip: number, limit: number, callback?: (err: Error, result: any) => void): Cursor;
     findOne(selector: Object, fields: any, skip: number, limit: number, timeout: number, callback?: (err: Error, result: any) => void): Cursor;
 
+    createIndex(fieldOrSpec: any, callback: (err: Error, indexName: string) => void): void;
     createIndex(fieldOrSpec: any, options: IndexOptions, callback: (err: Error, indexName: string) => void): void;
+
+    ensureIndex(fieldOrSpec: any, callback: (err: Error, indexName: string) => void): void;
     ensureIndex(fieldOrSpec: any, options: IndexOptions, callback: (err: Error, indexName: string) => void): void;
+
     indexInformation(options: any, callback: Function): void;
     dropIndex(name: string, callback: Function): void;
     dropAllIndexes(callback: Function): void;
