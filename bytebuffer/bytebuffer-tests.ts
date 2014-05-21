@@ -1,0 +1,132 @@
+/// <reference path="bytebuffer.d.ts" />
+/// <reference path="../long/long.d.ts" />
+/// <reference path="../node/node.d.ts" />
+
+// --- commonjs ---
+//import Long = require("long");
+import ByteBuffer = require("bytebuffer");
+// --- browser ---
+//var Long = dcodeIO.Long;
+//var ByteBuffer = dcodeIO.ByteBuffer;
+
+var bb:ByteBuffer;
+var b:boolean;
+var n:number;
+var l:Long;
+var s:string;
+var ab:ArrayBuffer;
+var dv:DataView;
+var buffer:Buffer;
+
+bb = new ByteBuffer();
+
+b = ByteBuffer.BIG_ENDIAN;
+n = ByteBuffer.DEFAULT_CAPACITY;
+b = ByteBuffer.LITTLE_ENDIAN;
+l = ByteBuffer.Long;
+n = ByteBuffer.MAX_VARINT32_BYTES;
+n = ByteBuffer.MAX_VARINT64_BYTES;
+s = ByteBuffer.VERSION;
+ab = bb.array;
+n = bb.length;
+b = bb.littleEndian;
+n = bb.markedOffset;
+n = bb.offset;
+dv = bb.view;
+
+bb = ByteBuffer.allocate();
+n = ByteBuffer.calculateUTF8Char(10);
+n = ByteBuffer.calculateUTF8String("A");
+n = ByteBuffer.calculateVarint32(10);
+n = ByteBuffer.calculateVarint64(10);
+bb = ByteBuffer.decode64("base64");
+bb = ByteBuffer.decodeHex("1111");
+var cl:{char:number;length:number} = ByteBuffer.decodeUTF8Char(bb, 0);
+s = ByteBuffer.encode64(bb);
+n = ByteBuffer.encodeUTF8Char(127, bb, 0);
+bb = ByteBuffer.wrap(ab);
+n = ByteBuffer.zigZagDecode32(10);
+l = ByteBuffer.zigZagDecode64(10);
+n = ByteBuffer.zigZagEncode32(10);
+l = ByteBuffer.zigZagEncode64(10);
+
+bb = bb.append(bb);
+bb = bb.BE();
+n = bb.capacity();
+bb = bb.clone();
+bb = bb.compact();
+bb = bb.copy();
+bb = bb.destroy();
+bb = bb.ensureCapacity(10);
+bb = bb.flip();
+bb = bb.LE();
+bb = bb.mark();
+bb = bb.prepend(bb);
+bb.printDebug();
+n = bb.readByte();
+s = bb.readCString();
+n = bb.readDouble();
+n = bb.readFloat();
+n = bb.readFloat32();
+n = bb.readFloat64();
+n = bb.readInt();
+n = bb.readInt8();
+n = bb.readInt16();
+n = bb.readInt32();
+l = bb.readInt64();
+bb.readJSON();
+l = bb.readLong();
+s = bb.readLString();
+n = bb.readShort();
+n = bb.readUint8();
+n = bb.readUint16();
+n = bb.readUint32();
+l = bb.readUint64();
+s = bb.readUTF8String(1);
+s = bb.readUTF8StringBytes(1);
+n = bb.readVarint();
+n = bb.readVarint32();
+l = bb.readVarint64();
+s = bb.readVString();
+n = bb.readZigZagVarint();
+n = bb.readZigZagVarint32();
+l = bb.readZigZagVarint64();
+n = bb.remaining();
+bb = bb.reset();
+bb = bb.resize(10);
+bb = bb.reverse();
+bb = bb.slice();
+ab = bb.toArrayBuffer();
+s = bb.toBase64();
+buffer = bb.toBuffer();
+s = bb.toColumns();
+s = bb.toHex();
+s = bb.toString();
+s = bb.toUTF8();
+bb = bb.writeByte(10);
+bb = bb.writeCString("cstring");
+bb = bb.writeDouble(1.5);
+bb = bb.writeFloat(1.5);
+bb = bb.writeFloat32(1.5);
+bb = bb.writeFloat64(1.5);
+bb = bb.writeInt(10);
+bb = bb.writeInt8(10);
+bb = bb.writeInt16(10);
+bb = bb.writeInt32(10);
+bb = bb.writeInt64(10);
+bb = bb.writeJSON({n:10});
+bb = bb.writeLong(l);
+bb = bb.writeLString("string");
+bb = bb.writeShort(10);
+bb = bb.writeUint8(10);
+bb = bb.writeUint16(10);
+bb = bb.writeUint32(10);
+bb = bb.writeUint64(l);
+bb = bb.writeUTF8String("string");
+bb = bb.writeVarint(10);
+bb = bb.writeVarint32(10);
+bb = bb.writeVarint64(l);
+bb = bb.writeZigZagVarint(10);
+bb = bb.writeZigZagVarint32(10);
+bb = bb.writeZigZagVarint64(10);
+
