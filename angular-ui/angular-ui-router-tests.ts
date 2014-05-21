@@ -124,3 +124,4 @@ module UiViewScrollProviderTests {
         $uiViewScrollProvider.useAnchorScroll();
     }]);
 }
+
