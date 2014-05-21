@@ -7,7 +7,7 @@
 
 
 // Interface options for the plugin 
-interface fileInputOptions {
+interface JQueryFileInputOptions {
 
 	// The drop target element(s), by the default the complete document.
     // Set to null to disable drag & drop support:
@@ -160,5 +160,5 @@ interface JQueryFileUpload {
 interface JQuery
 {
     // Interface to the main method of jQuery File Upload
-    fileupload(settings: fileInputOptions): JQueryFileUpload;
+    fileupload(settings: JQueryFileInputOptions): JQueryFileUpload;
 }
