@@ -43,7 +43,7 @@ module DT {
 				if (exists) {
 					return readFile(tsfile + '.tscparams');
 				} else {
-					return new Promise((resolve, reject) => resolve(''));
+					return new Promise('');
 				}
 			}).then((paramContents: string) => {
 				var command = 'node ' + tscPath + ' --module commonjs ';
