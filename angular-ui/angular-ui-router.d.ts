@@ -91,4 +91,18 @@ declare module ng.ui {
     interface IStateParamsService {
         [key: string]: any;
     }
+
+    interface IUrlRouterService {
+    	/*
+    	 * Triggers an update; the same update that happens when the address bar
+    	 * url changes, aka $locationChangeSuccess.
+    	 *
+    	 * This method is useful when you need to use preventDefault() on the
+    	 * $locationChangeSuccess event, perform some custom logic (route protection,
+    	 * auth, config, redirection, etc) and then finally proceed with the transition
+    	 * by calling $urlRouter.sync().
+    	 *
+    	 */
+        sync(): void;
+    }
 }
