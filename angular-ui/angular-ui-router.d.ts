@@ -92,7 +92,7 @@ declare module ng.ui {
         [key: string]: any;
     }
 
-    interface IUrlRouter {
+    interface IUrlRouterService {
         sync(): void;
     }
 }
