@@ -10,9 +10,9 @@ module DT {
 	var Promise: typeof Promise = require('bluebird');
 
 	export interface TscExecOptions {
-		tscVersion?:string;
-		useTscParams?:boolean;
-		checkNoImplicitAny?:boolean;
+		tscVersion?: string;
+		useTscParams?: boolean;
+		checkNoImplicitAny?: boolean;
 	}
 
 	export class Tsc {
@@ -29,26 +29,32 @@ module DT {
 				}
 				return fileExists(tsfile);
 			}).then((exists) => {
-				if (!exists) {
-					throw new Error(tsfile + ' not exists');
-				}
-				tscPath = './_infrastructure/tests/typescript/' + options.tscVersion + '/tsc.js';
-				return fileExists(tscPath);
-			}).then((exists) => {
-				if (!exists) {
-					throw new Error(tscPath + ' is not exists');
-				}
-				return fileExists(tsfile + '.tscparams');
-			}).then((exists) => {
-				var command = 'node ' + tscPath + ' --module commonjs ';
-				if (options.useTscParams && exists) {
-					command += '@' + tsfile + '.tscparams';
-				}
-				else if (options.checkNoImplicitAny) {
-					command += '--noImplicitAny';
-				}
-				return exec(command, [tsfile]);
-			});
+					if (!exists) {
+						throw new Error(tsfile + ' does not exist');
+					}
+					tscPath = './_infrastructure/tests/typescript/' + options.tscVersion + '/tsc.js';
+					return fileExists(tscPath);
+				}).then((exists) => {
+					if (!exists) {
+						throw new Error(tscPath + ' does not exist');
+					}
+					return fileExists(tsfile + '.tscparams');
+				}).then(exists => {
+					if (exists) {
+						return readFile(tsfile + '.tscparams');
+					} else {
+						return new Promise((resolve, reject) => resolve(''));
+					}
+				}).then((paramContents: string) => {
+					var command = 'node ' + tscPath + ' --module commonjs ';
+					if (options.useTscParams && paramContents.trim() !== '' && paramContents.trim() !== '""') {
+						command += '@' + tsfile + '.tscparams';
+					}
+					else if (options.checkNoImplicitAny) {
+						command += '--noImplicitAny';
+					}
+					return exec(command, [tsfile]);
+				});
 		}
 	}
 }
