@@ -110,3 +110,17 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
 }
 
 myApp.service("urlLocatorTest", UrlLocatorTestService);
+
+module UiViewScrollProviderTests {
+    var app = angular.module("uiViewScrollProviderTests", ["ui.router"]);
+    
+    app.config(['$uiViewScrollProvider', function($uiViewScrollProvider: ng.ui.IUiViewScrollProvider) {
+        // This prevents unwanted scrolling to the active nested state view.
+        // Use this when you have nested states, but you don't want the browser to scroll down the page
+        // to the nested state view.
+        //
+        // See https://github.com/angular-ui/ui-router/issues/848
+        // And https://github.com/angular-ui/ui-router/releases/tag/0.2.8
+        $uiViewScrollProvider.useAnchorScroll();
+    }]);
+}
