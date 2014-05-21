@@ -52,9 +52,9 @@ declare module ng {
         isUndefined(value: any): boolean;
         lowercase(str: string): string;
         /** construct your angular application
-		official docs: Interface for configuring angular modules.
-		see: http://docs.angularjs.org/api/angular.Module
-		*/
+        official docs: Interface for configuring angular modules.
+        see: http://docs.angularjs.org/api/angular.Module
+        */
         module(
             /** name of your module you want to create */
             name: string,
@@ -82,12 +82,12 @@ declare module ng {
         animation(name: string, inlineAnnotatedFunction: any[]): IModule;
         animation(object: Object): IModule;
         /** configure existing services.
-		Use this method to register work which needs to be performed on module loading
-		 */
+        Use this method to register work which needs to be performed on module loading
+         */
         config(configFn: Function): IModule;
         /** configure existing services.
-		Use this method to register work which needs to be performed on module loading
-		 */
+        Use this method to register work which needs to be performed on module loading
+         */
         config(inlineAnnotatedFunction: any[]): IModule;
         constant(name: string, value: any): IModule;
         constant(object: Object): IModule;
@@ -125,10 +125,10 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$compile.directive.Attributes
     ///////////////////////////////////////////////////////////////////////////
     interface IAttributes {
-    	// this is necessary to be able to access the scoped attributes. it's not very elegant
-    	// because you have to use attrs['foo'] instead of attrs.foo but I don't know of a better way
-    	// this should really be limited to return string but it creates this problem: http://stackoverflow.com/q/17201854/165656
-    	[name: string]: any;
+        // this is necessary to be able to access the scoped attributes. it's not very elegant
+        // because you have to use attrs['foo'] instead of attrs.foo but I don't know of a better way
+        // this should really be limited to return string but it creates this problem: http://stackoverflow.com/q/17201854/165656
+        [name: string]: any;
 
         // Adds the CSS class value specified by the classVal parameter to the
         // element. If animations are enabled then an animation will be triggered
@@ -385,11 +385,11 @@ declare module ng {
     }
 
     interface IParseProvider {
-    	logPromiseWarnings(): boolean;
-    	logPromiseWarnings(value: boolean): IParseProvider;
+        logPromiseWarnings(): boolean;
+        logPromiseWarnings(value: boolean): IParseProvider;
 
-    	unwrapPromises(): boolean;
-    	unwrapPromises(value: boolean): IParseProvider;
+        unwrapPromises(): boolean;
+        unwrapPromises(value: boolean): IParseProvider;
     }
 
     interface ICompiledExpression {
@@ -702,26 +702,26 @@ declare module ng {
     // SCEService
     // see http://docs.angularjs.org/api/ng.$sce
     ///////////////////////////////////////////////////////////////////////////
-	interface ISCEService {
-		getTrusted(type: string, mayBeTrusted: any): any;
-		getTrustedCss(value: any): any;
-		getTrustedHtml(value: any): any;
-		getTrustedJs(value: any): any;
-		getTrustedResourceUrl(value: any): any;
-		getTrustedUrl(value: any): any;
-		parse(type: string, expression: string): (context: any, locals: any) => any;
-		parseAsCss(expression: string): (context: any, locals: any) => any;
-		parseAsHtml(expression: string): (context: any, locals: any) => any;
-		parseAsJs(expression: string): (context: any, locals: any) => any;
-		parseAsResourceUrl(expression: string): (context: any, locals: any) => any;
-		parseAsUrl(expression: string): (context: any, locals: any) => any;
-		trustAs(type: string, value: any): any;
-		trustAsHtml(value: any): any;
-		trustAsJs(value: any): any;
-		trustAsResourceUrl(value: any): any;
-		trustAsUrl(value: any): any;
-		isEnabled(): boolean;
-	}
+    interface ISCEService {
+        getTrusted(type: string, mayBeTrusted: any): any;
+        getTrustedCss(value: any): any;
+        getTrustedHtml(value: any): any;
+        getTrustedJs(value: any): any;
+        getTrustedResourceUrl(value: any): any;
+        getTrustedUrl(value: any): any;
+        parse(type: string, expression: string): (context: any, locals: any) => any;
+        parseAsCss(expression: string): (context: any, locals: any) => any;
+        parseAsHtml(expression: string): (context: any, locals: any) => any;
+        parseAsJs(expression: string): (context: any, locals: any) => any;
+        parseAsResourceUrl(expression: string): (context: any, locals: any) => any;
+        parseAsUrl(expression: string): (context: any, locals: any) => any;
+        trustAs(type: string, value: any): any;
+        trustAsHtml(value: any): any;
+        trustAsJs(value: any): any;
+        trustAsResourceUrl(value: any): any;
+        trustAsUrl(value: any): any;
+        isEnabled(): boolean;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // SCEProvider
