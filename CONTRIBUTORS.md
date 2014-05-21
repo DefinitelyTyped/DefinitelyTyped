@@ -208,6 +208,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Long.js](https://github.com/dcodeIO/Long.js) (by [Toshihide Hara](https://github.com/kerug))
 * [lz-string](https://github.com/pieroxy/lz-string) (by [Roman Nikitin](https://github.com/M0ns1gn0r))
 * [Marked](https://github.com/chjj/marked) (by [William Orr](https://github.com/worr))
+* [MathJax](https://github.com/mathjax/MathJax) (by [Roland Zwaga](https://github.com/rolandzwaga))
 * [mCustomScrollbar](https://github.com/malihu/malihu-custom-scrollbar-plugin) (by [Sarah Williams](https://github.com/flurg))
 * [Meteor](https://www.meteor.com) (by [Dave Allen](https://github.com/fullflavedave))
 * [Microsoft Live Connect](http://msdn.microsoft.com/en-us/library/live/hh243643.aspx) (by [John Vilk](https://github.com/jvilk))
