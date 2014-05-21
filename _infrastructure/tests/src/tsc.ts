@@ -10,9 +10,9 @@ module DT {
 	var Promise: typeof Promise = require('bluebird');
 
 	export interface TscExecOptions {
-		tscVersion?:string;
-		useTscParams?:boolean;
-		checkNoImplicitAny?:boolean;
+		tscVersion?: string;
+		useTscParams?: boolean;
+		checkNoImplicitAny?: boolean;
 	}
 
 	export class Tsc {
@@ -30,18 +30,24 @@ module DT {
 				return fileExists(tsfile);
 			}).then((exists) => {
 				if (!exists) {
-					throw new Error(tsfile + ' not exists');
+					throw new Error(tsfile + ' does not exist');
 				}
 				tscPath = './_infrastructure/tests/typescript/' + options.tscVersion + '/tsc.js';
 				return fileExists(tscPath);
 			}).then((exists) => {
 				if (!exists) {
-					throw new Error(tscPath + ' is not exists');
+					throw new Error(tscPath + ' does not exist');
 				}
 				return fileExists(tsfile + '.tscparams');
-			}).then((exists) => {
+			}).then(exists => {
+				if (exists) {
+					return readFile(tsfile + '.tscparams');
+				} else {
+					return new Promise('');
+				}
+			}).then((paramContents: string) => {
 				var command = 'node ' + tscPath + ' --module commonjs ';
-				if (options.useTscParams && exists) {
+				if (options.useTscParams && paramContents.trim() !== '' && paramContents.trim() !== '""') {
 					command += '@' + tsfile + '.tscparams';
 				}
 				else if (options.checkNoImplicitAny) {

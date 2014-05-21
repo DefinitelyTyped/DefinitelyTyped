@@ -37,4 +37,16 @@ module DT {
 			});
 		});
 	}
+
+	export function readFile(target: string): Promise<string> {
+		return new Promise((resolve, reject) => {
+			fs.readFile(target, 'utf-8', (err, contents: string) => {
+				if (err) {
+					reject(err);
+				} else {
+					resolve(contents);
+				}
+			});
+		});
+	}
 }
