@@ -70,7 +70,7 @@ declare module dcodeIO {
     }
 
     // for browser
-    var Long:LongStatic;
+    export var Long:LongStatic;
 }
 
 interface Long extends dcodeIO.Long {
