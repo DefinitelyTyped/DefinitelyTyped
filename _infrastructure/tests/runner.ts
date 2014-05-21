@@ -117,7 +117,7 @@ module DT {
 		exitCode: number;
 
 		public get success(): boolean {
-			return this.exitCode === 0;
+			return this.stderr.length === 0;
 		}
 	}
 
