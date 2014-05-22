@@ -1,4 +1,4 @@
-// Type definitions for RxJS-Aggregates v2.2.20
+// Type definitions for RxJS-Aggregates v2.2.24
 // Project: http://rx.codeplex.com/
 // Definitions by: Carl de Billy <http://carl.debilly.net/>
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
@@ -8,6 +8,7 @@
 
 declare module Rx {
 	export interface Observable<T> {
+		finalValue(): Observable<T>;
 		aggregate(accumulator: (acc: T, value: T) => T): Observable<T>;
 		aggregate<TAcc>(seed: TAcc, accumulator: (acc: TAcc, value: T) => TAcc): Observable<TAcc>;
 
