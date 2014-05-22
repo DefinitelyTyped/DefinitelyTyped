@@ -3,6 +3,16 @@
 // Definitions by: Robert McLaws <https://github.com/advancedrei>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/** Extensions to the browser Window object. */
+interface Window {
+    /** Allows you to pass the id_token to other APIs, as specified in https://docs.auth0.com/apps-apis */
+    token: string;
+}
+
+interface Location {
+    origin: string;
+}
+
 /** This is the interface for the main Auth0 client. */
 interface Auth0Static {
     
@@ -47,7 +57,23 @@ interface Auth0UserProfile {
     identities: Auth0Identity[];
 }
 
-/** Represents  */
+/** Represents an Auth0UserProfile that has a Microsoft Account as the primary identity. */
+interface MicrosoftUserProfile extends Auth0UserProfile {
+    emails: string[];
+}
+
+/** Represents an Auth0UserProfile that has an Office365 account as the primary identity. */
+interface Office365UserProfile extends Auth0UserProfile {
+    tenantid: string;
+    upn: string;
+}
+
+/** Represents an Auth0UserProfile that has an Active Directory account as the primary identity. */
+interface AdfsUserProfile extends Auth0UserProfile {
+    issuer: string;
+}
+
+/** Represents multiple identities assigned to a user. */
 interface Auth0Identity {
     access_token: string;
     connection: string;
