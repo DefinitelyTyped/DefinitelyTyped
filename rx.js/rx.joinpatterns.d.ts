@@ -1,4 +1,4 @@
-// Type definitions for RxJS-Join v2.2.20
+// Type definitions for RxJS-Join v2.2.24
 // Project: http://rx.codeplex.com/
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
