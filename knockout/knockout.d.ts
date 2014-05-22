@@ -274,7 +274,7 @@ interface KnockoutUtils {
 
     stringTrim(str: string): string;
 
-    stringTokenize(str: string, delimiter: string): string;
+    stringTokenize(str: string, delimiter: string): string[];
 
     stringStartsWith(str: string, startsWith: string): string;
 
