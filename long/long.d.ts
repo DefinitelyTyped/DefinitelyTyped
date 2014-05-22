@@ -73,9 +73,6 @@ declare module dcodeIO {
     export var Long:LongStatic;
 }
 
-interface Long extends dcodeIO.Long {
-}
-
 // for node, commonjs
 declare module "long" {
     var Long:dcodeIO.LongStatic;

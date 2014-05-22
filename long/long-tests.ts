@@ -5,7 +5,7 @@ import Long = require("long");
 // --- browser ---
 //var Long = dcodeIO.Long;
 
-var val:Long;
+var val:dcodeIO.Long;
 var n:number;
 var b:boolean;
 var s:string;
