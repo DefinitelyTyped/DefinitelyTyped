@@ -99,7 +99,7 @@ declare module gapi.client {
         /**
          * The HTTP request body (applies to PUT or POST).
          */
-        body?: string;
+        body?: any;
         /**
          * If supplied, the request is executed immediately and no gapi.client.HttpRequest object is returned
          */
