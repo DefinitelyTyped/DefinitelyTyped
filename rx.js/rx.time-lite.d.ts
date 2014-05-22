@@ -39,7 +39,9 @@ declare module Rx {
 		skipWithTime(duration: number, scheduler?: IScheduler): Observable<T>;
 
 		skipUntilWithTime(startTime: Date, scheduler?: IScheduler): Observable<T>;
+		skipUntilWithTime(duration: number, scheduler?: IScheduler): Observable<T>;
 		takeUntilWithTime(endTime: Date, scheduler?: IScheduler): Observable<T>;
+		takeUntilWithTime(duration: number, scheduler?: IScheduler): Observable<T>;
 	}
 
 	interface ObservableStatic {
