@@ -241,6 +241,8 @@ declare module ng {
 
         $parent: IScope;
 
+        $root: IScope;
+
         $id: string;
 
         // Hidden members
