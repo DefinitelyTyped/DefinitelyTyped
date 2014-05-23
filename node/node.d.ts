@@ -348,7 +348,10 @@ declare module "http" {
     }
     export interface Agent { maxSockets: number; sockets: any; requests: any; }
 
-    export var STATUS_CODES: any;
+    export var STATUS_CODES: {
+        [errorCode: number]: string;
+        [errorCode: string]: string;
+    };
     export function createServer(requestListener?: (request: ServerRequest, response: ServerResponse) =>void ): Server;
     export function createClient(port?: number, host?: string): any;
     export function request(options: any, callback?: Function): ClientRequest;
