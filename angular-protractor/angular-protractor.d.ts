@@ -646,6 +646,10 @@ declare module protractor {
          * var rows = element(by.repeater("cat in pets"));
          */
         repeater(repeatDescriptor: string): webdriver.Locator;
+
+        buttonText(searchText: string): webdriver.Locator;
+
+        partialButtonText(searchText: string): webdriver.Locator;
     }
 
     var By: IProtractorLocatorStrategy;
