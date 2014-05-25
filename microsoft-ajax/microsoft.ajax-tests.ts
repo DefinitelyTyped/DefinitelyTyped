@@ -313,8 +313,8 @@ function Sys_CultureInfo_Tests() {
 }
 
 function AspNetTypes_Tests() {
-    Type.registerNamespace("Samples");
 
+    Type.registerNamespace("Samples");
 
     var Samples;
     Samples.A = function () { };
@@ -350,6 +350,7 @@ function AspNetTypes_Tests() {
 
 /** Sample code from http://msdn.microsoft.com/en-us/library/bb386520(v=vs.100).aspx */
 function CreatingCustomNonVisualClientComponentsTests() {
+
     var Demo: any;
     Type.registerNamespace("Demo");
 
@@ -363,7 +364,6 @@ function CreatingCustomNonVisualClientComponentsTests() {
 
     Demo.Timer.prototype = {
         // OK to declare value types in the prototype
-
 
         get_interval: function () {
             /// <value type="Number">Interval in milliseconds</value>
