@@ -13,7 +13,6 @@
 
 //#region JavaScript Base Type Extensions
 
-
 /**
 * Provides extended reflection-like functionality to the base ECMAScript (JavaScript) Object object.
 * Object Type Extensions
@@ -35,7 +34,9 @@ interface Object {
 * Array Type Extensions
 * @see {@link http://msdn.microsoft.com/en-us/library/bb383786(v=vs.100).aspx}
 */
-interface Array {
+interface Array<T> {
+
+    //#region lib.d.ts
 
     new (arrayLength?: number): any[];
     new <T>(arrayLength: number): T[];
@@ -45,6 +46,162 @@ interface Array {
     <T>(...items: T[]): T[];
     isArray(arg: any): boolean;
     prototype: Array<any>;
+
+    ///**
+    //  * Returns a string representation of an array.
+    //  */
+    //toString(): string;
+    //toLocaleString(): string;
+    ///**
+    //  * Combines two or more arrays.
+    //  * @param items Additional items to add to the end of array1.
+    //  */
+    //concat<U extends T[]>(...items: U[]): T[];
+    ///**
+    //  * Combines two or more arrays.
+    //  * @param items Additional items to add to the end of array1.
+    //  */
+    //concat(...items: T[]): T[];
+    ///**
+    //  * Adds all the elements of an array separated by the specified separator string.
+    //  * @param separator A string used to separate one element of an array from the next in the resulting String. If omitted, the array elements are separated with a comma.
+    //  */
+    //join(separator?: string): string;
+    ///**
+    //  * Removes the last element from an array and returns it.
+    //  */
+    //pop(): T;
+    ///**
+    //  * Appends new elements to an array, and returns the new length of the array.
+    //  * @param items New elements of the Array.
+    //  */
+    //push(...items: T[]): number;
+    ///**
+    //  * Reverses the elements in an Array. 
+    //  */
+    //reverse(): T[];
+    ///**
+    //  * Removes the first element from an array and returns it.
+    //  */
+    //shift(): T;
+    ///** 
+    //  * Returns a section of an array.
+    //  * @param start The beginning of the specified portion of the array.
+    //  * @param end The end of the specified portion of the array.
+    //  */
+    //slice(start?: number, end?: number): T[];
+
+    ///**
+    //  * Sorts an array.
+    //  * @param compareFn The name of the function used to determine the order of the elements. If omitted, the elements are sorted in ascending, ASCII character order.
+    //  */
+    //sort(compareFn?: (a: T, b: T) => number): T[];
+
+    ///**
+    //  * Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.
+    //  * @param start The zero-based location in the array from which to start removing elements.
+    //  */
+    //splice(start: number): T[];
+
+    ///**
+    //  * Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.
+    //  * @param start The zero-based location in the array from which to start removing elements.
+    //  * @param deleteCount The number of elements to remove.
+    //  * @param items Elements to insert into the array in place of the deleted elements.
+    //  */
+    //splice(start: number, deleteCount: number, ...items: T[]): T[];
+
+    ///**
+    //  * Inserts new elements at the start of an array.
+    //  * @param items  Elements to insert at the start of the Array.
+    //  */
+    //unshift(...items: T[]): number;
+
+    ///**
+    //  * Returns the index of the first occurrence of a value in an array.
+    //  * @param searchElement The value to locate in the array.
+    //  * @param fromIndex The array index at which to begin the search. If fromIndex is omitted, the search starts at index 0.
+    //  */
+    //indexOf(searchElement: T, fromIndex?: number): number;
+
+    ///**
+    //  * Returns the index of the last occurrence of a specified value in an array.
+    //  * @param searchElement The value to locate in the array.
+    //  * @param fromIndex The array index at which to begin the search. If fromIndex is omitted, the search starts at the last index in the array.
+    //  */
+    //lastIndexOf(searchElement: T, fromIndex?: number): number;
+
+    ///**
+    //  * Determines whether all the members of an array satisfy the specified test.
+    //  * @param callbackfn A function that accepts up to three arguments. The every method calls the callbackfn function for each element in array1 until the callbackfn returns false, or until the end of the array.
+    //  * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
+    //  */
+    //every(callbackfn: (value: T, index: number, array: T[]) => boolean, thisArg?: any): boolean;
+
+    ///**
+    //  * Determines whether the specified callback function returns true for any element of an array.
+    //  * @param callbackfn A function that accepts up to three arguments. The some method calls the callbackfn function for each element in array1 until the callbackfn returns true, or until the end of the array.
+    //  * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
+    //  */
+    //some(callbackfn: (value: T, index: number, array: T[]) => boolean, thisArg?: any): boolean;
+
+    ///**
+    //  * Performs the specified action for each element in an array.
+    //  * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the array. 
+    //  * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
+    //  */
+    //forEach(callbackfn: (value: T, index: number, array: T[]) => void, thisArg?: any): void;
+
+    ///**
+    //  * Calls a defined callback function on each element of an array, and returns an array that contains the results.
+    //  * @param callbackfn A function that accepts up to three arguments. The map method calls the callbackfn function one time for each element in the array. 
+    //  * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
+    //  */
+    //map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): U[];
+
+    ///**
+    //  * Returns the elements of an array that meet the condition specified in a callback function. 
+    //  * @param callbackfn A function that accepts up to three arguments. The filter method calls the callbackfn function one time for each element in the array. 
+    //  * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
+    //  */
+    //filter(callbackfn: (value: T, index: number, array: T[]) => boolean, thisArg?: any): T[];
+
+    ///**
+    //  * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+    //  * @param callbackfn A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.
+    //  * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
+    //  */
+    //reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
+    ///**
+    //  * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+    //  * @param callbackfn A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.
+    //  * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
+    //  */
+    //reduce<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
+
+    ///** 
+    //  * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+    //  * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array. 
+    //  * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
+    //  */
+    //reduceRight(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
+    ///** 
+    //  * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+    //  * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array. 
+    //  * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
+    //  */
+    //reduceRight<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
+
+    ///**
+    //  * Gets or sets the length of the array. This is a number one higher than the highest element defined in an array.
+    //  */
+    //length: number;
+
+    //[n: number]: T;
+
+    //#endregion
+
+    //#region Extensions
 
     /**
     * Adds an element to the end of an Array object. This function is static and is invoked without creating an instance of the object.
@@ -102,44 +259,8 @@ interface Array {
     * Removes an element at the specified location in an Array object.
     */
     removeAt(array: any[], index: number): void;
-}
 
-/**
-    * Provides extensions to the base ECMAScript (JavaScript) String object by including static and instance methods.
-    * String Type Extensions
-    * @see {@link http://msdn.microsoft.com/en-us/library/bb397472(v=vs.100).aspx}
-    */
-interface String {
-    /**
-    * Formats a number by using the invariant culture.
-    * @returns true if the end of the String object matches suffix; otherwise, false.
-    */
-    endsWith(suffix: string): boolean;
-    /**
-    * Replaces each format item in a String object with the text equivalent of a corresponding object's value.
-    * @returns A copy of the string with the formatting applied.
-    */
-    format(format: string, ...args: any[]): string;
-    /**
-    * Replaces the format items in a String object with the text equivalent of a corresponding object's value. The current culture is used to format dates and numbers.
-    * @returns A copy of the string with the formatting applied.
-    */
-    localeFormat(format: string, ...args: any[]): string;
-    /**
-    * Removes leading and trailing white-space characters from a String object.
-    * @returns A copy of the string with all white-space characters removed from the start and end of the string.
-    */
-    trim(): string;
-    /**
-    * Removes trailing white-space characters from a String object.
-    * @returns A copy of the string with all white-space characters removed from the end of the string.
-    */
-    trimEnd(): string;
-    /**
-    * Removes leading white-space characters from a String object.
-    * @returns A copy of the string with all white-space characters removed from the start of the string.
-    */
-    trimStart(): string;
+    //#endregion
 }
 
 /**
@@ -164,58 +285,6 @@ interface Number {
     * Creates a numeric value from a locale-specific string.
     */
     parseLocale(format: string): number;
-}
-
-/**
-* Provides static functions that extend the built-in ECMAScript (JavaScript) Error type by including exception details and support for application-compilation modes (debug or release).
-* Error Type Extensions
-* @see {@link http://msdn.microsoft.com/en-us/library/bb310947(v=vs.100).aspx}
-*/
-interface Error {
-    /**
-    * Creates an Error object that represents the Sys.ParameterCountException exception.
-    */
-    parameterCount(message?: string): Error;
-    /**
-    * Creates an Error object that represents the Sys.NotImplementedException exception.
-    */
-    notImplemented(message?: string): Error;
-    /**
-    * Creates an Error object that represents the Sys.ArgumentException exception.
-    */
-    argument(paramName?: any, message?: string): Error;
-    /**
-    * Creates an Error object that represents the Sys.ArgumentNullException exception.
-    */
-    argumentNull(paramName?: any, message?: string): Error;
-    /**
-    * Creates an Error object that represents the Sys.ArgumentOutOfRangeException exception.
-    */
-    argumentOutOfRange(paramName?: string, actualValue?: any, message?: string): Error;
-    /**
-    * Creates an Error object that represents the Sys.ArgumentTypeException exception.
-    */
-    argumentType(paramName?: string, actualType?: any, expectedType?: any, message?: string): Error;
-    /**
-    * Creates an Error object that represents the Sys.ArgumentUndefinedException exception.
-    */
-    argumentUndefined(paramName?: string, message?: string): Error;
-    /**
-    * Creates an Error object that can contain additional error information.
-    */
-    create(message?: string, errorInfo?: Object): Error;
-    /**
-    * Creates an Error object that represents the Sys.FormatException exception.
-    */
-    format(message?: string): Error;
-    /**
-    * Creates an Error object that represents the Sys.InvalidOperationException exception.
-    */
-    invalidOperation(message?: string): Error;
-    /**
-    * Updates the fileName and lineNumber properties of an Error instance to indicate where the error was thrown instead of where the error was created. Use this function if you are creating custom error types.
-    */
-    popStackFrame(): void;
 }
 
 /**
@@ -266,6 +335,9 @@ declare module MicrosoftAjaxBaseTypeExtensions {
     * @see {@link http://msdn.microsoft.com/en-us/library/dd409270(v=vs.100).aspx}
     */
     interface Function {
+
+        //#region lib.d.ts
+
         /** 
           * Creates a new function.
           * @param args A list of arguments the function accepts.
@@ -273,7 +345,11 @@ declare module MicrosoftAjaxBaseTypeExtensions {
         new (...args: string[]): Function;
         (...args: string[]): Function;
         prototype: Function;
-         
+
+        //#endregion
+
+        //#region Extensions
+
         /**
           * Creates a delegate function that retains the context first used during an objects creation.
           * @see {@link http://msdn.microsoft.com/en-us/library/dd393582(v=vs.100).aspx }
@@ -296,6 +372,276 @@ declare module MicrosoftAjaxBaseTypeExtensions {
           * @see {@link http://msdn.microsoft.com/en-us/library/dd393712(v=vs.100).aspx }
           */
         validateParameters(parameters: any, expectedParameters: Object[], validateParameterCount?: boolean): any;
+
+        //#endregion
+    }
+
+    /**
+    * Provides static functions that extend the built-in ECMAScript (JavaScript) Error type by including exception details and support for application-compilation modes (debug or release).
+    * Error Type Extensions
+    * @see {@link http://msdn.microsoft.com/en-us/library/bb310947(v=vs.100).aspx}
+    */
+    interface Error {
+
+        //#region lib.d.ts
+
+        name: string;
+        message: string;
+
+        new (message?: string): Error;
+        (message?: string): Error;
+        prototype: Error;
+
+        //#endregion
+
+        //#region Extensions
+
+        /**
+        * Creates an Error object that represents the Sys.ParameterCountException exception.
+        */
+        parameterCount(message?: string): Error;
+        /**
+        * Creates an Error object that represents the Sys.NotImplementedException exception.
+        */
+        notImplemented(message?: string): Error;
+        /**
+        * Creates an Error object that represents the Sys.ArgumentException exception.
+        */
+        argument(paramName?: any, message?: string): Error;
+        /**
+        * Creates an Error object that represents the Sys.ArgumentNullException exception.
+        */
+        argumentNull(paramName?: any, message?: string): Error;
+        /**
+        * Creates an Error object that represents the Sys.ArgumentOutOfRangeException exception.
+        */
+        argumentOutOfRange(paramName?: string, actualValue?: any, message?: string): Error;
+        /**
+        * Creates an Error object that represents the Sys.ArgumentTypeException exception.
+        */
+        argumentType(paramName?: string, actualType?: any, expectedType?: any, message?: string): Error;
+        /**
+        * Creates an Error object that represents the Sys.ArgumentUndefinedException exception.
+        */
+        argumentUndefined(paramName?: string, message?: string): Error;
+        /**
+        * Creates an Error object that can contain additional error information.
+        */
+        create(message?: string, errorInfo?: Object): Error;
+        /**
+        * Creates an Error object that represents the Sys.FormatException exception.
+        */
+        format(message?: string): Error;
+        /**
+        * Creates an Error object that represents the Sys.InvalidOperationException exception.
+        */
+        invalidOperation(message?: string): Error;
+        /**
+        * Updates the fileName and lineNumber properties of an Error instance to indicate where the error was thrown instead of where the error was created. Use this function if you are creating custom error types.
+        */
+        popStackFrame(): void;
+
+        //#endregion
+    }
+
+    /**
+    * Provides extensions to the base ECMAScript (JavaScript) String object by including static and instance methods.
+    * String Type Extensions
+    * @see {@link http://msdn.microsoft.com/en-us/library/bb397472(v=vs.100).aspx}
+    */
+    interface String {
+
+        //#region lib.d.ts
+
+        new (value?: any): String;
+        (value?: any): string;
+        prototype: String;
+        fromCharCode(...codes: number[]): string;
+
+        /** Returns a string representation of a string. */
+        toString(): string;
+
+        /**
+          * Returns the character at the specified index.
+          * @param pos The zero-based index of the desired character.
+          */
+        charAt(pos: number): string;
+
+        /** 
+          * Returns the Unicode value of the character at the specified location.
+          * @param index The zero-based index of the desired character. If there is no character at the specified index, NaN is returned.
+          */
+        charCodeAt(index: number): number;
+
+        /**
+          * Returns a string that contains the concatenation of two or more strings.
+          * @param strings The strings to append to the end of the string.  
+          */
+        concat(...strings: string[]): string;
+
+        /**
+          * Returns the position of the first occurrence of a substring. 
+          * @param searchString The substring to search for in the string
+          * @param position The index at which to begin searching the String object. If omitted, search starts at the beginning of the string.
+          */
+        indexOf(searchString: string, position?: number): number;
+
+        /**
+          * Returns the last occurrence of a substring in the string.
+          * @param searchString The substring to search for.
+          * @param position The index at which to begin searching. If omitted, the search begins at the end of the string.
+          */
+        lastIndexOf(searchString: string, position?: number): number;
+
+        /**
+          * Determines whether two strings are equivalent in the current locale.
+          * @param that String to compare to target string
+          */
+        localeCompare(that: string): number;
+
+        /** 
+          * Matches a string with a regular expression, and returns an array containing the results of that search.
+          * @param regexp A variable name or string literal containing the regular expression pattern and flags.
+          */
+        match(regexp: string): string[];
+
+        /** 
+          * Matches a string with a regular expression, and returns an array containing the results of that search.
+          * @param regexp A regular expression object that contains the regular expression pattern and applicable flags. 
+          */
+        match(regexp: RegExp): string[];
+
+        /**
+          * Replaces text in a string, using a regular expression or search string.
+          * @param searchValue A String object or string literal that represents the regular expression
+          * @param replaceValue A String object or string literal containing the text to replace for every successful match of rgExp in stringObj.
+          */
+        replace(searchValue: string, replaceValue: string): string;
+
+        /**
+          * Replaces text in a string, using a regular expression or search string.
+          * @param searchValue A String object or string literal that represents the regular expression
+          * @param replaceValue A function that returns the replacement text.
+          */
+        replace(searchValue: string, replaceValue: (substring: string, ...args: any[]) => string): string;
+
+        /**
+          * Replaces text in a string, using a regular expression or search string.
+          * @param searchValue A Regular Expression object containing the regular expression pattern and applicable flags
+          * @param replaceValue A String object or string literal containing the text to replace for every successful match of rgExp in stringObj.
+          */
+        replace(searchValue: RegExp, replaceValue: string): string;
+
+        /**
+          * Replaces text in a string, using a regular expression or search string.
+          * @param searchValue A Regular Expression object containing the regular expression pattern and applicable flags
+          * @param replaceValue A function that returns the replacement text.
+          */
+        replace(searchValue: RegExp, replaceValue: (substring: string, ...args: any[]) => string): string;
+
+        /**
+          * Finds the first substring match in a regular expression search.
+          * @param regexp The regular expression pattern and applicable flags. 
+          */
+        search(regexp: string): number;
+
+        /**
+          * Finds the first substring match in a regular expression search.
+          * @param regexp The regular expression pattern and applicable flags. 
+          */
+        search(regexp: RegExp): number;
+
+        /**
+          * Returns a section of a string.
+          * @param start The index to the beginning of the specified portion of stringObj. 
+          * @param end The index to the end of the specified portion of stringObj. The substring includes the characters up to, but not including, the character indicated by end. 
+          * If this value is not specified, the substring continues to the end of stringObj.
+          */
+        slice(start?: number, end?: number): string;
+
+        /**
+          * Split a string into substrings using the specified separator and return them as an array.
+          * @param separator A string that identifies character or characters to use in separating the string. If omitted, a single-element array containing the entire string is returned. 
+          * @param limit A value used to limit the number of elements returned in the array.
+          */
+        split(separator: string, limit?: number): string[];
+
+        /**
+          * Split a string into substrings using the specified separator and return them as an array.
+          * @param separator A Regular Express that identifies character or characters to use in separating the string. If omitted, a single-element array containing the entire string is returned. 
+          * @param limit A value used to limit the number of elements returned in the array.
+          */
+        split(separator: RegExp, limit?: number): string[];
+
+        /**
+          * Returns the substring at the specified location within a String object. 
+          * @param start The zero-based index number indicating the beginning of the substring.
+          * @param end Zero-based index number indicating the end of the substring. The substring includes the characters up to, but not including, the character indicated by end.
+          * If end is omitted, the characters from start through the end of the original string are returned.
+          */
+        substring(start: number, end?: number): string;
+
+        /** Converts all the alphabetic characters in a string to lowercase. */
+        toLowerCase(): string;
+
+        /** Converts all alphabetic characters to lowercase, taking into account the host environment's current locale. */
+        toLocaleLowerCase(): string;
+
+        /** Converts all the alphabetic characters in a string to uppercase. */
+        toUpperCase(): string;
+
+        /** Returns a string where all alphabetic characters have been converted to uppercase, taking into account the host environment's current locale. */
+        toLocaleUpperCase(): string;
+
+        /** Returns the length of a String object. */
+        length: number;
+
+        // IE extensions
+        /**
+          * Gets a substring beginning at the specified location and having the specified length.
+          * @param from The starting position of the desired substring. The index of the first character in the string is zero.
+          * @param length The number of characters to include in the returned substring.
+          */
+        substr(from: number, length?: number): string;
+
+        [index: number]: string;
+
+        //#endregion
+
+        //#region Extensions
+
+        /**
+        * Formats a number by using the invariant culture.
+        * @returns true if the end of the String object matches suffix; otherwise, false.
+        */
+        endsWith(suffix: string): boolean;
+        /**
+        * Replaces each format item in a String object with the text equivalent of a corresponding object's value.
+        * @returns A copy of the string with the formatting applied.
+        */
+        format(format: string, ...args: any[]): string;
+        /**
+        * Replaces the format items in a String object with the text equivalent of a corresponding object's value. The current culture is used to format dates and numbers.
+        * @returns A copy of the string with the formatting applied.
+        */
+        localeFormat(format: string, ...args: any[]): string;
+        /**
+        * Removes leading and trailing white-space characters from a String object.
+        * @returns A copy of the string with all white-space characters removed from the start and end of the string.
+        */
+        trim(): string;
+        /**
+        * Removes trailing white-space characters from a String object.
+        * @returns A copy of the string with all white-space characters removed from the end of the string.
+        */
+        trimEnd(): string;
+        /**
+        * Removes leading white-space characters from a String object.
+        * @returns A copy of the string with all white-space characters removed from the start of the string.
+        */
+        trimStart(): string;
+
+        //#endregion
     }
 
     /**
@@ -305,16 +651,29 @@ declare module MicrosoftAjaxBaseTypeExtensions {
     */
     interface Boolean {
 
+        //#region lib.d.ts
+
         new (value?: any): Boolean;
         (value?: any): boolean;
         prototype: Boolean;
+
+        //#endregion
+
+        //#region Extensions
 
         /**
         * Converts a string representation of a logical value to its Boolean object equivalent.
         */
         parse(value: string): Boolean;
+
+        //#endregion
     }
 }
+
+// declare var Error: MicrosoftAjaxBaseTypeExtensions.Error;
+// declare var String: MicrosoftAjaxBaseTypeExtensions.String;
+// declare var Boolean: MicrosoftAjaxBaseTypeExtensions.Boolean;
+// declare var Function: MicrosoftAjaxBaseTypeExtensions.Function;
 
 //#endregion
 
@@ -397,7 +756,7 @@ declare class Type {
     *           The fully qualified name of the class to test as a base class for the current instance.
     * @return true if the instance inherits from parentType; otherwise, false.
     */
-    inheritsFrom(parentType: string);
+    inheritsFrom(parentType: string): boolean;
     /**
     * Initializes the base class and its members in the context of a given instance, which provides the model for inheritance and for initializing base members.
     * @param instance
@@ -555,7 +914,7 @@ declare function $find(id: string, parent?: HTMLElement): Sys.Component;
 * @param handler The event handler to add.
 * @param autoRemove (Optional) A boolean value that determines whether the handler should be removed automatically when the element is disposed.
 */
-declare function $addHandler(element: Element, eventName: string, handler: Function, autoRemove?: boolean);
+declare function $addHandler(element: Element, eventName: string, handler: Function, autoRemove?: boolean): void;
 
 /**
 * Provides a shortcut to the addHandlers method of the Sys.UI.DomEvent class. This member is static and can be invoked without creating an instance of the class.
@@ -565,7 +924,7 @@ declare function $addHandler(element: Element, eventName: string, handler: Funct
 * @param handlerOwner (Optional) The object instance that is the context for the delegates that should be created from the handlers.
 * @param autoRemove (Optional) A boolean value that determines whether the handler should be removed automatically when the element is disposed.
 */
-declare function $addHandlers(element: Element, events: any, handlerOwner?: any, autoRemove?: boolean);
+declare function $addHandlers(element: Element, events: any, handlerOwner?: any, autoRemove?: boolean): void;
 
 /**
 * Provides a shortcut to the clearHandlers method of the Sys.UI.DomEvent class. This member is static and can be invoked without creating an instance of the class.
@@ -573,15 +932,19 @@ declare function $addHandlers(element: Element, events: any, handlerOwner?: any,
 * @see {@link http://msdn.microsoft.com/en-us/library/bb310959(v=vs.100).aspx}
 * @param The DOM element that exposes the events.
 */
-declare function $clearHandlers(element: Element);
+declare function $clearHandlers(element: Element): void;
 
 /**
 * Provides a shortcut to the getElementById method of the Sys.UI.DomElement class. This member is static and can be invoked without creating an instance of the class.
 * @see {@link http://msdn.microsoft.com/en-us/library/bb397717(v=vs.100).aspx}
-* @param id The ID of the DOM element to find.
-* @param element The parent element to search. The default is the document element.
+* @param id 
+*           The ID of the DOM element to find.
+* @param element 
+*           The parent element to search. The default is the document element.
+* @return
+*   The element
 */
-declare function $get(id: string, element?: Element);
+declare function $get(id: string, element?: Element): HTMLElement;
 
 /**
 * Provides a shortcut to the removeHandler method of the Sys.UI.DomEvent class. This member is static and can be invoked without creating an instance of the class.
@@ -590,7 +953,7 @@ declare function $get(id: string, element?: Element);
 * @param eventName The name of the DOM event.
 * @param handler The event handler to remove.
 */
-declare function $removeHandler(element, eventName, handler);
+declare function $removeHandler(element: Element, eventName: string, handler: Function): void;
 
 //#endregion
 
@@ -616,7 +979,7 @@ declare module Sys {
 
         //#region Constructors
 
-        constructor();
+        constructor(): void;
 
         //#endregion
 
@@ -1088,28 +1451,28 @@ declare module Sys {
         * @param item
         *           The item to add.
         */
-        static add(target: any[], item): void;
+        static add(target: any[], item: any): void;
 
         /**
         * Adds an event handler to the target.
         * @param target The array to which an event handler will be added.
         * @param handler The event handler.
         */
-        static addCollectionChanged(target, handler: Function): void;
+        static addCollectionChanged(target: any, handler: Function): void;
 
         /**
         * Adds an observable event handler to the target.
         * @param eventName A string that contains the event name.
         * @param handler The added function.
         */
-        static addEventHandler(target, eventName: string, handler: Function): void;
+        static addEventHandler(target: any, eventName: string, handler: Function): void;
 
         /**
         * Adds a propertyChanged event handler to the target.
         * @param target The object to observe.
         * @param handler The function handler to add.
         */
-        static addPropertyChanged(target, handler: Function): void;
+        static addPropertyChanged(target: any, handler: Function): void;
 
         /**
         * Adds items to the collection in an observable manner.
@@ -1217,7 +1580,7 @@ declare module Sys {
         * @param propertyName A string that contains the name of the property or field to set.
         * @param value The value to set.
         */
-        static setValue(target, propertyName, value): void;
+        static setValue(target: any, propertyName: string, value: any): void;
 
         //#endregion
 
@@ -2146,48 +2509,40 @@ declare module Sys {
             * Gets or sets the name of the default failure callback function.  
             */
             get_defaultFailedCallback(): Function;
-
             /**
             * Gets or sets the name of the default failure callback function.
             * @param value
             *           A string that contains the name of the default failure callback function.
             */
             set_defaultFailedCallback(value: string): void;
-
             /**
             * Gets or sets the default succeeded callback function for the service.
             * @return A reference to the succeeded callback function for the service.  
             */
             defaultSucceededCallback(): Function;
-
             /**
             * Gets or sets the default succeeded callback function for the service.
             * @param value 
             *           A reference to the succeeded callback function for the service.
             */
             defaultSucceededCallback(value: Function): void;
-
             /**
             * Gets or sets the default user context for the service.
             * @return A reference to the user context for the service.  
             */
             defaultUserContext(): Object
-
             /**
             * Gets or sets the default user context for the service.
             * @param value
             *       A reference to the user context for the service.  
             */
             defaultUserContext(value: Object): void;
-
             /**
             * Gets the authentication state of the current user.  
             * The value of this property is set by the ScriptManager object during a page request.
             * @return true if the current user is logged in; otherwise, false.
             */
             get_isLoggedIn(): boolean;
-
-
             /**
             * Gets or sets the authentication service path.
             * You usually set the path property in declarative markup. This value can be an absolute virtual path, a relative virtual path, or a fully qualified domain name and a path.
@@ -2195,14 +2550,12 @@ declare module Sys {
             * @param value
             *           The authentication service path.
             */
-            set_path(value: string);
-
+            set_path(value: string): void;
             /**
             * Gets or sets the authentication service path.  
             * By default, the path property is set to an empty string. If you do not set the path property, the internal default path is used, which points to the built-in authentication service.
             */
             get_path(): string;
-
             /**
             * Gets or sets the authentication service time-out value.
             * The timeout property represents the time in milliseconds that the current instance of the Sys.Net.WebRequestExecutor class should wait before timing out the request.
@@ -2210,12 +2563,13 @@ declare module Sys {
             * @param value
             *           The time-out value in milliseconds.
             */
-            set_timeout(value): void;
-
+            set_timeout(value: number): void;
             /**
             * Gets or sets the authentication service time-out value. 
             * The timeout property represents the time in milliseconds that the current instance of the Sys.Net.WebRequestExecutor class should wait before timing out the request.
             * The timeout in milliseconds 
+            * @return 
+            *       The timeout
             */
             get_timeout(): number;
 
@@ -2979,7 +3333,7 @@ declare module Sys {
             * @param beginRequestHandler
             *               The name of the handler method that will be called.
             */
-            add_beginRequest(beginRequestHandler: (sender, args) => void): void;
+            add_beginRequest(beginRequestHandler: (sender: any, args: any) => void): void;
             /**
             * Raised before the processing of an asynchronous postback starts and the postback request is sent to the server.
             *  @param beginRequestHandler
@@ -2991,49 +3345,49 @@ declare module Sys {
             * @param endRequestHandler
             *               The name of the handler method that will be called.
             */
-            add_endRequest(endRequestHandler: (sender, args) => void): void;
+            add_endRequest(endRequestHandler: (sender: any, args: any) => void): void;
             /**
             * Raised after an asynchronous postback is finished and control has been returned to the browser.
             * @param endRequestHandler
             *               The name of the handler method that will be removed.
             */
-            remove_endRequest(endRequestHandler: (sender, args) => void): void;
+            remove_endRequest(endRequestHandler: (sender: any, args: any) => void): void;
             /**
             * Raised during the initialization of the asynchronous postback.
             * @param initializeRequestHandler
             *               The name of the handler method that will be called.
             */
-            add_initializeRequest(initializeRequestHandler: (sender, args) => void): void;
+            add_initializeRequest(initializeRequestHandler: (sender: any, args: any) => void): void;
             /**
             * Raised during the initialization of the asynchronous postback.
             * @param initializeRequestHandler
             *               The name of the handler method that will be called.
             */
-            remove_initializeRequest(initializeRequestHandler: (sender, args) => void): void;
+            remove_initializeRequest(initializeRequestHandler: (sender: any, args: any) => void): void;
             /**
             * Raised after all content on the page is refreshed as a result of either a synchronous or an asynchronous postback.
             * @param pageLoadedHandler
             *               The name of the handler method that will be called.
             */
-            add_pageLoaded(pageLoadedHandler: (sender, args) => void): void;
+            add_pageLoaded(pageLoadedHandler: (sender: any, args: any) => void): void;
             /**
             * Raised after all content on the page is refreshed as a result of either a synchronous or an asynchronous postback.
             * @param pageLoadedHandler
             *               The name of the handler method that will be called.
             */
-            remove_pageLoaded(pageLoadedHandler: (sender, args) => void): void;
+            remove_pageLoaded(pageLoadedHandler: (sender: any, args: any) => void): void;
             /**
             * Raised after the response from the server to an asynchronous postback is received but before any content on the page is updated.
             * @param pageLoadedHandler
             *               The name of the handler method that will be called.
             */
-            add_pageLoading(pageLoadingHandler: (sender, args) => void): void;
+            add_pageLoading(pageLoadingHandler: (sender: any, args: any) => void): void;
             /**
             * Raised after the response from the server to an asynchronous postback is received but before any content on the page is updated.
             * @param pageLoadedHandler
             *               The name of the handler method that will be called.
             */
-            remove_pageLoading(pageLoadingHandler: (sender, args) => void): void;
+            remove_pageLoading(pageLoadingHandler: (sender: any, args: any) => void): void;
 
             //#endregion
 
@@ -3077,7 +3431,7 @@ declare module Sys {
 
             //#region Properties       
 
-            get_isInAsyncPostBack(): boolean;    
+            get_isInAsyncPostBack(): boolean;
 
             //#endregion
         }
