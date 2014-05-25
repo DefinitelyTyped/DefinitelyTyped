@@ -390,6 +390,20 @@ function Sys_Services_Profile_Service_Group_Tests() {
     Sys.Services.ProfileService.save(null, SaveCompletedCallback, ProfileFailedCallback, null);
     Sys.Services.ProfileService.load(null, LoadCompletedCallback, ProfileFailedCallback, null);
 
+    Sys.Services.ProfileService.set_defaultFailedCallback("Function");
+    var defaultFailedCallback = Sys.Services.ProfileService.get_defaultFailedCallback();
+
+    Sys.Services.ProfileService.set_defaultLoadCompletedCallback("Function");
+    var defaultLoadCompletedCallback = Sys.Services.ProfileService.get_defaultLoadCompletedCallback();
+
+    Sys.Services.ProfileService.set_defaultSaveCompletedCallback("Function");
+    var defaultSaveCompletedCallback = Sys.Services.ProfileService.get_defaultSaveCompletedCallback();
+
+    Sys.Services.ProfileService.set_path("path");
+    Sys.Services.ProfileService.get_path();
+
+    var timeout = Sys.Services.ProfileService.get_timeout();
+
 }
 
 
