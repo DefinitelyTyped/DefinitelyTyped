@@ -2298,20 +2298,17 @@ declare module Sys {
             * @return The DOM element that the current Behavior object is associated with.
             */
             get_element(): Sys.UI.DomElement;
-
             /**
             * Gets or sets the identifier for the Sys.UI.Behavior object.
             * A generated identifier that consists of the ID of the associated Sys.UI.DomElement, the "$" character, and the name value of the Behavior object.
             */
             get_id(): string;
-
             /**
             * Gets or sets the identifier for the Sys.UI.Behavior object.
             * @param value
             *           The string value to use as the identifier.
             */
             set_id(value: string): void;
-
             /*
             * Gets or sets the name of the Sys.UI.Behavior object.
             * If you do not explicitly set the name property, getting the property value sets it to its default value, which is equal to the type of the Behavior object. The name property remains null until it is accessed.
@@ -2319,7 +2316,6 @@ declare module Sys {
             *           A string value to use as the name.
             */
             set_name(value: string): void;
-
             /**
             * Gets or sets the name of the Sys.UI.Behavior object. 
             */
@@ -2350,19 +2346,16 @@ declare module Sys {
             * @return A number that represents the height of an object in pixels.
             */
             height: number;
-
             /**
             * Gets the width of an object in pixels. This property is read-only.
             * @return A number that represents the width of an object in pixels.
             */
             width: number;
-
             /**
             * Gets the x-coordinate of an object in pixels.
             * @return A number that represents the x-coordinate of an object in pixels.
             */
             x: number;
-
             /**
             * Gets the y-coordinate of anobject in pixels.
             * @return A number that represents the y-coordinate of an object in pixels.  
@@ -2386,15 +2379,209 @@ declare module Sys {
         }
         /**
         * Provides cross-browser access to DOM event properties and helper APIs that are used to attach handlers to DOM element events.
+        * @see {@link http://msdn.microsoft.com/en-us/library/bb310935(v=vs.100).aspx}
         */
         class DomEvent {
 
+            //#region Constructors
+
+            /**
+            * Initializes a new instance of the Sys.UI.DomEvent class and associates it with the specified DomElement object.
+            * @param domElement
+            *           The DomElement object to associate with the event.
+            */
+            constructor(domElement: DomElement);
+            constructor(domElement: any);
+
+            //#endregion
+
+            //#region Methods
+
+            /**
+             * Provides a method to add a DOM event handler to the DOM element that exposes the event. This member is static and can be invoked without creating an instance of the class.
+             * Use the addHandler method to add a DOM event handler to the element that exposes the event. The eventName parameter should not include the "on" prefix. For example, specify "click" instead of "onclick".
+             * This method can be accessed through the $addHandler shortcut method.
+             * 
+             * @param element
+             *          The element that exposes the event.
+             * @param eventName
+             *          The name of the event.
+             * @param handler
+             *          The client function that is called when the event occurs.
+             * @param autoRemove
+             *          (Optional) A boolean value that determines whether the handler should be removed automatically when the element is disposed.
+             */
+            static addHandler(element: any, eventName: string, handler: Function, autoRemove?: boolean): void;
+            /**
+             * Adds a list of DOM event handlers to the DOM element that exposes the events. This member is static and can be invoked without creating an instance of the class.
+             * Use the addHandlers method to add a list of DOM event handlers to the element that exposes the event.
+             * The events parameter takes a comma-separated list of name/value pairs in the format name:value, where name is the name of the DOM event and value is the name of the handler function.
+             * If there is more than one name/value pair, the list must be enclosed in braces ({}) to identify it as a single parameter. Multiple name/value pairs are separated with commas. 
+             * Event names should not include the "on" prefix. For example, specify "click" instead of "onclick".
+             * If handlerOwner is specified, delegates are created for each handler. These delegates are attached to the specified object instance, and the this pointer from the delegate handler will refer to the handlerOwner object.
+             * This method can be accessed through the $addHandlers shortcut method.
+             * 
+             * @param element
+             *          The DOM element that exposes the events.
+             * @param events
+             *          A dictionary of event handlers.
+             * @param handlerOwner
+             *          (Optional) The object instance that is the context for the delegates that should be created from the handlers.
+             * @param autoRemove 
+             *          (Optional) A boolean value that determines whether the handler should be removed automatically when the element is disposed.
+             * 
+             * @throws Error.invalidOperation - (Debug) One of the handlers specified in events is not a function.
+             *  
+             */
+            static addHandlers(element: any, events: any, handlerOwner?: any, autoRemove?: boolean): void;
+            /**
+             * Removes all DOM event handlers from a DOM element that were added through the Sys.UI.DomEvent addHandler or the Sys.UI.DomEvent addHandlers methods.
+             * This member is static and can be invoked without creating an instance of the class.
+             * This method can be accessed through the $clearHandlers shortcut method.
+             * 
+             * @param element
+             *          The element that exposes the events.
+             */
+            static clearHandlers(element: any): void;
+            /**
+             * Removes a DOM event handler from the DOM element that exposes the event. This member is static and can be invoked without creating an instance of the class.
+             * 
+             * @param element
+             *          The element that exposes the event.
+             * @param eventName
+             *          The name of the event.
+             * @param handler
+             *          The event handler to remove.
+             */
+            static removeHandler(element: any, eventName: string, handler: Function): void;
+            /**
+             * Prevents the default DOM event action from happening.
+             * Use the preventDefault method to prevent the default event action for the browser from occurring. 
+             * For example, if you prevent the keydown event of an input element from occurring, the character typed by the user is not automatically appended to the input element's value.
+             */
+            preventDefault(): void;
+            /**
+             * Prevents an event from being propagated (bubbled) to parent elements.
+             * By default, event notification is bubbled from a child object to parent objects until it reaches the document object. 
+             * The event notification stops if the event is handled during the propagation process. 
+             * Use the stopPropagation method to prevent an event from being propagated to parent elements.
+             */
+            stopPropagation(): void;
+
+            //#endregion
+
+            //#region Fields
+
+            /**
+             * Gets a Boolean value that indicates the state of the ALT key when the associated event occurred.
+             * Use the altKey field to determine whether the ALT key is pressed when the event occurred.
+             * 
+             * @return true if the ALT key was pressed when the event occurred; otherwise, false.
+             */
+            altKey: boolean;
+            /**
+             * Gets a Sys.UI.MouseButton enumeration value that indicates the button state of the mouse when the related event occurred.
+             * Use the button field to determine which mouse button was pressed when the related event occurred.
+             * @return A MouseButton value
+             */
+            button: Sys.UI.MouseButton;
+            /**
+             * Gets the character code of the key that raised the associated keyPress event.
+             * Use the charCode field to get the character code of a pressed key or key combination that raised a keyPress event.
+             * The keyPress event provides a single character code that identifies key combinations. 
+             * The keyPress event is not raised for single modifier keys such as ALT, CTRL, and SHIFT.
+             * 
+             * @return An integer value that represents the character code of the key or key combination that was pressed to raise the keyPress event.
+             */
+            charCode: number;
+            /**
+             * 
+             */
+            clientX: any; // todo
+
+            clientY: any; // todo
+
+            ctrlKey: any; // todo
+
+            keyCode: any; // todo
+
+            offsetX: any; // todo
+
+            offsetY: any; // todo
+
+            screenX: any; // todo
+
+            screenY: any; // todo
+
+            shiftKey: any; // todo
+
+            target: any; // todo
+
+            type: any; // todo
+
+            //#endregion
         }
         /**
         * Describes key codes.
+        * The values correspond to values in the Document Object Model (DOM).
         */
         enum Key {
-
+            /**
+             * Represents the BACKSPACE key.
+             */
+            backspace,
+            /*
+             * Represents the TAB key.
+             */
+            tab,
+            /**
+             * Represents the ENTER key.
+             */
+            enter,
+            /**
+             * Represents the ESC key.
+             */
+            esc,
+            /*
+             * Represents the SPACEBAR key.
+             */
+            space,
+            /**
+             * Represents the PAGE UP key.
+             */
+            pageUp,
+            /**
+             * Represents the PAGE DOWN key.
+             */
+            pageDown,
+            /**
+             * Represents the END key.
+             */
+            end,
+            /**
+             * Represents the HOME key.
+             */
+            home,
+            /**
+             * Represents the LEFT ARROW key.
+             */
+            left,
+            /**
+             * Represents the UP ARROW key.
+             */
+            up,
+            /**
+             * Represents the RIGHT ARROW key.
+             */
+            right,
+            /**
+             * Represents the DOWN ARROW key.
+             */
+            down,
+            /**
+             * Represents DELETE key.
+             */
+            del
         }
         /**
         * Describes mouse button locations.
@@ -2455,13 +2642,11 @@ declare module Sys {
             * @return An HTML DOM element.
             */
             get_postBackElement(): HTMLElement;
-
             /**
             * Gets the request object that represents the current postback.
             * @return An instance of the Sys.Net.WebRequest class.
             */
             get_request(): Sys.Net.WebRequest;
-
             /**
             * Gets a list of UniqueID values for UpdatePanel controls that should re-render their content, as requested by the client.
             * Server-side processing might update additional UpdatePanel controls.
@@ -2501,20 +2686,17 @@ declare module Sys {
             * @return A JSON data structure that contains name/value pairs that were registered as data items by using the RegisterDataItem method of the ScriptManager class.
             */
             get_dataItems(): any;
-
             /**
             * Gets the Error object.
             * @return A base ECMAScript (JavaScript) Error object.
             */
             get_error(): Error;
-
             /**
             * Get or sets a value that indicates whether the error has been handled.
             * Use this property to determine whether an asynchronous postback error has already been handled. If it has not and if you want to take action on the error, you can set the error as handled.
             * @return true if the error has been handled; otherwise false.  
             */
             get_errorHandled(): boolean;
-
             /**
             * Get or sets a value that indicates whether the error has been handled.
             * Use this property to determine whether an asynchronous postback error has already been handled. If it has not and if you want to take action on the error, you can set the error as handled.
@@ -2522,12 +2704,11 @@ declare module Sys {
             *         true or false.             
             */
             set_errorHandled(value: boolean): void;
-
             /**
             * Gets a response object that is represented by the Sys.Net.WebRequestExecutor class.
             * @return A response object that is represented by the WebRequestExecutor class.  
             */
-            get_response(): any; // todo
+            get_response(): Sys.Net.WebRequestExecutor;
 
             //#endregion
         }
@@ -2649,7 +2830,6 @@ declare module Sys {
             * @return A JSON data structure that contains name/value pairs that were registered as data items by using the RegisterDataItem method of the ScriptManager class.
             */
             get_dataItems(): any;
-
             /**
             * Gets an array of HTML <div> elements that represent UpdatePanel controls that will be deleted from the DOM as a result of the current asynchronous postback. 
             * If the contents of an UpdatePanel control will be deleted as the result of a partial-page update, the array that is referenced in the panelsDeleting property of the PageLoadingEventArgs class contains a reference to the corresponding <div> element. 
@@ -2657,7 +2837,6 @@ declare module Sys {
             * @return An array of <div> elements that will be deleted from the DOM. If no elements will be deleted, the property returns null.
             */
             get_panelsDeleted(): HTMLDivElement[];
-
             /**
             * Gets an array of HTML <div> elements that represent UpdatePanel controls that will be updated in the DOM as a result of the current asynchronous postback.
             * If the contents of any UpdatePanel controls will be updated as the result of a partial-page update, the panelsUpdating property contains an array that references the corresponding <div> elements. 
@@ -2672,6 +2851,7 @@ declare module Sys {
 
         /**
         * Manages client partial-page updates of server UpdatePanel controls. In addition, defines properties, events, and methods that can be used to customize a Web page with client script.
+        * @see {@link http://msdn.microsoft.com/en-us/library/bb311028(v=vs.100).aspx}
         */
         class PageRequestManager extends EventArgs {
 
@@ -2803,7 +2983,7 @@ declare module Sys {
         * @see {@link http://msdn.microsoft.com/en-us/library/bb397466(v=vs.100).aspx}
         */
         class PageRequestManagerParserErrorException {
-
+            // Nothing to define
         }
 
         /**
@@ -2814,7 +2994,7 @@ declare module Sys {
         * @see {@link http://msdn.microsoft.com/en-us/library/bb397466(v=vs.100).aspx}        *
         */
         class PageRequestManagerServerErrorException {
-
+            // Nothing to define
         }
 
         /**
@@ -2825,11 +3005,10 @@ declare module Sys {
         * @see {@link http://msdn.microsoft.com/en-us/library/bb397466(v=vs.100).aspx}
         */
         class PageRequestManagerTimeoutException {
-
+            // Nothing to define
         }
 
         //#endregion
-
 
     }
 
