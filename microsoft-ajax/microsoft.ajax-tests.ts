@@ -28,6 +28,68 @@ function GlobalNamespace_Tests() {
     
 }
 
+function BaseClassExtensions_Error_Tests() {
+
+    // http://msdn.microsoft.com/en-us/library/bb310947(v=vs.100).aspx
+
+    function validateNumberRange(input: any, min: number, max: number) {
+
+        // Verify the required parameters were defined.
+        if (input === undefined) {
+            // Throw a standard exception type.
+            var err = (<MicrosoftAjaxBaseTypeExtensions.Error>Error).argumentNull("input", "A parameter was undefined.");
+            throw err;
+        }
+        else if (min === undefined) {
+            var err = (<MicrosoftAjaxBaseTypeExtensions.Error>Error).argumentNull("min", "A parameter was undefined.");
+            throw err;
+        }
+        else if (max === undefined) {
+            var err = (<MicrosoftAjaxBaseTypeExtensions.Error>Error).argumentNull("max", "A parameter was undefined.");
+            throw err;
+        }
+        else if (min >= max) {
+            var err = (<MicrosoftAjaxBaseTypeExtensions.Error>Error).invalidOperation("The min parameter must be smaller than max parameter.");
+            throw err;
+        }
+        else if (isNaN(input)) {
+            var msg = "A number was not entered.  ";
+            msg += (<MicrosoftAjaxBaseTypeExtensions.String>String).format("Please enter a number between {0} and {1}.", min, max);
+
+            var err = (<MicrosoftAjaxBaseTypeExtensions.Error>Error).create(msg);
+            throw err;
+        }
+        else if (input < min || input > max) {
+            msg = "The number entered was outside the acceptable range.  ";
+            msg += (<MicrosoftAjaxBaseTypeExtensions.String>String).format("Please enter a number between {0} and {1}.", min, max);
+
+            var err = (<MicrosoftAjaxBaseTypeExtensions.Error>Error).create(msg);
+
+            throw err;
+        }
+
+        alert("The number entered was within the acceptable range.");
+    }
+
+    var input: any = undefined;
+    var min = -10;
+    var max = 10;
+
+    // Result: A thrown ErrorArgumentNull exception with the following Error object message:
+    // "Sys.ArgumentNullException: A parameter was undefined. Parameter name: input"
+    validateNumberRange(input, min, max);
+}
+
+function BaseClassExtensions_String_Tests() {
+
+    (<MicrosoftAjaxBaseTypeExtensions.String>String).format("Please enter a number between {0} and {1}.", 1, 2);
+    (<MicrosoftAjaxBaseTypeExtensions.String>String).endsWith("test");
+    (<MicrosoftAjaxBaseTypeExtensions.String>String).localeFormat("Please enter a number between {0} and {1}", 1, 2);
+    (<MicrosoftAjaxBaseTypeExtensions.String>String).trim();
+    (<MicrosoftAjaxBaseTypeExtensions.String>String).trimEnd();
+    (<MicrosoftAjaxBaseTypeExtensions.String>String).trimStart();
+}
+
 function BaseClassExtensions_Function_Tests() {
     
     /** Sample code from http://msdn.microsoft.com/en-us/library/dd409287(v=vs.100).aspx */
@@ -47,7 +109,7 @@ function BaseClassExtensions_Function_Tests() {
     /** Sample code from http://msdn.microsoft.com/en-us/library/dd393712(v=vs.100).aspx */
     var validateParametersTest = function () {
         var arguments = ['test1', 'test2'];
-        var insert = function Array$insert(array, index, item) {
+        var insert = function Array$insert(array: any[], index: number, item: any) {
             var e = (<MicrosoftAjaxBaseTypeExtensions.Function>Function).validateParameters(arguments, [
                 { name: "array", type: Array, elementMayBeNull: true },
                 { name: "index", mayBeNull: true },
@@ -88,8 +150,7 @@ function BaseClassExtensions_Date_Tests() {
 
 function BaseClassExtensions_Boolean_Tests() {
     
-   (<MicrosoftAjaxBaseTypeExtensions.Boolean>Boolean).parse("false");
-
+    (<MicrosoftAjaxBaseTypeExtensions.Boolean>Boolean).parse("false");
 }
 
 function BaseClassExtensions_Number_Tests() {
@@ -178,7 +239,7 @@ function Sys_CancelEventArgs_Tests() {
 
     Sys.WebForms.PageRequestManager.getInstance().add_initializeRequest(CheckStatus);
 
-    var CheckStatus = function(sender, args) {
+    var CheckStatus = function(sender: any, args: any) {
 
         var prm = Sys.WebForms.PageRequestManager.getInstance();
 
@@ -195,7 +256,7 @@ function Sys_CancelEventArgs_Tests() {
         }
     }
 
-    var ActivateAlertDiv = function(visString, msg) {
+    var ActivateAlertDiv = function(visString: string, msg: string) {
         var adiv = $get(divElem);
         var aspan = $get(messageElem);
         adiv.style.visibility = visString;
@@ -206,9 +267,9 @@ function Sys_CancelEventArgs_Tests() {
 function Sys_CollectionChange_Tests() {
 
     var action = Sys.NotifyCollectionChangedAction.add;
-    var newItems = [];
+    var newItems: any[] = [];
     var newStartingIndex = 1;
-    var oldItems = [];
+    var oldItems: any[] = [];
     var oldStartingIndex = 2;
 
     var MyCChg = new Sys.CollectionChange(action, newItems, newStartingIndex, oldItems, oldStartingIndex);
@@ -283,7 +344,7 @@ function Sys_UI_Key_Tests() {
 
 function Sys_UI_Control_Tests() {
 
-    var domElementObj;
+    var domElementObj: any;
     var className = "class Name";
 
     var a = new Sys.UI.Control(domElementObj);
@@ -316,7 +377,8 @@ function AspNetTypes_Tests() {
 
     Type.registerNamespace("Samples");
 
-    var Samples;
+    var Samples: any;
+
     Samples.A = function () { };
     var a = <Type> Samples.A;
     a.registerClass('Samples.A');
@@ -333,7 +395,7 @@ function AspNetTypes_Tests() {
 
     Samples.C.registerClass('Samples.C', Samples.A, Samples.B);
 
-    var isDerived;
+    var isDerived: boolean;
     isDerived = Samples.B.inheritsFrom(Samples.A);
     // Output: "false".
     alert(isDerived);
@@ -342,7 +404,7 @@ function AspNetTypes_Tests() {
     // Output: "true".
     alert(isDerived);
 
-    var implementsInterface;
+    var implementsInterface: boolean;
     implementsInterface = Samples.C.implementsInterface(Samples.B);
     // Output: "true".
     alert(implementsInterface);
@@ -369,7 +431,7 @@ function CreatingCustomNonVisualClientComponentsTests() {
             /// <value type="Number">Interval in milliseconds</value>
             return this._interval;
         },
-        set_interval: function (value) {
+        set_interval: function (value: any) {
             if (this._interval !== value) {
                 this._interval = value;
                 this.raisePropertyChanged('interval');
@@ -384,7 +446,7 @@ function CreatingCustomNonVisualClientComponentsTests() {
             /// <value type="Boolean">True if timer is enabled, false if disabled.</value>
             return this._enabled;
         },
-        set_enabled: function (value) {
+        set_enabled: function (value: any) {
             if (value !== this.get_enabled()) {
                 this._enabled = value;
                 this.raisePropertyChanged('enabled');
@@ -400,12 +462,12 @@ function CreatingCustomNonVisualClientComponentsTests() {
         },
 
         // events
-        add_tick: function (handler) {
+        add_tick: function (handler: Function) {
             /// <summary>Adds a event handler for the tick event.</summary>
             /// <param name="handler" type="Function">The handler to add to the event.</param>
             this.get_events().addHandler("tick", handler);
         },
-        remove_tick: function (handler) {
+        remove_tick: function (handler: Function) {
             /// <summary>Removes a event handler for the tick event.</summary>
             /// <param name="handler" type="Function">The handler to remove from the event.</param>
             this.get_events().removeHandler("tick", handler);
