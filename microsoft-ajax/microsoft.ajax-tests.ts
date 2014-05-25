@@ -45,7 +45,6 @@ function BaseClassExtensions_Function_Tests() {
     };
 }
  
-
 function Sys_Application_Tests() {
 
     var component = new Sys.Component();
@@ -99,7 +98,6 @@ function Sys_Application_Tests() {
     Sys.Application.get_isDisposing();
 }
 
-
 function Sys_Application_LoadEventArgs_Tests() {
     var a = new Sys.ApplicationLoadEventArgs(new Array<Sys.Component>(), true);
 
@@ -107,12 +105,9 @@ function Sys_Application_LoadEventArgs_Tests() {
     var isPartialReload = a.get_isPartialLoad();
 }
 
-
 function Sys_Browser_Tests() {
     var browser = Sys.Browser();
 }
-
-
 
 function Sys_CancelEventArgs_Tests() {
 
@@ -148,7 +143,6 @@ function Sys_CancelEventArgs_Tests() {
     }
 }
 
-
 function Sys_CollectionChange_Tests() {
     var action = Sys.NotifyCollectionChangedAction.add;
     var newItems = [];
@@ -165,7 +159,6 @@ function Sys_CollectionChange_Tests() {
     oldStartingIndex = MyCChg.oldStartingIndex;
 }
 
-
 function Sys_CommandEventArg_Tests() {
     var commandName = "command name";
     var commandArgument = "command argument";
@@ -175,7 +168,6 @@ function Sys_CommandEventArg_Tests() {
     commandName = argsObj.get_commandName();
     commandArgument = argsObj.get_commandArgument();
 }
-
 
 function Sys_Component_Tests() {
     var aComponent = new Sys.Component();
@@ -207,6 +199,15 @@ function Sys_Component_Tests() {
     aComponent.updated();
 }
 
+function Sys_UI_Key_Tests() {
+    
+    var a = Sys.UI.Key.backspace;
+
+    var b = Sys.UI.Key.del;
+
+    var c = Sys.UI.Key.down;
+}
+
 function Sys_CultureInfo_Tests() {
     var currentCultureInfoObj = Sys.CultureInfo.CurrentCulture;
     var dtfCCObject = currentCultureInfoObj.dateTimeFormat;
@@ -219,7 +220,6 @@ function Sys_CultureInfo_Tests() {
     var name = newCulture.name;
     var numberFormat = newCulture.numberFormat;
 }
-
 
 function AspNetTypes_Tests() {
     Type.registerNamespace("Samples");
@@ -256,8 +256,6 @@ function AspNetTypes_Tests() {
     // Output: "true".
     alert(implementsInterface);
 }
-
-
 
 /** Sample code from http://msdn.microsoft.com/en-us/library/bb386520(v=vs.100).aspx */
 function CreatingCustomNonVisualClientComponentsTests() {
