@@ -57,6 +57,50 @@ function BaseClassExtensions_Function_Tests() {
         }
     };
 }
+
+function BaseClassExtensions_Array_Tests() {
+
+    var arrayVar = Array<string>("one", "two", "three");
+
+    arrayVar.add(["one"], {});
+    arrayVar.addRange({}, ["one", "two", "three"]);
+    arrayVar.clear();
+    arrayVar.clone();
+    arrayVar.contains({});
+    arrayVar.dequeue();
+    arrayVar.enqueue({});
+    arrayVar.insert([1, 2, 3], 1, {});
+    arrayVar.isArray({});
+    arrayVar.parse("1, 2, 3, 4, 5");
+    arrayVar.remove([1, 2, 3], 2);
+    arrayVar.removeAt([1, 2, 3], 1);
+
+}
+
+function BaseClassExtensions_Date_Tests() {
+
+    var date = new Date(2014, 5, 25);
+    date.format("g");
+    date.localeFormat("g");
+    date.parseLocale("2014/05/25");
+    date.parseInvariant("2014/05/25");
+}
+
+function BaseClassExtensions_Boolean_Tests() {
+    
+   (<MicrosoftAjaxBaseTypeExtensions.Boolean>Boolean).parse("false");
+
+}
+
+function BaseClassExtensions_Number_Tests() {
+
+    var x: number = 5;
+
+    x.format("d");
+    x.localeFormat("c");
+    x.parseInvariant("1");
+    x.parseLocale("1");
+}
  
 function Sys_Application_Tests() {
 

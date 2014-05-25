@@ -13,6 +13,251 @@
 
 //#region JavaScript Base Type Extensions
 
+
+/**
+* Provides extended reflection-like functionality to the base ECMAScript (JavaScript) Object object.
+* Object Type Extensions
+* @see {@link http://msdn.microsoft.com/en-us/library/bb397554(v=vs.100).aspx}
+*/
+interface Object {
+    /**
+    * Formats a number by using the invariant culture.
+    */
+    getType(instance: any): Type;
+    /**
+    * Returns a string that identifies the run-time type name of an object.
+    */
+    getTypeName(instance: any): string;
+}
+
+/**
+* Provides extensions to the base ECMAScript (JavaScript) Array functionality by adding static methods.
+* Array Type Extensions
+* @see {@link http://msdn.microsoft.com/en-us/library/bb383786(v=vs.100).aspx}
+*/
+interface Array {
+
+    new (arrayLength?: number): any[];
+    new <T>(arrayLength: number): T[];
+    new <T>(...items: T[]): T[];
+    (arrayLength?: number): any[];
+    <T>(arrayLength: number): T[];
+    <T>(...items: T[]): T[];
+    isArray(arg: any): boolean;
+    prototype: Array<any>;
+
+    /**
+    * Adds an element to the end of an Array object. This function is static and is invoked without creating an instance of the object.
+    * @param array
+    *       The array to add the item to.
+    * @param item
+    *       
+    */
+    add(array: any[], element: any): void;
+    /**
+    * Copies all the elements of the specified array to the end of an Array object.
+    */
+    addRange(array: any, items: any): void;
+    /**
+    * Removes all elements from an Array object.
+    */
+    clear(): void;
+    /**
+    * Creates a shallow copy of an Array object.
+    */
+    clone(): any[];
+    /**
+    * Determines whether an element is in an Array object.
+    */
+    contains(element: any): boolean;
+    /**
+    * Removes the first element from an Array object.
+    */
+    dequeue(): any;
+    /**
+    * Adds an element to the end of an Array object. Use the add function instead of the Array.enqueue function.
+    */
+    enqueue(element: any): void;
+    /**
+    * Performs a specified action on each element of an Array object.
+    */
+    forEach(array: any[], method: Function, instance: any[]): void;
+    /**
+    * Searches for the specified element of an Array object and returns its index.
+    */
+    indexOf(array: any[], item: any, startIndex?: number): number;
+    /**
+    * Inserts a value at the specified location in an Array object.
+    */
+    insert(array: any[], index: number, item: any);
+    /**
+    * Creates an Array object from a string representation.
+    */
+    parse(value: string): any[];
+    /**
+    * Removes the first occurrence of an element in an Array object.
+    */
+    remove(array: any[], item: any): boolean;
+    /**
+    * Removes an element at the specified location in an Array object.
+    */
+    removeAt(array: any[], index: number): void;
+}
+
+/**
+    * Provides extensions to the base ECMAScript (JavaScript) String object by including static and instance methods.
+    * String Type Extensions
+    * @see {@link http://msdn.microsoft.com/en-us/library/bb397472(v=vs.100).aspx}
+    */
+interface String {
+    /**
+    * Formats a number by using the invariant culture.
+    * @returns true if the end of the String object matches suffix; otherwise, false.
+    */
+    endsWith(suffix: string): boolean;
+    /**
+    * Replaces each format item in a String object with the text equivalent of a corresponding object's value.
+    * @returns A copy of the string with the formatting applied.
+    */
+    format(format: string, ...args: any[]): string;
+    /**
+    * Replaces the format items in a String object with the text equivalent of a corresponding object's value. The current culture is used to format dates and numbers.
+    * @returns A copy of the string with the formatting applied.
+    */
+    localeFormat(format: string, ...args: any[]): string;
+    /**
+    * Removes leading and trailing white-space characters from a String object.
+    * @returns A copy of the string with all white-space characters removed from the start and end of the string.
+    */
+    trim(): string;
+    /**
+    * Removes trailing white-space characters from a String object.
+    * @returns A copy of the string with all white-space characters removed from the end of the string.
+    */
+    trimEnd(): string;
+    /**
+    * Removes leading white-space characters from a String object.
+    * @returns A copy of the string with all white-space characters removed from the start of the string.
+    */
+    trimStart(): string;
+}
+
+/**
+* Extends the base ECMAScript (JavaScript) Number functionality with static and instance methods.
+* Number Type Extensions
+* @see {@link http://msdn.microsoft.com/en-us/library/bb310835(v=vs.100).aspx}
+*/
+interface Number {
+    /**
+    * Formats a number by using the invariant culture.
+    */
+    format(format: string): string;
+    /**
+    * Formats a number by using the current culture.
+    */
+    localeFormat(format: string): string;
+    /**
+    * Returns a numeric value from a string representation of a number. This function is static and can be called without creating an instance of the object.
+    */
+    parseInvariant(format: string): number;
+    /**
+    * Creates a numeric value from a locale-specific string.
+    */
+    parseLocale(format: string): number;
+}
+
+/**
+* Provides static functions that extend the built-in ECMAScript (JavaScript) Error type by including exception details and support for application-compilation modes (debug or release).
+* Error Type Extensions
+* @see {@link http://msdn.microsoft.com/en-us/library/bb310947(v=vs.100).aspx}
+*/
+interface Error {
+    /**
+    * Creates an Error object that represents the Sys.ParameterCountException exception.
+    */
+    parameterCount(message?: string): Error;
+    /**
+    * Creates an Error object that represents the Sys.NotImplementedException exception.
+    */
+    notImplemented(message?: string): Error;
+    /**
+    * Creates an Error object that represents the Sys.ArgumentException exception.
+    */
+    argument(paramName?: any, message?: string): Error;
+    /**
+    * Creates an Error object that represents the Sys.ArgumentNullException exception.
+    */
+    argumentNull(paramName?: any, message?: string): Error;
+    /**
+    * Creates an Error object that represents the Sys.ArgumentOutOfRangeException exception.
+    */
+    argumentOutOfRange(paramName?: string, actualValue?: any, message?: string): Error;
+    /**
+    * Creates an Error object that represents the Sys.ArgumentTypeException exception.
+    */
+    argumentType(paramName?: string, actualType?: any, expectedType?: any, message?: string): Error;
+    /**
+    * Creates an Error object that represents the Sys.ArgumentUndefinedException exception.
+    */
+    argumentUndefined(paramName?: string, message?: string): Error;
+    /**
+    * Creates an Error object that can contain additional error information.
+    */
+    create(message?: string, errorInfo?: Object): Error;
+    /**
+    * Creates an Error object that represents the Sys.FormatException exception.
+    */
+    format(message?: string): Error;
+    /**
+    * Creates an Error object that represents the Sys.InvalidOperationException exception.
+    */
+    invalidOperation(message?: string): Error;
+    /**
+    * Updates the fileName and lineNumber properties of an Error instance to indicate where the error was thrown instead of where the error was created. Use this function if you are creating custom error types.
+    */
+    popStackFrame(): void;
+}
+
+/**
+* Provides extensions to the base ECMAScript (JavaScript) Date object.
+* Date Type Extensions
+* @see {@link http://msdn.microsoft.com/en-us/library/bb310850(v=vs.100).aspx}
+*/
+interface Date {
+
+    /**
+    * Formats a date by using the invariant (culture-independent) culture.
+    */
+    format(value: string): string;
+    /**
+    * Formats a date by using the current culture. This function is static and can be invoked without creating an instance of the object.
+    */
+    localeFormat(value: string): string;
+    /**
+    * Creates a date from a locale-specific string by using the current culture. This function is static and can be invoked without creating an instance of the object.
+    * @exception (Debug) formats contains an invalid format.
+    * @param value
+    *           A locale-specific string that represents a date.
+    * @param formats
+    *           (Optional) An array of custom formats.
+    */
+    parseLocale(value: string): string;
+    parseLocale(value: string, formats?: string[]): string;
+    parseLocale(value: string, ...formats: string[]): string;
+    /**
+    * Creates a date from a string by using the invariant culture. This function is static and can be invoked without creating an instance of the object.
+    * @return If value is a valid string representation of a date in the invariant format, an object of type Date; otherwise, null.
+    * @param value
+    *           A locale-specific string that represents a date.
+    * @param formats
+    *           (Optional) An array of custom formats.
+    */
+    parseInvariant(value: string): string;
+    parseInvariant(value: string, formats?: string[]): string;
+    parseInvariant(value: string, ...formats: string[]): string;
+}
+
+
 declare module MicrosoftAjaxBaseTypeExtensions {
 
     /**
@@ -54,259 +299,21 @@ declare module MicrosoftAjaxBaseTypeExtensions {
     }
 
     /**
-    * Provides extended reflection-like functionality to the base ECMAScript (JavaScript) Object object.
-    * Object Type Extensions
-    * @see {@link http://msdn.microsoft.com/en-us/library/bb397554(v=vs.100).aspx}
-    */
-    interface Object {
-        /**
-        * Formats a number by using the invariant culture.
-        */
-        getType(instance: any): Type;
-        /**
-        * Returns a string that identifies the run-time type name of an object.
-        */
-        getTypeName(instance: any): string;
-    }
-
-    /**
-    * Provides extensions to the base ECMAScript (JavaScript) String object by including static and instance methods.
-    * String Type Extensions
-    * @see {@link http://msdn.microsoft.com/en-us/library/bb397472(v=vs.100).aspx}
-    */
-    interface String {
-        /**
-        * Formats a number by using the invariant culture.
-        * @returns true if the end of the String object matches suffix; otherwise, false.
-        */
-        endsWith(suffix: string): boolean;
-        /**
-        * Replaces each format item in a String object with the text equivalent of a corresponding object's value.
-        * @returns A copy of the string with the formatting applied.
-        */
-        format(format: string, ...args: any[]): string;
-        /**
-        * Replaces the format items in a String object with the text equivalent of a corresponding object's value. The current culture is used to format dates and numbers.
-        * @returns A copy of the string with the formatting applied.
-        */
-        localeFormat(format: string, ...args: any[]): string;
-        /**
-        * Removes leading and trailing white-space characters from a String object.
-        * @returns A copy of the string with all white-space characters removed from the start and end of the string.
-        */
-        trim(): string;
-        /**
-        * Removes trailing white-space characters from a String object.
-        * @returns A copy of the string with all white-space characters removed from the end of the string.
-        */
-        trimEnd(): string;
-        /**
-        * Removes leading white-space characters from a String object.
-        * @returns A copy of the string with all white-space characters removed from the start of the string.
-        */
-        trimStart(): string;
-    }
-
-    /**
-    * Extends the base ECMAScript (JavaScript) Number functionality with static and instance methods.
-    * Number Type Extensions
-    * @see {@link http://msdn.microsoft.com/en-us/library/bb310835(v=vs.100).aspx}
-    */
-    interface Number {
-        /**
-        * Formats a number by using the invariant culture.
-        */
-        format(format: string): string;
-        /**
-        * Formats a number by using the current culture.
-        */
-        localeFormat(format: string): string;
-        /**
-        * Returns a numeric value from a string representation of a number. This function is static and can be called without creating an instance of the object.
-        */
-        parseInvariant(format: string): number;
-        /**
-        * Creates a numeric value from a locale-specific string.
-        */
-        parseLocale(format: string): number;
-    }
-
-    /**
-    * Provides static functions that extend the built-in ECMAScript (JavaScript) Error type by including exception details and support for application-compilation modes (debug or release).
-    * Error Type Extensions
-    * @see {@link http://msdn.microsoft.com/en-us/library/bb310947(v=vs.100).aspx}
-    */
-    interface Error {
-        /**
-        * Creates an Error object that represents the Sys.ParameterCountException exception.
-        */
-        parameterCount(message?: string): Error;
-        /**
-        * Creates an Error object that represents the Sys.NotImplementedException exception.
-        */
-        notImplemented(message?: string): Error;
-        /**
-        * Creates an Error object that represents the Sys.ArgumentException exception.
-        */
-        argument(paramName?: any, message?: string): Error;
-        /**
-        * Creates an Error object that represents the Sys.ArgumentNullException exception.
-        */
-        argumentNull(paramName?: any, message?: string): Error;
-        /**
-        * Creates an Error object that represents the Sys.ArgumentOutOfRangeException exception.
-        */
-        argumentOutOfRange(paramName?: string, actualValue?: any, message?: string): Error;
-        /**
-        * Creates an Error object that represents the Sys.ArgumentTypeException exception.
-        */
-        argumentType(paramName?: string, actualType?: any, expectedType?: any, message?: string): Error;
-        /**
-        * Creates an Error object that represents the Sys.ArgumentUndefinedException exception.
-        */
-        argumentUndefined(paramName?: string, message?: string): Error;
-        /**
-        * Creates an Error object that can contain additional error information.
-        */
-        create(message?: string, errorInfo?: Object): Error;
-        /**
-        * Creates an Error object that represents the Sys.FormatException exception.
-        */
-        format(message?: string): Error;
-        /**
-        * Creates an Error object that represents the Sys.InvalidOperationException exception.
-        */
-        invalidOperation(message?: string): Error;
-        /**
-        * Updates the fileName and lineNumber properties of an Error instance to indicate where the error was thrown instead of where the error was created. Use this function if you are creating custom error types.
-        */
-        popStackFrame(): void;
-    }
-
-    /**
-    * Provides extensions to the base ECMAScript (JavaScript) Date object.
-    * Date Type Extensions
-    * @see {@link http://msdn.microsoft.com/en-us/library/bb310850(v=vs.100).aspx}
-    */
-    interface Date {
-        /**
-        * Formats a date by using the invariant (culture-independent) culture.
-        */
-        format(value: string): string;
-        /**
-        * Formats a date by using the current culture. This function is static and can be invoked without creating an instance of the object.
-        */
-        localeFormat(value: string): string;
-        /**
-        * Creates a date from a locale-specific string by using the current culture. This function is static and can be invoked without creating an instance of the object.
-        * @exception (Debug) formats contains an invalid format.
-        * @param value
-        *           A locale-specific string that represents a date.
-        * @param formats
-        *           (Optional) An array of custom formats.
-        */
-        parseLocale(value: string): string;
-        parseLocale(value: string, formats?: string[]): string;
-        parseLocale(value: string, ...formats: string[]): string;
-        /**
-        * Creates a date from a string by using the invariant culture. This function is static and can be invoked without creating an instance of the object.
-        * @return If value is a valid string representation of a date in the invariant format, an object of type Date; otherwise, null.
-        * @param value
-        *           A locale-specific string that represents a date.
-        * @param formats
-        *           (Optional) An array of custom formats.
-        */
-        parseInvariant(value: string): string;
-        parseInvariant(value: string, formats?: string[]): string;
-        parseInvariant(value: string, ...formats: string[]): string;
-    }
-
-    /**
-    * Provides extensions to the base ECMAScript (JavaScript) Array functionality by adding static methods.
-    * Array Type Extensions
-    * @see {@link http://msdn.microsoft.com/en-us/library/bb383786(v=vs.100).aspx}
-    */
-    interface Array<T> {
-
-        new (arrayLength?: number): any[];
-        new <T>(arrayLength: number): T[];
-        new <T>(...items: T[]): T[];
-        (arrayLength?: number): any[];
-        <T>(arrayLength: number): T[];
-        <T>(...items: T[]): T[];
-        isArray(arg: any): boolean;
-        prototype: Array<T>;
-
-        /**
-        * Adds an element to the end of an Array object. This function is static and is invoked without creating an instance of the object.
-        * @param array
-        *       The array to add the item to.
-        * @param item
-        *       
-        */
-        add(array: any[], element: any): void;
-        /**
-        * Copies all the elements of the specified array to the end of an Array object.
-        */
-        addRange(array: any, items: any): void;
-        /**
-        * Removes all elements from an Array object.
-        */
-        clear(): void;
-        /**
-        * Creates a shallow copy of an Array object.
-        */
-        clone(): any[];
-        /**
-        * Determines whether an element is in an Array object.
-        */
-        contains(element: any): boolean;
-        /**
-        * Removes the first element from an Array object.
-        */
-        dequeue(): any;
-        /**
-        * Adds an element to the end of an Array object. Use the add function instead of the Array.enqueue function.
-        */
-        enqueue(element: any): void;
-        /**
-        * Performs a specified action on each element of an Array object.
-        */
-        forEach(array: any[], method: Function, instance: any[]): void;
-        /**
-        * Searches for the specified element of an Array object and returns its index.
-        */
-        indexOf(array: any[], item: any, startIndex?: number): number;
-        /**
-        * Inserts a value at the specified location in an Array object.
-        */
-        insert(array: any[], index: number, item: any);
-        /**
-        * Creates an Array object from a string representation.
-        */
-        parse(value: string): any[];
-        /**
-        * Removes the first occurrence of an element in an Array object.
-        */
-        remove(array: any[], item: any): boolean;
-        /**
-        * Removes an element at the specified location in an Array object.
-        */
-        removeAt(array: any[], index: number): void;
-    }
-
-    /**
     * Provides extensions to the base ECMAScript (JavaScript) Boolean object. 
     * Boolean Type Extensions
     * @see {@link http://msdn.microsoft.com/en-us/library/bb397557(v=vs.100).aspx}
     */
     interface Boolean {
+
+        new (value?: any): Boolean;
+        (value?: any): boolean;
+        prototype: Boolean;
+
         /**
         * Converts a string representation of a logical value to its Boolean object equivalent.
         */
-        parse(value: string): boolean;
+        parse(value: string): Boolean;
     }
-
 }
 
 //#endregion
