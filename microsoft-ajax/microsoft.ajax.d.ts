@@ -2598,6 +2598,8 @@ declare module Sys {
         */
         class ProfileService {
 
+            new(): ProfileService;
+
             //#region Fields
 
             /**
@@ -2644,6 +2646,76 @@ declare module Sys {
              *      User context information passed to the callback functions.
              */
             static save(propertyNames: string[], saveCompletedCallback: Function, failedCallback: Function, userContext: any): void;
+
+            //#endregion
+
+            //#region Properties
+
+            /**
+             * Gets or sets the name of the default failure callback function.
+             * @param value
+             *      A string that contains the name of the default failure callback function.
+             */
+            static set_defaultFailedCallback(value: string): void;
+            static get_defaultFailedCallback(): Function;
+            /**
+             * Gets or sets the name of the default load-completed callback function.
+             * 
+             * @param value
+             *      A string that contains the name of the default load-completed callback function.
+             */
+            static set_defaultLoadCompletedCallback(value: string): void;
+            static get_defaultLoadCompletedCallback(): Function;
+            /**
+             * Gets or sets the name of the default save-completed callback function.
+             * @param value
+             *      A string that contains the name of the default save-completed callback function.
+             */
+            static set_defaultSaveCompletedCallback(value: string): void;
+            static get_defaultSaveCompletedCallback(): Function;
+            /**
+             * Gets or sets the default succeeded callback function for the service.
+             * @return 
+             *      A reference to the succeeded callback function for the service.
+             */
+            static defaultSucceededCallback(): Function;
+            static defaultSucceededCallback(value: Function);
+            /**
+             * Gets or sets the default user context for the service.
+             * @return 
+             *      A reference to the user context for the service.
+             */
+            static defaultUserContext(): Object;
+            /**
+             * Gets or sets the default user context for the service.
+             */
+            static defaultUserContext(value: Object);
+            /**
+             * Gets or sets the profile service path.
+             * @param value
+             *          A string that contains the profile service path.
+             */
+            static set_path(value: string);
+            /**
+             * Gets or sets the profile service path.
+             * @return 
+             *      The profile path
+             */
+            static get_path(): string;
+
+            /**
+             * Gets or sets the profile service time-out value.
+             * The timeout property represents the time in milliseconds that the current instance of the Sys.Net.WebRequestExecutor class should wait before timing out the request.
+             * By setting a time-out interval, you can make sure that a pending request returns based on a time interval that you specify, instead of waiting for the asynchronous communication layer to time out.
+             * 
+             * @param value
+             *          The time-out value in milliseconds.
+             */
+            static set_timeout(value: number);
+            /**
+             * Gets or sets the profile service time-out value.
+             */
+            static get_timeout(): number;
 
             //#endregion
         }
