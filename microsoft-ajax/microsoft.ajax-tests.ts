@@ -8,11 +8,24 @@ function GlobalNamespace_Tests() {
 
     var arrayVar = new Array("Saturn", "Mars", "Jupiter");
 
+    // Get
+    $get("Button1");
+    $get("Button1", $get("Button2"));
+    
+    // Add handler
     $addHandler($get("Button1"), "click", () => { });
     $addHandlers($get("Button1"), {});
+
+    // Remove handler
     $removeHandler($get("Button1"), "click", () => { });
+
+    // Find
     $find('MyComponent');
     $find('MyComponent', $find('#test'));
+
+    // Clear
+    $clearHandlers($get("Button1"));
+    
 }
 
 function BaseClassExtensions_Function_Tests() {
@@ -99,6 +112,7 @@ function Sys_Application_Tests() {
 }
 
 function Sys_Application_LoadEventArgs_Tests() {
+
     var a = new Sys.ApplicationLoadEventArgs(new Array<Sys.Component>(), true);
 
     var components = a.get_components();
@@ -106,7 +120,9 @@ function Sys_Application_LoadEventArgs_Tests() {
 }
 
 function Sys_Browser_Tests() {
+
     var browser = Sys.Browser();
+
 }
 
 function Sys_CancelEventArgs_Tests() {
@@ -144,6 +160,7 @@ function Sys_CancelEventArgs_Tests() {
 }
 
 function Sys_CollectionChange_Tests() {
+
     var action = Sys.NotifyCollectionChangedAction.add;
     var newItems = [];
     var newStartingIndex = 1;
@@ -160,6 +177,7 @@ function Sys_CollectionChange_Tests() {
 }
 
 function Sys_CommandEventArg_Tests() {
+
     var commandName = "command name";
     var commandArgument = "command argument";
     var commandSource = "command source";
@@ -170,6 +188,7 @@ function Sys_CommandEventArg_Tests() {
 }
 
 function Sys_Component_Tests() {
+
     var aComponent = new Sys.Component();
     var properties: any;
     var events: any;
@@ -200,15 +219,43 @@ function Sys_Component_Tests() {
 }
 
 function Sys_UI_Key_Tests() {
-    
-    var a = Sys.UI.Key.backspace;
 
-    var b = Sys.UI.Key.del;
+    var backspace = Sys.UI.Key.backspace;
+    var del = Sys.UI.Key.del;
+    var down = Sys.UI.Key.down;
+    var end = Sys.UI.Key.end;
+    var pageDown = Sys.UI.Key.pageDown;
+    var pageUp = Sys.UI.Key.pageUp;
+    var home = Sys.UI.Key.home;
+    var enter = Sys.UI.Key.enter;
+    var esc = Sys.UI.Key.esc;
+    var tab = Sys.UI.Key.tab;
+    var key = Sys.UI.Key.up;
+    var left = Sys.UI.Key.left;
+    var right = Sys.UI.Key.right;
+    var space = Sys.UI.Key.space;
 
-    var c = Sys.UI.Key.down;
+}
+
+function Sys_UI_Control_Tests() {
+
+    var domElementObj;
+    var className = "class Name";
+
+    var a = new Sys.UI.Control(domElementObj);
+
+    a.addCssClass(className);
+    a.toggleCssClass(className);
+    a.removeCssClass(className);
+   
+    a.initialize();
+    a.raiseBubbleEvent(domElementObj, className);
+    a.onBubbleEvent(domElementObj, className);
+    a.dispose();
 }
 
 function Sys_CultureInfo_Tests() {
+
     var currentCultureInfoObj = Sys.CultureInfo.CurrentCulture;
     var dtfCCObject = currentCultureInfoObj.dateTimeFormat;
     var invariantCultureInfoObj = Sys.CultureInfo.InvariantCulture;
