@@ -86,7 +86,7 @@ str = range.toString();
 bool = range.test(ver);
 
 var sets:SemVerModule.Comparator[][];
-sets = range.set();
+sets = range.set;
 
 var lims:SemVerModule.Comparator[];
 lims = range.parseRange(str);
