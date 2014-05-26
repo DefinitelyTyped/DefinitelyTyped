@@ -496,6 +496,26 @@ function Sys_Services_Profile_Service_Group_Tests() {
 
 }
 
+function Sys_Net_NetworkRequestEventArgsTests() {
+
+    var value = new Sys.Net.WebRequest();
+    var netWorkEventArgs = new Sys.Net.NetWorkRequestEventArgs(value);
+    var webRequest = netWorkEventArgs.get_webRequest();
+}
+
+function Sys_Net_WebRequestManagerTests() {
+    
+    var handler = (sender: any, args: any) => { }
+
+    Sys.Net.WebRequestManager.add_completedRequest(handler);
+    Sys.Net.WebRequestManager.add_invokingRequest(handler);
+    Sys.Net.WebRequestManager.executeRequest(new Sys.Net.WebRequest());
+    Sys.Net.WebRequestManager.remove_completedRequest(handler);
+    Sys.Net.WebRequestManager.set_defaultTimeout(100);
+    var customDefaultTimeout = Sys.Net.WebRequestManager.get_defaultTimeout();
+
+}
+
 function AspNetTypes_Tests() {
 
     Type.registerNamespace("Samples");
