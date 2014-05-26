@@ -223,6 +223,8 @@ function TestLocatorStrategies() {
     webElement = ptor.findElement(protractor.By.model('model'));
     webElement = ptor.findElement(protractor.By.textarea('textarea'));
     webElement = ptor.findElement(protractor.By.repeater('repeater'));
+    webElement = ptor.findElement(protractor.By.buttonText('buttonText'));
+    webElement = ptor.findElement(protractor.By.partialButtonText('partialButtonText'));
 }
 
 // This function tests the methods that were added to the base WebElement class
