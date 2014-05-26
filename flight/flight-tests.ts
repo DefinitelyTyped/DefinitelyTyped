@@ -18,7 +18,7 @@ function TestComponent() {
         var el: HTMLElement = data.el;
         self.select('fooSelector').addClass('bar');
     };
-                                           
+
     self.around('initialize', function () { });
     self.before('initialize', function () { });
     self.after("initialize", function () {
