@@ -93,7 +93,7 @@ declare module Twitter.Typeahead {
          * @param query Function that computes the suggestion set (i.e. an array of JavaScript objects) 
          * @param callback Invoke after set is computed. Can be invoked synchronously or asynchronously. 
          */
-        source(query, callback): void;
+        source(query: string, callback: () => any[]): void;
 
         /**
           * The name of the dataset. This will be appended to tt-dataset- to form the class name of the containing DOM element. 
@@ -336,12 +336,12 @@ declare module Twitter.Typeahead {
 }
 
 declare class Bloodhound<T> {
-        constructor(options: Twitter.Typeahead.BloodhoundOptions<T>)
+    constructor(options: Twitter.Typeahead.BloodhoundOptions<T>)
 
-        /**
-          * wraps the suggestion engine in an adapter that is compatible with the typeahead jQuery plugin
-          */
-        public ttAdapter(): any;
+    /**
+      * wraps the suggestion engine in an adapter that is compatible with the typeahead jQuery plugin
+      */
+    public ttAdapter(): (query: string, callback: () => T[]) => void;
 
     /**
       * Kicks off the initialization of the suggestion engine. This includes processing the data provided through local and fetching/processing the data provided through prefetch. 
