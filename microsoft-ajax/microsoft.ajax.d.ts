@@ -2245,6 +2245,53 @@ declare module Sys {
     module Net {
 
         /**
+         * Generated Proxy Classes
+         * Enables your application to call Web services asynchronously by using ECMAScript (JavaScript).
+         * @see {@link http://msdn.microsoft.com/en-us/library/bb310823(v=vs.100).aspx}
+         */
+        // Cannot create definitions for generated proxy classes.
+        
+        /**
+         * Contains information about a Web request that is ready to be sent to the current Sys.Net.WebRequestExecutor instance.
+         * This class represents the type for the second parameter of the callback function added by the add_invokingRequest method. 
+         * The callback function is called before the Web request is routed to the current instance of the WebRequestExecutor class.
+         * 
+         * @see {@link http://msdn.microsoft.com/en-us/library/bb397488(v=vs.100).aspx}
+         */
+        class NetWorkRequestEventArgs {
+            
+            //#region Constructors
+
+            /**
+             * Initializes a new instance of the Sys.Net.NetworkRequestEventArgs. class.
+             * @param value
+             *      The current WebRequest instance.
+             */
+            constructor(value: WebRequest);
+
+            //#endregion
+
+            //#region Methods
+
+            //#endregion
+
+            //#region Properties
+
+            /**
+             * Gets the Web request to be routed to the current Sys.Net.WebRequestExecutor instance.
+             * Use this property to inspect the contents of a Web request before it is routed to the current instance of the Sys.Net.WebRequestExecutor class.
+             * You can access the Web request instance from the handler that is called before the request is routed. 
+             * This event handler is added by using the add_invokingRequest method.
+             * @return 
+             *      The WebRequest.
+             */
+            get_webRequest(): WebRequest;
+
+            //#endregion
+
+        }
+
+        /**
         * Provides the script API to make a Web request.
         * @see {@link http://msdn.microsoft.com/en-us/library/bb310979(v=vs.100).aspx}
         */
@@ -2404,6 +2451,95 @@ declare module Sys {
 
             //#endregion
         }
+
+
+        /**
+         * Manages the flow of the Web requests issued by the Sys.Net.WebRequest object to the associated executor object.
+         * @see {@link http://msdn.microsoft.com/en-us/library/bb397435(v=vs.100).aspx}
+         */
+        class IWebRequestManager {
+
+            //#region Constructor
+
+            /**
+             * Initializes a new instance of the Sys.Net.WebRequestManager class when implemented in a derived class.
+             */
+            constructor();
+
+            //#endregion
+
+            //#region Methods
+
+            /**
+             * Registers a handler for the completed request event of the WebRequestManager.
+             * @param handler
+             *      The function registered to handle the completed request event.
+             */
+            add_completedRequest(handler: (sender: any, eventArgs: any) => void): void;
+            /**
+             * Registers a handler for processing the invoking request event of the WebRequestManager.
+             * @param handler
+             *      The function registered to handle the invoking request event.
+             */
+            add_invokingRequest(handler: (sender: any, networkRequestEventArgs: any) => void): void;
+            /**
+             * Sends Web requests to the default network executor. 
+             * This member supports the client-script infrastructure and is not intended to be used directly from your code.
+             * @param WebRequest
+             *      An instance of the Sys.Net.WebRequest class.
+             */
+            executeRequest(WebRequest: Sys.Net.WebRequest): void;
+            /**
+             * Removes the event handler set by the add_completedRequest method. 
+             * Use the remove_ completedRequest method to remove the event handler you set using the add_ completedRequest method.
+             * @param handler
+             *      The function that handles the completed request event.
+             */
+            remove_completedRequest(handler: Function): void;
+            /**
+             * Removes the event handler set by the add_invokingRequest method. 
+             * Use the remove_invokingRequest method to remove the event handler you set using the add_invokingRequest method.
+             * @param handler
+             *          The function that handles the invoking request event.
+             */
+            remove_invokingRequest(handler: Function): void;
+
+            //#endregion
+
+            //#region Properties 
+
+            /**
+             * Gets or sets the default network executor type that is used to make network requests.
+             * @return 
+             *      The object that represents the default Web request executor.
+             */
+            get_defaultExecutorType(): Sys.Net.WebRequestExecutor;
+            /**
+             * Gets or sets the default network executor type that is used to make network requests.
+             * @param value
+             *          A reference to an implementation of the WebRequestExecutor class.
+             */
+            set_defaultExecutorType(value: Sys.Net.WebRequestExecutor): void;
+            /**
+             * Gets or sets the time-out for the default network executor.
+             * @return
+             *      An integer value that indicates the current time-out for the default executor.
+             */
+            get_defaultTimeout(): number;
+            /**
+             * Gets or sets the time-out for the default network executor.
+             * 
+             * @throws Sys.ArgumentOutOfRangeException An invalid parameter was passed.
+             * @param value
+             *          The time in milliseconds that the default executor should wait before timing out a Web request. This value must be 0 or a positive integer.
+             */
+            set_defaultTimeout(value: number): void;
+
+            //#endregion
+            
+        }
+
+        export var WebRequestManager: IWebRequestManager;
 
     }
 
