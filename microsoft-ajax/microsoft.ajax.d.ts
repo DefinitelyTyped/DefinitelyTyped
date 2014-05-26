@@ -2679,7 +2679,7 @@ declare module Sys {
              *      A reference to the succeeded callback function for the service.
              */
             static defaultSucceededCallback(): Function;
-            static defaultSucceededCallback(value: Function);
+            static defaultSucceededCallback(value: Function): void;
             /**
              * Gets or sets the default user context for the service.
              * @return 
@@ -2689,13 +2689,13 @@ declare module Sys {
             /**
              * Gets or sets the default user context for the service.
              */
-            static defaultUserContext(value: Object);
+            static defaultUserContext(value: Object): void;
             /**
              * Gets or sets the profile service path.
              * @param value
              *          A string that contains the profile service path.
              */
-            static set_path(value: string);
+            static set_path(value: string): void;
             /**
              * Gets or sets the profile service path.
              * @return 
@@ -2711,7 +2711,7 @@ declare module Sys {
              * @param value
              *          The time-out value in milliseconds.
              */
-            static set_timeout(value: number);
+            static set_timeout(value: number): void;
             /**
              * Gets or sets the profile service time-out value.
              */
