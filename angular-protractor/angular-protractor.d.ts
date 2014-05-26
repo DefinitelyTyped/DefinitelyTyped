@@ -559,6 +559,8 @@ declare module protractor {
         find(): protractor.WebElement;
 
         isPresent(): webdriver.promise.Promise;
+
+        element(match : any) : protractor.WebElement;
     }
 
     interface ElementArrayFinder{
@@ -567,6 +569,8 @@ declare module protractor {
         first(): protractor.WebElement;
         last(): protractor.WebElement;
         then(fn: (value: any) => any): webdriver.promise.Promise;
+        each(fn: (value: protractor.WebElement) => any);
+        map(fn: (value: protractor.WebElement) => any) : webdriver.promise.Promise;
     }
 
     interface IProtractorLocatorStrategy extends webdriver.ILocatorStrategy {
@@ -645,7 +649,15 @@ declare module protractor {
          * // all rows of the repeater.
          * var rows = element(by.repeater("cat in pets"));
          */
-        repeater(repeatDescriptor: string): webdriver.Locator;
+        repeater(repeatDescriptor: string): RepeaterLocator;
+    }
+
+    class RepeaterLocatorRow extends webdriver.Locator {
+        column(string) : webdriver.Locator;
+    }
+
+    class RepeaterLocator extends RepeaterLocatorRow {
+        row(number) : RepeaterLocatorRow;
     }
 
     var By: IProtractorLocatorStrategy;
@@ -772,7 +784,7 @@ declare module protractor {
         /**
          * Returns the current absolute url from AngularJS.
          */
-        getLocationAbsUrl(): webdriver.promise.Promise;
+        getLocationAbsUrl(): string;
 
         /**
          * Pauses the test and injects some helper functions into the browser, so that
