@@ -145,6 +145,7 @@ All definitions files include a header with the author and editors, so at some p
 * [jQuery.dataTables](http://www.datatables.net) (by [Armin Sander](https://github.com/pragmatrix))
 * [jQuery.datetimepicker](http://trentrichardson.com/examples/timepicker/) (by [Doug McDonald](https://github.com/dougajmcdonald))
 * [jQuery.dynatree](http://code.google.com/p/dynatree/) (by [François de Campredon](https://github.com/fdecampredon))
+* [jQuery.Fileupload](https://github.com/blueimp/jQuery-File-Upload/) (by [Rob Alarcon](https://github.com/rob-alarcon))
 * [jQuery.Finger](http://ngryman.sh/jquery.finger/) (by [Max Ackley](https://github.com/maxackley))
 * [jQuery.Flot](http://www.flotcharts.org/) (by [Matt Burland](https://github.com/burlandm))
 * [jQuery.form](http://malsup.com/jquery/form/) (by [François Guillot](http://fguillot.developpez.com/))
