@@ -1,0 +1,20 @@
+/// <reference path="gulp-tsc.d.ts" />
+var tsc : IGulpTypeScript;
+
+tsc()
+tsc({ tscPath: 'abc' })
+tsc({ tscSearch: 'abc' })
+tsc({ emitError: true })
+tsc({ module: 'abc' })
+tsc({ target: 'abc' })
+tsc({ out: 'abc' })
+tsc({ outDir: 'abc' })
+tsc({ mapRoot: 'abc' })
+tsc({ sourceRoot: 'abc' })
+tsc({ declaration: true })
+tsc({ noImplicitAny: true })
+tsc({ noResolve: true })
+tsc({ removeComments: true })
+tsc({ sourcemap: true })
+tsc({ noLib: true })
+tsc({ tscSearch: 'abc' })
