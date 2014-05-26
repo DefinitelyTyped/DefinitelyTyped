@@ -227,7 +227,11 @@ function Sys_Application_LoadEventArgs_Tests() {
 function Sys_Browser_Tests() {
 
     var browser = Sys.Browser();
-
+    var agent = browser.agent;
+    var name = browser.name;
+    var version = browser.version;
+    var hasDebuggerStatement = browser.hasDebuggerStatement;
+    
 }
 
 function Sys_CancelEventArgs_Tests() {
@@ -405,7 +409,6 @@ function Sys_Services_Profile_Service_Group_Tests() {
     var timeout = Sys.Services.ProfileService.get_timeout();
 
 }
-
 
 function AspNetTypes_Tests() {
 
