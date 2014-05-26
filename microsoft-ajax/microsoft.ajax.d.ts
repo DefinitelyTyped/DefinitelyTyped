@@ -1888,11 +1888,16 @@ declare module Sys {
     * You register an interface by when you register the class by calling the Type.registerClass method. You specify IDisposable in the interfaceTypes parameter when you call Type.registerClass.
     */
     interface IDisposable {
+
+        //#region Methods
+
         /**
         * Releases resources held by an object that implements the Sys.IDisposable interface.
         * Implement the dispose method to close or release resources held by an object, or to prepare an object for reuse.
         */
         dispose(): void;
+
+        //#endregion
     }
 
     /**
@@ -1900,6 +1905,9 @@ declare module Sys {
     * Implement this interface if the class must notify other objects when it is releasing resources. The base component class already implements this interface. Therefore, typically this interface is already available.
     */
     interface INotifyDisposing {
+
+        //#region Events 
+
         /**
         * Occurs when an object's resources are released.
         * @param handler
@@ -1912,12 +1920,17 @@ declare module Sys {
         *       The name of the event handler for the disposing event.
         */
         remove_disposing(handler: Function): void;
+
+        //#endregion
     }
 
     /**
     * Defines the propertyChanged event.
     */
     interface INotifyPropertyChange {
+
+        //#region Events
+
         /**
         * Occurs when a component property is set to a new value.
         * @param handler
@@ -1930,6 +1943,8 @@ declare module Sys {
         *       The name of the event handler for the propertyChanged event.
         */
         remove_propertyChanged(handler: Function): void;
+
+        //#endregion
     }
 
     //#endregion
