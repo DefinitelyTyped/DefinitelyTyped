@@ -1,4 +1,4 @@
-﻿# Contributors
+# Contributors
 
 This is a non-exhaustive list of definitions and their creators. If you created a definition but are not listed then feel free to send a pull request on this file with your name and url.
 
@@ -286,6 +286,7 @@ All definitions files include a header with the author and editors, so at some p
 * [SockJS](https://github.com/sockjs/sockjs-client) (by [Emil Ivanov](https://github.com/vladev))
 * [SoundJS](http://www.createjs.com/#!/SoundJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [Spin](http://fgnass.github.com/spin.js/) (by [Boris Yankov](https://github.com/borisyankov))
+* [sqlite3](https://github.com/mapbox/node-sqlite3) (by [Nick Malaguti](https://github.com/nmalaguti))
 * [status-bar](https://github.com/atom/status-bar) (by [vvakame](https://github.com/vvakame))
 * [stripe](https://stripe.com/) (by [Eric J. Smith](https://github.com/ejsmith/))
 * [Store.js](https://github.com/marcuswestin/store.js/) (by [Vincent Bortone](https://github.com/vbortone))
