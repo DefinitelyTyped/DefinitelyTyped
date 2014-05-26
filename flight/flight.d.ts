@@ -9,26 +9,25 @@ declare module Flight {
 
     export interface Base {
 
-		/**
-		 * Most Components and Mixins need to define attributes. In Flight, 
-		 * default values are assigned by passing an object to the attributes 
-		 * function.
-		 *
-		 * NOTE: this.attributes replaces the now deprecated this.defaultAttrs. 
-		 * However, for backwards compatibility, if you are using this.defaultAttrs 
-		 * then all the old attribute behavior remains in place.
-		 */
-        attributes(obj: Object): void;
-		 
-	
+        /**
+         * Most Components and Mixins need to define attributes. In Flight, 
+         * default values are assigned by passing an object to the attributes 
+         * function.
+         *
+         * NOTE: this.attributes replaces the now deprecated this.defaultAttrs. 
+         * However, for backwards compatibility, if you are using this.defaultAttrs 
+         * then all the old attribute behavior remains in place.
+         */
+        attributes(obj: Object): void; 
+
         /**
          * Most Components and Mixins need to define attributes. In Flight, 
          * default values are assigned by passing an object to the defaultAttrs 
          * function.
-		 *
-		 * NOTE: this.attributes replaces the now deprecated this.defaultAttrs. 
-		 * However, for backwards compatibility, if you are using this.defaultAttrs 
-		 * then all the old attribute behavior remains in place.
+         *
+         * NOTE: this.attributes replaces the now deprecated this.defaultAttrs. 
+         * However, for backwards compatibility, if you are using this.defaultAttrs 
+         * then all the old attribute behavior remains in place.
          */
         defaultAttrs(obj: Object): void;
 
