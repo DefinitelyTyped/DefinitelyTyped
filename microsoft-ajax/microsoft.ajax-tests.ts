@@ -432,6 +432,30 @@ function Sys_Res_Tests() {
     var nullWebRequest = Sys.Res.nullWebRequest;
 }
 
+function Sys_StringBuilder_Tests() {
+    
+    // Example taken from http://msdn.microsoft.com/en-us/library/bb310852(v=vs.100).aspx
+    function buildAString(title: string) {
+        var headTagStart = "<head>";
+        var headTagEnd = "</head>";
+        var titleTagStart = "<title>";
+        var titleTagEnd = "</title>";
+
+        var sb = new Sys.StringBuilder(this._headTagStart);
+        sb.append(titleTagEnd);
+        sb.append(title);
+        sb.append(titleTagEnd);
+        sb.append(headTagEnd);
+        // Displays: "The result: <head><title>A Title</title></head>"
+        alert("The result" + sb.toString());
+    }
+
+    var title = "A Title";
+    buildAString(title);
+
+
+}
+
 function Sys_Services_Profile_Service_Group_Tests() {
 
     var Street = Sys.Services.ProfileService.properties.Address.Street;
