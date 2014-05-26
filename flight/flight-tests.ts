@@ -4,8 +4,12 @@ declare var els: Element[];
 declare var mixinFn: Function;
 
 function TestComponent() {
-    var self: Flight.Component = this;                   
-          
+    var self: Flight.Component = this;      
+	
+    self.attributes({
+       fooSelector: '.bar'
+    });    
+	
     self.defaultAttrs({
        fooSelector: '.bar'
     });
