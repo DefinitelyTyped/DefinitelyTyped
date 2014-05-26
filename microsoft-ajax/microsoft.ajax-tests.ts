@@ -314,17 +314,18 @@ function Sys_Component_Tests() {
 
     aComponent.beginUpdate();
 
-    $create(MyControl, { id: 'c1', visible: true }, { click: handler }, null, $get('button1'));
+    var component = $create(MyControl, { id: 'c1', visible: true }, { click: handler }, null, $get('button1'));
 
     aComponent.dispose();
-
     aComponent.endUpdate();
-
     aComponent.initialize();
-
     aComponent.raisePropertyChanged("propertyName");
-
     aComponent.updated();
+
+    var id = aComponent.get_id();
+    aComponent.set_id("#button1");
+    var isInitialized = aComponent.get_isInitialized();
+    var isUpdating = aComponent.get_isUpdating();
 }
 
 function Sys_UI_Key_Tests() {
@@ -363,6 +364,22 @@ function Sys_UI_Control_Tests() {
     a.dispose();
 }
 
+function Sys_Debug_Tests() {
+    
+    var condition = true;
+
+    Sys.Debug.assert(condition);
+    Sys.Debug.assert(condition, "true");
+    Sys.Debug.assert(condition, "true", true);
+
+    var obj = {};
+    Sys.Debug.traceDump(obj, "Name");
+    Sys.Debug.trace("Trace text");
+    Sys.Debug.fail("Fail message");
+
+    Sys.Debug.clearTrace();
+}
+
 function Sys_CultureInfo_Tests() {
 
     var currentCultureInfoObj = Sys.CultureInfo.CurrentCulture;
@@ -375,6 +392,44 @@ function Sys_CultureInfo_Tests() {
     var format = newCulture.dateTimeFormat;
     var name = newCulture.name;
     var numberFormat = newCulture.numberFormat;
+}
+
+function Sys_Res_Tests() {
+
+    var actualValue = Sys.Res.actualValue;
+    var appLoadTimedout = Sys.Res.appLoadTimedout;
+    var argument = Sys.Res.argument;
+    var argumentNull = Sys.Res.argumentNull;
+    var argumentOutOfRange = Sys.Res.argumentOutOfRange;
+    var argumentType = Sys.Res.argumentType;
+    var argumentTypeWithTypes = Sys.Res.argumentTypeWithTypes;
+    var argumentUndefined = Sys.Res.argumentUndefined;
+    var assertFailed = Sys.Res.assertFailed;
+    var assetFailedCaller = Sys.Res.assetFailedCaller;
+    var badBaseUrl1 = Sys.Res.badBaseUrl1;
+    var badBaseUrl2 = Sys.Res.badBaseUrl2;
+    var badBaseUrl3 = Sys.Res.badBaseUrl3;
+    var breakIntoDebugger = Sys.Res.breakIntoDebugger;
+    var cannotAbortBeforeStart = Sys.Res.cannotAbortBeforeStart;
+    var cannotCallBeforeResponse = Sys.Res.cannotCallBeforeResponse;
+    var cannotCallOnceStarted = Sys.Res.cannotCallOnceStarted;
+    var cannotCallOutsideHandler = Sys.Res.cannotCallOutsideHandler;
+    var cannotDeserializeEmptyString = Sys.Res.cannotDeserializeEmptyString;
+    var cannotSerializeNonFiniteNumbers = Sys.Res.cannotSerializeNonFiniteNumbers;
+    var controlCantSetId = Sys.Res.controlCantSetId;
+    var enumInvalidValue = Sys.Res.enumInvalidValue;
+    var eventHandlerInvalid = Sys.Res.eventHandlerInvalid;
+    var format = Sys.Res.format;
+    var formatBadDate = Sys.Res.formatBadDate;
+    var formatBadFormatSpecifier = Sys.Res.formatBadFormatSpecifier;
+    var formatInvalidString = Sys.Res.formatInvalidString;
+    var invalidExecutorType = Sys.Res.invalidExecutorType;
+    var invalidHttpVerb = Sys.Res.invalidHttpVerb;
+    var invalidOperation = Sys.Res.invalidOperation;
+    var invalidTimeout = Sys.Res.invalidTimeout;
+    var invokeCalledTwice = Sys.Res.invokeCalledTwice;
+    var notImplemented = Sys.Res.notImplemented;
+    var nullWebRequest = Sys.Res.nullWebRequest;
 }
 
 function Sys_Services_Profile_Service_Group_Tests() {
@@ -446,7 +501,6 @@ function AspNetTypes_Tests() {
     // Output: "true".
     alert(implementsInterface);
 }
-
 
 /** Sample code from http://msdn.microsoft.com/en-us/library/bb386520(v=vs.100).aspx */
 function CreatingCustomNonVisualClientComponentsTests() {

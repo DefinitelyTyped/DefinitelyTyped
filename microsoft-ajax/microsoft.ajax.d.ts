@@ -1199,15 +1199,6 @@ declare module Sys {
         */
         remove_disposing(handler: Function): void;
         /**
-        * Gets the ID of the current Component object.
-        */
-        get_id(): string;
-        /**
-        * Sets the ID of the current Component object.
-        * @param value A string that contains the ID of the component.
-        */
-        set_id(value: string): void;
-        /**
         * Raised when the raisePropertyChanged method of the current Component object is called.
         */
         add_propertyChanged(handler: Function): void;
@@ -1270,6 +1261,37 @@ declare module Sys {
         //#endregion
 
         //#region Properties
+
+        /**
+         * Gets an EventHandlerList object that contains references to all the event handlers that are mapped to the current component's events.
+         * This member supports the client-script infrastructure and is not intended to be used directly from your code.
+         * @return 
+         *      An EventHandlerList object that contains references to all the events and handlers for this component.
+         */
+        get_events(): any;
+        /**
+        * Gets the ID of the current Component object.
+        * @return 
+        *       The id
+        */
+        get_id(): string;
+        /**
+        * Sets the ID of the current Component object.
+        * @param value A string that contains the ID of the component.
+        */
+        set_id(value: string): void;
+        /**
+         * Gets a value indicating whether the current Component object is initialized.
+         * @return
+         *      true if the current Component is initialized; otherwise, false.
+         */
+        get_isInitialized(): boolean;
+        /**
+         * Gets a value indicating whether the current Component object is updating.
+         * @return
+         *      true if the current Component object is updating; otherwise, false.
+         */
+        get_isUpdating(): boolean;
 
         //#endregion
     }
@@ -1340,29 +1362,45 @@ declare module Sys {
 
         //#region Constructors
 
+        /**
+         * Initializes a new instance of the Sys.Debug class.
+         */
         constructor();
 
         //#endregion
 
         //#region Methods
 
-        assert(condition: boolean, message?: string, displayCaller?: boolean): void;
+        /**
+         * Checks for a condition, and if the condition is false, displays a message and prompts the user to break into the debugger. 
+         * When you call the assert method in your code, express the success of an operation as true or false and use that value for condition. If the operation fails (if condition is false), the assert logic is executed.
+         * The assert method should be used to catch developer errors. To respond to user errors and to run-time error conditions such as network errors or permission failures, throw an exception.
+         * Debugging behavior, requirements, and the output of trace messages vary with different browsers. For more information, see Debugging and Tracing Ajax Applications Overview.
+         * 
+         * @param condition
+         *      true to continue to execute code; false to display message and break into the debugger.
+         * @param message
+         *      (Optional) The message to display. The default is an empty string ("").
+         * @param displayCaller
+         *      (Optional) true to indicate that the name of the function that is calling assert should be displayed in the message. The default is false. 
+         */
+        static assert(condition: boolean, message?: string, displayCaller?: boolean): void;       
         /**
          * Clears all trace messages from the trace console.
          */
-        clearTrace(): void;
+        static clearTrace(): void;
         /**
         * Displays a message in the debugger's output window and breaks into the debugger.
         * @param message
         *           The message to display.  
         */
-        fail(message: string): void;
+        static fail(message: string): void;
         /**
         * Appends a text line to the debugger console and to the trace console, if available.
         * @param text
         *       The text to display.
         */
-        trace(text: string): void;
+        static trace(text: string): void;
         /**
          * Dumps an object to the debugger console and to the trace console, if available.
          * @param object
@@ -1370,7 +1408,7 @@ declare module Sys {
          * @param name
          *      (Optional) The name of the object.
          */
-        traceDump(object: any, name?: string): void;
+        static traceDump(object: any, name?: string): void;
 
         //#endregion
     }
@@ -1496,12 +1534,6 @@ declare module Sys {
         */
         static insert(target: any, index: number, item: any): void;
         /**
-        * Indicates that the target is being updated.
-        * @param target The target object to update.
-        * @return true if given target argument is currently updating; otherwise false.
-        */
-        static isUpdating(target: any): boolean;
-        /**
         * Makes an object directly observable by adding observable methods to it.
         * @param target The object, array, or DOM element to make observable.
         * @return The observable object.
@@ -1563,6 +1595,16 @@ declare module Sys {
 
         //#endregion
 
+        //#region Properties
+
+        /**
+        * Indicates that the target is being updated.
+        * @param target The target object to update.
+        * @return true if given target argument is currently updating; otherwise false.
+        */
+        static isUpdating(target: any): boolean;
+
+        //#endregion
     }
 
     /**
@@ -1577,139 +1619,139 @@ declare module Sys {
         /**
         * @return "Actual value was {0}." 
         */
-        actualValue: string;
+        static actualValue: string;
         /**
         * @return "The application failed to load within the specified time out period."
         */
-        appLoadTimedout: string;
+        static appLoadTimedout: string;
         /**
         * @return "Value does not fall within the expected range."
         */
-        argument: string;
+        static argument: string;
         /**
         * @return "Value cannot be null."
         */
-        argumentNull: string;
+        static argumentNull: string;
         /**
         * @return "Specified argument was out of the range of valid values.
         */
-        argumentOutOfRange: string;
+        static argumentOutOfRange: string;
         /**
         * @return "Object cannot be converted to the required type."
         */
-        argumentType: string;
+        static argumentType: string;
         /**
         * @return "Object of type '{0}' cannot be converted to type '{1}'."
         */
-        argumentTypeWithTypes: string;
+        static argumentTypeWithTypes: string;
         /**
         * @return "Value cannot be undefined."
         */
-        argumentUndefined: string;
+        static argumentUndefined: string;
         /**
         * @return "Assertion Failed: {0}"
         */
-        assertFailed: string;
+        static assertFailed: string;
         /**
         * @return "Assertion Failed: {0}\r\nat {1}"
         */
-        assetFailedCaller: string;
+        static assetFailedCaller: string;
         /**
         * @return "Base URL does not contain ://."
         */
-        badBaseUrl1: string;
+        static badBaseUrl1: string;
         /**
         * @return "Base URL does not contain another /."
         */
-        badBaseUrl2: string;
+        static badBaseUrl2: string;
         /**
         * @return "Cannot find last / in base URL."
         */
-        badBaseUrl3: string;
+        static badBaseUrl3: string;
         /**
         * @return "{0}\r\n\r\nBreak into debugger?"
         */
-        breakIntoDebugger: string;
+        static breakIntoDebugger: string;
         /**
         * @return "Cannot abort when executor has not started."
         */
-        cannotAbortBeforeStart: string;
+        static cannotAbortBeforeStart: string;
         /**
         * @return "Cannot call {0} when responseAvailable is false."
         */
-        cannotCallBeforeResponse: string;
+        static cannotCallBeforeResponse: string;
         /**
         * @return "Cannot call {0} once started."
         */
-        cannotCallOnceStarted: string;
+        static cannotCallOnceStarted: string;
         /**
         * @return "Cannot call {0} outside of a completed event handler."
         */
-        cannotCallOutsideHandler: string;
+        static cannotCallOutsideHandler: string;
         /**
         * @return "Cannot deserialize empty string."
         */
-        cannotDeserializeEmptyString: string;
+        static cannotDeserializeEmptyString: string;
         /**
         * @return "Cannot serialize non-finite numbers."
         */
-        cannotSerializeNonFiniteNumbers: string;
+        static cannotSerializeNonFiniteNumbers: string;
         /**
         * @return "The id property can't be set on a control."
         */
-        controlCantSetId: string;
+        static controlCantSetId: string;
         /**
         * @return "'{0}' is not a valid value for enum {1}."
         */
-        enumInvalidValue: string;
+        static enumInvalidValue: string;
         /**
         * @return "Handler was not added through the Sys.UI.DomEvent.addHandler method.
         */
-        eventHandlerInvalid: string;
+        static eventHandlerInvalid: string;
         /**
         * @return "One of the identified items was in an invalid format."
         */
-        format: string;
+        static format: string;
         /**
         * @return "The string was not recognized as a valid Date."
         */
-        formatBadDate: string;
+        static formatBadDate: string;
         /**
         * @return "Format specifier was invalid."
         */
-        formatBadFormatSpecifier: string;
+        static formatBadFormatSpecifier: string;
         /**
         * @return "Input string was not in a correct format."
         */
-        formatInvalidString: string;
+        static formatInvalidString: string;
         /**
         * @return "Could not create a valid Sys.Net.WebRequestExecutor from: {0}."
         */
-        invalidExecutorType: string;
+        static invalidExecutorType: string;
         /**
         * @return "httpVerb cannot be set to an empty or null string."
         */
-        invalidHttpVerb: string;
+        static invalidHttpVerb: string;
         /**
         * @return "Operation is not valid due to the current state of the object."
         */
-        invalidOperation: string;
+        static invalidOperation: string;
         /**
         * @return "Value must be greater than or equal to zero."
         */
-        invalidTimeout: string;
+        static invalidTimeout: string;
         /**
         * @return "Cannot call invoke more than once."
         */
-        invokeCalledTwice: string;
+        static invokeCalledTwice: string;
         /**
         * @return "The method or operation is not implemented."
         */
-        notImplemented: string;
+        static notImplemented: string;
         /**
         * @return "Cannot call executeRequest with a null webRequest."
         */
-        nullWebRequest: string;
+        static nullWebRequest: string;
 
         //#endregion
     }
@@ -2561,9 +2603,9 @@ declare module Sys {
         * @see {@link http://msdn.microsoft.com/en-us/library/bb310801(v=vs.100).aspx}
         */
         class ProfileGroup {
-     
+
             //#region Constructors
-                   
+
             constructor();
 
             /**
@@ -2571,14 +2613,14 @@ declare module Sys {
             * @param properties
             *           (Optional) An object that contains the settings for this profile group. This parameter can be null.
             */
-           
+
             constructor(properties: Object);
 
             //#endregion
 
             //#region Methods
 
-           
+
 
             //#endregion
 
