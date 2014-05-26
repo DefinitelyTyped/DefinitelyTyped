@@ -234,6 +234,13 @@ function Sys_Browser_Tests() {
     
 }
 
+function Sys_EventArgs_Tests() {
+    
+    var anEventArgs = new Sys.EventArgs();
+    var eventArgs = anEventArgs.Empty;
+
+}
+
 function Sys_CancelEventArgs_Tests() {
 
     var args = new Sys.CancelEventArgs();
