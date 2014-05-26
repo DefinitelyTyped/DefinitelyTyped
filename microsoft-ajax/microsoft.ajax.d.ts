@@ -1812,8 +1812,7 @@ declare module Sys {
         *           (Optional) A string to append between each element of the string that is returned.  
         * @return A string representation of the StringBuilder instance. If separator is specified, the delimiter string is inserted between each element of the returned string.
         */
-        toString(separator: string): string;
-        toString(): string;
+        toString(separator?: string): string;
 
         //#endregion
     }
