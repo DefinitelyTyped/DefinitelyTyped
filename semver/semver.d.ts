@@ -65,7 +65,7 @@ declare module SemVerModule {
     class Range extends SemVerBase {
         constructor(range:string, loose?:boolean);
 
-        set():Comparator[][];
+        set:Comparator[][];
         parseRange(range:string):Comparator[];
         test(version:SemVer):boolean;
     }
