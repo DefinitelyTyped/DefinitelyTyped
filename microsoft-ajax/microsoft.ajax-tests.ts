@@ -11,7 +11,7 @@ function GlobalNamespace_Tests() {
     // Get
     $get("Button1");
     $get("Button1", $get("Button2"));
-    
+
     // Add handler
     $addHandler($get("Button1"), "click", () => { });
     $addHandlers($get("Button1"), {});
@@ -25,7 +25,7 @@ function GlobalNamespace_Tests() {
 
     // Clear
     $clearHandlers($get("Button1"));
-    
+
 }
 
 function BaseClassExtensions_Error_Tests() {
@@ -91,14 +91,14 @@ function BaseClassExtensions_String_Tests() {
 }
 
 function BaseClassExtensions_Function_Tests() {
-    
+
     /** Sample code from http://msdn.microsoft.com/en-us/library/dd409287(v=vs.100).aspx */
     var createDelegateTest = function () {
         var context = "";
         var method: MicrosoftAjaxBaseTypeExtensions.Function;
         var a = (<MicrosoftAjaxBaseTypeExtensions.Function>Function).createCallback(method, context);
     }
-    
+
     /** Sample code from http://msdn.microsoft.com/en-us/library/dd393582(v=vs.100).aspx */
     var createDelegateTest = function () {
         var instance = this;
@@ -149,7 +149,7 @@ function BaseClassExtensions_Date_Tests() {
 }
 
 function BaseClassExtensions_Boolean_Tests() {
-    
+
     (<MicrosoftAjaxBaseTypeExtensions.Boolean>Boolean).parse("false");
 }
 
@@ -162,7 +162,7 @@ function BaseClassExtensions_Number_Tests() {
     x.parseInvariant("1");
     x.parseLocale("1");
 }
- 
+
 function Sys_Application_Tests() {
 
     var component = new Sys.Component();
@@ -227,7 +227,11 @@ function Sys_Application_LoadEventArgs_Tests() {
 function Sys_Browser_Tests() {
 
     var browser = Sys.Browser();
-
+    var agent = browser.agent;
+    var name = browser.name;
+    var version = browser.version;
+    var hasDebuggerStatement = browser.hasDebuggerStatement;
+    
 }
 
 function Sys_CancelEventArgs_Tests() {
@@ -239,7 +243,7 @@ function Sys_CancelEventArgs_Tests() {
 
     Sys.WebForms.PageRequestManager.getInstance().add_initializeRequest(CheckStatus);
 
-    var CheckStatus = function(sender: any, args: any) {
+    var CheckStatus = function (sender: any, args: any) {
 
         var prm = Sys.WebForms.PageRequestManager.getInstance();
 
@@ -256,7 +260,7 @@ function Sys_CancelEventArgs_Tests() {
         }
     }
 
-    var ActivateAlertDiv = function(visString: string, msg: string) {
+    var ActivateAlertDiv = function (visString: string, msg: string) {
         var adiv = $get(divElem);
         var aspan = $get(messageElem);
         adiv.style.visibility = visString;
@@ -301,7 +305,7 @@ function Sys_Component_Tests() {
     var element: HTMLElement;
     var handler: Function;
     var MyControl = new Type;
-        
+
     aComponent.add_disposing(() => { });
     aComponent.remove_disposing(() => { });
 
@@ -352,7 +356,7 @@ function Sys_UI_Control_Tests() {
     a.addCssClass(className);
     a.toggleCssClass(className);
     a.removeCssClass(className);
-   
+
     a.initialize();
     a.raiseBubbleEvent(domElementObj, className);
     a.onBubbleEvent(domElementObj, className);
@@ -371,6 +375,39 @@ function Sys_CultureInfo_Tests() {
     var format = newCulture.dateTimeFormat;
     var name = newCulture.name;
     var numberFormat = newCulture.numberFormat;
+}
+
+function Sys_Services_Profile_Service_Group_Tests() {
+
+    var Street = Sys.Services.ProfileService.properties.Address.Street;
+    var City = Sys.Services.ProfileService.properties.Address.City;
+
+    Sys.Services.ProfileService.properties.Address = new Sys.Services.ProfileGroup();
+    Sys.Services.ProfileService.properties.Address.Street = "street name";
+    Sys.Services.ProfileService.properties.Address.City = "city name";
+    Sys.Services.ProfileService.properties.Address.State = "state name";
+
+    var SaveCompletedCallback = () => { };
+    var ProfileFailedCallback = () => { };
+    var LoadCompletedCallback = () => { };
+
+    Sys.Services.ProfileService.save(null, SaveCompletedCallback, ProfileFailedCallback, null);
+    Sys.Services.ProfileService.load(null, LoadCompletedCallback, ProfileFailedCallback, null);
+
+    Sys.Services.ProfileService.set_defaultFailedCallback("Function");
+    var defaultFailedCallback = Sys.Services.ProfileService.get_defaultFailedCallback();
+
+    Sys.Services.ProfileService.set_defaultLoadCompletedCallback("Function");
+    var defaultLoadCompletedCallback = Sys.Services.ProfileService.get_defaultLoadCompletedCallback();
+
+    Sys.Services.ProfileService.set_defaultSaveCompletedCallback("Function");
+    var defaultSaveCompletedCallback = Sys.Services.ProfileService.get_defaultSaveCompletedCallback();
+
+    Sys.Services.ProfileService.set_path("path");
+    Sys.Services.ProfileService.get_path();
+
+    var timeout = Sys.Services.ProfileService.get_timeout();
+
 }
 
 function AspNetTypes_Tests() {
@@ -409,6 +446,7 @@ function AspNetTypes_Tests() {
     // Output: "true".
     alert(implementsInterface);
 }
+
 
 /** Sample code from http://msdn.microsoft.com/en-us/library/bb386520(v=vs.100).aspx */
 function CreatingCustomNonVisualClientComponentsTests() {
