@@ -670,11 +670,6 @@ declare module MicrosoftAjaxBaseTypeExtensions {
     }
 }
 
-// declare var Error: MicrosoftAjaxBaseTypeExtensions.Error;
-// declare var String: MicrosoftAjaxBaseTypeExtensions.String;
-// declare var Boolean: MicrosoftAjaxBaseTypeExtensions.Boolean;
-// declare var Function: MicrosoftAjaxBaseTypeExtensions.Function;
-
 //#endregion
 
 //#region ASP.NET Types
@@ -1150,18 +1145,26 @@ declare module Sys {
         agent: any;
         /**
         * Gets a value that indicates the document compatibility mode of the browser.
+        * @return 
+        *       
         */
         documentMode: number;
         /*
         * Gets a value that indicates whether the browser supports debug statements.
+        * @return 
+        *   True if the browser supports debug statements
         */
         hasDebuggerStatement: boolean;
         /**
         * Gets the name of the browser.
+        * @return 
+        *   The name of the browser
         */
         name: string;
         /*
         * Gets the version number of the browser.
+        * @return
+        *   The version of the browser
         */
         version: number;
 
@@ -1195,7 +1198,6 @@ declare module Sys {
         * Raised when the dispose method is called for a component.
         */
         remove_disposing(handler: Function): void;
-
         /**
         * Gets the ID of the current Component object.
         */
@@ -1205,7 +1207,6 @@ declare module Sys {
         * @param value A string that contains the ID of the component.
         */
         set_id(value: string): void;
-
         /**
         * Raised when the raisePropertyChanged method of the current Component object is called.
         */
@@ -1346,26 +1347,22 @@ declare module Sys {
         //#region Methods
 
         assert(condition: boolean, message?: string, displayCaller?: boolean): void;
-
         /**
          * Clears all trace messages from the trace console.
          */
         clearTrace(): void;
-
         /**
         * Displays a message in the debugger's output window and breaks into the debugger.
         * @param message
         *           The message to display.  
         */
         fail(message: string): void;
-
         /**
         * Appends a text line to the debugger console and to the trace console, if available.
         * @param text
         *       The text to display.
         */
         trace(text: string): void;
-
         /**
          * Dumps an object to the debugger console and to the trace console, if available.
          * @param object
@@ -1452,53 +1449,45 @@ declare module Sys {
         *           The item to add.
         */
         static add(target: any[], item: any): void;
-
         /**
         * Adds an event handler to the target.
         * @param target The array to which an event handler will be added.
         * @param handler The event handler.
         */
         static addCollectionChanged(target: any, handler: Function): void;
-
         /**
         * Adds an observable event handler to the target.
         * @param eventName A string that contains the event name.
         * @param handler The added function.
         */
         static addEventHandler(target: any, eventName: string, handler: Function): void;
-
         /**
         * Adds a propertyChanged event handler to the target.
         * @param target The object to observe.
         * @param handler The function handler to add.
         */
         static addPropertyChanged(target: any, handler: Function): void;
-
         /**
         * Adds items to the collection in an observable manner.
         * @param target The array to which items will be added.
         * @param items The array of items to add.
         */
         static addRange(target: any[], items: any[]): void;
-
         /**
         * Begins the process of updating the target object.
         * @param target The object to update.
         */
         static beginUpdate(target: any): void;
-
         /**
         * Clears the array of its elements in an observable manner. 
         * @param target The array to clear.
         */
         static clear(target: any): void;
-
         /**
         * Ends the process of updating the target object.
         * @param target The object being updated.
         */
         static endUpdate(target: any): void;
-
         /**
         * Inserts an item at the specified index in an observable manner.
         * @param target The array to which the item is inserted.
@@ -1506,14 +1495,12 @@ declare module Sys {
         * @param item The item to insert.
         */
         static insert(target: any, index: number, item: any): void;
-
         /**
         * Indicates that the target is being updated.
         * @param target The target object to update.
         * @return true if given target argument is currently updating; otherwise false.
         */
         static isUpdating(target: any): boolean;
-
         /**
         * Makes an object directly observable by adding observable methods to it.
         * @param target The object, array, or DOM element to make observable.
@@ -1521,14 +1508,12 @@ declare module Sys {
         * @see {@link http://msdn.microsoft.com/en-us/library/dd393633(v=vs.100).aspx}
         */
         static makeObservable(target: any): any;
-
         /**
         * Raises the collectionChanged event.
         * @param target The collection to which an event is raised.
         * @param changes A Sys.CollectionChange object that contains the list of changes that were performed on the collection since the last event.
         */
         static raiseCollectionChanged(target: any[], changes: Sys.CollectionChange): void;
-
         /**
         * Raises an observable event on the target.
         * @param target The target object.
@@ -1536,14 +1521,12 @@ declare module Sys {
         * @param eventArgs A Sys.EventArgs object used to pass event argument information.
         */
         static raiseEvent(target: any, eventName: string, eventArgs: Sys.EventArgs): void;
-
         /**
         * Raises a propertyChanged notification event.  
         * @param target The object to which an event is raised.
         * @param propertyName The name of the property that changed.
         */
         static raisePropertyChanged(target: any, propertyName: string): void;
-
         /**
         * Removes the first occurrence of an item from the array in an observable manner.
         * @param target The array to which the item will be removed.
@@ -1551,28 +1534,24 @@ declare module Sys {
         * @return true if the item is found in the array. Otherwise false.
         */
         static remove(target: any[], item: any): boolean;
-
         /**
         * Removes the item at the specified index from the array in an observable manner.
         * @param target The array to which an item is removed.
         * @param index A number that represents the index of the item to remove.
         */
         static removeAt(target: any[], index: number): void;
-
         /**
         * Removes the collectionChanged event handler from the target.
         * @param target The array from which the collectionChanged event handler is removed.
         * @param handler The function to remove.
         */
         static removeCollectionChanged(target: any, handler: Function): void;
-
         /**
         * Removes a propertyChanged event handler from the target.
         * @param target The object to observe.
         * @param handler The event handler to remove.  
         */
         static removeEventHandler(target: any, handler: Function): void;
-
         /**
         * Sets a property or field on the target in an observable manner.
         * The raisePropertyChanged method is called after the setValue method set the value of the target object property.
@@ -1942,7 +1921,6 @@ declare module Sys {
         * @return An array of all the components that were created since the last time the load event was raised.
         */
         get_components(): Component[];
-
         /**
         * Returns a value that indicates whether the page is engaged in a partial-page update.
         * @return true if the page is engaged in a partial-page update; otherwise, false.
@@ -2583,13 +2561,26 @@ declare module Sys {
         * @see {@link http://msdn.microsoft.com/en-us/library/bb310801(v=vs.100).aspx}
         */
         class ProfileGroup {
+     
+            //#region Constructors
+                   
+            constructor();
 
             /**
             * Initializes a new instance of the Sys.Services.ProfileGroup class.
             * @param properties
             *           (Optional) An object that contains the settings for this profile group. This parameter can be null.
             */
+           
             constructor(properties: Object);
+
+            //#endregion
+
+            //#region Methods
+
+           
+
+            //#endregion
 
         }
 
@@ -2607,6 +2598,126 @@ declare module Sys {
         */
         class ProfileService {
 
+            new(): ProfileService;
+
+            //#region Fields
+
+            /**
+             * Specifies the path of the default profile service.
+             */
+            static DefaultWebServicePath: string;
+            /**
+             * Contains the loaded profile data. You can access the loaded profile data directly from the properties field.
+             * An element in the properties field can be a property group of type ProfileGroup. If it is, the related properties appear as sub-properties. For more information, see Sys.Services.ProfileGroup Class.
+             */
+            static properties: any;
+
+            //#endregion
+
+            //#region Methods
+
+            /**
+            * Loads the specified profile properties.
+            * 
+            * If propertyNames is not supplied, all profile properties enabled for read access are loaded from the server. 
+            * The loaded profile can then be accessed directly from the properties field. 
+            * This enables your application to access the profile properties by using simple field syntax, as shown in the following example:
+            * @example
+            *      Sys.Services.ProfileService.load(null, LoadCompletedCallback, ProfileFailedCallback, null);
+            * 
+            * @param propertyName
+            *      A string array that contains the profile properties to load.
+            * @param loadCompletedCallback
+            *      The function that is called when loading has completed. The default is null.
+            * @param failedCallback
+            *      The function that is called when loading has failed. The default is null.
+            * @param userContext
+            *      User context information passed to the callback functions.
+            */
+            static load(propertyNames: string[], loadCompletedCallback: Function, failedCallback: Function, userContext: any): void;
+            /**
+             * @param propertyNames
+             *          A string array that contains the profile properties to save.
+             * @param saveCompletedCallback
+             *          The function that is called when the save method has finished. The default is null.
+             * @param failedCallback
+             *          The function that is called if the save method has failed. The default is null.
+             * @param userContext
+             *      User context information passed to the callback functions.
+             */
+            static save(propertyNames: string[], saveCompletedCallback: Function, failedCallback: Function, userContext: any): void;
+
+            //#endregion
+
+            //#region Properties
+
+            /**
+             * Gets or sets the name of the default failure callback function.
+             * @param value
+             *      A string that contains the name of the default failure callback function.
+             */
+            static set_defaultFailedCallback(value: string): void;
+            static get_defaultFailedCallback(): Function;
+            /**
+             * Gets or sets the name of the default load-completed callback function.
+             * 
+             * @param value
+             *      A string that contains the name of the default load-completed callback function.
+             */
+            static set_defaultLoadCompletedCallback(value: string): void;
+            static get_defaultLoadCompletedCallback(): Function;
+            /**
+             * Gets or sets the name of the default save-completed callback function.
+             * @param value
+             *      A string that contains the name of the default save-completed callback function.
+             */
+            static set_defaultSaveCompletedCallback(value: string): void;
+            static get_defaultSaveCompletedCallback(): Function;
+            /**
+             * Gets or sets the default succeeded callback function for the service.
+             * @return 
+             *      A reference to the succeeded callback function for the service.
+             */
+            static defaultSucceededCallback(): Function;
+            static defaultSucceededCallback(value: Function): void;
+            /**
+             * Gets or sets the default user context for the service.
+             * @return 
+             *      A reference to the user context for the service.
+             */
+            static defaultUserContext(): Object;
+            /**
+             * Gets or sets the default user context for the service.
+             */
+            static defaultUserContext(value: Object): void;
+            /**
+             * Gets or sets the profile service path.
+             * @param value
+             *          A string that contains the profile service path.
+             */
+            static set_path(value: string): void;
+            /**
+             * Gets or sets the profile service path.
+             * @return 
+             *      The profile path
+             */
+            static get_path(): string;
+
+            /**
+             * Gets or sets the profile service time-out value.
+             * The timeout property represents the time in milliseconds that the current instance of the Sys.Net.WebRequestExecutor class should wait before timing out the request.
+             * By setting a time-out interval, you can make sure that a pending request returns based on a time interval that you specify, instead of waiting for the asynchronous communication layer to time out.
+             * 
+             * @param value
+             *          The time-out value in milliseconds.
+             */
+            static set_timeout(value: number): void;
+            /**
+             * Gets or sets the profile service time-out value.
+             */
+            static get_timeout(): number;
+
+            //#endregion
         }
 
     }
