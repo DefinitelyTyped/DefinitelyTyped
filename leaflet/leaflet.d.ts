@@ -2579,6 +2579,7 @@ declare module L {
       * Instantiates a Marker object given a geographical point and optionally
       * an options object.
       */
+    function marker(latlng: number[], options?: MarkerOptions): Marker;
     function marker(latlng: LatLng, options?: MarkerOptions): Marker;
 
     export class Marker extends Class implements ILayer, IEventPowered<Marker> {
