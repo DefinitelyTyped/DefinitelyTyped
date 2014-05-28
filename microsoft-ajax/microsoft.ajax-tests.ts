@@ -547,6 +547,8 @@ function Sys_WebForms_EndRequestEventArgs_Tests() {
     var handler = (sender: any, args: Sys.WebForms.EndRequestEventArgs) => {
         
         var error = args.get_error();
+        var message = error.message;
+        var name = error.name;
         var response = args.get_response();
         var dataItems = args.get_dataItems();
         var eventArgs = args.Empty;
