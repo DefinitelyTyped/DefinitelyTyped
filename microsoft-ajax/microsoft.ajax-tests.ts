@@ -195,6 +195,7 @@ function Sys_Application_Tests() {
     Sys.Application.findComponent(id, element);
     Sys.Application.findComponent(id, component);
     Sys.Application.findComponent(id);
+
     $find(id, element);
 
     var componentArray = Sys.Application.getComponents();
@@ -496,14 +497,14 @@ function Sys_Services_Profile_Service_Group_Tests() {
 
 }
 
-function Sys_Net_NetworkRequestEventArgsTests() {
+function Sys_Net_NetworkRequestEventArgs_Tests() {
 
     var value = new Sys.Net.WebRequest();
     var netWorkEventArgs = new Sys.Net.NetWorkRequestEventArgs(value);
     var webRequest = netWorkEventArgs.get_webRequest();
 }
 
-function Sys_Net_WebRequestManagerTests() {
+function Sys_Net_WebRequestManager_Tests() {
     
     var handler = (sender: any, args: any) => { }
 
@@ -514,6 +515,47 @@ function Sys_Net_WebRequestManagerTests() {
     Sys.Net.WebRequestManager.set_defaultTimeout(100);
     var customDefaultTimeout = Sys.Net.WebRequestManager.get_defaultTimeout();
 
+}
+
+function Sys_WebForms_PageRequestManager_Tests() {
+
+    var pageRequestManager = Sys.WebForms.PageRequestManager.getInstance();
+
+    var eventArgs = pageRequestManager.Empty;
+
+    var handler = (sender: any, args: any) => { }
+
+    var isInAsyncPostBack = pageRequestManager.get_isInAsyncPostBack();
+    
+    pageRequestManager.add_beginRequest(handler);
+    pageRequestManager.add_endRequest(handler);
+    pageRequestManager.add_initializeRequest(handler);
+    pageRequestManager.add_pageLoading(handler);
+    pageRequestManager.add_pageLoaded(handler);
+    pageRequestManager.remove_beginRequest(handler);
+    pageRequestManager.remove_pageLoaded(handler);
+    pageRequestManager.remove_pageLoading(handler);
+    pageRequestManager.beginAsyncPostBack();
+    pageRequestManager.abortPostBack();
+    pageRequestManager.dispose();
+}
+
+function Sys_WebForms_EndRequestEventArgs_Tests() {
+    
+    var pageRequestManager = Sys.WebForms.PageRequestManager.getInstance();
+
+    var handler = (sender: any, args: Sys.WebForms.EndRequestEventArgs) => {
+        
+        var error = args.get_error();
+        var response = args.get_response();
+        var dataItems = args.get_dataItems();
+        var eventArgs = args.Empty;
+
+        args.set_errorHandled(true);
+        var errorHandled = args.get_errorHandled();
+    }
+
+    pageRequestManager.add_endRequest(handler);
 }
 
 function AspNetTypes_Tests() {

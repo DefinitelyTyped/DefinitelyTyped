@@ -1135,7 +1135,7 @@ declare module Sys {
     * The Sys.Browser object determines which browser is being used and provides some information about it. You can use this object to help customize your code to the unique requirements or capabilities of the browser.
     * @see {@link http://msdn.microsoft.com/en-us/library/cc679064(v=vs.100).aspx}
     */
-    interface IBrowser {
+    interface Browser {
 
         //#region Fields
 
@@ -1171,7 +1171,7 @@ declare module Sys {
         //#endregion
     }
 
-    export function Browser(): Sys.IBrowser;
+    export function Browser(): Sys.Browser;
 
     /**
     * Provides the base class for the Control and Behavior classes, and for any other object whose lifetime should be managed by the ASP.NET AJAX client library.
@@ -3652,13 +3652,13 @@ declare module Sys {
             * @param endRequestHandler
             *               The name of the handler method that will be called.
             */
-            add_endRequest(endRequestHandler: (sender: any, args: any) => void): void;
+            add_endRequest(endRequestHandler: (sender: any, args: Sys.WebForms.EndRequestEventArgs) => void): void;
             /**
             * Raised after an asynchronous postback is finished and control has been returned to the browser.
             * @param endRequestHandler
             *               The name of the handler method that will be removed.
             */
-            remove_endRequest(endRequestHandler: (sender: any, args: any) => void): void;
+            remove_endRequest(endRequestHandler: (sender: any, args: Sys.WebForms.EndRequestEventArgs) => void): void;
             /**
             * Raised during the initialization of the asynchronous postback.
             * @param initializeRequestHandler
