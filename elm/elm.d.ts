@@ -18,7 +18,7 @@ interface ElmComponent<P> {
 	ports: P;
 }
 
-interface PortToElm<V> {
+interface PortToElm<V> {
 	send(value: V): void;
 }
 
