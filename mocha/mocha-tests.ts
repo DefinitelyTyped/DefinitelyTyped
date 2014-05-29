@@ -1,7 +1,5 @@
 /// <reference path="mocha.d.ts" />
 
-var mocha: Mocha;
-
 function test_describe() {
     describe('something', () => { });
 

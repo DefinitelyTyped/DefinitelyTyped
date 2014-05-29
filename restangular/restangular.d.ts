@@ -1,4 +1,4 @@
-// Type definitions for Restangular v1.2.2 - 2014-01-10
+// Type definitions for Restangular v1.2.2
 // Project: https://github.com/mgonto/restangular
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -6,10 +6,23 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
+interface RestangularRequestConfig {
+    params?: any;
+    headers?: any;
+    cache?: any;
+    withCredentials?: boolean;
+    data?: any;
+    transformRequest?: any;
+    transformResponse?: any;
+    timeout?: any; // number | promise
+}
+
 interface Restangular extends RestangularCustom {
     one(route: string, id?: number): RestangularElement;
     one(route: string, id?: string): RestangularElement;
+    oneUrl(route: string, url: string): RestangularElement;
     all(route: string): RestangularCollection;
+    allUrl(route: string, url: string): RestangularCollection;
     copy(fromElement: any): RestangularElement;
     withConfig(configurer: (RestangularProvider) => any): Restangular;
     restangularizeElement(parent: any, element: any, route: string, collection?, reqParams?): RestangularElement;
@@ -27,6 +40,7 @@ interface RestangularElement extends Restangular {
     trace(queryParams?, headers?): ng.IPromise<any>;
     options(queryParams?, headers?): ng.IPromise<any>;
     patch(queryParams?, headers?): ng.IPromise<any>;
+    withHttpConfig(httpConfig: RestangularRequestConfig): RestangularElement;
     getRestangularUrl(): string;
 }
 
@@ -38,6 +52,7 @@ interface RestangularCollection extends Restangular {
     options(queryParams?, headers?): ng.IPromise<any>;
     patch(queryParams?, headers?): ng.IPromise<any>;
     putElement(idx, params, headers): ng.IPromise<any>;
+    withHttpConfig(httpConfig: RestangularRequestConfig): RestangularCollection;
     getRestangularUrl(): string;
 }
 

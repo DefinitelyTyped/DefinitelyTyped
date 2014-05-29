@@ -42,9 +42,20 @@ exports = (grunt: IGrunt) => {
         var valid = false;
         valid = valid && options.sourceRoot === "default";
         valid = valid && currenttask.data.repeat > 0;
-        return valid;
+
+        var done = this.async();
+        done();
     });
 
+    grunt.registerMultiTask('task-1', "", function() {
+        var done = this.async();
+        done(new Error('nope'));
+    });
+
+    grunt.registerMultiTask('task-2', "", function() {
+        var done = this.async();
+        done(false);
+    });
 
     // util methods
     var testOneArg = (a: number) => a * 2;

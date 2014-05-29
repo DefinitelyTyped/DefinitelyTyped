@@ -21,8 +21,7 @@ See the section: [How to contribute](https://github.com/borisyankov/DefinitelyTy
 Other means to get the definitions
 ----------------------------------
 * [NuGet packages](http://nuget.org/packages?q=DefinitelyTyped)
-* [TypeScript definition package manager](https://github.com/Diullei/tsd)
-* [tsdpm](http://www.tsdpm.com/) - Online search
+* [TypeScript Definition package manager](https://github.com/DefinitelyTyped/tsd)
 
 List of Definitions
 -------------------
@@ -30,8 +29,10 @@ List of Definitions
 * [Ace Cloud9 Editor](http://ace.ajax.org/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Add To Home Screen] (http://cubiq.org/add-to-home-screen) (by [James Wilkins] (http://www.codeplex.com/site/users/view/jamesnw))
 * [AmCharts](http://www.amcharts.com/) (by [Covobonomo](https://github.com/covobonomo/))
+* [AngularFire](https://www.firebase.com/docs/angular/reference.html) (by [Dénes Harmath](https://github.com/thSoft))
 * [AngularJS](http://angularjs.org) (by [Diego Vilar](https://github.com/diegovilar)) ([wiki](https://github.com/borisyankov/DefinitelyTyped/wiki/AngularJS-Definitions-Usage-Notes))
 * [AngularUI](http://angular-ui.github.io/) (by [Michel Salib](https://github.com/michelsalib))
+* [Angular Protractor](https://github.com/angular/protractor) (by [Bill Armstrong](https://github.com/BillArmstrong))
 * [Angular Translate](http://pascalprecht.github.io/angular-translate/) (by [Michel Salib](https://github.com/michelsalib))
 * [Angular UI Bootstrap](http://angular-ui.github.io/bootstrap) (by [Brian Surowiec](https://github.com/xt0rted))
 * [AppFramework](http://app-framework-software.intel.com/) (by [Kyo Ago](https://github.com/kyo-ago))
@@ -62,8 +63,10 @@ List of Definitions
 * [dhtmlxScheduler](http://dhtmlx.com/docs/products/dhtmlxScheduler) (by [Maksim Kozhukh](http://github.com/mkozhukh))
 * [docCookies](https://developer.mozilla.org/en-US/docs/Web/API/document.cookie) (by [Jon Egerton](https://github.com/jonegerton))
 * [domo](http://domo-js.com/) (by [Steve Fenton](https://github.com/Steve-Fenton))
+* [doT](https://github.com/olado/doT) (by [ZombieHunter](https://github.com/ZombieHunter))
 * [dust](http://linkedin.github.com/dustjs) (by [Marcelo Dezem](https://github.com/mdezem))
 * [EaselJS](http://www.createjs.com/#!/EaselJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
+* [EasyStar](http://easystarjs.com/) (by [Magnus Gustafsson](https://github.com/Borundin))
 * [ember.js](http://emberjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [EpicEditor](http://epiceditor.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [ES6-Promises](https://github.com/jakearchibald/ES6-Promises) (by [François de Campredon](https://github.com/fdecampredon/))
@@ -129,6 +132,7 @@ List of Definitions
 * [jQuery.contextMenu](http://medialize.github.com/jQuery-contextMenu/) (by [Natan Vivo](https://github.com/nvivo/))
 * [jQuery.Cookie](https://github.com/carhartl/jquery-cookie) (by [Roy Goode](https://github.com/RoyGoode))
 * [jQuery.Cycle](http://jquery.malsup.com/cycle/) (by [François Guillot](http://fguillot.developpez.com/))
+* [jQuery.Cycle2](http://jquery.malsup.com/cycle2/) (by [Donny Nadolny](https://github.com/dnadolny))
 * [jQuery.dataTables](http://www.datatables.net) (by [Armin Sander](https://github.com/pragmatrix))
 * [jQuery.dynatree](http://code.google.com/p/dynatree/) (by [François de Campredon](https://github.com/fdecampredon))
 * [jQuery.Flot](http://www.flotcharts.org/) (by [Matt Burland](https://github.com/burlandm))
@@ -178,6 +182,7 @@ List of Definitions
 * [Levelup](https://github.com/rvagg/node-levelup) (by [Bret Little](https://github.com/blittle))
 * [linq.js](http://linqjs.codeplex.com/) (by [Marcin Najder](https://github.com/marcinnajder))
 * [Livestamp.js](https://github.com/mattbradley/livestampjs) (by [Vincent Bortone](https://github.com/vbortone))
+* [localForage](https://github.com/mozilla/localForage) (by [david pichsenmeister](https://github.com/3x14159265))
 * [Lodash](http://lodash.com/) (by [Brian Zengel](https://github.com/bczengel))
 * [Logg](https://github.com/dpup/node-logg) (by [Bret Little](https://github.com/blittle))
 * [Marked](https://github.com/chjj/marked) (by [William Orr](https://github.com/worr))
@@ -221,6 +226,7 @@ List of Definitions
 * [require.js](http://requirejs.org/) (by [Josh Baldwin](https://github.com/jbaldwin/))
 * [Sammy.js](http://sammyjs.org/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Select2](http://ivaynberg.github.com/select2/) (by [Boris Yankov](https://github.com/borisyankov))
+* [Selenium WebDriverJS](https://code.google.com/p/selenium/) (by [Bill Armstrong](https://github.com/BillArmstrong))
 * [Semver](https://github.com/isaacs/node-semver) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [Sencha Touch](http://www.sencha.com/products/touch/) (by [Brian Kotek](https://github.com/brian428))
 * [SharePoint](http://sptypescript.codeplex.com) (by [Stanislav Vyshchepan](http://gandjustas.blogspot.ru) and [Andrey Markeev](http://markeev.com))
@@ -230,6 +236,7 @@ List of Definitions
 * [SlickGrid](https://github.com/mleibman/SlickGrid) (by [Josh Baldwin](https://github.com/jbaldwin))
 * [smoothie](https://github.com/joewalnes/smoothie) (by [Mike H. Hawley](https://github.com/mikehhawley))
 * [socket.io](http://socket.io) (by [William Orr](https://github.com/worr))
+* [socket.io-client](http://socket.io) (by [Maido Kaara](https://github.com/v3rm0n))
 * [SockJS](https://github.com/sockjs/sockjs-client) (by [Emil Ivanov](https://github.com/vladev))
 * [SoundJS](http://www.createjs.com/#!/SoundJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [Spin](http://fgnass.github.com/spin.js/) (by [Boris Yankov](https://github.com/borisyankov))

@@ -114,7 +114,7 @@ declare module jake{
 		 */
 		breakOnError?:boolean;
 	}
-	export function exec(cmds:string[], callback?:()=>void, opts?:ExecOptions);
+	export function exec(cmds:string[], callback?:()=>void, opts?:ExecOptions):void;
 
 
 	/**
@@ -124,11 +124,7 @@ declare module jake{
 	 * @event stderr When the stderr for the child-process recieves data. This streams the stderr data. Passes one arg, the chunk of data.
 	 * @event error When a shell-command
 	 */
-	export interface Exec extends EventEmitter{
-		constructor(cmds:string[], callback?:()=>void, opts?:ExecOptions);
-		constructor(cmds:string[], opts?:ExecOptions,  callback?:()=>void);
-		constructor(cmds:string,   callback?:()=>void, opts?:ExecOptions);
-		constructor(cmds:string,   opts?:ExecOptions,  callback?:()=>void);
+	export interface Exec extends NodeEventEmitter {
 		append(cmd:string): void;
 		run(): void;
 	}
@@ -174,7 +170,7 @@ declare module jake{
 		 * Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
 		 * @default false
 		 */
-		asyc?: boolean;
+		async?: boolean;
 	}
 
 	/**
@@ -182,7 +178,7 @@ declare module jake{
 	 *
 	 * @event complete
 	 */
-	export class Task implements EventEmitter {
+	export class Task implements NodeEventEmitter {
 		/**
 		 * @name name The name of the Task
 		 * @param prereqs Prerequisites to be run before this task
@@ -201,17 +197,15 @@ declare module jake{
 		 */
 		reenable(): void;
 
-		addListener(event: string, listener: Function): EventEmitter;
-        on(event: string, listener: Function): EventEmitter;
-        once(event: string, listener: Function): EventEmitter;
-        removeListener(event: string, listener: Function): EventEmitter;
-        removeAllListeners(event?: string): EventEmitter;
+		addListener(event: string, listener: Function): NodeEventEmitter;
+        on(event: string, listener: Function): NodeEventEmitter;
+        once(event: string, listener: Function): NodeEventEmitter;
+        removeListener(event: string, listener: Function): NodeEventEmitter;
+        removeAllListeners(event?: string): NodeEventEmitter;
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
-        emit(event: string, arg1?: any, arg2?: any): boolean;
+        emit(event: string, ...args: any[]): boolean;
 	}
-
-
 
 	export class DirectoryTask{
 		/**
@@ -225,7 +219,7 @@ declare module jake{
 		 * Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
 		 * @default false
 		 */
-		asyc?: boolean;
+		async?: boolean;
 	}
 
 	export class FileTask{
@@ -274,7 +268,6 @@ declare module jake{
 		exclude(...file:RegExp[]): void;
 		exclude(file:FileFilter[]): void;
 		exclude(...file:FileFilter[]): void;
-
 
 		/**
 		 * Populates the FileList from the include/exclude rules with a list of
@@ -377,12 +370,12 @@ declare module jake{
 		constructor(name:string, packageFiles:string[]);
 	}
 
-	export function addListener(event: string, listener: Function);
-	export function on(event: string, listener: Function);
-	export function once(event: string, listener: Function): void;
-	export function removeListener(event: string, listener: Function): void;
-	export function removeAllListener(event: string): void;
+	export function addListener(event: string, listener: Function): NodeEventEmitter;
+	export function on(event: string, listener: Function): NodeEventEmitter;
+	export function once(event: string, listener: Function): NodeEventEmitter;
+	export function removeListener(event: string, listener: Function): NodeEventEmitter;
+	export function removeAllListener(event: string): NodeEventEmitter;
 	export function setMaxListeners(n: number): void;
-	export function listeners(event: string): { Function; }[];
-	export function emit(event: string, arg1?: any, arg2?: any): void;
+	export function listeners(event: string): Function[];
+	export function emit(event: string, ...args: any[]): boolean;
 }

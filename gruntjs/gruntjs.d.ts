@@ -816,9 +816,10 @@ declare module grunt {
              * Either false or an Error object may be passed to the done function
              * to instruct Grunt that the task has failed.
              */
-            done(success: boolean): void;
-            done(error: Error): void;
-            done(result: any): void;
+            (success: boolean): void;
+            (error: Error): void;
+            (result: any): void;
+            (): void;
         }
 
         /**

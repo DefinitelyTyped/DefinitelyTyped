@@ -3,6 +3,13 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+// note: these are preliminary typings using `any`: the generic versions are under construction, see:
+
+// https://github.com/borisyankov/DefinitelyTyped/issues/1563
+
+// https://github.com/borisyankov/DefinitelyTyped/tree/def/bluebird
+
+
 declare module Bluebird {
 
     interface ArrayLike {
@@ -495,4 +502,7 @@ declare module Bluebird {
          */
         filter(values:any[], filterer:(item:any, index?:number, arrayLength?:number) => any):Promise;
     }
+}
+declare module 'bluebird' {
+    export = Bluebird;
 }

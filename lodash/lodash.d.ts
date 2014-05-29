@@ -1919,27 +1919,27 @@ declare module _ {
 		**/
 		map<T, TResult>(
 			callback: ListIterator<T, TResult>,
-			thisArg?: any): LoDashArrayWrapper<T>;
+			thisArg?: any): LoDashArrayWrapper<TResult>;
 
 		/**
 		* @see _.map
 		* @param pluckValue _.pluck style callback
 		**/
 		map<T, TResult>(
-			pluckValue: string): LoDashArrayWrapper<T>;
+			pluckValue: string): LoDashArrayWrapper<TResult>;
 
 			/**
 			* @see _.map
 			**/
 			collect<T, TResult>(
 				callback: ListIterator<T, TResult>,
-				thisArg?: any): LoDashArrayWrapper<T>;
+				thisArg?: any): LoDashArrayWrapper<TResult>;
 
 			/**
 			* @see _.map
 			**/
 			collect<T, TResult>(
-				pluckValue: string): LoDashArrayWrapper<T>;
+				pluckValue: string): LoDashArrayWrapper<TResult>;
 	}
 
 	interface LoDashObjectWrapper<T> {
@@ -1948,14 +1948,14 @@ declare module _ {
 		**/
 		map<T extends {}, TResult>(
 			callback: ObjectIterator<T, TResult>,
-			thisArg?: any): LoDashObjectWrapper<T>;
+			thisArg?: any): LoDashObjectWrapper<TResult>;
 
 			/**
 			* @see _.map
 			**/
 			collect<T extends {}, TResult>(
 				callback: ObjectIterator<T, TResult>,
-				thisArg?: any): LoDashObjectWrapper<T>;
+				thisArg?: any): LoDashObjectWrapper<TResult>;
 	}
 
 	//_.max
@@ -2672,7 +2672,7 @@ declare module _ {
 		**/
         memoize<T extends Function>(
 			func: T,
-			resolver?: (n: any) => string): T;
+			resolver?: Function): T;
 	}
 
 	//_.once
@@ -2826,9 +2826,19 @@ declare module _ {
 		/**
 		* @see _.assign
 		**/
+	extend<P, T extends P, S1 extends P, Value, Result extends P>(
+            object: T,
+            s1: S1,
+			callback?: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg?: any): Result;
+
+		/**
+		* @see _.assign
+		**/
         extend<P, T extends P, S1 extends P, S2 extends P, Value, Result extends P>(
             object: T,
             s1: S1,
+            s2: S2,
 			callback?: (objectValue: Value, sourceValue: Value) => Value,
             thisArg?: any): Result;
 
@@ -2839,6 +2849,7 @@ declare module _ {
             object: T,
             s1: S1,
             s2: S2,
+            s3: S3,
 			callback?: (objectValue: Value, sourceValue: Value) => Value,
             thisArg?: any): Result;
 
@@ -3300,6 +3311,11 @@ declare module _ {
 		* @see _.isEmpty
 		**/
 		isEmpty(value: string): boolean;
+		
+		/**
+		* @see _.isEmpty
+		**/
+		isEmpty(value: any): boolean;
 	}
 
 	//_.isEqual

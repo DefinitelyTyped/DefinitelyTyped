@@ -1,4 +1,4 @@
-﻿// Type definitions for Sugar 1.3.9
+﻿﻿// Type definitions for Sugar 1.3.9
 // Project: http://sugarjs.com/
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -2133,7 +2133,7 @@ interface Array<T> {
 	*   }, 2, true);
 	**/
 	each(
-		fn: (element: T, index: number, array: T[]) => boolean,
+		fn: (element: T, index?: number, array?: T[]) => any,
 		index?: number,
 		loop?: boolean): T[];
 
@@ -2551,7 +2551,7 @@ interface Array<T> {
 	*     return n['a'];
 	*   });                              -> {a:3}
 	**/
-	max(map: string): T;
+	max(map?: string): T;
 
 	/**
 	* @see max
@@ -2587,7 +2587,7 @@ interface Array<T> {
 	*     return n['a'];
 	*   });                              -> [{a:2}]
 	**/
-	min(map: string): T;
+	min(map?: string): T;
 
 	/**
 	* @see min If true return all min values in the array, default = false.
@@ -2619,7 +2619,7 @@ interface Array<T> {
 	*     return n.age;
 	*   });                              -> [{age:12,name:'bob'},{age:12,name:'ted'}]
 	**/
-	most(map: string): T[];
+	most(map?: string): T[];
 
 	/**
 	* @see most
@@ -3386,7 +3386,7 @@ interface ObjectStatic {
 	*   });
 	*
 	**/
-	watch(obj: any, prop: string, fn: (prop: string, oldVal: any, newVal: any) => any): void;
+	watch(obj: any, prop: string, fn: (prop?: string, oldVal?: any, newVal?: any) => any): void;
 }
 
 interface Object {
@@ -3836,7 +3836,7 @@ interface Object {
 	*   });
 	*
 	**/
-	watch(prop: string, fn: (prop: string, oldVal: any, newVal: any) => any): void;
+	watch(prop: string, fn: (prop?: string, oldVal?: any, newVal?: any) => any): void;
 }
 
 interface Function {
