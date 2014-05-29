@@ -1556,12 +1556,12 @@ declare module L {
         /**
           * Adds a given layer to the group.
           */
-        addLayer(layer: ILayer): LayerGroup<T>;
+        addLayer(layer: T): LayerGroup<T>;
     
         /**
           * Removes a given layer from the group.
           */
-        removeLayer(layer: ILayer): LayerGroup<T>;
+        removeLayer(layer: T): LayerGroup<T>;
     
         /**
           * Removes a given layer of the given id from the group.
@@ -1571,7 +1571,7 @@ declare module L {
         /**
           * Returns true if the given layer is currently added to the group.
           */
-        hasLayer(layer: ILayer): boolean;
+        hasLayer(layer: T): boolean;
 
         /**
           * Returns the layer with the given id.
@@ -1592,7 +1592,7 @@ declare module L {
           * Iterates over the layers of the group, optionally specifying context of
           * the iterator function.
           */
-        eachLayer(fn: (layer: ILayer) => void, context?: any): LayerGroup<T>;
+        eachLayer(fn: (layer: T) => void, context?: any): LayerGroup<T>;
 
         /**
           * Returns a GeoJSON representation of the layer group (GeoJSON FeatureCollection).
