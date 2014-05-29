@@ -474,7 +474,7 @@ declare module L {
           * positions.
           * Default value: 'topright'.
           */
-        position: string;
+        position?: string;
 
     }
 }
@@ -773,20 +773,20 @@ declare module L {
     /**
       * Create a layer group, optionally given an initial set of layers.
       */
-    function featureGroup(layers?: ILayer[]): FeatureGroup;
+    function featureGroup<T extends ILayer>(layers?: T[]): FeatureGroup<T>;
 
-    export class FeatureGroup extends LayerGroup implements ILayer, IEventPowered<FeatureGroup> {
+    export class FeatureGroup<T extends ILayer> extends LayerGroup<T> implements ILayer, IEventPowered<FeatureGroup<T>> {
 
         /**
           * Create a layer group, optionally given an initial set of layers.
           */
-        constructor(layers?: ILayer[]);
+        constructor(layers?: T[]);
     
         /**
           * Binds a popup with a particular HTML content to a click on any layer from the
           * group that has a bindPopup method.
           */
-        bindPopup(htmlContent: string, options?: PopupOptions): FeatureGroup;
+        bindPopup(htmlContent: string, options?: PopupOptions): FeatureGroup<T>;
     
         /**
           * Returns the LatLngBounds of the Feature Group (created from bounds and coordinates
@@ -797,17 +797,17 @@ declare module L {
         /**
           * Sets the given path options to each layer of the group that has a setStyle method.
           */
-        setStyle(style: PathOptions): FeatureGroup;
+        setStyle(style: PathOptions): FeatureGroup<T>;
     
         /**
           * Brings the layer group to the top of all other layers.
           */
-        bringToFront(): FeatureGroup;
+        bringToFront(): FeatureGroup<T>;
     
         /**
           * Brings the layer group to the bottom of all other layers.
           */
-        bringToBack(): FeatureGroup;
+        bringToBack(): FeatureGroup<T>;
 
         ////////////
         ////////////
@@ -826,20 +826,20 @@ declare module L {
         
         ////////////////
         ////////////////
-        addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): FeatureGroup;
-        addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): FeatureGroup;
-        removeEventListener(type: string, fn?: (e: LeafletEvent) => void, context?: any): FeatureGroup;
+        addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): FeatureGroup<T>;
+        addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): FeatureGroup<T>;
+        removeEventListener(type: string, fn?: (e: LeafletEvent) => void, context?: any): FeatureGroup<T>;
         hasEventListeners(type: string): boolean;
-        fireEvent(type: string, data?: any): FeatureGroup;
-        on(type: string, fn: (e: LeafletEvent) => void, context?: any): FeatureGroup;
-        once(type: string, fn: (e: LeafletEvent) => void, context?: any): FeatureGroup;
-        off(type: string, fn?: (e: LeafletEvent) => void, context?: any): FeatureGroup;
-        fire(type: string, data?: any): FeatureGroup;
-        addEventListener(eventMap: any, context?: any): FeatureGroup;
-        removeEventListener(eventMap?: any, context?: any): FeatureGroup;
-        clearAllEventListeners(): FeatureGroup;
-        on(eventMap: any, context?: any): FeatureGroup;
-        off(eventMap?: any, context?: any): FeatureGroup;
+        fireEvent(type: string, data?: any): FeatureGroup<T>;
+        on(type: string, fn: (e: LeafletEvent) => void, context?: any): FeatureGroup<T>;
+        once(type: string, fn: (e: LeafletEvent) => void, context?: any): FeatureGroup<T>;
+        off(type: string, fn?: (e: LeafletEvent) => void, context?: any): FeatureGroup<T>;
+        fire(type: string, data?: any): FeatureGroup<T>;
+        addEventListener(eventMap: any, context?: any): FeatureGroup<T>;
+        removeEventListener(eventMap?: any, context?: any): FeatureGroup<T>;
+        clearAllEventListeners(): FeatureGroup<T>;
+        on(eventMap: any, context?: any): FeatureGroup<T>;
+        off(eventMap?: any, context?: any): FeatureGroup<T>;
     }
 }
  
@@ -882,7 +882,7 @@ declare module L {
       */
     function geoJson(geojson?: any, options?: GeoJSONOptions): GeoJSON;
 
-    export class GeoJSON extends FeatureGroup {
+    export class GeoJSON extends FeatureGroup<ILayer> {
 
         /**
           * Creates a GeoJSON layer. Optionally accepts an object in GeoJSON format
@@ -1539,34 +1539,34 @@ declare module L {
     /**
       * Create a layer group, optionally given an initial set of layers.
       */
-    function layerGroup(layers?: ILayer[]): LayerGroup;
+    function layerGroup<T extends ILayer>(layers?: T[]): LayerGroup<T>;
 
-    export class LayerGroup extends Class implements ILayer {
+    export class LayerGroup<T extends ILayer> extends Class implements ILayer {
 
         /**
           * Create a layer group, optionally given an initial set of layers.
           */
-        constructor(layers?: ILayer[]);
+        constructor(layers?: T[]);
     
         /**
           * Adds the group of layers to the map.
           */
-        addTo(map: Map): LayerGroup;
+        addTo(map: Map): LayerGroup<T>;
     
         /**
           * Adds a given layer to the group.
           */
-        addLayer(layer: ILayer): LayerGroup;
+        addLayer(layer: ILayer): LayerGroup<T>;
     
         /**
           * Removes a given layer from the group.
           */
-        removeLayer(layer: ILayer): LayerGroup;
+        removeLayer(layer: ILayer): LayerGroup<T>;
     
         /**
           * Removes a given layer of the given id from the group.
           */
-        removeLayer(id: string): LayerGroup;
+        removeLayer(id: string): LayerGroup<T>;
 
         /**
           * Returns true if the given layer is currently added to the group.
@@ -1576,23 +1576,23 @@ declare module L {
         /**
           * Returns the layer with the given id.
           */
-        getLayer(id: string): ILayer;
+        getLayer(id: string): T;
 
         /**
           * Returns an array of all the layers added to the group.
           */
-        getLayers(): ILayer[];
+        getLayers(): T[];
 
         /**
           * Removes all the layers from the group.
           */
-        clearLayers(): LayerGroup;
+        clearLayers(): LayerGroup<T>;
     
         /**
           * Iterates over the layers of the group, optionally specifying context of
           * the iterator function.
           */
-        eachLayer(fn: (layer: ILayer) => void, context?: any): LayerGroup;
+        eachLayer(fn: (layer: ILayer) => void, context?: any): LayerGroup<T>;
 
         /**
           * Returns a GeoJSON representation of the layer group (GeoJSON FeatureCollection).
@@ -2794,7 +2794,7 @@ declare module L {
       */
     function multiPolygon(latlngs: LatLng[][], options?: PolylineOptions): MultiPolygon;
 
-    export class MultiPolygon extends FeatureGroup {
+    export class MultiPolygon extends FeatureGroup<Polygon> {
 
         /**
           * Instantiates a multi-polyline object given an array of latlngs arrays (one
@@ -2829,7 +2829,7 @@ declare module L {
       */
     function multiPolyline(latlngs: LatLng[][], options?: PolylineOptions): MultiPolyline;
 
-    export class MultiPolyline extends FeatureGroup {
+    export class MultiPolyline extends FeatureGroup<Polyline> {
 
         /**
           * Instantiates a multi-polyline object given an array of arrays of geographical
