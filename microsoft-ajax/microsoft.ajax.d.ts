@@ -1135,7 +1135,7 @@ declare module Sys {
     * The Sys.Browser object determines which browser is being used and provides some information about it. You can use this object to help customize your code to the unique requirements or capabilities of the browser.
     * @see {@link http://msdn.microsoft.com/en-us/library/cc679064(v=vs.100).aspx}
     */
-    interface IBrowser {
+    interface Browser {
 
         //#region Fields
 
@@ -1171,7 +1171,7 @@ declare module Sys {
         //#endregion
     }
 
-    export function Browser(): Sys.IBrowser;
+    export function Browser(): Sys.Browser;
 
     /**
     * Provides the base class for the Control and Behavior classes, and for any other object whose lifetime should be managed by the ASP.NET AJAX client library.
@@ -1198,15 +1198,6 @@ declare module Sys {
         * Raised when the dispose method is called for a component.
         */
         remove_disposing(handler: Function): void;
-        /**
-        * Gets the ID of the current Component object.
-        */
-        get_id(): string;
-        /**
-        * Sets the ID of the current Component object.
-        * @param value A string that contains the ID of the component.
-        */
-        set_id(value: string): void;
         /**
         * Raised when the raisePropertyChanged method of the current Component object is called.
         */
@@ -1270,6 +1261,37 @@ declare module Sys {
         //#endregion
 
         //#region Properties
+
+        /**
+         * Gets an EventHandlerList object that contains references to all the event handlers that are mapped to the current component's events.
+         * This member supports the client-script infrastructure and is not intended to be used directly from your code.
+         * @return 
+         *      An EventHandlerList object that contains references to all the events and handlers for this component.
+         */
+        get_events(): any;
+        /**
+        * Gets the ID of the current Component object.
+        * @return 
+        *       The id
+        */
+        get_id(): string;
+        /**
+        * Sets the ID of the current Component object.
+        * @param value A string that contains the ID of the component.
+        */
+        set_id(value: string): void;
+        /**
+         * Gets a value indicating whether the current Component object is initialized.
+         * @return
+         *      true if the current Component is initialized; otherwise, false.
+         */
+        get_isInitialized(): boolean;
+        /**
+         * Gets a value indicating whether the current Component object is updating.
+         * @return
+         *      true if the current Component object is updating; otherwise, false.
+         */
+        get_isUpdating(): boolean;
 
         //#endregion
     }
@@ -1340,29 +1362,45 @@ declare module Sys {
 
         //#region Constructors
 
+        /**
+         * Initializes a new instance of the Sys.Debug class.
+         */
         constructor();
 
         //#endregion
 
         //#region Methods
 
-        assert(condition: boolean, message?: string, displayCaller?: boolean): void;
+        /**
+         * Checks for a condition, and if the condition is false, displays a message and prompts the user to break into the debugger. 
+         * When you call the assert method in your code, express the success of an operation as true or false and use that value for condition. If the operation fails (if condition is false), the assert logic is executed.
+         * The assert method should be used to catch developer errors. To respond to user errors and to run-time error conditions such as network errors or permission failures, throw an exception.
+         * Debugging behavior, requirements, and the output of trace messages vary with different browsers. For more information, see Debugging and Tracing Ajax Applications Overview.
+         * 
+         * @param condition
+         *      true to continue to execute code; false to display message and break into the debugger.
+         * @param message
+         *      (Optional) The message to display. The default is an empty string ("").
+         * @param displayCaller
+         *      (Optional) true to indicate that the name of the function that is calling assert should be displayed in the message. The default is false. 
+         */
+        static assert(condition: boolean, message?: string, displayCaller?: boolean): void;       
         /**
          * Clears all trace messages from the trace console.
          */
-        clearTrace(): void;
+        static clearTrace(): void;
         /**
         * Displays a message in the debugger's output window and breaks into the debugger.
         * @param message
         *           The message to display.  
         */
-        fail(message: string): void;
+        static fail(message: string): void;
         /**
         * Appends a text line to the debugger console and to the trace console, if available.
         * @param text
         *       The text to display.
         */
-        trace(text: string): void;
+        static trace(text: string): void;
         /**
          * Dumps an object to the debugger console and to the trace console, if available.
          * @param object
@@ -1370,7 +1408,7 @@ declare module Sys {
          * @param name
          *      (Optional) The name of the object.
          */
-        traceDump(object: any, name?: string): void;
+        static traceDump(object: any, name?: string): void;
 
         //#endregion
     }
@@ -1496,12 +1534,6 @@ declare module Sys {
         */
         static insert(target: any, index: number, item: any): void;
         /**
-        * Indicates that the target is being updated.
-        * @param target The target object to update.
-        * @return true if given target argument is currently updating; otherwise false.
-        */
-        static isUpdating(target: any): boolean;
-        /**
         * Makes an object directly observable by adding observable methods to it.
         * @param target The object, array, or DOM element to make observable.
         * @return The observable object.
@@ -1563,6 +1595,16 @@ declare module Sys {
 
         //#endregion
 
+        //#region Properties
+
+        /**
+        * Indicates that the target is being updated.
+        * @param target The target object to update.
+        * @return true if given target argument is currently updating; otherwise false.
+        */
+        static isUpdating(target: any): boolean;
+
+        //#endregion
     }
 
     /**
@@ -1577,139 +1619,139 @@ declare module Sys {
         /**
         * @return "Actual value was {0}." 
         */
-        actualValue: string;
+        static actualValue: string;
         /**
         * @return "The application failed to load within the specified time out period."
         */
-        appLoadTimedout: string;
+        static appLoadTimedout: string;
         /**
         * @return "Value does not fall within the expected range."
         */
-        argument: string;
+        static argument: string;
         /**
         * @return "Value cannot be null."
         */
-        argumentNull: string;
+        static argumentNull: string;
         /**
         * @return "Specified argument was out of the range of valid values.
         */
-        argumentOutOfRange: string;
+        static argumentOutOfRange: string;
         /**
         * @return "Object cannot be converted to the required type."
         */
-        argumentType: string;
+        static argumentType: string;
         /**
         * @return "Object of type '{0}' cannot be converted to type '{1}'."
         */
-        argumentTypeWithTypes: string;
+        static argumentTypeWithTypes: string;
         /**
         * @return "Value cannot be undefined."
         */
-        argumentUndefined: string;
+        static argumentUndefined: string;
         /**
         * @return "Assertion Failed: {0}"
         */
-        assertFailed: string;
+        static assertFailed: string;
         /**
         * @return "Assertion Failed: {0}\r\nat {1}"
         */
-        assetFailedCaller: string;
+        static assetFailedCaller: string;
         /**
         * @return "Base URL does not contain ://."
         */
-        badBaseUrl1: string;
+        static badBaseUrl1: string;
         /**
         * @return "Base URL does not contain another /."
         */
-        badBaseUrl2: string;
+        static badBaseUrl2: string;
         /**
         * @return "Cannot find last / in base URL."
         */
-        badBaseUrl3: string;
+        static badBaseUrl3: string;
         /**
         * @return "{0}\r\n\r\nBreak into debugger?"
         */
-        breakIntoDebugger: string;
+        static breakIntoDebugger: string;
         /**
         * @return "Cannot abort when executor has not started."
         */
-        cannotAbortBeforeStart: string;
+        static cannotAbortBeforeStart: string;
         /**
         * @return "Cannot call {0} when responseAvailable is false."
         */
-        cannotCallBeforeResponse: string;
+        static cannotCallBeforeResponse: string;
         /**
         * @return "Cannot call {0} once started."
         */
-        cannotCallOnceStarted: string;
+        static cannotCallOnceStarted: string;
         /**
         * @return "Cannot call {0} outside of a completed event handler."
         */
-        cannotCallOutsideHandler: string;
+        static cannotCallOutsideHandler: string;
         /**
         * @return "Cannot deserialize empty string."
         */
-        cannotDeserializeEmptyString: string;
+        static cannotDeserializeEmptyString: string;
         /**
         * @return "Cannot serialize non-finite numbers."
         */
-        cannotSerializeNonFiniteNumbers: string;
+        static cannotSerializeNonFiniteNumbers: string;
         /**
         * @return "The id property can't be set on a control."
         */
-        controlCantSetId: string;
+        static controlCantSetId: string;
         /**
         * @return "'{0}' is not a valid value for enum {1}."
         */
-        enumInvalidValue: string;
+        static enumInvalidValue: string;
         /**
         * @return "Handler was not added through the Sys.UI.DomEvent.addHandler method.
         */
-        eventHandlerInvalid: string;
+        static eventHandlerInvalid: string;
         /**
         * @return "One of the identified items was in an invalid format."
         */
-        format: string;
+        static format: string;
         /**
         * @return "The string was not recognized as a valid Date."
         */
-        formatBadDate: string;
+        static formatBadDate: string;
         /**
         * @return "Format specifier was invalid."
         */
-        formatBadFormatSpecifier: string;
+        static formatBadFormatSpecifier: string;
         /**
         * @return "Input string was not in a correct format."
         */
-        formatInvalidString: string;
+        static formatInvalidString: string;
         /**
         * @return "Could not create a valid Sys.Net.WebRequestExecutor from: {0}."
         */
-        invalidExecutorType: string;
+        static invalidExecutorType: string;
         /**
         * @return "httpVerb cannot be set to an empty or null string."
         */
-        invalidHttpVerb: string;
+        static invalidHttpVerb: string;
         /**
         * @return "Operation is not valid due to the current state of the object."
         */
-        invalidOperation: string;
+        static invalidOperation: string;
         /**
         * @return "Value must be greater than or equal to zero."
         */
-        invalidTimeout: string;
+        static invalidTimeout: string;
         /**
         * @return "Cannot call invoke more than once."
         */
-        invokeCalledTwice: string;
+        static invokeCalledTwice: string;
         /**
         * @return "The method or operation is not implemented."
         */
-        notImplemented: string;
+        static notImplemented: string;
         /**
         * @return "Cannot call executeRequest with a null webRequest."
         */
-        nullWebRequest: string;
+        static nullWebRequest: string;
 
         //#endregion
     }
@@ -1770,8 +1812,7 @@ declare module Sys {
         *           (Optional) A string to append between each element of the string that is returned.  
         * @return A string representation of the StringBuilder instance. If separator is specified, the delimiter string is inserted between each element of the returned string.
         */
-        toString(separator: string): string;
-        toString(): string;
+        toString(separator?: string): string;
 
         //#endregion
     }
@@ -1847,11 +1888,16 @@ declare module Sys {
     * You register an interface by when you register the class by calling the Type.registerClass method. You specify IDisposable in the interfaceTypes parameter when you call Type.registerClass.
     */
     interface IDisposable {
+
+        //#region Methods
+
         /**
         * Releases resources held by an object that implements the Sys.IDisposable interface.
         * Implement the dispose method to close or release resources held by an object, or to prepare an object for reuse.
         */
         dispose(): void;
+
+        //#endregion
     }
 
     /**
@@ -1859,6 +1905,9 @@ declare module Sys {
     * Implement this interface if the class must notify other objects when it is releasing resources. The base component class already implements this interface. Therefore, typically this interface is already available.
     */
     interface INotifyDisposing {
+
+        //#region Events 
+
         /**
         * Occurs when an object's resources are released.
         * @param handler
@@ -1871,12 +1920,17 @@ declare module Sys {
         *       The name of the event handler for the disposing event.
         */
         remove_disposing(handler: Function): void;
+
+        //#endregion
     }
 
     /**
     * Defines the propertyChanged event.
     */
     interface INotifyPropertyChange {
+
+        //#region Events
+
         /**
         * Occurs when a component property is set to a new value.
         * @param handler
@@ -1889,6 +1943,8 @@ declare module Sys {
         *       The name of the event handler for the propertyChanged event.
         */
         remove_propertyChanged(handler: Function): void;
+
+        //#endregion
     }
 
     //#endregion
@@ -1932,12 +1988,16 @@ declare module Sys {
 
     /**
     * Provides a base class for classes that are used by event sources to pass event argument information.
+    * The EventArgs class is a base class and not intended to be used directly. Override this constructor to provide specific functionality.
     * @see {@link http://msdn.microsoft.com/en-us/library/bb383795(v=vs.100).aspx}
     */
     class EventArgs {
 
         //#region Constructors
 
+        /**
+         * Initializes a new instance of the EventArgs class.
+         */
         constructor();
 
         //#endregion
@@ -2185,6 +2245,53 @@ declare module Sys {
     module Net {
 
         /**
+         * Generated Proxy Classes
+         * Enables your application to call Web services asynchronously by using ECMAScript (JavaScript).
+         * @see {@link http://msdn.microsoft.com/en-us/library/bb310823(v=vs.100).aspx}
+         */
+        // Cannot create definitions for generated proxy classes.
+        
+        /**
+         * Contains information about a Web request that is ready to be sent to the current Sys.Net.WebRequestExecutor instance.
+         * This class represents the type for the second parameter of the callback function added by the add_invokingRequest method. 
+         * The callback function is called before the Web request is routed to the current instance of the WebRequestExecutor class.
+         * 
+         * @see {@link http://msdn.microsoft.com/en-us/library/bb397488(v=vs.100).aspx}
+         */
+        class NetWorkRequestEventArgs {
+            
+            //#region Constructors
+
+            /**
+             * Initializes a new instance of the Sys.Net.NetworkRequestEventArgs. class.
+             * @param value
+             *      The current WebRequest instance.
+             */
+            constructor(value: WebRequest);
+
+            //#endregion
+
+            //#region Methods
+
+            //#endregion
+
+            //#region Properties
+
+            /**
+             * Gets the Web request to be routed to the current Sys.Net.WebRequestExecutor instance.
+             * Use this property to inspect the contents of a Web request before it is routed to the current instance of the Sys.Net.WebRequestExecutor class.
+             * You can access the Web request instance from the handler that is called before the request is routed. 
+             * This event handler is added by using the add_invokingRequest method.
+             * @return 
+             *      The WebRequest.
+             */
+            get_webRequest(): WebRequest;
+
+            //#endregion
+
+        }
+
+        /**
         * Provides the script API to make a Web request.
         * @see {@link http://msdn.microsoft.com/en-us/library/bb310979(v=vs.100).aspx}
         */
@@ -2344,6 +2451,95 @@ declare module Sys {
 
             //#endregion
         }
+
+
+        /**
+         * Manages the flow of the Web requests issued by the Sys.Net.WebRequest object to the associated executor object.
+         * @see {@link http://msdn.microsoft.com/en-us/library/bb397435(v=vs.100).aspx}
+         */
+        class IWebRequestManager {
+
+            //#region Constructor
+
+            /**
+             * Initializes a new instance of the Sys.Net.WebRequestManager class when implemented in a derived class.
+             */
+            constructor();
+
+            //#endregion
+
+            //#region Methods
+
+            /**
+             * Registers a handler for the completed request event of the WebRequestManager.
+             * @param handler
+             *      The function registered to handle the completed request event.
+             */
+            add_completedRequest(handler: (sender: any, eventArgs: any) => void): void;
+            /**
+             * Registers a handler for processing the invoking request event of the WebRequestManager.
+             * @param handler
+             *      The function registered to handle the invoking request event.
+             */
+            add_invokingRequest(handler: (sender: any, networkRequestEventArgs: any) => void): void;
+            /**
+             * Sends Web requests to the default network executor. 
+             * This member supports the client-script infrastructure and is not intended to be used directly from your code.
+             * @param WebRequest
+             *      An instance of the Sys.Net.WebRequest class.
+             */
+            executeRequest(WebRequest: Sys.Net.WebRequest): void;
+            /**
+             * Removes the event handler set by the add_completedRequest method. 
+             * Use the remove_ completedRequest method to remove the event handler you set using the add_ completedRequest method.
+             * @param handler
+             *      The function that handles the completed request event.
+             */
+            remove_completedRequest(handler: Function): void;
+            /**
+             * Removes the event handler set by the add_invokingRequest method. 
+             * Use the remove_invokingRequest method to remove the event handler you set using the add_invokingRequest method.
+             * @param handler
+             *          The function that handles the invoking request event.
+             */
+            remove_invokingRequest(handler: Function): void;
+
+            //#endregion
+
+            //#region Properties 
+
+            /**
+             * Gets or sets the default network executor type that is used to make network requests.
+             * @return 
+             *      The object that represents the default Web request executor.
+             */
+            get_defaultExecutorType(): Sys.Net.WebRequestExecutor;
+            /**
+             * Gets or sets the default network executor type that is used to make network requests.
+             * @param value
+             *          A reference to an implementation of the WebRequestExecutor class.
+             */
+            set_defaultExecutorType(value: Sys.Net.WebRequestExecutor): void;
+            /**
+             * Gets or sets the time-out for the default network executor.
+             * @return
+             *      An integer value that indicates the current time-out for the default executor.
+             */
+            get_defaultTimeout(): number;
+            /**
+             * Gets or sets the time-out for the default network executor.
+             * 
+             * @throws Sys.ArgumentOutOfRangeException An invalid parameter was passed.
+             * @param value
+             *          The time in milliseconds that the default executor should wait before timing out a Web request. This value must be 0 or a positive integer.
+             */
+            set_defaultTimeout(value: number): void;
+
+            //#endregion
+            
+        }
+
+        export var WebRequestManager: IWebRequestManager;
 
     }
 
@@ -2561,9 +2757,9 @@ declare module Sys {
         * @see {@link http://msdn.microsoft.com/en-us/library/bb310801(v=vs.100).aspx}
         */
         class ProfileGroup {
-     
+
             //#region Constructors
-                   
+
             constructor();
 
             /**
@@ -2571,14 +2767,14 @@ declare module Sys {
             * @param properties
             *           (Optional) An object that contains the settings for this profile group. This parameter can be null.
             */
-           
+
             constructor(properties: Object);
 
             //#endregion
 
             //#region Methods
 
-           
+
 
             //#endregion
 
@@ -3456,13 +3652,13 @@ declare module Sys {
             * @param endRequestHandler
             *               The name of the handler method that will be called.
             */
-            add_endRequest(endRequestHandler: (sender: any, args: any) => void): void;
+            add_endRequest(endRequestHandler: (sender: any, args: Sys.WebForms.EndRequestEventArgs) => void): void;
             /**
             * Raised after an asynchronous postback is finished and control has been returned to the browser.
             * @param endRequestHandler
             *               The name of the handler method that will be removed.
             */
-            remove_endRequest(endRequestHandler: (sender: any, args: any) => void): void;
+            remove_endRequest(endRequestHandler: (sender: any, args: Sys.WebForms.EndRequestEventArgs) => void): void;
             /**
             * Raised during the initialization of the asynchronous postback.
             * @param initializeRequestHandler
