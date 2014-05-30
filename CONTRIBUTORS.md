@@ -324,6 +324,7 @@ All definitions files include a header with the author and editors, so at some p
 * [WinJS](http://msdn.microsoft.com/en-us/library/windows/apps/br229773.aspx) (from TypeScript samples)
 * [WinRT](http://msdn.microsoft.com/en-us/library/windows/apps/br211377.aspx) (from TypeScript samples)
 * [ws](http://einaros.github.io/ws/) (by [Paul Loyd](https://github.com/loyd))
+* [x2js](https://code.google.com/p/x2js/) (by [Hiroki Horiuchi](https://github.com/horiuchi/))
 * [XRegExp](http://xregexp.com/) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [YouTube](https://developers.google.com/youtube/) (by [Daz Wilkin](https://github.com/DazWilkin/))
 * [YouTube Analytics API](https://developers.google.com/youtube/analytics/) (by [Frank M](https://github.com/sgtfrankieboy))
