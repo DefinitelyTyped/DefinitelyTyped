@@ -263,6 +263,18 @@ interface Require {
 	toUrl(module: string): string;
 
 	/**
+	* Returns true if the module has already been loaded and defined.
+	* @param module Module to check
+	**/
+	defined(module: string): boolean;
+
+	/**
+	* Returns true if the module has already been requested or is in the process of loading and should be available at some point.
+	* @param module Module to check
+	**/
+	specified(module: string): boolean;
+
+	/**
 	* On Error override
 	* @param err
 	**/
