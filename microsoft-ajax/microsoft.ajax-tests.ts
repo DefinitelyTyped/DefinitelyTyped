@@ -610,18 +610,23 @@ function Sys_WebForms_PageRequestManager_Tests() {
 
     var eventArgs = pageRequestManager.Empty;
 
-    var handler = (sender: any, args: any) => { }
+    var beginRequestHandler = (sender: any, args: Sys.WebForms.BeginRequestEventArgs) => { }
+    var endRequestHandler = (sender: any, args: Sys.WebForms.EndRequestEventArgs) => { }
+    var initializeRequestHandler = (sender: any, args: Sys.WebForms.InitializeRequestEventArgs) => { }
+    var pageLoadedRequestHandler = (sender: any, args: Sys.WebForms.PageLoadedEventArgs) => { }
+    var pageLoadingRequestHandler = (sender: any, args: Sys.WebForms.PageLoadingEventArgs) => { }
+
 
     var isInAsyncPostBack = pageRequestManager.get_isInAsyncPostBack();
     
-    pageRequestManager.add_beginRequest(handler);
-    pageRequestManager.add_endRequest(handler);
-    pageRequestManager.add_initializeRequest(handler);
-    pageRequestManager.add_pageLoading(handler);
-    pageRequestManager.add_pageLoaded(handler);
-    pageRequestManager.remove_beginRequest(handler);
-    pageRequestManager.remove_pageLoaded(handler);
-    pageRequestManager.remove_pageLoading(handler);
+    pageRequestManager.add_beginRequest(beginRequestHandler);
+    pageRequestManager.add_endRequest(endRequestHandler);
+    pageRequestManager.add_initializeRequest(initializeRequestHandler);
+    pageRequestManager.add_pageLoading(pageLoadingRequestHandler);
+    pageRequestManager.add_pageLoaded(pageLoadedRequestHandler);
+    pageRequestManager.remove_beginRequest(beginRequestHandler);
+    pageRequestManager.remove_pageLoaded(pageLoadedRequestHandler);
+    pageRequestManager.remove_pageLoading(pageLoadingRequestHandler);
     pageRequestManager.beginAsyncPostBack();
     pageRequestManager.abortPostBack();
     pageRequestManager.dispose();

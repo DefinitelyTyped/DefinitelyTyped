@@ -3853,7 +3853,7 @@ declare module Sys {
             * @param beginRequestHandler
             *               The name of the handler method that will be called.
             */
-            add_beginRequest(beginRequestHandler: (sender: any, args: any) => void): void;
+            add_beginRequest(beginRequestHandler: (sender: any, args: BeginRequestEventArgs) => void): void;
             /**
             * Raised before the processing of an asynchronous postback starts and the postback request is sent to the server.
             *  @param beginRequestHandler
@@ -3877,37 +3877,37 @@ declare module Sys {
             * @param initializeRequestHandler
             *               The name of the handler method that will be called.
             */
-            add_initializeRequest(initializeRequestHandler: (sender: any, args: any) => void): void;
+            add_initializeRequest(initializeRequestHandler: (sender: any, args: InitializeRequestEventArgs) => void): void;
             /**
             * Raised during the initialization of the asynchronous postback.
             * @param initializeRequestHandler
             *               The name of the handler method that will be called.
             */
-            remove_initializeRequest(initializeRequestHandler: (sender: any, args: any) => void): void;
+            remove_initializeRequest(initializeRequestHandler: (sender: any, args: InitializeRequestEventArgs) => void): void;
             /**
             * Raised after all content on the page is refreshed as a result of either a synchronous or an asynchronous postback.
             * @param pageLoadedHandler
             *               The name of the handler method that will be called.
             */
-            add_pageLoaded(pageLoadedHandler: (sender: any, args: any) => void): void;
+            add_pageLoaded(pageLoadedHandler: (sender: any, args: PageLoadedEventArgs) => void): void;
             /**
             * Raised after all content on the page is refreshed as a result of either a synchronous or an asynchronous postback.
             * @param pageLoadedHandler
             *               The name of the handler method that will be called.
             */
-            remove_pageLoaded(pageLoadedHandler: (sender: any, args: any) => void): void;
+            remove_pageLoaded(pageLoadedHandler: (sender: any, args: PageLoadedEventArgs) => void): void;
             /**
             * Raised after the response from the server to an asynchronous postback is received but before any content on the page is updated.
             * @param pageLoadedHandler
             *               The name of the handler method that will be called.
             */
-            add_pageLoading(pageLoadingHandler: (sender: any, args: any) => void): void;
+            add_pageLoading(pageLoadingHandler: (sender: any, args: PageLoadingEventArgs) => void): void;
             /**
             * Raised after the response from the server to an asynchronous postback is received but before any content on the page is updated.
             * @param pageLoadedHandler
             *               The name of the handler method that will be called.
             */
-            remove_pageLoading(pageLoadingHandler: (sender: any, args: any) => void): void;
+            remove_pageLoading(pageLoadingHandler: (sender: any, args: PageLoadingEventArgs) => void): void;
 
             //#endregion
 
