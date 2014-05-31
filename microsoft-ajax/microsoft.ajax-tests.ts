@@ -610,11 +610,38 @@ function Sys_WebForms_PageRequestManager_Tests() {
 
     var eventArgs = pageRequestManager.Empty;
 
-    var beginRequestHandler = (sender: any, args: Sys.WebForms.BeginRequestEventArgs) => { }
-    var endRequestHandler = (sender: any, args: Sys.WebForms.EndRequestEventArgs) => { }
-    var initializeRequestHandler = (sender: any, args: Sys.WebForms.InitializeRequestEventArgs) => { }
-    var pageLoadedRequestHandler = (sender: any, args: Sys.WebForms.PageLoadedEventArgs) => { }
-    var pageLoadingRequestHandler = (sender: any, args: Sys.WebForms.PageLoadingEventArgs) => { }
+    var beginRequestHandler = (sender: any, args: Sys.WebForms.BeginRequestEventArgs) => {
+        var postBackElement = args.get_postBackElement();
+        var webRequest = args.get_request();
+        var updatePanelsToUpdate = args.get_updatePanelsToUpdate();
+        var empty = args.Empty;
+    }
+    var endRequestHandler = (sender: any, args: Sys.WebForms.EndRequestEventArgs) => {
+        var dataItems = args.get_dataItems();
+        var error = args.get_error();
+        var errorHandled = args.get_errorHandled();
+        var webRequestExecutor = args.get_response();
+        var handled = args.set_errorHandled(true);
+
+    }
+    var initializeRequestHandler = (sender: any, args: Sys.WebForms.InitializeRequestEventArgs) => {
+        var postBackElement = args.get_postBackElement();
+        var webRequestExecutor = args.get_request();
+        var updatePanelsToUpdate = args.get_updatePanelsToUpdate();
+        var empty = args.Empty;
+    }
+    var pageLoadedRequestHandler = (sender: any, args: Sys.WebForms.PageLoadedEventArgs) => {
+        var dataItems = args.get_dataItems();
+        var panelsCreated = args.get_panelsCreated();
+        var panelsUpdated = args.get_panelsUpdated();
+        var empty = args.Empty;
+    }
+    var pageLoadingRequestHandler = (sender: any, args: Sys.WebForms.PageLoadingEventArgs) => {
+        var dataItems = args.get_dataItems();
+        var panelsDeleted = args.get_panelsDeleted();
+        var panelsUpdating = args.get_panelsUpdating();
+        var empty = args.Empty;
+    }
 
 
     var isInAsyncPostBack = pageRequestManager.get_isInAsyncPostBack();
