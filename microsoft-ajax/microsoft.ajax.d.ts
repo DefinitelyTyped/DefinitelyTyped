@@ -3835,7 +3835,7 @@ declare module Sys {
         * Manages client partial-page updates of server UpdatePanel controls. In addition, defines properties, events, and methods that can be used to customize a Web page with client script.
         * @see {@link http://msdn.microsoft.com/en-us/library/bb311028(v=vs.100).aspx}
         */
-        class PageRequestManager extends EventArgs {
+        class PageRequestManager {
 
             //#region Constructors 
 
