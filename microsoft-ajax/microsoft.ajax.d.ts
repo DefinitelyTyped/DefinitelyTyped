@@ -3421,49 +3421,60 @@ declare module Sys {
              */
             charCode: number;
             /**
-             * 
+             * Gets the x-coordinate of the mouse pointer's position relative to the client area of the browser window, excluding window scroll bars.
+             * @return An integer that represents the x-coordinate in pixels.
              */
-            clientX: any; // todo
+            clientX: number;
             /**
-             * 
+             * Gets the y-coordinate of the mouse pointer's position relative to the client area of the browser window, excluding window scroll bars.
+             * @return An integer that represents the y-coordinate in pixels.
              */
-            clientY: any; // todo
+            clientY: number;
             /**
-             * 
+             * Gets a Boolean value that indicates the state of the CTRL key when the associated event occurred.
+             * @return true if the CTRL key was pressed when the event occurred; otherwise, false.
              */
-            ctrlKey: any; // todo
+            ctrlKey: boolean;
             /**
-             * 
+             * Gets the key code of the key that raised the keyUp or keyDown event.
+             * @return An integer value that represents the key code of the key that was pressed to raise the keyUp or keyDown event.
              */
-            keyCode: any; // todo
+            keyCode: number;
             /**
-             * 
+             * Gets the x-coordinate of the mouse pointer's position relative to the object that raised the event.
+             * @return An integer that represents the x-coordinate in pixels.
              */
-            offsetX: any; // todo
+            offsetX: number;
             /**
-             * 
+             * Gets the y-coordinate of the mouse pointer's position relative to the object that raised the event.
+             * @return An integer that represents the y-coordinate in pixels.
              */
-            offsetY: any; // todo
+            offsetY: number;
             /**
-             * 
+             * Gets the x-coordinate of the mouse pointer's position relative to the user's screen.
+             * @return An integer that represents the x-coordinate in pixels.
              */
-            screenX: any; // todo
+            screenX: number;
             /**
-             * 
+             * Gets the y-coordinate of the mouse pointer's position relative to the user's screen.
+             * @return An integer that represents the y-coordinate in pixels.
              */
-            screenY: any; // todo
+            screenY: number;
             /**
-             * 
+             * Gets a Boolean value that indicates the state of the SHIFT key when the associated event occurred.
+             * @return true if the SHIFT key was pressed when the event occurred; otherwise, false.
              */
-            shiftKey: any; // todo
+            shiftKey: boolean;
             /**
-             * 
+             * Gets the object that the event acted on.
+             * @return An object that represents the target that the event acted on.
              */
-            target: any; // todo
+            target: any;
             /**
-             * 
+             * Gets the name of the event that was raised.
+             * @return A string that represents the name of the event that was raised.
              */
-            type: any; // todo
+            type: string;
 
             //#endregion
         }
