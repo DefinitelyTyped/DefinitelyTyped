@@ -5391,6 +5391,27 @@ declare module _ {
             thisArg?: any): Omitted;
     }
 
+    interface LoDashObjectWrapper<T> {
+        /**
+        * @see _.omit
+        **/
+        omit<Omitted>(
+            ...keys: string[]): Omitted;
+
+        /**
+        * @see _.omit
+        **/
+        omit<Omitted>(
+            keys: string[]): Omitted;
+
+        /**
+        * @see _.omit
+        **/
+        omit<Omitted>(
+            callback: ObjectIterator<any, boolean>,
+            thisArg?: any): Omitted;
+    }
+
     //_.pairs
     interface LoDashStatic {
         /**
