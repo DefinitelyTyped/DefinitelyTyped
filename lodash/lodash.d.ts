@@ -5396,20 +5396,20 @@ declare module _ {
         * @see _.omit
         **/
         omit<Omitted>(
-            ...keys: string[]): Omitted;
+            ...keys: string[]): LoDashObjectWrapper<Omitted>;
 
         /**
         * @see _.omit
         **/
         omit<Omitted>(
-            keys: string[]): Omitted;
+            keys: string[]): LoDashObjectWrapper<Omitted>;
 
         /**
         * @see _.omit
         **/
         omit<Omitted>(
             callback: ObjectIterator<any, boolean>,
-            thisArg?: any): Omitted;
+            thisArg?: any): LoDashObjectWrapper<Omitted>;
     }
 
     //_.pairs
