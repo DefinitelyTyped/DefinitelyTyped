@@ -269,8 +269,8 @@ function Sys_CancelEventArgs_Tests() {
     }
 
     var ActivateAlertDiv = function (visString: string, msg: string) {
-        var adiv = $get(divElem);
-        var aspan = $get(messageElem);
+        var adiv = <HTMLElement> $get(divElem);
+        var aspan = <HTMLElement> $get(messageElem);
         adiv.style.visibility = visString;
         aspan.innerHTML = msg;
     }
@@ -370,6 +370,93 @@ function Sys_UI_Control_Tests() {
     a.raiseBubbleEvent(domElementObj, className);
     a.onBubbleEvent(domElementObj, className);
     a.dispose();
+}
+
+function Sy_UI_Point_Tests() {
+
+    var elementRef: Sys.UI.DomElement;
+    var result: string;
+    // Get the location of the element
+    var elementLoc = Sys.UI.DomElement.getLocation(elementRef);
+    result += "Before move - Label1 location (x,y) = (" +
+    elementLoc.x + "," + elementLoc.y + ")<br/>";
+    // Move the element
+    Sys.UI.DomElement.setLocation(elementRef, 100, elementLoc.y);
+    elementLoc = Sys.UI.DomElement.getLocation(elementRef);
+    result += "After move  - Label1 location (x,y) = (" +
+    elementLoc.x + "," + elementLoc.y + ")<br/>";
+
+}
+
+function Sys_UI_DomElement_Tests() {
+    
+    // Add CSS class
+    Sys.UI.DomElement.addCssClass($get("Button1"), "redBackgroundColor");
+
+    var elementRef = $get("Label1");
+    var elementBounds = Sys.UI.DomElement.getBounds(elementRef);
+    var toggleCssClassMethod = () => {};
+    var removeCssClassMethod = () => {};
+    var containsClass = Sys.UI.DomElement.containsCssClass(elementRef, "class-name");
+
+    // Add handler using the getElementById method
+    $addHandler(Sys.UI.DomElement.getElementById("Button1"), "click", toggleCssClassMethod);
+    // Add handler using the shortcut to the getElementById method
+    $addHandler($get("Button2"), "click", removeCssClassMethod);
+
+    Sys.UI.DomElement.toggleCssClass($get("id"), "redBackgroundColor");
+
+
+    // Add handlers using the $get shortcut to the 
+    // Sys.UI.DomElement.getElementById method
+    $addHandler($get("Button1"), "click", toggleVisible);
+    $addHandler($get("Button2"), "click", toggleVisibilityMode);
+
+    // This method is called when Button2 is clicked.
+    function toggleVisible() {
+        var anElement = $get("Label1");
+        if (Sys.UI.DomElement.getVisible(anElement)) {
+            Sys.UI.DomElement.setVisible(anElement, false);
+        }
+        else {
+            Sys.UI.DomElement.setVisible(anElement, true);
+        }
+    }
+    
+    // This method is called when Button1 is clicked.
+    function toggleVisibilityMode() {
+
+        var anElement = $get("Label1");
+
+        var visMode = Sys.UI.DomElement.getVisibilityMode(anElement);
+
+        var status = visMode;
+
+        if (visMode === 0) {
+            Sys.UI.DomElement.setVisibilityMode(anElement, Sys.UI.VisibilityMode.collapse);
+            if (document.all) {
+                anElement.innerText =
+                "Label1  VisibilityMode: Sys.UI.VisibilityMode.collapse";
+            }
+            else {
+                //Firefox
+                anElement.textContent =
+                "Label1  VisibilityMode: Sys.UI.VisibilityMode.collapse";
+            }
+        }
+        else {
+            Sys.UI.DomElement.setVisibilityMode(anElement, Sys.UI.VisibilityMode.hide);
+            if (document.all) {
+                anElement.innerText = "Label1  VisibilityMode: Sys.UI.VisibilityMode.hide";
+            }
+            else {
+                //Firefox
+                anElement.textContent = "Label1  VisibilityMode: Sys.UI.VisibilityMode.hide";
+            }
+        }
+    }
+
+
 }
 
 function Sys_Debug_Tests() {
