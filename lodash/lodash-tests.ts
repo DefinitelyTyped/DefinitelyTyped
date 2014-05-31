@@ -877,6 +877,11 @@ result = <HasName>_.omit({ 'name': 'moe', 'age': 40 }, ['age']);
 result = <HasName>_.omit({ 'name': 'moe', 'age': 40 }, function (value) {
     return typeof value == 'number';
 });
+result = <HasName>_({ 'name': 'moe', 'age': 40 }).omit('age');
+result = <HasName>_({ 'name': 'moe', 'age': 40 }).omit(['age']);
+result = <HasName>_({ 'name': 'moe', 'age': 40 }).omit(function (value) {
+    return typeof value == 'number';
+});
 
 result = <any[][]>_.pairs({ 'moe': 30, 'larry': 40 });
 
