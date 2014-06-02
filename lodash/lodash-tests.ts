@@ -420,15 +420,16 @@ result = <IStoogesAge>_.min(stoogesAges, 'age');
 
 result = <string[]>_.pluck(stoogesAges, 'name');
 
-result = <number>_.reduce<number, number>([1, 2, 3], function (sum: number, num: number) {
-    return sum + num;
-});
 interface ABC {
     [index: string]: number;
     a: number;
     b: number;
     c: number;
 }
+
+result = <number>_.reduce<number, number>([1, 2, 3], function (sum: number, num: number) {
+    return sum + num;
+});
 result = <ABC>_.reduce({ 'a': 1, 'b': 2, 'c': 3 }, function (r: ABC, num: number, key: string) {
     r[key] = num * 3;
     return r;
@@ -446,6 +447,30 @@ result = <number>_.inject([1, 2, 3], function (sum: number, num: number) {
     return sum + num;
 });
 result = <ABC>_.inject({ 'a': 1, 'b': 2, 'c': 3 }, function (r: ABC, num: number, key: string) {
+    r[key] = num * 3;
+    return r;
+}, {});
+
+result = <number>_([1, 2, 3]).reduce<number>(function (sum: number, num: number) {
+    return sum + num;
+});
+result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).reduce<number, ABC>(function (r: ABC, num: number, key: string) {
+    r[key] = num * 3;
+    return r;
+}, {});
+
+result = <number>_([1, 2, 3]).foldl<number>(function (sum: number, num: number) {
+    return sum + num;
+});
+result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).foldl<number, ABC>(function (r: ABC, num: number, key: string) {
+    r[key] = num * 3;
+    return r;
+}, {});
+
+result = <number>_([1, 2, 3]).inject<number>(function (sum: number, num: number) {
+    return sum + num;
+});
+result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).inject<number, ABC>(function (r: ABC, num: number, key: string) {
     r[key] = num * 3;
     return r;
 }, {});
