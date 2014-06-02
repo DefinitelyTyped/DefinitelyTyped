@@ -3548,16 +3548,16 @@ declare module _ {
         /**
         * @see _.pluck
         **/
-        pluck<T extends {}>(
-            property: string): LoDashArrayWrapper<any>;
+        pluck<TResult>(
+            property: string): LoDashArrayWrapper<TResult>;
     }
 
     interface LoDashObjectWrapper<T> {
         /**
         * @see _.pluck
         **/
-        pluck<T extends {}>(
-            property: string): LoDashArrayWrapper<any>;
+        pluck<TResult>(
+            property: string): LoDashArrayWrapper<TResult>;
     }
 
     //_.reduce
