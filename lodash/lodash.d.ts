@@ -5423,6 +5423,13 @@ declare module _ {
         pairs(object: any): any[][];
     }
 
+    interface LoDashObjectWrapper<T> {
+        /**
+        * @see _.pairs
+        **/
+        pairs(): LoDashArrayWrapper<any[]>;
+    }
+
     //_.picks
     interface LoDashStatic {
         /**

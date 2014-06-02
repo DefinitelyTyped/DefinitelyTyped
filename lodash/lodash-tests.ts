@@ -884,6 +884,7 @@ result = <HasName>_({ 'name': 'moe', 'age': 40 }).omit(function (value) {
 }).value();
 
 result = <any[][]>_.pairs({ 'moe': 30, 'larry': 40 });
+result = <any[][]>_({ 'moe': 30, 'larry': 40 }).pairs().value();
 
 result = <HasName>_.pick({ 'name': 'moe', '_userid': 'moe1' }, 'name');
 result = <HasName>_.pick({ 'name': 'moe', '_userid': 'moe1' }, ['name']);
