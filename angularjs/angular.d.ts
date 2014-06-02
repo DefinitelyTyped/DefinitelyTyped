@@ -605,7 +605,7 @@ declare module ng {
          * @param url Relative or absolute URL specifying the destination of the request
          * @param config Optional configuration object
          */
-        get<T>(url: string, config?: any): IHttpPromise<T>;
+        get<T>(url: string, config?: IRequestShortcutConfig): IHttpPromise<T>;
 
         /**
          * Shortcut method to perform DELETE request.
@@ -613,7 +613,7 @@ declare module ng {
          * @param url Relative or absolute URL specifying the destination of the request
          * @param config Optional configuration object
          */
-        delete<T>(url: string, config?: any): IHttpPromise<T>;
+        delete<T>(url: string, config?: IRequestShortcutConfig): IHttpPromise<T>;
 
         /**
          * Shortcut method to perform HEAD request.
@@ -621,7 +621,7 @@ declare module ng {
          * @param url Relative or absolute URL specifying the destination of the request
          * @param config Optional configuration object
          */
-        head<T>(url: string, config?: any): IHttpPromise<T>;
+        head<T>(url: string, config?: IRequestShortcutConfig): IHttpPromise<T>;
 
         /**
          * Shortcut method to perform JSONP request.
@@ -629,7 +629,7 @@ declare module ng {
          * @param url Relative or absolute URL specifying the destination of the request
          * @param config Optional configuration object
          */
-        jsonp<T>(url: string, config?: any): IHttpPromise<T>;
+        jsonp<T>(url: string, config?: IRequestShortcutConfig): IHttpPromise<T>;
 
         /**
          * Shortcut method to perform POST request.
@@ -638,7 +638,7 @@ declare module ng {
          * @param data Request content
          * @param config Optional configuration object
          */
-        post<T>(url: string, data: any, config?: any): IHttpPromise<T>;
+        post<T>(url: string, data: any, config?: IRequestShortcutConfig): IHttpPromise<T>;
 
         /**
          * Shortcut method to perform PUT request.
@@ -647,7 +647,7 @@ declare module ng {
          * @param data Request content
          * @param config Optional configuration object
          */
-        put<T>(url: string, data: any, config?: any): IHttpPromise<T>;
+        put<T>(url: string, data: any, config?: IRequestShortcutConfig): IHttpPromise<T>;
 
         /**
          * Runtime equivalent of the $httpProvider.defaults property. Allows configuration of default headers, withCredentials as well as request and response transformations.
