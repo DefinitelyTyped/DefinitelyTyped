@@ -3609,6 +3609,100 @@ declare module _ {
             thisArg?: any): TResult;
     }
 
+    interface LoDashArrayWrapper<T> {
+         /**
+        * @see _.reduce
+        **/
+        reduce<TResult>(
+            callback: MemoIterator<T, TResult>,
+            accumulator: TResult,
+            thisArg?: any): TResult;
+
+        /**
+        * @see _.reduce
+        **/
+        reduce<TResult>(
+            callback: MemoIterator<T, TResult>,
+            thisArg?: any): TResult;
+
+        /**
+        * @see _.reduce
+        **/
+        inject<TResult>(
+            callback: MemoIterator<T, TResult>,
+            accumulator: TResult,
+            thisArg?: any): TResult;
+
+        /**
+        * @see _.reduce
+        **/
+        inject<TResult>(
+            callback: MemoIterator<T, TResult>,
+            thisArg?: any): TResult;
+
+        /**
+        * @see _.reduce
+        **/
+        foldl<TResult>(
+            callback: MemoIterator<T, TResult>,
+            accumulator: TResult,
+            thisArg?: any): TResult;
+
+        /**
+        * @see _.reduce
+        **/
+        foldl<TResult>(
+            callback: MemoIterator<T, TResult>,
+            thisArg?: any): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+         /**
+        * @see _.reduce
+        **/
+        reduce<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            accumulator: TResult,
+            thisArg?: any): TResult;
+
+        /**
+        * @see _.reduce
+        **/
+        reduce<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            thisArg?: any): TResult;
+
+        /**
+        * @see _.reduce
+        **/
+        inject<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            accumulator: TResult,
+            thisArg?: any): TResult;
+
+        /**
+        * @see _.reduce
+        **/
+        inject<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            thisArg?: any): TResult;
+
+        /**
+        * @see _.reduce
+        **/
+        foldl<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            accumulator: TResult,
+            thisArg?: any): TResult;
+
+        /**
+        * @see _.reduce
+        **/
+        foldl<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            thisArg?: any): TResult;
+    }
+
     //_.reduceRight
     interface LoDashStatic {
         /**
