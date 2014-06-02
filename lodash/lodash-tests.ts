@@ -419,6 +419,7 @@ result = <IStoogesAge>_.min(stoogesAges, function (stooge) { return stooge.age; 
 result = <IStoogesAge>_.min(stoogesAges, 'age');
 
 result = <string[]>_.pluck(stoogesAges, 'name');
+result = <string[]>_(stoogesAges).pluck('name').value();
 
 interface ABC {
     [index: string]: number;

@@ -3444,6 +3444,22 @@ declare module _ {
             property: string): any[];
     }
 
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.pluck
+        **/
+        pluck<T extends {}>(
+            property: string): LoDashArrayWrapper<any>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+        * @see _.pluck
+        **/
+        pluck<T extends {}>(
+            property: string): LoDashArrayWrapper<any>;
+    }
+
     //_.reduce
     interface LoDashStatic {
         /**
