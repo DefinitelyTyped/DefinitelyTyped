@@ -277,6 +277,22 @@ result = <string[]>_.unique(['A', 'b', 'C', 'a', 'B', 'c'], function (letter) {
 result = <number[]>_.unique([1, 2.5, 3, 1.5, 2, 3.5], function (num) { return this.floor(num); }, Math);
 result = <{ x: number; }[]>_.unique([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
 
+result = <number[]>_([1, 2, 1, 3, 1]).uniq().value();
+result = <number[]>_([1, 1, 2, 2, 3]).uniq(true).value();
+result = <string[]>_(['A', 'b', 'C', 'a', 'B', 'c']).uniq(function (letter) {
+    return letter.toLowerCase();
+}).value();
+result = <number[]>_([1, 2.5, 3, 1.5, 2, 3.5]).uniq(function (num) { return this.floor(num); }, Math).value();
+result = <{ x: number; }[]>_([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }]).uniq('x').value();
+
+result = <number[]>_([1, 2, 1, 3, 1]).unique().value();
+result = <number[]>_([1, 1, 2, 2, 3]).unique(true).value();
+result = <string[]>_(['A', 'b', 'C', 'a', 'B', 'c']).unique(function (letter) {
+    return letter.toLowerCase();
+}).value();
+result = <number[]>_([1, 2.5, 3, 1.5, 2, 3.5]).unique(function (num) { return this.floor(num); }, Math).value();
+result = <{ x: number; }[]>_([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }]).unique('x').value();
+
 result = <number[]>_.without([1, 2, 1, 0, 3, 1, 4], 0, 1);
 
 result = <any[][]>_.zip(['moe', 'larry'], [30, 40], [true, false]);

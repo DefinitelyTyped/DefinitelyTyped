@@ -1750,6 +1750,106 @@ declare module _ {
             whereValue?: W): T[];
     }
 
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.uniq
+        **/
+        uniq<TSort>(isSorted?: boolean): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        **/
+        uniq<TSort>(
+            isSorted: boolean,
+            callback: ListIterator<T, TSort>,
+            thisArg?: any): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        **/
+        uniq<TSort>(
+            callback: ListIterator<T, TSort>,
+            thisArg?: any): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        * @param pluckValue _.pluck style callback
+        **/
+        uniq(
+            isSorted: boolean,
+            pluckValue: string): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        * @param pluckValue _.pluck style callback
+        **/
+        uniq(pluckValue: string): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        * @param whereValue _.where style callback
+        **/
+        uniq<W>(
+            isSorted: boolean,
+            whereValue: W): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        * @param whereValue _.where style callback
+        **/
+        uniq<W>(
+            whereValue: W): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        **/
+        unique<TSort>(isSorted?: boolean): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        **/
+        unique<TSort>(
+            isSorted: boolean,
+            callback: ListIterator<T, TSort>,
+            thisArg?: any): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        **/
+        unique<TSort>(
+            callback: ListIterator<T, TSort>,
+            thisArg?: any): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        * @param pluckValue _.pluck style callback
+        **/
+        unique(
+            isSorted: boolean,
+            pluckValue: string): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        * @param pluckValue _.pluck style callback
+        **/
+        unique(pluckValue: string): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        * @param whereValue _.where style callback
+        **/
+        unique<W>(
+            isSorted: boolean,
+            whereValue: W): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        * @param whereValue _.where style callback
+        **/
+        unique<W>(
+            whereValue: W): LoDashArrayWrapper<T>;        
+    }
+
     //_.without
     interface LoDashStatic {
         /**
