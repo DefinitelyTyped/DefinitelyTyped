@@ -5637,6 +5637,13 @@ declare module _ {
         keys(object: any): string[];
     }
 
+    interface LoDashObjectWrapper<T> {
+        /**
+        * @see _.keys
+        **/
+        keys(): LoDashArrayWrapper<string>
+    }
+
     //_.mapValues
     interface LoDashStatic {
         /**

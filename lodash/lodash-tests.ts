@@ -909,6 +909,7 @@ result = <boolean>_.isString('moe');
 result = <boolean>_.isUndefined(void 0);
 
 result = <string[]>_.keys({ 'one': 1, 'two': 2, 'three': 3 });
+result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keys().value();
 
 var mergeNames = {
     'stooges': [
