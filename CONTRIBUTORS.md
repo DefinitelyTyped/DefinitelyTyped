@@ -268,6 +268,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Raphael](http://raphaeljs.com/) (by [CheCoxshall](https://github.com/CheCoxshall))
 * [Restangular](https://github.com/mgonto/restangular/) (by [Boris Yankov](https://github.com/borisyankov))
 * [require.js](http://requirejs.org/) (by [Josh Baldwin](https://github.com/jbaldwin/))
+* [rtree.js] (https://github.com/leaflet-extras/RTree) (by [Omede Firouz](https://github.com/oefirouz))
 * [Sammy.js](http://sammyjs.org/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Select2](http://ivaynberg.github.com/select2/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Selenium WebDriverJS](https://code.google.com/p/selenium/) (by [Bill Armstrong](https://github.com/BillArmstrong))
