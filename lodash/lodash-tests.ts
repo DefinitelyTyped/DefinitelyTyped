@@ -183,6 +183,14 @@ result = <number[]>_.first([1, 2, 3], function (num) {
 result = <IFoodOrganic[]>_.first(foodsOrganic, 'organic');
 result = <IFoodType[]>_.first(foodsType, { 'type': 'fruit' });
 
+result = <number>_([1, 2, 3]).first();
+result = <number[]>_([1, 2, 3]).first(2).value();
+result = <number[]>_([1, 2, 3]).first(function (num) {
+    return num < 3;
+}).value();
+result = <IFoodOrganic[]>_(foodsOrganic).first('organic').value();
+result = <IFoodType[]>_(foodsType).first({ 'type': 'fruit' }).value();
+
 result = <number>_.head([1, 2, 3]);
 result = <number[]>_.head([1, 2, 3], 2);
 result = <number[]>_.head([1, 2, 3], function (num) {
@@ -191,11 +199,27 @@ result = <number[]>_.head([1, 2, 3], function (num) {
 result = <IFoodOrganic[]>_.head(foodsOrganic, 'organic');
 result = <IFoodType[]>_.head(foodsType, { 'type': 'fruit' });
 
+result = <number>_([1, 2, 3]).head();
+result = <number[]>_([1, 2, 3]).head(2).value();
+result = <number[]>_([1, 2, 3]).head(function (num) {
+    return num < 3;
+}).value();
+result = <IFoodOrganic[]>_(foodsOrganic).head('organic').value();
+result = <IFoodType[]>_(foodsType).head({ 'type': 'fruit' }).value();
+
 result = <number>_.take([1, 2, 3]);
 result = <number[]>_.take([1, 2, 3], 2);
 result = <number[]>_.take([1, 2, 3], (num) => num < 3);
 result = <IFoodOrganic[]>_.take(foodsOrganic, 'organic');
 result = <IFoodType[]>_.take(foodsType, { 'type': 'fruit' });
+
+result = <number>_([1, 2, 3]).take();
+result = <number[]>_([1, 2, 3]).take(2).value();
+result = <number[]>_([1, 2, 3]).take(function (num) {
+    return num < 3;
+}).value();
+result = <IFoodOrganic[]>_(foodsOrganic).take('organic').value();
+result = <IFoodType[]>_(foodsType).take({ 'type': 'fruit' }).value();
 
 result = <number[]>_.flatten([1, [2], [3, [[4]]]]);
 result = <any[]>_.flatten([1, [2], [3, [[4]]]], true);
