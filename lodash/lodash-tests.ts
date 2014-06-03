@@ -469,10 +469,12 @@ result = <number>_.size('curly');
 result = <boolean>_.some([null, 0, 'yes', false], Boolean);
 result = <boolean>_.some(foodsCombined, 'organic');
 result = <boolean>_.some(foodsCombined, { 'type': 'meat' });
+result = <boolean>_.some(foodsOrganic[0]);
 
 result = <boolean>_.any([null, 0, 'yes', false], Boolean);
 result = <boolean>_.any(foodsCombined, 'organic');
 result = <boolean>_.any(foodsCombined, { 'type': 'meat' });
+result = <boolean>_.any(foodsOrganic[0]);
 
 result = <number[]>_.sortBy([1, 2, 3], function (num) { return Math.sin(num); });
 result = <number[]>_.sortBy([1, 2, 3], function (num) { return this.sin(num); }, Math);
