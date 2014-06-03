@@ -2940,6 +2940,14 @@ declare module _ {
             thisArg?: any): Dictionary<T>;
 
         /**
+        * @see _.each
+        **/
+        forEach<T extends {}, TValue>(
+            object: T,
+            callback: ObjectIterator<TValue, void>,
+            thisArg?: any): T
+
+        /**
         * @see _.forEach
         **/
         each<T>(
@@ -2965,6 +2973,14 @@ declare module _ {
             object: Dictionary<T>,
             callback: ObjectIterator<T, void>,
             thisArg?: any): Dictionary<T>;
+
+        /**
+        * @see _.each
+        **/
+        each<T extends {}, TValue>(
+            object: T,
+            callback: ObjectIterator<TValue, void>,
+            thisArg?: any): T
     }
 
     interface LoDashArrayWrapper<T> {
