@@ -3934,6 +3934,14 @@ declare module _ {
             thisArg?: any): boolean;
 
         /**
+         * @see _.some
+         **/
+        some(
+            collection: {},
+            callback?: ListIterator<{}, boolean>,
+            thisArg?: any): boolean;
+
+        /**
         * @see _.some
         * @param pluckValue _.pluck style callback
         **/
@@ -4003,6 +4011,14 @@ declare module _ {
         any<T>(
             collection: Dictionary<T>,
             callback?: ListIterator<T, boolean>,
+            thisArg?: any): boolean;
+
+        /**
+         * @see _.some
+         **/
+        any(
+            collection: {},
+            callback?: ListIterator<{}, boolean>,
             thisArg?: any): boolean;
 
         /**
