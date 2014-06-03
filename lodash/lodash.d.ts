@@ -4016,6 +4016,27 @@ declare module _ {
             whereValue: W): T[];
     }
 
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.reject
+        **/
+        reject(
+            callback: ListIterator<T, boolean>,
+            thisArg?: any): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.reject
+        * @param pluckValue _.pluck style callback
+        **/
+        reject(pluckValue: string): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.reject
+        * @param whereValue _.where style callback
+        **/
+        reject<W>(whereValue: W): LoDashArrayWrapper<T>;
+    }
+
     //_.sample
     interface LoDashStatic {
         /**
