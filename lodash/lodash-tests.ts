@@ -524,6 +524,10 @@ result = <number[]>_.sortBy([1, 2, 3], function (num) { return Math.sin(num); })
 result = <number[]>_.sortBy([1, 2, 3], function (num) { return this.sin(num); }, Math);
 result = <string[]>_.sortBy(['banana', 'strawberry', 'apple'], 'length');
 
+result = <number[]>_([1, 2, 3]).sortBy(function (num) { return Math.sin(num); }).value();
+result = <number[]>_([1, 2, 3]).sortBy(function (num) { return this.sin(num); }, Math).value();
+result = <string[]>_(['banana', 'strawberry', 'apple']).sortBy('length').value();
+
 (function (a: number, b: number, c: number, d: number) { return _.toArray(arguments).slice(1); })(1, 2, 3, 4);
 
 result = <IStoogesCombined[]>_.where(stoogesCombined, { 'age': 40 });

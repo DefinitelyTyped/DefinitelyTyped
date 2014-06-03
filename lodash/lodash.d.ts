@@ -4349,6 +4349,27 @@ declare module _ {
             whereValue: W): T[];
     }
 
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.sortBy
+        **/
+        sortBy<TSort>(
+            callback?: ListIterator<T, TSort>,
+            thisArg?: any): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.sortBy
+        * @param pluckValue _.pluck style callback
+        **/
+        sortBy(pluckValue: string): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.sortBy
+        * @param whereValue _.where style callback
+        **/
+        sortBy<W>(whereValue: W): LoDashArrayWrapper<T>;
+    }
+
     //_.toArray
     interface LoDashStatic {
         /**
