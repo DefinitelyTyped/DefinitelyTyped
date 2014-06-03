@@ -4418,6 +4418,13 @@ declare module _ {
             properties: U): T[];
     }
 
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.where
+        **/
+        where<T, U extends {}>(properties: U): LoDashArrayWrapper<T>;
+    }
+
     /*************
      * Functions *
      *************/

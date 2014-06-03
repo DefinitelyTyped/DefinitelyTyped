@@ -533,6 +533,9 @@ result = <string[]>_(['banana', 'strawberry', 'apple']).sortBy('length').value()
 result = <IStoogesCombined[]>_.where(stoogesCombined, { 'age': 40 });
 result = <IStoogesCombined[]>_.where(stoogesCombined, { 'quotes': ['Poifect!'] });
 
+result = <IStoogesCombined[]>_(stoogesCombined).where({ 'age': 40 }).value();
+result = <IStoogesCombined[]>_(stoogesCombined).where({ 'quotes': ['Poifect!'] }).value();
+
 /*************
  * Functions *
  *************/
