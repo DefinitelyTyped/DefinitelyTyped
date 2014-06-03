@@ -159,39 +159,18 @@ declare module google {
             enableRegionInteractivity?: boolean;
             height?: number;
             keepAspectRatio?: boolean;
-            legend?: GeoChartLegend;
+            legend?: ChartLegend;
             region?: string;
             magnifyingGlass?: GeoChartMagnifyingGlass;
             markerOpacity?: number;
             resolution?: string;
-            sizeAxis?: GeoChartAxis;
-            tooltip?: GeoChartTooltip;
+            sizeAxis?: ChartSizeAxis;
+            tooltip?: ChartTooltip;
             width?: number;
-        }
-        export interface GeoChartAxis {
-            maxSize?: number;
-            maxValue?: number;
-            minSize?: number;
-            minValue?: number;
-        }
-        export interface GeoChartTextStyle {
-            color?: string;
-            fontName?: string;
-            fontSize?: number;
-            bold?: boolean;
-            italic?: boolean;
-        }
-        export interface GeoChartLegend {
-            numberFormat?: string;
-            textStyle?: GeoChartTextStyle;
         }
         export interface GeoChartMagnifyingGlass {
             enable?: boolean;
             zoomFactor?: number;
-        }
-        export interface GeoChartTooltip {
-            textStyle?: GeoChartTextStyle;
-            trigger?: string;
         }
         export interface GeoChartRegionClickEvent {
             region: string;
@@ -276,6 +255,7 @@ declare module google {
             maxLines?: number;
             position?: string;
             textStyle?: ChartTextStyle;
+            numberFormat?: string;
         }
 
         // https://google-developers.appspot.com/chart/interactive/docs/animation
@@ -766,10 +746,10 @@ declare module google {
         }
 
         export interface ChartSizeAxis {
-            maxSize: number;
-            maxValue: number;
-            minSize: number;
-            minValue: number;
+            maxSize?: number;
+            maxValue?: number;
+            minSize?: number;
+            minValue?: number;
         }
 
         //#endregion
