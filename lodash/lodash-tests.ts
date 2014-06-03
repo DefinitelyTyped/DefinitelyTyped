@@ -499,6 +499,10 @@ result = <number[]>_.reject([1, 2, 3, 4, 5, 6], function (num) { return num % 2 
 result = <IFoodCombined[]>_.reject(foodsCombined, 'organic');
 result = <IFoodCombined[]>_.reject(foodsCombined, { 'type': 'fruit' });
 
+result = <number[]>_([1, 2, 3, 4, 5, 6]).reject(function (num) { return num % 2 == 0; }).value();
+result = <IFoodCombined[]>_(foodsCombined).reject('organic').value();
+result = <IFoodCombined[]>_(foodsCombined).reject({ 'type': 'fruit' }).value();
+
 result = <number>_.sample([1, 2, 3, 4]);
 result = <number[]>_.sample([1, 2, 3, 4], 2);
 
