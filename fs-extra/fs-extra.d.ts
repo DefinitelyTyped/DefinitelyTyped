@@ -1,4 +1,4 @@
-// Type definitions for aws-sdk
+// Type definitions for fs-extra
 // Project: https://github.com/jprichardson/node-fs-extra
 // Definitions by: midknight41 <https://github.com/midknight41>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
