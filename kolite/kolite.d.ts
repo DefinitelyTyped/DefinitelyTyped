@@ -58,10 +58,6 @@ interface KoliteCommand {
     execute(...args: any[]): any;
 }
 
-interface KoliteAsyncCommand extends KoliteCommand {
-    isExecuting: KnockoutObservable<boolean>;
-}
-
 interface KoLiteCommandOptions {
     execute?: any;
     canExecute?: (isExecuting: boolean) => any;
@@ -69,7 +65,7 @@ interface KoLiteCommandOptions {
 
 interface KnockoutStatic {
     command(options: KoLiteCommandOptions): KoliteCommand;
-    asyncCommand(optons: KoLiteCommandOptions): KoliteAsyncCommand;
+    asyncCommand(optons: KoLiteCommandOptions): KoliteCommand;
 }
 
 interface KnockoutUtils {
