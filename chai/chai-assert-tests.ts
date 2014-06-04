@@ -33,16 +33,24 @@ THE SOFTWARE.
 ///<reference path="chai-assert.d.ts" />
 
 //stubs
-declare module chai {
-	var AssertionError;
-	function expect(body):any;
-}
+
 //tdd
-declare function suite(description, action):void;
-declare function test(description, action):void;
-declare function err(action, msg?):void;
+declare function suite(description: string, action: Function):void;
+declare function test(description: string, action: Function):void;
+declare function err(action: any, msg?: string):void;
 interface FieldObj {
 	field: any;
+}
+class Foo {
+	constructor() {
+
+	}
+}
+
+class CrashyObject {
+	inspect (): void {
+		throw new Error("Arg's inspect() called even though the test passed");
+	}
 }
 
 suite('assert', function () {
@@ -54,12 +62,6 @@ suite('assert', function () {
 		err(function () {
 			assert(foo == 'baz', "expected foo to equal `bar`");
 		}, "expected foo to equal `bar`");
-	});
-
-	test('fail', function () {
-		chai.expect(function () {
-			assert.fail();
-		}).to.throw(chai.AssertionError);
 	});
 
 	test('isTrue', function () {
@@ -109,7 +111,7 @@ suite('assert', function () {
 	});
 
 	test('equal', function () {
-		var foo;
+		var foo: any;
 		assert.equal(foo, undefined);
 	});
 
@@ -133,27 +135,15 @@ suite('assert', function () {
 	});
 
 	test('instanceOf', function () {
-		function Foo() {
-		}
-
 		assert.instanceOf(new Foo(), Foo);
 
 		err(function () {
 			assert.instanceOf(5, Foo);
 		}, "expected 5 to be an instance of Foo");
-
-		function CrashyObject() {
-		};
-		CrashyObject.prototype.inspect = function () {
-			throw new Error("Arg's inspect() called even though the test passed");
-		};
 		assert.instanceOf(new CrashyObject(), CrashyObject);
 	});
 
 	test('notInstanceOf', function () {
-		function Foo() {
-		}
-
 		assert.notInstanceOf(new Foo(), String);
 
 		err(function () {
@@ -162,9 +152,6 @@ suite('assert', function () {
 	});
 
 	test('isObject', function () {
-		function Foo() {
-		}
-
 		assert.isObject({});
 		assert.isObject(new Foo());
 
@@ -182,9 +169,6 @@ suite('assert', function () {
 	});
 
 	test('isNotObject', function () {
-		function Foo() {
-		}
-
 		assert.isNotObject(5);
 
 		err(function () {
