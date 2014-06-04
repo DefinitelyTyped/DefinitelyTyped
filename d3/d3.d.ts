@@ -2743,7 +2743,7 @@ declare module D3 {
             clamp(clamp: boolean): TimeScale;
             ticks: {
                 (count: number): any[];
-                (range: Range, count: number): any[];
+                (range: D3.Time.Range, count: number): any[];
             };
             tickFormat(count: number): (n: number) => string;
             copy(): TimeScale;
