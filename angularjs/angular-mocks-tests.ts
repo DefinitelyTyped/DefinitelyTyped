@@ -21,6 +21,15 @@ mock.inject(
     function () { return 2; }
     );
 
+mock.inject(
+    ['$rootScope', function ($rootScope: ng.IRootScopeService) { return 1; }]);
+
+// This overload is not documented on the website, but flows from
+// how the injector works.
+mock.inject(
+    ['$rootScope', function ($rootScope: ng.IRootScopeService) { return 1; }],
+    ['$rootScope', function ($rootScope: ng.IRootScopeService) { return 2; }]);
+
 mock.module('module1', 'module2');
 mock.module(
     function () { return 1; },

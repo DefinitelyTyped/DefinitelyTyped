@@ -767,7 +767,7 @@ declare module D3 {
             //(filter: string): UpdateSelection;
         };
 
-        call(callback: (selection: Selection) => void ): Selection;
+        call(callback: (selection: Selection, ...args: any[]) => void, ...args: any[]): Selection;
         each(eachFunction: (data: any, index: number) => any): Selection;
         on: {
             (type: string): (data: any, index: number) => any;
@@ -2743,7 +2743,7 @@ declare module D3 {
             clamp(clamp: boolean): TimeScale;
             ticks: {
                 (count: number): any[];
-                (range: Range, count: number): any[];
+                (range: D3.Time.Range, count: number): any[];
             };
             tickFormat(count: number): (n: number) => string;
             copy(): TimeScale;

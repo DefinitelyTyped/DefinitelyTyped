@@ -10,7 +10,7 @@ var exp:RegExp;
 var strArr:string[];
 var numArr:string[];
 
-var mod:typeof SemverModule;
+var mod:typeof SemVerModule;
 
 var v1:string, v2:string;
 var version:string;
@@ -42,7 +42,7 @@ bool = mod.gtr(version, str, loose);
 bool = mod.ltr(version, str, loose);
 bool = mod.outside(version, str, str, loose);
 
-var ver = new mod.Semver(str, bool);
+var ver = new mod.SemVer(str, bool);
 str = ver.raw;
 bool = ver.loose;
 str = ver.format();
@@ -62,7 +62,7 @@ num = ver.comparePre(ver);
 ver = ver.inc(str);
 
 
-var comp = new SemverModule.Comparator(str, bool);
+var comp = new SemVerModule.Comparator(str, bool);
 str = comp.raw;
 bool = comp.loose;
 str = comp.format();
@@ -76,7 +76,7 @@ comp.parse(str);
 bool = comp.test(ver);
 
 
-var range = new SemverModule.Range(str, bool);
+var range = new SemVerModule.Range(str, bool);
 str = range.raw;
 bool = range.loose;
 str = range.format();
@@ -85,8 +85,8 @@ str = range.toString();
 
 bool = range.test(ver);
 
-var sets:SemverModule.Comparator[][];
-sets = range.set();
+var sets:SemVerModule.Comparator[][];
+sets = range.set;
 
-var lims:SemverModule.Comparator[];
+var lims:SemVerModule.Comparator[];
 lims = range.parseRange(str);

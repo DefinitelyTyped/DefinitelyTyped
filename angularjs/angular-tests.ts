@@ -98,12 +98,12 @@ module HttpAndRegularPromiseTests {
     }
 
     var someController: Function = ($scope: SomeControllerScope, $http: ng.IHttpService, $q: ng.IQService) => {
-        $http.get("http://somewhere/some/resource")
+        $http.get<ExpectedResponse>("http://somewhere/some/resource")
             .success((data: ExpectedResponse) => {
                 $scope.person = data;
             });
 
-        $http.get("http://somewhere/some/resource")
+        $http.get<ExpectedResponse>("http://somewhere/some/resource")
             .then((response: ng.IHttpPromiseCallbackArg<ExpectedResponse>) => {
                 // typing lost, so something like
                 // var i: number = response.data
@@ -111,7 +111,7 @@ module HttpAndRegularPromiseTests {
                 $scope.person = response.data;
             });
 
-        $http.get("http://somewhere/some/resource")
+        $http.get<ExpectedResponse>("http://somewhere/some/resource")
             .then((response: ng.IHttpPromiseCallbackArg<ExpectedResponse>) => {
                 // typing lost, so something like
                 // var i: number = response.data
@@ -148,7 +148,7 @@ module HttpAndRegularPromiseTests {
         var buildFooData: Function = () => 42;
 
         var doFoo: Function = (callback: ng.IHttpPromiseCallback<ExpectedResponse>) => {
-            $http.get('/foo', buildFooData())
+            $http.get<ExpectedResponse>('/foo', buildFooData())
                 .success(callback);
         }
 
