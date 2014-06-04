@@ -589,44 +589,157 @@ declare module ng {
         register(name: string, dependencyAnnotatedConstructor: any[]): void;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
-    // HttpService
-    // see http://docs.angularjs.org/api/ng.$http
-    ///////////////////////////////////////////////////////////////////////////
+    /**
+     * HttpService 
+     * see http://docs.angularjs.org/api/ng/service/$http
+     */
     interface IHttpService {
-        // At least moethod and url must be provided...
-        (config: IRequestConfig): IHttpPromise<any>;
-        get (url: string, RequestConfig?: any): IHttpPromise<any>;
-        delete (url: string, RequestConfig?: any): IHttpPromise<any>;
-        head(url: string, RequestConfig?: any): IHttpPromise<any>;
-        jsonp(url: string, RequestConfig?: any): IHttpPromise<any>;
-        post(url: string, data: any, RequestConfig?: any): IHttpPromise<any>;
-        put(url: string, data: any, RequestConfig?: any): IHttpPromise<any>;
+        /**
+         * Object describing the request to be made and how it should be processed.
+         */
+        <T>(config: IRequestConfig): IHttpPromise<T>;
+
+        /**
+         * Shortcut method to perform GET request.
+         * 
+         * @param url Relative or absolute URL specifying the destination of the request
+         * @param config Optional configuration object
+         */
+        get<T>(url: string, config?: IRequestShortcutConfig): IHttpPromise<T>;
+
+        /**
+         * Shortcut method to perform DELETE request.
+         * 
+         * @param url Relative or absolute URL specifying the destination of the request
+         * @param config Optional configuration object
+         */
+        delete<T>(url: string, config?: IRequestShortcutConfig): IHttpPromise<T>;
+
+        /**
+         * Shortcut method to perform HEAD request.
+         * 
+         * @param url Relative or absolute URL specifying the destination of the request
+         * @param config Optional configuration object
+         */
+        head<T>(url: string, config?: IRequestShortcutConfig): IHttpPromise<T>;
+
+        /**
+         * Shortcut method to perform JSONP request.
+         * 
+         * @param url Relative or absolute URL specifying the destination of the request
+         * @param config Optional configuration object
+         */
+        jsonp<T>(url: string, config?: IRequestShortcutConfig): IHttpPromise<T>;
+
+        /**
+         * Shortcut method to perform POST request.
+         * 
+         * @param url Relative or absolute URL specifying the destination of the request
+         * @param data Request content
+         * @param config Optional configuration object
+         */
+        post<T>(url: string, data: any, config?: IRequestShortcutConfig): IHttpPromise<T>;
+
+        /**
+         * Shortcut method to perform PUT request.
+         * 
+         * @param url Relative or absolute URL specifying the destination of the request
+         * @param data Request content
+         * @param config Optional configuration object
+         */
+        put<T>(url: string, data: any, config?: IRequestShortcutConfig): IHttpPromise<T>;
+
+        /**
+         * Runtime equivalent of the $httpProvider.defaults property. Allows configuration of default headers, withCredentials as well as request and response transformations.
+         */
         defaults: IRequestConfig;
 
-        // For debugging, BUT it is documented as public, so...
+        /**
+         * Array of config objects for currently pending requests. This is primarily meant to be used for debugging purposes.
+         */
         pendingRequests: any[];
     }
 
-    // This is just for hinting.
-    // Some opetions might not be available depending on the request.
-    // see http://docs.angularjs.org/api/ng.$http#Usage for options explanations
-    interface IRequestConfig {
-        method: string;
-        url: string;
+    /**
+     * Object describing the request to be made and how it should be processed.
+     * see http://docs.angularjs.org/api/ng/service/$http#usage 
+     */
+    interface IRequestShortcutConfig {
+        /**
+         * {Object.<string|Object>}
+         * Map of strings or objects which will be turned to ?key1=value1&key2=value2 after the url. If the value is not a string, it will be JSONified. 
+         */
         params?: any;
 
-        // XXX it has it's own structure...  perhaps we should define it in the future
+        /**
+         * Map of strings or functions which return strings representing HTTP headers to send to the server. If the return value of a function is null, the header will not be sent.
+         */
         headers?: any;
 
+        /**
+         * Name of HTTP header to populate with the XSRF token.
+         */
+        xsrfHeaderName?: string;
+
+        /**
+         * Name of cookie containing the XSRF token.
+         */
+        xsrfCookieName?: string;
+
+        /**
+         * {boolean|Cache}
+         * If true, a default $http cache will be used to cache the GET request, otherwise if a cache instance built with $cacheFactory, this cache will be used for caching.
+         */
         cache?: any;
+
+        /**
+         * whether to to set the withCredentials flag on the XHR object. See [requests with credentials]https://developer.mozilla.org/en/http_access_control#section_5 for more information.
+         */
         withCredentials?: boolean;
 
-        // These accept multiple types, so let's define them as any
+        /**
+         * {string|Object} 
+         * Data to be sent as the request message data.
+         */
         data?: any;
+
+        /**
+         * {function(data, headersGetter)|Array.<function(data, headersGetter)>}
+         * Transform function or an array of such functions. The transform function takes the http request body and headers and returns its transformed (typically serialized) version.
+         */
         transformRequest?: any;
+
+        /**
+         * {function(data, headersGetter)|Array.<function(data, headersGetter)>}
+         * Transform function or an array of such functions. The transform function takes the http response body and headers and returns its transformed (typically deserialized) version.
+         */
         transformResponse?: any;
-        timeout?: any; // number | promise
+
+        /**
+         * {number|Promise}
+         * Timeout in milliseconds, or promise that should abort the request when resolved.
+         */
+        timeout?: any;
+
+        /**
+         * See requestType.
+         */
+        responseType?: string;
+    }
+
+    /**
+     * Object describing the request to be made and how it should be processed.
+     * see http://docs.angularjs.org/api/ng/service/$http#usage 
+     */
+    interface IRequestConfig extends IRequestShortcutConfig {
+        /**
+         * HTTP method (e.g. 'GET', 'POST', etc)
+         */
+        method: string;
+        /**
+         * Absolute or relative URL of the resource that is being requested.
+         */
+        url: string;
     }
 
     interface IHttpPromiseCallback<T> {
