@@ -1,4 +1,4 @@
-// Type definitions for RxJS-Time v2.2.24
+// Type definitions for RxJS-Time v2.2.25
 // Project: http://rx.codeplex.com/
 // Definitions by: Carl de Billy <http://carl.debilly.net/>
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
