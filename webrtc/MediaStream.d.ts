@@ -6,8 +6,8 @@
 // Taken from http://dev.w3.org/2011/webrtc/editor/getusermedia.html
 
 interface MediaStreamConstraints {
-	audio: boolean;
-	video: boolean;
+	audio: any;
+	video: any;
 }
 declare var MediaStreamConstraints: {
 	prototype: MediaStreamConstraints;
@@ -40,8 +40,8 @@ declare var MediaTrackConstraint: {
 }
 
 interface Navigator {
-	getUserMedia(constraints: MediaStreamConstraints, successCallback: (stream: any) => void , errorCallback: (error: Error) => void );
-	webkitGetUserMedia(constraints: MediaStreamConstraints, successCallback: (stream: any) => void , errorCallback: (error: Error) => void );
+	getUserMedia(constraints: MediaStreamConstraints, successCallback: (stream: any) => void, errorCallback: (error: Error) => void);
+	webkitGetUserMedia(constraints: MediaStreamConstraints, successCallback: (stream: any) => void, errorCallback: (error: Error) => void);
 }
 
 interface EventHandler { (event: Event): void; }
@@ -79,6 +79,7 @@ declare var webkitMediaStreamTrackList: {
 
 interface MediaStream {
 	label: string;
+	id: string;
 	getAudioTracks(): MediaStreamTrackList;
 	getVideoTracks(): MediaStreamTrackList;
 	ended: boolean;
@@ -99,6 +100,17 @@ declare var webkitMediaStream: {
 	new (trackContainers: MediaStreamTrack[]): MediaStream;
 }
 
+// an - not defined in source doc.
+interface SourceInfo {
+	label: string;
+	id: string;
+	kind: string;
+	facing: string;
+}
+declare var SourceInfo: {
+	prototype: SourceInfo;
+}
+
 interface LocalMediaStream extends MediaStream {
 	stop(): void;
 }
@@ -115,12 +127,13 @@ interface MediaStreamTrack {
 	onunmute: (event: Event) => void;
 	onended: (event: Event) => void;
 }
-declare var MediaStramTrack: {
+declare var MediaStreamTrack: {
 	prototype: MediaStreamTrack;
 	new (): MediaStreamTrack;
 	LIVE: number; // = 0;
 	MUTED: number; // = 1;
 	ENDED: number; // = 2;
+	getSources: (callback: (sources: SourceInfo[]) => void) => void;
 }
 
 interface streamURL extends URL {
@@ -136,6 +149,7 @@ interface WebkitURL extends streamURL {
 }
 declare var webkitURL: {
 	prototype: WebkitURL;
-    new (): streamURL;
+	new (): streamURL;
 	createObjectURL(stream: MediaStream): string;
 }
+ 
