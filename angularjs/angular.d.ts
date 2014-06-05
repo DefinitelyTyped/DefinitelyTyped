@@ -241,7 +241,7 @@ declare module ng {
 
         $parent: IScope;
 
-        $root: IScope;
+        $root: IRootScopeService;
 
         $id: string;
 
