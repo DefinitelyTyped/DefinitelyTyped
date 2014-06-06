@@ -3,8 +3,8 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-interface AsyncMultipleResultsCallback<T> { (err: string, results: T[]): any; }
-interface AsyncSingleResultCallback<T> { (err: string, result: T): void; }
+interface AsyncMultipleResultsCallback<T> { (err: Error, results: T[]): any; }
+interface AsyncSingleResultCallback<T> { (err: Error, result: T): void; }
 interface AsyncTimesCallback<T> { (n: number, callback: AsyncMultipleResultsCallback<T>): void; }
 
 interface AsyncIterator<T, R> { (item: T, callback: AsyncSingleResultCallback<R>): void; }
