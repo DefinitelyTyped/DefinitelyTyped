@@ -51,16 +51,21 @@ declare module ng {
         isString(value: any): boolean;
         isUndefined(value: any): boolean;
         lowercase(str: string): string;
-        /** construct your angular application
-        official docs: Interface for configuring angular modules.
-        see: http://docs.angularjs.org/api/angular.Module
-        */
+
+        /**
+         * The angular.module is a global place for creating, registering and retrieving Angular modules. All modules (angular core or 3rd party) that should be available to an application must be registered using this mechanism.
+         *
+         * When passed two or more arguments, a new module is created. If passed only one argument, an existing module (the name passed as the first argument to module) is retrieved.
+         * 
+         * @param name The name of the module to create or retrieve.
+         * @param requires The names of modules this module depends on. If specified then new module is being created. If unspecified then the module is being retrieved for further configuration.
+         * @param configFn Optional configuration function for the module.
+         */
         module(
-            /** name of your module you want to create */
             name: string,
-            /** name of modules yours depends on */
             requires?: string[],
-            configFunction?: any): IModule;
+            configFn?: Function): IModule;
+
         noop(...args: any[]): void;
         toJson(obj: any, pretty?: boolean): string;
         uppercase(str: string): string;
@@ -81,12 +86,16 @@ declare module ng {
         animation(name: string, animationFactory: Function): IModule;
         animation(name: string, inlineAnnotatedFunction: any[]): IModule;
         animation(object: Object): IModule;
-        /** configure existing services.
-        Use this method to register work which needs to be performed on module loading
+        /**
+         * Use this method to register work which needs to be performed on module loading.
+         * 
+         * @param configFn Execute this function on module load. Useful for service configuration.
          */
         config(configFn: Function): IModule;
-        /** configure existing services.
-        Use this method to register work which needs to be performed on module loading
+        /**
+         * Use this method to register work which needs to be performed on module loading.
+         * 
+         * @param inlineAnnotatedFunction Execute this function on module load. Useful for service configuration.
          */
         config(inlineAnnotatedFunction: any[]): IModule;
         constant(name: string, value: any): IModule;
