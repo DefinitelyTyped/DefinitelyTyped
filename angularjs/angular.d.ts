@@ -100,13 +100,41 @@ declare module ng {
         config(inlineAnnotatedFunction: any[]): IModule;
         constant(name: string, value: any): IModule;
         constant(object: Object): IModule;
+        /**
+         * The $controller service is used by Angular to create new controllers.
+         * 
+         * This provider allows controller registration via the register method.
+         * 
+         * @param name Controller name, or an object map of controllers where the keys are the names and the values are the constructors.
+         * @param controllerConstructor Controller constructor fn (optionally decorated with DI annotations in the array notation).
+         */
         controller(name: string, controllerConstructor: Function): IModule;
+        /**
+         * The $controller service is used by Angular to create new controllers.
+         * 
+         * This provider allows controller registration via the register method.
+         * 
+         * @param name Controller name, or an object map of controllers where the keys are the names and the values are the constructors.
+         * @param controllerConstructor Controller constructor fn (optionally decorated with DI annotations in the array notation).
+         */
         controller(name: string, inlineAnnotatedConstructor: any[]): IModule;
         controller(object : Object): IModule;
         directive(name: string, directiveFactory: Function): IModule;
         directive(name: string, inlineAnnotatedFunction: any[]): IModule;
         directive(object: Object): IModule;
+        /**
+         * Register a service factory, which will be called to return the service instance. This is short for registering a service where its provider consists of only a $get property, which is the given service factory function. You should use $provide.factory(getFn) if you do not need to configure your service in a provider.
+         * 
+         * @param name The name of the instance.
+         * @param $getFn The $getFn for the instance creation. Internally this is a short hand for $provide.provider(name, {$get: $getFn}).
+         */
         factory(name: string, serviceFactoryFunction: Function): IModule;
+        /**
+         * Register a service factory, which will be called to return the service instance. This is short for registering a service where its provider consists of only a $get property, which is the given service factory function. You should use $provide.factory(getFn) if you do not need to configure your service in a provider.
+         * 
+         * @param name The name of the instance.
+         * @param inlineAnnotatedFunction The $getFn for the instance creation. Internally this is a short hand for $provide.provider(name, {$get: $getFn}).
+         */
         factory(name: string, inlineAnnotatedFunction: any[]): IModule;
         factory(object: Object): IModule;
         filter(name: string, filterFactoryFunction: Function): IModule;
