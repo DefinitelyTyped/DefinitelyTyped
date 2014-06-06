@@ -46,7 +46,7 @@ declare module ng.route {
          */
         controllerAs?: string;
         /**
-         * 
+         * Undocumented?
          */
         name?: string;
         /**
