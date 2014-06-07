@@ -70,7 +70,7 @@ declare module ng.route {
         /**
          * {Object.<string, function>=} - An optional map of dependencies which should be injected into the controller. If any of these dependencies are promises, the router will wait for them all to be resolved or one to be rejected before the controller is instantiated. If all the promises are resolved successfully, the values of the resolved promises are injected and $routeChangeSuccess event is fired. If any of the promises are rejected the $routeChangeError event is fired. The map object is:
          * 
-         * - key – {string}: a name of a dependency to be injected into the controller.
+         * - key - {string}: a name of a dependency to be injected into the controller.
          * - factory - {string|function}: If string then it is an alias for a service. Otherwise if function, then it is injected and the return value is treated as the dependency. If the result is a promise, it is resolved before its value is injected into the controller. Be aware that ngRoute.$routeParams will still refer to the previous route within these resolve functions. Use $route.current.params to access the new route parameters, instead.
          */
         resolve?: any;
