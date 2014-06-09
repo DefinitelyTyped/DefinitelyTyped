@@ -1,3 +1,8 @@
+// Type definitions for Durandal 2.1.0
+// Project: http://durandaljs.com
+// Definitions by: Blue Spire <https://github.com/BlueSpire>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /**
  * Durandal 2.1.0 Copyright (c) 2012 Blue Spire Consulting, Inc. All Rights Reserved.
  * Available via the MIT license.
@@ -6,8 +11,6 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="../knockout/knockout.d.ts" />
-
-/* tslint:disable */
 
 /**
  * The system module encapsulates the most basic features used by other modules.
