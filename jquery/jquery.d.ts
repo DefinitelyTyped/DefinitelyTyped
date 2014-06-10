@@ -168,6 +168,10 @@ interface JQueryXHR extends XMLHttpRequest, JQueryPromise<any> {
      */
     overrideMimeType(mimeType: string): any;
     abort(statusText?: string): void;
+    /**
+     * Incorporates the functionality of the .done() and .fail() methods, allowing (as of jQuery 1.8) the underlying Promise to be manipulated. Refer to deferred.then() for implementation details.
+     */
+    then(doneCallback: (data: any, textStatus: string, jqXHR: JQueryXHR) => void, failCallback: (jqXHR: JQueryXHR, textStatus: string, errorThrown: any) => void): JQueryPromise<any>;
 }
 
 /**
