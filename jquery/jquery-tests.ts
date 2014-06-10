@@ -150,6 +150,15 @@ function test_ajax() {
         url: "test.js",
         dataType: "script"
     });
+
+    // treat $.ajax() as a promise (as of 1.8)
+    $.ajax({
+        url: "test.js"
+    }).then((data, textStatus, jqXHR) => {
+        console.log(data, textStatus, jqXHR);
+    }, (jqXHR, textStatus, errorThrown) => {
+        console.log(jqXHR, textStatus, errorThrown);
+    });
 }
 
 function test_ajaxComplete() {
