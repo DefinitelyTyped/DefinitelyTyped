@@ -9,10 +9,18 @@ var server = Hapi.createServer('localhost', 8000);
 server.route({
 	method: 'GET',
 	path: '/hello',
-	handler: function (request, reply) {
+	handler: function (request: Hapi.Request, reply: Function) {
 		reply('hello world');
 	}
 });
+
+server.route([{
+	method: 'GET',
+	path: '/hello2',
+	handler: function (request: Hapi.Request, reply: Function) {
+		reply('hello world2');
+	}
+}]);
 
 // Start the server
 server.start();
