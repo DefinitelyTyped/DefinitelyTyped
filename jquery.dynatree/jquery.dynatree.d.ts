@@ -40,7 +40,7 @@ interface DynaTree {
     renderInvisibleNodes(): void;
     selectKey(key: string, flag: string): DynaTreeNode;
     serializeArray(stopOnParents: boolean): any[];
-    toDict(includeRoot: boolean): any;
+    toDict(includeRoot?: boolean): any;
     visit(fn: (node: DynaTreeNode) =>boolean, includeRoot: boolean): void;
 }
 
