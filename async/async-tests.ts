@@ -156,6 +156,22 @@ q.push([{ name: 'baz' }, { name: 'bay' }, { name: 'bax' }], function (err) {
     console.log('finished processing bar');
 });
 
+// tests for strongly typed tasks
+var q2 = async.queue(function (task: string, callback) {
+    console.log('Task: ' + task);
+    callback();
+}, 1);
+
+q2.push('task1');
+
+q2.push('task2', function (error, results: string[]) {
+    console.log('Finished tasks: ' + results.join(', '));
+});
+
+q2.push(['task3', 'task4', 'task5'], function (error, results: string[]) {
+    console.log('Finished tasks: ' + results.join(', '));
+});
+
 var filename = '';
 async.auto({
     get_data: function (callback) { },
