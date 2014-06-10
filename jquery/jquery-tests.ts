@@ -736,7 +736,7 @@ function test_callbacksFunctions() {
     callbacks.add(bar);
     callbacks.fire('world');
     callbacks.disable();
-    
+
     // Test the disabled state of the list
     console.log(callbacks.disabled());
     // Outputs: true
@@ -3301,4 +3301,3 @@ function test_deferred_promise() {
         }
         );
 }
-
