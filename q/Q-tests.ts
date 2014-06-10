@@ -26,7 +26,7 @@ Q.delay("asdf", 1000).then(x => x.length);
 var eventualAdd = Q.promised((a?: number, b?: number) => a + b);
 eventualAdd(Q(1), Q(2)).then(x => x.toExponential());
 
-var eventually = function (eventually) {
+var eventually = function (eventually: any) {
     return Q.delay(eventually, 1000);
 };
 
@@ -38,7 +38,7 @@ Q.when(x, function (x) {
 Q.all([
     eventually(10),
     eventually(20)
-]).spread(function (x, y) {
+]).spread(function (x: any, y: any) {
     console.log(x, y);
 });
 
@@ -97,7 +97,7 @@ Q.when(Q(8), num => num + "!").then(str => str.split(','));
 
 declare function saveToDisk(): Q.Promise<any>;
 declare function saveToCloud(): Q.Promise<any>;
-Q.allSettled([saveToDisk(), saveToCloud()]).spread(function (disk, cloud) {
+Q.allSettled([saveToDisk(), saveToCloud()]).spread(function (disk: any, cloud: any) {
     console.log("saved to disk:", disk.state === "fulfilled");
     console.log("saved to cloud:", cloud.state === "fulfilled");
 
@@ -115,3 +115,5 @@ var nodeStyle = (input: string, cb: Function) => {
 
 Q.nfapply(nodeStyle, ["foo"]).done((result: string) => {});
 Q.nfcall(nodeStyle, "foo").done((result: string) => {});
+Q.denodeify(nodeStyle)('foo').done((result: string) => {});
+Q.nfbind(nodeStyle)('foo').done((result: string) => {});
