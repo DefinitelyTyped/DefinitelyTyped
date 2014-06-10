@@ -8,41 +8,44 @@
 declare module Hapi {
 	export interface ServerOptions {
 		app?: any;
-		cache?: string;
-		cache?: {
-			engine: any;
-		};
-		cors?: boolean;
-		cors?: {
-			origin?: Array<string>;
-			isOriginExposed?: boolean;
-			matchOrigin?: boolean;
-			maxAge?: number;
-			headers?: Array<string>;
-			additionalHeaders?: Array<string>;
-			methods?: Array<string>;
-			additionalMethods?: Array<string>;
-			exposedHeaders?: Array<string>;
-			additionalExposedHeaders?: Array<string>;
-			credentials?: boolean;
-		};
-		security?: boolean;
-		security?: {
-			hsts?: boolean;
-			hsts?: {
-				maxAge: number;
-				includeSubdomains: boolean;
-			};
-			xframe?: boolean;
-			xframe?: string;
-			xframe?: {
-				rule: string;
-				source: any;
-			};
-			xss?: boolean;
-			noOpen?: boolean;
-			noSniff?: boolean;
-		};
+//		cache?: string;
+//		cache?: {
+//			engine: any;
+//		};
+		cache?: any;
+//		cors?: boolean;
+//		cors?: {
+//			origin?: Array<string>;
+//			isOriginExposed?: boolean;
+//			matchOrigin?: boolean;
+//			maxAge?: number;
+//			headers?: Array<string>;
+//			additionalHeaders?: Array<string>;
+//			methods?: Array<string>;
+//			additionalMethods?: Array<string>;
+//			exposedHeaders?: Array<string>;
+//			additionalExposedHeaders?: Array<string>;
+//			credentials?: boolean;
+//		};
+		cors?: any;
+//		security?: boolean;
+//		security?: {
+//			hsts?: boolean;
+//			hsts?: {
+//				maxAge: number;
+//				includeSubdomains: boolean;
+//			};
+//			xframe?: boolean;
+//			xframe?: string;
+//			xframe?: {
+//				rule: string;
+//				source: any;
+//			};
+//			xss?: boolean;
+//			noOpen?: boolean;
+//			noSniff?: boolean;
+//		};
+		security?: any;
 		debug?: {
 			request: Array<string>;
 		};
@@ -51,8 +54,9 @@ declare module Hapi {
 			etagsCacheMaxSize: number;
 		};
 		json?: {
-			replacer?: Function;
-			replacer?: Array<Function>;
+//			replacer?: () => void;
+//			replacer?: Array<() => void>;
+			replacer?: any;
 			space?: number;
 		};
 		labels?: Array<string>;
@@ -81,12 +85,15 @@ declare module Hapi {
 			}
 		};
 		timeout?: {
-			server?: boolean;
-			server?: number;
-			client?: boolean;
-			client?: number;
-			socket?: boolean;
-			socket?: number;
+//			server?: boolean;
+//			server?: number;
+			server?: any;
+//			client?: boolean;
+//			client?: number;
+			client?: any;
+//			socket?: boolean;
+//			socket?: number;
+			socket?: any;
 		};
 		tls?: any; //This should be Node.tls
 		maxSockets?: number;
@@ -98,11 +105,29 @@ declare module Hapi {
 		require(name: string, options: {}, callback: Function): void;
 	}
 
-	interface ServerView {
+	export interface ServerView {
 		engines: {
 			module: string;
-			compile: (template: string, options: any): (context: any, options: any);
-			compile: (template: string, options: any, callback: (err: any, compiled: (context: any, options: any, callback: (err: any, rendered: boolean)))): void;
+//			compile: (
+//				template: string,
+//				options: any
+//			) => void;
+//			compile: (
+//				template: string,
+//				options: any,
+//				callback: (
+//					err: any,
+//					compiled: (
+//						context: any,
+//						options: any,
+//						callback: (
+//							err: any,
+//							rendered: boolean
+//						) => void
+//					) => void
+//				) => void
+//			) => void;
+			compile: any;
 		};
 		defaultExtension: string;
 		path?: string;
@@ -122,135 +147,137 @@ declare module Hapi {
 		compileMode?: string;
 	}
 
-	interface RouteOptions {
+	export interface RouteOptions {
 		path: string;
 		method: string;
-		vhost?: string;
-		vhost?: Array<string>;
-		handler: string;
-		handler: ();
-		handler: {
-			file: string;
-			file: (request: Request);
-			file: {
-				path: string;
-				filename?: string;
-				mode?: boolean;
-				mode?: string;
-				lookupCompressed: boolean;
-			};
-			directory: {
-				path: string;
-				path: Array<string>;
-				path: (request: Request): string;
-				path: (request: Request): Array<string>;
-				index?: boolean;
-				listing?: boolean;
-				showHidden?: boolean;
-				redirectToSlash?: boolean;
-				lookupCompressed?: boolean;
-				defaultExtension?: string;
-			};
-			proxy?: {
-				host?: string;
-				port?: number;
-				protocol?: string;
-				uri?: string;
-				passThrough?: boolean;
-				rejectUnauthorized?: boolean;
-				xforward?: boolean;
-				redirects?: boolean;
-				redirects?: number;
-				timeout?: number;
-
-				mapUri?: (request: Request, callback: (err: any, uri: string, headers: {[key: string]: string}): void): void;
-				onResponse: (
-					err: any,
-					res: any,//Node Response
-					req: any,//Node Request
-					reply: (): void,
-					settings: any,
-					ttl: number
-				);
-				ttl: number;
-			};
-			view: string;
-			view: {
-				template: string;
-				context: {
-					payload: any;
-					params: any;
-					query: any;
-					pre: any;
-				}
-			};
-			config: {
-				handler: any;
-				bind: any;
-				app: any;
-				plugins: {
-					[name: string]: any;
-				};
-				pre: Array<()>;
-				validate: {
-					headers: any;
-					params: any;
-					query: any;
-					payload: any;
-					errorFields?: any;
-					failAction?: string;
-					failAction?: (source: string, error: any, next: ());
-				};
-				payload: {
-					output: {
-						data: any;
-						stream: any;
-						file: any;
-					};
-					parse?: any;
-					allow?: string;
-					allow?: Array<string>;
-					override?: string;
-					maxBytes?: number;
-					uploads?: number;
-					failAction?: string;
-				};
-				response: {
-					schema: any;
-					sample: number;
-					failAction: string;
-				};
-				cache: {
-					privacy: string;
-					expiresIn: number;
-					expiresAt: number;
-				};
-				auth: string;
-				auth: boolean;
-				auth: {
-					mode: string;
-					strategies: Array<string>;
-					payload?: boolean;
-					payload?: string;
-					tos?: boolean;
-					tos?: string;
-					scope?: string;
-					scope?: Array<string>;
-					entity: string;
-				};
-				cors?: boolean;
-				jsonp?: string;
-				description?: string;
-				notes?: string;
-				notes?: Array<string>;
-				tags?: Array<string>;
-			}
-		};
+//		vhost?: string;
+//		vhost?: Array<string>;
+		vhost?: any;
+//		handler: string;
+//		handler: (request: Request, reply: Function) => void;
+//		handler: {
+//			file: string;
+//			file: (request: Request) => void;
+//			file: {
+//				path: string;
+//				filename?: string;
+//				mode?: boolean;
+//				mode?: string;
+//				lookupCompressed: boolean;
+//			};
+//			directory: {
+//				path: string;
+//				path: Array<string>;
+//				path: (request: Request) => string;
+//				path: (request: Request) => Array<string>;
+//				index?: boolean;
+//				listing?: boolean;
+//				showHidden?: boolean;
+//				redirectToSlash?: boolean;
+//				lookupCompressed?: boolean;
+//				defaultExtension?: string;
+//			};
+//			proxy?: {
+//				host?: string;
+//				port?: number;
+//				protocol?: string;
+//				uri?: string;
+//				passThrough?: boolean;
+//				rejectUnauthorized?: boolean;
+//				xforward?: boolean;
+//				redirects?: boolean;
+//				redirects?: number;
+//				timeout?: number;
+//
+//				mapUri?: (request: Request, callback: (err: any, uri: string, headers: {[key: string]: string}) => void) => void;
+//				onResponse: (
+//					err: any,
+//					res: any,//Node Response
+//					req: any,//Node Request
+//					reply: () => void,
+//					settings: any,
+//					ttl: number
+//				) => void;
+//				ttl: number;
+//			};
+//			view: string;
+//			view: {
+//				template: string;
+//				context: {
+//					payload: any;
+//					params: any;
+//					query: any;
+//					pre: any;
+//				}
+//			};
+//			config: {
+//				handler: any;
+//				bind: any;
+//				app: any;
+//				plugins: {
+//					[name: string]: any;
+//				};
+//				pre: Array<() => void>;
+//				validate: {
+//					headers: any;
+//					params: any;
+//					query: any;
+//					payload: any;
+//					errorFields?: any;
+//					failAction?: string;
+//					failAction?: (source: string, error: any, next: () => void) => void;
+//				};
+//				payload: {
+//					output: {
+//						data: any;
+//						stream: any;
+//						file: any;
+//					};
+//					parse?: any;
+//					allow?: string;
+//					allow?: Array<string>;
+//					override?: string;
+//					maxBytes?: number;
+//					uploads?: number;
+//					failAction?: string;
+//				};
+//				response: {
+//					schema: any;
+//					sample: number;
+//					failAction: string;
+//				};
+//				cache: {
+//					privacy: string;
+//					expiresIn: number;
+//					expiresAt: number;
+//				};
+//				auth: string;
+//				auth: boolean;
+//				auth: {
+//					mode: string;
+//					strategies: Array<string>;
+//					payload?: boolean;
+//					payload?: string;
+//					tos?: boolean;
+//					tos?: string;
+//					scope?: string;
+//					scope?: Array<string>;
+//					entity: string;
+//				};
+//				cors?: boolean;
+//				jsonp?: string;
+//				description?: string;
+//				notes?: string;
+//				notes?: Array<string>;
+//				tags?: Array<string>;
+//			}
+//		};
+		handler: any;
 	}
 
 	export class Server {
 		app: any;
-		methods: Array;
+		methods: Array<() => void>;
 		info: {
 			port: number;
 			host?: string;
@@ -268,9 +295,8 @@ declare module Hapi {
 			[pluginName: string]: any;
 		};
 
-
-		start(callback?: ()): void;
-		stop(options?: {timeout: number;}, callback?: ()): void;
+		start(callback?: () => void): void;
+		stop(options?: {timeout: number;}, callback?: () => void): void;
 		route(options: RouteOptions): void;
 		route(routes: Array<RouteOptions>): void;
 		table(host?: string): Array<RouteOptions>;
@@ -284,14 +310,14 @@ declare module Hapi {
 			isHttpOnly: boolean;
 			path: string;
 			domain: string;
-			autoValue: (request: Request, next: (err: any, value: any): void): void;
+			autoValue: (request: Request, next: (err: any, value: any) => void) => void;
 			encoding?: string;
 			sign: any;
 			password: string;
 			iron: any;
-		});
-		views: (options: ServerView): void;
-		cache: (name: string, options: {
+		}): void;
+		views(options: ServerView): void;
+		cache(name: string, options: {
 			expiresIn: number;
 			expiresAt: number;
 			staleIn: number;
@@ -300,17 +326,17 @@ declare module Hapi {
 		}): void;
 
 		auth: {
-			scheme: (name: string, scheme: {
+			scheme(name: string, scheme: {
 				name: string;
-				scheme: (server: Server, options: any): (authenticate: any, payload: any, response: any);
-			});
+				scheme: (server: Server, options: any) => (authenticate: any, payload: any, response: any) => void;
+			}): void;
 			strategy: any;
 		};
-		ext: (event: any, method: string, options?: any): void;
-		method: (method: Array<{name: string; fn: (); options: any}>): void;
-		method: (name: string, fn: (), options: any): void;
-		inject: (options: any, callback: any): void;
-		handler: (name: string, method: (name: string, options: any): void): void;
+		ext(event: any, method: string, options?: any): void;
+		method(method: Array<{name: string; fn: () => void; options: any}>): void;
+		method(name: string, fn: () => void, options: any): void;
+		inject(options: any, callback: any): void;
+		handler(name: string, method: (name: string, options: any) => void): void;
 	}
 
 	export interface Request {
