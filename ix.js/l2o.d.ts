@@ -91,9 +91,9 @@ declare module Ix {
 			comparer?: EqualityComparer<TKey, TKey>): Enumerable<TResult>;
 		groupBy<TKey, TElement>(
 			keySelector: (item: T) => TKey,
-			elementSelector: (item: T) => TElement): Grouping<TKey, TElement>;
+			elementSelector: (item: T) => TElement): Enumerable<Grouping<TKey, TElement>>;
 		groupBy<TKey>(
-			keySelector: (item: T) => TKey): Grouping<TKey, T>;
+			keySelector: (item: T) => TKey): Enumerable<Grouping<TKey, T>>;
 
 		// if need to set comparer without resultSelector
 		groupBy<TKey, TElement>(
