@@ -86,6 +86,9 @@ function test_ajax() {
         success: function (data) {
             $('.result').html(data);
             alert('Load was performed.');
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Load ailed. responseJSON=' + jqXHR.responseJSON); 
         }
     });
     var _super = jQuery.ajaxSettings.xhr;
