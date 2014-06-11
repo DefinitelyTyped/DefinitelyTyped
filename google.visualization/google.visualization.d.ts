@@ -130,7 +130,7 @@ declare module google {
             maxValue?: any;
         }
 
-        function arrayToDataTable(data: any[]): DataTable;
+        function arrayToDataTable(data: any[], firstRowIsData?: boolean): DataTable;
 
         //#endregion
         //#region DataView
@@ -139,27 +139,21 @@ declare module google {
         export class DataView {
             constructor(data: DataTable);
             constructor(data: DataView);
-            setColumns(columnIndexes: number[]): void;
+            setColumns(columnIndexes: any[]): void;
         }
 
         //#endregion
         //#region GeoChart
 
         //https://google-developers.appspot.com/chart/interactive/docs/gallery/geochart
-        export class GeoChart {
-            constructor(element: Element);
-
-            // https://developers.google.com/chart/interactive/docs/gallery/geochart?hl=fr&csw=1#Methods
+        export class GeoChart extends ChartBase {
             draw(data: DataTable, options: GeoChartOptions): void;
-            getSelection(): GeoChartSelection[];
-            setSelection(selection: VisualizationSelectionArray[]): void;
-            clearChart(): void;
         }
 
         // https://developers.google.com/chart/interactive/docs/gallery/geochart?hl=fr&csw=1#Configuration_Options
         export interface GeoChartOptions {
             backgroundColor?: any;
-            colorAxis?: GeoChartColorAxis;
+            colorAxis?: ChartColorAxis;
             datalessRegionColor?: string;
             displayMode?: string;
             enableRegionInteractivity?: boolean;
@@ -179,12 +173,6 @@ declare module google {
             maxValue?: number;
             minSize?: number;
             minValue?: number;
-        }
-        export interface GeoChartColorAxis extends GeoChartAxis {
-            minValue?: number;
-            maxValue?: number;
-            values?: number[];
-            colors?: string[];
         }
         export interface GeoChartTextStyle {
             color?: string;
@@ -215,19 +203,72 @@ declare module google {
         //#endregion
         //#region Common
 
+        export interface ChartAnnotations {
+            boxStyle?: ChartBoxStyle;
+            textStyle?: ChartTextStyle;
+        }
+
+        export interface ChartBoxStyle {
+            stroke?: string;
+            strokeWidth?: number;
+            rx?: number;
+            ry?: number;
+            gradient?: {
+                color1: string;
+                color2: string;
+                x1: string;
+                y1: string;
+                x2: string;
+                y2: string;
+                useObjectBoundingBoxUnits?: boolean;
+            }
+        }
+
+        export interface ChartTextStyle {
+            fontName?: string;
+            fontSize?: number;
+            bold?: boolean;
+            italic?: boolean;
+            color?: string;
+            auraColor?: string;
+            opacity?: number;
+        }
+
+        export interface ChartCrosshair {
+            color?: string;
+            focused?: {
+                color?: string;
+                opacity?: number;
+            }
+            opacity?: number;
+            orientation?: string;
+            selected?: {
+                color?: string;
+                opacity?: number;
+            }
+            trigger?: string;
+        }
+
+        export interface ChartExplorer {
+            actions?: string[];
+            axis?: string;
+            keepInBounds?: boolean;
+            maxZoomIn?: number;
+            maxZoomOut?: number;
+            zoomDelta?: number;
+        }
+
+        export interface ChartStroke {
+            stroke: string;
+            strokeWidth: number;
+            fill: string;
+        }
+
         export interface ChartArea {
             top: any;
             left: any;
             width: any;
             height: any;
-        }
-
-        export interface ChartTextStyle {
-            color?: string;
-            fontName?: string;
-            fontSize?: number;
-            bold?: boolean;
-            italic?: boolean;
         }
 
         export interface ChartLegend {
@@ -298,6 +339,14 @@ declare module google {
             height: number;
         }
 
+        export interface ChartColorAxis {
+            minValue?: number;
+            maxValue?: number;
+            values?: number[];
+            colors?: string[];
+            legend?: ChartLegend;
+        }
+
         export interface ChartLayoutInterface {
             getBoundingBox(id: string): ChartBoundingBox;
             getChartAreaBoundingBox(): ChartBoundingBox;
@@ -307,34 +356,91 @@ declare module google {
             getYLocation(position: number, axisIndex?: number): number;
         }
 
+        export interface GroupWidth {
+            groupWidth: any; // number | string
+        }
+
         export interface VisualizationSelectionArray {
             column?: number;
             row?: number;
+        }
+
+        class ChartBase {
+            constructor(element: Element);
+            getSelection(): any[];
+            setSelection(selection: any[]): void;
+            clearChart(): void;
+            getImageURI(): string;
+        }
+
+        class CoreChartBase extends ChartBase {
+            getBoundingBox(id: string): ChartBoundingBox;
+            getChartAreaBoundingBox(): ChartBoundingBox;
+            getChartLayoutInterface(): ChartLayoutInterface;
+            getHAxisValue(position: number, axisIndex?: number): number;
+            getVAxisValue(position: number, axisIndex?: number): number;
+            getXLocation(position: number, axisIndex?: number): number;
+            getYLocation(position: number, axisIndex?: number): number;
+        }
+
+        //#endregion
+        //#region ScatterChart
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/scatterchart
+        export class ScatterChart extends CoreChartBase {
+            draw(data: DataTable, options?: ScatterChartOptions): void;
+            draw(data: DataView, options?: ScatterChartOptions): void;
+        }
+
+        export interface ScatterChartOptions {
+            aggregationTarget?: string;
+            animation?: TransitionAnimation;
+            annotations?: ChartAnnotations;
+            axisTitlesPosition?: string; // in, out, none
+            backgroundColor?: any;
+            chartArea?: ChartArea;
+            colors?: string[];
+            crosshair?: ChartCrosshair;
+            curveType?: string;
+            dataOpacity?: number;
+            enableInteractivity?: boolean;
+            explorer?: ChartExplorer;
+            fontSize?: number;
+            fontName?: string;
+            forceIFrame?: boolean;
+            hAxis?: ChartAxis;
+            height?: number;
+            legend?: ChartLegend;
+            lineWidth?: number;
+            pointSize?: number;
+            selectionMode?: string;
+            series?: any;
+            theme?: string;
+            title?: string;
+            titlePosition?: string;
+            titleTextStyle?: ChartTextStyle;
+            tooltip?: ChartTooltip;
+            vAxis?: ChartAxis;
+            width?: number;
         }
 
         //#endregion
         //#region ColumnChart
 
         // https://google-developers.appspot.com/chart/interactive/docs/gallery/columnchart
-        export class ColumnChart {
-            constructor(element: Element);
-
-            // https://google-developers.appspot.com/chart/interactive/docs/gallery/columnchart#Methods
-            draw(data: DataTable, options?: ColumnChartOptions): void;
-            draw(data: DataView, options?: ColumnChartOptions): void;
-            getChartLayoutInterface(): ChartLayoutInterface;
-            getSelection(): any[];
-            setSelection(selection: any[]): void;
-            clearChart(): void;
+        export class ColumnChart extends CoreChartBase {
+            draw(data: DataTable, options: ColumnChartOptions): void;
+            draw(data: DataView, options: ColumnChartOptions): void;
         }
 
         // https://google-developers.appspot.com/chart/interactive/docs/gallery/columnchart#Configuration_Options
         export interface ColumnChartOptions {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
+            annotations?: ChartAnnotations;
             axisTitlesPosition?: string; // in, out, none
             backgroundColor?: any;
-            bar?: ColumnChartBarOptions;
+            bar?: GroupWidth;
             chartArea?: ChartArea;
             colors?: string[];
             enableInteractivity?: boolean;
@@ -358,36 +464,29 @@ declare module google {
             width?: number;
         }
 
-        export interface ColumnChartBarOptions {
-            groupWidth: any;
-        }
-
         //#endregion
         //#region LineChart
 
         // https://google-developers.appspot.com/chart/interactive/docs/gallery/linechart
-        export class LineChart {
-            constructor(element: Element);
-
-            // https://google-developers.appspot.com/chart/interactive/docs/gallery/linechart#Methods
-            draw(data: DataTable, options: any): void;
-            draw(data: DataView, options: any): void;
-            getChartLayoutInterface(): ChartLayoutInterface;
-            getSelection(): any[];
-            setSelection(selection: any[]): void;
-            clearChart(): void;
+        export class LineChart extends CoreChartBase {
+            draw(data: DataTable, options: LineChartOptions): void;
+            draw(data: DataView, options: LineChartOptions): void;
         }
 
         // https://google-developers.appspot.com/chart/interactive/docs/gallery/linechart#Configuration_Options
         export interface LineChartOptions {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
+            annotations?: ChartAnnotations;
             axisTitlesPosition?: string;
             backgroundColor?: any;
             chartArea?: ChartArea;
             colors?: string[];
+            crosshair?: ChartCrosshair;
             curveType?: string;
+            dataOpacity?: number;
             enableInteractivity?: boolean;
+            explorer?: ChartExplorer;
             focusTarget?: string;
             fontSize?: number;
             fontName?: string;
@@ -396,6 +495,7 @@ declare module google {
             interpolateNulls?: boolean;
             legend?: ChartLegend;
             lineWidth?: number;
+            orientation?: string;
             pointSize?: number;
             reverseCategories?: boolean;
             selectionMode?: string // single / multiple
@@ -417,9 +517,10 @@ declare module google {
         export interface BarChartOptions {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
+            annotations?: ChartAnnotations;
             axisTitlesPosition?: string; // in, out, none
             backgroundColor?: any;
-            bar?: ColumnChartBarOptions;
+            bar?: GroupWidth;
             chartArea?: ChartArea;
             colors?: string[];
             dataOpacity?: number;
@@ -427,6 +528,7 @@ declare module google {
             focusTarget?: string;
             fontSize?: number;
             fontName?: string;
+            hAxes?: any;
             hAxis?: ChartAxis;
             height?: number;
             isStacked?: boolean;
@@ -444,21 +546,388 @@ declare module google {
         }
 
         // https://google-developers.appspot.com/chart/interactive/docs/gallery/barchart
-        export class BarChart {
-            constructor(element: Element);
+        export class BarChart extends CoreChartBase {
             draw(data: DataTable, options: BarChartOptions): void;
             draw(data: DataView, options: BarChartOptions): void;
-            getBoundingBox(id: string): ChartBoundingBox;
-            getChartAreaBoundingBox(): ChartBoundingBox;
-            getChartLayoutInterface(): ChartLayoutInterface;
-            getHAxisValue(position: number, axisIndex?: number): number;
-            getVAxisValue(position: number, axisIndex?: number): number;
-            getXLocation(position: number, axisIndex?: number): number;
-            getYLocation(position: number, axisIndex?: number): number;
-            getSelection(): any[];
-            setSelection(selection: any[]): void;
-            clearChart(): void;
+        }
 
+        //#endregion
+        //#region Histogram
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/histogram
+        export class Histogram extends CoreChartBase {
+            draw(data: DataTable, options: HistogramOptions): void;
+            draw(data: DataView, options: HistogramOptions): void;
+        }
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/histogram#Configuration_Options
+        export interface HistogramOptions {
+            animation?: TransitionAnimation;
+            axisTitlesPosition?: string; // in, out, none
+            backgroundColor?: any;
+            bar?: GroupWidth;
+            chartArea?: ChartArea;
+            colors?: string[];
+            dataOpacity?: number;
+            enableInteractivity?: boolean;
+            focusTarget?: string;
+            fontSize?: number;
+            fontName?: string;
+            hAxis?: ChartAxis;
+            histogram?: HistogramHistogramOptions;
+            height?: number;
+            interpolateNulls?: boolean;
+            isStacked?: boolean;
+            legend?: ChartLegend;
+            orientation?: string;
+            reverseCategories?: boolean;
+            series?: any;
+            theme?: string;
+            title?: string;
+            titlePosition?: string;
+            titleTextStyle?: ChartTextStyle;
+            tooltip?: ChartTooltip;
+            vAxes?: any;
+            vAxis?: ChartAxis;
+            width?: number;
+        }
+
+        export interface HistogramHistogramOptions {
+            bucketSize?: number;
+            hideBucketItems?: boolean;
+            lastBucketPercentile?: number;
+        }
+
+        //#endregion
+        //#region AreaChart
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/areachart
+        export class AreaChart extends CoreChartBase {
+            draw(data: DataTable, options: AreaChartOptions): void;
+            draw(data: DataView, options: AreaChartOptions): void;
+        }
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/areachart#Configuration_Options
+        export interface AreaChartOptions {
+            aggregationTarget?: string;
+            animation?: TransitionAnimation;
+            areaOpacity?: number;
+            axisTitlesPosition?: string;
+            backgroundColor?: any;
+            chartArea?: ChartArea;
+            colors?: string[];
+            crosshair?: ChartCrosshair;
+            dataOpacity?: number;
+            enableInteractivity?: boolean;
+            explorer?: ChartExplorer;
+            focusTarget?: string;
+            fontSize?: number;
+            fontName?: string;
+            hAxis?: ChartAxis;
+            height?: number;
+            interpolateNulls?: boolean;
+            isStacked?: boolean;
+            legend?: ChartLegend;
+            lineWidth?: number;
+            orientation?: string;
+            pointSize?: number;
+            reverseCategories?: boolean;
+            selectionMode?: string // single / multiple
+            series?: any;
+            theme?: string;
+            title?: string;
+            titlePosition?: string;
+            titleTextStyle?: ChartTextStyle;
+            tooltip?: ChartTooltip;
+            vAxes?: any;
+            vAxis?: ChartAxis;
+            width?: number;
+        }
+
+        //#endregion
+        //#region SteppedAreaChart
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/areachart
+        export class SteppedAreaChart extends CoreChartBase {
+            draw(data: DataTable, options: SteppedAreaChartOptions): void;
+            draw(data: DataView, options: SteppedAreaChartOptions): void;
+        }
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/areachart#Configuration_Options
+        export interface SteppedAreaChartOptions {
+            aggregationTarget?: string;
+            animation?: TransitionAnimation;
+            areaOpacity?: number;
+            axisTitlesPosition?: string;
+            backgroundColor?: any;
+            chartArea?: ChartArea;
+            colors?: string[];
+            connectSteps?: boolean;
+            enableInteractivity?: boolean;
+            focusTarget?: string;
+            fontSize?: number;
+            fontName?: string;
+            hAxis?: ChartAxis;
+            height?: number;
+            interpolateNulls?: boolean;
+            isStacked?: boolean;
+            legend?: ChartLegend;
+            reverseCategories?: boolean;
+            selectionMode?: string // single / multiple
+            series?: any;
+            theme?: string;
+            title?: string;
+            titlePosition?: string;
+            titleTextStyle?: ChartTextStyle;
+            tooltip?: ChartTooltip;
+            vAxes?: any;
+            vAxis?: ChartAxis;
+            width?: number;
+        }
+
+        //#endregion
+        //#region PieChart
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/piechart
+        export class PieChart extends CoreChartBase {
+            draw(data: DataTable, options: PieChartOptions): void;
+            draw(data: DataView, options: PieChartOptions): void;
+        }
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/piechart#Configuration_Options
+        export interface PieChartOptions {
+            backgroundColor?: any;
+            chartArea?: ChartArea;
+            colors?: string[];
+            enableInteractivity?: boolean;
+            fontSize?: number;
+            fontName?: string;
+            height?: number;
+            is3D?: boolean;
+            legend?: ChartLegend;
+            pieHole?: number;
+            pieSliceBorderColor?: string;
+            pieSliceText?: string;
+            pieSliceTextStyle?: ChartTextStyle;
+            pieStartAngle?: number;
+            reverseCategories?: boolean;
+            pieResidueSliceColor?: string;
+            pieResidueSliceLabel?: string;
+            slices?: any;
+            sliceVisibilityThreshold?: number;
+            title?: string;
+            titleTextStyle?: ChartTextStyle;
+            tooltip?: ChartTooltip;
+            width?: number;
+        }
+
+        //#endregion
+        //#region BubbleChart
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/scatterchart
+        export class BubbleChart extends CoreChartBase {
+            draw(data: DataTable, options?: BubbleChartOptions): void;
+            draw(data: DataView, options?: BubbleChartOptions): void;
+        }
+
+        export interface BubbleChartOptions {
+            animation?: TransitionAnimation;
+            axisTitlesPosition?: string; // in, out, none
+            backgroundColor?: any;
+            bubble?: ChartBubble;
+            chartArea?: ChartArea;
+            colors?: string[];
+            colorAxis?: ChartColorAxis;
+            enableInteractivity?: boolean;
+            explorer?: ChartExplorer;
+            fontSize?: number;
+            fontName?: string;
+            forceIFrame?: boolean;
+            hAxis?: ChartAxis;
+            height?: number;
+            legend?: ChartLegend;
+            selectionMode?: string;
+            series?: any;
+            sizeAxis?: ChartSizeAxis;
+            sortBubblesBySize?: boolean;
+            theme?: string;
+            title?: string;
+            titlePosition?: string;
+            titleTextStyle?: ChartTextStyle;
+            tooltip?: ChartTooltip;
+            vAxis?: ChartAxis;
+            width?: number;
+        }
+
+        export interface ChartBubble {
+            opacity?: number;
+            stroke?: string;
+            textStyle?: ChartTextStyle;
+        }
+
+        export interface ChartSizeAxis {
+            maxSize: number;
+            maxValue: number;
+            minSize: number;
+            minValue: number;
+        }
+
+        //#endregion
+        //#region TreeMap
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/treemap
+        export class TreeMap extends ChartBase {
+            draw(data: DataTable, options?: TreeMapOptions): void;
+            draw(data: DataView, options?: TreeMapOptions): void;
+            goUpAndDraw(): void;
+            getMaxPossibleDepth(): number;
+        }
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/treemap#Configuration_Options
+        export interface TreeMapOptions {
+            fontColor?: string;
+            fontFamily?: string;
+            fontSize?: number;
+            forceIFrame?: boolean;
+            headerColor?: string;
+            headerHeight?: number;
+            headerHighlightColor?: string;
+            hintOpacity?: number;
+            maxColor?: string;
+            maxDepth?: number;
+            maxHighlightColor?: string;
+            maxPostDepth?: number;
+            maxColorValue?: number;
+            midColor?: string;
+            midHighlightColor?: string;
+            minColor?: string;
+            minHighlightColor?: string;
+            minColorValue?: number;
+            showScale?: boolean;
+            showTooltips?: boolean;
+            textStyle?: ChartTextStyle;
+            title?: string;
+            titleTextStyle?: ChartTextStyle;
+            useWeightedAverageForAggregation?: boolean;
+        }
+
+        //#endregion
+        //#region Table
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/table
+        export class Table extends ChartBase {
+            draw(data: DataTable, options?: TableOptions): void;
+            draw(data: DataView, options?: TableOptions): void;
+        }
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/table#Configuration_Options
+        export interface TableOptions {
+            allowHtml?: boolean;
+            alternatingRowStyle?: boolean;
+            cssClassName?: CssClassNames;
+            firstRowNumber?: number;
+            height?: string;
+            page?: string;
+            pageSize?: number;
+            rtlTable?: boolean;
+            scrollLeftStartPosition?: number;
+            showRowNumber?: boolean;
+            sort?: string;
+            sortAscending?: boolean;
+            sortColumn?: number;
+            startPage?: number;
+            width?: string;
+        }
+
+        export interface CssClassNames {
+            headerRow?: string;
+            tableRow?: string;
+            oddTableRow?: string;
+            selectedTableRow?: string;
+            hoverTableRow?: string;
+            headerCell?: string;
+            tableCell?: string;
+            rowNumberCell?: string;
+        }
+
+        //#endregion
+        //#region Timeline
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/timeline
+        export class Timeline {
+            constructor(element: Element);
+            draw(data: DataTable, options?: TimelineOptions): void;
+            draw(data: DataView, options?: TimelineOptions): void;
+            clearChart(): void;
+        }
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/timeline#Configuration_Options
+        export interface TimelineOptions {
+            avoidOverlappingGridLines?: boolean;
+            backgroundColor?: string;
+            colors?: string[];
+            enableInteractivity?: boolean;
+            forceIFrame?: boolean;
+            height?: number;
+            timeline?: {
+                barLabelStyle?: LabelStyle;
+                colorByRowLabel?: boolean;
+                groupByRowLabel?: boolean;
+                rowLabelStyle?: LabelStyle;
+                showRowLabels?: boolean;
+                singleColor?: string;
+            }
+            width?: number;
+        }
+
+        export interface LabelStyle {
+            color: string;
+            fontName: string;
+            fontSize: string;
+        }
+
+        //#endregion
+        //#region CandlestickChart
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/candlestickchart
+        export class CandlestickChart extends CoreChartBase {
+            draw(data: DataTable, options: CandlestickChartOptions): void;
+            draw(data: DataView, options: CandlestickChartOptions): void;
+        }
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/candlestickchart#Configuration_Options
+        export interface CandlestickChartOptions {
+            aggregationTarget?: string;
+            animation?: TransitionAnimation;
+            axisTitlesPosition?: string;
+            backgroundColor?: any;
+            bar?: GroupWidth;
+            candlestick?: {
+                hollowIsRising?: boolean;
+                fallingColor?: ChartStroke;
+                risingColor?: ChartStroke;
+            }
+            chartArea?: ChartArea;
+            colors?: string[];
+            enableInteractivity?: boolean;
+            focusTarget?: string;
+            fontSize?: number;
+            fontName?: string;
+            hAxis?: ChartAxis;
+            height?: number;
+            legend?: ChartLegend;
+            orientation?: string;
+            reverseCategories?: boolean;
+            selectionMode?: string // single / multiple
+            series?: any;
+            theme?: string;
+            title?: string;
+            titlePosition?: string;
+            titleTextStyle?: ChartTextStyle;
+            tooltip?: ChartTooltip;
+            vAxes?: any;
+            vAxis?: ChartAxis;
+            width?: number;
         }
 
         //#endregion

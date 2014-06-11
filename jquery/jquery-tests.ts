@@ -3114,6 +3114,9 @@ function test_parseHTML() {
 	$( "<ol></ol>" )
 	  .append( nodeNames.join( "" ) )
 	  .appendTo( $log );
+
+	// parse HTML with all parameters
+	$.parseHTML( str, document, true );
 }
 
 // http://api.jquery.com/jQuery.parseJSON/
