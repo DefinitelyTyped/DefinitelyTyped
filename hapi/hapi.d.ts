@@ -107,7 +107,8 @@ declare module Hapi {
 
 	export interface ServerView {
 		engines: {
-			module: string;
+			[extension: string]: string;
+			module?: string;
 //			compile: (
 //				template: string,
 //				options: any
@@ -127,13 +128,13 @@ declare module Hapi {
 //					) => void
 //				) => void
 //			) => void;
-			compile: any;
+			compile?: any;
 		};
-		defaultExtension: string;
+		defaultExtension?: string;
 		path?: string;
 		partialsPath?: string;
 		helpersPath?: string;
-		basePath: string;
+		basePath?: string;
 		layout?: boolean;
 		layoutPath?: string;
 		layoutKeyword?: string;
