@@ -78,12 +78,13 @@ interface IUrlLocatorTestService {
 
 // Service for determining who the currently logged on user is.
 class UrlLocatorTestService implements IUrlLocatorTestService {
-    static $inject = ["$http", "$rootScope", "$urlRouter"];
+    static $inject = ["$http", "$rootScope", "$urlRouter", "$state"];
 
     constructor(
         private $http: ng.IHttpService,
         private $rootScope: ng.IRootScopeService,
-        private $urlRouter: ng.ui.IUrlRouterService
+        private $urlRouter: ng.ui.IUrlRouterService,
+        private $state: ng.ui.IStateService
     ) {
         $rootScope.$on("$locationChangeSuccess", (event: ng.IAngularEvent) => this.onLocationChangeSuccess(event));
     }
@@ -107,6 +108,23 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
             });
         }
     }
+
+    private stateServiceTest() {
+        this.$state.go("myState");
+        this.$state.transitionTo("myState");
+        if (this.$state.includes("myState") === true) {
+          //
+        }
+        if (this.$state.is("myState") === true) {
+          //
+        }
+        if (this.$state.href("myState") === "/myState") {
+          //
+        }
+        this.$state.get("myState");
+        this.$state.get();
+        this.$state.reload();
+    }
 }
 
 myApp.service("urlLocatorTest", UrlLocatorTestService);
@@ -124,4 +142,3 @@ module UiViewScrollProviderTests {
         $uiViewScrollProvider.useAnchorScroll();
     }]);
 }
-

@@ -151,6 +151,12 @@ interface JSTreeStaticDefaults {
     * default represents the default node - any settings here will be applied to all nodes that do not have a type specified.
     */
     types?: any;
+    /**
+    * stores all defaults for the unique plugin
+    * @name $.jstree.defaults.unique
+    * @plugin unique
+    */
+    unique?: JSTreeStaticDefaultsUnique;
 }
 
 interface JSTreeStaticDefaultsCore {
@@ -339,6 +345,14 @@ interface JSTreeStaticDefaultsCheckbox {
     * @plugin checkbox
     */
     keep_selected_style: boolean;
+    /**
+    * This setting controls how cascading and undetermined nodes are applied. 
+    * If 'up' is in the string - cascading up is enabled, if 'down' is in the string - cascading down is enabled, if 'undetermined' is in the string - undetermined nodes will be used. 
+    * If `three_state` is set to `true` this setting is automatically set to 'up+down+undetermined'. Defaults to ''.
+    * @name $.jstree.defaults.checkbox.cascade
+    * @plugin checkbox
+    */
+    cascade:boolean;
 }
 
 interface JSTreeStaticDefaultsContextMenu {
@@ -493,6 +507,15 @@ interface JSTreeStaticDefaultsState {
     */
     filter: any;
 
+}
+
+interface JSTreeStaticDefaultsUnique {
+    /**
+    * Indicates if the comparison should be case sensitive. Default is `false`.
+    * @name $.jstree.defaults.unique.case_sensitive
+    * @plugin unique
+    */
+    case_sensitive:boolean;
 }
 
 interface JQuery {
