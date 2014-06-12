@@ -11,7 +11,7 @@ declare module "timezone-js" {
 	export var Date: {
 		new (timezone?: string): TimezoneJsDate;
 		new (time: string, timezone?: string): TimezoneJsDate;
-		new (year?: number, month?: number, day?: number, hour?: number, minute?: number, second?: string, timezone?: string): TimezoneJsDate;
+		new (year?: number, month?: number, day?: number, hour?: number, minute?: number, second?: number, millisecond?: number, timezone?: string): TimezoneJsDate;
 	};
 
 	export interface TimezoneJsDate extends Date {
@@ -25,6 +25,7 @@ declare module "timezone-js" {
 
 		transport(opts: TimezoneJsOptions): any;
 		init(opts?: TimezoneJsOptions): any;
+		getAllZones(): string[];
 	}
 
 	export interface TimezoneJsOptions {
