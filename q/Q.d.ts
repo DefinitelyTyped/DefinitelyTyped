@@ -207,6 +207,7 @@ declare module Q {
     export function invoke<T>(obj: any, functionName: string, ...args: any[]): Promise<T>;
     export function mcall<T>(obj: any, functionName: string, ...args: any[]): Promise<T>;
 
+    export function denodeify<T>(nodeFunction: Function, ...args: any[]): (...args: any[]) => Promise<T>;
     export function nfbind<T>(nodeFunction: Function, ...args: any[]): (...args: any[]) => Promise<T>;
     export function nfcall<T>(nodeFunction: Function, ...args: any[]): Promise<T>;
     export function nfapply<T>(nodeFunction: Function, args: any[]): Promise<T>;
