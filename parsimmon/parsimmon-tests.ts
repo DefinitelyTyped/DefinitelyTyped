@@ -55,6 +55,11 @@ foo = fooPar.parse(str);
 fooPar = fooPar.or(fooPar);
 anyPar = fooPar.or(barPar);
 
+barPar = fooPar.chain((f) => {
+	foo = f;
+	return barPar;
+});
+
 barPar = fooPar.then((f) => {
 	foo = f;
 	return barPar;
@@ -82,6 +87,8 @@ fooArrPar = fooPar.atLeast(num);
 
 fooMarkPar = fooPar.mark();
 
+fooPar = fooPar.desc(str);
+
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
 strPar = P.string(str);
@@ -91,6 +98,10 @@ fooPar = P.succeed(foo);
 
 fooArrPar = P.seq(fooPar, fooPar);
 anyArrPar = P.seq(barPar, fooPar, numPar);
+
+fooPar = P.alt(fooPar, fooPar);
+anyPar = P.alt(barPar, fooPar, numPar);
+
 
 fooPar = P.lazy(() => {
 	return fooPar;
@@ -112,5 +123,5 @@ strPar = P.optWhitespace;
 
 strPar = P.any;
 strPar = P.all;
-strPar = P.eof;
+voidPar = P.eof;
 numPar = P.index;
