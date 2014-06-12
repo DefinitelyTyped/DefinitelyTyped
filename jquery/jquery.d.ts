@@ -171,7 +171,7 @@ interface JQueryXHR extends XMLHttpRequest, JQueryPromise<any> {
     /**
      * Property containing the parsed response if the response Content-Type is json
      */
-    responseJSON: any;
+    responseJSON?: any;
 }
 
 /**
