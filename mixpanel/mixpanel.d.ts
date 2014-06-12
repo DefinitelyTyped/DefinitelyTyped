@@ -3,7 +3,7 @@
 // Definitions by: Knut Eirik Leira Hjelle <https://github.com/hjellek/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare class Mixpanel
+interface Mixpanel
 {
     people:Mixpanel.People;
 
@@ -40,7 +40,7 @@ declare class Mixpanel
 
 declare module Mixpanel
 {
-    class People
+    interface People
     {
         set(keys:{[index:string]:any}, callback?:() => void):void;
 
@@ -67,3 +67,5 @@ declare module Mixpanel
         delete_user():void;
     }
 }
+
+declare var mixpanel:Mixpanel;
