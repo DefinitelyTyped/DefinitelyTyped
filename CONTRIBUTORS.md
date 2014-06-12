@@ -218,6 +218,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Microsoft Live Connect](http://msdn.microsoft.com/en-us/library/live/hh243643.aspx) (by [John Vilk](https://github.com/jvilk))
 * [Minimatch](https://github.com/isaacs/minimatch) (by [vvakame](https://github.com/vvakame))
 * [minimist](https://github.com/substack/minimist) (by [Bart van der Schoor](https://github.com/Bartvds))
+* [Mixpanel](https://github.com/mixpanel/mixpanel-js) (by [Knut Eirik Leira Hjelle](https://github.com/hjellek))
 * [mixto](https://github.com/atom/mixto) (by [vvakame](https://github.com/vvakame))
 * [Modernizr](http://modernizr.com/) (by [Boris Yankov](https://github.com/borisyankov) and [Theodore Brown](https://github.com/theodorejb/))
 * [Moment.js](https://github.com/timrwood/moment) (by [Michael Lakerveld](https://github.com/Lakerfield))
