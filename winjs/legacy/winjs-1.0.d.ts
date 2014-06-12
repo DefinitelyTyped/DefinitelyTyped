@@ -1327,6 +1327,14 @@ declare module WinJS {
     //#region Functions
 
     /**
+     * You can provide an implementation of this method yourself, or use WinJS.Utilities.startLog to create one that logs to the JavaScript console.
+     * @param message The message to log.
+     * @param tags The tag or tags to categorize the message (winjs, winjs controls, etc.).
+     * @param type The type of message (error, warning, info, etc.).
+    **/
+    function log(message: string, tags: string, type: string): void;
+
+    /**
      * This method has been deprecated. Strict processing is always on; you don't have to call this method to turn it on.
     **/
     function strictProcessing(): void;
@@ -3182,6 +3190,12 @@ declare module WinJS.UI {
         getPanAxis(): string;
 
         /**
+         * Manages pointer input for the custom control.
+         * @param pointerId The ID of the pointer.
+        **/
+        handlePointer(pointerId: string): void;
+
+        /**
          * Positions the specified item within the viewport of the child control when panning or zooming begins.
          * @param item The object to position within the viewport of the child control. item can be a number, a string, or an object with any number of properties.
          * @param position An object that contains the position data of the item relative to the child control. position must be an object with four number properties: left, top, width, and height. These values specify a rectangle that is typically the bounding box of the current item, though the details are up to the control. The units of the position must be in pixels. And the coordinates must be relative to the top-left of the control viewport (which should occupy the same area as the semantic zoom viewport), except when in RTL mode. In RTL mode, return coordinates relative to the top-right off the control viewport. The rectangle is transformed from the coordinate system of one control to that of the other.
@@ -4909,6 +4923,11 @@ declare module WinJS.UI {
          * Gets or a sets a value that specifies whether to display the SemanticZoom zoom out button.
         **/
         enableButton: boolean;
+
+        /**
+         * Determines whether any controls contained in a SemanticZoom should be processed separately. This property is always true, meaning that the SemanticZoom takes care of processing its own controls.
+        **/
+        isDeclarativeControlContainer: boolean;
 
         /**
          * Gets or sets a value that indicates whether SemanticZoom is locked and zooming between views is disabled.
