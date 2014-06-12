@@ -1,6 +1,4 @@
 /// <reference path="mixpanel.d.ts" />
-var mixpanel = new Mixpanel();
-
 function mixpanel_base()
 {
     mixpanel.init("new token", { your: "config" }, "library_name");
