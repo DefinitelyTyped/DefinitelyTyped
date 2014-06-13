@@ -32,7 +32,7 @@ function test_asyncCommand() {
 
 function test_dirtyFlag() {
     var viewModel;
-    viewModel.dirtyFlag = new ko.DirtyFlag(viewModel.model);
+    viewModel.dirtyFlag = new ko.DirtyFlag(viewModel.referenced_table);
     viewModel.dirtyFlag().isDirty();
     viewModel.dirtyFlag().reset();
 

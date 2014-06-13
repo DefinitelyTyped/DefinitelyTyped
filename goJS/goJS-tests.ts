@@ -237,5 +237,5 @@ function init() {
   myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
 
   // now enable undo/redo, only after setting the Diagram.model
-  myDiagram.model.undoManager.isEnabled = true;
+  myDiagram.referenced_table.undoManager.isEnabled = true;
 }
