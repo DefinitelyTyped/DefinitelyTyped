@@ -18,8 +18,6 @@ See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
 
-///<reference path="../winrt/winrt.d.ts"/>
-
 /**
  * Defines an Element object.
 **/
@@ -31,11 +29,6 @@ interface Element {
  * Utility class for easy access to operations on application folders
 **/
 interface IOHelper {
-	/**
-	 * Instance of the currently wrapped application folder
-	**/
-	folder: Windows.Storage.StorageFolder;
-
 	/**
 	 * Determines whether the specified file exists in the folder.
 	 * @param filename The name of the file.
@@ -1219,7 +1212,7 @@ declare module WinJS {
 	/**
 	 * Provides a mechanism to schedule work to be done on a value that has not yet been computed. It is an abstraction for managing interactions with asynchronous APIs. For more information about asynchronous programming, see Asynchronous programming. For more information about promises in JavaScript, see Asynchronous programming in JavaScript. For more information about using promises, see the WinJS Promise sample.
 	**/
-	class Promise<T> implements Windows.Foundation.IPromise<T> {
+	class Promise<T> {
 		//#region Constructors
 
 		/**
@@ -1316,7 +1309,7 @@ declare module WinJS {
 		 * @param onProgress The function to be called if the promise reports progress. Data about the progress is passed as the single argument. Promises are not required to support progress.
 		 * @returns The promise whose value is the result of executing the onComplete function.
 		**/
-		then<U>(onComplete?: (value: T) => Windows.Foundation.IPromise<U>, onError?: (error: any) => Windows.Foundation.IPromise<U>, onProgress?: (progress: any) => void): Windows.Foundation.IPromise<U>;
+		then<U>(onComplete?: (value: T) => Promise<U>, onError?: (error: any) => Promise<U>, onProgress?: (progress: any) => void): Promise<U>;
 
 		/**
 		 * Allows you to specify the work to be done on the fulfillment of the promised value, the error handling to be performed if the promise fails to fulfill a value, and the handling of progress notifications along the way. For more information about the differences between then and done, see the following topics: Quickstart: using promises in JavaScript How to handle errors when using promises in JavaScript Chaining promises in JavaScript.
@@ -1325,7 +1318,7 @@ declare module WinJS {
 		 * @param onProgress The function to be called if the promise reports progress. Data about the progress is passed as the single argument. Promises are not required to support progress.
 		 * @returns The promise whose value is the result of executing the onComplete function.
 		**/
-		then<U>(onComplete?: (value: T) => Windows.Foundation.IPromise<U>, onError?: (error: any) => U, onProgress?: (progress: any) => void): Windows.Foundation.IPromise<U>;
+		then<U>(onComplete?: (value: T) => Promise<U>, onError?: (error: any) => U, onProgress?: (progress: any) => void): Promise<U>;
 
 		/**
 		 * Allows you to specify the work to be done on the fulfillment of the promised value, the error handling to be performed if the promise fails to fulfill a value, and the handling of progress notifications along the way. For more information about the differences between then and done, see the following topics: Quickstart: using promises in JavaScript How to handle errors when using promises in JavaScript Chaining promises in JavaScript.
@@ -1334,7 +1327,7 @@ declare module WinJS {
 		 * @param onProgress The function to be called if the promise reports progress. Data about the progress is passed as the single argument. Promises are not required to support progress.
 		 * @returns The promise whose value is the result of executing the onComplete function.
 		**/
-		then<U>(onComplete?: (value: T) => U, onError?: (error: any) => Windows.Foundation.IPromise<U>, onProgress?: (progress: any) => void): Windows.Foundation.IPromise<U>;
+		then<U>(onComplete?: (value: T) => U, onError?: (error: any) => Promise<U>, onProgress?: (progress: any) => void): Promise<U>;
 
 		/**
 		 * Allows you to specify the work to be done on the fulfillment of the promised value, the error handling to be performed if the promise fails to fulfill a value, and the handling of progress notifications along the way. For more information about the differences between then and done, see the following topics: Quickstart: using promises in JavaScript How to handle errors when using promises in JavaScript Chaining promises in JavaScript.
@@ -1343,7 +1336,7 @@ declare module WinJS {
 		 * @param onProgress The function to be called if the promise reports progress. Data about the progress is passed as the single argument. Promises are not required to support progress.
 		 * @returns The promise whose value is the result of executing the onComplete function.
 		**/
-		then<U>(onComplete?: (value: T) => U, onError?: (error: any) => U, onProgress?: (progress: any) => void): Windows.Foundation.IPromise<U>;
+		then<U>(onComplete?: (value: T) => U, onError?: (error: any) => U, onProgress?: (progress: any) => void): Promise<U>;
 
 		/**
 		 * Performs an operation on all the input promises and returns a promise that has the shape of the input and contains the result of the operation that has been performed on each input.
@@ -6379,7 +6372,7 @@ declare module WinJS.UI {
 		 * Specifies whether suggestions based on local files are automatically displayed in the search pane, and defines the criteria that Windows uses to locate and filter these suggestions.
 		 * @param settings The new settings for local content suggestions.
 		**/
-		setLocalContentSuggestionSettings(settings: Windows.ApplicationModel.Search.LocalContentSuggestionSettings): void;
+		setLocalContentSuggestionSettings(settings: any): void;
 
 		//#endregion Methods
 
@@ -6672,7 +6665,7 @@ declare module WinJS.UI {
 		 * @param query The IStorageQueryResultBase that the StorageDataSource obtains its items from. Instead of IStorageQueryResultBase, you can also pass one of these string values: Music, Pictures, Videos, Documents.
 		 * @param options The set of properties and values to apply to the new StorageDataSource. Properties on this object may include: mode , requestedThumbnailSize , thumbnailOptions , synchronous .
 		**/
-		constructor(query: Windows.Storage.Search.IStorageQueryResultBase, options?: any);
+		constructor(query: any, options?: any);
 
 		//#endregion Constructors
 
