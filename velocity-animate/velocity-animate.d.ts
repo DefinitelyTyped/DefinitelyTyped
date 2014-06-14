@@ -8,12 +8,12 @@
 interface JQuery {
 	velocity(options: {properties: Object; options: jquery.velocity.VelocityOptions}): JQuery;
 	velocity(properties: Object, options: jquery.velocity.VelocityOptions): JQuery;
-	velocity(properties: Object, duration?: number, easing?: string, complete?: Function): JQuery;
-	velocity(properties: Object, duration?: number, easing?: number[], complete?: Function): JQuery;
-	velocity(properties: Object, duration?: number, complete?: Function): JQuery;
-	velocity(properties: Object, easing?: string, complete?: Function): JQuery;
-	velocity(properties: Object, easing?: number[], complete?: Function): JQuery;
-	velocity(properties: Object, complete?: Function): JQuery;
+	velocity(properties: Object, duration?: number, easing?: string, complete?: jquery.velocity.ElementCallback): JQuery;
+	velocity(properties: Object, duration?: number, easing?: number[], complete?: jquery.velocity.ElementCallback): JQuery;
+	velocity(properties: Object, duration?: number, complete?: jquery.velocity.ElementCallback): JQuery;
+	velocity(properties: Object, easing?: string, complete?: jquery.velocity.ElementCallback): JQuery;
+	velocity(properties: Object, easing?: number[], complete?: jquery.velocity.ElementCallback): JQuery;
+	velocity(properties: Object, complete?: jquery.velocity.ElementCallback): JQuery;
 }
 
 interface JQueryStatic {
@@ -21,6 +21,14 @@ interface JQueryStatic {
 }
 
 declare module jquery.velocity {
+	interface ElementCallback {
+		(elements: NodeListOf<HTMLElement>): void;
+	}
+
+	interface ProgressCallback {
+		(elements: NodeListOf<HTMLElement>, percentComplete: number, timeRemaining: number, timeStart: number): void;
+	}
+
 	interface VelocityStatic {
 		Sequences: any;
 		animate(options: {elements: NodeListOf<HTMLElement>; properties: Object; options: VelocityOptions}): void;
@@ -32,9 +40,9 @@ declare module jquery.velocity {
 		queue?: any;
 		duration?: any;
 		easing?: any;
-		begin?: Function;
-		complete?: Function;
-		progress?: Function;
+		begin?: ElementCallback;
+		complete?: ElementCallback;
+		progress?: ProgressCallback;
 		display?: any;
 		loop?: any;
 		delay?: any;
