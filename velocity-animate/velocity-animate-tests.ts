@@ -2,7 +2,7 @@
 
 function basics_arguments() {
 	var $el: JQuery;
-	$el.velocity({ 
+	$el.velocity({
 		top: 10,
 		left: 10
 	}, {
@@ -24,7 +24,7 @@ function basics_arguments() {
 	$el.velocity({ top: 50 }, "swing");
 	$el.velocity({ top: 50 }, 1000, function() { alert("Hi"); });
 
-	$el.velocity({ 
+	$el.velocity({
 		properties: { opacity: 1 },
 		options: { duration: 500 }
 	});
@@ -32,7 +32,7 @@ function basics_arguments() {
 
 function basics_values() {
 	var $el: JQuery;
-	$el.velocity({ 
+	$el.velocity({
 		top: 50, // Defaults to the px unit type
 		left: "50%",
 		width: "+=5rem", // Add 5rem to the current rem value
@@ -42,7 +42,7 @@ function basics_values() {
 
 function options_duration() {
 	var $el: JQuery;
-	$el.velocity({ opacity: 1 }, { duration: 1000 }); 
+	$el.velocity({ opacity: 1 }, { duration: 1000 });
 	$el.velocity({ opacity: 1 }, { duration: "slow" });
 }
 
@@ -59,7 +59,7 @@ function options_easing() {
 		borderBottomWidth: [ "2px", "spring" ], // Uses "spring"
 		width: [ "100px", [ 250, 15 ] ], // Uses custom spring physics
 		height: "100px" // Defaults to easeInSine
-	}, { 
+	}, {
 		easing: "easeInSine" // The call's default easing
 	});
 }
@@ -79,7 +79,7 @@ function options_complete() {
 	var $el: JQuery;
 	$el.velocity({
 		opacity: 0
-	}, { 
+	}, {
 		/* Logs all the animated divs. */
 		complete: function(elements) { console.log(elements); }
 	});
@@ -89,7 +89,7 @@ function options_begin() {
 	var $el: JQuery;
 	$el.velocity({
 		opacity: 0
-	}, { 
+	}, {
 		/* Logs all the animated divs. */
 		begin: function(elements) { console.log(elements); }
 	});
@@ -101,7 +101,7 @@ function options_progress() {
 	var $timeRemaining: JQuery;
 	$el.velocity({
 		opacity: 0
-	}, { 
+	}, {
 		progress: function(elements, percentComplete, timeRemaining, timeStart) {
 			$percentComplete.html((percentComplete * 100) + "%");
 			$timeRemaining.html(timeRemaining + "ms remaining!");
@@ -121,9 +121,9 @@ function options_loop() {
 
 function options_delay() {
 	var $el: JQuery;
-	$el.velocity({ 
+	$el.velocity({
 		height: "+=10em"
-	}, { 
+	}, {
 		loop: 4,
 		/* Wait 100ms before alternating. */
 		delay: 100
@@ -141,7 +141,7 @@ function options_display() {
 function command_scroll() {
 	var $el: JQuery;
 	$el
-		.velocity("scroll", { duration: 1500, easing: "spring" }) 
+		.velocity("scroll", { duration: 1500, easing: "spring" })
 		.velocity({ opacity: 1 });
 
 	/* Scroll container to the top of the targeted div. */
@@ -164,7 +164,7 @@ function command_stop() {
 
 function command_reverse() {
 	var $el: JQuery;
-	$el.velocity("reverse"); 
+	$el.velocity("reverse");
 	$el.velocity("reverse", { duration: 2000 });
 }
 
@@ -185,13 +185,13 @@ function command_slideDown_slideUp() {
 function feature_transforms() {
 	var $el: JQuery;
 	/* Translate to the right and rotate clockwise. */
-	$el.velocity({ 
+	$el.velocity({
 		translateX: "200px",
 		rotateZ: "45deg"
 	});
 
 	/* Translate to the right and rotate clockwise. */
-	$el.velocity({ 
+	$el.velocity({
 		translateZ: 0, // Force HA by animating a 3D property
 		translateX: "200px",
 		rotateZ: "45deg"
@@ -217,12 +217,12 @@ function feature_colors() {
 
 function feature_sequences() {
 	var $el: JQuery;
-	$.Velocity.Sequences.hover = function (element, options) {
+	$.Velocity.Sequences.hover = function (element: HTMLElement, options: {duration?: number}) {
 		var duration = options.duration || 750;
 		$.Velocity.animate(element,
-			{ 
+			{
 				translateY: "-=10px",
-			}, { 
+			}, {
 				/* Delay is relative to user-adjustable duration. */
 				delay: duration * 0.033,
 				duration: duration,
@@ -235,13 +235,13 @@ function feature_sequences() {
 	/* Note: As normal, you may optionally pass in options. */
 	$el.velocity("hover", { duration: 450 });
 
-	$.Velocity.Sequences.hover = function (element, options) {
+	$.Velocity.Sequences.hover = function (element: HTMLElement, options: {duration?: number}) {
 		var duration = options.duration || 750;
 		/* Pre-construct animation maps before chaining. */
 		var calls = [
-			{ 
+			{
 				properties: { translateY: "-10px" },
-				options: { 
+				options: {
 					delay: duration * 0.033,
 					duration: duration,
 					loop: 3,
@@ -266,7 +266,7 @@ function advanced_value_functions() {
 		opacity: function() { return Math.random() }
 	});
 	$el.velocity({
-		translateX: function(i, total) { 
+		translateX: function(i: number, total: number) {
 			/* Generate translateX's end value. */
 			return (i * 10) + "px";
 		}
