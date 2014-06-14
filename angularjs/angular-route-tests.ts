@@ -15,3 +15,8 @@ $routeProvider
             reloadOnSearch: false
         })
         .otherwise({redirectTo: '/'});
+
+// $routeParams test
+function test_IRouteParamsService($routeParams: ng.route.IRouteParamsService): string {
+    return $routeParams['foo'];
+}
