@@ -87,6 +87,7 @@ All definitions files include a header with the author and editors, so at some p
 * [FPSMeter](http://darsa.in/fpsmeter/) (by [Aaron Lampros](https://github.com/alampros))
 * [fs-extra](https://github.com/jprichardson/node-fs-extra) (by [midknight41](https://github.com/midknight41))
 * [FullCalendar](http://arshaw.com/fullcalendar/) (by [Neil Stalker](https://github.com/nestalk))
+* [Fuse.js](https://github.com/krisk/Fuse) (by [Greg Smith](https://github.com/smrq))
 * [Gamepad](http://www.w3.org/TR/gamepad/) (by [Kon](http://phyzkit.net/))
 * [GeoJSON](http://geojson.org/) (by [Jake Bruun](https://github.com/cobster))
 * [Giraffe](https://github.com/barc/backbone.giraffe) (by [Matt McCray](https://github.com/darthapo))
