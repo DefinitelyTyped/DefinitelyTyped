@@ -17,7 +17,7 @@ declare module Expect {
          *
          * @param fn callback to match error string against
          */
-		throwError(fn?: (exception: any) => void): void;
+        throwError(fn?: (exception: any) => void): void;
 
         /**
          * Assert that the function throws.
