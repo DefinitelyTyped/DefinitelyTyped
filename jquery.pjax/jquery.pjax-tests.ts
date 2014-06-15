@@ -4,6 +4,6 @@
 function test_fn_pjax() {
     $(document).pjax("a");
     $(document).pjax("a", "#pjax-container");
-    $(document).pjax("a", {push: true});
-    $(document).pjax("a", "#pjax-container", {push: true});
+    $(document).pjax("a", { push: true });
+    $(document).pjax("a", "#pjax-container", { push: true });
 }
