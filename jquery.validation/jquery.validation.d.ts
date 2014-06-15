@@ -1,6 +1,6 @@
 // Type definitions for jquery.validation 1.11.1
 // Project: http://jqueryvalidation.org/
-// Definitions by: https://github.com/fdecampredon , https://github.com/johnnyreilly
+// Definitions by: François de Campredon <https://github.com/fdecampredon>, Johj Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
