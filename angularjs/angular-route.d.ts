@@ -15,7 +15,9 @@ declare module ng.route {
     // RouteParamsService
     // see http://docs.angularjs.org/api/ngRoute.$routeParams
     ///////////////////////////////////////////////////////////////////////////
-    interface IRouteParamsService {}
+    interface IRouteParamsService {
+        [key: string]: any;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // RouteService
