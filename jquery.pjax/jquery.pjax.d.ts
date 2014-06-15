@@ -3,6 +3,25 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
+interface PjaxSettings extends JQueryAjaxSettings {
+    /**
+     * A jQuery selector indicates where to stick the response body. E.g., $(container).html(xhr.responseBody).
+     * If it is not defined, the `data-pjax` attribute of the link will be treated as container.
+     * If such an attribute is not defined too, the context will be treated as container.
+     */
+    container?: string;
+
+    /**
+     * Whether to pushState the URL. Defaults to true.
+     */
+    push?: boolean;
+
+    /**
+     * Whether to replaceState the URL. Defaults to false.
+     */
+    replace?: boolean;
+}
+
 interface JQuery {
     /**
      * Tell PJAX to listen links with delegation selector that, when click on them, fetches the href with ajax into the container.
@@ -16,7 +35,7 @@ interface JQuery {
      * - replace: Want to use replaceState instead? That's cool.
      * @return Returns the jQuery object
      */
-    pjax(delegationSelector: string, options?: JQueryAjaxSettings): JQuery;
+    pjax(delegationSelector: string, options?: PjaxSettings): JQuery;
 
     /**
      * Tell PJAX to listen links with delegation selector that, when click on them, fetches the href with ajax into the container.
@@ -31,5 +50,5 @@ interface JQuery {
      * - replace: Want to use replaceState instead? That's cool.
      * @return Returns the jQuery object
      */
-    pjax(delegationSelector: string, containerSelector?: string, options?: JQueryAjaxSettings): JQuery;
+    pjax(delegationSelector: string, containerSelector?: string, options?: PjaxSettings): JQuery;
 }
