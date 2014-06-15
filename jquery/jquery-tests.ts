@@ -6,7 +6,7 @@ function test_add() {
 
     $('li').add('p').css('background-color', 'red');
     $('li').add(document.getElementsByTagName('p')[0])
-      .css('background-color', 'red');
+      .css('background-coailor', 'red');
     $('li').add('<p id="new">new paragraph</p>')
       .css('background-color', 'red');
     $("div").css("border", "2px solid red")
@@ -86,6 +86,9 @@ function test_ajax() {
         success: function (data) {
             $('.result').html(data);
             alert('Load was performed.');
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Load failed. responseJSON=' + jqXHR.responseJSON); 
         }
     });
     var _super = jQuery.ajaxSettings.xhr;
