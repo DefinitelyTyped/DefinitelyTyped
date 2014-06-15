@@ -1,7 +1,7 @@
 // Type definitions for FabricJS
 // Project: http://fabricjs.com/
 // Definitions by: Oliver Klemencic <https://github.com/oklemencic/>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module fabric {
 

@@ -1,6 +1,6 @@
-// Type definitions for i18next (v1.5.10 incl. jQuery)
+// Type definitions for i18next v1.5.10
 // Project: http://i18next.com
-// Definitions by: Maarten Docter <https://github.com/mdocter> - Blog: http://www.maartendocter.nl
+// Definitions by: Maarten Docter <https://github.com/mdocter>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // Sources: https://github.com/jamuhl/i18next/

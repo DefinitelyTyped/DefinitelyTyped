@@ -1,6 +1,6 @@
 // Type definitions for jquery.pnotify 1.3.1
-// Project:  https://github.com/sciactive/pnotify
-// Definitions by: https://github.com/DavidSichau
+// Project: https://github.com/sciactive/pnotify
+// Definitions by: David Sichau <https://github.com/DavidSichau>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
