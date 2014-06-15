@@ -3,6 +3,7 @@
 import P = require('parsimmon');
 import Parser = P.Parser;
 import Mark = P.Mark;
+import Result = P.Result;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -17,6 +18,7 @@ class Bar {
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
 var str: string;
+var bool: boolean;
 var num: number;
 var regex: RegExp;
 
@@ -50,7 +52,16 @@ var fooMarkPar: Parser<Mark<Foo>>;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
-foo = fooPar.parse(str);
+var fooResult: Result<Foo>;
+
+bool = fooResult.status;
+foo = fooResult.value;
+str = fooResult.expected;
+num = fooResult.index;
+
+// --  --  --  --  --  --  --  --  --  --  --  --  --
+
+fooResult = fooPar.parse(str);
 
 fooPar = fooPar.or(fooPar);
 anyPar = fooPar.or(barPar);
