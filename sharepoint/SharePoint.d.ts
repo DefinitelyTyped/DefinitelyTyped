@@ -3,8 +3,6 @@
 // Definitions by: Stanislav Vyshchepan <http://gandjustas.blogspot.ru>, Andrey Markeev <http://markeev.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-
-
 declare module Sys {
     export class EventArgs {
         static Empty: Sys.EventArgs;
@@ -7472,7 +7470,7 @@ declare module SP {
         }
 
         export module UIUtility {
-            export function generateRandomElement(): string;
+            export function generateRandomElementId(): string;
             export function cancelEvent(evt: Event): void;
             export function clearChildNodes(elem: HTMLElement): void;
             export function hideElement(elem: HTMLElement): void;
@@ -9758,3 +9756,5 @@ declare module SPThemeUtils {
     export function UseClientSideTheming(): boolean;
     export function Suspend(): void;
 }
+
+
