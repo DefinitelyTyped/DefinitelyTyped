@@ -1,7 +1,9 @@
-// Type definitions for joi v4.0.0
+// Type definitions for joi v4.6.0
 // Project: https://github.com/spumko/joi
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+// TODO express type of Schema in a type-parameter (.default, .valid, .example etc)
 
 declare module 'joi' {
 
@@ -18,6 +20,8 @@ declare module 'joi' {
 		stripUnknown?: boolean;
 		// overrides individual error messages. Defaults to no override ({}).
 		language?: Object
+		// provides an external data set to be used in references
+		context?: Object;
 	}
 
 	export interface RenameOptions {
@@ -27,6 +31,20 @@ declare module 'joi' {
 		multiple?: boolean;
 		// if true, allows renaming a key over an existing key. Defaults to false.
 		override?: boolean;
+	}
+
+	export interface WhenOptions {
+		// the required condition joi type.
+		is: Schema;
+		// the alternative schema type if the condition is true. Required if otherwise is missing.
+		then?: Schema;
+		// the alternative schema type if the condition is false. Required if then is missing
+		otherwise?: Schema;
+	}
+
+	export interface ReferenceOptions {
+		separator?: string;
+		contextPrefix?: string;
 	}
 
 	export interface ValidationError {
@@ -48,12 +66,14 @@ declare module 'joi' {
 	}
 
 	export interface Schema extends AnySchema<Schema> {
+
+	}
+
+	export interface Reference extends Schema {
+
 	}
 
 	export interface AnySchema<T extends AnySchema<Schema>> {
-
-		validate<U>(value: U, options?: ValidationOptions, callback?: (err: ValidationError, value: U) => void): void;
-
 		/**
 		 * Whitelists a value
 		 */
@@ -83,6 +103,11 @@ declare module 'joi' {
 		optional(): T;
 
 		/**
+		 * Marks a key as forbidden which will not allow any value except undefined. Used to explicitly forbid keys.
+		 */
+		forbidden(): T;
+
+		/**
 		 * Annotates the key
 		 */
 		description(desc: string): T;
@@ -100,7 +125,22 @@ declare module 'joi' {
 		tags(notes: string[]): T;
 
 		/**
-		 * Overrides the global validate() options for the current key and any sub-key
+		 * Attaches metadata to the key.
+		 */
+		meta(meta: Object): T;
+
+		/**
+		 * Annotates the key with an example value, must be valid.
+		 */
+		example(value: any): T;
+
+		/**
+		 * Annotates the key with an unit name.
+		 */
+		unit(name: string): T;
+
+		/**
+		 * Overrides the global validate() options for the current key and any sub-key.
 		 */
 		options(options: ValidationOptions): T;
 
@@ -110,9 +150,20 @@ declare module 'joi' {
 		strict(): T;
 
 		/**
-		 * Sets a default value if the original value is undefined
+		 * Sets a default value if the original value is undefined.
 		 */
 		default(value: any): T;
+
+		/**
+		 * Returns a new type that is the result of adding the rules of one type to another.
+		 */
+		concat(schema: T): T;
+
+		/**
+		 * Converts the type into an alternatives type where the conditions are merged into the type definition where:
+		 */
+		when(ref: string, options: WhenOptions): AlternativesSchema;
+		when(ref: Reference, options: WhenOptions): AlternativesSchema;
 	}
 
 	export interface BooleanSchema extends AnySchema<BooleanSchema> {
@@ -187,6 +238,20 @@ declare module 'joi' {
 		 */
 		isoDate(): StringSchema;
 
+		/**
+		 * Requires the string value to be all lowercase. If the validation convert option is on (enabled by default), the string will be forced to lowercase.
+		 */
+		lowercase(): StringSchema;
+
+		/**
+		 * Requires the string value to be all uppercase. If the validation convert option is on (enabled by default), the string will be forced to uppercase.
+		 */
+		uppercase(): StringSchema;
+
+		/**
+		 * Requires the string value to contain no whitespace before or after. If the validation convert option is on (enabled by default), the string will be trimmed.
+		 */
+		trim(): StringSchema;
 	}
 
 	export interface ArraySchema extends AnySchema<ArraySchema> {
@@ -241,6 +306,29 @@ declare module 'joi' {
 		length(limit: number): ObjectSchema;
 
 		/**
+		 * Specify validation rules for unknown keys matching a pattern.
+		 */
+		pattern(regex: RegExp, schema: Schema): ObjectSchema;
+
+		/**
+		 * Defines an all-or-nothing relationship between keys where if one of the peers is present, all of them are required as well.
+		 */
+		and(peer1: string, peer2: string, ...peers: string[]): ObjectSchema;
+		and(peers: string[]): ObjectSchema;
+
+		/**
+		 * Defines a relationship between keys where one of the peers is required (and more than one is allowed).
+		 */
+		or(peer1: string, peer2: string, ...peers: string[]): ObjectSchema;
+		or(peers: string[]): ObjectSchema;
+
+		/**
+		 * Defines an exclusive relationship between a set of keys. one of them is required but not at the same time where:
+		 */
+		xor(peer1: string, peer2: string, ...peers: string[]): ObjectSchema;
+		xor(peers: string[]): ObjectSchema;
+
+		/**
 		 * Requires the presence of other keys whenever the specified key is present.
 		 */
 		with(key: string, peers: string): ObjectSchema;
@@ -253,21 +341,20 @@ declare module 'joi' {
 		without(key: string, peers: string[]): ObjectSchema;
 
 		/**
-		 * Defines an exclusive relationship between a set of keys. one of them is required but not at the same time where:
-		 */
-		xor(peer1: string, peer2: string, ...peers: string[]): ObjectSchema;
-		xor(peers: string[]): ObjectSchema;
-
-		/**
-		 * Defines a relationship between keys where one of the peers is required (and more than one is allowed).
-		 */
-		or(peer1: string, peer2: string, ...peers: string[]): ObjectSchema;
-		or(peers: string[]): ObjectSchema;
-
-		/**
 		 * Renames a key to another name (deletes the renamed key).
 		 */
 		rename(from: string, to: string, options?: RenameOptions): ObjectSchema;
+
+		/**
+		 * Verifies an assertion where.
+		 */
+		assert(ref: string, schema: Schema, message: string): ObjectSchema;
+		assert(ref: Reference, schema: Schema, message: string): ObjectSchema;
+
+		/**
+		 * Overrides the handling of unknown keys for the scope of the current object only (does not apply to children).
+		 */
+		unknown(allow?:boolean): ObjectSchema;
 	}
 
 	export interface BinarySchema extends AnySchema<BinarySchema> {
@@ -306,6 +393,12 @@ declare module 'joi' {
 
 	export interface FunctionSchema extends AnySchema<FunctionSchema> {
 
+	}
+
+	export interface AlternativesSchema extends AnySchema<FunctionSchema> {
+		try(schemas: Schema[]): AlternativesSchema;
+		when(ref: string, options: WhenOptions): AlternativesSchema;
+		when(ref: Reference, options: WhenOptions): AlternativesSchema;
 	}
 
 	// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -368,10 +461,21 @@ declare module 'joi' {
 	 */
 	export function validate<T>(value: T, schema: Schema, options?: ValidationOptions, callback?: (err: ValidationError, value: T) => void): void;
 	export function validate<T>(value: T, schema: Object, options?: ValidationOptions, callback?: (err: ValidationError, value: T) => void): void;
+	export function validate<T>(value: T, schema: Schema, callback: (err: ValidationError, value: T) => void): void;
+	export function validate<T>(value: T, schema: Object, callback: (err: ValidationError, value: T) => void): void;
 
 	/**
 	 * Converts literal schema definition to joi schema object (or returns the same back if already a joi schema object).
 	 */
 	export function compile(schema: Object): Schema;
 
+	/**
+	 * Validates a value against a schema and throws if validation fails.
+	 */
+	export function assert(value: any, schema: Schema): void;
+
+	/**
+	 * Generates a reference to the value of the named key.
+	 */
+	export function ref(key:string, options?: ReferenceOptions): Reference;
 }

@@ -48,3 +48,7 @@ declare function purl(): purl.Url;
  * @param someUrl the url to be parsed
  */
 declare function purl(someUrl: string): purl.Url;
+
+declare module "purl" {
+    export = purl;
+}

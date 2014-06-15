@@ -203,6 +203,7 @@ declare module ng {
         $error: any;
         $addControl(control: ng.INgModelController): void;
         $removeControl(control: ng.INgModelController): void;
+        $setValidity(validationErrorKey: string, isValid: boolean, control: ng.INgModelController): void;
         $setDirty(): void;
         $setPristine(): void;
     }
@@ -302,13 +303,17 @@ declare module ng {
     // WindowService
     // see http://docs.angularjs.org/api/ng.$window
     ///////////////////////////////////////////////////////////////////////////
-    interface IWindowService extends Window {}
+    interface IWindowService extends Window {
+        [key: string]: any;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // BrowserService
     // TODO undocumented, so we need to get it from the source code
     ///////////////////////////////////////////////////////////////////////////
-    interface IBrowserService {}
+    interface IBrowserService {
+        [key: string]: any;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // TimeoutService

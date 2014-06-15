@@ -91,16 +91,16 @@ declare module Ix {
 			comparer?: EqualityComparer<TKey, TKey>): Enumerable<TResult>;
 		groupBy<TKey, TElement>(
 			keySelector: (item: T) => TKey,
-			elementSelector: (item: T) => TElement): Grouping<TKey, TElement>;
+			elementSelector: (item: T) => TElement): Enumerable<Grouping<TKey, TElement>>;
 		groupBy<TKey>(
-			keySelector: (item: T) => TKey): Grouping<TKey, T>;
+			keySelector: (item: T) => TKey): Enumerable<Grouping<TKey, T>>;
 
 		// if need to set comparer without resultSelector
 		groupBy<TKey, TElement>(
 			keySelector: (item: T) => TKey,
 			elementSelector: (item: T) => TElement,
 			_: boolean,
-			comparer: EqualityComparer<TKey, TKey>): Grouping<TKey, TElement>;
+			comparer: EqualityComparer<TKey, TKey>): Enumerable<Grouping<TKey, TElement>>;
 		// if need to set resultSelector without elementSelector
 		groupBy<TKey, TResult>(
 			keySelector: (item: T) => TKey,
@@ -112,7 +112,7 @@ declare module Ix {
 			keySelector: (item: T) => TKey,
 			_: boolean,
 			__: boolean,
-			comparer: EqualityComparer<TKey, TKey>): Grouping<TKey, T>;
+			comparer: EqualityComparer<TKey, TKey>): Enumerable<Grouping<TKey, T>>;
 
 		groupJoin<TInner, TOuterKey, TInnerKey, TResult>(
 			inner: Enumerable<TInner>,
