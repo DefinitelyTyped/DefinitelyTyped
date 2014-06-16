@@ -4520,6 +4520,20 @@ declare module _ {
         toArray<T>(collection: Dictionary<T>): T[];
     }
 
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.toArray
+        **/
+        toArray(): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+        * @see _.toArray
+        **/
+        toArray<TValue>(): LoDashArrayWrapper<TValue>;
+    }
+
     //_.where
     interface LoDashStatic {
         /**
