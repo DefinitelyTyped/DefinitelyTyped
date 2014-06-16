@@ -21,6 +21,8 @@ client = client.pageview(str, str);
 client.pageview(str, str, (err:any) => {});
 client = client.pageview(str, str, str);
 client.pageview(str, str, str, (err:any) => {});
+client = client.pageview(str, str, str, params);
+client.pageview(str, str, str, params, (err:any) => {});
 
 
 client = client.event(str, str);
