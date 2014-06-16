@@ -83,6 +83,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Firefox](https://developer.mozilla.org/en-US/docs/Web/API) (by [vvakame](https://github.com/vvakame))
 * [FlexSlider](http://www.woothemes.com/flexslider/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Flight by Twitter](http://flightjs.github.com/flight/) (by [Jonathan Hedrén](https://github.com/jonathanhedren))
+* [flipsnap.js](http://pxgrid.github.io/js-flipsnap/) (by [kubosho_](https://github.com/kubosho), [gsino](https://github.com/gsino), [Mayuki Sawatari](https://github.com/mayuki))
 * [Foundation](http://foundation.zurb.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [FPSMeter](http://darsa.in/fpsmeter/) (by [Aaron Lampros](https://github.com/alampros))
 * [fs-extra](https://github.com/jprichardson/node-fs-extra) (by [midknight41](https://github.com/midknight41))
