@@ -1,6 +1,6 @@
 /// <reference path="universal-analytics.d.ts" />
 
-var ui:UniversalAnalytics;
+import ui = require('universal-analytics');
 
 var str:string;
 var num:number;

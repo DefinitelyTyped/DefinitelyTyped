@@ -3,10 +3,6 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-interface UniversalAnalytics {
-    (accountID:string, uuid?:string, opts?:Object):UniversalAnalytics.Client;
-}
-
 declare module UniversalAnalytics {
 
     interface Client {
@@ -87,5 +83,6 @@ declare module UniversalAnalytics {
 }
 
 declare module 'universal-analytics' {
-export = UniversalAnalytics;
+    function universalAnalytics(accountID: string, uuid?: string, opts?: Object): UniversalAnalytics.Client;
+    export = universalAnalytics;
 }
