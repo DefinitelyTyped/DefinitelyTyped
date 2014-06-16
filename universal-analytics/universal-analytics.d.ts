@@ -14,16 +14,11 @@ declare module UniversalAnalytics {
 
         send():void;
 
-        pageview(path:string):Client;
-        pageview(path:string, callback?:(err:any) => void):void;
-        pageview(params:Object):Client;
-        pageview(params:Object, callback?:(err:any) => void):void;
-        pageview(path:string, hostname:string):Client;
-        pageview(path:string, hostname:string, callback?:(err:any) => void):void;
-        pageview(path:string, hostname:string, title:string):Client;
-        pageview(path:string, hostname:string, title:string, callback?:(err:any) => void):void;
-        pageview(path:string, hostname:string, title:string, params:Object):Client;
-        pageview(path:string, hostname:string, title:string, params:Object, callback?:(err:any) => void):void;
+        pageview(params:Object, callback?:(err:any) => void):Client;
+        pageview(path:string, callback:(err:any) => void):Client;
+        pageview(path:string, hostname:string, callback:(err:any) => void):Client;
+        pageview(path:string, hostname:string, title:string, callback:(err:any) => void):Client;
+        pageview(path:string, hostname?:string, title?:string, params?:Object, callback?:(err:any) => void):Client;
 
 
         event(category:string, action:string):Client;
