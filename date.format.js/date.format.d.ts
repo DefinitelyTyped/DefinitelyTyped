@@ -1,6 +1,10 @@
-/******************************************************************************
- Portions Copyright (c) Microsoft Corporation. All rights reserved.
+// Type definitions for Date Format 1.2.3
+// Project: http://blog.stevenlevithan.com/archives/date-time-format
+// Definitions by: Rob Stutton <https://github.com/balrob>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/*****************************************************************************
+ Portions Copyright (c) Microsoft Corporation. All rights reserved.
  Licensed under the Apache License, Version 2.0 (the "License"); you may not use
  this file except in compliance with the License. You may obtain a copy of the
  License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,9 +17,6 @@
  See the Apache Version 2.0 License for specific language governing permissions
  and limitations under the License.
  ***************************************************************************** */
-
-// Typing for the date.format.js from Steven Levithan
-// reproduces "Date" and adds format() - seemed to be the only way ...
 
 /** Enables basic storage and retrieval of dates and times. */
 interface Date {
@@ -169,10 +170,15 @@ interface Date {
   toISOString(): string;
   /** Used by the JSON.stringify method to enable the transformation of an object's data for JavaScript Object Notation (JSON) serialization. */
   toJSON(key?: any): string;
-
-  format(mask: string, utc?: boolean) : string;
+  /**
+   * This is a convenience addition to the Date prototype
+   * Returns a formatted version of the date.
+   * The mask defaults to dateFormat.masks.default.
+   * @param {string=} mask
+   * @param {boolean=} utc
+   */
+  format(mask?: string, utc?: boolean) : string;
 }
-
 
 declare var Date: {
   new (): Date;
@@ -200,4 +206,39 @@ declare var Date: {
   now(): number;
 };
 
-declare function dateFormat(date?: any, mask?: string, utc?: boolean ) : string;
+// Some common format strings
+interface DateFormatMasks {
+  "default": string;
+  shortDate: string;
+  mediumDate: string;
+  longDate: string;
+  fullDate: string;
+  shortTime: string;
+  mediumTime: string;
+  longTime: string;
+  isoDate: string;
+  isoTime: string;
+  isoDateTime: string;
+  isoUtcDateTime: string;
+}
+
+// Internationalization strings
+interface DateFormatI18n {
+  dayNames: string[];
+  monthNames: string[];
+}
+
+/**
+ * Accepts a date, a mask, or a date and a mask.
+ * Returns a formatted version of the given date.
+ * The date defaults to the current date/time.
+ * The mask defaults to dateFormat.masks.default.
+ * @param {Date=} date
+ * @param {string=} mask
+ * @param {boolean=} utc
+ */
+declare var dateFormat: {
+  (date?: any, mask?: string, utc?: boolean ): string;
+  masks : DateFormatMasks;
+  i18n  : DateFormatI18n;
+};
