@@ -425,9 +425,17 @@ result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function (num) { ret
 result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function (num) { return this.floor(num); }, Math);
 result = <_.Dictionary<string[]>>_.groupBy(['one', 'two', 'three'], 'length');
 
-result = <_.LoDashObjectWrapper<_.Dictionary<number[]>>>_([4.2, 6.1, 6.4]).groupBy(function (num) { return Math.floor(num); });
-result = <_.LoDashObjectWrapper<_.Dictionary<number[]>>>_([4.2, 6.1, 6.4]).groupBy(function (num) { return this.floor(num); }, Math);
-result = <_.LoDashObjectWrapper<_.Dictionary<string[]>>>_(['one', 'two', 'three']).groupBy('length');
+result = <_.Dictionary<number[]>>_.groupBy({ prop1: 4.2, prop2: 6.1, prop3: 6.4}, function (num) { return Math.floor(num); });
+result = <_.Dictionary<number[]>>_.groupBy({ prop1: 4.2, prop2: 6.1, prop3: 6.4}, function (num) { return this.floor(num); }, Math);
+result = <_.Dictionary<string[]>>_.groupBy({ prop1: 'one', prop2: 'two', prop3: 'three'}, 'length');
+
+result = <_.Dictionary<number[]>>_([4.2, 6.1, 6.4]).groupBy(function (num) { return Math.floor(num); }).value();
+result = <_.Dictionary<number[]>>_([4.2, 6.1, 6.4]).groupBy(function (num) { return this.floor(num); }, Math).value();
+result = <_.Dictionary<string[]>>_(['one', 'two', 'three']).groupBy('length').value();
+
+result = <_.Dictionary<number[]>>_({ prop1: 4.2, prop2: 6.1, prop3: 6.4}).groupBy<number>(function (num) { return Math.floor(num); }).value();
+result = <_.Dictionary<number[]>>_({ prop1: 4.2, prop2: 6.1, prop3: 6.4}).groupBy<number>(function (num) { return this.floor(num); }, Math).value();
+result = <_.Dictionary<string[]>>_({ prop1: 'one', prop2: 'two', prop3: 'three'}).groupBy<string>('length').value();
 
 result = <_.Dictionary<IKey>>_.indexBy(keys, 'dir');
 result = <_.Dictionary<IKey>>_.indexBy(keys, function (key) { return String.fromCharCode(key.code); });
