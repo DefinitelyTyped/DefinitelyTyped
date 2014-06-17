@@ -1,4 +1,4 @@
-/// <reference path="cheerio.d.ts" />
+/// <reference path="cheerio-old.d.ts" />
 
 import cheerio = require("cheerio");
 
