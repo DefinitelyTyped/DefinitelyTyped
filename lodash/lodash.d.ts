@@ -3192,6 +3192,34 @@ declare module _ {
             whereValue: W): _.LoDashObjectWrapper<Dictionary<T[]>>;
     }
 
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.toArray
+        **/
+        toArray(): LoDashWrapper<any>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+        * @see _.groupBy
+        **/
+        groupBy(
+            callback: ListIterator<T, any>,
+            thisArg?: any): LoDashArrayWrapper<Dictionary<T[]>>;
+
+        /**
+        * @see _.groupBy
+        **/
+        groupBy(
+            pluckValue: string): LoDashArrayWrapper<Dictionary<T[]>>;
+
+        /**
+        * @see _.groupBy
+        **/
+        groupBy<W>(
+            whereValue: W): LoDashArrayWrapper<Dictionary<T[]>>;
+    }
+
     //_.indexBy
     interface LoDashStatic {
         /**
