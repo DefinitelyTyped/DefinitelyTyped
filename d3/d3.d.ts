@@ -751,8 +751,8 @@ declare module D3 {
         empty: () => boolean;
             
         data: {
-            (values: (data: any, index?: number) => any[], key?: (data: any, index?: number) => string): UpdateSelection;
-            (values: any[], key?: (data: any, index?: number) => string): UpdateSelection;
+            (values: (data: any, index?: number) => any[], key?: (data: any, index?: number) => any): UpdateSelection;
+            (values: any[], key?: (data: any, index?: number) => any): UpdateSelection;
             (): any[];
         };
 
