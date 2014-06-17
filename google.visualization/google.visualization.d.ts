@@ -844,7 +844,7 @@ declare module google {
         // https://google-developers.appspot.com/chart/interactive/docs/gallery/timeline#Configuration_Options
         export interface TimelineOptions {
             avoidOverlappingGridLines?: boolean;
-            backgroundColor?: string;
+            backgroundColor?: any;
             colors?: string[];
             enableInteractivity?: boolean;
             forceIFrame?: boolean;
