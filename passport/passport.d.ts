@@ -42,6 +42,24 @@ declare module 'passport' {
         name?: string;
         authenticate(req: express.Request, options?: Object): void;
     }
+
+    interface Profile {
+        provider: string;
+        id: string;
+        displayName: string;
+        name? : {
+            familyName: string;
+            givenName: string;
+            middleName?: string;
+        };
+        emails?: {
+            value: string;
+            type?: string;
+        }[];
+        photos?: {
+            value: string;
+        }[];
+    }
 }
 
 declare module Express {
@@ -60,3 +78,4 @@ declare module Express {
         isUnauthenticated(): boolean;
     }
 }
+
