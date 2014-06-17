@@ -16,7 +16,7 @@ interface Cheerio {
     attr(name: string): string;
     attr(name: string, value: any): Cheerio;
 
-    data(): Object;
+    data(): any;
 
     val(): string;
     val(value: string): Cheerio;
