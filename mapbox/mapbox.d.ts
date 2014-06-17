@@ -139,7 +139,7 @@ declare module L.mapbox {
 		sanitizer? : (template: string) => string;
 	}
 
-	interface FeatureLayer extends L.FeatureGroup {
+	interface FeatureLayer extends L.FeatureGroup<L.ILayer> {
 
 		/**
 		 * Load GeoJSON data for this layer from the URL given by url.
