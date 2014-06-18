@@ -54,3 +54,7 @@ function test_defauluts() {
         version: $.noop
     };
 }
+
+function test_support() {
+    console.log($.support.pjax);
+}
