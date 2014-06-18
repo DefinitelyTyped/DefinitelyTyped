@@ -29,10 +29,10 @@ interface JQuery {
      * If `options.container` is not defined, the `data-pjax` attribute of the link will be treated as container.
      * If such an attribute is not defined too, the context runs with this statement will be treated as container.
      * @param delegationSelector The selector to limit which links PJAX should listen on.
-     * @param options A valid jQuery ajax options object that may include these pjax specific options:
-     * - container: A jQuery selector indicates where to stick the response body. E.g., $(container).html(xhr.responseBody).
-     * - push: Whether to pushState the URL. Defaults to true (of course).
-     * - replace: Want to use replaceState instead? That's cool.
+     * @param options PJAX settings, which is a superset of jQuery AJAX settings. It includes the following specific options:
+     * - container: a jQuery selector indicates where to stick the response body. E.g., $(container).html(xhr.responseBody).
+     * - push: a boolean indicates whether to pushState the URL. Default is true.
+     * - replace: a boolean indicates whether to use replaceState instead of pushState. Default is false.
      * @return Returns the jQuery object
      */
     pjax(delegationSelector: string, options?: PjaxSettings): JQuery;
@@ -43,11 +43,11 @@ interface JQuery {
      * If `options.container` is not defined, the `data-pjax` attribute of the link will be treated as container.
      * If such an attribute is not defined too, the context runs with this statement will be treated as container.
      * @param delegationSelector The selector to limit which links PJAX should listen on.
-     * @param containerSelector A jQuery selector indicates where to stick the response body. E.g., $(container).html(xhr.responseBody).
-     * @param options A valid jQuery ajax options object that may include these pjax specific options:
-     * - container: A jQuery selector indicates where to stick the response body. The containerSelector has priority.
-     * - push: Whether to pushState the URL. Defaults to true (of course).
-     * - replace: Want to use replaceState instead? That's cool.
+     * @param containerSelector A jQuery selector indicates where to stick the response body. E.g., $(containerSelector).html(xhr.responseBody).
+     * @param options PJAX settings, which is a superset of jQuery AJAX settings. It includes the following specific options:
+     * - container: a jQuery selector indicates where to stick the response body. The `containerSelector` parameter has priority.
+     * - push: a boolean indicates whether to pushState the URL. Default is true.
+     * - replace: a boolean indicates whether to use replaceState instead of pushState. Default is false.
      * @return Returns the jQuery object
      */
     pjax(delegationSelector: string, containerSelector?: string, options?: PjaxSettings): JQuery;
