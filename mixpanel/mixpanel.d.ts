@@ -1,5 +1,6 @@
 // Type definitions for Mixpanel
-// Project: https://mixpanel.com/ (https://github.com/mixpanel/mixpanel-js)
+// Project: https://mixpanel.com/
+//          https://github.com/mixpanel/mixpanel-js
 // Definitions by: Knut Eirik Leira Hjelle <https://github.com/hjellek/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 

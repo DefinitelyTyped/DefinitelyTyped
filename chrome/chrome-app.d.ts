@@ -1,4 +1,4 @@
-﻿// Type definitions for Chrome packaged application development.
+﻿// Type definitions for Chrome packaged application development
 // Project: http://developer.chrome.com/apps/
 // Definitions by: Adam Lay <https://github.com/AdamLay>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

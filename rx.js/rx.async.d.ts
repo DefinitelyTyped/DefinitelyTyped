@@ -1,7 +1,6 @@
 // Type definitions for RxJS-Async v2.2.25
 // Project: http://rx.codeplex.com/
-// Definitions by: zoetrope <https://github.com/zoetrope>
-// Definitions by: Igor Oleinikov <https://github.com/Igorbek>
+// Definitions by: zoetrope <https://github.com/zoetrope>, Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path="rx.d.ts" />
