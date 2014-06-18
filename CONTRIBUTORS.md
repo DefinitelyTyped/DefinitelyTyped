@@ -302,6 +302,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Teechart](http://www.steema.com) (by [Steema](http://www.steema.com))
 * [text-buffer](https://github.com/atom/text-buffer) (by [vvakame](https://github.com/vvakame))
 * [three.js](http://mrdoob.github.com/three.js/) (by [Kon](http://phyzkit.net/))
+* [TimelineJS](https://github.com/NUKnightLab/TimelineJS) (by [Roland Zwaga](https://github.com/rolandzwaga))
 * [Toastr](https://github.com/CodeSeven/toastr) (by [Boris Yankov](https://github.com/borisyankov))
 * [trunk8](https://github.com/rviscomi/trunk8) (by [Blake Niemyjski](https://github.com/niemyjski))
 * [TweenJS](http://www.createjs.com/#!/TweenJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
