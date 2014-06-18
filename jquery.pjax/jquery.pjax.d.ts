@@ -59,6 +59,11 @@ interface JQueryStatic {
 
 interface PjaxStatic {
     /**
+     * PJAX default settings.
+     */
+    defaults: PjaxSettings;
+
+    /**
      * Loads a URL with ajax, puts the response body inside a container, then pushState()'s the loaded URL.
      * Works just like $.ajax in that it accepts a jQuery ajax settings object (with keys like url, type, data, etc).
      * @param options PJAX settings, which is a superset of jQuery AJAX settings. It includes the following specific options:
