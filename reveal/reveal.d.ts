@@ -10,7 +10,7 @@ interface RevealStatic {
     configure:(diff:RevealOptions)=>void;
 
     // Navigation
-    slide(h:number, v:number, f?:number, o?:number);
+    slide(h:number, v:number, f?:number, o?:number):void;
     left():void;
     right():void;
     up():void;
