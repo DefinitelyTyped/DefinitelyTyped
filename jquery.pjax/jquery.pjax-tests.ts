@@ -29,3 +29,11 @@ function test_submit() {
     $.pjax.submit(event, { container: "#pjax-container" });
     $.pjax.submit(event, "#pjax-container", { push: true });
 }
+
+function test_enable() {
+    $.pjax.enable();
+}
+
+function test_disable() {
+    $.pjax.disable();
+}

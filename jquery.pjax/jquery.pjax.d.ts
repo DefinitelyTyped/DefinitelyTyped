@@ -88,7 +88,7 @@ interface PjaxStatic {
      * - replace: a boolean indicates whether to use replaceState instead of pushState. Default is false.
      */
     click(event: JQueryEventObject, containerSelector?: string, options?: PjaxSettings): void;
-    
+
     /**
      * PJAX on form submit handler
      * @param event A jQuery click event.
@@ -109,4 +109,15 @@ interface PjaxStatic {
      * - replace: a boolean indicates whether to use replaceState instead of pushState. Default is false.
      */
     submit(event: JQueryEventObject, containerSelector?: string, options?: PjaxSettings): void;
+
+    /**
+     * Install pjax functions on $.pjax to enable pushState behavior. Does nothing if already enabled.
+     */
+    enable(): void;
+
+    /**
+     * Disable pushState behavior.
+     * This is the case when a browser doesn't support pushState. It is sometimes useful to disable pushState for debugging on a modern browser.
+     */
+    disable(): void;
 }
