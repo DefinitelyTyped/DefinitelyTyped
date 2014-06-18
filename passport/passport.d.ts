@@ -1,7 +1,7 @@
 // Type definitions for Passport v0.2.0
 // Project: http://passportjs.org
 // Definitions by: Horiuchi_H <https://github.com/horiuchi/>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 

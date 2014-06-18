@@ -1,6 +1,6 @@
 // Type definitions for node-xml2js
 // Project: https://github.com/Leonidas-from-XIV/node-xml2js
-// Definitions by: Michel Salib <michelsalib@hotmail.com>
+// Definitions by: Michel Salib <https://github.com/michelsalib>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module 'xml2js' {

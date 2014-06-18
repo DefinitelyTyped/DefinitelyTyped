@@ -1,6 +1,6 @@
 // Type definitions for Angular Scenario Testing
 // Project: http://angularjs.org
-// Definitions by: RomanoLindano
+// Definitions by: RomanoLindano <https://github.com/RomanoLindano>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
