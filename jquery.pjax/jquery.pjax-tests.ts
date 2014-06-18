@@ -37,3 +37,7 @@ function test_enable() {
 function test_disable() {
     $.pjax.disable();
 }
+
+function test_reload() {
+    $.pjax.reload();
+}
