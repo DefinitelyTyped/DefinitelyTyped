@@ -78,4 +78,25 @@ interface PjaxStatic {
      * - replace: a boolean indicates whether to use replaceState instead of pushState. Default is false.
      */
     click(event: JQueryEventObject, containerSelector?: string, options?: PjaxSettings): void;
+    
+    /**
+     * PJAX on form submit handler
+     * @param event A jQuery click event.
+     * @param options PJAX settings, which is a superset of jQuery AJAX settings. It includes the following specific options:
+     * - container: a jQuery selector indicates where to stick the response body. E.g., $(container).html(xhr.responseBody).
+     * - push: a boolean indicates whether to pushState the URL. Default is true.
+     * - replace: a boolean indicates whether to use replaceState instead of pushState. Default is false.
+     */
+    submit(event: JQueryEventObject, options?: PjaxSettings): void;
+
+    /**
+     * PJAX on form submit handler
+     * @param event A jQuery click event.
+     * @param containerSelector A jQuery selector indicates where to stick the response body. E.g., $(containerSelector).html(xhr.responseBody).
+     * @param options PJAX settings, which is a superset of jQuery AJAX settings. It includes the following specific options:
+     * - container: a jQuery selector indicates where to stick the response body. The `containerSelector` parameter has priority.
+     * - push: a boolean indicates whether to pushState the URL. Default is true.
+     * - replace: a boolean indicates whether to use replaceState instead of pushState. Default is false.
+     */
+    submit(event: JQueryEventObject, containerSelector?: string, options?: PjaxSettings): void;
 }

@@ -14,3 +14,10 @@ function test_click() {
     $.pjax.click(event, { container: "#pjax-container" });
     $.pjax.click(event, "#pjax-container", { push: true });
 }
+
+function test_submit() {
+    var event = $.Event("submit");
+    $.pjax.submit(event, "#pjax-container");
+    $.pjax.submit(event, { container: "#pjax-container" });
+    $.pjax.submit(event, "#pjax-container", { push: true });
+}
