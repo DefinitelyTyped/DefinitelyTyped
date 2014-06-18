@@ -120,4 +120,9 @@ interface PjaxStatic {
      * This is the case when a browser doesn't support pushState. It is sometimes useful to disable pushState for debugging on a modern browser.
      */
     disable(): void;
+
+    /**
+     * Reload current page with pjax.
+     */
+    reload(): JQueryXHR;
 }
