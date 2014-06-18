@@ -131,3 +131,10 @@ interface PjaxStatic {
      */
     reload(): JQueryXHR;
 }
+
+interface JQuerySupport {
+    /**
+     * A boolean value indicates if pjax is supported by the browser.
+     */
+    pjax: boolean;
+}
