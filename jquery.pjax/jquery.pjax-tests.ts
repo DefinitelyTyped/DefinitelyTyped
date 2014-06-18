@@ -41,3 +41,16 @@ function test_disable() {
 function test_reload() {
     $.pjax.reload();
 }
+
+function test_defauluts() {
+    $.pjax.defaults = {
+        timeout: 650,
+        push: true,
+        replace: false,
+        type: 'GET',
+        dataType: 'html',
+        scrollTo: 0,
+        maxCacheLength: 20,
+        version: $.noop
+    };
+}
