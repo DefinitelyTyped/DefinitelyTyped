@@ -15,8 +15,8 @@ declare module 'passport' {
     function initialize(options?: { userProperty: string; }): express.Handler;
     function session(options?: { pauseStream: boolean; }): express.Handler;
 
-    function authenticate(strategy: string, options: Object, callback?: express.Handler): express.Handler;
-    function authenticate(strategy: string, callback2: (err: any, user: any, info: any) => void): express.Handler;
+    function authenticate(strategy: string, callback?: Function): express.Handler;
+    function authenticate(strategy: string, options: Object, callback?: Function): express.Handler;
     function authorize(strategy: string, options: Object, callback?: express.Handler): express.Handler;
     function serializeUser(fn: (user: any, done: (err: any, id: any) => void) => void): void;
     function deserializeUser(fn: (id: any, done: (err: any, user: any) => void) => void): void;
