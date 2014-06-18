@@ -8,6 +8,14 @@ function test_fn_pjax() {
     $(document).pjax("a", "#pjax-container", { push: true });
 }
 
+function test_pjax() {
+    $.pjax();
+    $.pjax({
+        url: "hello.html",
+        container: "#main"
+    });
+}
+
 function test_click() {
     var event = $.Event("click");
     $.pjax.click(event, "#pjax-container");
