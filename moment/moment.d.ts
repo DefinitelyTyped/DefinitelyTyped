@@ -1,9 +1,7 @@
 // Type definitions for Moment.js 2.5.0
 // Project: https://github.com/timrwood/moment
-// Definitions by: Michael Lakerveld <https://github.com/Lakerfield>
-// Definitions by: Aaron King <https://github.com/kingdango> (2.4.0)
-// Definitions by: Hiroki Horiuchi <https://github.com/horiuchi> (2.5.0)
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Michael Lakerveld <https://github.com/Lakerfield>, Aaron King <https://github.com/kingdango>, Hiroki Horiuchi <https://github.com/horiuchi>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface MomentInput {
     years?: number;

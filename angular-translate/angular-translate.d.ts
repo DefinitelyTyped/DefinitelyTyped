@@ -1,6 +1,6 @@
 // Type definitions for Angular Translate (pascalprecht.translate module)
 // Project: https://github.com/PascalPrecht/angular-translate
-// Definitions by: Michel Salib <michelsalib@hotmail.com>
+// Definitions by: Michel Salib <https://github.com/michelsalib>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />

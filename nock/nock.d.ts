@@ -23,6 +23,7 @@ declare module "nock" {
 			intercept(path: string, verb: string, body?: string, options?: any): Scope;
 
 			reply(responseCode: number, body?: string, headers?: Object): Scope;
+			reply(responseCode: number, body?: Object, headers?: Object): Scope;
 			reply(responseCode: number, callback: (uri: string, body: string) => string, headers?: Object): Scope;
 			replyWithFile(responseCode: number, fileName: string): Scope;
 

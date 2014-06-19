@@ -7,6 +7,7 @@ var str: string;
 var bool: boolean;
 var data: string;
 var num: number;
+var obj: {};
 var value: any;
 var regex: RegExp;
 var options: nock.Options;
@@ -29,7 +30,9 @@ inst = inst.intercept(str, str, str, value);
 
 inst = inst.reply(num);
 inst = inst.reply(num, str);
+
 inst = inst.reply(num, str, headers);
+inst = inst.reply(num, obj, headers);
 inst = inst.reply(num, (uri: string, body: string) => {
 	return str;
 });

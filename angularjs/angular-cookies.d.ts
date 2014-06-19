@@ -1,4 +1,4 @@
-/// Type definitions for Angular JS 1.2 (ngCookies module)
+// Type definitions for Angular JS 1.2 (ngCookies module)
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
