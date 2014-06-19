@@ -18,6 +18,11 @@ interface Function {
 ///////////////////////////////////////////////////////////////////////////////
 declare module ng {
 
+    // not directly implemented, but ensures that constructed class implements $get
+    interface IServiceProviderClass {
+        new(...args: any[]): IServiceProvider;
+    }
+
     // All service providers extend this interface
     interface IServiceProvider {
         $get: any;
@@ -140,9 +145,9 @@ declare module ng {
         filter(name: string, filterFactoryFunction: Function): IModule;
         filter(name: string, inlineAnnotatedFunction: any[]): IModule;
         filter(object: Object): IModule;
-        provider(name: string, serviceProviderConstructor: Function): IModule;
+        provider(name: string, serviceProviderConstructor: IServiceProviderClass): IModule;
         provider(name: string, inlineAnnotatedConstructor: any[]): IModule;
-        provider(name: string, providerObject: auto.IProvider): IModule;
+        provider(name: string, providerObject: IServiceProvider): IModule;
         provider(object: Object): IModule;
         run(initializationFunction: Function): IModule;
         run(inlineAnnotatedFunction: any[]): IModule;
@@ -991,9 +996,6 @@ declare module ng {
     // AUTO module (angular.js)
     ///////////////////////////////////////////////////////////////////////////
     export module auto {
-        interface IProvider {
-            $get: any;
-        }
 
         ///////////////////////////////////////////////////////////////////////
         // InjectorService
