@@ -124,7 +124,7 @@ declare module ng {
          */
         controller(name: string, inlineAnnotatedConstructor: any[]): IModule;
         controller(object : Object): IModule;
-        directive(name: string, directiveFactory: Function): IModule;
+        directive(name: string, directiveFactory: IDirectiveFactory): IModule;
         directive(name: string, inlineAnnotatedFunction: any[]): IModule;
         directive(object: Object): IModule;
         /**
@@ -918,6 +918,11 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$compileProvider#directive
     // and http://docs.angularjs.org/guide/directive
     ///////////////////////////////////////////////////////////////////////////
+
+    interface IDirectiveFactory {
+        (...args: any[]): IDirective;
+    }
+
 
     interface IDirective{
         compile?:
