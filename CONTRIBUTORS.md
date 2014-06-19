@@ -212,6 +212,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Logg](https://github.com/dpup/node-logg) (by [Bret Little](https://github.com/blittle))
 * [Long.js](https://github.com/dcodeIO/Long.js) (by [Toshihide Hara](https://github.com/kerug))
 * [lz-string](https://github.com/pieroxy/lz-string) (by [Roman Nikitin](https://github.com/M0ns1gn0r))
+* [Mapbox](https://github.com/mapbox/mapbox.js/) (by [Maxime Fabre](https://github.com/anahkiasen))
 * [Marked](https://github.com/chjj/marked) (by [William Orr](https://github.com/worr))
 * [MathJax](https://github.com/mathjax/MathJax) (by [Roland Zwaga](https://github.com/rolandzwaga))
 * [mCustomScrollbar](https://github.com/malihu/malihu-custom-scrollbar-plugin) (by [Sarah Williams](https://github.com/flurg))
