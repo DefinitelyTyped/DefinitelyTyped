@@ -22,6 +22,10 @@ declare module ng {
     interface IServiceProviderClass {
         new(...args: any[]): IServiceProvider;
     }
+    
+    interface IServiceProviderFactory {
+        (...args: any[]): IServiceProvider;
+    }
 
     // All service providers extend this interface
     interface IServiceProvider {
@@ -145,6 +149,7 @@ declare module ng {
         filter(name: string, filterFactoryFunction: Function): IModule;
         filter(name: string, inlineAnnotatedFunction: any[]): IModule;
         filter(object: Object): IModule;
+        provider(name: string, serviceProviderFactory: IServiceProviderFactory): IModule;
         provider(name: string, serviceProviderConstructor: IServiceProviderClass): IModule;
         provider(name: string, inlineAnnotatedConstructor: any[]): IModule;
         provider(name: string, providerObject: IServiceProvider): IModule;
