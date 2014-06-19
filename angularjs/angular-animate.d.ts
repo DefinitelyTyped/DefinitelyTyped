@@ -1,6 +1,6 @@
 // Type definitions for Angular JS 1.2+ (ngAnimate module)
 // Project: http://angularjs.org
-// Definitions by: Michel Salib <michelsalib@hotmail.com>
+// Definitions by: Michel Salib <https://github.com/michelsalib>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="angular.d.ts" />

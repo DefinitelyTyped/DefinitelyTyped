@@ -1,7 +1,7 @@
 // Type definitions for Sinon 1.8.1
 // Project: http://sinonjs.org/
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface SinonSpyCallApi {
 	// Properties

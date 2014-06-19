@@ -1,7 +1,7 @@
 // Type definitions for QUnit 1.10
 // Project: http://qunitjs.com/
 // Definitions by: Diullei Gomes <https://github.com/diullei>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
 interface DoneCallbackObject {

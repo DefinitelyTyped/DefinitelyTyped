@@ -1,6 +1,6 @@
-// Type definitions for Apache Cordova.
+// Type definitions for Apache Cordova
 // Project: http://cordova.apache.org
-// Definitions by: Microsoft Open Technologies, Inc. <http://msopentech.com>
+// Definitions by: Microsoft Open Technologies Inc. <http://msopentech.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // 
 // Copyright (c) Microsoft Open Technologies, Inc.
