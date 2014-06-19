@@ -41,7 +41,7 @@ declare module aa {
 		[settingName: string]: any;
 	}
 
-	export interface IFormExtensionsProvider extends ng.auto.IProvider {
+	export interface IFormExtensionsProvider extends ng.IServiceProvider {
 		defaultLabelStrategy:string;
 		defaultFieldGroupStrategy:string;
 		defaultValMsgPlacementStrategy:string;
@@ -88,7 +88,7 @@ declare module aa {
 		message:string;
 	}
 	
-	export interface INotifyConfigProvider extends ng.auto.IProvider {
+	export interface INotifyConfigProvider extends ng.IServiceProvider {
 		notifyConfigs:any;
 		defaultTargetContainerName:string;
 		defaultNotifyConfig:string;
