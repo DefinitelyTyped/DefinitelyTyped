@@ -60,14 +60,45 @@ interface Moment {
 
     fromNow(withoutSuffix?: boolean): string;
 
-    startOf(soort: string): Moment;
-    endOf(soort: string): Moment;
+    startOf(unitOfTime: string): Moment;
+    endOf(unitOfTime: string): Moment;
 
-    add(input: MomentInput): Moment;
-    add(soort: string, aantal: number): Moment;
+    /**
+     * Mutates the original moment by adding time.
+     * 
+     * @param unitOfTime the key of what time you want to add (eg "years" / "hours" etc)
+     * @param amount the amount you want to add
+     */
+    add(unitOfTime: string, amount: number): Moment;
+    /**
+     * Mutates the original moment by adding time.
+     * 
+     * @param amount the amount you want to add
+     * @param unitOfTime the key of what time you want to add (eg "years" / "hours" etc)
+     */
+    add(amount: number, unitOfTime: string): Moment;
+    /**
+     * Mutates the original moment by adding time.
+     * 
+     * @param unitOfTime the key of what time you want to add (eg "years" / "hours" etc)
+     * @param amount the amount you want to add
+     */
+    add(unitOfTime: string, amount: string): Moment;
+    /**
+     * Mutates the original moment by adding time.
+     * 
+     * @param objectLiteral an object literal that describes multiple different keys at the same time {days:7,months:1}
+     */
+    add(objectLiteral: MomentInput): Moment;
+    /**
+     * Mutates the original moment by adding time.
+     * 
+     * @param duration a length of time
+     */
     add(duration: Duration): Moment;
+
     subtract(input: MomentInput): Moment;
-    subtract(soort: string, aantal: number): Moment;
+    subtract(unitOfTime: string, amount: number): Moment;
 
     calendar(): string;
     clone(): Moment;
@@ -123,8 +154,8 @@ interface Moment {
     from(date: number[]): string;
 
     diff(b: Moment): number;
-    diff(b: Moment, soort: string): number;
-    diff(b: Moment, soort: string, round: boolean): number;
+    diff(b: Moment, unitOfTime: string): number;
+    diff(b: Moment, unitOfTime: string, round: boolean): number;
 
     toDate(): Date;
     toISOString(): string;
@@ -291,7 +322,7 @@ interface MomentStatic {
     ordinal: (num: number) => string;
 
     duration(milliseconds: Number): Duration;
-    duration(num: Number, soort: string): Duration;
+    duration(num: Number, unitOfTime: string): Duration;
     duration(input: MomentInput): Duration;
     duration(object: any): Duration;
     duration(): Duration;
