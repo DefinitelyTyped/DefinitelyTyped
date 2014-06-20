@@ -223,6 +223,7 @@ foo.then((x) => {
 // angular.element() tests
 var element = angular.element("div.myApp");
 var scope: ng.IScope = element.scope();
+var isolateScope: ng.IScope = element.isolateScope();
 
 
 
