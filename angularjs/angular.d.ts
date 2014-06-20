@@ -969,6 +969,7 @@ declare module ng {
         controller(name: string): any;
         injector(): any;
         scope(): IScope;
+        isolateScope(): IScope;
 
         inheritedData(key: string, value: any): JQuery;
         inheritedData(obj: { [key: string]: any; }): JQuery;
