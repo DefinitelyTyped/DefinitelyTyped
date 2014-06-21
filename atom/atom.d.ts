@@ -1011,13 +1011,13 @@ declare module AtomCore {
 		version: number;
 		loadSettings: IAtomSettings;
 		
-        /* Load or create the Atom environment in the given mode */
-        loadOrCreate(mode:'editor'):IAtom;
-        /* Load or create the Atom environment in the given mode */
-        loadOrCreate(mode:'spec'):IAtom;
-        /* Load or create the Atom environment in the given mode */
-        loadOrCreate(mode:string):IAtom;
-        
+		/* Load or create the Atom environment in the given mode */
+		loadOrCreate(mode:'editor'):IAtom;
+		/* Load or create the Atom environment in the given mode */
+		loadOrCreate(mode:'spec'):IAtom;
+		/* Load or create the Atom environment in the given mode */
+		loadOrCreate(mode:string):IAtom;
+		
 		loadState(mode:any):void;
 		getStatePath(mode:any):string;
 		getConfigDirPath():string;
@@ -1030,9 +1030,9 @@ declare module AtomCore {
 		new(state:IAtomState):IAtom;
 	}
 
-    // https://atom.io/docs/api/v0.106.0/api/classes/Atom.html
+	// https://atom.io/docs/api/v0.106.0/api/classes/Atom.html
 	/* Global Atom class : instance members */
-    interface IAtom {
+	interface IAtom {
 		constructor:IAtomStatic;
 
 		state:IAtomState;
