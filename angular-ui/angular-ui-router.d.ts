@@ -33,13 +33,13 @@ declare module ng.ui {
     interface IUrlMatcher {
         concat(pattern: string): IUrlMatcher;
         exec(path: string, searchParams: {}): {};
+        parameters(): string[];
+        format(values: {}): string;
     }
 
     interface IUrlMatcherFactory {
         compile(pattern: string): IUrlMatcher;
         isMatcher(o: any): boolean;
-        parameters(): string[];
-        format(values: {}): string;
     }
 
     interface IUrlRouterProvider extends IServiceProvider {
