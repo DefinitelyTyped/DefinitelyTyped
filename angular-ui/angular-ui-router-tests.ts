@@ -13,6 +13,10 @@ myApp.config((
     $urlMatcherFactory: ng.ui.IUrlMatcherFactory) => {
 
   var matcher: ng.ui.IUrlMatcher = $urlMatcherFactory.compile("/foo/:bar?param1");
+  var obj: Object = matcher.exec('/user/bob', { x:'1', q:'hello' });
+  var concat: ng.ui.IUrlMatcher = matcher.concat('/test');
+  var str: string = matcher.format({ id:'bob', q:'yes' });
+  var arr: string[] = matcher.parameters();
   
   $urlRouterProvider
       .when('/test', '/list')
