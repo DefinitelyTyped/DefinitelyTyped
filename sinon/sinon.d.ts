@@ -101,6 +101,10 @@ interface SinonStub extends SinonSpy {
 	callsArgOnAsync(index: number, context: any): SinonStub;
 	callsArgWithAsync(index: number, ...args: any[]): SinonStub;
 	callsArgOnWithAsync(index: number, context: any, ...args: any[]): SinonStub;
+	onCall(n: number): SinonStub;
+	onFirstCall(): SinonStub;
+	onSecondCall(): SinonStub;
+	onThirdCall(): SinonStub;
 	yields(...args: any[]): SinonStub;
 	yieldsOn(context: any, ...args: any[]): SinonStub;
 	yieldsTo(property: string, ...args: any[]): SinonStub;
