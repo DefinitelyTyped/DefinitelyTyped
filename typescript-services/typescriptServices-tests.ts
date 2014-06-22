@@ -2,6 +2,7 @@
 
 import ts = require('typescript-services');
 
-// formatter: 
-var snapshot = TypeScript.SimpleText.fromString('var foo = 123;');
+// formatter:
+var snapshot = ts.SimpleText.fromString('var foo = 123;');
 var formatter = new ts.Services.Formatting.TextSnapshot(snapshot);
+console.log(formatter);
