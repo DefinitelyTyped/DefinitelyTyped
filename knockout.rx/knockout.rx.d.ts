@@ -25,4 +25,8 @@ declare module Rx {
 		toKoSubscribable(): KnockoutSubscribable<T>;
 		toKoObservable(initialValue?: T): KnockoutObservable<T>;
 	}
+
+	interface Subject<T> {
+		toKoObservable(initialValue?: T): KnockoutObservable<T>;
+	}
 }
