@@ -27,6 +27,7 @@ declare module "noble" {
 
         connect(callback: (error: string) => void): void;
         disconnect(callback: () => void): void;
+        updateRssi(callback: (error: string, rssi: number) => void): void;
         discoverServices(serviceUUIDs: string[], listener: (error: string, services: Service[]) => void): void;
         discoverAllServicesAndCharacteristics(callback: (error: string, services: Service[], characteristics: Characteristic[]) => void): void;
         discoverSomeServicesAndCharacteristics(serviceUUIDs: string[], characteristicUUIDs: string[], callback: (error: string, services: Service[], characteristics: Characteristic[]) => void): void;
