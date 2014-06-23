@@ -355,9 +355,9 @@ declare module Rx {
 	}
 
 	interface ObservableStatic {
-		create<T>(subscribe: (observer: Observer<T>) => void): Observable<T>;
-		create<T>(subscribe: (observer: Observer<T>) => () => void): Observable<T>;
 		create<T>(subscribe: (observer: Observer<T>) => IDisposable): Observable<T>;
+		create<T>(subscribe: (observer: Observer<T>) => () => void): Observable<T>;
+		create<T>(subscribe: (observer: Observer<T>) => void): Observable<T>;
 		createWithDisposable<T>(subscribe: (observer: Observer<T>) => IDisposable): Observable<T>;
 		defer<T>(observableFactory: () => Observable<T>): Observable<T>;
 		defer<T>(observableFactory: () => IPromise<T>): Observable<T>;
