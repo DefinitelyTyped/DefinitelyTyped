@@ -315,3 +315,7 @@ declare module Rx {
 		forkJoin<T>(...args: IPromise<T>[]): Observable<T[]>;
 	}
 }
+
+declare module "rx.experimental" {
+	export = Rx;
+}

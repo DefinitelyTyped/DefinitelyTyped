@@ -56,3 +56,7 @@ declare module Rx {
 
 	export var MockObserver: MockObserverStatic;
 }
+
+declare module "rx.testing" {
+	export = Rx;
+}
