@@ -33,3 +33,7 @@ declare module Rx {
 		constructor(initialClock: number, comparer: (first: number, second: number) => number);
 	}
 }
+
+declare module "rx.virtualtime" {
+	export = Rx;
+}

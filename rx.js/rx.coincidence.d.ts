@@ -30,3 +30,7 @@ declare module Rx {
 		buffer<TBufferOpening, TBufferClosing>(bufferOpenings: Observable<TBufferOpening>, bufferClosingSelector: () => Observable<TBufferClosing>): Observable<T[]>;
 	}
 }
+
+declare module "rx.coincidence" {
+	export = Rx;
+}

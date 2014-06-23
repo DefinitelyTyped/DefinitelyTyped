@@ -11,3 +11,7 @@ declare module Rx {
 		replayWhileObserved(bufferSize?: number, window?: number, scheduler?: IScheduler): Observable<T>;
 	}
 }
+
+declare module "rx.binding" {
+	export = Rx;
+}

@@ -54,3 +54,7 @@ declare module Rx {
 		when<TR>(plan: Plan<TR>): Observable<TR>;
 	}
 }
+
+declare module "rx.joinpatterns" {
+	export = Rx;
+}

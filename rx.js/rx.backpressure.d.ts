@@ -5,3 +5,7 @@
 
 ///<reference path="rx.d.ts" />
 ///<reference path="rx.backpressure-lite.d.ts" />
+
+declare module "rx.backpressure" {
+	export = Rx;
+}
