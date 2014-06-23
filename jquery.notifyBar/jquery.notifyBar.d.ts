@@ -93,7 +93,7 @@ interface JQueryStatic {
     /**
      * Show notify bar.
      *
-     * @param notify bar options
+     * @param options notify bar options
      */
     notifyBar(options?: JQueryNotifyBar.NotifyBarOptions): void;
 }
