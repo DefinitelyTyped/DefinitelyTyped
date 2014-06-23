@@ -319,6 +319,11 @@ result = <{ x: number; }[]>_([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }]).unique('x').v
 
 result = <number[]>_.without([1, 2, 1, 0, 3, 1, 4], 0, 1);
 
+result = <number[]>_.xor([1, 2, 3, 4, 5], [5, 2, 10]);
+result = <number[]>_.xor([1, 2, 3, 4, 5], [5, 2, 10], [4, 5, 6]);
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4, 5]).xor([5, 2, 10]);
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4, 5]).xor([5, 2, 10], [4, 5, 6]);
+
 result = <any[][]>_.zip(['moe', 'larry'], [30, 40], [true, false]);
 result = <any[][]>_.unzip(['moe', 'larry'], [30, 40], [true, false]);
 
