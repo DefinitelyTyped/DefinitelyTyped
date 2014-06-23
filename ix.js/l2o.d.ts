@@ -251,3 +251,7 @@ declare module Ix {
 
 	var Enumerable: EnumerableStatic;
 }
+
+declare module "l2o" {
+	export = Ix;
+}
