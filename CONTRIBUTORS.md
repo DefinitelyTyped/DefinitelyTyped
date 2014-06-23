@@ -156,6 +156,7 @@ All definitions files include a header with the author and editors, so at some p
 * [jQuery.jNotify](http://jnotify.codeplex.com) (by [James Curran](https://github.com/jamescurran/))
 * [jQuery.joyride](http://zurb.com/playground/jquery-joyride-feature-tour-plugin) (by [Vincent Bortone](https://github.com/vbortone))
 * [jQuery.jSignature](https://github.com/willowsystems/jSignature) (by [Patrick Magee](https://github.com/pjmagee))
+* [jQuery.notifyBar](http://www.whoop.ee/posts/2013-04-05-the-resurrection-of-jquery-notify-bar/) (by [Shunsuke Ohtani](https://github.com/zaneli))
 * [jQuery.noty](http://needim.github.io/noty/) (by [Aaron King](https://github.com/kingdango/))
 * [jQuery.payment](http://needim.github.io/noty/) (by [Eric J. Smith](https://github.com/ejsmith/))
 * [jQuery.pickadate](https://github.com/amsul/pickadate.js) (by [Theodore Brown](https://github.com/theodorejb))
