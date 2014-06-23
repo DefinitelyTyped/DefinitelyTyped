@@ -124,6 +124,7 @@ interface KnockoutBindingContext {
 }
 
 interface KnockoutBindingAccessor {
+    (): any;
     get(name: string): any;
     has(name: string): boolean;
 }
