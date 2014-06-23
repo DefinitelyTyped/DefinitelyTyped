@@ -35,6 +35,7 @@ peripheral.advertisement = {
 };
 peripheral.connect((error: string): void => {});
 peripheral.disconnect((): void => {});
+peripheral.updateRssi((error: string, rssi: number): void => {});
 peripheral.discoverServices(["180d"], (error: string, services: noble.Service[]): void => {});
 peripheral.discoverAllServicesAndCharacteristics((error: string, services: noble.Service[], characteristics: noble.Characteristic[]): void => {});
 peripheral.discoverSomeServicesAndCharacteristics(["180d"], ["2a38"], (error: string, services: noble.Service[], characteristics: noble.Characteristic[]): void => {});
