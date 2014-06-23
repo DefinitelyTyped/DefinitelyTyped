@@ -2434,6 +2434,7 @@ interface JQuery {
     dblclick(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
     delegate(selector: any, eventType: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    delegate(selector: any, eventType: string, eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
     /**
      * Trigger the "focus" event on an element.
