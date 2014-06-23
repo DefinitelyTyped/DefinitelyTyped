@@ -29,3 +29,7 @@ declare module Rx {
 			scheduler?: IScheduler): Observable<TResult>;
 	}
 }
+
+declare module "rx.time" {
+	export = Rx;
+}

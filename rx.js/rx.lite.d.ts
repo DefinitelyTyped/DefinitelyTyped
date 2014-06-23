@@ -48,3 +48,7 @@ declare module Rx {
 		shareReplay(bufferSize?: number, window?: number, scheduler?: IScheduler): Observable<T>;	// same as replayWhileObserved in rx.binding.d.ts
 	}
 }
+
+declare module "rx.lite" {
+	export = Rx;
+}

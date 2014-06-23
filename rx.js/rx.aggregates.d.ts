@@ -55,3 +55,7 @@ declare module Rx {
 		findIndex(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<number>;
 	}
 }
+
+declare module "rx.aggregates" {
+	export = Rx;
+}

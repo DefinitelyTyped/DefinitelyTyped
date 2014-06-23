@@ -37,3 +37,7 @@ declare module Rx {
 		toAsync<T1, T2, T3, T4, TResult>(func: (arg1?: T1, arg2?: T2, arg3?: T3, ...args: T4[]) => TResult, scheduler?: IScheduler, context?: any): (arg1?: T1, arg2?: T2, arg3?: T3, ...args: T4[]) => Observable<TResult>;
 	}
 }
+
+declare module "rx.async" {
+	export = Rx;
+}
