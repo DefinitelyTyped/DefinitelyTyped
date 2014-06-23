@@ -123,9 +123,14 @@ interface KnockoutBindingContext {
     createChildContext(dataItemOrAccessor: any, dataItemAlias?: any, extendCallback?: Function): any;
 }
 
+interface KnockoutBindingAccessor {
+    get(name: string): any;
+    has(name: string): boolean;
+}
+
 interface KnockoutBindingHandler {
-    init?(element: any, valueAccessor: () => any, allBindingsAccessor: () => any, viewModel: any, bindingContext: KnockoutBindingContext): void;
-    update?(element: any, valueAccessor: () => any, allBindingsAccessor: () => any, viewModel: any, bindingContext: KnockoutBindingContext): void;
+    init? (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutBindingAccessor, viewModel: any, bindingContext: KnockoutBindingContext): void;
+    update? (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutBindingAccessor, viewModel: any, bindingContext: KnockoutBindingContext): void;
     options?: any;
 }
 
