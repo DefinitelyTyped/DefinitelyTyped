@@ -1,4 +1,4 @@
-// Type definitions for knockout.rx 0.1
+// Type definitions for knockout.rx 1.0
 // Project: https://github.com/Igorbek/knockout.rx
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -13,6 +13,7 @@ interface KnockoutSubscribableFunctions<T> {
 
 interface KnockoutObservableFunctions<T> {
 	toObservableWithReplyLatest(): Rx.Observable<T>;
+	toSubject(): Rx.ISubject<T>;
 }
 
 interface KnockoutComputedFunctions<T> {
