@@ -355,6 +355,11 @@ interface JQueryPromise<T> {
      */
     progress(...progressCallbacks: any[]): JQueryPromise<T>;
 
+    /**
+     * Determine the current state of a Deferred object.
+     */
+    state(): string;
+
     // Deprecated - given no typings
     pipe(doneFilter?: (x: any) => any, failFilter?: (x: any) => any, progressFilter?: (x: any) => any): JQueryPromise<any>;
 
