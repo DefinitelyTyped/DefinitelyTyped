@@ -8314,6 +8314,11 @@ declare module WinJS.Utilities {
     **/
     var hasWinRT: boolean;
 
+	/**
+	 * Indicates whether the app is running on Windows Phone.
+	**/
+	var isPhone: boolean;
+
     //#endregion Properties
 
 	//#region Interfaces
