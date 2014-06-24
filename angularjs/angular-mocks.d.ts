@@ -61,6 +61,15 @@ declare module ng {
         flushNext(expectedDelay?: number): void;
         verifyNoPendingTasks(): void;
     }
+    
+    ///////////////////////////////////////////////////////////////////////////
+    // IntervalService
+    // see http://docs.angularjs.org/api/ngMock.$interval
+    // Augments the original service
+    ///////////////////////////////////////////////////////////////////////////
+    interface IIntervalService {
+        flush(millis?: number): number;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // LogService
