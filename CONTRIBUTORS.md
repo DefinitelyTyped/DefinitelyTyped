@@ -162,6 +162,7 @@ All definitions files include a header with the author and editors, so at some p
 * [jQuery.pjax](https://github.com/defunkt/jquery-pjax) (by [Junle Li](https://github.com/lijunle))
 * [jQuery.pnotify](http://sciactive.github.io/pnotify/) (by [David Sichau](https://github.com/DavidSichau/))
 * [jQuery.postMessage](http://benalman.com/projects/jquery-postmessage-plugin/) (by [Junle Li](https://github.com/lijunle))
+* [jQuery.prettyphoto](https://github.com/scaron/prettyphoto) (by [Paul Gaske](https://github.com/pgaske))
 * [jQuery.scrollTo](https://github.com/flesler/jquery.scrollTo) (by [Neil Stalker](https://github.com/nestalk/))
 * [jQuery.simplePagination](https://github.com/flaviusmatis/simplePagination.js) (by [Natan Vivo](https://github.com/nvivo/))
 * [jquery.superLink](http://james.padolsey.com/demos/plugins/jQuery/superLink/superlink.jquery.js) (by [Blake Niemyjski](https://github.com/niemyjski))
