@@ -51,16 +51,21 @@ declare module ng {
         isString(value: any): boolean;
         isUndefined(value: any): boolean;
         lowercase(str: string): string;
-        /** construct your angular application
-        official docs: Interface for configuring angular modules.
-        see: http://docs.angularjs.org/api/angular.Module
-        */
+
+        /**
+         * The angular.module is a global place for creating, registering and retrieving Angular modules. All modules (angular core or 3rd party) that should be available to an application must be registered using this mechanism.
+         *
+         * When passed two or more arguments, a new module is created. If passed only one argument, an existing module (the name passed as the first argument to module) is retrieved.
+         * 
+         * @param name The name of the module to create or retrieve.
+         * @param requires The names of modules this module depends on. If specified then new module is being created. If unspecified then the module is being retrieved for further configuration.
+         * @param configFn Optional configuration function for the module.
+         */
         module(
-            /** name of your module you want to create */
             name: string,
-            /** name of modules yours depends on */
             requires?: string[],
-            configFunction?: any): IModule;
+            configFn?: Function): IModule;
+
         noop(...args: any[]): void;
         toJson(obj: any, pretty?: boolean): string;
         uppercase(str: string): string;
@@ -81,23 +86,55 @@ declare module ng {
         animation(name: string, animationFactory: Function): IModule;
         animation(name: string, inlineAnnotatedFunction: any[]): IModule;
         animation(object: Object): IModule;
-        /** configure existing services.
-        Use this method to register work which needs to be performed on module loading
+        /**
+         * Use this method to register work which needs to be performed on module loading.
+         * 
+         * @param configFn Execute this function on module load. Useful for service configuration.
          */
         config(configFn: Function): IModule;
-        /** configure existing services.
-        Use this method to register work which needs to be performed on module loading
+        /**
+         * Use this method to register work which needs to be performed on module loading.
+         * 
+         * @param inlineAnnotatedFunction Execute this function on module load. Useful for service configuration.
          */
         config(inlineAnnotatedFunction: any[]): IModule;
         constant(name: string, value: any): IModule;
         constant(object: Object): IModule;
+        /**
+         * The $controller service is used by Angular to create new controllers.
+         * 
+         * This provider allows controller registration via the register method.
+         * 
+         * @param name Controller name, or an object map of controllers where the keys are the names and the values are the constructors.
+         * @param controllerConstructor Controller constructor fn (optionally decorated with DI annotations in the array notation).
+         */
         controller(name: string, controllerConstructor: Function): IModule;
+        /**
+         * The $controller service is used by Angular to create new controllers.
+         * 
+         * This provider allows controller registration via the register method.
+         * 
+         * @param name Controller name, or an object map of controllers where the keys are the names and the values are the constructors.
+         * @param controllerConstructor Controller constructor fn (optionally decorated with DI annotations in the array notation).
+         */
         controller(name: string, inlineAnnotatedConstructor: any[]): IModule;
         controller(object : Object): IModule;
         directive(name: string, directiveFactory: Function): IModule;
         directive(name: string, inlineAnnotatedFunction: any[]): IModule;
         directive(object: Object): IModule;
+        /**
+         * Register a service factory, which will be called to return the service instance. This is short for registering a service where its provider consists of only a $get property, which is the given service factory function. You should use $provide.factory(getFn) if you do not need to configure your service in a provider.
+         * 
+         * @param name The name of the instance.
+         * @param $getFn The $getFn for the instance creation. Internally this is a short hand for $provide.provider(name, {$get: $getFn}).
+         */
         factory(name: string, serviceFactoryFunction: Function): IModule;
+        /**
+         * Register a service factory, which will be called to return the service instance. This is short for registering a service where its provider consists of only a $get property, which is the given service factory function. You should use $provide.factory(getFn) if you do not need to configure your service in a provider.
+         * 
+         * @param name The name of the instance.
+         * @param inlineAnnotatedFunction The $getFn for the instance creation. Internally this is a short hand for $provide.provider(name, {$get: $getFn}).
+         */
         factory(name: string, inlineAnnotatedFunction: any[]): IModule;
         factory(object: Object): IModule;
         filter(name: string, filterFactoryFunction: Function): IModule;
@@ -166,6 +203,7 @@ declare module ng {
         $error: any;
         $addControl(control: ng.INgModelController): void;
         $removeControl(control: ng.INgModelController): void;
+        $setValidity(validationErrorKey: string, isValid: boolean, control: ng.INgModelController): void;
         $setDirty(): void;
         $setPristine(): void;
     }
@@ -241,6 +279,8 @@ declare module ng {
 
         $parent: IScope;
 
+        $root: IRootScopeService;
+
         $id: string;
 
         // Hidden members
@@ -263,13 +303,17 @@ declare module ng {
     // WindowService
     // see http://docs.angularjs.org/api/ng.$window
     ///////////////////////////////////////////////////////////////////////////
-    interface IWindowService extends Window {}
+    interface IWindowService extends Window {
+        [key: string]: any;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // BrowserService
     // TODO undocumented, so we need to get it from the source code
     ///////////////////////////////////////////////////////////////////////////
-    interface IBrowserService {}
+    interface IBrowserService {
+        [key: string]: any;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // TimeoutService
@@ -925,6 +969,7 @@ declare module ng {
         controller(name: string): any;
         injector(): any;
         scope(): IScope;
+        isolateScope(): IScope;
 
         inheritedData(key: string, value: any): JQuery;
         inheritedData(obj: { [key: string]: any; }): JQuery;

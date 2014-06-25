@@ -1,5 +1,6 @@
 // Type definitions for Node.js v0.8.8
 // Project: http://nodejs.org/
+// Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /************************************************

@@ -1,5 +1,6 @@
 // Type definitions for Node.js v0.10.1
 // Project: http://nodejs.org/
+// Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/borisyankov/DefinitelyTyped>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /************************************************
@@ -67,7 +68,7 @@ declare var Buffer: {
     isBuffer(obj: any): boolean;
     byteLength(string: string, encoding?: string): number;
     concat(list: Buffer[], totalLength?: number): Buffer;
-}
+};
 
 /************************************************
 *                                               *
@@ -868,9 +869,13 @@ declare module "fs" {
     export function openSync(path: string, flags: string, mode?: number): number;
     export function openSync(path: string, flags: string, mode?: string): number;
     export function utimes(path: string, atime: number, mtime: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function utimes(path: string, atime: Date, mtime: Date, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function utimesSync(path: string, atime: number, mtime: number): void;
+    export function utimesSync(path: string, atime: Date, mtime: Date): void;
     export function futimes(fd: number, atime: number, mtime: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function futimes(fd: number, atime: Date, mtime: Date, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function futimesSync(fd: number, atime: number, mtime: number): void;
+    export function futimesSync(fd: number, atime: Date, mtime: Date): void;
     export function fsync(fd: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function fsyncSync(fd: number): void;
     export function write(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void): void;
@@ -1240,14 +1245,14 @@ declare module "assert" {
             (block: Function, error: Function, message?: string): void;
             (block: Function, error: RegExp, message?: string): void;
             (block: Function, error: (err: any) => boolean, message?: string): void;
-        }
+        };
 
         export var doesNotThrow: {
             (block: Function, message?: string): void;
             (block: Function, error: Function, message?: string): void;
             (block: Function, error: RegExp, message?: string): void;
             (block: Function, error: (err: any) => boolean, message?: string): void;
-        }
+        };
 
         export function ifError(value: any): void;
     }

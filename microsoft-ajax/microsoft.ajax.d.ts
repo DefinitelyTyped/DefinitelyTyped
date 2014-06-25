@@ -326,7 +326,6 @@ interface Date {
     parseInvariant(value: string, ...formats: string[]): string;
 }
 
-
 declare module MicrosoftAjaxBaseTypeExtensions {
 
     /**
@@ -909,7 +908,7 @@ declare function $find(id: string, parent?: HTMLElement): Sys.Component;
 * @param handler The event handler to add.
 * @param autoRemove (Optional) A boolean value that determines whether the handler should be removed automatically when the element is disposed.
 */
-declare function $addHandler(element: Element, eventName: string, handler: Function, autoRemove?: boolean): void;
+declare function $addHandler(element: Sys.UI.DomElement, eventName: string, handler: Function, autoRemove?: boolean): void;
 
 /**
 * Provides a shortcut to the addHandlers method of the Sys.UI.DomEvent class. This member is static and can be invoked without creating an instance of the class.
@@ -919,7 +918,7 @@ declare function $addHandler(element: Element, eventName: string, handler: Funct
 * @param handlerOwner (Optional) The object instance that is the context for the delegates that should be created from the handlers.
 * @param autoRemove (Optional) A boolean value that determines whether the handler should be removed automatically when the element is disposed.
 */
-declare function $addHandlers(element: Element, events: any, handlerOwner?: any, autoRemove?: boolean): void;
+declare function $addHandlers(element: Sys.UI.DomElement, events: any, handlerOwner?: any, autoRemove?: boolean): void;
 
 /**
 * Provides a shortcut to the clearHandlers method of the Sys.UI.DomEvent class. This member is static and can be invoked without creating an instance of the class.
@@ -927,7 +926,7 @@ declare function $addHandlers(element: Element, events: any, handlerOwner?: any,
 * @see {@link http://msdn.microsoft.com/en-us/library/bb310959(v=vs.100).aspx}
 * @param The DOM element that exposes the events.
 */
-declare function $clearHandlers(element: Element): void;
+declare function $clearHandlers(element: Sys.UI.DomElement): void;
 
 /**
 * Provides a shortcut to the getElementById method of the Sys.UI.DomElement class. This member is static and can be invoked without creating an instance of the class.
@@ -937,9 +936,11 @@ declare function $clearHandlers(element: Element): void;
 * @param element 
 *           The parent element to search. The default is the document element.
 * @return
-*   The element
+*   The  Sys.UI.DomElement
 */
-declare function $get(id: string, element?: Element): HTMLElement;
+declare function $get(id: string): any; // Examples use HTMLElement and DomElement
+declare function $get(id: string, element?: HTMLElement): HTMLElement;
+declare function $get(id: string, element?: Sys.UI.DomElement): Sys.UI.DomElement;
 
 /**
 * Provides a shortcut to the removeHandler method of the Sys.UI.DomEvent class. This member is static and can be invoked without creating an instance of the class.
@@ -948,7 +949,9 @@ declare function $get(id: string, element?: Element): HTMLElement;
 * @param eventName The name of the DOM event.
 * @param handler The event handler to remove.
 */
-declare function $removeHandler(element: Element, eventName: string, handler: Function): void;
+declare function $removeHandler(element: any, eventName: string, handler: Function): void;
+declare function $removeHandler(element: HTMLElement, eventName: string, handler: Function): void;
+declare function $removeHandler(element: Sys.UI.DomElement, eventName: string, handler: Function): void;
 
 //#endregion
 
@@ -1384,7 +1387,7 @@ declare module Sys {
          * @param displayCaller
          *      (Optional) true to indicate that the name of the function that is calling assert should be displayed in the message. The default is false. 
          */
-        static assert(condition: boolean, message?: string, displayCaller?: boolean): void;       
+        static assert(condition: boolean, message?: string, displayCaller?: boolean): void;
         /**
          * Clears all trace messages from the trace console.
          */
@@ -2250,7 +2253,7 @@ declare module Sys {
          * @see {@link http://msdn.microsoft.com/en-us/library/bb310823(v=vs.100).aspx}
          */
         // Cannot create definitions for generated proxy classes.
-        
+
         /**
          * Contains information about a Web request that is ready to be sent to the current Sys.Net.WebRequestExecutor instance.
          * This class represents the type for the second parameter of the callback function added by the add_invokingRequest method. 
@@ -2259,7 +2262,7 @@ declare module Sys {
          * @see {@link http://msdn.microsoft.com/en-us/library/bb397488(v=vs.100).aspx}
          */
         class NetWorkRequestEventArgs {
-            
+
             //#region Constructors
 
             /**
@@ -2536,7 +2539,7 @@ declare module Sys {
             set_defaultTimeout(value: number): void;
 
             //#endregion
-            
+
         }
 
         export var WebRequestManager: IWebRequestManager;
@@ -3122,10 +3125,184 @@ declare module Sys {
         }
         /**
         * Defines static methods and properties that provide helper APIs for manipulating and inspecting DOM elements.
+        * @see {@link http://msdn.microsoft.com/en-us/library/bb383788(v=vs.100).aspx}
         */
-        class DomElement {
-            // todo
+        interface DomElement {
+
+            //#region Constructors
+
+            /**
+             * Initializes a new instance of the Sys.UI.DomElement class.
+             */
+            constructor(): void;
+
+            //#endregion
+
+            //#region Methods
+
+            /**
+             * Adds a CSS class to a DOM element if the class is not already part of the DOM element. This member is static and can be invoked without creating an instance of the class.
+             * If the element does not support a CSS class, no change is made to the element.
+             * @param element
+             *             The Sys.UI.DomElement object to add the CSS class to. 
+             * @param className
+             *             The name of the CSS class to add.
+             */
+            addCssClass(element: Sys.UI.DomElement, className: string): void;
+            /**
+             * Gets a value that indicates whether the DOM element contains the specified CSS class. This member is static and can be invoked without creating an instance of the class.
+             * @param element
+             *          The Sys.UI.DomElement object to test for the CSS class.
+             * @param className
+             *          The name of the CSS class to test for.
+             * @return 
+             *          true if the element contains the specified CSS class; otherwise, false.
+             */
+            containsCssClass(element: Sys.UI.DomElement, className: string): boolean;
+            /**
+             * Gets a set of integer coordinates that represent the position, width, and height of a DOM element. This member is static and can be invoked without creating an instance of the class.
+             * 
+             * @param element
+             *          The Sys.UI.DomElement instance to get the coordinates of.
+             * @return
+             *      An object of the JavaScript type Object that contains the x-coordinate and y-coordinate of the upper-left corner, the width, and the height of the element in pixels.
+             */
+            getBounds(element: Sys.UI.DomElement): Object;
+            /**
+             * @param id
+             *      The ID of the element to find.
+             * @param element
+             *      (optional) The parent element to search in. The default is the document element.
+             */
+            getElementById(id: string): Sys.UI.DomElement;
+            getElementById(id: string, element?: Sys.UI.DomElement): Sys.UI.DomElement;
+            getElementById(id: string, element?: HTMLElement): HTMLElement;
+            getElementById(id: string, element: any): any;
+            /**
+             * Gets the absolute position of a DOM element relative to the upper-left corner of the owner frame or window. This member is static and can be invoked without creating an instance of the class.             * 
+             * @param element
+             *      The target element.             * 
+             * @return
+             *      An object of the JavaScript type Object that contains the x-coordinate and y-coordinate of the element in pixels.
+             */
+            getLocation(element: Sys.UI.DomElement): Sys.UI.Point;
+            getLocation(element: any): Object;
+            /*
+             * Returns a value that represents the layout characteristics of a DOM element when it is hidden by invoking the Sys.UI.DomElement.setVisible method. This member is static and can be invoked without creating an instance of the class.
+             * @param element
+             *      The target DOM element.
+             * @return
+             *    A Sys.UI.VisibilityMode enumeration value that indicates the layout characteristics of element when it is hidden by invoking the setVisible method.  
+             */
+            getVisibilityMode(element: Sys.UI.DomElement): Sys.UI.VisibilityMode;
+            getVisibilityMode(element: any): Sys.UI.VisibilityMode;
+            /**
+             * Gets a value that indicates whether a DOM element is currently visible on the Web page. This member is static and can be invoked without creating an instance of the class.
+             * @param element
+             *      The target DOM element.
+             * @return
+             *      true if element is visible on the Web page; otherwise, false
+             */
+            getVisible(element: any): boolean;
+            /**
+             * Determines whether the specified object is a DOM element.
+             * @param obj
+             *      An object
+             * @return
+             *      true if the object is a DOM element; otherwise, false.
+             */
+            isDomElement(obj: any): boolean;
+            /**
+             * Raises a bubble event. A bubble event causes an event to be raised and then propagated up the control hierarchy until it is handled.
+             * @param source
+             *      The DOM element that triggers the event.
+             * @param args
+             *      The event arguments
+             */
+            raiseBubbleEvent(source: Sys.UI.DomElement, args: EventArgs): void;
+            raiseBubbleEvent(source: any, args: any): void;
+            /**
+             * Removes a CSS class from a DOM element. This member is static and can be invoked without creating an instance of the class. If the element does not include a CSS class, no change is made to the element.
+             * @param element
+             *          The Sys.UI.DomElement object to remove the CSS class from.
+             * @param className 
+             *          The name of the CSS class to remove.
+             */
+            removeCssClass(element: Sys.UI.DomElement, className: string): void;
+            removeCssClass(element: HTMLElement, className: string): void;
+            removeCssClass(element: any, className: string): void;
+            /**
+             * Returns the element that has either the specified ID in the specified container, or is the specified element itself.
+             * The resolveElement method is used to verify that an ID or an object can be resolved as an element.             * 
+             * @param elementOrElementId
+             *          The element to resolve, or the ID of the element to resolve. This parameter can be null.
+             * @param containerElement
+             *          (Optional) The specified container.
+             * @return 
+             *      A DOM element.
+             */
+            resolveElement(elementOrElementId: Sys.UI.DomElement, containerElement?: Sys.UI.DomElement): Sys.UI.DomElement;
+            resolveElement(elementOrElementId: HTMLElement, containerElement?: HTMLElement): HTMLElement;
+            resolveElement(elementOrElementId: string): any;
+            /**
+             * Sets the position of a DOM element. This member is static and can be invoked without creating an instance of the class.
+             * he left and top style attributes (upper-left corner) of an element specify the relative position of an element. 
+             * The actual position will depend on the offsetParent property of the target element and the positioning mode of the element.             * 
+             * @param element The target element.
+             * @param x The x-coordinate in pixels.
+             * @param y The y-coordinate in pixels.
+             */
+            setLocation(element: Sys.UI.DomElement, x: number, y: number): void;
+            setLocation(element: HTMLElement, x: number, y: number): void;
+            setLocation(element: any, x: number, y: number): void;
+            /**
+             * Sets the layout characteristics of a DOM element when it is hidden by invoking the Sys.UI.DomElement.setVisible method. 
+             * This member is static and can be invoked without creating an instance of the class.
+             * 
+             * Use the setVisibilityMode method to set the layout characteristics of a DOM element when it is hidden by invoking the Sys.UI.DomElement.setVisible method. 
+             * For example, if value is set to Sys.UI.VisibilityMode.collapse, the element uses no space on the page when the setVisible method is called to hide the element.
+             * 
+             * @param element
+             *          The target DOM element.
+             * @param value
+             *          A Sys.UI.VisibilityMode enumeration value.
+             */
+            setVisibilityMode(element: Sys.UI.DomElement, value: Sys.UI.VisibilityMode): void;
+            /**
+             * Sets a DOM element to be visible or hidden. This member is static and can be invoked without creating an instance of the class.
+             * 
+             * Use the setVisible method to set a DOM element as visible or hidden on the Web page. 
+             * If you invoke this method with value set to false for an element whose visibility mode is set to "hide," the element will not be visible. 
+             * However, it will occupy space on the page. If the element's visibility mode is set to "collapse," the element will occupy no space in the page.
+             * For more information about how to set the layout characteristics of hidden DOM elements, see Sys.UI.DomElement setVisibilityMode Method.
+             * 
+             * @param element
+             *      The target DOM element.
+             * @param value
+             *      true to make element visible on the Web page; false to hide element.
+             */
+            setVisible(element: Sys.UI.DomElement, value: boolean): void;
+            setVisible(element: HTMLElement, value: boolean): void;
+            setVisible(element: any, value: boolean): void;
+            /**
+             * Toggles a CSS class in a DOM element. This member is static and can be invoked without creating an instance of the class. 
+             * Use the toggleCssClass method to hide a CSS class of an element if it is shown, or to show a CSS class of an element if it is hidden.
+             * 
+             * @param element
+             *          The Sys.UI.DomElement object to toggle.
+             * @param className
+             *          The name of the CSS class to toggle.
+             */
+            toggleCssClass(element: Sys.UI.DomElement, className: string): void;
+            toggleCssClass(element: HTMLElement, className: string): void;
+            toggleCssClass(element: any, className: string): void;
+
+            //#endregion
+
         }
+
+        var DomElement: Sys.UI.DomElement;
+
         /**
         * Provides cross-browser access to DOM event properties and helper APIs that are used to attach handlers to DOM element events.
         * @see {@link http://msdn.microsoft.com/en-us/library/bb310935(v=vs.100).aspx}
@@ -3244,49 +3421,60 @@ declare module Sys {
              */
             charCode: number;
             /**
-             * 
+             * Gets the x-coordinate of the mouse pointer's position relative to the client area of the browser window, excluding window scroll bars.
+             * @return An integer that represents the x-coordinate in pixels.
              */
-            clientX: any; // todo
+            clientX: number;
             /**
-             * 
+             * Gets the y-coordinate of the mouse pointer's position relative to the client area of the browser window, excluding window scroll bars.
+             * @return An integer that represents the y-coordinate in pixels.
              */
-            clientY: any; // todo
+            clientY: number;
             /**
-             * 
+             * Gets a Boolean value that indicates the state of the CTRL key when the associated event occurred.
+             * @return true if the CTRL key was pressed when the event occurred; otherwise, false.
              */
-            ctrlKey: any; // todo
+            ctrlKey: boolean;
             /**
-             * 
+             * Gets the key code of the key that raised the keyUp or keyDown event.
+             * @return An integer value that represents the key code of the key that was pressed to raise the keyUp or keyDown event.
              */
-            keyCode: any; // todo
+            keyCode: number;
             /**
-             * 
+             * Gets the x-coordinate of the mouse pointer's position relative to the object that raised the event.
+             * @return An integer that represents the x-coordinate in pixels.
              */
-            offsetX: any; // todo
+            offsetX: number;
             /**
-             * 
+             * Gets the y-coordinate of the mouse pointer's position relative to the object that raised the event.
+             * @return An integer that represents the y-coordinate in pixels.
              */
-            offsetY: any; // todo
+            offsetY: number;
             /**
-             * 
+             * Gets the x-coordinate of the mouse pointer's position relative to the user's screen.
+             * @return An integer that represents the x-coordinate in pixels.
              */
-            screenX: any; // todo
+            screenX: number;
             /**
-             * 
+             * Gets the y-coordinate of the mouse pointer's position relative to the user's screen.
+             * @return An integer that represents the y-coordinate in pixels.
              */
-            screenY: any; // todo
+            screenY: number;
             /**
-             * 
+             * Gets a Boolean value that indicates the state of the SHIFT key when the associated event occurred.
+             * @return true if the SHIFT key was pressed when the event occurred; otherwise, false.
              */
-            shiftKey: any; // todo
+            shiftKey: boolean;
             /**
-             * 
+             * Gets the object that the event acted on.
+             * @return An object that represents the target that the event acted on.
              */
-            target: any; // todo
+            target: any;
             /**
-             * 
+             * Gets the name of the event that was raised.
+             * @return A string that represents the name of the event that was raised.
              */
-            type: any; // todo
+            type: string;
 
             //#endregion
         }
@@ -3359,16 +3547,52 @@ declare module Sys {
             // todo
         }
         /**
-        * Creates an object that contains a set of integer coordinates that represent a position.
+        * Creates an object that contains a set of integer coordinates that represent a position. The getLocation method of the Sys.UI.DomElement class returns a Point object.
+        * @see {@link http://msdn.microsoft.com/en-us/library/bb383992(v=vs.100).aspx}        * 
         */
         class Point {
-            // todo
+           
+            //#region Constructors
+
+            /**
+             * Creates an object that contains a set of integer coordinates that represent a position.
+             * @param x The number of pixels between the location and the left edge of the parent frame.
+             * @param y The number of pixels between the location and the top edge of the parent frame.
+             */
+            constructor(x: number, y: number);
+
+            //#endregion
+
+            //#region Fields
+
+            /**
+             * Gets the x-coordinate of a Sys.UI.Point object in pixels. This property is read-only.
+             * @return A number that represents the x-coordinate of the Point object in pixels.
+             */
+            x: number;
+
+            /**
+             * Gets the y-coordinate of a Sys.UI.Point object in pixels. This property is read-only.
+             * @return A number that represents the y-coordinate of the Point object in pixels.
+             */
+            y: number;
+
+            //#endregion
+
         }
         /**
         * Describes the layout of a DOM element in the page when the element's visible property is set to false.
+        * @see {@link http://msdn.microsoft.com/en-us/library/bb397498(v=vs.100).aspx}
         */
         enum VisibilityMode {
-            // todo
+            /**
+             * The element is not visible, but it occupies space on the page.
+             */
+            hide,
+            /**
+             * The element is not visible, and the space it occupies is collapsed.
+             */
+            collapse
         }
     }
 
@@ -3622,7 +3846,7 @@ declare module Sys {
         * Manages client partial-page updates of server UpdatePanel controls. In addition, defines properties, events, and methods that can be used to customize a Web page with client script.
         * @see {@link http://msdn.microsoft.com/en-us/library/bb311028(v=vs.100).aspx}
         */
-        class PageRequestManager extends EventArgs {
+        class PageRequestManager {
 
             //#region Constructors 
 
@@ -3640,7 +3864,7 @@ declare module Sys {
             * @param beginRequestHandler
             *               The name of the handler method that will be called.
             */
-            add_beginRequest(beginRequestHandler: (sender: any, args: any) => void): void;
+            add_beginRequest(beginRequestHandler: (sender: any, args: BeginRequestEventArgs) => void): void;
             /**
             * Raised before the processing of an asynchronous postback starts and the postback request is sent to the server.
             *  @param beginRequestHandler
@@ -3664,37 +3888,37 @@ declare module Sys {
             * @param initializeRequestHandler
             *               The name of the handler method that will be called.
             */
-            add_initializeRequest(initializeRequestHandler: (sender: any, args: any) => void): void;
+            add_initializeRequest(initializeRequestHandler: (sender: any, args: InitializeRequestEventArgs) => void): void;
             /**
             * Raised during the initialization of the asynchronous postback.
             * @param initializeRequestHandler
             *               The name of the handler method that will be called.
             */
-            remove_initializeRequest(initializeRequestHandler: (sender: any, args: any) => void): void;
+            remove_initializeRequest(initializeRequestHandler: (sender: any, args: InitializeRequestEventArgs) => void): void;
             /**
             * Raised after all content on the page is refreshed as a result of either a synchronous or an asynchronous postback.
             * @param pageLoadedHandler
             *               The name of the handler method that will be called.
             */
-            add_pageLoaded(pageLoadedHandler: (sender: any, args: any) => void): void;
+            add_pageLoaded(pageLoadedHandler: (sender: any, args: PageLoadedEventArgs) => void): void;
             /**
             * Raised after all content on the page is refreshed as a result of either a synchronous or an asynchronous postback.
             * @param pageLoadedHandler
             *               The name of the handler method that will be called.
             */
-            remove_pageLoaded(pageLoadedHandler: (sender: any, args: any) => void): void;
+            remove_pageLoaded(pageLoadedHandler: (sender: any, args: PageLoadedEventArgs) => void): void;
             /**
             * Raised after the response from the server to an asynchronous postback is received but before any content on the page is updated.
             * @param pageLoadedHandler
             *               The name of the handler method that will be called.
             */
-            add_pageLoading(pageLoadingHandler: (sender: any, args: any) => void): void;
+            add_pageLoading(pageLoadingHandler: (sender: any, args: PageLoadingEventArgs) => void): void;
             /**
             * Raised after the response from the server to an asynchronous postback is received but before any content on the page is updated.
             * @param pageLoadedHandler
             *               The name of the handler method that will be called.
             */
-            remove_pageLoading(pageLoadingHandler: (sender: any, args: any) => void): void;
+            remove_pageLoading(pageLoadingHandler: (sender: any, args: PageLoadingEventArgs) => void): void;
 
             //#endregion
 
