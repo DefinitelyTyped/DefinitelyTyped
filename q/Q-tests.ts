@@ -110,10 +110,31 @@ Q.allSettled([saveToDisk(), saveToCloud()]).spread(function (disk: any, cloud: a
 }).done();
 
 var nodeStyle = (input: string, cb: Function) => {
-        cb(null, input);
+    cb(null, input);
 };
 
 Q.nfapply(nodeStyle, ["foo"]).done((result: string) => {});
 Q.nfcall(nodeStyle, "foo").done((result: string) => {});
 Q.denodeify(nodeStyle)('foo').done((result: string) => {});
 Q.nfbind(nodeStyle)('foo').done((result: string) => {});
+
+
+class Repo {
+    private items: any[] = [
+        { name: 'Max', cute: false },
+        { name: 'Annie', cute: true }
+    ];
+
+    find(options: any): Q.Promise<any[]> {
+        var result = this.items;
+
+        for (var key in options) {
+            result = result.filter(i => i[key] == options[key]);
+        }
+
+        return Q(result);
+    }
+}
+
+var kitty = new Repo();
+Q.nbind(kitty.find, kitty)({ cute: true }).done((kitties: any[]) => {});
