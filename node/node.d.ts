@@ -763,7 +763,7 @@ declare module "dgram" {
     export function createSocket(type: string, callback?: Function): Socket;
 
     interface Socket extends events.EventEmitter {
-        send(buf: Buffer, offset: number, length: number, port: number, address: string, callback?: (error: Error, bytes: number)): void;
+        send(buf: Buffer, offset: number, length: number, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
         bind(port: number, address?: string, callback?: () => void): void;
         close(): void;
         address: { address: string; family: string; port: number; };
