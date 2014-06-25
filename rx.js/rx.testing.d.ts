@@ -1,4 +1,4 @@
-// Type definitions for RxJS-Testing v2.2.24
+// Type definitions for RxJS-Testing v2.2.25
 // Project: https://github.com/Reactive-Extensions/RxJS/
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -55,4 +55,8 @@ declare module Rx {
 	}
 
 	export var MockObserver: MockObserverStatic;
+}
+
+declare module "rx.testing" {
+	export = Rx;
 }

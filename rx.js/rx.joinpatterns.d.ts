@@ -1,4 +1,4 @@
-// Type definitions for RxJS-Join v2.2.24
+// Type definitions for RxJS-Join v2.2.25
 // Project: http://rx.codeplex.com/
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -53,4 +53,8 @@ declare module Rx {
 	interface ObservableStatic {
 		when<TR>(plan: Plan<TR>): Observable<TR>;
 	}
+}
+
+declare module "rx.joinpatterns" {
+	export = Rx;
 }

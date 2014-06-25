@@ -1,6 +1,6 @@
 // Type definitions for Zynga EasyScroller
 // Project: https://github.com/zynga/scroller
-// Definitions by: Boris Yankov https://github.com/borisyankov
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 

@@ -1,7 +1,6 @@
-// Type definitions for RxJS-VirtualTime v2.2.24
+// Type definitions for RxJS-VirtualTime v2.2.25
 // Project: http://rx.codeplex.com/
-// Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>
-// Definitions by: Igor Oleinikov <https://github.com/Igorbek>
+// Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>, Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path="rx.d.ts" />
@@ -33,4 +32,8 @@ declare module Rx {
 	export class HistoricalScheduler extends VirtualTimeScheduler<number, number> {
 		constructor(initialClock: number, comparer: (first: number, second: number) => number);
 	}
+}
+
+declare module "rx.virtualtime" {
+	export = Rx;
 }

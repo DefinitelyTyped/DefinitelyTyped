@@ -16,6 +16,7 @@ interface AsyncQueue<T> {
     length(): number;
     concurrency: number;
     push(task: T, callback?: AsyncMultipleResultsCallback<T>): void;
+    push(task: T[], callback?: AsyncMultipleResultsCallback<T>): void;
     saturated: AsyncMultipleResultsCallback<T>;
     empty: AsyncMultipleResultsCallback<T>;
     drain: AsyncMultipleResultsCallback<T>;

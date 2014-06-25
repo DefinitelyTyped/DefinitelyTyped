@@ -1,4 +1,6 @@
-﻿// This file contains common part of defintions for rx.d.ts and rx.lite.d.ts
+﻿// DefinitelyTyped: partial
+
+// This file contains common part of defintions for rx.d.ts and rx.lite.d.ts
 // Do not include the file separately.
 
 declare module Rx {
@@ -227,6 +229,11 @@ declare module Rx {
 		concat(sources: IPromise<T>[]): Observable<T>;
 		concatAll(): T;
 		concatObservable(): T;	// alias for concatAll
+		concatMap<T2, R>(selector: (value: T, index: number) => Observable<T2>, resultSelector: (value1: T, value2: T2, index: number) => R): Observable<R>;	// alias for selectConcat
+		concatMap<T2, R>(selector: (value: T, index: number) => IPromise<T2>, resultSelector: (value1: T, value2: T2, index: number) => R): Observable<R>;	// alias for selectConcat
+		concatMap<R>(selector: (value: T, index: number) => Observable<R>): Observable<R>;	// alias for selectConcat
+		concatMap<R>(selector: (value: T, index: number) => IPromise<R>): Observable<R>;	// alias for selectConcat
+		concatMap<R>(sequence: Observable<R>): Observable<R>;	// alias for selectConcat
 		merge(maxConcurrent: number): T;
 		merge(other: Observable<T>): Observable<T>;
 		merge(other: IPromise<T>): Observable<T>;
@@ -293,6 +300,12 @@ declare module Rx {
 		flatMap<TResult>(other: Observable<TResult>): Observable<TResult>;	// alias for selectMany
 		flatMap<TResult>(other: IPromise<TResult>): Observable<TResult>;	// alias for selectMany
 
+		selectConcat<T2, R>(selector: (value: T, index: number) => Observable<T2>, resultSelector: (value1: T, value2: T2, index: number) => R): Observable<R>;
+		selectConcat<T2, R>(selector: (value: T, index: number) => IPromise<T2>, resultSelector: (value1: T, value2: T2, index: number) => R): Observable<R>;
+		selectConcat<R>(selector: (value: T, index: number) => Observable<R>): Observable<R>;
+		selectConcat<R>(selector: (value: T, index: number) => IPromise<R>): Observable<R>;
+		selectConcat<R>(sequence: Observable<R>): Observable<R>;
+
 		/**
 		*  Projects each element of an observable sequence into a new sequence of observable sequences by incorporating the element's index and then 
 		*  transforms an observable sequence of observable sequences into an observable sequence producing values only from the most recent observable sequence.
@@ -342,9 +355,9 @@ declare module Rx {
 	}
 
 	interface ObservableStatic {
-		create<T>(subscribe: (observer: Observer<T>) => void): Observable<T>;
-		create<T>(subscribe: (observer: Observer<T>) => () => void): Observable<T>;
 		create<T>(subscribe: (observer: Observer<T>) => IDisposable): Observable<T>;
+		create<T>(subscribe: (observer: Observer<T>) => () => void): Observable<T>;
+		create<T>(subscribe: (observer: Observer<T>) => void): Observable<T>;
 		createWithDisposable<T>(subscribe: (observer: Observer<T>) => IDisposable): Observable<T>;
 		defer<T>(observableFactory: () => Observable<T>): Observable<T>;
 		defer<T>(observableFactory: () => IPromise<T>): Observable<T>;
