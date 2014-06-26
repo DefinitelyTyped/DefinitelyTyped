@@ -20,16 +20,16 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "test": "node ./_infrastructure/runner.js --tsc-version 1.0.1 --test-changes",
-    "changes": "node ./_infrastructure/runner.js --tsc-version 1.0.1 --test-changes",
-    "lint": "node ./_infrastructure/runner.js --tsc-version 1.0.1 --lint-changes",
-    "all": "node ./_infrastructure/runner.js --tsc-version 1.0.1",
-    "dry": "node ./_infrastructure/runner.js --tsc-version 1.0.1 --skip-tests --test-changes",
-    "list": "node ./_infrastructure/runner.js --tsc-version 1.0.1 --skip-tests --print-files --print-refmap",
+    "test": "node ./_infrastructure/runner.js --test-changes",
+    "changes": "node ./_infrastructure/runner.js --test-changes",
+    "lint": "node ./_infrastructure/runner.js --lint-changes",
+    "all": "node ./_infrastructure/runner.js",
+    "dry": "node ./_infrastructure/runner.js --skip-tests --test-changes",
+    "list": "node ./_infrastructure/runner.js --skip-tests --print-files --print-refmap",
     "help": "node ./_infrastructure/runner.js -h"
   },
   "dependencies": {
-    "definition-tester": "git+https://github.com/DefinitelyTyped/definition-tester"
+    "definition-tester": "~0.0.4"
   },
   "devDependencies": {}
 }
