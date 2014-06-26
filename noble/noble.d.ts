@@ -25,18 +25,12 @@ declare module "noble" {
         rssi:          number;
         services:      string[];
 
-        connect(): void;
-        connect(callback: (error: string) => void): void;
-        disconnect(): void;
-        disconnect(callback: () => void): void;
-        updateRssi(): void;
-        updateRssi(callback: (error: string, rssi: number) => void): void;
-        discoverServices(serviceUUIDs: string[]): void;
-        discoverServices(serviceUUIDs: string[], listener: (error: string, services: Service[]) => void): void;
-        discoverAllServicesAndCharacteristics(): void;
-        discoverAllServicesAndCharacteristics(callback: (error: string, services: Service[], characteristics: Characteristic[]) => void): void;
-        discoverSomeServicesAndCharacteristics(serviceUUIDs: string[], characteristicUUIDs: string[]): void;
-        discoverSomeServicesAndCharacteristics(serviceUUIDs: string[], characteristicUUIDs: string[], callback: (error: string, services: Service[], characteristics: Characteristic[]) => void): void;
+        connect(callback?: (error: string) => void): void;
+        disconnect(callback?: () => void): void;
+        updateRssi(callback?: (error: string, rssi: number) => void): void;
+        discoverServices(serviceUUIDs: string[], callback?: (error: string, services: Service[]) => void): void;
+        discoverAllServicesAndCharacteristics(callback?: (error: string, services: Service[], characteristics: Characteristic[]) => void): void;
+        discoverSomeServicesAndCharacteristics(serviceUUIDs: string[], characteristicUUIDs: string[], callback?: (error: string, services: Service[], characteristics: Characteristic[]) => void): void;
 
         readHandle(handle: NodeBuffer, callback: (error: string, data: NodeBuffer) => void): void;
         writeHandle(handle: NodeBuffer, data: NodeBuffer, withoutResponse: boolean, callback: (error: string) => void): void;
@@ -64,10 +58,8 @@ declare module "noble" {
         includedServiceUuids: string[];
         characteristics:      Characteristic[];
 
-        discoverIncludedServices(serviceUUIDs: string[]): void;
-        discoverIncludedServices(serviceUUIDs: string[], callback: (error: string, includedServiceUuids: string[]) => void): void;
-        discoverCharacteristics(characteristicUUIDs: string[]): void;
-        discoverCharacteristics(characteristicUUIDs: string[], callback: (error: string, characteristics: Characteristic[]) => void): void;
+        discoverIncludedServices(serviceUUIDs: string[], callback?: (error: string, includedServiceUuids: string[]) => void): void;
+        discoverCharacteristics(characteristicUUIDs: string[], callback?: (error: string, characteristics: Characteristic[]) => void): void;
         toString(): string;
 
         on(event: string, listener: Function): events.EventEmitter;
@@ -82,16 +74,11 @@ declare module "noble" {
         properties:  string[];
         descriptors: Descriptor[];
 
-        read(): void;
-        read(callback: (error: string, data: NodeBuffer) => void): void;
-        write(data: NodeBuffer, notify: boolean): void;
-        write(data: NodeBuffer, notify: boolean, callback: (error: string) => void): void;
-        broadcast(broadcast: boolean): void;
-        broadcast(broadcast: boolean, callback: (error: string) => void): void;
-        notify(notify: boolean): void;
-        notify(notify: boolean, callback: (error: string) => void): void;
-        discoverDescriptors(): void;
-        discoverDescriptors(callback: (error: string, descriptors: Descriptor[]) => void): void;
+        read(callback?: (error: string, data: NodeBuffer) => void): void;
+        write(data: NodeBuffer, notify: boolean, callback?: (error: string) => void): void;
+        broadcast(broadcast: boolean, callback?: (error: string) => void): void;
+        notify(notify: boolean, callback?: (error: string) => void): void;
+        discoverDescriptors(callback?: (error: string, descriptors: Descriptor[]) => void): void;
         toString(): string;
 
         on(event: string, listener: Function): events.EventEmitter;
@@ -108,10 +95,8 @@ declare module "noble" {
         name: string;
         type: string;
 
-        readValue(): void;
-        readValue(callback: (error: string, data: NodeBuffer) => void): void;
-        writeValue(data: NodeBuffer): void;
-        writeValue(data: NodeBuffer, callback: (error: string) => void): void;
+        readValue(callback?: (error: string, data: NodeBuffer) => void): void;
+        writeValue(data: NodeBuffer, callback?: (error: string) => void): void;
         toString(): string;
 
         on(event: string, listener: Function): events.EventEmitter;
