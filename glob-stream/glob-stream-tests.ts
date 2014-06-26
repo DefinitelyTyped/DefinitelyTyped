@@ -1,4 +1,4 @@
-/// <reference path="glob-stream" />
+/// <reference path="glob-stream.d.ts" />
 
 import gs = require('glob-stream');
 
