@@ -448,6 +448,11 @@ interface ZeptoCollection {
 	* @see ZeptoCollection.after
 	**/
 	after(content: HTMLElement[]): ZeptoCollection;
+	
+	/**
+	* @see ZeptoCollection.after
+	**/
+	after(content: ZeptoCollection): ZeptoCollection;
 
 	/**
 	* Append content to the DOM inside each individual element in the collection. The content can be an HTML string, a DOM node or an array of nodes.
@@ -465,6 +470,11 @@ interface ZeptoCollection {
 	* @see ZeptoCollection.append
 	**/
 	append(content: HTMLElement[]): ZeptoCollection;
+	
+	/**
+	* @see ZeptoCollection.append
+	**/
+	append(content: ZeptoCollection): ZeptoCollection;
 
 	/**
 	* Append elements from the current collection to the target element. This is like append, but with reversed operands.
@@ -526,6 +536,11 @@ interface ZeptoCollection {
 	* @see ZeptoCollection.before
 	**/
 	before(content: HTMLElement[]): ZeptoCollection;
+	
+	/**
+	* @see ZeptoCollection.before
+	**/
+	before(content: ZeptoCollection): ZeptoCollection;
 
 	/**
 	* Get immediate children of each element in the current collection. If selector is given, filter the results to only include ones matching the CSS selector.
@@ -947,6 +962,12 @@ interface ZeptoCollection {
 	* @param content
 	**/
 	prepend(content: HTMLElement[]): ZeptoCollection;
+
+	/**
+	* @see ZeptoCollection.prepend
+	* @param content
+	**/
+	prepend(content: ZeptoCollection): ZeptoCollection;
 
 	/**
 	* Prepend elements of the current collection inside each of the target elements. This is like prepend, only with reversed operands.

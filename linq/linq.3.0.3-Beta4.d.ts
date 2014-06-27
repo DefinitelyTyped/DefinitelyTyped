@@ -1,6 +1,6 @@
-// Type definitions for linq.js, ver 3.0.3-Beta4
+// Type definitions for linq.js v3.0.3-Beta4
 // Project: http://linqjs.codeplex.com/
-// Definitions by: neuecc (http://www.codeplex.com/site/users/view/neuecc)
+// Definitions by: neuecc <http://www.codeplex.com/site/users/view/neuecc>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module linqjs {

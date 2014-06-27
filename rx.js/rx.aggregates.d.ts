@@ -1,13 +1,13 @@
-// Type definitions for RxJS-Aggregates package
+// Type definitions for RxJS-Aggregates v2.2.25
 // Project: http://rx.codeplex.com/
-// Definitions by: Carl de Billy <http://carl.debilly.net/>
-// Definitions by: Igor Oleinikov <https://github.com/Igorbek>
+// Definitions by: Carl de Billy <http://carl.debilly.net/>, Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path="rx.d.ts" />
 
 declare module Rx {
 	export interface Observable<T> {
+		finalValue(): Observable<T>;
 		aggregate(accumulator: (acc: T, value: T) => T): Observable<T>;
 		aggregate<TAcc>(seed: TAcc, accumulator: (acc: TAcc, value: T) => TAcc): Observable<TAcc>;
 
@@ -33,7 +33,9 @@ declare module Rx {
 		average(keySelector?: (value: T, index: number, source: Observable<T>) => number, thisArg?: any): Observable<number>;
 
 		sequenceEqual<TOther>(second: Observable<TOther>, comparer: (value1: T, value2: TOther) => number): Observable<boolean>;
+		sequenceEqual<TOther>(second: IPromise<TOther>, comparer: (value1: T, value2: TOther) => number): Observable<boolean>;
 		sequenceEqual(second: Observable<T>): Observable<boolean>;
+		sequenceEqual(second: IPromise<T>): Observable<boolean>;
 		sequenceEqual<TOther>(second: TOther[], comparer: (value1: T, value2: TOther) => number): Observable<boolean>;
 		sequenceEqual(second: T[]): Observable<boolean>;
 
@@ -52,4 +54,8 @@ declare module Rx {
 		find(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>;
 		findIndex(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<number>;
 	}
+}
+
+declare module "rx.aggregates" {
+	export = Rx;
 }

@@ -1,36 +1,35 @@
 // Type definitions for chai 1.7.2
 // Project: http://chaijs.com/
 // Definitions by: Jed Hunsaker <https://github.com/jedhunsaker/>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
-
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module chai {
 
     function expect(target: any, message?: string): Expect;
 
     // Provides a way to extend the internals of Chai
-    function use(fn: (chai: any, utils: any) => void);
+    function use(fn: (chai: any, utils: any) => void): any;
 
     interface ExpectStatic {
         (target: any): Expect;
     }
 
     interface Assertions {
-        attr(name, value?);
-        css(name, value?);
-        data(name, value?);
-        class(className);
-        id(id);
-        html(html);
-        text(text);
-        value(value);
-        visible;
-        hidden;
-        selected;
-        checked;
-        disabled;
-        empty;
-        exist;
+        attr(name: string, value?: string): any;
+        css(name: string, value?: string): any;
+        data(name: string, value?: string): any;
+        class(className: string): any;
+        id(id: string): any;
+        html(html: string): any;
+        text(text: string): any;
+        value(value: string): any;
+        visible: any;
+        hidden: any;
+        selected: any;
+        checked: any;
+        disabled: any;
+        empty: any;
+        exist: any;
     }
 
     interface Expect extends LanguageChains, NumericComparison, TypeComparison, Assertions {

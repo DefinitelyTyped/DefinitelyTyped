@@ -160,6 +160,17 @@ declare module "restify" {
     (req: Request, res: Response, next: Next): any;
   }
 
+  interface CORS {
+      (cors?: {
+          origins?: string[];
+          credentials?: boolean;
+          headers?: string[];
+      }): RequestHandler;
+      origins: string[];
+      ALLOW_HEADERS: string[];
+      credentials: boolean;
+  }
+
   export function createServer(options?: ServerOptions): Server;
 
   export function createJsonClient(options?: ClientOptions): Client;
@@ -167,7 +178,7 @@ declare module "restify" {
   export function createClient(options?: ClientOptions): HttpClient;
 
   export class ConflictError { constructor(message?: any); }
-  export class InvalidArguementError { constructor(message?: any); }
+  export class InvalidArgumentError { constructor(message?: any); }
   export class RestError { constructor(message?: any); }
   export class BadDigestError { constructor(message: any); }
   export class BadMethodError { constructor(message: any); }
@@ -199,4 +210,11 @@ declare module "restify" {
   export function auditLogger(options?: Object): Function;
   export function fullResponse(): RequestHandler;
   export var defaultResponseHeaders : any;
+  export var CORS: CORS;
+  
+  export module pre {
+      export function pause(): RequestHandler;
+      export function sanitizePath(options?: any): RequestHandler;
+      export function userAgentConnection(options?: any): RequestHandler;
+  }
 }

@@ -1,6 +1,6 @@
 // Type definitions for should.js 3.1.2
 // Project: https://github.com/visionmedia/should.js
-// Definitions by: Alex Varju <https://github.com/varju/> and Maxime LUCE <https://github.com/SomaticIT/> (1.3+)
+// Definitions by: Alex Varju <https://github.com/varju/>, Maxime LUCE <https://github.com/SomaticIT/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface Object {
@@ -111,8 +111,8 @@ interface Internal extends ShouldInternal {
   inspect(value: any, obj: any): any;
 }
 
-declare module "should" {
-  export = Internal;
-}
-
 declare var should: Internal;
+
+declare module "should" {
+  export = should;
+}

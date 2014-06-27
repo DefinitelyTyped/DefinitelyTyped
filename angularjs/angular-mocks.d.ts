@@ -30,6 +30,7 @@ declare module ng {
 
         // see http://docs.angularjs.org/api/angular.mock.inject
         inject(...fns: Function[]): any;
+        inject(...inlineAnnotatedConstructor: any[]): any; // this overload is undocumented, but works
 
         // see http://docs.angularjs.org/api/angular.mock.module
         module(...modules: string[]): any;

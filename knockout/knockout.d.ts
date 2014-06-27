@@ -123,9 +123,14 @@ interface KnockoutBindingContext {
     createChildContext(dataItemOrAccessor: any, dataItemAlias?: any, extendCallback?: Function): any;
 }
 
+interface KnockoutAllBindingsAccessor {
+    (): any;
+    get(bindingName: string): any;
+}
+
 interface KnockoutBindingHandler {
-    init?(element: any, valueAccessor: () => any, allBindingsAccessor: () => any, viewModel: any, bindingContext: KnockoutBindingContext): void;
-    update?(element: any, valueAccessor: () => any, allBindingsAccessor: () => any, viewModel: any, bindingContext: KnockoutBindingContext): void;
+    init?(element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext): void;
+    update?(element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext): void;
     options?: any;
 }
 
@@ -173,14 +178,14 @@ interface KnockoutMemoization {
 interface KnockoutVirtualElement {}
 
 interface KnockoutVirtualElements {
-	allowedBindings: { [bindingName: string]: boolean; };
+    allowedBindings: { [bindingName: string]: boolean; };
     emptyNode(node: KnockoutVirtualElement ): void;
     firstChild(node: KnockoutVirtualElement ): KnockoutVirtualElement;
-	insertAfter( container: KnockoutVirtualElement, nodeToInsert: HTMLElement, insertAfter: HTMLElement ): void;
-    nextSibling(node: KnockoutVirtualElement): HTMLElement;
-    prepend(node: KnockoutVirtualElement, toInsert: HTMLElement ): void;
-    setDomNodeChildren(node: KnockoutVirtualElement, newChildren: { length: number;[index: number]: HTMLElement; } ): void;
-    childNodes(node: KnockoutVirtualElement ): HTMLElement[];
+    insertAfter( container: KnockoutVirtualElement, nodeToInsert: Node, insertAfter: Node ): void;
+    nextSibling(node: KnockoutVirtualElement): Node;
+    prepend(node: KnockoutVirtualElement, toInsert: Node ): void;
+    setDomNodeChildren(node: KnockoutVirtualElement, newChildren: { length: number;[index: number]: Node; } ): void;
+    childNodes(node: KnockoutVirtualElement ): Node[];
 }
 
 interface KnockoutExtenders {
@@ -274,7 +279,7 @@ interface KnockoutUtils {
 
     stringTrim(str: string): string;
 
-    stringTokenize(str: string, delimiter: string): string;
+    stringTokenize(str: string, delimiter: string): string[];
 
     stringStartsWith(str: string, startsWith: string): string;
 

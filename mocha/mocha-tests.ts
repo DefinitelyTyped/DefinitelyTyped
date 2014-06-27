@@ -12,6 +12,18 @@ function test_describe() {
     });
 }
 
+function test_context() {
+    context('some context', () => { });
+
+    context.only('some context', () => { });
+
+    context.skip('some context', () => { });
+
+    context('some context', function() {
+        this.timeout(2000);
+    });
+}
+
 function test_it() {
 
     it('does something', () => { });

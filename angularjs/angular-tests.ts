@@ -64,7 +64,7 @@ angular.module('http-auth-interceptor', [])
 
             function error(response: ng.IHttpPromiseCallbackArg<any>) {
                 if (response.status === 401) {
-                    var deferred = $q.defer();
+                    var deferred = $q.defer<void>();
                     authServiceProvider.pushToBuffer(response.config, deferred);
                     $rootScope.$broadcast('event:auth-loginRequired');
                     return deferred.promise;
@@ -94,15 +94,16 @@ module HttpAndRegularPromiseTests {
         person: Person;
         theAnswer: number;
         letters: string[];
+        snack: string;
     }
 
     var someController: Function = ($scope: SomeControllerScope, $http: ng.IHttpService, $q: ng.IQService) => {
-        $http.get("http://somewhere/some/resource")
+        $http.get<ExpectedResponse>("http://somewhere/some/resource")
             .success((data: ExpectedResponse) => {
                 $scope.person = data;
             });
 
-        $http.get("http://somewhere/some/resource")
+        $http.get<ExpectedResponse>("http://somewhere/some/resource")
             .then((response: ng.IHttpPromiseCallbackArg<ExpectedResponse>) => {
                 // typing lost, so something like
                 // var i: number = response.data
@@ -110,7 +111,7 @@ module HttpAndRegularPromiseTests {
                 $scope.person = response.data;
             });
 
-        $http.get("http://somewhere/some/resource")
+        $http.get<ExpectedResponse>("http://somewhere/some/resource")
             .then((response: ng.IHttpPromiseCallbackArg<ExpectedResponse>) => {
                 // typing lost, so something like
                 // var i: number = response.data
@@ -132,6 +133,12 @@ module HttpAndRegularPromiseTests {
         cPromise.then((letters: string[]) => {
             $scope.letters = letters;
         });
+
+        // When $q.when is passed an IPromise<T>, it returns an IPromise<T>
+        var dPromise: ng.IPromise<string> = $q.when($q.when("ALBATROSS!"));
+        dPromise.then((snack: string) => {
+            $scope.snack = snack;
+        });
     }
 
   // Test that we can pass around a type-checked success/error Promise Callback
@@ -141,7 +148,7 @@ module HttpAndRegularPromiseTests {
         var buildFooData: Function = () => 42;
 
         var doFoo: Function = (callback: ng.IHttpPromiseCallback<ExpectedResponse>) => {
-            $http.get('/foo', buildFooData())
+            $http.get<ExpectedResponse>('/foo', buildFooData())
                 .success(callback);
         }
 
@@ -216,6 +223,7 @@ foo.then((x) => {
 // angular.element() tests
 var element = angular.element("div.myApp");
 var scope: ng.IScope = element.scope();
+var isolateScope: ng.IScope = element.isolateScope();
 
 
 

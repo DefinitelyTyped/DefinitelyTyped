@@ -22,9 +22,9 @@ var strArr: string[];
 var numArr: string[];
 var funcArr: Function[];
 
-var readable: ReadableStream;
-var writable: WritableStream;
-var emitter: NodeEventEmitter;
+var readable: NodeJS.ReadableStream;
+var writable: NodeJS.WritableStream;
+var emitter: NodeJS.EventEmitter;
 
 // - - - - - - - - - - - - - - - - -
 
@@ -73,11 +73,11 @@ var barArr: Bar[];
 var fooStream: Highland.Stream<Foo>;
 var barStream: Highland.Stream<Bar>;
 
+var fooStreamStream: Highland.Stream<Highland.Stream<Foo>>;
+var barStreamStream: Highland.Stream<Highland.Stream<Bar>>;
+
 var fooArrStream: Highland.Stream<Foo[]>;
 var barArrStream: Highland.Stream<Bar[]>;
-
-var fooStreamArr: Highland.Stream<Foo>[];
-var barStreamArr: Highland.Stream<Bar>[];
 
 var fooStreamArr: Highland.Stream<Foo>[];
 var barStreamArr: Highland.Stream<Bar>[];
@@ -184,13 +184,13 @@ strStream = _.keys(obj);
 anyArrStream = _.pairs(obj);
 anyArrStream = _.pairs(fooArr);
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 obj = _.extend(obj, obj);
 
 objCurObj = _.extend(obj);
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 x = _.get(str, obj);
 
@@ -200,26 +200,26 @@ obj = _.set(str, foo, obj);
 
 objCurAny = _.set(str, foo);
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 _.log(str);
 _.log(str, num, foo);
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 f = _.wrapCallback(func);
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 num = _.add(num, num);
 
 numCurNum = _.add(num);
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // instance methods
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 fooStream.pause();
 fooStream.resume();
@@ -323,6 +323,10 @@ fooStream = fooStream.flatFilter((x: Foo) => {
 	return boolStream;
 });
 
+fooStream = fooStream.reject((x: Foo) => {
+	return bool;
+});
+
 fooStream = fooStream.find((x: Foo) => {
 	return bool;
 });
@@ -343,6 +347,7 @@ fooStream = fooStream.where(obj);
 fooStream = fooStream.zip(fooStream);
 fooStream = fooStream.zip([foo, foo]);
 
+fooStream = fooStream.head();
 fooStream = fooStream.take(num);
 
 fooStream = fooStream.last();
@@ -383,6 +388,10 @@ fooStream = fooStream.concat(fooArr);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+fooStream = fooStream.merge(fooStreamStream);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 barStream = fooStream.invoke<Bar>(str, anyArr);
 
 fooStream = fooStream.throttle(num);
@@ -393,4 +402,4 @@ fooStream = fooStream.debounce(num);
 
 fooStream = fooStream.latest();
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

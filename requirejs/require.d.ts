@@ -263,6 +263,18 @@ interface Require {
 	toUrl(module: string): string;
 
 	/**
+	* Returns true if the module has already been loaded and defined.
+	* @param module Module to check
+	**/
+	defined(module: string): boolean;
+
+	/**
+	* Returns true if the module has already been requested or is in the process of loading and should be available at some point.
+	* @param module Module to check
+	**/
+	specified(module: string): boolean;
+
+	/**
 	* On Error override
 	* @param err
 	**/
@@ -322,6 +334,14 @@ interface RequireDefine {
 	*	callback return module definition
 	**/
 	(name: string, deps: string[], ready: Function): void;
+
+	/**
+	* Define a module with a name.
+	* @param name The name of the module.
+	* @param ready Callback function when the dependencies are loaded.
+	*	callback return module definition
+	**/
+	(name: string, ready: Function): void;
 }
 
 // Ambient declarations for 'require' and 'define'

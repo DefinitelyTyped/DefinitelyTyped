@@ -1,7 +1,7 @@
 // Type definitions for Express 3.1
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /* =================== USAGE =================== 
 
@@ -11,6 +11,17 @@
  =============================================== */
 
 /// <reference path="../node/node.d.ts" />
+
+
+declare module Express {
+
+    // These open interfaces may be extended in an application-specific manner via declaration merging.
+    // See for example passport.d.ts (https://github.com/borisyankov/DefinitelyTyped/blob/master/passport/passport.d.ts)
+    export interface Request { }
+    export interface Response { }
+    export interface Application { }
+}
+
 
 declare module "express" {
     import http = require('http');
@@ -229,7 +240,7 @@ declare module "express" {
             count: number;
         }
 
-        interface Request {
+        interface Request extends http.ServerRequest, Express.Request {
 
             session: Session;
 
@@ -258,7 +269,7 @@ declare module "express" {
 
             header(name: string): string;
 
-            headers: string[];
+            headers: { [key: string]: string; };
 
             /**
              * Check if the given `type(s)` is acceptable, returning
@@ -545,7 +556,7 @@ declare module "express" {
             (body: any): Response;
         }
 
-        interface Response extends http.ServerResponse {
+        interface Response extends http.ServerResponse, Express.Response {
             /**
              * Set status `code`.
              *
@@ -893,7 +904,7 @@ declare module "express" {
             (req: Request, res: Response, next: Function): any;
         }
 
-        interface Application extends IRouter<Application> {
+        interface Application extends IRouter<Application>, Express.Application {
             /**
              * Initialize the server.
              *
@@ -967,6 +978,12 @@ declare module "express" {
              * @param val
              */
             set (setting: string, val: string): Application;
+            
+            get(name: string): string;
+
+            get(name: string, ...handlers: RequestFunction[]): Application;
+
+            get(name: RegExp, ...handlers: RequestFunction[]): Application;
 
             /**
              * Return the app's absolute pathname
@@ -1112,15 +1129,15 @@ declare module "express" {
              *    http.createServer(app).listen(80);
              *    https.createServer({ ... }, app).listen(443);
              */
-            listen(port: number, hostname: string, backlog: number, callback?: Function): void;
+            listen(port: number, hostname: string, backlog: number, callback?: Function): http.Server;
 
-            listen(port: number, hostname: string, callback?: Function): void;
+            listen(port: number, hostname: string, callback?: Function): http.Server;
 
-            listen(port: number, callback?: Function): void;
+            listen(port: number, callback?: Function): http.Server;
 
-            listen(path: string, callback?: Function): void;
+            listen(path: string, callback?: Function): http.Server;
 
-            listen(handle: any, listeningListener?: Function): void;
+            listen(handle: any, listeningListener?: Function): http.Server;
 
             route: IRoute;
 

@@ -8,6 +8,7 @@
 // TODO export the top-level functions
 
 // TODO figure out curry arguments
+// TODO create more overloads for nested data, like streams-of-streams or streams-of-array-of-streams etc
 // TODO use externalised Thenable
 // TODO use externalised Readable/Writable (not node's)
 
@@ -19,7 +20,6 @@
  * Copyright (c) Caolan McMahon
  *
  */
-
 interface HighlandStatic {
 	/**
 	 * The Stream constructor, accepts an array of values or a generator function
@@ -62,8 +62,8 @@ interface HighlandStatic {
 	<R>(xs: (push: (err: Error, x?: R) => void, next: () => void) => void): Highland.Stream<R>;
 
 	<R>(xs: Highland.Stream<R>): Highland.Stream<R>;
-	<R>(xs: ReadableStream): Highland.Stream<R>;
-	<R>(xs: NodeEventEmitter): Highland.Stream<R>;
+	<R>(xs: NodeJS.ReadableStream): Highland.Stream<R>;
+	<R>(xs: NodeJS.EventEmitter): Highland.Stream<R>;
 
 	// moar (promise for everything?)
 	<R>(xs: Highland.Thenable<Highland.Stream<R>>): Highland.Stream<R>;
@@ -320,8 +320,9 @@ interface HighlandStatic {
 	 * @api public
 	 */
 	add(a: number, b: number): number;
-
 	add(a: number): (b: number) => number;
+
+	not<R>(a: any): boolean;
 }
 
 declare module Highland {
@@ -364,7 +365,7 @@ declare module Highland {
 	/**
 	 * Actual Stream constructor wrapped the the main exported function
 	 */
-	interface Stream<R> extends NodeEventEmitter {
+	interface Stream<R> extends NodeJS.EventEmitter {
 
 		/**
 		 * Pauses the stream. All Highland Streams start in the paused state.
@@ -418,8 +419,8 @@ declare module Highland {
 		 * @api public
 		 */
 		pipe<U>(dest: Stream<U>): Stream<U>;
-		pipe<U>(dest: ReadWriteStream): Stream<U>;
-		pipe(dest: WritableStream): void;
+		pipe<U>(dest: NodeJS.ReadWriteStream): Stream<U>;
+		pipe(dest: NodeJS.WritableStream): void;
 
 		/**
 		 * Destroys a stream by unlinking it from any consumers and sources. This will
@@ -661,6 +662,21 @@ declare module Highland {
 		flatFilter(f: (x: R) => Stream<boolean>): Stream<R>;
 
 		/**
+		 * The inverse of [filter](#filter).
+		 *
+		 * @id reject
+		 * @section Streams
+		 * @name Stream.reject(f)
+		 * @param {Function} f - the truth test function
+		 * @api public
+		 *
+		 * var odds = _([1, 2, 3, 4]).reject(function (x) {
+		 *     return x % 2 === 0;
+		 * });
+		 */
+		reject(f: (x: R) => boolean): Stream<R>;
+
+		/**
 		 * A convenient form of filter, which returns the first object from a
 		 * Stream that passes the provided truth test
 		 *
@@ -732,6 +748,18 @@ declare module Highland {
 		 * @api public
 		 */
 		take(n: number): Stream<R>;
+
+		/**
+		 * Creates a new Stream with only the first value from the source.
+		 *
+		 * @id head
+		 * @section Streams
+		 * @name Stream.head()
+		 * @api public
+		 *
+		 * _([1, 2, 3, 4]).head() // => 1
+		 */
+		head(): Stream<R>;
 
 		/**
 		 * Drops all values from the Stream apart from the last one (if any).
@@ -871,6 +899,20 @@ declare module Highland {
 		 */
 		scan<U>(memo: U, x: (memo: U, x: R) => U): Stream<U>;
 
+		/**
+		 * Same as [scan](#scan), but uses the first element as the initial
+		 * state instead of passing in a `memo` value.
+		 *
+		 * @id scan1
+		 * @section Streams
+		 * @name Stream.scan1(iterator)
+		 * @param {Function} iterator - the function which reduces the values
+		 * @api public
+		 *
+		 * _([1, 2, 3, 4]).scan1(add) // => 1, 3, 6, 10
+		 */
+		scan1<U>(memo: U, x: (memo: U, x: R) => U): Stream<U>;
+
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 		/**
@@ -888,6 +930,29 @@ declare module Highland {
 		 */
 		concat(ys: Stream<R>): Stream<R>;
 		concat(ys: R[]): Stream<R>;
+
+		/**
+		 * Takes a Stream of Streams and merges their values and errors into a
+		 * single new Stream. The merged stream ends when all source streams have
+		 * ended.
+		 *
+		 * Note that no guarantee is made with respect to the order in which
+		 * values for each stream end up in the merged stream. Values in the
+		 * merged stream will, however, respect the order they were emitted from
+		 * their respective streams.
+		 *
+		 * @id merge
+		 * @section Streams
+		 * @name Stream.merge()
+		 * @api public
+		 *
+		 * var txt = _(['foo.txt', 'bar.txt']).map(readFile)
+		 * var md = _(['baz.md']).map(readFile)
+		 *
+		 * _([txt, md]).merge();
+		 * // => contents of foo.txt, bar.txt and baz.txt in the order they were read
+		 */
+		merge (ys: Stream<Stream<R>>): Stream<R>;
 
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

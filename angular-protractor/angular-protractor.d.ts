@@ -646,6 +646,10 @@ declare module protractor {
          * var rows = element(by.repeater("cat in pets"));
          */
         repeater(repeatDescriptor: string): webdriver.Locator;
+
+        buttonText(searchText: string): webdriver.Locator;
+
+        partialButtonText(searchText: string): webdriver.Locator;
     }
 
     var By: IProtractorLocatorStrategy;
@@ -772,7 +776,7 @@ declare module protractor {
         /**
          * Returns the current absolute url from AngularJS.
          */
-        getLocationAbsUrl(): string;
+        getLocationAbsUrl(): webdriver.promise.Promise;
 
         /**
          * Pauses the test and injects some helper functions into the browser, so that

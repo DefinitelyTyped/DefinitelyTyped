@@ -1290,13 +1290,19 @@ var DT;
 
     if (argv.help) {
         optimist.showHelp();
+        var pkg = require('../../package.json');
+        console.log('Scripts:');
+        console.log('');
+        Lazy(pkg.scripts).keys().each(function (key) {
+            console.log('   $ npm run ' + key);
+        });
         process.exit(0);
     }
 
     var testFull = process.env['TRAVIS_BRANCH'] ? /\w\/full$/.test(process.env['TRAVIS_BRANCH']) : false;
 
     new TestRunner(dtPath, {
-        concurrent: argv['single-thread'] ? 1 : Math.max(cpuCores, 2),
+        concurrent: argv['single-thread'] ? 1 : Math.max(Math.min(24, cpuCores), 2),
         tscVersion: argv['tsc-version'],
         testChanges: testFull ? false : argv['test-changes'],
         skipTests: argv['skip-tests'],
@@ -1312,7 +1318,4 @@ var DT;
         process.exit(2);
     });
 })(DT || (DT = {}));
-//grunt-start
-/// <reference path="../runner.ts" />
-//grunt-end
 //# sourceMappingURL=runner.js.map

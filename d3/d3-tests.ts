@@ -1160,13 +1160,16 @@ function azimuthalEquidistant() {
 }
  
 //Example from http://bl.ocks.org/mbostock/4060366
-function voroniTesselation() {
+function voronoiTesselation() {
     var width = 960,
         height = 500;
 
     var vertices = <Array<D3.Geom.Vertice>>d3.range(100).map(function (d) {
         return [Math.random() * width, Math.random() * height];
     } );
+
+    var voronoi = d3.geom.voronoi()
+        .clipExtent([[0, 0], [width, height]]);
 
     var svg = d3.select("body").append("svg")
         .attr("width", width)
@@ -1185,10 +1188,126 @@ function voroniTesselation() {
     redraw();
     
     function redraw() {
-        path = path.data(d3.geom.voronoi(vertices).map(function (d) { return "M" + d.join("L") + "Z"; } ), String);
+        path = path.data(voronoi(vertices).map(function (d) { return "M" + d.join("L") + "Z"; } ), String);
         path.exit().remove();
         path.enter().append("path").attr("class", function (d, i) { return "q" + (i % 9) + "-9"; } ).attr("d", String);
         path.order();
+    }
+}
+
+// Example from https://gist.github.com/christophermanning/1734663
+function forceDirectedVoronoi() {
+    var w = window.innerWidth > 960 ? 960 : (window.innerWidth || 960),
+        h = window.innerHeight > 500 ? 500 : (window.innerHeight || 500),
+        radius = 5.25,
+        links = [],
+        simulate = true,
+        zoomToAdd = true,
+        color = d3.scale.quantize().domain([10000, 7250]).range(["#dadaeb","#bcbddc","#9e9ac8","#807dba","#6a51a3","#54278f","#3f007d"])
+ 
+    var numVertices = (w*h) / 3000;
+    var vertices = d3.range(numVertices).map(function(i) {
+        var angle = radius * (i+10);
+        return <D3.Layout.GraphNode>{x: angle*Math.cos(angle)+(w/2), y: angle*Math.sin(angle)+(h/2)};
+    });
+    var d3_geom_voronoi = d3.geom.voronoi<D3.Layout.GraphNode>()
+        .x(function(d) { return d.x; })
+        .y(function(d) { return d.y; })
+    var prevEventScale = 1;
+    var zoom = d3.behavior.zoom().on("zoom", function(d,i) {
+        if (zoomToAdd){
+            if (d3.event.scale > prevEventScale) {
+                var angle = radius * vertices.length;
+                vertices.push(<D3.Layout.GraphNode>{x: angle*Math.cos(angle)+(w/2), y: angle*Math.sin(angle)+(h/2)})
+            } else if (vertices.length > 2 && d3.event.scale != prevEventScale) {
+                vertices.pop();
+            }
+            force.nodes(vertices).start()
+        } else {
+            if (d3.event.scale > prevEventScale) {
+                radius+= .01
+            } else {
+                radius -= .01
+            }
+            vertices.forEach(function(d, i) {
+                var angle = radius * (i+10);
+                vertices[i] = <D3.Layout.GraphNode>{x: angle*Math.cos(angle)+(w/2), y: angle*Math.sin(angle)+(h/2)};
+            });
+            force.nodes(vertices).start()
+        }
+        prevEventScale = d3.event.scale;
+    });
+ 
+    d3.select(window)
+        .on("keydown", function() {
+            // shift
+            if(d3.event.keyCode == 16) {
+                zoomToAdd = false
+            }
+     
+            // s
+            if(d3.event.keyCode == 83) {
+                simulate = !simulate
+                if(simulate) {
+                    force.start()
+                } else {
+                    force.stop()
+                }
+            }
+        })
+        .on("keyup", function() {
+            zoomToAdd = true
+        })
+ 
+    var svg = d3.select("#chart")
+        .append("svg")
+        .attr("width", w)
+        .attr("height", h)
+        .call(zoom)
+ 
+    var force = d3.layout.force()
+        .charge(-300)
+        .size([w, h])
+        .on("tick", update);
+ 
+    force.nodes(vertices).start();
+ 
+    var circle = <D3.UpdateSelection>svg.selectAll("circle");
+    var path = <D3.UpdateSelection>svg.selectAll("path");
+    var link = <D3.UpdateSelection>svg.selectAll("line");
+ 
+    function update() {
+        path = path.data(d3_geom_voronoi(vertices));
+        path.enter().append("path")
+            // drag node by dragging cell
+            .call(d3.behavior.drag()
+              .on("drag", function(d, i) {
+                  vertices[i] = <D3.Layout.GraphNode>{x: vertices[i].x + d3.event.dx, y: vertices[i].y + d3.event.dy}
+              })
+            )
+            .style("fill", function(d, i) { return color(0) })
+        path.attr("d", function(d) { return "M" + d.join("L") + "Z"; })
+            .transition().duration(150).style("fill", function(d, i) { return color(d3.geom.polygon(d).area()) })
+        path.exit().remove();
+ 
+        circle = circle.data(vertices)
+        circle.enter().append("circle")
+              .attr("r", 0)
+              .transition().duration(1000).attr("r", 5);
+        circle.attr("cx", function(d) { return d.x; })
+              .attr("cy", function(d) { return d.y; });
+        circle.exit().transition().attr("r", 0).remove();
+ 
+        link = link.data(d3_geom_voronoi.links(vertices))
+        link.enter().append("line")
+        link.attr("x1", function(d) { return d.source.x; })
+            .attr("y1", function(d) { return d.source.y; })
+            .attr("x2", function(d) { return d.target.x; })
+            .attr("y2", function(d) { return d.target.y; })
+ 
+        link.exit().remove()
+ 
+        if(!simulate) force.stop()
     }
 }
 
@@ -2167,62 +2286,57 @@ function attrObjTest () {
         .attr({"xlink:href": function(d, i) { return d + "-" + i + ".png"; }});
 }
 
+// Test for setting styles as an object
+// From https://github.com/mbostock/d3/blob/master/test/selection/style-test.js
+function styleObjTest () {
+    d3.select('body')
+        .style({"background-color": "white", opacity: .42});
+}
+
+// Test for setting styles as an object
+// From https://github.com/mbostock/d3/blob/master/test/selection/property-test.js
+function propertyObjTest () {
+    d3.select('body')
+        .property({bgcolor: "purple", opacity: .41});
+}
+
+
 // Test for brushes
-// This triggers a bug (shown below) in the 0.9.0 compiler, but works with
-// 0.9.1 compiler.
+function brushTest() {
+    var xScale = d3.scale.linear(),
+        yScale = d3.scale.linear();
 
-// Stack trace:
-// /usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:38215
-//      return (type === this.semanticInfoChain.anyTypeSymbol) || type.isError();
-//                                                                     ^
-// TypeError: Cannot call method 'isError' of null
-//     at PullTypeResolver.isAnyOrEquivalent (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:38215:76)
-//     at PullTypeResolver.resolveNameExpression (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:39953:39)
-//     at PullTypeResolver.resolveAST (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:39758:37)
-//     at PullTypeResolver.computeIndexExpressionSymbol (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:40933:37)
-//     at PullTypeResolver.resolveIndexExpression (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:40925:45)
-//     at PullTypeResolver.resolveAST (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:39870:33)
-//     at PullTypeResolver.resolveOverloads (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:42917:43)
-//     at PullTypeResolver.computeCallExpressionSymbol (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:41373:34)
-//     at PullTypeResolver.resolveCallExpression (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:41175:29)
-//     at PullTypeChecker.typeCheckCallExpression (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:45111:58)
-//     at PullTypeChecker.typeCheckAST (/usr/local/share/npm/lib/node_modules/typescript/bin/tsc.js:43786:33)
+    var xMin = 0, xMax = 1,
+        yMin = 0, yMax = 1;
 
-// function brushTest() {
-//     var xScale = d3.scale.linear(),
-//         yScale = d3.scale.linear();
-//
-//     var xMin = 0, xMax = 1,
-//         yMin = 0, yMax = 1;
-//
-//     // Setting only x scale.
-//     var brush1 = d3.svg.brush()
-//                     .x(xScale)
-//                     .on('brush', function () {
-//                         var extent = brush1.extent();
-//                         xMin = Math.max(extent[0], 0);
-//                         xMax = Math.min(extent[1], 1);
-//                         brush1.extent([xMin, xMax]);
-//                     });
-//
-//     // Setting both the x and y scale
-//     var brush2 = d3.svg.brush()
-//                     .x(xScale)
-//                     .y(yScale)
-//                     .on('brush', function () {
-//                         var extent = brush2.extent();
-//                         var xExtent = extent[0],
-//                             yExtent = extent[1];
-//
-//                         xMin = Math.max(xExtent[0], 0);
-//                         xMax = Math.min(xExtent[1], 1);
-//
-//                         yMin = Math.max(yExtent[0], 0);
-//                         yMax = Math.min(yExtent[1], 1);
-//
-//                         brush1.extent([[xMin, xMax], [yMin, yMax]]);
-//                     });
-// }
+    // Setting only x scale.
+    var brush1 = d3.svg.brush()
+                    .x(xScale)
+                    .on('brush', function () {
+                        var extent = brush1.extent();
+                        xMin = Math.max(extent[0], 0);
+                        xMax = Math.min(extent[1], 1);
+                        brush1.extent([xMin, xMax]);
+                    });
+
+    // Setting both the x and y scale
+    var brush2 = d3.svg.brush()
+                    .x(xScale)
+                    .y(yScale)
+                    .on('brush', function () {
+                        var extent = brush2.extent();
+                        var xExtent = extent[0],
+                            yExtent = extent[1];
+
+                        xMin = Math.max(xExtent[0], 0);
+                        xMax = Math.min(xExtent[1], 1);
+
+                        yMin = Math.max(yExtent[0], 0);
+                        yMax = Math.min(yExtent[1], 1);
+
+                        brush1.extent([[xMin, xMax], [yMin, yMax]]);
+                    });
+}
 
 
 // Tests for area
