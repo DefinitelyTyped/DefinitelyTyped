@@ -153,6 +153,46 @@ function test_ajax() {
         url: "test.js",
         dataType: "script"
     });
+
+    // Test the jqXHR object returned by $.ajax() as of 1.5
+    // More details: http://api.jquery.com/jQuery.ajax/#jqXHR
+
+    // done method
+    $.ajax({
+        url: "test.js"
+    }).done((data, textStatus, jqXHR) => {
+        console.log(data, textStatus, jqXHR);
+    });
+
+    // fail method
+    $.ajax({
+        url: "test.js"
+    }).fail((jqXHR, textStatus, errorThrown) => {
+        console.log(jqXHR, textStatus, errorThrown);
+    });
+
+    // always method with successful request
+    $.ajax({
+        url: "test.js"
+    }).always((data, textStatus, jqXHR) => {
+        console.log(data, textStatus, jqXHR);
+    });
+
+    // always method with failed request
+    $.ajax({
+        url: "test.js"
+    }).always((jqXHR, textStatus, errorThrown) => {
+        console.log(jqXHR, textStatus, errorThrown);
+    });
+
+    // then method (as of 1.8)
+    $.ajax({
+        url: "test.js"
+    }).then((data, textStatus, jqXHR) => {
+        console.log(data, textStatus, jqXHR);
+    }, (jqXHR, textStatus, errorThrown) => {
+        console.log(jqXHR, textStatus, errorThrown);
+    });
 }
 
 function test_ajaxComplete() {
@@ -730,7 +770,7 @@ function test_callbacksFunctions() {
     callbacks.add(bar);
     callbacks.fire('world');
     callbacks.disable();
-    
+
     // Test the disabled state of the list
     console.log(callbacks.disabled());
     // Outputs: true
@@ -3295,4 +3335,3 @@ function test_deferred_promise() {
         }
         );
 }
-
