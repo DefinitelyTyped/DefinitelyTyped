@@ -152,6 +152,16 @@ declare module 'timezonecomplete' {
         * @return a new Duration of (this * value)
         */
         multiply(value: number): Duration;
+		/**
+		 * Add a duration.
+		 * @return a new Duration of (this + value)
+		 */
+		add(value: Duration): Duration;
+		/**
+		 * Subtract a duration.
+		 * @return a new Duration of (this - value)
+		 */
+		sub(value: Duration): Duration;
         /**
         * String in [-]hh:mm:ss.nnn notation. All fields are
         * always present except the sign.
