@@ -1692,7 +1692,7 @@ declare module WinJS.UI.Animation {
      * @param movingBackwards Determines whether the navigation is moving backwards
      * @returns An object that contains an exit method used for animating exiting pages and an enter method used for animating entering pages.
     **/
-    function createPageNavigationAnimation(currentPreferredAnimation: PageNavigationAnimation, nextPreferredAnimation: PageNavigationAnimation, movingBackwards: boolean): { enter: () => any, exit: () => any };
+    function createPageNavigationAnimation(currentPreferredAnimation: PageNavigationAnimation, nextPreferredAnimation: PageNavigationAnimation, movingBackwards: boolean): { enter: () => any; exit: () => any; };
 
     /**
      * Creates an object that performs a peek animation.
