@@ -120,9 +120,9 @@ The first problem can be solved by adding the missing properties and methods, bu
         "searchContainerNode": boolean;
         "templatePath": string;
         "templateString": string;
-        buildRendering(): void;
-        destroyRendering(): void;
-        getCachedTemplate(templateString: String, alwaysUseString: boolean, doc: HTMLDocument): any;
+        buildRendering(): {}
+        destroyRendering(): {}
+        getCachedTemplate(templateString: String, alwaysUseString: boolean, doc: HTMLDocument): {}
 
     }
  }
