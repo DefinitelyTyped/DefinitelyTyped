@@ -34,7 +34,7 @@ When using the TypeScript, you can write the following:
  
  Inside of the define variable, both `request` and `xhr` will work as the functions that come from Dojo, only they are strongly typed.
  
- ## Advanced Usage
+## Advanced Usage
  Dojo and TypeScript both use different and conflicting class semantics. This causes some issues when trying to create custom class modules that are strongly typed in other modules. The following technique is presented as **A** solution to the problem, but not necessarily the best one. Other ideas a welcomed!
  
  Using pure JavaScript, a class that has a base class and mixins can be defined in Dojo as follows:
@@ -90,8 +90,8 @@ When using the TypeScript, you can write the following:
 ```
  
 This class is identical to the standard Dojo method, except that it is declared inside of a TypeScript module and it is declared using TypeScript instead of Dojo's `declare` method. Two problems arise however:
-# `Foo` has an error because it doesn't honor the interface declared by dijit._TemplatedMixin
-# `request` is undefined
+1. `Foo` has an error because it doesn't honor the interface declared by dijit._TemplatedMixin
+2. `request` is undefined
 
 The first problem can be solved by adding the missing properties and methods, but this will only serve to clutter the code base over time. Instead, we are creating another base class that hides this requirement like so:
 
