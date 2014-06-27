@@ -1,3 +1,5 @@
+declare var define: any;
+
 declare module dojo {
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/request.html
@@ -7,50 +9,52 @@ declare module dojo {
      * @param url The URL to request.     
      * @param options       OptionalOptions for the request.     
      */
-    interface request{(url: String, options?: dojo.request.__Options): void}
-    module request {
+    interface request { (url: String, options?: dojo.request.__Options): void }
+    interface request {
         /**
          * Send an HTTP DELETE request using the default transport for the current platform.
          * 
          * @param url URL to request             
          * @param options               OptionalOptions for the request.             
          */
-        interface del{(url: String, options: dojo.request.__BaseOptions): dojo.request.__Promise}
+        del: { (url: String, options?: dojo.request.__BaseOptions): dojo.request.__Promise }
         /**
          * Send an HTTP GET request using the default transport for the current platform.
          * 
          * @param url URL to request             
          * @param options               OptionalOptions for the request.             
          */
-        interface get{(url: String, options: dojo.request.__BaseOptions): dojo.request.__Promise}
+        get: { (url: String, options?: dojo.request.__BaseOptions): dojo.request.__Promise }
         /**
          * Send an HTTP POST request using the default transport for the current platform.
          * 
          * @param url URL to request             
          * @param options               OptionalOptions for the request.             
          */
-        interface post{(url: String, options: dojo.request.__BaseOptions): any}
+        post: { (url: String, options?: dojo.request.__BaseOptions): any }
         /**
          * Send an HTTP POST request using the default transport for the current platform.
          * 
          * @param url URL to request             
          * @param options               OptionalOptions for the request.             
          */
-        interface put{(url: String, options: dojo.request.__BaseOptions): dojo.request.__Promise}
+        put: { (url: String, options?: dojo.request.__BaseOptions): dojo.request.__Promise }
+    }
+    module request {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/handlers.html
          *
          * 
          * @param response     
          */
-        interface handlers{(response: any): void}
+        interface handlers { (response: any): void }
         module handlers {
             /**
              * 
              * @param name             
              * @param handler             
              */
-            interface register{(name: any, handler: any): void}
+            interface register { (name: any, handler: any): void }
         }
 
         /**
@@ -62,36 +66,38 @@ declare module dojo {
          * @param url URL to request     
          * @param options       OptionalOptions for the request.     
          */
-        interface node{(url: String, options?: dojo.request.node.__Options): void}
-        module node {
+        interface node { (url: String, options?: dojo.request.node.__Options): void }
+        interface node {
             /**
              * Send an HTTP DELETE request using XMLHttpRequest with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            interface del{(url: String, options: dojo.request.node.__BaseOptions): dojo.request.__Promise}
+            del: { (url: String, options: dojo.request.node.__BaseOptions): dojo.request.__Promise }
             /**
              * Send an HTTP GET request using XMLHttpRequest with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            interface get{(url: String, options: dojo.request.node.__BaseOptions): dojo.request.__Promise}
+            get: { (url: String, options: dojo.request.node.__BaseOptions): dojo.request.__Promise }
             /**
              * Send an HTTP POST request using XMLHttpRequest with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            interface post{(url: String, options: dojo.request.node.__BaseOptions): dojo.request.__Promise}
+            post: { (url: String, options: dojo.request.node.__BaseOptions): dojo.request.__Promise }
             /**
              * Send an HTTP PUT request using XMLHttpRequest with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            interface put{(url: String, options: dojo.request.node.__BaseOptions): dojo.request.__Promise}
+            put: { (url: String, options: dojo.request.node.__BaseOptions): dojo.request.__Promise }
+        }
+        module node {
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/node.__BaseOptions.html
              *
@@ -224,41 +230,43 @@ declare module dojo {
          * @param url URL to request     
          * @param options       OptionalOptions for the request.     
          */
-        interface iframe{(url: String, options?: dojo.request.iframe.__Options): void}
-        module iframe {
+        interface iframe { (url: String, options?: dojo.request.iframe.__Options): void }
+        interface iframe {
             /**
              * 
              * @param name             
              * @param onloadstr             
              * @param uri             
              */
-            interface create{(name: any, onloadstr: any, uri: any): any}
+            create: { (name: any, onloadstr: any, uri: any): any }
             /**
              * 
              * @param iframeNode             
              */
-            interface doc{(iframeNode: any): any}
+             doc: { (iframeNode: any): any }
             /**
              * Send an HTTP GET request using an iframe element with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            interface get{(url: String, options: dojo.request.iframe.__BaseOptions): dojo.request.__Promise}
+             get: { (url: String, options: dojo.request.iframe.__BaseOptions): dojo.request.__Promise }
             /**
              * Send an HTTP POST request using an iframe element with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            interface post{(url: String, options: dojo.request.iframe.__BaseOptions): dojo.request.__Promise}
+             post: { (url: String, options: dojo.request.iframe.__BaseOptions): dojo.request.__Promise }
             /**
              * 
              * @param _iframe             
              * @param src             
              * @param replace             
              */
-            interface setSrc{(_iframe: any, src: any, replace: any): void}
+             setSrc: { (_iframe: any, src: any, replace: any): void }
+        }
+        module iframe {
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/iframe.__MethodOptions.html
              *
@@ -376,15 +384,15 @@ declare module dojo {
          * @param type       OptionalThe event to listen for. Events emitted: "start", "send","load", "error", "done", "stop".     
          * @param listener       OptionalA callback to be run when an event happens.     
          */
-        interface notify{(type?: String, listener?: Function): void}
-        module notify {
+        interface notify { (type?: String, listener?: Function): void }
+        interface notify {
             /**
              * 
              * @param type             
              * @param event             
              * @param cancel             
              */
-            interface emit{(type: any, event: any, cancel: any): void}
+            emit: { (type: any, event: any, cancel: any): void }
         }
 
         /**
@@ -394,31 +402,31 @@ declare module dojo {
          * 
          * @param dfd The Deferred object to watch.     
          */
-        interface watch{(dfd: dojo.Deferred): void}
-        module watch {
+        interface watch { (dfd: dojo.Deferred): void }
+        interface watch {
             /**
              * Function used to check if basic IO call worked. Gets the dfd
              * object as its only argument.
              * 
              */
-            var ioCheck: Function
+            ioCheck: Function
             /**
              * Function used to process response. Gets the dfd
              * object as its only argument.
              * 
              */
-            var resHandle: Function
+            resHandle: Function
             /**
              * Function used to check if the IO request is still valid. Gets the dfd
              * object as its only argument.
              * 
              */
-            var validCheck: Function
+            validCheck: Function
             /**
              * Cancels all pending IO requests, regardless of IO type
              * 
              */
-            interface cancelAll{(): void}
+            cancelAll: { (): void }
         }
 
         /**
@@ -429,20 +437,22 @@ declare module dojo {
          * @param url URL to request     
          * @param options       OptionalOptions for the request.     
          */
-        interface script{(url: String, options?: dojo.request.script.__Options): void}
-        module script {
+        interface script { (url: String, options?: dojo.request.script.__Options): void }
+        interface script {
             /**
              * Send an HTTP GET request using a script element with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            interface get{(url: String, options: dojo.request.script.__BaseOptions): dojo.request.__Promise}
+            get: { (url: String, options: dojo.request.script.__BaseOptions): dojo.request.__Promise }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/script.__MethodOptions.html
              *
              * 
              */
+        }
+        module script {
             class __MethodOptions {
                 constructor();
                 /**
@@ -586,7 +596,7 @@ declare module dojo {
          * @param options     
          */
         interface registry{(url: any, options: any): void}
-        module registry {
+        interface registry {
             /**
              * 
              * @param id             
@@ -594,14 +604,14 @@ declare module dojo {
              * @param loaded             
              * @param config             
              */
-            interface load{(id: any, parentRequire: any, loaded: any, config: any): void}
+            load:{(id: any, parentRequire: any, loaded: any, config: any): void}
             /**
              * 
              * @param url             
              * @param provider             
              * @param first             
              */
-            interface register{(url: any, provider: any, first: any): void}
+            register:{(url: any, provider: any, first: any): void}
         }
 
         /**
@@ -613,39 +623,42 @@ declare module dojo {
          * @param options       OptionalOptions for the request.     
          */
         interface xhr{(url: String, options?: dojo.request.xhr.__Options): void}
-        module xhr {
+        interface xhr {
             /**
              * Send an HTTP DELETE request using XMLHttpRequest with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            interface del{(url: String, options: dojo.request.xhr.__BaseOptions): dojo.request.__Promise}
+             del:{(url: String, options: dojo.request.xhr.__BaseOptions): dojo.request.__Promise}
             /**
              * Send an HTTP GET request using XMLHttpRequest with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            interface get{(url: String, options: dojo.request.xhr.__BaseOptions): dojo.request.__Promise}
+             get:{(url: String, options: dojo.request.xhr.__BaseOptions): dojo.request.__Promise}
             /**
              * Send an HTTP POST request using XMLHttpRequest with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            interface post{(url: String, options: dojo.request.xhr.__BaseOptions): dojo.request.__Promise}
+             post:{(url: String, options: dojo.request.xhr.__BaseOptions): dojo.request.__Promise}
             /**
              * Send an HTTP PUT request using XMLHttpRequest with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            interface put{(url: String, options: dojo.request.xhr.__BaseOptions): dojo.request.__Promise}
+             put:{ (url: String, options: dojo.request.xhr.__BaseOptions): dojo.request.__Promise }
+        }
+
+        module xhr {
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/xhr.__BaseOptions.html
              *
-             * 
+             *
              */
             class __BaseOptions {
                 constructor();
@@ -912,7 +925,7 @@ declare module dojo {
              * @param errback               OptionalCallback to be invoked when the promise is rejected.Receives the rejection error.             
              * @param progback               OptionalCallback to be invoked when the promise emits a progressupdate. Receives the progress update.             
              */
-            then(callback: Function, errback: Function, progback: Function): dojo.promise.Promise;
+            then(callback?: Function, errback?: Function, progback?: Function): dojo.promise.Promise;
             /**
              * 
              */
@@ -1061,16 +1074,16 @@ declare module dojo {
      * 
      * @param returnWrappers       Optional    
      */
-    interface AdapterRegistry{(returnWrappers?: boolean): void}
-    module AdapterRegistry {
+    class AdapterRegistry {
+        constructor(returnWrappers?: boolean);
         /**
          * 
          */
-        var pairs: any[]
+        pairs: any[]
         /**
          * 
          */
-        var returnWrappers: boolean
+        returnWrappers: boolean
         /**
          * Find an adapter for the given arguments. If no suitable adapter
          * is found, throws an exception. match() accepts any number of
@@ -1078,7 +1091,7 @@ declare module dojo {
          * from the registered pairs.
          * 
          */
-        interface match{(): any}
+        match: {(): any}
         /**
          * register a check function to determine if the wrap function or
          * object gets selected
@@ -1089,13 +1102,13 @@ declare module dojo {
          * @param directReturn               OptionalIf directReturn is true, the value passed in for wrap will bereturned instead of being called. Alternately, theAdapterRegistry can be set globally to "return not call" usingthe returnWrappers property. Either way, this behavior allowsthe registry to act as a "search" function instead of afunction interception library.             
          * @param override               OptionalIf override is given and true, the check function will be givenhighest priority. Otherwise, it will be the lowest priorityadapter.             
          */
-        interface register{(name: String, check: Function, wrap: Function, directReturn: boolean, override: boolean): void}
+        register: {(name: String, check: Function, wrap: Function, directReturn: boolean, override: boolean): void}
         /**
          * Remove a named adapter from the registry
          * 
          * @param name The name of the adapter.             
          */
-        interface unregister{(name: String): any}
+        unregister: {(name: String): any}
     }
 
     /**
@@ -16113,7 +16126,7 @@ declare module dojo {
              * @param errback               OptionalCallback to be invoked when the promise is rejected.Receives the rejection error.             
              * @param progback               OptionalCallback to be invoked when the promise emits a progressupdate. Receives the progress update.             
              */
-            then(callback: Function, errback: Function, progback: Function): dojo.promise.Promise;
+            then(callback?: Function, errback?: Function, progback?: Function): dojo.promise.Promise;
             /**
              * 
              */
