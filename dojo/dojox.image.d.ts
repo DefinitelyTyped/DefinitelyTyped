@@ -75,7 +75,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Badge extends dijit._Widget implements dijit._TemplatedMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Object to which attach points and events will be scoped.  Defaults
              * to 'this'.
@@ -1193,7 +1193,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Magnifier extends dojox.image.MagnifierLite {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -1980,7 +1980,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class MagnifierLite extends dijit._Widget {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.

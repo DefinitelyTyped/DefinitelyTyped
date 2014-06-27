@@ -382,7 +382,7 @@
                  * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
                  */
                 class Legend extends dijit._Widget {
-                    constructor(params: Object, srcNodeRef?: HTMLElement);
+                    constructor(params?: Object, srcNodeRef?: HTMLElement);
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -2838,7 +2838,7 @@
                  * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
                  */
                 class Map extends dijit._Widget {
-                    constructor(params: Object, srcNodeRef?: HTMLElement);
+                    constructor(params?: Object, srcNodeRef?: HTMLElement);
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.

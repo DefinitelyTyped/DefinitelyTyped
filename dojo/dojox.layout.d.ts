@@ -17,7 +17,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class ContentPane extends dijit.layout.ContentPane {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Adjust relative paths in html string content to point to this page.
              * Only useful if you grab content from a another folder then the current one
@@ -1113,7 +1113,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Dock extends dijit._WidgetBase implements dijit._TemplatedMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Object to which attach points and events will be scoped.  Defaults
              * to 'this'.
@@ -1807,7 +1807,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class DragPane extends dijit._Widget {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -2591,7 +2591,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class ExpandoPane extends dijit.layout.ContentPane implements dijit._TemplatedMixin, dijit._Contained, dijit._Container {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Object to which attach points and events will be scoped.  Defaults
              * to 'this'.
@@ -3719,7 +3719,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class FloatingPane extends dojox.layout.ContentPane implements dijit._TemplatedMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Adjust relative paths in html string content to point to this page.
              * Only useful if you grab content from a another folder then the current one
@@ -6926,7 +6926,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class RotatorContainer extends dijit.layout.StackContainer implements dijit._Templated {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Object to which attach points and events will be scoped.  Defaults
              * to 'this'.
@@ -7937,7 +7937,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class ResizeHandle extends dijit._Widget implements dijit._TemplatedMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * if true, node will size realtime with mouse movement,
              * if false, node will create virtual node, and only resize target on mouseUp
@@ -8899,7 +8899,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class ScrollPane extends dijit.layout.ContentPane implements dijit._Templated {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Object to which attach points and events will be scoped.  Defaults
              * to 'this'.
@@ -10018,7 +10018,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class TableContainer extends dijit.layout._LayoutWidget {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.

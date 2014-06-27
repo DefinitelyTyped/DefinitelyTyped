@@ -139,7 +139,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class _ScrollBarBase extends dijit._WidgetBase {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -3887,7 +3887,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class ExpandRenderer extends dijit._WidgetBase implements dijit._TemplatedMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Object to which attach points and events will be scoped.  Defaults
              * to 'this'.
@@ -4626,7 +4626,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class HorizontalRenderer extends dijit._WidgetBase implements dijit._TemplatedMixin, dojox.calendar._RendererMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * The padding size in pixels to apply to the label container on left and/or right side, to show the arrows correctly.
              * 
@@ -5483,7 +5483,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class LabelRenderer extends dijit._WidgetBase implements dijit._TemplatedMixin, dojox.calendar._RendererMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Object to which attach points and events will be scoped.  Defaults
              * to 'this'.
@@ -7776,7 +7776,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class MobileHorizontalRenderer extends dijit._WidgetBase implements dijit._TemplatedMixin, dojox.calendar._RendererMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * The padding size in pixels to apply to the label container on left and/or right side, to show the arrows correctly.
              * 
@@ -8556,7 +8556,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class MobileVerticalRenderer extends dijit._WidgetBase implements dijit._TemplatedMixin, dojox.calendar._RendererMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Object to which attach points and events will be scoped.  Defaults
              * to 'this'.
@@ -9580,7 +9580,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class VerticalRenderer extends dijit._WidgetBase implements dijit._TemplatedMixin, dojox.calendar._RendererMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Object to which attach points and events will be scoped.  Defaults
              * to 'this'.

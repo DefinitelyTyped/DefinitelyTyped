@@ -1520,7 +1520,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class Code extends dijit._Widget implements dijit._Templated {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * Object to which attach points and events will be scoped.  Defaults
                  * to 'this'.

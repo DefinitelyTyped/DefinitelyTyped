@@ -10396,7 +10396,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class Chart extends dijit._WidgetBase {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                  * for each XXX attribute to be mapped to the DOM.
@@ -11076,7 +11076,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class Chart2D extends dijit._WidgetBase {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                  * for each XXX attribute to be mapped to the DOM.
@@ -11767,7 +11767,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class Legend extends dijit._WidgetBase {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                  * for each XXX attribute to be mapped to the DOM.
@@ -12433,7 +12433,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class SelectableLegend extends dojox.charting.widget.Legend {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                  * for each XXX attribute to be mapped to the DOM.

@@ -3865,7 +3865,7 @@
                  * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
                  */
                 class GreekPalette extends dijit._Widget implements dijit._TemplatedMixin, dijit._PaletteMixin {
-                    constructor(params: Object, srcNodeRef?: HTMLElement);
+                    constructor(params?: Object, srcNodeRef?: HTMLElement);
                     /**
                      * True if mouse was pressed while over this widget, and hasn't been released yet
                      * 

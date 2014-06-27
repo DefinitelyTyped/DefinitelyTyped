@@ -851,7 +851,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class _CalendarDayView extends dojox.widget._CalendarView implements dijit._TemplatedMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Object to which attach points and events will be scoped.  Defaults
              * to 'this'.
@@ -1620,7 +1620,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class _CalendarMonthView extends dojox.widget._CalendarView implements dijit._TemplatedMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Object to which attach points and events will be scoped.  Defaults
              * to 'this'.
@@ -2387,7 +2387,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class _CalendarMonthYearView extends dojox.widget._CalendarView implements dijit._TemplatedMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Object to which attach points and events will be scoped.  Defaults
              * to 'this'.
@@ -3175,7 +3175,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class _CalendarView extends dijit._WidgetBase {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -3898,7 +3898,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class _CalendarYearView extends dojox.widget._CalendarView implements dijit._TemplatedMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Object to which attach points and events will be scoped.  Defaults
              * to 'this'.
@@ -9794,7 +9794,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class ColorPicker extends dijit.form._FormWidget {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * True if mouse was pressed while over this widget, and hasn't been released yet
              * 
@@ -10928,7 +10928,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class DialogSimple extends dojox.layout.ContentPane implements dijit._TemplatedMixin, dijit.form._FormMixin, dijit._DialogMixin, dijit._CssStateMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * True if mouse was pressed while over this widget, and hasn't been released yet
              * 
@@ -12249,7 +12249,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class FisheyeListItem extends dijit._WidgetBase implements dijit._TemplatedMixin, dijit._Contained {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Object to which attach points and events will be scoped.  Defaults
              * to 'this'.
@@ -16172,7 +16172,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Pager extends dijit._WidgetBase implements dijit._TemplatedMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Object to which attach points and events will be scoped.  Defaults
              * to 'this'.
@@ -17963,7 +17963,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class _MonthDropDown extends dijit._Widget implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * Object to which attach points and events will be scoped.  Defaults
                  * to 'this'.
@@ -18825,7 +18825,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class PagerItem extends dijit._WidgetBase implements dijit._TemplatedMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Object to which attach points and events will be scoped.  Defaults
              * to 'this'.
@@ -19525,7 +19525,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class PlaceholderMenuItem extends dijit.MenuItem {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Text for the accelerator (shortcut) key combination, a control, alt, etc. modified keystroke meant to
              * execute the menu item regardless of where the focus is on the page.
@@ -20465,7 +20465,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Portlet extends dijit.TitlePane implements dijit._Container {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * True if mouse was pressed while over this widget, and hasn't been released yet
              * 
@@ -23010,7 +23010,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class PortletSettings extends dijit._Container implements dijit.layout.ContentPane {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
          * Custom press, release, and click synthetic events
          * which trigger on a left mouse click, touch, or space/enter keyup.
@@ -24236,7 +24236,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class TitleGroup extends dijit._Widget {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -25059,7 +25059,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Standby extends dijit._Widget implements dijit._TemplatedMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Object to which attach points and events will be scoped.  Defaults
              * to 'this'.
@@ -25978,7 +25978,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Toaster extends dijit._WidgetBase implements dijit._TemplatedMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Object to which attach points and events will be scoped.  Defaults
              * to 'this'.
@@ -27514,7 +27514,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Wizard extends dijit.layout.StackContainer implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Object to which attach points and events will be scoped.  Defaults
              * to 'this'.
@@ -29303,7 +29303,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class WizardPane extends dijit.layout.ContentPane {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.

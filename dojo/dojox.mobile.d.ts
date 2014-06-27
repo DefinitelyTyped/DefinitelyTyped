@@ -23,7 +23,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class _ComboBoxMenu extends dijit._WidgetBase implements dojox.mobile._ListTouchMixin, dijit.form._ComboBoxMenuMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -1330,7 +1330,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class _IconItemPane extends dojox.mobile.Pane {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -2112,7 +2112,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class _ItemBase extends dijit._WidgetBase implements dijit._Container, dijit._Contained {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * An alternate text for the icon image.
              * 
@@ -3081,7 +3081,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class _PickerBase extends dijit._WidgetBase implements dijit._Container, dijit._Contained {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -4480,7 +4480,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Accordion extends dijit._WidgetBase implements dijit._Container, dijit._Contained {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * If true, animation is used when a pane is opened or
              * collapsed. The animation works only on webkit browsers.
@@ -6051,7 +6051,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Button extends dijit._WidgetBase implements dijit.form._FormWidgetMixin, dijit.form._ButtonMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Corresponds to the native HTML <input> element's attribute.
              * 
@@ -6811,7 +6811,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class CarouselItem extends dijit._WidgetBase implements dijit._Contained {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * An alt text for the carousel item image.
              * 
@@ -7527,7 +7527,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Carousel extends dijit._WidgetBase implements dijit._Container, dijit._Contained {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -8418,7 +8418,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class CheckBox extends dojox.mobile.ToggleButton implements dijit.form._CheckBoxMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Corresponds to the native HTML <input> element's attribute.
              * 
@@ -9197,7 +9197,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class ComboBox extends dojox.mobile.TextBox implements dijit.form._AutoCompleterMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Corresponds to the native HTML <input> element's attribute.
              * 
@@ -10267,7 +10267,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Container extends dojox.mobile.Pane implements dijit._Container {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -10978,7 +10978,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class ContentPane extends dojox.mobile.Container implements dojox.mobile._ContentPaneMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -11765,7 +11765,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class DataCarousel extends dojox.mobile.Carousel implements dojox.mobile._DataMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -12690,7 +12690,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class EdgeToEdgeCategory extends dojox.mobile.RoundRectCategory {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -13375,7 +13375,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class EdgeToEdgeList extends dojox.mobile.RoundRectList {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -14195,7 +14195,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class EdgeToEdgeDataList extends dojox.mobile.EdgeToEdgeList implements dojox.mobile._DataListMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * If true, refresh() does not clear the existing items.
              * 
@@ -15177,7 +15177,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class EdgeToEdgeStoreList extends dojox.mobile.EdgeToEdgeList implements dojox.mobile._StoreListMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * If true, refresh() does not clear the existing items.
              * 
@@ -16127,7 +16127,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class ExpandingTextArea extends dojox.mobile.TextArea implements dijit.form._ExpandingTextAreaMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Corresponds to the native HTML <input> element's attribute.
              * 
@@ -17113,7 +17113,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class FixedSplitter extends dijit._WidgetBase implements dijit._Container, dijit._Contained {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -17846,7 +17846,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class FixedSplitterPane extends dojox.mobile.Container {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -18559,7 +18559,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class FormLayout extends dojox.mobile.Container {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -19293,7 +19293,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class GridLayout extends dojox.mobile.IconMenu {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -20055,7 +20055,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Heading extends dijit._WidgetBase implements dijit._Container, dijit._Contained {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -20887,7 +20887,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class IconContainer extends dijit._WidgetBase implements dijit._Container, dijit._Contained {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -21703,7 +21703,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class IconItem extends dojox.mobile._ItemBase {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * An alternate text for the icon image.
              * 
@@ -22805,7 +22805,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class IconMenu extends dijit._WidgetBase implements dijit._Container, dijit._Contained {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -23561,7 +23561,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class IconMenuItem extends dojox.mobile._ItemBase {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * An alternate text for the icon image.
              * 
@@ -24635,7 +24635,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class ListItem extends dojox.mobile._ItemBase {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * An alternate text for the icon image.
              * 
@@ -25809,7 +25809,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Opener extends dojox.mobile.Tooltip {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -26487,7 +26487,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Overlay extends dijit._WidgetBase {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -27145,7 +27145,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class PageIndicator extends dijit._WidgetBase implements dijit._Contained {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -27831,7 +27831,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Pane extends dijit._WidgetBase implements dijit._Contained {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -28504,7 +28504,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class ProgressBar extends dijit._WidgetBase {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -29919,7 +29919,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Rating extends dijit._WidgetBase {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * An alternate text for the icon image.
              * 
@@ -30598,7 +30598,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class RadioButton extends dojox.mobile.CheckBox implements dijit.form._RadioButtonMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Corresponds to the native HTML <input> element's attribute.
              * 
@@ -31382,7 +31382,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class RoundRect extends dojox.mobile.Container {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -32101,7 +32101,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class RoundRectCategory extends dijit._WidgetBase implements dijit._Contained {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -32785,7 +32785,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class RoundRectList extends dijit._WidgetBase implements dijit._Container, dijit._Contained {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -33610,7 +33610,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class RoundRectDataList extends dojox.mobile.RoundRectList implements dojox.mobile._DataListMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * If true, refresh() does not clear the existing items.
              * 
@@ -34707,7 +34707,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class RoundRectStoreList extends dojox.mobile.RoundRectList implements dojox.mobile._StoreListMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * If true, refresh() does not clear the existing items.
              * 
@@ -35651,7 +35651,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class ScrollablePane extends dojox.mobile.Pane implements dojox.mobile._ScrollableMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Flag to allow scrolling in nested containers, e.g. to allow ScrollableView in a SwapView.
              * 
@@ -38040,7 +38040,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class SearchBox extends dojox.mobile.TextBox implements dijit.form._SearchMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Corresponds to the native HTML <input> element's attribute.
              * 
@@ -39015,7 +39015,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class SimpleDialog extends dojox.mobile.Pane {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -39765,7 +39765,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Slider extends dijit._WidgetBase implements dijit.form._FormValueMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Corresponds to the native HTML <input> element's attribute.
              * 
@@ -40579,7 +40579,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class SpinWheel extends dojox.mobile._PickerBase {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -41332,7 +41332,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class SpinWheelDatePicker extends dojox.mobile.SpinWheel implements dojox.mobile._DatePickerMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -42150,7 +42150,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class SpinWheelSlot extends dijit._WidgetBase implements dijit._Contained, dojox.mobile.scrollable {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * bounce back to the content area
              * 
@@ -43287,7 +43287,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class SpinWheelTimePicker extends dojox.mobile.SpinWheel implements dojox.mobile._TimePickerMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -44043,7 +44043,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class StoreCarousel extends dojox.mobile.Carousel implements dojox.mobile._StoreMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -44980,7 +44980,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Switch extends dijit._WidgetBase implements dijit._Contained {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -47039,7 +47039,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class TabBar extends dijit._WidgetBase implements dijit._Container, dijit._Contained {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -47826,7 +47826,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class TabBarButton extends dojox.mobile._ItemBase {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * An alternate text for the icon image.
              * 
@@ -48856,7 +48856,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class TextArea extends dojox.mobile.TextBox {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Corresponds to the native HTML <input> element's attribute.
              * 
@@ -49717,7 +49717,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class TextBox extends dijit._WidgetBase implements dijit.form._FormValueMixin, dijit.form._TextBoxMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Corresponds to the native HTML <input> element's attribute.
              * 
@@ -50595,7 +50595,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class ToggleButton extends dojox.mobile.Button implements dijit.form._ToggleButtonMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Corresponds to the native HTML <input> element's attribute.
              * 
@@ -51368,7 +51368,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class ToolBarButton extends dojox.mobile._ItemBase {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * An alternate text for the icon image.
              * 
@@ -52386,7 +52386,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Tooltip extends dijit._WidgetBase {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -54321,7 +54321,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class ValuePicker extends dojox.mobile._PickerBase {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -55079,7 +55079,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class ValuePickerDatePicker extends dojox.mobile.ValuePicker implements dojox.mobile._DatePickerMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -56006,7 +56006,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class ValuePickerSlot extends dijit._WidgetBase {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -56797,7 +56797,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class ValuePickerTimePicker extends dojox.mobile.ValuePicker implements dojox.mobile._TimePickerMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.

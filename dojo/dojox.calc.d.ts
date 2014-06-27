@@ -12,7 +12,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class GraphPro extends dojox.calc.Standard {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * 
              */
@@ -860,7 +860,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Standard extends dijit._WidgetBase implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * Object to which attach points and events will be scoped.  Defaults
              * to 'this'.
@@ -1731,7 +1731,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class _Executor extends dijit._WidgetBase implements dijit._TemplatedMixin {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * Object to which attach points and events will be scoped.  Defaults
                  * to 'this'.
@@ -2438,7 +2438,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class FuncGen extends dijit._WidgetBase implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * Object to which attach points and events will be scoped.  Defaults
                  * to 'this'.
@@ -3215,7 +3215,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class Grapher extends dijit._WidgetBase implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * Object to which attach points and events will be scoped.  Defaults
                  * to 'this'.
@@ -4125,7 +4125,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class _Executor extends dijit._WidgetBase implements dijit._TemplatedMixin {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * Object to which attach points and events will be scoped.  Defaults
                  * to 'this'.
@@ -4832,7 +4832,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class FuncGen extends dijit._WidgetBase implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * Object to which attach points and events will be scoped.  Defaults
                  * to 'this'.
@@ -5609,7 +5609,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class Grapher extends dijit._WidgetBase implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * Object to which attach points and events will be scoped.  Defaults
                  * to 'this'.
@@ -6519,7 +6519,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class _Executor extends dijit._WidgetBase implements dijit._TemplatedMixin {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * Object to which attach points and events will be scoped.  Defaults
                  * to 'this'.
@@ -7226,7 +7226,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class FuncGen extends dijit._WidgetBase implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * Object to which attach points and events will be scoped.  Defaults
                  * to 'this'.
@@ -8003,7 +8003,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class Grapher extends dijit._WidgetBase implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * Object to which attach points and events will be scoped.  Defaults
                  * to 'this'.
@@ -8913,7 +8913,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class _Executor extends dijit._WidgetBase implements dijit._TemplatedMixin {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * Object to which attach points and events will be scoped.  Defaults
                  * to 'this'.
@@ -9620,7 +9620,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class FuncGen extends dijit._WidgetBase implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * Object to which attach points and events will be scoped.  Defaults
                  * to 'this'.
@@ -10397,7 +10397,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class Grapher extends dijit._WidgetBase implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * Object to which attach points and events will be scoped.  Defaults
                  * to 'this'.

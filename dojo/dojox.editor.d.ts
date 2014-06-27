@@ -515,7 +515,7 @@
                  * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
                  */
                 class _AutoSaveSettingDialog extends dijit._Widget implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
-                    constructor(params: Object, srcNodeRef?: HTMLElement);
+                    constructor(params?: Object, srcNodeRef?: HTMLElement);
                     /**
                      * Object to which attach points and events will be scoped.  Defaults
                      * to 'this'.
@@ -1544,7 +1544,7 @@
                  * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
                  */
                 class _BreadcrumbMenuTitle extends dijit._Widget implements dijit._TemplatedMixin, dijit._Contained {
-                    constructor(params: Object, srcNodeRef?: HTMLElement);
+                    constructor(params?: Object, srcNodeRef?: HTMLElement);
                     /**
                      * Object to which attach points and events will be scoped.  Defaults
                      * to 'this'.
@@ -2528,7 +2528,7 @@
                  * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
                  */
                 class _CollapsibleToolbarButton extends dijit._Widget implements dijit._TemplatedMixin {
-                    constructor(params: Object, srcNodeRef?: HTMLElement);
+                    constructor(params?: Object, srcNodeRef?: HTMLElement);
                     /**
                      * Object to which attach points and events will be scoped.  Defaults
                      * to 'this'.
@@ -3347,7 +3347,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class _SmileyPalette extends dijit._Widget implements dijit._TemplatedMixin, dijit._PaletteMixin {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * True if mouse was pressed while over this widget, and hasn't been released yet
                  * 
@@ -4432,7 +4432,7 @@
                  * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
                  */
                 class _FindReplaceCheckBox extends dijit._Widget implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
-                    constructor(params: Object, srcNodeRef?: HTMLElement);
+                    constructor(params?: Object, srcNodeRef?: HTMLElement);
                     /**
                      * Object to which attach points and events will be scoped.  Defaults
                      * to 'this'.
@@ -5269,7 +5269,7 @@
                  * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
                  */
                 class _FindReplaceCloseBox extends dijit._Widget implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
-                    constructor(params: Object, srcNodeRef?: HTMLElement);
+                    constructor(params?: Object, srcNodeRef?: HTMLElement);
                     /**
                      * Object to which attach points and events will be scoped.  Defaults
                      * to 'this'.
@@ -6089,7 +6089,7 @@
                  * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
                  */
                 class _FindReplaceTextBox extends dijit._Widget implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
-                    constructor(params: Object, srcNodeRef?: HTMLElement);
+                    constructor(params?: Object, srcNodeRef?: HTMLElement);
                     /**
                      * Object to which attach points and events will be scoped.  Defaults
                      * to 'this'.
@@ -6945,7 +6945,7 @@
                  * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
                  */
                 class _FindReplaceToolbar extends dijit.Toolbar {
-                    constructor(params: Object, srcNodeRef?: HTMLElement);
+                    constructor(params?: Object, srcNodeRef?: HTMLElement);
                     /**
                      * Object to which attach points and events will be scoped.  Defaults
                      * to 'this'.
@@ -9049,7 +9049,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class EntityPalette extends dijit._Widget implements dijit._TemplatedMixin, dijit._PaletteMixin {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * True if mouse was pressed while over this widget, and hasn't been released yet
                  * 
@@ -12351,7 +12351,7 @@
                  * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
                  */
                 class _StatusBar extends dijit._Widget implements dijit._TemplatedMixin {
-                    constructor(params: Object, srcNodeRef?: HTMLElement);
+                    constructor(params?: Object, srcNodeRef?: HTMLElement);
                     /**
                      * Object to which attach points and events will be scoped.  Defaults
                      * to 'this'.
@@ -14500,7 +14500,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class ToolbarLineBreak extends dijit._Widget implements dijit._TemplatedMixin {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * Object to which attach points and events will be scoped.  Defaults
                  * to 'this'.

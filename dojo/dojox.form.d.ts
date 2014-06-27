@@ -13,7 +13,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified, replace srcNodeRef with my generated DOM tree     
          */
         class _FormSelectWidget extends dijit.form._FormValueWidget {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * True if mouse was pressed while over this widget, and hasn't been released yet
              * 
@@ -1279,7 +1279,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class BusyButton extends dijit.form.Button {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * True if mouse was pressed while over this widget, and hasn't been released yet
              * 
@@ -2301,7 +2301,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified, replace srcNodeRef with my generated DOM tree     
          */
         class CheckedMultiSelect extends dijit.form._FormSelectWidget {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * True if mouse was pressed while over this widget, and hasn't been released yet
              * 
@@ -3525,7 +3525,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified, replace srcNodeRef with my generated DOM tree     
          */
         class DateTextBox extends dijit.form._DateTimeTextBox {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * True if mouse was pressed while over this widget, and hasn't been released yet
              * 
@@ -4862,7 +4862,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified, replace srcNodeRef with my generated DOM tree     
          */
         class DayTextBox extends dojox.form.DateTextBox {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * True if mouse was pressed while over this widget, and hasn't been released yet
              * 
@@ -6192,7 +6192,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified, replace srcNodeRef with my generated DOM tree     
          */
         class DropDownSelect extends dijit.form._FormSelectWidget implements dijit._HasDropDown, dijit._KeyNavMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * True if mouse was pressed while over this widget, and hasn't been released yet
              * 
@@ -7535,7 +7535,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class _Menu extends dijit.DropDownMenu {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * This Menu has been clicked (mouse or via space/arrow key) or opened as a submenu,
                  * so mere mouseover will open submenus.  Focusing a menu via TAB does NOT automatically make it active
@@ -8576,7 +8576,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class FileInput extends dijit.form._FormWidget {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * True if mouse was pressed while over this widget, and hasn't been released yet
              * 
@@ -9549,7 +9549,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class FileInputAuto extends dojox.form.FileInput {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * True if mouse was pressed while over this widget, and hasn't been released yet
              * 
@@ -10586,7 +10586,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class FileInputBlind extends dojox.form.FileInput {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * True if mouse was pressed while over this widget, and hasn't been released yet
              * 
@@ -14046,7 +14046,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified, replace srcNodeRef with my generated DOM tree.     
          */
         class FilePickerTextBox extends dijit.form.ValidationTextBox implements dijit._HasDropDown {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * True if mouse was pressed while over this widget, and hasn't been released yet
              * 
@@ -15381,7 +15381,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Manager extends dijit._Widget implements dijit._WidgetsInTemplateMixin, dijit._AttachMixin, dojox.form.manager._Mixin, dojox.form.manager._NodeMixin, dojox.form.manager._FormMixin, dojox.form.manager._ValueMixin, dojox.form.manager._EnableMixin, dojox.form.manager._DisplayMixin, dojox.form.manager._ClassMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * 
              */
@@ -16584,7 +16584,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Rating extends dijit.form._FormWidget {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * True if mouse was pressed while over this widget, and hasn't been released yet
              * 
@@ -18568,7 +18568,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified, replace srcNodeRef with my generated DOM tree     
          */
         class MonthTextBox extends dojox.form.DateTextBox {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * True if mouse was pressed while over this widget, and hasn't been released yet
              * 
@@ -19909,7 +19909,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class PasswordValidator extends dijit.form._FormValueWidget {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * True if mouse was pressed while over this widget, and hasn't been released yet
              * 
@@ -20932,7 +20932,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified, replace srcNodeRef with my generated DOM tree.     
          */
         class TimeSpinner extends dijit.form._Spinner {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * True if mouse was pressed while over this widget, and hasn't been released yet
              * 
@@ -22190,7 +22190,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified, replace srcNodeRef with my generated DOM tree.     
          */
         class MultiComboBox extends dijit.form.ValidationTextBox implements dijit.form.ComboBoxMixin {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * True if mouse was pressed while over this widget, and hasn't been released yet
              * 
@@ -23691,7 +23691,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
          */
         class Uploader extends dojox.form.uploader._Base implements dijit.form.Button, dojox.form.uploader._HTML5, dojox.form.uploader._IFrame, dojox.form.uploader._Flash {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * True if mouse was pressed while over this widget, and hasn't been released yet
              * 
@@ -25024,7 +25024,7 @@
          * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified, replace srcNodeRef with my generated DOM tree     
          */
         class YearTextBox extends dojox.form.DateTextBox {
-            constructor(params: Object, srcNodeRef?: HTMLElement);
+            constructor(params?: Object, srcNodeRef?: HTMLElement);
             /**
              * True if mouse was pressed while over this widget, and hasn't been released yet
              * 
@@ -26993,7 +26993,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class _Base extends dijit._Widget implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * Object to which attach points and events will be scoped.  Defaults
                  * to 'this'.
@@ -27867,7 +27867,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class FileList extends dojox.form.uploader._Base {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * Object to which attach points and events will be scoped.  Defaults
                  * to 'this'.

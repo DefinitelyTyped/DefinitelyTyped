@@ -1219,7 +1219,7 @@
              * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree     
              */
             class Container extends dijit._WidgetBase implements dijit._Container, dijit._Contained, dojox.app.widgets._ScrollableMixin {
-                constructor(params: Object, srcNodeRef?: HTMLElement);
+                constructor(params?: Object, srcNodeRef?: HTMLElement);
                 /**
                  * e.g. Allow ScrollableView in a SwapView.
                  * 
