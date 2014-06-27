@@ -1,0 +1,20 @@
+﻿declare module dojox {
+    
+    module help {
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojox/help/_base.html
+         *
+         * 
+         */
+        interface _base {
+        }
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojox/help/console.html
+         *
+         * 
+         */
+        interface console {
+        }
+    }
+
+}
