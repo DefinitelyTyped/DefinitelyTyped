@@ -17,7 +17,7 @@ interface JQueryAddressStatic {
     parameter(name: string, value?: string): string;
     value(): string;
     history(value: boolean): void;
-    baseUrl(): string;
+    baseURL(): string;
 }
 
 interface JQueryAddress {
