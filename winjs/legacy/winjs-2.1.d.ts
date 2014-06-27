@@ -148,6 +148,12 @@ declare module WinJS.Application {
     function onactivated(eventInfo: CustomEvent): void;
 
     /**
+     * Raised when the users clicks the backbutton on a Windows Phone.
+     * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.type
+    **/
+    function onbackclick(eventInfo: CustomEvent): void;
+
+    /**
      * Occurs when receiving PLM notification or when the checkpoint function is called.
      * @param eventInfo An object that contains information about the event. The detail property of this object includes the following subproperties: type, setPromise.
     **/
@@ -1073,6 +1079,15 @@ declare module WinJS.Binding {
     function initializer(customInitializer: Function): Function;
 
     /**
+     * Notifies listeners that a property value was updated.
+     * @param name The name of the property that is being updated.
+     * @param newValue The new value for the property.
+     * @param oldValue The old value for the property.
+     * @returns A promise that is completed when the notifications are complete.
+    **/
+    function notify(name: string, newValue: string, oldValue: string): Promise<any>;
+
+    /**
      * Sets the destination property to the value of the source property.
      * @param source The source object.
      * @param sourceProperties The path on the source object to the source property.
@@ -1591,6 +1606,38 @@ declare module WinJS.UI.Animation {
     //#region Functions
 
     /**
+     * Scales up an incoming page while scaling, rotating (clockwise), and translating an incoming item into place.
+     * @param incomingPage A single element to be scaled up that is the page root and does not contain the incoming item.
+     * @param incomingItemRoot The root of the item. This is translated during the continuum animation.
+     * @param incomingItemContent The content of the item. This is scaled and rotated during the continuum animation.
+     * @returns An object that returns when the animation has finished.
+    **/
+    function continuumForwardIn(incomingPage: any, incomingItemRoot: any, incomingItemContent: any): Promise<any>;
+
+    /**
+     * Scales down a page while scaling, rotating (clockwise), and translating an outgoing item.
+     * @param outgoingPage A single element to be scaled down that is the page root and contains the outgoing item.
+     * @param outgoingItem A single element to be scaled, rotated, and translated away from the outgoing page.
+     * @returns An object that returns when the animation has finished.
+    **/
+    function continuumForwardOut(outgoingPage: any, outgoingItem: any): Promise<any>;
+
+    /**
+     * Scales down an incoming page while scaling, rotating (counterclockwise), and translating an incoming item into place.
+     * @param incomingPage A single element to be scaled down that is the page root and contains the incoming item.
+     * @param incomingItem A single element to be scaled, rotated, and translated into its final position on the page.
+     * @returns An object that returns when the animation has finished.
+    **/
+    function continuumBackwardIn(incomingPage: any, incomingItem: any): Promise<any>;
+
+    /**
+     * Scales, rotates (counterclockwise), and translates an outgoing page as it is removed.
+     * @param incomingPage A single element to be scaled down that is the page root.
+     * @returns An object that returns when the animation has finished.
+    **/
+    function continuumBackwardOut(outgoingPage: any): Promise<any>;
+
+    /**
      * Creates an object that performs an animation that adds an item or items to a list.
      * @param added Element or elements to add to the list.
      * @param affected Element or elements affected by the added items.
@@ -1637,6 +1684,15 @@ declare module WinJS.UI.Animation {
      * @returns An object whose execute method is used to execute the animation. The execute method returns a Promise that completes when the animation is finished.
     **/
     function createExpandAnimation(revealed: any, affected: any): IAnimationMethodResponse;
+
+    /**
+     * Creates an exit and entrance animation to play for a page navigation given the current and incoming pages' animation preferences and whether the pages are navigating forwards or backwards.
+     * @param currentPreferredAnimation Describes the animation the current page prefers to use.
+     * @param nextPreferredAnimation Describes the animation the incoming page prefers to use.
+     * @param movingBackwards Determines whether the navigation is moving backwards
+     * @returns An object that contains an exit method used for animating exiting pages and an enter method used for animating entering pages.
+    **/
+    function createPageNavigationAnimation(currentPreferredAnimation: PageNavigationAnimation, nextPreferredAnimation: PageNavigationAnimation, movingBackwards: boolean): { enter: () => any, exit: () => any };
 
     /**
      * Creates an object that performs a peek animation.
@@ -1803,6 +1859,60 @@ declare module WinJS.UI.Animation {
     function showPopup(element: any, offset: any): Promise<any>;
 
     /**
+     * Slides elements off through the bottom of the screen.
+     * @param outgoing Single element or an array of elements that represent the content. If an array of elements, the elements exit in array order.
+     * @returns An object that completes when the animation is finished.
+    **/
+    function slideDown(outgoing: any): Promise<any>;
+
+    /**
+     * Slides elements up into view from the bottom of the screen.
+     * @param incoming Single element or an array of elements that represent the content. If an array of elements, the elements exit in array order.
+     * @returns An object that completes when the animation is finished.
+    **/
+    function slideUp(outgoing: any): Promise<any>;
+
+    /**
+     * Slides elements in from the right side of the screen.
+     * @param page A page that contains all of the elements to slide in.
+     * @param firstIncomingElements A single element or an array of elements to slide in first. If this is an array of elements, all elements enter at once.
+     * @param secondIncomingElements A single element or an array of elements to slide in once the firstIncomingElements are in place. If this is an array of elements, all elements enter at once. These elements are offset slightly more than the firstIncomingElements.
+     * @param thirdIncomingElements A single element or an array of elements to slide in once the secondIncomingElements are in place. If this is an array of elements, all elements enter at once. These elements are offset slightly more than the secondIncomingElements.
+     * @returns An object that completes when the animation is finished.
+    **/
+    function slideRightIn(page: any, firstIncomingElements: any, secondIncomingElements: any, thirdIncomingElements: any): Promise<any>;
+
+    /**
+     * Slides elements out through the right side of the screen.
+     * @param page A page that contains all of the elements to slide out.
+     * @param firstOutgoingElements A single element or an array of elements to slide out first. If this is an array of elements, the elements exit in array order.
+     * @param secondOutgoingElements A single element or an array of elements to slide out once the firstOutgoingElements are gone. If this is an array of elements, the elements exit simultaneously. These elements are offset slightly more than the firstOutgoingElements.
+     * @param thirdOutgoingElements A single element or an array of elements to slide out once the secondOutgoingElements are gone. If this is an array of elements, the elements exit simultaneously. These elements are offset slightly more than the secondOutgoingElements.
+     * @returns An object that completes when the animation is finished.
+    **/
+    function slideRightOut(page: any, firstOutgoingElements: any, secondOutgoingElements: any, thirdOutgoingElements: any): Promise<any>;
+
+    /**
+     * Slides elements in from the left side of the screen.
+     * @param page A page that contains all of the elements to slide in.
+     * @param firstIncomingElements A single element or an array of elements to slide in first. If this is an array of elements, all elements enter at once.
+     * @param secondIncomingElements A single element or an array of elements to slide in once the firstIncomingElements are in place. If this is an array of elements, all elements enter at once. These elements are offset slightly more than the firstIncomingElements.
+     * @param thirdIncomingElements A single element or an array of elements to slide in once the secondIncomingElements are in place. If this is an array of elements, all elements enter at once. These elements are offset slightly more than the secondIncomingElements.
+     * @returns An object that completes when the animation is finished.
+    **/
+    function slideLeftIn(page: any, firstIncomingElements: any, secondIncomingElements: any, thirdIncomingElements: any): Promise<any>;
+
+    /**
+     * Slides elements out through the left side of the screen.
+     * @param page A page that contains all of the elements to slide out.
+     * @param firstOutgoingElements A single element or an array of elements to slide out first. If this is an array of elements, the elements exit in array order.
+     * @param secondOutgoingElements A single element or an array of elements to slide out once the firstOutgoingElements are gone. If this is an array of elements, the elements exit simultaneously. These elements are offset slightly more than the firstOutgoingElements.
+     * @param thirdOutgoingElements A single element or an array of elements to slide out once the secondOutgoingElements are gone. If this is an array of elements, the elements exit simultaneously. These elements are offset slightly more than the secondOutgoingElements.
+     * @returns An object that completes when the animation is finished.
+    **/
+    function slideLeftOut(page: any, firstOutgoingElements: any, secondOutgoingElements: any, thirdOutgoingElements: any): Promise<any>;
+
+    /**
      * Performs a deselection animation in response to a swipe interaction.
      * @param deselected Element or elements that become unselected.
      * @param selection Element or elements that represent the selection, typically a check mark.
@@ -1825,6 +1935,35 @@ declare module WinJS.UI.Animation {
      * @returns An object that completes when the animation is finished.
     **/
     function swipeSelect(selected: any, selection: any): Promise<any>;
+
+    /**
+     * Rotates an element clockwise onto the page.
+     * @param incoming Single element or an array of elements that represent the content. If an array of elements, the elements enter in array order..
+     * @returns An promise that completes when the animation has finished.
+    **/
+    function turnstileForwardIn(incoming: any): Promise<any>;
+
+    /**
+     * Rotates an element clockwise off the page.
+     * @param outgoing Single element or an array of elements that represent the content. If an array of elements, the elements enter in array order..
+     * @returns An promise that completes when the animation has finished.
+    **/
+    function turnstileForwardOut(outgoing: any): Promise<any>;
+
+    /**
+     * Rotates an element counterclockwise onto the page.
+     * @param incoming Single element or an array of elements that represent the content. If an array of elements, the elements enter in array order..
+     * @returns An promise that completes when the animation has finished.
+    **/
+    function turnstileBackwardIn(incoming: any): Promise<any>;
+
+    /**
+     * Rotates an element counterclockwise off the page.
+     * @param outgoing Single element or an array of elements that represent the content. If an array of elements, the elements enter in array order..
+     * @returns An promise that completes when the animation has finished.
+    **/
+    function turnstileBackwardOut(outgoing: any): Promise<any>;
+
 
     /**
      * Performs an animation that updates a badge.
@@ -2193,6 +2332,25 @@ declare module WinJS.UI {
         vertical
     }
 
+    enum PageNavigationAnimation {
+        /**
+         * The pages exit and enter using a turnstile animation.
+        **/
+        turnstile,
+        /**
+         * The pages exit and enter using an animation that slides up/down.
+        **/
+        slide,
+        /**
+         * The pages enter using an enterPage animation, and exit with no animation.
+        **/
+        enterPage,
+        /**
+         * The pages exit and enter using a continuum animation.
+        **/
+        continuum
+    }
+
     /**
      * Specifies the selection mode of a ListView.
     **/
@@ -2202,27 +2360,9 @@ declare module WinJS.UI {
         **/
         none,
         /**
-         * A single item may be selected.
-        **/
-        single,
-        /**
          * Multiple items may be selected. Clicking additional items adds them to the selection.
         **/
         multi
-    }
-
-    /**
-     * Specifies whether elements are selected when the user performs a swipe interaction.
-    **/
-    enum SwipeBehavior {
-        /**
-         * The swipe interaction selects the elements touched by the swipe.
-        **/
-        select,
-        /**
-         * The swipe interaction does not change which elements are selected.
-        **/
-        none
     }
 
     /**
@@ -3443,25 +3583,25 @@ declare module WinJS.UI {
         //#region Events
 
         /**
-         * Occurs immediately after the AppBar is hidden.
+         * Occurs when the AppBar goes to its closed state.
          * @param eventInfo An object that contains information about the event.
         **/
         onafterhide(eventInfo: Event): void;
 
         /**
-         * Occurs after the AppBar is shown.
+         * Occurs when the AppBar goes to its opened state.
          * @param eventInfo An object that contains information about the event.
         **/
         onaftershow(eventInfo: Event): void;
 
         /**
-         * Occurs before the AppBar is hidden.
+         * Occurs before the AppBar goes to its closed state.
          * @param eventInfo An object that contains information about the event.
         **/
         onbeforehide(eventInfo: Event): void;
 
         /**
-         * Occurs before a hidden AppBar is shown.
+         * Occurs before the AppBar goes to its opened state.
          * @param eventInfo An object that contains information about the event.
         **/
         onbeforeshow(eventInfo: Event): void;
@@ -3499,7 +3639,7 @@ declare module WinJS.UI {
         getCommandById(id: string): AppBarCommand;
 
         /**
-         * Hides the AppBar.
+         * Makes the AppBar go to its closed state.
         **/
         hide(): void;
 
@@ -3519,7 +3659,7 @@ declare module WinJS.UI {
         removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
 
         /**
-         * Shows the AppBar if it is not disabled.
+         * Makes the AppBar go to its opened state.
         **/
         show(): void;
 
@@ -3542,6 +3682,11 @@ declare module WinJS.UI {
         //#region Properties
 
         /**
+         * Gets or sets how the app bar is displayed when hidden is true. 
+        **/
+        closedDisplayMode: string;
+
+        /**
          * Sets the AppBarCommand objects that appear in the app bar.
         **/
         commands: AppBarCommand[];
@@ -3557,7 +3702,7 @@ declare module WinJS.UI {
         element: HTMLElement;
 
         /**
-         * Gets a value that indicates whether the AppBar is hidden or in the process of becoming hidden.
+         * Gets a value that indicates whether the AppBar control is in its closed state.
         **/
         hidden: boolean;
 
@@ -3644,11 +3789,6 @@ declare module WinJS.UI {
         firstElementFocus: HTMLElement;
 
         /**
-         * Gets or sets the Flyout object displayed by this command. The specified flyout is shown when the AppBarCommand's button is invoked.
-        **/
-        flyout: Flyout;
-
-        /**
          * Gets or sets a value that indicates whether the AppBarCommand is hiding or in the process of becoming hidden.
         **/
         hidden: boolean;
@@ -3697,307 +3837,6 @@ declare module WinJS.UI {
          * Gets the type of the command.
         **/
         type: string;
-
-        //#endregion Properties
-
-    }
-
-    /**
-     * Provides backwards navigation in the form of a button.
-    **/
-    class BackButton {
-        //#region Constructors
-
-        /**
-         * Creates a new BackButton.
-         * @constructor 
-         * @param element The DOM element hosts the new BackButton.
-         * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
-        **/
-        constructor(element?: HTMLElement, options?: any);
-
-        //#endregion Constructors
-
-        //#region Methods
-
-        /**
-         * Registers an event handler for the specified event.
-         * @param eventName The name of the event to handle. Note that you drop the "on" when specifying the event name. For example, instead of specifying "onclick", you specify "click".
-         * @param eventHandler The event handler function to associate with the event.
-         * @param useCapture Set to true to register the event handler for the capturing phase; otherwise, set to false to register the event handler for the bubbling phase.
-        **/
-        addEventListener(eventName: string, eventHandler: Function, useCapture?: boolean): void;
-
-        /**
-         * Raises an event of the specified type and with additional properties.
-         * @param type The type (name) of the event.
-         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
-         * @returns true if preventDefault was called on the event, otherwise false.
-        **/
-        dispatchEvent(type: string, eventProperties: any): boolean;
-
-        /**
-         * Releases resources held by this BackButton. Call this method when the BackButton is no longer needed. After calling this method, the BackButton becomes unusable.
-        **/
-        dispose(): void;
-
-        /**
-         * Checks the current navigation history and updates the value of the control's disabled attribute.
-        **/
-        refresh(): void;
-
-        /**
-         * Removes an event handler that the addEventListener method registered.
-         * @param eventName The name of the event that the event handler is registered for.
-         * @param eventCallback The event handler function to remove.
-         * @param useCapture Set to true to remove the capturing phase event handler; set to false to remove the bubbling phase event handler.
-        **/
-        removeEventListener(eventName: string, eventCallback: Function, useCapture?: boolean): void;
-
-        //#endregion Methods
-
-        //#region Properties
-
-        /**
-         * Gets the HTML element that hosts this BackButton.
-        **/
-        element: HTMLElement;
-
-        //#endregion Properties
-
-    }
-
-    /**
-     * Represents a layout for the ListView in which items are arranged in a grid and items can span multiple grid cells.
-    **/
-    class CellSpanningLayout {
-        //#region Constructors
-
-        /**
-         * Creates a new CellSpanningLayout.
-         * @constructor 
-         * @param options An object that contains one or more property/value pairs to apply to the new CellSpanningLayout. Each property of the options object corresponds to one of the object's properties or events. Event names must begin with "on".
-        **/
-        constructor(options?: any);
-
-        //#endregion Constructors
-
-        //#region Methods
-
-        /**
-         * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
-        **/
-        dragLeave(): void;
-
-        /**
-         * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
-        **/
-        dragOver(): void;
-
-        /**
-         * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
-        **/
-        executeAnimations(): void;
-
-        /**
-         * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
-         * @param currentItem An object that describes the current item. It has these properties: index, type.
-         * @param pressedKey The key that was pressed.
-         * @returns An object that describes the next item that should receive focus. It has these properties: index, type.
-        **/
-        getAdjacent(currentItem: any, pressedKey: WinJS.Utilities.Key): any;
-
-        /**
-         * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
-         * @param x The x-coordinate, or the horizontal position on the screen.
-         * @param y The y-coordinate, or the vertical position on the screen.
-        **/
-        hitTest(x: number, y: number): void;
-
-        /**
-         * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
-         * @param site The rendering site for the layout.
-         * @param groupsEnabled Set to true if this layout supports groups; set to false if it does not.
-        **/
-        initialize(site: ILayoutSite2, groupsEnabled: boolean): void;
-
-        /**
-         * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
-         * @param firstPixel The first pixel the range of items falls between.
-         * @param lastPixel The last pixel the range of items falls between.
-        **/
-        itemsFromRange(firstPixel: number, lastPixel: number): void;
-
-        /**
-         * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
-         * @param tree 
-         * @param changedRange 
-         * @param modifiedItems 
-         * @param modifiedGroups 
-        **/
-        layout(tree: ILayoutSite2, changedRange: any, modifiedItems: any, modifiedGroups: any): void;
-
-        /**
-         * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
-        **/
-        setupAnimations(): void;
-
-        /**
-         * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
-        **/
-        uninitialize(): void;
-
-        //#endregion Methods
-
-        //#region Properties
-
-        /**
-         * Gets or sets the position of group headers relative to their items.
-        **/
-        groupHeaderPosition: WinJS.UI.HeaderPosition;
-
-        /**
-         * Gets or sets a function that enables cell-spanning and establishes base cell dimensions.
-        **/
-        groupInfo: Function;
-
-        /**
-         * Gets or sets a function that returns the width and height of an item, as well as whether it should appear in a new column. Setting this function improves performance because the ListView can allocate space for an item without having to measure it first.
-        **/
-        itemInfo: Function;
-
-        /**
-         * Gets or set the maximum number of rows or columns, depending on the orientation, to display before content begins to wrap.
-        **/
-        maximumRowsOrColumns: number;
-
-        /**
-         * This API supports the Windows Library for JavaScript infrastructure and is not intended to be used directly from your code.
-        **/
-        numberOfItemsPerItemsBlock: any;
-
-        /**
-         * Gets the orientation of the CellSpanningLayout. For a CellSpanningLayout, this property always returns Orientation.horizontal.
-        **/
-        orientation: WinJS.UI.Orientation;
-
-        //#endregion Properties
-
-    }
-
-    /**
-     * Allows users to pick a date value.
-    **/
-    class DatePicker {
-        //#region Constructors
-
-        /**
-         * Initializes a new instance of the DatePicker control.
-         * @constructor 
-         * @param element The DOM element associated with the DatePicker control.
-         * @param options The set of options to be applied initially to the DatePicker control. The options are the following: calendar, current, datePattern, disabled, maxYear, minYear, monthPattern, yearPattern.
-        **/
-        constructor(element?: HTMLElement, options?: any);
-
-        //#endregion Constructors
-
-        //#region Events
-
-        /**
-         * Occurs when any of the controls are changed by the user.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onchange(eventInfo: CustomEvent): void;
-
-        //#endregion Events
-
-        //#region Methods
-
-        /**
-         * Adds an event listener.
-         * @param type The type (name) of the event.
-         * @param listener The function that handles the event.
-         * @param capture If true, specifies that capture should be initiated, otherwise false.
-        **/
-        addEventListener(type: string, listener: Function, capture?: boolean): void;
-
-        /**
-         * Raises an event of the specified type and with additional properties.
-         * @param type The type (name) of the event.
-         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
-         * @returns true if preventDefault was called on the event, otherwise false.
-        **/
-        dispatchEvent(type: string, eventProperties: any): boolean;
-
-        /**
-         * Releases resources held by this DatePicker. Call this method when the DatePicker is no longer needed. After calling this method, the DatePicker becomes unusable.
-        **/
-        dispose(): void;
-
-        /**
-         * Raises an event of the specified type and with additional properties.
-         * @param type The type (name) of the event.
-         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
-         * @returns true if preventDefault was called on the event, otherwise false.
-        **/
-        raiseEvent(type: string, eventProperties: any): boolean;
-
-        /**
-         * Removes a listener for the specified event.
-         * @param type The name of the event for which to remove a listener.
-         * @param listener The listener.
-         * @param useCapture Optional. The same value that was passed to addEventListener for this listener. It may be omitted if it was omitted when calling addEventListener.
-        **/
-        removeEventListener(type: string, listener: Function, useCapture?: any): void;
-
-        //#endregion Methods
-
-        //#region Properties
-
-        /**
-         * Gets or sets the calendar to use.
-        **/
-        calendar: string;
-
-        /**
-         * Gets or sets the current date of the DatePicker. You can use either a date string or a Date object to set this property.
-        **/
-        current: Date;
-
-        /**
-         * Gets or sets the display pattern for the date. The default date pattern is day.integer(2). You can change the date pattern by changing the number of integers displayed.
-        **/
-        datePattern: string;
-
-        /**
-         * Specifies whether the DatePicker is disabled.
-        **/
-        disabled: boolean;
-
-        /**
-         * Gets the DOM element for the DatePicker.
-        **/
-        element: HTMLElement;
-
-        /**
-         * Gets or sets the maximum Gregorian year available for picking.
-        **/
-        maxYear: number;
-
-        /**
-         * Gets or sets the minimum Gregorian year available for picking.
-        **/
-        minYear: number;
-
-        /**
-         * Gets or sets the display pattern for the month. The default month pattern is month.abbreviated. You can change the month pattern to the following values: month.full. The full name of the month. month.abbreviated(n). You can use abbreviated with or without specifying the number of letters in the abbreviation. If you do specify the number of letters, the actual length of the month name that appears may vary. month.solo.full. A representation of the month that is suitable for stand-alone display. You can also use month.solo.abbreviated(n). month.integer(n). You can use integer with or without specifying the number of integers.
-        **/
-        monthPattern: string;
-
-        /**
-         * Gets or sets the display pattern for the year. The default year pattern is year.full. You can change the year pattern to the following values: year.abbreviated(n). You can use abbreviated with or without specifying the number of letters in the abbreviation.
-        **/
-        yearPattern: string;
 
         //#endregion Properties
 
@@ -4181,119 +4020,6 @@ declare module WinJS.UI {
          * Gets or sets the orientation of the FlipView, horizontal or vertical.
         **/
         orientation: string;
-
-        //#endregion Properties
-
-    }
-
-    /**
-     * Displays lightweight UI that is either information, or requires user interaction. Unlike a dialog, a Flyout can be light dismissed by clicking or tapping off of it.
-    **/
-    class Flyout {
-        //#region Constructors
-
-        /**
-         * Creates a new Flyout object.
-         * @constructor 
-         * @param element The DOM element that will host the control.
-         * @param options The set of properties and values to apply to the new Flyout.
-        **/
-        constructor(element?: HTMLElement, options?: any);
-
-        //#endregion Constructors
-
-        //#region Events
-
-        /**
-         * Raised immediately after a flyout is fully hidden.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onafterhide(eventInfo: Event): void;
-
-        /**
-         * Raised immediately after a flyout is fully shown.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onaftershow(eventInfo: Event): void;
-
-        /**
-         * Raised just before hiding a flyout.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onbeforehide(eventInfo: Event): void;
-
-        /**
-         * Raised just before showing a flyout.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onbeforeshow(eventInfo: Event): void;
-
-        //#endregion Events
-
-        //#region Methods
-
-        /**
-         * Registers an event handler for the specified event.
-         * @param type The event type to register. It must be beforeshow, beforehide, aftershow, or afterhide.
-         * @param listener The event handler function to associate with the event.
-         * @param useCapture Set to true to register the event handler for the capturing phase; otherwise, set to false to register the event handler for the bubbling phase.
-        **/
-        addEventListener(type: string, listener: Function, useCapture?: boolean): void;
-
-        /**
-         * Releases resources held by this object. Call this method when the object is no longer needed. After calling this method, the object becomes unusable.
-        **/
-        dispose(): void;
-
-        /**
-         * Hides the Flyout, if visible, regardless of other states.
-        **/
-        hide(): void;
-
-        /**
-         * Removes an event handler that the addEventListener method registered.
-         * @param type The event type to unregister. It must be beforeshow, beforehide, aftershow, or afterhide.
-         * @param listener The event handler function to remove.
-         * @param useCapture Set to true to remove the capturing phase event handler; set to false to remove the bubbling phase event handler.
-        **/
-        removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
-
-        /**
-         * Shows the Flyout, if hidden, regardless of other states.
-         * @param anchor Required. The DOM element to anchor the Flyout.
-         * @param placement The placement of the Flyout to the anchor: the string literal "top", "bottom", "left", or "right".
-         * @param alignment For "top" or "bottom" placement, the alignment of the Flyout to the anchor's edge: the string literal "center", "left", or "right".
-        **/
-        show(anchor: HTMLElement, placement: string, alignment: string): void;
-
-        //#endregion Methods
-
-        //#region Properties
-
-        /**
-         * Gets or sets the default alignment to be used for this Flyout.
-        **/
-        alignment: string;
-
-        /**
-         * Gets or sets the default anchor to be used for this Flyout.
-        **/
-        anchor: HTMLElement;
-
-        /**
-         * Gets the DOM element that hosts the Flyout.
-        **/
-        element: HTMLElement;
-
-        /**
-         * Gets a value that indicates whether the Flyout is hidden or in the process of becoming hidden.
-        **/
-        hidden: boolean;
-
-        /**
-         * Gets or sets the default placement to be used for this Flyout.
-        **/
-        placement: string;
 
         //#endregion Properties
 
@@ -4550,184 +4276,6 @@ declare module WinJS.UI {
     }
 
     /**
-     * Creates a hub navigation pattern consisting of sections that can be navigated to. Each section is defined by a HubSection object.
-    **/
-    class Hub {
-        //#region Constructors
-
-        /**
-         * Creates a new Hub control.
-         * @constructor 
-         * @param element The DOM element that will host the Hub control.
-         * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the contentanimating event, add a property named "oncontentanimating" to the options object and set its value to the event handler.
-        **/
-        constructor(element?: HTMLElement, options?: any);
-
-        //#endregion Constructors
-
-        //#region Events
-
-        /**
-         * Raised when the Hub is about to play entrance, content transition, insert, or remove animations.
-         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.type, detail.index, detail.section.
-        **/
-        oncontentanimating(eventInfo: CustomEvent): void;
-
-        /**
-         * Raised when the user clicks on an interactive header.
-         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.index, detail.section.
-        **/
-        onheaderinvoked(eventInfo: CustomEvent): void;
-
-        /**
-         * Raised when the Hub control's loadingState changes.
-         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: loadingState.
-        **/
-        onloadingstatechanged(eventInfo: CustomEvent): void;
-
-        //#endregion Events
-
-        //#region Methods
-
-        /**
-         * Registers an event handler for the specified event.
-         * @param eventName The name of the event to handle. Note that you drop the "on" when specifying the event name. For example, instead of specifying "onclick", you specify "click".
-         * @param eventHandler The event handler function to associate with the event.
-         * @param useCapture Set to true to register the event handler for the capturing phase; otherwise, set to false to register the event handler for the bubbling phase.
-        **/
-        addEventListener(eventName: string, eventHandler: Function, useCapture?: boolean): void;
-
-        /**
-         * Raises an event of the specified type and with additional properties.
-         * @param type The type (name) of the event.
-         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
-         * @returns true if preventDefault was called on the event, otherwise false.
-        **/
-        dispatchEvent(type: string, eventProperties: any): boolean;
-
-        /**
-         * Releases resources held by this Hub. Call this method when the Hub is no longer needed. After calling this method, the Hub becomes unusable.
-        **/
-        dispose(): void;
-
-        /**
-         * Removes an event handler that the addEventListener method registered.
-         * @param eventName The name of the event that the event handler is registered for.
-         * @param eventCallback The event handler function to remove.
-         * @param useCapture Set to true to remove the capturing phase event handler; set to false to remove the bubbling phase event handler.
-        **/
-        removeEventListener(eventName: string, eventCallback: Function, useCapture?: boolean): void;
-
-        //#endregion Methods
-
-        //#region Properties
-
-        /**
-         * Gets the DOM element that hosts the Hub control.
-        **/
-        element: HTMLElement;
-
-        /**
-         * Gets or sets the Template or templating function that creates the DOM elements for each HubSection header. Your HubSection object should provide strings for HubSection.header property.
-        **/
-        headerTemplate: any;
-
-        /**
-         * Gets or sets the index of the first HubSection at least partially in view. This property is useful for animating the visible content in the Hub.
-        **/
-        indexOfFirstVisible: number;
-
-        /**
-         * Gets or sets the index of last HubSection at least partially in view. Used for animating the visible content in the Hub.
-        **/
-        indexOfLastVisible: number;
-
-        /**
-         * Gets a value that indicates whether the hub is still loading or whether loading is complete. The value changes to complete after all the sections and content inside them has loaded.
-        **/
-        loadingState: string;
-
-        /**
-         * Gets or sets the orientation of sections within the Hub.
-        **/
-        orientation: Orientation;
-
-        /**
-         * Gets or sets the distance between the start of the Hub and the current viewable area.
-        **/
-        scrollPosition: number;
-
-        /**
-         * Gets or sets the index of the first visible HubSection.
-        **/
-        sectionOnScreen: number;
-
-        /**
-         * Gets or sets the List that contains the HubSection objects that belong to this Hub.
-        **/
-        sections: WinJS.Binding.List<HubSection>;
-
-        /**
-         * This API supports the SemanticZoom infrastructure and is not intended to be used directly from your code.
-        **/
-        zoomableView: IZoomableView<Hub>;
-
-        //#endregion Properties
-
-    }
-
-    /**
-     * Defines a section of a Hub.
-    **/
-    class HubSection {
-        //#region Constructors
-
-        /**
-         * Creates a new HubSection.
-         * @constructor 
-         * @param element The DOM element hosts the new HubSection.
-         * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
-        **/
-        constructor(element?: HTMLElement, options?: any);
-
-        //#endregion Constructors
-
-        //#region Methods
-
-        /**
-         * Releases resources held by this HubSection. Call this method when the HubSection is no longer needed. After calling this method, the HubSection becomes unusable.
-        **/
-        dispose(): void;
-
-        //#endregion Methods
-
-        //#region Properties
-
-        /**
-         * Gets the DOM element that hosts the HubSection control's content.
-        **/
-        contentElement: HTMLElement;
-
-        /**
-         * Gets the DOM element that hosts this HubSection.
-        **/
-        element: HTMLElement;
-
-        /**
-         * Gets or sets the header for this HubSection.
-        **/
-        header: string;
-
-        /**
-         * Gets a value that specifies whether the header is static.
-        **/
-        isHeaderStatic: boolean;
-
-        //#endregion Properties
-
-    }
-
-    /**
      * Enables you to include an HTML page dynamically. As part of the constructor, you must include an option indicating the URI of the page.
     **/
     class HtmlControl {
@@ -4842,11 +4390,6 @@ declare module WinJS.UI {
          * Gets or sets a value that specifies whether selection of this item is disabled.
         **/
         selectionDisabled: boolean;
-
-        /**
-         * Gets or sets how the ItemContainer reacts to the swipe gesture. The swipe gesture can select the swiped items or can have no effect on the current selection.
-        **/
-        swipeBehavior: WinJS.UI.SwipeBehavior;
 
         /**
          * Gets or sets the orientation of swipe gestures.
@@ -5137,48 +4680,6 @@ declare module WinJS.UI {
         ongroupheaderinvoked(eventInfo: CustomEvent): void;
 
         /**
-         * Raised when the ListView is a drop target and the onitemdragenter has been disabled. This is raised every time the cursor is moved between a new pair of items. If you call preventDefault on this event, then the ListView does not move the items slightly above/below the cursor to provide visual feedback for a drop.
-         * @param eventInfo An object that contains information about the event. The detail property of this object contains additional information about the event.
-        **/
-        onitemdragbetween(eventInfo: CustomEvent): void;
-
-        /**
-         * Raised when the user is dragging an item from the ListView and the datasource changes while the user is dragging.
-         * @param eventInfo An object that contains information about the event. The detail property of this object contains additional information about the event.
-        **/
-        onitemdragchanged(eventInfo: CustomEvent): void;
-
-        /**
-         * Raised when an item is dropped onto the ListView as the result of a drag operation.
-         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.dataTransfer, detail.index, detail.insertAfterIndex.
-        **/
-        onitemdragdrop(eventInfo: CustomEvent): void;
-
-        /**
-         * Raised when the user drops an item dragged from a ListView.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onitemdragend(eventInfo: CustomEvent): void;
-
-        /**
-         * Raised when an dragged item enters the bounds of the ListView control.
-         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.dataTransfer.
-        **/
-        onitemdragenter(eventInfo: CustomEvent): void;
-
-        /**
-         * Raised when a draggable item leaves the bounds of a ListView control.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onitemdragleave(eventInfo: CustomEvent): void;
-
-        /**
-         * Raised when the user begins to drag an item from a ListView control.
-         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.dataTransfer, detail.dragInfo.
-        **/
-        onitemdragstart(eventInfo: CustomEvent): void;
-
-        /**
          * Occurs when the user taps or clicks an item.
          * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.itemIndex.
         **/
@@ -5331,11 +4832,6 @@ declare module WinJS.UI {
         itemDataSource: IListDataSource<T>;
 
         /**
-         * Go Gets or sets a value that specifies whether items can be dragged. When this is set to true the ListView provides built in behaviors related to item dragging.
-        **/
-        itemsDraggable: boolean;
-
-        /**
          * Gets or sets whether the ListView control's items can be reordered within itself by dragging and dropping.
         **/
         itemsReorderable: boolean;
@@ -5401,11 +4897,6 @@ declare module WinJS.UI {
         selectionMode: SelectionMode;
 
         /**
-         * Gets or sets how the ListView reacts to the swipe gesture. The swipe gesture can select the swiped items or can have no effect on the current selection.
-        **/
-        swipeBehavior: WinJS.UI.SwipeBehavior;
-
-        /**
          * Gets or sets how the ListView reacts when the user taps or clicks an item.
         **/
         tapBehavior: TapBehavior;
@@ -5420,619 +4911,15 @@ declare module WinJS.UI {
     }
 
     /**
-     * Represents a menu flyout for displaying commands.
+     * A tab control that displays multiple items.
     **/
-    class Menu {
+    class Pivot {
         //#region Constructors
 
         /**
-         * Creates a new Menu object.
+         * Creates a new Pivot.
          * @constructor 
-         * @param element The DOM element that will host the control.
-         * @param options The set of properties and values to apply to the new Menu.
-        **/
-        constructor(element?: HTMLElement, options?: any);
-
-        //#endregion Constructors
-
-        //#region Events
-
-        /**
-         * Occurs immediately after the Menu is hidden.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onafterhide(eventInfo: Event): void;
-
-        /**
-         * Occurs after the Menu is shown.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onaftershow(eventInfo: Event): void;
-
-        /**
-         * Occurs before the Menu is hidden.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onbeforehide(eventInfo: Event): void;
-
-        /**
-         * Occurs before a hidden Menu is shown.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onbeforeshow(eventInfo: Event): void;
-
-        //#endregion Events
-
-        //#region Methods
-
-        /**
-         * Registers an event handler for the specified event.
-         * @param type The event type to register. It must be beforeshow, beforehide, aftershow, or afterhide.
-         * @param listener The event handler function to associate with the event.
-         * @param useCapture Set to true to register the event handler for the capturing phase; otherwise, set to false to register the event handler for the bubbling phase.
-        **/
-        addEventListener(type: string, listener: Function, useCapture?: boolean): void;
-
-        /**
-         * Releases resources held by this Menu. Call this method when the Menu is no longer needed. After calling this method, the Menu becomes unusable.
-        **/
-        dispose(): void;
-
-        /**
-         * Returns the MenuCommand object identified by id.
-         * @param id The element identifier (ID) of the command to be returned.
-         * @returns The command identified by id.
-        **/
-        getCommandById(id: string): MenuCommand;
-
-        /**
-         * Hides the Menu.
-        **/
-        hide(): void;
-
-        /**
-         * Hides the specified commands of the Menu.
-         * @param commands The commands to hide. The array elements may be MenuCommand objects, or the string identifiers (IDs) of commands.
-         * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to hide the commands immediately, without animating them; otherwise, false.
-        **/
-        hideCommands(commands: any[], immediate: boolean): void;
-
-        /**
-         * Removes an event handler that the addEventListener method registered.
-         * @param type The event type to unregister. It must be beforeshow, beforehide, aftershow, or afterhide.
-         * @param listener The event handler function to remove.
-         * @param useCapture Set to true to remove the capturing phase event handler; set to false to remove the bubbling phase event handler.
-        **/
-        removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
-
-        /**
-         * Shows the Menu, if hidden, regardless of other states.
-         * @param anchor Required. The DOM element to anchor the Menu.
-         * @param placement The placement of the Menu to the anchor: top, bottom, left, or right.
-         * @param alignment For top or bottom placement, the alignment of the Menu to the anchor's edge: center, left, or right.
-        **/
-        show(anchor: HTMLElement, placement: string, alignment: string): void;
-
-        /**
-         * Shows the specified commands of the Menu.
-         * @param commands The commands to show. The array elements may be Menu objects, or the string identifiers (IDs) of commands.
-         * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to show the commands immediately, without animating them; otherwise, false.
-        **/
-        showCommands(commands: any[], immediate: boolean): void;
-
-        /**
-         * Shows the specified commands of the Menu while hiding all other commands.
-         * @param commands The commands to show. The array elements may be MenuCommand objects, or the string identifiers (IDs) of commands.
-         * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to show the specified commands (and hide the others) immediately, without animating them; otherwise, false.
-        **/
-        showOnlyCommands(commands: any[], immediate: boolean): void;
-
-        //#endregion Methods
-
-        //#region Properties
-
-        /**
-         * Gets or sets the default alignment to be used for this Menu.
-        **/
-        alignment: string;
-
-        /**
-         * Gets or sets the default anchor to be used for this Menu.
-        **/
-        anchor: HTMLElement;
-
-        /**
-         * Sets the MenuCommand objects that appear in the menu.
-        **/
-        commands: MenuCommand[];
-
-        /**
-         * Gets the DOM element that hosts the Menu.
-        **/
-        element: HTMLElement;
-
-        /**
-         * Gets a value that indicates whether the Menu is hidden or in the process of becoming hidden.
-        **/
-        hidden: boolean;
-
-        /**
-         * Gets or sets the default placement to be used for this Menu.
-        **/
-        placement: string;
-
-        //#endregion Properties
-
-    }
-
-    /**
-     * Represents a command to be displayed in a Menu object.
-    **/
-    class MenuCommand {
-        //#region Constructors
-
-        /**
-         * Creates a new MenuCommand object.
-         * @constructor 
-         * @param element The DOM element that will host the control.
-         * @param options The set of properties and values to apply to the new MenuCommand.
-        **/
-        constructor(element?: HTMLElement, options?: any);
-
-        //#endregion Constructors
-
-        //#region Methods
-
-        /**
-         * Registers an event handler for the specified event.
-         * @param type The event type to register. It must be beforeshow, beforehide, aftershow, or afterhide.
-         * @param listener The event handler function to associate with the event.
-         * @param useCapture Set to true to register the event handler for the capturing phase; otherwise, set to false to register the event handler for the bubbling phase.
-        **/
-        addEventListener(type: string, listener: Function, useCapture?: boolean): void;
-
-        /**
-         * Disposes this control.
-        **/
-        dispose(): void;
-
-        /**
-         * Removes an event handler that the addEventListener method registered.
-         * @param type The event type to unregister. It must be beforeshow, beforehide, aftershow, or afterhide.
-         * @param listener The event handler function to remove.
-         * @param useCapture Set to true to remove the capturing phase event handler; set to false to remove the bubbling phase event handler.
-        **/
-        removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
-
-        //#endregion Methods
-
-        //#region Properties
-
-        /**
-         * Gets or sets a value that indicates whether the MenuCommand is disabled.
-        **/
-        disabled: boolean;
-
-        /**
-         * Gets the DOM element that hosts the MenuCommand.
-        **/
-        element: HTMLElement;
-
-        /**
-         * Adds an extra CSS class during construction.
-        **/
-        extraClass: string;
-
-        /**
-         * Gets or sets the Flyout object displayed by this command. The specified flyout is shown when the MenuCommand's button is invoked.
-        **/
-        flyout: Flyout;
-
-        /**
-         * Gets a value that indicates whether the MenuCommand is hidden or in the process of becoming hidden.
-        **/
-        hidden: boolean;
-
-        /**
-         * Gets the element identifier (ID) of the command.
-        **/
-        id: string;
-
-        /**
-         * Gets or sets the label of the command.
-        **/
-        label: string;
-
-        /**
-         * Gets or sets the function to be invoked when the command is clicked.
-        **/
-        onclick: Function;
-
-        /**
-         * Gets or sets the selected state of a toggle button.
-        **/
-        selected: boolean;
-
-        /**
-         * Gets the type of the command.
-        **/
-        type: string;
-
-        //#endregion Properties
-
-    }
-
-    /**
-     * Displays navigation commands in a toolbar that the user can show or hide.
-    **/
-    class NavBar {
-        //#region Constructors
-
-        /**
-         * Creates a new NavBar.
-         * @constructor 
-         * @param element The DOM element that will host the new NavBar.
-         * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
-        **/
-        constructor(element?: HTMLElement, options?: any);
-
-        //#endregion Constructors
-
-        //#region Events
-
-        /**
-         * Occurs immediately after the NavBar is hidden.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onafterhide(eventInfo: Event): void;
-
-        /**
-         * Raised after the NavBar is shown.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onaftershow(eventInfo: Event): void;
-
-        /**
-         * Raised just before the NavBar is hidden.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onbeforehide(eventInfo: Event): void;
-
-        /**
-         * Occurs before a hidden NavBar is shown.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onbeforeshow(eventInfo: Event): void;
-
-        /**
-         * Occurs after the NavBar has finished processing its child elements.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onchildrenprocessed(eventInfo: Event): void;
-
-        //#endregion Events
-
-        //#region Methods
-
-        /**
-         * Registers an event handler for the specified event.
-         * @param eventName The name of the event to handle. Note that you drop the "on" when specifying the event name. For example, instead of specifying "onclick", you specify "click".
-         * @param eventHandler The event handler function to associate with the event.
-         * @param useCapture Set to true to register the event handler for the capturing phase; otherwise, set to false to register the event handler for the bubbling phase.
-        **/
-        addEventListener(eventName: string, eventHandler: Function, useCapture?: boolean): void;
-
-        /**
-         * Raises an event of the specified type and with additional properties.
-         * @param type The type (name) of the event.
-         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
-         * @returns true if preventDefault was called on the event, otherwise false.
-        **/
-        dispatchEvent(type: string, eventProperties: any): boolean;
-
-        /**
-         * Releases resources held by this NavBar. Call this method when the NavBar is no longer needed. After calling this method, the NavBar becomes unusable.
-        **/
-        dispose(): void;
-
-        /**
-         * Hides the NavBar.
-        **/
-        hide(): void;
-
-        /**
-         * Hides the specified commands of the NavBar.
-         * @param commands The commands to hide. The array elements may be NavBarCommand objects, or the string identifiers (IDs) of commands.
-         * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to hide the commands immediately, without animating them; otherwise, false.
-        **/
-        hideCommands(commands: any[], immediate: boolean): void;
-
-        /**
-         * Removes an event handler that the addEventListener method registered.
-         * @param eventName The name of the event that the event handler is registered for.
-         * @param eventCallback The event handler function to remove.
-         * @param useCapture Set to true to remove the capturing phase event handler; set to false to remove the bubbling phase event handler.
-        **/
-        removeEventListener(eventName: string, eventCallback: Function, useCapture?: boolean): void;
-
-        /**
-         * Shows the NavBar if it is not disabled.
-        **/
-        show(): void;
-
-        /**
-         * Shows the specified commands of the NavBar.
-         * @param commands The commands to show. The array elements may be NavBarCommand objects, or the string identifiers (IDs) of commands.
-         * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to show the commands immediately, without animating them; otherwise, false.
-        **/
-        showCommands(commands: any[], immediate: boolean): void;
-
-        /**
-         * Shows the specified commands of the NavBar while hiding all other commands.
-         * @param commands The commands to show. The array elements may be NavBarCommand objects, or the string identifiers (IDs) of commands.
-         * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to show the specified commands (and hide the others) immediately, without animating them; otherwise, false.
-        **/
-        showOnlyCommands(commands: any[], immediate: boolean): void;
-
-        //#endregion Methods
-
-        //#region Properties
-
-        /**
-         * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
-        **/
-        commands: AppBarCommand;
-
-        /**
-         * Gets or sets a value that indicates whether the NavBar is disabled.
-        **/
-        disabled: boolean;
-
-        /**
-         * Gets the HTML element that hosts this NavBar.
-        **/
-        element: HTMLElement;
-
-        /**
-         * Gets a value that indicates whether the NavBar is hidden or in the process of becoming hidden.
-        **/
-        hidden: boolean;
-
-        /**
-         * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
-        **/
-        layout: string;
-
-        /**
-         * Gets or sets a value that specifies whether the NavBar appears at the top or bottom of the main view.
-        **/
-        placement: string;
-
-        /**
-         * Gets or sets a value that indicates whether the NavBar is sticky (won't light dismiss). If not sticky, the NavBar dismisses normally when the user touches outside of the NavBar.
-        **/
-        sticky: boolean;
-
-        //#endregion Properties
-
-    }
-
-    /**
-     * Represents a navigation command in a NavBarContainer.
-    **/
-    class NavBarCommand {
-        //#region Constructors
-
-        /**
-         * Creates a new NavBarCommand.
-         * @constructor 
-         * @param element The DOM element hosts the new NavBarCommand.
-         * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
-        **/
-        constructor(element?: HTMLElement, options?: any);
-
-        //#endregion Constructors
-
-        //#region Methods
-
-        /**
-         * Registers an event handler for the specified event.
-         * @param eventName The name of the event to handle. Note that you drop the "on" when specifying the event name. For example, instead of specifying "onclick", you specify "click".
-         * @param eventHandler The event handler function to associate with the event.
-         * @param useCapture Set to true to register the event handler for the capturing phase; otherwise, set to false to register the event handler for the bubbling phase.
-        **/
-        addEventListener(eventName: string, eventHandler: Function, useCapture?: boolean): void;
-
-        /**
-         * Raises an event of the specified type and with additional properties.
-         * @param type The type (name) of the event.
-         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
-         * @returns true if preventDefault was called on the event, otherwise false.
-        **/
-        dispatchEvent(type: string, eventProperties: any): boolean;
-
-        /**
-         * Releases resources held by this NavBarCommand. Call this method when the NavBarCommand is no longer needed. After calling this method, the NavBarCommand becomes unusable.
-        **/
-        dispose(): void;
-
-        /**
-         * Removes an event handler that the addEventListener method registered.
-         * @param eventName The name of the event that the event handler is registered for.
-         * @param eventCallback The event handler function to remove.
-         * @param useCapture Set to true to remove the capturing phase event handler; set to false to remove the bubbling phase event handler.
-        **/
-        removeEventListener(eventName: string, eventCallback: Function, useCapture?: boolean): void;
-
-        //#endregion Methods
-
-        //#region Properties
-
-        /**
-         * Gets the HTML element that hosts this NavBarCommand.
-        **/
-        element: HTMLElement;
-
-        /**
-         * Gets or sets the command's icon.
-        **/
-        icon: string;
-
-        /**
-         * Gets or sets the label of the command.
-        **/
-        label: string;
-
-        /**
-         * Get or sets the location to navigate to when this command is invoked.
-        **/
-        location: any;
-
-        /**
-         * Gets or sets a value that specifies whether to show the split tab stop.
-        **/
-        splitButton: boolean;
-
-        /**
-         * Gets a value that indicates whether the splitButton is open.
-        **/
-        splitOpened: boolean;
-
-        /**
-         * Gets or sets a user-defined object that represents the state associated with the command's location.
-        **/
-        state: any;
-
-        /**
-         * Gets or sets the tooltip of the command.
-        **/
-        tooltip: any;
-
-        //#endregion Properties
-
-    }
-
-    /**
-     * Contains a group of NavBarCommand objects in a NavBar.
-    **/
-    class NavBarContainer {
-        //#region Constructors
-
-        /**
-         * Creates a new NavBarContainer.
-         * @constructor 
-         * @param element The DOM element hosts the new NavBarContainer.
-         * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
-        **/
-        constructor(element?: HTMLElement, options?: any);
-
-        //#endregion Constructors
-
-        //#region Events
-
-        /**
-         * Occurs when a child NavBarCommand object's click event fires.
-         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.index, detail.navbarcommand, detail.data.
-        **/
-        oninvoked(eventInfo: CustomEvent): void;
-
-        /**
-         * Occurs when the split button of a child NavBarCommand is opened or closed. A split button is toggled when the user navigates to another page or opens another split button.
-         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.opened, detail.index, detail.navbarcommand, detail.data.
-        **/
-        onsplittoggle(eventInfo: CustomEvent): void;
-
-        //#endregion Events
-
-        //#region Methods
-
-        /**
-         * Registers an event handler for the specified event.
-         * @param eventName The name of the event to handle. Note that you drop the "on" when specifying the event name. For example, instead of specifying "onclick", you specify "click".
-         * @param eventHandler The event handler function to associate with the event.
-         * @param useCapture Set to true to register the event handler for the capturing phase; otherwise, set to false to register the event handler for the bubbling phase.
-        **/
-        addEventListener(eventName: string, eventHandler: Function, useCapture?: boolean): void;
-
-        /**
-         * Raises an event of the specified type and with additional properties.
-         * @param type The type (name) of the event.
-         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
-         * @returns true if preventDefault was called on the event, otherwise false.
-        **/
-        dispatchEvent(type: string, eventProperties: any): boolean;
-
-        /**
-         * Releases resources held by this NavBarCommand. Call this method when the NavBarCommand is no longer needed. After calling this method, the NavBarCommand becomes unusable.
-        **/
-        dispose(): void;
-
-        /**
-         * Forces the NavBarContainer to update its layout. Use this function when making the NavBarContainer visible again after you set its style.display property to "none".
-        **/
-        forceLayout(): void;
-
-        /**
-         * Removes an event handler that the addEventListener method registered.
-         * @param eventName The name of the event that the event handler is registered for.
-         * @param eventCallback The event handler function to remove.
-         * @param useCapture Set to true to remove the capturing phase event handler; set to false to remove the bubbling phase event handler.
-        **/
-        removeEventListener(eventName: string, eventCallback: Function, useCapture?: boolean): void;
-
-        //#endregion Methods
-
-        //#region Properties
-
-        /**
-         * Gets or sets the index of the current item.
-        **/
-        currentIndex: number;
-
-        /**
-         * Gets or sets a WinJS.Binding.List that generates NavBarCommand objects.
-        **/
-        data: WinJS.Binding.List<NavBarCommand>;
-
-        /**
-         * Gets the HTML element that hosts this NavBarContainer.
-        **/
-        element: HTMLElement;
-
-        /**
-         * Gets or sets a value that specifies whether NavBarCommand objects in this container use a fixed or dynamic width.
-        **/
-        fixedSize: boolean;
-
-        /**
-         * Gets or sets a value that specifies whether the NavBarContainer has a horizontal or vertical layout.
-        **/
-        layout: Orientation;
-
-        /**
-         * Gets or sets a value that specifies how many rows of navigation commands to display on a page.
-        **/
-        maxRows: number;
-
-        /**
-         * Gets or sets the WinJS.Binding.Template or templating function that creates the DOM elements for each item in the data source. Each item can contain multiple elements, but it must have a single root element.
-        **/
-        template: WinJS.Binding.Template;
-
-        //#endregion Properties
-
-    }
-
-    /**
-     * Lets the user rate something by clicking an icon that represents a rating. The Rating control can display three types of ratings: an average rating, a tentative rating, and the user's rating.
-    **/
-    class Rating {
-        //#region Constructors
-
-        /**
-         * Creates a new Rating.
-         * @constructor 
-         * @param element The DOM element hosts the new Rating.
+         * @param element The DOM element hosts the new Pivot.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the cancel event, add a property named "oncancel" to the options object and set its value to the event handler.
         **/
         constructor(element?: HTMLElement, options?: any);
@@ -6042,22 +4929,22 @@ declare module WinJS.UI {
         //#region Events
 
         /**
-         * Raised when the user finishes interacting with the rating control without committing a tentative rating.
+         * Raised when a PivotItem control's animation ends.
          * @param eventInfo An object that contains information about the event.
         **/
-        oncancel(eventInfo: Event): void;
+        onitemanimationend(eventInfo: Event): void;
 
         /**
-         * Raised when the user commits a change to the userRating.
-         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.tentativeRating.
+         * Raised when a PivotItem control's animation starts.
+         * @param eventInfo An object that contains information about the event.
         **/
-        onchange(eventInfo: CustomEvent): void;
+        onitemanimationstart(eventInfo: Event): void;
 
         /**
-         * Raised when the user is choosing a new tentative Rating.
-         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.tentativeRating.
+         * Raised when the user navigates to a different PivotItem.
+         * @param eventInfo An object that contains information about the event.
         **/
-        onpreviewchange(eventInfo: CustomEvent): void;
+        onselectionchanged(eventInfo: Event): void;
 
         //#endregion Events
 
@@ -6072,7 +4959,15 @@ declare module WinJS.UI {
         addEventListener(eventName: string, eventHandler: Function, useCapture?: boolean): void;
 
         /**
-         * Releases resources held by this Rating. Call this method when the Rating is no longer needed. After calling this method, the Rating becomes unusable.
+         * Raises an event of the specified type and with additional properties.
+         * @param type The type (name) of the event.
+         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
+         * @returns true if preventDefault was called on the event, otherwise false.
+        **/
+        dispatchEvent(type: string, eventProperties: any): boolean;
+
+        /**
+         * Releases resources held by this Pivot. Call this method when the Pivot is no longer needed. After calling this method, the Pivot becomes unusable.
         **/
         dispose(): void;
 
@@ -6089,42 +4984,81 @@ declare module WinJS.UI {
         //#region Properties
 
         /**
-         * Gets or sets the average rating.
-        **/
-        averageRating: number;
-
-        /**
-         * Gets or sets whether the control is disabled. When the control is disabled, the user can't specify a new user rating or modify an existing rating.
-        **/
-        disabled: boolean;
-
-        /**
-         * Gets the DOM element that hosts the Rating.
+         * Gets the DOM element that hosts the Pivot control.
         **/
         element: HTMLElement;
 
         /**
-         * Gets or sets whether control lets the user clear the rating.
+         * Gets or sets the Binding.List that contains the PivotItem objects that belong to this Pivot.
         **/
-        enableClear: boolean;
+        items: Binding.List<PivotItem>;
 
         /**
-         * Gets or sets the maximum possible rating value.
+         * Gets or sets a value that specifies whether the Pivot control is locked to the current item.
         **/
-        maxRating: number;
+        locked: boolean;
 
         /**
-         * Gets or sets a set of descriptions to show for rating values in the tooltip.
+         * Gets or sets the index of the PivotItem control in view.
         **/
-        tooltipStrings: string[];
+        selectedIndex: number;
 
         /**
-         * Gets or sets the user's rating.
+         * Gets or sets the PivotItem control in view within the Pivot control.
         **/
-        userRating: number;
+        selectedItem: PivotItem;
+
+        /**
+         * Gets or sets the title displayed above the PivotItem controls.
+        **/
+        title: string;
 
         //#endregion Properties
+    }
 
+    /**
+     * An item within a Pivot control.
+    **/
+    class PivotItem {
+        //#region Constructors
+
+        /**
+         * Creates a new PivotItem.
+         * @constructor 
+         * @param element The DOM element hosts the new PivotItem.
+         * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the cancel event, add a property named "oncancel" to the options object and set its value to the event handler.
+        **/
+        constructor(element?: HTMLElement, options?: any);
+
+        //#endregion Constructors
+
+        //#region Methods
+
+        /**
+         * Releases resources held by this PivotItem. Call this method when the PivotItem is no longer needed. After calling this method, the PivotItem becomes unusable.
+        **/
+        dispose(): void;
+
+        //#endregion Methods
+
+        //#region Properties
+
+        /**
+         * Gets the DOM element that hosts the PivotItem control's content.
+        **/
+        contentElement: HTMLElement;
+
+        /**
+         * Gets the DOM element that hosts the PivotItem control.
+        **/
+        element: HTMLElement;
+
+        /**
+         * Gets or sets the header for this PivotItem.
+        **/
+        header: HTMLElement;
+
+        //#endregion Properties
     }
 
     /**
@@ -6279,141 +5213,6 @@ declare module WinJS.UI {
     }
 
     /**
-     * Enables the user to perform search queries and select suggestions.
-    **/
-    class SearchBox {
-        //#region Constructors
-
-        /**
-         * Creates a new SearchBox.
-         * @constructor 
-         * @param element The DOM element hosts the new SearchBox.
-         * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
-        **/
-        constructor(element?: HTMLElement, options?: any);
-
-        //#endregion Constructors
-
-        //#region Events
-
-        /**
-         * Raised when the user or the app changes the queryText.
-         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.language, detail.queryText, detail.linguisticDetails.
-        **/
-        onquerychanged(eventInfo: CustomEvent): void;
-
-        /**
-         * Raised awhen the user clicks the search glyph or presses Enter.
-         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.language, detail.queryText, detail.linguisticDetails, detail.keyModifiers.
-        **/
-        onquerysubmitted(eventInfo: CustomEvent): void;
-
-        /**
-         * Raised when the app automatically redirects focus to the search box. This event can only be raised when the focusOnKeyboardInput property is set to true.
-         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.propertyName.
-        **/
-        onreceivingfocusonkeyboardinput(eventInfo: CustomEvent): void;
-
-        /**
-         * Raised when the user selects a suggested option for the search.
-         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.tag, detail.keyModifiers, detail.storageFile.
-        **/
-        onresultsuggestionschosen(eventInfo: CustomEvent): void;
-
-        /**
-         * Raised when the system requests search suggestions from this app.
-         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.language, detail.linguisticDetails, detail.queryText, detail.searchSuggestionCollection.
-        **/
-        onsuggestionsrequested(eventInfo: CustomEvent): void;
-
-        //#endregion Events
-
-        //#region Methods
-
-        /**
-         * Registers an event handler for the specified event.
-         * @param eventName The name of the event to handle. Note that you drop the "on" when specifying the event name. For example, instead of specifying "onclick", you specify "click".
-         * @param eventHandler The event handler function to associate with the event.
-         * @param useCapture Set to true to register the event handler for the capturing phase; otherwise, set to false to register the event handler for the bubbling phase.
-        **/
-        addEventListener(eventName: string, eventHandler: Function, useCapture?: boolean): void;
-
-        /**
-         * Raises an event of the specified type and with additional properties.
-         * @param type The type (name) of the event.
-         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
-         * @returns true if preventDefault was called on the event, otherwise false.
-        **/
-        dispatchEvent(type: string, eventProperties: any): boolean;
-
-        /**
-         * Releases resources held by this SearchBox. Call this method when the SearchBox is no longer needed. After calling this method, the SearchBox becomes unusable.
-        **/
-        dispose(): void;
-
-        /**
-         * Removes an event handler that the addEventListener method registered.
-         * @param eventName The name of the event that the event handler is registered for.
-         * @param eventCallback The event handler function to remove.
-         * @param useCapture Set to true to remove the capturing phase event handler; set to false to remove the bubbling phase event handler.
-        **/
-        removeEventListener(eventName: string, eventCallback: Function, useCapture?: boolean): void;
-
-        /**
-         * Specifies whether suggestions based on local files are automatically displayed in the search pane, and defines the criteria that Windows uses to locate and filter these suggestions.
-         * @param settings The new settings for local content suggestions.
-        **/
-        setLocalContentSuggestionSettings(settings: any): void;
-
-        //#endregion Methods
-
-        //#region Properties
-
-        /**
-         * Gets or sets whether the first suggestion is chosen when the user presses Enter.
-        **/
-        chooseSuggestionOnEnter: boolean;
-
-        /**
-         * Gets or sets a value that specifies whether the SearchBox is disabled. If the control is disabled, it won't receive focus.
-        **/
-        disabled: boolean;
-
-        /**
-         * Gets the DOM element that hosts the SearchBox.
-        **/
-        element: HTMLElement;
-
-        /**
-         * Gets or sets a value that specifies whether the search box automatically receives focus when the user types into the app window.
-        **/
-        focusOnKeyboardInput: boolean;
-
-        /**
-         * Gets or sets the placeholder text for the SearchBox. This text is displayed if there is no other text in the input box.
-        **/
-        placeholderText: string;
-
-        /**
-         * Gets or sets the query text for the SearchBox.
-        **/
-        queryText: string;
-
-        /**
-         * Gets or sets the search history context. This context is used a secondary key (the app ID is the primary key) for storing search history.
-        **/
-        searchHistoryContext: string;
-
-        /**
-         * Gets or sets a value that specifies whether search history is disabled.
-        **/
-        searchHistoryDisabled: boolean;
-
-        //#endregion Properties
-
-    }
-
-    /**
      * Enables the user to zoom between two different views supplied by two child controls. One child control supplies the zoomed-out view and the other provides the zoomed-in view.
     **/
     class SemanticZoom {
@@ -6485,11 +5284,6 @@ declare module WinJS.UI {
         element: HTMLElement;
 
         /**
-         * Gets or a sets a value that specifies whether to display the SemanticZoom zoom out button.
-        **/
-        enableButton: boolean;
-
-        /**
          * Determines whether any controls contained in a SemanticZoom should be processed separately. This property is always true, meaning that the SemanticZoom takes care of processing its own controls.
         **/
         isDeclarativeControlContainer: boolean;
@@ -6508,137 +5302,6 @@ declare module WinJS.UI {
          * Gets or sets a value that specifies how much the scaling the cross-fade animation performs when the SemanticZoom transitions between views.
         **/
         zoomFactor: number;
-
-        //#endregion Properties
-
-    }
-
-    /**
-     * Provides users with fast, in-context access to settings that affect the current Windows Store app.
-    **/
-    class SettingsFlyout {
-        //#region Constructors
-
-        /**
-         * Creates a new SettingsFlyout object.
-         * @constructor 
-         * @param element The DOM element that will host the control.
-         * @param options The set of properties and values to apply to the new SettingsFlyout.
-        **/
-        constructor(element?: HTMLElement, options?: any);
-
-        //#endregion Constructors
-
-        //#region Events
-
-        /**
-         * Raised immediately after the SettingsFlyout is completely hidden.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onafterhide(eventInfo: Event): void;
-
-        /**
-         * Raised immediately after a SettingsFlyout is fully shown.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onaftershow(eventInfo: Event): void;
-
-        /**
-         * Raised just before hiding a SettingsFlyout.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onbeforehide(eventInfo: Event): void;
-
-        /**
-         * Raised just before showing a SettingsFlyout.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onbeforeshow(eventInfo: Event): void;
-
-        //#endregion Events
-
-        //#region Methods
-
-        /**
-         * Registers an event handler for the specified event.
-         * @param type The event type to register. It must be beforeshow, beforehide, aftershow, or afterhide.
-         * @param listener The event handler function to associate with the event.
-         * @param useCapture Set to true to register the event handler for the capturing phase; otherwise, set to false to register the event handler for the bubbling phase.
-        **/
-        addEventListener(type: string, listener: Function, useCapture?: boolean): void;
-
-        /**
-         * Raises an event of the specified type and with additional properties.
-         * @param type The type (name) of the event.
-         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
-         * @returns true if preventDefault was called on the event, otherwise false.
-        **/
-        dispatchEvent(type: string, eventProperties: any): boolean;
-
-        /**
-         * Releases resources held by this SettingsFlyout. Call this method when the SettingsFlyout is no longer needed. After calling this method, the SettingsFlyout becomes unusable.
-        **/
-        dispose(): void;
-
-        /**
-         * Hides the SettingsFlyout, if visible, regardless of other states.
-        **/
-        hide(): void;
-
-        /**
-         * Loads a fragment of the SettingsFlyout. Your app calls this when the user invokes a settings command and the WinJS.Application.onsettings event occurs.
-         * @param e An object that contains information about the event, received from the WinJS.Application.onsettings event. The detail property of this object contains the applicationcommands sub-property that you set to an array of settings commands. You then populate the SettingsFlyout with these commands by a call to populateSettings.
-        **/
-        static populateSettings(e: CustomEvent): void;
-
-        /**
-         * Removes an event handler that the addEventListener method registered.
-         * @param type The event type to unregister. It must be beforeshow, beforehide, aftershow, or afterhide.
-         * @param listener The event handler function to remove.
-         * @param useCapture Set to true to remove the capturing phase event handler; set to false to remove the bubbling phase event handler.
-        **/
-        removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
-
-        /**
-         * Shows the SettingsPane UI, if hidden.
-        **/
-        show(): void;
-
-        /**
-         * Shows the SettingsPane UI, if hidden, regardless of other state.
-        **/
-        static show(): void;
-
-        /**
-         * Show the Settings flyout using the Settings element identifier (ID) and the path of the page that contains the Settings element.
-         * @param id The ID of the Settings element.
-         * @param path The path of the page that contains the Settings element.
-        **/
-        static showSettings(id: string, path: any): void;
-
-        //#endregion Methods
-
-        //#region Properties
-
-        /**
-         * Gets the DOM element the SettingsFlyout is attached to.
-        **/
-        element: HTMLElement;
-
-        /**
-         * Gets whether the SettingsFlyout is hidden.
-        **/
-        hidden: boolean;
-
-        /**
-         * Gets or sets the settings command Id for the SettingsFlyout control.
-        **/
-        settingsCommandId: string;
-
-        /**
-         * This property may be unavailable or altered in future versions. Use the CSS width property of the element that has the win-settingsflyout class instead.
-        **/
-        width: string;
 
         //#endregion Properties
 
@@ -6710,119 +5373,6 @@ declare module WinJS.UI {
          * Gets or sets the tab index of this container.
         **/
         tabIndex: number;
-
-        //#endregion Properties
-
-    }
-
-    /**
-     * Allows users to select time values.
-    **/
-    class TimePicker {
-        //#region Constructors
-
-        /**
-         * Initializes a new instance of a TimePicker control.
-         * @constructor 
-         * @param element The DOM element associated with the TimePicker control.
-         * @param options The set of options to be applied initially to the TimePicker control. The options are the following: clock.
-        **/
-        constructor(element?: HTMLElement, options?: any);
-
-        //#endregion Constructors
-
-        //#region Events
-
-        /**
-         * Occurs when any of the controls are changed by the user.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onchange(eventInfo: CustomEvent): void;
-
-        //#endregion Events
-
-        //#region Methods
-
-        /**
-         * Adds an event listener.
-         * @param type The type (name) of the event.
-         * @param listener The function that handles the event.
-         * @param capture If true, specifies that capture should be initiated, otherwise false.
-        **/
-        addEventListener(type: string, listener: Function, capture?: boolean): void;
-
-        /**
-         * Raises an event of the specified type and with additional properties.
-         * @param type The type (name) of the event.
-         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
-         * @returns true if preventDefault was called on the event, otherwise false.
-        **/
-        dispatchEvent(type: string, eventProperties: any): boolean;
-
-        /**
-         * Releases resources held by this TimePicker. Call this method when the TimePicker is no longer needed. After calling this method, the TimePicker becomes unusable.
-        **/
-        dispose(): void;
-
-        /**
-         * Raises an event of the specified type and with additional properties.
-         * @param type The type (name) of the event.
-         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
-         * @returns true if preventDefault was called on the event, otherwise false.
-        **/
-        raiseEvent(type: string, eventProperties: any): boolean;
-
-        /**
-         * Removes a listener for the specified event.
-         * @param type The name of the event for which to remove a listener.
-         * @param listener The listener.
-         * @param useCapture Optional. The same value that was passed to addEventListener for this listener. It may be omitted if it was omitted when calling addEventListener.
-        **/
-        removeEventListener(type: string, listener: Function, useCapture?: any): void;
-
-        //#endregion Methods
-
-        //#region Properties
-
-        /**
-         * Gets or sets the type of clock to display (12HourClock or 24HourClock). It defaults to the user setting.
-        **/
-        clock: string;
-
-        /**
-         * Gets or sets the current time of the TimePicker. Note that the date value is always July 15, 2011.
-        **/
-        current: Date;
-
-        /**
-         * Specifies whether the TimePicker is disabled.
-        **/
-        disabled: boolean;
-
-        /**
-         * Gets the DOM element for the TimePicker.
-        **/
-        element: HTMLElement;
-
-        /**
-         * Gets or sets the display pattern for the hour. The default hour pattern is hour.integer(2). You can change the hour pattern by changing the number of integers displayed.
-        **/
-        hourPattern: string;
-
-        /**
-         * Gets or sets the minute increment. For example, 15 specifies that the TimePicker minute control should display only the choices 00, 15, 30, 45.
-        **/
-        minuteIncrement: number;
-
-        /**
-         * Gets or sets the display pattern for the minute. The default minute pattern is minute.integer(2). You can change the minute pattern by changing the number of integers displayed.
-        **/
-        minutePattern: string;
-
-        /**
-         * Gets or sets the display pattern for the period. The default period pattern is period.abbreviated(2). You can change the period pattern by changing the number of integers displayed.
-        **/
-        periodPattern: string;
 
         //#endregion Properties
 
@@ -6932,122 +5482,6 @@ declare module WinJS.UI {
          * Gets or sets the main text for the ToggleSwitch control. This text is always displayed, regardless of whether the control is switched on or off.
         **/
         title: string;
-
-        //#endregion Properties
-
-    }
-
-    /**
-     * Displays a tooltip that can contain images and formatting.
-    **/
-    class Tooltip {
-        //#region Constructors
-
-        /**
-         * Creates a new Tooltip.
-         * @constructor
-         * @param element The DOM element associated that hosts the Tooltip.
-         * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the opened event, add a property named "onopened" to the options object and set its value to the event handler.
-        **/
-        constructor(element?: HTMLElement, options?: any);
-
-        //#endregion Constructors
-
-        //#region Events
-
-        /**
-         * Raised just before the Tooltip is hidden.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onbeforeclose(eventInfo: CustomEvent): void;
-
-        /**
-         * Raised just before the Tooltip appears.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onbeforeopen(eventInfo: CustomEvent): void;
-
-        /**
-         * Raised when the Tooltip is no longer displayed.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onclosed(eventInfo: CustomEvent): void;
-
-        /**
-         * Raised when the Tooltip is shown.
-         * @param eventInfo An object that contains information about the event.
-        **/
-        onopened(eventInfo: CustomEvent): void;
-
-        //#endregion Events
-
-        //#region Methods
-
-        /**
-         * Adds an event handler for the specified event.
-         * @param eventName The name of the event to handle.
-         * @param eventHandler The event handler function to associate with the event.
-         * @param useCapture Set to true to register the event handler for the capturing phase; otherwise, set to false to register the event handler for the bubbling phase.
-        **/
-        addEventListener(eventName: string, eventHandler: Function, useCapture?: boolean): void;
-
-        /**
-         * Hides the Tooltip.
-        **/
-        close(): void;
-
-        /**
-         * Releases resources held by this Tooltip. Call this method when the Tooltip is no longer needed. After calling this method, the Tooltip becomes unusable.
-        **/
-        dispose(): void;
-
-        /**
-         * Shows the Tooltip.
-         * @param type A value that specifies when to show the Tooltip. The default value is "mousedown".
-        **/
-        open(type?: string): void;
-
-        /**
-         * Removes an event handler that the addEventListener method registered.
-         * @param eventName The name of the event that the event handler is registered for.
-         * @param eventCallback The event handler function to remove.
-         * @param useCapture Set to true to remove the capturing phase event handler; set to false to remove the bubbling phase event handler.
-        **/
-        removeEventListener(eventName: string, eventCallback: Function, useCapture?: boolean): void;
-
-        //#endregion Methods
-
-        //#region Properties
-
-        /**
-         * Gets or sets the HTML element that is the content of the Tooltip.
-        **/
-        contentElement: HTMLElement;
-
-        /**
-         * Gets the DOM element that hosts the Tooltip control.
-        **/
-        element: HTMLElement;
-
-        /**
-         * Gets or appends additional CSS classes to apply to the element that hosts the Tooltip.
-        **/
-        extraClass: string;
-
-        /**
-         * Gets or sets a value that specifies whether the Tooltip is an infotip, a tooltip that contains a lot of info and should be displayed for longer than a typical Tooltip.
-        **/
-        infotip: boolean;
-
-        /**
-         * Gets or sets the HTML content of the Tooltip.
-        **/
-        innerHTML: string;
-
-        /**
-         * Gets or sets the position for the Tooltip relative to its target element: top, bottom, left or right.
-        **/
-        placement: string;
 
         //#endregion Properties
 
@@ -7249,6 +5683,13 @@ declare module WinJS.UI {
      * @returns The target element, if found.
     **/
     function scopedSelect(selector: string, element: HTMLElement): HTMLElement;
+
+    /**
+     * Given a DOM element and a control, attaches the control to the element.
+     * @param element Element to associate with the control.
+     * @param control The control to attach to the element.
+    **/
+    function setControl(element: HTMLElement, control: any): void;
 
     /**
      * Adds the set of declaratively specified options (properties and events) to the specified control. If name of the options property begins with "on", the property value is a function and the control supports addEventListener. setControl calls addEventListener on the control.
@@ -8297,6 +6738,11 @@ declare module WinJS.Utilities {
      * Gets whether the current script context has access to WinRT APIs.
     **/
     var hasWinRT: boolean;
+
+    /**
+     * Indicates whether the app is running on Windows Phone.
+    **/ 
+    var isPhone: boolean;
 
     //#endregion Properties
 
