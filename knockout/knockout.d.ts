@@ -167,7 +167,10 @@ interface KnockoutBindingHandlers {
     uniqueName: KnockoutBindingHandler;
 
     // Rendering templates
-    template: KnockoutBindingHandler;
+	template: KnockoutBindingHandler;
+
+	// Components (new for v3.2)
+	component: KnockoutBindingHandler;
 }
 
 interface KnockoutMemoization {
@@ -541,23 +544,31 @@ interface KnockoutBindingProvider {
 }
 
 interface KnockoutComponents {
+	register(componentName: string, definition: KnockoutComponentDefinition): void;
+	isRegistered(componentName: string): boolean;
+	unregister(componentName: string): void;
 	get(componentName: string, callback: (definition: KnockoutComponentDefinition) => void): void;
-	clearCachedDefinition(componentName: string): void;
-	loaders: any[];
+	clearCachedDefinition(componentName: string): void
+	defaultLoader: KnockoutComponentLoader;
+	loaders: KnockoutComponentLoader[];
 }
 
 interface KnockoutComponentDefinition {
-	// todo
+	template: Node[];
+	createViewModel?(params: any, options: { element: Node; }): any;
 }
 
 interface KnockoutComponentLoader {
 	getConfig? (componentName: string, callback: (result: KnockoutComponentConfig) => void): void;
 	loadComponent? (componentName: string, config: KnockoutComponentConfig, callback: (result: KnockoutComponentDefinition) => void): void;
+	loadTemplate? (componentName: string, templateConfig: any, callback: (result: Node[]) => void): void;
+	loadViewModel? (componentName: string, viewModelConfig: any, callback: (result: any) => void): void;
 	suppressLoaderExceptions?: boolean;
 }
 
 interface KnockoutComponentConfig {
-	// todo
+	template: any;
+	createViewModel?: any;
 }
 
 interface KnockoutComputedContext {
