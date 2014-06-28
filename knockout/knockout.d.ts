@@ -519,7 +519,7 @@ interface KnockoutStatic {
 
     /////////////////////////////////
 
-    bindingProvider: any;
+	bindingProvider: KnockoutBindingProvider;
 
     /////////////////////////////////
     // selectExtensions.js
@@ -531,6 +531,33 @@ interface KnockoutStatic {
 
         writeValue(element: HTMLElement, value: any): void;
     };
+}
+
+interface KnockoutBindingProvider {
+	nodeHasBindings(node: Node): boolean;
+	getBindings(node: Node, bindingContext: KnockoutBindingContext): {};
+	getBindingsString(node: Node, bindingContext: KnockoutBindingContext): string;
+	getBindingAccessors(node: Node, bindingContext: KnockoutBindingContext): { [key: string]: string; };
+}
+
+interface KnockoutComponents {
+	get(componentName: string, callback: (definition: KnockoutComponentDefinition) => void): void;
+	clearCachedDefinition(componentName: string): void;
+	loaders: any[];
+}
+
+interface KnockoutComponentDefinition {
+	// todo
+}
+
+interface KnockoutComponentLoader {
+	getConfig? (componentName: string, callback: (result: KnockoutComponentConfig) => void): void;
+	loadComponent? (componentName: string, config: KnockoutComponentConfig, callback: (result: KnockoutComponentDefinition) => void): void;
+	suppressLoaderExceptions?: boolean;
+}
+
+interface KnockoutComponentConfig {
+	// todo
 }
 
 interface KnockoutComputedContext {
