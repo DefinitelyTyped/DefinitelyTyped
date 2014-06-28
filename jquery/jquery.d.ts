@@ -168,7 +168,9 @@ interface JQueryXHR extends XMLHttpRequest, JQueryPromise<any> {
      */
     overrideMimeType(mimeType: string): any;
     /**
-     * Cancel the request. Pass the statusText as textStatus parameter for done callback, "canceled" will be passed if not provided.
+     * Cancel the request. 
+     *
+     * @param statusText A string passed as the textStatus parameter for the done callback. Default value: "canceled"
      */
     abort(statusText?: string): void;
     /**

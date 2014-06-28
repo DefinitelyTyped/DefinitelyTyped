@@ -193,6 +193,12 @@ function test_ajax() {
     }, (jqXHR, textStatus, errorThrown) => {
         console.log(jqXHR, textStatus, errorThrown);
     });
+
+    // jqXHR object
+    var jqXHR = $.ajax({
+        url: "test.js"
+    });
+    jqXHR.abort('aborting because I can');
 }
 
 function test_ajaxComplete() {
