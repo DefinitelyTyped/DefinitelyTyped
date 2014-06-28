@@ -528,7 +528,10 @@ interface KnockoutStatic {
 
     /////////////////////////////////
 
-	bindingProvider: KnockoutBindingProvider;
+	bindingProvider: {
+		instance: KnockoutBindingProvider;
+		new (): KnockoutBindingProvider;
+	}
 
     /////////////////////////////////
     // selectExtensions.js
