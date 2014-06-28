@@ -196,6 +196,8 @@ interface KnockoutExtenders {
 
 	rateLimit(target: any, timeout: number): any;
 	rateLimit(target: any, options: { timeout: number; method?: string; }): any;
+
+	trackArrayChanges(target: any): any;
 }
 
 interface KnockoutUtils {
@@ -392,12 +394,19 @@ interface KnockoutTemplateEngine extends KnockoutNativeTemplateEngine {
 interface KnockoutStatic {
     utils: KnockoutUtils;
     memoization: KnockoutMemoization;
-    bindingHandlers: KnockoutBindingHandlers;
+
+	bindingHandlers: KnockoutBindingHandlers;
+	getBindingHandler(handler: string): KnockoutBindingHandler;
+
     virtualElements: KnockoutVirtualElements;
     extenders: KnockoutExtenders;
 
     applyBindings(viewModel: any, rootNode?: any): void;
-    applyBindingsToDescendants(viewModel: any, rootNode: any): void;
+	applyBindingsToDescendants(viewModel: any, rootNode: any): void;
+	applyBindingAccessorsToNode(node: Node, bindings: (bindingContext: KnockoutBindingContext, node: Node) => {}, bindingContext: KnockoutBindingContext): void;
+	applyBindingAccessorsToNode(node: Node, bindings: {}, bindingContext: KnockoutBindingContext): void;
+	applyBindingAccessorsToNode(node: Node, bindings: (bindingContext: KnockoutBindingContext, node: Node) => {}, viewModel: any): void;
+	applyBindingAccessorsToNode(node: Node, bindings: {}, viewModel: any): void;
     applyBindingsToNode(node: Element, options: any, viewModel: any): void;
 
     subscribable: KnockoutSubscribableStatic;
