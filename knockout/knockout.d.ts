@@ -64,8 +64,8 @@ interface KnockoutComputedStatic {
 
     <T>(): KnockoutComputed<T>;
     <T>(func: () => T, context?: any, options?: any): KnockoutComputed<T>;
-    <T>(def: KnockoutComputedDefine<T>): KnockoutComputed<T>;
-    (options?: any): KnockoutComputed<any>;
+    <T>(def: KnockoutComputedDefine<T>, context?: any): KnockoutComputed<T>;
+	(options?: any, context?: any): KnockoutComputed<any>;
 }
 
 interface KnockoutComputed<T> extends KnockoutObservable<T>, KnockoutComputedFunctions<T> {
@@ -397,7 +397,11 @@ interface KnockoutStatic {
 
     subscribable: KnockoutSubscribableStatic;
     observable: KnockoutObservableStatic;
-    computed: KnockoutComputedStatic;
+
+	computed: KnockoutComputedStatic;
+	pureComputed<T>(evaluatorFunction: () => T, context?: any): KnockoutComputed<T>;
+	pureComputed<T>(options: KnockoutComputedDefine<T>, context?: any): KnockoutComputed<T>;
+
     observableArray: KnockoutObservableArrayStatic;
 
     contextFor(node: any): any;
@@ -412,7 +416,9 @@ interface KnockoutStatic {
     cleanNode(node: Element): Element;
     renderTemplate(template: Function, viewModel: any, options?: any, target?: any, renderMode?: any): any;
     renderTemplate(template: string, viewModel: any, options?: any, target?: any, renderMode?: any): any;
-    unwrap(value: any): any;
+	unwrap(value: any): any;
+
+	computedContext: KnockoutComputedContext;
 
     //////////////////////////////////
     // templateSources.js
@@ -511,6 +517,12 @@ interface KnockoutStatic {
 
         writeValue(element: HTMLElement, value: any): void;
     };
+}
+
+interface KnockoutComputedContext {
+	getDependenciesCount(): number;
+	isInitial: boolean;
+	isSleeping: boolean;
 }
 
 declare module "knockout" {
