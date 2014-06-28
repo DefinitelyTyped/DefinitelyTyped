@@ -69,6 +69,7 @@ interface KnockoutComputedStatic {
 }
 
 interface KnockoutComputed<T> extends KnockoutObservable<T>, KnockoutComputedFunctions<T> {
+	fn: KnockoutComputedFunctions<any>;
 	
 	dispose(): void;
 	isActive(): boolean;
@@ -109,6 +110,7 @@ interface KnockoutComputedDefine<T> {
 	disposeWhen? (): boolean;
 	owner?: any;
 	deferEvaluation?: boolean;
+	pure?: boolean;
 }
 
 interface KnockoutBindingContext {
@@ -190,7 +192,10 @@ interface KnockoutVirtualElements {
 
 interface KnockoutExtenders {
     throttle(target: any, timeout: number): KnockoutComputed<any>;
-    notify(target: any, notifyWhen: string): any;
+	notify(target: any, notifyWhen: string): any;
+
+	rateLimit(target: any, timeout: number): any;
+	rateLimit(target: any, options: { timeout: number; method?: string; }): any;
 }
 
 interface KnockoutUtils {
