@@ -347,22 +347,28 @@ interface KnockoutArrayChange<T> {
 //////////////////////////////////
 
 interface KnockoutTemplateSourcesDomElement {
+    text(): any;
+    text(value: any): void;
 
-    text(valueToWrite?: any): any;
-
-    data(key: string, valueToWrite?: any): any;
+    data(key: string): any;
+    data(key: string, value: any): any;
 }
 
+interface KnockoutTemplateAnonymous extends KnockoutTemplateSourcesDomElement {
+	nodes(): any;
+	nodes(value: any): void;
+}
 
 interface KnockoutTemplateSources {
 
-    domElement: KnockoutTemplateSourcesDomElement;
+    domElement: {
+	    prototype: KnockoutTemplateSourcesDomElement
+	    new (element: Element): KnockoutTemplateSourcesDomElement
+    };
 
     anonymousTemplate: {
-
-        prototype: KnockoutTemplateSourcesDomElement;
-
-        new (element: Element): KnockoutTemplateSourcesDomElement;
+		prototype: KnockoutTemplateAnonymous;
+		new (element: Element): KnockoutTemplateAnonymous;
     };
 }
 
@@ -550,6 +556,7 @@ interface KnockoutComponents {
 	clearCachedDefinition(componentName: string): void
 	defaultLoader: KnockoutComponentLoader;
 	loaders: KnockoutComponentLoader[];
+	getComponentNameForNode(node: Node): string;
 }
 
 interface KnockoutComponentDefinition {
