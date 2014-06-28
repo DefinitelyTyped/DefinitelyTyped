@@ -539,7 +539,6 @@ interface KnockoutStatic {
 interface KnockoutBindingProvider {
 	nodeHasBindings(node: Node): boolean;
 	getBindings(node: Node, bindingContext: KnockoutBindingContext): {};
-	getBindingsString(node: Node, bindingContext: KnockoutBindingContext): string;
 	getBindingAccessors(node: Node, bindingContext: KnockoutBindingContext): { [key: string]: string; };
 }
 
