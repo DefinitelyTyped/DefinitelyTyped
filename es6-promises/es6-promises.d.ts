@@ -131,3 +131,11 @@ declare module Promise {
      */
 	function race<R>(promises: Promise<R>[]): Promise<R>;
 }
+
+declare module 'es6-promises' {
+    var foo: typeof Promise; // Temp variable to reference Promise in local context
+    module rsvp {
+        export var Promise: typeof foo;
+    }
+    export = rsvp;
+}
