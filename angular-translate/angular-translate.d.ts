@@ -6,6 +6,13 @@
 /// <reference path="../angularjs/angular.d.ts" />
 
 declare module ng.translate {
+    
+    interface ITranslatePartialLoader{
+        addPart(name: string): ITranslatePartialLoader;
+        deletePart(name: string, removeData?: boolean): ITranslatePartialLoader;
+        isPartAvailable(name: string): boolean;
+    }
+  
     interface ITranslationTable {
         [key: string]: string;
     }
