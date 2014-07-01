@@ -54,7 +54,7 @@ interface DropzoneOptions {
 }
 
 declare class Dropzone {
-    constructor(container: string, options?: DropzoneOptions);
+    constructor(container: any, options?: DropzoneOptions);
     static autoDiscover: boolean;
     static options: any;
     static confirm: (question: string, accepted: () => void, rejected?: () => void) => void;
