@@ -660,7 +660,7 @@ function Sys_WebForms_PageRequestManager_Tests() {
     }
     var pageLoadingRequestHandler = (sender: any, args: Sys.WebForms.PageLoadingEventArgs) => {
         var dataItems: any = args.get_dataItems();
-        var panelsDeleted: HTMLDivElement[] = args.get_panelsDeleted();
+        var panelsDeleted: HTMLDivElement[] = args.get_panelsDeleting();
         var panelsUpdating = args.get_panelsUpdating();
         var empty: Sys.EventArgs = args.Empty;
     }

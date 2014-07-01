@@ -3829,7 +3829,7 @@ declare module Sys {
             * The pageLoading event of the Sys.WebForms.PageRequestManager class uses a PageLoadingEventArgs object to return its event data.
             * @return An array of <div> elements that will be deleted from the DOM. If no elements will be deleted, the property returns null.
             */
-            get_panelsDeleted(): HTMLDivElement[];
+            get_panelsDeleting(): HTMLDivElement[];
             /**
             * Gets an array of HTML <div> elements that represent UpdatePanel controls that will be updated in the DOM as a result of the current asynchronous postback.
             * If the contents of any UpdatePanel controls will be updated as the result of a partial-page update, the panelsUpdating property contains an array that references the corresponding <div> elements. 
