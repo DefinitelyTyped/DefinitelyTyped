@@ -4,14 +4,16 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
+// For ddescribe / iit use : hhttps://github.com/borisyankov/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
+
 declare function describe(description: string, specDefinitions: () => void): void;
-declare function ddescribe(description: string, specDefinitions: () => void): void;
+// declare function ddescribe(description: string, specDefinitions: () => void): void; Not a part of jasmine. Angular team adds these
 declare function xdescribe(description: string, specDefinitions: () => void): void;
 
 declare function it(expectation: string, assertion?: () => void): void;
 declare function it(expectation: string, assertion?: (done: () => void) => void): void;
-declare function iit(expectation: string, assertion?: () => void): void;
-declare function iit(expectation: string, assertion?: (done: () => void) => void): void;
+// declare function iit(expectation: string, assertion?: () => void): void; Not a part of jasmine. Angular team adds these
+// declare function iit(expectation: string, assertion?: (done: () => void) => void): void; Not a part of jasmine. Angular team adds these
 declare function xit(expectation: string, assertion?: () => void): void;
 declare function xit(expectation: string, assertion?: (done: () => void) => void): void;
 
@@ -98,13 +100,13 @@ declare module jasmine {
         addReporter(reporter: Reporter): void;
         execute(): void;
         describe(description: string, specDefinitions: () => void): Suite;
-        ddescribe(description: string, specDefinitions: () => void): Suite;
+        // ddescribe(description: string, specDefinitions: () => void): Suite; Not a part of jasmine. Angular team adds these
         beforeEach(beforeEachFunction: () => void): void;
         currentRunner(): Runner;
         afterEach(afterEachFunction: () => void): void;
         xdescribe(desc: string, specDefinitions: () => void): XSuite;
         it(description: string, func: () => void): Spec;
-        iit(description: string, func: () => void): Spec;
+        // iit(description: string, func: () => void): Spec; Not a part of jasmine. Angular team adds these
         xit(desc: string, func: () => void): XSpec;
         compareRegExps_(a: RegExp, b: RegExp, mismatchKeys: string[], mismatchValues: string[]): boolean;
         compareObjects_(a: any, b: any, mismatchKeys: string[], mismatchValues: string[]): boolean;
