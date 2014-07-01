@@ -5,6 +5,7 @@
 
 /// <reference path="dojo.d.ts" />
 /// <reference path="dijit.d.ts" />
+/// <reference path="dojox.widget.d.ts" />
 declare module dojox {
     
     module calendar {
@@ -14,7 +15,7 @@ declare module dojox {
          * This class is the base class of calendar renderers.
          * 
          */
-        class _RendererMixin extends dojo.Stateful {
+        class _RendererMixin extends dojo.Stateful { 
             constructor();
             /**
              * Indicates that the item displayed by this renderer is in editing mode.

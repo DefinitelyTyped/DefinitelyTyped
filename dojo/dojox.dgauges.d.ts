@@ -5,10 +5,11 @@
 
 /// <reference path="dijit.d.ts" />
 /// <reference path="dojox.gfx.d.ts" />
-/// <reference path="dojox.geo.d.ts" />
+/// <reference path="dojox.geo.d.ts" /> 
+/// <reference path="dojox.widget.d.ts" /> 
 declare module dojox {
     
-    module dgauges {
+    module dgauges { 
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/dgauges/CircularRangeIndicator.html
          *
