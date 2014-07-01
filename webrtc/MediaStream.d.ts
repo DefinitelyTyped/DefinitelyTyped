@@ -40,13 +40,19 @@ declare var MediaTrackConstraint: {
 }
 
 interface Navigator {
-	getUserMedia(constraints: MediaStreamConstraints, successCallback: (stream: any) => void, errorCallback: (error: Error) => void);
-	webkitGetUserMedia(constraints: MediaStreamConstraints, successCallback: (stream: any) => void, errorCallback: (error: Error) => void);
+	getUserMedia(constraints: MediaStreamConstraints,
+							 successCallback: (stream: any) => void,
+							 errorCallback: (error: Error) => void) : void;
+	webkitGetUserMedia(constraints: MediaStreamConstraints,
+										 successCallback: (stream: any) => void,
+										 errorCallback: (error: Error) => void): void;
 }
 
 interface EventHandler { (event: Event): void; }
 
-interface NavigatorUserMediaSuccessCallback { (stream: LocalMediaStream): void; }
+interface NavigatorUserMediaSuccessCallback {
+	(stream: LocalMediaStream): void;
+}
 
 interface NavigatorUserMediaError {
 	PERMISSION_DENIED: number; // = 1;
@@ -58,7 +64,9 @@ declare var NavigatorUserMediaError: {
 	PERMISSION_DENIED: number; // = 1;
 }
 
-interface NavigatorUserMediaErrorCallback { (error: NavigatorUserMediaError): void; }
+interface NavigatorUserMediaErrorCallback {
+	(error: NavigatorUserMediaError): void;
+}
 
 interface MediaStreamTrackList {
 	length: number;
@@ -152,4 +160,4 @@ declare var webkitURL: {
 	new (): streamURL;
 	createObjectURL(stream: MediaStream): string;
 }
- 
+

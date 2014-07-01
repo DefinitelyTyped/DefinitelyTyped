@@ -32,7 +32,7 @@ peerConnection.createOffer(
 	},
 	error => console.log("Error creating offer: " + error));
 
-var type: RTCSdpType = RTCSdpType.offer;
+var type: string = RTCSdpType[RTCSdpType.offer];
 var offer: RTCSessionDescriptionInit = { type: type, sdp: "some sdp" };
 var sessionDescription = new RTCSessionDescription(offer);
 
