@@ -1,3 +1,8 @@
+// Type definitions for Dojo v1.9
+// Project: http://dojotoolkit.org
+// Definitions by: Michael Van Sickle <https://github.com/vansimke>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 declare var define: any;
 
 declare module dojo {
