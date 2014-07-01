@@ -11,7 +11,7 @@
 // For a generic implementation see that deals with browser differences, see:
 //   https://code.google.com/p/webrtc/source/browse/stable/samples/js/base/adapter.js
 
-/// <reference path="MediaStream.d.ts" />
+/// <reference path='MediaStream.d.ts' />
 
 // TODO(1): Get Typescript to have string-enum types as WebRtc is full of string
 // enums.
@@ -19,9 +19,6 @@
 
 // TODO(2): get Typescript to have union types as WebRtc uses them.
 // https://typescript.codeplex.com/workitem/1364
-
-// TODO(3): Typescript type-abbreviations fail to be structural.
-// https://typescript.codeplex.com/workitem/2587
 
 interface RTCConfiguration {
 	iceServers: RTCIceServer[];
@@ -45,17 +42,20 @@ interface mozRTCPeerConnection extends RTCPeerConnection {
 }
 declare var mozRTCPeerConnection: {
 	prototype: mozRTCPeerConnection;
-	new (settings: RTCPeerConnectionConfig, constraints?:MediaConstraints): mozRTCPeerConnection;
+	new (settings: RTCPeerConnectionConfig,
+			 constraints?:MediaConstraints): mozRTCPeerConnection;
 }
 // webkit (Chrome) specific prefixes.
 interface webkitRTCPeerConnection extends RTCPeerConnection {
 }
 declare var webkitRTCPeerConnection: {
 	prototype: webkitRTCPeerConnection;
-	new (settings: RTCPeerConnectionConfig, constraints?:MediaConstraints): webkitRTCPeerConnection;
+	new (settings: RTCPeerConnectionConfig,
+			 constraints?:MediaConstraints): webkitRTCPeerConnection;
 }
 
-// For Chrome, look at the code here: https://code.google.com/p/chromium/codesearch#chromium/src/third_party/libjingle/source/talk/app/webrtc/webrtcsession.cc&sq=package:chromium&dr=C&l=63
+// For Chrome, look at the code here:
+// https://code.google.com/p/chromium/codesearch#chromium/src/third_party/libjingle/source/talk/app/webrtc/webrtcsession.cc&sq=package:chromium&dr=C&l=63
 interface OptionalMediaConstraint {
 	// When true, will use DTLS/SCTP data channels
 	DtlsSrtpKeyAgreement?: boolean;
@@ -75,22 +75,20 @@ interface MediaOfferConstraints {
 	OfferToReceiveVideo: boolean;
 }
 
+interface RTCSessionDescriptionInit {
+	type: string;  // RTCSdpType; See TODO(1)
+	sdp: string;
+}
+
 interface RTCSessionDescription {
-	type?: string;  // RTCSdpType; See TODO(3)
+	type?: string;  // RTCSdpType; See TODO(1)
 	sdp?: string;
 }
 declare var RTCSessionDescription: {
 	prototype: RTCSessionDescription;
 	new (descriptionInitDict?: RTCSessionDescriptionInit): RTCSessionDescription;
-}
-
-interface RTCSessionDescriptionInit {
-	type: string;  // RTCSdpType; See TODO(3)
-	sdp: string;
-}
-declare var RTCSessionDescriptionInit: {
-	prototype: RTCSessionDescriptionInit;
-	new (): RTCSessionDescriptionInit;
+	// TODO: Add serializer.
+	// See: http://dev.w3.org/2011/webrtc/editor/webrtc.html#idl-def-RTCSdpType)
 }
 
 interface RTCDataChannelInit {
@@ -102,14 +100,12 @@ interface RTCDataChannelInit {
   id                  ?: number;  // unsigned short
 }
 
-interface RTCSdpType {
-	// http://dev.w3.org/2011/webrtc/editor/webrtc.html#rtcsdptype
-	// enum RTCSdpType {
-	//     "offer",
-	//     "pranswer",
-	//     "answer"
-	// };
-	string;
+// TODO(1)
+declare enum RTCSdpType {
+  // http://dev.w3.org/2011/webrtc/editor/webrtc.html#rtcsdptype
+  'offer',
+  'pranswer',
+  'answer'
 }
 
 interface RTCMessageEvent {
@@ -119,32 +115,33 @@ interface RTCMessageEvent {
 	data: any;
 }
 
-interface RTCDataChannelState {
+// TODO(1)
+declare enum RTCDataChannelState {
 	// http://dev.w3.org/2011/webrtc/editor/webrtc.html#idl-def-RTCDataChannelState
-	// enum RTCDataChannelState {
-	//     "connecting",
-	//     "open",
-	//     "closing",
-	//     "closed"
-	// };
-	string;
+	'connecting',
+	'open',
+	'closing',
+	'closed'
 }
 
 interface RTCDataChannel extends EventTarget {
 	label: string;
 	reliable: boolean;
-	readyState: string; // RTCDataChannelState; see TODO(3)
+	readyState: string; // RTCDataChannelState; see TODO(1)
 	bufferedAmount: number;
+	binaryType: string;
+
 	onopen: (event: Event) => void;
 	onerror: (event: Event) => void;
 	onclose: (event: Event) => void;
-	close(): void;
 	onmessage: (event: RTCMessageEvent) => void;
-	binaryType: string;
-	send(data: string);
-	send(data: ArrayBuffer);
-	send(data: ArrayBufferView);
-	send(data: Blob);
+
+	close(): void;
+
+	send(data: string): void ;
+	send(data: ArrayBuffer): void;
+	send(data: ArrayBufferView): void;
+	send(data: Blob): void;
 }
 declare var RTCDataChannel: {
 	prototype: RTCDataChannel;
@@ -152,12 +149,11 @@ declare var RTCDataChannel: {
 }
 
 interface RTCDataChannelEvent extends Event {
-	constructor (eventInitDict: RTCDataChannelEventInit);
 	channel: RTCDataChannel;
 }
 declare var RTCDataChannelEvent: {
 	prototype: RTCDataChannelEvent;
-	new (eventInitDict: RTCDataChannelEventInit);
+	new (eventInitDict: RTCDataChannelEventInit): RTCDataChannelEvent;
 }
 
 interface RTCIceCandidateEvent extends Event {
@@ -185,58 +181,62 @@ interface RTCPeerConnectionErrorCallback {
 	(errorInformation: DOMError): void;
 }
 
-interface RTCIceGatheringState {
+// TODO(1)
+declare enum RTCIceGatheringState {
 	// http://dev.w3.org/2011/webrtc/editor/webrtc.html#rtcicegatheringstate-enum
-	// enum RTCIceGatheringState {
-	//     "new",
-	//     "gathering",
-	//     "complete"
-	// };
-	string;
+	'new',
+	'gathering',
+	'complete'
 }
 
-interface RTCIceConnectionState {
+// TODO(1)
+declare enum RTCIceConnectionState {
 	// http://dev.w3.org/2011/webrtc/editor/webrtc.html#idl-def-RTCIceConnectionState
-	// enum RTCIceConnectionState {
-	//     "new",
-	//     "checking",
-	//     "connected",
-	//     "completed",
-	//     "failed",
-	//     "disconnected",
-	//     "closed"
-	// };
-	string;
+  'new',
+  'checking',
+  'connected',
+  'completed',
+  'failed',
+  'disconnected',
+  'closed'
 }
 
-interface RTCSignalingState {
-	// http://dev.w3.org/2011/webrtc/editor/webrtc.html#idl-def-RTCSignalingState
-	// enum RTCSignalingState {
-	//     "stable",
-	//     "have-local-offer",
-	//     "have-remote-offer",
-	//     "have-local-pranswer",
-	//     "have-remote-pranswer",
-	//     "closed"
-	// };
-	string;
+// TODO(1)
+declare enum RTCSignalingState {
+  // http://dev.w3.org/2011/webrtc/editor/webrtc.html#idl-def-RTCSignalingState
+  'stable',
+  'have-local-offer',
+  'have-remote-offer',
+  'have-local-pranswer',
+  'have-remote-pranswer',
+  'closed'
 }
 
 interface RTCPeerConnection {
-	createOffer(successCallback: RTCSessionDescriptionCallback, failureCallback?: RTCPeerConnectionErrorCallback, constraints?: MediaConstraints): void;
-	createAnswer(successCallback: RTCSessionDescriptionCallback, failureCallback?: RTCPeerConnectionErrorCallback, constraints?: MediaConstraints): void;
-	setLocalDescription(description: RTCSessionDescription, successCallback?: RTCVoidCallback, failureCallback?: RTCPeerConnectionErrorCallback): void;
+	createOffer(successCallback: RTCSessionDescriptionCallback,
+							failureCallback?: RTCPeerConnectionErrorCallback,
+							constraints?: MediaConstraints): void;
+	createAnswer(successCallback: RTCSessionDescriptionCallback,
+							 failureCallback?: RTCPeerConnectionErrorCallback,
+							 constraints?: MediaConstraints): void;
+	setLocalDescription(description: RTCSessionDescription,
+											successCallback?: RTCVoidCallback,
+											failureCallback?: RTCPeerConnectionErrorCallback): void;
 	localDescription: RTCSessionDescription;
-	setRemoteDescription(description: RTCSessionDescription, successCallback?: RTCVoidCallback, failureCallback?: RTCPeerConnectionErrorCallback): void;
+	setRemoteDescription(description: RTCSessionDescription,
+		 									 successCallback?: RTCVoidCallback,
+		 									 failureCallback?: RTCPeerConnectionErrorCallback): void;
 	remoteDescription: RTCSessionDescription;
-	signalingState: string; // RTCSignalingState; see TODO(3)
-	updateIce(configuration?: RTCConfiguration, constraints?: MediaConstraints): void;
+	signalingState: string; // RTCSignalingState; see TODO(1)
+	updateIce(configuration?: RTCConfiguration,
+						constraints?: MediaConstraints): void;
 	addIceCandidate(candidate: RTCIceCandidate): void;
-	iceGatheringState: string;  // RTCIceGatheringState; see TODO(3)
-	iceConnectionState: string;  // RTCIceConnectionState; see TODO(3)
+	iceGatheringState: string;  // RTCIceGatheringState; see TODO(1)
+	iceConnectionState: string;  // RTCIceConnectionState; see TODO(1)
 	getLocalStreams(): MediaStream[];
 	getRemoteStreams(): MediaStream[];
-	createDataChannel(label?: string, dataChannelDict?: RTCDataChannelInit): RTCDataChannel;
+	createDataChannel(label?: string,
+										dataChannelDict?: RTCDataChannelInit): RTCDataChannel;
 	ondatachannel: (event: Event) => void;
 	addStream(stream: MediaStream, constraints?: MediaConstraints): void;
 	removeStream(stream: MediaStream): void;
@@ -254,7 +254,8 @@ interface RTCPeerConnection {
 }
 declare var RTCPeerConnection: {
 	prototype: RTCPeerConnection;
-	new (configuration: RTCConfiguration, constraints?: MediaConstraints): RTCPeerConnection;
+	new (configuration: RTCConfiguration,
+			 constraints?: MediaConstraints): RTCPeerConnection;
 }
 
 interface RTCIceCandidate {
@@ -264,7 +265,7 @@ interface RTCIceCandidate {
 }
 declare var RTCIceCandidate: {
 	prototype: RTCIceCandidate;
-	new (candidateInitDict?: RTCIceCandidate);
+	new (candidateInitDict?: RTCIceCandidate): RTCIceCandidate;
 }
 
 interface RTCIceCandidateInit {
