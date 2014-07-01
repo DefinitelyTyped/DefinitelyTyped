@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module dojox {
-        /**
+    /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/socket.html
      *
      * Provides a simple socket connection using WebSocket, or alternate

@@ -2,10 +2,10 @@
 // Project: http://dojotoolkit.org
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-/// <reference path="./_DOJO_ALL.d.ts" />
+
+/// <reference path="dojo.d.ts" />
+/// <reference path="dijit.d.ts" />
 declare module dojox {
-
-
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/sketch.html
      *

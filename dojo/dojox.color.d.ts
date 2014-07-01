@@ -3,7 +3,7 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="./_DOJO_ALL.d.ts" />
+/// <reference path="dojo.d.ts" />
 declare module dojox {
 
     /**

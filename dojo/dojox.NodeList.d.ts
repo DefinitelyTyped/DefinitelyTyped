@@ -3,9 +3,7 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="./dojo.d.ts" />
-/// <reference path="./dijit.d.ts" />
-
+/// <reference path="dojo.d.ts" />
 declare module dojox {
     
     module NodeList {

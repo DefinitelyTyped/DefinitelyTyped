@@ -3,7 +3,7 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="./dojo.d.ts" />
+
 declare module doh {
     module plugins {
         module alwaysAudio {
