@@ -98,6 +98,12 @@ declare module ng {
          * @param inlineAnnotatedFunction Execute this function on module load. Useful for service configuration.
          */
         config(inlineAnnotatedFunction: any[]): IModule;
+        /**
+         * Register a constant service, such as a string, a number, an array, an object or a function, with the $injector. Unlike value it can be injected into a module configuration function (see config) and it cannot be overridden by an Angular decorator.
+         * 
+         * @param name The name of the constant.
+         * @param value The constant value.
+         */
         constant(name: string, value: any): IModule;
         constant(object: Object): IModule;
         /**
@@ -144,11 +150,25 @@ declare module ng {
         provider(name: string, inlineAnnotatedConstructor: any[]): IModule;
         provider(name: string, providerObject: auto.IProvider): IModule;
         provider(object: Object): IModule;
+        /**
+         * Run blocks are the closest thing in Angular to the main method. A run block is the code which needs to run to kickstart the application. It is executed after all of the service have been configured and the injector has been created. Run blocks typically contain code which is hard to unit-test, and for this reason should be declared in isolated modules, so that they can be ignored in the unit-tests.
+         */
         run(initializationFunction: Function): IModule;
+        /**
+         * Run blocks are the closest thing in Angular to the main method. A run block is the code which needs to run to kickstart the application. It is executed after all of the service have been configured and the injector has been created. Run blocks typically contain code which is hard to unit-test, and for this reason should be declared in isolated modules, so that they can be ignored in the unit-tests.
+         */
         run(inlineAnnotatedFunction: any[]): IModule;
         service(name: string, serviceConstructor: Function): IModule;
         service(name: string, inlineAnnotatedConstructor: any[]): IModule;
         service(object: Object): IModule;
+        /**
+         * Register a value service with the $injector, such as a string, a number, an array, an object or a function. This is short for registering a service where its provider's $get property is a factory function that takes no arguments and returns the value service.
+
+           Value services are similar to constant services, except that they cannot be injected into a module configuration function (see config) but they can be overridden by an Angular decorator.
+         *
+         * @param name The name of the instance.
+         * @param value The value.
+         */
         value(name: string, value: any): IModule;
         value(object: Object): IModule;
 
