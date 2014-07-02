@@ -291,4 +291,8 @@ Okay, so things look pretty messy right now. There are several hacks and tricks 
 
 This module can then be added to whenever we have another base class / mix-in combination (e.g. dijit/_WidgetBase, dijit/_TemplatedMixin, and dijit/_WidgetsInTemplateMixin). When done this way, the only regularly visible changes that we have to do is to compose the hash of dependencies and call the `getPrototype` as the last argument to `declare`.
  
+## Appendix
+
+Examples:
+* https://github.com/craigstjean/typescript-dojo-sample
  
