@@ -16,7 +16,8 @@ interface JQueryAddressStatic {
     externalChange(eventhandler: Function): void;
     parameter(name: string, value?: string): string;
     value(): string;
-    history(value: boolean): void;    
+    history(value: boolean): void;
+    baseURL(): string;
 }
 
 interface JQueryAddress {
