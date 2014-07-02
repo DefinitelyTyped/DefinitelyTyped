@@ -1003,9 +1003,29 @@ declare module D3 {
             fridays: Range;
             saturdays: Range;
             format: {
-
+                /**
+                 * Constructs a new local time formatter using the given specifier.
+                 */
                 (specifier: string): TimeFormat;
-                utc: (specifier: string) => TimeFormat;
+                /**
+                 * Returns a new multi-resolution time format given the specified array of predicated formats.
+                 */
+                multi: (formats: any[][]) => TimeFormat;
+
+                utc: {
+                    /**
+                     * Constructs a new local time formatter using the given specifier.
+                     */
+                    (specifier: string): TimeFormat;
+                    /**
+                     * Returns a new multi-resolution UTC time format given the specified array of predicated formats.
+                     */
+                    multi: (formats: any[][]) => TimeFormat;
+                };
+
+                /**
+                 * The full ISO 8601 UTC time format: "%Y-%m-%dT%H:%M:%S.%LZ".
+                 */
                 iso: TimeFormat;
             };
 
