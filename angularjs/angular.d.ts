@@ -134,7 +134,7 @@ declare module ng {
          * @param name The name of the instance.
          * @param $getFn The $getFn for the instance creation. Internally this is a short hand for $provide.provider(name, {$get: $getFn}).
          */
-        factory(name: string, serviceFactoryFunction: Function): IModule;
+        factory(name: string, $getFn: Function): IModule;
         /**
          * Register a service factory, which will be called to return the service instance. This is short for registering a service where its provider consists of only a $get property, which is the given service factory function. You should use $provide.factory(getFn) if you do not need to configure your service in a provider.
          * 
@@ -1038,10 +1038,32 @@ declare module ng {
             // Documentation says it returns the registered instance, but actual
             // implementation does not return anything.
             // constant(name: string, value: any): any;
+            /**
+             * Register a constant service, such as a string, a number, an array, an object or a function, with the $injector. Unlike value it can be injected into a module configuration function (see config) and it cannot be overridden by an Angular decorator.
+             * 
+             * @param name The name of the constant.
+             * @param value The constant value.
+             */
             constant(name: string, value: any): void;
 
+            /**
+             * Register a service decorator with the $injector. A service decorator intercepts the creation of a service, allowing it to override or modify the behaviour of the service. The object returned by the decorator may be the original service, or a new service object which replaces or wraps and delegates to the original service.
+             * 
+             * @param name The name of the service to decorate.
+             * @param decorator This function will be invoked when the service needs to be instantiated and should return the decorated service instance. The function is called using the injector.invoke method and is therefore fully injectable. Local injection arguments:
+             * 
+             * $delegate - The original service instance, which can be monkey patched, configured, decorated or delegated to.
+             */
             decorator(name: string, decorator: Function): void;
-            decorator(name: string, decoratorInline: any[]): void;
+            /**
+             * Register a service decorator with the $injector. A service decorator intercepts the creation of a service, allowing it to override or modify the behaviour of the service. The object returned by the decorator may be the original service, or a new service object which replaces or wraps and delegates to the original service.
+             * 
+             * @param name The name of the service to decorate.
+             * @param inlineAnnotatedFunction This function will be invoked when the service needs to be instantiated and should return the decorated service instance. The function is called using the injector.invoke method and is therefore fully injectable. Local injection arguments:
+             * 
+             * $delegate - The original service instance, which can be monkey patched, configured, decorated or delegated to.
+             */
+            decorator(name: string, inlineAnnotatedFunction: any[]): void;
             factory(name: string, serviceFactoryFunction: Function): ng.IServiceProvider;
             factory(name: string, inlineAnnotatedFunction: any[]): ng.IServiceProvider;
             provider(name: string, provider: ng.IServiceProvider): ng.IServiceProvider;
