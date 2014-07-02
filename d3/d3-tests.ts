@@ -2590,6 +2590,7 @@ function extentTest() {
 }
 
 // Tests for d3.time.format.multi
+// Adopted from http://bl.ocks.org/mbostock/4149176
 function multiTest() {
     var customTimeFormat = d3.time.format.multi([
         [".%L", function(d) { return d.getMilliseconds(); }],
