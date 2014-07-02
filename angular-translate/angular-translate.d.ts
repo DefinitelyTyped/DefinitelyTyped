@@ -86,6 +86,6 @@ declare module ng.translate {
         usePostCompiling(value: boolean): ITranslateProvider;
         determinePreferredLanguage(fn?: () => void): ITranslateProvider;
         registerAvailableLanguageKeys(): string[];
-        registerAvailableLanguageKeys(languageKeys: string[], aliases?: ILanguageKeyAlias[]): ITranslateProvider;
+        registerAvailableLanguageKeys(languageKeys: string[], aliases?: ILanguageKeyAlias): ITranslateProvider;
     }
 }
