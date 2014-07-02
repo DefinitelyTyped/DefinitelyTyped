@@ -1,4 +1,7 @@
-﻿$.blockUI();
+﻿/// <reference path="../qunit/qunit.d.ts" />
+/// <reference path="jquery.blockUI.d.ts" />
+
+$.blockUI();
 var opt: JQBlockUIOptions = {
     css: { border: "1px solid red" },
     message: "test"
