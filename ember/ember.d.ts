@@ -1501,6 +1501,7 @@ declare module Ember {
     }
     module RSVP {
         class Promise {
+			constructor(resolver: Function, label?: string);
             then(done?: Function, fail?: Function): Promise;
         }
     }
