@@ -1,6 +1,6 @@
 // Type definitions for jQuery.Address 1.5
 // Project: https://github.com/asual/jquery-address
-// Definitions by: Martin Duparc <https://github.com/martinduparc> and Tim Klingeleers <https://github.com/mardaneus86>
+// Definitions by: Martin Duparc <https://github.com/martinduparc>, Tim Klingeleers <https://github.com/mardaneus86>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped/
 
 /// <reference path="../jquery/jquery.d.ts" />
