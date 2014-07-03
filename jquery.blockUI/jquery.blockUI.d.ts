@@ -1,4 +1,4 @@
-﻿// Type definitions for jQuery Cookie Plugin 1.3
+﻿// Type definitions for jQuery BlockUI Plugin
 // Project: http://malsup.com/jquery/block/
 // Definitions by: Jeffrey Lee <http://blog.darkthread.net/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -98,18 +98,32 @@ interface JQBlockUIOptions {
 }
 
 interface JQBlockUIStatic {
+	/** default options */
     default?: JQBlockUIOptions;
+	/** block user activity for the page */
     (): void;
+	/**
+	 * block user activity for the page
+	 * @param options options 
+	 */
     (option: JQBlockUIOptions): void;
 }
 
 interface JQueryStatic {
+	/** block user activity for the page */
     blockUI?: JQBlockUIStatic;
+	/** unblock the page */
     unblockUI?: () => void;
 }
 
 interface JQuery {
+	/** 
+	 * block the element(s)
+	 * @param options block options
+	 */
     block(option?: JQBlockUIOptions): JQuery;
+	/**
+	 * unblock the element(s)
+	 */
     unblock(): JQuery;
 }
-
