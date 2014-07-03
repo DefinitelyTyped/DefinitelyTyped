@@ -342,6 +342,8 @@ interface RequireDefine {
 	*	callback return module definition
 	**/
 	(name: string, ready: Function): void;
+	
+	amd: Object;
 }
 
 // Ambient declarations for 'require' and 'define'
