@@ -1443,6 +1443,13 @@ interface UnderscoreStatic {
 	escape(str: string): string;
 
 	/**
+	* The opposite of escape, replaces &amp;, &lt;, &gt;, &quot;, and &#x27; with their unescaped counterparts.
+	* @param str HTML escaped string.
+	* @return `str` Raw string.
+	**/
+	unescape(str: string): string;
+
+	/**
 	* If the value of the named property is a function then invoke it; otherwise, return it.
 	* @param object Object to maybe invoke function `property` on.
 	* @param property The function by name to invoke on `object`.
@@ -2284,6 +2291,12 @@ interface Underscore<T> {
 	escape(): string;
 
 	/**
+	* Wrapped type `string`.
+	* @see _.unescape
+	**/
+	unescape(): string;
+
+	/**
 	* Wrapped type `object`.
 	* @see _.result
 	**/
@@ -3105,6 +3118,12 @@ interface _Chain<T> {
 	* @see _.escape
 	**/
 	escape(): _Chain<T>;
+
+	/**
+	* Wrapped type `string`.
+	* @see _.unescape
+	**/
+	unescape(): _Chain<T>;
 
 	/**
 	* Wrapped type `object`.
