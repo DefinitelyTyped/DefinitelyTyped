@@ -98,32 +98,32 @@ interface JQBlockUIOptions {
 }
 
 interface JQBlockUIStatic {
-	/** default options */
+    /** default options */
     default?: JQBlockUIOptions;
-	/** block user activity for the page */
+    /** block user activity for the page */
     (): void;
-	/**
-	 * block user activity for the page
-	 * @param options options 
-	 */
+    /**
+     * block user activity for the page
+     * @param options options 
+     */
     (option: JQBlockUIOptions): void;
 }
 
 interface JQueryStatic {
-	/** block user activity for the page */
+    /** block user activity for the page */
     blockUI?: JQBlockUIStatic;
-	/** unblock the page */
+    /** unblock the page */
     unblockUI?: () => void;
 }
 
 interface JQuery {
-	/** 
-	 * block the element(s)
-	 * @param options block options
-	 */
+    /** 
+     * block the element(s)
+     * @param options block options
+     */
     block(option?: JQBlockUIOptions): JQuery;
-	/**
-	 * unblock the element(s)
-	 */
+    /**
+     * unblock the element(s)
+     */
     unblock(): JQuery;
 }
