@@ -343,6 +343,14 @@ interface RequireDefine {
 	**/
 	(name: string, ready: Function): void;
 	
+	/**
+	* Used to allow a clear indicator that a global define function (as needed for script src browser loading) conforms
+	* to the AMD API, any global define function SHOULD have a property called "amd" whose value is an object.
+	* This helps avoid conflict with any other existing JavaScript code that could have defined a define() function
+	* that does not conform to the AMD API.
+	* define.amd.jQuery is specific to jQuery and indicates that the loader is able to account for multiple version
+	* of jQuery being loaded simultaneously.
+	*/
 	amd: Object;
 }
 
