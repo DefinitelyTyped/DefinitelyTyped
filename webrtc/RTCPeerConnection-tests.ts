@@ -1,10 +1,13 @@
 ﻿/// <reference path="MediaStream.d.ts" />
 /// <reference path="RTCPeerConnection.d.ts" />
 
-var config: RTCConfiguration = { iceServers: [{ url: "stun.l.google.com:19302" }] };
-var constraints: MediaConstraints = { mandatory: { OfferToReceiveAudio: true, OfferToReceiveVideo: true } };
+var config: RTCConfiguration =
+    { iceServers: [{ url: "stun.l.google.com:19302" }] };
+var constraints: RTCMediaConstraints =
+    { mandatory: { OfferToReceiveAudio: true, OfferToReceiveVideo: true } };
 
-var peerConnection: RTCPeerConnection = new RTCPeerConnection(config, constraints);
+var peerConnection: RTCPeerConnection =
+    new RTCPeerConnection(config, constraints);
 
 navigator.getUserMedia({ audio: true, video: true },
   stream => {
@@ -41,11 +44,15 @@ peerConnection.setRemoteDescription(sessionDescription, () => {
     answer => {
       peerConnection.setLocalDescription(answer,
         () => console.log('Set local description'),
-      error => console.log("Error setting local description from created answer: " + error + "; answer.sdp=" + answer.sdp));
+      error => console.log(
+          "Error setting local description from created answer: " + error +
+          "; answer.sdp=" + answer.sdp));
     },
   error => console.log("Error creating answer: " + error));
 },
-error => console.log('Error setting remote description: ' + error + "; offer.sdp=" + offer.sdp));
+error => console.log('Error setting remote description: ' + error +
+    "; offer.sdp=" + offer.sdp));
 
-var wkPeerConnection: webkitRTCPeerConnection = new webkitRTCPeerConnection(config, constraints);
+var wkPeerConnection: webkitRTCPeerConnection =
+    new webkitRTCPeerConnection(config, constraints);
 

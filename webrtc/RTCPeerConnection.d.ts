@@ -43,7 +43,7 @@ interface mozRTCPeerConnection extends RTCPeerConnection {
 declare var mozRTCPeerConnection: {
   prototype: mozRTCPeerConnection;
   new (settings: RTCPeerConnectionConfig,
-       constraints?:MediaConstraints): mozRTCPeerConnection;
+       constraints?:RTCMediaConstraints): mozRTCPeerConnection;
 }
 // webkit (Chrome) specific prefixes.
 interface webkitRTCPeerConnection extends RTCPeerConnection {
@@ -51,12 +51,12 @@ interface webkitRTCPeerConnection extends RTCPeerConnection {
 declare var webkitRTCPeerConnection: {
   prototype: webkitRTCPeerConnection;
   new (settings: RTCPeerConnectionConfig,
-       constraints?:MediaConstraints): webkitRTCPeerConnection;
+       constraints?:RTCMediaConstraints): webkitRTCPeerConnection;
 }
 
 // For Chrome, look at the code here:
 // https://code.google.com/p/chromium/codesearch#chromium/src/third_party/libjingle/source/talk/app/webrtc/webrtcsession.cc&sq=package:chromium&dr=C&l=63
-interface OptionalMediaConstraint {
+interface RTCOptionalMediaConstraint {
   // When true, will use DTLS/SCTP data channels
   DtlsSrtpKeyAgreement?: boolean;
   // When true will use Rtp-based data channels (depreicated)
@@ -65,12 +65,12 @@ interface OptionalMediaConstraint {
 
 // ks 12/20/12 - There's more here that doesn't seem to be documented very well yet.
 // http://www.w3.org/TR/2013/WD-webrtc-20130910/
-interface MediaConstraints {
-  mandatory?: MediaOfferConstraints;
-  optional?: OptionalMediaConstraint[]
+interface RTCMediaConstraints {
+  mandatory?: RTCMediaOfferConstraints;
+  optional?: RTCOptionalMediaConstraint[]
 }
 
-interface MediaOfferConstraints {
+interface RTCMediaOfferConstraints {
   OfferToReceiveAudio: boolean;
   OfferToReceiveVideo: boolean;
 }
@@ -215,10 +215,10 @@ declare enum RTCSignalingState {
 interface RTCPeerConnection {
   createOffer(successCallback: RTCSessionDescriptionCallback,
               failureCallback?: RTCPeerConnectionErrorCallback,
-              constraints?: MediaConstraints): void;
+              constraints?: RTCMediaConstraints): void;
   createAnswer(successCallback: RTCSessionDescriptionCallback,
                failureCallback?: RTCPeerConnectionErrorCallback,
-               constraints?: MediaConstraints): void;
+               constraints?: RTCMediaConstraints): void;
   setLocalDescription(description: RTCSessionDescription,
                       successCallback?: RTCVoidCallback,
                       failureCallback?: RTCPeerConnectionErrorCallback): void;
@@ -229,7 +229,7 @@ interface RTCPeerConnection {
   remoteDescription: RTCSessionDescription;
   signalingState: string; // RTCSignalingState; see TODO(1)
   updateIce(configuration?: RTCConfiguration,
-            constraints?: MediaConstraints): void;
+            constraints?: RTCMediaConstraints): void;
   addIceCandidate(candidate: RTCIceCandidate): void;
   iceGatheringState: string;  // RTCIceGatheringState; see TODO(1)
   iceConnectionState: string;  // RTCIceConnectionState; see TODO(1)
@@ -238,7 +238,7 @@ interface RTCPeerConnection {
   createDataChannel(label?: string,
                     dataChannelDict?: RTCDataChannelInit): RTCDataChannel;
   ondatachannel: (event: Event) => void;
-  addStream(stream: MediaStream, constraints?: MediaConstraints): void;
+  addStream(stream: MediaStream, constraints?: RTCMediaConstraints): void;
   removeStream(stream: MediaStream): void;
   close(): void;
   onnegotiationneeded: (event: Event) => void;
@@ -255,7 +255,7 @@ interface RTCPeerConnection {
 declare var RTCPeerConnection: {
   prototype: RTCPeerConnection;
   new (configuration: RTCConfiguration,
-       constraints?: MediaConstraints): RTCPeerConnection;
+       constraints?: RTCMediaConstraints): RTCPeerConnection;
 }
 
 interface RTCIceCandidate {
