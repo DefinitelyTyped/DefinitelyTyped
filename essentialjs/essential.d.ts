@@ -24,6 +24,9 @@ declare module Resolver {
 
 	function getByUniqueID(map,el,forceID) : any;
 	function setByUniqueID(map,el,value) : void;
+
+	// angular support
+	function angularProvider(name : String,module : any,providerName : String): void;
 }
 
 /***
@@ -33,8 +36,8 @@ declare module Resolver {
  * 
  * - https://github.com/essentialjs/EssentialJS/wiki
  */
-declare function Generator(fn) : Function;
-declare function Generator(fn,base,extensions) : Function;
+declare function Generator(fn) : any; // Function + methods;
+declare function Generator(fn,base,extensions) : any; // Function + methods;
 
 /***
  *	The document is enhanced by the Resolver("document")
