@@ -7,13 +7,13 @@ var constraints: MediaConstraints = { mandatory: { OfferToReceiveAudio: true, Of
 var peerConnection: RTCPeerConnection = new RTCPeerConnection(config, constraints);
 
 navigator.getUserMedia({ audio: true, video: true },
-	stream => {
-		peerConnection.addStream(stream);
-	},
-	error => {
-		console.log('Error message: ' + error.message);
-		console.log('Error name: ' + error.name);
-	});
+  stream => {
+    peerConnection.addStream(stream);
+  },
+  error => {
+    console.log('Error message: ' + error.message);
+    console.log('Error name: ' + error.name);
+  });
 
 peerConnection.onaddstream = ev => console.log(ev.type);
 peerConnection.ondatachannel = ev => console.log(ev.type);
@@ -25,25 +25,25 @@ peerConnection.onremovestream = ev => console.log(ev.type);
 peerConnection.onstatechange = ev => console.log(ev.type);
 
 peerConnection.createOffer(
-	offer => {
-		peerConnection.setLocalDescription(offer,
-			() => console.log("set local description"),
-			error => console.log("Error setting local description: " + error));
-	},
-	error => console.log("Error creating offer: " + error));
+  offer => {
+    peerConnection.setLocalDescription(offer,
+      () => console.log("set local description"),
+      error => console.log("Error setting local description: " + error));
+  },
+  error => console.log("Error creating offer: " + error));
 
 var type: string = RTCSdpType[RTCSdpType.offer];
 var offer: RTCSessionDescriptionInit = { type: type, sdp: "some sdp" };
 var sessionDescription = new RTCSessionDescription(offer);
 
 peerConnection.setRemoteDescription(sessionDescription, () => {
-	peerConnection.createAnswer(
-		answer => {
-			peerConnection.setLocalDescription(answer,
-				() => console.log('Set local description'),
-			error => console.log("Error setting local description from created answer: " + error + "; answer.sdp=" + answer.sdp));
-		},
-	error => console.log("Error creating answer: " + error));
+  peerConnection.createAnswer(
+    answer => {
+      peerConnection.setLocalDescription(answer,
+        () => console.log('Set local description'),
+      error => console.log("Error setting local description from created answer: " + error + "; answer.sdp=" + answer.sdp));
+    },
+  error => console.log("Error creating answer: " + error));
 },
 error => console.log('Error setting remote description: ' + error + "; offer.sdp=" + offer.sdp));
 
