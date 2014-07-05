@@ -212,6 +212,17 @@ declare enum RTCSignalingState {
   'closed'
 }
 
+// This is based on the current implementation of WebRtc in Chrome; the spec is
+// a little unclear on this.
+// http://dev.w3.org/2011/webrtc/editor/webrtc.html#idl-def-RTCStatsReport
+interface RTCStatsReport {
+  stat(id: string): string;
+}
+
+interface RTCStatsCallback {
+  (report: RTCStatsReport): void;
+}
+
 interface RTCPeerConnection {
   createOffer(successCallback: RTCSessionDescriptionCallback,
               failureCallback?: RTCPeerConnectionErrorCallback,
@@ -251,6 +262,8 @@ interface RTCPeerConnection {
   onicecandidate: (event: RTCIceCandidateEvent) => void;
   onidentityresult: (event: Event) => void;
   onsignalingstatechange: (event: Event) => void;
+  getStats: (successCallback: RTCStatsCallback,
+             failureCallback: RTCPeerConnectionErrorCallback) => void;
 }
 declare var RTCPeerConnection: {
   prototype: RTCPeerConnection;
