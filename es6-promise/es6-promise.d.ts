@@ -1,3 +1,8 @@
+// Type definitions for es6-promise
+// Project: https://github.com/jakearchibald/ES6-Promises
+// Definitions by: Tarh Paleo <https://github.com/tarh/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 interface Promise_Static {
 	new<R>(cb: (resolve: (res?: R) => void, reject: (err: any) => void) => void): TPromise<R>;
 	new<R>(cb: (resolve: (res?: TPromise<R>) => void, reject: (err: any) => void) => void): TPromise<R>;
