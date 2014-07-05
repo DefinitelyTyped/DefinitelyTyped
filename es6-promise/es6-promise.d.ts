@@ -4,10 +4,12 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface Thenable<R> {
-	then<U>(onResolve: (value: R) => Thenable<U>,  onReject: (error: any) => Thenable<U>): Thenable<U>;
-	then<U>(onResolve: (value: R) => Thenable<U>, onReject?: (error: any) => U): Thenable<U>;
-	then<U>(onResolve: (value: R) => U, onReject: (error: any) => Thenable<U>): Thenable<U>;
+	then<U>(onResolve?: (value: R) => Thenable<U>,  onReject?: (error: any) => Thenable<U>): Thenable<U>;
+	then<U>(onResolve?: (value: R) => Thenable<U>, onReject?: (error: any) => U): Thenable<U>;
+	then<U>(onResolve?: (value: R) => Thenable<U>, onReject?: (error: any) => void): Thenable<U>;
+	then<U>(onResolve?: (value: R) => U, onReject?: (error: any) => Thenable<U>): Thenable<U>;
 	then<U>(onResolve?: (value: R) => U, onReject?: (error: any) => U): Thenable<U>;
+	then<U>(onResolve?: (value: R) => U, onReject?: (error: any) => void): Thenable<U>;
 }
 
 declare class Promise<R> implements Thenable<R> {
@@ -18,7 +20,7 @@ declare class Promise<R> implements Thenable<R> {
 	 * For consistency and debugging (eg stack traces), obj should be an instanceof Error. 
 	 * Any errors thrown in the constructor callback will be implicitly passed to reject().
 	 */
-	constructor(callback: (resolve : (result: R) => void, reject: (error: any) => void) => void);
+	constructor(callback: (resolve : (result?: R) => void, reject: (error: any) => void) => void);
 	/**
 	 * If you call resolve in the body of the callback passed to the constructor, 
 	 * your promise will be fulfilled/rejected with the outcome of thenable passed to resolve.
@@ -26,7 +28,7 @@ declare class Promise<R> implements Thenable<R> {
 	 * For consistency and debugging (eg stack traces), obj should be an instanceof Error. 
 	 * Any errors thrown in the constructor callback will be implicitly passed to reject().
 	 */
-	constructor(callback: (resolve : (result: Thenable<R>) => void, reject: (error: any) => void) => void);
+	constructor(callback: (resolve : (result?: Thenable<R>) => void, reject: (error: any) => void) => void);
 
 	/**
 	 * onResolve is called when/if "promise" resolves. onReject is called when/if "promise" rejects. 
@@ -38,7 +40,7 @@ declare class Promise<R> implements Thenable<R> {
 	 * @param onResolve called when/if "promise" resolves
 	 * @param onReject called when/if "promise" rejects
 	 */
-	then<U>(onResolve: (value: R) => Thenable<U>,  onReject: (error: any) => Thenable<U>): Promise<U>;
+	then<U>(onResolve?: (value: R) => Thenable<U>,  onReject?: (error: any) => Thenable<U>): Promise<U>;
 	/**
 	 * onResolve is called when/if "promise" resolves. onReject is called when/if "promise" rejects. 
 	 * Both are optional, if either/both are omitted the next onResolve/onReject in the chain is called. 
@@ -49,7 +51,18 @@ declare class Promise<R> implements Thenable<R> {
 	 * @param onResolve called when/if "promise" resolves
 	 * @param onReject called when/if "promise" rejects
 	 */
-	then<U>(onResolve: (value: R) => Thenable<U>, onReject?: (error: any) => U): Promise<U>;
+	then<U>(onResolve?: (value: R) => Thenable<U>, onReject?: (error: any) => U): Promise<U>;
+	/**
+	 * onResolve is called when/if "promise" resolves. onReject is called when/if "promise" rejects.
+	 * Both are optional, if either/both are omitted the next onResolve/onReject in the chain is called.
+	 * Both callbacks have a single parameter , the fulfillment value or rejection reason.
+	 * "then" returns a new promise equivalent to the value you return from onResolve/onReject after being passed through Promise.resolve.
+	 * If an error is thrown in the callback, the returned promise rejects with that error.
+	 *
+	 * @param onResolve called when/if "promise" resolves
+	 * @param onReject called when/if "promise" rejects
+	 */
+	then<U>(onResolve?: (value: R) => Thenable<U>,  onReject?: (error: any) => void): Promise<U>;
 	/**
 	 * onResolve is called when/if "promise" resolves. onReject is called when/if "promise" rejects. 
 	 * Both are optional, if either/both are omitted the next onResolve/onReject in the chain is called. 
@@ -60,7 +73,7 @@ declare class Promise<R> implements Thenable<R> {
 	 * @param onResolve called when/if "promise" resolves
 	 * @param onReject called when/if "promise" rejects
 	 */
-	then<U>(onResolve: (value: R) => U, onReject: (error: any) => Thenable<U>): Promise<U>;
+	then<U>(onResolve?: (value: R) => U, onReject?: (error: any) => Thenable<U>): Promise<U>;
 	/**
 	 * onResolve is called when/if "promise" resolves. onReject is called when/if "promise" rejects. 
 	 * Both are optional, if either/both are omitted the next onResolve/onReject in the chain is called. 
@@ -72,7 +85,18 @@ declare class Promise<R> implements Thenable<R> {
 	 * @param onReject called when/if "promise" rejects
 	 */
 	then<U>(onResolve?: (value: R) => U, onReject?: (error: any) => U): Promise<U>;
-	
+	/**
+	 * onResolve is called when/if "promise" resolves. onReject is called when/if "promise" rejects.
+	 * Both are optional, if either/both are omitted the next onResolve/onReject in the chain is called.
+	 * Both callbacks have a single parameter , the fulfillment value or rejection reason.
+	 * "then" returns a new promise equivalent to the value you return from onResolve/onReject after being passed through Promise.resolve.
+	 * If an error is thrown in the callback, the returned promise rejects with that error.
+	 *
+	 * @param onResolve called when/if "promise" resolves
+	 * @param onReject called when/if "promise" rejects
+	 */
+	then<U>(onResolve?: (value: R) => U, onReject?: (error: any) => void): Promise<U>;
+
 	/**
 	 * Sugar for promise.then(undefined, onReject)
 	 * 
@@ -85,6 +109,12 @@ declare class Promise<R> implements Thenable<R> {
 	 * @param onReject called when/if "promise" rejects
 	 */
 	catch<U>(onReject?: (error: any) => U): Promise<U>;
+	/**
+	 * Sugar for promise.then(undefined, onReject)
+	 *
+	 * @param onReject called when/if "promise" rejects
+	 */
+	catch<U>(onReject?: (error: any) => void): Promise<U>;
 }
 
 declare module Promise {
@@ -95,14 +125,14 @@ declare module Promise {
 	/**
 	 * Make a promise that fulfills to obj.
 	 */
-	function cast<R>(object?: R): Promise<R>;
+	function cast<R>(object: R): Promise<R>;
 
 	/**
 	 * Make a new promise from the thenable. 
 	 * A thenable is promise-like in as far as it has a "then" method. 
 	 * This also creates a new promise if you pass it a genuine JavaScript promise, making it less efficient for casting than Promise.cast.
 	 */
-	function resolve<R>(thenable: Thenable<R>): Promise<R>;
+	function resolve<R>(thenable?: Thenable<R>): Promise<R>;
 	/**
 	 * Make a promise that fulfills to obj. Same as Promise.cast(obj) in this situation.
 	 */
@@ -111,7 +141,7 @@ declare module Promise {
 	/**
 	 * Make a promise that rejects to obj. For consistency and debugging (eg stack traces), obj should be an instanceof Error
 	 */
-	function reject(error?: any): Promise<any>;
+	function reject(error: any): Promise<any>;
 	
 	/**
 	 * Make a promise that fulfills when every item in the array fulfills, and rejects if (and when) any item rejects. 
