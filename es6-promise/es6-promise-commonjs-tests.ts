@@ -1,6 +1,6 @@
-/// <reference path="es6-promises.d.ts" />
+/// <reference path="es6-promise.d.ts" />
 
-import rsvp = require('es6-promises');
+import rsvp = require('es6-promise');
 var Promise = rsvp.Promise;
 
 var promiseString: Promise<string>,
