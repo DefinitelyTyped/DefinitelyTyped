@@ -74,6 +74,8 @@ promiseNumber = thenWithUndefinedFullFillAndPromiseReject;
 var thenWithNoResultAndNoReject = promiseString.then<number>();
 promiseNumber = thenWithNoResultAndNoReject;
 
+var voidPromise = new Promise<void>(function (resolve) { resolve(); });
+
 //catch test
 var catchWithSimpleResult = promiseString.catch(error => 10);	
 promiseNumber = catchWithSimpleResult;
@@ -81,6 +83,7 @@ promiseNumber = catchWithSimpleResult;
 var catchWithPromiseResult = promiseString.catch(error => Promise.resolve(10));	
 promiseNumber = catchWithPromiseResult;
 
+promiseString = promiseString.catch<string>(function () { throw new Error('Better error msg'); });
 
 //examples coming from http://www.html5rocks.com/en/tutorials/es6/promises/
 
