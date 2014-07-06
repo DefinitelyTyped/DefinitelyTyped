@@ -129,7 +129,3 @@ declare module chai {
 
 //browser global
 declare var assert:chai.Assert;
-
-declare module 'chai' {
-export = chai;
-}
