@@ -42,6 +42,8 @@ interface Cordova {
     define(moduleName: string, factory: (require: any, exports: any, module: any) => any): void;
     /** Access a Cordova module by name. */
     require(moduleName: string): any;
+    /** Access plugins object. */
+    plugins: any;
 }
 
 // cordova/argscheck module
