@@ -31,7 +31,6 @@ b = d7.greaterThan(d6);
 d = d7.min(d6);
 d = d7.max(d6);
 d = d7.multiply(3);
-d = d7.divide(0.3);
 d = d7.add(d6);
 d = d7.sub(d6);
 s = d7.toString();
@@ -126,10 +125,6 @@ b = dt.greaterEqual(new tc.DateTime(9289234, tc.TimeZone.local()));
 s = dt.toIsoString();
 s = dt.toString();
 s = dt.toUtcString();
-
-var wd: tc.WeekDay;
-wd = dt.weekDay();
-wd = dt.utcWeekDay();
 
 // PERIOD
 
