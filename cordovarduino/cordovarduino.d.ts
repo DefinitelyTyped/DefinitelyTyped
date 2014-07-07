@@ -1,6 +1,6 @@
-// Type definitions for Cordovarduino plugin.
+// Type definitions for Cordovarduino plugin
 // Project: https://github.com/stereolux/cordovarduino
-// Definitions by: Hendrik Maus <hendrik@aidentailor.net>
+// Definitions by: Hendrik Maus <https://github.com/hendrikmaus>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module Cordovardunio {
