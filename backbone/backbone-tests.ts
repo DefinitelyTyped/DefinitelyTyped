@@ -140,6 +140,14 @@ function test_collection() {
     var alphabetical = books.sortBy((book: Book): number => {
         return null;
     });
+
+    var model: Book = new Book({title: "Test", author: "Mike"});
+    books.add(model);
+    var model2: Book = model.collection.first();
+    if (model !== model2) {
+        throw new Error("Error");
+    }
+
 }
 
 //////////
