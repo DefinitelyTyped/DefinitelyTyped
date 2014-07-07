@@ -1,6 +1,6 @@
-// Type definitions for Cordova Keyboard plugin.
+// Type definitions for Cordova Keyboard plugin
 // Project: https://github.com/driftyco/ionic-plugins-keyboard
-// Definitions by: Hendrik Maus <hendrik@aidentailor.net>
+// Definitions by: Hendrik Maus <https://github.com/hendrikmaus>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module Ionic {
