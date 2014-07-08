@@ -15,11 +15,20 @@ interface AsyncWorker<T> { (task: T, callback: Function): void; }
 interface AsyncQueue<T> {
     length(): number;
     concurrency: number;
+    started: boolean;
+    paused: boolean;
     push(task: T, callback?: AsyncMultipleResultsCallback<T>): void;
     push(task: T[], callback?: AsyncMultipleResultsCallback<T>): void;
-    saturated: AsyncMultipleResultsCallback<T>;
-    empty: AsyncMultipleResultsCallback<T>;
-    drain: AsyncMultipleResultsCallback<T>;
+    unshift(task: T, callback?: AsyncMultipleResultsCallback<T>): void;
+    unshift(task: T[], callback?: AsyncMultipleResultsCallback<T>): void;
+    saturated: () => any;
+    empty: () => any;
+    drain: () => any;
+    running(): number;
+    idle(): boolean;
+    pause(): void;
+    resume(): void;
+    kill(): void;
 }
 
 interface Async {
