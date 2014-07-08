@@ -1620,6 +1620,7 @@ declare module D3 {
         export interface Symbol {
             type: (string:string) => Symbol;
             size: (number:number) => Symbol;
+            (datum:any = null, idx:number = null):string;
         }
 
         export interface Brush {
