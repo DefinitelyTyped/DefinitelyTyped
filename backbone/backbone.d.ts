@@ -95,6 +95,8 @@ declare module Backbone {
         attributes: any;
         changed: any[];
         cid: string;
+        collection: Collection<any>;
+
         /**
         * Default attributes for the model. It can be an object hash or a method returning an object hash.
         * For assigning an object hash, do it like this: this.defaults = <any>{ attribute: value, ... };
@@ -156,7 +158,6 @@ declare module Backbone {
         //model: typeof TModel;
         model: { new(): TModel; }; // workaround
         models: TModel[];
-        collection: TModel;
         length: number;
 
         constructor(models?: TModel[], options?: any);
