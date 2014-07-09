@@ -42,14 +42,14 @@ declare module D3 {
         };
     }
 
-    export interface Event {
+    export interface D3Event extends Event{
         dx: number;
         dy: number;
         clientX: number;
         clientY: number;
         translate: number[];
         scale: number;
-        sourceEvent: Event;
+        sourceEvent: D3Event;
         x: number;
         y: number;
         keyCode: number;
@@ -65,7 +65,7 @@ declare module D3 {
         /**
         * Access the current user event for interaction
         */
-        event: Event;
+        event: D3Event;
 
         /**
         * Compare two values for sorting.
