@@ -1,4 +1,4 @@
-// Type definitions for Passport v0.2.0 Strategy module.
+// Type definitions for Passport Strategy module v0.2.0
 // Project: http://passportjs.org
 // Definitions by: Lior Mualem <https://github.com/liorm/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
