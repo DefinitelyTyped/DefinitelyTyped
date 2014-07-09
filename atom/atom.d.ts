@@ -944,7 +944,7 @@ declare module AtomCore {
   interface IPackage {
 		mainModulePath: string;
 		mainModule: any;
-	  enable(): void;
+		enable(): void;
 		disable(): void;
 		isTheme(): boolean;
 		getType(): string;
