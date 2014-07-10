@@ -7,7 +7,7 @@
 
 declare module ng.translate {
     
-    interface ITranslatePartialLoader{
+    interface ITranslatePartialLoaderService {
         addPart(name: string): ITranslatePartialLoader;
         deletePart(name: string, removeData?: boolean): ITranslatePartialLoader;
         isPartAvailable(name: string): boolean;
