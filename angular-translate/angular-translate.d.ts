@@ -8,8 +8,8 @@
 declare module ng.translate {
     
     interface ITranslatePartialLoaderService {
-        addPart(name: string): ITranslatePartialLoader;
-        deletePart(name: string, removeData?: boolean): ITranslatePartialLoader;
+        addPart(name: string): ITranslatePartialLoaderService;
+        deletePart(name: string, removeData?: boolean): ITranslatePartialLoaderService;
         isPartAvailable(name: string): boolean;
     }
   
