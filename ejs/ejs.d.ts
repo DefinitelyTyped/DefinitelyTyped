@@ -20,11 +20,11 @@ interface EjsConstructorOptions {
 
 interface Ejs {
     render(data: any): any;
-    update(element: string, url_or_data?: Object) // Updates an element with the result of the template.
+    update(element: string, url_or_data?: Object):void // Updates an element with the result of the template.
 }
 
 interface EjsFactory {
-    new (EjsConstructorOptions): Ejs;
+    new (EjsConstructorOptions:Object): Ejs;
 }
 
 declare var EJS: EjsFactory;
