@@ -941,6 +941,21 @@ declare module AtomCore {
 		// TBD
 	}
 
+  interface IPackage {
+		mainModulePath: string;
+		mainModule: any;
+		enable(): void;
+		disable(): void;
+		isTheme(): boolean;
+		getType(): string;
+		getStylesheetType(): string;
+		load(): IPackage;
+		reset(): void;
+		activate(): Q.Promise<any[]>;
+		activateNow(): void;
+	  // TBD
+  }
+
 	interface IPackageManager extends Emissary.IEmitter {
 		packageDirPaths:string[];
 		loadedPackages:any;
@@ -957,7 +972,7 @@ declare module AtomCore {
 		activate():void;
 		registerPackageActivator(activator:any, types:any):void;
 		activatePackages(packages:any):void;
-		activatePackage(name:string):void;
+		activatePackage(name:string):Q.Promise<IPackage>;
 		deactivatePackages():void;
 		deactivatePackage(name:string):void;
 		getActivePackages():any;
@@ -1010,14 +1025,14 @@ declare module AtomCore {
 	interface IAtomStatic extends ISerializationStatic<IAtom> {
 		version: number;
 		loadSettings: IAtomSettings;
-		
+
 		/* Load or create the Atom environment in the given mode */
 		loadOrCreate(mode:'editor'):IAtom;
 		/* Load or create the Atom environment in the given mode */
 		loadOrCreate(mode:'spec'):IAtom;
 		/* Load or create the Atom environment in the given mode */
 		loadOrCreate(mode:string):IAtom;
-		
+
 		loadState(mode:any):void;
 		getStatePath(mode:any):string;
 		getConfigDirPath():string;
