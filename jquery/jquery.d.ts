@@ -545,7 +545,7 @@ interface BaseJQueryEventObject extends Event {
     data: any;
     delegateTarget: Element;
     isDefaultPrevented(): boolean;
-    isImmediatePropogationStopped(): boolean;
+    isImmediatePropagationStopped(): boolean;
     isPropagationStopped(): boolean;
     namespace: string;
     preventDefault(): any;
