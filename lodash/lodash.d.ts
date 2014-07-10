@@ -6201,6 +6201,14 @@ declare module _ {
         **/
         uniqueId(prefix?: string): string;
     }
+    
+    //_.noop
+    interface LoDashStatic {
+        /**
+         * A no-operation function.
+         **/
+        noop(): void;
+    }
 
     interface ListIterator<T, TResult> {
         (value: T, index: number, list: T[]): TResult;
