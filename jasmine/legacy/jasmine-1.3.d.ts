@@ -5,10 +5,12 @@
 
 
 declare function describe(description: string, specDefinitions: () => void): void;
+// declare function ddescribe(description: string, specDefinitions: () => void): void; is not a part of jasmine. It is something angular adds
 declare function xdescribe(description: string, specDefinitions: () => void): void;
 
 declare function it(expectation: string, assertion: () => void): void;
 declare function it(expectation: string, assertion: (done: (err?: any) => void) => void): void;
+// declare function iit(expectation: string, assertion: () => void): void; is not a part of jasmine. It is something angular adds
 declare function xit(expectation: string, assertion: () => void): void;
 
 declare function beforeEach(action: () => void): void;
