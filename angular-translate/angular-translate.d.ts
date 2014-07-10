@@ -13,7 +13,7 @@ declare module ng.translate {
     interface ILanguageKeyAlias {
         [key: string]: string;
     }
-    
+
     interface IStorage {
         get(name: string): string;
         set(name: string, value: string): void;
@@ -28,6 +28,7 @@ declare module ng.translate {
     interface ITranslateService {
         (key: string, ...params: string[]): ng.IPromise<string>;
         cloakClassName(): string;
+        cloakClassName(name: string): ITranslateProvider;
         fallbackLanguage(langKey?: string): string;
         fallbackLanguage(langKey?: string[]): string;
         instant(translationId: string, interpolateParams?: any, interpolationId?: string): string;
