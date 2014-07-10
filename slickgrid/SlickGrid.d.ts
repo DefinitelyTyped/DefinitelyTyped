@@ -1539,7 +1539,7 @@ declare module Slick {
 			*/
 			public expandGroup(...varArgs: string[]): void;
 			public getGroups(): Group<T, any>[];
-			public getIdxById(): string;
+			public getIdxById(id: string): number;
 			public getRowById(): T;
 			public getItemById(id: any): T;
 			public getItemByIdx(): T;
