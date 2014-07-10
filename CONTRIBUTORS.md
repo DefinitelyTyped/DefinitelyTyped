@@ -253,7 +253,7 @@ All definitions files include a header with the author and editors, so at some p
 * [OpenLayers](https://github.com/openlayers/openlayers) (by [Ilya Bolkhovsky](https://github.com/bolhovsky/))
 * [Optimist](https://github.com/substack/node-optimist) (by [Carlos Ballesteros Velasco](https://github.com/soywiz))
 * [Passport](http://passportjs.org/) (by [Hiroki Horiuchi](https://github.com/horiuchi/))
-* [passport-strategy](http://passportjs.org/) (by [Lior Mualem](https://github.com/liorm))
+* [passport-strategy](https://github.com/jaredhanson/passport-strategy) (by [Lior Mualem](https://github.com/liorm))
 * [pathwatcher](http://atom.github.io/node-pathwatcher/) (by [vvakame](https://github.com/vvakame))
 * [Parallel.js](https://github.com/adambom/parallel.js) (by [Josh Baldwin](https://github.com/jbaldwin))
 * [Parsimmon](https://github.com/jayferd/parsimmon) (by [Bart van der Schoor](https://github.com/Bartvds))
