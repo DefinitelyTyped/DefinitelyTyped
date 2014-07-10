@@ -196,3 +196,7 @@ grid.setCellCssStyles("test", {
 	}
 });
 
+// Begin DataView tests
+var dataView = new Slick.Data.DataView<MyData>();
+var gridWithDataView = new Slick.Grid<MyData>('#grid2', dataView, columns, options);
+dataView.getIdxById('foo') + 5;
