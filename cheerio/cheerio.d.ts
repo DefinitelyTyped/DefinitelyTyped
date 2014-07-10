@@ -1,5 +1,6 @@
 // Type definitions for Cheerio v0.17.0
 // Project: https://github.com/cheeriojs/cheerio
+// Definitions by: Bret Little <https://github.com/blittle>
 // Definitions by: VILIC VANE <http://vilic.info>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
