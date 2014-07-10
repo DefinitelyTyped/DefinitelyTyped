@@ -6,6 +6,13 @@
 /// <reference path="../angularjs/angular.d.ts" />
 
 declare module ng.translate {
+    
+    interface ITranslatePartialLoaderService {
+        addPart(name: string): ITranslatePartialLoaderService;
+        deletePart(name: string, removeData?: boolean): ITranslatePartialLoaderService;
+        isPartAvailable(name: string): boolean;
+    }
+  
     interface ITranslationTable {
         [key: string]: string;
     }
@@ -80,6 +87,6 @@ declare module ng.translate {
         usePostCompiling(value: boolean): ITranslateProvider;
         determinePreferredLanguage(fn?: () => void): ITranslateProvider;
         registerAvailableLanguageKeys(): string[];
-        registerAvailableLanguageKeys(languageKeys: string[], aliases?: ILanguageKeyAlias[]): ITranslateProvider;
+        registerAvailableLanguageKeys(languageKeys: string[], aliases?: ILanguageKeyAlias): ITranslateProvider;
     }
 }
