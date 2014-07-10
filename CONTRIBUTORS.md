@@ -196,6 +196,7 @@ All definitions files include a header with the author and editors, so at some p
 * [KineticJS](http://kineticjs.com/) (by [Basarat Ali Syed](https://github.com/basarat))
 * [Knockback](http://kmalakoff.github.com/knockback/) (by [Marcel Binot](https://github.com/docgit))
 * [Knockout.js](http://knockoutjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
+* [Knockout.Amd.Helpers](https://github.com/rniemeyer/knockout-amd-helpers) (by [David Sichau](https://github.com/DavidSichau/))
 * [Knockout.DeferredUpdates](https://github.com/mbest/knockout-deferred-updates) (by [Sebastián Galiano](https://github.com/sgaliano))
 * [Knockout.ES5](https://github.com/SteveSanderson/knockout-es5) (by [Sebastián Galiano](https://github.com/sgaliano))
 * [Knockout.Mapper](https://github.com/LucasLorentz/knockout.mapper) (by [Brandon Meyer](https://github.com/BMeyerKC))
