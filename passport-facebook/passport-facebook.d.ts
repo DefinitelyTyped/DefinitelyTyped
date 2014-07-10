@@ -10,18 +10,25 @@ declare module 'passport-facebook' {
     import passport = require('passport');
     import express = require('express');
 
-    interface Profile {
-        id:string;
-        provider:string;
-        displayName:string;
-        name:{familyName:string; givenName:string; middleName:string};
-        profileUrl:string;
+    interface Profile extends passport.Profile {
+        gender: string;
+        profileUrl: string;
     }
 
-    class Strategy implements passport.Strategy{
-        constructor(options:{clientID:string; clientSecret:string; callbackURL:string},
-                    verify:(accessToken:string, refreshToken:string, profile:Profile, done:(error:any, user?:any) => void) => void);
+    interface IStrategyOption {
+        clientID: string;
+        clientSecret: string;
+        callbackURL: string;
+
+        scopeSeparator?: string;
+        enableProof?: boolean;
+        profileFields?: string[];
+    }
+
+    class Strategy implements passport.Strategy {
+        constructor(options: IStrategyOption,
+                    verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
         name: string;
-        authenticate:(req: express.Request, options?: Object) => void;
+        authenticate: (req: express.Request, options?: Object) => void;
     }
 }
