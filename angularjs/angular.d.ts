@@ -519,16 +519,51 @@ declare module ng {
     ///////////////////////////////////////////////////////////////////////////
     interface IRootElementService extends JQuery {}
 
-    ///////////////////////////////////////////////////////////////////////////
-    // QService
-    // see http://docs.angularjs.org/api/ng.$q
-    ///////////////////////////////////////////////////////////////////////////
+    /**
+     * $q - service in module ng
+     * A promise/deferred implementation inspired by Kris Kowal's Q.
+     * See http://docs.angularjs.org/api/ng/service/$q
+     */
     interface IQService {
+        /**
+         * Combines multiple promises into a single promise that is resolved when all of the input promises are resolved.
+         * 
+         * Returns a single promise that will be resolved with an array/hash of values, each value corresponding to the promise at the same index/key in the promises array/hash. If any of the promises is resolved with a rejection, this resulting promise will be rejected with the same rejection value.
+         * 
+         * @param promises An array or hash of promises.
+         */
         all(promises: IPromise<any>[]): IPromise<any[]>;
-        all(promises: {[id: string]: IPromise<any>;}): IPromise<{[id: string]: any}>;
+        /**
+         * Combines multiple promises into a single promise that is resolved when all of the input promises are resolved.
+         * 
+         * Returns a single promise that will be resolved with an array/hash of values, each value corresponding to the promise at the same index/key in the promises array/hash. If any of the promises is resolved with a rejection, this resulting promise will be rejected with the same rejection value.
+         * 
+         * @param promises An array or hash of promises.
+         */
+        all(promises: { [id: string]: IPromise<any>; }): IPromise<{ [id: string]: any }>;
+        /**
+         * Creates a Deferred object which represents a task which will finish in the future.
+         */
         defer<T>(): IDeferred<T>;
+        /**
+         * Creates a promise that is resolved as rejected with the specified reason. This api should be used to forward rejection in a chain of promises. If you are dealing with the last promise in a promise chain, you don't need to worry about it.
+         * 
+         * When comparing deferreds/promises to the familiar behavior of try/catch/throw, think of reject as the throw keyword in JavaScript. This also means that if you "catch" an error via a promise error callback and you want to forward the error to the promise derived from the current promise, you have to "rethrow" the error by returning a rejection constructed via reject.
+         * 
+         * @param reason Constant, message, exception or an object representing the rejection reason.
+         */
         reject(reason?: any): IPromise<void>;
+        /**
+         * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
+         * 
+         * @param value Value or a promise
+         */
         when<T>(value: IPromise<T>): IPromise<T>;
+        /**
+         * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
+         * 
+         * @param value Value or a promise
+         */
         when<T>(value: T): IPromise<T>;
     }
 
