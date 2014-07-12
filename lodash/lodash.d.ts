@@ -2041,7 +2041,6 @@ declare module _ {
             keys: List<string>,
             values: List<any>): TResult;
             
-            
         zipObject<TResult extends {}>(
             pairs: List<any>[][]) : TResult;
 
