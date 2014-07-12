@@ -2040,6 +2040,10 @@ declare module _ {
         zipObject<TResult extends {}>(
             keys: List<string>,
             values: List<any>): TResult;
+            
+            
+        zipObject<TResult extends {}>(
+            pairs: List<any>[][]) : TResult;
 
         /**
         * @see _.object
@@ -2047,6 +2051,9 @@ declare module _ {
         object<TResult extends {}>(
             keys: List<string>,
             values: List<any>): TResult;
+        
+        object<TResult extends {}>(
+            pairs: List<any>[][]) : TResult;
     }
 
     /* *************
