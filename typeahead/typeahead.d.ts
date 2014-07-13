@@ -6,21 +6,6 @@
 /// <reference path="../jquery/jquery.d.ts"/>
 
 interface JQuery {
-    /**
-      * Turns an input[type="text"] element into a typeahead.
-      *
-      * @constructor
-      * @param dataset Single dataset
-      */
-    typeahead(dataset: Twitter.Typeahead.Dataset): JQuery;
-
-    /**
-      * Turns an input[type="text"] element into a typeahead.
-      *
-      * @constructor
-      * @param dataset Array of datasets
-      */
-    typeahead(datasets: Twitter.Typeahead.Dataset[]): JQuery;
 
     /**
      * Destroys previously initialized typeaheads. This entails reverting 
@@ -57,9 +42,19 @@ interface JQuery {
       *
       * @constructor
       * @param options ('hint' or 'highlight' or 'minLength' all of which are optional)
-      * @param dataset Array of datasets
+      * @param datasets Array of datasets
       */
-    typeahead(options: Twitter.Typeahead.Options, dataset: Twitter.Typeahead.Dataset): JQuery;
+    typeahead(options: Twitter.Typeahead.Options, datasets: Twitter.Typeahead.Dataset[]): JQuery;
+
+    /**
+      * Accomodates specifying options such as hint and highlight.
+      * This is in correspondence to the examples mentioned in http://twitter.github.io/typeahead.js/examples/
+      *
+      * @constructor
+      * @param options ('hint' or 'highlight' or 'minLength' all of which are optional)
+      * @param datasets One or more datasets passed in as arguments.
+      */
+    typeahead(options: Twitter.Typeahead.Options, ... datasets: Twitter.Typeahead.Dataset[]): JQuery;
 }
 
 declare module Twitter.Typeahead {
