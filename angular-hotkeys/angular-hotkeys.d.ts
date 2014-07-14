@@ -3,6 +3,8 @@
 // Definitions by: Jason Zhao <https://github.com/jlz27>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../angularjs/angular.d.ts" />
+
 declare module ng.hotkeys {
 
     interface HotkeysProvider {
@@ -14,6 +16,8 @@ declare module ng.hotkeys {
         add(combo: string, description: string, callback: (event: Event, hotkeys: ng.hotkeys.Hotkey) => void): void;
 
         add(hotkeyObj: ng.hotkeys.Hotkey): void;
+
+        bindTo(scope : ng.IScope): ng.hotkeys.HotkeysProvider;
 
         del(combo: string): void;
 
