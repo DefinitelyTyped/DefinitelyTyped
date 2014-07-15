@@ -1,4 +1,4 @@
-// Type definitions for RxJS-All v2.2.25
+// Type definitions for RxJS-All v2.2.28
 // Project: http://rx.codeplex.com/
 // Definitions by: Carl de Billy <http://carl.debilly.net/>, Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
