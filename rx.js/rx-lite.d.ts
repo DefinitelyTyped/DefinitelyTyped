@@ -361,7 +361,17 @@ declare module Rx {
 		* Can be applied on `Observable<Observable<R>>` or `Observable<IPromise<R>>`.
 		* @returns A exclusive observable with only the results that happen when subscribed.
 		*/
-		exclusive<R>(): Observable<T>;
+		exclusive<R>(): Observable<R>;
+
+		/**
+		* Performs a exclusive map waiting for the first to finish before subscribing to another observable.
+		* Observables that come in between subscriptions will be dropped on the floor.
+		* Can be applied on `Observable<Observable<I>>` or `Observable<IPromise<I>>`.
+		* @param selector Selector to invoke for every item in the current subscription.
+		* @param [thisArg] An optional context to invoke with the selector parameter.
+		* @returns {An exclusive observable with only the results that happen when subscribed.
+		*/
+		exclusiveMap<I, R>(selector: (value: I, index: number, source: Observable<I>) => R, thisArg?: any): Observable<R>;
 	}
 
 	interface ObservableStatic {
