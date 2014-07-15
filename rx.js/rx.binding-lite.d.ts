@@ -67,5 +67,6 @@ declare module Rx {
 		shareValue(initialValue: T): Observable<T>;
 		replay(selector?: boolean, bufferSize?: number, window?: number, scheduler?: IScheduler): ConnectableObservable<T>;	// hack to catch first omitted parameter
 		replay(selector: (source: ConnectableObservable<T>) => Observable<T>, bufferSize?: number, window?: number, scheduler?: IScheduler): Observable<T>;
+		shareReplay(bufferSize?: number, window?: number, scheduler?: IScheduler): Observable<T>;
 	}
 }
