@@ -1,4 +1,4 @@
-// Type definitions for RxJS-VirtualTime v2.2.25
+// Type definitions for RxJS-VirtualTime v2.2.28
 // Project: http://rx.codeplex.com/
 // Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>, Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

@@ -324,6 +324,16 @@ declare module Rx {
 		*  and that at any point in time produces the elements of the most recent inner observable sequence that has been received.
 		*/
 		flatMapLatest<TResult>(selector: (value: T, index: number, source: Observable<T>) => TResult, thisArg?: any): Observable<TResult>;	// alias for selectSwitch
+		/**
+		*  Projects each element of an observable sequence into a new sequence of observable sequences by incorporating the element's index and then 
+		*  transforms an observable sequence of observable sequences into an observable sequence producing values only from the most recent observable sequence.
+		* @param selector A transform function to apply to each source element; the second parameter of the function represents the index of the source element.
+		* @param [thisArg] Object to use as this when executing callback.
+		* @since 2.2.28
+		* @returns An observable sequence whose elements are the result of invoking the transform function on each element of source producing an Observable of Observable sequences 
+		*  and that at any point in time produces the elements of the most recent inner observable sequence that has been received.
+		*/
+		switchMap<TResult>(selector: (value: T, index: number, source: Observable<T>) => TResult, thisArg?: any): Observable<TResult>;	// alias for selectSwitch
 
 		skip(count: number): Observable<T>;
 		skipWhile(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>;
@@ -352,6 +362,28 @@ declare module Rx {
 		* @returns An ES6 compatible promise with the last value from the observable sequence.
 		*/
 		toPromise(promiseCtor?: { new (resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): IPromise<T>; }): IPromise<T>;
+
+		// Experimental Flattening
+
+		/**
+		* Performs a exclusive waiting for the first to finish before subscribing to another observable.
+		* Observables that come in between subscriptions will be dropped on the floor.
+		* Can be applied on `Observable<Observable<R>>` or `Observable<IPromise<R>>`.
+		* @since 2.2.28
+		* @returns A exclusive observable with only the results that happen when subscribed.
+		*/
+		exclusive<R>(): Observable<R>;
+
+		/**
+		* Performs a exclusive map waiting for the first to finish before subscribing to another observable.
+		* Observables that come in between subscriptions will be dropped on the floor.
+		* Can be applied on `Observable<Observable<I>>` or `Observable<IPromise<I>>`.
+		* @since 2.2.28
+		* @param selector Selector to invoke for every item in the current subscription.
+		* @param [thisArg] An optional context to invoke with the selector parameter.
+		* @returns {An exclusive observable with only the results that happen when subscribed.
+		*/
+		exclusiveMap<I, R>(selector: (value: I, index: number, source: Observable<I>) => R, thisArg?: any): Observable<R>;
 	}
 
 	interface ObservableStatic {
@@ -391,9 +423,33 @@ declare module Rx {
 		fromItreable<T>(iterable: {}, scheduler?: IScheduler): Observable<T>;	// todo: can't describe ES6 Iterable via TypeScript type system
 		generate<TState, TResult>(initialState: TState, condition: (state: TState) => boolean, iterate: (state: TState) => TState, resultSelector: (state: TState) => TResult, scheduler?: IScheduler): Observable<TResult>;
 		never<T>(): Observable<T>;
+
+		/**
+		*  This method creates a new Observable instance with a variable number of arguments, regardless of number or type of the arguments.
+		* 
+		* @example
+		*  var res = Rx.Observable.of(1, 2, 3);
+		* @since 2.2.28
+		* @returns The observable sequence whose elements are pulled from the given arguments.
+		*/
+		of<T>(...values: T[]): Observable<T>;
+
+		/**
+		*  This method creates a new Observable instance with a variable number of arguments, regardless of number or type of the arguments. 
+		* @example
+		*  var res = Rx.Observable.ofWithScheduler(Rx.Scheduler.timeout, 1, 2, 3);
+		* @since 2.2.28
+		* @param [scheduler] A scheduler to use for scheduling the arguments.
+		* @returns The observable sequence whose elements are pulled from the given arguments.
+		*/
+		ofWithScheduler<T>(scheduler?: IScheduler, ...values: T[]): Observable<T>;
 		range(start: number, count: number, scheduler?: IScheduler): Observable<number>;
 		repeat<T>(value: T, repeatCount?: number, scheduler?: IScheduler): Observable<T>;
 		return<T>(value: T, scheduler?: IScheduler): Observable<T>;
+		/**
+		 * @since 2.2.28
+		 */
+		just<T>(value: T, scheduler?: IScheduler): Observable<T>;	// alias for return
 		returnValue<T>(value: T, scheduler?: IScheduler): Observable<T>;	// alias for return
 		throw<T>(exception: Error, scheduler?: IScheduler): Observable<T>;
 		throw<T>(exception: any, scheduler?: IScheduler): Observable<T>;
