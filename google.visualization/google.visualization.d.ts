@@ -244,10 +244,10 @@ declare module google {
         }
 
         export interface ChartArea {
-            top: any;
-            left: any;
-            width: any;
-            height: any;
+            top?: any;
+            left?: any;
+            width?: any;
+            height?: any;
         }
 
         export interface ChartLegend {
