@@ -436,6 +436,7 @@ declare module Rx {
 		range(start: number, count: number, scheduler?: IScheduler): Observable<number>;
 		repeat<T>(value: T, repeatCount?: number, scheduler?: IScheduler): Observable<T>;
 		return<T>(value: T, scheduler?: IScheduler): Observable<T>;
+		just<T>(value: T, scheduler?: IScheduler): Observable<T>;	// alias for return
 		returnValue<T>(value: T, scheduler?: IScheduler): Observable<T>;	// alias for return
 		throw<T>(exception: Error, scheduler?: IScheduler): Observable<T>;
 		throw<T>(exception: any, scheduler?: IScheduler): Observable<T>;
