@@ -324,6 +324,16 @@ declare module Rx {
 		*  and that at any point in time produces the elements of the most recent inner observable sequence that has been received.
 		*/
 		flatMapLatest<TResult>(selector: (value: T, index: number, source: Observable<T>) => TResult, thisArg?: any): Observable<TResult>;	// alias for selectSwitch
+		/**
+		*  Projects each element of an observable sequence into a new sequence of observable sequences by incorporating the element's index and then 
+		*  transforms an observable sequence of observable sequences into an observable sequence producing values only from the most recent observable sequence.
+		* @param selector A transform function to apply to each source element; the second parameter of the function represents the index of the source element.
+		* @param [thisArg] Object to use as this when executing callback.
+		* @since 2.2.28
+		* @returns An observable sequence whose elements are the result of invoking the transform function on each element of source producing an Observable of Observable sequences 
+		*  and that at any point in time produces the elements of the most recent inner observable sequence that has been received.
+		*/
+		switchMap<TResult>(selector: (value: T, index: number, source: Observable<T>) => TResult, thisArg?: any): Observable<TResult>;	// alias for selectSwitch
 
 		skip(count: number): Observable<T>;
 		skipWhile(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>;
@@ -436,6 +446,9 @@ declare module Rx {
 		range(start: number, count: number, scheduler?: IScheduler): Observable<number>;
 		repeat<T>(value: T, repeatCount?: number, scheduler?: IScheduler): Observable<T>;
 		return<T>(value: T, scheduler?: IScheduler): Observable<T>;
+		/**
+		 * @since 2.2.28
+		 */
 		just<T>(value: T, scheduler?: IScheduler): Observable<T>;	// alias for return
 		returnValue<T>(value: T, scheduler?: IScheduler): Observable<T>;	// alias for return
 		throw<T>(exception: Error, scheduler?: IScheduler): Observable<T>;
