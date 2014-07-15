@@ -5,15 +5,12 @@
 
 
 /// <reference path="../jquery/jquery.d.ts" />
+
 /// <reference path="../backbone/backbone.d.ts" />
 
 declare module Backbone {
-    class RelationalModel extends Model {
-        /**
-        * Do not use, prefer TypeScript's extend functionality.
-        **/
-        //private static extend(properties:any, classProperties?:any):any;
-
+    export class RelationalModel extends Model {
+        static extend(properties:any, classProperties?:any):any; // do not use, prefer TypeScript's extend functionality
         relations:any;
         subModelTypes:any;
         subModelTypeAttribute:any;
@@ -61,7 +58,7 @@ declare module Backbone {
 
         setRelated(related:Model):void;
 
-        setRelated(related:Collection<Model>):void;
+        setRelated(related:Collection):void;
 
         getReverseRelations(model:RelationalModel):Relation;
 
@@ -81,15 +78,15 @@ declare module Backbone {
 
         setKeyContents(keyContents:number[]):void;
 
-        setKeyContents(keyContents:Collection<Model>):void;
+        setKeyContents(keyContents:Collection):void;
 
         onChange(model:Model, attr:any, options:any):void;
 
-        handleAddition(model:Model, coll:Collection<Model>, options:any):void;
+        handleAddition(model:Model, coll:Collection, options:any):void;
 
-        handleRemoval(model:Model, coll:Collection<Model>, options:any):void;
+        handleRemoval(model:Model, coll:Collection, options:any):void;
 
-        handleReset(coll:Collection<Model>, options:any):void;
+        handleReset(coll:Collection, options:any):void;
 
         tryAddRelated(model:Model, coll:any, options:any):void;
 
@@ -138,9 +135,9 @@ declare module Backbone {
 
         processOrphanRelations():void;
 
-        retroFitRelation(relation:RelationalModel, create:boolean):Collection<Model>;
+        retroFitRelation(relation:RelationalModel, create:boolean):Collection;
 
-        getCollection(type:RelationalModel, create:boolean):Collection<Model>;
+        getCollection(type:RelationalModel, create:boolean):Collection;
 
         getObjectByName(name:string):any;
 
@@ -161,7 +158,7 @@ declare module Backbone {
 
         update(model:RelationalModel):void;
 
-        unregister(model:RelationalModel, collection:Collection<Model>, options:any):void;
+        unregister(model:RelationalModel, collection:Collection, options:any):void;
 
         reset():void;
 

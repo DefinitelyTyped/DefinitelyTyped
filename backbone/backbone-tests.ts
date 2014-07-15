@@ -4,7 +4,7 @@
 function test_events() {
 
     var object = new Backbone.Events();
-    object.on("alert", (eventName: string) => alert("Triggered " + eventName));
+    object.on("alert", (msg) => alert("Triggered " + msg));
 
     object.trigger("alert", "an event");
 
@@ -18,74 +18,48 @@ function test_events() {
     object.off();
 }
 
-class SettingDefaults extends Backbone.Model {
-
-    // 'defaults' could be set in one of the following ways:
-
-    defaults() {
-        return {
-            name: "Joe"
-        }
-    }
-
-    constructor(attributes?: any, options?: any) {
-        this.defaults = <any>{
-            name: "Joe"
-        }
-        // super has to come last
-        super(attributes, options);
-    }
-
-    // or set it like this
-    initialize() {
-        this.defaults = <any>{
-            name: "Joe"
-        }
-
-    }
-
-    // same patterns could be used for setting 'Router.routes' and 'View.events'
-}
-
-class Sidebar extends Backbone.Model {
-
-    promptColor() {
-        var cssColor = prompt("Please enter a CSS color:");
-        this.set({ color: cssColor });
-    }
-}
-
-class Note extends Backbone.Model {
-    initialize() { }
-    author() { }
-    coordinates() { }
-    allowedToEdit(account: any) {
-        return true;
-    }
-}
-
-class PrivateNote extends Note {
-    allowedToEdit(account: any) {
-        return account.owns(this);
-    }
-
-    set(attributes: any, options?: any): Backbone.Model {
-        return Backbone.Model.prototype.set.call(this, attributes, options);
-    }
-}
-
 function test_models() {
 
+    var Sidebar = Backbone.Model.extend({
+        promptColor: function () {
+            var cssColor = prompt("Please enter a CSS color:");
+            this.set({ color: cssColor });
+        }
+    });
+
     var sidebar = new Sidebar();
-    sidebar.on('change:color', (model: {}, color: string) => $('#sidebar').css({ background: color }));
+    sidebar.on('change:color', (model, color) => $('#sidebar').css({ background: color }));
     sidebar.set({ color: 'white' });
     sidebar.promptColor();
 
+    ////////
+
+    var Note = Backbone.Model.extend({
+        initialize: () => { },
+        author: () => { },
+        coordinates: () => { },
+        allowedToEdit: (account) => {
+            return true;
+        }
+    });
+
+    var PrivateNote = Note.extend({
+
+        allowedToEdit: function (account) {
+            return account.owns(this);
+        }
+
+    });
+
     //////////
 
-    var note = new PrivateNote();
+    var note = Backbone.Model.extend({
+        set: function (attributes, options) {
+            Backbone.Model.prototype.set.call(this, attributes, options);
+        }
+    });
 
-    note.get("title");
+    note.get("title")
 
     note.set({ title: "March 20", content: "In his eyes she eclipses..." });
 
@@ -95,7 +69,7 @@ function test_models() {
 class Employee extends Backbone.Model {
     reports: EmployeeCollection;
 
-    constructor(attributes?: any, options?: any) {
+    constructor (options? ) {
         super(options);
         this.reports = new EmployeeCollection();
         this.reports.url = '../api/employees/' + this.id + '/reports';
@@ -106,48 +80,31 @@ class Employee extends Backbone.Model {
     }
 }
 
-class EmployeeCollection extends Backbone.Collection<Employee> {
-    findByName(key: any) { }
+class EmployeeCollection extends Backbone.Collection {
+    findByName(key) { }
 }
-
-class Book extends Backbone.Model {
-    title: string;
-    author: string;
-}
-
-class Library extends Backbone.Collection<Book> {
-    model: typeof Book;
-}
-
-class Books extends Backbone.Collection<Book> { }
-
 function test_collection() {
-
-    var books = new Library();
-
-    books.each(book => {
-        book.get("title");
+    var Book: Backbone.Model;
+    var Library = Backbone.Collection.extend({
+        model: Book
     });
 
-    var titles = books.map(book => {
+    var Books: Backbone.Collection;
+
+    Books.each(function (book) {
+    });
+
+    var titles = Books.map(function (book) {
         return book.get("title");
     });
 
-    var publishedBooks = books.filter(book => {
+    var publishedBooks = Books.filter(function (book) {
         return book.get("published") === true;
     });
 
-    var alphabetical = books.sortBy((book: Book): number => {
+    var alphabetical = Books.sortBy(function (book) {
         return null;
     });
-
-    var model: Book = new Book({title: "Test", author: "Mike"});
-    books.add(model);
-    var model2: Book = model.collection.first();
-    if (model !== model2) {
-        throw new Error("Error");
-    }
-
 }
 
 //////////
@@ -164,26 +121,26 @@ module v1Changes {
 
         function test_listenTo() {
             var model = new Employee;
-            var view = new Backbone.View<Employee>();
+            var view = new Backbone.View;
             view.listenTo(model, 'invalid', () => { });
         }
 
         function test_listenToOnce() {
             var model = new Employee;
-            var view = new Backbone.View<Employee>();
+            var view = new Backbone.View;
             view.listenToOnce(model, 'invalid', () => { });
         }
 
         function test_stopListening() {
             var model = new Employee;
-            var view = new Backbone.View<Employee>();
+            var view = new Backbone.View;
             view.stopListening(model, 'invalid', () => { });
             view.stopListening(model, 'invalid');
             view.stopListening(model);
         }
     }
 
-    module ModelAndCollection {
+    module modelandcollection {
         function test_url() {
             Employee.prototype.url = () => '/employees';
             EmployeeCollection.prototype.url = () => '/employees';
@@ -211,7 +168,7 @@ module v1Changes {
         }
     }
 
-    module Model {
+    module model {
         function test_validationError() {
             var model = new Employee;
             if (model.validationError) {
@@ -238,17 +195,17 @@ module v1Changes {
             model.destroy({
                 wait: true,
                 success: (m?, response?, options?) => { },
-                error: (m?, jqxhr?, options?) => { }
+                error: (m?, jqxhr?: JQueryXHR, options?) => { }
             });
 
             model.destroy({
                 success: (m?, response?, options?) => { },
-                error: (m?, jqxhr?) => { }
+                error: (m?, jqxhr?: JQueryXHR) => { }
             });
 
             model.destroy({
                 success: () => { },
-                error: (m?, jqxhr?) => { }
+                error: (m?, jqxhr?: JQueryXHR) => { }
             });
         }
 
@@ -263,7 +220,7 @@ module v1Changes {
                     wait: true,
                     validate: false,
                     success: (m?, response?, options?) => { },
-                    error: (m?, jqxhr?, options?) => { }
+                    error: (m?, jqxhr?: JQueryXHR, options?) => { }
                 });
 
             model.save({
@@ -272,7 +229,7 @@ module v1Changes {
                 },
                 {
                     success: () => { },
-                    error: (m?, jqxhr?) => { }
+                    error: (m?, jqxhr?: JQueryXHR) => { }
                 });
         }
 
@@ -283,7 +240,7 @@ module v1Changes {
         }
     }
 
-    module Collection {
+    module collection {
         function test_fetch() {
             var collection = new EmployeeCollection;
             collection.fetch({ reset: true });
@@ -299,7 +256,7 @@ module v1Changes {
         }
     }
 
-    module Router {
+    module router {
         function test_navigate() {
             var router = new Backbone.Router;
 

@@ -1,10 +1,11 @@
 // Type definitions for Backbone 1.0.0
 // Project: http://backbonejs.org/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Natan Vivo <https://github.com/nvivo/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Natan Vivo <https://github.com/nvivo/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+
 /// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../underscore/underscore.d.ts" />
 
 declare module Backbone {
 
@@ -66,7 +67,7 @@ declare module Backbone {
     }
 
     class Events {
-        on(eventName: string, callback?: Function, context?: any): any;
+        on(eventName: any, callback?: Function, context?: any): any;
         off(eventName?: string, callback?: Function, context?: any): any;
         trigger(eventName: string, ...args: any[]): any;
         bind(eventName: string, callback: Function, context?: any): any;
@@ -85,24 +86,17 @@ declare module Backbone {
         sync(...arg: any[]): JQueryXHR;
     }
 
-    class Model extends ModelBase {
+    interface OptionalDefaults {
+        defaults?(): any;
+    }
 
-        /**
-        * Do not use, prefer TypeScript's extend functionality.
-        **/
-        private static extend(properties: any, classProperties?: any): any;
+    class Model extends ModelBase implements OptionalDefaults {
+
+        static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
         attributes: any;
         changed: any[];
         cid: string;
-        collection: Collection<any>;
-
-        /**
-        * Default attributes for the model. It can be an object hash or a method returning an object hash.
-        * For assigning an object hash, do it like this: this.defaults = <any>{ attribute: value, ... };
-        * That works only if you set it in the constructor or the initialize method.
-        **/
-        defaults(): any;
         id: any;
         idAttribute: string;
         validationError: any;
@@ -133,7 +127,7 @@ declare module Backbone {
         unset(attribute: string, options?: Silenceable): Model;
         validate(attributes: any, options?: any): any;
 
-        private _validate(attrs: any, options: any): boolean;
+        _validate(attrs: any, options: any): boolean;
 
         // mixins from underscore
 
@@ -147,124 +141,115 @@ declare module Backbone {
         omit(...keys: string[]): any;
     }
 
-    class Collection<TModel extends Model> extends ModelBase {
+    class Collection extends ModelBase {
 
-        /**
-        * Do not use, prefer TypeScript's extend functionality.
-        **/
-        private static extend(properties: any, classProperties?: any): any;
+        static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
-        // TODO: this really has to be typeof TModel
-        //model: typeof TModel;
-        model: { new(): TModel; }; // workaround
-        models: TModel[];
+        model: any;
+        models: any;
+        collection: Model;
         length: number;
 
-        constructor(models?: TModel[], options?: any);
+        constructor(models?: any, options?: any);
 
         fetch(options?: CollectionFetchOptions): JQueryXHR;
 
-        comparator(element: TModel): number;
-        comparator(compare: TModel, to?: TModel): number;
+        comparator(element: Model): any;
+        comparator(compare: Model, to?: Model): any;
 
-        add(model: TModel, options?: AddOptions): Collection<TModel>;
-        add(models: TModel[], options?: AddOptions): Collection<TModel>;
-        at(index: number): TModel;
-        get(id: string): TModel;
-        create(attributes: any, options?: ModelSaveOptions): TModel;
+        add(model: Model, options?: AddOptions): Collection;
+        add(model: any, options?: AddOptions): Collection;
+        add(models: Model[], options?: AddOptions): Collection;
+        add(models: any[], options?: AddOptions): Collection;
+        at(index: number): Model;
+        get(id: any): Model;
+        create(attributes: any, options?: ModelSaveOptions): Model;
         pluck(attribute: string): any[];
-        push(model: TModel, options?: AddOptions): TModel;
-        pop(options?: Silenceable): TModel;
-        remove(model: TModel, options?: Silenceable): TModel;
-        remove(models: TModel[], options?: Silenceable): TModel[];
-        reset(models?: TModel[], options?: Silenceable): TModel[];
-        set(models?: TModel[], options?: Silenceable): TModel[];
-        shift(options?: Silenceable): TModel;
-        sort(options?: Silenceable): Collection<TModel>;
-        unshift(model: TModel, options?: AddOptions): TModel;
-        where(properies: any): TModel[];
-        findWhere(properties: any): TModel;
+        push(model: Model, options?: AddOptions): Model;
+        pop(options?: Silenceable): Model;
+        remove(model: Model, options?: Silenceable): Model;
+        remove(models: Model[], options?: Silenceable): Model[];
+        reset(models?: Model[], options?: Silenceable): Model[];
+        reset(models?: any[], options?: Silenceable): Model[];
+        set(models?: any[], options?: Silenceable): Model[];
+		shift(options?: Silenceable): Model;
+        sort(options?: Silenceable): Collection;
+        unshift(model: Model, options?: AddOptions): Model;
+        where(properies: any): Model[];
+        findWhere(properties: any): Model;
 
-        private _prepareModel(attrs?: any, options?: any): any;
-        private _removeReference(model: TModel): void;
-        private _onModelEvent(event: string, model: TModel, collection: Collection<TModel>, options: any): void;
+        _prepareModel(attrs?: any, options?: any): any;
+        _removeReference(model: Model): void;
+        _onModelEvent(event: string, model: Model, collection: Collection, options: any): void;
 
         // mixins from underscore
 
-        all(iterator: (element: TModel, index: number) => boolean, context?: any): boolean;
-        any(iterator: (element: TModel, index: number) => boolean, context?: any): boolean;
-        collect(iterator: (element: TModel, index: number, context?: any) => any[], context?: any): any[];
+        all(iterator: (element: Model, index: number) => boolean, context?: any): boolean;
+        any(iterator: (element: Model, index: number) => boolean, context?: any): boolean;
+        collect(iterator: (element: Model, index: number, context?: any) => any[], context?: any): any[];
         chain(): any;
-        compact(): TModel[];
+        compact(): Model[];
         contains(value: any): boolean;
-        countBy(iterator: (element: TModel, index: number) => any): _.Dictionary<number>;
-        countBy(attribute: string): _.Dictionary<number>;
+        countBy(iterator: (element: Model, index: number) => any): any[];
+        countBy(attribute: string): any[];
         detect(iterator: (item: any) => boolean, context?: any): any; // ???
-        difference(...model: TModel[]): TModel[];
-        drop(): TModel;
-        drop(n: number): TModel[];
-        each(iterator: (element: TModel, index: number, list?: any) => void, context?: any): any;
-        every(iterator: (element: TModel, index: number) => boolean, context?: any): boolean;
-        filter(iterator: (element: TModel, index: number) => boolean, context?: any): TModel[];
-        find(iterator: (element: TModel, index: number) => boolean, context?: any): TModel;
-        first(): TModel;
-        first(n: number): TModel[];
-        flatten(shallow?: boolean): TModel[];
-        foldl(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any;
-        forEach(iterator: (element: TModel, index: number, list?: any) => void, context?: any): any;
-        groupBy(iterator: (element: TModel, index: number) => string, context?: any): _.Dictionary<TModel[]>;
-        groupBy(attribute: string, context?: any): _.Dictionary<TModel[]>;
+        difference(...model: Model[]): Model[];
+        drop(): Model;
+        drop(n: number): Model[];
+        each(iterator: (element: Model, index: number, list?: any) => void , context?: any): any;
+        every(iterator: (element: Model, index: number) => boolean, context?: any): boolean;
+        filter(iterator: (element: Model, index: number) => boolean, context?: any): Model[];
+        find(iterator: (element: Model, index: number) => boolean, context?: any): Model;
+        first(): Model;
+        first(n: number): Model[];
+        flatten(shallow?: boolean): Model[];
+        foldl(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any;
+        forEach(iterator: (element: Model, index: number, list?: any) => void , context?: any): any;
         include(value: any): boolean;
-        indexOf(element: TModel, isSorted?: boolean): number;
-        initial(): TModel;
-        initial(n: number): TModel[];
-        inject(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any;
-        intersection(...model: TModel[]): TModel[];
+        indexOf(element: Model, isSorted?: boolean): number;
+        initial(): Model;
+        initial(n: number): Model[];
+        inject(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any;
+        intersection(...model: Model[]): Model[];
         isEmpty(object: any): boolean;
         invoke(methodName: string, arguments?: any[]): any;
-        last(): TModel;
-        last(n: number): TModel[];
-        lastIndexOf(element: TModel, fromIndex?: number): number;
-        map(iterator: (element: TModel, index: number, context?: any) => any[], context?: any): any[];
-        max(iterator?: (element: TModel, index: number) => any, context?: any): TModel;
-        min(iterator?: (element: TModel, index: number) => any, context?: any): TModel;
+        last(): Model;
+        last(n: number): Model[];
+        lastIndexOf(element: Model, fromIndex?: number): number;
+        map(iterator: (element: Model, index: number, context?: any) => any[], context?: any): any[];
+        max(iterator?: (element: Model, index: number) => any, context?: any): Model;
+        min(iterator?: (element: Model, index: number) => any, context?: any): Model;
         object(...values: any[]): any[];
-        reduce(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any;
+        reduce(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any;
         select(iterator: any, context?: any): any[];
         size(): number;
         shuffle(): any[];
-        some(iterator: (element: TModel, index: number) => boolean, context?: any): boolean;
-        sortBy(iterator: (element: TModel, index: number) => number, context?: any): TModel[];
-        sortBy(attribute: string, context?: any): TModel[];
-        sortedIndex(element: TModel, iterator?: (element: TModel, index: number) => number): number;
+        some(iterator: (element: Model, index: number) => boolean, context?: any): boolean;
+        sortBy(iterator: (element: Model, index: number) => number, context?: any): Model[];
+        sortBy(attribute: string, context?: any): Model[];
+        sortedIndex(element: Model, iterator?: (element: Model, index: number) => number): number;
         range(stop: number, step?: number): any;
         range(start: number, stop: number, step?: number): any;
-        reduceRight(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any[];
-        reject(iterator: (element: TModel, index: number) => boolean, context?: any): TModel[];
-        rest(): TModel;
-        rest(n: number): TModel[];
-        tail(): TModel;
-        tail(n: number): TModel[];
+        reduceRight(iterator: (memo: any, element: Model, index: number) => any, initialMemo: any, context?: any): any[];
+        reject(iterator: (element: Model, index: number) => boolean, context?: any): Model[];
+        rest(): Model;
+        rest(n: number): Model[];
+        tail(): Model;
+        tail(n: number): Model[];
         toArray(): any[];
-        union(...model: TModel[]): TModel[];
-        uniq(isSorted?: boolean, iterator?: (element: TModel, index: number) => boolean): TModel[];
-        without(...values: any[]): TModel[];
-        zip(...model: TModel[]): TModel[];
+        union(...model: Model[]): Model[];
+        uniq(isSorted?: boolean, iterator?: (element: Model, index: number) => boolean): Model[];
+        without(...values: any[]): Model[];
+        zip(...model: Model[]): Model[];
     }
 
-    class Router extends Events {
+    interface OptionalRoutes {
+        routes?(): any;
+    }
 
-        /**
-        * Do not use, prefer TypeScript's extend functionality.
-        **/
-        private static extend(properties: any, classProperties?: any): any;
+    class Router extends Events implements OptionalRoutes {
 
-        /**
-        * Routes hash or a method returning the routes hash that maps URLs with parameters to methods on your Router.
-        * For assigning routes as object hash, do it like this: this.routes = <any>{ "route": callback, ... };
-        * That works only if you set it in the constructor or the initialize method.
-        **/
-        routes(): any;
+        static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
         constructor(options?: RouterOptions);
         initialize(options?: RouterOptions): void;
@@ -272,9 +257,9 @@ declare module Backbone {
         navigate(fragment: string, options?: NavigateOptions): Router;
         navigate(fragment: string, trigger?: boolean): Router;
 
-        private _bindRoutes(): void;
-        private _routeToRegExp(route: string): RegExp;
-        private _extractParameters(route: RegExp, fragment: string): string[];
+        _bindRoutes(): void;
+        _routeToRegExp(route: string): RegExp;
+        _extractParameters(route: RegExp, fragment: string): string[];
     }
 
     var history: History;
@@ -294,14 +279,14 @@ declare module Backbone {
         loadUrl(fragmentOverride: string): boolean;
         navigate(fragment: string, options?: any): boolean;
         started: boolean;
-        options: any;
-
-        private _updateHash(location: Location, fragment: string, replace: boolean): void;
+		options: any;
+		
+        _updateHash(location: Location, fragment: string, replace: boolean): void;
     }
 
-    interface ViewOptions<TModel extends Model> {
-        model?: TModel;
-        collection?: Backbone.Collection<TModel>;
+    interface ViewOptions {
+        model?: Backbone.Model;
+        collection?: Backbone.Collection;
         el?: any;
         id?: string;
         className?: string;
@@ -309,41 +294,35 @@ declare module Backbone {
         attributes?: any[];
     }
 
-    class View<TModel extends Model> extends Events {
+    interface OptionalEvents {
+        events?(): any;
+    }
 
-        /**
-        * Do not use, prefer TypeScript's extend functionality.
-        **/
-        private static extend(properties: any, classProperties?: any): any;
+    class View extends Events implements OptionalEvents {
 
-        constructor(options?: ViewOptions<TModel>);
+        static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
-        /**
-        * Events hash or a method returning the events hash that maps events/selectors to methods on your View.
-        * For assigning events as object hash, do it like this: this.events = <any>{ "event:selector": callback, ... };
-        * That works only if you set it in the constructor or the initialize method.
-        **/
-        events(): any;
+        constructor(options?: ViewOptions);
 
         $(selector: string): JQuery;
-        model: TModel;
-        collection: Collection<TModel>;
-        //template: (json, options?) => string;
-        make(tagName: string, attrs?: any, opts?: any): View<TModel>;
-        setElement(element: HTMLElement, delegate?: boolean): View<TModel>;
-        setElement(element: JQuery, delegate?: boolean): View<TModel>;
+        model: Model;
+        collection: Collection;
+        make(tagName: string, attrs?: any, opts?: any): View;
+        setElement(element: HTMLElement, delegate?: boolean): View;
+        setElement(element: JQuery, delegate?: boolean): View;
         id: string;
         cid: string;
         className: string;
         tagName: string;
+        options: any;
 
         el: any;
         $el: JQuery;
-        setElement(element: any): View<TModel>;
+        setElement(element: any): View;
         attributes: any;
         $(selector: any): JQuery;
-        render(): View<TModel>;
-        remove(): View<TModel>;
+        render(): View;
+        remove(): View;
         make(tagName: any, attributes?: any, content?: any): any;
         delegateEvents(events?: any): any;
         undelegateEvents(): any;
@@ -354,12 +333,14 @@ declare module Backbone {
     // SYNC
     function sync(method: string, model: Model, options?: JQueryAjaxSettings): any;
     function ajax(options?: JQueryAjaxSettings): JQueryXHR;
-    var emulateHTTP: boolean;
+	var emulateHTTP: boolean;
     var emulateJSONBackbone: boolean;
 
     // Utility
     function noConflict(): typeof Backbone;
     function setDomLibrary(jQueryNew: any): any;
+	
+    var $: JQueryStatic;
 }
 
 declare module "backbone" {
