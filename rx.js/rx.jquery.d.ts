@@ -60,3 +60,7 @@ interface JQuery {
 	slideToggleAsObservable(duration: number): Rx.Observable<any>;
 	toggleAsObservable(duration: number): Rx.Observable<any>;
 }
+
+declare module "rx.jquery" {
+	export = Rx;
+}
