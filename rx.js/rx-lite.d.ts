@@ -391,6 +391,24 @@ declare module Rx {
 		fromItreable<T>(iterable: {}, scheduler?: IScheduler): Observable<T>;	// todo: can't describe ES6 Iterable via TypeScript type system
 		generate<TState, TResult>(initialState: TState, condition: (state: TState) => boolean, iterate: (state: TState) => TState, resultSelector: (state: TState) => TResult, scheduler?: IScheduler): Observable<TResult>;
 		never<T>(): Observable<T>;
+
+		/**
+		*  This method creates a new Observable instance with a variable number of arguments, regardless of number or type of the arguments.
+		* 
+		* @example
+		*  var res = Rx.Observable.of(1, 2, 3);
+		* @returns The observable sequence whose elements are pulled from the given arguments.
+		*/
+		of<T>(...values: T[]): Observable<T>;
+
+		/**
+		*  This method creates a new Observable instance with a variable number of arguments, regardless of number or type of the arguments. 
+		* @example
+		*  var res = Rx.Observable.ofWithScheduler(Rx.Scheduler.timeout, 1, 2, 3);
+		* @param [scheduler] A scheduler to use for scheduling the arguments.
+		* @returns The observable sequence whose elements are pulled from the given arguments.
+		*/
+		ofWithScheduler<T>(scheduler?: IScheduler, ...values: T[]): Observable<T>;
 		range(start: number, count: number, scheduler?: IScheduler): Observable<number>;
 		repeat<T>(value: T, repeatCount?: number, scheduler?: IScheduler): Observable<T>;
 		return<T>(value: T, scheduler?: IScheduler): Observable<T>;
