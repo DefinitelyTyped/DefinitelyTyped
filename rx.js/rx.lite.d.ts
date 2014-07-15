@@ -43,10 +43,6 @@ declare module Rx {
 		schedulePeriodic(period: number, action: () => void): IDisposable;
 		schedulePeriodicWithState<TState>(state: TState, period: number, action: (state: TState) => TState): IDisposable;
 	}
-
-	export interface Observable<T> {
-		shareReplay(bufferSize?: number, window?: number, scheduler?: IScheduler): Observable<T>;	// same as replayWhileObserved in rx.binding.d.ts
-	}
 }
 
 declare module "rx.lite" {
