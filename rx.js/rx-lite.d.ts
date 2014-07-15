@@ -359,6 +359,7 @@ declare module Rx {
 		* Performs a exclusive waiting for the first to finish before subscribing to another observable.
 		* Observables that come in between subscriptions will be dropped on the floor.
 		* Can be applied on `Observable<Observable<R>>` or `Observable<IPromise<R>>`.
+		* @since 2.2.28
 		* @returns A exclusive observable with only the results that happen when subscribed.
 		*/
 		exclusive<R>(): Observable<R>;
@@ -367,6 +368,7 @@ declare module Rx {
 		* Performs a exclusive map waiting for the first to finish before subscribing to another observable.
 		* Observables that come in between subscriptions will be dropped on the floor.
 		* Can be applied on `Observable<Observable<I>>` or `Observable<IPromise<I>>`.
+		* @since 2.2.28
 		* @param selector Selector to invoke for every item in the current subscription.
 		* @param [thisArg] An optional context to invoke with the selector parameter.
 		* @returns {An exclusive observable with only the results that happen when subscribed.
@@ -417,6 +419,7 @@ declare module Rx {
 		* 
 		* @example
 		*  var res = Rx.Observable.of(1, 2, 3);
+		* @since 2.2.28
 		* @returns The observable sequence whose elements are pulled from the given arguments.
 		*/
 		of<T>(...values: T[]): Observable<T>;
@@ -425,6 +428,7 @@ declare module Rx {
 		*  This method creates a new Observable instance with a variable number of arguments, regardless of number or type of the arguments. 
 		* @example
 		*  var res = Rx.Observable.ofWithScheduler(Rx.Scheduler.timeout, 1, 2, 3);
+		* @since 2.2.28
 		* @param [scheduler] A scheduler to use for scheduling the arguments.
 		* @returns The observable sequence whose elements are pulled from the given arguments.
 		*/
