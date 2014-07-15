@@ -352,6 +352,16 @@ declare module Rx {
 		* @returns An ES6 compatible promise with the last value from the observable sequence.
 		*/
 		toPromise(promiseCtor?: { new (resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): IPromise<T>; }): IPromise<T>;
+
+		// Experimental Flattening
+
+		/**
+		* Performs a exclusive waiting for the first to finish before subscribing to another observable.
+		* Observables that come in between subscriptions will be dropped on the floor.
+		* Can be applied on `Observable<Observable<R>>` or `Observable<IPromise<R>>`.
+		* @returns A exclusive observable with only the results that happen when subscribed.
+		*/
+		exclusive<R>(): Observable<T>;
 	}
 
 	interface ObservableStatic {
