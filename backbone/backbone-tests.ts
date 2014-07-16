@@ -333,3 +333,31 @@ module EventsMembers {
 		}
 	}
 }
+
+// ensures sub class can override internal extension members
+// if they are private, you cannot do that
+module Overrides {
+	class TestModel extends Backbone.Model {
+		_validate(attrs: any, options: any): boolean { return true; }
+	}
+	
+	class TestCollection extends Backbone.Collection<any> {
+		_prepareModel(attrs?: any, options?: any): any {}
+        _removeReference(model: any): void {}
+        _onModelEvent(event: string, model: any, collection: Backbone.Collection<any>, options: any): void {}
+	}
+	
+	class TestRouter extends Backbone.Router {
+		_bindRoutes(): void {}
+        _routeToRegExp(route: string): RegExp { return null; }
+        _extractParameters(route: RegExp, fragment: string): string[] { return null; }
+	}
+	
+	class TestHistory extends Backbone.History {
+		_updateHash(location: Location, fragment: string, replace: boolean): void {}
+	}
+	
+	class TestView extends Backbone.View<any> {
+		_ensureElement(): void {}
+	}
+}

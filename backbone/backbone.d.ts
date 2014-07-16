@@ -90,7 +90,7 @@ declare module Backbone {
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
-        private static extend(properties: any, classProperties?: any): any;
+        static extend(properties: any, classProperties?: any): any;
 
         attributes: any;
         changed: any[];
@@ -133,7 +133,7 @@ declare module Backbone {
         unset(attribute: string, options?: Silenceable): Model;
         validate(attributes: any, options?: any): any;
 
-        private _validate(attrs: any, options: any): boolean;
+        _validate(attrs: any, options: any): boolean;
 
         // mixins from underscore
 
@@ -152,7 +152,7 @@ declare module Backbone {
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
-        private static extend(properties: any, classProperties?: any): any;
+        static extend(properties: any, classProperties?: any): any;
 
         // TODO: this really has to be typeof TModel
         //model: typeof TModel;
@@ -185,9 +185,9 @@ declare module Backbone {
         where(properies: any): TModel[];
         findWhere(properties: any): TModel;
 
-        private _prepareModel(attrs?: any, options?: any): any;
-        private _removeReference(model: TModel): void;
-        private _onModelEvent(event: string, model: TModel, collection: Collection<TModel>, options: any): void;
+        _prepareModel(attrs?: any, options?: any): any;
+        _removeReference(model: TModel): void;
+        _onModelEvent(event: string, model: TModel, collection: Collection<TModel>, options: any): void;
 
         // mixins from underscore
 
@@ -257,7 +257,7 @@ declare module Backbone {
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
-        private static extend(properties: any, classProperties?: any): any;
+        static extend(properties: any, classProperties?: any): any;
 
         /**
         * Routes hash or a method returning the routes hash that maps URLs with parameters to methods on your Router.
@@ -272,9 +272,9 @@ declare module Backbone {
         navigate(fragment: string, options?: NavigateOptions): Router;
         navigate(fragment: string, trigger?: boolean): Router;
 
-        private _bindRoutes(): void;
-        private _routeToRegExp(route: string): RegExp;
-        private _extractParameters(route: RegExp, fragment: string): string[];
+        _bindRoutes(): void;
+        _routeToRegExp(route: string): RegExp;
+        _extractParameters(route: RegExp, fragment: string): string[];
     }
 
     var history: History;
@@ -296,7 +296,7 @@ declare module Backbone {
         started: boolean;
         options: any;
 
-        private _updateHash(location: Location, fragment: string, replace: boolean): void;
+        _updateHash(location: Location, fragment: string, replace: boolean): void;
     }
 
     interface ViewOptions<TModel extends Model> {
@@ -314,7 +314,7 @@ declare module Backbone {
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
-        private static extend(properties: any, classProperties?: any): any;
+        static extend(properties: any, classProperties?: any): any;
 
         constructor(options?: ViewOptions<TModel>);
 
