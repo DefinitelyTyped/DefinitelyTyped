@@ -361,3 +361,12 @@ module Overrides {
 		_ensureElement(): void {}
 	}
 }
+
+// ensure "extend" methods can be called
+// although they are not recommended, they are valid code and should not be removed due to backward compatilibity
+(function() {
+	Backbone.Model.extend({});
+	Backbone.Collection.extend({});
+	Backbone.Router.extend({});
+	Backbone.View.extend({});
+})();
