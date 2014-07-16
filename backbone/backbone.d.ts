@@ -90,7 +90,7 @@ declare module Backbone {
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
-        private static extend(properties: any, classProperties?: any): any;
+        static extend(properties: any, classProperties?: any): any;
 
         attributes: any;
         changed: any[];
@@ -133,7 +133,7 @@ declare module Backbone {
         unset(attribute: string, options?: Silenceable): Model;
         validate(attributes: any, options?: any): any;
 
-        private _validate(attrs: any, options: any): boolean;
+        _validate(attrs: any, options: any): boolean;
 
         // mixins from underscore
 
@@ -152,15 +152,18 @@ declare module Backbone {
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
-        private static extend(properties: any, classProperties?: any): any;
+        static extend(properties: any, classProperties?: any): any;
 
-        // TODO: this really has to be typeof TModel
-        //model: typeof TModel;
-        model: { new(): TModel; }; // workaround
+        /**
+		* Model may be a reference to the Model or a function that constructs the model.
+		* Example: model = MyModel or model = (attr?, options?) => new MyModel(attr, options)
+		**/
+        model: any; // currently there is no way to express this definition on typescript other than "any"
         models: TModel[];
         length: number;
 
         constructor(models?: TModel[], options?: any);
+        constructor(models?: any[], options?: any);
 
         fetch(options?: CollectionFetchOptions): JQueryXHR;
 
@@ -168,9 +171,11 @@ declare module Backbone {
         comparator(compare: TModel, to?: TModel): number;
 
         add(model: TModel, options?: AddOptions): Collection<TModel>;
+        add(model: any, options?: AddOptions): Collection<TModel>;
         add(models: TModel[], options?: AddOptions): Collection<TModel>;
+        add(models: any[], options?: AddOptions): Collection<TModel>;
         at(index: number): TModel;
-        get(id: string): TModel;
+        get(id: any): TModel;
         create(attributes: any, options?: ModelSaveOptions): TModel;
         pluck(attribute: string): any[];
         push(model: TModel, options?: AddOptions): TModel;
@@ -178,16 +183,18 @@ declare module Backbone {
         remove(model: TModel, options?: Silenceable): TModel;
         remove(models: TModel[], options?: Silenceable): TModel[];
         reset(models?: TModel[], options?: Silenceable): TModel[];
+        reset(models?: any[], options?: Silenceable): TModel[];
         set(models?: TModel[], options?: Silenceable): TModel[];
+        set(models?: any[], options?: Silenceable): TModel[];
         shift(options?: Silenceable): TModel;
         sort(options?: Silenceable): Collection<TModel>;
         unshift(model: TModel, options?: AddOptions): TModel;
         where(properies: any): TModel[];
         findWhere(properties: any): TModel;
 
-        private _prepareModel(attrs?: any, options?: any): any;
-        private _removeReference(model: TModel): void;
-        private _onModelEvent(event: string, model: TModel, collection: Collection<TModel>, options: any): void;
+        _prepareModel(attrs?: any, options?: any): any;
+        _removeReference(model: TModel): void;
+        _onModelEvent(event: string, model: TModel, collection: Collection<TModel>, options: any): void;
 
         // mixins from underscore
 
@@ -257,7 +264,7 @@ declare module Backbone {
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
-        private static extend(properties: any, classProperties?: any): any;
+        static extend(properties: any, classProperties?: any): any;
 
         /**
         * Routes hash or a method returning the routes hash that maps URLs with parameters to methods on your Router.
@@ -272,9 +279,9 @@ declare module Backbone {
         navigate(fragment: string, options?: NavigateOptions): Router;
         navigate(fragment: string, trigger?: boolean): Router;
 
-        private _bindRoutes(): void;
-        private _routeToRegExp(route: string): RegExp;
-        private _extractParameters(route: RegExp, fragment: string): string[];
+        _bindRoutes(): void;
+        _routeToRegExp(route: string): RegExp;
+        _extractParameters(route: RegExp, fragment: string): string[];
     }
 
     var history: History;
@@ -296,7 +303,7 @@ declare module Backbone {
         started: boolean;
         options: any;
 
-        private _updateHash(location: Location, fragment: string, replace: boolean): void;
+        _updateHash(location: Location, fragment: string, replace: boolean): void;
     }
 
     interface ViewOptions<TModel extends Model> {
@@ -314,16 +321,9 @@ declare module Backbone {
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
-        private static extend(properties: any, classProperties?: any): any;
+        static extend(properties: any, classProperties?: any): any;
 
         constructor(options?: ViewOptions<TModel>);
-
-        /**
-        * Events hash or a method returning the events hash that maps events/selectors to methods on your View.
-        * For assigning events as object hash, do it like this: this.events = <any>{ "event:selector": callback, ... };
-        * That works only if you set it in the constructor or the initialize method.
-        **/
-        events(): any;
 
         $(selector: string): JQuery;
         model: TModel;
@@ -360,6 +360,8 @@ declare module Backbone {
     // Utility
     function noConflict(): typeof Backbone;
     function setDomLibrary(jQueryNew: any): any;
+	
+	var $: JQueryStatic;
 }
 
 declare module "backbone" {

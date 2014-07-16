@@ -116,7 +116,7 @@ class Book extends Backbone.Model {
 }
 
 class Library extends Backbone.Collection<Book> {
-    model: typeof Book;
+    model = Book;
 }
 
 class Books extends Backbone.Collection<Book> { }
@@ -308,3 +308,127 @@ module v1Changes {
         }
     }
 }
+
+module EventsMembers {
+	// ensures views can define events as properties
+	// http://backbonejs.org/#View-delegateEvents "delegateEvents uses this.events as the source. Events are written in the format {"event selector": "callback"}"
+
+	// ensures views can define events as objects
+	class ViewWithPropertyEvents extends Backbone.View<any> {
+		events = {
+			"click .foo": function() {}
+		}
+		
+		render() {
+			this.delegateEvents();
+			return this;
+		}
+	}
+
+	// ensures views can define events as methods
+	// http://backbonejs.org/#View-delegateEvents "the events property may also be defined as a function that returns an events hash"
+	class ViewWithMethodEvents extends Backbone.View<any> {
+		events() {
+			return { };
+		}
+	}
+}
+
+// ensures sub class can override internal extension members
+// if they are private, you cannot do that
+module Overrides {
+	class TestModel extends Backbone.Model {
+		_validate(attrs: any, options: any): boolean { return true; }
+	}
+	
+	class TestCollection extends Backbone.Collection<any> {
+		_prepareModel(attrs?: any, options?: any): any {}
+        _removeReference(model: any): void {}
+        _onModelEvent(event: string, model: any, collection: Backbone.Collection<any>, options: any): void {}
+	}
+	
+	class TestRouter extends Backbone.Router {
+		_bindRoutes(): void {}
+        _routeToRegExp(route: string): RegExp { return null; }
+        _extractParameters(route: RegExp, fragment: string): string[] { return null; }
+	}
+	
+	class TestHistory extends Backbone.History {
+		_updateHash(location: Location, fragment: string, replace: boolean): void {}
+	}
+	
+	class TestView extends Backbone.View<any> {
+		_ensureElement(): void {}
+	}
+}
+
+// ensure "extend" methods can be called
+// although they are not recommended, they are valid code and should not be removed due to backward compatilibity
+(function() {
+	Backbone.Model.extend({});
+	Backbone.Collection.extend({});
+	Backbone.Router.extend({});
+	Backbone.View.extend({});
+})();
+
+// ensures Backbone.$ exists
+// http://backbonejs.org/#Utility-Backbone-$
+(function() {
+	var $el = Backbone.$("div");
+}());
+
+
+// ensures collection can instantiate models correctly
+// http://backbonejs.org/#Collection-model
+module CollectionModels {
+
+	class M extends Backbone.Model { }
+
+	// ensures it works on the class direction
+	class C1 extends Backbone.Collection<M> {
+		model: M;
+	}
+	
+	// ensures it works on function with parameters
+	class C2 extends Backbone.Collection<M> {
+		model = (attributes: any, options: any) => {
+			return new M(attributes, options);
+		}
+	}
+}
+
+// ensures collections can accept object hashes and not only models in various methods
+module CollectionModelConstructors {
+
+	class M extends Backbone.Model { }
+	
+	class Col extends Backbone.Collection<M> {
+		model: M;
+	}
+
+	// ensures constructors accept object hashes as demonstrated in many places in the documentation:
+	// http://backbonejs.org/#Collection-toJSON
+	// http://backbonejs.org/#Collection-pluck
+	// http://backbonejs.org/#Collection-where
+	// Constructor with parameters is equivalent to new Collection().reset([]), and the documentation states
+	// "you can pass raw attributes objects (and arrays) to add, create, and reset, and the attributes will be converted into a model of the proper type."
+	
+	new Col([{ id: 1 }, { id: 2 }]);
+	
+	// ensures "add" accepts object hashes
+	new Col().add({ id: 1});
+	new Col().add([{ id: 1 }, { id: 2 }]);
+	
+	//ensures "set" accepts object hashes
+	new Col().set([{ id: 1 }, { id: 2 }]);
+
+	//ensures "reset" accepts object hashes
+	new Col().reset([{ id: 1 }, { id: 2 }]);
+}
+
+// ensures Collection.get accepts ids of any type, as the parameters depends on Model.id which can be anything defined by the user
+// http://backbonejs.org/#Collection-get
+// http://backbonejs.org/#Model-id
+new Backbone.Collection().get(1);
+new Backbone.Collection().get("foo");
+new Backbone.Collection().get({ X: 1, Y: 2});
