@@ -391,7 +391,7 @@ module CollectionModels {
 	
 	// ensures it works on function with parameters
 	class C2 extends Backbone.Collection<M> {
-		model = (attributes, options) => {
+		model = (attributes: any, options: any) => {
 			return new M(attributes, options);
 		}
 	}
