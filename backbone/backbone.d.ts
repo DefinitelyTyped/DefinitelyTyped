@@ -183,6 +183,7 @@ declare module Backbone {
         remove(model: TModel, options?: Silenceable): TModel;
         remove(models: TModel[], options?: Silenceable): TModel[];
         reset(models?: TModel[], options?: Silenceable): TModel[];
+        reset(models?: any[], options?: Silenceable): TModel[];
         set(models?: TModel[], options?: Silenceable): TModel[];
         set(models?: any[], options?: Silenceable): TModel[];
         shift(options?: Silenceable): TModel;

@@ -421,4 +421,7 @@ module CollectionModelConstructors {
 	
 	//ensures "set" accepts object hashes
 	new Col().set([{ id: 1 }, { id: 2 }]);
+
+	//ensures "reset" accepts object hashes
+	new Col().reset([{ id: 1 }, { id: 2 }]);
 }
