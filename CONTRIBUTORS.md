@@ -164,7 +164,7 @@ All definitions files include a header with the author and editors, so at some p
 * [jQuery.payment](http://needim.github.io/noty/) (by [Eric J. Smith](https://github.com/ejsmith/))
 * [jQuery.pickadate](https://github.com/amsul/pickadate.js) (by [Theodore Brown](https://github.com/theodorejb))
 * [jQuery.pjax](https://github.com/defunkt/jquery-pjax) (by [Junle Li](https://github.com/lijunle))
-* [jQuery.pjax.falsandtru](https://github.com/falsandtru/jquery.pjax.js/) (by [NewNotMoon](https://new.not-moon.net/))
+* [jQuery.pjax.falsandtru](https://github.com/falsandtru/jquery.pjax.js/) (by [NewNotMoon](http://new.not-moon.net/))
 * [jQuery.pnotify](http://sciactive.github.io/pnotify/) (by [David Sichau](https://github.com/DavidSichau/))
 * [jQuery.postMessage](http://benalman.com/projects/jquery-postmessage-plugin/) (by [Junle Li](https://github.com/lijunle))
 * [jQuery.prettyphoto](https://github.com/scaron/prettyphoto) (by [Paul Gaske](https://github.com/pgaske))
