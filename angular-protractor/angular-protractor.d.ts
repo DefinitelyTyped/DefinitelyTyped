@@ -281,6 +281,57 @@ declare module protractor {
 
     interface ElementFinder {
         /**
+         * Calls to element may be chained to find elements within a parent.
+         *
+         * @alias element(locator).element(locator)
+         * @view
+         * <div class="parent">
+         *   <div class="child">
+         *     Child text
+         *     <div>{{person.phone}}</div>
+         *   </div>
+         * </div>
+         *
+         * @example
+         * // Chain 2 element calls.
+         * var child = element(by.css('.parent')).
+         *     element(by.css('.child'));
+         * expect(child.getText()).toBe('Child text\n555-123-4567');
+         *
+         * // Chain 3 element calls.
+         * var triple = element(by.css('.parent')).
+         *     element(by.css('.child')).
+         *     element(by.binding('person.phone'));
+         * expect(triple.getText()).toBe('555-123-4567');
+         *
+         * @param {webdriver.Locator} subLocator
+         * @return {ElementFinder}
+         */
+        element(locator: webdriver.Locator): ElementFinder;
+
+        /** 
+         * Calls to element may be chained to find an array of elements within a parent.
+         *
+         * @alias element(locator).all(locator)
+         * @view
+         * <div class="parent">
+         *   <ul>
+         *     <li class="one">First</li>
+         *     <li class="two">Second</li>
+         *     <li class="three">Third</li>
+         *   </ul>
+         * </div>
+         *
+         * @example
+         * var items = element(by.css('.parent')).all(by.tagName('li'))
+         *
+         * @param {webdriver.Locator} subLocator
+         * @return {ElementArrayFinder}
+         */
+        all(locator: webdriver.Locator): ElementArrayFinder;
+
+
+        /**
          * Schedules a command to click on this element.
          * @return {!webdriver.promise.Promise} A promise that will be resolved when
          *     the click command has completed.

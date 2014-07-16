@@ -208,6 +208,12 @@ function TestElementFinder() {
     webElement = elementFinder.findElement(by.id('id'));
     webElement = elementFinder.findElement(by.js('function(a, b, c) {}'), 1, 2, 3);
     webElement = elementFinder.find();
+
+    var subElementFinder: protractor.ElementFinder;
+    var subElementArrayFinder: protractor.ElementArrayFinder;
+
+    subElementFinder = elementFinder.element(by.id('id'));
+    subElementArrayFinder = elementFinder.all(by.className('class'));
 }
 
 // This function tests the angular specific locator strategies.
