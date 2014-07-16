@@ -370,3 +370,9 @@ module Overrides {
 	Backbone.Router.extend({});
 	Backbone.View.extend({});
 })();
+
+// ensures Backbone.$ exists
+// http://backbonejs.org/#Utility-Backbone-$
+(function() {
+	var $el = Backbone.$("div");
+}());
