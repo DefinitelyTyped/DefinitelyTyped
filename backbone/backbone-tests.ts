@@ -414,4 +414,8 @@ module CollectionModelConstructors {
 	// "you can pass raw attributes objects (and arrays) to add, create, and reset, and the attributes will be converted into a model of the proper type."
 	
 	new Col([{ id: 1 }, { id: 2 }]);
+	
+	// ensures "add" accepts object hashes
+	new Col().add({ id: 1});
+	new Col().add([{ id: 1 }, { id: 2 }]);
 }

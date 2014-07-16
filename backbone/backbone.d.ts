@@ -171,7 +171,9 @@ declare module Backbone {
         comparator(compare: TModel, to?: TModel): number;
 
         add(model: TModel, options?: AddOptions): Collection<TModel>;
+        add(model: any, options?: AddOptions): Collection<TModel>;
         add(models: TModel[], options?: AddOptions): Collection<TModel>;
+        add(models: any[], options?: AddOptions): Collection<TModel>;
         at(index: number): TModel;
         get(id: string): TModel;
         create(attributes: any, options?: ModelSaveOptions): TModel;
