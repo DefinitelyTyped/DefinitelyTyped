@@ -170,7 +170,12 @@ declare module Backbone {
         add(model: TModel, options?: AddOptions): Collection<TModel>;
         add(models: TModel[], options?: AddOptions): Collection<TModel>;
         at(index: number): TModel;
+        /**
+         * Get a model from a collection, specified by an id, a cid, or by passing in a model.
+         **/
+        get(id: number): TModel;
         get(id: string): TModel;
+        get(id: Model): TModel;
         create(attributes: any, options?: ModelSaveOptions): TModel;
         pluck(attribute: string): any[];
         push(model: TModel, options?: AddOptions): TModel;
