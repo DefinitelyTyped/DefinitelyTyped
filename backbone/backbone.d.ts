@@ -359,7 +359,7 @@ declare module Backbone {
 
     // Utility
     function noConflict(): typeof Backbone;
-    function setDomLibrary(jQueryNew: any): any;
+    var $: JQueryStatic;
 }
 
 declare module "backbone" {
