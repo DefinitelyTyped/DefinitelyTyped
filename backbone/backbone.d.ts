@@ -184,6 +184,7 @@ declare module Backbone {
         remove(models: TModel[], options?: Silenceable): TModel[];
         reset(models?: TModel[], options?: Silenceable): TModel[];
         set(models?: TModel[], options?: Silenceable): TModel[];
+        set(models?: any[], options?: Silenceable): TModel[];
         shift(options?: Silenceable): TModel;
         sort(options?: Silenceable): Collection<TModel>;
         unshift(model: TModel, options?: AddOptions): TModel;

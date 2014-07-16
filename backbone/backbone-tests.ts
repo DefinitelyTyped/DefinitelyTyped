@@ -418,4 +418,7 @@ module CollectionModelConstructors {
 	// ensures "add" accepts object hashes
 	new Col().add({ id: 1});
 	new Col().add([{ id: 1 }, { id: 2 }]);
+	
+	//ensures "set" accepts object hashes
+	new Col().set([{ id: 1 }, { id: 2 }]);
 }
