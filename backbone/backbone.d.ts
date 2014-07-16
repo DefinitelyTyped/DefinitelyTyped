@@ -113,8 +113,23 @@ declare module Backbone {
 
         fetch(options?: ModelFetchOptions): JQueryXHR;
 
-        get(attributeName: string): any;
-        set(attributeName: string, value: any, options?: ModelSetOptions): Model;
+        /**
+        * For strongly-typed access to attributes, use the `get` method only privately in public getter properties.
+        * @example
+        * get name(): string {
+        *    return super.get("name");
+        * }
+        **/
+        /*private*/ get(attributeName: string): any;
+
+        /**
+        * For strongly-typed assignment of attributes, use the `set` method only privately in public setter properties.
+        * @example
+        * set name(value: string) {
+        *    super.set("name", value);
+        * }
+        **/
+        /*private*/ set(attributeName: string, value: any, options?: ModelSetOptions): Model;
         set(obj: any, options?: ModelSetOptions): Model;
 
         change(): any;
