@@ -308,3 +308,28 @@ module v1Changes {
         }
     }
 }
+
+module EventsMembers {
+	// ensures views can define events as properties
+	// http://backbonejs.org/#View-delegateEvents "delegateEvents uses this.events as the source. Events are written in the format {"event selector": "callback"}"
+
+	// ensures views can define events as objects
+	class ViewWithPropertyEvents extends Backbone.View<any> {
+		events = {
+			"click .foo": function() {}
+		}
+		
+		render() {
+			this.delegateEvents();
+			return this;
+		}
+	}
+
+	// ensures views can define events as methods
+	// http://backbonejs.org/#View-delegateEvents "the events property may also be defined as a function that returns an events hash"
+	class ViewWithMethodEvents extends Backbone.View<any> {
+		events() {
+			return { };
+		}
+	}
+}
