@@ -590,6 +590,8 @@ declare module protractor {
          */
         binding(bindingDescriptor: string): webdriver.Locator;
 
+        exactBinding(bindingDescriptor: string): webdriver.Locator;
+
         /**
          * Usage:
          *   <select ng-model="user" ng-options="user.name for user in users"></select>
@@ -650,6 +652,10 @@ declare module protractor {
         buttonText(searchText: string): webdriver.Locator;
 
         partialButtonText(searchText: string): webdriver.Locator;
+
+        cssContainingText(cssSelector: string, searchText: string): webdriver.Locator;
+
+        options(optionsDescriptor: string): webdriver.Locator;
     }
 
     var By: IProtractorLocatorStrategy;
