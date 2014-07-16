@@ -396,3 +396,22 @@ module CollectionModels {
 		}
 	}
 }
+
+// ensures collections can accept object hashes and not only models in various methods
+module CollectionModelConstructors {
+
+	class M extends Backbone.Model { }
+	
+	class Col extends Backbone.Collection<M> {
+		model: M;
+	}
+
+	// ensures constructors accept object hashes as demonstrated in many places in the documentation:
+	// http://backbonejs.org/#Collection-toJSON
+	// http://backbonejs.org/#Collection-pluck
+	// http://backbonejs.org/#Collection-where
+	// Constructor with parameters is equivalent to new Collection().reset([]), and the documentation states
+	// "you can pass raw attributes objects (and arrays) to add, create, and reset, and the attributes will be converted into a model of the proper type."
+	
+	new Col([{ id: 1 }, { id: 2 }]);
+}
