@@ -425,3 +425,10 @@ module CollectionModelConstructors {
 	//ensures "reset" accepts object hashes
 	new Col().reset([{ id: 1 }, { id: 2 }]);
 }
+
+// ensures Collection.get accepts ids of any type, as the parameters depends on Model.id which can be anything defined by the user
+// http://backbonejs.org/#Collection-get
+// http://backbonejs.org/#Model-id
+new Backbone.Collection().get(1);
+new Backbone.Collection().get("foo");
+new Backbone.Collection().get({ X: 1, Y: 2});
