@@ -116,7 +116,7 @@ class Book extends Backbone.Model {
 }
 
 class Library extends Backbone.Collection<Book> {
-    model: typeof Book;
+    model = Book;
 }
 
 class Books extends Backbone.Collection<Book> { }
@@ -376,3 +376,23 @@ module Overrides {
 (function() {
 	var $el = Backbone.$("div");
 }());
+
+
+// ensures collection can instantiate models correctly
+// http://backbonejs.org/#Collection-model
+module CollectionModels {
+
+	class M extends Backbone.Model { }
+
+	// ensures it works on the class direction
+	class C1 extends Backbone.Collection<M> {
+		model: M;
+	}
+	
+	// ensures it works on function with parameters
+	class C2 extends Backbone.Collection<M> {
+		model = (attributes, options) => {
+			return new M(attributes, options);
+		}
+	}
+}

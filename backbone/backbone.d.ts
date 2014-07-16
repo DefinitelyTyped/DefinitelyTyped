@@ -154,9 +154,11 @@ declare module Backbone {
         **/
         static extend(properties: any, classProperties?: any): any;
 
-        // TODO: this really has to be typeof TModel
-        //model: typeof TModel;
-        model: { new(): TModel; }; // workaround
+        /**
+		* Model may be a reference to the Model or a function that constructs the model.
+		* Example: model = MyModel or model = (attr?, options?) => new MyModel(attr, options)
+		**/
+        model: any; // currently there is no way to express this definition on typescript other than "any"
         models: TModel[];
         length: number;
 
