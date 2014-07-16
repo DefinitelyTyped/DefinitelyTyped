@@ -6,9 +6,9 @@
 //
 declare var Hogan: string;
 
-var substringMatcher = function (strs) {
-    return function findMatches(q, cb) {
-        var matches, substrRegex;
+var substringMatcher = function (strs: any) {
+    return function findMatches(q: any, cb: any) {
+        var matches: any, substrRegex: any;
 
         // an array that will be populated with substring matches
         matches = [];
@@ -52,18 +52,3 @@ $('#the-basics .typeahead').typeahead({
         source: substringMatcher(states)
     });
 
-
-// custom templates
-$('#custom-templates .typeahead').typeahead(null, {
-    name: 'best-pictures',
-    displayKey: 'value',
-    source: bestPictures.ttAdapter(),
-    templates: {
-        empty: [
-            '<div class="empty-message">',
-            'unable to find any Best Picture winners that match the current query',
-            '</div>'
-        ].join('\n'),
-        suggestion: Handlebars.compile('<p><strong>{{value}}</strong> – {{year}}</p>')
-    }
-});
