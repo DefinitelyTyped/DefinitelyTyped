@@ -609,11 +609,14 @@ declare module JQueryUI {
         orientation?: string;
         range?: any; // boolean or string
         step?: number;
-        // value?: number;
-        // values?: number[];
+        value?: number;
+        values?: number[];
     }
 
     interface SliderUIParams {
+        handle?: JQuery;
+        value?: number;
+        values?: number[];
     }
 
     interface SliderEvent {
