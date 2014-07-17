@@ -1,7 +1,7 @@
 // Type definitions for method-override
 // Project: https://github.com/expressjs/method-override
 // Definitions by: Santi Albo <https://github.com/santialbo/>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 
