@@ -89,12 +89,10 @@ declare module "express" {
 
             route(path: string): IRoute;
 
-            use(server: Application): Application;
-            use(handler: RequestHandler): Application;
-            use(handler: ErrorRequestHandler): Application;
-            use(path: string, server: Application): Application;
-            use(path: string, handler: RequestHandler): Application;
-            use(path: string, handler: ErrorRequestHandler): Application;
+            use(...handler: RequestHandler[]): T;
+            use(handler: ErrorRequestHandler): T;
+            use(path: string, ...handler: RequestHandler[]): T;
+            use(path: string, handler: ErrorRequestHandler): T;
         }
 
         export function Router(options?: any): Router;
