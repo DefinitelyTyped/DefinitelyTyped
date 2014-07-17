@@ -225,31 +225,19 @@ declare module protractor {
         * before the page is available.
         *
         * @param {webdriver.Locator} locator An element locator.
-        * @param {ElementFinder=} opt_parentElementFinder The element finder previous
-        *     to this. (i.e. opt_parentElementFinder.element(locator) => this)
-        * @param {webdriver.promise.Promise} opt_actionResult The promise which
-        *     will be retrieved with then. Resolves to the latest action result,
-        *     or null if no action has been called.
-        * @param {number=} opt_index The index of the element to retrieve. null means
-        *     retrieve the only element, while -1 means retrieve the last element
         * @return {ElementFinder}
         */
     interface Element {
-        (locator: webdriver.Locator,
-            opt_parentElementFinder?: protractor.ElementFinder,
-            opt_actionResult?: webdriver.promise.Promise,
-            opt_index?: number): ElementFinder;
+        (locator: webdriver.Locator): ElementFinder;
 
          /**
           * ElementArrayFinder is used for operations on an array of elements (as opposed
           * to a single element).
           *
           * @param {webdriver.Locator} locator An element locator.
-          * @param {ElementFinder=} opt_parentElementFinder The element finder previous to
-          *     this. (i.e. opt_parentElementFinder.all(locator) => this)
           * @return {ElementArrayFinder}
           */
-        all(locator: webdriver.Locator, opt_parentElementFinder?: protractor.ElementFinder): ElementArrayFinder;
+        all(locator: webdriver.Locator): ElementArrayFinder;
     }
 
     interface ElementFinder {
@@ -301,21 +289,13 @@ declare module protractor {
         isPresent(): webdriver.promise.Promise;
 
         /**
-         * Schedules a command to test if there is at least one descendant of this
-         * element that matches the given search criteria.
+         * Override for WebElement.prototype.isElementPresent so that protractor waits
+         * for Angular to settle before making the check.
          *
-         * <p>Note that JS locator searches cannot be restricted to a subtree of the
-         * DOM. All such searches are delegated to this instance's parent WebDriver.
-         *
-         * @param {webdriver.Locator|Object.<string>} locator The locator
-         *     strategy to use when searching for the element.
-         * @param {...} var_args Arguments to pass to {@code WebDriver#executeScript} if
-         *     using a JavaScript locator.  Otherwise ignored.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with
-         *     whether an element could be located on the page.
+         * @see ElementFinder.isPresent
+         * @return {!webdriver.promise.Promise} which resolves to whether the element is present on the page.
          */
-        isElementPresent(locator: webdriver.Locator, ...var_args: any[]): webdriver.promise.Promise;
-        isElementPresent(locator: any, ...var_args: any[]): webdriver.promise.Promise;
+        isElementPresent(locator: webdriver.Locator): webdriver.promise.Promise;
 
         /**
          * Return this ElementFinder's locator.
@@ -552,7 +532,7 @@ declare module protractor {
     }
 
     interface IThenFunction {
-        (promise: webdriver.promise.Promise): any;
+        (promiseResult: any): any;
     }
 
 
@@ -641,6 +621,37 @@ declare module protractor {
          * @return {!webdriver.promise.Promise} A promise that resolves to the final value of the accumulator.
          */
         reduce(func: IReductionFunction, initialValue: any): webdriver.promise.Promise;
+
+        /**
+         * Represents the ElementArrayFinder as an array of ElementFinders.
+         *
+         * @return {!webdriver.promise.Promise} Return a promise, which resolves to a list (array)
+         *     of ElementFinders specified by the locator.
+         */
+         asElementFinders_(): webdriver.promise.Promise;
+
+
+        /**
+         * Find the elements specified by the locator. The input function is passed
+         * to the resulting promise, which resolves to an array of ElementFinders.
+         *
+         * Use as: element.all(locator).then(thenFunction)
+         * <ul class="items">
+         *   <li>First</li>
+         *   <li>Second</li>
+         *   <li>Third</li>
+         * </ul>
+         *
+         * element.all(by.css('.items li')).then(function(arr) {
+         *   expect(arr.length).toEqual(3);
+         * });
+         *
+         * @param {function(Array.<ElementFinder>)} fn
+         *
+         * @type {webdriver.promise.Promise} a promise which will resolve to
+         *     an array of ElementFinders matching the locator.
+         */
+         then(fn: IElementArrayFinderThenFunction): webdriver.promise.Promise;
     }
 
     interface IEachFunction {
@@ -657,6 +668,10 @@ declare module protractor {
 
     interface IReductionFunction {
         (accumulator: any, element: protractor.ElementFinder, index?: number, array?: protractor.ElementFinder[]): webdriver.promise.Promise;
+    }
+
+    interface IElementArrayFinderThenFunction {
+        (promiseResult: ElementFinder[]): any;
     }
 
     class LocatorWithColumn extends webdriver.Locator {

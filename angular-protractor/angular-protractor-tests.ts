@@ -211,7 +211,6 @@ function TestElementFinder() {
     promise = elementFinder.getOuterHtml();
     promise = elementFinder.getInnerHtml();
     promise = elementFinder.isElementPresent(by.id('id'));
-    promise = elementFinder.isElementPresent(by.js('function(a, b, c) {}'), 1, 2, 3);
     promise = elementFinder.$('.class');
     promise = elementFinder.$$('.class');
     promise = elementFinder.evaluate('expression');
@@ -230,6 +229,7 @@ function TestElementArrayFinder() {
     elementFinder = elementArrayFinder.first();
     elementFinder = elementArrayFinder.last();
     promise = elementArrayFinder.count();
+    promise = elementArrayFinder.asElementFinders_();
     elementArrayFinder.each(function(element: protractor.ElementFinder){
         // nothing
     });
@@ -251,6 +251,9 @@ function TestElementArrayFinder() {
             return accumulator + ',' + text;
         });
     }, '');
+    elementArrayFinder.then(function(underlyingElementFinders: protractor.ElementFinder[]){
+        //nothing
+    });
 }
 
 // This function tests the angular specific locator strategies.
