@@ -271,6 +271,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Platform](https://github.com/bestiejs/platform.js) (by [Jake Hickman](https://github.com/JakeH))
 * [PouchDB](http://pouchdb.com) (by [Bill Sears](https://github.com/MrBigDog2U/))
 * [PreloadJS](http://www.createjs.com/#!/PreloadJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
+* [ProgressJs](http://usablica.github.io/progress.js/) (by [Shunsuke Ohtani](https://github.com/zaneli))
 * [Q](https://github.com/kriskowal/q) (by Barrie Nemetchek, Andrew Gaspar)
 * [Q-io](https://github.com/kriskowal/q-io) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [QUnit](http://qunitjs.com/) (by [Diullei Gomes](https://github.com/Diullei))
