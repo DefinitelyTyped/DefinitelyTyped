@@ -18,4 +18,19 @@ app.get('/', function(req, res){
     res.send('hello world');
 });
 
+var router = express.Router();
+
+router.use((req, res, next) => { next(); })
+router.route('/users')
+    .get((req, res, next) => {
+        res.send(req.query['token']);
+    });
+
+app.use((req, res, next) => {
+    // hacky trick, router is just a handler
+    router(req, res, next);
+});
+
+app.use(router);
+
 app.listen(3000);
