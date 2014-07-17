@@ -217,6 +217,7 @@ function TestLocatorStrategies() {
 
     // Protractor Specific Locators
     webElement = ptor.findElement(protractor.By.binding('binding'));
+    webElement = ptor.findElement(protractor.By.exactBinding('binding'));
     webElement = ptor.findElement(protractor.By.select('select'));
     webElement = ptor.findElement(protractor.By.selectedOption('selectedOptions'));
     webElement = ptor.findElement(protractor.By.input('input'));
@@ -225,6 +226,8 @@ function TestLocatorStrategies() {
     webElement = ptor.findElement(protractor.By.repeater('repeater'));
     webElement = ptor.findElement(protractor.By.buttonText('buttonText'));
     webElement = ptor.findElement(protractor.By.partialButtonText('partialButtonText'));
+    webElement = ptor.findElement(protractor.By.cssContainingText('#inner ul .pet', 'dog'));
+    webElement = ptor.findElement(protractor.By.options('c for c in colors'));
 }
 
 // This function tests the methods that were added to the base WebElement class
