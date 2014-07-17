@@ -1,4 +1,4 @@
-/// <reference path="method-override.d.ts" />
+/// <reference path="errorhandler.d.ts" />
 
 import express = require('express');
 import errorhandler = require('errorhandler');
