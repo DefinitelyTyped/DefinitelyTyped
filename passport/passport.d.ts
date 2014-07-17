@@ -5,6 +5,12 @@
 
 /// <reference path="../express/express.d.ts" />
 
+declare module Express {
+    export interface Request {
+        session?: any;
+    }
+}
+
 declare module 'passport' {
     import express = require('express');
 
