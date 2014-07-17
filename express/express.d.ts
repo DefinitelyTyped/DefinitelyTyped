@@ -746,6 +746,8 @@ declare module "express" {
             (req: Request, res: Response, next: Function): any;
         }
 
+        interface Handler extends RequestHandler {}
+
         interface RequestParamHandler {
             (req: Request, res: Response, next: Function, param: any): any;
         }
