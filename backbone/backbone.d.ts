@@ -113,8 +113,23 @@ declare module Backbone {
 
         fetch(options?: ModelFetchOptions): JQueryXHR;
 
-        get(attributeName: string): any;
-        set(attributeName: string, value: any, options?: ModelSetOptions): Model;
+        /**
+        * For strongly-typed access to attributes, use the `get` method only privately in public getter properties.
+        * @example
+        * get name(): string {
+        *    return super.get("name");
+        * }
+        **/
+        /*private*/ get(attributeName: string): any;
+
+        /**
+        * For strongly-typed assignment of attributes, use the `set` method only privately in public setter properties.
+        * @example
+        * set name(value: string) {
+        *    super.set("name", value);
+        * }
+        **/
+        /*private*/ set(attributeName: string, value: any, options?: ModelSetOptions): Model;
         set(obj: any, options?: ModelSetOptions): Model;
 
         change(): any;
@@ -170,7 +185,12 @@ declare module Backbone {
         add(model: TModel, options?: AddOptions): Collection<TModel>;
         add(models: TModel[], options?: AddOptions): Collection<TModel>;
         at(index: number): TModel;
+        /**
+         * Get a model from a collection, specified by an id, a cid, or by passing in a model.
+         **/
+        get(id: number): TModel;
         get(id: string): TModel;
+        get(id: Model): TModel;
         create(attributes: any, options?: ModelSaveOptions): TModel;
         pluck(attribute: string): any[];
         push(model: TModel, options?: AddOptions): TModel;
@@ -359,7 +379,7 @@ declare module Backbone {
 
     // Utility
     function noConflict(): typeof Backbone;
-    function setDomLibrary(jQueryNew: any): any;
+    var $: JQueryStatic;
 }
 
 declare module "backbone" {
