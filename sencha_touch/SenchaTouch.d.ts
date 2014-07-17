@@ -7898,7 +7898,7 @@ declare module Ext.data.association {
 		* @returns Object 
 		*/
 		getInstanceName?(): any;
-		/** [Method] Returns the value of setterName  
+		/** [Method] Returns the value of localPropertyToSet
 		* @returns String 
 		*/
 		getSetterName?(): string;
@@ -7914,7 +7914,7 @@ declare module Ext.data.association {
 		* @param instanceName Object The new value. 
 		*/
 		setInstanceName?( instanceName?:any ): void;
-		/** [Method] Sets the value of setterName  
+		/** [Method] Sets the value of localPropertyToSet
 		* @param setterName String The new value. 
 		*/
 		setSetterName?( setterName?:string ): void;
@@ -7940,7 +7940,7 @@ declare module Ext.data {
 		* @returns Object 
 		*/
 		getInstanceName?(): any;
-		/** [Method] Returns the value of setterName  
+		/** [Method] Returns the value of localPropertyToSet
 		* @returns String 
 		*/
 		getSetterName?(): string;
@@ -7956,7 +7956,7 @@ declare module Ext.data {
 		* @param instanceName Object The new value. 
 		*/
 		setInstanceName?( instanceName?:any ): void;
-		/** [Method] Sets the value of setterName  
+		/** [Method] Sets the value of localPropertyToSet
 		* @param setterName String The new value. 
 		*/
 		setSetterName?( setterName?:string ): void;
@@ -8118,7 +8118,7 @@ declare module Ext.data.association {
 		* @returns Object 
 		*/
 		getInstanceName?(): any;
-		/** [Method] Returns the value of setterName  
+		/** [Method] Returns the value of localPropertyToSet
 		* @returns String 
 		*/
 		getSetterName?(): string;
@@ -8134,7 +8134,7 @@ declare module Ext.data.association {
 		* @param instanceName Object The new value. 
 		*/
 		setInstanceName?( instanceName?:any ): void;
-		/** [Method] Sets the value of setterName  
+		/** [Method] Sets the value of localPropertyToSet
 		* @param setterName String The new value. 
 		*/
 		setSetterName?( setterName?:string ): void;
@@ -8160,7 +8160,7 @@ declare module Ext.data {
 		* @returns Object 
 		*/
 		getInstanceName?(): any;
-		/** [Method] Returns the value of setterName  
+		/** [Method] Returns the value of localPropertyToSet
 		* @returns String 
 		*/
 		getSetterName?(): string;
@@ -8176,7 +8176,7 @@ declare module Ext.data {
 		* @param instanceName Object The new value. 
 		*/
 		setInstanceName?( instanceName?:any ): void;
-		/** [Method] Sets the value of setterName  
+		/** [Method] Sets the value of localPropertyToSet
 		* @param setterName String The new value. 
 		*/
 		setSetterName?( setterName?:string ): void;
