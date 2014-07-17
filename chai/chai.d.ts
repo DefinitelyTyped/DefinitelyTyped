@@ -1,8 +1,7 @@
 // Type definitions for chai 1.7.2
 // Project: http://chaijs.com/
 // Definitions by: Jed Hunsaker <https://github.com/jedhunsaker/>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
-
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module chai {
 
@@ -162,4 +161,8 @@ declare module chai {
         (constructor: Function, expected?: string, message?: string): Expect;
         (constructor: Function, expected?: RegExp, message?: string): Expect;
     }
+}
+
+declare module "chai" {
+    export = chai;
 }

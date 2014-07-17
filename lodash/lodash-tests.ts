@@ -183,6 +183,14 @@ result = <number[]>_.first([1, 2, 3], function (num) {
 result = <IFoodOrganic[]>_.first(foodsOrganic, 'organic');
 result = <IFoodType[]>_.first(foodsType, { 'type': 'fruit' });
 
+result = <number>_([1, 2, 3]).first();
+result = <number[]>_([1, 2, 3]).first(2).value();
+result = <number[]>_([1, 2, 3]).first(function (num) {
+    return num < 3;
+}).value();
+result = <IFoodOrganic[]>_(foodsOrganic).first('organic').value();
+result = <IFoodType[]>_(foodsType).first({ 'type': 'fruit' }).value();
+
 result = <number>_.head([1, 2, 3]);
 result = <number[]>_.head([1, 2, 3], 2);
 result = <number[]>_.head([1, 2, 3], function (num) {
@@ -191,11 +199,27 @@ result = <number[]>_.head([1, 2, 3], function (num) {
 result = <IFoodOrganic[]>_.head(foodsOrganic, 'organic');
 result = <IFoodType[]>_.head(foodsType, { 'type': 'fruit' });
 
+result = <number>_([1, 2, 3]).head();
+result = <number[]>_([1, 2, 3]).head(2).value();
+result = <number[]>_([1, 2, 3]).head(function (num) {
+    return num < 3;
+}).value();
+result = <IFoodOrganic[]>_(foodsOrganic).head('organic').value();
+result = <IFoodType[]>_(foodsType).head({ 'type': 'fruit' }).value();
+
 result = <number>_.take([1, 2, 3]);
 result = <number[]>_.take([1, 2, 3], 2);
 result = <number[]>_.take([1, 2, 3], (num) => num < 3);
 result = <IFoodOrganic[]>_.take(foodsOrganic, 'organic');
 result = <IFoodType[]>_.take(foodsType, { 'type': 'fruit' });
+
+result = <number>_([1, 2, 3]).take();
+result = <number[]>_([1, 2, 3]).take(2).value();
+result = <number[]>_([1, 2, 3]).take(function (num) {
+    return num < 3;
+}).value();
+result = <IFoodOrganic[]>_(foodsOrganic).take('organic').value();
+result = <IFoodType[]>_(foodsType).take({ 'type': 'fruit' }).value();
 
 result = <number[]>_.flatten([1, [2], [3, [[4]]]]);
 result = <any[]>_.flatten([1, [2], [3, [[4]]]], true);
@@ -277,7 +301,28 @@ result = <string[]>_.unique(['A', 'b', 'C', 'a', 'B', 'c'], function (letter) {
 result = <number[]>_.unique([1, 2.5, 3, 1.5, 2, 3.5], function (num) { return this.floor(num); }, Math);
 result = <{ x: number; }[]>_.unique([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
 
+result = <number[]>_([1, 2, 1, 3, 1]).uniq().value();
+result = <number[]>_([1, 1, 2, 2, 3]).uniq(true).value();
+result = <string[]>_(['A', 'b', 'C', 'a', 'B', 'c']).uniq(function (letter) {
+    return letter.toLowerCase();
+}).value();
+result = <number[]>_([1, 2.5, 3, 1.5, 2, 3.5]).uniq(function (num) { return this.floor(num); }, Math).value();
+result = <{ x: number; }[]>_([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }]).uniq('x').value();
+
+result = <number[]>_([1, 2, 1, 3, 1]).unique().value();
+result = <number[]>_([1, 1, 2, 2, 3]).unique(true).value();
+result = <string[]>_(['A', 'b', 'C', 'a', 'B', 'c']).unique(function (letter) {
+    return letter.toLowerCase();
+}).value();
+result = <number[]>_([1, 2.5, 3, 1.5, 2, 3.5]).unique(function (num) { return this.floor(num); }, Math).value();
+result = <{ x: number; }[]>_([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }]).unique('x').value();
+
 result = <number[]>_.without([1, 2, 1, 0, 3, 1, 4], 0, 1);
+
+result = <number[]>_.xor([1, 2, 3, 4, 5], [5, 2, 10]);
+result = <number[]>_.xor([1, 2, 3, 4, 5], [5, 2, 10], [4, 5, 6]);
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4, 5]).xor([5, 2, 10]);
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4, 5]).xor([5, 2, 10], [4, 5, 6]);
 
 result = <any[][]>_.zip(['moe', 'larry'], [30, 40], [true, false]);
 result = <any[][]>_.unzip(['moe', 'larry'], [30, 40], [true, false]);
@@ -357,9 +402,11 @@ result = <IFoodCombined>_.findLast(foodsCombined, 'organic');
 
 result = <number[]>_.forEach([1, 2, 3], function (num) { console.log(num); });
 result = <_.Dictionary<number>>_.forEach({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { console.log(num); });
+result = <IFoodType>_.forEach<IFoodType, string>({ name: 'apple', type: 'fruit' }, function (value, key) { console.log(value, key) });
 
 result = <number[]>_.each([1, 2, 3], function (num) { console.log(num); });
 result = <_.Dictionary<number>>_.each({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { console.log(num); });
+result = <IFoodType>_.each<IFoodType, string>({ name: 'apple', type: 'fruit' }, function (value, key) { console.log(value, key) });
 
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).forEach(function (num) { console.log(num); });
 result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_(<{ [index: string]: number; }>{ 'one': 1, 'two': 2, 'three': 3 }).forEach(function (num) { console.log(num); });
@@ -383,9 +430,17 @@ result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function (num) { ret
 result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function (num) { return this.floor(num); }, Math);
 result = <_.Dictionary<string[]>>_.groupBy(['one', 'two', 'three'], 'length');
 
-result = <_.LoDashObjectWrapper<_.Dictionary<number[]>>>_([4.2, 6.1, 6.4]).groupBy(function (num) { return Math.floor(num); });
-result = <_.LoDashObjectWrapper<_.Dictionary<number[]>>>_([4.2, 6.1, 6.4]).groupBy(function (num) { return this.floor(num); }, Math);
-result = <_.LoDashObjectWrapper<_.Dictionary<string[]>>>_(['one', 'two', 'three']).groupBy('length');
+result = <_.Dictionary<number[]>>_.groupBy({ prop1: 4.2, prop2: 6.1, prop3: 6.4}, function (num) { return Math.floor(num); });
+result = <_.Dictionary<number[]>>_.groupBy({ prop1: 4.2, prop2: 6.1, prop3: 6.4}, function (num) { return this.floor(num); }, Math);
+result = <_.Dictionary<string[]>>_.groupBy({ prop1: 'one', prop2: 'two', prop3: 'three'}, 'length');
+
+result = <_.Dictionary<number[]>>_([4.2, 6.1, 6.4]).groupBy(function (num) { return Math.floor(num); }).value();
+result = <_.Dictionary<number[]>>_([4.2, 6.1, 6.4]).groupBy(function (num) { return this.floor(num); }, Math).value();
+result = <_.Dictionary<string[]>>_(['one', 'two', 'three']).groupBy('length').value();
+
+result = <_.Dictionary<number[]>>_({ prop1: 4.2, prop2: 6.1, prop3: 6.4}).groupBy<number>(function (num) { return Math.floor(num); }).value();
+result = <_.Dictionary<number[]>>_({ prop1: 4.2, prop2: 6.1, prop3: 6.4}).groupBy<number>(function (num) { return this.floor(num); }, Math).value();
+result = <_.Dictionary<string[]>>_({ prop1: 'one', prop2: 'two', prop3: 'three'}).groupBy<string>('length').value();
 
 result = <_.Dictionary<IKey>>_.indexBy(keys, 'dir');
 result = <_.Dictionary<IKey>>_.indexBy(keys, function (key) { return String.fromCharCode(key.code); });
@@ -419,16 +474,18 @@ result = <IStoogesAge>_.min(stoogesAges, function (stooge) { return stooge.age; 
 result = <IStoogesAge>_.min(stoogesAges, 'age');
 
 result = <string[]>_.pluck(stoogesAges, 'name');
+result = <string[]>_(stoogesAges).pluck('name').value();
 
-result = <number>_.reduce<number, number>([1, 2, 3], function (sum: number, num: number) {
-    return sum + num;
-});
 interface ABC {
     [index: string]: number;
     a: number;
     b: number;
     c: number;
 }
+
+result = <number>_.reduce<number, number>([1, 2, 3], function (sum: number, num: number) {
+    return sum + num;
+});
 result = <ABC>_.reduce({ 'a': 1, 'b': 2, 'c': 3 }, function (r: ABC, num: number, key: string) {
     r[key] = num * 3;
     return r;
@@ -450,12 +507,40 @@ result = <ABC>_.inject({ 'a': 1, 'b': 2, 'c': 3 }, function (r: ABC, num: number
     return r;
 }, {});
 
+result = <number>_([1, 2, 3]).reduce<number>(function (sum: number, num: number) {
+    return sum + num;
+});
+result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).reduce<number, ABC>(function (r: ABC, num: number, key: string) {
+    r[key] = num * 3;
+    return r;
+}, {});
+
+result = <number>_([1, 2, 3]).foldl<number>(function (sum: number, num: number) {
+    return sum + num;
+});
+result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).foldl<number, ABC>(function (r: ABC, num: number, key: string) {
+    r[key] = num * 3;
+    return r;
+}, {});
+
+result = <number>_([1, 2, 3]).inject<number>(function (sum: number, num: number) {
+    return sum + num;
+});
+result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).inject<number, ABC>(function (r: ABC, num: number, key: string) {
+    r[key] = num * 3;
+    return r;
+}, {});
+
 result = <number[]>_.reduceRight([[0, 1], [2, 3], [4, 5]], function (a: number[], b: number[]) { return a.concat(b); }, <number[]>[]);
 result = <number[]>_.foldr([[0, 1], [2, 3], [4, 5]], function (a: number[], b: number[]) { return a.concat(b); }, <number[]>[]);
 
 result = <number[]>_.reject([1, 2, 3, 4, 5, 6], function (num) { return num % 2 == 0; });
 result = <IFoodCombined[]>_.reject(foodsCombined, 'organic');
 result = <IFoodCombined[]>_.reject(foodsCombined, { 'type': 'fruit' });
+
+result = <number[]>_([1, 2, 3, 4, 5, 6]).reject(function (num) { return num % 2 == 0; }).value();
+result = <IFoodCombined[]>_(foodsCombined).reject('organic').value();
+result = <IFoodCombined[]>_(foodsCombined).reject({ 'type': 'fruit' }).value();
 
 result = <number>_.sample([1, 2, 3, 4]);
 result = <number[]>_.sample([1, 2, 3, 4], 2);
@@ -469,19 +554,32 @@ result = <number>_.size('curly');
 result = <boolean>_.some([null, 0, 'yes', false], Boolean);
 result = <boolean>_.some(foodsCombined, 'organic');
 result = <boolean>_.some(foodsCombined, { 'type': 'meat' });
+result = <boolean>_.some(foodsOrganic[0]);
 
 result = <boolean>_.any([null, 0, 'yes', false], Boolean);
 result = <boolean>_.any(foodsCombined, 'organic');
 result = <boolean>_.any(foodsCombined, { 'type': 'meat' });
+result = <boolean>_.any(foodsOrganic[0]);
 
 result = <number[]>_.sortBy([1, 2, 3], function (num) { return Math.sin(num); });
 result = <number[]>_.sortBy([1, 2, 3], function (num) { return this.sin(num); }, Math);
 result = <string[]>_.sortBy(['banana', 'strawberry', 'apple'], 'length');
 
-(function (a: number, b: number, c: number, d: number) { return _.toArray(arguments).slice(1); })(1, 2, 3, 4);
+result = <number[]>_([1, 2, 3]).sortBy(function (num) { return Math.sin(num); }).value();
+result = <number[]>_([1, 2, 3]).sortBy(function (num) { return this.sin(num); }, Math).value();
+result = <string[]>_(['banana', 'strawberry', 'apple']).sortBy('length').value();
+
+(function (a: number, b: number, c: number, d: number): Array<number> { return _.toArray(arguments).slice(1); })(1, 2, 3, 4);
+result = <number[]>_.toArray([1, 2, 3, 4]);
+(function (a: number, b: number, c: number, d: number): Array<number> { return _(arguments).toArray<number>().slice(1).value(); })(1, 2, 3, 4);
+result = <number[]>_([1,2,3,4]).toArray().value();
+
 
 result = <IStoogesCombined[]>_.where(stoogesCombined, { 'age': 40 });
 result = <IStoogesCombined[]>_.where(stoogesCombined, { 'quotes': ['Poifect!'] });
+
+result = <IStoogesCombined[]>_(stoogesCombined).where({ 'age': 40 }).value();
+result = <IStoogesCombined[]>_(stoogesCombined).where({ 'quotes': ['Poifect!'] }).value();
 
 /*************
  * Functions *
@@ -832,6 +930,7 @@ result = <boolean>_.isString('moe');
 result = <boolean>_.isUndefined(void 0);
 
 result = <string[]>_.keys({ 'one': 1, 'two': 2, 'three': 3 });
+result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keys().value();
 
 var mergeNames = {
     'stooges': [
@@ -877,8 +976,14 @@ result = <HasName>_.omit({ 'name': 'moe', 'age': 40 }, ['age']);
 result = <HasName>_.omit({ 'name': 'moe', 'age': 40 }, function (value) {
     return typeof value == 'number';
 });
+result = <HasName>_({ 'name': 'moe', 'age': 40 }).omit('age').value();
+result = <HasName>_({ 'name': 'moe', 'age': 40 }).omit(['age']).value();
+result = <HasName>_({ 'name': 'moe', 'age': 40 }).omit(function (value) {
+    return typeof value == 'number';
+}).value();
 
 result = <any[][]>_.pairs({ 'moe': 30, 'larry': 40 });
+result = <any[][]>_({ 'moe': 30, 'larry': 40 }).pairs().value();
 
 result = <HasName>_.pick({ 'name': 'moe', '_userid': 'moe1' }, 'name');
 result = <HasName>_.pick({ 'name': 'moe', '_userid': 'moe1' }, ['name']);

@@ -1,7 +1,6 @@
-﻿// Type definitions for RxJS-Lite v2.2.20
+﻿// Type definitions for RxJS-Lite v2.2.28
 // Project: http://rx.codeplex.com/
-// Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>
-// Definitions by: Igor Oleinikov <https://github.com/Igorbek>
+// Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>, Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path="rx-lite.d.ts"/>
@@ -44,8 +43,8 @@ declare module Rx {
 		schedulePeriodic(period: number, action: () => void): IDisposable;
 		schedulePeriodicWithState<TState>(state: TState, period: number, action: (state: TState) => TState): IDisposable;
 	}
+}
 
-	export interface Observable<T> {
-		shareReplay(bufferSize?: number, window?: number, scheduler?: IScheduler): Observable<T>;	// same as replayWhileObserved in rx.binding.d.ts
-	}
+declare module "rx.lite" {
+	export = Rx;
 }

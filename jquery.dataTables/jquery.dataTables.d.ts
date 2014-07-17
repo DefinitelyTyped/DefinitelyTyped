@@ -343,7 +343,7 @@ declare module DataTables
 		bLengthChange: boolean;
 		bPaginate: boolean;
 		bProcessing: boolean;
-		bServerSize: boolean;
+		bServerSide: boolean;
 		bSort: boolean;
 		bSortClasses: boolean;
 		bStateSave: boolean;

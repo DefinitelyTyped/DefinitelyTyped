@@ -1,7 +1,6 @@
-// Type definitions for RxJS-Time v2.2.24
+// Type definitions for RxJS-Time v2.2.28
 // Project: http://rx.codeplex.com/
-// Definitions by: Carl de Billy <http://carl.debilly.net/>
-// Definitions by: Igor Oleinikov <https://github.com/Igorbek>
+// Definitions by: Carl de Billy <http://carl.debilly.net/>, Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path="rx.d.ts" />
@@ -29,4 +28,8 @@ declare module Rx {
 			timeSelector: (state: TState) => Date,
 			scheduler?: IScheduler): Observable<TResult>;
 	}
+}
+
+declare module "rx.time" {
+	export = Rx;
 }

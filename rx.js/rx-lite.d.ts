@@ -1,4 +1,6 @@
-﻿// This file contains common part of defintions for rx.d.ts and rx.lite.d.ts
+﻿// DefinitelyTyped: partial
+
+// This file contains common part of defintions for rx.d.ts and rx.lite.d.ts
 // Do not include the file separately.
 
 declare module Rx {
@@ -227,6 +229,11 @@ declare module Rx {
 		concat(sources: IPromise<T>[]): Observable<T>;
 		concatAll(): T;
 		concatObservable(): T;	// alias for concatAll
+		concatMap<T2, R>(selector: (value: T, index: number) => Observable<T2>, resultSelector: (value1: T, value2: T2, index: number) => R): Observable<R>;	// alias for selectConcat
+		concatMap<T2, R>(selector: (value: T, index: number) => IPromise<T2>, resultSelector: (value1: T, value2: T2, index: number) => R): Observable<R>;	// alias for selectConcat
+		concatMap<R>(selector: (value: T, index: number) => Observable<R>): Observable<R>;	// alias for selectConcat
+		concatMap<R>(selector: (value: T, index: number) => IPromise<R>): Observable<R>;	// alias for selectConcat
+		concatMap<R>(sequence: Observable<R>): Observable<R>;	// alias for selectConcat
 		merge(maxConcurrent: number): T;
 		merge(other: Observable<T>): Observable<T>;
 		merge(other: IPromise<T>): Observable<T>;
@@ -293,6 +300,12 @@ declare module Rx {
 		flatMap<TResult>(other: Observable<TResult>): Observable<TResult>;	// alias for selectMany
 		flatMap<TResult>(other: IPromise<TResult>): Observable<TResult>;	// alias for selectMany
 
+		selectConcat<T2, R>(selector: (value: T, index: number) => Observable<T2>, resultSelector: (value1: T, value2: T2, index: number) => R): Observable<R>;
+		selectConcat<T2, R>(selector: (value: T, index: number) => IPromise<T2>, resultSelector: (value1: T, value2: T2, index: number) => R): Observable<R>;
+		selectConcat<R>(selector: (value: T, index: number) => Observable<R>): Observable<R>;
+		selectConcat<R>(selector: (value: T, index: number) => IPromise<R>): Observable<R>;
+		selectConcat<R>(sequence: Observable<R>): Observable<R>;
+
 		/**
 		*  Projects each element of an observable sequence into a new sequence of observable sequences by incorporating the element's index and then 
 		*  transforms an observable sequence of observable sequences into an observable sequence producing values only from the most recent observable sequence.
@@ -311,6 +324,16 @@ declare module Rx {
 		*  and that at any point in time produces the elements of the most recent inner observable sequence that has been received.
 		*/
 		flatMapLatest<TResult>(selector: (value: T, index: number, source: Observable<T>) => TResult, thisArg?: any): Observable<TResult>;	// alias for selectSwitch
+		/**
+		*  Projects each element of an observable sequence into a new sequence of observable sequences by incorporating the element's index and then 
+		*  transforms an observable sequence of observable sequences into an observable sequence producing values only from the most recent observable sequence.
+		* @param selector A transform function to apply to each source element; the second parameter of the function represents the index of the source element.
+		* @param [thisArg] Object to use as this when executing callback.
+		* @since 2.2.28
+		* @returns An observable sequence whose elements are the result of invoking the transform function on each element of source producing an Observable of Observable sequences 
+		*  and that at any point in time produces the elements of the most recent inner observable sequence that has been received.
+		*/
+		switchMap<TResult>(selector: (value: T, index: number, source: Observable<T>) => TResult, thisArg?: any): Observable<TResult>;	// alias for selectSwitch
 
 		skip(count: number): Observable<T>;
 		skipWhile(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>;
@@ -339,12 +362,34 @@ declare module Rx {
 		* @returns An ES6 compatible promise with the last value from the observable sequence.
 		*/
 		toPromise(promiseCtor?: { new (resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): IPromise<T>; }): IPromise<T>;
+
+		// Experimental Flattening
+
+		/**
+		* Performs a exclusive waiting for the first to finish before subscribing to another observable.
+		* Observables that come in between subscriptions will be dropped on the floor.
+		* Can be applied on `Observable<Observable<R>>` or `Observable<IPromise<R>>`.
+		* @since 2.2.28
+		* @returns A exclusive observable with only the results that happen when subscribed.
+		*/
+		exclusive<R>(): Observable<R>;
+
+		/**
+		* Performs a exclusive map waiting for the first to finish before subscribing to another observable.
+		* Observables that come in between subscriptions will be dropped on the floor.
+		* Can be applied on `Observable<Observable<I>>` or `Observable<IPromise<I>>`.
+		* @since 2.2.28
+		* @param selector Selector to invoke for every item in the current subscription.
+		* @param [thisArg] An optional context to invoke with the selector parameter.
+		* @returns {An exclusive observable with only the results that happen when subscribed.
+		*/
+		exclusiveMap<I, R>(selector: (value: I, index: number, source: Observable<I>) => R, thisArg?: any): Observable<R>;
 	}
 
 	interface ObservableStatic {
-		create<T>(subscribe: (observer: Observer<T>) => void): Observable<T>;
-		create<T>(subscribe: (observer: Observer<T>) => () => void): Observable<T>;
 		create<T>(subscribe: (observer: Observer<T>) => IDisposable): Observable<T>;
+		create<T>(subscribe: (observer: Observer<T>) => () => void): Observable<T>;
+		create<T>(subscribe: (observer: Observer<T>) => void): Observable<T>;
 		createWithDisposable<T>(subscribe: (observer: Observer<T>) => IDisposable): Observable<T>;
 		defer<T>(observableFactory: () => Observable<T>): Observable<T>;
 		defer<T>(observableFactory: () => IPromise<T>): Observable<T>;
@@ -378,9 +423,33 @@ declare module Rx {
 		fromItreable<T>(iterable: {}, scheduler?: IScheduler): Observable<T>;	// todo: can't describe ES6 Iterable via TypeScript type system
 		generate<TState, TResult>(initialState: TState, condition: (state: TState) => boolean, iterate: (state: TState) => TState, resultSelector: (state: TState) => TResult, scheduler?: IScheduler): Observable<TResult>;
 		never<T>(): Observable<T>;
+
+		/**
+		*  This method creates a new Observable instance with a variable number of arguments, regardless of number or type of the arguments.
+		* 
+		* @example
+		*  var res = Rx.Observable.of(1, 2, 3);
+		* @since 2.2.28
+		* @returns The observable sequence whose elements are pulled from the given arguments.
+		*/
+		of<T>(...values: T[]): Observable<T>;
+
+		/**
+		*  This method creates a new Observable instance with a variable number of arguments, regardless of number or type of the arguments. 
+		* @example
+		*  var res = Rx.Observable.ofWithScheduler(Rx.Scheduler.timeout, 1, 2, 3);
+		* @since 2.2.28
+		* @param [scheduler] A scheduler to use for scheduling the arguments.
+		* @returns The observable sequence whose elements are pulled from the given arguments.
+		*/
+		ofWithScheduler<T>(scheduler?: IScheduler, ...values: T[]): Observable<T>;
 		range(start: number, count: number, scheduler?: IScheduler): Observable<number>;
 		repeat<T>(value: T, repeatCount?: number, scheduler?: IScheduler): Observable<T>;
 		return<T>(value: T, scheduler?: IScheduler): Observable<T>;
+		/**
+		 * @since 2.2.28
+		 */
+		just<T>(value: T, scheduler?: IScheduler): Observable<T>;	// alias for return
 		returnValue<T>(value: T, scheduler?: IScheduler): Observable<T>;	// alias for return
 		throw<T>(exception: Error, scheduler?: IScheduler): Observable<T>;
 		throw<T>(exception: any, scheduler?: IScheduler): Observable<T>;
