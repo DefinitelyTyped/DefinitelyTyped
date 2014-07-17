@@ -545,6 +545,25 @@ declare module protractor {
         findElement(locator: any, ...var_args: any[]): protractor.WebElement;
 
         /**
+         * Returns the WebElement represented by this ElementFinder. 
+         * Throws the WebDriver error if the element doesn't exist.
+         * If index is null, it makes sure that there is only one underlying
+         * WebElement described by the chain of locators and issues a warning 
+         * otherwise. If index is not null, it retrieves the WebElement specified by 
+         * the index.
+         *
+         * @example
+         * The following three expressions are equivalent.
+         *  - element(by.css('.parent')).getWebElement();
+         *  - browser.waitForAngular(); browser.driver.findElement(by.css('.parent'));
+         *  - browser.findElement(by.css('.parent'))
+         *
+         * @alias element(locator).getWebElement()
+         * @return {webdriver.WebElement}
+         */
+        getWebElement(): webdriver.WebElement;
+
+        /**
          * Evalates the input as if it were on the scope of the current element.
          * @param {string} expression
          *
@@ -562,6 +581,13 @@ declare module protractor {
     }
 
     interface ElementArrayFinder{
+        /**
+         * Returns the array of WebElements represented by this ElementArrayFinder. 
+         *
+         * @alias element.all(locator).getWebElements()
+         * @return {Array.<webdriver.WebElement>}
+         */
+        getWebElements(): webdriver.WebElement[];
         count(): webdriver.promise.Promise;
         get(index: number): protractor.WebElement;
         first(): protractor.WebElement;
