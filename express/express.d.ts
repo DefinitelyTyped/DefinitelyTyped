@@ -38,7 +38,7 @@ declare module "express" {
             (name: RegExp, ...handlers: RequestHandler[]): T;
         }
 
-        interface IRouter<T> {
+        interface IRouter<T> extends RequestHandler {
             /**
              * Map the given param placeholder `name`(s) to the given callback(s).
              *
