@@ -582,3 +582,24 @@ function test_misc() {
 	}
 	
 }
+
+interface KnockoutBindingHandlers {
+    allBindingsAccessorTest: KnockoutBindingHandler;
+}
+
+function test_allBindingsAccessor() {
+    ko.bindingHandlers.allBindingsAccessorTest = {
+        init: (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext) => {
+            var allBindings = allBindingsAccessor();
+            var hasBinding = allBindingsAccessor.has("myBindingName");
+            var myBinding = allBindingsAccessor.get("myBindingName");
+            var fnAccessorBinding = allBindingsAccessor().myBindingName;
+        },
+        update: (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext) => {
+            var allBindings = allBindingsAccessor();
+            var hasBinding = allBindingsAccessor.has("myBindingName");
+            var myBinding = allBindingsAccessor.get("myBindingName");
+            var fnAccessorBinding = allBindingsAccessor().myBindingName;
+        }
+    };
+}

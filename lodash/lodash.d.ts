@@ -644,6 +644,104 @@ declare module _ {
             whereValue: W): T[];
     }
 
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.first
+        **/
+        first(): T;
+
+        /**
+        * @see _.first
+        * @param n The number of elements to return.
+        **/
+        first(n: number): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.first
+        * @param callback The function called per element.
+        * @param [thisArg] The this binding of callback.
+        **/
+        first(
+            callback: ListIterator<T, boolean>,
+            thisArg?: any): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.first
+        * @param pluckValue "_.pluck" style callback value
+        **/
+        first(pluckValue: string): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.first
+        * @param whereValue "_.where" style callback value
+        **/
+        first<W>(whereValue: W): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.first
+        **/
+        head(): T;
+
+        /**
+        * @see _.first
+        * @param n The number of elements to return.
+        **/
+        head(n: number): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.first
+        * @param callback The function called per element.
+        * @param [thisArg] The this binding of callback.
+        **/
+        head(
+            callback: ListIterator<T, boolean>,
+            thisArg?: any): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.first
+        * @param pluckValue "_.pluck" style callback value
+        **/
+        head(pluckValue: string): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.first
+        * @param whereValue "_.where" style callback value
+        **/
+        head<W>(whereValue: W): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.first
+        **/
+        take(): T;
+
+        /**
+        * @see _.first
+        * @param n The number of elements to return.
+        **/
+        take(n: number): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.first
+        * @param callback The function called per element.
+        * @param [thisArg] The this binding of callback.
+        **/
+        take(
+            callback: ListIterator<T, boolean>,
+            thisArg?: any): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.first
+        * @param pluckValue "_.pluck" style callback value
+        **/
+        take(pluckValue: string): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.first
+        * @param whereValue "_.where" style callback value
+        **/
+        take<W>(whereValue: W): LoDashArrayWrapper<T>;
+    }
+
     //_.flatten
     interface LoDashStatic {
         /**
@@ -1750,6 +1848,106 @@ declare module _ {
             whereValue?: W): T[];
     }
 
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.uniq
+        **/
+        uniq<TSort>(isSorted?: boolean): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        **/
+        uniq<TSort>(
+            isSorted: boolean,
+            callback: ListIterator<T, TSort>,
+            thisArg?: any): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        **/
+        uniq<TSort>(
+            callback: ListIterator<T, TSort>,
+            thisArg?: any): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        * @param pluckValue _.pluck style callback
+        **/
+        uniq(
+            isSorted: boolean,
+            pluckValue: string): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        * @param pluckValue _.pluck style callback
+        **/
+        uniq(pluckValue: string): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        * @param whereValue _.where style callback
+        **/
+        uniq<W>(
+            isSorted: boolean,
+            whereValue: W): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        * @param whereValue _.where style callback
+        **/
+        uniq<W>(
+            whereValue: W): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        **/
+        unique<TSort>(isSorted?: boolean): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        **/
+        unique<TSort>(
+            isSorted: boolean,
+            callback: ListIterator<T, TSort>,
+            thisArg?: any): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        **/
+        unique<TSort>(
+            callback: ListIterator<T, TSort>,
+            thisArg?: any): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        * @param pluckValue _.pluck style callback
+        **/
+        unique(
+            isSorted: boolean,
+            pluckValue: string): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        * @param pluckValue _.pluck style callback
+        **/
+        unique(pluckValue: string): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        * @param whereValue _.where style callback
+        **/
+        unique<W>(
+            isSorted: boolean,
+            whereValue: W): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.uniq
+        * @param whereValue _.where style callback
+        **/
+        unique<W>(
+            whereValue: W): LoDashArrayWrapper<T>;        
+    }
+
     //_.without
     interface LoDashStatic {
         /**
@@ -1770,6 +1968,38 @@ declare module _ {
             ...values: T[]): T[];
     }
 
+    //_.xor
+    interface LoDashStatic {
+        /**
+        * Creates an array that is the symmetric difference of the provided arrays.
+        * @param array The array to process
+        * @param others The arrays of values to calculate the symmetric difference.
+        * @return Returns a new array of filtered values.
+        **/
+        xor<T>(
+            array: Array<T>,
+            ...others: Array<T>[]): T[];
+        /**
+        * @see _.xor
+        **/
+        xor<T>(
+            array: List<T>,
+            ...others: List<T>[]): T[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.xor
+        **/
+        xor(
+            ...others: Array<T>[]): LoDashArrayWrapper<T>;
+        /**
+        * @see _.xor
+        **/
+        xor(
+            ...others: List<T>[]): LoDashArrayWrapper<T>;
+    }
+    
     //_.zip
     interface LoDashStatic {
         /**
@@ -2742,6 +2972,14 @@ declare module _ {
             thisArg?: any): Dictionary<T>;
 
         /**
+        * @see _.each
+        **/
+        forEach<T extends {}, TValue>(
+            object: T,
+            callback: ObjectIterator<TValue, void>,
+            thisArg?: any): T
+
+        /**
         * @see _.forEach
         **/
         each<T>(
@@ -2767,6 +3005,14 @@ declare module _ {
             object: Dictionary<T>,
             callback: ObjectIterator<T, void>,
             thisArg?: any): Dictionary<T>;
+
+        /**
+        * @see _.each
+        **/
+        each<T extends {}, TValue>(
+            object: T,
+            callback: ObjectIterator<TValue, void>,
+            thisArg?: any): T
     }
 
     interface LoDashArrayWrapper<T> {
@@ -2955,6 +3201,30 @@ declare module _ {
         groupBy<W, T>(
             collection: List<T>,
             whereValue: W): Dictionary<T[]>;
+
+        /**
+        * @see _.groupBy
+        **/
+        groupBy<T>(
+            collection: Dictionary<T>,
+            callback?: ListIterator<T, any>,
+            thisArg?: any): Dictionary<T[]>;
+
+        /**
+        * @see _.groupBy
+        * @param pluckValue _.pluck style callback
+        **/
+        groupBy<TValue>(
+            collection: Dictionary<TValue>,
+            pluckValue: string): Dictionary<TValue[]>;
+
+        /**
+        * @see _.groupBy
+        * @param whereValue _.where style callback
+        **/
+        groupBy<W, TValue>(
+            collection: Dictionary<TValue>,
+            whereValue: W): Dictionary<TValue[]>;
     }
 
     interface LoDashArrayWrapper<T> {
@@ -2963,19 +3233,40 @@ declare module _ {
         **/
         groupBy(
             callback: ListIterator<T, any>,
-            thisArg?: any): _.LoDashObjectWrapper<Dictionary<T[]>>;
+            thisArg?: any): _.LoDashObjectWrapper<_.Dictionary<T[]>>;
 
         /**
         * @see _.groupBy
         **/
         groupBy(
-            pluckValue: string): _.LoDashObjectWrapper<Dictionary<T[]>>;
+            pluckValue: string): _.LoDashObjectWrapper<_.Dictionary<T[]>>;
 
         /**
         * @see _.groupBy
         **/
         groupBy<W>(
-            whereValue: W): _.LoDashObjectWrapper<Dictionary<T[]>>;
+            whereValue: W): _.LoDashObjectWrapper<_.Dictionary<T[]>>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+        * @see _.groupBy
+        **/
+        groupBy<TValue>(
+            callback: ListIterator<TValue, any>,
+            thisArg?: any): _.LoDashObjectWrapper<_.Dictionary<TValue[]>>;
+
+        /**
+        * @see _.groupBy
+        **/
+        groupBy<TValue>(
+            pluckValue: string): _.LoDashObjectWrapper<_.Dictionary<TValue[]>>;
+
+        /**
+        * @see _.groupBy
+        **/
+        groupBy<W, TValue>(
+            whereValue: W): _.LoDashObjectWrapper<_.Dictionary<TValue[]>>;
     }
 
     //_.indexBy
@@ -3444,6 +3735,22 @@ declare module _ {
             property: string): any[];
     }
 
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.pluck
+        **/
+        pluck<TResult>(
+            property: string): LoDashArrayWrapper<TResult>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+        * @see _.pluck
+        **/
+        pluck<TResult>(
+            property: string): LoDashArrayWrapper<TResult>;
+    }
+
     //_.reduce
     interface LoDashStatic {
         /**
@@ -3606,6 +3913,100 @@ declare module _ {
         foldl<T, TResult>(
             collection: Dictionary<T>,
             callback: MemoIterator<T, TResult>,
+            thisArg?: any): TResult;
+    }
+
+    interface LoDashArrayWrapper<T> {
+         /**
+        * @see _.reduce
+        **/
+        reduce<TResult>(
+            callback: MemoIterator<T, TResult>,
+            accumulator: TResult,
+            thisArg?: any): TResult;
+
+        /**
+        * @see _.reduce
+        **/
+        reduce<TResult>(
+            callback: MemoIterator<T, TResult>,
+            thisArg?: any): TResult;
+
+        /**
+        * @see _.reduce
+        **/
+        inject<TResult>(
+            callback: MemoIterator<T, TResult>,
+            accumulator: TResult,
+            thisArg?: any): TResult;
+
+        /**
+        * @see _.reduce
+        **/
+        inject<TResult>(
+            callback: MemoIterator<T, TResult>,
+            thisArg?: any): TResult;
+
+        /**
+        * @see _.reduce
+        **/
+        foldl<TResult>(
+            callback: MemoIterator<T, TResult>,
+            accumulator: TResult,
+            thisArg?: any): TResult;
+
+        /**
+        * @see _.reduce
+        **/
+        foldl<TResult>(
+            callback: MemoIterator<T, TResult>,
+            thisArg?: any): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+         /**
+        * @see _.reduce
+        **/
+        reduce<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            accumulator: TResult,
+            thisArg?: any): TResult;
+
+        /**
+        * @see _.reduce
+        **/
+        reduce<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            thisArg?: any): TResult;
+
+        /**
+        * @see _.reduce
+        **/
+        inject<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            accumulator: TResult,
+            thisArg?: any): TResult;
+
+        /**
+        * @see _.reduce
+        **/
+        inject<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            thisArg?: any): TResult;
+
+        /**
+        * @see _.reduce
+        **/
+        foldl<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            accumulator: TResult,
+            thisArg?: any): TResult;
+
+        /**
+        * @see _.reduce
+        **/
+        foldl<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
             thisArg?: any): TResult;
     }
 
@@ -3806,6 +4207,27 @@ declare module _ {
             whereValue: W): T[];
     }
 
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.reject
+        **/
+        reject(
+            callback: ListIterator<T, boolean>,
+            thisArg?: any): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.reject
+        * @param pluckValue _.pluck style callback
+        **/
+        reject(pluckValue: string): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.reject
+        * @param whereValue _.where style callback
+        **/
+        reject<W>(whereValue: W): LoDashArrayWrapper<T>;
+    }
+
     //_.sample
     interface LoDashStatic {
         /**
@@ -3934,6 +4356,14 @@ declare module _ {
             thisArg?: any): boolean;
 
         /**
+         * @see _.some
+         **/
+        some(
+            collection: {},
+            callback?: ListIterator<{}, boolean>,
+            thisArg?: any): boolean;
+
+        /**
         * @see _.some
         * @param pluckValue _.pluck style callback
         **/
@@ -4003,6 +4433,14 @@ declare module _ {
         any<T>(
             collection: Dictionary<T>,
             callback?: ListIterator<T, boolean>,
+            thisArg?: any): boolean;
+
+        /**
+         * @see _.some
+         **/
+        any(
+            collection: {},
+            callback?: ListIterator<{}, boolean>,
             thisArg?: any): boolean;
 
         /**
@@ -4118,6 +4556,27 @@ declare module _ {
             whereValue: W): T[];
     }
 
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.sortBy
+        **/
+        sortBy<TSort>(
+            callback?: ListIterator<T, TSort>,
+            thisArg?: any): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.sortBy
+        * @param pluckValue _.pluck style callback
+        **/
+        sortBy(pluckValue: string): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.sortBy
+        * @param whereValue _.where style callback
+        **/
+        sortBy<W>(whereValue: W): LoDashArrayWrapper<T>;
+    }
+
     //_.toArray
     interface LoDashStatic {
         /**
@@ -4136,6 +4595,20 @@ declare module _ {
         * @see _.toArray
         **/
         toArray<T>(collection: Dictionary<T>): T[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.toArray
+        **/
+        toArray(): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+        * @see _.toArray
+        **/
+        toArray<TValue>(): LoDashArrayWrapper<TValue>;
     }
 
     //_.where
@@ -4164,6 +4637,13 @@ declare module _ {
         where<T, U extends {}>(
             list: Dictionary<T>,
             properties: U): T[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.where
+        **/
+        where<T, U extends {}>(properties: U): LoDashArrayWrapper<T>;
     }
 
     /*************
@@ -5280,6 +5760,13 @@ declare module _ {
         keys(object: any): string[];
     }
 
+    interface LoDashObjectWrapper<T> {
+        /**
+        * @see _.keys
+        **/
+        keys(): LoDashArrayWrapper<string>
+    }
+
     //_.mapValues
     interface LoDashStatic {
         /**
@@ -5391,6 +5878,27 @@ declare module _ {
             thisArg?: any): Omitted;
     }
 
+    interface LoDashObjectWrapper<T> {
+        /**
+        * @see _.omit
+        **/
+        omit<Omitted>(
+            ...keys: string[]): LoDashObjectWrapper<Omitted>;
+
+        /**
+        * @see _.omit
+        **/
+        omit<Omitted>(
+            keys: string[]): LoDashObjectWrapper<Omitted>;
+
+        /**
+        * @see _.omit
+        **/
+        omit<Omitted>(
+            callback: ObjectIterator<any, boolean>,
+            thisArg?: any): LoDashObjectWrapper<Omitted>;
+    }
+
     //_.pairs
     interface LoDashStatic {
         /**
@@ -5400,6 +5908,13 @@ declare module _ {
         * @return Aew array of key-value pairs.
         **/
         pairs(object: any): any[][];
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+        * @see _.pairs
+        **/
+        pairs(): LoDashArrayWrapper<any[]>;
     }
 
     //_.picks
@@ -5685,6 +6200,14 @@ declare module _ {
         * @return Returns the unique ID.
         **/
         uniqueId(prefix?: string): string;
+    }
+    
+    //_.noop
+    interface LoDashStatic {
+        /**
+         * A no-operation function.
+         **/
+        noop(): void;
     }
 
     interface ListIterator<T, TResult> {

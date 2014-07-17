@@ -220,9 +220,21 @@ foo.then((x) => {
 });
 
 
+var httpFoo: ng.IHttpPromise<number>;
+httpFoo.then((x) => {
+    // When returning a promise the generic type must be inferred.
+    var innerPromise : ng.IPromise<number>;
+    return innerPromise;
+}).then((x) => {
+    // must still be number.
+    x.toFixed();
+});
+
+
 // angular.element() tests
 var element = angular.element("div.myApp");
 var scope: ng.IScope = element.scope();
+var isolateScope: ng.IScope = element.isolateScope();
 
 
 

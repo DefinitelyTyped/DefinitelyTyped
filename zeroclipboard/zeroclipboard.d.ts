@@ -1,8 +1,6 @@
 // Type definitions for ZeroClipboard
 // Project: https://github.com/jonrohan/ZeroClipboard
-// Definitions by: Eric J. Smith <https://github.com/ejsmith>
-// Definitions by: Blake Niemyjski <https://github.com/niemyjski>
-// Definitions by: György Balássy <https://github.com/balassy>
+// Definitions by: Eric J. Smith <https://github.com/ejsmith>, Blake Niemyjski <https://github.com/niemyjski>, György Balássy <https://github.com/balassy>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare class ZeroClipboard {

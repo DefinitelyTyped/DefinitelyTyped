@@ -3,6 +3,13 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/* =================== USAGE =================== 
+
+    import express = require('express');
+    var app = express();
+
+ =============================================== */
+
 /// <reference path="../node/node.d.ts" />
 
 declare module Express {

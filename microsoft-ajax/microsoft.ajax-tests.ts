@@ -269,8 +269,8 @@ function Sys_CancelEventArgs_Tests() {
     }
 
     var ActivateAlertDiv = function (visString: string, msg: string) {
-        var adiv = $get(divElem);
-        var aspan = $get(messageElem);
+        var adiv = <HTMLElement> $get(divElem);
+        var aspan = <HTMLElement> $get(messageElem);
         adiv.style.visibility = visString;
         aspan.innerHTML = msg;
     }
@@ -338,20 +338,20 @@ function Sys_Component_Tests() {
 
 function Sys_UI_Key_Tests() {
 
-    var backspace = Sys.UI.Key.backspace;
-    var del = Sys.UI.Key.del;
-    var down = Sys.UI.Key.down;
-    var end = Sys.UI.Key.end;
-    var pageDown = Sys.UI.Key.pageDown;
-    var pageUp = Sys.UI.Key.pageUp;
-    var home = Sys.UI.Key.home;
-    var enter = Sys.UI.Key.enter;
-    var esc = Sys.UI.Key.esc;
-    var tab = Sys.UI.Key.tab;
-    var key = Sys.UI.Key.up;
-    var left = Sys.UI.Key.left;
-    var right = Sys.UI.Key.right;
-    var space = Sys.UI.Key.space;
+    var backspace: number = Sys.UI.Key.backspace;
+    var del: number = Sys.UI.Key.del;
+    var down: number = Sys.UI.Key.down;
+    var end: number = Sys.UI.Key.end;
+    var pageDown: number = Sys.UI.Key.pageDown;
+    var pageUp: number = Sys.UI.Key.pageUp;
+    var home: number = Sys.UI.Key.home;
+    var enter: number = Sys.UI.Key.enter;
+    var esc: number = Sys.UI.Key.esc;
+    var tab: number = Sys.UI.Key.tab;
+    var key: number = Sys.UI.Key.up;
+    var left: number = Sys.UI.Key.left;
+    var right: number = Sys.UI.Key.right;
+    var space: number = Sys.UI.Key.space;
 
 }
 
@@ -370,6 +370,117 @@ function Sys_UI_Control_Tests() {
     a.raiseBubbleEvent(domElementObj, className);
     a.onBubbleEvent(domElementObj, className);
     a.dispose();
+}
+
+function Sy_UI_Point_Tests() {
+
+    var elementRef: Sys.UI.DomElement;
+    var result: string;
+    // Get the location of the element
+    var elementLoc = Sys.UI.DomElement.getLocation(elementRef);
+    result += "Before move - Label1 location (x,y) = (" +
+    elementLoc.x + "," + elementLoc.y + ")<br/>";
+    // Move the element
+    Sys.UI.DomElement.setLocation(elementRef, 100, elementLoc.y);
+    elementLoc = Sys.UI.DomElement.getLocation(elementRef);
+    result += "After move  - Label1 location (x,y) = (" +
+    elementLoc.x + "," + elementLoc.y + ")<br/>";
+
+}
+
+function Sys_UI_DomEvent_Tests() {
+
+    var object: any;
+
+    Sys.UI.DomEvent.addHandler(object, "eventName", () => { });
+    Sys.UI.DomEvent.addHandler(object, "eventName", () => { }, true);
+
+    Sys.UI.DomEvent.addHandlers(object, object, object, true);
+    Sys.UI.DomEvent.removeHandler(object, "eventName", () => { });
+    Sys.UI.DomEvent.clearHandlers(object);
+
+    var domEvent = new Sys.UI.DomEvent(object);
+    var altKey: boolean = domEvent.altKey;
+    var mouseButton: Sys.UI.MouseButton = domEvent.button;
+    var charCode: number = domEvent.charCode;
+    var clientX: number = domEvent.clientX;
+    var ctrlKey: boolean = domEvent.ctrlKey;
+    var screenX: number = domEvent.screenX;
+    var screenY: number = domEvent.screenY;
+    var target: any = domEvent.target;
+    var shiftKey: boolean = domEvent.shiftKey;
+    var type: string = domEvent.type;
+}
+
+function Sys_UI_DomElement_Tests() {
+    
+    // Add CSS class
+    Sys.UI.DomElement.addCssClass($get("Button1"), "redBackgroundColor");
+
+    var elementRef: Sys.UI.DomElement = $get("Label1");
+    var elementBounds = Sys.UI.DomElement.getBounds(elementRef);
+    var toggleCssClassMethod = () => {};
+    var removeCssClassMethod = () => {};
+    var containsClass = Sys.UI.DomElement.containsCssClass(elementRef, "class-name");
+
+    // Add handler using the getElementById method
+    $addHandler(Sys.UI.DomElement.getElementById("Button1"), "click", toggleCssClassMethod);
+    // Add handler using the shortcut to the getElementById method
+    $addHandler($get("Button2"), "click", removeCssClassMethod);
+
+    Sys.UI.DomElement.toggleCssClass($get("id"), "redBackgroundColor");
+
+
+    // Add handlers using the $get shortcut to the 
+    // Sys.UI.DomElement.getElementById method
+    $addHandler($get("Button1"), "click", toggleVisible);
+    $addHandler($get("Button2"), "click", toggleVisibilityMode);
+
+    // This method is called when Button2 is clicked.
+    function toggleVisible() {
+        var anElement = $get("Label1");
+        if (Sys.UI.DomElement.getVisible(anElement)) {
+            Sys.UI.DomElement.setVisible(anElement, false);
+        }
+        else {
+            Sys.UI.DomElement.setVisible(anElement, true);
+        }
+    }
+    
+    // This method is called when Button1 is clicked.
+    function toggleVisibilityMode() {
+
+        var anElement = $get("Label1");
+
+        var visMode = Sys.UI.DomElement.getVisibilityMode(anElement);
+
+        var status = visMode;
+
+        if (visMode === 0) {
+            Sys.UI.DomElement.setVisibilityMode(anElement, Sys.UI.VisibilityMode.collapse);
+            if (document.all) {
+                anElement.innerText =
+                "Label1  VisibilityMode: Sys.UI.VisibilityMode.collapse";
+            }
+            else {
+                //Firefox
+                anElement.textContent =
+                "Label1  VisibilityMode: Sys.UI.VisibilityMode.collapse";
+            }
+        }
+        else {
+            Sys.UI.DomElement.setVisibilityMode(anElement, Sys.UI.VisibilityMode.hide);
+            if (document.all) {
+                anElement.innerText = "Label1  VisibilityMode: Sys.UI.VisibilityMode.hide";
+            }
+            else {
+                //Firefox
+                anElement.textContent = "Label1  VisibilityMode: Sys.UI.VisibilityMode.hide";
+            }
+        }
+    }
+
+
 }
 
 function Sys_Debug_Tests() {
@@ -519,22 +630,52 @@ function Sys_Net_WebRequestManager_Tests() {
 
 function Sys_WebForms_PageRequestManager_Tests() {
 
-    var pageRequestManager = Sys.WebForms.PageRequestManager.getInstance();
+    var pageRequestManager: Sys.WebForms.PageRequestManager = Sys.WebForms.PageRequestManager.getInstance();
 
-    var eventArgs = pageRequestManager.Empty;
+    var beginRequestHandler = (sender: any, args: Sys.WebForms.BeginRequestEventArgs) => {
+        var postBackElement: HTMLElement = args.get_postBackElement();
+        var webRequest: Sys.Net.WebRequest = args.get_request();
+        var updatePanelsToUpdate: string[] = args.get_updatePanelsToUpdate();
+        var empty: Sys.EventArgs = args.Empty;
+    }
+    var endRequestHandler = (sender: any, args: Sys.WebForms.EndRequestEventArgs) => {
+        var dataItems: any = args.get_dataItems();
+        var error: Error = args.get_error();
+        var errorHandled: boolean = args.get_errorHandled();
+        var webRequestExecutor: Sys.Net.WebRequestExecutor = args.get_response();
+        args.set_errorHandled(true);
 
-    var handler = (sender: any, args: any) => { }
+    }
+    var initializeRequestHandler = (sender: any, args: Sys.WebForms.InitializeRequestEventArgs) => {
+        var postBackElement: HTMLElement = args.get_postBackElement();
+        var webRequestExecutor: Sys.Net.WebRequestExecutor = args.get_request();
+        var updatePanelsToUpdate: string[] = args.get_updatePanelsToUpdate();
+        var empty: Sys.EventArgs = args.Empty;
+    }
+    var pageLoadedRequestHandler = (sender: any, args: Sys.WebForms.PageLoadedEventArgs) => {
+        var dataItems: any = args.get_dataItems();
+        var panelsCreated: HTMLDivElement[] = args.get_panelsCreated();
+        var panelsUpdated: HTMLDivElement[] = args.get_panelsUpdated();
+        var empty: Sys.EventArgs = args.Empty;
+    }
+    var pageLoadingRequestHandler = (sender: any, args: Sys.WebForms.PageLoadingEventArgs) => {
+        var dataItems: any = args.get_dataItems();
+        var panelsDeleted: HTMLDivElement[] = args.get_panelsDeleting();
+        var panelsUpdating = args.get_panelsUpdating();
+        var empty: Sys.EventArgs = args.Empty;
+    }
 
-    var isInAsyncPostBack = pageRequestManager.get_isInAsyncPostBack();
+
+    var isInAsyncPostBack: boolean = pageRequestManager.get_isInAsyncPostBack();
     
-    pageRequestManager.add_beginRequest(handler);
-    pageRequestManager.add_endRequest(handler);
-    pageRequestManager.add_initializeRequest(handler);
-    pageRequestManager.add_pageLoading(handler);
-    pageRequestManager.add_pageLoaded(handler);
-    pageRequestManager.remove_beginRequest(handler);
-    pageRequestManager.remove_pageLoaded(handler);
-    pageRequestManager.remove_pageLoading(handler);
+    pageRequestManager.add_beginRequest(beginRequestHandler);
+    pageRequestManager.add_endRequest(endRequestHandler);
+    pageRequestManager.add_initializeRequest(initializeRequestHandler);
+    pageRequestManager.add_pageLoading(pageLoadingRequestHandler);
+    pageRequestManager.add_pageLoaded(pageLoadedRequestHandler);
+    pageRequestManager.remove_beginRequest(beginRequestHandler);
+    pageRequestManager.remove_pageLoaded(pageLoadedRequestHandler);
+    pageRequestManager.remove_pageLoading(pageLoadingRequestHandler);
     pageRequestManager.beginAsyncPostBack();
     pageRequestManager.abortPostBack();
     pageRequestManager.dispose();
@@ -542,19 +683,19 @@ function Sys_WebForms_PageRequestManager_Tests() {
 
 function Sys_WebForms_EndRequestEventArgs_Tests() {
     
-    var pageRequestManager = Sys.WebForms.PageRequestManager.getInstance();
+    var pageRequestManager: Sys.WebForms.PageRequestManager = Sys.WebForms.PageRequestManager.getInstance();
 
     var handler = (sender: any, args: Sys.WebForms.EndRequestEventArgs) => {
         
-        var error = args.get_error();
-        var message = error.message;
-        var name = error.name;
-        var response = args.get_response();
-        var dataItems = args.get_dataItems();
-        var eventArgs = args.Empty;
+        var error: Error = args.get_error();
+        var message: string = error.message;
+        var name: string = error.name;
+        var response: Sys.Net.WebRequestExecutor = args.get_response();
+        var dataItems: any = args.get_dataItems();
+        var eventArgs: Sys.EventArgs = args.Empty;
 
         args.set_errorHandled(true);
-        var errorHandled = args.get_errorHandled();
+        var errorHandled: boolean = args.get_errorHandled();
     }
 
     pageRequestManager.add_endRequest(handler);

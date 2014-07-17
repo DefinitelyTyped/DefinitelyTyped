@@ -1,8 +1,10 @@
-/// <reference path="../winjs/winjs.d.ts" />
-// Type definitions for Microsoft Live Connect v5.0.
+// Type definitions for Microsoft Live Connect v5.0
 // Project: http://msdn.microsoft.com/en-us/library/live/hh243643.aspx
 // Definitions by: John Vilk <https://github.com/jvilk/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// <reference path="../winjs/winjs.d.ts" />
+/// <reference path="../winrt/winrt.d.ts" />
 
 declare module Microsoft.Live {
     //#region REST Object Information
@@ -632,8 +634,8 @@ declare module Microsoft.Live {
         /**
          * A value that specifies whether the event is publicly visible. Valid
          * values are:
-         * - public—the event is visible to anyone who can view the calendar.
-         * - private"—the event is visible only to the event owner.
+         * - publicï¿½the event is visible to anyone who can view the calendar.
+         * - private"ï¿½the event is visible only to the event owner.
          * @default "public"
          */
         visibility: string;
@@ -694,8 +696,8 @@ declare module Microsoft.Live {
         /**
          * A value that specifies whether the event is publicly visible. Valid
          * values are:
-         * - public—the event is visible to anyone who can view the calendar.
-         * - private"—the event is visible only to the event owner.
+         * - publicï¿½the event is visible to anyone who can view the calendar.
+         * - private"ï¿½the event is visible only to the event owner.
          * @default "public"
          */
         visibility?: string;
@@ -766,8 +768,8 @@ declare module Microsoft.Live {
         /**
          * A value that specifies whether the event is publicly visible. Valid
          * values are:
-         * - public—the event is visible to anyone who can view the calendar.
-         * - private"—the event is visible only to the event owner.
+         * - publicï¿½the event is visible to anyone who can view the calendar.
+         * - private"ï¿½the event is visible only to the event owner.
          * @default "public"
          */
         visibility: string;
@@ -1040,10 +1042,10 @@ declare module Microsoft.Live {
         source: string;
         /**
          * The type of this image of this particular size. Valid values are:
-         * full (maximum size: 2048 × 2048 pixels)
-         * - normal (maximum size 800 × 800 pixels)
-         * - album (maximum size 176 × 176 pixels)
-         * - small (maximum size 96 × 96 pixels)
+         * full (maximum size: 2048 ï¿½ 2048 pixels)
+         * - normal (maximum size 800 ï¿½ 800 pixels)
+         * - album (maximum size 176 ï¿½ 176 pixels)
+         * - small (maximum size 96 ï¿½ 96 pixels)
          */
         type: string;
     }

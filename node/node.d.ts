@@ -1,5 +1,6 @@
 // Type definitions for Node.js v0.10.1
 // Project: http://nodejs.org/
+// Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/borisyankov/DefinitelyTyped>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /************************************************
@@ -67,7 +68,7 @@ declare var Buffer: {
     isBuffer(obj: any): boolean;
     byteLength(string: string, encoding?: string): number;
     concat(list: Buffer[], totalLength?: number): Buffer;
-}
+};
 
 /************************************************
 *                                               *
@@ -759,13 +760,25 @@ declare module "net" {
 declare module "dgram" {
     import events = require("events");
 
-    export function createSocket(type: string, callback?: Function): Socket;
+	interface RemoteInfo {
+		address: string;
+		port: number;
+		size: number;
+	}
+	
+	interface AddressInfo {
+		address: string; 
+		family: string; 
+		port: number; 
+	}
+	
+    export function createSocket(type: string, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
     interface Socket extends events.EventEmitter {
-        send(buf: Buffer, offset: number, length: number, port: number, address: string, callback?: Function): void;
-        bind(port: number, address?: string): void;
+        send(buf: Buffer, offset: number, length: number, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
+        bind(port: number, address?: string, callback?: () => void): void;
         close(): void;
-        address: { address: string; family: string; port: number; };
+        address(): AddressInfo;
         setBroadcast(flag: boolean): void;
         setMulticastTTL(ttl: number): void;
         setMulticastLoopback(flag: boolean): void;
@@ -868,9 +881,13 @@ declare module "fs" {
     export function openSync(path: string, flags: string, mode?: number): number;
     export function openSync(path: string, flags: string, mode?: string): number;
     export function utimes(path: string, atime: number, mtime: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function utimes(path: string, atime: Date, mtime: Date, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function utimesSync(path: string, atime: number, mtime: number): void;
+    export function utimesSync(path: string, atime: Date, mtime: Date): void;
     export function futimes(fd: number, atime: number, mtime: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function futimes(fd: number, atime: Date, mtime: Date, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function futimesSync(fd: number, atime: number, mtime: number): void;
+    export function futimesSync(fd: number, atime: Date, mtime: Date): void;
     export function fsync(fd: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function fsyncSync(fd: number): void;
     export function write(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void): void;
@@ -1041,13 +1058,18 @@ declare module "crypto" {
     export function createCredentials(details: CredentialDetails): Credentials;
     export function createHash(algorithm: string): Hash;
     export function createHmac(algorithm: string, key: string): Hmac;
+    export function createHmac(algorithm: string, key: Buffer): Hmac;
     interface Hash {
         update(data: any, input_encoding?: string): Hash;
-        digest(encoding?: string): string;
+        digest(encoding: 'buffer'): Buffer;
+        digest(encoding: string): any;
+        digest(): Buffer;
     }
     interface Hmac {
         update(data: any, input_encoding?: string): Hmac;
-        digest(encoding?: string): string;
+        digest(encoding: 'buffer'): Buffer;
+        digest(encoding: string): any;
+        digest(): Buffer;
     }
     export function createCipher(algorithm: string, password: any): Cipher;
     export function createCipheriv(algorithm: string, key: any, iv: any): Cipher;
@@ -1055,9 +1077,9 @@ declare module "crypto" {
         update(data: any, input_encoding?: string, output_encoding?: string): string;
         final(output_encoding?: string): string;
         setAutoPadding(auto_padding: boolean): void;
-        createDecipher(algorithm: string, password: any): Decipher;
-        createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
     }
+    export function createDecipher(algorithm: string, password: any): Decipher;
+    export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
     interface Decipher {
         update(data: any, input_encoding?: string, output_encoding?: string): void;
         final(output_encoding?: string): string;
@@ -1240,14 +1262,14 @@ declare module "assert" {
             (block: Function, error: Function, message?: string): void;
             (block: Function, error: RegExp, message?: string): void;
             (block: Function, error: (err: any) => boolean, message?: string): void;
-        }
+        };
 
         export var doesNotThrow: {
             (block: Function, message?: string): void;
             (block: Function, error: Function, message?: string): void;
             (block: Function, error: RegExp, message?: string): void;
             (block: Function, error: (err: any) => boolean, message?: string): void;
-        }
+        };
 
         export function ifError(value: any): void;
     }
