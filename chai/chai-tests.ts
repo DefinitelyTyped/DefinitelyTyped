@@ -772,7 +772,7 @@ function members() {
 //tdd
 declare function suite(description: string, action: Function):void;
 declare function test(description: string, action: Function):void;
-declare function err(action: any, msg?: string):void;
+
 interface FieldObj {
 	field: any;
 }
