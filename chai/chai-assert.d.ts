@@ -127,5 +127,9 @@ declare module chai {
 	}
 }
 
+declare module "chai" {
+	export = chai;
+}
+
 //browser global
 declare var assert:chai.Assert;
