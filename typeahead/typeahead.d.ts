@@ -1,4 +1,4 @@
-// Type definitions for typeahead.js 0.9.3
+// Type definitions for typeahead.js 0.10.2
 // Project: http://twitter.github.io/typeahead.js/
 // Definitions by: Ivaylo Gochkov <https://github.com/igochkov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -7,20 +7,16 @@
 
 interface JQuery {
     /**
-      * Turns an input[type="text"] element into a typeahead.
+      * Turns any input[type="text"] element into a typeahead. options is an options hash that's used to configure the typeahead to your liking. 
+      * Refer to https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#options for more info regarding the available configs. 
+      * Subsequent arguments (*datasets), are individual option hashes for datasets. 
+      * For more details regarding datasets, refer to https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets.
       *
       * @constructor
-      * @param dataset Single dataset
+      * @param options ('hint' or 'highlight' or 'minLength' all of which are optional)
+      * @param Array of Dataset
       */
-    typeahead(dataset: Twitter.Typeahead.Dataset): JQuery;
-
-    /**
-      * Turns an input[type="text"] element into a typeahead.
-      *
-      * @constructor
-      * @param dataset Array of datasets
-      */
-    typeahead(datasets: Twitter.Typeahead.Dataset[]): JQuery;
+    typeahead(options: Twitter.Typeahead.Options, dataset: Twitter.Typeahead.Dataset[]): JQuery;
 
     /**
      * Destroys previously initialized typeaheads. This entails reverting 
@@ -32,34 +28,53 @@ interface JQuery {
     typeahead(methodName: 'destroy'): JQuery;
 
     /**
-      * Sets the current query of the typeahead. This is always preferable to 
-      * using $("input.typeahead").val(query), which will result in unexpected 
-      * behavior. To clear the query, simply set it to an empty string.
+      * Opens the dropdown menu of typeahead. Note that being open does not mean that the menu is visible. 
+      * The menu is only visible when it is open and has content.
       *
       * @constructor
-      * @param methodName Method 'setQuery'
-      * @param query The query to be set
+      * @param methodName Method 'open'
       */
-    typeahead(methodName: 'setQuery', query: string): JQuery;
+    typeahead(methodName: 'open'): JQuery;
 
     /**
-      * Accommodates the destroy and setQuery overloads.
+      * Closes the dropdown menu of typeahead.
       *
       * @constructor
-      * @param methodName Method name ('destroy' or 'setQuery')
+      * @param methodName Method 'close'
+      */
+    typeahead(methodName: 'close'): JQuery;
+
+    /**
+      * Returns the current value of the typeahead. The value is the text the user has entered into the input element.
+      *
+      * @constructor
+      * @param methodName Method 'val'
+      */
+    typeahead(methodName: 'val'): any;
+
+    /**
+      * Sets the value of the typeahead. This should be used in place of jQuery#val.
+      *
+      * @constructor
+      * @param methodName Method 'val'
+      */
+    typeahead(methodName: 'val', myVal: any): JQuery;
+
+    /**
+      * Accommodates the destroy, open, close and val overloads.
+      *
+      * @constructor
+      * @param methodName Method name ('destroy' or 'open', or 'close' or 'val')
       * @param query The query to be set in case method 'setQuery' is used.
       */
     typeahead(methodName: string, query: string): JQuery;
-    
+
     /**
-      * Accomodates specifying options such as hint and highlight.
-      * This is in correspondence to the examples mentioned in http://twitter.github.io/typeahead.js/examples/
+      * Returns a reference to the typeahead plugin and reverts jQuery.fn.typeahead to its previous value. 
+      * Can be used to avoid naming collisions.
       *
-      * @constructor
-      * @param options ('hint' or 'highlight' or 'minLength' all of which are optional)
-      * @param dataset Array of datasets
       */
-    typeahead(options: Twitter.Typeahead.Options, dataset: Twitter.Typeahead.Dataset): JQuery;
+    noConflict(): JQuery
 }
 
 declare module Twitter.Typeahead {
@@ -71,57 +86,80 @@ declare module Twitter.Typeahead {
       */
     interface Dataset {
         /**
-          * The string used to identify the dataset. Used by typeahead.js
-          * to cache intelligently.
+         * The backing data source for suggestions. Uses the query to compute suggestions and then invoke the callback with the computer set. 
+         * A Bloodhound suggestion engine can be used here, to learn how, see https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#bloodhound-integration.
+
+         * @constructor
+         * @param query Function that computes the suggestion set (i.e. an array of JavaScript objects) 
+         * @param callback Invoke after set is computed. Can be invoked synchronously or asynchronously. 
+         */
+        source(query: string, callback: () => any[]): void;
+
+        /**
+          * The name of the dataset. This will be appended to tt-dataset- to form the class name of the containing DOM element. 
+          * Must only consist of underscores, dashes, letters (a-z), and numbers. Defaults to a random number.
           */
-        name: string;
+        name?: string;
         /**
           * The key used to access the value of the datum in the datum object. 
           * Defaults to value.
           */
-        valueKey?: string;
+        displayKey?: string;
         /**
-          * The max number of suggestions from the dataset to display 
-          * for a given query. Defaults to 5.
-          */
-        limit?: number;
-        /**
-          * The template used to render suggestions. Can be a string or
+          * The templates used to render suggestions. Can be a string or
           * a precompiled template. If not provided, suggestions will render
           * as their value contained in a <p> element (i.e. <p>value</p>).
           */
-        template?: any;
+        template?: Template;
+    }
+
+    interface BloodhoundOptions<T> {
         /**
-          * The template engine used to compile/render template if it is a 
-          * string. Any engine can use used as long as it adheres to the 
-          * expected API. Required if template is a string.
+          * Transforms a datum into an array of string tokens
+          *
+          * @constructor
+          * @param datum individual units that compose the dataset
           */
-        engine?: string;
+        datumTokenizer(datum: T): string[];
+        
         /**
-          * The header rendered before suggestions in the dropdown menu. 
-          * Can be either a DOM element or HTML.
+          * Transforms a query into an array of string tokens
+          *
+          * @constructor
+          * @param query tokenizer query
           */
-        header?: any;
+        queryTokenizer(query: any): string[];
+        
         /**
-          * The footer rendered after suggestions in the dropdown menu. 
-          * Can be either a DOM element or HTML.
+          *  The max number of suggestions to return from Bloodhound#get. If not reached, the data source will attempt to backfill the suggestions from remote.
           */
-        footer?: any;
+        limit?: number;
+        
         /**
-          * An array of datums or strings.
-          */
-        local?: any[];
+          *  If set, this is expected to be a function with the signature (remoteMatch, localMatch) that returns true if the datums are duplicates or false otherwise. 
+          *  If not set, duplicate detection will not be performed.
+          */ 
+        dupDetector?: (remoteMatch: T, localMatch: T) => boolean;
+        
         /**
-          * Can be a URL to a JSON file containing an array of datums or, 
-          * if more configurability is needed, a prefetch options object.
-          */
-        prefetch?: any;
+          * A compare function used to sort matched datums for a given query.
+          */ 
+        sorter?: (a: T, b: T) => T[];
+
         /**
-          * Can be a URL to fetch suggestions from when the data provided by 
-          * local and prefetch is insufficient or, if more configurability is 
-          * needed, a remote options object.
+          * local data
+          */ 
+        local?: () => T[];
+
+        /**
+          * Called to prefect data
           */
-        remote?: any;
+        prefetch?: PrefetchOptions<T>;
+
+        /**
+          * Can be a URL to fetch suggestions from when the data provided by local and prefetch is insufficient
+          */
+        remote?: RemoteOptions<T>;
     }
 
     /**
@@ -129,7 +167,7 @@ declare module Twitter.Typeahead {
       * If the browser supports localStorage, the processed data will be cached 
       * there to prevent additional network requests on subsequent page loads.
       */
-    interface PrefetchOptions {
+    interface PrefetchOptions<T> {
         /**
           * A URL to a JSON file containing an array of datums. Required.
           */
@@ -146,7 +184,22 @@ declare module Twitter.Typeahead {
           *   
           * @param parsedResponse Response body
           */
-        filter?: (parsedResponse: any) => Datum[];
+        filter?: (parsedResponse: any) => T[];
+
+        /** The key that data will be stored in local storage under. Defaults to value of url.
+          *
+          */
+        cacheKey?: string;
+
+        /**
+          * A string used for thumbprinting prefetched data. If this doesn't match what's stored in local storage, the data will be refetched.
+          */
+        thumbprint?: string;
+
+        /**
+          * The ajax settings object passed to jQuery.ajax.
+          */
+        ajax?: JQueryAjaxSettings;
     }
 
     /**
@@ -154,30 +207,12 @@ declare module Twitter.Typeahead {
       * is insufficient. In order to prevent an obscene number of requests 
       * being made to remote endpoint, typeahead.js rate-limits remote requests.
       */
-    interface RemoteOptions {
+    interface RemoteOptions<T> {
         /**
           * A URL to make requests to when the data provided by local and 
           * prefetch is insufficient. Required.
           */
         url: string;
-
-        /**
-          * The type of data you're expecting from the server. Defaults to json.
-          * @see http://api.jquery.com/jQuery.ajax/ for more info.
-          */
-        dataType?: string;
-
-        /**
-          * Determines whether or not the browser will cache responses. 
-          * @see http://api.jquery.com/jQuery.ajax/ for more info.
-          */
-        cache?: boolean;
-
-        /**
-          * Sets a timeout for requests.
-          * @see http://api.jquery.com/jQuery.ajax/ for more info.
-          */
-        timeout?: number;
 
         /**
           * The pattern in url that will be replaced with the user's query 
@@ -199,7 +234,7 @@ declare module Twitter.Typeahead {
           * The function used for rate-limiting network requests. 
           * Can be either 'debounce' or 'throttle'. Defaults to 'debounce'.
           */
-        rateLimitFn?: string;
+        rateLimitby?: string;
 
         /**
           * The time interval in milliseconds that will be used by rateLimitFn. 
@@ -208,23 +243,16 @@ declare module Twitter.Typeahead {
         rateLimitWait?: number;
 
         /**
-          * The max number of parallel requests typeahead.js can have pending. 
-          * Defaults to 6.
-          */
-        maxParallelRequests?: number;
-
-        /**
-          * A pre-request callback. Can be used to set custom headers.
-          * @see http://api.jquery.com/jQuery.ajax/ for more info.
-          */
-        beforeSend?: (jqXhr: JQueryXHR, settings: JQueryAjaxSettings) => void;
-
-        /**
           * Transforms the response body into an array of datums.
           *
           * @param parsedResponse Response body
           */
-        filter?: (parsedResponse: any) => Datum[];
+        filter?: (parsedResponse: T[]) => T[];
+
+        /**
+          * The ajax settings object passed to jQuery.ajax.
+          */
+        ajax?: JQueryAjaxSettings;
     }
 
     /**
@@ -275,4 +303,50 @@ declare module Twitter.Typeahead {
         */
       minLength?: number;
     }
+
+    /**
+      * Custom templates give you full control over how suggestions get rendered making it easy to customize the look and feel of your typeahead.
+      * See http://twitter.github.io/typeahead.js/examples/ for more details
+      */
+    interface Template {
+        /**
+          * Rendered when 0 suggestions are available for the given query. Can be either a HTML string or a precompiled template. 
+          * If it's a precompiled template, the passed in context will contain query.
+          */
+        empty?: any;
+
+        /**
+          * Rendered at the bottom of the dataset. Can be either a HTML string or a precompiled template. 
+          * If it's a precompiled template, the passed in context will contain query and isEmpty.
+          */
+        footer?: any;
+
+        /**
+          * Rendered at the top of the dataset. Can be either a HTML string or a precompiled template. 
+          * If it's a precompiled template, the passed in context will contain query and isEmpty.
+          */
+        header?: any;
+
+        /**
+          * Used to render a single suggestion. If set, this has to be a precompiled template. 
+          * The associated suggestion object will serve as the context. Defaults to the value of displayKey wrapped in a p tag i.e. <p>{{value}}</p>.
+          */
+        suggestion?: any;
+    }
+}
+
+declare class Bloodhound<T> {
+    constructor(options: Twitter.Typeahead.BloodhoundOptions<T>)
+
+    /**
+      * wraps the suggestion engine in an adapter that is compatible with the typeahead jQuery plugin
+      */
+    public ttAdapter(): (query: string, callback: () => T[]) => void;
+
+    /**
+      * Kicks off the initialization of the suggestion engine. This includes processing the data provided through local and fetching/processing the data provided through prefetch. 
+      * Until initialized, all other methods will behave as no-ops. 
+      * Returns a jQuery promise which is resolved when engine has been initialized.
+      */
+    public initialize(reinitialize?: boolean): JQueryPromise<any>;
 }
