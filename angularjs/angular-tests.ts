@@ -141,7 +141,7 @@ module HttpAndRegularPromiseTests {
         });
 
         // $q.when may be called without arguments
-        var ePromise: ng.IPromise<Person> = $q.when();
+        var ePromise: ng.IPromise<void> = $q.when();
         ePromise.then(() => {
             $scope.nothing = "really nothing";
         });
