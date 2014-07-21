@@ -139,6 +139,12 @@ module HttpAndRegularPromiseTests {
         dPromise.then((snack: string) => {
             $scope.snack = snack;
         });
+
+        // $q.when may be called without arguments
+        var ePromise: ng.IPromise<Person> = $q.when();
+        ePromise.then(() => {
+            $scope.nothing = "really nothing";
+        });
     }
 
   // Test that we can pass around a type-checked success/error Promise Callback
