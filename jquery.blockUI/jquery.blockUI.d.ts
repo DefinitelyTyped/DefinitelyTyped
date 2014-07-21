@@ -7,7 +7,7 @@
 
 interface JQBlockUIOptions {
     /** message displayed when blocking (use null for no message) */
-    message?: string;
+    message?: any;
     /** title string; only used when theme == true  */
     title?: string;
     /** only used when theme == true (requires jquery-ui.js to be loaded) */
@@ -76,7 +76,7 @@ interface JQBlockUIOptions {
     focusInput?: boolean;
 
     /** callback method invoked when fadeIn has completed and blocking message is visible */
-    onBlock?: boolean;
+    onBlock?: () => void;
 
     /** 
      * callback method invoked when unblocking has completed; the callback is 
@@ -99,7 +99,7 @@ interface JQBlockUIOptions {
 
 interface JQBlockUIStatic {
     /** default options */
-    default?: JQBlockUIOptions;
+    defaults?: JQBlockUIOptions;
     /** block user activity for the page */
     (): void;
     /**
@@ -113,7 +113,7 @@ interface JQueryStatic {
     /** block user activity for the page */
     blockUI?: JQBlockUIStatic;
     /** unblock the page */
-    unblockUI?: () => void;
+    unblockUI?: JQBlockUIStatic;
 }
 
 interface JQuery {
@@ -125,5 +125,5 @@ interface JQuery {
     /**
      * unblock the element(s)
      */
-    unblock(): JQuery;
+    unblock(option?: JQBlockUIOptions): JQuery;
 }
