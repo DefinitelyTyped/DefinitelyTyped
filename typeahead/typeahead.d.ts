@@ -60,6 +60,17 @@ interface JQuery {
       * @param dataset Array of datasets
       */
     typeahead(options: Twitter.Typeahead.Options, dataset: Twitter.Typeahead.Dataset): JQuery;
+
+    /**
+      * Returns the current value of the typeahead. The value is the text the user has entered into the input element.
+      */
+    typeahead(methodName: 'val'): string;
+    typeahead(methodName: string): string;
+
+    /**
+      * Sets the value of the typeahead. This should be used in place of jQuery#val.
+      */
+    typeahead(methodName: 'val', value: string): JQuery;
 }
 
 declare module Twitter.Typeahead {
