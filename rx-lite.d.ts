@@ -404,7 +404,7 @@ declare module Rx {
 		* @param [thisArg] The context to use calling the mapFn if provided.
 		* @param [scheduler] Optional scheduler to use for scheduling.  If not provided, defaults to Scheduler.currentThread.
 		*/
-		from<T, TResult>(array: T[], mapFn: (value: T, index: number) => TResult, thisArg?: any, scheduler?: IScheduler);
+		from<T, TResult>(array: T[], mapFn: (value: T, index: number) => TResult, thisArg?: any, scheduler?: IScheduler): Observable<TResult>;
 		/**
 		* This method creates a new Observable sequence from an array object.
 		* @param array An array-like or iterable object to convert to an Observable sequence.
@@ -412,7 +412,7 @@ declare module Rx {
 		* @param [thisArg] The context to use calling the mapFn if provided.
 		* @param [scheduler] Optional scheduler to use for scheduling.  If not provided, defaults to Scheduler.currentThread.
 		*/
-		from<T>(array: T[], mapFn?: (value: T, index: number) => T, thisArg?: any, scheduler?: IScheduler);
+		from<T>(array: T[], mapFn?: (value: T, index: number) => T, thisArg?: any, scheduler?: IScheduler): Observable<T>;
 
 		/**
 		* This method creates a new Observable sequence from an array-like object.
@@ -421,7 +421,7 @@ declare module Rx {
 		* @param [thisArg] The context to use calling the mapFn if provided.
 		* @param [scheduler] Optional scheduler to use for scheduling.  If not provided, defaults to Scheduler.currentThread.
 		*/
-		from<T, TResult>(array: { length: number; [index: number]: T; }, mapFn: (value: T, index: number) => TResult, thisArg?: any, scheduler?: IScheduler);
+		from<T, TResult>(array: { length: number;[index: number]: T; }, mapFn: (value: T, index: number) => TResult, thisArg?: any, scheduler?: IScheduler): Observable<TResult>;
 		/**
 		* This method creates a new Observable sequence from an array-like object.
 		* @param array An array-like or iterable object to convert to an Observable sequence.
@@ -429,7 +429,7 @@ declare module Rx {
 		* @param [thisArg] The context to use calling the mapFn if provided.
 		* @param [scheduler] Optional scheduler to use for scheduling.  If not provided, defaults to Scheduler.currentThread.
 		*/
-		from<T>(array: { length: number; [index: number]: T; }, mapFn?: (value: T, index: number) => T, thisArg?: any, scheduler?: IScheduler);
+		from<T>(array: { length: number;[index: number]: T; }, mapFn?: (value: T, index: number) => T, thisArg?: any, scheduler?: IScheduler): Observable<T>;
 
 		/**
 		* This method creates a new Observable sequence from an array-like or iterable object.
@@ -438,7 +438,7 @@ declare module Rx {
 		* @param [thisArg] The context to use calling the mapFn if provided.
 		* @param [scheduler] Optional scheduler to use for scheduling.  If not provided, defaults to Scheduler.currentThread.
 		*/
-		from<T>(iterable: any, mapFn?: (value: any, index: number) => T, thisArg?: any, scheduler?: IScheduler);
+		from<T>(iterable: any, mapFn?: (value: any, index: number) => T, thisArg?: any, scheduler?: IScheduler): Observable<T>;
 
 		fromArray<T>(array: T[], scheduler?: IScheduler): Observable<T>;
 		fromArray<T>(array: { length: number;[index: number]: T; }, scheduler?: IScheduler): Observable<T>;
