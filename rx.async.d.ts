@@ -8,7 +8,7 @@
 
 declare module Rx {
     interface ObservableStatic {
-		start<T>(func: () => T, scheduler?: IScheduler, context?: any): Observable<T>;
+		start<T>(func: () => T, context?: any, scheduler?: IScheduler): Observable<T>;
 
         toAsync<TResult>(func: () => TResult, scheduler?: IScheduler, context?: any): () => Observable<TResult>;
 		toAsync<T1, TResult>(func: (arg1: T1) => TResult, scheduler?: IScheduler, context?: any): (arg1: T1) => Observable<TResult>;
