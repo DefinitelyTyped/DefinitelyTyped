@@ -1,5 +1,5 @@
 /// <reference path="promises-a-plus.d.ts"/>
-/// <reference path="../rx.js/rx.async.d.ts"/>
+/// <reference path="../rx/rx.async.d.ts"/>
 /// <reference path="../es6-promise/es6-promise.d.ts"/>
 /// <reference path="../q/Q.d.ts"/>
 import When = require("../when/when");
