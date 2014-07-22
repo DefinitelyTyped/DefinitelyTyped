@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../knockout/knockout.d.ts"/>
-/// <reference path="../rx.js/rx.d.ts"/>
+/// <reference path="../rx/rx.d.ts"/>
 
 interface KnockoutSubscribableFunctions<T> {
 	toObservable(event?: string): Rx.Observable<T>;
