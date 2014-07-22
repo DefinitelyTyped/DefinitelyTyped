@@ -243,7 +243,7 @@ declare module D3 {
         *
         * @param map Array of objects to get the values from
         */
-        values(map: any[]): any[];
+        values(map: any): any[];
         /**
         * List the key-value entries of an associative array.
         *
@@ -1720,10 +1720,21 @@ declare module D3 {
                 (): any[];
                 (values: any[]): Axis;
             };
-
             tickSubdivide(count: number): Axis;
-            tickSize(major?: number, minor?: number, end?: number): Axis;
+            tickSize: {
+                (): number;
+                (inner: number, outer?: number): Axis;
+            }
+            innerTickSize: {
+                (): number;
+                (value: number): Axis;
+            }
+            outerTickSize: {
+                (): number;
+                (value: number): Axis;
+            }
             tickFormat(formatter: (value: any) => string): Axis;
+            nice(count?: number): Axis;
         }
 
         export interface Arc {
@@ -2569,7 +2580,10 @@ declare module D3 {
             *
             * @param clamp Enable or disable
             */
-            clamp(clamp: boolean): QuantitiveScale;
+            clamp: {
+                (): boolean;
+                (clamp: boolean): QuantitiveScale;
+            }
             /**
             * extend the scale domain to nice round numbers.
             * 
@@ -2587,7 +2601,7 @@ declare module D3 {
             *
             * @param count Aproximate representative values to return
             */
-            tickFormat(count: number): (n: number) => string;
+            tickFormat(count: number, format?: string): (n: number) => string;
             /**
             * create a new scale from an existing scale..
             */
@@ -2768,6 +2782,7 @@ declare module D3 {
             };
             tickFormat(count: number): (n: number) => string;
             copy(): TimeScale;
+            nice(count?: number): TimeScale;
         }
     }
 
