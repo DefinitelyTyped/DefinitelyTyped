@@ -49,6 +49,8 @@ declare module Rx {
 
 	export module helpers {
 		function noop(): void;
+		function notDefined(value: any): boolean;
+		function isScheduler(value: any): boolean;
 		function identity<T>(value: T): T;
 		function defaultNow(): number;
 		function defaultComparer(left: any, right: any): boolean;
