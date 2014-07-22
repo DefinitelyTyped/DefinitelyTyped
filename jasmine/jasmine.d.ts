@@ -429,4 +429,5 @@ declare module jasmine {
 
     export var HtmlReporter: HtmlReporter;
     export var HtmlSpecFilter: HtmlSpecFilter;
+    export var DEFAULT_TIMEOUT_INTERVAL: number;
 }

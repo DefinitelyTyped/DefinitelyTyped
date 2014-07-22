@@ -2235,7 +2235,6 @@ declare module Em {
         var print: typeof Ember.Handlebars.print;
         var logger: typeof Ember.Handlebars.logger;
         var log: typeof Ember.Handlebars.log;
-        var compile: typeof Ember.Handlebars.compile;
     }
     class HashLocation extends Ember.HashLocation { }
     class HistoryLocation extends Ember.HistoryLocation { }

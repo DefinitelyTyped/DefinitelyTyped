@@ -1,4 +1,4 @@
-/// <reference path="angular-protractor.d.ts" />
+/// <reference path="angular-protractor-0.17.0.d.ts" />
 
 function TestWebDriverExports() {
     var abstractBuilder: protractor.AbstractBuilder = new protractor.AbstractBuilder();
@@ -153,36 +153,21 @@ function TestProtractor() {
 
     ptor.debugger();
 
-    var webElement: protractor.WebElement = ptor.findElement(by.css('.class'));
-    var promise: webdriver.promise.Promise;
-    promise = ptor.findElements(by.css('.class'));
-    promise = ptor.isElementPresent(by.css('.class'));
-    promise = ptor.isElementPresent(webElement);
-
     ptor.clearMockModules();
     ptor.addMockModule('name', 'script');
     ptor.addMockModule('name', function() {});
-    ptor.removeMockModule('name');
     ptor.waitForAngular();
 
     var elementFinder: protractor.ElementFinder;
-    var elementArrayFinder: protractor.ElementArrayFinder;
 
     elementFinder = ptor.element(by.id('ABC'));
     elementFinder = ptor.$('.class');
 
-    elementArrayFinder = ptor.$$('.class');
+    var elementArrayFinder: protractor.ElementArrayFinder = ptor.$$('.class');
+
+    var webElement: webdriver.WebElement = ptor.wrapWebElement(new webdriver.WebElement(driver, 'id'));
 
     var locationAbsUrl: webdriver.promise.Promise = ptor.getLocationAbsUrl();
-    ptor.setLocation('webaddress.com');
-
-    promise = ptor.get('webaddress.com');
-    promise = ptor.get('webdaddress.com', 45);
-    ptor.refresh();
-    ptor.refresh(45);
-    var navigation: webdriver.WebDriverNavigation = ptor.navigate();
-    ptor.pause();
-    ptor.pause(8080);
 }
 
 function TestElement() {
@@ -195,7 +180,6 @@ function TestElementFinder() {
     var promise: webdriver.promise.Promise;
 
     promise = elementFinder.click();
-    promise = elementFinder.allowAnimations('string');
     promise = elementFinder.sendKeys(protractor.Key.UP, protractor.Key.DOWN);
     promise = elementFinder.getTagName();
     promise = elementFinder.getCssValue('display');
@@ -211,49 +195,19 @@ function TestElementFinder() {
     promise = elementFinder.getOuterHtml();
     promise = elementFinder.getInnerHtml();
     promise = elementFinder.isElementPresent(by.id('id'));
-    promise = elementFinder.$('.class');
+    promise = elementFinder.isElementPresent(by.js('function(a, b, c) {}'), 1, 2, 3);
+    promise = elementFinder.findElements(by.className('class'));
+    promise = elementFinder.findElements(by.js('function(a, b, c) {}'), 1, 2, 3);
     promise = elementFinder.$$('.class');
     promise = elementFinder.evaluate('expression');
     promise = elementFinder.isPresent();
 
     var webElement: webdriver.WebElement;
-}
 
-function TestElementArrayFinder() {
-    var elementArrayFinder: protractor.ElementArrayFinder = element.all(by.id('id'));
-    var promise: webdriver.promise.Promise;
-    var elementFinder: protractor.ElementFinder;
-
-    var driverElementArray: webdriver.WebElement[] = elementArrayFinder.getWebElements();
-    elementFinder = elementArrayFinder.get(42);
-    elementFinder = elementArrayFinder.first();
-    elementFinder = elementArrayFinder.last();
-    promise = elementArrayFinder.count();
-    promise = elementArrayFinder.asElementFinders_();
-    elementArrayFinder.each(function(element: protractor.ElementFinder){
-        // nothing
-    });
-    elementArrayFinder.map(function(element: protractor.ElementFinder, index: number){
-        // nothing
-    });
-    elementArrayFinder.filter(function(element: protractor.ElementFinder, index: number){
-        return element.getText().then((text: string) => {
-            return text === "foo";
-        });
-    });
-    elementArrayFinder.reduce(function(accumulator: string, element: protractor.ElementFinder){
-        return element.getText().then((text: string) => {
-            return accumulator + ',' + text;
-        });
-    }, '');
-    elementArrayFinder.reduce(function(accumulator: string, element: protractor.ElementFinder, index: number, array: protractor.ElementFinder[]){
-        return element.getText().then((text: string) => {
-            return accumulator + ',' + text;
-        });
-    }, '');
-    elementArrayFinder.then(function(underlyingElementFinders: protractor.ElementFinder[]){
-        //nothing
-    });
+    webElement = elementFinder.$('.class');
+    webElement = elementFinder.findElement(by.id('id'));
+    webElement = elementFinder.findElement(by.js('function(a, b, c) {}'), 1, 2, 3);
+    webElement = elementFinder.find();
 }
 
 // This function tests the angular specific locator strategies.
@@ -262,19 +216,29 @@ function TestLocatorStrategies() {
     var webElement: webdriver.WebElement;
 
     // Protractor Specific Locators
-    protractor.By.addLocator('customLocator', 'script');
-    protractor.By.addLocator('customLocator2', function(){
-        // nothing
-    });
     webElement = ptor.findElement(protractor.By.binding('binding'));
-    webElement = ptor.findElement(protractor.By.exactBinding('exactBinding'));
+    webElement = ptor.findElement(protractor.By.select('select'));
+    webElement = ptor.findElement(protractor.By.selectedOption('selectedOptions'));
+    webElement = ptor.findElement(protractor.By.input('input'));
     webElement = ptor.findElement(protractor.By.model('model'));
+    webElement = ptor.findElement(protractor.By.textarea('textarea'));
     webElement = ptor.findElement(protractor.By.repeater('repeater'));
-    webElement = ptor.findElement(protractor.By.repeater('repeater').column(0));
-    webElement = ptor.findElement(protractor.By.repeater('repeater').row(0));
-    webElement = ptor.findElement(protractor.By.repeater('repeater').row(0).column(0));
     webElement = ptor.findElement(protractor.By.buttonText('buttonText'));
     webElement = ptor.findElement(protractor.By.partialButtonText('partialButtonText'));
-    webElement = ptor.findElement(protractor.By.cssContainingText('cssSelector', 'search text'));
-    webElement = ptor.findElement(protractor.By.options('options'));
+}
+
+// This function tests the methods that were added to the base WebElement class
+function TestWebElements() {
+    var ptor: protractor.Protractor = protractor.getInstance();
+
+    var webElement: protractor.WebElement;
+    var promise: webdriver.promise.Promise;
+
+    webElement = ptor.findElement(by.id('id')).$('.class');
+    promise = ptor.findElement(by.id('id')).$$('.class');
+    promise = ptor.findElement(by.id('id')).evaluate('something');
+
+    webElement = webElement.findElement(by.id('id')).$('.class');
+    promise = webElement.findElement(by.id('id')).$$('.class');
+    promise = webElement.findElement(by.id('id')).evaluate('something');
 }

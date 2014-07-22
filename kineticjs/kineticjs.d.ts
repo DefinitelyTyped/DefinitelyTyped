@@ -45,7 +45,7 @@ declare module Kinetic {
         isDraggable(): boolean;
         isDragging(): boolean;
         isListening(): boolean;
-        move(x: number, y: number): void;
+        move(change:{x: number; y: number}): void;
         moveDown(): void;
         moveTo(newContainer: IContainer): void;
         moveToBottom(): void;

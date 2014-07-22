@@ -3655,7 +3655,7 @@ interface JQuery {
      * 
      * @param func A function used as a test for each element in the set. this is the current DOM element.
      */
-    filter(func: (index: number) => any): JQuery;
+    filter(func: (index: number, element: Element) => any): JQuery;
     /**
      * Reduce the set of matched elements to those that match the selector or pass the function's test.
      * 
