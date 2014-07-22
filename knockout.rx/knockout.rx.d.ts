@@ -4,6 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../knockout/knockout.d.ts"/>
+/// <reference path="../rx/rx.d.ts"/>
 
 interface KnockoutSubscribableFunctions<T> {
 	toObservable(event?: string): Rx.Observable<T>;
@@ -20,8 +21,6 @@ interface KnockoutComputedFunctions<T> {
 }
 
 declare module Rx {
-	interface ISubject<T> { }
-
 	interface Observable<T> {
 		toKoSubscribable(): KnockoutSubscribable<T>;
 		toKoObservable(initialValue?: T): KnockoutObservable<T>;
