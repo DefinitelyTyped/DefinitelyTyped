@@ -95,6 +95,7 @@ module HttpAndRegularPromiseTests {
         theAnswer: number;
         letters: string[];
         snack: string;
+        nothing?: string;
     }
 
     var someController: Function = ($scope: SomeControllerScope, $http: ng.IHttpService, $q: ng.IQService) => {
