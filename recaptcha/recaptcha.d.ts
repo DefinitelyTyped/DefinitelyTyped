@@ -6,7 +6,7 @@
 declare class Recaptcha {
 	constructor();
 	static reload(): void;
-	static switch_type(newtype: any);
+	static switch_type(newtype: string): void;
 	static showhelp(): void;
 	static get_challenge(): string;
 	static get_response(): string;
