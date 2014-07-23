@@ -95,6 +95,7 @@ module HttpAndRegularPromiseTests {
         theAnswer: number;
         letters: string[];
         snack: string;
+        nothing?: string;
     }
 
     var someController: Function = ($scope: SomeControllerScope, $http: ng.IHttpService, $q: ng.IQService) => {
@@ -138,6 +139,12 @@ module HttpAndRegularPromiseTests {
         var dPromise: ng.IPromise<string> = $q.when($q.when("ALBATROSS!"));
         dPromise.then((snack: string) => {
             $scope.snack = snack;
+        });
+
+        // $q.when may be called without arguments
+        var ePromise: ng.IPromise<void> = $q.when();
+        ePromise.then(() => {
+            $scope.nothing = "really nothing";
         });
     }
 
