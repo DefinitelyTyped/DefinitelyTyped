@@ -271,3 +271,253 @@ test_IAttributes({
     },
     $attr: {}
 });
+
+// test from https://docs.angularjs.org/guide/directive
+angular.module('docsSimpleDirective', [])
+	.controller('Controller', ['$scope', function($scope: any) {
+		$scope.customer = {
+			name: 'Naomi',
+			address: '1600 Amphitheatre'
+		};
+	}])
+	.directive('myCustomer', function() {
+		return {
+			template: 'Name: {{customer.name}} Address: {{customer.address}}'
+		};
+	});
+
+angular.module('docsTemplateUrlDirective', [])
+	.controller('Controller', ['$scope', function($scope: any) {
+		$scope.customer = {
+			name: 'Naomi',
+			address: '1600 Amphitheatre'
+		};
+	}])
+	.directive('myCustomer', function() {
+		return {
+			templateUrl: 'my-customer.html'
+		};
+	});
+
+angular.module('docsRestrictDirective', [])
+	.controller('Controller', ['$scope', function($scope: any) {
+		$scope.customer = {
+			name: 'Naomi',
+			address: '1600 Amphitheatre'
+		};
+	}])
+	.directive('myCustomer', function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'my-customer.html'
+		};
+	});
+
+angular.module('docsScopeProblemExample', [])
+	.controller('NaomiController', ['$scope', function($scope: any) {
+		$scope.customer = {
+			name: 'Naomi',
+			address: '1600 Amphitheatre'
+		};
+	}])
+	.controller('IgorController', ['$scope', function($scope: any) {
+		$scope.customer = {
+			name: 'Igor',
+			address: '123 Somewhere'
+		};
+	}])
+	.directive('myCustomer', function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'my-customer.html'
+		};
+	});
+
+angular.module('docsIsolateScopeDirective', [])
+	.controller('Controller', ['$scope', function($scope: any) {
+		$scope.naomi = { name: 'Naomi', address: '1600 Amphitheatre' };
+		$scope.igor = { name: 'Igor', address: '123 Somewhere' };
+	}])
+	.directive('myCustomer', function() {
+		return {
+			restrict: 'E',
+			scope: {
+				customerInfo: '=info'
+			},
+			templateUrl: 'my-customer-iso.html'
+		};
+	});
+
+angular.module('docsIsolationExample', [])
+	.controller('Controller', ['$scope', function($scope: any) {
+		$scope.naomi = { name: 'Naomi', address: '1600 Amphitheatre' };
+		$scope.vojta = { name: 'Vojta', address: '3456 Somewhere Else' };
+	}])
+	.directive('myCustomer', function() {
+		return {
+			restrict: 'E',
+			scope: {
+				customerInfo: '=info'
+			},
+			templateUrl: 'my-customer-plus-vojta.html'
+		};
+	});
+
+angular.module('docsTimeDirective', [])
+	.controller('Controller', ['$scope', function($scope: any) {
+		$scope.format = 'M/d/yy h:mm:ss a';
+	}])
+	.directive('myCurrentTime', ['$interval', 'dateFilter', function($interval: any, dateFilter: any): ng.IDirective {
+
+		return {
+			link: function(scope: any, element: any, attrs: any) {
+				var format: any,
+					timeoutId: any;
+
+				function updateTime() {
+					element.text(dateFilter(new Date(), format));
+				}
+
+				scope.$watch(attrs.myCurrentTime, function (value: any) {
+					format = value;
+					updateTime();
+				});
+
+				element.on('$destroy', function () {
+					$interval.cancel(timeoutId);
+				});
+
+				// start the UI update process; save the timeoutId for canceling
+				timeoutId = $interval(function () {
+					updateTime(); // update DOM
+				}, 1000);
+			}
+		};
+	}]);
+
+angular.module('docsTransclusionDirective', [])
+	.controller('Controller', ['$scope', function($scope: any) {
+		$scope.name = 'Tobias';
+	}])
+	.directive('myDialog', function() {
+		return {
+			restrict: 'E',
+			transclude: true,
+			templateUrl: 'my-dialog.html'
+		};
+	});
+
+angular.module('docsTransclusionExample', [])
+	.controller('Controller', ['$scope', function($scope: any) {
+		$scope.name = 'Tobias';
+	}])
+	.directive('myDialog', function() {
+		return {
+			restrict: 'E',
+			transclude: true,
+			scope: {},
+			templateUrl: 'my-dialog.html',
+			link: function (scope: any, element: any) {
+				scope.name = 'Jeff';
+			}
+		};
+	});
+
+angular.module('docsIsoFnBindExample', [])
+	.controller('Controller', ['$scope', '$timeout', function($scope: any, $timeout: any) {
+		$scope.name = 'Tobias';
+		$scope.hideDialog = function () {
+			$scope.dialogIsHidden = true;
+			$timeout(function () {
+				$scope.dialogIsHidden = false;
+			}, 2000);
+		};
+	}])
+	.directive('myDialog', function() {
+		return {
+			restrict: 'E',
+			transclude: true,
+			scope: {
+				'close': '&onClose'
+			},
+			templateUrl: 'my-dialog-close.html'
+		};
+	});
+
+angular.module('dragModule', [])
+	.directive('myDraggable', ['$document', function($document: any) {
+		return function(scope: any, element: any, attr: any) {
+			var startX = 0, startY = 0, x = 0, y = 0;
+
+			element.css({
+				position: 'relative',
+				border: '1px solid red',
+				backgroundColor: 'lightgrey',
+				cursor: 'pointer'
+			});
+
+			element.on('mousedown', function(event: any) {
+				// Prevent default dragging of selected content
+				event.preventDefault();
+				startX = event.pageX - x;
+				startY = event.pageY - y;
+				$document.on('mousemove', mousemove);
+				$document.on('mouseup', mouseup);
+			});
+
+			function mousemove(event: any) {
+				y = event.pageY - startY;
+				x = event.pageX - startX;
+				element.css({
+					top: y + 'px',
+					left:  x + 'px'
+				});
+			}
+
+			function mouseup() {
+				$document.off('mousemove', mousemove);
+				$document.off('mouseup', mouseup);
+			}
+		};
+	}]);
+
+angular.module('docsTabsExample', [])
+	.directive('myTabs', function() {
+		return {
+			restrict: 'E',
+			transclude: true,
+			scope: {},
+			controller: function($scope: any) {
+				var panes: any = $scope.panes = [];
+
+				$scope.select = function(pane: any) {
+					angular.forEach(panes, function(pane: any) {
+						pane.selected = false;
+					});
+					pane.selected = true;
+				};
+
+				this.addPane = function(pane: any) {
+					if (panes.length === 0) {
+						$scope.select(pane);
+					}
+					panes.push(pane);
+				};
+			},
+			templateUrl: 'my-tabs.html'
+		};
+	})
+	.directive('myPane', function() {
+		return {
+			require: '^myTabs',
+			restrict: 'E',
+			transclude: true,
+			scope: {
+				title: '@'
+			},
+			link: function(scope, element, attrs, tabsCtrl) {
+				tabsCtrl.addPane(scope);
+			},
+			templateUrl: 'my-pane.html'
+		};
+	});
