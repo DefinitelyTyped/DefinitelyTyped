@@ -86,6 +86,11 @@ declare module CodeMirror {
     or the line the widget is on require the widget to be redrawn. */
     function on(line: LineWidget, eventName: 'redraw', handler: () => void ): void;
     function off(line: LineWidget, eventName: 'redraw', handler: () => void ): void;
+        
+    /** Various CodeMirror-related objects emit events, which allow client code to react to various situations. 
+    Handlers for such events can be registered with the on and off methods on the objects that the event fires on. 
+    To fire your own events, use CodeMirror.signal(target, name, args...), where target is a non-DOM-node object. */
+    function signal(target: any, name: string, ...args: any[]): void;
 
     interface Editor {
     
