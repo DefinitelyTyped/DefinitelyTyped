@@ -7,27 +7,27 @@
  * (c) 2012 Witold Szczerba
  * License: MIT
  */
-angular.module('http-auth-interceptor', [])
 
-    .provider('authService', function () {
-        /**
-         * Holds all the requests which failed due to 401 response,
-         * so they can be re-requested in future, once login is completed.
-         */
-        var buffer: { config: ng.IRequestConfig; deferred: ng.IDeferred<any>; }[] = [];
+class AuthService {
+    /**
+      * Holds all the requests which failed due to 401 response,
+      * so they can be re-requested in future, once login is completed.
+      */
+    buffer: { config: ng.IRequestConfig; deferred: ng.IDeferred<any>; }[] = [];
 
-        /**
-         * Required by HTTP interceptor.
-         * Function is attached to provider to be invisible for regular users of this service.
-         */
-        this.pushToBuffer = function (config: ng.IRequestConfig, deferred: ng.IDeferred<any>) {
-            buffer.push({
-                config: config,
-                deferred: deferred
-            });
-        }
+    /**
+     * Required by HTTP interceptor.
+     * Function is attached to provider to be invisible for regular users of this service.
+     */
+    pushToBuffer = function(config: ng.IRequestConfig, deferred: ng.IDeferred<any>) {
+        this.buffer.push({
+            config: config,
+            deferred: deferred
+        });
+    }
 
-      this.$get = ['$rootScope', '$injector', <any>function ($rootScope: ng.IScope, $injector: ng.auto.IInjectorService) {
+    $get = [
+        '$rootScope', '$injector', <any>function($rootScope: ng.IScope, $injector: ng.auto.IInjectorService) {
             var $http: ng.IHttpService; //initialized later because of circular dependency problem
             function retry(config: ng.IRequestConfig, deferred: ng.IDeferred<any>) {
                 $http = $http || $injector.get('$http');
@@ -36,20 +36,25 @@ angular.module('http-auth-interceptor', [])
                 });
             }
             function retryAll() {
-                for (var i = 0; i < buffer.length; ++i) {
-                    retry(buffer[i].config, buffer[i].deferred);
+                for (var i = 0; i < this.buffer.length; ++i) {
+                    retry(this.buffer[i].config, this.buffer[i].deferred);
                 }
-                buffer = [];
+                this.buffer = [];
             }
 
-          return {
+            return {
                 loginConfirmed: function () {
                     $rootScope.$broadcast('event:auth-loginConfirmed');
                     retryAll();
                 }
             }
-      }]
-  })
+        }
+    ];
+}
+
+angular.module('http-auth-interceptor', [])
+
+    .provider('authService', AuthService)
 
 /**
  * $http interceptor.
@@ -183,7 +188,8 @@ mod.factory(My.Namespace);
 mod.filter('name', function ($scope: ng.IScope) { })
 mod.filter('name', ['$scope', <any>function ($scope: ng.IScope) { }])
 mod.filter(My.Namespace);
-mod.provider('name', function ($scope: ng.IScope) { })
+mod.provider('name', function ($scope: ng.IScope) { return { $get: () => { } } })
+mod.provider('name', TestProvider);
 mod.provider('name', ['$scope', <any>function ($scope: ng.IScope) { }])
 mod.provider(My.Namespace);
 mod.service('name', function ($scope: ng.IScope) { })
@@ -196,6 +202,13 @@ mod.value('name', 23);
 mod.value('name', "23");
 mod.value(My.Namespace);
 
+class TestProvider implements ng.IServiceProvider {
+    constructor(private $scope: ng.IScope) {
+    }
+
+    $get() {
+    }
+}
 
 // Promise signature tests
 var foo: ng.IPromise<number>;
