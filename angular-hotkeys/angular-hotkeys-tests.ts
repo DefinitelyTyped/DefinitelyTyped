@@ -14,3 +14,12 @@ hotkeyProvider.toggleCheatSheet();
 
 hotkeyProvider.add(hotkeyObj.combo, hotkeyObj.description ,hotkeyObj.callback);
 
+hotkeyProvider.bindTo(scope)
+	.add(hotkeyObj)
+	.add(hotkeyObj)
+	.add({
+		combo: 'w',
+		description: 'blah blah',
+		callback: function() {}
+	});
+
