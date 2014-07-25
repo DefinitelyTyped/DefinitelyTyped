@@ -17,13 +17,19 @@ declare module ng.hotkeys {
 
         add(hotkeyObj: ng.hotkeys.Hotkey): void;
 
-        bindTo(scope : ng.IScope): ng.hotkeys.HotkeysProvider;
+        bindTo(scope : ng.IScope): ng.hotkeys.HotkeysProviderChained;
 
         del(combo: string): void;
 
         get(combo: string): ng.hotkeys.Hotkey;
 
         toggleCheatSheet(): void;
+    }
+
+    interface HotkeysProviderChained {
+        add(combo: string, description: string, callback: (event: Event, hotkeys: ng.hotkeys.Hotkey) => void): HotkeysProviderChained;
+
+        add(hotkeyObj: ng.hotkeys.Hotkey): HotkeysProviderChained;
     }
 
     interface Hotkey {
