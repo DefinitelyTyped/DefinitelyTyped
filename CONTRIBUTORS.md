@@ -113,6 +113,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Google Url Shortener](https://developers.google.com/url-shortener/) (by [Frank M](https://github.com/sgtfrankieboy))
 * [Hammer.js](http://eightmedia.github.com/hammer.js/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Handlebars](http://handlebarsjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
+* [HashMap](https://github.com/flesler/hashmap) (by [Rafał Wrzeszcz](https://wrzasq.pl))
 * [HashSet](http://www.timdown.co.uk/jshashtable/jshashset.html) (by [Sergey Gerasimov](https://github.com/gerich-home))
 * [Hashtable](http://www.timdown.co.uk/jshashtable/) (by [Sergey Gerasimov](https://github.com/gerich-home))
 * [HelloJS](http://adodson.com/hello.js) (by [Pavel Zika](https://github.com/PavelPZ))
