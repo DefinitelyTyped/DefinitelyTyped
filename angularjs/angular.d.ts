@@ -18,6 +18,15 @@ interface Function {
 ///////////////////////////////////////////////////////////////////////////////
 declare module ng {
 
+    // not directly implemented, but ensures that constructed class implements $get
+    interface IServiceProviderClass {
+        new(...args: any[]): IServiceProvider;
+    }
+    
+    interface IServiceProviderFactory {
+        (...args: any[]): IServiceProvider;
+    }
+
     // All service providers extend this interface
     interface IServiceProvider {
         $get: any;
@@ -125,7 +134,7 @@ declare module ng {
          */
         controller(name: string, inlineAnnotatedConstructor: any[]): IModule;
         controller(object : Object): IModule;
-        directive(name: string, directiveFactory: Function): IModule;
+        directive(name: string, directiveFactory: IDirectiveFactory): IModule;
         directive(name: string, inlineAnnotatedFunction: any[]): IModule;
         directive(object: Object): IModule;
         /**
@@ -146,9 +155,10 @@ declare module ng {
         filter(name: string, filterFactoryFunction: Function): IModule;
         filter(name: string, inlineAnnotatedFunction: any[]): IModule;
         filter(object: Object): IModule;
-        provider(name: string, serviceProviderConstructor: Function): IModule;
+        provider(name: string, serviceProviderFactory: IServiceProviderFactory): IModule;
+        provider(name: string, serviceProviderConstructor: IServiceProviderClass): IModule;
         provider(name: string, inlineAnnotatedConstructor: any[]): IModule;
-        provider(name: string, providerObject: auto.IProvider): IModule;
+        provider(name: string, providerObject: IServiceProvider): IModule;
         provider(object: Object): IModule;
         /**
          * Run blocks are the closest thing in Angular to the main method. A run block is the code which needs to run to kickstart the application. It is executed after all of the service have been configured and the injector has been created. Run blocks typically contain code which is hard to unit-test, and for this reason should be declared in isolated modules, so that they can be ignored in the unit-tests.
@@ -565,6 +575,12 @@ declare module ng {
          * @param value Value or a promise
          */
         when<T>(value: T): IPromise<T>;
+        /**
+         * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
+         * 
+         * @param value Value or a promise
+         */
+        when(): IPromise<void>;
     }
 
     interface IPromise<T> {
@@ -969,6 +985,11 @@ declare module ng {
     // and http://docs.angularjs.org/guide/directive
     ///////////////////////////////////////////////////////////////////////////
 
+    interface IDirectiveFactory {
+        (...args: any[]): IDirective;
+    }
+
+
     interface IDirective{
         compile?:
             (templateElement: IAugmentedJQuery,
@@ -980,9 +1001,9 @@ declare module ng {
         link?:
             (scope: IScope,
             instanceElement: IAugmentedJQuery,
-            instanceAttributes: IAttributes,
-            controller: any,
-            transclude: ITranscludeFunction
+            instanceAttributes?: IAttributes,
+            controller?: any,
+            transclude?: ITranscludeFunction
             ) => void;
         name?: string;
         priority?: number;
@@ -1047,9 +1068,6 @@ declare module ng {
     // AUTO module (angular.js)
     ///////////////////////////////////////////////////////////////////////////
     export module auto {
-        interface IProvider {
-            $get: any;
-        }
 
         ///////////////////////////////////////////////////////////////////////
         // InjectorService
