@@ -9,7 +9,7 @@ declare function CodeMirror(callback: (host: HTMLElement) => void , options?: Co
 declare module CodeMirror {
     export var Pass: any;
 
-    function fromTextArea(host: HTMLTextAreaElement, options?: EditorConfiguration): CodeMirror.Editor;
+    function fromTextArea(host: HTMLTextAreaElement, options?: EditorConfiguration): CodeMirror.EditorFromTextArea;
 
     var version: string;
 
@@ -373,6 +373,18 @@ declare module CodeMirror {
         The handler may mess with the style of the resulting element, or add event handlers, but should not try to change the state of the editor. */
         on(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: number, element: HTMLElement) => void ): void;
         off(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: number, element: HTMLElement) => void ): void;
+    }
+    
+    interface EditorFromTextArea extends Editor {
+    
+        /** Copy the content of the editor into the textarea. */
+        save(): void;
+    
+        /** Remove the editor, and restore the original textarea (with the editor's current content). */
+        toTextArea(): void;
+    
+        /** Returns the textarea that the instance was based on. */
+        getTextArea(): HTMLTextAreaElement;
     }
 
     class Doc {
