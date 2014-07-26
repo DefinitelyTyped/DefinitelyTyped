@@ -77,6 +77,8 @@ declare module ng.ui {
         go(to: string, params?: {}, options?: IStateOptions): IPromise<any>;
         transitionTo(state: string, params?: {}, updateLocation?: boolean): void;
         transitionTo(state: string, params?: {}, options?: IStateOptions): void;
+        transitionTo(state: IState, params?: {}, updateLocation?: boolean): void;
+        transitionTo(state: IState, params?: {}, options?: IStateOptions): void;
         includes(state: string, params?: {}): boolean;
         is(state:string, params?: {}): boolean;
         is(state: IState, params?: {}): boolean;
