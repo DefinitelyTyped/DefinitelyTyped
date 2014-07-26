@@ -1001,9 +1001,9 @@ declare module ng {
         link?:
             (scope: IScope,
             instanceElement: IAugmentedJQuery,
-            instanceAttributes?: IAttributes,
-            controller?: any,
-            transclude?: ITranscludeFunction
+            instanceAttributes: IAttributes,
+            controller: any,
+            transclude: ITranscludeFunction
             ) => void;
         name?: string;
         priority?: number;
