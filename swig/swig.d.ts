@@ -9,6 +9,7 @@ declare module "swig" {
 	export function init(options: Options): void;
 	export function compileFile(filepath: string): any;
 	export function compile(source: string, options?: Options): any;
+	export function renderFile(pathName: string, locals: any, cb: (err: any, output: string) => void): string;
 
 	export interface Options {
 		allowErrors?: boolean;
