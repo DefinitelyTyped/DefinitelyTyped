@@ -251,6 +251,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Node.js](http://nodejs.org/) (from TypeScript samples)
 * [node_redis](https://github.com/mranney/node_redis) (by [Boris Yankov](https://github.com/borisyankov))
 * [node-ffi](https://github.com/rbranson/node-ffi) (by [Paul Loyd](https://github.com/loyd))
+* [node-form] (https://github.com/rsamec/form) (by [Roman Samec] (https://github.com/rsamec))
 * [node-git](https://github.com/christkv/node-git) (by [vvakame](https://github.com/vvakame))
 * [nodeunit](https://github.com/caolan/nodeunit) (by [Jeff Goddard](https://github.com/jedigo))
 * [node_zeromq](https://github.com/JustinTulloss/zeromq.node) (by [Dave McKeown](https://github.com/davemckeown))
