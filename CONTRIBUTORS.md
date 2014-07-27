@@ -128,6 +128,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Impress.js](https://github.com/bartaz/impress.js) (by [Boris Yankov](https://github.com/borisyankov))
 * [Imagemagick](http://github.com/rsms/node-imagemagick) (by [Carlos Ballesteros Velasco](https://github.com/soywiz))
 * [interact.js](http://github.com/taye/interact.js) (by [Douglas Eichelberger](https://github.com/dduugg))
+* [Ion.RangeSlider](https://github.com/IonDen/ion.rangeSlider) (by [Douglas Eichelberger](https://github.com/dduugg))
 * [Ionic-Cordova](https://github.com/driftyco/) (by [Hendrik Maus](https://github.com/hendrikmaus))
 * [iScroll](http://cubiq.org/iscroll-4) (by [Boris Yankov](https://github.com/borisyankov) and [Christiaan Rakowski](https://github.com/csrakowski))
 * [IxJS (Interactive extensions)](https://github.com/Reactive-Extensions/IxJS) (by [Igor Oleinikov](https://github.com/Igorbek))
