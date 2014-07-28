@@ -95,7 +95,7 @@ declare module YT {
 
         // Properties
         size;
-        
+
         // Playing
         playVideo(): void;
         pauseVideo(): void;
@@ -122,7 +122,7 @@ declare module YT {
         getPlaybackRate(): number;
         setPlaybackRate(suggestedRate:number): void;
         getAvailablePlaybackRates(): number[];
-        
+
         // Behavior
         setLoop(loopPlaylists: boolean): void;
         setShuffle(shufflePlaylist: boolean): void;
@@ -144,7 +144,7 @@ declare module YT {
         // Playlist
         getPlaylist(): any[];
         getPlaylistIndex(): number;
-        
+
         // Event Listener
         addEventListener(event: string, listener: string): void;
     }
