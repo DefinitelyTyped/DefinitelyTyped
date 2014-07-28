@@ -3,11 +3,17 @@
 /// <reference path="../moment/moment.d.ts" />
 declare module Validation {
     /**
+    * Custom message functions.
+    */
+    interface IErrorCustomMessage {
+        (config: any, args: any): string;
+    }
+    /**
     * It represents a property validator for atomic object.
     */
     interface IPropertyValidator {
         isAcceptable(s: any): boolean;
-        customMessage? (config: any, args: any): string;
+        customMessage?: IErrorCustomMessage;
         tagName?: string;
     }
     /**
@@ -21,7 +27,7 @@ declare module Validation {
     */
     interface IAsyncPropertyValidator {
         isAcceptable(s: any): Q.Promise<boolean>;
-        customMessage? (config: any, args: any): string;
+        customMessage?: IErrorCustomMessage;
         isAsync: boolean;
         tagName?: string;
     }
@@ -156,12 +162,6 @@ declare module Validation {
         HasError: boolean;
         ErrorMessage: string;
         TranslateArgs?: IErrorTranslateArgs;
-    }
-    /**
-    * Custom message functions.
-    */
-    interface IErrorCustomMessage {
-        (config: any, args: any): string;
     }
     /**
     *  support for localization of error messages
@@ -690,5 +690,5 @@ declare module Validation {
     }
 }
 declare module "node-form" {
-    export = Validation ;
+export = Validation ;
 }
