@@ -1,4 +1,4 @@
-// Type definitions for node-form v1.0.0
+// Type definitions for node-form v1.0.6
 // Project: https://github.com/rsamec/form
 // Definitions by: Roman Samec <https://github.com/rsamec>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -8,11 +8,17 @@
 /// <reference path="../moment/moment.d.ts" />
 declare module Validation {
     /**
-    * It represents a propert   y validator for atomic object.
+    * Custom message functions.
+    */
+    interface IErrorCustomMessage {
+        (config: any, args: any): string;
+    }
+    /**
+    * It represents a property validator for atomic object.
     */
     interface IPropertyValidator {
         isAcceptable(s: any): boolean;
-        customMessage? (config: any, args: any): string;
+        customMessage?: IErrorCustomMessage;
         tagName?: string;
     }
     /**
@@ -26,7 +32,7 @@ declare module Validation {
     */
     interface IAsyncPropertyValidator {
         isAcceptable(s: any): Q.Promise<boolean>;
-        customMessage? (config: any, args: any): string;
+        customMessage?: IErrorCustomMessage;
         isAsync: boolean;
         tagName?: string;
     }
@@ -168,6 +174,7 @@ declare module Validation {
     interface IErrorTranslateArgs {
         TranslateId: string;
         MessageArgs: any;
+        CustomMessage?: IErrorCustomMessage;
     }
     /**
     * It defines conditional function.
@@ -636,7 +643,9 @@ declare module Validation {
         };
         constructor(Name: string, validatorsToAdd?: IPropertyValidator[]);
         public AddValidator(validator: any): void;
-        public Errors : IError[];
+        public Errors : {
+            [name: string]: IValidationFailure;
+        };
         public HasErrors : boolean;
         public ErrorCount : number;
         public ErrorMessage : string;
@@ -669,13 +678,22 @@ declare module Validation {
         public Name: string;
         private ValidateFce;
         public Error: IError;
+        public ValidationFailures: {
+            [name: string]: IValidationFailure;
+        };
         constructor(Name: string, ValidateFce: IValidate);
         public Optional: IOptional;
         public Validate(context: any): boolean;
         public HasError : boolean;
+        public Errors : {
+            [name: string]: IValidationFailure;
+        };
         public HasErrors : boolean;
         public ErrorCount : number;
         public ErrorMessage : string;
         public TranslateArgs : IErrorTranslateArgs[];
     }
+}
+declare module "node-form" {
+export = Validation ;
 }
