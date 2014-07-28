@@ -1,7 +1,7 @@
 /// <reference path="./bigint.d.ts" />
 
 var bi: BigInt.BigInt;
-var num;
+var num: number;
 var str: string;
 var b: boolean;
 
