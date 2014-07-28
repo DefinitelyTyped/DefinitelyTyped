@@ -71,6 +71,13 @@ declare module YT {
         suggestedQuality?: string;
     }
 
+    export interface VideoData
+    {
+        video_id: string;
+        author: string;
+        title: string;
+    }
+
     export class Player {
         // Constructor
         constructor(id: string, playerOptions: PlayerOptions);
@@ -132,6 +139,7 @@ declare module YT {
         getDuration(): number;
         getVideoUrl(): string;
         getVideoEmbedCode(): string;
+        getVideoData(): VideoData;
 
         // Playlist
         getPlaylist(): any[];
