@@ -1,3 +1,8 @@
+// Type definitions for node-form v1.0.6
+// Project: https://github.com/rsamec/form
+// Definitions by: Roman Samec <https://github.com/rsamec>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /// <reference path="../underscore/underscore.d.ts" />
 /// <reference path="../q/Q.d.ts" />
 /// <reference path="../moment/moment.d.ts" />
