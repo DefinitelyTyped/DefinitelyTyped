@@ -145,14 +145,15 @@ declare module chrome.sockets.tcp {
     export function create(properties: SocketProperties, callback: (createInfo: CreateInfo) => void): void;
 
     export function update(socketId: number, properties: SocketProperties, callback?: () => void): void;
-    export function setPaused(socketId: number, paused: boolean, callback: () => void): void;
+    export function setPaused(socketId: number, paused: boolean, callback?: () => void): void;
 
     export function setKeepAlive(socketId: number,
         enable: boolean, callback: (result: number) => void): void;
     export function setKeepAlive(socketId: number,
         enable: boolean, delay: number, callback: (result: number) => void): void;
 
-    export function setNoDelay(socketId: number,
+    export function setNoDelay(socketId: number, noDelay: boolean, callback: (result: number) => void): void;
+    export function connect(socketId: number,
         peerAddress: string, peerPort: number, callback: (result: number) => void): void;
     export function disconnect(socketId: number, callback?: () => void): void;
     export function send(socketId: number, data: ArrayBuffer, callback: (sendInfo: SendInfo) => void): void;
@@ -202,7 +203,6 @@ declare module chrome.sockets.udp {
         name?: string;
         bufferSize?: number;
         paused: boolean;
-        connected: boolean;
         localAddress?: string;
         localPort?: number;
     }
@@ -265,7 +265,7 @@ declare module chrome.sockets.tcpServer {
     export function create(properties: SocketProperties, callback: (createInfo: CreateInfo) => void): void;
 
     export function update(socketId: number, properties: SocketProperties, callback?: () => void): void;
-    export function setPaused(socketId: number, paused: boolean, callback: () => void): void;
+    export function setPaused(socketId: number, paused: boolean, callback?: () => void): void;
 
     export function listen(socketId: number, address: string,
         port: number, backlog: number, callback: (result: number) => void): void;
