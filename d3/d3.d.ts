@@ -1128,7 +1128,7 @@ declare module D3 {
             /**
             * Runs the tree layout
             */
-            nodes(root: GraphNode): TreeLayout;
+            nodes(root: GraphNode): Array<GraphNode>;
             /**
             * Given the specified array of nodes, such as those returned by nodes, returns an array of objects representing the links from parent to child for each node
             */
