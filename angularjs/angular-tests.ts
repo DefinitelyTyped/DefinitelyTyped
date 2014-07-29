@@ -251,6 +251,15 @@ httpFoo.then((x) => {
 });
 
 
+function test_angular_forEach() {
+    var values: { [key: string]: string } = { name: 'misko', gender: 'male' };
+    var log: string[] = [];
+    angular.forEach(values, function (value, key) {
+        this.push(key + ': ' + value);
+    }, log);
+    //expect(log).toEqual(['name: misko', 'gender: male']);
+}
+
 // angular.element() tests
 var element = angular.element("div.myApp");
 var scope: ng.IScope = element.scope();
