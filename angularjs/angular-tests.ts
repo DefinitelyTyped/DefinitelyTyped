@@ -254,7 +254,7 @@ httpFoo.then((x) => {
 function test_angular_forEach() {
     var values: { [key: string]: string } = { name: 'misko', gender: 'male' };
     var log = [];
-    angular.forEach(values, function (value, key) {
+    angular.forEach(values, function (value: string, key: string) {
         this.push(key + ': ' + value);
     }, log);
     //expect(log).toEqual(['name: misko', 'gender: male']);
