@@ -1,4 +1,4 @@
-// Type definitions for Leaflet.js 0.6.4
+// Type definitions for Leaflet.js 0.7.3
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Vladimir Zotov <https://github.com/rgripper>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -870,6 +870,13 @@ declare module L {
           * Default value: [0, 0].
           */
         padding?: Point;
+
+        /**
+          * The maximum possible zoom to use.
+          *
+          * Default value: null
+          */
+        maxZoom?: number;
     }
 }
  
@@ -1128,6 +1135,11 @@ declare module L {
           * Mercator-based CRS.
           */
         scale(zoom: number): number;
+
+        /**
+          * Returns the size of the world in pixels for a particular zoom.
+          */
+        getSize(zoom: number): Point;
         
     }
 }
@@ -1277,6 +1289,11 @@ declare module L {
           * Sets the opacity of the overlay.
           */
         setOpacity(opacity: number): ImageOverlay;
+
+        /**
+          * Changes the URL of the image.
+          */
+        setUrl(imageUrl: string): ImageOverlay; 
     
         /**
           * Brings the layer to the top of all overlays.
@@ -1802,6 +1819,17 @@ declare module L {
         popup: Popup;
     }
 }
+
+declare module L {
+
+    export interface LeafletDragEndEvent extends LeafletEvent {
+
+        /**
+          * The distance in pixels the draggable element was moved by.
+          */
+        distance: number;
+    }
+}
  
 declare module L {
 
@@ -1960,7 +1988,7 @@ declare module L {
           * Sets the view of the map (geographical center and zoom) with the given
           * animation options.
           */
-        setView(center: LatLng, zoom: number, options?: ZoomPanOptions): Map;
+        setView(center: LatLng, zoom?: number, options?: ZoomPanOptions): Map;
     
         /**
           * Sets the zoom of the map.
@@ -2370,17 +2398,24 @@ declare module L {
         
         /**
           * Whether the map can be zoomed by using the mouse wheel.
+          * If passed 'center', it will zoom to the center of the view regardless of
+          * where the mouse was.
           *
           * Default value: true.
           */
         scrollWheelZoom?: boolean;
+        scrollWheelZoom?: string;
         
         /**
-          * Whether the map can be zoomed in by double clicking on it.
+          * Whether the map can be zoomed in by double clicking on it and zoomed out
+          * by double clicking while holding shift.
+          * If passed 'center', double-click zoom will zoom to the center of the view
+          * regardless of where the mouse was.
           *
           * Default value: true.
           */
         doubleClickZoom?: boolean;
+        doubleClickZoom?: string;
 
         /**
           * Whether the map can be zoomed to a rectangular area specified by dragging
@@ -2529,6 +2564,14 @@ declare module L {
           * in all browsers that support CSS3 Transitions except Android.
           */
         markerZoomAnimation?: boolean;
+
+        /**
+         * Set it to false if you don't want the map to zoom beyond min/max zoom
+         * and then bounce back when pinch-zooming.
+         *
+         * Default value: true.
+         */
+        bounceAtZoomLimits?: boolean;
     }
 }
  
@@ -2652,6 +2695,11 @@ declare module L {
           * Opens the popup previously bound by the bindPopup method.
           */
         openPopup(): Marker;
+
+        /**
+         * Returns the popup previously bound by the bindPopup method.
+         */
+        getPopup(): Popup; 
     
         /**
           * Closes the bound popup of the marker if it's opened.
@@ -2752,6 +2800,13 @@ declare module L {
           * Default value: ''.
           */
         title?: string;
+
+        /**
+          * Text for the alt attribute of the icon image (useful for accessibility).
+          *
+          * Default value: ''.
+          */
+        alt?: string;
     
         /**
           * By default, marker images zIndex is set automatically based on its latitude.
@@ -2815,6 +2870,11 @@ declare module L {
         getLatLngs(): LatLng[][];
 
         /**
+         * Opens the popup previously bound by bindPopup.
+         */
+        openPopup(): MultiPolygon;
+
+        /**
           * Returns a GeoJSON representation of the multipolygon (GeoJSON MultiPolygon Feature).
           */
         toGeoJSON(): any;
@@ -2847,6 +2907,11 @@ declare module L {
           * Returns an array of arrays of geographical points in each polygon.
           */
         getLatLngs(): LatLng[][];
+
+        /**
+         * Opens the popup previously bound by bindPopup.
+         */
+        openPopup(): MultiPolyline;
 
         /**
           * Returns a GeoJSON representation of the multipolyline (GeoJSON MultiLineString Feature).
@@ -3076,6 +3141,20 @@ declare module L {
           * layers (e.g. Android 2).
           */
         dashArray?: string;
+
+        /**
+          * A string that defines shape to be used at the end of the stroke.
+          *
+          * Default: null.
+          */
+        lineCap?: string;
+
+        /**
+          * A string that defines shape to be used at the corners of the stroke.
+          *
+          * Default: null.
+          */
+        lineJoin?: string;
     
         /**
           * If false, the vector will not emit mouse events and will act as a part of the
@@ -3089,6 +3168,13 @@ declare module L {
           * Sets the pointer-events attribute on the path if SVG backend is used.
           */
         pointerEvents?: boolean;
+
+        /**
+          * Custom class name set on an element.
+          *
+          * Default value: ''.
+          */
+        className?: string;
     
     }
 }
@@ -3308,7 +3394,12 @@ declare module L {
           * Sets the geographical point where the popup will open.
           */
         setLatLng(latlng: LatLng): Popup;
-    
+   
+        /**
+          * Returns the geographical point of popup.
+          */
+        getLatLng(): LatLng;
+
         /**
           * Sets the HTML content of the popup.
           */
@@ -3318,6 +3409,16 @@ declare module L {
           * Sets the HTML content of the popup.
           */
         setContent(el: HTMLElement): Popup;
+
+        /**
+          * Returns the content of the popup.
+          */
+        getContent(): string;
+
+        /**
+          * Returns the content of the popup.
+          */
+        getContent(): HTMLElement;
 
         ////////////
         ////////////
@@ -3333,6 +3434,12 @@ declare module L {
           * the DOM and removes listeners previously added in onAdd. Called on map.removeLayer(layer).
           */
         onRemove(map: Map): void;
+
+        /**
+          * Updates the popup content, layout and position. Useful for updating the popup after
+          * something inside changed, e.g. image loaded.
+          */
+        update(): Popup;
     }
 }
  
@@ -3382,6 +3489,22 @@ declare module L {
           * Default value: new Point(0, 6).
           */
         offset?: Point;
+
+        /**
+          * The margin between the popup and the top left corner of the map view after
+          * autopanning was performed.
+          *
+          * Default value: null.
+          */
+        autoPanPaddingTopLeft?: Point;
+
+        /**
+          * The margin between the popup and the bottom right corner of the map view after
+          * autopanning was performed.
+          *
+          * Default value: null.
+          */
+        autoPanPaddingBottomRight?: Point;
     
         /**
           * The margin between the popup and the edges of the map view after autopanning
@@ -3695,6 +3818,15 @@ declare module L {
           * Default value: 18.
           */
         maxZoom?: number;
+
+        /**
+          * Maximum zoom number the tiles source has available. If it is specified,
+          * the tiles on all zoom levels higher than maxNativeZoom will be loaded from
+          * maxZoom level and auto-scaled.
+          *
+          * Default value: null.
+          */
+        maxNativeZoom?: number;
     
         /**
           * Tile size (width and height in pixels, assuming tiles are square).
@@ -3997,6 +4129,11 @@ declare module L {
           * An equivalent of passing animate to both zoom and pan options (see below).
           */
         animate?: boolean;
+
+        /**
+         * If true, it will delay moveend event so that it doesn't happen many times in a row.
+         */
+        debounceMoveend?: boolean;
     }
 }
  
