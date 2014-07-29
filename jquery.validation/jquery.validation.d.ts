@@ -224,6 +224,7 @@ interface Validator
 
    	errorMap: ErrorDictionary;
 	errorList: ErrorListItem[];
+	cancelSubmit: boolean;
 }
 
 interface JQuery
