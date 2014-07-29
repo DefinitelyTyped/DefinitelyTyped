@@ -46,7 +46,38 @@ declare module ng {
         element: IAugmentedJQueryStatic;
         equals(value1: any, value2: any): boolean;
         extend(destination: any, ...sources: any[]): any;
+
+        /**
+         * Invokes the iterator function once for each item in obj collection, which can be either an object or an array. The iterator function is invoked with iterator(value, key), where value is the value of an object property or an array element and key is the object property key or array element index. Specifying a context for the function is optional.
+         * 
+         * It is worth noting that .forEach does not iterate over inherited properties because it filters using the hasOwnProperty method.
+         * 
+         * @param obj Object to iterate over.
+         * @param iterator Iterator function.
+         * @param context Object to become context (this) for the iterator function.
+         */
+        forEach<T>(obj: T[], iterator: (value: T, key: number) => any, context?: any): any;
+        /**
+         * Invokes the iterator function once for each item in obj collection, which can be either an object or an array. The iterator function is invoked with iterator(value, key), where value is the value of an object property or an array element and key is the object property key or array element index. Specifying a context for the function is optional.
+         * 
+         * It is worth noting that .forEach does not iterate over inherited properties because it filters using the hasOwnProperty method.
+         * 
+         * @param obj Object to iterate over.
+         * @param iterator Iterator function.
+         * @param context Object to become context (this) for the iterator function.
+         */
+        forEach<T>(obj: { [index: string]: T; }, iterator: (value: T, key: string) => any, context?: any): any;
+        /**
+         * Invokes the iterator function once for each item in obj collection, which can be either an object or an array. The iterator function is invoked with iterator(value, key), where value is the value of an object property or an array element and key is the object property key or array element index. Specifying a context for the function is optional.
+         * 
+         * It is worth noting that .forEach does not iterate over inherited properties because it filters using the hasOwnProperty method.
+         * 
+         * @param obj Object to iterate over.
+         * @param iterator Iterator function.
+         * @param context Object to become context (this) for the iterator function.
+         */
         forEach(obj: any, iterator: (value: any, key: any) => any, context?: any): any;
+
         fromJson(json: string): any;
         identity(arg?: any): any;
         injector(modules?: any[]): auto.IInjectorService;
@@ -221,11 +252,17 @@ declare module ng {
         $attr: Object;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
-    // FormController
-    // see http://docs.angularjs.org/api/ng.directive:form.FormController
-    ///////////////////////////////////////////////////////////////////////////
+    /**
+     * form.FormController - type in module ng
+     * see https://docs.angularjs.org/api/ng/type/form.FormController
+     */
     interface IFormController {
+
+        /**
+         * Indexer which should return ng.INgModelController for most properties but cannot because of "All named properties must be assignable to string indexer type" constraint - see https://github.com/Microsoft/TypeScript/issues/272
+         */
+        [name: string]: any;
+
         $pristine: boolean;
         $dirty: boolean;
         $valid: boolean;
