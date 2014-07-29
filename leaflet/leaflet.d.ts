@@ -1267,6 +1267,17 @@ declare module L {
         onRemove(map: Map): void;
     }
 }
+
+declare module L {
+    export var Mixin: any;
+
+    module Mixin {
+        export interface LeafletMixinEvents implements IEventPowered<LeafletMixinEvents> {
+        }
+
+        export var Events: LeafletMixinEvents;
+    }
+}
  
 declare module L {
 
