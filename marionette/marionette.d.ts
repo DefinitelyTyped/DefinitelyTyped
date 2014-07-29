@@ -57,9 +57,9 @@ declare module Backbone {
     // Backbone.Wreqr
     module Wreqr {
 
-        class radio {
+        module radio {
             
-            static channel(channelName: string): Channel;
+            function channel(channelName: string): Channel;
 
         }
 
