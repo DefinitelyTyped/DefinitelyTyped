@@ -3160,8 +3160,8 @@ interface _ChainOfArrays<T> extends _Chain<T[]> {
 	flatten(): _Chain<T>;
 }
 
-declare var _: UnderscoreStatic;
+declare var underscore: UnderscoreStatic;
 
 declare module "underscore" {
-	export = _;
+	export = underscore;
 }
