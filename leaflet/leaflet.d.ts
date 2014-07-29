@@ -1243,6 +1243,10 @@ declare module L {
           */
         enabled(): boolean;
     }
+
+    export class Handler extends Class implements IHandler {
+        initialize(map: Map): void;
+    }
 }
  
 declare module L {
