@@ -57,13 +57,35 @@ declare module Backbone {
     // Backbone.Wreqr
     module Wreqr {
 
+        module radio {
+            
+            function channel(channelName: string): Channel;
+
+        }
+
+        class Channel {
+            
+            constructor(channelName: string);
+            
+            vent: Backbone.Wreqr.EventAggregator;
+            reqres: Backbone.Wreqr.RequestResponse;
+            commands: Backbone.Wreqr.Commands;
+            channelName: string;
+            
+            reset(): Channel;
+            connectEvents(hash: string, context: any): Channel;
+            connectCommands(hash: string, context: any): Channel;
+            connectRequests(hash: string, context: any): Channel;
+
+        }
+        
         class Handlers extends Backbone.Events {
 
             constructor(options?: any);
 
             options: any;
 
-            setHandler(name: string, handler: any, context: any): void;
+            setHandler(name: string, handler: any, context?: any): void;
             hasHandler(name: string): boolean;
             getHandler(name: string): Function;
             removeHandler(name: string);
