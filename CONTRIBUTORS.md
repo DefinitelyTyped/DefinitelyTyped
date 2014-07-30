@@ -82,6 +82,7 @@ All definitions files include a header with the author and editors, so at some p
 * [File API: Directories and System](http://www.w3.org/TR/file-system-api/) (by [Kon](http://phyzkit.net/))
 * [File API: Writer](http://www.w3.org/TR/file-writer-api/) (by [Kon](http://phyzkit.net/))
 * [Finch](https://github.com/stoodder/finchjs) (by [David Sichau](https://github.com/DavidSichau/))
+* [fingerprintjs](https://github.com/Valve/fingerprintjs) (by [Shunsuke Ohtani](https://github.com/zaneli))
 * [Finite State Machine](https://github.com/jakesgordon/javascript-state-machine) (by [Boris Yankov](https://github.com/borisyankov))
 * [Firebase](https://www.firebase.com/docs/javascript/firebase) (by [Vincent Bortone](https://github.com/vbortone))
 * [Firefox](https://developer.mozilla.org/en-US/docs/Web/API) (by [vvakame](https://github.com/vvakame))
