@@ -2620,7 +2620,7 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.first
 	**/
-	first(): _Chain<T>;
+	first(): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `any[]`.
