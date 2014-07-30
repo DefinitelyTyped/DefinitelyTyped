@@ -2,6 +2,7 @@
 // Project: https://github.com/cheeriojs/cheerio
 // Definitions by: Bret Little <https://github.com/blittle>
 // Definitions by: VILIC VANE <http://vilic.info>
+// Definitions by: Wayne Maurer <https://github.com/wmaurer>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface Cheerio {
@@ -190,6 +191,11 @@ interface CheerioStatic {
     root(): Cheerio;
     contains(container: CheerioElement, contained: CheerioElement): boolean;
     parseHTML(data: string, context?: Document, keepScripts?: boolean): Document[];
+
+    html(options?: CheerioOptionsInterface): string;
+    html(selector: string, options?: CheerioOptionsInterface): string;
+    html(element: Cheerio, options?: CheerioOptionsInterface): string;
+    html(element: CheerioElement, options?: CheerioOptionsInterface): string;
 }
 
 interface CheerioElement {
