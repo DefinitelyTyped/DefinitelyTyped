@@ -328,4 +328,8 @@ function chain_tests() {
 		.flatten()
 		.find(num => num % 2 == 0)
 		.value();
+		
+	var firstVal: number = _.chain([1, 2, 3])
+		.first()
+		.value();
 }
