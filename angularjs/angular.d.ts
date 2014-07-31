@@ -961,9 +961,7 @@ declare module ng {
     // RootScopeService
     // see http://docs.angularjs.org/api/ng.$rootScope
     ///////////////////////////////////////////////////////////////////////////
-    interface IRootScopeService extends IScope {
-        title: string;
-	}
+    interface IRootScopeService extends IScope {}
 
     ///////////////////////////////////////////////////////////////////////////
     // SCEService
