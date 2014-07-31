@@ -99,10 +99,10 @@ declare module google {
             getTableProperties(): Properties;
             getTableProperty(name: string): any;
             getValue(rowIndex: number, columnIndex: number): any;
-            insertColumn(columnIndex: number, type: string, label?: string, id?: string);
-            insertRows(rowIndex: number, numberOfEmptyRows: number);
-            insertRows(rowIndex: number, rows: DataObjectCell[][]);
-            insertRows(rowIndex: number, rows: any[][]);
+            insertColumn(columnIndex: number, type: string, label?: string, id?: string): void;
+            insertRows(rowIndex: number, numberOfEmptyRows: number): void;
+            insertRows(rowIndex: number, rows: DataObjectCell[][]): void;
+            insertRows(rowIndex: number, rows: any[][]): void;
             removeColumn(columnIndex: number): void;
             removeColumns(columnIndex: number, numberOfColumns: number): void;
             removeRow(rowIndex: number): void;
@@ -118,7 +118,7 @@ declare module google {
             setRowProperties(rowIndex: number, properties: Properties): void;
             setTableProperty(name: string, value: any): void;
             setTableProperties(properties: Properties): void;
-            setValue(rowIndex: number, columnIndex: number, value: any);
+            setValue(rowIndex: number, columnIndex: number, value: any): void;
             sort(sortColumn: number): number[];
             sort(sortColumn: SortByColumn): number[];
             sort(sortColumns: number[]): number[];
@@ -226,11 +226,23 @@ declare module google {
             hideRows(rowIndexes: number[]): void;
 
             setColumns(columnIndexes: number[]): void;
+            setColumns(columnIndexes: ColumnSpec[]): void;
+            setColumns(columnIndexes: any[]): void;
             setRows(min: number, max: number): void;
-            setRows(rowIndexes: number[]);
+            setRows(rowIndexes: number[]): void;
 
             toDataTable(): DataTable;
             toJSON(): string;
+        }
+
+        export interface ColumnSpec {
+            calc: (dataTable: DataTable, row: number) => any;
+            type: string;
+            label?: string;
+            id?: string;
+            sourceColumn?: number;
+            properties?: Properties;
+            role?: string;
         }
 
         //#endregion
