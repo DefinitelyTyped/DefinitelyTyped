@@ -1,6 +1,8 @@
-/**
- * Created by Roland on 7/31/2014.
- */
+// Type definitions for angular-bootstrap-lightbox
+// Project: https://github.com/compact/angular-bootstrap-lightbox
+// Definitions by: Roland Zwaga <https://github.com/rolandzwaga>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 declare module angular.bootstrap.lightbox {
 
     export interface ILightboxImageInfo {
