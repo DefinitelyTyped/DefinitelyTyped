@@ -31,6 +31,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Backbone.js](http://backbonejs.org/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Backbone Relational](http://backbonerelational.org/) (by [Eirik Hoem](https://github.com/eirikhm))
 * [big.js](https://github.com/MikeMcl/big.js) (by [Steve Ognibene](https://github.com/nycdotnet))
+* [BigInt](https://github.com/Evgenus/BigInt) (by [Eugene Chernyshov](https://github.com/Evgenus))
 * [BigInteger](https://github.com/peterolson/BigInteger.js) (by [Ingo Bürk](https://github.com/Airblader))
 * [BigScreen](http://brad.is/coding/BigScreen/) (by [Douglas Eichelberger](https://github.com/dduugg))
 * [Bluebird](https://github.com/petkaantonov/bluebird) (by [Bart van der Schoor](https://github.com/Bartvds))
