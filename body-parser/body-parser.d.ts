@@ -1,7 +1,6 @@
 // Type definitions for body-parser
 // Project: http://expressjs.com
-// Definitions by: Santi Albo <https://github.com/santialbo/>
-// Definitions by: VILIC VANE <https://vilic.info>
+// Definitions by: Santi Albo <https://github.com/santialbo/>, VILIC VANE <https://vilic.info>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
