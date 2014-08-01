@@ -1,4 +1,4 @@
-// Type definitions for node-form v1.0.6
+// Type definitions for node-form v1.0.13
 // Project: https://github.com/rsamec/form
 // Definitions by: Roman Samec <https://github.com/rsamec>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -349,17 +349,25 @@ declare module Validation {
         (args: IError): void;
     }
     /**
+    * It defines async validation function.
+    */
+    interface IAsyncValidate {
+        (args: IError): Q.Promise<any>;
+    }
+    /**
     * It represents named validation function.
     */
     interface IValidatorFce {
         Name: string;
-        ValidationFce: IValidate;
+        ValidationFce?: IValidate;
+        AsyncValidationFce?: IAsyncValidate;
     }
     /**
     * This class represents custom validator.
     */
     interface IValidator {
-        Validate(context: any): boolean;
+        Validate(context: any): IValidationFailure;
+        ValidateAsync(context: any): Q.Promise<IValidationFailure>;
         Error: IError;
     }
     /**
@@ -677,13 +685,15 @@ declare module Validation {
     class Validator extends ValidationResult implements IValidator {
         public Name: string;
         private ValidateFce;
+        private AsyncValidationFce;
         public Error: IError;
         public ValidationFailures: {
             [name: string]: IValidationFailure;
         };
-        constructor(Name: string, ValidateFce: IValidate);
+        constructor(Name: string, ValidateFce?: IValidate, AsyncValidationFce?: IAsyncValidate);
         public Optional: IOptional;
-        public Validate(context: any): boolean;
+        public Validate(context: any): IValidationFailure;
+        public ValidateAsync(context: any): Q.Promise<IValidationFailure>;
         public HasError : boolean;
         public Errors : {
             [name: string]: IValidationFailure;
@@ -694,6 +704,7 @@ declare module Validation {
         public TranslateArgs : IErrorTranslateArgs[];
     }
 }
-declare module "node-form" {
-export = Validation ;
+
+declare module "node-form"{
+    export = Validation;
 }
