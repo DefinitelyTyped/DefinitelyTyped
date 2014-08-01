@@ -1,6 +1,6 @@
 // Type definitions for body-parser
 // Project: http://expressjs.com
-// Definition by: Santi Albo <https://github.com/santialbo/>, Jonathan Häberle <https://github.com/dreampulse/>
+// Definitions by: Jonathan Häberle <https://github.com/dreampulse/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
