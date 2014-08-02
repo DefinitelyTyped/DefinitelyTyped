@@ -1031,22 +1031,34 @@ declare module ng {
         (...args: any[]): IDirective;
     }
 
+    interface IDirectiveLinkFn {
+        (
+            scope?: IScope,
+            instanceElement?: IAugmentedJQuery,
+            instanceAttributes?: IAttributes,
+            controller?: any,
+            transclude?: ITranscludeFunction
+        ): void;
+    }
 
-    interface IDirective{
-        compile?:
-            (templateElement: IAugmentedJQuery,
-            templateAttributes: IAttributes,
-            transclude: ITranscludeFunction
-            ) => any;
+    interface IDirectivePrePost {
+        pre?: IDirectiveLinkFn;
+        post?: IDirectiveLinkFn;
+    }
+
+    interface IDirectiveCompileFn {
+        (
+            templateElement?: IAugmentedJQuery,
+            templateAttributes?: IAttributes,
+            transclude?: ITranscludeFunction
+        ): IDirectivePrePost;
+    }
+
+    interface IDirective {
+        compile?: IDirectiveCompileFn;
         controller?: any;
         controllerAs?: string;
-        link?:
-            (scope: IScope,
-            instanceElement: IAugmentedJQuery,
-            instanceAttributes: IAttributes,
-            controller: any,
-            transclude: ITranscludeFunction
-            ) => void;
+        link?: IDirectivePrePost;
         name?: string;
         priority?: number;
         replace?: boolean;
