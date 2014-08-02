@@ -326,6 +326,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Tags Manager](http://welldonethings.com/tags/manager) (by [Vincent Bortone](https://github.com/vbortone))
 * [Teechart](http://www.steema.com) (by [Steema](http://www.steema.com))
 * [text-buffer](https://github.com/atom/text-buffer) (by [vvakame](https://github.com/vvakame))
+* [text-encoding](https://github.com/inexorabletash/text-encoding) (by [MIZUNE Pine](https://github.com/pine613))
 * [three.js](http://mrdoob.github.com/three.js/) (by [Kon](http://phyzkit.net/))
 * [TimelineJS](https://github.com/NUKnightLab/TimelineJS) (by [Roland Zwaga](https://github.com/rolandzwaga))
 * [timezonecomplete](https://github.com/SpiritIT/timezonecomplete) (by [Rogier Schouten](https://github.com/rogierschouten))
