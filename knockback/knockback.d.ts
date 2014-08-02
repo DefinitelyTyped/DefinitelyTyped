@@ -126,8 +126,8 @@ declare module Knockback {
     }
 
     interface CollectionObservable extends KnockoutObservableArray<any> {
-        collection(colleciton: Backbone.Collection);
-        collection(): Backbone.Collection;
+        collection(colleciton: Backbone.Collection<Backbone.Model>);
+        collection(): Backbone.Collection<Backbone.Model>;
         destroy();
         shareOptions():  CollectionOptions;
         filters(id: any) : Backbone.Model;
@@ -163,7 +163,7 @@ declare module Knockback {
     }
 
     interface Static extends Utils {
-    	collectionObservable(model?: Backbone.Collection, options?: CollectionOptions): CollectionObservable;
+        collectionObservable(model?: Backbone.Collection<Backbone.Model>, options?: CollectionOptions): CollectionObservable;
     	/** Base class for observing model attributes. */
     	observable(
 			/** the model to observe (can be null) */

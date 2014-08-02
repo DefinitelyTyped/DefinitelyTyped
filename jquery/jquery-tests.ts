@@ -6,7 +6,7 @@ function test_add() {
 
     $('li').add('p').css('background-color', 'red');
     $('li').add(document.getElementsByTagName('p')[0])
-      .css('background-color', 'red');
+      .css('background-coailor', 'red');
     $('li').add('<p id="new">new paragraph</p>')
       .css('background-color', 'red');
     $("div").css("border", "2px solid red")
@@ -86,6 +86,9 @@ function test_ajax() {
         success: function (data) {
             $('.result').html(data);
             alert('Load was performed.');
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Load failed. responseJSON=' + jqXHR.responseJSON); 
         }
     });
     var _super = jQuery.ajaxSettings.xhr;
@@ -150,6 +153,52 @@ function test_ajax() {
         url: "test.js",
         dataType: "script"
     });
+
+    // Test the jqXHR object returned by $.ajax() as of 1.5
+    // More details: http://api.jquery.com/jQuery.ajax/#jqXHR
+
+    // done method
+    $.ajax({
+        url: "test.js"
+    }).done((data, textStatus, jqXHR) => {
+        console.log(data, textStatus, jqXHR);
+    });
+
+    // fail method
+    $.ajax({
+        url: "test.js"
+    }).fail((jqXHR, textStatus, errorThrown) => {
+        console.log(jqXHR, textStatus, errorThrown);
+    });
+
+    // always method with successful request
+    $.ajax({
+        url: "test.js"
+    }).always((data, textStatus, jqXHR) => {
+        console.log(data, textStatus, jqXHR);
+    });
+
+    // always method with failed request
+    $.ajax({
+        url: "test.js"
+    }).always((jqXHR, textStatus, errorThrown) => {
+        console.log(jqXHR, textStatus, errorThrown);
+    });
+
+    // then method (as of 1.8)
+    $.ajax({
+        url: "test.js"
+    }).then((data, textStatus, jqXHR) => {
+        console.log(data, textStatus, jqXHR);
+    }, (jqXHR, textStatus, errorThrown) => {
+        console.log(jqXHR, textStatus, errorThrown);
+    });
+
+    // jqXHR object
+    var jqXHR = $.ajax({
+        url: "test.js"
+    });
+    jqXHR.abort('aborting because I can');
 }
 
 function test_ajaxComplete() {
@@ -727,7 +776,7 @@ function test_callbacksFunctions() {
     callbacks.add(bar);
     callbacks.fire('world');
     callbacks.disable();
-    
+
     // Test the disabled state of the list
     console.log(callbacks.disabled());
     // Outputs: true
@@ -1444,6 +1493,9 @@ function test_eventParams() {
     });
     $('#whichkey').bind('mousedown', function (e) {
         $('#log').html(e.type + ': ' + e.which);
+    });
+    $(window).on('mousewheel', (e) => {
+        var delta = (<WheelEvent>e.originalEvent).deltaY;
     });
 }
 
@@ -3114,6 +3166,25 @@ function test_parseHTML() {
 	$( "<ol></ol>" )
 	  .append( nodeNames.join( "" ) )
 	  .appendTo( $log );
+
+	// parse HTML with all parameters
+	$.parseHTML( str, document, true );
+}
+
+// http://api.jquery.com/jQuery.parseJSON/
+function test_parseJSON() {
+    // Return type should be any, not Object
+    var i = $.parseJSON('1');
+    var a = $.parseJSON('[1]');
+    var o = $.parseJSON('{"foo":"bar"}');
+    var s = $.parseJSON('"string"');
+    var n = $.parseJSON('null');
+
+    i instanceof Object; // false
+    a instanceof Object; // true
+    o instanceof Object; // true
+    s instanceof Object; // false
+    n instanceof Object; // false
 }
 
 function test_not() {
@@ -3273,4 +3344,3 @@ function test_deferred_promise() {
         }
         );
 }
-

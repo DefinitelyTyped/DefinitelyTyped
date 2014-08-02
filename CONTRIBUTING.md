@@ -1,1 +1,1 @@
-Please see the [contribution guide](https://github.com/borisyankov/DefinitelyTyped/wiki/How-to-contribute) for information on how to contribute to this project.
+Please see the [contribution guide](http://definitelytyped.org/guides/contributing.html) at [definitelytyped.org](http://definitelytyped.org/guides/contributing.html) for information on how to contribute to DefinitelyTyped.

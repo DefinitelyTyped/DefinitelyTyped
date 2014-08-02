@@ -129,6 +129,26 @@ declare module "mongodb" {
     public static createFromHexString(hexString: string): ObjectID;
   }
 
+  // Class documentation : http://mongodb.github.io/node-mongodb-native/api-bson-generated/binary.html
+  export class Binary {
+    constructor (buffer: Buffer, subType?: number);
+
+    // Updates this binary with byte_value
+    put(byte_value: any): void;
+
+    // Writes a buffer or string to the binary
+    write(buffer: any, offset: number): void;
+
+    // Reads length bytes starting at position.
+    read(position: number, length: number): Buffer;
+
+    // Returns the value of this binary as a string.
+    value(): string;
+
+    // The length of the binary.
+    length(): number;
+  }
+
   export interface SocketOptions {
     //= set seconds before connection times out default:0
     timeout?: number;
@@ -282,8 +302,12 @@ declare module "mongodb" {
     findOne(selector: Object, fields: any, skip: number, limit: number, callback?: (err: Error, result: any) => void): Cursor;
     findOne(selector: Object, fields: any, skip: number, limit: number, timeout: number, callback?: (err: Error, result: any) => void): Cursor;
 
+    createIndex(fieldOrSpec: any, callback: (err: Error, indexName: string) => void): void;
     createIndex(fieldOrSpec: any, options: IndexOptions, callback: (err: Error, indexName: string) => void): void;
+
+    ensureIndex(fieldOrSpec: any, callback: (err: Error, indexName: string) => void): void;
     ensureIndex(fieldOrSpec: any, options: IndexOptions, callback: (err: Error, indexName: string) => void): void;
+
     indexInformation(options: any, callback: Function): void;
     dropIndex(name: string, callback: Function): void;
     dropAllIndexes(callback: Function): void;

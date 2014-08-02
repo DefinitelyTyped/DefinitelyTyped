@@ -3,6 +3,7 @@
 import P = require('parsimmon');
 import Parser = P.Parser;
 import Mark = P.Mark;
+import Result = P.Result;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -17,6 +18,7 @@ class Bar {
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
 var str: string;
+var bool: boolean;
 var num: number;
 var regex: RegExp;
 
@@ -50,10 +52,24 @@ var fooMarkPar: Parser<Mark<Foo>>;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
-foo = fooPar.parse(str);
+var fooResult: Result<Foo>;
+
+bool = fooResult.status;
+foo = fooResult.value;
+str = fooResult.expected;
+num = fooResult.index;
+
+// --  --  --  --  --  --  --  --  --  --  --  --  --
+
+fooResult = fooPar.parse(str);
 
 fooPar = fooPar.or(fooPar);
 anyPar = fooPar.or(barPar);
+
+barPar = fooPar.chain((f) => {
+	foo = f;
+	return barPar;
+});
 
 barPar = fooPar.then((f) => {
 	foo = f;
@@ -82,6 +98,8 @@ fooArrPar = fooPar.atLeast(num);
 
 fooMarkPar = fooPar.mark();
 
+fooPar = fooPar.desc(str);
+
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
 strPar = P.string(str);
@@ -91,6 +109,10 @@ fooPar = P.succeed(foo);
 
 fooArrPar = P.seq(fooPar, fooPar);
 anyArrPar = P.seq(barPar, fooPar, numPar);
+
+fooPar = P.alt(fooPar, fooPar);
+anyPar = P.alt(barPar, fooPar, numPar);
+
 
 fooPar = P.lazy(() => {
 	return fooPar;
@@ -112,5 +134,5 @@ strPar = P.optWhitespace;
 
 strPar = P.any;
 strPar = P.all;
-strPar = P.eof;
+voidPar = P.eof;
 numPar = P.index;

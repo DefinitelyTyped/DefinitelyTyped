@@ -1,6 +1,6 @@
-// Type definitions for Chrome extension development.
+// Type definitions for Chrome extension development
 // Project: http://developer.chrome.com/extensions/
-// Definitions by: Matthew Kimber <https://github.com/matthewkimber> and otiai10 <https://github.com/otiai10>
+// Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ////////////////////
@@ -843,8 +843,12 @@ declare module chrome.extension {
         type?: string;
     }
 
+    interface LastError {
+        message?: string;
+    }
+
     var inIncognitoContext: boolean;
-    var lastError: Object;
+    var lastError: LastError;
 
     export function getBackgroundPage(): Window;
     export function getURL(path: string): string;
@@ -1233,6 +1237,68 @@ declare module chrome.management {
 }
 
 ////////////////////
+// Notifications
+// https://developer.chrome.com/extensions/notifications
+////////////////////
+declare module chrome.notifications {
+    interface ButtonOptions {
+        title: string;
+        iconUrl?: string;
+    }
+
+    interface ItemOptions {
+        title: string;
+        message: string;
+    }
+
+    interface NotificationOptions {
+        type?: string;
+        iconUrl?: string;
+        title?: string;
+        message?: string;
+        contextMessage?: string;
+        priority?: number;
+        eventTime?: number;
+        buttons?: Array<ButtonOptions>;
+        items?: Array<ItemOptions>;
+        progress?: number;
+        isClickable?: boolean;
+    }
+
+    interface OnClosed {
+        addListener(callback: (notificationId: string, byUser: boolean) => void): void;
+    }
+
+    interface OnClicked {
+        addListener(callback: (notificationId: string) => void): void;
+    }
+
+    interface OnButtonClicked {
+        addListener(callback: (notificationId: string, buttonIndex: number) => void): void;
+    }
+
+    interface OnPermissionLevelChanged {
+        addListener(callback: (level: string) => void): void;
+    }
+
+    interface OnShowSettings {
+        addListener(callback: Function): void;
+    }
+
+    export var onClosed: OnClosed;
+    export var onClicked: OnClicked;
+    export var onButtonClicked: OnButtonClicked;
+    export var onPermissionLevelChanged: OnPermissionLevelChanged;
+    export var onShowSettings: OnShowSettings;
+
+    export function create(notificationId: string, options: NotificationOptions, callback: (notificationId: string) => void): void;
+    export function update(notificationId: string, options: NotificationOptions, callback: (wasUpdated: boolean) => void): void;
+    export function clear(notificationId: string, callback: (wasCleared: boolean) => void): void;
+    export function getAll(callback: (notifications: any) => void): void;
+    export function getPermissionLevel(callback: (level: string) => void): void;
+}
+
+////////////////////
 // Omnibox
 ////////////////////
 declare module chrome.omnibox {
@@ -1425,8 +1491,12 @@ declare module chrome.proxy {
 // Runtime
 ////////////////////
 declare module chrome.runtime {
-    var lastError: Object;
+    var lastError: LastError;
     var id: string;
+
+    interface LastError {
+        message?: string;
+    }
 
     interface ConnectInfo {
         name?: string;
@@ -1824,6 +1894,10 @@ declare module chrome.tabs {
         addListener(callback: (activeInfo: TabActiveInfo) => void): void;
     }
 
+    interface TabReplacedEvent extends chrome.events.Event {
+        addListener(callback: (addedTabId: number, removedTabId: number) => void): void;
+    }
+
     export function executeScript(details: InjectDetails, callback?: (result: any[]) => void): void;
     export function executeScript(tabId: number, details: InjectDetails, callback?: (result: any[]) => void): void;
     export function get(tabId: number, callback: (tab: Tab) => void): void;
@@ -1831,6 +1905,7 @@ declare module chrome.tabs {
     export function create(createProperties: CreateProperties, callback?: (tab: Tab) => void): void;
     export function move(tabId: number, moveProperties: MoveProperties, callback?: (tab: Tab) => void): void;
     export function move(tabIds: number[], moveProperties: MoveProperties, callback?: (tabs: Tab[]) => void): void;
+    export function update(updateProperties: UpdateProperties, callback?: (tab?: Tab) => void): void;
     export function update(tabId: number, updateProperties: UpdateProperties, callback?: (tab?: Tab) => void): void;
     export function remove(tabId: number, callback?: Function): void;
     export function remove(tabIds: number[], callback?: Function): void;
@@ -1856,6 +1931,7 @@ declare module chrome.tabs {
     var onDetached: TabDetachedEvent;
     var onCreated: TabCreatedEvent;
     var onActivated: TabActivatedEvent;
+    var onReplaced: TabReplacedEvent;
 }
 
 ////////////////////

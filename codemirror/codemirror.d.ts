@@ -9,7 +9,7 @@ declare function CodeMirror(callback: (host: HTMLElement) => void , options?: Co
 declare module CodeMirror {
     export var Pass: any;
 
-    function fromTextArea(host: HTMLTextAreaElement, options?: EditorConfiguration): CodeMirror.Editor;
+    function fromTextArea(host: HTMLTextAreaElement, options?: EditorConfiguration): CodeMirror.EditorFromTextArea;
 
     var version: string;
 
@@ -86,6 +86,11 @@ declare module CodeMirror {
     or the line the widget is on require the widget to be redrawn. */
     function on(line: LineWidget, eventName: 'redraw', handler: () => void ): void;
     function off(line: LineWidget, eventName: 'redraw', handler: () => void ): void;
+        
+    /** Various CodeMirror-related objects emit events, which allow client code to react to various situations. 
+    Handlers for such events can be registered with the on and off methods on the objects that the event fires on. 
+    To fire your own events, use CodeMirror.signal(target, name, args...), where target is a non-DOM-node object. */
+    function signal(target: any, name: string, ...args: any[]): void;
 
     interface Editor {
     
@@ -368,6 +373,18 @@ declare module CodeMirror {
         The handler may mess with the style of the resulting element, or add event handlers, but should not try to change the state of the editor. */
         on(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: number, element: HTMLElement) => void ): void;
         off(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: number, element: HTMLElement) => void ): void;
+    }
+    
+    interface EditorFromTextArea extends Editor {
+    
+        /** Copy the content of the editor into the textarea. */
+        save(): void;
+    
+        /** Remove the editor, and restore the original textarea (with the editor's current content). */
+        toTextArea(): void;
+    
+        /** Returns the textarea that the instance was based on. */
+        getTextArea(): HTMLTextAreaElement;
     }
 
     class Doc {

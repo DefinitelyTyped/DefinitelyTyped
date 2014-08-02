@@ -1,6 +1,6 @@
 // Type definitions for Angular JS 1.1.5+ (ui.router module)
 // Project: https://github.com/angular-ui/ui-router
-// Definitions by: Michel Salib <michelsalib@hotmail.com>
+// Definitions by: Michel Salib <https://github.com/michelsalib>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
@@ -33,13 +33,13 @@ declare module ng.ui {
     interface IUrlMatcher {
         concat(pattern: string): IUrlMatcher;
         exec(path: string, searchParams: {}): {};
+        parameters(): string[];
+        format(values: {}): string;
     }
 
     interface IUrlMatcherFactory {
         compile(pattern: string): IUrlMatcher;
         isMatcher(o: any): boolean;
-        parameters(): string[];
-        format(values: {}): string;
     }
 
     interface IUrlRouterProvider extends IServiceProvider {
@@ -86,9 +86,32 @@ declare module ng.ui {
         get(): IState[];
         current: IState;
         params: IStateParamsService;
+        reload(): void;
     }
 
     interface IStateParamsService {
         [key: string]: any;
+    }
+
+    interface IUrlRouterService {
+    	/*
+    	 * Triggers an update; the same update that happens when the address bar
+    	 * url changes, aka $locationChangeSuccess.
+    	 *
+    	 * This method is useful when you need to use preventDefault() on the
+    	 * $locationChangeSuccess event, perform some custom logic (route protection,
+    	 * auth, config, redirection, etc) and then finally proceed with the transition
+    	 * by calling $urlRouter.sync().
+    	 *
+    	 */
+        sync(): void;
+    }
+    
+    interface IUiViewScrollProvider {
+        /*
+         * Reverts back to using the core $anchorScroll service for scrolling 
+         * based on the url anchor.
+         */
+        useAnchorScroll(): void;
     }
 }

@@ -1,4 +1,4 @@
-// Type definitions for three.js -- r66
+// Type definitions for three.js r67
 // Project: http://mrdoob.github.com/three.js/
 // Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped  
@@ -15,7 +15,7 @@ declare module THREE {
     export var AddEquation: BlendingEquation;
     export var SubtractEquation: BlendingEquation;
     export var ReverseSubtractEquation: BlendingEquation;
-    
+
     // custom blending destination factors
     export enum BlendingDstFactor { }
     export var ZeroFactor: BlendingDstFactor;
@@ -177,8 +177,8 @@ declare module THREE {
     /**
      * Camera with orthographic projection
      *
-     * @example 
-     * var camera = new THREE.OrthographicCamera( width / - 2, width / 2, height / 2, height / - 2, 1, 1000 ); 
+     * @example
+     * var camera = new THREE.OrthographicCamera( width / - 2, width / 2, height / 2, height / - 2, 1, 1000 );
      * scene.add( camera );
      *
      * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/cameras/OrthographicCamera.js">src/cameras/OrthographicCamera.js</a>
@@ -281,20 +281,20 @@ declare module THREE {
         /**
          * Sets an offset in a larger frustum. This is useful for multi-window or multi-monitor/multi-machine setups.
          * For example, if you have 3x2 monitors and each monitor is 1920x1080 and the monitors are in grid like this:
-         *          
+         *
          *     +---+---+---+
          *     | A | B | C |
          *     +---+---+---+
          *     | D | E | F |
          *     +---+---+---+
-         * 
+         *
          * then for each monitor you would call it like this:
-         *          
+         *
          *     var w = 1920;
          *     var h = 1080;
          *     var fullWidth = w * 3;
          *     var fullHeight = h * 2;
-         *     
+         *
          *     // A
          *     camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 0, w, h );
          *     // B
@@ -307,13 +307,13 @@ declare module THREE {
          *     camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 1, w, h );
          *     // F
          *     camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 1, w, h ); Note there is no reason monitors have to be the same size or in a grid.
-         *     
+         *
          * @param fullWidth full width of multiview setup
          * @param fullHeight full height of multiview setup
          * @param x horizontal offset of subcamera
          * @param y vertical offset of subcamera
          * @param width width of subcamera
-         * @param height height of subcamera         
+         * @param height height of subcamera
          */
         setViewOffset(fullWidth: number, fullHeight: number, x: number, y: number, width: number, height: number): void;
 
@@ -325,27 +325,48 @@ declare module THREE {
     }
 
     // Core ///////////////////////////////////////////////////////////////////////////////////////////////
+    export class BufferAttribute {
+        constructor();
 
-    interface BufferGeometryAttributeArray extends ArrayBufferView{
-        length: number;
-    }    
-
-    interface BufferGeometryAttribute{
-        itemSize: number;
-        array: BufferGeometryAttributeArray;
-        numItems: number;
+        set(value: number): void;
+        setX(index: number, x: number): void;
+        setY(index: number, y: number): void;
+        setZ(index: number, z: number): void;
+        setXY(index: number, x: number, y: number): void;
+        setXYZ(index: number, x: number, y: number, z: number): void;
+        setXYZW(index: number, x: number, y: number, z: number, w: number): void;
     }
 
-    interface BufferGeometryAttributes{ 
-        [name: string]: BufferGeometryAttribute; 
-        index?: BufferGeometryAttribute;
-        position?: BufferGeometryAttribute;
-        normal?: BufferGeometryAttribute;
-        color?: BufferGeometryAttribute;
+    export class Int8Attribute extends BufferAttribute{
+        constructor(size: number, itemSize: number);
+    }
+    export class Uint8Attribute extends BufferAttribute {
+        constructor(size: number, itemSize: number);
+    }
+    export class Uint8ClampedAttribute extends BufferAttribute {
+        constructor(size: number, itemSize: number);
+    }
+    export class Int16Attribute extends BufferAttribute {
+        constructor(size: number, itemSize: number);
+    }
+    export class Uint16Attribute extends BufferAttribute {
+        constructor(size: number, itemSize: number);
+    }
+    export class Int32Attribute extends BufferAttribute {
+        constructor(size: number, itemSize: number);
+    }
+    export class Uint32Attribute extends BufferAttribute {
+        constructor(size: number, itemSize: number);
+    }
+    export class Float32Attribute extends BufferAttribute {
+        constructor(size: number, itemSize: number);
+    }
+    export class Float64Attribute extends BufferAttribute {
+        constructor(size: number, itemSize: number);
     }
 
     /**
-     * This is a superefficent class for geometries because it saves all data in buffers. 
+     * This is a superefficent class for geometries because it saves all data in buffers.
      * It reduces memory costs and cpu cycles. But it is not as easy to work with because of all the nessecary buffer calculations.
      * It is mainly interesting when working with static objects.
      *
@@ -361,50 +382,24 @@ declare module THREE {
          * Unique number of this buffergeometry instance
          */
         id: number;
-
-        /**
-         * This hashmap has as id the name of the attribute to be set and as value the buffer to set it to.
-         */
-        attributes: BufferGeometryAttributes;
-
-        /**
-         * When set, it holds certain buffers in memory to have faster updates for this object. When unset, it deletes those buffers and saves memory.
-         */
-        dynamic: boolean;
-
+        
+        uuid: number;
+        name: string;
+        attributes: BufferAttribute[];
+        drawcalls: { start: number; count: number; index: number; }[];
         offsets: { start: number; count: number; index: number; }[];
-
-        /**
-         * Bounding box.
-         */
         boundingBox: BoundingBox3D;
-
-        /**
-         * Bounding sphere.
-         */
         boundingSphere: BoundingSphere;
 
-        morphTargets: any[];
-        hasTangents: boolean;
-
-        addAttribute(name: string, type: Function, numItems: number, itemSize: number): any;
+        addAttribute(name: string, attribute: BufferAttribute): any;
+        addAttribute(name: string, array: any, itemSize: number): any;
+        getAttribute(name: string): any;
+        addDrawCall(start: number, count: number, index: number): void;
 
         /**
          * Bakes matrix transform directly into vertex coordinates.
          */
         applyMatrix(matrix: Matrix4): void;
-
-        /**
-         * Computes vertex normals by averaging face normals.
-         */
-        computeVertexNormals(): void;
-
-        /**
-         * Computes vertex tangents.
-         * Based on http://www.terathon.com/code/tangent.html
-         * Geometry must have vertex UVs (layer 0 will be used).
-         */
-        computeTangents(): void;
 
         /**
          * Computes bounding box of the geometry, updating Geometry.boundingBox attribute.
@@ -419,14 +414,29 @@ declare module THREE {
         computeBoundingSphere(): void;
 
         /**
-         * Disposes the object from memory. 
+         * Computes vertex normals by averaging face normals.
+         */
+        computeVertexNormals(): void;
+
+        /**
+         * Computes vertex tangents.
+         * Based on http://www.terathon.com/code/tangent.html
+         * Geometry must have vertex UVs (layer 0 will be used).
+         */
+        computeTangents(): void;
+
+        computeOffsets(indexBufferSize: number): void;
+        merge(): void;
+        normalizeNormals(): void;
+        reorderBuffers(indexBuffer: number, indexMap: number[], vertexCount: number): void;
+        clone(): BufferGeometry;
+
+        /**
+         * Disposes the object from memory.
          * You need to call this when you want the bufferGeometry removed while the application is running.
          */
         dispose(): void;
 
-        normalizeNormals(): void;
-
-        clone(): BufferGeometry;
     }
 
     /**
@@ -446,7 +456,7 @@ declare module THREE {
         autoStart: boolean;
 
         /**
-         * When the clock is running, It holds the starttime of the clock. 
+         * When the clock is running, It holds the starttime of the clock.
          * This counted from the number of milliseconds elapsed since 1 January 1970 00:00:00 UTC.
          */
         startTime: number;
@@ -503,7 +513,7 @@ declare module THREE {
      *         };
      *     
      *     };
-     *     
+     *
      *     var car = new Car();
      *     car.addEventListener( 'start', function ( event ) {
      *     
@@ -547,57 +557,18 @@ declare module THREE {
          */
         dispatchEvent(event: { type: string; target: any; }): void;
     }
-    
-    export interface Face {
-        /**
-         * Face normal.
-         */
-        normal: Vector3;
-
-        /**
-         * Face color.
-         */
-        color: Color;
-
-        /**
-         * Array of 4 vertex normals.
-         */
-        vertexNormals: Vector3[];
-
-        /**
-         * Array of 4 vertex normals.
-         */
-        vertexColors: Color[];
-
-        /**
-         * Array of 4 vertex tangets.
-         */
-        vertexTangents: number[];
-
-        /**
-         * Material index (points to {@link Geometry.materials}).
-         */
-        materialIndex: number;
-
-        /**
-         * Face centroid.
-         */
-        centroid: Vector3;
-
-        clone(): Face;
-    }
 
     /**
      * Triangle face.
      *
      * # Example
-     *     var normal = new THREE.Vector3( 0, 1, 0 ); 
-     *     var color = new THREE.Color( 0xffaa00 ); 
+     *     var normal = new THREE.Vector3( 0, 1, 0 );
+     *     var color = new THREE.Color( 0xffaa00 );
      *     var face = new THREE.Face3( 0, 1, 2, normal, color, 0 );
      *
      * @source https://github.com/mrdoob/three.js/blob/master/src/core/Face3.js
      */
-    export class Face3 implements Face {
+    export class Face3 {
         /**
          * @param a Vertex A index.
          * @param b Vertex B index.
@@ -658,10 +629,6 @@ declare module THREE {
          */
         materialIndex: number;
 
-        /**
-         * Face centroid.
-         */
-        centroid: Vector3;
         clone(): Face3;
     }
 
@@ -692,13 +659,13 @@ declare module THREE {
 
     /**
      * Base class for geometries
-     * 
+     *
      * # Example
      *     var geometry = new THREE.Geometry();
-     *     geometry.vertices.push( new THREE.Vector3( -10, 10, 0 ) ); 
-     *     geometry.vertices.push( new THREE.Vector3( -10, -10, 0 ) ); 
-     *     geometry.vertices.push( new THREE.Vector3( 10, -10, 0 ) );  
-     *     geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );  
+     *     geometry.vertices.push( new THREE.Vector3( -10, 10, 0 ) );
+     *     geometry.vertices.push( new THREE.Vector3( -10, -10, 0 ) );
+     *     geometry.vertices.push( new THREE.Vector3( 10, -10, 0 ) );
+     *     geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
      *     geometry.computeBoundingSphere();
      *
      * @see https://github.com/mrdoob/three.js/blob/master/src/core/Geometry.js
@@ -732,7 +699,7 @@ declare module THREE {
 
         /**
          * Array of vertex normals, matching number and order of vertices.
-         * Normal vectors are nessecary for lighting 
+         * Normal vectors are nessecary for lighting
          * To signal an update in this array, Geometry.normalsNeedUpdate needs to be set to true.
          */
 //        normals: Vector3[];
@@ -742,7 +709,7 @@ declare module THREE {
          * The array of faces describe how each vertex in the model is connected with each other.
          * To signal an update in this array, Geometry.elementsNeedUpdate needs to be set to true.
          */
-        faces: Face[];
+        faces: Face3[];
 
         /**
          * Array of face UV layers.
@@ -864,11 +831,6 @@ declare module THREE {
         applyMatrix(matrix: Matrix4): void;
 
         /**
-         * Computes centroids for all faces.
-         */
-        computeCentroids(): void;
-
-        /**
          * Computes face normals.
          */
         computeFaceNormals(): void;
@@ -890,7 +852,7 @@ declare module THREE {
          * Geometry must have vertex UVs (layer 0 will be used).
          */
         computeTangents(): void;
-        
+
         /**
          * Computes bounding box of the geometry, updating {@link Geometry.boundingBox} attribute.
          */
@@ -901,6 +863,8 @@ declare module THREE {
          * Neither bounding boxes or bounding spheres are computed by default. They need to be explicitly computed, otherwise they are null.
          */
         computeBoundingSphere(): void;
+
+        merge( geometry: Geometry, matrix: Matrix, materialIndexOffset: number): void;
 
         /**
          * Checks for duplicate vertices using hashmap.
@@ -914,19 +878,14 @@ declare module THREE {
         clone(): Geometry;
 
         /**
-         * Removes The object from memory. 
+         * Removes The object from memory.
          * Don't forget to call this method when you remove an geometry because it can cuase meomory leaks.
          */
         dispose(): void;
 
         computeLineDistances(): void;
-    }
 
-    export class Geometry2 extends BufferGeometry {
-        vertices: Float32Array;
-        normals: Float32Array;
-        uvs: Float32Array;
-
+        makeGroups(usesFaceMaterial: boolean, maxVerticesInGroup: number): void;
     }
 
     /**
@@ -1145,7 +1104,7 @@ declare module THREE {
 
         /**
          * Rotate an object along an axis in object space. The axis is assumed to be normalized.
-         * @param axis  A normalized vector in object space. 
+         * @param axis  A normalized vector in object space.
          * @param angle  The angle in radians.
          */
         rotateOnAxis(axis: Vector3, angle: number): Object3D;
@@ -1168,7 +1127,7 @@ declare module THREE {
 
         /**
          * Transforms a 3D scene object into 2D render data that can be rendered in a screen with your renderer of choice, projecting and clipping things out according to the used camera.
-         * If the scene were a real scene, this method would be the equivalent of taking a picture with the camera (and developing the film would be the next step, using a Renderer). 
+         * If the scene were a real scene, this method would be the equivalent of taking a picture with the camera (and developing the film would be the next step, using a Renderer).
          *
          * @param scene scene to project.
          * @param camera camera to use in the projection.
@@ -1178,14 +1137,14 @@ declare module THREE {
             objects: Object3D[];     // Mesh, Line or other object  
             sprites: Object3D[];    // Sprite or Particle 
             lights: Light[];
-            elements: Face[];    // Line, Particle, Face3 or Face4 
+            elements: Face3[];    // Line, Particle, Face3 or Face4
         };
     }
 
     export interface Intersection {
         distance: number;
         point: Vector3;
-        face: Face;
+        face: Face3;
         object: Object3D;
     }
 
@@ -1214,9 +1173,9 @@ declare module THREE {
 
     /**
      * This light's color gets applied to all the objects in the scene globally.
-     * 
+     *
      * # example
-     *     var light = new THREE.AmbientLight( 0x404040 ); // soft white light 
+     *     var light = new THREE.AmbientLight( 0x404040 ); // soft white light
      *     scene.add( light );
      *
      * @source https://github.com/mrdoob/three.js/blob/master/src/lights/AmbientLight.js
@@ -1249,9 +1208,9 @@ declare module THREE {
      * Affects objects using MeshLambertMaterial or MeshPhongMaterial.
      *
      * @example
-     * // White directional light at half intensity shining from the top.  
-     * var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 ); 
-     * directionalLight.position.set( 0, 1, 0 ); 
+     * // White directional light at half intensity shining from the top.
+     * var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+     * directionalLight.position.set( 0, 1, 0 );
      * scene.add( directionalLight );
      *
      * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/lights/DirectionalLight.js">src/lights/DirectionalLight.js</a>
@@ -1351,7 +1310,7 @@ declare module THREE {
 
         /**
          * Shadow map texture height in pixels.
-        * Default — 512.
+         * Default — 512.
          */
         shadowMapHeight: number;
 
@@ -1425,7 +1384,7 @@ declare module THREE {
 
     export class HemisphereLight extends Light {
         constructor(skyColorHex?: number, groundColorHex?: number, intensity?: number);
-        
+
         position: Vector3;
         groundColor: Color;
         intensity: number;
@@ -1438,7 +1397,7 @@ declare module THREE {
      *
      * @example
      * var light = new THREE.PointLight( 0xff0000, 1, 100 );
-     * light.position.set( 50, 50, 50 ); 
+     * light.position.set( 50, 50, 50 );
      * scene.add( light );
      */
     export class PointLight extends Light {
@@ -1469,15 +1428,15 @@ declare module THREE {
      * A point light that can cast shadow in one direction.
      *
      * @example
-     * // white spotlight shining from the side, casting shadow  
+     * // white spotlight shining from the side, casting shadow
      * var spotLight = new THREE.SpotLight( 0xffffff );
      * spotLight.position.set( 100, 1000, 100 );
-     * spotLight.castShadow = true; 
+     * spotLight.castShadow = true;
      * spotLight.shadowMapWidth = 1024;
-     * spotLight.shadowMapHeight = 1024; 
+     * spotLight.shadowMapHeight = 1024;
      * spotLight.shadowCameraNear = 500;
-     * spotLight.shadowCameraFar = 4000; 
-     * spotLight.shadowCameraFov = 30; 
+     * spotLight.shadowCameraFar = 4000;
+     * spotLight.shadowCameraFov = 30;
      * scene.add( spotLight );
      */
     export class SpotLight extends Light {
@@ -1601,7 +1560,7 @@ declare module THREE {
      *     load
      *         Dispatched when the image has completed loading
      *         content — loaded image
-     * 
+     *
      *     error
      *
      *          Dispatched when the image can't be loaded
@@ -1658,17 +1617,19 @@ declare module THREE {
         load(url: string, onLoad: (bufferGeometry: BufferGeometry) => void): void;
         setCrossOrigin(crossOrigin: string): void;
         parse(json: any): BufferGeometry;
-        
+
     }
 
-    export class Geometry2Loader {
-        constructor(manager?: LoadingManager);
+    export class Cache{
+        constructor();
 
-        load(url: string, onLoad: (geometry2: Geometry2) => void): void;
-        setCrossOrigin(crossOrigin: string): void;
-        parse(json: any): Geometry2;
+        files: any[];
+
+        add(key: string, file: any): void;
+        get(key: string): any;
+        remove(key: string): void;
+        clear(): void;
     }
-
     /**
      * A loader for loading an image.
      * Unlike other loaders, this one emits events instead of using predefined callbacks. So if you're interested in getting notified when things happen, you need to add listeners to the object.
@@ -1740,7 +1701,7 @@ declare module THREE {
         setCrossOrigin(crossOrigin: string): void;
         parse(json: any): Material;
     }
-    
+
     export class ObjectLoader extends EventDispatcher {
         constructor(manager?: LoadingManager);
 
@@ -1840,14 +1801,11 @@ declare module THREE {
 
     export class XHRLoader extends EventDispatcher {
         constructor(manager?: LoadingManager);
+
+        cache: Cache;
         crossOrigin: string;
-        /**
-         * Begin loading from url
-         *
-         * @param url
-         */
-        constructor(onLoad?: (responseText: string) => void, onProgress?: (event: any) => void, onError?: (event: any) => void);
-        load(onLoad?: (responseText: string) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
+
+        load(url: string, onLoad?: (responseText: string) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
         setCrossOrigin(crossOrigin: string): void;
     }
 
@@ -1921,12 +1879,12 @@ declare module THREE {
          */
         polygonOffsetFactor: number;
 
-        /** 
+        /**
          * Sets the polygon offset units. Default is 0.
          */
         polygonOffsetUnits: number;
 
-        /** 
+        /**
          * Sets the alpha value to be used when running an alpha test. Default is 0.
          */
         alphaTest: number;
@@ -2207,7 +2165,7 @@ declare module THREE {
         normalMap: Texture;
         bumpMap: Texture;
         wrapRGB: Vector3;
-        
+
         clone(): MeshPhongMaterial;
     }
 
@@ -2232,14 +2190,13 @@ declare module THREE {
         clone(): ParticleSystemMaterial;
     }
 
-    export interface Uniforms {
-        [name: string]: { type: string; value: any; };
+    export class RawShaderMaterial extends ShaderMaterial {
+        constructor(parameters?: ShaderMaterialParameters);
 
-        color?: { type: string; value: THREE.Color; };
     }
 
     export interface ShaderMaterialParameters {
-        uniforms?: Uniforms;
+        uniforms?: any;
         fragmentShader?: string;
         vertexShader?: string;
         morphTargets?: boolean;
@@ -2259,7 +2216,7 @@ declare module THREE {
     export class ShaderMaterial extends Material {
         constructor(parameters?: ShaderMaterialParameters);
 
-        uniforms: Uniforms;
+        uniforms: any;
         fragmentShader: string;
         vertexShader: string;
         morphTargets: boolean;
@@ -2274,7 +2231,7 @@ declare module THREE {
         linewidth: number;
         wireframeLinewidth: number;
         defines: any;
-        
+
         clone(): ShaderMaterial;
     }
 
@@ -2355,7 +2312,7 @@ declare module THREE {
         constructor(min?: Vector3, max?: Vector3);
         max: Vector3;
         min: Vector3;
-        
+
         set(min: Vector3, max: Vector3): Box3;
         applyMatrix4(matrix: Matrix4): Box3;
         expandByPoint(point: Vector3): Box3;
@@ -2391,7 +2348,7 @@ declare module THREE {
     /**
      * Represents a color. See also {@link ColorUtils}.
      *
-     * @example 
+     * @example
      * var color = new THREE.Color( 0xff0000 );
      *
      * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Color.js">src/math/Color.js</a>
@@ -2475,7 +2432,7 @@ declare module THREE {
          */
         setStyle(style: string): Color;
 
-        /** 
+        /**
          * Returns the value of this color in CSS context style.
          * Example: rgb(r, g, b)
          */
@@ -2579,7 +2536,7 @@ declare module THREE {
 
         /**
          * Clamps the x to be larger than a.
-         * 
+         *
          * @param x — Value to be clamped.
          * @param a — Minimum value
          */
@@ -2587,7 +2544,7 @@ declare module THREE {
 
         /**
          * Linear mapping of x from range [a1, a2] to range [b1, b2].
-         * 
+         *
          * @param x Value to be mapped.
          * @param a1 Minimum value for range A.
          * @param a2 Maximum value for range A.
@@ -2713,7 +2670,10 @@ declare module THREE {
         determinant(): number;
         set(n11: number, n12: number, n13: number, n21: number, n22: number, n23: number, n31: number, n32: number, n33: number): Matrix3;
         multiplyScalar(s: number): Matrix3;
+        // DEPRECATED
         multiplyVector3Array(a: number[]): number[];
+        applyToVector3Array(array: number[], offset?: number, length?: number): number[];
+        flattenToArrayOffset(array: number[], offset: number): number[];
         getNormalMatrix(m: Matrix4): Matrix3;
         getInverse(matrix: Matrix3, throwOnInvertible?: boolean): Matrix3;
         getInverse(matrix: Matrix4, throwOnInvertible?: boolean): Matrix3;
@@ -2726,19 +2686,19 @@ declare module THREE {
      * A 4x4 Matrix.
      *
      * @example
-     * // Simple rig for rotating around 3 axes  
-     * var m = new THREE.Matrix4();  
-     * var m1 = new THREE.Matrix4(); 
-     * var m2 = new THREE.Matrix4(); 
-     * var m3 = new THREE.Matrix4();  
-     * var alpha = 0; 
-     * var beta = Math.PI; 
-     * var gamma = Math.PI/2;  
-     * m1.makeRotationX( alpha ); 
-     * m2.makeRotationY( beta ); 
-     * m3.makeRotationZ( gamma );  
-     * m.multiplyMatrices( m1, m2 ); 
-     * m.multiply( m3 ); 
+     * // Simple rig for rotating around 3 axes
+     * var m = new THREE.Matrix4();
+     * var m1 = new THREE.Matrix4();
+     * var m2 = new THREE.Matrix4();
+     * var m3 = new THREE.Matrix4();
+     * var alpha = 0;
+     * var beta = Math.PI;
+     * var gamma = Math.PI/2;
+     * m1.makeRotationX( alpha );
+     * m2.makeRotationY( beta );
+     * m3.makeRotationZ( gamma );
+     * m.multiplyMatrices( m1, m2 );
+     * m.multiply( m3 );
      */
     export class Matrix4 implements Matrix {
 
@@ -2758,7 +2718,7 @@ declare module THREE {
          */
         elements: Float32Array;
 
-        /** 
+        /**
          * Sets all fields of this matrix.
          */
         set(n11: number, n12: number, n13: number, n14: number, n21: number, n22: number, n23: number, n24: number, n31: number, n32: number, n33: number, n34: number, n41: number, n42: number, n43: number, n44: number): Matrix4;
@@ -2816,15 +2776,10 @@ declare module THREE {
          */
         transpose(): Matrix4;
 
-        /** 
-         * Flattens this matrix into supplied flat array.
-         */
-        flattenToArray(flat: number[]): number[];
-
         /**
          * Flattens this matrix into supplied flat array starting from offset position in the array.
          */
-        flattenToArrayOffset(flat: number[], offset: number): number[];
+        flattenToArrayOffset(array: number[], offset: number): number[];
 
         /**
          * Sets the position component for this matrix from vector v.
@@ -2870,7 +2825,7 @@ declare module THREE {
 
         /**
          * Sets this matrix as rotation transform around y axis by theta radians.
-         * 
+         *
          * @param theta Rotation angle in radians.
          */
         makeRotationY(theta: number): Matrix4;
@@ -2886,7 +2841,7 @@ declare module THREE {
          * Sets this matrix as rotation transform around axis by angle radians.
          * Based on http://www.gamedev.net/reference/articles/article1199.asp.
          *
-         * @param axis Rotation axis. 
+         * @param axis Rotation axis.
          * @param theta Rotation angle in radians.
          */
         makeRotationAxis(axis: Vector3, angle: number): Matrix4;
@@ -2896,7 +2851,7 @@ declare module THREE {
          */
         makeScale(x: number, y: number, z: number): Matrix4;
 
-        /** 
+        /**
          * Creates a frustum matrix.
          */
         makeFrustum(left: number, right: number, bottom: number, top: number, near: number, far: number): Matrix4;
@@ -2916,7 +2871,10 @@ declare module THREE {
          */
         clone(): Matrix4;
 
+        // DEPRECATED
         multiplyVector3Array(a: number[]): number[];
+        applyToVector3Array(array: number[], offset?: number, length?: number): number[];
+
         getMaxScaleOnAxis(): number;
     }
 
@@ -2950,9 +2908,9 @@ declare module THREE {
      * Implementation of a quaternion. This is used for rotating things without incurring in the dreaded gimbal lock issue, amongst other advantages.
      *
      * @example
-     * var quaternion = new THREE.Quaternion(); 
-     * quaternion.setFromAxisAngle( new THREE.Vector3( 0, 1, 0 ), Math.PI / 2 );  
-     * var vector = new THREE.Vector3( 1, 0, 0 ); 
+     * var quaternion = new THREE.Quaternion();
+     * quaternion.setFromAxisAngle( new THREE.Vector3( 0, 1, 0 ), Math.PI / 2 );
+     * var vector = new THREE.Vector3( 1, 0, 0 );
      * vector.applyQuaternion( quaternion );
      */
     export class Quaternion {
@@ -3100,7 +3058,7 @@ declare module THREE {
 
     /**
      * Represents a spline.
-     * 
+     *
      * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Spline.js">src/math/Spline.js</a>
      */
     export class Spline {
@@ -3163,7 +3121,7 @@ declare module THREE {
         plane(optionalTarget?: Vector3): Plane;
         containsPoint(point: Vector3): boolean;
         copy(triangle: Triangle): Triangle;
-        
+
         static normal(a: Vector3, b: Vector3, c: Vector3, optionalTarget?: Vector3): Vector3;
         static barycoordFromPoint(point: Vector3, a: Vector3, b: Vector3, c: Vector3, optionalTarget: Vector3): Vector3;
         static containsPoint(point: Vector3, a: Vector3, b: Vector3, c: Vector3): boolean;
@@ -3248,7 +3206,7 @@ declare module THREE {
 
         /**
          * NOTE: Vector4 doesn't have the property.
-         * 
+         *
          * distanceTo(v:T):number;
          */
         distanceTo(v: Vector): number;
@@ -3283,7 +3241,7 @@ declare module THREE {
 
     /**
      * 2D vector.
-     * 
+     *
      * ( class Vector2 implements Vector<Vector2> )
      */
     export class Vector2 implements Vector {
@@ -3333,7 +3291,7 @@ declare module THREE {
          */
         divideScalar(s: number): Vector2;
 
-        /** 
+        /**
          * Inverts this vector.
          */
         negate(): Vector2;
@@ -3400,7 +3358,7 @@ declare module THREE {
 
         /**
          * Gets a component of this vector.
-        */
+         */
         getComponent(index: number): number;
 
         fromArray(xy: number[]): Vector2;
@@ -3426,9 +3384,9 @@ declare module THREE {
      * 3D vector.
      *
      * @example
-     * var a = new THREE.Vector3( 1, 0, 0 ); 
-     * var b = new THREE.Vector3( 0, 1, 0 );  
-     * var c = new THREE.Vector3(); 
+     * var a = new THREE.Vector3( 1, 0, 0 );
+     * var b = new THREE.Vector3( 0, 1, 0 );
+     * var c = new THREE.Vector3();
      * c.crossVectors( a, b );
      *
      * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js">src/math/Vector3.js</a>
@@ -3478,7 +3436,7 @@ declare module THREE {
          */
         addVectors(a: Vector3, b: Vector3): Vector3;
 
-        /** 
+        /**
          * Subtracts v from this vector.
          */
         sub(a: Vector3): Vector3;
@@ -3488,7 +3446,7 @@ declare module THREE {
          */
         subVectors(a: Vector3, b: Vector3): Vector3;
 
-        /** 
+        /**
          * Multiplies this vector by scalar s.
          */
         multiplyScalar(s: number): Vector3;
@@ -3657,7 +3615,7 @@ declare module THREE {
          */
         dot(v: Vector4): number;
 
-        /** 
+        /**
          * Computes squared length of this vector.
          */
         lengthSq(): number;
@@ -3737,7 +3695,7 @@ declare module THREE {
          */
         setW(w: number): Vector2;
 
-       /**
+        /**
          * NOTE: Vector4 doesn't have the property.
          *
          * distanceToSquared(v:T):number;
@@ -3759,6 +3717,11 @@ declare module THREE {
 
         skinMatrix: Matrix4;
         skin: SkinnedMesh;
+
+        accumulatedRotWeight: number;
+        accumulatedPosWeight: number;
+        accumulatedSclWeight: number;
+
         update(parentSkinMatrix?: Matrix4, forceUpdate?: boolean): void;
     }
 
@@ -3795,7 +3758,7 @@ declare module THREE {
 
         geometry: Geometry;
         material: Material;
-        
+
         getMorphTargetIndexByName(name: string): number;
         updateMorphTargets(): void;
         clone(object?: Mesh): Mesh;
@@ -3828,13 +3791,13 @@ declare module THREE {
         parseAnimations(): void;
         updateAnimation(delta: number): void;
         setAnimationLabel(label: string, start: number, end: number): void;
-        
+
         clone(object?: MorphAnimMesh): MorphAnimMesh;
     }
 
     /**
      * A class for displaying particles in the form of variable size points. For example, if using the WebGLRenderer, the particles are displayed using GL_POINTS.
-     * 
+     *
      * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/objects/ParticleSystem.js">src/objects/ParticleSystem.js</a>
      */
     export class ParticleSystem extends Object3D {
@@ -3846,7 +3809,7 @@ declare module THREE {
         constructor(geometry: Geometry, material?: ParticleSystemMaterial);
         constructor(geometry: Geometry, material?: ShaderMaterial);
         constructor(geometry: BufferGeometry, material?: ParticleSystemMaterial);
-        constructor(geometry: BufferGeometry, material?: ShaderMaterial);        
+        constructor(geometry: BufferGeometry, material?: ShaderMaterial);
 
         /**
          * An instance of Geometry, where each vertex designates the position of a particle in the system.
@@ -3868,6 +3831,16 @@ declare module THREE {
         clone(object?: ParticleSystem): ParticleSystem;
     }
 
+    export class Skeleton extends Mesh {
+        constructor(boneList: Bone[], useVertexTexture: boolean);
+        bones: Bone[];
+        useVertexTexture: boolean;
+        boneMatrices: Float32Array;
+
+        addBone(bone: Bone): Bone;
+        calculateInverses(bone: Bone): void;
+    }
+
     export class SkinnedMesh extends Mesh {
         constructor(geometry?: Geometry, material?: MeshBasicMaterial, useVertexTexture?: boolean);
         constructor(geometry?: Geometry, material?: MeshDepthMaterial, useVertexTexture?: boolean);
@@ -3877,20 +3850,18 @@ declare module THREE {
         constructor(geometry?: Geometry, material?: MeshPhongMaterial, useVertexTexture?: boolean);
         constructor(geometry?: Geometry, material?: ShaderMaterial, useVertexTexture?: boolean);
 
-        bones: Bone[];
         identityMatrix: Matrix4;
-        useVertexTexture: boolean;
-        boneMatrices: Float32Array;
-        
+
         pose(): void;
-        addBone(bone?: Bone): Bone;
+        normalizeSkinWeights(): void;
         clone(object?: SkinnedMesh): SkinnedMesh;
     }
 
     export class Sprite extends Object3D {
         constructor(material?: Material);
 
-        material: Material;
+        geometry: BufferGeometry;
+        material: SpriteMaterial;
 
         updateMatrix(): void;
         clone(object?: Sprite): Sprite;
@@ -3917,7 +3888,7 @@ declare module THREE {
         autoClear: boolean;
         sortObjects: boolean;
         sortElements: boolean;
-        
+
         getMaxAnisotropy(): number;
         render(scene: Scene, camera: Camera): void;
         clear(): void;
@@ -3928,6 +3899,7 @@ declare module THREE {
         supportsVertexTextures(): void;
         setSize(width: number, height: number, updateStyle?: boolean): void;
         setClearColorHex(hex: number, alpha?: number): void;
+        setViewport(x: number, y: number, width: number, height: number): void;
     }
 
     export interface RendererPlugin {
@@ -3936,7 +3908,7 @@ declare module THREE {
     }
 
     export interface WebGLRendererParameters {
-        /** 
+        /**
          * A Canvas where the renderer draws its output.
          */
         canvas?: HTMLCanvasElement;
@@ -4045,7 +4017,7 @@ declare module THREE {
          */
         gammaInput: boolean;
 
-        /** 
+        /**
          * Default is false.
          */
         gammaOutput: boolean;
@@ -4077,7 +4049,7 @@ declare module THREE {
         shadowMapDebug: boolean;
 
         /**
-         * Default is false. 
+         * Default is false.
          */
         shadowMapCascade: boolean;
 
@@ -4137,6 +4109,9 @@ declare module THREE {
          * Return a Boolean true if the context supports vertex textures.
          */
         supportsVertexTextures(): boolean;
+        supportsFloatTextures(): boolean;
+        supportsStandardDerivatives(): boolean;
+        supportsCompressedTextureS3TC(): boolean;
 
         /**
          * Resizes the output canvas to (width, height), and also sets the viewport to fit that size, starting in (0, 0).
@@ -4153,7 +4128,7 @@ declare module THREE {
          */
         setScissor(x: number, y: number, width: number, height: number): void;
 
-        /** 
+        /**
          * Enable the scissor test. When this is enabled, only the pixels within the defined scissor area will be affected by further renderer actions.
          */
         enableScissorTest(enable: boolean): void;
@@ -4181,6 +4156,10 @@ declare module THREE {
          */
         clear(color?: boolean, depth?: boolean, stencil?: boolean): void;
 
+        clearColor(): void;
+        clearDepth(): void;
+        clearStencil(): void;
+
         /**
          * Initialises the postprocessing plugin, and adds it to the renderPluginsPost array.
          */
@@ -4193,7 +4172,7 @@ declare module THREE {
 
         /**
          * Tells the shadow map plugin to update using the passed scene and camera parameters.
-         * 
+         *
          * @param scene an instance of Scene
          * @param camera — an instance of Camera
          */
@@ -4218,30 +4197,27 @@ declare module THREE {
         /**
          * Used for setting the gl frontFace, cullFace states in the GPU, thus enabling/disabling face culling when rendering.
          * If cullFace is false, culling will be disabled.
-         * @param cullFace "back", "front", "front_and_back", or false. 
+         * @param cullFace "back", "front", "front_and_back", or false.
          * @param frontFace "ccw" or "cw
          */
-        setFaceCulling(cullFace?: string, frontFace?: FrontFaceDirection): void;
+        setFaceCulling(cullFace?: CullFace, frontFace?: FrontFaceDirection): void;
         setDepthTest(depthTest: boolean): void;
         setDepthWrite(depthWrite: boolean): void;
         setBlending(blending: Blending, blendEquation: BlendingEquation, blendSrc: BlendingSrcFactor, blendDst: BlendingDstFactor): void;
         setTexture(texture: Texture, slot: number): void;
         setRenderTarget(renderTarget: RenderTarget): void;
-        supportsCompressedTextureS3TC(): any;
         getMaxAnisotropy(): number;
         getPrecision(): string;
         setMaterialFaces(material: Material): void;
-        supportsStandardDerivatives(): any;
-        supportsFloatTextures(): any;
         clearTarget(renderTarget:WebGLRenderTarget, color: boolean, depth: boolean, stencil: boolean): void;
 
         /**
          * Sets the clear color, using hex for the color and alpha for the opacity.
-         * 
+         *
          * @example
-         * // Creates a renderer with black background 
-         * var renderer = new THREE.WebGLRenderer(); 
-         * renderer.setSize(200, 100); 
+         * // Creates a renderer with black background
+         * var renderer = new THREE.WebGLRenderer();
+         * renderer.setSize(200, 100);
          * renderer.setClearColorHex(0x000000, 1);
          */
         setClearColorHex(hex: number, alpha: number): void;
@@ -4292,16 +4268,13 @@ declare module THREE {
     export class RenderableFace {
         constructor();
 
-        vertexNormalsModelView: Vector3[];
-        normalWorld: Vector3;
         color: number;
         material: Material;
         uvs: Vector2[][];
         v1: RenderableVertex;
         v2: RenderableVertex;
         v3: RenderableVertex;
-        normalModelView: Vector3;
-        centroidModel: Vector3;
+        normalModel: Vector3;
         vertexNormalsLength: number;
         z: number;
         vertexNormalsModel: Vector3[];
@@ -4342,11 +4315,11 @@ declare module THREE {
         visible: boolean;
         positionScreen: Vector4;
         positionWorld: Vector3;
-        
+
         copy(vertex: RenderableVertex): void;
     }
 
-    // Shaders /////////////////////////////////////////////////////////////////////
+    // Renderers / Shaders /////////////////////////////////////////////////////////////////////
     export interface ShaderChunk {
         [name: string]: string;
         fog_pars_fragment: string;
@@ -4400,24 +4373,22 @@ declare module THREE {
     export var ShaderChunk: ShaderChunk;
 
     export var UniformsUtils: {
-        merge(uniforms: Object[]): Uniforms;
-        merge(uniforms: Uniforms[]): Uniforms;
-        clone(uniforms_src: Uniforms): Uniforms;
+        merge(uniforms: any[]): any;
+        clone(uniforms_src: any): any;
     };
 
     export var UniformsLib: {
-        common: Uniforms;
-        bump: Uniforms;
-        normalmap: Uniforms;
-        fog: Uniforms;
-        lights: Uniforms;
-        particle: Uniforms;
-        shadowmap: Uniforms;
+        common: any;
+        bump: any;
+        normalmap: any;
+        fog: any;
+        lights: any;
+        particle: any;
+        shadowmap: any;
     };
 
-
     export interface Shader {
-        uniforms: Uniforms;
+        uniforms: any;
         vertexShader: string;
         fragmentShader: string;
     }
@@ -4436,11 +4407,22 @@ declare module THREE {
         depthRGBA: Shader;
     };
 
+
+
+    // Renderers / WebGL /////////////////////////////////////////////////////////////////////
+    export class WebGLProgram{
+        constructor(renderer: WebGLRenderer, code: string, material: ShaderMaterial, parameters: WebGLRendererParameters);
+    }
+
+    export class WebGLShader{
+        constructor(gl: any, type: string, string: string);
+    }
+
     // Scenes /////////////////////////////////////////////////////////////////////
 
     export interface IFog {
         name:string;
-        color: Color;        
+        color: Color;
         clone():IFog;
     }
 
@@ -4450,7 +4432,7 @@ declare module THREE {
      */
     export class Fog implements IFog {
         constructor(hex: number, near?: number, far?: number);
-        
+
         name:string;
 
         /**
@@ -4527,8 +4509,8 @@ declare module THREE {
             magFilter?: TextureFilter,
             minFilter?: TextureFilter,
             anisotropy?: number
-        );
-        
+            );
+
         clone(): CompressedTexture;
     }
 
@@ -4545,14 +4527,14 @@ declare module THREE {
             magFilter: TextureFilter,
             minFilter: TextureFilter,
             anisotropy?: number
-        );
+            );
 
         clone(): DataTexture;
     }
 
     export class Texture {
         constructor(
-            image: HTMLImageElement,
+            image: any, // HTMLImageElement or HTMLCanvasElement
             mapping?: Mapping,
             wrapS?: Wrapping,
             wrapT?: Wrapping,
@@ -4561,7 +4543,7 @@ declare module THREE {
             format?: PixelFormat,
             type?: TextureDataType,
             anisotropy?: number
-        );
+            );
         constructor(
             image: HTMLCanvasElement,
             mapping?: Mapping,
@@ -4572,7 +4554,7 @@ declare module THREE {
             format?: PixelFormat,
             type?: TextureDataType,
             anisotropy?: number
-        );
+            );
         constructor(
             image: HTMLImageElement,
             mapping?: MappingConstructor,
@@ -4594,9 +4576,9 @@ declare module THREE {
             format?: PixelFormat,
             type?: TextureDataType,
             anisotropy?: number
-        );
+            );
 
-        image: Object; // HTMLImageElement or ImageData ;
+        image: any; // HTMLImageElement or ImageData ;
         mapping: Mapping;
         wrapS: Wrapping;
         wrapT: Wrapping;
@@ -4635,29 +4617,30 @@ declare module THREE {
         style: string;
         weight: string;
         face: string;
-        faces: { [weight: string]: { [style: string]: Face; }; };
+        faces: { [weight: string]: { [style: string]: Face3; }; };
         size: number;
-        
+
         drawText(text: string): { paths: Path[]; offset: number; };
         Triangulate: {
             (contour: Vector2[], indices: boolean): Vector2[];
             area(contour: Vector2[]): number;
         };
-        extractGlyphPoints(c: string, face: Face, scale: number, offset: number, path: Path): { offset: number; path: Path; };
+        extractGlyphPoints(c: string, face: Face3, scale: number, offset: number, path: Path): { offset: number; path: Path; };
         generateShapes(text: string, parameters?: { size?: number; curveSegments?: number; font?: string; weight?: string; style?: string; }): Shape[];
         loadFace(data: TypefaceData): TypefaceData;
-        getFace(): Face;
+        getFace(): Face3;
     };
 
     export var GeometryUtils: {
+        // DEPRECATED
         merge(geometry1: Geometry, object2: Mesh, materialIndexOffset?: number): void;
+        // DEPRECATED
         merge(geometry1: Geometry, object2: Geometry, materialIndexOffset?: number): void;
         randomPointInTriangle(vectorA: Vector3, vectorB: Vector3, vectorC: Vector3): Vector3;
-        randomPointInFace(face: Face, geometry: Geometry, useCachedAreas: boolean): Vector3;
+        randomPointInFace(face: Face3, geometry: Geometry, useCachedAreas: boolean): Vector3;
         randomPointsInGeometry(geometry: Geometry, points: number): Vector3;
         triangleArea(vectorA: Vector3, vectorB: Vector3, vectorC: Vector3): number;
         center(geometry: Geometry): Vector3;
-        triangulateQuads(geometry: Geometry): void;
     };
 
     export var ImageUtils: {
@@ -4702,7 +4685,7 @@ declare module THREE {
 
     export class Animation {
         constructor(root: Mesh, name: string);
-        
+
         root: Mesh;
         data: AnimationData;
         hierarchy: Bone[];
@@ -4711,9 +4694,11 @@ declare module THREE {
         isPlaying: boolean;
         isPaused: boolean;
         loop: boolean;
+        weight: number;
         interpolationType: AnimationInterpolation;
+        keyTypes: string[];
 
-        play(loop?: boolean, startTimeMS?: number): void;
+        play(startTime?: number, weight?: number): void;
         pause(): void;
         stop(): void;
         reset(): void;
@@ -4730,10 +4715,12 @@ declare module THREE {
         CATMULLROM: AnimationInterpolation;
         CATMULLROM_FORWARD: AnimationInterpolation;
         LINEAR: AnimationInterpolation;
+
+        remove(name: string): void;
         removeFromUpdate(animation: Animation): void;
         get(name: string): AnimationData;
         update(deltaTimeMS: number): void;
-        parse(root: SkinnedMesh): Object3D[];
+        parse(root: Mesh): Object3D[];
         add(data: AnimationData): void;
         addToUpdate(animation: Animation): void;
     };
@@ -4779,7 +4766,7 @@ declare module THREE {
 
     export class CombinedCamera extends Camera {
         constructor(width: number, height: number, fov: number, near: number, far: number, orthoNear: number, orthoFar: number);
-        
+
         fov: number;
         right: number;
         bottom: number;
@@ -4814,6 +4801,103 @@ declare module THREE {
         renderTarget: WebGLRenderTargetCube;
         updateCubeMap(renderer: Renderer, scene: Scene): void;
     }
+
+    // Extras / Curves /////////////////////////////////////////////////////////////////////
+    export class ArcCurve extends EllipseCurve {
+        constructor(aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean );
+    }
+    export class ClosedSplineCurve3 extends Curve {
+        constructor( points:Vector3[] );
+
+        points:Vector3[];
+
+        getPoint(t: number): Vector3;
+    }
+    export class CubicBezierCurve extends Curve {
+        constructor( v0: Vector2, v1: Vector2, v2: Vector2, v3: Vector2 );
+
+        v0: Vector2;
+        v1: Vector2;
+        v2: Vector2;
+        v3: Vector2;
+
+        getPoint(t: number): Vector2;
+    }
+    export class CubicBezierCurve3 extends Curve {
+        constructor( v0: Vector3, v1: Vector3, v2: Vector3, v3: Vector3 );
+
+        v0: Vector2;
+        v1: Vector2;
+        v2: Vector2;
+        v3: Vector2;
+
+        getPoint(t: number): Vector3;
+    }
+    export class EllipseCurve extends Curve {
+        constructor( aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean );
+
+        ax: number;
+        ay: number;
+        xRadius: number;
+        yRadius: number;
+        aStartAngle: number;
+        aEndAngle: number;
+        aClockwise: boolean;
+
+        getPoint(t: number): Vector2;
+    }
+    export class LineCurve extends Curve {
+        constructor( v1: Vector2, v2: Vector2 );
+
+        v1: Vector2;
+        v2: Vector2;
+
+        getPoint(t: number): Vector2;
+        getPointAt(u: number): Vector2;
+        getTangent(t: number): Vector2;
+    }
+    export class LineCurve3 extends Curve {
+        constructor( v1: Vector3, v2: Vector3 );
+
+        v1: Vector2;
+        v2: Vector2;
+
+        getPoint(t: number): Vector3;
+    }
+    export class QuadraticBezierCurve extends Curve {
+        constructor( v0: Vector2, v1: Vector2, v2: Vector2 );
+
+        v0: Vector2;
+        v1: Vector2;
+        v2: Vector2;
+
+        getPoint(t: number): Vector2;
+        getTangent(t: number): Vector2;
+    }
+    export class QuadraticBezierCurve3 extends Curve {
+        constructor( v0: Vector3, v1: Vector3, v2: Vector3 );
+
+        v0: Vector2;
+        v1: Vector2;
+        v2: Vector2;
+
+        getPoint(t: number): Vector3;
+    }
+    export class SplineCurve extends Curve {
+        constructor( points: Vector2[] );
+
+        points:Vector2[];
+
+        getPoint(t: number): Vector2;
+    }
+    export class SplineCurve3 extends Curve {
+        constructor( points: Vector3[] );
+
+        points:Vector3[];
+
+        getPoint(t: number): Vector3;
+    }
+
 
     // Extras / Core /////////////////////////////////////////////////////////////////////
 
@@ -5006,18 +5090,6 @@ declare module THREE {
         constructor(width: number, height: number, depth: number, widthSegments?: number, heightSegments?: number, depthSegments?: number);
     }
 
-    export class BoxGeometry2 extends Geometry2 {
-        /**
-         * @param width — Width of the sides on the X axis.
-         * @param height — Height of the sides on the Y axis.
-         * @param depth — Depth of the sides on the Z axis.
-         * @param widthSegments — Number of segmented faces along the width of the sides.
-         * @param heightSegments — Number of segmented faces along the height of the sides.
-         * @param depthSegments — Number of segmented faces along the depth of the sides.
-         */
-        constructor(width: number, height: number, depth: number, widthSegments?: number, heightSegments?: number, depthSegments?: number);
-    }
-
     export class CircleGeometry extends Geometry {
         constructor(radius?: number, segments?: number, thetaStart?: number, thetaLength?: number);
     }
@@ -5033,7 +5105,7 @@ declare module THREE {
          * @param radiusSegments — Number of segmented faces around the circumference of the cylinder.
          * @param heightSegments — Number of rows of faces along the height of the cylinder.
          * @param openEnded - A Boolean indicating whether or not to cap the ends of the cylinder.
-          */
+         */
         constructor(radiusTop?: number, radiusBottom?: number, height?: number, radiusSegments?: number, heightSegments?: number, openEnded?: boolean);
     }
 
@@ -5065,12 +5137,8 @@ declare module THREE {
         constructor(width: number, height: number, widthSegments?: number, heightSegments?: number);
     }
 
-    export class PlaneGeometry2 extends Geometry2 {
-        constructor(width: number, height: number, widthSegments?: number, heightSegments?: number);
-    }
-
     export class PolyhedronGeometry extends Geometry {
-        constructor(vertices: Vector3[], faces: Face[], radius?: number, detail?: number);
+        constructor(vertices: Vector3[], faces: Face3[], radius?: number, detail?: number);
     }
 
     export class RingGeometry extends Geometry {
@@ -5191,13 +5259,14 @@ declare module THREE {
     }
 
     export class DirectionalLightHelper extends Object3D {
-        constructor(light: Light, sphereSize: number, arrowLength: number);
+        constructor(light: Light, size: number);
 
-        lightSphere: Mesh;
+        lightPlane: Line;
         light: Light;
         targetLine: Line;
 
         update(): void;
+        dispose(): void;
     }
 
     export class EdgesHelper extends Line {
@@ -5236,7 +5305,16 @@ declare module THREE {
 
         lightSphere: Mesh;
         light: Light;
-        
+
+        update(): void;
+    }
+
+    export class SkeletonHelper extends Line {
+        constructor(bone: Bone);
+
+        skeleton: Skeleton;
+        matrixAutoUpdate: boolean;
+
         update(): void;
     }
 
@@ -5305,8 +5383,9 @@ declare module THREE {
         positionScreen: Vector3;
         customUpdateCallback: (object: LensFlare) => void;
 
-        add(obj: Object3D): void;
         add(texture: Texture, size?: number, distance?: number, blending?: Blending, color?: Color): void;
+        add(obj: Object3D): void;
+
 
         updateLensFlares(): void;
     }

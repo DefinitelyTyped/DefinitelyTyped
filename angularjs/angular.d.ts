@@ -18,6 +18,15 @@ interface Function {
 ///////////////////////////////////////////////////////////////////////////////
 declare module ng {
 
+    // not directly implemented, but ensures that constructed class implements $get
+    interface IServiceProviderClass {
+        new(...args: any[]): IServiceProvider;
+    }
+
+    interface IServiceProviderFactory {
+        (...args: any[]): IServiceProvider;
+    }
+
     // All service providers extend this interface
     interface IServiceProvider {
         $get: any;
@@ -37,7 +46,38 @@ declare module ng {
         element: IAugmentedJQueryStatic;
         equals(value1: any, value2: any): boolean;
         extend(destination: any, ...sources: any[]): any;
+
+        /**
+         * Invokes the iterator function once for each item in obj collection, which can be either an object or an array. The iterator function is invoked with iterator(value, key), where value is the value of an object property or an array element and key is the object property key or array element index. Specifying a context for the function is optional.
+         *
+         * It is worth noting that .forEach does not iterate over inherited properties because it filters using the hasOwnProperty method.
+         *
+         * @param obj Object to iterate over.
+         * @param iterator Iterator function.
+         * @param context Object to become context (this) for the iterator function.
+         */
+        forEach<T>(obj: T[], iterator: (value: T, key: number) => any, context?: any): any;
+        /**
+         * Invokes the iterator function once for each item in obj collection, which can be either an object or an array. The iterator function is invoked with iterator(value, key), where value is the value of an object property or an array element and key is the object property key or array element index. Specifying a context for the function is optional.
+         *
+         * It is worth noting that .forEach does not iterate over inherited properties because it filters using the hasOwnProperty method.
+         *
+         * @param obj Object to iterate over.
+         * @param iterator Iterator function.
+         * @param context Object to become context (this) for the iterator function.
+         */
+        forEach<T>(obj: { [index: string]: T; }, iterator: (value: T, key: string) => any, context?: any): any;
+        /**
+         * Invokes the iterator function once for each item in obj collection, which can be either an object or an array. The iterator function is invoked with iterator(value, key), where value is the value of an object property or an array element and key is the object property key or array element index. Specifying a context for the function is optional.
+         *
+         * It is worth noting that .forEach does not iterate over inherited properties because it filters using the hasOwnProperty method.
+         *
+         * @param obj Object to iterate over.
+         * @param iterator Iterator function.
+         * @param context Object to become context (this) for the iterator function.
+         */
         forEach(obj: any, iterator: (value: any, key: any) => any, context?: any): any;
+
         fromJson(json: string): any;
         identity(arg?: any): any;
         injector(modules?: any[]): auto.IInjectorService;
@@ -51,16 +91,21 @@ declare module ng {
         isString(value: any): boolean;
         isUndefined(value: any): boolean;
         lowercase(str: string): string;
-        /** construct your angular application
-		official docs: Interface for configuring angular modules.
-		see: http://docs.angularjs.org/api/angular.Module
-		*/
+
+        /**
+         * The angular.module is a global place for creating, registering and retrieving Angular modules. All modules (angular core or 3rd party) that should be available to an application must be registered using this mechanism.
+         *
+         * When passed two or more arguments, a new module is created. If passed only one argument, an existing module (the name passed as the first argument to module) is retrieved.
+         *
+         * @param name The name of the module to create or retrieve.
+         * @param requires The names of modules this module depends on. If specified then new module is being created. If unspecified then the module is being retrieved for further configuration.
+         * @param configFn Optional configuration function for the module.
+         */
         module(
-            /** name of your module you want to create */
             name: string,
-            /** name of modules yours depends on */
             requires?: string[],
-            configFunction?: any): IModule;
+            configFn?: Function): IModule;
+
         noop(...args: any[]): void;
         toJson(obj: any, pretty?: boolean): string;
         uppercase(str: string): string;
@@ -81,37 +126,90 @@ declare module ng {
         animation(name: string, animationFactory: Function): IModule;
         animation(name: string, inlineAnnotatedFunction: any[]): IModule;
         animation(object: Object): IModule;
-        /** configure existing services.
-		Use this method to register work which needs to be performed on module loading
-		 */
+        /**
+         * Use this method to register work which needs to be performed on module loading.
+         *
+         * @param configFn Execute this function on module load. Useful for service configuration.
+         */
         config(configFn: Function): IModule;
-        /** configure existing services.
-		Use this method to register work which needs to be performed on module loading
-		 */
+        /**
+         * Use this method to register work which needs to be performed on module loading.
+         *
+         * @param inlineAnnotatedFunction Execute this function on module load. Useful for service configuration.
+         */
         config(inlineAnnotatedFunction: any[]): IModule;
+        /**
+         * Register a constant service, such as a string, a number, an array, an object or a function, with the $injector. Unlike value it can be injected into a module configuration function (see config) and it cannot be overridden by an Angular decorator.
+         *
+         * @param name The name of the constant.
+         * @param value The constant value.
+         */
         constant(name: string, value: any): IModule;
         constant(object: Object): IModule;
+        /**
+         * The $controller service is used by Angular to create new controllers.
+         *
+         * This provider allows controller registration via the register method.
+         *
+         * @param name Controller name, or an object map of controllers where the keys are the names and the values are the constructors.
+         * @param controllerConstructor Controller constructor fn (optionally decorated with DI annotations in the array notation).
+         */
         controller(name: string, controllerConstructor: Function): IModule;
+        /**
+         * The $controller service is used by Angular to create new controllers.
+         *
+         * This provider allows controller registration via the register method.
+         *
+         * @param name Controller name, or an object map of controllers where the keys are the names and the values are the constructors.
+         * @param controllerConstructor Controller constructor fn (optionally decorated with DI annotations in the array notation).
+         */
         controller(name: string, inlineAnnotatedConstructor: any[]): IModule;
         controller(object : Object): IModule;
-        directive(name: string, directiveFactory: Function): IModule;
+        directive(name: string, directiveFactory: IDirectiveFactory): IModule;
         directive(name: string, inlineAnnotatedFunction: any[]): IModule;
         directive(object: Object): IModule;
-        factory(name: string, serviceFactoryFunction: Function): IModule;
+        /**
+         * Register a service factory, which will be called to return the service instance. This is short for registering a service where its provider consists of only a $get property, which is the given service factory function. You should use $provide.factory(getFn) if you do not need to configure your service in a provider.
+         *
+         * @param name The name of the instance.
+         * @param $getFn The $getFn for the instance creation. Internally this is a short hand for $provide.provider(name, {$get: $getFn}).
+         */
+        factory(name: string, $getFn: Function): IModule;
+        /**
+         * Register a service factory, which will be called to return the service instance. This is short for registering a service where its provider consists of only a $get property, which is the given service factory function. You should use $provide.factory(getFn) if you do not need to configure your service in a provider.
+         *
+         * @param name The name of the instance.
+         * @param inlineAnnotatedFunction The $getFn for the instance creation. Internally this is a short hand for $provide.provider(name, {$get: $getFn}).
+         */
         factory(name: string, inlineAnnotatedFunction: any[]): IModule;
         factory(object: Object): IModule;
         filter(name: string, filterFactoryFunction: Function): IModule;
         filter(name: string, inlineAnnotatedFunction: any[]): IModule;
         filter(object: Object): IModule;
-        provider(name: string, serviceProviderConstructor: Function): IModule;
+        provider(name: string, serviceProviderFactory: IServiceProviderFactory): IModule;
+        provider(name: string, serviceProviderConstructor: IServiceProviderClass): IModule;
         provider(name: string, inlineAnnotatedConstructor: any[]): IModule;
-        provider(name: string, providerObject: auto.IProvider): IModule;
+        provider(name: string, providerObject: IServiceProvider): IModule;
         provider(object: Object): IModule;
+        /**
+         * Run blocks are the closest thing in Angular to the main method. A run block is the code which needs to run to kickstart the application. It is executed after all of the service have been configured and the injector has been created. Run blocks typically contain code which is hard to unit-test, and for this reason should be declared in isolated modules, so that they can be ignored in the unit-tests.
+         */
         run(initializationFunction: Function): IModule;
+        /**
+         * Run blocks are the closest thing in Angular to the main method. A run block is the code which needs to run to kickstart the application. It is executed after all of the service have been configured and the injector has been created. Run blocks typically contain code which is hard to unit-test, and for this reason should be declared in isolated modules, so that they can be ignored in the unit-tests.
+         */
         run(inlineAnnotatedFunction: any[]): IModule;
         service(name: string, serviceConstructor: Function): IModule;
         service(name: string, inlineAnnotatedConstructor: any[]): IModule;
         service(object: Object): IModule;
+        /**
+         * Register a value service with the $injector, such as a string, a number, an array, an object or a function. This is short for registering a service where its provider's $get property is a factory function that takes no arguments and returns the value service.
+
+           Value services are similar to constant services, except that they cannot be injected into a module configuration function (see config) but they can be overridden by an Angular decorator.
+         *
+         * @param name The name of the instance.
+         * @param value The value.
+         */
         value(name: string, value: any): IModule;
         value(object: Object): IModule;
 
@@ -125,10 +223,10 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$compile.directive.Attributes
     ///////////////////////////////////////////////////////////////////////////
     interface IAttributes {
-    	// this is necessary to be able to access the scoped attributes. it's not very elegant
-    	// because you have to use attrs['foo'] instead of attrs.foo but I don't know of a better way
-    	// this should really be limited to return string but it creates this problem: http://stackoverflow.com/q/17201854/165656
-    	[name: string]: any;
+        // this is necessary to be able to access the scoped attributes. it's not very elegant
+        // because you have to use attrs['foo'] instead of attrs.foo but I don't know of a better way
+        // this should really be limited to return string but it creates this problem: http://stackoverflow.com/q/17201854/165656
+        [name: string]: any;
 
         // Adds the CSS class value specified by the classVal parameter to the
         // element. If animations are enabled then an animation will be triggered
@@ -154,11 +252,17 @@ declare module ng {
         $attr: Object;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
-    // FormController
-    // see http://docs.angularjs.org/api/ng.directive:form.FormController
-    ///////////////////////////////////////////////////////////////////////////
+    /**
+     * form.FormController - type in module ng
+     * see https://docs.angularjs.org/api/ng/type/form.FormController
+     */
     interface IFormController {
+
+        /**
+         * Indexer which should return ng.INgModelController for most properties but cannot because of "All named properties must be assignable to string indexer type" constraint - see https://github.com/Microsoft/TypeScript/issues/272
+         */
+        [name: string]: any;
+
         $pristine: boolean;
         $dirty: boolean;
         $valid: boolean;
@@ -166,6 +270,7 @@ declare module ng {
         $error: any;
         $addControl(control: ng.INgModelController): void;
         $removeControl(control: ng.INgModelController): void;
+        $setValidity(validationErrorKey: string, isValid: boolean, control: ng.INgModelController): void;
         $setDirty(): void;
         $setPristine(): void;
     }
@@ -186,6 +291,7 @@ declare module ng {
 
         $parsers: IModelParser[];
         $formatters: IModelFormatter[];
+        $viewChangeListeners: IModelViewChangeListener[];
         $error: any;
         $pristine: boolean;
         $dirty: boolean;
@@ -199,6 +305,10 @@ declare module ng {
 
     interface IModelFormatter {
         (value: any): any;
+    }
+
+    interface IModelViewChangeListener {
+        (): void;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -236,7 +346,12 @@ declare module ng {
         $watchCollection(watchExpression: string, listener: (newValue: any, oldValue: any, scope: IScope) => any): Function;
         $watchCollection(watchExpression: (scope: IScope) => any, listener: (newValue: any, oldValue: any, scope: IScope) => any): Function;
 
+        $watchGroup(watchExpressions: any[], listener: (newValue: any, oldValue: any, scope: IScope) => any): Function;
+        $watchGroup(watchExpressions: {(scope: IScope) : any}[], listener: (newValue: any, oldValue: any, scope: IScope) => any): Function;
+
         $parent: IScope;
+
+        $root: IRootScopeService;
 
         $id: string;
 
@@ -260,13 +375,17 @@ declare module ng {
     // WindowService
     // see http://docs.angularjs.org/api/ng.$window
     ///////////////////////////////////////////////////////////////////////////
-    interface IWindowService extends Window {}
+    interface IWindowService extends Window {
+        [key: string]: any;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // BrowserService
     // TODO undocumented, so we need to get it from the source code
     ///////////////////////////////////////////////////////////////////////////
-    interface IBrowserService {}
+    interface IBrowserService {
+        [key: string]: any;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // TimeoutService
@@ -351,6 +470,7 @@ declare module ng {
     ///////////////////////////////////////////////////////////////////////////
     // LogService
     // see http://docs.angularjs.org/api/ng.$log
+    // see http://docs.angularjs.org/api/ng.$logProvider
     ///////////////////////////////////////////////////////////////////////////
     interface ILogService {
         debug: ILogCall;
@@ -358,6 +478,11 @@ declare module ng {
         info: ILogCall;
         log: ILogCall;
         warn: ILogCall;
+    }
+
+    interface ILogProvider {
+        debugEnabled(enabled: boolean): ILogProvider;
+        debugEnabled(): boolean;
     }
 
     // We define this as separete interface so we can reopen it later for
@@ -376,11 +501,11 @@ declare module ng {
     }
 
     interface IParseProvider {
-    	logPromiseWarnings(): boolean;
-    	logPromiseWarnings(value: boolean): IParseProvider;
+        logPromiseWarnings(): boolean;
+        logPromiseWarnings(value: boolean): IParseProvider;
 
-    	unwrapPromises(): boolean;
-    	unwrapPromises(value: boolean): IParseProvider;
+        unwrapPromises(): boolean;
+        unwrapPromises(value: boolean): IParseProvider;
     }
 
     interface ICompiledExpression {
@@ -446,17 +571,58 @@ declare module ng {
     ///////////////////////////////////////////////////////////////////////////
     interface IRootElementService extends JQuery {}
 
-    ///////////////////////////////////////////////////////////////////////////
-    // QService
-    // see http://docs.angularjs.org/api/ng.$q
-    ///////////////////////////////////////////////////////////////////////////
+    /**
+     * $q - service in module ng
+     * A promise/deferred implementation inspired by Kris Kowal's Q.
+     * See http://docs.angularjs.org/api/ng/service/$q
+     */
     interface IQService {
+        /**
+         * Combines multiple promises into a single promise that is resolved when all of the input promises are resolved.
+         *
+         * Returns a single promise that will be resolved with an array/hash of values, each value corresponding to the promise at the same index/key in the promises array/hash. If any of the promises is resolved with a rejection, this resulting promise will be rejected with the same rejection value.
+         *
+         * @param promises An array or hash of promises.
+         */
         all(promises: IPromise<any>[]): IPromise<any[]>;
-        all(promises: {[id: string]: IPromise<any>;}): IPromise<{[id: string]: any}>;
+        /**
+         * Combines multiple promises into a single promise that is resolved when all of the input promises are resolved.
+         *
+         * Returns a single promise that will be resolved with an array/hash of values, each value corresponding to the promise at the same index/key in the promises array/hash. If any of the promises is resolved with a rejection, this resulting promise will be rejected with the same rejection value.
+         *
+         * @param promises An array or hash of promises.
+         */
+        all(promises: { [id: string]: IPromise<any>; }): IPromise<{ [id: string]: any }>;
+        /**
+         * Creates a Deferred object which represents a task which will finish in the future.
+         */
         defer<T>(): IDeferred<T>;
+        /**
+         * Creates a promise that is resolved as rejected with the specified reason. This api should be used to forward rejection in a chain of promises. If you are dealing with the last promise in a promise chain, you don't need to worry about it.
+         *
+         * When comparing deferreds/promises to the familiar behavior of try/catch/throw, think of reject as the throw keyword in JavaScript. This also means that if you "catch" an error via a promise error callback and you want to forward the error to the promise derived from the current promise, you have to "rethrow" the error by returning a rejection constructed via reject.
+         *
+         * @param reason Constant, message, exception or an object representing the rejection reason.
+         */
         reject(reason?: any): IPromise<void>;
+        /**
+         * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
+         *
+         * @param value Value or a promise
+         */
         when<T>(value: IPromise<T>): IPromise<T>;
+        /**
+         * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
+         *
+         * @param value Value or a promise
+         */
         when<T>(value: T): IPromise<T>;
+        /**
+         * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
+         *
+         * @param value Value or a promise
+         */
+        when(): IPromise<void>;
     }
 
     interface IPromise<T> {
@@ -538,6 +704,12 @@ declare module ng {
 
         // Undocumented, but it is there...
         directive(directivesMap: any): ICompileProvider;
+
+        aHrefSanitizationWhitelist(): RegExp;
+        aHrefSanitizationWhitelist(regexp: RegExp): ICompileProvider;
+
+        imgSrcSanitizationWhitelist(): RegExp;
+        imgSrcSanitizationWhitelist(regexp: RegExp): ICompileProvider;
     }
 
     interface ICloneAttachFunction {
@@ -574,44 +746,157 @@ declare module ng {
         register(name: string, dependencyAnnotatedConstructor: any[]): void;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
-    // HttpService
-    // see http://docs.angularjs.org/api/ng.$http
-    ///////////////////////////////////////////////////////////////////////////
+    /**
+     * HttpService
+     * see http://docs.angularjs.org/api/ng/service/$http
+     */
     interface IHttpService {
-        // At least moethod and url must be provided...
-        (config: IRequestConfig): IHttpPromise<any>;
-        get (url: string, RequestConfig?: any): IHttpPromise<any>;
-        delete (url: string, RequestConfig?: any): IHttpPromise<any>;
-        head(url: string, RequestConfig?: any): IHttpPromise<any>;
-        jsonp(url: string, RequestConfig?: any): IHttpPromise<any>;
-        post(url: string, data: any, RequestConfig?: any): IHttpPromise<any>;
-        put(url: string, data: any, RequestConfig?: any): IHttpPromise<any>;
+        /**
+         * Object describing the request to be made and how it should be processed.
+         */
+        <T>(config: IRequestConfig): IHttpPromise<T>;
+
+        /**
+         * Shortcut method to perform GET request.
+         *
+         * @param url Relative or absolute URL specifying the destination of the request
+         * @param config Optional configuration object
+         */
+        get<T>(url: string, config?: IRequestShortcutConfig): IHttpPromise<T>;
+
+        /**
+         * Shortcut method to perform DELETE request.
+         *
+         * @param url Relative or absolute URL specifying the destination of the request
+         * @param config Optional configuration object
+         */
+        delete<T>(url: string, config?: IRequestShortcutConfig): IHttpPromise<T>;
+
+        /**
+         * Shortcut method to perform HEAD request.
+         *
+         * @param url Relative or absolute URL specifying the destination of the request
+         * @param config Optional configuration object
+         */
+        head<T>(url: string, config?: IRequestShortcutConfig): IHttpPromise<T>;
+
+        /**
+         * Shortcut method to perform JSONP request.
+         *
+         * @param url Relative or absolute URL specifying the destination of the request
+         * @param config Optional configuration object
+         */
+        jsonp<T>(url: string, config?: IRequestShortcutConfig): IHttpPromise<T>;
+
+        /**
+         * Shortcut method to perform POST request.
+         *
+         * @param url Relative or absolute URL specifying the destination of the request
+         * @param data Request content
+         * @param config Optional configuration object
+         */
+        post<T>(url: string, data: any, config?: IRequestShortcutConfig): IHttpPromise<T>;
+
+        /**
+         * Shortcut method to perform PUT request.
+         *
+         * @param url Relative or absolute URL specifying the destination of the request
+         * @param data Request content
+         * @param config Optional configuration object
+         */
+        put<T>(url: string, data: any, config?: IRequestShortcutConfig): IHttpPromise<T>;
+
+        /**
+         * Runtime equivalent of the $httpProvider.defaults property. Allows configuration of default headers, withCredentials as well as request and response transformations.
+         */
         defaults: IRequestConfig;
 
-        // For debugging, BUT it is documented as public, so...
+        /**
+         * Array of config objects for currently pending requests. This is primarily meant to be used for debugging purposes.
+         */
         pendingRequests: any[];
     }
 
-    // This is just for hinting.
-    // Some opetions might not be available depending on the request.
-    // see http://docs.angularjs.org/api/ng.$http#Usage for options explanations
-    interface IRequestConfig {
-        method: string;
-        url: string;
+    /**
+     * Object describing the request to be made and how it should be processed.
+     * see http://docs.angularjs.org/api/ng/service/$http#usage
+     */
+    interface IRequestShortcutConfig {
+        /**
+         * {Object.<string|Object>}
+         * Map of strings or objects which will be turned to ?key1=value1&key2=value2 after the url. If the value is not a string, it will be JSONified.
+         */
         params?: any;
 
-        // XXX it has it's own structure...  perhaps we should define it in the future
+        /**
+         * Map of strings or functions which return strings representing HTTP headers to send to the server. If the return value of a function is null, the header will not be sent.
+         */
         headers?: any;
 
+        /**
+         * Name of HTTP header to populate with the XSRF token.
+         */
+        xsrfHeaderName?: string;
+
+        /**
+         * Name of cookie containing the XSRF token.
+         */
+        xsrfCookieName?: string;
+
+        /**
+         * {boolean|Cache}
+         * If true, a default $http cache will be used to cache the GET request, otherwise if a cache instance built with $cacheFactory, this cache will be used for caching.
+         */
         cache?: any;
+
+        /**
+         * whether to to set the withCredentials flag on the XHR object. See [requests with credentials]https://developer.mozilla.org/en/http_access_control#section_5 for more information.
+         */
         withCredentials?: boolean;
 
-        // These accept multiple types, so let's define them as any
+        /**
+         * {string|Object}
+         * Data to be sent as the request message data.
+         */
         data?: any;
+
+        /**
+         * {function(data, headersGetter)|Array.<function(data, headersGetter)>}
+         * Transform function or an array of such functions. The transform function takes the http request body and headers and returns its transformed (typically serialized) version.
+         */
         transformRequest?: any;
+
+        /**
+         * {function(data, headersGetter)|Array.<function(data, headersGetter)>}
+         * Transform function or an array of such functions. The transform function takes the http response body and headers and returns its transformed (typically deserialized) version.
+         */
         transformResponse?: any;
-        timeout?: any; // number | promise
+
+        /**
+         * {number|Promise}
+         * Timeout in milliseconds, or promise that should abort the request when resolved.
+         */
+        timeout?: any;
+
+        /**
+         * See requestType.
+         */
+        responseType?: string;
+    }
+
+    /**
+     * Object describing the request to be made and how it should be processed.
+     * see http://docs.angularjs.org/api/ng/service/$http#usage
+     */
+    interface IRequestConfig extends IRequestShortcutConfig {
+        /**
+         * HTTP method (e.g. 'GET', 'POST', etc)
+         */
+        method: string;
+        /**
+         * Absolute or relative URL of the resource that is being requested.
+         */
+        url: string;
     }
 
     interface IHttpPromiseCallback<T> {
@@ -623,13 +908,14 @@ declare module ng {
         status?: number;
         headers?: (headerName: string) => string;
         config?: IRequestConfig;
+        statusText?: string;
     }
 
     interface IHttpPromise<T> extends IPromise<T> {
         success(callback: IHttpPromiseCallback<T>): IHttpPromise<T>;
-        error(callback: IHttpPromiseCallback<T>): IHttpPromise<T>;
-        then<TResult>(successCallback: (response: IHttpPromiseCallbackArg<T>) => TResult, errorCallback?: (response: IHttpPromiseCallbackArg<T>) => any): IPromise<TResult>;
-        then<TResult>(successCallback: (response: IHttpPromiseCallbackArg<T>) => IPromise<TResult>, errorCallback?: (response: IHttpPromiseCallbackArg<T>) => any): IPromise<TResult>;
+        error(callback: IHttpPromiseCallback<any>): IHttpPromise<T>;
+        then<TResult>(successCallback: (response: IHttpPromiseCallbackArg<T>) => IPromise<TResult>, errorCallback?: (response: IHttpPromiseCallbackArg<any>) => any): IPromise<TResult>;
+        then<TResult>(successCallback: (response: IHttpPromiseCallbackArg<T>) => TResult, errorCallback?: (response: IHttpPromiseCallbackArg<any>) => any): IPromise<TResult>;
     }
 
     interface IHttpProvider extends IServiceProvider {
@@ -686,26 +972,26 @@ declare module ng {
     // SCEService
     // see http://docs.angularjs.org/api/ng.$sce
     ///////////////////////////////////////////////////////////////////////////
-	interface ISCEService {
-		getTrusted(type: string, mayBeTrusted: any): any;
-		getTrustedCss(value: any): any;
-		getTrustedHtml(value: any): any;
-		getTrustedJs(value: any): any;
-		getTrustedResourceUrl(value: any): any;
-		getTrustedUrl(value: any): any;
-		parse(type: string, expression: string): (context: any, locals: any) => any;
-		parseAsCss(expression: string): (context: any, locals: any) => any;
-		parseAsHtml(expression: string): (context: any, locals: any) => any;
-		parseAsJs(expression: string): (context: any, locals: any) => any;
-		parseAsResourceUrl(expression: string): (context: any, locals: any) => any;
-		parseAsUrl(expression: string): (context: any, locals: any) => any;
-		trustAs(type: string, value: any): any;
-		trustAsHtml(value: any): any;
-		trustAsJs(value: any): any;
-		trustAsResourceUrl(value: any): any;
-		trustAsUrl(value: any): any;
-		isEnabled(): boolean;
-	}
+    interface ISCEService {
+        getTrusted(type: string, mayBeTrusted: any): any;
+        getTrustedCss(value: any): any;
+        getTrustedHtml(value: any): any;
+        getTrustedJs(value: any): any;
+        getTrustedResourceUrl(value: any): any;
+        getTrustedUrl(value: any): any;
+        parse(type: string, expression: string): (context: any, locals: any) => any;
+        parseAsCss(expression: string): (context: any, locals: any) => any;
+        parseAsHtml(expression: string): (context: any, locals: any) => any;
+        parseAsJs(expression: string): (context: any, locals: any) => any;
+        parseAsResourceUrl(expression: string): (context: any, locals: any) => any;
+        parseAsUrl(expression: string): (context: any, locals: any) => any;
+        trustAs(type: string, value: any): any;
+        trustAsHtml(value: any): any;
+        trustAsJs(value: any): any;
+        trustAsResourceUrl(value: any): any;
+        trustAsUrl(value: any): any;
+        isEnabled(): boolean;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // SCEProvider
@@ -740,6 +1026,11 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$compileProvider#directive
     // and http://docs.angularjs.org/guide/directive
     ///////////////////////////////////////////////////////////////////////////
+
+    interface IDirectiveFactory {
+        (...args: any[]): IDirective;
+    }
+
 
     interface IDirective{
         compile?:
@@ -796,6 +1087,7 @@ declare module ng {
         controller(name: string): any;
         injector(): any;
         scope(): IScope;
+        isolateScope(): IScope;
 
         inheritedData(key: string, value: any): JQuery;
         inheritedData(obj: { [key: string]: any; }): JQuery;
@@ -818,9 +1110,6 @@ declare module ng {
     // AUTO module (angular.js)
     ///////////////////////////////////////////////////////////////////////////
     export module auto {
-        interface IProvider {
-            $get: any;
-        }
 
         ///////////////////////////////////////////////////////////////////////
         // InjectorService
@@ -830,7 +1119,7 @@ declare module ng {
             annotate(fn: Function): string[];
             annotate(inlineAnnotatedFunction: any[]): string[];
             get(name: string): any;
-            has(name: string): boolean; 
+            has(name: string): boolean;
             instantiate(typeConstructor: Function, locals?: any): any;
             invoke(inlineAnnotatedFunction: any[]): any;
             invoke(func: Function, context?: any, locals?: any): any;
@@ -844,10 +1133,32 @@ declare module ng {
             // Documentation says it returns the registered instance, but actual
             // implementation does not return anything.
             // constant(name: string, value: any): any;
+            /**
+             * Register a constant service, such as a string, a number, an array, an object or a function, with the $injector. Unlike value it can be injected into a module configuration function (see config) and it cannot be overridden by an Angular decorator.
+             *
+             * @param name The name of the constant.
+             * @param value The constant value.
+             */
             constant(name: string, value: any): void;
 
+            /**
+             * Register a service decorator with the $injector. A service decorator intercepts the creation of a service, allowing it to override or modify the behaviour of the service. The object returned by the decorator may be the original service, or a new service object which replaces or wraps and delegates to the original service.
+             *
+             * @param name The name of the service to decorate.
+             * @param decorator This function will be invoked when the service needs to be instantiated and should return the decorated service instance. The function is called using the injector.invoke method and is therefore fully injectable. Local injection arguments:
+             *
+             * $delegate - The original service instance, which can be monkey patched, configured, decorated or delegated to.
+             */
             decorator(name: string, decorator: Function): void;
-            decorator(name: string, decoratorInline: any[]): void;
+            /**
+             * Register a service decorator with the $injector. A service decorator intercepts the creation of a service, allowing it to override or modify the behaviour of the service. The object returned by the decorator may be the original service, or a new service object which replaces or wraps and delegates to the original service.
+             *
+             * @param name The name of the service to decorate.
+             * @param inlineAnnotatedFunction This function will be invoked when the service needs to be instantiated and should return the decorated service instance. The function is called using the injector.invoke method and is therefore fully injectable. Local injection arguments:
+             *
+             * $delegate - The original service instance, which can be monkey patched, configured, decorated or delegated to.
+             */
+            decorator(name: string, inlineAnnotatedFunction: any[]): void;
             factory(name: string, serviceFactoryFunction: Function): ng.IServiceProvider;
             factory(name: string, inlineAnnotatedFunction: any[]): ng.IServiceProvider;
             provider(name: string, provider: ng.IServiceProvider): ng.IServiceProvider;

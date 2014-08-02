@@ -42,14 +42,14 @@ declare module D3 {
         };
     }
 
-    export interface Event {
+    export interface D3Event extends Event{
         dx: number;
         dy: number;
         clientX: number;
         clientY: number;
         translate: number[];
         scale: number;
-        sourceEvent: Event;
+        sourceEvent: D3Event;
         x: number;
         y: number;
         keyCode: number;
@@ -65,7 +65,7 @@ declare module D3 {
         /**
         * Access the current user event for interaction
         */
-        event: Event;
+        event: D3Event;
 
         /**
         * Compare two values for sorting.
@@ -710,7 +710,7 @@ declare module D3 {
             (name: string): string;
             (name: string, value: any): Selection;
             (name: string, valueFunction: (data: any, index: number) => any): Selection;
-            (attrValueMap : any): Selection;
+            (attrValueMap : Object): Selection;
         };
 
         classed: {
@@ -723,12 +723,14 @@ declare module D3 {
             (name: string): string;
             (name: string, value: any, priority?: string): Selection;
             (name: string, valueFunction: (data: any, index: number) => any, priority?: string): Selection;
+            (styleValueMap : Object): Selection;
         };
 
         property: {
             (name: string): void;
             (name: string, value: any): Selection;
             (name: string, valueFunction: (data: any, index: number) => any): Selection;
+            (propertyValueMap : Object): Selection;
         };
 
         text: {
@@ -747,10 +749,10 @@ declare module D3 {
         insert: (name: string, before: string) => Selection;
         remove: () => Selection;
         empty: () => boolean;
-            
+
         data: {
-            (values: (data: any, index?: number) => any[], key?: (data: any, index?: number) => string): UpdateSelection;
-            (values: any[], key?: (data: any, index?: number) => string): UpdateSelection;
+            (values: (data: any, index?: number) => any[], key?: (data: any, index?: number) => any): UpdateSelection;
+            (values: any[], key?: (data: any, index?: number) => any): UpdateSelection;
             (): any[];
         };
 
@@ -765,7 +767,7 @@ declare module D3 {
             //(filter: string): UpdateSelection;
         };
 
-        call(callback: (selection: Selection) => void ): Selection;
+        call(callback: (selection: Selection, ...args: any[]) => void, ...args: any[]): Selection;
         each(eachFunction: (data: any, index: number) => any): Selection;
         on: {
             (type: string): (data: any, index: number) => any;
@@ -809,7 +811,7 @@ declare module D3 {
 
     export interface EnterSelection {
         append: (name: string) => Selection;
-        insert: (name: string, before: string) => Selection;
+        insert: (name: string, before?: string) => Selection;
         select: (selector: string) => Selection;
         empty: () => boolean;
         node: () => Element;
@@ -1001,9 +1003,29 @@ declare module D3 {
             fridays: Range;
             saturdays: Range;
             format: {
-
+                /**
+                 * Constructs a new local time formatter using the given specifier.
+                 */
                 (specifier: string): TimeFormat;
-                utc: (specifier: string) => TimeFormat;
+                /**
+                 * Returns a new multi-resolution time format given the specified array of predicated formats.
+                 */
+                multi: (formats: any[][]) => TimeFormat;
+
+                utc: {
+                    /**
+                     * Constructs a new local time formatter using the given specifier.
+                     */
+                    (specifier: string): TimeFormat;
+                    /**
+                     * Returns a new multi-resolution UTC time format given the specified array of predicated formats.
+                     */
+                    multi: (formats: any[][]) => TimeFormat;
+                };
+
+                /**
+                 * The full ISO 8601 UTC time format: "%Y-%m-%dT%H:%M:%S.%LZ".
+                 */
                 iso: TimeFormat;
             };
 
@@ -1461,7 +1483,7 @@ declare module D3 {
             /**
             * decrease lightness by some exponential factor (gamma)
             */
-            darker(k: number): Color;
+            darker(k?: number): Color;
             /**
             * convert the color to a string.
             */
@@ -1598,6 +1620,7 @@ declare module D3 {
         export interface Symbol {
             type: (string:string) => Symbol;
             size: (number:number) => Symbol;
+            (datum:any, index:number): string;
         }
 
         export interface Brush {
@@ -2485,7 +2508,7 @@ declare module D3 {
             copy(): Scale;
         }
 
-        export interface QuantitiveScale extends Scale {
+        export interface QuantitativeScale extends Scale {
             /**
             * Get the range value corresponding to a given domain value.
             *
@@ -2507,7 +2530,7 @@ declare module D3 {
                 *
                 * @param value The input domain
                 */
-                (values: any[]): QuantitiveScale;
+                (values: any[]): QuantitativeScale;
                 /**
                 * Get the scale's input domain.
                 */
@@ -2522,7 +2545,7 @@ declare module D3 {
                 *
                 * @param value The output range.
                 */
-                (values: any[]): QuantitiveScale;
+                (values: any[]): QuantitativeScale;
                 /**
                 * Get the scale's output range.
                 */
@@ -2533,26 +2556,26 @@ declare module D3 {
             *
             * @param value The output range.
             */
-            rangeRound: (values: any[]) => QuantitiveScale;
+            rangeRound: (values: any[]) => QuantitativeScale;
             /**
             * get or set the scale's output interpolator.
             */
             interpolate: {
                 (): D3.Transition.Interpolate;
-                (factory: D3.Transition.Interpolate): QuantitiveScale;
+                (factory: D3.Transition.Interpolate): QuantitativeScale;
             };
             /**
             * enable or disable clamping of the output range.
             *
             * @param clamp Enable or disable
             */
-            clamp(clamp: boolean): QuantitiveScale;
+            clamp(clamp: boolean): QuantitativeScale;
             /**
             * extend the scale domain to nice round numbers.
-            * 
+            *
             * @param count Optional number of ticks to exactly fit the domain
             */
-            nice(count?: number): QuantitiveScale;
+            nice(count?: number): QuantitativeScale;
             /**
             * get representative values from the input domain.
             *
@@ -2568,10 +2591,10 @@ declare module D3 {
             /**
             * create a new scale from an existing scale..
             */
-            copy(): QuantitiveScale;
+            copy(): QuantitativeScale;
         }
 
-        export interface LinearScale extends QuantitiveScale {
+        export interface LinearScale extends QuantitativeScale {
             /**
             * Get the range value corresponding to a given domain value.
             *
@@ -2607,7 +2630,7 @@ declare module D3 {
             tickFormat(count: number): (n: number) => string;
         }
 
-        export interface SqrtScale extends QuantitiveScale {
+        export interface SqrtScale extends QuantitativeScale {
             /**
             * Get the range value corresponding to a given domain value.
             *
@@ -2616,7 +2639,7 @@ declare module D3 {
             (value: number): number;
         }
 
-        export interface PowScale extends QuantitiveScale {
+        export interface PowScale extends QuantitativeScale {
             /**
             * Get the range value corresponding to a given domain value.
             *
@@ -2625,7 +2648,7 @@ declare module D3 {
             (value: number): number;
         }
 
-        export interface LogScale extends QuantitiveScale {
+        export interface LogScale extends QuantitativeScale {
             /**
             * Get the range value corresponding to a given domain value.
             *
@@ -2741,7 +2764,7 @@ declare module D3 {
             clamp(clamp: boolean): TimeScale;
             ticks: {
                 (count: number): any[];
-                (range: Range, count: number): any[];
+                (range: D3.Time.Range, count: number): any[];
             };
             tickFormat(count: number): (n: number) => string;
             copy(): TimeScale;
@@ -3394,7 +3417,7 @@ declare module D3 {
                 *
                 * @param constant The new constant value.
                 */
-                (constant: number): Voronoi<T>;   
+                (constant: number): Voronoi<T>;
             }
             clipExtent: {
                 /**

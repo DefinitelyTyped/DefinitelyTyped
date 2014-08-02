@@ -1,6 +1,6 @@
 // Type definitions for jQuery 1.10.x / 2.0.x
 // Project: http://jquery.com/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Christian Hoffmeister <https://github.com/choffmeister>, Steve Fenton, Diullei Gomes <https://github.com/Diullei>, Tass Iliopoulos <https://github.com/tasoili>, Jason Swearingen, Sean Hill <https://github.com/seanski>, Guus Goossens <https://github.com/Guuz>, Kelly Summerlin <https://github.com/ksummerlin>, Basarat Ali Syed <https://github.com/basarat>, Nicholas Wolverson <https://github.com/nwolverson>, Derek Cicerone <https://github.com/derekcicerone>, Andrew Gaspar <https://github.com/AndrewGaspar>, James Harrison Fisher <https://github.com/jameshfisher>, Seikichi Kondo <https://github.com/seikichi>, Benjamin Jackman <https://github.com/benjaminjackman>, Poul Sorensen <https://github.com/s093294>, Josh Strobl <https://github.com/JoshStrobl>, John Reilly <https://github.com/johnnyreilly/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Christian Hoffmeister <https://github.com/choffmeister>, Steve Fenton <https://github.com/Steve-Fenton>, Diullei Gomes <https://github.com/Diullei>, Tass Iliopoulos <https://github.com/tasoili>, Jason Swearingen <https://github.com/jasons-novaleaf>, Sean Hill <https://github.com/seanski>, Guus Goossens <https://github.com/Guuz>, Kelly Summerlin <https://github.com/ksummerlin>, Basarat Ali Syed <https://github.com/basarat>, Nicholas Wolverson <https://github.com/nwolverson>, Derek Cicerone <https://github.com/derekcicerone>, Andrew Gaspar <https://github.com/AndrewGaspar>, James Harrison Fisher <https://github.com/jameshfisher>, Seikichi Kondo <https://github.com/seikichi>, Benjamin Jackman <https://github.com/benjaminjackman>, Poul Sorensen <https://github.com/s093294>, Josh Strobl <https://github.com/JoshStrobl>, John Reilly <https://github.com/johnnyreilly/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /* *****************************************************************************
@@ -80,7 +80,7 @@ interface JQueryAjaxSettings {
     /**
      * A function to be called if the request fails. The function receives three arguments: The jqXHR (in jQuery 1.4.x, XMLHttpRequest) object, a string describing the type of error that occurred and an optional exception object, if one occurred. Possible values for the second argument (besides null) are "timeout", "error", "abort", and "parsererror". When an HTTP error occurs, errorThrown receives the textual portion of the HTTP status, such as "Not Found" or "Internal Server Error." As of jQuery 1.5, the error setting can accept an array of functions. Each function will be called in turn. Note: This handler is not called for cross-domain script and cross-domain JSONP requests. This is an Ajax Event.
      */
-    error? (jqXHR: JQueryXHR, textStatus: string, errorThrow: string): any;
+    error? (jqXHR: JQueryXHR, textStatus: string, errorThrown: string): any;
     /**
      * Whether to trigger global Ajax event handlers for this request. The default is true. Set to false to prevent the global handlers like ajaxStart or ajaxStop from being triggered. This can be used to control various Ajax Events.
      */
@@ -167,7 +167,20 @@ interface JQueryXHR extends XMLHttpRequest, JQueryPromise<any> {
      * The .overrideMimeType() method may be used in the beforeSend() callback function, for example, to modify the response content-type header. As of jQuery 1.5.1, the jqXHR object also contains the overrideMimeType() method (it was available in jQuery 1.4.x, as well, but was temporarily removed in jQuery 1.5). 
      */
     overrideMimeType(mimeType: string): any;
+    /**
+     * Cancel the request. 
+     *
+     * @param statusText A string passed as the textStatus parameter for the done callback. Default value: "canceled"
+     */
     abort(statusText?: string): void;
+    /**
+     * Incorporates the functionality of the .done() and .fail() methods, allowing (as of jQuery 1.8) the underlying Promise to be manipulated. Refer to deferred.then() for implementation details.
+     */
+    then(doneCallback: (data: any, textStatus: string, jqXHR: JQueryXHR) => void, failCallback?: (jqXHR: JQueryXHR, textStatus: string, errorThrown: any) => void): JQueryPromise<any>;
+    /**
+     * Property containing the parsed response if the response Content-Type is json
+     */
+    responseJSON?: any;
 }
 
 /**
@@ -351,6 +364,11 @@ interface JQueryPromise<T> {
      */
     progress(...progressCallbacks: any[]): JQueryPromise<T>;
 
+    /**
+     * Determine the current state of a Deferred object.
+     */
+    state(): string;
+
     // Deprecated - given no typings
     pipe(doneFilter?: (x: any) => any, failFilter?: (x: any) => any, progressFilter?: (x: any) => any): JQueryPromise<any>;
 
@@ -527,9 +545,10 @@ interface BaseJQueryEventObject extends Event {
     data: any;
     delegateTarget: Element;
     isDefaultPrevented(): boolean;
-    isImmediatePropogationStopped(): boolean;
+    isImmediatePropagationStopped(): boolean;
     isPropagationStopped(): boolean;
     namespace: string;
+    originalEvent: Event;
     preventDefault(): any;
     relatedTarget: Element;
     result: any;
@@ -567,11 +586,7 @@ interface JQueryKeyEventObject extends JQueryInputEventObject {
     keyCode: number;
 }
 
-interface JQueryPopStateEventObject extends BaseJQueryEventObject {
-    originalEvent: PopStateEvent;
-}
-
-interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject, JQueryPopStateEventObject {
+interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject{
 }
 
 /*
@@ -1214,7 +1229,7 @@ interface JQueryStatic {
      * 
      * @param json The JSON string to parse.
      */
-    parseJSON(json: string): Object;
+    parseJSON(json: string): any;
 
     /**
      * Parses a string into an XML document.
@@ -1252,6 +1267,15 @@ interface JQueryStatic {
      * @param keepScripts A Boolean indicating whether to include scripts passed in the HTML string
      */
     parseHTML(data: string, context?: HTMLElement, keepScripts?: boolean): any[];
+
+    /**
+     * Parses a string into an array of DOM nodes.
+     *
+     * @param data HTML string to be parsed
+     * @param context DOM element to serve as the context in which the HTML fragment will be created
+     * @param keepScripts A Boolean indicating whether to include scripts passed in the HTML string
+     */
+    parseHTML(data: string, context?: Document, keepScripts?: boolean): any[];
 }
 
 /**
@@ -1512,7 +1536,37 @@ interface JQuery {
      *
      * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
      */
-    val(func: (index: number, value: any) => any): JQuery;
+    val(func: (index: number, value: string) => string): JQuery;
+    /**
+     * Set the value of each element in the set of matched elements.
+     *
+     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+     */
+    val(func: (index: number, value: string[]) => string): JQuery;
+    /**
+     * Set the value of each element in the set of matched elements.
+     *
+     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+     */
+    val(func: (index: number, value: number) => string): JQuery;
+    /**
+     * Set the value of each element in the set of matched elements.
+     *
+     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+     */
+    val(func: (index: number, value: string) => string[]): JQuery;
+    /**
+     * Set the value of each element in the set of matched elements.
+     *
+     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+     */
+    val(func: (index: number, value: string[]) => string[]): JQuery;
+    /**
+     * Set the value of each element in the set of matched elements.
+     *
+     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+     */
+    val(func: (index: number, value: number) => string[]): JQuery;
 
     /**
      * Get the value of style properties for the first element in the set of matched elements.
@@ -2391,6 +2445,7 @@ interface JQuery {
     dblclick(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
     delegate(selector: any, eventType: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    delegate(selector: any, eventType: string, eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
     /**
      * Trigger the "focus" event on an element.
@@ -3597,7 +3652,7 @@ interface JQuery {
      * 
      * @param func A function used as a test for each element in the set. this is the current DOM element.
      */
-    filter(func: (index: number) => any): JQuery;
+    filter(func: (index: number, element: Element) => any): JQuery;
     /**
      * Reduce the set of matched elements to those that match the selector or pass the function's test.
      * 
