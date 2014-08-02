@@ -518,6 +518,18 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$locationProvider
     // see http://docs.angularjs.org/guide/dev_guide.services.$location
     ///////////////////////////////////////////////////////////////////////////
+    interface ILocationHtml5UrlService extends ILocationHashbangUrl {
+    }
+
+    interface ILocationHashbangUrl extends ILocationHashbangInHtml5Url {
+        $$parse(url: string): void;
+        $$compose(): void;
+    }
+
+    interface ILocationHashbangInHtml5Url extends ILocationService {
+        $$rewrite(url: string): string;
+    }
+
     interface ILocationService {
         absUrl(): string;
         hash(): string;
