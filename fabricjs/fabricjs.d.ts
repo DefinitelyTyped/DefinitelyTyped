@@ -1,12 +1,8 @@
 // Type definitions for FabricJS
 // Project: http://fabricjs.com/
 // Definitions by: Oliver Klemencic <https://github.com/oklemencic/>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/* 
-USAGE
-///<reference path="fabricjs.d.ts"/>
-*/
 declare module fabric {
 
     function createCanvasForNode(width: number, height: number): ICanvas;

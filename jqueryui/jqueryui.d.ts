@@ -180,7 +180,7 @@ declare module JQueryUI {
          * Number: A number of days from today. For example 2 represents two days from today and -1 represents yesterday.
          * String: A string in the format defined by the dateFormat option, or a relative date. Relative dates must contain value and period pairs; valid periods are "y" for years, "m" for months, "w" for weeks, and "d" for days. For example, "+1m +7d" represents one month and seven days from today.
          */
-        defaultDateType?: any; // Date, number or string
+        defaultDate?: any; // Date, number or string
         /**
          * Control the speed at which the datepicker appears, it may be a time in milliseconds or a string representing one of the three predefined speeds ("slow", "normal", "fast").
          */
@@ -609,11 +609,14 @@ declare module JQueryUI {
         orientation?: string;
         range?: any; // boolean or string
         step?: number;
-        // value?: number;
-        // values?: number[];
+        value?: number;
+        values?: number[];
     }
 
     interface SliderUIParams {
+        handle?: JQuery;
+        value?: number;
+        values?: number[];
     }
 
     interface SliderEvent {
@@ -1278,18 +1281,241 @@ interface JQuery {
      * Get the calculateWeek option, after initialization
      *
      * @param methodName 'option'
-     * @param optionName 'buttonText'
+     * @param optionName 'calculateWeek'
      */
     datepicker(methodName: 'option', optionName: 'calculateWeek'): (date: Date) => string;
     /**
      * Set the calculateWeek option, after initialization
      *
      * @param methodName 'option'
-     * @param optionName 'buttonText'
+     * @param optionName 'calculateWeek'
      * @param calculateWeekValue A function to calculate the week of the year for a given date. The default implementation uses the ISO 8601 definition: weeks start on a Monday; the first week of the year contains the first Thursday of the year.
-
      */
     datepicker(methodName: 'option', optionName: 'calculateWeek', calculateWeekValue: (date: Date) => string): JQuery;
+
+    /**
+     * Get the changeMonth option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'changeMonth'
+     */
+    datepicker(methodName: 'option', optionName: 'changeMonth'): boolean;
+    /**
+     * Set the changeMonth option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'changeMonth'
+     * @param changeMonthValue Whether the month should be rendered as a dropdown instead of text.
+     */
+    datepicker(methodName: 'option', optionName: 'changeMonth', changeMonthValue: boolean): JQuery;
+
+    /**
+     * Get the changeYear option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'changeYear'
+     */
+    datepicker(methodName: 'option', optionName: 'changeYear'): boolean;
+    /**
+     * Set the changeYear option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'changeYear'
+     * @param changeYearValue Whether the year should be rendered as a dropdown instead of text. Use the yearRange option to control which years are made available for selection.
+     */
+    datepicker(methodName: 'option', optionName: 'changeYear', changeYearValue: boolean): JQuery;
+
+    /**
+     * Get the closeText option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'closeText'
+     */
+    datepicker(methodName: 'option', optionName: 'closeText'): string;
+    /**
+     * Set the closeText option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'closeText'
+     * @param closeTextValue The text to display for the close link. Use the showButtonPanel option to display this button.
+     */
+    datepicker(methodName: 'option', optionName: 'closeText', closeTextValue: string): JQuery;
+
+    /**
+     * Get the constrainInput option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'constrainInput'
+     */
+    datepicker(methodName: 'option', optionName: 'constrainInput'): boolean;
+    /**
+     * Set the constrainInput option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'constrainInput'
+     * @param constrainInputValue When true, entry in the input field is constrained to those characters allowed by the current dateFormat option.
+     */
+    datepicker(methodName: 'option', optionName: 'constrainInput', constrainInputValue: boolean): JQuery;
+
+    /**
+     * Get the currentText option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'currentText'
+     */
+    datepicker(methodName: 'option', optionName: 'currentText'): string;
+    /**
+     * Set the currentText option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'currentText'
+     * @param currentTextValue The text to display for the current day link. Use the showButtonPanel option to display this button.
+     */
+    datepicker(methodName: 'option', optionName: 'currentText', currentTextValue: string): JQuery;
+
+    /**
+     * Get the dateFormat option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'dateFormat'
+     */
+    datepicker(methodName: 'option', optionName: 'dateFormat'): string;
+    /**
+     * Set the dateFormat option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'dateFormat'
+     * @param dateFormatValue The format for parsed and displayed dates. For a full list of the possible formats see the formatDate function.
+     */
+    datepicker(methodName: 'option', optionName: 'dateFormat', dateFormatValue: string): JQuery;
+
+    /**
+     * Get the dayNames option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'dayNames'
+     */
+    datepicker(methodName: 'option', optionName: 'dayNames'): string[];
+    /**
+     * Set the dayNames option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'dayNames'
+     * @param dayNamesValue The list of long day names, starting from Sunday, for use as requested via the dateFormat option.
+     */
+    datepicker(methodName: 'option', optionName: 'dayNames', dayNamesValue: string[]): JQuery;
+
+    /**
+     * Get the dayNamesMin option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'dayNamesMin'
+     */
+    datepicker(methodName: 'option', optionName: 'dayNamesMin'): string[];
+    /**
+     * Set the dayNamesMin option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'dayNamesMin'
+     * @param dayNamesMinValue The list of minimised day names, starting from Sunday, for use as column headers within the datepicker.
+     */
+    datepicker(methodName: 'option', optionName: 'dayNamesMin', dayNamesMinValue: string[]): JQuery;
+
+    /**
+     * Get the dayNamesShort option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'dayNamesShort'
+     */
+    datepicker(methodName: 'option', optionName: 'dayNamesShort'): string[];
+    /**
+     * Set the dayNamesShort option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'dayNamesShort'
+     * @param dayNamesShortValue The list of abbreviated day names, starting from Sunday, for use as requested via the dateFormat option.
+     */
+    datepicker(methodName: 'option', optionName: 'dayNamesShort', dayNamesShortValue: string[]): JQuery;
+
+    /**
+     * Get the defaultDate option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'defaultDate'
+     */
+    datepicker(methodName: 'option', optionName: 'defaultDate'): any;
+    /**
+     * Set the defaultDate option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'defaultDate'
+     * @param defaultDateValue A date object containing the default date.
+     */
+    datepicker(methodName: 'option', optionName: 'defaultDate', defaultDateValue: Date): JQuery;
+    /**
+     * Set the defaultDate option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'defaultDate'
+     * @param defaultDateValue A number of days from today. For example 2 represents two days from today and -1 represents yesterday.
+     */
+    datepicker(methodName: 'option', optionName: 'defaultDate', defaultDateValue: number): JQuery;
+    /**
+     * Set the defaultDate option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'defaultDate'
+     * @param defaultDateValue A string in the format defined by the dateFormat option, or a relative date. Relative dates must contain value and period pairs; valid periods are "y" for years, "m" for months, "w" for weeks, and "d" for days. For example, "+1m +7d" represents one month and seven days from today.
+     */
+    datepicker(methodName: 'option', optionName: 'defaultDate', defaultDateValue: string): JQuery;
+
+    /**
+     * Get the duration option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'duration'
+     */
+    datepicker(methodName: 'option', optionName: 'duration'): string;
+    /**
+     * Set the duration option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'duration'
+     * @param durationValue Control the speed at which the datepicker appears, it may be a time in milliseconds or a string representing one of the three predefined speeds ("slow", "normal", "fast").
+     */
+    datepicker(methodName: 'option', optionName: 'duration', durationValue: string): JQuery;
+
+    /**
+     * Get the firstDay option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'firstDay'
+     */
+    datepicker(methodName: 'option', optionName: 'firstDay'): number;
+    /**
+     * Set the firstDay option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'firstDay'
+     * @param firstDayValue Set the first day of the week: Sunday is 0, Monday is 1, etc.
+     */
+    datepicker(methodName: 'option', optionName: 'firstDay', firstDayValue: number): JQuery;
+
+    /**
+     * Get the gotoCurrent option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'gotoCurrent'
+     */
+    datepicker(methodName: 'option', optionName: 'gotoCurrent'): boolean;
+    /**
+     * Set the gotoCurrent option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'gotoCurrent'
+     * @param gotoCurrentValue When true, the current day link moves to the currently selected date instead of today.
+     */
+    datepicker(methodName: 'option', optionName: 'gotoCurrent', gotoCurrentValue: boolean): JQuery;
 
     /**
      * Gets the value currently associated with the specified optionName.

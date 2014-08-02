@@ -1,7 +1,7 @@
 // Type definitions for mocha 1.17.1
 // Project: http://visionmedia.github.io/mocha/
-// Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid/>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid/>, otiai10 <https://github.com/otiai10>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface Mocha {
     // Setup mocha with the given setting options.
@@ -56,6 +56,14 @@ declare var describe : {
     (description: string, spec: () => void): void;
     only(description: string, spec: () => void): void;
     skip(description: string, spec: () => void): void;
+    timeout(ms: number): void;
+}
+
+// alias for `describe`
+declare var context : {
+    (contextTitle: string, spec: () => void): void;
+    only(contextTitle: string, spec: () => void): void;
+    skip(contextTitle: string, spec: () => void): void;
     timeout(ms: number): void;
 }
 

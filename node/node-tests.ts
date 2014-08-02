@@ -9,6 +9,7 @@ import util = require("util");
 import crypto = require("crypto");
 import http = require("http");
 import net = require("net");
+import dgram = require("dgram");
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -39,7 +40,7 @@ fs.writeFile("Harry Potter",
     assert.ifError);
 
 var content: string,
-    buffer: NodeBuffer;
+    buffer: Buffer;
 
 content = fs.readFileSync('testfile', 'utf8');
 content = fs.readFileSync('testfile', {encoding : 'utf8'});
@@ -95,3 +96,30 @@ var hmacResult: string = crypto.createHmac('md5', 'hello').update('world').diges
 // Make sure .listen() and .close() retuern a Server instance
 http.createServer().listen(0).close().address();
 net.createServer().listen(0).close().address();
+
+var request = http.request('http://0.0.0.0');
+request.once('error', function () {});
+request.setNoDelay(true);
+request.abort();
+
+////////////////////////////////////////////////////
+/// Http tests : http://nodejs.org/api/http.html
+////////////////////////////////////////////////////
+module http_tests {
+    // Status codes
+    var code = 100;
+    var codeMessage = http.STATUS_CODES['400'];
+    var codeMessage = http.STATUS_CODES[400];
+}
+
+////////////////////////////////////////////////////
+/// Dgram tests : http://nodejs.org/api/dgram.html
+////////////////////////////////////////////////////
+
+var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
+});
+var ai: dgram.AddressInfo = ds.address();
+ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
+});
+
+

@@ -21,6 +21,7 @@ declare module "glob" {
 		var Glob:IGlobStatic;
 
 		interface IOptions extends minimatch.IOptions {
+			cwd?: string;
 			sync?: boolean;
 			nomount?: boolean;
 			matchBase?:any;

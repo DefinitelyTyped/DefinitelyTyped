@@ -47,7 +47,7 @@ grid.getDataItem(14).title;
 
 grid.setData([{ title: "task", duration: "5 days", percentComplete: 5, start: "01/01/2013", finish: "12/12/2013", effortDriven: false }], true);
 
-var ids = [];
+var ids: string[] = [];
 for (i = 0; i < grid.getDataLength(); i++) {
 	ids.push(grid.getDataItem(i).title);
 }
@@ -82,7 +82,7 @@ class SingleCellSelectionModel extends Slick.SelectionModel<MyData, Slick.Range[
 		this.self._grid.onClick.unsubscribe(this.self.handleGridClick);
 	}
 
-	public handleGridClick(e, args) {
+	public handleGridClick(e: any, args: any) {
 		var cell = this.self._grid.getCellFromEvent(e);
 		if (!cell || !this.self._grid.canCellBeSelected(cell.row, cell.cell)) {
 			return;
@@ -196,3 +196,17 @@ grid.setCellCssStyles("test", {
 	}
 });
 
+// Begin DataView tests
+var dataView = new Slick.Data.DataView<MyData>();
+var gridWithDataView = new Slick.Grid<MyData>('#grid2', dataView, columns, options);
+dataView.getIdxById('foo') + 5;
+
+columns.forEach(column => {
+	if (column.editor !== Slick.Editors.Integer) {
+		return;
+	}
+});
+
+grid.onSort.subscribe((e, args) => {
+    var sortCol:string = args.sortCols[0].sortCol.field;
+});

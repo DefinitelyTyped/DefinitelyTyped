@@ -1119,6 +1119,7 @@ interface HighchartsSeriesObject {
 }
 
 interface JQuery {
+    highcharts(): HighchartsChartObject;
     /**
     * Creates a new Highcharts.Chart for the current JQuery selector; usually
     * a div selected by $('#container')

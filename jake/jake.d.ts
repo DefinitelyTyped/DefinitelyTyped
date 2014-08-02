@@ -133,7 +133,7 @@ declare module jake{
 	 * @event stderr When the stderr for the child-process recieves data. This streams the stderr data. Passes one arg, the chunk of data.
 	 * @event error When a shell-command
 	 */
-	export interface Exec extends NodeEventEmitter {
+	export interface Exec extends NodeJS.EventEmitter {
 		append(cmd:string): void;
 		run(): void;
 	}
@@ -187,7 +187,7 @@ declare module jake{
 	 *
 	 * @event complete
 	 */
-	export class Task implements NodeEventEmitter {
+	export class Task implements NodeJS.EventEmitter {
 		/**
 		 * @name name The name of the Task
 		 * @param prereqs Prerequisites to be run before this task
@@ -206,14 +206,15 @@ declare module jake{
 		 */
 		reenable(): void;
 
-		addListener(event: string, listener: Function): NodeEventEmitter;
-        on(event: string, listener: Function): NodeEventEmitter;
-        once(event: string, listener: Function): NodeEventEmitter;
-        removeListener(event: string, listener: Function): NodeEventEmitter;
-        removeAllListeners(event?: string): NodeEventEmitter;
+		addListener(event: string, listener: Function): NodeJS.EventEmitter;
+        on(event: string, listener: Function): NodeJS.EventEmitter;
+        once(event: string, listener: Function): NodeJS.EventEmitter;
+        removeListener(event: string, listener: Function): NodeJS.EventEmitter;
+        removeAllListeners(event?: string): NodeJS.EventEmitter;
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
+        value: any;
 	}
 
 	export class DirectoryTask{
@@ -380,11 +381,11 @@ declare module jake{
 		constructor(name:string, definition?:()=>void);
 	}
 
-	export function addListener(event: string, listener: Function): NodeEventEmitter;
-	export function on(event: string, listener: Function): NodeEventEmitter;
-	export function once(event: string, listener: Function): NodeEventEmitter;
-	export function removeListener(event: string, listener: Function): NodeEventEmitter;
-	export function removeAllListener(event: string): NodeEventEmitter;
+	export function addListener(event: string, listener: Function): NodeJS.EventEmitter;
+	export function on(event: string, listener: Function): NodeJS.EventEmitter;
+	export function once(event: string, listener: Function): NodeJS.EventEmitter;
+	export function removeListener(event: string, listener: Function): NodeJS.EventEmitter;
+	export function removeAllListener(event: string): NodeJS.EventEmitter;
 	export function setMaxListeners(n: number): void;
 	export function listeners(event: string): Function[];
 	export function emit(event: string, ...args: any[]): boolean;
