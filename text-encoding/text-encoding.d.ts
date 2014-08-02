@@ -3,7 +3,7 @@
 // Definitions by: MIZUNE Pine <https://github.com/pine613/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module TextEncodingStatic {
+declare module TextEncoding {
     interface TextDecoderOptions {
         fatal?: boolean;
         ignoreBOM?: boolean;
@@ -35,11 +35,11 @@ declare module TextEncodingStatic {
 }
 
 declare var TextDecoder: {
-    (label?: string, options?: TextEncodingStatic.TextDecoderOptions): TextEncodingStatic.TextDecoder;
-    new (label?: string, options?: TextEncodingStatic.TextDecoderOptions): TextEncodingStatic.TextDecoder;
+    (label?: string, options?: TextEncoding.TextDecoderOptions): TextEncoding.TextDecoder;
+    new (label?: string, options?: TextEncoding.TextDecoderOptions): TextEncoding.TextDecoder;
 };
 
 declare var TextEncoder: {
-    (utfLabel?: string, options?: TextEncodingStatic.TextEncoderOptions): TextEncodingStatic.TextEncoder;
-    new (utfLabel?: string, options?: TextEncodingStatic.TextEncoderOptions): TextEncodingStatic.TextEncoder;
+    (utfLabel?: string, options?: TextEncoding.TextEncoderOptions): TextEncoding.TextEncoder;
+    new (utfLabel?: string, options?: TextEncoding.TextEncoderOptions): TextEncoding.TextEncoder;
 };
