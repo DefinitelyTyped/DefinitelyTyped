@@ -12,7 +12,7 @@
     var container, stats;
 
     var camera, scene, renderer, objects;
-    var particleLight, pointLight;
+    var particleLight;
 
     var materials = [];
 
@@ -130,8 +130,8 @@
 
         scene.add(directionalLight);
 
-        pointLight = new THREE.PointLight(0xffffff, 1);
-        scene.add(pointLight);
+        var pointLight = new THREE.PointLight(0xffffff, 1);
+        particleLight.add(pointLight);
 
         //
 
@@ -227,10 +227,6 @@
         particleLight.position.x = Math.sin(timer * 7) * 300;
         particleLight.position.y = Math.cos(timer * 5) * 400;
         particleLight.position.z = Math.cos(timer * 3) * 300;
-
-        pointLight.position.x = particleLight.position.x;
-        pointLight.position.y = particleLight.position.y;
-        pointLight.position.z = particleLight.position.z;
 
         renderer.render(scene, camera);
 
