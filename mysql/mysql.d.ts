@@ -44,7 +44,6 @@ declare module mysql {
         query: IQueryFunction;
 
         end(): void;
-        end(options: any): void;
         end(callback: (err: IError, ...args: any[]) => void): void;
         end(options: any, callback: (err: IError, ...args: any[]) => void): void;
 

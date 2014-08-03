@@ -109,7 +109,7 @@ sql = mysql.format(sql, inserts);
 
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
-    return query.replace(/\:(\w+)/g, function (txt, key) {
+    return query.replace(/\:(\w+)/g, function (txt: string, key: string) {
         if (values.hasOwnProperty(key)) {
             return this.escape(values[key]);
         }
@@ -173,7 +173,7 @@ pool.on('connection', function (connection) {
     connection.query('SET SESSION auto_increment_increment=1')
 });
 
-pool.getConnection(function (err, connection: mysql.IConnection) {
+pool.getConnection(function (err, connection) {
     // Use the connection
     connection.query('SELECT something FROM sometable', function (err, rows) {
         // And done with the connection.
@@ -368,7 +368,7 @@ var query = connection.query({ sql: '...', typeCast: false }, function (err, res
 
 connection.query({
     sql: '...',
-    typeCast: function (field, next) {
+    typeCast: function (field: any, next: Function) {
         if (field.type == 'TINY' && field.length == 1) {
             return (field.string() == '1'); // 1 = true, 0 = false
         }
