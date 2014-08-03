@@ -26,12 +26,14 @@ THE SOFTWARE.
 
 // webGL renderer test.
 /// <reference path="./tests/webgl/webgl_animation_cloth.ts" />
+/// <reference path="./tests/webgl/webgl_animation_skinning_morph.ts" />
 /// <reference path="./tests/webgl/webgl_buffergeometry.ts" />
 /// <reference path="./tests/webgl/webgl_camera.ts" />
 /// <reference path="./tests/webgl/webgl_custom_attributes.ts" />
 /// <reference path="./tests/webgl/webgl_geometries.ts" />
 /// <reference path="./tests/webgl/webgl_helpers.ts" />
 /// <reference path="./tests/webgl/webgl_interactive_cubes.ts" />
+/// <reference path="./tests/webgl/webgl_interactive_raycasting_pointcloud.ts" />
 /// <reference path="./tests/webgl/webgl_lensflares.ts" />
 /// <reference path="./tests/webgl/webgl_lights_heimsphere.ts" />
 /// <reference path="./tests/webgl/webgl_lines_colors.ts" />
@@ -54,3 +56,4 @@ THE SOFTWARE.
 /// <reference path="./tests/canvas/canvas_lights_pointlights.ts" />
 /// <reference path="./tests/canvas/canvas_materials.ts" />
 /// <reference path="./tests/canvas/canvas_particles_floor.ts" />
+
