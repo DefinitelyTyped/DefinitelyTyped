@@ -193,6 +193,7 @@ All definitions files include a header with the author and editors, so at some p
 * [js-git](https://github.com/creationix/js-git) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [js-url](https://github.com/websanova/js-url) (by [MIZUNE Pine](https://github.com/pine613))
 * [js-yaml](https://github.com/nodeca/js-yaml) (by [Bart van der Schoor](https://github.com/Bartvds/))
+* [jsbn](http://www-cs-students.stanford.edu/%7Etjw/jsbn/) (by [Eugene Chernyshov](https://github.com/Evgenus))
 * [jScrollPane](http://jscrollpane.kelvinluck.com) (by [Dániel Tar](https://github.com/qcz))
 * [JSDeferred](http://cho45.stfuawsc.com/jsdeferred/) (by [Daisuke Mino](https://github.com/minodisk))
 * [JSONEditorOnline](https://github.com/josdejong/jsoneditoronline) (by [Vincent Bortone](https://github.com/vbortone/))
