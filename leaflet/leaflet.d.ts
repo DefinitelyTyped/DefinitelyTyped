@@ -2183,7 +2183,7 @@ declare module L {
         /**
           * Closes the popup previously opened with openPopup (or the given one).
           */
-        closePopup(): Map;
+        closePopup(popup?: Popup): Map;
     
         /**
           * Adds the given control to the map.
@@ -2416,7 +2416,7 @@ declare module L {
           *
           * Default value: true.
           */
-        scrollWheelZoom?: string;
+        scrollWheelZoom?: any;
         //scrollWheelZoom?: boolean;
         //scrollWheelZoom?: string;
         
@@ -2739,7 +2739,12 @@ declare module L {
         /**
           * Returns a GeoJSON representation of the marker (GeoJSON Point Feature).
           */
-        toGeoJSON(popup: Popup, options?: PopupOptions): any;
+        toGeoJSON(): any;
+
+        /**
+          * Marker dragging handler (by both mouse and touch).
+          */
+        dragging: IHandler;
 
         ////////////
         ////////////
@@ -3428,9 +3433,8 @@ declare module L {
         /**
           * Returns the content of the popup.
           */
-        getContent(): any;
+        getContent(): HTMLElement;
         //getContent(): string;
-        //getContent(): HTMLElement;
 
         ////////////
         ////////////
