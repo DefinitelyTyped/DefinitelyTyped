@@ -337,6 +337,7 @@ declare module ng {
         $new(isolate?: boolean): IScope;
 
         $on(name: string, listener: (event: IAngularEvent, ...args: any[]) => any): Function;
+        $on(name: string, listener: (event: IAngularEvent, eventArg: any) => any): Function;
 
         $watch(watchExpression: string, listener?: string, objectEquality?: boolean): Function;
         $watch(watchExpression: string, listener?: (newValue: any, oldValue: any, scope: IScope) => any, objectEquality?: boolean): Function;
