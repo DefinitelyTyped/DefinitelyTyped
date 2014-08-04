@@ -3,10 +3,6 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-interface UniversalAnalytics {
-    (accountID:string, uuid?:string, opts?:Object):UniversalAnalytics.Client;
-}
-
 declare module UniversalAnalytics {
 
     interface Client {
@@ -14,14 +10,11 @@ declare module UniversalAnalytics {
 
         send():void;
 
-        pageview(path:string):Client;
-        pageview(path:string, callback?:(err:any) => void):void;
-        pageview(params:Object):Client;
-        pageview(params:Object, callback?:(err:any) => void):void;
-        pageview(path:string, hostname:string):Client;
-        pageview(path:string, hostname:string, callback?:(err:any) => void):void;
-        pageview(path:string, title:string, hostname:string):Client;
-        pageview(path:string, title:string, hostname:string, callback?:(err:any) => void):void;
+        pageview(params:Object, callback?:(err:any) => void):Client;
+        pageview(path:string, callback:(err:any) => void):Client;
+        pageview(path:string, hostname:string, callback:(err:any) => void):Client;
+        pageview(path:string, hostname:string, title:string, callback:(err:any) => void):Client;
+        pageview(path:string, hostname?:string, title?:string, params?:Object, callback?:(err:any) => void):Client;
 
 
         event(category:string, action:string):Client;
@@ -90,5 +83,6 @@ declare module UniversalAnalytics {
 }
 
 declare module 'universal-analytics' {
-export = UniversalAnalytics;
+    function universalAnalytics(accountID: string, uuid?: string, opts?: Object): UniversalAnalytics.Client;
+    export = universalAnalytics;
 }

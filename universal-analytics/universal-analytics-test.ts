@@ -1,6 +1,6 @@
 /// <reference path="universal-analytics.d.ts" />
 
-var ui:UniversalAnalytics;
+import ui = require('universal-analytics');
 
 var str:string;
 var num:number;
@@ -14,13 +14,15 @@ client = client.debug();
 client.send();
 
 client = client.pageview(str);
-client.pageview(str, (err:any) => {});
+client = client.pageview(str, (err:any) => {});
 client = client.pageview(params);
-client.pageview(params, (err:any) => {});
+client = client.pageview(params, (err:any) => {});
 client = client.pageview(str, str);
-client.pageview(str, str, (err:any) => {});
+client = client.pageview(str, str, (err:any) => {});
 client = client.pageview(str, str, str);
-client.pageview(str, str, str, (err:any) => {});
+client = client.pageview(str, str, str, (err:any) => {});
+client = client.pageview(str, str, str, params);
+client = client.pageview(str, str, str, params, (err:any) => {});
 
 
 client = client.event(str, str);
