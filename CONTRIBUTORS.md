@@ -247,6 +247,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Mousetrap](http://craig.is/killing/mice) (by [Dániel Tar](https://github.com/qcz))
 * [msgpack.js](https://github.com/uupaa/msgpack.js) (by [Shinya Mochizuki](https://github.com/enrapt-mochizuki))
 * [Mustache.js](https://github.com/janl/mustache.js) (by [Boris Yankov](https://github.com/borisyankov))
+* [mysql](https://github.com/felixge/node-mysql) (by [William Johnston](https://github.com/wjohnsto))
 * [nconf](https://github.com/flatiron/nconf) (by [Jeff Goddard](https://github.com/jedigo))
 * [noble](https://github.com/sandeepmistry/noble) (by [Seon-Wook Park](https://github.com/swook))
 * [nock](https://github.com/pgte/nock) (by [bonnici](https://github.com/bonnici))
