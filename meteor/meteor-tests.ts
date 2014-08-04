@@ -1,4 +1,4 @@
-/// <reference path='meteor.d.ts'/>
+/// <reference path='../meteor.d.ts'/>
 
 /**
  * All code below was copied from the examples at http://docs.meteor.com/.
@@ -10,16 +10,17 @@
 /*********************************** Begin setup for tests ******************************/
 
 // A developer must declare a var Template like this in a separate file to use this TypeScript type definition file
-interface ITemplate {
-  adminDashboard: IMeteorViewModel;
-  chat: IMeteorViewModel;
-}
-declare var Template: ITemplate;
+//interface ITemplate {
+//  adminDashboard: Meteor.Template;
+//  chat: Meteor.Template;
+//}
+//declare var Template: ITemplate;
 
 var Rooms = new Meteor.Collection('rooms');
 var Messages = new Meteor.Collection('messages');
 var Monkeys = new Meteor.Collection('monkeys');
 
+var check = function(str1, str2) {};
 /********************************** End setup for tests *********************************/
 
 
@@ -203,7 +204,7 @@ Items.insert({list: groceriesId, name: "Persimmons"});
  */
 var Players = new Meteor.Collection('Players');
 
-Template.adminDashboard.events({
+Template['adminDashboard'].events({
   'click .givePoints': function () {
     Players.update(Session.get("currentPlayer"), {$inc: {score: 5}});
   }
@@ -223,7 +224,7 @@ Meteor.methods({
 /**
  * From Collections, collection.remove section
  */
-Template.chat.events({
+Template['chat'].events({
   'click .remove': function () {
     Messages.remove(this._id);
   }
@@ -283,16 +284,6 @@ topPosts.forEach(function (post) {
 });
 
 /**
- * From Collections, cursor.count section
- */
-var frag = Meteor.render(function () {
-  var highScoring = Posts.find({score: {$gt: 10}});
-  return "<p>There are " + highScoring.count() + " posts with " +
-      "scores greater than 10</p>";
-});
-document.body.appendChild(frag);
-
-/**
  * From Collections, cursor.observeChanges section
  */
 // DA: I added this line to make it work
@@ -328,12 +319,6 @@ Session.set("currentRoomId", "home");
 /**
  * From Sessions, Session.get section
  */
-Session.set("enemy", "Eastasia");
-var frag1 = Meteor.render(function () {
-  return "<p>We've always been at war with " +
-      Session.get("enemy") + "</p>";
-});
-
 // Page will say "We've always been at war with Eastasia"
 
 // DA: commented out since transpiler didn't like append()
@@ -362,15 +347,6 @@ Meteor.users.deny({update: function () { return true; }});
 /**
  * From Accounts, Meteor.loginWithExternalService section
  */
-Accounts.loginServiceConfiguration.remove({
-  service: "weibo"
-});
-Accounts.loginServiceConfiguration.insert({
-  service: "weibo",
-  clientId: "1292962797",
-  secret: "75a730b58f5691de5522789070c319bc"
-});
-
 Meteor.loginWithGithub({
   requestPermissions: ['user', 'public_repo']
 }, function (err) {
@@ -434,51 +410,11 @@ Accounts.emailTemplates.enrollAccount.text = function (user, url) {
 /**
  * From Templates, Template.myTemplate.helpers section
  */
-Template.adminDashboard.helpers({
+Template['adminDashboard'].helpers({
   foo: function () {
     return Session.get("foo");
   }
 });
-
-/**
- * From Templates, Template.myTemplate.preserve
- */
-Template.adminDashboard.preserve({
-  'input[id]': function (node) { return node.id; }
-});
-
-/**
- * From Templates, Meteor.render section
- */
-var frag2 = Meteor.render(function () {
-  return "<p>There are " + Players.find({online: true}).count() +
-      " players online.</p>";
-});
-document.body.appendChild(frag2);
-
-Players.update({idleTime: {$gt: 30}}, {$set: {online: false}});
-
-/**
- * From Templates, Meteor.renderList section
- */
-var frag3 = Meteor.renderList(
-    Posts.find({tags: "frontpage"}),
-    function(post) {
-      var style = Session.equals("selectedId", post._id) ? "selected" : "";
-      // A real app would need to quote/sanitize post.name
-      return '<div class="' + style + '">' + post.name + '</div>';
-    });
-document.body.appendChild(frag3);
-
-var somePost = Posts.findOne({tags: "frontpage"});
-Session.set("selectedId", somePost._id);
-
-var eventTester = {
-  'click p': function (event: IMeteorEvent) {
-    var paragraph = event.currentTarget; // always a P
-    var clickedElement = event.target; // could be the P or a child element
-  }
-}
 
 /**
  * From Match section
