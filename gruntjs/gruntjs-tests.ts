@@ -74,7 +74,6 @@ exports = (grunt: IGrunt) => {
     fileMaps[0].dest;
 };
 
-// Official grunt task template from 
 // Official grunt task template from
 // https://github.com/gruntjs/grunt-init-gruntplugin/blob/master/root/tasks/name.js
 exports.exports = function(grunt: IGrunt) {
