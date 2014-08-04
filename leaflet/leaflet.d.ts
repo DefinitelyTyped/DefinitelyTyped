@@ -1244,7 +1244,7 @@ declare module L {
         enabled(): boolean;
     }
 
-    export class Handler extends Class implements IHandler {
+    export class Handler extends Class {
         initialize(map: Map): void;
     }
 }
@@ -1269,10 +1269,8 @@ declare module L {
 }
 
 declare module L {
-    export var Mixin: any;
-
-    module Mixin {
-        export interface LeafletMixinEvents implements IEventPowered<LeafletMixinEvents> {
+    export module Mixin {
+        export interface LeafletMixinEvents extends IEventPowered<LeafletMixinEvents> {
         }
 
         export var Events: LeafletMixinEvents;
@@ -2418,8 +2416,9 @@ declare module L {
           *
           * Default value: true.
           */
-        scrollWheelZoom?: boolean;
         scrollWheelZoom?: string;
+        //scrollWheelZoom?: boolean;
+        //scrollWheelZoom?: string;
         
         /**
           * Whether the map can be zoomed in by double clicking on it and zoomed out
@@ -2429,8 +2428,9 @@ declare module L {
           *
           * Default value: true.
           */
-        doubleClickZoom?: boolean;
         doubleClickZoom?: string;
+        //doubleClickZoom?: boolean;
+        //doubleClickZoom?: string;
 
         /**
           * Whether the map can be zoomed to a rectangular area specified by dragging
@@ -3428,12 +3428,9 @@ declare module L {
         /**
           * Returns the content of the popup.
           */
-        getContent(): string;
-
-        /**
-          * Returns the content of the popup.
-          */
-        getContent(): HTMLElement;
+        getContent(): any;
+        //getContent(): string;
+        //getContent(): HTMLElement;
 
         ////////////
         ////////////
