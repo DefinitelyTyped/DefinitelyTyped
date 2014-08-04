@@ -1159,6 +1159,19 @@ declare module D3 {
                 */
                 (size: Array<number>): TreeLayout;
             };
+            /**
+            * Gets or sets the available node size
+            */
+            nodeSize: {
+                /**
+                * Gets the available node size
+                */
+                (): Array<number>;
+                /**
+                * Sets the available node size
+                */
+                (size: Array<number>): TreeLayout;
+            };
         }
 
         export interface PieLayout {
