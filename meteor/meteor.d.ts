@@ -10,8 +10,6 @@
  *
  */
 
-/// <reference path="lib.d.ts" />
-
 /**
  * These are the modules and interfaces that can't be automatically generated from the Meteor api.js file
  */
