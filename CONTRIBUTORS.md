@@ -245,7 +245,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Moment.js](https://github.com/timrwood/moment) (by [Michael Lakerveld](https://github.com/Lakerfield))
 * [MongoDB](http://mongodb.github.io/node-mongodb-native/) (from TypeScript samples, updated by [Niklas Mollenhauer](https://github.com/nikeee))
 * [mongoose](http://mongoosejs.com/) (by [Hiroki Horiuchi](https://github.com/horiuchi/))
-* [morgan](hhttps://github.com/expressjs/morgan) (by [James Roland Cabresos](https://github.com/staticfunction/))
+* [morgan](https://github.com/expressjs/morgan/) (by [James Roland Cabresos](https://github.com/staticfunction/))
 * [Mousetrap](http://craig.is/killing/mice) (by [Dániel Tar](https://github.com/qcz))
 * [msgpack.js](https://github.com/uupaa/msgpack.js) (by [Shinya Mochizuki](https://github.com/enrapt-mochizuki))
 * [Mustache.js](https://github.com/janl/mustache.js) (by [Boris Yankov](https://github.com/borisyankov))
