@@ -89,9 +89,9 @@ exports.exports = function(grunt: IGrunt) {
         });
 
         // Iterate over all specified file groups.
-        this.files.forEach(function(f) {
+        this.files.forEach(function(f: grunt.file.IFilesConfig) {
             // Concat specified files.
-            var src = f.src.filter(function(filepath) {
+            var src = f.src.filter(function(filepath: string) {
                 // Warn on and remove invalid source files (if nonull was set).
                 if (!grunt.file.exists(filepath)) {
                     grunt.log.warn('Source file "' + filepath + '" not found.');
