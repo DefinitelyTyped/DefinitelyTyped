@@ -214,6 +214,7 @@ declare module Q {
     export function nfapply<T>(nodeFunction: Function, args: any[]): Promise<T>;
 
     export function ninvoke<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
+    export function npost<T>(nodeModule: any, functionName: string, args: any[]): Promise<T>;
     export function nsend<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
     export function nmcall<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
 
