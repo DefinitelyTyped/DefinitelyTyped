@@ -10,7 +10,7 @@ function Usage() {
     });
 
     // using streams
-    var out; // = fs.createWriteStream('logo.png');
+    var out: any; // = fs.createWriteStream('logo.png');
     needle.get('https://google.com/images/logo.png').pipe(out);
 }
 
@@ -31,7 +31,7 @@ function ResponsePipeline() {
     var stream = needle.get('https://backend.server.com/everything.html', options);
 
     stream.on('readable', function () {
-        var data;
+        var data: any;
         while (data = this.read()) {
             console.log(data.toString());
         }

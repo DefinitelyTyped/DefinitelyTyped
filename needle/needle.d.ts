@@ -6,6 +6,8 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module Needle {
+	interface ReadableStream extends NodeJS.ReadableStream {
+	}
 
     interface Callback {
         (error: Error, response: any, body: any): void;
