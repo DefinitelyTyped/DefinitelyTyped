@@ -3,7 +3,7 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-///<reference path="../chai/chai-assert.d.ts" />
+///<reference path="../chai/chai.d.ts" />
 
 declare module chai {
 	interface Assert {

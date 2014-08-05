@@ -6,6 +6,7 @@
 // https://github.com/mrdoob/three.js/tree/master/test/unit/math
 
 ()=>{
+    // -------------------------------------------- Constants
     var x = 2;
     var y = 3;
     var z = 4;
@@ -25,8 +26,7 @@
     var one3 = new THREE.Vector3( 1, 1, 1 );
     var two3 = new THREE.Vector3( 2, 2, 2 );
 
-    (QUnit.module)( "Box2" );
-
+    // -------------------------------------------- Box2
     test( "constructor", function() {
         var a = new THREE.Box2();
         ok( a.min.equals( posInf2 ), "Passed!" );
@@ -60,6 +60,21 @@
         a.set( zero2, one2 );
         ok( a.min.equals( zero2 ), "Passed!" );
         ok( a.max.equals( one2 ), "Passed!" );
+    });
+
+    test( "setFromPoints", function() {
+        var a = new THREE.Box2();
+
+        a.setFromPoints( [ zero2, one2, two2 ] );
+        ok( a.min.equals( zero2 ), "Passed!" );
+        ok( a.max.equals( two2 ), "Passed!" );
+
+        a.setFromPoints( [ one2 ] );
+        ok( a.min.equals( one2 ), "Passed!" );
+        ok( a.max.equals( one2 ), "Passed!" );
+
+        a.setFromPoints( [] );
+        ok( a.empty(), "Passed!" );
     });
 
     test( "empty/makeEmpty", function() {
@@ -197,21 +212,6 @@
         ok( b.distanceToPoint( new THREE.Vector2( -2, -2 ) ) == Math.sqrt( 2 ), "Passed!" );
     });
 
-    test( "distanceToPoint", function() {
-        var a = new THREE.Box2( zero2.clone(), zero2.clone() );
-        var b = new THREE.Box2( one2.clone().negate(), one2.clone() );
-
-        ok( a.distanceToPoint( new THREE.Vector2( 0, 0 ) ) == 0, "Passed!" );
-        ok( a.distanceToPoint( new THREE.Vector2( 1, 1 ) ) == Math.sqrt( 2 ), "Passed!" );
-        ok( a.distanceToPoint( new THREE.Vector2( -1, -1 ) ) == Math.sqrt( 2 ), "Passed!" );
-
-        ok( b.distanceToPoint( new THREE.Vector2( 2, 2 ) ) == Math.sqrt( 2 ), "Passed!" );
-        ok( b.distanceToPoint( new THREE.Vector2( 1, 1 ) ) == 0, "Passed!" );
-        ok( b.distanceToPoint( new THREE.Vector2( 0, 0 ) ) == 0, "Passed!" );
-        ok( b.distanceToPoint( new THREE.Vector2( -1, -1 ) ) == 0, "Passed!" );
-        ok( b.distanceToPoint( new THREE.Vector2( -2, -2 ) ) == Math.sqrt( 2 ), "Passed!" );
-    });
-
     test( "isIntersectionBox", function() {
         var a = new THREE.Box2( zero2.clone(), zero2.clone() );
         var b = new THREE.Box2( zero2.clone(), one2.clone() );
@@ -267,6 +267,7 @@
         ok( b.clone().translate( one2.clone().negate() ).equals( d ), "Passed!" );
     });
 
+    // -------------------------------------------- Box3
     test( "constructor", function() {
         var a = new THREE.Box3();
         ok( a.min.equals( posInf3 ), "Passed!" );
@@ -300,6 +301,21 @@
         a.set( zero3, one3 );
         ok( a.min.equals( zero3 ), "Passed!" );
         ok( a.max.equals( one3 ), "Passed!" );
+    });
+
+    test( "setFromPoints", function() {
+        var a = new THREE.Box3();
+
+        a.setFromPoints( [ zero3, one3, two3 ] );
+        ok( a.min.equals( zero3 ), "Passed!" );
+        ok( a.max.equals( two3 ), "Passed!" );
+
+        a.setFromPoints( [ one3 ] );
+        ok( a.min.equals( one3 ), "Passed!" );
+        ok( a.max.equals( one3 ), "Passed!" );
+
+        a.setFromPoints( [] );
+        ok( a.empty(), "Passed!" );
     });
 
     test( "empty/makeEmpty", function() {
@@ -508,7 +524,7 @@
     var compareBox = function ( a, b, threshold? ) {
         threshold = threshold || 0.0001;
         return ( a.min.distanceTo( b.min ) < threshold &&
-        a.max.distanceTo( b.max ) < threshold );
+            a.max.distanceTo( b.max ) < threshold );
     };
 
     test( "applyMatrix4", function() {
@@ -538,11 +554,19 @@
         ok( b.clone().translate( one3.clone().negate() ).equals( d ), "Passed!" );
     });
 
+    // -------------------------------------------- Color
     test( "constructor", function(){
         var c = new THREE.Color();
         ok( c.r, "Red: " + c.r );
         ok( c.g, "Green: " + c.g );
-        ok( c.b, "Blue: " + c.g );
+        ok( c.b, "Blue: " + c.b );
+    });
+
+    test( "rgb constructor", function(){
+        var c = new THREE.Color( 1, 1, 1 );
+        ok( c.r == 1, "Passed" );
+        ok( c.g == 1, "Passed" );
+        ok( c.b == 1, "Passed" );
     });
 
     test( "copyHex", function(){
@@ -560,48 +584,48 @@
     });
 
     test( "setRGB", function(){
-        var c = new THREE.Color()
-        c.setRGB(255, 2, 1);
-        ok( c.r == 255, "Red: " + c.r );
-        ok( c.g == 2, "Green: " + c.g );
-        ok( c.b == 1, "Blue: " + c.b );
+        var c = new THREE.Color();
+        c.setRGB(1, 0.2, 0.1);
+        ok( c.r == 1, "Red: " + c.r );
+        ok( c.g == 0.2, "Green: " + c.g );
+        ok( c.b == 0.1, "Blue: " + c.b );
     });
 
     test( "copyGammaToLinear", function(){
         var c = new THREE.Color();
         var c2 = new THREE.Color();
-        c2.setRGB(2, 4, 8)
-        c.copyGammaToLinear(c2)
-        ok( c.r == 4, "Red c: " + c.r + " Red c2: " + c2.r);
-        ok( c.g == 16, "Green c: " + c.g + " Green c2: " + c2.g);
-        ok( c.b == 64, "Blue c: " + c.b + " Blue c2: " + c2.b);
+        c2.setRGB(0.3, 0.5, 0.9);
+        c.copyGammaToLinear(c2);
+        ok( c.r == 0.09, "Red c: " + c.r + " Red c2: " + c2.r);
+        ok( c.g == 0.25, "Green c: " + c.g + " Green c2: " + c2.g);
+        ok( c.b == 0.81, "Blue c: " + c.b + " Blue c2: " + c2.b);
     });
 
     test( "copyLinearToGamma", function(){
         var c = new THREE.Color();
         var c2 = new THREE.Color();
-        c2.setRGB(4, 9, 16)
-        c.copyLinearToGamma(c2)
-        ok( c.r == 2, "Red c: " + c.r + " Red c2: " + c2.r);
-        ok( c.g == 3, "Green c: " + c.g + " Green c2: " + c2.g);
-        ok( c.b == 4, "Blue c: " + c.b + " Blue c2: " + c2.b);
+        c2.setRGB(0.09, 0.25, 0.81);
+        c.copyLinearToGamma(c2);
+        ok( c.r == 0.3, "Red c: " + c.r + " Red c2: " + c2.r);
+        ok( c.g == 0.5, "Green c: " + c.g + " Green c2: " + c2.g);
+        ok( c.b == 0.9, "Blue c: " + c.b + " Blue c2: " + c2.b);
     });
 
 
     test( "convertGammaToLinear", function(){
         var c = new THREE.Color();
-        c.setRGB(2, 4, 8)
-        c.convertGammaToLinear()
-        ok( c.r == 4, "Red: " + c.r );
-        ok( c.g == 16, "Green: " + c.g );
-        ok( c.b == 64, "Blue: " + c.b );
+        c.setRGB(0.3, 0.5, 0.9);
+        c.convertGammaToLinear();
+        ok( c.r == 0.09, "Red: " + c.r );
+        ok( c.g == 0.25, "Green: " + c.g );
+        ok( c.b == 0.81, "Blue: " + c.b );
     });
 
 
     test( "convertLinearToGamma", function(){
         var c = new THREE.Color();
-        c.setRGB(4, 9, 16)
-        c.convertLinearToGamma()
+        c.setRGB(4, 9, 16);
+        c.convertLinearToGamma();
         ok( c.r == 2, "Red: " + c.r );
         ok( c.g == 3, "Green: " + c.g );
         ok( c.b == 4, "Blue: " + c.b );
@@ -611,8 +635,8 @@
         var c = new THREE.Color();
         c.set(0xFF0000);
         ok( c.r == 1, "Red: " + c.r );
-        ok( c.g == 0, "Green: " + c.g );
-        ok( c.b == 0, "Blue: " + c.b );
+        ok( c.g === 0, "Green: " + c.g );
+        ok( c.b === 0, "Blue: " + c.b );
     });
 
 
@@ -633,11 +657,11 @@
         var c = new THREE.Color();
         var c2 = new THREE.Color();
         c.setRGB(0, 0, 0);
-        c.lerp(c2, 2);
-        ok( c.r == 2, "Red: " + c.r );
-        ok( c.g == 2, "Green: " + c.g );
-        ok( c.b == 2, "Blue: " + c.b );
-        
+        c.lerp(c2, 0.2);
+        ok( c.r == 0.2, "Red: " + c.r );
+        ok( c.g == 0.2, "Green: " + c.g );
+        ok( c.b == 0.2, "Blue: " + c.b );
+
     });
 
 
@@ -645,11 +669,27 @@
         var c = new THREE.Color();
         c.setStyle('rgb(255,0,0)');
         ok( c.r == 1, "Red: " + c.r );
-        ok( c.g == 0, "Green: " + c.g );
-        ok( c.b == 0, "Blue: " + c.b );
+        ok( c.g === 0, "Green: " + c.g );
+        ok( c.b === 0, "Blue: " + c.b );
+    });
+
+    test( "setStyleRGBRedWithSpaces", function(){
+        var c = new THREE.Color();
+        c.setStyle('rgb(255, 0, 0)');
+        ok( c.r == 1, "Red: " + c.r );
+        ok( c.g === 0, "Green: " + c.g );
+        ok( c.b === 0, "Blue: " + c.b );
     });
 
     test( "setStyleRGBPercent", function(){
+        var c = new THREE.Color();
+        c.setStyle('rgb(100%,50%,10%)');
+        ok( c.r == 1, "Red: " + c.r );
+        ok( c.g == 0.5, "Green: " + c.g );
+        ok( c.b == 0.1, "Blue: " + c.b );
+    });
+
+    test( "setStyleRGBPercentWithSpaces", function(){
         var c = new THREE.Color();
         c.setStyle('rgb(100%,50%,10%)');
         ok( c.r == 1, "Red: " + c.r );
@@ -706,10 +746,7 @@
 
         ok( hsl.h == 0.5, "hue: " + hsl.h );
         ok( hsl.s == 1.0, "saturation: " + hsl.s );
-
-
-        //ok( (Math.round(parseFloat(hsl.l)*100)/100) == 0.75, "lightness: " + hsl.l );
-        ok( (Math.round(hsl.l*100)/100) == 0.75, "lightness: " + hsl.l );
+        ok( (Math.round(parseFloat(hsl.l.toString())*100)/100) == 0.75, "lightness: " + hsl.l );
     });
 
     test( "setHSL", function () {
@@ -721,6 +758,98 @@
         ok( hsl.s == 1.00, "saturation: " + hsl.s );
         ok( hsl.l == 0.25, "lightness: " + hsl.l );
     });
+
+    // -------------------------------------------- Euler
+
+    var eulerZero = new THREE.Euler( 0, 0, 0, "XYZ" );
+    var eulerAxyz = new THREE.Euler( 1, 0, 0, "XYZ" );
+    var eulerAzyx = new THREE.Euler( 0, 1, 0, "ZYX" );
+
+    var matrixEquals4 = function( a, b ) {
+        var tolerance = 0.0001;
+        if( a.elements.length != b.elements.length ) {
+            return false;
+        }
+        for( var i = 0, il = a.elements.length; i < il; i ++ ) {
+            var delta = a.elements[i] - b.elements[i];
+            if( delta > tolerance ) {
+                return false;
+            }
+        }
+        return true;
+    };
+
+    test( "constructor/equals", function() {
+        var a = new THREE.Euler();
+        ok( a.equals( eulerZero ), "Passed!" );
+        ok( ! a.equals( eulerAxyz ), "Passed!" );
+        ok( ! a.equals( eulerAzyx ), "Passed!" );
+    });
+
+    test( "clone/copy/equals", function() {
+        var a = eulerAxyz.clone();
+        ok( a.equals( eulerAxyz ), "Passed!" );
+        ok( ! a.equals( eulerZero ), "Passed!" );
+        ok( ! a.equals( eulerAzyx ), "Passed!" );
+
+        a.copy( eulerAzyx );
+        ok( a.equals( eulerAzyx ), "Passed!" );
+        ok( ! a.equals( eulerAxyz ), "Passed!" );
+        ok( ! a.equals( eulerZero ), "Passed!" );
+
+    });
+
+    test( "set", function() {
+        var a = new THREE.Euler();
+
+        a.set( 0, 1, 0, "ZYX" );
+        ok( a.equals( eulerAzyx ), "Passed!" );
+        ok( ! a.equals( eulerAxyz ), "Passed!" );
+        ok( ! a.equals( eulerZero ), "Passed!" );
+    });
+
+    test( "Quaternion.setFromEuler/Euler.fromQuaternion", function() {
+        var testValues = [ eulerZero, eulerAxyz, eulerAzyx ];
+        for( var i = 0; i < testValues.length; i ++ ) {
+            var v = testValues[i];
+            var q = new THREE.Quaternion().setFromEuler( v );
+
+            var v2 = new THREE.Euler().setFromQuaternion( q, v.order );
+            var q2 = new THREE.Quaternion().setFromEuler( v2 );
+            ok( q.equals( q2 ), "Passed!" );
+        }
+    });
+
+
+    test( "Matrix4.setFromEuler/Euler.fromRotationMatrix", function() {
+        var testValues = [ eulerZero, eulerAxyz, eulerAzyx ];
+        for( var i = 0; i < testValues.length; i ++ ) {
+            var v = testValues[i];
+            var m = new THREE.Matrix4().makeRotationFromEuler( v );
+
+            var v2 = new THREE.Euler().setFromRotationMatrix( m, v.order );
+            var m2 = new THREE.Matrix4().makeRotationFromEuler( v2 );
+            ok( matrixEquals4( m, m2 ), "Passed!" );
+        }
+    });
+
+    test( "reorder", function() {
+        var testValues = [ eulerZero, eulerAxyz, eulerAzyx ];
+        for( var i = 0; i < testValues.length; i ++ ) {
+            var v = testValues[i];
+            var q = new THREE.Quaternion().setFromEuler( v );
+
+            v.reorder( 'YZX' );
+            var q2 = new THREE.Quaternion().setFromEuler( v );
+            ok( q.equals( q2 ), "Passed!" );
+
+            v.reorder( 'ZXY' );
+            var q3 = new THREE.Quaternion().setFromEuler( v );
+            ok( q.equals( q3 ), "Passed!" );
+        }
+    });
+
+    // -------------------------------------------- Frustum
 
     var unit3 = new THREE.Vector3( 1, 0, 0 );
 
@@ -873,6 +1002,7 @@
         ok( b.planes[0].equals( p0 ), "Passed!" );
     });
 
+    // -------------------------------------------- Line3
 
     test( "constructor/equals", function() {
         var a = new THREE.Line3();
@@ -925,7 +1055,6 @@
         // nearby the ray
         ok( a.closestPointToPointParameter( zero3.clone(), false ) == -1, "Passed!" );
         var b2 = a.closestPointToPoint( zero3.clone(), false );
-        console.log( b2 );
         ok( b2.distanceTo( new THREE.Vector3( 1, 1, 0 ) ) < 0.0001, "Passed!" );
 
         // nearby the ray
@@ -939,7 +1068,7 @@
         ok( c.distanceTo( one3.clone() ) < 0.0001, "Passed!" );
     });
 
-
+    // -------------------------------------------- Matrix3
 
     var matrixEquals3 = function( a, b, tolerance? ) {
         tolerance = tolerance || 0.0001;
@@ -1081,15 +1210,13 @@
         var identity = new THREE.Matrix4();
         var a = new THREE.Matrix4();
         var b = new THREE.Matrix3( 0, 0, 0, 0, 0, 0, 0, 0, 0 );
-
-        //var c = new THREE.Matrix4( 0, 0, 0, 0, 0, 0, 0, 0, 0 );
-        var c = new THREE.Matrix4( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
+        var c = new THREE.Matrix4( 0, 0, 0, 0, 0, 0, 0, 0, 0 );
 
         ok( ! matrixEquals3( a, b ), "Passed!" );
         b.getInverse( a, false );
         ok( matrixEquals3( b, new THREE.Matrix3() ), "Passed!" );
 
-        try { 
+        try {
             b.getInverse( c, true );
             ok( false, "Passed!" ); // should never get here.
         }
@@ -1106,7 +1233,7 @@
             new THREE.Matrix4().makeRotationZ( -0.3 ),
             new THREE.Matrix4().makeScale( 1, 2, 3 ),
             new THREE.Matrix4().makeScale( 1/8, 1/2, 1/3 )
-            ];
+        ];
 
         for( var i = 0, il = testMatrices.length; i < il; i ++ ) {
             var m = testMatrices[i];
@@ -1131,9 +1258,9 @@
 
         b = new THREE.Matrix3( 0, 1, 2, 3, 4, 5, 6, 7, 8 );
         var c = b.clone().transpose();
-        ok( ! matrixEquals3( b, c ), "Passed!" ); 
+        ok( ! matrixEquals3( b, c ), "Passed!" );
         c.transpose();
-        ok( matrixEquals3( b, c ), "Passed!" ); 
+        ok( matrixEquals3( b, c ), "Passed!" );
     });
 
     test( "clone", function() {
@@ -1147,8 +1274,10 @@
         ok( ! matrixEquals3( a, b ), "Passed!" );
     });
 
-    var matrixEquals4 = function( a, b, tolerance? ) {
-        tolerance = tolerance || 0.0001;
+    // -------------------------------------------- Matrix4
+
+    var matrixEquals4 = function (a, b) {
+        var tolerance = 0.0001;
         if( a.elements.length != b.elements.length ) {
             return false;
         }
@@ -1310,7 +1439,7 @@
         b.getInverse( a, false );
         ok( matrixEquals4( b, new THREE.Matrix4() ), "Passed!" );
 
-        try { 
+        try {
             b.getInverse( c, true );
             ok( false, "Passed!" ); // should never get here.
         }
@@ -1330,15 +1459,21 @@
             new THREE.Matrix4().makeFrustum( -1, 1, -1, 1, 1, 1000 ),
             new THREE.Matrix4().makeFrustum( -16, 16, -9, 9, 0.1, 10000 ),
             new THREE.Matrix4().makeTranslation( 1, 2, 3 )
-            ];
+        ];
 
         for( var i = 0, il = testMatrices.length; i < il; i ++ ) {
             var m = testMatrices[i];
 
             var mInverse = new THREE.Matrix4().getInverse( m );
+            var mSelfInverse = m.clone();
+            mSelfInverse.getInverse( mSelfInverse );
+
+
+            // self-inverse should the same as inverse
+            ok( matrixEquals4( mSelfInverse, mInverse ), "Passed!" );
 
             // the determinant of the inverse should be the reciprocal
-            ok( Math.abs( m.determinant() * mInverse.determinant() - 1  ) < 0.0001, "Passed!" );
+            ok( Math.abs( m.determinant() * mInverse.determinant() - 1 ) < 0.0001, "Passed!" );
 
             var mProduct = new THREE.Matrix4().multiplyMatrices( m, mInverse );
 
@@ -1355,9 +1490,9 @@
 
         b = new THREE.Matrix4( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 );
         var c = b.clone().transpose();
-        ok( ! matrixEquals4( b, c ), "Passed!" ); 
+        ok( ! matrixEquals4( b, c ), "Passed!" );
         c.transpose();
-        ok( matrixEquals4( b, c ), "Passed!" ); 
+        ok( matrixEquals4( b, c ), "Passed!" );
     });
 
     test( "clone", function() {
@@ -1372,10 +1507,75 @@
     });
 
 
+    test( "compose/decompose", function() {
+        var tValues = [
+            new THREE.Vector3(),
+            new THREE.Vector3( 3, 0, 0 ),
+            new THREE.Vector3( 0, 4, 0 ),
+            new THREE.Vector3( 0, 0, 5 ),
+            new THREE.Vector3( -6, 0, 0 ),
+            new THREE.Vector3( 0, -7, 0 ),
+            new THREE.Vector3( 0, 0, -8 ),
+            new THREE.Vector3( -2, 5, -9 ),
+            new THREE.Vector3( -2, -5, -9 )
+        ];
+
+        var sValues = [
+            new THREE.Vector3( 1, 1, 1 ),
+            new THREE.Vector3( 2, 2, 2 ),
+            new THREE.Vector3( 1, -1, 1 ),
+            new THREE.Vector3( -1, 1, 1 ),
+            new THREE.Vector3( 1, 1, -1 ),
+            new THREE.Vector3( 2, -2, 1 ),
+            new THREE.Vector3( -1, 2, -2 ),
+            new THREE.Vector3( -1, -1, -1 ),
+            new THREE.Vector3( -2, -2, -2 )
+        ];
+
+        var rValues = [
+            new THREE.Quaternion(),
+            new THREE.Quaternion().setFromEuler( new THREE.Euler( 1, 1, 0 ) ),
+            new THREE.Quaternion().setFromEuler( new THREE.Euler( 1, -1, 1 ) ),
+            new THREE.Quaternion( 0, 0.9238795292366128, 0, 0.38268342717215614 )
+        ];
+
+
+        for( var ti = 0; ti < tValues.length; ti ++ ) {
+            for( var si = 0; si < sValues.length; si ++ ) {
+                for( var ri = 0; ri < rValues.length; ri ++ ) {
+                    var t = tValues[ti];
+                    var s = sValues[si];
+                    var r = rValues[ri];
+
+                    var m = new THREE.Matrix4().compose( t, r, s );
+                    var t2 = new THREE.Vector3();
+                    var r2 = new THREE.Quaternion();
+                    var s2 = new THREE.Vector3();
+
+                    m.decompose( t2, r2, s2 );
+
+                    var m2 = new THREE.Matrix4().compose( t2, r2, s2 );
+
+                    var matrixIsSame = matrixEquals4( m, m2 );
+                    /* debug code
+                     if( ! matrixIsSame ) {
+                     console.log( t, s, r );
+                     console.log( t2, s2, r2 );
+                     console.log( m, m2 );
+                     }*/
+                    ok( matrixEquals4( m, m2 ), "Passed!" );
+
+                }
+            }
+        }
+    });
+
+    // -------------------------------------------- Plane
+
     var comparePlane = function ( a, b, threshold? ) {
         threshold = threshold || 0.0001;
         return ( a.normal.distanceTo( b.normal ) < threshold &&
-        Math.abs( a.constant - b.constant ) < threshold );
+            Math.abs( a.constant - b.constant ) < threshold );
     };
 
 
@@ -1564,6 +1764,8 @@
         ok( comparePlane( a.clone().applyMatrix4( m ), a.clone().translate( new THREE.Vector3( 1, 1, 1 ) ) ), "Passed!" );
     });
 
+    // -------------------------------------------- Quaternion
+
     var orders = [ 'XYZ', 'YXZ', 'ZXY', 'ZYX', 'YZX', 'XZY' ];
     var eulerAngles = new THREE.Euler( 0.1, -0.3, 0.25 );
 
@@ -1658,12 +1860,9 @@
         // ensure euler conversion to/from Quaternion matches.
         for( var i = 0; i < orders.length; i ++ ) {
             for( var j = 0; j < angles.length; j ++ ) {
-                var eulers2 = new THREE.Euler().setFromQuaternion(
-                    new THREE.Quaternion().setFromEuler(new THREE.Euler(angles[j].x, angles[j].y, angles[j].z, orders[i])),
-                    orders[i]
-                );
-                var v = new THREE.Vector3().applyEuler(eulers2);
-                ok( v.distanceTo( angles[j] ) < 0.001, "Passed!" );
+                var eulers2 = new THREE.Euler().setFromQuaternion( new THREE.Quaternion().setFromEuler( new THREE.Euler( angles[j].x, angles[j].y, angles[j].z, orders[i] ) ), orders[i] );
+                var newAngle = new THREE.Vector3( eulers2.x, eulers2.y, eulers2.z );
+                ok( newAngle.distanceTo( angles[j] ) < 0.001, "Passed!" );
             }
         }
 
@@ -1673,7 +1872,7 @@
 
         // ensure euler conversion for Quaternion matches that of Matrix4
         for( var i = 0; i < orders.length; i ++ ) {
-            var q = new THREE.Quaternion().setFromEuler( eulerAngles );
+            var q = new THREE.Quaternion().setFromEuler( eulerAngles, false );
             var m = new THREE.Matrix4().makeRotationFromEuler( eulerAngles );
             var q2 = new THREE.Quaternion().setFromRotationMatrix( m );
 
@@ -1716,17 +1915,17 @@
 
     test( "multiplyQuaternions/multiply", function() {
 
-        var angles = [ new THREE.Vector3( 1, 0, 0 ), new THREE.Vector3( 0, 1, 0 ), new THREE.Vector3( 0, 0, 1 ) ];
+        var angles = [ new THREE.Euler( 1, 0, 0 ), new THREE.Euler( 0, 1, 0 ), new THREE.Euler( 0, 0, 1 ) ];
 
-        var q1 = new THREE.Quaternion().setFromEuler( new THREE.Euler(angles[0].x, angles[0].y, angles[0].z) );
-        var q2 = new THREE.Quaternion().setFromEuler( new THREE.Euler(angles[1].x, angles[1].y, angles[1].z) );
-        var q3 = new THREE.Quaternion().setFromEuler( new THREE.Euler(angles[2].x, angles[2].y, angles[2].z) );
+        var q1 = new THREE.Quaternion().setFromEuler( angles[0], false );
+        var q2 = new THREE.Quaternion().setFromEuler( angles[1], false );
+        var q3 = new THREE.Quaternion().setFromEuler( angles[2], false );
 
         var q = new THREE.Quaternion().multiplyQuaternions( q1, q2 ).multiply( q3 );
 
-        var m1 = new THREE.Matrix4().makeRotationFromEuler( new THREE.Euler(angles[0].x, angles[0].y, angles[0].z) );
-        var m2 = new THREE.Matrix4().makeRotationFromEuler( new THREE.Euler(angles[1].x, angles[1].y, angles[1].z) );
-        var m3 = new THREE.Matrix4().makeRotationFromEuler( new THREE.Euler(angles[2].x, angles[2].y, angles[2].z) );
+        var m1 = new THREE.Matrix4().makeRotationFromEuler( angles[0] );
+        var m2 = new THREE.Matrix4().makeRotationFromEuler( angles[1] );
+        var m3 = new THREE.Matrix4().makeRotationFromEuler( angles[2] );
 
         var m = new THREE.Matrix4().multiplyMatrices( m1, m2 ).multiply( m3 );
 
@@ -1737,13 +1936,13 @@
 
     test( "multiplyVector3", function() {
 
-        var angles = [ new THREE.Vector3( 1, 0, 0 ), new THREE.Vector3( 0, 1, 0 ), new THREE.Vector3( 0, 0, 1 ) ];
+        var angles = [ new THREE.Euler( 1, 0, 0 ), new THREE.Euler( 0, 1, 0 ), new THREE.Euler( 0, 0, 1 ) ];
 
         // ensure euler conversion for Quaternion matches that of Matrix4
         for( var i = 0; i < orders.length; i ++ ) {
             for( var j = 0; j < angles.length; j ++ ) {
-                var q = new THREE.Quaternion().setFromEuler( new THREE.Euler(angles[j].x, angles[j].y, angles[j].z, orders[i]) );
-                var m = new THREE.Matrix4().makeRotationFromEuler( new THREE.Euler(angles[j].x, angles[j].y, angles[j].z, orders[i]) );
+                var q = new THREE.Quaternion().setFromEuler( angles[j], false );
+                var m = new THREE.Matrix4().makeRotationFromEuler( angles[j] );
 
                 var v0 = new THREE.Vector3(1, 0, 0);
                 var qv = v0.clone().applyQuaternion( q );
@@ -1773,6 +1972,7 @@
         ok( b.equals( a ), "Passed!" );
     });
 
+    // -------------------------------------------- Ray
 
     test( "constructor/equals", function() {
         var a = new THREE.Ray();
@@ -1834,25 +2034,33 @@
     test( "closestPointToPoint", function() {
         var a = new THREE.Ray( one3.clone(), new THREE.Vector3( 0, 0, 1 ) );
 
-        // nearby the ray
+        // behind the ray
         var b = a.closestPointToPoint( zero3 );
-        ok( b.equals( new THREE.Vector3( 1, 1, 0 ) ), "Passed!" );
+        ok( b.equals( one3 ), "Passed!" );
+
+        // front of the ray
+        var c = a.closestPointToPoint( new THREE.Vector3( 0, 0, 50 ) );
+        ok( c.equals( new THREE.Vector3( 1, 1, 50 ) ), "Passed!" );
 
         // exactly on the ray
-        var c = a.closestPointToPoint( one3 );
-        ok( c.equals( one3 ), "Passed!" );
+        var d = a.closestPointToPoint( one3 );
+        ok( d.equals( one3 ), "Passed!" );
     });
 
     test( "distanceToPoint", function() {
         var a = new THREE.Ray( one3.clone(), new THREE.Vector3( 0, 0, 1 ) );
 
-        // nearby the ray
+        // behind the ray
         var b = a.distanceToPoint( zero3 );
-        ok( b == Math.sqrt( 2 ), "Passed!" );
+        ok( b === Math.sqrt( 3 ), "Passed!" );
+
+        // front of the ray
+        var c = a.distanceToPoint( new THREE.Vector3( 0, 0, 50 ) );
+        ok( c === Math.sqrt( 2 ), "Passed!" );
 
         // exactly on the ray
-        var c = a.distanceToPoint( one3 );
-        ok( c == 0, "Passed!" );
+        var d = a.distanceToPoint( one3 );
+        ok( d === 0, "Passed!" );
     });
 
     test( "isIntersectionSphere", function() {
@@ -1864,16 +2072,75 @@
         var f = new THREE.Sphere( two3, 1 );
 
         ok( ! a.isIntersectionSphere( b ), "Passed!" );
-        ok( a.isIntersectionSphere( c ), "Passed!" );
+        ok( ! a.isIntersectionSphere( c ), "Passed!" );
         ok( a.isIntersectionSphere( d ), "Passed!" );
         ok( ! a.isIntersectionSphere( e ), "Passed!" );
         ok( ! a.isIntersectionSphere( f ), "Passed!" );
     });
 
+    test( "intersectSphere", function() {
+
+        var TOL = 0.0001;
+
+        // ray a0 origin located at ( 0, 0, 0 ) and points outward in negative-z direction
+        var a0 = new THREE.Ray( zero3.clone(), new THREE.Vector3( 0, 0, -1 ) );
+        // ray a1 origin located at ( 1, 1, 1 ) and points left in negative-x direction
+        var a1 = new THREE.Ray( one3.clone(), new THREE.Vector3( -1, 0, 0 ) );
+
+        // sphere (radius of 2) located behind ray a0, should result in null
+        var b = new THREE.Sphere( new THREE.Vector3( 0, 0, 3 ), 2 );
+        ok( a0.intersectSphere( b ) === null, "Passed!" );
+
+        // sphere (radius of 2) located in front of, but too far right of ray a0, should result in null
+        var b = new THREE.Sphere( new THREE.Vector3( 3, 0, -1 ), 2 );
+        ok( a0.intersectSphere( b ) === null, "Passed!" );
+
+        // sphere (radius of 2) located below ray a1, should result in null
+        var b = new THREE.Sphere( new THREE.Vector3( 1, -2, 1 ), 2 );
+        ok( a1.intersectSphere( b ) === null, "Passed!" );
+
+        // sphere (radius of 1) located to the left of ray a1, should result in intersection at 0, 1, 1
+        var b = new THREE.Sphere( new THREE.Vector3( -1, 1, 1 ), 1 );
+        ok( a1.intersectSphere( b ).distanceTo( new THREE.Vector3( 0, 1, 1 ) ) < TOL, "Passed!" );
+
+        // sphere (radius of 1) located in front of ray a0, should result in intersection at 0, 0, -1
+        var b = new THREE.Sphere( new THREE.Vector3( 0, 0, -2 ), 1 );
+        ok( a0.intersectSphere( b ).distanceTo( new THREE.Vector3( 0, 0, -1 ) ) < TOL, "Passed!" );
+
+        // sphere (radius of 2) located in front & right of ray a0, should result in intersection at 0, 0, -1, or left-most edge of sphere
+        var b = new THREE.Sphere( new THREE.Vector3( 2, 0, -1 ), 2 );
+        ok( a0.intersectSphere( b ).distanceTo( new THREE.Vector3( 0, 0, -1 ) ) < TOL, "Passed!" );
+
+        // same situation as above, but move the sphere a fraction more to the right, and ray a0 should now just miss
+        var b = new THREE.Sphere( new THREE.Vector3( 2.01, 0, -1 ), 2 );
+        ok( a0.intersectSphere( b ) === null, "Passed!" );
+
+        // following tests are for situations where the ray origin is inside the sphere
+
+        // sphere (radius of 1) center located at ray a0 origin / sphere surrounds the ray origin, so the first intersect point 0, 0, 1,
+        // is behind ray a0.  Therefore, second exit point on back of sphere will be returned: 0, 0, -1
+        // thus keeping the intersection point always in front of the ray.
+        var b = new THREE.Sphere( zero3.clone(), 1 );
+        ok( a0.intersectSphere( b ).distanceTo( new THREE.Vector3( 0, 0, -1 ) ) < TOL, "Passed!" );
+
+        // sphere (radius of 4) center located behind ray a0 origin / sphere surrounds the ray origin, so the first intersect point 0, 0, 5,
+        // is behind ray a0.  Therefore, second exit point on back of sphere will be returned: 0, 0, -3
+        // thus keeping the intersection point always in front of the ray.
+        var b = new THREE.Sphere( new THREE.Vector3( 0, 0, 1 ), 4 );
+        ok( a0.intersectSphere( b ).distanceTo( new THREE.Vector3( 0, 0, -3 ) ) < TOL, "Passed!" );
+
+        // sphere (radius of 4) center located in front of ray a0 origin / sphere surrounds the ray origin, so the first intersect point 0, 0, 3,
+        // is behind ray a0.  Therefore, second exit point on back of sphere will be returned: 0, 0, -5
+        // thus keeping the intersection point always in front of the ray.
+        var b = new THREE.Sphere( new THREE.Vector3( 0, 0, -1 ), 4 );
+        ok( a0.intersectSphere( b ).distanceTo( new THREE.Vector3( 0, 0, -5 ) ) < TOL, "Passed!" );
+
+    });
+
     test( "isIntersectionPlane", function() {
         var a = new THREE.Ray( one3.clone(), new THREE.Vector3( 0, 0, 1 ) );
 
-        // parallel plane behind
+        // parallel plane in front of the ray
         var b = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 0, 0, 1 ), one3.clone().sub( new THREE.Vector3( 0, 0, -1 ) ) );
         ok( a.isIntersectionPlane( b ), "Passed!" );
 
@@ -1881,9 +2148,9 @@
         var c = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 0, 0, 1 ), one3.clone().sub( new THREE.Vector3( 0, 0, 0 ) ) );
         ok( a.isIntersectionPlane( c ), "Passed!" );
 
-        // parallel plane infront
+        // parallel plane behind the ray
         var d = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 0, 0, 1 ), one3.clone().sub( new THREE.Vector3( 0, 0, 1 ) ) );
-        ok( a.isIntersectionPlane( d ), "Passed!" );
+        ok( ! a.isIntersectionPlane( d ), "Passed!" );
 
         // perpendical ray that overlaps exactly
         var e = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 1, 0, 0 ), one3 );
@@ -1899,15 +2166,15 @@
 
         // parallel plane behind
         var b = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 0, 0, 1 ), new THREE.Vector3( 1, 1, -1 ) );
-        ok( a.intersectPlane( b ).equals( new THREE.Vector3( 1, 1, -1 ) ), "Passed!" );
+        ok( a.intersectPlane( b ) === null, "Passed!" );
 
         // parallel plane coincident with origin
         var c = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 0, 0, 1 ), new THREE.Vector3( 1, 1, 0 ) );
-        ok( a.intersectPlane( c ).equals( new THREE.Vector3( 1, 1, 0 ) ), "Passed!" );
+        ok( a.intersectPlane( c ) === null, "Passed!" );
 
         // parallel plane infront
         var d = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 0, 0, 1 ), new THREE.Vector3( 1, 1, 1 ) );
-        ok( a.intersectPlane( d ).equals( new THREE.Vector3( 1, 1, 1 ) ), "Passed!" );
+        ok( a.intersectPlane( d ).equals( a.origin ), "Passed!" );
 
         // perpendical ray that overlaps exactly
         var e = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 1, 0, 0 ), one3 );
@@ -1915,21 +2182,21 @@
 
         // perpendical ray that doesn't overlap
         var f = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 1, 0, 0 ), zero3 );
-        ok( a.intersectPlane( f ) === undefined, "Passed!" );
+        ok( a.intersectPlane( f ) === null, "Passed!" );
     });
 
 
     test( "applyMatrix4", function() {
         var a = new THREE.Ray( one3.clone(), new THREE.Vector3( 0, 0, 1 ) );
-        var m = new THREE.Matrix4().identity();
+        var m = new THREE.Matrix4();
 
         ok( a.clone().applyMatrix4( m ).equals( a ), "Passed!" );
 
         a = new THREE.Ray( zero3.clone(), new THREE.Vector3( 0, 0, 1 ) );
-        m.makeRotationAxis( new THREE.Vector3( 0, 0, 1 ), Math.PI );
+        m.makeRotationZ( Math.PI );
         ok( a.clone().applyMatrix4( m ).equals( a ), "Passed!" );
 
-        m.identity().makeRotationX( Math.PI );
+        m.makeRotationX( Math.PI );
         var b = a.clone();
         b.direction.negate();
         var a2 = a.clone().applyMatrix4( m );
@@ -1944,6 +2211,80 @@
     });
 
 
+    test( "distanceSqToSegment", function() {
+        var a = new THREE.Ray( one3.clone(), new THREE.Vector3( 0, 0, 1 ) );
+        var ptOnLine = new THREE.Vector3();
+        var ptOnSegment = new THREE.Vector3();
+
+        //segment in front of the ray
+        var v0 = new THREE.Vector3( 3, 5, 50 );
+        var v1 = new THREE.Vector3( 50, 50, 50 ); // just a far away point
+        var distSqr = a.distanceSqToSegment( v0, v1, ptOnLine, ptOnSegment );
+
+        ok( ptOnSegment.distanceTo( v0 ) < 0.0001, "Passed!" );
+        ok( ptOnLine.distanceTo( new THREE.Vector3(1, 1, 50) ) < 0.0001, "Passed!" );
+        // ((3-1) * (3-1) + (5-1) * (5-1) = 4 + 16 = 20
+        ok( Math.abs( distSqr - 20 ) < 0.0001, "Passed!" );
+
+        //segment behind the ray
+        v0 = new THREE.Vector3( -50, -50, -50 ); // just a far away point
+        v1 = new THREE.Vector3( -3, -5, -4 );
+        distSqr = a.distanceSqToSegment( v0, v1, ptOnLine, ptOnSegment );
+
+        ok( ptOnSegment.distanceTo( v1 ) < 0.0001, "Passed!" );
+        ok( ptOnLine.distanceTo( one3 ) < 0.0001, "Passed!" );
+        // ((-3-1) * (-3-1) + (-5-1) * (-5-1) + (-4-1) + (-4-1) = 16 + 36 + 25 = 77
+        ok( Math.abs( distSqr - 77 ) < 0.0001, "Passed!" );
+
+        //exact intersection between the ray and the segment
+        v0 = new THREE.Vector3( -50, -50, -50 );
+        v1 = new THREE.Vector3( 50, 50, 50 );
+        distSqr = a.distanceSqToSegment( v0, v1, ptOnLine, ptOnSegment );
+
+        ok( ptOnSegment.distanceTo( one3 ) < 0.0001, "Passed!" );
+        ok( ptOnLine.distanceTo( one3 ) < 0.0001, "Passed!" );
+        ok( distSqr < 0.0001, "Passed!" );
+    });
+
+    test( "intersectBox", function() {
+
+        var TOL = 0.0001;
+
+        var box = new THREE.Box3( new THREE.Vector3(  -1, -1, -1 ), new THREE.Vector3( 1, 1, 1 ) );
+
+        var a = new THREE.Ray( new THREE.Vector3( -2, 0, 0 ), new THREE.Vector3( 1, 0, 0) );
+        //ray should intersect box at -1,0,0
+        ok( a.isIntersectionBox(box) === true, "Passed!" );
+        ok( a.intersectBox(box).distanceTo( new THREE.Vector3( -1, 0, 0 ) ) < TOL, "Passed!" );
+
+        var b = new THREE.Ray( new THREE.Vector3( -2, 0, 0 ), new THREE.Vector3( -1, 0, 0) );
+        //ray is point away from box, it should not intersect
+        ok( b.isIntersectionBox(box) === false, "Passed!" );
+        ok( b.intersectBox(box) === null, "Passed!" );
+
+        var c = new THREE.Ray( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 1, 0, 0) );
+        // ray is inside box, should return exit point
+        ok( c.isIntersectionBox(box) === true, "Passed!" );
+        ok( c.intersectBox(box).distanceTo( new THREE.Vector3( 1, 0, 0 ) ) < TOL, "Passed!" );
+
+        var d = new THREE.Ray( new THREE.Vector3( 0, 2, 1 ), new THREE.Vector3( 0, -1, -1).normalize() );
+        //tilted ray should intersect box at 0,1,0
+        ok( d.isIntersectionBox(box) === true, "Passed!" );
+        ok( d.intersectBox(box).distanceTo( new THREE.Vector3( 0, 1, 0 ) ) < TOL, "Passed!" );
+
+        var e = new THREE.Ray( new THREE.Vector3( 1, -2, 1 ), new THREE.Vector3( 0, 1, 0).normalize() );
+        //handle case where ray is coplanar with one of the boxes side - box in front of ray
+        ok( e.isIntersectionBox(box) === true, "Passed!" );
+        ok( e.intersectBox(box).distanceTo( new THREE.Vector3( 1, -1, 1 ) ) < TOL, "Passed!" );
+
+        var f = new THREE.Ray( new THREE.Vector3( 1, -2, 0 ), new THREE.Vector3( 0, -1, 0).normalize() );
+        //handle case where ray is coplanar with one of the boxes side - box behind ray
+        ok( f.isIntersectionBox(box) === false, "Passed!" );
+        ok( f.intersectBox(box) == null, "Passed!" );
+
+    });
+
+    // -------------------------------------------- Sphere
     test( "constructor", function() {
         var a = new THREE.Sphere();
         ok( a.center.equals( zero3 ), "Passed!" );
@@ -2039,6 +2380,8 @@
         a.translate( one3.clone().negate() );
         ok( a.center.equals( zero3 ), "Passed!" );
     });
+
+    // -------------------------------------------- Triangle
 
     test( "constructor", function() {
         var a = new THREE.Triangle();
@@ -2195,7 +2538,7 @@
         ok( ! a.containsPoint( new THREE.Vector3( -1, -1, -1 ) ), "Passed!" );
     });
 
-
+    // -------------------------------------------- Vector2
     test( "constructor", function() {
         var a = new THREE.Vector2();
         ok( a.x == 0, "Passed!" );
@@ -2316,6 +2659,32 @@
         c.clamp( b, a );
         ok( c.x == -x, "Passed!" );
         ok( c.y == y, "Passed!" );
+
+        c.set(-2*x, 2*x);
+        c.clampScalar( -x, x );
+        equal( c.x, -x, "scalar clamp x" );
+        equal( c.y,  x, "scalar clamp y" );
+    });
+
+    test( "rounding", function() {
+        deepEqual( new THREE.Vector2( -0.1, 0.1 ).floor(), new THREE.Vector2( -1, 0 ), "floor .1" );
+        deepEqual( new THREE.Vector2( -0.5, 0.5 ).floor(), new THREE.Vector2( -1, 0 ), "floor .5" );
+        deepEqual( new THREE.Vector2( -0.9, 0.9 ).floor(), new THREE.Vector2( -1, 0 ), "floor .9" );
+
+        deepEqual( new THREE.Vector2( -0.1, 0.1 ).ceil(), new THREE.Vector2( 0, 1 ), "ceil .1" );
+        deepEqual( new THREE.Vector2( -0.5, 0.5 ).ceil(), new THREE.Vector2( 0, 1 ), "ceil .5" );
+        deepEqual( new THREE.Vector2( -0.9, 0.9 ).ceil(), new THREE.Vector2( 0, 1 ), "ceil .9" );
+
+        deepEqual( new THREE.Vector2( -0.1, 0.1 ).round(), new THREE.Vector2( 0, 0 ), "round .1" );
+        deepEqual( new THREE.Vector2( -0.5, 0.5 ).round(), new THREE.Vector2( 0, 1 ), "round .5" );
+        deepEqual( new THREE.Vector2( -0.9, 0.9 ).round(), new THREE.Vector2( -1, 1 ), "round .9" );
+
+        deepEqual( new THREE.Vector2( -0.1, 0.1 ).roundToZero(), new THREE.Vector2( 0, 0 ), "roundToZero .1" );
+        deepEqual( new THREE.Vector2( -0.5, 0.5 ).roundToZero(), new THREE.Vector2( 0, 0 ), "roundToZero .5" );
+        deepEqual( new THREE.Vector2( -0.9, 0.9 ).roundToZero(), new THREE.Vector2( 0, 0 ), "roundToZero .9" );
+        deepEqual( new THREE.Vector2( -1.1, 1.1 ).roundToZero(), new THREE.Vector2( -1, 1 ), "roundToZero 1.1" );
+        deepEqual( new THREE.Vector2( -1.5, 1.5 ).roundToZero(), new THREE.Vector2( -1, 1 ), "roundToZero 1.5" );
+        deepEqual( new THREE.Vector2( -1.9, 1.9 ).roundToZero(), new THREE.Vector2( -1, 1 ), "roundToZero 1.9" );
     });
 
     test( "negate", function() {
@@ -2427,7 +2796,7 @@
         ok( b.equals( a ), "Passed!" );
     });
 
-
+    // -------------------------------------------- Vector3
     test( "constructor", function() {
         var a = new THREE.Vector3();
         ok( a.x == 0, "Passed!" );
@@ -2700,18 +3069,19 @@
     });
 
     test( "reflect", function() {
-        var a = new THREE.Vector3( 1, 0, 0 );
-        var normal = new THREE.Vector3( 1, 0, 0 );
-        var b = new THREE.Vector3( 0, 0, 0 );
+        var a = new THREE.Vector3();
+        var normal = new THREE.Vector3( 0, 1, 0 );
+        var b = new THREE.Vector3();
 
-        ok( b.copy( a ).reflect( normal ).equals( new THREE.Vector3( 1, 0, 0 ) ), "Passed!" );
+        a.set( 0, -1, 0 );
+        ok( b.copy( a ).reflect( normal ).equals( new THREE.Vector3( 0, 1, 0 ) ), "Passed!" );
 
         a.set( 1, -1, 0 );
         ok( b.copy( a ).reflect( normal ).equals( new THREE.Vector3( 1, 1, 0 ) ), "Passed!" );
 
         a.set( 1, -1, 0 );
         normal.set( 0, -1, 0 );
-        ok( b.copy( a ).reflect(  normal ).equals( new THREE.Vector3( -1, -1, 0 ) ), "Passed!" );
+        ok( b.copy( a ).reflect( normal ).equals( new THREE.Vector3( 1, 1, 0 ) ), "Passed!" );
     });
 
     test( "angleTo", function() {
@@ -2768,7 +3138,7 @@
         ok( b.equals( a ), "Passed!" );
     });
 
-
+    // -------------------------------------------- Vector4
     test( "constructor", function() {
         var a = new THREE.Vector4();
         ok( a.x == 0, "Passed!" );
@@ -2897,9 +3267,9 @@
 
         b.multiplyScalar( -2 );
         ok( b.x == 2*x, "Passed!" );
-        ok( b.y == 2*y, "Passed!" );    
-        ok( b.z == 2*z, "Passed!" );    
-        ok( b.w == 2*w, "Passed!" );    
+        ok( b.y == 2*y, "Passed!" );
+        ok( b.z == 2*z, "Passed!" );
+        ok( b.w == 2*w, "Passed!" );
 
         a.divideScalar( -2 );
         ok( a.x == x, "Passed!" );
@@ -3008,26 +3378,26 @@
     });
 
     /*
-    test( "distanceTo/distanceToSquared", function() {
-        var a = new THREE.Vector4( x, 0, 0, 0 );
-        var b = new THREE.Vector4( 0, -y, 0, 0 );
-        var c = new THREE.Vector4( 0, 0, z, 0 );
-        var d = new THREE.Vector4( 0, 0, 0, -w );
-        var e = new THREE.Vector4();
-        
-        ok( a.distanceTo( e ) == x, "Passed!" );
-        ok( a.distanceToSquared( e ) == x*x, "Passed!" );
+     test( "distanceTo/distanceToSquared", function() {
+     var a = new THREE.Vector4( x, 0, 0, 0 );
+     var b = new THREE.Vector4( 0, -y, 0, 0 );
+     var c = new THREE.Vector4( 0, 0, z, 0 );
+     var d = new THREE.Vector4( 0, 0, 0, -w );
+     var e = new THREE.Vector4();
 
-        ok( b.distanceTo( e ) == y, "Passed!" );
-        ok( b.distanceToSquared( e ) == y*y, "Passed!" );
+     ok( a.distanceTo( e ) == x, "Passed!" );
+     ok( a.distanceToSquared( e ) == x*x, "Passed!" );
 
-        ok( c.distanceTo( e ) == z, "Passed!" );
-        ok( c.distanceToSquared( e ) == z*z, "Passed!" );
+     ok( b.distanceTo( e ) == y, "Passed!" );
+     ok( b.distanceToSquared( e ) == y*y, "Passed!" );
 
-        ok( d.distanceTo( e ) == w, "Passed!" );
-        ok( d.distanceToSquared( e ) == w*w, "Passed!" );
-    });
-    */
+     ok( c.distanceTo( e ) == z, "Passed!" );
+     ok( c.distanceToSquared( e ) == z*z, "Passed!" );
+
+     ok( d.distanceTo( e ) == w, "Passed!" );
+     ok( d.distanceToSquared( e ) == w*w, "Passed!" );
+     });
+     */
 
 
     test( "setLength", function() {

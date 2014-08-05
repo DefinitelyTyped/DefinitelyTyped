@@ -37,9 +37,13 @@ interface HandlebarsStatic extends HandlebarsCommon {
     compile(input: any, options?: any): HandlebarsTemplateDelegate;
 }
 
-interface HandlebarsRuntimeStatic extends HandlebarsCommon {
+interface HandlebarsTemplates {
+    [index: string]: HandlebarsTemplateDelegate;
+}
+
+interface HandlebarsRuntimeStatic extends HandlebarsCommon {
     // Handlebars.templates is the default template namespace in precompiler.
-    templates: { (s: string): HandlebarsTemplateDelegate }[];
+    templates: HandlebarsTemplates;
 }
 
 declare class SafeString {

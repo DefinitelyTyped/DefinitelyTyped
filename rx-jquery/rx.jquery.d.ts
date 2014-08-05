@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path="../jquery/jquery.d.ts"/>
-///<reference path="rx.d.ts"/>
+///<reference path="../rx/rx.d.ts"/>
 
 interface RxJQueryAjaxResult<T> {
 	data: T;

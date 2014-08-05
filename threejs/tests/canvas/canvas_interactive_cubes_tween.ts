@@ -1,5 +1,6 @@
 ﻿/// <reference path="../../three.d.ts" />
 /// <reference path="../three-tests-setup.ts" />
+/// <reference path="../../../tween.js/tween.js.d.ts" />
 
 // https://github.com/mrdoob/three.js/blob/master/examples/canvas_interactive_cubes_tween.html
 
