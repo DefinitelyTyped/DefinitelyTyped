@@ -252,6 +252,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Mustache.js](https://github.com/janl/mustache.js) (by [Boris Yankov](https://github.com/borisyankov))
 * [mysql](https://github.com/felixge/node-mysql) (by [William Johnston](https://github.com/wjohnsto))
 * [nconf](https://github.com/flatiron/nconf) (by [Jeff Goddard](https://github.com/jedigo))
+* [needle](https://github.com/tomas/needle) (by [San Chen](https://github.com/bigsan))
 * [noble](https://github.com/sandeepmistry/noble) (by [Seon-Wook Park](https://github.com/swook))
 * [nock](https://github.com/pgte/nock) (by [bonnici](https://github.com/bonnici))
 * [Node.js](http://nodejs.org/) (from TypeScript samples)
