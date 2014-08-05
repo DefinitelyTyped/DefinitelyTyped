@@ -548,6 +548,7 @@ interface BaseJQueryEventObject extends Event {
     isImmediatePropagationStopped(): boolean;
     isPropagationStopped(): boolean;
     namespace: string;
+    originalEvent: Event;
     preventDefault(): any;
     relatedTarget: Element;
     result: any;
@@ -585,11 +586,7 @@ interface JQueryKeyEventObject extends JQueryInputEventObject {
     keyCode: number;
 }
 
-interface JQueryPopStateEventObject extends BaseJQueryEventObject {
-    originalEvent: PopStateEvent;
-}
-
-interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject, JQueryPopStateEventObject {
+interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject{
 }
 
 /*

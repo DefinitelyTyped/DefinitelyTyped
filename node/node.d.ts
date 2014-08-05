@@ -50,6 +50,7 @@ declare var exports: any;
 declare var SlowBuffer: {
     new (str: string, encoding?: string): Buffer;
     new (size: number): Buffer;
+    new (size: Uint8Array): Buffer;
     new (array: any[]): Buffer;
     prototype: Buffer;
     isBuffer(obj: any): boolean;
@@ -63,6 +64,7 @@ interface Buffer extends NodeBuffer {}
 declare var Buffer: {
     new (str: string, encoding?: string): Buffer;
     new (size: number): Buffer;
+    new (size: Uint8Array): Buffer;
     new (array: any[]): Buffer;
     prototype: Buffer;
     isBuffer(obj: any): boolean;
@@ -760,18 +762,18 @@ declare module "net" {
 declare module "dgram" {
     import events = require("events");
 
-	interface RemoteInfo {
-		address: string;
-		port: number;
-		size: number;
-	}
-	
-	interface AddressInfo {
-		address: string; 
-		family: string; 
-		port: number; 
-	}
-	
+    interface RemoteInfo {
+        address: string;
+        port: number;
+        size: number;
+    }
+    
+    interface AddressInfo {
+        address: string; 
+        family: string; 
+        port: number; 
+    }
+    
     export function createSocket(type: string, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
     interface Socket extends events.EventEmitter {
