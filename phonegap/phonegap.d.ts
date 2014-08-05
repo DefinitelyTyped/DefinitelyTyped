@@ -367,7 +367,7 @@ interface FileUploadResult {
 
 interface Flags {
     create: boolean;
-    exclusive: boolean;
+    exclusive?: boolean;
 }
 
 /*
