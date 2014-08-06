@@ -24,14 +24,15 @@ class TestFileInput {
 	constructor() {
 
 		// The file upload object receives a fileInputOptions configuration object
-		this.fileInput = <JQueryFileUpload>this.$el.fileupload({
+		this.fileInput = <JQueryFileUpload>this.$el.fileupload(<JQueryFileUploadOptions>{
             
             dataType: 'json',
 
             // By default, each file of a selection is uploaded using an individual
             // request for XHR type uploads. Set to false to upload file
             // selections in one request each:
-            singleFileUploads: true,
+			singleFileUploads: true,
+
             // To limit the number of files uploaded with one XHR request,
             // set the following option to an integer greater than 0:
             limitMultiFileUploads: 1,
