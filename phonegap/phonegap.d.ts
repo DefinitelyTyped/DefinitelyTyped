@@ -590,6 +590,21 @@ interface StatusBar {
 }
 declare var StatusBar: StatusBar;
 
+interface Keyboard {
+    automaticScrollToTopOnHiding: boolean;
+    isVisible: boolean;
+
+    onshow: Function;
+    onhide: Function;
+    onshowing: Function;
+    onhiding: Function;
+
+    disableScrollingInShrinkView(disable: boolean): void;
+    hideFormAccessoryBar(hide: boolean): void;
+    shrinkView(shrink: boolean): void;
+}
+declare var Keyboard: Keyboard;
+
 interface /*PhoneGapNavigator extends*/ Navigator {
     accelerometer: Accelerometer;
     camera: Camera;
