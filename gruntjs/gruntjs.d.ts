@@ -690,6 +690,11 @@ declare module grunt {
              * Log a list of obj properties (good for debugging flags).
              */
             writeflags(obj: any): T
+
+            /**
+             * Log an warning with grunt.log.warn
+             */
+            warn(msg: string): T
         }
 
         /**
