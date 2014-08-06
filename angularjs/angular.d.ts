@@ -1054,7 +1054,7 @@ declare module ng {
         ): IDirectivePrePost;
     }
 
-    interface IDirective {
+    interface IDirective{
         compile?: IDirectiveCompileFn;
         controller?: any;
         controllerAs?: string;
