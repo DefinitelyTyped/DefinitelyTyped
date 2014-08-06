@@ -575,6 +575,21 @@ interface LocalStorage {
 }
 */
 
+interface StatusBar {
+    isVisible: boolean;
+
+    overlaysWebView(doOverlay: boolean): void;
+    styleDefault(): void;
+    styleLightContent(): void;
+    styleBlackTranslucent(): void;
+    styleBlackOpaque(): void;
+    backgroundColorByName(colorname: string): void;
+    backgroundColorByHexString(hexString: string): void;
+    hide(): void;
+    show(): void;
+}
+declare var StatusBar: StatusBar;
+
 interface /*PhoneGapNavigator extends*/ Navigator {
     accelerometer: Accelerometer;
     camera: Camera;
