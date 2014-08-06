@@ -125,7 +125,11 @@ All definitions files include a header with the author and editors, so at some p
 * [highlight.js](https://github.com/isagalaev/highlight.js) (by [Niklas Mollenhauer](https://github.com/nikeee))
 * [History.js](https://github.com/browserstate/history.js) (by [Boris Yankov](https://github.com/borisyankov))
 * [Html2Canvas.js](https://github.com/niklasvh/html2canvas/) (by [Richard Hepburn](https://github.com/rwhepburn))
+<<<<<<< HEAD
 * [htmlparser2](https://github.com/fb55/htmlparser2/) (by [James Roland Cabresos](https://github.com/staticfunction))
+=======
+* [http-string-parser](https://github.com/apiaryio/http-string-parser) (by [MIZUNE Pine](https://github.com/pine613))
+>>>>>>> upstream/master
 * [Humane.js](http://wavded.github.com/humane-js/) (by [John Vrbanac](https://github.com/jmvrbanac))
 * [i18next](http://i18next.com/) (by [Maarten Docter](https://github.com/mdocter))
 * [iCheck](http://damirfoy.com/iCheck/) (by [Dániel Tar](https://github.com/qcz))
@@ -195,6 +199,7 @@ All definitions files include a header with the author and editors, so at some p
 * [js-git](https://github.com/creationix/js-git) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [js-url](https://github.com/websanova/js-url) (by [MIZUNE Pine](https://github.com/pine613))
 * [js-yaml](https://github.com/nodeca/js-yaml) (by [Bart van der Schoor](https://github.com/Bartvds/))
+* [jsbn](http://www-cs-students.stanford.edu/%7Etjw/jsbn/) (by [Eugene Chernyshov](https://github.com/Evgenus))
 * [jScrollPane](http://jscrollpane.kelvinluck.com) (by [Dániel Tar](https://github.com/qcz))
 * [JSDeferred](http://cho45.stfuawsc.com/jsdeferred/) (by [Daisuke Mino](https://github.com/minodisk))
 * [JSONEditorOnline](https://github.com/josdejong/jsoneditoronline) (by [Vincent Bortone](https://github.com/vbortone/))
@@ -250,7 +255,9 @@ All definitions files include a header with the author and editors, so at some p
 * [Mousetrap](http://craig.is/killing/mice) (by [Dániel Tar](https://github.com/qcz))
 * [msgpack.js](https://github.com/uupaa/msgpack.js) (by [Shinya Mochizuki](https://github.com/enrapt-mochizuki))
 * [Mustache.js](https://github.com/janl/mustache.js) (by [Boris Yankov](https://github.com/borisyankov))
+* [mysql](https://github.com/felixge/node-mysql) (by [William Johnston](https://github.com/wjohnsto))
 * [nconf](https://github.com/flatiron/nconf) (by [Jeff Goddard](https://github.com/jedigo))
+* [needle](https://github.com/tomas/needle) (by [San Chen](https://github.com/bigsan))
 * [noble](https://github.com/sandeepmistry/noble) (by [Seon-Wook Park](https://github.com/swook))
 * [nock](https://github.com/pgte/nock) (by [bonnici](https://github.com/bonnici))
 * [Node.js](http://nodejs.org/) (from TypeScript samples)
