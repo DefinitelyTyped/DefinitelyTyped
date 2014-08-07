@@ -51,4 +51,4 @@ var serverClient:Dropbox.Client = new Dropbox.Client({
     secret: "your-secret-here"
 });
 
-serverClient.authDriver(new Dropbox.AuthDriver.NodeServer(8191));
+serverClient.authDriver(new Dropbox.AuthDriver.NodeServer({port:8191}));
