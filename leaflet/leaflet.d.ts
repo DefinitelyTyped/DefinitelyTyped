@@ -574,7 +574,7 @@ declare module L {
         /**
           * Removes an event listener from the element.
           */
-        static removeListener(el: HTMLElement, type: string, fn: (e: Event) => void): DomEvent;
+        static removeListener(el: HTMLElement, type: string, fn: (e: Event) => void, context?: any): DomEvent;
     
         /**
           * Stop the given event from propagation to parent elements. Used inside the
