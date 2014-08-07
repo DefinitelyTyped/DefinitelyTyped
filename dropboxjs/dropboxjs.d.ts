@@ -336,7 +336,7 @@ declare module Dropbox {
         }
 
         class NodeServer extends IAuthDriver {
-            constructor(options?: { port: number; tls: {} });
+            constructor(options?: { port: number; tls?: {} });
             authType(): string;
             url(): string;
             openBrowser(url: string): void;
