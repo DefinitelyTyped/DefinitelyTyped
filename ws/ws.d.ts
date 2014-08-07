@@ -21,6 +21,7 @@ declare module "ws" {
         protocolVersion: string;
         url: string;
         supports: any;
+        upgradeReq: http.ServerRequest;
 
         CONNECTING: number;
         OPEN: number;
