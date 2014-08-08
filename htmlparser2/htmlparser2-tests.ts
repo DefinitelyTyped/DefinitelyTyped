@@ -6,7 +6,7 @@ import htmlparser = require("htmlparser2");
 
 var parser = new htmlparser.Parser({
     onopentag: (name:string, attribs:{[s:string]:string}) => {
-        if(name === "script" && attribs.type === "text/javascript"){
+        if(name === "script" && attribs['type'] === "text/javascript"){
             console.log("JS! Hooray!");
         }
     },
