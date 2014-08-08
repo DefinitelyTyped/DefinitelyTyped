@@ -285,15 +285,17 @@ class SampleDirective implements ng.IDirective {
     public restrict = 'A';
     name = 'doh';
 
-    compile(templateElement: any) {
-        return this.link;
+    compile(templateElement: ng.IAugmentedJQuery) {
+        return {
+            post: this.link
+        };
     }
 
     static instance():ng.IDirective {
         return new SampleDirective();
     }
 
-    link(scope: any) {
+    link(scope: ng.IScope) {
 
     }
 }
@@ -301,7 +303,7 @@ class SampleDirective implements ng.IDirective {
 class SampleDirective2 implements ng.IDirective {
     public restrict = 'EAC';
 
-    compile(templateElement: any) {
+    compile(templateElement: ng.IAugmentedJQuery) {
         return {
             pre: this.link
         };
@@ -311,7 +313,7 @@ class SampleDirective2 implements ng.IDirective {
         return new SampleDirective2();
     }
 
-    link(scope: any) {
+    link(scope: ng.IScope) {
 
     }
 }
@@ -413,10 +415,10 @@ angular.module('docsTimeDirective', [])
     .controller('Controller', ['$scope', function($scope: any) {
         $scope.format = 'M/d/yy h:mm:ss a';
     }])
-    .directive('myCurrentTime', ['$interval', 'dateFilter', function($interval: any, dateFilter: any): ng.IDirective {
+    .directive('myCurrentTime', ['$interval', 'dateFilter', function($interval: any, dateFilter: any) {
 
         return {
-            link: function(scope: any, element: any, attrs: any) {
+            link: function(scope: ng.IScope, element: ng.IAugmentedJQuery, attrs:ng.IAttributes) {
                 var format: any,
                     timeoutId: any;
 
@@ -424,7 +426,7 @@ angular.module('docsTimeDirective', [])
                     element.text(dateFilter(new Date(), format));
                 }
 
-                scope.$watch(attrs.myCurrentTime, function (value: any) {
+                scope.$watch(attrs['myCurrentTime'], function (value: any) {
                     format = value;
                     updateTime();
                 });
@@ -463,8 +465,8 @@ angular.module('docsTransclusionExample', [])
             transclude: true,
             scope: {},
             templateUrl: 'my-dialog.html',
-            link: function (scope: any, element: any) {
-                scope.name = 'Jeff';
+            link: function (scope: ng.IScope, element: ng.IAugmentedJQuery) {
+                scope['name'] = 'Jeff';
             }
         };
     });
@@ -533,10 +535,10 @@ angular.module('docsTabsExample', [])
             restrict: 'E',
             transclude: true,
             scope: {},
-            controller: function($scope: any) {
-                var panes: any = $scope.panes = [];
+            controller: function($scope: ng.IScope) {
+                var panes: any = $scope['panes'] = [];
 
-                $scope.select = function(pane: any) {
+                $scope['select'] = function(pane: any) {
                     angular.forEach(panes, function(pane: any) {
                         pane.selected = false;
                     });
@@ -545,7 +547,7 @@ angular.module('docsTabsExample', [])
 
                 this.addPane = function(pane: any) {
                     if (panes.length === 0) {
-                        $scope.select(pane);
+                        $scope['select'](pane);
                     }
                     panes.push(pane);
                 };
@@ -561,7 +563,7 @@ angular.module('docsTabsExample', [])
             scope: {
                 title: '@'
             },
-            link: function(scope: any, element: any, attrs: any, tabsCtrl: any) {
+            link: function(scope: ng.IScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes, tabsCtrl: any) {
                 tabsCtrl.addPane(scope);
             },
             templateUrl: 'my-pane.html'

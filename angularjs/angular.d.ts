@@ -316,6 +316,7 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$rootScope.Scope
     ///////////////////////////////////////////////////////////////////////////
     interface IScope {
+        [index: string]: any;
         $apply(): any;
         $apply(exp: string): any;
         $apply(exp: (scope: IScope) => any): any;
@@ -1033,11 +1034,11 @@ declare module ng {
 
     interface IDirectiveLinkFn {
         (
-            scope?: IScope,
-            instanceElement?: IAugmentedJQuery,
-            instanceAttributes?: IAttributes,
-            controller?: any,
-            transclude?: ITranscludeFunction
+            scope: IScope,
+            instanceElement: IAugmentedJQuery,
+            instanceAttributes: IAttributes,
+            controller: any,
+            transclude: ITranscludeFunction
         ): void;
     }
 
@@ -1048,13 +1049,13 @@ declare module ng {
 
     interface IDirectiveCompileFn {
         (
-            templateElement?: IAugmentedJQuery,
-            templateAttributes?: IAttributes,
-            transclude?: ITranscludeFunction
+            templateElement: IAugmentedJQuery,
+            templateAttributes: IAttributes,
+            transclude: ITranscludeFunction
         ): IDirectivePrePost;
     }
 
-    interface IDirective{
+    interface IDirective {
         compile?: IDirectiveCompileFn;
         controller?: any;
         controllerAs?: string;
