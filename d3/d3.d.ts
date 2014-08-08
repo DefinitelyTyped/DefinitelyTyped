@@ -848,14 +848,18 @@ declare module D3 {
         values(): Array<any>;
         entries(): Array<any>;
         forEach(func: (key: string, value: any) => void ): void;
+        empty(): boolean;
+        size(): number;
     }
 
-    export interface Set{
+    export interface Set {
         has(value: any): boolean;
-        add(value: any): any;
+        add<T>(value: T): T;
         remove(value: any): boolean;
         values(): Array<any>;
         forEach(func: (value: any) => void ): void;
+        empty(): boolean;
+        size(): number;
     }
 
     export interface Random {
