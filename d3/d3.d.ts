@@ -1648,13 +1648,13 @@ declare module D3 {
                 /**
                 * Gets  the x-scale associated with the brush
                 */
-                (): D3.Scale.UntypedScale;
+                (): D3.Scale.Scale;
                 /**
                 * Sets the x-scale associated with the brush
                 *
                 * @param accessor The new Scale
                 */
-                (scale: D3.Scale.UntypedScale): Brush;
+                (scale: D3.Scale.Scale): Brush;
             };
             /**
             * Gets or sets the x-scale associated with the brush
@@ -1663,13 +1663,13 @@ declare module D3 {
                 /**
                 * Gets  the x-scale associated with the brush
                 */
-                (): D3.Scale.UntypedScale;
+                (): D3.Scale.Scale;
                 /**
                 * Sets the x-scale associated with the brush
                 *
                 * @param accessor The new Scale
                 */
-                (scale: D3.Scale.UntypedScale): Brush;
+                (scale: D3.Scale.Scale): Brush;
             };
             /**
             * Gets or sets the current brush extent
@@ -2518,7 +2518,7 @@ declare module D3 {
             threshold(): ThresholdScale;
         }
 
-        export interface Scale<S> {
+        export interface GenericScale<S> {
             (value: any): any;
             domain: {
                 (values: any[]): S;
@@ -2532,9 +2532,9 @@ declare module D3 {
             copy(): S;
         }
 
-        export interface UntypedScale extends Scale<UntypedScale> { }
+        export interface Scale extends GenericScale<Scale> { }
 
-        export interface QuantitativeScale<S> extends Scale<S> {
+        export interface GenericQuantitativeScale<S> extends GenericScale<S> {
             /**
             * Get the range value corresponding to a given domain value.
             *
@@ -2589,9 +2589,11 @@ declare module D3 {
             tickFormat(count: number, format?: string): (n: number) => string;
         }
 
-        export interface LinearScale extends QuantitativeScale<LinearScale> { }
+        export interface QuantitativeScale extends GenericQuantitativeScale<QuantitativeScale> { }
 
-        export interface IdentityScale extends Scale<IdentityScale> {
+        export interface LinearScale extends GenericQuantitativeScale<LinearScale> { }
+
+        export interface IdentityScale extends GenericScale<IdentityScale> {
             /**
             * Get the range value corresponding to a given domain value.
             *
@@ -2618,13 +2620,13 @@ declare module D3 {
             tickFormat(count: number): (n: number) => string;
         }
 
-        export interface SqrtScale extends QuantitativeScale<SqrtScale> { }
+        export interface SqrtScale extends GenericQuantitativeScale<SqrtScale> { }
 
-        export interface PowScale extends QuantitativeScale<PowScale> { }
+        export interface PowScale extends GenericQuantitativeScale<PowScale> { }
 
-        export interface LogScale extends QuantitativeScale<LogScale> { }
+        export interface LogScale extends GenericQuantitativeScale<LogScale> { }
 
-        export interface OrdinalScale extends Scale<OrdinalScale> {
+        export interface OrdinalScale extends GenericScale<OrdinalScale> {
             rangePoints(interval: any[], padding?: number): OrdinalScale;
             rangeBands(interval: any[], padding?: number, outerPadding?: number): OrdinalScale;
             rangeRoundBands(interval: any[], padding?: number, outerPadding?: number): OrdinalScale;
@@ -2632,15 +2634,15 @@ declare module D3 {
             rangeExtent(): any[];
         }
 
-        export interface QuantizeScale extends Scale<QuantizeScale> { }
+        export interface QuantizeScale extends GenericScale<QuantizeScale> { }
 
-        export interface ThresholdScale extends Scale<ThresholdScale> { }
+        export interface ThresholdScale extends GenericScale<ThresholdScale> { }
 
-        export interface QuantileScale extends Scale<QuantileScale> {
+        export interface QuantileScale extends GenericScale<QuantileScale> {
             quantiles(): any[];
         }
 
-        export interface TimeScale extends Scale<TimeScale> {
+        export interface TimeScale extends GenericScale<TimeScale> {
             (value: Date): number;
             invert(value: number): Date;
             rangeRound: (values: any[]) => TimeScale;
@@ -2742,13 +2744,13 @@ declare module D3 {
                 /**
                 * Get the X-Scale
                 */
-                (): D3.Scale.UntypedScale;
+                (): D3.Scale.Scale;
                 /**
                 * Set the X-Scale to be adjusted
                 *
                 * @param x The X Scale
                 */
-                (x: D3.Scale.UntypedScale): Zoom;
+                (x: D3.Scale.Scale): Zoom;
 
             };
 
@@ -2759,13 +2761,13 @@ declare module D3 {
                 /**
                 * Get the Y-Scale
                 */
-                (): D3.Scale.UntypedScale;
+                (): D3.Scale.Scale;
                 /**
                 * Set the Y-Scale to be adjusted
                 *
                 * @param y The Y Scale
                 */
-                (y: D3.Scale.UntypedScale): Zoom;
+                (y: D3.Scale.Scale): Zoom;
             };
         }
 
