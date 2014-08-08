@@ -31,11 +31,11 @@ interface Settings {
     transitionEffectSpeed?: number;
 
     //Events
-    onStepChanging?: Event;
-    onStepChanged?: Event;
-    onCanceled?: Event;
-    onFinishing?: Event;
-    onFinished?: Event;
+    onStepChanging?: any;
+    onStepChanged?: any;
+    onCanceled?: any;
+    onFinishing?: any;
+    onFinished?: any;
 
     //Labels
     labels?: Labels;
