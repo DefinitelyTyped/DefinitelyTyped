@@ -335,6 +335,7 @@ declare module fabric {
         drawBorders(context: CanvasRenderingContext2D): IObject;
         drawCorners(context: CanvasRenderingContext2D): IObject;
         get (property: string): any;
+        getBoundingRect(): {left:number; top:number; width:number; height:number};
         getBoundingRectHeight(): number;
         getBoundingRectWidth(): number;
         getSvgStyles(): string;
