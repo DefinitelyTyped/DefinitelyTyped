@@ -1492,7 +1492,7 @@ declare module D3 {
             /**
             * increase lightness by some exponential factor (gamma)
             */
-            brighter(k: number): Color;
+            brighter(k?: number): Color;
             /**
             * decrease lightness by some exponential factor (gamma)
             */
