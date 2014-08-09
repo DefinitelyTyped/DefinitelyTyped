@@ -3,5 +3,5 @@
 // Definitions by: Anthony MacKinnon <https://github.com/AnthonyMacKinnon>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare function all(description: string, dataset: any[], specDefinitions: (...args: any[]) => void): void;
-declare function xall(description: string, dataset: any[], specDefinitions: (...args: any[]) => void): void;
+declare function all(description: string, dataset: any[], assertion: (...args: any[]) => void): void;
+declare function xall(description: string, dataset: any[], assertion: (...args: any[]) => void): void;
