@@ -138,6 +138,7 @@ All definitions files include a header with the author and editors, so at some p
 * [IxJS (Interactive extensions)](https://github.com/Reactive-Extensions/IxJS) (by [Igor Oleinikov](https://github.com/Igorbek))
 * [jake](https://github.com/mde/jake) (by [Kon](http://phyzkit.net/))
 * [Jasmine](http://pivotal.github.com/jasmine/) (by [Boris Yankov](https://github.com/borisyankov))
+* [Jasmine-data_driven_tests](https://github.com/gburghardt/jasmine-data_driven_tests) (by [Anthony MacKinnon](https://github.com/AnthonyMacKinnon))
 * [Jasmine-jQuery](https://github.com/velesin/jasmine-jquery) (by [Gregor Stamac](https://github.com/gstamac))
 * [jDataView](https://github.com/jDataView/jDataView) (by [Ingvar Stepanyan](https://github.com/RReverser))
 * [JointJS](http://www.jointjs.com/) (by [Aidan Reel](http://github.com/areel))
