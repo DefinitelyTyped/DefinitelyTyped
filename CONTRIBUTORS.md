@@ -291,6 +291,7 @@ All definitions files include a header with the author and editors, so at some p
 * [ProgressJs](http://usablica.github.io/progress.js/) (by [Shunsuke Ohtani](https://github.com/zaneli))
 * [Q](https://github.com/kriskowal/q) (by Barrie Nemetchek, Andrew Gaspar)
 * [Q-io](https://github.com/kriskowal/q-io) (by [Bart van der Schoor](https://github.com/Bartvds))
+* [q-retry](https://github.com/vilic/q-retry) (by [VILIC VANE](https://github.com/vilic))
 * [QUnit](http://qunitjs.com/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Raven.js](https://github.com/getsentry/raven-js) (by [Santi Albo](https://github.com/santialbo))
 * [Recaptcha.js](https://www.google.com/recaptcha) (by [Brent Jenkins](https://github.com/brentj73))
