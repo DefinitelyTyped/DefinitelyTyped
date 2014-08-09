@@ -315,8 +315,7 @@ declare module ng {
     // Scope
     // see http://docs.angularjs.org/api/ng.$rootScope.Scope
     ///////////////////////////////////////////////////////////////////////////
-    interface IScope {
-        [index: string]: any;
+    interface IRootScopeService {
         $apply(): any;
         $apply(exp: string): any;
         $apply(exp: (scope: IScope) => any): any;
@@ -353,6 +352,7 @@ declare module ng {
         $parent: IScope;
 
         $root: IRootScopeService;
+        this: IRootScopeService;
 
         $id: string;
 
@@ -967,7 +967,9 @@ declare module ng {
     // RootScopeService
     // see http://docs.angularjs.org/api/ng.$rootScope
     ///////////////////////////////////////////////////////////////////////////
-    interface IRootScopeService extends IScope {}
+    interface IScope extends IRootScopeService {
+        [index: string]: any;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // SCEService
