@@ -39,7 +39,7 @@ declare module "promise-pool" {
         /**
         * (get/set) the processor function that handles tasks data.
         */
-        public processor: (data: T, index: number) => Q.Promise<void>;
+        public processor: (data: T, index: number) => Q.IPromise<void>;
         private _deferred;
         private _pauseDeferred;
         /**
@@ -88,7 +88,7 @@ declare module "promise-pool" {
         * @param endless defaults to false. indicates whether this task pool is endless, if so, tasks can still be added even after all previous tasks have been fulfilled.
         * @param tasksData an initializing array of task data.
         */
-        constructor(processor: (data: T, index: number) => Q.Promise<void>, concurrency: number, endless?: boolean, tasksData?: T[]);
+        constructor(processor: (data: T, index: number) => Q.IPromise<void>, concurrency: number, endless?: boolean, tasksData?: T[]);
         /**
         * add a data item.
         * @param taskData task data to add.
