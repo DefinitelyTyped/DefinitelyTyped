@@ -312,8 +312,8 @@ declare module ng {
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // Scope
-    // see http://docs.angularjs.org/api/ng.$rootScope.Scope
+    // Scope and RootScope 
+    // see https://docs.angularjs.org/api/ng/type/$rootScope.Scope and http://docs.angularjs.org/api/ng.$rootScope
     ///////////////////////////////////////////////////////////////////////////
     interface IRootScopeService {
         $apply(): any;
@@ -359,6 +359,10 @@ declare module ng {
         // Hidden members
         $$isolateBindings: any;
         $$phase: any;
+    }
+
+    interface IScope extends IRootScopeService {
+        [index: string]: any;
     }
 
     interface IAngularEvent {
@@ -962,14 +966,6 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$templateCache
     ///////////////////////////////////////////////////////////////////////////
     interface ITemplateCacheService extends ICacheObject {}
-
-    ///////////////////////////////////////////////////////////////////////////
-    // RootScopeService
-    // see http://docs.angularjs.org/api/ng.$rootScope
-    ///////////////////////////////////////////////////////////////////////////
-    interface IScope extends IRootScopeService {
-        [index: string]: any;
-    }
 
     ///////////////////////////////////////////////////////////////////////////
     // SCEService
