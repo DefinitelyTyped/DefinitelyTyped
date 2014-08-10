@@ -290,6 +290,7 @@ All definitions files include a header with the author and editors, so at some p
 * [PouchDB](http://pouchdb.com) (by [Bill Sears](https://github.com/MrBigDog2U/))
 * [PreloadJS](http://www.createjs.com/#!/PreloadJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [ProgressJs](http://usablica.github.io/progress.js/) (by [Shunsuke Ohtani](https://github.com/zaneli))
+* [promise-pool](https://github.com/vilic/promise-pool) (by [VILIC VANE](https://github.com/vilic))
 * [Q](https://github.com/kriskowal/q) (by Barrie Nemetchek, Andrew Gaspar)
 * [Q-io](https://github.com/kriskowal/q-io) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [q-retry](https://github.com/vilic/q-retry) (by [VILIC VANE](https://github.com/vilic))
