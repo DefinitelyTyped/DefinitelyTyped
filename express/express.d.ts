@@ -485,14 +485,18 @@ declare module "express" {
              *
              * Options:
              *
-             *   - `maxAge` defaulting to 0
-             *   - `root`   root directory for relative filenames
+             *   - `maxAge`   defaulting to 0 (can be string converted by `ms`)
+             *   - `root`     root directory for relative filenames
+             *   - `headers`  object of headers to serve with file
+             *   - `dotfiles` serve dotfiles, defaulting to false; can be `"allow"` to send them
+             *
+             * Other options are passed along to `send`.
              *
              * Examples:
              *
-             *  The following example illustrates how `res.sendfile()` may
+             *  The following example illustrates how `res.sendFile()` may
              *  be used as an alternative for the `static()` middleware for
-             *  dynamic situations. The code backing `res.sendfile()` is actually
+             *  dynamic situations. The code backing `res.sendFile()` is actually
              *  the same code, so HTTP cache support etc is identical.
              *
              *     app.get('/user/:uid/photos/:file', function(req, res){
@@ -501,16 +505,35 @@ declare module "express" {
              *
              *       req.user.mayViewFilesFrom(uid, function(yes){
              *         if (yes) {
-             *           res.sendfile('/uploads/' + uid + '/' + file);
+             *           res.sendFile('/uploads/' + uid + '/' + file);
              *         } else {
              *           res.send(403, 'Sorry! you cant see that.');
              *         }
              *       });
              *     });
+             *
+             * @api public
+             */
+            sendFile(path: string): void;
+            sendFile(path: string, options: any): void;
+            sendFile(path: string, fn: Errback): void;
+            sendFile(path: string, options: any, fn: Errback): void;
+
+            /**
+             * deprecated, use sendFile instead.
              */
             sendfile(path: string): void;
+            /**
+             * deprecated, use sendFile instead.
+             */
             sendfile(path: string, options: any): void;
+            /**
+             * deprecated, use sendFile instead.
+             */
             sendfile(path: string, fn: Errback): void;
+            /**
+             * deprecated, use sendFile instead.
+             */
             sendfile(path: string, options: any, fn: Errback): void;
 
             /**
