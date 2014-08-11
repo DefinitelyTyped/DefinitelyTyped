@@ -33,9 +33,7 @@ declare module ng {
         inject(...inlineAnnotatedConstructor: any[]): any; // this overload is undocumented, but works
 
         // see http://docs.angularjs.org/api/angular.mock.module
-        module(...modules: string[]): any;
-        module(...modules: Function[]): any;
-        module(modules: Object): any;
+        module(...modules: any[]): any;
 
         // see http://docs.angularjs.org/api/angular.mock.TzDate
         TzDate(offset: number, timestamp: number): Date;

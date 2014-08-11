@@ -843,8 +843,12 @@ declare module chrome.extension {
         type?: string;
     }
 
+    interface LastError {
+        message?: string;
+    }
+
     var inIncognitoContext: boolean;
-    var lastError: Object;
+    var lastError: LastError;
 
     export function getBackgroundPage(): Window;
     export function getURL(path: string): string;
@@ -1487,8 +1491,12 @@ declare module chrome.proxy {
 // Runtime
 ////////////////////
 declare module chrome.runtime {
-    var lastError: Object;
+    var lastError: LastError;
     var id: string;
+
+    interface LastError {
+        message?: string;
+    }
 
     interface ConnectInfo {
         name?: string;

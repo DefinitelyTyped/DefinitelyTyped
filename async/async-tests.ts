@@ -26,10 +26,11 @@ async.map(data, asyncProcess, function (err, results) {
 
 var openFiles = ['file1', 'file2'];
 var saveFile = function () { }
-async.forEach(openFiles, saveFile, function (err) { });
+async.each(openFiles, saveFile, function (err) { });
+async.eachSeries(openFiles, saveFile, function (err) { });
 
 var documents, requestApi;
-async.forEachLimit(documents, 20, requestApi, function (err) { });
+async.eachLimit(documents, 20, requestApi, function (err) { });
 
 async.map(['file1', 'file2', 'file3'], fs.stat, function (err, results) { });
 
