@@ -33,13 +33,14 @@ declare module ng.translate {
     }
 
     interface ITranslateService {
-        (key: string, ...params: string[]): ng.IPromise<string>;
+        (translationId: string, interpolateParams?: any, interpolationId?: string): ng.IPromise<string>;
+        (translationId: string[], interpolateParams?: any, interpolationId?: string): ng.IPromise<{ [key: string]: string }>;
         cloakClassName(): string;
         cloakClassName(name: string): ITranslateProvider;
         fallbackLanguage(langKey?: string): string;
         fallbackLanguage(langKey?: string[]): string;
         instant(translationId: string, interpolateParams?: any, interpolationId?: string): string;
-        instant(translationId: string[], interpolateParams?: any, interpolationId?: string): string;
+        instant(translationId: string[], interpolateParams?: any, interpolationId?: string): { [key: string]: string };
         isPostCompilingEnabled(): boolean;
         preferredLanguage(): string;
         proposedLanguage(): string;
