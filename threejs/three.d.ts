@@ -3872,8 +3872,8 @@ declare module THREE {
 
     export interface Renderer {
         render(scene: Scene, camera: Camera): void;
-		setSize(width:number, height:number, updateStyle?:boolean): void;
-		domElement: HTMLCanvasElement;        
+	setSize(width:number, height:number, updateStyle?:boolean): void;
+	domElement: HTMLCanvasElement;        
     }
 
     export interface CanvasRendererParameters {
