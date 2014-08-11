@@ -891,7 +891,7 @@ declare module THREE {
     /**
      * Base class for scene graph objects
      */
-    export class Object3D {
+    export class Object3D extends EventDispatcher {
         constructor();
 
         /**
@@ -2169,7 +2169,7 @@ declare module THREE {
         clone(): MeshPhongMaterial;
     }
 
-    export interface ParticleSystemMaterialParameters {
+    export interface PointCloutMaterialParameters {
         color?: number;
         map?: Texture;
         size?: number;
@@ -2178,7 +2178,7 @@ declare module THREE {
         fog?: boolean;
     }
 
-    export class ParticleSystemMaterial extends Material {
+    export class PointCloudMaterial extends Material {
         constructor(parameters?: ParticleSystemMaterialParameters);
         color: Color;
         map: Texture;
@@ -3806,9 +3806,9 @@ declare module THREE {
          * @param geometry An instance of Geometry.
          * @param material An instance of Material (optional).
          */
-        constructor(geometry: Geometry, material?: ParticleSystemMaterial);
+        constructor(geometry: Geometry, material?: PointCloudMaterial);
         constructor(geometry: Geometry, material?: ShaderMaterial);
-        constructor(geometry: BufferGeometry, material?: ParticleSystemMaterial);
+        constructor(geometry: BufferGeometry, material?: PointCloudMaterial);
         constructor(geometry: BufferGeometry, material?: ShaderMaterial);
 
         /**
@@ -3872,6 +3872,8 @@ declare module THREE {
 
     export interface Renderer {
         render(scene: Scene, camera: Camera): void;
+		setSize(width:number, height:number, updateStyle?:boolean): void;
+		domElement: HTMLCanvasElement;        
     }
 
     export interface CanvasRendererParameters {
