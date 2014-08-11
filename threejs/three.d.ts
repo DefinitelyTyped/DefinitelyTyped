@@ -2169,7 +2169,7 @@ declare module THREE {
         clone(): MeshPhongMaterial;
     }
 
-    export interface PointCloutMaterialParameters {
+    export interface PointCloudMaterialParameters {
         color?: number;
         map?: Texture;
         size?: number;
