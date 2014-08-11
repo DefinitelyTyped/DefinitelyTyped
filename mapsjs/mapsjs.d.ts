@@ -2,7 +2,7 @@
  * Mapsjs 9.6.0 Copyright (c) 2013 ISC. All Rights Reserved.
 */
 
-declare module 'mapsjs' {
+declare module mapsjs {
 
 	/** 
 	 * Clusters a set of points.
@@ -305,6 +305,11 @@ declare module 'mapsjs' {
 		 * @returns {geometry} valid geometry is true, otherwise false.
 		 */
         isValid(): boolean;
+
+        /**
+         * Removes all invalid sets from a shape.
+         */
+        cleanSets(): void;
 		
 		/**
 		 * Creates a wkt string from this geometry.
@@ -1781,7 +1786,15 @@ declare module 'mapsjs' {
 			 * Gets uri endpoint for the MapDotNet REST service.
 			 * @returns {string} Uri endpoint for the MapDotNet REST service.
 			 */
-			getEndpoint(): string;
+            getEndpoint(): string;
+
+            /**
+			 * Gets asynchronously and local requestor / descriptor pair with the entire dataset fully loaded.
+             * This is useful to load everything locally and eliminate the need for individual json tile requests at the expense of a local memory footprint.
+             *  
+			 * @returns {JQueryDeferred<{ requestor: requestorLocal; descriptor: descriptorLocal }>}.
+			 */
+            factoryLocal(descriptor: descriptorMDNRestFeature): JQueryDeferred<{ requestor: requestorLocal; descriptor: descriptorLocal }>;
         }
         
 		/**
@@ -2042,6 +2055,7 @@ declare module 'mapsjs' {
             constructor(mapId: string, layerId: string, options?: {
                 version?: string;
                 bleedRatio?: number;
+                where?: string;
                 fieldNames?: string[];
                 clipToRenderBounds?: boolean;
                 simplifyEnabled?: boolean;
@@ -2129,6 +2143,32 @@ declare module 'mapsjs' {
 			 * the units per pixel.
 			 */
             setSimplifyEnabled(flag: boolean): void;
+
+            /**
+             * Gets an optional where clause from the descriptor.
+             * @returns {string} The where clause.
+             */
+            getWhere(): string;
+
+            /**
+             * Sets an optional where clause on the descriptor.
+             * @param {string} w The where clause (omit the 'where').
+             */
+            setWhere(w: string): void;
+
+            /**
+             * Gets a tag which is used to modify the request URIs to avoid 
+             * browser caching
+             * @returns {string} The map's tag.
+             */
+            getTag(): string;
+
+            /**
+             * Sets the map's tag, which is used modify request URIs to avoid 
+             * browser caching.
+             * @param {string} tag The desired tag.
+             */
+            setTag(tag: string): void;
 			
 			/**
 			 * Sets the action to perform on descriptor change.
@@ -2176,7 +2216,35 @@ declare module 'mapsjs' {
 			 * @param {object} data An array of JavaScript objects to use as
 			 * the requestor source data.
 			 */
-			setSource(data: {}[]): void;
+            setSource(data: {}[]): void;
+
+            /**
+			 * Sets an optional preprocessor that is excuted on the loaded data before parsing
+             * This can be used to plug in a clustering function.
+             *
+			 * @param {function} action A function taking an array of objects and returning an array of objects. 
+			 * the requestor source data.
+			 */
+            setPreprocessor(action: (data: {}[]) => {}[]): void;
+
+            /** 
+			 * Runs an optionally loaded pre-processor (see setPreprocessor)
+			 */
+            preprocess(): void;
+
+
+            /**
+			 * Finds spatially the closest row to the specified point
+			 * @param {point} pt A test point to search from.
+             * @param {Number} maxD A maximum distance by which features beyond are ignored.
+			 * the requestor source data.
+			 */
+            findClosestRow(pt: point, maxD: number): {
+                Shape: any;
+                Data: {};
+                Values: any[];
+                Bounds: envelope;
+            };
             
 			/** 
 			 * Returns your source data parsed into theformat { Shapes: [],
@@ -2186,10 +2254,11 @@ declare module 'mapsjs' {
              * do a quick spatial check for complex polygons.
 			 * @returns {object} Parsed data object in the form {Shapes, Values, Bounds}.
 			 */
-			getParsedData(): {
+            getParsedData(descriptor?: any): {
                 Shapes: any[];
                 Values: any[];
                 Bounds: envelope[];
+                Data: {}[];
             };
         }
         
@@ -2262,7 +2331,7 @@ declare module 'mapsjs' {
         geometryStyle?: geometryStyle;
         styledGeometry?: styledGeometry;
         nodeTapAndHoldAction?: (setIdx: number, idx: number) => boolean;
-        nodeMoveAction?: (x: number, y: number, actionType: string) => any;
+        nodeMoveAction?: (x: number, y: number, actionType: string, activeSetIdx?: number, activeNodeIdx?: number) => any;
         shapeChangeAction?: () => void;
         envelopeEndAction?: (env: envelope) => void;
         circleEndAction?: (circle: geometry.polygon) => void;
@@ -2278,6 +2347,23 @@ declare module 'mapsjs' {
         outlineOpacity?: number;
         outlineThicknessPix?: number
         dashArray?: string;
+    }
+
+    interface mapsjsWidgetOptions {
+        mapCenter?: any;
+        zoomLevel?: any;
+        stopPointerEventPropagation?: boolean;
+        drawnContentZorderToTop?: boolean;
+        contentExtentsMarginInPixels?: number;
+        mouseWheelZoomsOverCenter?: boolean;
+        onGeoLocated?: () => void;
+        extentChangeCompleteAction?: (vals: extentChangeStatsObj) => void;
+        contentRepositionAction?: (vals: repositionStatsObj) => void;
+        pointerClickAction?: (pt: point) => void;
+        pointerHoverAction?: (pt: point) => void;
+        mapInitializeLocationAction?: (map: mapsjsWidget, callback: (center: any) => void) => void;
+        mapInitializedAction?: (map: mapsjsWidget) => void;
+        layers?: tile.layerOptions[]; 
     }
 
     interface mapsjsWidget {
@@ -2611,7 +2697,7 @@ declare module 'mapsjs' {
 		 * when any point in the geometry is clicked and held and has the
 		 * signature nodeTapAndHoldAction(setIdx, idx), nodeMoveAction is a
 		 * callback invoked after any node is dragged to a new location and
-		 * has signature nodeMoveAction(x, y, actionType), shapeChangeAction
+		 * has signature nodeMoveAction(x, y, actionType, activeSetIdx, activeNodeIdx), shapeChangeAction
 		 * is a callback that is invoked after the geometry shape changes and,
 		 * has signature shapeChangeAction(shape), envelopeEndAction is a callback 
 		 * invoked after an envelope is created and has signature envelopeEndAction(envelope), 
@@ -2641,6 +2727,14 @@ declare module 'mapsjs' {
 		 */
 		popSetFromDigitizePath(): number[];
         
+        /**
+         * Programmatically move a node on the currently digitizing path.
+         * @param {point} pt The new location point for the specified node.
+         * @param {number} setIdx The index of the set from which to remove the node.
+         * @param {number} nodeIdx The index of the node to remove.
+         */
+        moveNodeOnDigitizePath(pt: point, setIdx: number, nodeIdx: number): void;
+
 		/**
 		 * Programmatically delete a node from the currently digitizing path.
 		 * @param {number} setIdx The index of the set from which to remove the node.
@@ -2712,4 +2806,8 @@ interface JQuery {
     rimMap(): JQuery;
     rimMap(command: any, param?: any, param2?: any, param3?: any, param4?: any, param5?: any): JQuery;
     getMapsjs(): any;
+}
+
+declare module 'mapsjs' {
+    export = mapsjs;
 }
