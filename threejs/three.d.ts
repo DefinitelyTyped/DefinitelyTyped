@@ -3193,7 +3193,10 @@ declare module THREE {
          */
         multiplyQuaternions(a: Quaternion, b: Quaternion): Quaternion;
 
-        multiplyVector3(vector: Vector3, dest: Vector3): Quaternion;
+        /** 
+          * Deprecated. Use Vector3.applyQuaternion instead 
+          */
+        multiplyVector3(vector: Vector3): Vector3;
 
         /**
          * Clones this quaternion.
