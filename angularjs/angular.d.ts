@@ -312,10 +312,10 @@ declare module ng {
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // Scope
-    // see http://docs.angularjs.org/api/ng.$rootScope.Scope
+    // Scope and RootScope 
+    // see https://docs.angularjs.org/api/ng/type/$rootScope.Scope and http://docs.angularjs.org/api/ng.$rootScope
     ///////////////////////////////////////////////////////////////////////////
-    interface IScope {
+    interface IRootScopeService {
         $apply(): any;
         $apply(exp: string): any;
         $apply(exp: (scope: IScope) => any): any;
@@ -352,12 +352,17 @@ declare module ng {
         $parent: IScope;
 
         $root: IRootScopeService;
+        this: IRootScopeService;
 
         $id: string;
 
         // Hidden members
         $$isolateBindings: any;
         $$phase: any;
+    }
+
+    interface IScope extends IRootScopeService {
+        [index: string]: any;
     }
 
     interface IAngularEvent {
@@ -963,12 +968,6 @@ declare module ng {
     interface ITemplateCacheService extends ICacheObject {}
 
     ///////////////////////////////////////////////////////////////////////////
-    // RootScopeService
-    // see http://docs.angularjs.org/api/ng.$rootScope
-    ///////////////////////////////////////////////////////////////////////////
-    interface IRootScopeService extends IScope {}
-
-    ///////////////////////////////////////////////////////////////////////////
     // SCEService
     // see http://docs.angularjs.org/api/ng.$sce
     ///////////////////////////////////////////////////////////////////////////
@@ -1031,22 +1030,34 @@ declare module ng {
         (...args: any[]): IDirective;
     }
 
-
-    interface IDirective{
-        compile?:
-            (templateElement: IAugmentedJQuery,
-            templateAttributes: IAttributes,
-            transclude: ITranscludeFunction
-            ) => any;
-        controller?: any;
-        controllerAs?: string;
-        link?:
-            (scope: IScope,
+    interface IDirectiveLinkFn {
+        (
+            scope: IScope,
             instanceElement: IAugmentedJQuery,
             instanceAttributes: IAttributes,
             controller: any,
             transclude: ITranscludeFunction
-            ) => void;
+        ): void;
+    }
+
+    interface IDirectivePrePost {
+        pre?: IDirectiveLinkFn;
+        post?: IDirectiveLinkFn;
+    }
+
+    interface IDirectiveCompileFn {
+        (
+            templateElement: IAugmentedJQuery,
+            templateAttributes: IAttributes,
+            transclude: ITranscludeFunction
+        ): IDirectivePrePost;
+    }
+
+    interface IDirective {
+        compile?: IDirectiveCompileFn;
+        controller?: any;
+        controllerAs?: string;
+        link?: IDirectiveLinkFn;
         name?: string;
         priority?: number;
         replace?: boolean;
