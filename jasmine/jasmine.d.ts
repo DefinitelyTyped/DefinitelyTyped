@@ -45,6 +45,7 @@ declare module jasmine {
     function createSpyObj<T>(baseName: string, methodNames: any[]): T;
     function pp(value: any): string;
     function getEnv(): Env;
+    function addMatchers(matchers: any): Any;
 
     interface Any {
 
