@@ -215,12 +215,10 @@ declare module Backbone {
         any(iterator: (element: TModel, index: number) => boolean, context?: any): boolean;
         collect(iterator: (element: TModel, index: number, context?: any) => any[], context?: any): any[];
         chain(): any;
-        compact(): TModel[];
         contains(value: any): boolean;
         countBy(iterator: (element: TModel, index: number) => any): _.Dictionary<number>;
         countBy(attribute: string): _.Dictionary<number>;
         detect(iterator: (item: any) => boolean, context?: any): any; // ???
-        difference(...model: TModel[]): TModel[];
         drop(): TModel;
         drop(n: number): TModel[];
         each(iterator: (element: TModel, index: number, list?: any) => void, context?: any): any;
@@ -229,7 +227,6 @@ declare module Backbone {
         find(iterator: (element: TModel, index: number) => boolean, context?: any): TModel;
         first(): TModel;
         first(n: number): TModel[];
-        flatten(shallow?: boolean): TModel[];
         foldl(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any;
         forEach(iterator: (element: TModel, index: number, list?: any) => void, context?: any): any;
         groupBy(iterator: (element: TModel, index: number) => string, context?: any): _.Dictionary<TModel[]>;
@@ -239,7 +236,6 @@ declare module Backbone {
         initial(): TModel;
         initial(n: number): TModel[];
         inject(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any;
-        intersection(...model: TModel[]): TModel[];
         isEmpty(object: any): boolean;
         invoke(methodName: string, arguments?: any[]): any;
         last(): TModel;
@@ -248,7 +244,6 @@ declare module Backbone {
         map(iterator: (element: TModel, index: number, context?: any) => any[], context?: any): any[];
         max(iterator?: (element: TModel, index: number) => any, context?: any): TModel;
         min(iterator?: (element: TModel, index: number) => any, context?: any): TModel;
-        object(...values: any[]): any[];
         reduce(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any;
         select(iterator: any, context?: any): any[];
         size(): number;
@@ -257,8 +252,6 @@ declare module Backbone {
         sortBy(iterator: (element: TModel, index: number) => number, context?: any): TModel[];
         sortBy(attribute: string, context?: any): TModel[];
         sortedIndex(element: TModel, iterator?: (element: TModel, index: number) => number): number;
-        range(stop: number, step?: number): any;
-        range(start: number, stop: number, step?: number): any;
         reduceRight(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any[];
         reject(iterator: (element: TModel, index: number) => boolean, context?: any): TModel[];
         rest(): TModel;
@@ -266,10 +259,7 @@ declare module Backbone {
         tail(): TModel;
         tail(n: number): TModel[];
         toArray(): any[];
-        union(...model: TModel[]): TModel[];
-        uniq(isSorted?: boolean, iterator?: (element: TModel, index: number) => boolean): TModel[];
         without(...values: any[]): TModel[];
-        zip(...model: TModel[]): TModel[];
     }
 
     class Router extends Events {
@@ -349,7 +339,6 @@ declare module Backbone {
         model: TModel;
         collection: Collection<TModel>;
         //template: (json, options?) => string;
-        make(tagName: string, attrs?: any, opts?: any): View<TModel>;
         setElement(element: HTMLElement, delegate?: boolean): View<TModel>;
         setElement(element: JQuery, delegate?: boolean): View<TModel>;
         id: string;
