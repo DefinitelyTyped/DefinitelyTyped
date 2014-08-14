@@ -2079,7 +2079,7 @@ declare module THREE {
         clone(): MeshDepthMaterial;
     }
 
-    export class MeshFaceMaterial {
+    export class MeshFaceMaterial extends Material {
         constructor(materials?: Material[]);
         materials: Material[];
 
