@@ -29144,7 +29144,7 @@ var TypeScript;
                 if (parentKind === 8 /* Class */) {
                     if (this.emitState.container !== 6 /* Args */) {
                         if (varDecl.isStatic()) {
-                            this.writeToOutput(parentSymbol.getName() + ".");
+                            this.writeToOutput(parentSymbol.getKey() + ".");
                         } else {
                             this.writeToOutput("this.");
                         }
@@ -29262,7 +29262,7 @@ var TypeScript;
 
                         if (pullSymbolContainerKind === 8 /* Class */) {
                             if (pullSymbol.hasFlag(16 /* Static */)) {
-                                this.writeToOutput(pullSymbolContainer.getName() + ".");
+                                this.writeToOutput(pullSymbolContainer.getKey() + ".");
                             } else if (pullSymbolKind === 4096 /* Property */) {
                                 this.emitThis();
                                 this.writeToOutput(".");
@@ -29295,7 +29295,7 @@ var TypeScript;
                                 }
                             }
                             if (emitContainerName) {
-                                this.writeToOutput(pullSymbolContainer.getName() + ".");
+                                this.writeToOutput(pullSymbolContainer.getKey() + ".");
                             }
                         }
                     }
@@ -32255,7 +32255,7 @@ var TypeScript;
         PullSymbol.prototype.getName = function (scopeSymbol, useConstraintInName) {
             var symbol = this.getScopedDynamicModuleAlias(scopeSymbol);
             if (symbol) {
-                return symbol.getName();
+                return symbol.getKey();
             }
 
             return this.name;
@@ -32792,7 +32792,7 @@ var TypeScript;
 
             this.typeParameters[this.typeParameters.length] = typeParameter;
 
-            this.memberTypeParameterNameCache[typeParameter.getName()] = typeParameter;
+            this.memberTypeParameterNameCache[typeParameter.getKey()] = typeParameter;
         };
 
         PullSignatureSymbol.prototype.getTypeParameters = function () {
@@ -32811,7 +32811,7 @@ var TypeScript;
 
                 if (this.typeParameters) {
                     for (var i = 0; i < this.typeParameters.length; i++) {
-                        this.memberTypeParameterNameCache[this.typeParameters[i].getName()] = this.typeParameters[i];
+                        this.memberTypeParameterNameCache[this.typeParameters[i].getKey()] = this.typeParameters[i];
                     }
                 }
             }
@@ -33325,7 +33325,7 @@ var TypeScript;
             }
 
             this._typeParameters[this._typeParameters.length] = typeParameter;
-            this._typeParameterNameCache[typeParameter.getName()] = typeParameter;
+            this._typeParameterNameCache[typeParameter.getKey()] = typeParameter;
         };
 
         PullTypeSymbol.prototype.addConstructorTypeParameter = function (typeParameter) {
@@ -34059,7 +34059,7 @@ var TypeScript;
         };
 
         PullErrorTypeSymbol.prototype.getName = function (scopeSymbol, useConstraintInName) {
-            return this.delegateType.getName(scopeSymbol, useConstraintInName);
+            return this.delegateType.getKey(scopeSymbol, useConstraintInName);
         };
 
         PullErrorTypeSymbol.prototype.getDisplayName = function (scopeSymbol, useConstraintInName) {
@@ -34379,7 +34379,7 @@ var TypeScript;
         };
 
         PullTypeParameterSymbol.prototype.getName = function (scopeSymbol, useConstraintInName) {
-            var name = _super.prototype.getName.call(this, scopeSymbol);
+            var name = _super.prototype.getKey.call(this, scopeSymbol);
 
             if (this.isPrinting) {
                 return name;
@@ -35173,7 +35173,7 @@ var TypeScript;
 
         if (skipLocalTypeParameters) {
             for (var i = 0; i < typeParameters.length; i++) {
-                localTypeParameters[typeParameters[i].getName()] = true;
+                localTypeParameters[typeParameters[i].getKey()] = true;
                 if (!localSkipMap) {
                     localSkipMap = {};
                 }
@@ -46390,7 +46390,7 @@ var TypeScript;
         };
 
         PullSymbolBinder.prototype.addTypeParameterToCache = function (typeParameter) {
-            this.functionTypeParameterCache[typeParameter.getName()] = typeParameter;
+            this.functionTypeParameterCache[typeParameter.getKey()] = typeParameter;
         };
 
         PullSymbolBinder.prototype.resetTypeParameterCache = function () {
@@ -46839,7 +46839,7 @@ var TypeScript;
                     typeParameterDecls = typeParameter.getDeclarations();
 
                     var typeParameterAST = this.semanticInfoChain.getASTForDecl(typeParameterDecls[0]);
-                    classDecl.addDiagnostic(new TypeScript.Diagnostic(this.semanticInfo.getPath(), typeParameterAST.minChar, typeParameterAST.getLength(), TypeScript.DiagnosticCode.Duplicate_identifier_0, [typeParameter.getName()]));
+                    classDecl.addDiagnostic(new TypeScript.Diagnostic(this.semanticInfo.getPath(), typeParameterAST.minChar, typeParameterAST.getLength(), TypeScript.DiagnosticCode.Duplicate_identifier_0, [typeParameter.getKey()]));
                 }
 
                 typeParameter.addDeclaration(typeParameters[i]);
@@ -46917,7 +46917,7 @@ var TypeScript;
 
                         if (typeParameterDeclParent && typeParameterDeclParent === interfaceDecl) {
                             var typeParameterAST = this.semanticInfoChain.getASTForDecl(typeParameterDecls[0]);
-                            interfaceDecl.addDiagnostic(new TypeScript.Diagnostic(this.semanticInfo.getPath(), typeParameterAST.minChar, typeParameterAST.getLength(), TypeScript.DiagnosticCode.Duplicate_identifier_0, [typeParameter.getName()]));
+                            interfaceDecl.addDiagnostic(new TypeScript.Diagnostic(this.semanticInfo.getPath(), typeParameterAST.minChar, typeParameterAST.getLength(), TypeScript.DiagnosticCode.Duplicate_identifier_0, [typeParameter.getKey()]));
 
                             break;
                         }
@@ -47548,7 +47548,7 @@ var TypeScript;
                     typeParameterDecls = typeParameter.getDeclarations();
 
                     var typeParameterAST = this.semanticInfoChain.getASTForDecl(typeParameterDecls[0]);
-                    functionExpressionDeclaration.addDiagnostic(new TypeScript.Diagnostic(this.semanticInfo.getPath(), typeParameterAST.minChar, typeParameterAST.getLength(), TypeScript.DiagnosticCode.Duplicate_identifier_0, [typeParameter.getName()]));
+                    functionExpressionDeclaration.addDiagnostic(new TypeScript.Diagnostic(this.semanticInfo.getPath(), typeParameterAST.minChar, typeParameterAST.getLength(), TypeScript.DiagnosticCode.Duplicate_identifier_0, [typeParameter.getKey()]));
                 }
 
                 typeParameter.addDeclaration(typeParameters[i]);
@@ -47706,7 +47706,7 @@ var TypeScript;
                     typeParameterDecls = typeParameter.getDeclarations();
 
                     typeParameterAST = this.semanticInfoChain.getASTForDecl(typeParameterDecls[0]);
-                    methodDeclaration.addDiagnostic(new TypeScript.Diagnostic(this.semanticInfo.getPath(), typeParameterAST.minChar, typeParameterAST.getLength(), TypeScript.DiagnosticCode.Duplicate_identifier_0, [typeParameter.getName()]));
+                    methodDeclaration.addDiagnostic(new TypeScript.Diagnostic(this.semanticInfo.getPath(), typeParameterAST.minChar, typeParameterAST.getLength(), TypeScript.DiagnosticCode.Duplicate_identifier_0, [typeParameter.getKey()]));
                 }
 
                 typeParameter.addDeclaration(typeParameters[i]);
@@ -47834,7 +47834,7 @@ var TypeScript;
                     typeParameterDecls = typeParameter.getDeclarations();
 
                     var typeParameterAST = this.semanticInfoChain.getASTForDecl(typeParameterDecls[0]);
-                    constructSignatureDeclaration.addDiagnostic(new TypeScript.Diagnostic(this.semanticInfo.getPath(), typeParameterAST.minChar, typeParameterAST.getLength(), TypeScript.DiagnosticCode.Duplicate_identifier_0, [typeParameter.getName()]));
+                    constructSignatureDeclaration.addDiagnostic(new TypeScript.Diagnostic(this.semanticInfo.getPath(), typeParameterAST.minChar, typeParameterAST.getLength(), TypeScript.DiagnosticCode.Duplicate_identifier_0, [typeParameter.getKey()]));
                 }
 
                 typeParameter.addDeclaration(typeParameters[i]);
@@ -47876,7 +47876,7 @@ var TypeScript;
                     typeParameterDecls = typeParameter.getDeclarations();
 
                     var typeParameterAST = this.semanticInfoChain.getASTForDecl(typeParameterDecls[0]);
-                    callSignatureDeclaration.addDiagnostic(new TypeScript.Diagnostic(this.semanticInfo.getPath(), typeParameterAST.minChar, typeParameterAST.getLength(), TypeScript.DiagnosticCode.Duplicate_identifier_0, [typeParameter.getName()]));
+                    callSignatureDeclaration.addDiagnostic(new TypeScript.Diagnostic(this.semanticInfo.getPath(), typeParameterAST.minChar, typeParameterAST.getLength(), TypeScript.DiagnosticCode.Duplicate_identifier_0, [typeParameter.getKey()]));
                 }
 
                 typeParameter.addDeclaration(typeParameters[i]);
