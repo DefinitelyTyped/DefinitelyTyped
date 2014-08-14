@@ -324,7 +324,7 @@ declare module fabric {
         setWidth(value: number): IObject;
 
         // methods
-        bringForward(): IObject;
+        bringForward(intersecting?: boolean): IObject;
         bringToFront(): IObject;
         center(): IObject;
         centerH(): IObject;
@@ -355,7 +355,7 @@ declare module fabric {
         scale(value: number): IObject;
         scaleToHeight(value: number): IObject;
         scaleToWidth(value: number): IObject;
-        sendBackwards(): IObject;
+        sendBackwards(intersecting?: boolean): IObject;
         sendToBack(): IObject;
 
         set (properties: IObjectOptions): IObject;
