@@ -455,12 +455,12 @@ declare module Dropbox {
         resumableUploadStep(data: any, cursor: Http.UploadCursor, callback: ResumableUploadStepCallback): XMLHttpRequest;
         resumableUploadFinish(path: string, cursor: Http.UploadCursor, callback: ClientFileWriteCallback): XMLHttpRequest;
         resumableUploadFinish(path: string, cursor: Http.UploadCursor, options: ClientFileWriteOptions, callback: ClientFileWriteCallback): XMLHttpRequest;
-        stat(path: string, callback: (err: ApiError, stat: File.Stat, folderEntries?: File.Stat[]) => void): XMLHttpRequest;
-        stat(path: string, options: File.StatOptions, callback: (err: ApiError, stat: File.Stat, folderEntries?: File.Stat[]) => void): XMLHttpRequest;
-        readdir(path: string, callback: (err: ApiError, filenames: string[], stat: File.Stat, folderEntries?: File.Stat[]) => void): XMLHttpRequest;
-        readdir(path: string, options: ReadDirOptions, callback: (err: ApiError, filenames: string[], stat: File.Stat, folderEntries?: File.Stat[]) => void): XMLHttpRequest;
-        metadata(path: string, callback: (err: ApiError, stat: File.Stat, folderEntries?: File.Stat[]) => void): void;
-        metadata(path: string, options: File.StatOptions, callback: (err: ApiError, stat: File.Stat, folderEntries?: File.Stat[]) => void): void;
+        stat(path: string, callback: (err: ApiError, stat: File.Stat, folderEntries: File.Stat[]) => void): XMLHttpRequest;
+        stat(path: string, options: File.StatOptions, callback: (err: ApiError, stat: File.Stat, folderEntries: File.Stat[]) => void): XMLHttpRequest;
+        readdir(path: string, callback: (err: ApiError, filenames: string[], stat: File.Stat, folderEntries: File.Stat[]) => void): XMLHttpRequest;
+        readdir(path: string, options: ReadDirOptions, callback: (err: ApiError, filenames: string[], stat: File.Stat, folderEntries: File.Stat[]) => void): XMLHttpRequest;
+        metadata(path: string, callback: (err: ApiError, stat: File.Stat, folderEntries: File.Stat[]) => void): void;
+        metadata(path: string, options: File.StatOptions, callback: (err: ApiError, stat: File.Stat, folderEntries: File.Stat[]) => void): void;
         makeUrl(path: string, callback: (err: ApiError, shareUrl: File.ShareUrl) => void): XMLHttpRequest;
         makeUrl(path: string, options: MakeURLOptions, callback: (err: ApiError, shareUrl: File.ShareUrl) => void): XMLHttpRequest;
         history(path: string, callback: (err: ApiError, fileVersions: File.Stat[]) => void): XMLHttpRequest;
