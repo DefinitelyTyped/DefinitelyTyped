@@ -136,3 +136,37 @@ mod = mod.factory('factory name', resourceServiceFactoryFunction);
 ///////////////////////////////////////
 // IResource
 ///////////////////////////////////////
+
+/// usage test case
+
+// model
+interface ICreditCard_ {
+    code: string;
+    name: string;
+}
+interface ICreditCard extends ng.resource.IResource<ICreditCard_>, ICreditCard_ {
+    $saveList?(list:ICreditCard[]):ng.resource.IResourceArray<ICreditCard>;
+}
+interface ICreditCardClass extends ng.resource.IResourceClass<ICreditCard> {
+    saveList(list:ICreditCard[]):ng.resource.IResourceArray<ICreditCard>;
+}
+
+// controller
+class CreditCardController {
+    creditCards:ICreditCard[] = [];
+
+    constructor(public CreditCard:ICreditCardClass) {
+        this.creditCards = this.CreditCard.query();
+    }
+
+    saveList() {
+        this.CreditCard.saveList(this.creditCards);
+    }
+}
+
+// controller test case
+var controller:CreditCardController;
+controller.creditCards.push({
+    code: "000011112222333",
+    name: "u.n.owen"
+});
