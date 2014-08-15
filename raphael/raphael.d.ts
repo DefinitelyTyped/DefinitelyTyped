@@ -215,7 +215,7 @@ interface RaphaelPaper {
     renderfix(): void;
     safari(): void;
     set(elements?: RaphaelElement[]): RaphaelSet;
-    setFinish(): void;
+    setFinish(): RaphaelSet;
     setSize(width: number, height: number): void;
     setStart(): void;
     setViewBox(x: number, y: number, w: number, h: number, fit: boolean): void;
