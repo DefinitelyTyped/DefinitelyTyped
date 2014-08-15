@@ -933,7 +933,7 @@ declare module THREE {
     /**
      * Base class for scene graph objects
      */
-    export class Object3D {
+    export class Object3D extends EventDispatcher {
         constructor();
 
         /**
@@ -2253,7 +2253,9 @@ declare module THREE {
     }
 
     export class PointCloudMaterial extends Material {
+
         constructor(parameters?: PointCloudMaterialParameters);
+
         color: Color;
         map: Texture;
         size: number;
@@ -4112,6 +4114,8 @@ declare module THREE {
 
     export interface Renderer {
         render(scene: Scene, camera: Camera): void;
+	setSize(width:number, height:number, updateStyle?:boolean): void;
+	domElement: HTMLCanvasElement;        
     }
 
     export interface CanvasRendererParameters {
