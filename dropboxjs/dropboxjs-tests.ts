@@ -37,7 +37,7 @@ browserClient.authenticate((error:any, client:Dropbox.Client) => {
         alert(data);  // data has the file's contents
     });
 
-    client.readdir("/", (err: Dropbox.ApiError, filenames: string[], stat: Dropbox.File.Stat, folderEntries?: Dropbox.File.Stat[]) => {
+    client.readdir("/", (err: Dropbox.ApiError, filenames: string[], stat: Dropbox.File.Stat, folderEntries: Dropbox.File.Stat[]) => {
         if (error) {
             alert(error);  // Something went wrong.
         }
@@ -46,7 +46,7 @@ browserClient.authenticate((error:any, client:Dropbox.Client) => {
     });
 });
 
-var serverClient:Dropbox.Client = new Dropbox.Client({
+var serverClient = new Dropbox.Client({
     key: "your-key-here",
     secret: "your-secret-here"
 });
