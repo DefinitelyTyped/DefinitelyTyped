@@ -2,18 +2,18 @@
 
 var browserClient = new Dropbox.Client({ key: "your-key-here" });
 
-browserClient.authenticate(function (error, client) {
+browserClient.authenticate((error:any, client:Dropbox.Client) => {
     if (error) {
         alert(error);
     }
 
-    client.onError.addListener(function (error) {
-        if (window.console) {  // Skip the "if" in node.js code.
+    client.onError.addListener((error:any) =>{
+        if (window['console']) {  // Skip the "if" in node.js code.
             console.error(error);
         }
     });
 
-    client.getAccountInfo(function (error, accountInfo) {
+    client.getAccountInfo( (error:Dropbox.ApiError, accountInfo:Dropbox.AccountInfo) => {
         if (error) {
             alert(error);  // Something went wrong.
         }
@@ -21,7 +21,7 @@ browserClient.authenticate(function (error, client) {
         alert("Hello, " + accountInfo.name + "!");
     });
 
-    client.writeFile("hello_world.txt", "Hello, world!\n", function (error, stat) {
+    client.writeFile("hello_world.txt", "Hello, world!\n", (error:Dropbox.ApiError, stat:Dropbox.File.Stat ) => {
         if (error) {
             alert(error);  // Something went wrong.
         }
@@ -29,7 +29,7 @@ browserClient.authenticate(function (error, client) {
         alert("File saved as revision " + stat.versionTag);
     });
 
-    client.readFile("hello_world.txt", function (error, data) {
+    client.readFile("hello_world.txt", (error:Dropbox.ApiError, data:string) => {
         if (error) {
             alert(error);  // Something went wrong.
         }
@@ -37,12 +37,12 @@ browserClient.authenticate(function (error, client) {
         alert(data);  // data has the file's contents
     });
 
-    client.readdir("/", function (error, entries) {
+    client.readdir("/", (err: Dropbox.ApiError, filenames: string[], stat: Dropbox.File.Stat, folderEntries: Dropbox.File.Stat[]) => {
         if (error) {
             alert(error);  // Something went wrong.
         }
 
-        alert("Your Dropbox contains " + entries.join(", "));
+        alert("Your Dropbox contains " + filenames.join(", "));
     });
 });
 
@@ -51,4 +51,4 @@ var serverClient = new Dropbox.Client({
     secret: "your-secret-here"
 });
 
-serverClient.authDriver(new Dropbox.AuthDriver.NodeServer(8191));
+serverClient.authDriver(new Dropbox.AuthDriver.NodeServer({port:8191}));
