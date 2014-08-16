@@ -290,6 +290,7 @@ declare module Dropbox {
     }
     module AuthDriver {
 
+        /** Do not use class! TypeScript definition implementation detail : https://github.com/Microsoft/TypeScript/issues/371 */
         class IAuthDriver {
             doAuthorize(authUrl: string, stateParam: string, client: Client, callback?: QueryParamsCallback): void;
         }
