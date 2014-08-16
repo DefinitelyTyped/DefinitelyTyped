@@ -1,6 +1,6 @@
-/// <reference path="timezonecomplete-1.2.0.d.ts" />
+/// <reference path="timezonecomplete-1.3.0.d.ts" />
 
-import tc = require("timezonecomplete-1.2.0");
+import tc = require("timezonecomplete-1.3.0");
 
 var b: boolean = tc.isLeapYear(2014);
 var n: number = tc.daysInMonth(2014, 10);
@@ -31,6 +31,7 @@ b = d7.greaterThan(d6);
 d = d7.min(d6);
 d = d7.max(d6);
 d = d7.multiply(3);
+d = d7.divide(0.3);
 d = d7.add(d6);
 d = d7.sub(d6);
 s = d7.toString();
@@ -125,6 +126,10 @@ b = dt.greaterEqual(new tc.DateTime(9289234, tc.TimeZone.local()));
 s = dt.toIsoString();
 s = dt.toString();
 s = dt.toUtcString();
+
+var wd: tc.WeekDay;
+wd = dt.weekDay();
+wd = dt.utcWeekDay();
 
 // PERIOD
 
