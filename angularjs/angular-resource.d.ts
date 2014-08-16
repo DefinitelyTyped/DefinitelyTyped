@@ -94,29 +94,29 @@ declare module ng.resource {
     // Instance calls always return the the promise of the request which retrieved the object
     // https://github.com/angular/angular.js/blob/v1.2.0/src/ngResource/resource.js#L538-L546
     interface IResource<T> {
-        $get(): ng.IPromise<T>;
-        $get(params?: Object, success?: Function, error?: Function): ng.IPromise<T>;
-        $get(success: Function, error?: Function): ng.IPromise<T>;
+        $get?(): ng.IPromise<T>;
+        $get?(params?: Object, success?: Function, error?: Function): ng.IPromise<T>;
+        $get?(success: Function, error?: Function): ng.IPromise<T>;
 
-        $query(): ng.IPromise<IResourceArray<T>>;
-        $query(params?: Object, success?: Function, error?: Function): ng.IPromise<IResourceArray<T>>;
-        $query(success: Function, error?: Function): ng.IPromise<IResourceArray<T>>;
+        $query?(): ng.IPromise<IResourceArray<T>>;
+        $query?(params?: Object, success?: Function, error?: Function): ng.IPromise<IResourceArray<T>>;
+        $query?(success: Function, error?: Function): ng.IPromise<IResourceArray<T>>;
 
-        $save(): ng.IPromise<T>;
-        $save(params?: Object, success?: Function, error?: Function): ng.IPromise<T>;
-        $save(success: Function, error?: Function): ng.IPromise<T>;
+        $save?(): ng.IPromise<T>;
+        $save?(params?: Object, success?: Function, error?: Function): ng.IPromise<T>;
+        $save?(success: Function, error?: Function): ng.IPromise<T>;
 
-        $remove(): ng.IPromise<T>;
-        $remove(params?: Object, success?: Function, error?: Function): ng.IPromise<T>;
-        $remove(success: Function, error?: Function): ng.IPromise<T>;
+        $remove?(): ng.IPromise<T>;
+        $remove?(params?: Object, success?: Function, error?: Function): ng.IPromise<T>;
+        $remove?(success: Function, error?: Function): ng.IPromise<T>;
 
-        $delete(): ng.IPromise<T>;
-        $delete(params?: Object, success?: Function, error?: Function): ng.IPromise<T>;
-        $delete(success: Function, error?: Function): ng.IPromise<T>;
+        $delete?(): ng.IPromise<T>;
+        $delete?(params?: Object, success?: Function, error?: Function): ng.IPromise<T>;
+        $delete?(success: Function, error?: Function): ng.IPromise<T>;
 
         /** the promise of the original server interaction that created this instance. **/
-        $promise : ng.IPromise<T>;
-        $resolved : boolean;
+        $promise? : ng.IPromise<T>;
+        $resolved? : boolean;
     }
 
     /**
