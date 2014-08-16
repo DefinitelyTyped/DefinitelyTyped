@@ -413,7 +413,7 @@ declare module THREE {
          */
         id: number;
         
-        uuid: number;
+        uuid: string;
         name: string;
         attributes: BufferAttribute[];
         drawcalls: { start: number; count: number; index: number; }[];
@@ -944,7 +944,7 @@ declare module THREE {
         /**
          *
          */
-        uuid: number;
+        uuid: string;
 
         /**
          * Optional name of the object (doesn't need to be unique).
@@ -1052,11 +1052,6 @@ declare module THREE {
          */
         eulerOrder: string;
         // eulerOrder:EulerOrder;
-
-        /**
-         * Use quaternion instead of Euler angles for specifying local rotation.
-         */
-        useQuaternion: boolean;
 
         /**
          * This updates the position, rotation and scale with the matrix.
@@ -1743,15 +1738,6 @@ declare module THREE {
 
     }
 
-    export class GeometryLoader {
-        constructor(manager?: LoadingManager);
-
-        load(url: string, onLoad: (bufferGeometry: BufferGeometry) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
-        setCrossOrigin(crossOrigin: string): void;
-        parse(json: any): Geometry;
-
-    }
-
     export class Cache{
         constructor();
 
@@ -1797,7 +1783,7 @@ declare module THREE {
 
     }
 
-    export class JSonLoaderResultGeometry extends Geometry {
+    export interface JSonLoaderResultGeometry extends Geometry {
         animation: AnimationData;
     }
 
@@ -1830,7 +1816,7 @@ declare module THREE {
 
     }
 
-    export class MaterialLoader extends EventDispatcher {
+    export class MaterialLoader {
         constructor(manager?: LoadingManager);
 
         load(url: string, onLoad: (material: Material) => void): void;
@@ -1838,7 +1824,7 @@ declare module THREE {
         parse(json: any): Material;
     }
 
-    export class ObjectLoader extends EventDispatcher {
+    export class ObjectLoader {
         constructor(manager?: LoadingManager);
 
         load(url: string, onLoad: (object: Object3D) => void): void;
@@ -1853,7 +1839,7 @@ declare module THREE {
      * Class for loading a texture.
      * Unlike other loaders, this one emits events instead of using predefined callbacks. So if you're interested in getting notified when things happen, you need to add listeners to the object.
      */
-    export class TextureLoader extends EventDispatcher {
+    export class TextureLoader {
         constructor(manager?: LoadingManager);
         crossOrigin: string;
         /**
@@ -1865,7 +1851,7 @@ declare module THREE {
         setCrossOrigin(crossOrigin: string): void;
     }
 
-    export class XHRLoader extends EventDispatcher {
+    export class XHRLoader {
         constructor(manager?: LoadingManager);
 
         cache: Cache;
@@ -1958,9 +1944,9 @@ declare module THREE {
         alphaTest: number;
 
         /**
-         * Enables/disables overdraw. If enabled, polygons are drawn slightly bigger in order to fix antialiasing gaps when using the CanvasRenderer. Default is false.
+         * Enables/disables overdraw. If greater than zero, polygons are drawn slightly bigger in order to fix antialiasing gaps when using the CanvasRenderer. Default is 0.
          */
-        overdraw: boolean;
+        overdraw: number;
 
         /**
          * Defines whether this material is visible. Default is true.
@@ -2554,154 +2540,153 @@ declare module THREE {
     }
 
     export class ColorKeywords {
-        static test2: string;
-        static aliceblue: string;
-        static antiquewhite: string;
-        static aqua: string;
-        static aquamarine: string;
-        static azure: string;
-        static beige: string;
-        static bisque: string;
-        static black: string;
-        static blanchedalmond: string;
-        static blue: string;
-        static blueviolet: string;
-        static brown: string;
-        static burlywood: string;
-        static cadetblue: string;
-        static chartreuse: string;
-        static chocolate: string;
-        static coral: string;
-        static cornflowerblue: string;
-        static cornsilk: string;
-        static crimson: string;
-        static cyan: string;
-        static darkblue: string;
-        static darkcyan: string;
-        static darkgoldenrod: string;
-        static darkgray: string;
-        static darkgreen: string;
-        static darkgrey: string;
-        static darkkhaki: string;
-        static darkmagenta: string;
-        static darkolivegreen: string;
-        static darkorange: string;
-        static darkorchid: string;
-        static darkred: string;
-        static darksalmon: string;
-        static darkseagreen: string;
-        static darkslateblue: string;
-        static darkslategray: string;
-        static darkslategrey: string;
-        static darkturquoise: string;
-        static darkviolet: string;
-        static deeppink: string;
-        static deepskyblue: string;
-        static dimgray: string;
-        static dimgrey: string;
-        static dodgerblue: string;
-        static firebrick: string;
-        static floralwhite: string;
-        static forestgreen: string;
-        static fuchsia: string;
-        static gainsboro: string;
-        static ghostwhite: string;
-        static gold: string;
-        static goldenrod: string;
-        static gray: string;
-        static green: string;
-        static greenyellow: string;
-        static grey: string;
-        static honeydew: string;
-        static hotpink: string;
-        static indianred: string;
-        static indigo: string;
-        static ivory: string;
-        static khaki: string;
-        static lavender: string;
-        static lavenderblush: string;
-        static lawngreen: string;
-        static lemonchiffon: string;
-        static lightblue: string;
-        static lightcoral: string;
-        static lightcyan: string;
-        static lightgoldenrodyellow: string;
-        static lightgray: string;
-        static lightgreen: string;
-        static lightgrey: string;
-        static lightpink: string;
-        static lightsalmon: string;
-        static lightseagreen: string;
-        static lightskyblue: string;
-        static lightslategray: string;
-        static lightslategrey: string;
-        static lightsteelblue: string;
-        static lightyellow: string;
-        static lime: string;
-        static limegreen: string;
-        static linen: string;
-        static magenta: string;
-        static maroon: string;
-        static mediumaquamarine: string;
-        static mediumblue: string;
-        static mediumorchid: string;
-        static mediumpurple: string;
-        static mediumseagreen: string;
-        static mediumslateblue: string;
-        static mediumspringgreen: string;
-        static mediumturquoise: string;
-        static mediumvioletred: string;
-        static midnightblue: string;
-        static mintcream: string;
-        static mistyrose: string;
-        static moccasin: string;
-        static navajowhite: string;
-        static navy: string;
-        static oldlace: string;
-        static olive: string;
-        static olivedrab: string;
-        static orange: string;
-        static orangered: string;
-        static orchid: string;
-        static palegoldenrod: string;
-        static palegreen: string;
-        static paleturquoise: string;
-        static palevioletred: string;
-        static papayawhip: string;
-        static peachpuff: string;
-        static peru: string;
-        static pink: string;
-        static plum: string;
-        static powderblue: string;
-        static purple: string;
-        static red: string;
-        static rosybrown: string;
-        static royalblue: string;
-        static saddlebrown: string;
-        static salmon: string;
-        static sandybrown: string;
-        static seagreen: string;
-        static seashell: string;
-        static sienna: string;
-        static silver: string;
-        static skyblue: string;
-        static slateblue: string;
-        static slategray: string;
-        static slategrey: string;
-        static snow: string;
-        static springgreen: string;
-        static steelblue: string;
-        static tan: string;
-        static teal: string;
-        static thistle: string;
-        static tomato: string;
-        static turquoise: string;
-        static violet: string;
-        static wheat: string;
-        static white: string;
-        static whitesmoke: string;
-        static yellow: string;
-        static yellowgreen: string;
+        static aliceblue: number;
+        static antiquewhite: number;
+        static aqua: number;
+        static aquamarine: number;
+        static azure: number;
+        static beige: number;
+        static bisque: number;
+        static black: number;
+        static blanchedalmond: number;
+        static blue: number;
+        static blueviolet: number;
+        static brown: number;
+        static burlywood: number;
+        static cadetblue: number;
+        static chartreuse: number;
+        static chocolate: number;
+        static coral: number;
+        static cornflowerblue: number;
+        static cornsilk: number;
+        static crimson: number;
+        static cyan: number;
+        static darkblue: number;
+        static darkcyan: number;
+        static darkgoldenrod: number;
+        static darkgray: number;
+        static darkgreen: number;
+        static darkgrey: number;
+        static darkkhaki: number;
+        static darkmagenta: number;
+        static darkolivegreen: number;
+        static darkorange: number;
+        static darkorchid: number;
+        static darkred: number;
+        static darksalmon: number;
+        static darkseagreen: number;
+        static darkslateblue: number;
+        static darkslategray: number;
+        static darkslategrey: number;
+        static darkturquoise: number;
+        static darkviolet: number;
+        static deeppink: number;
+        static deepskyblue: number;
+        static dimgray: number;
+        static dimgrey: number;
+        static dodgerblue: number;
+        static firebrick: number;
+        static floralwhite: number;
+        static forestgreen: number;
+        static fuchsia: number;
+        static gainsboro: number;
+        static ghostwhite: number;
+        static gold: number;
+        static goldenrod: number;
+        static gray: number;
+        static green: number;
+        static greenyellow: number;
+        static grey: number;
+        static honeydew: number;
+        static hotpink: number;
+        static indianred: number;
+        static indigo: number;
+        static ivory: number;
+        static khaki: number;
+        static lavender: number;
+        static lavenderblush: number;
+        static lawngreen: number;
+        static lemonchiffon: number;
+        static lightblue: number;
+        static lightcoral: number;
+        static lightcyan: number;
+        static lightgoldenrodyellow: number;
+        static lightgray: number;
+        static lightgreen: number;
+        static lightgrey: number;
+        static lightpink: number;
+        static lightsalmon: number;
+        static lightseagreen: number;
+        static lightskyblue: number;
+        static lightslategray: number;
+        static lightslategrey: number;
+        static lightsteelblue: number;
+        static lightyellow: number;
+        static lime: number;
+        static limegreen: number;
+        static linen: number;
+        static magenta: number;
+        static maroon: number;
+        static mediumaquamarine: number;
+        static mediumblue: number;
+        static mediumorchid: number;
+        static mediumpurple: number;
+        static mediumseagreen: number;
+        static mediumslateblue: number;
+        static mediumspringgreen: number;
+        static mediumturquoise: number;
+        static mediumvioletred: number;
+        static midnightblue: number;
+        static mintcream: number;
+        static mistyrose: number;
+        static moccasin: number;
+        static navajowhite: number;
+        static navy: number;
+        static oldlace: number;
+        static olive: number;
+        static olivedrab: number;
+        static orange: number;
+        static orangered: number;
+        static orchid: number;
+        static palegoldenrod: number;
+        static palegreen: number;
+        static paleturquoise: number;
+        static palevioletred: number;
+        static papayawhip: number;
+        static peachpuff: number;
+        static peru: number;
+        static pink: number;
+        static plum: number;
+        static powderblue: number;
+        static purple: number;
+        static red: number;
+        static rosybrown: number;
+        static royalblue: number;
+        static saddlebrown: number;
+        static salmon: number;
+        static sandybrown: number;
+        static seagreen: number;
+        static seashell: number;
+        static sienna: number;
+        static silver: number;
+        static skyblue: number;
+        static slateblue: number;
+        static slategray: number;
+        static slategrey: number;
+        static snow: number;
+        static springgreen: number;
+        static steelblue: number;
+        static tan: number;
+        static teal: number;
+        static thistle: number;
+        static tomato: number;
+        static turquoise: number;
+        static violet: number;
+        static wheat: number;
+        static white: number;
+        static whitesmoke: number;
+        static yellow: number;
+        static yellowgreen: number;
     }
 
     export class Euler {
@@ -3210,7 +3195,10 @@ declare module THREE {
          */
         multiplyQuaternions(a: Quaternion, b: Quaternion): Quaternion;
 
-        multiplyVector3(vector: Vector3, dest: Vector3): Quaternion;
+        /** 
+          * Deprecated. Use Vector3.applyQuaternion instead 
+          */
+        multiplyVector3(vector: Vector3): Vector3;
 
         /**
          * Clones this quaternion.
@@ -3444,14 +3432,14 @@ declare module THREE {
          *
          * distanceTo(v:T):number;
          */
-        distanceTo(v: Vector): number;
+        distanceTo?(v: Vector): number;
 
         /**
          * NOTE: Vector4 doesn't have the property.
          *
          * distanceToSquared(v:T):number;
          */
-        distanceToSquared(v: Vector): number;
+        distanceToSquared?(v: Vector): number;
 
         /**
          * setLength(l:number):T;
@@ -3915,36 +3903,22 @@ declare module THREE {
         /**
          * Sets X component of this vector.
          */
-        setX(x: number): Vector2;
+        setX(x: number): Vector4;
 
         /**
          * Sets Y component of this vector.
          */
-        setY(y: number): Vector2;
+        setY(y: number): Vector4;
 
         /**
          * Sets Z component of this vector.
          */
-        setZ(z: number): Vector2;
+        setZ(z: number): Vector4;
 
         /**
          * Sets w component of this vector.
          */
-        setW(w: number): Vector2;
-
-        /**
-         * NOTE: Vector4 doesn't have the property.
-         *
-         * distanceToSquared(v:T):number;
-         */
-        distanceTo(v: Vector): number;
-
-        /**
-         * NOTE: Vector4 doesn't have the property.
-         *
-         * distanceToSquared(v:T):number;
-         */
-        distanceToSquared(v: Vector): number;
+        setW(w: number): Vector4;
     }
 
     // Objects //////////////////////////////////////////////////////////////////////////////////
@@ -4067,7 +4041,7 @@ declare module THREE {
         clone(object?: PointCloud): PointCloud;
     }
 
-    export class Skeleton extends Mesh {
+    export class Skeleton {
         constructor(bones: Bone[], boneInverses?: Matrix4[], useVertexTexture?: boolean);
         bones: Bone[];
         useVertexTexture: boolean;
@@ -4254,11 +4228,6 @@ declare module THREE {
         sortObjects: boolean;
 
         /**
-         * Defines whether the renderer should auto update objects. Default is true.
-         */
-        autoUpdateObjects: boolean;
-
-        /**
          * Default is false.
          */
         gammaInput: boolean;
@@ -4437,7 +4406,6 @@ declare module THREE {
          */
         render(scene: Scene, camera: Camera, renderTarget?: RenderTarget, forceClear?: boolean): void;
         renderImmediateObject(camera: Camera, lights: Light[], fog: Fog, material: Material, object: Object3D): void;
-        initWebGLObjects(scene: Scene): void;
         initMaterial(material: Material, lights: Light[], fog: Fog, object: Object3D): void;
 
         /**
@@ -4514,7 +4482,7 @@ declare module THREE {
     export class RenderableFace {
         constructor();
 
-        color: number;
+        color: Color;
         material: Material;
         uvs: Vector2[][];
         v1: RenderableVertex;
@@ -4867,8 +4835,8 @@ declare module THREE {
         clone(): Texture;
         dispose(): void;
 
-        DEFAULT_IMAGE: any;
-        DEFAULT_MAPPING: any;
+        static DEFAULT_IMAGE: any;
+        static DEFAULT_MAPPING: any;
     }
 
     // Extras /////////////////////////////////////////////////////////////////////
@@ -4980,13 +4948,6 @@ declare module THREE {
         play(animation: Animation): void;
         stop(animation: Animation): void;
         update(deltaTimeMS: number): void;
-
-        // deprecated
-        add(data: AnimationData): void;
-        // deprecated
-        get(name: string): AnimationData;
-        // deprecated
-        remove(name: string): void;
     };
 
     export class MorphAnimation {
@@ -5012,10 +4973,9 @@ declare module THREE {
         hierarchy: KeyFrames[];
         currentTime: number;
         timeScale: number;
-        isPlaying: number;
-        isPaused: number;
-        loop: number;
-        JITCompile: boolean;
+        isPlaying: boolean;
+        isPaused: boolean;
+        loop: boolean;
 
         play(startTime?: number): void;
         stop(): void;
@@ -5026,7 +4986,7 @@ declare module THREE {
 
     // Extras / Curves /////////////////////////////////////////////////////////////////////
     export class ArcCurve extends EllipseCurve {
-        constructor(aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean );
+        constructor(aX: number, aY: number, aRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean );
     }
     export class ClosedSplineCurve3 extends Curve {
         constructor( points:Vector3[] );
@@ -5048,18 +5008,18 @@ declare module THREE {
     export class CubicBezierCurve3 extends Curve {
         constructor( v0: Vector3, v1: Vector3, v2: Vector3, v3: Vector3 );
 
-        v0: Vector2;
-        v1: Vector2;
-        v2: Vector2;
-        v3: Vector2;
+        v0: Vector3;
+        v1: Vector3;
+        v2: Vector3;
+        v3: Vector3;
 
         getPoint(t: number): Vector3;
     }
     export class EllipseCurve extends Curve {
         constructor( aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean );
 
-        ax: number;
-        ay: number;
+        aX: number;
+        aY: number;
         xRadius: number;
         yRadius: number;
         aStartAngle: number;
@@ -5081,8 +5041,8 @@ declare module THREE {
     export class LineCurve3 extends Curve {
         constructor( v1: Vector3, v2: Vector3 );
 
-        v1: Vector2;
-        v2: Vector2;
+        v1: Vector3;
+        v2: Vector3;
 
         getPoint(t: number): Vector3;
     }
@@ -5099,9 +5059,9 @@ declare module THREE {
     export class QuadraticBezierCurve3 extends Curve {
         constructor( v0: Vector3, v1: Vector3, v2: Vector3 );
 
-        v0: Vector2;
-        v1: Vector2;
-        v2: Vector2;
+        v0: Vector3;
+        v1: Vector3;
+        v2: Vector3;
 
         getPoint(t: number): Vector3;
     }
@@ -5128,8 +5088,6 @@ declare module THREE {
      * class Curve&lt;T extends Vector&gt;
      */
     export class Curve {
-        constructor();
-
         needsUpdate: boolean;
 
         /**
@@ -5232,10 +5190,10 @@ declare module THREE {
 
         scaleWorld: Vector3;
         translationWorld: Vector3;
-        rotationWorld: Quaternion;
+        quaternionWorld: Quaternion;
         translationObject: Vector3;
         scaleObject: Vector3;
-        rotationObject: Quaternion;
+        quaternionObject: Quaternion;
 
         updateMatrixWorld(force?: boolean): void;
     }
@@ -5250,13 +5208,18 @@ declare module THREE {
         ELLIPSE,
     }
 
+    export interface PathAction {
+        action: PathActions;
+        args: any;
+    }
+
     /**
      * a 2d path representation, comprising of points, lines, and cubes, similar to the html5 2d canvas api. It extends CurvePath.
      */
     export class Path extends CurvePath {
         constructor(points?: Vector2);
 
-        actions: PathActions[];
+        actions: PathAction[];
 
         fromPoints(vectors: Vector2[]): void;
         moveTo(x: number, y: number): void;
@@ -5370,7 +5333,6 @@ declare module THREE {
         constructor(shape: Shape, options?: any);
         constructor(shapes: Shape[], options?: any);
 
-        shapebb: BoundingBox;
         addShapeList(shapes: Shape[], options: any): ShapeGeometry;
         addShape(shape: Shape, options?: any): void;
     }
