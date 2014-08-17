@@ -490,9 +490,9 @@ declare module "express" {
              *
              * Examples:
              *
-             *  The following example illustrates how `res.sendfile()` may
+             *  The following example illustrates how `res.sendFile()` may
              *  be used as an alternative for the `static()` middleware for
-             *  dynamic situations. The code backing `res.sendfile()` is actually
+             *  dynamic situations. The code backing `res.sendFile()` is actually
              *  the same code, so HTTP cache support etc is identical.
              *
              *     app.get('/user/:uid/photos/:file', function(req, res){
@@ -501,13 +501,18 @@ declare module "express" {
              *
              *       req.user.mayViewFilesFrom(uid, function(yes){
              *         if (yes) {
-             *           res.sendfile('/uploads/' + uid + '/' + file);
+             *           res.sendFile('/uploads/' + uid + '/' + file);
              *         } else {
              *           res.send(403, 'Sorry! you cant see that.');
              *         }
              *       });
              *     });
              */
+            sendFile(path: string): void;
+            sendFile(path: string, options: any): void;
+            sendFile(path: string, fn: Errback): void;
+            sendFile(path: string, options: any, fn: Errback): void;
+            
             sendfile(path: string): void;
             sendfile(path: string, options: any): void;
             sendfile(path: string, fn: Errback): void;
