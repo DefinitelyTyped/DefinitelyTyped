@@ -1033,62 +1033,62 @@ interface UnderscoreStatic {
 		...arguments: any[]): void;
 
 	/**
-	* Creates and returns a new, throttled version of the passed function, that, when invoked repeatedly,
-	* will only actually call the original function at most once per every wait milliseconds. Useful for
-	* rate-limiting events that occur faster than you can keep up with.
-	* By default, throttle will execute the function as soon as you call it for the first time, and,
-	* if you call it again any number of times during the wait period, as soon as that period is over.
-	* If you'd like to disable the leading-edge call, pass {leading: false}, and if you'd like to disable
-	* the execution on the trailing-edge, pass {trailing: false}.
-	* @param func Function to throttle `waitMS` ms.
-	* @param wait The number of milliseconds to wait before `fn` can be invoked again.
-	* @param options Allows for disabling execution of the throttled function on either the leading or trailing edge.
-	* @return `fn` with a throttle of `wait`.
-	**/
-	throttle(
-		func: any,
+	 * Creates and returns a new, throttled version of the passed function, that, when invoked repeatedly,
+	 * will only actually call the original function at most once per every wait milliseconds. Useful for
+	 * rate-limiting events that occur faster than you can keep up with.
+	 * By default, throttle will execute the function as soon as you call it for the first time, and,
+	 * if you call it again any number of times during the wait period, as soon as that period is over.
+	 * If you'd like to disable the leading-edge call, pass {leading: false}, and if you'd like to disable
+	 * the execution on the trailing-edge, pass {trailing: false}.
+	 * @param func Function to throttle `waitMS` ms.
+	 * @param wait The number of milliseconds to wait before `fn` can be invoked again.
+	 * @param options Allows for disabling execution of the throttled function on either the leading or trailing edge.
+	 * @return `fn` with a throttle of `wait`.
+	 **/
+	throttle<T extends Function>(
+		func: T,
 		wait: number,
-		options?: _.ThrottleSettings): Function;
+		options?: _.ThrottleSettings): T;
 
 	/**
-	* Creates and returns a new debounced version of the passed function that will postpone its execution
-	* until after wait milliseconds have elapsed since the last time it was invoked. Useful for implementing
-	* behavior that should only happen after the input has stopped arriving. For example: rendering a preview
-	* of a Markdown comment, recalculating a layout after the window has stopped being resized, and so on.
-	*
-	* Pass true for the immediate parameter to cause debounce to trigger the function on the leading instead
-	* of the trailing edge of the wait interval. Useful in circumstances like preventing accidental double
-	*-clicks on a "submit" button from firing a second time.
-	* @param fn Function to debounce `waitMS` ms.
-	* @param wait The number of milliseconds to wait before `fn` can be invoked again.
-	* @param immediate True if `fn` should be invoked on the leading edge of `waitMS` instead of the trailing edge.
-	* @return Debounced version of `fn` that waits `wait` ms when invoked.
-	**/
-	debounce(
-		fn: Function,
+	 * Creates and returns a new debounced version of the passed function that will postpone its execution
+	 * until after wait milliseconds have elapsed since the last time it was invoked. Useful for implementing
+	 * behavior that should only happen after the input has stopped arriving. For example: rendering a preview
+	 * of a Markdown comment, recalculating a layout after the window has stopped being resized, and so on.
+	 *
+	 * Pass true for the immediate parameter to cause debounce to trigger the function on the leading instead
+	 * of the trailing edge of the wait interval. Useful in circumstances like preventing accidental double
+	 *-clicks on a "submit" button from firing a second time.
+	 * @param fn Function to debounce `waitMS` ms.
+	 * @param wait The number of milliseconds to wait before `fn` can be invoked again.
+	 * @param immediate True if `fn` should be invoked on the leading edge of `waitMS` instead of the trailing edge.
+	 * @return Debounced version of `fn` that waits `wait` ms when invoked.
+	 **/
+	debounce<T extends Function>(
+		fn: T,
 		wait: number,
-		immediate?: boolean): Function;
+		immediate?: boolean): T;
 
 	/**
-	* Creates a version of the function that can only be called one time. Repeated calls to the modified
-	* function will have no effect, returning the value from the original call. Useful for initialization
-	* functions, instead of having to set a boolean flag and then check it later.
-	* @param fn Function to only execute once.
-	* @return Copy of `fn` that can only be invoked once.
-	**/
-	once(fn: Function): Function;
+	 * Creates a version of the function that can only be called one time. Repeated calls to the modified
+	 * function will have no effect, returning the value from the original call. Useful for initialization
+	 * functions, instead of having to set a boolean flag and then check it later.
+	 * @param fn Function to only execute once.
+	 * @return Copy of `fn` that can only be invoked once.
+	 **/
+	once<T extends Function>(fn: T): T;
 
 	/**
-	* Creates a version of the function that will only be run after first being called count times. Useful
-	* for grouping asynchronous responses, where you want to be sure that all the async calls have finished,
-	* before proceeding.
-	* @param count Number of times to be called before actually executing.
-	* @fn The function to defer execution `count` times.
-	* @return Copy of `fn` that will not execute until it is invoked `count` times.
-	**/
-	after(
+	 * Creates a version of the function that will only be run after first being called count times. Useful
+	 * for grouping asynchronous responses, where you want to be sure that all the async calls have finished,
+	 * before proceeding.
+	 * @param count Number of times to be called before actually executing.
+	 * @fn The function to defer execution `count` times.
+	 * @return Copy of `fn` that will not execute until it is invoked `count` times.
+	 **/
+	after<T extends Function>(
 		count: number,
-		fn: Function): Function;
+		fn: T): T;
 
 	/**
 	* Wraps the first function inside of the wrapper function, passing it as the first argument. This allows
