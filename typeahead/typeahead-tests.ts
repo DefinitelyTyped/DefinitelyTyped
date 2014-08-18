@@ -85,3 +85,8 @@ $('.example-countries .typeahead').typeahead({
   prefetch: '../data/countries.json',
   limit: 10
 });
+
+module valueTest {
+    var value: string = $('foo').typeahead('val');
+    $('foo').typeahead('val', value);
+}

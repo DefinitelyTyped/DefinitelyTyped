@@ -1443,6 +1443,13 @@ interface UnderscoreStatic {
 	escape(str: string): string;
 
 	/**
+	* The opposite of escape, replaces &amp;, &lt;, &gt;, &quot;, and &#x27; with their unescaped counterparts.
+	* @param str HTML escaped string.
+	* @return `str` Raw string.
+	**/
+	unescape(str: string): string;
+
+	/**
 	* If the value of the named property is a function then invoke it; otherwise, return it.
 	* @param object Object to maybe invoke function `property` on.
 	* @param property The function by name to invoke on `object`.
@@ -1465,8 +1472,9 @@ interface UnderscoreStatic {
 	* @param settings Settings to use while compiling.
 	* @return Returns the compiled Underscore HTML template.
 	**/
-	template(templateString: string, data?: any, settings?: _.TemplateSettings): (...data: any[]) => string;
-
+	template(templateString: string): (...data: any[]) => string;
+    	template(templateString: string, data: any, settings?: _.TemplateSettings): string;
+    	
 	/**
 	* By default, Underscore uses ERB-style template delimiters, change the
 	* following template settings to use alternative delimiters.
@@ -2284,6 +2292,12 @@ interface Underscore<T> {
 	escape(): string;
 
 	/**
+	* Wrapped type `string`.
+	* @see _.unescape
+	**/
+	unescape(): string;
+
+	/**
 	* Wrapped type `object`.
 	* @see _.result
 	**/
@@ -2607,7 +2621,7 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.first
 	**/
-	first(): _Chain<T>;
+	first(): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `any[]`.
@@ -3105,6 +3119,12 @@ interface _Chain<T> {
 	* @see _.escape
 	**/
 	escape(): _Chain<T>;
+
+	/**
+	* Wrapped type `string`.
+	* @see _.unescape
+	**/
+	unescape(): _Chain<T>;
 
 	/**
 	* Wrapped type `object`.

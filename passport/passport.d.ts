@@ -5,6 +5,12 @@
 
 /// <reference path="../express/express.d.ts" />
 
+declare module Express {
+    export interface Request {
+        session?: any;
+    }
+}
+
 declare module 'passport' {
     import express = require('express');
 
@@ -15,8 +21,8 @@ declare module 'passport' {
     function initialize(options?: { userProperty: string; }): express.Handler;
     function session(options?: { pauseStream: boolean; }): express.Handler;
 
-    function authenticate(strategy: string, options: Object, callback?: express.Handler): express.Handler;
-    function authenticate(strategy: string, callback2: (err: any, user: any, info: any) => void): express.Handler;
+    function authenticate(strategy: string, callback?: Function): express.Handler;
+    function authenticate(strategy: string, options: Object, callback?: Function): express.Handler;
     function authorize(strategy: string, options: Object, callback?: express.Handler): express.Handler;
     function serializeUser(fn: (user: any, done: (err: any, id: any) => void) => void): void;
     function deserializeUser(fn: (id: any, done: (err: any, user: any) => void) => void): void;
@@ -42,6 +48,24 @@ declare module 'passport' {
         name?: string;
         authenticate(req: express.Request, options?: Object): void;
     }
+
+    interface Profile {
+        provider: string;
+        id: string;
+        displayName: string;
+        name? : {
+            familyName: string;
+            givenName: string;
+            middleName?: string;
+        };
+        emails?: {
+            value: string;
+            type?: string;
+        }[];
+        photos?: {
+            value: string;
+        }[];
+    }
 }
 
 declare module Express {
@@ -60,3 +84,4 @@ declare module Express {
         isUnauthenticated(): boolean;
     }
 }
+

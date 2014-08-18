@@ -45,7 +45,7 @@ declare module Kinetic {
         isDraggable(): boolean;
         isDragging(): boolean;
         isListening(): boolean;
-        move(x: number, y: number): void;
+        move(change:{x: number; y: number}): void;
         moveDown(): void;
         moveTo(newContainer: IContainer): void;
         moveToBottom(): void;
@@ -53,6 +53,7 @@ declare module Kinetic {
         moveUp(): void;
         name(): string;
         name(name: string): void;
+        remove(): any;
         rotate(theta: number): void;
         rotateDeg(deg: number): void;
 
@@ -124,7 +125,6 @@ declare module Kinetic {
         getChildren(): INode[];
         getIntersections(point: any): any;
         isAncestorOf(node: any): any;
-        remove(child: any): any;
         removeChildren(): any;
     }
 
@@ -136,6 +136,7 @@ declare module Kinetic {
         add(layer: ILayer): any;
         clear(): any;
         getContainer(): HTMLElement;
+        getContent(): HTMLElement;
         getDOM(): HTMLElement;
         getHeight(): number;
         getIntersection(pos: any): any;
@@ -481,7 +482,7 @@ declare module Kinetic {
     interface LineConfig extends DrawOptionsConfig, ObjectOptionsConfig {
         points: any;
         lineCap?: string;
-        dashArray?: any;
+        dash?: number[];
     }
 
     interface PolygonConfig extends DrawOptionsConfig, ObjectOptionsConfig {

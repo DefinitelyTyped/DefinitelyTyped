@@ -13,6 +13,7 @@
 //////////////////////////////////////////////////////////////////////
 
 declare module L.mapbox {
+	var accessToken: string;
 
 	/**
 	 * Create and automatically configure a map with layers, markers, and interactivity.

@@ -1,6 +1,6 @@
 // Type definitions for Moment.js 2.5.0
 // Project: https://github.com/timrwood/moment
-// Definitions by: Michael Lakerveld <https://github.com/Lakerfield>, Aaron King <https://github.com/kingdango>, Hiroki Horiuchi <https://github.com/horiuchi>
+// Definitions by: Michael Lakerveld <https://github.com/Lakerfield>, Aaron King <https://github.com/kingdango>, Hiroki Horiuchi <https://github.com/horiuchi>, Dick van den Brink <https://github.com/DickvdBrink>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface MomentInput {
@@ -203,9 +203,9 @@ interface Moment {
     isSame(b: Date, granularity: string): boolean;
     isSame(b: number[], granularity: string): boolean;
 
-    lang(language: string): void;
-    lang(reset: boolean): void;
-    lang(): string;
+    lang(language: string): Moment;
+    lang(reset: boolean): Moment;
+    lang(): MomentLanguage;
 
     max(date: Date): Moment;
     max(date: number): Moment;
@@ -313,8 +313,8 @@ interface MomentStatic {
 
     isMoment(): boolean;
     isMoment(m: any): boolean;
-    lang(language: string): any;
-    lang(language: string, definition: MomentLanguage): any;
+    lang(language?: string): string;
+    lang(language?: string, definition?: MomentLanguage): string;
     longDateFormat: any;
     relativeTime: any;
     meridiem: (hour: number, minute: number, isLowercase: boolean) => string;

@@ -424,7 +424,7 @@ declare module Slick {
 		/**
 		* The editor for cell edits {TextEditor, IntegerEditor, DateEditor...} See slick.editors.js
 		**/
-		editor?: Editors.Editor<T>;
+		editor?: any; // typeof Editors.Editor<T>;
 
 		/**
 		* The property name in the data object to pull content from. (This is assumed to be on the root of the data object.)
@@ -1333,7 +1333,7 @@ declare module Slick {
 
 	// todo: merge with existing column definition
 	export interface Column<T extends SlickData> {
-		sortCol?: string;
+		sortCol?: Column<T>;
 		sortAsc?: boolean;
 	}
 
@@ -1539,7 +1539,7 @@ declare module Slick {
 			*/
 			public expandGroup(...varArgs: string[]): void;
 			public getGroups(): Group<T, any>[];
-			public getIdxById(): string;
+			public getIdxById(id: string): number;
 			public getRowById(): T;
 			public getItemById(id: any): T;
 			public getItemByIdx(): T;
