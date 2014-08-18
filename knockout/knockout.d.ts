@@ -127,12 +127,13 @@ interface KnockoutBindingContext {
 
 interface KnockoutAllBindingsAccessor {
     (): any;
-    get(bindingName: string): any;
+    get(name: string): any;
+    has(name: string): boolean;
 }
 
 interface KnockoutBindingHandler {
-    init?(element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext): void;
-    update?(element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext): void;
+    init? (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext): void;
+    update? (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext): void;
     options?: any;
 }
 

@@ -2,9 +2,18 @@
 
 import tc = require("timezonecomplete");
 
-var b: boolean = tc.isLeapYear(2014);
-var n: number = tc.daysInMonth(2014, 10);
-var s: string = tc.isoString(2014, 6, 30, 22, 10, 11, 230);
+var b: boolean;
+var n: number;
+var s: string;
+var w: tc.WeekDay;
+
+b = tc.isLeapYear(2014);
+n = tc.daysInMonth(2014, 10);
+n = tc.daysInYear(2014);
+n = tc.dayOfYear(2014, 1, 2);
+w = tc.lastWeekDayOfMonth(2014, 1, tc.WeekDay.Sunday);
+n = tc.weekDayOnOrAfter(2014, 1, 14, tc.WeekDay.Monday);
+n = tc.weekDayOnOrBefore(2014, 1, 14, tc.WeekDay.Monday);
 
 // DURATION
 
@@ -31,6 +40,7 @@ b = d7.greaterThan(d6);
 d = d7.min(d6);
 d = d7.max(d6);
 d = d7.multiply(3);
+d = d7.divide(0.3);
 d = d7.add(d6);
 d = d7.sub(d6);
 s = d7.toString();
@@ -125,6 +135,10 @@ b = dt.greaterEqual(new tc.DateTime(9289234, tc.TimeZone.local()));
 s = dt.toIsoString();
 s = dt.toString();
 s = dt.toUtcString();
+
+var wd: tc.WeekDay;
+wd = dt.weekDay();
+wd = dt.utcWeekDay();
 
 // PERIOD
 

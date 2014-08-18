@@ -214,6 +214,7 @@ declare module Q {
     export function nfapply<T>(nodeFunction: Function, args: any[]): Promise<T>;
 
     export function ninvoke<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
+    export function npost<T>(nodeModule: any, functionName: string, args: any[]): Promise<T>;
     export function nsend<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
     export function nmcall<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
 
@@ -293,7 +294,10 @@ declare module Q {
      * Returns a promise that will have the same result as promise, but will only be fulfilled or rejected after at least ms milliseconds have passed.
      */
     export function delay<T>(value: T, ms: number): Promise<T>;
-
+    /**
+     * Returns a promise that will be fulfilled with undefined after at least ms milliseconds have passed.
+     */
+    export function delay(ms: number): Promise <void>;
     /**
      * Returns whether a given promise is in the fulfilled state. When the static version is used on non-promises, the result is always true.
      */

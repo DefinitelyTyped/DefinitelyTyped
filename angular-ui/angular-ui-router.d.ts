@@ -13,6 +13,7 @@ declare module ng.ui {
         templateUrl?: any;
         templateProvider?: () => string;
         controller?: any;
+        controllerAs?: string;
         controllerProvider?: any;
         resolve?: {};
         url?: string;

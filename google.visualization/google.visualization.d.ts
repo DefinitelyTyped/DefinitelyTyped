@@ -244,10 +244,10 @@ declare module google {
         }
 
         export interface ChartArea {
-            top: any;
-            left: any;
-            width: any;
-            height: any;
+            top?: any;
+            left?: any;
+            width?: any;
+            height?: any;
         }
 
         export interface ChartLegend {
@@ -270,6 +270,7 @@ declare module google {
             direction?: number; // The direction in which the values along the horizontal axis grow. Specify -1 to reverse the order of the values.
             format?: string; // icu pattern set http://icu-project.org/apiref/icu4c/classDecimalFormat.html#_details
             gridlines?: ChartGridlines;
+            minorGridlines?: ChartGridlines;
             logScale?: boolean;
             textPosition?: string;
             textStyle?: ChartTextStyle;
@@ -290,12 +291,6 @@ declare module google {
         }
 
         export interface ChartGridlines {
-            color?: string;
-            count?: number;
-            minorGridlines?: ChartMinorGridlines;
-        }
-
-        export interface ChartMinorGridlines {
             color?: string;
             count?: number;
         }
