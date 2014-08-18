@@ -469,6 +469,12 @@ declare module THREE {
          */
         dispose(): void;
 
+
+        // EventDispatcher mixins
+        addEventListener(type: string, listener: (event: any) => void ): void;
+        hasEventListener(type: string, listener: (event: any) => void): void;
+        removeEventListener(type: string, listener: (event: any) => void): void;
+        dispatchEvent(event: { type: string; target: any; }): void;
     }
 
     /**
@@ -928,12 +934,19 @@ declare module THREE {
         computeLineDistances(): void;
 
         makeGroups(usesFaceMaterial: boolean, maxVerticesInGroup: number): void;
+
+
+        // EventDispatcher mixins
+        addEventListener(type: string, listener: (event: any) => void ): void;
+        hasEventListener(type: string, listener: (event: any) => void): void;
+        removeEventListener(type: string, listener: (event: any) => void): void;
+        dispatchEvent(event: { type: string; target: any; }): void;
     }
 
     /**
      * Base class for scene graph objects
      */
-    export class Object3D extends EventDispatcher {
+    export class Object3D {
         constructor();
 
         /**
@@ -1208,6 +1221,14 @@ declare module THREE {
          * @param angle  The angle in radians.
          */
         rotateOnAxis(axis: Vector3, angle: number): Object3D;
+
+
+        // EventDispatcher mixins
+        addEventListener(type: string, listener: (event: any) => void ): void;
+        hasEventListener(type: string, listener: (event: any) => void): void;
+        removeEventListener(type: string, listener: (event: any) => void): void;
+        dispatchEvent(event: { type: string; target: any; }): void;
+
     }
 
     /**
@@ -1738,6 +1759,14 @@ declare module THREE {
 
     }
 
+    /*
+     * GeometryLoader class is experimental, and it is not yet included in the compiled source code.
+     *
+    export class GeometryLoader {
+
+    }
+    */
+
     export class Cache{
         constructor();
 
@@ -1783,7 +1812,7 @@ declare module THREE {
 
     }
 
-    export interface JSonLoaderResultGeometry extends Geometry {
+    export class JSonLoaderResultGeometry extends Geometry {
         animation: AnimationData;
     }
 
@@ -1969,6 +1998,13 @@ declare module THREE {
 
         dispose(): void;
         setValues(values: Object): void;
+
+
+        // EventDispatcher mixins
+        addEventListener(type: string, listener: (event: any) => void ): void;
+        hasEventListener(type: string, listener: (event: any) => void): void;
+        removeEventListener(type: string, listener: (event: any) => void): void;
+        dispatchEvent(event: { type: string; target: any; }): void;
     }
 
     export interface LineBasicMaterialParameters {
@@ -2079,6 +2115,8 @@ declare module THREE {
         clone(): MeshDepthMaterial;
     }
 
+    // MeshFaceMaterial does not inherit the Material class in the original code. However, it should treat as Material class.
+    // See tests/canvas/canvas_materials.ts.
     export class MeshFaceMaterial extends Material {
         constructor(materials?: Material[]);
         materials: Material[];
@@ -4470,6 +4508,13 @@ declare module THREE {
         generateMipmaps: boolean;
         clone(): WebGLRenderTarget;
         dispose(): void;
+
+
+        // EventDispatcher mixins
+        addEventListener(type: string, listener: (event: any) => void ): void;
+        hasEventListener(type: string, listener: (event: any) => void): void;
+        removeEventListener(type: string, listener: (event: any) => void): void;
+        dispatchEvent(event: { type: string; target: any; }): void;
     }
 
     export class WebGLRenderTargetCube extends WebGLRenderTarget {
@@ -4837,6 +4882,13 @@ declare module THREE {
 
         static DEFAULT_IMAGE: any;
         static DEFAULT_MAPPING: any;
+
+
+        // EventDispatcher mixins
+        addEventListener(type: string, listener: (event: any) => void ): void;
+        hasEventListener(type: string, listener: (event: any) => void): void;
+        removeEventListener(type: string, listener: (event: any) => void): void;
+        dispatchEvent(event: { type: string; target: any; }): void;
     }
 
     // Extras /////////////////////////////////////////////////////////////////////
