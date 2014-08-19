@@ -267,12 +267,16 @@ declare module ng {
         $dirty: boolean;
         $valid: boolean;
         $invalid: boolean;
+        $submitted: boolean;
         $error: any;
         $addControl(control: ng.INgModelController): void;
         $removeControl(control: ng.INgModelController): void;
         $setValidity(validationErrorKey: string, isValid: boolean, control: ng.INgModelController): void;
         $setDirty(): void;
         $setPristine(): void;
+        $commitViewValue(): void;
+        $rollbackViewValue(): void;
+        $setSubmitted(): void;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -285,6 +289,13 @@ declare module ng {
         // Documentation states viewValue and modelValue to be a string but other
         // types do work and it's common to use them.
         $setViewValue(value: any): void;
+        $validate(): void;
+        $setTouched(): void;
+        $setUntouched(): void;
+        $rollbackViewValue(): void;
+        $commitViewValue(revalidate?: boolean): void;
+        $isEmpty(value: any): boolean;
+
         $viewValue: any;
 
         $modelValue: any;
@@ -293,10 +304,21 @@ declare module ng {
         $formatters: IModelFormatter[];
         $viewChangeListeners: IModelViewChangeListener[];
         $error: any;
+        $name: string;
+
+        $touched: boolean;
+        $untouched: boolean;
+
+        $validators: IModelValidators;
+
         $pristine: boolean;
         $dirty: boolean;
         $valid: boolean;
         $invalid: boolean;
+    }
+
+    interface IModelValidators {
+        [index: string]: (...args: any[]) => boolean;
     }
 
     interface IModelParser {
@@ -312,7 +334,7 @@ declare module ng {
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // Scope and RootScope 
+    // Scope and RootScope
     // see https://docs.angularjs.org/api/ng/type/$rootScope.Scope and http://docs.angularjs.org/api/ng.$rootScope
     ///////////////////////////////////////////////////////////////////////////
     interface IRootScopeService {
