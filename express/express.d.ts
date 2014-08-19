@@ -821,7 +821,7 @@ declare module "express" {
                 (name: string): string; // Getter
                 (name: string, ...handlers: RequestHandler[]): Application;
                 (name: RegExp, ...handlers: RequestHandler[]): Application;
-            }
+            };
 
             /**
              * Return the app's absolute pathname
