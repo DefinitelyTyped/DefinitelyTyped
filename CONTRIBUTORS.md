@@ -46,6 +46,7 @@ All definitions files include a header with the author and editors, so at some p
 * [CasperJS](http://casperjs.org) (by [Jed Hunsaker](https://github.com/jedhunsaker))
 * [Cheerio](https://github.com/MatthewMueller/cheerio) (by [Bret Little](https://github.com/blittle))
 * [Chosen](http://harvesthq.github.com/chosen/) (by [Boris Yankov](https://github.com/borisyankov))
+* [Chroma.js](https://github.com/gka/chroma.js) (by [Sebastian Brückner](https://github.com/invliD))
 * [Chrome](http://developer.chrome.com/extensions/) (by [Matthew Kimber](https://github.com/matthewkimber) and [otiai10](https://github.com/otiai10))
 * [Chrome App](http://developer.chrome.com/apps/) (by [Adam Lay](https://github.com/AdamLay))
 * [CKEditor](https://github.com/ckeditor/ckeditor-dev) (by [Ondrej Sevcik](https://github.com/ondrejsevcik))
