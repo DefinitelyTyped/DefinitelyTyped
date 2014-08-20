@@ -294,6 +294,7 @@ declare module chrome.contextMenus {
         pageUrl: string;
         linkUrl?: string;
         parentMenuItemId?: any;
+        srcUrl?: string;
     }
 
     interface CreateProperties {
