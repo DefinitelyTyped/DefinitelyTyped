@@ -11,6 +11,7 @@ export interface IPerson{
     Email:string;
 }
 
+
 //create custom composite validator
 var personValidator = new Validation.AbstractValidator<IPerson>();
 
