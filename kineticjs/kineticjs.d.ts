@@ -300,15 +300,6 @@ declare module Kinetic {
         setData(SVG: string): any;
     }
 
-    var Polygon: {
-        new (config: PolygonConfig): IPolygon;
-    }
-
-    interface IPolygon extends IShape {
-        getPoints(): any;
-        setPoints(points: any): any;
-    }
-
     var RegularPolygon: {
         new (config: RegularPolygonConfig): IRegularPolygon;
     }
@@ -405,14 +396,6 @@ declare module Kinetic {
         setTextStrokeWidth(textStrokeWidth: number): any;
     }
 
-    var Transition: {
-        new (node: Node, config: any): ITransition;
-    }
-    interface ITransition {
-        start(): any;
-        stop(): any;
-    }
-
     var Animation: {
         new (...args: any[]): IAnimation;
     }
@@ -483,10 +466,6 @@ declare module Kinetic {
         points: any;
         lineCap?: string;
         dash?: number[];
-    }
-
-    interface PolygonConfig extends DrawOptionsConfig, ObjectOptionsConfig {
-        points: any;
     }
 
     interface RegularPolygonConfig extends DrawOptionsConfig, ObjectOptionsConfig {
