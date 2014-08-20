@@ -1,10 +1,10 @@
-// Type definitions for Angular JS 1.3+
+// Type definitions for Angular JS 1.2+
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="../../jquery/jquery.d.ts" />
 
 declare var angular: ng.IAngularStatic;
 
@@ -267,16 +267,12 @@ declare module ng {
         $dirty: boolean;
         $valid: boolean;
         $invalid: boolean;
-        $submitted: boolean;
         $error: any;
         $addControl(control: ng.INgModelController): void;
         $removeControl(control: ng.INgModelController): void;
         $setValidity(validationErrorKey: string, isValid: boolean, control: ng.INgModelController): void;
         $setDirty(): void;
         $setPristine(): void;
-        $commitViewValue(): void;
-        $rollbackViewValue(): void;
-        $setSubmitted(): void;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -289,13 +285,6 @@ declare module ng {
         // Documentation states viewValue and modelValue to be a string but other
         // types do work and it's common to use them.
         $setViewValue(value: any): void;
-        $validate(): void;
-        $setTouched(): void;
-        $setUntouched(): void;
-        $rollbackViewValue(): void;
-        $commitViewValue(revalidate?: boolean): void;
-        $isEmpty(value: any): boolean;
-
         $viewValue: any;
 
         $modelValue: any;
@@ -304,21 +293,10 @@ declare module ng {
         $formatters: IModelFormatter[];
         $viewChangeListeners: IModelViewChangeListener[];
         $error: any;
-        $name: string;
-
-        $touched: boolean;
-        $untouched: boolean;
-
-        $validators: IModelValidators;
-
         $pristine: boolean;
         $dirty: boolean;
         $valid: boolean;
         $invalid: boolean;
-    }
-
-    interface IModelValidators {
-        [index: string]: (...args: any[]) => boolean;
     }
 
     interface IModelParser {
