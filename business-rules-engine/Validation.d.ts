@@ -233,4 +233,4 @@ declare module Validation {
         static GetValidationMessage(validator: any): string;
     }
 }
-export = Validation;
+declare module "node-validation" {export = Validation;}

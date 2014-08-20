@@ -104,4 +104,4 @@ declare module Validators {
         public tagName: string;
     }
 }
-declare module "node-Validators" {export = Validators;}
+declare module "node-validators" {export = Validators;}

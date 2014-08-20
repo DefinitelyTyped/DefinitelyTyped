@@ -239,4 +239,4 @@ declare module Validation {
         static GetValidationMessage(validator: any): string;
     }
 }
-declare module "<%= pkg.name %>" {export = Validation;}
+declare module "business-rule-engine" {export = Validation;}
