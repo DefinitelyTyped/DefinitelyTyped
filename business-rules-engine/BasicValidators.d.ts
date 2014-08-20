@@ -1,3 +1,8 @@
+// Type definitions for business-rules-engine - v1.0.20
+// Project: https://github.com/rsamec/form
+// Definitions by: Roman Samec <https://github.com/rsamec>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /// <reference path="../underscore/underscore.d.ts" />
 /// <reference path="../q/q.d.ts" />
 /// <reference path="../moment/moment.d.ts" />
