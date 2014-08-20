@@ -3,7 +3,7 @@
 // Definitions by: Roman Samec <https://github.com/rsamec>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../q/q.d.ts" />
+/// <reference path="../q/Q.d.ts" />
 /// <reference path="../underscore/underscore.d.ts" />
 declare module Validation {
     interface IErrorCustomMessage {
