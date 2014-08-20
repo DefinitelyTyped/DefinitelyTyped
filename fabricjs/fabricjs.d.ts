@@ -5,7 +5,6 @@
 
 declare module fabric {
 
-    function createCanvasForNode(width: number, height: number): ICanvas;
     function getCSSRules(doc: SVGElement);
     function getGradientDefs(doc: SVGElement);
     function loadSVGFromString(text: string, callback: (results: IObject[], options) => void , reviver?: (el, obj) => void );
