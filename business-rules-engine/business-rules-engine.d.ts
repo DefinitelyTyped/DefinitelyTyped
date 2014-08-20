@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // Source: typings/business-rules-engine/Validation.d.ts
-/// <reference path="../q/q.d.ts" />
+/// <reference path="../q/Q.d.ts" />
 /// <reference path="../underscore/underscore.d.ts" />
 declare module Validation {
     interface IErrorCustomMessage {

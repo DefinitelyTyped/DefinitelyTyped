@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../underscore/underscore.d.ts" />
-/// <reference path="../q/q.d.ts" />
+/// <reference path="../q/Q.d.ts" />
 /// <reference path="../moment/moment.d.ts" />
 /// <reference path="../node/node.d.ts" />
 /// <reference path="business-rules-engine.d.ts" />
