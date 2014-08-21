@@ -8,6 +8,7 @@
 declare module Express {
     export interface Request {
         session?: any;
+        authInfo?: any;
 
         // These declarations are merged into express's Request type
         login(user: any, done: (err: any) => void): void;
