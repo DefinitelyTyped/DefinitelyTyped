@@ -91,7 +91,7 @@ declare module 'request' {
 			body: any;
 		}
 
-		export interface Request extends http.ClientRequest {
+		export interface Request extends stream.Writable {
 			getAgent(): http.Agent;
 			//start(): void;
 			//abort(): void;
@@ -110,6 +110,7 @@ declare module 'request' {
 			pipe(dest: stream.Writable, opts?: any): stream.Writable;
 			pause(): void;
 			resume(): void;
+			abort(): void;
 			destroy(): void;
 			toJSON(): string;
 		}
