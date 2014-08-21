@@ -315,6 +315,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Semver](https://github.com/isaacs/node-semver) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [Sencha Touch](http://www.sencha.com/products/touch/) (by [Brian Kotek](https://github.com/brian428))
 * [SharePoint](http://sptypescript.codeplex.com) (by [Stanislav Vyshchepan](http://gandjustas.blogspot.ru) and [Andrey Markeev](http://markeev.com))
+* [ShellJS](http://shelljs.org) (by [Niklas Mollenhauer](https://github.com/nikeee))
 * [SignalR](http://www.asp.net/signalr) (by [Boris Yankov](https://github.com/borisyankov))
 * [simple-cw-node](https://github.com/astronaughts/simple-cw-node) (by [vvakame](https://github.com/vvakame))
 * [Sinon](http://sinonjs.org/) (by [William Sears](https://github.com/mrbigdog2u))
