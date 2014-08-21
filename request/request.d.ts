@@ -91,7 +91,7 @@ declare module 'request' {
 			body: any;
 		}
 
-		export interface Request {
+		export interface Request extends http.ClientRequest {
 			getAgent(): http.Agent;
 			//start(): void;
 			//abort(): void;
@@ -108,12 +108,8 @@ declare module 'request' {
 			jar(jar: CookieJar): Request;
 
 			pipe(dest: stream.Writable, opts?: any): stream.Writable;
-			write(): void;
-			end(chunk: string): void;
-			end(chunk: NodeBuffer): void;
 			pause(): void;
 			resume(): void;
-			abort(): void;
 			destroy(): void;
 			toJSON(): string;
 		}
