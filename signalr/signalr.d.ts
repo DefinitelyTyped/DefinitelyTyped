@@ -37,6 +37,7 @@ interface SignalR {
     messageId: string;
     url: string;
     qs: any;
+    state: number;
 
     (url: string, queryString?: any, logging?: boolean): SignalR;
     hubConnection(url?: string): SignalR;
