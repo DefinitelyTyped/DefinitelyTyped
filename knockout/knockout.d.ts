@@ -545,7 +545,7 @@ interface KnockoutStatic {
         writeValue(element: HTMLElement, value: any): void;
     };
 
-    components: KnockoutComponents ;
+    components: KnockoutComponents;
 }
 
 interface KnockoutBindingProvider {
