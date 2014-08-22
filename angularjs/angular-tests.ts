@@ -580,7 +580,7 @@ interface copyExampleScope {
 
     user: copyExampleUser;
     master: copyExampleUser;
-    update: (copyExampleUser) => any;
+    update: (copyExampleUser: copyExampleUser) => any;
     reset: () => any;
 }
 
