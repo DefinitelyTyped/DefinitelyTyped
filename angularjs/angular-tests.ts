@@ -569,3 +569,34 @@ angular.module('docsTabsExample', [])
             templateUrl: 'my-pane.html'
         };
     });
+
+interface copyExampleUser {
+    name?: string;
+    email?: string;
+    gender?: string;
+}
+
+interface copyExampleScope {
+
+    user: copyExampleUser;
+    master: copyExampleUser;
+    update: (copyExampleUser: copyExampleUser) => any;
+    reset: () => any;
+}
+
+angular.module('copyExample', [])
+    .controller('ExampleController', ['$scope', function ($scope: copyExampleScope) {
+        $scope.master = { };
+
+        $scope.update = function (user) {
+            // Example with 1 argument
+            $scope.master = angular.copy(user);
+        };
+
+        $scope.reset = function () {
+            // Example with 2 arguments
+            angular.copy($scope.master, $scope.user);
+        };
+
+        $scope.reset();
+    }]);
