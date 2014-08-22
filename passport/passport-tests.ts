@@ -52,6 +52,9 @@ app.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
+app.post('/auth/token', passport.authenticate(['basic', 'oauth2-client-password'], { session: false }));
+
+
 function authSetting(): void {
   var authOption = {
     successRedirect: '/',
