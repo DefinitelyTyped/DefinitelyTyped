@@ -42,7 +42,20 @@ declare module ng {
         bootstrap(element: JQuery, modules?: any[]): auto.IInjectorService;
         bootstrap(element: Element, modules?: any[]): auto.IInjectorService;
         bootstrap(element: Document, modules?: any[]): auto.IInjectorService;
-        copy(source: any, destination?: any): any;
+
+        /**
+         * Creates a deep copy of source, which should be an object or an array.
+         * 
+         * - If no destination is supplied, a copy of the object or array is created.
+         * - If a destination is provided, all of its elements (for array) or properties (for objects) are deleted and then all elements/properties from the source are copied to it.
+         * - If source is not an object or array (inc. null and undefined), source is returned.
+         * - If source is identical to 'destination' an exception will be thrown.
+         * 
+         * @param source The source that will be used to make a copy. Can be any type, including primitives, null, and undefined.
+         * @param destination Destination into which the source is copied. If provided, must be of the same type as source.
+         */
+        copy<T>(source: T, destination?: T): T;
+
         element: IAugmentedJQueryStatic;
         equals(value1: any, value2: any): boolean;
         extend(destination: any, ...sources: any[]): any;
