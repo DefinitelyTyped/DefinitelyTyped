@@ -376,7 +376,7 @@ declare module ng {
         $root: IRootScopeService;
         this: IRootScopeService;
 
-        $id: string;
+        $id: number;
 
         // Hidden members
         $$isolateBindings: any;
