@@ -72,6 +72,8 @@ declare class Dropzone {
     getRejectedFiles(): DropzoneFile[];
     getQueuedFiles(): DropzoneFile[];
     getUploadingFiles(): DropzoneFile[];
+    
+    emit(eventName: string, file: DropzoneFile, data?: string);
 }
 
 interface JQuery {
