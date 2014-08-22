@@ -50,7 +50,7 @@
 
         // Spheres
 
-        var geometry = new THREE.SphereGeometry(100, 14, 7);
+        var geometry2 = new THREE.SphereGeometry(100, 14, 7);
 
         materials = [
 
@@ -62,13 +62,12 @@
             new THREE.MeshNormalMaterial({ overdraw: 0.5 }),
             new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('textures/land_ocean_ice_cloud_2048.jpg') }),
             new THREE.MeshBasicMaterial({ envMap: THREE.ImageUtils.loadTexture('textures/envmap.png', new THREE.SphericalReflectionMapping()), overdraw: 0.5 }),
-            new THREE.MeshBasicMaterial({ envMap: THREE.ImageUtils.loadTexture('textures/envmap.png', new THREE.SphericalRefractionMapping()), overdraw: 0.5 })
-
+            new THREE.MeshBasicMaterial({ envMap: THREE.ImageUtils.loadTexture('textures/envmap.png', new THREE.SphericalReflectionMapping()), overdraw: 0.5 })
         ];
 
-        for (var i = 0, l = geometry.faces.length; i < l; i++) {
+        for (var i = 0, l = geometry2.faces.length; i < l; i++) {
 
-            var face = geometry.faces[i];
+            var face = geometry2.faces[i];
             if (Math.random() > 0.5) face.materialIndex = Math.floor(Math.random() * materials.length);
 
         }
@@ -79,7 +78,7 @@
 
         for (var i = 0, l = materials.length; i < l; i++) {
 
-            var sphere = new THREE.Mesh(geometry, materials[i]);
+            var sphere = new THREE.Mesh(geometry2, materials[i]);
 
             sphere.position.x = (i % 5) * 200 - 400;
             sphere.position.z = Math.floor(i / 5) * 200 - 200;
