@@ -35,20 +35,22 @@ declare module Express {
 declare module "express-session" {
   import express = require('express');
 
-  function session(options?: {
-    secret: string;
-    name?: string;
-    store?: session.Store;
-    cookie?: express.CookieOptions;
-    genid?: (req: express.Request) => string;
-    rolling?: boolean;
-    resave?: boolean;
-    proxy?: boolean;
-    saveUninitialized?: boolean;
-    unset?: string;
-  }): express.RequestHandler;
+  function session(options?: session.SessionOptions): express.RequestHandler;
 
   module session {
+    export interface SessionOptions {
+      secret: string;
+      name?: string;
+      store?: Store;
+      cookie?: express.CookieOptions;
+      genid?: (req: express.Request) => string;
+      rolling?: boolean;
+      resave?: boolean;
+      proxy?: boolean;
+      saveUninitialized?: boolean;
+      unset?: string;
+    }
+
     export interface Store {
       get: (sid: string, callback: (err: any, session: Express.Session) => void) => void;
       set: (sid: string, session: Express.Session, callback: (err: any) => void) => void;
