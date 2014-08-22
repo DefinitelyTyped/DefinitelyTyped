@@ -161,7 +161,7 @@ declare module dojox {
                  * This returns a string representation of the date in "dd, MM, YYYY HH:MM:SS" format
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * 
                  */
@@ -430,7 +430,7 @@ declare module dojox {
                  * dependencies on dojox.date.locale and dojo.cldr.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * 
                  */
@@ -697,7 +697,7 @@ declare module dojox {
                  * This returns a string representation of the date in "DDDD MMMM DD YYYY HH:MM:SS" format
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * This function returns The stored time value in milliseconds
                  * since midnight, January 1, 1970 UTC
@@ -972,7 +972,7 @@ declare module dojox {
                  * This returns a string representation of the date in "DDDD MMMM DD YYYY HH:MM:SS" format
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * This function returns The stored time value in milliseconds
                  * since midnight, January 1, 1970 UTC
@@ -1195,7 +1195,7 @@ declare module dojox {
                  * This returns a string representation of the date in "DDDD MMMM DD YYYY HH:MM:SS" format
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * This function returns the stored time value in milliseconds
                  * since midnight, January 1, 1970 UTC

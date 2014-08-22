@@ -934,7 +934,7 @@ declare module dojo {
             /**
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Trace the promise.
              * Tracing allows you to transparently log progress,
@@ -1862,7 +1862,7 @@ declare module dojo {
         /**
          * 
          */
-        toString(): String;
+        toString(): string;
     }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/Evented.html
@@ -3152,82 +3152,7 @@ declare module dojo {
          * @param superclass May be null, a Function, or an Array of Functions. This argumentspecifies a list of bases (the left-most one is the most deepestbase).     
          * @param props An object whose properties are copied to the created prototype.Add an instance-initialization function by making it a propertynamed "constructor".     
          */
-        interface declare{(className?: String, superclass?: Function, props?: Object): void}
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/declare.html
-         *
-         * Create a feature-rich constructor from compact notation.
-         * Create a constructor using a compact notation for inheritance and
-         * prototype extension.
-         * 
-         * Mixin ancestors provide a type of multiple inheritance.
-         * Prototypes of mixin ancestors are copied to the new class:
-         * changes to mixin prototypes will not affect classes to which
-         * they have been mixed in.
-         * 
-         * Ancestors can be compound classes created by this version of
-         * declare(). In complex cases all base classes are going to be
-         * linearized according to C3 MRO algorithm
-         * (see http://www.python.org/download/releases/2.3/mro/ for more
-         * details).
-         * 
-         * "className" is cached in "declaredClass" property of the new class,
-         * if it was supplied. The immediate super class will be cached in
-         * "superclass" property of the new class.
-         * 
-         * Methods in "props" will be copied and modified: "nom" property
-         * (the declared name of the method) will be added to all copied
-         * functions to help identify them for the internal machinery. Be
-         * very careful, while reusing methods: if you use the same
-         * function under different names, it can produce errors in some
-         * cases.
-         * 
-         * It is possible to use constructors created "manually" (without
-         * declare()) as bases. They will be called as usual during the
-         * creation of an instance, their methods will be chained, and even
-         * called by "this.inherited()".
-         * 
-         * Special property "-chains-" governs how to chain methods. It is
-         * a dictionary, which uses method names as keys, and hint strings
-         * as values. If a hint string is "after", this method will be
-         * called after methods of its base classes. If a hint string is
-         * "before", this method will be called before methods of its base
-         * classes.
-         * 
-         * If "constructor" is not mentioned in "-chains-" property, it will
-         * be chained using the legacy mode: using "after" chaining,
-         * calling preamble() method before each constructor, if available,
-         * and calling postscript() after all constructors were executed.
-         * If the hint is "after", it is chained as a regular method, but
-         * postscript() will be called after the chain of constructors.
-         * "constructor" cannot be chained "before", but it allows
-         * a special hint string: "manual", which means that constructors
-         * are not going to be chained in any way, and programmer will call
-         * them manually using this.inherited(). In the latter case
-         * postscript() will be called after the construction.
-         * 
-         * All chaining hints are "inherited" from base classes and
-         * potentially can be overridden. Be very careful when overriding
-         * hints! Make sure that all chained methods can work in a proposed
-         * manner of chaining.
-         * 
-         * Once a method was chained, it is impossible to unchain it. The
-         * only exception is "constructor". You don't need to define a
-         * method in order to supply a chaining hint.
-         * 
-         * If a method is chained, it cannot use this.inherited() because
-         * all other methods in the hierarchy will be called automatically.
-         * 
-         * Usually constructors and initializers of any kind are chained
-         * using "after" and destructors of any kind are chained as
-         * "before". Note that chaining assumes that chained methods do not
-         * return any value: any returned value will be discarded.
-         * 
-         * @param className       OptionalThe optional name of the constructor (loosely, a "class")stored in the "declaredClass" property in the created prototype.It will be used as a global name for a created constructor.     
-         * @param superclass May be null, a Function, or an Array of Functions. This argumentspecifies a list of bases (the left-most one is the most deepestbase).     
-         * @param props An object whose properties are copied to the created prototype.Add an instance-initialization function by making it a propertynamed "constructor".     
-         */
-        interface declare{(className?: String, superclass?: Function[], props?: Object): void}
+        interface declare{(className?: String, superclass?: any[], props?: Object): typeof dojo._base.declare.__DeclareCreatedObject}
         module declare {
             /**
              * Mix in properties skipping a constructor and decorating functions
@@ -11519,7 +11444,7 @@ declare module dojo {
                 /**
                  * 
                  */
-                toString(): String;
+                toString(): string;
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.window.html
@@ -16135,7 +16060,7 @@ declare module dojo {
             /**
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Trace the promise.
              * Tracing allows you to transparently log progress,
@@ -18108,7 +18033,7 @@ declare module dojo {
              * @param route A string or regular expression which will be used whenmonitoring hash changes.             
              * @param callback When the hash matches a pattern as described in the route,this callback will be executed. It will receive an eventobject that will have several properties:params: Either an array or object of properties pulledfrom the new hasholdPath: The hash in its state before the changenewPath: The new hash being shifted topreventDefault: A method that will stop hash changesfrom being actually applied to the active hash. This onlyworks if the hash change was initiated using router.go,as changes initiated more directly to the location.hashproperty will already be in placestopImmediatePropagation: When called, will stop anyfurther bound callbacks on this particular route frombeing executed. If two distinct routes are bound that aredifferent, but both happen to match the current hash insome way, this will not keep other routes from receivingnotice of the change.             
              */
-            register(route: String, callback: Function): any;
+            register(route: String, callback: { (params?: Object, oldPath?: string, newPath?: string, preventDefault?: Function, stopImmediatePropagation?: Function):void }): any;
             /**
              * Registers a route to a handling callback
              * Given either a string or a regular expression, the router
@@ -18136,7 +18061,7 @@ declare module dojo {
              * @param route A string or regular expression which will be used whenmonitoring hash changes.             
              * @param callback When the hash matches a pattern as described in the route,this callback will be executed. It will receive an eventobject that will have several properties:params: Either an array or object of properties pulledfrom the new hasholdPath: The hash in its state before the changenewPath: The new hash being shifted topreventDefault: A method that will stop hash changesfrom being actually applied to the active hash. This onlyworks if the hash change was initiated using router.go,as changes initiated more directly to the location.hashproperty will already be in placestopImmediatePropagation: When called, will stop anyfurther bound callbacks on this particular route frombeing executed. If two distinct routes are bound that aredifferent, but both happen to match the current hash insome way, this will not keep other routes from receivingnotice of the change.             
              */
-            register(route: RegExp, callback: Function): any;
+            register(route: RegExp, callback: { (params?: Object, oldPath?: string, newPath?: string, preventDefault?: Function, stopImmediatePropagation?: Function): void }): any;
             /**
              * Registers a route to a handling callback, except before
              * any previously registered callbacks
@@ -26353,7 +26278,7 @@ declare module dojo {
             /**
              * 
              */
-            toString(): String;
+            toString(): string;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.regexp.html
